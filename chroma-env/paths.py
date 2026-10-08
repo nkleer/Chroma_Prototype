@@ -32,7 +32,7 @@ NAMES = {
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),
     "library_live":   ("chroma-library", "the live Library: earth*.py, dreams.py and the .lib sources at its top level"),
     "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage"),
-    "rarity_live":    ("chroma-engine/prototype/calib_v8/rarity.json", "the rarity table the live game's rarity.py came from"),
+    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the live game's rarity.py came from (the same bytes as chroma-engine/prototype/calib_v8/rarity.json, where v22.1 was published from)"),
     "art_game":       ("chroma-art/game", "the pictures the page uses (pictures.json names them, pics/ holds them)"),
     "art":            ("chroma-art", "the visuals folder: kit/ drawing code, data/ scene texts, notes/"),
     "art_old_icons":  ("chroma-art/old", "the retired game-icons.net set (CC BY 3.0); the icon builder and review pages read it"),
@@ -49,7 +49,7 @@ NAMES = {
     "game_v21":       ("_archive/2026-10-08/chroma-game/prototype-v21", "the v21 game, archived 10-08 13:15 UTC (check_identity reads its engine_pin/)"),
     "library_v21":    ("chroma-library/archive/live-2026-10-06-1625", "the Library batch live in v21"),
     # paused v23 drafts (paused 10-07 21:38 UTC)
-    "engine_v23":     ("chroma-engine/prototype", "the paused v23 engine edits (engine.py, batch.py, world*.py) and calibration runs calib_v6 to calib_v11; backend item 7 splits it"),
+    "engine_v23":     ("chroma-engine/prototype", "the paused v23 engine edits (engine.py, batch.py, world*.py, their import partners) and its checks calib_v11; the Engine's checks are in chroma-engine/tools"),
     "game_v23":       ("chroma-game/staging-next/v23/prototype", "the single v23 game copy (paused)"),
     "library_v23":    ("chroma-library/staging/next4", "the v23 Library batch (paused)"),
     "library_v23_src": ("chroma-library/drafts/next4", "the v23 Library sources (paused): parts that win over the live ones"),
