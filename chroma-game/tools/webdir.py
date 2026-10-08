@@ -5,12 +5,17 @@
 The game dir is a prototype folder (or a folder holding prototype/). The web dir gets index.html (the page as published,
 the Artifact's file_path), page.html (the same page inside a document, for serving locally), worker.js, py/ (the game's
 Python and engine_pin/) and pics/ (the pictures chroma-art/game/pictures.json names, copied when missing or changed).
-Pictures come from the art folder that chroma-env/paths.py names art_game (CHROMA_ROOT, default /mnt/project-files).
+Pictures come from the art folder that chroma-env/paths.py names art_game, in the tree this script sits in (CHROMA_ROOT
+overrides it; CHROMA_ART_GAME names the folder outright, as build.py does).
 Was chroma-hud/sync21.py (v21 to v22.1); tools/build.py runs it as one step of the build.
 """
 import filecmp, glob, json, os, shutil, subprocess, sys
 
-sys.path.insert(0, os.path.join(os.environ.get("CHROMA_ROOT", "/mnt/project-files"), "chroma-env"))
+TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
+ENV = next(d for d in (os.path.join(os.environ.get("CHROMA_ROOT") or TREE, "chroma-env"), "/mnt/project-files/chroma-env")
+           if os.path.isfile(os.path.join(d, "paths.py")))
+os.environ.setdefault("CHROMA_ROOT", os.path.dirname(ENV))
+sys.path.insert(0, ENV)
 from paths import P  # noqa: E402
 
 if len(sys.argv) != 3:
