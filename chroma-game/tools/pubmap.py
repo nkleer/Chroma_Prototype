@@ -1,12 +1,15 @@
-"""The files map for publishing the final version from a web dir (default web21): the page index.html goes as file_path;
-worker.js, every file in worker.js SOURCES (as py/<file>, text/plain) and the pictures the page names go as files.
-A publish keeps files it leaves out, so pictures already live can be skipped: pass a text file listing the live
+"""The files map for publishing a web folder (made by webdir.py) as the live Artifact: the page index.html goes as
+file_path; worker.js, every file in worker.js SOURCES (as py/<file>, text/plain) and the pictures the page names go as
+files. A publish keeps files it leaves out, so pictures already live can be skipped: pass a text file listing the live
 artifact's published paths (one per line) as the second argument. A publish carries at most 255 files: with "pics"
 as the third argument only pictures are listed, with "code" only worker.js and the sources.
-   python3 pubmap.py [web dir] [live paths file or -] [all|pics|code]"""
-import os, sys, json, re
-here = os.path.dirname(os.path.abspath(__file__))
-W = sys.argv[1] if len(sys.argv) > 1 else "web21"; W = (W if os.path.isabs(W) else os.path.join(here, W)).rstrip("/") + "/"
+   python3 -B pubmap.py <web dir> [live paths file or -] [all|pics|code]
+Was chroma-hud/pubmap.py (v21 to v22.1); tools/build.py runs it as the last step of the build."""
+import json, os, re, sys
+
+if len(sys.argv) < 2:
+    sys.exit(__doc__)
+W = os.path.abspath(sys.argv[1]).rstrip("/") + "/"
 have = set()
 if len(sys.argv) > 2 and sys.argv[2] != "-":
     have = {l.strip() for l in open(sys.argv[2]) if l.strip()}
