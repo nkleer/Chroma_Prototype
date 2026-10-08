@@ -132,7 +132,8 @@ CHECKS = [
      "same", (), "the survey scorecard, seed 21 (v22: 8 of 11, accepted)"),
     ("score23", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS=" + PACKS3 + " python3 -B calib_v8/score_packs.py '{{}}' 600 23",
      "same", (), "the survey scorecard, seed 23"),
-    ("tier", "C-E3", "Engine", "full", 4, EP, "FIT_OUT={W}/tier.json python3 -B calib_v8/tier_fit.py 500 0 {T}/chroma-library/earth_perks_titles.py",
+    ("tier", "C-E3", "Engine", "full", 4, EP, "FIT_OUT={W}/tier.json PACKS=" + PACKS3 + " python3 -B calib_v8/tier_fit.py 500 0 "
+     "{T}/chroma-library/earth_perks_titles.py",
      "same", (), "pack careers about 1 in 3, summits about 1 in 20 (2,000 lives, seeds 11 to 14)"),
     ("roles", "C-E4", "Engine", "full", 4, EP, "FIT_OUT={W}/role_norm.json python3 -B calib_v7/roles_check.py 150 0 {T}/chroma-library/earth_perks_titles.py",
      "same", (), "titles and perks a life against the catalogue"),
@@ -176,9 +177,10 @@ CHECKS = [
     ("foresee_off", "E5", "Engine", "full", 1, EP, CX2 + " calib_v7/foresee_table.py 400 3 earth '{{}}'", "same", (), "the foresee hint"),
     ("foresee_on", "E5", "Engine", "full", 1, EP, CX2 + " calib_v7/foresee_table.py 400 3 earth '{{\"world\": true, \"history\": \"random\"}}'",
      "same", (), "world on"),
-    ("rarity", "C-E13", "Engine", "full", 4, EP, "OUT={W}/rarity.json python3 -B calib_v8/rarity_build.py && cmp {W}/rarity.json calib_v8/rarity.json "
+    ("rarity", "C-E13", "Engine", "full", 4, EP, "OUT={W}/rarity.json python3 -B calib_v8/rarity_build.py && cmp {W}/rarity.json {RARITY} "
      "&& echo RARITY-SAME", "re:^RARITY-SAME", (), "the Book's rarity table rebuilds byte for byte (1,200 lives)"),
-    ("speed", "C-E15", "Engine", "full", 1, EP, "python3 -B speed_check.py 1 80 5 v9,off,on", "rc", (), "time per life, world off and on"),
+    ("speed", "C-E15", "Engine", "full", 1, EP, "python3 -B speed_check.py 1 80 5 off,on", "rc", (),
+     "time per life, world off and on (the go-live v9 run is left out: it cannot read today's Library; C-E14 compares with it)"),
     ("child_deaths", "C-X5", "Engine", "full", 1, EP, "python3 -B calib_v10/child_deaths.py 400 90 5 {T}/chroma-library "
      "{T}/chroma-library/earth_perks_titles.py", "same", (), "a child's death and illness among parents"),
     # ---- Game (C-G1, staging-final/run_cg1G.sh; C-G2)
@@ -226,7 +228,7 @@ EXTRA = {
     "build_packs": ["chroma-packs/science/*.lib", "chroma-packs/politics/*.lib", "chroma-packs/stage/*.lib", "chroma-library/build.py",
                     "chroma-library/earth_voice.py", "chroma-library/earth_science.py", "chroma-library/earth_politics.py",
                     "chroma-library/earth_stage.py"],
-    "rarity": ["chroma-engine/prototype/calib_v8/rarity.json"],
+    "rarity": [NAMES["rarity_live"][0]],
 }
 
 ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
@@ -303,6 +305,19 @@ def cp_files(s, d, pat="*"):
             shutil.copy2(f, d)
 
 
+TOOLS_DIR = "chroma-engine/tools"   # the Engine's check scripts since backend plan item 7, without their calib_vN/ folders
+TOOLS_MARK = TOOLS_DIR + "/cx2run.py"   # they are there when this is (tools/ began with _engine.py and t_steps.py alone)
+TOOLS = False                       # set in main(): the candidate or the shared folder has them
+
+
+def engine_row(c):
+    """A check's cwd and command. The Engine's rows run in chroma-engine/tools once it is there (the calib_v7, calib_v8,
+    calib_v10 and calib_v10/cx2 prefixes dropped; cx2run.py takes the short names); before that, in the calib layout."""
+    if c[5] != EP or not TOOLS:
+        return c[5], c[6]
+    return TOOLS_DIR, re.sub(r"\bcalib_v(?:7|8|10)/(?:cx2/)?", "", c[6])
+
+
 def fromcand(rel):
     """The root a shared file comes from: the candidate commit or checkout when it holds the file, else the project folder."""
     return CAND if CAND and os.path.exists(os.path.join(CAND, rel)) else REAL
@@ -320,6 +335,7 @@ def build_tree():
                     o = os.path.join(P, os.path.relpath(r, RP)); os.makedirs(o, exist_ok=True); shutil.copy2(os.path.join(r, f), o)
     cp_files(src["engine"], P, "*.py")                        # the engine itself: live v22 or the candidate
     if os.path.exists(os.path.join(src["engine"], "rarity.json")):
+        os.makedirs(os.path.join(P, "calib_v8"), exist_ok=True)
         shutil.copy2(os.path.join(src["engine"], "rarity.json"), os.path.join(P, "calib_v8", "rarity.json"))
     shutil.copytree(src["engine"], os.path.join(T, "chroma-engine", "archive", "live-v22"), ignore=SKIPF)   # owners' scripts name it
     if LIVE["engine"] != "chroma-engine/archive/live-v22":                    # and where paths.py names the live engine
@@ -350,11 +366,12 @@ def build_tree():
     shutil.copytree(v21, os.path.join(T, GAME_V21, "engine_pin"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-env"), exist_ok=True)                 # the folder names, read under CHROMA_ROOT=T
     shutil.copy2(os.path.join(fromcand("chroma-env/paths.py"), "chroma-env", "paths.py"), os.path.join(T, "chroma-env", "paths.py"))
+    tools = fromcand(TOOLS_MARK) if TOOLS else fromcand(TSTEPS) if os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)) else None
+    if tools:                                                 # the Engine's tools, items 2 and 7 (they find the tree's engine_live
+        shutil.copytree(os.path.join(tools, TOOLS_DIR), os.path.join(T, TOOLS_DIR), ignore=SKIPF)   # by _engine.py)
     if os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools", "build.py")):   # the one build
         shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
                         os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
-    if os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)):                # the Engine's tools (items 2 and 7)
-        shutil.copytree(os.path.join(fromcand(TSTEPS), "chroma-engine", "tools"), os.path.join(T, "chroma-engine", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
     os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
     cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
@@ -609,18 +626,26 @@ def main():
         log(f"  reference run {a.ref}")
     if a.level == "fast" and FAST_OWNER.get("identity1") == "Engine" and any(c[0] == "identity1" for c in todo):
         log("  Engine: this engine has no run_steps() (from before backend item 2), so its fast check is identity1, not t_steps")
+    global TOOLS
+    TOOLS = os.path.exists(os.path.join(fromcand(TOOLS_MARK), TOOLS_MARK))
     n = build_tree()
+    log(f"  the Engine's rows run from {TOOLS_DIR if TOOLS else EP + ' (calib_v7, calib_v8, calib_v10)'}")
     log(f"  work tree {T}: {n} copied scripts re-pointed to it; engine.py {md5(os.path.join(T, EP, 'engine.py'))}, "
         f"game.py {md5(os.path.join(T, 'chroma-game/prototype/game.py'))}, earth.py {md5(os.path.join(T, 'chroma-library/earth.py'))}")
     os.makedirs(os.path.join(WORK, "rec"), exist_ok=True)
     open(os.path.join(WORK, "rec", "sitecustomize.py"), "w").write(SITE)
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", OMP_NUM_THREADS="1", MPLBACKEND="Agg")
-    for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT"):
+    for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT", "CHROMA_ENGINE",
+              "OUT_DIR"):
         env.pop(k, None)
-    fmt = lambda c: c[6].format(T=T, W=W, ENGINE=src["engine"], LIVEENGINE=os.path.join(REAL, LIVE["engine"]), GAME=src["game"],
-                                LIVEGAME=os.path.join(REAL, LIVE["game"]))
+    fmt = lambda c: engine_row(c)[1].format(T=T, W=W, ENGINE=src["engine"], LIVEENGINE=os.path.join(REAL, LIVE["engine"]),
+                                            GAME=src["game"], LIVEGAME=os.path.join(REAL, LIVE["game"]),
+                                            RARITY=os.path.join(T, NAMES["rarity_live"][0]))
+    # a proof's command names the folder it runs in when that is not the check's own (an Engine row run from tools/), so a
+    # proof taken in one layout is never reused for the other
+    pkey = lambda c: fmt(c) if engine_row(c)[0] == c[5] else "cd " + engine_row(c)[0] + " && " + fmt(c)
     # proofs reused: a check whose files are all as they were when it last ran; any check another one waits on runs with it
-    reuse = {} if a.no_reuse else {c[0]: e for c in todo for e in [find_proof(c[0], fmt(c))] if e}
+    reuse = {} if a.no_reuse else {c[0]: e for c in todo for e in [find_proof(c[0], pkey(c))] if e}
     names = {t[0] for t in todo}
     changed = True
     while changed:
@@ -652,7 +677,7 @@ def main():
             if used + cores > a.cores and running:
                 continue
             cmd = fmt(c)
-            cwd = REAL if c[5] == "@real" else os.path.join(T, c[5])
+            cwd = REAL if c[5] == "@real" else os.path.join(T, engine_row(c)[0])
             rec = os.path.join(WORK, "rec", cid); os.makedirs(rec, exist_ok=True)
             e2 = dict(env, CHROMA_ROOT=REAL if c[5] == "@real" else T, CHROMA_REC_OUT=rec, CHROMA_REC_ROOTS=roots,
                       PYTHONPATH=os.pathsep.join([os.path.join(WORK, "rec")] + [x for x in [env.get("PYTHONPATH")] if x]))
@@ -670,7 +695,7 @@ def main():
                 f.write(f"\nexit {p.returncode} in {time.time() - ts:.0f}s\n"); f.close()
                 running.remove(r); used -= cores
                 res[c[0]] = verdict(c, p.returncode, time.time() - ts)
-                nf = save_proof(c[0], cmd, time.time() - ts) if p.returncode == 0 else 0
+                nf = save_proof(c[0], pkey(c), time.time() - ts) if p.returncode == 0 else 0
                 log(f"  {res[c[0]]['result']:4s} {c[0]} ({c[1]}) in {res[c[0]]['secs']:.0f}s {res[c[0]]['note']}"
                     + (f" [proof: {nf} files]" if nf else ""))
     write_summary(todo, res, t0, log)
