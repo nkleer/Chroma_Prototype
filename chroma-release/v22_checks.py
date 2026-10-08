@@ -661,6 +661,8 @@ def main():
     write_summary(todo, res, t0, log)
     if not a.keep:
         shutil.rmtree(WORK, ignore_errors=True)
+        if a.commit and CAND:                    # the exported commit too
+            shutil.rmtree(os.path.dirname(CAND), ignore_errors=True)
     bad = [k for k, v in res.items() if v["result"] in ("FAIL", "MISS")]
     sys.exit(1 if bad else 0)
 
