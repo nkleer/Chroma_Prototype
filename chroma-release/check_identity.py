@@ -31,6 +31,7 @@ os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abs
 from paths import P, path, ROOT   # backend plan item 6: every folder is named once, in chroma-env/paths.py
 ap = argparse.ArgumentParser()
 ap.add_argument("--proto", default=P["engine_v23"])   # calib scripts and engine_v9_golive.py live here (backend item 7 may rename)
+ap.add_argument("--golive", default=None, help="the go-live engine (default engine_v9_golive.py in chroma-engine/tools, else in --proto)")
 ap.add_argument("--lib", default=None)
 ap.add_argument("--rules", default=os.environ.get("RULES"))
 ap.add_argument("--lives", type=int, default=40)
@@ -61,7 +62,10 @@ if a.rules:
 import engine as E, batch
 if a.lib:
     batch.LIB_DIR = os.path.abspath(a.lib)
-spec = importlib.util.spec_from_file_location("engine_v9_golive", os.path.join(PROTO, "engine_v9_golive.py"))
+GOLIVE = a.golive or next((f for f in (os.path.join(ROOT, "chroma-engine", "tools", "engine_v9_golive.py"),   # the Engine's tools
+                                         os.path.join(PROTO, "engine_v9_golive.py")) if os.path.exists(f)),          # (backend item 7)
+                           os.path.join(PROTO, "engine_v9_golive.py"))
+spec = importlib.util.spec_from_file_location("engine_v9_golive", GOLIVE)
 E9 = importlib.util.module_from_spec(spec); spec.loader.exec_module(E9)
 
 packs = list(batch.PACKS) if a.packs is None else [p for p in a.packs.split(",") if p]
@@ -145,7 +149,7 @@ def compare(label, P_new, P_old, seed):
     return not out, only_new
 
 
-print(f"C-E14 identity: engine {os.path.join(PROTO, 'engine.py')}")
+print(f"C-E14 identity: engine {os.path.join(PROTO, 'engine.py')}; go-live engine {GOLIVE}")
 print("  rules:", a.rules or "the engine's own earth_rules.py")
 print(f"  Library {batch.LIB_DIR}, packs {packs}, dreams left out; switches off: {sorted(getattr(E, 'GOLIVE', {}))}")
 if not hasattr(E, "GOLIVE"):
