@@ -1,12 +1,25 @@
-import shutil, glob, os, subprocess, sys
-# usage: python3 sync21.py [work dir] [web dir]. Both are taken relative to this script's folder unless absolute; the work
-# dir is the one holding prototype/ (or the prototype folder itself). Defaults: w21 and web21 next to this script.
-here = os.path.dirname(os.path.abspath(__file__))
-def _dir(a): return (a if os.path.isabs(a) else os.path.join(here, a)).rstrip("/") + "/"
-G = _dir(sys.argv[1] if len(sys.argv) > 1 else "w21"); G = G + "prototype/" if os.path.isdir(G + "prototype") else G
-W = _dir(sys.argv[2] if len(sys.argv) > 2 else "web21")
+"""Builds a web folder from a game folder: the page, the worker, the Python sources and the pictures the page names.
+
+    python3 -B webdir.py <game dir> <web dir>
+
+The game dir is a prototype folder (or a folder holding prototype/). The web dir gets index.html (the page as published,
+the Artifact's file_path), page.html (the same page inside a document, for serving locally), worker.js, py/ (the game's
+Python and engine_pin/) and pics/ (the pictures chroma-art/game/pictures.json names, copied when missing or changed).
+Pictures come from the art folder that chroma-env/paths.py names art_game (CHROMA_ROOT, default /mnt/project-files).
+Was chroma-hud/sync21.py (v21 to v22.1); tools/build.py runs it as one step of the build.
+"""
+import filecmp, glob, json, os, shutil, subprocess, sys
+
+sys.path.insert(0, os.path.join(os.environ.get("CHROMA_ROOT", "/mnt/project-files"), "chroma-env"))
+from paths import P  # noqa: E402
+
+if len(sys.argv) != 3:
+    sys.exit(__doc__)
+G = os.path.abspath(sys.argv[1]).rstrip("/") + "/"; G = G + "prototype/" if os.path.isdir(G + "prototype") else G
+W = os.path.abspath(sys.argv[2]).rstrip("/") + "/"
+ART = os.environ.get("CHROMA_ART_GAME", P["art_game"])
 os.makedirs(W + "py/engine_pin", exist_ok=True)
-subprocess.run(["python3", G + "web/src/build.py"], check=True)
+subprocess.run([sys.executable, "-B", G + "web/src/build.py"], check=True)
 s = open(G + "web/index.html", encoding="utf-8").read()
 open(W + "index.html", "w", encoding="utf-8").write(s)
 shutil.copy(G + "web/worker.js", W + "worker.js")
@@ -17,10 +30,7 @@ for f in glob.glob(G + "engine_pin/**/*.py", recursive=True):   # engine_pin/*.p
     os.makedirs(os.path.dirname(d), exist_ok=True); shutil.copy(f, d)
 head = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}</style></head><body>'
 open(W + "page.html", "w", encoding="utf-8").write(head + s + "</body></html>")
-# the pictures the page names (chroma-art/game/pictures.json: scenes, domains, tiers, tarot, the unwritten fabric), copied
-# next to the page when missing or changed
-import json, filecmp
-ART = os.path.join(here, "chroma-art", "game")
+# the pictures the page names (pictures.json: scenes, domains, tiers, tarot, the unwritten fabric), copied next to the page
 def _urls(x):
     if isinstance(x, dict): return [u for v in x.values() for u in _urls(v)]
     if isinstance(x, list): return [u for v in x for u in _urls(v)]
@@ -32,4 +42,4 @@ for u in sorted(set(_urls({k: pj.get(k) for k in ("situation", "domain", "tier",
     if os.path.exists(src_) and not (os.path.exists(dst_) and filecmp.cmp(src_, dst_, shallow=False)):
         os.makedirs(os.path.dirname(dst_), exist_ok=True); shutil.copy(src_, dst_); got += 1
 print("pictures copied:", got)
-print("synced", W)
+print("web folder", W)
