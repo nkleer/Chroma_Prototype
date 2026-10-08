@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
 from paths import P, path, ROOT   # backend plan item 6: every folder is named once, in chroma-env/paths.py
 ap = argparse.ArgumentParser()
-ap.add_argument("--proto", default=P["engine_v23"])   # calib scripts and engine_v9_golive.py live here (backend item 7 may rename)
+ap.add_argument("--proto", default=P["engine_live"])   # the engine to check (v22_checks.py lays a candidate there)
 ap.add_argument("--batch", default=P["library_live"])
 ap.add_argument("--packs", default="science,politics,stage")
 a = ap.parse_args()
