@@ -36,7 +36,8 @@ NAMES = {
     "art_game":       ("chroma-art/game", "the pictures the page uses (pictures.json names them, pics/ holds them)"),
     "art":            ("chroma-art", "the visuals folder: kit/ drawing code, data/ scene texts, notes/"),
     "art_old_icons":  ("chroma-art/old", "the retired game-icons.net set (CC BY 3.0); the icon builder and review pages read it"),
-    "build_helpers":  ("chroma-hud", "sync21.py builds a web folder, pubmap.py gives the publish file map"),
+    "build_helpers":  ("chroma-hud", "the v22.1 build helpers, kept as the record (sync21.py, pubmap.py); the game now builds with game_tools"),
+    "game_tools":     ("chroma-game/tools", "build.py, the game's one build command (pin, page, web folder, publish map, BUILD.md), with webdir.py and pubmap.py"),
     # the v22.1 build record
     "game_v22p1":     ("chroma-game/staging-v22p1", "how v22.1 was built and checked (checks/, README); its tree/ became chroma-game/prototype"),
     "release":        ("chroma-release", "release records and check scripts (v22_checks.py runs every owner's checks)"),

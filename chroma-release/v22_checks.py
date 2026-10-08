@@ -189,6 +189,10 @@ CHECKS = [
     ("build", "item 5", "Game", "quick", 1, ".", "python3 -B chroma-game/tools/build.py {W}/build --same-as game_live && echo BUILD-SAME",
      "re:^BUILD-SAME", (), "the one build command makes the game from the engine, Library and packs, file for file as the "
      "candidate's game (Library rebuild, pin C-X1, load); when chroma-game/tools/build.py is there"),
+    # ---- Engine's own fast check (backend plan item 2): the engine's pause points
+    ("t_steps", "item 2", "Engine", "quick", 1, ".", "python3 -B chroma-engine/tools/t_steps.py", "re:^ALL PASS", (),
+     "run_steps() lives run()'s lives bit for bit, pauses in PAUSES order, every STATE name at every pause (3 short runs); "
+     "when chroma-engine/tools/t_steps.py is there and the engine has run_steps()"),
     # ---- Visuals (its own fast check, chroma-art/kit/check_art.py; --full also rebuilds the icons with Node)
     ("art", "art", "Visuals", "quick", 1, ".", "python3 -B chroma-art/kit/check_art.py", "re:^art check: pass", (),
      "every picture the game names exists at its size and weight; every life event has a picture; one icon per option"),
@@ -213,10 +217,11 @@ FAST = {
     "Library": ["build_earth", "build_packs", "balance", "setting", "voice", "perks"],    # 0.6 min
     "Packs": ["pack_check", "pack_stats", "pack_balance"],                               # 0.3 min
     "Game": ["icons", "end_at_choice", "saveload", "saveload_world"],                    # about 2 min on 4 cores
-    "Engine": ["identity1"],   # about 3 min, one seed; becomes chroma-engine/tools/t_steps.py (20 s) once main has the item 2 engine
+    "Engine": ["t_steps"],     # about 20 s; on an engine from before item 2 (no run_steps, e.g. live v22.1) identity1 (3 min) instead
     "Visuals": ["art"],                                                                  # a few seconds (its own check_art.py)
 }
 FAST_OWNER = {cid: o for o, l in FAST.items() for cid in l}
+TSTEPS = "chroma-engine/tools/t_steps.py"
 # Files a check reads through a shell tool (cp, cmp, cat), which the proof recorder cannot see (paths in the work tree)
 EXTRA = {
     "build_earth": ["chroma-library/earth.py"],
@@ -364,6 +369,8 @@ def build_tree():
     if os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools", "build.py")):   # the one build
         shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
                         os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
+    if os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)):                # the Engine's tools (items 2 and 7)
+        shutil.copytree(os.path.join(fromcand(TSTEPS), "chroma-engine", "tools"), os.path.join(T, "chroma-engine", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
     os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
     cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
@@ -585,6 +592,11 @@ def main():
             elif x:
                 out.add(x)
         return out
+    eng = os.path.join(src["engine"], "engine.py")   # t_steps needs its script and an engine with the pause points
+    steps = os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)) and os.path.exists(eng) \
+        and "\ndef run_steps(" in open(eng, encoding="utf-8").read()
+    if not steps and "t_steps" in FAST_OWNER:          # an engine from before item 2: the one-seed C-E14 stands in
+        FAST_OWNER["identity1"] = FAST_OWNER.pop("t_steps")
     only = ids(a.only); skip = ids(a.skip)
     todo = []
     for c in CHECKS:
@@ -598,7 +610,8 @@ def main():
         if cid == "live" and not is_live:
             continue
         if (cid == "speedpass" and a.engine is None and a.game is None) or (cid == "saves" and a.game is None) \
-                or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))):
+                or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))) \
+                or (cid == "t_steps" and not steps):
             continue
         todo.append(c)
     say = open(os.path.join(RUN, "run.txt"), "w")
@@ -610,6 +623,8 @@ def main():
         log(f"  {k:6s} {src[k]}" + ("" if getattr(a, k) is None else "   (candidate)"))
     if a.ref:
         log(f"  reference run {a.ref}")
+    if a.level == "fast" and FAST_OWNER.get("identity1") == "Engine" and any(c[0] == "identity1" for c in todo):
+        log("  Engine: this engine has no run_steps() (from before backend item 2), so its fast check is identity1, not t_steps")
     global TOOLS
     TOOLS = os.path.exists(os.path.join(fromcand(TOOLS_DIR + "/_engine.py"), TOOLS_DIR, "_engine.py"))
     n = build_tree()

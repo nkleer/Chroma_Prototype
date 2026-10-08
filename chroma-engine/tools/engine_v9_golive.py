@@ -20,19 +20,7 @@ colors can fail to shift even when the person wants them to):
 
 Vectorised over N independent lives. One tick = one week. Every life starts at 0.2 per color.
 """
-import os
-import re
-import sys
-from collections import namedtuple
 import numpy as np
-try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
-    from numpy._core.umath import clip as _uclip
-except ImportError:
-    from numpy.core.umath import clip as _uclip
-try:   # the outer world's key words (world_keys.py beside this file)
-    import world_keys as WKEYS
-except ImportError:   # pragma: no cover
-    WKEYS = None
 from library import COLORS, SITUATIONS, IMPOSITIONS, STAGES, NEEDS, NEED_MAP, NEED_MAP_V6, RESOURCES, COMMITMENTS, SOURCES, EVENTS, ERA_KINDS, DUTIES
 from library import DREAM_TRIGGERS
 from combos import IDEAS, ERA_COMBOS
@@ -166,11 +154,9 @@ def perm_inv(p):
 # who can die in a life event (kills), and the kinds of closed options (pickable, with a backfire)
 MARK_BASE = ["hid a wrong", "owned up", "kept your word", "broke your word", "learned a skill", "took a wild risk",
              "left home", "stayed home", "moved away", "turned down a chance", "helped someone in need",
-             "refused someone in need", "made an enemy", "made a friend", "defied an authority", "gave in to pressure",
-             "named their gender"]   # N1b: beside the Library's came out (chroma-identity/for-the-engine.md §2)
-ROLES = ["parent", "sibling", "friend", "grandparent", "partner", "child"]   # child: only ever by illness or accident (R15)
+             "refused someone in need", "made an enemy", "made a friend", "defied an authority", "gave in to pressure"]
+ROLES = ["parent", "sibling", "friend", "grandparent", "partner"]
 CLOSED_KINDS = ["law", "approval", "means"]
-CLOSED_UNKNOWN = []   # closed: kinds the compile did not know (read as approval); CHROMA_STRICT=1 makes them an error
 TIERS = ["everyday", "life event", "inner", "echo", "engine"]
 TAGS4 = ["habit", "door", "identity", "binds"]
 
@@ -231,15 +217,8 @@ def compile_library(symmetric=False, situations=None):
             nrow.append(nt)
             if nt.get("mark"):
                 MARK[si, ki] = marks.index(nt["mark"])
-            if nt.get("closed"):   # "closed: <kind>[: why]"; a kind run into the next words ("law; backfire: ...") reads as its kind
-                kd = nt["closed"].replace(";", ":").replace("|", ":").split(":")[0].strip()
-                if kd not in CLOSED_KINDS:   # checklist L1: an unknown kind no longer passes silently as approval
-                    msg_ = f"closed: unknown kind {kd!r} in {s.get('name', si)!r}, option {ki + 1} (known: {', '.join(CLOSED_KINDS)})"
-                    if os.environ.get("CHROMA_STRICT"):
-                        raise ValueError(msg_)
-                    CLOSED_UNKNOWN.append(msg_)
-                    if len(CLOSED_UNKNOWN) <= 20:
-                        print("WARNING " + msg_, file=sys.stderr)
+            if nt.get("closed"):
+                kd = nt["closed"].split(":")[0].split("|")[0].strip()
                 CLOSED[si, ki] = CLOSED_KINDS.index(kd) if kd in CLOSED_KINDS else 1
             BODY[si, ki] = {"light": 0.5, "heavy": 1.0}.get(nt.get("body"), 0.0)
             TAG[si, ki] = [bool(nt.get(k_)) for k_ in TAGS4]
@@ -563,32 +542,6 @@ DEFAULT = dict(
     aware_age=13.0,      # from this age a hidden attraction or unease weighs on them
     hide_stress=0.008,   # weekly stress of hiding it (minority stress: Meyer 2003), until a 'came out' mark; times
     climate=0.0,         # 1 + how hostile the world is (0 typical modern Earth) + half a family faith held strongly
-    # sex at birth, own gender and the role the world expects (checklist N1b, chroma-identity/for-the-engine.md, Emren
-    # 10-06 22:57 "a gender emphasis... about birth, not sexual preference, not social role"; ID_OFF: point 11 as it was)
-    id_v2=True,
-    title_ages=True,     # a title or perk is gained only inside its catalogue ages= (checklist C-X4); False: as at go-live
-    far_share=0.45,      # E6: the share of one's own moves (moved away, moves:) that go to a new town; 1: all, as at go-live
-    recon_held=True,     # a forced reconsideration is of a commitment still held (False: as at go-live, which could end one twice)
-    child_norm=True,     # C-X5: each child dies at its own age's rate, not raised by the event scale or spread (False: go-live)
-    child_gap=3.0,       # C-X5: years between one child and the next (the usual birth spacing)
-    child_mort=5e-5,     # C-X5: the children's Gompertz level (mort[0] for everyone else)
-    season_share=True,   # a threshold step's moment comes to the share of lives its times: gives (Library next3 §4)
-    ow_weeks=26,         # weeks without work after losing a job before 'out of work' (52 at go-live: .07 of lives against .15)
-    intersex_p=0.0005,   # born intersex (about 1 in 2,000; ISNA), raised as a girl or a boy half and half
-    female_p=0.488,      # female at birth (about 105 boys per 100 girls; UN WPP)
-    trans_p=0.006, nb_p=0.010,   # own gender: the other one (0.6 in 100), neither or both (1.0 in 100) (Pew 2022)
-    ace_p=0.01,          # asexual (1 in 100; Bogaert 2004)
-    role_strict=None,    # how strictly the world expects each sex's role, 0 to 1 (None: by setting, ROLE_BY_SETTING)
-    role_boys=1.5,       # a boy under 13 who crosses is frowned on this much more than a girl (Fagot 1977; Martin 1990)
-    role_k=4.0,          # closure units per unit of strictness x crossing weight (one unit = a written closed: approval);
-                         # fitted so a job the world reserves for one sex goes to that sex .65 of the time at strictness .3
-    role_title_stress=0.002,   # weekly stress of holding a title the world reserves for the other sex, x strictness
-    role_fit_hl=3.0,     # years: half-life of role_fit's slow average (for gates and the game; it changes nothing itself)
-    accept_trans=None,   # how far the world accepts living as one's own gender, 0 to 1 (None: by setting)
-    out_stress=0.25,     # share of the hiding stress that stays after telling, x how hostile the world is (Meyer 2003)
-    partner_same_p=(0.0, 0.03, 0.16, 0.8, 1.0),   # a new partner of the same sex, by attraction 0-4 (Pew 2013)
-    ace_intim=0.3,       # an asexual person meets the intimacy moments this share as often
-    intersex_fert=0.3,   # an intersex person's own pregnancy or fathering chance (estimate: many variations lower it)
     # a wider world (Emren's point 11, card 20:59 "By choice, rarely"): the character can die before old age, and can kill
     retire_season=True,  # retiring opens the elder season when the batch has a moment that retires (its first step)
     near_ratio=20.0,     # a failed act with death_if_fails puts the person in hospital this many times as often as it kills
@@ -675,12 +628,6 @@ DEFAULT = dict(
     inner_gap=26,        # weeks before the same inner moment can come again
     rejob=0.6,           # yearly chance of finding work again after losing or leaving a job (batch only)
     mort=(5e-5, 0.09),   # yearly chance of dying at age x: a * exp(b x) (Gompertz; about 0.4% at 50, 6% at 80, 16% at 90)
-    world=False,         # the outer world (world.py, world_people.py through world_link.py): a living society around the lives
-    world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy; burn_years), world_seed (else the run's)
-    world_seed=None, world_obj=None, people_obj=None,   # a World or People already made (the game's saved world), else new
-    world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
-    kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
-    infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
     # v7 felt horizon (Emren 2026-10-05 07:10 chose it): how much time a person feels is left. When it feels short, what
     # is emotionally meaningful now (closeness, care, the familiar) weighs more than exploring and getting ahead
     # (socioemotional selectivity: Carstensen, Isaacowitz & Charles 1999). It is mindset and experience, not age: age,
@@ -725,44 +672,13 @@ DEFAULT = dict(
     title_need=2.0,      # what a title's meets add to its commitment kind's own needs (x commit_need x strength)
     perk_loss=(0.03, 0.02, 0.02, 0.02),   # yearly chance of losing an unused skill, standing, a bond, an asset (more when poor or alone)
     profile_margin=0.05, # a title's other profile must fit the person's colors this much better (for about a year) to be taken
-    # v10 interpretation and memory (Emren 2026-10-04 21:39, roadmap 3: "type and frequency of misjudgment depend on history,
-    # color position, perks, titles, mindset"; order of 10-06 10:50 and 21:55: after the go-live, before the outer world).
-    # Threat focus (0..1): how much a person reads what happens as a threat to guard against rather than a challenge to
-    # take on (Lazarus 1984; prevention vs promotion focus, Higgins 1997; anxiety-based vs growth values, Schwartz 2012).
-    # It comes from where the deep core sits on the security-vs-freedom axis, from recent hard events, and from reactivity.
-    thr0=0.0,            # logit of threat focus for an even person with no history
-    thr_axis=1.0,        # weight of the deep core's position on the security-vs-freedom axis (W U security, B R freedom)
-    thr_hist=1.0,        # weight of recent hard events (wound, trouble)
-    thr_react=0.5,       # weight of reactivity (temperament) above its even level
-    thr_lag=1.0,         # years over which threat focus follows these
-    app_k=0.4,           # appraisal: threat focus makes a loss weigh up to (1 + app_k) and a gain (1 - app_k); challenge the
-                         # reverse; on mood, trouble and competence (Sortheix & Schwartz 2017: growth values, small +r with
-                         # life satisfaction; anxiety-based values, small -r)
-    app_learn=1.0,       # how far appraisal also reaches what an act teaches about one's ways (dI, dD); 0: feelings only
-    # misjudged odds (logit units, on felt odds only; the true odds never change): 
-    mis_focus=0.6,       # challenge reads odds high, threat reads them low: mis_focus x (0.5 - threat focus)
-    mis_mem=0.4,         # memories of how acts in the same ways went (successes minus failures, by stakes)
-    mis_scar=0.6,        # a never-again scar in the option's ways reads its odds low
-    mis_mood=0.3,        # a good mood reads odds high, a low one low (affect as information: Schwarz & Clore 1983)
-    mis_status=0.15,     # status held (summits, standings) reads odds high: hubris
-    mis_expert=0.5,      # skill and career years in the option's ways shrink every misreading above toward the true odds
-    mem_pos=5.0,         # half-life in years of a good memory's pull
-    mem_neg=3.0,         # and of a bad one's (fading affect bias: the sting of bad memories fades faster; Walker 2003)
-    mem_eps=1.0,         # memories (stakes-weighted acts) a color needs before they count fully in its reading
-    scar_min=0.6,        # stakes from which a failure can leave a never-again scar
-    scar_k=0.15,         # size of the scar, per stakes, in the act's ways
-    scar_half=12.0,      # half-life in years of a scar (faster with support: x (1 + support))
-    scar_pull=0.3,       # how much a scar turns a person away from options in those ways
-    epi_min=0.75,        # logged lives keep an episode of any act that hit this hard (|delta|; about 1 act in 20)
-    epi_recall=0.7,      # an episode comes back when its lean matches the act's and its fading strength is above this
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
 EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an illness", "an unexpected windfall or loss of money",
            "a natural disaster hits where you live", "a hard season of scarcity", "a season of plenty", "a brush with death"}
-KILL_OFF = np.array([29.0, 0.0, 0.0, 55.0, 1.0, -29.0])         # how much older than the person each role is, on average
-# (a child's death reads the children's own ages instead: the years since the first was born, kid_mort and infant_mort)
-KILL_HIT = np.array([(0.1, 0.3), (0.1, 0.3), (0.1, 0.2), (0.05, 0.15), (0.4, 0.5), (0.3, 0.6)])   # belonging lost, stress, per role
+KILL_OFF = np.array([29.0, 0.0, 0.0, 55.0, 1.0])                # how much older than the person each role is, on average
+KILL_HIT = np.array([(0.1, 0.3), (0.1, 0.3), (0.1, 0.2), (0.05, 0.15), (0.4, 0.5)])   # belonging lost, stress, per role
 
 # v7 switches off: run(P=V6_SWITCHES) reproduces engine v6 on the seed library
 V6_SWITCHES = dict(goals=False, hz_k=0.0, hz_want=0.0, disc_rate=0.0, disc_win=0.0, disc_tag=0.0, roles=False, read_moment=(0.0, 0.0),
@@ -771,16 +687,6 @@ V6_SWITCHES = dict(goals=False, hz_k=0.0, hz_want=0.0, disc_rate=0.0, disc_win=0
                    stiffen=0.7, ev_gap=False, season=False, retire_season=False, sat_gap_ref=0.07, gap_keep=False)
 # turning points off (point 7, 2026-10-05): the deep core as it was before Emren chose them
 TW_OFF = dict(tw_trans=0.0, tw_core=0.0, tw_pull=0.0, tw_pen=0.0, stiffen=0.7, sat_gap_ref=0.07)
-# sex and gender (N1b) off: sex half and half, unease 1 in 100, one came out mark for both, no role (point 11 as it was)
-ID_OFF = dict(id_v2=False)
-FIX_OFF = dict(title_ages=False, season_share=False, ow_weeks=52, far_share=1.0, recon_held=False, child_norm=False)   # release fixes that change lives (C-X4, Library next3 §4)
-# interpretation and memory off (E1): the v10 weights that change lives, at 0
-V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.0, mis_mood=0.0, mis_status=0.0, scar_k=0.0,
-               scar_pull=0.0)
-# everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
-GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, "world": False}
-ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
-ACCEPT_BY_SETTING = dict(earth=0.5, tribal=0.3, magic=0.5)   # accept_trans when None (estimates)
 
 # v7 adjectives (Emren's point 3): plain states read from the meta variables, needs and resources. The Library can use
 # them in conditions (is_happy, adj('wealthy')) and in an act's or a situation's requires:, like perks; the game shows
@@ -847,7 +753,7 @@ STEP_INC = 0.5       # progress a person imagines one good step brings, in units
 # v7 felt horizon: the color ends that limited time favors. Derived from the Schwartz map (schwartz.LOAD): the colors whose
 # values rise with age in surveys (conservation, self-transcendence) against those that fall (openness, self-enhancement)
 HZ_TILT = np.array([0.96, 0.05, -1.0, -0.62, 0.61])
-HZ_ROLE = np.array([1.0, 1.0, 1.0, 0.4, 1.5, 1.5])   # how strongly each death reminds: parent, sibling, friend, grandparent, partner, child
+HZ_ROLE = np.array([1.0, 1.0, 1.0, 0.4, 1.5])        # how strongly each death reminds: parent, sibling, friend, grandparent, partner
 
 
 def step_prior(L, P):
@@ -864,47 +770,23 @@ def step_prior(L, P):
     return out
 
 
-def _cdf_below(n, term, step, aux):
-    """Speed pass (10-08): the sum of the first n terms of each element, the next term from step(term, j, aux) (aux:
-    the element's own number the step reads). Each element goes through exactly the operations of the full-array loop it
-    replaces, but only while it still adds terms (the full loop added 0.0 after that, which changes nothing), so the
-    result is bit for bit the same. Longest first, so the elements still adding terms are always the first K."""
-    nf = n.ravel(); cf = np.zeros(nf.size)
-    idx = np.nonzero(nf > 0)[0]
-    idx = idx[np.argsort(-nf[idx], kind="stable")]
-    n_ = nf[idx]; t_ = term.ravel()[idx]; a_ = aux.ravel()[idx]; c_ = np.zeros(idx.size); K = idx.size; j = 0
-    while K:
-        c_[:K] = c_[:K] + t_[:K]
-        t_[:K] = step(t_[:K], j, a_[:K])
-        j += 1
-        while K and n_[K - 1] <= j:
-            K -= 1
-    cf[idx] = c_
-    return cf.reshape(n.shape)
-
-
-EV_G = {"__builtins__": {}}   # speed pass: one globals dict for every condition (eval adds nothing to it)
-
-
 def poisson_at_least(n, lam):
     """P(X >= n) for X ~ Poisson(lam), elementwise (n whole, small)."""
     n, lam = np.broadcast_arrays(np.asarray(n, int), np.maximum(np.asarray(lam, float), 1e-12))
-    term = np.exp(-lam)
-    cdf = _cdf_below(n, term, lambda t_, j, l_: t_ * l_ / (j + 1), lam)
+    term = np.exp(-lam); cdf = np.zeros(lam.shape)
+    for j in range(int(n.max()) if n.size else 0):
+        cdf = cdf + np.where(j < n, term, 0.0)
+        term = term * lam / (j + 1)
     return np.where(n <= 0, 1.0, np.clip(1 - cdf, 0, 1))
 
 
 def negbin_at_least(n, lam, kappa):
     """P(X >= n) for X with mean lam whose rate is itself unsure (negative binomial, shape kappa), elementwise."""
     n, lam = np.broadcast_arrays(np.asarray(n, int), np.maximum(np.asarray(lam, float), 1e-12))
-    q = lam / (kappa + lam); term = (1 - q) ** kappa
-    if np.ndim(kappa):   # (never in the engine: kappa is one number) the plain loop
-        cdf = np.zeros(lam.shape)
-        for j in range(int(n.max()) if n.size else 0):
-            cdf = cdf + np.where(j < n, term, 0.0)
-            term = term * (j + kappa) / (j + 1) * q
-    else:
-        cdf = _cdf_below(n, term, lambda t_, j, q_: t_ * (j + kappa) / (j + 1) * q_, q)
+    q = lam / (kappa + lam); term = (1 - q) ** kappa; cdf = np.zeros(lam.shape)
+    for j in range(int(n.max()) if n.size else 0):
+        cdf = cdf + np.where(j < n, term, 0.0)
+        term = term * (j + kappa) / (j + 1) * q
     return np.where(n <= 0, 1.0, np.clip(1 - cdf, 0, 1))
 
 
@@ -924,9 +806,7 @@ def felt_odds(chance, p_step, weeks, steps, domain, outlook, P=None):
 GROUP = np.array(AXES["group vs individual"], float)     # Magic's group (W, G) versus individual (B, R) axis
 
 
-def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=(), pausing=False):
-    # the whole simulation; run() and run_steps() below call it. With pausing=True it pauses six times a week
-    # (PAUSES); with pausing=False it never pauses and runs exactly as run() always did.
+def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
     P = {**DEFAULT, **(P or {})}
     NMAP = NMAP_V6 if P["aut_self"] else NMAP_V5
     SP_ = np.asarray(P["stage_p"], float) if P["stage_p"] is not None else STAGE_P    # plasticity by life stage
@@ -982,7 +862,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     HZW = np.maximum(HZT, 0) / max(np.maximum(HZT, 0).sum(), 1e-9)   # where a short horizon pulls the want
     V_hist = {k_: [] for k_ in ("acc", "chan", "core", "wound", "support", "trouble", "fortune", "habit", "role", "SE", "ctrl", "plast", "Q", "doors", "content", "peace", "skill", "fneed", "mood", "stress", "cload", "tension",
                                        "react", "steady", "base_mood", "outlook", "gap",
-                                       "n_dream", "n_passion", "n_plan", "harmonious", "regret", "horizon", "discipline", "n_titles", "n_perks", "lvl", "q_rel", "need", "unmet", "hope_w", "adj", "adj_v", "threat", "scar")}   # for the color vectors (Emren, 2026-10-04)
+                                       "n_dream", "n_passion", "n_plan", "harmonious", "regret", "horizon", "discipline", "n_titles", "n_perks", "lvl", "q_rel", "need", "unmet", "hope_w", "adj", "adj_v")}   # for the color vectors (Emren, 2026-10-04)
     CTRL = np.asarray(P["ctrl_stage"], float)
     gates = np.zeros((NS, 14))                # per stage: events, wanted-best unavailable, unnoticed, pulled away, tried, tried+succeeded,
                                              # want and pull disagree (both options seen), want won that conflict,
@@ -1039,20 +919,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     W_hist = []; M_hist = []; S_hist = []; A_hist = []
     reb = np.zeros((N, 2))                                       # v6: tension rebounds over the life (fit together, split)
     trouble = np.zeros(N); fortune = np.zeros(N)                 # v6: recent big events that went badly / well (decay over years)
-    thr = np.full(N, 0.5); mem_s = np.zeros((N, C)); mem_f = np.zeros((N, C)); scar = np.zeros((N, C))   # v10 interpretation
-    AXSEC = np.array(AXES["security vs freedom"], float)
-    MIS_ON = any(P[k_] for k_ in ("mis_focus", "mis_mem", "mis_scar", "mis_mood", "mis_status"))
-    DMS_ = 0.5 ** (1 / (52 * P["mem_pos"])); DMF_ = 0.5 ** (1 / (52 * P["mem_neg"]))
-    hub_ = np.zeros(N); xp_ = np.zeros((N, C))                    # status held (hubris) and expertise by color, yearly
-    def mem_rel():
-        """What memory says of each color's ways, -1 (went badly) to 1 (went well), shrunk while there is little of it."""
-        return (mem_s - mem_f) / (mem_s + mem_f + P["mem_eps"])
     wound = np.zeros(N)                                          # v6: a hard event leaves the person open for months
     moved = np.zeros(N)                                          # v6: this week brought new people around the person
     support = np.zeros(N)                                        # v6: being cared for (belonging and ties)
     had_ev = np.zeros(N, bool)
     events = {i: [] for i in log_lives}
-    epi = {i: [] for i in log_lives}                             # v10: episodes a logged life may recall (for the game)
     # ---- v7 goals: one row of slots per person; kind -1 = empty, 0 dream, 1 passion, 2 plan
     GON = bool(P["goals"])
     NGS = P["max_dreams"] + P["max_passions"] + P["max_plans"]; GMAX = (P["max_dreams"], P["max_passions"], P["max_plans"])
@@ -1062,40 +933,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     gi = np.zeros((N, NGS)); gpk = np.zeros((N, NGS))                          # investment (sunk), peak strength
     gb = np.zeros((N, NGS), int); gh = np.zeros((N, NGS), int); ghz = np.zeros((N, NGS), int); gx = np.zeros((N, NGS), int)  # born, due, horizon, extensions
     gsrc = np.zeros((N, NGS), int); gtrig = np.full((N, NGS), -1); gpar = np.full((N, NGS), -1); gby = np.zeros((N, NGS), int)
-    # the Library's dreams (chroma-library/dreams.py, Emren 10-06 22:19, via batch): the setting's sparks, and the concrete
-    # dreams a new one is named by (gname: its index in DRM_, carried into its passion and plans; -1 = plain naming)
-    DTR_ = L.get("DREAM_TRIGGERS") or DREAM_TRIGGERS
-    TRIG_SRC = np.array([GSRC[tr[1]] for tr in DTR_])
-    TRIG_W = np.array([tr[2] for tr in DTR_], float)                   # triggers x stages
-    TRIG_TILT = np.array([parse(tr[3]) if tr[3] else np.zeros(C) for tr in DTR_])
-    DRM_ = L.get("DREAMS") or []
-    if DRM_:
-        DRM_M = np.array([parse(d_["means"]) for d_ in DRM_]); DRM_M = DRM_M / DRM_M.sum(1, keepdims=True) - 1 / C
-        DRM_M = DRM_M / np.linalg.norm(DRM_M, axis=1, keepdims=True)    # each dream's lean among the colors
-        DRM_D = np.array([KIDX.get(d_["domain"], -1) for d_ in DRM_])
-        DRM_S = np.array([[nm_ in d_["stages"].split() for nm_ in STAGE_NAMES] for d_ in DRM_])
-    gname = np.full((N, NGS), -1)
-    def dream_name(mix, dom, st):
-        """The nearest concrete dream: of this setting, able to start at this stage, of this domain; nearest in colors, by
-        the way it leans (a dream's mix is broad, so plain distance would favour the broadest dreams)."""
-        if not DRM_:
-            return -1
-        ok_ = (DRM_D == dom) & DRM_S[:, st]
-        if not ok_.any():
-            return -1
-        return int(np.argmax(np.where(ok_, DRM_M @ (mix / mix.sum() - 1 / C), -np.inf)))
-    def dream_phrase(n, j):
-        """What the goal in slot j is called: the dream's name, its passion phrase once sealed, its plan phrase as a
-        five-year plan, its life phrase as a life goal."""
-        d_ = DRM_[gname[n, j]]
-        return d_["name"] if gk[n, j] == 0 else d_["passion"] if gk[n, j] == 1 else d_["life"] if ghz[n, j] == 3 else d_["plan"]
     gid = np.zeros((N, NGS), int); glast = np.zeros((N, NGS), int)
     gtt = np.full((N, NGS), -1)                                              # a plan aimed at a title (pathways): its id
     gch = np.zeros((N, NGS)); gph = np.zeros((N, NGS)); gfelt = np.zeros((N, NGS)); gfelt0 = np.zeros((N, NGS))   # felt chances, step odds, odds
     gsr = np.zeros((N, NGS, L["S"]))                                         # how much each situation offers a step toward it
     lost_m = np.full((N, 3, C), 0.2); lost_d = np.full((N, 3), -1); lost_s = np.zeros((N, 3)); lost_t = np.zeros((N, 3))
     lost_on = np.zeros((N, 3), bool); lost_id = np.zeros((N, 3), int)    # dreams, passions and plans let go of (regret, revival)
-    lost_nm = np.full((N, 3), -1)                                         # and the concrete dream each was (gname)
     pres_c = np.zeros((N, C)); pres_d = np.zeros((N, NK)); pres_n = np.zeros(N)   # how often chances in each color and domain come
     regret = np.zeros(N); goal_log = []; gid_next = [1]
     HAS_STEP = np.stack([(L["COMMIT"] == d_).any(1) for d_ in range(NK)], 1).astype(float)   # S x NK: a situation can start it
@@ -1105,30 +948,25 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         """For seeking: how much each situation offers a step toward a goal."""
         if dom >= 0:
             return HAS_STEP[:, dom].copy()
-        return _uclip((5 * np.einsum("skc,c->sk", MS_, mix) - 1) / 2, 0, 1).max(1)
+        return np.clip((5 * np.einsum("skc,c->sk", MS_, mix) - 1) / 2, 0, 1).max(1)
     def glog(n, j, what, **extra):
         rec = dict(life=int(n), id=int(gid[n, j]), age=round(t / 52, 2), what=what, kind=G_KINDS[gk[n, j]],
                    domain=KNAMES[gd[n, j]] if gd[n, j] >= 0 else "a pursuit", mix=gm[n, j].round(2).tolist(),
                    source=G_SOURCES[gsrc[n, j]], strength=round(float(gs[n, j]), 2), **extra)
         if gtrig[n, j] >= 0:
-            rec["trigger"] = DTR_[gtrig[n, j]][0]
-            if what == "begins" and gk[n, j] == 0 and len(DTR_[gtrig[n, j]]) > 4:
-                rec["say"] = DTR_[gtrig[n, j]][4]                 # the spark, told: one line with {N} for the character
-        if gname[n, j] >= 0:
-            d_ = DRM_[gname[n, j]]
-            rec.update(name=dream_phrase(n, j), dream=d_["name"], passion=d_["passion"], plan=d_["plan"], life_goal=d_["life"])   # (life = the person)
+            rec["trigger"] = DREAM_TRIGGERS[gtrig[n, j]][0]
         if gk[n, j] == 2:
             rec.update(horizon=HORIZONS[ghz[n, j]], progress=round(float(gp[n, j]), 2), felt=round(float(gfelt[n, j]), 2))
             if what == "begins":   # what the felt odds leave out (for the foreseen outcome's hint of reality: foresee.py)
                 og_ = 0.5 * (w[n] + softmax(y[n]))
                 rec.update(by_player=bool(gby[n, j]), self_control=round(float(ctrl[n]), 3), free_time=round(float(res[n, TIM]), 3),
-                           stress=round(float(stress[n]), 3), fit=round(float(_uclip(2 * (gm[n, j] * og_).sum() / og_.max() - 1, -0.5, 1)), 3))
+                           stress=round(float(stress[n]), 3), fit=round(float(np.clip(2 * (gm[n, j] * og_).sum() / og_.max() - 1, -0.5, 1)), 3))
         if gk[n, j] == 1:
             rec["harmonious"] = round(float(ga[n, j]), 2)
         goal_log.append(rec)
         if n in events:
             events[n].append(dict(goal=rec))
-    def new_goal(n, kind, mix, dom, src, hz=1, trig=-1, par=-1, by=0, s0=0.4, inherit=-1, target=-1, name=-1):
+    def new_goal(n, kind, mix, dom, src, hz=1, trig=-1, par=-1, by=0, s0=0.4, inherit=-1, target=-1):
         """Open a slot for a new goal; when the kind is full, the new one replaces the weakest if it is stronger."""
         mine = np.nonzero(gk[n] == kind)[0]
         if len(mine) >= GMAX[kind]:
@@ -1142,7 +980,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         j = free[0]
         gk[n, j] = kind; gm[n, j] = mix / mix.sum(); gd[n, j] = dom; gs[n, j] = s0; gpk[n, j] = s0
         gsrc[n, j] = src; gtrig[n, j] = trig; gpar[n, j] = par; gby[n, j] = by; gb[n, j] = t; glast[n, j] = t
-        gname[n, j] = name if name >= 0 else gname[n, par] if par >= 0 else dream_name(mix, dom, stage[n]) if kind == 0 else -1
         gp[n, j] = 0.0; gi[n, j] = 0.0; gx[n, j] = 0
         gv[n, j] = gv[n, inherit] if inherit >= 0 else 0.0; ga[n, j] = ga[n, inherit] if inherit >= 0 else 0.5
         gid[n, j] = gid_next[0]; gid_next[0] += 1
@@ -1161,8 +998,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         weeks = hw if hw is not None else max(52, int((P["life_end"] - t / 52) * 52))
         pn = max(pres_n[n], 1e-9)
         ch = (pres_d[n, dom] if dom >= 0 else (mix * pres_c[n]).sum()) / pn
-        mis1 = (P["mis_focus"] * (0.5 - thr[n]) + mix @ (P["mis_mem"] * mem_rel()[n] - P["mis_scar"] * scar[n])) if MIS_ON else 0.0
-        ph = 1 / (1 + np.exp(-P["gain"] * ((mix * (sig[n] + fb[n])).sum() - 0.5) - TON * P["o_bias"] * (outlook[n] - P["o_ref"]) - mis1))
+        ph = 1 / (1 + np.exp(-P["gain"] * ((mix * (sig[n] + fb[n])).sum() - 0.5) - TON * P["o_bias"] * (outlook[n] - P["o_ref"])))
         if dom >= 0:   # what they know of such chances, from their own weeks or from people around them; and they imagine
             ch = max(ch, SPRIOR[min(stage[n] + 1, NS - 1), dom], SPRIOR[stage[n], dom])   # looking harder than before
             ch *= 1 + P["g_seek_ev"] * s
@@ -1217,10 +1053,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if keep and what not in ("achieved", "became a passion", "became a plan"):
             q_ = np.argmin(np.where(lost_on[n], lost_s[n], -1.0))
             lost_m[n, q_] = gm[n, j]; lost_d[n, q_] = gd[n, j]; lost_s[n, q_] = gpk[n, j]; lost_t[n, q_] = t / 52
-            lost_on[n, q_] = True; lost_id[n, q_] = gid[n, j]; lost_nm[n, q_] = gname[n, j]
+            lost_on[n, q_] = True; lost_id[n, q_] = gid[n, j]
         for j2 in np.nonzero(gpar[n] == j)[0]:
             gpar[n, j2] = -1
-        gk[n, j] = -1; gs[n, j] = 0.0; gpar[n, j] = -1; gby[n, j] = 0; gtt[n, j] = -1; gname[n, j] = -1
+        gk[n, j] = -1; gs[n, j] = 0.0; gpar[n, j] = -1; gby[n, j] = 0; gtt[n, j] = -1
         ago["goal_end"][n] = t
     ar = np.arange(N)
     decay_B = 0.5 ** (1 / P["crisis_half"])
@@ -1228,13 +1064,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     pb = np.ones(nI) / nI if P["impose_bias"] is None else softmax(np.asarray(P["impose_bias"], float))
     real = (L["MASK"] & (L["M"].std(-1) > 1e-9)).reshape(-1)          # real options (not padding, not "do nothing")
     REQ_ALL = L["REQ"].reshape(-1, NR)[real]; M_ALL = L["M"].reshape(-1, C)[real]
-    REQ_ROWS = np.nonzero((REQ_ALL > 0).any(1))[0]; REQ_SUB = REQ_ALL[REQ_ROWS]   # speed pass: options that need means
     def doors(nic, res):
         """For each color: chance that an option acted in that color's way is open to this person
         (the niche lets it happen, and the person has the means it needs)."""
-        accn = _uclip(P["access_base"] + P["access_k"] * (nic - 0.2), 0.05, 1.0)
-        rg = np.ones((len(res), len(REQ_ALL)))    # speed pass: an option that needs nothing is open to all (1.0 exactly)
-        rg[:, REQ_ROWS] = np.where(REQ_SUB[None] > 0, 1 / (1 + np.exp(-P["req_g"] * (res[:, None, :] - REQ_SUB[None]))), 1.0).prod(-1)
+        accn = np.clip(P["access_base"] + P["access_k"] * (nic - 0.2), 0.05, 1.0)
+        rg = np.where(REQ_ALL[None] > 0, 1 / (1 + np.exp(-P["req_g"] * (res[:, None, :] - REQ_ALL[None]))), 1.0).prod(-1)
         return accn * (rg @ M_ALL) / M_ALL.sum(0)[None]
     def end(ns, ks, why, t):
         for n, kk in zip(ns, ks):
@@ -1291,46 +1125,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                       for s_ in L.get("src", [{}] * L["S"])], float).reshape(-1, 2)
     GAPXM_ = ~np.isnan(GAPX_[:, 0]); GAPXON_ = bool(P["ev_gap"] and GAPXM_.any())
     GAPXLO_ = np.nan_to_num(GAPX_[:, 0])[None]; GAPXW_ = np.maximum(np.nan_to_num(GAPX_[:, 1] - GAPX_[:, 0]), 1 / 52)[None]
-    GAPM_I, GAPN_I, GAPX_I = np.nonzero(GAPM_)[0], np.nonzero(~GAPM_)[0], np.nonzero(GAPXM_)[0]   # speed pass: their columns
     ROUT_ = REG_ & ~(GAPXM_ & (GAPXLO_[0] > 0))   # gap_keep's routine: ordinary everyday moments whose gap starts at 0 (or none);
     # a moment whose gap starts later is an event in someone's life, and keeps its own rate and spacing (Library 07:27)
     FAMILY = L.get("FAMILY", {})                                           # an original's name -> it and its child versions
-    alive = np.zeros((N, len(ROLES)))                     # parents, siblings, a closest friend, grandparents, partner, children
-    kid_last = np.full(N, -10 ** 7)                        # the week the last child was born (R15: a baby's first year)
-    kid_on = np.zeros(N, bool)                             # children held at the start of this week (counted already)
+    alive = np.zeros((N, len(ROLES)))                     # parents, siblings, a closest friend, grandparents, partner
     # identity (point 11): sex from setup, attraction and unease drawn at birth and hidden
     sx_ = P["sex"]; rid = np.random.default_rng([int(seed), 11])   # its own random stream: the rest of the run is unchanged
-    ID2 = bool(P["id_v2"])
-    sxl_ = None if sx_ is None else [str(x).lower() for x in (sx_ if isinstance(sx_, (list, tuple, np.ndarray)) else [sx_] * N)]
-    female = (rid.random(N) < (P["female_p"] if ID2 else 0.5)) if sx_ is None else np.array([x.startswith("f") for x in sxl_])
+    female = (rid.random(N) < 0.5) if sx_ is None else np.array([str(x).lower().startswith("f") for x in
+                                                                  (sx_ if isinstance(sx_, (list, tuple, np.ndarray)) else [sx_] * N)])
     attr = np.where(female, rid.choice(5, N, p=P["attr_p"][0]), rid.choice(5, N, p=P["attr_p"][1]))
-    if ID2:   # N1b: own gender from the uniform that drew unease, so everyone who had unease keeps it; new draws go last
-        ug_ = rid.random(N)
-        gender_self = np.where(ug_ < P["trans_p"], 1, np.where(ug_ < P["trans_p"] + P["nb_p"], 2, 0))
-        unease = gender_self > 0
-        intersex = (rid.random(N) < P["intersex_p"]) if sx_ is None else np.array([x.startswith("i") for x in sxl_])
-        raised_ = rid.random(N) < 0.5; attr_ix_ = np.where(raised_, rid.choice(5, N, p=P["attr_p"][0]), rid.choice(5, N, p=P["attr_p"][1]))
-        female = np.where(intersex, raised_, female); attr = np.where(intersex, attr_ix_, attr)   # female: raised as
-        ace = rid.random(N) < P["ace_p"]
-        idr_ = np.random.default_rng([int(seed), 78])   # later identity draws (attraction drift, a partner's sex): own stream
-        ps_u = idr_.random((N, 12))                     # one draw per partner, in order, whatever else the life does
-        ps_n = np.zeros(N, int); partner_same = np.zeros(N, bool); par_prev = np.zeros(N, bool)
-        named_g = np.zeros(N, bool); came_o = np.zeros(N, bool)      # own gender named; attraction told
-        found_id = np.full((N, 4), NEVER)               # the week a moment gated on gender, attraction, ace, intersex first came
-        rfit_avg = np.zeros(N); cross_title = np.zeros(N, bool); act_cw = np.zeros(N)
-        setting_ = L.get("SETTING", "earth") if BAT else "earth"
-        RS0 = P["role_strict"] if P["role_strict"] is not None else ROLE_BY_SETTING.get(setting_, 0.3)
-        AT0 = P["accept_trans"] if P["accept_trans"] is not None else ACCEPT_BY_SETTING.get(setting_, 0.5)
-    else:
-        unease = rid.random(N) < P["unease_p"]
-        gender_self = unease.astype(int); intersex = np.zeros(N, bool); ace = np.zeros(N, bool)
+    unease = rid.random(N) < P["unease_p"]
     dead = np.zeros(N, bool); died = []                   # the character's own death (self_death)
     pris_out = np.full(N, NEVER)                           # when a prison term ends ([ex-prisoner])
     if BAT:
         alive[:, 0] = 2; alive[:, 1] = rng.choice(4, N, p=[0.2, 0.4, 0.25, 0.15]); alive[:, 2] = 1; alive[:, 3] = rng.integers(2, 5, N)
-    # birth order (checklist N4): which of the siblings are older; drawn from its own stream so no other draw moves
-    older_sib = np.floor(np.random.default_rng([seed, 77]).random(N) * (alive[:, 1] + 1)).astype(int)
-    younger_sib = alive[:, 1].astype(int) - older_sib
     friend_back = np.full(N, NEVER)
     AGO = ("le", "commit", "move", "death", "loss", "win", "hard_win", "fail_big", "breakup", "retire", "child", "job", "goal_end", "hard",
            "near_death", "fail_body", "fail_long")   # fail_body: a failed act that risked the body (body:, or death_if_fails)
@@ -1364,7 +1172,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         JOBLOSS_ON = not (ENDS == CAR).any()                      # and its "losing your job" the built-in job loss
         REJOB_ON = L.get("REJOB", -1) < 0                         # and its "a new job at last" the quiet return to work
         EV_KEEP = np.array([nm_ not in EV_DROP for nm_ in EV["names"]], float)
-        KL_ = KILLS >= 0; INNER_ = L["INNER"]; KCH_ = KILLS[KL_] == ROLES.index("child")
+        KL_ = KILLS >= 0; INNER_ = L["INNER"]
 
     # ---- titles and perks (after v7): roles others recognise, and what a person can do or has access to
     RON = BAT and bool(P["roles"]) and "ROLES" in L
@@ -1386,7 +1194,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         tries_ct = np.zeros((N, NI_), np.int8)
         TK_ = GR["tkind"]; KT_ = np.zeros((NT_, NK)); ck_ = TK_ < NK; KT_[np.nonzero(ck_)[0], TK_[ck_]] = 1.0
         ODD4 = 4.0 * GR["odds"]; INDP = GR["ind"][NT_:]; WAYS_ = GR["ways"]
-        PKIND_ = np.asarray(GR["pkind"]); CAREER_ = (np.asarray(GR["tkind"]) == 0).astype(float)   # v10: skills (0), standings (2); careers
         PW_, PN_, REF_ = GR["PW"], GR["PN"], GR["refines"]          # title profiles (colors) and facets (refines another title)
         REFM_ = GR["REFM"]                                          # items x titles: the titles a facet can sit on (any of them)
         _hm = GR.get("S_HOLDM"); _ht = GR.get("S_TEN")               # holds: (any of) and tenure: (point 6)
@@ -1395,13 +1202,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             _ht = np.full((L["S"], 2), np.nan)
         _tn = ~np.isnan(_ht[:, 0]); _hh = _hm.any(1)
         HOLDS_ = np.nonzero(_hh & ~_tn)[0]; HOLDM_ = _hm[HOLDS_].T.astype(np.float32)
-        HOLD_C = np.nonzero(HOLDM_.any(1))[0]; HOLDM_C = HOLDM_[HOLD_C]   # speed pass: the rows that can count (0/1 sums, exact)
         TENS_ = [(int(s_), np.nonzero(_hm[s_])[0], float(_ht[s_, 0]), float(_ht[s_, 1])) for s_ in np.nonzero(_hh & _tn)[0]]
-        if TENS_:   # speed pass: the tenure gates in one pass (each moment once; its titles side by side)
-            TEN_S = np.array([e_[0] for e_ in TENS_], int); TEN_I = np.concatenate([e_[1] for e_ in TENS_])
-            TEN_ST = np.cumsum([0] + [len(e_[1]) for e_ in TENS_[:-1]])
-            TEN_LO = np.concatenate([np.full(len(e_[1]), e_[2]) for e_ in TENS_])
-            TEN_HI = np.concatenate([np.full(len(e_[1]), e_[3]) for e_ in TENS_])
         f_pend = []                                                  # facets an act gave before their title came (newlywed, wedding week)
         PMASK_ = np.arange(PW_.shape[1])[None, :] < PN_[:, None]
         r_prof = np.zeros((N, NI_), int); r_drift = np.zeros((N, NI_), int)
@@ -1434,10 +1235,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if aa_ is None:   # N x K rows for the moments ss_
                 return np.where(AMS_[ss_] & (missed_t[:, None] >= 0), missed_t[:, None], base_)
             return np.where(AMS_[ss_, aa_] & (missed_t >= 0), missed_t, base_)
-        OW_ = RID.get("out of work", -1); SOLDIER_ = RID.get("soldier", -1); CALL_ = SIDX.get("the call to serve", -1); CAP_K = np.array([P["community_titles"] if kk_ == COM else 1 for kk_ in range(NK)])
+        OW_ = RID.get("out of work", -1); SOLDIER_ = RID.get("soldier", -1); CAP_K = np.array([P["community_titles"] if kk_ == COM else 1 for kk_ in range(NK)])
         ENGINE_GRANTED = {"widowed", "divorced", "retiree", "out of work", "newcomer", "veteran", "left the faith"}
         LZ_ = [i_ for i_ in range(NI_) if GR["rule"][i_]["lose"] is not None]
-        AGES_T = [tuple(r_) for r_ in GR["ages"]]   # speed pass: each title's ages unpacked once (the same numbers)
         BG = [i_ for i_ in range(NI_) if GR["names"][i_] not in ENGINE_GRANTED and
               not (i_ < NT_ and TK_[i_] < NK and GR["rule"][i_]["rate"] is None)]      # items with a background rule
         def r_rate(i_):
@@ -1450,7 +1250,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         role_log.append((int(n), t, int(i), what, how))
         if n in events:
             events[n].append(dict(role=dict(age=round(t / 52, 2), name=GR["names"][i], kind=GR["kindname"][i], what=what, how=how)))
-    WL = None                                             # the outer world's link (set below when the world is on)
     def r_lose(n, i, why, succ=-1):
         if not r_has[n, i] and not (i >= NT_ and p_acc[n, i - NT_]):
             return
@@ -1464,14 +1263,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if not MEM_K[i - NT_]:
                 p_lev[n, i - NT_] = 0.0                      # nothing left once access is gone (money spent, a bond broken)
         r_note(n, i, "lost", why)
-        if i == SOLDIER_ and (t - r_since[n, i] >= 104          # however the service ends, after two years or more,
-                              or (CALL_ >= 0 and t - r_since[n, i] >= 26 and sit_last[n, CALL_] >= r_since[n, i] - 8)):
-            r_give(n, "veteran", "served")                     # or a conscript's term of half a year or more (W39)
+        if i == SOLDIER_ and t - r_since[n, i] >= 104:          # however the service ends, after two years or more
+            r_give(n, "veteran", "served")
     def r_gain(n, i, how, mix=None):
         if r_has[n, i]:
             return
-        if P["title_ages"] and not (GR["ages"][i, 0] <= t / 52 <= GR["ages"][i, 1]):   # never outside the catalogue's ages
-            return                                           # (C-X4: Emren's sanity check; the act still works)
         if i < NT_ and REF_[i] >= 0 and not (REFM_[i] & r_has[n, :NT_]).any():
             f_pend.append((n, i, how, mix, t))               # a facet only on top of the title it refines: it waits a little
             return
@@ -1507,8 +1303,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if i in TH_TITLE and first_:                         # a rung of a pathway: its threshold season opens (once:
             sea_open(n, NS + i)                              # back to the same line of work is no new crossing)
         r_note(n, i, "gained", how)
-        if WL is not None:   # the world: a migrant's, refugee's or citizen's title moves the life between societies
-            WL.on_title(int(n), GR["names"][i])
         if i < NT_ and f_pend:                               # facets an act gave while waiting for this title come with it
             for e_ in [e_ for e_ in f_pend if e_[0] == n and REFM_[e_[1], i]]:
                 f_pend.remove(e_); r_gain(n, e_[1], e_[2], e_[3])
@@ -1553,9 +1347,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             wk_ = "practice"
         ind_ = GR["ind"][i_]
         if wk_ == "practice" and ind_.sum() > 0:
-            return np.exp(_uclip(1.5 * (5 * (hist_m @ ind_) / ind_.sum() - 1), -2, 2))
+            return np.exp(np.clip(1.5 * (5 * (hist_m @ ind_) / ind_.sum() - 1), -2, 2))
         if wk_ == "colors" and WAYS_[i_].sum() > 0:
-            return np.exp(_uclip(1.5 * (5 * fit_best(w, i_) - 1), -2, 2))
+            return np.exp(np.clip(1.5 * (5 * fit_best(w, i_) - 1), -2, 2))
         if wk_ == "money":
             return np.exp(3 * (res[:, MON] - 0.5))
         if wk_ == "ties":
@@ -1594,26 +1388,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return
         wt_ = np.array([GR["share"][i_] * GR["rule"][i_]["norm"] * (np.exp(min(3.0, 2 * (5 * float(fit_best(mix, i_)) - 1))) if WAYS_[i_].sum() > 0 else 1.0)
                         for i_ in ok_])
-        pick_ = ok_[int(rng.choice(len(ok_), p=wt_ / wt_.sum()))]
-        if ID2 and TROLE_ON and TROLE_[pick_] >= 0:   # N1b: a job the world reserves for the other sex, as they are expected,
-            # is closed by approval: taken only with closed_acc ^ units, else the person goes for another job (by weight)
-            rs_n = min(1.0, float(np.broadcast_to(RS0, (N,))[n]) + (0.0 if WON else 0.5) * faith_given[n] * I[n, FAI])
-            a_n = float(np.broadcast_to(AT0, (N,))[n]) if named_g[n] else 0.0
-            ex_n = np.zeros(2); ex_n[int(not female[n])] += 1 - a_n; ex_n[int(female[n])] += a_n if gender_self[n] == 1 else 0.0
-            tr_n = TROLE_[ok_]
-            f_ = P["closed_acc"] ** (P["role_k"] * rs_n * np.where(tr_n >= 0, ex_n[1 - _uclip(tr_n, 0, 1)], 0.0))
-            if ent_rng.random() >= f_[ok_.index(pick_)]:
-                rest_ = [j_ for j_, i_ in enumerate(ok_) if i_ != pick_ and f_[j_] >= 1.0]
-                if not rest_:
-                    return
-                w2_ = wt_[rest_]
-                pick_ = ok_[rest_[int(rng.choice(len(rest_), p=w2_ / w2_.sum()))]]
-        ac_ = GR["rule"][pick_].get("acc_move" if move else "acc_first", 1.0)   # a route that overfills a title (Library next3
-        if ac_ < 1 and ent_rng.random() >= ac_:                                # §3): the job comes without that title
-            return
-        r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
+        r_gain(n, ok_[int(rng.choice(len(ok_), p=wt_ / wt_.sum()))], "changed jobs" if move else "came with the " + KNAMES[kk])
 
-    HAD_IDX = {}
     def cond_ns(t, age, w):
         """The engine's condition vocabulary (batch.COND_VOCAB): one value per person."""
         def ys(x):
@@ -1622,9 +1398,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             j_ = MIDX[name]; ok_ = mark_last[:, j_] > NEVER // 2
             return ok_ if yrs is None else ok_ & ((t - mark_last[:, j_]) <= np.asarray(yrs) * 52 + 1e-9)
         def had(names_, yrs):
-            key_ = tuple(names_); idx_ = HAD_IDX.get(key_)   # speed pass: each list of names resolved once
-            if idx_ is None:
-                idx_ = HAD_IDX[key_] = [i_ for n_ in names_ for i_ in FAMILY.get(n_, [SIDX[n_]] if n_ in SIDX else [])]
+            idx_ = [i_ for n_ in names_ for i_ in FAMILY.get(n_, [SIDX[n_]] if n_ in SIDX else [])]
             return ((t - sit_last[:, idx_]) <= yrs * 52).any(1) if idx_ else np.zeros(N, bool)
         ns = dict(abs=np.abs, mk=mk, mk_ok=lambda name, yrs=None: mk(name, yrs) & mark_ok[:, MIDX[name]],
                   mkn=lambda name: mark_n[:, MIDX[name]], mk_span=lambda name: ys(mark_first[:, MIDX[name]]) * (mark_n[:, MIDX[name]] > 0),
@@ -1636,7 +1410,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   fails13=fails13, hedon_n=hedon_n, bodyhab_n=bodyhab_n, n_moves=n_moves, heavy_risk=heavy_risk, bind_m=bind_m,
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
-                  harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t])
+                  harsh=P["world_harsh"], unrest=P["world_unrest"], prosper=P["world_prosper"], era=era_i[t])
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):
@@ -1646,21 +1420,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             ns["ago_end_" + k_] = ys(end_t[:, i_])
         for i_, r_ in enumerate(ROLES[:4]):
             ns["alive_" + r_] = alive[:, i_]
-        ns["alive_child"] = alive[:, 5]                    # R15: living children (a child's death leaves the others)
-        ns["older_siblings"] = older_sib; ns["younger_siblings"] = younger_sib   # birth order (N4)
         for k_ in AGO:
             ns["ago_" + k_] = ys(ago[k_])
         ns.update(streak)
         ns["married"] = held[:, PAR] & (sit_last[:, SIDX["getting married"]] >= since[:, PAR]) if "getting married" in SIDX else np.zeros(N, bool)
         ns.update(female=female, male=~female, attr=attr, unease=unease)   # identity (point 11): sex, attraction 0-4, unease
-        if ID2:   # N1b (chroma-identity/for-the-engine.md §2)
-            rs_v, at_v, _ = role_view()
-            ns.update(trans=gender_self == 1, nonbinary=gender_self == 2, ace=ace, intersex=intersex, partner_same=partner_same,
-                      named_gender=named_g, cross_title=cross_title, role_fit=1 - rfit_avg, role_strict=rs_v, accept_trans=at_v)
-        else:
-            ns.update(trans=unease, nonbinary=np.zeros(N, bool), ace=ace, intersex=intersex, partner_same=np.zeros(N, bool),
-                      named_gender=np.zeros(N, bool), cross_title=np.zeros(N, bool), role_fit=np.ones(N),
-                      role_strict=np.zeros(N), accept_trans=np.full(N, 0.5))
         if RON:   # titles and perks: has('nurse'), was('soldier'), yrs_has('homeowner')
             ns["has"] = lambda nm: r_has[:, RID[nm]]; ns["was"] = lambda nm: r_ever[:, RID[nm]]
             ns["yrs_has"] = lambda nm: np.where(r_has[:, RID[nm]], (t - r_since[:, RID[nm]]) / 52, 0.0)
@@ -1674,33 +1438,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         ns.update({"is_" + nm_.replace(" ", "_"): adj[:, i_] for i_, nm_ in enumerate(ADJ_NAMES)})
         return ns
     def ev_cond(code, ns):
-        r_ = eval(code, EV_G, ns)
-        if type(r_) is np.ndarray and r_.shape == (N,):   # speed pass: the same copy, without broadcasting
-            return r_.astype(bool)
-        if isinstance(r_, (bool, np.bool_)):
-            return np.ones(N, bool) if r_ else np.zeros(N, bool)
-        return np.broadcast_to(np.asarray(r_), (N,)).astype(bool)
-    def ev_memo(code, ns, memo):
-        """Speed pass: ev_cond, reusing the answer of an equal condition already read with the same ns. Never for one
-        that draws chance (a fresh draw each time) or reads sa (set per echo)."""
-        if memo is None or "chance" in code.co_names or "sa" in code.co_names:
-            return ev_cond(code, ns)
-        r_ = memo.get(code)
-        if r_ is None:
-            r_ = memo[code] = ev_cond(code, ns)
-        return r_
-    def factor(c_, ns, memo=None):
+        return np.broadcast_to(np.asarray(eval(code, {"__builtins__": {}}, ns)), (N,)).astype(bool)
+    def factor(c_, ns):
         f_ = np.ones(N)
-        if not c_["more"] and not c_["less"]:   # speed pass: nothing to read, so 1 (as clip of ones gave)
-            return f_
         for cd in c_["more"]:
-            f_ = f_ * np.where(ev_memo(cd, ns, memo), P["cond_more"], 1.0)
+            f_ = f_ * np.where(ev_cond(cd, ns), P["cond_more"], 1.0)
         for cd in c_["less"]:
-            f_ = f_ * np.where(ev_memo(cd, ns, memo), P["cond_less"], 1.0)
-        return np.minimum(np.maximum(f_, 0.1), 6.0)   # speed pass: clip's own two steps, without its wrapper
+            f_ = f_ * np.where(ev_cond(cd, ns), P["cond_less"], 1.0)
+        return np.clip(f_, 0.1, 6.0)
 
     # threshold seasons (see season): which moments belong to which crossing, and each person's open season
-    TH_K = np.full(L["S"], -1); TH_STEP = np.zeros(L["S"], int); TH_TR = np.zeros(L["S"], bool); TH_P = np.ones(L["S"])
+    TH_K = np.full(L["S"], -1); TH_STEP = np.zeros(L["S"], int); TH_TR = np.zeros(L["S"], bool)
     for si_, x_ in enumerate(L.get("src", []) if BAT else []):
         th_ = str(x_.get("threshold") or "").strip()
         if not th_:
@@ -1717,17 +1465,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             raise ValueError(f"{L['names'][si_]}: threshold: {th_} is neither a life stage {STAGE_NAMES} nor title:<name>")
         TH_STEP[si_] = int(x_.get("step") or 1)
         TH_TR[si_] = str(x_.get("transform") or "").strip().lower() in ("yes", "true", "1")
-        if P["season_share"]:   # the share of lives its times: line gives ("perhaps 1 in 20", "about half"); else every season
-            tm_ = str((x_.get("timing") or {}).get("times") or x_.get("times") or "").lower()
-            m_ = re.search(r"\b1 in (\d+)", tm_)
-            TH_P[si_] = 1.0 / float(m_.group(1)) if m_ else 0.5 if "half" in tm_ else 1.0
     SEA_ON = bool(P["season"]) and bool((TH_K >= 0).any())
     TH_ANY = TH_K >= 0; TH_TITLE = {int(k_ - NS) for k_ in TH_K[TH_K >= NS]}
     sea_k = np.full(N, -1); sea_t0 = np.zeros(N, int); sea_done = np.zeros((N, 4), bool); sea_log = []   # steps 1-3, transform
     sea_had = np.zeros((N, NS), bool)                     # a stage's season comes once in a life
-    sea_rng = np.random.default_rng([int(seed), 79])       # season_share's draws, on their own stream
-    ent_rng = np.random.default_rng([int(seed), 80])       # a first job's or a job move's title acceptance (acc_first, acc_move)
-    far_rng = np.random.default_rng([int(seed), 81])       # whether one's own move is to a new town (far_share, E6)
     RETIRES_ = np.array([bool(x_.get("retires")) for x_ in L.get("src", [])] + [False] * (L["S"] - len(L.get("src", []))))
     ELD_ = STAGE_NAMES.index("elder")
     # retirement is the crossing into later life (the Library, 22:30): when the batch's elder season has a moment that
@@ -1810,45 +1551,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 A_MOVE[si_, ki_] = True
     AD_ON = bool((A_DEATH > 0).any()); AK_ON = bool((A_KILL != -1).any()); AKF_ON = bool((A_KILLF != -1).any())
     LACK_ON = bool((A_LACK < 1).any())
-    # N1b: each option's role (women, men, keep, cross; an act that grants a title marked role= counts as that sex's act),
-    # the options that name one's own gender (norm: transition, its mark, or came out in a moment only about gender), and
-    # the moments that read who someone is
-    IDC_ON = IDF_ON = TROLE_ON = False
-    if ID2 and BAT:
-        ROLE_ACT = np.array(L.get("ROLE_OPT", np.full((L["S"], L["K"]), -1)))
-        TROLE_ = np.asarray(GR.get("role", np.full(NT_, -1))) if RON else np.zeros(0, int)
-        TROLE_ON = bool((TROLE_ >= 0).any())
-        if TROLE_ON:
-            tr_ = GR["A_TITLE"]; tt_ = _uclip(tr_, 0, NT_ - 1)
-            ROLE_ACT = np.where((ROLE_ACT < 0) & (tr_ >= 0) & (tr_ < NT_), TROLE_[tt_], ROLE_ACT)
-        IDG = np.asarray(L.get("ID_GATE", np.zeros((L["S"], 4), bool)))
-        IDF_ON = bool(IDG.any())
-        COME_K = MIDX.get("came out", -1); NAMED_K = MIDX["named their gender"]
-        CO_SPLIT = np.where(IDG[:, 0] & ~IDG[:, 1], 1, np.where(IDG[:, 1] & ~IDG[:, 0], 2, 0))   # came out tells: 0 all, 1 gender, 2 attraction
-        TRANS_OPT = (L["MARK"] == NAMED_K) | ((L["MARK"] == COME_K) & (CO_SPLIT == 1)[:, None] & (COME_K >= 0))
-        if "W_NORM" in L and WKEYS is not None:
-            TRANS_OPT |= L["W_NORM"] == WKEYS.NORM_KEYS.index("transition")
-        # a moment open to either mark (came out, or named their gender: growing old without hiding again): its written
-        # closed: approval reads, for someone who named their own gender, how far the world accepts that (Library 10-07)
-        MKBOTH_ = np.zeros(L["S"], bool)
-        for c_ in L["COND"]:
-            if "'came out'" in c_["rtxt"] and "'named their gender'" in c_["rtxt"]:
-                MKBOTH_[c_["s"]] = True
-        OPENMK_ = MKBOTH_[:, None] & (np.asarray(L["CLOSED"]) == 1)   # 1: approval (batch.WITHOUT)
-        IDC_ON = bool(((ROLE_ACT >= 0) & (ROLE_ACT != 2)).any() or TRANS_OPT.any())
-        COND_S = {c_["s"] for c_ in L["COND"]}
-        INTIM_ = [int(x) for x in L.get("INTIM", [])]; BABY_ = SIDX.get("a baby on the way, planned or not", -1)
-        PSP_ = np.asarray(P["partner_same_p"], float)
-
-    def role_view():   # N1b: how strict the world is with each person, how far it accepts their own gender, which role it
-        # expects of them (women, men): the sex they were raised as, and once they have named their own gender, that one
-        # by the accepting share (a named nonbinary person's own gender carries no role, so that share expects nothing)
-        rs_ = np.minimum(1.0, RS0 + (0.0 if WON else 0.5) * faith_given * I[:, FAI])   # with the world on the faith's
-        # community is in the local norms already (outer world round 3, point 3)
-        at_ = np.broadcast_to(np.asarray(AT0, float), (N,)).copy()   # the setting's share, or each person's with the world on
-        a_ = np.where(named_g, at_, 0.0); bi_ = (~female).astype(int)
-        ex_ = np.zeros((N, 2)); ex_[ar, bi_] += 1 - a_; ex_[ar, 1 - bi_] += np.where(gender_self == 1, a_, 0.0)
-        return rs_, at_, ex_
 
     def die(n_, cause):   # the character's own death (self_death): the life is idle from now on
         if not dead[n_]:
@@ -1865,35 +1567,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sea_k[n_] = k_; sea_t0[n_] = t; sea_done[n_] = False
             sea_log.append((int(n_), t, int(k_)))
 
-    WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
-    CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
-    WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
-    if WON:
-        import world_link as WLM
-        WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
-        nic = np.array(WL.PP.niche, float); circle = nic.copy()
-        if getattr(WL.PP, "family_mix", None) is not None:
-            fam = np.array(WL.PP.family_mix, float)
-        older_sib = np.asarray(WL.PP.older_sib, int).copy(); younger_sib = np.asarray(WL.PP.younger_sib, int).copy()
-        alive[:, :5] = WL.PP.alive
-        era_at.clear()                                     # the world's own eras replace the engine's drawn history
-        W_WHO_ = L.get("W_WHO", [[] for _ in range(L["S"])])
-        if RON:
-            W_SEC_ = np.asarray(GR.get("sector", np.full(NT_, -1)))[:NT_]; W_STD_ = np.asarray(GR.get("standing", np.full(NT_, -1)))[:NT_]
-            W_GOV_ = [RID[x_] for x_ in ("minister", "head of government") if x_ in RID]; W_HOG_ = RID.get("head of government", -1)
-            W_SDI_ = np.nonzero(W_STD_ >= 0)[0]   # titles with a standing, and the domain each counts in (spec 7 §2)
-            _ins = np.asarray(GR.get("institution", np.full(NT_, -1)))[:NT_]; _sec = W_SEC_
-            W_SDOM_ = np.array([WLM.WK.DOMAINS.index(WLM.title_domain(GR["names"][i_], WLM.WK.INST_KINDS[_ins[i_]] if _ins[i_] >= 0 else None,
-                                                                     WLM.WK.SECTORS[_sec[i_]] if _sec[i_] >= 0 else None)) for i_ in W_SDI_], int)
-        KCHILD_ = KILLS == ROLES.index("child")
-        dq_ = np.zeros((N, 5), bool); dq_t = np.zeros((N, 5), np.int64)   # a cast death waiting for its moment (role, since)
-        clim_w = np.zeros(N); DIS_J_ = [j_ for j_, e_ in enumerate(EVR) if WLM.DIS_EVR.search(e_["name"])]
-        evr_ok = np.zeros((N, len(EVR)))   # a disaster's outside event comes again only after its shortest gap
-
-        def world_cast(lst_):   # the cast's events in the story: a push is reported once (world_push), and a want the
-            for e_ in lst_:     # moment met or refused once (cast_want)
-                if e_.get("n") in events and e_.get("kind") != "push" and not (e_.get("kind") == "want" and "worked" in e_):
-                    events[e_["n"]].append(dict(cast=e_))
     for t in range(T):
         age = t / 52.0
         z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
@@ -1901,54 +1574,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             w0_ = softmax(z); flat = (w0_.max(1) - w0_.min(1)) < P["min_spread"]
             if flat.any():
                 z[flat, w0_[flat].argmax(1)] += 0.1; z[flat] = centre(z[flat])
-        nk_ = held[:, KID] & ~kid_on                                  # R15: the first child, however the children came
-        alive[nk_, 5] = np.maximum(alive[nk_, 5], 1); kid_last[nk_] = t; kid_on = held[:, KID].copy()
-        kids = held[:, KID] & (t - since[:, KID] < 20 * 52) & ((alive[:, 5] > 0) | (not BAT))   # children still at home
+        kids = held[:, KID] & (t - since[:, KID] < 20 * 52)          # children still at home
         load = held * LOAD
         load[:, KID] = np.where(kids, LOAD[KID], 0.05 * held[:, KID])
-        res[:, TIM] = _uclip(1 - load.sum(1) - 0.3 * (stage == 0), 0.05, 1)
+        res[:, TIM] = np.clip(1 - load.sum(1) - 0.3 * (stage == 0), 0.05, 1)
         if RON:   # a title's own hours (a nurse's shifts, a councillor's evenings)
-            res[:, TIM] = _uclip(res[:, TIM] + r_has[:, :NT_] @ GR["meets_res"][:, TIM], 0.05, 1)
-        if WON and age >= 3:   # the world: the hours of one's own groups that no commitment counts (clubs, a movement)
-            res[:, TIM] = _uclip(res[:, TIM] + WL.group_time(held, COM, FAI), 0.05, 1)
-        if RON and MIS_ON and t % 52 == 0:   # v10: status held (summits, standings: hubris) and expertise by color (skills, careers)
-            hub_ = r_has[:, :NT_][:, TIER_[:NT_] == 2].sum(1) + 0.5 * r_has[:, NT_:][:, PKIND_ == 2].sum(1)
-            xp_ = (p_lev * (PKIND_ == 0)) @ WAYS_[NT_:] + np.minimum((t - r_since[:, :NT_]) / 520, 1) * r_has[:, :NT_] @ (WAYS_[:NT_] * CAREER_[:, None])
+            res[:, TIM] = np.clip(res[:, TIM] + r_has[:, :NT_] @ GR["meets_res"][:, TIM], 0.05, 1)
         w = softmax(z)
-        if WON:   # the world's week first: its society, the cast, settings and place of each life (they read last week's person)
-            if RON:   # the sector of the career held (sector= on careers) and the standing its titles give (standing=)
-                sec_w = np.where(r_has[:, :NT_] & (W_SEC_ >= 0), W_SEC_, -1).max(1)
-                st_w = np.where(r_has[:, :NT_] & (W_STD_ >= 0), W_STD_, 0).max(1)
-            if RON and len(W_SDI_):   # each domain's standing from the titles held (one level 0-3 per domain)
-                st_t_ = r_has[:, W_SDI_] * W_STD_[W_SDI_]
-                dst_w = np.stack([np.where(W_SDOM_ == d_, st_t_, 0).max(1) for d_ in range(len(WLM.WK.DOMAINS))], 1)
-            WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
-                            partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
-                            title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
-                            domain_standing=dst_w if RON and len(W_SDI_) else None,
-                            gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
-                            head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None))
-            for n_ in np.nonzero(WL.office_lost)[0]:   # W40: the government fell, and their office with it
-                for i_ in W_GOV_:
-                    r_lose(n_, i_, "the government fell")
-            ei_, ep_, ek_ = WL.era()
-            era_i[t], era_p[t], era_k[t] = ei_, ep_, ek_
-            if WL.W.era_key != getattr(WL, "_era_key", None):   # an era begins: everyone hears its message (4b)
-                WL._era_key = WL.W.era_key
-                if WL.W.era_key in COMBO_MIX:
-                    era_at[t] = (WL.W.era_key, ei_, ERA_KINDS[ek_])
-            drv_h = WL.harsh_n; drv_u = float(WL.W.unrest); drv_p = float(WL.W.prosper)
-            alive[:, :5] = WL.PP.alive
-            if ID2:   # how strict the people around each person are with the role expected, and how far they accept a named gender
-                RS0, AT0 = WL.role_norms()
-            clim_w = WL.climate()   # how hostile the place and one's people are to being out (replaces climate + faith)
-            if events:   # the world in the story (Emren 10:42): big public events always, the rest when they touch the character
-                # or their people; and the cast's own events (the birth, people entering, wants), from the first week on
-                for n_, lst_ in WL.story(list(events), dead).items():
-                    events[n_].extend(dict(world=e_) for e_ in lst_)
-                world_cast(WL.drain())
-            else:
-                WL.drain()
         if t % record_every == 0:
             W_hist.append(w.copy()); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
             R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
@@ -1961,7 +1593,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             V_hist["adj_v"].append(adj_v * ADJ_SIDE if adj_v is not None else np.full((N, NA_), np.nan))
             for nm_, v_ in (("fneed", f_need), ("mood", mood), ("stress", stress), ("cload", cload), ("tension", tension),
                             ("react", react), ("steady", steady), ("base_mood", base_mood), ("outlook", outlook), ("gap", gap_r),
-                            ("wound", wound), ("support", support), ("trouble", trouble), ("fortune", fortune), ("horizon", fhz), ("discipline", dsc), ("lvl", lvl), ("q_rel", q_rel), ("unmet", unmet), ("hope_w", hzf * unmet), ("threat", thr), ("scar", scar.sum(1))):
+                            ("wound", wound), ("support", support), ("trouble", trouble), ("fortune", fortune), ("horizon", fhz), ("discipline", dsc), ("lvl", lvl), ("q_rel", q_rel), ("unmet", unmet), ("hope_w", hzf * unmet)):
                 V_hist[nm_].append(np.broadcast_to(v_, (N,)).copy())
             V_hist["doors"].append(doors(nic, res)); A_src.append(asrc.astype(np.float32)); V_hist["chan"].append(chan.astype(np.float32))
             for kk_, nm_ in enumerate(("n_dream", "n_passion", "n_plan")):
@@ -1972,42 +1604,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             V_hist["n_perks"].append(r_has[:, NT_:].sum(1) if RON else np.zeros(N, int))
         if intervention is not None:
             y0_ = y.copy(); intervention(t, P, nic, y); asrc[:, 6] += y - y0_
-        if pausing:
-            _ = yield Pause("week", t, locals(), None)
         e_i, e_p = era_i[t], era_p[t]
-        f_w = P["world_pos_k"] * (np.asarray(WL.W.Pos, float) - 0.2) if WON else P["f_world"]   # what the order rewards
-        f_tot = f_w[None, :] + P["lam_local"] * (nic - 0.2) * (np.asarray(WL.PP.msg_w, float)[:, None] if WON else 1.0) \
-            + P["era_world"] * e_i * (e_p - 0.2)   # msg_w: how strongly one's groups and people pull (1 typical, spec 3 §1.4)
+        f_tot = P["f_world"][None, :] + P["lam_local"] * (nic - 0.2) + P["era_world"] * e_i * (e_p - 0.2)
         if age < 3:
             continue
         stress0 = stress.copy()                        # reactivity scales whatever adds stress this week
-        if BAT and not WON and t % 52 == 0 and age > 12:   # grandparents of grown children die outside the story (the Library writes it for childhood)
+        if BAT and t % 52 == 0 and age > 12:   # grandparents of grown children die outside the story (the Library writes it for childhood)
             alive[:, 3] = rng.binomial(alive[:, 3].astype(int), 1 - min(1, P["mort"][0] * np.exp(P["mort"][1] * (age + 55))))
         if BAT and t % 4 == 0:   # each month: which inner moments, echoes and life-event gates hold for each person
             alive[:, 4] = held[:, PAR]
             cond_hold += cond_ok * (stage >= 2)[:, None]; cond_n += (stage >= 2)
             back_ = (friend_back > NEVER // 2) & (t >= friend_back); alive[back_, 2] = 1; friend_back[back_] = NEVER
             ns = cond_ns(t, age, w)
-            memo_ = {}   # speed pass: within this month a condition's text gives the same answer (none draws chance here)
             for c_ in L["COND"]:
                 if c_["kind"] == 2:
                     continue
-                cond_ok[:, c_["s"]] = ev_memo(c_["req"], ns, memo_)
-                cond_fac[:, c_["s"]] = factor(c_, ns, memo_) * P["inner_w"] if c_["kind"] == 1 else factor(c_, ns, memo_)
-            if ID2:   # N1b: intimacy comes less often to an asexual person; a same-sex couple has a baby only as planned;
-                # an intersex person's own pregnancy or fathering is rarer (a moment without a condition starts from 1)
-                for si_ in INTIM_:
-                    cond_fac[:, si_] = (cond_fac[:, si_] if si_ in COND_S else 1.0) * np.where(ace, P["ace_intim"], 1.0)
-                if BABY_ >= 0:
-                    ok_ = ~(held[:, PAR] & partner_same) | ((gk == 2) & (gd == KID)).any(1)
-                    f_ = np.where(intersex, P["intersex_fert"], 1.0)
-                    if BABY_ in COND_S:
-                        cond_fac[:, BABY_] *= f_; cond_ok[:, BABY_] &= ok_
-                    else:
-                        cond_fac[:, BABY_] = f_ * ok_
+                cond_ok[:, c_["s"]] = ev_cond(c_["req"], ns)
+                cond_fac[:, c_["s"]] = factor(c_, ns) * (P["inner_w"] if c_["kind"] == 1 else 1.0)
             for e_, c_ in enumerate(ECH):
                 newa = (echo_anchor[:, e_] <= NEVER // 2) & ev_cond(c_["anchor"], ns)
-                if np.count_nonzero(newa):   # the clock starts; only some anchors ever come back (the rest just hold the slot a while)
+                if newa.any():   # the clock starts; only some anchors ever come back (the rest just hold the slot a while)
                     ii_ = np.nonzero(newa)[0]; lo_, hi_ = c_["delay"]
                     echo_anchor[ii_, e_] = t; echo_end[ii_, e_] = t + int((hi_ + 2) * 52)
                     echo_due[ii_, e_] = np.where(rng.random(len(ii_)) < P["echo_p"] * ECH_R[e_], t + rng.uniform(lo_, hi_, len(ii_)) * 52, 10 ** 9)
@@ -2015,7 +1631,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 echo_anchor[old_, e_] = NEVER
                 pend = (echo_anchor[:, e_] > NEVER // 2) & (t >= echo_due[:, e_])
                 echo_ready[:, e_] = False
-                if np.count_nonzero(pend):
+                if pend.any():
                     ns["sa"] = ys_ = np.where(pend, (t - echo_anchor[:, e_]) / 52, 0.0)
                     echo_ready[:, e_] = pend & ev_cond(c_["req"], ns)
                     echo_fac[:, e_] = factor(c_, ns)
@@ -2035,18 +1651,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if RON:   # a moment only someone holding a title or perk meets (a nurse's night shift): any of its holds:, and
                 # with tenure: only while one of them has been held that many years (Emren's point 6: new, settled, senior)
                 if HOLDS_.size:
-                    gate[:, HOLDS_] &= (r_has[:, HOLD_C].astype(np.float32) @ HOLDM_C) > 0
-                if TENS_:   # speed pass: the same test for every tenure moment at once (then the loop's last values)
-                    y_ = (t - r_since[:, TEN_I]) / 52
-                    gate[:, TEN_S] &= np.logical_or.reduceat(r_has[:, TEN_I] & (y_ >= TEN_LO) & (y_ <= TEN_HI), TEN_ST, axis=1)
-                    s_, ii_, lo_, hi_ = TENS_[-1]; y_ = (t - r_since[:, ii_]) / 52
+                    gate[:, HOLDS_] &= (r_has.astype(np.float32) @ HOLDM_) > 0
+                for s_, ii_, lo_, hi_ in TENS_:
+                    y_ = (t - r_since[:, ii_]) / 52
+                    gate[:, s_] &= (r_has[:, ii_] & (y_ >= lo_) & (y_ <= hi_)).any(1)
             if AQ_ON:   # v7: a moment that comes only to someone in a state (a wealthy person's advisor calls)
                 gate &= (L["ADJ_SREQ"] < 0)[None] | adj[:, np.maximum(L["ADJ_SREQ"], 0)]
-            if WON:   # a cast death this week (or one waiting for its moment) still opens its moment: the cast counted it already
-                dth_ = (WL.deaths()[:, :5] > 0) | dq_
-                gate[:, KL_] &= (alive[:, KILLS[KL_]] > 0) | np.concatenate([dth_, np.zeros((N, 1), bool)], 1)[:, KILLS[KL_]]
-            else:
-                gate[:, KL_] &= alive[:, KILLS[KL_]] > 0
+            gate[:, KL_] &= alive[:, KILLS[KL_]] > 0
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
             if SEA_ON:
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
@@ -2055,12 +1666,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         aff = np.exp(2.0 * (nic @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)
         if BAT:
             aff = aff * cond_fac
-        if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
-            mf_ = WL.moment_factor(age); aff = aff * mf_
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
-            gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
-            gapw_[:, GAPX_I] = _uclip(((t - sit_last[:, GAPX_I]) / 52 - GAPXLO_[:, GAPX_I]) / GAPXW_[:, GAPX_I], 0, 1)
+            gapw_ = np.where(GAPXM_[None], np.clip(((t - sit_last) / 52 - GAPXLO_) / GAPXW_, 0, 1), 1.0)
             aff = aff * gapw_
         seekE = 1.0
         if GON:   # v7: plans (and a little, passions) make people seek chances for them; a domain plan seeks its life events
@@ -2069,78 +1677,28 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if P["base_rates"]:
             # v6: life events come at their real yearly rates; every other week is ordinary life (an everyday situation)
             # the outside context moves each kind of event: family, resources, the era, the world
-            X = np.stack([held[:, PAR] + held[:, KID] + 0.5 * held[:, COM] - 1.0,
-                          (np.asarray(WL.PP.ties, float) if WON else res[:, TIE]) - 0.5, res[:, MON] - 0.5,
-                          res[:, HEA] - 0.5, np.full(N, era_i[t]), np.broadcast_to(drv_h, (N,)), np.full(N, drv_u),
-                          np.full(N, drv_p), held[:, COM] * I[:, COM] + (np.asarray(WL.PP.community, float) if WON else 0.0),
-                          _uclip(stress - 0.5, -0.5, 1.0), np.minimum(trouble, 2.0), np.minimum(fortune, 2.0)], 1)
-            if GAPON_:   # the Library's gap: lo-hi (speed pass: each column computed once, by the rule that keeps it)
-                refr = np.empty(ev_last.shape)
-                refr[:, GAPN_I] = 1 - np.exp(-(t - ev_last[:, GAPN_I]) / (52 * P["ev_refr"]))
-                refr[:, GAPM_I] = _uclip(((t - ev_last[:, GAPM_I]) / 52 - GAPLO_[:, GAPM_I]) / GAPW_[:, GAPM_I], 0, 1)
-            else:
-                refr = 1 - np.exp(-(t - ev_last) / (52 * P["ev_refr"]))
-            xd_ = np.exp(X @ DRV.T)   # speed pass: computed once, used twice (the same numbers)
-            ev_p = PERY[:, stage].T * avail * P["event_scale"] / 52 * ev_pm * xd_ * refr * seekE   # N,S
+            X = np.stack([held[:, PAR] + held[:, KID] + 0.5 * held[:, COM] - 1.0, res[:, TIE] - 0.5, res[:, MON] - 0.5,
+                          res[:, HEA] - 0.5, np.full(N, era_i[t]), np.full(N, P["world_harsh"]), np.full(N, P["world_unrest"]),
+                          np.full(N, P["world_prosper"]), held[:, COM] * I[:, COM], np.clip(stress - 0.5, -0.5, 1.0),
+                          np.minimum(trouble, 2.0), np.minimum(fortune, 2.0)], 1)
+            refr = 1 - np.exp(-(t - ev_last) / (52 * P["ev_refr"]))
+            if GAPON_:   # the Library's gap: lo-hi
+                refr = np.where(GAPM_[None], np.clip(((t - ev_last) / 52 - GAPLO_) / GAPW_, 0, 1), refr)
+            ev_p = PERY[:, stage].T * avail * P["event_scale"] / 52 * ev_pm * np.exp(X @ DRV.T) * refr * seekE   # N,S
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
-                drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
+                drv_sum += (np.exp(X @ DRV.T) * el_).sum(0); drv_cnt += el_.sum(0)
             if BAT:
                 ev_p = ev_p * cond_fac             # the engine's likelier / rarer reading of a life event (1 when it has none)
             if BAT:   # deaths come at the rate of the age of those still alive (engine-owned; the Library's window still gates)
-                qd_ = np.repeat(np.minimum(1, P["mort"][0] * np.exp(P["mort"][1] * (age + KILL_OFF[KILLS[KL_]])))[None], N, 0)
-                if KCH_.any():   # R15: the children's own ages (the first child's years, less a little for the younger ones)
-                    ca_ = np.maximum((t - since[:, KID]) / 52 - 1.5, 0)
-                    qc_ = np.maximum(P["mort"][0] * np.exp(P["mort"][1] * ca_), P["kid_mort"]) + P["infant_mort"] * (t - kid_last < 52)
-                    qd_[:, KCH_] = np.minimum(qc_, 1)[:, None]
-                ev_p[:, KL_] = ((1 - (1 - qd_) ** alive[:, KILLS[KL_]]) * avail[:, KL_] * P["event_scale"] / 52 * ev_pm[:, KL_]
+                qd_ = np.minimum(1, P["mort"][0] * np.exp(P["mort"][1] * (age + KILL_OFF[KILLS[KL_]])))
+                ev_p[:, KL_] = ((1 - (1 - qd_)[None] ** alive[:, KILLS[KL_]]) * avail[:, KL_] * P["event_scale"] / 52 * ev_pm[:, KL_]
                                 * np.exp(X @ DRV[KL_].T) * refr[:, KL_])
-                if KCH_.any() and P["child_norm"]:   # C-X5: each child at their own age (the first child's years, each later
-                    kc_ = np.nonzero(KL_)[0][KCH_]   # one about child_gap younger), a baby's first year once, and not raised by
-                    a1_ = (t - since[:, KID]) / 52; nk_ = alive[:, KILLS[kc_[0]]]   # the event scale or one's spread (the
-                    sv_ = 1 - P["infant_mort"] * (t - kid_last < 52)                # drivers still choose whose child)
-                    for j_ in range(int(nk_.max(initial=0))):
-                        q_ = np.maximum(P["child_mort"] * np.exp(P["mort"][1] * np.maximum(a1_ - P["child_gap"] * j_, 0)), P["kid_mort"])
-                        sv_ = sv_ * np.where(nk_ > j_, 1 - np.minimum(q_, 1), 1.0)
-                    ev_p[:, kc_] = ((1 - sv_) * (nk_ > 0))[:, None] * avail[:, kc_] / 52 * np.exp(X @ DRV[kc_].T) * refr[:, kc_]
-            if WON:   # the world: each life event's rate by season, place, medicine and war (W.rate_mult), gated as above;
-                # the world's own events, a cast member's ripe want and a death in the cast bring their moments (the
-                # cast's deaths replace the engine's draw of them, but a child's, which the engine still keeps)
-                ev_p = ev_p * WL.rate_factor(sec_w if RON else np.full(N, -1)) * mf_ * WL.channel_rates()   # and contagion, move wish
-                ev_p[:, KL_ & ~KCHILD_] = 0.0
-                frc_ = WL.fire_now.copy(); fdd_ = np.zeros_like(frc_); dfr_ = []
-                for r_ in range(5):
-                    for n in np.nonzero(dth_[:, r_])[0]:
-                        ks_ = np.nonzero((KILLS == r_) & avail[n])[0]
-                        si_ = int(ks_[WL.PP.rng.integers(len(ks_))]) if len(ks_) else -1
-                        if si_ >= 0:
-                            frc_[n, si_] = True; fdd_[n, si_] = True
-                        dfr_.append((int(n), r_, si_))
-                frc_ &= avail; fdd_ &= avail
             fire = rng.random(ev_p.shape) < ev_p
-            if WON:
-                fire |= frc_
             if dead.any():
                 fire &= ~dead[:, None]
             had_ev = fire.any(1)
-            s_ev = np.argmax(np.where(fire, rng.random(ev_p.shape) + (2.0 * frc_ + 1.0 * fdd_ if WON else 0.0), -1.0), 1)
-            if WON:   # a death in the cast brings its moment (first among the world's moments); if none is open, it waits up
-                # to eight weeks for one, and only then grieves without it
-                for n, r_, si_ in dfr_:
-                    if si_ >= 0 and had_ev[n] and s_ev[n] == si_ and not dead[n]:
-                        dq_[n, r_] = False
-                        continue
-                    if not dq_[n, r_]:
-                        dq_[n, r_] = True; dq_t[n, r_] = t
-                    if not dead[n] and t - dq_t[n, r_] < 8:
-                        continue
-                    dq_[n, r_] = False
-                    need[n, NIDX["belonging"]] -= KILL_HIT[r_, 0]; stress[n] += KILL_HIT[r_, 1]
-                    hz_mem[n] += P["hz_remind"] * HZ_ROLE[r_]; ago["death"][n] = t; ago["loss"][n] = t
-                    if r_ == ROLES.index("partner") and held[n, PAR]:
-                        widowed[n] = True; end([n], [PAR], "widowed", t)
-                    if n in events:
-                        events[n].append(dict(death=dict(age=round(age, 2), role=ROLES[r_], left=int(WL.PP.alive[n, r_]))))
+            s_ev = np.argmax(np.where(fire, rng.random(ev_p.shape), -1.0), 1)
             ev_last[had_ev, s_ev[had_ev]] = t
             if P["ev_gap"]:   # a child version and its original are one event: the pause covers both
                 for n in np.nonzero(had_ev & HASFAM_[s_ev])[0]:
@@ -2169,9 +1727,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 tot_ = open_e.sum(1)
                 reg_ = aff_d * ROUT_[None]; oth_ = (aff_d - reg_) / np.maximum(tot_, 1e-12)[:, None]
                 oth_ = oth_ / np.maximum(oth_.sum(1, keepdims=True), 1.0)
-                gx_ = np.ones(sit_last.shape, bool)   # speed pass: tested on the gapped moments' columns only
-                gx_[:, GAPX_I] = (t - sit_last[:, GAPX_I]) / 52 >= GAPXLO_[:, GAPX_I]
-                re_ = open_e * ROUT_[None] * gx_   # never inside its gap's lo
+                re_ = open_e * ROUT_[None] * np.where(GAPXM_[None], (t - sit_last) / 52 >= GAPXLO_, True)   # never inside its gap's lo
                 rs_ = reg_.sum(1, keepdims=True); rse_ = re_.sum(1, keepdims=True)
                 gf_ = P["gap_fill"]   # the freed weeks spread over the routine by its weight before (gf) and after its own pauses
                 fw_ = gf_ * re_ / np.maximum(rse_, 1e-300) + (1 - gf_) * np.where(rs_ > 0, reg_ / np.maximum(rs_, 1e-300), re_ / np.maximum(rse_, 1e-300))
@@ -2181,8 +1737,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff = np.where(aff_d.sum(1, keepdims=True) > 0, aff_d, np.where(aff_e.sum(1, keepdims=True) > 0, aff_e, aff))
         aff /= aff.sum(1, keepdims=True)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
-        if pausing:
-            s = yield Pause("situation", t, locals(), s)
         if P["base_rates"]:
             s = np.where(had_ev, s_ev, s)
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event
@@ -2230,8 +1784,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         c_ = cr_
                     elif held[n, CAR]:
                         end([n], [CAR], "retired", t); ret_pend[n] = -1
-                if len(c_) and P["season_share"]:   # each step moment comes to its share of lives (Library next3 §4): a
-                    c_ = c_[sea_rng.random(len(c_)) < TH_P[c_]]   # step none of whose moments comes passes as an ordinary week
                 if len(c_):
                     wt_ = np.exp(2.0 * (nic[n] @ L["ALPHA"][c_].T)) * RATE[c_]
                     s[n] = c_[rng.choice(len(c_), p=wt_ / wt_.sum())]
@@ -2240,10 +1792,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     sea_k[n] = -1
         # a commitment that no longer fits what the person wants, and keeps disappointing, comes up for reconsideration
         a_now = softmax(y)
-        misfit = _uclip(1 - 5 * (prof * a_now[:, None, :]).sum(-1), 0, 1)   # wanting what it stands for less than an even share
+        misfit = np.clip(1 - 5 * (prof * a_now[:, None, :]).sum(-1), 0, 1)   # wanting what it stands for less than an even share
         p_re = held * P["recon_p"] * (1 - sat) * (1 + 3 * misfit) * (stage >= 2)[:, None]   # children cannot walk away
-        mf_ = np.where(held, misfit, -1.0) if P["recon_held"] else misfit   # (the game's family check: a partner left twice)
-        p_re = np.where(force_re[:, None] & (mf_ > P["clash_off"]) & (mf_ >= mf_.max(1, keepdims=True)), 1.0, p_re)
+        p_re = np.where(force_re[:, None] & (misfit > P["clash_off"]) & (misfit >= misfit.max(1, keepdims=True)), 1.0, p_re)
         force_re[:] = False
         hit = rng.random((N, NK)) < p_re
         rk = np.where(hit.any(1), np.argmax(np.where(hit, p_re, -1.0), 1), -1)
@@ -2291,7 +1842,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     + P["try_lift"] * np.minimum(tries_ct[rw_[:, None], ai_], P["try_max"])   # earlier tries at it
                 if P["base_rates"]:   # the context that opens this moment's window (driver words), good times or bad
                     wr_ = L["WINDOW_REF"][s[rw_]]
-                    er_ = er_ + P["window_lift"] * _uclip((X[rw_] * L["WINDOW"][s[rw_]]).sum(1) / np.maximum(wr_, 1e-9), -1, 1)[:, None]
+                    er_ = er_ + P["window_lift"] * np.clip((X[rw_] * L["WINDOW"][s[rw_]]).sum(1) / np.maximum(wr_, 1e-9), -1, 1)[:, None]
                 earn = np.zeros((N, L["K"])); earn[rw_] = er_ * (at_[rw_] >= 0) * GR["LIFT"][ai_]
         if AQ_ON:   # v7: an act that needs a state the person is not in (wealthy, fit): not offered, or closed by means
             aq_ = L["ADJ_REQ"][s]
@@ -2302,32 +1853,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 closed_s = np.where(un_ & (wk_ < 3) & (closed_s < 0), wk_, closed_s)
                 if LACK_ON:
                     lackf = lackf * np.where(un_, A_LACK[s], 1.0)
-        if BAT and CLU_ON:
-            clu_ = (closed_s >= 0).astype(float)
-        if BAT and IDC_ON:   # N1b: crossing the role the world expects, or naming one's own gender, is closed by approval as
-            # strongly as the world frowns on it (in units of a written closed: approval; where one is written, the larger)
-            rs_w, at_w, ex_w = role_view()
-            ra_ = ROLE_ACT[s]; rc_ = _uclip(ra_, 0, 1)
-            cw_ = np.where(ra_ == 3, 1.0, np.where(ra_ < 2, np.take_along_axis(ex_w, 1 - rc_, 1), 0.0)) * (ra_ >= 0)
-            u_ = P["role_k"] * rs_w[:, None] * cw_ * np.where(~female & (age < 13), P["role_boys"], 1.0)[:, None]
-            u_ = np.maximum(u_, (TRANS_OPT[s] | (OPENMK_[s] & named_g[:, None])) * 2.0 * (1 - at_w)[:, None])
-            clu_ = np.where(closed_s >= 0, np.maximum(1.0, u_), u_)
-            closed_s = np.where((closed_s < 0) & (u_ > 0), 1, closed_s)
-        if BAT and WON:   # the world's law, norms and technology (world-fields.md): a written closed: law opens where the law
-            # allows it; an option with law: is closed by the law where it is (banned 1 unit, restricted half); norm: costs
-            # 2 x (1 - acceptance) units of approval; tech: is not offered without the technology, and closed by means as
-            # far as the person's class lacks it
-            ul_, lo_, ua_, um_, gone_ = WL.closures(s, partner_same if ID2 else np.zeros(N, bool), age)
-            op_ = lo_ & (closed_s == 0)
-            clu_ = np.where(op_, 0.0, clu_); closed_s = np.where(op_, -1, closed_s)
-            for kd_, u2_ in ((0, ul_), (1, ua_), (2, um_)):
-                closed_s = np.where((closed_s < 0) & (u2_ > 0), kd_, closed_s)
-                clu_ = np.maximum(clu_, u2_)
-            mask = mask & ~gone_
-            diff = diff + WL.odds(s)   # finding work by local unemployment, education by places, treatment by hospitals
-        if BAT and CLU_ON:
-            diff = diff + P["closed_diff"] * clu_
-        elif BAT:   # closed by law, approval or means: still pickable, but harder
+        if BAT:   # closed by law, approval or means: still pickable, but harder
             diff = diff + P["closed_diff"] * (closed_s >= 0)
 
         if t == 6 * 52:                                      # raised in a faith: the family's, not a choice
@@ -2341,7 +1867,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- v7: how far each option of this week's situation serves each goal (fit with its ways, or a step into its domain)
         if GON:
-            cf = _uclip((5 * np.einsum("nkc,ngc->ngk", m, gm) - 1) / 2, 0, 1)
+            cf = np.clip((5 * np.einsum("nkc,ngc->ngk", m, gm) - 1) / 2, 0, 1)
             dstep = (gd[:, :, None] >= 0) & (L["COMMIT"][s][:, None, :] == gd[:, :, None])
             rel = np.where(((gk == 2) & (gd >= 0))[:, :, None], np.maximum(dstep * (0.5 + 0.5 * cf), 0.5 * cf), cf)
             rel = rel * (mask & ~do_nothing)[:, None, :] * (gk >= 0)[:, :, None]
@@ -2366,28 +1892,16 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # how the world around them pushes, so felt odds spread like the true ones (the rest stays a misread)
         read_ = P["read_moment"][0] + P["read_moment"][1] * M / (M + P["M0"])
         mom_ = np.einsum("nkc,nc->nk", m, f_tot) + P["fit"] * np.einsum("nkc,nc->nk", m, alpha - alpha.mean(1, keepdims=True))
-        # v10 interpretation: threat focus follows where the deep core sits on security vs freedom, hard times and reactivity
-        thr += (1 / (1 + np.exp(-(P["thr0"] + P["thr_axis"] * 5 * (softmax(k) @ AXSEC) + P["thr_hist"] * (wound + 0.5 * trouble)
-                                  + P["thr_react"] * (react - 1)))) - thr) / (52 * P["thr_lag"])
-        if MIS_ON:   # how the person misreads the odds (felt odds only): focus, memories, scars, mood, status; expertise shrinks it
-            mis_ = (P["mis_focus"] * (0.5 - thr) + P["mis_mood"] * mood + P["mis_status"] * hub_)[:, None] \
-                + np.einsum("nkc,nc->nk", m, P["mis_mem"] * mem_rel() - P["mis_scar"] * scar)
-            if P["mis_expert"]:
-                mis_ = mis_ / (1 + P["mis_expert"] * np.minimum(np.einsum("nkc,nc->nk", m, xp_), 3))
-        else:
-            mis_ = 0.0
         p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + read_[:, None] * mom_ - diff)
-                                        + TON * P["o_bias"] * (outlook - P["o_ref"])[:, None] + pbump + mis_, earn)))   # outlook: optimism or pessimism
+                                        + TON * P["o_bias"] * (outlook - P["o_ref"])[:, None] + pbump, earn)))   # outlook: optimism or pessimism
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
         serves = np.einsum("jc,nkc->nkj", NMAP, np.maximum(e, 0))            # needs each option meets
         relief = np.einsum("nj,nkj->nk", lack, serves) * p_hat
         # gate 1, the world: is the option open to this person at all?
-        acc = _uclip(P["access_base"] + P["access_k"] * (np.einsum("nkc,nc->nk", m, nic) - 0.2), 0.05, 1.0)
-        if BAT and CLU_ON:
-            acc = acc * P["closed_acc"] ** clu_
-        elif BAT:
+        acc = np.clip(P["access_base"] + P["access_k"] * (np.einsum("nkc,nc->nk", m, nic) - 0.2), 0.05, 1.0)
+        if BAT:
             acc = np.where(closed_s >= 0, acc * P["closed_acc"], acc)
         req = L["REQ"][s]                                    # what each option needs: money, time, health, ties, freedom
         rg = np.where(req > 0, 1 / (1 + np.exp(-P["req_g"] * (res[:, None, :] - req))), 1.0).prod(-1)
@@ -2396,7 +1910,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # gate 2, the mindset: is an open option even considered? (fit with the deep core)
         kw = softmax(k)
         # v6 (Fredrickson 2001): a good mood widens what a person considers, a bad one narrows it to their usual ways
-        ng = P["notice_g"] * (1 - P["broaden"] * _uclip(2 * (content - 0.5) + mood, -1, 1))
+        ng = P["notice_g"] * (1 - P["broaden"] * np.clip(2 * (content - 0.5) + mood, -1, 1))
         see = 1 / (1 + np.exp(-(P["notice_b"] + ng[:, None] * (5 * np.einsum("nkc,nc->nk", m, kw) - 1) + gN)))   # v7: goals draw the eye
         seen = open_ & ((rng.random(mask.shape) < see) | do_nothing)
         # gate 3, wanting versus pull: reflective (aspiration, odds) vs automatic (motives, habit)
@@ -2410,8 +1924,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         role = np.einsum("nk,nko->no", DW, 5 * np.einsum("nkc,noc->nko", prof, m) - 1)
         U_R = U_R + P["beta_role"] * role; U_I = U_I + P["beta_role"] * role
         U_R = U_R + gU_R; U_I = U_I + gU_I                   # v7: dreams, passions and plans
-        if P["scar_pull"]:                                   # v10: never again, in the ways of a scar
-            scU = P["scar_pull"] * np.einsum("nkc,nc->nk", m, scar); U_R = U_R - scU; U_I = U_I - scU
         if P["hz_k"]:                                        # v7: with time felt short, closeness, care and the familiar weigh more
             hzU = P["hz_k"] * fhz[:, None] * np.einsum("nkc,c->nk", 0.5 * (m + e), HZT)   # in its ways and for its ends
             U_R = U_R + hzU; U_I = U_I + hzU
@@ -2420,17 +1932,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             xc = P["beta_exit"] * EXITW[rkk] * I[ri, rkk] * (0.5 + 0.5 * built)   # sunk cost: leaving betrays that self
             U_R[ri, 2] += -xc + P["beta_A"] * 3 * misfit[ri, rkk]
             U_I[ri, 2] += -xc
-        if WON:   # the world: felt reach makes voice and organising at institutions and the state feel worth it (spec 7 §6)
-            rU_ = WL.reach_pull(s); U_R = U_R + rU_; U_I = U_I + rU_
-        ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
-                          * _uclip(1 + P["peace_ctrl"] * (peace - 0.55), 0.5, 1.3))     # a calm mind steers better
+        ctrl = np.minimum(1, CTRL[stage] * dsc * np.clip(1 - P["ctrl_stress"] * stress, 0.05, 1)
+                          * np.clip(1 + P["peace_ctrl"] * (peace - 0.55), 0.5, 1.3))     # a calm mind steers better
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = softmax(np.where(seen, U / tau[:, None], -np.inf))
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
-        if pausing:
-            a = yield Pause("choose", t, locals(), a)
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
         best = UR_.argmax(1); has = np.isfinite(UR_.max(1))
@@ -2441,8 +1949,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         big_gap = 0.5 * np.abs(softmax(y) - w).sum(1) > 0.1; hi_s = stress > 1
         ma = m[ar, a]; ea = e[ar, a]; ea0 = e0[ar, a]; da = diff[ar, a]; ph = p_hat[ar, a]
         idle = do_nothing[ar, a] | dead                 # a life that has ended does nothing
-        if BAT and IDC_ON:   # N1b: how far this week's act crossed the role expected of them (role_fit, the game's frown)
-            act_cw = cw_[ar, a] * ~idle
         blocked += has & lost_open
 
         # ---- 3. outcome vs expectation
@@ -2462,8 +1968,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 tk_ = GR["A_EARN"][s] >= 0
                 np.add.at(earn_sum, s, (earn * tk_).sum(1) / np.maximum(tk_.sum(1), 1)); np.add.at(earn_cnt, s, tk_.any(1).astype(float))
             np.add.at(pk_sum, s, np.where(mask, pk_, 0.0)); np.add.at(pk_cnt, s, mask.astype(float))   # open to them
-        if pausing:
-            p_true = yield Pause("odds", t, locals(), p_true)
         succ = rng.random(N) < p_true
         long_miss = (~succ & ~idle & ~recon & (p_true < P["long_shot"]) & (LONGT_[s, a] | (missed_at(GR["A_TITLE"][s, a], s, a) >= 0))
                      ) if RON else np.zeros(N, bool)
@@ -2478,24 +1982,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                      has & ~open_r[ar, best], has & open_r[ar, best] & ~open_n[ar, best]], 1).astype(float))
         r = np.where(succ, 1.0, -P["loss"]) * stakes
         delta = np.where(idle, 0.0, r - (ph - (1 - ph) * P["loss"]) * stakes)
-        if pausing:
-            delta = yield Pause("learn", t, locals(), delta)
-        appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
-        fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
-        ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
         sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
-        # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
-        mem_s = mem_s * DMS_ + (stakes * succ)[:, None] * ma * act_
-        mem_f = mem_f * DMF_ + (stakes * ~succ)[:, None] * ma * act_
-        if P["scar_k"]:   # a failure at high stakes can leave a never-again scar in its ways; support heals it faster
-            sc_ = ~succ & ~idle & (stakes >= P["scar_min"])
-            scar += P["scar_k"] * (stakes * sc_)[:, None] * ma * (1 - scar)
-            scar *= 0.5 ** ((1 + support)[:, None] / (52 * P["scar_half"]))
 
         held_wk = held.copy()
         # ---- 3b. resources and commitments (v4)
@@ -2503,13 +1995,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         ck = L["COMMIT"][s, a]
         cp_ = CP[np.maximum(ck, 0)]
         if BAT:   # a batch life event that starts a commitment is the match itself (falling in love, a child is born)
-            cp_ = np.where((L["TIER"][s] == 1) & ((ck == CAR) | (ck == PAR) | (ck == KID) | (ck == COM)), 1.0, cp_)
+            cp_ = np.where((L["TIER"][s] == 1) & np.isin(ck, (CAR, PAR, KID, COM)), 1.0, cp_)
         fi = np.nonzero((ck >= 0) & succ & ~idle & ~recon & (rng.random(N) < cp_))[0]
-        fk = ck[fi]; new = ~held[fi, fk]
-        if BAT:   # R15: a later child born (or taken in) while there are children already is one more living child
-            kb_ = (ck == KID) & succ & ~idle & ~recon & (L["TIER"][s] == 1) & kid_on
-            alive[kb_, 5] += 1; kid_last[kb_] = t
-        fi, fk = fi[new], fk[new]
+        fk = ck[fi]; new = ~held[fi, fk]; fi, fk = fi[new], fk[new]
         held[fi, fk] = True; I[fi, fk] = 0.2; sat[fi, fk] = 0.6; since[fi, fk] = t
         # what a commitment expects of you: partly the way you entered it, partly who you were then, partly the
         # people and place it belongs to (a job or a partner brings their own ways)
@@ -2522,7 +2010,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # living a commitment: its own situations shape satisfaction and strength; holding it is an investment
         upd = (L["DOM"][s] >= 0.7) & held & (~idle)[:, None] & ~recon[:, None]
         sat = np.where(upd, sat + 0.05 * (succ[:, None] - sat), sat)
-        I = np.where(upd, _uclip(I + np.where(succ[:, None], 0.02, -0.02), 0.05, 1), I)
+        I = np.where(upd, np.clip(I + np.where(succ[:, None], 0.02, -0.02), 0.05, 1), I)
         grow_ = held.copy()
         if age < P["faith_own_age"]:
             grow_[:, FAI] &= ~faith_given                   # the family's faith, not yet one's own
@@ -2533,7 +2021,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             rs = ri[sel & ok]
             dy_ = P["rationalise"] * (centre(np.log(prof[rs, rkk[sel & ok]] + 0.02)) - y[rs])
             y[rs] += dy_; asrc[rs, 5] += dy_
-            I[ri[sel], rkk[sel]] = _uclip(I[ri[sel], rkk[sel]] + np.where(ok[sel], 0.15, -0.05), 0.05, 1)
+            I[ri[sel], rkk[sel]] = np.clip(I[ri[sel], rkk[sel]] + np.where(ok[sel], 0.15, -0.05), 0.05, 1)
             sat[ri[sel & ok], rkk[sel & ok]] = 0.7
             sel = (ch == 1) & ok                             # reshape it toward the want
             prof[ri[sel], rkk[sel]] = 0.6 * prof[ri[sel], rkk[sel]] + 0.4 * m[ri[sel], 1]; sat[ri[sel], rkk[sel]] = 0.6
@@ -2548,7 +2036,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             ra_, rh_ = np.asarray(P["retire_hz"], float).T
             mx_ = P["retire_means"] * (1.0 if age < P["retire_age"] else 1 / 3)
             h_ = (np.interp(age, ra_, rh_) * np.exp(P["retire_health"] * (0.7 - res[:, HEA]))
-                  * _uclip(res[:, MON] / 0.2, 0.25, 4.0) ** mx_ * (1 + P["retire_misfit"] * misfit[:, CAR]))
+                  * np.clip(res[:, MON] / 0.2, 0.25, 4.0) ** mx_ * (1 + P["retire_misfit"] * misfit[:, CAR]))
             ret = held[:, CAR] & (rng.random(N) < h_ / 52)
         if RET_SEA:   # retiring opens the later-life season, whose first step is the last day at work
             ret = ret & (ret_pend < 0)
@@ -2562,7 +2050,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if P["faith_drift"] is not None and age >= P["faith_own_age"]:   # a faith or cause that quietly stops mattering
             fa_, fh_ = np.asarray(P["faith_drift"], float).T
             hf_ = (np.interp(age, fa_, fh_) * np.exp(P["faith_tilt_k"] * ((w - 1 / C) @ np.asarray(P["faith_tilt"], float)))
-                   * _uclip(1.2 - I[:, FAI], 0.1, 1.2))
+                   * np.clip(1.2 - I[:, FAI], 0.1, 1.2))
             dr_ = held[:, FAI] & ~recon & (rng.random(N) < hf_ / 52)
             drift_now[:] = dr_
             end(np.nonzero(dr_)[0], [FAI] * int(dr_.sum()), "left", t)
@@ -2574,19 +2062,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # resources drift toward what a life's commitments and age provide
         mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + 0.3 * pension - 0.12 * kids
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
-        ht = _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1)
+        ht = np.clip(1 - 0.012 * max(0.0, age - 35), 0.2, 1)
         ft = FREE_STAGE[stage] - 0.1 * kids - 0.05 * held[:, PAR]
         if RON:   # a title's own resources: a nurse's pay, the freedom a record takes
             tr_ = (r_has[:, :NT_] * np.where(TK_ < NK, 0.4 + 0.6 * I[:, np.minimum(TK_, NK - 1)], 1.0)) @ GR["meets_res"]
             mt = mt + tr_[:, MON]; tt = tt + tr_[:, TIE]; ht = ht + tr_[:, HEA]; ft = ft + tr_[:, FRE]
-        if WON:   # the world: rents, prices, the welfare floor, rights (package §5, Resources)
-            wm_, wf_ = WL.resources(held[:, CAR]); mt = mt + wm_; ft = ft + wf_
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
-        res = _uclip(res, 0, 1)
+        res = np.clip(res, 0, 1)
         # clash: holding a commitment that no longer fits what you want. It costs stress until it is resolved
-        mis = _uclip(1 - 5 * (prof * softmax(y)[:, None, :]).sum(-1), 0, 1)
+        mis = np.clip(1 - 5 * (prof * softmax(y)[:, None, :]).sum(-1), 0, 1)
         on = held & (clash0 < 0) & (mis > P["clash_on"])
         clash0[on] = t; clashI[on] = I[on]; clash_by[on] = -1
         cload = (held * (clash0 >= 0) * mis * I).sum(1)         # living against what you are supposed to be (ought conflict)
@@ -2612,15 +2098,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             glast = np.where(acted, t, glast)
             # tries that work and feel like one's own gather toward a passion (2A)
             own_g = 0.5 * (w + softmax(y))
-            conc_a = _uclip(2 * (ma * own_g).sum(1) / own_g.max(1) - 1, -0.5, 1)
+            conc_a = np.clip(2 * (ma * own_g).sum(1) / own_g.max(1) - 1, -0.5, 1)
             # only real tries count: an act clearly in its ways, in a moment that mattered, that felt like one's own
-            dv = win_ * (gk <= 1) * (ra >= 0.5) * ra * _uclip((stakes - 0.4) / 0.4, 0, 1)[:, None] * np.maximum(conc_a, 0)[:, None]
+            dv = win_ * (gk <= 1) * (ra >= 0.5) * ra * np.clip((stakes - 0.4) / 0.4, 0, 1)[:, None] * np.maximum(conc_a, 0)[:, None]
             gv = gv + dv
             # taken in freely or under pressure? Parents prizing it (childhood), needing it for one's worth, being only about
             # this one thing, against support and room to choose (Mageau et al. 2009): harmonious or obsessive passion
             lk_ = np.maximum(0, P["need_set"] - need) / P["need_set"]
             dp_ = (gk <= 1) * (gk >= 0) * gs; spec = dp_ / np.maximum(dp_.sum(1, keepdims=True), 1e-9)
-            ctl = (P["ctl_fam"] * _uclip(5 * np.einsum("nc,ngc->ng", fam, gm) - 1, 0, 2) * (stage <= 1)[:, None]
+            ctl = (P["ctl_fam"] * np.clip(5 * np.einsum("nc,ngc->ng", fam, gm) - 1, 0, 2) * (stage <= 1)[:, None]
                    + P["ctl_lack"] * 0.5 * (lk_[:, NIDX["competence"]] + lk_[:, NIDX["meaning"]])[:, None] + P["ctl_spec"] * spec
                    - P["ctl_sup"] * (support - 0.5)[:, None] - P["ctl_free"] * (res[:, FRE] - 0.5)[:, None]
                    + P["ctl_stress"] * (stress - 0.5)[:, None] + P["ctl_press"] * (0.5 * np.abs(nic - w).sum(1) - 0.15)[:, None]
@@ -2646,7 +2132,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if RON:   # a plan aimed at a title is reached when the title is held
                 got |= pln & (gtt >= 0) & r_has[ar[:, None], np.maximum(gtt, 0)]
             for n, j in zip(*np.nonzero(got)):
-                cc = float(_uclip(2 * (gm[n, j] * own_g[n]).sum() / own_g[n].max() - 1, -0.5, 1))
+                cc = float(np.clip(2 * (gm[n, j] * own_g[n]).sum() / own_g[n].max() - 1, -0.5, 1))
                 fit_ = 0.5 + 0.5 * max(cc, 0)    # reaching what fits who one is means more (Sheldon & Elliot 1999)
                 need[n, NIDX["meaning"]] += 0.15 * gs[n, j] * fit_; need[n, NIDX["competence"]] += 0.1 * gs[n, j]
                 mood[n] += 0.3 * gs[n, j] * fit_
@@ -2665,15 +2151,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         called = np.maximum(alpha - alpha.mean(1, keepdims=True), 0)
         called = np.where(called.sum(1, keepdims=True) > 1e-9, called / np.maximum(called.sum(1, keepdims=True), 1e-9), w)
         # Only big failures in one's own strongest ways do this (the flaw shows where life pushes back)
-        ff = P["fail_fit"] * _uclip((stakes - 0.7) / 0.5, 0, 1) * _uclip((ma * w).sum(1) / w.max(1), 0, 1)
+        ff = P["fail_fit"] * np.clip((stakes - 0.7) / 0.5, 0, 1) * np.clip((ma * w).sum(1) / w.max(1), 0, 1)
         away = (1 - ff[:, None]) * w + ff[:, None] * called
-        dI = np.where(pos[:, None], P["eta"] * ldelta[:, None] * (kap - w),
-                      P["eta"] * ldelta[:, None] * (1 - defend)[:, None] * (ma - away))
+        dI = np.where(pos[:, None], P["eta"] * delta[:, None] * (kap - w),
+                      P["eta"] * delta[:, None] * (1 - defend)[:, None] * (ma - away))
         if P["unusual_k"]:   # v6 (Bardi & Schwartz 2003): doing what everyone around you does says little about you
             typ = (ma * nic).sum(1) / (nic * nic).sum(1)
-            dI *= _uclip(1 + P["unusual_k"] * (1 - typ), 0.5, 2.0)[:, None]
+            dI *= np.clip(1 + P["unusual_k"] * (1 - typ), 0.5, 2.0)[:, None]
         dI[idle] = 0
-        dD = np.where(pos[:, None], -ldelta[:, None] * ma, -ldelta[:, None] * defend[:, None] * ma) - P["slack"] * ma
+        dD = np.where(pos[:, None], -delta[:, None] * ma, -delta[:, None] * defend[:, None] * ma) - P["slack"] * ma
         dD[idle] = 0
         D = np.maximum(0, D * (1 - P["D_decay"]) + dD)
 
@@ -2690,10 +2176,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             dsc += (1 - dsc) * (1 - 0.5 ** (1 / (52 * P["disc_back"])))
         if P["aut_self"]:   # v6: acting as oneself meets autonomy; acting against oneself drains it a little
             own_ = 0.5 * (w + softmax(y))
-            concord = _uclip(2 * (ma * own_).sum(1) / own_.max(1) - 1, -0.5, 1)   # 1 = in one's strongest color, 0 = at half of it
+            concord = np.clip(2 * (ma * own_).sum(1) / own_.max(1) - 1, -0.5, 1)   # 1 = in one's strongest color, 0 = at half of it
             need[:, NIDX["autonomy"]] += P["aut_act"] * concord * (~idle) * np.where(concord > 0, room[:, NIDX["autonomy"]] if P["satiate"] else 1, 1)
             # competence: succeeding at what was hard for you, in any color; failing drains it a little
-            need[:, NIDX["competence"]] += P["comp_act"] * np.where(succ, (0.5 + (1 - p_true)) * (room[:, NIDX["competence"]] if P["satiate"] else 1), -0.3 * appf_) * (~idle)
+            need[:, NIDX["competence"]] += P["comp_act"] * np.where(succ, (0.5 + (1 - p_true)) * (room[:, NIDX["competence"]] if P["satiate"] else 1), -0.3) * (~idle)
         duty_ = np.minimum(1, (held * I) @ DUTY)                      # needs of those the person answers for
         served = ((np.maximum(ea, 0) @ NMAP.T) * duty_).sum(1)
         need[:, NIDX["meaning"]] += P["duty_mean"] * served * succ * (~idle) * (room[:, NIDX["meaning"]] if P["satiate"] else 1)
@@ -2709,9 +2195,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # one that goes well feeds later fortune (Hobfoll's loss and gain spirals)
         big = had_ev & (s == s_ev) & ~idle if P["base_rates"] else np.zeros(N, bool)
         dec = np.exp(-1 / (52 * P["clust_years"]))
-        trouble = trouble * dec + big * np.maximum(-fdelta, 0)
-        fortune = fortune * dec + big * np.maximum(fdelta, 0)
-        wound = wound * np.exp(-1 / (52 * P["wound_years"])) + big * np.maximum(-fdelta, 0)
+        trouble = trouble * dec + big * np.maximum(-delta, 0)
+        fortune = fortune * dec + big * np.maximum(delta, 0)
+        wound = wound * np.exp(-1 / (52 * P["wound_years"])) + big * np.maximum(-delta, 0)
         B += P["ev_open"] * big * np.abs(delta)   # v6 (Bardi et al. 2009): big events, good or bad, open a person to change
         if BAT:
             # ---- 3d. the Library's batch: what this week leaves in the person's history
@@ -2759,8 +2245,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         if r_ >= 0 and ROLES[r_] == "partner":
                             if held[n, PAR]:
                                 end([n], [PAR], "widowed", t)
-                        elif r_ >= 0 and WON:   # the world's cast: that person is gone
-                            WL.PP.kill(int(n), ROLES[r_]); alive[n, :5] = WL.PP.alive[n]
                         elif r_ >= 0:
                             alive[n, r_] = max(alive[n, r_] - 1, 0)
                         stress[n] += 1.0; ago["death"][n] = t; ago["loss"][n] = t
@@ -2784,8 +2268,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         if r_ >= 0 and ROLES[r_] == "partner":
                             if held[n, PAR]:
                                 end([n], [PAR], "widowed", t)
-                        elif r_ >= 0 and WON:   # the world's cast: that person is gone
-                            WL.PP.kill(int(n), ROLES[r_]); alive[n, :5] = WL.PP.alive[n]
                         elif r_ >= 0:
                             alive[n, r_] = max(alive[n, r_] - 1, 0)
                         stress[n] += 1.0; ago["death"][n] = t; ago["loss"][n] = t
@@ -2809,13 +2291,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 hz_mem[hit_] += P["hz_remind"] * HZ_ROLE[r_]
                 if ROLES[r_] == "partner":
                     widowed[hit_] = True
-                elif not (WON and r_ < 5):   # with the world on, the cast counted it already (a child's is the engine's)
+                else:
                     alive[hit_, r_] = np.maximum(alive[hit_, r_] - 1, 0)
-                if WON and ROLES[r_] == "child":
-                    for n in hit_:
-                        WL.PP.kill(int(n), "child")
-                if ROLES[r_] == "friend" and not WON:   # a new friend in two years (with the world on, the cast makes them)
-                    friend_back[hit_] = t + int(2 * 52)
+                    if ROLES[r_] == "friend":
+                        friend_back[hit_] = t + int(2 * 52)
                 need[hit_, NIDX["belonging"]] -= KILL_HIT[r_, 0]; stress[hit_] += KILL_HIT[r_, 1]
                 ago["death"][hit_] = t; ago["loss"][hit_] = t
                 for n in hit_:
@@ -2833,46 +2312,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mark_first[hm_[first_], jj_[first_]] = t
                 mark_last[hm_, jj_] = t; mark_ok[hm_, jj_] = succ[hm_]; mark_n[hm_, jj_] += 1
                 heavy_risk[hm_] += (jj_ == MIDX["took a wild risk"]) & (L["BODY"][s[hm_], a[hm_]] >= 1)
-                if ID2 and BAT:   # N1b: which trait a mark tells (came out in a moment about one trait tells that one)
-                    for n, j_ in zip(hm_, jj_):
-                        if j_ == NAMED_K or (j_ == COME_K and CO_SPLIT[s[n]] != 2):
-                            if gender_self[n] > 0 and not named_g[n]:
-                                named_g[n] = True
-                                if j_ != NAMED_K:   # read as named their gender until the Library's marks land
-                                    mark_first[n, NAMED_K] = t if mark_n[n, NAMED_K] == 0 else mark_first[n, NAMED_K]
-                                    mark_last[n, NAMED_K] = t; mark_ok[n, NAMED_K] = succ[n]; mark_n[n, NAMED_K] += 1
-                        if j_ == COME_K and CO_SPLIT[s[n]] != 1:
-                            came_o[n] = True
                 for n, j_ in zip(hm_, jj_):
                     mark_log.append((int(n), t, int(j_), bool(succ[n])))
                     if n in events:
                         events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
             # moves: the family moves, or the person moves away or leaves home (and it works)
-            mvk = (L["MOVES"][s] & live_) | (((mk_ == MIDX["moved away"]) | (mk_ == MIDX["left home"]) | (mk_ == MIDX.get("came home", -2))) & succ & ~idle & live_)
-            mv_own_ = (((mk_ == MIDX["moved away"]) | A_MOVE[s, a]) & succ & ~idle & live_)   # their own move
-            if P["far_share"] < 1 and mv_own_.any():   # E6: only some of one's own moves are to a new town (newcomer .93 vs .60)
-                mv_own_ &= far_rng.random(N) < P["far_share"]
-            mv_far = (L["MOVES"][s] & live_) | mv_own_   # a new town (newcomer); the family's move always is one
-            mvk = mvk | (A_MOVE[s, a] & succ & ~idle & live_)
+            mvk = (L["MOVES"][s] & live_) | (np.isin(mk_, [MIDX["moved away"], MIDX["left home"], MIDX.get("came home", -2)]) & succ & ~idle & live_)
+            mv_far = (L["MOVES"][s] & live_) | ((mk_ == MIDX["moved away"]) & succ & ~idle & live_)   # a new town (newcomer)
+            mvk = mvk | (A_MOVE[s, a] & succ & ~idle & live_); mv_far = mv_far | (A_MOVE[s, a] & succ & ~idle & live_)
             if mvk.any():
                 ii_ = np.nonzero(mvk)[0]
                 circle[ii_] = random_messages(rng, len(ii_)); nic[ii_] = 0.5 * nic[ii_] + 0.5 * circle[ii_]
                 res[ii_, TIE] = np.maximum(0, res[ii_, TIE] - 0.2)
                 ago["move"][ii_] = t; n_moves[ii_] += 1
-                if WON:   # the world: a new place (a far move: another locality; leaving or coming home: nearby)
-                    for n in ii_:
-                        why_ = "came home" if mk_[n] == MIDX.get("came home", -2) else "left home" if mk_[n] == MIDX.get("left home", -2) else None
-                        WL.move(int(n), local=not bool(mv_far[n]), why=why_)
-            if WON:   # the world: the close circle judges the act, rank in settings moves, a lever pushes (world-fields.md);
-                # a want the moment answered is met or refused; what happened in each logged life's world goes in its events
-                for r_ in WL.on_act(~idle & live_ & ~dead, s, a, ma, succ, L, closed_s[ar, a] >= 0 if closed_s is not None else np.zeros(N, bool)):
-                    if isinstance(r_, dict) and r_.get("n") in events:
-                        events[r_["n"]].append(dict(world_push=r_))
-                for n in list(WL.pending):
-                    ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
-                    if ev_ is not None and n in events:
-                        events[n].append(dict(cast_want=ev_))
-                world_cast(WL.drain())   # the act's own cast events (the world's events came at the week's start)
             # tags: habit pulls harder, a door opens the niche, identity teaches more, binds holds and costs autonomy
             tg_ = L["TAG"][s, a] & (~idle & live_)[:, None]
             habit += P["tag_habit"] * tg_[:, :1] * ma
@@ -2895,11 +2347,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if bf_.any():
                 law_, app_, mea_ = bf_ & (clk_ == 0), bf_ & (clk_ == 1), bf_ & (clk_ == 2)
                 res[law_, FRE] -= 0.15; res[law_, TIE] -= 0.1; res[law_, MON] -= 0.05; stress[law_] += 0.3
-                bk_ = np.minimum(clu_[ar, a], 1.0)[app_] if CLU_ON else 1.0   # N1b: a light frown backfires lightly
-                need[app_, NIDX["belonging"]] -= 0.1 * bk_; res[app_, TIE] -= 0.08 * bk_; stress[app_] += 0.15 * bk_
+                need[app_, NIDX["belonging"]] -= 0.1; res[app_, TIE] -= 0.08; stress[app_] += 0.15
                 res[mea_, MON] -= 0.1; stress[mea_] += 0.15
             res[:, HEA] -= P["body_hurt"] * L["BODY"][s, a] * (~succ & ~idle & live_)
-            res = _uclip(res, 0, 1)
+            res = np.clip(res, 0, 1)
             # after a lost job, most people find work again within a year or two (quietly, when the batch has no event for it)
             rj_ = np.nonzero(REJOB_ON & ~held[:, CAR] & ~retired & (end_t[:, CAR] > NEVER // 2) & (age < P["retire_age"] - 1)
                              & (rng.random(N) < P["rejob"] / 52))[0]
@@ -2940,7 +2391,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             which = rng.choice(nI, size=imp.sum(), p=pb)
             need[imp] += 0.5 * L["IMP"][which]
             stress[imp] += 0.15
-            res[imp, FRE] = _uclip(res[imp, FRE] + 0.5 * IMP_FREE[which], 0, 1)
+            res[imp, FRE] = np.clip(res[imp, FRE] + 0.5 * IMP_FREE[which], 0, 1)
             ii = np.nonzero(imp)[0]
             lost = ii[(which == 1) & held[ii, CAR] & JOBLOSS_ON & (rng.random(len(ii)) < 0.25)]    # an institution betrays its promise
             end(lost, [CAR] * len(lost), "lost job", t)
@@ -3002,7 +2453,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 # what a rule says how it is lost (good credit, a car, a dog) goes only that way
                 pk_ = GR["pkind"]
                 use_ = 5 * (hist_m @ INDP.T) / np.maximum(INDP.sum(1), 1)[None]
-                mult_ = np.where(pk_[None] == 0, 2 * _uclip(1.5 - use_, 0, 1.5), 1.0)
+                mult_ = np.where(pk_[None] == 0, 2 * np.clip(1.5 - use_, 0, 1.5), 1.0)
                 mult_ = np.where(pk_[None] == 3, 1 + 2 * (res[:, TIE] < 0.3)[:, None], mult_)
                 mult_ = np.where(pk_[None] == 4, 1 + 4 * (res[:, MON] < 0.15)[:, None], mult_)
                 base_ = np.select([pk_ == 0, pk_ == 2, pk_ == 3, pk_ == 4], list(P["perk_loss"]), 0.0)
@@ -3011,10 +2462,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 fade_ = MEM_K[None] & ~p_acc & (p_lev > 0)        # a skill without access fades by its half-life
                 p_lev *= np.where(fade_, 0.5 ** (1 / (13 * np.maximum(GR["half"], 1e-9)))[None], 1.0)
                 if "out of work" in RID:   # still without work half a year after losing a job
-                    ow_ = (~held[:, CAR] & ~retired & (end_why[:, CAR] == WHY.index("lost job")) & (t - end_t[:, CAR] >= P["ow_weeks"])
-                           & (t - end_t[:, CAR] < P["ow_weeks"] + 4) & (age < P["retire_age"]))
+                    ow_ = (~held[:, CAR] & ~retired & (end_why[:, CAR] == WHY.index("lost job")) & (t - end_t[:, CAR] >= 52)
+                           & (t - end_t[:, CAR] < 56) & (age < P["retire_age"]))
                     for n in np.nonzero(ow_)[0]:
-                        r_give(n, "out of work", "no work for half a year" if P["ow_weeks"] < 52 else "no work for a year")
+                        r_give(n, "out of work", "no work for a year")
                 # a new job inside the career: now and then, to one the person now qualifies for (a graduate becomes a teacher)
                 mv_ = held[:, CAR] & (rng.random(N) < P["title_move"] / 13)
                 for n in np.nonzero(mv_)[0]:
@@ -3022,7 +2473,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 for i_ in LZ_:   # every item with a rule for losing it, whether or not a background rule gives it
                     ru_ = GR["rule"][i_]
                     hold_ = r_has[:, i_] | (p_acc[:, i_ - NT_] if i_ >= NT_ else False)
-                    if np.count_nonzero(hold_):
+                    if hold_.any():
                         pz_ = hold_ & (rng.random(N) < 1 - (1 - min(ru_["lrate"], 1.0)) ** (1 / 13))
                         for code_, why_ in ru_["lose"]:                  # each way of losing it, in its own words
                             lz_ = pz_ & ev_cond(code_, ns_); pz_ = pz_ & ~lz_
@@ -3033,7 +2484,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                     # lend: how the commitment ends with it (an engagement broken off: "broke up")
                 for i_ in BG:
                     ru_ = GR["rule"][i_]
-                    lo_, hi_ = AGES_T[i_]
+                    lo_, hi_ = GR["ages"][i_]
                     if not (lo_ <= age <= hi_) or (i_ >= NT_ and age >= GR["retires"][i_ - NT_]):
                         continue
                     cand_ = ~r_has[:, i_]
@@ -3046,7 +2497,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         cand_ = cand_ & held[:, kk_]
                     elif kk_ < NK:                            # a role that starts its commitment: not for those whose kind is full
                         cand_ = cand_ & (~held[:, kk_] | ((r_has[:, :NT_] & (TK_ == kk_)).sum(1) < CAP_K[kk_]))
-                    if not np.count_nonzero(cand_):
+                    if not cand_.any():
                         continue
                     base_ = cand_
                     cand_ = cand_ & ev_cond(ru_["req"], ns_)
@@ -3056,7 +2507,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         for code_, rx_ in ru_["more"]:
                             px_ = (base_ & ev_cond(code_, ns_)) * (1 - np.exp(-rx_ / 13))
                             pr_ = 1 - (1 - pr_) * (1 - px_); cand_ = cand_ | (px_ > 0)
-                    if not np.count_nonzero(cand_):
+                    if not cand_.any():
                         continue
                     if not ru_["more"]:
                         rt_ = r_rate(i_)
@@ -3078,9 +2529,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if t in era_at:
             key, inten, kind = era_at[t]
             msg = np.tile(COMBO_MIX[key], (N, 1)); ex = era_expo(ERA_KINDS.index(kind)); ac = accept(ar, msg, 1.0)
-            if WON:   # close first (Emren 10:39; spec 1 §4): with the world on the era reaches a life mostly through its people
-                # (their niche carries the times), so its own message is half as strong, and weighs most at 15 to 25
-                ex = ex * 0.5 * float(np.interp(age, [10, 15, 25, 40], [0.3, 1.0, 1.0, 0.5]))
             take_in(ar, msg, P["era_shock"] * inten * ex * ac, 8)
             stress += 0.2 * inten
             for n in events:
@@ -3106,7 +2554,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 if hm.any():
                     ac[hm] = accept(ii[hm], msg[hm], (src[hm] <= 1).astype(float))
                     take_in(ii[hm], msg[hm], EV["s"][j[hm]] * expo[hm] * ac[hm], 7)
-                need[ii] += EV["need"][j]; res[ii] = _uclip(res[ii] + EV["res"][j], 0, 1)
+                need[ii] += EV["need"][j]; res[ii] = np.clip(res[ii] + EV["res"][j], 0, 1)
                 stress[ii] += 0.3 * EV["s"][j] * (EV["need"][j].sum(1) < 0)
                 mv = EV["move"][j]; nic[ii[mv]] = 0.5 * nic[ii[mv]] + 0.5 * msg[mv]; res[ii[mv], TIE] = np.maximum(0, res[ii[mv], TIE] - 0.2)
                 dr = EV["door"][j]; nic[ii[dr]] += 0.15 * EV["s"][j[dr], None] * (msg[dr] - nic[ii[dr]])
@@ -3117,12 +2565,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                            message=msg[q_].round(2).tolist() if hm[q_] else None,
                                                            took=round(float(ac[q_]), 2) if hm[q_] else None)))
         if BAT and len(EVR) and t % 4 == 0:   # outside events from the batch, each read through the person's own colors
-            if WON and DIS_J_:   # a disaster's outside event comes when the world's disaster strikes one's own town or a
-                # close person's (spec 5 §2: the history dial reaches the life through it), not on its own clock
-                own_, near_ = WL.disasters()
-                hit_ = ((own_ > 0) & (rng.random(N) < 0.4 + 0.5 * own_)) | (near_ & (rng.random(N) < WLM.DIS_NEAR))
-                for j_ in DIS_J_:
-                    evr_next[:, j_] = np.where(hit_ & (t >= evr_ok[:, j_]), t, T + 1)
             due_ = evr_next <= t
             if due_.any():
                 ns = cond_ns(t, age, w)
@@ -3132,18 +2574,16 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     evr_next[ii_, j_] = t + rng.uniform(e_["gap"][0], e_["gap"][1], len(ii_)) * 52
                     if not (e_["window"][0] <= age <= e_["window"][1]):
                         continue
-                    p_ = _uclip(P["read_p"] * factor(e_, ns)[ii_], 0, 1) * ev_cond(e_["req"], ns)[ii_]
+                    p_ = np.clip(P["read_p"] * factor(e_, ns)[ii_], 0, 1) * ev_cond(e_["req"], ns)[ii_]
                     ii_ = ii_[rng.random(len(ii_)) < p_]
                     if not len(ii_):
                         continue
-                    if WON:
-                        evr_ok[ii_, j_] = t + e_["gap"][0] * 52
                     pr_ = softmax(P["read_beta"] * 5 * lens_[ii_] @ e_["lens"].T)
                     rd_ = (pr_.cumsum(1) > rng.random((len(ii_), 1))).argmax(1)
                     imp_ = e_["impact"][rd_]
                     an_ = np.array([e_["also"][r_][0] for r_ in rd_]); ar_ = np.array([e_["also"][r_][1] for r_ in rd_])
                     need[ii_] += P["read_k"] * imp_[:, None] * e_["base_need"][None] + an_
-                    res[ii_] = _uclip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
+                    res[ii_] = np.clip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
                     good_ = e_["base_need"].sum() + e_["base_res"].sum() >= 0
                     if good_:
                         mood[ii_] += 0.1 * imp_
@@ -3158,8 +2598,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                             say=e_["say"][rd_[q_]], impact=float(imp_[q_]))))
         # resources and commitments feed needs: safety (money, health), belonging (ties), autonomy (freedom, time)
         supply = np.stack([0.5 * res[:, MON] + 0.5 * res[:, HEA], res[:, TIE], 0.6 * res[:, FRE] + 0.4 * res[:, TIM]], 1)
-        if WON:   # the world: safety from crime, war and disaster where one lives; belonging from one's settings and people
-            supply[:, 0] += WL.safety(); supply[:, 1] += 0.5 * (np.asarray(WL.PP.belong, float) - WLM.BELONG_REF)
         need[:, :3] += P["res_need"] * (supply - 0.5)
         need += P["commit_need"] * ((held * I) @ KPAY) * ((1 - need) if P["satiate"] else 1)
         if RON:   # a title's own needs on top of its kind's, scaled the same way (statuses at full strength)
@@ -3170,12 +2608,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         care = P["family_care"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))
         need[:, :2] += care[:, None] * (0.85 - need[:, :2])
         need[:, 3:] += 0.5 * care[:, None] * (0.7 - need[:, 3:])     # and school and play give some competence and meaning (v5)
-        need = _uclip(need, 0, 1)
+        need = np.clip(need, 0, 1)
         lack_raw = np.maximum(0, P["need_set"] - need) / P["need_set"]
         if P["flex"]:      # v6: needs that stay unmet lose importance, slowly, and faster with age; met ones regain it
             # driven by experience, not age (Emren 2026-10-04: favor comes from preference, mindset and experience):
             # the more wanted things a person has seen fail or close, the more readily they let go of what stays unmet
-            fa = _uclip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)[:, None]
+            fa = np.clip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)[:, None]
             nimp += P["flex_rate"] * fa * ((1 - P["flex_depth"] * lack_raw) - nimp) + P["flex_rate"] * 0.2 * (1 - nimp)
         lack = nimp * lack_raw + P["duty_w"] * P["duty_asp"] * np.minimum(1, (held * I) @ DUTY)
         felt = lack @ NMAP                      # how much each color's ends could meet what is lacking
@@ -3190,13 +2628,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if P["react_k"]:   # v6 (Library notes A6; Brehm): strong pressure on a steady person pushes them the other way
             s_n = np.tanh(steady / P["steady_cap"])
             press = 0.5 * np.abs(nic - w).sum(1)
-            rs = _uclip((s_n - 0.5) / 0.5, 0, 1) * _uclip((press - P["react_press"]) / P["react_press"], 0, 1)
+            rs = np.clip((s_n - 0.5) / 0.5, 0, 1) * np.clip((press - P["react_press"]) / P["react_press"], 0, 1)
             dS -= P["react_k"] * P["chi"] * rs[:, None] * (nic - w)
 
         # aspiration: what the person wants to be. Needs, norms and role models act here
         a_ = softmax(y)
         conf_a = P["chi_a"] / P["chi"] * conf if P["chi"] else 0 * conf
-        aligned = _uclip(5 * (ma * (a_ - w)).sum(1), 0, 1) * (~idle)       # how far this act was a step toward the want
+        aligned = np.clip(5 * (ma * (a_ - w)).sum(1), 0, 1) * (~idle)       # how far this act was a step toward the want
         # the times: an era's norms, taken or pushed back according to the person (exposure x acceptance)
         times = np.zeros((N, C))
         if e_i > 0:
@@ -3226,7 +2664,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # recent luck, and the distance from the person they want to be (ideal-self gap: dejection, Higgins 1987)
         f_need = (nimp * need).sum(1) / nimp.sum(1)                # v6: needs weighted by how much they matter now
         react_eff = 1 + TON * (react - 1)
-        mood = mood * 0.9 + 0.1 * react_eff * np.where(idle, 0.0, fdelta)
+        mood = mood * 0.9 + 0.1 * react_eff * np.where(idle, 0.0, delta)
         smid = smid + (SMID[stage] - smid) / (52 * P["mid_years"]) if P["mid_years"] > 0 else SMID[stage]
         # v7 unmet hope (point 9): the young count on more than life gives them now and raise their hopes with what it
         # gives; as time starts to feel short, what has not come weighs on them and they let it go. The weight peaks in
@@ -3266,11 +2704,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # ---- 4b2. v7 felt horizon: years a person feels are left (age, health), shortened by reminders of mortality
         if P["hz_k"] or P["hz_want"]:
             hea_ = res[:, HEA]
-            hz_mem += P["hz_remind"] * _uclip((hea_last - hea_ - 0.05) / 0.2, 0, 1) * (hea_last >= 0)   # a health shock
+            hz_mem += P["hz_remind"] * np.clip((hea_last - hea_ - 0.05) / 0.2, 0, 1) * (hea_last >= 0)   # a health shock
             hea_last = hea_.copy()
             hz_mem *= 0.5 ** (1 / (52 * P["hz_mem_half"]))
-            yl_ = np.maximum(P["hz_life"] - age, 1.0) * _uclip(hea_ / P["hz_health"], 0.2, 1.0)
-            ltd_ = _uclip(1 - yl_ / P["hz_span"] + hz_mem, 0, 1)
+            yl_ = np.maximum(P["hz_life"] - age, 1.0) * np.clip(hea_ / P["hz_health"], 0.2, 1.0)
+            ltd_ = np.clip(1 - yl_ / P["hz_span"] + hz_mem, 0, 1)
             fhz += (ltd_ - fhz) / (52 * P["hz_lag"])
 
         # ---- 4c. temperament (v5): four slow traits learned from the life lived, fastest in childhood
@@ -3278,7 +2716,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             lrT = P["T_rate"] * TST[stage]
             # reactivity follows how harsh (stress), unpredictable (surprise) and supportive (safety, belonging) life has been
             sup = need[:, :2].mean(1)
-            r_now = _uclip(1 + P["r_harsh"] * (stress - RR[0]) + P["r_unpred"] * np.where(idle, 0.0, np.abs(delta) / stakes - RR[1])
+            r_now = np.clip(1 + P["r_harsh"] * (stress - RR[0]) + P["r_unpred"] * np.where(idle, 0.0, np.abs(delta) / stakes - RR[1])
                             - P["r_support"] * (sup - RR[2]), 0.3, 2.5)
             react += (lrT if RST is None else P["T_rate"] * RST[stage]) * (r_now - react)
             # steadiness: succeeding in what one holds confirms who one is; failing in it shakes that; roles and being
@@ -3292,7 +2730,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             # outlook: did trying work? Blocked or failed wanting teaches helplessness, success teaches control
             ev_o = has & (tried | lost_open)
             outlook += np.where(ev_o, 4 * lrT * stakes * (np.where(tried & succ, 1.0, 0.0) - outlook), 0.0)
-            outlook = _uclip(outlook, 0, 1)
+            outlook = np.clip(outlook, 0, 1)
 
         # ---- 4d. v7 dreams, passions and plans: new ones, fading, letting go, deadlines, regret
         if GON:
@@ -3338,7 +2776,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             fd_ = np.exp(-np.log(2) / (52 * np.asarray(P["d_half"], float)[stage]))[:, None]
             gs = np.where(gk == 0, gs * fd_, gs); gv = np.where(gk == 0, gv * fd_, gv)
             gs = np.where((gk == 1) & (t - glast > 52), gs * np.exp(-np.log(2) / (52 * P["pass_half"])), gs)
-            conc_g = _uclip(2 * np.einsum("ngc,nc->ng", gm, own_g) / own_g.max(1)[:, None] - 1, -0.5, 1)
+            conc_g = np.clip(2 * np.einsum("ngc,nc->ng", gm, own_g) / own_g.max(1)[:, None] - 1, -0.5, 1)
             gs = np.where((gk == 2) & (gby == 0), gs - P["g_decay"] * (1 - np.maximum(conc_g, 0)) * gs, gs)
             # an obsessive passion gnaws when the person is kept from it (rumination)
             stress = stress + P["op_rum"] * (((gk == 1) & (t - glast > P["op_away"])) * gs * (1 - ga)).sum(1)
@@ -3353,7 +2791,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             npl = (gk == 2).sum(1); room_ = (npl < P["max_plans"]) & (stage >= 2)
             if t % 52 == 0:   # fresh start (Dai, Milkman & Riis 2014): birthdays invite resolutions
                 gap_now = 0.5 * np.abs(a_now_ - w).sum(1)
-                for n in np.nonzero(room_ & (rng.random(N) < P["res_p"] * _uclip(gap_now / 0.15, 0, 2)))[0]:
+                for n in np.nonzero(room_ & (rng.random(N) < P["res_p"] * np.clip(gap_now / 0.15, 0, 2)))[0]:
                     pos_ = np.maximum(a_now_[n] - w[n], 0)
                     if new_goal(n, 2, 0.5 * a_now_[n] + 0.5 * pos_ / max(pos_.sum(), 1e-9), -1, GSRC["resolution"], hz=1, s0=0.35) >= 0:
                         npl[n] += 1
@@ -3384,7 +2822,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 if new_goal(n, 2, 0.5 * a_now_[n] + 0.5 * w[n], d_, GSRC["need"], hz=2, s0=0.3 + 0.4 * min(1.0, desire[n, d_])) >= 0:
                     npl[n] += 1
             room_ = (npl < P["max_plans"]) & (stage >= 2)
-            fit_l = _uclip(5 * (lost_m * a_now_[:, None, :]).sum(2) - 1, 0, 2) / 2
+            fit_l = np.clip(5 * (lost_m * a_now_[:, None, :]).sum(2) - 1, 0, 2) / 2
             p_rv = (P["revive"] / 52 * fit_l * lost_s * lost_on * room_[:, None]
                     * (res[:, FRE] * (0.5 + res[:, TIM]) * (1 + 2 * regret))[:, None])
             for n, q_ in zip(*np.nonzero(rng.random((N, 3)) < p_rv)):
@@ -3393,19 +2831,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 d_ = lost_d[n, q_]
                 if d_ >= 0 and (held[n, d_] or (d_ == CAR and (retired[n] or age > 60)) or (d_ == KID and age > 45)):
                     d_ = -1
-                if new_goal(n, 2, lost_m[n, q_].copy(), d_, GSRC["old dream"], hz=2, s0=0.4, name=lost_nm[n, q_]) >= 0:
+                if new_goal(n, 2, lost_m[n, q_].copy(), d_, GSRC["old dream"], hz=2, s0=0.4) >= 0:
                     lost_on[n, q_] = False; npl[n] += 1
             # felt odds, letting go and deadlines
             pln = gk == 2
             if pln.any():
                 wl = np.minimum(gh - t, max(52.0, (P["life_end"] - age) * 52))
                 steps = np.ceil((1 - gp) * np.asarray(P["g_size"], float)[ghz] / STEP_INC).astype(int)
-                fo_ = np.nonzero(pln)   # speed pass: the felt odds of the plans alone (each plan's odds is its own; the rest went unused)
-                gfelt = gfelt.copy(); gfelt[fo_] = felt_odds(gch[fo_], gph[fo_], wl[fo_], steps[fo_], gd[fo_],
-                                                             np.broadcast_to(outlook[:, None], pln.shape)[fo_], P)
+                gfelt = np.where(pln, felt_odds(gch, gph, wl, steps, gd, outlook[:, None], P), gfelt)
                 # clinging to a plan that seems hopeless is stressful (Wrosch et al. 2003)
-                stress = stress + P["g_ruminate"] * (pln * gs * _uclip((0.3 - gfelt) / 0.3, 0, 1)).sum(1)
-                fa_ = _uclip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)
+                stress = stress + P["g_ruminate"] * (pln * gs * np.clip((0.3 - gfelt) / 0.3, 0, 1)).sum(1)
+                fa_ = np.clip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)
                 letgo = 0.3 + 0.7 * fa_               # having seen wanted things fail makes letting go easier
                 sunk = 1 - np.exp(-gi)                 # what has been put in holds people to a plan
                 drop = (pln & (gby == 0) & (gfelt < P["g_drop"]) & (rng.random((N, NGS)) < 1 / 13)
@@ -3422,8 +2858,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             continue
                     quit_(n, j, "not reached in time", letgo[n])
             if t % 52 == 0:   # regret of what was let go grows over a decade when it still fits (Gilovich & Medvec 1995)
-                yrs_ = _uclip((age - lost_t) / 10, 0, 1)
-                regret = (lost_on * lost_s * _uclip(5 * (lost_m * a_now_[:, None, :]).sum(2) - 1, 0, 1) * yrs_).sum(1) / 3
+                yrs_ = np.clip((age - lost_t) / 10, 0, 1)
+                regret = (lost_on * lost_s * np.clip(5 * (lost_m * a_now_[:, None, :]).sum(2) - 1, 0, 1) * yrs_).sum(1) / 3
 
         # coherence under the world's framing, softened by what this person has integrated
         Tm = np.maximum(FR, 0)[None] * (1 - J) + np.minimum(FR, 0)[None]
@@ -3463,44 +2899,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- 4e. identity and the character's own death (point 11)
         if t % 52 == 0 and age >= 25 and P["attr_drift"]:   # a woman's attraction can shift a step in adult life
-            dr_ = female & (attr != 2) & ((idr_ if ID2 else rid).random(N) < P["attr_drift"])
+            dr_ = female & (attr != 2) & (rid.random(N) < P["attr_drift"])
             attr[dr_] += np.where(attr[dr_] < 2, 1, -1)
-        if ID2 and BAT:   # N1b (chroma-identity/for-the-engine.md)
-            newp_ = held[:, PAR] & ~par_prev                 # a new partner: of the same sex or not, by attraction (Pew 2013)
-            for n in np.nonzero(newp_)[0]:
-                partner_same[n] = ps_u[n, min(ps_n[n], ps_u.shape[1] - 1)] < PSP_[attr[n]]; ps_n[n] += 1
-            partner_same &= held[:, PAR]; par_prev = held[:, PAR].copy()
-            if IDF_ON:   # found: the first week a moment about a trait the person has comes (the game shows it from then)
-                hv_ = np.stack([gender_self > 0, attr >= 1, ace, intersex], 1)
-                fd_ = IDG[s] & hv_ & (found_id <= NEVER // 2) & ~dead[:, None]
-                if fd_.any():
-                    found_id[fd_] = t
-                    for n in set(np.nonzero(fd_.any(1))[0].tolist()) & set(events):
-                        for k_ in np.nonzero(fd_[n])[0]:
-                            events[n].append(dict(found=dict(age=round(age, 2), trait=("gender", "attraction", "ace", "intersex")[k_])))
-            rs_w, at_w, ex_w = role_view()
-            cwt_ = np.zeros(N)
-            if TROLE_ON:   # a title the world reserves for the other sex, as they are expected: a small weekly strain
-                th_ = r_has[:, :NT_] & (TROLE_ >= 0)[None]
-                if th_.any():
-                    cwt_ = np.where(th_, ex_w[:, 1 - _uclip(TROLE_, 0, 1)], 0.0).max(1)
-                    stress += P["role_title_stress"] * rs_w * cwt_ * ~dead
-            cross_title = cwt_ >= 0.5
-            hidg_ = (gender_self > 0) & ~named_g & (age >= P["aware_age"])
-            x_ = np.maximum(np.maximum(act_cw, cwt_), hidg_.astype(float))
-            rfit_avg += (1 - 0.5 ** (1 / (52 * P["role_fit_hl"]))) * (x_ - rfit_avg)
-        if BAT and P["hide_stress"] and age >= P["aware_age"] and ID2:   # hiding each trait weighs on them until they tell it;
-            # gender more where it is less accepted; after telling, a share stays where the world is hostile (Meyer 2003)
-            clim_ = P["climate"] + (clim_w if WON else 0.5 * faith_given * I[:, FAI])   # the world: local norm and the right
-            o_ = (attr >= 2) & ~dead; g_ = (gender_self > 0) & ~dead
-            ho_ = (1 + clim_) * np.where(came_o, P["out_stress"] * clim_, 1.0) * o_
-            hg_ = (1 + clim_) * (1.5 - at_w) * np.where(named_g, P["out_stress"] * (1 - at_w), 1.0) * g_
-            stress += P["hide_stress"] * (ho_ + hg_)
-        elif BAT and P["hide_stress"] and age >= P["aware_age"]:   # hiding who they are weighs on them until they come out
+        if BAT and P["hide_stress"] and age >= P["aware_age"]:   # hiding who they are weighs on them until they come out
             came_ = mark_n[:, MIDX["came out"]] > 0 if "came out" in MIDX else np.zeros(N, bool)
             hid_ = ((attr >= 2) | unease) & ~came_ & ~dead
             if hid_.any():
-                stress += P["hide_stress"] * hid_ * (1 + P["climate"] + (clim_w if WON else 0.5 * faith_given * I[:, FAI]))
+                stress += P["hide_stress"] * hid_ * (1 + P["climate"] + 0.5 * faith_given * I[:, FAI])
         if P["self_death"]:   # the life table, likelier in poor health
             sm_ = P["self_mort"]
             q_ = np.minimum(1, (sm_[0] + sm_[1] * np.exp(sm_[2] * age)) * np.exp(P["self_health"] * (0.6 - res[:, HEA])))
@@ -3529,8 +2934,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         F = np.stack([centre(dI), centre(dV), centre(dS), centre(dC), centre(dU)], 1)
         noise = centre(rng.normal(0, P["noise"], (N, C)))
         support = 0.5 * (need[:, NIDX["belonging"]] + res[:, TIE])          # being cared for: belonging and ties
-        if WON:   # and what the cast and the settings give in hard weeks
-            support = support + np.asarray(WL.PP.support, float)
         open_ = np.minimum(wound, 2.0)
         kap_e = P["kappa_e"] * (1 + P["care_k"] * support + P["heal_k"] * open_ * support)   # cared for, people come back
         if P["tw_pull"]:   # while a window is open, the old self pulls back less
@@ -3558,7 +2961,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         y = centre(y + ystep[:, 0] * centre(dA))
         M += 0.1 * np.abs(delta) * stakes
         re_ = react_eff * (1 - P["hz_calm"] * np.minimum(fhz, 1)) if P["hz_calm"] else react_eff   # v7: calmer as time feels short
-        stress = _uclip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -fdelta), 0, 3)
+        stress = np.clip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -delta), 0, 3)
         B *= decay_B; TWo *= decay_B
         nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * (P["world_profile"] - nic) + P["era_niche"] * e_i * (e_p - nic)
         if P["turnover"]:   # v6: the people around you change: new colleagues, friends, neighbours bring their own ways
@@ -3567,39 +2970,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if new_.any():
                 circle[new_] = random_messages(rng, int(new_.sum()))
             nic += P["turnover"] * turn_pm[:, None] * np.asarray(P["turn_stage"])[stage][:, None] / 52 * (circle - nic)
-        if WON:   # the world: the niche is what the settings and the close circle bring, with the times through them
-            nic = np.array(WL.PP.niche, float)
 
         for i in log_lives:
             if not idle[i]:
-                more_ = dict(threat=round(float(thr[i]), 2))
-                if ID2 and act_cw[i] > 0:
-                    more_["cross"] = round(float(act_cw[i]), 2)   # N1b: the act crossed the role expected of them (people frowned)
-                if MIS_ON:
-                    more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
-                if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
-                    more_["who"] = WL.who(i, int(s[i]))
-                if WON:   # the world on the options (hooks §2.6, §2.8): each option's lever and where it lands; a move names towns
-                    lv_ = WL.option_levers(int(s[i]))
-                    if lv_:
-                        more_["levers"] = lv_
-                    if WL.move_s[s[i]] and hasattr(WL.PP, "move_options"):
-                        more_["places"] = WL.PP.move_options(i)
-                best_, bm_ = None, P["epi_recall"]
-                mc_ = ma[i] - ma[i].mean(); nm_ = float(np.linalg.norm(mc_)) + 1e-9   # the act's lean among the colors
-                for ep_ in epi[i]:
-                    if t - ep_["last"] < 26:
-                        continue
-                    hl_ = P["mem_pos"] if ep_["success"] else P["mem_neg"]   # fading affect bias (a scar's pull is its own state)
-                    st_ = ep_["w"] * 0.5 ** ((t - ep_["t"]) / (52 * hl_))
-                    cs_ = 1.0 if ep_["situation"] == L["names"][s[i]] else float(mc_ @ ep_["mix"]) / (nm_ * ep_["nm"])
-                    mt_ = st_ * cs_ if cs_ >= 0.7 else 0.0   # the same moment again, or an act leaning the same way
-                    if mt_ > bm_:
-                        best_, bm_ = ep_, mt_
-                if best_ is not None:
-                    best_["last"] = t
-                    more_["recall"] = dict(age=best_["age"], situation=best_["situation"], choice=best_["choice"],
-                                           success=best_["success"], scar=best_["scar"], strength=round(bm_, 2))
                 events[i].append(dict(age=round(age, 2), stage=STAGE_NAMES[stage[i]],
                                       situation=L["names"][s[i]], choice=L["labels"][s[i]][a[i]],
                                       success=bool(succ[i]), delta=round(float(delta[i]), 3),
@@ -3608,19 +2981,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                       wanted=L["labels"][s[i]][best[i]], res=res[i].round(2).tolist(),
                                       gate=(("lacked the means" if not open_r[i, best[i]] else "not offered") if lost_open[i] else "unnoticed" if lost_seen[i]
                                                                                else "pulled away" if pulled[i] else "chosen"),
-                                      ctrl=round(float(ctrl[i]), 2), **more_))
-                if abs(delta[i]) >= P["epi_min"]:   # an act that hit hard becomes an episode the person may recall later
-                    epi[i].append(dict(t=t, last=t, age=round(age, 2), situation=L["names"][s[i]], choice=L["labels"][s[i]][a[i]],
-                                       success=bool(succ[i]), scar=bool(P["scar_k"] and not succ[i] and stakes[i] >= P["scar_min"]),
-                                       w=float(abs(delta[i])), mix=mc_.copy(), nm=nm_))
-                    if len(epi[i]) > 60:
-                        epi[i].sort(key=lambda e_: e_["w"] * 0.5 ** ((t - e_["t"]) / (52 * P["mem_neg"])))
-                        del epi[i][0]
+                                      ctrl=round(float(ctrl[i]), 2)))
 
         # ---- 6. rites of passage: an impactful event inside the next stage's window
         nxt = np.minimum(stage + 1, NS - 1)
         lo, hi = STAGE_LO[nxt], STAGE_HI[nxt]
-        progress = _uclip((age - lo) / np.maximum(hi - lo, 1e-9), 0, 1)
+        progress = np.clip((age - lo) / np.maximum(hi - lo, 1e-9), 0, 1)
         impact = np.abs(delta) / stakes * L["RIT"][s, nxt]   # only situations that can mark this passage count
         # a big surprise in a fitting situation may mark the passage; readiness grows across the window
         p_rite = 1 - np.exp(-P["rite_h"] * impact ** 2 * (1 + P["rite_ready"] * progress ** 2))
@@ -3653,7 +3019,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         over = D >= theta
         if over.any():
             for n, c in zip(*np.nonzero(over)):
-                acc = _uclip(1 - 0.4 * FR[c], 0.2, 1.4); acc[c] = 0   # framing shapes where you can go
+                acc = np.clip(1 - 0.4 * FR[c], 0.2, 1.4); acc[c] = 0   # framing shapes where you can go
                 q = obs[n] * SE[n] * acc; q = q / q.sum()
                 dz = centre(P["Lam"] * (q - np.eye(C)[c]) * min(2.0, D[n, c] / theta[n, c]))
                 z[n] += dz; k[n] += 0.5 * dz; chan[n, 5] += dz
@@ -3671,7 +3037,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # v6 (fresh-start effect: Dai, Milkman & Riis 2014; Alter & Hershfield 2014): a birthday, an age ending in 9, or a
         # change of surroundings lowers the bar for a change that has been building
         lm = float(t % 52 == 0) + 0.3 * float(int(age) % 10 == 9) + moved
-        q_thr = q_thr * (1 - P["landmark"] * _uclip(lm, 0, 1))
+        q_thr = q_thr * (1 - P["landmark"] * np.clip(lm, 0, 1))
         brk = (Q >= q_thr) & (gap > P["q_min_gap"]) & (stage >= 2)
         for n in np.nonzero(brk)[0]:
             dz = centre(P["q_step"] * (y[n] - z[n]))
@@ -3686,13 +3052,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             brk_log.append((int(n), t, rec))
             if n in events:
                 events[n].append(dict(breakthrough=rec))
-        if pausing:
-            _ = yield Pause("end", t, locals(), None)
     z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
-    wout = WL.output(log_lives) if WON else None           # the outer world for the game (world-build.md, "Game data")
-    return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
+    return dict(w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
                 R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log,
@@ -3706,11 +3069,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                 lost=dict(mix=lost_m, domain=lost_d, strength=lost_s, age=lost_t, on=lost_on, id=lost_id)),
                 regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive,
                 read_log=read_log, read_names=[e_["name"] for e_ in EVR], widowed=widowed, seasons=sea_log,
-                identity=dict(female=female, attr=attr, unease=unease, gender_self=gender_self, intersex=intersex, ace=ace,
-                              **(dict(named=named_g, came_out=came_o, partner_same=partner_same, role_fit=1 - rfit_avg,
-                                      cross_title=cross_title, role_strict=RS0, accept_trans=AT0,
-                                      found={k_: found_id[:, i_] for i_, k_ in enumerate(("gender", "attraction", "ace", "intersex"))})
-                                 if ID2 else {})), died=died,
+                identity=dict(female=female, attr=attr, unease=unease), died=died,
                 cond_hold=cond_hold.sum(0) / max(cond_n.sum(), 1), drv_mean=drv_sum / np.maximum(drv_cnt, 1),
                 chance_ref=dict(ref=ref_sum / np.maximum(ref_cnt, 1)[:, None], n=ref_cnt, earn=earn_sum / np.maximum(earn_cnt, 1),
                                 earn_n=earn_cnt, p_option=pk_sum / np.maximum(pk_cnt, 1), n_option=pk_cnt),
@@ -3718,69 +3077,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             access=p_acc, level=p_lev, log=role_log, profile=r_prof, pwords=GR["pwords"], refines=GR["refines"])
                        if RON else None),
                 adjectives=dict(names=ADJ_NAMES, say=ADJ_SAY, has=adj, since=adj_since, log=adj_log))
-
-
-# ---------- pause points (backend plan item 2, 2026-10-08): the game's own way into the weekly loop
-PAUSES = ("week", "situation", "choose", "odds", "learn", "end")
-Pause = namedtuple("Pause", "kind t state value")   # what run_steps() yields; a plain 4-tuple to code that unpacks it
-
-# The run's own variables the game, explain.py and foresee.py read at a pause: each is in the state at every pause from
-# the first week the person is 3 (younger, a week has only its "week" pause). A name of this week's moment holds last
-# week's value until this week sets it. Arrays are per person (N rows). tools/t_steps.py checks every name is there.
-STATE = (
-    # the run: settings, Library, week, age, switches, the outer world's link
-    "P", "L", "t", "age", "RON", "AQ_ON", "SEA_ON", "TH_K", "TH_STEP", "TH_TR", "AT0", "RS0", "WL",
-    # who the person is: colours (z, w), wants (y), core (k), maturity (M), skill and belief, habits, means, needs
-    "z", "w", "y", "k", "M", "sig", "SE", "fb", "habit", "hold", "nic", "res", "need", "doors", "f_tot", "B", "X",
-    # temperament and how life feels
-    "mood", "content", "peace", "stress", "react", "steady", "base_mood", "outlook", "plast", "ctrl", "dsc", "support",
-    "wound", "trouble", "fortune", "Q", "q_thr", "TWo", "fhz", "hzf", "gap_r", "regret", "earned",
-    # commitments, people, body and identity, marks, seasons, tries
-    "held", "I", "prof", "sat", "since", "stage", "alive", "dead", "died", "widowed", "female", "intersex", "found_id",
-    "faith_given", "faith_drifted", "clash0", "act_cw", "rfit_avg", "adj", "adj_since", "adj_v", "mark_n", "had_ev",
-    "missed_t", "events", "tries", "wins", "blocked", "sit_n", "sea_k", "sea_t0", "sea_done",
-    # dreams, passions and plans (goal slots) and the helpers that change them
-    "gk", "gm", "gd", "gs", "gp", "gh", "ghz", "gsrc", "gby", "gid", "gname", "gfelt", "gfelt0",
-    "new_goal", "end_goal", "quit_", "plan_odds", "dream_phrase",
-    # this week's moment: situation, options, what pulls, the choice, the odds, the outcome, what it teaches
-    "s", "s_ev", "rk", "recon", "m", "e", "e0", "diff", "mask", "closed_s", "stakes", "alpha", "do_nothing", "lack",
-    "lackf", "earn", "pbump", "serves", "relief", "rel", "wR", "gU_R", "gU_I", "w_hat", "a_hat", "V", "VA", "H", "hzU",
-    "step", "tryf", "U_R", "U_I", "U", "read_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
-    "p_true", "succ", "delta", "span", "stepF", "role",
-    # the run's logs
-    "ev_log", "goal_log", "brk_log", "conv_log", "rite_log", "commit_log", "clash_log", "role_log", "adj_log",
-    "mark_log", "read_log",
-)
-# names there only when a switch in the state is on: titles (the packs' roles), name -> switch
-STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_lev", "p_sus"), "RON")
-
-
-def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
-    """Run N lives for `years` years and return everything the run kept (see the end of _run)."""
-    g = _run(N, years, seed, P, record_every, intervention, lib, log_lives, False)
-    try:
-        next(g)
-    except StopIteration as done:
-        return done.value
-    raise RuntimeError("engine.run() paused, which it never should (pausing is off)")
-
-
-def run_steps(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
-    """The same run as run(), as a generator that pauses six times a week (the game drives one life with it).
-
-    Each pause yields Pause(kind, t, state, value): kind is one of PAUSES, t the week, state the run's own variables
-    at that moment (a dict; STATE names the ones the game, explain.py and foresee.py may read) and value the one
-    thing the caller may change. Send the value back, changed or not (None for "week" and "end"):
-      "week"       start of the week, after the outside-world intervention    value None
-      "situation"  after the week's situation is drawn                        value s, the situation per person
-      "choose"     right after the person picks an option                     value a, the option per person
-      "odds"       just before the outcome is drawn                           value p_true, the true chance
-      "learn"      right after the surprise of the outcome is worked out      value delta, the prediction error
-      "end"        end of the week                                            value None
-    Before the person is 3 a week has only its "week" pause; from then on every week has all six, in this order.
-    Sending every value back unchanged gives exactly the life run() gives. When the life ends the generator returns
-    run()'s result (StopIteration.value)."""
-    return _run(N, years, seed, P, record_every, intervention, lib, log_lives, True)
 
 
 # ---------- the four color vectors of a person at a given year (Emren, 2026-10-04): a reading of the state

@@ -4,7 +4,8 @@
                                           [--same-as DIR] [--live-paths FILE] [--serve]
 
 Inputs are the folders chroma-env/paths.py names (game_live, engine_live, library_live, packs_live, art), found under
---root (default CHROMA_ROOT, /mnt/project-files; a checkout of the repository works the same, since its paths match).
+--root (default: the tree this script sits in, so the shared folder's copy builds from the shared folder and a checkout's
+copy from that checkout; CHROMA_ROOT overrides it).
 --game, --engine, --lib and --packs take a paths.py name or a folder, for a candidate in place of the live one.
 Every input is read only; the build writes only under <out dir>, which must not exist yet:
 
@@ -31,7 +32,11 @@ Replaces chroma-game/staging-final/final_pin.sh, chroma-hud/sync21.py and chroma
 """
 import argparse, filecmp, hashlib, json, os, pprint, re, shutil, subprocess, sys, time
 
-ENV = os.path.join(os.environ.get("CHROMA_ROOT", "/mnt/project-files"), "chroma-env")
+SHARED = "/mnt/project-files"                                   # the shared folder: tools kept outside the repository
+TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
+ENV = next(d for d in (os.path.join(os.environ.get("CHROMA_ROOT") or TREE, "chroma-env"), os.path.join(SHARED, "chroma-env"))
+           if os.path.isfile(os.path.join(d, "paths.py")))
+os.environ.setdefault("CHROMA_ROOT", os.path.dirname(ENV))
 sys.path.insert(0, ENV)
 from paths import NAMES, P  # noqa: E402
 
@@ -60,7 +65,7 @@ def files(root):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out")
-    ap.add_argument("--root", default=os.environ.get("CHROMA_ROOT", "/mnt/project-files"))
+    ap.add_argument("--root", default=os.environ["CHROMA_ROOT"])
     ap.add_argument("--game", default="game_live")
     ap.add_argument("--engine", default="engine_live")
     ap.add_argument("--lib", default="library_live")
@@ -105,7 +110,7 @@ def main():
     os.makedirs(lb)
     lbuild = os.path.join(L, "build.py")                  # the Library's compiler (in the shared folder when L has none)
     if not os.path.isfile(lbuild):
-        lbuild = os.path.join(P["library_live"], "build.py")
+        lbuild = os.path.join(SHARED, NAMES["library_live"][0], "build.py")
     r = subprocess.run([sys.executable, "-B", lbuild, os.path.join(L, "earth.lib"), "--out", lb], capture_output=True, text=True)
     if r.returncode or not os.path.isfile(os.path.join(lb, "earth.py")):
         stop("the Library's build.py failed:\n" + r.stdout[-2000:] + r.stderr[-2000:])
@@ -198,7 +203,7 @@ def main():
     if a.serve:
         py = os.path.join(root, NAMES["release"][0], "tools", "pyodide")
         if not os.path.isdir(py):
-            py = os.path.join(P["release"], "tools", "pyodide")
+            py = os.path.join(SHARED, NAMES["release"][0], "tools", "pyodide")
         os.symlink(py, os.path.join(W, "pyodide"))
     pics = sum(1 for k in fmap if k.startswith("pics/"))
     say(f"Web folder: index.html {md5(os.path.join(W, 'index.html'))[:12]}, page.html {md5(os.path.join(W, 'page.html'))[:12]}; "
