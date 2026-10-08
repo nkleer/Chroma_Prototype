@@ -1,6 +1,6 @@
 """P12 (Emren's card 10:47, "Road per color"): do the holders of each pack road lean to the road's lead color?
-    python3 -B calib_v10/lean_check.py <lib dir> <N> <seed> <out.npz>      one run (packs on, engine defaults)
-    python3 -B calib_v10/lean_check.py sum <lib dir> <npz> [npz...]         the table
+    python3 -B chroma-engine/tools/lean_check.py <lib dir> <N> <seed> <out.npz>      one run (packs on, engine defaults)
+    python3 -B chroma-engine/tools/lean_check.py sum <lib dir> <npz> [npz...]         the table
 Per road: each holder's colors in the year after they first gain one of its titles, minus everyone's mean at that age,
 pooled over the road's titles; the lead color should lean most. And per pack, its moments as met: the share of their open
 options by means color, weighted by how often each moment is met (the Packs keep the offer even, .200 each).
@@ -8,7 +8,7 @@ Roads and lead colors: chroma-packs/<pack>/PACK.md, "Road(s) per color" (round 5
 import os, sys, importlib.util
 import numpy as np
 sys.dont_write_bytecode = True
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, batch
 ROADS = {
     "science": [("U", "the lab researcher", ["research assistant", "research scientist", "research software engineer", "professor"]),

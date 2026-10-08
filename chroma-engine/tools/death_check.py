@@ -1,10 +1,10 @@
-"""Own death (self_death on): share of lives ended before 30, 50, 65 and 80 and by what. python3 calib_v8/death_check.py <lib dir> [N] [seed]
+"""Own death (self_death on): share of lives ended before 30, 50, 65 and 80 and by what. python3 chroma-engine/tools/death_check.py <lib dir> [N] [seed]
 Real modern Earth (US period life table, both sexes): about .01 by 30, .04 by 50, .15 by 65, .40 by 80."""
 import sys
 from collections import Counter
 import numpy as np
 sys.dont_write_bytecode = True
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, batch
 D = sys.argv[1]; N = int(sys.argv[2]) if len(sys.argv) > 2 else 400; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 3
 batch.LIB_DIR = D

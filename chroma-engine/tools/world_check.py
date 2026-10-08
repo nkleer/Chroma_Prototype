@@ -8,12 +8,12 @@ the W35 identifier scan, timelessness and the hidden-state check of the snapshot
 Allied and enemy pairs and triads are classified HERE ONLY, from the WUBRG wheel's adjacency; world.py never reads a
 pair rule.
 
-    OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python3 -B calib_v10/world_check.py [N_main=200] [N_sym=100]
+    OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python3 -B chroma-engine/tools/world_check.py [N_main=200] [N_sym=100]
 """
 import sys, os, time, json, re, ast
-HERE = os.path.dirname(os.path.abspath(__file__))
-PROTO = os.path.dirname(HERE)
-sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT
+PROTO = _engine.ENGINE
 import numpy as np
 import world as WM
 from world import World, COLORS, COMBO_KEYS, NORM_KEYS, LAW_KEYS, INST_KINDS, TECH_KEYS, BREAKTHROUGHS, _tv

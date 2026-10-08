@@ -1,15 +1,16 @@
 """R15: a child's death and a child's serious illness on the real moments (the Library's staged next3 batch): share of
 parents (lives that ever held children) who lose a child by 60, 75 and 85, and who see a child fall seriously ill.
 Targets (earth-child-illness.lib): death about 4 in 100 parents by 60, 10 by 75, 16 by 90; illness about 1 in 10 by 50,
-1 in 6 by 65, 1 in 3 by 85.  python3 -B calib_v10/child_deaths.py <lives> <years> <seed> [lib dir] [roles file]"""
+1 in 6 by 65, 1 in 3 by 85.  python3 -B chroma-engine/tools/child_deaths.py <lives> <years> <seed> [lib dir] [roles file]"""
 import sys, os, json
 import numpy as np
 sys.dont_write_bytecode = True
-PROTO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
 import engine as E, batch
 N = int(sys.argv[1]); Y = int(sys.argv[2]); sd = int(sys.argv[3])
-LIBD = sys.argv[4] if len(sys.argv) > 4 else "/mnt/project-files/chroma-library"
-ROLES = sys.argv[5] if len(sys.argv) > 5 else "/mnt/project-files/chroma-library/drafts/next3/earth_perks_titles.py"
+LIBD = sys.argv[4] if len(sys.argv) > 4 else _engine.LIBRARY
+ROLES = sys.argv[5] if len(sys.argv) > 5 else os.path.join(_engine.LIBRARY, "earth_perks_titles.py")
 batch.LIB_DIR = LIBD
 pm = {p: os.path.join(LIBD, f"earth_{p}.py") for p in batch.PACKS if os.path.exists(os.path.join(LIBD, f"earth_{p}.py"))}
 L = batch.load_batch("earth", roles=ROLES, pack_moments=pm or None)

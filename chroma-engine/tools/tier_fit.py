@@ -7,13 +7,13 @@ weights) and, by at most e^rung_cap, its rungs' yearly rates (the roads' written
 those and the odds of every act that gives one, in the shown chance. The career budget counts lives with any pack
 career or summit.
     PACKS=science,politics,stage PACK_MOMENTS='{...}' LIB=<batch dir> \\
-    FIT_OUT=<json> python3 calib_v8/tier_fit.py [lives per worker] [rounds] [catalogue] [paste: 1 writes earth_rules.TIER_LIFT]"""
+    FIT_OUT=<json> python3 chroma-engine/tools/tier_fit.py [lives per worker] [rounds] [catalogue] [paste: 1 writes earth_rules.TIER_LIFT]"""
 import sys, os, json, time
 from multiprocessing import Pool
 import numpy as np
 sys.dont_write_bytecode = True
-HERE = os.path.dirname(os.path.abspath(__file__)); PROTO = os.path.dirname(HERE)
-sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT; PROTO = _engine.ENGINE   # tier_lift.json to OUT_DIR; --write edits the engine's earth_rules.py
 import engine as E, batch
 if os.environ.get("LIB"):
     batch.LIB_DIR = os.environ["LIB"]

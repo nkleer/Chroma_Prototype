@@ -7,14 +7,15 @@ condition holds (married: wife or husband) follow the engine's own life course a
 import os, sys, json, time
 import numpy as np
 from multiprocessing import Pool
-HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT   # role_norm_fit.json to OUT_DIR unless FIT_OUT names it
 import engine as E
 import batch as B_
 from batch import load_batch
 if os.environ.get("LIB"):                                   # a staged batch (LIB=<folder>)
     B_.LIB_DIR = os.environ["LIB"]
 
-CAT = sys.argv[3] if len(sys.argv) > 3 else "/mnt/project-files/chroma-library/earth_perks_titles.py"
+CAT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(_engine.LIBRARY, "earth_perks_titles.py")
 # content packs (engine 2026-10-05 22:20): PACKS=science PACK_MOMENTS='{"science": "<compiled moments>"}'; with ONLY_PACKS=1 only
 # the packs' items are fitted (the base keeps its ROLE_NORM); FIT_OUT names the json written
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]

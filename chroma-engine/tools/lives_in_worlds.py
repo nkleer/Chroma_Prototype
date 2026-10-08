@@ -1,10 +1,11 @@
 """Lives in worlds (chroma-world/calibration-and-tests.md 2.2, 2.5): the scorecard, identities at 40, job loss and births
 in recessions, satisfaction in recessions, world lines a year, speed; the world on against the same lives with it off.
-    python3 -B calib_v10/lives_in_worlds.py <world seed> [lives] [years] [on|off]      (env PACKS as in score_packs)"""
+    python3 -B chroma-engine/tools/lives_in_worlds.py <world seed> [lives] [years] [on|off]      (env PACKS as in score_packs)"""
 import sys, os, json, time
 import numpy as np
 sys.dont_write_bytecode = True
-PROTO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
 import engine as E, schwartz as SW, batch
 ws = int(sys.argv[1]); N = int(sys.argv[2]) if len(sys.argv) > 2 else 300; Y = int(sys.argv[3]) if len(sys.argv) > 3 else 80
 on = (sys.argv[4] if len(sys.argv) > 4 else "on") == "on"

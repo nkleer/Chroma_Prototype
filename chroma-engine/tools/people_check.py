@@ -1,4 +1,4 @@
-"""calib_v10/people_check.py: world_people.py's own checks (world-build.md, "Order of work" step 2).
+"""chroma-engine/tools/people_check.py: world_people.py's own checks (world-build.md, "Order of work" step 2).
 
 N lives (default 600) run 80 years in one World with a synthetic engine (Driver below: random-walk colors pulled a
 little toward the niche, a career at about 22, a partner at about 28, children at about 30, outlook about 0.5). Every
@@ -9,14 +9,14 @@ and load with a legacy birth, no color-pair rule in the source, the event vocabu
 return (spec 5 §5), the game's data (the birth event, cast, place, figure and move views), and the character's children
 following the engine's count.
 
-    OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python3 -B calib_v10/people_check.py [N] [years]
+    OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python3 -B chroma-engine/tools/people_check.py [N] [years]
 
-Writes calib_v10/people_check.out. Uses world.py; a small stub World with world-build.md's names stands in only when
+Writes people_check.out to OUT_DIR (else the current folder). Uses world.py; a small stub World with world-build.md's names stands in only when
 world.py does not import (the scorecard says which).
 """
 import sys, os, time, json, io, re, tokenize
-HERE = os.path.dirname(os.path.abspath(__file__)); PROTO = os.path.dirname(HERE)
-sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT; PROTO = _engine.ENGINE   # people_check.out to OUT_DIR
 import numpy as np
 import world_people as wp
 from world_people import People, likeness, R, BIT, KINMASK, G, VOLUNTARY, ROLE, ENGINE_ROLES, NEVER

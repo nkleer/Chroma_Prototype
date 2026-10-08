@@ -2,13 +2,13 @@
 Earth lives, birth to 80, that meet each moment (situation or life event), read event, deed (mark) and title or perk at
 least once, on the live batch with batch.PACKS on. The same keys as the game's stopgap rarity.py (lives, sit, read, mark,
 role), so the game reads it in its place. Four seeds, each drawing its own world.
-    python3 calib_v8/rarity_build.py [lives per seed]     (env LIB, PACKS, PACK_DIR, PACK_MOMENTS for a test; OUT)"""
+    python3 chroma-engine/tools/rarity_build.py [lives per seed]     (env LIB, PACKS, PACK_DIR, PACK_MOMENTS for a test; OUT)"""
 import sys, os, json, time
 from multiprocessing import Pool
 import numpy as np
 sys.dont_write_bytecode = True
-HERE = os.path.dirname(os.path.abspath(__file__)); PROTO = os.path.dirname(HERE)
-sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT; PROTO = _engine.ENGINE   # rarity.json to OUT (or OUT_DIR); the live table is the engine's rarity.json
 import engine as E, batch
 if os.environ.get("LIB"):
     batch.LIB_DIR = os.environ["LIB"]

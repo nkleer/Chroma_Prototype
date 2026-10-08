@@ -1,15 +1,12 @@
 # paired felt vs true odds over offered options: staged (with chance) or live batch. python3 felt_gap.py staged|live
 import os, sys, types, numpy as np
-PROTO = "/mnt/project-files/chroma-engine/prototype"
-src = open("/mnt/project-files/chroma-game/prototype/link.py").read(); src = src[:src.rindex("E = load_engine()")]
-link = types.ModuleType("link"); link.__file__ = "/mnt/project-files/chroma-game/prototype/link.py"
-exec(compile(src, link.__file__, "exec"), link.__dict__)
-sys.path.insert(0, PROTO); os.chdir(PROTO)
-E = link.load_engine(PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
+E = _engine.with_steps()   # the engine with run_steps(), the game's pause points
 import batch
 if sys.argv[1] == "staged":
-    batch.LIB_DIR = "/mnt/project-files/chroma-library/staging"
-    L = batch.load_batch("earth", roles="/mnt/project-files/chroma-library/earth_perks_titles.py")
+    batch.LIB_DIR = os.path.join(_engine.LIBRARY, "staging")
+    L = batch.load_batch("earth", roles=os.path.join(_engine.LIBRARY, "earth_perks_titles.py"))
 else:
     L = batch.load_batch("earth")
 N = 10; gen = E.run_steps(N=N, years=75, seed=33, lib=L); msg = next(gen)

@@ -1,9 +1,9 @@
-"""Emren's point 12 (2026-10-05 20:39): the same life event again and again. python3 calib_v8/repeat_check.py '{P}' [N] [seed]
+"""Emren's point 12 (2026-10-05 20:39): the same life event again and again. python3 chroma-engine/tools/repeat_check.py '{P}' [N] [seed]
 Per life event (a child version counts as its original): lives that meet it, lives that meet it twice or more, and how
 often a repeat comes within two years of the time before. The game tells life events, so these are what the player sees."""
 import sys, json, numpy as np
 from collections import defaultdict
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E
 from batch import load_batch
 import os, batch as B_
@@ -11,7 +11,7 @@ if os.environ.get("LIB"):                      # LIB=<folder> for a staged or dr
     B_.LIB_DIR = os.environ["LIB"]
 P = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {}
 N = int(sys.argv[2]) if len(sys.argv) > 2 else 300; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 11
-L = load_batch("earth", roles="/mnt/project-files/chroma-library/earth_perks_titles.py")
+L = load_batch("earth", roles=os.path.join(_engine.LIBRARY, "earth_perks_titles.py"))
 o = E.run(N=N, seed=seed, P=P, lib=L)
 ROOT = np.asarray(L.get("ROOT", np.arange(L["S"])))
 times = defaultdict(lambda: defaultdict(list))

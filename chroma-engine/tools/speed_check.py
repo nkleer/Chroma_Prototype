@@ -5,7 +5,8 @@ Target: with the world on, at most about a third slower than the go-live engine.
 import sys, os, time, json, importlib.util
 import numpy as np
 sys.dont_write_bytecode = True
-HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.HERE   # engine_v9_golive.py, the frozen v9 engine, sits beside this tool
 import engine as E, batch
 if os.environ.get("RULES"):   # the go-live earth_rules (the go-live engine cannot read today's gates); both engines read it
     sys.path.insert(0, os.environ["RULES"])

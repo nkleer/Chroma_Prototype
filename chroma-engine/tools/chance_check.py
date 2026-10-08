@@ -1,17 +1,18 @@
 """The Library's chance per option (point 8): measure who meets each moment (skill, world push and perks, per color) for
 earth_rules.CHANCE_REF, and check that an option's true odds for them come to its chance.
-    python3 calib_v7/chance_check.py measure|refine|check [lives per worker] [lib dir] [catalogue]
-measure writes calib_v7/chance_ref.json (paste into earth_rules.CHANCE_REF); refine moves each moment's reference by
+    python3 chroma-engine/tools/chance_check.py measure|refine|check [lives per worker] [lib dir] [catalogue]
+measure writes chance_ref.json (to OUT_DIR) (paste into earth_rules.CHANCE_REF); refine moves each moment's reference by
 the gap between its options' odds and chances (Jensen and the rest) and writes the same file; check prints how far the odds sit from
 the chances (per option, weighted by how often each moment comes)."""
 import os, sys, json
 import numpy as np
 from multiprocessing import Pool
-HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+HERE = _engine.OUT   # chance_ref.json to OUT_DIR
 import engine as E, batch
 MODE = sys.argv[1] if len(sys.argv) > 1 else "check"; NW = int(sys.argv[2]) if len(sys.argv) > 2 else 100
-LIB = sys.argv[3] if len(sys.argv) > 3 else "/mnt/project-files/chroma-library/staging"
-CAT = sys.argv[4] if len(sys.argv) > 4 else "/mnt/project-files/chroma-library/earth_perks_titles.py"
+LIB = sys.argv[3] if len(sys.argv) > 3 else os.path.join(_engine.LIBRARY, "staging")
+CAT = sys.argv[4] if len(sys.argv) > 4 else os.path.join(_engine.LIBRARY, "earth_perks_titles.py")
 
 
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]          # content packs (engine 2026-10-06): PACKS=science,politics

@@ -13,10 +13,7 @@ import sys
 
 TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this file sits in
 os.environ.setdefault("CHROMA_ROOT", TREE)
-for _p in (os.path.join(TREE, "chroma-env"), "/mnt/project-files/chroma-env"):
-    if os.path.exists(os.path.join(_p, "paths.py")):
-        sys.path.insert(0, _p)
-        break
+sys.path.insert(0, os.path.join(TREE, "chroma-env"))   # CONTRIBUTING.md, "Paths in scripts"
 from paths import P as PATHS   # noqa: E402
 
 ENGINE = os.path.abspath(os.environ.get("CHROMA_ENGINE") or PATHS["engine_live"])

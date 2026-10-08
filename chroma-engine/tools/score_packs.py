@@ -1,8 +1,8 @@
 """The whole scorecard (schwartz.compare) on a staged batch with packs: LIB=<dir> PACKS=a,b PACK_MOMENTS='{...}'
-python3 calib_v8/score_packs.py '{P}' [N] [seed]   (ROLES=<catalogue> when LIB has none)"""
+python3 chroma-engine/tools/score_packs.py '{P}' [N] [seed]   (ROLES=<catalogue> when LIB has none)"""
 import sys, os, json
 sys.dont_write_bytecode = True
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, schwartz as SW, batch
 P = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {}
 N = int(sys.argv[2]) if len(sys.argv) > 2 else 600; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 21

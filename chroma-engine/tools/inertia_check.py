@@ -1,14 +1,14 @@
-"""Emren's point 7 (2026-10-05 20:39): does color inertia only ever build up? python3 calib_v8/inertia_check.py '{P}' [N] [seed]
+"""Emren's point 7 (2026-10-05 20:39): does color inertia only ever build up? python3 chroma-engine/tools/inertia_check.py '{P}' [N] [seed]
 By age: plasticity, steadiness, experience settling, how far a person moves in a year, distance from the deep core;
 raw rank-order stability (before the survey's measurement error); movement in years with and without a transition."""
-import sys, json, numpy as np
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import os, sys, json, numpy as np
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E
 import schwartz as SW
 from batch import load_batch
 P = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {}
 N = int(sys.argv[2]) if len(sys.argv) > 2 else 300; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 11
-L = load_batch("earth", roles="/mnt/project-files/chroma-library/earth_perks_titles.py")
+L = load_batch("earth", roles=os.path.join(_engine.LIBRARY, "earth_perks_titles.py"))
 o = E.run(N=N, seed=seed, P=P, lib=L)
 W = np.asarray(o["W_hist"]); V = o["V_hist"]; Mh = np.asarray(o["M_hist"])
 PP = dict(E.DEFAULT); PP.update(P)

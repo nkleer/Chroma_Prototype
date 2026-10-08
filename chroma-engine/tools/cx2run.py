@@ -3,8 +3,8 @@ FINAL_LIB=<folder>: the batch (staged next3 and its catalogue earth_perks_titles
 the compiled pack moments from the same folder). NOPACKS=1: no packs. PX='{json}': defaults laid over E.DEFAULT (world on)."""
 import os, sys, json, runpy
 sys.dont_write_bytecode = True
-PROTO = "/mnt/project-files/chroma-engine/prototype"
-os.chdir(PROTO); sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
 import engine as E, batch
 FINAL = os.environ["FINAL_LIB"]
 E.DEFAULT.update(json.loads(os.environ.get("PX", "{}")))
@@ -23,4 +23,6 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
 
 batch.load_batch = load_batch
 script = sys.argv[1]; sys.argv = sys.argv[1:]
+if not os.path.exists(script):   # "calib_v8/death_check.py" (the old place) or "death_check.py": the tool beside this one
+    script = os.path.join(_engine.HERE, os.path.basename(script))
 runpy.run_path(script, run_name="__main__")

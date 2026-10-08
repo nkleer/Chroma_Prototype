@@ -1,10 +1,10 @@
 """Early retirement and leaving the faith (engine, 2026-10-05): [LIB=<folder>] [ROLES=<catalogue>] python3
-calib_v7/exits_check.py '{P}' [N] [seed]
+chroma-engine/tools/exits_check.py '{P}' [N] [seed]
 Share at work by age against US employment by age (relative to age 50, so the engine's own level of work in midlife,
 which is a separate matter, does not count), when people retire, the faith held by age, who leaves it and when."""
 import sys, os, json, numpy as np
 from collections import Counter
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, batch as B_
 if os.environ.get("LIB"):
     B_.LIB_DIR = os.environ["LIB"]

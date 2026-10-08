@@ -1,9 +1,9 @@
 """Plan felt odds at the start of a plan, and how often such plans are reached in time (game's finding: 28% at .99+).
-python3 calib_v7/plan_felt.py '{P}'"""
+python3 chroma-engine/tools/plan_felt.py '{P}'"""
 import os, sys, json
 import numpy as np
-PROTO = "/mnt/project-files/chroma-engine/prototype"
-sys.path.insert(0, PROTO); os.chdir(PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
 import engine as E
 from batch import load_batch
 L = load_batch("earth")

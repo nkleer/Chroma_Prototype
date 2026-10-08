@@ -3,13 +3,9 @@
 import os, sys, types, json
 import numpy as np
 from collections import Counter
-PROTO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-src = open("/mnt/project-files/chroma-game/prototype/link.py").read()
-src = src[:src.rindex("E = load_engine()")]
-link = types.ModuleType("link"); link.__file__ = "/mnt/project-files/chroma-game/prototype/link.py"
-exec(compile(src, link.__file__, "exec"), link.__dict__)
-sys.path.insert(0, PROTO); os.chdir(PROTO)
-E = link.load_engine(PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
+E = _engine.with_steps()   # the engine with run_steps(), the game's pause points
 from batch import load_batch
 import explain as X
 L = load_batch("earth")

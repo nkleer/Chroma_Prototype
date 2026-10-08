@@ -1,9 +1,9 @@
 """Threshold seasons (Emren's point 6) on a batch with seasons: when each stage's season opens, how often each step and the
-transforming chance play a moment, and title seasons. python3 calib_v8/season_check.py <lib dir> [N] [seed] [packs]"""
+transforming chance play a moment, and title seasons. python3 chroma-engine/tools/season_check.py <lib dir> [N] [seed] [packs]"""
 import sys, json, collections
 import numpy as np
 sys.dont_write_bytecode = True
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, batch
 D = sys.argv[1]; N = int(sys.argv[2]) if len(sys.argv) > 2 else 150; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 5
 PK = [x for x in (sys.argv[4] if len(sys.argv) > 4 else "").split(",") if x]

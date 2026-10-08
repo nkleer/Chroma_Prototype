@@ -1,12 +1,13 @@
 """Every start works with the world on (the game's N=1 lives): the six game presets' settings and societies, many seeds.
 Each preset burns in K worlds once (80 years alone, as the game does) and starts M single lives in a copy of each, so
 the draws at birth (place, class, family tree, cast) vary over K x M seeds; each life runs Y years.
-    python3 -B calib_v10/world_starts.py <first seed> <worlds K> <lives per world M> [years Y] [presets, e.g. 1,2,3]
+    python3 -B chroma-engine/tools/world_starts.py <first seed> <worlds K> <lives per world M> [years Y] [presets, e.g. 1,2,3]
 Years above 10 print a line per life (age at death, if any); every failure prints its place in the code."""
 import sys, os, json, copy, traceback
 import numpy as np
 sys.dont_write_bytecode = True
-PROTO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, PROTO)
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
+PROTO = _engine.ENGINE
 import engine as E, batch, world as WM
 s0 = int(sys.argv[1]); K = int(sys.argv[2]); M = int(sys.argv[3]); Y = int(sys.argv[4]) if len(sys.argv) > 4 else 2
 PRE = (sys.argv[5] if len(sys.argv) > 5 else "1,2,3,4,5,6").split(",")

@@ -1,8 +1,8 @@
 """The game's side note (22:25): adult satisfaction lower on the new engine? Mean satisfaction by age, live batch.
-python3 calib_v8/t_satisf.py '{P}' [N] [seed]"""
+python3 chroma-engine/tools/t_satisf.py '{P}' [N] [seed]"""
 import sys, json
 import numpy as np
-sys.path.insert(0, "/mnt/project-files/chroma-engine/prototype")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E
 from batch import load_batch
 P = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {}

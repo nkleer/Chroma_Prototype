@@ -1,7 +1,7 @@
-"""v7 goal statistics for one population: python3 calib_v7/goals_check.py [N] [seed] [P json] [earth|seed] (run from prototype/).
+"""v7 goal statistics for one population: python3 chroma-engine/tools/goals_check.py [N] [seed] [P json] [earth|seed].
 Goals are switched on (goals=True) unless P says otherwise."""
 import sys, collections, numpy as np
-sys.path.insert(0, ".")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E
 
 def stats(o, N):

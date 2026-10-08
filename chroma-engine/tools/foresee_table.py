@@ -1,8 +1,8 @@
 """Measure foresee.HINT: how plans turn out in simulated lives, given the felt odds at the start and what felt odds leave
 out (self-control, free time, stress, fit with who one is, a domain plan). One logistic model per horizon.
-python3 calib_v7/foresee_table.py [N] [seed] [earth|seed] [P json]   (run from prototype/)"""
+python3 chroma-engine/tools/foresee_table.py [N] [seed] [earth|seed] [P json]"""
 import collections, json, sys
-sys.path.insert(0, ".")
+import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import numpy as np
 import engine as E
 
