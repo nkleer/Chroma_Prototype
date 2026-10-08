@@ -78,8 +78,10 @@ CHECKS = [
      "--scratch {W}/speedpass", "re:^Speed pass: PASS", (), "the build lives the same lives as live v22: engine runs and whole game lives (with --engine or --game)"),
     ("saves", "v22.1 B3", "Release", "quick", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
      "--scratch {W}/saves", "re:^Old saves: PASS", (), "lives saved on live v22 load into the same life (with --game only)"),
-    ("identity", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5,21", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seeds 5 and 21"),
+    ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
+     "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
+    ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
+     "--seeds 5,21", "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
     ("identity_full", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21, "re:^C-E14: PASS", (),
      "the same at the v22 record's size: 40 lives x 70 years, seeds 5, 21, 57"),
     ("content", "C-L5, C-L7 to C-L10", "Release", "quick", 1, ".", "python3 -B chroma-release/check_content.py", "rc", (),
@@ -206,7 +208,7 @@ FAST = {
     "Library": ["build_earth", "build_packs", "balance", "setting", "voice", "perks"],    # 0.6 min
     "Packs": ["pack_check", "pack_stats", "pack_balance"],                               # 0.3 min
     "Game": ["icons", "end_at_choice", "saveload", "saveload_world"],                    # about 2 min on 4 cores
-    "Engine": ["identity"],                                                              # 3.5 min: the go-live lives still repeat
+    "Engine": ["identity1"],   # about 3 min, one seed; becomes chroma-engine/tools/t_steps.py (20 s) once main has the item 2 engine
     "Visuals": ["art"],                                                                  # a few seconds (its own check_art.py)
 }
 FAST_OWNER = {cid: o for o, l in FAST.items() for cid in l}

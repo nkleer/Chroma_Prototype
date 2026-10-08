@@ -302,10 +302,36 @@ if "B" in PARTS:
     row("time with the world on vs off, same lives", f"{t_on:.0f} s vs {t_off:.0f} s ({t_on / max(t_off, 1e-9):.2f}x)",
         "at most about 1.33x (C-E15 speed_check.py is the measure)", t_on <= 1.33 * t_off)
 
-    # B5 the game's link.py anchors
-    say("\nB5 the game's link.py still finds its anchors (§2.4)")
-    try:
-        src = open(os.path.join(a.game, "link.py")).read(); tree = ast.parse(src); keep = []
+    # B5 the game's link.py and the engine still fit: the old link.py splices the engine at anchors; the new one (backend
+    # plan item 2, chroma-engine/notes/link-for-game.py) drives engine.run_steps() through the pauses in engine.PAUSES
+    src = open(os.path.join(a.game, "link.py")).read(); tree = ast.parse(src)
+    top = lambda t: {getattr(x, "id", "") for nd in t.body if isinstance(nd, ast.Assign) for x in nd.targets}
+
+    def lit(t, name):
+        try:
+            return next((ast.literal_eval(nd.value) for nd in t.body if isinstance(nd, ast.Assign)
+                         and any(getattr(x, "id", "") == name for x in nd.targets)), None)
+        except ValueError:
+            return None
+    if "PATCHES" not in top(tree) and "PAUSES" in top(tree):
+        say("\nB5 the game's link.py drives the engine's own pause points (run_steps, PAUSES)")
+        pin = os.path.join(a.game, "engine_pin", "engine.py")      # the engine the game runs (its pin, while it keeps one)
+        ep = pin if os.path.exists(pin) else os.path.join(WPROTO, "engine.py")
+        et = ast.parse(open(ep).read())
+        has = any(isinstance(nd, ast.FunctionDef) and nd.name == "run_steps" for nd in et.body)
+        row(f"the engine the game runs ({os.path.relpath(ep, a.game) if ep == pin else 'today'}'s engine.py) offers run_steps() "
+            "with the pauses the game's link.py drives",
+            f"run_steps {'present' if has else 'missing'}; engine PAUSES {lit(et, 'PAUSES')}, link.py PAUSES {lit(tree, 'PAUSES')}",
+            "present and the same", has and lit(et, "PAUSES") is not None and tuple(lit(et, "PAUSES")) == tuple(lit(tree, "PAUSES") or ()))
+        ts = os.path.join(ROOT, "chroma-engine", "tools", "t_steps.py")
+        if os.path.exists(ts):           # the Engine's own check: run_steps() gives run()'s output, the pause order, every STATE name
+            r_ = subprocess.run([sys.executable, "-B", ts], capture_output=True, text=True, cwd=os.path.dirname(ts))
+            row("the Engine's t_steps.py (run_steps() lives run()'s lives)", (r_.stdout.strip().splitlines() or ["no output"])[-1][:160],
+                "ALL PASS", r_.returncode == 0 and "ALL PASS" in r_.stdout)
+    else:
+      say("\nB5 the game's link.py still finds its anchors (§2.4)")
+      try:
+        keep = []
         for nd in tree.body:
             if isinstance(nd, ast.Assign) and getattr(nd.targets[0], "id", "") in ("PATCHES", "SIG"):
                 keep.append(nd)
@@ -315,7 +341,7 @@ if "B" in PARTS:
         exec(compile(ast.Module(body=keep, type_ignores=[]), "link.py", "exec"), ns)
         ns["_with_steps"](open(os.path.join(WPROTO, "engine.py")).read())
         row("every anchor of the game's link.py found once in today's engine.py", f"{len(ns['PATCHES'])} anchors and run()'s signature", "all", True)
-    except Exception as ex_:
+      except Exception as ex_:
         row("every anchor of the game's link.py found once in today's engine.py", str(ex_).splitlines()[0][:200]
             + " (the game re-pins after the refit and moves its anchors)", "all", False)
 
