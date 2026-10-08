@@ -21,26 +21,15 @@ import re
 import sys
 
 sys.dont_write_bytecode = True
-# 2026-10-08, backend plan item 6: folder names come from chroma-env/paths.py. They are read against the tree this script
-# sits in (chroma-packs/tools/ is two levels below it), so a checkout of the repository or a copied work tree
-# (chroma-release/v22_checks.py) checks its own packs and Library; a folder that tree lacks comes from the shared folder
-# (paths.py's root: CHROMA_ROOT, default /mnt/project-files). PACKS_ROOT still points the check at a scratch copy of the
-# packs alone.
-TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ENV = os.path.join(TREE, "chroma-env")
-if not os.path.exists(os.path.join(ENV, "paths.py")):
-    ENV = os.path.join(os.environ.get("CHROMA_ROOT", "/mnt/project-files"), "chroma-env")
-sys.path.insert(0, ENV)
-import paths as env_paths  # noqa: E402
-
-
-def folder(name):
-    here = os.path.join(TREE, env_paths.NAMES[name][0])
-    return here if os.path.isdir(here) else env_paths.P[name]
-
-
-PACKS = os.environ.get("PACKS_ROOT", folder("packs_live"))
-LIB = folder("library_live")
+# 2026-10-08, backend plan item 6: folders come from chroma-env/paths.py, read in the tree this script sits in (the
+# repository's CONTRIBUTING.md, "Paths in scripts"), so the shared folder, a checkout and a copied check tree each check
+# their own packs. PACKS_ROOT still points the check at a scratch copy of the packs alone.
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
+sys.path.insert(0, os.path.join(ROOT, "chroma-env"))
+os.environ.setdefault("CHROMA_ROOT", ROOT)
+from paths import P  # noqa: E402
+PACKS = os.environ.get("PACKS_ROOT", P["packs_live"])
+LIB = P["library_live"]
 COLORS = "WUBRG"
 COMMIT = ["career", "partner", "children", "community", "faith"]
 NEEDS = {"safety", "belonging", "autonomy", "competence", "meaning"}
