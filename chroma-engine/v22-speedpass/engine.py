@@ -23,6 +23,7 @@ Vectorised over N independent lives. One tick = one week. Every life starts at 0
 import os
 import re
 import sys
+from collections import namedtuple
 import numpy as np
 try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
     from numpy._core.umath import clip as _uclip
@@ -923,7 +924,9 @@ def felt_odds(chance, p_step, weeks, steps, domain, outlook, P=None):
 GROUP = np.array(AXES["group vs individual"], float)     # Magic's group (W, G) versus individual (B, R) axis
 
 
-def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
+def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=(), pausing=False):
+    # the whole simulation; run() and run_steps() below call it. With pausing=True it pauses six times a week
+    # (PAUSES); with pausing=False it never pauses and runs exactly as run() always did.
     P = {**DEFAULT, **(P or {})}
     NMAP = NMAP_V6 if P["aut_self"] else NMAP_V5
     SP_ = np.asarray(P["stage_p"], float) if P["stage_p"] is not None else STAGE_P    # plasticity by life stage
@@ -1969,6 +1972,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
             V_hist["n_perks"].append(r_has[:, NT_:].sum(1) if RON else np.zeros(N, int))
         if intervention is not None:
             y0_ = y.copy(); intervention(t, P, nic, y); asrc[:, 6] += y - y0_
+        if pausing:
+            _ = yield Pause("week", t, locals(), None)
         e_i, e_p = era_i[t], era_p[t]
         f_w = P["world_pos_k"] * (np.asarray(WL.W.Pos, float) - 0.2) if WON else P["f_world"]   # what the order rewards
         f_tot = f_w[None, :] + P["lam_local"] * (nic - 0.2) * (np.asarray(WL.PP.msg_w, float)[:, None] if WON else 1.0) \
@@ -2176,6 +2181,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
             aff = np.where(aff_d.sum(1, keepdims=True) > 0, aff_d, np.where(aff_e.sum(1, keepdims=True) > 0, aff_e, aff))
         aff /= aff.sum(1, keepdims=True)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
+        if pausing:
+            s = yield Pause("situation", t, locals(), s)
         if P["base_rates"]:
             s = np.where(had_ev, s_ev, s)
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event
@@ -2422,6 +2429,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = softmax(np.where(seen, U / tau[:, None], -np.inf))
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
+        if pausing:
+            a = yield Pause("choose", t, locals(), a)
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
         best = UR_.argmax(1); has = np.isfinite(UR_.max(1))
@@ -2453,6 +2462,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
                 tk_ = GR["A_EARN"][s] >= 0
                 np.add.at(earn_sum, s, (earn * tk_).sum(1) / np.maximum(tk_.sum(1), 1)); np.add.at(earn_cnt, s, tk_.any(1).astype(float))
             np.add.at(pk_sum, s, np.where(mask, pk_, 0.0)); np.add.at(pk_cnt, s, mask.astype(float))   # open to them
+        if pausing:
+            p_true = yield Pause("odds", t, locals(), p_true)
         succ = rng.random(N) < p_true
         long_miss = (~succ & ~idle & ~recon & (p_true < P["long_shot"]) & (LONGT_[s, a] | (missed_at(GR["A_TITLE"][s, a], s, a) >= 0))
                      ) if RON else np.zeros(N, bool)
@@ -2467,6 +2478,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
                                      has & ~open_r[ar, best], has & open_r[ar, best] & ~open_n[ar, best]], 1).astype(float))
         r = np.where(succ, 1.0, -P["loss"]) * stakes
         delta = np.where(idle, 0.0, r - (ph - (1 - ph) * P["loss"]) * stakes)
+        if pausing:
+            delta = yield Pause("learn", t, locals(), delta)
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
         ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
@@ -3673,6 +3686,8 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
             brk_log.append((int(n), t, rec))
             if n in events:
                 events[n].append(dict(breakthrough=rec))
+        if pausing:
+            _ = yield Pause("end", t, locals(), None)
     z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
@@ -3703,6 +3718,69 @@ def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, li
                             access=p_acc, level=p_lev, log=role_log, profile=r_prof, pwords=GR["pwords"], refines=GR["refines"])
                        if RON else None),
                 adjectives=dict(names=ADJ_NAMES, say=ADJ_SAY, has=adj, since=adj_since, log=adj_log))
+
+
+# ---------- pause points (backend plan item 2, 2026-10-08): the game's own way into the weekly loop
+PAUSES = ("week", "situation", "choose", "odds", "learn", "end")
+Pause = namedtuple("Pause", "kind t state value")   # what run_steps() yields; a plain 4-tuple to code that unpacks it
+
+# The run's own variables the game, explain.py and foresee.py read at a pause: each is in the state at every pause from
+# the first week the person is 3 (younger, a week has only its "week" pause). A name of this week's moment holds last
+# week's value until this week sets it. Arrays are per person (N rows). tools/t_steps.py checks every name is there.
+STATE = (
+    # the run: settings, Library, week, age, switches, the outer world's link
+    "P", "L", "t", "age", "RON", "AQ_ON", "SEA_ON", "TH_K", "TH_STEP", "TH_TR", "AT0", "RS0", "WL",
+    # who the person is: colours (z, w), wants (y), core (k), maturity (M), skill and belief, habits, means, needs
+    "z", "w", "y", "k", "M", "sig", "SE", "fb", "habit", "hold", "nic", "res", "need", "doors", "f_tot", "B", "X",
+    # temperament and how life feels
+    "mood", "content", "peace", "stress", "react", "steady", "base_mood", "outlook", "plast", "ctrl", "dsc", "support",
+    "wound", "trouble", "fortune", "Q", "q_thr", "TWo", "fhz", "hzf", "gap_r", "regret", "earned",
+    # commitments, people, body and identity, marks, seasons, tries
+    "held", "I", "prof", "sat", "since", "stage", "alive", "dead", "died", "widowed", "female", "intersex", "found_id",
+    "faith_given", "faith_drifted", "clash0", "act_cw", "rfit_avg", "adj", "adj_since", "adj_v", "mark_n", "had_ev",
+    "missed_t", "events", "tries", "wins", "blocked", "sit_n", "sea_k", "sea_t0", "sea_done",
+    # dreams, passions and plans (goal slots) and the helpers that change them
+    "gk", "gm", "gd", "gs", "gp", "gh", "ghz", "gsrc", "gby", "gid", "gname", "gfelt", "gfelt0",
+    "new_goal", "end_goal", "quit_", "plan_odds", "dream_phrase",
+    # this week's moment: situation, options, what pulls, the choice, the odds, the outcome, what it teaches
+    "s", "s_ev", "rk", "recon", "m", "e", "e0", "diff", "mask", "closed_s", "stakes", "alpha", "do_nothing", "lack",
+    "lackf", "earn", "pbump", "serves", "relief", "rel", "wR", "gU_R", "gU_I", "w_hat", "a_hat", "V", "VA", "H", "hzU",
+    "step", "tryf", "U_R", "U_I", "U", "read_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
+    "p_true", "succ", "delta", "span", "stepF", "role",
+    # the run's logs
+    "ev_log", "goal_log", "brk_log", "conv_log", "rite_log", "commit_log", "clash_log", "role_log", "adj_log",
+    "mark_log", "read_log",
+)
+# names there only when a switch in the state is on: titles (the packs' roles), name -> switch
+STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_lev", "p_sus"), "RON")
+
+
+def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
+    """Run N lives for `years` years and return everything the run kept (see the end of _run)."""
+    g = _run(N, years, seed, P, record_every, intervention, lib, log_lives, False)
+    try:
+        next(g)
+    except StopIteration as done:
+        return done.value
+    raise RuntimeError("engine.run() paused, which it never should (pausing is off)")
+
+
+def run_steps(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):
+    """The same run as run(), as a generator that pauses six times a week (the game drives one life with it).
+
+    Each pause yields Pause(kind, t, state, value): kind is one of PAUSES, t the week, state the run's own variables
+    at that moment (a dict; STATE names the ones the game, explain.py and foresee.py may read) and value the one
+    thing the caller may change. Send the value back, changed or not (None for "week" and "end"):
+      "week"       start of the week, after the outside-world intervention    value None
+      "situation"  after the week's situation is drawn                        value s, the situation per person
+      "choose"     right after the person picks an option                     value a, the option per person
+      "odds"       just before the outcome is drawn                           value p_true, the true chance
+      "learn"      right after the surprise of the outcome is worked out      value delta, the prediction error
+      "end"        end of the week                                            value None
+    Before the person is 3 a week has only its "week" pause; from then on every week has all six, in this order.
+    Sending every value back unchanged gives exactly the life run() gives. When the life ends the generator returns
+    run()'s result (StopIteration.value)."""
+    return _run(N, years, seed, P, record_every, intervention, lib, log_lives, True)
 
 
 # ---------- the four color vectors of a person at a given year (Emren, 2026-10-04): a reading of the state
