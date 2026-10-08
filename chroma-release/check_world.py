@@ -1,15 +1,15 @@
 """Release check C-E16 (chroma-release/checklist.md, section 9): the outer world tests of
 chroma-world/calibration-and-tests.md §2, for rows W1-W37.
 
-Part A runs the Engine's own world checks on a copy of its folder, so their .out files land in the copy and nothing is
-written in chroma-engine/:
-  calib_v10/world_check.py      §2.1 the world alone (economy, state, culture, eras, institutions, outer ring, symmetry,
+Part A runs the Engine's own world checks (chroma-engine/tools/, before backend item 7 prototype/calib_v10/) on a copy,
+with a copy of the engine, so their .out files land in the copy and nothing is written in chroma-engine/:
+  world_check.py                §2.1 the world alone (economy, state, culture, eras, institutions, outer ring, symmetry,
                                 swing, save and load, determinism, W35 scan, timelessness), §2.5 the world's own speed
-  calib_v10/people_check.py     the named cast, place and drawn births (§2.2 network, no close friend, moving, Close
+  people_check.py               the named cast, place and drawn births (§2.2 network, no close friend, moving, Close
                                 first, drawn births; §2.3 reach sizes; §2.6 save, load and a legacy birth)
-  calib_v10/lives_in_worlds.py  §2.2 lives in worlds: the scorecard, identities at 40, job loss, births and satisfaction
+  lives_in_worlds.py            §2.2 lives in worlds: the scorecard, identities at 40, job loss, births and satisfaction
                                 in recessions, world lines a year; on several world seeds, and once with the world off
-  calib_v10/world_starts.py     every game preset starts with the world on (plus the birth crash of seed 557247)
+  world_starts.py               every game preset starts with the world on (plus the birth crash of seed 557247)
 Part B adds what those scripts do not test, with the real engine:
   B1 one world per world seed: two runs on the same world seed share recessions, eras and laws; the lives diverge (W1)
   B2 big public events always reach the story; world lines a year (§2.2 "when it matters")
@@ -20,11 +20,13 @@ Part B adds what those scripts do not test, with the real engine:
      against them; a star moves a norm a little, with a lag (§2.3)
   B7 legacy: a saved world loads and runs on, and a grandchild born into it lives in it with the engine (§2.6)
 
-    python3 -B chroma-release/check_world.py [--quick] [--parts A,B] [--proto DIR] [--lib DIR] [--jobs 3] [--keep]
+    python3 -B chroma-release/check_world.py [--quick] [--parts A,B] [--engine DIR] [--lib DIR] [--jobs 3] [--keep]
 
   --quick   small sizes, to see that everything runs (minutes, not an hour); the final check runs without it. At quick
             sizes the symmetry, swing and timing rows are noisy, and other work on the machine slows the timing rows.
-  --proto   the engine folder (default chroma-engine/prototype). --lib: a Library folder instead of chroma-library.
+  --engine  the engine folder (default CHROMA_ENGINE, else the live engine, paths.py "engine_live"); the Engine's scripts
+            come from --tools (default chroma-engine/tools). --lib: a Library folder instead of chroma-library.
+  --proto   only for a tree without chroma-engine/tools: the folder holding both the engine and calib_v10/.
   --keep    keep the working copy (its path is printed).
 Writes chroma-release/out/world_<UTC time>.txt with every line printed and the Engine scripts' outputs. Exit code 0 when
 nothing is MISS. The thresholds marked "release reading" are this check's reading of a target the spec states in words."""
@@ -37,7 +39,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
 from paths import P, path, ROOT   # backend plan item 6: every folder is named once, in chroma-env/paths.py
 ap = argparse.ArgumentParser()
-ap.add_argument("--proto", default=P["engine_v23"])   # calib scripts and engine_v9_golive.py live here (backend item 7 may rename)
+ap.add_argument("--engine", default=os.environ.get("CHROMA_ENGINE") or P["engine_live"])
+ap.add_argument("--tools", default=os.path.join(ROOT, "chroma-engine", "tools"))   # the Engine's scripts (backend plan item 7)
+ap.add_argument("--proto", default=P["engine_v23"])   # before item 7: the engine with the scripts in its calib_v10/
 ap.add_argument("--lib", default=P["library_live"])
 ap.add_argument("--packs-dir", default=P["packs_live"])
 ap.add_argument("--game", default=P["game_live"])
@@ -72,27 +76,33 @@ def row(name, value, target, ok):
 
 # ---------------------------------------------------------------------------------------------------- the working copy
 WORK = a.work or tempfile.mkdtemp(prefix="chroma_world_check_")
-WPROTO = os.path.join(WORK, "chroma-engine", "prototype")
-os.makedirs(os.path.join(WPROTO, "calib_v10"), exist_ok=True)
-for f in os.listdir(a.proto):
-    if f.endswith(".py"):
-        shutil.copy2(os.path.join(a.proto, f), WPROTO)
-for f in os.listdir(os.path.join(a.proto, "calib_v10")):
-    if f.endswith(".py"):
-        shutil.copy2(os.path.join(a.proto, "calib_v10", f), os.path.join(WPROTO, "calib_v10"))
+TOOLS = os.path.exists(os.path.join(a.tools, "world_check.py"))
+WPROTO = os.path.join(WORK, "chroma-engine", "engine" if TOOLS else "prototype")   # the engine, copied
+ENGSRC = a.engine if TOOLS else a.proto
+SCR = os.path.join(WORK, "chroma-engine", "tools") if TOOLS else os.path.join(WPROTO, "calib_v10")   # the Engine's scripts
+for d, sd in ((WPROTO, ENGSRC), (SCR, a.tools if TOOLS else os.path.join(a.proto, "calib_v10"))):
+    os.makedirs(d, exist_ok=True)
+    for f in os.listdir(sd):
+        if f.endswith(".py"):
+            shutil.copy2(os.path.join(sd, f), d)
+PRE = "" if TOOLS else "calib_v10/"   # the scripts run from SCR's parent folder in the old layout, from SCR in the new
+CWD = SCR if TOOLS else WPROTO
+os.makedirs(os.path.join(WORK, "chroma-env"), exist_ok=True)   # the tools' _engine.py reads the folder names from the tree
+shutil.copy2(os.path.join(ROOT, "chroma-env", "paths.py"), os.path.join(WORK, "chroma-env"))
 for name, src in (("chroma-library", a.lib), ("chroma-packs", a.packs_dir)):   # batch.py reads ../../chroma-library
     dst = os.path.join(WORK, name)
     if not os.path.exists(dst):
         os.symlink(os.path.abspath(src), dst)
 say(f"C-E16 outer world tests, {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}{' (quick sizes)' if Q else ''}")
-say(f"  engine {os.path.abspath(a.proto)} (copied to {WPROTO}); Library {os.path.abspath(a.lib)}")
-ENV = dict(os.environ, OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1")
+say(f"  engine {os.path.abspath(ENGSRC)} (copied to {WPROTO}); scripts {os.path.abspath(a.tools) if TOOLS else 'its calib_v10/'}; "
+    f"Library {os.path.abspath(a.lib)}")
+ENV = dict(os.environ, OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1", CHROMA_ROOT=ROOT, CHROMA_ENGINE=WPROTO, OUT_DIR=CWD)
 
 
 def run_job(job):
     name, argv = job
     t0 = time.time()
-    p = subprocess.run([sys.executable, "-B"] + argv, cwd=WPROTO, env=ENV, capture_output=True, text=True)
+    p = subprocess.run([sys.executable, "-B"] + argv, cwd=CWD, env=ENV, capture_output=True, text=True)
     return name, p.returncode, p.stdout, p.stderr, time.time() - t0
 
 
@@ -111,12 +121,12 @@ def last_json(text):
 if "A" in PARTS:
     WS = [11] if Q else [11, 12, 13]
     NL, YL = (60, 70) if Q else (300, 80)
-    jobs = [("world_check", ["calib_v10/world_check.py"] + (["30", "15"] if Q else ["200", "100"])),
-            ("people_check", ["calib_v10/people_check.py"] + (["150", "60"] if Q else ["600", "80"])),
-            ("world_starts", ["calib_v10/world_starts.py", "1", "4" if Q else "20", "2"]),
-            ("world_starts 557247", ["calib_v10/world_starts.py", "557247", "1", "2"])]
-    jobs += [(f"lives_in_worlds {ws} on", ["calib_v10/lives_in_worlds.py", str(ws), str(NL), str(YL), "on"]) for ws in WS]
-    jobs += [(f"lives_in_worlds {WS[0]} off", ["calib_v10/lives_in_worlds.py", str(WS[0]), str(NL), str(YL), "off"])]
+    jobs = [("world_check", [PRE + "world_check.py"] + (["30", "15"] if Q else ["200", "100"])),
+            ("people_check", [PRE + "people_check.py"] + (["150", "60"] if Q else ["600", "80"])),
+            ("world_starts", [PRE + "world_starts.py", "1", "4" if Q else "20", "2"]),
+            ("world_starts 557247", [PRE + "world_starts.py", "557247", "1", "2"])]
+    jobs += [(f"lives_in_worlds {ws} on", [PRE + "lives_in_worlds.py", str(ws), str(NL), str(YL), "on"]) for ws in WS]
+    jobs += [(f"lives_in_worlds {WS[0]} off", [PRE + "lives_in_worlds.py", str(WS[0]), str(NL), str(YL), "off"])]
     say(f"\nPART A: the Engine's world checks ({len(jobs)} runs, {a.jobs} at a time)")
     res = {jobs[0][0]: run_job(jobs[0])}   # world_check alone first, so its own timing row is not slowed by the others
     with ThreadPoolExecutor(a.jobs) as ex:
@@ -323,9 +333,10 @@ if "B" in PARTS:
             "with the pauses the game's link.py drives",
             f"run_steps {'present' if has else 'missing'}; engine PAUSES {lit(et, 'PAUSES')}, link.py PAUSES {lit(tree, 'PAUSES')}",
             "present and the same", has and lit(et, "PAUSES") is not None and tuple(lit(et, "PAUSES")) == tuple(lit(tree, "PAUSES") or ()))
-        ts = os.path.join(ROOT, "chroma-engine", "tools", "t_steps.py")
+        ts = os.path.join(SCR if TOOLS else os.path.join(ROOT, "chroma-engine", "tools"), "t_steps.py")
         if os.path.exists(ts):           # the Engine's own check: run_steps() gives run()'s output, the pause order, every STATE name
-            r_ = subprocess.run([sys.executable, "-B", ts], capture_output=True, text=True, cwd=os.path.dirname(ts))
+            r_ = subprocess.run([sys.executable, "-B", ts], capture_output=True, text=True, cwd=os.path.dirname(ts),
+                                env=ENV if TOOLS else None)
             row("the Engine's t_steps.py (run_steps() lives run()'s lives)", (r_.stdout.strip().splitlines() or ["no output"])[-1][:160],
                 "ALL PASS", r_.returncode == 0 and "ALL PASS" in r_.stdout)
     else:

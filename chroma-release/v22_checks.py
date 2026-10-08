@@ -306,6 +306,7 @@ def cp_files(s, d, pat="*"):
 
 
 TOOLS_DIR = "chroma-engine/tools"   # the Engine's check scripts since backend plan item 7, without their calib_vN/ folders
+TOOLS_MARK = TOOLS_DIR + "/cx2run.py"   # they are there when this is (tools/ began with _engine.py and t_steps.py alone)
 TOOLS = False                       # set in main(): the candidate or the shared folder has them
 
 
@@ -334,6 +335,7 @@ def build_tree():
                     o = os.path.join(P, os.path.relpath(r, RP)); os.makedirs(o, exist_ok=True); shutil.copy2(os.path.join(r, f), o)
     cp_files(src["engine"], P, "*.py")                        # the engine itself: live v22 or the candidate
     if os.path.exists(os.path.join(src["engine"], "rarity.json")):
+        os.makedirs(os.path.join(P, "calib_v8"), exist_ok=True)
         shutil.copy2(os.path.join(src["engine"], "rarity.json"), os.path.join(P, "calib_v8", "rarity.json"))
     shutil.copytree(src["engine"], os.path.join(T, "chroma-engine", "archive", "live-v22"), ignore=SKIPF)   # owners' scripts name it
     if LIVE["engine"] != "chroma-engine/archive/live-v22":                    # and where paths.py names the live engine
@@ -364,13 +366,12 @@ def build_tree():
     shutil.copytree(v21, os.path.join(T, GAME_V21, "engine_pin"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-env"), exist_ok=True)                 # the folder names, read under CHROMA_ROOT=T
     shutil.copy2(os.path.join(fromcand("chroma-env/paths.py"), "chroma-env", "paths.py"), os.path.join(T, "chroma-env", "paths.py"))
-    if TOOLS:                                                 # the Engine's tools (they find the tree's engine_live by _engine.py)
-        shutil.copytree(os.path.join(fromcand(TOOLS_DIR + "/_engine.py"), TOOLS_DIR), os.path.join(T, TOOLS_DIR), ignore=SKIPF)
+    tools = fromcand(TOOLS_MARK) if TOOLS else fromcand(TSTEPS) if os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)) else None
+    if tools:                                                 # the Engine's tools, items 2 and 7 (they find the tree's engine_live
+        shutil.copytree(os.path.join(tools, TOOLS_DIR), os.path.join(T, TOOLS_DIR), ignore=SKIPF)   # by _engine.py)
     if os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools", "build.py")):   # the one build
         shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
                         os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
-    if os.path.exists(os.path.join(fromcand(TSTEPS), TSTEPS)):                # the Engine's tools (items 2 and 7)
-        shutil.copytree(os.path.join(fromcand(TSTEPS), "chroma-engine", "tools"), os.path.join(T, "chroma-engine", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
     os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
     cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
@@ -626,7 +627,7 @@ def main():
     if a.level == "fast" and FAST_OWNER.get("identity1") == "Engine" and any(c[0] == "identity1" for c in todo):
         log("  Engine: this engine has no run_steps() (from before backend item 2), so its fast check is identity1, not t_steps")
     global TOOLS
-    TOOLS = os.path.exists(os.path.join(fromcand(TOOLS_DIR + "/_engine.py"), TOOLS_DIR, "_engine.py"))
+    TOOLS = os.path.exists(os.path.join(fromcand(TOOLS_MARK), TOOLS_MARK))
     n = build_tree()
     log(f"  the Engine's rows run from {TOOLS_DIR if TOOLS else EP + ' (calib_v7, calib_v8, calib_v10)'}")
     log(f"  work tree {T}: {n} copied scripts re-pointed to it; engine.py {md5(os.path.join(T, EP, 'engine.py'))}, "
@@ -634,7 +635,8 @@ def main():
     os.makedirs(os.path.join(WORK, "rec"), exist_ok=True)
     open(os.path.join(WORK, "rec", "sitecustomize.py"), "w").write(SITE)
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", OMP_NUM_THREADS="1", MPLBACKEND="Agg")
-    for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT"):
+    for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT", "CHROMA_ENGINE",
+              "OUT_DIR"):
         env.pop(k, None)
     fmt = lambda c: engine_row(c)[1].format(T=T, W=W, ENGINE=src["engine"], LIVEENGINE=os.path.join(REAL, LIVE["engine"]),
                                             GAME=src["game"], LIVEGAME=os.path.join(REAL, LIVE["game"]),
