@@ -9,9 +9,9 @@ https://claude.ai/artifact/KC9Q3XfqxQrJWCp3AcdMju
 Item 1 of the backend plan Emren accepted on 2026-10-08 (the project's `chroma-env/backend-plan.md`): versions and
 branches here replace the folder copies kept in the project's shared folder.
 
-`main` holds exactly the files the live version is built from, at the same paths they have in the shared folder, each
-byte-identical to that version's manifest in the shared folder (`chroma-env/live-<version>-manifest.txt`). Live now:
-**v22.1** (published 2026-10-08 13:10 UTC, artifact version 1791464842-7382; 464 files).
+Each `release/<version>` branch holds exactly the files that version is built from, at the same paths they have in the
+shared folder, each byte-identical to that version's manifest there (`chroma-env/live-<version>-manifest.txt`); `main`
+starts from the newest one and adds finished, checked work. Live now: **v22.1** (published 2026-10-08 13:10 UTC, artifact version 1791464842-7382; 464 files).
 
 | Path | Owner thread | What |
 |---|---|---|
