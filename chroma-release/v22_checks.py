@@ -641,8 +641,11 @@ def main():
     fmt = lambda c: engine_row(c)[1].format(T=T, W=W, ENGINE=src["engine"], LIVEENGINE=os.path.join(REAL, LIVE["engine"]),
                                             GAME=src["game"], LIVEGAME=os.path.join(REAL, LIVE["game"]),
                                             RARITY=os.path.join(T, NAMES["rarity_live"][0]))
+    # a proof's command names the folder it runs in when that is not the check's own (an Engine row run from tools/), so a
+    # proof taken in one layout is never reused for the other
+    pkey = lambda c: fmt(c) if engine_row(c)[0] == c[5] else "cd " + engine_row(c)[0] + " && " + fmt(c)
     # proofs reused: a check whose files are all as they were when it last ran; any check another one waits on runs with it
-    reuse = {} if a.no_reuse else {c[0]: e for c in todo for e in [find_proof(c[0], fmt(c))] if e}
+    reuse = {} if a.no_reuse else {c[0]: e for c in todo for e in [find_proof(c[0], pkey(c))] if e}
     names = {t[0] for t in todo}
     changed = True
     while changed:
@@ -692,7 +695,7 @@ def main():
                 f.write(f"\nexit {p.returncode} in {time.time() - ts:.0f}s\n"); f.close()
                 running.remove(r); used -= cores
                 res[c[0]] = verdict(c, p.returncode, time.time() - ts)
-                nf = save_proof(c[0], cmd, time.time() - ts) if p.returncode == 0 else 0
+                nf = save_proof(c[0], pkey(c), time.time() - ts) if p.returncode == 0 else 0
                 log(f"  {res[c[0]]['result']:4s} {c[0]} ({c[1]}) in {res[c[0]]['secs']:.0f}s {res[c[0]]['note']}"
                     + (f" [proof: {nf} files]" if nf else ""))
     write_summary(todo, res, t0, log)
