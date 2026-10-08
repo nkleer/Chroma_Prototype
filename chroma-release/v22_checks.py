@@ -78,8 +78,10 @@ CHECKS = [
      "--scratch {W}/speedpass", "re:^Speed pass: PASS", (), "the build lives the same lives as live v22: engine runs and whole game lives (with --engine or --game)"),
     ("saves", "v22.1 B3", "Release", "quick", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
      "--scratch {W}/saves", "re:^Old saves: PASS", (), "lives saved on live v22 load into the same life (with --game only)"),
-    ("identity", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5,21", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seeds 5 and 21"),
+    ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
+     "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
+    ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
+     "--seeds 5,21", "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
     ("identity_full", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21, "re:^C-E14: PASS", (),
      "the same at the v22 record's size: 40 lives x 70 years, seeds 5, 21, 57"),
     ("content", "C-L5, C-L7 to C-L10", "Release", "quick", 1, ".", "python3 -B chroma-release/check_content.py", "rc", (),
@@ -182,6 +184,9 @@ CHECKS = [
     # ---- Game (C-G1, staging-final/run_cg1G.sh; C-G2)
     ("icons", "C-G2", "Game", "quick", 1, "chroma-game/prototype", "python3 -B web/src/live_icons.py --check", "rc", (),
      "every option keeps its drawn icon"),
+    ("build", "item 5", "Game", "quick", 1, ".", "python3 -B chroma-game/tools/build.py {W}/build --same-as game_live && echo BUILD-SAME",
+     "re:^BUILD-SAME", (), "the one build command makes the game from the engine, Library and packs, file for file as the "
+     "candidate's game (Library rebuild, pin C-X1, load); when chroma-game/tools/build.py is there"),
     # ---- Visuals (its own fast check, chroma-art/kit/check_art.py; --full also rebuilds the icons with Node)
     ("art", "art", "Visuals", "quick", 1, ".", "python3 -B chroma-art/kit/check_art.py", "re:^art check: pass", (),
      "every picture the game names exists at its size and weight; every life event has a picture; one icon per option"),
@@ -202,11 +207,11 @@ for gid, cmd in G1:
 # the release thread's proposals from the quick level's times (out/v22checks_20261008-122526); each owner confirms or
 # names its own, and changes its own line here.
 FAST = {
-    "Release": ["pin", "content", "packrules"],                                         # 0.3 min
+    "Release": ["pin", "content", "packrules", "build"],                                # 0.4 min
     "Library": ["build_earth", "build_packs", "balance", "setting", "voice", "perks"],    # 0.6 min
     "Packs": ["pack_check", "pack_stats", "pack_balance"],                               # 0.3 min
     "Game": ["icons", "end_at_choice", "saveload", "saveload_world"],                    # about 2 min on 4 cores
-    "Engine": ["identity"],                                                              # 3.5 min: the go-live lives still repeat
+    "Engine": ["identity1"],   # about 3 min, one seed; becomes chroma-engine/tools/t_steps.py (20 s) once main has the item 2 engine
     "Visuals": ["art"],                                                                  # a few seconds (its own check_art.py)
 }
 FAST_OWNER = {cid: o for o, l in FAST.items() for cid in l}
@@ -293,6 +298,11 @@ def cp_files(s, d, pat="*"):
             shutil.copy2(f, d)
 
 
+def fromcand(rel):
+    """The root a shared file comes from: the candidate commit or checkout when it holds the file, else the project folder."""
+    return CAND if CAND and os.path.exists(os.path.join(CAND, rel)) else REAL
+
+
 def build_tree():
     """The work tree: the candidate (or live) folders where the checks expect them, plus the scripts that run them."""
     P = os.path.join(T, "chroma-engine", "prototype"); RP = os.path.join(REAL, "chroma-engine", "prototype")
@@ -334,13 +344,16 @@ def build_tree():
     v21 = os.path.join(REAL, GAME_V21, "engine_pin")                          # check_identity's go-live rules
     shutil.copytree(v21, os.path.join(T, GAME_V21, "engine_pin"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-env"), exist_ok=True)                 # the folder names, read under CHROMA_ROOT=T
-    shutil.copy2(os.path.join(REAL, "chroma-env", "paths.py"), os.path.join(T, "chroma-env", "paths.py"))
+    shutil.copy2(os.path.join(fromcand("chroma-env/paths.py"), "chroma-env", "paths.py"), os.path.join(T, "chroma-env", "paths.py"))
+    if os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools", "build.py")):   # the one build
+        shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
+                        os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
     os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
     cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
     R = os.path.join(T, "chroma-release")
     for pat in ("*.py", "*.js"):
-        cp_files(os.path.join(CAND if CAND and os.path.isdir(os.path.join(CAND, "chroma-release")) else REAL, "chroma-release"), R, pat)
+        cp_files(os.path.join(fromcand("chroma-release"), "chroma-release"), R, pat)
     n = 0                                                     # absolute project paths in the copies point at the tree
     for r, ds, fs in os.walk(T):
         if os.path.islink(r):
@@ -568,7 +581,8 @@ def main():
             continue
         if cid == "live" and not is_live:
             continue
-        if (cid == "speedpass" and a.engine is None and a.game is None) or (cid == "saves" and a.game is None):
+        if (cid == "speedpass" and a.engine is None and a.game is None) or (cid == "saves" and a.game is None) \
+                or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))):
             continue
         todo.append(c)
     say = open(os.path.join(RUN, "run.txt"), "w")
@@ -647,6 +661,8 @@ def main():
     write_summary(todo, res, t0, log)
     if not a.keep:
         shutil.rmtree(WORK, ignore_errors=True)
+        if a.commit and CAND:                    # the exported commit too
+            shutil.rmtree(os.path.dirname(CAND), ignore_errors=True)
     bad = [k for k, v in res.items() if v["result"] in ("FAIL", "MISS")]
     sys.exit(1 if bad else 0)
 

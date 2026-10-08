@@ -1,21 +1,28 @@
 #!/bin/bash
 # v22.1 B7, split over containers (coordinator 10-08): the game's browser drivers on the v22.1 build, a group at a time.
 # Run from any container; reads the shared folder only and writes one report, chroma-release/out/b7_<groups>_<UTC>.txt.
-#   bash /mnt/project-files/chroma-release/short-v22.1/b7.sh <groups, e.g. A or A,B> [jobs, default 2] [build prototype dir]
-# The build defaults to /tmp/v22p1_build/prototype; when it is missing, make_tree.sh lays out a fresh one in /tmp/b7_tree.
+#   bash /mnt/project-files/chroma-release/short-v22.1/b7.sh <groups, e.g. A or A,B> [jobs, default 2] [build]
+# The build is the out folder of the one build command (chroma-game/tools/build.py <out>, backend plan item 5): its web/
+# is served as it is and its game's test/ drivers run. A prototype folder still works (its web/ is assembled here), and
+# with no build given, /tmp/v22p1_build/prototype or a fresh make_tree.sh layout in /tmp/b7_tree.
 # The page is served from /tmp/b7_<groups>/serve on port 8140 with the Pyodide copy in chroma-release/tools/pyodide.
 set -u
 GROUPS_=${1:?groups}; JOBS=${2:-2}; P=${3:-/tmp/v22p1_build/prototype}
 F=/mnt/project-files; R=$F/chroma-release; TAG=$(echo "$GROUPS_" | tr -d ','); B=/tmp/b7_$TAG; PORT=8140
 export PW=${PW:-/opt/node22/lib/node_modules/playwright}
-if [ ! -f "$P/web/index.html" ]; then
-  rm -rf /tmp/b7_tree; mkdir -p /tmp/b7_tree; bash $F/chroma-game/staging-v22p1/make_tree.sh /tmp/b7_tree > /tmp/b7_tree.log 2>&1 || { echo "make_tree failed: see /tmp/b7_tree.log"; exit 2; }
-  P=/tmp/b7_tree/prototype
+if [ -f "$P/BUILD.md" ] && [ -f "$P/web/page.html" ]; then        # an out folder of chroma-game/tools/build.py
+  OUT=$P; P=$OUT/chroma-game/prototype; W=$OUT/web; rm -rf $B; mkdir -p $B/test $B/out
+  cp -r $W $B/serve; [ -d $B/serve/pyodide ] || cp -r $R/tools/pyodide $B/serve/
+else
+  if [ ! -f "$P/web/index.html" ]; then
+    rm -rf /tmp/b7_tree; mkdir -p /tmp/b7_tree; bash $F/chroma-game/staging-v22p1/make_tree.sh /tmp/b7_tree > /tmp/b7_tree.log 2>&1 || { echo "make_tree failed: see /tmp/b7_tree.log"; exit 2; }
+    P=/tmp/b7_tree/prototype
+  fi
+  W=$P/web; rm -rf $B; mkdir -p $B/serve/py $B/test $B/out
+  { printf '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}</style></head><body>'; cat $W/index.html; printf '</body></html>'; } > $B/serve/page.html
+  cp $W/worker.js $B/serve/; cp -r $R/tools/pyodide $B/serve/; ln -sfn $F/chroma-art/game/pics $B/serve/pics
+  for f in $(grep -o '"[a-z_/]*\.py"' $W/worker.js | tr -d '"'); do mkdir -p $B/serve/py/$(dirname $f); cp $P/$f $B/serve/py/$f; done
 fi
-W=$P/web; rm -rf $B; mkdir -p $B/serve/py $B/test $B/out
-{ printf '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}</style></head><body>'; cat $W/index.html; printf '</body></html>'; } > $B/serve/page.html
-cp $W/worker.js $B/serve/; cp -r $R/tools/pyodide $B/serve/; ln -sfn $F/chroma-art/game/pics $B/serve/pics
-for f in $(grep -o '"[a-z_/]*\.py"' $W/worker.js | tr -d '"'); do mkdir -p $B/serve/py/$(dirname $f); cp $P/$f $B/serve/py/$f; done
 cp $P/test/*.js $P/test/serve.py $B/test/
 SPID=$(setsid nohup python3 $B/test/serve.py $PORT $B/serve > $B/serve.log 2>&1 < /dev/null & echo $!)
 trap 'kill $SPID 2>/dev/null' EXIT
@@ -49,7 +56,7 @@ for i in $(seq 1 60); do curl -sf -o /dev/null $U && break; sleep 1; done
 REP=$R/out/b7_${TAG}_$(date -u +%Y%m%d-%H%M%S).txt
 md5() { md5sum < $1 | cut -c1-12; }
 { echo "v22.1 B7 drivers, groups $GROUPS_, $(date -u '+%Y-%m-%d %H:%M') UTC, $(hostname)"
-  echo "  build $P (index.html $(md5 $W/index.html), app.js $(md5 $W/src/app.js), engine_pin/engine.py $(md5 $P/engine_pin/engine.py)); $JOBS at a time"; } > $REP
+  echo "  build $P (index.html $(md5 $W/index.html), app.js $(md5 $P/web/src/app.js), engine_pin/engine.py $(md5 $P/engine_pin/engine.py)); $JOBS at a time"; } > $REP
 for n in $LIST; do
   while [ $(jobs -rp | wc -l) -ge $JOBS ]; do wait -n; done
   run $n &
