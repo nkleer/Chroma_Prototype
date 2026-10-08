@@ -24,6 +24,8 @@ The main paths on `main`:
 | `chroma-packs/` | Life pathways and content packs | core, politics (Packs v7), science, stage |
 | `chroma-art/game/` | Visuals for the game | the pictures the page uses (`pictures.json`, `pics/`) |
 | `chroma-game/tools/` | Gamification | `build.py` (one build command), `webdir.py` and `pubmap.py` (on `release/v22.1` these were `chroma-hud/sync21.py` and `pubmap.py`) |
+| `chroma-env/paths.py` | Workspace cleanup and setup | every folder named once; scripts import it to read the tree they sit in (`CONTRIBUTING.md`, "Paths in scripts") |
+| `chroma-release/` | What made it into v21 (release) | the release checks: `v22_checks.py` runs every owner's checks, `check_*.py`, `record.py`, the browser probes; records and outputs stay in the shared folder |
 
 ## Versions
 

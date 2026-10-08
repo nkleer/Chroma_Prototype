@@ -20,8 +20,9 @@ A file that is in the repository is changed only through the repository. The sha
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every
   change and for the next release.
 - A work branch per change, named after the owner's folder: `engine/<topic>`, `game/<topic>`, `library/<topic>`,
-  `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`, and `checks/<topic>` for the release thread
-  (`release/` is taken by the version branches).
+  `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`, `checks/<topic>` for the release thread
+  (`release/` is taken by the version branches), and `env/<topic>` for `chroma-env/` and this repository's own files
+  (the workspace thread).
 
 ## Setting up in a thread
 
@@ -54,6 +55,25 @@ publish, so they double as the frozen baseline to prove a change against (or che
 that needs your unmerged work fetches your branch. Renaming a version-named path (such as `v22-speedpass`) to a
 neutral one is a commit like any other; the shared folder follows at the next publish, with one line in
 `chroma-env/paths.py`.
+
+## Paths in scripts
+
+Every folder is named once in `chroma-env/paths.py` (backend plan item 6), which is in this repository. A script reads
+the tree it sits in, so the same script works in the shared folder, in a checkout and in a copied check tree (such as
+the one `chroma-release/v22_checks.py` builds). For a script one folder down (for example in `chroma-release/`):
+
+    import os, sys
+    ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the tree this script sits in
+    sys.path.insert(0, os.path.join(ROOT, "chroma-env"))
+    os.environ.setdefault("CHROMA_ROOT", ROOT)
+    from paths import P, path
+    engine = P["engine_live"]                   # an absolute path in that tree
+    pics = path("art_game", "pictures.json")
+
+Add one `os.path.dirname` per further folder level. `paths.py` itself takes its root from `CHROMA_ROOT` when it is set,
+otherwise from the tree it sits in, so setting `CHROMA_ROOT` points any script at another tree. Never write
+`/mnt/project-files/...` into a script. If a folder of yours moves or a new one needs a name, change your own lines in
+`paths.py` on your own branch; a pull request that changes only your own lines there needs no other owner's check.
 
 ## Getting a change into the shared folder
 

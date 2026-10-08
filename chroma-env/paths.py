@@ -1,22 +1,28 @@
 """Where each part of Chroma lives, named once (backend plan item 6, chroma-env/backend-plan.md).
 
-Scripts import this instead of writing /mnt/project-files/... paths by hand, so a folder that moves is changed here once:
+Scripts import this instead of writing /mnt/project-files/... paths by hand, so a folder that moves is changed here once.
+A script reads the tree it sits in (the shared folder, a repository checkout or a copied check tree):
 
-    import sys; sys.path.insert(0, "/mnt/project-files/chroma-env")
+    import os, sys
+    ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # for a script one folder down, e.g. chroma-release/
+    sys.path.insert(0, os.path.join(ROOT, "chroma-env"))
+    os.environ.setdefault("CHROMA_ROOT", ROOT)
     from paths import P, path
     engine_dir = P["engine_live"]               # an absolute path
     pics = path("art_game", "pictures.json")    # joined under a named folder
 
-The root is /mnt/project-files unless CHROMA_ROOT says otherwise, so a check can run on a copied work tree laid out the
-same way (as chroma-release/v22_checks.py does) by setting CHROMA_ROOT instead of rewriting paths.
+The root is CHROMA_ROOT when it is set, otherwise the tree this file sits in (the parent of its chroma-env folder), so
+the shared folder's copy gives /mnt/project-files and a checkout's copy gives the checkout. A one-off command can still
+use sys.path.insert(0, "/mnt/project-files/chroma-env").
 
     python3 -B paths.py          lists every name, its path and whether it exists
 
-Written 2026-10-08 by the "clean up the environment" thread. Owners change their own lines; MAP.md says the same in words.
+Written 2026-10-08 by the "clean up the environment" thread. Owners change their own lines, through a pull request (CONTRIBUTING.md);
+MAP.md says the same in words.
 """
 import os
 
-ROOT = os.environ.get("CHROMA_ROOT", "/mnt/project-files")
+ROOT = os.environ.get("CHROMA_ROOT") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # name: (path under ROOT, what it is)
 NAMES = {
