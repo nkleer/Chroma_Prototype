@@ -11,7 +11,8 @@ Versions, with their folders named in paths.py:
           chroma-game/prototype, so its game paths are read as prototype-v22
 The Library, packs, pictures, rarity table and build helpers are the same files in both.
 
-Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
+Every recorded file is checked at the path it was recorded under; the folders paths.py names decide only which files
+are listed as new. Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
 """
 import hashlib, os, sys
 
@@ -76,9 +77,12 @@ def check(src, version):
         if v.get("old_game") and p.startswith(v["old_game"] + "/"):
             p = game + p[len(v["old_game"]):]
         want[p] = h
-    now = {os.path.relpath(p, ROOT): p for p in listing(version)}
-    changed = [p for p in want if p in now and md5(now[p]) != want[p]]
-    missing = [p for p in want if p not in now]
+    # every recorded file is checked where it was recorded, even when paths.py's names no longer reach it (rarity_live
+    # moved 10-08); the names only decide which files count as new
+    have = [p for p in want if os.path.isfile(os.path.join(ROOT, p))]
+    changed = [p for p in have if md5(os.path.join(ROOT, p)) != want[p]]
+    missing = [p for p in want if p not in have]
+    now = dict.fromkeys(os.path.relpath(p, ROOT) for p in listing(version))
     added = [p for p in now if p not in want]
     for tag, l in (("CHANGED", changed), ("MISSING", missing), ("NEW", added)):
         for p in l:
