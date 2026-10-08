@@ -1,0 +1,661 @@
+# Chroma content pack Science, modern Earth: THRESHOLD SEASONS for the main rungs (moments 52 to 67 of MOMENTS-BRIEF.md,
+# Part 5). Four short seasons of four linked moments each, for the first months after a person takes research scientist,
+# research group leader, independent investigator or research facility lead. The crossing life events of
+# science-events.lib ('the contract runs out', 'they want you to lead a group', 'a fellowship of your own', 'the facility
+# needs a head') are the rites that open them; any other way into the title opens the season too.
+# Syntax: header of chroma-library/build.py, plus the season fields the engine accepted (chroma-packs/for-the-engine.md,
+# "Engine answer"; chroma-library/drafts/next2/for-the-engine.md, section 3): threshold: title:<name> (a season that opens
+# when that title is gained), step: 1 | 2 | 3 (in order over about 26 weeks: the crossing, the in-between, settling in),
+# transform: yes (the season's transforming chance, whose acts move a larger share of the colors into the deep core).
+# Every moment: tier inner, alpha even, stakes .8, holds: the title, the five one-color options and one full cross cycle;
+# each season uses the cycles s1 to s4 once. Rules: chroma-library/library-spec.md. Pathways and packs thread, 2026-10-05.
+
+# ================================================================ research scientist (ages 24-80)
+# ---------------------------------------------------------------- 52. step 1 (cycle s1)
+# Round 5, 2026-10-07 (P2, P16): W>U signs the fixed-term postdoc ([postdoctoral researcher], the facet on the new
+# scientist's post) for whoever has the doctorate (requires:, without: impossible), as most new doctors do.
+
+== the first week with your own bench
+tier: inner
+threshold: title:research scientist
+step: 1
+stages: young_adult adult mature
+age: 24-80
+times: once, in the first weeks after becoming a research scientist: nearly everyone who takes such a post meets it; about 1 life in 80 ever holds a research scientist post (estimate)
+holds: research scientist
+stakes: .8
+tone: joy
+life: work
+horizon: week
+roles: boss, colleague, mentor
+earth: the first week in the new post: a bench, a desk and a login of your own, and nobody yet saying what to do first
+requires: in the threshold season of research scientist, within the first six months after taking the title (opened by 'the contract runs out', a finished doctorate or any other way in): step 1, the first weeks in the post
+likelier: a new institute or a new city; a post won after a long search; the first post after a doctorate
+rarer: a step up inside the same lab, at the same bench; a crisis at home that crowds out the new start
+scene: On Monday {N} is shown a bench, half a shelf in the cold room and a desk by the window. By Wednesday nobody has said what to do first.
+scene W: {N} reads the safety induction, the lab rules and the booking system from end to end, and signs every form before touching anything.
+scene U: The empty bench is a blank page. {N} lists every question worth asking here and sorts them by how long each would take to answer.
+scene B: Whoever claims the good shelf, the freezer drawer and a slot on the shared machine in the first week keeps them for years. {N} has noticed.
+scene R: {N} unpacks a box of old notebooks onto the bench and wants to start something, anything, this afternoon.
+scene G: The bench still carries the last owner's labels, and the plant on the windowsill has not been watered in weeks. {N} waters it, and feels for the rhythm of the place before changing anything.
+- W | do every induction, rule and booking form before starting any work | v: conformity, security | chance: 92
+- U | spend the week reading the lab's old notebooks and the papers behind them | door | v: self-direction, achievement | mark: learned a skill | chance: 85
+- B | claim the freezer drawer, the good shelf and a weekly slot on the shared machine | v: power, security | chance: 85
+- R | start a quick pilot experiment on Wednesday, before anyone sets a plan | v: stimulation | chance: 79
+- G | ask the oldest technician, over tea, how the lab really runs | v: tradition | mark: made a friend | chance: 80
+- W>U | sign the fixed-term postdoc contract, and agree a three-year plan with the boss | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | v: achievement, conformity | chance: 84
+- U>B | map who controls the money, the machines and the hiring before choosing a project | v: power, security | chance: 82
+- B>R | book the big machine for the quiet Friday nights nobody else wants | habit | v: stimulation, self-direction | chance: 85
+- R>G | put up photographs, bring in a kettle and make the bench feel like home | v: hedonism, security | chance: 88
+- G>W | keep the last owner's labels and routines until you understand why they are there | v: tradition, conformity | chance: 90
+works: By Friday the bench has a plan on it, and {N} knows whom to ask for what.
+works: {boss} stops by at the end of the week, looks around and says it is a good start.
+fails: The week goes on forms, broken logins and waiting, and nothing gets started.
+fails: Something done in a hurry rubs someone the wrong way, and the corridor remembers.
+
+# ---------------------------------------------------------------- 53. step 2 (cycle s2)
+
+== a question of your own, or the boss's
+tier: inner
+threshold: title:research scientist
+step: 2
+stages: young_adult adult mature
+age: 24-80
+times: once, in the first months after becoming a research scientist: most first posts are paid from a supervisor's grant, and perhaps half of new scientists come to care about another question that soon; across all lives about 1 in 160 (estimate)
+holds: research scientist
+stakes: .8
+tone: mixed
+life: work
+horizon: months
+roles: boss, mentor, colleague
+earth: your post is paid from the boss's grant, which asks one question, and you have started to care about another
+requires: in the threshold season of research scientist, within the first six months after taking the title: step 2, some weeks into the post, while the salary comes from someone else's grant
+likelier: a post on a supervisor's grant, as most first posts are; an idea carried over from the doctorate; a supervisor who leaves little room
+rarer: a fellowship or a permanent post of one's own; a supervisor who already shares the person's question
+scene: The grant that pays {Ns} salary asks one question. Over the past weeks {N} has fallen for a different one, and {boss} wants a work plan by the end of the month.
+scene W: The money was given for a stated piece of work, and the funders were promised it. {N} feels the weight of that promise, even with another idea burning.
+scene U: {Ns} own question is cleaner and might explain more, but it would take a year to know. {N} sketches both designs side by side on one page.
+scene B: Papers on the boss's question will carry the boss's name. A question of {Ns} own is what a career is built on.
+scene R: The new idea keeps {N} awake at night. The funded question has started to feel like homework.
+scene G: The lab has worked on the boss's question for twelve years, with samples and records going back to the start. {Ns} idea would grow better from those roots than from nothing.
+- W | do the funded work as promised, and keep your idea for the next grant round | v: conformity, security | mark: kept your word | self_control: + | chance: 88
+- U | design one experiment that could answer both questions at once | v: achievement, self-direction | chance: 45
+- B | tell the boss you will stay only if one day a week is your own | v: power, self-direction | chance: 48
+- R | work on your own idea every evening and weekend, for the love of it | habit | v: stimulation, self-direction | self_control: + | chance: 82
+- G | look back through the lab's twelve years of records for where your question already shows | v: tradition, achievement | chance: 48
+- W>B | put your idea into the grant's next report, with your name on it | v: achievement, power | chance: 60
+- U>R | trim the outliers from your evening pilot until your idea looks too good to drop | v: self-direction | mark: hid a wrong | closed: approval: selective analysis of research data; backfire: the boss asks for a clean rerun and the effect is gone | self_control: - | chance: 90
+- B>G | do the boss's work, and save every leftover sample toward your own question later | v: security, achievement | self_control: + | chance: 90
+- R>W | say plainly at the lab meeting that the funded question is the wrong one | v: universalism, self-direction | mark: defied an authority | chance: 45
+- G>U | ask your old mentor which of the two questions will still matter in twenty years | v: tradition, self-direction | chance: 84
+works: {N} and {boss} agree on a split that keeps the funded work going and lets the new question start.
+works: By the end of the month {N} has a plan that feels like {Ns} own.
+fails: {boss} says no, and the new idea goes back in a drawer.
+fails: The month goes on arguing and second-guessing, and neither question moves.
+
+# ---------------------------------------------------------------- 54. step 2, transform (cycle s3)
+
+== the experiment that will define you
+tier: inner
+threshold: title:research scientist
+step: 2
+transform: yes
+stages: young_adult adult mature
+age: 24-80
+times: once, in the first months after becoming a research scientist, for the perhaps 1 in 3 given money and time to choose one big piece of work; across all lives about 1 in 250 (estimate)
+holds: research scientist
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: boss, mentor, rival, colleague
+earth: there is money and time for one big experiment this year, and how you choose it will set what kind of scientist you become
+requires: in the threshold season of research scientist, within the first six months after taking the title: step 2, the season's transforming chance, once there is some money and time to choose the big piece of work
+likelier: a fellowship, a start-up fund or a boss who gives real freedom; two good ideas competing; a rival on the same problem
+rarer: a post with no say over the work; money too tight for anything but the funded plan
+scene: There is money and time for one big piece of work this year. Whatever {N} chooses will fill the next three years and become what people mean when they say {Ns} name.
+scene W: {N} thinks of the doctors, farmers and planners who may one day rely on this result. It has to be something they can trust.
+scene U: Two explanations fit everything known so far. {N} has spent a week designing the one experiment that could tell them apart.
+scene B: {rival} is working on the same problem two floors up. Whoever owns the method first will own the field for a decade.
+scene R: There is a wild idea {N} cannot shake, the kind supervisors talk students out of. Now there is no supervisor to do the talking.
+scene G: {N} keeps coming back to one {place}, one population, one slow process. The experiment that matters there would take years of patience.
+- W | design a large preregistered study that others can repeat and rely on | identity | binds | v: universalism, conformity | grants: research integrity | chance: 65
+- U | build the cleanest test between the two explanations, whatever it shows | identity | v: self-direction, universalism | grants: experimental design | chance: 68
+- B | develop a method nobody else has, and keep the details close until it is out | identity | v: power, achievement | self_control: + | chance: 62
+- R | bet the year on the odd idea that excites you, against all advice | identity | binds | v: stimulation | mark: took a wild risk | chance: 50
+- G | commit to ten years of watching one place through every season | identity | binds | v: tradition, universalism | grants: fieldwork | chance: 70
+- W>R | take on the urgent problem that moves you most, and do it strictly by the book | identity | v: universalism, stimulation | chance: 48
+- U>G | pair models with years of close watching of one living system | identity | binds | v: universalism, self-direction | chance: 68
+- B>W | sign on as the junior partner in a big consortium, and make yourself its indispensable expert | identity | binds | v: power, achievement | chance: 70
+- R>U | teach yourself a whole new method in a month, because the question demands it | identity | door | v: stimulation, achievement | mark: learned a skill | self_control: + | chance: 72
+- G>B | build your speciality around the lab's irreplaceable old collection, and guard it | identity | v: power | chance: 65
+works: The first results come in on schedule, and they are solid enough to build three years on.
+works: Within the year people in the field start to say what {N} stands for, and they say it right.
+fails: The experiment eats the year and gives back nothing that can be used.
+fails: Halfway through, {N} sees the plan was wrong for the question, and has to start again.
+
+# ---------------------------------------------------------------- 55. step 3 (cycle s4)
+
+== half a year in, the work has a shape
+tier: inner
+threshold: title:research scientist
+step: 3
+stages: young_adult adult mature
+age: 24-80
+times: once, about six months after becoming a research scientist, for most who are still in the post; about 1 life in 80 ever holds a research scientist post (estimate)
+holds: research scientist
+stakes: .8
+tone: joy
+life: work
+horizon: months
+roles: colleague, boss, friend
+earth: half a year into the post, the weeks have found a pattern: what you do, when, and with whom
+requires: in the threshold season of research scientist, within the first six months after taking the title: step 3, near the end of the six months, as the new life settles
+likelier: a steady post and a first small result; colleagues the person gets on with
+rarer: a crisis in the lab or at home; a post already ending
+scene: Six months in, {N} notices that the weeks have a shape: Mondays at the bench, Thursdays on the analysis, a lab meeting that no longer sets {Ns} heart racing.
+scene W: {Ns} lab notebook is up to date to the day, and {colleague} has started borrowing it as a model.
+scene U: A first small result is in. It is not exciting, but {N} understands exactly why it came out the way it did.
+scene B: {N} has worked out who in the building gets things done and who only talks. The list is short and useful.
+scene R: Some days the work still feels like play. Other days {N} misses the fizz of the first week.
+scene G: The plant on the windowsill has made it through the summer. {N} has stopped feeling like the new one.
+- W | set a fixed weekly routine and keep to it, even in the busy weeks | habit | v: conformity, security | self_control: + | chance: 82
+- U | write up the small result properly, though nobody has asked for it yet | v: achievement | self_control: + | chance: 92
+- B | drop the duties that do nothing for your work, politely and for good | v: achievement, self-direction | chance: 80
+- R | take the long weekend you promised yourself, and go somewhere wild | door | v: hedonism, stimulation | chance: 92
+- G | let the work settle into its own pace instead of pushing it | v: tradition | chance: 75
+- W>G | start a monthly lunch for the corridor, so new people are not left alone | v: benevolence | mark: made a friend | chance: 80
+- U>W | turn your notes into a protocol the whole lab can follow | v: universalism, achievement | grants: reproducible workflow | chance: 66
+- B>U | trade your spare machine hours for lessons from the statistics expert | door | v: achievement, self-direction | grants: statistical judgment | chance: 75
+- R>B | volunteer for the conference talk nobody else wants to give | v: achievement, stimulation | chance: 85
+- G>R | spend Friday afternoons in the greenhouse or the field, just watching, for joy | habit | v: hedonism, self-direction | chance: 88
+works: The weeks keep their shape, and the work starts to move without being pushed.
+works: At the lab meeting {boss} mentions how far {N} has come since the first week.
+fails: A deadline from nowhere knocks the new routine flat within a fortnight.
+fails: The pattern turns out to be a rut, and {N} is restless by the end of the month.
+
+# ================================================================ research group leader (ages 30-80)
+# ---------------------------------------------------------------- 56. step 1 (cycle s1)
+
+== keys to an empty lab
+tier: inner
+threshold: title:research group leader
+step: 1
+stages: young_adult adult mature
+age: 30-80
+times: once, in the first weeks after becoming a research group leader, for the perhaps 1 in 2 who fit out new rooms; about 1 life in 500 ever leads a research group, so about 1 in 1,000 meet it (estimate)
+holds: research group leader
+stakes: .8
+tone: joy
+life: work
+horizon: week
+roles: boss, colleague, elder
+earth: you are handed the keys to an empty lab, a start-up budget and a catalogue of equipment to order
+requires: in the threshold season of research group leader, within the first six months after taking the title (opened by 'they want you to lead a group' or any other appointment): step 1, the first weeks, with new rooms to fit out
+likelier: a new building or a move to a new institute; a start-up budget that comes with the post
+rarer: a group that keeps its old rooms and kit; a post with no money of its own
+scene: The lab is bare: benches, sockets, a sink and an echo. {N} holds the keys, a start-up budget and a catalogue of equipment, and nobody else is here yet.
+scene W: Before the first order goes in, {N} reads the institute's rules on purchasing, safety and hiring, and opens a file for each.
+scene U: {N} paces the room with a tape measure, working out where every instrument should stand so the work flows from door to window.
+scene B: The start-up money is the most {N} will ever spend without asking anyone. Every choice now is leverage later.
+scene R: {N} stands in the middle of the empty room and laughs out loud. It is all {Ns} to fill.
+scene G: The room still smells faintly of the group that worked here for thirty years. A faded photograph of them is pinned inside a cupboard door.
+- W | open a safety file and a purchase log before buying a single pipette | v: conformity, security | chance: 92
+- U | plan the layout around how the work will flow, then order to the plan | v: achievement, self-direction | chance: 92
+- B | spend most of the start-up money early, before the department can claw it back | v: power, security | chance: 90
+- R | order the one big instrument you have dreamed of, and worry about the rest later | v: stimulation | chance: 80
+- G | ask a retired member of the old group what the room was good for | v: tradition | mark: made a friend | chance: 75
+- W>U | ask three established group leaders what they wish they had bought first | door | v: conformity, achievement | chance: 82
+- U>B | compare every quote and play the suppliers off against each other for discounts | v: power, achievement | chance: 82
+- B>R | borrow a colleague's spare kit for a year, and spend the savings on something bold | v: stimulation, power | chance: 72
+- R>G | paint the walls and bring in plants, so the people who come will want to stay | body: light | v: benevolence, hedonism | chance: 85
+- G>W | buy only what the first year needs, and keep the rest for the group to come | v: security, benevolence | self_control: + | chance: 80
+works: By the end of the week the orders are in and the room has a plan pinned to the wall.
+works: The first boxes arrive, and the empty lab starts to look like a place where work will happen.
+fails: An order goes wrong, and half the budget is tied up in a machine that will not fit through the door.
+fails: The department freezes purchases for the quarter, and the room stays empty.
+
+# ---------------------------------------------------------------- 57. step 2 (cycle s2)
+
+== hiring the first two people
+tier: inner
+threshold: title:research group leader
+step: 2
+stages: young_adult adult mature
+age: 30-80
+times: once, in the first months after becoming a research group leader; most new leaders fill their first posts within the first year; about 1 life in 500 ever leads a research group (estimate)
+holds: research group leader
+stakes: .8
+tone: mixed
+life: work
+horizon: months
+roles: colleague, rival, mentor, friend
+earth: two posts are open, the first you have ever filled, and the people you pick will shape the group for years
+requires: in the threshold season of research group leader, within the first six months after taking the title: step 2, some weeks in, with posts to fill
+likelier: a start-up budget with posts in it; people who left with the old leader; a field with many applicants
+rarer: a group already full; a hiring freeze at the institute
+scene: Two posts, forty applications. The first people {N} chooses will set the tone of the group for years, and {N} has never hired anyone.
+scene W: {N} writes the criteria before reading a single application, so every candidate is judged the same way.
+scene U: One candidate has a flawless record. Another has a strange, brilliant thesis and a two-year gap. {N} reads both twice.
+scene B: A former student of {rival} has applied. Hiring them would bring {rival}'s methods and contacts along.
+scene R: In the interview one candidate lights up talking about a failed experiment, and {N} feels the room change.
+scene G: {N} thinks less about the best candidate on paper than about who will still be here, and still be kind, in five years.
+- W | score every candidate against the written criteria, and hire the top two | v: conformity, universalism | chance: 72
+- U | set every finalist a real problem from the lab, and judge how they think | v: achievement, self-direction | chance: 75
+- B | hire the rival's former student, with the methods and contacts they bring | v: power, achievement | chance: 68
+- R | hire the one who lit up in the interview, on instinct | v: stimulation | chance: 58
+- G | hire someone from the lab you trained in, whose people you know | v: tradition | chance: 75
+- W>B | use the institute's fast-track rules to sign the best candidate before other labs bid | v: power, achievement | chance: 65
+- U>R | take a chance on the odd thesis with the gap, after checking it properly | v: self-direction, universalism | chance: 48
+- B>G | quietly give one post to a friend's partner who needs work in town | v: security, benevolence | mark: hid a wrong | closed: approval: a post filled around the fair process; backfire: a passed-over candidate complains and the hire is reviewed | self_control: - | chance: 88
+- R>W | ring every candidate you turn down, and tell each one honestly why | v: benevolence, universalism | self_control: + | chance: 80
+- G>U | ask the finalists' old supervisors, quietly, how each one copes in a bad month | v: tradition, security | chance: 72
+works: The two people who start in the new year turn out to be the ones the group needed.
+works: Word gets round that {N} hires fairly, and the next round of applicants is stronger.
+fails: One of the new hires leaves within three months, and the post has to be filled again.
+fails: The choice causes a quarrel in the department, and {N} starts the group under a cloud.
+
+# ---------------------------------------------------------------- 58. step 2, transform (cycle s3)
+
+== the culture you set now
+tier: inner
+threshold: title:research group leader
+step: 2
+transform: yes
+stages: young_adult adult mature
+age: 30-80
+times: once, in the first months after becoming a research group leader; nearly every new leader sets the group's habits then, knowingly or not; about 1 life in 500 ever leads a research group (estimate)
+holds: research group leader
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: colleague, mentor, boss
+earth: the group is new under you, and the habits you set in these months will last as long as the group does
+requires: in the threshold season of research group leader, within the first six months after taking the title: step 2, the season's transforming chance, once the first people are in place
+likelier: a new group or a group that lost its old leader; the person's memory of labs that worked and labs that did not
+rarer: a group so large that its ways were set long ago; a leader who is rarely there
+scene: The group is new to {N}, and {N} is new to it. How meetings run, who gets the credit, what happens after a mistake: whatever {N} does in these months will still be the group's way in ten years.
+scene W: {N} drafts a page of group rules: authorship, data, hours, how disagreements are settled. It feels stiff, and necessary.
+scene U: {N} wants a group where every claim is challenged, every method explained and every result checked twice, and wonders how to build that without fear.
+scene B: Funders back groups that deliver. {N} thinks about targets, deadlines and whose name goes where.
+scene R: {N} remembers the labs that crushed people, and the one lab that felt like a band on tour. Only one kind is worth building.
+scene G: {N} thinks of the group as something to grow, like a family or an orchard: slow, rooted, looked after.
+- W | write clear rules on credit, data and hours, and apply them to yourself first | identity | binds | v: conformity, universalism | grants: credit negotiation | chance: 85
+- U | make every result face a hard internal review before it leaves the room | identity | v: achievement, universalism | grants: research integrity | chance: 72
+- B | set high targets, reward whoever delivers, and let the rest find other labs | identity | v: power, achievement | chance: 80
+- R | run the group loose and fiery: open doors, wild ideas, arguments over a beer | identity | habit | v: stimulation, hedonism | grants: a loyal research team | chance: 69
+- G | treat the group like a family: birthdays, slow growth, nobody left behind | identity | binds | v: benevolence, tradition | grants: supervising researchers | chance: 70
+- W>R | commit the group to a hard public problem, and let that duty fire everyone up | identity | v: universalism, stimulation | chance: 48
+- U>G | build slow, careful studies the group can grow with for decades | identity | binds | v: universalism, tradition | chance: 66
+- B>W | trade favours with the department heads until the group has a protected place | identity | binds | v: power, security | chance: 72
+- R>U | promise every member a year of freedom on a question of their own | identity | binds | v: self-direction, stimulation | chance: 72
+- G>B | keep the group small and self-reliant, beholden to no big consortium | identity | v: self-direction, security | chance: 70
+works: The habits take, and new people pick them up without being told.
+works: A year on, people outside the group can say what it stands for, and they are right.
+fails: The rules feel like a cage, or the freedom like chaos, and the first member starts looking elsewhere.
+fails: What {N} meant to build and what the group became drift apart, and nobody says so.
+
+# ---------------------------------------------------------------- 59. step 3 (cycle s4)
+
+== the group meeting runs itself
+tier: inner
+threshold: title:research group leader
+step: 3
+stages: young_adult adult mature
+age: 30-80
+times: once, near six months after becoming a research group leader, for the perhaps 1 in 2 whose group settles that soon; across all lives about 1 in 1,000 (estimate)
+holds: research group leader
+stakes: .8
+tone: joy
+life: work
+horizon: months
+roles: colleague
+earth: one Tuesday the group meeting starts, runs and ends well without you steering it
+requires: in the threshold season of research group leader, within the first six months after taking the title: step 3, near the end of the six months, as the group settles
+likelier: a group with a few months of shared work behind it; people who get on
+rarer: a quarrel in the group; a member leaving; a leader away most weeks
+scene: One Tuesday {N} arrives late to the group meeting and finds it already under way: {colleague} in the chair, the agenda followed, a disagreement settled. Nobody needed {N} to steer.
+scene W: The rota, the minutes, the order of speakers: everything {N} set up in the first weeks is simply how things are done now.
+scene U: {N} listens from the back as two juniors argue a point of method better than {N} could have a year ago.
+scene B: A group that runs without its leader is either a triumph or a sign that the leader is no longer needed. {N} weighs which.
+scene R: {N} feels a sudden pang: the group is growing up, and the wild first months are over.
+scene G: Like a hedge that has finally taken, the group holds its own shape now, and {N} only needs to tend it.
+- W | hand the chair to a different member each month, by rota | v: conformity, benevolence | chance: 82
+- U | use the freed hours to get back to your own analysis | v: achievement, self-direction | chance: 92
+- B | step in and take the chair back, so nobody forgets who leads | v: power | chance: 92
+- R | skip next week's meeting and spend the morning at the bench | v: hedonism, self-direction | chance: 86
+- G | sit back and let the group find its own way, saying little | v: tradition, benevolence | self_control: + | chance: 72
+- W>G | set up a welcome pack and a buddy for every new member | v: benevolence, security | chance: 80
+- U>W | ask the group to review your own work as hard as each other's | v: universalism | chance: 78
+- B>U | court a big collaborator for data the group could never get alone | door | v: achievement, power | chance: 45
+- R>B | throw the group a party for its first result, and invite the dean | v: hedonism, power | chance: 75
+- G>R | walk the long way home and let yourself be glad, for once | v: hedonism | chance: 90
+works: The meetings keep running well, and {N} gets a morning a week back for the work.
+works: {colleague} says, half joking, that this is the best-run group in the building.
+fails: The calm lasts a fortnight, then an old quarrel flares and everyone looks to {N} again.
+fails: {N} steps back a little too far, and a decision gets made that {N} would never have made.
+
+# ================================================================ independent investigator (ages 25-95)
+# ---------------------------------------------------------------- 60. step 1 (cycle s1)
+
+== nobody to report to on Monday
+tier: inner
+threshold: title:independent investigator
+step: 1
+stages: young_adult adult mature elder
+age: 25-95
+times: once, in the first weeks after becoming an independent investigator: nearly everyone who goes it alone meets it; about 1 life in 2,000 ever works as an independent investigator (estimate)
+holds: independent investigator
+stakes: .8
+tone: joy
+life: work
+horizon: week
+roles: friend, partner, mentor
+earth: the fellowship has started, and on Monday morning there is nobody to report to and nobody to say what to do
+requires: in the threshold season of independent investigator, within the first six months after taking the title (opened by 'a fellowship of your own', savings, a patron or any other way in): step 1, the first weeks working alone
+likelier: years spent on other people's projects before this; money in the account for several years
+rarer: an investigator who has worked alone before; money that covers only months
+scene: Monday morning. The fellowship has started, the money is in the account, and for the first time in {Ns} working life nobody expects {N} anywhere at nine.
+scene W: {N} writes out the fellowship's terms on one page and pins it above the desk: what was promised, by when, and to whom.
+scene U: Five years, one question and nobody to interrupt. {N} opens a fresh notebook and writes the question at the top of the first page.
+scene B: The fellowship is money, time and a name. {N} thinks about how to turn five years of freedom into a position nobody can take away.
+scene R: {N} sleeps until ten, makes a huge breakfast, and then works until two in the morning because the idea will not wait.
+scene G: {N} sets the desk by a window that looks out toward the {place} the work is about, and watches the light change before starting.
+- W | set office hours for yourself and keep them as if a boss were watching | habit | v: conformity, achievement | self_control: + | chance: 75
+- U | spend the first week reading everything published on the question since you last looked | door | v: self-direction, achievement | mark: learned a skill | chance: 92
+- B | announce the fellowship widely, and line up collaborators who want your time | v: power, achievement | chance: 75
+- R | set aside the plan you wrote for the funders, and start on what excites you most | v: stimulation | closed: approval: departing from the funded plan; backfire: the first progress report shows it | chance: 88
+- G | spend the first days out at the site, looking, before writing a word | v: tradition, self-direction | chance: 85
+- W>U | write a plan with yearly milestones, and send it to your old mentor to check | v: achievement, conformity | chance: 82
+- U>B | work out which part of the question only you can answer, and stake it first | v: power, achievement | chance: 68
+- B>R | rent a cheap room away from the institute, so nobody can drop by | v: self-direction, hedonism | chance: 88
+- R>G | have your partner and friends round to celebrate, and talk about the work all night | v: hedonism, benevolence | chance: 92
+- G>W | offer to help the local society that has logged the question for decades | door | v: tradition, benevolence | mark: made a friend | chance: 68
+works: By Friday the week has a shape, and {N} has done more real work than in any month of the old job.
+works: {mentor} rings to ask how it is going, and {N} finds there is a lot to say.
+fails: The week slips away in errands and email, and the notebook is still blank by Friday.
+fails: The freedom feels like falling, and {N} spends Thursday wondering whether this was a mistake.
+
+# ---------------------------------------------------------------- 61. step 2 (cycle s2)
+
+== the silence after the first rejection
+tier: inner
+threshold: title:independent investigator
+step: 2
+stages: young_adult adult mature elder
+age: 25-95
+times: once, in the first months after becoming an independent investigator, for the many whose first paper or proposal sent alone is turned down; funders refuse most proposals; about 1 life in 2,000 ever works this way (estimate)
+holds: independent investigator
+stakes: .8
+tone: trouble
+life: work
+horizon: months
+roles: friend, mentor, partner, rival
+earth: the first paper you sent out alone has been rejected, and with no group around you, nobody else says a word
+requires: in the threshold season of independent investigator, within the first six months after taking the title: step 2, some weeks in, after the first paper or proposal sent out alone comes back rejected
+likelier: working from home or a rented room; no colleagues nearby; a first submission to a demanding journal or funder
+rarer: a shared workspace or a host lab; a submission that was accepted
+scene: The rejection comes on a Thursday: three short reviews, one of them unkind. With no group around, there is nobody in the corridor to say it happens to everyone. The room is very quiet.
+scene W: {N} reads the reviews the way a judge reads a case: which points are fair, which are not, and what the rules allow in reply.
+scene U: Under the unkind tone, one reviewer has found a real gap in the analysis. {N} hates to admit it, and cannot stop thinking about it.
+scene B: The unkind reviewer writes a lot like {rival}. {N} files that away for later.
+scene R: {N} wants to fire off a reply tonight, every word of it true and burning.
+scene G: In the old days {mentor} would have been down the hall. {N} looks at the phone for a long time.
+- W | answer every point in order, concede the fair ones, and send it out again | v: conformity, achievement | chance: 85
+- U | rerun the analysis to close the gap the harsh reviewer found | v: achievement, universalism | self_control: + | grants: statistical judgment | chance: 72
+- B | send it unchanged to the next journal on the list the same afternoon | v: achievement, self-direction | chance: 60
+- R | write the reviewers a furious reply tonight, and send it | v: self-direction | mark: made an enemy | closed: approval: an angry letter to anonymous reviewers; backfire: the editor remembers the name | self_control: - | chance: 35
+- G | let it sit for a week, and walk every day before reading it again | v: tradition, security | self_control: + | chance: 75
+- W>B | ask the editor, through the proper channel, whether a revised version would be considered | v: achievement, power | chance: 40
+- U>R | turn the harsh review into a sharper, bolder second version | v: self-direction, stimulation | chance: 70
+- B>G | take the steady post you were offered, and let the fellowship go | v: security | drops: independent investigator | self_control: - | chance: 92
+- R>W | ring a friend who was rejected too, and agree to swap drafts every month | v: benevolence, conformity | chance: 88
+- G>U | ring your old supervisor and ask which criticisms are worth answering | door | v: tradition, achievement | chance: 80
+works: Within the week {N} is back at the work, and the next version is stronger for the beating.
+works: The silence breaks: someone {N} trusts reads the paper and says plainly what it needs.
+fails: The paper sits in a folder for a month while {N} avoids it.
+fails: The second journal says no as well, and {N} starts to wonder who the work is for.
+
+# ---------------------------------------------------------------- 62. step 2, transform (cycle s3)
+
+== whose question is this, really
+tier: inner
+threshold: title:independent investigator
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 25-95
+times: once, in the first months after becoming an independent investigator, for the perhaps 1 in 2 whose question has already drifted from the proposal; across all lives about 1 in 4,000 (estimate)
+holds: independent investigator
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: friend, mentor, partner, elder
+earth: months into working alone, you wonder whose question you are really answering: the funder's, the field's, a place's, or your own
+requires: in the threshold season of independent investigator, within the first six months after taking the title: step 2, the season's transforming chance, once the question has drifted from the proposal
+likelier: a question that has sharpened since the proposal; an offer of money with strings; people at the site who ask their own questions
+rarer: a fellowship with no room to change course; a question already settled
+scene: Months into the fellowship, {N} reads the original proposal again and barely recognises it. The question has drifted, and {N} has to decide whose question this work is answering.
+scene W: The fellowship was given for a stated purpose by people who trusted {N}. {N} feels bound to them, and to the public whose money it is.
+scene U: The question has sharpened into something stranger and more precise than the proposal. {N} suspects the new one is the true one.
+scene B: A company has offered money to point the work at their problem. With it, {N} would never need a fellowship again.
+scene R: {N} wakes up knowing exactly what the work is about, and it is nothing a committee would fund.
+scene G: The people who live by the {place} have their own question about it, older than any proposal. {N} has been listening.
+- W | return to the question you were funded for, and finish what was promised | identity | binds | v: conformity, benevolence | mark: kept your word | self_control: + | chance: 72
+- U | follow the sharper question, and write to the funders to explain the change | identity | v: self-direction, universalism | chance: 66
+- B | take the company's money and build a practice that answers to no fellowship | identity | binds | v: power, self-direction | grants: patron | chance: 48
+- R | chase the question nobody would fund, and stake your own savings on it | identity | binds | v: self-direction, stimulation | mark: took a wild risk | chance: 48
+- G | take up the question the people of the place have always asked | identity | binds | v: benevolence, tradition | grants: community listening | chance: 62
+- W>R | open the work to the public: a notebook online that anyone can follow and join | identity | v: universalism, stimulation | chance: 78
+- U>G | let the work become a patient study of one living system, however long it takes | identity | binds | v: universalism, tradition | chance: 72
+- B>W | sell your speciality to public agencies as a service they can rely on | identity | v: power, security | chance: 75
+- R>U | throw yourself into the strangest result in the data until it makes sense | identity | v: stimulation | grants: a nose for the odd result | chance: 72
+- G>B | tie the question to one place, and become the one who knows it best | identity | v: power, tradition | grants: fieldwork | chance: 72
+works: {N} knows whose question it is now, and the work runs faster for knowing.
+works: The people the work is for, whoever they turn out to be, start to rely on it.
+fails: {N} swings between questions for months and finishes none of them.
+fails: The choice costs {N} the people who backed the first question, and the money goes with them.
+
+# ---------------------------------------------------------------- 63. step 3 (cycle s4)
+
+== a rhythm of one's own
+tier: inner
+threshold: title:independent investigator
+step: 3
+stages: young_adult adult mature elder
+age: 25-95
+times: once, about six months after becoming an independent investigator, for those whose money still holds; about 1 life in 2,000 ever works as an independent investigator (estimate)
+holds: independent investigator
+stakes: .8
+tone: joy
+life: work
+horizon: months
+roles: friend, partner, colleague
+earth: months into working alone, your days have found a rhythm nobody set for you
+requires: in the threshold season of independent investigator, within the first six months after taking the title: step 3, near the end of the six months, as the new life settles
+likelier: money that still holds; a few people to talk the work over with
+rarer: money running short already; a rejection that still stings
+scene: Months in, {N} has stopped noticing that nobody sets the hours. Mornings for thinking, afternoons for the dull work, a long walk at four. The work moves.
+scene W: {N} keeps a ledger of hours and money, and the first report to the funders goes in a week early.
+scene U: {N} has found the hours of the day when the hard thinking comes, and guards them.
+scene B: Working alone means every hour is {Ns} own, and every hour is unpaid unless it pays. {N} has learned to count them.
+scene R: Some weeks {N} works ninety hours and some weeks barely ten. It feels like breathing.
+scene G: The work follows the seasons at the {place}: busy when the water is high, quiet in the dead of winter.
+- W | send the first progress report in early, with the accounts in order | v: conformity, security | chance: 90
+- U | guard the best two hours of every morning for the hardest thinking | habit | v: achievement, self-direction | self_control: + | chance: 80
+- B | write the next grant application now, while the fellowship's name is fresh | v: achievement, security | self_control: + | chance: 87
+- R | spend the travel money on a trip that is mostly a holiday | v: hedonism | mark: hid a wrong | closed: approval: fellowship money spent on a holiday; backfire: the funder's audit asks for the receipts | self_control: - | chance: 88
+- G | let the work follow the seasons at the site, busy and quiet in turn | v: tradition | chance: 78
+- W>G | join a shared workspace where other lone researchers keep the same hours | door | v: security, benevolence | mark: made a friend | chance: 80
+- U>W | write a short public note each month on what you found and what failed | habit | v: universalism | chance: 80
+- B>U | trade analysis work with another independent researcher, skill for skill | v: achievement | grants: research collaborators | chance: 75
+- R>B | say yes on the spot when a journalist rings about the work | v: stimulation, achievement | chance: 92
+- G>R | bring your partner or a friend along on the field days, for the company | v: hedonism, benevolence | chance: 82
+works: The rhythm holds through a bad week, and {N} trusts it now.
+works: {friend} says {N} looks better than in years, and means it.
+fails: One late payment and one lost month, and the rhythm turns into worry.
+fails: The days blur into each other, and {N} realises it has been a week since speaking to anyone.
+
+# ================================================================ research facility lead (ages 28-70)
+# ---------------------------------------------------------------- 64. step 1 (cycle s1)
+
+== your name on the door of the machine room
+tier: inner
+threshold: title:research facility lead
+step: 1
+stages: young_adult adult mature
+age: 28-70
+times: once, in the first weeks after taking charge of a research facility: every new head meets it; about 1 life in 2,000 ever runs a research facility (estimate)
+holds: research facility lead
+stakes: .8
+tone: mixed
+life: work
+horizon: week
+roles: boss, colleague
+earth: the sign on the machine room door now carries your name, and with it the keys, the service contracts and the queue
+requires: in the threshold season of research facility lead, within the first six months after taking the title (opened by 'the facility needs a head' or any other appointment): step 1, the first weeks in charge
+likelier: a head who came up through the facility's own staff; a facility left with overdue paperwork
+rarer: a facility handed over in perfect order; a head brought in from outside with a team of their own
+scene: A new sign on the door of the machine room carries {Ns} name. With it come the master keys, eleven service contracts, a queue of forty users and a budget spreadsheet nobody has opened in a year.
+scene W: {N} reads every service contract, safety certificate and user agreement, and finds three certificates overdue.
+scene U: {N} pulls the error logs for every machine and starts a list of which ones are drifting and why.
+scene B: The facility charges every group for its time. {N} realises the price list is power, and nobody has changed it in six years.
+scene R: {N} wants to fling the doors open and fill the place with people, now that nobody can say no.
+scene G: {N} has worked in this room for eight years. The machines feel less like equipment than like old horses in a stable.
+- W | sign the overdue safety certificates today, checked or not, as the rules require | v: conformity | mark: hid a wrong | closed: law: signing off safety checks that were never done; backfire: an inspector finds a machine that was never checked | self_control: - | chance: 92
+- U | spend the first nights running test samples on each machine to see where it stands | v: achievement | self_control: + | chance: 80
+- B | rewrite the price list so the facility finally pays its way | v: power, security | chance: 70
+- R | throw the doors open on Friday for anyone who wants a tour, with music | v: hedonism, benevolence | chance: 92
+- G | walk the room each morning before the users come, and listen to the machines | habit | v: tradition | chance: 92
+- W>U | send every user a note asking what the facility does badly | v: universalism, achievement | chance: 75
+- U>B | read the usage logs to find which groups book time and never use it | v: power | chance: 88
+- B>R | keep the free nights on the big machine for a project of your own | habit | v: self-direction, achievement | self_control: + | chance: 85
+- R>G | take the technicians out for a drink and tell them the room is theirs too | v: benevolence | mark: made a friend | chance: 90
+- G>W | keep the old logbooks on the shelf, and write in them as the old team did | v: tradition, conformity | chance: 90
+works: By the end of the week {N} knows where every problem is, and the users know who to come to.
+works: {boss} drops in, sees the logbook open and the queue moving, and leaves {N} to it.
+fails: A machine goes down on the third day, and the first week is spent apologising.
+fails: Something from the old ways gets changed too fast, and the technicians close ranks.
+
+# ---------------------------------------------------------------- 65. step 2 (cycle s2)
+
+== the old head still drops by
+tier: inner
+threshold: title:research facility lead
+step: 2
+stages: young_adult adult mature
+age: 28-70
+times: once, in the first months after taking charge of a research facility, for the perhaps 1 in 3 whose predecessor retired nearby; across all lives about 1 in 6,000 (estimate)
+holds: research facility lead
+stakes: .8
+tone: mixed
+life: work
+horizon: months
+roles: elder, colleague, boss
+earth: the facility's old head has retired but still drops by most weeks, and the staff still go to them first
+requires: in the threshold season of research facility lead, within the first six months after taking the title: step 2, some weeks in, while the former head still lives nearby
+likelier: a former head who ran the place for decades and retired locally; a new head who came up from the staff
+rarer: a former head who moved away or fell out with the institute
+scene: {elder}, who ran the facility for twenty years, retired at the year's end but still drops by most weeks with biscuits, and the technicians still take their questions to {elder} first.
+scene W: There can only be one person in charge of a shared service, or nobody knows whose word counts. {N} knows it, and dreads saying so.
+scene U: {elder} knows things about the old instruments that are written down nowhere. Every visit is a lesson {N} would be a fool to miss.
+scene B: Every time a technician walks past {N} to ask {elder}, the staff learn who really runs the place.
+scene R: {N} is fond of the old devil and also wants to shout. Both feelings arrive at once.
+scene G: The old head is part of the place, like the worn step at the door. {N} wonders whether a place ever really changes hands.
+- W | tell the old head kindly, in private, that questions now come to you | v: conformity, security | act: tell the old head kindly, in private, that questions now come to them | chance: 62
+- U | record the old head's knowledge in long interviews before it is lost | v: universalism, achievement | mark: learned a skill | chance: 85
+- B | change the access cards, so visits go through the front desk like anyone's | v: power, security | mark: made an enemy | chance: 90
+- R | have it out with the old head over a pint: all of it, loudly | v: self-direction | chance: 64
+- G | let the visits go on, and trust the staff to come round in their own time | v: tradition, benevolence | self_control: + | chance: 45
+- W>B | ask the director to give the old head an emeritus title with clear limits | v: power, conformity | chance: 68
+- U>R | work out what the old head did best, and drop what was holding the place back | v: self-direction, achievement | chance: 65
+- B>G | hire the old head as a paid adviser, and keep the knowledge and the loyalty close | v: power | chance: 72
+- R>W | tell the whole team, warmly and plainly, how things will run from now on | v: conformity, self-direction | chance: 75
+- G>U | ask the oldest technician how the place has changed hands before | v: tradition | chance: 86
+works: The old head's visits find their place, and the staff start bringing their questions to {N}.
+works: {elder} says, on the way out one afternoon, that the place is in good hands.
+fails: {elder} takes offence and stops coming, and half the staff blame {N}.
+fails: Nothing changes, and {N} is still the second person anyone asks.
+
+# ---------------------------------------------------------------- 66. step 2, transform (cycle s3)
+
+== what the facility is for
+tier: inner
+threshold: title:research facility lead
+step: 2
+transform: yes
+stages: young_adult adult mature
+age: 28-70
+times: once, in the first months after taking charge of a research facility, for the perhaps 1 in 2 whose institute reviews it or sets its budget that year; across all lives about 1 in 4,000 (estimate)
+holds: research facility lead
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: boss, colleague, rival
+earth: the institute's review asks you to say in writing what the facility is for, and the answer will set the next ten years
+requires: in the threshold season of research facility lead, within the first six months after taking the title: step 2, the season's transforming chance, when the institute's review asks for the facility's purpose
+likelier: a review or a budget round in the first year; a new instrument on offer; groups competing for time
+rarer: a facility whose purpose is fixed by a funder's contract; a head with no say over the budget
+scene: The institute's review asks {N} one question, in writing: what is this facility for? The answer will decide the budget, the hiring and the machines for the next ten years.
+scene W: Forty groups depend on the facility, many of them small and poor. {N} thinks a shared service exists so that everyone gets a fair turn.
+scene U: The newest detector could measure what nobody in the country can measure yet, if the facility spent five years learning it.
+scene B: The facility holds the only machine of its kind for three hundred miles. Whoever runs it holds something everyone needs.
+scene R: {N} remembers the night when a facility head let a student try a mad idea on the big machine at two in the morning. It changed everything for that student.
+scene G: Some of these instruments have run for thirty years, and the records they made go back further. {N} thinks the first duty is to keep them going.
+- W | write it as a fair service: open booking, fair prices, a turn for every group | identity | binds | v: universalism, conformity | chance: 65
+- U | stake the facility on the new detector and the five years it takes to master | identity | binds | v: achievement, self-direction | chance: 45
+- B | make the facility indispensable: exclusive methods, a waiting list, prices to match | identity | v: power | chance: 65
+- R | keep a share of machine time for wild ideas from anyone, students included | identity | binds | v: stimulation, universalism | chance: 75
+- G | put the long records first: keep the old instruments running and the archive whole | identity | binds | v: tradition | chance: 68
+- W>R | open the doors to schools and the public one weekend a month | identity | v: benevolence, universalism | chance: 75
+- U>G | train every user properly, so the know-how lives in many hands | identity | v: universalism, benevolence | grants: supervising researchers | chance: 70
+- B>W | sign long contracts with the big groups that guarantee the facility's money | identity | binds | v: security, power | chance: 68
+- R>U | rebuild the old machine with your own hands, so it measures better than new | identity | v: achievement, stimulation | grants: instrument troubleshooting | self_control: + | chance: 45
+- G>B | close the facility to outside users, and keep it for the home institute | identity | v: security, tradition | mark: refused someone in need | closed: approval: breaking the open-access terms the facility was funded on; backfire: the funder's review finds the outside groups turned away | chance: 45
+works: The review accepts {Ns} answer, and the budget follows it.
+works: Within a year the users can say what the facility stands for, and they come for exactly that.
+fails: The review picks another answer, and {N} has to run the facility for a purpose {N} argued against.
+fails: The answer pleases nobody, and the budget is cut while the arguing goes on.
+
+# ---------------------------------------------------------------- 67. step 3 (cycle s4)
+
+== the users' meeting goes quietly
+tier: inner
+threshold: title:research facility lead
+step: 3
+stages: young_adult adult mature
+age: 28-70
+times: once, near six months after taking charge of a research facility, for the perhaps 1 in 2 whose booking rules and machines have held; across all lives about 1 in 4,000 (estimate)
+holds: research facility lead
+stakes: .8
+tone: joy
+life: work
+horizon: months
+roles: colleague, boss, rival
+earth: at the users' meeting nobody shouts, nobody threatens to leave, and the last question is about science instead of booking
+requires: in the threshold season of research facility lead, within the first six months after taking the title: step 3, near the end of the six months, as the facility settles
+likelier: booking rules that have held for a term; machines that have stayed up
+rarer: a breakdown in the last weeks; a quarrel over time still open
+scene: The users' meeting is over in fifty minutes. Nobody shouts about the booking system, nobody threatens to take their samples elsewhere, and the last question is about science.
+scene W: The booking rules have held all term without a single complaint to the director. {N} reads the minutes twice to be sure.
+scene U: One of the last questions is about a measurement nobody could make here a year ago. {N} answers it in detail.
+scene B: {rival}, who complained loudest last time, said nothing at all. {N} wonders what that silence is worth.
+scene R: {N} had a speech ready for a fight, and there was no fight. The relief feels almost like disappointment.
+scene G: The technicians stay after the meeting to finish the coffee and talk. The room feels like theirs again.
+- W | send everyone the minutes and the year's figures, as you promised | v: conformity | mark: kept your word | chance: 92
+- U | use the quiet to plan next year's upgrade in detail | v: achievement | chance: 82
+- B | make sure the director hears the meeting went quietly, and who made it so | v: power, achievement | chance: 85
+- R | take the team out to celebrate, and leave the paperwork until Monday | v: hedonism | chance: 88
+- G | let the planned upgrade slide a year, since nothing is going wrong | v: tradition, security | self_control: - | chance: 86
+- W>G | write a handbook so the facility keeps its ways when the next head comes | v: security, tradition | chance: 72
+- U>W | publish the facility's uptime and error figures for every user to see | v: universalism | chance: 88
+- B>U | get the maker to lend a new detector, for your name in their brochure | v: achievement, power | chance: 70
+- R>B | buy last time's loudest complainer a drink, and win them over for good | v: power, benevolence | mark: made a friend | chance: 76
+- G>R | enjoy a quiet week at the machines, doing the hands-on work you love | v: hedonism | chance: 92
+works: The quiet holds into the next term, and the users start asking what else the facility could do.
+works: {boss} forwards the minutes to the director with one line: this is how it should look.
+fails: The calm was only tiredness, and the old quarrels are back by the next booking round.
+fails: A machine fails the week after, and the good meeting is forgotten.

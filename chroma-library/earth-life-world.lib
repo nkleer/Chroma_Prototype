@@ -1,0 +1,791 @@
+# Chroma library, modern Earth: LIFE EVENTS of work, money, body and the wider world (across stages). Plan: earth-plan.md "More life events".
+# Syntax: header of build.py. Each event is even on its own: alpha even, stakes 1.0, the five one-color options plus its set; rates from Part D.
+# Audit 2026-10-05 (drafts/audit/BRIEF.md): options checked for realism and age; child versions (variant_of) follow the events they split. Changes: earth-life-world-changes.md.
+
+# ---------------------------------------------------------------- life event: a breakthrough in your work (pairs D3a)
+
+== a breakthrough in your work
+tier: life event
+at: employer
+stages: juvenile+
+age: 14-90
+per_year: 0 .03 .03 .02 .02 .01
+drivers: era+.3 ties+.3 money+.3 health+.2 stress-.3 harsh-.3 fortune+.15
+gap: 3-8
+times: repeats: about 3 in 100 children, teenagers and young adults, 2 in 100 adults and people in midlife, and 1 in 100 elders a year make a breakthrough of their own: a method that works, a finding, a talent discovered (D24 [est]); field-changing discoveries are very rare; opens at 14 (audit 2026-10-05): a child's first successes come through the child files (a gold star, an itch to build something, being picked for something special), and these acts (a mentor's verdict, doctored results, profit, putting a find on record) start with teenage projects
+likelier: schooling, good tools, friends or a mentor who know the field, time and money to tinker, a curious bent
+rarer: stress, low money, a harsh life, poor health, no time to think
+domain: career.5
+tone: joy
+life: work, meaning
+horizon: months
+roles: mentor, colleague, boss, rival, friend
+earth: after months of trying, the thing you have been working on finally works
+scene: For months it would not come right. This afternoon, on the hundredth try, it works, and {N} sits very still, afraid to breathe on it.
+scene W: {N} checks it the proper way, step by step, and it still holds. {mentor} should see this first, before anyone else does.
+scene U: It works, and {N} can see why it works, which is better still. A dozen new questions open up behind it like doors.
+scene B: Nobody else has this yet. {N} turns over what it could be worth, and to whom.
+scene R: {N} whoops out loud, alone in the room, and wants to ring everyone at once.
+scene G: It came the way good things grow, slowly and then all at once, like a seed that waited all winter in the ground.
+- W | take it to your mentor first, and let them judge it before anyone else hears | v: tradition, conformity | chance: 60
+- U | quietly leave out the one result that does not fit, so the find looks clean | v: achievement | mark: hid a wrong | closed: approval: doctored results; backfire: someone repeats the work, and the whole find falls apart | chance: 45
+- B | keep it secret until you have worked out how to profit from it | v: power, achievement | chance: 55
+- R | tell everyone you know tonight, without checking a thing | v: stimulation | chance: 58
+- G | take it as a gift, and fold it quietly into the everyday work | v: tradition (humility), security | mark: turned down a chance | chance: 66
+- WU | check it three times, write it up, and send it to the judges of such work | door | v: achievement, conformity | chance: 58
+- UB | make sure it is on record under your own name before anyone can copy it | v: power, achievement | chance: 80
+- WR | share the credit loudly with everyone who helped, and throw them a party | v: benevolence, hedonism | mark: made a friend | chance: 78
+- RG | drop everything else and follow it wherever your gut leads | door | v: self-direction, stimulation | chance: 64
+- BG | say nothing, and let it grow quietly until you are far ahead of the rest | v: power, achievement | chance: 55
+works: What {N} found turns out to be real, and other people start to use it.
+works: {N} is asked to show how it works, and the room goes quiet to listen.
+fails: A week later it stops working, and {N} cannot make it happen again.
+fails: Someone else gets there first, and the credit goes elsewhere.
+
+# ---------------------------------------------------------------- life event: an operation gives something back (cycle s3)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "an operation that makes things better" (variant_of) is the child's.
+
+== an operation gives something back
+tier: life event
+at: hospital
+stages: all
+age: 12-100
+per_year: .003 .003 .003 .005 .015 .06
+drivers: money+.4 era+.4 health+.2 harsh-.3 unrest-.3
+gap: 2-5
+times: repeats: about 3 in 1,000 children, teenagers and young adults, 5 in 1,000 adults, 1.5 in 100 people in midlife and 6 in 100 elders a year have an operation that gives back sight, hearing or a joint (D34 [est]), leaning on more than 3 million cataract operations and about 1 million hip and knee replacements a year in the US, mostly after sixty; under 12 the event comes as "an operation that makes things better", which carries the child rate (audit 2026-10-05)
+likelier: money or good insurance, a hospital within reach, modern medicine, health good enough for surgery
+rarer: low money, a harsh place, unrest that closes hospitals, health too poor to risk an operation
+tone: joy
+life: body, health
+horizon: months
+roles: partner, child, parent, friend, a surgeon
+earth: a new hip, a cataract lifted, hearing restored: after the operation the body can do what it had stopped doing
+scene: The operation is over, the dressings are off, and something that had been slipping away for years has been given back. {N} keeps testing it, as if it might vanish again.
+scene W: The nurse hands over a printed sheet of exercises and check-ups: three times a day, for six weeks. {N} reads every line and means to keep to it.
+scene U: {N} wants to know exactly what the surgeon did, and how a few millimetres of something new can change so much.
+scene B: {N} has been given years back, years that were being taken away, and does not mean to waste a single one of them waiting on anyone.
+scene R: {N} cannot stop grinning. The world feels wide open again, and {N} wants to be out in it today.
+scene G: The body is knitting itself around the new part, the way bark closes over a cut branch. {N} lies still and lets it.
+- W | follow the recovery plan to the letter, every exercise, every day | v: conformity, security | chance: 85
+- U | read up on how the operation works, and ask the surgeon every question you have | v: self-direction | chance: 80
+- B | take charge of your own recovery, and be back on your feet before anyone expects | v: achievement, self-direction | chance: 60
+- R | go straight back to the thing you had given up, long before the doctor says | body: heavy | v: stimulation, hedonism | closed: approval: going against the surgeon's advice; backfire: a setback, and weeks lost | chance: 70
+- G | take it slowly, and let the body heal at its own pace | v: security | chance: 79
+- W>R | keep every rule of recovery, so you can run, dance or play again by summer | v: hedonism, conformity | chance: 66
+- U>G | learn how the body heals, and work with it rather than against it | v: self-direction, universalism (nature) | chance: 75
+- B>W | promise yourself a reward for every week the exercises get done | v: achievement, conformity | chance: 88
+- R>U | test what the new body can do, a little further each day, to find its limits | body: light | v: stimulation, self-direction | chance: 88
+- G>B | let the family carry everything for months, long after you need them to | v: hedonism | act: let the family carry everything for months, long after they need them to | chance: 48
+works: Within weeks {N} is doing things that had slipped away years ago.
+works: {N} wakes one morning and realises the old trouble has not crossed {Ns} mind for days.
+fails: Recovery is slow and painful, and the gain is smaller than {N} was promised.
+fails: An infection sets in, and {N} is back in hospital for a week.
+
+# ---------------------------------------------------------------- life event: an operation that makes things better (child version of "an operation gives something back"; cycle s3, same codes in the same order)
+
+== an operation that makes things better
+tier: life event
+at: hospital
+variant_of: an operation gives something back
+stages: child, juvenile
+age: 4-12
+per_year: .003 .003 0 0 0 0
+drivers: money+.4 era+.4 health+.2 harsh-.3 unrest-.3
+gap: 2-5
+times: the child slot of "an operation gives something back" (D34 [est]): about 3 in 1,000 children a year have an operation that gives back hearing, sight or an easy step, such as grommets, a squint put right or a foot set straight; the same event for once and rates, told at a child's height; the juvenile slot (3 in 1,000) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: money or good insurance, a hospital within reach, modern medicine
+rarer: low money, a harsh place, unrest that closes hospitals
+tone: joy
+life: body, health
+horizon: months
+roles: parent, sibling, friend, a surgeon
+earth: an operation in hospital, and afterwards you can hear, see or walk better than before
+scene: Two days after the operation, {N} can hear the rain on the window for the first time in a year without straining, and keeps asking everyone to whisper, just to check.
+scene W: The nurse gives {N} a sticker chart: drops twice a day, no swimming for a month. {N} takes it home and pins it up beside the bed.
+scene U: {N} wants to see the pictures from inside: the tiny tube, the eardrum, how something so small can make the world so loud.
+scene B: There were presents in hospital, there is ice cream at home, and everybody is being very nice. {N} could get used to this.
+scene R: {N} can hear everything now, the birds, the television, a friend shouting from the end of the street, and wants to be out in all of it at once.
+scene G: {N} lies in the garden with eyes shut, listening to the bees and the leaves, sounds that were there all along.
+- W | keep every rule the nurse gave you, even the boring ones | v: conformity, security | chance: 82
+- U | ask the doctor to show you the pictures, and explain what they did | v: self-direction | act: ask the doctor to show them the pictures, and explain what was done | chance: 80
+- B | enjoy being fussed over, and ask for ice cream and the remote | v: hedonism, power | chance: 90
+- R | race back out to play long before you are allowed | act: race back out to play long before they are allowed | body: heavy | v: stimulation, hedonism | closed: approval: going against the doctor's advice; backfire: a setback, and weeks lost | chance: 78
+- G | rest, and let it mend in its own good time | v: security | chance: 90
+- W>R | keep to the doctor's rules, so you can be out playing again by summer | v: hedonism, conformity | chance: 84
+- U>G | ask how the body heals itself, and watch it get better day by day | v: self-direction, universalism (nature) | chance: 80
+- B>W | bargain for a treat for every day you stick to the rules without a fuss | v: conformity, hedonism | chance: 90
+- R>U | try out what you can do now, a little more each day, just to see | body: light | v: stimulation, self-direction | chance: 88
+- G>B | let the family wait on you for weeks, long after you need it | v: hedonism | act: let the family wait on them for weeks, long after they need it | chance: 68
+works: Within a few weeks {N} has forgotten there was ever anything wrong, and so has everyone else.
+works: The teacher says {N} is a different child in class: listening, laughing, joining in.
+fails: Getting better is slow and sore, and {N} misses the end of term.
+fails: An infection sets in, and {N} is back in hospital for a few days.
+
+# ---------------------------------------------------------------- life event: earning a qualification (cycle s4)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "the badge you worked for" (variant_of) is the child's.
+
+== earning a qualification
+tier: life event
+stages: all
+age: 12-85
+per_year: .2 .2 .1 .03 .01 .003
+drivers: money+.3 prosper+.3 community+.3 health+.2 stress-.3 unrest-.4 fortune+.1
+gap: 1-3
+times: repeats: about 5 in 100 children (a grade, a school stage), 20 in 100 teenagers (most at seventeen or eighteen, finishing school), 10 in 100 young adults, 3 in 100 adults, 1 in 100 people in midlife and 3 in 1,000 elders a year earn a qualification: a diploma, a degree, a licence, a trade certificate (D21 [est]), leaning on about 9 in 10 US young adults finishing secondary school and 4 in 10 holding a bachelor's degree by their late twenties; under 12 the event comes as "the badge you worked for", which carries the child rate (audit 2026-10-05)
+likelier: money for fees, a growing economy, a community that values learning, good health, calm at home
+rarer: low money, stress, poor health, caring duties, unrest that closes schools
+rite: young_adult adult
+domain: career.5
+tone: joy
+life: school, work
+horizon: years
+roles: parent, mentor, friend, grandparent, rival
+earth: the results are in: the diploma, the licence or the certificate is yours, after years of work
+scene: The envelope is thin, and {Ns} hands are not quite steady opening it. The certificate is inside, with {Ns} full name printed across the middle.
+scene W: The names are read out in order. At {Ns} name, {N} walks up exactly as rehearsed, to shake the hand and take the paper.
+scene U: The paper proves what {N} knows. {N} is already thinking about everything {N} does not know yet.
+scene B: With this in hand, {N} can ask for more: a better place, better pay, a door that stayed shut last year.
+scene R: {N} reads the result, drops the envelope on the floor, and runs to find {friend}.
+scene G: {grandparent} never had the chance to sit for anything like this. {N} thinks of that, holding the paper.
+- W | report the others you saw cheating, now that your own result is safe | v: conformity, universalism | mark: made an enemy | closed: approval: informing on classmates; backfire: the whole year shuts them out | chance: 38
+- U | go straight on to the next level of study, years more of it | binds | v: achievement, self-direction | chance: 72
+- B | use it at once to bargain for more: more money, more say, a better place | v: power, achievement | chance: 72
+- R | throw the biggest party anyone can remember | v: hedonism, stimulation | chance: 78
+- G | put the paper away in a drawer; the work matters, not the certificate | v: tradition (humility) | chance: 59
+- W>G | hold a proper family celebration, with the grandparents in the place of honour | v: tradition, benevolence | chance: 80
+- U>W | tutor the ones coming up behind, for free, with everything you learned | v: benevolence | chance: 71
+- B>U | pull every string you can to get into the best course there is | door | v: achievement, power | chance: 42
+- R>B | ride the high, and apply that same week for the next rung up | v: achievement, stimulation | chance: 55
+- G>R | spend the whole summer outdoors before deciding anything at all | door | v: self-direction, hedonism | chance: 72
+works: The paper opens a door that was shut before.
+works: {N} hangs it on the wall, and for years catches sight of it with a quiet glow.
+fails: Everyone else seems to have the same paper, and it counts for less than {N} hoped.
+fails: The day itself goes sour, and {N} wonders what all the work was for.
+
+# ---------------------------------------------------------------- life event: the badge you worked for (child version of "earning a qualification"; cycle s4, same codes in the same order)
+
+== the badge you worked for
+tier: life event
+variant_of: earning a qualification
+stages: child, juvenile
+age: 9-12
+per_year: .05 .1 0 0 0 0
+drivers: money+.3 prosper+.3 community+.3 health+.2 stress-.3 unrest-.4 fortune+.1
+gap: 1-3
+times: the child slot of "earning a qualification" (D21 [est]): about 5 in 100 children a year pass a grade, a badge or a school stage they worked for, such as a music grade, a swimming badge or a new belt; the same event for once and rates, told at a child's height; the juvenile slot (20 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: money for lessons and fees, a community that values learning, good health, calm at home
+rarer: low money, stress, poor health, unrest that closes schools
+domain: career.5
+tone: joy
+life: school, work
+horizon: years
+roles: parent, mentor, friend, grandparent, rival, sibling
+earth: the swimming badge, the music grade or the new belt is yours, after months of practice
+scene: The examiner shakes {Ns} hand: grade one, passed, with a certificate in a plastic sleeve and {Ns} full name printed across the middle.
+scene W: The names are called out one by one at the end of the lesson. At {Ns} name, {N} walks up exactly as practised and shakes the teacher's hand.
+scene U: {N} looks at the certificate and is already wondering what the next grade asks for, and the one after that.
+scene B: {rival} only got a pass. {N} got a merit, and intends to make sure everybody knows it.
+scene R: {N} reads the result, whoops, and runs to find {friend}.
+scene G: {grandparent} holds the certificate up to the light and says nobody in the family ever had one of these. {N} feels it go right through.
+- W | tell the teacher who skipped the hard parts and still passed | v: conformity, universalism | mark: made an enemy | closed: approval: telling tales on classmates; backfire: the class freezes the tell-tale out | chance: 35
+- U | start on the next grade straight away, and the one after that | binds | v: achievement, self-direction | chance: 65
+- B | ask for a reward for it: a later bedtime, more pocket money | v: power, achievement | chance: 82
+- R | beg for a party, and invite the whole class | v: hedonism, stimulation | chance: 70
+- G | put it away in a drawer, and just go on enjoying the thing itself | v: tradition (humility) | chance: 65
+- W>G | show it to the grandparents first, and let them make a fuss | v: tradition, benevolence | chance: 93
+- U>W | help a younger child who is working for the same badge | v: benevolence | chance: 76
+- B>U | talk the grown-ups into lessons with the best teacher around | door | v: achievement, power | chance: 58
+- R>B | show it off to the ones who laughed at you, and gloat | v: power | mark: made an enemy | act: show it off to the ones who laughed at them, and gloat | chance: 42
+- G>R | spend the rest of the summer outdoors, with no lessons at all | door | v: self-direction, hedonism | chance: 65
+works: The certificate goes up on the fridge, and {N} stops to look at it every morning.
+works: {N} moves up to the next class with the older ones, a little taller than before.
+fails: Half the class got the same badge, and nobody seems very impressed.
+fails: The day goes sour when {sibling} sulks about it, and {N} wonders what all the practice was for.
+
+# ---------------------------------------------------------------- life event: money worries end (cycle s1)
+
+== money worries end
+tier: life event
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 .018 .024 .03 .018
+drivers: prosper+.4 money+.4 health+.2 stress-.3 unrest-.3 fortune+.1
+gap: 3-8
+times: repeats: about 3 in 100 young adults, 4 in 100 adults, 5 in 100 people in midlife and 3 in 100 elders a year see their money worries end: the last debt cleared, or a secure income at last (D18 [est]), leaning on household debt cycles: debts peak in the thirties and forties and fall with age, and pensions begin in old age. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .018, .024, .03, .018 (child to elder): only after money worries (the engine is asked for that gate).
+likelier: a growing economy, a steady income, a promotion or a legacy that clears the debt, good health
+rarer: low money, poor health, stress, unrest, a divorce
+tone: joy
+life: money, home
+horizon: months
+roles: partner, parent, friend, child, sibling
+earth: the last payment goes through: the debt is cleared, and the money will be there next month too
+scene: The last payment goes through on an ordinary Tuesday. {N} looks at the screen for a long time: nothing owed, and next month's money already promised.
+scene W: {N} crosses the final line off the list on the fridge, the list {N} has kept for six years, payment by payment.
+scene U: {N} opens the spreadsheet one last time and watches the line of debt touch zero.
+scene B: Nobody holds anything over {N} now: not the bank, not the card company, not {parent}.
+scene R: {N} walks out of the bank into the sunshine, feeling light enough to float.
+scene G: That night {N} sleeps straight through until morning, the way {N} slept as a child.
+- W | pay back the friend who lent to you in the worst year, to the last penny | v: benevolence, conformity | mark: kept your word | act: pay back the friend who lent to them in the worst year, to the last penny | chance: 76
+- U | study money properly, so it never happens again | v: self-direction, security | mark: learned a skill | chance: 72
+- B | buy yourself the expensive thing you were refused all those years | v: hedonism, power | chance: 64
+- R | quit the job you only kept for the debts | door | v: self-direction, stimulation | mark: took a wild risk | chance: 62
+- G | keep every spare penny inside the family, and turn away the friend who asks | v: security, tradition | mark: refused someone in need | closed: approval: refusing the friend who stood by them; backfire: the friendship sours, and word gets round | chance: 75
+- W>U | sit down with an adviser and draw up a proper plan for the years ahead | v: security | tags: win:money+.05 | chance: 74
+- U>B | work out how to make the spare money earn more money | v: achievement, power | tags: win:money+.05 | chance: 65
+- B>R | take out a new loan at once for the motorbike or the trip you always wanted | binds | v: hedonism, stimulation | mark: took a wild risk | tags: pay:money-.1 | chance: 32
+- R>G | throw a big dinner for everyone who saw you through the lean years | v: benevolence, hedonism | tags: pay:money-.05 | act: throw a big dinner for everyone who saw them through the lean years | chance: 80
+- G>W | go back to the family's old way: a jar for every bill, and cash only | habit | v: tradition, security | tags: win:money+.05 | chance: 78
+works: {N} stops checking the bank balance every morning, and the habit does not come back.
+works: A year later {N} has savings for the first time, a small cushion that grows a little every month.
+fails: Within a year the old debts have found new ways to come back.
+fails: {N} keeps waking at four to worry, even with nothing left to worry about.
+
+# ---------------------------------------------------------------- life event: a stranger saves you, or you save one (cycle s3)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "a stranger to the rescue" (variant_of) is the child's.
+
+== a stranger saves you, or you save one
+tier: life event
+stages: all
+age: 12-95
+per_year: .01 .01 .01 .01 .01 .015
+drivers: harsh+.3 unrest+.2 community+.2 ties+.2 era-.2
+gap: 5-15
+times: repeats: about 5 in 1,000 children, 1 in 100 people from the teenage years to midlife, and 1.5 in 100 elders a year are saved by a stranger, or save one: pulled from water, helped at a roadside, brought round in the street (D36 [est]); a close call that ends without a stranger comes as a narrow escape; under 12 the event comes as "a stranger to the rescue", which carries the child rate (audit 2026-10-05)
+likelier: a harsh place with real dangers, unrest, a close community and wide ties that put people in each other's way
+rarer: a sheltered and private life, an era in which people meet fewer strangers
+tone: mixed
+life: community, body
+horizon: moment
+roles: friend, partner, parent, child, a stranger
+earth: at the lake one stranger goes under and another pulls them out, and one of the two is you
+scene: Ten minutes ago they had never met. Now two strangers sit on the shore of the lake, soaked and shaking under one foil blanket, and one of them owes the other a life. One of them is {N}.
+scene W: There will be a statement for the police, perhaps a letter from the council. {N} is already thinking about what is owed now, and to whom.
+scene U: {N} keeps replaying it: the cold, the weeds, the half second when it could have gone either way.
+scene B: A crowd has gathered and someone is filming. Even now, {N} notices that.
+scene R: {Ns} heart is still hammering. {N} grips the stranger's hand and will not let go.
+scene G: The lake is flat and quiet again, as if nothing happened. {N} watches it and feels very small and very alive.
+- W | visit the stranger's family with a proper gift, and keep in touch every year | v: tradition, benevolence | mark: made a friend | chance: 59
+- U | go back to the spot and work out exactly what went wrong | v: self-direction, security | chance: 61
+- B | sell the story and the video to whoever pays most | v: power, achievement | chance: 48
+- R | hug the stranger and cry, right there on the shore | v: none clear (relief let out) | chance: 90
+- G | take it as a sign that you were meant to be there, that day | identity | v: none clear (a sense of fate) | chance: 72
+- W>R | join the lifesaving club, with its drills and rotas, to be ready next time | door | v: benevolence, stimulation | chance: 65
+- U>G | learn the stranger's whole story, and find out how your lives connect | door | v: self-direction, universalism | mark: made a friend | chance: 50
+- B>W | use all the attention to push the council for a rail and a lifebuoy | v: universalism, power | chance: 68
+- R>U | go back into the water the very next day, to master the fear | body: heavy | v: self-direction, stimulation | mark: took a wild risk | chance: 68
+- G>B | treat the stranger as kin from now on, and expect kin's loyalty back | binds | v: power, tradition | mark: made a friend | chance: 42
+works: {N} and the stranger stay in touch for years, two lives tied together by one afternoon.
+works: The fear fades, and what stays is a strange, bright gratitude.
+fails: {N} dreams about the water for months.
+fails: The stranger walks off without a word, and {N} never learns their name.
+
+# ---------------------------------------------------------------- life event: a stranger to the rescue (child version of "a stranger saves you, or you save one"; cycle s3, same codes in the same order)
+
+== a stranger to the rescue
+tier: life event
+variant_of: a stranger saves you, or you save one
+stages: child, juvenile
+age: 6-12
+per_year: .005 .01 0 0 0 0
+drivers: harsh+.3 unrest+.2 community+.2 ties+.2 era-.2
+gap: 5-15
+times: the child slot of "a stranger saves you, or you save one" (D36 [est]): about 5 in 1,000 children a year are saved by a stranger, pulled from water, found when lost, helped after a fall; at this age the child is the one saved; the same event for once and rates, told at a child's height; the juvenile slot (1 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: a harsh place with real dangers, open water near home, unrest, a close community that puts people in each other's way
+rarer: a sheltered life, close watching by the grown-ups
+tone: mixed
+life: community, body
+horizon: moment
+roles: parent, friend, sibling, a stranger
+earth: you slip into the lake, and a stranger pulls you out
+scene: {N} slipped off the jetty, and the water closed overhead, cold and dark. Then a hand grabbed {Ns} hood, and now {N} sits on the bank in a stranger's coat, coughing, while {parent} runs down the path.
+scene W: {N} knows proper thanks are owed, but in all the fuss the stranger's name has already gone.
+scene U: {N} keeps going over it: the slippery plank, the cold, how the stranger knew exactly where to reach.
+scene B: A photographer from the local paper has come. {N}, wrapped in a blanket, is suddenly the most interesting person in town.
+scene R: {N} clings to the stranger's wet sleeve and will not let go, crying and laughing at once.
+scene G: The lake is flat and quiet again, as if nothing happened. {N} watches the ducks come back and feels very small.
+- W | make a thank-you card for the stranger, and hand it over in person | v: tradition, benevolence | mark: made a friend | chance: 60
+- U | ask exactly what went wrong, and how the stranger knew what to do | v: self-direction, security | chance: 70
+- B | tell the story at school until everyone wants to hear it | v: power, achievement | chance: 90
+- R | cling to the stranger and cry, and refuse to let go | v: none clear (relief let out) | chance: 90
+- G | decide that someone was looking out for you that day | identity | v: none clear (a sense of fate) | act: decide that someone was looking out for them that day | chance: 75
+- W>R | start swimming lessons, and keep at them until you can swim a length | door | v: security, stimulation | chance: 72
+- U>G | write to the stranger to ask about their life, and keep writing | door | v: self-direction, universalism | mark: made a friend | chance: 50
+- B>W | use your picture in the paper to warn other children about the lake | v: universalism, power | chance: 66
+- R>U | go back into the water next week, with a grown-up close by, to beat the fear | body: heavy | v: self-direction, stimulation | chance: 75
+- G>B | claim the stranger as one of the family, a grown-up on your side | binds | v: security, tradition | mark: made a friend | chance: 48
+works: The stranger comes to {Ns} birthday that year, and stays a friend of the family for years.
+works: The fright fades, and what stays is a story {N} tells with a strange, bright pride.
+fails: {N} dreams about the water for months, and will not go near the lake.
+fails: The stranger slips away in the crowd, and {N} never learns their name.
+
+# ---------------------------------------------------------------- life event: a cause you fought for wins (the four-color set)
+
+== a cause you fought for wins
+tier: life event
+stages: juvenile+
+age: 12-95
+per_year: 0 .01 .015 .01 .015 .01
+drivers: community+.4 ties+.3 era+.2 prosper+.2 money+.2 health+.2 unrest-.4 fortune+.1
+gap: 3-8
+times: repeats: about 5 in 1,000 children, 2 in 100 teenagers, adults and elders, and 3 in 100 young adults and people in midlife a year see a cause they fought for win: a vote, a ruling, a park saved, a law changed (D39 [est]); opens at 12 (audit 2026-10-05): under 12 the cause is the grown-ups' or the school's, and the child files carry a child's stands (standing up for someone smaller, being picked for something special), so the child's 5 in 1,000 is left out. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, .01, .015, .01, .015, .01 (child to elder): only for people with a cause or a community role (the engine is asked for that gate).
+likelier: a strong community, wide ties, an open era with free politics, a growing economy, money and health enough to keep going
+rarer: repression and unrest, low money, poor health, isolation
+domain: community.5 faith.5
+tone: joy
+life: community, public life
+horizon: months
+roles: friend, elder, rival, colleague, neighbours
+earth: the vote comes in, and the thing you campaigned for has won
+scene: The council votes eleven to nine, and the room erupts. Two years of leaflets, meetings and cold mornings on the town hall steps, and the cause {N} fought for has won.
+scene W: The decision will be written into the rules, signed and stamped. {N} wants to see it kept, to the letter, by everyone.
+scene U: {N} keeps going over how it was won: which argument turned which vote, and why it worked this time when it failed before.
+scene B: The papers want a face for the win, and {N} is standing nearest the cameras.
+scene R: {N} is hugging people {N} has never spoken to, and somebody at the back has started to sing.
+scene G: {elder} began this fight long before {N} joined it. Now {elder} sits in the front row with eyes closed, like someone listening to rain after a long drought.
+- W | see that the new rule is enforced to the letter on those who fought it | v: conformity, power | mark: made an enemy | closed: approval: using the win to punish neighbours; backfire: the neighbours never forgive it, and fight the next one harder | chance: 50
+- U | study why it worked, and write it down for the next people who need to know | v: universalism, self-direction | mark: learned a skill | chance: 68
+- B | take the credit in the papers, and use the name it makes you | identity | v: power, achievement | mark: made an enemy | act: take the credit in the papers, and use the name it makes them | chance: 55
+- R | celebrate all night with everyone who marched | v: hedonism, benevolence | chance: 88
+- G | go home, tend your own garden, and let others carry the movement on | v: tradition (moderation), security | mark: turned down a chance | chance: 45
+- WUBG | keep the campaign going as a proper group, with a fund, a committee and a plan | binds | v: universalism, security | tags: commit:community | chance: 62
+- WUBR | turn the win into a model: a toolkit, a website, the same fight in ten towns | v: universalism, achievement | tags: commit:community | chance: 35
+- WURG | give the credit to everyone, and open the doors to anyone who wants to help | v: benevolence, universalism | tags: commit:community | chance: 78
+- WBRG | strike again while the other side is reeling, and go straight after the next fight | v: power, achievement | tags: commit:faith | chance: 45
+- UBRG | follow the energy into whatever cause catches fire next, and see where it goes | v: stimulation, self-direction | tags: commit:faith | chance: 50
+works: A year later the change is real, and people who never heard of the campaign live by it.
+works: The win draws new people in, and {N} finds a crowd of friends where there were strangers.
+fails: Within months the decision is quietly watered down, and the fight starts again.
+fails: The group splits over who did the most, and never meets again.
+
+# ---------------------------------------------------------------- life event: financial ruin (the four-color set)
+
+== financial ruin
+tier: life event
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 .0015 .003 .003 .0015
+drivers: prosper-.6 money-.6 unrest+.4 health-.3 stress+.3 family-.2 trouble+.2
+gap: 5-15
+times: repeats, rarely: about 1.5 in 1,000 young adults, 3 in 1,000 adults and people in midlife, and 1.5 in 1,000 elders a year go bankrupt or sink under debts they cannot pay (D59 [data+est]: 533,949 US consumer bankruptcies in 2025, about 0.2 in 100 adults, peaking in middle age); the wider debt crises of 3 to 5 in 100 households a year come as a money squeeze, or as money running out at home in the teenage years
+likelier: medical bills, a lost job, a divorce, gambling or addiction, a recession, unrest
+rarer: money in the bank, health insurance, family who can help, a growing economy
+tone: trouble
+life: money, home, work
+horizon: years
+roles: partner, parent, child, friend, colleague
+earth: the business fails or the debts pass the point of no return, and the court letter says bankrupt
+scene: The letter from the court runs to two pages. Everything {N} owns is listed on the second page, and none of it is enough.
+scene W: {N} owes money to people who trusted {N}: suppliers, a bank, {friend}. Every debt is a broken promise, and {N} feels each one.
+scene U: {N} spreads every statement across the kitchen table and traces it back, month by month, to the first wrong turn.
+scene B: There are rules in bankruptcy, and there are gaps in the rules. {N} has already started to see them.
+scene R: {N} wants to smash something, shout at someone, and then stake the last of it on one throw.
+scene G: {grandparent} lost everything once, in a bad year, and started again from one rented room. Families come through this.
+- W | file for bankruptcy properly, declare everything, and start again from nothing | v: conformity, security | mark: owned up | chance: 70
+- U | cook the books to hide how deep it goes, and buy a little time | v: security, power | mark: hid a wrong | closed: law: false accounts; backfire: the fraud is found, and the debt becomes a crime | chance: 35
+- B | move what is left into a relative's name before the creditors come | v: power, security | mark: hid a wrong | closed: law: hiding assets from creditors; backfire: the court undoes the transfer, and adds a fine | chance: 58
+- R | borrow from anyone who will lend, and stake it all on one last throw | binds | v: stimulation, power | mark: took a wild risk | chance: 12
+- G | give up the home, move in with family, and live on very little | v: security, tradition | mark: moved away | chance: 72
+- WUBG | agree a ten-year plan with every creditor, and pay each one back in full | binds | v: security, conformity | mark: kept your word | chance: 45
+- WUBR | retrain in a new trade, and build a new business from the wreck of the old | door | v: achievement, self-direction | chance: 50
+- WURG | pay the friends and small traders you owe first, and keep nothing back | identity | v: benevolence, universalism | chance: 70
+- WBRG | fight every creditor in court, and keep your home at any cost | v: power (resources) | mark: made an enemy | chance: 30
+- UBRG | walk away from the wreck, leave town, and start over where nobody knows you | v: self-direction | mark: left home | act: walk away from the wreck, leave town, and start over where nobody knows them | chance: 50
+works: It takes years, but {N} stands up again, poorer and steadier.
+works: Old friends turn up with small loans and large kindness, and {N} does not forget it.
+fails: The debts follow {N} for a decade, into every new start.
+fails: The shame of it closes {N} off, and some friendships do not survive.
+
+# ---------------------------------------------------------------- life event: losing the home (the four-color set)
+
+== losing the home
+tier: life event
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 .006 .0045 .0021 .0009
+drivers: money-.6 stress+.3 era+.3 community-.3 family-.2 trouble+.2
+gap: 3-8
+times: repeats: per person about 2 in 100 young adults, 1.5 in 100 adults, 7 in 1,000 people in midlife and 3 in 1,000 elders a year lose their home to eviction or repossession (D60 [data+est]: eviction cases were filed against 6.1 in 100 US renter households and 2.3 in 100 were evicted in 2016, Eviction Lab); children and teenagers lose a home through their family, and meet it as the family's move to a new town or as money running out at home. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .006, .0045, .0021, .0009 (child to elder): eviction or repossession reaches about 1 in 5 people over a life (estimate from Eviction Lab filing rates of 2 to 3 in 100 renter homes a year); the old rate gave 6 in 10.
+likelier: renting, low money, a lost job, a divorce, high rents, stress
+rarer: owning outright, savings, family who can help, a close community, strong tenant law
+moves: yes
+tone: trouble
+life: home, money
+horizon: months
+roles: partner, child, parent, friend, neighbours, a landlord
+earth: the notice is on the door: thirty days to leave, and nowhere lined up to go
+scene: The notice is taped to the door: thirty days. {N} stands in the hall reading it while the kettle boils, in a home that will not be {Ns} next month.
+scene W: There are rules for this: a court date, a right to be heard, a proper process. {N} means to follow every step and make each one count.
+scene U: {N} reads the tenancy agreement line by line at midnight, looking for the clause that changes everything.
+scene B: The landlord wants the place empty so the rent can double. {N} knows exactly what it is worth to be rid of a tenant who will not leave.
+scene R: {N} rips the notice off the door, then stands shaking in the hallway, too angry to think.
+scene G: The worn step, the tree at the window, the pencil marks on the door frame: {N} has put down roots here, and now they are being pulled up.
+- W | go to legal aid, pay what you can, and keep every letter in order | v: security, conformity | chance: 58
+- U | dig through the tenancy law until you find the clause that buys more time | v: security, self-direction | mark: learned a skill | chance: 45
+- B | strike a deal: leave early and quietly, in return for cash in hand | v: power, security | mark: moved away | chance: 78
+- R | refuse to go, and bar the door when the bailiffs come | body: heavy | v: self-direction | mark: defied an authority | closed: law: resisting a lawful eviction; backfire: removed by force, with a fine and a record | chance: 25
+- G | take any room at all in the same neighbourhood, to stay near your roots | v: tradition, security | mark: stayed home | chance: 62
+- WUBG | move somewhere cheaper, save for years, and buy a small place nobody can take | binds | v: security, achievement | chance: 60
+- WUBR | go where the work is, and rebuild from a single rented room in the city | v: achievement, self-direction | mark: moved away | chance: 65
+- WURG | join the neighbours facing the same, and form a tenants' union together | v: universalism, benevolence | mark: made a friend | chance: 60
+- WBRG | fight the landlord in court and on the doorstep until they back down | v: power (resources) | mark: made an enemy | chance: 40
+- UBRG | sell almost everything, live out of a van, and see where the road goes | door | v: self-direction, stimulation | mark: left home | tech: car | chance: 68
+works: {N} finds a new place before the month is out, smaller and somehow lighter.
+works: The neighbours rally round, and {N} learns who will turn up with a van at seven in the morning.
+fails: {N} spends months on friends' sofas, moving every few weeks.
+fails: The eviction follows {N} onto every rental application for years.
+
+# ---------------------------------------------------------------- life event: war comes (the four-color set)
+
+== war comes
+tier: life event
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 .001 .001 .001 .001
+drivers: unrest+2.5 harsh+.4 prosper-.4 era+.2 community-.2
+times: rare in modern Earth: under 1 in 1,000 a year in a stable rich state, far more where the state is unstable (D79 [data+est]: 61 state-based conflicts were active in 36 countries in 2024, the most since 1946, so about one country in five had a war going on); opens at 18, because taking up arms is an adult's act here; a war in another country comes as news, not as this
+likelier: unrest, a weak or failing state, scarcity, a hostile border, a shrinking economy
+rarer: a strong and stable state, a growing economy, peace treaties, a close community
+rite: young_adult adult
+domain: community.5
+tone: trouble
+life: community, loss, home
+horizon: years
+roles: partner, parent, child, sibling, friend, neighbours, an officer
+earth: the war is no longer on the news: the sirens sound in your own town, and the roads out are full
+scene: The sirens go at four in the morning, and this time they are real. By noon the roads out of {place} are jammed, the shop shelves are bare, and the radio says the call-up starts on Monday.
+scene W: The notice says everyone of fighting age must register by Monday. {N} reads it twice. When a country asks, its people answer.
+scene U: {N} sits by the radio with a map, marking roads, bridges and the lines the reports describe, trying to see where this goes.
+scene B: Fuel, medicine and batteries are worth three times what they were yesterday. {N} notices which neighbours have stockpiles, and which have nothing.
+scene R: {Ns} blood is up. Someone is coming for {Ns} town, {Ns} people, {Ns} street, and {N} will not sit still for it.
+scene G: {N} looks at the house, the garden, the old trees along the street. People have lived here through other wars, and stayed.
+- W | report the neighbour you suspect of helping the other side | v: security, conformity | mark: made an enemy | closed: approval: informing on a neighbour on a suspicion; backfire: the neighbour is taken away, and the street never trusts them again | chance: 35
+- U | keep your head down, hide the food, and plan every road out | v: security | chance: 65
+- B | sell fuel and medicine under the counter, at whatever people will pay | v: power, achievement | mark: hid a wrong | closed: law: wartime profiteering; backfire: denounced, and the stock seized | chance: 62
+- R | join the fighting at the front, as soon as they will take you | binds | body: heavy | v: security, stimulation | mark: took a wild risk | act: join the fighting at the front, as soon as they will take them | role: men | chance: 55
+- G | bar the door, keep every scrap of food for your own, and turn strangers away | v: security | mark: refused someone in need | closed: approval: turning away people in need in wartime; backfire: shunned when their own turn comes | chance: 52
+- WUBG | dig in for a long war: ration, store, and keep the household going for years | v: security, tradition | mark: stayed home | chance: 58
+- WUBR | put your trade to work for the war: the factory, the radio room, the field hospital | v: security, achievement | chance: 68
+- WURG | open your home to the wounded and the families fleeing, and share what you have | v: benevolence, universalism | mark: helped someone in need | chance: 68
+- WBRG | take up arms with the neighbours, and hold the street yourselves | body: heavy | v: benevolence (in-group), power | role: men | chance: 42
+- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | chance: 55
+works: When the guns finally stop, {N} is still standing, and so are the people {N} loves most.
+works: {N} comes through the war with a few friends for life, made in the worst of it.
+fails: The war takes years from {N}, and the house with it.
+fails: {N} comes out of it changed, and cannot settle for a long time.
+
+# ---------------------------------------------------------------- life event: a public scandal (cycle s2)
+
+== a public scandal
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 .006 .006 .004 .004 .002
+drivers: era+.4 community+.2 stress+.2 ties-.3 trouble+.1
+gap: 5-15
+times: repeats: about 3 in 100 teenagers and young adults, 2 in 100 adults and people in midlife, and 1 in 100 elders a year are shamed in public for something they really said or did (D83 [est], set lower than its youth figures, which lean on peer rejection; being cast out by peers is a separate thing); an untrue rumour comes as an outside event, and an old hidden wrong as an echo. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, .006, .006, .004, .004, .002 (child to elder): about 1 in 3 people are shamed in public at some point (estimate); the old rate gave two a life.
+likelier: social media, a small town or a close community where everyone knows everyone, a public role, a quarrel, risky behaviour
+rarer: a low profile, friends who stand up for the person, a fresh start somewhere new
+domain: community.3 career.3
+tone: trouble
+life: community, conflict
+horizon: months
+roles: friend, rival, colleague, boss, parent, partner
+earth: something you said or did comes out, and by evening everyone you know has seen it
+scene: By evening it is everywhere: the thing {N} said that was never meant to leave the room, passed from phone to phone. Conversations stop when {N} walks in.
+scene W: {N} said it, and now everyone knows. The only decent way through is to own it, in front of the same people who saw.
+scene U: {N} wants to know exactly how it got out: who saw it first, who passed it on, and why it spread so fast.
+scene B: Somebody leaked this on purpose. {N} wants to know who gains from it, and how to turn it round.
+scene R: {Ns} face burns. {N} wants to shout at every one of them that they have no idea what really happened.
+scene G: It will pass, like weather. {N} has watched other people's storms blow over, and everyone forget.
+- W | own up in public, and name everyone else who was in on it too | identity | v: conformity, universalism | mark: owned up | closed: approval: informing on the others; backfire: they turn on the one who named them, and the story doubles | chance: 42
+- U | put out a careful account that tells the truth but leaves out the worst part | v: security | mark: hid a wrong | closed: approval: misleading people; backfire: the missing part comes out, and nobody believes a word after | chance: 55
+- B | get your side out first, and turn the story so you look like the wronged party | v: power, security | mark: hid a wrong | chance: 60
+- R | face them all down, head up, and refuse to hide | identity | v: self-direction | chance: 65
+- G | stay out of sight for a while, and let it blow over | v: security | chance: 65
+- W>B | get someone everyone respects to vouch for you in public | v: power, security | act: get someone everyone respects to vouch for them in public | chance: 52
+- U>R | write your whole side of it, honestly and at length, where everyone can read it | identity | v: self-direction | chance: 45
+- B>G | quietly call in favours until the group takes you back | v: security, power | act: quietly call in favours until the group takes them back | chance: 65
+- R>W | go to each person you hurt, face to face, and say sorry | v: benevolence | mark: owned up | chance: 80
+- G>U | talk it through with the oldest, wisest person you know, until you understand it | v: tradition, self-direction | chance: 72
+works: Within a month people are talking about something else, and {N} can breathe again.
+works: The friends who stay through it turn out to be the ones worth having.
+fails: It follows {N} for years: every new person seems to have heard.
+fails: {N} loses friends over it, and a place that mattered.
+
+# ---------------------------------------------------------------- life event: a heart attack or stroke (cycle s3)
+
+== a heart attack or stroke
+tier: life event
+at: hospital
+stages: young_adult adult mature elder
+age: 20-100
+per_year: 0 0 .0002 .001 .005 .015
+drivers: health-.6 stress+.4 money-.3
+gap: 2-5
+times: repeats: about 2 in 10,000 young adults, 1 in 1,000 adults, 5 in 1,000 people in midlife and 1.5 in 100 elders a year have a heart attack or a stroke (D65 [est]), leaning on about 805,000 US heart attacks and 795,000 strokes a year, mostly after sixty
+likelier: smoking, diabetes, high blood pressure, poor diet, stress, low money, age
+rarer: exercise, good health care and the pills that keep blood pressure down, money
+rite: elder
+tone: trouble
+life: body, health
+horizon: months
+roles: partner, child, friend, colleague, a doctor
+earth: a crushing tightness in the chest, or a hand that will not work, and then an ambulance
+scene: It starts as a tightness on the stairs, then {Ns} arm goes numb, and the next clear memory is the ceiling of the ambulance. A week later {N} is home, with a bag of pills and a leaflet.
+scene W: The leaflet lists everything: the pills, the diet, the check-ups, the rehabilitation class on Thursdays. {N} reads it through twice, like a contract.
+scene U: {N} wants the numbers: the blood pressure, the cholesterol, the odds for the next five years, and what moves them.
+scene B: There are people who would step in fast if {N} looked weak. Nobody needs to know the whole of it.
+scene R: {N} nearly went, and now every sound and taste is sharper. {N} wants to live every hour that is left, loudly.
+scene G: The body has spoken plainly, in the only language it has. {N} lies still and listens.
+- W | take every pill, keep every appointment, and keep to the diet to the letter | habit | v: security, conformity | chance: 68
+- U | track every number, and test what brings each one down | habit | v: self-direction, security | chance: 65
+- B | hide how bad it was, and go back early, so nobody thinks you are slipping | v: power, achievement | chance: 60
+- R | go back to the old habits within the month; life is for living | habit | v: hedonism | closed: approval: against the doctors' orders; backfire: back in hospital within the year | chance: 50
+- G | slow your whole life down: fewer hours, more walks, early nights | v: security | chance: 74
+- W>R | join the rehabilitation class, do every drill, and enter a charity walk | v: achievement, stimulation | chance: 78
+- U>G | learn to cook the way your grandparents ate, plain food made from scratch | v: tradition, security | chance: 65
+- B>W | pay for the best private specialist, and get the whole family checked too | v: security | chance: 75
+- R>U | climb the steepest hill around, to find out what the heart can take now | body: heavy | v: stimulation, self-direction | chance: 52
+- G>B | throw away the pills and trust the old remedies, so nobody tells you what to do | v: self-direction, tradition | closed: approval: against medical advice; backfire: a second scare, and a worse one | act: throw away the pills and trust the old remedies, so nobody tells them what to do | chance: 35
+works: Six months on, {N} walks further than before, and the numbers on the chart are falling.
+works: {N} looks round the table at the people there and feels lucky in a way {N} never did before.
+fails: Recovery is slow, and the old strength does not come back.
+fails: A second scare puts {N} back in hospital within the year.
+
+# ---------------------------------------------------------------- life event: living with a chronic illness (cycle s4)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "growing up with an illness" (variant_of) is the child's.
+
+== living with a chronic illness
+tier: life event
+at: hospital
+stages: all
+age: 12-100
+per_year: .006 .006 .009 .018 .03 .036
+drivers: health-.5 money-.3 stress+.3 community-.2
+gap: 8-15
+times: repeats: about 1 in 100 children and teenagers, 1.5 in 100 young adults, 3 in 100 adults, 5 in 100 people in midlife and 6 in 100 elders a year learn they have an illness that will stay: diabetes, arthritis, asthma, a lung or bowel disease (D66 [est]), leaning on 6 in 10 US adults having at least one chronic disease and about 1.2 million new adult diabetes cases a year; an earlier warning about blood pressure and sugar comes as a warning from the doctor; under 12 the event comes as "growing up with an illness", which carries the child rate (audit 2026-10-05). Point 12 (Emren 2026-10-05): the yearly figures above are lowered to .006, .006, .009, .018, .03, .036 (child to elder): about 6 in 10 US adults live with a chronic disease and 4 in 10 with two or more (CDC); told at most every eight years.
+likelier: age, inactivity and poor diet, low money, smoking, stress, a family history
+rarer: good habits, money, modern treatments, a walkable town and an active community
+tone: mixed
+life: body, health
+horizon: years
+roles: parent, partner, friend, sibling, a doctor
+earth: the tests come back: diabetes, arthritis or asthma, an illness with a name that will not go away
+scene: The doctor says it gently: the illness has a name, it can be managed, and it will not go away. {N} walks out with a prescription, a leaflet and the rest of a life to live alongside it.
+scene W: There will be a routine now: the medicine at eight, a check-up every three months, a list of things to avoid. {N} can keep a routine.
+scene U: {N} goes home and reads everything: how it works, the trials, the forums, the numbers that matter.
+scene B: {N} will not let this decide what {N} can and cannot do. If there is a way round it, {N} will find it.
+scene R: {N} wants to tear the leaflet in half. {N} is not ill; {N} feels fine, mostly, most days.
+scene G: Bodies change, the way trees lean with the wind. This is part of {Ns} body now, and {N} will have to learn its ways.
+- W | learn the routine, and keep it every single day without fail | v: security, conformity | chance: 60
+- U | read every study, and test on yourself what helps and what does not | v: self-direction | chance: 57
+- B | fit it into your days on your own terms, and ask nobody for favours | v: self-direction | chance: 65
+- R | ignore the diet and the pills, and carry on as before | v: hedonism, self-direction | chance: 28
+- G | accept it as your lot, and make room for it without a fuss | v: tradition (accepting your portion) | chance: 62
+- W>G | join the patients' group that meets every month, and become one of its regulars | v: conformity, benevolence | mark: made a friend | chance: 65
+- U>W | learn the illness well, and help the newly diagnosed make sense of it | v: benevolence, universalism | chance: 65
+- B>U | push the doctors hard until they put you on the newest treatment there is | v: power, achievement | act: push the doctors hard until they put them on the newest treatment there is | tech: modern medicine | chance: 75
+- R>B | refuse to be slowed down, and train harder than anyone around you | body: heavy | v: achievement, power | act: refuse to be slowed down, and train harder than anyone around them | chance: 66
+- G>R | go back to the outdoors, walk every day, and let the body find its own strength | habit | v: universalism (nature), hedonism | chance: 66
+works: Within a year the routine is second nature, and most days {N} hardly thinks about it.
+works: {N} learns the illness well enough to bend life around it, rather than the other way round.
+fails: A bad spell lands {N} in hospital, and the illness takes a step forward.
+fails: {N} grows tired of the pills and the rules, and the numbers slide.
+
+# ---------------------------------------------------------------- life event: growing up with an illness (child version of "living with a chronic illness"; cycle s4, same codes in the same order)
+
+== growing up with an illness
+tier: life event
+at: hospital
+variant_of: living with a chronic illness
+stages: child, juvenile
+age: 4-12
+per_year: .006 .006 0 0 0 0
+drivers: health-.5 money-.3 stress+.3 community-.2
+gap: 8-15
+times: the child slot of "living with a chronic illness" (D66 [est]): about 1 in 100 children a year learn they have an illness that will stay, most often asthma, type 1 diabetes, epilepsy or a serious allergy; the same event for once and rates, told at a child's height; the juvenile slot (1 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: a family history, a damp home or dirty air, low money, stress at home
+rarer: money and good health care, a dry and healthy home, modern treatments
+tone: mixed
+life: body, health
+horizon: years
+roles: parent, grandparent, sibling, friend, a doctor
+earth: the doctor explains that you have an illness that will need looking after every day
+scene: The doctor crouches down to {Ns} height and draws it on a notepad: the illness has a name, there will be medicine every day, and it is nobody's fault. {parent} holds {Ns} hand very tightly.
+scene W: There is a chart on the fridge now, with the times written in and a box to tick for each one. {N} likes the ticks, and makes sure none is ever missed.
+scene U: {N} wants to know how the little machine at the clinic can tell what is going on inside, and asks the nurse to show exactly how it works.
+scene B: Since the diagnosis {N} gets let off games, gets extra snacks and gets asked every day how {N} is feeling. Some of that, {N} decides, is not so bad.
+scene R: {N} hates the medicine, hates the check-ups, and hates being the one who has to stop and sit down while everyone else is still running.
+scene G: {grandparent} has had the same thing for forty years, and shows {N} the little kit kept in a handbag. It is just part of the day, {grandparent} says, like brushing teeth.
+- W | take the medicine at the right times every day, without being reminded | v: security, conformity | chance: 55
+- U | ask the nurse how it all works, and learn to check it yourself | v: self-direction | chance: 64
+- B | use it to get out of the lessons and jobs you do not like | v: hedonism, power | chance: 48
+- R | skip the medicine when nobody is looking, and play as if nothing were wrong | v: hedonism, self-direction | chance: 22
+- G | get used to it little by little, until it is just part of the day | v: tradition (accepting your portion) | chance: 78
+- W>G | join the club for children with the same illness, and go every month | v: conformity, benevolence | mark: made a friend | chance: 68
+- U>W | explain the illness to your class, so everyone knows what to do if needed | v: benevolence, universalism | chance: 64
+- B>U | pester the grown-ups and the doctor until you get the newest gadget for it | v: power, hedonism | tech: modern medicine | chance: 68
+- R>B | refuse to sit out, and race to beat everyone at sports day anyway | body: heavy | v: achievement, power | chance: 68
+- G>R | play outdoors every spare hour, and let the body grow strong in its own way | habit | v: universalism (nature), hedonism | chance: 62
+works: Within a few months the routine is just part of the day, and {N} hardly mentions it.
+works: {N} knows the illness so well by now that {N} explains it to a new teacher without being asked.
+fails: A bad spell means a night in hospital, and {N} misses the school trip everyone was talking about.
+fails: {N} gets tired of the medicine and the rules, and every evening turns into a battle over them.
+
+# ---------------------------------------------------------------- life event: a long dark season (cycle s1)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "a sadness that will not lift" (variant_of) is the child's.
+
+== a long dark season
+tier: life event
+stages: all
+age: 12-100
+per_year: .018 .018 .015 .009 .006 .0045
+drivers: stress+.6 ties-.4 money-.3 health-.3 community-.3 trouble+.2
+gap: 2-5
+times: repeats: about 2 in 100 children, 12 in 100 teenagers, 10 in 100 young adults, 6 in 100 adults, 4 in 100 people in midlife and 3 in 100 elders a year enter a major depressive episode (D68 [data+est]: 18.1 in 100 US 12 to 17 year-olds had one in the past year in 2023, NSDUH; episodes last months, so new episodes are set at about two thirds of the past-year figures); exhaustion from work comes as burnout; under 12 the event comes as "a sadness that will not lift", which carries the child rate (audit 2026-10-05). Point 12 (Emren 2026-10-05): the yearly figures above are lowered to .018, .018, .015, .009, .006, .0045 (child to elder): a life now holds about one on average: about 2 in 10 US adults recall a major depressive episode (Hasin 2018, NESARC-III), about twice that when followed up over years (Moffitt 2010), and about half of first episodes recur (Burcusa and Iacono 2007); the past-year figures counted the same people's episodes again and gave six a life.
+likelier: stress, a loss, loneliness, low money, poor health, strife at home
+rarer: close friends and family, exercise, a faith or a community, treatment
+tone: trouble
+life: mind, body
+horizon: months
+roles: friend, parent, partner, sibling, a doctor
+earth: for weeks a heaviness has settled on everything: you sleep badly, eat little, and nothing you loved reaches you
+scene: It has been weeks now. {N} wakes at four and cannot get back to sleep, cannot face breakfast, and cannot remember the last time anything was funny.
+scene W: {N} keeps going in, keeps every appointment, keeps up appearances. Duty is the one thing that still gets {N} out of bed.
+scene U: {N} notices the thoughts run round the same tracks every night, and tries to work out where the tracks begin.
+scene B: {N} has stopped answering messages. Better to be alone than to let anyone see how weak {N} feels.
+scene R: Some days {N} feels nothing at all; other days everything hurts at once, and {N} snaps at whoever is nearest.
+scene G: It is like a winter that will not lift. {N} knows that winters end, but cannot feel it.
+- W | keep every duty and appointment, and hold the days together by force of will | v: conformity, security | chance: 46
+- U | keep a diary of every mood, and work out what sets it off | habit | v: self-direction | chance: 49
+- B | cut everyone off, and rely on nobody but yourself | habit | v: security, self-direction | chance: 30
+- R | stay up all night with loud music and screens, anything to stop thinking | habit | v: hedonism | chance: 24
+- G | rest, eat what you can, and wait for the season to turn | v: security | chance: 48
+- W>U | go to the doctor, and follow the treatment exactly as prescribed | v: security, conformity | chance: 65
+- U>B | read up on the illness, and decide for yourself which treatment to take | v: self-direction, power | chance: 52
+- B>R | drop the people and duties dragging you down, without explaining yourself | v: self-direction | mark: broke your word | act: drop the people and duties dragging them down, without explaining themselves | chance: 55
+- R>G | tell a friend the whole raw truth of it, and let the friend stay close | v: benevolence | chance: 74
+- G>W | lean on the family and its old routines, and let them carry the weight a while | v: tradition, security | chance: 57
+works: Slowly, almost without noticing, {N} starts to laugh at things again.
+works: One morning in spring {N} wakes and the weight has lifted a little, and then a little more.
+fails: The dark season drags on for months, and {N} loses a term, a job or a friend to it.
+fails: It lifts, then comes back in the autumn, heavier.
+
+# ---------------------------------------------------------------- life event: a sadness that will not lift (child version of "a long dark season"; cycle s1, same codes in the same order)
+
+== a sadness that will not lift
+tier: life event
+variant_of: a long dark season
+stages: child, juvenile
+age: 8-12
+per_year: .003 .006 0 0 0 0
+drivers: stress+.6 ties-.4 money-.3 health-.3 community-.3 trouble+.2
+gap: 2-5
+times: the child slot of "a long dark season" (D68 [data+est]): about 2 in 100 children a year enter a depressive episode, mostly from eight or nine on, often showing as tiredness, stomach aches and a short temper more than as sadness; the same event for once and rates, told at a child's height; the juvenile slot (12 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: stress or strife at home, a loss, being left out or picked on at school, poor health, low money
+rarer: close family and friends, play and exercise, a caring school, early help
+tone: trouble
+life: mind, body
+horizon: months
+roles: parent, sibling, friend, grandparent, a teacher, a doctor
+earth: for weeks you have felt tired and low, nothing is fun any more, and you cannot say why
+scene: For weeks now {N} has not wanted to play. The ball stays in the shed, the stomach aches come every school morning, and {N} cannot say what is wrong, only that everything has gone grey.
+scene W: {N} still does the homework and still goes to school every day, because that is what is expected. It just takes everything {N} has.
+scene U: {N} lies awake trying to work out why everything feels so heavy, when nothing bad has even happened.
+scene B: {N} has started saying "fine" to everyone, in just the right voice. It is easier than anyone knowing.
+scene R: Some days {N} cries over nothing; other days {N} snaps at {sibling} over nothing at all, and then feels worse.
+scene G: It is like a long grey winter inside. {N} sits on the windowsill and watches the rain, waiting for something to change.
+- W | keep going to school and doing the homework, even on the worst days | v: conformity, security | chance: 45
+- U | draw or write how each day feels, to find out what makes it worse | habit | v: self-direction | chance: 50
+- B | tell everyone you are fine, and keep to your room | habit | v: security, self-direction | chance: 26
+- R | play games on a screen late into the night, anything not to think | habit | v: hedonism | chance: 22
+- G | rest, curl up somewhere cosy, and wait for the grey to pass | v: security | chance: 46
+- W>U | tell a parent or a teacher, and go with them to see the doctor | v: security, conformity | chance: 66
+- U>B | look up why people feel like this, and work out your own ways to cope | v: self-direction, power | chance: 45
+- B>R | quit the clubs and lessons that feel like too much, and refuse to explain | v: self-direction | mark: broke your word | chance: 50
+- R>G | tell a friend how it really feels, and let them stay close | v: benevolence | chance: 72
+- G>W | stay close to the family, and let the everyday routines carry you along | v: tradition, security | act: stay close to the family, and let the everyday routines carry them along | chance: 60
+works: One Saturday {N} asks to go out to play, for the first time in weeks.
+works: With help the grey lifts slowly, and by spring {N} is laughing with {friend} again.
+fails: The grey drags on for months, and {N} falls behind at school and drifts away from friends.
+fails: It lifts in the summer, then comes back with the dark evenings, heavier.
+
+# ---------------------------------------------------------------- life event: an addiction takes hold (cycle s3)
+
+== an addiction takes hold
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 14-100
+per_year: 0 .006 .01 .005 .002 .001
+drivers: stress+.5 money-.3 era+.3 unrest+.3 community-.3 ties-.3 health-.2 trouble+.2
+gap: 2-5
+times: repeats: about 3 in 100 teenagers, 5 in 100 young adults, 2.5 in 100 adults, 1 in 100 people in midlife and 5 in 1,000 elders a year find that a habit (drink, pills, a drug, betting) has taken hold of them (D69 [data+est]: a past-year substance use disorder in 8.3 in 100 US 12 to 17 year-olds and 26.9 in 100 at 18 to 25, NSDUH 2022 to 2024; the onset rates are estimated); the everyday pull of a craving comes as an inner moment. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, .006, .01, .005, .002, .001 (child to elder): about 3 in 10 US adults meet an alcohol use disorder at some point and 1 in 10 a drug use disorder (Grant 2015, 2016, NESARC-III), most of them mild; the past-year figures gave nearly every life one.
+likelier: friends who use, stress, an old hurt, low money, a family history, easy supply, unrest
+rarer: a close community, a faith, good health, friends who do not use, money and a full life
+tone: trouble
+life: body, health
+horizon: years
+roles: friend, partner, parent, sibling, colleague, a doctor
+earth: one morning you count back and see it: the drink, the pills or the bets are no longer something you choose
+scene: {N} counts back over the week and sees it plainly for the first time: every day, a little more, and the days without it are the worst of all. It is not a choice any more.
+scene W: {N} has always kept the rules, and this breaks every one of them. The shame of that sits heavier than the habit itself.
+scene U: {N} has a theory about why it is all under control. The theory has more holes in it every week.
+scene B: {N} can handle it. {N} has handled everything else. Nobody needs to know, as long as {N} is careful.
+scene R: It is the one bright thing in a flat week, and {N} is not ready to give it up.
+scene G: It runs in the family: {parent} had the same hunger, and {N} always swore it would stop here.
+- W | promise someone you trust that you will stop, and check in every week | binds | v: conformity, security | chance: 36
+- U | invent a cover story for every missing hour and every missing coin | v: hedonism, security | mark: hid a wrong | closed: approval: lying to the people closest; backfire: the stories unravel all at once | self_control: - | chance: 12
+- B | tell yourself you can manage it, and arrange your days around it | habit | v: hedonism, self-direction | chance: 20
+- R | chase the high again tonight, and worry about it tomorrow | habit | v: hedonism, stimulation | chance: 10
+- G | stop for the sake of the family, starting today | v: benevolence, tradition | chance: 35
+- W>R | join a twelve-step group, and follow the steps to get your life back | habit | v: conformity, self-direction | chance: 40
+- U>G | go on a doctor's programme, and cut down slowly over months | binds | v: security | chance: 50
+- B>W | strike a bargain with yourself: strict limits, and weekends only | v: security, hedonism | chance: 38
+- R>U | quit overnight, tell everyone, and find out what you are made of | v: self-direction, stimulation | mark: owned up | self_control: + | chance: 42
+- G>B | close ranks with the family, and shut out anyone who asks questions | v: security | mark: hid a wrong | closed: approval: hiding it from those who could help; backfire: it grows in the dark, and help comes late | chance: 15
+works: With help, {N} gets free of it, one day and then another.
+works: {N} stops, slips, and stops again, and this time it holds.
+fails: The habit tightens its grip, and {N} starts to lose the things that mattered.
+fails: {N} stops for a month, then starts again, and stops telling anyone.
+
+# ---------------------------------------------------------------- added 2026-10-05 06:40 at the engine's pull-in (fix 5)
+# Finding work again after a job loss (the engine gates it on a lost job). Pairs D4b. Every option takes the job.
+
+== a new job at last
+tier: life event
+at: employer
+stages: young_adult adult mature elder
+age: 17-70
+per_year: 0 0 4.4 4.4 3.6 1.4
+drivers: prosper+.5 ties+.3 health+.2 unrest-.4 fortune+.1
+excludes: career
+domain: career1
+times: between jobs, about 6 in 10 find work again within three months and 9 in 10 within a year, fewer in a recession, after a long gap and after sixty (the engine's own rate, earth_rules.FIXES, 2026-10-05 14:00; D13 counts any new job); the engine offers it only after a lost job, since a first job comes through the young-adult and juvenile events
+likelier: a growing economy, contacts who hear of openings, skills in demand, good health, a town with work in it
+rarer: a recession, unrest, a closing trade, poor health, age past sixty, a long gap already
+tone: joy
+life: work, money
+horizon: years
+roles: boss, colleague, partner, parent
+earth: a phone call: the job is yours, starting Monday
+scene: After months of applications and silence, the phone rings: {boss} wants {N} to start on Monday.
+scene W: A proper contract, a start date and a place to be each morning. {N} irons a shirt the night before.
+scene U: {N} reads the job description again, trying to see what the work will actually teach.
+scene B: There is a second interview next week with a firm that pays more. {N} is in no hurry to sign anything.
+scene R: The months of waiting are over. {N} wants to shout it out of the window and start tomorrow.
+scene G: {N} thinks of {parent}, who did the same work for thirty years, and wonders if this job could be like that.
+- W | accept the first decent offer, and turn up early every day | habit | v: conformity, security | tags: commit:career | chance: 78
+- U | take the job with the most to learn, even for less pay | door | v: self-direction, achievement | tags: commit:career | chance: 70
+- B | play the two offers against each other until one pays properly | v: power (resources), achievement | tags: commit:career | chance: 75
+- R | take the job in a new city on the spot, and pack that night | door | v: stimulation | mark: moved away | tags: commit:career | chance: 73
+- G | go back to the line of work you know, close to home, for good | binds | v: tradition, security | tags: commit:career | chance: 85
+- BR | sell the months out of work as a bold year of travel, a little stretched | v: power, stimulation | mark: hid a wrong | closed: approval: stretching the truth on a CV; backfire: caught out at the reference check | tags: commit:career | chance: 72
+- UB | get in through someone who owes a favour, and study the place before day one | v: power, achievement | tags: commit:career | chance: 82
+- UG | retrain for steadier work close to home, and take the first post it offers | door | binds | v: security, self-direction | tags: commit:career | chance: 60
+- WG | join a cooperative where everyone shares the work and the pay | binds | v: universalism, benevolence | tags: commit:career | chance: 66
+- WR | take the hardest job going, the night shift on the ambulances | body: light | identity | v: benevolence, stimulation | tags: commit:career | chance: 62
+works: The first week goes well, and by Friday {colleague} has shown {N} where the good coffee is.
+works: The pay comes in at the end of the month, and the household breathes out.
+fails: The job is not what was promised, and the first weeks drag.
+fails: {N} starts on the back foot, and the team has already decided who the newcomer is.

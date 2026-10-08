@@ -1,0 +1,324 @@
+# Chroma library, modern Earth: LIFE EVENTS of the world's turning points as they reach one life (release checklist W39:
+# the breakthrough and outer-ring moments of an era). Design: chroma-world/spec-6-emergent-eras.md sections 5 and 7 (a
+# landslide election night, the regime falls, a revival that fills the square; join, oppose or stay out through the five
+# levers), spec-5-outer-ring.md (a cure, a new medium, an automation wave, a blackout or cyberattack, a crash) and
+# spec-7-levers-and-reach.md (exit, voice, loyalty, neglect, subvert). Fields: chroma-engine/world-fields.md.
+# With the world on, the Engine fires these by name (keyed in earth_rules, as for war comes); with it off they run on
+# their own small per_year rates below. Each is even on its own: alpha even, stakes 1.0, the five one-color options plus
+# one half of a pair set; the eight use both halves of D3, D4, D5 and D6, so the pairs stay even.
+# Syntax: header of build.py. Library thread helper, 2026-10-07.
+
+# ---------------------------------------------------------------- life event: a landslide on election night (pairs D3a)
+
+== a landslide on election night
+tier: life event
+stages: juvenile+
+age: 14-100
+per_year: 0 .02 .05 .05 .05 .05
+drivers: community+.3 ties+.2 unrest+.3 prosper-.3 era+.2
+gap: 8-15
+times: repeats: in a stable rich democracy a landslide that throws out the government comes with each reform wave, about every 8 to 12 years (spec-6 section 8, estimate from post-war rich democracies); about half of them land as a turning point in a given life, and the rest pass as 'a bitter election' (read) or not at all, so about 5 in 100 people of voting age a year, and 2 in 100 teenagers of 14 to 17 who follow it (estimate); with the world on, the Engine fires it on the society's reform breakthroughs instead (spec-6 section 5); a candidate's own count is the politics pack's 'election night'
+likelier: an open regime with free elections, hard times or a scandal that turned the voters, a family or a street that follows politics, a cause or a party of one's own
+rarer: a closed regime, a settled consensus, a person who never follows the news, a remote place
+domain: community.5
+tone: mixed
+life: public life, community
+horizon: week
+roles: grandparent, parent, sibling, friend, colleague, neighbours
+earth: on election night the results come in seat after seat, and the government is swept out by a landslide
+scene: All night the results come in, seat after seat changing hands, and by two in the morning it is plain: the government is out, swept away by a landslide. Somebody in the street is banging a pan, and {Ns} phone will not stop buzzing.
+scene W: The count was fair and the people have spoken. {N} watches the old leader concede on the screen, and feels the weight of a whole country choosing.
+scene U: {N} has the map up and the numbers open, seat by seat. Nobody predicted a swing this size, and {N} wants to know exactly why it happened.
+scene B: New people will run the ministries by the end of the week, and new people will hand out the contracts. {N} starts working out who knows whom.
+scene R: Car horns, shouting, a stranger crying on the corner. Whichever side {N} is on, {Ns} heart is going like a drum.
+scene G: {grandparent} has seen governments come and go like the weather, and says only that the bread will still need baking in the morning.
+- W | accept the result, whichever way you voted, and say so in public | v: conformity, universalism | lever: loyalty | pushes: state | chance: 88
+- U | stay up with the numbers until dawn, working out why the country turned | v: self-direction | mark: learned a skill | chance: 85
+- B | go to the winning party's open meeting the next morning, for the doors it will open | door | v: power, achievement | aims: party member | lever: loyalty | pushes: institution party | chance: 85
+- R | skip the results, go out dancing, and hear who won in the morning | v: hedonism, stimulation | lever: neglect | pushes: state | chance: 85
+- G | sit up with the family elders, who have seen governments come and go | v: tradition, benevolence | chance: 75
+- WU | write to your new representative that night, setting out what the town needs | v: universalism, conformity | lever: voice | pushes: state | chance: 58
+- WR | join the march against the new government the very next day | identity | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: state | chance: 52
+- UB | move your savings out of reach of the new taxes everyone expects | v: security, power | requires: savings | without: means | lever: exit | pushes: economy | chance: 80
+- RG | throw a street party with the neighbours, whoever they voted for | v: hedonism, benevolence | mark: made a friend | chance: 65
+- BG | keep your vote to yourself, and get close to whoever rises in town now | v: power, security | lever: subvert | pushes: place | chance: 70
+works: In the weeks after, the town settles into the new order of things, and {N} finds a footing in it.
+works: The change turns out to be one {N} can live with, and some of it is better than {N} feared.
+fails: The argument over the result splits the family table, and it does not heal for a year.
+fails: The new government's first months bring trouble straight to {Ns} door: a cut, a closure, a rule that bites.
+
+# ---------------------------------------------------------------- life event: the old order falls (pairs D6a, all enemy)
+
+== the old order falls
+tier: life event
+stages: juvenile+
+age: 16-100
+per_year: 0 .0003 .0003 .0003 .0003 .0003
+drivers: unrest+2.5 harsh+.4 prosper-.5 era+.2 community-.2
+gap: 15-40
+times: rare in modern Earth: in a stable rich democracy essentially never (spec-6 section 8); worldwide, coups, uprisings and revolutions that bring down a regime came in about 1 to 2 in 100 country-years in recent generations (estimate leaning on the Powell and Thyne coup data and counts of revolutions), so the world-off rate is set at 3 in 10,000 a year (about 2 in 100 lives), and unrest gives it to the people in unstable states, as for 'war comes'; with the world on, the Engine fires it on a revolution breakthrough of a closed or mixed regime (spec-6 section 5); opens at 16, the age of the students and young workers in the crowds
+likelier: a closed or mixed regime, mass unrest, a lost war, a crash or a scandal that breaks trust, a large young generation, a split in the army or police
+rarer: a stable democracy with free elections, a growing economy, strong institutions, an older population
+rite: young_adult adult
+domain: community.5
+tone: mixed
+life: public life, community, home
+horizon: months
+roles: parent, friend, sibling, neighbours, colleague, boss
+earth: after weeks of crowds in the streets, the rulers who held the country for a generation are gone overnight
+scene: For weeks the crowds grew in the square. Tonight the state broadcast goes silent, the old leaders' cars are seen racing for the airport, and by dawn the statues are coming down. Nobody knows yet who is in charge.
+scene W: {N} knows who on the street informed for the old rulers, and who took their money. Tomorrow there will be a reckoning, and it ought to be a just one.
+scene U: Rumours fly faster than facts: the army has split, the army has not, the borders are shut, the borders are open. {N} listens to every station and trusts none of them yet.
+scene B: Everything that was fixed is loose tonight: jobs, houses, permits, power. {N} can feel the whole town being dealt again.
+scene R: The crowd is singing in the square, and {friend} is already there, on the phone, shouting over the noise for {N} to come now.
+scene G: {parent} lived through the last time things fell apart, and is filling every jar in the kitchen with water before anyone else thinks of it.
+- W | give the new council the names of the neighbours who served the old rulers | v: conformity, universalism | mark: made an enemy | closed: approval: informing on neighbours; backfire: the lists grow longer than anyone meant, and the street stops trusting | lever: loyalty | pushes: state | chance: 62
+- U | quietly wipe the files that tie your name to the old rulers | v: security | mark: hid a wrong | closed: law: destroying public records; backfire: the copies turn up, and the wiping looks worse than the files | lever: subvert | pushes: institution | chance: 50
+- B | find out who will hold power by noon, and offer them your services | binds | v: power | lever: loyalty | pushes: state | chance: 60
+- R | join the crowd at the palace gates and push until they give | body: heavy | v: stimulation, self-direction | mark: defied an authority | lever: voice | pushes: state | chance: 60
+- G | shutter the house, keep everyone in, and open the door to nobody | v: security, tradition | mark: refused someone in need | closed: approval: barring the door to people running from the streets; backfire: the neighbours remember it when the town settles | lever: neglect | pushes: state | chance: 70
+- WB | stand with the last of the old guard at the ministry, to the end | body: heavy | v: security, power | mark: made an enemy | lever: loyalty | pushes: state | chance: 30
+- WR | join the neighbours guarding the street, hunting guns and all, until order returns | body: heavy | v: security, benevolence | law: guns | closed: law: carrying guns in the street; backfire: disarmed and held by the first patrol that comes | chance: 62
+- UR | slip across the border with one bag before the roads close | v: self-direction, security | mark: left home | moves: yes | lever: exit | pushes: abroad | chance: 55
+- UG | take the family out to the relatives in the countryside until the city settles | v: security, tradition | lever: exit | pushes: place | chance: 65
+- BG | buy the houses the fleeing officials sell off, for almost nothing | v: power, achievement | requires: savings | without: means | chance: 65
+works: Within a year the new order has a shape, and {N} has a place in it, smaller or larger than before.
+works: The worst never reaches {Ns} street, and the people {N} loves come through it together.
+fails: In the chaos {N} loses work, savings and sleep, and the months that follow are lean ones.
+fails: The new rulers keep lists too, and {Ns} name ends up on one of them.
+
+# ---------------------------------------------------------------- life event: a revival fills the square (pairs D5a)
+
+== a revival fills the square
+tier: life event
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 .006 .006 .005 .005 .005
+drivers: stress+.4 unrest+.3 harsh+.3 community+.3 prosper-.3
+gap: 15-40
+times: repeats, rarely: a wave of faith or meaning that fills a town's square and changes its talk for years reaches a person about once in a long life in uneasy times and less in secure ones (estimate: the American 'great awakenings' came about every 40 to 80 years, local revivals and new movements more often; insecurity, crisis and disaster raise religiosity, Bentzen 2019, spec-5 section 3), set at 5 to 6 in 1,000 a year from 14 (about 4 in 10 lives meet one); with the world on, the Engine fires it on a revival breakthrough when meaning needs go unmet across many groups (spec-6 section 5)
+likelier: hard times, a disaster or a war nearby, many young people without work or purpose, a town with strong congregations, a gifted preacher or leader
+rarer: secure and prosperous times, a town where few believe, a closed regime that bans gatherings, a person far from any crowd
+domain: faith.5
+tone: mixed
+life: faith, meaning, community
+horizon: months
+roles: grandparent, parent, friend, sibling, neighbours, a preacher
+earth: a wave of faith sweeps the town: night after night the square fills with people singing, weeping and making vows
+scene: It began with a few dozen people in a tent by the river. Six weeks later the square is full every night: singing, weeping, strangers embracing, and a preacher's voice carrying over the rooftops. Half the town has been, and the other half talks of nothing else.
+scene W: Hundreds of people are promising to live better: to stop drinking, to keep their marriages, to honour their parents. {N} watches them make the vows and feels the pull of a life with clear rules.
+scene U: {N} stands at the back with folded arms, watching how the music rises, how the preacher pauses, how the crowd answers. What is happening here, exactly?
+scene B: A crowd this size wants food, beds, leaders and someone to count the money. {N} notices who is already doing well out of it.
+scene R: The singing gets under {Ns} skin. {friend} is crying and laughing at once, and {N} wants to feel whatever {friend} is feeling.
+scene G: {grandparent} remembers the last time the town caught fire like this, how it burned out, and what grew afterwards in the ash.
+- W | go forward at the meeting and make a public vow to live by the faith | binds | v: tradition, conformity | tags: commit:faith | chance: 70
+- U | go to three meetings with a notebook, to understand what draws people in | door | v: self-direction, universalism | chance: 80
+- B | get close to the preacher, and make yourself useful to the leaders | v: power, achievement | lever: loyalty | pushes: belief | chance: 75
+- R | leave the old congregation and join the new movement, whatever your family says | identity | v: stimulation, self-direction | title: convert | norm: leaving a faith | closed: approval: leaving the family's faith for the new movement; backfire: the family goes cold for a year and more | lever: exit | pushes: belief | chance: 70
+- G | keep to the faith of your family, and let the wave roll past | v: tradition, security | lever: loyalty | pushes: belief | chance: 68
+- WG | open your home to a prayer group on weeknights, and feed whoever comes | habit | v: benevolence, tradition | mark: made a friend | lever: loyalty | pushes: belief | chance: 70
+- WR | take a box to the corner of the square and preach to the passers-by | v: tradition, stimulation | norm: faith in public | closed: approval: preaching in the street; backfire: mocked, filmed, and moved on by the police | lever: voice | pushes: belief | chance: 55
+- UB | quietly skim a little from the collection you are trusted to count | v: power | mark: hid a wrong | closed: law: theft from the collection; backfire: the accounts are checked, and the whole square hears of it | lever: subvert | pushes: belief | chance: 70
+- UR | stand up at a meeting and argue the preacher down in front of everyone | identity | v: self-direction, universalism | mark: made an enemy | closed: approval: heckling at the movement's own meeting; backfire: thrown out, and cold-shouldered in the street for months | lever: voice | pushes: belief | chance: 40
+- BG | buy the empty shops around the square while the crowds keep coming | v: power, achievement | requires: savings | without: means | chance: 60
+works: Something in the town shifts and stays shifted: the bars are quieter, the meetings fuller, and {N} has a new place in it all.
+works: Months later the crowds have thinned, but what {N} took from those nights is still there.
+fails: The wave breaks as fast as it rose, and {N} is left with the quarrels it started.
+fails: A scandal hits the movement's leaders, and everyone who stood near them is tarred with it.
+
+# ---------------------------------------------------------------- life event: a cure is found at last (pairs D4b)
+
+== a cure is found at last
+tier: life event
+stages: juvenile+
+age: 14-100
+per_year: 0 .005 .008 .012 .015 .015
+drivers: era+.6 prosper+.3 money+.2 ties+.3 fortune+.1
+gap: 8-20
+times: repeats: a disease that used to kill becomes treatable a few times in a modern life (estimate: a deadly virus turned into a managed illness, a cure for a liver virus, drugs that turn some cancers into long illnesses, gene treatments for some inherited diseases), and it reaches someone the person knows about once or twice: about 1 to 1.5 in 100 adults and elders a year, fewer of the young, who know fewer sick people; with the world on, the Engine fires it when medical capability rises past a disease (spec-5 section 1, a cure), and treatment odds rise with it
+likelier: a time of fast medical progress, money or good insurance, a hospital within reach, a wide circle of family and friends
+rarer: low money, a remote place, a health system under strain, a closed state that shuts out new medicines
+at: hospital
+tone: joy
+life: health, body, family
+horizon: months
+roles: friend, parent, sibling, partner, grandparent, dead, a specialist
+earth: the news says a disease that used to kill can now be treated, and someone you know has it
+scene: It is the third story on the evening news: the illness that took {dead} can now be treated, and in most cases cured. {N} is still staring at the screen when {friend}, who was diagnosed with it last spring, rings, laughing and crying at once.
+scene W: There will be a list, a waiting time, forms and a proper order of who goes first. {N} wants to see it done fairly, and {friend} safely on it.
+scene U: {N} finds the trial results that night and reads them twice: how many were cured, how many were not, and what it does to the body on the way.
+scene B: Supplies are short and the waiting lists long. Some people will get it in weeks and others in years, and {N} means to see {friend} among the first.
+scene R: {N} is shouting down the phone, then crying, then grabbing the car keys without knowing where to drive.
+scene G: {N} thinks of {dead}, for whom it came too late, and of how slowly the world learns what it needs to know.
+- W | help the one who is ill through every form, and wait their turn | v: conformity, benevolence | tech: modern medicine | lever: loyalty | pushes: institution hospital | chance: 68
+- U | read the trial results yourself, and ask the specialist every hard question | v: self-direction, security | mark: learned a skill | chance: 75
+- B | pay a private clinic to get it to them first, whatever it costs | v: power, security | tech: modern medicine | requires: savings | without: means | lever: exit | pushes: institution hospital | chance: 75
+- R | drop everything and drive through the night to be there for the first dose | v: benevolence, stimulation | tech: car | chance: 85
+- G | trust the old care that has kept them going, until the new one proves itself | v: security, tradition | chance: 55
+- BR | order it from abroad online, without a prescription, and get it to them now | v: benevolence, power | tech: internet | closed: law: medicine without a prescription; backfire: seized at the border, with a fine and a warning letter | lever: subvert | pushes: institution hospital | chance: 55
+- UB | put your savings into the firm that makes it, before the price climbs | v: power, achievement | requires: savings | without: means | grants: shares | chance: 65
+- UG | learn how the treatment works with the body, and nurse them through the side effects | v: benevolence, self-direction | mark: helped someone in need | chance: 65
+- WG | take flowers to the grave of the one it came too late for | v: tradition, benevolence | chance: 85
+- WR | start a campaign to get the cure paid for, for everyone who needs it | v: universalism, benevolence | lever: voice | pushes: state | chance: 40
+works: The treatment takes, and within months the one who was ill is making plans again.
+works: The old grief eases a little, now that the illness behind it has lost its power.
+fails: The treatment does not take, or not well enough, and the old fear comes back.
+fails: The cure is real, but the waiting list is long, and the months of waiting are the hardest of all.
+
+# ---------------------------------------------------------------- life event: everyone is suddenly on the new medium (pairs D6b, all ally)
+
+== everyone is suddenly on the new medium
+tier: life event
+stages: juvenile+
+age: 12-100
+per_year: 0 .03 .025 .02 .015 .01
+drivers: era+.6 prosper+.3 money+.2 ties+.2
+gap: 10-20
+times: repeats: a new medium, a new way of talking and being seen, sweeps in about every 15 to 20 years in modern times and spreads on an S-curve within about a decade (smartphone ownership among US adults rose from 35 to 85 in 100 in ten years, Pew; spec-5 sections 1 and 7, estimate for the spacing); the young take it up first and feel it most, so about 3 in 100 teenagers a year live the switch as a turning point, falling to 1 in 100 elders (about one or two in a life); 'the new thing everyone is talking about' (read) is the smaller gadget of every few years; with the world on, the Engine fires it when a new medium's adoption passes the person's circle (spec-5 section 1)
+likelier: a fast-changing era, money for the new device, young people around, a wide circle of friends, a town with good networks
+rarer: poverty, a remote place without fast networks, a state that blocks it, a household that keeps to the old ways
+tone: mixed
+life: era, friends, work
+horizon: months
+roles: friend, sibling, child, grandparent, colleague, rival
+earth: a new way of talking and being seen spreads in a single season, and suddenly everyone you know is on it
+scene: In spring only {friend} had it. By autumn everyone does: the school, the office, even {grandparent}'s card club. People talk through it, flirt through it, argue and fall in love through it, and the old ways of keeping in touch go quiet almost overnight.
+scene W: Nobody has agreed any rules for it yet: who may see what, what is polite, what is private. {N} would like there to be some.
+scene U: {N} wants to know how it works underneath: who sees what, why some voices travel and others vanish, and who is keeping the records.
+scene B: Attention is the new money, and right now it is lying in the street for anyone quick enough to pick it up.
+scene R: Everyone is there, everything is happening, and {N} has not put the thing down since breakfast.
+scene G: The bench outside the shop is empty in the evenings now, where the old men used to sit and talk. {N} notices, and misses them.
+- W | wait until there are proper rules for it, then join and use it with care | v: security, conformity | tech: internet | chance: 75
+- U | learn every setting before anyone else, and become the one who explains it | v: achievement, self-direction | mark: learned a skill | tech: internet | chance: 72
+- B | build a following on it fast, and turn the attention into money | identity | v: power, achievement | grants: following online | tech: internet | habit | chance: 25
+- R | post everything, day and night, for the thrill of being seen | habit | v: stimulation, hedonism | tech: phone | self_control: - | chance: 80
+- G | stay off it, and keep talking to people face to face | identity | v: tradition, security | mark: turned down a chance | lever: exit | pushes: tech | chance: 60
+- BR | say the wildest things you can think of on it, for the crowds they bring | v: stimulation, power | mark: made an enemy | tech: internet | chance: 70
+- RG | find the people far away who love the same odd things you do | door | v: stimulation, benevolence | mark: made a friend | tech: internet | chance: 65
+- UB | run a few false accounts to talk up your own work | habit | v: power, achievement | mark: hid a wrong | closed: approval: false accounts; backfire: found out, and nobody trusts a word posted again | tech: internet | lever: subvert | pushes: culture | chance: 70
+- WG | help the oldest in the family onto it, so everyone can see each other | v: benevolence, tradition | tech: video calls | chance: 72
+- WU | speak up at the school meeting for sensible rules on it for children | v: universalism, security | lever: voice | pushes: institution school | chance: 50
+works: {N} finds a way of living with the new thing that fits, and it brings someone new into {Ns} life.
+works: A year on, the new medium is part of the furniture, and {N} has come out of the change ahead.
+fails: Something {N} posted travels much further than meant, and the wrong people see it.
+fails: Months go by in the glow of the screen, and old friendships quietly thin out.
+
+# ---------------------------------------------------------------- life event: the machines come for the work (pairs D3b)
+
+== the machines come for the work
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+per_year: 0 0 .008 .01 .01 .005
+needs: career
+domain: career1
+drivers: era+.6 prosper-.3 money-.2 trouble+.1
+gap: 10-25
+times: per worker: about 1 in 3 workers sees machines and software sweep their own line of work once in a working life of about forty years (estimate: about 1 in 5 US workers held the jobs most exposed to AI, Pew 2023, and earlier waves emptied whole trades: switchboards, typing pools, factory lines), so about 1 in 100 workers a year, half that among older workers still in work; the firm's own new software is the everyday 'new technology changes your job', and the job cut itself 'losing your job'; with the world on, the Engine fires it on its automation pressure in the person's sector (spec-5 section 1, an automation wave)
+likelier: routine work at a desk or on a line, a firm that cuts costs, a downturn, a fast-changing era
+rarer: work with people, hands or judgement that machines cannot do yet, a public-sector post, a strong union, a rare skill
+at: employer
+tone: trouble
+life: work, money, era
+horizon: years
+roles: boss, colleague, mentor, friend, partner
+earth: machines and software arrive that do the core of your trade, and across the town the jobs like yours start to go
+scene: It is not one new tool any more. The whole trade is going over to the machines: at the firm, at the one across town, at every place {N} might have moved to. {boss} calls a meeting and talks for an hour without once saying the word jobs.
+scene W: There is a retraining scheme, a union agreement and a schedule of who moves where. {N} reads every page, and wants to believe the plan is fair.
+scene U: {N} watches the new machine run for a whole shift, learning what it does well and where it stumbles.
+scene B: Somebody will own these machines, somebody will run them, and somebody will be paid off. {N} means not to be the third.
+scene R: All those years learning the trade, and a box the size of a fridge does it faster. {N} wants to put a fist through its screen.
+scene G: {mentor} saw the last change like this, and says a trade is like a river: it does not stop, it finds a new bed.
+- W | sign up for the retraining scheme the firm and the union agreed | door | v: security, conformity | mark: learned a skill | self_control: + | lever: loyalty | pushes: institution employer | chance: 65
+- U | work out which parts of the job no machine can do, and claim them | v: achievement, self-direction | chance: 60
+- B | take the redundancy money early, and set up on your own with it | v: power, self-direction | mark: took a wild risk | lever: exit | pushes: institution employer | chance: 65
+- R | walk out with the others and picket the gates until they talk | body: light | v: self-direction, benevolence | mark: defied an authority | lever: voice | pushes: institution employer | chance: 60
+- G | move to a smaller town where the old trade is still done by hand | v: tradition, security | mark: moved away | moves: yes | lever: exit | pushes: place | chance: 45
+- BR | jam the new machine one night, so the old way looks safer | v: power, security | mark: hid a wrong | closed: law: sabotage at work; backfire: caught on the cameras, sacked and charged | lever: subvert | pushes: institution employer | chance: 55
+- UG | go back to study, and grow into work the machines will need people for | door | v: self-direction, achievement | mark: learned a skill | self_control: + | chance: 55
+- UR | build a cheaper machine of your own, and sell it to the small firms | v: achievement, stimulation | tech: computer | chance: 25
+- WB | stand for union rep, and bargain hard for the older hands' jobs | v: power, benevolence | title: union rep | lever: voice | pushes: institution union | chance: 55
+- WG | share your shifts with the older hands, so nobody has to go | binds | v: benevolence, universalism | lever: loyalty | pushes: institution employer | chance: 50
+works: {N} comes through the change with work that still needs a person, and a skill the machines made worth more.
+works: The wave passes over, and {N} is still standing, in the trade or out of it, on firmer ground.
+fails: Within the year {Ns} post is gone, and most of the posts like it with it.
+fails: {N} keeps the job, but the work shrinks to watching the machine, at lower pay.
+
+# ---------------------------------------------------------------- life event: the power and the networks go down (pairs D5b)
+
+== the power and the networks go down
+tier: life event
+stages: juvenile+
+age: 14-100
+per_year: 0 .01 .01 .01 .01 .01
+drivers: harsh+.6 unrest+.6 era+.3 money-.2
+gap: 5-20
+times: repeats: a blackout of a day or more over a whole town or region, from a storm, a failure or an attack on the networks, reaches a person about once in a long life in a rich country and more often where storms and unrest are common (estimate: US power customers lose a few hours a year on average, most of it in major storms, and regional blackouts of a day or more come every few years somewhere in a large country; attacks on the grid are rarer still), so about 1 in 100 a year; a storm's own damage comes as 'crisis or disaster'; with the world on, the Engine fires it on a cyberattack or blackout in the person's place (spec-5 section 1)
+likelier: storm or fire country, unrest or a hostile neighbour, an old grid, a city that runs on the networks
+rarer: a sheltered place, a strong and well-kept grid, a calm era
+tone: trouble
+life: home, community, era
+horizon: week
+roles: neighbours, parent, grandparent, child, friend, partner
+earth: the lights go out across the whole region, the phones and the internet with them, and for days nothing works
+scene: At nine in the evening the lights go out across the whole region, and the phones go dead a minute later. By the second day the shops take only cash, the pumps are dry, the radio talks of an attack on the networks, and nobody knows how long it will last.
+scene W: The old couple next door, the woman on the fourth floor with the breathing machine, the family with the newborn: {N} starts making a list.
+scene U: Without the networks {N} has nothing but guesses. A failure or an attack? One town or the whole country? {N} wants facts, and goes looking for them.
+scene B: Fuel, water, batteries and a working generator are suddenly worth whatever anyone will pay. {N} counts what is in the garage.
+scene R: The street is dark and strangely alive: people out on their steps, children running with torches, someone grilling on the pavement. {N} feels wide awake.
+scene G: The fridge is silent, the night is very quiet, and for the first time in years {N} can see the stars from the window.
+- W | check on the old neighbours door by door, with a torch and a list | v: benevolence, conformity | mark: helped someone in need | chance: 80
+- U | dig out the battery radio and piece together what is really going on | v: self-direction, security | chance: 70
+- B | buy up fuel, water and batteries in the first hour, and sell the spare | v: power, achievement | closed: law: price gouging in an emergency; backfire: reported, fined, and remembered on the street for years | lever: subvert | pushes: economy | chance: 78
+- R | bring out the candles and the guitar, and turn the dark street into a party | v: hedonism, benevolence | mark: made a friend | chance: 78
+- G | make the larder last, a little each day, and wait calmly for the lights | v: security, tradition | mark: stayed home | self_control: + | chance: 72
+- BR | slip into the shut shop and take what the household needs | v: security, power | mark: broke the law | closed: law: looting; backfire: caught in a torch beam, and charged | lever: subvert | pushes: place | chance: 70
+- RG | pack the car and drive everyone out to family where the lights are on | v: security, benevolence | tech: car | lever: exit | pushes: place | chance: 65
+- UG | rig the car battery to keep a sick neighbour's medicine cold | v: benevolence, self-direction | tech: car | mark: helped someone in need | chance: 55
+- WB | take charge of the street's water and food, and decide who gets what | v: power, security | mark: made an enemy | chance: 65
+- WU | volunteer at the hospital to keep the generators and the records going | v: benevolence, universalism | lever: loyalty | pushes: institution hospital | chance: 65
+works: On the fourth day the lights come back on, and the street that came through it together keeps waving across the road.
+works: {N} comes out of the dark week with a new respect for how much {N} can manage without.
+fails: The outage drags into a second week, and the cold, the dark and the empty shelves wear everyone down.
+fails: The dark days cost more than anyone expected: spoiled food, lost wages, and an old neighbour taken to hospital.
+
+# ---------------------------------------------------------------- life event: a crash takes the savings (pairs D4a)
+
+== a crash takes the savings
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+holds: savings
+per_year: 0 0 .02 .03 .03 .03
+drivers: prosper-.8 unrest+.4 era+.2 trouble+.15
+gap: 6-20
+times: per person with savings: deep falls in share prices of a third or more come about every 10 to 15 years, and a bank or fund failure that takes deposits is rarer (estimate leaning on the big falls in world share prices of recent generations); about half of such crashes cut a saver's own savings hard enough to be a turning point, so about 3 in 100 savers a year in the working and retired years, 2 in 100 young adults, who have less invested; 'a recession' (read) is the slump in jobs and shops that often follows, and 'financial ruin' the bankruptcy that can come after; with the world on, the Engine fires it on a financial crash in its economy (spec-1, spec-5 economy events)
+likelier: savings in shares, a pension fund or a weak bank, a boom that ran too long, unrest, a crisis abroad that travels along trade links
+rarer: savings spread over safe places, deposits the state guarantees, a calm economy
+at: bank
+tone: trouble
+life: money, home
+horizon: months
+roles: partner, parent, child, friend, colleague
+earth: the markets fall by a third in a week, a bank shuts its doors, and the savings of years shrink overnight
+scene: It starts on a Monday. By Thursday the markets have fallen by a third, one bank has shut its doors, and there is a queue outside {Ns} own branch before it opens. The savings of years are worth half what they were on Sunday.
+scene W: {N} did everything right: paid in every month, never touched it, trusted the people who said it was safe. Somebody broke a promise somewhere.
+scene U: {N} spreads the statements across the table and works out exactly how much has gone, and how much is only gone on paper.
+scene B: Everyone is selling in a panic, which means everything is for sale cheap. {N} feels the fear, and under it a cold interest.
+scene R: {N} wants to shout at someone, anyone: the bank, the news, the smiling man on the screen who said it could never happen.
+scene G: {parent} lost the savings once before, in another crash, and planted potatoes the next spring. {N} remembers the potatoes.
+- W | keep paying in every month as planned, and trust the long run | v: security, conformity | self_control: + | lever: loyalty | pushes: economy | chance: 65
+- U | work out what went wrong, and spread what is left over safer places | v: security, self-direction | mark: learned a skill | chance: 70
+- B | sell up on a tip from inside the bank, before the news breaks | v: security, power | mark: hid a wrong | closed: law: trading on a secret tip; backfire: investigated, fined, and named in the papers | lever: subvert | pushes: economy | chance: 70
+- R | march on the bank's head office with the other savers, and refuse to leave | body: light | v: self-direction, universalism | mark: defied an authority | lever: voice | pushes: institution bank | chance: 55
+- G | stop opening the statements, and live on less until it passes | v: security, tradition | lever: neglect | pushes: economy | chance: 65
+- BG | buy cheap while everyone else is selling, and wait as long as it takes | v: power, achievement | self_control: + | takes_if_fails: savings | chance: 55
+- RG | take what is left out of the bank in cash, and keep it at home | v: security | self_control: - | lever: exit | pushes: institution bank | chance: 85
+- UR | borrow against everything you own, and stake it on the rebound | binds | v: stimulation, achievement | mark: took a wild risk | takes_if_fails: savings | chance: 35
+- WB | join the savers suing the bank for every last thing it owes | v: power, security | lever: voice | pushes: institution bank | chance: 40
+- WU | sit down with a free adviser and draw up a slow plan to rebuild | v: security, conformity | chance: 70
+works: It takes years, but the markets climb back, and {N} comes out of it with most of what was lost and a harder head for money.
+works: {N} loses less than many, and learns exactly what money is for and what it is not.
+fails: Half the savings of years are gone, and the plans that rested on them quietly die.
+fails: The crash runs on into a long slump, and the savings are only the first thing it takes.

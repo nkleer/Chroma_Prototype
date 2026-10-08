@@ -1,0 +1,470 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: THRESHOLD SEASONS, part 2 (Emren's point 6, card "Threshold season"): the crossings
+# into mature (ages 42 to 52) and into elder (ages 60 to 70), six moments each. Brief: drafts/next2/BRIEF.md.
+# Syntax: header of build.py. Rules: library-spec.md. Steps: 1 the crossing itself, 2 the in-between weeks with the
+# season's transforming chance (transform: yes), 3 settling into the new life.
+# Calls over the file: W5 U5 B5 R5 G4 (all ten pairs once, WU and BR twice). Cross cycles s1 to s4, three times each.
+
+# ================================================================ into mature (midlife), ages 42 to 52
+
+# ---------------------------------------------------------------- step 1: calls BR (cycle s1)
+
+== the morning you turn fifty
+tier: everyday
+stages: mature
+age: 42-52
+calls: BR
+threshold: mature
+step: 1
+once: yes
+tone: mixed
+life: body, time, family
+horizon: week
+roles: friend, sibling, partner, child
+earth: you wake up fifty, and the cards on the doormat say so in large gold numbers
+times: Nearly everyone who reaches fifty, once; more than 9 in 10 people born in rich countries live to see it (national life tables)
+scene: {N} wakes up fifty. The cards on the doormat say it in large gold numbers, and the face in the bathroom mirror does not argue.
+scene W: The family has booked a table for Saturday: a cake, a speech, a photograph with everyone in it. Turning fifty properly is a thing {N} means to do well.
+scene U: Before getting out of bed {N} does the sum: with ordinary luck, there are about as many years ahead as there have been since leaving home.
+scene B: Half a century, and most of it spent on what other people needed. The thought arrives with the first coffee: the next part is for {N}.
+scene R: Fifty, and {N} feels about twenty-six. The tattoo talked out of at eighteen, the motorbike in the showroom window: the old wants are all still there.
+scene G: {N} is older now than {Ns} grandmother was in the photograph on the stairs. The years have come the way the seasons come, without asking.
+- W | go along with the party the family planned, speech and photograph and all | v: conformity, tradition | chance: 90
+- U | read up on every new ache online until three in the morning | v: security | self_control: - | tech: internet | chance: 85
+- B | buy the good watch you promised yourself if you ever got this far | identity | v: hedonism, achievement | chance: 95
+- R | get the tattoo you talked yourself out of at eighteen | identity | v: self-direction, stimulation | chance: 90
+- G | stop colouring your hair, and let the grey grow in | identity | v: tradition (acceptance) | chance: 92
+- W>U | enrol on an evening course in the subject you dropped at school | door | v: self-direction | chance: 75
+- U>B | work out what it would take to stop work at sixty, and start saving | binds | v: security, power | chance: 80
+- B>R | spend the roof money on a month in the sun | v: hedonism | self_control: - | chance: 90
+- R>G | drive through the night to the town where you were born | v: tradition, stimulation | tech: car | chance: 85
+- G>W | ask for trees instead of presents, and plant them in the park without a permit | v: universalism (nature), benevolence | closed: law: planting on council land without leave; backfire: the council pulls them up and sends a fine | chance: 60
+works: The day turns out better than {N} feared, and the year after it better still.
+works: Somewhere between the cake and the last guest, {N} stops minding the number.
+fails: The day comes and goes, and {N} feels every one of the fifty years.
+fails: The plan goes wrong, and the birthday is remembered in the family for the wrong reasons.
+
+# ---------------------------------------------------------------- step 1: calls WG (cycle s2)
+
+# gate: no living parent: the funeral is of the last of the parents' generation (an aunt or uncle, or the last parent); in the engine's terms: the parent role is dead
+== the last of the old generation is buried
+tier: everyday
+stages: mature
+age: 42-52
+calls: WG
+threshold: mature
+step: 1
+once: yes
+tone: mixed
+life: family, loss
+horizon: week
+roles: sibling, a cousin, friend
+earth: at the funeral of the last of your parents' generation, the cousins turn and look at you
+times: Most people, once, at the funeral of the last parent, aunt or uncle; usually in their forties to sixties, when the older generation dies out (estimate)
+scene: The last aunt is buried on a grey morning, and with her goes the last of {Ns} parents' generation. At the graveside the cousins stand in a loose half-circle, and somehow they are all looking at {N}.
+scene W: Someone has to thank the minister, settle with the undertaker and say a few words at the wake. Every face in the family says that someone is now {N}.
+scene U: Every question about the family's past has lost its last answer: who the man at the edge of the wedding photograph was, why two brothers stopped speaking one winter long ago.
+scene B: Nobody stands between {N} and the front of the line any more. The thought is cold, and also, oddly, something like a promotion.
+scene R: {N} is fine through the service and fine through the hymn, and then her favourite old song comes on at the wake and {N} has to go outside.
+scene G: The old ones all lie under the same yews now. {N} stands where {Ns} parents once stood at their own parents' graves, and feels the whole line move up one place.
+- W | give the speech at the wake on behalf of the whole family | identity | v: tradition, benevolence | chance: 78
+- U | sit with her oldest neighbours and write down every family story they remember | v: tradition, self-direction | chance: 80
+- B | take charge of her affairs before the cousins start arguing over them | v: power, security | chance: 80
+- R | stay at the wake till the last bottle, singing her songs at full volume | v: hedonism, tradition | chance: 85
+- G | take home her recipe tin and the old photographs before the cousins arrive | v: tradition | closed: approval: taking the heirlooms before anyone else had a say; backfire: a cousin's cold letter, and a feud that lasts for years | chance: 80
+- W>B | take the head of the table at family gatherings from now on | v: power, tradition | chance: 65
+- U>R | track down the cousin nobody has spoken to in years, and ring them that night | v: benevolence, stimulation | mark: made a friend | chance: 70
+- B>G | buy her house from the estate with a second mortgage, so it stays in the family | binds | v: tradition, power | chance: 60
+- R>W | stand up at the wake and make the cousins promise to meet every summer | binds | v: benevolence, tradition | chance: 60
+- G>U | walk the old family streets with a cousin, and piece the past together | v: universalism (understanding), tradition | chance: 75
+works: The family closes up around {N}, and the gatherings go on with a new person at the head of them.
+works: In the weeks after the funeral, the new place in the family turns out easier to stand in than {N} feared.
+fails: The cousins drift apart after the funeral, and nobody rings anybody.
+fails: An old family quarrel breaks open over the will before the flowers on the grave have wilted.
+
+# ---------------------------------------------------------------- step 2, the transforming chance: calls UR (cycle s3)
+
+== three months of leave, if you ask by Friday
+tier: everyday
+at: employer
+stages: mature
+age: 42-52
+calls: UR
+holds: kind:career
+threshold: mature
+step: 2
+transform: yes
+tone: mixed
+life: work, time, travel
+horizon: months
+roles: boss, colleague, friend, partner
+earth: staff with long service may take three months of unpaid leave once, with the job kept open, if they apply by Friday
+times: Rare: perhaps 1 worker in 10 in midlife, once, is offered long unpaid leave with the job kept open; only a minority of employers offer sabbaticals (SHRM benefits surveys)
+once: yes
+scene: The notice says staff with long service may take three months of unpaid leave, once, with the job kept open, if they apply by Friday. The form sits on {Ns} desk all week.
+scene W: {N} has never taken more than a fortnight in twenty years. The work would land on {colleague}, and {N} turns over what going would say about {N}.
+scene U: Three months is long enough to learn something properly. On the back of the form {N} keeps a list: a language, a craft, a coastline from end to end.
+scene B: Three months with the job held open is a safety net, and {N} knows what a safety net is for: trying the thing without falling all the way.
+scene R: The form says three months. {N} hears a rucksack, a ferry horn, and nobody at all to report to.
+scene G: {N} has not watched a spring through from start to finish in twenty years, only its corners from a train window.
+- W | spend the three months with a relief agency where the floods were | door | v: benevolence, universalism | mark: helped someone in need | body: heavy | death_if_fails: 0.001 | chance: 75
+- U | spend the three months learning a language in the country that speaks it | door | v: self-direction | mark: learned a skill | grants: second language | chance: 75
+- B | use the three months to launch the business you have planned for years | door | v: achievement, power | title: founder of a firm | mark: took a wild risk | chance: 50
+- R | buy a one-way ferry ticket and a rucksack, and see where three months go | door | v: stimulation, self-direction | mark: took a wild risk | chance: 75
+- G | spend the spring working on a hill farm for bed and board | door | v: universalism (nature), self-direction | body: heavy | grants: growing food | chance: 70
+- W>R | claim the leave as your right, though the boss makes it plain it is unwelcome | identity | v: self-direction | closed: approval: the boss frowns on it; backfire: passed over at the next round of promotions | chance: 70
+- U>G | learn to sail, and take a small boat up the coast your grandparents fished | v: tradition, self-direction | grants: boat handling | body: heavy | death_if_fails: 0.001 | chance: 60
+- B>W | take a three-month contract elsewhere at twice the pay, and clear the mortgage | v: security, achievement | self_control: + | chance: 65
+- R>U | enrol at an art school abroad the week before its term starts | v: self-direction, stimulation | grants: drawing and painting | chance: 70
+- G>B | turn the garden into a market stall for the season, and keep the takings | v: achievement, self-direction | chance: 55
+works: When the three months end, {N} comes back to a life that fits differently, and likes the new fit.
+works: Somewhere in those months a new direction shows itself, and {N} follows it.
+fails: The plan collapses within weeks, and {N} is back at the old desk early, poorer and quieter.
+fails: The three months dribble away in errands and doubt, and nothing changes.
+
+# ---------------------------------------------------------------- step 2, the transforming chance: calls UG (cycle s4)
+
+== a spare place on a silent retreat
+tier: everyday
+at: faith body
+stages: mature
+age: 42-52
+calls: UG
+threshold: mature
+step: 2
+transform: yes
+tone: mixed
+life: meaning, faith, body
+horizon: week
+roles: friend, a monk, a stranger
+earth: a friend cannot go and gives you their place on a week's silent retreat at a monastery in the hills
+times: Rare: perhaps 1 adult in 30, once, goes on a silent retreat; retreats draw mostly people in midlife (estimate)
+once: yes
+scene: {friend} has broken an ankle and passes on a place at a week's silent retreat in a monastery in the hills. By the third day the silence has stopped feeling strange and started to feel like a question.
+scene W: The house keeps a rule: a bell for meals, a bell for prayers, no talking from the night office until breakfast. {N} keeps it, and finds the keeping restful.
+scene U: Without talk, {N} notices everything: how the monks walk, which books are worn in the guest library, which thoughts come back every single morning.
+scene B: {N} came to rest, and has found the first week in twenty years with nobody asking for anything. In the quiet the mind keeps drawing up plans.
+scene R: On the fourth day of silence {N} wants to laugh out loud, or shout from the hilltop, or run straight into the lake.
+scene G: Mist on the hills, bread from the kitchen, the same psalms sung here for nine hundred years. Something in {N} slows to the pace of the place.
+- W | keep every hour of the rule, the night prayers too, and book again for next year | v: tradition, conformity | title: regular worshipper | chance: 55
+- U | read through the guest library and begin a long study of what it teaches | identity | v: self-direction, universalism (understanding) | title: seeker | chance: 75
+- B | use the silence to plan the next ten years, and start on them on Monday | v: achievement, self-direction | self_control: + | chance: 75
+- R | break the silence to talk all night with a stranger in the garden | door | v: stimulation, benevolence | mark: made a friend | closed: approval: the rule of silence; backfire: asked to leave the retreat a day early | chance: 70
+- G | stay on a month to work in the monastery garden | v: universalism (nature), tradition | body: light | chance: 70
+- W>G | ask the guest master to teach the old way of prayer, and keep it at home | v: tradition | chance: 72
+- U>W | write down a rule for your own days, and keep it for a year | binds | v: conformity, self-direction | mark: kept your word | self_control: + | chance: 55
+- B>U | offer to sort out the monastery's accounts in return for another week | door | v: self-direction, achievement | chance: 80
+- R>B | leave on the third day, and tell the family what you will no longer do | v: self-direction, power | chance: 65
+- G>R | swim in the cold lake at dawn with the old monk who does it every day | habit | v: stimulation, universalism (nature) | body: heavy | death_if_fails: 0.001 | chance: 70
+works: {N} comes down the hill changed in a way the family notices before {N} does.
+works: The week settles into {N} like a stone into a riverbed, and stays there.
+fails: By the Monday the old life has closed over the week as if it had never been.
+fails: The silence turns out to be full of things {N} did not want to hear, and {N} leaves early, shaken.
+
+# ---------------------------------------------------------------- step 3, settling in: calls WB (cycle s1)
+
+== the spare keys of half the family
+tier: everyday
+stages: mature
+age: 42-52
+calls: WB
+threshold: mature
+step: 3
+tone: mixed
+life: family, home
+horizon: months
+roles: sibling, parent, child, a cousin
+earth: the spare keys of half the family now hang on hooks in your hall, and everyone rings you first
+times: Many people in midlife, once, as they become the family's fixed point; 54 in 100 Americans in their forties have a parent 65 or older and a child they raise or support (Pew 2025)
+once: yes
+scene: A row of hooks in {Ns} hall holds the spare keys of half the family: {sibling}'s house, an old uncle's flat, the lock-up, the caravan. When anything goes wrong, the phone rings at {Ns} house first.
+scene W: Somebody has to be the one who answers at two in the morning, and {N} has quietly become that somebody. Every key on the hooks has a label in {Ns} handwriting.
+scene U: {N} has started a folder: who takes which tablets, whose boiler is due a service, which cousin owes which cousin money. It is the most complicated system {N} runs.
+scene B: Everyone needs {N} now. There is a kind of power in holding the keys, and {N} has noticed it, and does not entirely mind.
+scene R: Three calls before breakfast: a burst pipe, a lost passport, a teenager who missed the last train home. {N} loves every one of them and could scream.
+scene G: These keys once hung in {Ns} grandmother's hall, and then in {Ns} parents'. Now the hooks are in {Ns} house, and the family turns around it like a wheel round its hub.
+- W | answer every call, day or night, and never let the family see you tired | binds | v: benevolence, tradition | chance: 70
+- U | put every family paper, password and spare key in one labelled box | v: security | chance: 90
+- B | make yourself the one they lean on, and expect a say in their big decisions | v: power | grants: the one everyone asks | chance: 80
+- R | hand back the keys and tell them all to mend their own pipes | v: self-direction, hedonism | closed: approval: leaving the family to cope; backfire: a night-time crisis, and nobody forgives the unanswered phone | chance: 75
+- G | cook a big meal every Sunday, and let the family come when it can | binds | v: tradition, benevolence | self_control: + | chance: 80
+- W>U | take a first-aid course, so you are ready for the night calls | v: benevolence, achievement | grants: first-aid certificate | chance: 80
+- U>B | quietly get the old uncle to sign a power of attorney naming you | v: power, security | closed: approval: steering a frail relative's signature; backfire: the cousins find out, and a lawyer is called in | chance: 75
+- B>R | charge the cousins for the lifts and errands, and spend it on weekends away | v: hedonism | chance: 75
+- R>G | turn up at every crisis at once, with food, a toolbox and a hug | v: benevolence | body: light | chance: 80
+- G>W | gather everyone round the kitchen table and share out the care fairly | v: benevolence, universalism | chance: 55
+works: The family settles into its new shape with {N} at the middle of it, and the shape holds.
+works: The calls keep coming, but {N} finds a way to carry them that leaves room for a life.
+fails: Within the year {N} is worn thin, and snaps at the person who least deserves it.
+fails: A family row breaks out over who does what, and {Ns} name is at the centre of it.
+
+# ---------------------------------------------------------------- step 3, settling in: calls WR (cycle s2)
+
+== a Saturday run in the park
+tier: everyday
+stages: mature
+age: 42-52
+calls: WR
+threshold: mature
+step: 3
+tone: joy
+life: body, friends, community
+horizon: months
+roles: friend, a volunteer, a rival runner
+earth: the free Saturday-morning run in the park has become the fixed point of your week, and the people in it something like friends
+times: Some adults, perhaps 1 in 10, once, in midlife; many take up a weekly sport in midlife, fewer keep it up (estimate)
+once: yes
+scene: Every Saturday at nine, three hundred people of every shape run five kilometres round the park, and {N} is one of them now. Afterwards there is coffee with people {N} did not know in the spring.
+scene W: There is a volunteer rota, a briefing at the start and a word of thanks for the marshals at the end. {N} likes that it happens every week, rain or shine, because people make it happen.
+scene U: {N} has a spreadsheet of times now, and a theory about the hill on the second lap.
+scene B: {N} has noticed who is getting faster, and means to beat the man in the orange vest before the summer is out.
+scene R: The whistle goes, three hundred pairs of feet hit the path at once, and for twenty-eight minutes {N} is nothing but breath and legs and joy.
+scene G: Frost on the grass, ducks on the lake, the same old oak at the turn. {N} has learned this park by its seasons, one Saturday at a time.
+- W | give up the running, and take a marshal's jacket instead | v: benevolence | self_control: - | chance: 88
+- U | follow a twelve-week plan to get under twenty-five minutes | habit | v: achievement | self_control: + | chance: 55
+- B | train in secret to beat the man in the orange vest | habit | v: achievement, power | chance: 65
+- R | sign up for a marathon after the third coffee, and train all winter | binds | v: stimulation, achievement | body: heavy | self_control: + | chance: 50
+- G | walk it at the back with the slowest, chatting the whole way | v: benevolence | mark: made a friend | chance: 88
+- W>B | take over as run director, and ban the buggies and the dogs | v: power, conformity | closed: approval: banning families from a free run; backfire: a petition, and half the volunteers walk out | grants: organising people | chance: 55
+- U>R | map a route through the private estate beyond the park, and run it on Sundays | habit | v: stimulation, self-direction | closed: law: trespass; backfire: a gamekeeper, and a warning letter | chance: 75
+- B>G | use your contacts at the council to get the bare corner of the park planted | v: universalism (nature) | chance: 60
+- R>W | stand up at the briefing and ask everyone to sponsor a runner who fell ill | v: benevolence | chance: 70
+- G>U | ask the oldest runner, eighty and still going, how she does it, and listen | door | v: tradition, self-direction | chance: 80
+works: The Saturdays become one of the good fixed things in {Ns} life, and the coffee afterwards lasts longer every month.
+works: By the end of the year {N} has a handful of new friends and a body that feels younger than it did at forty.
+fails: A knee gives out in the autumn, and {N} watches from the café window for months.
+fails: The new friendships stay at nods and coffee, and {N} drifts away from the Saturdays.
+
+# ================================================================ into elder (old age), ages 60 to 70
+
+# ---------------------------------------------------------------- step 1: calls BG (cycle s3)
+
+# note for the engine: the moment itself gives [retiree] and ends the career held (no catalogue name can say "the career held" in drops:); where 'the first months of retirement' follows, the two make one passage
+== the last day at work
+tier: everyday
+at: employer
+stages: elder
+age: 60-70
+calls: BG
+holds: kind:career
+threshold: elder
+step: 1
+once: yes
+title: retiree
+tone: mixed
+life: work, time
+horizon: moment
+roles: colleague, boss, friend
+earth: your last working day: a cake in the staff room, a card signed by people you barely know, and a desk to clear by five
+times: Nearly everyone with a working life, once, most often at 60 to 67; the average age of leaving work across the OECD is about 63 to 64 (OECD)
+scene: It is {Ns} last working day. There is a cake in the staff room, a card signed by forty people, and a desk to clear by five o'clock.
+scene W: {N} has written the handover notes for {colleague}, labelled every file and handed back the keys. There is a right way to leave a job, and {N} is doing it.
+scene U: Forty years of knowing how things work here, and by Monday all of it will be in someone else's head, or in nobody's.
+scene B: For thirty years people came to {Ns} door for decisions. Tomorrow the name comes off the door, and {N} is not sure what is left without it.
+scene R: {N} has counted down the days for a year, and now that the last one is here, {Ns} throat is tight and the speech will not stay in {Ns} head.
+scene G: {N} takes the long way out through the building one last time, past the window where the view has turned with the seasons for thirty years.
+- W | report the expenses fiddle you kept quiet about for years, on your last day | v: conformity, universalism | closed: approval: informing on colleagues; backfire: the leaving do goes cold, and the card has fewer names on it | chance: 80
+- U | leave notes with every trick and shortcut nobody ever wrote down | v: benevolence, achievement | chance: 90
+- B | copy your contacts and the client list onto a memory stick on the way out | v: power, security | closed: law: the list belongs to the employer; backfire: a solicitor's letter in the first month | mark: hid a wrong | chance: 85
+- R | tell the boss in your speech what you really thought of the place | identity | v: self-direction | chance: 85
+- G | slip out quietly at three, before the speeches, and walk home the long way | v: tradition (acceptance), self-direction | self_control: - | chance: 90
+- W>R | turn the leaving do into a proper party and dance with the whole office | v: hedonism, benevolence | chance: 80
+- U>G | spend the last hour in the archive with forty years of staff newsletters | v: tradition, self-direction | chance: 95
+- B>W | ask to keep your title as an honorary one, with a seat at the yearly dinner | identity | v: power, tradition | chance: 60
+- R>U | enrol that same evening on the course you swore you would take when you stopped | v: self-direction, stimulation | self_control: + | chance: 90
+- G>B | make sure the young one you trained gets your desk and your clients | v: power, tradition | chance: 60
+works: {N} walks out into the evening lighter than expected, and the card goes up on the mantelpiece.
+works: The day ends well, and people talk about {Ns} leaving for years afterwards, kindly.
+fails: The day is flat and awkward, and {N} drives home feeling like a piece of furniture someone has moved out.
+fails: Something goes wrong at the last minute, and the last memory of the place is a sour one.
+
+# ---------------------------------------------------------------- step 1: calls RG (cycle s4)
+
+== the bus pass comes in the post
+tier: everyday
+stages: elder
+age: 60-70
+calls: RG
+threshold: elder
+step: 1
+once: yes
+tone: joy
+life: time, body, travel
+horizon: week
+roles: friend, sibling, grandchild
+earth: your free bus pass arrives in the post, with a photograph that makes you look older than you feel
+times: Nearly everyone in Britain, once; the free bus pass comes at 60 in Scotland and Wales and at state pension age, now 66, in England, and many countries give older travellers cheap fares
+scene: The bus pass arrives in a brown envelope: free travel from now on, a leaflet about falls, and a photograph that looks like {Ns} own grandparent.
+scene W: The council writes that {N} is now entitled. {N} reads the conditions twice and puts the card in the wallet, beside the donor card.
+scene U: {N} works out that, changing every hour or so, the free local buses would reach more or less anywhere in the country.
+scene B: Free buses, cheap trains, half-price cinema on Tuesdays, a discount at the garden centre. {N} totals what age is worth in money, and the sum is not small.
+scene R: {N} turns the card over and laughs out loud. Old! {N} still runs for buses; at least now they will be free.
+scene G: The card says what the knees have been saying for a while. A page has turned, and {N} turns with it.
+- W | write to the council about the bus that no longer runs to the hospital | v: universalism, security | chance: 45
+- U | plan a journey from one end of the country to the other on local buses | v: self-direction, stimulation | chance: 80
+- B | ride the express coaches the pass does not cover, and see if anyone checks | v: hedonism, power | closed: law: a fare dodge; backfire: a fine and a scene at the door of the coach | mark: broke the law | chance: 75
+- R | frame the dreadful photograph and hang it in the downstairs loo | v: hedonism, self-direction | chance: 97
+- G | sit on the back step with the pass, and let the years sink in | v: tradition (acceptance) | chance: 88
+- W>G | join the walking group that takes the Wednesday bus out to the hills | v: universalism (nature), conformity | title: club member | chance: 85
+- U>W | read the small print and learn every right the pass gives you | v: security, conformity | act: read the small print and learn every right the pass gives them | chance: 95
+- B>U | use the free buses to sit in on every free lecture and museum within reach | habit | v: self-direction | chance: 92
+- R>B | ring the bank, the energy firm and the insurer, and demand every pensioner's discount | v: power, security | chance: 60
+- G>R | take the first bus to the sea on a fine morning, and swim | v: hedonism, universalism (nature) | body: light | chance: 85
+works: The card goes into {Ns} wallet, and the new years begin with a laugh rather than a sigh.
+works: The pass carries {N} to places and people {N} would never have reached otherwise.
+fails: The pass stays in a drawer, and the photograph on it stays in {Ns} head for weeks.
+fails: The first outing goes wrong: a missed connection, a long cold wait, and {N} feels every year printed on the card.
+
+# ---------------------------------------------------------------- step 2, the transforming chance: calls BR (cycle s1)
+
+# gate: owns a home (the choice is about selling or keeping it); in the engine's terms: has('homeowner')
+== a flat in the sun near old friends
+tier: everyday
+stages: elder
+age: 60-70
+calls: BR
+threshold: elder
+step: 2
+transform: yes
+tone: mixed
+life: home, place, friends
+horizon: months
+roles: friend, child, sibling, a neighbour
+earth: friends who retired abroad write that the flat below theirs is for sale, over the sea, for half what your house would fetch
+times: Rare: perhaps 1 homeowner in 20 near retirement, once, weighs a move abroad like this; fewer actually go (estimate)
+once: yes
+scene: {friend}, who retired to the coast abroad three years ago, sends photographs: the flat below theirs is for sale, a balcony over the sea, for half what {Ns} house would fetch at home.
+scene W: {N} thinks of the neighbours, the committee, the family Sundays, the doctor who knows {Ns} history. A life is a web of duties, and a web does not fold into a suitcase.
+scene U: {N} has eleven tabs open: winter temperatures, prices, hospitals, residency rules, language courses, the cost of flights home.
+scene B: Sell the house, buy the flat, bank the difference. For the first time in {Ns} life the numbers say {N} could be comfortable.
+scene R: Sea, sun, lunch that lasts until four, and nobody's opinion. {N} wanted to go the moment the first photograph loaded.
+scene G: {N} stands in the garden that took thirty years to grow, holding the photograph of the sea, and is not sure which of them is home.
+- W | stay, and keep your place in the town that has known you for forty years | v: tradition, security | mark: turned down a chance | chance: 88
+- U | rent the flat for one winter first, and decide in the spring | door | v: self-direction, security | chance: 85
+- B | buy it to let to holidaymakers, and keep the house | binds | v: power, achievement | grants: flat to rent out | chance: 70
+- R | sell up and go by the spring, with one suitcase | v: stimulation, self-direction | mark: moved away | title: newcomer | chance: 65
+- G | move to the coast back home instead, near where you were a child | identity | v: tradition, universalism (nature) | mark: came home | grants: place by the sea | chance: 60
+- W>U | book proper advice on the tax, health care and residency rules before anything | v: security | chance: 85
+- U>B | split the year between the two places so as to pay tax in neither | v: power, security | closed: law: dodging tax residency; backfire: a tax inquiry, and a bill with interest | chance: 55
+- B>R | sell the house before the family can talk you out of it | v: self-direction | mark: moved away | chance: 75
+- R>G | fly out tomorrow, walk the shore for a week, and let your heart decide | v: self-direction, universalism (nature) | tech: plane | chance: 85
+- G>W | ask the family and oldest friends round, and decide it together at the table | v: benevolence, tradition | chance: 65
+works: A year on, {N} knows the choice was the right one, wherever {N} ended up.
+works: The decision brings a lightness {N} had forgotten, and {Ns} letters to old friends are full of it.
+fails: Within the year the plan sours, with money, health or homesickness, and {N} is caught between two places.
+fails: {N} decides, then undecides, and the chance goes by while {N} is still making lists.
+
+# ---------------------------------------------------------------- step 2, the transforming chance: calls WU (cycle s2)
+
+== the college asks you to teach your trade
+tier: everyday
+at: university
+stages: elder
+age: 60-70
+calls: WU
+threshold: elder
+step: 2
+transform: yes
+tone: mixed
+life: work, community, meaning
+horizon: months
+roles: a former colleague, a student, friend
+earth: the adult college needs someone to teach a weekly class in what you did for forty years, and someone has given them your name
+times: Rare: perhaps 1 in 20 people near retirement, once, is asked to teach their trade to adults; adult colleges recruit some tutors from retired trades (estimate)
+once: yes
+scene: The adult college rings: they need someone to teach a weekly class in the work {N} did for forty years, and a former colleague gave them {Ns} name. Twelve students, Tuesday evenings, from next term.
+scene W: {N} was taught by people who gave their time for nothing. Passing it on feels like settling a debt that has been waiting a long while.
+scene U: Forty years of knowing how to do it, and {N} has never once tried to say how. {N} wonders whether it can even be put into words.
+scene B: Tuesdays at the college would mean a title again, a room that falls quiet when {N} walks in, and a fee.
+scene R: Twelve strangers, a room, and {N} standing at the front: the idea terrifies {N}, who has already said yes inside.
+scene G: {N} was an apprentice once, at a bench beside an old hand who never explained, only showed. The circle has come round.
+- W | take the class, and keep it going every term for as long as they ask | binds | v: benevolence, tradition | mark: kept your word | grants: teaching | chance: 80
+- U | write the course from scratch, and turn the notes into a book | identity | v: achievement, self-direction | grants: book in print | chance: 35
+- B | name a proper fee, and start paid workshops of your own on the side | v: power, achievement | title: founder of a firm | chance: 30
+- R | say yes on the phone, and walk in on the first night with no plan | v: stimulation | chance: 55
+- G | turn it down, and take on one young apprentice at home instead | binds | v: tradition, benevolence | mark: turned down a chance | grants: apprentice of one's own | chance: 20
+- W>B | accept, and ask for a seat on the college board as well | v: power | chance: 35
+- U>R | teach it as a workshop where the students learn by getting it wrong | v: self-direction, stimulation | chance: 70
+- B>G | keep an eye out for the one student good enough to carry it on | v: tradition, achievement | chance: 70
+- R>W | fight for the students the college wants to turn away | v: universalism, benevolence | chance: 55
+- G>U | teach it the way you were taught: by showing, slowly, and letting them watch | v: tradition | chance: 75
+works: By the end of the first term the room is full, and two of the students are better than {N} hoped.
+works: Teaching it shows {N} things about the work that forty years of doing it never did.
+fails: The first evenings go badly, the numbers fall, and the college quietly cancels the class.
+fails: The knowledge will not come out in words, and the students drift away one by one.
+
+# ---------------------------------------------------------------- step 3, settling in: calls WU (cycle s3)
+
+== a seat at the regulars' table
+tier: everyday
+stages: elder
+age: 60-70
+calls: WU
+threshold: elder
+step: 3
+tone: joy
+life: friends, community, time
+horizon: months
+roles: friend, a café owner, a newcomer
+earth: a table of regulars at the café on the square has made room for you every morning since the spring
+times: Some older people, perhaps 1 in 4, once, in the first years of retirement; a café or pub table that becomes a daily habit (estimate)
+once: yes
+scene: Every morning at ten the same six people take the long table by the window of the café on the square, and since the spring one of the chairs has been {Ns}.
+scene W: The table has its customs: the same chairs, rounds bought in turn, and no politics before the second cup. {N} learned them in a week and keeps them.
+scene U: The morning paper has a crossword, and the table does it together, with fierce disputes over seven down. {N} is getting good at it.
+scene B: One of the regulars knows everybody in town and everything that happens in it. {N} has noticed that the chair beside him is worth a good deal.
+scene R: The table argues about everything: football, the council, the war, the price of bread. {N} has not laughed this much in years.
+scene G: Below the window the square fills and empties: the Thursday market, the school run, the pigeons. {N} watches the town go by like a river.
+- W | buy the round when it is your turn, and never miss a morning | habit | v: tradition, conformity | chance: 90
+- U | bring in a harder crossword and win the table over to it | v: achievement, stimulation | chance: 75
+- B | sit beside the one who knows everyone, and trade news for favours | v: power | chance: 80
+- R | start the argument about the council, and enjoy every minute | habit | v: stimulation, hedonism | chance: 92
+- G | sit back, say little, and watch the square go by | v: hedonism, tradition | chance: 95
+- W>R | organise a table outing to the races, with a kitty and a hired coach | v: hedonism, benevolence | chance: 75
+- U>G | ask each regular how they came to the town, and write the stories down | v: tradition, universalism (understanding) | mark: made a friend | chance: 80
+- B>W | flatter the owner into putting a reserved sign on the table | v: power, tradition | chance: 70
+- R>U | dare the table to enter the pub quiz league, and coach them for it | v: achievement, stimulation | chance: 60
+- G>B | freeze out the newcomer who keeps taking the empty chair | v: power, security | closed: approval: unkind to a stranger; backfire: the table splits, and the owner takes the newcomer's side | mark: made an enemy | chance: 70
+works: The table becomes one of the solid things in {Ns} week, and the chair stays warm all winter.
+works: The regulars prove good company in a hard week, and one of them a real friend.
+fails: A quarrel at the table turns sour, and {N} stops going in for a while.
+fails: The table thins out over the winter, a move, an illness, a funeral, and the window seat stands empty more often.
+
+# ---------------------------------------------------------------- step 3, settling in: calls UB (cycle s4)
+
+# gate: on regular medicines: health below the average for the age, or 'a warning from the doctor', 'living with a chronic illness' or 'a heart attack or stroke' in the history; in the engine's terms: health < .5, or one of those events
+== the pill box with seven little doors
+tier: everyday
+at: hospital
+stages: elder
+age: 60-70
+calls: UB
+threshold: elder
+step: 3
+tone: mixed
+life: body, health, home
+horizon: months
+roles: a pharmacist, a doctor, a neighbour, friend
+earth: the pharmacist hands you a plastic pill box with a little door for every day of the week
+times: Most people on several daily medicines, once, usually after 60; most Americans over 60 take a prescription medicine and many take several (CDC NCHS)
+once: yes
+scene: The pharmacist slides a plastic box across the counter: seven little doors, one for each day, four compartments behind each. {N} remembers the same box on {Ns} grandmother's kitchen table.
+scene W: Morning, noon, evening, night. The doctor's instructions are clear, and {N} means to follow them to the letter.
+scene U: {N} reads every leaflet in the bag, looks up two of the pills, and begins to suspect that one of them is only there to deal with the other.
+scene B: Seven pills a day, and {N} intends to stay in charge of {Ns} own body, not hand it over to a plastic box and a doctor with ten minutes.
+scene R: In the car park {N} rattles the box like a maraca and laughs, because the other choice is to sit in the car and cry.
+scene G: The body is an old house now, with a few draughts and a roof to watch. {N} means to keep it in good repair, and to go on living in it.
+- W | take every pill on the dot and tick each one off on a chart | habit | v: conformity, security | self_control: + | chance: 75
+- U | ask the doctor to review every pill, and stop the ones no longer needed | v: self-direction, security | chance: 70
+- B | order the pills cheaper online from abroad, no prescription asked | v: security, power | closed: law: unlicensed medicine; backfire: a fake batch and a night in hospital | death_if_fails: 0.001 | tech: internet | chance: 75
+- R | skip the pills that make you feel flat, and say nothing | v: hedonism, self-direction | self_control: - | closed: approval: going against the doctor's orders; backfire: a bad turn and a lecture at the surgery | mark: hid a wrong | act: skip the pills that make them feel flat, and say nothing | chance: 80
+- G | walk every morning and eat from the garden, so the box stays small | habit | v: security, universalism (nature) | body: light | self_control: + | chance: 70
+- W>G | look in on the frail neighbour every morning, and see she has taken hers | v: benevolence | mark: helped someone in need | chance: 80
+- U>W | set up a talk on medicines at the library, with the pharmacist as guest | v: benevolence, universalism | chance: 65
+- B>U | ring the old friend who was a nurse, and get the straight answers | v: security, self-direction | chance: 85
+- R>B | buy an electric bike and ride it everywhere the doctor said to take it easy | habit | v: self-direction, stimulation | body: heavy | death_if_fails: 0.002 | chance: 75
+- G>R | join the singing group for people with tired lungs, and sing your heart out | v: hedonism, benevolence | title: choir member | chance: 80
+works: The box becomes part of the furniture, and the body it looks after keeps {N} going well.
+works: {N} finds a way of caring for {Ns} health that leaves plenty of life around it.
+fails: A bad month with the pills ends in a fall in the kitchen and a week in hospital, being told off kindly.
+fails: The box and the appointments take over the week, and {N} begins to feel more patient than person.

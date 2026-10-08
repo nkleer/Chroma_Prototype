@@ -1,0 +1,751 @@
+# Chroma library, modern Earth: LIFE EVENTS of love, family and friends, each open in every stage its Part D rates cover. Plan: earth-plan.md "More life events".
+# Syntax: header of build.py. Each event is even on its own: alpha even, the five one-color options and its listed set. Rates: sources/life-events-and-everyday.md Part D.
+# Audit 2026-10-05 (drafts/audit/BRIEF.md): options checked for realism and age; child versions (variant_of) follow the events they split. Changes: earth-life-ties-changes.md.
+
+# ---------------------------------------------------------------- falling in love (D02; pairs D2a)
+
+== falling in love
+tier: life event
+stages: juvenile young_adult adult mature
+age: 14-54
+per_year: 0 .2 .4 .3 .1 0
+drivers: ties+.5 prosper+.2 era+.2 health+.2 money+.2 stress-.3 harsh-.3 family-.2 fortune+.1
+gap: 1-3
+times: per single person a year: about 20 in 100 teenagers, 40 in 100 young adults, 30 in 100 adults and 10 in 100 in midlife begin a new serious relationship (D02 [est] gives 20, 25, 8 and 4 per person; set per eligible person by the engine at pull-in, 06:29, so that about seven in ten hold a partner at forty); from 55 new love comes through a late love (D12)
+likelier: being single, a wide circle of friends, a move to a new town or a new job, a growing economy, dating apps
+rarer: poor health, stress, caring for children or parents, a harsh or unsettled place, little money in the teens and twenties
+excludes: partner
+domain: partner1
+rite: young_adult
+tone: joy
+life: love
+horizon: months
+roles: prospect, friend, sibling, parent
+earth: someone you met through friends, and you cannot stop thinking about them
+scene: The last bus has gone, and {N} and {prospect} are still talking on the bench outside the station, as if they have known each other for years.
+scene W: {N} wants to do this properly: honest from the start, introduced to the people who matter, and meant.
+scene U: {N} replays every conversation with {prospect} at night, sifting it for what it means and whether it could last.
+scene B: {prospect} is clever, admired and plainly interested. {N} means to be the one who sets the pace.
+scene R: Every time the phone buzzes, {Ns} heart jumps. It is ridiculous, and {N} has never felt so alive.
+scene G: With {prospect}, {N} feels oddly at home, as if something has slid into place without anyone forcing it.
+- W | promise to be faithful, and say plainly what you expect in return | v: conformity, security | tags: commit:partner | chance: 60
+- U | ask them a long list of questions, to see whether you truly fit | v: self-direction, security | tags: commit:partner | chance: 48
+- B | keep your own friends, money and plans, and let them fit in around you | v: self-direction, power | act: keep their own friends, money and plans, and let the new love fit in around them | tags: commit:partner | chance: 67
+- R | say the three words first, before your nerve fails | v: stimulation | mark: took a wild risk | tags: commit:partner | chance: 58
+- G | trust the feeling in your gut, and let it unfold in its own time | v: benevolence | tags: commit:partner | chance: 68
+- WU | wait three months before calling it serious, and talk everything through | v: security, conformity | tags: commit:partner | chance: 64
+- WG | bring them home to a family meal, and let the family take them in | door | v: tradition, benevolence | tags: commit:partner | chance: 62
+- UR | set off on an adventure together, to see who they really are | door | v: stimulation, self-direction | tags: commit:partner | chance: 68
+- BR | keep seeing other people on the quiet, and keep your options open | v: hedonism, self-direction | mark: hid a wrong | closed: approval: deceiving them; backfire: found out, and dropped | tags: commit:partner | chance: 48
+- BG | make it plain to everyone that they are yours now, and guard it | v: power, security | act: make it plain to everyone that the new love is theirs now, and guard it | tags: commit:partner | chance: 50
+works: {N} and {prospect} become a couple, and their friends say they saw it coming.
+works: Months later, {N} still smiles at the sound of {prospect}'s name.
+fails: After a few bright weeks, {prospect} stops answering, and {N} is left staring at the phone.
+fails: It ends in a tearful argument on a street corner, and {N} walks home the long way.
+
+# ---------------------------------------------------------------- making peace with family you had cut off (D08; pairs D5b since 2026-10-07, the other half of
+# 'a baby on the way', so pairs and triads stay even)
+
+== making peace with family you had cut off
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 .004 .004 .004 .004
+drivers: ties+.4 community+.3 family+.3 health-.2 stress-.2
+gap: 5-15
+times: D08 [est]: about 1 in 100 teenagers and 2 in 100 people of every later age a year make peace with a sibling, a parent or a grown child they had cut off; about one American adult in four is cut off from a relative, and many later reconcile (Pillemer 2020); Part D's child figure (0.5 in 100) counts parents getting back together, a different event, so the child stage is left out; opens at 18 (audit 2026-10-05): a teenager still lives inside the family, and these acts (years of silence, the family money, limits on family occasions) are a grown person's, so D08's teenage 1 in 100 is left out too. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .004, .004, .004, .004 (child to elder): about 1 American adult in 4 is cut off from a relative (Pillemer 2020), and a share of them make peace; the old rate gave 7 in 10 lives.
+likelier: friends and a community who keep both sides in touch, faith, a death or an illness in the family, growing older
+rarer: family strife, a fight over money or an inheritance, great distance, pride on either side
+tone: mixed
+life: family
+horizon: months
+roles: sibling, parent, child, elder, a go-between
+earth: after years of silence, the brother or sister you cut off asks to meet
+scene: After six years of silence there is a message from {sibling}, three lines long, ending with a question: can we talk? {N} reads it in the hall with the coat still on.
+scene W: {N} broke with {sibling} for a reason, and the reason still stands. But a family is meant to hold together, and {N} knows it.
+scene U: {N} has told the story of the rift so often it has worn smooth. Reading {sibling}'s message, {N} wonders for the first time how {sibling} tells it.
+scene B: {sibling} has written after all this time, and surely wants something. {N} would like to know what, and what it is worth.
+scene R: {N} reads {sibling}'s message and is furious and close to tears at once, and has already half typed an answer.
+scene G: As {elder} always says, a family comes back together in the end, the way water finds its level. {N} looks at {sibling}'s message for a long time.
+- W | answer politely, and suggest one meeting on neutral ground | v: conformity, security | chance: 64
+- U | ask them in writing what has changed, before agreeing to anything | v: security, self-direction | chance: 60
+- B | make peace now, with one eye on the family money | v: power, security | chance: 60
+- R | ring them that night and pour out everything held in for years | v: none clear (feelings let out) | chance: 60
+- G | forgive them in front of the whole family, and let the old quarrel go | identity | v: benevolence, tradition | chance: 62
+- WU | write a letter owning your part, and post it the same night | v: benevolence | mark: owned up | chance: 76
+- UG | ask an old aunt or a family friend to bring you together, and keep the peace | binds | v: tradition, security | act: ask an old aunt or a family friend to bring the two of them together, and keep the peace | chance: 65
+- WB | agree to family occasions only, with clear limits, and nothing more | v: security, tradition | chance: 55
+- BR | test them first with a small secret, and see whether it travels | v: security | chance: 38
+- RG | turn up on their doorstep unannounced, and settle it face to face | v: self-direction, stimulation | chance: 60
+works: The first meeting is stiff, the second easier, and by the third they are laughing at the same old jokes.
+works: {N} and {sibling} sit up past midnight, and the years of silence begin to shrink.
+fails: Within ten minutes they are back in the same old argument, word for word.
+fails: {sibling} does not turn up, and the silence starts again, heavier than before.
+
+# ---------------------------------------------------------------- a parent dies (D51; pairs D2b)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "losing a parent too soon" (variant_of) is the child's.
+
+== a parent dies
+tier: life event
+stages: all
+age: 12-100
+per_year: .007 .007 .014 .035 .06 .03
+drivers: money-.3 health-.2 harsh+.4 unrest+.3 stress+.2 era-.2 prosper-.2
+times: D51 [data] for the young, [est] from the life table for later stages: about 0.4 in 100 children, 0.7 in 100 teenagers, 1.4 in 100 young adults, 3.5 in 100 adults, 6 in 100 in midlife and 3 in 100 elders a year lose a parent; the figures count a death of either parent; Part D's midlife 8 in 100 is per living parent and its elder 15 in 100 counts only those who still have a parent alive, so both are scaled here to everyone in the stage, until the engine can tell whether a parent is living; about 1 in 11 American children lose a parent or a sibling by 18; twice at most, more with step-parents; under 12 the event comes as "losing a parent too soon", which carries the child rate (audit 2026-10-05)
+likelier: poverty, poor health in the family, a harsh or unsettled place, war, stress, older parents
+rarer: money, good health and good health care, a prosperous and peaceful time
+kills: parent
+rite: mature
+tone: trouble
+life: loss, family
+horizon: years
+roles: parent, sibling, grandparent, partner, friend
+earth: your mother or father dies
+scene: The phone rings before dawn. It is {sibling}, and {N} knows from the first breath what has happened to {parent}.
+scene W: {parent} has died, and there is the undertaker to call, the notice to write, the relatives to ring in the right order. {N} does each thing properly, because {parent} would have.
+scene U: {N} reads {parent}'s hospital letters twice over, the dates, the doses, the last scan, looking for the moment it could have gone differently.
+scene B: With {parent} gone, someone has to hold this family together and decide about the house, the money and the funeral. {N} already knows who.
+scene R: The grief arrives like a wave and knocks {N} flat on the kitchen floor, sobbing for {parent} like a child.
+scene G: {N} stands in {parent}'s garden among the plants {parent} put in decades ago. They will come up again in spring, and this time {N} will be the one to see them.
+- W | keep every funeral custom, and stand beside the family the whole day | v: tradition, conformity | chance: 82
+- U | ask every question about how and why they died, until it makes sense | v: self-direction | chance: 75
+- B | decide nobody will ever see you cry, and look after yourself from now on | v: self-direction, security | act: decide nobody will ever see them cry, and look after themselves from now on | chance: 65
+- R | cry and rage at everyone, and slam every door in the house | v: none clear (grief let out) | chance: 60
+- G | plant something where they lie, and tend it every season | habit | v: tradition | chance: 72
+- RG | go alone to their favourite place, and let the grief out where nobody can see | body: light | v: none clear (grief let out) | act: go alone to the lost parent's favourite place, and let the grief out where nobody can see | chance: 75
+- UB | go through their things alone, looking for what they never told anyone | v: security, self-direction | chance: 70
+- UG | make a book of everything you remember about them, before it fades | habit | v: tradition, benevolence | act: make a book of everything they remember about the parent they lost, before it fades | chance: 85
+- WB | take on their part in the family, so it keeps running without them | v: security, benevolence | act: take on the lost parent's part in the family, so it keeps running without them | chance: 70
+- WR | stand up at the funeral, voice shaking, and read out what you wrote for them | identity | v: benevolence, tradition | act: stand up at the funeral, voice shaking, and read out what they wrote for the parent they lost | chance: 85
+works: In time {N} can talk about {parent} and laugh at the old stories.
+works: The family pulls close in the weeks after the funeral, and {N} is not alone in it.
+fails: {N} goes very quiet for a long time, and nobody quite knows how to reach {N}.
+fails: The house feels wrong for months, and {N} keeps turning to tell {parent} things.
+
+# ---------------------------------------------------------------- losing a parent too soon (child version of "a parent dies"; pairs D2b, same codes in the same order)
+
+== losing a parent too soon
+tier: life event
+variant_of: a parent dies
+stages: child, juvenile
+age: 3-12
+per_year: .004 .007 0 0 0 0
+drivers: money-.3 health-.2 harsh+.4 unrest+.3 stress+.2 era-.2 prosper-.2
+times: the child slot of "a parent dies" (D51 [data]): about 0.4 in 100 children a year lose a parent, and about 1 in 11 American children lose a parent or a sibling by 18; the same event for once, kills and rates, told at a child's height; the juvenile slot (0.7 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: poverty, poor health in the family, a harsh or unsettled place, war, stress, older parents
+rarer: money, good health and good health care, a prosperous and peaceful time
+kills: parent
+tone: trouble
+life: loss, family
+horizon: years
+roles: parent, grandparent, sibling, friend
+earth: your mother or father dies while you are still small
+scene: {grandparent} kneels down in the hallway and holds both of {Ns} hands. Something has happened to {parent}, and the grown-ups in the kitchen have been crying.
+scene W: There are good clothes laid out on the bed for {parent}'s funeral, and a lot of grown-ups in the front room speaking softly. {N} sits up very straight, the way {parent} would want.
+scene U: {N} keeps asking where {parent} has gone, exactly, and why the doctors could not make it better. Nobody's answer quite fits.
+scene B: Since {parent} died, everyone is busy and sad, and nobody is looking. {N} decides, quietly, to be someone who does not need anybody.
+scene R: {N} does not want cake or hugs or quiet voices. {N} wants {parent} back, and shouts it into the pillow.
+scene G: {parent} is gone, but the gardening gloves are still on the back step, in the shape of two hands. {N} sits beside them in the sun.
+- W | put on your good clothes, and sit still and straight through the funeral | v: tradition, conformity | chance: 72
+- U | ask the grown-ups where they have gone, again and again, until an answer fits | v: self-direction | act: ask the grown-ups where the lost parent has gone, again and again, until an answer fits | chance: 75
+- B | decide not to need anybody, and look after yourself from now on | v: self-direction, security | act: decide not to need anybody, and look after themselves from now on | chance: 50
+- R | scream into the pillow, and slam the door on anyone who tries to help | v: none clear (grief let out) | chance: 55
+- G | help plant flowers by their grave, and water them on every visit | habit | v: tradition | act: help plant flowers by the lost parent's grave, and water them on every visit | chance: 72
+- RG | run to the spot outdoors they loved best, and cry there as long as you need | body: light | v: none clear (grief let out) | act: run to the spot outdoors the lost parent loved best, and cry there as long as they need | chance: 68
+- UB | creep into their room when nobody is looking, and go through their things | v: security, self-direction | act: creep into the lost parent's room when nobody is looking, and go through their things | chance: 72
+- UG | make a memory box of their photos and treasures, with the family's help | habit | v: tradition, benevolence | act: make a memory box of the lost parent's photos and treasures, with the family's help | chance: 90
+- WB | do little jobs around the house, so the family can manage without them | v: security, benevolence | chance: 75
+- WR | say goodbye to them out loud at the funeral, in front of everyone | identity | v: benevolence, tradition | act: say goodbye to the lost parent out loud at the funeral, in front of everyone | chance: 72
+works: In time {N} can look at the photographs of {parent} and smile.
+works: {grandparent} and the family close in around {N}, and {N} is never left alone with it.
+fails: {N} has bad dreams for months, and will not sleep without the landing light on.
+fails: Nobody explains very much, and {N} is left alone with questions too big to carry.
+
+# ---------------------------------------------------------------- a brother or sister dies (D54; triads from D2b)
+
+== a brother or sister dies
+tier: life event
+stages: young_adult adult mature elder
+age: 18-110
+per_year: 0 0 .0025 .004 .012 .05
+drivers: health-.3 money-.3 harsh+.4 unrest+.3 era-.2
+times: D54 [est] (from the life table, about two siblings of near age): about 0.08 in 100 teenagers, 0.25 in 100 young adults, 0.4 in 100 adults, 1.2 in 100 in midlife and 5 in 100 elders a year lose a brother or sister; the figures count any of about two siblings; Part D's child figure (0.03 in 100) is left out, since a sibling's death in childhood is a child's death, which the plan sets aside with D53 until Emren decides; opens at 18 (audit 2026-10-05) for the same reason, since a teenager's brother or sister is mostly a child too, and these acts (the partner's wishes, settling their affairs, their family under your wing) are a grown person's
+likelier: poor health in the family, poverty, a reckless brother or sister, a harsh or unsettled place, older siblings
+rarer: money, good health and good health care
+kills: sibling
+tone: trouble
+life: loss, family
+horizon: years
+roles: sibling, parent, partner, friend, the sibling's partner and children
+earth: your brother or sister dies
+scene: {N} is in the queue at the supermarket when the phone rings. {sibling} has died, and the basket in {Ns} hand suddenly weighs a ton.
+scene W: {sibling} has died. There is a funeral to arrange and a family to stand by, and {N} straightens up and makes the first call.
+scene U: {N} keeps going back over the last conversation with {sibling}, word by word, as if the answer were hidden somewhere in it.
+scene B: {sibling} has left a house, debts and a family with nobody in charge. {N} sees at once who will have to take it all in hand.
+scene R: When the call about {sibling} comes, {N} walks out into the rain without a coat, unable to stay indoors one second longer.
+scene G: {N} and {sibling} grew up in the same small room, under the same roof, from the same roots. Half of {Ns} childhood has gone with {sibling}.
+- W | insist on the funeral the family has always held, whatever their partner wanted | v: tradition, conformity | mark: made an enemy | closed: approval: overruling the widow or widower; backfire: a row at the graveside, and the partner's side of the family lost for good | chance: 55
+- U | trace the family's health history, to learn what took them | v: security, self-direction | chance: 65
+- B | get straight back to work or school, and let nobody see how hard it hit | habit | v: achievement, self-direction | chance: 65
+- R | take up the plans they never got to, and live them out | binds | v: stimulation, benevolence | chance: 70
+- G | go back alone to where you grew up together, and walk the old paths | body: light | v: tradition | chance: 78
+- WUB | settle their affairs line by line, so nobody can cheat their family | binds | v: security, benevolence | chance: 75
+- WRG | ask that the next baby born in the family carry their name | v: tradition | chance: 45
+- WBR | take their family under your wing, and see they lack nothing | binds | v: benevolence, power | mark: helped someone in need | chance: 78
+- URG | hold the wake your own way, in the woods they loved, with their music | identity | v: hedonism, tradition | chance: 65
+- UBG | keep their secrets, and burn the letters nobody else should read | v: benevolence, security | chance: 72
+works: The family gathers around {sibling}'s memory, and the old childhood jokes come out at the wake.
+works: A year on, {N} visits the grave and finds the grief has softened into something {N} can carry.
+fails: The funeral opens old wounds, and two branches of the family stop speaking.
+fails: {N} cannot bear to say {sibling}'s name for years, and the silence costs something.
+
+# ---------------------------------------------------------------- you take in a child who needs a home (D05; triads from D3a)
+
+== you take in a child who needs a home
+tier: life event
+at: ministry
+stages: young_adult adult mature elder
+age: 20-85
+per_year: 0 0 .0005 .001 .0008 .0003
+drivers: community+.4 money+.3 health+.2 unrest-.3
+times: D05 [est]: about 5 in 10,000 young adults, 10 in 10,000 adults, 8 in 10,000 in midlife and 3 in 10,000 elders a year adopt, foster or take in a child, often a grandchild, a niece or a nephew whose parents cannot cope; it leans on about 100,000 to 120,000 US adoptions a year, step-parent and foster adoptions included
+likelier: a family crisis among kin, longing for a child that has not come, a church or a close community, enough money
+rarer: low money, poor health, war and unrest (which close international adoption)
+domain: children1
+rite: adult
+tone: joy
+life: children, family
+horizon: years
+roles: child, partner, sibling, parent, a social worker
+earth: the agency rings: a child in the family needs a home, tonight if possible
+scene: A small rucksack, a toothbrush in a plastic bag, and a child of seven in the doorway, looking at everything and touching nothing. The social worker says it may be for a week, or for good.
+scene W: {N} said yes on the phone without a second thought. A child needed a home, and that is what a family is for.
+scene U: {N} has read the file twice: the school reports, the doctor's notes, the gaps between them. Understanding this child is going to take time.
+scene B: {N} has wanted a child for years, and the usual way never came. Now here is one, and {N} does not mean to let the chance slip.
+scene R: {N} sees the small face in the doorway and something in {Ns} chest simply opens. Of course the child is staying.
+scene G: {N} puts a jar of flowers from the garden by the bed made up for the child who came today. A child is like a seedling: it needs ground, water and time.
+- W | do it by the book: the checks, the forms, the court, the promise | v: conformity, benevolence | tags: commit:children | chance: 72
+- U | foster first, to see whether it works for everyone before deciding | v: security | tags: commit:children | chance: 68
+- B | teach them from the first day never to be anyone's doormat | v: self-direction, power | tags: commit:children | chance: 62
+- R | say yes on the spot, and make up the spare bed that very night | binds | v: benevolence, stimulation | mark: helped someone in need | tags: commit:children | chance: 65
+- G | take them in the old way, as family, with no papers and no fuss | binds | v: tradition, benevolence | mark: helped someone in need | closed: law: no legal standing; backfire: no right to sign school or doctor's forms, and a long fight in court later | tags: commit:children | chance: 72
+- WUR | learn every way to win a wary child's trust, and practise them daily | habit | v: benevolence, achievement | mark: learned a skill | tags: commit:children | chance: 80
+- WUB | draw up a plan: rules, routines, and a savings account in their name | binds | v: security | tags: commit:children | chance: 70
+- WRG | throw a welcome party with the whole family, so they know they belong | door | v: benevolence, tradition | tags: commit:children | chance: 60
+- UBG | dig into the birth family's past, and keep what you find to yourself | v: security | tags: commit:children | chance: 55
+- BRG | take on the school, the agency, anyone who stands in their way | identity | v: benevolence, power | tags: commit:children | chance: 65
+works: Within a year the child laughs at dinner and leaves muddy shoes in the hall like any other child.
+works: The court makes it permanent, and the family throws a party nobody will forget.
+fails: The child keeps {N} at arm's length for months, and every evening is hard work.
+fails: The placement breaks down after a hard winter, and the child moves on to another home.
+
+# ---------------------------------------------------------------- a partner's affair comes to light (D45; pairs D3b)
+
+== a partner's affair comes to light
+tier: life event
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .0088 .007 .0053 .0018
+drivers: stress+.5 money+.2 era+.2 community-.4 trouble+.1
+gap: 3-10
+times: D45 [data] for the share who stray, [est] for the half found out: per person in a couple, about 2.5 in 100 young adults, 2 in 100 adults, 1.5 in 100 in midlife and 0.5 in 100 elders a year find out that their partner has been unfaithful; about 1 in 5 married American men and 1 in 8 women report ever straying (General Social Survey), and perhaps half of affairs are found out. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .0088, .007, .0053, .0018 (child to elder): about 2 in 10 married men and 1 in 8 married women in the US report an affair (GSS), and about half come to light; the old rate gave 6 in 10 lives.
+likelier: stress, long separations for work or war, an unhappy marriage, dating apps, money and the chances it brings
+rarer: a close community, religion, a close marriage
+needs: partner
+domain: partner1
+tone: trouble
+life: love, conflict
+horizon: months
+roles: partner, friend, sibling, parent, a lawyer
+earth: a message lights up on your partner's phone, and it is not from a colleague
+scene: {partner}'s phone lights up on the kitchen table while {partner} is out of the room: a name {N} does not know, and a message no colleague would send.
+scene W: {N} made a vow, and so did {partner}. Only one of them has kept it.
+scene U: {N} reads the message three times, then goes back through the months: the late meetings, the new password, the trip that changed dates.
+scene B: {N} sits very still with {partner}'s phone and the message on it. Before anyone knows what {N} knows, there is time to make it count.
+scene R: {N} reads the message on {partner}'s phone, and the cup hits the wall before {N} has even decided to throw it.
+scene G: One message on {partner}'s phone, and the house, the years, the photographs on the stairs all look different. {N} feels the ground of a whole life shift underfoot.
+- W | tell both families exactly what they did, and let everyone judge | identity | v: conformity | mark: made an enemy | closed: approval: shaming a partner before the family; backfire: the families take sides, and the gossip runs both ways | chance: 42
+- U | say nothing for weeks, and read their messages to learn everything | v: security | mark: hid a wrong | closed: approval: spying on a partner; backfire: caught at it, and now both of them have something to answer for | tech: phone | chance: 62
+- B | sort out your own money, home and work first, then decide about them | v: self-direction, security | chance: 70
+- R | throw their things out of the window into the street | body: light | v: none clear (rage let out) | chance: 28
+- G | turn the whole family against them, and shut them out for good | v: tradition, security | mark: made an enemy | closed: approval: shunning; backfire: the family splits, and some take the other side | chance: 42
+- BR | pack a bag that night, walk out, and let them do the chasing | v: self-direction | mark: left home | chance: 60
+- UG | ask what was missing between you, and try counselling together | binds | v: benevolence, security | chance: 60
+- UR | ask every question, there and then, until you understand what happened | v: self-direction | chance: 62
+- WB | see a lawyer before saying a word, and get everything in writing | v: security, power | chance: 78
+- WG | stay, for the vows and the family, and never speak of it again | binds | v: tradition, conformity | chance: 35
+works: The whole truth comes out, and {N} decides about the future with clear eyes.
+works: It is the hardest year of {Ns} life, and {N} comes through it standing.
+fails: The arguments go on for months, and the whole family is dragged into them.
+fails: {N} cannot stop going over it, and sleeps badly for weeks.
+
+# ---------------------------------------------------------------- betrayed by a friend or a business partner (D63; triads from D3b)
+
+== betrayed by a friend or a business partner
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 .02 .012 .008 .004
+drivers: money+.2 stress+.3 unrest+.3 community-.4 ties-.2 family-.2 trouble+.1
+gap: 3-8
+times: D63 [est]: about 5 in 100 young adults, 3 in 100 adults, 2 in 100 in midlife and 1 in 100 elders a year are badly betrayed by a friend or a business partner; Part D's child and teen figures (5 and 10 in 100) count schoolyard betrayals such as a told secret, which batch 1's "a friend betrays your trust" and the juvenile file's secret about a friend already carry, so this grown-up event, with money or a living at stake, starts at eighteen. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .02, .012, .008, .004 (child to elder): about half of people are badly let down by a friend or partner in business at some point (estimate; the old rate gave 85 in 100 lives two each).
+likelier: money at stake, stress, competition, unrest, a loose community where a good name counts for little
+rarer: a close community where names matter, wide ties, a close family
+tone: trouble
+life: friends, conflict, money
+horizon: months
+roles: friend, colleague, rival, partner, a lawyer
+earth: the friend you went into business with has taken the clients and the money
+scene: The shared account is empty, the client list has gone, and {friend}'s phone goes straight to voicemail. Ten years of friendship, and a note on the desk that says only: sorry.
+scene W: {N} trusted {friend} with a key, a signature and a share of everything. There are laws for exactly this, and {N} intends to use them.
+scene U: {N} sits up all night with the bank statements, tracing each transfer back, looking for the month when {friend} decided.
+scene B: {N} let {friend} hold the money because it was convenient. That was a mistake, and {N} does not make the same mistake twice.
+scene R: The money and the clients are gone, and {N} drives straight to {friend}'s house with the radio off, heart pounding, hands tight on the wheel.
+scene G: Now that {friend} has gone with the money, {N} remembers a feeling from years ago, deep down, and ignored. The feeling was right.
+- W | take it to the police and the courts, and see it through to the end | v: security, conformity | chance: 35
+- U | get into their email account, and find out where the money went | v: security | mark: hid a wrong | closed: law: breaking into an account; backfire: the evidence is thrown out, and a charge to answer as well | tech: internet | chance: 50
+- B | take what is left, the tools, the van, the last clients, before they do | v: achievement, security | chance: 65
+- R | drive round there tonight and tell them exactly what they are | v: self-direction | mark: made an enemy | tech: car | chance: 22
+- G | cut them off without a word, and never speak their name again | v: security | chance: 55
+- WUG | forgive them once, and agree in writing how they will pay it back | v: benevolence, security | chance: 45
+- WBR | put the whole story online, with the proof, for everyone to see | identity | v: power, universalism | mark: made an enemy | tech: internet | chance: 35
+- WBG | go to the old hands of the trade, and see that nobody deals with them again | v: security, power | closed: approval: a blacklist; backfire: a claim for defamation, and the trade takes sides | chance: 50
+- URG | trust nobody with money again, and rebuild alone from nothing | identity | v: self-direction, security | chance: 50
+- UBR | find their weak spot, and use it to force the money back | v: power | mark: made an enemy | closed: law: blackmail; backfire: charged, and the money still gone | chance: 50
+works: The money comes back, slowly, and so does some of {Ns} trust in people.
+works: {N} starts again, and within a year the new venture is doing better than the old one.
+fails: The case drags on for years and costs more than was stolen.
+fails: Mutual friends take {friend}'s side, and {N} loses more than money.
+
+# ---------------------------------------------------------------- a friend for life (D10; cycle s1)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "a best friend of your own" (variant_of) is the child's.
+
+== a friend for life
+tier: life event
+stages: all
+age: 12-100
+per_year: .06 .06 .06 .03 .02 .02
+drivers: ties+.4 community+.3 health+.2 stress-.3 family-.2 fortune+.1
+gap: 2-5
+times: about 3 in 100 children, 6 in 100 teenagers and young adults, 3 in 100 adults and 2 in 100 from midlife on a year make a friend who stays close for life, about two or three in a whole life (estimate scaled down from D10, which counts any new close friend at 6 to 30 in 100 a year); networks grow until the twenties and shrink after (Wrzus 2013); under 12 the event comes as "a best friend of your own", which carries the child rate (audit 2026-10-05)
+likelier: wide ties, a community, school, a new job or a move, a hardship shared
+rarer: stress, caring duties, poor health, moving too often for friendships to deepen, a shy or withdrawn nature
+tone: joy
+life: friends
+horizon: years
+roles: friend, parent, partner, sibling
+earth: someone you met by chance becomes the friend you call first
+scene: Somewhere around the fourth hour of talking, {N} realises that {friend} has become the person {N} calls first, about everything.
+scene W: {friend} turned up on the worst day of {Ns} year, unasked, and stayed until it was over. {N} will not forget it.
+scene U: {friend} sees the world from an angle {N} never thought of, and every conversation leaves {N} thinking for days.
+scene B: {friend} knows people, opens doors and plainly enjoys {Ns} company. {N} sees a friendship worth investing in.
+scene R: {N} and {friend} have been laughing since the night they met, and three months on they have not stopped.
+scene G: With {friend} there is no need to talk. They can sit on the same bench for an hour and say nothing, and it is enough.
+- W | promise to be there for them, always, and keep the promise | binds | v: benevolence | mark: kept your word | chance: 72
+- U | ask them about everything, and remember all of it | v: self-direction | chance: 75
+- B | go into a venture together, and share the risk and the profit | binds | v: achievement, power | mark: took a wild risk | chance: 50
+- R | spend every free hour together, and let everything else wait | habit | v: hedonism, stimulation | chance: 65
+- G | sit with them in easy silence, as if you had always known each other | v: benevolence | chance: 58
+- W>U | set a regular day each week to learn something new together | habit | v: self-direction, conformity | chance: 70
+- U>B | learn their secrets, and use them quietly to keep the upper hand | v: power | mark: hid a wrong | closed: approval: using a friend's secrets; backfire: found out, and the friendship over in a day | chance: 38
+- B>R | make use of everything they have, for adventures you could never afford alone | door | v: hedonism, stimulation | act: make use of everything the friend has, for adventures they could never afford alone | chance: 65
+- R>G | bring them home and make them part of the family: meals, holidays, everything | v: benevolence, tradition | chance: 75
+- G>W | stand by them through their worst year, without being asked | v: benevolence | mark: helped someone in need | chance: 88
+works: Years later, {N} and {friend} still finish each other's sentences.
+works: {friend} becomes part of the family, and nobody can remember a birthday without them.
+fails: After a bright start, {friend} drifts into another crowd, and {N} is left missing them.
+fails: A silly quarrel grows into a long silence, and neither of them will make the first call.
+
+# ---------------------------------------------------------------- a best friend of your own (child version of "a friend for life"; cycle s1, same codes in the same order)
+
+== a best friend of your own
+tier: life event
+variant_of: a friend for life
+stages: child, juvenile
+age: 6-12
+per_year: .03 .06 0 0 0 0
+drivers: ties+.4 community+.3 health+.2 stress-.3 family-.2 fortune+.1
+gap: 2-5
+times: the child slot of "a friend for life": about 3 in 100 children a year make a best friend who stays close for years (estimate scaled down from D10); the same event for once and rates, told at a child's height; the juvenile slot (6 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: wide ties, a community, school, a move, a hardship shared
+rarer: stress at home, poor health, moving too often for friendships to deepen, a shy or withdrawn nature
+tone: joy
+life: friends
+horizon: years
+roles: friend, parent, sibling
+earth: a child from school becomes your best friend
+scene: {N} and {friend} have built a den at the bottom of the garden, and they have sworn that nobody else will ever know the password.
+scene W: {friend} kept {Ns} secret all term and stood up for {N} in the playground. {N} has decided that is what a real friend is, and means to be one back.
+scene U: {friend} knows the names of all the planets and every kind of beetle, and {N} has a hundred questions saved up for tomorrow.
+scene B: {friend} has the biggest garden on the street, a trampoline and a dog. {N} has decided that {friend} is going to be a best friend.
+scene R: {N} and {friend} laughed so hard at lunch that juice came out of {Ns} nose, and now they cannot look at each other without starting again.
+scene G: {friend} lives three doors down, and the two of them walk to school the same way every morning, kicking the same stones.
+- W | swear to be best friends forever, and stick to it | binds | v: benevolence | mark: kept your word | chance: 62
+- U | ask them a hundred questions, and remember every answer | v: self-direction | chance: 72
+- B | keep them all to yourself, and tell the others they cannot play | v: power, security | mark: made an enemy | chance: 50
+- R | play together every single day, and forget about everything else | habit | v: hedonism, stimulation | chance: 68
+- G | be happy just being together, even doing nothing much at all | v: benevolence | chance: 58
+- W>U | set a day each week to do homework together and test each other | habit | v: self-direction, conformity | chance: 60
+- U>B | find out their secrets, and use them to get your own way | v: power | mark: hid a wrong | closed: approval: using a friend's secrets; backfire: found out, and the friendship over in a day | chance: 35
+- B>R | make the most of everything they have: the trampoline, the games, the dog | door | v: hedonism, stimulation | chance: 65
+- R>G | bring them home for tea so often they feel part of the family | v: benevolence, tradition | chance: 70
+- G>W | stick by them when the others leave them out | v: benevolence | mark: helped someone in need | chance: 78
+works: Years later, {N} and {friend} still laugh about the den and its secret password.
+works: {friend} is round so often that {parent} sets an extra place at tea without asking.
+fails: After a bright term, {friend} drifts into another crowd, and {N} spends lunchtimes alone for a while.
+fails: A silly quarrel over a game turns into a long sulk, and neither of them will say sorry first.
+
+# ---------------------------------------------------------------- a long-lost relative finds you (D09; cycle s2)
+
+== a long-lost relative finds you
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 .002 .002 .004 .004
+drivers: era+.4 ties+.3 unrest-.3 harsh-.2
+once: yes
+gap: 10-30
+times: D09 [est]: about 0.5 in 100 teenagers, 1 in 100 young adults and adults and 2 in 100 people from midlife on a year are found by, or find, a relative or an old friend they had lost; Part D counts lost friends too, and social media and DNA tests push it up; Part D's child figure (0.2 in 100) is left out, since the grown-ups decide how a child meets a lost relative and these are a grown person's acts; opens at 18 (audit 2026-10-05), since the same holds for a teenager (a secret DNA test, travelling alone to meet a stranger, paying for a reunion), so Part D's teenage 0.5 in 100 is left out too. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .002, .002, .004, .004 (child to elder): once, for about 1 in 7 people (estimate: DNA tests and family searches; Part D's 1 to 2 in 100 a year gave 2 in 3 lives).
+likelier: the internet, social media and DNA tests, wide ties, growing older, peace after a time of upheaval
+rarer: war and unrest that scatter families, a harsh place, poor records
+tone: joy
+life: family
+horizon: months
+roles: sibling, parent, grandparent, partner, a cousin
+earth: a stranger writes to say they may be your half-brother or half-sister
+scene: The message is from a stranger with {Ns} surname. They believe they are a half-brother or half-sister, they live two hours away, and they would very much like to meet.
+scene W: {N} has always known the family's story: the names, the dates, who married whom. Now a stranger says the story has a missing chapter.
+scene U: {N} reads the stranger's message twice and goes looking at once: old records, census pages, the birth certificate nobody ever showed {N}.
+scene B: A new half-sibling, out of nowhere. {N} wonders what they want, and what claim they might make on the family.
+scene R: A message on the bus from a stranger: a half-sibling, two hours away. {N} laughs out loud, and then, for no reason at all, starts to cry.
+scene G: The stranger in the photograph has the family's hands, broad and square, with the same crooked little finger. Blood, {N} thinks, finds its way home.
+- W | write back warmly, and arrange to meet properly, with the family there | v: conformity, tradition | chance: 65
+- U | test their DNA in secret, from a cup they drank from | v: security | mark: hid a wrong | closed: law: testing someone's DNA without consent; backfire: found out, and the door slams shut | chance: 48
+- B | find out what they want before you let them near the family | v: security, power | act: find out what they want before letting them near the family | chance: 60
+- R | go and meet them that very week, wherever they live | door | v: stimulation | chance: 72
+- G | tell them the old family stories, so they know where they belong | v: tradition, benevolence | chance: 75
+- W>B | welcome them properly, but only once a test has proved the claim | v: security, conformity | chance: 62
+- U>R | turn it into a quest, and chase every record and lead wherever it goes | door | v: stimulation, self-direction | mark: learned a skill | chance: 60
+- B>G | pay for a big reunion of both branches of the family, and run it yourself | identity | v: tradition, power | mark: made a friend | chance: 55
+- R>W | invite them to the next family holiday, there and then | v: benevolence | mark: made a friend | chance: 60
+- G>U | visit the old village the family came from together, and learn its story | door | v: tradition, self-direction | chance: 65
+works: The first meeting runs four hours over, and they find they laugh at the same things.
+works: By the next holiday there is an extra chair at the table, and it already feels like theirs.
+fails: The meeting is awkward and polite, and afterwards neither of them writes again.
+fails: The news splits the family, and some refuse to meet the newcomer at all.
+
+# ---------------------------------------------------------------- welcomed into a community (D38; cycle s2)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "a club where you belong" (variant_of) is the child's.
+
+== welcomed into a community
+tier: life event
+stages: all
+age: 12-100
+per_year: .04 .04 .04 .032 .024 .032
+drivers: community+.4 ties+.3 money+.2 health+.2 stress-.3 fortune+.1
+gap: 2-6
+times: about 3 in 100 children, 5 in 100 teenagers and young adults, 4 in 100 adults, 3 in 100 in midlife and 4 in 100 elders a year are taken into a club, a team, a choir, a congregation or a new circle that becomes part of who they are, about three in a whole life (estimate scaled down from D38, which counts any welcome at 5 to 10 in 100; Wrzus 2013 on how networks change); under 12 the event comes as "a club where you belong", which carries the child rate (audit 2026-10-05). Point 12 (Emren 2026-10-05): the yearly figures above are lowered to .04, .04, .04, .032, .024, .032 (child to elder): three or so in a life (estimate).
+likelier: a strong local community, a faith, a move to a new place, wide ties, the free time retirement brings
+rarer: discrimination, too little money for fees, poor health, stress, a shy or withdrawn nature
+domain: community1
+tone: joy
+life: community, friends
+horizon: months
+roles: friend, elder, mentor, a neighbour, the group's leader
+earth: the club, the choir or the congregation takes you in as one of its own
+scene: After a year of turning up, the choir saves {N} a seat, someone brings a cake on {Ns} birthday, and {N} is suddenly one of them.
+scene W: {N} has learned the customs, the songs and who sits where. Tonight they gave {N} a key to the hall.
+scene U: {N} has spent the evenings reading the group's history: its founders, its quarrels, the old minutes. It is a small world, and a fascinating one.
+scene B: The club is full of people worth knowing: a councillor, a bank manager, the woman who owns half the high street. And now {N} is one of them.
+scene R: The night they welcome {N} in, there is music and dancing until two, and {N} goes home hoarse and happy.
+scene G: The congregation meets in a church four hundred years old. {N} sits in the pew and feels part of something with deep roots.
+- W | learn the customs and keep to them exactly, from the first day | door | v: conformity, tradition | tags: commit:community | chance: 75
+- U | watch quietly for months, to learn how it really works before joining in | v: security, self-direction | tags: commit:community | chance: 62
+- B | make friends with whoever runs it, and get yourself a role fast | door | v: power, achievement | mark: made a friend | tags: commit:community | chance: 81
+- R | volunteer for everything in the first month | v: stimulation, benevolence | tags: commit:community | chance: 72
+- G | keep turning up, week after week, until you simply belong | habit | v: tradition, security | tags: commit:community | chance: 80
+- W>B | report everyone who breaks the group's rules to whoever runs it | v: power, conformity | mark: made an enemy | closed: approval: informing on members; backfire: frozen out by the people reported | chance: 45
+- U>R | start something new inside it: a band, a newsletter, a night of debates | identity | v: stimulation, self-direction | tags: commit:community | chance: 66
+- B>G | use your place in it to bring your family and friends in too | v: benevolence, power | tags: commit:community | chance: 75
+- R>W | throw yourself into its biggest cause, and swear to see it through | binds | v: benevolence, universalism | tags: commit:community | chance: 70
+- G>U | sit with the oldest members and learn the old songs and stories | v: tradition | mark: learned a skill | tags: commit:community | chance: 68
+works: Within a season {N} has a place, a part to play and a dozen new names to remember.
+works: When {N} is ill in the winter, the group sends soup, cards and visitors.
+fails: After a few months the welcome cools, and {N} is still standing at the edge of the room.
+fails: A row inside the group splits it down the middle, and {N} is caught on one side.
+
+# ---------------------------------------------------------------- a club where you belong (child version of "welcomed into a community"; cycle s2, same codes in the same order)
+
+== a club where you belong
+tier: life event
+variant_of: welcomed into a community
+stages: child, juvenile
+age: 7-12
+per_year: .024 .04 0 0 0 0
+drivers: community+.4 ties+.3 money+.2 health+.2 stress-.3 fortune+.1
+gap: 2-6
+times: the child slot of "welcomed into a community": about 3 in 100 children a year are taken into a team, a club or a group that becomes part of who they are (estimate scaled down from D38); the same event for once and rates, told at a child's height; the juvenile slot (5 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: a strong local community, a club or a team near home, friends who already go, a parent who takes them
+rarer: too little money for fees and kit, poor health, stress at home, a shy or withdrawn nature
+domain: community1
+tone: joy
+life: community, friends
+horizon: months
+roles: friend, mentor, parent, the coach
+earth: the football club, the swimming team or the scouts take you in as one of their own
+scene: On {Ns} third Saturday at the football club, the coach shouts {Ns} name across the pitch as if it had always been there.
+scene W: The club has a motto, a badge and a promise to learn by heart. {N} practises the promise all week in front of the mirror.
+scene U: {N} wants to know everything: how the club began, what each badge means, why the old cup in the cabinet is dented.
+scene B: {N} has noticed who the coach listens to, and who gets to carry the kit bag. {N} would like to be that one.
+scene R: {N} runs all the way home in the new kit, shouting the news to anyone who will listen.
+scene G: The club meets in the old hut by the river, where {parent} went as a child. {N} feels at home in it at once.
+- W | learn the club's rules and its promise by heart, and keep them | door | v: conformity, tradition | tags: commit:community | chance: 85
+- U | watch the older ones for a few weeks, to see how it all works | v: security, self-direction | tags: commit:community | chance: 78
+- B | make friends with the coach, and get picked to carry the kit | door | v: power, achievement | mark: made a friend | tags: commit:community | chance: 78
+- R | volunteer for every job going: setting out the cones, handing round the oranges | v: stimulation, benevolence | tags: commit:community | chance: 82
+- G | keep going every Saturday, rain or shine, until you are one of them | habit | v: tradition, security | tags: commit:community | chance: 85
+- W>B | tell the coach whenever anyone breaks the rules | v: power, conformity | mark: made an enemy | closed: approval: telling tales; backfire: the others freeze out the tell-tale | chance: 40
+- U>R | make up a new chant or game, and teach it to the whole team | identity | v: stimulation, self-direction | tags: commit:community | chance: 66
+- B>G | use your place in the club to get your friends in too | v: benevolence, power | tags: commit:community | chance: 78
+- R>W | throw yourself into the club's charity fun run, and promise to finish it | binds | v: benevolence, universalism | tags: commit:community | chance: 75
+- G>U | learn the old club songs from the grown-ups who have been there longest | v: tradition | mark: learned a skill | tags: commit:community | chance: 60
+works: By the end of the season {N} has a shirt number, a place on the team and a dozen new names to remember.
+works: When {N} is off sick, the whole team signs a card and the coach brings it round.
+fails: After a few weeks the newness wears off, and {N} is still standing at the edge of the pitch.
+fails: Two of the big kids fall out, the team splits into sides, and {N} is caught in the middle.
+
+# ---------------------------------------------------------------- a narrow escape (D35; cycle s2)
+# Audit 2026-10-05: split at 12. This version is for 12 and over; "a close call on the road" (variant_of) is the child's.
+
+== a narrow escape
+tier: life event
+stages: all
+age: 12-100
+per_year: .022 .022 .028 .017 .011 .011
+drivers: harsh+.4 unrest+.4 health-.2 era+.1 community-.2 prosper-.2
+gap: 3-8
+times: D35 [est]: about 2 in 100 children, 4 in 100 teenagers, 5 in 100 young adults, 3 in 100 adults and 2 in 100 from midlife on a year come through something that could have killed them, a car that misses by inches, ice that holds, a fall that ends well; most such events are survived (Benjet 2016); under 12 the event comes as "a close call on the road", which carries the child rate (audit 2026-10-05). Point 12 (Emren 2026-10-05): the yearly figures above are lowered to .022, .022, .028, .017, .011, .011 (child to elder): about one or two in a life (estimate; the old rate gave three).
+likelier: taking risks, youth, a harsh or unsettled place, roads and cars, poor health
+rarer: caution, a safe community, a prosperous time
+tone: mixed
+life: body, health
+horizon: moment
+roles: parent, friend, partner, a stranger who helped
+earth: a car jumps the lights and misses you by a hand's breadth
+scene: The car jumps the lights and passes so close that {Ns} coat flaps in its wind. Then it is gone, and the street carries on as if nothing happened.
+scene W: {N} was crossing exactly where one is meant to, with the signal, and still the car came. Rules, it turns out, are not walls.
+scene U: {N} replays the near miss in slow motion: the car's speed, the angle, the half-second that made the difference. It could so easily have gone the other way.
+scene B: The car missed by inches. {N} stands on the kerb, shaking, and thinks of everything not yet done, not yet won, not yet had.
+scene R: The car is gone, and the fear turns into a wild, fizzing joy. {N} is alive, gloriously alive, and wants to shout it down the street.
+scene G: Life and death passed each other on a street corner this morning, and life won. {N} feels very small, and very lucky.
+- W | wait for the signal every time from now on, and look both ways even then | v: security, conformity | chance: 90
+- U | work out exactly how it happened, so it never happens again | v: security, self-direction | chance: 85
+- B | milk the fright for all the sympathy and favours it brings | v: hedonism, power | chance: 88
+- R | live boldly from now on, since you were spared | v: stimulation, hedonism | chance: 78
+- G | spend the day outdoors, glad of the sun on your face and the ground underfoot | v: universalism (nature), hedonism | chance: 85
+- W>B | report the driver to the police, and see they lose their licence | v: power, security | chance: 65
+- U>R | train as a volunteer first-aider, so next time you can act fast | binds | v: benevolence, security | mark: learned a skill | chance: 82
+- B>G | drop whatever wastes your time, and spend it on the people you love | v: benevolence, self-direction | chance: 88
+- R>W | start a loud campaign for a traffic camera at that corner | v: universalism | chance: 68
+- G>U | go somewhere quiet, and think long about what really matters now | v: self-direction | chance: 72
+works: By evening {N} is home and safe, holding everyone a little tighter.
+works: {N} tells the story for years, and it gets better every time.
+fails: {N} jumps at every engine for weeks, and sleep comes hard.
+fails: The shock lingers long after the day, and {N} stops going out for a while.
+
+# ---------------------------------------------------------------- a close call on the road (child version of "a narrow escape"; cycle s2, same codes in the same order)
+
+== a close call on the road
+tier: life event
+variant_of: a narrow escape
+stages: child, juvenile
+age: 4-12
+per_year: .011 .022 0 0 0 0
+drivers: harsh+.4 unrest+.4 health-.2 era+.1 community-.2 prosper-.2
+gap: 3-8
+times: the child slot of "a narrow escape" (D35 [est]): about 2 in 100 children a year come through something that could have killed them, most often a car that stops just in time; the same event for once and rates, told at a child's height; the juvenile slot (4 in 100) is the original's, so an early juvenile of 10 to 12 meets this version until 12
+likelier: busy roads with no crossing, playing out near traffic, a harsh or unsettled place, a lively and impulsive nature
+rarer: a quiet street, a safe community, a prosperous time
+tone: mixed
+life: body, health
+horizon: moment
+roles: parent, friend, sibling, the driver
+earth: you run into the road after a ball, and a car stops just in time
+scene: {N} runs into the road after the ball, and a car screeches to a stop so close that {N} can feel the warmth of its engine. {parent} is running, shouting {Ns} name.
+scene W: {N} knows the rule: stop, look, listen. {N} forgot it, just once, and the car stopped only just in time.
+scene U: {N} cannot stop thinking about it: how fast the car was going, how far it slid, how close close really is.
+scene B: After the car that nearly hit {N}, everyone is fussing, and the driver has bought {N} an ice cream. {N} feels, oddly, rather important.
+scene R: The car stopped just in time. {Ns} heart is pounding so hard it hurts, and then, out of nowhere, {N} starts to laugh.
+scene G: The car missed {N} by inches today. That night {N} lies awake listening to the house breathe, very glad of every ordinary sound in it.
+- W | say sorry for running out, and promise to stop, look and listen every time | v: conformity, security | mark: owned up | chance: 94
+- U | ask question after question about it, until you know exactly what happened | v: self-direction, security | chance: 85
+- B | make the most of the fuss: the cuddles, the treats, the ice cream | v: hedonism, power | chance: 93
+- R | laugh it off, and run straight back out to play | v: stimulation, hedonism | chance: 78
+- G | lie in bed listening to the house, glad of every ordinary sound | v: security | chance: 72
+- W>B | insist it was the driver's fault, because cars are meant to stop for children | v: security, power | chance: 70
+- U>R | learn the road rules properly, so you are allowed out on your own again | v: self-direction, security | mark: learned a skill | chance: 82
+- B>G | use the fright to keep the family close around you all evening | v: security, benevolence | chance: 92
+- R>W | tell the whole class, loudly and at length, always to stop and look | v: benevolence | chance: 88
+- G>U | sit at the window a long while, watching the cars, until you understand them | v: self-direction | chance: 65
+works: By bedtime {N} is safe at home, and {parent} keeps looking in at the door.
+works: {N} tells the story at school for weeks, and the car gets faster every time.
+fails: For weeks {N} will not cross a road without holding a hand, and jumps at the sound of brakes.
+fails: The fright comes back at night, and {N} has bad dreams about cars for a while.
+
+# ---------------------------------------------------------------- robbed or attacked in the street (D74; cycle s1)
+
+== robbed or attacked in the street
+tier: life event
+at: police
+stages: juvenile+
+age: 16-100
+per_year: 0 .0095 .018 .01 .009 .0036
+drivers: money-.4 unrest+.5 community-.3 family-.2 stress+.2 trouble+.2
+gap: 2-6
+times: D74 [data] (BJS 2023): about 2 in 100 teenagers, 4 in 100 people aged 18 to 24, 2.3 in 100 adults, 2 in 100 in midlife and 0.8 in 100 elders a year are robbed or assaulted, about twice as often in cities and among the poor; opens at 16, because Emren's limits keep harm to children out of play; Part D's child figure (1 in 100) counts school fights, which the engine's playground dispute and the juvenile file's fight after school already hold. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, .0095, .018, .01, .009, .0036 (child to elder): about 4 in 10 violent crimes are by strangers (BJS); the yearly figure for all violent crime gave two a life.
+likelier: youth, poverty, city streets, unrest, drinking, having been a victim before, being a man (for attacks by strangers), being openly gay or trans where people frown on it
+rarer: money, country life, marriage, a close community, age
+tone: trouble
+life: community, body
+horizon: months
+roles: friend, parent, partner, sibling, the police
+earth: on the way home, two strangers corner you and take your phone and your wallet
+scene: On the walk home under the railway bridge, two strangers block the path. One shove, a hand in {Ns} pocket, and they are gone at a run with the phone and the wallet.
+scene W: The two who took {Ns} phone and wallet are gone. There are laws, there are police, there are cameras on that bridge. {N} stands shaking under the streetlight and asks a passer-by to ring the police.
+scene U: The two robbers: one tall, in a grey hood; one with a limp; both heading east. {N} repeats the details aloud, so as not to lose them.
+scene B: Someone took something from {N} tonight and got away with it. {N} will not be someone people take from.
+scene R: Two strangers shove {N}, grab the phone and run. The fear lasts a second; then comes the fury, hot and huge, and {Ns} legs want to run after them.
+scene G: After the robbery {N} walks home the long way, through the lit streets, and the town feels like a different and wilder place.
+- W | report it at once, give a full statement, and see it through to court | identity | v: security, conformity | chance: 45
+- U | study the streets and change your routes, so it cannot happen again | habit | v: security | chance: 68
+- B | make yourself a hard target: never alone, never lost, never soft | habit | v: power, security | chance: 75
+- R | carry a knife from now on, and let anyone try it again | v: security, power | closed: law: carrying a weapon; backfire: arrested at a stop and search, and a record to follow | chance: 38
+- G | stop going out after dark, and keep close to home and your own | v: security, tradition | mark: stayed home | chance: 25
+- W>U | photograph and report every stranger who hangs about near that bridge | v: security, conformity | mark: made an enemy | closed: approval: suspecting strangers on sight; backfire: an innocent neighbour reported, and the street turns cold | chance: 25
+- U>B | track the stolen phone yourself, and find out exactly where they live | v: power, security | tech: phone | chance: 35
+- B>R | find them later, with friends, and pay them back in kind | body: heavy | v: power | mark: made an enemy | closed: law: assault; backfire: arrested, and they come back with more friends | chance: 15
+- R>G | take up boxing, and get strong enough that nobody tries it again | habit | body: heavy | v: security, achievement | chance: 68
+- G>W | let the family deal with them in their own way, and keep the police out | v: tradition, security | mark: defied an authority | closed: law: taking justice into the family's hands; backfire: a feud, and arrests on both sides | chance: 30
+works: The police find the phone, and one of the two is caught within the month.
+works: The fear fades slowly, and by spring {N} walks home the old way without thinking about it.
+fails: Nobody is ever caught, and {N} flinches at footsteps for a long time.
+fails: {N} stops going out after dark, and the evenings shrink.
+
+# ---------------------------------------------------------------- your child's big success (D11; cycle s4)
+
+== your child's big success
+tier: life event
+stages: young_adult adult mature elder
+age: 25-100
+per_year: 0 0 .002 .012 .06 .04
+drivers: money+.3 family+.3 community+.3 health+.2 unrest-.3
+gap: 4-10
+times: D11 [est]: about 0.5 in 100 young parents, 3 in 100 parents in the adult years, 15 in 100 in midlife and 10 in 100 elders a year see a child graduate, marry, land the job they wanted, win a prize or make a name; it leans on the timing of children's graduations, weddings and first jobs. Point 12 (Emren 2026-10-05): the yearly figures above are lowered to 0, 0, .002, .012, .06, .04 (child to elder): about one big success per child, about two per parent (estimate; the old rate gave four).
+likelier: money, a close family, education, a community that celebrates its young
+rarer: family strife, poor health, unrest
+needs: children
+domain: children1
+tone: joy
+life: children, family
+horizon: week
+roles: child, partner, grandparent, friend
+earth: your son or daughter graduates, wins the prize, or gets the job they dreamed of
+scene: {child} rings at lunchtime, too excited to make sense at first: the place, the prize, the job, the thing worked for over years, is theirs.
+scene W: {N} sits in the hall in a good suit as {child} crosses the stage. Years of checked homework, kept rules and early nights, and here it is.
+scene U: As the news about {child} sinks in, {N} remembers {child} at six, taking the radio apart on the kitchen floor. {N} always knew that mind would find its way.
+scene B: {child} has come top of the year. {N} wants every relative, neighbour and rival to know exactly whose child that is.
+scene R: {N} hears the news and lets out a whoop that sets the dog barking, then rings everyone at once.
+scene G: {N} watches {child} walk out into the world, as {N} once did, and {Ns} own parents before. The tree has put out a new branch.
+- W | make a proper speech at the family dinner, and give them a gift to keep | v: tradition, benevolence | chance: 82
+- U | ask what they want to do with it, and help them plan the next step | v: self-direction, benevolence | chance: 82
+- B | boast about it everywhere, as if it were your own success | v: power, achievement | chance: 68
+- R | throw a huge party and tell everyone you have ever met | v: hedonism | chance: 90
+- G | step back, and let them make their own way from here | v: benevolence | chance: 72
+- W>G | hang the photograph on the family wall, beside the grandparents' | v: tradition | chance: 94
+- U>W | go through the contract and the small print with them, line by line | v: security, benevolence | chance: 75
+- B>U | ring your contacts to open the next door for them | v: achievement, power | chance: 78
+- R>B | push them, while the fire is lit, to aim even higher | v: achievement, stimulation | chance: 55
+- G>R | take them off somewhere wild for a weekend, just the two of you | body: light | v: hedonism, benevolence | chance: 78
+works: The whole family gathers to celebrate, and {child} gives a speech that makes {N} cry.
+works: {child} rings on the first day of the new life, just to say thanks.
+fails: The celebration turns sour when an old family argument comes back at the table.
+fails: {child} rushes off into the new life, and the phone calls grow rare.
+
+# ---------------------------------------------------------------- your closest friend dies (D55; cycle s4)
+
+== your closest friend dies
+tier: life event
+stages: young_adult adult mature elder
+age: 18-110
+per_year: 0 0 .003 .005 .015 .04
+drivers: health-.3 harsh+.4 unrest+.3 money-.3 era-.2 prosper-.2
+gap: 5-10
+times: D55 [est] (from the life table): Part D's 0.6 in 100 young adults, 1 in 100 adults, 3 in 100 in midlife and 10 in 100 elders a year count any of about five close friends; the closest one is set here at about two fifths of that (0.3, 0.5, 1.5 and 4 in 100); the elder stage's memorial service for a friend holds the other losses; Part D's child and teen figures are left out, since a friend of the same age dying before eighteen is a child's death, which the plan sets aside with D53 until Emren decides
+likelier: age, a reckless youth, poor health, unrest, a harsh place, poverty
+rarer: good health, modern medicine, a prosperous time
+kills: friend
+rite: elder
+tone: trouble
+life: loss, friends
+horizon: years
+roles: friend, partner, colleague, the friend's family
+earth: the friend you have known longest dies
+scene: {friend}'s number is still at the top of {Ns} phone, the last message unanswered. The funeral is on Thursday, and {N} has been asked to say a few words.
+scene W: {friend} has died, and the family will need help with the arrangements, the house, the long months after. {N} knows what a friend owes, and means to pay it.
+scene U: Since {friend} died, {N} keeps reaching for details that are already slipping: the band they saw at nineteen, the joke about the broken tent. They must be written down.
+scene B: {friend} was the same age, near enough. {N} looks in the mirror and counts the years that might be left.
+scene R: {N} reads the message from {friend}'s family, throws the phone onto the sofa, and howls like a child.
+scene G: {friend} is gone, but the oak they planted together years ago, for a laugh, is taller than both of them now. {N} goes and sits under it.
+- W | go to every memorial and anniversary for them, and never miss one | habit | v: tradition, benevolence | chance: 75
+- U | promise their family a book of their life, and write it chapter by chapter | binds | v: tradition, benevolence | chance: 60
+- B | decide life is too short, and start taking what you want from it | identity | v: hedonism, power | chance: 65
+- R | speak at the funeral, and promise out loud to live the way they did | binds | identity | v: benevolence, stimulation | chance: 85
+- G | keep to the few friends you have left, and let nobody new in | v: security, tradition | mark: turned down a chance | chance: 35
+- W>G | stand by their family for years: birthdays, repairs, the bad days | v: benevolence | mark: helped someone in need | chance: 72
+- U>W | plan the memorial yourself, every reading and song exactly as they would want | identity | v: tradition, benevolence | chance: 80
+- B>U | step into their place on the project, and finish it as well as they would have | v: achievement | chance: 70
+- R>B | hand in your notice that week, and chase the life they always told you to | v: self-direction, achievement | chance: 50
+- G>R | carry their ashes up the hill they loved, whatever their family says | identity | body: heavy | v: tradition, stimulation | closed: approval: going against the family's wishes; backfire: a bitter row, and the friend's family never speaks to the person again | chance: 72
+works: At the memorial the room is full, and {N} tells a story about {friend} that has everyone laughing through their tears.
+works: {N} keeps {friend}'s memory close, and in time the grief makes room for gratitude.
+fails: {N} withdraws for a long winter, and other friendships wither too.
+fails: The funeral passes in a blur, and afterwards the silence where {friend} used to be is enormous.
+
+# ---------------------------------------------------------------- added 2026-10-05 06:40 at the engine's pull-in (fix 4)
+# A grandparent's death after childhood (the child stage's "a grandparent dies" is told at a child's height). Pairs D4a.
+
+== losing a grandparent
+tier: life event
+stages: juvenile young_adult adult
+age: 12-50
+per_year: 0 .05 .06 .04 0 0
+drivers: harsh+.4 health-.3 money-.2
+times: the engine rates deaths by the grandparent's own age (pull-in, 06:29); for scale, about 5 in 100 teenagers, 6 in 100 young adults and 4 in 100 adults a year lose a grandparent (estimate from the life table, as in Part D6); the child stage has its own version, told at a child's height ("a grandparent dies", earth-child.lib); opens at 12 (audit 2026-10-05), and the options are worded so a teenager can do them too
+likelier: older grandparents, poverty, a harsh life, illness in the family
+rarer: young and healthy grandparents, good health care
+kills: grandparent
+tone: trouble
+life: loss, family
+horizon: months
+roles: grandparent, parent, sibling, partner
+earth: your grandmother or grandfather dies
+scene: The message comes on an ordinary afternoon: {grandparent} has died, quietly, in the night.
+scene W: There is a funeral to arrange and a family to gather, and {parent} suddenly looks older. {N} knows what a grandchild ought to do now.
+scene U: {N} realises how little anyone knows about {grandparent}'s life before the family: the years, the places, the reasons.
+scene B: {grandparent} leaves a house, a little money and a family already eyeing both. {N} notices who is taking charge.
+scene R: {N} had meant to visit last month. The grief hits all at once, hot and sharp, on the bus home.
+scene G: The kitchen still smells of {grandparent}'s cooking. Outside, the plants {grandparent} put in are flowering as if nothing has happened.
+- W | be there for the funeral, and help the family with whatever needs doing | v: tradition, benevolence | chance: 88
+- U | sit with the old letters and photographs, and write down the family's story | habit | v: tradition, self-direction | chance: 85
+- B | help clear the house, and ask for the keepsake in return | v: power (resources) | chance: 75
+- R | drop everything and go at once, to see them before the coffin is closed | body: light | v: benevolence | chance: 75
+- G | take on the old recipes and the garden, and keep them going as they did | habit | binds | v: tradition | chance: 82
+- BG | argue hard against selling the old house, so it stays in the family | v: tradition, power (resources) | chance: 40
+- RG | walk their old walk alone, all day, until the grief settles | body: light | v: none clear (grief let out) | chance: 82
+- UR | track down their oldest friends and ask for every story, the wilder the better | v: self-direction, stimulation | chance: 70
+- WB | step up and organise what needs doing, since nobody else will | identity | v: power, conformity | chance: 75
+- WU | prepare a few careful words for the funeral, telling their life in order | identity | v: tradition, benevolence | chance: 88
+works: The family gathers, tells the old stories, and goes home closer than it came.
+works: {N} carries something of {grandparent} forward, and it feels right.
+fails: The funeral is tense, and old quarrels in the family open up again.
+fails: {N} keeps busy and does not grieve, and it catches up months later.

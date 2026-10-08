@@ -1,0 +1,542 @@
+# Chroma library, modern Earth: THE PEOPLE AROUND YOU (release checklist W39). Part A: one moment for each of the ten kinds
+# of cast want (chroma-world/spec-2-named-cast.md section 5), each with cast_want: and who: (the person holding the want
+# fills the first who: slot, chroma-engine/world-fields.md). Part B: the migrant's path (spec-5-outer-ring.md, emigration),
+# two pairs gated on the migrant statuses of the catalogue (holds: any of the names, separated by ";").
+# Syntax: header of build.py. Rules: library-spec.md. Everyday pairs: one calls two colors, its partner the other three,
+# with matching gates; cycles s1 4, s2 4, s3 3, s4 3 over the seven pairs.
+
+# ================================================================ PART A: the ten cast wants
+
+# ---------------------------------------------------------------- pair A1: grandchild, calls RG (cycle s1) / successor, calls WUB (cycle s2); both excludes: children
+
+== a parent who longs for a grandchild
+tier: everyday
+stages: young_adult adult
+age: 24-45
+calls: RG
+excludes: children
+rate: 1
+tone: mixed
+life: family, children
+horizon: years
+roles: parent, partner, sibling
+who: parent
+cast_want: grandchild
+earth: at every family meal a parent finds a way to bring the talk round to grandchildren
+times: Many adults with no children in their late twenties to early forties, again and again until a child comes or the question stops; about 1 in 5 adults in rich countries reaches 45 with no children (OECD Family Database, estimate)
+gap: 2-5
+share: .45
+scene: Over the pudding, {parent} mentions a friend's new grandchild, then another, then asks, lightly and not lightly at all, whether {N} has thought any more about children.
+scene W: {parent} gave {N} a childhood and a home. A family goes on through its children, and {N} can feel the old duty sitting at the table like another guest.
+scene U: {N} counts: this is the fourth meal in a row where the talk has turned to babies, always after the second glass, always through somebody else's news.
+scene B: {N} has a career, a flat and a plan, and none of them is up for a vote at this table.
+scene R: {Ns} cheeks burn. It is {Ns} life and {Ns} body, and {parent} is buttering bread as if the question were about the weather.
+scene G: The family photographs line the hall: great-grandparents, grandparents, {parent} as a baby. There is an empty space at the end of the row, and everyone knows it.
+- W | promise them a grandchild one day, and mean it | binds | v: tradition, benevolence | chance: 78
+- U | explain calmly why there are no children in your plans, or not yet | identity | v: self-direction | chance: 55
+- B | strike a deal: a year without the question, then an honest answer | v: self-direction, power | chance: 62
+- R | tell them straight out, at the table, that it is not their decision | v: self-direction | chance: 50
+- G | say a child will come when it is meant to, and pass the gravy | v: tradition | chance: 76
+- W>U | arrange a proper talk alone with them, so they finally understand your reasons | v: self-direction, benevolence | chance: 62
+- U>B | hint that you are trying, so they keep helping with the rent | v: power | mark: hid a wrong | closed: approval: misleading a parent; backfire: found out, and the trust between you broken | chance: 72
+- B>R | host the family meals at your place from now on, so you choose the topics | habit | v: self-direction, power | chance: 66
+- R>G | hug them and say you know how much they long to be a grandparent | v: benevolence | chance: 82
+- G>W | suggest they read with the children at the local school, who need a grandparent too | door | v: benevolence, universalism | chance: 55
+works: {parent} lets the subject rest, and the family meals are easy again.
+works: Something is said at last that clears the air, and {parent} hugs {N} at the door.
+fails: The question comes back at the very next meal, louder.
+fails: {parent} goes quiet and hurt, and the next few visits are short and stiff.
+
+== a parent asks you to take over the family shop
+tier: everyday
+stages: young_adult adult
+age: 22-45
+calls: WUB
+excludes: children
+rate: .5
+once: yes
+tone: mixed
+life: family, work, money
+horizon: years
+roles: parent, sibling, partner, the regular customers
+who: parent
+cast_want: successor
+earth: a parent who has run the family shop for thirty years wants you to take it on
+times: About 1 in 10 people grow up with a parent who runs a family business, a farm or a trade; only about 3 family firms in 10 pass to a second generation (a much-cited estimate of the Family Firm Institute); with brothers and sisters to share it, perhaps 6 in 100 are ever asked to take it on (estimate)
+share: .06
+scene: {parent} has run the shop for thirty years: the counter, the van, the accounts in the back room. On a quiet Sunday {parent} pushes the spare keys across the kitchen table and asks whether {N} will take it on.
+scene W: The shop fed and schooled {N}. It has the family name above the door, suppliers who depend on it, and a promise {parent} made long ago to keep it in the family.
+scene U: {N} knows the figures better than {parent} thinks: what sells, what does not, and what would have to change for it to last another thirty years.
+scene B: It is a going concern, with customers, a lease and a name. Nobody hands over something like that for nothing, and nobody should take it for nothing either.
+scene R: {N} has a life somewhere else, a job of {Ns} own choosing, and the thought of that counter every morning until sixty makes {Ns} chest go tight.
+scene G: {Ns} grandparent started it with one room and a handcart. The smell of the place is the smell of {Ns} childhood.
+- W | say yes, and take on the shop with everything that comes with it | identity | v: tradition, conformity | grants: family business | title: shop owner | chance: 72
+- U | ask for the books, study them for a month, and answer then | v: self-direction, security | chance: 86
+- B | agree to take it on, if the business is signed over outright, now | v: power | grants: family business | title: shop owner | chance: 50
+- R | tell them no: your life is your own, and it is not behind that counter | v: self-direction | mark: turned down a chance | chance: 62
+- G | work beside them for a season first, and see whether it takes root | v: tradition | mark: learned a skill | chance: 80
+- W>B | insist on a proper contract and a fair price, as for any other buyer | v: security, power | grants: family business | title: shop owner | chance: 64
+- U>R | plan for a hired manager, so the shop stays family and your days stay free | v: self-direction | chance: 50
+- B>G | suggest selling it for a good price, so your parents can retire in comfort | v: benevolence, security | chance: 55
+- R>W | say yes on the spot, for their sake, before the doubts can start | binds | v: benevolence, conformity | grants: family business | title: shop owner | chance: 60
+- G>U | ask the oldest customers what the shop means to them, and then decide | v: tradition, self-direction | chance: 78
+works: The answer lands well, and {parent} shakes {Ns} hand as if closing a deal with an equal.
+works: Whatever is decided holds, and the shop has a future again, one way or another.
+fails: The talk turns into the worst row the family has had in years.
+fails: Whatever was agreed comes apart within the year, and the shop's future is as unsure as before.
+
+# ---------------------------------------------------------------- pair A2: care, calls WU (cycle s3) / home, calls BRG (cycle s4)
+
+== a parent who can no longer live alone
+tier: everyday
+stages: adult mature
+age: 35-70
+calls: WU
+rate: .5
+tone: trouble
+life: family, health, home
+horizon: years
+roles: parent, sibling, partner, a doctor, a social worker
+who: parent
+cast_want: care
+earth: after a fall and a few frightening weeks, it is clear a parent can no longer manage at home alone
+times: About 1 in 4 adults in midlife helps an ageing parent with daily life at some point; about 3 in 5 people in the UK become carers in their lifetime (Carers UK); a fall or a stroke is the commonest turning point (estimate)
+gap: 3-8
+share: .35
+scene: The hospital sends {parent} home on a Thursday with a walking frame and a leaflet. The stairs are steep, the fridge is nearly empty, and the doctor's words were plain: {parent} should not be living alone.
+scene W: {parent} looked after {N} for twenty years. Now the roles have turned, and {N} feels the full weight of what is owed.
+scene U: {N} has a notebook full of numbers: care homes and their fees, carers by the hour, the distance between two houses, the days left of {Ns} own leave.
+scene B: Someone will carry this, and {N} has a job, a mortgage and plans. {N} means to see it carried well without losing everything else.
+scene R: {parent} grips {Ns} hand in the car park and says they will not go into a home, not ever, and {Ns} throat closes.
+scene G: This is the turn every family comes to. {Ns} grandparents spent their last years in the back bedroom of {Ns} parents' house.
+- W | take them into your home, and arrange your life round their care | binds | v: benevolence, tradition | title: carer for a parent | mark: helped someone in need | chance: 65
+- U | draw up a care plan with the doctor, and share every task in the family | v: security | chance: 74
+- B | move them into a good care home, paid for by selling their house | v: security | chance: 70
+- R | tell them honestly you cannot do it, and that you are sorry | v: self-direction | mark: refused someone in need | chance: 48
+- G | move back into the old house for a while, and look after them there | binds | v: tradition, benevolence | title: carer for a parent | mark: came home | chance: 70
+- W>R | agree a fair rota with the family, so nobody gives up a whole life | v: universalism, self-direction | chance: 55
+- U>G | fit rails, an alarm and a meal service, so they can stay at home | v: security, benevolence | chance: 72
+- B>W | hire a live-in carer and pay well, so the care is done properly | v: benevolence, security | tags: pay:money-.08 | chance: 70
+- R>U | take a month off work there and then, and learn their care by doing it | v: benevolence, achievement | grants: home nursing | mark: learned a skill | chance: 76
+- G>B | ask the relatives who live nearest to take them in, and keep your own life | v: self-direction, security | chance: 52
+works: {parent} settles into the new arrangement, and the frightened weeks are over.
+works: The care holds, and {parent} has good days again, more of them than anyone expected.
+fails: Within months the arrangement is cracking, and {N} is running on four hours' sleep.
+fails: {parent} has another fall, and the whole question opens again from the start.
+
+== a parent asks you to move back home
+tier: everyday
+stages: adult mature
+age: 25-65
+calls: BRG
+rate: .5
+tone: mixed
+life: family, home, place
+horizon: years
+roles: parent, sibling, partner, old friends
+who: parent
+cast_want: home
+earth: a parent in the old home town asks, not for the first time, whether you will ever move back for good
+times: Many people who moved away from their home town hear it at some point, more often as their parents age; about 1 adult in 3 lives more than an hour's travel from their parents (estimate)
+gap: 4-10
+share: .3
+scene: On the Sunday call, after the weather and the neighbours, {parent} says it plainly: the house is too quiet, the town is not the same, and would {N} not think about coming back for good?
+scene W: {N} left for good reasons, but a child does not stop being a child. {parent} is getting older, and the drive back gets longer every year.
+scene U: {N} has done the sums before: the jobs back there, the house prices, the friends who stayed. They never quite add up, and {N} has never quite stopped checking.
+scene B: {N} built this life from nothing, in a place where {N} is somebody. Going back would mean starting again as someone's child.
+scene R: {Ns} heart jumps at the sound of the old town in {Ns} parent's voice, and in the same moment {N} wants to hang up.
+scene G: The river, the bakery on the corner, the graves on the hill. The old place has its roots in {N} still, however far the branches have spread.
+- W | promise to come every month, on the same weekend, without fail | habit | v: benevolence, conformity | chance: 70
+- U | weigh it properly, with figures, and give them a real answer in three months | v: self-direction | chance: 86
+- B | tell them no: you built your life here, and you are staying | identity | v: self-direction, achievement | chance: 56
+- R | drive there that weekend, unannounced, and talk it over at their table | v: benevolence, stimulation | chance: 88
+- G | follow the pull of your roots, and move home for good | identity | v: tradition, security | mark: came home | moves: yes | chance: 68
+- W>G | call a family meeting, so everyone agrees how often each sibling visits | v: benevolence, universalism | chance: 60
+- U>W | find them a flat nearby, and lay the figures out on their table | v: benevolence, security | chance: 45
+- B>U | buy them a tablet and pay for lessons, so they learn video calls | v: benevolence, self-direction | tech: video calls | tags: pay:money-.02 | chance: 76
+- R>B | snap that they had their life, and now it is your turn | v: self-direction | chance: 42
+- G>R | go back for one long summer, and let the old place decide | v: stimulation, tradition | chance: 70
+works: Whatever {N} decides, {parent} hears it, and the Sunday calls are warm again.
+works: The new arrangement settles in, and {parent} sounds years younger on the phone.
+fails: {parent} takes the answer badly, and the calls grow short and careful.
+fails: Nothing is settled, and the same question waits at the end of every call.
+
+# ---------------------------------------------------------------- pair A3: money, calls WUG (cycle s1) / rival, calls BR (cycle s2)
+
+== a brother or sister in debt asks for help
+tier: everyday
+stages: young_adult adult mature
+age: 22-65
+calls: WUG
+rate: 1
+tone: trouble
+life: family, money
+horizon: months
+roles: sibling, parent, partner
+who: sibling
+cast_want: money
+earth: a brother or sister has lost their job, the debts have caught up, and they ask you for a large sum before the collectors come
+times: Most adults are asked for money by a relative at some point; about 1 adult in 3 lends money to family or friends in a year, and many such loans are never paid back in full (consumer surveys, estimate)
+gap: 3-8
+share: .45
+scene: {sibling} asks to meet in a café, orders nothing and finally says it: since losing the job the cards are maxed out, the rent is three months behind, and the collectors have started calling. Could {N} help, just this once?
+scene W: Family is family. {N} remembers {sibling} lending a coat, a bed and a hand, years ago, when {N} had nothing.
+scene U: {N} wants to see the numbers: how much, owed to whom, at what interest, and what happens next month when it all comes round again.
+scene B: It is a lot of money, and money lent to family has a way of turning into money given.
+scene R: {sibling} is trying not to cry in a public café, and {N} would empty the account right now to make that stop.
+scene G: The two of them grew up in the same small bedroom. Whatever else happens, a sibling in trouble is a family in trouble.
+- W | lend the full sum, with the terms written down and signed by both | v: security, benevolence | mark: helped someone in need | chance: 60
+- U | go through every bill with them before deciding on a penny | v: security, self-direction | chance: 80
+- B | lend it against their car, and keep the papers until it is repaid | binds | v: power, security | chance: 58
+- R | transfer the money there and then, and tell them not to worry | v: benevolence | mark: helped someone in need | chance: 88
+- G | say no, because money always poisons things between kin | v: tradition, security | mark: refused someone in need | chance: 50
+- W>U | take them to the free debt advice service, and sit in on the first meeting | door | v: benevolence, security | chance: 70
+- U>B | lend it, and quietly get first claim on their share of the family home | binds | v: power | mark: hid a wrong | closed: approval: a claim on the family home behind their back; backfire: the family finds out and takes sides | chance: 66
+- B>R | pay the worst debt straight to the collectors, and keep the rest of your money | v: benevolence, security | chance: 76
+- R>G | phone your parents there and then, and ask the whole family to chip in | v: benevolence, tradition | chance: 55
+- G>W | ask the eldest of the family what is fair, and abide by it | binds | v: tradition, conformity | chance: 62
+works: {sibling} gets back on their feet, and the money, or the help, is never forgotten.
+works: The collectors stop calling, and the two of them find they can still talk about anything.
+fails: The money vanishes into the debt, and within months {sibling} is asking again.
+fails: The question sits between them at every family meal, unspoken and heavy.
+
+== a colleague after your job
+tier: everyday
+at: employer
+stages: young_adult adult mature
+age: 22-65
+calls: BR
+rate: 1
+tone: trouble
+life: work
+horizon: months
+roles: colleague, boss, mentor
+who: colleague, boss
+cast_want: rival
+earth: a colleague you once trained is openly making the case to the boss that they should have your role
+times: Many workers, once or twice in a working life; about 1 employee in 3 says a colleague has taken credit for their work or tried to undermine them (workplace surveys, estimate)
+gap: 5-10
+share: .35
+scene: {colleague}, whom {N} trained when they started, has been having long lunches with {boss}. Today {N} hears it from a friend in the office: {colleague} has asked outright for {Ns} job.
+scene W: There is a proper way to go after someone's job: apply when it is open, and win it fairly. This is not it.
+scene U: {N} pieces it together: the meeting {N} was not invited to, the report that went out under {colleague}'s name, the sudden new questions from {boss}.
+scene B: {N} fought hard for this role. Anyone who wants it will have to take it, and {N} has no intention of making that easy.
+scene R: {Ns} face goes hot at the desk. {N} taught {colleague} half of what they know, and this is the thanks.
+scene G: Every workplace has its young ones pushing at the old ones. {N} pushed too, once, and now the season has come round.
+- W | ask the boss for a straight review of your work, and let it decide | v: conformity, security | chance: 60
+- U | gather every result of the last two years into one quiet file for the boss | v: achievement, security | chance: 70
+- B | find out what they are hiding, and make sure the boss hears it first | v: power | mark: made an enemy | closed: approval: digging into a colleague's life; backfire: it comes out who did the digging | chance: 58
+- R | have it out with them, face to face, today | v: self-direction | mark: made an enemy | chance: 56
+- G | let it run its course; if it is their time, it is their time | v: tradition | chance: 52
+- W>B | file a formal complaint, and make what they did sound worse than it was | v: power, conformity | mark: made an enemy | closed: approval: an exaggerated complaint; backfire: the inquiry finds the facts, and the complaint turns back on its maker | chance: 54
+- U>R | quietly line up a better job elsewhere, and leave them the headache | v: self-direction | chance: 48
+- B>G | offer to split the team with them, if the lunches stop | v: security, power | chance: 60
+- R>W | stand up at the team meeting and say openly what is going on | v: universalism, self-direction | chance: 50
+- G>U | take them under your wing again, and help them aim higher than your post | v: benevolence, achievement | mark: made a friend | chance: 50
+works: The boss settles it, and {N} keeps the role with more standing than before.
+works: Whatever {N} does clears the air, and the office stops whispering.
+fails: {colleague} gets the role, and {N} is moved sideways to a desk by the window.
+fails: The fight drags on for months and sours the whole team.
+
+# ---------------------------------------------------------------- pair A4: love, calls UR (cycle s3) / forgiveness, calls WBG (cycle s4)
+
+== a weekend away, if you say yes
+tier: everyday
+stages: young_adult adult mature
+age: 18-60
+calls: UR
+rate: 1
+tone: mixed
+life: love, friends
+horizon: week
+roles: friend, partner, the old crowd
+who: friend
+cast_want: love
+earth: a friend of years asks you away for a weekend, just the two of you, and makes it plain they hope for more than friendship
+times: Perhaps 1 adult in 3 is asked out by a friend of long standing at some point (estimate); about two thirds of the couples in one study began as friends (Stinson and colleagues 2021)
+gap: 6-12
+share: .3
+scene: {friend} slides two train tickets across the table: a weekend by the sea, a room with a view, just the two of them. Then {friend} says, a little too quickly, that it is not meant as a friends' trip.
+scene W: {N} and {friend} have kept every confidence and every promise for years. Whatever {N} answers has to be fair to all of that.
+scene U: {N} looks at the tickets and thinks back over every long call and every lingering goodbye, and wonders how it was missed, or whether it was.
+scene B: To be wanted this much, for this long, is a kind of power, and {N} notices that it feels good.
+scene R: {Ns} heart is racing. The sea, a whole weekend, {friend} looking at {N} like that: every part of {N} wants to say yes before thinking.
+scene G: Some friendships deepen like a river cutting its bed, so slowly that nobody sees it happen until the water is deep.
+- W | thank them, and tell them kindly you cannot be what they hope for | v: benevolence, conformity | chance: 65
+- U | ask them what they hope for, exactly, before answering | v: self-direction | chance: 76
+- B | keep the tickets and the hope alive, and decide nearer the day | v: power, hedonism | chance: 62
+- R | say yes before the thinking starts, and pack that night | v: stimulation, hedonism | mark: took a wild risk | chance: 75
+- G | say yes to the sea, and let whatever is growing grow at its own pace | v: benevolence | chance: 68
+- W>R | go, but agree beforehand what the weekend is and what it is not | v: self-direction, security | chance: 60
+- U>G | suggest a smaller step first: dinner, and the long way home on foot | v: benevolence, security | chance: 74
+- B>W | make it a trip for the whole old crowd, and pay for the extra rooms | v: benevolence, conformity | tags: pay:money-.02 | chance: 60
+- R>U | tell them every feeling you have about it, the yes and the fear, right there | v: benevolence, self-direction | chance: 64
+- G>B | go, because your instinct says this will do your life good | v: hedonism, self-direction | chance: 66
+works: The weekend, or the answer, leaves the two of them closer than before.
+works: Something new begins between them, unhurried and sure of itself.
+fails: The weekend goes wrong, and both of them come home quiet and sore.
+fails: {friend} takes the answer hard and stops calling for a long while.
+
+== a letter from the friend you cut off
+tier: everyday
+stages: young_adult adult mature
+age: 20-65
+calls: WBG
+rate: .5
+tone: mixed
+life: friends
+horizon: months
+roles: friend, the old crowd
+who: friend
+cast_want: forgiveness
+earth: years after a break you swore was final, a friend who let you down writes to ask for forgiveness
+times: About 1 adult in 4 has cut off a close friend or a relative at some point, and many are later approached to make it up (Pillemer 2020, estimate for friends)
+gap: 6-15
+share: .25
+scene: The envelope has {Ns} name on it in handwriting {N} has not seen for six years. Inside are two pages from {friend}, about what happened and the lie that ended it, and at the end one line: I am sorry, and I would like to be forgiven.
+scene W: A wrong was done, and an apology has been made. {N} knows what the old rules say about mercy, and what they say about trust.
+scene U: {N} reads it three times, looking for what is new: an excuse, an admission, a request tucked into the third paragraph.
+scene B: {friend} wants something: peace of mind, a clean slate, perhaps a favour later. {N} holds the one thing they want, and that is worth thinking about.
+scene R: The old anger comes back so fast it is almost a relief, and under it, worse, the old fondness.
+scene G: Six years is a long winter. Something in {N} has been waiting for this letter, the way the ground waits for a thaw.
+- W | tell them forgiveness starts with owning up to the others they lied to | v: universalism, conformity | chance: 55
+- U | write back asking exactly what they are sorry for, and read the answer slowly | v: self-direction, security | chance: 62
+- B | reply that you will meet once they have paid back what they owe | v: power, security | chance: 55
+- R | tear it up and throw it in the bin, unanswered | v: self-direction | chance: 90
+- G | leave the letter on the shelf until you know what you feel | v: none clear (waiting for a feeling to settle) | chance: 80
+- W>G | forgive them, and invite them back to the old crowd's table | v: benevolence, tradition | mark: made a friend | chance: 55
+- U>W | check their story with the friends you share before answering | v: security, universalism | chance: 70
+- B>U | meet them, mostly to learn at last what really happened | v: self-direction | chance: 75
+- R>B | call them that night and tell them exactly what it cost | v: power, self-direction | mark: made an enemy | chance: 60
+- G>R | walk with them by the river, and let the old friendship decide for itself | v: benevolence | chance: 58
+works: The old knot loosens, and {N} sleeps better than in years.
+works: An answer goes back, and whatever comes of it, the matter is settled.
+fails: The meeting reopens the old wound, and it stays raw for weeks.
+fails: {friend} reads the answer as a door slammed, and tells the old crowd their side of it.
+
+# ---------------------------------------------------------------- pair A5: stop, calls WG (cycle s1) / secret, calls UBR (cycle s2)
+
+== an intervention at the kitchen table
+tier: everyday
+stages: young_adult adult mature
+age: 18-65
+calls: WG
+rate: .5
+tone: trouble
+life: family, health
+horizon: months
+roles: sibling, friend, parent, partner
+who: sibling, friend
+cast_want: stop
+earth: a brother or sister and a close friend sit you down: they are frightened by the habit you keep saying is under control
+times: About 1 adult in 10 has a drink or drug problem at some point (Kelly and colleagues 2017), and more have a habit that frightens their family (drinking, betting, pills); family and friends step in for some of them (estimate)
+gap: 3-8
+share: .2
+scene: {sibling} asked {N} round for dinner, but there is no dinner: just {sibling}, {friend} and three cups of tea at the kitchen table. {sibling} has written something down. It is about the habit, the late nights, the money that keeps disappearing, and the promises.
+scene W: {N} has promised before, more than once, to keep it in hand, and everyone at this table remembers each promise.
+scene U: {N} notices the paper in {sibling}'s hand, the rehearsed opening, the way {friend} will not look up. They have planned this.
+scene B: {N} is a grown adult, pays {Ns} own way, and did not come here to be put on trial.
+scene R: Shame and anger hit at once. {N} wants to laugh it off, shout and walk out, all in the same breath.
+scene G: {sibling} has their grandmother's eyes, and the same worried crease between them. {N} has seen this kind of thing take hold in the family before.
+- W | promise to stop completely, and give them the right to check on you | v: conformity, security | self_control: + | act: promise to stop completely, and give them the right to check | chance: 45
+- U | keep a diary of every day for a month, then read it back honestly | habit | v: self-direction | self_control: + | chance: 62
+- B | tell them it is your life and your money, and walk out | v: self-direction | self_control: - | chance: 62
+- R | lose your temper, then break down crying at the table | v: none clear (feeling let out) | chance: 64
+- G | go to the doctor this week, and take your brother or sister along | v: security | self_control: + | chance: 74
+- W>U | sign up for a proper programme with weekly check-ins, and see what you learn | door | v: self-direction, security | self_control: + | chance: 50
+- U>B | agree to everything they ask, and simply hide it better | v: hedonism | mark: hid a wrong | self_control: - | chance: 62
+- B>R | offer a deal: weekends only, if they stop checking up | v: hedonism, self-direction | chance: 55
+- R>G | dare your sibling to give up their own vice at the same time | v: benevolence, stimulation | self_control: + | chance: 46
+- G>W | move in with your sibling for a while, so the family can keep watch | v: security, tradition | self_control: + | chance: 66
+works: The habit loosens its grip, month by month, with the family close.
+works: Something in the talk gets through, and {N} wakes the next morning clearer than in months.
+fails: Within weeks the old pattern is back, and the next talk is harder.
+fails: {N} leaves the table furious, and {sibling} and {N} do not speak for a season.
+
+== a secret a parent has kept for forty years
+tier: everyday
+stages: young_adult adult mature
+age: 20-65
+calls: UBR
+rate: .5
+tone: mixed
+life: family
+horizon: years
+roles: parent, sibling, the other parent, an old aunt
+who: parent
+cast_want: secret
+earth: a parent tells you something they have never told anyone: before you were born, they had a child and gave it up for adoption
+times: Perhaps 1 adult in 10 learns a big family secret from a parent (a child given up, an earlier marriage, a hidden debt or illness); about 1 in 30 people who take a home DNA test find a close relative they did not know of (estimate)
+gap: 10-25
+share: .15
+scene: {parent} waits until the others have gone to bed, then takes an old photograph out of a book: a baby in a hospital blanket. Before {N} was born, {parent} had a child and gave it up, and nobody in the family knows. {parent} has told {N} first, and only {N}.
+scene W: {N} has been trusted with something heavy. A confidence is a promise, even one {N} never asked to make.
+scene U: Dates and names start lining up in {Ns} head: the gap in the family album, the aunt who always changed the subject, a brother or sister somewhere, grown up now.
+scene B: A secret like this shifts the balance of a family, and whoever holds it holds something that matters.
+scene R: {N} cannot sit still. Somewhere out there is a sibling {N} never knew, and {N} wants to run out into the night and find them.
+scene G: Every family tree has a branch it does not speak of. {parent} has carried this one alone for longer than {N} has been alive.
+- W | promise to keep it, even from your own brothers and sisters, and keep it | binds | v: benevolence, conformity | mark: kept your word | chance: 76
+- U | help them search the adoption records, quietly, one step at a time | door | v: self-direction, benevolence | chance: 42
+- B | keep it to yourself, and save it for when the will is fought over | v: power | chance: 80
+- R | tell them it is too big to hide, and that the family has to know | v: self-direction, universalism | chance: 50
+- G | sit with them, hold their hand, and ask nothing more tonight | v: benevolence | chance: 88
+- W>B | keep it only if they put it in writing with the lawyer | v: security, power | chance: 68
+- U>R | find the lost child online, and write to them without telling your parent | v: stimulation, self-direction | tech: internet | closed: approval: going behind a parent's back; backfire: the parent finds out first, from someone else | chance: 45
+- B>G | pay for a proper search agency, so the family can be made whole | v: benevolence, tradition | tags: pay:money-.03 | chance: 55
+- R>W | gather the family the next day and tell them, for honesty's sake | v: universalism, conformity | mark: broke your word | closed: approval: breaking a parent's confidence; backfire: the parent stops speaking to you | chance: 40
+- G>U | ask the old aunt who always changed the subject what she remembers | closed: approval: sharing a parent's confidence; backfire: the aunt tells the rest of the family | v: tradition, self-direction | chance: 56
+works: The secret settles into the family's story, and {parent} looks lighter than in years.
+works: Something long buried comes into the open, gently, and the family holds.
+fails: The secret leaks, and the family splits into those who knew and those who did not.
+fails: {parent} regrets telling anyone, and goes quiet whenever the subject comes near.
+
+# ================================================================ PART B: the migrant's path (holds: the catalogue's migrant statuses)
+
+# ---------------------------------------------------------------- pair B1: arrival, calls BG (cycle s3) / the language, calls WUR (cycle s4); holds and tenure 0-2 on both
+
+== the first months in a new country
+tier: everyday
+at: ministry
+stages: young_adult adult mature elder
+age: 18-80
+calls: BG
+holds: immigrant; refugee; asylum applicant
+tenure: 0-2
+once: yes
+tone: mixed
+life: home, work, place
+horizon: months
+roles: people from home, a landlord, a neighbour, a caseworker
+earth: the first months in a new country: a rented room, papers to file, a job below your skills, and nobody who knows your name
+times: About 1 resident in 7 of rich countries was born abroad (OECD); the first year brings most of the hardest moments: housing, work, papers and loneliness (estimate)
+scene: Three months in the new country: a rented room above a launderette, a folder of forms, a night job stacking shelves that has nothing to do with {Ns} old trade, and a phone full of messages from home that {N} answers in the dark.
+scene W: There are rules here for everything, written in a language {N} reads slowly: where to register, which queue to join, which form comes first. {N} means to get every one of them right.
+scene U: {N} studies the new place like a textbook: how people queue, what they say on the bus, which shops are cheap, why everyone laughs at a joke {N} did not catch.
+scene B: Nobody here owes {N} anything, and nobody is going to hand {N} a life. {N} came to build one, and intends to.
+scene R: Some nights the homesickness hits like a fever: the smell of a kitchen two borders away, a song in the old language on someone's phone.
+scene G: In the corner shop the owner speaks the old language, and for five minutes the air smells like home.
+- W | register everything properly, and keep every paper in one folder | v: security, conformity | chance: 80
+- U | spend every free hour learning how this place really works | door | v: self-direction | mark: learned a skill | chance: 74
+- B | take any work going, papers or not, and save every coin | v: achievement, security | mark: broke the law | closed: law: working without the right permit; backfire: a fine, and a mark against the residence file | grants: savings | self_control: + | chance: 74
+- R | call home every night, and cry when you need to | habit | v: benevolence | tech: video calls | chance: 84
+- G | find the people from home, and lean on them | v: tradition, security | grants: people from home | mark: made a friend | chance: 72
+- W>R | join a local club or team, and turn up every single week | v: stimulation, conformity | mark: made a friend | chance: 60
+- U>G | work out which local ways to take up and which of your own to keep | v: tradition, self-direction | chance: 70
+- B>W | pay a local adviser to get every form right the first time | v: security | tags: pay:money-.03 | chance: 80
+- R>U | say yes to every invitation, and learn the place by living it | door | v: stimulation | chance: 70
+- G>B | let a cousin's contacts in the community find better work | v: security, achievement | chance: 64
+works: By the end of the first months {N} has a routine, a few faces that smile back, and a key that feels like home.
+works: The hardest part passes, and the new country starts to make sense.
+fails: The loneliness sets in deep, and {N} spends the winter counting the days to a visit home.
+fails: A missing paper sends {N} back to the end of every queue, and the savings run thin.
+
+== learning the local language
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-80
+calls: WUR
+holds: immigrant; refugee; asylum applicant
+tenure: 0-2
+once: yes
+tone: mixed
+life: learning, work
+horizon: months
+roles: a teacher, classmates from many countries, colleague, neighbours
+earth: an evening class in the local language, or learning it on the job, one embarrassing mistake at a time
+times: Most adult immigrants who do not already speak the local language take classes or learn it at work in their first years; everyday fluency takes about two to five years (OECD, estimate)
+scene: Tuesday and Thursday evenings, a classroom in the community centre: twelve adults from nine countries, a patient teacher and a verb that refuses to behave. At work the next morning {N} asks {colleague} for the wrong thing, and the whole room hears it.
+scene W: The course has a register, homework and an exam at the end, and {N} means to have a full row of ticks.
+scene U: {N} keeps a notebook of words sorted by sound, by use and by how often they come up on the radio. Grammar is a puzzle, and puzzles can be solved.
+scene B: Every word learned is a door: a better job, a fair rent, a landlord who can no longer pretend not to understand.
+scene R: {N} would rather blurt and blunder than sit in silence. Every laugh at a mistake is a laugh {N} gets to join.
+scene G: The local language is in the market, in the songs at the bus stop and in the children's games in the yard. Children here learn it by listening, and so can {N}.
+- W | go to every class, do all the homework, and sit the exam | habit | v: achievement, conformity | grants: second language | self_control: + | chance: 70
+- U | study the grammar at night, a chapter at a time, until it clicks | habit | v: self-direction, achievement | grants: second language | mark: learned a skill | chance: 66
+- B | pay someone to sit the language test in your name | v: achievement, power | mark: broke the law | closed: law: exam fraud; backfire: caught, and the residence file marked | chance: 64
+- R | speak it everywhere, badly and loudly, until it comes | v: stimulation, self-direction | grants: second language | chance: 62
+- G | let it seep in slowly from the radio, the market and the neighbours | habit | v: universalism | grants: second language | chance: 54
+- W>G | join a language exchange at the library, and teach your own language in return | v: benevolence, tradition | grants: second language | mark: made a friend | chance: 66
+- U>W | read the citizenship handbook in the local language, word by word | v: conformity, achievement | grants: second language | chance: 56
+- B>U | get the firm to pay for lessons as part of your contract | door | v: achievement | grants: second language | chance: 62
+- R>B | skip the class, and pick up only the words you need to get by | v: self-direction | self_control: - | chance: 80
+- G>R | fall in with local friends, and learn it laughing in their kitchens | v: stimulation, benevolence | grants: second language | mark: made a friend | chance: 58
+works: One morning {N} realises a whole conversation has gone by without translating a word in {Ns} head.
+works: The exam is passed, and the next phone call with the landlord goes {Ns} way.
+fails: The words will not stick, and {N} goes back to pointing and smiling.
+fails: A misunderstanding at work costs {N} a shift, and the shame of it lasts longer than the lost pay.
+
+# ---------------------------------------------------------------- pair B2: residence papers, calls UB (cycle s1) / citizenship, calls WRG (cycle s2); holds on both, at: ministry
+# The same holds: on both. Tenure differs (papers 2-10 years after arrival, citizenship 5-50), so the path runs in order;
+# both are once: yes, so every migrant who stays long enough meets each once and the pair stays even over the life.
+
+== residence papers at the government office
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-90
+calls: UB
+holds: immigrant; refugee
+tenure: 2-10
+once: yes
+at: ministry
+tone: mixed
+life: home, state
+horizon: months
+roles: an official, a lawyer, boss
+earth: at the government office, the application for permanent residence: a ticket number, a thick file, and an official who decides whether you may stay
+times: Most immigrants who stay apply for permanent residence after about two to ten years of legal residence, and many first applications come back asking for more papers (OECD International Migration Outlook, estimate)
+scene: Ticket number 214. The waiting room at the government office smells of floor polish and nerves. {N} holds a file as thick as a brick: payslips, the tenancy, tax letters, a language certificate, eleven photographs. Behind the glass, an official is already frowning at the person before.
+scene W: {N} has followed every rule for years, paid every tax and filed every renewal on time. Today the rules are supposed to keep their side of the bargain.
+scene U: {N} has read the official guidance three times and marked every clause that could go wrong, in the order the official is likely to ask.
+scene B: Everything {N} has built here, the job, the flat, the plans, hangs on one stamp from a stranger behind the glass, and {N} intends to get that stamp.
+scene R: {Ns} knee will not stop bouncing. Years of living here, and one bad mood behind the glass could undo all of it.
+scene G: {N} has put down a life here: a street, a few friends, a bench in the park that feels like {Ns} own. Roots, {N} thinks, should count for something.
+- W | bring every paper in order, and answer every question exactly | v: security, conformity | grants: permanent residence | chance: 66
+- U | learn the rules until you know them better than the official | v: achievement | grants: permanent residence | mark: learned a skill | chance: 64
+- B | slip a go-between a fee to move your file to the top of the pile | v: power, security | grants: permanent residence | mark: broke the law | closed: law: bribing an official; backfire: the file is flagged and the application refused | chance: 50
+- R | argue your case at the glass, loudly, when they find a problem | closed: approval: a scene at the counter; backfire: security is called and the file goes to the bottom | v: self-direction | grants: permanent residence | chance: 38
+- G | wait your turn, and trust years of ordinary life here to make the case | v: security, tradition | grants: permanent residence | chance: 62
+- W>U | ask, formally and politely, for a senior officer to review the file | v: conformity, self-direction | grants: permanent residence | chance: 62
+- U>B | find a route in the rules that the official has missed | v: achievement, power | grants: permanent residence | chance: 55
+- B>R | get your employer to write that the firm cannot do without your work | v: power, security | grants: permanent residence | chance: 70
+- R>G | bring your neighbours and friends to vouch for you in person | act: bring the neighbours and friends to vouch in person | v: benevolence, security | grants: permanent residence | chance: 46
+- G>W | bring letters from the community centre, the club and the street | v: security, tradition | grants: permanent residence | chance: 66
+works: The stamp comes down, and a card arrives two weeks later: {N} may stay.
+works: The official closes the file with a nod, and the long years of renewals are over.
+fails: A letter asks for more documents, and the whole wait starts again.
+fails: The application is refused, and {N} has a month to appeal.
+
+== the oath of citizenship
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-90
+calls: WRG
+holds: immigrant; refugee
+tenure: 5-50
+once: yes
+at: ministry
+tone: joy
+life: state, identity, place
+horizon: years
+roles: an official, friends, people from home, family abroad
+earth: after years of residence the letter comes: you may become a citizen, with a test, an oath and a ceremony at the town hall
+times: Most long-settled immigrants in rich countries naturalise: about 6 in 10 foreign-born residents of OECD countries who have lived there ten years or more hold its citizenship (OECD, estimate)
+scene: The letter says {N} has passed the test. The ceremony is on a Saturday at the town hall: forty people in their best clothes, a small flag on every chair, an official at the lectern, and an oath to read aloud in the local language.
+scene W: An oath is an oath. {N} has read the words a dozen times and means to say them, and to keep them.
+scene U: {N} wonders what the words will change and what they will not: a passport, a vote, and the same accent at the bakery on Monday.
+scene B: A passport that opens doors, a vote, a job in the public service, no more renewals. It is the best deal {N} has ever been offered.
+scene R: {Ns} hands are shaking. Leaving home was the hardest thing {N} ever did, and now there is a ceremony to make it final.
+scene G: Some trees take years to root in new ground. {N} feels it in the soles of {Ns} feet: this is home now, and has been for a while.
+- W | say the oath word for word, and mean every line of it | identity | binds | v: conformity, tradition | grants: citizenship | title: naturalised citizen | chance: 78
+- U | read the law first: what you gain, what you lose, and the old passport | v: self-direction, security | chance: 86
+- B | take it for the passport and the vote, and quietly keep the old one too | v: power, security | grants: citizenship | title: naturalised citizen | mark: broke the law | closed: law: holding two passports where it is not allowed; backfire: found out, and the new citizenship called into question | chance: 74
+- R | turn it down, and stay a citizen only of the land of your birth | identity | v: self-direction | chance: 80
+- G | bring the whole street to the ceremony, and cook for them afterwards | v: benevolence, tradition | grants: citizenship | title: naturalised citizen | mark: made a friend | chance: 80
+- W>B | take the oath, and apply that week for the public service jobs it opens | v: achievement | grants: citizenship | title: naturalised citizen | chance: 68
+- U>R | find the legal way to keep both passports, and stay free to go back | v: self-direction | grants: citizenship | title: naturalised citizen | chance: 60
+- B>G | become a citizen, so your family back home can follow | binds | v: benevolence, security | grants: citizenship | title: naturalised citizen | chance: 62
+- R>W | put your name on the voting register at the town hall that same afternoon | v: universalism, conformity | grants: citizenship | title: naturalised citizen | chance: 82
+- G>U | wait a few more years, until the new country truly feels like home | v: self-direction, tradition | chance: 76
+works: {N} walks out of the town hall a citizen, with a certificate and a small flag, and the street feels different underfoot.
+works: The decision is made and it holds, and {N} sleeps that night without a single form on the table.
+fails: A missed form puts the ceremony off by a year, and the letter about it is curt.
+fails: The day comes and goes, and {N} feels less changed by it than expected, and more alone.

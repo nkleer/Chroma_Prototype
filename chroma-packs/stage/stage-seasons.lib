@@ -1,0 +1,737 @@
+# Chroma content pack Stage and Screen: THRESHOLD SEASONS (moments 74 to 89 of MOMENTS-BRIEF.md, Part 6). Four short
+# seasons of four linked moments each, for the first months after a person takes drama school student, professional
+# actor, lead actor or actress, or director. The pack's crossings ('drama school auditions', 'the showcase for agents',
+# 'an open audition in the city', 'the understudy goes on', 'the part of a lifetime is cast', 'a screen test', 'the
+# leading player leaves the company', 'opening night at the fringe', 'the lead voice in a series', 'the director calls
+# again', 'two actors, one part', 'a director is needed for the autumn play') are the rites that open them; any other way
+# into the title opens the season too. Emren's ask is the heart of it ("Lead actor/actresss availability must be inside
+# with all new content"): the lead's season shows what the summit is like, the first weeks of top billing, the company
+# that now looks to the lead, whom the lead plays it for, and the morning after the last night. Every season asks whom
+# the person now answers to: the year group, the people at home, a partner who sees them less, the company.
+# Syntax: header of chroma-library/build.py, plus the season fields the engine accepted (chroma-packs/for-the-engine.md,
+# "Engine answer"): threshold: title:<name>, step: 1 | 2 | 3 (the engine brings them about 1, 10 and 22 weeks after the
+# title is gained, inside a season of about 30 weeks), transform: yes (the season's transforming chance, which the engine
+# plays in a week of its own, about 16 weeks in). Every moment: tier inner, alpha even, stakes .8, holds: the title, the
+# five one-color options and one full cross cycle; each season uses the cycles s1 to s4 once, so each cycle comes four
+# times. Worlds (Emren, 21:37): every moment has earth:, tribal: and magic: lines in the forms of worlds.py, an untagged
+# tribal and magic scene, and option wording where the act reads differently there; no act here is a magic act.
+# Rules: chroma-library/library-spec.md. Pathways and packs thread, 2026-10-06.
+# Two departures from the brief, on purpose: moment 81 is 'half a year on, still an actor' (the brief's 'a year on'),
+# and the step 3 times lines say about five months in, since the engine brings step 3 about 22 weeks after the title.
+# Round 5, 2026-10-07 (checklist P14, value tags): 6 options in this file retagged so the v: values read one of the
+# option's own colors (check.py section 4): White's by-the-book singles lead with conformity (not conformity with
+# achievement, which reads Blue), Red's singles on impulse lead with stimulation or hedonism (not self-direction,
+# which reads Black), Green's singles of home and kin with tradition and benevolence or universalism (not security,
+# which reads White), and Red's kindness on the spot with benevolence and stimulation.
+
+# ================================================================ drama school student (ages 16-40)
+# ---------------------------------------------------------------- 74. step 1 (cycle s1)
+
+== the first morning of the first term
+tier: inner
+threshold: title:drama school student
+step: 1
+stages: juvenile young_adult adult
+age: 16-40
+times: per new drama school student: once, in the first weeks after taking the title; about 3 lives in 1,000 (catalogue share)
+holds: drama school student
+stakes: .8
+tone: joy
+life: learning, friends
+horizon: week
+roles: mentor, colleague, parent
+earth: the first morning at drama school: a converted warehouse, a timetable from nine to nine, and thirty strangers in black
+tribal: the first morning at an old teller's fire in another band, far from your own hearth, with the other apprentices watching
+magic: the first morning in the guild school's hall: its masters, its rules, and a bench among strangers in the guild's grey
+requires: in the threshold season of drama school student, within the first six months after taking the title (opened by 'drama school auditions' or any other way in): step 1, the first weeks of the course
+likelier: a first place won at the auditions; a student who moved to a new city for the course; a full-time course of three years
+rarer: a part-time or foundation course; a student who has already trained somewhere else
+scene: The first morning of drama school starts in a circle on the floor of a converted warehouse: thirty strangers in black, each saying a name and one thing nobody knows about them. The timetable runs from nine in the morning to nine at night, and {mentor}, the head of acting, says the first year is for taking everything apart.
+scene W: {N} has bought every book on the reading list, labelled the rehearsal clothes and arrived twenty minutes early.
+scene U: {N} wants to know what each class is for: the voice, the movement, the text, and how they fit together into an actor.
+scene B: {N} sizes up the year group: who already has an agent's eye on them, who came from the famous youth company, who is the one to beat.
+scene R: {N} is giddy. Three years of nothing but acting, and the circle on the floor feels like the start of everything.
+scene G: {N} thinks of the kitchen at home, of {parent} driving {N} to the auditions, and of a town that already seems very far away.
+scene tribal: At dawn {N} sits for the first time at an old teller's fire in another band, far from home, and the other apprentices watch to see what the newcomer can do.
+scene magic: In the guild school's great hall the masters stand in their robes, a clerk reads out the rules, and {N} takes a bench among strangers in the guild's grey.
+- W | learn everyone's name by lunchtime, and keep every rule of the studio | v: conformity, benevolence | tribal: learn every apprentice's name by midday, and keep every custom of the old teller's fire | magic: learn every scholar's name by the noon bell, and keep every rule of the hall | chance: 80
+- U | ask the head of acting what each class of the first year is for | v: achievement, self-direction | tribal: ask the old teller what each part of the first winter is meant to teach | magic: ask the master of the school what each class of the first year is for | chance: 88
+- B | find out which teachers the agents listen to, and get noticed by them | v: power, achievement | tribal: find out whose word the elders of other bands trust, and get noticed by the old teller | magic: find out which masters the players' brokers listen to, and get noticed by them | chance: 80
+- R | throw yourself into the first improvisation game, and make the whole room laugh | v: stimulation, hedonism | tribal: leap into the first game at the fire, and make the whole circle laugh | chance: 80
+- G | ring home at the end of the day, and tell them every detail | v: benevolence, tradition | tribal: send word home with a trader going upriver that the first day went well | magic: send a letter home by the evening coach, with every detail of the day | chance: 92
+- W>U | come in early every morning to warm up properly, as the movement teacher asked | v: conformity, achievement | tribal: rise before the others every morning to warm the voice, as the old teller asked | magic: come to the hall before the first bell every morning to warm up, as the master asked | chance: 82
+- U>B | read the year above's notes on every teacher, and plan how to stand out | v: achievement, power | tribal: ask the older apprentices about the old teller's moods, and plan how to stand out | magic: buy the year above's notes on every master, and plan how to stand out | chance: 65
+- B>R | throw a party for the whole year group in your new flat on the first Friday | v: hedonism, power | tribal: gather the apprentices for a night of meat and stories at the first full moon | magic: throw a supper for the whole year in your lodgings on the first rest day | chance: 90
+- R>G | find the other student who looks lost in the canteen, and sit with them | door | v: benevolence | mark: made a friend | tribal: find the other apprentice who is far from home, and share your fire with them | magic: find the other scholar who looks lost at the long table, and sit with them | chance: 92
+- G>W | write to the youth theatre leader who started it all, and promise to make them proud | v: tradition, benevolence | tribal: send word to the old one of your own band who taught you, and promise to honour them | magic: write to the children's master who started it all, and promise to make them proud | chance: 88
+works: By the end of the first week {N} knows the building, the timetable and most of the names, and the warehouse begins to feel like a place to work.
+works: {mentor} stops {N} in the corridor on Friday to say it was a good first week.
+fails: The first week is a blur of names and warm-ups, and {N} goes home each night too tired to remember any of it.
+fails: Something {N} said in the first circle is the joke of the year group by Friday, and not a kind one.
+
+# ---------------------------------------------------------------- 75. step 2 (cycle s2)
+
+== the movement class where you cannot hide
+tier: inner
+threshold: title:drama school student
+step: 2
+stages: juvenile young_adult adult
+age: 16-40
+times: per new drama school student: once, in the first months of the threshold season, about ten weeks in; about 3 lives in 1,000 (catalogue share)
+holds: drama school student
+stakes: .8
+tone: trouble
+life: learning, body
+horizon: months
+roles: mentor, colleague
+earth: ten weeks in, a bare studio, bare feet and no script, and the movement teacher asks each student to stand in the middle and simply be looked at
+tribal: two moons in, the old teller makes you dance the bear alone in the firelight, with no words to hide behind, while the other apprentices watch
+magic: ten weeks in, the guild's master of movement makes you walk the length of the hall in silence before the whole year, with no mask and no lines
+requires: in the threshold season of drama school student, within the first six months after taking the title: step 2, some weeks into the course, when the classes start to ask for more than talent
+likelier: a course with daily movement and voice classes; a student who has always hidden behind a character; a student from a family or a school where nobody acted
+rarer: a student who trained as a dancer or an athlete; a part-time course with few movement classes
+scene: Ten weeks in, movement is the class {N} dreads. Bare feet, no script, and today {mentor} asks each student to stand alone in the middle of the studio for two minutes and do nothing while the year group watches. {N} is next.
+scene W: {N} decides that it is an exercise like any other, set for a reason, and that the rules of the room protect everyone in it.
+scene U: {N} has read about this exercise and knows why it works. Knowing does not stop {Ns} legs from shaking.
+scene B: {N} watches the others go first and notes what the teacher praises: stillness, breath, eyes up.
+scene R: Being looked at with nothing to do makes {N} want to laugh, run and cry, all at once.
+scene G: {N} thinks of the body {N} has always known: the walk from home, the way {Ns} family stands. Here it is being taken apart.
+scene tribal: The old teller beats the drum slowly and points at {N}: dance the bear, alone, in the firelight, with no words, while the other apprentices watch.
+scene magic: The master of movement strikes his staff on the floor, and {N} must walk the length of the hall in silence, without a mask, before the whole year.
+- W | do exactly what is asked, and stand there for the full two minutes | v: conformity | tribal: do what the old teller asks, and dance until the drum stops | magic: do what the master asks, and walk the whole hall at his pace | chance: 85
+- U | ask the teacher afterwards what the exercise is for, and keep a notebook on it | v: achievement, self-direction | mark: learned a skill | tribal: ask the old teller afterwards what the bear dance is for, and remember every word | chance: 90
+- B | copy exactly what the teacher praised in the others, and give them that | v: achievement, power | tribal: copy what the old teller praised in the others, and give him that | magic: copy what the master praised in the others, and give him that | chance: 70
+- R | let whatever comes come, tears or laughter, in front of everyone | v: stimulation, hedonism | tribal: let whatever comes come in the dance, tears or laughter, in front of everyone | magic: let whatever comes come on the walk, tears or laughter, in front of everyone | chance: 80
+- G | breathe slowly and think of a place at home until the fear passes | v: tradition, security | self_control: + | tribal: breathe slowly and think of your own band's river until the fear passes | magic: breathe slowly and think of the lane where you grew up until the fear passes | chance: 70
+- W>B | volunteer to go first, as a good student should, and earn the teacher's eye | v: achievement, conformity | tribal: step into the firelight first, as a good apprentice should, and earn the old teller's eye | magic: volunteer to walk first, as a good scholar should, and earn the master's eye | chance: 60
+- U>R | make a private game of it: how little can you do and still hold the room | v: self-direction, stimulation | tribal: make a private game of it: how little can the bear do and still hold the band's eyes | chance: 78
+- B>G | fake a twisted ankle to sit it out, and take the train home for the weekend | v: security, hedonism | mark: hid a wrong | closed: approval: lying to a teacher to miss a class; backfire: the movement teacher sees through it, and the year group hears | self_control: - | tribal: say your foot is hurt to sit out the dance, and walk home to your own band for a few days | magic: plead a twisted ankle to sit out the walk, and take the coach home for the rest day | chance: 85
+- R>W | step up beside a classmate who freezes, so they are not alone | v: benevolence, universalism | mark: helped someone in need | tribal: step into the firelight beside an apprentice who froze, and dance with them | magic: walk beside a scholar who froze, so they are not alone | chance: 65
+- G>U | find the walk of someone from home in your body, and use it | v: tradition, achievement | tribal: dance the bear the way the old hunters of your band move, and use it | magic: walk the way your grandmother walked down the lane, and use it | chance: 72
+works: {N} stands in the middle and is looked at for two minutes, and the floor does not open.
+works: {mentor} nods once at {N}, which in that studio counts as high praise.
+fails: {N} freezes, and the two minutes feel like a week.
+fails: {N} gets through the class and cries on the bus home, and the next movement class comes round all the same.
+
+# ---------------------------------------------------------------- 76. step 2, transform (cycle s3)
+
+== who you are when you are not acting
+tier: inner
+threshold: title:drama school student
+step: 2
+transform: yes
+stages: juvenile young_adult adult
+age: 16-40
+times: per new drama school student: once in the threshold season, about four months in, for most who are still open to change; about 3 lives in 1,000 (catalogue share)
+holds: drama school student
+stakes: .8
+tone: mixed
+life: learning, meaning, friends
+horizon: years
+roles: mentor, friend, parent
+earth: four months in, a teacher asks the year who each of them is when they are not acting, and the school has started to swallow everything else
+tribal: by midwinter, the old teller asks each apprentice what they will be when the winter is over, and your own band feels very far away
+magic: by midwinter, the masters ask each scholar who they will be when the masks come off, and the life before the guild feels very far away
+requires: in the threshold season of drama school student, within the first six months after taking the title: step 2, the season's transforming chance, when the course has begun to take over the rest of life
+likelier: a student who moved away from home for the course; old friends and a partner from before; a teacher who asks the hard question out loud
+rarer: a student who lives at home through the course; an older student with a life already settled
+scene: Four months in, {mentor} stops a class and asks the year a question: who is each of them when they are not acting? Nobody answers well. On the bus home {N} sees that the school has taken over everything: the friends from before have stopped calling, {parent} asks on the phone what all this is for, and the year group has become the only people {N} sees.
+scene W: {N} thinks of the year group as a company already: thirty people who will carry each other through three years, or not at all.
+scene U: {N} thinks the answer is in the work: the voice, the body, the text. An actor is a craftsman, and the craft is enough.
+scene B: {N} counts: three years, then the showcase, then a hundred agents in the seats. Everything here is a step toward that night.
+scene R: {N} came here because acting is the only time {N} feels fully alive, and that is answer enough.
+scene G: {N} thinks of home: the youth theatre, the town, the people who will come to see whatever {N} becomes. Whoever {N} is, {N} is from there.
+scene tribal: By midwinter the old teller asks each apprentice what they will be when the winter is over. {N} looks at this band's fire and thinks of {Ns} own, far up the river.
+scene magic: At the midwinter masque the masters ask each scholar who they will be when the masks come off, and {N} finds that the life before the guild has grown very faint.
+- W | give yourself to the year group, and be the one the company can always count on | identity | v: benevolence, conformity | tribal: give yourself to the apprentices, and be the one the others can always count on | magic: give yourself to your year, and be the scholar the others can always count on | chance: 80
+- U | make the craft your life: voice, body and text, every day, for good | identity | habit | v: achievement, self-direction | tribal: make the telling your life: the voices, the dances and the old words, every day, for good | chance: 65
+- B | treat the three years as a plan for the showcase, and spend every choice on it | identity | v: achievement, power | self_control: + | tribal: treat the three winters as a road to the summer gathering, where every band's elders will see you | magic: treat the three years as a road to the final masque, where the brokers sit in the gallery | chance: 85
+- R | swear to act or do nothing, and burn every other bridge | identity | binds | v: self-direction, stimulation | mark: took a wild risk | tribal: swear to be a teller or nothing, and turn your back on the hunt for good | magic: swear to be a player or nothing, and turn your back on your old trade for good | chance: 72
+- G | stay who you were at home, and bring that person into every part | identity | v: tradition, self-direction | tribal: stay a child of your own band, its speech and its ways, and bring them into every telling | magic: stay who you were in your own lane, speech and all, and bring it into every part | chance: 70
+- W>R | promise the year group a show at the fringe together when the course ends | identity | binds | v: benevolence, stimulation | tribal: swear with the other apprentices to play together at the outer fires one summer | magic: swear with your year to take a wagon to the fair together when the course is done | chance: 45
+- U>G | join the school's three-year project collecting the old plays of your region | identity | binds | v: tradition, achievement | tribal: learn every telling of your own band by heart, and promise to carry them on | magic: join the school's long work of collecting the old pageants of your home country | chance: 85
+- B>W | stand for year rep, and run the year group's dealings with the school | identity | binds | v: power, conformity | tribal: become the one who speaks for the apprentices to the old teller | magic: stand for the year's speaker, and run its dealings with the masters | chance: 45
+- R>U | throw out everything from before, and let the teachers start again from nothing | identity | v: stimulation, achievement | tribal: forget every way of playing from home, and let the old teller start again from nothing | magic: throw out every habit from before, and let the masters start again from nothing | chance: 70
+- G>B | keep the weekend job back home, so you owe nobody and can always go back | identity | binds | v: security, power | tribal: keep your place in your own band's hunts, so you owe nobody and can always go back | magic: keep your old trade at home on rest days, so you owe nobody and can always go back | chance: 72
+works: Before the term ends {N} has an answer to the question, and the work starts to feel like {Ns} own.
+works: {friend} from home comes to the end-of-term sharing and says {N} is more like {N} than ever.
+fails: Every answer {N} tries sounds false by the next morning, and the question follows {N} into every class.
+fails: The old friends drift away, the school swallows the rest, and {N} is no longer sure whose life this is.
+
+# ---------------------------------------------------------------- 77. step 3 (cycle s4)
+
+== the first-year assessment
+tier: inner
+threshold: title:drama school student
+step: 3
+stages: juvenile young_adult adult
+age: 16-40
+times: per new drama school student: once, about five months in, at the first-year assessment near the end of the threshold season; about 3 lives in 1,000 (catalogue share); a few schools ask some first-year students to leave (estimate)
+holds: drama school student
+stakes: .8
+tone: mixed
+life: learning, family
+horizon: months
+roles: mentor, parent, colleague
+earth: the first-year assessment: a speech, a song and a movement piece before the staff panel, and a one-to-one that decides who goes on
+tribal: near the end of the first winter, the old teller hears each apprentice tell the great story alone, and says who may stay for a second winter
+magic: the first-year trial: each scholar plays before the guild's masters, and a clerk writes who stays on the roll
+requires: in the threshold season of drama school student, within the first six months after taking the title: step 3, near the end of the six months, at the first-year assessment
+likelier: a school that assesses its first-years and keeps the right to ask some to leave; a family that lent the fees; a student who had a warning in the first term
+rarer: a school that never asks a student to leave; a student already picked out as one of the year's best
+scene: At the first-year assessment every student performs a speech, a song and a movement piece for the staff panel, then sits in a small room with {mentor} for ten minutes that decide the second year. Two of last year's group were not asked back. {parent}, who lent the money for the fees, has rung twice to ask when {N} will know.
+scene W: {N} has kept every note from every class in a folder, and has done everything the teachers asked, in order.
+scene U: {N} knows exactly which notes keep coming back (the breath, the jaw, the hurry) and has worked on each one.
+scene B: {N} has noticed which students the head of acting talks about in the canteen, and {N} is not yet one of them.
+scene R: {N} is sick of being careful. Five months of exercises, and {N} wants to just act.
+scene G: {N} thinks of the family who lent the money, and of the people at home who keep asking how it is going.
+scene tribal: Near the end of the first winter the old teller sits by the fire and hears each apprentice tell the great story alone. Two of last winter's apprentices were sent home after it.
+scene magic: The masters sit in a row in the great hall, and a clerk waits with the roll to write down who stays.
+- W | rehearse the set pieces exactly as taught, every evening for a month | habit | v: conformity, tradition | self_control: + | grants: learning lines | tribal: rehearse the great story exactly as the old teller tells it, every evening for a moon | magic: rehearse the set pieces exactly as the masters taught, every evening for a month | chance: 83
+- U | work on the one note that keeps coming back, and nothing else | v: achievement | mark: learned a skill | tribal: work on the one fault the old teller keeps naming, and nothing else | chance: 60
+- B | ask the head of acting for a private word about what the panel wants | v: power, achievement | tribal: sit with the old teller before the hearing, and find out what he wants to see | magic: seek out the head master before the trial, and find out what the masters want to see | chance: 70
+- R | throw away the careful version, and play the speech as you feel it that day | v: stimulation | tribal: put aside the careful telling, and tell the story as it comes to you by the fire | chance: 60
+- G | ask the family to come to the end-of-term sharing, and play it for them | v: benevolence, tradition | tribal: ask your own kin to come down the river for the hearing, and tell it for them | magic: ask your family to come to the end-of-term playing, and play it for them | chance: 65
+- W>G | spend the last week helping the classmates who are struggling, not only yourself | v: benevolence | mark: helped someone in need | tribal: spend the last days helping the apprentices who are struggling, not only yourself | chance: 90
+- U>W | write out every note from the panel this year, and answer each one in turn | v: conformity, achievement | self_control: + | tribal: go over every fault the old teller named all winter, and mend each in turn | magic: copy out every note the masters gave all year, and answer each one in turn | chance: 85
+- B>U | borrow last year's best student's notes, and copy how they passed | door | v: achievement, power | tribal: ask last winter's best apprentice how they passed, and copy them | magic: buy last year's best scholar's notes, and copy how they passed | chance: 88
+- R>B | skip the classes you find pointless, and pour the time into your acting piece | v: self-direction, achievement | drops_if_fails: drama school student | tribal: skip the dances you find pointless, and pour the days into your telling | magic: skip the lessons you find pointless, and pour the hours into your piece | chance: 85
+- G>R | spend the weekend before at home, walking the old places, and come back fresh | v: hedonism, tradition | tribal: go back up the river to your own band before the hearing, and come back fresh | magic: spend the rest day at home walking the old lanes, and come back fresh | chance: 90
+works: The panel keeps {N} on, with notes for the summer and a good word from {mentor}.
+works: {parent} hears the news on the phone, goes quiet, then says they always knew.
+fails: The verdict is hard: a warning at best, and {N} walks out of the small room shaking.
+fails: The one-to-one is ten minutes of things {N} did not want to hear, and the rest of the year will have to prove them wrong.
+
+# ================================================================ professional actor (ages 16-100)
+# ---------------------------------------------------------------- 78. step 1 (cycle s2)
+
+== the first paid read-through
+tier: inner
+threshold: title:professional actor
+step: 1
+stages: young_adult adult mature elder
+age: 16-100
+times: per new professional actor: once, in the first weeks after taking the title; about 4 lives in 1,000 (catalogue share)
+holds: professional actor
+stakes: .8
+tone: joy
+life: work, friends
+horizon: week
+roles: boss, colleague, partner
+earth: the first paid job: a long table, a script with your name on the cast list, and a cup of tea you are too nervous to drink
+tribal: the first winter as the band's teller-player, fed by every hearth, and the first night you sit among the tellers as one of them
+magic: the first reading with a licensed company, and your name in small letters on the playbill
+requires: in the threshold season of professional actor, within the first six months after taking the title (opened by 'the showcase for agents', 'an open audition in the city' or any other way in): step 1, the first paid job
+likelier: a first paid part after drama school or an open call; a company of older actors; a director who reads the play round a table on the first day
+rarer: a first job on a film set with no read-through; an actor who turned professional after years as an amateur in the same company
+scene: The first day of the first paid job: a long table in a rehearsal room, a script with {Ns} name on the cast list, and a cup of tea {N} is too nervous to drink. Around the table sit actors {N} has watched for years. {boss}, the director, says a few words, and the read-through begins.
+scene W: {N} has learned the first act already, marked every entrance and arrived forty minutes early.
+scene U: {N} has read the play six times, has a question about every scene, and is not sure whether a new actor may ask them.
+scene B: {N} notices who the director laughs with, which actor the producer came to see, and where the next job might come from.
+scene R: {N} cannot stop grinning. Someone is paying {N} to do this.
+scene G: {N} thinks of {partner} and the people at home who said it would never happen, and of the old company that taught {N} how.
+scene tribal: For the first time {N} sits among the band's tellers as one of them, and every hearth has sent meat to the tellers' fire for the winter.
+scene magic: The company gathers at a long table in the playhouse, the playbill on the wall carries {Ns} name in small letters, and the master of the play calls for the first reading.
+- W | read exactly as you rehearsed at home, and mark every note in pencil | v: conformity, achievement | tribal: tell your part exactly as you learned it, and keep every word the shaper gives | magic: read exactly as you prepared it, and mark every note in the margin | chance: 90
+- U | ask the director one good question about your character at the first break | v: achievement, self-direction | tribal: ask the shaper one good question about your spirit at the first rest | magic: ask the master of the play one good question about your part at the first break | chance: 85
+- B | sit next to the actor the producer came to see, and make them laugh | v: power, achievement | tribal: sit beside the teller the elders favour, and make them laugh | magic: sit beside the company's favourite player, and make them laugh | chance: 82
+- R | read your big scene full out, as if it were the first night | v: stimulation, hedonism | tribal: tell your part full out, as if the whole band were watching | magic: read your big scene full out, as if the house were full | chance: 78
+- G | bring a cake for the whole company, as your old company always did | v: tradition, benevolence | tribal: bring a share of your own family's meat to the tellers' fire | magic: bring a basket of buns for the whole company, as your old pageant players always did | chance: 92
+- W>B | learn the name of everyone in the company and crew before lunch | door | v: conformity, power | tribal: learn the name of every teller and every keeper of the fire before midday | magic: learn the name of every player and stagehand before the noon bell | chance: 75
+- U>R | listen hard to the others, and enjoy every surprise the play holds | v: self-direction, stimulation | tribal: listen to the others' tellings more than your own, and enjoy every surprise in the story | chance: 90
+- B>G | get cheap digs through the stage manager's contacts, and send the savings home | v: security, benevolence | tribal: get a place at a rich hearth through the keeper of the fire, and send your own meat home to your kin | magic: get cheap lodgings through the book-keeper's friends, and send the savings home | chance: 72
+- R>W | admit at the first break that you have not finished learning the second act | v: benevolence, self-direction | mark: owned up | tribal: admit at the first rest that you do not yet know the second part of the telling | magic: admit at the first break that you have not yet learned the second act | chance: 80
+- G>U | ask the oldest actor at the table how they have kept going for forty years | door | v: tradition, achievement | mark: made a friend | tribal: ask the oldest teller at the fire how they kept their voice for forty winters | magic: ask the company's oldest player how they have kept going for forty seasons | chance: 92
+works: By the end of the read-through {N} has stopped shaking, and {boss} catches {Ns} eye at a good moment.
+works: The company goes to the pub afterwards, and someone saves {N} a seat.
+fails: {N} stumbles over the first line and never quite recovers, and the day goes by in a blur of nerves.
+fails: Something {N} did at the table is remembered by the whole company, and not in a good way.
+
+# ---------------------------------------------------------------- 79. step 2 (cycle s3)
+
+== the second job does not come
+tier: inner
+threshold: title:professional actor
+step: 2
+stages: young_adult adult mature elder
+age: 16-100
+times: per new professional actor: once, in the first months of the threshold season, about ten weeks in, for most whose first job has ended; 71 in 100 UK actors spend 28 weeks or more of a year outside the industry (the UK actors' union's survey); about 4 lives in 1,000 (catalogue share)
+holds: professional actor
+stakes: .8
+tone: trouble
+life: work, money, family
+horizon: months
+roles: partner, friend
+earth: ten weeks in, the first job has closed, the agent has gone quiet, and the bar job is back, with self-tapes squeezed in between the shifts
+tribal: two moons in, the winter tellings are over, the band no longer feeds its tellers, and you are back on the hunt with nothing to tell
+magic: ten weeks in, the company's season has closed, no master has sent for you, and you are back at your old trade, learning speeches by candlelight
+requires: in the threshold season of professional actor, within the first six months after taking the title: step 2, some weeks into the career, when the first job has closed and no second one has come
+likelier: a first job that was a short run; an actor without an agent; hard years for theatres; a day job to go back to
+rarer: an actor who went straight from one job into the next; an actor kept on by a company for the whole season
+scene: Ten weeks in, the first job has closed. The agent has gone quiet, three self-tapes have vanished without a word, and {N} is back on the early shift at the café, running lines at the till. {partner} asks gently whether this is how it is going to be, and {friend} has offered a proper job with a proper wage.
+scene W: {N} keeps the routine: a self-tape when one comes, a class every week, the day job done well. It is what working actors do.
+scene U: {N} goes over every audition, looking for the reason. There must be something to learn from each no.
+scene B: {N} works out who is getting the parts and how: whose agent, which class, which casting director's favourite.
+scene R: The waiting is unbearable. {N} wants to do something, anything, to be acting again tonight.
+scene G: Everyone said it would be like this. {N} thinks of the old actors who said the work comes in seasons, like the weather.
+scene tribal: Two moons in, the winter tellings are over and the band no longer feeds its tellers. {N} is back on the hunt, and the young hunters ask when the next telling will be.
+scene magic: The company's season has closed, no master has sent word, and {N} is back at the old workbench, learning speeches by candlelight between orders.
+- W | keep the day job, do every self-tape properly, and go to class each week | v: conformity, security | tribal: hunt with the band by day, and keep your tellings sharp by the fire every night | magic: keep your trade by day, and practise your speeches every night, as players must | chance: 78
+- U | watch your own self-tapes back, and find what the casting directors are not seeing | v: achievement, self-direction | tribal: go over every telling you gave in your head, and find what the elders did not see in it | magic: go over every trial you gave, and find what the masters did not see in it | chance: 70
+- B | add two credits you never had and stage combat to your CV | v: achievement, power | mark: hid a wrong | closed: approval: false credits and skills on a casting CV; backfire: a casting director checks, or the next job puts the actor in a sword fight | tribal: tell the other bands you played in two great tellings you never saw | magic: add two companies you never played with, and swordplay, to your letter to the brokers | chance: 78
+- R | put on your own show in a pub back room every week, rather than wait | v: self-direction, stimulation | self_control: + | tribal: tell a story of your own at the outer fire every few nights, rather than wait to be asked | magic: play a piece of your own in a tavern yard every week, rather than wait for a company | chance: 74
+- G | take the old friend's steady job, and let acting go for now | v: security, tradition | self_control: - | drops: professional actor | tribal: go back to the hunt for good, and let the tellings go for now | magic: go back to your old trade for good, and let the playhouse go for now | chance: 85
+- W>R | make one rule and keep it: an audition or a show every week, however small | v: self-direction, conformity | self_control: + | tribal: make one rule and keep it: a telling at some fire every moon, however small | magic: make one rule and keep it: a trial or a show every week, however small | chance: 60
+- U>G | learn the regional theatres near home inside out, and write to each with a plan | v: tradition, achievement | tribal: learn which bands near your own want which tellings, and send word to each with an offer | magic: learn the playhouses of your home country inside out, and write to each with a plan | chance: 45
+- B>W | take paid work as a casting office's reader, to be in the room every week | v: achievement, security | grants: contact in the trade | tribal: become the one who speaks the other parts when the elders hear new players | magic: get paid work as the reader at a company's trials, to be in the room every week | chance: 55
+- R>U | go to every free workshop and late-night class in the city, out of pure hunger | habit | door | v: stimulation, achievement | mark: learned a skill | self_control: + | tribal: sit at every fire where an old teller is teaching, out of pure hunger | magic: go to every open lesson and late class in the city, out of pure hunger | chance: 90
+- G>B | ask your old youth theatre leader to put your name forward to anyone they know | v: tradition, achievement | tribal: ask the old teller of your own band to speak for you at other fires | magic: ask your old children's master to put your name forward to the companies he knows | chance: 55
+works: A call comes at last: a small part and a few weeks' work, and {N} is an actor again.
+works: {N} learns to live in the gaps: the day job, the classes, the self-tapes, and a life that goes on between them.
+fails: The weeks turn into months, and {N} stops telling people at parties what {N} does.
+fails: {partner} and {N} have the same argument about money for the third time, and nobody wins it.
+
+# ---------------------------------------------------------------- 80. step 2, transform (cycle s4)
+
+== what kind of actor you will be
+tier: inner
+threshold: title:professional actor
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 16-100
+times: per new professional actor: once in the threshold season, about four months in, for most who are still open to change; about 4 lives in 1,000 (catalogue share)
+holds: professional actor
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: mentor, colleague
+earth: four months in, new photographs for the casting directory, and one line beneath them that says what kind of actor you are
+tribal: four moons in, the elders ask at the fire what kind of teller-player you mean to be, and the band will remember your answer
+magic: four months in, the brokers' roll asks for a line beneath your name, and an old player asks over wine what kind of player you mean to be
+requires: in the threshold season of professional actor, within the first six months after taking the title: step 2, the season's transforming chance, when the first choices about the kind of work begin
+likelier: an actor with two kinds of offer at once; an agent who asks for a plan; an actor who trained in one tradition and worked in another
+rarer: an actor with no work at all that month; an older actor who came to it late and wants only to act
+scene: Four months in, {N} sits for new photographs for the casting directory, and the form asks for one line beneath them: what kind of actor is this? {mentor}, an old actor from the first job, says over a drink that the next three choices will answer the question whether {N} does or not.
+scene W: {N} thinks of the old hands on the first job: there every night, word-perfect, holding the show together without anyone noticing.
+scene U: {N} thinks of the parts that frighten {N}, the great old plays, and the years of work it would take to be ready for them.
+scene B: {N} looks at the careers {N} admires and sees the pattern: the right agent, the right parts, a plan, and no time wasted.
+scene R: {N} wants the rush of the first night again and again: the big part, the risk. Nothing else feels like being alive.
+scene G: {N} thinks of the theatre in the home town, of the people there who would come every season, and of acting as something that belongs to a place.
+scene tribal: Four moons in, the elders ask {N} at the fire what kind of teller-player {N} means to be. The band will remember the answer.
+scene magic: Four months in, the brokers' roll asks for a line beneath {Ns} name, and an old player of the company asks over wine what kind of player {N} means to be.
+- W | be the company player: word-perfect, there every night, ready for whatever the show needs | identity | v: conformity, benevolence | tribal: be the band's steady teller: word-perfect, there every night, ready for whatever the telling needs | magic: be the company's steady player: word-perfect, there every night, ready for any part | chance: 82
+- U | train for the great parts: a class every week for years, voice, text and body | identity | binds | v: achievement, self-direction | mark: learned a skill | tribal: train for the great tellings: every voice and every dance, every day for years | magic: train for the great parts of the old plays with a master of voice, for years | chance: 70
+- B | build a career with a plan: the right agent, the right parts, nothing beneath it | identity | v: achievement, power | tribal: plan a road to the great mask: the right elders, the right tellings, nothing beneath it | magic: plan a road to the court playhouse: the right broker, the right parts, nothing beneath it | chance: 70
+- R | chase the frightening parts, and never take the safe one | identity | v: stimulation | tribal: ask for the tellings that frighten the others, and never take the safe part | chance: 68
+- G | go back to the theatre of your home region, and become its actor | identity | binds | v: tradition, benevolence | mark: came home | tribal: go back to your own band, and become its teller-player for good | magic: go back to the playhouse of your home town, and become its player | chance: 45
+- W>G | join a touring company that takes plays to towns that never see one | identity | binds | v: universalism, benevolence | tribal: walk with the tellers who carry the old stories to the small bands of the hills | magic: join a wagon company that plays the villages no licensed company visits | chance: 60
+- U>W | specialise in the old verse plays, and learn their rules line by line | identity | v: achievement, conformity | tribal: learn the oldest tellings word for word, as the band has always kept them | magic: specialise in the old verse plays of the realm, and learn their rules line by line | chance: 78
+- B>U | sign with an agent for adverts and company films, and pay for training with it | identity | binds | v: achievement, security | tribal: promise to play at every feast a rich family gives, and trade the gifts for lessons with the best teller | magic: sign with a broker for the mirror-plays of the great houses, and pay a master of voice with it | chance: 70
+- R>B | throw everything at one big audition season, and make your name or quit | identity | binds | v: achievement, stimulation | mark: took a wild risk | tribal: throw everything at the summer gathering, to be seen by every band or go back to the hunt | magic: throw everything at the court season's trials, to make your name or go home | chance: 35
+- G>R | act wherever the road leads, with whoever is there, for the joy of it | identity | v: hedonism, self-direction | tribal: play wherever the band camps, with whoever is at the fire, for the joy of it | chance: 85
+works: The answer holds: within weeks the next choices fall into line, and the work starts to look like a road.
+works: {mentor} hears what {N} chose and raises a glass to it.
+fails: {N} writes three different lines under the photographs and deletes them all, and the next job decides for {N}.
+fails: The choice is made, the first door it needs stays shut, and {N} wonders whether it was the wrong one.
+
+# ---------------------------------------------------------------- 81. step 3 (cycle s1)
+
+== half a year on, still an actor
+tier: inner
+threshold: title:professional actor
+step: 3
+stages: young_adult adult mature elder
+age: 16-100
+times: per new professional actor: once, about five months in, near the end of the threshold season; about 4 lives in 1,000 (catalogue share)
+holds: professional actor
+stakes: .8
+tone: joy
+life: work, friends, family
+horizon: months
+roles: friend, partner, colleague
+earth: five months in and still an actor: friends from before ask when you will be on television, a partner sees you between jobs, and a company has become a second family
+tribal: five moons in and still a teller-player: the hunters you grew up with tease you at the river, and the tellers' fire has become a second hearth
+magic: five months in and still a player: old friends ask when you will play at court, and the company has become a second family on the road
+requires: in the threshold season of professional actor, within the first six months after taking the title: step 3, near the end of the six months, when the first months as an actor have settled into a life
+likelier: an actor with a partner or a family from before; old friends outside the trade; a few jobs behind them
+rarer: an actor who has worked without a break; an actor from a family of actors
+scene: Five months on, {N} is still an actor, just: a second job, a few days on a series, and a lot of waiting in between. At a wedding {friend} introduces {N} as "the actor", and everyone asks the same two questions: what has {N} been in, and has {N} met anyone famous? {partner} has learned the timetable of a working actor: weeks of nothing, then weeks of never being home.
+scene W: {N} has found the rhythm: the day job's rota, the class on Tuesdays, self-tapes on Sundays, the union subscription paid on time.
+scene U: {N} has started to notice what {N} does better than six months ago, and what has not changed at all.
+scene B: {N} counts what the first months have brought: two credits, a few contacts, a casting director who remembers {Ns} name. A beginning.
+scene R: {N} is tired of explaining at weddings what an actor does all week, and longs for the next first night.
+scene G: The old friends from home have not changed, and {N} has, a little. Some evenings that is a comfort, and some evenings it is not.
+scene tribal: Five moons on, the hunters {N} grew up with tease {N} at the river about the tellers' soft hands, and the tellers' fire has become a second hearth.
+scene magic: Five months on, old friends in the lane ask when {N} will play at court, and the company has become a second family on the road.
+- W | pay the union subscription, keep a diary, and treat acting as a proper job | v: conformity, security | grants: union card | tribal: take your place among the band's tellers before the elders, and keep its customs | magic: pay your dues to the players' guild, and keep your token bright | chance: 90
+- U | write down what you can do now that you could not six months ago | v: achievement, self-direction | tribal: go over by the fire what you can do now that you could not five moons ago | chance: 95
+- B | follow up every contact from the half-year with a note and a new photograph | habit | v: power, achievement | self_control: + | tribal: send a small gift to every teller and elder who praised your telling this winter | magic: send a note and a new likeness to every master and broker you met this season | chance: 85
+- R | answer the questions at the wedding with a wild story, and dance till they close | v: hedonism, stimulation | tribal: answer the hunters' teasing with a wild telling of your own, and dance till the fire dies | magic: answer the questions at the feast with a tall tale, and dance till the tavern closes | chance: 94
+- G | keep Sunday dinner with the family, whatever job you are in | habit | v: tradition, benevolence | self_control: + | tribal: eat at your mother's hearth every few days, whatever telling you are in | magic: keep the rest-day meal with your family, whatever company you are with | chance: 60
+- W>U | go to class every Tuesday, even in the weeks when there is work | v: conformity, achievement | tribal: sit with the old teller every few nights, even when you are in a telling | magic: go to the guild's lesson every week, even when you are in a play | chance: 65
+- U>B | work out which castings led to work, and spend your time only on those | v: achievement, power | tribal: work out which tellings brought gifts, and give your days only to those | magic: work out which trials led to a part, and spend your coin only on those | chance: 75
+- B>R | spend the fee from the last job on a week away with your partner | v: hedonism, power | tribal: trade the winter's gifts for a feast with your partner | magic: spend the season's wages on a week by the sea with your partner | chance: 90
+- R>G | bring your new actor friends home to meet the old ones, and see what happens | v: benevolence, stimulation | mark: made a friend | tribal: bring the tellers to your own band's fire, and let the two worlds meet | magic: bring the company to the old tavern in your lane, and let the two worlds meet | chance: 75
+- G>W | go back to your old youth theatre, and run a free workshop for the children | v: benevolence, tradition | tribal: go back to the children of your own band, and teach them the small spirits' parts | magic: go back to the guild's children's company, and teach them a free lesson | chance: 90
+works: Half a year in, {N} can say "I'm an actor" without looking at the floor.
+works: {partner} comes to see the small part in the latest show, and cheers at the curtain call.
+fails: The half-year ends with more waiting than working, and {N} counts the money twice a week.
+fails: An old friend says, not unkindly, that {N} has changed, and {N} cannot say they are wrong.
+
+# ================================================================ lead actor or actress (ages 16-100)
+# ---------------------------------------------------------------- 82. step 1 (cycle s3)
+
+== your name at the top of the bill
+tier: inner
+threshold: title:lead actor or actress
+step: 1
+stages: young_adult adult mature elder
+age: 16-100
+times: per new lead: once, in the first weeks after taking the part; about 1 life in 1,000 (catalogue share; estimate)
+holds: lead actor or actress
+stakes: .8
+tone: joy
+life: work, public life
+horizon: week
+roles: boss, colleague, partner
+earth: the first weeks as the lead: your name above the title or at the top of the call sheet, your name on a dressing room door, and a whole company taking its cue from you
+tribal: the first days with the great mask on its peg by your hearth, and every child of the band watching you pass
+magic: the first weeks as the leading player: your name cried first by the herald, and a patron's flowers in the dressing room
+requires: in the threshold season of lead actor or actress, within the first six months after taking the part (opened by 'the understudy goes on', 'the part of a lifetime is cast', 'a screen test', 'the leading player leaves the company', 'opening night at the fringe', 'the lead voice in a series', 'the director calls again', 'two actors, one part' or any other way in): step 1, the first weeks at the top of the bill
+likelier: a first lead; a run in a big theatre, or a series with a launch; an actor who was unknown a month ago
+rarer: a lead in a small touring show; an actor who has led a company before
+scene: In the first week as the lead, {Ns} name goes up above the title: on the poster, on the front of the theatre, at the top of the call sheet. There is a dressing room with {Ns} name on the door, a car on the first morning, and a company that now takes its cue from {N}. {boss} says the show will be as good as its lead, and means it kindly.
+scene W: {N} feels the weight of it: thirty people whose work now depends on the lead turning up, word-perfect and well, every single night.
+scene U: {N} goes back to the script and reads it as the lead for the first time. Every scene is now about how {N} carries it.
+scene B: {N} notices what has changed: the producer returns calls, the press office wants interviews, and a bigger agency has rung twice.
+scene R: {N} walks past the poster three times on the first morning, and laughs out loud the third time.
+scene G: {N} thinks of the actors who led this company before, and of {partner} at home, who will now see {N} mostly on Sundays.
+scene tribal: The great mask of the first ancestor hangs on its peg by {Ns} hearth. Every child of the band stops to look at it, and then at {N}.
+scene magic: The herald cries {Ns} name first in the square, before the name of the play, and a patron's flowers wait in the dressing room with no card.
+- W | be first in and last out every day, and learn every name in the building | habit | v: conformity, benevolence | tribal: be first to the fire and last to leave it every day, and know every player by name | magic: be first into the playhouse and last out every day, and learn every name in it | chance: 85
+- U | go back to the script, and rework every scene as the one who carries it | v: achievement | tribal: go back over the whole telling, and rework every part as the one who wears the mask | chance: 80
+- B | take the call from the bigger agency, and hear what they offer | door | v: power, achievement | tribal: hear out the go-between from a greater band, and what they offer | magic: hear out the grandest players' broker in the city, and what she offers | chance: 95
+- R | walk past your own name on the poster, and point it out to a stranger | v: hedonism, stimulation | tribal: walk through the camp past the great mask, and grin at every child who stares | magic: stand in the square while the herald cries your name, and grin at the crowd | chance: 90
+- G | ask the last actor to lead this company how they held it | v: tradition, achievement | mark: made a friend | tribal: ask the last wearer of the great mask how they carried it | magic: ask the company's last leading player how they held it | chance: 75
+- W>R | throw a first-week party for the whole company and crew, at your own cost | v: benevolence, hedonism | tribal: give a feast for every player and keeper of the fire, from your own stores | magic: throw a feast for the whole company and the stagehands, at your own cost | chance: 88
+- U>G | read up on everyone who ever played the part, and learn from the old productions | v: tradition, achievement | tribal: listen to the old ones tell of every wearer of the great mask there has ever been | magic: read the playhouse's records of every player who ever held the part | chance: 92
+- B>W | use your new weight to win the understudies a proper rehearsal every week | v: universalism, power | tribal: use your new place to make the elders let the second learn the mask properly at the fire | magic: use your new name to win the seconds a proper rehearsal every week | chance: 65
+- R>U | throw out the way you rehearsed it, and find the part again with the full company | v: stimulation, achievement | tribal: forget how you practised the mask, and find it again at the full fire | chance: 45
+- G>B | bring old friends from home in as your dresser and your driver | v: benevolence, power | tribal: bring your own kin to the gathering to keep your mask, your fire and your food | magic: bring old friends from the lane in as your dresser and your coachman | chance: 40
+works: By the end of the first week the company has taken to {N} as its lead, and the part has started to feel like {Ns} own.
+works: {boss} watches the Friday run and says nothing at all, which from {boss} is high praise.
+fails: The first week goes by in interviews, fittings and nerves, and {N} has barely rehearsed.
+fails: Something {N} said or did in the first week reaches the whole company by Friday, and the dressing rooms go a little quieter.
+
+# ---------------------------------------------------------------- 83. step 2 (cycle s4)
+
+== the company looks to you
+tier: inner
+threshold: title:lead actor or actress
+step: 2
+stages: young_adult adult mature elder
+age: 16-100
+times: per new lead: once, in the first months of the threshold season, about ten weeks into the run; about 1 life in 1,000 (catalogue share; estimate)
+holds: lead actor or actress
+stakes: .8
+tone: trouble
+life: work, friends, family
+horizon: months
+roles: colleague, boss, partner
+earth: ten weeks in, eight shows a week, a tired company with a quarrel in it, a sponsors' dinner after the show, and a partner you only see asleep
+tribal: two moons in, a telling every night, two players quarrelling at the fire, the elders wanting you at every council, and your own hearth gone cold
+magic: ten weeks in, two plays a day, a company feuding in the wings, a patron's supper after every show, and a household that sees you only asleep
+requires: in the threshold season of lead actor or actress, within the first six months after taking the part: step 2, some weeks into the run, when the lead's weight on the company is felt
+likelier: a long run with eight shows a week; a large company; a show the producers need to sell; a partner at home
+rarer: a short run; a play for two actors; a lead voice recorded alone in a booth
+scene: Ten weeks in, eight shows a week. Two of the company have stopped speaking to each other, the houses are thin on wet Tuesdays, and the stage manager says quietly that everyone is waiting to see what the lead does. The producers want {N} at a sponsors' dinner after Thursday's show, and {partner} has not seen {N} awake on a weekday for a month.
+scene W: The lead sets the tone. If {N} is late, tired or careless, the whole company will be too, and {N} feels it every night.
+scene U: {N} can feel the show from the inside going slack: a scene rushed here, a laugh lost there.
+scene B: The sponsors' dinner matters. These are the people who pay for the next show, and the next lead.
+scene R: {N} is exhausted and still wired after every show, and wants nothing more than to stay out till three with the company.
+scene G: {N} misses home: the Sunday walks, the small life. The company has become a family of its own, with all the quarrels of one.
+scene tribal: Two moons in, the tellings come every night. Two players quarrel at the fire, the elders want {N} at every council, and {Ns} own hearth goes cold.
+scene magic: Ten weeks in, two plays a day. Two players feud in the wings, a patron wants {N} at supper after every show, and {Ns} household sees {N} only asleep.
+- W | call the two who are feuding into your dressing room, and settle it fairly | v: conformity, benevolence | tribal: call the two quarrelling players to your hearth, and settle it by custom | magic: call the feuding players to your dressing room, and settle it fairly | chance: 45
+- U | read every comment about the show online after each performance, into the small hours | v: achievement | self_control: - | tribal: lie awake going over every word the band said about the telling, into the small hours | magic: read every broadsheet and every scrap of gossip about the show, into the small hours | chance: 85
+- B | go to the sponsors' dinner every week, and become the face of the show | habit | v: power, achievement | tribal: sit at every elders' council, and become the face of the tellings | magic: go to the patron's supper after every show, and become the face of the company | chance: 85
+- R | go drinking with the company after every show, to keep everyone's spirits up | habit | v: hedonism, stimulation | self_control: - | tribal: dance with the players every night after the telling, till the fire dies | magic: drink and sing with the company in the tavern every night after the show | chance: 78
+- G | keep one day a week for home, and guard it from the producers | v: benevolence, tradition | self_control: + | tribal: keep one day in every few at your own hearth, and guard it from the elders | magic: keep the rest day for your household, and guard it from every patron | chance: 70
+- W>G | start a company meal between the Saturday shows, everyone at one table | v: benevolence, conformity | mark: made a friend | tribal: share one meal at the tellers' fire before every telling, everyone together | magic: start a company supper between the two plays on market days, everyone at one table | chance: 80
+- U>W | ask the director back in to rehearse the slack scenes, with a clean-up call | v: conformity, achievement | tribal: ask the shaper to come back and work the slack parts with the players | magic: ask the master of the play to call the company for a clean-up rehearsal | chance: 45
+- B>U | use your weight to have the feuding actor moved, and the part recast | v: power, achievement | mark: made an enemy | tribal: use your place to have the quarrelling player sent from the telling | magic: use your name to have the troublemaker moved, and the part recast | chance: 40
+- R>B | tell the producers there will be no more sponsors' dinners, and let them sulk | v: self-direction, power | mark: defied an authority | tribal: tell the elders you will sit at no more councils, and let them grumble | magic: tell the patron you will sup with him no more, and let him sulk | chance: 66
+- G>R | take the whole company to the park on a free afternoon, to play like children | v: hedonism, benevolence | body: light | tribal: take the players to the river on a free day, to swim and play like children | magic: take the company to the meadows on a rest day, to play like children | chance: 82
+works: The company settles, the slack goes out of the show, and the dressing rooms are cheerful again by the end of the month.
+works: {partner} says one Sunday that {N} seems to have found a way to lead and still come home.
+fails: The quarrel spreads, the show goes flat, and the company blames the lead.
+fails: {N} holds the company together and falls apart a little at home, too tired to talk.
+
+# ---------------------------------------------------------------- 84. step 2, transform (cycle s1)
+
+== who you play it for
+tier: inner
+threshold: title:lead actor or actress
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 16-100
+times: per new lead: once in the threshold season, about four months in, for most who are still open to change; about 1 life in 1,000 (catalogue share; estimate)
+holds: lead actor or actress
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: partner, colleague
+earth: four months in, a long interview asks who you play the part for every night, and the true answer is not the one you gave
+tribal: four moons in, the shaman sits by your fire and asks who you wear the great mask for, and the summer is half gone
+magic: four months in, a broadsheet asks whom the leading player plays for, and the question will not leave you
+requires: in the threshold season of lead actor or actress, within the first six months after taking the part: step 2, the season's transforming chance, once the run has shown what the lead costs and what it brings
+likelier: a run that has gone well; an offer of the next part; an actor who came to the lead from far away
+rarer: a run about to close early; an actor who has led many times before
+scene: Four months in, a journalist doing a long interview asks a simple question: who does {N} play it for, every night? {N} gives a good answer for the article and lies awake afterwards, because it was not the true one. The run will end, and the next choices will show what the lead was for.
+scene W: {N} thinks of the company: the understudy, the dressers, the stage manager calling the show. The lead serves them first.
+scene U: {N} thinks of the part itself, and of the scene in the second act that {N} has still not got right after a hundred performances.
+scene B: {N} thinks of what comes next: the film offer, the bigger agency, the next lead. This part is a door, and {N} means to go through it.
+scene R: {N} thinks of the house: the moment the lights go down and eight hundred strangers hold their breath together. That is what it is for.
+scene G: {N} thinks of the people from home who drove four hours to see it, and the old drama teacher in the third row, crying.
+scene tribal: Four moons in, the shaman sits by {Ns} fire and asks who {N} wears the great mask for: the band, the ancestor, {Ns} own name, the other players or {Ns} own hearth.
+scene magic: Four months in, a broadsheet asks whom the leading player plays for, and {N} finds that the question will not leave.
+- W | play it for the company: lead by example, and see everyone through the run | identity | v: benevolence, conformity | tribal: wear it for the players: lead by example, and see every one of them through the summer | magic: play it for the company: lead by example, and see every player through the season | chance: 78
+- U | play it for the part: a voice coach all run, and new work every night | identity | binds | habit | v: achievement, self-direction | self_control: + | tribal: wear it for the ancestor: sit with the old teller all summer, and find something new every night | magic: play it for the part: a master of voice for the season, and new work every night | chance: 72
+- B | play it for the career: use the run to land the next and bigger part | identity | v: achievement, power | tribal: wear it for your name: use the summer to be asked for by every band | magic: play it for your name: use the season to win a place at the court playhouse | chance: 72
+- R | play it for the house: give everything every night, as if it were the last | identity | v: stimulation, hedonism | self_control: + | tribal: wear it for the band: give everything every night, as if it were the last | chance: 78
+- G | play it for the people at home, and go back to them between every job | identity | binds | v: benevolence, tradition | tribal: wear it for your own hearth, and go back to them between every gathering | magic: play it for your own people, and go home to them between every season | chance: 72
+- W>U | promise the director to keep the show exactly as it opened, every night of the run | identity | binds | v: conformity, achievement | mark: kept your word | tribal: swear to the shaper to keep the telling exactly as it was first told, every night | magic: swear to the master of the play to keep the show exactly as it opened, every night | chance: 62
+- U>B | study the leads whose careers you want, and plan five years like a campaign | identity | v: achievement, power | tribal: study the great wearers of the mask, and plan your next five summers like a hunt | magic: study the great leading players of the realm, and plan five seasons like a campaign | chance: 65
+- B>R | sign with the big agency, and say yes to fame: the interviews, the parties, the cameras | identity | binds | v: hedonism, power | tribal: let the go-between carry your name to every band, and take every feast and gift that comes | magic: sign with the grandest broker, and take every supper, every portrait and every crowd | chance: 70
+- R>G | go out to the stage door every night of the run, for everyone who waited | identity | binds | v: benevolence, stimulation | tribal: go out among the families every night after the telling, for everyone who waited | magic: go out to the playhouse door every night, for everyone who waited | chance: 80
+- G>W | keep the company's old customs: the warm-up circle, the half-hour toast, the last-night gift | identity | v: tradition, conformity | tribal: keep the tellers' old ways: the circle before the fire, the gift to the ancestor, the last song | magic: keep the company's old customs: the circle, the toast at the bell, the last-night gift | chance: 95
+works: The answer holds, and the last months of the run feel like {Ns} own, whatever the notices say.
+works: Long after, people who worked on the show can say what kind of lead {N} was, and they say it warmly.
+fails: {N} tries to play it for everyone at once, and some nights it is played for nobody at all.
+fails: The answer chosen costs more than {N} expected, and {partner} says so.
+
+# ---------------------------------------------------------------- 85. step 3 (cycle s2)
+
+== the last night of the run
+tier: inner
+threshold: title:lead actor or actress
+step: 3
+stages: young_adult adult mature elder
+age: 16-100
+times: per new lead: once, about five months in, near the end of the run or of the threshold season; about 1 life in 1,000 (catalogue share; estimate)
+holds: lead actor or actress
+stakes: .8
+tone: mixed
+life: work, family, friends
+horizon: months
+roles: partner, colleague
+earth: five months in, the last night of the run or the last day of filming: the flowers, the speech, the empty dressing room, and a diary with nothing in it
+tribal: at the end of the summer gathering, the last telling: the great mask lifted from your face and hung back on its peg
+magic: at the end of the season, the last night: the herald cries your name one more time, and the wagons are already packed
+requires: in the threshold season of lead actor or actress, within the first six months after taking the part: step 3, near the end of the six months, when the run or the series ends
+likelier: a fixed run of a few months; a series that finishes filming; a lead with nothing booked next
+rarer: an open-ended run; a series renewed at once; a lead who goes straight into the next part
+scene: Five months in, the last night. The house stands at the curtain call, the company gives {N} flowers and a card everyone has signed, and the set comes down overnight. The next morning there is no call, no car, no half-hour, and a diary with nothing in it. {partner} has planned a week away. {N} is not sure who {N} is without the part.
+scene W: {N} wants to end it properly: a speech for the crew, a card for every dresser, the dressing room left clean.
+scene U: {N} can feel what the part taught, and wants to write it down before it goes.
+scene B: The run is over, but the name is bigger than it was. {N} has three meetings next week and means to make them count.
+scene R: {N} wants the last night to last forever: the party, the dawn, the company one more time.
+scene G: {N} feels the season turning. A run ends as a summer ends, and something else will grow.
+scene tribal: At the end of the summer gathering the great mask is lifted from {Ns} face for the last time and hung back on its peg, and the band turns back to the hunt.
+scene magic: On the last night the herald cries {Ns} name one more time, the patron's flowers wilt in the dressing room, and the wagons are already packed for the road.
+- W | thank every member of the crew by name, from the stage | v: benevolence, conformity | tribal: thank every player and every keeper of the fire by name at the last fire | magic: thank every stagehand and player by name from the stage | chance: 92
+- U | write down every lesson of the part before it fades | v: achievement, self-direction | mark: learned a skill | tribal: go over every lesson of the mask by the fire before it fades | magic: write every lesson of the part in your book before it fades | chance: 94
+- B | line up the next three meetings before the set comes down | v: achievement, power | tribal: send a go-between to every band before the camp breaks, to ask for your telling | magic: arrange meetings with three masters of the play before the wagons roll | chance: 90
+- R | party with the company until dawn, and say goodbye to the part properly | v: hedonism | tribal: dance with the players at the last fire until dawn | magic: feast with the company until dawn in the empty playhouse | chance: 90
+- G | take the week away with your partner, and let the part go | v: benevolence, tradition | tribal: go back to your own hearth with your partner, and let the mask go | magic: go to the sea with your partner for a week, and let the part go | chance: 80
+- W>B | thank the director and producers in writing, and offer to work with them again | v: conformity, achievement | tribal: take a gift to the shaper and to the elder who gathered the hides, and offer to tell for them again | magic: write to the master of the play and the patron with thanks, and offer to play for them again | chance: 80
+- U>R | travel somewhere new for a month, to see how others make theatre | door | v: stimulation, self-direction | tribal: walk alone to the far valleys for a moon, to see how other bands tell | magic: travel to a city you have never seen, to see how its players work | chance: 70
+- B>G | save most of the run's money for the lean months that always follow | v: security | self_control: + | tribal: lay by the summer's gifts for the lean moons that always follow | magic: put the season's wages by for the lean months that always follow | chance: 80
+- R>W | tell the truth in the last-night speech: what was hard, and who held the show up | v: benevolence, universalism | tribal: tell the band at the last fire what was hard, and who held the telling up | magic: tell the company in the last-night speech what was hard, and who held the show up | chance: 82
+- G>U | go back to your old drama teacher, and talk the whole run through | v: tradition, achievement | tribal: go back to the old teller who taught you, and tell the whole summer through | magic: go back to the old master who taught you, and talk the whole season through | chance: 85
+works: The last night ends well, and {N} walks out of the stage door into the morning with the part folded away like a good coat.
+works: {partner} and {N} have the week away, and by the third day {N} sleeps through the night.
+fails: The morning after, the empty diary feels like a fall, and {N} spends the week waiting for the phone.
+fails: The last night goes on too long, and something said at the party follows {N} into the next job.
+
+# ================================================================ director (ages 20-100)
+# ---------------------------------------------------------------- 86. step 1 (cycle s4)
+
+== the first day of rehearsals
+tier: inner
+threshold: title:director
+step: 1
+stages: young_adult adult mature elder
+age: 20-100
+times: per new director: once, in the first weeks after taking the title; about 1 life in 1,000 (catalogue share; estimate)
+holds: director
+stakes: .8
+tone: joy
+life: work
+horizon: week
+roles: boss, colleague
+earth: the first day of rehearsals: a rehearsal room, a model box of the set, and a cast waiting to hear what you think the play is about
+tribal: the first fire of the first telling you shape, with the whole band gathered and the players waiting for your first word
+magic: the first day with the first company you direct, in a playhouse that has seen a hundred masters of the play
+requires: in the threshold season of director, within the first six months after taking the title (opened by 'a director is needed for the autumn play' or any other way in): step 1, the first day of rehearsals of the first production
+likelier: a first paid production; a cast of experienced actors; an actor, a stage manager or a teacher who has crossed over to directing
+rarer: a director who has already run many amateur productions; a first film with no rehearsals at all
+scene: The first day of rehearsals: a room above a pub, a model box of the set on a trestle table, coffee in paper cups and a cast of eight waiting to hear what {N} thinks the play is about. {N} has rewritten the opening talk four times. {boss}, the producer, sits at the back with a notebook.
+scene W: {N} has drawn up the rehearsal schedule to the quarter hour, with the breaks where the actors' union says they should be.
+scene U: {N} has read the play forty times and has a reading of it that fits on one page, and a second page of doubts.
+scene B: This production is the calling card. The producer in the corner is deciding whether there will be a second one.
+scene R: {N} cannot wait to get the actors on their feet. The talk can wait; the play is in their bodies, not on the page.
+scene G: {N} thinks of the directors who taught by example, and of the old rehearsal rooms where {N} first sat at the side and watched.
+scene tribal: At the first fire of the new telling the band gathers to see what {N} will make of the old story, and the players wait for {Ns} first word.
+scene magic: In a playhouse that has seen a hundred masters of the play, the company waits on its benches for {Ns} first word, and the carved faces on the walls seem to wait too.
+- W | set the schedule and the rules of the room, and keep them from the start | v: conformity, security | tribal: set out how the telling will be made and the customs of the fire, and keep them | magic: set the schedule and the rules of the company, and keep them from the first bell | chance: 90
+- U | give the cast your one-page reading of the play, and ask them to argue with it | v: universalism, achievement | tribal: tell the players what you think the story means, and ask them to argue with it | chance: 84
+- B | make sure the producer sees the cast laughing and working by lunchtime | v: power, achievement | tribal: make sure the elders see the players laughing and working by midday | magic: make sure the patron's man sees the company laughing and working by noon | chance: 82
+- R | skip the talk, and get the actors on their feet in the first ten minutes | v: stimulation, self-direction | tribal: skip the speeches, and have the players moving in the firelight at once | chance: 92
+- G | open with a circle where everyone says why they came to this play | v: benevolence, tradition | tribal: open with the old circle, everyone saying which of their ancestors loved this story | magic: open with a circle where each player says why they came to this play | chance: 90
+- W>G | take the whole company, crew included, to see the place where the play is set | door | v: benevolence, universalism | tribal: walk the whole band of players to the place where the story happened | magic: walk the whole company to the old quarter where the play is set | chance: 62
+- U>W | go through the text line by line around the table for the whole first week | v: conformity, achievement | self_control: + | tribal: go through the telling word by word at the fire for the first moon | magic: go through the text line by line at the table for the whole first week | chance: 82
+- B>U | spend half the spare budget on the best movement coach in the city | v: achievement, power | tribal: give half the spare hides to the best dancer of the valley, to teach the players | magic: spend half the spare purse on the best master of movement in the city | chance: 85
+- R>B | announce on day one that this production will do what nobody has dared with the play | v: stimulation, power | mark: took a wild risk | tribal: declare at the first fire that this telling will do what no shaper has dared | magic: declare on the first day that this staging will do what no master has dared | chance: 55
+- G>R | start each day with the old games your first company played, and let the room laugh | habit | v: tradition, hedonism | tribal: start each day with the old games the children of your band play, and let the players laugh | magic: start each day with the old games of your first pageant players, and let the room laugh | chance: 90
+works: By the end of the first day the cast is on its feet, the play has started to breathe, and {boss} closes the notebook and smiles.
+works: An actor stops {N} on the stairs to say it has been years since a first day felt like this.
+fails: The opening talk runs long, the cast's eyes glaze over, and the day ends with nobody quite sure what play they are in.
+fails: {N} says something on the first day that the cast repeats in the pub that night, and not kindly.
+
+# ---------------------------------------------------------------- 87. step 2 (cycle s1)
+
+== the designer who wants a different show
+tier: inner
+threshold: title:director
+step: 2
+stages: young_adult adult mature elder
+age: 20-100
+times: per new director: once, in the first months of the threshold season, about ten weeks in; about 1 life in 1,000 (catalogue share; estimate)
+holds: director
+stakes: .8
+tone: trouble
+life: work
+horizon: months
+roles: colleague, boss
+earth: ten weeks in, the designer's final model shows a different show from the one you are making, and the workshop starts building on Monday
+tribal: two moons in, the maker of the masks and screens has made them for a different telling from the one you are shaping
+magic: ten weeks in, the playhouse's illusionist has woven a glamour for a different play from the one you are staging
+requires: in the threshold season of director, within the first six months after taking the title: step 2, some weeks in, when the design and the staging pull apart
+likelier: a designer older and better known than the director; a producer who loves the design; little money for changes
+rarer: a director who designs their own shows; a bare-stage production with no set to speak of
+scene: Ten weeks in, {colleague}, the designer, unveils the final model box, and it is beautiful, and it is a different show: a bare, empty room where {N} imagined a crowded kitchen. The workshop starts building on Monday. The designer is older, admired and sure, and {boss} loves the model and says it will photograph well.
+scene W: There was an agreement: the first design meeting, the brief, the drawings everyone signed. {N} wants to know what happened to it.
+scene U: {N} studies the model for an hour and has to admit it is interesting. The question is whether it serves the play.
+scene B: Whoever wins this argument runs the production, and {N} knows the whole team is watching.
+scene R: {N} hates it on sight, and has to sit on both hands not to say so in front of everyone.
+scene G: {N} thinks of the play as written: a family, a kitchen, a table they have eaten at for thirty years. The empty room has no roots.
+scene tribal: The maker of masks and screens has painted them for a different telling: no forest and no river, only a bare wall of hide where {N} wanted the hunt.
+scene magic: The playhouse's illusionist has woven a glamour for a different play: a palace of light where {N} wanted a smoky inn.
+- W | accept the producer's ruling on the design, though it is not your show | v: conformity | mark: gave in to pressure | self_control: - | tribal: accept the elders' word on the masks, though it is not your telling | magic: accept the play-merchant's ruling on the glamour, though it is not your play | chance: 88
+- U | spend a day in the room testing both versions with the actors | door | v: achievement, universalism | tribal: try both tellings at the fire with the players for a day | magic: try both stagings with the company for a day, the glamour and the plain | chance: 75
+- B | go to the producer first, and get the final say on design put in your hands | v: power | tribal: go first to the elder who gathered the hides, and get the last word put in your hands | magic: go first to the play-merchant, and get the last word put in your hands | chance: 62
+- R | tell the designer straight out, in front of everyone, that it is the wrong show | v: self-direction, stimulation | mark: made an enemy | tribal: tell the maker straight out at the fire that it is the wrong telling | magic: tell the illusionist before the whole company that it is the wrong play | chance: 40
+- G | wait a week before anyone decides, and sleep on it | v: tradition, security | tribal: wait a moon before anyone decides, and let the fire settle it | chance: 55
+- W>U | go through the play scene by scene against the drawings everyone signed | v: conformity, achievement | tribal: go through the telling part by part against what was agreed at the fire | magic: go through the play scene by scene against the drawings everyone sealed | chance: 70
+- U>B | find the one change that makes the design serve your staging, and trade for it | v: achievement, power | tribal: find the one change that would serve your telling, and bargain the maker into it | magic: find the one change that would serve your staging, and bargain the illusionist into it | chance: 65
+- B>R | wait for the technical rehearsal, and quietly cut whatever you dislike then | v: power, self-direction | tribal: wait for the last practice at the fire, and quietly leave out whatever you dislike then | magic: wait for the last rehearsal with the glamour, and quietly cut whatever you dislike then | chance: 75
+- R>G | take the designer to the pub, and talk about your own family's kitchen | v: benevolence | mark: made a friend | tribal: sit with the maker by the river, and talk of your own family's fire | magic: take the illusionist to the tavern, and talk of your own family's kitchen | chance: 66
+- G>W | ask the old head of the workshop how such quarrels were settled here before | door | v: tradition, conformity | tribal: ask the oldest keeper of the masks how such quarrels were settled before | magic: ask the playhouse's oldest stage-wright how such quarrels were settled before | chance: 75
+works: Director and designer find a show they can both believe in, and the workshop builds it.
+works: The cast walks into the finished set for the first time and goes quiet, in the good way.
+fails: The design goes ahead as it was, and {N} spends the rest of rehearsals directing around it.
+fails: The quarrel spreads to the whole team, and the production starts to split into sides.
+
+# ---------------------------------------------------------------- 88. step 2, transform (cycle s2)
+
+== the show you want to make
+tier: inner
+threshold: title:director
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 20-100
+times: per new director: once in the threshold season, about four months in, for most who are still open to change; about 1 life in 1,000 (catalogue share; estimate)
+holds: director
+stakes: .8
+tone: mixed
+life: work, meaning
+horizon: years
+roles: mentor, boss
+earth: four months in, a producer asks over lunch what kind of work you want to make, and the answer will shape every room you run
+tribal: four moons in, the elders ask what tellings you will shape now, and the next summer will follow your answer
+magic: four months in, a patron asks over supper what plays you mean to make, and his purse waits on the answer
+requires: in the threshold season of director, within the first six months after taking the title: step 2, the season's transforming chance, when the next production is offered and the director must say what work they make
+likelier: a first production that went well; a producer or a theatre that asks what comes next; a director with actors around them already
+rarer: a director with nothing offered; a director hired for one show only
+scene: Four months in, {boss}, a producer, has asked {N} to lunch to talk about the next production, and over coffee the question comes: what kind of work does {N} want to make? {mentor}, the old director who gave {N} a first chance, once said that every director makes one show over and over all their life. {N} would like to choose which.
+scene W: {N} thinks of the rehearsal room as a small society: fair hours, clear rules, everyone heard. A good room makes good work.
+scene U: {N} thinks of the great plays nobody has truly understood yet, and wants to spend a life inside them.
+scene B: {N} thinks of the directors whose names sell tickets, and of the bigger stages that come with a name.
+scene R: {N} wants to make shows that frighten people, that set rooms alight, that nobody forgets.
+scene G: {N} thinks of the actors from the first show, already like a family, and of a town that could have its own company for years.
+scene tribal: Four moons in, the elders ask {N} at the fire what tellings {N} will shape now. The next summer will follow the answer.
+scene magic: Four months in, a patron leans across the supper table and asks what plays {N} means to make, and his purse waits on the answer.
+- W | run fair, ordered rooms where everyone is heard, whatever the play | identity | v: universalism, conformity | tribal: shape every telling by the fire's customs, where every player is heard | magic: run fair, ordered companies where every player is heard, whatever the play | chance: 80
+- U | serve the great plays: read each one until it gives up its meaning, and stage that | identity | v: achievement, universalism | tribal: serve the oldest tellings: listen to each until it gives up its meaning, and shape that | magic: serve the great plays of the realm: read each until it gives up its meaning | chance: 72
+- B | build a name: take every bigger stage offered, and make the shows people talk about | identity | v: achievement, power | tribal: build a name: take every greater fire offered, and shape the tellings every band talks about | magic: build a name: take every greater playhouse offered, and make the plays the court talks about | chance: 62
+- R | make raw, dangerous shows, and never play it safe | identity | v: stimulation, self-direction | mark: took a wild risk | tribal: shape wild, frightening tellings, and never tell it safe | chance: 72
+- G | build a company of the same actors and designers, show after show | identity | binds | v: benevolence, tradition | tribal: gather the same players around you, telling after telling | magic: gather a company of the same players and makers, play after play | chance: 65
+- W>B | found a company with a written charter, fair pay and your name on the door | identity | binds | v: power, conformity | grants: a company of your own | tribal: gather players under customs you set, with fair shares and your name on the telling | magic: found a licensed company with a charter, fair wages and your name on the wagon | chance: 40
+- U>R | commit to three years of new plays with young writers, and learn by failing | identity | binds | v: self-direction, stimulation | tribal: promise three summers of new tellings with the young makers, and learn by failing | magic: promise three seasons of new plays with young play-makers, and learn by failing | chance: 60
+- B>G | sign on as the regular director of one small theatre, a show there every year | identity | binds | v: power, tradition | tribal: become one band's shaper of tellings for good, and make the tellings yours | magic: sign on as the regular master of the play at one small town playhouse | chance: 58
+- R>W | direct only plays that say what is wrong in the world, and say it loud | identity | binds | v: universalism, stimulation | tribal: shape only tellings that say what is wrong in the band, and say it loud | magic: stage only plays that say what is wrong in the realm, and say it loud | chance: 78
+- G>U | go back to the folk plays of your region, and learn to stage them anew | identity | v: tradition, achievement | tribal: go back to the oldest tellings of your own band, and learn to shape them anew | magic: go back to the old mystery plays of your region, and learn to stage them anew | chance: 72
+works: The answer holds, and within the year the next production looks like the work {N} chose.
+works: {mentor} sees the next show and sends {N} a short note: yes, that one.
+fails: {N} says yes to everything offered, and the next year's work looks like nobody's in particular.
+fails: The choice is made, and the first producer who hears it says politely that there is no money for that.
+
+# ---------------------------------------------------------------- 89. step 3 (cycle s3)
+
+== press night
+tier: inner
+threshold: title:director
+step: 3
+stages: young_adult adult mature elder
+age: 20-100
+times: per new director: once, about five months in, near the end of the threshold season; about 1 life in 1,000 (catalogue share; estimate)
+holds: director
+stakes: .8
+tone: mixed
+life: work, public life, family
+horizon: months
+roles: partner, boss, colleague
+earth: five months in, press night: critics in the third row, the producer pacing at the back, the cast in your hands, and your partner in the seat you saved
+tribal: five moons in, the first great telling you have shaped, with the elders of every band at the fire to judge it
+magic: five months in, opening night before the city: the patron in his box, and the broadsheet men in the pit
+requires: in the threshold season of director, within the first six months after taking the title: step 3, near the end of the six months, on the press night of the first production
+likelier: a professional production that critics review; a partner or family who come; a producer who must decide on the next show
+rarer: an amateur or touring production no critic sees; a show that opened quietly
+scene: Press night. The critics are in, the producer paces at the back of the stalls, and the cast are in their dressing rooms with {Ns} cards on their mirrors. A director's work is done before the curtain goes up, and that is the hard part: {N} can only watch. {partner} sits in the seat {N} saved, holding {Ns} hand too tightly.
+scene W: {N} has done everything properly: the notes given, the cards written, the crew thanked. Now the show belongs to the actors.
+scene U: {N} watches the critics as much as the stage, trying to read what they see.
+scene B: Tomorrow's notices decide the next job, and {N} has already planned what to say to the press in the bar afterwards.
+scene R: {N} cannot sit still, and watches the first act standing at the back, mouthing every line.
+scene G: {N} thinks of the play as something that will live on without {N} now, like a child leaving home.
+scene tribal: At the first great telling {N} has shaped, the elders of every band sit closest to the fire, and {N} can only watch from the dark.
+scene magic: On opening night the patron leans out of his box, the broadsheet men fill the pit, and {N} can only watch from the wings.
+- W | leave it to the actors, and sit quietly in your seat through the whole show | v: conformity, security | self_control: + | tribal: leave it to the players, and sit still at the edge of the firelight till the end | magic: leave it to the players, and sit quietly in your box through the whole play | chance: 75
+- U | watch from the back and write notes for tomorrow, whatever the papers say | v: achievement | tribal: watch from the dark and remember every fault, to tell the players tomorrow | magic: watch from the back and write notes for tomorrow, whatever the broadsheets say | chance: 90
+- B | take the credit for the designer's best idea in the interviews afterwards | v: power, achievement | mark: hid a wrong | closed: approval: claiming a colleague's idea as one's own; backfire: the designer reads the interview, and the theatre world hears of it | tribal: tell the elders afterwards that the maker's best idea was yours | magic: tell the broadsheet men that the illusionist's best idea was yours | chance: 90
+- R | watch standing at the back, mouthing every line, and hug every actor at the interval | v: stimulation, benevolence | tribal: stand in the dark mouthing every word, and embrace every player when the telling breaks | magic: watch from the wings mouthing every line, and embrace every player at the interval | chance: 95
+- G | sit with your partner and family, and let the night be theirs too | v: benevolence, tradition | tribal: sit with your own kin at the fire, and let the night be theirs too | magic: sit with your household in the gallery, and let the night be theirs too | chance: 92
+- W>R | give a speech at the party thanking every last person, and then dance | v: benevolence, hedonism | tribal: thank every player and helper at the feast, and then dance | chance: 92
+- U>G | read the notices with the cast the next morning, and talk them through together | v: benevolence, achievement | tribal: hear the elders' judgment with the players at dawn, and talk it through together | magic: read the broadsheets with the company the next morning, and talk them through together | chance: 70
+- B>W | introduce every actor to the producers and casting directors at the party | v: benevolence, power | tribal: bring every player before the elders of the other bands at the feast | magic: present every player to the patrons and brokers at the supper | chance: 80
+- R>U | slip out at the interval, walk round the block, and come back with fresh eyes | v: self-direction, stimulation | tribal: slip away from the fire at the break, walk to the river and back, and watch it fresh | magic: slip out of the playhouse at the interval, walk round the square, and watch it fresh | chance: 90
+- G>B | take the producer home to dinner with your family, and talk about the next show there | v: benevolence, achievement | tribal: bring the elder who gathered the hides to your own kin's fire, and talk of the next telling there | magic: bring the patron to supper with your household, and talk of the next play there | chance: 55
+works: The notices are good, the cast is happy, and the producer rings at breakfast about a second show.
+works: {partner} says on the way home that it was the best night out they have ever had, and {N} believes it.
+fails: One notice dismisses the show in a paragraph, and the cast reads it before {N} does.
+fails: The night goes well and the papers do not, and {N} learns how little a director controls after the curtain goes up.

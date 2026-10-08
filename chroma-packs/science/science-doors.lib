@@ -1,0 +1,246 @@
+# Chroma content pack, Science, Research and Discovery (modern Earth). PART 1 of the pack's moments: DOORS AND HOOKS
+# (moments 1 to 6 of MOMENTS-BRIEF.md): two everyday pairs whose options take a first title by the act (citizen
+# scientist, community observer, research assistant, research software engineer, research data steward), and two echoes
+# that open the pathway from a life's own history (a breakthrough at work, a curiosity from childhood).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md. Seeds: Emren's Science document v2
+# (emren-science-v2.md, sections 4, 5 and 11). Names in title:, grants: and requires: come from science/catalogue.py and
+# the base catalogue. Everyday pairs split the calls 2 and 3; echoes are even on their own (five one-color options and
+# one cross cycle).
+
+# ---------------------------------------------------------------- pair A, open to anyone (no holds): calls WG (cycle s1) / calls UBR (cycle s1)
+# Round 5, 2026-10-07 (P9, P15): open to anyone because its doors give only community titles (citizen scientist,
+# community observer), which Emren's 09:18 rule leaves open; every career and summit grows from the rung below it.
+
+== volunteers wanted to count what lives here
+tier: everyday
+share: .27
+share_group: citizen_science
+rate: 0.04
+gap: 3-8
+times: per person from age 12: a call to count the birds, butterflies or river life of the area comes many times over a life, through a school, a library or the local news; about 1 US adult in 10 takes part in some citizen science in a year (Pew Research Center 2020)
+stages: juvenile+
+age: 12-90
+calls: WG
+tone: joy
+life: community, nature
+horizon: months
+roles: elder, friend, parent, the count's organiser
+earth: a notice at the library asks for volunteers to count the birds, butterflies or river life of the area this season
+scene: A notice on the library board asks for volunteers for the spring count: one morning a week, a clipboard, and a stretch of the river path. Training is on Saturday, with tea.
+scene W: The county has counted its birds the same way every spring for forty years, the notice says, and one stretch still has nobody to walk it. It is the path behind {Ns} street.
+scene U: The small print explains the method: fixed routes, fixed times, ten minutes at each point, and a photograph for any doubtful sighting. {N} likes that someone has worked out how to turn a walk into evidence.
+scene B: Almost in passing, the notice says last year's figures went into the council's report on the houses planned for the meadow. Whoever does the counting, {N} realises, has a hand in that report.
+scene R: Last week {N} saw a kingfisher at the bridge, a streak of colour and then nothing. {N} has wanted to see it again ever since.
+scene G: {elder} has walked the river path every morning for thirty years and knows where the otters come up. The count would be a reason to walk it alongside {elder}, and listen.
+- W | go to the Saturday training, and take a stretch of the route for the whole season | habit | v: universalism, conformity | title: citizen scientist | chance: 80
+- U | read up on how the count works, then practise in the park for a month first | habit | v: self-direction, achievement | mark: learned a skill | self_control: + | chance: 85
+- B | count the meadow every week, so the neighbours have figures to put to the council | habit | identity | v: power, security | title: community observer | chance: 55
+- R | turn up at dawn with binoculars and a flask, and count for the joy of it | habit | v: stimulation, hedonism | title: citizen scientist | self_control: + | chance: 85
+- G | count the river, but leave the otters' holt off the sheet, so nobody comes looking | v: universalism, security | mark: hid a wrong | closed: approval: leaving a sighting off a shared record; backfire: the holt is missing from the survey, and the bank is cleared for the new path | chance: 75
+- W>U | bring a younger one from the family along, and teach them to tell the birds apart | door | v: benevolence, self-direction | chance: 65
+- U>B | learn the calls well enough to be asked to lead next year's beginners' walk | v: achievement, power | chance: 60
+- B>R | keep Saturday mornings for yourself; nobody is paid to do this | v: hedonism, self-direction | chance: 95
+- R>G | talk the whole family into a muddy Sunday morning on the count, with a picnic after | v: benevolence, hedonism | chance: 65
+- G>W | walk it with the old neighbour who knows the path, and keep the record their way | door | v: tradition, universalism | mark: learned a skill | title: citizen scientist | chance: 70
+works: By midsummer {N} knows every bird on the stretch by its call, and the season's sheets are in on time.
+works: The count goes ahead with one more pair of eyes, and {Ns} name is in the list of thanks at the back of the county report.
+fails: Two wet Saturdays in a row, and {N} never quite gets back into it.
+fails: {N} goes to the wrong meeting point, misses the training, and the season starts without {N}.
+
+# Round 5, merge (packs thread, two pooled runs of 1,600 lives): [a nose for the odd result] came to about 1 life in 8
+# (12x its share), most of it from this moment and 'your record does not match the official one'; the volunteer's act here no longer grants it (the
+# scientists' and the field's acts still do, and the rule from fieldwork or lab work).
+== a project online asks for a thousand pairs of eyes
+tier: everyday
+share: .25
+share_group: citizen_science
+rate: 0.04
+gap: 3-8
+times: per person from age 12 who is online: an appeal to help sort galaxies, old logbooks or camera-trap photos turns up every few years in the news or a feed; few join, and about 6 lives in 100 ever take up citizen science for a season or more (estimate)
+stages: juvenile+
+age: 12-90
+calls: UBR
+tone: joy
+life: leisure, learning
+horizon: months
+roles: parent, grandparent, friend, the project's scientists
+earth: an online project asks the public to help sort its images: galaxies, old ships' weather logs, animals on camera-trap photos
+scene: A news item links to a science project that needs the public's eyes: half a million photographs from camera traps in a far-off forest, each to be checked for animals. {N} clicks through, and the first picture loads: dark leaves, and two eyes.
+scene W: Every photograph is shown to fifteen volunteers and the answers are pooled, so no one person's mistake counts for much. {N} likes the fairness of it, one careful pair of eyes among many.
+scene U: The tutorial takes six minutes, and the forum below it runs to thousands of posts on how the crowd's answers are checked against the experts'. {N} wants to know how good the crowd really is.
+scene B: There is a leaderboard, and the project's papers thank the top volunteers by name. One of them, a retired postman, is now listed as a co-author.
+scene R: Empty forest, empty forest, empty forest, then a leopard yawning straight into the lens. {N} laughs out loud, alone at the kitchen table.
+scene G: The cameras have watched the same valley for six years, and day after day the same animals pass the same tree. There is something steadying in watching a place go on living with nobody there.
+- W | do the tutorial properly, then classify fifty photographs every evening before bed | habit | v: universalism, conformity | title: citizen scientist | self_control: + | chance: 75
+- U | study the forum's guide to the hard cases until your answers match the experts' | v: achievement, self-direction | title: citizen scientist | chance: 70
+- B | log every hour you put in, and list it on your CV as volunteer research | habit | v: achievement | self_control: + | chance: 90
+- R | flag the odd shape in one photograph, and argue on the forum until a scientist looks | door | v: stimulation, self-direction | chance: 60
+- G | spend a quiet hour every Sunday with the same valley's cameras, season after season | habit | v: universalism, tradition | title: citizen scientist | self_control: + | chance: 75
+- W>U | volunteer for the dull work of re-checking the photographs the crowd disagreed on | v: universalism, conformity | mark: learned a skill | self_control: + | chance: 75
+- U>B | quietly run a small script that clicks through the easy photographs for points | v: achievement, power | mark: hid a wrong | closed: approval: automated answers break the project's rules; backfire: the account is banned and every answer wiped | chance: 70
+- B>R | ask for the big cats' raw footage, and cut a video of it to post online | v: stimulation, achievement | chance: 50
+- R>G | show the leopard to the family at dinner, and get everyone clicking together | v: benevolence, hedonism | chance: 75
+- G>W | do a page each evening with someone in the family who cannot get out much | v: benevolence | chance: 70
+works: A month in, {N} can tell a civet from a mongoose at a glance, and the project's counter holds thousands of {Ns} answers.
+works: A scientist on the forum thanks {N} by name, and says the volunteers have saved the team a year.
+fails: After a week the photographs blur into one another, and {N} stops logging in.
+fails: {Ns} answers turn out to disagree with the experts' more often than not, and the project quietly gives them less weight.
+
+# ---------------------------------------------------------------- pair B, graduates (holds: graduate): calls BR (cycle s2) / calls WUG (cycle s2)
+
+# Round 2 (2026-10-06, Emren 07:14): met by most graduates on a fitting path; a place comes about 1 time in 8 (12 on
+# every act for the title), preparation and timing lifting it.
+# Round 5, 2026-10-07 (P12): the Blue road. U>R takes the post with a small experiment of its own; R>W passes it on.
+== a lab needs hands for the summer
+tier: everyday
+share: .35
+share_group: research_entry
+rate: 0.08
+gap: 2-5
+times: per graduate aged 21 to 45: perhaps 1 in 10 are offered temporary research work through a professor or a company lab, most of them science graduates soon after the degree; about 4 adults in 10 hold a degree (OECD), so perhaps 1 life in 25 meets it (estimate)
+stages: young_adult adult
+age: 21-45
+calls: BR
+holds: graduate
+tone: joy
+life: work, learning
+horizon: months
+roles: mentor, boss, friend, colleague
+earth: a professor or a company lab needs a temporary assistant for the summer, and someone has passed your name on
+scene: {mentor} forwards a message: a lab needs a pair of hands for twelve weeks this summer, paid, starting on Monday week. The work is samples, spreadsheets and whatever breaks.
+scene W: The offer comes with a contract, a safety induction and a folder of procedures to sign. {N} reads every page, and finds the care in it reassuring.
+scene U: The lab works on the very question {N} wrote a final-year essay about. Twelve weeks inside the real thing, not the textbook version of it.
+scene B: The pay is poor, but a summer in this lab means a reference from a professor people have heard of. {N} starts counting the doors it could open.
+scene R: {N} reads the message twice and is already picturing Monday week: new people, new machines, something different every day.
+scene G: The lab is in the old building by the river, where {N} studied. It would mean another summer in the same town, near {friend} and the streets {N} knows by heart.
+- W | accept, and ask for the procedures to read before the first day | v: conformity, achievement | title: research assistant | chance: 12
+- U | ask for the project's last report, and say yes only if the question holds up | v: self-direction | title: research assistant | chance: 12
+- B | say you have run their sequencer before, and learn it over the weekend | v: achievement, power | title: research assistant | mark: hid a wrong | closed: approval: claiming experience that is not there; backfire: the first run fails and the professor asks who trained them | chance: 12
+- R | say yes on the spot, and turn up on Monday week ready for anything | door | v: stimulation | title: research assistant | chance: 12
+- G | say no, and spend the summer at home with the family as planned | identity | v: tradition, benevolence | mark: stayed home | chance: 92
+- W>B | agree once it is a proper contract, with the hours and the pay in writing | v: security, conformity | title: research assistant | chance: 12
+- U>R | say yes, and ask for a small experiment of your own alongside the lab's work | v: stimulation | title: research assistant | chance: 12
+- B>G | turn it down for better-paid work, and put the summer's wages toward a deposit | v: security, achievement | mark: turned down a chance | chance: 80
+- R>W | pass the post to a friend who needs the work more, and help them settle in | binds | v: benevolence | mark: helped someone in need | chance: 85
+- G>U | ask to work on the lab's field trips, where the samples are gathered | door | v: self-direction, universalism | aims: research assistant | chance: 50
+works: By the end of August {N} knows the lab inside out, and the professor offers to write a reference.
+works: The summer settles the question {N} came in with, one way or the other, and {N} leaves sure of the next step.
+fails: The lab's money comes through late, the post shrinks to four weeks, and most of them are spent washing glassware.
+fails: {N} and the professor get off on the wrong foot in the first week, and it never quite recovers.
+
+# Round 2 (2026-10-06, Emren 07:14 and 09:18): met by many graduates; each post comes about 1 time in 8 (12 on every act
+# for a title), preparation and timing lifting it; the data steward's and software engineer's posts need a research
+# assistant's post first.
+== a research post you are half qualified for
+tier: everyday
+share: .3
+share_group: research_entry
+rate: 0.02
+gap: 2-5
+times: per graduate aged 21 to 45: perhaps 1 in 5 who look for work meet a fixed-term research post that asks for more than they have, most often science graduates; about 1 life in 50 ever holds a research assistant post (estimate)
+stages: young_adult adult
+age: 21-45
+calls: WUG
+holds: graduate
+tone: mixed
+life: work
+horizon: months
+roles: mentor, friend, partner, rival
+earth: a two-year research post asks for more than you have, and applications close on Friday
+scene: The advert is for a two-year research post, and {N} meets about half of what it asks: the degree yes, the three years' experience no, the software skills only in part. Applications close on Friday.
+scene W: The advert lists eleven essential criteria. {N} goes down them with a pen, ticking only the honest ones, and stops at six.
+scene U: {N} reads the group's last three papers and starts to see where {Ns} odd mix of skills might fit. Their data handling has a gap that anyone could see.
+scene B: {N} has heard that adverts like this are wish lists, and that the people who get such posts are often simply the ones who apply anyway.
+scene R: It is exactly the work {N} has wanted for years. Just reading it makes {Ns} heart race, and the missing half of the criteria feels like a detail.
+scene G: {mentor} used to say that the right post comes in its own season. {N} wonders whether this is that season, or only a tempting one.
+- W | apply honestly, and say plainly in the letter which criteria you do not meet yet | identity | v: conformity, achievement | title: research assistant | chance: 12
+- U | take the evening course that covers the missing half, and apply next round | door | v: achievement, self-direction | mark: learned a skill | self_control: + | aims: research assistant | chance: 85
+- B | ring the group leader before applying, and talk your way onto the shortlist | v: achievement, power | title: research assistant | chance: 12
+- R | apply tonight, and let the letter say how much you want this work | v: stimulation | title: research assistant | chance: 12
+- G | offer to take over the group's neglected data archive, and learn it field by field | binds | v: universalism, security | title: research data steward | requires: research assistant | without: impossible | chance: 12
+- W>B | ring the contact named in the advert, and ask what would make a strong candidate | v: achievement, security | chance: 85
+- U>R | build a small tool for their public data, and send it with the application | identity | v: self-direction, stimulation | title: research software engineer | requires: research assistant | without: impossible | chance: 12
+- B>G | weigh the pay cut against the rent, and stay in the job you have | v: security | mark: turned down a chance | chance: 85
+- R>W | tell a friend who fits the post better, and help with their application | v: benevolence, universalism | mark: helped someone in need | chance: 85
+- G>U | ask your old supervisor honestly whether you are ready, and take the answer | v: tradition, self-direction | chance: 80
+works: The letter lands well, and {N} is asked to an interview the following week.
+works: Whatever the outcome, {N} comes away knowing exactly what is missing, and how to get it.
+fails: An automatic email arrives a month later: the post has gone to someone with the full three years.
+fails: {N} misses the Friday deadline by an hour, and the portal will not reopen.
+
+# ---------------------------------------------------------------- echoes: a finding that will not let go (cycle s3), a question from childhood (cycle s4)
+
+# Round 5, 2026-10-07 (P12): the Blue road; learning to study it properly (U) a little likelier than trading notes (B).
+== the finding will not leave you alone
+tier: echo
+rate: 0.03
+once: yes
+stages: young_adult+
+age: 18-92
+times: per person outside research in the two years after a breakthrough in their own work: perhaps 1 in 10 find its question keeps pulling at them, and few of those turn to research; across all lives perhaps 1 in 15 meet it (estimate)
+tone: joy
+life: work, meaning
+horizon: months
+roles: mentor, boss, colleague, friend, partner
+earth: months after the breakthrough in your work, the question behind it keeps you awake at night
+after: event lived through: 'a breakthrough in your work' within the last two years, and no research career title held (the person works at something else: a ward, a workshop, a farm, a school, an office)
+delay: 0-2
+likelier: a degree; a friend, partner or mentor in research; time and money to spare; a curious bent (much Blue or Red in the color history)
+rarer: a research title already held; stress above 1.5; heavy care duties; money below 0.2
+scene: Months after it first worked, {N} still turns it over on the way home: not the result itself, but the question behind it. Why did it work, and would it work anywhere else?
+scene W: Something that works ought to be checked properly, by people whose job it is, so that others can rely on it. Leaving it in a drawer feels to {N} like a duty left undone.
+scene U: Every answer has opened two new questions, and {N} has filled half a notebook with them. Read back, the notebook looks a lot like a research plan.
+scene B: A university two towns away works on exactly this, and has no idea that {N} exists. {N} sees no reason why that should stay so.
+scene R: The finding has the grip of a first love. {N} lies awake planning experiments that would need a lab {N} does not have.
+scene G: It grew out of years of ordinary work, the way a path forms where people keep walking. {N} wonders whether to follow the path further, or let it be what it was.
+- W | write it up carefully, and send it to the department that studies such things | door | v: universalism, conformity | chance: 60
+- U | apply for a research assistant post, to learn to study it properly | binds | v: self-direction, achievement | title: research assistant | requires: graduate | without: impossible | chance: 55
+- B | offer the professor your notes in return for a place on the team | door | binds | v: achievement, power | title: research assistant | requires: graduate | without: impossible | chance: 50
+- R | turn the spare room into a workbench, and chase it every evening and weekend | habit | v: stimulation, self-direction | grants: a research project under way | self_control: + | chance: 80
+- G | let it be what it was: a good piece of work, and enough | v: tradition | mark: turned down a chance | chance: 85
+- W>R | join the citizen science project closest to the question, and do it by the book | v: universalism, stimulation | title: citizen scientist | chance: 85
+- U>G | read everything published on it, slowly, over the winter evenings | habit | v: self-direction, universalism | chance: 92
+- B>W | pay for proper tests out of your own savings, and keep a full record | v: achievement, security | grants: a research project under way | self_control: + | chance: 85
+- R>U | borrow the equipment at work after hours to test it, without asking anyone | v: stimulation, self-direction | mark: hid a wrong | closed: approval: using the employer's equipment without leave; backfire: the night log shows the hours, and the manager wants to know why | chance: 65
+- G>B | keep it inside the team, as the quiet edge your workplace has over the rest | v: power | chance: 60
+works: The question gets a proper home at last, and {N} sleeps through the night again.
+works: Someone who knows the field takes {N} seriously, and the work begins to go somewhere.
+fails: Nobody answers, the notes go into a box, and the question goes on nagging.
+fails: The second try does not work, and {N} begins to wonder whether the first one really did.
+
+== a question from childhood comes back
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult+
+age: 27-95
+times: per adult who chased a question or felt awe as a child: perhaps 1 in 10 come back to it once there is time, most often after the children leave home or at retirement; across all lives perhaps 1 in 12 (estimate)
+tone: joy
+life: leisure, meaning, nature
+horizon: months
+roles: grandparent, child, friend, partner
+earth: something small brings back a question you chased as a child, and for once there is time to follow it
+after: moment 'a curiosity that will not let go' or 'awe' lived through as a child or teenager, and now an adult with time to spare (time above 0.4: fewer hours at work, children grown, retired)
+delay: 15-50
+likelier: retirement or fewer working hours; children grown; a child or grandchild asking the same question; a move back to the place where it began
+rarer: stress above 1.5; money below 0.2; long working hours; poor health
+scene: Something small brings it back: a child's question at bedtime, a programme on the radio, the smell of wet earth after rain. The thing {N} wondered about at fourteen, and dropped when life got busy, is still there.
+scene W: {N} was always told there would be time for such things later. Now the hours are finally {Ns} own, and the old question feels like a promise still to keep.
+scene U: {N} remembers exactly what was left unanswered back then. The answer might be sitting in a library by now, or the question might still be open.
+scene B: What once seemed a childish question now looks like a corner of knowledge {N} could make {Ns} own. Nobody else in town has bothered with it.
+scene R: The old wonder comes back whole, like a song from the summer {N} was fourteen, and {N} wants to drop everything and go after it.
+scene G: {N} remembers {grandparent} naming the stars from the back step, one by one. The question has waited all these years, like seeds kept in a drawer.
+- W | sign up for the long-running survey nearest the old question, and keep its schedule | v: universalism, conformity | title: citizen scientist | chance: 80
+- U | enrol in an evening course on the subject, and do every piece of the coursework | door | v: self-direction, achievement | mark: learned a skill | chance: 85
+- B | make the question your own project, and become the town's expert on it | v: achievement, power | grants: a research project under way | chance: 70
+- R | buy the kit it needs tomorrow, and go out with it that same evening | v: stimulation, hedonism | chance: 95
+- G | let it rest: some questions are better kept as wonder than answered | v: tradition, universalism | chance: 85
+- W>G | offer to keep the village's weather or bird record, as someone always has | binds | v: tradition, benevolence | title: community observer | chance: 70
+- U>W | write to a scientist who studies it, and offer careful hours to the work | v: universalism, self-direction | chance: 65
+- B>U | pay for good equipment and a few lessons with an expert, and catch up fast | door | v: achievement, self-direction | mark: learned a skill | aims: independent investigator | chance: 80
+- R>B | start a blog or a channel about the question, and see who comes to follow | identity | v: stimulation, achievement | chance: 55
+- G>R | return every month to the place where it began, and watch it as before | habit | v: tradition, hedonism | title: community observer | self_control: + | chance: 65
+works: Within a season the old question has a shape again, and {Ns} weekends hold something entirely {Ns} own.
+works: Someone who knows the subject answers {Ns} letter, and {N} finds there is still useful work for a beginner.
+fails: The first weeks are a tangle of jargon and wrong turns, and the old wonder goes flat.
+fails: Life fills the free hours up again, and the question goes back into its drawer.

@@ -1,0 +1,646 @@
+# Chroma content pack Science, modern Earth: LONG SHOTS and the ANTI-STORY (chroma-packs/LONGSHOTS-BRIEF.md, 2026-10-06).
+# Merged into the pack 2026-10-06 (early afternoon), live with it since 19:37; round 5 (10-07) adds five long shots.
+# Syntax: header of chroma-library/build.py. Rules: library-spec.md, science/MOMENTS-BRIEF.md, LONGSHOTS-BRIEF.md.
+#
+# Emren (packs thread, 06:06): everything can be pushed for, the odds of it happening can be tiny, and a person may try
+# anyway and miss, which is a story of its own. Emren (Gamification thread, 09:18): big titles take consecutive steps,
+# commitment and tries; nobody becomes a scientist out of nothing in one step; luck can open a door or close it.
+#
+# Round 2 (brief of 09:21, section 1). Every long shot here is a bold try at the next rung, or a skip of at most one rung
+# by someone with years on the rung below. Nobody without a history in the field meets these moments: each has holds:
+# with tenure: (years on the rung below) and a LIFE gate in engine-conditions.py (the rest of the rung: a
+# grant, a skill, a publication). No option has lacking:. A title act that needs a perk has requires: with
+# without: impossible, so whoever lacks it is not offered the try at all and sees the pairs (the ordinary next steps).
+#
+#   'a discovery nobody asked you for'          meets: research scientist 2+ years; research assistant 3+ years; citizen
+#                                               scientist or community observer 5+ years (organiser 3+) who already has
+#                                               [published research]. Singles: [independent investigator], needs
+#                                               [published research], chance 4 (the next rung for a scientist, one skip
+#                                               for the others). The step for whoever has no publication yet: a first
+#                                               co-authored note (WU, [published research]); the title comes on a later
+#                                               find, through 'a fellowship of your own', or as a second try.
+#   'a group of your own, open to all comers'   meets: research scientist (or postdoc) 4+ years with a [research grant].
+#                                               Singles: [research group leader], chance 4 (skips the project-lead rung).
+#                                               Pair UR is the rung in between, [research project lead], at 75.
+#   'a facility looks outside for its next head' meets: laboratory technician or research scientist 6+ years with
+#                                               [instrument troubleshooting]. Singles: [research facility lead] at another
+#                                               institution, chance 5 (the next rung, an outside post).
+#   'a search for a new voice for science'      meets: [explaining science] 3+ years and a degree, with a research post,
+#                                               journalism or teaching behind it. Singles: [science communication
+#                                               specialist], chance 5 (round 5; it was an entry step at 10).
+#
+# Round 5, 2026-10-07 (checklist P9, Emren 09:06 and 12:18: any title can be pushed for at long odds). Every career and
+# summit of the pack now has a long shot, each from the rung below it in roles.py:
+#   'a chair falls vacant at another university' meets: research group leader 3+ years, or research scientist 8+
+#                                               years, with [published research]. Singles: [professor], chance 3.
+#   'a scientist's post at a famous lab'        meets: research assistant, laboratory technician, research data steward
+#                                               or research software engineer 2+ years, with a degree. Singles:
+#                                               [research scientist], chance 4.
+#   'a named fellowship, one a year'            meets: research scientist in the first five years, with [doctoral
+#                                               graduate]. Singles: [postdoctoral researcher], chance 4; pair WU is the
+#                                               ordinary funded postdoc, at 75.
+#   'a national centre opens its posts'         meets: research scientist 2+ years. Singles, one post per color, chance 4:
+#                                               W [evidence synthesis specialist], U [research software engineer], B
+#                                               [research project lead], R [participatory research coordinator], G
+#                                               [research data steward].
+#   'the survey wants a paid assistant'         meets: citizen scientist or community observer 4+ years. Singles:
+#                                               [research assistant], chance 4.
+# Each is even on its own: five one-color singles at one chance (each color's own way of going for it: the rules-keeper
+# applies by the book, the scholar builds the perfect case, the climber gets the right person to open a door, the
+# firebrand walks in and does it, the rooted one is carried by their own people), plus a full pair set of the ordinary
+# next steps. The four pair sets are the two halves of D1 and of D2, so every pair appears twice over the file; the five
+# added in round 5 use D3a, D3b, D4a, D4b and D5a, each half even on its own.
+#
+# The odds. The long odds come from the skip or the outside post itself (a written chance of 4 or 5), never from a
+# stranger let in. Earned odds (HELPS in helps.py; the engine counts a rung by its years, rung_years) lift a prepared
+# person, so most who try stand under 1 in 10, and a miss is a real long shot (engine long_shot .1) that gives
+# [a long shot that missed] (chroma-packs/core/longshot.py).
+# Luck opens the next step only: a find by chance, a new institute hiring, a head retiring elsewhere, a broadcaster's
+# search. Bad luck closes the door the same way: the post goes to the deputy, the money to a project already running.
+#
+# Two echoes anchored on the perk (conditions: engine-conditions.py, ECHO_SCIENCE_LONGSHOTS):
+#   'the old door opens a crack'   the second try (commitment): `title: {missed}`, the very title missed, at 7 against the
+#                                  first try's 3 to 5, for whoever is still on the rung below it years later
+#   'the story of the long shot'   making peace with it, after any of them (a second miss included)
+#
+# The worlds. The pack has no worlds.py yet; these forms keep the pathway's shape in the game's other two worlds
+# (chroma-game story.py: "clans, hunts, elders and the turning seasons, before cities"; "towers, guilds and old powers"):
+#   tribal  the band's watchers and lore-keepers: the one who counts the geese and the herds for the elders (citizen
+#           scientist), the keeper of a place's long memory (community observer), the seeker the band feeds while they
+#           learn one thing to the bottom (independent investigator), the keeper of the lore-circle who teaches the
+#           young watchers (group leader), the keeper of the sighting stones that mark the sun's turnings (facility
+#           lead), the teller who carries what the watchers learned from fire to fire (science communicator), the
+#           teacher in a far band's teaching seat (professor), a watcher of the famous river band (research scientist),
+#           the young watcher fed for three winters to learn one thing (postdoc), the keepers of the great gathering's
+#           counts, stores and tellings (the national centre's posts), the watchers' paid helper (research assistant).
+#   magic   the Academy and its halls: a lay correspondent who sends in sightings (citizen scientist), a free scholar on
+#           a patron's or a guild's purse (independent investigator), master of a workshop at the Academy with
+#           journeymen and apprentices (group leader), keeper of the great orrery (facility lead), the Academy's
+#           lecturer to the market square (science communicator), a master's chair (professor), a scholar of the
+#           capital's famous workshop (research scientist), the founder's purse for a young doctor (postdoc), the
+#           realm's new Academy (the national centre), the survey's paid assistant (research assistant).
+#           Petitions, seals, heralds and purses stand where
+#           applications, references, notices and grants stand. In both worlds the same rule holds: only a watcher or
+#           a scholar of long standing may ask.
+
+# ================================================================ long shots
+# ---------------------------------------------------------------- LS1. a discovery nobody asked you for (pairs D1a)
+# After years of research practice, something found outside any assigned project looks new. The singles claim it for
+# research in one's own name ([independent investigator]: money, a question of one's own and nobody to report to), open
+# only to someone who already has [published research]. The pairs are the ordinary, likely ends of a find, and the step
+# for whoever has no publication yet: the long record, a volunteer survey, a note with a professional (a first
+# [published research], so a later find can be claimed), a project chased on evenings and weekends, or the notes handed
+# to the specialists.
+
+== a discovery nobody asked you for
+tier: life event
+stages: young_adult adult mature elder
+age: 25-90
+holds: research scientist | research assistant | citizen scientist | community observer | volunteer research organiser
+tenure: 2-70
+per_year: 0 0 .002 .003 .003 .002
+drivers: fortune+.2 era+.1
+times: per person with years of research practice a year (a research scientist or assistant, or a volunteer observer of five years or more with a publication): perhaps 1 in 300 comes upon something outside their own project that looks new to science (a comet or a variable star, a species far outside its known range, a pattern in old parish or weather records) and thinks of claiming it (estimate); amateurs still find some new comets and many bright novae each year, and amateur co-authors appear on a few papers in 100 in astronomy and natural history (estimate); turning such a find into research in one's own name, with money and a post, comes to perhaps 1 claimant in 25 who already has a publication record (estimate); a first find more often ends as a co-authored note
+likelier: years of patient records, a good instrument, a mentor in the field, savings or a patron, a time when the field is hungry for data
+rarer: no time to spare, a find nobody can check, a field with no money for newcomers
+gap: 5-15
+domain: career.5
+tone: mixed
+life: work, meaning, nature
+horizon: years
+roles: mentor, friend, partner, rival, colleague
+earth: after years of careful watching, something you found on your own looks new to science, and nobody asked you for it
+tribal: after many summers of watching, you find something the elders' lore has no name for, and nobody asked you to look
+magic: after years of keeping your notebooks, you find something the Academy's books do not hold, and no master asked you to look
+scene: It started as a note in the margin of a record {N} has kept for years: a light where none should be, a beetle far from home, a column of old figures that will not add up. Three checks later it is still there, and as far as {N} can find, nobody in the field has seen it.
+scene W: {N} has kept the records for years by the project's rules, every date and every reading in its place. That is exactly why this one entry cannot be waved away.
+scene U: {N} has read everything published on it twice. Either the find is new, or the whole field has missed the same thing for years, and both possibilities are thrilling.
+scene B: A find like this could be a name, a post, a life of one's own. {N} knows that whoever claims it first, and claims it well, is the one who will be remembered.
+scene R: {N} cannot sleep. The find sits there like a door left open, and every part of {N} wants to run through it.
+scene G: It turned up in the same field, the same river, the same patch of sky {N} has watched for years. The place gave it up after long acquaintance, and it feels like a gift.
+scene tribal: The elders' lore has a name for every plant on the hill but this one, and {N} has walked that hill for twenty summers. The old women say it eases a fever. At the fire people begin to wonder whether {N} should go and learn its ways, and be fed by the band for the learning.
+scene magic: The star {N} has charted for many winters moves where the Academy's tables say no star should be. No master has asked a hedge-watcher's opinion, but {N} already has a note in the Academy's proceedings, and the purse for free scholars closes at midsummer.
+- W | write the find up to the field's standard, every check shown, and apply for a fellowship | title: independent investigator | grants: a research project under way | requires: published research | without: impossible | grants_if_fails: a long shot that missed | v: conformity, achievement | tribal: bring the find to the elders' circle in the proper way, and ask to be fed while you learn it | magic: present the find to the Academy by every form, and petition for a free scholar's purse | chance: 4
+- U | build a case no panel can wave away, and ask for money in your own name | title: independent investigator | grants: a research project under way | requires: published research | without: impossible | grants_if_fails: a long shot that missed | self_control: + | v: achievement, self-direction | tribal: learn the plant's ways through a whole year of moons before asking the elders for anything | magic: chart the star through a whole winter, and petition with tables no master can fault | chance: 4
+- B | put the find before the one professor whose word opens doors, and ask for backing | title: independent investigator | grants: a research project under way | requires: published research | without: impossible | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: take the find first to the eldest healer, whose word the whole band follows, and ask her backing | magic: show the find first to the one master whose seal opens every door, and ask for patronage | chance: 4
+- R | go after it full time on your own savings, sure the results will carry you | act: go after it full time on their own savings, sure the results will carry them | title: independent investigator | grants: a research project under way | requires: published research | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | binds | v: stimulation | tribal: leave the hunt and go alone into the hills to learn it, trusting the band to feed you after | magic: give up your post, buy a better lens with your savings, and chase the star every night | chance: 4
+- G | let the club, the village and the old volunteers back you as their own researcher | act: let the club, the village and the old volunteers back them as their own researcher | title: independent investigator | grants: a research project under way | requires: published research | without: impossible | grants_if_fails: a long shot that missed | binds | v: tradition, benevolence | tribal: let your own hearths speak for you at the fire, as the one of theirs who should learn it | magic: let your guild and your street put up a purse, so one of their own can study it | chance: 4
+- BG | make the find the heart of a new volunteer survey, and run it yourself | title: volunteer research organiser | habit | door | v: power, tradition | tribal: gather the young watchers of the band to keep count of the new plant, and lead them | magic: found a circle of lay correspondents to watch the star, and keep its rolls yourself | chance: 80
+- BR | chase it as your own project, every evening and weekend, and see where it goes | grants: a research project under way | v: self-direction, achievement | tribal: go up the hill every spare day to learn the plant, and see where it leads | magic: turn the attic into a study for the star, every spare night, and see where it leads | chance: 80
+- UG | add the find to the long record, and keep watching the same place | title: community observer | v: universalism, tradition | tribal: add the plant to the band's long memory of the hill, and keep walking the same path | magic: enter the star in your own long ledger of the sky, and keep the same watch each night | chance: 85
+- WR | hand every note to the specialists who study it, and cheer when they confirm it | grants: research collaborators | mark: made a friend | v: universalism, benevolence | tribal: give all you know of the plant to the band's healers, and cheer when it works | magic: send every note to the Academy's masters, and cheer when they confirm it | chance: 85
+- WU | write it up as a short note with a professional, your name second | grants: published research | mark: learned a skill | v: achievement, conformity | tribal: teach it to the healers carefully, so your name is sung after theirs | magic: write it up with a master of the Academy, your name second in the proceedings | chance: 75
+works: The answer, when it comes, is yes, and {N} reads it standing up in the kitchen, twice.
+works: People who know the field take the find seriously, and {Ns} name goes on it where {N} wanted it.
+fails: The letter is kind and short: the find is real and carefully observed, but the money goes to a project already running. One sentence calls the case the best the panel read from outside a big lab, and {N} reads that sentence many times.
+fails: {N} presents it anyway, to nine people and a tired chair at the end of a long day; one of them asks a very good question, and nobody writes back afterwards.
+
+# ---------------------------------------------------------------- LS2. a group of your own, open to all comers (pairs D1b)
+# A new institute hires group leaders from anywhere: "all comers" means researchers from any institution, not people
+# from outside research. Only a research scientist of four years or more with a [research grant] in hand meets it. The
+# singles go for [research group leader] and skip the project-lead rung, so they go at 4. The pairs: the rung in
+# between ([research project lead] at a smaller institute, the ordinary next step at 75), a plan for the next round
+# (aims:, the process), backing a friend, a better contract, or letting it pass.
+
+== a group of your own, open to all comers
+tier: life event
+stages: young_adult adult mature
+age: 30-67
+holds: research scientist | postdoctoral researcher
+tenure: 4-45
+per_year: 0 0 .015 .02 .015 0
+drivers: prosper+.3 era+.2
+times: per research scientist of four years or more with a grant in hand, a year: perhaps 1 in 30 sees a group-leader post advertised at another institution and could apply (estimate); such a post draws about 100 to 300 applications, 5 to 8 are interviewed and one is appointed (estimate from advertising figures); most group leaders first lead a project or hold a fellowship of their own, and a scientist who skips that step is appointed perhaps 1 time in 25 even with a grant (estimate); in the life sciences about 1 doctorate in 6 to 10 leads a group of their own ten years on (national surveys of doctorate holders, estimate)
+likelier: papers others cite, a mentor's backing, a boom in research money, a new institute hiring, years of supervising students
+rarer: hard times for research money, years on other people's projects, a career break still showing on the record
+gap: 3-8
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, boss, colleague, rival, partner
+earth: a new institute hires group leaders from anywhere, and your grant and your years would let you apply
+tribal: the keeper of the lore-circle steps down, and any watcher of long standing may ask for the place
+magic: the Academy opens a new workshop, and any scholar of long standing with a purse may petition to be its master
+scene: The advertisement is one page long: a new institute, five posts for group leaders, open to researchers from anywhere, with a research plan, a record and money of one's own. {N} has the grant and the years, if not yet a project led, reads it on a Sunday and keeps coming back to it all week.
+scene W: The criteria are printed in a box at the bottom of the page. {N} goes through them one by one, ticking what is there and circling what is not.
+scene U: {N} has carried the plan around for years: the question, the first three experiments, the one result that would change the field. Here, at last, is a page that asks for it.
+scene B: Five posts and a few hundred applicants. {N} starts listing who sits on the panel, who trained whom, and who owes {N} a favour.
+scene R: {N} reads it and feels the old fire: a lab, a group, a question of one's own. The odds are somebody else's problem.
+scene G: {N} thinks of the people already working side by side: the technician, the two students, the friend from the next lab. A group of one's own would be them, together, and that is worth asking for.
+scene tribal: The keeper of the lore-circle is too old now to climb the watching hill. The elders say any watcher of long standing may ask for the place at the next full moon, and some of them look at {N}, who has watched for many winters.
+scene magic: A notice on the Academy's gate: a new workshop, with rooms, a furnace and three apprentices, for a scholar of long standing with the best plan and a purse to bring. {N} reads it twice on the way past.
+- W | apply by the book: every form, every reference, a five-year plan the panel can check | title: research group leader | requires: research grant | without: impossible | grants_if_fails: a long shot that missed | binds | v: conformity, achievement | tribal: ask for the place at the full moon in the proper way, with two elders to speak for you | magic: petition by every form of the Academy, with two masters' seals and a five-year plan | chance: 4
+- U | write the research plan of a lifetime, and let the science make the case | title: research group leader | requires: research grant | without: impossible | grants_if_fails: a long shot that missed | binds | v: achievement, self-direction | tribal: show the elders the whole teaching you would give the young watchers, season by season | magic: make the treatise of your life your petition, and let the learning make the case | chance: 4
+- B | get the institute's director to read your plan over dinner, before the panel meets | title: research group leader | requires: research grant | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: win the eldest's ear over a gift of meat before the circle meets | magic: dine with the Academy's provost before the petitions are opened, and leave your plan on the table | chance: 4
+- R | turn up at the institute unannounced with the plan, and ask to see the director | title: research group leader | requires: research grant | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: climb the watching hill at dawn and start teaching the young ones before anyone has said yes | magic: walk into the Academy's council hall with the plan under your arm, and ask to be heard | chance: 4
+- G | apply with the whole team named in the plan, the people who would come with you | act: apply with the whole team named in the plan, the people who would come with them | title: research group leader | requires: research grant | without: impossible | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: ask for the place with the young watchers you already teach standing beside you | magic: petition with your journeymen's names written on the scroll beside yours | chance: 4
+- RG | back a friend's application instead, and offer to be the first to join their group | mark: made a friend | door | v: benevolence, stimulation | tribal: stand behind a friend who asks for the place, and offer to be the first watcher in the circle | magic: back a friend's petition, and offer to be the first journeyman in the workshop | chance: 80
+- UB | ask the panel what a winning application needs, and plan the next round around it | aims: research group leader | mark: learned a skill | v: achievement, self-direction | tribal: ask the elders what the next keeper must bring, and spend the year getting it | magic: ask the provost what wins a workshop, and spend the year preparing for the next opening | chance: 80
+- UR | take the plan to a smaller institute that wants a project led, not a group | title: research project lead | requires: research grant | without: impossible | door | v: achievement, stimulation | tribal: offer to lead one season's watching for a smaller band that asks | magic: take the plan to a lesser college that wants one project led, not a workshop | chance: 75
+- WB | use the application to win a permanent contract where you are | v: security | tribal: let the band see you were asked about, and win a surer place at your own fire | magic: let your own master hear of the petition, and win a sealed contract where you are | chance: 75
+- WG | let this one pass: the work and the people already there are enough for now | mark: turned down a chance | v: security, tradition | tribal: let this one pass, and keep watching with the people you know | magic: leave the petition unwritten, and stay with your own bench and your own people | chance: 80
+works: The phone call comes on a Thursday afternoon, and {N} has to sit down to hear the rest of it.
+works: The plan is read the way {N} hoped, and the next years take the shape {N} chose.
+fails: {N} comes sixth of six at the interviews. The chair's letter says the plan was the most original the panel read, and that the post went to someone who had already led a project of their own.
+fails: The answer arrives as a form email with a reference number, and {N} walks home the long way, past the institute's lit windows.
+
+# ---------------------------------------------------------------- LS3. a facility looks outside for its next head (pairs D2a)
+# A shared facility at another institution (a microscope suite, a sequencing centre, a telescope, a data centre) looks
+# outside for its next head. Only a laboratory technician or research scientist of four years or more with the
+# hands-on skill ([lab work] or [instrument troubleshooting]) meets it. The singles go for [research facility lead]: the
+# next rung, but an outside post that usually goes to the deputy, so they go at 5. The pairs: the deputy's post, a
+# winter learning the machine (aims:), a better-paid job, staying indispensable, or speaking up for the long-serving
+# technician.
+# Round 5, 2026-10-07 (P1): four years at the bench rather than six, and [lab work] on the singles (requires:, without:
+# impossible) rather than [instrument troubleshooting], which comes only on top of it; the gate in engine-conditions.py
+# says the same.
+
+== a facility looks outside for its next head
+tier: life event
+stages: young_adult adult mature
+age: 30-67
+holds: laboratory technician | research scientist
+tenure: 4-45
+per_year: 0 0 .003 .005 .005 0
+drivers: prosper+.2 era+.2
+times: per laboratory technician or research scientist of four years or more at the bench, a year: perhaps 1 in 200 sees a head-of-facility post advertised outside their own institution and could apply (estimate); a shared facility changes its head about once in 10 to 20 years, and most posts go to a deputy or a long-serving technician inside; an outside applicant with the right record is appointed perhaps 1 time in 20 (estimate)
+likelier: years of keeping difficult machines running, a name among the people who use them, a facility in trouble that wants fresh hands
+rarer: a deputy who has waited years for the post, an institution that never hires from outside
+gap: 5-12
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, mentor, rival, friend
+earth: a research facility elsewhere looks outside for its next head, and you have kept such machines running for years
+tribal: the keeper of a far band's sighting stones can no longer climb to them, and they ask who else can read the sun's turnings
+magic: another city's great orrery needs a new keeper, and for once the post is cried in the market as well as the halls
+scene: The post is advertised in the trade press and on another institute's pages: head of a shared facility, its instruments booked by forty groups, its old head retiring. Applicants from outside are welcome, it says, and {N}, who has kept machines like these running for years, cannot stop reading the list.
+scene W: {N} has kept every service log for years, signed and dated, and knows what it takes to keep a machine honest for the people who rely on it. The advertisement asks for exactly that, in other words.
+scene U: {N} reads the instrument list and starts working out, almost without meaning to, what each machine could measure that nobody has asked of it yet.
+scene B: A facility is power of a quiet kind: every group in the building needs a slot, and the head decides who gets one. {N} notices that, and notices that the post went out a week before anyone expected.
+scene R: {N} knows machines like these down to the last valve, but not these exact ones, and that is the best part. The thought of learning them from the inside makes {Ns} hands itch.
+scene G: The old head ran the place for twenty-six years and knew every user by name. {N} could see keeping it that way, a workshop where everyone is welcome and nothing useful is thrown away.
+scene tribal: The keeper of a neighbouring band's sighting stones can no longer climb to them, and that band must know when the sun turns. Word comes asking who else has watched stones long enough, and {N} has watched the home stones for many winters.
+scene magic: A crier reads the notice in the square: the great orrery of the river city needs a keeper, and any who can tend its wheels and lenses may apply at the tower door. {N} has kept the home Academy's lesser clocks true for years.
+- W | apply with a full record of every machine you have kept running, every log attached | title: research facility lead | requires: lab work | without: impossible | grants_if_fails: a long shot that missed | v: conformity, security | tribal: go to the elders with every turning of the sun you have marked, and ask for the stones | magic: apply at the tower door with a ledger of every clock and lens you have kept true | chance: 5
+- U | show the panel what the machines could measure that nobody has tried yet | title: research facility lead | requires: lab work | without: impossible | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: show the elders a turning of the sky the stones could mark that nobody has marked yet | magic: show the masters a motion the orrery could reckon that nobody has set it to | chance: 5
+- B | get the retiring head to name you as the one to follow, before the interviews | act: get the retiring head to name them as the one to follow, before the interviews | title: research facility lead | requires: lab work | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: win the old keeper's blessing before the elders meet, so the stones pass to you | magic: win the old keeper's word to the provost, so the keys pass to you | chance: 5
+- R | ask to run the main instrument for a day, and let the results speak | title: research facility lead | requires: lab work | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, achievement | tribal: climb to the stones at the turning and mark it truly before anyone asks | magic: ask to run the orrery for one night, and let the masters find it true in the morning | chance: 5
+- G | apply with the users behind you: the students and groups who come to you for help | act: apply with the users behind them: the students and groups who come to them for help | title: research facility lead | requires: lab work | without: impossible | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: ask for the stones with the families you mark the seasons for standing behind you | magic: apply with the scholars and apprentices you have helped standing behind you | chance: 5
+- BG | stay with the machines you know, and become the one the new head cannot manage without | v: power | tribal: keep your own watch, and become the one the new keeper must ask | magic: stay at your own bench, and become the one the new keeper must send for | chance: 80
+- BR | take the better-paid job at the firm that builds the machines instead | v: achievement, stimulation | tribal: go to the flint-traders who make the best tools, and learn their trade instead | magic: take service with the instrument-makers' guild, for better pay | chance: 75
+- UR | spend a winter learning the instrument from the inside, ready for the next opening | aims: research facility lead | mark: learned a skill | habit | v: self-direction, achievement | tribal: spend the winter at the stones beside the old keeper, learning every mark | magic: spend the winter inside the orrery with its old keeper, learning every wheel | chance: 80
+- WG | recommend the long-serving technician who knows the place best, and say why | v: benevolence, universalism | tribal: speak at the fire for the old keeper's helper, who has climbed with him for years | magic: speak to the provost for the orrery's old journeyman, who has tended it for years | chance: 80
+- WU | take the deputy head's post instead, and learn the job beside whoever is chosen | grants: trusted with the keys | habit | v: security, achievement | tribal: ask to carry the old keeper's marks and tend the stones, under whoever is chosen | magic: ask to be the orrery's under-keeper, beside whoever is chosen | chance: 75
+works: The board rings on a Friday: the keys are {Ns} from the first of the month, and so are forty groups' worth of problems.
+works: The choice turns out well, and within a year {N} knows every sound the machines make.
+fails: The post goes to the deputy who has waited eleven years for it. The panel's letter says {Ns} plan for the instruments was the most interesting they heard, and that the deputy has been asked to read it.
+fails: {N} is shown round the machine room, asks good questions, and hears nothing for six weeks; then a two-line email, and the long drive home is spent going over every answer.
+
+# ---------------------------------------------------------------- LS4. a search for a new voice for science (pairs D2b)
+# A broadcaster and a science museum look for a new voice for science. Only a graduate who has explained science in
+# public for three years or more, with a research post, journalism or teaching behind it (the rungs below the
+# communicator's post in roles.py), meets it. Earned odds ([explaining science], [public speaking], [reporting],
+# [following online], [published research]) lift the prepared. The pairs are the ways to use a voice without the post:
+# a science night, a channel built slowly (aims:), Saturday talks, the job one has, or a friend's film.
+# Round 5, 2026-10-07 (P5, P9): the pack's long shot for [science communication specialist]. The singles go at 5 with
+# `grants_if_fails: a long shot that missed` (they were an ordinary 10 with no perk): a national search draws hundreds
+# of entries, and the communicator's post ran far above its share (P5).
+
+== a search for a new voice for science
+tier: life event
+stages: young_adult adult mature elder
+age: 23-75
+holds: explaining science
+tenure: 3-70
+per_year: 0 0 .006 .006 .004 .002
+drivers: era+.2 fortune+.2
+times: per person who has explained science in public for three years or more, with research, science reporting or teaching behind them, a year: perhaps 1 in 150 sees a search for a science presenter, a museum's public voice or a broadcaster's science desk and answers it (estimate); such searches draw from dozens to a few thousand entries, most from people with no record; someone with years of talks and a research, reporting or teaching background is shortlisted perhaps 1 time in 5 and chosen about 1 time in 20 (estimate)
+likelier: a gift for explaining, a following of one's own, a film or a talk that did well, a time when broadcasters want new faces
+rarer: shyness, no time, a field that rarely makes the news
+gap: 5-15
+domain: career.5
+tone: mixed
+life: work, meaning
+horizon: months
+roles: friend, partner, colleague, mentor, rival
+earth: a broadcaster and a science museum look for a new voice for science, and your years of talks fit what they ask
+tribal: the great gathering will choose a new teller of what the watchers have learned, and your tellings are known at many fires
+magic: the Academy seeks a new lecturer for the market square, and your back-room lectures have been talked about for years
+scene: The notice runs for a week: a broadcaster and a science museum want a new voice for science, and ask for a two-minute film explaining one idea, from people who already explain science to the public. {N} has given talks for years, watches the advertisement twice and starts, without quite deciding to, to choose the idea.
+scene W: The rules are precise: two minutes, one idea, no music, a signed form. {N} prints them, because a fair contest is one where everyone sends the same thing.
+scene U: The hard part is not the camera; it is choosing an idea that can be made clear in two minutes without one false word. {N} has been working on that problem for years without knowing it.
+scene B: Many will apply, and the one chosen will be someone the producers have already heard of. {N} starts thinking about who might mention {Ns} name to them.
+scene R: {N} has explained this stuff at every party for years, waving a fork, and people stay to listen. Why not on a real screen?
+scene G: {Ns} students, neighbours and the regulars at the library talks already call {N} the one who makes science make sense, and half of them have sent {N} the notice.
+scene tribal: At the gathering a new teller will be chosen, the one who carries what the watchers learned from fire to fire. {N} has told the watchers' findings at many fires for years, and the bands will cheer for the one they want.
+scene magic: A herald reads it in the square: the Academy wants a lecturer for market days, someone to make the new wonders plain to porters and fishwives alike. {N} has lectured in tavern back rooms for years; the trial is on the steps, on the first day of spring.
+- W | send in the film and the form exactly as the rules ask, on the first day | title: science communication specialist | grants_if_fails: a long shot that missed | self_control: + | v: conformity, achievement | tribal: stand up at the fire when the elders call, and tell one thing in the old order | magic: present yourself on the steps at the first bell, the lecture written out as the notice asked | chance: 5
+- U | spend a month on the clearest two minutes anyone has made about one idea | title: science communication specialist | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: spend a moon shaping one teaching so clear a child could carry it home | magic: spend a month polishing one lecture until not a word in it is false | chance: 5
+- B | ask a producer met once at a talk to move the film to the top | title: science communication specialist | grants_if_fails: a long shot that missed | v: power, achievement | tribal: ask the singer who owes you a favour to name you to the elders first | magic: ask a clerk of the Academy who owes you a favour to set your name first on the list | chance: 5
+- R | turn up at the audition with a kitchen experiment that fizzes and foams | title: science communication specialist | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, hedonism | tribal: leap up at the fire unbidden and show the bands how the stones mark the sun | magic: push to the front of the steps with a flask that changes colour, and start talking | chance: 5
+- G | send the film the people you teach made of you at work, in your own place | act: send the film the people they teach made of them at work, in their own place | title: science communication specialist | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: let the families of your own fire stand up and say why it should be you | magic: let your neighbours walk with you to the steps, and speak for you before you begin | chance: 5
+- RG | start a monthly science night at the local pub or library instead | grants: good name in town | habit | v: stimulation, benevolence | tribal: light a small fire of your own once a moon, where anyone may ask what the watchers have seen | magic: start a monthly lecture in the back room of the tavern, for whoever comes | chance: 80
+- UB | start a channel of your own, and build an audience the slow way | aims: science communication specialist | door | v: achievement, self-direction | tribal: teach at every fire you pass, and let the bands come to know your name slowly | magic: print a broadsheet of wonders each month, and win its readers one by one | chance: 80
+- UG | give free talks at the museum on Saturdays, to learn the craft properly | grants: public speaking | mark: learned a skill | v: universalism, benevolence | tribal: walk with the young watchers on the hill and teach them, to learn how teaching is done | magic: guide visitors round the Academy's halls on feast days, to learn the craft of telling | chance: 80
+- WB | keep the job you have, and bring science into it more often | habit | v: security, achievement | tribal: keep your place in the band, and bring what the watchers know to your own hearth | magic: keep your post, and bring the new wonders into your own work and your guild | chance: 80
+- WR | help a friend make a better film than yours, and cheer when it airs | act: help a friend make a better film than their own, and cheer when it airs | mark: made a friend | v: benevolence, stimulation | tribal: help a friend shape a telling for the fire, and cheer loudest when they stand | magic: help a friend rehearse for the steps, and cheer loudest in the crowd | chance: 80
+works: The phone rings on a wet Tuesday: the producers loved the film, and could {N} come in on Monday?
+works: The voice finds its room, and people who never cared for science stay to listen to {N}.
+fails: The email thanks {N} for one of several hundred entries and says the standard was very high. A week later a producer writes, unasked, that {Ns} film made the whole office laugh and learn something, and that it nearly made the last three.
+fails: {N} watches the first episode with someone else presenting it, says the new face is quite good, and goes to bed early.
+
+# ---------------------------------------------------------------- LS5. a chair falls vacant at another university (pairs D3a)
+# Round 5, 2026-10-07 (P9): the long shot for [professor]. A chair at another university falls vacant. Only a research
+# group leader of three years or more, or a research scientist of eight years or more, with [published research] meets
+# it (holds:, and the LIFE gate in engine-conditions.py). The singles apply for the chair itself: the next rung for a
+# group leader, one skip (the project-lead rung) for a scientist, and an outside post that most often goes to someone
+# who already holds a chair, so they go at 3. The pairs: better terms at home, a younger colleague backed, the record
+# built for the next chair (aims:), the promises to one's own group kept, or the teaching a chair is chosen for.
+
+== a chair falls vacant at another university
+tier: life event
+stages: adult mature
+age: 32-67
+holds: research group leader | research scientist
+tenure: 3-50
+per_year: 0 0 0 .02 .02 0
+drivers: prosper+.3 era+.2
+times: per research group leader of three years or more, or research scientist of eight years or more, with published work, a year: perhaps 1 in 50 sees a chair in their field advertised at another university and could apply (estimate); a chair draws dozens of applications from senior people, a handful are interviewed, and most go to someone who already holds a chair or a well-known name; an applicant who has never held one is appointed perhaps 1 time in 30 (estimate)
+likelier: a long record of published work, a group that delivered, a field the university is building, a mentor on the committee
+rarer: a thin record, a narrow field, a university that hires only sitting professors, hard times for research money
+gap: 4-10
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, boss, colleague, rival, partner
+earth: a chair in your field falls vacant at another university, and your record would let you apply
+tribal: the teacher who held the teaching seat of a far band has gone to the ancestors, and they ask whether a keeper of long standing would come
+magic: a master's chair at another city's Academy stands empty, and petitions are welcome from scholars of standing
+scene: The notice is short: a chair in {Ns} field at a university in another city, its holder retiring, applications from senior researchers welcome. {N} reads the list of what the chair asks for and finds in it, line by line, a description of the last ten years.
+scene W: The criteria run to two pages: teaching, service, a record of funding, a plan for the department. {N} checks each one against the file of evidence kept since the first post, and starts a folder.
+scene U: {N} pictures a chair that would let one question be followed for twenty years without asking anyone's leave, and starts listing what the first five would settle.
+scene B: A chair is the strongest position the field has to offer: a say in hiring, in money, in what gets studied. {N} knows two people on the committee, and one of them owes {N} a favour.
+scene R: The notice has been open on {Ns} screen all afternoon. A new city, a new department, a lecture hall full of strangers: the thought makes {N} restless in the best way.
+scene G: The professor who is retiring there trained half the people {N} works with. Applying feels less like a move than like being asked to keep something going.
+scene tribal: The keeper of a far band's teaching seat has gone to the ancestors, and word comes along the river: a watcher of long standing who teaches well might come and take the seat. {N} has taught the young watchers of the home band for many winters.
+scene magic: A notice is nailed to the Academy gate of the river city: a master's chair is empty, its old holder gone to rest, and petitions are welcome from scholars of standing. {N} has led a workshop at the home Academy for years.
+- W | apply with every requirement met and shown, the teaching and the service too | title: professor | requires: published research | without: impossible | grants_if_fails: a long shot that missed | v: conformity, security | tribal: ask for the seat in the proper way, every winter of teaching counted | magic: petition by every form, each lecture and each duty set down in order | chance: 3
+- U | send a plan for twenty years of one question, and let the work make the case | title: professor | requires: published research | without: impossible | grants_if_fails: a long shot that missed | binds | v: achievement, conformity | tribal: show the far band the whole teaching you would give, winter by winter | magic: send the council the plan of a lifetime's study, and let it plead for you | chance: 3
+- B | get the committee member who owes you a favour to put your name forward | act: get the committee member who owes them a favour to put their name forward | title: professor | requires: published research | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: have the elder who owes you a gift speak your name at the far fire first | magic: have the master who owes you a favour set your name before the council first | chance: 3
+- R | ring the head of department, and ask to give a lecture there next week | title: professor | requires: published research | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: walk to the far band unasked, and teach at their fire before anyone has chosen | magic: ride to the river city, and lecture in its hall before the petitions are read | chance: 3
+- G | apply with the backing of the students and colleagues who grew up in your group | act: apply with the backing of the students and colleagues who grew up in their group | title: professor | requires: published research | without: impossible | grants_if_fails: a long shot that missed | binds | v: benevolence, tradition | tribal: go with the young watchers you taught, who will speak for you at the far fire | magic: petition with the journeymen you trained, their names set beside yours | chance: 3
+- BG | stay, and use the call to win better terms where you are | v: power | tribal: let the home band hear you were sent for, and keep a stronger seat at your own fire | magic: let your own Academy hear of the call, and win a better seat where you are | chance: 80
+- RG | back a younger colleague's application, and write the warmest letter of your life | mark: helped someone in need | v: benevolence, stimulation | tribal: speak at the far fire for a younger watcher who asks for the seat | magic: write the warmest letter of your life for a younger scholar's petition | chance: 80
+- UB | ask what the committee wanted, and build the record for the next chair that opens | aims: professor | mark: learned a skill | v: achievement, security | tribal: ask the far band what their teacher must bring, and spend the winters getting it | magic: ask the council what wins a chair, and spend the years preparing for the next | chance: 80
+- WR | turn it down, and see the projects promised to your group through | mark: kept your word | v: benevolence, conformity | tribal: stay, and keep the teaching promised to the young watchers of your own band | magic: stay, and keep the promises made to your own journeymen | chance: 80
+- WU | take on more teaching and committee work, the duties a chair is chosen for | grants: teaching | habit | v: conformity, achievement | tribal: take on more of the band's teaching and its councils, the work the seat asks | magic: take on more lectures and council duties, the work a chair is chosen for | chance: 80
+works: The committee rings on a Tuesday: the chair is {Ns} from the autumn, and the first lecture is already on the timetable.
+works: The choice turns out well, and within a year the new department feels like a place {N} chose.
+fails: {N} comes second. The chair of the committee writes, unasked, that the vote was close and the lecture the best they heard, and that the post went to someone who already held a chair elsewhere.
+fails: The interview day is long and bright and goes well, {N} thinks; the letter in the spring is two lines long, and {N} reads it twice on the train home.
+
+# ---------------------------------------------------------------- LS6. a scientist's post at a famous lab (pairs D3b)
+# Round 5, 2026-10-07 (P9): the long shot for [research scientist]. One of the most famous laboratories in the field
+# advertises a scientist's post. Only someone with two years or more on a rung below it (research assistant, laboratory
+# technician, research data steward or research software engineer; roles.py after=) and a degree meets it. The singles
+# apply for the post: the next rung, at a lab where most applicants already have a doctorate and papers of their own,
+# so they go at 4. The pairs: a company lab, a summer inside the famous lab, the doctorate the post asks for (aims:),
+# a longer contract at home, or staying with the group that trained one.
+
+== a scientist's post at a famous lab
+tier: life event
+stages: young_adult adult mature
+age: 22-60
+holds: research assistant | laboratory technician | research data steward | research software engineer
+tenure: 2-40
+per_year: 0 0 .02 .015 .005 0
+drivers: prosper+.3 era+.2
+times: per research assistant, laboratory technician, research data steward or research software engineer of two years or more, a year: perhaps 1 in 50 sees a scientist's post advertised at one of the most famous laboratories in their field and applies (estimate); such posts draw hundreds of applicants, most with a doctorate and papers of their own, and someone applying from a support post is appointed perhaps 1 time in 25 (estimate)
+likelier: a method of one's own that others use, a supervisor with a famous name, papers with one's name on them, a lab expanding its staff
+rarer: no degree in the field, years spent only on routine work, a lab that hires its scientists from its own students
+gap: 3-10
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, boss, colleague, rival, friend
+earth: a scientist's post opens at one of the most famous laboratories in your field, and your years at the bench would let you apply
+tribal: the most famous band of watchers, by the great river, wants one more watcher, and any helper of long standing may ask
+magic: the most famous workshop of the Academy's capital seeks a new scholar, and any journeyman of standing may petition
+scene: The advertisement is in the field's main journal: a scientist's post in a laboratory whose papers {N} has read for years, whose name everyone in the building knows. {N} has the degree, the years at the bench and a method of one's own, if not the doctorate most applicants will have, and reads it three times on the way home.
+scene W: The post asks for eight things, listed in a box. {N} goes through them honestly with a pen and finds five ticks, two half ticks and one blank.
+scene U: {N} knows the lab's last three papers better than most of its own staff do, and knows exactly where the method {N} built would fit into their next one.
+scene B: Nobody gets a post like this from a cold application. {N} starts thinking about who has worked there, and who still owes whom a favour.
+scene R: The lab's famous instrument, the questions it chases, the people in the photographs on its website: {N} wants to be there so much it is almost funny.
+scene G: The group {N} works in now took {N} in as a beginner and taught everything {N} knows. Leaving would be a loss, even for a famous name.
+scene tribal: Word comes down the great river: the band whose watchers are known at every fire wants one more, and any helper who has counted beside the watchers for years may ask. {N} has counted the herds beside the home band's watchers for many seasons.
+scene magic: A herald from the capital cries it in the square: the most famous workshop of the Academy seeks a new scholar, and journeymen of standing may petition. {N} has kept a master's instruments and tables for years.
+- W | apply exactly to the advert, every criterion answered with evidence | title: research scientist | requires: graduate | without: impossible | grants_if_fails: a long shot that missed | v: conformity | tribal: ask the famous band in the proper way, every count you have made laid out | magic: petition by every form, each skill you have attested by a seal | chance: 4
+- U | send the method you built, and show what it could do in their hands | title: research scientist | requires: graduate | without: impossible | grants_if_fails: a long shot that missed | v: achievement, conformity | tribal: show them the way of counting you made, and what it could tell them | magic: send them the instrument you built, and the tables it has made | chance: 4
+- B | ask the professor you assisted to ring the lab's director for you | act: ask the professor they assisted to ring the lab's director for them | title: research scientist | requires: graduate | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: ask the elder you served to send word to the famous band for you | magic: ask the master you served to write to the famous workshop for you | chance: 4
+- R | turn up at the lab's open day, and talk your way to the bench | title: research scientist | requires: graduate | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: walk to the great river band unasked, and start counting beside them | magic: walk into the famous workshop on its open day, and set to work at a bench | chance: 4
+- G | apply with letters from the people whose project you kept running | act: apply with letters from the people whose project they kept running | title: research scientist | requires: graduate | without: impossible | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: go with the word of the hearths whose counts you kept for years | magic: petition with letters from the masters whose work you kept for years | chance: 4
+- BR | take a better-paid post at a company lab instead | v: achievement, stimulation | tribal: go to the traders' camp, where a good counter is paid in salt | magic: take service with a merchant house that pays a scholar well | chance: 80
+- UG | ask to spend a summer in the famous lab, to learn how it works | mark: learned a skill | v: universalism | tribal: ask to walk one season with the famous band, to learn their ways | magic: ask to spend a summer in the famous workshop, learning its ways | chance: 80
+- UR | start the doctorate the post asks for, on a question of your own | aims: research scientist | door | v: self-direction, achievement | tribal: go to the lore-keepers for the long learning the band asks of its watchers | magic: enter the Academy's long course for a doctor's ring, on a question of your own | chance: 80
+- WB | let your own lab see the application, and bargain for a longer contract | v: security | tribal: let your own band see you were asked about, and win a surer place | magic: let your master see the petition, and win a sealed contract where you are | chance: 80
+- WG | stay with the group that trained you; its work is not finished | act: stay with the group that trained them; its work is not finished | v: tradition, benevolence | tribal: stay with the band that taught you to count; its watching is not done | magic: stay with the workshop that trained you; its work is not finished | chance: 80
+works: The call comes on a Friday: the lab wants {N}, and the start date is the first of next month.
+works: The move goes the way {N} hoped, and within a year {Ns} name is on one of the lab's papers.
+fails: {N} is one of six asked to give a talk, and the questions afterwards are sharp and fair. The post goes to someone with two doctoral years at a rival lab; the director's email says {Ns} method was the best thing they saw all week.
+fails: The rejection is a form letter, and {N} reads it at the bench between two runs, then finishes the second run.
+
+# ---------------------------------------------------------------- LS7. a named fellowship, one a year (pairs D4a)
+# Round 5, 2026-10-07 (P2, P9): the long shot for [postdoctoral researcher]. A famous funder's named fellowship pays one
+# young scientist's own question for three years. Only a research scientist in the first five years after a doctorate
+# meets it (holds:, and the LIFE gate in engine-conditions.py); the singles need the doctorate (requires:, without:
+# impossible) and go at 4. The pairs: the ordinary funded postdoc in a large group (WU, the usual way in, at 75), a
+# bridging contract at home, a year at a field station, the bold idea kept for next year (aims:), or a company post.
+
+== a named fellowship, one a year
+tier: life event
+stages: young_adult adult
+age: 25-45
+holds: research scientist
+tenure: 0-5
+per_year: 0 0 .03 .02 0 0
+drivers: prosper+.3 era+.2 fortune+.1
+times: per research scientist in the first years after a doctorate, a year: perhaps 1 in 30 applies for one of the few named fellowships, a famous funder's or a learned society's, that pay a young scientist's own question for three years (estimate); such fellowships fund perhaps 2 to 5 applications in 100 (estimate from the success rates such funders report), while most new doctors who want a postdoc find an ordinary one in a funded group
+likelier: a doctorate that produced papers, a host lab with a famous name, a supervisor who backs the application, a field the funder favours
+rarer: a doctorate that took long and produced little, no host lab willing to sign, hard times for research money
+gap: 3-6
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, boss, colleague, rival, partner
+earth: a famous funder's named fellowship pays one young scientist's question for three years, and you have the doctorate to apply
+tribal: the elders give one young watcher each year three winters fed by the band, to learn one thing of their own choosing
+magic: a founder's purse at the Academy pays one young doctor a year for three years on a question of their own
+scene: The fellowship carries a famous name and comes once a year: three years of salary and money for one young scientist's own question, at any lab that will host them. {Ns} doctorate is fresh, the idea has been waiting since the second year of it, and the deadline is in five weeks.
+scene W: The guidance notes are precise: a host lab's signed letter, a three-year plan, two referees, a budget in the funder's own format. {N} prints them and starts at the top.
+scene U: {N} has carried the question since the second year of the doctorate: what it is, why it matters, and the three experiments that would answer it. Five weeks is enough to write it down properly.
+scene B: Past winners have gone on to lead groups of their own, almost all of them. {N} knows the name on the fellowship opens doors for the rest of a career.
+scene R: The idea is wild, and {N} loves it, and nobody else would ever fund it. That is exactly why it belongs here.
+scene G: {N} thinks of the lab and the town where the doctorate was done. The fellowship could take the question back there, to the people who made it possible.
+scene tribal: At the gathering the elders name one young watcher a year to be fed by the band for three winters while they learn one thing of their own choosing. {N} has only lately been named a watcher, and already has a question nobody else is asking.
+scene magic: The founder's purse is cried at the Academy's gate each spring: three years of bread and candles for one young doctor's own question. {Ns} doctor's ring is new, and the question has kept {N} awake for a year.
+- W | apply exactly as the guidance asks, with the host lab's letter signed | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | grants_if_fails: a long shot that missed | v: conformity | tribal: ask the elders by the old form, with your teacher standing beside you | magic: petition by every form of the founder's rules, your host master's seal attached | chance: 4
+- U | write the proposal of a lifetime: one question, three years, every step costed | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | grants_if_fails: a long shot that missed | self_control: + | v: achievement, conformity | tribal: lay before the elders one question for three winters, every step planned | magic: write a petition of one question for three years, every step accounted | chance: 4
+- B | get your doctoral supervisor to call the fellowship's chair | act: get their doctoral supervisor to call the fellowship's chair | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: have your teacher speak your name to the eldest before the gathering | magic: have your old master write to the founder's trustees on your behalf | chance: 4
+- R | pitch the boldest idea you have in the interview, and ignore the safe plan | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: tell the elders the wildest thing you mean to learn, and leave the safe plan unsaid | magic: put the wildest idea before the trustees, and leave the safe plan in your satchel | chance: 4
+- G | apply to take the fellowship back to the lab and the town you came from | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | grants_if_fails: a long shot that missed | v: tradition, benevolence | tribal: ask to take the learning back to the band you came from | magic: petition to take the purse home, to the workshop where you began | chance: 4
+- BG | stay in the home lab on a bridging contract, and guard your data | v: power | tribal: stay at your own fire one more winter, and keep your counts close | magic: stay in your master's workshop one more year, and keep your notes close | chance: 75
+- RG | spend a year at a field station instead, among people you like | v: stimulation, benevolence | tribal: go out with the summer hunters for a year, among friends | magic: spend a year at a far observatory, among friends | chance: 75
+- UR | keep the bold idea, and work it up on evenings for the next round | aims: postdoctoral researcher | habit | v: stimulation | tribal: keep the bold thought, and shape it by the evening fire for the next gathering | magic: keep the bold idea, and work it up by candlelight for the next round | chance: 75
+- WB | take a company post with a salary and a pension | v: security | tribal: take a sure place with a rich band that trades in salt | magic: take service with a merchant house, its wages paid every quarter | chance: 75
+- WU | take the ordinary funded postdoc in a large group, with its plan | title: postdoctoral researcher | requires: doctoral graduate | without: impossible | v: achievement, conformity | tribal: join a large band's watchers for three winters, under their keeper's plan | magic: take a journeyman's place for three years in a great workshop, under its plan | chance: 75
+works: The funder's email arrives on a Sunday night, and {N} reads it four times before waking anyone.
+works: The three years begin, and the question {N} carried since the doctorate finally has its own bench.
+fails: {N} is one of eight called to interview, out of several hundred. The panel's letter calls the idea the most original of the year and says it was not yet ready; {N} pins the letter above the desk.
+fails: The application goes in at four minutes to midnight, and the answer in March is no; {N} takes the funded post in a large group instead, and keeps the idea in a drawer.
+
+# ---------------------------------------------------------------- LS8. a national centre opens its posts (pairs D4b)
+# Round 5, 2026-10-07 (P9, P12): the long shot for the side roads of research and for the project lead. A national
+# research centre opens a round of posts. Only a research scientist of two years or more meets it (the rung below each
+# of these careers in roles.py). Each single goes for a different post, the one its color would choose, at 4: W the
+# evidence unit ([evidence synthesis specialist]), U the software team ([research software engineer], needs [writing
+# code]), B a project to lead ([research project lead]), R the programme with towns and farms ([participatory research
+# coordinator]), G the long records ([research data steward], needs [working with data]). The pairs: a company post,
+# the missing skill built for next time, a dataset given, the long study kept, or a better-fitting colleague named.
+
+== a national centre opens its posts
+tier: life event
+stages: young_adult adult mature
+age: 26-67
+holds: research scientist
+tenure: 2-45
+per_year: 0 0 .01 .015 .01 0
+drivers: prosper+.3 era+.3
+times: per research scientist of two years or more, a year: perhaps 1 in 80 sees a national research centre open a round of posts that fit them (a data service, a software team, an evidence unit, a programme with towns and farms, projects to lead) and applies (estimate); a national centre's round draws hundreds of applicants for a few dozen posts, and someone moving across from a scientist's post is appointed perhaps 1 time in 25 (estimate)
+likelier: a skill the centre names in its plan, years in a field it is building, a mentor already there, a government that is spending on research
+rarer: a narrow speciality, hard times for public money, a centre that fills its posts from inside
+gap: 3-10
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, boss, colleague, rival, friend
+earth: a national research centre opens a round of posts, and your years as a scientist would let you apply for one
+tribal: the great gathering of the bands looks for keepers of its shared counts, stores and tellings, and any watcher of long standing may ask
+magic: the realm's new Academy opens posts for assessors, instrument-makers, record-keepers and masters of works, and any scholar of standing may petition
+scene: The national centre has been in the news for a year, and now its first round of posts is out: an evidence unit, a software team, a programme with towns and farms, a team for the long records, and projects to lead. {N} reads the whole list twice and finds that one of them reads like a description of who {N} might become.
+scene W: Each post comes with a person specification and a scoring grid. {N} likes that: the centre has said in advance exactly how it will choose.
+scene U: {N} reads the centre's ten-year plan and sees the gap in it at once, the thing nobody has been hired to do yet.
+scene B: A national centre is where the money, the attention and the next decade's decisions will be. {N} wants to be inside it early, in a post with some say.
+scene R: A new place, built from nothing, where nothing is settled yet: {N} can feel the pull of it like weather.
+scene G: The posts that matter most to {N} are the quiet ones: the people who will keep the records, and the ones who will work with the towns and farms the science is about.
+scene tribal: The great gathering will keep shared counts of the herds, shared stores and shared tellings for every band, and it asks for keepers. Any watcher of long standing may ask, and {N} has watched for many seasons.
+scene magic: A herald reads it in every market of the realm: the new Academy of the realm needs assessors, instrument-makers, record-keepers and masters of works, and scholars of standing may petition at the capital by midsummer.
+- W | apply for the evidence unit, with a review done to its own standard | title: evidence synthesis specialist | grants_if_fails: a long shot that missed | v: conformity, universalism | tribal: ask to be one who weighs every band's counts for the gathering, in the proper way | magic: petition for the assessors' bench, with a judgement written to its own rules | chance: 4
+- U | apply to build its software, with a working tool attached | title: research software engineer | requires: writing code | without: impossible | grants_if_fails: a long shot that missed | v: achievement, conformity | tribal: ask to make the gathering's tally-sticks and knots, with a set already made | magic: petition for the instrument-makers' bench, a working engine in hand | chance: 4
+- B | apply to lead one of its new projects, and get two directors to back you | act: apply to lead one of its new projects, and get two directors to back them | title: research project lead | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: ask to lead one of the gathering's great counts, with two elders behind you | magic: petition to lead one of the new works, with two masters' seals behind you | chance: 4
+- R | apply for the post out with the towns and farms, and go to the interview muddy | title: participatory research coordinator | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, benevolence | tribal: ask to be the one who goes out among the far bands, and come to the fire straight from the trail | magic: petition for the post among the villages, and come before the council with the road still on your boots | chance: 4
+- G | apply to keep its long records, the ones meant to outlast everyone | title: research data steward | requires: working with data | without: impossible | grants_if_fails: a long shot that missed | v: tradition, universalism | tribal: ask to keep the gathering's long memory, the counts meant to outlast everyone | magic: petition to keep the realm's long ledgers, the ones meant to outlast every scholar | chance: 4
+- BR | take a company's offer instead, at twice the salary | v: achievement | tribal: go with the salt traders, who pay a counter twice what the band does | magic: take a merchant house's offer, at twice a scholar's wage | chance: 80
+- UB | ask what the centre found missing, and build it for the next round | mark: learned a skill | v: achievement, security | tribal: ask what the gathering found lacking, and learn it before the next | magic: ask what the council found lacking, and master it for the next opening | chance: 80
+- UG | send the centre your best dataset, and offer to help with theirs | grants: research collaborators | v: universalism, benevolence | tribal: send the gathering your best counts as a gift, and offer help with theirs | magic: send the Academy of the realm your best tables, and offer help with theirs | chance: 80
+- WG | stay with the long study you have kept for years | identity | v: tradition | tribal: stay with the long watch you have kept for many winters | magic: stay with the long ledger you have kept for years | chance: 80
+- WR | recommend the colleague who fits the post better, and say why | mark: helped someone in need | v: benevolence | tribal: name a friend at the fire who fits the place better, and say why | magic: commend a fellow scholar who fits the post better, and say why | chance: 80
+works: The letter from the centre comes in a heavy envelope: a start date, a desk in the new building, and a welcome day in the autumn.
+works: The new post turns out to be what {N} hoped, and {N} is in the room when the centre's first big decisions are made.
+fails: {N} reaches the last round of interviews in the new building, all glass and fresh paint. The post goes to someone already doing the job elsewhere; the panel's note says {Ns} answers were the clearest of the day.
+fails: The centre's portal rejects the upload twice, the third attempt goes in at the last minute, and the answer is no; {N} keeps the person specification anyway, as a list of things to learn.
+
+# ---------------------------------------------------------------- LS9. the survey wants a paid assistant (pairs D5a)
+# Round 5, 2026-10-07 (P9): the long shot for [research assistant] from the amateur side. The survey or project a
+# volunteer has served for years advertises a paid assistant's post. Only a citizen scientist or community observer of
+# four years or more meets it (the rungs below the assistant's post in roles.py, after=). The post usually goes to a
+# science graduate, so the singles go at 4. The pairs: the records of one's own patch, the evening course the post asks
+# for (aims:), a tool given to the survey, the old volunteer's way, or a younger volunteer with the degree urged on.
+
+== the survey wants a paid assistant
+tier: life event
+stages: young_adult adult mature
+age: 18-60
+holds: citizen scientist | community observer
+tenure: 4-80
+per_year: 0 0 .01 .01 .005 0
+drivers: prosper+.2 era+.2 community+.1
+times: per citizen scientist or community observer of four years or more, a year: perhaps 1 in 100 sees the survey or project they volunteer for advertise a paid assistant's post and applies (estimate); such posts usually go to science graduates, and a volunteer without the degree is taken on perhaps 1 time in 25, more often where the project already knows their records (estimate)
+likelier: years of careful records, a project that knows the volunteer's name, a degree in any subject, a project with new money
+rarer: no time to change jobs, a project that hires only graduates of its own university, records nobody has checked
+gap: 4-12
+domain: career.5
+tone: mixed
+life: work, community
+horizon: months
+roles: mentor, friend, colleague, partner, rival
+earth: the survey you have volunteered for over years advertises a paid assistant's post, and your records are known there
+tribal: the watchers of the elders' circle want a helper fed by the band, and your counts are known at the fire
+magic: the Academy's survey of the realm takes on a paid assistant, and your years of sightings are known to its masters
+scene: The newsletter that comes with every season's count has a box on the back page this time: the survey has money for a paid assistant, two years, to help run the counts and check the records. {N} has sent in counts for years, and reads the box twice over breakfast.
+scene W: The post asks for a degree in a relevant subject "or equivalent experience". {N} has kept the counts by the survey's rules for years, every sheet signed, and wonders whether that is the equivalent.
+scene U: {N} knows the survey's records from the inside: which counters are careful, which routes are thin, where the trends are real. Nobody with a degree from outside could know that.
+scene B: A paid post is a foot in the door of research itself. {N} knows the scientist who runs the survey by sight, and wonders whether a word in the right ear would help.
+scene R: {N} has done this for love, every season, in every weather. Being paid to do it would be almost too good to bear.
+scene G: The volunteers {N} counts beside have been a second family for years. The post would mean doing the same work with them, only now as the one they ring.
+scene tribal: At the fire the elders say the circle of watchers wants a helper fed by the band, to keep the counts and teach the young ones to count. {N} has counted the geese beside the watchers for many springs, and they know {Ns} marks.
+scene magic: A notice comes with the season's letter from the Academy: its survey of the realm will pay an assistant to keep its ledgers and check the correspondents' sightings. {N} has sent in sightings for years, each one in a careful hand.
+- W | apply with every count you have made, checked and in order | title: research assistant | grants_if_fails: a long shot that missed | v: conformity, security | tribal: ask the elders for the place, every count you have made laid out in order | magic: petition with every sighting you have sent, checked and bound in order | chance: 4
+- U | send the survey an analysis of your own records it never asked for | title: research assistant | grants_if_fails: a long shot that missed | v: achievement, conformity | tribal: show the elders what your counts say that nobody asked them to say | magic: send the masters a reckoning of your own sightings, unasked | chance: 4
+- B | ask the scientist who leads the survey to make the post yours | act: ask the scientist who leads the survey to make the post theirs | title: research assistant | grants_if_fails: a long shot that missed | v: power, achievement | tribal: ask the keeper of the watch to give the place to you | magic: ask the master of the survey to set your name on the post | chance: 4
+- R | ring the next morning, and offer to start that week | title: research assistant | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: go to the keeper at dawn, and offer to start counting that day | magic: knock at the master's door at first light, and offer to start that week | chance: 4
+- G | apply with the other volunteers behind you, who know your counts | act: apply with the other volunteers behind them, who know their counts | title: research assistant | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: ask with the watchers you count beside standing behind you | magic: petition with your fellow correspondents' names beside yours | chance: 4
+- BG | keep volunteering, and take charge of the records for your own patch | habit | v: power | tribal: keep watching, and take charge of the counts on your own hill | magic: keep sending sightings, and take charge of the ledger for your own district | chance: 80
+- UB | take the evening course the post asks for, and apply next time | aims: research assistant | mark: learned a skill | v: achievement, security | tribal: learn from the lore-keepers what the place asks, and ask again next year | magic: take the Academy's evening lessons the post asks for, and petition next time | chance: 80
+- UR | build a small tool that checks the volunteers' records, and give it away | grants: a nose for the odd result | v: stimulation, benevolence | tribal: make a counting-cord that catches mistakes, and give it to every watcher | magic: build a small engine that checks the sightings, and give it to the survey | chance: 80
+- WG | stay a volunteer, the way the old counters always were | identity | v: tradition | tribal: keep watching for nothing, the way the old watchers always did | magic: stay an unpaid correspondent, the way the old ones always were | chance: 80
+- WR | urge a younger volunteer with the degree to apply, and help with the letter | mark: helped someone in need | v: benevolence | tribal: send a young watcher who has the learning to ask, and help with the asking | magic: urge a young correspondent with the Academy's ring to petition, and help write it | chance: 80
+works: The scientist rings on a Thursday evening: the post is {Ns}, and could {N} start with the spring count?
+works: The first season as the survey's assistant goes well, and the old volunteers are proud to say they knew {N} when.
+fails: {N} is asked to interview, the only one there with no degree, and answers every question about the routes better than the panel expected. The post goes to a graduate from the university; the scientist writes that {Ns} records are the survey's best, and asks {N} to keep sending them.
+fails: The letter says the post has gone to someone with the right qualification, and {N} goes out on the next count anyway, in the rain, because the birds do not know.
+
+# ================================================================ the anti-story
+# ---------------------------------------------------------------- E1. the old door opens a crack (second try; cross s2)
+# Commitment (Emren 09:18: "commitment, and maybe consistency, attempts"). Years after a missed try for a title (a
+# discovery claimed, a group, a facility; since round 5 also a voice for science, a chair, a famous lab's post, a named
+# fellowship, a national centre's post, a paid assistant's post), the same kind of door opens a crack, and the singles
+# go for the very title missed (`title: {missed}`, the engine's last missed title) at 7, a little better than the first
+# try's 3 to 5. Only someone still on the rung below it meets the echo (its req: still a researcher or a long-time
+# volunteer with a publication for research in one's own name; still a scientist with a grant for a group; still a
+# technician or scientist with the hands-on skill for a facility; and the same for the round 5 tries, one branch each
+# in engine-conditions.py). The cross cycle holds the slower ways and the ways to say no.
+
+== the old door opens a crack
+tier: echo
+rate: 0.2
+once: yes
+stages: young_adult+
+age: 28-85
+times: per person whose science long shot missed and who is still on the rung below it: perhaps 1 in 4 go for the same kind of post or money again within about ten years (estimate); in several large funders' published figures a resubmitted proposal is funded about one and a half to two times as often as a first submission, so a second try runs a little better than the first (approximate)
+tone: mixed
+life: work, meaning
+horizon: months
+roles: mentor, friend, partner, colleague, rival
+earth: years after the long shot that missed, the same kind of door opens again, and someone remembers your first try
+tribal: many winters after the elders said not yet, the same place is open again, and someone remembers your first asking
+magic: years after the Academy refused your petition, the same kind of post is offered again, and a master remembers your name
+after: perk [a long shot that missed] gained at 'a discovery nobody asked you for', 'a group of your own, open to all comers', 'a facility looks outside for its next head', 'a search for a new voice for science', 'a chair falls vacant at another university', 'a scientist's post at a famous lab', 'a named fellowship, one a year', 'a national centre opens its posts' or 'the survey wants a paid assistant' (the try for the title missed), the title still not held, and the person still on the rung below it
+delay: 3-12
+likelier: a publication, a grant, savings or a patron since the first try; a mentor or collaborator who remembers the first application; years of supervising others; the old find confirmed by someone else
+rarer: stress above 1.5; poor health; heavy care duties; money below 0.15
+scene: The call comes years later, from an unexpected side: the same kind of post, or the same kind of money, open again, and a note from someone who sat on the old panel. We remember the first application, it says. Do try again.
+scene W: This time {N} knows exactly what the forms want, and where the first application fell short. The gaps have been filled one by one over the years, like a ledger brought up to date.
+scene U: Since the first no, {N} has kept working on the question in odd hours, and the evidence has grown. Read side by side, the old case looks like a draft of the new one.
+scene B: The first try was not wasted: {N} learned who decides, and who listens to whom. Some of those people now return {Ns} calls.
+scene R: The old hunger comes back all at once, as if no years had passed, and {Ns} heart is going faster than it has in a long time.
+scene G: {N} thinks of the people who backed the first try and never said a word of reproach when it failed. Going again would be for them as much as for {N}.
+scene tribal: Many winters after the elders said not yet, the eldest healer sends word to {Ns} hearth: the band would hear again what {N} once asked for.
+scene magic: Years after the petition was refused, a letter comes under the Academy's seal: the same kind of post is open again, and a line in a master's hand recalls the old petition with respect.
+- W | apply again, every gap in the first application closed one by one | title: {missed} | grants_if_fails: a long shot that missed | v: conformity, achievement | tribal: ask the elders again in the proper way, with every winter's learning since | magic: petition again by every form, each lack of the first petition made good | chance: 7
+- U | send the new case: the years of work gathered since the first no | title: {missed} | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: bring the elders everything you have watched and tried in the winters since | magic: send the Academy the new tables, years of work gathered since the refusal | chance: 7
+- B | write to the panel member who praised the first try, and ask for a word | title: {missed} | grants_if_fails: a long shot that missed | v: power, achievement | tribal: go first to the elder who spoke kindly of you last time, and ask for her voice | magic: write to the master who praised the first petition, and ask for his word at the council | chance: 7
+- R | say yes before the doubts can start, and go for it again with everything | title: {missed} | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: stand up at the fire and ask again before anyone can say it is too late | magic: send the petition the same night, before the doubts can wake | chance: 7
+- G | go again with the people who stood by the first try, their names beside yours | act: go again with the people who stood by the first try, their names beside theirs | title: {missed} | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: ask again with the families who stood by you the first time beside you at the fire | magic: petition again with your guild's names beside yours on the scroll | chance: 7
+- W>B | ask what the first try lacked, and mend it piece by piece for next time | mark: learned a skill | door | v: conformity, achievement | tribal: ask the elders what the first asking lacked, and mend it season by season | magic: ask the council what the first petition lacked, and mend it piece by piece | chance: 85
+- U>R | test the old plan again on your own time before deciding anything | v: self-direction, stimulation | tribal: go back to the hill alone for a moon and test the old plan before deciding | magic: test the old plan again in the attic before deciding anything | chance: 85
+- B>G | keep the day job, and build the case slowly on the side for the next round | self_control: + | v: security, achievement | tribal: keep hunting with the band, and gather the proof slowly for the next gathering | magic: keep your post, and build the case by candlelight for the next opening | chance: 85
+- R>W | turn it down cheerfully, and keep the promises already made to others | mark: turned down a chance | v: benevolence, conformity | tribal: say no gladly, and keep the promises already made at your own hearth | magic: decline with a light heart, and keep the promises already made to your household | chance: 85
+- G>U | ask the people who know the work best whether it is ready, and listen | v: tradition, universalism | tribal: ask the oldest watchers whether the time is right, and wait for their answer | magic: ask the scholars who know the work best whether it is ready, and listen | chance: 85
+works: This time the answer is yes, and {N} keeps the old letter of refusal in the same drawer as the new one, for the symmetry.
+works: The second try lands where the first could not, and {N} starts the work as if the years between had been preparation.
+fails: The second no is kinder than the first, and more specific: two of the three on the panel said yes. {N} reads the third opinion once, and does not read it again.
+fails: The application goes in on the last night, and the answer is the same as before; this time {N} finds it easier to laugh.
+
+# ---------------------------------------------------------------- E2. the story of the long shot (making peace; cross s3)
+# Years after a long shot missed (any of the tries above, a second try included), someone asks about it, and the person
+# finds out how the story is told now: teaching what it taught, telling it honestly, cheering someone younger who tries,
+# or letting it rest. This is where the anti-story pays off; the peace reading and the Book of Moments can name it.
+# Every act is in the person's own hands (88 for the singles, 85 for the cross cycle).
+
+== the story of the long shot
+tier: echo
+rate: 0.1
+once: yes
+stages: adult+
+age: 32-100
+times: per person whose science long shot missed: perhaps 1 in 3 come, years later, to tell it as part of who they are rather than as a wound (estimate); studies of regret find that over the long run people regret the chances they did not take more than the attempts that failed
+tone: joy
+life: meaning, community
+horizon: years
+roles: friend, partner, colleague, mentor, grandparent
+earth: years after the long shot that missed, someone asks about it, and you find out how you tell it now
+tribal: at a winter fire, years after the long try, a young one asks about it, and you hear how you tell it now
+magic: years after the refused petition, a young scholar asks about it, and you hear how you tell it now
+after: perk [a long shot that missed] gained at one of the pack's long-shot moments ('a discovery nobody asked you for', 'a group of your own, open to all comers', 'a facility looks outside for its next head', 'a search for a new voice for science', 'a chair falls vacant at another university', 'a scientist's post at a famous lab', 'a named fellowship, one a year', 'a national centre opens its posts', 'the survey wants a paid assistant', or the second try 'the old door opens a crack'), at least five years ago
+delay: 5-25
+likelier: retirement or fewer working hours; someone younger trying something similar; a reunion, a talk or a grandchild's question; a second try that landed, or one let go
+rarer: stress above 1.5; a fresh loss; the long shot still raw
+scene: Somebody asks about it at last: a younger colleague, a student, a neighbour at a party. Did {N} not once go for that? And from the way the answer comes out, {N} finds out how the story is told these days.
+scene W: {N} sees now what the attempt was: a promise to the work, made in the open and by the rules. That it failed does not undo the keeping of it.
+scene U: Over the years {N} has worked out exactly why it missed: two things that could have been done better, and three that were luck. The account is clear, and clarity is a kind of peace.
+scene B: The attempt opened doors nobody saw at the time: names, a reputation for nerve, people who remembered. {N} can count what it paid, and the sum is not small.
+scene R: {N} laughs before getting to the end of the story. What a thing it was, to go for it like that, and how alive it felt at the time.
+scene G: The notebook from that year is still on the shelf, between the seed catalogues and the photographs. {N} does not need to open it to know what is inside.
+scene tribal: At the winter fire a young hunter asks {N} about the year of asking the elders, and the whole hearth goes quiet to listen.
+scene magic: A young scholar at the Academy's gate recognises {Ns} name from an old petition, and asks, shyly, how it felt to be refused.
+- W | teach the method the attempt taught you, properly, to a class that wants it | act: teach the method the attempt taught them, properly, to a class that wants it | grants: teaching | identity | v: benevolence, tradition | tribal: teach the young watchers the patient ways the long try taught you | magic: take a class at the Academy's lesser school, and teach the method properly | chance: 88
+- U | write the honest account: what was tried, what was learned, and why it missed | identity | v: universalism, self-direction | tribal: shape the whole tale truly for the singers, the missing as well as the trying | magic: write the honest memoir of the petition, the errors as well as the hopes | chance: 88
+- B | turn the story into a talk that gets you asked back again and again | act: turn the story into a talk that gets them asked back again and again | grants: public speaking | identity | v: achievement, power | tribal: make the tale one the bands ask you to tell at every gathering | magic: make the tale a lecture the guild halls pay to hear | chance: 88
+- R | tell it at the table as the best story you own, laughing at the ending | act: tell it at the table as the best story they own, laughing at the ending | mark: made a friend | identity | v: hedonism, stimulation | tribal: tell it at the fire as the best tale you have, laughing loudest at the end | magic: tell it in the tavern as the best tale you own, laughing at the ending | chance: 88
+- G | put the old notebook back on the shelf, and let it rest there for good | identity | self_control: + | v: tradition | tribal: lay the old marking-stick back in the roof thatch, and let it rest there | magic: shelve the old petition with your other papers, and let it rest there | chance: 88
+- W>R | cheer at the front when a young person from the club tries the same thing | v: benevolence, stimulation | tribal: shout loudest at the fire when a young watcher asks the elders the same thing | magic: cheer from the front row when a young scholar petitions the Academy | chance: 85
+- U>G | give the old kit and notes to the club, for the next one who wonders | v: universalism, benevolence | tribal: give your marking-sticks and your lore to the band's young, for the next one who wonders | magic: give your lens and your ledgers to the guild school, for the next one who wonders | chance: 85
+- B>W | put your name and some money behind a small fund for first attempts | v: power, benevolence | tribal: give a share of each hunt to feed the next young one who goes to learn | magic: found a small purse in your name for first petitions to the Academy | chance: 85
+- R>U | take up something new and hard, just to feel the old nerve again | mark: learned a skill | self_control: + | v: stimulation | tribal: learn a hard new craft from another band, just to feel the old nerve | magic: take up a hard new study, just to feel the old nerve again | chance: 85
+- G>B | frame the letter that said no, with its one kind sentence underlined | v: security, achievement | tribal: keep the elders' answer in a knotted cord at the hearth, the kind word knotted twice | magic: frame the Academy's letter of refusal, its one kind sentence underlined | chance: 85
+works: The story comes out lighter than {N} expected, and someone at the table says it is the best thing they have heard all year.
+works: Telling it, {N} finds that the attempt has become a good part of the life, and not a wound in it.
+fails: The old sting is still there after all, and {N} changes the subject before the end.
+fails: Halfway through the telling {N} hears the old excuses creeping back, and stops; it is not quite told yet.

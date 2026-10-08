@@ -1,0 +1,436 @@
+# Chroma library, modern Earth: the role the world expects, and the rare lives of sex and gender (release checklist N1c,
+# part 3: new moments). Design: chroma-identity/spec.md and for-the-library.md section 3 (nine moments, with stages, ages
+# and gates), and the Engine's names from for-the-engine.md (trans, nonbinary, unease, ace, intersex, partner_same,
+# cross_title, role_strict, role_fit, accept_trans, and the mark 'named their gender'). Research: drafts/identity-research.md.
+# Gates for the Engine are the "# gate:" lines above each moment (earth_rules keys them by moment name); inner drivers also
+# say them in words in requires:, with the Engine's names in parentheses.
+# Identity is found, never changed: no act and no pressure changes anyone's gender, orientation or asexuality; nothing
+# sexual involves anyone under 18; nothing is graphic; no choice about surgery on a child; medical steps are for adults.
+# role: keep / cross (the two child moments, the two juvenile moments, the only one at work) and role: women / men (who
+# stays home with the baby) say what the act does with the role the world expects. The Engine closes crossing acts by the
+# world's strictness (role_strict), so no closed: approval is written for the role itself; crossing acts are spread evenly
+# over the five means colors. Never role: on an option about who they love or their own gender.
+# {seen_as} is the game's slot: girl or boy, young woman or young man, woman or man, as the world sees the character.
+# Layout: two everyday pairs (child: calls UR s1 / calls WBG s2; juvenile: calls RG s3 / calls WUB s4), five inner drivers
+# (s2, s4, s1, s3, s1), two life events (pairs D6a and D6b, the two halves of one line).
+# Syntax: header of build.py. Rules: library-spec.md.
+
+# ---------------------------------------------------------------- everyday pair (child, no gate): calls UR (cycle s1) / calls WBG (cycle s2)
+
+== a game, a club or clothes not for you
+tier: everyday
+stages: child
+age: 5-11
+calls: UR
+tone: mixed
+life: play, school, friends
+horizon: week
+roles: friend, parent, sibling, a teacher
+who: teacher
+at: school
+earth: a toy, a club, a haircut or clothes you want, and the other children say they are not for someone like you
+times: Most children, once or twice between 5 and 11 (estimate); children sort their play by sex from about age 3 and police each other's choices, and boys who cross are judged more harshly than girls (Fagot 1977; Martin 1990)
+gap: 3-5
+scene: At the sign-up table for the after-school clubs, {N} reaches for the sheet {N} has wanted all term, and {friend} laughs out loud: that one is not for a {seen_as}.
+scene W: The sign-up sheet says nothing about who may join. It only says to be on time and bring the right shoes, and {N} has always done what the sheet says.
+scene U: {N} wonders who decided which clubs are for whom. Nobody at the table can say, and the not knowing itches.
+scene B: {N} wants that club. {N} has noticed that the children who care least what others think usually end up with what they want.
+scene R: {Ns} face goes hot. Now {N} wants it twice as much, just because {friend} laughed.
+scene G: {N} has loved this since being tiny, the way some children love water or climbing trees. It does not feel like something anyone gets to hand out.
+- W | sign up properly, since the sheet says anyone may join | role: cross | v: universalism (fairness) | chance: 78
+- U | try it once, to see for yourself what it is really like | role: cross | identity | v: self-direction, stimulation | chance: 85
+- B | sign up, and tell everyone you only joined to keep a cousin company | role: cross | v: self-direction | chance: 75
+- R | go with your friends to the club they all chose, so you stay together | role: keep | v: benevolence, hedonism | chance: 85
+- G | keep playing it at home with the family, where nobody minds | role: cross | habit | v: self-direction | chance: 85
+- W>U | ask the teacher whether the rules say who may join | v: universalism (fairness) | chance: 82
+- U>B | find two friends who want to join too, so nobody gets singled out | role: cross | v: security | mark: made a friend | chance: 70
+- B>R | trade a cousin your old things for the toy you really wanted | role: cross | v: hedonism | chance: 80
+- R>G | laugh off the teasing with the others, and let the whole thing drop | role: keep | v: security (belonging) | chance: 72
+- G>W | choose what the others expect this time, and keep the wish for later | role: keep | v: conformity | mark: gave in to pressure | chance: 72
+works: {N} goes along to the club, and by the third week nobody remembers there was ever a fuss.
+works: Whatever {N} chose, it was {Ns} own choice, and the week ends in a good mood.
+fails: The teasing follows {N} round the playground for days.
+fails: {N} lets the thing go quietly, and misses it all term.
+
+== girls' jobs and boys' jobs at home
+tier: everyday
+stages: child
+age: 5-11
+calls: WBG
+tone: mixed
+life: home, family
+horizon: moment
+roles: grandparent, parent, sibling, cousins
+earth: at a big family meal the jobs are handed out, one kind for the girls and another for the boys, and you are sent to yours
+times: Most children, a few times, at home and at family gatherings (estimate); worldwide, girls aged 5 to 14 spend about 40 in 100 more time than boys on unpaid chores at home (UNICEF 2016)
+gap: 3-5
+scene: The whole family is at {grandparent}'s for lunch, and the jobs are handed out the way they always are: one kind for the girls, another for the boys. {N} is sent to the one for a {seen_as}, and keeps glancing at the other.
+scene W: Everyone has a job at {grandparent}'s, and the jobs have been done the same way for as long as anyone can remember. {N} likes being useful, and also likes things to be fair.
+scene U: {N} notices that the jobs are not split by who is tallest or who is best at them, and wants to know what they are split by.
+scene B: One job ends with praise and a second pudding, and the other ends at the sink. {N} knows exactly which one is worth having.
+scene R: The other children are out in the yard with {parent}, shouting and laughing, and {N} is stuck with the wrong job and itching to run.
+scene G: {N} watches {grandparent}'s hands at the old work, done the way {grandparent}'s own parents did it, and wonders whether {N} will ever be shown.
+- W | do the job you are given, quickly and well, so the meal goes smoothly | role: keep | v: conformity | chance: 88
+- U | ask why the jobs are split that way, and listen to every answer | v: self-direction | chance: 82
+- B | offer a cousin your pudding if they will swap jobs | role: cross | v: self-direction | chance: 72
+- R | go straight to the other job, and start before anyone can stop you | role: cross | act: go straight to the other job, and start before anyone can stop them | v: stimulation, self-direction | chance: 85
+- G | stay at your grandparent's side, and learn the old way of doing your job | role: keep | v: tradition | chance: 85
+- W>B | finish your own job first, then claim the right to help with the other | role: cross | v: achievement, self-direction | chance: 66
+- U>R | find a quicker way to finish your job, then run out to the other one | role: cross | v: stimulation | chance: 72
+- B>G | make sure your grandparent sees how well your job is done | role: keep | v: power (face), tradition | chance: 82
+- R>W | say out loud at the table that the split is not fair | v: universalism | chance: 66
+- G>U | watch the grown-ups at the other job until you could do it yourself | role: cross | mark: learned a skill | v: self-direction | chance: 70
+works: The jobs get done, the meal is a good one, and {N} goes home pleased with the day.
+works: Something shifts a little at {grandparent}'s, and next time the jobs are handed out differently.
+fails: {N} is told off in front of the cousins and sent back to the first job.
+fails: The afternoon drags, and {N} sulks all the way home in the car.
+
+# ---------------------------------------------------------------- everyday pair (juvenile, no gate): calls RG (cycle s3) / calls WUB (cycle s4)
+
+== told to act like a proper girl or boy
+tier: everyday
+stages: juvenile
+age: 12-17
+calls: RG
+tone: trouble
+life: family, school, inner
+horizon: week
+roles: parent, mentor, grandparent, friend
+earth: a parent, a coach or a teacher tells you how a proper young woman or young man behaves: what to feel, how to look, what to want
+times: Most teenagers, a few times between 12 and 17 (estimate); in a study across 15 countries, young adolescents everywhere heard from parents, peers and teachers how girls and boys should behave, and the rules tightened at puberty (Global Early Adolescent Study, Blum, Mmari and Moreau 2017)
+gap: 2-4
+scene: After the match {N} is still shaking with feeling, and {parent} says, not unkindly, that a proper {seen_as} does not carry on like that in front of people.
+scene W: {parent} means well, and was taught the same rules the same way. {N} feels the weight of being a good child, and of being told what kind.
+scene U: {N} has started to collect these sayings, how a {seen_as} should sit, speak, cry or not cry, and has noticed that they do not all agree.
+scene B: {N} hears it for what it is: someone else deciding the shape of {Ns} life. {N} files it away and makes no promises.
+scene R: The words sting worse than losing the match. {N} wants to shout that feelings are nothing to be ashamed of.
+scene G: {N} has always been like this, the way a river runs where the land lets it. It is hard to see what there is to put right.
+- W | thank them, and try to behave the way they ask for a while | role: keep | v: conformity | chance: 85
+- U | ask them where the rule comes from, and whether it held for them | v: self-direction | chance: 62
+- B | agree to their face, and go on doing it your own way | role: cross | v: self-direction | chance: 75
+- R | tell them straight out that this is how you are, and that is that | role: cross | v: self-direction | mark: defied an authority | chance: 75
+- G | let the words wash past, and go on being just as you are | role: cross | identity | v: self-direction | chance: 65
+- W>R | ask, politely, to be allowed to show your feelings your own way | role: cross | v: self-direction | chance: 68
+- U>G | read about how people in other places and times have lived it differently | v: universalism | chance: 80
+- B>W | point out, calmly, the grown-ups in the family who break the same rule | v: universalism | chance: 48
+- R>U | argue it out with them, hotly, until one side sees the other's point | v: self-direction | chance: 60
+- G>B | keep your head down and act the part until you can leave home | role: keep | v: security | mark: gave in to pressure | chance: 64
+works: The words lose their sting, and {N} finds a way of being that fits.
+works: {parent} thinks it over and, a few days later, says something gentler.
+fails: The row rumbles on all week, and the house is cold with it.
+fails: {N} tries to be what was asked, and spends weeks squeezed into a shape that does not fit.
+
+== the uniform rule for girls and boys
+tier: everyday
+stages: juvenile
+age: 12-17
+calls: WUB
+tone: trouble
+life: school
+horizon: months
+roles: friend, parent, a teacher, the head
+who: teacher
+at: school
+earth: the school's rules set one uniform for girls and another for boys, down to the length of hair, and what you want to wear is on the other page
+times: Many pupils at schools with a uniform, once or twice (estimate); uniform rules often differ for girls and boys (skirts, trousers, hair, jewellery), and such rules are among the commonest complaints pupils and parents bring to schools (estimate)
+gap: 2-4
+scene: A teacher stops {N} at the gate on Monday morning: the rule book sets one uniform for girls and another for boys, and what {N} is wearing, or how {Ns} hair is cut, is on the wrong page for a {seen_as}.
+scene W: {N} has never broken a school rule before. But this one was written long ago, and nobody can say what harm the other version does.
+scene U: {N} has read the rule book twice. It is long, old and full of gaps, and {N} has found at least three.
+scene B: {N} sees how it works: a rule is only as strong as the teachers who bother to enforce it, and some of them do not.
+scene R: The other version is warmer, or it fits, or {N} just likes it, and being sent home over it makes {Ns} blood boil.
+scene G: {N} feels easy in it, the way an old coat feels easy. Being sent to change over a hem or a haircut seems a strange use of a morning.
+- W | ask the office, properly, for written permission to wear the other version | role: cross | v: conformity, self-direction | chance: 60
+- U | find the gap in the rule book's wording, and wear what you want within it | role: cross | v: self-direction | chance: 65
+- B | change without a fuss, and save your fight for something that pays | role: keep | v: security, power | chance: 84
+- R | keep wearing it every day, and take the detentions as they come | role: cross | v: self-direction | mark: defied an authority | chance: 62
+- G | keep to the rule at school, and wear what you like everywhere else | role: keep | v: security | self_control: + | chance: 80
+- W>G | gather pupils and parents to ask for one uniform for everyone | identity | v: universalism | closed: approval: organising a campaign against the school's rules; backfire: called in by the head, and marked as a troublemaker | lever: voice | pushes: institution school | chance: 48
+- U>W | look up what other schools allow, and put a fair case to the head | v: universalism | lever: voice | chance: 58
+- B>U | wear it anyway, and use every detention hour to get ahead on homework | role: cross | habit | self_control: + | v: achievement | chance: 66
+- R>B | get your friends to turn up the same way, all on the same day | role: cross | v: power, stimulation | chance: 62
+- G>R | come back after the holidays looking how you like, as if it were always so | role: cross | v: self-direction | chance: 60
+works: By the end of term the rule has bent, or {N} has found a way round it that nobody minds.
+works: {N} gets through the term without much fuss, and with a little more say over the next one.
+fails: A letter goes home, and there is a meeting with the head.
+fails: {N} spends the term in and out of detention, and the rule stays exactly as it was.
+
+# ---------------------------------------------------------------- inner: the only one of your kind at work (cycle s2)
+
+# gate: cross_title & (age >= 18)
+== the only one of your kind at work
+tier: inner
+stages: young_adult adult mature
+age: 18-67
+tone: trouble
+life: work, inner
+horizon: months
+roles: colleague, boss, friend, clients
+at: employer
+earth: you are the only woman on the crew, or the only man on the ward: the jokes, the doubts, a chance to prove yourself, and the people who stand by you
+requires: holds a title that about 3 in 4 or more of its holders are of the other sex, while the world expects of them the role of their own (cross_title), aged 18 or more; an ordinary working week brings it up (a new manager, a joke in the morning meeting, a client who asks for someone else)
+likelier: a strict world (role_strict high); a small team with nobody else like them; the first years in the job; work face to face with clients or patients
+rarer: a team where others share their lot; a world that ties little work to sex (role_strict low)
+times: Again and again, every few years, for most people in work mostly done by the other sex, more in the first years (estimate); about 1 in 8 registered nurses in the US are men, and fewer than 1 in 20 electricians, plumbers or carpenters are women (US Bureau of Labor Statistics, Current Population Survey); a lone member of a kind in a team is watched more closely, measured against the stereotype and kept at the edge (Kanter 1977)
+gap: 3-6
+scene: {N} has been the only {seen_as} on the team for two years. In the Monday meeting {colleague} makes the old joke again, a few people laugh, and {boss} moves on to the rota.
+scene W: {N} knows the job and keeps every standard of it. What {N} wants is to be judged by the same rules as everyone else, no more and no less.
+scene U: {N} has noticed the pattern: every mistake of {Ns} is remembered, and everyone else's is forgotten. It is like working under a magnifying glass.
+scene B: Everybody knows {Ns} name, and the clients remember {N} first. Being the odd one out is a burden, and {N} has started to see it as a lever too.
+scene R: The joke was not funny the first time, and {N} is tired of smiling at it. Something hot rises in {Ns} chest every Monday.
+scene G: {N} came to this work because it fits, the way some people are made for the sea or the soil. It is the people around the work who take getting used to.
+- W | take the tasks the team thinks suit you, and keep the peace | role: keep | act: take the tasks the team thinks suit them, and keep the peace | v: conformity | mark: gave in to pressure | chance: 78
+- U | read up on how others in your position have got on in this work | v: self-direction | chance: 76
+- B | turn being the one everyone remembers into an edge with the clients | identity | v: achievement, power | chance: 62
+- R | go for the next step up at once, and dare them to turn it down | role: cross | v: achievement, stimulation | chance: 58
+- G | keep close to the few people who stand by you, and let the rest be | act: keep close to the few people who stand by them, and let the rest be | v: benevolence, security | chance: 72
+- W>B | ask, in writing, for the same rota and the same chances as everyone | role: cross | v: universalism, achievement | chance: 55
+- U>R | learn every part of the job they keep from you, one by one | role: cross | act: learn every part of the job they keep from them, one by one | habit | v: self-direction, achievement | mark: learned a skill | chance: 58
+- B>G | make an ally of the oldest hand on the team, who knows everyone | door | v: security, power | mark: made a friend | chance: 70
+- R>W | call out the next joke in the meeting, and ask the manager to act | v: universalism | chance: 66
+- G>U | settle into the work for the long haul, and keep learning its craft | role: cross | v: achievement, self-direction | chance: 64
+works: The jokes stop, or stop mattering, and {N} is simply part of the team.
+works: {Ns} work speaks loudly enough that the doubts go quiet.
+fails: Every slip of {Ns} is talked about for weeks.
+fails: {N} feels more alone on the team than ever, and starts to dread Mondays.
+
+# ---------------------------------------------------------------- life event: who stays home with the baby (pairs D6a)
+# role: women and men are spread so that every color carries as much of one as of the other (a crossing act costs a man
+# what a woman's costs her): W none, U men, B women, R men, G none; pairs UR UG WR women, WB BG men.
+
+# gate: held_partner & held_children & (yrs_children < 1)   (needs: partner, holds: kind:children, tenure: 0-1)
+== who stays home with the baby
+tier: life event
+at: employer
+stages: young_adult adult mature
+age: 18-55
+needs: partner
+holds: kind:children
+tenure: 0-1
+per_year: 0 0 1.5 1.5 1.5 0
+drivers: money-.1 family+.1
+once: yes
+times: once per new parent with a partner, in the first year of the first child: nearly every couple decides who cuts back at work; in the US more mothers than fathers had reduced their hours (42 in 100 against 28), taken a long stretch off (39 against 24) or quit a job (27 against 10) to care for a child (Pew Research Center 2013); the engine lets in only people whose first child came within the year and who hold a partner, so the yearly figure is per new parent (about 7 in 10 meet it before the year is out, more with the engine's scale)
+likelier: paid leave about to run out; two jobs in the household; a family with firm ideas of who should stay home; childcare that costs nearly a wage
+rarer: grandparents nearby who take over; a partner already out of work
+tone: mixed
+life: children, work, family
+horizon: years
+roles: partner, child, parent, boss
+earth: the baby is a few weeks old, the leave is running out, and one of you will have to cut back at work, or both, or someone else will have to help
+scene: {child} is a few weeks old and the leave is nearly over. At the kitchen table {N} and {partner} have the payslips, the nursery fees and the calendar spread out, and someone will have to cut back.
+scene W: {N} made promises when {child} was born, to {partner} and to {child}. Now those promises have to be turned into a weekly timetable.
+scene U: {N} has it all in a spreadsheet: two wages, the nursery fees, the cost of a career put on hold, and how each choice looks in five years.
+scene B: {N} has worked hard for the place {N} holds at work, and knows exactly what a year away would cost in pay, standing and the next promotion.
+scene R: {N} cannot imagine handing {child} over to anyone for nine hours a day, and cannot imagine giving up the job either.
+scene G: {Ns} own parents raised a family with one of them at home and the grandparents round the corner. {N} wonders which of the old ways still fits.
+- W | split the leave exactly in half, as you promised each other before the birth | v: universalism, benevolence | mark: kept your word | chance: 68
+- U | keep your job, and plan the baby's care down to the hour | role: men | v: security, achievement | chance: 75
+- B | take every paid week of leave yourself, and claim every benefit going | role: women | v: security, hedonism | chance: 75
+- R | go back to the work you love, and race home every night for bath time | role: men | self_control: + | v: hedonism, benevolence | habit | chance: 73
+- G | let the grandparents take the baby on weekdays, the way families always have | v: tradition, benevolence | chance: 74
+- BG | pay a neighbour who raised a family to mind the baby, and both keep working | role: men | v: achievement, security | closed: means: a minder costs a large share of one wage; backfire: the money runs short, and one of the two cuts back after all | chance: 70
+- UG | ask for flexible hours, and work from home around the baby's sleeps | role: women | tech: remote work | v: benevolence, security | chance: 66
+- UR | take a year out with the baby, and learn something new in the quiet hours | role: women | v: self-direction, benevolence | mark: learned a skill | chance: 70
+- WB | take on extra shifts to bring in what the family now needs | role: men | v: security, benevolence | chance: 74
+- WR | stay home yourself, and give the baby every hour of the first year | role: women | v: benevolence | chance: 76
+works: The arrangement settles into a rhythm, and {child} thrives in it.
+works: Whatever was given up, {N} and {partner} agree a year later that it was the right call.
+fails: The plan creaks within months, and there are rows about who gave up more.
+fails: Money runs short by the spring, and the plan has to be torn up and made again.
+
+# ---------------------------------------------------------------- inner: starting treatment to live as yourself (cycle s4)
+
+# gate: unease & mk('named their gender') & (age >= 18)
+== starting treatment to live as yourself
+tier: inner
+stages: young_adult adult mature elder
+age: 18-80
+tone: joy
+life: body, health, identity
+horizon: years
+roles: friend, partner, parent, a doctor
+at: hospital
+earth: having named your gender, you take the first medical steps toward a body that fits it: a doctor, a waiting list, treatment, an operation for some
+requires: feels the other gender, or neither or both (unease), has named their gender (mark 'named their gender'), aged 18 or more (never anyone under 18); a doctor's appointment, a place on a clinic's list, or savings that make it possible
+likelier: a world that accepts it (accept_trans high); a doctor or a clinic within reach (tech: modern medicine); money or health insurance; friends who have done it; trans more often than nonbinary (most trans adults want treatment, fewer nonbinary adults do)
+rarer: a world that frowns on it (accept_trans low); low money; a place far from any clinic
+times: Once in adult life (the first steps; the years after play out in other moments), for most trans adults who have named their gender and fewer nonbinary ones: in the US Transgender Survey 2015, 78 in 100 wanted hormone treatment and 49 in 100 had had it, and 25 in 100 had had some surgery; a quarter of those who sought insurance cover for hormones in the past year were refused, and more than half of those who sought it for surgery (James and colleagues 2016); waiting lists of a year or more are common where the care is public (estimate)
+gap: 2-5
+once: yes
+scene: {N} has lived as {N} for a while now: the name, the clothes, the people who know. Today the letter from the clinic is on the mat, with a date, and {N} reads it three times standing in the hall.
+scene W: There is a proper way to do this: the referral, the assessments, the forms, the list. {N} means to follow it step by step, however long it takes.
+scene U: {N} has read the studies, the clinic's leaflets and a dozen accounts from people further along, and knows the steps, the risks and the odds better than some doctors.
+scene B: {N} has been saving quietly for two years. Whatever the list says, {N} intends to decide the timing, and to owe nobody for it.
+scene R: The date is circled on the calendar in thick pen. {N} has waited long enough to be told what {Ns} own body is allowed to be.
+scene G: Some things grow toward the light whatever is in the way. {N} feels this the same way: less a choice than a season that has finally come.
+- W | ask your doctor for a referral, and wait your turn on the clinic's list | tech: modern medicine | self_control: + | v: conformity, security | chance: 62
+- U | read the studies and the clinic's guidance until you know every step and risk | self_control: + | v: self-direction | chance: 82
+- B | pay a private clinic from your own savings, for treatment and later the operation | tech: modern medicine | identity | v: self-direction | requires: savings | without: means | lacking: .3 | chance: 74
+- R | start treatment as soon as the doctor allows, and tell everyone that week | tech: modern medicine | identity | v: self-direction, stimulation | norm: transition | closed: approval: living openly through the change where people frown on it; backfire: whispers at work and in the street, and a few friends gone quiet | chance: 85
+- G | ask the people who have walked this road how they went about it | door | v: security (belonging), self-direction | chance: 74
+- W>G | join the clinic's support group, and go every month while you wait | habit | v: security (belonging), benevolence | mark: made a friend | chance: 82
+- U>W | learn your rights at the hospital and at work, and see that each is kept | identity | v: universalism, security | chance: 64
+- B>U | use every contact you have to reach the best specialist there is | tech: modern medicine | v: achievement, security | chance: 65
+- R>B | press the clinic, call after call, until they move you up the list | tech: modern medicine | act: press the clinic, call after call, until they move them up the list | v: self-direction | chance: 52
+- G>R | let the body change at its own pace, and enjoy each new day of it | tech: modern medicine | v: hedonism, self-direction | chance: 70
+works: The first months bring changes {N} has waited years for, and the mirror starts to agree.
+works: The road is long, but it is moving, and {N} feels more at home in {Ns} body each season.
+fails: The list does not move, and a whole year passes with nothing but letters.
+fails: Money, a doctor's doubts or the people around {N} slow everything to a crawl.
+
+# ---------------------------------------------------------------- inner: the word the doctors used for your body (cycle s1)
+
+# gate: intersex & (age >= 9)
+== the word the doctors used for your body
+tier: inner
+stages: child juvenile
+age: 9-16
+tone: mixed
+life: body, family, inner
+horizon: months
+roles: parent, friend, a doctor
+at: hospital
+earth: a parent or a doctor tells you that your body was born a little different from most, and that doctors have a word for it
+requires: born intersex (intersex: a body that differs from the usual female or male pattern, raised as a girl or a boy), aged 9 or more; a check-up, a question about growing up, or a parent who decides the time has come
+likelier: the years of puberty (some variations are found only then); a regular check-up at the hospital; a parent who has waited for the right age to explain
+rarer: a family that keeps it quiet (the moment comes all the same, later and harder)
+times: Once, between 9 and 16, for most intersex children (estimate): about 1 in 2,000 children is born with a body different enough that a specialist is called (Intersex Society of North America, from Blackless and colleagues 2000); about 1 in 4,500 with clearly atypical genitals (Hughes and colleagues 2006); some variations are found only at puberty
+once: yes
+scene: {parent} sits on the end of {Ns} bed with a folder from the hospital, and explains, slowly, that {N} was born with a body a little different from most, and that the doctors have a word for it.
+scene W: {parent} has clearly practised this. {N} sits very still and listens to every word, the way one listens when something important is being handed over.
+scene U: The word is long and strange. {N} turns it over and over, and wants to know exactly what it means, and why nobody said it before.
+scene B: {N} understands at once that this is private, more private than anything else {N} owns, and that {N} will decide who hears it.
+scene R: {Ns} heart is thudding. {N} does not know whether to cry, laugh or throw the folder across the room, and nearly does all three.
+scene G: {N} thinks of the garden: no two leaves alike, no two trees grown quite the same. Bodies, it turns out, are like that too.
+- W | listen carefully, and keep every check-up with the doctor from now on | v: security, conformity | chance: 85
+- U | ask every question you have, and look up the word until you understand it | v: self-direction | mark: learned a skill | chance: 85
+- B | decide this is your own business, and that only you choose who hears it | v: self-direction, security | mark: kept it hidden | chance: 85
+- R | tell your best friend that same week, because it is too big to carry alone | v: benevolence, self-direction | chance: 78
+- G | take it as one more way bodies are made, and get on with life | v: self-direction (accepting oneself) | chance: 76
+- W>U | ask the doctor for a booklet for young people, and read it with your parent | door | v: self-direction, benevolence | chance: 72
+- U>B | find out what is in your own records, and who is allowed to see them | v: security, self-direction | closed: approval: a child asking to see their own medical records; backfire: told it is not for children, and a row at home | chance: 65
+- B>R | ask your parent for the whole story, and do not settle for half | v: self-direction | chance: 68
+- R>G | find an online group for young people born the same way, and say hello | tech: internet | door | v: security (belonging) | mark: made a friend | chance: 74
+- G>W | let your parent and the doctor guide you for now, and trust them | act: let their parent and the doctor guide them for now, and trust them | v: security, benevolence | chance: 80
+works: The word stops being frightening and becomes simply part of {Ns} story.
+works: {N} and {parent} come out of it closer, with no more secrets between them.
+fails: For weeks {N} feels like a stranger in {Ns} own body.
+fails: The questions pile up faster than the answers, and {N} sleeps badly for a month.
+
+# ---------------------------------------------------------------- inner: everyone else feels something you do not (cycle s3)
+
+# gate: ace & (age >= 15)
+== everyone else feels something you do not
+tier: inner
+stages: juvenile young_adult
+age: 15-30
+tone: mixed
+life: inner, friends, love
+horizon: months
+roles: friend, prospect, parent
+earth: everyone around you talks about crushes, dates and who they want, and the feeling they describe has never come to you
+requires: asexual (ace: feels no sexual attraction to anyone), aged 15 or more; friends pairing off, talk of crushes and dates, or a family asking when there will be someone
+likelier: the late teens and early twenties, when friends pair off; hearing the word from a friend, a book or online; a first date that leaves them puzzled rather than moved
+rarer: a family or a faith where nobody talks of such things (the feeling is the same; the naming comes later)
+times: Once, between 15 and 30, for most asexual people (estimate): about 1 in 100 adults in a British national sample said they had never felt sexual attraction to anyone (Bogaert 2004); many find a word for it only in their twenties
+once: yes
+scene: At {friend}'s birthday the talk goes round the table: who likes whom, who is seeing whom, who went out with whom. When it reaches {N}, there is nothing to say, and there never has been.
+scene W: {N} knows how it is supposed to go: the crushes, then the dates, then the couple, then the wedding. {N} has waited patiently for the first step, and it has not come.
+scene U: {N} has listened to friends describe the feeling a hundred times, the way one listens to someone describe a colour, and still cannot picture it.
+scene B: {N} has noticed that the others lose whole weeks to crushes and heartbreak. Whatever this is, it leaves {N} a lot of time, and a lot of freedom.
+scene R: {N} loves fiercely: friends, music, the sea at night. It is only this one thing everyone talks about that never lights up.
+scene G: Some trees flower and some do not, and both are trees. {N} has begun to suspect that {N} is simply made this way.
+- W | go on the date your friends set up, so the questions stop | v: conformity | mark: gave in to pressure | chance: 78
+- U | read everything about people who never feel that pull, until it has a name | v: self-direction | chance: 80
+- B | keep it to yourself, and let people think whatever they like | v: security | mark: kept it hidden | chance: 90
+- R | say it straight out when the question comes: you just do not feel it | v: self-direction | mark: came out | chance: 72
+- G | let it be how you are made, and stop waiting for it to arrive | v: self-direction (accepting oneself) | chance: 78
+- W>R | tell your closest friend honestly, and ask them to keep it to themselves | v: benevolence, self-direction | mark: came out | chance: 80
+- U>G | find others online who feel the same, and learn how they live | tech: internet | door | v: security (belonging) | mark: made a friend | chance: 75
+- B>W | agree plainly with someone close what you both want, and what you do not | v: security, benevolence | chance: 60
+- R>U | pour yourself into a passion so fully that nobody asks about dates | habit | v: achievement, stimulation | chance: 85
+- G>B | give a close friendship your whole heart, and let others call it what they like | identity | v: benevolence, self-direction | chance: 80
+works: The word, when it comes, fits like a key in a lock, and {N} breathes out.
+works: {N} stops waiting for a feeling and starts living the life that is already there.
+fails: The questions keep coming, and {N} begins to dread every family gathering.
+fails: {N} feels out of step with everyone, and lonely in a crowded room.
+
+# ---------------------------------------------------------------- life event: a child of your own, another way (pairs D6b)
+
+# gate: partner_same & ~held_children & (age >= 25) & (age <= 45)   (needs: partner, excludes: children)
+== a child of your own, another way
+tier: life event
+stages: young_adult adult mature
+age: 25-45
+needs: partner
+excludes: children
+per_year: 0 0 .03 .035 .015 0
+drivers: money+.4 era+.3 prosper+.2 family+.2 harsh-.3 unrest-.3
+gap: 2-4
+times: per same-sex couple without children, about 3 in 100 a year from the mid-twenties to the mid-forties set out on the road to a child (estimate), so that about 1 in 3 of those who stay together have a child by plan; about 1 in 5 same-sex couples in the US are raising children, and they are about four times as likely as other couples to be raising an adopted child (Gates 2013, Williams Institute, from Census data); about 6 in 10 LGBTQ adults aged 18 to 35 were considering having children (Family Equality 2019); a child never comes to a same-sex couple unplanned
+likelier: a time and place where adoption and clinics are open to same-sex couples; money or savings; a steady home; family who will help; friends who have done it
+rarer: low money; a place that bars adoption or treatment to them; a harsh or unsettled life
+tone: joy
+life: children, love, family
+horizon: years
+roles: partner, sibling, friend, parent
+earth: you and your partner want a child, and none will simply arrive: adoption, a donor, a surrogate where the law allows, or fostering
+scene: {N} and {partner} have talked about it for a year. Tonight the leaflets are spread across the kitchen table: an adoption agency, a clinic, and a card from {friend}, who once offered to help.
+scene W: {N} wants to do this properly, by every rule and check there is, so that nobody can ever say the child was not wanted or not safe.
+scene U: {N} has a folder for each route, with costs, waiting times, success rates and the law on each, and the folders are getting thick.
+scene B: {N} has worked out what each route costs and who controls it, and wants the route that leaves the two of them in charge.
+scene R: {N} can already picture the small coat on the hook by the door, and every week of waiting feels like a week stolen.
+scene G: {N} grew up in a big, untidy family, with cousins taken in and grandparents in the back room. There has always been more than one way for a child to come home.
+- W | apply to adopt, and go through every check and class the agency asks | law: adoption | title: adoptive parent | binds | identity | v: benevolence, conformity | tags: commit:children | chance: 50
+- U | find the clinic with the best results, and follow its plan to the letter | tech: modern medicine | tags: commit:children | v: achievement, security | chance: 50
+- B | pay a surrogate and a private clinic, whatever it costs | tech: modern medicine | tags: commit:children | v: self-direction | closed: means: a surrogate and the clinic cost more than a year's income; backfire: deep in debt, and still no child | chance: 50
+- R | ask a close friend to be the donor, and start this spring | tech: modern medicine | tags: commit:children | binds | v: stimulation, benevolence | chance: 50
+- G | take in a child who needs a home now, as foster carers | title: foster parent | binds | v: benevolence | mark: helped someone in need | closed: means: fostering needs a spare room and a steady home; backfire: turned down at the home visit, and the wait starts again | tags: commit:children | chance: 52
+- BR | put it off: travel and live well while you are young, and decide later | v: hedonism, stimulation | mark: turned down a chance | chance: 85
+- RG | decide the two of you are family enough, and let that be your life | v: self-direction, benevolence | chance: 80
+- UB | save hard for two years first, so whichever route you choose is paid for | self_control: + | v: security, achievement | habit | chance: 75
+- WG | give your time to the family's children instead, and be the one they run to | v: benevolence, tradition | chance: 80
+- WU | join a group of couples who have done it, and learn each route from them | door | v: self-direction, security | chance: 85
+works: The long road ends at last, and there is a small coat on the hook by the door.
+works: Whatever the two of them chose, they chose it together, and it holds.
+fails: The months of checks, tests and forms come to nothing this time, and the spare room stays empty.
+fails: The cost and the waiting wear on them both, and for a while the subject is too sore to raise.
+
+# ---------------------------------------------------------------- inner: growing old without hiding again (cycle s1)
+
+# gate: (mk('came out') | mk('named their gender')) & (age >= 70) & (has('living in residential care'), taken within the year | (health < .4))   (moving into care, or carers coming to the home)
+== growing old without hiding again
+tier: inner
+stages: elder
+age: 70-100
+tone: trouble
+life: home, health, identity
+horizon: months
+roles: partner, friend, child, carers, the care home staff
+earth: moving into a care home, or new carers coming to the house, and the old fear of having to hide who you are comes back
+requires: came out (mark 'came out') or named their gender (mark 'named their gender'), aged 70 or more; moving into a care home (the status 'living in residential care', taken within the year) or carers starting to come to the home (health below about 0.4)
+likelier: a world that frowns on it (climate or accept_trans low); a care home run by a faith body that condemns it; no partner or children nearby to speak up; a generation that lived much of life hidden
+rarer: a care home known to welcome everyone; a partner or an old friend still close by
+times: Once, for many openly gay, bisexual and trans people who live to need care (estimate); in a British survey of people over 55, about 3 in 5 lesbian, gay and bisexual people were not confident that care and support services would understand and meet their needs, and they were more likely than others to live alone and to have no children to call on (Stonewall 2011)
+once: yes
+scene: The new carer is due at ten. Before the bell goes, {N} catches {Ns} own hand reaching to turn a photograph face down on the mantelpiece, the way {N} learned to do fifty years ago and swore never to do again.
+scene W: {N} has lived openly, and fairly, for decades, and expects fairness in return. The question is whether the people now in charge of {Ns} days were raised to think so too.
+scene U: {N} reads the care home's brochure twice: the welcome, the activities, the chapel, the form that asks about a husband or a wife. Every line is a clue to what kind of place it is.
+scene B: {N} knows how much power a carer holds over an old person's days, and does not mean to hand anyone that much power without first knowing who they are.
+scene R: {N} fought for years to stop hiding. The thought of starting again now, at this age, makes {N} want to bang the table.
+scene G: {N} has seen the seasons turn many times, and knows this one: the leaves come down, and old fears with them, and still the roots hold.
+- W | ask for a named carer and the home's promise of respect, in writing | v: security, universalism | chance: 75
+- U | read the home's policies, and ask how its staff are trained, before signing anything | v: security, self-direction | chance: 72
+- B | put the photographs away, and tell the carers only what they need to know | v: security | mark: kept it hidden | chance: 85
+- R | keep the photographs up, and correct anyone who gets you wrong | identity | act: keep the photographs up, and correct anyone who gets them wrong | v: self-direction | closed: approval: living openly in a care home where people frown on it; backfire: cold looks from staff and residents, and a lonely few months | chance: 72
+- G | find the residents who have lived lives like yours, and keep each other company | act: find the residents who have lived lives like theirs, and keep each other company | v: security (belonging), benevolence | mark: made a friend | chance: 66
+- W>U | ask the staff to learn about residents like you, and offer to help | act: ask the staff to learn about residents like them, and offer to help | v: universalism | chance: 68
+- U>B | write down your wishes, and name a trusted friend to act on your behalf | binds | v: security, self-direction | chance: 78
+- B>R | insist on carers who treat you well, and send the others away | act: insist on carers who treat them well, and send the others away | v: self-direction | chance: 62
+- R>G | invite your old friends round loudly and often, so the whole home knows them | habit | v: benevolence, hedonism | chance: 76
+- G>W | keep to yourself for a season, and wait to see who is kind | self_control: + | v: security | chance: 82
+works: The fear passes, and {N} finds that the people now around {N} can be trusted with the whole of {Ns} life.
+works: {N} settles in as {N} is, photographs and all, and the place slowly becomes home.
+fails: A carer's remark cuts deep, and {N} spends weeks guarding every word.
+fails: {N} slips back into hiding, and the rooms feel smaller for it.

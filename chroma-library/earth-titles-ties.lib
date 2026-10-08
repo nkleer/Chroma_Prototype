@@ -1,0 +1,814 @@
+# Chroma library, modern Earth: TITLE MOMENTS of partners, family and community (titles volume 2), an everyday pair per title that only its holder meets (holds:), and one life event that gives the caregiving partner title.
+# Syntax: header of build.py. Rules: library-spec.md. Brief: drafts/titles2/MOMENTS-BRIEF.md. Seeds: Emren's "Modern Earth: 100 More Titles" (each pair's first moment grows from the title's turning point).
+
+# ---------------------------------------------------------------- caregiving partner (T2-047): calls BG (cycle s1) / calls WUR (cycle s2)
+
+== the help that now feels like hovering
+tier: everyday
+rate: 0.5
+stages: adult mature elder
+age: 25-100
+calls: BG
+tone: mixed
+life: love, body
+horizon: week
+roles: partner, a nurse, friend
+holds: caregiving partner
+earth: your partner, ill for months, says your help has started to feel like hovering
+times: Most partners caring for an ill spouse, about once a year over the years of care; about 1 in 5 US adults give unpaid care (AARP 2020)
+gap: 0.8-1
+scene: Last month {partner} was glad of every hand on the stairs. This morning {partner} pushes {Ns} arm away at the bathroom door and says, quietly, that {N} never lets go any more. Love has to include another conversation.
+scene W: {N} promised to see {partner} through this illness, and has kept every appointment and every pill time. Now the promise seems to need a different shape.
+scene U: {N} keeps a chart of the pills, the meals and the bad days. Nowhere on it is there a column for what {partner} still wants to do alone.
+scene B: {partner} has lost a job, a car and half a body's strength this year. {N} sees that the last thing {partner} owns is the say over small things, and that {N} has been taking it.
+scene R: {N} stands outside the bathroom door, stung and furious and ashamed all at once. All that care, and this is the thanks.
+scene G: The illness has changed the house, the days and the two of them. {N} senses that what is between them has to grow a new way round it, like a tree round a fence.
+- W | sit down together and agree, out loud, what you do and what they do | v: benevolence, security | chance: 80
+- U | ask the nurse which tasks they can safely do alone, and make a list | v: self-direction, security | chance: 88
+- B | step back from the small jobs, and take your own evenings out again | habit | v: self-direction | chance: 90
+- R | tell them straight that it hurt, and that you are tired too | v: self-direction (honesty) | act: say straight out that it hurt, and admit to being tired too | chance: 78
+- G | let them take twenty minutes over the buttons, and do not reach in | v: benevolence | self_control: + | chance: 92
+- W>U | keep a shared notebook where they write each day what help they want | habit | v: self-direction, benevolence | chance: 82
+- U>B | fit a grab rail and a jar opener, so they manage alone | v: self-direction | chance: 70
+- B>R | hire a carer two mornings a week, and spend them on something of your own | v: hedonism, self-direction | tags: pay:money-.05 | chance: 80
+- R>G | take them out on a whim, the way you used to, wheelchair and all | body: light | v: stimulation, benevolence | chance: 75
+- G>W | ask their sister and old friends to share the care, as families once did | v: tradition, benevolence | chance: 45
+works: {partner} does the buttons alone, slowly, and comes down to breakfast smiling.
+works: That evening they talk for an hour, and by the next week the help fits better.
+fails: {partner} goes quiet for days, and the house starts to feel like a ward.
+fails: The new arrangement lasts two days before {N} is hovering again.
+
+== a week off from caring
+tier: everyday
+rate: 0.5
+stages: adult mature elder
+age: 25-100
+calls: WUR
+tone: mixed
+life: love, rest
+horizon: week
+roles: partner, sibling, friend
+holds: caregiving partner
+earth: your brother or sister offers to take over your partner's care for a week, so you can get away
+times: Some caring partners, once every few years; carers' surveys find many go years without a real break (Carers UK)
+gap: 2-4
+scene: {sibling} rings with an offer: a whole week of looking after {partner}, so {N} can go away and sleep. The suitcase is in the loft, and {N} has not seen it in two years.
+scene W: {N} made a promise, in sickness and in health. A week away feels like breaking it, even with {sibling} on duty.
+scene U: {N} works out what a week would need: the pill times written down, the nurse's number, the night routine, and whether {sibling} can lift.
+scene B: {N} has given two years to this, and has earned a week. A carer who breaks is no use to anyone, least of all to {partner}.
+scene R: The thought of the sea, a long walk and a whole night's sleep hits {N} like a wave. {N} wants it so much it hurts.
+scene G: {partner} is settled in the old routines. {N} wonders whether a week apart will rest them both, or unsettle what holds.
+- W | thank them, and say your place is at home | identity | v: tradition, conformity | chance: 90
+- U | write out the care hour by hour for them, then go | v: security, benevolence | chance: 65
+- B | go, and ring home once a day, no more | v: self-direction, hedonism | self_control: + | chance: 80
+- R | catch the first cheap train to the coast that same afternoon | door | v: stimulation, hedonism | chance: 92
+- G | stay at home, but sleep and garden while they do the care | v: hedonism, security | chance: 78
+- W>B | ask the council for a carer's assessment, and claim the respite you are owed | door | v: security | chance: 25
+- U>R | plan a week of every walk and gallery you have missed | v: stimulation, self-direction | chance: 72
+- B>G | rent a cottage by the sea for both of you, with a hired carer | v: benevolence, hedonism | tags: pay:money-.08 | chance: 45
+- R>W | insist, loudly, that the whole family take turns from now on | v: universalism | chance: 45
+- G>U | go to a carers' group at the library, and hear how others manage | door | v: self-direction, benevolence | chance: 80
+works: {N} comes home after the week rested, and {partner} is glad of it.
+works: The week goes smoothly, and the care at home feels lighter for a month after.
+fails: {sibling} rings on the second day in a panic, and the week ends early.
+fails: {N} spends the whole week worrying, and comes back more tired than before.
+
+# ---------------------------------------------------------------- nonromantic life partner (T2-048): calls WB (cycle s3) / calls URG (cycle s4)
+
+== a form with no box for the two of you
+tier: everyday
+at: hospital
+rate: 0.5
+stages: young_adult adult mature elder
+age: 22-100
+calls: WB
+tone: mixed
+life: home, love
+horizon: moment
+roles: partner, a nurse, friend
+holds: nonromantic life partner
+earth: a hospital form asks whether your life partner is your spouse, a relative or a friend
+times: Most life partners outside marriage or romance, every few years at a hospital, bank or landlord (estimate)
+gap: 2-4
+scene: {partner} is waiting to go down for a small operation, and the admission form asks for next of kin: spouse, relative or friend. Twelve years of a shared home, shared bills and shared plans, and none of the boxes quite fits.
+scene W: {N} wants to fill in the form truthfully. But the truth is a life two people chose on purpose, and the form has no word for it.
+scene U: {N} reads the small print: a friend cannot be given test results, a spouse can. The difference is one tick.
+scene B: A tick in the wrong box and {N} will be left in the corridor when the surgeon comes out. {N} has no intention of being left in any corridor.
+scene R: {N} stares at the three little boxes and wants to laugh and throw the pen at once. Twelve years, and the choice is "friend".
+scene G: {N} and {partner} have been family to each other for twelve years, the way some people simply are. The form was written for other lives.
+- W | tick friend, then explain calmly to the nurse what you are to each other | v: conformity, benevolence | chance: 82
+- U | look up the hospital's rules on who may be told, and quote them | v: self-direction, security | chance: 75
+- B | tick spouse, and let nobody ask | v: power, security | mark: hid a wrong | closed: law: a false statement on a hospital form; backfire: found out at the bedside, and shut out | chance: 80
+- R | cross out all three boxes and write "life partner" in capitals | identity | v: self-direction | chance: 50
+- G | name their mother as next of kin, as family, and sit beside her | v: tradition, benevolence | chance: 72
+- W>R | ask the charge nurse, politely and properly, whether you may go down with them | v: benevolence | chance: 75
+- U>G | agree together who decides what, if either of you falls ill | v: security, benevolence | chance: 88
+- B>W | pay a solicitor to draw up powers of attorney for each of you | binds | v: security | tags: pay:money-.05 | chance: 70
+- R>U | post a photo of the form online and ask how others manage | door | v: stimulation, self-direction | tech: internet | chance: 78
+- G>B | say you are family, plainly, and stay put by the bed | v: benevolence, power | chance: 50
+works: The nurse nods, writes {N} in as the one to call, and nobody asks again.
+works: {N} is there when {partner} wakes, and that is all either of them wanted.
+fails: {N} spends the afternoon in the corridor while the surgeon talks to someone else.
+fails: The form comes back with a question mark beside {Ns} name, and the afternoon goes on phone calls.
+
+== your life partner falls for someone
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 22-100
+calls: URG
+tone: mixed
+life: love, home
+horizon: months
+roles: partner, friend, a new love
+holds: nonromantic life partner
+earth: your life partner, with whom you share a home but not a romance, falls in love with someone
+times: Perhaps half of nonromantic life partnerships, once or twice over the years together (estimate)
+gap: 6-12
+scene: {partner} comes home late, sits on the arm of the sofa and says it: there is someone, and it might be serious. The house they bought together goes very quiet.
+scene W: {N} and {partner} wrote down the terms of this life together years ago. Nobody wrote a line about this, and the agreement suddenly needs one.
+scene U: {N} turns it over carefully: what changes, what does not, and whether a third person fits the shape of two lives built side by side.
+scene B: Half the house is {Ns}, and so is half the say. {N} means to make sure this new love does not quietly take over the spare room, the evenings and the plans.
+scene R: {N} is glad for {partner}, truly, and also jealous in a way that makes no sense, and cannot tell which feeling to trust.
+scene G: Bonds change their shape over a life, as families do when someone marries in. {N} wonders whether this one can stretch without breaking.
+- W | hold them to the agreement: no overnight guests, whatever they feel | v: conformity, security | closed: approval: policing a partner's love life; backfire: they start staying out instead, and the house goes cold | chance: 35
+- U | look the new love up online, every post going back years | v: security | self_control: - | tech: internet | chance: 40
+- B | make it clear the house stays as it is, whoever they date | v: power, security | chance: 40
+- R | tell them you are happy for them, and jealous, and mean both | v: self-direction (honesty) | act: say, honestly, that they are glad for their partner, and jealous, and mean both | chance: 88
+- G | invite the new love to Sunday dinner, and make room at the table | door | v: benevolence, tradition | mark: made a friend | chance: 68
+- W>G | promise each other that the bond between you comes first, whatever happens | binds | v: benevolence | chance: 85
+- U>W | talk through what each of you wants, and write down fair new rules | binds | v: universalism, security | chance: 70
+- B>U | start building a life of your own outside the house: a course, new friends | door | v: self-direction | mark: made a friend | chance: 88
+- R>B | go out and start dating again yourself | v: hedonism, stimulation | chance: 62
+- G>R | let it unfold, and leave them free to love whom they love | v: universalism, benevolence | chance: 88
+works: By spring there are three at the table some Sundays, and the house still feels like home.
+works: {N} and {partner} talk it through, and what they built holds.
+fails: Evenings go cold and polite, and {N} starts to wonder whose house it is.
+fails: The new love is everywhere at once, and {N} feels like the lodger.
+
+# ---------------------------------------------------------------- parent of independent adult children (T2-052): calls UG (cycle s1) / calls WBR (cycle s2)
+
+== advice on the tip of the tongue
+tier: everyday
+rate: 0.5
+stages: mature elder
+age: 42-100
+calls: UG
+tone: mixed
+life: family
+horizon: moment
+roles: child, partner
+holds: parent of independent adult children
+earth: over coffee, your grown child mentions leaving a steady job to retrain as a chef
+times: Most parents of grown children, every year or few; big turns like a new job or a move come often in children's twenties and thirties (estimate)
+gap: 2-4
+scene: Over Sunday coffee, {child} mentions, almost in passing, leaving a steady job to retrain as a chef. The old advice is ready on {Ns} tongue. This time {N} wonders whether advice is wanted at all.
+scene W: {N} raised {child} to think things through and to finish what was started. Surely a parent still has a duty to say so.
+scene U: {N} notices the careful, half-defensive tone in {Ns} grown child's voice, and sees that this is a new kind of conversation, adult to adult, still to be learned.
+scene B: {N} knows exactly what a kitchen pays, and the bank does not care about passion. A word now could save {child} years.
+scene R: The worry flares up in {Ns} chest, hot and old. And under it, something like pride: {child} has nerve.
+scene G: {child} is grown, the way a tree is grown: still rooted in the same ground, but long past needing a stake. {N} lets the coffee go cold.
+- W | say your piece once, clearly, and never raise it again | v: conformity, benevolence | self_control: + | chance: 68
+- U | ask whether they want advice, or just someone to listen | v: self-direction, benevolence | chance: 95
+- B | offer to help with money if they save for a year first | v: power, security | chance: 55
+- R | tell them it is a mad idea, and that you love them anyway | v: self-direction (honesty), benevolence | act: call it a mad idea, and add that nothing could change how much they love their grown child | chance: 70
+- G | bite your tongue, listen, and trust the way you raised them | v: tradition, benevolence | self_control: + | chance: 85
+- W>U | help them set out the pros and cons on paper, the old careful way | v: self-direction | chance: 72
+- U>B | look up what good chefs earn and where the best kitchens train | v: achievement | chance: 65
+- B>R | quietly pay for a trial week at a cookery school | v: stimulation, benevolence | tags: pay:money-.03 | chance: 88
+- R>G | cook together that evening, and once a week after, with them in charge | habit | v: benevolence, hedonism | chance: 92
+- G>W | let it be, but ask them to keep Sunday lunch whatever happens | v: tradition | chance: 72
+works: {child} talks for an hour and leaves lighter, and rings the next week to say how it went.
+works: {child} leaves grateful, and the decision, whatever it is, stays {child}'s own.
+fails: {child} goes quiet and changes the subject, and the next visit is a long time coming.
+fails: The talk turns into the old argument, word for word, from twenty years ago.
+
+== a grown child asks for a loan
+tier: everyday
+rate: 0.5
+stages: mature elder
+age: 42-100
+calls: WBR
+tone: mixed
+life: family, money
+horizon: months
+roles: child, partner, sibling
+holds: parent of independent adult children
+earth: your grown child asks to borrow money for the deposit on a flat
+times: Many parents of grown children, once or twice in a life for a big sum; 59 in 100 parents of young adults helped them with money in the past year (Pew 2024)
+gap: 5-10
+scene: {child} brings it up while drying the dishes, eyes on the plate: a deposit for a flat, a lot of money, paid back over time. {N} already knows what is in the savings account.
+scene W: {N} has always treated the children the same. If {child} gets a loan, the others will have to be offered the same.
+scene U: {N} wants the numbers: the price of the flat, the mortgage, {Ns} own pension, and what happens if it all goes wrong.
+scene B: Money between family is power, whichever way it flows. {N} worked hard for those savings and means to lend them on terms, if at all.
+scene R: {N} wants to say yes before {child} has finished the sentence. What is money for, if not for this?
+scene G: {Ns} own parents helped with the first home, long ago. It is how it is done in this family, one generation lifting the next.
+- W | lend it only if the other children can have the same | v: universalism, conformity | closed: means: the savings will not stretch to all of them; backfire: the pension pot runs low | chance: 45
+- U | go through their budget with them before deciding anything | v: security, self-direction | chance: 75
+- B | say no, plainly: the savings are for your own old age | v: security, power | chance: 85
+- R | say yes on the spot, and send the money that evening | binds | v: benevolence | tags: pay:money-.1 | chance: 78
+- G | give it as an early inheritance, the way your own parents did | v: tradition, benevolence | tags: pay:money-.1 | chance: 70
+- W>B | lend it with a written, witnessed agreement, so nobody can argue later | v: security, power | chance: 90
+- U>R | find them a cheaper flat and a better mortgage, so they can move this year | v: self-direction | chance: 25
+- B>G | buy the flat yourself, and rent it to them cheaply | binds | v: security, benevolence | tags: pay:money-.15 | chance: 45
+- R>W | call a family meeting and say, plainly, how the money should be shared | v: universalism | chance: 40
+- G>U | tell them how you saved for your first home, and let them think | v: tradition, self-direction | act: tell their grown child how the first family home was saved for, and let them think | chance: 55
+works: It is settled without a row, and the family is easy about it when the holidays come.
+works: {child} gets the keys in the spring, and the money never sours a thing between them.
+fails: The money sits between {N} and {child} like a stone for months.
+fails: One of the other children hears about it and is hurt, and the holidays are tense.
+
+# ---------------------------------------------------------------- grandparent raising a grandchild (T2-056): calls BR (cycle s3) / calls WUG (cycle s4)
+
+== the school gate a generation on
+tier: everyday
+at: school
+rate: 0.5
+stages: mature elder
+age: 40-90
+calls: BR
+tone: mixed
+life: children, community
+horizon: week
+roles: grandchild, a teacher, a young parent
+holds: grandparent raising a grandchild
+earth: you collect the grandchild you are raising from school, among parents half your age
+times: Most grandparents raising a grandchild, each new school year; over 2 million US grandparents are raising grandchildren (Census ACS)
+gap: 0.8-1
+scene: The school gate is familiar; {N} stood here years ago waiting for {child}. But the other parents at three o'clock belong to {Ns} children's generation, talking about apps and nap times, and they do not quite know where to put {N}.
+scene W: {N} knows how a school gate works: be on time, say hello, sign up for the rota, do things properly. That much has not changed.
+scene U: {N} listens to the parents' chatter like a new language: the group chats, the after-school clubs, words for things that had no words before.
+scene B: {N} has more experience than everyone at this gate put together, and a grandchild whose future needs every advantage. Standing at the back will not get it.
+scene R: {N} feels old and out of place, and then the grandchild comes running out waving a painting, and {N} does not care who is watching.
+scene G: The gate, the bell, the children spilling out: the same rhythm, one generation on. {N} has simply come round again.
+- W | put your name down for the reading rota, like any other parent | v: conformity, benevolence | chance: 88
+- U | ask a parent to add you to the class group chat, and learn its ways | door | v: self-direction | act: ask a parent to add them to the class group chat, and learn its ways | tech: phone | chance: 75
+- B | introduce yourself to the head teacher, and make sure the grandchild is noticed | v: achievement, power | chance: 92
+- R | run the parents' race at sports day, knees and all | body: light | v: stimulation, hedonism | chance: 85
+- G | keep to your spot by the wall, and let them come to you in time | v: tradition, security | act: keep to their spot by the wall, and let the parents come to them in time | chance: 45
+- W>R | throw the grandchild a proper birthday party, and invite the whole class | v: benevolence, hedonism | chance: 60
+- U>G | read up on the games and crazes in the playground, so the grandchild fits in | v: benevolence | chance: 50
+- B>W | get yourself elected to the parents' committee | identity | v: power, achievement | title: parent-association organiser | chance: 60
+- R>U | admit, laughing, that you are lost, and ask a young parent to explain | v: self-direction | mark: made a friend | chance: 92
+- G>B | lean on old neighbours for lifts and favours, so you can keep up | v: security | chance: 78
+works: By half-term {N} is on first-name terms with three parents, and the grandchild is asked to every party.
+works: A young father saves {N} a place by the gate, and the waiting goes quickly.
+fails: The parents' chat goes on around {N}, as if {N} were a lamppost.
+fails: The grandchild is left off a party list, and {N} wonders whether it is because of {N}.
+
+== a call from the grandchild's parent
+tier: everyday
+rate: 0.5
+stages: mature elder
+age: 40-90
+calls: WUG
+tone: mixed
+life: family, children
+horizon: months
+roles: child, grandchild, a social worker
+holds: grandparent raising a grandchild
+earth: your own grown child, who cannot care for their child just now, asks to have them for a weekend
+times: Most grandparents raising a grandchild, every few years, as the parent's contact comes and goes (estimate)
+gap: 2-4
+scene: {child} rings on a Tuesday evening, sounding steadier than in years, and asks to have the grandchild for a whole weekend. The grandchild is doing homework at the kitchen table, within earshot.
+scene W: There is an arrangement, agreed with the social worker and written down. {N} wants to honour it, and to be fair to {child}.
+scene U: {N} thinks it through: how {child} has been these last months, what the grandchild has said, what a weekend could start and what it could undo.
+scene B: {N} has fought to give the grandchild a steady life. Whatever {child} wants, the grandchild's future comes first, and {N} means to decide what that requires.
+scene R: {Ns} heart leaps and sinks at once. {child} sounds well. But {N} remembers every other time {child} sounded well.
+scene G: Children belong with their parents when they can, and {child} is still the grandchild's parent. {N} feels the family trying to mend itself.
+- W | say yes only if the social worker agrees, as the arrangement says | v: conformity, security | chance: 75
+- U | suggest an afternoon first, and see how it goes | v: security | chance: 70
+- B | say no: the grandchild's settled life comes first, for now | v: security, power | chance: 80
+- R | say yes, and drive the grandchild over yourself on Friday | v: benevolence | tech: car | chance: 62
+- G | invite them to spend the weekend in your house, the family together | v: tradition, benevolence | closed: approval: going round the social worker's arrangement; backfire: the social worker hears of it, and the arrangement is reviewed | chance: 65
+- W>G | write down a family agreement for visits, so everyone knows where they stand | v: security, tradition | chance: 55
+- U>W | ask the social worker what the arrangement allows, before answering | v: conformity, security | chance: 88
+- B>U | agree, on condition they keep seeing their counsellor first | v: power, security | chance: 42
+- R>B | tell them, hotly, that they will have to earn it this time | v: power, security | mark: made an enemy | chance: 35
+- G>R | take everyone to the park together, and let it be easy for one afternoon | v: benevolence, hedonism | chance: 90
+works: The grandchild comes home chattering, and {child} rings again the next week, still steady.
+works: Whatever is decided, it is decided calmly, and the family starts, slowly, to feel like one again.
+fails: {child} does not turn up, and {N} has to find the words for the grandchild.
+fails: There is a row on the phone, and the arrangement grows stiffer for months.
+
+# ---------------------------------------------------------------- choir member (T2-059): calls WG (cycle s1) / calls UBR (cycle s2)
+
+== the new voice that rushes the phrase
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature elder
+age: 12-100
+calls: WG
+tone: mixed
+life: community, music
+horizon: week
+roles: a choir director, friend, a new singer
+holds: choir member
+earth: the choir's newest singer has a beautiful voice, and keeps rushing ahead of everyone
+times: Most choir members, every few years as new singers join; about 1 in 6 Americans sing in a choir (Chorus America 2019)
+gap: 2-4
+scene: The newest member has a beautiful voice, and keeps rushing the long phrase in the second verse, half a beat ahead of everyone. The director sighs, and the whole row feels it. The choir has to make room without losing each other.
+scene W: The choir breathes together at the end of the phrase; that is the point of a choir. {N} wants the newcomer to learn it, the way {N} once had to.
+scene U: {N} listens closely and hears why: the newcomer breathes in the wrong place, runs short of air, and hurries to the end.
+scene B: That voice could carry the spring concert, and {N} knows it. Whoever helps the newcomer settle will have an ally in the front row.
+scene R: Rushing or not, the newcomer sounds thrilling. {N} would rather the choir caught some of that fire than snuffed it out.
+scene G: Every choir takes a season to take in a new voice, the way a river takes in a stream. {N} has seen it happen before.
+- W | ask the director to take the phrase slowly, section by section, for everyone | v: conformity, benevolence | chance: 85
+- U | show the newcomer where to breathe, quietly, at the tea break | v: benevolence, self-direction | mark: made a friend | chance: 75
+- B | befriend the newcomer before anyone else does, and keep them close | door | v: power, benevolence | mark: made a friend | chance: 90
+- R | sing out boldly beside them, so they hear where the beat is | v: stimulation | chance: 45
+- G | stand next to them every week, and let them settle into the sound | habit | v: benevolence, tradition | chance: 70
+- W>U | set up a practice half hour before rehearsal for anyone who wants it | habit | v: achievement, benevolence | chance: 72
+- U>B | record the section on your phone and show the director who drifts | v: achievement, power | closed: approval: recording singers without asking; backfire: the newcomer finds out and stops coming | tech: phone | chance: 45
+- B>R | offer to coach them yourself, in return for a duet at the concert | v: stimulation, achievement | chance: 65
+- R>G | start every warm-up with a silly round, so everyone laughs together | habit | v: hedonism, benevolence | chance: 92
+- G>W | tell the newcomer how the choir has always sung it, and why | v: tradition, conformity | chance: 40
+works: By the third rehearsal the phrase lands together, and the room rings with it.
+works: The newcomer stays, and the whole section sounds better for it.
+fails: The newcomer stops coming after a month, and nobody quite says why.
+fails: Rehearsal turns tense, and two singers stop speaking at the tea urn.
+
+== a solo at the spring concert
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature elder
+age: 12-100
+calls: UBR
+tone: joy
+life: community, music
+horizon: months
+roles: a choir director, rival, friend
+holds: choir member
+earth: the director offers you the solo at the spring concert
+times: Some choir members, a few times in a life; most choir singers rarely or never sing a solo (estimate)
+gap: 5-10
+scene: After rehearsal the director catches {Ns} sleeve: would {N} sing the solo at the spring concert? Sixteen bars, alone, in front of four hundred people. {rival} wanted it badly.
+scene W: The solo belongs to the piece, and the piece belongs to the whole choir. {N} wonders whether saying yes is service or showing off.
+scene U: {N} hears the sixteen bars on the way home: the high note in bar eleven, the breath before it, everything that has to be practised.
+scene B: Four hundred people, the local paper, a voice of {Ns} own beyond the part {N} plays everywhere else. This is a chance, and {N} means to take it.
+scene R: {N} walks home grinning and terrified, singing the first line out loud at the bus stop.
+scene G: {N} has sung in the back row for years, happily part of the whole. Standing alone at the front feels like a tree stepping out of the wood.
+- W | say yes, and promise the choir not to let them down | v: conformity, achievement | chance: 72
+- U | practise the sixteen bars every evening until they are perfect | habit | v: achievement | self_control: + | chance: 80
+- B | take singing lessons at your own cost, and make it unforgettable | habit | v: achievement, power | mark: learned a skill | tags: pay:money-.03 | chance: 80
+- R | say yes on the spot, and sing it with everything you have | v: stimulation | chance: 70
+- G | turn it down, and stay happily in the back row | identity | v: tradition, security | mark: turned down a chance | chance: 95
+- W>B | ask for a proper audition in front of the choir, so nobody can call it unfair | v: achievement | chance: 40
+- U>R | study recordings of great soloists, then make the song your own | door | v: self-direction, stimulation | chance: 75
+- B>G | use the spotlight to recruit new singers for the choir | v: achievement, benevolence | chance: 35
+- R>W | tell the director straight that the singer who wanted it deserves it more | v: universalism | chance: 70
+- G>U | ask the oldest member how they used to calm their nerves | v: tradition, self-direction | chance: 72
+works: On the night the high note lands, the hall goes very still, and then very loud.
+works: The concert goes beautifully, and three people stop {N} afterwards to say so.
+fails: {Ns} voice cracks in bar eleven, and the rest of the concert passes in a blur.
+fails: Rehearsals turn tense, and {rival} stops sitting in the same row.
+
+# ---------------------------------------------------------------- historical reenactment member (T2-063): calls WU (cycle s3) / calls BRG (cycle s4)
+
+== whose history the show leaves out
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: WU
+tone: mixed
+life: community, history
+horizon: moment
+roles: a visitor, friend, a group leader
+holds: historical reenactment member
+earth: at a public show, one visitor asks if your costume is accurate, and another asks whose history never gets shown
+times: Most reenactors who do public shows, every year or so; visitors ask such questions more often now (estimate)
+gap: 0.8-1
+scene: At the castle fair, a man with a guidebook asks whether {Ns} costume is accurate. Before {N} can answer, a young woman beside him asks whose history never gets represented at events like this.
+scene W: The group has standards: correct stitching, correct buttons, nothing modern on show. {N} keeps them, and now someone is asking whether the standards cover the right things.
+scene U: {N} knows the costume is right to within twenty years. The second question is harder, and more interesting: who did live here then, and why are they missing?
+scene B: A crowd is gathering round the tent now, and a question like this can make or break a group's name. {N} sees a chance to be the one who answers well.
+scene R: {N} loves this: the wool, the woodsmoke, the strangers' faces. And the second question stings, because it is fair.
+scene G: The craft has been handed down in the group for thirty years, stitch by stitch. {N} wonders what else was handed down without anyone noticing.
+- W | answer both honestly, and admit what the group gets wrong | v: universalism, conformity | mark: owned up | chance: 82
+- U | show them the stitching and explain where the evidence comes from | identity | v: self-direction, achievement | chance: 78
+- B | turn the questions into a crowd-pleasing talk, and take names for the group | v: achievement, power | chance: 70
+- R | invite the second visitor into the tent to try the kit on, there and then | v: stimulation, benevolence | chance: 90
+- G | tell them about the real families of this valley, as the old members tell it | v: tradition | chance: 70
+- W>R | propose at the next meeting that the group portrays the people left out | identity | v: universalism | chance: 35
+- U>G | spend the winter in the county archive, finding the valley's forgotten families | habit | v: universalism, tradition | mark: learned a skill | chance: 45
+- B>W | offer to write the group's new standards yourself, and take charge of them | v: power, conformity | chance: 40
+- R>U | go home and sew a new, truer costume, stitch by stitch, all winter | v: self-direction, stimulation | self_control: + | grants: sewing and mending | chance: 78
+- G>B | tell them the group's way is the group's business, and close the tent flap | identity | v: tradition, power | mark: made an enemy | closed: approval: turning visitors away at a public show; backfire: a complaint to the council that hosts the fair | chance: 40
+works: The crowd stays twenty minutes, and the second visitor leaves with the group's email address.
+works: The questions turn into the best conversation of the weekend.
+fails: The man with the guidebook walks off muttering, and the young woman does not wait for an answer.
+fails: The question follows the group to its next meeting and starts an argument that lasts all winter.
+
+== the encampment in the rain
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: BRG
+tone: trouble
+life: community, body
+horizon: week
+roles: partner, friend, a group leader
+holds: historical reenactment member
+earth: a weekend under canvas with the group, and it has rained since Friday
+times: Most reenactors, about once a season; outdoor shows run in all weathers (estimate)
+gap: 0.8-1
+scene: It has rained since Friday. The tents sag, the fire will not take, the crowds have stayed at home, and {partner} has texted twice to ask whether {N} is coming back early.
+scene W: The group promised the council a full show on Sunday, rain or not. {N} signed up for a shift, and a shift is a shift.
+scene U: {N} studies the sodden camp: how did the old soldiers keep their powder dry, their feet warm, their fires lit? There must be a way.
+scene B: Half the group has slunk off home. Those who stay will be the ones who run things next year, and {N} knows it.
+scene R: Rain dripping off the hat brim, mud to the shins, and {N} is having the time of {Ns} life.
+scene G: The old camps lived with weather like this for months on end. {N} feels closer to them in the rain than any sunny day could manage.
+- W | keep your shift at the gate whatever the weather, as promised | v: conformity | mark: kept your word | self_control: + | chance: 95
+- U | dig drainage trenches round the tents the way the old manuals show | body: light | v: self-direction, security | mark: learned a skill | chance: 70
+- B | pack up early, drive home dry, and leave the others to it | v: hedonism, self-direction | self_control: - | tech: car | chance: 95
+- R | keep the show going: lead a mud-soaked mock charge for the few who came | body: light | v: stimulation, hedonism | self_control: + | chance: 80
+- G | sit by the smoky fire with the old hands, and let the weather be | v: tradition | chance: 80
+- W>G | organise the camp into one big tent, everyone together | v: benevolence, security | chance: 72
+- U>W | write up what went wrong, so next year's camp is planned properly | v: security | chance: 90
+- B>U | buy proper waxed canvas, whatever it costs, and test it yourself | v: achievement | tags: pay:money-.05 | chance: 78
+- R>B | take charge of the camp in a booming voice while the leader dithers | v: power | mark: defied an authority | chance: 35
+- G>R | pull off your boots and walk barefoot in the mud, as they did | body: light | v: stimulation | chance: 95
+works: By Sunday the sun is out, the crowd is back, and the tired camp gets a cheer.
+works: {N} drives home soaked and happy, with stories to last a year.
+fails: {N} comes home with a streaming cold and a ruined wool coat.
+fails: The show is called off at noon on Sunday, and the group argues all the way to the car park.
+
+# ---------------------------------------------------------------- community-radio presenter (T2-064): calls WR (cycle s1) / calls UBG (cycle s2)
+
+== a story nobody in town has covered
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-90
+calls: WR
+tone: joy
+life: community, work
+horizon: week
+roles: a neighbour, friend, a station manager
+holds: community-radio presenter
+earth: an old neighbour with no broadcasting experience tells you a story about the town that nobody has ever covered
+times: Many community-radio presenters, every few years (estimate)
+gap: 2-4
+scene: Over the garden fence, an old neighbour who has never been near a microphone tells {N} about the strike at the biscuit factory fifty years ago, and the women who ran the picket line all winter. Nobody in town has ever covered it.
+scene W: The station exists for exactly this: the town's own news, the voices the big broadcasters pass over. {N} feels bound to get it on air, and to get it right.
+scene U: {N} has a hundred questions already: who else was there, what the records say, how a nervous voice will sound into a microphone.
+scene B: A story like this could make {Ns} show the one people talk about, and maybe catch the ear of the regional station.
+scene R: {N} can already hear it: the neighbour's voice, a crackle of old music, the whole town leaning in. {N} cannot wait to make it.
+scene G: The neighbour tells it the way old people tell things, slowly, with the street's history in every pause. {N} wants it kept before it is lost.
+- W | book them a proper interview slot, and check every fact first | v: conformity, universalism | chance: 72
+- U | dig through the library's newspaper archive for that winter | v: self-direction | mark: learned a skill | chance: 80
+- B | work every evening that week to make it the best hour you have made | v: achievement | chance: 90
+- R | bring the recorder round tomorrow and put them on air, unedited | v: stimulation, self-direction | chance: 72
+- G | sit with them over tea for a few weeks before recording anything | v: benevolence, tradition | chance: 72
+- W>U | ask the whole town on air to send in what they remember | door | v: universalism | chance: 55
+- U>B | cut the tape so the story sounds more dramatic than it was | v: achievement | closed: approval: twisting someone's words on air; backfire: the neighbour hears it and feels used | chance: 75
+- B>R | talk the station into an extra hour, and play it live | v: stimulation, achievement | chance: 40
+- R>G | take them back to the old factory gates and record it there | body: light | v: tradition, stimulation | chance: 75
+- G>W | invite the other women from the picket line to tell it together | v: universalism, benevolence | chance: 20
+works: The programme goes out on Thursday, and the phone line fills with people who remember.
+works: The neighbour hears the programme, cries a little, and says it was told right.
+fails: The recording is muddy and halting, and the station manager shelves it.
+fails: The neighbour gets cold feet and asks {N} to drop it.
+
+== a guest who does not turn up
+tier: everyday
+at: media
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-90
+calls: UBG
+tone: trouble
+life: work, community
+horizon: moment
+roles: a station manager, colleague, a listener
+holds: community-radio presenter
+earth: the guest for your live show does not arrive, and there are forty minutes to fill
+times: Most live radio presenters, a few times a year; volunteer guests often cancel late (estimate)
+gap: 0-0.5
+scene: Two minutes to the top of the hour, the guest's phone goes to voicemail, and forty minutes of live radio stretch ahead of {N} with nothing in them.
+scene W: Listeners expect the programme they were promised. {N} owes them an honest word about the change, and a decent hour anyway.
+scene U: {N} runs through what is in the studio: a stack of records, last week's listener letters, a notebook full of half-ideas.
+scene B: Dead air is a presenter's worst enemy, and {N} will not be beaten by it. Every minute filled well proves who belongs in this chair.
+scene R: {Ns} heart is pounding, and something in {N} is delighted: no script, no safety net, just a microphone and a town listening.
+scene G: The station has run for thirty years on volunteers and goodwill. Shows have survived worse than an empty chair.
+- W | tell listeners honestly what happened, and play the music you promised | v: conformity | chance: 92
+- U | open the phone lines and put one good question to the town | v: self-direction, stimulation | chance: 50
+- B | ring a local councillor you know and get them on air in ten minutes | v: achievement, power | chance: 65
+- R | play the records you love, and tell the story behind each one | v: hedonism, stimulation | chance: 92
+- G | read out old listener letters, and let the show be gentle for once | v: benevolence, tradition | chance: 85
+- W>B | follow the station's dead-air plan to the letter, and keep your slot safe | v: security, conformity | chance: 65
+- U>R | turn the hour into a live quiz about the town, with a cake as the prize | v: stimulation, hedonism | chance: 68
+- B>G | pull in whoever is in the building, the cleaner and the cook, and interview them | v: benevolence, achievement | chance: 85
+- R>W | grab the portable kit and report live from the council meeting down the road | v: universalism, stimulation | chance: 40
+- G>U | ask the oldest volunteer in the building to tell how the station began | v: tradition, self-direction | chance: 82
+works: The hour flies by, and the station manager rings to say it was the best show of the month.
+works: Listeners phone in all hour, and nobody misses the guest.
+fails: There are long silences, and {N} can hear the studio clock ticking on air.
+fails: The hour stumbles along, and the station gets two complaints by Monday.
+
+# ---------------------------------------------------------------- housing-cooperative member (T2-070): calls UB (cycle s3) / calls WRG (cycle s4)
+
+== a roof three households cannot pay for
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-100
+calls: UB
+tone: trouble
+life: home, money, community
+horizon: months
+roles: a neighbour, a surveyor, the treasurer
+holds: housing-cooperative member
+earth: the cooperative's roof needs money now, and three households cannot afford their share
+times: Most long-time co-op members, once or twice; big repairs like a roof come every few decades (estimate)
+gap: 8-15
+scene: The surveyor's report lies on the table at the general meeting: the roof must be done before winter, and the share comes to more than a month's rent per flat. Three households say quietly that they cannot pay it.
+scene W: Every member signed the same rules: shared costs, a shared say, nobody left out. {N} wants a fair answer, written down, that the rules can carry.
+scene U: {N} reads the report twice and starts on the numbers: the reserve fund, a loan, a cheaper repair, a longer payment plan.
+scene B: {N} can pay, and has no wish to carry three other households for years. But a leaking roof drips on everyone, and there is room to shape the deal.
+scene R: {N} looks at the three faces, embarrassed in front of the whole room, and wants to stand up and say the rest will cover it, tonight.
+scene G: The building has stood for ninety years, and these families have shared it for twenty. {N} feels this is the kind of trouble a home gets through together.
+- W | propose that every household pays by its income, written into the rules | v: universalism | chance: 35
+- U | work out a ten-year plan from the reserve fund and a small loan | binds | v: security, achievement | self_control: + | chance: 72
+- B | pay your own share at once, and press the others to find theirs | v: security, power | chance: 72
+- R | offer, there and then, to cover one household's share yourself | binds | v: benevolence | mark: helped someone in need | tags: pay:money-.08 | chance: 80
+- G | call a work weekend, so members strip the old tiles themselves | body: heavy | v: benevolence, security | chance: 45
+- W>R | vote with the majority tonight, so it is settled and nobody stews | v: conformity | mark: gave in to pressure | self_control: - | chance: 78
+- U>G | get three more quotes, and find a repair that keeps the old slates | v: security, tradition | chance: 70
+- B>W | offer to lend the three households the money yourself, at a little interest | v: power, security | chance: 80
+- R>U | climb up with a neighbour and see the damage for yourself | body: light | v: self-direction | chance: 95
+- G>B | let the three households pay later, in work on the building | binds | v: security, benevolence | chance: 72
+works: The roof is done by November, and nobody has had to leave.
+works: The meeting finds a plan everyone can live with, and the minutes are signed with relief.
+fails: The argument runs on for three meetings, and the rain comes in before the scaffolding does.
+fails: One of the three households gives notice, and the stairwell is quieter for it.
+
+== an empty flat in the cooperative
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-100
+calls: WRG
+tone: mixed
+life: home, community
+horizon: week
+roles: friend, a neighbour, the committee
+holds: housing-cooperative member
+earth: a flat falls empty, and the cooperative must choose who moves in, while a friend of yours needs a home
+times: Most co-op members, every few years as flats fall empty, sometimes with a friend on the list (estimate)
+gap: 3-6
+scene: The ground-floor flat is empty for the first time in eleven years. There are forty names on the waiting list, and {friend} has just asked {N}, quietly, whether there is any way up it.
+scene W: The waiting list exists so that nobody jumps the queue. {N} believes in it, even now, even for {friend}.
+scene U: {N} reads the allocation rules closely: points for need, for time waiting, for what a household brings to the cooperative.
+scene B: Whoever moves in gets a vote at every meeting for the next twenty years. {N} would like that vote to be a friendly one.
+scene R: {friend} has been sleeping on a sofa for three months. {N} wants to hand over the keys tonight, rules or no rules.
+scene G: A home is shared with whoever lives on the stairs. {N} thinks about who would fit the building, its old ways and its garden.
+- W | tell your friend plainly that the list is the list | v: conformity, universalism | chance: 75
+- U | go through the list with the committee and score each household openly | identity | v: universalism | chance: 78
+- B | quietly lobby committee members to bend the rules for your friend | v: power, benevolence | mark: hid a wrong | closed: approval: queue-jumping; backfire: found out at the general meeting | chance: 45
+- R | stand up at the meeting and argue that your friend needs it most | identity | v: benevolence | chance: 35
+- G | invite the top three on the list to tea in the garden, and see who fits | v: tradition, benevolence | chance: 85
+- W>G | welcome whoever the list brings with a house-warming from every member | v: benevolence, tradition | mark: made a friend | chance: 90
+- U>W | draft a clearer, fairer points system for every flat to come | v: universalism | chance: 45
+- B>U | push for the household with building skills, to save on repairs | v: achievement, security | chance: 75
+- R>B | lose patience with the committee, and get them to decide that night | v: power | chance: 60
+- G>R | help your friend find another place nearby, and carry the boxes yourself | body: heavy | v: benevolence | mark: helped someone in need | chance: 65
+works: The new household moves in within the month, and brings a cake to every door.
+works: The decision is made in one meeting, and nobody walks out of it angry.
+fails: The choice splits the meeting, and two members stop coming.
+fails: {friend} hears the news from someone else, and is hurt for weeks.
+
+# ---------------------------------------------------------------- prison visitor (T2-077): calls RG (cycle s2) / calls WUB (cycle s4)
+
+== talking television in the visiting room
+tier: everyday
+at: prison
+rate: 0.5
+stages: young_adult adult mature elder
+age: 21-85
+calls: RG
+tone: joy
+life: community
+horizon: moment
+roles: a prisoner, a prison officer, the scheme's coordinator
+holds: prison visitor
+earth: on your monthly prison visit, the man you visit wants to talk about last night's television, not his case
+times: Most prison visitors, many times a year; small talk fills much of a visit (estimate)
+gap: 0-0.5
+scene: The visiting room smells of floor polish and machine coffee. Halfway through the hour, the man across the table starts talking about last night's baking programme, and laughs, and {N} realises that almost every other conversation he has had this year has been about his case.
+scene W: {N} came through the scheme's training: listen, keep within the rules, never promise what cannot be kept. Nobody said what to do when the talk is simply ordinary.
+scene U: {N} notices how his whole face changes when he talks about the programme, and wonders what he was like before all this, and what he still is.
+scene B: Lawyers, officers, the parole board: everyone talks to him about the worst thing he did. {N} sees that this hour is the one place he gets to be someone else.
+scene R: {N} saw that episode too, and has strong views on the lemon tart. In a second they are both laughing too loudly for the room.
+scene G: Two people at a plastic table, talking about cakes. {N} feels ordinary life seep in even through these walls, like water through stone.
+- W | keep to the hour's plan, and ask the questions the scheme suggests | v: conformity | chance: 85
+- U | ask what he would bake, if he could, and listen properly | v: benevolence, self-direction | chance: 90
+- B | decide his case is his business, and never raise it unless he does | v: self-direction, benevolence | self_control: + | chance: 95
+- R | argue cheerfully about the lemon tart until the officer calls time | v: hedonism, stimulation | chance: 95
+- G | let the hour wander with no plan, the way talk does between friends | v: benevolence | mark: made a friend | chance: 72
+- W>B | ask the education department whether he can join the prison's cookery course | v: achievement, benevolence | chance: 30
+- U>R | order him the programme's cookbook through the prison's approved scheme | v: hedonism, benevolence | chance: 50
+- B>G | slip a slice of homemade cake past the search for him | v: benevolence | mark: hid a wrong | closed: law: bringing items into a prison; backfire: the visits are stopped | chance: 18
+- R>W | write to the scheme, fired up, asking for more ordinary visits for everyone | v: universalism, benevolence | chance: 18
+- G>U | tell him about your own garden, and ask about his family's kitchen | v: benevolence, tradition | chance: 90
+works: For an hour the visiting room feels like a kitchen table, and he says so on the way out.
+works: The next visit starts with the programme, and both of them are smiling before they sit down.
+fails: An officer calls time early, and the hour is gone before it has begun.
+fails: His mood turns halfway through, and the talk goes back to the case and stays there.
+
+== asked to pass on a message from inside
+tier: everyday
+at: prison
+rate: 0.5
+stages: young_adult adult mature elder
+age: 21-85
+calls: WUB
+tone: trouble
+life: community, conflict
+horizon: week
+roles: a prisoner, a prison officer, the scheme's coordinator
+holds: prison visitor
+earth: the man you visit asks you to ring his brother for him, against the scheme's rules
+times: Many prison visitors, once every few years; visiting schemes warn volunteers about carrying messages (estimate)
+gap: 2-4
+scene: At the end of the visit he leans in and asks a favour: ring his brother, just to say he is all right and that he is sorry about the money. The scheme's first rule is that visitors carry no messages.
+scene W: The rules are clear, and {N} signed them. They exist for reasons {N} may not see from this side of the table.
+scene U: {N} turns it over: what the message really says, who the brother is, why a letter will not do, and what the rule is there to protect.
+scene B: {N} will not be anyone's errand runner, and the visits only last while {N} keeps the line where it is. But a man asking to say sorry is worth hearing out.
+scene R: It is one phone call. {N} can hear the sorrow in his voice, and every instinct says to make it tonight.
+scene G: Families are meant to reach each other, walls or no walls. {N} feels the pull of a brother on the far side of them.
+- W | say no kindly, and tell the scheme's coordinator he asked | v: conformity, security | mark: refused someone in need | chance: 85
+- U | help him put it in a letter, through the proper post | v: benevolence, conformity | mark: helped someone in need | chance: 75
+- B | say no, and explain that refusing is what keeps the visits going | v: security, self-direction | chance: 85
+- R | make the call that night, and say nothing to anyone | v: benevolence | mark: hid a wrong | self_control: - | closed: approval: breaking the visiting scheme's rules; backfire: the scheme finds out and ends the visits | chance: 75
+- G | tell him families find their own way back, and leave it with him | v: tradition, benevolence | chance: 45
+- W>G | ask the chaplain to reach the brother properly, through the prison | v: benevolence, conformity | chance: 68
+- U>W | look up exactly what the rules allow, and explain them to him | v: conformity | chance: 72
+- B>U | ask him for the whole story about the money before saying anything | v: security, power | chance: 62
+- R>B | tell him bluntly never to put you in that position again | v: security, power | act: tell him bluntly never to ask that of them again | chance: 70
+- G>R | sit with him in the hurt for the last five minutes, and promise to come back | v: benevolence | mark: kept your word | chance: 72
+works: He takes the answer well, and next month he says his brother has written.
+works: The line holds, the visits go on, and the trust between them grows.
+fails: He goes cold for the rest of the hour, and the next visit is stiff and short.
+fails: The coordinator calls {N} in for a talk, and the next visit is put off a month.
+
+# ---------------------------------------------------------------- board-game club organiser (T2-078): calls UR (cycle s1) / calls WBG (cycle s3)
+
+== a veteran and a newcomer at one table
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: UR
+tone: joy
+life: play, community
+horizon: moment
+roles: friend, rival, a newcomer
+holds: board-game club organiser
+earth: on club night an experienced player wants a demanding game, and a newcomer has never touched a rulebook
+times: Most board-game club organisers, many times a year; mixed tables are the everyday work of running a club (estimate)
+gap: 0-0.5
+scene: Thursday, the back room of the café. {friend} has brought a four-hour strategy game with three hundred pieces, and the newcomer by the door has never touched a rulebook. The evening needs a place for both.
+scene W: {N} runs the club so that everyone who walks in gets a seat and a fair game. That is the whole job, and tonight it is harder than usual.
+scene U: {N} runs along the shelf in the mind: which game teaches itself in ten minutes and still has enough depth to keep {friend} interested?
+scene B: A club grows by keeping its newcomers and keeps its best players by challenging them. {N} means to do both, and to run the biggest club in town by summer.
+scene R: {N} wants to play everything at once: the monster game, the silly one, the new one still in its wrapping. Tonight should be fun.
+scene G: Clubs grow the slow way, one newcomer at a time. Somebody once made room for {N}, too, on a night very like this.
+- W | seat the newcomer at the beginners' table and teach the rules yourself | v: benevolence, conformity | chance: 87
+- U | pick a quick game with hidden depth that both of them will enjoy | v: self-direction, achievement | chance: 75
+- B | let the veteran have the big game, and sign the newcomer up for next week | v: achievement | chance: 70
+- R | open the new game nobody knows, so everyone learns it together | v: stimulation | chance: 72
+- G | sit the newcomer beside the veteran, to watch and learn the old way | v: tradition | chance: 72
+- W>U | write a one-page guide to every game on the club's shelf | v: universalism, benevolence | chance: 70
+- U>B | teach the newcomer the one rule that matters most, so they can hold their own | v: achievement | chance: 80
+- B>R | get the veteran to teach the big game, in return for first pick next week | v: hedonism, power | chance: 85
+- R>G | start a loud party game that pulls every table in | v: hedonism, benevolence | chance: 92
+- G>W | pair every newcomer with a regular from now on, as a club custom | v: tradition, benevolence | chance: 85
+works: By ten o'clock both of them are laughing over the same board.
+works: The newcomer asks when the next club night is, and {friend} offers to bring a lighter game.
+fails: The newcomer leaves at half past eight and does not come back.
+fails: {friend} sulks through a game too light for them, and the table goes flat.
+
+== the café wants rent for the back room
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBG
+tone: trouble
+life: community, money
+horizon: months
+roles: a café owner, friend, colleague
+holds: board-game club organiser
+earth: the café that has hosted your club for free wants rent for the back room
+times: Most organisers of volunteer-run clubs, once every several years; free rooms in cafes and pubs rarely last (estimate)
+gap: 3-8
+scene: The café owner catches {N} by the counter: from next month the back room costs forty a night, or it goes to a yoga class. The club has twenty-two members, most of whom buy one coffee each.
+scene W: The owner has been generous for four years, and fair is fair. {N} wants to settle this properly, with the members, in the open.
+scene U: {N} does the sums on a napkin: twenty-two members, three nights a month, two a head, or a library room, or a pub that wants the trade.
+scene B: Forty a night is an opening offer, not a verdict. {N} knows what twenty-two thirsty players are worth to a café on a Thursday.
+scene R: {N} is annoyed for a moment, then oddly excited. Perhaps this is the push the club needed to find somewhere better.
+scene G: The club has its corner, its scuffed shelf, its regulars at the same tables. {N} feels the roots of a thing that has grown in one place.
+- W | call a members' meeting and agree a small fee per night, fairly | v: conformity, universalism | chance: 75
+- U | compare every hall, pub and library room in town before deciding | v: self-direction, security | chance: 80
+- B | talk the owner down to half, in return for food orders | v: power, achievement | chance: 40
+- R | move the club to the pub across the road that same week | v: self-direction, stimulation | chance: 50
+- G | give up the organising to a keen younger member, and just play | v: benevolence, tradition | self_control: - | drops: board-game club organiser | chance: 80
+- W>R | set up a proper membership fund, so the club can go wherever it likes | v: security, self-direction | chance: 45
+- U>G | work out a rota for holding club nights in members' homes | v: benevolence | chance: 40
+- B>W | register the club as a society, with dues, a bank account and you as chair | identity | v: achievement, power | act: register the club as a society, with dues, a bank account and themselves as chair | chance: 85
+- R>U | try a different venue every week for a month, and see what works | v: stimulation, self-direction | chance: 70
+- G>B | ask the old friend who runs the pub to give you a room for nothing | v: security | act: ask the old friend who runs the pub for a room for nothing | chance: 40
+works: Within a month the club has a home again, and nobody misses a Thursday.
+works: The members chip in without a murmur, and the shelf of games stays where it is.
+fails: The club loses half its members in the move, and Thursdays go thin.
+fails: Talks with the owner go sour, and the club spends a month with nowhere to meet.
+
+# ---------------------------------------------------------------- life event: your partner falls seriously ill (gives the caregiving partner title; pairs D5a)
+# Gate for the engine: this event needs the person to hold a partner title (held_partner), so the engine can add it to
+# earth_rules.LIFE: "your partner falls seriously ill": dict(req="held_partner"). The engine does not model a partner's
+# health, so this event is how a person comes to hold [caregiving partner]. The options that take up the care carry
+# title: caregiving partner, each in a color that fits one of the title's profiles: Emren's White-Green (W, G, WG:
+# continuing care made part of the bond and the shared life) and Black (B: the partner's agency kept, with boundaries
+# around one's own capacity), and the Red third profile of the catalogue part drafts/titles2/others.py (WR: warmth and
+# family occasions kept alive in a life reshaped by care).
+
+== your partner falls seriously ill
+tier: life event
+at: hospital
+stages: adult mature elder
+age: 25-100
+per_year: 0 0 0 .008 .02 .045
+drivers: health-.3 money-.3 harsh+.3 stress+.2 era-.2 trouble+.1
+gap: 3-8
+times: estimate, per person with a partner a year: about 0.8 in 100 adults, 2 in 100 in midlife and 4.5 in 100 elders see their partner fall seriously ill in a way that needs months or years of care (a cancer, a stroke or heart attack, dementia, a long illness or injury); it leans on D64 (cancer, 0.2, 0.7 and 2 in 100 a year), D65 (heart attack or stroke, 0.1, 0.5 and 1.5), D70 (dementia, 1 to 8 in 100 a year from 65) and D50 (about 1 family carer in 8 cares for a spouse or partner, AARP and NAC 2025), with a partner of about the same age; set per person with a partner (needs: partner); before 25 it is rare enough to leave out
+likelier: older age, smoking or heavy drinking in the household, poverty, hard physical work, a harsh place to live, long stress
+rarer: money for good health care, healthy habits, a younger partner, a prosperous and peaceful time
+needs: partner
+domain: partner1
+tone: trouble
+life: love, body
+horizon: years
+roles: partner, a doctor, child, sibling, friend
+earth: your partner is diagnosed with a serious illness that will need care for months or years
+scene: In a small room off the ward, the consultant draws a diagram on a pad, and {partner} squeezes {Ns} hand so hard it hurts. It is serious, it will be long, and nothing at home will be quite the same.
+scene W: {N} made a promise, years ago, for better or for worse. Sitting in the consultant's room, {N} understands that this is the worse, and that the promise is now a daily one.
+scene U: {N} writes down every word the consultant says: the name of the illness, the stages, the treatments, the odds. Understanding it feels like the first thing that can be done.
+scene B: {N} sees the whole road at once: the appointments, the money, the job, {Ns} own strength. Somebody has to keep all of it standing, and {partner} still has to be the one who decides about {partner}'s own life.
+scene R: {N} walks out into the hospital car park and shouts at the sky, then goes back in and holds {partner} as if letting go would make it happen.
+scene G: Bodies fail, as they do; {N} has always known it, the way one knows winter will come. Now it has come to the house, and {N} means to meet it there, together.
+- W | promise to see them through it, and rearrange your life around the care | binds | v: benevolence, tradition | mark: kept your word | title: caregiving partner | chance: 72
+- U | learn everything about the illness and the help on offer, before deciding who does what | v: self-direction, security | mark: learned a skill | chance: 78
+- B | take on the care on clear terms: they decide what they can, you keep working | v: self-direction, security | title: caregiving partner | act: take on the care on clear terms: the partner decides all they still can, and the carer keeps working | chance: 72
+- R | take them away now on the trip you always meant to take | v: stimulation, hedonism | mark: took a wild risk | closed: approval: the doctors advise against travel; backfire: a crisis far from home | tags: pay:money-.08 | chance: 62
+- G | care for them at home, in your own rhythm, for as long as it takes | habit | binds | v: benevolence, tradition | title: caregiving partner | grants: home nursing | chance: 68
+- BG | accept the long road, and quietly set money aside for the hard years | v: security | self_control: + | chance: 85
+- UB | find the best specialist in the country, and pull every string to get them seen | v: power, security | chance: 50
+- UR | push for a second opinion at once, and chase every result yourself | v: self-direction, stimulation | chance: 75
+- WG | weave the care into your shared life, with family and friends on a rota | v: benevolence, tradition | title: caregiving partner | chance: 60
+- WR | take up the care, and keep every birthday, outing and visit going, illness or not | habit | v: benevolence, tradition | self_control: + | title: caregiving partner | chance: 78
+works: {partner} comes through the worst of it, and the two of them find a new way of living with what remains.
+works: The months are hard, but {N} and {partner} meet them together, and come out closer.
+fails: The illness takes more than anyone expected, and by spring {N} is worn thin.
+fails: The care comes apart in a hard winter, and nobody can agree what should happen next.
+
+# ---------------------------------------------------------------- life event: going into foster care (gives former foster child, T2-091;
+# the engine's ask 16:28, in place of a background grant). The reason is never shown: the grown-ups at home cannot look after the child for now.
+
+== going into foster care
+tier: life event
+stages: child
+age: 3-12
+per_year: .003 0 0 0 0 0
+drivers: money-.4 stress+.4 ties-.3 trouble+.2
+times: once: about 6 in 100 American children enter foster care at some point before 18 (Wildeman and Emanuel 2014), and about 1 child in 100 is in care at any time in England; set at 3 in 1,000 a year from 3 to 12, so about 3 in 100 children by 12, the catalogue's share for former foster child (estimate for rich countries, where relatives often step in first)
+likelier: deep poverty, a parent's serious illness, addiction or prison, a parent alone with no help, a family in crisis
+rarer: grandparents or relatives who can take the child in, enough money, a steady family, a close community
+tone: trouble
+life: family
+horizon: years
+roles: parent, sibling, grandparent
+title: former foster child
+earth: you go to live with a foster family for a while, because the grown-ups at home cannot look after you for now
+scene: A social worker with a kind voice drives {N} across town with one bag on the back seat. The grown-ups at home cannot look after {N} for now, and a family {N} has never met is waiting with the porch light on.
+scene W: {N} wants to know the rules of the new house straight away: bedtimes, which chair, what is allowed. If {N} keeps every rule, maybe nobody will have to move {N} again.
+scene U: {N} counts the turns on the drive and reads every sign, trying to work out how far away home is, and how long "for now" means.
+scene B: {N} learned a while ago not to count on anyone else. In a new house it is worth knowing where the food is kept and who is really in charge.
+scene R: {N} presses a face to the car window. A new house means a new garden, new rooms, maybe a dog. {N} is scared, and a little curious too.
+scene G: {N} holds the bag tight on the back seat. Inside is the one thing from home that matters, and whatever happens, it stays with {N}.
+- W | learn the house rules on the first night, and keep every one | v: security, conformity | chance: 80
+- U | ask the social worker exactly what happens next, and when you can go home | v: self-direction, security | chance: 78
+- B | keep a secret store of snacks under the bed, just in case | v: security | chance: 88
+- R | explore the whole new house and garden, and make friends with the dog by teatime | v: stimulation, hedonism | chance: 75
+- G | keep the thing from home with you every night, under the pillow | v: tradition, security | act: keep the thing from home close every night, under the pillow | chance: 75
+- WG | make a card for your mum or dad every week, ready for the next visit | habit | v: benevolence, tradition | chance: 80
+- UB | work out which grown-up really decides things, and ask them, not the others | v: power, security | act: work out which grown-up really decides things, and ask that one, not the others | chance: 60
+- RG | make friends with the other foster child in the house before bedtime | v: benevolence, stimulation | mark: made a friend | chance: 70
+- WB | be so helpful around the house that the family will want to keep you | v: conformity, security | act: be so helpful around the house that the family will want to keep them | chance: 60
+- UR | keep a diary of everything that happens, to tell it right one day | habit | v: self-direction, stimulation | chance: 80
+works: The foster family keeps the porch light on every night, and slowly {N} stops listening for the car that will take {N} away.
+works: {N} goes home in the spring, with a box of drawings and a phone number to call if things get hard again.
+fails: Three houses in a year, and {N} learns not to unpack.
+fails: The visits home are cancelled twice, and {N} stops asking when the next one is.

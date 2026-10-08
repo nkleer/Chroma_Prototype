@@ -1,0 +1,473 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: EVERYDAY CRIME AND ITS CONSEQUENCES (next batch, Emren's point 11: "a world of
+# possibilities with color philosophy framework"). Brief: drafts/next2/BRIEF.md. Syntax: header of build.py.
+# No moment here takes a life and no option carries kills: (the Library thread writes those in earth-crime-life.lib).
+# Twelve moments: ten everyday moments whose calls hold each of the ten color pairs once (every color is called four
+# times, and the pairs are placed so each stage is called as evenly as its few moments allow), one life event (pairs
+# D5b) and one echo. Cross cycles: s1 three times, s2 three, s3 three, s4 twice.
+# Wrongs are pickable in every color, and so are refusing, walking away, owning up and calling for help.
+# Rates for the life event: sources/life-events-and-everyday.md Part F1 (physical fights by stage) and D74 (assault).
+
+# ---------------------------------------------------------------- juvenile: a shoplifting dare (calls BR, cycle s3)
+
+== a dare to steal from the shop
+tier: everyday
+stages: juvenile
+age: 13-16
+calls: BR
+tone: trouble
+life: friends, money
+horizon: moment
+roles: friend, sibling, a shopkeeper
+earth: your friends dare you to walk out of the chemist with something you have not paid for
+times: About 1 in 3 young teenagers, once or twice (estimate); 1 in 5 US high-schoolers stole from a shop in the past year (Josephson Institute 2012)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: In the chemist on the high street {friend} nods at the rack of earphones and grins. Everyone else has done it; now it is {Ns} turn.
+scene W: {N} knows the woman at the till by name. She asked after {Ns} family last week, and now the others are waiting by the door to see whether {N} will rob her.
+scene U: {N} has already counted the cameras: two, and one of them points at the wrong aisle. Knowing that is not the same as wanting to use it.
+scene B: The earphones cost more than a month's pocket money. Nobody would miss one pair, and the others would stop calling {N} the baby of the group.
+scene R: {Ns} heart is thumping so hard it is nearly a laugh. The door is ten steps away, and everyone is watching.
+scene G: These are the friends {N} grew up with, the same three streets and the same school. Saying no could mean walking home alone.
+- W | tell the woman at the till what your friends are planning | v: conformity, security | closed: approval: telling on friends; backfire: frozen out by the whole group for months | mark: made an enemy | chance: 70
+- U | say no, and point out the camera above the door to the others | v: security | self_control: + | chance: 70
+- B | pocket a pair of earphones while the others watch | habit | v: power, achievement | closed: law: shoplifting; backfire: stopped at the door, the police called and a parent fetched | mark: broke the law | chance: 70
+- R | grab a chocolate bar, laugh, and bolt for the door | body: light | v: stimulation | closed: law: shoplifting; backfire: chased down the street and marched back in | mark: took a wild risk | self_control: - | chance: 65
+- G | say your gran would never get over it, and wait outside | v: tradition, benevolence | chance: 80
+- W>R | refuse, and dare them all to jump off the high board at the pool | v: stimulation, conformity | chance: 60
+- U>G | find a way to say no that keeps you all friends | v: benevolence, security | act: find a way to say no that keeps them all friends | chance: 60
+- B>W | tell them to put it all back, or you go to the manager | v: power, conformity | act: tell them to put it all back, or they will go to the manager | chance: 60
+- R>U | ask the oldest one straight out why everyone has to do it | v: self-direction | chance: 65
+- G>B | let the others take the risk, and share in what they bring out | v: power (resources), benevolence | closed: law: handling stolen goods; backfire: the whole group banned from the shop, and parents called | mark: gave in to pressure | chance: 50
+works: {N} walks out into the afternoon with the others, and nothing comes after.
+works: By the bus stop the dare has turned into a joke, and {N} is still one of the group.
+fails: A hand lands on a shoulder at the door, and the manager rings home.
+fails: The others go cold on {N}, and the story goes round the whole year.
+
+# ---------------------------------------------------------------- juvenile: a friend's bag (calls UG, cycle s1)
+
+== a bag you should not ask about
+tier: everyday
+at: police
+stages: juvenile
+age: 13-17
+calls: UG
+tone: trouble
+life: friends, home
+horizon: week
+roles: friend, parent, grandparent, the police
+earth: a friend asks you to keep a zipped bag at your house for a few days, and not to look inside
+times: Uncommon: perhaps 1 in 10 teenagers, once (estimate)
+once: yes
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: {friend} turns up at the back door with a zipped sports bag and asks {N} to keep it under the bed for a few days. Do not open it, {friend} says. Do not ask.
+scene W: There are rules in this house, and a bag nobody may open breaks most of them. {N} has never hidden anything this big from the family.
+scene U: The bag is heavier than clothes would be, and {friend} keeps glancing back at the street. {N} wants to know what is inside before deciding anything.
+scene B: {friend} says there will be a little cash in it for {N} at the end of the week. {N} weighs the bag in one hand and the offer in the other.
+scene R: {friend} looks scared, properly scared, for the first time {N} can remember. Saying no would feel like shutting the door in that face.
+scene G: {friend} and {N} have been in and out of each other's houses since they were five. That counts for something, bag or no bag.
+- W | take the bag straight to the police station yourself | v: conformity, security | closed: approval: handing in a friend; backfire: the friend is questioned, and the whole school knows who did it | mark: made an enemy | act: take the bag straight to the police station themselves | chance: 70
+- U | unzip it once they have gone, and see for yourself | v: self-direction | closed: approval: going behind a friend's back; backfire: the friend spots the zip, and the trust is gone | mark: hid a wrong | act: unzip it once the friend has gone, and see for themselves | chance: 80
+- B | say no: a little cash is not worth that kind of risk | v: security, power | chance: 85
+- R | hand it back on the doorstep and say they are out of their mind | v: self-direction, benevolence | chance: 85
+- G | hide it in your grandad's allotment shed, where nobody ever looks | v: benevolence, security | closed: law: keeping goods that may be stolen; backfire: the shed is searched, and the family dragged in | mark: broke the law | chance: 75
+- W>U | say it stays only if they tell you exactly what is in it | v: security | closed: law: keeping goods that may be stolen; backfire: the police knock, and knowing what was inside makes it worse | act: say it stays only if the friend says exactly what is in it | chance: 70
+- U>B | find out what is inside, and what it is worth to them | v: power | chance: 60
+- B>R | keep it, if they lend you their new bike for the week | v: hedonism, power | closed: law: keeping goods that may be stolen; backfire: the police knock, and the bag is in the wardrobe | mark: broke the law | act: keep it, if the friend lends them that new bike for the week | chance: 55
+- R>G | tell them you are scared for them, and to get rid of it | v: benevolence | act: tell the friend they are scared for them, and to get rid of it | chance: 55
+- G>W | ask your friend to sit down with your mum and tell her everything | v: benevolence, conformity | chance: 65
+works: The bag is gone by Friday, and nobody ever mentions it again.
+works: {friend} comes back with a long, honest story, and the two of them sort it out together.
+fails: Two police officers knock at the door on Thursday evening, asking about a bag.
+fails: {friend} stops speaking to {N}, and the whole school hears a version of it.
+
+# ---------------------------------------------------------------- life event: a fall after a shove (pairs D5b)
+# The stranger is hurt, never killed: the worst outcome is a week in hospital.
+
+== a stranger on the pavement who does not get up
+tier: life event
+stages: young_adult adult
+age: 17-40
+per_year: 0 0 .01 .003 0 0
+drivers: harsh+.3 unrest+.3 money-.3 family-.2 stress+.2 trouble+.15
+gap: 3-10
+times: rare: about 1 in 100 young adults and 3 in 1,000 adults a year are in a fight where someone goes down hard and does not get up at once, out of about 6 in 100 young adults and 2 in 100 adults in any fight a year (Part F1; the share is an estimate); men far more often than women
+likelier: youth, being a man, drinking, late nights in town, friends who fight, money trouble, a fight before
+rarer: a partner and children, steady work, a quiet town, not drinking, age
+tone: trouble
+life: conflict, body, friends
+horizon: months
+roles: friend, parent, partner, the police, a paramedic, strangers
+earth: a shove outside a takeaway after midnight, you shove back, and the other man falls and does not get up
+scene: Outside the takeaway after midnight there is a shout and a shove, and {N} shoves back. The stranger stumbles off the kerb, goes down hard, and does not get up.
+scene W: {N} pushed him. Nobody else did. Whatever comes next, {N} is the one who has to answer for it, and {Ns} phone is already out.
+scene U: {N} sees everything with a strange, slow clarity: the camera over the takeaway door, the stranger's friend running up, the stranger's chest rising and falling.
+scene B: In a few minutes there will be police here asking who pushed whom. Only {friend} saw it properly. {N} starts thinking very fast.
+scene R: It happened in a second. {Ns} hands are shaking, the blood is roaring, and the stranger's friend is coming straight at {N}, shouting.
+scene G: The stranger is somebody's son, lying very still on the cold pavement. The whole street seems to go quiet around him.
+- W | wait by him for the police, and tell them the push was yours | binds | v: conformity, benevolence | mark: owned up | title_if_fails: someone with a record | act: wait by him for the police, and tell them the push was theirs | chance: 56
+- U | tell the police he slipped, and leave the push out of it | v: security | closed: law: lying to the police; backfire: the footage shows the push, and the lie makes it worse | mark: hid a wrong | title_if_fails: someone with a record | chance: 60
+- B | walk away fast, before the camera over the door gets a good look | v: security | closed: law: leaving the scene of an assault; backfire: picked out on the footage and charged | mark: broke the law | title_if_fails: someone with a record | chance: 72
+- R | run into the takeaway shouting for someone to ring an ambulance | v: benevolence | mark: helped someone in need | chance: 77
+- G | send your friend home, so they are not caught up in it | v: benevolence | chance: 75
+- WB | give a full statement that makes clear he shoved first | v: security, conformity | chance: 70
+- WU | ring for an ambulance and do exactly what the call handler says | v: benevolence, conformity | chance: 90
+- UG | kneel by him, keep him warm, and keep talking to him until help comes | v: benevolence | mark: helped someone in need | chance: 62
+- BR | film the whole scene on your phone, loudly, so nobody can twist it later | v: security | tech: phone | chance: 58
+- RG | stand between him and his furious friend until the paramedics come | body: heavy | v: benevolence, security | chance: 60
+works: The stranger sits up before the ambulance arrives, dazed and swearing, and is home by morning.
+works: The police take statements, the footage shows a shove and a fall, and nothing more comes of it.
+fails: The stranger spends a week in hospital, and the police want to talk to {N} again.
+fails: {N} is arrested at dawn, and the charge is assault.
+
+# ---------------------------------------------------------------- young adult: selling a little weed (calls WB, cycle s2)
+
+== selling a little weed for quick money
+tier: everyday
+at: police
+stages: young_adult
+age: 18-29
+calls: WB
+tone: mixed
+life: money, friends
+horizon: months
+roles: friend, parent, the police
+earth: a friend with more weed than they can smoke offers you a share to sell on to people you know
+times: Uncommon: perhaps 1 in 10 young adults are offered the chance, once or twice (estimate)
+gap: 3-8
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: {friend} has more weed than one person could smoke in a year, and a ready market among the people {N} knows. Easy money, {friend} says, and nobody gets hurt.
+scene W: It is against the law, whatever everyone at the party thinks, and {N} has just applied for a job that asks about convictions.
+scene U: {N} works it through: how many friends would buy, what it would bring in, and how few people it takes for word to reach the wrong ears.
+scene B: The rent is due in nine days and {Ns} account is nearly empty. {friend}'s offer would cover it twice over.
+scene R: There is something glamorous about it, {N} has to admit: being the one everyone texts on a Friday night.
+scene G: It is only a plant, {N} thinks, and half the street grows something on a windowsill. Still, selling it would change how people look at {N}.
+- W | warn your friend you will report them if they ask anyone else | v: conformity, security | closed: approval: threatening a friend; backfire: the friend tells everyone who would grass on them | mark: made an enemy | chance: 80
+- U | work out what a conviction would cost you, and turn it down | v: security | mark: turned down a chance | act: work out what a conviction would cost them, and turn it down | chance: 85
+- B | turn it down, and ask your friend for a loan instead, at no interest | v: power (resources), security | chance: 70
+- R | say yes for the summer, and enjoy being the one everyone texts | habit | v: hedonism, stimulation | closed: law: supplying drugs; backfire: a buyer talks, and the police come | mark: took a wild risk | law: drugs | chance: 80
+- G | pass a little on to old friends at cost, and never to strangers | v: benevolence, tradition | closed: law: supplying drugs, even at cost; backfire: one old friend's flat is raided, and the trail leads back | mark: broke the law | law: drugs | chance: 80
+- W>B | take extra shifts on the books until the rent is covered | v: achievement, security | chance: 60
+- U>R | sell a little at a festival, where nobody knows your face | v: hedonism | closed: law: supplying drugs; backfire: stopped by security at the gate, and the police called | mark: broke the law | law: drugs | chance: 55
+- B>G | sell just enough to clear your mum's gas bill, then stop | v: benevolence, security | closed: law: supplying drugs; backfire: one sale too many, and the police at the family door | mark: broke the law | law: drugs | chance: 70
+- R>W | tell your friend straight that this will get them locked up | v: benevolence, security | chance: 60
+- G>U | wait a month, and watch what happens to the friends who do sell | v: security, self-direction | chance: 60
+works: The rent gets paid one way or another, and nobody comes knocking.
+works: By autumn it is all behind {N}, and {friend} is still a friend.
+fails: A police car pulls up outside the flat one evening.
+fails: Word gets round, and {N} is suddenly the one other people's parents warn them about.
+
+# ---------------------------------------------------------------- young adult and adult: a scam that pays (calls UR, cycle s4)
+
+== a friend's scam is paying well
+tier: everyday
+at: police
+stages: young_adult adult
+age: 18-40
+calls: UR
+tone: mixed
+life: money, friends
+horizon: months
+roles: friend, parent, the police, strangers online
+earth: a friend is making good money selling festival tickets that do not exist, and offers you half to help
+times: Uncommon: perhaps 1 in 15 young adults, once or twice (estimate)
+gap: 6-12
+share: .067
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: {friend} turns the laptop round: nine hundred this week, from strangers buying festival tickets that do not exist. Half of it could be {Ns}, {friend} says, for running a few of the listings.
+scene W: At the other end of every sale is someone who saved up for a weekend that will never happen. {N} keeps seeing the person, not the money.
+scene U: {N} sees exactly how it works, and exactly where it breaks: the bank that freezes an account, the one angry buyer who goes to the police.
+scene B: Nine hundred a week. {N} has done everything properly for years and has less to show for it than {friend} has after a month.
+scene R: {friend} is laughing and flush and buying every round. The money is fast and loud, and part of {N} wants some of it.
+scene G: {N} and {friend} go back to primary school. {N} does not want the money, and does not want to lose {friend} to this either.
+- W | post a warning about the fake listings, with your friend's name on it | identity | v: universalism, conformity | closed: approval: shaming a friend in public; backfire: the post spreads, and the friend's family turns on the poster | mark: made an enemy | tech: internet | chance: 75
+- U | run the listings for a month, then get out before it unravels | v: achievement, power | closed: law: fraud; backfire: the bank freezes the account and passes the name to the police | mark: broke the law | title_if_fails: someone with a record | tech: internet | chance: 70
+- B | turn it down, and start reselling real tickets at a fair markup | identity | v: achievement, power | chance: 60
+- R | tell your friend it is disgusting, and walk out of the flat | identity | v: universalism, self-direction | chance: 75
+- G | take a share for the family, and never ask where it came from | binds | v: benevolence, security | closed: law: handling the proceeds of fraud; backfire: the police trace the money to the family's account | mark: hid a wrong | chance: 70
+- W>G | sit your friend down with their family, so the family can talk sense into them | v: benevolence, security | chance: 55
+- U>W | save every listing, and send them all to the police without a name | v: universalism, security | chance: 60
+- B>U | ask to see how the money moves, and keep a copy, just in case | v: power, security | chance: 70
+- R>B | say yes on the spot, and spend the first share that night | v: hedonism, power | closed: law: fraud; backfire: arrested when a buyer goes to the police | mark: broke the law | chance: 55
+- G>R | let it be: your friend lives how they like, and so do you | v: self-direction | chance: 60
+works: Whatever {N} chose, nothing comes back to {N}, and the summer goes on.
+works: By the end of the summer the listings are gone, and {friend} is looking for real work.
+fails: A letter from the bank says {Ns} account is frozen while the police make enquiries.
+fails: {friend} hears what {N} did, and a friendship of twenty years ends in one phone call.
+
+# ---------------------------------------------------------------- adult: a pub argument that turns (calls RG, cycle s1)
+
+== a pub argument turns into a fight
+tier: everyday
+stages: adult
+age: 25-50
+calls: RG
+tone: trouble
+life: friends, conflict, body
+horizon: moment
+roles: friend, a barman, strangers
+earth: an argument at the bar turns, and a man shoves your friend into the tables
+times: Perhaps 1 in 3 adults who drink in pubs, once or twice (estimate); men far more often than women
+gap: 4-8
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Somewhere between the third pint and the fourth, an argument about nothing turns. A man at the bar shoves {friend} into the tables, the glasses go over, and the whole pub goes quiet.
+scene W: Even a pub on a Friday night has its rules, and the barman is already reaching for the phone. Someone needs to calm this before it becomes a matter for the police.
+scene U: {N} sees how it will go: the man is bigger and drunker than {friend}, his mate is circling behind, and the door is twelve steps away.
+scene B: {N} has a lot to lose: the job, a clean record, the mortgage application going in next week. Whatever happens in the next ten seconds must not land on {N}.
+scene R: The shove lands on {friend}, and {N} feels it like a shove of {Ns} own. {Ns} fists are tight before any thought arrives.
+scene G: {friend} has stood by {N} for twenty years. Nobody puts hands on {friend} while {N} is standing there.
+- W | step between them with your hands up, and tell them both to stop | body: heavy | v: security, benevolence | death_if_fails: 0.001 | chance: 65
+- U | catch your friend's eye, nod at the door, and leave together | v: security | chance: 65
+- B | keep out of it, and make sure the barman sees you had no part | v: security, power | mark: refused someone in need | self_control: + | chance: 75
+- R | hit him, hard, before he can swing again | body: heavy | v: power, security | closed: law: assault; backfire: arrested and charged | mark: hurt someone badly | death_if_fails: 0.001 | title_if_fails: someone with a record | role: men | chance: 50
+- G | wade in and drag your friend out by the collar | body: heavy | v: benevolence | mark: helped someone in need | death_if_fails: 0.001 | chance: 55
+- W>U | sit them both down, and make each one say what started it | v: security | chance: 50
+- U>B | wait for your moment, then shove him off balance and get out | body: heavy | v: power, security | closed: law: assault; backfire: he falls badly, and the cameras saw it all | mark: broke the law | death_if_fails: 0.001 | chance: 50
+- B>R | get his mate first, so it is two on one | body: heavy | v: power, stimulation | closed: law: affray; backfire: both arrested, and the night on the local news | mark: hurt someone badly | death_if_fails: 0.001 | role: men | chance: 40
+- R>G | roar at him to back off, loud enough to stop the whole pub | v: benevolence | chance: 65
+- G>W | call the regulars over, and let the room calm him down | v: security, tradition | chance: 60
+works: The man is steered out into the night, and the pub goes back to its noise.
+works: {N} and {friend} walk home under the streetlights, sore and laughing.
+fails: There is a brawl, a broken table, and a police van outside within ten minutes.
+fails: {N} wakes up with a split lip and a statement to give at the station.
+
+# ---------------------------------------------------------------- adult: fiddling the books (calls WU, cycle s2)
+
+== fiddling the books at work
+tier: everyday
+at: employer
+stages: adult
+age: 25-50
+calls: WU
+needs: career
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, partner
+earth: the expense claims at work go through you, and you notice that nobody ever checks them
+times: Uncommon: some office workers who handle claims, once or twice in a working life (estimate); expense schemes are about 1 in 10 workplace frauds (ACFE)
+gap: 6-12
+share: .15
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The expense claims go through {N} now, and {N} has noticed what nobody else seems to have: nobody checks them. A hundred here and two hundred there, and the books would still balance.
+scene W: {boss} gave {N} the books because {N} was the honest one. That trust sits on the desk like a paperweight.
+scene U: {N} can see the gap in the system as clearly as a missing tooth: one signature, never checked, and an audit only every three years.
+scene B: {N} has given this firm years of unpaid overtime. A few hundred a month would only be taking back what is owed.
+scene R: The pay is poor and the days are long, and for one giddy afternoon the thought of getting away with something is the most alive {N} has felt in years.
+scene G: Times are tight at home, and the bills come faster than the pay. The firm would never feel it; the household would.
+- W | go back through every colleague's old claims and report each slip | v: conformity | closed: approval: turning on colleagues; backfire: the office freezes the reporter out, and a friend loses their job | mark: made an enemy | chance: 70
+- U | put through one small claim, just to see whether anyone notices | v: self-direction | closed: law: false accounting; backfire: flagged at the audit, and every claim checked | mark: hid a wrong | self_control: - | chance: 75
+- B | take the gap to the boss, and ask for a raise for finding it | v: achievement, power | chance: 60
+- R | hand in your notice, and go and find work that does not bore you | v: self-direction, stimulation | act: hand in their notice, and go and find work that does not bore them | chance: 55
+- G | take home the spare office supplies, as everyone always has | v: tradition | closed: law: theft from an employer; backfire: a new manager counts the stock, and a warning goes on file | mark: hid a wrong | chance: 70
+- W>B | ask, through the proper channels, for the overtime you are owed | v: achievement, conformity | chance: 50
+- U>R | use what you know of the books to go freelance, and be your own boss | identity | v: self-direction | chance: 45
+- B>G | take just enough to cover the bills at home, and mean to pay it back | v: benevolence, security | closed: law: theft from an employer; backfire: found at the year-end, and the job gone | mark: broke the law | title_if_fails: someone with a record | self_control: - | chance: 60
+- R>W | blurt out in the meeting that nobody ever checks the claims | v: universalism, conformity | mark: defied an authority | chance: 65
+- G>U | sleep on it for a week, and see whether the urge passes | v: self-direction | self_control: + | chance: 50
+works: The year-end comes and goes, and {N} sleeps well.
+works: A month later things at work have changed, and {N} is glad of the change.
+fails: The auditors arrive early, and they ask for {N} by name.
+fails: {boss} calls {N} in, closes the door, and puts a file on the desk.
+
+# ---------------------------------------------------------------- adult and mature: a neighbour's van (calls WR, cycle s3)
+
+== the neighbour's van across your drive
+tier: everyday
+stages: adult mature
+age: 25-75
+calls: WR
+tone: trouble
+life: home, conflict
+horizon: months
+roles: a neighbour, partner, the council, the police
+earth: for the third time this week the neighbour's van is parked across your drive, and you cannot get out
+times: Many households, once every few years, often with a new neighbour (estimate); parking tops the causes of neighbour disputes in British surveys
+gap: 3-8
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: For the third morning this week the neighbour's van is parked across {Ns} drive, and {N} is going to be late for work again.
+scene W: Blocking a driveway is against the rules, and {N} has looked up exactly which rule. The neighbour must know it too.
+scene U: {N} has started keeping track: Mondays and Thursdays, always after eleven at night, always when the neighbour's brother comes to stay.
+scene B: The neighbour seems to have decided that {N} is the sort who will put up with it. {N} would like to show him otherwise.
+scene R: {N} stands on the step in work clothes, keys in hand, and feels the heat climb up {Ns} neck.
+scene G: A street works when people rub along. {N} has seen feuds over less run for twenty years and outlast everyone's patience.
+- W | have the van towed away yourself, since he is breaking the rules | v: conformity, power | closed: law: moving another person's vehicle; backfire: the towing bill and a police caution land on the one who called it | mark: broke the law | act: have the van towed away themselves, since he is breaking the rules | chance: 60
+- U | photograph it each time, and send the neighbour a polite, dated list | habit | v: security | chance: 65
+- B | find out who his landlord is, and have a quiet word | v: power | chance: 65
+- R | lean on the horn at seven in the morning until he comes out | v: self-direction | closed: approval: waking the whole street; backfire: the neighbours take his side | chance: 55
+- G | knock with two coffees, and ask whether all is well at his house | v: benevolence | chance: 60
+- W>R | ask the council to paint a line across your drive, and get your mornings back | v: self-direction, conformity | chance: 65
+- U>G | find out why he parks there, and suggest a swap that suits both houses | binds | v: benevolence, security | chance: 60
+- B>W | tell him you know his van is untaxed, and you will report it | v: power, conformity | mark: made an enemy | chance: 60
+- R>U | go round tonight and ask him straight why he does it | v: self-direction | chance: 70
+- G>B | put big planters along the kerb, so nobody can park there again | v: power, security | closed: law: blocking the pavement; backfire: the council orders them removed, with a fine | mark: defied an authority | chance: 65
+works: The van moves to the other side of the road, and stays there.
+works: A month later {N} and the neighbour nod to each other in the street, and the drive is clear.
+fails: The feud spreads to the whole street, and the police are called twice.
+fails: A long scratch appears along the side of {Ns} car one morning.
+
+# ---------------------------------------------------------------- mature and elder: an insurance claim (calls UB, cycle s1)
+
+== an insurance claim for more than you lost
+tier: everyday
+stages: mature elder
+age: 40-85
+calls: UB
+tone: mixed
+life: money, home
+horizon: months
+roles: partner, sibling, a loss adjuster, neighbours
+earth: after a break-in the insurance form asks what was taken, and nobody would know if the list were longer
+times: Uncommon: perhaps 1 in 5 people claim for a break-in in later life, and some are tempted to pad it (estimate); about 13 in 1,000 US households are burgled a year (BJS 2023)
+gap: 8-15
+share: .2
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The burglars took a laptop and a little jewellery. The insurance form has twelve empty lines, and the loss adjuster said on the phone that receipts help but are not essential.
+scene W: {N} has paid the premium every month for twenty-six years without a single claim. The form asks for the truth and nothing more, and there is a box to sign at the bottom.
+scene U: {N} reads the policy twice and knows exactly what it covers, what it does not, and how the company checks.
+scene B: Twenty-six years of premiums, and now the company will try to pay as little as it can. {N} can see who comes out ahead if nobody pushes back.
+scene R: {N} feels sick every time they walk into the bedroom where the drawers were tipped out. Somebody owes {N} for that feeling, and the form is all there is.
+scene G: One of the rings was {Ns} grandmother's. No form has a line for what that was worth.
+- W | list exactly what was taken, nothing more, and sign it | v: conformity | chance: 70
+- U | read the policy line by line, and claim every penny it truly covers | v: security, achievement | chance: 75
+- B | haggle with the adjuster over every item until the offer is fair | v: power, achievement | chance: 70
+- R | ring the insurer and tell them exactly what this has done to you | v: self-direction | act: ring the insurer and tell them exactly what this has done to them | chance: 65
+- G | claim little, and let the things go; the ring was never about money | v: tradition (accepting what is) | chance: 75
+- W>U | photograph and list everything you own from now on, room by room | habit | v: security | chance: 65
+- U>B | add a watch that nobody could ever prove you did not own | v: power (resources) | closed: law: insurance fraud; backfire: the adjuster checks, the claim is refused, and the police are told | mark: broke the law | title_if_fails: someone with a record | act: add a watch that nobody could ever prove they did not own | chance: 60
+- B>R | push the adjuster for a fast payout, and spend it on a holiday | v: hedonism, power | chance: 65
+- R>G | value the ring at what it meant to you, not what it cost | v: tradition | closed: law: an inflated claim; backfire: the valuation is checked, and the whole claim stalls | mark: hid a wrong | act: value the ring at what it meant to them, not what it cost | chance: 70
+- G>W | claim the way the neighbours did, with a little extra, as everyone does | v: conformity, tradition | self_control: - | closed: law: insurance fraud; backfire: the insurer looks hard at the whole street's claims | mark: gave in to pressure | title_if_fails: someone with a record | chance: 60
+works: The payout arrives within the month, and the matter is closed.
+works: {N} buys a new lock and a new laptop, and the house starts to feel like home again.
+fails: The insurer sends an investigator, who asks a great many questions.
+fails: The claim drags on for half a year, and the payout is a fraction of the loss.
+
+# ---------------------------------------------------------------- holders of a new record: a night in a cell (calls WG, cycle s4)
+
+== the first night in a cell
+tier: everyday
+at: police
+rate: .5
+stages: juvenile+
+age: 16-85
+calls: WG
+holds: someone with a record
+tenure: 0-1
+once: yes
+tone: trouble
+life: conflict, body
+horizon: moment
+roles: parent, a custody officer, a solicitor
+earth: a steel door shuts, the hatch slides closed, and the first night in a cell begins
+times: Once, on the first night after an arrest that brings a record; 3 to 4 in 10 Americans are arrested by 23, mostly for minor things (Brame 2012), far fewer held overnight
+scene: The door shuts with a sound {N} will remember for years. A thin mattress, a hatch in the door, a light that never goes off, and a whole night ahead.
+scene W: {N} broke the law, and the law has answered. There is a strange order to it: the forms, the times, the officer who checks the hatch every hour.
+scene U: {N} lies on the mattress and goes over it again and again: every choice that led here, and which one, if any, could have gone the other way.
+scene B: {N} is already thinking about tomorrow: the solicitor, the story, who knows what, and how to come out of this with as little lost as possible.
+scene R: The walls are too close. {N} paces, three steps and turn, three steps and turn, with a shout sitting just under the ribs.
+scene G: Somewhere out there the family will have heard by now. {N} thinks of the kitchen at home and the light left on over the back door.
+- W | ask the officer for the rules, and keep every one of them | v: conformity, security | chance: 75
+- U | go over the whole thing, step by step, and find where it turned | v: self-direction | chance: 75
+- B | work out what to say tomorrow that gets you home soonest | v: power, security | act: work out what to say tomorrow that gets them home soonest | chance: 75
+- R | kick the door and shout until someone comes | body: light | v: self-direction | closed: approval: kicking off in custody; backfire: a longer stay, and another charge | mark: defied an authority | chance: 45
+- G | lie still, breathe slowly, and let the night pass the way nights do | v: tradition (accepting what is), security | chance: 70
+- W>G | ask for the phone call you are allowed, and ring home | v: benevolence, conformity | act: ask for the phone call they are allowed, and ring home | chance: 65
+- U>W | ask for the duty solicitor, and learn exactly what you face | v: security, conformity | chance: 65
+- B>U | chat to the officer at the hatch, and find out what they know | v: security, power | chance: 65
+- R>B | swear to yourself that nobody will ever lock you up again | v: power, self-direction | act: swear to themselves that nobody will ever lock them up again | chance: 95
+- G>R | hum the songs from home under your breath, to keep yourself together | habit | v: tradition | act: hum the songs from home under their breath, to keep themselves together | chance: 70
+works: Morning comes, and {N} walks out into the daylight steadier than when the door shut.
+works: The night passes, and {N} even sleeps a little before the hatch opens on breakfast.
+fails: The night is endless, and by morning {N} is shaking with tiredness.
+fails: The night goes badly, and {N} comes out with more trouble than before.
+
+# ---------------------------------------------------------------- adult and mature: an alibi (calls BG, cycle s2)
+
+== a friend asks you for an alibi
+tier: everyday
+at: police
+stages: adult mature
+age: 25-65
+calls: BG
+tone: trouble
+life: friends, conflict
+horizon: week
+roles: friend, partner, the police
+earth: the police are asking where your friend was on Saturday night, and your friend asks you to say they were with you
+times: Rare: perhaps 1 in 20 adults, once (estimate)
+once: yes
+share: .05
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: {friend} rings late, voice low. The police are asking about Saturday night and a smashed shop window on the high street, and {friend} wants {N} to say they were together all evening.
+scene W: Lying to the police is a crime of its own, {N} knows, and it would make {N} part of whatever {friend} did.
+scene U: {N} thinks it through: who else saw {friend} on Saturday, which phones were where, how many places a story like that can come apart.
+scene B: {friend} would owe {N} for this, properly owe, for years. That is worth something. So is staying out of it.
+scene R: {N} hears the fear in {friend}'s voice and wants to say yes before the sentence is finished.
+scene G: {friend} has been family to {N} for thirty years: weddings, funerals, the bad winter. Families stand together; that is what {N} was always taught.
+- W | ring the police yourself, before your friend can ask anyone else | v: conformity, security | closed: approval: turning in a friend; backfire: the friend's family never speaks to the caller again | mark: made an enemy | act: ring the police themselves, before their friend can ask anyone else | chance: 75
+- U | say nothing either way yet, and keep every message they send | v: security | chance: 80
+- B | say yes, and make sure they know they owe you for life | binds | v: power | closed: law: giving the police a false alibi; backfire: the story comes apart, and both are charged | mark: broke the law | title_if_fails: someone with a record | act: say yes, and make sure the friend knows they owe them for life | chance: 60
+- R | tell your friend straight to face it, and that you will go with them | binds | v: benevolence | self_control: + | chance: 70
+- G | say yes: you were together, as far as anyone needs to know | identity | v: benevolence, tradition | closed: law: giving the police a false alibi; backfire: a camera on the high street says otherwise, and both are charged | mark: hid a wrong | title_if_fails: someone with a record | chance: 60
+- W>B | tell the police the truth, and ask them to keep your name out of it | v: security, conformity | chance: 55
+- U>R | help your friend put together a story that does not need you in it | v: benevolence | closed: law: helping to mislead the police; backfire: the story falls apart in the interview room | mark: hid a wrong | act: help their friend put together a story that does not need them in it | chance: 50
+- B>G | find your friend a good solicitor, and pay for the first hour | v: benevolence | chance: 70
+- R>W | tell your friend you love them, and that they must own up | v: benevolence, conformity | chance: 60
+- G>U | ask your friend round for a meal, and hear the whole story first | v: benevolence | chance: 70
+works: The police lose interest, and {friend} rings to say it is over.
+works: {friend} faces it in the end, and the friendship comes through.
+fails: An officer rings {N} to ask a few more questions about Saturday night.
+fails: {friend} hangs up, and does not ring again for a long, long time.
+
+# ---------------------------------------------------------------- echo: the police at the door (cycle s3)
+# Every option carries title_if_fails: someone with a record (a charge that sticks), so the record is even per color.
+
+== the police at the door
+tier: echo
+at: police
+stages: juvenile+
+age: 13-90
+after: mark 'broke the law', and what was done has come to light: a witness, a camera, a friend who talked
+delay: 0-3
+likelier: a serious offence, a camera or a witness, a friend who was caught, a small town where people talk
+rarer: a small offence long ago, nobody hurt, a big city with stretched police, a wrong owned up and settled
+tone: trouble
+life: conflict, home
+horizon: months
+roles: parent, partner, friend, the police, a solicitor
+earth: two police officers on your doorstep early one morning, asking for you by name
+times: Follows only some wrongs: most go unsolved, and well under 1 in 10 crimes recorded in England and Wales end in a charge (Home Office); once a witness talks, a knock is likely
+scene: Early on a weekday morning there are two police officers on the doorstep, asking for {N} by name.
+scene W: {N} has known, somewhere, that this day might come. There is almost a relief in it: the thing is out, and now it can be answered.
+scene U: {N} counts quickly what they could know and what they cannot, and how much hangs on the next few sentences.
+scene B: {N} keeps a pleasant face at the door and thinks: what have they got, who gave it to them, and what is it worth to say nothing?
+scene R: {Ns} heart kicks against the ribs. For one wild second the back door, the garden fence and the open road all look like answers.
+scene G: The whole house is awake behind {N}, watching from the stairs. Whatever happens now happens to all of them.
+- W | let them in, and tell them the truth from the start | v: conformity, security | mark: owned up | self_control: + | title_if_fails: someone with a record | chance: 50
+- U | say politely that you will answer everything with a solicitor present | v: security | title_if_fails: someone with a record | chance: 60
+- B | say nothing, admit nothing, and make them prove it | v: power, security | mark: hid a wrong | title_if_fails: someone with a record | chance: 55
+- R | slip out the back door and keep walking | body: light | v: self-direction | closed: law: avoiding arrest; backfire: picked up by evening, with another charge | mark: defied an authority | title_if_fails: someone with a record | chance: 40
+- G | ask them in, put the kettle on, and let the family sit with you | v: tradition, benevolence | title_if_fails: someone with a record | act: ask them in, put the kettle on, and let the family sit with them | chance: 50
+- W>R | sign whatever they put in front of you, just to get it over with | v: conformity | mark: gave in to pressure | self_control: - | title_if_fails: someone with a record | act: sign whatever they put in front of them, just to get it over with | chance: 50
+- U>G | ask what they know, then say only what keeps the family out of it | v: security, benevolence | title_if_fails: someone with a record | chance: 40
+- B>W | offer to name everyone else involved, in return for a lighter charge | v: power, security | closed: approval: informing on others; backfire: word gets round, and old friends turn away | mark: made an enemy | title_if_fails: someone with a record | chance: 45
+- R>U | tell them straight what you did, and ask what happens now | v: self-direction | mark: owned up | title_if_fails: someone with a record | chance: 60
+- G>B | let the family's old friend, a solicitor, do all the talking | v: security, tradition | title_if_fails: someone with a record | chance: 50
+works: It ends with a warning and a signature, and the officers leave before the kettle boils.
+works: The case is dropped a month later for lack of evidence.
+fails: {N} is charged, and a court date arrives in the post.
+fails: {N} spends the afternoon in an interview room and the evening with a solicitor.

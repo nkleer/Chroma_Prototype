@@ -1,0 +1,573 @@
+# Chroma library, modern Earth: INNER MOMENTS FOR CHILDREN, second set (about 4 to 12; children who reach the juvenile stage early keep them until 12), told at a child's height. Engine fix 9, second set (drafts/, for the engine's conditions first).
+# Audit 2026-10-05 (realism of options, Emren 09:25): changes in drafts/audit/earth-child-inner-2-changes.md.
+# With earth-child-inner.lib this gives children 32 inner moments, as the adults have. Conditions proposed in drafts/child-rules-proposal-2.py.
+# Syntax: header of build.py. Each moment is even on its own: alpha even, the five one-color options and one full cross cycle (s1 to s4 four times each).
+# requires: names what the engine can check in its own condition words (chroma-engine/prototype/batch.py COND_VOCAB), at children's levels; what it cannot see is said so.
+# self_control (engine v7): "+" an act of discipline, "-" giving in or giving up. The lessons, the savings jar and the promise carry one of each in every color.
+# Tone: trouble 5, mixed 6, joy 5.
+
+# ---------------------------------------------------------------- painful and restless states
+
+== the first night away from home
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: trouble
+life: friends, home
+horizon: moment
+roles: friend, parent, grandparent
+earth: a first sleepover at a friend's house, or the first night of a school trip, and the dark feels different
+requires: safety below 0.78 (a child's usual is about 0.78) or a move within the year (ago_move below 1); the sleepover or the trip itself is outside the engine's sight (a chance of about .2)
+likelier: under 9 (age below 9); quick to react (react above 1.1, a child's usual is about 1.05); a move within the half year (ago_move below 0.5)
+rarer: a steadier temperament (steady above 0.15, a child's usual is about 0.1); over 10 (age above 10); more Red than most in the color history (hR above 0.22)
+times: Nearly every child, once: the first sleepover or first school trip night, usually between six and ten (estimate)
+once: yes
+scene: The sleeping bag smells of someone else's house. {friend} is asleep already, and {N} lies awake listening to strange noises in the dark.
+scene W: {N} promised {parent} to be brave and stay the whole night. The promise feels heavier every minute.
+scene U: {N} counts the strange sounds one by one: a clock, a fridge, a dog somewhere outside. Naming them helps a little.
+scene B: There is a phone downstairs. One call, and {parent} would come. {N} weighs up what the others would say tomorrow.
+scene R: {Ns} chest is tight and a hot lump sits in the throat. {N} wants home, and wants it now.
+scene G: {N} thinks of the bed at home and the shape of the curtains there, and holds the old soft toy a little tighter.
+- W | stay the whole night, because a promise to be brave is a promise | v: conformity, security | mark: kept your word | chance: 72
+- U | lie still and work out what each strange noise is, one by one | v: self-direction | chance: 75
+- B | say it is a tummy ache, and ask to ring home | v: security | mark: hid a wrong | closed: approval: a fib to be fetched; backfire: the fib comes out, and the others tease at school | chance: 50
+- R | cry hard until the grown-ups ring home | v: security | chance: 50
+- G | hug the soft toy brought from home, and think of the bedroom there | v: security, tradition | chance: 69
+- W>U | ask politely for the landing light on, and read until sleepy | v: self-direction, security | chance: 82
+- U>B | think up a clever reason to be picked up early, without looking scared | v: power (face) | closed: approval: a made-up excuse; backfire: found out, and the next sleepover is off | chance: 40
+- B>R | turn it into a contest: who can stay awake longest with a torch | v: stimulation, achievement | chance: 72
+- R>G | creep to the window and look at the moon, the same one as over home | v: universalism (nature) | chance: 80
+- G>W | say the bedtime words from home, the same as every night | habit | v: tradition | chance: 69
+works: Morning comes, and with it pancakes. {N} made it through the night and feels a little taller.
+works: By breakfast the strange house has turned friendly, and {N} asks to come again.
+fails: {N} is picked up at midnight in pyjamas, too tired to care who saw.
+fails: The night drags on and on, and {N} is grey and grumpy all the next day.
+
+== voices raised downstairs after bedtime
+tier: inner
+stages: child, juvenile
+age: 5-12
+tone: trouble
+life: home, family
+horizon: week
+roles: parent, sibling, grandparent
+earth: lying awake after bedtime, hearing the grown-ups argue downstairs, and not being able to make out the words
+requires: stress above 0.75 (a child's usual is about 0.6) or money below 0.13 (a family with less than most) or the parents' split within two years (had 'your parents split up', 2); the row itself is outside the engine's sight (a chance of about .15)
+likelier: money below 0.12; quick to react (react above 1.1); peace below 0.35
+rarer: a steadier temperament (steady above 0.15); belonging above 0.75 (a home that feels close)
+times: Many children, now and then, and often in a home under money strain or before a split (estimate)
+gap: 0-.5
+scene: After bedtime the voices downstairs get louder. {N} cannot make out the words, only the sharp sound of them, and then a door.
+scene W: {N} wonders whether it is about something {N} did, and goes over the whole day looking for it.
+scene U: {N} creeps to the top of the stairs to catch the words and understand what is wrong.
+scene B: {N} thinks about whose side to be on, and what each of them might give for it tomorrow.
+scene R: {Ns} heart is thumping. {N} wants to run down and shout at them both to stop.
+scene G: {N} pulls the covers up and waits, the way one waits for a storm to pass.
+- W | go down in a calm voice and ask them, politely, to stop | v: benevolence, conformity | closed: approval: out of bed after lights out; backfire: sent straight back up, and the row gets worse | chance: 70
+- U | sit at the top of the stairs and listen, to work out what is wrong | v: self-direction | closed: approval: listening in on the grown-ups; backfire: caught on the stairs, and sent back to bed with a scolding | chance: 48
+- B | keep quiet, and tomorrow be nice to whichever one is in the better mood | v: security, power | chance: 75
+- R | put the headphones on and turn the music right up | habit | v: hedonism | chance: 82
+- G | lie still and count breaths until the house goes quiet | v: security | chance: 69
+- W>B | ask in the morning for a family rule: no shouting after bedtime | v: security, conformity | chance: 70
+- U>R | write it all down in a diary with a little lock | habit | v: self-direction | chance: 75
+- B>G | make them both a cup of tea in the morning, to smooth things over | v: benevolence, security | chance: 82
+- R>W | march downstairs in pyjamas and tell them to stop it, now | v: universalism (fairness) | mark: defied an authority | chance: 75
+- G>U | ask your grandparent the next day whether all grown-ups argue sometimes | door | v: tradition, self-direction | closed: approval: telling family business outside the house; backfire: a row about telling the grandparent | chance: 72
+works: In the morning the kitchen is calm again, and {parent} gives {N} an extra-long hug.
+works: The house goes quiet at last and {N} sleeps. The next day someone explains, a little.
+fails: The voices go on. {N} lies awake until the birds start, and is tired and tearful all day.
+fails: Nobody says anything about it in the morning, and the silence feels worse than the noise.
+
+== nobody to play with at break time
+tier: inner
+stages: child, juvenile
+age: 5-12
+tone: trouble
+life: school, friends
+horizon: week
+roles: friend, rival
+earth: the bell goes for break, everyone runs off in their groups, and nobody waits
+requires: belonging below 0.55 (a child's usual is about 0.65) or a move within the year (ago_move below 1, new at school); the empty playground itself is outside the engine's sight (a chance of about .4)
+likelier: no brother or sister (alive_sibling 0); quick to react (react above 1.1); a move within the half year (ago_move below 0.5)
+rarer: belonging above 0.75; more Red than most in the color history (hR above 0.22, a child who barges in anyway)
+times: Many children, spells now and then, most of all when new at school; about 1 in 10 children aged 10 to 15 often feel lonely (ONS 2018)
+gap: 0-.5
+scene: The bell goes for break. Everyone runs off in their groups, and nobody looks back. {N} stands by the wall with both hands in pockets.
+scene W: {N} wonders whether there is a rule about letting people join in. There ought to be.
+scene U: {N} watches the games from the edge, learning the rules of each one in case anyone asks.
+scene B: {rival}'s gang has the best game going. {N} works out what it would take to get in.
+scene R: {N} kicks at the wall. It is not fair, and the whole playground seems to know it.
+scene G: There is a corner of the field with a hedge and some beetles. {N} goes and crouches there.
+- W | tell the playground helper that the others will not let anyone join | v: conformity | closed: approval: telling tales; backfire: called a telltale, and left out all the more | chance: 65
+- U | take a book out at break, and read on the bench | habit | v: self-direction | chance: 80
+- B | bring the best sweets in, and share them with whoever plays | v: power, achievement | chance: 78
+- R | walk straight up to the football game and ask, loudly, to play | v: stimulation | chance: 65
+- G | find the little one crying by the hedge, and hunt for beetles together | v: benevolence, universalism (nature) | mark: helped someone in need | chance: 70
+- W>R | start a game of tag, and call everyone standing alone to join | door | v: benevolence, stimulation | mark: made a friend | chance: 70
+- U>G | find the other quiet kid, and swap facts about animals | v: benevolence, self-direction | mark: made a friend | chance: 75
+- B>W | offer to keep the score for the big game, a job nobody else wants | door | v: power, conformity | chance: 78
+- R>U | invent a wild new game on the spot, and shout the rules to anyone passing | door | v: stimulation, self-direction | chance: 72
+- G>B | wait by the game until they are one player short, then step in | v: achievement | chance: 65
+works: Somebody says yes. By the end of break {N} has a place in a game, and maybe a friend.
+works: Break goes by quicker than feared, and tomorrow there is a plan.
+fails: The bell goes at last, and {N} has spent the whole break alone by the wall.
+fails: It goes wrong in front of everyone, and break feels even longer the next day.
+
+== the sibling who always gets more
+tier: inner
+stages: child, juvenile
+age: 4-12
+tone: trouble
+life: home, family
+horizon: week
+roles: sibling, parent
+earth: a brother or sister seems to get the bigger slice, the later bedtime and all the attention
+requires: a brother or sister (alive_sibling 1 or more) and belonging below 0.65 or autonomy below 0.7; the unfairness itself is outside the engine's sight (a chance of about .25)
+likelier: two or more brothers and sisters (alive_sibling 2 or more); more Black or Red than most (hB + hR above 0.42); quick to react (react above 1.1)
+rarer: a steadier temperament (steady above 0.15); more Green than most (hG above 0.22)
+times: Most children with a brother or sister, now and then all through childhood (estimate)
+gap: 0-.5
+scene: {sibling} gets the bigger slice again, and the later bedtime, and the new shoes. {N} counts it all up, and it does not come out fair.
+scene W: {N} knows the rule: it should be the same for everyone. The rule is not being kept.
+scene U: {N} keeps a careful list of every time it happens, as proof.
+scene B: If {sibling} gets more, then {N} will just have to find a way to get more too.
+scene R: {N} stamps upstairs, so hot with unfairness it is hard to breathe.
+scene G: {N} tries to remember that {sibling} had to wait for things once too. It helps a little.
+- W | go to the parents and ask, calmly, for one fair rule for both | v: universalism (fairness) | chance: 69
+- U | keep a list of every unfair thing, with dates, to show as proof | v: self-direction, achievement | chance: 52
+- B | strike a deal: you do the drying up, you get the bigger pudding | v: power (resources) | chance: 70
+- R | shout it out at the dinner table: it is not fair! | v: power (face) | chance: 55
+- G | let it go this time: there will be more next time | v: benevolence, tradition | chance: 72
+- W>G | suggest taking turns: one week each for the best seat in the car | v: universalism, benevolence | chance: 78
+- U>W | dig out the family's rule from last year, and remind everyone of it | v: conformity | chance: 62
+- B>U | trade the sibling a turn on the bike for help with the hard homework | v: achievement | chance: 78
+- R>B | grab the bigger slice first next time, before anyone can stop it | v: hedonism, power | closed: approval: grabbing at the table; backfire: told off in front of everyone | chance: 70
+- G>R | go out to the garden and run until the cross feeling is gone | body: light | v: stimulation | chance: 90
+works: Somebody notices at last, and things are evened out, or nearly.
+works: The bad feeling passes, and {N} and {sibling} are friends again by teatime.
+fails: Nobody listens, and it seems even more unfair than before.
+fails: It ends in a row, and {N} is the one who gets told off.
+
+== the same bad dream again
+tier: inner
+stages: child, juvenile
+age: 4-11
+tone: trouble
+life: home
+horizon: week
+roles: parent, grandparent, sibling
+earth: the same bad dream comes back night after night, and bedtime starts to feel like a trap
+requires: stress above 0.85 (a child's usual is about 0.6), or a death in the family within the half year (ago_death below 0.5), or a move within the month (ago_move below 1/12); the dream itself is outside the engine's sight (a chance of about .35)
+likelier: under 8 (age below 8); quick to react (react above 1.1); safety below 0.65
+rarer: a steadier temperament (steady above 0.15); over 9 (age above 9)
+times: Many children, a spell or two in childhood, often after a move, a loss or a scare (estimate)
+gap: 2-4
+scene: It is the dream again: running through a dark wood with something just behind. {N} wakes with a jolt, heart pounding, in the dark bedroom.
+scene W: {N} has been told that dreams are not real, and tries very hard to believe it.
+scene U: {N} lies awake trying to work out why the same dream keeps coming, and what it means.
+scene B: {N} decides the dream is not going to win. There must be a way to beat it.
+scene R: {N} is out of bed and across the landing before properly awake.
+scene G: {N} lies still and listens to the house breathing: the boiler, the clock, someone snoring. The dark is just the dark.
+- W | say the same goodnight words every night, to keep the dream away | habit | v: tradition, security | chance: 62
+- U | draw the dream in the morning, and give it a new ending on paper | v: self-direction | chance: 78
+- B | decide to turn round in the dream next time, and win | v: power, achievement | chance: 68
+- R | run into the parents' bed, every single time | habit | v: security | chance: 75
+- G | leave the curtains open a crack, so the moon can look in | v: universalism (nature), security | chance: 55
+- W>U | ask a parent to sit on the bed and explain what dreams are | v: self-direction, security | chance: 70
+- U>B | read a library book on dreams, and plan a way to wake up from them | v: self-direction, achievement | mark: learned a skill | chance: 62
+- B>R | stay awake under the covers with a torch, so the dream cannot come | habit | v: stimulation | chance: 30
+- R>G | creep down for a glass of milk in the quiet kitchen | v: hedonism, security | chance: 72
+- G>W | tell your grandparent about the dream, and learn their old way of chasing it off | v: tradition | mark: owned up | chance: 69
+works: The dream comes back weaker, and then one night it does not come at all.
+works: {N} sleeps right through at last, and wakes up surprised it is morning.
+fails: The dream comes back again, and {N} is too tired to think at school.
+fails: Nothing helps this time, and bedtime turns into a battle.
+
+# ---------------------------------------------------------------- mixed: wanting, testing, holding on
+
+== a dare from the big kids
+tier: inner
+stages: child, juvenile
+age: 7-12
+tone: mixed
+life: friends, play
+horizon: moment
+roles: rival, friend, parent
+earth: the older kids on the wall dare {N} to ring the bell at the grumpy man's house and run
+requires: age 7 or more, and belonging below 0.7 (wanting in with the older ones) or more Red than most (hR above 0.21); the dare itself is outside the engine's sight (a chance of about .2)
+likelier: more Black or Red than most (hB + hR above 0.42); quick to react (react above 1.1); belonging below 0.5
+rarer: a steadier temperament (steady above 0.15); more White than most (hW above 0.22)
+times: Many children, once or twice, mostly between eight and twelve (estimate)
+gap: 2-4
+scene: The big kids are sitting on the wall. "Go on," says {rival}. "Ring the bell at number nine and run. Unless {N} is scared."
+scene W: {N} knows it is not right, and knows {parent} would say so. But everyone is watching.
+scene U: {N} looks at the house, the path and the gate, working out how fast a person could get away.
+scene B: If {N} does it, the big kids will have to let {N} hang around with them. That is worth something.
+scene R: {Ns} heart is racing, and it is not only fear. Part of {N} really wants to do it.
+scene G: {N} looks at the little garden at number nine, with its gnome and its bird table, and thinks about the old man inside.
+- W | say no: it is mean to the old man, and that is that | identity | v: benevolence, conformity | chance: 57
+- U | ask what the point of it is, again and again, until the big kids get bored | identity | v: self-direction | chance: 45
+- B | name a price first: a place in their gang for doing it | v: power | mark: took a wild risk | closed: approval: knock and run; backfire: caught by the old man, and marched home | chance: 68
+- R | ring the bell, hammer the knocker, and run like the wind | body: light | v: stimulation | mark: took a wild risk | closed: approval: knock and run; backfire: caught, and a long talking-to on the doorstep | chance: 75
+- G | walk the other way and go home for tea | identity | v: security | self_control: + | chance: 62
+- W>B | do it, because the gang's rule is that everyone takes a dare | v: conformity | mark: gave in to pressure | self_control: - | closed: approval: knock and run; backfire: the old man knows the family, and rings home | chance: 70
+- U>R | think up a cleverer dare that is daring but harms nobody | v: stimulation, self-direction | chance: 55
+- B>G | only pretend to press the bell, so the big kids think it was done | v: security, power (face) | chance: 71
+- R>W | tell the big kids loudly that a real dare would not pick on an old man | v: universalism (fairness) | mark: made an enemy | chance: 68
+- G>U | offer to fill the old man's bird table every week instead | door | binds | v: benevolence, self-direction | mark: made a friend | chance: 72
+works: Nobody gets in trouble, and the big kids look at {N} a bit differently afterwards.
+works: {N} gets home with a story to tell and nothing to hide.
+fails: The door opens too soon. There is a stern face, and a long walk home.
+fails: The big kids laugh anyway, and {N} feels small all the way home.
+
+== in a hurry to be grown up
+tier: inner
+stages: child, juvenile
+age: 8-12
+tone: mixed
+life: home, play
+horizon: months
+roles: sibling, parent, grandparent
+earth: everything for little kids suddenly seems babyish: the toys, the bedtime, the cartoons
+requires: age 8 or more, and autonomy below 0.75 (a child's usual at this age is about 0.75) or an older brother or sister to copy (older_siblings 1 or more); the feeling itself is outside the engine's sight (a chance of about .15)
+likelier: more Black or Red than most (hB + hR above 0.42); over 10 (age above 10); little freedom (freedom below 0.1)
+rarer: more Green than most (hG above 0.22); a steadier temperament (steady above 0.15)
+times: Most children, once, as a phase somewhere between eight and twelve (estimate)
+once: yes
+scene: Suddenly everything looks babyish: the cartoons, the bedtime, the teddy on the bed. {N} wants to be older, and wants it now.
+scene W: {N} wants the grown-ups to see how sensible {N} can be, and to be trusted like a big one.
+scene U: {N} studies how the teenagers on the bus talk and dress, as if it were a lesson.
+scene B: Older means more: more money, more say, later nights. {N} wants all of it.
+scene R: {N} cannot wait. Waiting is for little kids.
+scene G: {N} looks at the old teddy for a long time, and in the end does not put it in the bag for the charity shop.
+- W | ask to walk to school alone, and promise to keep every rule | v: self-direction, conformity | chance: 57
+- U | read the big books on the high shelf, hard words and all | door | v: self-direction | mark: learned a skill | closed: approval: books meant for grown-ups; backfire: a book far too old, and awkward questions at dinner | chance: 78
+- B | demand a later bedtime and more pocket money, like the older kids | v: power | chance: 48
+- R | dress up in grown-up clothes and walk down the street in them | identity | v: stimulation | chance: 70
+- G | pack the old toys away in the loft, all but the one teddy | identity | v: tradition | chance: 72
+- W>R | ask to join the after-school club for the older ones, and keep up | door | v: achievement, stimulation | closed: approval: too young for the club; backfire: sent back to the little ones' group | chance: 62
+- U>G | ask a grandparent what growing up was like, and listen to every story | v: tradition, self-direction | chance: 85
+- B>W | start a club with rules: no little kids allowed | v: power | mark: made an enemy | closed: approval: leaving the little ones out; backfire: told off for being unkind | chance: 65
+- R>U | watch a film for older kids at a friend's house, and pretend it was not scary | door | v: stimulation | mark: hid a wrong | closed: approval: a film for older kids; backfire: bad dreams, and a phone call between the parents | chance: 72
+- G>B | enjoy the little-kid treats while they last, and say nothing about it | v: hedonism | chance: 78
+works: The grown-ups notice something new in {N}, and say so.
+works: {N} gets a taste of being older, and finds that this age is not so bad either.
+fails: It goes wrong, and {N} is told off like a little kid in front of everyone.
+fails: Being older turns out to be harder than it looked, and {N} feels silly for trying.
+
+== a secret that wants to burst out
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: mixed
+life: family, home
+horizon: week
+roles: grandparent, parent, sibling
+earth: a surprise for a parent's birthday, planned in whispers with a grandparent, and a whole week of keeping quiet about it
+requires: a grandparent alive (alive_grandparent 1 or more) and belonging above 0.55; the surprise itself is outside the engine's sight (a chance of about .15)
+likelier: more White or Green than most (hW + hG above 0.42); support above 0.4 (a child's usual is about 0.35)
+rarer: stress above 1.2; belonging below 0.45
+times: Many children with a grandparent close by, once or twice (estimate)
+gap: 2-4
+scene: {grandparent} and {N} are planning a surprise for {parent}'s birthday. It is a whole week away, and the secret is fizzing.
+scene W: {N} promised to keep it. A promise is a promise, even when it is this hard.
+scene U: {N} has an answer ready for every question {parent} might ask, so as not to give anything away.
+scene B: Knowing a secret nobody else knows feels like power. {N} likes the feeling.
+scene R: The secret is bouncing around inside {N} like a ball. It is going to come out any minute.
+scene G: {N} pictures {parent}'s face on the day, and the warm feeling of it helps to keep quiet.
+- W | keep the promise: not a word, even when asked straight out | v: conformity, benevolence | mark: kept your word | self_control: + | chance: 75
+- U | decide one tiny hint does not count, and drop it at dinner | v: stimulation | self_control: - | chance: 55
+- B | keep it close: a secret kept is a secret owned | v: power | self_control: + | chance: 80
+- R | blurt it all out at breakfast, then clap a hand over the mouth | v: none clear (it just came out) | mark: broke your word | self_control: - | chance: 20
+- G | make a card by hand to go with the surprise, a little every evening | v: benevolence | chance: 72
+- W>G | bring the sibling into the plan, so the whole family is in on it | v: benevolence | chance: 60
+- U>W | write the plan in secret code, and make a pact with your grandparent to say nothing | binds | v: self-direction, tradition | chance: 78
+- B>U | trade the secret with a friend, for one of theirs | v: power | mark: broke your word | chance: 70
+- R>B | make the surprise bigger and better: a cake, balloons and the whole street invited | v: stimulation, achievement | chance: 68
+- G>R | run round the park to let the fizz out, and keep the words in | body: light | v: stimulation | chance: 72
+works: The day comes and the surprise works. {parent}'s face is everything {N} imagined.
+works: {N} keeps it right to the end, and feels very grown-up for it.
+fails: It slips out two days early, and the surprise is only half a surprise.
+fails: The plan goes wrong on the day, and {N} is in tears before the cake.
+
+== the lessons get hard
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: mixed
+life: school, play
+horizon: months
+roles: mentor, parent, grandparent
+earth: the piano, swimming or football lessons that were exciting at first have got hard and boring, and practice feels like a chore
+requires: competence below 0.62 (a child's usual is about 0.6) or competence stuck for eight weeks or more (flat_comp 8 or more); the lessons themselves are outside the engine's sight (a chance of about .2)
+likelier: more Red or Black than most (hR + hB above 0.42); peace below 0.35; less free time than most (time below 0.66, a child's usual is about 0.67)
+rarer: a hard win within the month (ago_hard_win below 1/12); a steadier temperament (steady above 0.15)
+times: Most children who take lessons, once or twice, when the first thrill wears off (estimate)
+gap: 2-4
+scene: The lessons were exciting at first. Now the pieces are hard, the practice is boring, and {mentor} keeps saying "again".
+scene W: {N} promised to stick at it for a year. It has been four months, and every week is longer.
+scene U: {N} can hear exactly where it keeps going wrong, but cannot yet make the fingers, or the feet, do it.
+scene B: The others in the class have their medals already. {N} hates being behind.
+scene R: {N} used to love it. Now every lesson feels like a cage.
+scene G: {N} thinks of {grandparent}, who has played every evening for sixty years and still says it took a while.
+- W | stick with it: ten minutes of practice every day, at the same time | habit | v: conformity, achievement | mark: kept your word | self_control: + | chance: 72
+- U | slow the hard part right down, and practise just that bit until it comes | v: self-direction, achievement | mark: learned a skill | self_control: + | chance: 80
+- B | give it up, and ask for the lesson money to go on something better | v: hedonism | self_control: - | chance: 72
+- R | keep going, stubborn and loud, until the hard part gives way | v: stimulation, achievement | self_control: + | chance: 72
+- G | let it go: not everything is meant to be | v: none clear (letting it be) | self_control: - | chance: 67
+- W>U | stop, politely: a pupil who will not practise should not waste the teacher's time | v: conformity | mark: turned down a chance | self_control: - | chance: 68
+- U>B | do the very least practice that scrapes through, and say the rest was done | v: achievement | mark: hid a wrong | closed: approval: practice that was never done; backfire: found out at the very next lesson | self_control: - | chance: 40
+- B>R | keep at it, to be the one showing off at the end-of-term concert | v: achievement, power | self_control: + | chance: 78
+- R>G | play only the fun bits by ear, and forget the scales for good | v: hedonism | self_control: - | chance: 75
+- G>W | keep going, because the whole family has made room for it | binds | v: tradition, benevolence | mark: kept your word | self_control: + | chance: 62
+works: One day the hard part just comes, and {N} plays it through without stopping.
+works: {N} settles it one way or the other, and feels lighter for having chosen.
+fails: Nothing gets easier, and every lesson is a fight.
+fails: A month later {N} regrets the choice, and does not know how to say so.
+
+== a best friend finds a new best friend
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: mixed
+life: friends, school
+horizon: months
+roles: friend, rival
+earth: the best friend starts sitting with the new kid, and when the best friend says "we", it does not mean {N} any more
+requires: a friend (alive_friend 1 or more) and belonging below 0.7 (a child's usual is about 0.65); the new friendship itself is outside the engine's sight (a chance of about .2)
+likelier: a new kid in the class within the half year (had 'a new kid joins your class', 0.5); quick to react (react above 1.1); no brother or sister (alive_sibling 0)
+rarer: belonging above 0.75; a steadier temperament (steady above 0.15)
+times: Most children, once or twice in the school years (estimate)
+gap: 2-4
+scene: {friend} sits with {rival} at lunch now, and they have a joke that {N} does not get. When {friend} says "we", it no longer means {N}.
+scene W: Best friends are supposed to be for ever. {N} said so, and {friend} said so too.
+scene U: {N} watches the two of them and tries to work out what {rival} has that {N} does not.
+scene B: {N} is not going to lose {friend} without a fight. There must be a way to win {friend} back.
+scene R: {N} feels hot and miserable, and wants to say something mean to them both.
+scene G: {N} remembers the den they built, and the summer of the tadpoles. That cannot just be gone.
+- W | ask the friend straight out: are we still best friends? | v: benevolence, security | chance: 62
+- U | find out what the two of them like, and learn about it too | door | v: self-direction | chance: 75
+- B | become the best at the game the two of them play, and get picked first | v: achievement, power | chance: 60
+- R | march up to them both and ask to make it a gang of three | v: benevolence, stimulation | mark: made a friend | chance: 65
+- G | wait: friends drift and come back, like the tide | v: benevolence, tradition | chance: 57
+- W>B | suggest the three of them start a club with proper rules, and be its leader | v: power, conformity | chance: 58
+- U>R | invent a brilliant secret game, just for the old pair | v: stimulation, self-direction | chance: 62
+- B>G | be extra nice to the new kid, to get closer to the old friend | door | v: power, benevolence | mark: made a friend | chance: 80
+- R>W | complain loudly to the teacher that it is not fair | v: universalism (fairness) | chance: 50
+- G>U | make a new friend in the quiet group at the back | door | v: self-direction, benevolence | mark: made a friend | chance: 75
+works: Things settle down. There turns out to be room for three, or a new friend comes along.
+works: {friend} notices, and makes a point of saving {N} a seat.
+fails: {friend} drifts further away, and lunchtimes are lonely for a while.
+fails: It turns into a falling-out, and the whole class seems to take sides.
+
+== saving up for something big
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: mixed
+life: money, play
+horizon: months
+roles: parent, grandparent, friend
+earth: a jar of coins on the shelf, a picture of the bike cut out of a catalogue, and the sweet shop on the way home from school
+requires: pocket money of their own (had 'your first pocket money' within eight years) or money above 0.14 (a child's usual is about 0.15); the wish itself is outside the engine's sight (a chance of about .12)
+likelier: a family with a little less than most (money below 0.14); more Black or White than most (hB + hW above 0.42); pocket money within the year (had 'your first pocket money', 1)
+rarer: stress above 1.2; a move within the half year (ago_move below 0.5)
+times: Many children, once or twice (estimate)
+gap: 2-4
+scene: The jar on the shelf is a third full. The bike in the catalogue is a long way off, and the sweet shop is on the way home from school.
+scene W: {N} made a plan with {parent}: a little in the jar every week, no matter what.
+scene U: {N} counts the jar every night and works out how many weeks are left. It is a lot of weeks.
+scene B: {N} wants that bike more than anything, and will do whatever it takes.
+scene R: The sweet shop window is right there, full of colour, and the coins are hot in {Ns} pocket.
+scene G: {N} thinks of the old bike in the shed that {grandparent} might mend, and wonders whether a new one matters so much.
+- W | put the same coins in the jar every week, without fail | habit | v: security, conformity | self_control: + | chance: 72
+- U | work out that a cheaper bike now beats a better one next year | v: achievement | chance: 78
+- B | do odd jobs for the neighbours, and save every penny for the bike | habit | v: achievement, power | self_control: + | chance: 78
+- R | tip the jar out and spend the lot at the sweet shop | v: hedonism | self_control: - | chance: 40
+- G | let the jar go, and ask for the old bike to be mended instead | v: tradition, security | chance: 62
+- W>R | borrow from the jar for the class trip treats, and promise to pay it back | binds | v: hedonism, conformity | self_control: - | chance: 55
+- U>G | read up on how to fix an old bike, and save only for the parts | door | v: self-direction, universalism | mark: learned a skill | self_control: + | chance: 70
+- B>W | spend the bike money on the toy everyone at school has | v: power (face), conformity | self_control: - | chance: 63
+- R>U | swear to have the bike by summer, and pour every spare coin in | binds | v: achievement, stimulation | self_control: + | chance: 72
+- G>B | wait patiently, and trust the jar to fill in its own time | v: security, achievement | self_control: + | chance: 65
+works: The day comes when the jar is full, and {N} walks into the shop with it held in both arms.
+works: {N} makes a choice about the money and does not regret it.
+fails: The jar empties faster than it fills, and the bike stays in the catalogue.
+fails: The treat is gone in a day, and the wanting stays.
+
+# ---------------------------------------------------------------- joys
+
+== the morning things feel better
+tier: inner
+stages: child, juvenile
+age: 5-12
+tone: joy
+life: home
+horizon: week
+roles: parent, friend, grandparent
+earth: after a bad stretch, a morning comes when the sun is out and the heavy feeling has gone
+requires: a hard time within the half year (a death in the family, a big failure or a move: ago_death, ago_fail_big or ago_move below 0.5) and stress easing for three weeks or more (easing 3 or more)
+likelier: support above 0.4 (a child's usual is about 0.35); more Green or White than most (hG + hW above 0.42)
+rarer: stress above 1.2
+times: Most children who go through a hard time, once after each; hard times come a few times in a childhood (estimate)
+gap: 2-4
+scene: After weeks of feeling heavy, {N} wakes up and the sun is on the wall, and the heavy feeling is not there. It has just gone.
+scene W: {N} feels like saying thanks to somebody, though it is hard to say who.
+scene U: {N} lies still and wonders where the bad feeling went, and whether it will come back.
+scene B: {N} feels strong again, ready to take on the whole day and win.
+scene R: {N} bounces out of bed and is downstairs before anyone else is up.
+scene G: Birds are singing in the hedge. {N} opens the window and lets the morning in.
+- W | make breakfast for everyone, carefully, as a thank-you | v: benevolence | chance: 90
+- U | write down what helped, so it can be found again next time | v: self-direction | chance: 82
+- B | go back to the club that was given up, and show them | identity | v: achievement | chance: 78
+- R | run down the street just for the joy of it | body: light | v: stimulation | chance: 92
+- G | sit in the garden and listen to the birds before anyone is up | habit | v: universalism (nature) | closed: approval: out of the house before anyone is up; backfire: a fright for the whole house, and a scolding | chance: 90
+- W>G | go and say sorry to whoever was snapped at in the bad weeks | v: benevolence | mark: owned up | chance: 82
+- U>W | ask to talk about the hard time, now that it can be talked about | v: self-direction, security | chance: 75
+- B>U | set a new goal: learn something hard, now the head is clear | door | v: achievement | mark: learned a skill | chance: 72
+- R>B | knock for all the friends, and be captain of the biggest game | door | v: power, stimulation | chance: 78
+- G>R | go out on the bike with no plan, just to feel the wind | body: light | v: stimulation, universalism (nature) | chance: 79
+works: The good day turns into a good week, and the bad stretch starts to feel a long time ago.
+works: Someone notices {N} smiling again, and says so.
+fails: By lunchtime the heavy feeling creeps back a little, but not all the way.
+fails: The plan for the good day falls flat, and {N} has to wait a bit longer for the next.
+
+== a hero to be like
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: joy
+life: play, school
+horizon: months
+roles: mentor, friend, grandparent
+earth: a footballer, an astronaut, a vet on the television or an aunt who drives a fire engine, and the feeling of wanting to be just like them
+requires: meaning above 0.72 (a child's usual is about 0.73); the hero is outside the engine's sight (a chance of about .15)
+likelier: more Red or Black than most (hR + hB above 0.42); plenty of free time (time above 0.65); a win within the year (ago_win below 1)
+rarer: stress above 1.2; a dim outlook (outlook below 0.2, a child's usual is about 0.25)
+times: Most children, one or two heroes in childhood, each for a year or two (estimate)
+gap: 2-4
+scene: There is a poster on the wall now, and {N} knows everything about the person on it: what they eat, how they trained, what they said when they won.
+scene W: {N} wants to be good the way the hero is good: brave, fair and kind to everyone.
+scene U: {N} reads everything there is about the hero, and wants to know how it is done.
+scene B: The hero is the best in the world. {N} wants to be the best in the world too.
+scene R: When the hero is on the screen {N} cannot sit still, and goes out to try it straight away.
+scene G: The hero came from a little town just like this one. {N} keeps thinking about that.
+- W | try to be as fair and kind as the hero, every day | v: benevolence, conformity | chance: 62
+- U | read every book about the hero, and do a school project on them | identity | v: self-direction, achievement | mark: learned a skill | chance: 85
+- B | tell everyone the hero is the best, and argue with anyone who says not | v: power | chance: 65
+- R | copy the hero's moves in the garden, again and again, until it is dark | body: light | habit | v: stimulation, achievement | self_control: + | chance: 85
+- G | decide heroes are for the telly, and go back to the old games | v: security | mark: turned down a chance | self_control: - | chance: 20
+- W>U | write the hero a letter, slowly, in best handwriting | door | v: self-direction | chance: 60
+- U>B | find out exactly how the hero trained, and start a plan just like it | binds | v: achievement | self_control: + | chance: 65
+- B>R | tell the whole class: one day that will be me | identity | v: achievement, power | chance: 63
+- R>G | dress up as the hero for fancy-dress day, and stay in character all day | v: stimulation | chance: 90
+- G>W | ask a grandparent who the heroes were in the old days, and keep their picture too | v: tradition | chance: 75
+works: {N} gets a little closer to the hero, and somebody says "just like the real thing".
+works: The poster stays on the wall for years, and so does the feeling.
+fails: Someone laughs at the poster, and {N} takes it down for a while.
+fails: The hero does something disappointing on the news, and {N} does not know what to think.
+
+== a den of your own
+tier: inner
+stages: child, juvenile
+age: 5-12
+tone: joy
+life: play, home
+horizon: months
+roles: friend, sibling, parent
+earth: a den under the stairs, in the hedge at the bottom of the garden or in the woods behind the houses, with a secret way in
+requires: time above 0.6 and autonomy above 0.6 (a child's usual is about 0.65 and 0.75); the den itself is outside the engine's sight (a chance of about .1)
+likelier: more Green or Red than most (hG + hR above 0.42); a brother or sister (alive_sibling 1 or more); four or more quiet weeks (quiet 4 or more)
+rarer: stress above 1.2; a move within the quarter (ago_move below 0.25)
+times: Many children, a summer or two, fewer now than a generation ago (estimate)
+gap: 2-4
+scene: At the bottom of the garden, behind the hedge, there is a den now: an old sheet, a crate, a biscuit tin and a secret way in.
+scene W: {N} has made rules for the den and written them on a sign by the door: no shouting, and knock first.
+scene U: {N} keeps a torch, a notebook and a magnifying glass in there, and watches the world for hours through a gap in the leaves.
+scene B: It is {Ns} den, and nobody comes in without the password. {N} decides the password.
+scene R: The den is a pirate ship one day and a spaceship the next. {N} is captain of both.
+scene G: Inside the den the light is soft and leafy, and the noise of the street is far away. {N} can sit there for ages.
+- W | write the den rules on a sign, and pin it up by the door | v: conformity, security | chance: 65
+- U | keep a nature diary in the den, and watch the birds through the gap | habit | v: self-direction, universalism | chance: 75
+- B | decide who gets the password, and who does not | v: power | chance: 78
+- R | turn the den into a pirate ship, and play in it until dark | v: stimulation, hedonism | chance: 82
+- G | stay out in the den past teatime with a blanket and a book | habit | v: security, universalism (nature) | closed: approval: staying out past teatime; backfire: a worried parent, and in by six for a week | chance: 70
+- W>B | ask permission properly, and get real planks and a roof for it | v: achievement, conformity | chance: 90
+- U>R | rig up a string telephone from the den to the bedroom window | v: self-direction, stimulation | mark: learned a skill | chance: 55
+- B>G | let the little brother or sister in, in return for keeping it tidy | v: power, benevolence | chance: 78
+- R>W | sneak food from the kitchen for a feast, and share it out fairly in the den | v: hedonism, universalism (fairness) | mark: hid a wrong | closed: approval: food taken without asking; backfire: caught, and the den is out of bounds for a week | chance: 78
+- G>U | invite the shy kid from down the road, and show the secret way in | v: benevolence | mark: made a friend | chance: 78
+works: The den lasts the whole summer, and {N} will remember it for years.
+works: Everyone wants to visit, and {N} gets to show the secret way in.
+fails: The rain brings the den down in a night, and by morning it is a soggy heap.
+fails: The grown-ups say the den has to go, and {N} watches it being taken apart.
+
+== a promise kept all week
+tier: inner
+stages: child, juvenile
+age: 6-12
+tone: joy
+life: family, home
+horizon: week
+roles: grandparent, parent, sibling
+earth: a promise to look after a grandparent's rabbit while they are away: food, water and a clean hutch every day for a week
+requires: a grandparent alive (alive_grandparent 1 or more) and safety above 0.6 (a child's usual is about 0.78); the week away is outside the engine's sight (a chance of about .12)
+likelier: more White or Green than most (hW + hG above 0.42); a promise kept within two years (mk 'kept your word', 2)
+rarer: a promise broken within the year (mk 'broke your word', 1); stress above 1.2
+times: Some children, once, when a grandparent with a pet goes away for a week (estimate)
+once: yes
+scene: {grandparent} is away for a week, and {N} has promised to look after the rabbit: food, water and a clean hutch every single day. It is day five.
+scene W: {N} promised. Every morning before school the rabbit is fed, even in the rain.
+scene U: {N} has worked out a system: a chart on the hutch, a tick for every job, and a timer.
+scene B: {grandparent} said there would be a reward for a job well done. {N} is thinking about it.
+scene R: Today there is a party, and the rabbit is on the other side of town. {N} would much rather go straight to the party.
+scene G: The rabbit knows {N} now, and comes to the wire to be stroked. {N} likes that more than anything.
+- W | go every morning before school, rain or shine, as promised | v: conformity, benevolence | mark: kept your word | self_control: + | chance: 82
+- U | tick today's jobs on the chart, and do the cleaning tomorrow instead | v: hedonism | mark: hid a wrong | closed: approval: ticking a job not done; backfire: found out when the hutch is checked | self_control: - | chance: 70
+- B | do every job perfectly, for the reward at the end | v: achievement, power | self_control: + | chance: 85
+- R | go to the party instead, just this once | v: hedonism, stimulation | mark: broke your word | self_control: - | chance: 60
+- G | stay with the rabbit a long time after the jobs, because it is lonely | v: benevolence, universalism (nature) | mark: kept your word | self_control: + | chance: 90
+- W>R | ask someone else to do today's turn, and go to the party | v: hedonism, conformity | closed: approval: handing on a promise; backfire: the stand-in forgets, and the rabbit goes without | self_control: - | chance: 70
+- U>G | work out a quick way to do it all, then go on to the party late | v: self-direction, benevolence | self_control: + | chance: 78
+- B>W | say the deal was only for five days, and stop there | v: power | mark: broke your word | self_control: - | chance: 35
+- R>U | race there on the bike first thing, then on to the party with time to spare | body: light | v: stimulation, benevolence | self_control: + | chance: 85
+- G>B | leave two days of food, and trust the rabbit to manage | v: hedonism | mark: broke your word | closed: approval: leaving an animal alone; backfire: an empty water bottle and a sad grandparent | self_control: - | chance: 55
+works: {grandparent} comes home to a fat and happy rabbit, and tells {N} nobody could have done it better.
+works: {N} gets through the week, and finds that a promise kept feels better than any party.
+fails: Something goes wrong in the week, and {N} has to own up to {grandparent}.
+fails: The week drags, and {N} is glad, too glad, when it is over.
+
+== trusted with a grown-up job
+tier: inner
+stages: child, juvenile
+age: 7-12
+tone: joy
+life: home, family
+horizon: moment
+roles: parent, sibling, grandparent
+earth: being sent to the corner shop alone for the first time, with the purse, the list and the change to bring back
+requires: age 7 or more, autonomy above 0.7 and safety above 0.6; the errand itself is outside the engine's sight (a chance of about .3)
+likelier: a promise kept within two years (mk 'kept your word', 2); more White or Black than most (hW + hB above 0.42)
+rarer: a wrong hidden within the year (mk 'hid a wrong', 1); a promise broken within the year (mk 'broke your word', 1)
+times: Most children, once: the first errand to the shop alone, usually between seven and ten (estimate)
+once: yes
+scene: For the first time, {parent} hands over the purse and the list. {N} is to go to the corner shop alone, buy everything on it and bring back the right change.
+scene W: {N} reads the list three times and folds it into a pocket, ready to get every single thing right.
+scene U: {N} adds up the prices on the way, and how much change there should be.
+scene B: There will be change left over. {N} wonders whether anyone will count it.
+scene R: Out on the street alone, {N} feels ten feet tall, and walks as if the whole street belonged to {N}.
+scene G: The woman at the shop has known {N} since {N} was a baby, and smiles to see {N} on {Ns} own.
+- W | buy exactly what is on the list, and bring back every penny | v: conformity, security | chance: 80
+- U | work out the change in advance, and check it at the till | v: achievement, self-direction | chance: 90
+- B | spend the change on sweets, and say the prices went up | v: hedonism | mark: hid a wrong | closed: approval: keeping the change, and a fib; backfire: found out from the receipt | self_control: - | chance: 65
+- R | run all the way there and back, to set a record | body: light | v: stimulation, achievement | chance: 78
+- G | stop for a chat with the shopkeeper, who has known the family for years | v: benevolence, tradition | chance: 77
+- W>G | ring home to ask first, then buy the old neighbour her milk too | v: benevolence | mark: helped someone in need | chance: 75
+- U>W | swap to the cheaper brand to save the family money, and write it down | v: security | chance: 62
+- B>U | ask to be paid for it, and offer to do the same for the neighbours | binds | v: achievement, power | chance: 68
+- R>B | grab the first things that look right, and dash back with the list half read | v: stimulation | chance: 42
+- G>R | take the long way through the park, and feed the ducks some of the bread | v: universalism (nature), stimulation | closed: approval: feeding the family's bread to the ducks; backfire: half a loaf short, and a cross parent | chance: 58
+works: Everything is right, down to the last penny, and {parent} says {N} can go again next week.
+works: {N} comes home with the bag and a new feeling: someone who can be trusted.
+fails: Something is forgotten or the change is wrong, and {N} has to go back.
+fails: It takes far too long, and {parent} is at the door, worried, when {N} gets back.

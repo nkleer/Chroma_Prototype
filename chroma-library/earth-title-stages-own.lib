@@ -1,0 +1,936 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: TITLE STAGES of eight common titles (next batch, Emren's point 6, 2026-10-05): for each
+# title three moments only its holder meets, by years held (tenure: 0-1 new, 2-7 settled, 8-60 senior or veteran):
+# scout or guide, on the team, shop assistant, waiter or bartender, office clerk, care worker, soldier, teacher.
+# Syntax: header of build.py. Rules: library-spec.md, writer-brief.md, drafts/next2/BRIEF.md. Catalogue: drafts/next2/earth_perks_titles.py.
+# Every moment: tier everyday, calls two colors (spread over the file: W10 U10 B9 R9 G10), the five one-color options and
+# one cross cycle (s1 to s4, six each). Options open the titles' real paths (title:, grants:, drops:) from the catalogue.
+
+# ---------------------------------------------------------------- scout or guide, new (tenure 0-1): calls WG (cycle s1)
+
+== the promise at the first camp
+tier: everyday
+stages: child juvenile
+age: 6-15
+calls: WG
+holds: scout or guide
+tenure: 0-1
+rate: 2
+once: yes
+tone: joy
+life: community, nature
+horizon: week
+roles: mentor, friend, parent, the other scouts
+earth: on your first weekend camp with the troop you make the scout or guide promise by the fire and are given your neckerchief
+times: Nearly every new scout or guide, once, at the first camp, usually at 6 to 12; scouting and guiding count tens of millions of young members worldwide (WOSM, WAGGGS)
+scene: It is {Ns} first camp with the troop: a wet field, six tents and a fire that took an hour to light. Tonight, in front of everyone, {N} will make the promise and be given the neckerchief.
+scene W: {N} has practised the promise all week in front of the bathroom mirror. Every word of it is going to be said right, and meant.
+scene U: The tent poles came in a bag with no instructions, and {N} worked out which went where before anyone else. There are forty knots in the handbook still to learn.
+scene B: The older scouts have the best pitch, by the stream, and they get to light the fire. {N} watches who hands out the jobs, and how to get the good ones.
+scene R: Mud on the knees, smoke in the hair, a torch under the sleeping bag and nobody's parent for miles. {N} has never felt so awake.
+scene G: Away from the town lights the stars come out one by one, and the wood behind the tents is full of small sounds. {N} lies outside the tent, listening.
+- W | say the promise word for word in front of everyone, and mean every line | identity | binds | v: tradition, conformity | chance: 75
+- U | learn every knot in the handbook before the weekend is out | v: achievement, self-direction | mark: learned a skill | self_control: + | chance: 75
+- B | trade your sweets for a turn at lighting the fire with the older ones | v: power, hedonism | chance: 88
+- R | creep out after lights out with a torch to explore the wood | v: stimulation | mark: defied an authority | closed: approval: out of the tent after lights out; backfire: caught, and sent home a day early | chance: 65
+- G | lie outside the tent half the night and learn the sounds of the wood | door | v: universalism (nature) | grants: knowing the woods | chance: 70
+- W>U | ask the leader what each line of the promise really means | v: self-direction, tradition | chance: 85
+- U>B | study the badge chart and start with the badges that come quickest | v: achievement | chance: 85
+- B>R | bet the older ones you can jump the stream where it is widest | body: heavy | v: stimulation, power | chance: 65
+- R>G | sing the camp songs loudest of all round the fire | v: tradition, hedonism | chance: 92
+- G>W | light the fire the way the old leader says the troop always has | v: tradition, conformity | chance: 80
+works: The neckerchief goes round {Ns} neck, the troop cheers, and the woggle slides up snug.
+works: {N} comes home smelling of woodsmoke and talks about the camp for a week.
+fails: Rain gets into the tent on the first night, and {N} spends the second day cold and miserable.
+fails: {N} stumbles over the words in front of everyone, and the older ones snigger.
+
+# ---------------------------------------------------------------- scout or guide, settled (tenure 2-7): calls WU (cycle s2)
+
+== the patrol chooses a new leader
+tier: everyday
+stages: child juvenile young_adult
+age: 10-18
+calls: WU
+holds: scout or guide
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: community, friends
+horizon: months
+roles: rival, friend, mentor, the younger scouts
+earth: your patrol needs a new leader, and you could stand for it, or go for the hardest badge in the troop instead
+times: Many scouts and guides who stay a few years, once, in the early teens; each patrol picks a new leader every year or two (estimate)
+scene: The patrol leader has moved up to the older section, and the patrol has to choose who takes the cord next. {N} has been in the troop for three years, and so has {rival}.
+scene W: A patrol leader keeps the patrol box in order, gets the young ones to camp on time and answers to the leaders for all of them. {N} knows it is a real job.
+scene U: There is also the expedition badge, which nobody in the patrol has managed: a route, a map, a night out and a written log. {N} has been reading up on it for months.
+scene B: The cord comes with the say over who cooks, who washes up and who gets the good tent. {N} counts the votes in their head.
+scene R: {N} would love to lead the patrol on their own wild ideas, and hates the thought of {rival} bossing everyone about.
+scene G: The patrol has been together for years, like a small family in muddy shorts. {N} wonders who it would really want.
+- W | stand for leader, and promise the leaders to see it through | identity | v: conformity, benevolence | chance: 60
+- U | go for the expedition badge instead, and plan the route all winter | v: achievement, self-direction | grants: navigation | self_control: + | chance: 60
+- B | talk to every younger one in the patrol before the vote, one by one | v: power, achievement | chance: 70
+- R | tell the patrol you would lead it on the wildest camp they have ever had | v: stimulation | chance: 65
+- G | stay out of it, and back whoever the patrol takes to | v: tradition, benevolence | chance: 70
+- W>B | run the patrol's kit check every week, so the leaders see who is ready | habit | v: achievement, power | chance: 80
+- U>R | show what you would do: plan a night hike on a route of your own | v: stimulation, self-direction | chance: 70
+- B>G | back the quiet one who knows the woods, and be the one they lean on | v: power, benevolence | chance: 75
+- R>W | stand up at the meeting and demand a proper secret ballot | v: universalism | chance: 72
+- G>U | find the old leader who ran the patrol years ago, and ask their advice | door | v: tradition, self-direction | grants: mentor | chance: 70
+works: By the end of term the patrol runs better than it ever has, and {N} has something new on the sleeve to show for it.
+works: {mentor} takes {N} aside after the meeting and says the troop needs more like {N}.
+fails: The patrol splits over it, and the next hike is a misery from start to finish.
+fails: Nothing goes {Ns} way, and {N} sulks through three Tuesday meetings in a row.
+
+# ---------------------------------------------------------------- scout or guide, senior (tenure 8-60): calls WG (cycle s3)
+
+== the oldest one at the campfire
+tier: everyday
+stages: juvenile young_adult
+age: 14-18
+calls: WG
+holds: scout or guide
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: community, nature
+horizon: months
+roles: mentor, friend, parent, the younger scouts
+earth: after eight years in the troop you are the oldest at camp, the leaders ask you to help run things, and your own friends have stopped coming
+times: Few: perhaps 1 in 10 of those who join scouts or guides, once, after eight years, at 14 to 18; most leave by their early teens (estimate)
+scene: Eight summers on, {N} is the oldest at camp. The leaders have asked {N} to help run the week for the young ones, and most of {Ns} own year has drifted off to other things.
+scene W: The leaders trust {N} with the headcount, the first-aid box and the fire. There are twenty young ones, and every one of them has to go home in one piece.
+scene U: {N} knows every knot, the summer stars and how to read a contour line, and the young ones keep getting wrong the things {N} could easily teach.
+scene B: Helping to run a camp of twenty would look good on any application. {N} also notices that the leaders now ask, and no longer tell.
+scene R: {Ns} friends are at a festival this week. {N} sits by the fire with a ring of eleven-year-olds and wonders, for a moment, what on earth {N} is doing here.
+scene G: {mentor} has run this camp for forty years, in the same field by the same river. By the fire one night {mentor} says it will soon need someone else.
+- W | do the headcounts, the rotas and the safety checks by the book, all week | v: security, conformity | grants: organising people | chance: 80
+- U | teach the young ones map and compass, one patrol at a time | v: benevolence, achievement | mark: helped someone in need | chance: 80
+- B | put running the camp on every application, and ask the leaders for a reference | v: achievement | chance: 80
+- R | tell the leaders this is your last camp, and spend next summer with your friends | v: self-direction, hedonism | drops: scout or guide | chance: 85
+- G | promise the old leader to come back one day and help run this camp | binds | v: tradition | mark: kept your word | chance: 80
+- W>R | sign up for the young leaders' training, to run camps of your own one day | door | v: benevolence, stimulation | grants: minding small children | chance: 75
+- U>G | show the young ones how to light a fire with no matches, and leave no trace | v: universalism (nature) | chance: 70
+- B>W | take charge of the camp tuck shop and its money, and keep the books straight | habit | v: achievement, security | grants: bookkeeping | chance: 85
+- R>U | climb the hill alone before dawn to watch the sun come up over the camp | body: light | v: stimulation | chance: 80
+- G>B | lead the youngest patrol to the woodcraft trophy on what you know of the woods | v: achievement, power | chance: 60
+works: The young ones go home talking about the week, and three of them ask whether {N} will be there next year.
+works: {mentor} shakes {Ns} hand on the last morning, the way one leader shakes another's.
+fails: A young one goes missing for an hour on {Ns} watch, and the week ends under a cloud.
+fails: The week drags, and {N} spends most of it wishing to be somewhere else.
+
+# ---------------------------------------------------------------- on the team, new (tenure 0-1): calls UR (cycle s4)
+
+== the first match in the club shirt
+tier: everyday
+stages: child juvenile
+age: 7-16
+calls: UR
+holds: on the team
+tenure: 0-1
+rate: 2
+once: yes
+tone: joy
+life: sport, friends
+horizon: moment
+roles: mentor, parent, friend, the other players
+earth: your first real match for the club, in a shirt that is still too big, starting on the bench
+times: Nearly every child who joins a sports club, once, in the first season; about half of US children aged 6 to 17 play on a team or take sport lessons (NSCH)
+scene: The shirt is two sizes too big and the number on the back is fourteen. {N} starts on the bench in the drizzle, waiting for {mentor} to call the name.
+scene W: {mentor} told {N} to hold the left side and not to wander. {N} intends to stay exactly there, all game, whatever happens.
+scene U: From the bench {N} watches the other side's tall striker and sees that he always turns the same way. Somebody should tell the defenders.
+scene B: The parents on the touchline shout the names of the players they rate. {N} wants to be one of those names by the end of the season.
+scene R: {N} cannot keep still on the bench. The ball, the mud, the noise: {N} wants to be out there so much it aches.
+scene G: {parent} played for this club once; there is an old team photograph in the clubhouse with the family name under it. {N} pulls the shirt straight.
+- W | when sent on, hold the position the coach gave you and nothing else | v: conformity | chance: 75
+- U | tell the defenders at half-time which way the striker always turns | v: achievement, benevolence | chance: 75
+- B | practise alone after every session until the starting place is your own | habit | v: achievement | self_control: + | chance: 75
+- R | chase every ball from the moment you go on, until the legs give out | body: heavy | v: stimulation | chance: 80
+- G | forget the team talk and play on instinct, the way you play in the park | v: self-direction, hedonism | closed: approval: ignoring the coach's instructions; backfire: taken off at once, and left on the bench the next week | chance: 65
+- W>G | help carry the nets and the kit bags back to the clubhouse afterwards | v: benevolence, tradition | chance: 80
+- U>W | learn the offside rule properly before next Saturday | v: conformity, achievement | mark: learned a skill | chance: 85
+- B>U | ask the best player in the team to show you their tricks after training | v: achievement | act: ask the best player in the team to show them some tricks after training | chance: 75
+- R>B | go in hard on the biggest player on the other side, to show no fear | body: heavy | v: power | chance: 65
+- G>R | stop worrying about the score, and just enjoy being out there in the mud | v: hedonism | chance: 85
+works: {mentor} sends {N} on with ten minutes left, and {N} wins the ball in a way that makes the parents cheer.
+works: After the match the team piles into the clubhouse for squash and crisps, and somebody calls {N} by a nickname for the first time.
+fails: {N} never gets off the bench, and goes home cold and quiet.
+fails: {N} goes on, slips in the mud at the first touch, and the other side scores from it.
+
+# ---------------------------------------------------------------- on the team, settled (tenure 2-7): calls BG (cycle s1)
+
+== the coach asks who wants the armband
+tier: everyday
+stages: child juvenile young_adult
+age: 9-18
+calls: BG
+holds: on the team
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: sport, friends
+horizon: months
+roles: mentor, friend, rival, parent
+earth: the captain is moving away and the coach asks who wants the armband, the same week a bigger club comes to watch you play
+times: Some young players, perhaps 1 in 5, once, a few years into a team; one captain to a squad of fifteen or so (estimate)
+scene: The captain is moving away, and at the end of training {mentor} asks who wants the armband. The same week, a coach from the big club across town has been seen on the touchline, watching {N}.
+scene W: A captain is first at training, last to leave, and speaks to the referee for the team. {N} has been turning up for three years and knows how it should be done.
+scene U: The big club plays a quicker game, with set moves drilled all week. {N} wants to know what it would teach.
+scene B: The armband means the say over penalties and the line-up talk; the big club means better kit, better matches and maybe a future. {N} weighs them both.
+scene R: {N} loves this team: the mud, the jokes in the minibus, the songs on the way home. The thought of leaving it hurts, and so does the thought of never finding out.
+scene G: The team has grown up together since they were small. {friend} has been at {Ns} side on the pitch since the very first season.
+- W | put your hand up for the armband, and be first to every session | binds | v: conformity, benevolence | title: team captain | chance: 60
+- U | ask for a trial at the big club, to see how they train | door | v: self-direction, achievement | chance: 70
+- B | take the trial, train twice a day for it, and go if they want you | identity | v: achievement, power | self_control: + | chance: 70
+- R | stay with the team you love, and tell the big club no to their face | identity | v: hedonism, benevolence | mark: turned down a chance | chance: 80
+- G | tell the coach your friend should be captain, the one who holds everyone together | v: benevolence | mark: helped someone in need | chance: 65
+- W>U | ask the coach what a captain needs to learn, and work on it all summer | v: achievement | chance: 72
+- U>B | study the big club's matches, and show at the trial exactly what they lack | v: achievement | chance: 60
+- B>R | play the trial for yourself, not the team: dribble, shoot, show off | v: achievement, stimulation | chance: 60
+- R>G | get the whole team to the park to choose the captain themselves | v: universalism, benevolence | chance: 65
+- G>W | give it a season, as everyone does, and let the coach decide | v: tradition, conformity | chance: 70
+works: By the next match {N} knows where {N} belongs on the pitch, and plays like it.
+works: {mentor} claps {N} on the shoulder in front of the whole team.
+fails: Nothing goes to plan, and {N} spends the next month on the bench.
+fails: The team takes it badly, and the minibus goes quiet when {N} gets on.
+
+# ---------------------------------------------------------------- on the team, senior (tenure 8-60): calls UG (cycle s2)
+
+== one more season, or the last
+tier: everyday
+stages: juvenile young_adult adult mature
+age: 16-60
+calls: UG
+holds: on the team
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: sport, body
+horizon: years
+roles: mentor, rival, friend, partner
+earth: after many years on the team, the body or the calendar says this could be your last season
+times: Most long-time players, once, between their late teens and their forties; most amateur players stop between their twenties and forties (estimate)
+scene: The new season starts in three weeks, and {N} has been on this team longer than almost anyone. Between a knee that took a month to settle after the last knock and everything else the week now asks, {N} has to decide whether to sign the form again.
+scene W: The team needs numbers, and {N} has never once let it down on a match day. Signing again would be the dependable thing.
+scene U: {N} has read about knees, recovery and what a body can still take. The facts are clear enough; what to do with them is not.
+scene B: {rival} is younger, hungrier and wants {Ns} place. {N} is not ready to hand it over for nothing.
+scene R: Nothing else in the week feels like the first whistle on a cold morning. {N} cannot imagine the weekends without it.
+scene G: Every player comes to a last season in the end. Years ago {N} watched the old ones go the same way, one by one.
+- W | sign again, and keep turning up as long as the team needs you | v: conformity, benevolence | act: sign again, and keep turning up as long as the team needs them | mark: kept your word | chance: 75
+- U | see the physio, do the exercises every morning, and play one more year | v: achievement | self_control: + | chance: 65
+- B | keep your place by outworking the young one all pre-season | body: heavy | v: achievement, power | self_control: + | chance: 65
+- R | play every match this season as if it were the last one | body: heavy | v: stimulation, hedonism | chance: 80
+- G | hang up the boots at the end of the season, and watch from the touchline | identity | v: tradition (acceptance) | drops: on the team | chance: 75
+- W>B | sit down with the coach and agree a new role: fewer minutes, more say | v: power, security | chance: 70
+- U>R | take the referee's course, and stay out on the pitch another way | door | v: stimulation, self-direction | grants: referee's badge | title: sports referee | drops: on the team | chance: 70
+- B>G | use your years at the club to get the old crowd a veterans' side | v: benevolence, tradition | chance: 70
+- R>W | offer to coach the little ones on Sunday mornings, and do the badge | habit | v: benevolence | grants: coaching badge | chance: 70
+- G>U | spend the summer walking the hills instead, and see whether the body misses it | v: self-direction, tradition | door | chance: 70
+works: The season goes better than {N} feared, and ends with a handshake from everyone in the clubhouse.
+works: {N} finds the right shape for the years ahead, and the weekends still have the team in them.
+fails: The knee goes again in the fourth match, and the decision is made for {N}.
+fails: It turns sour: {N} is on the bench more than off it, and goes home angry most weeks.
+
+# ---------------------------------------------------------------- shop assistant, new (tenure 0-1): calls BR (cycle s3)
+
+== a customer shouts at the new face behind the till
+tier: everyday
+at: employer
+stages: juvenile young_adult adult mature elder
+age: 14-70
+calls: BR
+holds: shop assistant
+tenure: 0-1
+rate: 2
+once: yes
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague, a customer, the queue
+earth: in your first weeks on the tills a customer starts shouting at you over a price, and the whole queue is watching
+times: Most new shop workers, once, in the first weeks; about 7 in 10 UK shop workers report verbal abuse in a year (USDAW survey)
+scene: It is {Ns} second week on the tills. A customer slams a packet of batteries down, says the shelf said two for one, and starts shouting while the queue behind watches.
+scene W: The training said: stay polite, never argue, and call the supervisor for any refund over the limit. {N} reaches for the bell and the rule at the same time.
+scene U: Either the shelf label is wrong or the till is. {N} wants to know which, and why nobody has noticed before.
+scene B: There is a queue of twelve, a supervisor who hates being called, and a till that will let {N} knock money off. {N} looks for the cheapest way out of this.
+scene R: The customer's face is a foot from {Ns} and getting redder. {Ns} own temper is climbing to meet it.
+scene G: {N} has seen this before, only from the other side of the till: a tired person at the end of a long day, shouting at whoever is nearest.
+- W | ring for the supervisor, as the training says, and wait | v: conformity, security | chance: 85
+- U | walk to the shelf with the customer and check the label together | v: universalism (fairness), achievement | chance: 75
+- B | say whatever calms them fastest, true or not, and get them out | v: security | chance: 85
+- R | tell the customer straight not to speak to you like that | v: self-direction | act: tell the customer straight not to speak to them like that | closed: approval: arguing with a customer; backfire: a complaint and a written warning | chance: 65
+- G | let the customer shout it out, and answer softly until it passes | v: benevolence, security | grants: calming people down | chance: 60
+- W>R | say firmly that the price is the price, and hold your ground | v: self-direction, conformity | chance: 50
+- U>G | spot that the next till is free, and wave half the queue over to it | v: benevolence | chance: 75
+- B>W | ask the manager to have the customer barred as abusive | v: security, power | mark: made an enemy | chance: 60
+- R>U | laugh, say sorry, and ask what they need batteries for at this hour | v: stimulation, benevolence | chance: 75
+- G>B | keep your calm and take it; customers like this one pay the wages | v: security | self_control: + | chance: 80
+works: The shouting stops, the queue moves, and the customer even mutters a sorry on the way out.
+works: The supervisor hears what happened and tells {N}, later, that it was well handled.
+fails: The customer storms off to complain, and {N} spends the afternoon in the back office explaining.
+fails: {N} gets through the shift with shaking hands, and cries in the staff toilet at the break.
+
+# ---------------------------------------------------------------- shop assistant, settled (tenure 2-7): calls BR (cycle s4)
+
+== the keys and the alarm code
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 18-75
+calls: BR
+holds: shop assistant
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, the regulars
+earth: after a few years on the shop floor you are offered the keys: opening up at six on Sundays, the alarm code and the float
+times: Many shop workers who stay a few years, once, when the manager trusts them with opening up; many leave retail sooner (estimate)
+scene: The manager slides a set of keys across the stockroom table. Sunday openings, the alarm code, the float in the safe: {N} has been on the shop floor long enough to be trusted with them.
+scene W: A keyholder is the one who arrives first, leaves last, and whose name goes on the form when anything goes missing. {N} takes that seriously.
+scene U: With the keys comes the back office: the ordering screen, the rota, the week's figures. {N} has always wanted to know how the place really runs.
+scene B: The keys come with a little more an hour, and with them the first step toward running a shop. {N} wonders what to ask for in return.
+scene R: Six o'clock on a Sunday. Every Sunday. {N} thinks of the long lie-ins and the late Saturday nights that would go with it.
+scene G: The shop has stood on this corner since before {N} was born, and the old regulars come in for the paper at seven. Somebody has to be there to open the door for them.
+- W | take the keys, learn the alarm and the safe, and never be late | v: conformity, security | grants: trusted with the keys | chance: 80
+- U | use the back-office login to read what everyone else is paid | v: self-direction (curiosity), power | mark: hid a wrong | closed: approval: snooping in staff records; backfire: the system logs who looked, and the keys go back | tech: computer | chance: 75
+- B | ask for the extra pay in writing before touching the keys | v: power, security | chance: 75
+- R | say no: Sunday is the one morning that belongs to nobody but you | v: hedonism, self-direction | act: say no, because Sunday is the one morning that is still their own | mark: turned down a chance | chance: 92
+- G | take the keys, and open up for the old regulars at seven every Sunday | habit | v: benevolence, tradition | grants: trusted with the keys | self_control: + | chance: 75
+- W>G | agree, and ask for the older colleague to share the Sundays by turns | v: benevolence, universalism | chance: 70
+- U>W | read the keyholder's handbook twice, and pin a checklist inside the door | v: conformity, achievement | chance: 85
+- B>U | ask the area manager to put you on the stock course, for the extra grade | door | v: achievement | act: ask the area manager for a place on the stock course, for the extra grade | mark: learned a skill | chance: 75
+- R>B | take the keys, and ask for the supervisor's job while they still need you | v: power, achievement | act: take the keys, and ask for the supervisor's job while the shop still needs them | title: shift manager | chance: 55
+- G>R | say yes, and make the slow Sunday mornings your own, radio on | v: hedonism | chance: 75
+works: The first month of Sundays goes without a hitch, and the manager starts leaving {N} the notes for the week.
+works: {N} turns the key at six, the alarm goes quiet, and for an hour the shop feels like {Ns} own.
+fails: The alarm goes off on the first Sunday, the code will not stop it, and the police arrive before the manager does.
+fails: Two months in, the float is short one Sunday, and it is {Ns} name on the form.
+
+# ---------------------------------------------------------------- shop assistant, senior (tenure 8-60): calls WB (cycle s1)
+
+== the owner wants to retire
+tier: everyday
+stages: young_adult adult mature elder
+age: 22-80
+calls: WB
+holds: shop assistant
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: work, money, community
+horizon: years
+roles: boss, partner, the regulars, a bank manager
+earth: you have worked in the same shop for years, and the owner, who is retiring, asks whether you want to take it on before it closes
+times: Rare: perhaps 1 in 10 long-serving staff in a small shop, once; most small shops close or are sold when the owner retires (estimate)
+scene: {boss} has run the shop for thirty years, and {N} has stood behind its counter for more than ten of them. Over a cup of tea in the back, {boss} says it is time to retire, and asks whether {N} wants to take it on, or whether the shutters come down in the spring.
+scene W: The shop has a lease, suppliers, accounts and twenty years of habits. Taking it on would mean all of them, done properly, every single day.
+scene U: {N} has seen the figures over {Ns} shoulder for years: a good December, a thin February, and rent that rises every spring. On paper, with some changes, it could work.
+scene B: Ten years of someone else's shop, and now the chance of one of {Ns} own. {N} starts working out what it would cost, and what it could earn.
+scene R: {N} feels a rush at the idea, then a sinking: no more going home at six, no more free weekends, all of it riding on one person.
+scene G: The old lady at number nine comes in for her bread at eight every morning; the boys from the estate buy their sweets here, as their fathers did. {N} cannot picture the street without the shop.
+- W | agree to run it for the owner, as manager, until a buyer is found | v: security, conformity | chance: 75
+- U | ask for a full year's figures and a month to think before answering | v: security, self-direction | chance: 90
+- B | haggle the price down hard, then take the shop on | binds | v: power, achievement | title: shop owner | requires: savings | without: means | chance: 50
+- R | say yes on the spot, before the fear has time to catch up | binds | identity | v: self-direction, stimulation | title: shop owner | requires: savings | without: means | mark: took a wild risk | chance: 55
+- G | stay to the last day, then find a counter at the supermarket up the road | v: security, tradition | chance: 75
+- W>U | go on the small-business course at the college before signing anything | v: achievement, security | grants: bookkeeping | chance: 75
+- U>B | find out who would want the lease, and ask the owner for a finder's share | v: power | chance: 50
+- B>R | take the last months' pay, and spend it on the trip you always talked about | v: hedonism, stimulation | drops: shop assistant | mark: turned down a chance | chance: 85
+- R>G | throw the owner a farewell party in the street, and let the town say goodbye | v: benevolence, tradition | mark: made a friend | chance: 85
+- G>W | ask the owner to stay on two mornings a week while you learn the rest | v: tradition, security | grants: mentor | chance: 65
+works: By the spring the shop has a future, and the regulars know whom to thank for it.
+works: {N} makes the choice with open eyes, and sleeps well for the first time in weeks.
+fails: The numbers do not add up, the bank says no, and the shutters come down in April.
+fails: {N} rushes it, and the first winter after is the hardest of {Ns} working life.
+
+# ---------------------------------------------------------------- waiter or bartender, new (tenure 0-1): calls BR (cycle s2)
+
+== the first Friday night on the floor
+tier: everyday
+at: employer
+stages: juvenile young_adult adult mature
+age: 16-60
+calls: BR
+holds: waiter or bartender
+tenure: 0-1
+rate: 2
+once: yes
+tone: mixed
+life: work
+horizon: moment
+roles: boss, colleague, the chef, the customers
+earth: your first Friday night service as a waiter: forty covers, a kitchen that shouts, and a table of twelve by the window
+times: Nearly every new waiter, once, in the first weeks; about 1 in 3 Americans had a first job in a restaurant (National Restaurant Association)
+scene: It is {Ns} first Friday night on the floor: forty covers booked, a table of twelve by the window and a kitchen that shouts. {N} has a notepad, a pen, a tray and a stomach full of knots.
+scene W: {boss} went over the order of service twice: drinks, bread, starters, clear, mains. {N} means to follow it to the letter, table by table.
+scene U: There are twenty dishes, four specials and fourteen allergens. {N} learned the menu by heart on the bus in, and is still missing three.
+scene B: {colleague} says the big tables tip best and the regulars tip nothing. {N} wants the table of twelve.
+scene R: Plates, noise, heat, the chef roaring for service: by eight o'clock {N} is half terrified and half in love with it.
+scene G: The old waiter who has worked here for twenty years moves through the room without ever seeming to hurry. {N} watches how he does it.
+- W | follow the order of service exactly, and write every order down | habit | v: conformity | chance: 80
+- U | learn the allergens by heart before the doors open, and check every dish | v: achievement, benevolence | mark: learned a skill | chance: 85
+- B | ask to take the table of twelve, for the tip | v: achievement, power | chance: 65
+- R | carry three plates at once like the old hands, though nobody showed you how | body: light | v: stimulation | act: carry three plates at once like the old hands, though nobody has shown them how | chance: 65
+- G | stay close to the old waiter all night, and move the way he moves | v: tradition | chance: 75
+- W>B | do every side job unasked, so the manager gives you Fridays for good | v: achievement | act: do every side job unasked, so the manager gives them Fridays for good | chance: 70
+- U>R | learn the kitchen's rhythm, and time each table so the plates fly | v: stimulation, achievement | chance: 60
+- B>G | slip the kitchen porter a share of the tips, so the kitchen looks after your tables | v: benevolence (in-group), power | mark: made a friend | chance: 85
+- R>W | own up at once when an order goes wrong, and put it right with a smile | v: benevolence, conformity | mark: owned up | chance: 80
+- G>U | ask the old waiter over the staff meal how he learned the trade | v: tradition, self-direction | grants: mentor | chance: 70
+works: By eleven the room has emptied, the table of twelve has left a good tip, and {boss} says {N} can come back next Friday.
+works: {N} gets through the night without a single wrong plate, and goes home buzzing too much to sleep.
+fails: A plate goes over a customer's lap at nine, and the rest of the night is a blur of apologies.
+fails: {N} mixes up two tables' orders, and the kitchen's fury lands squarely on {N}.
+
+# ---------------------------------------------------------------- waiter or bartender, settled (tenure 2-7): calls UB (cycle s3)
+
+== a place behind the bar
+tier: everyday
+at: employer
+stages: young_adult adult mature
+age: 18-65
+calls: UB
+holds: waiter or bartender
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, the regulars
+earth: after a few years on the floor the bar job opens up: a licence course, cocktails, later nights, bigger tips and the till
+times: Some waiters who stay a few years, perhaps 1 in 3, once, when the bar job opens; hotels and restaurants have the highest quit rate of any US industry (BLS JOLTS)
+scene: The head bartender is leaving, and {boss} asks {N}, three years on the floor, whether {N} wants the bar. It comes with a licence course, later nights, a bigger share of the tips and the keys to the till.
+scene W: A bar has rules a floor does not: checking ages, refusing the drunk, counting the till at two in the morning. {N} knows the licence means answering for all of them.
+scene U: Behind the bar is a whole craft: the spirits, the measures, the cocktails, the cellar. {N} has been watching it from the floor for years.
+scene B: The bar takes the big tips and sees every regular. {N} also knows how much cash passes through it, and how little gets checked at closing.
+scene R: Music, noise, people leaning across the bar to talk: the bar is where the night happens. {N} wants to be in the middle of it.
+scene G: {N} has served the same regulars on the floor for three years: their tables, their birthdays, their usual orders. Moving behind the bar would mean leaving them to someone else.
+- W | do the licence course, and refuse anyone who has had too much, regular or not | v: conformity, security | grants: drinks licence | chance: 75
+- U | learn the cellar and the cocktails from the book, one drink a night | habit | v: achievement, self-direction | chance: 80
+- B | take the bar, and pocket the odd cash payment that never reaches the till | habit | v: power, hedonism | mark: broke the law | closed: law: theft from the till; backfire: caught at the stock count, and sacked on the spot | chance: 75
+- R | say yes on the spot, and throw the floor staff a party that night | v: hedonism, stimulation | chance: 85
+- G | stay on the floor with the regulars you know | v: benevolence, tradition | mark: turned down a chance | chance: 85
+- W>R | take the bar, and start a music night on Thursdays with every permit in order | v: stimulation | chance: 55
+- U>G | find out which local farms and breweries could stock the bar, and visit them | v: universalism, self-direction | chance: 70
+- B>W | ask for the shift manager's job instead, with the bar under it | v: power, achievement | title: shift manager | chance: 55
+- R>U | take a season at a beach bar abroad, to learn the trade somewhere else | door | v: stimulation, self-direction | mark: moved away | chance: 70
+- G>B | move into the kitchen, where the old cook keeps offering to teach you | binds | v: achievement, tradition | act: move into the kitchen, where the old cook keeps offering to teach them | title: cook | chance: 60
+works: Within a month {N} runs the new post as if it had always been {Ns}, and the regulars follow.
+works: {boss} sees the takings and the reviews, and starts asking {N} first.
+fails: The first busy Saturday in the new post is chaos, and {boss} has to step in at midnight.
+fails: The change goes badly, and {N} loses the regulars and the tips with it.
+
+# ---------------------------------------------------------------- waiter or bartender, senior (tenure 8-60): calls BG (cycle s4)
+
+== twenty holidays on the floor
+tier: everyday
+at: employer
+stages: young_adult adult mature
+age: 24-65
+calls: BG
+holds: waiter or bartender
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: work, family
+horizon: week
+roles: boss, colleague, partner, child, the regulars
+earth: you have worked every big holiday for years; this year the young staff want it off too, and the manager asks you first
+times: Few: perhaps 1 hospitality worker in 10, once, at a holiday late in the job; most leave long before eight years (estimate)
+scene: {N} has worked every big holiday for longer than most of the staff have been in the trade: the full tables, the hundred roasts, home at midnight. This year {boss} asks {N} first, and the two young ones on the floor are listening.
+scene W: Somebody has to work the holiday, and somebody always has. {N} believes a fair rota gives the day first to the people with small children at home.
+scene U: {N} could draw up a holiday rota in a minute that would be fairer than any {boss} has made. It has been done badly for years.
+scene B: After this many years {N} has earned the right to say no. The young ones can do their turn, as {N} once did.
+scene R: The thought of a holiday morning in pyjamas, for once, with nothing to carry, hits {N} harder than expected.
+scene G: The same families book the same tables every year and ask for {N} by name. For some of them, lunch here is their whole holiday.
+- W | work it again, so the colleagues with small children can be at home | v: benevolence, conformity | mark: helped someone in need | chance: 80
+- U | draw up a holiday rota by turns for the whole year, and hand it in | v: universalism (fairness) | chance: 70
+- B | take the day off by right of seniority, and let the newest ones work it | v: power, hedonism | chance: 85
+- R | work the double, then race home on the empty roads for the late dinner | v: hedonism, stimulation | requires: driving licence | without: law | death_if_fails: 0.003 | chance: 75
+- G | work it, and serve the families who have nobody else to spend it with | v: benevolence, universalism | mark: helped someone in need | chance: 80
+- W>G | work the lunch, and get the manager to let the staff eat together after | v: benevolence, tradition | chance: 75
+- U>W | write down everything you know about the holiday service for the young ones | v: benevolence | chance: 90
+- B>U | agree to work it in return for the wine course the owner keeps promising | door | v: achievement, self-direction | chance: 70
+- R>B | tell the manager this is the last one: you are leaving the trade in January | v: self-direction | drops: waiter or bartender | chance: 85
+- G>R | bring the family in to eat at the end of service, and have the holiday there | v: hedonism, benevolence | closed: approval: staff families eating at the owner's expense; backfire: the owner docks it from the pay | chance: 65
+works: The day goes well: the full tables, the roasts, a room that sings, and {N} goes home tired and glad.
+works: The young ones notice what {N} did, and the floor feels like a team for the rest of the winter.
+fails: The day is a misery from the first sitting, and {N} spends the evening wondering what twenty years of it have been for.
+fails: The row over the rota sours the staff room well into the new year.
+
+# ---------------------------------------------------------------- office clerk, new (tenure 0-1): calls WU (cycle s1)
+
+== the spreadsheet the last clerk left behind
+tier: everyday
+at: employer
+stages: juvenile young_adult adult mature
+age: 16-70
+calls: WU
+holds: office clerk
+tenure: 0-1
+rate: 2
+once: yes
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, the last clerk
+earth: in your first weeks in the office you inherit a huge spreadsheet with no notes, and the month-end report comes out of it on Friday
+times: Most new office workers, once per job, in the first weeks; most desks come with someone else's files and few notes (estimate)
+scene: {Ns} predecessor left in a hurry, and with the desk and the login {N} has inherited a spreadsheet of forty tabs, colour-coded by someone who never wrote the code down. The month-end report comes out of it on Friday.
+scene W: There must be a written procedure for the month-end report somewhere on the shared drive. {N} wants to find it and do the thing properly.
+scene U: Somewhere in those forty tabs is a logic. {N} stares at the formulas and starts, cell by cell, to look for it.
+scene B: The predecessor works across town now. {N} knows the name, has the number, and wonders what a favour would cost.
+scene R: The cursor blinks, the strip lights hum, the clock says Wednesday. {N} would like to throw the whole thing out and start again.
+scene G: {colleague} at the next desk has been here twenty-two years and has watched four clerks come and go. {colleague} has said nothing, but probably knows.
+- W | find the written procedure, and follow it step by step if it takes all night | v: conformity | self_control: + | chance: 60
+- U | take the spreadsheet apart formula by formula until it makes sense | v: achievement, self-direction | mark: learned a skill | chance: 65
+- B | ring the last clerk at the new job and talk them into doing it once more | v: achievement | chance: 55
+- R | throw it out and build a simpler one of your own overnight | v: self-direction, stimulation | grants: working with data | chance: 50
+- G | ask the old hand at the next desk to sit with you for an hour | v: benevolence, tradition | act: ask the old hand at the next desk to sit with them for an hour | mark: made a friend | chance: 75
+- W>U | tell the manager it is beyond you this week, and ask for training | door | v: self-direction, conformity | act: tell the manager it is beyond them this week, and ask for training | mark: owned up | chance: 85
+- U>B | work out which ten cells the report really needs, and ignore the rest | v: achievement | self_control: - | chance: 70
+- B>R | copy last month's figures, change the dates, and send it | v: hedonism | mark: hid a wrong | closed: approval: a falsified report; backfire: the finance director spots the same figures twice | self_control: - | chance: 65
+- R>G | stay late with pizza, and get the whole team to help you crack it | v: benevolence, stimulation | act: stay late with pizza, and get the whole team to help them crack it | chance: 70
+- G>W | do it the slow way, the old hand's way, on paper first | habit | v: tradition | chance: 65
+works: The report goes out on Friday at four, and nobody upstairs notices anything but the numbers.
+works: By the end of the month the forty tabs make sense, and {N} is the one people come to with questions about them.
+fails: The report goes out with a column wrong, and the email from upstairs arrives on Monday.
+fails: {N} misses the deadline, and the manager's look across the office says more than words.
+
+# ---------------------------------------------------------------- office clerk, settled (tenure 2-7): calls WB (cycle s2)
+
+== the firm will pay for one course
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 18-75
+calls: WB
+holds: office clerk
+tenure: 2-7
+rate: 1
+once: yes
+tone: joy
+life: work, learning
+horizon: years
+roles: boss, colleague, partner
+earth: a few years at the same desk, the firm offers to pay for one course: bookkeeping, data, management, a language, or nothing at all
+times: About half of office workers, once, a few years in; nearly half of EU adults aged 25 to 64 take some education or training in a year (Eurostat AES 2022)
+scene: Three years at the same desk, and {boss} says the training budget can pay for one course for {N} this year. The list is pinned to the kitchen noticeboard: bookkeeping, data, a management certificate, a language.
+scene W: The management certificate is what the firm wants its team leaders to have. {N} sees the path laid out, rung by rung.
+scene U: The data course has been at the back of {Ns} mind for a year; half the office runs on spreadsheets nobody quite understands.
+scene B: Whichever course pays best afterwards, inside this firm or out of it, is the one worth having. {N} reads the list like a price list.
+scene R: Evenings at college after a day at the desk. {N} feels the weariness already, and under it a small spark of wanting something new.
+scene G: {N} likes the job as it is: the same desk, the same lunch, home by half past five. Not everyone has to climb.
+- W | take the management certificate, and apply for team leader when it ends | v: achievement, conformity | title: shift manager | chance: 50
+- U | take the data course, and teach yourself the rest at home | v: self-direction, achievement | grants: working with data | chance: 75
+- B | take the bookkeeping course, then look for a better-paid job with it | door | v: achievement, power | grants: bookkeeping | chance: 75
+- R | take the language course, the one that has nothing to do with the job | habit | door | v: stimulation, self-direction | grants: second language | self_control: + | chance: 65
+- G | turn the course down, and keep the evenings for home | v: security, tradition | chance: 80
+- W>B | volunteer for the safety officer's role, which comes with a seat at the managers' meeting | v: power, conformity | chance: 75
+- U>R | do the data course, then quietly automate your own job and tell no one | v: self-direction, hedonism | closed: approval: hiding that the work now runs itself; backfire: found out, and the post is cut | mark: hid a wrong | tech: computer | chance: 55
+- B>G | get the firm to pay for a course you will really use in the family business | v: benevolence (family) | chance: 70
+- R>W | say yes when the union asks for an office rep, and speak up at once | v: universalism | title: union rep | chance: 75
+- G>U | ask the longest-serving clerk which course ever made a difference here | v: tradition, self-direction | chance: 75
+works: The course starts in September, and by midwinter {N} is using it at the desk every day.
+works: {boss} notices the change, and the next review is the best {N} has had.
+fails: The evenings are too much after a working day, and {N} has dropped out by November.
+fails: {N} finishes the course and nothing changes: the same desk, the same work, the same pay.
+
+# ---------------------------------------------------------------- office clerk, senior (tenure 8-60): calls UG (cycle s3)
+
+== the one who knows where everything is
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 25-75
+calls: UG
+holds: office clerk
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, a consultant
+earth: after many years in the office, only you know how the old system works, and the firm is replacing it by the summer
+times: Many long-serving office workers, once, after many years; most offices replace their main systems every decade or so (estimate)
+scene: The firm is moving every file onto a new system by the summer, and the consultant has a list of questions only {N} can answer: where the old contracts are, why the codes jump halfway through the old files, what the third archive cupboard is for.
+scene W: Twenty years of records have to arrive whole on the other side. {N} feels answerable for every one of them.
+scene U: {N} knows the old system the way some people know a house: every quirk, every workaround, every patch held together with a note. The new one looks cleaner, and thinner.
+scene B: As long as only {N} knows where things are, nobody can let {N} go. {N} is well aware of it.
+scene R: The consultant is twenty-six, says "legacy" every other sentence and has never filed a thing by hand. {N} feels a hot flash of temper and something close to grief.
+scene G: Every office changes its skin every few years. {N} has seen three systems come and go, and the work goes on underneath them all.
+- W | write a full handover manual for the new system, every quirk included | v: conformity, benevolence | self_control: + | chance: 80
+- U | learn the new system before anyone else, and become its expert too | identity | v: achievement, self-direction | grants: the one everyone asks | chance: 70
+- B | answer only what is asked, and keep the rest in your head | v: power, security | chance: 80
+- R | tell the consultant to their face what the new system will lose | v: self-direction | mark: made an enemy | chance: 65
+- G | let the old ways go, and help wherever you are asked | v: tradition (acceptance) | chance: 75
+- W>R | take the voluntary leaving package, and stop fighting the change | v: self-direction, security | drops: office clerk | self_control: - | chance: 75
+- U>G | copy the old client files onto a memory stick and take them home, just in case | v: security, tradition | closed: law: data protection; backfire: a disciplinary, and a fine for the firm | chance: 75
+- B>W | ask for a written role as the new system's keeper, with a grade to match | v: power, security | grants: inner circle at work | chance: 60
+- R>U | stay late with the consultant and argue every field until it is right | v: achievement | chance: 65
+- G>B | let the change roll on, and job-hunt from the desk in the quiet months | v: security, achievement | closed: approval: job-hunting on the firm's time; backfire: the manager sees the screen | chance: 55
+works: The move goes through in the summer with nothing lost, and the consultant thanks {N} by name in the final meeting.
+works: {N} comes out of the change with a new place in the office, and a new respect from upstairs.
+fails: Half the old records come over scrambled, and it is {N} the directors look at.
+fails: The change goes on without {N}, and the old knowledge turns out to be worth less than {N} thought.
+
+# ---------------------------------------------------------------- care worker, new (tenure 0-1): calls UG (cycle s4)
+
+== the first visit on the round alone
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 17-70
+calls: UG
+holds: care worker
+tenure: 0-1
+rate: 2
+once: yes
+tone: mixed
+life: work, care
+horizon: moment
+roles: boss, a client, the client's family
+earth: your first home visit alone as a care worker: an old man who does not want a stranger helping him wash, and fifteen minutes on the rota
+times: Every new home care worker, once, in the first weeks; most start visiting alone after a short spell of shadowing (estimate)
+scene: It is {Ns} first morning on the round without a trainer. The first door on the list belongs to a man of eighty-eight who lives alone, has fifteen minutes on the rota for a wash and breakfast, and opens the door saying he does not want a stranger.
+scene W: The care plan is in a folder on the kitchen table: wash, dress, breakfast, tablets, sign the sheet. {N} means to do every line of it properly.
+scene U: The notes say he was a train driver, his wife died last year, and he refuses help most mornings. {N} wonders what lies behind the refusals.
+scene B: Fifteen minutes, then the next house across town, unpaid in between. If {N} falls behind now, the whole round slips.
+scene R: He is rude, proud and frightened, and {N} is close to tears on the doorstep. It is not yet nine o'clock.
+scene G: The kitchen smells of toast and old cardigans, and the garden through the window has gone wild. {N} sees a man who has lost the run of his own house.
+- W | insist on the full wash the care plan says, however much he protests | v: conformity | closed: approval: care against a client's wishes; backfire: a complaint, and a safeguarding review | chance: 55
+- U | read his notes in the car first, and ask him about the trains | v: benevolence, self-direction | chance: 75
+- B | do the essentials fast, and write the full fifteen minutes on the sheet | v: achievement, security | mark: hid a wrong | closed: approval: cutting a visit short; backfire: the family complains, and the agency checks the times | chance: 80
+- R | tell him honestly that you are new, nervous and just as embarrassed | v: self-direction (honesty) | chance: 75
+- G | help with what he asks for today, and leave the wash for another morning | v: benevolence, self-direction | closed: approval: skipping the planned wash; backfire: the family complains of neglect | chance: 70
+- W>G | ask the office to keep him on your round every morning, so he sees one face | v: benevolence | chance: 60
+- U>W | leave the next carer a note on what he likes and will not have | v: benevolence, conformity | chance: 92
+- B>U | swap a round with a colleague who knows him, and watch how they manage | v: achievement, self-direction | chance: 75
+- R>B | stand your ground on the doorstep until he lets you in | v: achievement, power | act: stand their ground on the doorstep until he lets them in | chance: 60
+- G>R | put the radio on, make two cups of tea, and talk about the garden | habit | v: benevolence, hedonism | mark: made a friend | chance: 70
+works: By the end of the week he is at the door before {N} rings, with the kettle already on.
+works: The visit goes smoothly, and the family's note to the agency at the end of the month mentions {N} by name.
+fails: He refuses the wash every morning that week, and the office asks {N} why.
+fails: The round is an hour behind by noon, and {N} eats lunch in the car at four.
+
+# ---------------------------------------------------------------- care worker, settled (tenure 2-7): calls UR (cycle s2)
+
+== the nursing course the agency will half pay for
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 19-75
+calls: UR
+holds: care worker
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: work, learning
+horizon: years
+roles: boss, colleague, the clients, partner
+earth: a few years into care work the agency offers the senior carer's post or half the fees of a nursing degree, and two families want you privately
+times: Some care workers, perhaps 1 in 5, once, a few years in; some agencies fund training to keep their staff (estimate)
+scene: Three years on the rounds, and {boss} calls {N} into the office with two offers: the senior carer's post, which means the rota and the phone at night, or half the fees of a nursing degree, part time, over four years.
+scene W: A senior carer checks the others' work, signs off the care plans and answers for it when something goes wrong. {N} has the record for it.
+scene U: Nursing means anatomy, drugs, exams and placements on the wards. For a year {N} has been wondering what the nurses know that {N} does not.
+scene B: Two families on the round have asked {N} to work for them directly, for more an hour than the agency pays. {N} has not said no yet.
+scene R: {N} loves the clients and hates the rota, the mileage and the fifteen-minute visits. Some days {N} wants to tear the whole system up.
+scene G: The retired teacher on the hill, the man with the parrot, the twins' grandmother: {N} knows every kitchen, every cat and every bad day. Leaving the round would mean leaving them.
+- W | take the senior carer's post, and the night phone with it | v: conformity, benevolence | title: shift manager | chance: 70
+- U | start the nursing degree part time: four years of evenings and placements | binds | door | identity | v: achievement, self-direction | grants: professional registration | chance: 45
+- B | work for the two families directly, cash in hand | binds | v: power, achievement | mark: broke the law | closed: law: undeclared cash work, and a contract that forbids taking clients; backfire: the agency sues and the tax office writes | grants: loyal clientele | chance: 70
+- R | tell the office the fifteen-minute visits are cruel, and refuse to rush | v: benevolence, universalism | mark: defied an authority | closed: approval: refusing the rota; backfire: taken off the round | chance: 55
+- G | stay on the round with the clients you know | v: benevolence, tradition | mark: turned down a chance | chance: 80
+- W>B | do the medication training, which lifts the hourly rate | v: achievement, security | mark: learned a skill | chance: 85
+- U>R | look into care work abroad, where the pay is better and the winters shorter | v: stimulation, self-direction | chance: 60
+- B>G | bargain for a round close to home, to be there for your own family | v: benevolence (family), security | chance: 70
+- R>W | stand up at the union meeting about the unpaid travel time | v: universalism | chance: 60
+- G>U | ask the oldest carer at the agency what she would choose, in your place | v: tradition, self-direction | act: ask the oldest carer at the agency what she would choose in their place | chance: 75
+works: {N} chooses, and the first months on the new path feel like a door opening.
+works: {boss} shakes {Ns} hand on it, and the clients have heard the news before the week is out.
+fails: The new path costs more than {N} reckoned, in hours, money and sleep.
+fails: Nothing comes of it: the post goes to someone else, and the round goes on as before.
+
+# ---------------------------------------------------------------- care worker, senior (tenure 8-60): calls RG (cycle s1)
+
+== the first client moves into a home
+tier: everyday
+at: employer
+stages: young_adult adult mature elder
+age: 25-75
+calls: RG
+holds: care worker
+tenure: 8-60
+rate: .5
+once: yes
+tone: trouble
+life: work, care, loss
+horizon: week
+roles: a client, the client's daughter, boss
+earth: the woman you have visited every morning for nine years is moving into a care home, and on the last morning she asks you to help her pack
+times: Most long-serving home care workers, once, after years on the rounds; many home care clients move into residential care in time (estimate)
+scene: Nine years ago she was {Ns} second client; since then she has outlived her husband, two cats and four agencies. Now her legs have gone, her daughter has found a place in a care home, and on the last morning she asks {N} to help her choose what to take.
+scene W: The care plan ends on Friday; the home will have its own. {N} wants the handover done right, so nothing she needs is lost between the two.
+scene U: Nine years of mornings: {N} knows how she takes her tea, which pills make her sick, what she says when she is frightened. None of it is in the home's forms.
+scene B: She has said more than once that {N} should have the gold watch on the dresser. The agency rules forbid gifts, and nobody else is in the room.
+scene R: {N} has buried feelings about a dozen clients in nine years. This one is going to be hard, and {N} can feel it rising already.
+scene G: People grow old, the legs go, the house is sold. {N} has seen it many times, and still it comes like the end of a season.
+- W | do the handover by the book, and sign off nine years of care plans | v: conformity, benevolence | chance: 85
+- U | write the home's staff a list of every small thing she likes | v: benevolence | mark: helped someone in need | chance: 85
+- B | take the watch she presses on you, and say nothing to the agency | v: power, hedonism | act: take the watch she presses on them, and say nothing to the agency | mark: hid a wrong | closed: approval: gifts from clients are forbidden; backfire: the daughter asks where the watch went, and a disciplinary follows | chance: 75
+- R | hand in your notice that week: nine years of goodbyes is enough | v: self-direction | drops: care worker | chance: 85
+- G | help her choose the few things that matter, and let the rest go | v: benevolence, tradition (acceptance) | chance: 78
+- W>U | sign up for the end-of-life care course the agency runs | v: achievement, benevolence | grants: home nursing | chance: 80
+- U>B | ask for the coordinator's job, off the road, now that you know every round | v: achievement, power | title: shift manager | chance: 55
+- B>R | slip the home's manager some chocolates, to get her the garden-view room | v: benevolence, hedonism | chance: 60
+- R>G | cry with her over the boxes, and let it be what it is | v: benevolence | chance: 85
+- G>W | ask the home to let her bring the cat, and offer to visit them both | v: benevolence | chance: 40
+works: She goes in her best coat, with the photographs and a small bag of what matters, and holds {Ns} hand at the door.
+works: Two weeks later a card arrives at the agency in a shaky hand, with {Ns} name on it.
+fails: She cries all the way to the home, and {N} cannot shake it for a week.
+fails: The handover is lost in the home's paperwork, and the first news from her daughter is bad.
+
+# ---------------------------------------------------------------- soldier, new (tenure 0-1): calls RG (cycle s3)
+
+== week six of basic training
+tier: everyday
+at: army
+stages: juvenile young_adult adult
+age: 16-30
+calls: RG
+holds: soldier
+tenure: 0-1
+rate: 2
+once: yes
+tone: mixed
+life: work, body
+horizon: week
+roles: boss, colleague, parent, the other recruits
+earth: halfway through basic training: the runs before dawn, the kit inspections, and a section that sinks or swims together
+times: Every new soldier, once, at 16 to 30, halfway through basic training; it lasts about 10 weeks in the US Army and 14 in the British Army
+scene: Week six of basic training: up at five, three miles before breakfast, kit laid out to the inch for inspection, and a corporal who finds something wrong every time. One recruit in {Ns} section is falling behind, and the whole section pays for it.
+scene W: Everything here has a right way: the bed, the boots, the drill, the way to stand. {N} finds an odd comfort in it.
+scene U: {N} has worked out what the corporal checks first, and in what order. There is a system under all the shouting.
+scene B: The best recruit leads the section at the passing-out parade. {N} wants it, and watches who else does.
+scene R: {Ns} feet are blistered and {Ns} lungs burn on every hill, and still, at the top, {N} feels more alive than ever before.
+scene G: Six weeks ago they were twelve strangers; now they eat, sleep, run and suffer together. {N} has never been part of anything like it.
+- W | report every slip the struggling recruit makes, so the section stops paying | v: conformity | mark: made an enemy | closed: approval: informing on a comrade; backfire: the section freezes them out | chance: 75
+- U | learn the drill and the kit list cold, until you can do them in the dark | v: achievement | mark: learned a skill | chance: 80
+- B | push to lead the section at the parade, and make sure the corporal sees it | v: power, achievement | chance: 60
+- R | run the hills on the blisters, and finish every run near the front | habit | body: heavy | v: stimulation, achievement | grants: keeping fit | self_control: + | chance: 80
+- G | lean on the section like family, and let them lean on you | v: benevolence (in-group) | act: lean on the section like family, and let them lean back | mark: made a friend | chance: 80
+- W>R | carry the struggling recruit's pack up the last hill as well as your own | body: heavy | v: benevolence | mark: helped someone in need | closed: approval: against the instructors' orders; backfire: both recruits punished | chance: 65
+- U>G | set up a buddy system so nobody in the section falls behind | v: benevolence, security | chance: 75
+- B>W | make yourself the corporal's favourite with every extra duty going | v: power, achievement | chance: 75
+- R>U | volunteer for the hardest test on the course, to find out what you are made of | body: heavy | v: stimulation, achievement | chance: 60
+- G>B | go home: sign the discharge papers while you still can | v: security | drops: soldier | mark: came home | self_control: - | chance: 85
+works: At the passing-out parade {N} marches in step, and somewhere in the crowd {parent} is crying.
+works: {N} comes through week six fitter and steadier than ever, and the corporal, once, nods.
+fails: A shin injury puts {N} back three weeks, to start again with a new section.
+fails: The section is punished for {Ns} mistake, and the barrack room goes cold for days.
+
+# ---------------------------------------------------------------- soldier, settled (tenure 2-7): calls UB (cycle s4)
+
+== the papers to sign on again
+tier: everyday
+at: army
+stages: young_adult adult
+age: 18-40
+calls: UB
+holds: soldier
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: work, home
+horizon: years
+roles: colleague, parent, partner, friend
+earth: your first term of service is nearly up: sign on for more, retrain, go on a tour abroad, or leave
+times: Most soldiers, once, at the end of a first term; a first term is often four years or more in the US and British armies (estimate)
+scene: {Ns} first term is up in the spring, and the papers to sign on for six more years are in the drawer. {colleague} is going on a tour abroad in the summer and wants {N} along; a private firm has offered twice the pay; and the people at home want {N} back.
+scene W: {N} took an oath, and the unit is short of hands. The army made {N}; signing again feels like the honourable thing.
+scene U: The army will retrain anyone who signs on: medic, signals, engineer, a trade for life. {N} has read every leaflet twice.
+scene B: Six more years means the stripe, the pension and a trade paid for. The private firm means money now. {N} lays the numbers side by side.
+scene R: A tour means somewhere new, real work, the people who matter most at {Ns} side. A desk means none of that.
+scene G: {N} has missed three birthdays and a funeral at home. The town, the family and the old friends feel further away with every leave.
+- W | sign on for six more years, and keep the oath you took | binds | identity | v: conformity, tradition | mark: kept your word | chance: 85
+- U | sign on, but only to retrain as a combat medic | binds | v: achievement, benevolence | grants: emergency care | chance: 70
+- B | leave for the private security firm abroad, at twice the pay | binds | identity | v: achievement, power | drops: soldier | title: veteran | death_if_fails: 0.002 | mark: moved away | chance: 65
+- R | put in for special forces selection, the hardest course there is | body: heavy | v: stimulation, achievement | self_control: + | chance: 15
+- G | go where the platoon goes on the summer tour, as the others do | v: benevolence (in-group), tradition | death_if_fails: 0.001 | chance: 70
+- W>G | leave at the end of the term and go home to the family, as promised | v: tradition, benevolence | drops: soldier | title: veteran | mark: came home | chance: 85
+- U>W | sign on with the engineers, and learn a trade the army pays for | v: security, achievement | chance: 70
+- B>U | get the army to pay for every licence and course going, for later | v: achievement, security | grants: lorry or bus licence | chance: 80
+- R>B | sign on the same day for the bonus, and spend it on a car | binds | v: hedonism, power | grants: car | self_control: - | chance: 88
+- G>R | take a month's leave first, and walk the hills at home before deciding | v: self-direction, hedonism | chance: 75
+works: {N} signs, or does not, with a clear head, and the spring comes in on a new footing.
+works: The choice opens doors {N} did not know were there, and the first months prove it right.
+fails: The choice goes wrong in the first months, and {N} wonders, on bad nights, about the other road.
+fails: The paperwork drags on for months, and {N} spends the summer stuck between two lives.
+
+# ---------------------------------------------------------------- soldier, senior (tenure 8-60): calls WR (cycle s4)
+
+== a section of nineteen-year-olds
+tier: everyday
+at: army
+stages: young_adult adult mature
+age: 24-55
+calls: WR
+holds: soldier
+tenure: 8-60
+rate: .5
+once: yes
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, boss, the young soldiers, partner
+earth: after many years in the army you lead a section of soldiers barely out of school, on what may be your last tour abroad
+times: Some long-serving soldiers, once, as junior leaders after eight years or more; most soldiers leave before ten years (estimate)
+scene: {N} has more years in the army than any of the section has been out of school. They are on a tour abroad in a hot, dusty camp, one of the corporals is too hard on the youngest, and every morning eight young soldiers look at {N} to know what the day holds.
+scene W: {N} answers for all eight of them: their kit, their discipline and, above all, their getting home. {N} does not take it lightly.
+scene U: There are a hundred things {N} learned the hard way that are in no manual. The young ones learn them slowly, or not at all.
+scene B: The staff job at headquarters is open: a desk, a rank, a pension that climbs, and no more patrols. {N} has been asked to apply.
+scene R: {N} still loves it: the early starts, the heat, the jokes, the trust. And knows the body will not take many more years of it.
+scene G: The youngest of the section reminds {N} of {Ns} own first year, down to the way he laces his boots. {N} feels like the old hand in a family.
+- W | take the lead on every patrol yourself, so the youngest do not have to | body: heavy | v: benevolence, security | death_if_fails: 0.003 | chance: 70
+- U | teach them every evening the things no manual says | habit | v: benevolence | grants: teaching | chance: 85
+- B | apply for the staff job at headquarters, and the rank that goes with it | v: power, security | grants: rank | chance: 60
+- R | sign on for one more tour, because nothing else feels like this | binds | v: stimulation, hedonism | chance: 85
+- G | write to each of their families, the way your old sergeant did | v: tradition, benevolence | chance: 85
+- W>G | report the corporal who is too hard on the youngest, through the proper channels | v: universalism, benevolence | mark: made an enemy | chance: 60
+- U>W | take them out on the route you worked out, not the one ordered | v: security, self-direction | closed: approval: departing from a patrol order; backfire: a charge, and the stripe taken | death_if_fails: 0.003 | chance: 60
+- B>U | use your contacts to put the brightest of them on the officers' course | v: benevolence, achievement | chance: 60
+- R>B | take the corporal aside, and make him afraid to pick on the youngest again | v: power | closed: law: threatening a fellow soldier; backfire: a charge, and the stripe taken | chance: 70
+- G>R | hand in your notice for the end of the tour, and go and live | v: self-direction, hedonism | drops: soldier | title: veteran | chance: 75
+works: All eight of them come home at the end of the tour, and the youngest shakes {Ns} hand at the airport.
+works: The section pulls together under {N}, and {boss} says so in the report.
+fails: The tour goes hard, and {N} brings home a weight that does not lift for a long time.
+fails: The choice costs {N} the stripe, the trust of the young ones, or both.
+
+# ---------------------------------------------------------------- teacher, new (tenure 0-1): calls WR (cycle s2)
+
+== the back row on the first Monday
+tier: everyday
+at: school
+stages: young_adult adult mature
+age: 21-70
+calls: WR
+holds: teacher
+tenure: 0-1
+rate: 2
+once: yes
+tone: mixed
+life: work, school
+horizon: moment
+roles: colleague, boss, the pupils, mentor
+earth: your first class of your own on a Monday in September: thirty fourteen-year-olds, and a back row already testing you
+times: Every new teacher, once, in the first week of the first term; nearly 1 in 3 new teachers in England leave within five years (DfE workforce statistics)
+scene: Monday, September, room 14: {Ns} first class of {Ns} own. Thirty fourteen-year-olds, a lesson plan typed at midnight, and a back row that has already started, very quietly, to test the new teacher.
+scene W: The seating plan is printed, the rules are on the wall, and the training said the first five minutes decide the year. {N} intends to make them count.
+scene U: The lesson plan is timed to the minute, with three activities and a summing-up. {N} also has a hunch it will not survive the first ten minutes.
+scene B: The back row has a leader, a tall boy with a quick tongue whom the others watch before they laugh. {N} sees that the class turns on him.
+scene R: {Ns} heart is going like a drum. Somewhere under the fear is the thing that made {N} want to teach in the first place: the moment a room lights up.
+scene G: These are other people's children, each with a home, a story and a bad night behind them. {N} looks at thirty faces and wonders who they are.
+- W | set the seating plan and the rules in the first five minutes, and keep them | habit | v: conformity, security | self_control: + | chance: 70
+- U | follow the timed plan, and note what works and what does not for next time | v: achievement, self-direction | chance: 75
+- B | win over the boy the back row follows, and the rest will come | v: power | chance: 65
+- R | put the plan aside and open with the most surprising thing you know | v: stimulation | chance: 60
+- G | learn every name by Friday, and ask each of them one thing about themselves | v: benevolence | self_control: + | chance: 75
+- W>B | keep the whole back row in at break, to show who is in charge | v: power, conformity | closed: approval: a whole-row detention on the first day; backfire: parents complain, and the head has words | chance: 60
+- U>R | turn the lesson into a puzzle they solve in teams, against the clock | v: stimulation | chance: 65
+- B>G | strike a deal with the back row: quiet now, their music at the end | v: security, hedonism | chance: 75
+- R>W | raise your voice, once and hard, the first time the back row laughs | v: conformity, security | chance: 60
+- G>U | ask the teacher next door, who has had them two years, what they are like | v: tradition, self-direction | chance: 80
+works: By the bell the back row is laughing with {N}, not at {N}, and a quiet girl at the front stays behind to ask a question.
+works: The lesson works better than it had any right to, and {N} sits in the empty room afterwards, grinning.
+fails: The back row takes the lesson apart, and {N} drives home and sits in the car outside the house for twenty minutes.
+fails: The head of department walks in at the worst moment, and writes something down.
+
+# ---------------------------------------------------------------- teacher, settled (tenure 2-7): calls WU (cycle s3)
+
+== the head of year post is advertised
+tier: everyday
+at: school
+stages: young_adult adult mature elder
+age: 23-75
+calls: WU
+holds: teacher
+tenure: 2-7
+rate: 1
+once: yes
+tone: mixed
+life: work, school
+horizon: years
+roles: boss, colleague, rival, partner
+earth: a few years into teaching, the head of year post is advertised, the union wants a new rep, and a school abroad is hiring
+times: Many teachers who stay, once, a few years in; most schools fill middle posts from their own staff (estimate)
+scene: Four years in, {N} knows the school, the corridors and which photocopier jams. The head of year post is on the staffroom board, the union wants a new rep, and a school abroad is advertising for someone in {Ns} subject.
+scene W: A head of year answers for two hundred pupils: their behaviour, their attendance, the calls home. {N} believes someone has to do it properly.
+scene U: {N} has started to wonder how pupils really learn, and whether the school teaches the best way. There is a master's course on Tuesday evenings.
+scene B: The post comes with a pay point, a seat at the leadership meetings and a first step toward running a school. {N} sees where the ladder goes.
+scene R: A school by the sea, in another country, in another language. {N} reads the advert three times and cannot stop thinking about it.
+scene G: {Ns} first class is now in its final year. {N} would like to see them through to the end.
+- W | apply for head of year, and take on the two hundred | v: conformity, benevolence | grants: organising people | chance: 50
+- U | start the master's on Tuesday evenings, and study how pupils learn | habit | binds | v: self-direction, achievement | chance: 65
+- B | take on the paid exam marking and private tutoring, and save it all | v: achievement, security | grants: savings | chance: 85
+- R | apply for the school abroad, and go if they say yes | door | v: stimulation, self-direction | mark: moved away | chance: 55
+- G | stay with the classes you have, and see your first ones to the end | binds | v: benevolence, tradition | mark: turned down a chance | chance: 80
+- W>R | run the school's trip abroad each year, and do every form it needs | v: stimulation, conformity | chance: 75
+- U>G | take the after-school nature club, and teach outside the classroom | v: universalism (nature), benevolence | chance: 85
+- B>W | put yourself forward as staff governor, where the decisions are made | v: power | title: school-governance board member | chance: 50
+- R>U | throw yourself into the school play, and learn stagecraft as you go | v: stimulation, achievement | grants: stagecraft | chance: 70
+- G>B | wait your turn, as the old staff did, and let the years carry you up | v: tradition, achievement | act: wait their turn, as the old staff did, and let the years carry them up | chance: 55
+works: The choice turns out well, and by the summer {N} cannot imagine having chosen otherwise.
+works: The head stops {N} in the corridor in June to say how much difference it has made.
+fails: The interview goes badly, and {N} goes back to the classroom on Monday with bruised pride.
+fails: The extra load comes on top of the marking, and by March {N} is exhausted.
+
+# ---------------------------------------------------------------- teacher, senior (tenure 8-60): calls WG (cycle s1)
+
+== a former pupil walks in as the new teacher
+tier: everyday
+at: school
+stages: young_adult adult mature elder
+age: 33-75
+calls: WG
+holds: teacher
+tenure: 8-60
+rate: .5
+once: yes
+tone: joy
+life: work, school
+horizon: years
+roles: colleague, boss, the pupils
+earth: after many years at the same school, a pupil you once taught comes back as a newly qualified teacher, and joins your department
+times: Rare: perhaps 1 in 10 long-serving teachers, once, after ten years or more; some new teachers return to the school they went to (estimate)
+scene: The new teacher in {Ns} department is {colleague}, whom {N} taught twelve years ago: the quiet one in the third row, now holding a timetable and asking where the photocopier is.
+scene W: {N} is asked to mentor {colleague} through the first year: watch lessons, sign off the standards, write the reports. It is a duty {N} means to do well.
+scene U: Twelve years of lesson plans, worksheets, mistakes and fixes sit in {Ns} cupboard. {N} knows exactly which of them are worth handing on.
+scene B: The department is being reorganised next year, and a new head will be chosen. {N} notices how much the head likes {colleague}.
+scene R: {N} feels a rush of pride so strong it is almost embarrassing, and then a pang: when did it get to be this long?
+scene G: Things come round. The young take the places of the old, and some of them come back to the rooms where they once sat.
+- W | mentor them properly: watch a lesson every week, and write it all up | v: conformity, benevolence | chance: 80
+- U | hand over the cupboard of lesson plans, and say which ones failed | v: benevolence, universalism | chance: 92
+- B | keep your best lessons to yourself; the newcomer may be a rival soon | v: power, security | chance: 85
+- R | team-teach a wild project with them, the kind you stopped doing years ago | v: stimulation | chance: 70
+- G | leave at the end of the year, and let the young ones have the room | identity | v: tradition (acceptance), self-direction | drops: teacher | chance: 75
+- W>U | ask to join the panel that trains the county's new teachers | door | v: benevolence, achievement | chance: 55
+- U>B | use twelve years of results to ask for the head of department's job | v: power, achievement | grants: inner circle at work | chance: 45
+- B>R | bargain for a four-day week, and spend the fifth on what you always put off | v: self-direction, hedonism | chance: 55
+- R>G | tell them, on the first day, what it meant to see them walk in | v: benevolence | chance: 85
+- G>W | give them your old form group, as your own teacher once handed you one | v: tradition | act: give the newcomer their old form group, as their own teacher once handed them one | chance: 65
+works: The year goes well: {colleague} finds their feet, and {N} finds something of the old fire.
+works: At the end of the year {colleague} gives {N} a card that says, simply, that {N} was the one who made them want to teach.
+fails: {colleague} struggles, and {N} cannot tell whether the help is helping or getting in the way.
+fails: The year turns awkward: the old roles do not fit the new ones, and the staffroom notices.

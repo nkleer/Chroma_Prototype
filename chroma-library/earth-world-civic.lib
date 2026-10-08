@@ -1,0 +1,207 @@
+# Chroma library, modern Earth: the civic moments the outer world calls for (release checklist row W39, Library thread,
+# 2026-10-07). Design: chroma-world/spec-1-shared-clock.md §3 (elections, the law book, war and the call-up),
+# spec-7-levers-and-reach.md (exit, voice, loyalty, neglect, subvert; an ordinary person is one of the crowd, leading
+# multiplies), spec-4-institutions.md (unions, employers, the army). Fields: chroma-engine/world-fields.md.
+#
+# Layout (library-spec §3):
+#   pair A  election day (calls WU, cycle s1) / a petition comes round (calls BRG, cycle s2): no gate, the same stages
+#   pair B  a strike vote at work (calls WB, cycle s3) / a march on a working day (calls URG, cycle s4): both need a
+#           career and a work team (needs: career, group: work) and share one share draw (share_group: workplace_action),
+#           so the pair stays even for everyone who meets it; the march is the working adult's protest, distinct from
+#           'a protest in your city' (young adults, a city march) and 'a protest to save the local hospital' (elders)
+#   life event  the call to serve: alpha even, the five one-color options plus pairs D5a (BG UB UR WG WR). The other half,
+#           D5b (BR RG UG WB WU), is still free for a future life event.
+#
+# Levers (world-fields.md): the Engine infers exit from drops: or moves, and subvert from 'defied an authority' or a
+# closed-by-law act aimed at an institution. lever: is written where that rule would be wrong (a lawful act of voice that
+# defies an authority) or would find nothing (a vote, a petition, serving, staying home); it is left out where the rule
+# is right (dodging the call-up, leaving the country). pushes: is written where the moment's at:, group: or who: would
+# send the push to the wrong place: a vote, a petition or a march lands on the state, a strike on the employer (the
+# strike vote's at: is the union, which stays the target of standing for rep). Every lever comes in several colors.
+# The Engine fires 'election day' and 'the call to serve' by name (earth_rules); the outcome lines never name the
+# national result, which is the shared one.
+
+# ---------------------------------------------------------------- pair A: calls WU (cycle s1) / calls BRG (cycle s2)
+
+== election day
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-100
+calls: WU
+tone: mixed
+life: public life, community
+horizon: moment
+roles: friend, sibling, neighbour, partner, parent
+earth: polling day: the school hall down the road is a polling station from seven until ten, and the whole country is choosing
+times: Every adult citizen of a democracy, at each national election: every four or five years (spec-1 §3, every 16 to 20 quarters); turnout in national elections in rich democracies is about two in three of the voting-age population (spec-7 §9; International IDEA turnout data; estimate), lower among the young and the poor, higher among the old. The Engine fires it by name at the shared election and uses the shared result
+gap: 3-5
+scene: A sign on the door of the school hall, a queue of people holding polling cards, and a campaigner with a rosette handing out leaflets just past the line they may not cross. {Ns} phone keeps buzzing with last appeals.
+scene W: {N} has voted at every election since turning eighteen, and would no sooner miss one than miss a friend's funeral. The polling card has waited on the kitchen shelf all week.
+scene U: Three manifestos lie open on the table, next to a page of notes on what each side promised last time and what it did. One question is still not settled.
+scene B: Whoever wins sets the tax on {Ns} pay, the rules at {Ns} work and the rate on {Ns} loan. {N} would like to be on the side that pays.
+scene R: Weeks of posters, slogans and shouting on every screen, and today it finally counts. {N} has been arguing about it with {friend} since breakfast.
+scene G: {Ns} family has voted in the same hall, at the same hour after lunch, for as long as anyone remembers, and the caretaker still nods to them by name.
+- W | vote first thing in the morning, as you always do, and tell nobody how | habit | v: conformity, universalism | lever: voice | pushes: state | chance: 95
+- U | read every manifesto against each party's record, then vote on the evidence | v: self-direction, universalism | self_control: + | lever: voice | pushes: state | chance: 88
+- B | vote for whoever will leave the most in your own pocket | v: power, security | lever: voice | pushes: state | chance: 90
+- R | knock on doors all day for your side, and get the stragglers out | door | body: light | v: stimulation, achievement | lever: voice | pushes: state | chance: 70
+- G | vote the way your family always has, in the hall where your parents voted | identity | v: tradition, security | lever: loyalty | pushes: state | chance: 90
+- W>U | offer to help with the count tonight, and watch how every pile is checked | door | v: conformity, universalism | lever: loyalty | pushes: state | chance: 60
+- U>B | study the polls, then bet on the side the bookmakers have priced wrong | habit | v: achievement, power | chance: 48
+- B>R | skip it: one vote changes nothing, and the evening is free | habit | v: hedonism, self-direction | self_control: - | lever: neglect | pushes: state | chance: 95
+- R>G | talk your whole family round over breakfast, then walk them all to the polls | v: benevolence, stimulation | lever: voice | pushes: close | chance: 65
+- G>W | vote for the local candidate everyone knows, whichever party they stand for | v: tradition, security | lever: voice | pushes: state | chance: 75
+works: {N} comes out of the hall with the vote cast and the rest of the day ahead, and the queue behind has doubled.
+works: That night {N} stays up for the results with {friend}, and for once the late night feels worth it.
+fails: Rain, a long queue and a polling card left at home turn the day into a muddle, and {N} gets home cross.
+fails: By morning half the street is furious, and {N} has fallen out with {sibling} over it.
+
+== a petition comes round
+tier: everyday
+stages: young_adult adult mature elder
+age: 16-100
+calls: BRG
+tone: mixed
+life: public life, community
+horizon: week
+roles: neighbour, friend, colleague, sibling
+earth: a neighbour at the door with a clipboard, and the same petition in the group chat: a hundred thousand names and parliament has to debate it
+times: Common: about 1 adult in 4 in European surveys signs a petition, on paper or online, in a given year (European Social Survey; estimate); most people are asked a few times a decade, more in cities and in years of unrest. Stages as its partner 'election day', so the pair stays even; the age window opens at 16 for young adults
+gap: 2-5
+scene: {friend} is at the door with a clipboard and a pen on a string, and the same petition is already in the family group chat, with forty names and a row of angry faces.
+scene W: The petition is addressed properly, the request is plain, and there is a box for a full address. This is how a person is meant to be heard between elections.
+scene U: The petition is three lines long. {N} wants to know who wrote it, who paid for the leaflets, and what the change would actually do.
+scene B: A hundred thousand names makes parliament sit up. {N} notices that whoever brings the names in gets noticed too.
+scene R: The cause makes {Ns} blood run hot, and three lines on a clipboard feels like far too little.
+scene G: Half the street has signed already, the old families first, in one long shaky column of names.
+- W | sign with your full name and address, as the form asks | v: conformity, universalism | lever: voice | pushes: state | chance: 90
+- U | find out who started it and what it would change, and only then decide | door | v: self-direction, universalism | chance: 92
+- B | add a few dozen made-up names to push it over the line | v: power, achievement | mark: hid a wrong | closed: law: forging names on a petition; backfire: the list is checked, the fakes are found, and the whole petition is thrown out | lever: subvert | pushes: state | chance: 60
+- R | share it everywhere tonight, with a furious post of your own on top | habit | v: stimulation, universalism | lever: voice | pushes: state | chance: 90
+- G | sign for everyone in the house, without asking them | v: tradition, benevolence | closed: approval: signing in other people's names; backfire: a row at home, and two names struck off the list | lever: subvert | pushes: state | chance: 65
+- W>B | decline politely: you never put your name on lists, on principle | identity | v: security, conformity | lever: neglect | pushes: state | chance: 75
+- U>R | find the flaw in its wording, and start a sharper petition of your own | identity | v: self-direction, achievement | mark: learned a skill | lever: voice | pushes: state | chance: 40
+- B>G | start a counter-petition among the shopkeepers, to keep things as they are | identity | v: tradition, power | lever: voice | pushes: state | chance: 50
+- R>W | take the clipboard door to door down the whole street on Saturday | body: light | v: universalism, benevolence | lever: voice | pushes: state | chance: 75
+- G>U | ask the oldest neighbours what came of the last petition like this one | door | v: tradition, self-direction | mark: made a friend | chance: 65
+works: The petition passes a hundred thousand names, and {N} watches the first minutes of the debate on the news.
+works: A month later the minister gives way on the main point, and {friend} rings to crow about it.
+fails: The petition stalls at a few thousand names, and the link stops going round.
+fails: The debate comes and goes in a half-empty chamber, and nothing changes.
+
+# ---------------------------------------------------------------- pair B: calls WB (cycle s3) / calls URG (cycle s4), both for people in work
+
+== a strike vote at work
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-67
+calls: WB
+needs: career
+group: work
+at: union
+share: .3
+share_group: workplace_action
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, boss, friend, partner
+earth: the union ballots everyone at work on a strike: pay has fallen behind prices for two years, and the last offer was an insult
+times: Strikes are rare in most rich democracies and cluster in years of high inflation and public cuts (spec-4 §7; estimate); about 1 worker in 6 across the OECD belongs to a union (OECD 2019), more in the public sector, so perhaps 3 lives in 10 ever meet a strike ballot, most of them once or twice in a working life (estimate; share .3, drawn once with its partner 'a march on a working day')
+gap: 4-12
+scene: The ballot paper comes in a plain envelope, the canteen talks of nothing else, and {colleague} has pinned five years of pay figures to the noticeboard.
+scene W: A ballot, a count, a majority: if it passes, everyone goes out together, or the whole thing is for nothing. {N} has always believed in doing it properly.
+scene U: {N} lays the offer next to the price of the weekly shop and the rent, and works out what the pay is really worth now.
+scene B: A strike could win more money, or cost three weeks' pay and {Ns} place on the promotion list. {boss} has started saying good morning very warmly.
+scene R: {N} has swallowed two years of being told to tighten the belt while the top floor takes its bonuses, and is done swallowing.
+scene G: The older hands remember the last long strike the way farmers remember a hard winter: who held together, who went back early, and who never spoke again.
+- W | vote yes, and keep a list of everyone who works through the strike | v: conformity, power | mark: made an enemy | closed: approval: keeping a list of workmates who break a strike; backfire: a formal complaint, and the list leaks to the whole floor | lever: loyalty | chance: 70
+- U | set the offer against prices and rent, and vote on what the figures show | v: self-direction, achievement | lever: voice | pushes: institution employer | chance: 90
+- B | vote no, and let the boss know you will keep working through any strike | v: achievement, power | mark: made an enemy | closed: approval: breaking ranks in a strike; backfire: frozen out by the team for years | lever: loyalty | pushes: institution employer | chance: 75
+- R | vote yes, then hold the picket line at the gate every morning, rain or shine | binds | body: light | v: stimulation, universalism | self_control: + | lever: voice | pushes: institution employer | chance: 75
+- G | go with whatever your own shift decides, as you always have | habit | v: conformity, tradition | lever: loyalty | pushes: group work | chance: 75
+- W>R | help the union rep run the walkout by the book | v: universalism, power | aims: union rep | lever: voice | chance: 48
+- U>G | work out a deal that keeps every job, and put it to both sides | v: universalism, benevolence | lever: voice | pushes: institution employer | chance: 45
+- B>W | broker it quietly: a better offer, and you will sell it to the floor | v: power, security | lever: voice | pushes: institution employer | chance: 50
+- R>U | stand up at the meeting and demand to see the real books | v: universalism, self-direction | lever: voice | pushes: institution employer | chance: 65
+- G>B | line up work at a cousin's firm, and leave if the strike goes ahead | v: security | self_control: - | lever: exit | pushes: institution employer | chance: 60
+works: Within the month there is a new offer on the table, and most of the canteen breathes out.
+works: {N} comes out of the dispute with the respect of the people {N} works beside.
+fails: Three weeks without pay, and the deal at the end is barely better than the one turned down.
+fails: The vote splits the floor, and some colleagues stop speaking to each other for good.
+
+== a march on a working day
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-67
+calls: URG
+needs: career
+group: work
+share: .3
+share_group: workplace_action
+tone: mixed
+life: public life, work
+horizon: week
+roles: colleague, boss, friend, partner
+earth: a national day of protest against a new law falls on a Thursday, and half the team has asked for the day off
+times: National days of protest come every few years in most democracies, more in years of unrest; about 1 adult in 15 in European surveys joined a lawful demonstration in the past year (European Social Survey; estimate); for people in work the march is weighed against the job. Gated and drawn as its partner 'a strike vote at work'
+gap: 3-8
+scene: The march sets off from the station at eleven on Thursday. Half of {Ns} team has asked for the day off, {colleague} has painted a banner in the car park, and {boss} has said nothing either way.
+scene W: The law went through in a hurry, with no proper debate. {N} believes in rules, which is exactly why this one sticks in the throat.
+scene U: {N} has read the new law, all ninety pages of it, and the summaries on the news get half of it wrong.
+scene B: {boss} is watching who books the day off. Then again, the people organising this march will be worth knowing.
+scene R: The banner is drying against the fence, and {N} can already hear the drums. Sitting at a desk on Thursday feels impossible.
+scene G: {Ns} parents marched against a law like this once, and still talk about the day the whole town shut its doors and walked.
+- W | book the day off properly, and march with the team on the agreed route | v: conformity, universalism | lever: voice | pushes: state | chance: 75
+- U | stay at your desk, and write a careful letter to your representative instead | v: self-direction, universalism | lever: voice | pushes: state | chance: 92
+- B | slip out at lunch, get seen by the organisers, and be back by two | door | v: power, achievement | lever: voice | pushes: state | chance: 85
+- R | walk out at eleven without asking, and take the others with you | identity | v: stimulation, self-direction | mark: defied an authority | closed: approval: walking off the job; backfire: a written warning on file | lever: voice | pushes: state | act: walk out at eleven without asking, and take the others with them | chance: 75
+- G | stay at work with the old hands; laws like this come and go | v: tradition, security | lever: neglect | pushes: state | chance: 78
+- W>G | help the organisers carry the banner at the front of the march | v: universalism, benevolence | aims: activist in a cause | mark: made a friend | lever: voice | pushes: state | chance: 65
+- U>W | send the march details round the whole firm on the work email list | v: universalism | closed: approval: using the firm's systems for a cause; backfire: a formal warning for misusing work email | lever: voice | pushes: state | chance: 82
+- B>U | cover the empty desks, in return for a place on the course you want | v: achievement, self-direction | lever: loyalty | pushes: institution employer | chance: 75
+- R>B | grab the megaphone at the rally, and make sure the cameras catch your face | v: achievement, stimulation | lever: voice | pushes: state | chance: 62
+- G>R | take the afternoon off, and march with the people from your street | v: hedonism, benevolence | mark: made a friend | lever: voice | pushes: state | chance: 70
+works: The march fills the avenue from end to end, and that evening the news leads with it.
+works: Within the month the government sends the law back for another look, and the office talks of nothing else.
+fails: The march is small and wet, and the law goes through on Friday morning anyway.
+fails: {boss} calls {N} in on Monday to ask, very coolly, where {N} was on Thursday.
+
+# ---------------------------------------------------------------- life event: the call to serve (pairs D5a; D5b is still free for a future life event)
+
+== the call to serve
+tier: life event
+stages: young_adult
+age: 18-30
+per_year: 0 0 .003 0 0 0
+drivers: unrest+1.5 harsh+.3 prosper-.2
+once: yes
+at: army
+rite: young_adult
+times: Rare where service is not compulsory: about 3 in 1,000 young adults a year are called for national service in this setting (estimate). Some 60 countries keep compulsory service (Pew Research Center 2019; estimate), and there nearly every young man, and in a few every young woman, is called once at 18 to 20; when a war is on, the Engine raises the rate by name (spec-1 §3: war and conscription read the shared war state)
+likelier: a war or a threat at the border, a state that keeps national service, unrest
+rarer: peace, a professional army, a growing economy
+tone: mixed
+life: duty, work, home
+horizon: years
+roles: parent, friend, partner, sibling, an officer
+earth: an official letter: report for national service at the training camp in six weeks
+scene: The envelope is official and the letter is short: report to the training camp in six weeks, with the papers listed overleaf. {parent} reads it twice at the kitchen table and says nothing.
+scene W: The law is the same for everyone of {Ns} age, and so is the duty. {N} folds the letter carefully and puts it where the important papers go.
+scene U: {N} reads the regulations through, then the exemptions, then the rules on deferment, and starts a list.
+scene B: Some postings are a year of mud and shouting, others a desk in the capital. {N} wants to know who decides which, and what that person likes.
+scene R: Nobody asked {N}. Somebody in an office wrote a name on a list, and now the next year of {Ns} life belongs to them.
+scene G: {Ns} family has always answered the call: a great-grandparent in uniform still looks down from an old photograph in the hall.
+- W | report on the day the letter names, and serve your full term | binds | v: conformity, security | title: soldier | self_control: + | lever: loyalty | chance: 62
+- U | apply for a deferment to finish your studies, with every paper in order | binds | v: self-direction, achievement | chance: 62
+- B | ask around for the safest, best-paid posting, and pull strings to get it | binds | v: security, power | title: soldier | lever: subvert | chance: 57
+- R | tear up the letter, and dare them to come and find you | v: self-direction, stimulation | mark: defied an authority | closed: law: dodging the call-up; backfire: picked up at a roadside check, fined, and sent to serve under guard | law: conscription | title_if_fails: someone with a record | act: tear up the letter, and dare them to come and find them | chance: 58
+- G | ask to serve with the local unit, near home, as your family always has | binds | v: tradition, security | title: soldier | self_control: + | lever: loyalty | chance: 62
+- BG | claim the hardship exemption as the one who keeps the family going | v: security, benevolence | mark: stayed home | chance: 58
+- UB | take the job abroad you were offered, and leave before the date | v: self-direction, security | mark: moved away | moves: yes | requires: passport | title: immigrant | closed: law: leaving the country to escape the call-up; backfire: stopped at the border, and charged | law: conscription | pushes: state | chance: 65
+- UR | publish why you will not serve, and refuse the call in public | identity | v: universalism, self-direction | mark: defied an authority | closed: law: refusing the call-up; backfire: tried, and jailed for some months | law: conscription | title_if_fails: someone with a record | lever: voice | pushes: state | chance: 50
+- WG | object on conscience before the board, and serve in a care home instead | identity | v: universalism, benevolence | lever: voice | chance: 52
+- WR | volunteer for the toughest unit they have, and go gladly | binds | body: heavy | v: stimulation, security | title: soldier | mark: took a wild risk | lever: loyalty | chance: 65
+works: A year on, the letter is a story {N} tells at parties, and the choice has held.
+works: {N} comes out of it with a few friends for life, made in the hardest months.
+fails: The year goes badly from the first week, and {N} cannot wait for it to end.
+fails: The choice follows {N} for years: on forms, in interviews, in the way some people look at {N}.

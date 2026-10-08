@@ -1,0 +1,734 @@
+# Chroma library, modern Earth: TITLE MOMENTS of faith and causes (titles volume 2), an everyday pair per title that only its holder meets (holds:), and JOINING pairs open to anyone, where some acts take a new community or faith title (title:).
+# Syntax: header of build.py. Rules: library-spec.md. Brief: drafts/titles2/MOMENTS-BRIEF.md. Seeds: Emren's "Modern Earth: 100 More Titles" (each gated pair's first moment grows from the title's turning point).
+
+# ---------------------------------------------------------------- member of a monastic community (T2-080): calls RG (cycle s1) / calls WUB (cycle s2)
+
+== a hard companion in the quiet life
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-90
+calls: RG
+tone: trouble
+life: faith, home
+horizon: months
+roles: a fellow member, elder
+holds: member of a monastic community
+earth: the quiet life of the community still holds washing up, disagreement, and one member whose habits are hard to bear
+times: Nearly every member of a religious community, most years; bearing with a hard companion is an old theme of the monastic rules (estimate)
+gap: 0.8-1
+scene: The quiet life still has its washing up. Every evening {N} dries the plates beside the same member of the community, who hums the same four notes, bangs the cupboard doors and corrects how everyone else stacks the cups.
+scene W: The rule asks each member to bear the others' weaknesses with patience. {N} has said those words at morning prayer for three years, and tonight they sound like a test.
+scene U: {N} has started counting: eleven corrections tonight, nine of them about cups. Something lies underneath it, and {N} would like to know what.
+scene B: {N} gave up a salary, a flat and a career in the city to live like this, by choice. {N} did not give all that up to be told how to stack cups.
+scene R: The cupboard door bangs for the fourth time, and {N} grips the tea towel so hard the knuckles ache.
+scene G: The house has stood for two hundred years and outlived every quarrel inside it. The cups will still be stacked wrongly when both of them lie in the garden cemetery.
+- W | keep silence at the sink, and offer the irritation up at evening prayer | habit | v: tradition | self_control: + | chance: 92
+- U | ask them quietly what the four notes are, and really listen to the answer | v: benevolence | chance: 75
+- B | remind yourself that you chose this life, and let no one person spoil it | v: self-direction | self_control: + | chance: 90
+- R | tell them straight out, once, that the constant corrections are too much | v: none clear (honesty of feeling) | chance: 55
+- G | let their ways be part of the house, like the draughts and the bells | v: tradition (humility) | chance: 85
+- W>U | name their faults at the community's meeting, so the head of the house corrects them | v: conformity | mark: made an enemy | closed: approval: accusing a fellow member in front of the house; backfire: the house closes ranks around them | chance: 40
+- U>B | keep a private note of every correction, in case it ever comes to a complaint | habit | v: power | closed: approval: keeping a file on a fellow member; backfire: the note is found and the house takes sides | chance: 85
+- B>R | offer to take their turn at the pots if they leave your evenings in peace | v: self-direction, hedonism | chance: 75
+- R>G | ask them out on a walk round the fields after evening prayer, and talk | v: benevolence | chance: 65
+- G>W | ask the oldest member how the house has always borne such people, and do likewise | v: tradition, conformity | chance: 80
+works: By winter the evenings at the sink are quiet, and once or twice the two of them laugh.
+works: The irritation settles into the rest of the house's weather, and {N} sleeps well again.
+fails: The cupboard doors bang on, and {N} dreads the evening meal.
+fails: Word of the quarrel reaches the head of the house, and the whole community takes sides over cups.
+
+== the community's guesthouse needs a manager
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-90
+calls: WUB
+tone: mixed
+life: faith, home
+horizon: years
+roles: elder, a fellow member
+holds: member of a monastic community
+earth: the head of the community asks you to take over its guesthouse, which is losing money and guests
+times: Many members of religious communities, once or twice in a life; houses hand out duties like the guesthouse every several years (estimate)
+gap: 6-12
+scene: At the community's meeting the head of the house reads out the guesthouse accounts, worse than last year, and then asks {N} to take it over in the spring.
+scene W: Obedience was the first promise {N} made here. The head of the house has asked, and in this house that question usually has one answer.
+scene U: {N} has already been through the figures twice: empty rooms midweek, a website nobody updates, and a heating bill that eats everything else.
+scene B: The guesthouse brings in the only money that comes from outside, and whoever runs it deals with the bank, the council and the press.
+scene R: Booking forms and boilers, when {N} came here to pray. Part of {N} wants to laugh, and part of {N} wants to run.
+scene G: The guesthouse has taken in travellers since before the railway came, and the visitors' book on the hall table holds a hundred and forty years of names.
+- W | say yes, as your promise of obedience asks, and start in the spring | binds | v: conformity, tradition | mark: kept your word | chance: 85
+- U | go through the accounts line by line, and bring a plan to the next meeting | v: achievement | chance: 80
+- B | accept, and run it like a business, with your own targets for the year | v: achievement, power | chance: 65
+- R | admit you are no longer sure this life is right, and ask to leave | identity | v: self-direction | mark: left home | drops: member of a monastic community | self_control: - | chance: 80
+- G | ask to stay with the garden and the bees, where you know you belong | v: tradition, security | mark: stayed home | chance: 45
+- W>B | run it strictly by the book, and make the house independent of outside money | v: security, power | chance: 60
+- U>R | plan music weekends and walking retreats to bring the old place back to life | v: stimulation | chance: 40
+- B>G | sell the old annexe to a developer, so the main house stays the community's | v: security, tradition | mark: made an enemy | closed: approval: selling part of what the founders left; backfire: the older members never forgive it | chance: 45
+- R>W | throw yourself in, and paint every guest room before the first visitors of the year | body: light | v: benevolence | chance: 78
+- G>U | spend a season watching who comes and why, before changing anything | v: self-direction | chance: 65
+works: By summer the rooms are full on weekdays, and the boiler is paid for.
+works: The community accepts {Ns} answer, and the matter is settled without a quarrel.
+fails: The guesthouse loses more money than ever, and the community's meetings grow tense.
+fails: {Ns} answer leaves the head of the house disappointed, and the silence at meals feels heavier.
+
+# ---------------------------------------------------------------- congregation musician (T2-082): calls WUG (cycle s3) / calls BR (cycle s4)
+
+== the old harvest song in a hard year
+tier: everyday
+at: faith body
+rate: 0.5
+stages: young_adult adult mature elder
+age: 16-90
+calls: WUG
+tone: mixed
+life: faith, music
+horizon: week
+roles: parent, elder, the worship committee
+holds: congregation musician
+earth: the song that always closes the harvest service sings of full barns, in the year the town's factory closed
+times: Some congregation musicians, once or twice in a career; harvest comes every year, but a town's hard year far less often (estimate)
+gap: 6-12
+scene: For forty years the harvest service has closed with the same song about full barns and plenty. This spring the factory shut, and {N}, who chooses the music, sits at the keyboard with the order of service half written.
+scene W: The song is printed in the order of service every year, and the oldest members sing it without looking at the words. Changing it is not {Ns} choice alone.
+scene U: {N} plays the song through alone in the empty building, listening to the words: barns, plenty, hands that never want. Perhaps another verse, or another key.
+scene B: The congregation will remember who handled this well. {N} would like it to be the musician, not the committee.
+scene R: Singing about plenty to people who lost their jobs in the spring: the thought makes {Ns} throat tighten.
+scene G: {parent} sang this song at every harvest, and so did the grandparents. Songs like this have carried the town through hard years before.
+- W | take the question to the worship committee, and play whatever they decide | v: conformity | chance: 85
+- U | keep the tune everyone knows, and write new words for this year | identity | v: benevolence, self-direction | chance: 55
+- B | choose the music yourself, since choosing it is what the role is for | v: self-direction, power | chance: 75
+- R | play the old song slowly, as a lament, and let the room feel the year | v: benevolence | chance: 80
+- G | keep the old song as it is: it has carried the town through worse | identity | v: tradition | chance: 70
+- W>R | play the song as printed, then end with a fierce, joyful piece of your own | v: tradition, stimulation | chance: 72
+- U>G | find the old verse about lean years that newer songbooks dropped, and restore it | v: tradition | chance: 75
+- B>W | get the minister on side before the committee meets, so the matter is settled | v: power, security | chance: 65
+- R>U | improvise something new on the day, and see what the room makes of it | v: stimulation, self-direction | chance: 45
+- G>B | keep the old song, and let it be known the founding families would walk out | v: power, tradition | mark: made an enemy | closed: approval: using the old families as a threat; backfire: the newer members stop coming | chance: 35
+works: The last chord rings out, and several people in the pews are wiping their eyes.
+works: After the service the oldest member and the youngest both stop by the keyboard to thank {N}.
+fails: Half the congregation sings one thing and half another, and the service ends in a muddle.
+fails: A letter of complaint about the music reaches the office before the week is out.
+
+== a gifted newcomer at the keyboard
+tier: everyday
+at: faith body
+rate: 0.5
+stages: young_adult adult mature elder
+age: 16-90
+calls: BR
+tone: trouble
+life: faith, music
+horizon: months
+roles: rival, elder
+holds: congregation musician
+earth: a gifted newcomer plays better than you, and the congregation has started asking for them
+times: Many congregation musicians, once or twice in a career; a stronger player moving to town is a rare turn (estimate)
+gap: 6-12
+scene: {rival}, a student who moved to town in the autumn, played at the carol service while {N} was ill. Since then three people have asked when {rival} is playing again.
+scene W: {N} has played every week for nine years, through snow and two funerals in one week. The role was given by the congregation, and it is not a contest.
+scene U: {Ns} trained ear catches it at once: {rival} finds chords {N} has never thought to use, the kind that take years of study.
+scene B: {N} has the place on the rota, the keys to the building and a small fee every month, and has no intention of losing any of them.
+scene R: {rival} plays with a grin, and the whole room sways. {N} feels a hot sting of jealousy and, under it, the urge to play like that too.
+scene G: Every musician here was once the newcomer, {N} remembers, and every one of them was replaced in time.
+- W | offer the newcomer two services a month, and draw up a fair rota | v: universalism, benevolence | chance: 75
+- U | ask the newcomer to teach those chords, and practise them every evening | habit | v: achievement | mark: learned a skill | self_control: + | chance: 90
+- B | remind the council, before anyone asks, that the post and its fee are not open | v: power, security | chance: 85
+- R | ask the newcomer to play a duet at the next service, and give the room everything | v: stimulation | mark: made a friend | chance: 85
+- G | hand the role on to the newcomer, the way your own teacher once did | v: benevolence, tradition | drops: congregation musician | chance: 80
+- W>G | insist the newcomer serves a year on probation, as the old rules require | v: conformity, tradition | closed: approval: blocking a newcomer with procedure; backfire: the congregation hears why and takes the newcomer's side | chance: 45
+- U>W | write out arrangements for two players, so every service sounds fuller | v: benevolence | chance: 60
+- B>U | take the newcomer under your wing, learn all they know, and keep the main services | door | v: achievement, power | mark: learned a skill | chance: 50
+- R>B | play the hardest piece you know next week, so nobody forgets who the musician is | identity | v: power, achievement | chance: 65
+- G>R | stop fretting, and enjoy hearing someone else play from the pews for once | v: hedonism | chance: 90
+works: By spring the music is fuller than it has been in years, and nobody is counting who plays when.
+works: {N} plays at the next feast, and the room sways the way it did for {rival}.
+fails: The congregation splits into those who want {N} and those who want {rival}.
+fails: {rival} stops coming altogether, and people blame {N}.
+
+# ---------------------------------------------------------------- civil-liberties campaigner (T2-086): calls WR (cycle s1) / calls UBG (cycle s2)
+
+== defending a speaker you cannot stand
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: WR
+tone: trouble
+life: cause, community
+horizon: months
+roles: colleague, the street preacher, the campaign's lawyer
+holds: civil-liberties campaigner
+earth: the campaign is asked to defend a street preacher banned from the market square, whose views you find hateful
+times: Most civil-liberties campaigners, every few years; defending speech they hate is a classic test of the cause (the ACLU and Skokie, 1977)
+gap: 3-6
+scene: A street preacher whose views {N} finds hateful has been banned from the market square under a vague new bylaw, and the campaign's lawyer wants {N} to speak for his right at the hearing.
+scene W: The bylaw lets an officer ban anyone whose speech "causes annoyance". Today it is the preacher; the rule does not care who comes next.
+scene U: {N} reads the bylaw, then the preacher's leaflets, then the bylaw again. The legal question and the personal one are not the same question.
+scene B: The hearing will be in the papers, and whoever argues it well becomes the name people call next time.
+scene R: {N} has heard what he shouts in the square, and standing beside him turns {Ns} stomach. A ban on speech makes {N} angrier still.
+scene G: The market square has heard preachers, hawkers and drunks for six hundred years, and the town has always found a way to live with its loudmouths.
+- W | speak for his right at the hearing, and say plainly that you reject his views | identity | v: universalism | chance: 70
+- U | write a careful brief on why the bylaw is too vague to stand | v: universalism, achievement | chance: 70
+- B | take the case on for the attention it will bring the campaign | v: power | chance: 85
+- R | refuse to stand beside him, and say why at the campaign meeting | v: self-direction | chance: 92
+- G | let others argue this one, and keep your strength for causes closer to home | v: security | chance: 90
+- W>U | hold the campaign to its rule: every case judged on the law, not the person | v: universalism | chance: 90
+- U>B | pass a journalist the council emails you were copied into by mistake | v: power | mark: made an enemy | closed: law: using documents sent in error; backfire: a complaint, and the campaign's name in the story | chance: 45
+- B>R | take the case only if you never have to share a platform with him | v: self-direction | chance: 75
+- R>G | go to the square and talk with him face to face, one person to another | door | v: benevolence, universalism | chance: 55
+- G>W | propose the town's old answer: a set corner and a set hour for street speakers | v: tradition, security | chance: 20
+works: The bylaw is suspended, and nobody mistakes {Ns} defence of the right for agreement with the man.
+works: {N} comes out of the week able to look everyone in the eye, and the campaign holds together.
+fails: A photo of {N} beside the preacher goes round the town, and old friends stop calling.
+fails: The hearing upholds the ban, and the campaign argues about the case for months.
+
+== a seat on the council's camera panel
+tier: everyday
+at: council
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-85
+calls: UBG
+tone: mixed
+life: cause, community
+horizon: months
+roles: colleague, a councillor, grandparent
+holds: civil-liberties campaigner
+earth: the council offers the campaign a seat on its panel on new face-recognition cameras, if the court challenge is dropped
+times: Some campaigners, once or twice in a life; councils often offer a seat at the table in place of a fight (estimate)
+gap: 6-12
+scene: The council wants face-recognition cameras in the town centre. It offers the campaign a seat on its advisory panel, on one condition: the court challenge goes away.
+scene W: A legal challenge is the proper route, and the campaign promised its supporters it would see the case through to the end.
+scene U: {N} reads the panel's terms of reference: advisory only, meetings in private, minutes approved by the council. The trap is in the wording.
+scene B: A seat at the table means early drafts and the ear of the people who decide. The court case could take three years, and might lose.
+scene R: {N} feels the old fury rise at the idea of being bought off with a chair and a lanyard.
+scene G: The cameras will stand on those lamp posts for twenty years or more. {N} thinks about the streets {Ns} grandchildren will walk.
+- W | refuse the seat, as the campaign promised its supporters it would fight in court | identity | v: conformity, universalism | mark: kept your word | self_control: + | chance: 75
+- U | go through the panel's terms line by line, and propose new wording first | v: self-direction, achievement | chance: 50
+- B | take the seat, and shape the cameras from the inside | v: power | mark: broke your word | chance: 60
+- R | stand up in the council meeting and say exactly what the offer is | identity | v: self-direction | mark: defied an authority | chance: 85
+- G | hand the campaign to younger members, and give your evenings back to home | v: benevolence, security | drops: civil-liberties campaigner | self_control: - | chance: 75
+- W>B | accept, but only in writing, with public minutes, and hold them to it | v: power, security | chance: 20
+- U>R | map every camera site and publish the map, so people can choose their routes | identity | v: self-direction, universalism | mark: defied an authority | chance: 90
+- B>G | trade the seat for cameras kept out of the park and the side streets | v: security | chance: 35
+- R>W | lead a sit-in at the council chamber until the offer is withdrawn | body: light | v: universalism | closed: law: occupying a council building; backfire: removed by the police and charged | chance: 20
+- G>U | wait and watch how the cameras work in the next town before choosing a side | door | v: security, self-direction | chance: 70
+works: The council backs down on the worst of it, and the campaign keeps its supporters.
+works: The choice holds up over the year, and the campaign comes out of it stronger than it went in.
+fails: The cameras go up anyway, and the campaign splits over who sold out whom.
+fails: The council quietly drops the offer, and the court case drags on with no money left.
+
+# ---------------------------------------------------------------- digital-rights advocate (T2-088): calls UB (cycle s3) / calls WRG (cycle s4)
+
+== the free app the volunteers want
+tier: everyday
+at: charity
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-80
+calls: UB
+tone: mixed
+life: cause, community
+horizon: months
+roles: colleague, the food bank's coordinator
+holds: digital-rights advocate
+earth: the food bank's volunteers want a free app that would make their work easier, and nobody knows who would keep its records
+times: Most digital-rights advocates, every year or two; small charities often take up free tools from big companies (estimate)
+gap: 2-4
+scene: The food bank's volunteers are tired of the shared spreadsheet and want the free app a big company offers charities. They ask {N}, and nobody can say who would keep the names and addresses of the families they help.
+scene W: There are rules about keeping records on people who come for help, and someone has to answer for them. In this group that someone tends to be {N}.
+scene U: {N} reads the terms of service at the kitchen table: forty pages, and the word "partners" on almost every one.
+scene B: Whoever picks the system decides what the group can see and do. {N} would rather that was someone who understands it.
+scene R: The volunteers are worn out, and the old spreadsheet crashes every Friday. {N} feels the pull to say yes and get on with feeding people.
+scene G: The group has run on paper lists, then a spreadsheet, for twenty years. Whatever it uses next has to outlast the people who set it up.
+- W | warn the coordinator you will report the group to the regulator if it signs up | v: conformity, security | mark: made an enemy | closed: approval: threatening your own volunteers with the regulator; backfire: the group goes ahead and drops you from the rota | chance: 40
+- U | read all forty pages, and tell the group plainly what happens to the data | v: universalism, self-direction | chance: 85
+- B | build the group a simple system of your own, so you control who sees what | binds | v: power, self-direction | mark: learned a skill | chance: 50
+- R | say yes to the app, and get on with feeding people | v: benevolence | chance: 85
+- G | keep the old spreadsheet a while longer, and patch it as you always have | habit | v: tradition, security | chance: 60
+- W>R | write a short data policy, then let the volunteers pick any tool that meets it | v: self-direction, security | chance: 85
+- U>G | find an open tool run by a charity that will outlast any one volunteer | v: universalism, security | chance: 55
+- B>W | make yourself the group's data officer, so every records decision goes through you | v: power, security | chance: 75
+- R>U | try the app for one weekend with made-up names, and see what breaks | v: stimulation, self-direction | chance: 80
+- G>B | keep your own paper copy of the families' list, as the old volunteers always did | v: security, power | closed: law: holding people's details outside the rules; backfire: a complaint to the data regulator | chance: 90
+works: The volunteers get their easier Fridays, and the families' details stay where they should.
+works: Six months on, the group's records are tidier than they have ever been, and nobody worries about who holds them.
+fails: A stranger writes asking what the group holds about them, and nobody knows how to answer.
+fails: The argument over the app splits the volunteers, and two of the best leave.
+
+== the town website's keeper wants out
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-80
+calls: WRG
+tone: mixed
+life: cause, community
+horizon: months
+roles: elder, colleague
+holds: digital-rights advocate
+earth: the retired volunteer who has kept the town's community website and photo archive running for fifteen years is giving it up
+times: Some digital-rights advocates, once or twice in a life; many community websites rest on one volunteer (estimate)
+gap: 8-15
+scene: For fifteen years {elder} has kept the town's community website running alone: the noticeboard, the bus times, the photo archive of every flood and fair. The hosting runs out next month, and the email lands in {Ns} inbox.
+scene W: Thousands of people use that site every week, and none of them know who pays for it. It needs a committee and a bank account, not one tired volunteer.
+scene U: {N} logs in and finds the code: old, patched by hand, held together by one person's memory.
+scene B: The site has more local readers than the newspaper. Whoever takes it over will have the town's ear.
+scene R: Fifteen years of photos could vanish with one unpaid bill. {N} is half out of the chair already.
+scene G: The site is like the old noticeboard outside the post office: nobody owns it and everybody needs it. Things like that last only while someone tends them.
+- W | set up a small trust with a committee, so the site never hangs on one person | v: security, universalism | chance: 70
+- U | move the archive onto modern, documented software over the winter | v: achievement | mark: learned a skill | chance: 60
+- B | take the site over yourself, and keep the final say on what goes on it | v: power | chance: 90
+- R | start a fundraiser that night, and tell the town what it is about to lose | v: universalism, stimulation | chance: 65
+- G | sit with the old keeper each week, and learn how every piece of it works | v: tradition, benevolence | mark: learned a skill | self_control: + | chance: 75
+- W>G | ask the library to take the archive into its public collection for good | v: tradition, universalism | chance: 75
+- U>W | write clear instructions, so any later volunteer could keep it running | v: benevolence | chance: 75
+- B>U | sell local advertising on the site to pay a developer to rebuild it properly | v: achievement | chance: 55
+- R>B | copy the whole site that night, and relaunch it under your own name | v: power, stimulation | closed: law: republishing other people's photos without permission; backfire: takedown notices and an angry old keeper | chance: 40
+- G>R | throw a party in the town hall for the old keeper and the fifteen years | v: benevolence, hedonism | chance: 50
+works: The site stays up, the photos stay online, and the old keeper sends a two-line email of thanks.
+works: By spring the town's website has new hands behind it and a plan for the next fifteen years.
+fails: The hosting lapses for a week, and half the photo archive is lost in the move.
+fails: The site survives, but the town quarrels over who runs it now.
+
+# ================================================================ JOINING MOMENTS: open to anyone in the age window (no holds:); some acts take a new title (title:)
+# ---------------------------------------------------------------- choir member (T2-059) / amateur band member (T2-073): calls WG (cycle s1) / calls UBR (cycle s2)
+
+== an open rehearsal at the community choir
+tier: everyday
+rate: 0.0008
+stages: juvenile young_adult adult mature elder
+age: 14-85
+calls: WG
+tone: joy
+life: community, music
+horizon: months
+roles: friend, the conductor
+earth: the community choir holds an open rehearsal where anyone may come and sing, no audition needed
+times: Many adults, a few times in a life; about 1 in 6 Americans sing in a choir (Chorus America 2019)
+gap: 6-12
+scene: A poster at the library says the community choir is holding an open rehearsal on Tuesday: no audition, tea afterwards. {N} goes along, and is handed a folder of music at the door.
+scene W: The choir has sung at every town winter concert for fifty years. The folder comes with a rehearsal calendar and the dates of the year's concerts.
+scene U: {N} cannot quite read music, but by the second piece the shapes on the page are starting to make sense.
+scene B: The conductor mentions a solo in the spring concert, still uncast. {N} has sung alone in the car for years and wonders what this room would make of it.
+scene R: Forty voices hit the first chord together, and the hair on {Ns} arms stands up.
+scene G: {friend} has sung alto here for twenty years, and pats the empty chair alongside.
+- W | sign up for the term, and come to every rehearsal | habit | v: conformity, benevolence | title: choir member | requires: singing | without: approval | lacking: .8 | chance: 92
+- U | sit in the back row and listen, to work out how the parts fit | v: self-direction | chance: 95
+- B | join, and put your name down straight away for the spring solo | identity | v: achievement | title: choir member | requires: singing | without: approval | lacking: .4 | chance: 50
+- R | sing your heart out tonight, and leave without signing anything | v: hedonism | chance: 95
+- G | take the empty chair beside your friend in the altos, and stay | v: benevolence, tradition | title: choir member | requires: singing | without: approval | lacking: .8 | chance: 82
+- W>U | ask for the recordings of each part, and decide once you can sing one piece | v: self-direction | chance: 85
+- U>B | ask about the city's chamber choir instead, where the singers are stronger | door | v: achievement | chance: 20
+- B>R | book private singing lessons instead, and sing what you like | v: self-direction, hedonism | chance: 92
+- R>G | talk a neighbour into coming along next week, and decide together then | v: benevolence, hedonism | chance: 55
+- G>W | join, because your family has sung in the town choir for three generations | binds | v: tradition | title: choir member | requires: singing | without: approval | lacking: .8 | chance: 80
+works: By the spring concert {N} knows every note of {Ns} part and every face in the room.
+works: {N} walks home humming, sure of the choice.
+fails: {N} spends the evening a beat behind everyone else, and leaves feeling foolish.
+fails: The choir's hall is closed for repairs the next month, and the plan comes to nothing.
+
+== a band that needs a drummer
+tier: everyday
+rate: 0.0008
+stages: juvenile young_adult adult mature elder
+age: 14-85
+calls: UBR
+tone: joy
+life: community, music
+horizon: months
+roles: friend, parent, the band
+earth: a card in the music shop: local band seeks drummer, rehearsals on Thursdays in a garage
+times: Uncommon: perhaps 1 in 10 adults who once played an instrument meet such a call and weigh it, a few times in a life (estimate)
+gap: 6-12
+scene: A card pinned up in the music shop says: band seeks drummer, covers and a few songs of our own, Thursdays in a garage on the edge of town. {N} played drums at school and has barely touched a kit since.
+scene W: The card asks for someone reliable who will come every Thursday, and {N} knows that is half the job.
+scene U: {N} finds the band online: three videos, good songs, and a drummer problem anyone can hear.
+scene B: The band plays the pubs around town, and the singer apparently knows someone who books the summer festival. A seat behind the kit could open doors.
+scene R: {N} drums the shop's music on the counter without noticing, and the old itch is back.
+scene G: {Ns} old drum kit is still under a sheet in the loft at {parent}'s house, where it has waited since school.
+- W | tell them honestly that every Thursday is too much, and offer to stand in | v: conformity, benevolence | chance: 70
+- U | learn their whole set note for note before ringing the number | v: achievement | title: amateur band member | self_control: + | requires: musical instrument | without: approval | lacking: .6 | chance: 85
+- B | offer to drum at the festival only, and see who is watching | door | v: achievement | chance: 60
+- R | turn up on Thursday, sit down at the kit, and play | habit | v: stimulation, hedonism | title: amateur band member | requires: musical instrument | without: approval | lacking: .3 | chance: 70
+- G | bring the old kit down from the loft, and teach a nephew or niece to play | v: benevolence, tradition | chance: 50
+- W>B | agree in writing how gig money and song credits are shared, before anything else | v: security, power | chance: 50
+- U>R | work out their songs' patterns, then jam with them once, just for fun | v: stimulation, self-direction | chance: 92
+- B>G | sell the old kit, and put the money toward a family holiday | v: security, benevolence | chance: 95
+- R>W | join, and swear to the others you will never miss a Thursday | binds | v: benevolence, conformity | title: amateur band member | requires: musical instrument | without: approval | lacking: .4 | chance: 75
+- G>U | hear them at the pub first, and see if they are your sort of people | v: self-direction | chance: 85
+works: By the third Thursday the songs lock together, and the singer turns round grinning.
+works: {N} goes home with sore wrists and a clear head about what comes next.
+fails: The first rehearsal falls apart at the second song, and nobody rings back.
+fails: The band splits a month later over who gets to choose the songs.
+
+# ---------------------------------------------------------------- repair-cafe volunteer (T2-061) / community-kitchen volunteer (T2-075): calls UR (cycle s3) / calls WBG (cycle s4)
+
+== a broken lamp at the repair cafe
+tier: everyday
+rate: 0.0004
+stages: young_adult adult mature elder
+age: 16-85
+calls: UR
+tone: joy
+life: community, volunteering
+horizon: months
+roles: grandparent, the volunteers
+earth: you take a broken lamp to the monthly repair cafe, and the volunteers are short of hands
+times: Uncommon: perhaps 1 in 20 adults, a few times in a life; repair cafes now run in thousands of towns (Repair Cafe International; estimate)
+gap: 6-12
+scene: {N} takes a broken lamp to the monthly repair cafe in the church hall. The fixer at the electrics table mends it in ten minutes, nods at the queue and asks whether {N} knows one end of a screwdriver from the other.
+scene W: Every repair goes in a logbook and is safety-tested before it leaves the table. The cafe runs on volunteers who come every month, and it is two short.
+scene U: The lamp had a loose wire in the switch, obvious once {N} saw it. There is a queue of toasters, radios and a sewing machine, and {N} itches to know what is wrong with each.
+scene B: The cafe is the busiest morning in the hall, and the people who run it know half the town. {N} could make use of that.
+scene R: An old man at the next table is wrestling with a jammed sewing machine and swearing at it cheerfully. {N} wants a go.
+scene G: Here things are mended, not thrown away, the way {grandparent} did it, with a tin of odd screws and endless patience.
+- W | sign up for the monthly rota, keeping the logbook and the safety tests | v: benevolence, conformity | title: repair-cafe volunteer | requires: fixing things | without: approval | lacking: .7 | chance: 90
+- U | take a seat at the electrics table, and learn by fixing the next toaster | habit | v: self-direction, benevolence | mark: learned a skill | grants: fixing things | chance: 75
+- B | offer to fix things privately for cash, at half what the shops charge | habit | v: power, achievement | closed: approval: poaching the free cafe's customers; backfire: the organisers ask you to stay away | chance: 85
+- R | take on the jammed sewing machine with the old man, and stay till it runs | door | v: stimulation | mark: made a friend | self_control: + | chance: 60
+- G | come back each month, and mend things slowly with the regulars, the old way | v: tradition, benevolence | title: repair-cafe volunteer | requires: fixing things | without: approval | lacking: .5 | chance: 82
+- W>R | agree to help one morning a month, strictly two hours and no more | v: self-direction | chance: 85
+- U>G | write a simple guide to mending the five things people bring most, for the library | v: universalism | chance: 90
+- B>W | use your contacts to get the cafe a free room in the town hall every month | v: benevolence, power | chance: 45
+- R>U | take your own lamp apart again at home, just to see how it works | habit | v: stimulation, self-direction | chance: 95
+- G>B | bring everything you own to be mended from now on, and never buy new | habit | v: security | chance: 50
+works: The lamp goes home working, and {N} goes home with the date of the next cafe in the diary.
+works: Within a few months {N} can tell what is wrong with a toaster by the smell.
+fails: The sewing machine defeats everyone, and the old man goes home with it in pieces.
+fails: {N} blows a fuse in the hall, and the morning ends early in the dark.
+
+== a community kitchen short of hands
+tier: everyday
+rate: 0.0004
+stages: young_adult adult mature elder
+age: 16-85
+calls: WBG
+tone: mixed
+life: community, volunteering
+horizon: months
+roles: elder, the regulars
+earth: the community kitchen two streets away needs volunteers for its weekday lunches
+times: Many adults see such a call every few years; about 1 in 4 Americans volunteer through a group, food work most of all (AmeriCorps 2021)
+gap: 3-6
+scene: The community kitchen two streets away serves sixty hot lunches every weekday, and the sign on the door asks for hands on Tuesdays and Thursdays. {N} goes in to ask, and is handed an apron.
+scene W: The kitchen runs on a rota pinned by the door, a hygiene certificate on the wall and a promise that lunch is served at twelve, every day, whoever turns up.
+scene U: {N} watches the queue and the kitchen together: forty minutes lost every day waiting for the one oven that works.
+scene B: The people who eat here also cook here, wash up here and argue about the menu. Nobody tells anybody what they deserve.
+scene R: The kitchen is loud, hot and full of laughter, and someone has put music on over the clatter of pans.
+scene G: The soup comes from the same stock pot it has for eleven years, and {elder}, who started the place, still tastes every batch.
+- W | do the hygiene course, and take a weekly shift on the rota | habit | v: benevolence, conformity | title: community-kitchen volunteer | grants: food hygiene certificate | chance: 75
+- U | work out why the lunch queue is so slow, and draw up a better system | v: achievement, benevolence | chance: 55
+- B | take the Thursday lunch as your own, with your own menu and your own team | identity | habit | v: achievement, self-direction | title: community-kitchen volunteer | requires: food hygiene certificate | without: approval | lacking: .5 | chance: 75
+- R | pitch in for the afternoon, then leave without putting your name on any list | v: hedonism, benevolence | chance: 92
+- G | help the founder with the soup every Tuesday, and learn the old recipes | binds | v: tradition | mark: learned a skill | title: community-kitchen volunteer | requires: food hygiene certificate | without: approval | lacking: .8 | chance: 80
+- W>G | organise a monthly gift of vegetables from the allotments to the kitchen | v: benevolence, universalism | mark: helped someone in need | chance: 50
+- U>W | design a proper rota system, hand it to the manager, and leave it there | v: benevolence | chance: 75
+- B>U | trade a month of shifts for the cook's recipes and know-how, then move on | v: achievement, self-direction | mark: learned a skill | chance: 90
+- R>B | start a Friday evening meal of your own in the kitchen, cooked by whoever comes | v: achievement, stimulation | title: community-kitchen volunteer | requires: food hygiene certificate | without: approval | lacking: .5 | chance: 45
+- G>R | stay for lunch as a guest, eat with the regulars, and enjoy it | v: hedonism, benevolence | mark: made a friend | chance: 90
+works: By the end of the month {N} knows the regulars by name, and the lunches go out on time.
+works: The kitchen gets what it needed from {N}, and {N} walks home tired and glad.
+fails: The kitchen descends into a row about the rota, and {N} is caught in the middle.
+fails: Lunch is forty minutes late, the soup burns, and the regulars let everyone know.
+
+# ---------------------------------------------------------------- search-and-rescue volunteer (T2-066) / lifeboat volunteer (T2-067): calls WU (cycle s1) / calls BRG (cycle s2)
+
+== a recruitment evening for the rescue team
+tier: everyday
+at: charity
+rate: 0.0001
+stages: young_adult adult mature
+age: 18-55
+calls: WU
+tone: mixed
+life: community, rescue
+horizon: years
+roles: the team leader, partner
+earth: the local search-and-rescue team holds a recruitment evening: two years of training, unpaid, on call at any hour
+times: Rare: mostly people in hill or wild country, once or twice in a life; mountain and cave rescue teams are almost all unpaid volunteers (estimate)
+gap: 8-15
+scene: The local search-and-rescue team holds a recruitment evening in the village hall. The team leader is plain about it: two years of training, a pager that goes off at three in the morning, and nobody gets paid.
+scene W: The team has found every lost walker in the valley for forty years, because twenty-eight people agreed to drop everything when the pager goes.
+scene U: The training plan on the wall lists eleven modules: navigation in the dark, ropes, casualty care, radio procedure. {N} wants to know how it all fits together.
+scene B: Very few people can say they carried someone off a mountain. {N} wonders what it would take to be one of them, and what it would make of {N}.
+scene R: A rescuer shows a photograph of a stretcher carried down a gully in a storm, and {Ns} pulse quickens.
+scene G: {N} has walked these hills since childhood and knows every sheep track. The hills have taken lives before, and they will again.
+- W | sign up, and commit to answering the pager at any hour of the night | binds | v: benevolence, security | title: search-and-rescue volunteer | grants: first-aid certificate | requires: navigation | without: approval | lacking: .6 | chance: 55
+- U | apply for the training, and study every module before it begins | binds | v: achievement | mark: learned a skill | title: search-and-rescue volunteer | requires: navigation | without: approval | lacking: .8 | chance: 55
+- B | ask the leader straight out what the training would do for your career | v: achievement | chance: 95
+- R | put your name down tonight, before the doubts can talk you out of it | binds | v: stimulation, benevolence | title: search-and-rescue volunteer | requires: navigation | without: approval | lacking: .5 | chance: 55
+- G | keep walking your hills, and show the team where the old tracks run | v: tradition, benevolence | mark: helped someone in need | chance: 80
+- W>U | ask for the training manual, and sit the night navigation course before deciding | door | v: self-direction | mark: learned a skill | chance: 85
+- U>B | offer to run the team's maps and data from home, without taking the pager | v: achievement, power | tech: computer | chance: 65
+- B>R | turn down the pager, but enter the team's winter fell race | v: stimulation | mark: turned down a chance | chance: 85
+- R>G | say it is not your calling, and take the family up the hills on Sunday | v: benevolence, hedonism | mark: turned down a chance | chance: 95
+- G>W | offer the team your barn or garage to store its kit, instead of joining | v: benevolence | chance: 92
+works: By spring {N} is out on a training night with the team, rain running off the hood.
+works: {N} goes home with a clear answer, and no regrets about it.
+fails: Selection weeds out half the recruits, and {N} is among them.
+fails: The first winter of call-outs strains things at home more than {N} expected.
+
+== the lifeboat station calls for crew
+tier: everyday
+rate: 0.0001
+stages: young_adult adult mature
+age: 18-55
+calls: BRG
+tone: mixed
+life: community, rescue
+horizon: years
+roles: the coxswain, friend
+earth: the lifeboat station puts out a call for new crew: selection, sea training, and a pager by the bed
+times: Rare: mostly people in coastal towns with a station, once or twice in a life; most lifeboat crews in Britain and Ireland are volunteers (RNLI)
+gap: 8-15
+scene: A banner on the lifeboat station says it needs crew. The coxswain, a plasterer by day, tells {N} the pager can go off in the middle of a holiday dinner, and that it has.
+scene W: The lifeboat has launched from this slipway for a hundred and fifty years, crewed by whoever in the town said yes. Lately, fewer have.
+scene U: {N} reads the crew requirements: fitness test, sea survival, casualty care, training every week. It amounts to a second education.
+scene B: {N} has been drifting, if truth be told: the same job, the same pub. Here is something hard that would belong to {N} alone.
+scene R: The boat goes down the slipway in a roar of spray while the crowd on the harbour wall cheers, and {N} cheers loudest.
+scene G: The names of drowned fishermen are carved on the stone by the harbour, two of them brothers of {Ns} great-grandfather.
+- W | help on the station's open days, and leave the pager to others | v: benevolence, conformity | chance: 95
+- U | watch a training night first, and read up on sea survival | v: self-direction | chance: 95
+- B | go through selection, to prove you can do something this hard | identity | v: achievement | title: lifeboat volunteer | self_control: + | requires: swimming | without: approval | lacking: .3 | chance: 50
+- R | apply that night, and start swimming in the harbour every morning to get fit | habit | binds | v: stimulation, achievement | title: lifeboat volunteer | self_control: + | requires: swimming | without: approval | lacking: .7 | chance: 55
+- G | join the crew, as people in your family have done for generations | identity | binds | v: tradition | title: lifeboat volunteer | requires: swimming | without: approval | lacking: .4 | chance: 50
+- W>B | organise the station's big fundraising swim, and see your name in the paper | v: achievement, power | chance: 60
+- U>R | learn to sail at the harbour club instead, for the sheer joy of the sea | door | v: hedonism, stimulation | chance: 80
+- B>G | join the crew, and talk your employer into releasing you for call-outs | binds | v: benevolence, achievement | title: lifeboat volunteer | requires: swimming | without: approval | lacking: .4 | chance: 65
+- R>W | help haul the boat back up the slipway after the launch, there and then | body: heavy | v: benevolence | chance: 90
+- G>U | ask the old fishermen in the harbour bar what this sea is really like | door | v: tradition, self-direction | chance: 75
+works: Six months later {N} is in a helmet on the slipway at dawn, soaked and grinning.
+works: {N} settles the question for good, and the harbour feels like home either way.
+fails: {N} misses the fitness standard by a few seconds, and the coxswain says to try again next year.
+fails: A call-out on the night of a family wedding starts a row that lasts for weeks.
+
+# ---------------------------------------------------------------- school-governance board member (T2-068) / parent-association organiser (T2-069): calls BG (cycle s3) / calls WUR (cycle s4)
+# Gate: both moments are for parents (needs: children, the commitment gate; Library 14:00), ages 25 to 60. The engine
+# could narrow it further to a school-age child at home (kids_home).
+
+== a vacancy for a parent governor
+tier: everyday
+at: school
+rate: 0.0024
+stages: adult mature
+age: 25-60
+calls: BG
+tone: mixed
+life: children, school
+needs: children
+horizon: years
+roles: child, parent, the head teacher
+earth: the school needs a parent governor, and the board will decide the budget and a merger with the school across town
+times: Most parents of school children, every few years; England has about 250,000 school governors and trustees, all volunteers (National Governance Association)
+gap: 3-6
+scene: A letter comes home in {child}'s book bag: the school needs a parent governor, nominations close on Friday, and the board will decide the budget and whether to merge with the school across town.
+scene W: Governors read the reports, sign off the budget and hold the head teacher to account. Someone ought to do it properly.
+scene U: {N} finds last year's minutes on the school website: falling numbers, a deficit, and a merger proposal nobody has explained.
+scene B: The merger will decide which building stays open and who runs it. The people at that table decide more than the dinner menu.
+scene R: {N} is furious that a merger could be settled in meetings most parents never hear about.
+scene G: {N} went to this school, and so did {parent}. The oak in the playground has been climbed by four generations.
+- W | stand for the seat, and promise to read every report before every meeting | binds | v: conformity, universalism | title: school-governance board member | requires: good name in town | lacking: .6 | chance: 50
+- U | study the merger papers first, then stand on what the numbers show | identity | binds | v: achievement | title: school-governance board member | requires: good name in town | lacking: .6 | chance: 50
+- B | stand, and canvass the parents at the gate every morning until Friday | binds | habit | v: power, achievement | title: school-governance board member | requires: good name in town | lacking: .7 | chance: 65
+- R | stand up at the parents' evening and demand the merger go to every family | v: self-direction, universalism | mark: defied an authority | chance: 40
+- G | campaign at the gate for a candidate from one of the old village families | v: tradition | closed: approval: shutting newer families out; backfire: the newer families organise and win | chance: 40
+- W>R | nominate the most outspoken parent at the gate, who would shake the board up | v: self-direction | chance: 45
+- U>G | dig out the school's history and the village's figures, and send them to the board | v: tradition, universalism | chance: 55
+- B>W | lobby the head teacher privately to drop the merger, without standing for the seat | v: power, security | closed: approval: lobbying behind the other parents' backs; backfire: it comes out at the next meeting | chance: 20
+- R>U | start a parents' group chat that night to find out what everyone knows | v: stimulation, universalism | tech: phone | chance: 92
+- G>B | stand, to keep the school in the village and its playing field out of developers' hands | identity | binds | v: tradition, power | title: school-governance board member | requires: good name in town | lacking: .6 | chance: 55
+works: {N} comes out of the year knowing exactly where the school's money goes, and so do the other parents.
+works: The merger question goes to a proper vote, and the families have their say.
+fails: The election goes to a parent nobody has met, and the merger goes through at a meeting in July.
+fails: The row over the merger turns the school gate into two camps.
+
+== the parents ask you to run the year's events
+tier: everyday
+at: school
+rate: 0.0024
+stages: adult mature
+age: 25-60
+calls: WUR
+tone: joy
+life: children, school
+needs: children
+horizon: years
+roles: friend, child, the head teacher
+earth: the parent association's organiser is stepping down, and the other parents turn to you to run the year's events
+times: Some parents, once or twice while their children are at school; parent associations lean on a few organisers (estimate)
+gap: 5-10
+scene: At the end of the parent association's meeting the organiser of six years says this will be their last, and every head in the room turns toward {N}.
+scene W: There is a summer fair, a quiz night and a book sale to run, a bank account to keep, and a promise to the head teacher about the new playground.
+scene U: The association raised a tenth of what it raised five years ago. {N} has a fair idea why, and a few ideas about how to fix it.
+scene B: The organiser talks to the head every week, sits in on the governors' meetings and knows exactly where the money goes.
+scene R: The climbing frame was condemned in March, and the children have had nowhere to climb since. {N} is tired of waiting for someone to do something.
+scene G: {friend} ran the fair when their own children were small, and still bakes for it every year.
+- W | say yes, and set up a committee so the work is shared fairly | v: conformity, benevolence | title: parent-association organiser | chance: 80
+- U | offer to work out why the money fell, and leave the organising to others | v: achievement | chance: 92
+- B | say no, and give the evenings to your own career instead | v: achievement | mark: turned down a chance | chance: 95
+- R | say yes, and promise the children a new climbing frame by summer | binds | v: benevolence, stimulation | title: parent-association organiser | chance: 65
+- G | say no, and keep baking for the fair as you always have | habit | v: tradition | chance: 95
+- W>G | run only the summer fair, the way it was always run, and pass on the rest | v: tradition | chance: 90
+- U>W | take the role, and rebuild how the association collects and reports its money | binds | v: achievement, security | title: parent-association organiser | chance: 70
+- B>U | take the role, and use the seat to learn how the school budget really works | binds | v: power, self-direction | title: parent-association organiser | chance: 85
+- R>B | put your friend forward loudly in front of everyone, so you can stay free | v: self-direction | closed: approval: volunteering a friend in public without asking; backfire: the friend is furious, and the room sees it | chance: 70
+- G>R | suggest the next meeting be a picnic in the park, children and all | v: hedonism, benevolence | chance: 75
+works: The summer fair raises more than it has in years, and the climbing frame is ordered.
+works: The meeting ends with the year's events shared out, and nobody left holding everything.
+fails: By May the committee has shrunk to two people and a cash box.
+fails: The fair is rained off, and the year's plans fall apart in the group chat.
+
+# ---------------------------------------------------------------- lay religious teacher (T2-081) / interfaith-dialogue participant (T2-083): calls WB (cycle s1) / calls URG (cycle s2)
+
+== the congregation needs someone to teach the class
+tier: everyday
+at: faith body
+rate: 0.0009
+stages: young_adult adult mature elder
+age: 18-85
+needs: faith
+calls: WB
+tone: mixed
+life: faith, community
+horizon: years
+roles: elder, grandparent
+earth: the congregation asks for someone to lead its weekly class for people preparing to join the faith
+times: Some regular worshippers, once or twice in a life; congregations lean on lay volunteers to teach (estimate)
+gap: 6-12
+scene: For the third week running the notice sheet asks for someone to lead the Wednesday class for people preparing to join the faith. After the service {elder} catches {Ns} arm on the steps.
+scene W: The class has met every Wednesday for thirty years. It has a syllabus, a shelf of books, and a dozen people waiting for someone to open the door.
+scene U: {N} has questions about the old texts that {N} has never dared to ask aloud. Teaching them would mean finding the answers.
+scene B: The class leader stands before the whole congregation twice a year and is asked onto every committee. It is a way to be known here.
+scene R: {N} remembers the teacher who made the old stories feel like news, and the shiver of hearing them told well.
+scene G: {grandparent} taught this class once, from the same worn books, and {N} still has the notes in the margins.
+- W | agree to lead it, and teach the syllabus as it has been taught for years | binds | identity | v: tradition, conformity | title: lay religious teacher | requires: scripture | without: approval | lacking: .6 | chance: 75
+- U | ask to sit in on the class for a term before deciding anything | v: self-direction | chance: 92
+- B | offer to chair the class committee instead, and leave the teaching to others | v: power | chance: 60
+- R | say yes on the steps, and teach it through the stories that moved you | v: benevolence, stimulation | title: lay religious teacher | requires: scripture | without: approval | lacking: .7 | chance: 75
+- G | suggest an older member who knows the tradition far better | v: tradition (humility) | chance: 60
+- W>U | ask for a year to study the texts properly before taking the class | door | v: self-direction, tradition | chance: 50
+- U>B | take the class, and teach a famous teacher's course as if it were your own | binds | v: achievement, power | mark: hid a wrong | closed: approval: passing off another teacher's work; backfire: a newcomer recognises it | title: lay religious teacher | requires: scripture | lacking: .7 | chance: 75
+- B>R | turn it down, and keep your Wednesday evenings for what you enjoy | v: hedonism | mark: turned down a chance | chance: 95
+- R>G | bring the newcomers home for a meal after the service instead | v: benevolence | mark: made a friend | chance: 85
+- G>W | help the new leader set up the room every week, as your grandparent once did | v: tradition, benevolence | self_control: + | chance: 95
+works: By the end of term the class is full, and two of its members are asking hard, good questions.
+works: The class has the right person at its door by autumn, and {N} is at peace with the choice.
+fails: Numbers dwindle over the winter, and the class meets in a room too big for it.
+fails: An argument over what the class should teach splits the congregation's council.
+
+== an invitation to a dialogue circle
+tier: everyday
+at: council
+rate: 0.0009
+stages: young_adult adult mature elder
+age: 18-85
+needs: faith
+calls: URG
+tone: joy
+life: faith, community
+horizon: years
+roles: friend, a councillor
+earth: a neighbour of another faith invites you to a monthly circle where people of different faiths share a meal and talk
+times: Uncommon: perhaps 1 in 10 adults, once or twice in a life, mostly in mixed towns and cities (estimate)
+gap: 6-15
+scene: {friend}, who worships at the temple on the high street, invites {N} to a monthly circle where people of five faiths share a meal and talk about one question. This month the question is forgiveness.
+scene W: The circle's ground rules are printed on a card: each person speaks only for their own faith, nobody interrupts, and nobody is there to convert anybody.
+scene U: {N} has always wondered how others answer the questions {Ns} own faith answers. Forgiveness seems a good place to start.
+scene B: The circle's members include a councillor, two head teachers and the chair of the hospital board. {N} notices.
+scene R: The invitation promises food from every kitchen, and {N} can almost smell it already.
+scene G: {N} has lived on this street for twenty years and never once been inside the temple. Perhaps it is time.
+- W | go, keep to the circle's rules, and come back every month | door | v: universalism, conformity | title: interfaith-dialogue participant | chance: 82
+- U | read up on the other traditions, and keep putting off an answer | v: universalism, self-direction | self_control: - | chance: 40
+- B | go once, to meet the councillor, and decide afterwards if it is worth your time | door | v: power | chance: 85
+- R | go once, bring your best dish, and see how it feels | door | v: hedonism, universalism | chance: 92
+- G | accept, and ask to visit each member's place of worship in turn | door | v: universalism, tradition | mark: made a friend | chance: 70
+- W>B | decline, so your standing in your own congregation is never questioned | v: conformity, power | mark: gave in to pressure | self_control: - | chance: 88
+- U>R | go, and finally ask the questions you have always wanted to ask | door | v: stimulation, universalism | chance: 88
+- B>G | offer to host the circle at your own congregation, so your people lead it | v: power, tradition | chance: 55
+- R>W | speak up at your own congregation for joining the town's interfaith walk | v: universalism | chance: 45
+- G>U | sit at the back for a few months, and only listen | v: universalism | chance: 70
+works: By the third meeting {N} is laughing with people {N} had never spoken to, over food from four kitchens.
+works: {N} answers {friend} kindly and clearly, and the friendship is warmer for it.
+fails: The second meeting turns into an argument about the news, and two members walk out.
+fails: {Ns} own congregation hears of it and asks pointed questions.
+
+# ================================================================ SEEKER TO CONVERT (release check L2, 2026-10-07): an act source of [convert] in every color
+# A seeker is someone searching without a settled faith. Two moments, a pair (calls UG, cycle s1 / calls WBR, cycle s2):
+# the search finds a home, or a teacher who claims to be one. Holding [seeker]
+# keeps it to people who were searching, so a convert is someone joining a faith they were not raised in.
+
+== a faith that answers back
+tier: everyday
+at: faith body
+rate: 0.05
+once: yes
+stages: young_adult+
+age: 18-90
+calls: UG
+holds: seeker
+tenure: 2-12
+tone: mixed
+life: faith, meaning
+horizon: years
+roles: friend, a teacher of the faith, partner
+earth: after years of searching, one faith's people and teachings keep drawing you back, and they would welcome you in
+times: Some seekers, once; about 1 adult in 12 ends up in a faith they were not raised in (catalogue share of [convert], .08; estimate)
+scene: For years {N} has read, asked and visited. One faith keeps answering back: its old texts, its quiet people, the way {friend} lives it. Its teacher has said, more than once, that the door is open.
+scene W: There is a proper way in: a year of instruction, a promise made in front of everyone, a name written in the book.
+scene U: {N} has read its arguments and its critics. The answers do not settle every question, but they hold up better than any others {N} has found.
+scene B: Belonging to something this old would give {N} weight: a community, a say in its councils, people who keep their word.
+scene R: Something happened in that hall last spring that {N} still cannot explain, and does not want to explain away.
+scene G: Their seasons, their meals, their prayers for the dead: {N} has been living by half of them for a year already.
+- W | ask for a year of instruction, and be received properly in front of the whole community | binds | v: tradition, conformity | title: convert | chance: 80
+- U | read the last of its texts, then ask to be received on your own terms | identity | v: self-direction, universalism | title: convert | chance: 75
+- B | join, and make yourself useful to the people who run it from the first week | v: power, achievement | title: convert | chance: 75
+- R | say yes to the teacher tonight, before the doubt comes back | identity | v: stimulation, self-direction | title: convert | chance: 85
+- G | live by its seasons and its meals, until one day you are simply one of them | habit | v: tradition, benevolence | title: convert | chance: 70
+- W>U | take the instruction for a year without promising anything, and decide at the end | door | v: conformity, self-direction | chance: 85
+- U>B | ask to sit in on its councils first, to see how the faith is really run | door | v: security, power | chance: 70
+- B>R | turn the teacher down, and keep the freedom to believe whatever you like | v: self-direction | mark: turned down a chance | chance: 95
+- R>G | bring the person closest to you to the next gathering, and decide together | act: bring the person closest to them to the next gathering, and decide together | v: benevolence | chance: 80
+- G>W | stay a friend of the faith, at its feasts and its funerals, without joining | v: tradition, benevolence | chance: 90
+works: {N} is received one evening, in front of people who have become friends, and is given the words to say.
+works: The search does not end, but it has a home now, a calendar, and people who notice when {N} is missing.
+fails: At the last step {N} hesitates, and the teacher says gently that the door will stay open.
+fails: The community is warm, but one of its rules sticks in {Ns} throat, and {N} steps back for now.
+
+== a teacher with all the answers
+tier: everyday
+rate: 0.05
+once: yes
+stages: young_adult+
+age: 18-90
+calls: WBR
+holds: seeker
+tenure: 1-12
+tone: mixed
+life: faith, meaning
+horizon: months
+roles: friend, a teacher, rival
+earth: on your search you meet a magnetic teacher with a small, devoted following, who says the answers you want are already here
+times: Many seekers, once or twice; small spiritual and self-help circles around one teacher are common, and a few turn controlling (estimate)
+scene: At a talk in a rented hall {N} meets a teacher with a quiet voice and a small, devoted circle. Afterwards {friend} says the teacher asked about {N} by name.
+scene W: The circle has rules: early mornings, a set path of study, a promise of loyalty to the teacher. Order, after years of drifting.
+scene U: {N} notices that the teacher answers every question with another question, and that the fees rise at each level of the path.
+scene B: The inner circle are given rooms, titles and the teacher's ear. {N} can see exactly how one climbs.
+scene R: The talk lit something in {N} that has been dark for years, and {N} wants more of it, now.
+scene G: The circle lives together on an old farm and grows its own food. It looks like the life {N} has always pictured.
+- W | join the circle, keep its rules, and give the teacher a year | binds | v: conformity, tradition | chance: 80
+- U | ask to see the accounts and the teachings in writing before giving anything | v: self-direction, security | chance: 70
+- B | join, and work your way into the inner circle within the year | v: power, achievement | chance: 45
+- R | spend a week on the farm with them, and follow the feeling where it goes | door | v: stimulation, hedonism | chance: 85
+- G | thank the teacher, and go home to your own garden and your own slow search | v: tradition, security | mark: turned down a chance | chance: 90
+- W>B | join, and ask for a written promise of what each level of the path will cost | v: security, power | chance: 55
+- U>R | go to every talk for a month, take notes, and leave the moment it feels wrong | door | v: self-direction, stimulation | chance: 75
+- B>G | invite the circle to your own town, and host them on your own terms | v: power, benevolence | chance: 40
+- R>W | stand up at the next talk and ask what nobody in the circle dares to ask | v: self-direction, universalism | mark: defied an authority | chance: 60
+- G>U | ask the teacher's oldest followers, quietly, what the first years were like | v: tradition, security | chance: 80
+works: {N} comes away with something real: a practice, a friend or two, and a clearer sense of what {N} is looking for.
+works: The teacher turns out to be what they seemed, and the circle makes room for {N} without asking for too much.
+fails: The fees, the rules and the teacher's moods add up, and {N} leaves with less money and fewer illusions.
+fails: The circle closes ranks against {Ns} questions, and the friend who brought {N} stops calling.

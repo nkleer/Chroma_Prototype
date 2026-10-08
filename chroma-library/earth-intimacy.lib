@@ -1,0 +1,476 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: ADULT LOVE, DESIRE AND INTIMACY (next batch, Emren's point 11: "have threesome sex
+# somehow... There are lots of things that character can interact. We need to create a world of possibilities with
+# color philosophy framework"). Brief: drafts/next2/BRIEF.md. Rules: library-spec.md. Syntax: header of build.py.
+# Adults only (18 and over). Everything is consensual between adults and fades to black: labels say the choice,
+# scenes and outcome lines carry the before and the morning after, never sexual detail.
+# Layout: ten everyday moments whose calls cover the ten color pairs once, arranged so each group the engine shows is
+# color-even in its calls: the five for people without a partner call each color twice, and so do the five with a
+# partner; the five open to young adults call each color twice, and so do the five open to elders; adults and
+# mature people meet all ten. Cross cycles s1 s1 s1 s2 s2 s2 s3 s3 s4 s4.
+# Two life events take the two halves of line D1 (pairs), so all ten pairs appear once.
+
+# ---------------------------------------------------------------- without a partner: calls RG (cycle s2)
+
+# gate: age >= 18
+== someone asks you home after the party
+tier: everyday
+stages: young_adult adult mature
+age: 18-50
+calls: RG
+excludes: partner
+tone: joy
+life: love, friends
+horizon: moment
+roles: prospect, friend
+earth: two in the morning at a friend's party, and someone you met tonight asks if you want to go back to theirs
+times: Many young adults, a few times in their twenties and less after; 60 to 80 in 100 North American students have had some hookup (Garcia and colleagues 2012 review)
+gap: 3-6
+scene: It is nearly two in the morning, the party is thinning out, and {prospect}, whom {N} met by the kitchen sink four hours ago, asks quietly whether {N} wants to go back to theirs.
+scene W: {N} came with {friend} and promised to share the taxi home. {prospect} is lovely, and a promise is still a promise.
+scene U: {N} has spent the whole evening finding things out about {prospect}: the strange job, the scar on one wrist, the laugh. There is so much more to know.
+scene B: {N} wanted {prospect} from the moment they walked in, and has spent the evening making sure the feeling was returned. It was.
+scene R: The music is still going, {Ns} heart is going faster, and {prospect} has hold of {Ns} hand by the pile of coats.
+scene G: There is something easy between {N} and {prospect}, as if they have known each other for years, and the air outside smells of rain.
+- W | say goodnight at the door, swap numbers, and ask them to dinner next week | v: conformity, security | chance: 85
+- U | sit on the stairs asking them questions till three, and decide nothing tonight | v: self-direction | self_control: + | chance: 90
+- B | go home with them, and slip out before breakfast without leaving a number | v: hedonism, power | chance: 80
+- R | go home with them, laughing, and leave your coat behind | habit | v: hedonism, stimulation | mark: took a wild risk | chance: 85
+- G | walk them home through the rain, and let the night decide the rest | v: self-direction, hedonism | chance: 75
+- W>B | say you never go home with anyone on a first night, and let them chase | v: power, conformity | chance: 75
+- U>R | take the pill they offer first, after looking it up on your phone | v: stimulation, hedonism | mark: used drugs | closed: law: an illegal drug; backfire: a frightening night in hospital | death_if_fails: 0.002 | law: drugs | chance: 70
+- B>G | bring them back to your own place, where you know the door and the street | v: security, hedonism | chance: 80
+- R>W | find the friend you came with, say where you are going, and then go | v: benevolence, hedonism | chance: 75
+- G>U | go back with them and talk till dawn, to see who they are by daylight | v: self-direction, benevolence | mark: made a friend | chance: 85
+works: {N} wakes up happy, with a new number in the phone and nothing to regret.
+works: The night ends the way {N} hoped, and the walk home at dawn feels like flying.
+fails: The morning after is awkward, and the bus home takes forever.
+fails: {N} never hears from {prospect} again, and the friends from the party have plenty to say.
+
+# ---------------------------------------------------------------- without a partner: calls UR (cycle s1)
+
+# gate: age >= 18; back to dating after a long relationship or years alone (ago_end_partner >= 1, or never partnered by thirty)
+== a match who wants to meet tonight
+tier: everyday
+stages: adult mature elder
+age: 28-80
+calls: UR
+excludes: partner
+tone: mixed
+life: love
+horizon: moment
+roles: prospect, friend
+earth: back on the dating apps after years, and a match who seems lovely wants you to come over tonight
+times: Many people back on the apps after years, several times in a dating stretch; Pew 2023: 3 in 10 US adults have ever used a dating site or app
+gap: 2-4
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} is back on the apps after years away, and {prospect}, a few messages in, asks whether {N} would like to come over tonight.
+scene W: {N} was raised to meet people properly: in daylight, with a name, and a friend who knows where. Tonight is not how things are done.
+scene U: {N} has read everything about how the apps work now, and still cannot tell from six photographs who {prospect} really is.
+scene B: For years {N} did what other people wanted. Tonight {N} can have exactly what {N} wants, and the phone keeps buzzing.
+scene R: The messages are funny, the photos are lovely, and {N} has not felt this awake in a long time.
+scene G: {N} reads the messages three times over, listening for the person behind them, the way one listens for weather.
+- W | say not tonight, and ask to meet for coffee in daylight on Saturday | v: security, conformity | chance: 80
+- U | ask for a short video call first, to see who is really there | v: security, self-direction | tech: video calls | chance: 80
+- B | say yes, but at a bar of your choosing, and leave whenever you like | v: power, security | chance: 85
+- R | say yes, shower, and be at their door within the hour | v: stimulation, hedonism | mark: took a wild risk | chance: 70
+- G | read their messages once more, and go only if your gut says yes | v: self-direction, security | chance: 80
+- W>U | keep messaging for a week, the old-fashioned way, to learn who they are | v: security, self-direction | chance: 70
+- U>B | ask a few careful questions to test their story, and go only if it holds | v: security, power | chance: 70
+- B>R | knock five years off your age, and say yes to tonight | v: hedonism, stimulation | mark: hid a wrong | chance: 65
+- R>G | admit you are out of practice and nervous, and see what they say | v: benevolence, self-direction | chance: 80
+- G>W | ask around among friends you share, as people used to, before saying yes | v: security, tradition | chance: 70
+works: The evening is easy and warm, and {N} feels like {N} again.
+works: {prospect} turns out to be just as kind as the messages, and a second date is set before the night is over.
+fails: {prospect} looks nothing like the photographs, and {N} is home by ten.
+fails: The evening goes flat after the first hour, and {N} deletes the app on the bus home.
+
+# ---------------------------------------------------------------- without a partner: calls BG (cycle s3)
+
+# gate: age >= 18; a partnership ended within the last three years (ago_end_partner <= 3), and the ex is single
+== your ex wants to try again
+tier: everyday
+stages: young_adult adult mature
+age: 19-55
+calls: BG
+excludes: partner
+tone: mixed
+life: love
+horizon: week
+roles: prospect, friend, sibling
+earth: months after the breakup, your ex calls late one evening and asks if the two of you could try again
+times: Many people after a breakup, once or twice in a life; nearly half of US young adults in one study had got back together with an ex (Halpern-Meekin and colleagues 2013)
+gap: 3-6
+scene: Eight months after the breakup, {prospect} calls late on a Sunday and asks, in a small voice, whether the two of them could try again.
+scene W: At the end {N} said it was over for good, and meant it. {N} is not someone who says such things lightly.
+scene U: {N} has spent eight months working out what went wrong. Now the question is whether any of it can be put right.
+scene B: Last time {N} was the one who got hurt. This time {N} holds the cards, and both of them know it.
+scene R: The sound of that voice on the phone goes straight to the stomach, the way it always did.
+scene G: Some things come round again like the seasons. The old jumper is still in {Ns} drawer, and it still smells faintly of {prospect}.
+- W | say no, kindly and firmly, as you said at the end | v: conformity, security | mark: kept your word | chance: 80
+- U | meet for coffee and go through, honestly, what broke last time | v: self-direction | chance: 70
+- B | say maybe, and let them work hard to win you back | v: power | act: say maybe, and let the ex work hard to win them back | chance: 70
+- R | tell them to come round tonight, and stop thinking | v: hedonism, stimulation | chance: 65
+- G | get back together, and slip back into the old Sunday mornings | binds | v: security, tradition | title: girlfriend or boyfriend | chance: 60
+- W>R | agree to one date with rules: no staying over, no talking about the past | v: hedonism, conformity | chance: 50
+- U>G | write down what each of you would have to change, and try for three months | binds | v: benevolence, self-direction | title: girlfriend or boyfriend | chance: 60
+- B>W | agree to try again if they apologise properly, in front of your friends | v: power (face), conformity | title: girlfriend or boyfriend | chance: 60
+- R>U | spend one more night together, to find out whether anything is still there | v: stimulation, self-direction | chance: 65
+- G>B | take them back for the comfort, and keep an eye out for someone better | v: security, power | mark: hid a wrong | chance: 70
+works: {N} and {prospect} talk until the old hurt loses its sharp edge, and whatever they decide feels right.
+works: The second try starts slowly and honestly, and {N} likes who they both are now.
+fails: Within a month the old fights are back, word for word.
+fails: {N} ends up hurt again, and {Ns} friends try hard not to say they saw it coming.
+
+# ---------------------------------------------------------------- without a partner: calls WU (cycle s4)
+
+# gate: age >= 18; the friend is of a sex the character is drawn to (the game draws {friend} so)
+== a friend says they are in love with you
+tier: everyday
+stages: young_adult adult mature
+age: 18-60
+calls: WU
+excludes: partner
+tone: mixed
+life: love, friends
+horizon: week
+roles: friend
+earth: over the washing-up after dinner, a close friend of years admits they have been in love with you for a long time
+times: Perhaps 1 in 3 adults, once or twice (estimate); about two thirds of the couples in one study began as friends (Stinson and colleagues 2021)
+gap: 6-12
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+share: .33
+scene: Over the washing-up after dinner, {friend} puts down the tea towel and says it plainly: they have been in love with {N} for years.
+scene W: {N} and {friend} have been there for each other through everything. Whatever {N} says next, {N} will not be careless with it.
+scene U: {N} replays ten years of small moments in a few seconds, and suddenly every one of them means something different.
+scene B: Someone has wanted {N} for years without a word, and {N} finds the thought is far from unpleasant.
+scene R: {Ns} face goes hot. {friend} is standing very close, waiting, and the kitchen tap is still running.
+scene G: Ten years of shared dinners, shared holidays, a dog walked together on Sundays. Perhaps this was always what was growing.
+- W | tell them gently that you love them as a friend, and that nothing changes | v: benevolence, conformity | chance: 75
+- U | ask for a week, and spend it working out honestly what you feel | v: self-direction | chance: 80
+- B | let them keep hoping; being adored is pleasant, and it is free | v: power, hedonism | chance: 70
+- R | kiss them, there in the kitchen, with the tap still running | v: stimulation, hedonism | title: girlfriend or boyfriend | chance: 70
+- G | let it grow slowly, and see whether the friendship turns into more | v: benevolence | self_control: + | chance: 65
+- W>G | say yes, and tell both your families together at the next birthday | identity | v: tradition, benevolence | title: girlfriend or boyfriend | chance: 65
+- U>W | talk through, carefully, what a romance would risk for the friendship | v: benevolence, security | chance: 60
+- B>U | tell a friend you share, in confidence, to find out who else knew | v: self-direction, security | chance: 70
+- R>B | say yes tonight, because it feels good to be wanted, and think later | v: hedonism, power (face) | chance: 70
+- G>R | walk out with them under the stars, and say whatever comes | v: benevolence, stimulation | chance: 75
+works: Whatever {N} answers, the two of them are still laughing together a month later.
+works: The friendship bends without breaking, and something new grows out of it.
+fails: Things go stiff and careful between them, and the dinners stop.
+fails: {friend} pulls away for a long while, and {N} misses them more than expected.
+
+# ---------------------------------------------------------------- without a partner: calls WB (cycle s1)
+
+# gate: age >= 30; ~held_partner for five years or more, by choice (no breakup in the last two years: ago_end_partner >= 2, or never partnered)
+== single by choice, and everyone asks why
+tier: everyday
+stages: adult mature elder
+age: 30-80
+calls: WB
+excludes: partner
+tone: mixed
+life: love, family
+horizon: moment
+roles: parent, sibling, friend, a cousin
+earth: at a cousin's wedding, the third relative of the evening asks when you will find someone, and you are happily single
+times: Most adults single by choice, at many family gatherings, less as the years pass; Pew 2020: half of single US adults are not looking for a relationship or dates
+gap: 2-4
+scene: At a cousin's wedding, {parent} leans over the dessert and asks, for the third time this year, whether {N} has met anyone nice.
+scene W: Everyone at the table is seated in couples, the way the plan said. {N} has been put at the end, next to a great-aunt.
+scene U: {N} has thought hard about this for years and knows exactly why a life alone suits. Explaining it over wedding cake is another matter.
+scene B: {N} has a flat, money and evenings that belong to nobody else, and has no plan to hand any of them over.
+scene R: {N} loves this life: the late trips, the nights out, the freedom to say yes to anything at all. The questions sting anyway.
+scene G: {N} has made a full life out of friends, a garden, nieces and nephews. Not every tree needs another tree beside it.
+- W | agree to meet the friend of a friend they keep mentioning, to keep the peace | v: conformity | mark: gave in to pressure | self_control: - | chance: 80
+- U | explain, calmly and clearly, why you have chosen a life on your own | identity | v: self-direction | chance: 65
+- B | tell them, in front of the whole table, that your private life is your own business | identity | v: power, self-direction | mark: made an enemy | chance: 75
+- R | laugh, pull the nearest stranger onto the floor, and dance | body: light | v: hedonism, stimulation | chance: 85
+- G | let it wash over you; the family asks out of love | v: benevolence, tradition | act: let it wash over them, since the family asks out of love | chance: 75
+- W>U | promise your parent one honest talk about it after the wedding, and really listen | v: benevolence, self-direction | chance: 70
+- U>B | keep a few clever replies ready, and win every exchange | v: power (face) | chance: 85
+- B>R | answer with your latest trip and promotion, until they envy your freedom | v: power (face), hedonism | chance: 75
+- R>G | raise a glass to everyone at the wedding who came alone, and to friendship | v: benevolence, universalism | chance: 65
+- G>W | spend the evening with the children and the old aunts, being the one who helps | identity | v: benevolence, tradition | chance: 75
+works: The questions stop, or stop mattering, and {N} dances until the band packs up.
+works: {parent} hears {N} out, and for the first time seems to understand.
+fails: The evening turns into a long, kind interrogation, and {N} leaves early.
+fails: Long after the wedding, {N} lies awake wondering whether everyone else knows something {N} does not.
+
+# ---------------------------------------------------------------- with a partner: calls UB (cycle s2)
+
+# gate: age >= 18
+== your partner asks to open the relationship
+tier: everyday
+stages: young_adult adult mature
+age: 20-60
+calls: UB
+needs: partner
+tone: mixed
+life: love, home
+horizon: months
+roles: partner, friend
+earth: one night your partner says they love you and want to stay, and would like you both to be free to see other people
+times: Uncommon: perhaps 1 in 10 adults ever meet it (share .1), once with each partner they have between 20 and 60, so two or three times in all for most who meet it (estimate; needs: partner makes once: yes once per partner); about 1 in 5 US single adults have ever been in an open relationship (Haupert and colleagues 2017)
+once: yes
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+share: .1
+scene: After dinner {partner} takes a long breath and says it: they love {N}, they want to stay, and they would like the two of them to be free to see other people.
+scene W: {N} and {partner} made promises to each other, and {N} has kept every one of them. Now {partner} wants to rewrite them.
+scene U: {partner} has clearly been reading about this for months. {N} wants to know everything: why, who, how it would work, what it would mean.
+scene B: {N} hears the question and thinks at once of the neighbour who has been smiling for weeks. Freedom, after all, works both ways.
+scene R: Something flares in {Ns} chest, hurt or anger or a strange excitement, and {N} cannot tell which.
+scene G: {N} looks round the kitchen they painted together, at the plant on the sill that has come with them through three homes, and wonders what a couple is meant to be.
+- W | say no: you promised each other one person, and that promise stands | v: conformity, tradition | mark: kept your word | chance: 60
+- U | read about it together, and talk for weeks before deciding anything | v: self-direction | chance: 70
+- B | say yes, and line up someone of your own before they do | v: power, hedonism | chance: 65
+- R | tell them, shaking, that they can leave tonight if that is what they want | v: none clear (hurt) | chance: 50
+- G | ask what is missing between the two of you, and tend to that first | v: benevolence, security | chance: 60
+- W>B | agree to try an open relationship for a while, with written rules you set | binds | v: power, security | chance: 60
+- U>R | say yes out of curiosity, and see what you learn about yourself | v: stimulation, self-direction | chance: 50
+- B>G | say yes, then quietly make sure they never have the time or the chance | v: security | mark: hid a wrong | chance: 55
+- R>W | say how hurt and scared you are, and ask to stay just the two of you | v: benevolence, security | chance: 70
+- G>U | take a weekend away, just the two of you, and let the real reason come out | v: benevolence, self-direction | chance: 60
+works: The long talk goes deep, and {N} and {partner} come out of it closer than they went in.
+works: Whatever they decide, they decide it together, and it holds.
+fails: The question sits between them for months, and every late message becomes a suspicion.
+fails: {partner} is wounded by the answer, and the house goes quiet in a new way.
+
+# ---------------------------------------------------------------- with a partner: calls WR (cycle s3)
+
+# gate: age >= 18; holds a job (holds: kind:career below)
+== the last night of a work trip
+tier: everyday
+at: employer
+stages: young_adult adult mature
+age: 22-64
+calls: WR
+needs: partner
+holds: kind:career
+tone: trouble
+life: love, work
+horizon: moment
+roles: colleague, partner
+earth: the last night of a conference in another city, and at the lift the colleague you have grown close to asks if you want to come up
+times: Uncommon: perhaps 1 in 6 working adults, once or twice (estimate); about 1 in 3 US workers have had a romance with a colleague (SHRM 2022)
+gap: 6-12
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+share: .17
+scene: It is the last night of the conference. At the hotel lift {colleague}, whom {N} has laughed with all week, holds the door and asks quietly whether {N} wants to come up.
+scene W: {N} made a promise to {partner}, who is at home tonight putting out the bins. The promise is {Ns} to keep, here as much as there.
+scene U: {N} has noticed everything this week: the glances, the excuses to sit together. {N} knows exactly what is being asked, and wonders what it says about home.
+scene B: Nobody here knows {partner}. Nobody at home knows this hotel. {N} sees the shape of the chance very clearly.
+scene R: Three days of laughing, two glasses of wine, and {colleague} is holding the lift door with a look that turns {Ns} knees to water.
+scene G: {N} thinks of the kitchen at home, the dog asleep on the sofa beside {partner}, the smell of that particular house, and feels the pull of both.
+- W | say goodnight, and drive home through the night as you promised your partner | v: conformity, benevolence | mark: kept your word | death_if_fails: 0.002 | tech: car | chance: 85
+- U | go up for one drink and an honest talk, and nothing more | v: self-direction | chance: 55
+- B | go up, and tell yourself that what happens away from home stays away | v: hedonism, power | mark: broke your word | closed: approval: betraying your partner; backfire: found out, and the trust gone | self_control: - | chance: 55
+- R | kiss them once against the lift door, and then walk away | v: stimulation | chance: 60
+- G | go back to your own room and fall asleep thinking of home | v: security, tradition | mark: turned down a chance | chance: 85
+- W>R | go up with them, and confess it all to your partner the day you get home | v: hedonism, benevolence | mark: broke your word | closed: approval: betraying your partner; backfire: the confession ends it | chance: 50
+- U>G | turn them down, and plan on the train home how to win back your partner | v: benevolence | mark: kept your word | chance: 80
+- B>W | pay whatever it costs for a seat on the last flight home tonight | v: security, conformity | self_control: + | tech: plane | chance: 80
+- R>U | stay in the bar with them till closing, talking about everything, then go up alone | v: stimulation, self-direction | mark: turned down a chance | chance: 75
+- G>B | go up with them, and keep it from your partner to protect the home you have | v: hedonism, security | mark: hid a wrong | closed: approval: deceiving your partner; backfire: found out, and the home in pieces | self_control: - | chance: 50
+works: The trip ends without harm at home, and {N} walks in the door glad to be back.
+works: Whatever happened at the lift, {N} goes home clear about what {N} wants.
+fails: {colleague} is cold and strange at work for months afterwards.
+fails: {partner} senses something the moment {N} walks in, and asks.
+
+# ---------------------------------------------------------------- with a partner: calls WG (cycle s4)
+
+# gate: age >= 30; yrs_partner >= 5
+== years together, and the bedroom has gone quiet
+tier: everyday
+stages: adult mature elder
+age: 30-85
+calls: WG
+needs: partner
+tone: trouble
+life: love, home
+horizon: months
+roles: partner, friend
+earth: years together, and it has been months since you and your partner last made love; neither of you mentions it
+times: Most long-term couples at some point, often more than once (estimate); in the US General Social Survey sex grows less frequent with age and years together
+gap: 4-8
+scene: It has been months since {N} and {partner} last made love. Neither of them says so. They kiss goodnight, put out the lamp and lie listening to the house.
+scene W: {N} has kept every promise of the partnership: the bills, the birthdays, the hospital visits. This one has slipped, and {N} feels it as a duty left undone.
+scene U: {N} lies awake trying to work out when it stopped, and why, as if it were a problem with a solution.
+scene B: {N} is still wanted by other people, and knows it. The question is how much longer {N} is willing to wait.
+scene R: {N} misses it, plainly and physically, and is tired of pretending not to.
+scene G: Everything has its seasons, and the long partnership has been in winter for a while. {N} wonders whether spring is late, or not coming.
+- W | set aside one evening a week for the two of you, and keep it | habit | v: tradition, benevolence | self_control: + | chance: 70
+- U | ask your partner, gently and honestly, what changed for them | v: self-direction, benevolence | chance: 65
+- B | tell them straight what you need, and that things have to change | v: power, self-direction | chance: 55
+- R | reach for them tonight, in the dark, without a word | v: hedonism, stimulation | chance: 60
+- G | accept that desire ebbs and flows, and hold them close without asking for more | v: security, benevolence | chance: 70
+- W>G | suggest a couples counsellor, and keep every appointment together | door | v: benevolence, conformity | chance: 60
+- U>W | read up on long relationships, and plan a careful way back to each other | v: benevolence, achievement | chance: 65
+- B>U | flirt with someone at the gym, to find out whether you still have it | habit | v: power (face), self-direction | chance: 75
+- R>B | start an affair, and stop pretending you can wait | v: hedonism | mark: broke your word | closed: approval: betraying your partner; backfire: found out, and the relationship in crisis | self_control: - | chance: 70
+- G>R | take them back to the place where you first fell in love, and see what wakes | v: hedonism, tradition | chance: 60
+works: What was stuck begins to move, and {N} sleeps better than in months.
+works: Something changes in the house, and {N} feels alive and wanted again.
+fails: The subject is raised once, badly, and both of them retreat further.
+fails: The silence settles into the shape of the partnership, and {N} lies awake longer.
+
+# ---------------------------------------------------------------- with a partner: calls UG (cycle s1)
+
+# gate: age >= 40
+== desire and a body that is changing
+tier: everyday
+stages: adult mature elder
+age: 40-85
+calls: UG
+needs: partner
+tone: mixed
+life: love, body
+horizon: months
+roles: partner, a doctor
+earth: desire is still there, but the body has changed (the change of life, pills that dull everything, an operation) and no longer answers the way it did
+times: Most people from midlife, more than once as the body changes; about half of men aged 40 to 70 report some erection trouble (Massachusetts Male Aging Study, Feldman 1994)
+gap: 4-8
+scene: {N} still wants {partner}, but the body has changed: the change of life, the pills for blood pressure, the scar from the operation. Last night ended in an embarrassed silence.
+scene W: {N} and {partner} promised each other in sickness and in health. This, {N} supposes, is the sickness part, and it deserves to be handled properly.
+scene U: {N} reads the small print in the pill packet twice, then the medical websites, then the forums at two in the morning.
+scene B: {N} is not ready to give this up. There must be a doctor, a pill or a treatment that will bring it back.
+scene R: {N} feels as hungry as at twenty, and the body keeps letting {N} down. It is maddening.
+scene G: The old pear tree in the garden still flowers every spring, later and smaller than it used to. {N} watches it and thinks about bodies.
+- W | see the doctor, and tell them everything, however embarrassing | v: security, conformity | chance: 80
+- U | read everything about it, and work out what might help | v: self-direction | mark: learned a skill | chance: 75
+- B | order the pills online, without a prescription | v: hedonism | mark: broke the law | closed: law: prescription medicine bought without one; backfire: a bad reaction, and a frightening night in hospital | death_if_fails: 0.001 | tech: internet | chance: 75
+- R | laugh about it together in bed, and keep trying | v: hedonism, benevolence | self_control: + | chance: 70
+- G | let intimacy grow slower and gentler, the way the years want it | v: security, benevolence | chance: 75
+- W>U | go to the appointment together, as a couple, and ask every question | v: benevolence, self-direction | chance: 65
+- U>B | find someone online who wants the same, and keep it from your partner | v: hedonism | mark: broke your word | closed: approval: betraying your partner; backfire: found out at the worst moment | self_control: - | tech: online dating | chance: 70
+- B>R | stop the pills that dull it, without telling the doctor | v: hedonism | chance: 70
+- R>G | tell them every day, in words and touch, how much you still want them | v: benevolence | chance: 75
+- G>W | make peace with a partnership of company rather than passion | v: security, tradition | chance: 70
+works: The doctor, or the laughter, or the patience helps, and {N} and {partner} find their way back to each other.
+works: What comes back is different from before, slower and kinder, and {N} would not trade it.
+fails: The embarrassment hardens into avoidance, and they stop touching altogether.
+fails: Nothing that is tried works, and for a while {N} feels older than {Ns} years.
+
+# ---------------------------------------------------------------- with a partner: calls BR (cycle s2)
+
+# gate: age >= 50; yrs_partner >= 10 (a long partnership)
+== a late passion
+tier: everyday
+stages: adult mature elder
+age: 50-95
+calls: BR
+needs: partner
+tone: joy
+life: love, body
+horizon: months
+roles: partner, friend, the family
+earth: the hard years behind you, the house quiet at last, you and your partner of many years fall for each other all over again
+times: Some long-married couples, once in later life (estimate); about 4 in 10 people married over ten years say they are very intensely in love (O'Leary and colleagues 2012)
+once: yes
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} and {partner} have been together for decades, the house has gone quiet at last, and something has woken between them that neither expected: they cannot keep their hands off each other.
+scene W: {N} feels faintly scandalised, and wonders what the neighbours would say. Then again, the two of them have been together longer than the neighbours have lived there.
+scene U: {N} is fascinated. Nobody ever said this could happen at their age, and {N} would like to understand why it has.
+scene B: {N} spent decades putting everyone else first. The hard years are behind them, the mortgage is nearly paid, and now {N} means to enjoy every minute.
+scene R: {N} feels nineteen again: giddy, reckless, laughing at nothing over breakfast.
+scene G: After a long winter, the partnership has come into a late, warm season, and {N} lets it.
+- W | keep it private and dignified, behind drawn curtains, as it should be | v: tradition, conformity | chance: 90
+- U | ask the doctor frankly what an older heart can safely manage | v: security, self-direction | chance: 85
+- B | spend the nest egg on the honeymoon you never had | door | v: hedonism, power | chance: 85
+- R | hold hands and kiss in the park like teenagers, and let people stare | body: light | v: stimulation, hedonism | chance: 90
+- G | take long afternoons in bed with the windows open, and let the season be | v: hedonism | chance: 85
+- W>B | tell the family that from now on they ring before dropping round | v: power, self-direction | chance: 70
+- U>R | sign the two of you up for dance classes, and learn something new together | habit | body: light | v: stimulation, hedonism | mark: learned a skill | chance: 75
+- B>G | sell the big house and move with them to a cottage by the sea | binds | v: security, universalism (nature) | mark: moved away | chance: 75
+- R>W | make each other vows on a whim on the beach, with two strangers as witnesses | identity | binds | v: tradition, stimulation | chance: 70
+- G>U | walk the old paths together every morning, saying everything you never said | habit | v: benevolence, self-direction | chance: 75
+works: The late season lasts, and {N} and {partner} are the happiest people on the street.
+works: The family rolls its eyes, and {N} and {partner} could not care less.
+fails: A fall, a cold, an ache, and the late season ends sooner than either of them wanted.
+fails: The family's raised eyebrows creep into the house, and {N} grows shy again.
+
+# ---------------------------------------------------------------- life event: an invitation for three (pairs D1a)
+
+# gate: age >= 18; the couple: the game draws {friend} and {prospect} so that at least one is of a sex the character is drawn to (any attr)
+== an invitation for three
+tier: life event
+stages: young_adult adult mature
+age: 18-55
+per_year: 0 0 .015 .008 .003 0
+drivers: ties+.4 community-.3 era+.2 unrest-.2
+gap: 3-10
+excludes: partner
+times: estimate: in one US national sample about 18 in 100 men and 10 in 100 women had ever had sex with two others at once (Herbenick and colleagues 2017), most often in their twenties and early thirties, and far more people imagine it than are ever asked (Lehmiller 2018); per single person about 1.5 in 100 a year in the young adult years, under 1 in 100 in the adult years and fewer in midlife are asked by two people they like; never or once in most lives, rarely more
+likelier: a wide circle of friends, a city, a permissive era and place, festivals and travel, friends who are an open couple
+rarer: a strict faith or family, a small town where everyone talks, few friends, shyness, unrest
+tone: mixed
+life: love, friends
+horizon: moment
+roles: friend, prospect
+earth: after dinner at their flat, two friends of yours, a couple you have liked for a long time, ask whether you would like to stay the night with them both
+scene: After a long dinner at their flat, {friend} and {prospect}, a couple {N} has liked for a long time, look at each other, and then ask {N}, laughing a little, whether {N} would like to stay the night with them both.
+scene W: {N} is fond of them both, and of what the two of them have. Whatever happens tonight, {N} does not want to be the thing that breaks it.
+scene U: {N} has wondered about this privately more than once. Now the question is real, and there is a great deal to think about.
+scene B: Two people who want {N} at the same time. {N} feels the pleasant weight of being the one who decides.
+scene R: The wine, the candles, the two of them grinning across the table: {Ns} heart is pounding, and every part of {N} says yes.
+scene G: There is so much warmth in the room, between the three of them, and {N} lets the feeling be what it is before thinking at all.
+- W | say no, and warn the friends you share what the two of them are like | v: conformity, security | mark: made an enemy | closed: approval: spreading their private life; backfire: the friends side with the couple, and the gossip turns round | chance: 60
+- U | ask for a week to think, and talk it over with them both first | v: self-direction | chance: 65
+- B | say yes, on the condition that you can leave whenever you like | v: power, hedonism | chance: 80
+- R | say yes to the three of you, there and then | door | v: hedonism, stimulation | mark: took a wild risk | chance: 78
+- G | stay, and let the warmth of the evening decide | v: hedonism, benevolence | mark: took a wild risk | chance: 68
+- BG | stay, and keep the night a secret from every friend you share | v: security, hedonism | chance: 75
+- BR | say yes, and set out to win one of them away from the other | v: power, hedonism | mark: made an enemy | chance: 45
+- UG | say not tonight, and let it grow slowly, if it is going to | v: self-direction, security | chance: 70
+- WR | say yes, with one rule agreed at the table: anyone can stop at any time | v: hedonism, benevolence | chance: 80
+- WU | thank them warmly, say no, and talk it through so the friendship holds | v: benevolence, conformity | mark: turned down a chance | chance: 80
+works: The night is warm and kind, and the three of them laugh about it over breakfast.
+works: Whatever {N} answers, the friendship with {friend} and {prospect} is still easy a month later.
+fails: The morning after is awkward, and the couple stop calling.
+fails: Something said that night starts a row between the two of them, and {N} is caught in the middle.
+
+# ---------------------------------------------------------------- life event: a holiday romance (pairs D1b)
+
+# gate: age >= 18
+== a holiday romance
+tier: life event
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 .04 .025 .012 .006
+drivers: money+.5 prosper+.2 health+.2 unrest-.4 ties+.1
+gap: 2-6
+excludes: partner
+times: estimate: a holiday fling is common among young single travellers (surveys of young holidaymakers in resort towns find a large share meeting a new partner abroad, Bellis and colleagues 2004) and rarer later in life; per single person about 4 in 100 a year in the young adult years, 2.5 in the adult years, about 1 in midlife and under 1 after sixty; perhaps a third of people have one at some point (estimate)
+likelier: money for travel, youth, a long trip or a summer job abroad, travelling alone or with friends, a recent breakup
+rarer: little money, poor health, caring duties, unrest or closed borders, a strict faith or family
+tone: joy
+life: love, travel
+horizon: week
+roles: prospect, friend
+earth: a week in a town by the sea, far from home, and someone you meet on the second day makes every hour count
+scene: On the second day of the holiday, in a café by the harbour, {N} meets {prospect}, and by the fourth day neither of them is pretending to look at the sea.
+scene W: {N} came here to rest and be sensible, and has a return ticket for Saturday. {prospect} is not part of any plan.
+scene U: {prospect} speaks another language, eats strange breakfasts and knows every alley of the old town. {N} wants to learn all of it.
+scene B: {N} has a week of freedom, nobody watching and nothing to lose, and means to make the most of it.
+scene R: The sun, the salt, the late nights, and {prospect} laughing on the harbour wall: {N} is in love by Tuesday.
+scene G: {N} has fallen into the rhythm of the place: long lunches, a swim at dusk, and {prospect} close by as if it had always been so.
+- W | enjoy every day of it, and say a proper goodbye at the bus on Saturday | v: hedonism, conformity | chance: 85
+- U | learn their language and their town, and keep writing once you are home | door | v: self-direction | mark: learned a skill | chance: 65
+- B | enjoy the week, and give them a false number on the last morning | v: hedonism, power | chance: 80
+- R | ride on the back of their scooter along the cliff road, no helmet | body: light | v: stimulation | mark: took a wild risk | closed: law: riding without a helmet; backfire: a fine, or a fall | death_if_fails: 0.002 | chance: 68
+- G | swim out with them to the rocks at night, the way the locals do | door | body: heavy | v: stimulation, universalism (nature) | mark: took a wild risk | closed: approval: night swimming where the signs forbid it; backfire: a rescue boat, and a fine | death_if_fails: 0.002 | chance: 75
+- RG | change your ticket, and stay on with them for another month | v: hedonism, self-direction | chance: 70
+- UB | find out what their life at home is really like before going any deeper | v: security | chance: 75
+- UR | write them a long letter on the last night, saying everything | v: benevolence, stimulation | chance: 80
+- WB | invite them to visit your home town, and pay for the ticket and the visa | v: benevolence, security | closed: law: a visa that may be refused; backfire: turned back at the border, and the money gone | chance: 50
+- WG | introduce them to your family on a video call on the last night | v: tradition, benevolence | tech: video calls | chance: 65
+works: The week is golden from end to end, and {N} goes home brown and happy, with a story for life.
+works: {N} and {prospect} keep writing long after the holiday, and the summer lives on.
+fails: On the last night {prospect} mentions someone waiting at home, and the week turns sour.
+fails: The goodbye is harder than {N} expected, and home looks grey for weeks.

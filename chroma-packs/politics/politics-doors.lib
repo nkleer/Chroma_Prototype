@@ -1,0 +1,282 @@
+# Chroma content pack, Politics, Elections and Public Office (modern Earth first, with the tribal and magic worlds).
+# PART 1 of the pack's moments: DOORS AND HOOKS (moments 1 to 6 of MOMENTS-BRIEF.md): two everyday pairs whose options
+# take a first title by the act (campaign volunteer, party member, polling-station volunteer, council candidate, local
+# party officer, campaign organiser, constituency caseworker, political adviser, pollster), and two echoes that open the
+# pathway from a life's own history (a local fight, a debate at school).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md and politics/MOMENTS-BRIEF.md.
+# Names in title:, grants:, requires:, holds: and aims: come from politics/catalogue.py, core/reach.py and the base
+# catalogue. World lines follow politics/worlds.py. Everyday pairs split the calls 2 and 3; echoes are even on their own
+# (five one-color options and one cross cycle).
+
+# ---------------------------------------------------------------- pair A, open to anyone (no holds): calls WG (cycle s1) / calls UBR (cycle s1)
+
+== leaflets to deliver before Saturday
+tier: everyday
+rate: 0.006
+times: open to anyone: in a year with an election about 8 in 100 teenagers and adults are asked to help a local campaign, fewer in other years; about 3 to 4 US adults in 100 do campaign work in an election year (ANES), and about 8 lives in 100 volunteer at some point (catalogue share; estimate) (packs, 2026-10-07, Emren's ask for parliament in every game: no birth draw, so the door can come to every life that wants it, at a rate that keeps about today's numbers)
+gap: 3-8
+stages: juvenile+
+age: 14-90
+calls: WG
+tone: joy
+life: community, public life
+horizon: week
+roles: friend, elder, neighbour, the candidate's volunteer
+earth: a candidate's team leaves a box of leaflets and a map of streets at the door
+tribal: a speaker's kin ask for someone to walk to the far hearths and speak for him before the gathering
+magic: a faction's herald needs broadsheets carried through the lower wards before the lots are cast
+scene: A volunteer from a local candidate's team is at the door with a box of four hundred leaflets and a photocopied map, three streets marked in yellow. They are short of hands, and every leaflet has to be through a letterbox before Saturday.
+scene W: Every household ought to hear from every candidate before it votes; that is how an election is meant to work. The three streets in yellow are the ones nobody has covered.
+scene U: {N} reads the leaflet on the doorstep: three promises, a bar chart with no scale, and a photograph of the candidate outside the library that is about to close.
+scene B: The candidate's face is on half the lampposts this month. Whoever wins will remember who walked the streets for them, and who did not.
+scene R: Last week the candidate stopped at the bus stop and talked to {N} like a person rather than a vote. An evening out on the streets, with a reason to be there, sounds good.
+scene G: The streets in yellow are the ones {N} has walked since childhood, and half the names on the doorbells are names {N} knows.
+scene tribal: The speaker's sister comes to {Ns} hearth at dusk. The gathering is a moon away, the far hearths have not heard her brother's case, and someone with good legs and a straight tongue must walk there and speak for him.
+scene magic: A herald in faction colours sets a bundle of broadsheets on {Ns} step, the ink still wet. The lots are cast in five days, and nobody has carried them through the lower wards.
+- W | take the map, and get a leaflet through every door on it by Friday night | v: conformity, universalism | title: campaign volunteer | self_control: + | tribal: walk to every far hearth before the gathering, and speak for him at each one | magic: carry a broadsheet to every door in the lower wards before the lots | chance: 75
+- U | read every candidate's leaflet first, then join the party whose sums add up | identity | v: self-direction, universalism | title: party member | tribal: hear every speaker's kin out, then bind yourself to the faction that makes most sense | magic: read every faction's broadsheet, then swear to the one whose sums add up | chance: 75
+- B | deliver your share, and ask the candidate for ten minutes over coffee afterwards | v: achievement, power | tribal: speak at the far hearths, then ask the speaker for a place by his fire | magic: carry your share, then ask the candidate for a word at the tavern after | chance: 55
+- R | grab the box and do the whole estate tonight, with music in your ears | v: stimulation, hedonism | title: campaign volunteer | body: light | tribal: set off for the far hearths tonight, singing the speaker's name along the path | magic: run the broadsheets round the lower wards tonight, whistling as you go | chance: 70
+- G | deliver your own street only, where people know your face and will stop to ask | v: benevolence, tradition | title: campaign volunteer | tribal: speak for him only at the hearths of your own kin | magic: carry the broadsheets down your own lane only, where every door knows your face | chance: 80
+- W>U | say you will help once you have heard every candidate at the public meeting | door | v: universalism, self-direction | tribal: say you will speak for nobody until every speaker has been heard at the fire | magic: say you will carry nothing until every faction has spoken in the square | chance: 70
+- U>B | skip the streets that never vote, and bin their leaflets behind the shops | v: achievement | mark: hid a wrong | closed: approval: binning leaflets the team asked to be delivered; backfire: a neighbour finds them in the bin and tells the candidate | self_control: - | tribal: skip the hearths that never stand behind anyone, and say you went | magic: skip the lanes that never cast a lot, and drop their broadsheets in the canal | chance: 75
+- B>R | say no: Saturday is for your own plans, and nobody is paying for this | v: hedonism, self-direction | tribal: say no: you have your own hunting to do before the gathering | magic: say no: the herald can pay a runner | chance: 95
+- R>G | talk a friend into coming, and make an evening of it with chips after | door | v: benevolence, hedonism | aims: campaign volunteer | tribal: talk a friend into walking along, and make a night of it at the far fire | magic: talk a friend into coming, and finish the round at the tavern | chance: 75
+- G>W | deliver them with the old neighbour who has walked every election for forty years | v: tradition, conformity | mark: learned a skill | tribal: walk the hearths with the old woman who has carried words for every speaker since her youth | magic: walk the lanes with the old herald who has carried every faction's broadsheets for forty years | chance: 75
+works: By Friday night every door on the map has had its leaflet, and the team thanks {N} by name.
+works: Two neighbours stop {N} in the street to ask about the candidate, and {N} finds there is plenty to say.
+fails: Rain soaks half the box on the first evening, and the rest goes round late and creased.
+fails: A dog, a broken gate and a man who shouts about all politicians: by the second street {N} has had enough.
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== poll workers wanted for election day
+tier: everyday
+rate: 0.006
+times: open to anyone: about 3 adults in 100 a year see a call for polling-station staff they could answer; the US staffed about 774,000 poll workers in 2020 (Pew Research Center 2024), and about 3 lives in 100 work a polling station at some point (catalogue share; estimate) (packs, 2026-10-07, Emren's ask for parliament in every game: no birth draw, so the door can come to every life that wants it, at a rate that keeps about today's numbers)
+gap: 3-8
+stages: juvenile+
+age: 14-90
+calls: UBR
+tone: mixed
+life: community, work
+horizon: week
+roles: neighbour, friend, the station's supervisor
+earth: the council needs clerks for the polling stations, a fee and a fifteen-hour day
+tribal: the elders need someone with a clear head to keep the counting stones at the gathering
+magic: the Order asks for witnesses at the warded urns, under its seal, for a day's silver
+scene: A notice from the town hall goes up at the library and online: poll clerks wanted for election day. Training on Tuesday evening, a fee for the day, and the doors open at seven in the morning and close at ten at night.
+scene W: Someone has to hand out the ballot papers, check the names and seal the boxes, or none of it counts. The notice says the stations are short of staff again this year.
+scene U: The training covers the register, spoilt papers, and what to do when a name is missing. {N} would like to see how the whole machine fits together.
+scene B: The fee is decent for one day of sitting at a table, and it is paid whoever wins. A day inside the station also shows exactly how power gets counted.
+scene R: Fifteen hours in a school hall, then the count: boxes tipped onto tables, candidates pacing, the result read out after midnight. {N} wants to be in the room for that.
+scene G: The polling station is the old village hall, where {Ns} grandparents voted and where the same faces have sat behind the trestle table for as long as anyone remembers.
+scene tribal: The elders want a steady hand to keep the counting stones when the band casts its pebbles at the gathering: one bowl for each speaker, and no stone dropped or added.
+scene magic: A clerk of the Order nails a notice to the guild hall door: witnesses wanted at the warded urns from dawn to the evening bell, under the Order's seal, for a day's silver.
+- W | sign up, go to Tuesday's training, and sign the declaration of secrecy | binds | v: conformity, universalism | title: polling-station volunteer | tribal: take the elders' charge, and swear by the fire to keep the stones true | magic: swear the Order's oath of the urns, and take its seal for the day | chance: 75
+- U | ask for the clerks' handbook, and learn the rule for every odd case | v: self-direction, achievement | mark: learned a skill | title: polling-station volunteer | self_control: + | tribal: ask the elders how every hard case at the last gathering was settled | magic: borrow the Order's book of the urns, and learn every rule in it | chance: 60
+- B | take it for the fee and the day off, and say so plainly | v: security, achievement | title: polling-station volunteer | tribal: keep the stones for the share of meat the elders promise | magic: take the seal for the day's silver, and say so plainly | chance: 75
+- R | put your name down for the count, the loud late part after the doors close | v: stimulation | title: polling-station volunteer | tribal: ask to count the pebbles at the end, when every eye is on the bowls | magic: ask to stand by the urns when they are broken open at night | chance: 65
+- G | pass this year, and leave it to the people who have done it for years | v: tradition | tribal: pass, and leave the stones to the old hands who always keep them | magic: pass, and leave the urns to the witnesses who stand there every time | chance: 92
+- W>U | ask the council how the count is checked, and only then put your name down | v: security, self-direction | aims: polling-station volunteer | tribal: ask the elders how the stones are checked before you agree | magic: ask the Order's clerk how the urns are warded before you agree | chance: 80
+- U>B | work out the fee by the hour, and decide your day is worth more than that | v: achievement, security | tribal: weigh the meat against a day's hunting, and decide to hunt | magic: reckon the silver against a day at your craft, and keep to your craft | chance: 90
+- B>R | sign up for the fee, then cry off on the morning for a better offer | v: hedonism | mark: broke your word | closed: approval: dropping out on the day; backfire: the station opens short-handed, and the name comes off the council's list | self_control: - | tribal: agree to keep the stones, then slip off to a feast at the next camp | magic: take the seal, then send word of a fever and go to the fair | chance: 75
+- R>G | offer to drive the old neighbours to the polls instead | v: benevolence | mark: helped someone in need | tribal: offer to walk the old ones to the gathering, carrying what they cannot | magic: offer your cart to take the old folk of the lane to the urns | chance: 85
+- G>W | work the station in the village hall where your family has always voted | v: tradition, conformity | title: polling-station volunteer | tribal: keep the stones at the fire where your mother kept them in her day | magic: stand witness at the urns in your own ward's hall, as your family always has | chance: 55
+works: The day runs long but smoothly, and the boxes leave under seal on time.
+works: The station's supervisor thanks {N} at the end of the night, and asks {N} back for the next election.
+fails: A queue out of the door at seven, a register with a page missing, and {N} goes home wrung out.
+fails: The council's list is already full, and {N} is not called this time.
+
+# ---------------------------------------------------------------- pair B, people already in a party, a cause, a union, a campaign or a residents' committee: calls BR (cycle s2) / calls WUG (cycle s2)
+
+# Round 3 (2026-10-06, engine check 11:18): the ward asks someone with a year or more in a party, a cause, a union, a
+# campaign or a residents' committee (tenure: 1-100), and the branch officer's post (G) needs the party card itself.
+# Round 4 (engine fit 14:44): the door alone gave about 1 life in 8 a council candidacy (target .09 with the rule), so
+# share .3 to .2 (as its pair, 'a paid job on the campaign') and rate .13 to .05.
+# Round 5, 2026-10-07 (P6): share .2 to .06, the real share of lives ever asked to stand (about 6 in 100, half of whom
+# stand: the catalogue's 3 in 100). At .2 the door alone was met by about 1 life in 7 (fit 11b: 143 in 1,000) and gave
+# more candidacies than the whole target, so the councillors ran 3.4 to 4.8x theirs. Rate and options as they were.
+# Round 5, 2026-10-07 (P14): value tags read from the act on 2 options (check.py section 4).
+== the ward needs a candidate
+tier: everyday
+rate: 0.15
+times: per party member, local party officer, campaign organiser or union rep a year, about 5 in 100 young adults, 8 in 100 adults and 10 in 100 in midlife and old age are asked, or see the chance, to stand; England has about 17,000 principal and 100,000 parish councillors (LGIU, NALC), many parish seats go uncontested, and about 3 lives in 100 stand for a local seat at some point, about half of those asked (catalogue share; estimate); activists, campaign volunteers and residents' committee members come to the ballot through 'the fight that made you want to stand' or by joining a party (packs, 2026-10-07, Emren's ask for parliament in every game: no birth draw, so the door can come to every life that wants it, at a rate that keeps about today's numbers)
+gap: 3-8
+stages: young_adult adult mature elder
+age: 18-85
+calls: BR
+holds: party member | local party officer | campaign organiser | union rep
+tenure: 1-100
+tone: mixed
+life: community, public life
+horizon: months
+roles: colleague, friend, boss, an old councillor
+earth: the council elections are in May and the ward has no candidate
+tribal: the band will choose who speaks at the council fire this winter, and no one from your hearths has asked
+magic: a seat on the town council falls open, and the faction has no one to put up for it
+scene: The council elections are in May, nominations close in five weeks, and {Ns} ward has no candidate. At the end of a meeting about something else, {colleague} says what the room has been thinking: why not {N}?
+scene W: If nobody stands, the seat goes to the other side unopposed, and the ward gets no choice at all. To {N} that feels like a duty left lying on the table.
+scene U: {N} looks up the last three results. The seat was lost by two hundred votes last time, on a turnout of under a third.
+scene B: A councillor sits on the planning committee, the licensing panel and the budget. {N} has spent years asking such people for things.
+scene R: {N} is sick of complaining about the potholes, the shut youth club and the bus that never comes. Standing would mean saying it out loud, on every doorstep.
+scene G: {N} knows the shopkeepers by name, the parents at the school gate, and the old men on the bench outside the post office. Few people know the ward better.
+scene tribal: As the winter camp is set, the elders ask which voices will be heard at the council fire this season. No one from {Ns} cluster of hearths has stepped forward, and the others are looking at {N}.
+scene magic: A seat on the town council has fallen open with the old member's death, and the faction's back room goes quiet when the warden asks who will stand. Several heads turn toward {N}.
+- W | put your name forward, and go through the branch's selection by the rules | v: conformity, achievement | title: council candidate | grants: party nomination | requires: party member | without: approval | lacking: .5 | tribal: ask the faction's elders for their blessing, by the old forms, to be heard at the fire | magic: seek the faction's seal at a proper selection in the back room | chance: 75
+- U | read the council's budget papers, and stand on a costed plan for the ward | binds | v: achievement, universalism | mark: learned a skill | title: council candidate | tribal: learn what every family needs this winter, and ask to be heard on that | magic: study the town's ledgers, and stand on a reckoned plan for the ward | chance: 75
+- B | stand, in return for the branch's promise of a winnable seat next time round | binds | v: power, achievement | title: council candidate | grants: party nomination | requires: party member | without: approval | lacking: .5 | tribal: agree to speak, in return for the elders' promise of the speaker's place next summer | magic: stand, in return for the warden's promise of a safer seat next time | chance: 55
+- R | stand as an independent, on the one thing in the ward you are angriest about | identity | v: stimulation, universalism | title: council candidate | tribal: ask to be heard at the fire on your own, for the one wrong you cannot let rest | magic: stand without any faction's seal, on the one wrong you cannot let rest | chance: 80
+- G | stay off the ballot, and keep the branch going: the minutes, the lists, the tea | habit | v: tradition, benevolence | title: local party officer | requires: party member | without: impossible | self_control: + | tribal: keep the faction's fire and its memory of who owes whom, and let another speak | magic: keep the faction's ward rolls and its back room, and let another stand | chance: 75
+- W>B | agree to be a paper candidate, so the party's name is on every ballot | v: conformity | title: council candidate | grants: party nomination | requires: party member | without: approval | lacking: .5 | tribal: agree to stand at the fire for the faction, knowing the band will choose another | magic: lend your name to the faction's lot, so its colours are in every urn | chance: 85
+- U>R | draft a one-page manifesto for the ward, and post it to see who bites | v: self-direction, stimulation | aims: council candidate | tribal: try your words out at a few hearths first, and see who nods | magic: pin a page of what the ward needs to the guild hall door, and see who reads it | chance: 70
+- B>G | say no: the hours would come out of the family business | v: security | mark: turned down a chance | tribal: say no: the family needs your hands for the winter stores | magic: say no: the hours would come out of the family workshop | chance: 90
+- R>W | nominate the friend who did most in the last fight, and promise to knock every door | binds | v: benevolence, universalism | tribal: name your friend at the fire, and promise to walk every hearth for them | magic: put your friend's name to the warden, and swear to carry their banner through every lane | chance: 70
+- G>U | ask the old councillor who held the seat for twenty years what it really takes | door | v: tradition, self-direction | aims: local councillor | tribal: sit with the old voice of the fire, and ask what it really takes | magic: call on the old councillor, and ask what the seat really costs | chance: 75
+works: The papers go in before the deadline, and by the first weekend there is a name on the ballot and people ready to work for it.
+works: The ward's question gets a proper answer, and {N} knows exactly where {N} stands in it.
+fails: The meeting drags on, nobody agrees, and the deadline passes with the ward still empty.
+fails: {N} says something at the meeting that is repeated all over the ward by Friday, and not kindly.
+
+# Round 2 (2026-10-06, Emren 07:14 and 09:18): met by campaign volunteers and local party officers with a year in it, the
+# rung below a paid post; each job comes about 1 time in 8 (12; the organiser's posts 7), preparation and timing
+# lifting it.
+# Round 3 (engine check 11:18): the pollster's post (U) needs the rung below it, a data analyst's post.
+# Round 5, 2026-10-07 (P5, P12, P16): each post leans to its road. White applies for the agent's post at the party's
+# area office ([party official], the rung below being a year as a volunteer or branch officer, at the organiser's 7),
+# so the organiser's post is Red's alone and [party official] is met in play; Green takes the caseworker's job on the
+# home high street (single), and the Green and Blue pair keeps the day job for the family (it was Green's single).
+# The adviser's post (B) now needs the degree outright (without: impossible, was approval), so no volunteer without
+# one becomes an adviser two rungs up (P7).
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+# Round 5, merge (packs thread, 1,600 lives over four seeds): the W act put the party official at 4.5x its target (9
+# of 18 first gains); it is now a long shot at 4, with grants_if_fails (a branch volunteer's try at the paid post).
+== a paid job on the campaign
+tier: everyday
+rate: 0.03
+times: per campaign volunteer, local party officer or party member of a year or more, a year, about 3 in 100 young adults, 2 in 100 adults and 1 in 100 in midlife hear of paid campaign or office work they could take, most of it in big election years; about 1 life in 500 works a paid campaign and 1 in 330 as an adviser (catalogue shares; estimate) (packs, 2026-10-07: no birth draw; party members too, so each color has a way into party work)
+gap: 3-8
+stages: young_adult adult mature elder
+age: 18-85
+calls: WUG
+holds: campaign volunteer | local party officer | party member
+tenure: 1-100
+tone: joy
+life: work, public life
+horizon: months
+roles: friend, boss, colleague, partner
+earth: a campaign needs paid staff for six weeks, and someone has passed your name on
+tribal: a speaker who wants to be chief needs someone to walk the valley for him all summer, fed at his fire
+magic: a faction's house hires clerks and runners for the season of the lots, with board and a wage
+scene: {friend} has passed {Ns} name to a campaign that is hiring: six weeks of paid work before polling day, perhaps more after if the candidate wins. It wants an organiser, a caseworker for the office, a researcher who can write, and someone for the data desk.
+scene W: The campaign has a code of conduct, a spending limit and an agent who signs off every leaflet. {N} likes that the job comes with rules.
+scene U: The job list reads like a map of how campaigns really work: target lists, canvass returns, polling, casework. {N} wants to see the inside of the machine.
+scene B: The pay is modest, but the people who work a winning campaign tend to get the jobs that follow it.
+scene R: Six weeks of doorsteps, late nights and a result at the end of it. {N} can already feel the noise of the count.
+scene G: The campaign office is above the old bakery on the high street, and the work would be on streets {N} has known for years, for people {N} has known as long.
+scene tribal: A speaker who means to be chief of the clans needs someone to walk the valley for him all summer, from band to band, carrying his words and bringing back what is said. Whoever goes will eat at his fire.
+scene magic: A faction's house posts a notice in its window: clerks, runners and a reckoner wanted for the season of the lots, with board, a wage, and a letter of character at the end.
+- W | apply for the agent's post at the party's area office, with references from the branch | v: conformity, security | title: party official | grants_if_fails: a long shot that missed | tribal: offer to keep the speaker's count of gifts and debts between the bands, with a word from the faction's elders | magic: apply for the clerk's post at the faction's house, with a letter from your ward's warden | chance: 4
+- U | send the data desk the model you built of the last election | v: achievement, self-direction | title: pollster | requires: data analyst | without: impossible | tribal: tell the speaker which bands leaned his way last summer, hearth by hearth, and offer to keep that count | magic: send the house your tally of the last lots, guild by guild | chance: 12
+- B | take the adviser's job, and set your price before the first day | v: power, achievement | title: political adviser | requires: graduate | without: impossible | tribal: offer to sit behind the speaker at the fire, for a share of every gift he gets | magic: offer to serve as the candidate's secretary, and name your wage first | chance: 12
+- R | say yes to whatever they have, and be on the doorsteps by Monday | v: stimulation | title: campaign organiser | tribal: say yes, and be on the valley path by first light | magic: say yes, and be running the wards by Monday | chance: 7
+- G | take the caseworker's job on your own high street, and carry your neighbours' troubles | v: benevolence, universalism | title: constituency caseworker | tribal: offer to carry the troubles of your own hearths to the speaker, and see them settled | magic: take the petitions post in your own ward, and carry your neighbours' petitions to the Crown | chance: 12
+- W>B | ask for the contract, the hours and the pay in writing, then answer | v: security, conformity | aims: campaign organiser | tribal: ask the speaker, before witnesses, what you will be fed and for how long | magic: ask for the terms under the house's seal before you answer | chance: 75
+- U>R | turn it down, but ask to sit in on the data desk on polling night | door | v: self-direction, stimulation | aims: pollster | tribal: turn it down, but ask to sit with the band's ear when the pebbles are counted | magic: turn it down, but ask to watch the house's reckoner on the night the urns open | chance: 85
+- B>G | turn it down, and put your cousin forward, who needs the work more | v: benevolence, tradition | tribal: send your sister's son in your place, since he needs a big man's favour more | magic: put your cousin forward for the runners' post instead | chance: 65
+- R>W | take the caseworker's job, because the people who ring that office have nobody else | v: benevolence, universalism | title: constituency caseworker | tribal: offer to carry the families' troubles to the speaker, because nobody else will | magic: take the clerk of petitions' post, because the petitioners have nobody else | chance: 12
+- G>U | keep the day job: the family needs your wage and your evenings more than this | v: tradition, benevolence | mark: turned down a chance | tribal: stay with the band: the hunt needs your spear more than the speaker needs your legs | magic: stay at your craft: the household needs the steady wage and you at the table | chance: 90
+works: {N} starts on Monday, and by the second week the work has a rhythm and a purpose.
+works: The campaign asks {N} to stay on after polling day, whatever the result.
+fails: The post goes to someone with more experience, and {N} hears nothing more.
+fails: Two weeks in, the money dries up, and the campaign lets half its staff go.
+
+# ---------------------------------------------------------------- echoes: a local fight (cycle s3), a debate at school (cycle s4)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== the fight that made you want to stand
+tier: echo
+rate: 0.005
+once: yes
+stages: young_adult+
+age: 18-95
+times: per person who met a local fight, a protest, an injustice or a bitter election in the last three years: about 1 in 10 feel the pull to stand in the years after; many councillors say a local fight first brought them in (estimate)
+tone: mixed
+life: community, public life
+horizon: months
+roles: friend, neighbour, rival, colleague
+earth: the fight you lost or won still makes you angry, and the next election is close
+tribal: the quarrel at the fire is over, but you keep thinking you could have spoken for the band yourself
+magic: the guild's ruling still stings, and the town council will sit again in spring
+after: moment 'your town faces a change you could fight', 'a protest to save the local hospital', 'a sense of injustice', 'a bitter election' or 'they ask you to lead because you stood up once' within the last three years, and no elected office held (no [local councillor], [mayor] or [member of parliament])
+delay: 0-3
+likelier: an election within the year; the fight was settled by a council vote; friends or family in a party, a union or a cause; time to spare
+rarer: stress above 1.5; heavy care duties; a move away from the place of the fight; a settlement everyone could live with
+scene: Months after the fight, {N} still finds the arguments running on the way to work. Now the posters are going up for the next council election, and the same names are on them.
+scene W: The decision was made by people who never read the objections, under rules nobody local had a say in. {N} keeps thinking that rules are only as good as the people at the table.
+scene U: {N} has worked out exactly where the fight was decided: one committee, three votes, a report nobody challenged. Next time, someone who has read the papers should be in that room.
+scene B: The people who decided were not cleverer or better; they simply had the seats. {N} has started to wonder why {N} has never had one.
+scene R: It still makes {Ns} blood boil. Every time {N} passes the place, the old anger comes back, and with it a voice that says: then do something.
+scene G: The fight was about a place {N} loves and the people who live there. Whether caring for it needs a seat on the council is the question {N} keeps turning over.
+scene tribal: The quarrel at the council fire ended a moon ago, and the band went the way the loudest voices wanted. {N} keeps thinking of the words that could have been said, and of who should have said them.
+scene magic: The guild's ruling went against the ward, sealed and nailed to the hall door. The town council sits again in spring, and its seats are open to anyone with a faction's seal or enough names.
+- W | stand for the council in May, to change the rules from the inside | identity | v: universalism, conformity | title: council candidate | tribal: ask to be heard at the council fire this winter, to change the band's custom from within | magic: stand for the town council in spring, to change the rules from inside the hall | chance: 70
+- U | read how the decision was made, and join the party whose plans would have stopped it | v: self-direction, universalism | title: party member | tribal: hear how the elders decided, and bind yourself to the faction that argued your side | magic: study the guild's ruling, and swear to the faction that argued against it | chance: 92
+- B | join the party that runs the council, and get to know who decides | habit | v: power | title: party member | tribal: bind yourself to the strongest faction at the fire, and sit near its elders | magic: swear to the faction that holds the council, and learn whose word counts | chance: 80
+- R | stand, and turn the people from the fight into a campaign team | v: stimulation, universalism | title: council candidate | grants: a movement behind you | tribal: ask to be heard at the fire, with the young hunters from the quarrel walking the hearths at your side | magic: stand for the council, with the brotherhood from the fight carrying your banner | chance: 65
+- G | let it rest: the fight was for the place, never for a seat | identity | v: tradition | mark: turned down a chance | tribal: let it rest: you spoke for your hearth, not to be heard at the fire | magic: let it rest: the fight was for the lane, never for a seat | chance: 75
+# Round 5, 2026-10-07 (P11): the White and Red pair joins the party of the neighbour who led the fight (it gave
+# [campaign volunteer]), so [party member] has a door in every color, not only Blue and Black.
+- W>R | join the party of the neighbour who led the fight, and give it your evenings | v: benevolence, conformity | title: party member | tribal: bind yourself to the faction of the one who led the quarrel at the fire, and walk the hearths for it | magic: swear to the faction of the neighbour who led the fight against the guild, and carry its banner | chance: 75
+- U>G | write down what the fight taught, for the next street that has to face it | v: universalism, benevolence | tribal: teach the young ones what the quarrel taught, so the next one goes better | magic: write a plain account of the fight for the next ward that faces the guild | chance: 85
+- B>W | find out who picks the candidates, and make a point of being useful to them | door | v: power | aims: council candidate | tribal: find out which elders bless a voice at the fire, and make a point of being useful to them | magic: learn who hands out the faction's seals, and make a point of being useful to them | chance: 65
+# Round 5, 2026-10-07 (P11): the Red and Blue pair joins the party that fought hardest before arguing the case every
+# night, the [party member] door for Red.
+- R>U | join the party that fought hardest, and argue its case online every night | v: stimulation | title: party member | self_control: - | tribal: bind yourself to the faction that fought hardest, and argue its case with anyone at the fire every night | magic: swear to the faction that fought the guild hardest, and argue its case in the taverns every night | chance: 75
+- G>B | take a seat on the residents' committee first, where the street already knows your name | binds | v: power, tradition | title: residents' committee member | tribal: become an elder of your own hearths first, where every family knows your name | magic: become warden of your own street first, where every door knows your face | chance: 60
+works: {N} steps forward, and people from the fight turn up to help without being asked.
+works: Whatever comes of it, {N} feels the old anger turn into something with a shape.
+fails: The election comes and goes, and {N} does nothing but complain about the result.
+fails: The old allies have scattered, and nobody wants to go through it all again.
+
+== the debate you never forgot
+tier: echo
+rate: 0.04
+once: yes
+stages: young_adult+
+age: 19-80
+times: per person who debated at school as a teenager, or defended a speaker they could not stand as a young campaigner: about 1 in 20 come back to it as adults, eight to thirty years later (estimate)
+tone: joy
+life: public life, meaning
+horizon: months
+roles: rival, mentor, friend, partner
+earth: a television debate reminds you of the school debate you won, or lost, years ago
+tribal: an argument at the fire stirs the memory of the first time you stood up to speak as a child
+magic: a disputation in the market square takes you back to the academy's debating hall
+after: moment 'a debate or contest at school' as a teenager, or 'defending a speaker you cannot stand' as a young campaigner, and now an adult with time to spare (time above 0.4: fewer hours at work, children grown, retired)
+delay: 8-30
+likelier: the old debate was won, or lost narrowly; an election on the way; children grown or fewer working hours; a friend or partner in politics
+rarer: stress above 1.5; long working hours; heavy care duties; a long distaste for politics
+scene: On a weeknight {N} half-watches a televised debate, and one candidate fumbles a question {N} would have answered without notes years ago. Suddenly it all comes back: the hall, the lectern, the timer, {rival} on the other side.
+scene W: The debate on the screen has no rules worth the name: interruptions, dodged questions, a moderator who gives up. {N} remembers a contest where the time limits were kept to the second, and misses it.
+scene U: {N} spots the hole in the first answer before the opponent does, and is surprised how much of the old pleasure is still there.
+scene B: The people on the screen are paid, quoted and listened to for doing what {N} once did for a cup. The thought does not go away.
+scene R: {N} is talking back to the television by the second question, and on {Ns} feet by the fifth. The old thrill of standing up to argue is right there.
+scene G: {mentor}, who coached the team all those years ago, always said {N} spoke best about home. {N} wonders whether that is still true.
+scene tribal: Two hunters argue at the fire about where to winter, and neither says it well. {N} remembers standing up at this same fire as a child, for the first time, with every face turned and both knees shaking.
+scene magic: A disputation in the market square draws a crowd, two scholars trading points over a new decree. {N} is taken straight back to the academy's debating hall, and the night {N} won, or lost, before the masters.
+- W | stand for the council, where the arguing ends in a vote that counts | v: universalism, achievement | title: council candidate | tribal: ask to be heard at the council fire, where the arguing ends in a choice | magic: stand for the town council, where disputation ends in a vote | chance: 70
+- U | volunteer in a member's office, research and drafting a few evenings a week | habit | v: achievement, self-direction | title: campaign volunteer | aims: political adviser | tribal: offer to sit behind the band's speaker, and help shape what he says | magic: offer your pen to a councillor's secretary, a few evenings a week | chance: 35
+- B | look up your old school rival, now a councillor, and ask what it takes | v: power, achievement | aims: council candidate | tribal: seek out your rival from childhood, now a voice at the fire, and ask how it is done | magic: call on your old academy rival, now on the council, and ask what it takes | chance: 80
+- R | join an evening debating club, and argue every week for the joy of it | habit | v: stimulation, hedonism | grants: debating | self_control: + | tribal: join the old talkers who argue at the fire every night, for the joy of it | magic: join a disputation society in the lower town, and argue every week | chance: 80
+- G | let it rest: that debate belongs to the person you were back then | v: tradition | tribal: let it rest: that was a child's moment at the fire | magic: let it rest: the academy's hall belongs to the student you were | chance: 80
+- W>G | coach the local school's debating team one evening a week | habit | v: benevolence, tradition | tribal: teach the band's children to stand up and speak at the fire | magic: tutor the academy's young disputants one evening a week | chance: 70
+- U>W | read both sides of the debate, and write a fair letter to the local paper | v: universalism, self-direction | tribal: speak at the fire for both sides fairly, and let the band weigh them | magic: write a fair letter to the broadsheet on both sides of the decree | chance: 70
+- B>U | join a party, and learn its policy papers until you are its speaker at meetings | identity | v: achievement, power | mark: learned a skill | title: party member | self_control: + | tribal: bind yourself to a faction, and learn its quarrels until you are its voice at the fire | magic: swear to a faction, and learn its positions until you are the one it puts up to speak | chance: 75
+- R>B | knock on doors for the candidate who argues the way you used to | v: stimulation, achievement | title: campaign volunteer | tribal: walk the hearths for the speaker who argues the way you once did | magic: carry the banner of the candidate who argues the way you once did | chance: 85
+# Round 5, 2026-10-07 (P11): the Green and Red pair joins the family's old party (it only argued at dinner), a
+# [party member] door for Green.
+- G>R | join the party your family has always voted for, and argue its case over Sunday dinner | v: tradition, hedonism | title: party member | tribal: bind yourself to the faction your family has stood with for generations, and argue its case at the family hearth | magic: swear to the faction your family has always backed, and argue its case over the feast-day table | chance: 70
+works: {N} finds the old voice is still there, and someone in the room notices.
+works: Within a few months {N} is arguing about something that matters, with people who listen.
+fails: The first evening out goes badly, and {N} decides the past is better left where it was.
+fails: Work and home fill the evenings again, and the old debate goes back to being a story.

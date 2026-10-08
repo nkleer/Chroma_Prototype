@@ -1,0 +1,395 @@
+# Chroma content pack Stage and Screen: WORLD-ONLY moments (moments 66 to 73 of MOMENTS-BRIEF.md, Part 5): four that
+# belong to the tribal world and four that belong to the magic world (stage/worlds.py, WORLD_ONLY_STAGE). Syntax: header
+# of chroma-library/build.py. Rules: library-spec.md and the brief's pack rules. Names in title:, grants:, drops:,
+# requires:, holds: and aims: come from stage/catalogue.py, core/reach.py and the base catalogue. Each moment carries
+# `only:` and that world's line alone; its labels and scenes are written for that world (scene tribal ..., scene magic
+# ...), so the game tells them only there.
+# Each life event is even on its own (one mean chance for every means color): alpha even, stakes 1.0, the five one-color
+# options plus the combination set named in its header comment. Each world's four moments use both halves of two
+# combination lines (tribal: D5 triads and D2 pairs; magic: D6 triads and D1 pairs), so the pack stays color-even in
+# every world. Parts carry their real chances, the same for every color inside a moment where the moment allows it; the
+# earned-odds lifts (helps.py, half on the lead) come on top in the engine. A lead for someone who may not hold an
+# actor's title is `title: lead actor or actress; professional actor`, the lead first; the amateur lead is
+# `grants: a lead role to remember`. Each world has its crossing to the lead: the great mask (68) in the tribal world,
+# the night of the dead (71) and the glamour (72) in the magic world.
+# The tribal world has no magic (library-spec.md): the spirits and the shaman are how the band tells its stories, and
+# nothing here says a spirit truly acts. In the magic world every supernatural way is one choice among ordinary ones,
+# and each has a price (a mark, a binding, a closed: line with a backfire). Round 5, 2026-10-07: no act here rests on
+# the person's own gift (gift awakening is held for a later version, and the catalogue has no name for one): the magic
+# comes from someone else (the company's medium, a hedge-witch, an illusionist), which anyone in the magic world can
+# try, and the town's or the Order's disapproval is a `closed: approval:` line with a backfire.
+# Children act only in supervised forms: these moments start at 16 (past school-leaving age) or 18, and a child in the
+# illusionists' fairy scene plays with a parent's leave and a chaperone beside it. No real person, production, theatre,
+# studio, film, award, agency or union is named. per_year is the yearly rate per eligible person (whoever holds a title
+# or perk in holds:, and everyone of age in the magic world for 70); every figure is an estimate.
+# Round 5, 2026-10-07 (checklist P14, value tags): 4 options in this file retagged so the v: values read one of the
+# option's own colors (check.py section 4): White's by-the-book singles lead with conformity (not conformity with
+# achievement, which reads Blue), Red's singles on impulse lead with stimulation or hedonism (not self-direction,
+# which reads Black), Green's singles of home and kin with tradition and benevolence or universalism (not security,
+# which reads White), and Red's kindness on the spot with benevolence and stimulation; plus the largest
+# disagreements check.py listed (an old custom asked: tradition and conformity; family first: benevolence and
+# tradition; kin led away from the chief: self-direction and tradition; a day's pay weighed: power).
+
+# ================================================================ tribal world
+# ---------------------------------------------------------------- 66. the old teller dies at midwinter (triads D5a)
+# A door: the band needs a new voice. Every one-color way is a try for the teller-player's place (title: professional
+# actor, the band's form of it) at the same real chance; the triads are the other answers: a night of trials, standing
+# aside for the apprentice, teaching the children, new tellings, the shaman's word.
+# The band asks its players of two winters or more (an amateur actor, or an old teller's apprentice): the rung below.
+# Round 5, 2026-10-07 (checklist P9): at 5, each try for the teller's place is a long shot (a bold try at the next
+# rung) and carries `grants_if_fails: a long shot that missed`.
+
+== the old teller dies at midwinter
+tier: life event
+only: tribal
+stages: juvenile young_adult adult mature elder
+age: 16-95
+holds: amateur actor | drama school student
+tenure: 2-100
+per_year: 0 .01 .02 .02 .02 .03
+drivers: harsh+.2
+times: per player of the band of two winters or more (an amateur actor, or an old teller's apprentice) in the tribal world a year: about 1 in 50, when a band's teller dies or grows too old (estimate)
+likelier: a hard winter, an old teller who never named an apprentice, a player who sat at the old one's side
+rarer: a band with several tellers, a young teller already in place, a player who keeps to the edge of the firelight
+gap: 5-10
+tone: mixed
+life: community, meaning
+horizon: months
+roles: elder, mentor, rival, friend, child
+tribal: the old teller dies in the long nights, and the fire is silent where the stories were
+scene tribal: The old teller dies in the deepest of the long nights, and the band lays her masks beside her. Since then the fire has been silent where the stories were, and every evening the children ask who will tell them now.
+scene tribal W: {N} sat at the old one's side for years and knows how each telling must go, word for word and night by night. Someone has to keep them as they were given.
+scene tribal U: {N} has heard every story told a dozen ways. The old teller changed them a little each winter, and {N} wants to know which parts were the bones and which the skin.
+scene tribal B: Whoever takes the teller's place will sit near the elders and be fed first after the hunt. Across the fire, {rival} is plainly thinking the same.
+scene tribal R: The silence at the fire is more than {N} can stand. Ready or not, {N} wants to get up in the firelight and fill it.
+scene tribal G: The stories belong to the band, not to any one voice. {N} thinks of the old teller's hands, and of the little ones who have never heard the winter tellings to the end.
+- W | keep every telling exactly as the old teller gave it, night after night | title: professional actor | grants_if_fails: a long shot that missed | identity | v: tradition, conformity | chance: 5
+- U | piece the tellings together from what every old one remembers, and tell them whole | title: professional actor | grants_if_fails: a long shot that missed | mark: learned a skill | v: self-direction, universalism | chance: 5
+- B | ask the elders for the teller's place, and the teller's share of every hunt | title: professional actor | grants_if_fails: a long shot that missed | v: power, achievement | chance: 5
+- R | stand up at the silent fire the first night, and tell the bear story by heart | title: professional actor | grants_if_fails: a long shot that missed | aims: professional actor | v: stimulation, self-direction | chance: 5
+- G | keep the stories alive through the winter, until a younger voice is ready | title: professional actor | grants_if_fails: a long shot that missed | binds | identity | v: benevolence, tradition | chance: 5
+- WUR | ask the elders for a night of trials, and tell a piece of your own there | grants: telling a story aloud | door | v: universalism, stimulation | chance: 70
+- WRG | stand aside, and ask the band to give the place to the old one's apprentice | mark: turned down a chance | self_control: + | v: benevolence, tradition | chance: 70
+- WBG | teach the band's children the tellings, as the old ones always have | title: drama teacher | requires: telling a story aloud | without: approval | lacking: .5 | v: tradition, benevolence | chance: 70
+- UBR | make new tellings of your own, and play them at the summer gathering | grants: writing scripts | identity | v: self-direction, achievement | chance: 70
+- UBG | ask the shaman quietly whom the old teller meant to follow her | v: tradition, security | chance: 70
+works: By the next new moon the fire has its stories again, and the band settles close to listen.
+works: The elders nod over how it was settled, and the children fall asleep to the old tellings once more.
+fails: The band cannot agree, and for the rest of the winter the fire stays half silent.
+fails: {rival} speaks first and loudest, and the elders give the stories to another voice.
+
+# ---------------------------------------------------------------- 67. the spirits ride the dancer (triads D5b)
+# A fall. The band reads the trance as a spirit, and nothing says one came: the options are the band's answers, and
+# the lead is lost (Green steps back) or played as never before (the WBR triad, only for whoever wears the great mask).
+# The chances differ by act; they are set so every color's mean is the same.
+
+== the spirits ride the dancer
+tier: life event
+only: tribal
+stages: young_adult adult mature elder
+age: 18-95
+holds: professional actor | lead actor or actress | amateur actor
+per_year: 0 0 .01 .01 .01 .01
+drivers: harsh+.3
+times: per player in the tribal world a year: about 1 in 100 (estimate)
+likelier: a long fast before the telling, a hard season that makes the band fearful, a player who gives everything to the deep tellings
+rarer: a shaman who knows the player well, light tellings for the children, a player who keeps a little back
+gap: 5-10
+tone: trouble
+life: community, meaning
+horizon: months
+roles: elder, friend, rival
+tribal: in the deepest telling the fire roars, you speak in a voice that is not yours, and the band draws back
+scene tribal: In the deepest telling of the winter the fire roars up, and {N} speaks in a voice nobody knows, old and slow, for as long as it takes a log to burn through. When it ends the band has drawn back from the light, and the shaman cannot say what it was.
+scene tribal W: There is a rite for everything that comes out of the dark. {N} wants this put right the proper way, before the band's fear hardens into something worse.
+scene tribal U: {N} remembers almost nothing, only heat and a long fall. A fast, the smoke, three nights without sleep: there may be plain reasons, and {N} wants to find them.
+scene tribal B: Since that night the young ones look at {N} with awe, and even the elders lower their eyes. Fear is a kind of power, and {N} can feel it.
+scene tribal R: Whatever happened at the fire, {N} has never felt so alive. Part of {N} wants to go back into it, whatever the band says.
+scene tribal G: The band's peace matters more than any telling. {N} sees the mothers pulling the children close, and {friend} keeping to the far side of the fire.
+- W | go through the shaman's cleansing rite, and fast as long as he says | self_control: + | v: tradition, conformity | chance: 67
+- U | tell the band plainly that it was the fast and the smoke, nothing more | identity | v: self-direction, universalism | chance: 60
+- B | let the band believe the first ancestor spoke, and take the seat nearest the fire | closed: approval: claiming the ancestor's voice; backfire: the shaman says no ancestor spoke, and the band turns away | self_control: - | v: power | chance: 65
+- R | go back into the trance at the next telling, and let it take hold | mark: took a wild risk | closed: approval: a trance the shaman has forbidden; backfire: the band casts the player out for a season | v: stimulation, hedonism | chance: 67
+- G | step back from the great tellings, and dance only in the herd for a year | drops: lead actor or actress | v: security, tradition | chance: 60
+- WUG | sit with the shaman and the oldest dancers until they agree on what it was | door | v: tradition, universalism | chance: 65
+- WUB | dance the deep tellings only with the shaman beside the fire, by his rule | binds | v: conformity, security | chance: 70
+- WBR | wear the great mask at the gathering, and let the trance into the ancestor's dance | grants: good notices | requires: lead actor or actress | without: impossible | mark: took a wild risk | v: achievement, stimulation | chance: 45
+- URG | go alone into the hills for three days, and come back knowing what it was | body: heavy | identity | v: self-direction, universalism | chance: 65
+- BRG | take the family to another band, where nobody saw that night | mark: left home | moves: yes | v: security, self-direction | chance: 70
+works: By the spring the band's fear has eased, and {N} is welcome at the fire again.
+works: The elders settle it among themselves, and the talk of that night turns from fear to wonder.
+fails: The fear does not ease, and families move their sleeping hides further from {Ns} fire.
+fails: {rival} keeps the whispering alive all winter, and the elders begin to look the other way.
+
+# ---------------------------------------------------------------- 68. chosen to wear the great mask (pairs D2a)
+# The tribal crossing to the lead. The band puts the person forward, but the elders of every clan choose one wearer
+# by the last night, so each one-color way to the mask is at the same chance (15) for one of the band's players,
+# and three tenths of it for an amateur player of five winters with a lead behind them (the one rung skipped;
+# LIFE_STAGE, no one else is put forward); Red's carries the mask's price
+# (a wild risk, and a binding). The pairs turn the mask down, give it to another, or ask what it takes.
+
+== chosen to wear the great mask
+tier: life event
+only: tribal
+stages: young_adult adult mature elder
+age: 18-95
+holds: professional actor | voice actor | understudy | amateur actor
+per_year: 0 0 .02 .03 .03 .02
+drivers: community+.3
+times: per teller-player of the band of two winters or more, or amateur player of five winters with a lead behind them, in the tribal world a year: about 1 in 40; one player a summer wears the great mask for each gathering (estimate)
+likelier: a player the elders have watched for years, a gathering after a good winter, an old mask-wearer grown too stiff to dance
+rarer: a band whose mask-wearer is still in his prime, a player new to the band, a quarrel with the elders
+gap: 3-8
+tone: hope
+life: work, community, meaning
+horizon: months
+roles: elder, rival, friend, mentor
+tribal: the elders hold up the great mask at the gathering's first fire, and turn to you
+scene tribal: At the first fire of the summer gathering the elders hold up the great mask of the first ancestor, and the band's eldest calls out {Ns} name. Every band has put forward its best dancer, and the elders of all the clans will choose one by the last night. The mask is old and heavy, and they say it takes something from whoever wears it.
+scene tribal W: The great mask belongs to the first ancestor, not to any dancer. If {N} is to wear it, every fast and every taboo that goes with it will be kept.
+scene tribal U: {N} has watched three wearers dance the first ancestor, each one differently. Which way is the true one, and what does the mask really take?
+scene tribal B: Whoever wears the great mask is spoken of at every fire in the valley for a generation. {N} means it to be {N}, and {rival} from the river band means it to be {rival}.
+scene tribal R: {Ns} heart pounds like the gathering drums. To dance the first ancestor before every clan in the valley: nothing else could ever come close.
+scene tribal G: {N} thinks of the old wearers, the ones who wore it once and the ones it changed, and of the band that called out {Ns} name with such pride.
+- W | accept by the old rite, and keep every fast and taboo of the mask | title: lead actor or actress; professional actor | requires: professional actor | without: approval | lacking: .3 | v: tradition, conformity | chance: 15
+- U | learn every telling the first ancestor appears in, before the last night | title: lead actor or actress; professional actor | requires: professional actor | without: approval | lacking: .3 | mark: learned a skill | v: achievement, self-direction | chance: 15
+- B | accept, and ask the elders for the wearer's seat at the council fire too | title: lead actor or actress; professional actor | requires: professional actor | without: approval | lacking: .3 | aims: lead actor or actress | identity | v: power, achievement | chance: 15
+- R | take the mask, whatever it takes from its wearer, and dance as nobody has | title: lead actor or actress; professional actor | requires: professional actor | without: approval | lacking: .3 | mark: took a wild risk | binds | v: stimulation, self-direction | chance: 15
+- G | accept for the band's sake, with the whole band drumming behind | title: lead actor or actress; professional actor | requires: professional actor | without: approval | lacking: .3 | v: benevolence, tradition | chance: 15
+- WU | ask the shaman, by the old custom, what the mask takes from its wearer | v: tradition, conformity | chance: 70
+- WG | give the mask to the old dancer who has waited for it all his life | v: benevolence, tradition | chance: 70
+- UR | turn the mask down, and make up a new telling of the first ancestor instead | grants: improvisation | v: self-direction, stimulation | chance: 70
+- BG | ask the elders to give the mask to your own kin's best dancer instead | v: security, benevolence | chance: 70
+- BR | turn the mask down, and win the outer fires with a telling of your own | grants: a fringe slot | door | v: achievement, stimulation | chance: 70
+works: By the last night of the gathering it has gone the way {N} hoped, and the whole band walks a little taller.
+works: The elders of the clans speak {Ns} name with respect, and the band talks of that summer for years.
+fails: On the last night the elders of the clans turn to {rival}, and {N} watches from among the drummers.
+fails: The summer goes wrong from the first dance, and the band walks home quieter than it came.
+
+# ---------------------------------------------------------------- 69. the mimic who mocks the chief (pairs D2b)
+# A fall. The answers are the band's own: pardon, praise, a following, defiance, stepping back (Green drops the lead),
+# leaving, a gift, the old ones' counsel. Chances differ by act and are set so every color's mean is the same.
+
+== the mimic who mocks the chief
+tier: life event
+only: tribal
+stages: young_adult adult mature elder
+age: 18-95
+holds: professional actor | amateur actor | lead actor or actress
+per_year: 0 0 .02 .02 .02 .01
+drivers: unrest+.2
+times: per player in the tribal world a year: about 1 in 50 (estimate)
+likelier: a chief who has made hard choices, a winter of short tempers, a player with a gift for voices
+rarer: a well-loved chief, a band that keeps its tellings to the old stories, a player careful whom the mimic touches
+gap: 5-10
+tone: trouble
+life: community, work
+horizon: months
+roles: elder, rival, friend
+tribal: the whole band laughs at your mimic of the chief, and the chief rises and walks out of the firelight
+scene tribal: In the midwinter telling {N} plays the greedy chief of the old story, and gives him the real chief's walk, his cough and his way of eating first. The band roars with laughter. The chief rises without a word and walks out of the firelight, and the laughter dies away.
+scene tribal W: The chief is the chief, and a telling is no place to shame him. {N} knows a line was crossed, and that the band will be watching what comes next.
+scene tribal U: The old stories have always laughed at greedy chiefs; that is what they are for. {N} wonders how this chief could be brought to see it that way.
+scene tribal B: Half the band laughed until they cried, and some of them looked at {N} afterwards in a new way. A chief who cannot take a joke is a chief who can be weakened.
+scene tribal R: {N} is still burning from the roar of the laughter. It was the best night at the fire in years, and every word of it was true.
+scene tribal G: The band's peace has been broken, and {N} broke it. {N} thinks of the families who must live beside the chief's fire all winter.
+- W | go to the chief's fire at dawn, and ask his pardon before the elders | mark: owned up | v: conformity, tradition | chance: 65
+- U | at the next telling, turn the mimic into a song in the chief's praise | v: self-direction, achievement | chance: 62
+- B | count who laughed loudest, and gather them around your own fire | mark: made an enemy | v: power | chance: 62
+- R | play the mimic again at the next fire, louder | mark: defied an authority | closed: approval: mocking the chief a second time; backfire: the chief bars the player from the fire for a season | v: stimulation, hedonism | chance: 65
+- G | step back from the tellings, and keep away from the chief's fire for a season | drops: lead actor or actress | v: security, tradition | chance: 62
+- RG | walk with your own kin to the river band, where the chief's word does not reach | mark: left home | moves: yes | v: self-direction, tradition | chance: 65
+- UB | find out who carried the tale to the chief, and quietly settle the score | v: power, security | chance: 65
+- UG | ask the oldest teller what the bands of old did when a chief was mocked | door | v: universalism, tradition | chance: 65
+- WB | send the chief the best hide from your next hunt, with words of respect | v: security, conformity | chance: 65
+- WR | tell the chief to his face that the fire has always laughed at chiefs | mark: defied an authority | identity | v: self-direction, universalism | chance: 60
+works: By the thaw the anger has cooled, and things have settled the way {N} hoped.
+works: The band talks about that night for years, and in the end the stories remember {N} kindly.
+fails: The chief's anger does not cool, and {N} finds fewer places kept at the fire.
+fails: {rival} carries every word to the chief's fire, and the winter grows long and cold for {N}.
+
+# ================================================================ magic world
+# ---------------------------------------------------------------- 70. the illusionist players come to town (triads D6a)
+# A door, open to anyone of age in the magic world (no holds). Each one-color way onto the wagons is a player's place
+# (title: professional actor) at the same real chance, for one of the town's own players ([amateur actor]: magic
+# carries someone one rung, never from nothing). The triads are the town's other ways in, open to all:
+# its own players beside the company, the procession crowd, the children's chaperone, small parts, and watching. The
+# fairy scene's children play only with a parent's leave and a chaperone; no option here is a child's.
+# Round 5, 2026-10-07 (checklist P9): at 5, each player's place on the wagons is a long shot (a bold try at the next
+# rung, for the town's own players) and carries `grants_if_fails: a long shot that missed`.
+
+== the illusionist players come to town
+tier: life event
+only: magic
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 .005 .005 .005 .0025 .0025
+drivers: prosper+.3
+times: per person in the magic world a year: about 1 in 100 (estimate)
+likelier: a prosperous summer, a town on the high road between cities, a fair or a feast day
+rarer: hard years, a town off the roads, a strict Order that frowns on wagon players
+gap: 5-10
+tone: hope
+life: work, leisure
+horizon: week
+roles: friend, parent, elder
+magic: painted wagons in the square, and a dragon of light circling the town hall at dusk
+scene magic: The illusionist players roll into the square in six painted wagons, and by dusk a dragon of light is circling the town hall while the children shriek below. The company master has nailed a notice to the well: players, hands and walk-ons wanted for the week, and children for the fairy scene, each with a parent's leave and a chaperone.
+scene magic W: The company has a licence from the Order, sealed and hung on the first wagon, and a list of rules for everyone who travels with it. {N} reads every line of it twice.
+scene magic U: {N} has never seen a glamour up close. How does a dragon hold its shape in the air, and who decides where it flies?
+scene magic B: The company master pays by the night, the notice says, and more for anyone who can carry a part. {N} works out what a summer on the road might be worth.
+scene magic R: The wagons, the lamps, the dragon: {N} has wanted something like this for years without knowing it. The company leaves at the end of the week.
+scene magic G: Half the town is in the square, {friend} among them, and the old folk say the illusionists came once before, long ago, and played the town's own stories.
+- W | sign the company's articles, and keep every rule of the wagons | title: professional actor | grants_if_fails: a long shot that missed | requires: amateur actor | without: impossible | v: conformity, security | chance: 5
+- U | learn two of their plays by heart overnight, and show the company master at dawn | title: professional actor | grants_if_fails: a long shot that missed | requires: amateur actor | without: impossible | mark: learned a skill | v: achievement, self-direction | chance: 5
+- B | haggle for a player's share of the takings before signing on | title: professional actor | grants_if_fails: a long shot that missed | requires: amateur actor | without: impossible | v: power, achievement | chance: 5
+- R | sign on the spot, and leave with the wagons at the end of the week | title: professional actor | grants_if_fails: a long shot that missed | requires: amateur actor | without: impossible | v: stimulation, self-direction | chance: 5
+- G | join for the summer, and bring the town's old songs into their plays | title: professional actor | grants_if_fails: a long shot that missed | requires: amateur actor | without: impossible | aims: professional actor | v: tradition, benevolence | chance: 5
+- WUR | ask the company to let the town's mystery players play a scene with them | title: amateur actor | door | v: universalism, stimulation | chance: 75
+- WBR | walk in the procession under the dragon each night, paid by the night | title: background artist | v: stimulation, security | chance: 75
+- WBG | sign on as chaperone for the town's children in the fairy scene | grants: cleared to work with children | v: benevolence, security | chance: 75
+- URG | take whatever small parts they need each night, and learn from the players | grants: acting | habit | v: stimulation, self-direction | chance: 75
+- UBG | watch from the crowd every night, and work out how a glamour holds its shape | v: self-direction, security | chance: 75
+works: By the time the wagons roll on, the week has given {N} just what {N} hoped for.
+works: The company master remembers {Ns} name, and the dragon of light circles the town hall one last time.
+fails: The company has all it needs by the second night, and {N} watches the rest of the week from the edge of the crowd.
+fails: The week passes in a blur of rain and missed chances, and the wagons roll out at dawn without {N}.
+
+# ------------------------------------------------------- 71. the theatre where the dead come to watch (triads D6b)
+# A magic crossing to the lead. The house master chooses the night's lead from three players, so every one-color way is
+# the same real chance (30); White's keeps the Order's rules and leaves the token, and still takes a wild risk. The
+# triads refuse the night, prepare for it, keep the young players safe, have the company's medium call the dead down
+# into the play (round 5, 2026-10-07: someone else's magic, on a closed: approval: line, in place of the person's own
+# gift), or go looking for one's own dead.
+
+== the theatre where the dead come to watch
+tier: life event
+only: magic
+stages: young_adult adult mature elder
+age: 18-95
+holds: professional actor | lead actor or actress
+tenure: 2-100
+per_year: 0 0 .005 .005 .005 .005
+drivers: fortune+.2
+times: per working player (professional or lead) of two years or more in the magic world a year: about 1 in 200 (estimate)
+likelier: a company that plays the old playhouses, a player the house master has watched, the turn of the year toward the long nights
+rarer: a company that keeps to the new halls, a player new to the city, a year when the Order shuts the old house
+gap: 10-20
+tone: mixed
+life: work, meaning
+horizon: week
+roles: dead, rival, friend, elder
+magic: the old playhouse on the night of the dead, and every seat in the gallery is taken by someone long gone
+scene magic: On the night of the dead the old playhouse opens its gallery, and every seat fills with people long gone, pale and patient, in the clothes of their own times. The house master will choose the lead for that one night from three players, and {N} is one of them. Whoever leads it, the city says, is remembered by both worlds.
+scene magic W: The Order's rules for the night are old and strict: a token for the dead at the stage door, no names spoken from the stage, the lamps never fully out. {N} knows every one of them.
+scene magic U: The house keeps a record of every night of the dead for three hundred years: who played, what the gallery did, who was never the same after. {N} wants to read all of it.
+scene magic B: The fee for the night is ten times a season's wage, and the fame of it lasts a lifetime. {rival} wants it as badly as {N} does.
+scene magic R: To play to the living and the dead at once, with the whole gallery leaning forward: {N} can hardly breathe for wanting it.
+scene magic G: {N} cannot stop thinking about one face that might be in the gallery: {dead}, gone these many years, who never once saw {N} on a stage.
+- W | try for the lead by the Order's rules, with a token left for the dead | title: lead actor or actress | mark: took a wild risk | aims: lead actor or actress | v: tradition, conformity | chance: 30
+- U | read the house's record of every night of the dead, then try for the lead | title: lead actor or actress | mark: learned a skill | aims: lead actor or actress | v: self-direction, achievement | chance: 30
+- B | try for the lead for the fee, and the fame in both worlds | title: lead actor or actress | v: power, achievement | chance: 30
+- R | try for the lead, to play for the living and the dead at once | title: lead actor or actress | v: stimulation, self-direction | chance: 30
+- G | try for the lead, and play it for one face in the gallery | title: lead actor or actress | v: benevolence, tradition | chance: 30
+- WUG | refuse to play that night, and ask the Order to bless the house first | v: tradition, security | chance: 70
+- WUB | learn the lead's part as its second, and wait in the wings that night | grants: learning lines | habit | binds | v: achievement, conformity | chance: 70
+- WRG | take a small part that night, and keep the young players close by the lamps | binds | v: benevolence, stimulation | chance: 70
+- UBR | ask the company's medium to call the dead down from the gallery into the play | grants: good notices | mark: took a wild risk | closed: approval: calling the dead onto the stage without the Order's leave; backfire: nothing answers but a cold wind, and the house master shuts the old playhouse to the company for a year | v: stimulation, power | chance: 70
+- BRG | climb to the gallery after the curtain, and look for your own dead | mark: took a wild risk | v: benevolence, stimulation | chance: 70
+works: When the lamps come up the gallery is empty again, and the night has gone the way {N} hoped.
+works: Years later the old players still speak of that night of the dead, and of {N}.
+fails: The night goes cold and strange, and {N} leaves the playhouse before the lamps are out.
+fails: The house master gives the night to {rival}, and {N} hears the gallery's silence from the street.
+
+# ---------------------------------------------------------------- 72. a glamour that makes the play real (pairs D1a)
+# The magic crossing to the lead, with a price or without. Black pays the illusionist's price (the glamour, 35); Red
+# wears a glamour bought from a hedge-witch for the night (round 5, 2026-10-07: someone else's magic, on a closed:
+# approval: line, in place of the person's own gift; 30); the plain way, on craft and
+# rehearsal alone, is the WU pair (12). The other acts report, question, refuse, keep or sell the offer. The pairs form
+# a ring (each color in two), so the chances are set around the three parts until every color's mean is the same.
+# It comes to a working player, or to an amateur of five years with a lead behind them (LIFE_STAGE): magic carries
+# someone one rung, never from nothing.
+
+== a glamour that makes the play real
+tier: life event
+only: magic
+stages: young_adult adult mature elder
+age: 18-95
+holds: professional actor | voice actor | understudy | amateur actor
+per_year: 0 0 .01 .01 .01 .005
+drivers: fortune+.2 prosper+.1
+times: per working player (professional or voice) of two years or more, or amateur of five years with a lead behind them, in the magic world a year: about 1 in 100 (estimate)
+likelier: a first try-out in a lead, a city where glamours are sold under the counter, a player with more nerves than nights on stage
+rarer: a company the Order watches closely, a player long settled in the lead, a house master who searches the dressing rooms
+gap: 5-10
+tone: mixed
+life: work, meaning
+horizon: week
+roles: rival, mentor, friend
+magic: an illusionist in a velvet coat, in your dressing room, with a small silver bell
+scene magic: The night before {Ns} first try-out in a lead, an illusionist in a velvet coat is waiting in the dressing room with a small silver bell. One ring before the curtain, he says, and the house will see and feel the play as if it were real: they will weep, and they will not forget. He does not say what it costs, only that it asks something of the player.
+scene magic W: Glamours on a public stage need the Order's licence, and this one carries none that {N} can see. There are rules for this, and good reasons for them.
+scene magic U: Every glamour draws its power from somewhere. {N} wants to know exactly where this one draws it from before touching the bell.
+scene magic B: If the house loves the try-out, the lead is {Ns} for the whole season. {rival} would ring that bell without a second thought, and {N} knows it.
+scene magic R: {N} can feel the pull of it already: one ring, and the whole house in the palm of a hand. Or there is the hedge-witch in the lanes behind the playhouse, who sells a night's glamour and asks no questions.
+scene magic G: The company has played the plain way for forty years, and {mentor} always says a house can tell when it is being cheated.
+- W | report the illusionist to the Order, which licenses every glamour in the city | v: conformity, security | chance: 64
+- U | make the illusionist write down exactly what the glamour takes, before any answer | v: self-direction, security | chance: 84
+- B | pay the illusionist's price, and play the try-out under the glamour | title: lead actor or actress; professional actor | mark: took a wild risk | binds | v: power, achievement | chance: 35
+- R | wear a glamour bought from a hedge-witch for the night, and go on | title: lead actor or actress; professional actor | mark: took a wild risk | closed: approval: an unlicensed glamour on a public stage; backfire: the glamour breaks in the first scene, the whole house sees it, and the company lets the player go | v: stimulation, self-direction | chance: 30
+- G | send the illusionist away, and warn the rest of the company about him | v: benevolence, tradition | chance: 50
+- BG | keep the illusionist's card, for a night when the company needs it more | door | self_control: + | v: security, power | chance: 80
+- BR | sell the story of the illusionist's offer to the broadsheets | mark: made an enemy | v: achievement, stimulation | chance: 80
+- UG | ask the company's oldest player what glamours have taken from players before | v: universalism, tradition | chance: 50
+- WR | throw the illusionist out of the dressing room, bell and all | v: universalism, stimulation | chance: 90
+- WU | play the try-out plain, on craft and long rehearsal alone | title: lead actor or actress; professional actor | self_control: + | v: conformity, achievement | chance: 12
+works: The curtain comes down to a silence, then a roar, and the night ends the way {N} wanted.
+works: Long after the season ends, {N} is glad of the choice made in that dressing room.
+fails: The try-out goes wrong from the first scene, and the house master gives the season's lead to {rival}.
+fails: Something of that night stays wrong for a long time, and {N} is never quite sure what it cost.
+
+# ---------------------------------------------------------------- 73. the mask that changes its wearer (pairs D1b)
+# A magic door: the lead in the mask. Wearing it once is the amateur lead (the UR pair); a company master who sees the
+# mask at the open trial gives a player's place (the WB pair, 25); Red wears it always, and is changed. The others give
+# it to the Order, study it, sell it, break it, drown it, or take it home to its family. The pairs form a ring, so the
+# chances are set around the two parts until every color's mean is the same.
+# The player's place is one rung up, for a player, an extra or a drama student, never from nothing.
+
+== the mask that changes its wearer
+tier: life event
+only: magic
+stages: juvenile young_adult adult mature elder
+age: 16-95
+holds: professional actor | amateur actor | background artist | drama school student
+tenure: 1-100
+per_year: 0 .01 .01 .01 .01 .01
+drivers: fortune+.3
+times: per player, extra or drama student of a year or more in the magic world a year: about 1 in 100 (estimate)
+likelier: an old playhouse or guild hall with trunks nobody has opened in years, a company that buys old costumes, a player restless in small parts
+rarer: a new company with new costumes, a player who never goes near the wardrobe, a city where the Order searches every trunk
+gap: 5-10
+tone: mixed
+life: work, meaning
+horizon: months
+roles: friend, mentor, rival, elder
+magic: a mask of white lacquer at the bottom of the costume trunk, warm to the touch
+scene magic: At the bottom of an old costume trunk, under moth-eaten cloaks, {N} finds a mask of pale lacquer that is warm to the touch. The wardrobe mistress says it belonged to a famous player, long dead, whose family still lives in the old quarter. Whoever wears it, the story goes, becomes anyone on the stage, and a little more of them each time.
+scene magic W: A thing like this belongs with the Order, which keeps such things safe. {N} knows that is what the rules say, whatever the mask might do on a stage.
+scene magic U: Who made it, and how? {N} turns the mask over and over, looking for a maker's mark, and finds only a line of tiny letters in no tongue {N} knows.
+scene magic B: Collectors of strange things pay fortunes for less. And worn on the right night, before the right company master, it might be worth more than any fortune.
+scene magic R: {N} holds it up to the lamp and feels the warmth spread into {Ns} fingers. One night in it, just one, to be anyone at all.
+scene magic G: Old things like this have their own ways, and the wardrobe mistress makes the Order's sign whenever she passes the trunk. {N} thinks of the players the mask must have changed, and of the family it came from.
+- W | take the mask to the Order's house, and let them keep it safe | v: conformity, security | chance: 85
+- U | study how the mask was made, and wear it only in rehearsal | mark: learned a skill | v: self-direction, universalism | chance: 67
+- B | sell the mask to a collector of strange things, for a very good price | v: power, achievement | chance: 80
+- R | wear it in every play from now on, whatever it changes | mark: took a wild risk | identity | self_control: - | v: stimulation, self-direction | chance: 67
+- G | break the mask, and bury the pieces under the old yew behind the playhouse | v: tradition, security | chance: 57
+- UR | wear it once, for one great part, and then put it away | grants: a lead role to remember | self_control: + | v: stimulation, self-direction | chance: 50
+- WB | wear it at the guild's open trial, by the guild's rules, with a company master watching | title: professional actor | v: achievement, conformity | chance: 25
+- UB | ask a mask-maker what it is worth, and what it has taken from its wearers | door | self_control: + | v: security, power | chance: 80
+- RG | throw it in the river at night, and walk home free of it | v: self-direction, tradition | chance: 80
+- WG | give it back to the family of the player it once belonged to | v: benevolence, tradition | chance: 70
+works: Months later {N} is still sure it was the right choice, and the wardrobe trunk is just a trunk again.
+works: The whole company notices something new in {N}, and {N} likes what it is.
+fails: The mask turns up again where {N} least expects it, as warm as ever.
+fails: Something of the mask stays with {N} for a long time, and {friend} says {N} has not been the same since.

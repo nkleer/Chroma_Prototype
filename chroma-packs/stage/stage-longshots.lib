@@ -1,0 +1,505 @@
+# Chroma content pack, Stage and Screen: LONG SHOTS and the ANTI-STORY (draft 2, 2026-10-06, for merging after the
+# pack's calibration). Brief: chroma-packs/LONGSHOTS-BRIEF.md, section 1 as rewritten after Emren's 09:18 ("can someone
+# try to become a parliamant member, out of nothing? ... Big titles ... needs consecutive steps"): a long shot is a bold
+# try at the next rung, or a skip of at most one rung by someone with years on the rung below; nobody goes from no
+# history in the field to a career or summit. Ladders as the shared files use them (coordinator, 2026-10-06):
+# [professional actor] from [drama school student], [understudy], or [amateur actor] / [background artist] with 2+
+# years; [lead actor or actress] from [professional actor], [voice actor] or [understudy], or (the one-rung skip)
+# [amateur actor] with 5+ years and [a lead role to remember]; [director] from [community theatre director] or [stage
+# manager] with years, or [professional actor] with years and [directing actors]; [artistic director] from [director],
+# or [community theatre director] with many years; [producer] from [stage manager], [a company of your own], or
+# [community theatre director] with years; [playwright or screenwriter] from [novelist], [journalist], or [writing
+# stories] with years plus a stage history. Who meets each moment: `holds:` and `tenure:` here (years on the rung),
+# made exact by LIFE_STAGE_LONGSHOTS in engine-conditions.py (yrs_has; round 5: the file was merged there); the echoes cannot load without that
+# file (ECHO_STAGE_LONGSHOTS), so the gates travel with them. Syntax: header of chroma-library/build.py. Rules:
+# chroma-library/library-spec.md and stage/MOMENTS-BRIEF.md (pack rules, content limits, worlds).
+#
+# Seven life events (six until round 5), each even on its own: five one-color long shots at one written chance of 2 or 3 (the long odds come
+# from the step itself, never from `lacking:`), each with `grants_if_fails: a long shot that missed`, plus one balanced
+# combination set of steps at one chance (a listing, a year of open calls, a showreel, a contact, a company of one's
+# own, a night as the lead remembered, `aims:`), so the long shot and the slow road stand side by side. Pairs D2a D2b
+# D5a D5b and triads D6a D6b, so pairs and triads stay equal across the pack. Round 5, 2026-10-07: LS7 'the other side
+# of the table' (pairs D1a) gives director, casting director, talent agent and drama teacher their long shots
+# (checklist P9), each from [professional actor] with three years; its D1a half matches the D1b pairs of 'the school
+# needs someone to take drama' in stage-events.lib. Two echoes anchored on the perk, `once:
+# yes`, five one-color options plus a full cross cycle: the second try (`title: {missed}`, the rung missed, at 4
+# against the first try's 2 or 3) and making peace with it. Emren's standing rule ("Lead actor/actresss availability
+# must be inside with all new content"): the lead is the long shot in 'the lead from the open queue' and 'the night both
+# covers are off', and in the second try for whoever missed it there, always from the rung below; 'filmed by chance in
+# the street' and 'the late starter' lead to [professional actor], the rung below the lead; the peace echo opens
+# [amateur actor]. Content: nothing graphic; every long shot is for someone of 18 or more, and children appear only in
+# safe, supervised settings (a family lunch, a youth theatre's first night with its leaders); no casting-couch scene of
+# any kind; no real person, production, theatre, studio, festival, award, agency or union is named. The cost of
+# failing is the attempt itself, a day, a little pride, at most savings spent on a lease (`takes_if_fails: savings`,
+# said in the label); never cruel, never death.
+# Round 5, 2026-10-07 (checklist P14, value tags): 4 options in this file retagged so the v: values read one of the
+# option's own colors (check.py section 4): White's by-the-book singles lead with conformity (not conformity with
+# achievement, which reads Blue), Red's singles on impulse lead with stimulation or hedonism (not self-direction,
+# which reads Black), Green's singles of home and kin with tradition and benevolence or universalism (not security,
+# which reads White), and Red's kindness on the spot with benevolence and stimulation.
+
+# ================================================================ long shots (life events)
+
+# ---------------------------------------------------------------- LS1. the lead from the open queue (pairs D2a)
+# The open call for the lead of a big new musical that wants a new face, for actors already on the rung below (a
+# professional or voice actor, an understudy) and, as the one-rung skip, an amateur with five years on the local stage
+# and a lead role to remember (LIFE gate; `holds:` names the four titles). Every color's long shot is the lead at 2 (one
+# hopeful in thousands in life; the game's lift for a story); the pairs at 85 are the slow road: a listing, a year of
+# open calls, the show's other parts learned, a season with one's own company, a plan.
+
+== the lead from the open queue
+tier: life event
+stages: young_adult adult mature elder
+age: 18-90
+holds: professional actor | voice actor | understudy | amateur actor
+per_year: 0 0 .008 .006 .004 .002
+drivers: era+.3 fortune+.2
+times: per working actor, understudy or long-standing amateur lead a year: about 1 in 150 queues at an open call for the lead of a big new show that wants a new face (estimate); open casting days for such a lead can draw several thousand hopefuls for one part (press reports of open calls; estimate), so a hopeful's real odds are well under 1 in 100, written here at 2 in 100
+likelier: a new musical or film that wants a new face, a city within a day's travel, a boom in new productions, years of singing and dancing kept up
+rarer: a part already promised to a star, a show that will not release its cast for the day, no money for the train
+gap: 5-12
+domain: career.5
+tone: mixed
+life: work, performing, meaning
+horizon: week
+roles: friend, rival, partner, a casting assistant
+earth: an open call for the lead of a big new musical that wants a new face, and a queue of working actors and local leads by dawn
+tribal: the elders will give the great mask to whichever of the bands' players dances the first ancestor best at the gathering's first fire
+magic: the master of revels will hear any player of the realm's companies and guild stages for the hero of the midsummer masque
+scene: A big new musical, bound for the largest theatre in the capital, wants a new face for its lead and holds open auditions in five cities: sixteen bars of a song and a minute of speech. By six in the morning the queue goes twice round the block: actors between jobs, understudies on their day off, the best of a hundred local companies. Everyone in it gets a number.
+scene W: The call's rules are printed on the website, and {N} has read them three times: sixteen bars, plain clothes, doors at nine. If there is a fair way through four thousand people, it is to be exactly what they asked for.
+scene U: {N} has listened to the show's songs until the lead's whole story is in them: where the part starts, where it breaks, what it wants. Two minutes is long enough to show one true thing, if it is the right one.
+scene B: Four thousand people, and perhaps forty will get past the first room. {N} watches which faces the casting assistants remember, and works out who in the building actually decides.
+scene R: {N} has played every kind of part but this one, and has never wanted anything so simply. Somewhere at the front of this queue is a room, and for two minutes in it {N} will be the only person in the world.
+scene G: {friend} came along with a flask and sandwiches, and half the queue are players from towns like {Ns} own: the lead of the valley players, two from a touring company, a woman who has sung the same pantomime for twenty years. Whatever happens, it is a day none of them will forget.
+scene tribal: The elders have said it at every fire: this summer the great mask of the first ancestor goes to whichever of the bands' players dances him best at the gathering's first fire. By dusk the players of every band are pressed round the fire, and those who want it wait their turn in the dark.
+scene magic: The master of revels has had it cried at every company's door and every guild stage of the realm: the hero of the midsummer masque will be chosen from among their players, known or not. The line to the hall winds across the square, and a herald gives each player a painted tally.
+- W | queue from dawn, and give them exactly the song and the speech the call asked for | title: lead actor or actress; professional actor | grants_if_fails: a long shot that missed | self_control: + | v: conformity | tribal: wait your turn at the first fire, and play the ancestor exactly as the old tellings set him | magic: wait for your tally to be called, and give the master exactly the piece the crier named | chance: 2
+- U | learn the whole story of the part from its songs, and play that in two minutes | title: lead actor or actress; professional actor | grants_if_fails: a long shot that missed | mark: learned a skill | v: achievement, self-direction | tribal: learn every telling of the first ancestor, and play the one that is truest | magic: learn the hero from the old ballads, and play that in two minutes | chance: 2
+- B | talk your way up the queue, and make sure the casting director learns the name | title: lead actor or actress; professional actor | grants_if_fails: a long shot that missed | v: power, achievement | tribal: talk your way to the front of the waiting, and make sure the elders know your hearth | magic: talk your way up the line, and make sure the master of revels learns your name | chance: 2
+- R | walk in and sing it as if the theatre were already full | title: lead actor or actress; professional actor | grants_if_fails: a long shot that missed | mark: took a wild risk | identity | v: stimulation, hedonism | tribal: leap into the firelight and dance the ancestor as if every clan were already roaring | magic: walk in and play the hero as if the whole court were already watching | chance: 2
+- G | sing the old song from home, the way the old people there still sing it | title: lead actor or actress; professional actor | grants_if_fails: a long shot that missed | identity | v: tradition, benevolence | tribal: play the ancestor the way the old ones of your band have always told him | magic: sing the old song of your village, the way the old folk still sing it | chance: 2
+- BG | leave your details with the casting office, and pay for a listing in the directory | grants: casting directory listing | v: security, achievement | tribal: ask the elders' go-between to remember your hearth for the tellings to come | magic: pay the brokers to put your name on their roll for the next masque | chance: 85
+- BR | go to every open call this year, and learn to own a room in two minutes | grants: auditioning | habit | v: stimulation, achievement | tribal: play before every band's elders who will watch this summer, and learn to own the fire | magic: try before every company that holds trials this year, and learn to own a room | chance: 85
+- UR | learn the show's other parts on your own, in case the call comes round again | grants: learning lines | door | v: self-direction, stimulation | tribal: learn every other part of the telling by heart, in case the mask is offered again | magic: learn the masque's other parts by heart, in case the master calls again | chance: 85
+- WG | go home to your own company, and give it your best season yet | grants: a company that feels like family | v: tradition, benevolence | tribal: go home to your own band's players, and give them your best winter of tellings | magic: go home to your own company, and give it your best season yet | chance: 85
+- WU | ask the casting assistant what the panel looks for, and work on it for a year | aims: lead actor or actress | self_control: + | v: achievement, conformity | tribal: ask the elders' helper what the elders look for, and work on it until next summer | magic: ask the herald what the master looks for, and work on it until next midsummer | chance: 85
+works: The recalls come one after another, a second room, a third, a fifth, and then a phone call on a Tuesday night that {N} will repeat word for word for the rest of {Ns} life.
+works: Whatever {N} chose to do with the day, it was the right size of step, and {N} goes home tired and glad.
+fails: {N} walks home in the dark with the number still pinned on, sings the sixteen bars once more under the railway bridge, and keeps the number in a drawer for years.
+fails: The casting assistant calls it lovely and plainly means it; on the train home {N} works out the whole thing lasted ninety seconds, and that {N} would do it again tomorrow.
+
+# ---------------------------------------------------------------- LS2. filmed by chance in the street (pairs D2b)
+# The performer filmed by chance (Emren's Red or Rakdos life as an artist or in a sub-culture): a busker in a band, a
+# street player, an extra or a local player with three years or more of performing in public (`tenure: 3-99`), whose
+# act a stranger films, and the trade comes calling. Luck opens the next rung, never one beyond it: the long shots, at
+# 3 in every color, are [professional actor] (W B R G: the ensemble, an agent's books, a touring company, a company of
+# friends) and [voice actor] (U), the careers on the rung below the lead; no lead, no director. The pairs at 84 are the
+# steps luck opens: a showreel (the door to 'a screen test'), a contact in the trade, a fair agent, a real stage set as
+# the aim, or the act kept free.
+# Round 5, 2026-10-07 (checklist P8, from nothing): the long shots go only to a local player or an extra of three
+# years (LIFE gate); a busker or a name on the local scene without either rung no longer meets the moment.
+# The voice studio's try (U) needs the local players behind it (`requires: amateur actor`), since an extra's years
+# are no rung below [voice actor].
+
+== filmed by chance in the street
+tier: life event
+stages: young_adult adult mature
+age: 18-70
+holds: amateur actor | background artist | amateur band member | name on the local scene | a cult following
+tenure: 3-99
+per_year: 0 0 .0008 .0006 .0003 0
+drivers: era+.3 fortune+.3
+times: per busker, band player, street player, extra or local player with years of performing in public, a year: about 1 in 1,500 has a stranger's clip of the act spread far enough for the trade to call (estimate); clips of street acts are filmed and shared every day, and only a handful a year turn into paid parts (estimate)
+likelier: an act people stop for, a busy square or station, a year when clips travel fast, a friend who knows how to share them
+rarer: a quiet town, an act that only works live, a performer who seldom plays in public
+gap: 6-15
+domain: career.5
+tone: joy
+life: work, performing, money
+horizon: week
+roles: friend, partner, colleague, a casting director, an agent
+earth: a stranger films the person's street act, the clip goes round the country, and the messages start
+tribal: a teller from another band sees the person play at the river crossing, and carries the telling to every fire in the valley
+magic: an illusionist catches the person's act in a scrying glass at the market, and the glass is shown in the great houses
+scene: On a Saturday in the square {N} does the act {N} has done for years, for the shoppers and the pigeons and whoever stops. A stranger films two minutes of it on a phone. By Wednesday the clip has been watched four million times, and {Ns} messages are full: a casting director, a voice studio, an agent, a company that tours physical theatre, and every regular from the square asking if it is true.
+scene W: {N} answers nobody for a day, and makes a list instead: who wrote, what they want, which offers are real. Somebody has to keep a clear head in all this, and it may as well be {N}.
+scene U: {N} watches the clip forty times with the sound off and then with it on, to see what the four million saw. There is something in the last minute that {N} never knew was there.
+scene B: Attention like this lasts about a fortnight. {N} sorts the messages by who has money and who has power, and starts with the second list.
+scene R: {N} reads the messages on the bus home, laughing out loud. Years on the cold stones of the square, and now everyone wants the act exactly as it is.
+scene G: The regulars from the square have all seen it: the flower seller, the man with the dog, the kids who dance along with a parent close by. They are in the clip too, at the edges, and they are prouder than {N} is.
+scene tribal: A teller from another band watched {N} play at the river crossing, and has carried the telling to every fire in the valley. Now runners come from three bands at once: the elders of the gathering want to see this player, and so does the keeper of the hidden voices.
+scene magic: An illusionist caught {Ns} market act in a scrying glass, and the glass has been shown in every great house in the city. Letters come under strange seals: a company master, a puppet theatre, a broker, a troupe of masquers that tours the river towns.
+- W | answer the casting director by return, and audition for the ensemble properly | title: professional actor | grants_if_fails: a long shot that missed | self_control: + | v: conformity, achievement | tribal: answer the elders' runner at once, and play before them as a teller-player should | magic: answer the company master by return, and try for a place in the company properly | chance: 3
+- U | send the voice studio a clean recording of every voice in the act | title: voice actor | requires: amateur actor | without: impossible | grants_if_fails: a long shot that missed | habit | v: achievement, self-direction | tribal: go to the keeper of the hidden voices, and give every voice in the act behind the screen | magic: go to the puppet theatre, and give every voice in the act through the speaking-stone | chance: 3
+- B | sign with the agent who wrote first, and hold out for a part in a series | title: professional actor | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: let the go-between speak for you, and hold out for a place among the gathering's players | magic: sign with the broker who wrote first, and hold out for a part with a great company | chance: 3
+- R | say yes to the touring company, and leave with them on Monday | title: professional actor | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, self-direction | tribal: say yes to the travelling players of the valley, and leave with them at dawn | magic: say yes to the masquers' wagons, and leave with them on market day | chance: 3
+- G | take the regulars from the square along, and audition as a company | title: professional actor | grants_if_fails: a long shot that missed | mark: made a friend | v: benevolence, tradition | tribal: take the friends who play beside you at the crossing, and go before the elders together | magic: take the market regulars along, and try for the company together | chance: 3
+- RG | keep playing the square every Saturday, and set your sights on a real stage | aims: professional actor | habit | v: hedonism, tradition | tribal: keep playing at the river crossing, and set your sights on the gathering's fire | magic: keep playing the market every feast day, and set your sights on a real stage | chance: 84
+- UB | cut the clip into a proper showreel, and send it to every casting office | grants: a showreel | v: achievement, power | tribal: work the act into a telling the bands will ask for again and again | magic: have the glass copied into a glamour-reel, and send it to every company | chance: 84
+- UG | go for coffee with the casting director who wrote, and mostly listen | grants: contact in the trade | door | v: self-direction, benevolence | tribal: sit with the elders' runner at the crossing, and mostly listen | magic: take supper with the company master who wrote, and mostly listen | chance: 84
+- WB | sign with a small agency, after reading every line of the contract | grants: an agent who believes in you | self_control: + | v: security, achievement | tribal: take a go-between from a band you trust, after the elders hear the terms | magic: sign with a small broker, after reading every line of the contract | chance: 84
+- WR | say no to all of it, and keep the act free on the street | mark: turned down a chance | identity | v: self-direction, universalism | tribal: send the runners home, and keep the act for anyone at the crossing | magic: send the letters back, and keep the act free in the market where it belongs | chance: 84
+works: Within a month {N} has a contract, a rehearsal room and a start date, and the square throws a party on the last Saturday.
+works: Whatever {N} chose, the clip turns out to be the beginning of something rather than the whole of it.
+fails: The messages stop after nine days, another clip takes the country's attention, and {N} plays the square on Saturday to a crowd that never saw it.
+fails: {N} goes to the audition in a borrowed jacket, hears the director call the act "pure gold, just not for us", and laughs about it all the way home.
+
+# ---------------------------------------------------------------- LS3. the film you made with friends (pairs D5a)
+# The short film made with friends from the person's own script, for someone who has written for years ([novelist],
+# [journalist], [writing stories] or [writing scripts], `tenure: 4-99`) with a stage or screen history besides (LIFE
+# gate). The long shot is the next rung, [playwright or screenwriter], at 2 in every color: the festivals by their
+# rules, a writers' scheme, the producer who buys scripts, the festival's midnight strand, the next film for the same
+# friends. No lead and no director from it. The pairs at 82: a small sale, a better cut, the next script started, a
+# free screening, the film put online.
+
+== the film you made with friends
+tier: life event
+stages: young_adult adult mature elder
+age: 18-90
+holds: novelist | journalist | writing stories | writing scripts
+tenure: 4-99
+per_year: 0 0 .006 .004 .002 .001
+drivers: era+.3 fortune+.2
+times: per person who has written for years and has a stage or screen history, a year: about 1 in 200 makes a short film from their own script with friends and sends it to a festival (estimate); the biggest independent film festivals receive over ten thousand films a year and show about 1 or 2 in 100 (festival figures, approximate), and far fewer of their writers are taken on for a feature script (estimate)
+likelier: years of writing behind it, a phone with a good camera, friends who will give three weekends, a year when festivals look for new voices
+rarer: no friends with the time, the festival fees, a busy family life
+gap: 5-12
+domain: career.5
+tone: joy
+life: making, friends, work
+horizon: months
+roles: friend, partner, colleague, mentor, rival
+earth: a short film made from the person's own script over three weekends with friends and a phone, and a festival's open submissions closing in a week
+tribal: a shadow telling of the person's own making played with friends on the cave wall, and the gathering's keeper choosing which new tellings will play at the great fire
+magic: a mirror-play of the person's own writing caught in a scrying glass with friends, and the court's revels choosing which new plays will be shown
+scene: Over three weekends {N} and four friends made a short film on a phone from a script {N} wrote: borrowed lights, a kitchen for every set, a neighbour's car for the chase. Now it is finished, eleven minutes long, and the biggest festival's open submissions close on Friday. Last year it took forty films out of four thousand.
+scene W: {N} has a checklist for the festival's forms: the running time, the subtitles, a signed release from everyone in the film. If it goes in, it goes in properly.
+scene U: {N} has written for years, but never before heard the words played back by people who believed them. The cut could be tighter in the middle, and the last shot says everything the script meant.
+scene B: A festival is a market as much as a party. {N} has worked out which producers go to the short-film screenings, and which of them are looking for writers.
+scene R: The film is rough and strange and alive, and {N} loves it more than anything {N} has written. The thought of strangers seeing it in the dark is almost too much.
+scene G: Everyone in it is someone {N} loves: {Ns} oldest friend, a cousin, the old man from the corner shop as the grandfather. The whole street turned out for the chase.
+scene tribal: Over a moon of nights {N} and four friends made a new shadow telling of {Ns} own on the cave wall: hands for the wolf, a burning stick for the moon, the old woman of the next hearth as the grandmother. The keeper of the gathering will choose which new tellings play at the great fire.
+scene magic: Over three market days {N} and four friends caught a play of {Ns} own writing in a scrying glass: borrowed lamps, a kitchen for every scene, a neighbour's cart for the chase. The court's master of revels will choose a few new mirror-plays to show at the summer revels.
+- W | enter it in every festival with an open door, the script attached, every form filled | title: playwright or screenwriter | grants_if_fails: a long shot that missed | self_control: + | v: conformity, achievement | tribal: bring it to the keeper on the right night, every part told exactly as the elders ask | magic: send it to the court and every great house that shows new plays, every seal in order | chance: 2
+- U | send the script to a studio's new writers' scheme, with the film as proof | title: playwright or screenwriter | grants_if_fails: a long shot that missed | mark: learned a skill | v: achievement, self-direction | tribal: carry the telling to the oldest teller of the gathering, and ask to make new tellings for the clans | magic: send the play to the court's play-makers, with the glass as proof | chance: 2
+- B | show the short to the producer who buys scripts, and pitch the feature | title: playwright or screenwriter | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: show it to the great families, and offer them a great telling of your own making | magic: show it to the play-merchants, and offer them a full play of your own writing | chance: 2
+- R | take it to the festival's midnight strand, and pitch the strange feature that comes next | title: playwright or screenwriter | grants_if_fails: a long shot that missed | mark: took a wild risk | identity | v: stimulation, self-direction | tribal: play it at the gathering's last fire, and offer the strange telling that comes next | magic: show it at the revels' midnight hour, and offer the strange play that comes next | chance: 2
+- G | write the next film for the same friends, and send the two in together | title: playwright or screenwriter | grants_if_fails: a long shot that missed | habit | v: benevolence, tradition | tribal: make a second telling for the same friends, and bring the two to the keeper together | magic: write a second play for the same friends, and send both glasses together | chance: 2
+- BG | sell it to the local channel for a small fee, and share the money out | grants: contact in the trade | mark: kept your word | v: security, benevolence | tribal: give the telling to a neighbouring band for a gift, and share the gift among the players | magic: sell the glass to a tavern's showman for a few coins, and share them out | chance: 82
+- UB | cut it again for a month, until every second earns its place | grants: editing | self_control: + | v: achievement | tribal: tell it again and again for a moon, cutting every move that does not earn its place | magic: recut the glass for a month, until every scene earns its place | chance: 82
+- UR | start the next script the same night, while the friends are still keen | grants: writing scripts | door | v: self-direction, stimulation | tribal: start the next telling that same night, while the friends are still keen | magic: start the next play that same night, while the friends are still keen | chance: 82
+- WG | show it free in the community hall, with the whole street in the audience | mark: made a friend | v: benevolence, universalism | tribal: show it free at your own band's fire, with every hearth watching | magic: show it free in the ward's hall, with the whole lane watching | chance: 82
+- WR | put it online for anyone to see, and answer every comment | grants: following online | v: universalism, stimulation | tribal: play it at every fire that asks, and answer every question the young ones have | magic: let the glass be shown in every tavern that asks, and answer every letter | chance: 82
+works: A letter comes in the spring: the film is in, and after the screening a producer waits in the foyer with a card and a question about what {N} wants to write next.
+works: Whatever {N} chose, the film finds its people, and the friends who made it talk about those three weekends for years.
+fails: The festival's letter is short and kind: four thousand films, room for forty, and one line of real praise for the last scene, which {N} reads a hundred times.
+fails: {N} sits in the back row of a small screening to eleven people, three of them in the film, and claps loudest when the credits roll.
+
+# ------------------------------------------------------------ LS4. the old theatre needs someone to save it (pairs D5b)
+# The town's old theatre is closing, and its trust will hand it to whoever brings a plan the town backs. It comes to
+# someone already near the top of the ladder: a [director] with years, or a [community theatre director] with many
+# years (LIFE gate: 3 and 8 years; `tenure: 3-99` here). The long shots at 2: [artistic director] (the facet with its
+# title, `title: artistic director; director`, the one-rung skip for the community director) in four colors' ways, and
+# [producer] by the lease (B, with the savings at stake; the next rung for a community director with years). No lead.
+# The pairs at 82 are a company of one's own, one last show for the town, the history written down, the trust's books
+# with an aim at the top job, and another's plan backed.
+
+== the old theatre needs someone to save it
+tier: life event
+stages: adult mature elder
+age: 28-95
+holds: community theatre director | director
+tenure: 3-99
+per_year: 0 0 0 .005 .006 .004
+drivers: community+.3 prosper-.2
+times: per director or long-serving community theatre director a year: about 1 in 200 sees an old theatre in their own town close and offers to run it (estimate); every year a few dozen old theatre buildings in a country the size of the UK stand at risk of closing, and some are saved by local trusts (estimate); 1,953 US nonprofit theatres (theatre facts, 2019) each change their artistic director about once in ten years, almost always for a professional (estimate)
+likelier: a town with a live amateur scene, a trust that would rather hand the building on than sell it, years of directing in the town
+rarer: a building already sold to a developer, a town with no money to give, a person with no time to give it
+gap: 8-20
+domain: community.5
+tone: mixed
+life: community, work, publiclife
+horizon: years
+roles: friend, neighbour, elder, colleague, rival
+earth: the old theatre on the high street is to close, and its trust will hand it to whoever brings a plan the town will back
+tribal: the painted cave where the band's tellings have been played for generations is to be left, unless someone will keep it
+magic: the old playhouse by the river has lost its licence and its patron, and the guild will give it to whoever can keep it open
+scene: The old theatre on the high street, a hundred and twenty years old, is to close: the grant has gone and the trust that ran it cannot pay for the roof. At a public meeting in the stalls the chair says the trust will hand the building to whoever brings a plan the town will back, and someone in the third row says {Ns} name: the person who has directed the town's plays for years.
+scene W: {N} has sat on enough committees to know what the trustees will ask: the money, the roof, the insurance, the next five years. A theatre is an institution, and an institution needs someone to answer for it.
+scene U: {N} has always known what the old place could be: new plays, the work nobody else will risk, a room where the town meets things it has never seen.
+scene B: A building, an audience and a name over the door, going for nothing to whoever moves first. {N} can see exactly what it could be worth, and to whom.
+scene R: {N} saw a first play in this room at nine years old and has never got over it. The thought of the lights going out for good is unbearable.
+scene G: {Ns} grandparents courted in the back row of the gallery, and every pantomime of {Ns} childhood was here. It is the town's own, and the town should keep it.
+scene tribal: The band is moving its winter camp downriver, and the painted cave where the tellings have been played for longer than anyone remembers is to be left to the bears. At the last fire there an elder asks who will keep it, and the faces turn to {N}, who has led the band's tellings for years.
+scene magic: The old playhouse by the river has lost its licence and its patron in the same season, and the guild will give the house to whoever can keep it open. At the meeting in the pit, someone calls out the name of {N}, who has staged the ward's plays for years.
+- W | put a full plan before the trustees, budget and seasons, and apply to run it | title: artistic director; director | grants_if_fails: a long shot that missed | self_control: + | v: security, conformity | tribal: lay a plan before the elders for keeping the cave and its tellings, and ask to keep them | magic: put a full plan before the guild, purse and seasons, and ask to be master of the house | chance: 2
+- U | propose it as a house for new work, with a first season nobody else would risk | title: artistic director; director | grants_if_fails: a long shot that missed | identity | v: self-direction, achievement | tribal: offer to keep the cave for new tellings nobody else would dare | magic: propose the house for new plays, with a first season nobody else would risk | chance: 2
+- B | put your own savings into the lease, and book touring shows to make it pay | title: producer | grants_if_fails: a long shot that missed | takes_if_fails: savings | binds | v: power, achievement | tribal: give your own winter stores for the keeping of the cave, and bring other bands' tellers there for gifts | magic: put your own coin into the lease, and book travelling companies to make it pay | chance: 2
+- R | reopen it with the wildest season the town has ever seen, and run it yourself | title: artistic director; director | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, self-direction | tribal: light the cave again with tellings nobody has dared, and keep it yourself | magic: reopen the house with the wildest season the city has seen, and run it yourself | chance: 2
+- G | rally the town to buy it, and run it as the town's own theatre | title: artistic director; director | grants_if_fails: a long shot that missed | habit | v: tradition, benevolence | tribal: gather every hearth to keep the cave, and keep it for the band | magic: rally the ward to buy the house, and run it as the city's own | chance: 2
+- BR | start a small company of your own, and rent the empty stage by the night | grants: a company of your own | door | v: self-direction, power | tribal: gather a small band of players of your own, and use the cave when the band is away | magic: start a small company, and hire the dark house by the night | chance: 82
+- RG | gather every amateur group in town for one last show on the old stage | grants: good name in town | v: benevolence, stimulation | tribal: gather every hearth's players for one last telling in the cave | magic: gather every guild's players for one last pageant in the old house | chance: 82
+- UG | write down the theatre's history with its oldest members, before the doors shut | grants: telling a story aloud | mark: learned a skill | v: tradition, self-direction | tribal: learn every telling ever played in the cave from the oldest ones, before the band leaves | magic: write down the house's history with its oldest players, before the doors shut | chance: 82
+- WB | sit on the trust's board, keep the books straight, and learn how a house is run | grants: organising people | aims: artistic director | binds | v: security, conformity | tribal: sit with the elders who keep the cave, and learn how the keeping is done | magic: sit on the house's board, keep the guild's books straight, and learn how a house is run | chance: 82
+- WU | back the best plan from someone else, and help them win the vote | mark: helped someone in need | v: benevolence, universalism | tribal: back the best keeper the elders could choose, and help win the band over | magic: back the best master the guild could choose, and help win the vote | chance: 82
+works: The trustees vote on a wet Thursday, and by the autumn the posters outside the old theatre carry a new season and {Ns} name.
+works: Whatever {N} chose, the old building stays a theatre, and {N} is glad of the part played in keeping it one.
+fails: The vote in the stalls goes the other way by nine hands, and {N} walks out under the old chandelier knowing every one of those faces, and still nods to each of them in the street.
+fails: The trustees choose a director from the city, and thank {N} from the stage, in front of the whole town, for the plan that kept the doors open long enough.
+
+# ---------------------------------------------------------------- LS5. the late starter (triads D6a)
+# The late starter: children grown, a job ended, and paid work on the stage wanted all along, for someone of 35 or more
+# who has been an [amateur actor] or a [background artist] for two years or more (`tenure: 2-99`; never a professional
+# before, LIFE gate). The career is the next rung, [professional actor], at 3 in every color: the playhouse's older
+# company, a one-person show from a life, an agency for older actors, the film that wants real faces, the touring
+# company that casts local people. No lead. The triads at 82 are the other honest starts: a course, front of house, the
+# sets, an extra's day on the film, or letting it rest.
+
+== the late starter
+tier: life event
+stages: adult mature elder
+age: 35-80
+holds: amateur actor | background artist
+tenure: 2-99
+per_year: 0 0 0 .002 .002 .001
+drivers: fortune+.2 money+.2
+times: per amateur actor or extra of 35 or more, a year: about 1 in 500 decides at last to try for paid work in theatre or film (estimate); films and adverts cast real faces of every age, and some theatres take older actors into their companies, but a first professional contract after fifty is rare (estimate)
+likelier: children grown, a redundancy payment or a pension, a big birthday, years on the local stage, a partner who says go on then
+rarer: money owed, a family that needs the time, poor health, a town far from any theatre
+gap: 8-20
+domain: career.5
+tone: mixed
+life: work, meaning, money
+horizon: months
+roles: partner, child, friend, colleague, mentor
+earth: children grown, a redundancy cheque, years on the local stage, and four adverts on the kitchen table: a playhouse, an agency, a film and a touring company
+tribal: too old for the long hunts, after years in the band's tellings, with the travelling players of the valley looking for an old face for the oldest story
+magic: the shop handed to the eldest, after years in the guild's mystery plays, and the companies' notices for grey-haired players on the guild hall door
+scene: The children have left home, the job has ended with a cheque and a handshake, and {N} has played at the local theatre for years, always for nothing. On the kitchen table lie adverts cut from the papers: a playhouse that wants older actors for its company, an agency that takes on mature actors, a film that wants real faces over fifty, and a touring company that casts local people in every town.
+scene W: {N} has been word-perfect for the players every season for years, and has never missed a rehearsal. A theatre that pays would get exactly that, if anyone in one would believe it.
+scene U: {N} has wondered for years what a whole life would look like on a stage, told by the person who lived it. There is a one-person show in the notebooks on the shelf, if anyone would let it be played.
+scene B: {N} spent a working life selling and making deals, and knows that in any business the first door is the agent's. An agency that takes on older actors needs to see a sure thing, and {N} can be one.
+scene R: {N} reads the advert for real faces over fifty and laughs out loud. A whole life of wanting it, and now the face is the qualification.
+scene G: {N} knows every village hall and every player in the valley from years on the local stage. A touring company that casts local people in every town needs exactly someone like that, and the valley would come to see it.
+scene tribal: Too old now for the long hunts, {N} sits at the gathering's fires and watches the tellings, as {N} has played in them for years. The travelling players of the valley want an old face for the oldest story, and a voice that knows every fire.
+scene magic: The shop has gone to the eldest child, and {N}, who has played in the guild's mystery plays for years, stands at the guild hall's door where the notices hang: grey heads wanted for a river company, a broker taking on older players, the court's great masque.
+- W | answer the playhouse's call for older company members, with years of local shows behind | title: professional actor | grants_if_fails: a long shot that missed | self_control: + | v: conformity, security | tribal: offer yourself to the travelling players, with years of the band's tellings behind | magic: answer the river company's notice for grey heads, with years of mystery plays behind | chance: 3
+- U | write a one-person show from your own life, and offer it to the playhouse | title: professional actor | grants_if_fails: a long shot that missed | identity | v: self-direction, achievement | tribal: make a telling from your own life, and offer it to the travelling players | magic: write a one-player piece from your own life, and offer it to the river company | chance: 3
+- B | talk your way onto the books of an agency for older actors | title: professional actor | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: offer the travelling players' speaker a share of your gifts, and ask for a place | magic: talk your way onto a broker's roll of older players | chance: 3
+- R | send the film a minute of your own face, for one of the older parts | title: professional actor | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, hedonism | tribal: dance the oldest story for the travelling players, as the old one in it | magic: go before the master of revels for the old king's part in the great masque | chance: 3
+- G | audition with the valley's players for the touring company that casts local people | title: professional actor | grants_if_fails: a long shot that missed | habit | v: benevolence, tradition | tribal: go before the travelling players with the old ones of your band, together | magic: try for the river company with the old players of your ward, together | chance: 3
+- WUR | take a short acting course first, and audition when ready | grants: acting | self_control: + | v: achievement, self-direction | tribal: sit with the old teller through one winter first, and play when ready | magic: take a season of lessons with an old player first, and try when ready | chance: 82
+- WBR | volunteer front of house at the playhouse, and learn how the building really works | grants: contact in the trade | door | v: achievement, benevolence | tribal: help at the gathering's fires, and learn how the tellings are really made | magic: help in the playhouse's lobby, and learn how the house really works | chance: 82
+- WBG | build and paint the sets for the local players on Saturdays | grants: stagecraft | habit | v: security, benevolence | tribal: make the masks and the screens for the band's tellings | magic: build and paint the pageant wagons for the guild's players | chance: 82
+- URG | be an extra on the film for a day, and watch how it is made | title: background artist | v: stimulation, tradition | tribal: walk as one of the old ones in the travelling players' procession, and watch how it is made | magic: walk among the grey heads in the masque's crowd, and watch how it is made | chance: 82
+- UBG | let it rest: the cheque goes to the family, and the dream stays a dream | mark: turned down a chance | v: security, benevolence | tribal: let it rest: the winter stores go to the family, and the tellings stay a dream | magic: let it rest: the coin goes to the family, and the stage stays a dream | chance: 82
+works: A letter comes three weeks later with a start date, and {N} stands in the kitchen reading it aloud to nobody, twice.
+works: Whatever {N} chose, the late start was a real one, and the years that follow have a stage in them somewhere.
+fails: {N} is the oldest in the waiting room by thirty years, plays the scene well, gets a kind no, and sits outside in the sun afterwards with a coffee, oddly pleased to have been there at all.
+fails: The answer is a letter that praises the nerve and the years on the local stage in one honest sentence, and gives the place to someone with twenty years in the trade.
+
+# ---------------------------------------------------------------- LS6. the night both covers are off (triads D6b)
+# The lead and the cover are both off, and someone in the building goes on. It comes to the company and its crew
+# (professional actors, understudies, drama school students on placement, stage managers, technicians, the person who
+# calls the show). Being kept on as the lead is the long shot, at 3 in every color, and only for a [professional actor]
+# or [understudy], the rung below the lead (`requires: professional actor | without: impossible`, the same on all
+# five, so a student or a crew member sees the triads alone and the choice stays even). The triads at 82 are the other
+# honest answers: cancel by the book, bring in an actor who knows it, go on for tonight only (a lead role to remember,
+# open to the student and the crew), coach the young player who also knows it, keep the house laughing and ask to be
+# the next cover (`aims:`).
+
+== the night both covers are off
+tier: life event
+stages: young_adult adult mature elder
+age: 18-85
+holds: professional actor | understudy | drama school student | stage manager | stage technician | calling the show | sound engineer
+per_year: 0 0 .004 .003 .002 .001
+drivers: fortune+.4 prosper+.1
+times: per actor, student on placement or crew member of a running show, a year: about 1 in 300 is in the building on a night when both the lead and the cover are off (estimate); most shows then cancel or send on a second cover, and someone who steps in is very seldom kept on as the lead (estimate)
+likelier: a winter flu in the company, a long run with a small cast, a person who has watched every show from the wings
+rarer: a big show with two covers for every part, a short run, a person who never learns anyone else's lines
+gap: 5-15
+domain: career.5
+tone: mixed
+life: work, performing
+horizon: moment
+roles: colleague, boss, friend, a company manager
+earth: the lead and the cover both off with the same winter flu, a full house in, and the company manager looking for anyone who knows the words
+tribal: the wearer of the great mask and the one who learned it both lie sick, and the gathering waits at the fire
+magic: the leading player and the second both down with the same fever, the court in the boxes, and the master of the play looking along the wings
+scene: The same winter flu took the lead on Tuesday and the cover on Thursday, and on Thursday night the house is full. At the half the company manager walks the corridor asking everyone the same question: does anyone know the words? {N} has watched every show for a year, from the wings, the booth or the back of the ensemble, and knows every line.
+scene W: There is a procedure for this, and the procedure says cancel. But {N} knows the part as well as the blocking, and a full house is waiting.
+scene U: {N} has run the part silently every night for a year, out of habit: every cue, every breath, the turn in the second act that the lead always rushes.
+scene B: The producer is in tonight with two investors, and somebody is going to save this show. {N} can see exactly what that would be worth.
+scene R: {Ns} heart is going like a drum. Nobody has asked yet, and {N} is already halfway to the dressing room.
+scene G: The company has been like a family all year: the dressers, the band, the old hands in the chorus. If the show goes up tonight, it goes up for them.
+scene tribal: The wearer of the great mask lies sick in his shelter, and the one who learned the telling lies sick beside him. The gathering waits at the fire, and the keeper of the masks looks along the line of players and helpers for anyone who knows the words.
+scene magic: The leading player and the second are both abed with the same fever, and the court is already in the boxes. The master of the play walks the wings asking every player and every hand: does anyone know the part?
+- W | go on word-perfect, and play it exactly as the director set it | title: lead actor or actress | requires: professional actor | without: impossible | grants_if_fails: a long shot that missed | self_control: + | v: conformity | tribal: take up the great mask, and play the telling exactly as the elders set it | magic: step out in the leading player's cloak, and play it exactly as the master set it | chance: 3
+- U | go on, and play it the way a year of watching has shown it should go | title: lead actor or actress | requires: professional actor | without: impossible | grants_if_fails: a long shot that missed | habit | v: achievement, self-direction | tribal: take up the mask, and play the telling the way a year of watching has shown it | magic: step out, and play the part the way a season of watching has shown it | chance: 3
+- B | offer to go on, if the producer promises a look at the next lead | title: lead actor or actress | requires: professional actor | without: impossible | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: offer to wear the mask, if the elders promise a look at the next great telling | magic: offer to go on, if the patron promises a look at the next leading part | chance: 3
+- R | grab the costume and go on before anyone can say no | title: lead actor or actress | requires: professional actor | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation | tribal: take up the mask and step into the firelight before anyone can say no | magic: throw on the cloak and step out before anyone can say no | chance: 3
+- G | go on for the company, so the people who built the show are not sent home | title: lead actor or actress | requires: professional actor | without: impossible | grants_if_fails: a long shot that missed | identity | v: benevolence, tradition | tribal: take up the mask for the band, so the gathering is not sent away | magic: step out for the company, so the house is not sent home | chance: 3
+- WUG | call the cancellation by the book, and see the house out kindly at the doors | v: conformity, benevolence | tribal: tell the gathering by the old custom that there is no telling tonight, and feed them anyway | magic: send the house home by the book, and see every guest out kindly | chance: 82
+- WUB | find the actor who played it on the last tour, at a fair fee for tonight | v: security, achievement | tribal: send a runner to the next band's player who once wore the mask, with a fair gift | magic: send for a player who knew the part at another house, with a fair purse | chance: 82
+- WRG | go on for tonight only, and hand the part back on Monday with thanks | grants: a lead role to remember | mark: kept your word | v: benevolence, conformity | tribal: take up the mask for tonight only, and hand it back at the next fire with thanks | magic: step out for tonight only, and hand the part back at the next bell with thanks | chance: 82
+- UBR | coach the young ensemble player who also knows it, in the corridor before curtain | grants: directing actors | door | v: achievement, stimulation | tribal: walk the young player who also knows it through the telling, behind the screens | magic: coach the young player who also knows it, in the passage before the bell | chance: 82
+- BRG | keep the house laughing out front, then ask to be the next cover | aims: lead actor or actress | v: hedonism, achievement | tribal: keep the gathering laughing while the elders decide, then ask to learn the mask | magic: keep the galleries laughing before the curtain, then ask to be the next second | chance: 82
+works: The producers come round after the curtain call, and by the Monday {N} has a contract for the lead for the rest of the run.
+works: Whatever {N} chose, the night is saved one way or another, and the company remembers who saved it.
+fails: {N} gets through every scene, the house stands at the end, and on Monday the lead is back and {N} is back in the company with a story nobody outside will believe.
+fails: Halfway through the first act a line goes, the prompt comes from the corner, and the notes the next day are kind and very short.
+
+# ---------------------------------------------------------------- LS7. the other side of the table (pairs D1a)
+# Round 5, 2026-10-07 (checklist P9: every career and summit has a long shot; director, casting director, talent agent
+# and drama teacher had none). A professional actor of three years or more (`tenure: 3-99`) is asked to read in opposite
+# the hopefuls for a week of casting, and sees the choosing from the other side of the table. Each color's long shot, at
+# 3, is a next rung from [professional actor] (the rungs= lists in roles.py): W [casting director], U [director], B
+# [talent agent], R [lead actor or actress], G [drama teacher], each with `grants_if_fails: a long shot that missed`.
+# The pairs at 85 are the slow road: a casting eye, directing actors, a contact in the trade, teaching. LIFE gate
+# (engine-conditions.py): not the lead already.
+
+== the other side of the table
+tier: life event
+stages: young_adult adult mature elder
+age: 23-90
+holds: professional actor
+tenure: 3-99
+per_year: 0 0 .01 .01 .006 .003
+drivers: era+.2 prosper+.2
+times: per professional actor of three years or more, a year: about 1 in 100 is asked to read the other parts opposite the hopefuls at a week of casting (estimate); casting offices often hire working actors as readers, and a reader who is offered a post on that side of the table, or a part, is rare (estimate)
+likelier: a busy year for new series and shows, a casting director who remembers a good reader, years of reliable work, a quick study
+rarer: a quiet year, a run that cannot spare the actor for a week, an actor who never learns anyone else's lines
+gap: 6-15
+domain: career.5
+tone: mixed
+life: work, performing, meaning
+horizon: week
+roles: colleague, friend, mentor, a casting director, a director
+earth: a casting director asks a working actor to read the other parts opposite the hopefuls for a week, on the far side of the audition table
+tribal: the keeper of the masks asks a player of the gathering to speak the other parts while the elders choose the players for the winter tellings
+magic: the master of revels asks a player of the companies to read the other parts in the great hall while the players for the winter masque are chosen
+scene: For a week {N} sits on the other side of the table. The casting director of a new series needs someone to read the other parts opposite the hopefuls, and asked for {N} by name. Eighty actors a day come through the door, and {N} reads the same scene with every one of them, and watches the director, the producer and the casting director decide in the first ten seconds.
+scene W: {N} keeps the list for the casting assistant without being asked: who came in, who was seen, who should be called back. By Wednesday the casting director is asking {N} first.
+scene U: By the third day {N} can tell what the director wants before the director can say it: the scene turns on the pause in the middle, and almost nobody finds it.
+scene B: The agents ring the casting office all day, and {N} hears every call. There is a whole trade on this side of the table, and it runs on knowing whom to ring.
+scene R: Eighty times a day {N} plays the other half of the scene, and on the fourth day {N} plays it so well that the director looks up from the notes.
+scene G: Most of the actors who come in are frightened, and many have come straight from drama school. {N} gives each of them the best reading {N} can, the way someone once did for {N}.
+scene tribal: The elders are choosing the players for the winter tellings, and the keeper of the masks asks {N} to speak the other parts opposite each of them. For four days {N} sits on the elders' side of the fire, and watches how the choosing is done.
+scene magic: The master of revels is choosing the players for the winter masque, and asks {N} to read the other parts opposite every hopeful in the great hall. For a week {N} stands on the master's side of the boards, and watches how the choosing is done.
+- W | ask the casting director for a place in the casting office, and start on Monday | title: casting director | grants_if_fails: a long shot that missed | self_control: + | v: conformity, security | tribal: ask the keeper of the masks to take you on as the one who helps the elders choose | magic: ask the master of revels for a clerk's place at the choosing, and start at the next bell | chance: 3
+- U | hand the director your notes on every reading, and ask for the next play to direct | title: director | grants_if_fails: a long shot that missed | mark: learned a skill | v: achievement, conformity | tribal: tell the elders what each telling needed, and ask to lead the next one | magic: give the master your notes on every trial, and ask for the next masque to stage | chance: 3
+- B | take the agents' calls, and set up your own agency with the best of the hopefuls | title: talent agent | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: become the go-between for the best of the young players, and speak for them at every fire | magic: set up as a broker of players, with the best of the hopefuls on your roll | chance: 3
+- R | play the other half of the scene until the director casts you in the lead | title: lead actor or actress | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, hedonism | tribal: speak the other part so well that the elders give you the great mask | magic: read the other part so well that the master gives you the hero of the masque | chance: 3
+- G | give every frightened newcomer your best reading, and ask the drama school for a teaching post | title: drama teacher | grants_if_fails: a long shot that missed | mark: helped someone in need | v: benevolence, universalism | tribal: give every frightened young player your best, and ask to teach the young ones of the bands | magic: give every frightened hopeful your best, and ask the guild school for a post teaching the young players | chance: 3
+- WU | ask to sit in on the whole casting, and learn how the choosing is really done | grants: a casting eye | self_control: + | v: achievement, conformity | tribal: ask to sit by the elders for every choosing, and learn how it is really done | magic: ask to sit beside the master for the whole choosing, and learn how it is really done | chance: 85
+- WR | coach the next nervous hopeful through the scene in the corridor, the way a director would | grants: directing actors | v: stimulation, conformity | tribal: walk the next nervous player through the telling behind the screens, the way the elders would | magic: coach the next nervous hopeful through the scene in the passage, the way the master would | chance: 85
+- BR | go out with the agents and the producers after the last session, and make yourself remembered | grants: contact in the trade | v: stimulation, power | tribal: sit late with the go-betweens of every band, and make yourself remembered | magic: drink with the brokers and the patrons after the last trial, and make yourself remembered | chance: 85
+- BG | offer to read in every season, for a fair fee and a seat at every choosing | grants: a casting eye | v: power, tradition | tribal: offer to speak the other parts at every gathering's choosing, as the old players always did | magic: offer to read for the master at every season's choosing, for a fair purse and a seat in the hall | chance: 85
+- UG | start a free audition class on Sundays for the newcomers who were most afraid | grants: teaching | habit | v: achievement, benevolence | tribal: teach the young players who were most afraid, by the fire on rest days | magic: teach a free class for the most frightened hopefuls, at the guild hall on feast days | chance: 85
+works: A week later the call comes, and it is the one {N} asked for; {N} says yes before the sentence is finished.
+works: Whatever {N} chose, the week on the other side of the table changes how {N} walks into every room after it.
+fails: The week ends with thanks and a fee, the office goes with someone it already knew, and {N} goes back to auditioning, knowing now exactly what happens in the first ten seconds.
+fails: The director says it was a great week, plainly means it, and goes another way; {N} keeps the scene in a coat pocket for years.
+
+# ================================================================ the anti-story (echoes on the perk)
+# Both are anchored on [a long shot that missed] gained in one of the seven moments above (round 5, 2026-10-07: or in
+# one of the five step moments whose one-color long shots now carry the perk too, LONGSHOTS_STAGE), within the month
+# (ECHO_STAGE_LONGSHOTS in engine-conditions.py: the perk, had(), and ago_fail_long), once in a life, even on
+# their own: five one-color options plus one full cross cycle.
+
+# ---------------------------------------------------------------- the second try (cross cycle s1)
+# Years later the same kind of door opens a crack, and the try is at the same rung again: `title: {missed}`, the title
+# of the long shot that missed (the engine remembers it), at 4 against the first try's 2 or 3, a little likelier for the
+# commitment ("a second try at the same rung is a little likelier than the first"), the perk kept either way. Each
+# color makes the second try its own way; the cross cycle at 78 is a year with a coach, the honest question, the old
+# clip, home, and the younger one cheered on.
+
+== the same door, years later
+tier: echo
+rate: 0.1
+once: yes
+stages: young_adult adult mature elder
+age: 21-95
+times: per person who missed a stage long shot: about 1 in 8 meet the same kind of door again years later (estimate); many actors, writers and theatre-makers say they got in on a later try, and few long shots land on the first one (estimate)
+tone: mixed
+life: work, performing, meaning
+horizon: months
+roles: friend, partner, mentor, rival
+earth: years after the long shot that missed, the same kind of door opens a crack: an open call, a festival, a theatre post
+tribal: winters after the attempt that failed, the gathering again asks for players, makers and keepers
+magic: years after the attempt that failed, the same kind of notice goes up on the guild hall door
+after: a long shot missed in one of the moments of stage-longshots.lib ('the lead from the open queue', 'filmed by chance in the street', 'the film you made with friends', 'the old theatre needs someone to save it', 'the late starter', 'the night both covers are off'), holding [a long shot that missed], within the month of the miss; now 21 or more, not playing a lead (no [lead actor or actress]) and not running a theatre (no [artistic director]); the try is for the same title again ({missed})
+delay: 3-15
+likelier: acting, writing or directing kept up since; much Red and Black in the color history; time to spare
+rarer: stress above 1.5; little money; poor health
+scene: Years after the long shot that missed, the same kind of door opens a crack: a notice for an open call, a festival's new call for films, a theatre that needs someone again. {N} reads it twice, standing very still.
+scene W: Last time {N} did what was asked, and it was not enough. This time {N} knows exactly what is asked, and has had years to get it right.
+scene U: {N} has thought about that day more than anyone would guess, and knows now what went wrong in the room, and what was missing from the work.
+scene B: The people who decide are older now, and some of them owe {N} a favour. The odds are still long, but they are not the same odds.
+scene R: The old ache comes back in one breath, as if no time had passed at all. {N} is older now, and has stopped caring what anyone thinks.
+scene G: {friend} still has the photograph from that day, and has said for years that one try is not a life. The town would turn out to see it, either way.
+scene tribal: Winters after the attempt that failed, the gathering again asks for players and makers. {N} sits at the edge of the firelight, older now, and the old wanting stirs.
+scene magic: Years after the attempt that failed, the same kind of notice goes up on the guild hall door, in the same crier's hand. {N} reads it twice.
+- W | go back to the same kind of door, prepared this time to the last detail | title: {missed} | grants_if_fails: a long shot that missed | self_control: + | v: conformity, achievement | tribal: go back to the same fire, prepared this time to the last step | magic: go back before the same kind of master, prepared this time to the last line | chance: 4
+- U | go back with the work rebuilt from everything the first try taught | title: {missed} | grants_if_fails: a long shot that missed | mark: learned a skill | v: self-direction, achievement | tribal: go back with the telling rebuilt from everything the first try taught | magic: go back with the piece rebuilt from everything the first try taught | chance: 4
+- B | go back through an old contact, and be put forward properly this time | title: {missed} | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: go back through an elder who owes your hearth a gift, and be put forward properly | magic: go back through an old patron, and be put forward properly this time | chance: 4
+- R | walk back in older, with nothing left to lose | title: {missed} | grants_if_fails: a long shot that missed | mark: took a wild risk | identity | v: stimulation, self-direction | tribal: walk back into the firelight older, with nothing left to lose | magic: walk back into the trial hall older, with nothing left to lose | chance: 4
+- G | go back with your own people behind this time | title: {missed} | grants_if_fails: a long shot that missed | habit | v: tradition, benevolence | tribal: go back with your own band drumming behind this time | magic: go back with your own ward cheering behind this time | chance: 4
+- W>U | work with a coach for a year first, and wait for the next door | grants: auditioning | self_control: + | v: conformity, achievement | tribal: sit a winter at the old teller's fire first, and wait for the next gathering | magic: take a year of lessons first, and wait for the next notice | chance: 78
+- U>B | ask the people who said no, plainly, what was missing last time | grants: contact in the trade | door | v: achievement, self-direction | tribal: ask the elders who chose another, plainly, what was missing | magic: ask the master who said no, plainly, what was missing | chance: 78
+- B>R | put the old clip and the old film back out, and see who still remembers | grants: following online | v: stimulation, power | tribal: tell the old attempt at every fire again, and see who still remembers | magic: show the old glass again in the taverns, and see who still remembers | chance: 78
+- R>G | play it again where it all started, for the people at home | mark: came home | v: hedonism, tradition | tribal: play it again at your own band's fire, for the people who knew you first | magic: play it again in your own ward's hall, for the people who knew you first | chance: 78
+- G>W | go along with a younger hopeful who is trying now, and wait outside | mark: helped someone in need | v: benevolence, tradition | tribal: walk with a young one who is trying now, and wait at the edge of the firelight | magic: go with a young hopeful who is trying now, and wait in the square | chance: 78
+works: This time the call comes back, and {N} sits on the stairs with the phone for a long while, laughing, before telling anyone.
+works: Whatever {N} chose, the second time feels different: steadier, kinder, and entirely {Ns} own.
+fails: It is the same kind of no as last time, almost to the word, and {N} finds that it stings less, and is proud of having gone back.
+fails: {N} gets one room further than before, hears a real compliment from someone who matters, and walks home through the park in no hurry at all.
+
+# ---------------------------------------------------------------- making peace with it (cross cycle s2)
+# What the attempt gave: cheering someone younger (W), teaching (U), the story told well (B), the local players at last
+# (R, an entry rung open to anyone: [amateur actor], the start of the road back to the lead), letting it rest (G); the
+# cross cycle at 78 is thanks, a play for the youth theatre, a small fund, the story told to the youth theatre, and the
+# lesson written down. Here the anti-story pays off: the peace reading and the Book of Moments can name the long shot.
+
+== the long shot becomes a story to tell
+tier: echo
+rate: 0.15
+once: yes
+stages: young_adult adult mature elder
+age: 25-100
+times: per person who missed a stage long shot: about 1 in 5 come to tell it as a story of their own, years later, in a class, at a table or to someone younger (estimate)
+tone: joy
+life: meaning, friends, performing
+horizon: years
+roles: friend, partner, child, colleague
+earth: years after the long shot that missed, someone younger asks about it, and the story is there to be told
+tribal: winters after the attempt that failed, a child at the fire asks about it, and the telling is there
+magic: years after the attempt that failed, an apprentice asks about it in the tavern, and the tale is there to be told
+after: a long shot missed in one of the moments of stage-longshots.lib (as for 'the same door, years later'), holding [a long shot that missed]; now 25 or more and not playing a lead (no [lead actor or actress])
+delay: 5-30
+likelier: years gone by since the attempt; teaching, telling stories or acting kept up; much White and Green in the color history
+rarer: stress above 1.5; poor health
+scene: Years after the long shot that missed, a young cousin who has just joined the youth theatre asks {N} at a family lunch whether it is true that {N} once went for something enormous and did not get it. The whole table goes quiet to hear the answer.
+scene W: {N} tells it straight, the way it happened: what was asked, what {N} did, and the letter that said no. There is nothing in it to be ashamed of, and the young ones should know that.
+scene U: Over the years {N} has understood the day better than at the time: what the people in the room were looking for, and what {N} had not yet learned. That is worth passing on.
+scene B: It has become a good story, and {N} knows it. It gets a laugh in the right place, and people remember who told it.
+scene R: The ache has gone, mostly, and what is left is the memory of the nerve: the morning {N} walked in anyway. {N} would not trade it for anything.
+scene G: It belongs to the family's stories now, somewhere between the grandmother's dance-hall days and the uncle's famous fish. {N} likes it there.
+scene tribal: At the fire one winter a child asks {N} whether it is true that {N} once walked up to the elders and asked for the great mask, and did not get it. The whole hearth goes quiet to hear the telling.
+scene magic: In the tavern one evening a young apprentice asks {N} whether it is true that {N} once went before the master of revels for the hero's part. The table goes quiet to hear the tale.
+- W | drive a younger hopeful to every audition, and cheer from the back of the hall | mark: helped someone in need | v: benevolence, conformity | tribal: walk with a young player to every fire where the elders listen, and cheer from the dark | magic: take a young hopeful to every trial, and cheer from the back of the hall | chance: 78
+- U | teach an evening class for adult beginners, and tell them how it really went | grants: teaching | habit | v: universalism, self-direction | tribal: teach the grown ones who never played, and tell them how it really went | magic: teach an evening class for grown beginners at the guild hall, and tell them how it really went | chance: 78
+- B | tell the story at every dinner for years, a little better each time | grants: public speaking | v: achievement, hedonism | tribal: tell the attempt at every fire for years, a little better each winter | magic: tell the tale at every supper for years, a little better each time | chance: 78
+- R | join the local players, and play whatever part comes, for the joy of it | title: amateur actor | v: hedonism, stimulation | tribal: join the band's own tellings at midwinter, and play whatever part comes | magic: join the guild's mystery players, and play whatever part comes | chance: 78
+- G | let it rest: frame the letter from that day, and hang it in the hall | identity | v: tradition, security | tribal: let it rest: hang the token from that day by the hearth | magic: let it rest: frame the tally from that day, and hang it by the door | chance: 78
+- W>B | thank the people who said no, and offer to help at their next open call | grants: contact in the trade | v: benevolence, achievement | tribal: thank the elders who chose another, and offer to tend the fire at the next gathering | magic: thank the master who said no, and offer to help at the next trials | chance: 78
+- U>R | turn the whole attempt into a short play, and give it to the youth theatre | grants: writing scripts | door | v: self-direction, stimulation | tribal: make a telling of the attempt, and give it to the children for midwinter | magic: write the attempt into a short play, and give it to the guild's children's company | chance: 78
+- B>G | set up a small yearly fund for young hopefuls from the town | grants: good name in town | binds | v: benevolence, power | tribal: give a fine hide every summer to the young one who plays best at the fire | magic: set up a small purse each year for a young hopeful of the ward | chance: 78
+- R>W | tell the story to the youth theatre on its first night, nerves and all | grants: telling a story aloud | v: benevolence, stimulation | tribal: tell the children at the fire before their first telling, nerves and all | magic: tell the guild's children before their first masque, nerves and all | chance: 78
+- G>U | sit down with the old letter, and write out what the day taught | self_control: + | v: tradition, self-direction | tribal: sit by the fire with the old token, and put into words what the day taught | magic: sit with the old letter, and write out what the day taught | chance: 78
+works: The story is told, and the young ones listening go off to their own auditions a little braver for it.
+works: Whatever {N} chose, the long shot sits easily now, a part of the life rather than a hole in it.
+fails: The telling comes out wrong, too bitter in one place, and {N} lies awake afterwards wishing it had been said better.
+fails: The young one listens politely and goes off to do it differently, and {N} finds, a little to {Ns} own surprise, that this is fine.

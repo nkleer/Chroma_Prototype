@@ -1,0 +1,978 @@
+# Chroma library, modern Earth: YOUNG ADULT stage (ages 16 to 30). Grid: earth-plan.md. Rules: library-spec.md.
+# Syntax: header of build.py. Compile and check the whole batch: python3 build.py earth
+
+# ---------------------------------------------------------------- pair 1: calls WU (cycle s3) / calls BRG (cycle s1)
+
+== a deadline at college or work
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: WU
+tone: trouble
+life: study, work
+horizon: week
+roles: boss, friend, parent, a tutor
+earth: an essay or a report is due on Friday, and it is barely begun
+times: Nearly every student and young worker, many times a year (estimate)
+gap: 0-.6
+scene: The essay is due at nine on Friday. It is Wednesday night, and {N} has a title and half a page.
+scene W: {N} promised {boss} the report by Friday, and a promise is a promise, even at two in the morning.
+scene U: {N} has read forty sources and written nothing, because the argument is not quite right yet.
+scene B: Whoever hands in the sharpest work this round gets noticed. {N} intends to be noticed.
+scene R: The deadline is Friday, the sun is out, and {friend} has two spare tickets for tonight.
+scene G: {N} works best slowly, in the early mornings, and this deadline will not wait for mornings.
+- W | cancel everything else and hand it in on time, as you promised | v: conformity | mark: kept your word | chance: 85
+- U | polish every paragraph until it is flawless, whatever it costs in sleep | habit | v: achievement | chance: 60
+- B | buy a finished essay online and put your name on it | v: achievement | mark: hid a wrong | closed: approval: cheating; backfire: flagged by the plagiarism check, a fail and a hearing | tech: internet | chance: 78
+- R | leave it to the last night and write it in one wild burst | habit | v: stimulation | chance: 65
+- G | work at your own steady pace, and hand it in late if need be | v: none clear (keeping to one's own rhythm) | closed: approval: a late hand-in; backfire: marked down, and noticed for it | chance: 42
+- W>R | hand it in a day early, on schedule, so the whole weekend is free | v: hedonism, conformity | chance: 42
+- U>G | work out which hours your mind is sharpest, and write only then | v: self-direction | chance: 68
+- B>W | remind the tutor how much your marks help the department, and get the extension | v: conformity, achievement | chance: 55
+- R>U | throw yourself at the hardest section first, all night, until it cracks | v: achievement, stimulation | body: light | chance: 81
+- G>B | lean on family and friends for meals and errands until it is done | v: achievement, security | chance: 78
+works: {N} hands it in with an hour to spare, and it is good.
+works: The work comes back with a mark {N} did not dare hope for.
+fails: The deadline passes with the last page still blank.
+fails: The work goes in, and comes back marked down, with a terse note in the margin.
+
+== a night out that gets out of hand
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: BRG
+tone: mixed
+life: leisure
+horizon: moment
+roles: friend, rival, a bouncer, strangers
+earth: a birthday drink turns into a crawl through four bars, and then into something wilder
+times: Many young adults, about once a year in the years they go out most; nearly 3 in 10 US adults aged 18 to 25 binge drink in a month (NSDUH)
+gap: .8-1
+scene: It is two in the morning. The birthday drink has become a crawl through four bars, and {friend} has just been thrown out of the last one.
+scene W: {N} said they would make sure everyone got home safely. Now the group is scattered across three streets.
+scene U: {N} watches the night unravel with a strange, sober clarity, noticing who is about to do something stupid.
+scene B: The bouncer at the next club owes {N} a favour, and the night is still there to be steered.
+scene R: The music is loud, the night is young, and {N} has never felt so alive.
+scene G: Somewhere past midnight the group has scattered like a herd spooked in the dark, and {N} wants them all together again.
+- W | round everyone up, call the taxis, and see each one home | v: benevolence, conformity | mark: kept your word | chance: 78
+- U | switch to water and keep a clear head while the others lose theirs | habit | v: security | chance: 90
+- B | talk your way into the club's back room with the people who matter | door | v: power, hedonism | chance: 60
+- R | climb onto the bar and dance until the bouncers step in | v: hedonism, stimulation | body: light | closed: approval: house rules; backfire: thrown out and banned | chance: 78
+- G | gather the stragglers at the all-night kebab shop and feed them | v: benevolence | chance: 75
+- W>U | make everyone stop and agree a plan before anyone moves on | v: security, conformity | chance: 48
+- U>B | film your friends at their worst, and keep the clips | v: power | closed: approval: filming without consent; backfire: found out, and a friendship lost | tech: phone | chance: 85
+- B>R | skim the group's kitty and spend it on shots | v: hedonism | mark: hid a wrong | chance: 80
+- R>G | jump into the fountain and pull the whole gang in too | v: stimulation, benevolence | body: light | closed: law: a public nuisance; backfire: a police caution | chance: 85
+- G>W | wait on the kerb with the friend who was thrown out, however long it takes | v: benevolence | mark: helped someone in need | chance: 87
+works: Everyone wakes up the next day in their own bed, with a story to tell.
+works: The night ends at dawn on a rooftop, the whole group together and laughing.
+fails: {friend} spends the night in a police cell, and {N} spends it on a bench outside.
+fails: The night ends in a row on the pavement, and nobody is speaking by morning.
+
+# ---------------------------------------------------------------- pair 2: calls UB (cycle s4) / calls WRG (cycle s2)
+
+== a flatmate who does not pay their share
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: UB
+tone: trouble
+life: home, money
+horizon: months
+roles: friend, a flatmate, a landlord
+earth: the bills are split four ways, and one flatmate has not paid in two months
+times: About 1 in 4 young adults, once or twice in the flat-sharing years (estimate)
+gap: 4-8
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The electricity bill is pinned to the fridge again, and once again one name on the split has not paid.
+scene W: There was a deal: everyone pays their quarter by the first of the month. {N} has paid every time, on time.
+scene U: {N} has the spreadsheet open: two months, three bills, and a pattern of excuses that is getting easy to predict.
+scene B: {N} has been carrying the gap for weeks. That is a debt, and debts get collected.
+scene R: {N} comes home to find the heating off, the flatmate's new trainers in the hall, and their own patience gone.
+scene G: The flat felt like a little family once. Now there is a cold silence in the kitchen.
+- W | report them to the landlord and let the lease rules deal with it | v: conformity, security | mark: made an enemy | closed: approval: informing on a flatmate; backfire: the whole flat turns against you | chance: 40
+- U | keep a precise record of every penny owed, with dates and receipts | v: security | chance: 62
+- B | change the wifi password, and hand it over when they pay | v: power | tech: internet | chance: 68
+- R | have it out with them in the kitchen, tonight | v: self-direction | chance: 73
+- G | cover their share quietly; everyone has a lean month | v: benevolence | mark: helped someone in need | chance: 58
+- W>G | start a shared kitty for food and bills, so the flat eats together again | v: benevolence, conformity | chance: 60
+- U>W | look up tenancy law and lay out exactly what each person owes | v: universalism (fairness), conformity | chance: 65
+- B>U | offer to wipe the debt in exchange for lessons in whatever they do best | v: self-direction, power | mark: learned a skill | chance: 72
+- R>B | sell their games console online and keep what they owe | v: power | mark: made an enemy | closed: law: selling what is not yours; backfire: the police, and a counter-claim | tech: internet | chance: 80
+- G>R | let it go, and leave when the lease ends, with no hard feelings | v: self-direction | chance: 70
+works: The money turns up, with an awkward apology and a pizza.
+works: The flat settles into a new arrangement that everyone can live with.
+fails: The debt grows, and so does the silence in the kitchen.
+fails: The flatmate moves out overnight, leaving the bills and a broken lamp.
+
+== a friend's wedding
+tier: everyday
+stages: young_adult
+age: 18-30
+calls: WRG
+tone: joy
+life: friends, tradition
+horizon: week
+roles: friend, partner, old school friends, the couple's families
+earth: the first of the old school friends to marry: a ceremony, a long dinner and a dance
+times: Nearly every young adult, once: the first of the old school friends to marry, mostly in the mid to late twenties (estimate)
+once: yes
+scene: {friend} is getting married, the first of the old crowd to do it, and {N} is at the back of the hall in their best clothes.
+scene W: The vows are old words, said the old way, and {N} finds a lump in their throat as {friend} promises forever.
+scene U: {N} watches the ceremony like a visitor watching a rite: who stands where, who cries, what it is all for.
+scene B: Half the room are people worth knowing, and the free bar is loosening every tongue.
+scene R: The band starts, the first dance ends, and {N} is already pulling people onto the floor.
+scene G: Three generations of the family fill the hall, and the grandmother is teaching the young ones the old dance.
+- W | give the toast you were asked to give, and give it well | v: benevolence, conformity | mark: kept your word | chance: 90
+- U | spend the evening asking the old couples how they knew | v: self-direction | chance: 92
+- B | work the room and leave with three useful numbers | habit | v: power, achievement | chance: 78
+- R | dance from the first song to the last | v: hedonism | body: light | chance: 95
+- G | join the grandmother's circle dance and learn the old steps | v: tradition | mark: made a friend | chance: 87
+- W>B | play the perfect guest all day, in front of the people who matter | v: power (face), conformity | chance: 82
+- U>R | secretly rehearse the whole table for a surprise dance | v: stimulation, benevolence | chance: 60
+- B>G | pay the band for an extra hour so the old folks can keep dancing | v: benevolence, tradition | chance: 85
+- R>W | stand up uninvited and make a speech from the heart | v: benevolence | chance: 64
+- G>U | sit with the old aunt who knows every family story, and listen | door | v: tradition, self-direction | chance: 86
+works: It is the best party in years, and {N} dances with half the room.
+works: At the end of the night {friend} hugs {N} and says the day would not have been the same without them.
+fails: {N} drinks too much at the reception and says something that cannot be taken back.
+fails: The day passes in a blur of small talk, and {N} goes home feeling oddly alone.
+
+# ---------------------------------------------------------------- pair 3: calls BR (cycle s1) / calls WUG (cycle s3)
+# Both moments are gated alike (excludes: partner), so people with a partner lose the pair whole and stay even.
+
+== a dating app match
+tier: everyday
+stages: young_adult
+age: 18-30
+calls: BR
+tone: joy
+life: love
+horizon: week
+roles: prospect, friend
+excludes: partner
+earth: a match on a dating app, and the messages are funny and fast
+times: About half of young adults, a few times a year while single and on the apps; 53 in 100 US adults under 30 have used one (Pew 2023)
+gap: 0-.5
+share: .5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} has matched with {prospect}, and the messages have been flying back and forth since lunch.
+scene W: {prospect} seems kind and steady, and asks good questions. {N} wants to do this properly.
+scene U: {N} reads the profile of {prospect} three times, looking for what the photos are not saying.
+scene B: By the usual standards {prospect} is out of {Ns} league. {N} intends to change the standards.
+scene R: {prospect} is funny and gorgeous and suggests a drink tonight, and {Ns} heart is already racing.
+scene G: Something about {prospect} feels familiar, like someone {N} has always known.
+- W | suggest a proper first date: dinner on Saturday, the bill split evenly | v: conformity, universalism (fairness) | chance: 62
+- U | look them up online before agreeing to meet | v: security | chance: 80
+- B | keep three other matches going, just in case | habit | v: power, hedonism | chance: 65
+- R | say yes to a drink tonight, right now | door | v: stimulation, hedonism | chance: 72
+- G | ask to meet on a long walk by the river, and trust your gut | v: self-direction | chance: 62
+- W>U | ask for a photo of their ID before you agree to meet | v: security | act: ask for a photo of the match's ID before agreeing to meet | closed: approval: asking a date for proof of identity; backfire: they take offence and stop replying | chance: 50
+- U>B | study which profiles get replies, and rewrite your own to win | v: achievement, power | chance: 68
+- B>R | fib about your job to make the chat more exciting | v: stimulation | chance: 45
+- R>G | say straight out that you want something real, not a game | v: benevolence, security | chance: 65
+- G>W | bring them along to your friends' barbecue for a first date | v: security, benevolence | chance: 48
+works: The first date runs three hours over, and neither of them wants it to end.
+works: {prospect} turns out to be exactly who they seemed, and that is a lovely surprise.
+fails: {prospect} stops replying halfway through a conversation and never starts again.
+fails: The date is a polite, awkward hour, and both of them know it by the second drink.
+
+== learning to cook for yourself
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: WUG
+tone: joy
+life: home, food
+horizon: months
+roles: grandparent, parent, friend, flatmates
+excludes: partner
+earth: a first kitchen of your own, and a diet of instant noodles that has to end
+times: Nearly every young adult, once, in the first flat or room of their own (estimate)
+once: yes
+scene: {N} has a kitchen of their own for the first time, a single pan, and no idea what to do with an onion.
+scene W: {N} wants to eat properly, the way {parent} always insisted: three meals a day, vegetables included.
+scene U: {N} has noticed that cooking is chemistry with better smells, and has bought a thermometer.
+scene B: Takeaways are eating {Ns} wages. Cooking is cheaper, and {N} has started to wonder who might be impressed by it.
+scene R: {N} stands in the market with no list at all, buying whatever looks wonderful.
+scene G: {grandparent} used to make a stew every Sunday. {N} can almost smell it, and wishes they had paid more attention.
+- W | plan five dinners every Sunday and cook them through the week | habit | v: security, conformity | chance: 80
+- U | learn the techniques properly from a book, one dish at a time | v: self-direction, achievement | mark: learned a skill | chance: 90
+- B | master three impressive dishes to cook for dates and guests | v: power (face), achievement | mark: learned a skill | chance: 85
+- R | throw everything that smells good into one pan and see | v: stimulation, hedonism | chance: 58
+- G | ring home for the family recipes and cook them until they taste right | habit | v: tradition, benevolence | chance: 78
+- W>R | host a proper Sunday lunch for friends every week, and let it get loud | habit | v: hedonism, benevolence | chance: 75
+- U>G | learn what is in season and cook only that | v: universalism (nature) | chance: 82
+- B>W | trade your cooking for the flatmates' cleaning, and hold them to the deal | v: security, power | chance: 68
+- R>U | try a wildly hard recipe on a whim, and fail until it works | v: stimulation, achievement | chance: 78
+- G>B | grow herbs and tomatoes on the windowsill instead of buying them | v: security, power (resources) | chance: 68
+works: The first real dinner comes out of the oven looking just like the picture.
+works: {N} cooks for friends, and nobody can tell it was a first attempt.
+fails: The smoke alarm goes off, and dinner is toast, again.
+fails: The rice welds itself to the pan, and supper is cereal once more.
+
+# ---------------------------------------------------------------- pair 4: calls RG (cycle s2) / calls WUB (cycle s4)
+
+== a festival weekend
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: RG
+tone: joy
+life: leisure, music
+horizon: week
+roles: friend, strangers, stewards
+earth: three days of music in a muddy field, with a tent and a wristband
+times: About 1 in 4 young adults, one or a few summers (estimate)
+gap: .8-1
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Three days in a field, forty bands, one leaking tent, and {friend} has the only working torch.
+scene W: {N} has a printed schedule, a first-aid kit and the group's meeting point, and means to bring everyone home.
+scene U: {N} has studied the line-up and found the one tiny stage where the interesting things happen.
+scene B: The wristband says general admission. {N} has a plan for the backstage area.
+scene R: The bass hits {N} in the chest, the crowd sways, and the weekend has begun.
+scene G: Rain on canvas, wood smoke, and ten thousand people singing the same chorus under the open sky.
+- W | stick to the group plan and check in at the meeting point every evening | v: security, conformity | chance: 90
+- U | track down the obscure band on the smallest stage | v: self-direction, stimulation | chance: 92
+- B | make friends with a roadie and talk your way backstage | v: power, stimulation | chance: 20
+- R | dance at the front until your legs give out | v: hedonism, stimulation | body: light | chance: 95
+- G | light a fire in the woods past the fence and sleep out under the stars | v: hedonism, universalism (nature) | closed: law: open fires banned; backfire: a fine, and thrown out | chance: 72
+- W>B | work as a steward, and use the staff pass to wave your friends in free | v: power (resources) | closed: approval: abusing a staff pass; backfire: the pass taken, and a ban | chance: 70
+- U>R | read up on the pills going round, test one, and take it | v: stimulation, hedonism | body: heavy | closed: law: illegal drugs; backfire: a bad night in the medical tent, or an arrest | law: drugs | chance: 78
+- B>G | collect the tents people abandon and take them to a shelter | v: universalism, benevolence | chance: 72
+- R>W | push through the crowd to help someone who has collapsed | v: benevolence | body: light | mark: helped someone in need | chance: 90
+- G>U | wander into the drumming circle and learn the rhythms by ear | door | v: self-direction | mark: learned a skill | chance: 78
+works: {N} comes home sunburnt, hoarse and happy, with three new friends.
+works: The best set of the weekend is one nobody else saw, and {N} was there for it.
+fails: The tent floods on the first night, and the weekend turns into a test of survival.
+fails: {N} loses the group, the phone and the wristband, in that order.
+
+== your first tax form and a stack of bills
+tier: everyday
+at: ministry
+stages: young_adult
+age: 17-30
+calls: WUB
+tone: trouble
+life: money
+horizon: week
+roles: parent, friend, the tax office
+earth: a brown envelope from the tax office, and four bills underneath it
+times: Nearly every young adult, once, with the first job or the first flat (estimate)
+once: yes
+scene: The envelope from the tax office sits on top of the pile, unopened, and the pile is growing.
+scene W: {N} wants it done properly: every form filled in, every bill paid, nothing owed to anyone.
+scene U: Somewhere in all this paperwork there is a system, and {N} wants to understand it.
+scene B: There are allowances, deductions and loopholes in here, and {N} suspects most people leave money on the table.
+scene R: The forms are boring beyond words, and {N} would rather do anything else at all.
+scene G: {parent} always kept the family's papers in a shoebox under the bed and did them once a year, at the kitchen table.
+- W | fill in every form honestly and pay each bill the day it arrives | habit | v: conformity, security | chance: 90
+- U | learn how the system works and build a budget that tracks everything | v: security, self-direction | mark: learned a skill | chance: 82
+- B | claim expenses you never had, and pay a little less | v: power (resources) | mark: hid a wrong | closed: law: tax fraud; backfire: an audit, a fine and the back tax | chance: 82
+- R | put music on, pour a drink, and tear through the whole pile in one night | v: security, hedonism | chance: 70
+- G | take the pile home and do it with your parents at the kitchen table | v: tradition, security | chance: 85
+- W>G | pay the bills first, then send something home every month, without fail | binds | v: benevolence, tradition | chance: 75
+- U>W | read the small print, find the overcharge, and claim it back | v: security, universalism (fairness) | chance: 45
+- B>U | trade favours with an accountant friend to learn the tricks | v: self-direction, power | chance: 72
+- R>B | ring the energy company, and charm your way to a better deal | v: power | chance: 55
+- G>R | decide it will all work out somehow, and book a weekend away | v: hedonism | chance: 12
+works: The forms go in, the bills are paid, and there is even a small refund.
+works: {N} sits back from the kitchen table with every paper sorted, feeling like a grown-up.
+fails: A final demand arrives, with a late fee attached.
+fails: The tax office writes back: there is a mistake, and it is {Ns}.
+
+# ---------------------------------------------------------------- pair 5: calls WG (cycle s3) / calls UBR (cycle s1)
+
+== your parents expect you home for the holidays
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: WG
+tone: mixed
+life: family, tradition
+horizon: week
+roles: parent, grandparent, sibling, friend
+earth: the family expects everyone home for the winter holidays, as always
+times: Most young adults with parents alive, every year at the winter holidays (estimate)
+gap: .8-1
+scene: {parent} has already asked twice: will {N} be home for the holidays, like every year?
+scene W: The family has always gathered on the same day, at the same table, and an empty chair would be noticed.
+scene U: {N} weighs it up: the cost of the train, the week of work lost, the arguments sure to come, the people {N} misses.
+scene B: Going home means a free week of food and comfort, and maybe a quiet word with the uncle who owns the business.
+scene R: {friend} has a cabin in the mountains for the same week, and the invitation is burning a hole in {Ns} phone.
+scene G: The house will smell of the same spices it always does, and {grandparent} is a year older every winter.
+- W | go home as always, and play your part in every ritual | habit | v: tradition, conformity | chance: 80
+- U | go for exactly three days, planned so nobody can argue | v: self-direction, security | chance: 75
+- B | go, and use the week to talk the rich uncle into backing your plans | v: power, achievement | chance: 30
+- R | tell them you are going to the mountains with friends instead | identity | v: self-direction, stimulation | mark: defied an authority | chance: 70
+- G | go home early to cook with your grandmother, while she still can | v: tradition, benevolence | chance: 87
+- W>R | go home out of duty, then slip out to the old pub with school friends | v: hedonism, conformity | chance: 82
+- U>G | record your grandparents telling the old family stories | v: tradition | chance: 90
+- B>W | skip the trip, but send gifts expensive enough that nobody can complain | v: conformity, power (face) | chance: 45
+- R>U | ask at the dinner table the family questions nobody dares to ask | v: self-direction | chance: 45
+- G>B | stay a month instead of a week, living off the family again | v: security, hedonism | chance: 50
+works: The holiday is warm and loud, and {N} leaves with a bag full of leftovers.
+works: For once there is no argument at the table, and {grandparent} laughs all evening.
+fails: The old argument with {parent} flares on the first night and never quite dies down.
+fails: {N} spends the week feeling like a sulking teenager again.
+
+== an idea for a side business
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: UBR
+tone: joy
+life: money, work
+horizon: months
+roles: friend, parent, boss
+earth: an idea for something people need, made in the evenings and sold online
+times: Many young adults, once every few years (estimate)
+gap: 2-4
+scene: At two in the morning {N} has the idea: something people need, made cheaply, sold online.
+scene W: {N} wants to do it properly: registered, insured, with honest prices and proper receipts.
+scene U: The idea arrives whole, like a solved puzzle, and {N} fills a notebook with how it would work.
+scene B: Everyone at work complains about the same problem. {N} has realised they would pay to have it fixed.
+scene R: {N} cannot sleep for excitement. It could be huge. It could start tomorrow.
+scene G: {N} has been making little things by hand for years, and {friend} keeps saying people would buy them.
+- W | register the business properly and do it by the book from day one | v: conformity, security | chance: 45
+- U | test the idea small and measure everything before spending a penny | habit | v: self-direction, achievement | chance: 65
+- B | undercut every other seller nearby until they give up | v: power, achievement | mark: made an enemy | chance: 62
+- R | quit your job or your course tomorrow and go all in | identity | v: stimulation, self-direction | mark: took a wild risk | chance: 42
+- G | keep making things by hand and let word of mouth do the rest | habit | v: self-direction, tradition | chance: 48
+- W>U | take an evening course in running a small business | door | v: self-direction, conformity | mark: learned a skill | chance: 48
+- U>B | build it quietly on your employer's computers and time | v: achievement, power | mark: hid a wrong | closed: approval: using work time; backfire: fired, and the idea claimed by the firm | tech: computer | chance: 50
+- B>R | borrow from a dodgy lender to launch it big | binds | v: stimulation, power | closed: means: a loan you cannot repay; backfire: debt collectors at the door | chance: 38
+- R>G | start it with your friends at the kitchen table, for the fun of it | v: benevolence, stimulation | chance: 58
+- G>W | sell only to people nearby, at fair prices, at the local market | v: universalism (fairness), benevolence | chance: 75
+works: The first order comes in from a stranger, then another, then ten.
+works: The idea works, small and steady, and pays for {Ns} holidays.
+fails: The idea eats every evening for months and earns nothing.
+fails: Someone else launches the same thing first, and does it better.
+
+# ---------------------------------------------------------------- pair 6: calls WB (cycle s4) / calls URG (cycle s2)
+
+== a job interview
+tier: everyday
+at: employer
+stages: young_adult
+age: 17-30
+calls: WB
+tone: mixed
+life: work
+horizon: moment
+roles: boss, parent, friend, an interview panel
+earth: an interview for a job you want, at nine on Monday
+times: Most young adults, about once a year while starting out; Americans hold about 12 jobs from 18 to their mid-fifties, nearly half before 25 (BLS)
+gap: .8-1
+scene: Monday, nine o'clock: a glass office and a panel of three. {N} has a new shirt and a dry mouth.
+scene W: {N} arrives fifteen minutes early, with copies of everything, ready to show they can be relied on.
+scene U: {N} has researched the firm, the panel, and the questions this kind of panel always asks.
+scene B: The job pays well and leads somewhere. {N} wants it, and knows everyone else in the waiting room wants it too.
+scene R: {Ns} heart hammers. Ten minutes in a room, and the next five years hang on it.
+scene G: {N} is not sure this place is right, and keeps noticing how tired the people in the corridor look.
+- W | answer every question honestly, even the ones that show your weak spots | identity | v: benevolence (honesty), conformity | mark: owned up | chance: 48
+- U | rehearse answers to every likely question until they are flawless | v: achievement | chance: 60
+- B | bring proof of everything you have done, and sell it hard | v: achievement, power | chance: 60
+- R | throw away the script and just be yourself, loudly | v: self-direction | chance: 50
+- G | ask what the work is really like, and watch the faces in the corridor | v: security, self-direction | chance: 42
+- W>G | ask, politely and plainly, whether the hours leave room for family | v: benevolence, security | chance: 40
+- U>W | bring a short written plan for improving their service | v: achievement, conformity | chance: 55
+- B>U | flatter the interviewer into talking, and learn what they really want | v: power | chance: 65
+- R>B | name your salary straight out, and do not blink | v: power, achievement | chance: 55
+- G>R | decide halfway through that this is not your life, and walk out | identity | v: self-direction | mark: turned down a chance | chance: 75
+works: The phone rings the next afternoon: the job is {Ns} if {N} wants it.
+works: The interview turns into a long, easy conversation, and {N} walks out already knowing.
+fails: The letter says, politely, that they have chosen someone else.
+fails: {N} freezes on the second question and never quite recovers.
+
+== awake at night worrying about the future
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: URG
+tone: trouble
+life: inner
+horizon: moment
+roles: parent, friend
+earth: three in the morning, and the future feels like a cliff edge
+times: Most young adults, a few nights a year, some far more often (estimate)
+gap: 0-.4
+scene: It is three in the morning, and {N} lies awake doing the sums of a whole life, getting a different answer each time.
+scene W: Everyone {N} grew up with seems to be settling into a proper life. {N} wonders when theirs is supposed to begin.
+scene U: {Ns} mind runs the same calculation again and again: the rent, the debt, the job, the years, the odds.
+scene B: Everyone else seems to be getting somewhere, and {N} still owns nothing that matters. The thought burns like hunger.
+scene R: {Ns} chest is tight, the room is too small, and {N} wants to run somewhere, anywhere.
+scene G: Outside, the wind moves the trees. {N} lies listening, feeling very small and very temporary.
+- W | get up, write tomorrow's duties in a list, and go back to bed | v: security, conformity | chance: 90
+- U | open a spreadsheet and plan the next ten years in detail | v: security, achievement | tech: computer | chance: 55
+- B | decide that from tomorrow you look after number one, whatever it takes | identity | v: power, achievement | chance: 65
+- R | get dressed and run through the empty streets until dawn | habit | v: stimulation | body: light | chance: 82
+- G | open the window, listen to the night, and let the worry pass | v: none clear (acceptance) | chance: 68
+- W>B | resolve to save a fixed sum every month until you own something | v: security, power (resources) | chance: 78
+- U>R | research a year abroad and send off the application before dawn | door | binds | v: stimulation, self-direction | mark: took a wild risk | chance: 90
+- B>G | cut off the friends who drain you, and keep only your own close | v: security | act: cut off the friends who drain them, and keep only their own close | chance: 65
+- R>W | tell your parents at dawn, in tears, that you will get your life in order | binds | v: conformity, security | chance: 80
+- G>U | sit with the worry and write down what it is trying to say | v: self-direction | chance: 78
+works: Morning comes, and with it a plan that looks less frightening in daylight.
+works: {N} falls asleep at last, and wakes feeling oddly lighter.
+fails: Dawn comes, {N} has not slept, and the worries are all still there.
+fails: The night of worrying turns into a week of it.
+
+# ---------------------------------------------------------------- pair 7: calls UR (cycle s1) / calls WBG (cycle s3)
+
+== a heated argument online about politics
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: UR
+tone: trouble
+life: public life, media
+horizon: moment
+roles: rival, friend, sibling, strangers online
+earth: a thread about the election has turned nasty, and your name is in it
+times: About 1 in 3 young adults, once or a few times, mostly around elections; half of Americans harassed online think it was over their politics (Pew 2021)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The thread under {Ns} post has four hundred replies, and {rival} has just shared it with a mocking caption.
+scene W: Somebody in the thread is spreading something that is simply false, and {N} feels it is their duty to correct it.
+scene U: {N} has read the study everyone is misquoting, and the urge to explain it properly is overwhelming.
+scene B: {Ns} post is getting attention, and attention, {N} knows, is a kind of currency.
+scene R: {Ns} face is hot and their thumbs are already typing. Who do these people think they are?
+scene G: {N} reads the thread and feels tired. Out in the street, the neighbours on both sides still say good morning to each other.
+- W | find out where the worst troll works, and report them to their boss | v: conformity, power | mark: made an enemy | closed: approval: exposing a stranger's identity; backfire: the wrong person named, and threats in return | chance: 20
+- U | write a careful reply with sources, and ignore the insults | v: universalism, self-direction | chance: 55
+- B | pitch the argument as an opinion column to a news site, for a fee | v: achievement, power | chance: 25
+- R | fire back with everything you have, all night | habit | v: stimulation | chance: 30
+- G | log off, go for a walk, and let it burn out on its own | v: security | chance: 82
+- W>U | invite the angriest one to a proper debate, with rules | v: universalism (tolerance) | chance: 22
+- U>B | quietly build a following as the cleverest voice in the thread | identity | v: power, achievement | chance: 45
+- B>R | post something outrageous on purpose, to watch them explode | habit | v: stimulation, hedonism | chance: 92
+- R>G | ring the relative who votes the other way and have it out, voice to voice | v: benevolence, tradition | chance: 60
+- G>W | delete the post to keep the peace in the family chat | v: conformity, tradition | chance: 77
+works: The thread cools down, and one stranger even writes to {N} with thanks.
+works: {N} logs off at midnight with the last word and a clear head.
+fails: By morning the argument has spread to {Ns} family group chat.
+fails: {N} loses a friend over it, and an evening, and a night's sleep.
+
+== a friend asks to borrow money
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: WBG
+tone: mixed
+life: friends, money
+horizon: week
+roles: friend, parent
+earth: a friend needs five hundred to cover the rent, just until payday
+times: Most young adults, once every few years (estimate)
+gap: 2-4
+scene: {friend} calls, embarrassed: five hundred to cover the rent, just until payday, and it will all be paid back.
+scene W: {friend} has always kept their word, and friends help friends. That is the rule {N} lives by.
+scene U: {N} thinks of the last time {friend} borrowed money, and the time before that, and does the arithmetic.
+scene B: Five hundred is a lot. On the other hand, {friend} would owe {N}, and that is worth something.
+scene R: {friend} sounds close to tears, and {N} is reaching for the banking app before the call has even ended.
+scene G: {friend} has stood by {N} since they were ten years old. That is the kind of thing that counts.
+- W | lend it, write down the terms, and both sign | binds | v: security, conformity | chance: 72
+- U | ask what happened, and lend only once the story makes sense | binds | v: security, self-direction | mark: helped someone in need | chance: 75
+- B | lend it at interest, as a bank would | binds | v: power (resources) | chance: 60
+- R | give it as a gift on the spot and tell them to forget it | v: benevolence | mark: helped someone in need | chance: 92
+- G | say no kindly; money between friends spoils things | v: security, tradition | mark: refused someone in need | chance: 45
+- W>R | lend it by the rule you keep for friends: no questions, no interest, no reminders | v: benevolence | chance: 60
+- U>G | sit down with them and build a budget so they never need to ask again | v: benevolence, security | chance: 55
+- B>W | say you are broke, but quietly pay their landlord directly | v: benevolence, security | chance: 90
+- R>U | tell them straight they are being foolish, and make them talk it through | v: benevolence, self-direction | chance: 65
+- G>B | let them work it off helping your family with whatever needs doing | binds | v: power (resources), tradition | chance: 65
+works: The money comes back on payday, with a bottle of wine as thanks.
+works: {friend} gets back on their feet, and never forgets who helped.
+fails: Payday comes and goes, and {friend} stops answering.
+fails: The loan becomes the thing neither of them can mention.
+
+# ---------------------------------------------------------------- pair 8: calls BG (cycle s2) / calls WUR (cycle s4)
+
+== a colleague's mistake you could use
+tier: everyday
+at: employer
+stages: young_adult
+age: 17-30
+calls: BG
+tone: trouble
+life: work
+horizon: week
+roles: colleague, boss, rival
+earth: a colleague's error in a report, and the manager has not noticed it yet
+times: Most young workers, about once a year (estimate)
+gap: .8-1
+scene: {N} has found it: a mistake in the figures {colleague} sent round, buried on page twelve, and {boss} has not seen it yet.
+scene W: The error will cost the team if it goes out. {N} knows the right thing is to flag it; the question is how.
+scene U: {N} traces the mistake back through three spreadsheets and understands exactly how it was made.
+scene B: {colleague} and {N} are up for the same role in spring. This mistake is a gift.
+scene R: {colleague} has been smug all month, and here is proof they are no better than anyone. {N} is fuming.
+scene G: Everyone slips sometimes. {N} remembers their own first year, and the people who let things go.
+- W | report the error to your manager, through the proper channels | v: conformity | mark: made an enemy | closed: approval: going over a colleague's head; backfire: the team takes their side, and freezes you out | chance: 80
+- U | fix the figures quietly and keep a note of what you changed | v: security | mark: hid a wrong | closed: approval: changing a colleague's work behind their back; backfire: blamed for the error yourself | chance: 90
+- B | wait for the meeting and point out the mistake in front of everyone | v: power, achievement | mark: made an enemy | chance: 72
+- R | march over and tell them they have made a mess of it | v: self-direction | chance: 78
+- G | say nothing, and let them sink or swim on their own | v: security | chance: 28
+- W>B | flag it formally, so your own careful work stands out beside it | v: achievement, conformity | chance: 72
+- U>R | leave an anonymous, witty note about the error, and enjoy the panic | v: stimulation, hedonism | closed: approval: an anonymous jibe at a colleague; backfire: traced back to you, and a word from the manager | chance: 65
+- B>G | keep quiet if they cover your weekend shifts, so you get time with family | v: benevolence, power | act: keep quiet if the colleague covers their weekend shifts, so they get time with family | chance: 65
+- R>W | stand up for them when the boss finds it and starts shouting | v: benevolence, universalism (fairness) | mark: helped someone in need | chance: 72
+- G>U | sit down with them and help them see where it went wrong | v: benevolence | mark: made a friend | chance: 75
+works: The report goes out right, and the whole matter is closed by Friday.
+works: {colleague} catches {Ns} eye in the meeting, and something between them changes for the better.
+fails: The mistake comes out anyway, and someone is sure {N} knew all along.
+fails: {boss} hears about it in the worst possible way, and the whole team pays.
+
+== a volunteer drive in your neighbourhood
+tier: everyday
+at: council
+stages: young_adult
+age: 16-30
+calls: WUR
+tone: joy
+life: community
+horizon: week
+roles: friend, elder, neighbours, a councillor
+earth: a weekend clean-up of the canal, and a food collection for the shelter
+times: Most young adults, about once a year, when a local drive asks for help; about 1 in 4 US adults volunteer through a group in a year (AmeriCorps and Census)
+gap: .8-1
+scene: There are posters on every lamppost: a weekend clean-up of the canal, and a food collection for the shelter.
+scene W: {N} has signed the sheet and been handed a bright vest and a clipboard. Order, at last.
+scene U: {N} has noticed that the food collection is badly organised, and can already see how to fix it.
+scene B: The local councillor is coming to the clean-up for photos. {N} has noted the time.
+scene R: A sunny Saturday, a crowd of strangers, music from a speaker, and a canal full of shopping trolleys.
+scene G: The canal is choked with rubbish, but a heron still fishes at the far end, patient as ever.
+- W | sign up for every shift and turn up on time | door | v: benevolence, conformity | chance: 93
+- U | redesign the collection schedule so nothing goes to waste | v: achievement, universalism | chance: 58
+- B | make sure you are in the councillor's photo, holding a full bag | v: power (face) | chance: 90
+- R | haul trolleys out of the canal all afternoon, soaked and laughing | v: stimulation, benevolence | body: heavy | chance: 95
+- G | plant bulbs along the towpath and come back to watch them flower | v: universalism (nature) | chance: 80
+- W>G | set up a rota so the old people on your street get regular visits | v: benevolence | chance: 65
+- U>W | map the litter hotspots and send the data to the council | v: universalism | chance: 60
+- B>U | attach yourself to the organiser, and learn how they run the whole thing | door | v: self-direction, achievement | mark: learned a skill | chance: 90
+- R>B | start a fierce contest for most rubbish collected, and win it | v: achievement, stimulation | chance: 64
+- G>R | end the day swimming in the reservoir with everyone, signs or no signs | v: hedonism, stimulation | body: light | closed: law: no swimming allowed; backfire: a fine | chance: 75
+works: By evening the canal is clear, and the shelter's shelves are full.
+works: {N} goes home tired, muddy to the knees, and on first-name terms with a dozen neighbours.
+fails: Half the volunteers never show, and the work drags on in the rain.
+fails: The day is chaos, the food goes missing, and the council blames the organisers.
+
+# ---------------------------------------------------------------- pair 9: calls WR (cycle s3) / calls UBG (cycle s1)
+
+== a protest in your city
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: WR
+tone: mixed
+life: public life
+horizon: moment
+roles: friend, sibling, police, strangers
+earth: a march through the centre about something you care about, with police at every corner
+times: Many young adults in cities, every few years, more in capitals and in years of unrest (estimate)
+gap: 2-4
+scene: Thousands are marching past {Ns} window, chanting, and {friend} is texting to say come down now.
+scene W: The cause is just, the march is lawful, and {N} feels it would be wrong to stay at home.
+scene U: {N} has read both sides and is still not sure, and the crowd below is very sure of everything.
+scene B: The march will be on every channel tonight. Someone with something to say could get noticed.
+scene R: The drums, the chanting, the banners: {N} feels it in their bones and is already pulling on their boots.
+scene G: The march is for the old park, the one {N} played in as a child, where the developers want to build.
+- W | march with a sign, keep to the route and follow the stewards | identity | v: universalism, conformity | chance: 90
+- U | go to listen, and talk to the counter-protesters too | door | v: universalism (tolerance), self-direction | mark: made a friend | chance: 72
+- B | film the march, cut it sharply, and post it to grow your channel | habit | v: power, achievement | tech: internet | chance: 70
+- R | push to the front and face the police line | v: stimulation, universalism | body: heavy | mark: defied an authority | closed: law: breaching a police line; backfire: arrested | chance: 62
+- G | skip the march, and plant a tree in the old park the next morning | identity | v: universalism (nature) | closed: law: planting on council land without leave; backfire: a warning, and the tree pulled up | chance: 68
+- W>R | volunteer as a steward on the spot, and help keep the march safe and free | door | v: universalism, conformity | chance: 80
+- U>G | pose as a buyer to get the developers' plans for the park, and post them online | identity | v: universalism (nature) | mark: made an enemy | closed: approval: getting documents under a false pretence; backfire: exposed, and sued by the developers | tech: internet | chance: 25
+- B>W | use a contact at the council to get the organisers a meeting with the mayor | v: universalism, power | chance: 30
+- R>U | argue on the street with a counter-protester for hours | door | v: self-direction, universalism (tolerance) | chance: 65
+- G>B | stay home; people from your family keep their heads down | v: security, tradition | chance: 75
+works: The march passes off peacefully, and that night the news shows a sea of faces, {Ns} among them.
+works: Weeks later the council changes its mind, and {N} feels part of the reason.
+fails: The march turns ugly at the square, and {N} goes home shaken.
+fails: {Ns} face is in a newspaper photo, and {boss} has seen it.
+
+== flu, alone in a rented room
+tier: everyday
+stages: young_adult
+age: 17-30
+calls: UBG
+tone: trouble
+life: body, home
+horizon: week
+roles: parent, friend, boss, flatmates, a neighbour
+earth: a fever in a small rented room, with nobody around who has to look after you
+times: Most young adults living away from home, once or a few times; about 8 in 100 people get flu in a season (CDC), and other fevers come more often
+gap: 3-6
+scene: {N} has a fever, a sore throat and an empty fridge, in a rented room three hundred miles from home.
+scene W: {N} should be at work, and hates letting {boss} down, even with a temperature of thirty-nine.
+scene U: {N} lies in bed reading about symptoms, and has diagnosed four different diseases by noon.
+scene B: {N} has learned the hard way that nobody looks after anyone for free.
+scene R: {N} is miserable, bored out of their mind, and cannot stand the four walls a minute longer.
+scene G: The body knows what it is doing. {N} pulls the covers up and lets the fever burn.
+- W | struggle in to cover the shift you promised to cover | v: conformity, benevolence | body: heavy | mark: kept your word | closed: approval: working while contagious; backfire: sent home, and half the team falls ill | chance: 50
+- U | read up on what it is and treat it methodically | v: security, self-direction | chance: 85
+- B | stretch it into an extra week of sick pay, though you are better by Wednesday | v: hedonism, power (resources) | mark: hid a wrong | closed: approval: lying to an employer; backfire: seen out, and a warning | chance: 90
+- R | drag yourself out to the party you were looking forward to | v: hedonism | body: heavy | chance: 40
+- G | sleep, sip hot water and honey, and let it run its course | v: security, tradition | chance: 82
+- W>U | call the health line and follow the nurse's advice step by step | v: security, conformity | chance: 90
+- U>B | learn enough about the symptoms to talk the doctor into antibiotics | v: power, security | chance: 35
+- B>R | pay your flatmate to bring soup, films and the latest gossip | v: hedonism | chance: 90
+- R>G | ring your mother in tears and beg her to come | v: benevolence, security | chance: 72
+- G>W | accept the downstairs neighbour's offer to look in each day | v: benevolence, security | mark: made a friend | chance: 87
+works: The fever breaks on the third night, and {N} wakes up starving and well.
+works: Someone {N} barely knew turns up with soup, and stays to talk.
+fails: The flu turns into a chest infection, and one week becomes three.
+fails: {N} recovers, but the missed shifts and the money are gone.
+
+# ---------------------------------------------------------------- pair 10: calls UG (cycle s4) / calls WBR (cycle s2)
+
+== a weekend hike
+tier: everyday
+stages: young_adult
+age: 16-30
+calls: UG
+tone: joy
+life: nature, friends
+horizon: week
+roles: friend, sibling, parent
+earth: a weekend in the hills with friends, a map and two days of food
+times: About 1 in 4 young adults, once or a few times a year (estimate)
+gap: .8-1
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Two days in the hills: {friend}, a borrowed tent, a paper map and more food than anyone can carry.
+scene W: {N} has checked the forecast, left the route with {parent}, and packed the first-aid kit.
+scene U: {N} has the map, the compass and a theory about a shorter way over the ridge.
+scene B: There is a famous summit two hours off the planned route. {N} wants it, and wants the photo from the top.
+scene R: The path is steep, the air is cold, and {N} wants to run the last stretch to the top.
+scene G: The trees close over the path and the noise of the city falls away. {N} breathes properly for the first time in months.
+- W | keep to the marked route, leave the plan with someone at home, carry the kit | v: security, conformity | chance: 92
+- U | navigate by map and compass alone, with the phone switched off | v: self-direction, achievement | mark: learned a skill | chance: 72
+- B | push the group on to the famous summit, whatever the others want | v: achievement, power | chance: 68
+- R | leave the path and scramble straight up the rocks | v: stimulation | body: heavy | mark: took a wild risk | chance: 78
+- G | walk slowly at the back, learning the birds by their songs | habit | v: universalism (nature) | chance: 78
+- W>G | carry out everyone's litter, and some that others left behind | v: universalism (nature) | chance: 96
+- U>W | plan the route so the slowest walker can manage it | v: benevolence, universalism | chance: 90
+- B>U | tag along behind a paying guided group to learn the route for free | v: self-direction | chance: 75
+- R>B | race your friends to the summit for bragging rights | v: achievement, stimulation | body: heavy | chance: 59
+- G>R | swim in the freezing tarn at the top, because it is there | v: stimulation, hedonism | body: light | chance: 85
+works: The view from the top is worth every blister.
+works: The weekend ends around a campfire, with stories everyone will be telling for years.
+fails: The mist comes down, the group gets lost, and the night is cold and long.
+fails: {N} twists an ankle on the way down and has to be helped the last mile.
+
+== a promotion is open
+tier: everyday
+at: employer
+stages: young_adult
+age: 18-30
+calls: WBR
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, rival, mentor
+earth: a team leader post is advertised, and your name keeps coming up
+times: Many young workers, once every few years; about 1 in 7 employees a year are promoted in US tech firms (Pave)
+gap: 2-4
+scene: The team leader post is on the noticeboard, and {rival} has already said they are applying.
+scene W: {N} has done the job well for two years and never missed a day, and believes that should count for something.
+scene U: {N} reads the job description line by line, comparing it against their own record.
+scene B: The post comes with a pay rise, a title and the keys to the store room. {N} has wanted it for a year.
+scene R: {N} reads the notice and feels the old, fierce itch to win.
+scene G: {N} likes the work as it is, with the old crew around the coffee machine. A promotion would change all that.
+- W | apply through the proper process and let your record speak | v: achievement, conformity | chance: 45
+- U | study what the last three team leaders got wrong, and prepare | v: achievement, self-direction | chance: 52
+- B | get a real offer elsewhere, and use it to bargain for the post | v: power, achievement | chance: 45
+- R | march into the boss's office today and ask for it outright | v: achievement, self-direction | chance: 52
+- G | stay where you are; you are good at this and content | v: security, tradition | mark: turned down a chance | chance: 70
+- W>B | take on every extra duty until nobody else could be chosen | v: achievement, power | chance: 58
+- U>R | look up posts in other cities, and apply for the boldest one | v: self-direction, stimulation | chance: 20
+- B>G | angle for the post so you can bring your old crew onto the team | v: benevolence, power | chance: 42
+- R>W | tell the panel straight what is broken in the team and how to fix it | v: benevolence, self-direction | chance: 52
+- G>U | ask the old team leader what the job really asks of a person | v: tradition, self-direction | mark: made a friend | chance: 60
+works: The email comes on Friday afternoon: the post is {Ns}.
+works: The team cheers when the news is announced, and {rival} comes over to shake {Ns} hand.
+fails: The post goes to {rival}, and {N} has to congratulate them in front of everyone.
+fails: The whole process turns sour, and the team splits into camps.
+
+# ---------------------------------------------------------------- life event: moving in with a partner (pairs D3a)
+
+== moving in with a partner
+tier: life event
+stages: young_adult adult
+age: 17-40
+per_year: 0 0 .25 .1 0 0
+drivers: money+.3 prosper+.3
+needs: partner
+domain: partner1
+rite: adult
+once: yes
+times: once, the first time living together; estimate: most couples who stay together a year or two move in during this stage (Part D has no entry for moving in; leans on D02, a new serious relationship for 25 in 100 young adults a year, D03, marriage for 5 in 100, and cohabitation data)
+likelier: a partnership of a year or more, high rents that make two cheaper than one, a culture that accepts living together before marriage
+rarer: families or faiths that expect marriage first, low pay, work in different cities
+tone: joy
+life: love, home
+horizon: years
+roles: partner, parent, grandparent, friend, a landlord
+earth: you and your partner sign a lease on a flat together
+scene: {N} and {partner} have the keys to a flat of their own: two rooms, a view of the railway, and boxes everywhere.
+scene W: {N} has always believed that living together is a promise, and wants to make it properly.
+scene U: {N} has drawn a floor plan, priced the furniture and worked out what living together will cost, to the penny.
+scene B: Two salaries, one rent. {N} sees the sums, and the space, and the bigger flat they can now afford.
+scene R: {N} carries {partner} over the threshold, laughing, and they collapse onto a mattress on the floor.
+scene G: {N} puts {grandparent}'s old plant on the windowsill, and the place starts to feel like a home.
+- W | sit down together and agree house rules, chores and money, in writing | v: conformity, security | chance: 72
+- U | plan the move like a project: lists, budgets and a timetable | v: security, achievement | chance: 70
+- B | keep a separate bank account of your own, just in case | v: security, power | chance: 82
+- R | throw a housewarming party on the first night, among the boxes | v: hedonism | chance: 88
+- G | fill the place with plants and family things until it feels like home | habit | v: security, tradition | chance: 82
+- BG | take a cheap place round the corner from your family, with them on hand | binds | v: security, tradition | mark: stayed home | chance: 75
+- RG | move to a cottage in the country on a whim, with a dog | door | binds | v: stimulation, universalism (nature) | mark: moved away | chance: 58
+- UB | keep quiet about your debts until the lease is signed | v: security | mark: hid a wrong | chance: 48
+- WR | promise each other out loud, on the doorstep, to make it work | binds | v: benevolence | chance: 75
+- WU | split the rent by income and keep a fair shared ledger | habit | v: universalism (fairness), security | chance: 72
+works: The first months are full of small joys: Sunday breakfasts, shared jokes, a home.
+works: {N} and {partner} find they live together even better than they dated.
+fails: Within weeks, the small habits of living together become a daily war.
+fails: The flat is too small for two, and the arguments about money start in the first month.
+
+# ---------------------------------------------------------------- life event: a breakup (pairs D3b)
+
+== a breakup
+tier: life event
+stages: young_adult adult
+age: 16-40
+per_year: 0 0 .25 .06 0 0
+drivers: stress+.5 money-.3 family-.3 ties-.2 community-.2 unrest+.2 trouble+.15
+needs: partner
+domain: partner.5
+ends: partner
+rite: adult
+times: about 25 in 100 young adults and 6 in 100 adults a year see a serious relationship end (D43, estimate; unmarried breakups, divorce is D44); zero to three times before forty
+likelier: youth, a young or short partnership, stress, money worries, a move or distance, an affair, moving in too soon, war or unrest that keeps couples apart
+rarer: marriage, children together, a long partnership, a close community, good friends around the couple, enough money, a faith or family that frowns on separating
+tone: trouble
+life: love
+horizon: months
+roles: partner, friend, parent, sibling
+earth: the relationship ends: a long talk, a closed door, a box of things to give back
+scene: It is over between {N} and {partner}. One of them said it out loud at last, and the other did not argue.
+scene W: {N} made promises to {partner}, and now they lie broken on the kitchen table beside the spare keys.
+scene U: {N} keeps replaying the last year, looking for the exact moment it started to go wrong.
+scene B: {N} counts what is left: the flat, the friends, the furniture, and who will keep what.
+scene R: {Ns} heart is in pieces, and {N} wants to scream, to cry, to smash every plate in the cupboard.
+scene G: Some things grow and some things die back. {N} knows this, and tonight it does not help at all.
+- W | divide things fairly, keep it civil, and keep what promises you still can | v: universalism (fairness), conformity | mark: kept your word | chance: 65
+- U | write it all out until you understand what went wrong | habit | v: self-direction | chance: 70
+- B | make sure you keep the friends and everything worth having, and let them start again | v: power (resources), security | chance: 70
+- R | go dancing with your friends that night, and cry on their shoulders after | v: hedonism, benevolence | chance: 80
+- G | stay close to your family for a while, and let it heal | v: security, tradition | chance: 80
+- BR | go out every night and make sure your ex sees the photos | habit | v: hedonism, power (face) | chance: 55
+- UG | take long walks and slowly work out what you need next time | door | v: self-direction | chance: 80
+- UR | pour it all into a song or a story that is brutally honest | habit | identity | v: self-direction | chance: 78
+- WB | insist on getting back everything you lent and every penny you are owed | v: security, power (resources) | chance: 65
+- WG | stay kind to them, and stay friends for the sake of your shared circle | v: benevolence, tradition | chance: 55
+works: The friends rally round, and {N} comes out of it surer of what they want.
+works: Months later {N} can think of {partner} without it hurting, and that feels like freedom.
+fails: The breakup drags on for months, bitter and public.
+fails: {N} spends a long, dark winter barely leaving the flat.
+
+# ---------------------------------------------------------------- life event: your first full-time job (triads from D4a)
+# Every option is a way of starting the job, so every option carries commit:career (each color twice in all).
+
+== your first full-time job
+tier: life event
+at: employer
+stages: young_adult adult
+age: 16-35
+per_year: 0 0 .2 .3 0 0
+drivers: prosper+.5 ties+.3 money+.2 health+.2 unrest-.4 fortune+.1
+excludes: career
+domain: career1
+rite: adult
+once: yes
+times: once; most people start a first full-time job between eighteen and twenty-five, later after long study: about 20 in 100 young adults and 30 in 100 adults still without one start it each year (D13 counts any new job, so this is an estimate scaled down to first jobs); a teenager's first part-time job is your first real job
+likelier: a growing economy, a finished degree or apprenticeship, family contacts and friends who hear of openings, a move to a city, good health
+rarer: a recession, war or unrest, poor health or a disability without support, no money to live on while searching, long study
+tone: mixed
+life: work
+horizon: years
+roles: boss, colleague, mentor, parent
+earth: a contract, a desk or a station of your own, and a first full month's pay
+scene: Monday morning: {N} has a lanyard with their name on it, a contract in a drawer, and no idea where anything is.
+scene W: {N} has signed a contract and means to keep every line of it: on time, every day, doing the job right.
+scene U: Everything is new: the systems, the jargon, the unwritten rules. {N} is taking notes on all of it.
+scene B: {N} looks at the chart of names on the wall and counts the steps from the bottom to the top.
+scene R: The first pay arrives in four weeks, and {N} already knows exactly how to spend it.
+scene G: {N} has found work that suits their hands and their pace, and the old hands on the team have taken them in.
+- W | turn up early every day and learn to do the job exactly right | v: conformity, achievement | tags: commit:career | chance: 80
+- U | learn every system in the place until you understand it better than anyone | v: achievement, self-direction | mark: learned a skill | tags: commit:career | chance: 72
+- B | set your sights on your boss's job from the first week | identity | v: power, achievement | tags: commit:career | chance: 68
+- R | throw yourself in, say yes to everything, and spend the first pay on a party | door | v: hedonism, stimulation | tags: commit:career | chance: 90
+- G | settle in among the old hands and learn the work at their pace | v: tradition, security | tags: commit:career | chance: 80
+- WUR | find a demanding mentor and train hard, mind and nerve, to master the craft | binds | v: achievement, self-direction | tags: commit:career | chance: 70
+- WUB | climb by the book: exams, certificates and the right introductions | v: achievement, power | tags: commit:career | chance: 65
+- WBG | stay in it for years, steady, saving every month toward a home | habit | v: security, tradition | tags: commit:career | chance: 72
+- URG | teach yourself the job your own way, trusting your instincts over the manual | v: self-direction | tags: commit:career | closed: approval: ignoring the firm's procedures; backfire: a formal warning | chance: 62
+- BRG | fight your way up from the bottom, louder and hungrier than the rest | v: achievement, power | tags: commit:career | chance: 68
+works: By the end of the first month {N} knows everyone's name, and the job feels like theirs.
+works: {boss} stops by at the end of the quarter to say the team is glad to have {N}.
+fails: The work is grinding, the hours are long, and {N} dreads every Sunday evening.
+fails: {N} makes a serious mistake in the second week and spends months living it down.
+
+# ---------------------------------------------------------------- life event: losing your job (triads from D4b)
+
+== losing your job
+tier: life event
+at: employer
+stages: young_adult adult mature elder
+age: 17-75
+per_year: 0 0 .08 .05 .04 .02
+drivers: prosper-.6 unrest+.5 era+.4 ties-.2 trouble+.15
+gap: 1-3
+needs: career
+domain: career1
+rite: adult mature
+times: zero to three times in a working life: per worker about 8 in 100 young adults, 5 in 100 adults, 4 in 100 in midlife and 2 in 100 older workers a year lose a job through a layoff, a closure or a job cut, about twice that in a recession (D57, data and estimate)
+likelier: a recession, unrest, a young firm or a shrinking trade, a closing factory, short contracts, new technology in the trade, little schooling
+rarer: a growing economy, education and rare skills, public-sector or union work, long service, contacts who can find you work
+ends: career
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague, parent, partner, friend
+earth: a meeting with the manager and someone from personnel, a box for your things, and two weeks' notice
+scene: Friday, four o'clock: a meeting with {boss} and someone from personnel, a cardboard box, and two weeks' pay.
+scene W: {N} did everything that was asked, and it made no difference. The rules, it turns out, were never the whole story.
+scene U: {N} walks out into the street already working out what went wrong: the firm, the market, and their own part in it.
+scene B: The firm protected the people at the top, as firms do. {N} notes it, and notes who kept their jobs.
+scene R: {N} shakes with anger on the bus home, swearing under their breath at every stop.
+scene G: The whole trade is shrinking, like a river in a dry year. {N} saw it coming and hoped it would not reach them.
+- W | sign on for benefits straight away and apply for jobs every single day | v: security, conformity | chance: 54
+- U | take stock of your skills and retrain for a field that is growing | binds | v: self-direction, achievement | mark: learned a skill | chance: 53
+- B | set up on your own the next week, and win clients fair and square | identity | v: achievement, self-direction | mark: took a wild risk | chance: 40
+- R | tell your boss exactly what you think of them on the way out | v: self-direction | mark: made an enemy | chance: 48
+- G | move in with family, and work cash in hand for people you know | binds | v: tradition, security | closed: law: undeclared work; backfire: a fine, and benefits stopped | chance: 56
+- WUG | take the time to work out, calmly, what work you were really meant for | door | v: self-direction, security | chance: 55
+- WRG | rally the others let go and occupy the office until the firm pays | v: universalism (fairness), benevolence | closed: law: occupying the premises; backfire: removed by the police, and blacklisted | chance: 38
+- WBR | take the first decent offer within a week and get moving | v: achievement, security | chance: 60
+- UBR | forge a glowing reference and talk your way into a better job | v: achievement, power | mark: hid a wrong | closed: law: forgery; backfire: found out at the reference check, and the offer withdrawn | chance: 58
+- UBG | live on next to nothing, sell what you can, and wait for the right opening | v: security, power (resources) | chance: 42
+works: Within two months {N} has a new job, and a better one.
+works: Six months later {N} is doing work they had never thought of, and likes it.
+fails: The savings run out before the job offers start.
+fails: {N} sends out a hundred applications and gets three replies.
+
+# ---------------------------------------------------------------- life event: a baby on the way, planned or not (cross cycle s3; pairs D5a)
+# The five one-color options and the s3 cycle meet the coming child: each carries commit:children and binds (even per
+# color). R14 (Emren, release checklist section 10): ending the pregnancy and planning an adoption are pickable, in plain
+# words, for a character of either sex (the pregnancy may be the partner's, and the choice is then made together). The
+# pair set D5a holds them: BG, UB, UR and WR end the pregnancy, each in its own way (law: abortion), and WG sees it
+# through and plans for another family to adopt the baby (law: adoption). None of the five carries commit:children or
+# binds, so the person can meet this moment again later. None is written closed: the modern law book (chroma-engine
+# world.py LAW_MOD) has both legal, so with the world off they stay open; with it on, the law book opens, restricts or
+# bans them. Backfire wording for a banned state, for the game: ending it, "found out, and charged, with the clinic
+# closed down"; adoption, "the papers refused, and the baby placed by the court instead".
+# Rates: in rich countries about 1 in 5 known pregnancies end in abortion (US about 1 in 5, Guttmacher Institute; England
+# and Wales about 1 in 4 conceptions, ONS), more among the young, the childless and the unplanned (about 4 in 10
+# unintended US pregnancies, Finer and Zolna 2016); placing a newborn for adoption is rare, well under 1 in 100 births
+# (US about 18,000 a year against 3.6 million births, National Council for Adoption). The engine picks a pair option
+# about half as often as a one-color one, so ending it takes four pairs at high felt odds (chance 88 to 90) and the
+# adoption one pair at low ones (chance 20).
+# Measured in the engine (a copy of engtest20, 600 lives, seeds 51-54): of 437 pregnancies met, 19 in 100 end
+# (20 of the first ones), 3 in 100 go to adoption (above the real share, but one option of fifteen at low felt odds
+# goes little lower) and 78 are kept.
+
+== a baby on the way, planned or not
+tier: life event
+at: hospital
+stages: young_adult
+age: 16-32
+per_year: 0 0 .12 0 0 0
+drivers: family+.4 community+.3 prosper+.2 money+.1 stress-.3 unrest-.2
+excludes: children
+domain: children1
+rite: adult
+times: zero to two first pregnancies in this stage: per young adult with no children yet about 12 in 100 a year (D04, data: 55.8 births per 1,000 women at 20-24, 12.6 at 15-19, set per eligible person by the engine at pull-in, 06:29), and about four in ten pregnancies at this age are unplanned; later births come through a child is born
+likelier: a settled partner or marriage, a faith or family that hopes for children, family nearby, rural life, a growing economy, less schooling
+rarer: long study, a demanding first career, money worries, stress, unsettled times, poor health, no partner
+tone: mixed
+life: children, family
+horizon: years
+roles: parent, sibling, friend, partner, a midwife
+earth: a positive test, two lines on a little stick
+scene: There it is: two lines on a little plastic stick, and {N} sitting on the edge of the bath, staring at them.
+scene W: {N} feels the weight of it at once: a life to be responsible for, and every promise that comes with it.
+scene U: {N} is already reading: weeks, stages, costs, leave rules. There is so much to learn before the spring.
+scene B: {N} thinks of the job, the flat, the money and the plans, and what each of them will cost now.
+scene R: {Ns} heart leaps and lurches at the same time: terror, joy and disbelief, all at once.
+scene G: {N} feels it like the turn of a season: something has begun that is older than any plan.
+- W | tell the family at once, and do right by everyone from day one | identity | binds | v: conformity, tradition | mark: owned up | tags: commit:children | chance: 85
+- U | read every book and plan the next year month by month | binds | v: security, self-direction | tags: commit:children | chance: 90
+- B | keep your own plans first, and line up all the help you can from the start | identity | binds | v: achievement, power | tags: commit:children | act: keep their own plans first, and line up all the help they can from the start | chance: 75
+- R | shout the news from the rooftops, and work out the rest later | binds | v: stimulation | tags: commit:children | chance: 78
+- G | trust nature and your family, and let the months unfold | binds | v: tradition, security | tags: commit:children | chance: 78
+- W>R | promise yourself the baby will join your adventures, not end them | binds | v: hedonism, stimulation | tags: commit:children | chance: 60
+- U>G | research gentle, natural birth and plan one with care | binds | v: universalism (nature), security | tags: commit:children | chance: 68
+- B>W | chase every grant, benefit and family offer, and put it all toward a safe home | binds | v: security, power (resources) | tags: commit:children | chance: 80
+- R>U | panic, then sign up for every class going and ask a hundred questions | binds | v: self-direction, security | tags: commit:children | chance: 90
+- G>B | lean on your family's help, so your own plans need not stop | binds | v: achievement, tradition | tags: commit:children | chance: 70
+- BG | tell only your closest family, and end the pregnancy quietly | v: security, tradition | law: abortion | chance: 90
+- UB | count what a child would cost right now, and end the pregnancy early | v: security, achievement | law: abortion | chance: 90
+- UR | get the facts from a doctor, then follow your heart and end the pregnancy | v: self-direction | law: abortion | chance: 88
+- WG | see the pregnancy through, and choose a loving family to adopt the baby | v: benevolence, security | law: adoption | chance: 20
+- WR | end the pregnancy, and say so openly to anyone who asks | v: self-direction, universalism | law: abortion | chance: 88
+works: The choice, once made, feels like {Ns} own, and the months after it go more gently than {N} feared.
+works: {parent} hears it all over a long evening at the kitchen table, and stands by {N} whatever comes next.
+fails: The weeks of deciding are hard: sleepless nights, money fears and arguments about everything.
+fails: The news splits the family, and {N} faces most of it alone.
+
+# ---------------------------------------------------------------- life event: an unexpected chance (the four-color set)
+# The five four-color options take the chance as a calling: each carries commit:career (each color once in all).
+
+== an unexpected chance: a grant, a role, a stage
+tier: life event
+stages: young_adult adult
+age: 17-60
+per_year: 0 0 .04 .04 0 0
+drivers: prosper+.3 ties+.3 community+.3 money+.2 unrest-.3 fortune+.15
+gap: 3-8
+domain: career.5
+rite: adult
+times: zero to three in a life: about 4 in 100 young adults and adults a year are picked or honoured for their work: a funded place, a part, a first big stage (D22, estimate)
+likelier: years of work behind it, a mentor or a network, a community that knows the work, money to make it seen, a city, a growing economy
+rarer: isolation, no contacts, low money, a recession, unrest, discrimination, a closed field
+tone: joy
+life: work, calling
+horizon: years
+roles: mentor, boss, parent, partner, friend
+earth: a letter offering a funded place, a lead role, or a first big stage
+scene: The letter is short: {N} has been chosen. A funded year, a role, a stage, the thing {N} has wanted for years, starting next month.
+scene W: {N} has been chosen above many others, and feels the weight of living up to that trust.
+scene U: It is a chance to go deeper than ever before: a year to learn, to test, to do the work properly.
+scene B: Doors that were shut yesterday are open today. {N} sees exactly how far this could go.
+scene R: {N} reads the letter four times, then screams into a pillow.
+scene G: {N} has been growing toward this for years without quite knowing it, like a tree toward a gap in the canopy.
+- W | accept, and work every day to deserve the honour | v: conformity, achievement | chance: 76
+- U | accept, and spend the first month studying everything the role demands | v: self-direction, achievement | chance: 78
+- B | use the offer to bargain for something better elsewhere | door | v: power, achievement | chance: 70
+- R | say yes on the spot, without reading the terms | v: stimulation | mark: took a wild risk | chance: 75
+- G | turn it down; the timing is wrong, and the family needs a hand at home | identity | v: tradition, benevolence | mark: turned down a chance | chance: 60
+- WUBG | accept, and build on it slowly for years, with a plan and a home base | binds | v: achievement, security | tags: commit:career | chance: 78
+- WUBR | take it, move to the city, and remake yourself to fit the part | v: achievement, self-direction | mark: moved away | tags: commit:career | chance: 65
+- WURG | accept, and share every door it opens with friends and family | v: benevolence, universalism | tags: commit:career | chance: 72
+- WBRG | take it and fight to the top of the field before the chance can close | v: achievement, power | tags: commit:career | chance: 65
+- UBRG | take it, break every rule of the field, and make it your own | identity | v: self-direction, stimulation | tags: commit:career | chance: 45
+works: The year that follows is the best of {Ns} life so far.
+works: {N} makes the most of it, and people in the field start to know the name.
+fails: The chance turns out to be smaller than it looked, and much harder.
+fails: {N} freezes under the weight of it, and the moment slips away.

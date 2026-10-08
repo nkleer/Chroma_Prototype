@@ -1,0 +1,204 @@
+# Chroma Library, next Earth batch: the moments where a life can be taken (Library thread, 2026-10-05).
+# Emren's point 11 ("Can character kill? Character must able to, not does not have to, and it must be represented")
+# and Emren's card of 21:00, "By choice, rarely": killing is an option only in moments that bring real people there,
+# deliberate ones included. Five rare adult life events, each with one killing option in a different color (W, U, B, R,
+# G), so no color owns violence, and lawful ways out in every color. Nothing graphic, no method detail, never a child.
+# The engine gives [has taken a life] with kills: (tracked roles) or title: (anyone else, told in the story only),
+# then [someone with a record] at real odds. Rates: rare by design; the killing option is one act among ten.
+
+# ---------------------------------------------------------------- the night it goes too far (pairs D1a)
+
+# gate: the partner has been violent before (engine's choice, for example a partner held two years or more with high stress or trouble)
+== the night it goes too far
+tier: life event
+at: police
+stages: young_adult adult mature
+age: 20-65
+per_year: 0 0 .0015 .0015 .001 0
+drivers: stress+.5 money-.4 ties-.4 community-.2 trouble+.3
+gap: 5-20
+times: estimate: about 1 in 4 women and 1 in 10 men in the US have met severe violence from a partner in their lifetime (CDC NISVS 2016-17); the night it goes further than ever before, when something has to be decided, comes to perhaps 1 in 20 lives; very few of those end in a death, and most partner killings are of women by men (FBI)
+likelier: a partner who has been violent before, drink, money trouble, isolation from friends and family, a partner who controls the money
+rarer: friends and family close by, money of one's own, a community that notices
+needs: partner
+domain: partner1
+tone: trouble
+life: love, conflict, body
+horizon: moment
+roles: partner, sibling, parent, friend, a police officer, a refuge worker
+earth: after years of bruises explained away, tonight your partner goes further than ever before
+scene: The door is locked from the inside, and {partner} is standing between {N} and it. The shouting stopped a minute ago, which is worse.
+scene W: {N} promised to stay with {partner} for better or worse. Tonight {N} knows this is not what the promise meant.
+scene U: {N} has kept count for months: the dates, the excuses, the doctor's careful questions. Tonight the pattern has broken its own rules.
+scene B: {N} stopped hoping {partner} would change a long time ago. What matters now is who walks out of this house, and how.
+scene R: Something in {N} that has been quiet for years is suddenly wide awake, and it is not afraid any more.
+scene G: {N} thinks of {parent}, who stayed for thirty years, and of the house where {N} grew up listening through walls.
+- W | call the police from the bathroom, and press charges this time | v: security, conformity | chance: 60
+- U | keep calm, talk them down, and plan the way out for the morning | v: security | chance: 50
+- B | agree to everything tonight, and empty the joint account at nine tomorrow | v: security, power | chance: 70
+- R | kill them, here, tonight, before they can hurt you again | act: kill them, there and then, before they could do it again | kills: partner | mark: took a life | closed: law: killing someone; backfire: the police come, and a court hears both stories | death_if_fails: .03 | v: security | chance: 45
+- G | stay, for the family's name and the years together, and hide the bruises again | v: tradition, conformity | chance: 60
+- BG | get your family round tonight, and take everything that is yours | act: get the family round that night, and take everything that was {Ns} | v: security, power | mark: left home | chance: 65
+- BR | fight your way out of the door and run to the neighbours | body: heavy | v: self-direction | mark: left home | death_if_fails: .01 | chance: 55
+- UG | slip out to the refuge whose number you saved months ago | v: security, benevolence | mark: left home | chance: 60
+- WR | stand in front of them and say, out loud, that it ends tonight | identity | v: self-direction, security | death_if_fails: .01 | chance: 50
+- WU | photograph everything tonight, and take it all to a lawyer in the morning | v: security, conformity | chance: 70
+works: By morning {N} is somewhere safe, and the house behind is quiet.
+works: The night ends, and with it something that had to end.
+fails: The night goes worse than {N} feared, and the morning brings police, doctors and questions.
+fails: Nothing is settled. {N} wakes in the same house, with the same fear and less strength than before.
+
+# ---------------------------------------------------------------- an offer from people who do not ask twice (cycle s1)
+
+== an offer from people who do not ask twice
+tier: life event
+stages: young_adult adult
+age: 19-50
+per_year: 0 0 .0006 .0004 0 0
+drivers: money-.6 trouble+.4 community-.3 unrest+.3 stress+.2
+gap: 5-15
+times: estimate: organised crime recruits few people; perhaps 1 in 100 lives meet a serious offer from it, most of them young adults in debt or already near the trade; very few such offers are to take a life
+likelier: debt, a record, a street gang, a neighbourhood where crime pays, friends or family already inside it
+rarer: steady work, a close family, a faith community, living far from the trade
+tone: trouble
+life: money, conflict
+horizon: months
+roles: friend, rival, sibling, a man in a good coat
+earth: a man in a good coat says your debt can disappear, if you do one job for his people
+scene: The car is warm and smells of new leather. The man beside {N} speaks softly: the debt can vanish, all of it, for one job.
+scene W: {N} has always known where the line is. The man in the coat is asking {N} to step over it, just once.
+scene U: {N} listens to every word and to the gaps between them: what the job is, why {N} was chosen, and what happens to people who say no.
+scene B: The money is real, and so is the chance. {N} wonders how far up these people go, and whether there is room near the top.
+scene R: Part of {N} is terrified, and part of {N} has never felt so awake.
+scene G: {N} thinks of the street where everyone knows everyone, and of how these people always look after their own.
+- W | say no, then walk into the police station and tell them everything | identity | v: conformity, security | mark: made an enemy | death_if_fails: .01 | chance: 45
+- U | ask for a day to think, and find out exactly who these people are | v: security | chance: 60
+- B | take the job, and kill the man they name, for the money | act: take the job and kill the man they named, for the money | title: has taken a life | mark: took a life | closed: law: killing for money; backfire: the police were watching the man too | death_if_fails: .05 | v: power, achievement | chance: 45
+- R | laugh in his face, get out of the car, and never look back | v: self-direction, stimulation | mark: made an enemy | chance: 55
+- G | ask the cousin who works for them what the job really costs | v: tradition, security | chance: 55
+- W>U | turn him down politely, and remember every detail for the police | v: security, self-direction | chance: 55
+- U>B | agree to drive for them, and never to touch anything else | mark: broke the law | closed: law: driving for a criminal gang; backfire: arrested with the others when the car is stopped | v: power, security | tech: car | chance: 55
+- B>R | ask for a job that pays twice as much and carries half the risk | v: power, stimulation | chance: 40
+- R>G | run tonight to family in another town, and start again there | v: security, tradition | mark: moved away | chance: 60
+- G>W | take it to the elders of your street, and let them deal with these people | v: tradition, conformity | chance: 40
+works: The weeks that follow are quieter than {N} feared, and the man in the coat does not come back.
+works: {N} comes out of it with a story never to be told, and a debt that no longer matters.
+fails: The man in the coat comes back, and this time he is not smiling.
+fails: The street knows within a week, and {N} cannot walk down it the same way again.
+
+# ---------------------------------------------------------------- the man who hurt your family walks free (pairs D4b)
+
+== the man who hurt your family walks free
+tier: life event
+at: court
+stages: adult mature elder
+age: 25-80
+per_year: 0 0 0 .0003 .0004 .0002
+drivers: community-.2 era+.2 stress+.3 trouble+.3
+gap: 10-40
+times: estimate: perhaps 1 in 100 people see someone who badly hurt a close relative leave court with a light sentence or none; revenge killings are vanishingly rare
+likelier: a recent accident or crime in the family, a court case, a small town where everyone knows
+rarer: a sentence that feels just, a faith that counsels forgiveness, distance
+tone: trouble
+life: family, conflict, justice
+horizon: months
+roles: sibling, parent, friend, a lawyer, a journalist
+earth: the driver who put your brother or sister in a wheelchair leaves court with a fine and a smile
+scene: Outside the court, the driver who put {sibling} in a wheelchair lights a cigarette and laughs with his lawyer. The fine is less than {Ns} car.
+scene W: The law was supposed to be the answer. {N} watches it shrug.
+scene U: {N} has read the whole case file twice. Every mistake the prosecution made is written in the margins.
+scene B: {N} knows where he drinks, where he works and where he parks. Knowing things is a kind of power.
+scene R: {N} has to grip the railing to stay where {N} is standing.
+scene G: {sibling} will never walk the hill behind the family house again. {N} thinks of that hill, and of him laughing.
+- W | see that he pays with his life, since the court would not | act: set out to see that he paid with his life, since the court would not | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the police know exactly who had a reason | death_if_fails: .02 | v: universalism (justice), security | chance: 45
+- U | find the flaw in the case, and push for an appeal until it is heard | binds | v: universalism, self-direction | chance: 35
+- B | ruin him within the law: his job, his licence, his name | v: power | mark: made an enemy | chance: 50
+- R | go to his pub tonight and say it to his face, in front of everyone | v: stimulation, self-direction | mark: made an enemy | chance: 55
+- G | turn to your brother or sister, and spend your evenings helping them live again | v: benevolence | chance: 65
+- BR | wait for him in the car park, and give him the beating he got away with | body: heavy | mark: hurt someone badly | closed: law: assault; backfire: he presses charges, and wins | death_if_fails: .01 | v: power, stimulation | role: men | chance: 55
+- UB | dig into his past until you find something the police will want | v: power, achievement | chance: 45
+- UG | set up a fund for your brother or sister, and tell the story to the papers | v: benevolence, universalism | chance: 55
+- WG | forgive him, slowly, so that the hate does not eat the family too | identity | v: benevolence, tradition | chance: 35
+- WR | campaign to change the law, with the family's photograph on every poster | v: universalism | chance: 40
+works: Something like justice comes, late and imperfect, and the family can breathe again.
+works: The anger finds somewhere to go, and {N} is still standing when it is spent.
+fails: Nothing changes, and the anger stays, quiet and patient, for years.
+fails: It costs {N} more than it costs him, and the family pays too.
+
+# ---------------------------------------------------------------- the neighbour who wants your land (cycle s2)
+
+== the neighbour who wants your land
+tier: life event
+stages: adult mature elder
+age: 35-85
+per_year: 0 0 0 .0004 .0006 .0004
+drivers: money-.3 community-.2 stress+.2 trouble+.3
+gap: 10-30
+times: estimate: perhaps 1 in 100 people meet a quarrel over land, water or a boundary that turns dangerous, most of them in farming country; killings over land are rare in rich countries today
+likelier: farming, a shared boundary, an old family quarrel, a drought, a sale gone wrong
+rarer: city life, a mediator, a close community, a clear title deed
+tone: trouble
+life: home, nature, conflict
+horizon: months
+roles: rival, friend, sibling, a surveyor, a police officer
+earth: the neighbour has moved the boundary fence again, and this time brought his sons
+scene: At first light the new fence posts stand three metres inside {Ns} field, and {rival} is leaning on one of them, waiting.
+scene W: {N} keeps the deeds in a tin in the kitchen, with the surveyor's map. The law is on {Ns} side, on paper.
+scene U: {N} studies the old map, the new posts and {rival}'s face, and tries to work out what {rival} really wants.
+scene B: {N} has given ground once. {N} knows what people take from someone who gives ground twice.
+scene R: {N} feels the blood rise, hot and loud, at the sight of {rival} leaning on that post.
+scene G: {Ns} grandparents planted the hedge {rival} has just cut through. The land remembers who belongs on it.
+- W | take the deeds to court, and let the law settle the line | v: conformity, security | chance: 55
+- U | hire a surveyor, and put a camera on the boundary | v: security | chance: 65
+- B | buy up the debt on their farm, quietly, and wait | v: power | chance: 45
+- R | pull the posts out with your bare hands, there and then | body: heavy | v: stimulation, self-direction | mark: made an enemy | chance: 60
+- G | take the old shotgun, and shoot them when they next step onto your land | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the sons saw everything | death_if_fails: .02 | v: tradition, security | chance: 45
+- W>B | call the police every time, until the record ruins their name | v: power, conformity | mark: made an enemy | chance: 50
+- U>R | rig a floodlight and a siren on the boundary, and enjoy their fright | v: stimulation | chance: 65
+- B>G | offer to buy the strip, and keep the peace on your own terms | v: security, power | chance: 50
+- R>W | stand at the fence every morning, and dare them to cross it | v: self-direction | chance: 50
+- G>U | ask the oldest neighbours where the line really ran, and listen | v: tradition | chance: 60
+works: The line is settled, one way or another, and the field is quiet again.
+works: {N} keeps the land, and the valley talks about it for years.
+fails: The quarrel spreads to the sons, the cousins and the pub, and outlives everyone who started it.
+fails: {N} loses the strip, the money spent fighting for it, and the sleep.
+
+# ---------------------------------------------------------------- a business partner about to ruin you (pairs D5a)
+
+== a business partner about to ruin you
+tier: life event
+stages: adult mature
+age: 30-65
+per_year: 0 0 0 .0003 .0003 0
+drivers: money-.4 stress+.3 trouble+.3
+gap: 10-30
+times: estimate: perhaps 1 in 100 people who run a business with a partner find a fraud that could ruin them; killings over it are vanishingly rare
+likelier: a business of one's own, a partner who controls the books, debts, fast growth
+rarer: an outside accountant, a small business with no loans, a partner who is family and close
+needs: career
+domain: career1
+tone: trouble
+life: money, work, conflict
+horizon: months
+roles: colleague, partner, friend, a lawyer, an accountant
+earth: you find the second set of books: your partner has drained the firm, and every loan is in your name
+scene: Late at night in the office, {N} finds the second set of books. {colleague} has been draining the firm for years, and every loan is in {Ns} name.
+scene W: Twenty years of handshakes and promises, and {N} is holding the proof of what they were worth.
+scene U: {N} follows the money through every account, every shell company, every signature. It is almost beautiful, how well it was done.
+scene B: {N} is ruined unless {N} moves first, and {N} has always been good at moving first.
+scene R: {N} wants to drive to {colleague}'s house right now, kick the door in and have it out.
+scene G: {N} thinks of the families on the payroll, who have worked here since the firm began.
+- W | hand the books to the fraud squad tomorrow, and face what follows | v: conformity, universalism | mark: made an enemy | chance: 60
+- U | plan their death so carefully that no one ever suspects you | act: plan the partner's death so carefully that no one would ever suspect | title: has taken a life | mark: took a life | closed: law: murder; backfire: one detail was missed, and the police find it | v: security, power | chance: 35
+- B | move what is left into your own name tonight, before they can | mark: broke the law | closed: law: taking the firm's assets before the court decides; backfire: the court freezes everything, and {N} looks like the thief | v: power, security | chance: 55
+- R | drive to their house and have it out, right now | v: stimulation | tech: car | chance: 50
+- G | call the staff together, tell them the truth, and face it together | v: benevolence | chance: 50
+- BG | buy them out with everything you can raise, and keep the jobs alive | v: security, benevolence | chance: 45
+- BR | start a rival firm the next morning, and take your loyal clients with you | v: self-direction, achievement | act: start a rival firm the next morning, and take their loyal clients with them | chance: 45
+- UR | confront them with the proof in front of the board, without warning | v: self-direction | chance: 50
+- WG | ask an old friend of you both to broker a settlement | v: benevolence, conformity | chance: 45
+- WU | have an outside accountant trace every payment, and take the case to court | v: security, universalism | chance: 50
+works: The firm survives, smaller and wiser, and {N} with it.
+works: {N} gets out with less than was earned, and more than seemed possible that night.
+fails: The firm goes under, and {Ns} name goes down with it.
+fails: It drags on through courts for years, and nobody wins but the lawyers.

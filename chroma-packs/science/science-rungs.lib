@@ -1,0 +1,456 @@
+# Chroma content pack, Science, Research and Discovery (modern Earth). PART 2 of the pack's moments: LIFE ON THE MAIN
+# RUNGS, an everyday pair per research title that only its holder meets (holds:): the research assistant, the research
+# scientist, the research project lead, the research group leader, the research facility lead and the independent
+# investigator.
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md. Brief: chroma-packs/science/MOMENTS-BRIEF.md
+# (part 2). Titles and perks: chroma-packs/science/catalogue.py. Seeds: Emren's "Science, Research & Discovery: expanded
+# design v2" (sections 4, 6, 9, 10 and 12): each pair's first moment grows from the brief's seed, the second is another
+# ordinary week of the role. Credit, access and money stay apart from competence; a null result is real work; wrongs and
+# honest acts are spread over every color. Pair halves share stages, ages, holds: and rate; calls split the colors 2 and 3.
+
+# ---------------------------------------------------------------- research assistant: calls WB / calls URG (cycle s3)
+
+== the protocol says one thing, the supervisor another
+tier: everyday
+rate: 0.5
+times: per research assistant: a supervisor asks for a way of working the written protocol does not allow, with a deadline close, perhaps once or twice a year; about 1 life in 50 ever holds a research assistant post (estimate)
+stages: young_adult adult mature
+age: 20-67
+calls: WB
+holds: research assistant
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, mentor
+earth: the written protocol says one thing, your supervisor says to do it another way, and the samples are due Friday
+scene: The written protocol on the bench says three washes. {boss} has just told {N} to skip the third and run the samples tonight, because Friday is close.
+scene W: Every step in a protocol is there because someone once got it wrong. If a step changes, the lab book is supposed to say so, and say who decided.
+scene U: The protocol was written for the old reagent. {N} suspects {boss} may be right about the third wash, and wants to know for certain.
+scene B: {boss} writes the reference letters, and {N} will need one by spring. A wash step is not the hill to stand on. Or is it?
+scene R: Being told one thing on paper and another out loud makes {N} want to say so, right now, in front of everyone.
+scene G: {colleague}, who has worked at this bench for twenty years, shrugs: the protocol and the supervisors have always disagreed, and the lab goes on.
+- W | follow the written protocol, since it is the version everyone signed | v: conformity, security | self_control: + | chance: 75
+- U | look up the new reagent and work out which way gives cleaner data | v: achievement, self-direction | mark: learned a skill | chance: 75
+- B | do it the supervisor's way, and keep a private note in case it goes wrong | v: security, power | chance: 95
+- R | tell the supervisor straight out that skipping the step feels wrong | v: self-direction | mark: defied an authority | chance: 75
+- G | ask the oldest hand in the lab how this has been settled before | v: tradition | chance: 70
+- W>R | put your objection in the lab book, on record and off your chest | v: self-direction, conformity | chance: 92
+- U>G | dig through the old lab books to learn why the third wash was ever added | v: tradition, self-direction | chance: 70
+- B>W | agree to skip it only if the supervisor signs the change in the lab book | v: security, conformity | chance: 75
+- R>U | stay late and run half the samples each way, to see who is right | v: stimulation, achievement | self_control: + | chance: 90
+- G>B | skip the step as the lab always does, and log it as done | v: conformity, security | mark: hid a wrong | closed: approval: a lab record that does not match the work; backfire: a later audit finds the samples and the record disagree | self_control: - | chance: 75
+works: The samples go out on Friday, and the lab book says exactly what was done.
+works: {boss} looks into it, and the step is settled for everyone, in writing.
+fails: The Friday run comes back noisy, and nobody can say for sure which step to blame.
+fails: {boss} takes it badly, and for a week {N} gets only the dullest jobs on the rota.
+
+# Round 5, 2026-10-07 (P12): the Blue road. U>G carries the scientist's post, the next rung, at 12 on the act like the
+# pack's doors (an everyday moment comes often); without a doctorate it waits on the institute's approval, as in 'the
+# contract runs out'.
+== your name is not on the paper
+tier: everyday
+rate: 0.5
+times: per research assistant: a paper built partly on their work goes round without their name perhaps once in every two or three years in the post; technical and support staff are left off author lists far more often than scientists (estimate)
+stages: young_adult adult mature
+age: 20-67
+calls: URG
+holds: research assistant
+tone: trouble
+life: work
+horizon: months
+roles: boss, colleague, mentor
+earth: the draft of the lab's paper goes round, and the method you built is in it, but your name is not
+scene: The draft goes round the lab on Monday. The method {N} spent four months getting to work is on page three; {Ns} name is not on page one, only "the technical staff" in the thanks.
+scene W: The journal's authorship rules are pinned above the printer. {N} reads them again, line by line, and tries to read them fairly.
+scene U: {N} goes through the figures one by one: two, three and five could not exist without the method. Whether that makes {N} an author is another question, and {N} wants it answered properly.
+scene B: A first paper is what the next application will ask for. Without a name on this one, {N} is still a pair of hands for hire.
+scene R: {N} reads the author list on the bus home, and the heat climbs from the collar to the ears.
+scene G: {mentor} once said that in every lab the quiet work holds up the loud work, and the quiet work is seldom named. {N} remembers it now, and is not sure it helps.
+- W | ask the supervisor to check the list against the journal's authorship rules | v: universalism, conformity | chance: 65
+- U | list exactly what you did, figure by figure, and send it to the first author | v: achievement | identity | chance: 60
+- B | refuse to hand over the code until your name goes on the paper | v: power | mark: made an enemy | closed: approval: holding back shared lab work; backfire: you are taken off the project and the code is rewritten without you | chance: 45
+- R | type your own name into the draft's author list, in plain sight | v: self-direction | identity | mark: defied an authority | closed: approval: changing the author list without asking; backfire: the first author deletes it and tells the supervisor | chance: 30
+- G | take it in your stride: the method works, and that was the point | v: tradition (acceptance) | chance: 90
+- W>R | ask for a written lab rule on credit, for the sake of every assistant here | v: universalism, benevolence | identity | chance: 45
+- U>G | write the method up as a protocol, and apply to stay on as its scientist | title: research scientist | requires: doctoral graduate | without: approval | v: achievement, security | mark: learned a skill | chance: 12
+- B>W | trade this paper for a written promise of first place on the next one | v: security, achievement | binds | grants: credit negotiation | self_control: + | chance: 60
+- R>U | throw yourself into improving the analysis until the paper cannot do without it | v: achievement, stimulation | self_control: + | chance: 80
+- G>B | let it pass and wait; when the method is needed again, they will come asking | v: power | chance: 50
+works: {boss} reads the case again, and the next version of the draft has {Ns} name on it.
+works: The matter is settled in a way {N} can live with, and the bench feels like {Ns} own again.
+fails: The paper goes to the journal as it was, and the method appears under other names.
+fails: {boss} hears about it second-hand, and the lab is cool towards {N} for weeks.
+
+# ---------------------------------------------------------------- research scientist: calls UR / calls WBG (cycle s4)
+# Round 5, 2026-10-07 (P12, P16): in 'a careful result that says no' the scientist's next rungs are shown: W>G joins the
+# team that pools every study on the question ([evidence synthesis specialist], the White road), B>U leads the new
+# explanation as a project of their own ([research project lead], the Black road). An everyday moment comes often (a
+# scientist meets it about five times), so each act is open only to those already near that rung: the pooled team to a
+# scientist who has learned [evidence synthesis], the project to one who holds a [research grant] (requires:, without:
+# impossible: not offered to others; open to all, the two acts put the evidence specialist at many times its target in
+# the round 5 smoke runs). They stay at 8 and 10, not lower: the engine counts a missed title under 1 in 10 as a long
+# shot, and an everyday act is not one.
+# Round 5, merge (packs thread, two pooled runs of 1,600 lives): the W>G team act made nearly every holder of
+# [evidence synthesis] an evidence specialist (an everyday moment met every year or two: 8 of 20 first gains at
+# chance 8, 11 of 19 at chance 4), so W>G is back to its live act (the data deposited in a public archive). The
+# specialist's White road runs through 'a national centre opens its posts' (W, 4) and the rule from the rung below.
+
+== a careful result that says no
+tier: everyday
+rate: 0.5
+times: per research scientist: a careful result against the hypothesis comes every year or two, and one that lands with a report due perhaps once in three years; roughly half of honest studies end null or inconclusive; about 1 life in 80 ever holds such a post (estimate)
+stages: young_adult adult mature
+age: 24-80
+calls: UR
+holds: research scientist
+tone: trouble
+life: work
+horizon: months
+roles: boss, colleague, mentor
+earth: three years of careful work say the opposite of what you hoped, and the report to the funder is due next month
+scene: The last batch of data is in, and it is clean. It says the effect {N} has chased for three years is not there, and the report to the funder is due in four weeks.
+scene W: The funder paid for an honest answer, not a happy one. {N} opens the report template at the section headed "Findings" and sits with the cursor blinking.
+scene U: {N} checks the controls, the sample size and the code. Everything holds. Now the interesting question is why the idea was wrong.
+scene B: The next grant depends on this report, and a "no" is a hard thing to sell. {N} starts turning over what else is in the data.
+scene R: {N} stares at the plot for a long minute, then shuts the laptop hard and walks out into the cold without a coat.
+scene G: {mentor} used to say that nature does not care what anyone hoped. The lake outside the window looks exactly as it did three years ago.
+- W | write the report as it stands: a clean null result, plainly stated | v: universalism, conformity | identity | chance: 85
+- U | redo the whole analysis from scratch to be sure the null is real | v: achievement | self_control: + | chance: 85
+- B | find an outcome in the data that did come out, and lead the report with it | v: achievement, power | mark: hid a wrong | closed: approval: reporting a side result as if it were the main question; backfire: a reviewer asks for the original plan and sees the switch | self_control: - | chance: 75
+- R | stand up at the group meeting and say it plainly: the idea was wrong | v: self-direction | mark: owned up | chance: 90
+- G | let the hypothesis go, and ask what the system is really doing | v: universalism, self-direction | door | grants: a nose for the odd result | chance: 70
+- W>G | deposit the full data in a public archive, so the record stays whole | v: universalism | chance: 60
+- U>W | plan a bounded follow-up the funder can trust, and propose it in the report | v: security, achievement | binds | grants: experimental design | chance: 60
+- B>U | talk the funder into a project of your own on the new explanation | title: research project lead | requires: research grant | without: impossible | v: achievement, power | door | chance: 10
+- R>B | ring the funder today and sell the surprise as the bigger story | v: achievement, stimulation | chance: 50
+- G>R | go back to the field site and watch until the old excitement comes back | v: stimulation, hedonism | body: light | chance: 70
+works: The report goes in on time, and the funder's reply asks to see the next proposal.
+works: {colleague} reads the result and says it will save the whole field a few wasted years.
+fails: The funder's letter is polite and short, and the next call does not mention the topic at all.
+fails: {N} spends a month on it and still cannot make the result sit right.
+
+== the reviewers come back
+tier: everyday
+rate: 0.5
+times: per research scientist: reviews of a submitted paper come back a few times a year, nearly always a mix of fair points and some that miss; most papers are revised at least once before acceptance; about 1 life in 80 ever holds such a post (estimate)
+stages: young_adult adult mature
+age: 24-80
+calls: WBG
+holds: research scientist
+tone: mixed
+life: work
+horizon: months
+roles: colleague, rival, mentor
+earth: the reviews of your paper come back: one criticism is fair and hits hard, another is plainly wrong
+scene: The reviews arrive on a Sunday night. The second reviewer has found a real weakness in the sampling, and on the same page has misread the main figure.
+scene W: The journal allows sixty days and asks for a reply to every point, in order. {N} opens a blank table with two columns: the comment, and the answer.
+scene U: The weakness is real; {N} can see now that a wider sample would have closed it. The misreading is just as plain, and {N} can already see the panel that would prevent it.
+scene B: {N} is fairly sure the second reviewer is {rival}, who has a paper on the same question coming out elsewhere.
+scene R: The first reading leaves {N} pacing the kitchen at midnight, composing replies that could never be sent.
+scene G: {N} sleeps on it. By morning the reviews read differently: half of it is a gift, and half is weather that will pass.
+- W | answer every point in order, politely, conceding what is fair | v: conformity | chance: 65
+- U | try other tests on the data until the weakness goes away | v: achievement | mark: hid a wrong | closed: approval: choosing the test to fit the result; backfire: a reader re-runs the data and the effect is gone | self_control: - | chance: 75
+- B | do the extra sampling over your weekends, and answer the fair point in full | v: achievement, power | self_control: + | chance: 85
+- R | write the whole reply in one fierce weekend, while the fire lasts | v: stimulation, achievement | chance: 85
+- G | ask your old supervisor how they would weigh these reviews | v: tradition | chance: 80
+- W>G | narrow the claim to what the sample can bear, and let the rest go | v: universalism, conformity | chance: 75
+- U>W | add a clear new panel that shows the misreading, so the editor can judge | v: universalism | chance: 65
+- B>U | hire a statistician with the leftover budget to answer the fair point properly | v: achievement | door | chance: 75
+- R>B | fire back a sharp reply that wins the argument on the misread figure | v: power, achievement | mark: made an enemy | self_control: - | chance: 40
+- G>R | put the reviews away for a week and spend it in the field | v: hedonism, self-direction | body: light | chance: 65
+works: The revised paper goes back, and the editor accepts it with one small change.
+works: The fair point makes the paper better, and {N} says so in the reply without flinching.
+fails: The second round of reviews is harsher than the first, and the paper is rejected.
+fails: The reply takes four months instead of one, and {rival}'s paper comes out first.
+
+# ---------------------------------------------------------------- research project lead: calls BG / calls WUR (cycle s1)
+
+# Round 5, 2026-10-07 (P12, P16): B>R bargains the project into a standing group, the next rung ([research group
+# leader], the Black road), at 6 on an everyday moment that comes often, and open only to a lead who has [a loyal
+# research team] to keep (requires:, without: impossible; round 5 smoke runs).
+== the budget will not stretch to everything
+tier: everyday
+rate: 0.5
+times: per research project lead: money that will not cover everything promised comes about once in each project, most often past the halfway point as costs rise; about 1 life in 200 ever leads a research project (estimate)
+stages: young_adult adult mature
+age: 27-75
+calls: BG
+holds: research project lead
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague
+earth: halfway through your project the money will not cover everything you promised: the people, the samples and the field season
+scene: Halfway through the project, the spreadsheet says it plainly: the money will not cover the last field season, the second postdoc year and the sequencing all at once.
+scene W: {N} rereads what the project promised the funder and the team. Every line was a promise, and somebody, perhaps {colleague}, will have to be told which one breaks.
+scene U: {N} builds three versions of the remaining year, line by line, and asks of each one what it can still prove.
+scene B: Somewhere in the department there is unspent money with a year-end deadline on it. {N} starts working out who holds it.
+scene R: {N} wants to tear up the spreadsheet, keep everything anyway, and find the money somehow, later.
+scene G: Projects have seasons, {N} thinks, and this one is past its spring. What matters now is what can still ripen.
+- W | keep every promise made to the team first, and cut the work instead | v: benevolence, conformity | mark: kept your word | chance: 75
+- U | weigh each remaining task by what it adds to the answer, and cut from the bottom | v: achievement | grants: project triage | chance: 75
+- B | find the department's unspent money before its year-end deadline, and claim it | v: power, achievement | chance: 45
+- R | keep the whole team and the field season, and trust the money to turn up | v: benevolence, stimulation | mark: took a wild risk | chance: 20
+- G | let the last field season go, and spend what is left on the samples already frozen | v: security, tradition | chance: 90
+- W>U | ask the funder, by the book, to move travel money into the analysis | v: conformity, achievement | chance: 75
+- U>B | rewrite the plan so the most publishable part is finished first | v: achievement, power | chance: 75
+- B>R | bargain the department into making the project a standing group, with your postdoc kept on | title: research group leader | requires: a loyal research team | without: impossible | v: power, achievement | chance: 6
+- R>G | charge the field season to another grant, to keep the long record unbroken | v: universalism, security | mark: hid a wrong | closed: approval: costs charged to a grant they do not belong to; backfire: an audit finds them and the money is clawed back | chance: 80
+- G>W | keep everyone on at reduced hours, the way a family shares a lean year | v: benevolence, universalism | binds | chance: 60
+works: The plan is cut to fit, and what is left of the project is still worth doing.
+works: The money turns up from an unexpected line, and the field season goes ahead after all.
+fails: The cuts fall in the wrong place, and the main question can no longer be answered with what remains.
+fails: The funder takes two months to reply, and by then the field season has passed.
+
+== a team member knows more than you now
+tier: everyday
+rate: 0.5
+times: per research project lead: a junior who comes to know the method better than the lead happens perhaps once every few years, most often in the second or third year of a project with a postdoc on it (estimate)
+stages: young_adult adult mature
+age: 27-75
+calls: WUR
+holds: research project lead
+tone: mixed
+life: work
+horizon: months
+roles: colleague, boss
+earth: the postdoc you hired two years ago now knows the method better than you, and the whole team has noticed
+scene: In the lab meeting, everyone turns to {colleague} with the hard question about the method, not to {N}. {N} hired {colleague} two years ago.
+scene W: {N} is still the one who signs for the project and the one the funder will call. The responsibility has not moved, even if the knowledge has.
+scene U: {N} reads {colleague}'s latest analysis twice and finds nothing to improve. It is a strange, clean feeling.
+scene B: {colleague} will be applying for posts soon, and every post {colleague} wins could carry a line of the work away.
+scene R: {N} feels two things at once and cannot pull them apart: pride, and a small hot sting.
+scene G: This is how it should go, {N} thinks: the young tree outgrows the stake that held it up.
+- W | ask the institute to make your colleague's new role official, with the pay | v: universalism, benevolence | chance: 35
+- U | ask for lessons in the new method, and become the student again | v: self-direction, achievement | door | mark: learned a skill | chance: 90
+- B | make sure your name stays last on every paper the method produces | v: power, achievement | identity | chance: 90
+- R | tell the team out loud that the student has become the teacher | v: benevolence | chance: 90
+- G | keep to your own bench and your own part, as always | v: tradition | chance: 75
+- W>U | hand the method's decisions to your colleague, and keep a weekly check-in | v: achievement, benevolence | habit | grants: supervising researchers | chance: 85
+- U>B | learn everything your colleague knows before they move on and take it with them | v: power, achievement | chance: 50
+- B>R | win your colleague a raise so they stay, and get back to your own questions | v: self-direction, benevolence | chance: 65
+- R>G | go out to the field with your colleague and work side by side again | v: benevolence, stimulation | door | body: light | chance: 90
+- G>W | make your colleague co-lead, and let the team settle who does what | v: benevolence, conformity | binds | grants: research collaborators | chance: 60
+works: The team finds its new shape, and the work moves faster than it has in a year.
+works: {colleague} stays on, and the next paper is better than anything {N} could have written alone.
+fails: {colleague} accepts an offer elsewhere, and the method walks out of the door too.
+fails: The meeting goes stiff and polite, and nobody says what everyone has noticed.
+
+# ---------------------------------------------------------------- research group leader: calls WR / calls UBG (cycle s2)
+
+== eight people and one grant
+tier: everyday
+rate: 0.5
+gap: 8-15
+times: per research group leader: a grant or a renewal smaller than asked, with more people than money, comes every few years, since funders often trim the budgets they approve; about 1 life in 500 ever leads a research group (estimate)
+stages: young_adult adult mature
+age: 30-80
+calls: WR
+holds: research group leader
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, boss
+earth: the grant renewal comes through smaller than you asked: eight people in your group, and money for five
+scene: The renewal letter is good news and bad news: the grant goes on, at two thirds of what {N} asked for. There are eight people in the group.
+scene W: {N} has a list of every contract's end date and every promise made at interview. Fairness has to start from that list.
+scene U: {N} maps who does what and which line of the work each person carries, looking for the arrangement that keeps the science whole.
+scene B: {N} knows which two people bring in their own money and which ones only cost it. That is not the whole question, but it is part of it.
+scene R: {colleague} has a baby due in March. {N} cannot look at the list without seeing faces.
+scene G: The group grew like a hedge, a little every year. Now it has to be cut back, and {N} wants it to grow back thick.
+- W | honour every contract to its end date, and decide renewals by the written criteria | v: conformity, universalism | mark: kept your word | chance: 80
+- U | redraw the work plan so five posts carry the science, and choose by that | v: achievement | chance: 75
+- B | keep the two who bring in their own money, and let the others go | v: power, achievement | identity | chance: 85
+- R | cut your own salary to keep everyone on for another six months | v: benevolence | binds | mark: helped someone in need | chance: 60
+- G | give the one open post to your longest-serving student, without advertising it | v: benevolence, security | mark: hid a wrong | closed: approval: a post filled without the open call the rules require; backfire: a complaint, and the appointment is reversed | chance: 60
+- W>B | put the dean on the next paper, as expected here, and ask for bridging money | v: power, conformity | mark: hid a wrong | closed: approval: an author who did none of the work; backfire: the journal's contribution check flags the name | self_control: - | chance: 60
+- U>R | spend your nights on a small bridging proposal to keep one more person on | v: benevolence | self_control: + | grants: grant writing | chance: 35
+- B>G | call in favours to place each person who leaves in a friend's lab | v: benevolence | chance: 70
+- R>W | tell the whole group the numbers at once, straight, before rumours start | v: universalism, benevolence | chance: 90
+- G>U | slow the work down so the long study survives the lean years | v: security, universalism | self_control: + | chance: 70
+works: The group comes through the lean year smaller but whole, and the work goes on.
+works: Two of the people who had to leave land good posts nearby, and still come to the Friday seminar.
+fails: The decision leaks before {N} has told anyone, and the lab goes quiet for a month.
+fails: The best postdoc takes an offer abroad rather than wait, and a line of the work ends with the move.
+
+# Round 5, 2026-10-07 (P16): U takes the chair the faculty offers a group leader ([professor] on top of the group, the
+# rung below it), at 12 on an everyday moment that comes often; without published work it waits on the faculty's
+# approval.
+== the work you would rather be doing
+tier: everyday
+rate: 0.5
+gap: 8-15
+times: per research group leader: the pull back toward hands-on work is felt most years, and comes to a real choice perhaps once in five years; most leaders run few experiments of their own once the group grows (estimate)
+stages: young_adult adult mature
+age: 30-80
+calls: UBG
+holds: research group leader
+tone: mixed
+life: work
+horizon: years
+roles: colleague, boss
+earth: your days are budgets, reviews and meetings, and you have not run an experiment of your own in two years
+scene: {N} counts it up on a Sunday: two years as head of the group, and not one experiment of {Ns} own. The weeks are meetings, budgets, reviews and other people's problems.
+scene W: Someone has to carry the group, sign the forms and sit on the committees. {N} took the job knowing that, and it still feels like a duty worth doing.
+scene U: {N} misses the moment when new data come in and nobody in the world knows the answer yet. Managing is a craft too, but not that one.
+scene B: The title brings money, a voice in the faculty and people who answer to {N}. Giving it up would mean giving all of that up.
+scene R: In a dull budget meeting {N} catches sight of the old bench through the glass door and wants, badly, to be there.
+scene G: {N} was happiest at the bench, with the slow work under {Ns} hands. That was who {N} was, and maybe still is.
+- W | keep the group and do the job well, because people depend on it | v: benevolence, conformity | self_control: + | chance: 90
+- U | take the chair the faculty offers, and guard one morning a week for your own experiment | title: professor | requires: published research | without: approval | v: achievement, security | identity | habit | self_control: + | chance: 12
+- B | steer the group's next grant toward the experiment you want to run yourself | v: self-direction, power | chance: 75
+- R | hand back the group and walk back to the bench | v: self-direction, hedonism | identity | drops: research group leader | title: research scientist | chance: 60
+- G | accept that this season of the work is about others, and let your own rest | v: tradition, benevolence | chance: 75
+- W>B | apply for a sabbatical year of research, and come back with results to show | v: achievement, self-direction | door | chance: 55
+- U>R | learn the new technique your students use, just for the thrill of it | v: stimulation | door | mark: learned a skill | chance: 85
+- B>G | bargain to step down slowly, keeping a small team at the bench | v: security, self-direction | drops: research group leader | title: research project lead | chance: 50
+- R>W | tell the group honestly that you miss the bench, and ask who wants more say | v: benevolence, universalism | chance: 70
+- G>U | take up a slow side study by hand, the old way, in your own time | v: self-direction, tradition | habit | self_control: + | chance: 85
+works: The weeks find a better balance, and some evenings {N} goes home smelling of the lab again.
+works: The group takes the change well, and {colleague} steps up in a way nobody expected.
+fails: The plan lasts a month before the meetings swallow it again.
+fails: The dean takes it badly, and the next budget round is harder for the whole group.
+
+# ---------------------------------------------------------------- research facility lead: calls UG / calls WBR (cycle s3)
+
+== the old instrument fails before the big run
+tier: everyday
+rate: 0.5
+times: per research facility lead: a key instrument breaking down just before a busy spell comes a few times a year where the kit is old; about 1 life in 2,000 ever runs a research facility (estimate)
+stages: young_adult adult mature
+age: 28-70
+calls: UG
+holds: research facility lead
+tone: trouble
+life: work
+horizon: week
+roles: colleague, boss
+earth: the facility's twenty-year-old microscope breaks down three days before the busiest week of the year
+scene: Three days before the busiest week of the year, the facility's old electron microscope throws an error {N} has never seen. Three groups have booked the week.
+scene W: There is a service contract, a fault log and a list of booked users who must be told. {N} starts with the list.
+scene U: {N} reads the error code, the logs and last night's temperature record. Somewhere in there is a pattern.
+scene B: A new machine has been on {Ns} wish list for five years. A dead old one makes the case better than any memo could.
+scene R: {N} has the side panel off before {colleague} has finished saying the word "error".
+scene G: {N} has kept this machine running for twelve years and knows its sounds the way a sailor knows a hull. It sounds tired.
+- W | log the fault, warn every booked group, and call the service engineer | v: conformity, security | chance: 60
+- U | trace the fault through the logs until you know which part failed | v: achievement | grants: instrument troubleshooting | chance: 65
+- B | promise the maker a look at a new machine if their engineer comes tomorrow | v: power, achievement | chance: 60
+- R | open it up tonight and try the fix you suspect | v: stimulation | body: light | chance: 70
+- G | ring the retired engineer who kept this model going for decades | v: tradition | chance: 80
+- W>R | draw up a fair new schedule, and let the groups swap slots as they like | v: universalism, self-direction | chance: 75
+- U>G | write down every fix you find, so the next keeper can keep it alive | v: tradition, universalism | chance: 90
+- B>W | borrow time on a rival institute's machine, for a favour you will owe | v: security, benevolence | binds | chance: 70
+- R>U | turn the breakdown into a hands-on class, and fix it with the students | v: stimulation, universalism | door | chance: 65
+- G>B | salvage the part from the scrapped machine in the basement, and skip the contract | v: security, self-direction | chance: 65
+works: The machine hums back to life before the weekend, and the booked groups get their week.
+works: The fix holds, and the fault becomes a page in the facility's handbook that will save the next breakdown.
+fails: The part is out of production, and the machine stays dark for six weeks.
+fails: The fix seems to work, then fails again halfway through the first group's run.
+
+== every group wants the machine first
+tier: everyday
+rate: 0.5
+times: per research facility lead: a contest over the best weeks on the main machine comes with every booking round, two to four times a year, since big shared instruments are often asked for several times over (estimate)
+stages: young_adult adult mature
+age: 28-70
+calls: WBR
+holds: research facility lead
+tone: mixed
+life: work
+horizon: months
+roles: colleague, rival, boss
+earth: the new booking season opens, and every group wants the same few weeks on the facility's best machine
+scene: The booking calendar for the next six months opens on Monday. By Tuesday, eleven groups have asked for the same four weeks.
+scene W: The facility has a booking policy, written by {N} five years ago, and on paper it is fair. It was never tested by eleven requests for four weeks.
+scene U: {N} pulls the use records: who booked time and never came, whose runs actually produced data, whose samples were never ready.
+scene B: {rival} sits on the committee that funds the facility and wants two of the four weeks. {N} knows exactly what saying no would cost.
+scene R: {N} has always had a soft spot for the student who turns up at seven with samples on ice and a hopeful face.
+scene G: Every year the same rush, {N} thinks, like birds to a feeder at the first frost. It passes, and the machine hums through it.
+- W | apply the booking policy exactly as written, whoever is asking | v: conformity, universalism | identity | chance: 75
+- U | rank the requests by what each run can show, and publish the scores | v: universalism, achievement | identity | chance: 60
+- B | give the committee member one week, and make sure they know what it cost | v: power, security | chance: 90
+- R | give the student with samples on ice the first slot, and defend it | v: benevolence | chance: 75
+- G | keep the weeks for the groups who have always used them, in the old order | v: tradition | identity | chance: 80
+- W>R | set aside one open week a month for anyone with a wild idea | v: self-direction, universalism | chance: 70
+- U>G | keep a share of time for long studies that need the same week each year | v: tradition, universalism | chance: 65
+- B>W | trade the committee member a week for funding a fairer booking system | v: security, universalism | chance: 55
+- R>U | run the machine through the nights yourself, so every group gets data | v: benevolence, achievement | habit | body: heavy | self_control: + | chance: 75
+- G>B | let the groups fight it out among themselves, and stay out of it | v: security | chance: 45
+works: The calendar fills, and for once nobody comes to {Ns} door to complain.
+works: The runs go well, and three groups thank the facility by name in their papers.
+fails: Two groups go over {Ns} head to the director, and the calendar is redone by someone else.
+fails: The weeks go out, and the group that missed out stops using the facility altogether.
+
+# ---------------------------------------------------------------- independent investigator: calls WU / calls BRG (cycle s4)
+
+== nobody pays for this question
+tier: everyday
+rate: 0.5
+gap: 4-8
+times: per independent investigator: a question that fits no funder's call is felt most years, and comes to a hard choice with savings running short perhaps once every few years; about 1 life in 2,000 ever works as an independent investigator (estimate)
+stages: young_adult adult mature elder
+age: 25-95
+calls: WU
+holds: independent investigator
+tone: mixed
+life: work, money
+horizon: years
+roles: friend
+earth: the question you care about most fits no funder's call, and your savings will last about a year
+scene: {N} has read every funding call for a year. None of them asks the question {N} cares about, the savings will last until next autumn, and {friend} has started sending job adverts, half as a joke.
+scene W: {N} believes the question matters to more people than {N}: to the river, and to the town that drinks from it. Someone ought to fund it, and the right way is to show them why.
+scene U: {N} keeps a notebook with the whole question broken into pieces. Some of the pieces could be answered with open data and a laptop.
+scene B: Nobody funds what nobody has heard of. {N} has been thinking about who could be made to care, and what they would want in return.
+scene R: {N} wakes at five most mornings already thinking about it. That has to count for something.
+scene G: {N} has walked the same stretch of river for nine years. The question grew out of it like a root, and it is not going anywhere.
+- W | set a strict budget and a stop date, and keep to both | v: security, conformity | self_control: + | chance: 90
+- U | teach yourself the statistics to answer part of it from open data | v: self-direction, achievement | mark: learned a skill | chance: 75
+- B | take paid consulting two days a week to fund the other three | v: achievement, security | habit | self_control: + | chance: 85
+- R | spend the savings on it anyway, and trust the next step to show itself | v: stimulation | mark: took a wild risk | self_control: - | chance: 80
+- G | ask the people who have fished the river for generations what they have seen | v: tradition | chance: 65
+- W>G | start a residents' group to fund the river survey together | v: universalism, benevolence | binds | chance: 40
+- U>W | use the water board's records, shared in confidence, for the town's sake | v: universalism | mark: broke your word | closed: approval: records shared in confidence, used without leave; backfire: the board cuts off all access and writes to the journal | chance: 70
+- B>U | sell your survey data to a developer's consultants, and fund the real work with it | v: power, achievement | chance: 75
+- R>B | pitch it with all your fire to a wealthy local who loves the river | v: achievement, stimulation | grants: patron | chance: 25
+- G>R | do it the way the old naturalists did: slowly, by hand, for love | v: self-direction, hedonism | identity | self_control: + | chance: 85
+works: The work finds a way to go on, and the first real answer is in the notebook by spring.
+works: Someone unexpected reads the early results and asks how to help.
+fails: The money runs out in the summer, and the question goes back in the drawer.
+fails: The year goes on chores and paperwork, and the question barely moves.
+
+# Round 5, 2026-10-07 (P12): the way back to a post leans Blue: W and U>W take the scientist's post on the lab's terms;
+# R>B now says yes for a year only, keeping the right to walk out.
+== a lab offers you a desk, with conditions
+tier: everyday
+rate: 0.5
+gap: 4-8
+times: per independent investigator: an offer of a desk, equipment and an institution's name in return for joining its programme comes perhaps once every three to five years, more often to those with published work (estimate)
+stages: young_adult adult mature elder
+age: 25-95
+calls: BRG
+holds: independent investigator
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague
+earth: a university lab offers you a desk, its equipment and its name, if your work joins their programme
+scene: {boss}, who runs a large university lab, offers {N} a desk, the equipment and the university's name on the papers. In return the work joins the lab's programme, and {boss} gets a say in it.
+scene W: An institution would mean ethics review, a library, a pension and colleagues to check the work. {N} has missed all of that more than {N} admits.
+scene U: {N} draws up two lists: what the lab's machines would make possible, and what joining the programme would rule out.
+scene B: {N} has spent years being nobody's employee. The question is what that freedom is worth in equipment, and whether the price can be bargained down.
+scene R: {N} pictures asking permission to change the question, and something in {Ns} chest goes tight.
+scene G: The lab is in the city, two hours from the river. The work grew where it is, and {N} is not sure it would survive being moved.
+- W | take the post and bring the work under the lab's rules and review | v: security, conformity | door | binds | drops: independent investigator | title: research scientist | chance: 85
+- U | ask for a visiting post instead: the library and the machines, but your own questions | v: self-direction | grants: institutional affiliation | chance: 60
+- B | bargain it down: the desk and the machines, credit for the lab, but no say | v: power, self-direction | identity | grants: institutional affiliation | chance: 40
+- R | turn it down on the spot: nobody else chooses your questions | v: self-direction | identity | mark: turned down a chance | chance: 95
+- G | stay where the work grew, and keep the lab as a friend instead | v: tradition | identity | grants: research collaborators | chance: 60
+- W>G | sign only if the data stay with the community where they were collected | v: universalism, tradition | chance: 60
+- U>W | take the post on a joint plan where the lab's programme and your question truly overlap | v: achievement, conformity | binds | drops: independent investigator | title: research scientist | chance: 70
+- B>U | take the desk, but get it in writing that you keep your own data | v: power, achievement | chance: 75
+- R>B | say yes for one year only, keeping the right to walk out with the work | v: power, stimulation | grants: institutional affiliation | chance: 60
+- G>R | ask for a season's trial, and see whether the work still feels alive there | v: self-direction, hedonism | door | chance: 65
+works: The choice is made, and {N} sleeps well the first night after it.
+works: {boss} takes the answer well, and the door between them stays open.
+fails: The terms harden in the contract, and {N} ends up with less say than was promised.
+fails: {boss} withdraws the offer, and the desk goes to someone with a bigger name.

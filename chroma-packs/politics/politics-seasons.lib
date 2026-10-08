@@ -1,0 +1,917 @@
+# Chroma content pack Politics: THRESHOLD SEASONS for the big rungs (moments 72 to 91 of MOMENTS-BRIEF.md, Part 5). Five
+# short seasons of four linked moments each, for the first months after a person takes local councillor, mayor, member
+# of parliament, minister or head of government. The crossing life events of politics-events.lib ('polling day in the
+# ward', 'the town needs a mayor', 'election night', 'the phone call from the leader', 'the country goes to the polls')
+# are the rites that open them; any other way into the title opens the season too. Emren's line is the heart of it:
+# winning office changes duties and relationships rather than ending the road, so every season asks whom the person
+# now answers to (the ward, the party, the cause, the day job, the family, the friends who now want favours).
+# Syntax: header of chroma-library/build.py, plus the season fields the engine accepted (chroma-packs/for-the-engine.md,
+# "Engine answer"): threshold: title:<name>, step: 1 | 2 | 3 (the engine brings them about 1, 10 and 22 weeks after the
+# title is gained, inside a season of about 26 to 30 weeks, one moment per step), transform: yes (the season's
+# transforming chance). Every moment: tier inner, alpha even, stakes .8, holds: the title, the five one-color options
+# and one full cross cycle; each season uses the cycles s1 to s4 once. Worlds (Emren, 21:37): every moment has earth:,
+# tribal: and magic: lines in the forms of worlds.py, an untagged tribal and magic scene, and option wording where the
+# act reads differently there. Rules: chroma-library/library-spec.md. Pathways and packs thread, 2026-10-05.
+
+# ================================================================ local councillor (ages 18-90)
+# ---------------------------------------------------------------- 72. step 1 (cycle s1)
+
+== the first full council meeting
+tier: inner
+threshold: title:local councillor
+step: 1
+stages: young_adult adult mature elder
+age: 18-90
+times: per new local councillor: once, in the first weeks after taking the title; about 1 life in 100 (catalogue share)
+holds: local councillor
+stakes: .8
+tone: joy
+life: public life, community
+horizon: week
+roles: boss, colleague, elder
+earth: the first full meeting of the council: an agenda of two hundred pages, a seat on the back benches and a vote on the first night
+tribal: the first council fire at which you sit among the voices, and the elders watch to see whom you look to before you speak
+magic: the first sitting of the town council in the guild hall: a carved bench, a sealed roll of business and a vote before the evening bell
+requires: in the threshold season of local councillor, within the first six months after taking the title (opened by 'polling day in the ward' or any other way in): step 1, the first weeks in the seat
+likelier: a first seat, won at the last election; a council where the person's side has just come to power; a full agenda in the first month
+rarer: a seat taken by someone who served the council for years as an officer or a clerk; a small parish council that meets a few times a year
+scene: The agenda for {Ns} first full council meeting runs to two hundred pages, and the vote on the bins is the first item. {N} sits in the back row of the chamber behind a name card, and {boss} leans over to say which way the group is voting.
+scene W: {N} has read the standing orders twice and knows when a member may speak, how to second a motion and what a point of order is. It feels like learning the rules of a new house.
+scene U: {N} has tabbed every report and found two figures in the budget papers that do not add up.
+scene B: {N} watches whom the officers defer to, who sits beside the leader, and which committee chairs are still unfilled.
+scene R: {N} wants to stand up on the first night and say what the ward sent {N} here to say, procedure or not.
+scene G: {N} sits in the seat that a councillor from the same streets held for twenty years, and feels the weight of everyone who sat there before.
+scene tribal: {N} sits for the first time among the voices at the council fire, close enough to feel its heat. The elders watch to see whom {N} looks to before speaking.
+scene magic: In the guild hall {N} takes a carved bench for the first time, and the clerk unrolls the evening's business under the warded lamps.
+- W | learn the standing orders by heart before speaking once in the chamber | v: conformity, security | mark: learned a skill | tribal: learn the customs of the council fire by heart before speaking once | magic: learn the council's rules and rites by heart before speaking once | chance: 90
+- U | read every report, and ask the officers about the two figures that do not add up | v: achievement, universalism | tribal: hear every family's account, and ask the elders about the two that do not agree | magic: read every roll, and ask the clerks about the two sums that do not add up | chance: 84
+- B | ask the leader for a seat on the planning committee in the first week | v: power, achievement | tribal: ask the head of the faction for a place among those who choose the next camp | magic: ask the faction's lord for a seat on the council's building committee | chance: 40
+- R | stand up on the first night and speak about the ward's worst street, unscripted | v: stimulation, self-direction | tribal: speak at the first fire about the hearths that flood every spring, as the words come | magic: rise at the first sitting and speak about the ward's worst lane, unscripted | chance: 75
+- G | ask the longest-serving councillor how things are really done here | v: tradition | mark: made a friend | tribal: ask the oldest voice at the fire how things are really decided | chance: 84
+- W>U | sign up for every training session the council runs for new members | v: conformity, achievement | tribal: sit with the elders each evening to learn the old judgments | magic: attend every lesson the council's clerks give new members | chance: 95
+- U>B | map who chairs what, who votes with whom and where the deals are made | v: power, achievement | tribal: work out who speaks for whom, which families stand together and where bargains are struck | chance: 75
+- B>R | vote against your own group on the first night, to show your vote is your own | v: self-direction, power | mark: defied an authority | tribal: stand against your own faction at the first fire, to show your voice is your own | magic: cast against your own faction at the first sitting, to show your vote is your own | chance: 75
+- R>G | bring a few neighbours from the ward to sit in the public gallery | v: benevolence, stimulation | tribal: bring families from your own hearths to sit at the edge of the firelight | magic: bring neighbours from the ward to the hall's public benches | chance: 94
+- G>W | report back after every meeting in the community hall, as your predecessor always did | v: tradition, benevolence | tribal: go back to your own hearths after every fire and tell them what was said | magic: report back after every sitting in the ward's tavern, as the old member always did | chance: 86
+works: By the end of the night {N} knows where to sit, when to speak and whom to ask.
+works: {boss} catches {N} on the way out and says it was a good first meeting.
+fails: The meeting runs late into the night, and {N} goes home having understood half of it.
+fails: Something {N} said or did on the first night is all anyone talks about the next morning, and not kindly.
+
+# ---------------------------------------------------------------- 73. step 2 (cycle s2)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== the casework that never stops
+tier: inner
+threshold: title:local councillor
+step: 2
+stages: young_adult adult mature elder
+age: 18-90
+times: per new local councillor: once, about ten weeks into the threshold season, for about half of new councillors (the season's middle step brings this moment or 'whose councillor you are'); about 1 life in 100 sits on a council (catalogue share), so about 1 in 200 meet it
+holds: local councillor
+stakes: .8
+tone: trouble
+life: public life, family
+horizon: months
+roles: partner, colleague, boss
+earth: ten weeks in, the emails, the calls and the knocks at the door have not stopped, and the day job and the family are paying for it
+tribal: two moons in, the families bring their quarrels to your hearth morning and night, and your own kin eat alone
+magic: ten weeks in, petitions come under the door every day, sealed and unsealed, and your own trade waits
+requires: in the threshold season of local councillor, within the first six months after taking the title: step 2, some weeks into the seat, once residents have learned where the councillor lives
+likelier: a ward with poor housing or a failing service; a councillor who is known in the streets; a council office that answers slowly
+rarer: a quiet ward; a councillor with a paid assistant or a seat on a council that handles casework centrally
+scene: Ten weeks in, {N} has two hundred unanswered messages, a phone that rings at dinner and a neighbour who stops {N} in the shop about a blocked drain. {partner} has started to say "the council" the way people say the name of a rival.
+scene W: Every case deserves an answer, in order, within a week. {N} keeps a list, and it is getting longer, not shorter.
+scene U: {N} notices that half the cases are the same few problems: the same landlord, the same bus stop, the same broken system at the housing office.
+scene B: Some residents vote and some do not; some cases make a name and some vanish. {N} is ashamed to have noticed, and has noticed anyway.
+scene R: A mother in tears on the doorstep about her damp flat makes {N} so angry that the rest of the list can wait.
+scene G: These are {Ns} own streets. The woman with the drain taught {N} to swim as a child.
+scene tribal: Every morning another family waits at {Ns} hearth with a quarrel about a share of meat or a broken promise, and every evening {partner} eats alone.
+scene magic: Petitions come under {Ns} door every morning, some sealed with a guild's wax, some scrawled on scraps, and {Ns} own workbench gathers dust.
+- W | answer every case in turn, oldest first, however late the nights run | habit | v: conformity, benevolence | self_control: + | tribal: hear every quarrel in turn, oldest first, however late the fire burns | magic: answer every petition in turn, oldest first, however late the candles burn | chance: 65
+- U | sort the cases into the few problems behind them, and take each problem to the council | v: universalism, achievement | tribal: find the few grievances behind all the quarrels, and bring each one to the fire | magic: sort the petitions into the few wrongs behind them, and take each one to the council | chance: 45
+- B | take on the cases that will be noticed, and pass the rest to the officers | v: power, achievement | tribal: take up the quarrels the whole band will hear of, and send the rest to the elders | magic: take up the petitions the town will hear of, and pass the rest to the clerks | chance: 92
+- R | drop everything for the family in the damp flat, and go round tonight | v: benevolence, stimulation | mark: helped someone in need | tribal: drop everything for the family whose shelter leaks, and go to them tonight | magic: drop everything for the family in the damp garret, and go round tonight | chance: 92
+- G | keep one evening a week for your own family, and let the ward wait | v: tradition, benevolence | self_control: + | tribal: keep one evening in every few for your own kin, and let the band wait | chance: 72
+- W>B | set up a fixed surgery every Saturday, and tell residents to bring their cases there | v: security, conformity | tribal: name one day each moon when families may bring their quarrels to your hearth | magic: set one fixed day a week for petitions, and turn the rest away | chance: 90
+- U>R | set up a simple online form so cases arrive with the facts, and free your evenings | v: self-direction, hedonism | tribal: teach the families to bring their witnesses with them, and free your evenings | magic: have a clerk take every petition down in a set form, and free your evenings | chance: 72
+- B>G | get a friend in the housing office to move your ward's cases up the list | v: power | mark: hid a wrong | closed: approval: jumping one ward's residents up a shared waiting list; backfire: another councillor finds out, and the standards committee asks questions | self_control: - | tribal: get a friend among the elders to settle your own hearths' quarrels first | magic: get a friend among the clerks to move your ward's petitions to the top | chance: 85
+- R>W | read out the month's worst case in the chamber, again and again, until the council acts | v: universalism, stimulation | tribal: speak of the worst wrong at every fire until the elders act | magic: read the worst petition aloud at every sitting until the council acts | chance: 60
+- G>U | ask the old caseworker at the community centre how she handled these streets for years | v: tradition, achievement | grants: constituency casework | tribal: ask the old woman who settled the band's quarrels for years how she did it | magic: ask the old petition-writer of the ward how she handled these lanes for years | chance: 72
+works: By the end of the month the cases have a shape, and {N} still has evenings at home.
+works: A case that has dragged on for a year is settled, and the family stops {N} in the street to say thanks.
+fails: The cases keep coming faster than {N} can answer, and the ward starts to say {N} never replies.
+fails: {partner} says one quiet evening that it feels as if {N} married the ward.
+
+# ---------------------------------------------------------------- 74. step 2, transform (cycle s3)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== whose councillor you are
+tier: inner
+threshold: title:local councillor
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 18-90
+times: per new local councillor: once in the threshold season, for about half of new councillors (the season's middle step brings this moment or 'the casework that never stops'); about 1 life in 100 sits on a council (catalogue share), so about 1 in 200 meet it
+holds: local councillor
+stakes: .8
+tone: mixed
+life: public life, meaning
+horizon: years
+roles: boss, colleague, friend
+earth: ten weeks in, a vote on closing the ward's library, and the party, the cause, the ward and your own ambition each want something different
+tribal: two moons in, a choice at the fire about moving camp, and the faction, your own hearths, the young hunters who backed you and your own hopes each pull another way
+magic: ten weeks in, a vote on selling the ward's old reading room, and the faction, the guild that paid for your banners, the lane and your own hopes each want something different
+requires: in the threshold season of local councillor, within the first six months after taking the title: step 2, the season's transforming chance, when the first vote comes on which the party, the cause and the ward disagree
+likelier: a councillor who stood for a cause as well as a party; a ward that votes differently from the town; a leader who keeps a tight whip
+rarer: an independent with no group to answer to; a council with no contested votes that season
+scene: A vote is coming on closing the library in {Ns} ward to save money for the whole town. The group has a line, the people who campaigned for {N} have another, the ward has a third, and {boss} says ambitious councillors do not make trouble in their first year.
+scene W: {N} thinks of the declaration {N} signed: to serve the whole town, fairly and by the rules, not just the streets that voted.
+scene U: {N} has read the library's figures, the visitor counts and the cost of every alternative, and thinks the answer is in the numbers, if anyone will look.
+scene B: A seat on the council is a first rung. {N} can see the ladder from here: a committee chair, the cabinet, a parliamentary selection.
+scene R: The people who knocked on doors in the rain for {N} did it for the cause. {N} cannot look them in the eye and vote the way the group wants.
+scene G: The library is where {N} learned to read. Whatever the town needs, the ward is home.
+scene tribal: The band must choose whether to move camp to the far shore. The faction's heads want one thing, {Ns} own hearths another, and the young hunters who backed {N} a third.
+scene magic: The council will vote on selling the ward's old reading room. The faction wants it sold, the guild that paid for {Ns} banners wants it kept, and the lane is waiting to see.
+- W | serve the whole town by the rules, even when your own ward loses | identity | binds | v: universalism, conformity | tribal: speak for the whole band by its customs, even when your own hearths lose | chance: 72
+- U | decide every vote on the evidence, and publish your reasons each time | identity | habit | v: universalism, self-direction | tribal: weigh every choice on what is known, and give your reasons at the fire each time | chance: 75
+- B | treat the seat as the first rung, and vote with the group's leaders | identity | v: achievement, power | tribal: treat your voice as the first step, and stand with the faction's heads | magic: treat the seat as the first rung, and cast with the faction's lords | chance: 90
+- R | vote with the cause you stood for, whatever the group decides | identity | binds | v: stimulation, universalism | mark: defied an authority | tribal: stand with the young hunters who backed you, whatever the faction decides | magic: cast with the cause you stood for, whatever the faction decides | chance: 70
+- G | put the ward first in every vote, as one of its own | identity | binds | v: tradition, benevolence | tribal: put your own hearths first in every choice, as one of them | magic: put the lane first in every vote, as one of its own | chance: 76
+- W>R | take the town's hardest unsolved case as your cause, and see it through by the book | identity | v: universalism, stimulation | tribal: take up the band's oldest unsettled wrong, and see it through by custom | chance: 40
+- U>G | spend your term on one long plan for the ward, worked out with its residents | identity | binds | v: universalism, tradition | tribal: work out one long plan for your hearths' future with the families themselves | chance: 62
+- B>W | build a bloc of councillors from both sides to run the committees properly | identity | binds | v: power | grants: coalition building | tribal: bind voices from both factions together to keep the fire's business in order | magic: bind councillors from both factions together to run the committees properly | chance: 45
+- R>U | push the council to try what no council has tried, and learn as you go | identity | v: stimulation, self-direction | tribal: push the band to try a way nobody has tried, and learn as it goes | chance: 35
+- G>B | become the ward's fixer, the one who knows whom to call to get things done | identity | v: power | tribal: become the one who settles things quietly between the families of your hearths | magic: become the lane's fixer, the one who knows whom to ask at the guild hall | chance: 48
+works: The vote comes, {N} votes as {N} decided to, and for once the seat feels like {Ns} own.
+works: Within weeks people in the ward can say what kind of councillor {N} is, and most of them say it with respect.
+fails: Whichever way {N} turns, someone who trusted {N} feels betrayed, and says so.
+fails: {N} tries to be everyone's councillor and ends the month as nobody's.
+
+# ---------------------------------------------------------------- 75. step 3 (cycle s4)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== the ward knows your name now
+tier: inner
+threshold: title:local councillor
+step: 3
+stages: young_adult adult mature elder
+age: 18-90
+times: per new local councillor: once, about five months after taking the title, near the end of the threshold season; about 1 life in 100 (catalogue share)
+holds: local councillor
+stakes: .8
+tone: joy
+life: public life, friends
+horizon: months
+roles: friend, colleague, partner
+earth: five months in, people stop you in the shop, ask after the drain and the bus stop, and old friends ring for favours
+tribal: five moons in, the families greet you by name at the water, ask after their quarrels, and old friends want your voice
+magic: five months in, the lane's children call you by your title, the baker will not take your coin, and old friends want a quiet word
+requires: in the threshold season of local councillor, within the first six months after taking the title: step 3, near the end of the six months, as the new life settles
+likelier: a councillor who lives in the ward; a few cases settled; a local paper or a ward newsletter that carries the name
+rarer: a councillor who lives outside the ward; a council in open crisis
+scene: Five months in, {N} cannot buy milk without being stopped twice: once about a pothole, once to be thanked for a bus stop. {friend} jokes that {N} has become a landmark, and an old school friend has rung twice about "a quiet word" on a licence.
+scene W: The surgery runs every second Saturday, the minutes go out on time, and residents have started to say the ward is properly looked after.
+scene U: {N} can now read a planning report in twenty minutes and find the paragraph the officers hoped nobody would notice.
+scene B: The old school friend's quiet word is the third such request this month. {N} is starting to see what a councillor's name is worth.
+scene R: The fizz of the first night has gone. Some evenings {N} misses being an ordinary person in the pub.
+scene G: {N} knows the streets in a new way now: who is ill, who has moved, which corner floods. The ward feels like a wide family, with all that brings.
+scene tribal: Five moons in, the families greet {N} by name at the water, and an old friend sits down at {Ns} fire wanting {Ns} voice in a quarrel of their own.
+scene magic: Five months in, the lane's children call {N} by title, the baker will not take {Ns} coin, and an old friend wants a quiet word about a guild licence.
+- W | keep the fortnightly surgery going, rain or shine, even when nobody comes | habit | v: conformity, benevolence | tribal: keep your hearth open on the set day each moon, even when nobody comes | magic: keep the petition day going every fortnight, even when nobody comes | chance: 85
+- U | send the ward a short monthly report on what you did and did not manage | v: universalism, achievement | tribal: tell the families at each new moon what you managed at the fire, and what you did not | magic: post a short monthly account on the ward's notice board of what you did and did not manage | chance: 92
+- B | keep a quiet list of every favour you do, and of who owes you | habit | v: power | self_control: + | tribal: keep count in your head of every favour you do, and of who owes you | chance: 95
+- R | spend a Saturday night in the pub as yourself, councillor or not | habit | v: hedonism, self-direction | tribal: spend a night at the dancing as yourself, a voice at the fire or not | magic: spend a night at the tavern as yourself, councillor or not | chance: 88
+- G | walk the whole ward on Sundays, stopping for anyone who wants to talk | v: benevolence, tradition | tribal: walk round every hearth of the camp, stopping for anyone who wants to talk | magic: walk the whole ward on market days, stopping for anyone who wants to talk | chance: 75
+- W>G | start a residents' forum that meets in the library every month | v: benevolence, conformity | tribal: call the families of your hearths together at every new moon to talk things through | magic: start a monthly meeting of the lane's households in the old reading room | chance: 65
+- U>W | read the code of conduct again, and declare every interest, even the small ones | v: conformity, security | tribal: ask the elders which gifts a voice at the fire may take, and refuse the rest | magic: read the council's oath again, and declare every interest, even the small ones | chance: 96
+- B>U | trade your vote on a small item for a place on the scrutiny committee | door | v: achievement, power | tribal: trade your voice on a small matter for a place among the elders who weigh the stores | magic: trade your vote on a small item for a seat on the council's audit bench | chance: 78
+- R>B | tell the old friend no to their face, loudly enough for the whole pub to hear | v: power, self-direction | grants: a name for straight talk | tribal: refuse the old friend's favour at the fire, loudly enough for the whole band to hear | magic: refuse the old friend's favour in the tavern, loudly enough for the whole room to hear | chance: 84
+- G>R | plant up the ugly corner by the bus stop with the neighbours, for fun | body: light | v: hedonism, benevolence | mark: made a friend | tribal: clear and plant the trampled ground by the water with the families, for the joy of it | magic: plant up the bare corner by the well with the neighbours, for the fun of it | chance: 90
+works: The ward has got used to {N}, and {N} has got used to being the ward's.
+works: {friend} says {N} is still the same person, just busier, and means it kindly.
+fails: The favours, the calls and the stops in the street wear {N} thin by the end of the month.
+fails: One unanswered request turns into a story about {N} that goes round every street.
+
+# ================================================================ mayor (ages 21-95)
+# ---------------------------------------------------------------- 76. step 1 (cycle s1)
+
+== the chain of office
+tier: inner
+threshold: title:mayor
+step: 1
+stages: young_adult adult mature elder
+age: 21-95
+times: per new mayor: once, in the first weeks after taking the title; about 1 life in 500 (catalogue share; estimate)
+holds: mayor
+stakes: .8
+tone: joy
+life: public life, work
+horizon: week
+roles: colleague, elder, boss
+earth: the chain goes round your neck in the council chamber, and on Monday the office, the staff and the diary are yours
+tribal: the band gathers at dawn to see the head of the camp take up the old staff, and the first question is where to camp next
+magic: the burgomaster's chain, seal and keys are handed over in the town hall, and the clerks wait for your first order
+requires: in the threshold season of mayor, within the first six months after taking the title (opened by 'the town needs a mayor', a direct election or any other way in): step 1, the first weeks in office
+likelier: a contested choice won; a town with an old mayoral office and its ceremonies; a mayor new to the town hall's staff
+rarer: a deputy who steps up after years in the office; a small place where the mayor's post is one evening a week
+scene: The chain is heavier than it looks. After the ceremony {N} is shown the mayor's office: a desk, a window over the square, a diary already full for six weeks and a secretary who has served four mayors.
+scene W: {N} reads the declaration of office aloud in the chamber without a slip, and means every word of it.
+scene U: {N} asks for the town's accounts, the list of contracts and the staff chart before the first meeting, and reads them all weekend.
+scene B: The diary is full of other people's priorities. {N} looks at it and starts deciding which of them to cancel.
+scene R: {N} wants to walk straight out of the chamber, still in the chain, into the market, and shake every hand there.
+scene G: In the corridor hang portraits of every mayor for a hundred and fifty years. {N} stops at each one on the way to the office.
+scene tribal: At dawn the band gathers as the old staff of the camp passes into {Ns} hands, and the first question is already waiting: where to camp when the river rises.
+scene magic: In the town hall the old burgomaster lifts the chain over {Ns} head and hands over the seal and the keys, and the clerks wait, quills ready, for the first order.
+- W | keep the diary as the office set it for the first month, and learn from it | v: conformity, security | tribal: keep to the old order of the head's days for the first moon, and learn from it | magic: keep the burgomaster's book of days as the clerks set it for the first month | chance: 94
+- U | spend the first weekend reading the town's accounts and every big contract | v: achievement | mark: learned a skill | tribal: walk the whole camp counting the stores, the hides and the tools | magic: spend the first days reading the town's ledgers and every guild charter | chance: 95
+- B | cancel half the diary, and fill it with meetings that serve your own plan | v: power, self-direction | tribal: set aside the elders' plans for the season, and put your own in their place | magic: strike half the appointments from the book, and fill it with your own | chance: 89
+- R | walk out into the market in the chain, and shake every hand you can | body: light | v: stimulation, hedonism | tribal: go round every hearth at once with the staff in your hand | chance: 96
+- G | ask the secretary who served four mayors what each of them got wrong | v: tradition, achievement | mark: made a friend | tribal: ask the oldest woman of the camp what each head before you got wrong | magic: ask the old clerk who served four burgomasters what each of them got wrong | chance: 80
+- W>U | get the town clerk's briefing on the law of the office before signing anything | v: conformity, achievement | tribal: ask the elders for the old rules of the head of the camp before deciding anything | magic: get the town clerk's briefing on the law of the office before setting your seal to anything | chance: 96
+- U>B | find out which officers really run the town hall, and win them over first | v: power, achievement | tribal: find out which families really decide things in the camp, and win them first | magic: find out which clerks really run the town hall, and win them over first | chance: 79
+- B>R | get a local firm to pay for a party in the square on the first Saturday | v: hedonism, power | tribal: get the richest family to give a feast for the whole camp | magic: get a merchant house to pay for a feast in the square on the first market day | chance: 86
+- R>G | open the mayor's parlour to anyone who wants to see it, every Friday | v: benevolence, stimulation | tribal: let anyone who wants to sit at the head's fire, every evening | magic: open the burgomaster's hall to anyone who wants to see it, every market day | chance: 92
+- G>W | visit every care home and school in town in the first month, as old mayors did | v: tradition, benevolence | tribal: visit every old one and every mother of small children in the camp, as the old heads did | magic: visit every almshouse and school in town in the first month, as the old burgomasters did | chance: 78
+works: By the end of the first week the post feels less like a ceremony and more like work.
+works: The town takes to {N} in the chain, and the first days go better than anyone feared.
+fails: The first week goes on ceremonies and handshakes, and nothing {N} came to do has started.
+fails: An early decision upsets the old guard, and the corridors are cool toward {N} for weeks.
+
+# ---------------------------------------------------------------- 77. step 2 (cycle s2)
+
+== the day job or the town
+tier: inner
+threshold: title:mayor
+step: 2
+stages: young_adult adult mature elder
+age: 21-95
+times: per new mayor: once, about ten weeks into the threshold season, for about half of new mayors (the season's middle step brings this moment or 'the kind of mayor you will be'); about 1 life in 500 is a mayor (catalogue share; estimate), so about 1 in 1,000 meet it
+holds: mayor
+stakes: .8
+tone: trouble
+life: public life, work, family
+horizon: months
+roles: boss, partner, colleague
+earth: ten weeks in, the town needs a mayor every day of the week, and your employer needs you back on Monday
+tribal: two moons in, the hunt leaves at the new moon, and the camp cannot be left without its head; you cannot do both
+magic: ten weeks in, your workshop and your guild's work wait, while the town needs its burgomaster every hour the bells ring
+requires: in the threshold season of mayor, within the first six months after taking the title: step 2, some weeks into office, while the mayor still holds a day job
+likelier: a big town that needs a full-time mayor; a mayor with a career of their own; an allowance too small to live on
+rarer: a retired mayor; a village where the post takes one evening a week; a post already paid as a full-time office
+scene: Ten weeks in, {N} has used every day of holiday on the town. {boss} at {Ns} day job has started to ask, politely, how long this can go on, and the mayor's allowance would not pay the rent on its own. {partner} wants to know which of the two {N} is married to.
+scene W: {N} promised the town a mayor who would be there, and promised {boss} at work a full week. Both cannot be true.
+scene U: {N} works it out on paper: hours, pay, pension, the allowance, and what a part-time mayor of a town this size can and cannot do.
+scene B: The town's business brings more contacts in a week than the day job did in ten years. {N} wonders which of the two is really the career now.
+scene R: {N} loves the work at the town hall and dreads Mondays at the old job. It has never been so plain.
+scene G: The day job pays for the house and the family's peace of mind, and {partner} is afraid of what happens if the town throws {N} out at the next election.
+scene tribal: The hunt leaves at the new moon, and {Ns} spear has always gone with it. But a camp left without its head while the river rises is a camp in danger.
+scene magic: {Ns} workbench at the guild has been cold for weeks, the masters are asking questions, and the town needs its burgomaster every hour the bells ring.
+- W | keep both promises: work the full week, and do the town's business every evening | v: conformity, benevolence | self_control: + | tribal: go with the hunt by day and lead the camp at night, as best you can | magic: keep your place at the guild bench by day, and the town's business every evening | chance: 62
+- U | decide what a part-time mayor can do, and hand the rest to the deputy | v: achievement, self-direction | tribal: share out the camp's work among the elders, so you can still go with the hunt | magic: decide what a part-time burgomaster can do, and hand the rest to the deputy | chance: 75
+- B | resign from the day job, and take every paid seat that comes with the office | v: power, achievement | drops: kind:career | tribal: give up your place in the hunt, and take the head's share of every kill | magic: give up your guild bench, and take every paid seat that comes with the office | chance: 92
+- R | quit the day job tomorrow, because the town is where your heart is | v: self-direction, stimulation | mark: took a wild risk | drops: kind:career | tribal: lay down your spear tomorrow and stay with the camp, because your heart is here | magic: leave the guild bench tomorrow, because the town is where your heart is | chance: 95
+- G | keep the day job and the family's security, and be a mayor in the evenings | v: security, tradition | tribal: go with the hunt as your family always has, and lead the camp when you return | magic: keep the craft your family has always followed, and be burgomaster by night | chance: 70
+- W>B | ask the council to make the post full-time and properly paid, by an open vote | v: security, achievement | tribal: ask the elders to free the head of the camp from the hunt, by custom | magic: ask the council to make the burgomaster's post a paid office, by an open vote | chance: 30
+- U>R | ask your employer for a four-day week, with a written plan for both jobs | v: self-direction | tribal: go with the hunt every other moon, by a plan the elders agree | magic: ask your guild master for a shorter week, with a written plan for both | chance: 70
+- B>G | take a year's unpaid leave, and keep the old job warm in case the town turns | v: security | self_control: + | tribal: send a younger kinsman on the hunt in your place, and keep your share | magic: take a year's leave from the guild, and keep your bench in case the town turns | chance: 65
+- R>W | tell the town it needs a full-time mayor, and that you will be one | v: benevolence, universalism | mark: kept your word | self_control: + | drops: kind:career | tribal: tell the whole band at the fire that the camp needs its head here, and stay | magic: tell the town in the square that it needs a full-time burgomaster, and that you will be one | chance: 80
+- G>U | ask the old mayors of the nearby villages how they managed both | v: tradition, achievement | tribal: ask the heads of the nearby camps how they kept both | magic: ask the burgomasters of the nearby towns how they managed both | chance: 88
+works: {N} settles how the weeks will go, and the town and the household both seem able to live with it.
+works: The decision, once made, feels lighter than all the weeks of putting it off.
+fails: {N} tries to keep both going and is too tired by the end of the month to do either well.
+fails: The choice is made, and within weeks money at home is tighter than anyone planned for.
+
+# ---------------------------------------------------------------- 78. step 2, transform (cycle s3)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== the kind of mayor you will be
+tier: inner
+threshold: title:mayor
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 21-95
+times: per new mayor: once in the threshold season, for about half of new mayors (the season's middle step brings this moment or 'the day job or the town'); about 1 life in 500 is a mayor (catalogue share; estimate), so about 1 in 1,000 meet it
+holds: mayor
+stakes: .8
+tone: mixed
+life: public life, meaning
+horizon: years
+roles: colleague, rival, elder
+earth: ten weeks in, the town is waiting to see what kind of mayor you are, and whatever you fight for first will be the answer
+tribal: two moons in, the camp waits to see what kind of head you will be: keeper of the old ways, hard bargainer or the one who leads the dancing
+magic: ten weeks in, the town waits to see what kind of burgomaster you will be, and the guilds have started to place their bets
+requires: in the threshold season of mayor, within the first six months after taking the title: step 2, the season's transforming chance, once the first big choice of the term must be made
+likelier: a town with a long list of things it has always meant to do; a mayor elected on a promise; a council that can be won over
+rarer: a caretaker mayor for a short term; a council so split that nothing can move
+scene: The town hall has a long list of things it has always meant to do: a new bus station, the old swimming baths, the market hall that leaks. {N} cannot do them all, and whatever {N} fights for first will become what people mean when they say "the mayor".
+scene W: {N} thinks of the whole town: the estates and the old centre, the young families and the old people in the care homes. A mayor for all of them, fairly.
+scene U: {N} sees a plan of ten years in which every small decision leads to the next, and the town is a different place at the end of it.
+scene B: The town hall controls land, contracts and jobs. Used with a long plan, that is more power than most people in town know.
+scene R: {N} imagines the square full on a summer night, music playing, cranes on the skyline, and everyone talking about what the mayor did next.
+scene G: The town is old. The trees in the square were planted by people long dead, and {N} wants to be the mayor who kept what matters.
+scene tribal: The camp waits to see what kind of head {N} will be: keeper of the old ways, hard bargainer with the other clans, or the one who leads the dancing.
+scene magic: The guilds have started to place bets on what kind of burgomaster {N} will be, and the first thing {N} fights for will settle them.
+- W | govern for every part of the town alike, and publish every decision with its reasons | identity | binds | v: universalism, conformity | tribal: lead for every hearth of the camp alike, and give your reasons at the fire for every choice | chance: 86
+- U | draw up a ten-year plan for the town, and judge every decision against it | identity | v: achievement, self-direction | grants: drafting policy | tribal: work out a plan for the camp's next ten winters, and weigh every choice against it | chance: 72
+- B | take control of the town's land and contracts, and use them to get things built | identity | v: power, achievement | tribal: take charge of the camp's best ground and its trade, and use them to get things done | magic: take control of the town's land and guild contracts, and use them to get things built | chance: 50
+- R | promise the town the cranes up and the square rebuilt by next summer, on your name | identity | binds | v: stimulation, achievement | tribal: promise the band a great new shelter by next summer, on your name | magic: promise the town a new market hall raised by next summer, on your name | chance: 22
+- G | protect the old town, its trees, its market and its ways, against every fashion | identity | v: tradition | tribal: keep the camp's old ways, its sacred places and its seasons, against every new idea | chance: 80
+- W>R | take on the town's slum landlords, by the letter of the law | identity | v: universalism | mark: made an enemy | tribal: take on the family that hoards the camp's best shelters, by the band's own customs | magic: take on the town's slumlords and rack-renting guilds, by the letter of the law | chance: 62
+- U>G | rebuild the town around its river and its parks, by careful design | identity | binds | v: universalism, tradition | tribal: move the camp, by careful plan, to where the river and the woods will feed it longest | chance: 38
+- B>W | strike a deal with every faction on the council, so the town is governed steadily | identity | binds | v: power | grants: coalition building | chance: 65
+- R>U | try a bold new idea every season, and drop whatever fails | identity | v: stimulation, self-direction | chance: 80
+- G>B | back the town's own firms and families first, and keep big outside money at the door | identity | binds | v: tradition | tribal: favour the camp's own families in every trade, and keep the outside clans' gifts at a distance | magic: back the town's own guilds and families first, and keep the great merchant houses at the gate | chance: 45
+works: Within weeks the town has a sense of what {N} is for, and the first step is taken.
+works: The plan, or the promise, holds its first test, and the doubters go quiet.
+fails: The first big push meets the council's wall, and {N} is the mayor of one stalled idea.
+fails: What {N} meant and what the town hears drift apart, and the town's talk fills the gap.
+
+# ---------------------------------------------------------------- 79. step 3 (cycle s4)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 2 options (check.py section 4).
+== the first budget passes
+tier: inner
+threshold: title:mayor
+step: 3
+stages: young_adult adult mature elder
+age: 21-95
+times: per new mayor: once, about five months after taking the title, near the end of the threshold season, as the first budget comes to the vote; about 1 life in 500 (catalogue share; estimate)
+holds: mayor
+stakes: .8
+tone: trouble
+life: public life, money
+horizon: months
+roles: colleague, rival, boss
+earth: five months in, the first budget comes to the vote: too little money, too many promises, and a council that must pass it
+tribal: five moons in, before the winter camp, the head must share out the stores: too little dried meat, too many families, and every share a judgment
+magic: five months in, the town's first budget under your seal goes before the council: the coffer is short and every guild wants more
+requires: in the threshold season of mayor, within the first six months after taking the title: step 3, near the end of the six months, when the first budget of the term is due
+likelier: a town with a gap between its money and its promises; a council where the mayor has no sure majority; a hard year
+rarer: a rich town with money to spare; a budget set by the council leader rather than the mayor
+scene: Five months in, the budget goes to the vote. There is a gap of a few percent between what the town has and what it has been promised, and every line {N} cuts is someone's job, someone's bus route or someone's library.
+scene W: The law says the budget must balance. {N} has the clerk's note on that pinned to the wall.
+scene U: {N} knows every line now. The gap could be closed four ways, and {N} has costed all four.
+scene B: Every councillor who wants something in the budget owes {N} a vote for it. {N} is counting.
+scene R: {N} hates this part: choosing who loses. Some nights {N} wants to throw the whole spreadsheet out of the window.
+scene G: {N} thinks of the old swimming baths, the allotments, the band in the park: the things that make the town itself, which a spreadsheet does not count.
+scene tribal: Winter is coming, and {N} must share out the stores. There is not enough for every family to have what it had last year, and each share {N} names will be remembered.
+scene magic: The coffer is short, every guild sends a petition for more, and the council will vote on {Ns} first budget at the next sitting.
+- W | cut every department by the same share, so nobody can say it was unfair | v: universalism, conformity | tribal: cut every family's share of the stores by the same measure, so nobody can call it unfair | magic: cut every office and guild grant by the same share, so nobody can call it unfair | chance: 88
+- U | move the shortfall into next year's figures, so the budget balances on paper | v: security, achievement | mark: hid a wrong | closed: law: misstating the town's accounts; backfire: the auditor's report in the spring, and a vote of censure | self_control: - | tribal: count the stores as fuller than they are, so the shares look enough | magic: move the shortfall into next year's ledger, so the budget balances on parchment | chance: 90
+- B | trade a pet project for each wavering councillor's vote until you have a majority | v: power | grants: counting the votes | tribal: promise each wavering family something of its own until enough of them stand with you | chance: 75
+- R | spare the buses and the youth club, and dare the council to vote it down | v: stimulation, benevolence | self_control: + | tribal: spare the old ones' and the mothers' shares, and dare the elders to overrule you | magic: spare the poor relief and the apprentices' school, and dare the council to vote it down | chance: 60
+- G | protect the old baths, the allotments and the park, and cut the new projects instead | v: tradition | tribal: protect the shares for the old rites and the feasts, and cut the new ventures instead | magic: protect the old baths, the common gardens and the park, and cut the new projects instead | chance: 72
+- W>G | hold a meeting in every ward first, and let the town choose its own cuts | v: universalism, benevolence | tribal: let every hearth speak at the fire before the sharing, and let the band choose | chance: 72
+- U>W | rebuild the budget line by line until it balances honestly, and show your working | v: achievement, conformity | self_control: + | tribal: count the stores again, skin by skin, until the shares add up honestly, and show everyone | magic: rebuild the budget line by line until it balances honestly, and show the clerks your working | chance: 75
+- B>U | sell the empty council offices, and put the money into fixing the town's broken systems | v: achievement, power | tribal: trade the camp's spare hides to the river clans for better tools and stone | magic: sell the empty guild hall, and put the money into mending the town's broken wards | chance: 72
+- R>B | stand up in the chamber and shame the councillors who want cuts only in other wards | v: power, stimulation | mark: made an enemy | tribal: shame the families at the fire who want cuts only at other hearths | magic: rise in the council and shame those who want cuts only in other wards | chance: 69
+- G>R | let the town's festival and the band in the park keep their money, whatever else goes | v: hedonism, tradition | tribal: keep the stores for the midwinter feast and the dancing, whatever else goes | magic: let the town's fair and the musicians in the park keep their money, whatever else goes | chance: 82
+works: The budget passes, not by much, and the town keeps most of what it loves.
+works: The town hall staff, who have seen many first budgets, say quietly that this one was well done.
+fails: The budget fails at the first vote, and {N} must come back with a worse one.
+fails: It passes, but the cut nobody noticed at the vote is the one the whole town notices by spring.
+
+# ================================================================ member of parliament (ages 18-95)
+# ---------------------------------------------------------------- 80. step 1 (cycle s1)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== the first day in the chamber
+tier: inner
+threshold: title:member of parliament
+step: 1
+stages: young_adult adult mature elder
+age: 18-95
+times: per new member of parliament: once, in the first weeks after taking the title; about 1 life in 10,000 (House of Commons, ONS)
+holds: member of parliament
+stakes: .8
+tone: joy
+life: public life, work
+horizon: week
+roles: colleague, boss, elder
+earth: the first days in parliament: the oath, a pass, a locker, a desk shared with three others and nowhere to sit in the chamber
+tribal: the first days at the great gathering of the clans as your band's speaker, among hundreds of strangers and their fires
+magic: the first sitting of the Assembly of the realm: the oath under the Order's seal, a pass warded to your hand and a bench at the back
+requires: in the threshold season of member of parliament, within the first six months after taking the title (opened by 'election night', a by-election or any other way in): step 1, the first weeks in the house
+likelier: a first election won; a large new intake after a change of government; a member from far outside the capital
+rarer: a former member returning to the house; a member who worked in parliament for years as staff
+scene: On {Ns} first day in parliament {N} swears the oath, is given a pass, a locker and a desk in an office shared with three other new members, and finds the chamber so full there is nowhere to sit. Somebody shows {N} the way to the tea room twice.
+scene W: {N} reads the oath slowly and feels it settle: the law, the house, the people of the constituency. It is not nothing.
+scene U: The building is a maze of corridors, rules and customs older than the country's roads. {N} has a map, a rule book and a notebook, and is filling the notebook fast.
+scene B: Old hands know within a week which new members to watch. {N} means to be on that list.
+scene R: Under the painted ceiling {N} feels like a child let into the grown-ups' party, and wants to stand up and cheer.
+scene G: {N} thinks of the town back home: the bus stop where the campaign started, and the people who will be watching the news tonight to catch a glimpse.
+scene tribal: At the great gathering {N} walks among hundreds of strangers and their fires as the speaker for {Ns} band, and does not yet know where to sit.
+scene magic: Under the Order's seal {N} swears the oath of the Assembly, is given a pass warded to {Ns} own hand, and finds no room on the crowded benches.
+- W | take the oath, sign every register, and sit through every induction before speaking | v: conformity, security | tribal: swear the old words of the gathering, and keep silent until you know its customs | magic: swear the oath under the Order's seal, sign every roll, and sit through every induction | chance: 95
+- U | spend the first week learning the building, the rules and how a bill becomes law | v: achievement | mark: learned a skill | tribal: spend the first days learning the gathering: its fires, its customs and how a choice is made | magic: spend the first week learning the Assembly's halls, its rules and how a decree is made | chance: 92
+- B | get noticed by the whips in the first week, and ask them for a committee | v: power, achievement | tribal: make sure the faction's heads notice you in the first days, and ask them for a duty | magic: make sure the faction's wardens notice you in the first week, and ask for a committee | chance: 59
+- R | ask the constituency's burning question at the very first question time | v: stimulation, self-direction | tribal: rise at the first fire of the gathering and put your band's grievance, out of turn | magic: rise at the first sitting and put your city's grievance to the Chancellor's bench | chance: 22
+- G | hire your cousin to run the constituency office, without advertising the post | v: tradition, benevolence | mark: hid a wrong | closed: approval: a family hire around the open process; backfire: a story in the papers and an inquiry by the expenses watchdog | self_control: - | tribal: make your cousin the one who carries the families' troubles to you, passing over abler hands | magic: make your cousin your clerk of petitions, without posting the place | chance: 92
+- W>U | volunteer for the accounts committee nobody wants, to learn how the money really works | door | v: conformity, achievement | tribal: offer to keep the gathering's tally of gifts, which nobody wants, to learn how things really work | magic: volunteer for the Assembly's audit bench nobody wants, to learn how the coffers really work | chance: 75
+- U>B | study which committees lead to office, and set out to sit on them | v: power, achievement | tribal: watch which speakers the chief listens to, and set out to sit near them | magic: study which committees lead to the offices of the Crown, and set out to sit on them | chance: 70
+- B>R | spend the evenings in the bars where the members talk, and enjoy every one | habit | v: hedonism, power | tribal: spend the nights at the fires where the speakers talk, and enjoy every one | magic: spend the evenings in the taverns where the members talk, and enjoy every one | chance: 94
+- R>G | bring your campaign volunteers on a tour of the building | v: benevolence | mark: kept your word | tribal: bring the young ones who walked the hearths in your name to see the gathering | magic: bring your banner-bearers on a tour of the Assembly's halls | chance: 96
+- G>W | open an office in the old place on the high street, open every Friday | v: benevolence, tradition | tribal: keep a fire burning at home for the families each time you return from the gathering | magic: open your petition room in the old place on the high street, every market day | chance: 72
+works: By the end of the first week {N} can find the chamber, the library and the way home without asking.
+works: An old member stops {N} in a corridor, says {N} will do well here, and seems to mean it.
+fails: The first week passes in a blur of corridors, forms and waiting, and {N} is not sure what {N} did.
+fails: A small first-week slip goes the rounds of the whole place, and {N} learns how fast it talks.
+
+# ---------------------------------------------------------------- 81. step 2 (cycle s2)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 2 options (check.py section 4).
+== the maiden speech
+tier: inner
+threshold: title:member of parliament
+step: 2
+stages: young_adult adult mature elder
+age: 18-95
+times: per new member of parliament: once, about ten weeks into the threshold season, for about half of new members (the season's middle step brings this moment or 'who you answer to'); nearly every new member makes a maiden speech in the first months; about 1 life in 10,000 sits in parliament (House of Commons, ONS), so about 1 in 20,000 meet it here
+holds: member of parliament
+stakes: .8
+tone: joy
+life: public life, work
+horizon: months
+roles: mentor, colleague, boss
+earth: ten weeks in, the first speech in the chamber: by custom about the constituency, without a fight, and heard by the whole house
+tribal: two moons in, your first time to speak before all the clans, by custom about the band that sent you, and every speaker listening
+magic: ten weeks in, your first oration in the Assembly, by custom in praise of the city that sent you, with the whole Assembly listening
+requires: in the threshold season of member of parliament, within the first six months after taking the title: step 2, some weeks into the house, when the member's name comes up for the first speech
+likelier: a new member in a parliament with the custom of a maiden speech; a busy debate on something the constituency cares about
+rarer: a member returning to the house, who has spoken before; a member who becomes a minister at once and speaks first from the front bench
+scene: Ten weeks in, {Ns} name is down for the maiden speech. By custom it praises the constituency, avoids a fight and is heard in silence. {N} has eight drafts, and {mentor} has read three of them.
+scene W: The custom is clear: praise the member who came before, describe the constituency, avoid controversy. {N} finds a dignity in it.
+scene U: {N} wants a speech that is accurate in every figure and says one thing nobody in the house has quite said before.
+scene B: Speeches like this are clipped, quoted and remembered when the whips draw up their lists. {N} writes with that in mind.
+scene R: {N} wants to tear up the custom and say what the people back home are really angry about, in their own words.
+scene G: {N} wants the house to hear the place: the river, the closed pit, the old market, the accent.
+scene tribal: For the first time {N} will speak before all the clans. By custom a first speaker tells of the band that sent them and starts no quarrel, and every speaker listens.
+scene magic: {Ns} first oration in the Assembly is set for the morning bell. By custom it praises the city that sent its member, and the whole Assembly will be listening.
+- W | keep the custom: praise your predecessor, describe the place, avoid any fight | v: tradition, conformity | tribal: keep the custom: honour the last speaker, tell of your band, start no quarrel | magic: keep the custom: praise the member before you, describe your city, start no quarrel | chance: 94
+- U | check every figure twice, and make one careful point nobody has made before | v: achievement, self-direction | grants: debating | tribal: make one careful point nobody at the gathering has made before, true in every part | chance: 75
+- B | write it to be quoted, with one line built for the evening news | v: achievement, power | grants: handling the press | tribal: build it around one saying the singers will carry to every band | magic: build it around one line the heralds will cry in every square | chance: 58
+- R | throw away the notes halfway through, and speak as you would on a doorstep | v: self-direction, stimulation | tribal: forget the words you prepared, and speak as you would at your own fire | magic: put down your notes halfway through, and speak as you would in the tavern | chance: 85
+- G | tell the house the story of the town, in its own words and its own accent | v: tradition, benevolence | tribal: tell the gathering the story of your band, in its own words and its own songs | magic: tell the Assembly the story of your city, in its own words and its own accent | chance: 72
+- W>B | back the government's line in the speech, word for word, where the whips can hear | v: conformity | tribal: speak the faction's words, word for word, where its heads can hear | magic: speak the faction's line, word for word, where its wardens can hear | chance: 80
+- U>R | find the one fact that will shock the house, and build the speech around it | v: stimulation | tribal: find the one thing the clans do not know that will shake them, and build your words around it | chance: 40
+- B>G | name the local firms and families who backed you, so they hear it said in parliament | v: benevolence, power | tribal: name the families who fed your feast, so they hear it said at the gathering | magic: name the guilds and families who backed you, so they hear it said in the Assembly | chance: 93
+- R>W | break the custom of no controversy, and name an injustice back home | v: stimulation, universalism | mark: defied an authority | tribal: break the custom of the first speech, and name a wrong done to your band | magic: break the custom of the first oration, and name a wrong done to your city | chance: 65
+- G>U | ask the oldest people in the constituency what the house should hear, and listen | v: tradition, universalism | tribal: ask the oldest of your band what the gathering should hear, and listen | magic: ask the oldest people of your city what the Assembly should hear, and listen | chance: 82
+works: The house listens, a few members nod, and back home people repeat what was said of their place.
+works: {mentor} catches {N} afterwards and says it was a proper speech.
+fails: The benches are half empty and nobody listens, and {N} sits down feeling small.
+fails: One line comes out wrong, and it is all anyone remembers of the speech.
+
+# ---------------------------------------------------------------- 82. step 2, transform (cycle s3)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== who you answer to
+tier: inner
+threshold: title:member of parliament
+step: 2
+transform: yes
+stages: young_adult adult mature elder
+age: 18-95
+times: per new member of parliament: once in the threshold season, for about half of new members (the season's middle step brings this moment or 'the maiden speech'); about 1 life in 10,000 sits in parliament (House of Commons, ONS), so about 1 in 20,000 meet it
+holds: member of parliament
+stakes: .8
+tone: mixed
+life: public life, meaning
+horizon: years
+roles: boss, partner, colleague
+earth: ten weeks in, the whips, the constituency, your conscience and your ambition all want your vote on the same bill, and you must decide whom you answer to
+tribal: two moons in, at the gathering, the faction's head, the families back home, your own judgment and your hunger to rise all pull at your voice
+magic: ten weeks in, the faction's warden, the city that sent you, your conscience and your hopes at court all want your lot cast their way
+requires: in the threshold season of member of parliament, within the first six months after taking the title: step 2, the season's transforming chance, when the first whipped vote comes on which the party, the constituency and the member's own view disagree
+likelier: a party in government with a big programme; a constituency with its own interest in the bill; a member elected on a local cause
+rarer: an independent with no whip; a parliament in recess for most of the season
+scene: Ten weeks in, a bill comes to its second reading. The whips want {Ns} vote, the constituency is against it, {Ns} own reading of it is mixed, and a career in the house may turn on the answer. On the phone that night {partner} asks whom {N} works for now.
+scene W: {N} was elected on the party's promises and swore an oath to the house. Both say the same thing: keep faith with the institution that sent {N}.
+scene U: {N} has read the bill, the briefings from both sides and the research behind them. The evidence points one way, and nobody else seems to have read it.
+scene B: The whips keep lists. A loyal vote now is a post in two years; a rebel is a backbencher for a decade.
+scene R: {N} can feel in the gut what is right, and it is not what the whips want.
+scene G: {N} thinks of the town: the factory gate, the chapel, the families who have sent someone like {N} to this place for three generations.
+scene tribal: At the gathering the faction's head wants {Ns} voice for a raid, {Ns} own band wants peace, and {N} can feel which way the chief's favour lies.
+scene magic: The faction's warden brings the line for tomorrow's vote in the Assembly. {Ns} city has sent a letter against it, and {Ns} hopes at court lie with the faction.
+- W | vote with the party you were elected for, and keep faith with its promises | identity | v: conformity, security | tribal: stand with the faction that sent you, and keep faith with its word | magic: cast with the faction whose seal you carry, and keep faith with its promises | chance: 82
+- U | read every bill yourself, and vote on the evidence whatever the whips say | identity | v: universalism, self-direction | tribal: weigh every choice yourself, and speak on what you know, whatever the faction says | magic: read every decree yourself, and cast on the evidence, whatever the wardens say | chance: 74
+- B | vote with the whips, and make sure they know it, for a post later | identity | v: power, achievement | tribal: stand with the faction's heads, and make sure they remember it when duties are given | magic: cast with the faction, and make sure its wardens remember it when offices are given | chance: 91
+- R | vote with your conscience against the whip, and say why in the chamber | identity | binds | v: stimulation, universalism | mark: defied an authority | self_control: + | takes_if_fails: the party whip | tribal: stand against the faction when your heart says so, and say why at the fire | magic: cast against the faction's line when your conscience says so, and say why in the Assembly | chance: 68
+- G | vote as the constituency wants, every time, as one of its own | identity | binds | v: tradition, benevolence | tribal: speak as your band wants, every time, as one of its own | magic: cast as your city wants, every time, as one of its own | chance: 72
+- W>R | promise the constituency in public to vote against any bill that hurts it | identity | binds | v: benevolence, universalism | mark: kept your word | tribal: swear to your band at the fire to oppose anything that hurts it | magic: swear to your city in its square to oppose any decree that hurts it | chance: 45
+- U>G | become the house's expert on the one thing the constituency lives by | identity | binds | v: achievement, tradition | tribal: become the gathering's best knower of the one thing your band lives by | magic: become the Assembly's master of the one trade your city lives by | chance: 72
+- B>W | trade your vote for money for the constituency, promised in writing | identity | binds | v: power, benevolence | grants: counting the votes | tribal: trade your voice for a share of the hunting grounds for your band, sworn before the elders | magic: trade your lot for coin for your city, promised under seal | chance: 35
+- R>U | join the rebels who want the bill rewritten, and help draft the amendment | identity | v: stimulation, universalism | grants: drafting policy | tribal: join the speakers who want the choice remade, and help shape the new words | magic: join the rebels who want the decree rewritten, and help draft the new clauses | chance: 71
+- G>B | build your own power base in the region, so no whip can ever touch you | identity | v: power | tribal: gather the bands of your own valley behind you, so no faction head can touch you | magic: gather the towns of your own province behind you, so no warden can touch you | chance: 30
+works: The vote is cast, and {N} can explain it to anyone, at home or in the house, without looking away.
+works: Over the following weeks the people who matter to {N} come to see what kind of member {N} is, and most of them respect it.
+fails: Whichever way {N} goes, someone feels betrayed: the whips, the people back home, or {Ns} own conscience.
+fails: {N} tries to please every side and ends up trusted by none of them.
+
+# ---------------------------------------------------------------- 83. step 3 (cycle s4)
+
+== the Thursday train home
+tier: inner
+threshold: title:member of parliament
+step: 3
+stages: young_adult adult mature elder
+age: 18-95
+times: per new member of parliament: once, about five months after taking the title, near the end of the threshold season; about 1 life in 10,000 (House of Commons, ONS)
+holds: member of parliament
+stakes: .8
+tone: mixed
+life: public life, family, friends
+horizon: months
+roles: partner, friend, colleague
+earth: five months in, the Thursday train home: the weekend surgery, a partner who has run the house alone all week, and old friends who now want favours
+tribal: five moons in, the gathering rests and you walk home to your own hearth, where your family has managed without you and old friends want your voice
+magic: five months in, the Assembly rises for the week and the coach takes you home to a household run without you, and to old friends with petitions
+requires: in the threshold season of member of parliament, within the first six months after taking the title: step 3, near the end of the six months, as the weeks in the capital and the weekends at home settle into a pattern
+likelier: a constituency far from the capital; a partner and family who stayed at home; a member who kept old friends in the town
+rarer: a seat in the capital itself; a member who lives alone or moved the family to the capital
+scene: Five months in, {N} knows the Thursday train by heart: the same seat, the case of constituency letters, the window going dark. At home {partner} has run the house alone since Monday, and the weekend is already full: a surgery on Friday, a fete on Saturday, and an old friend who wants a quick word about a planning application.
+scene W: {N} has kept every promise to the constituency and very few to the family. On the train {N} writes a list of both.
+scene U: {N} uses the three hours on the train to work through the week's casework, and has not looked out of the window in months.
+scene B: The old friend's quick word is about a planning application. {N} knows exactly what is being asked, and what it might be worth.
+scene R: {N} misses the old life: Friday nights out, saying whatever came to mind, and nobody watching.
+scene G: The town comes into view: the church tower, the river, the lights of the estate. Home, and it feels further away each week.
+scene tribal: The gathering rests for a moon, and {N} walks home to {Ns} own hearth, where {partner} has kept everything going alone and old friends are already waiting with favours to ask.
+scene magic: The Assembly rises for the week, and the coach takes {N} home to a household run without {N}, and to old friends with petitions in hand.
+- W | keep Sunday for the family, whoever calls, and tell the constituency so | v: benevolence, security | tribal: keep one day at home for your kin, whoever comes to your hearth | magic: keep the rest-day for your household, whoever knocks, and tell the city so | chance: 74
+- U | plan the weeks to the hour so the family gets fixed time, written in the diary | v: achievement, security | tribal: plan the moons ahead so your kin know when you will be home | magic: plan the weeks to the hour so your household gets fixed time, written in the book | chance: 88
+- B | promise the old friend a look at the application, and make sure they owe you | v: power | tribal: promise the old friend your voice, and make sure they owe you | magic: promise the old friend a look at the petition, and make sure they owe you | chance: 94
+- R | skip the Saturday fete and take your partner away for the weekend | door | v: hedonism, benevolence | tribal: leave the feast early and take your partner up into the hills for a few days | magic: skip the Saturday fair and take your partner away to the coast | chance: 95
+- G | spend Saturday morning at the allotment on your own street, as you always did | v: tradition, hedonism | tribal: spend a morning gathering at the old places, as you always did | chance: 85
+- W>G | bring the family along to the Friday surgery, so the work becomes a family thing | v: benevolence | tribal: bring your kin to sit with you when the families come with their troubles | magic: bring your household to the petition day, so the work becomes a family thing | chance: 52
+- U>W | write down what you can and cannot do for friends who ask, and share it | v: conformity, universalism | tribal: tell your friends plainly at the fire what you can and cannot do for them | magic: write out what you can and cannot do for friends who ask, and send it round | chance: 85
+- B>U | hire a sharp office manager to run the weekends, and buy back your Saturdays | v: achievement | tribal: give a sharp young kinsman the families' troubles to sort, and win back your days | magic: hire a sharp steward to run the petition days, and buy back your rest-day | chance: 72
+- R>B | turn the fete into a rally: speak from a lorry and work the crowd | v: stimulation, power | grants: rousing a crowd | tribal: turn the feast into a rally: climb the rock and stir the crowd | magic: turn the fair into a rally: speak from a cart and work the crowd | chance: 89
+- G>R | walk the dog by the river on Sunday morning, phone switched off | habit | v: hedonism, self-direction | tribal: walk alone by the river at dawn, with no one to answer | magic: walk by the river on the rest-day morning, with no one to answer | chance: 95
+works: The weekend holds, and on the last evening {N} leaves feeling like a person, not only a member.
+works: {partner} says that, for the first time in months, it felt as if {N} had come home.
+fails: The calls and the callers keep coming all weekend, and Sunday is gone before it starts.
+fails: {N} leaves again with the feeling that home has learned to run without {N}.
+
+# ================================================================ minister (ages 21-95)
+# ---------------------------------------------------------------- 84. step 1 (cycle s1)
+
+== the first morning at the department
+tier: inner
+threshold: title:minister
+step: 1
+stages: adult mature elder
+age: 21-95
+times: per new minister: once, in the first weeks after taking the title; about 1 life in 30,000 (catalogue share; estimate)
+holds: minister
+stakes: .8
+tone: joy
+life: public life, work
+horizon: week
+roles: boss, colleague, friend
+earth: the first morning as a minister: a car at the door, a private office of strangers, a box of papers and a department of thousands
+tribal: the first morning as keeper of one of the chief's duties, the hunt's share, the peace or the trade, with the old hands who carried it for the last keeper
+magic: the first morning in an office of the Crown: the seal on the desk, ledgers to the ceiling, and clerks who served ten councillors before you
+requires: in the threshold season of minister, within the first six months after taking the title (opened by 'the phone call from the leader' or any other way in): step 1, the first weeks in the department
+likelier: a first ministerial post; a new government filling every post at once; a department the person has never worked in
+rarer: a minister moved sideways from another department; a post without a department of its own
+scene: On the first morning a car comes for {N}. At the department a private office of six strangers stands up when {N} walks in, the permanent secretary shakes hands, and there is a box of papers on the desk with a note: "Decisions needed by Friday."
+scene W: {N} reads the code for ministers and the rules on gifts and interests before opening the box. It seems the right order.
+scene U: There are two thousand pages of briefing. {N} reads the summaries first, then the annexes, and starts a list of questions.
+scene B: The department has a budget larger than some countries. {N} looks at the organisation chart and sees where the power sits.
+scene R: {N} grins at the car, the office and the people standing up, and wants to do something on day one that the country will notice.
+scene G: On the wall is a list of every minister since the department began. Some of the names {N} learned at school.
+scene tribal: The chief has given {N} the keeping of one duty: the hunt's share, the peace, or the trade with other clans. The old hands who kept it for the last keeper wait to see what {N} is.
+scene magic: On the desk in the office of the Crown lies a seal, and beside it ledgers to the ceiling. The clerks, who served ten councillors before {N}, bow and wait.
+- W | read the code for ministers, and declare every interest before opening the box | v: conformity, security | tribal: ask the elders which gifts a keeper of the chief's duty may take, before taking any | magic: read the code of the Crown's councillors, and declare every interest before breaking a seal | chance: 96
+- U | read the whole briefing, and send back a list of hard questions by evening | v: achievement | tribal: hear out every old hand who kept the duty before you, and come back with hard questions | magic: read the clerks' briefing rolls end to end, and send back hard questions by evening | chance: 88
+- B | name your own adviser on the first day, before the department offers one | v: power | tribal: choose your own right hand on the first day, before the old hands offer one | magic: name your own secretary on the first day, before the clerks offer one | chance: 85
+- R | announce one change on the first day, on the steps, before anyone can stop you | v: stimulation, self-direction | tribal: change one thing about the duty on the first day, before anyone can stop you | magic: proclaim one change on the first day, from the steps, before anyone can stop you | chance: 35
+- G | walk the whole building on the first morning, floor by floor, and meet the staff | body: light | v: benevolence, tradition | mark: made a friend | tribal: walk out to every camp the duty touches, and meet the people who carry it | magic: climb the whole tower of offices on the first morning, and meet every clerk | chance: 85
+- W>U | ask the permanent secretary for a frank account of what went wrong last time | door | v: conformity, achievement | tribal: ask the old hands for a plain account of where the last keeper went wrong | magic: ask the chief clerk for a frank account of where your predecessor went wrong | chance: 83
+- U>B | work out which three decisions in the box will shape the year, and take them yourself | v: power, achievement | tribal: work out which three choices will shape the year, and keep them for yourself | magic: work out which three seals will shape the year, and set them yourself | chance: 68
+- B>R | send the car away and take the bus, and make sure the cameras see it | v: hedonism, power | tribal: refuse the escort of young hunters and walk to the chief's fire alone, and let everyone see | magic: send the carriage away and walk through the market, and make sure the heralds see it | chance: 94
+- R>G | ring the friends from home who were there at the start, and tell them first | v: benevolence | tribal: send word first to the friends at your own hearth who were there at the start | magic: write first to the friends at home who were there at the start | chance: 97
+- G>W | keep the private office your predecessor left, and trust the staff who know the work | v: tradition, security | tribal: keep the old hands the last keeper left, and trust them to know the work | magic: keep the clerks your predecessor left, and trust them to know the work | chance: 68
+works: By the end of the first day {N} has a desk, a team and the first decisions made.
+works: The people around {N} go home that evening saying the new minister will be all right.
+fails: The first days are swallowed by introductions and rules, and the pile of decisions is still waiting at the end of the week.
+fails: Something said on the first morning travels round the whole place by noon, and not in {Ns} favour.
+
+# ---------------------------------------------------------------- 85. step 2 (cycle s2)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== the brief you did not ask for
+tier: inner
+threshold: title:minister
+step: 2
+stages: adult mature elder
+age: 21-95
+times: per new minister: once, about ten weeks into the threshold season, for about half of new ministers (the season's middle step brings this moment or 'the decision that will carry your name'); about 1 life in 30,000 is a minister (catalogue share; estimate), so about 1 in 60,000 meet it
+holds: minister
+stakes: .8
+tone: trouble
+life: public life, work
+horizon: months
+roles: boss, colleague, partner
+earth: ten weeks in, the brief you were given is not the one you wanted, the subject is one you knew nothing about, and the leader expects results
+tribal: two moons in, the chief gave you the peace with the river clans when you know only the hunt, and the chief wants the peace kept
+magic: ten weeks in, the throne gave you the Wardenship of the Roads when your heart was in the Treasury, and the throne expects the roads mended
+requires: in the threshold season of minister, within the first six months after taking the title: step 2, some weeks into the post, when it is clear the post is not the one the person hoped for
+likelier: a minister given a post outside their own field; a leader who uses posts to reward and to punish; a junior post
+rarer: a minister given the post they asked for; a specialist appointed for their expertise
+scene: Ten weeks in, {N} is still the minister for a subject {N} knew nothing about on the day of the phone call. {N} wanted another post; {boss} gave this one and wants results by the summer. In the safe is a report on the department's failures that the last minister kept from the house.
+scene W: Ministers serve where they are sent. {N} has said it to {partner} several times this month, as if to be convinced.
+scene U: A whole new field to master: its law, its history, its numbers, its experts. Part of {N} is delighted.
+scene B: A post nobody wanted is a post nobody watches. {N} sees room in that.
+scene R: {N} feels sidelined and a little humiliated, and the buried report makes {N} angrier every time {N} reads it.
+scene G: The officials have worked in this field for thirty years. {N} is the eleventh minister they have had in that time.
+scene tribal: The chief gave {N} the peace with the river clans, when {N} knows only the hunt. The old hands whisper about a promise the last keeper made to the river clans and never kept.
+scene magic: The throne gave {N} the Wardenship of the Roads, when {Ns} heart was in the Treasury. In a locked chest lies the report on the roads that the last Warden kept from the Assembly.
+- W | serve where the leader put you, and do the post properly, without complaint | v: conformity | tribal: keep the duty the chief gave you, and keep it well, without complaint | magic: serve where the throne put you, and do the office properly, without complaint | chance: 95
+- U | read yourself into the subject: its law, its history and its experts, every evening | habit | v: achievement, self-direction | grants: drafting policy | tribal: learn everything about the duty from those who know it, every evening | magic: read yourself into the office: its law, its history and its scholars, every evening | chance: 72
+- B | use the quiet post to build allies in cabinet for the post you really want | v: power, achievement | grants: allies in the party | tribal: use the quiet duty to win friends among the chief's speakers for the duty you want | magic: use the quiet office to win friends among the councillors for the seat you want | chance: 78
+- R | leak the buried report to a journalist friend, so the public knows | v: stimulation, universalism | mark: hid a wrong | closed: approval: leaking a confidential report; backfire: a leak inquiry traces it, and the leader asks for the minister's resignation | self_control: - | tribal: tell a singer what the last keeper hid, so every fire hears of it | magic: slip the buried report to a broadsheet writer, so the whole city knows | chance: 92
+- G | ask the oldest officials what was tried in this field before, and what came of it | v: tradition, achievement | tribal: ask the oldest hands what was tried before, and what came of it | magic: ask the oldest clerks what was tried before, and what came of it | chance: 75
+- W>B | ask formally for a move at the next reshuffle, and do this post well meanwhile | v: achievement, conformity | tribal: ask the chief, by custom, for another duty at the next gathering, and keep this one well | magic: petition the throne for another office, and do this one well meanwhile | chance: 35
+- U>R | find the bold reform this field has needed for years, and argue it on the evidence | v: self-direction, universalism | tribal: find the bold change the duty has needed for years, and argue it from what is known | chance: 40
+- B>G | keep the post safe: avoid every risk, guard the budget, and wait | v: security | self_control: + | tribal: keep the duty safe: risk nothing, guard its share, and wait | magic: keep the office safe: risk nothing, guard its coffer, and wait | chance: 92
+- R>W | publish the buried report yourself, openly, and take the blame for what it shows | v: universalism | mark: owned up | tribal: tell the whole gathering what the last keeper hid, openly, and carry the blame | magic: publish the buried report yourself, under your own seal, and take the blame | chance: 65
+- G>U | spend a week out in the field with the people the department serves, and listen | door | v: benevolence, universalism | tribal: spend a moon among the people the duty touches, and listen | magic: spend a week among the people the office serves, and listen | chance: 78
+works: By the end of the month {N} knows the subject well enough to hold a room on it.
+works: {boss} says in front of the others that {N} has taken a hard post and made something of it.
+fails: Every week shows how little {N} knows, and the officials have started to manage {N} rather than serve.
+fails: {Ns} frustration shows, and word reaches the leader that {N} is sulking.
+
+# ---------------------------------------------------------------- 86. step 2, transform (cycle s3)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 2 options (check.py section 4).
+== the decision that will carry your name
+tier: inner
+threshold: title:minister
+step: 2
+transform: yes
+stages: adult mature elder
+age: 21-95
+times: per new minister: once in the threshold season, for about half of new ministers (the season's middle step brings this moment or 'the brief you did not ask for'); about 1 life in 30,000 is a minister (catalogue share; estimate), so about 1 in 60,000 meet it
+holds: minister
+stakes: .8
+tone: mixed
+life: public life, meaning
+horizon: years
+roles: boss, colleague, rival
+earth: ten weeks in, one decision in the department will outlast you, and how you make it will decide what kind of minister you are
+tribal: two moons in, the duty the chief gave you holds one choice the clans will remember for a generation, and it is yours to make
+magic: ten weeks in, one decree under your seal will outlast your office, and the court is waiting to see what kind of councillor you are
+requires: in the threshold season of minister, within the first six months after taking the title: step 2, the season's transforming chance, when the department's big decision of the term reaches the minister's desk
+likelier: a department with a reform long waited for; a leader who leaves the minister room to choose; a full parliament still ahead
+rarer: a caretaker government near its end; a junior post with no decisions of its own
+scene: Ten weeks in, one decision in the department will outlast {N}: a reform the field has waited years for, a rule that will bear the minister's name. {N} can make it in many ways, and each would make a different kind of minister.
+scene W: {N} wants a reform built to last: consulted on, written into law, defended in the house and fair to everyone it touches.
+scene U: {N} has the evidence, the pilots and the models. It could be the best-designed reform in a generation, if {N} has the patience.
+scene B: A reform that bears {Ns} name is power: in cabinet, in the party, in the next leadership race. {N} means to make it count.
+scene R: The people this field has failed are angry, and {N} is angry with them. This is the chance to do something big, now.
+scene G: Some things in this field have worked for a hundred years. {N} is wary of breaking what holds, even while mending what does not.
+scene tribal: One choice in the duty the chief gave {N} will be remembered for a generation: how the hunting grounds are shared, or which clans the band trades with. It is {Ns} to make.
+scene magic: One decree under {Ns} seal will outlast the office, and the whole court is waiting to see what kind of councillor of the Crown {N} means to be.
+- W | consult everyone it touches, and write the reform into law, slowly and properly | identity | binds | v: universalism, conformity | grants: a reform with your name on it | tribal: hear every family it touches, and make the change a custom of the clans, slowly and properly | magic: hear everyone it touches, and write the reform into a decree, slowly and properly | chance: 20
+- U | design it on the evidence, pilot it, and let the results decide | identity | v: universalism, achievement | grants: drafting policy | tribal: try it first in one camp, watch what happens, and let that decide | chance: 70
+- B | make it your own, cut the deals in cabinet, and put your name on it | identity | v: power, achievement | grants: a reform with your name on it | tribal: make it your own, strike the bargains among the speakers, and put your name to it | magic: make it your own, strike the bargains at court, and set your seal on it | chance: 20
+- R | announce the reform in a fiery speech, before the department is ready | identity | binds | v: stimulation, self-direction | mark: took a wild risk | tribal: announce the change at the great fire, before the old hands are ready | magic: proclaim the reform in the Assembly, before the clerks are ready | chance: 52
+- G | protect what works in the field, and change only what has clearly failed | identity | v: tradition | self_control: + | chance: 65
+- W>R | take up the cause of the people the field has failed, through a public inquiry | identity | v: universalism | tribal: take up the cause of the families the duty has failed, before the elders at the fire | magic: take up the cause of those the office has failed, through an open hearing at court | chance: 70
+- U>G | build the reform from the ground up, region by region, with the people who live it | identity | binds | v: universalism, tradition | tribal: build the change from the ground up, camp by camp, with the people who live it | magic: build the reform from the ground up, town by town, with the people who live it | chance: 65
+- B>W | trade support with two other ministers so the reform passes cabinet intact | identity | binds | v: power | grants: allies in the party | tribal: trade support with two other speakers so the change passes the chief's fire intact | magic: trade support with two other councillors so the decree passes the Crown's council intact | chance: 62
+- R>U | throw out the old approach entirely, and try something the field has never seen | identity | v: stimulation, self-direction | chance: 50
+- G>B | hand the reform to the local bodies that know it best, and keep the centre out | identity | binds | v: self-direction, tradition | tribal: leave the change in the hands of each camp, and keep the chief's fire out of it | magic: hand the reform to the towns and guilds that know it best, and keep the court out | chance: 30
+works: The decision is made, and the department, grumbling or not, starts to carry it out.
+works: Over the following weeks the people who follow the field start to say what {N} stands for, and they say it right.
+fails: The decision stalls between the officials and the leader's table, and the weeks run out.
+fails: It goes through, but not as {N} meant it, and {Ns} name sits on something {N} barely recognises.
+
+# ---------------------------------------------------------------- 87. step 3 (cycle s4)
+
+== the department starts to trust you
+tier: inner
+threshold: title:minister
+step: 3
+stages: adult mature elder
+age: 21-95
+times: per new minister: once, about five months after taking the title, near the end of the threshold season; about 1 life in 30,000 (catalogue share; estimate)
+holds: minister
+stakes: .8
+tone: joy
+life: public life, work
+horizon: months
+roles: colleague, boss, partner
+earth: five months in, the officials have stopped handling you and started telling you things, and the department's ways have become yours
+tribal: five moons in, the old hands bring you the truth before you ask, and the duty feels like your own
+magic: five months in, the clerks bring you the real ledgers, not the fair copies, and the office begins to feel like yours
+requires: in the threshold season of minister, within the first six months after taking the title: step 3, near the end of the six months, as minister and department settle together
+likelier: a minister who has listened to the officials; a quiet few months; a department with a long-serving permanent secretary
+rarer: a minister at war with the department; a reshuffle rumour that makes everyone wait
+scene: Five months in, {N} notices a change. The permanent secretary has started to warn {N} before trouble rather than after, and a junior official says in a meeting, "Minister, I think we have this wrong," and nobody flinches.
+scene W: The department has its rules and so does {N}, and they have found that the two fit.
+scene U: {N} can now read a submission and find the weak paragraph in a minute. The officials have noticed.
+scene B: Trust is leverage. {N} knows which officials will go the extra mile, and which favours bought it.
+scene R: {N} still loses {Ns} temper sometimes, but the staff have learned it passes, and that {N} always says sorry.
+scene G: The rhythm of the department has become {Ns} rhythm: Monday papers, Wednesday questions, the long table on Thursday.
+scene tribal: By the turn of the season the old hands bring {N} the truth before {N} asks, and the duty feels like {Ns} own.
+scene magic: Five months in, the clerks bring {N} the real ledgers, not the fair copies, and the office of the Crown begins to feel like {Ns} own.
+- W | thank officials in writing, by name, for each piece of good work | v: benevolence, conformity | grants: officials who trust you | tribal: thank each old hand at the fire, by name, for each piece of good work | magic: thank the clerks under your seal, by name, for each piece of good work | chance: 92
+- U | ask the officials where your own judgments have gone wrong so far | door | v: achievement, universalism | grants: officials who trust you | tribal: ask the old hands where your own judgments have gone wrong so far | magic: ask the clerks where your own judgments have gone wrong so far | chance: 81
+- B | use the new trust to move your own people into the key posts | v: power | tribal: use the new trust to put your own people where the duty is decided | chance: 89
+- R | take the private office out for a long night to celebrate the half-year | v: hedonism | mark: made a friend | tribal: hold a feast for the old hands to mark the turn of the season | magic: take your clerks to the best tavern in the city for a long night | chance: 95
+- G | keep the department's old Friday tea, and go to it every week | habit | v: tradition, benevolence | tribal: sit with the old hands at their evening fire, every night you can | magic: keep the office's old custom of a Friday cup, and go to it every week | chance: 94
+- W>G | back an official in public when the mistake was your own | v: benevolence, universalism | mark: owned up | grants: officials who trust you | tribal: stand up for an old hand at the fire when the mistake was your own | magic: defend a clerk at court when the mistake was your own | chance: 80
+- U>W | write down how the department's decisions should be made, and follow it yourself | v: conformity, achievement | self_control: + | tribal: set out plainly how the duty's choices should be made, and keep to it yourself | magic: write down how the office's decisions should be sealed, and keep to it yourself | chance: 88
+- B>U | trade a favour with the treasury for the data system the officials have begged for | door | v: achievement, power | tribal: trade a favour with the keeper of the stores for the tally-sticks the old hands have begged for | magic: trade a favour with the Treasury for the warded archive the clerks have begged for | chance: 45
+- R>B | tell the officials bluntly that those who deliver will be the ones who rise | v: power, achievement | tribal: tell the old hands plainly that those who deliver will be the ones who rise | chance: 83
+- G>R | take a day off with your family, and let the department run itself | v: hedonism, benevolence | tribal: spend a day with your kin by the water, and let the duty run itself | magic: take a day with your household in the country, and let the office run itself | chance: 79
+works: By the end of the month the department brings {N} problems early, while they can still be fixed.
+works: A senior official says, privately, that {N} is the best minister they have served in years.
+fails: One bad week and one sharp word in public, and the trust built over months is gone.
+fails: The officials trust {N}, but the leader's office does not, and decisions are taken over {Ns} head.
+
+# ================================================================ head of government (ages 30-95)
+# ---------------------------------------------------------------- 88. step 1 (cycle s1)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== the door closes behind you
+tier: inner
+threshold: title:head of government
+step: 1
+stages: adult mature elder
+age: 30-95
+times: per new head of government: once, in the first weeks after taking the title; about 1 life in two to three million (catalogue share; estimate)
+holds: head of government
+stakes: .8
+tone: joy
+life: public life, home
+horizon: week
+roles: colleague, friend, partner
+earth: the first night in office: the famous door, the cameras, a few words on the step, and inside a building of strangers and a pile of sealed letters
+tribal: the first night as chief of the gathered clans: the great fire, the clan heads around it, and every face turned to you
+magic: the first night as Chancellor: the chain, a first audience at the foot of the throne, and a tower of rooms full of strangers
+requires: in the threshold season of head of government, within the first six months after taking the title (opened by 'the country goes to the polls', a coalition deal, a leader who falls in office or any other way in): step 1, the first days in office
+likelier: a general election won; a change of government after years in opposition; a leader new to high office
+rarer: a leader who takes over in mid-term and keeps the same cabinet; a caretaker head of government
+scene: The cameras flash, {N} says a few words on the step, and the door closes behind {N}. Inside, the staff line the corridor and clap. Then the cabinet secretary takes {N} to a small room with a pile of sealed letters, briefings only the head of government is told, and a file the last government hoped would never come out.
+scene W: {N} reads the guidance on the constitution and the office on the first night, slowly, the way some people read scripture.
+scene U: The secret briefings are worse and stranger than {N} imagined. {N} has questions, and the first night is not long enough for them.
+scene B: The whole machinery of the state now answers to {N}. {N} can feel it hum, and sets out to learn which levers move what.
+scene R: {N} can hardly believe it, and wants to ring {friend}, laugh out loud and open a window to the noise outside.
+scene G: In the corridor hang the portraits of everyone who held the office before. {N} looks at the oldest one for a long time.
+scene tribal: As the great fire is lit, the heads of the clans sit down around it and turn to {N}. {N} has seen chiefs sit in that place since childhood, and now it is {Ns}.
+scene magic: At the foot of the throne {N} kneels and receives the Chancellor's chain. Then the doors close, and the clerks lead {N} up a tower of rooms full of strangers and sealed letters.
+- W | keep the last government's embarrassing file sealed, to protect the office | v: security, conformity | mark: hid a wrong | closed: approval: keeping a file from a public inquiry; backfire: a leak, and an inquiry into the cover-up | self_control: - | tribal: keep silent about what the last chief did wrong, to protect the chief's place | magic: keep the last Chancellor's shameful file under seal, to protect the office | chance: 90
+- U | read every secret briefing through the night, and send back questions by dawn | v: achievement | self_control: + | tribal: listen through the night to everything the old hands say a chief must know | magic: read every sealed briefing through the night, and send back questions by dawn | chance: 92
+- B | appoint your chief of staff and your inner circle before the first morning | v: power | tribal: choose your right hand and your closest circle before the first dawn | magic: name your first secretary and your inner circle before the morning bell | chance: 95
+- R | go back out to the cameras and say what you really feel, unscripted | v: stimulation, self-direction | tribal: go back out to the fire and say what you really feel, as it comes | magic: step back out before the crowd and say what you really feel, unscripted | chance: 78
+- G | spend the first night with your family in the official flat, and make it home | v: benevolence, tradition | tribal: spend the first night with your kin at the chief's fire, and make it home | magic: spend the first night with your household in the Chancellor's tower, and make it home | chance: 88
+- W>U | go through the rules of the office with the cabinet secretary, line by line | v: conformity, achievement | tribal: sit with the eldest of the clans through the night and learn the chief's customs | magic: go through the law of the office with the chief clerk of the Chancellery, line by line | chance: 95
+- U>B | spend the first night working out who in your own cabinet could unseat you | v: power, security | tribal: spend the first night working out which clan head could bring you down | magic: spend the first night working out who at court could unseat you | chance: 80
+- B>R | throw a party for the campaign team in the official rooms on the first night | v: hedonism, power | tribal: throw a feast for the young ones who carried your name, on the first night | magic: throw a feast for your retinue in the Chancellor's hall on the first night | chance: 94
+- R>G | walk back out on the first night, through the crowd that waited outside | body: light | v: benevolence, stimulation | tribal: walk out from the fire on the first night among all the clans who waited | magic: walk out of the tower on the first night, through the crowd that waited at the gate | chance: 88
+- G>W | write by hand to every living former head of government, and ask for their counsel | v: tradition, conformity | tribal: send word to every living chief before you, and ask for their counsel | magic: write by hand to every living Chancellor before you, and ask for their counsel | chance: 84
+works: By morning {N} has read what must be read, and the first day starts with a plan.
+works: The staff, who have seen many first nights, tell each other that this one will be all right.
+fails: The first night runs out before the briefings do, and {N} starts the first day already behind.
+fails: A first-night choice is all anyone talks about by morning, and not as {N} would have wished.
+
+# ---------------------------------------------------------------- 89. step 2 (cycle s2)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== the government's first crisis
+tier: inner
+threshold: title:head of government
+step: 2
+stages: adult mature elder
+age: 30-95
+times: per new head of government: once, about ten weeks into the threshold season, for about half of new heads of government (the season's middle step brings this moment or 'what this government is for'); most new governments meet a crisis in their first months (estimate); about 1 life in two to three million heads a government (catalogue share; estimate), so about 1 in four to six million meet it
+holds: head of government
+stakes: .8
+tone: trouble
+life: public life, work
+horizon: months
+roles: colleague, rival, elder
+earth: ten weeks in, the first crisis: a flood, a failing bank, a strike or trouble at the border, and every eye on the new head of government
+tribal: two moons in, the first hard moon as chief: raiders on the far bank or a flood that drowns a camp, and every clan watching what the new chief does
+magic: ten weeks in, the first storm of the new Chancellery: a surge of wild magic in a northern city, a guild revolt or a blight, and the court watching
+requires: in the threshold season of head of government, within the first six months after taking the title: step 2, some weeks into office, when the first crisis of the term breaks
+likelier: hard years (unrest, a harsh season); a government elected in a crisis; a thin majority
+rarer: calm and prosperous years; a head of government who takes over a crisis already under control
+scene: Ten weeks in, the first real crisis lands: {disaster} in the north, or a bank in trouble, and the news has nothing else. The cabinet room fills. Every option has a cost, and the new government will be judged by the next three days.
+scene W: There is a plan for this, written years ago and kept in a binder. {N} asks for it first.
+scene U: {N} wants the facts before the decisions: the numbers, the models and the experts, all in one room, now.
+scene B: A crisis is also a chance: to act fast, to look strong, to get through measures that would never pass in a calm week.
+scene R: {N} wants to be there, on the ground, with the people it is happening to, not in a meeting room.
+scene G: {N} remembers how the old leaders handled the last crisis like this, and what the country needed then: calm, and time.
+scene tribal: Two moons in, raiders cross the far river, or a flood drowns a camp, and every clan watches what the new chief does.
+scene magic: Ten weeks into the new Chancellery a surge of wild magic tears through a northern city, and the court and the Orders watch what the Chancellor does.
+- W | follow the emergency plan the state already has, step by step, and chair every meeting | v: security, conformity | tribal: follow the old ways the clans keep for such times, step by step, and lead every council | magic: follow the realm's old plan for such times, step by step, and chair every council | chance: 75
+- U | bring the best experts into one room, and decide nothing until you have the facts | door | v: universalism, achievement | tribal: call those who know the land and the weather best, and decide nothing until you know | magic: summon the best scholars and mages into one room, and decide nothing until you have the facts | chance: 70
+- B | use the crisis to push through powers the government has wanted for years | v: power | tribal: use the danger to take powers the chief's fire has long wanted | magic: use the crisis to take powers the Chancellery has wanted for years | chance: 58
+- R | go to where it is happening the same day, and stand with the people there | door | body: light | v: benevolence, stimulation | tribal: go to the stricken camp the same day, and stand with its people | magic: ride to the stricken city the same day, and stand with its people | chance: 92
+- G | stay calm, do less, and let the country's old institutions do what they know | v: tradition | tribal: keep calm, do little, and let each clan do what it has always done in hard times | magic: keep calm, do less, and let the old Orders and guilds do what they know | chance: 40
+- W>B | take personal charge of the response, with a daily briefing you give yourself | v: power | grants: handling the press | tribal: take the whole response into your own hands, and speak to the clans every evening | magic: take the response into your own hands, and send out a herald's bulletin every day | chance: 75
+- U>R | throw out the old plan, and improvise a new one from the facts, fast | v: self-direction | chance: 40
+- B>G | strike a quick deal with the big firms to keep the jobs in the stricken region | v: power | tribal: strike a quick bargain with the strongest clan to feed the stricken camps | magic: strike a quick bargain with the merchant houses to keep the stricken city fed | chance: 62
+- R>W | tell the country the plain truth tonight, the bad parts included | v: universalism | grants: a name for straight talk | tribal: tell all the clans the plain truth at the fire tonight, the worst of it too | magic: tell the realm the plain truth by the heralds tonight, the worst of it too | chance: 75
+- G>U | call the leader who handled the last crisis like this, and ask what they learned | door | v: tradition, achievement | tribal: go to the old chief who led the clans through the last such time, and ask what was learned | magic: seek out the old Chancellor who weathered the last such storm, and ask what was learned | chance: 80
+works: The crisis passes, the response holds, and the country decides the new head of government can be trusted with a hard week.
+works: Even the other side admits, grudgingly, that it was handled well.
+fails: The response stumbles in the first days, and the stumble becomes the story of the government.
+fails: The crisis passes, but one decision taken in the heat of it will cost {N} for years.
+
+# ---------------------------------------------------------------- 90. step 2, transform (cycle s3)
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 3 options (check.py section 4).
+== what this government is for
+tier: inner
+threshold: title:head of government
+step: 2
+transform: yes
+stages: adult mature elder
+age: 30-95
+times: per new head of government: once in the threshold season, for about half of new heads of government (the season's middle step brings this moment or 'the government's first crisis'); about 1 life in two to three million heads a government (catalogue share; estimate), so about 1 in four to six million meet it
+holds: head of government
+stakes: .8
+tone: mixed
+life: public life, meaning
+horizon: years
+roles: colleague, rival, partner
+earth: ten weeks in, the work of government has filled every hour, and you must decide what this government is for before the days decide it for you
+tribal: two moons in, the clans followed you for a reason, and before the summer ends you must say what your time as chief is for
+magic: ten weeks in, the throne asks its new Chancellor, before the whole court, what this Chancellery will be remembered for
+requires: in the threshold season of head of government, within the first six months after taking the title: step 2, the season's transforming chance, once the first weeks of governing have shown how little time there is
+likelier: a government with a majority and a full term ahead; a leader who won on a mood rather than a programme
+rarer: a caretaker or a minority government living week to week
+scene: Ten weeks in, the diary is full and the crises keep coming. One evening {N} sits with a blank sheet of paper and the cabinet's long list, and asks the question the campaign never had time for: what is this government for?
+scene W: {N} thinks of the constitution, the courts, the civil service: the institutions that must still stand when {N} is gone.
+scene U: {N} sees the long game: the plans that will take ten years, and the strategy that keeps a government alive long enough to finish them.
+scene B: Power is a window that closes. {N} knows how many months of real authority a new government has, and means to use every one.
+scene R: {N} remembers the faces in the crowds during the campaign, the angry and the hopeful. This government is for them, or it is for nothing.
+scene G: {N} thinks of the country as something old and living: its land, its towns, its ways. A government should guard it, not remake it.
+scene tribal: The clans followed {N} for a reason. Before the summer ends {N} must say at the great fire what this time as chief is for.
+scene magic: Before the whole court the throne asks its new Chancellor what this Chancellery will be remembered for, and the Orders lean in to hear the answer.
+- W | govern through the institutions, and leave them stronger than before | identity | v: universalism, security | tribal: lead through the clans' councils and customs, and leave them stronger than before | magic: govern through the Assembly, the courts and the Orders, and leave them stronger than before | chance: 72
+- U | set three long goals, plan every year toward them, and promise nothing you cannot measure | identity | v: achievement, self-direction | tribal: set three long aims for the clans, plan every season toward them, and promise nothing you cannot show | chance: 72
+- B | gather every lever of the state into your own office, and use them while they last | identity | v: power | tribal: gather every power of the gathering into your own hands, and use them while they last | magic: gather every lever of the realm into the Chancellery, and use them while they last | chance: 75
+- R | govern as the voice of the people who sent you, and say so every day | identity | binds | v: universalism, stimulation | grants: rousing a crowd | tribal: lead as the voice of the bands who raised you, and say so at every fire | magic: govern as the voice of the common folk who raised you, and say so in every square | chance: 75
+- G | guard the country's land, towns and ways, and change only what must change | identity | v: tradition | tribal: guard the clans' lands, hunts and ways, and change only what must change | magic: ask the oldest oracle of the realm what the land needs, and guard that above all | chance: 72
+- W>R | write a charter of the people's rights, and bind the government to it | identity | binds | v: universalism, self-direction | tribal: set down before all the clans what no chief may take from a family, and bind yourself to it | magic: draft a charter of the people's rights, and bind the Chancellery to it by oath | chance: 30
+- U>G | plan a generation's renewal of the land, the rivers and the forgotten towns | identity | binds | v: universalism, tradition | tribal: plan, for a generation, how the clans can share the valley's land and rivers | magic: plan a generation's renewal of the land, the rivers and the forgotten towns of the realm | chance: 58
+- B>W | build a coalition so broad that nobody can bring the government down | identity | binds | v: power | grants: coalition building | tribal: bind so many clans to your fire that nobody can bring you down | magic: bind so many factions and Orders to you that nobody can bring the Chancellery down | chance: 35
+- R>U | try bold reforms quickly, and keep only what works | identity | v: stimulation, achievement | tribal: try new ways quickly, and keep only what works | chance: 40
+- G>B | make the country strong on its own: its food, its energy and its towns | identity | binds | v: power, tradition | tribal: make the clans strong on their own: their food, their stores and their camps | magic: make the realm strong on its own: its grain, its mines and its towns | chance: 65
+works: The answer, once given, holds: ministers, officials and the country start to know what the government is for.
+works: Months later people who never backed {N} can still say what {N} stands for, and say it fairly.
+fails: The answer is lost in the next week's crises, and the government drifts from day to day.
+fails: What {N} says the government is for and what it does start to drift apart, and the other side notices first.
+
+# ---------------------------------------------------------------- 91. step 3 (cycle s4)
+
+== the country gets used to your face
+tier: inner
+threshold: title:head of government
+step: 3
+stages: adult mature elder
+age: 30-95
+times: per new head of government: once, about five months after taking the title, near the end of the threshold season; about 1 life in two to three million (catalogue share; estimate)
+holds: head of government
+stakes: .8
+tone: mixed
+life: public life, family, friends
+horizon: months
+roles: partner, friend, colleague
+earth: five months in, the country has got used to your face: comedians do your voice, strangers know your walk, and your family lives behind a police cordon
+tribal: five moons in, every clan knows your face, the singers make songs of you, and your kin cannot go to the river without being stared at
+magic: five months in, your likeness is on the broadsheets in every city, the minstrels mock your walk, and your household lives behind warded doors
+requires: in the threshold season of head of government, within the first six months after taking the title: step 3, near the end of the six months, as the office becomes the person's daily life
+likelier: a leader new to fame; a family that had a private life before; old friends who stayed in the home town
+rarer: a leader who was already a household name; a leader with no family at home
+scene: Five months in, the country has got used to {N}. A comedian on television does {Ns} voice better than {N} does, {partner} has given up going to the supermarket, and every old friend either has a favour to ask or has stopped calling.
+scene W: {N} has learned the weight of the office: every word is weighed and every gesture read. {N} carries it carefully, and it is heavy.
+scene U: {N} studies the polls and the clips, and finds it strange to read about a person who both is and is not {N}.
+scene B: Recognition is power. A face the whole country knows opens any door, and {N} has stopped pretending not to enjoy it.
+scene R: {N} misses walking down a street unseen, sitting in a pub, saying something foolish without it being news.
+scene G: The house in the home town stands empty most weeks. The neighbours keep an eye on it, and send word that the garden is overgrown.
+scene tribal: Five moons in, every clan knows {Ns} face, the singers make mocking songs of {Ns} walk, and {partner} cannot go to the river without being stared at.
+scene magic: Five months in, {Ns} likeness is on broadsheets in every city, the minstrels mock {Ns} walk, and the household lives behind warded doors.
+- W | keep to the duties of the office in public, and never let the mask slip | v: conformity, security | self_control: + | tribal: keep to the chief's duties before the clans, and never let the mask slip | chance: 84
+- U | study how the country sees you, and change one thing a month on purpose | v: achievement, self-direction | tribal: listen to how the clans speak of you, and change one thing each moon on purpose | magic: study how the realm sees you, and change one thing each month on purpose | chance: 85
+- B | use the famous face: every visit, every handshake, every photograph, for the next election | v: power, achievement | tribal: use the face every clan knows: every visit, every gift, every feast, for the next gathering | magic: use the face the realm knows: every visit, every handshake, every portrait, for the next lots | chance: 80
+- R | slip out one evening without the cameras, and have a drink with old friends | habit | v: hedonism, self-direction | tribal: slip away one night without your guards, and sit at an old friend's fire | magic: slip out one evening without the guards, and drink with old friends in a tavern | chance: 65
+- G | go home to your own town one weekend a month, and walk its streets as before | v: tradition, benevolence | self_control: + | tribal: go back to your own band's camp each moon, and walk among its hearths as before | magic: go home to your own town each month, and walk its lanes as before | chance: 65
+- W>G | hold an open door every week for people from every part of the country | v: benevolence, universalism | tribal: keep your fire open each moon to anyone from any clan | magic: hold an open audience every week for anyone from any part of the realm | chance: 70
+- U>W | set clear rules on what friends and family may ask of the office | v: conformity, security | tribal: tell your kin and friends plainly what they may and may not ask of the chief | chance: 92
+- B>U | hire the best people money can buy to manage your image and your diary | v: achievement, power | tribal: gather the cleverest young ones to shape how the clans see you | magic: hire the best heralds and secretaries gold can buy to manage your name and your days | chance: 92
+- R>B | laugh at the comedians in public, and do the voice better than they do | v: stimulation, power | tribal: laugh at the singers' mocking songs, and sing them back better at the fire | magic: laugh at the minstrels' mockery in public, and do the voice better than they do | chance: 75
+- G>R | plant a tree in the official garden with your family, and keep one corner wild | body: light | v: hedonism, benevolence | tribal: plant a sapling by the chief's fire with your kin, and leave one patch wild | magic: plant a tree in the Chancellery garden with your household, and keep one corner wild | chance: 96
+works: The country's gaze becomes something {N} can carry, and the family finds a way to live inside it.
+works: {partner} says one evening, laughing, that they have got used to the face too.
+fails: The attention never lets up, and {N} snaps in public at the end of a long week.
+fails: An old friend sells a story about {N}, and the family closes ranks a little tighter.

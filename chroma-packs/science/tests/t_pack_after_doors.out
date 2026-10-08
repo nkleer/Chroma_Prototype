@@ -1,0 +1,67 @@
+200 lives, seed 11; pack items 46
+item                                         kind      sim    catalogue
+  research assistant                         title    0.0750  0.0200
+  research scientist                         title    0.1050  0.0120
+  research project lead                      title    0.0100  0.0050
+  research group leader                      title    0.0050  0.0020
+  research facility lead                     title    0.0000  0.0005
+  independent investigator                   title    0.0000  0.0005
+  research software engineer                 title    0.0050  0.0020
+  research data steward                      title    0.0150  0.0010
+  evidence synthesis specialist              title    0.0000  0.0005
+  science communication specialist           title    0.0050  0.0010
+  participatory research coordinator         title    0.0050  0.0005
+  citizen scientist                          title    0.3800  0.0600
+  community observer                         title    0.0900  0.0200
+  volunteer research organiser               title    0.0300  0.0030
+  postdoctoral researcher                    title    0.0400  0.0060
+  professor                                  title    0.0000  0.0020
+  known across the country                   perk     0.0050  0.0030
+  a household name                           perk     0.0000  0.0003
+  experimental design                        perk     0.0800  0.0100
+  statistical judgment                       perk     0.0150  0.0200
+  instrument troubleshooting                 perk     0.0050  0.0100
+  fieldwork                                  perk     0.1200  0.0100
+  qualitative interpretation                 perk     0.0350  0.0080
+  reproducible workflow                      perk     0.0200  0.0080
+  evidence synthesis                         perk     0.0350  0.0040
+  supervising researchers                    perk     0.0350  0.0060
+  credit negotiation                         perk     0.0600  0.0060
+  community listening                        perk     0.1100  0.0100
+  grant writing                              perk     0.1550  0.0080
+  project triage                             perk     0.0100  0.0060
+  explaining science                         perk     0.0300  0.0080
+  research integrity                         perk     0.0350  0.0100
+  automating analysis                        perk     0.0050  0.0060
+  a nose for the odd result                  perk     0.2200  0.0100
+  institutional affiliation                  perk     0.1750  0.0300
+  ethics approval                            perk     0.0150  0.0060
+  field permit                               perk     0.0100  0.0050
+  instrument time                            perk     0.0000  0.0060
+  a research project under way               perk     0.1950  0.0300
+  a dataset others use                       perk     0.0000  0.0040
+  a finding that held up                     perk     0.0100  0.0040
+  a method others use                        perk     0.0100  0.0020
+  research collaborators                     perk     0.0450  0.0100
+  former students                            perk     0.0350  0.0040
+  community partners                         perk     0.0250  0.0050
+  a loyal research team                      perk     0.0050  0.0020
+pack titles a life: sim 0.765, catalogue 0.136; perks: sim 1.500, catalogue 0.251
+pack moments met: 14.53 a life; lives that met any: 0.79
+  your record does not match the official one           393  lives 68
+  the developers want your survey                       368  lives 18
+  forty years of rain in one notebook                   350  lives 18
+  the same stretch of river, every Sunday               350  lives 68
+  the funding call closes on Friday                     230  lives 34
+  a scientist wants your volunteers' data               147  lives 5
+  the finding will not leave you alone                  147  lives 103
+  volunteers drifting away                               86  lives 5
+  the reviewers come back                                82  lives 16
+  a careful result that says no                          75  lives 17
+  pressure to say more than the data show                54  lives 16
+  the field season is lost                               52  lives 16
+  whose name goes first                                  48  lives 15
+  a question from childhood comes back                   46  lives 46
+title seasons opened: Counter({'research scientist': 23, 'research group leader': 1})
+aims set: 3
+pie at 40, pack on: [0.196 0.167 0.168 0.241 0.228]  at 70: [0.249 0.152 0.159 0.202 0.238]

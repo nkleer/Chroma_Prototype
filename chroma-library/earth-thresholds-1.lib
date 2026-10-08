@@ -1,0 +1,695 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: THRESHOLD SEASONS, part 1 (Emren's point 6, card "Threshold season"): the crossings
+# into juvenile (ages 11 to 13), young adult (17 to 20) and adult (24 to 32). Six moments per crossing: two at step 1
+# (the crossing itself), two at step 2 with transform: yes (the in-between weeks, each with a chance that can change
+# the character), two at step 3 (settling into the new life). Every moment is everyday, color-even by itself (the five
+# one-color options plus one full cross cycle; build.py takes only cross cycles in everyday moments), and happens once.
+# Brief: drafts/next2/BRIEF.md. Syntax: header of build.py. Rules: library-spec.md.
+# Calls over the file: W 8, U 7, B 7, R 7, G 7 (all ten pairs at least once). Cycles: s1 5, s2 5, s3 4, s4 4.
+
+# ================================================================ into juvenile (ages 11 to 13): leaving childhood
+
+# ---------------------------------------------------------------- step 1, calls WG (cycle s1)
+
+== the last afternoon of primary school
+tier: everyday
+at: school
+stages: juvenile
+age: 11-13
+calls: WG
+threshold: juvenile
+step: 1
+once: yes
+tone: mixed
+life: school, friends
+horizon: moment
+roles: friend, parent, a teacher, the little ones
+earth: the last afternoon at primary school: shirts signed in felt pen, the teacher's goodbye, a gate you will not walk through again
+times: Nearly every child, once, on the last afternoon of primary school at 10 to 12; most school systems move children to a bigger school around then (estimate)
+scene: On the last afternoon of primary school the class signs each other's shirts in felt pen, and the teacher who has known {N} since the first day keeps finding reasons to look out of the window.
+scene W: There is a card for the teacher with every name in the class on it, and someone has to stand up and give it. {N} has practised the words all week.
+scene U: {N} looks round the classroom and tries to fix it in memory: the crack in the window, the reading corner, the smell of the radiator. In September none of it will be theirs.
+scene B: Next year {N} will be the smallest again. For one more afternoon {N} is among the oldest in the building, and the little ones still step aside in the corridor.
+scene R: The bell goes at three, and then it is summer, and then everything changes. {N} wants to scream and cry at the same time.
+scene G: {N} walks past the coat peg that has carried {Ns} name since the first week. {friend} is beside {N}, the way {friend} always has been.
+- W | stand up and give the teacher the class card, with the words you practised | v: benevolence, tradition | chance: 85
+- U | write a letter to yourself, sealed, to be opened when you turn eighteen | v: self-direction | act: write a letter to themselves, sealed, to be opened when they turn eighteen | chance: 95
+- B | get the teacher to write a glowing note about you for the new school | v: achievement | act: get the teacher to write a glowing note about them for the new school | chance: 80
+- R | spray the others with water at the gate and run off shrieking into the summer | body: light | v: hedonism, stimulation | chance: 88
+- G | walk round the playground one last time and say goodbye to each corner of it | v: tradition | chance: 95
+- W>U | ask the teacher what the big school will really be like, and listen to every word | v: self-direction, security | chance: 88
+- U>B | find out who else is going to your new school, and decide who to stick with | v: security, power | chance: 80
+- B>R | sell your old textbooks to the year below at the gate, and spend it on summer | v: hedonism, achievement | chance: 70
+- R>G | hug your best friend, crying, and swear that nothing between the two of you will change | binds | v: benevolence | act: hug their best friend, crying, and swear that nothing between the two of them will change | role: women | chance: 72
+- G>W | stay behind to help take down the old displays, as the leavers always have | v: tradition, conformity | chance: 88
+works: The afternoon ends with everyone at the gate, and {N} walks home in a shirt covered in names.
+works: {N} keeps the day whole, and years later can still call up every part of it.
+fails: The bell goes before {N} has said goodbye to anyone who mattered.
+fails: Something small goes wrong in front of the whole school, and it is the thing {N} remembers.
+
+# ---------------------------------------------------------------- step 1, calls UB (cycle s2)
+
+== the first morning at the big school
+tier: everyday
+at: school
+stages: juvenile
+age: 11-13
+calls: UB
+threshold: juvenile
+step: 1
+once: yes
+tone: mixed
+life: school
+horizon: moment
+roles: friend, parent, a form tutor, the older pupils
+earth: the first morning at secondary school: a timetable you cannot read, four floors of corridors, and pupils who look like grown-ups
+times: Nearly every child, once, on the first morning at secondary or middle school, at 10 to 12; in England nearly all pupils start secondary school at 11 (estimate)
+scene: On the first morning at the big school {N} stands in a corridor with a timetable that makes no sense, while pupils who look like grown adults stream past on both sides.
+scene W: The uniform is stiff, the tie took three tries, and the school rules are printed inside the planner. {N} has read them twice on the bus.
+scene U: Four floors, three staircases and a room called L14 that seems not to exist. {N} unfolds the map and starts working out the logic of the building.
+scene B: Within an hour {N} can see who runs the corridors, which table in the canteen belongs to whom, and which older pupils even the teachers handle carefully.
+scene R: Nobody here holds {Ns} hand to cross anything. The bus, the gates, a thousand new faces: {N} feels the size of it like a plunge into cold water.
+scene G: {friend} from the old class is in the same form, and {N} keeps {friend} in sight all morning like a landmark on a hill.
+- W | arrive early, find the form room, and sit exactly where the tutor points | v: conformity, security | chance: 92
+- U | spend the first break walking the whole building until you know every staircase | v: self-direction | chance: 88
+- B | make yourself useful to the older pupil who seems to run the corridor | v: power, security | act: make themselves useful to the older pupil who seems to run the corridor | chance: 70
+- R | get lost on purpose and look behind the doors marked staff only | v: stimulation | closed: approval: going where pupils are not allowed; backfire: caught, and a detention in the first week | chance: 65
+- G | stay close to the one friend from your old class all day | v: security | chance: 75
+- W>B | put your hand up to be form representative on the very first day | v: power, achievement | chance: 45
+- U>R | read the list of lunchtime clubs and sign up for the strangest one on it | v: stimulation, self-direction | chance: 85
+- B>G | gather the kids from your street into a crew that walks home together | v: security | mark: made a friend | chance: 85
+- R>W | step in when a small kid is being shoved on the stairs | body: light | v: benevolence, universalism | mark: helped someone in need | chance: 65
+- G>U | ask the caretaker, who has been here thirty years, how the place really works | v: tradition, self-direction | chance: 75
+works: By lunchtime {N} knows where the toilets are, has a seat at a table, and has not cried once.
+works: The day goes better than {N} feared, and on the bus home it is all {N} can talk about.
+fails: {N} is late to three lessons and gets the same telling-off three times.
+fails: Someone older picks {N} out on the first morning, and the day becomes something to get through.
+
+# ---------------------------------------------------------------- step 2, transform, calls BR (cycle s3)
+
+== nobody at the new school knows who you were
+tier: everyday
+at: school
+stages: juvenile
+age: 11-13
+calls: BR
+threshold: juvenile
+step: 2
+transform: yes
+once: yes
+tone: mixed
+life: school, self
+horizon: months
+roles: friend, parent, sibling, the new classmates
+earth: a few weeks into the new school you realise that nobody here knows the nickname, the bad year or the quiet kid you used to be
+times: Many children, once, a few weeks into secondary school; most of all those who arrive knowing few of their new classmates (estimate)
+scene: A few weeks in, it dawns on {N} that nobody here knows about the nickname, the crying at sports day, or the year {N} hardly spoke. {N} could be anyone.
+scene W: At the old school {N} was always the one who got told off. Here the record is clean, and {N} wonders what it would be like to be the one the teachers trust.
+scene U: {N} watches how the others decide who is who in the first weeks, from the clothes, the jokes and the speed of an answer, and sees that all of it can be learned.
+scene B: Nobody here knows that {Ns} family has no car, or which estate {N} comes from. The story of who {N} is has not been told yet, so {N} can tell it.
+scene R: The old self feels like a coat that never fitted. {N} wants to throw it off all at once and see who is underneath.
+scene G: {N} catches a reflection in the bus window: taller, the face changing. Whatever {N} is becoming is already on its way, whatever anyone decides.
+- W | join the scouts or guides and make the promise, uniform and all | identity | binds | v: conformity, tradition | title: scout or guide | chance: 85
+- U | choose the person you mean to become, and practise being them every day | identity | habit | v: self-direction | self_control: + | act: choose the person they mean to become, and practise being that person every day | chance: 55
+- B | invent a better past: a famous uncle, a house abroad, a fight you won | identity | v: power | chance: 62
+- R | go by your middle name, cut your hair short, and answer to nothing else | identity | v: self-direction, stimulation | chance: 75
+- G | stay exactly who you were, and let the right people find you | identity | v: tradition, security | mark: turned down a chance | act: stay exactly who they were, and let the right people find them | chance: 60
+- W>R | audition for the school play, the last thing anyone who knew you would expect | door | v: stimulation, self-direction | act: audition for the school play, the last thing anyone who knew them would expect | chance: 50
+- U>G | spend the evenings finding out who you are, in a notebook nobody reads | habit | v: self-direction | chance: 85
+- B>W | make friends with the teachers' pet, and become one of the trusted ones | v: power, conformity | chance: 70
+- R>U | throw yourself into the one subject that lights you up, and be known for it | v: achievement, self-direction | grants: teachers' favourite | act: throw themselves into the one subject that lights them up, and be known for it | self_control: + | chance: 75
+- G>B | lean on your older cousins' name, so nobody at the new school dares touch you | v: power, security | act: lean on their older cousins' name, so nobody at the new school dares touch them | chance: 55
+works: By half term the new {N} feels less like a costume and more like a fit.
+works: The others take {N} the way {N} chooses to be seen, and something in {N} settles.
+fails: Someone from the old school turns up in the same class, and the old story arrives with them.
+fails: The new self is hard to keep up, and by the end of term {N} is worn out by it.
+
+# ---------------------------------------------------------------- step 2, transform, calls RG (cycle s4)
+
+== a friend whose family lives on the river
+tier: everyday
+stages: juvenile
+age: 11-13
+calls: RG
+threshold: juvenile
+step: 2
+transform: yes
+once: yes
+tone: joy
+life: friends, nature, home
+horizon: months
+roles: friend, parent, the friend's family
+earth: a new friend from the big school lives on a narrowboat with a family who keep no clock, and wants you aboard every weekend
+times: Rare: perhaps 1 child in 20 or fewer, once, in the first months at the new school; few families live aboard a boat or as freely as this (estimate)
+scene: {friend}, a new friend from the big school, lives on a narrowboat with a family who cook on a wood stove, keep no clock and swim off the back of the boat. Every Friday {friend} asks {N} to come aboard for the weekend.
+scene W: {Ns} home runs on mealtimes, homework and bedtimes. On the boat nobody sets a bedtime, and {N} cannot decide whether that is wonderful or wrong.
+scene U: The boat runs on a solar panel, a water tank and a dozen tricks that {friend}'s mother explains as she goes. {N} wants to know how every one of them works.
+scene B: {friend}'s family owns almost nothing and seems to need nothing. {N} watches them swap eggs for diesel with the next boat along, and takes note.
+scene R: Leaping off the roof into the canal, fires on the towpath, whole days outdoors: {N} has never felt so free.
+scene G: A heron at dawn, a kingfisher under the bridge, the water moving under the bunk all night. {N} sleeps on the boat better than anywhere.
+- W | promise to keep up at school in return for weekends aboard, and keep it | v: conformity, security | mark: kept your word | self_control: + | chance: 75
+- U | learn everything the boat can teach: knots, engines, locks and weather | v: self-direction | grants: boat handling | mark: learned a skill | chance: 70
+- B | make the boat a second home, and play the two homes off against each other | v: self-direction, power | chance: 72
+- R | go every weekend and the whole half-term, whatever anyone says at home | habit | v: stimulation, hedonism | mark: defied an authority | closed: approval: against the parents' wishes; backfire: grounded, and a row that lasts | chance: 70
+- G | let the river slow you down, and learn to sit still and watch the water | habit | v: universalism (nature) | act: let the river slow them down, and learn to sit still and watch the water | self_control: + | chance: 60
+- W>G | bring your family down to the towpath to meet them, so both homes are one | v: benevolence, tradition | chance: 55
+- U>W | promise to help your friend every week with the schoolwork the boat life misses | binds | v: benevolence, achievement | chance: 65
+- B>U | trade your old games to the mechanic on the next boat for lessons on the engine | door | v: achievement, self-direction | grants: fixing things | mark: made a friend | chance: 75
+- R>B | take the tiller without asking, to show off to the older kids on the towpath | body: light | v: power, stimulation | closed: approval: steering without leave; backfire: a scrape on the lock gate, and the family's trust gone | chance: 68
+- G>R | follow the river with your friend for a whole day, wherever it goes | body: light | v: self-direction, stimulation | mark: took a wild risk | closed: approval: gone all day without telling anyone; backfire: a search, and a ban on the boat | chance: 55
+works: The boat becomes a second world for {N}, and {N} comes home from it a little different each time.
+works: Both families come round to it, and {N} has the river as well as home.
+fails: The boat moves on to another stretch of water, and the weekends go with it.
+fails: A row at home puts the boat out of bounds, and {friend} drifts away with it.
+
+# ---------------------------------------------------------------- step 3, calls UR (cycle s1)
+
+== the first Saturday in town without a grown-up
+tier: everyday
+stages: juvenile
+age: 11-13
+calls: UR
+threshold: juvenile
+step: 3
+once: yes
+tone: joy
+life: friends, freedom, money
+horizon: moment
+roles: friend, parent, grandparent
+earth: the first Saturday you may go into town with friends on the bus, with a little money, a phone and a time to be home by
+times: Most children, once, at about 11 to 13, the first time they may go into town with friends alone; that age has risen since the 1970s (Policy Studies Institute, children's independent mobility)
+scene: For the first time {N} is allowed into town on the bus with {friend}, with a little money, a charged phone and a promise to be home by five.
+scene W: {parent} made {N} repeat the rules at the door: stay together, keep the phone on, home by five. {N} means to keep every one of them.
+scene U: {N} has the bus times saved and a plan for the day: the comic shop, the market, the top floor of the library, in that order.
+scene B: Money in a pocket and nobody to say no: {N} has wanted the trainers in the sports-shop window for months, and today is the day to work out how.
+scene R: The bus doors fold open on the high street, and the whole town is noise and possibility. Nobody in the world knows exactly where {N} is.
+scene G: {N} walks the streets {grandparent} walked at the same age, past the same bakery and under the same clock on the town hall.
+- W | keep every rule you promised, and text home at each stop | v: conformity, security | mark: kept your word | tech: phone | chance: 85
+- U | find your way round town without looking at the map, to test yourself | v: self-direction | act: find their way round town without looking at the map, as a test | chance: 75
+- B | spend it all on the one thing that will impress the others on Monday | v: power, hedonism | self_control: - | chance: 90
+- R | change the plan halfway and jump on a bus to wherever it goes | v: stimulation | closed: approval: off the agreed route; backfire: lost, with a dead phone | chance: 72
+- G | spend the afternoon on the grass by the river, just sitting with your friends | v: hedonism, benevolence | chance: 92
+- W>U | get a library card in your own name, signed and stamped | door | v: self-direction, conformity | chance: 92
+- U>B | work out which usher never checks, and get into the older film | v: hedonism, self-direction | closed: approval: an age-rated film; backfire: turned out, and home told | chance: 70
+- B>R | talk the market trader down to half price, and spend the rest on chips | v: hedonism, achievement | chance: 70
+- R>G | buy a goldfish on impulse and carry it home on the bus in its bag | v: hedonism, benevolence | chance: 88
+- G>W | buy a small present for home with the change, as your grandparent always did | v: benevolence, tradition | chance: 88
+works: {N} comes home on time, with a bag, a story and the feeling of being trusted.
+works: The day goes so well that next Saturday is agreed before tea.
+fails: The money and the time run out together, and {parent} has to come into town to fetch {N}.
+fails: Something goes wrong in town, and it is a while before {N} is let go alone again.
+
+# ---------------------------------------------------------------- step 3, calls WB (cycle s2)
+
+== the table where you sit now
+tier: everyday
+at: school
+stages: juvenile
+age: 11-13
+calls: WB
+threshold: juvenile
+step: 3
+once: yes
+tone: mixed
+life: friends, school
+horizon: months
+roles: friend, grandparent, rival, the new crowd
+earth: by the second term you have a table in the canteen and a crowd of your own, and your best friend from the old school sits at another one
+times: Most children, once, in the first terms at secondary school, as friendships regroup; many primary school friendships fade after the move (estimate)
+scene: By the second term {N} has a regular table in the canteen and a crowd to sit with. {friend}, the best friend from the old school, sits two tables away with other people now.
+scene W: Every table has its rules about who sits where, who saves whose seat and who gets asked. {N} knows them now, and knows {friend} is no longer inside them.
+scene U: {N} watches the canteen like a map: who moved table this week, who is drifting, who brought {friend} into their group and why.
+scene B: {Ns} new table is one along from the window, and the window table is where the people everyone watches sit. One more step and {N} is there.
+scene R: Sometimes {N} looks across at {friend} laughing with strangers and feels it like a stitch in the side.
+scene G: Friends come and go like the seasons, {grandparent} says. {N} is not sure yet whether to believe it.
+- W | ask the new kid who eats alone to come and sit at your table | v: benevolence | mark: helped someone in need | chance: 75
+- U | keep a friend at every table, and belong to none of them completely | v: self-direction | chance: 60
+- B | drop the friends who are going nowhere, and move up to the window table | v: power, achievement | mark: made an enemy | chance: 60
+- R | march over to your old friend's table and sit down as if nothing has changed | v: benevolence, stimulation | chance: 70
+- G | let the old friendship rest, trusting it is still there underneath | v: security, tradition | chance: 55
+- W>B | tell the head about the window table's vaping, and move in when they are gone | v: power, conformity | closed: approval: telling on classmates; backfire: everyone learns who told | chance: 55
+- U>R | start a lunchtime club for the game you love, and see who turns up | v: self-direction, stimulation | chance: 55
+- B>G | keep your old friend close in secret, while being seen with the new crowd | v: security, benevolence | chance: 70
+- R>W | tell your table to stop mocking a kid from your old school, and mean it | v: universalism, benevolence | chance: 70
+- G>U | ask your grandparent how they kept their oldest friend for sixty years | v: tradition, benevolence | chance: 80
+works: {N} ends the year with a place that feels like {Ns} own, and nobody who mattered left behind.
+works: The tables settle, and {N} finds that a friendship can change shape without ending.
+fails: {N} picks a side, and the other side remembers.
+fails: By summer {N} has a table but nobody at it {N} could call in trouble.
+
+# ================================================================ into young adult (ages 17 to 20): leaving school and home
+
+# ---------------------------------------------------------------- step 1, calls WR (cycle s3)
+
+== pens down on the last exam
+tier: everyday
+at: school
+stages: young_adult
+age: 17-20
+calls: WR
+threshold: young adult
+step: 1
+once: yes
+tone: joy
+life: school, friends
+horizon: moment
+roles: friend, parent, a teacher, an uncle
+earth: the invigilator says pens down on your very last school exam, and outside the hall it is summer
+times: Most young people, once, at 16 to 19, at the end of their last school exams; about 9 in 10 US adults have finished high school (Census)
+scene: The invigilator says pens down on {Ns} very last exam, and thirteen years of school stop in a single breath. Outside the hall it is June.
+scene W: {N} lays the pen beside the paper, waits to be dismissed and files out in line, as {N} has done a hundred times. This is the last time.
+scene U: Question seven is still turning over in {Ns} head. Somewhere between the hall and the car park {N} realises that it no longer matters to anyone.
+scene B: Everything {N} has done for years has been aimed at the grades. Now the grades are out of {Ns} hands, and the next move is {Ns} own.
+scene R: The doors crash open and the whole year pours out into the sun, ties off, bottles fizzing, somebody already in the fountain.
+scene G: {N} looks back at the school from the gate: the windows, the playing field, the hedge with the gap in it. It is already the past.
+- W | go back in and thank the teachers who got you through, one by one | v: benevolence, tradition | act: go back in and thank the teachers who got them through, one by one | chance: 90
+- U | check every answer online that same night, question by question | v: achievement, security | self_control: - | tech: internet | chance: 95
+- B | go straight to the job you lined up, and start earning that same afternoon | v: achievement, power | self_control: + | chance: 92
+- R | cram into a friend's car and race the others to the coast, music up | v: hedonism, stimulation | mark: took a wild risk | death_if_fails: 0.003 | chance: 85
+- G | sit on the field where you sat at eleven, and let it all sink in | v: tradition | chance: 88
+- W>R | organise the whole year's week of camping on the coast, as everyone promised | v: hedonism, benevolence | chance: 68
+- U>G | set off on the long coast walk you mapped out during revision | v: universalism (nature), self-direction | chance: 85
+- B>W | ask the head for a reference now, while your name is still fresh | v: achievement, security | chance: 85
+- R>U | on a whim, sign up for the summer language course that starts on Monday | door | v: stimulation, self-direction | chance: 82
+- G>B | ring your uncle tonight and take the job in the family trade he always promised | v: security, achievement | chance: 70
+works: {N} walks out into the light feeling lighter than in years.
+works: The day turns into a night {N} will tell stories about for the rest of a lifetime.
+fails: The relief does not come; {N} feels oddly empty, as if something has been taken away.
+fails: The night gets out of hand, and the morning brings a mess to sort out.
+
+# ---------------------------------------------------------------- step 1, calls BG (cycle s4)
+
+== the morning you leave home
+tier: everyday
+stages: young_adult
+age: 17-20
+calls: BG
+threshold: young adult
+step: 1
+once: yes
+moves: yes
+tone: mixed
+life: home, family
+horizon: moment
+roles: parent, sibling, grandparent
+earth: the car is packed to the roof, your room is stripped to the mattress, and today you leave home to live on your own
+times: Nearly everyone, once, the first time they move out of the parental home, often at 18 to 25; the EU average age is about 26, nearer 21 in the Nordic countries (Eurostat)
+scene: The car is packed to the roof, {Ns} room is stripped to the bare mattress, and {parent} has been up since five, pretending to tidy.
+scene W: {N} has a folder: the tenancy, the bank card, a list of what goes where. Leaving home is a job to be done properly.
+scene U: {N} looks round the bare room and tries to work out which things were truly {Ns} and which only came with the house.
+scene B: No more asking, no more curfews, no more queueing for the bathroom behind {sibling}: from tonight {N} answers to nobody.
+scene R: {N} has wanted this day for years, and now that it is here {Ns} throat is tight and {N} cannot look at {parent}.
+scene G: {grandparent} has come round to wave {N} off, the way the family has always seen its young ones go, and presses something folded into {Ns} hand.
+- W | say a proper goodbye, and promise to ring home every Sunday | habit | v: tradition, benevolence | chance: 80
+- U | pack only what you used this year, and leave the rest behind for good | v: self-direction | chance: 90
+- B | take the good duvet, the toaster and anything else nobody will miss | v: hedonism, power | chance: 90
+- R | go quickly, without a long goodbye, while you still can | v: self-direction | act: go quickly, without a long goodbye, while they still can | chance: 90
+- G | take a cutting from the garden and a jar of the family's jam | v: tradition | chance: 92
+- W>G | let your parents drive you there and make up the new bed, as they want to | v: benevolence, tradition | chance: 88
+- U>W | brief your younger sibling on everything they need to know about your parents | v: benevolence | chance: 88
+- B>U | sell your old things online first, to pay for a term of books | v: achievement | tech: internet | chance: 85
+- R>B | tell your parents you will never need their money again | identity | v: self-direction, power | chance: 50
+- G>R | set off with nothing but a rucksack, the way your grandparent left their village | v: self-direction, tradition | chance: 70
+works: {N} unpacks the first box in the new room, and the strangeness turns slowly into a beginning.
+works: The goodbye is the right size, and {N} leaves with something settled between {N} and home.
+fails: The goodbye goes badly, and the first night in the new room is lonely in a way {N} did not expect.
+fails: Something that mattered is left behind, and the first week starts with a panic.
+
+# ---------------------------------------------------------------- step 2, transform, calls RG (cycle s1)
+
+== work and a room abroad, if you go this month
+tier: everyday
+stages: young_adult
+age: 17-20
+calls: RG
+threshold: young adult
+step: 2
+transform: yes
+once: yes
+tone: mixed
+life: work, travel, family
+horizon: years
+roles: parent, friend, a cousin abroad
+earth: a cousin abroad has a job in the family restaurant and a room above it for you, if you can be on a plane before the month is out
+times: Rare: perhaps 1 in 20 young people, once, at 17 to 20, gets an offer like this; about 1 in 28 people alive lives outside their country of birth (UN DESA 2020)
+scene: A cousin abroad has a job going in the family's restaurant and a spare room above it, if {N} can be on a plane before the month is out.
+scene W: {N} has a place at college in September and a promise to {parent} to take it. Going would break a plan everyone agreed on.
+scene U: A new language, a new country, a whole other way of living to learn from the inside. {N} has already found three phrasebooks and a map of the town.
+scene B: The pay is better than anything at home, the rent is almost nothing, and the cousin knows people. A year there could set {N} up.
+scene R: Sun, the sea, a life nobody at home can picture. {N} said yes in {Ns} heart before the message had finished.
+scene G: The cousin's family is {Ns} own family, only further away: the same recipes, the same arguments, a branch of the tree {N} has never met.
+- W | turn it down and take up the college place, as agreed | v: conformity, security | mark: turned down a chance | chance: 85
+- U | go for a year, learn the language properly, and come back with it | door | v: self-direction, achievement | mark: moved away | grants: second language | chance: 70
+- B | go, work every hour there is, and send nothing home until you have a stake | habit | v: achievement, power | mark: moved away | grants: savings | self_control: + | chance: 70
+- R | book the flight tonight and tell everyone afterwards | v: stimulation, self-direction | mark: moved away | title: waiter or bartender | tech: plane | chance: 75
+- G | go, and live with that branch of the family while it feels like home | door | v: tradition, benevolence | mark: moved away | grants: family abroad | chance: 68
+- W>U | defer the college place for a year, properly and in writing, and then go | v: self-direction, security | mark: moved away | chance: 65
+- U>B | go, and quietly learn the cousin's recipes and suppliers for a place of your own | v: achievement, power | mark: moved away | closed: approval: taking the family's trade secrets; backfire: a feud that splits the family | chance: 65
+- B>R | go without a work permit, and take your chances with cash jobs | v: stimulation, self-direction | mark: broke the law | closed: law: working without a permit; backfire: found out, sent home and barred from returning | chance: 65
+- R>G | go, fall for the place, and decide there and then to put down roots | v: security, self-direction | title: immigrant | chance: 45
+- G>W | stay, because the family needs a hand at home this year | v: benevolence, tradition | mark: turned down a chance | self_control: + | chance: 80
+works: The choice holds, and within a year {N} has a life that fits it.
+works: Doors open along the road {N} chose, and {N} turns out to be ready for them.
+fails: The plan falls apart within weeks, and {N} ends up back where {N} started, with less.
+fails: {N} keeps wondering about the other road, and the doubt spoils the one taken.
+
+# ---------------------------------------------------------------- step 2, transform, calls WU (cycle s2)
+
+== an apprenticeship that starts on Monday
+tier: everyday
+stages: young_adult
+age: 17-20
+calls: WU
+threshold: young adult
+step: 2
+transform: yes
+once: yes
+tone: mixed
+life: work, school
+horizon: years
+roles: mentor, parent, grandparent, a cousin
+earth: the builder you laboured for over the summer offers you an apprenticeship that starts on Monday, the same week as the course you signed up for
+times: Some school leavers, once, at 16 to 20; about half of young Germans start an apprenticeship (BIBB), far fewer in Britain or the US
+scene: {mentor}, the builder {N} laboured for over the summer, rings on a Thursday: there is an apprenticeship going, it starts on Monday, and it is {Ns} if {N} wants it. The college course starts the same week.
+scene W: An apprenticeship is a contract: four years, a trade and a ticket at the end. {N} likes the sound of something with a shape that clear.
+scene U: {N} has always learned faster with something in hand than with a book. The course is the theory; the apprenticeship is the real thing.
+scene B: An apprentice earns from the first week, while friends at college run up debts. {N} does the sums on the back of a receipt.
+scene R: {N} cannot stand the thought of three more years behind a desk. On the site last summer every single day felt like doing something.
+scene G: {Ns} grandfather was a joiner, and his tools are still in a box in {Ns} grandmother's shed. {N} has been thinking about that box all week.
+- W | take it, sign the papers, and be on site at seven on Monday | binds | v: conformity, achievement | title: apprentice | role: men | chance: 65
+- U | turn both down, and teach yourself to code at the kitchen table | v: self-direction, achievement | grants: writing code | self_control: + | mark: learned a skill | tech: computer | chance: 50
+- B | skip the paperwork, work cash in hand on sites, and save for your own van | v: power, achievement | title: builder | mark: broke the law | closed: law: undeclared cash work; backfire: no cover after an accident, and a tax bill | chance: 70
+- R | turn both down, and go travelling on the money from the summer | v: stimulation, hedonism | mark: turned down a chance | chance: 85
+- G | take it, and ask for your grandfather's old tools to start with | binds | identity | v: tradition | title: apprentice | role: men | chance: 65
+- W>B | keep the college place, because the qualification will pay more in the end | v: achievement, security | mark: turned down a chance | chance: 70
+- U>R | look for a trade that travels, and take a job rigging stages for touring shows | door | v: stimulation, self-direction | title: stage technician | chance: 55
+- B>G | say yes only if they take your cousin on too, so you start together | v: benevolence, power | title: apprentice | role: men | chance: 50
+- R>W | join the army on the spot, as you have wanted to since you were small | binds | v: security, stimulation | title: soldier | chance: 60
+- G>U | work a month on site as a trial, and learn what the trade really is first | door | v: self-direction | role: men | chance: 75
+works: {N} turns up on Monday to the road {N} chose, and by spring it already feels like {Ns} own.
+works: The choice opens into a craft, a wage and a way of being good at something.
+fails: The choice sours within months, and {N} wonders what the other road would have been.
+fails: The other side of the bargain falls through, and {N} has to start again from nothing.
+
+# ---------------------------------------------------------------- step 3, calls WB (cycle s3)
+
+== the first payslip and the first rent
+tier: everyday
+stages: young_adult
+age: 17-20
+calls: WB
+threshold: young adult
+step: 3
+once: yes
+tone: mixed
+life: money, home
+horizon: week
+roles: parent, friend, a landlord
+earth: your first proper payslip lands on a Friday, the rent goes out on the Monday, and what is left in between is yours to decide
+times: Most young people, once, in the first months of full-time work away from home; often at 18 to 25, as most leave home and start work then (estimate)
+scene: {Ns} first proper payslip lands on a Friday, the rent goes out on the Monday, and for the first time the sum in between is nobody's business but {Ns}.
+scene W: There is a list on the fridge: rent, bills, phone, food, and a line at the bottom marked savings that {N} underlined twice.
+scene U: {N} opens a spreadsheet and starts logging every coin, curious where money actually goes when nobody else is paying.
+scene B: Rent is dead money, {N} thinks, reading the landlord's name on the statement. The trick is to be the name on somebody else's statement.
+scene R: Money in the account, a Friday night and a city full of bars: {N} feels rich for exactly as long as it lasts.
+scene G: {parent} rings to ask whether {N} is eating properly. {N} looks into a fridge that holds a lemon and half a pint of milk.
+- W | pay the rent and the bills first, and live on whatever is left | habit | v: security, conformity | self_control: + | chance: 85
+- U | log every penny for a month, then set a budget that actually works | habit | v: self-direction, security | self_control: + | chance: 85
+- B | put a slice of every payslip into investments from the first month, untouchable | habit | v: power, achievement | grants: savings | self_control: + | chance: 80
+- R | spend the whole first payslip in one glorious weekend | habit | v: hedonism | self_control: - | chance: 92
+- G | send a little home every month, as your parents once did for theirs | habit | binds | v: tradition, benevolence | self_control: + | chance: 75
+- W>R | save for three months, then take the trip you promised yourself | v: hedonism, self-direction | self_control: + | act: save for three months, then take the trip they promised themselves | chance: 65
+- U>G | learn to cook properly from scratch, so a little money feeds you all week | v: security, self-direction | mark: learned a skill | act: learn to cook properly from scratch, so a little money feeds them all week | chance: 85
+- B>W | do the landlord's small repairs in exchange for a lower rent | v: security, power | chance: 65
+- R>U | on impulse, pay a term up front for the evening class you always wanted | door | v: self-direction, stimulation | self_control: + | chance: 80
+- G>B | furnish the room from skips and family attics, and bank what you save | v: security, power | closed: law: taking from skips without asking; backfire: a row with the owner, or the police at the door | chance: 75
+works: By the end of the month the money and the life have both found a shape, and {N} sleeps well.
+works: {N} discovers a small, solid pride in paying {Ns} own way.
+fails: The money runs out a week before the month does.
+fails: An unexpected bill eats the lot, and {N} has to ring home and ask.
+
+# ---------------------------------------------------------------- step 3, calls UG (cycle s4)
+
+== the first weekend back, and the town looks smaller
+tier: everyday
+stages: young_adult
+age: 17-20
+calls: UG
+threshold: young adult
+step: 3
+once: yes
+tone: mixed
+life: home, family, friends
+horizon: week
+roles: parent, grandparent, friend, an old teacher
+earth: the first weekend you go back to your home town after leaving, and everything is the same except you
+times: Most people who leave home, once, on the first visit back in the months after moving out; nearly all go back to visit (estimate)
+scene: On {Ns} first weekend back, the town is exactly as it was: the same bus, the same bakery, {parent} at the same window. Only {N} has changed, and everyone can tell.
+scene W: {N} is home for Sunday lunch, as promised, and finds a place laid at the table as if {N} had never left.
+scene U: {N} sees things never noticed while growing up: how short the high street is, how {parent} has aged, how every conversation runs along the same few tracks.
+scene B: The friends who stayed are in the same pub, with the same jobs and the same plans. {N} notices a quiet pleasure in having got out.
+scene R: {Ns} old bedroom has become the room for the ironing. {N} sits on the bed among the shirts and does not know whether to laugh or cry.
+scene G: The smell of the hall, the creak of the third stair, the dog going mad at the door: home takes {N} back without asking a single question.
+- W | give in, and promise to come home every weekend, as your parents ask | v: conformity | mark: gave in to pressure | self_control: - | chance: 75
+- U | notice how home has changed, and work out how much of the change is in you | v: self-direction | act: notice how home has changed, and work out how much of the change is in them | chance: 85
+- B | show the old crowd how well you are doing, and pay for every round | v: power | chance: 90
+- R | stay out all Saturday night with the old crowd, as if you never left | v: hedonism, stimulation | chance: 88
+- G | walk the fields behind the house, and let home settle back into you | v: tradition, universalism (nature) | act: walk the fields behind the house, and let home settle back into them | chance: 90
+- W>G | drive up through the night after your shift, so as not to miss Sunday lunch | v: benevolence, tradition | mark: kept your word | death_if_fails: 0.002 | tech: car | chance: 75
+- U>W | notice that your grandparent is struggling, and quietly arrange help from the council | v: benevolence, security | mark: helped someone in need | chance: 70
+- B>U | look up an old teacher with contacts in the city, and ask for introductions | door | v: achievement | chance: 70
+- R>B | tell the friends who stayed exactly what you think of this town, and leave early | v: self-direction, power | mark: made an enemy | chance: 75
+- G>R | swim across the lake at night with the old crowd, as every summer | body: heavy | v: stimulation, tradition | mark: took a wild risk | death_if_fails: 0.002 | closed: law: swimming where it is banned; backfire: fined, or pulled out of the water | chance: 75
+works: The weekend reminds {N} where {N} comes from, and {N} goes back to the new life steadier for it.
+works: Home and {N} find a new way of fitting together, a little looser than before.
+fails: The weekend ends in a row, and {N} catches the train back early with a hot face.
+fails: {N} feels a stranger in both places, and the journey back is long.
+
+# ================================================================ into adult (ages 24 to 32): leaving youth
+
+# ---------------------------------------------------------------- step 1, calls BR (cycle s1)
+
+== the birthday party that ends at eleven
+tier: everyday
+stages: adult
+age: 24-32
+calls: BR
+threshold: adult
+step: 1
+once: yes
+tone: mixed
+life: friends, self
+horizon: moment
+roles: friend, parent, partner, sibling
+earth: at your birthday party half the guests leave at eleven, for babysitters and early starts, and it feels as if youth has quietly ended
+times: Many adults, once, in their late twenties or early thirties, as friends start families; mothers average nearly 30 at a first birth in the EU (Eurostat) and about 27 in the US (CDC)
+scene: At {Ns} birthday party half the guests leave at eleven, for babysitters, early starts and long drives home. {N} stands in the kitchen with a glass and the sudden sense that something has ended.
+scene W: {friend} gives a toast about the years they have shared, and {N} hears in it the outline of a settled life: the job, the flat, the people who stay.
+scene U: {N} counts it up, half amused: a pension statement, a dentist twice a year, opinions about gutters. When did all of that happen?
+scene B: Around the room {N} sees who has got on and who has not: a promotion here, a house there. {N} quietly works out where {N} stands among them.
+scene R: It is not even midnight. {N} refuses to let the night, or the decade, end like this.
+scene G: {parent} sends a photo of {N} at one year old, cake all over a high chair. {N} looks at it for a long time.
+- W | thank everyone who came with a toast, and see the last ones safely out | v: benevolence, tradition | chance: 92
+- U | take stock on the walk home: what you wanted at twenty, and what you have | v: self-direction | chance: 90
+- B | take whatever is going round with the last few guests, and keep the night alive | v: hedonism, stimulation | mark: used drugs | closed: law: illegal drugs; backfire: a bad night, a lost week, or worse | death_if_fails: 0.002 | law: drugs | chance: 82
+- R | drag the last guests out to a club and dance until it closes | body: light | v: hedonism, stimulation | chance: 80
+- G | sit out on the step at the end, alone, and let the decade go | v: tradition (acceptance) | chance: 90
+- W>U | book the health check you keep putting off, as a birthday present to yourself | v: security | self_control: + | act: book the health check they keep putting off, as a birthday present to themselves | chance: 90
+- U>B | ask the friend who got on fastest exactly how they did it | v: achievement | chance: 85
+- B>R | decide to stop spending your years on people who bore you, from tonight | v: self-direction, hedonism | act: decide to stop spending their years on people who bore them, from tonight | chance: 80
+- R>G | dance in the kitchen with the friends who stayed, to the same songs as at nineteen | v: hedonism, benevolence | chance: 90
+- G>W | ring your parents, late as it is, and thank them for all of it | v: benevolence, tradition | chance: 80
+works: The night ends well, and {N} wakes oddly at peace with the years behind.
+works: Something {N} said or did that night turns out to be the start of the next decade.
+fails: The night ends badly, and the next day goes on apologies.
+fails: {N} wakes with the feeling of having missed something, and it stays for weeks.
+
+# ---------------------------------------------------------------- step 1, calls WU (cycle s2)
+
+== a contract with no end date
+tier: everyday
+at: employer
+stages: adult
+age: 24-32
+calls: WU
+threshold: adult
+step: 1
+once: yes
+tone: joy
+life: work
+horizon: years
+roles: boss, colleague, parent, partner
+earth: after years of temping and short contracts you are offered a permanent post with a pension, and it needs signing by Friday
+times: Many adults, once, in their twenties or early thirties; about 1 in 7 EU employees, and nearly half of those under 25, are on temporary contracts (Eurostat)
+scene: After years of temping, short contracts and rent paid late, {N} has a permanent contract on the desk: a pension, sick pay, and no end date. {boss} wants it signed by Friday.
+scene W: A permanent post means being counted on, and counting on something in return. {N} reads the pension clause three times, the way one reads a vow.
+scene U: {N} reads every clause, then the staff handbook, then the rules of the pension scheme, and ends up with a list of questions longer than the contract.
+scene B: They want {N} enough to offer a permanent post. That means {N} has something to bargain with, and Friday is a deadline for both sides.
+scene R: No end date. {N} feels the words close round like a door, and also, oddly, like a floor to stand on.
+scene G: {parent} worked for the same firm for thirty-one years and got a clock at the end. {N} looks at the signature line and thinks of that clock.
+- W | sign it, shake hands, and resolve to be someone they can rely on | identity | v: conformity, security | grants: workplace pension | chance: 92
+- U | take it home, question every clause, and only then sign | v: self-direction, security | grants: workplace pension | chance: 90
+- B | use the offer to ask for more money and a better title | v: power, achievement | chance: 60
+- R | turn it down; you are not ready to be pinned to one desk for life | v: self-direction | mark: turned down a chance | act: turn it down, since they are not ready to be pinned to one desk for life | chance: 80
+- G | sign it, and tell the family the wandering years are over | v: security, tradition | grants: workplace pension | chance: 85
+- W>B | sign, and report the colleague who fiddles expenses, now that you are safe | v: conformity, power | closed: approval: informing on a colleague; backfire: the office closes ranks | chance: 60
+- U>R | sign only if they let you work from wherever you like two days a week | v: self-direction | act: sign only if they agree to remote work, from anywhere, two days a week | tech: remote work | chance: 50
+- B>G | sign, and use the steady pay to get a mortgage near your family | binds | v: security, tradition | chance: 65
+- R>W | sign on the spot with a whoop, in front of the whole office | v: achievement, conformity | chance: 90
+- G>U | ask the oldest hand in the office what the job is really like after ten years | v: tradition, self-direction | chance: 80
+works: The decision is made, and it feels like {Ns} own.
+works: The new footing is solid, and {N} finds the steadiness more freeing than feared.
+fails: The terms turn out worse than they looked, and {N} learns it only after signing.
+fails: The offer is withdrawn before Friday, and {N} is back where {N} started.
+
+# ---------------------------------------------------------------- step 2, transform, calls UR (cycle s3)
+
+== a training place in another line of work
+tier: everyday
+stages: adult
+age: 24-32
+calls: UR
+threshold: adult
+step: 2
+transform: yes
+once: yes
+tone: mixed
+life: work, self
+horizon: years
+roles: partner, mentor, friend, parent
+earth: a funded training place opens in a line of work you have wondered about for years, and taking it means starting at the bottom again
+times: Some adults, perhaps 1 in 5, once, in their late twenties or early thirties; changing career is common, a funded place to retrain less so (estimate)
+scene: A funded training place has opened in a line of work {N} has wondered about for years. Taking it means starting at the bottom again, among people barely out of school.
+scene W: {N} has a life that works: people who count on {N}, bills that get paid, a reference that opens doors. Starting over feels like breaking a promise nobody made out loud.
+scene U: The course list is open on {Ns} screen: knife skills, or code, or wiring diagrams. {N} has read it so often the words have worn smooth.
+scene B: The new field pays better in ten years and worse for the next three. {N} has worked out the exact year the gamble breaks even.
+scene R: Every morning on the way to work {N} feels a small death. This is the first thing in years that makes {Ns} heart jump.
+scene G: Some part of {N} has always known this was the work {N} was meant for. The training place has only made it impossible to ignore.
+- W | take the place, train as a teacher, and give the next ten years to it | v: benevolence, achievement | title: teacher | requires: graduate | without: means | lacking: .3 | chance: 55
+- U | sign up for a three-year computing degree on a loan, and see it through | binds | identity | v: achievement, self-direction | title: software developer | self_control: + | chance: 55
+- B | take the training in the field that pays best, and plan your climb from day one | v: achievement, power | title: accountant | requires: graduate | without: means | lacking: .3 | chance: 65
+- R | quit on Friday and start the chef's course at the catering college on Monday | v: stimulation, benevolence | title: cook | requires: savings | without: means | lacking: .5 | chance: 40
+- G | stay in the work you know, and let the old wondering go | v: security, tradition (acceptance) | mark: turned down a chance | self_control: - | chance: 70
+- W>R | train as a bricklayer, and trade the desk for hard work in the open air | body: heavy | v: stimulation, security | title: builder | chance: 40
+- U>G | learn carpentry, and move out to a workshop at the edge of the woods | v: universalism (nature) | mark: moved away | title: carpenter | chance: 50
+- B>W | get your employer to fund the training, in return for staying three more years | binds | v: security, achievement | grants: professional registration | chance: 60
+- R>U | sell the car to pay for an electrician's course in another city | v: self-direction, achievement | mark: moved away | title: electrician | self_control: + | chance: 35
+- G>B | train under a retiring baker, and buy the shop when they go | binds | v: tradition, achievement | title: shop owner | requires: savings | without: means | lacking: .4 | chance: 20
+works: The new road opens and holds, and two years on {N} cannot imagine the old one.
+works: {N} turns out to be good at the new thing, and the people there can tell.
+fails: The new start costs more than {N} had, and the old work is gone.
+fails: Halfway through, {N} has to admit the new field is not what it looked like from outside.
+
+# ---------------------------------------------------------------- step 2, transform, calls WG (cycle s4)
+
+# gate: a partner, not yet engaged or married: ~has('engaged') and ~has('wife or husband')
+== the ring in the drawer since spring
+tier: everyday
+stages: adult
+age: 24-32
+calls: WG
+threshold: adult
+step: 2
+transform: yes
+once: yes
+needs: partner
+tone: mixed
+life: love, home
+horizon: years
+roles: partner, parent, grandparent, friend
+earth: a ring has been in your drawer since spring, and every month the question gets harder to ask and harder to drop
+times: Many people who marry, once, in the months before proposing; the median age at first marriage in the US is about 28 for women and 30 for men (Census 2023)
+scene: A ring has sat at the back of {Ns} sock drawer since spring. Every month {N} means to ask {partner}, and every month something makes it the wrong week.
+scene W: {N} and {partner} have been together long enough that the families have started to ask. A promise made in front of everyone and kept for life: {N} wants that, and fears it.
+scene U: {N} has turned it over from every side: the money, the families, what would change and what would not. The thinking has become a way of not deciding.
+scene B: Asking means closing the door on the other lives, the other people, the open road. {N} wants to be sure the price is worth paying.
+scene R: Some nights {N} nearly asks over the washing-up, on a whim, just to have it said. Then the moment passes.
+scene G: {Ns} grandparents' rings are in the same drawer, worn thin by sixty years. {N} takes them out sometimes and holds them.
+- W | ask properly, on one knee, and tell both families the same day | binds | identity | v: tradition, conformity | title: engaged | chance: 70
+- U | sit down with your partner and talk it all through, every hope and every doubt | v: self-direction, benevolence | chance: 80
+- B | ask, but with a prenuptial agreement drawn up first | v: security, power | title: engaged | chance: 60
+- R | ask tonight, in the kitchen, with no plan and no speech | v: stimulation, self-direction | title: engaged | chance: 65
+- G | put the ring back: what you have is good, and needs no ceremony | v: tradition (acceptance), security | mark: turned down a chance | act: put the ring back, since what they have is good and needs no ceremony | self_control: - | chance: 65
+- W>G | ask your partner's parents for their blessing first, as your family always has | v: tradition | title: engaged | chance: 65
+- U>W | skip the engagement: book the registry office for next month, two witnesses, no fuss | binds | v: self-direction, tradition | title: wife or husband | law: same-sex marriage | chance: 80
+- B>U | wait for the promotion, the savings and the right flat, and decide then | v: security, achievement | chance: 88
+- R>B | admit at last that you do not want this life, and leave | identity | v: self-direction | drops: girlfriend or boyfriend; living together | chance: 65
+- G>R | take your partner back to where you first met, and let the place ask for you | v: benevolence, hedonism | title: engaged | act: take their partner back to where they first met, and let the place ask for them | chance: 60
+works: The question gets its answer, and {N} and {partner} wake the next morning on new ground.
+works: Something held in suspense for months is settled, and both of them breathe more easily.
+fails: The moment goes wrong, and the question hangs between them heavier than before.
+fails: {partner} needs time, and the weeks of waiting are hard on both of them.
+
+# ---------------------------------------------------------------- step 3, calls UG (cycle s1)
+
+== a week with a shape of your own
+tier: everyday
+stages: adult
+age: 24-32
+calls: UG
+threshold: adult
+step: 3
+once: yes
+tone: joy
+life: home, self
+horizon: months
+roles: friend, partner, parent, a neighbour
+earth: months into the new life your week has found a shape you chose: the same run, the same market stall, the same evening for friends
+times: Most adults, once, in the months after settling into a life of their own; often in their late twenties, when work and home steady (estimate)
+scene: Months into the new life, {Ns} week has found a shape: the run on Tuesdays, the market on Saturday, the same table at the café, friends on Thursdays. Nobody set it but {N}.
+scene W: {N} keeps the week like a small constitution: the bins out on Sunday night, the call to {parent} on Wednesday, the shirts ironed for Monday.
+scene U: {N} has started noticing the small patterns: the café is quieter at ten, the tram beats the bus, and sleep comes easier after the run.
+scene B: Every hour of {Ns} week is spent on purpose now. {N} looks at the calendar and sees an engine that could be tuned for more.
+scene R: Some days the routine feels like a groove and some days like a rut. On the rut days {N} wants to throw the whole week out of the window.
+scene G: The woman at the market stall knows {Ns} name and keeps back the good tomatoes. {N} realises, with surprise, that this place has become home.
+- W | report every car on the verge and every bin left out, week in, week out | habit | v: conformity, security | closed: approval: policing the neighbours; backfire: a feud with the house next door | chance: 80
+- U | plan a hill walk alone each month, mapped to the minute | body: heavy | v: self-direction, stimulation | death_if_fails: 0.003 | mark: took a wild risk | chance: 82
+- B | cut every habit that does not pay back, and give the hours to getting ahead | v: achievement, power | self_control: + | chance: 75
+- R | break the routine on purpose one day a week, and do something unplanned | habit | v: stimulation | chance: 80
+- G | take a patch at the community garden, and give your Sundays to it | habit | v: universalism (nature), tradition | grants: growing food | self_control: + | chance: 70
+- W>U | sign up for an evening class at the college, every Monday, all year | v: self-direction, achievement | chance: 85
+- U>B | quietly take a second remote job, and work both in the same hours | v: achievement, power | closed: approval: a breach of contract; backfire: both employers find out, and both jobs go | tech: remote work | chance: 70
+- B>R | ring in sick on the last Friday of each month, to have a day to yourself | habit | v: hedonism, self-direction | closed: approval: a sick day that is not; backfire: a colleague sees the photos | self_control: - | act: ring in sick on the last Friday of each month, to have a day of their own | mark: hid a wrong | chance: 88
+- R>G | get a dog, so the week has walks in it whether you like it or not | binds | v: benevolence, hedonism | grants: dog of one's own | self_control: + | chance: 80
+- G>W | join the neighbours' street committee, since this is your street now | v: benevolence, tradition | title: neighbourhood volunteer | mark: made a friend | chance: 75
+works: The week holds its shape, and inside it {N} has room to breathe.
+works: The routine becomes a quiet pleasure, and the new place feels like {Ns} own.
+fails: The week tips out of balance, and by the end of the month {N} is behind on everything.
+fails: The shape {N} built turns out to be a cage, and it has to come down.
+
+# ---------------------------------------------------------------- step 3, calls WB (cycle s2)
+
+== your parents at your table
+tier: everyday
+stages: adult
+age: 24-32
+calls: WB
+threshold: adult
+step: 3
+once: yes
+tone: joy
+life: family, home
+horizon: moment
+roles: parent, partner, sibling, grandparent
+earth: for the first time your parents come to dinner at your own home, and you are the host
+times: Most adults whose parents are living, once, the first time they host their parents in their own home; often in their twenties, soon after a first home of their own (estimate)
+scene: For the first time {Ns} parents come to dinner at {Ns} own place. {N} has been cooking for two days, and the table has borrowed chairs round it.
+scene W: {N} sets the table the way it was set at home on Sundays: the good glasses, the napkins, a seat at the head. Then {N} hesitates over whose seat that is now.
+scene U: {N} has planned the evening like a project: a menu tested twice, the timings on a card by the oven, a few topics in reserve in case the talk dries up.
+scene B: This is {Ns} home, {Ns} food and {Ns} rules. For one evening {parent} is the guest, and {N} means to enjoy it.
+scene R: The sauce has split, the doorbell has gone, and {N} is laughing at the stove, flushed and happy and terrified.
+scene G: {parent} brings a dish from home anyway, the one {N} grew up on, and sets it on the table beside {Ns} own cooking.
+- W | set a proper table, toast your parents, and serve them first | v: tradition, benevolence | chance: 90
+- U | serve the dish you spent months perfecting, and explain each course | v: achievement | chance: 78
+- B | show them round, the flat, the job, everything you have made of yourself | identity | v: power, achievement | act: show them round, the flat, the job, everything they have made of themselves | chance: 90
+- R | abandon the recipe halfway and cook by feel, laughing with them in the kitchen | v: hedonism, benevolence | chance: 80
+- G | ask your parent to teach you the family dish at your own stove | v: tradition | act: ask their parent to teach them the family dish at their own stove | chance: 85
+- W>B | set out, kindly, the new house rules: visits by invitation from now on | v: power, security | chance: 60
+- U>R | ask them, glass in hand, the questions about their marriage you never dared ask | v: self-direction, stimulation | chance: 70
+- B>G | ask your parents for help with a deposit, over the second bottle | binds | v: security, power | chance: 60
+- R>W | stand up, a little drunk, and tell your parents what they did right | v: benevolence | chance: 80
+- G>U | bring out the old photo albums and get them telling the family stories | v: tradition | chance: 80
+works: The evening goes long and warm, and {parent} says something on the doorstep that {N} will keep.
+works: For the first time {N} sees {Ns} parents as guests, and they see {N} as a host.
+fails: An old argument arrives with the dessert, and the evening ends early.
+fails: The food fails and the talk stalls, and {N} washes up alone afterwards, feeling about twelve years old.

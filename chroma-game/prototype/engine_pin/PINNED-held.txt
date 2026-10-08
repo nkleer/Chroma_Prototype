@@ -1,0 +1,6 @@
+Held version 21 (not published): engine.py, batch.py, earth_rules.py and explain.py copied from chroma-engine/prototype at
+2026-10-06 00:10Z, after the engine said point 7 had landed for good (final turning points, sat_gap_ref .12; files of
+23:15, 23:43, 00:02 and 23:03). earth.py and earth_perks_titles.py are the Library's staged next batch
+(chroma-library/staging/next2/, 23:40 build), NOT live yet: the new engine and this batch must go together (the relapse
+rule needs the batch's gap:). If Emren's go-live card for the batch changes it, re-copy all six and rerun the tests.
+The Science pack is not pinned (its own card later). PINNED.txt describes the live pin (version 20).

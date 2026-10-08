@@ -1,0 +1,100 @@
+# Chroma library, modern Earth: two rare life events for parents (R15, Emren, release checklist section 10): a child's
+# serious illness and a child's death. They are events, never pickable acts: nobody causes them, and every option is a
+# way of bearing them. Told plainly and briefly, never graphic, with no blame and no moral. The child may be grown, so
+# the scenes fit a small child and a grown one alike. Syntax: header of build.py. Each event is even on its own: alpha
+# even, the five one-color options and one half of the pair line D1 (the illness takes D1b, the death D1a, so the two
+# together hold all ten pairs once). Rates: sources/life-events-and-everyday.md Part D (D53, D73), checked below.
+# The plan (earth-plan.md, "Left out on purpose") held both until Emren decided; no other moment of the batch tells a
+# parent's side of a child's illness or death (grep 2026-10-07: main parts, drafts/next3, drafts/w39, the packs), so
+# these two add to the parent's grief events beside "a parent dies", "a brother or sister dies" and "your partner dies".
+# Measured (a copy of engtest20, 1,200 lives to 90, seeds 31-34 and 51-54; the death event without kills:, see below):
+# the illness meets 28 lives in 100 (7 by 50, 15 by 65, 26 by 85), the death 15 in 100 (3.5 by 60, 7 by 75, 12 by 85);
+# about 9 lives in 10 hold children, so per parent both sit at the research sums with the engine's own small boost.
+
+# ---------------------------------------------------------------- your child falls seriously ill (D73; pairs D1b)
+# A diagnosis, a hospital and months of treatment; how it ends is told by the outcome lines, never by a death (that is
+# its own event, below). at: hospital, so the outer world's hospital capacity reaches it once the world is on.
+
+== your child falls seriously ill
+tier: life event
+stages: young_adult adult mature elder
+age: 17-100
+per_year: 0 0 .003 .004 .004 .01
+drivers: health-.2 money-.2 harsh+.3 era-.2 stress+.1 trouble+.1
+gap: 3-10
+times: per parent a year: about 0.3 in 100 young adults, 0.4 in 100 adults and in midlife, and 1 in 100 elders see a son or daughter fall seriously ill, with a diagnosis, a hospital stay and months of treatment (D73 [est], with the elder figure raised from 0.1 because grown children reach the ages of cancer, heart attack and stroke). It leans on: childhood cancer in about 1 child in 285 before 20 (American Cancer Society); type 1 diabetes in about 1 in 4,500 children and teenagers a year (SEARCH for Diabetes in Youth); critical heart defects in about 1 in 400 births and very preterm birth in about 1 in 60 to 100, most with weeks or months of neonatal care (CDC; Euro-Peristat); serious injuries, severe infections and the first episode of a serious mental illness in the teens; and for grown children, cancer at about 1 in 1,000 a year in their thirties rising to nearly 1 in 100 in their fifties (national cancer registries), with heart attack and stroke on top. "A child with a serious illness" is 7.9 in 100 adults' lifetime in the WHO World Mental Health surveys (Benjet et al. 2016). Sum, set per parent (needs: children): about 1 parent in 10 by 50, 1 in 6 by 65 and 1 in 3 by 85, much of the late share a grown child's illness; it repeats rarely (gap 3-10)
+likelier: poverty, a harsh or unsettled place, poor health in the family, a premature or difficult birth, an older child of an age for cancer or heart disease, hard times already in the house
+rarer: money, good health care close by, vaccines and a modern hospital, a prosperous and peaceful time
+needs: children
+domain: children1
+at: hospital
+tone: trouble
+life: children, body
+horizon: months
+roles: child, partner, parent, sibling, friend, a consultant
+earth: your son or daughter, young or grown, is diagnosed with a serious illness that needs months of treatment
+scene: The consultant closes the door, sits down and says it plainly: {child} is seriously ill, the treatment will take months, and it starts this week.
+scene W: {N} writes every appointment and every dose on the kitchen calendar. Somebody has to keep the family's weeks from falling apart around {child}, and {N} will.
+scene U: {N} has a notebook open before the consultant has finished: words to look up, questions for tomorrow, the name of every hospital that treats this.
+scene B: {N} sees at once that the best care goes to the families who push for it, and {N} means to push harder than anyone.
+scene R: {N} wants to fight the illness with bare fists. Instead {N} sits on the edge of the hospital bed and holds {child}'s hand, and does not let go.
+scene G: Illness comes to every family in its time, the way storms come to every field. Now it has come to {child}, and {N} means to stand with them through every season of it.
+- W | keep every appointment and every dose, and run the family's week around them | habit | v: benevolence, security | self_control: + | chance: 80
+- U | learn the illness inside out, and question the doctors about every choice | door | v: self-direction, security | mark: learned a skill | chance: 80
+- B | pull every string you have until the best specialist takes them on | v: power, security | chance: 50
+- R | move into the chair beside their bed, and refuse to leave | body: heavy | v: benevolence | chance: 70
+- G | lean on your faith, or long walks outdoors, and take each day as it comes | habit | v: tradition, security | chance: 72
+- RG | take the whole family to the sea between treatments, and live each good day | v: hedonism, benevolence | chance: 68
+- UB | find a trial of a new treatment, and raise the money for their place | binds | v: achievement, security | chance: 35
+- UR | read through the night, then take your questions straight to the ward round | v: self-direction, benevolence | chance: 66
+- WB | keep your job and the money steady, so the care never has to stop | v: security, achievement | self_control: + | chance: 72
+- WG | gather the family, and keep watch at the bedside in turns | v: benevolence, tradition | chance: 80
+works: Months later the treatment has done its work, and {child} is home again, tired and thinner but mending.
+works: The long months bring the family closer, and {child} comes through them with {N} beside them all the way.
+fails: The treatment drags on into a second winter, and {N} is worn to the bone.
+fails: The illness takes over the house: other plans fall away, and the family snaps at each other under the strain.
+
+# ---------------------------------------------------------------- your child dies (D53; pairs D1a)
+# The death is said once, plainly, with no cause beyond "everything that could be done was done", which fits an illness
+# and an accident alike, and is never anyone's act. kills: child (Engine 2026-10-07: child is in its ROLES, it counts
+# living children, alive_child, and its death curve for the child replaces per_year; the age window, needs: children
+# and gap still apply; no act can ever kill a child, load_batch stops on that).
+
+== your child dies
+tier: life event
+stages: young_adult adult mature elder
+age: 17-110
+per_year: 0 0 .0015 .0008 .002 .004
+drivers: money-.3 health-.2 harsh+.4 unrest+.3 era-.2 trouble+.1
+gap: 10-30
+times: per parent a year: about 0.15 in 100 young adults (most of it a baby's death in the first year), 0.08 in 100 adults, 0.2 in 100 in midlife and 0.4 in 100 elders lose a son or daughter (D53 [est] from the life table with about two children, the elder figure set at the low end of 0.4 at 65-75 to 1.8 at 85-95, lowered from 0.6 on 2026-10-07 so the lifetime share lands at .10 to .12 of all lives, release check C-X5; infant deaths about 4 in 1,000 births in rich countries). Checks: about 7 in 100 American parents lose a child at 50 or later (Health and Retirement Study 1998-2014; Mellencamp, NCFMR FP-19-18), and Black Americans are about two and a half times likelier to lose a child by 20 and three times likelier between 50 and 70 (Umberson and colleagues 2017). Sum, set per parent (needs: children): about 4 parents in 100 by 60, 1 in 10 by 75 and 1 in 6 by 90, most of the late losses grown children; stillbirth and miscarriage come before the child and are not counted here; a second loss is rare (gap 10-30)
+likelier: poverty, a harsh or unsettled place, war, poor health care, a child already seriously ill, a grown child in a risky job or with an addiction, old age (grown children of an age for cancer and heart disease)
+rarer: money, good health care, vaccines and a modern hospital, safe roads, a prosperous and peaceful time
+needs: children
+kills: child
+domain: children1
+tone: trouble
+life: loss, children
+horizon: years
+roles: child, partner, parent, sibling, friend, a priest
+earth: your son or daughter dies, of an illness or in an accident
+scene: In a small quiet room at the hospital, a doctor speaks very gently: {child} has died, and everything that could be done was done.
+scene W: There are calls to make, a funeral to plan and a family to hold upright. {N} does each thing properly, because {child} deserves nothing less.
+scene U: {N} reads the doctors' report again and again, every line and every hour, as if understanding it could make it bearable.
+scene B: {N} feels the floor give way, and grips the one thing still in reach: the will to get the family through this.
+scene R: The grief knocks {N} to the floor of {child}'s room, holding a jumper that still smells of them.
+scene G: Children should outlive their parents; that is the order of things. The seasons have turned the wrong way, and {N} must learn to live in them.
+- W | give them the funeral the family has always held, and keep every anniversary | v: tradition, conformity | chance: 82
+- U | read every report, and learn exactly what happened and why | v: self-direction | chance: 72
+- B | go back to work within the week, and let nobody see how deep it goes | v: achievement, security | chance: 55
+- R | let the grief out, loud and raw, wherever and whenever it comes | v: none clear (grief let out) | chance: 72
+- G | plant a tree where they loved to be, and sit by it through the seasons | v: tradition | chance: 78
+- BG | close the door on the world for a while, and keep the family near | v: security, tradition | chance: 62
+- BR | pour the anger into something hard, a marathon or a house to rebuild | door | body: heavy | v: stimulation, achievement | chance: 50
+- UG | ask everyone who knew them for a story, and write each one down | v: tradition, benevolence | chance: 85
+- WR | stand up at the funeral and tell everyone, laughing and crying, who they were | identity | v: benevolence, tradition | chance: 80
+- WU | set up a fund in their name to help other families through the same | binds | v: universalism, benevolence | mark: helped someone in need | chance: 55
+works: In time {N} can say {child}'s name aloud and smile at a memory.
+works: The family holds together through the first hard year, and nobody is left to grieve alone.
+fails: {N} goes quiet for a long time, and the house keeps a silence nobody can break.
+fails: The grief pulls the family in different directions, and for a while nobody can reach anybody.

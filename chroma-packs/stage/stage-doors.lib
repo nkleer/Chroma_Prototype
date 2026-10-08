@@ -1,0 +1,452 @@
+# Chroma content pack, Stage and Screen: Acting, Theatre, Film and Television (modern Earth first, with the tribal and
+# magic worlds). PART 1 of the pack's moments: DOORS AND HOOKS (moments 1 to 10 of MOMENTS-BRIEF.md): three everyday door
+# pairs whose options take a first title by the act (youth theatre member, amateur actor, background artist, drama
+# school student, professional actor), and four echoes that open the pathway from a life's own history (the school play,
+# retirement, an idea or the wish to be seen, a lucky letter).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md and stage/MOMENTS-BRIEF.md (pack
+# rules, calibration lessons, part 1). Names in title:, grants:, requires:, holds: and aims: come from stage/catalogue.py,
+# core/reach.py and the base catalogue; world lines follow stage/worlds.py. Everyday pairs split the calls 2 and 3 and
+# share stages, ages, holds:, share, share_group, rate and gap; echoes are even on their own (five one-color options and
+# one cross cycle), with their engine conditions in stage/engine-conditions.py (ECHO_STAGE).
+# Parts carry the real chance of an ordinary person who tries (the brief's pack rules), the same for every color inside a
+# moment; the earned-odds lifts (helps.py) come on top in the engine. The lead on every road (Emren's ask): the school
+# lead here is [a lead role to remember]; the letter can bring the professional lead; the other doors lead on to
+# 'casting night at the local players', 'the summer show casts its lead', 'a screen test', 'the showcase for agents',
+# 'opening night at the fringe' and the stage road. Children appear only in safe, supervised forms: a parent or carer
+# signs every form that joins, and rehearsals are in groups, in school or with the youth theatre. No real person,
+# production, theatre, studio, film, award, agency or union is named.
+# Round 5, 2026-10-07 (checklist P14, value tags): 9 options in this file retagged so the v: values read one of the
+# option's own colors (check.py section 4): White's by-the-book singles lead with conformity (not conformity with
+# achievement, which reads Blue), Red's singles on impulse lead with stimulation or hedonism (not self-direction,
+# which reads Black), Green's singles of home and kin with tradition and benevolence or universalism (not security,
+# which reads White), and Red's kindness on the spot with benevolence and stimulation; plus the largest
+# disagreements check.py listed (an old custom asked: tradition and conformity; family first: benevolence and
+# tradition; kin led away from the chief: self-direction and tradition; a day's pay weighed: power).
+
+# ---------------------------------------------------------------- pair A, open to any child or teenager (no holds): calls WG (cycle s1) / calls UBR (cycle s1)
+
+== a flyer for the youth theatre
+tier: everyday
+share: .45
+share_group: youth_doors
+rate: 0.03
+times: per child or teenager a year: about 1 in 5 children see an invitation to a youth theatre or a stage school class; the youth theatres' national census counted over 100,000 young people in 414 youth theatres in England in 2024, and about 8 lives in 100 belong to one at some point (catalogue share; estimate)
+gap: 2-4
+stages: child juvenile
+age: 8-17
+calls: WG
+tone: joy
+life: play, school, performing
+horizon: week
+roles: friend, a parent or carer, a cousin, the youth theatre's leader
+earth: a flyer in the school bag for the youth theatre on Saturday mornings
+tribal: the old teller calls the children to the fire to learn the small spirits' parts for midwinter
+magic: the players' guild's children's company calls for new children at the spring fair, a parent's mark on the roll
+scene: A flyer comes home crumpled at the bottom of {Ns} school bag: the youth theatre meets on Saturday mornings in the community hall, with games, a summer show and the first term free. A parent or carer has to sign the form.
+scene W: The flyer asks for a signed form and a promise to come every week. {N} likes knowing exactly what is expected, and keeping to it.
+scene U: {N} reads the flyer twice: voice games, how a stage fight is made safe, how actors remember all those lines. {N} would like to know how it is done.
+scene B: An older girl from the youth theatre was on television last year, and the whole school knows it. {N} looks at the flyer and thinks about that.
+scene R: {N} is already acting out a dragon in the kitchen with the flyer in one hand. Saturday cannot come fast enough.
+scene G: {friend} goes to the youth theatre already, and so did a cousin before that. It meets in the hall at the end of the road, where the summer fair is held every year.
+scene tribal: At dusk the old teller calls the children of the band to the fire. Midwinter is coming, the small spirits need players, and any child whose mother gives leave may come and learn, with the women of the band sitting close by.
+scene magic: At the spring fair the players' guild sets up a stall with masks and painted wings. Its children's company wants new children, if a parent will put a mark on the roll, and the guild's matron keeps the little ones together.
+- W | ask a parent to sign the form tonight, and be there every Saturday at nine | v: conformity, security | title: youth theatre member | habit | tribal: ask your mother's leave, and sit at the teller's fire every evening until midwinter | magic: ask a parent to put their mark on the roll, and never miss a practice | chance: 85
+- U | ask a parent to ring up and find out what the children actually learn there | door | v: self-direction | tribal: ask the old teller what the children learn at the fire before midwinter | magic: ask a parent to find out what the guild's children are taught | chance: 85
+- B | get a parent to sign, and ask to go straight into the older children's group | v: achievement, power | title: youth theatre member | tribal: get your mother's leave, and ask the teller for a place among the older children | magic: get a parent's mark on the roll, and ask to start with the older children | chance: 60
+- R | put on a show in the kitchen until a parent laughs and signs the form | v: stimulation, hedonism | title: youth theatre member | tribal: dance the hare by the hearth until your mother laughs and gives her leave | magic: play the fairy queen for the family at supper until a parent signs the roll | chance: 85
+- G | stay with football on Saturdays, and the team you have played with for years | v: tradition, benevolence | habit | tribal: stay with the children who go to the river with the women, as you always have | magic: stay with the Saturday games on the green, and the friends you have always had | chance: 92
+- W>U | ask the class teacher whether it would help with reading aloud in class | v: conformity, self-direction | door | tribal: ask the elder who teaches the children whether the tellings would help with learning the old words | magic: ask your tutor whether the guild's lessons would help with your recitations | chance: 70
+- U>B | read the small print, and ask a parent to apply for one of the free places | v: achievement, security | aims: youth theatre member | tribal: find out which children the teller takes without a gift, and ask your mother to speak to the teller | magic: read the guild's notice to the end, and ask a parent to apply for a free place | chance: 70
+- B>R | say no: Saturday mornings are for lie-ins and cartoons | v: hedonism, self-direction | habit | tribal: say no: the evenings are for games by the river, not learning parts | magic: say no: feast-day mornings are for sleeping late and the puppet show | chance: 95
+- R>G | say you will go only if your best friend from the street comes too | v: benevolence, security | binds | tribal: say you will go to the teller's fire only if your hearth-friend comes too | magic: say you will join only if your best friend from the lane joins too | chance: 70
+- G>W | get a parent to sign, then go with your cousin and help with the little ones | v: benevolence, tradition | title: youth theatre member | tribal: go to the teller's fire with your cousin, your mother's leave given, and mind the little ones | magic: go with your cousin, a parent's mark on the roll, and help with the smallest children | chance: 63
+works: {N} is there from the very first meeting, and comes home hoarse and happy, full of games and new names.
+works: The question is settled within the week, and {N} is glad of the way it went.
+fails: Nobody gives the leave in time, and the places are all taken before {N} can have one.
+fails: The first meeting is all strangers and loud games, and {N} does not go back.
+
+== auditions for the school production
+tier: everyday
+share: .45
+share_group: youth_doors
+rate: 0.03
+times: per child or teenager a year: about 1 in 5 meet auditions for a school production they could try for; most secondary schools put on a show a year, with one or two leads (estimate)
+gap: 2-4
+stages: child juvenile
+age: 8-17
+calls: UBR
+tone: mixed
+life: school, performing
+horizon: week
+roles: friend, rival, the drama teacher, a parent or carer
+earth: the auditions notice for the school's spring show on the hall door
+tribal: the elders choose which children will play the animals in the great telling at midsummer
+magic: the schoolmaster wants players for the feast-day masque, and the best part is the fairy queen
+scene: A notice goes up on the hall door: auditions for the spring show on Thursday after school, a speech or a song, everyone welcome. There are two big parts, a dozen small ones, and a crew wanted for the set and the lights.
+scene W: The notice lists what to bring and when to arrive, and the drama teacher says everyone who comes prepared will get a part. {N} copies the times into a planner.
+scene U: {N} borrows the script and reads the whole play in one evening. The lead has the best lines, and also the hardest ones.
+scene B: {rival} is already telling the class the lead is as good as theirs. {N} would very much like to see that face when the cast list goes up.
+scene R: {Ns} heart jumps at the notice. A real stage, real lights, the whole school watching: {N} wants it so badly it hurts.
+scene G: {Ns} cousin was in the spring show years ago, and the photograph is still on the corridor wall. Half of {Ns} friends are going along on Thursday.
+scene tribal: The elders sit at the edge of the dancing ground and call the children one by one: who will be the hare, who the crow, who the great elk in the midsummer telling. The mothers watch from the shade.
+scene magic: The schoolmaster pins a notice to the schoolroom door: players wanted for the feast-day masque, and the best part, the fairy queen, still to be cast. The trials are after lessons, with the parents welcome to watch.
+- W | offer to cover the lead in case anyone falls ill, and learn every line anyway | v: conformity, benevolence | grants: learning lines | tribal: offer to learn the hare's part too, in case the chosen child falls sick | magic: offer to learn the fairy queen's lines as a second, in case she falls ill | chance: 35
+- U | read the whole play first, then audition for the lead with the speech you understand best | v: achievement, self-direction | grants: a lead role to remember | mark: learned a skill | tribal: listen to every old telling of the hare first, then ask the elders for the hare's part | magic: read the whole masque first, then try for the fairy queen with the speech you know best | chance: 23
+- B | go for the lead, and let the drama teacher know nobody wants it more | v: achievement, power | grants: a lead role to remember | identity | tribal: ask for the great elk's part, and let the elders see how much you want it | magic: try for the fairy queen, and make sure the schoolmaster knows nobody wants it more | chance: 22
+- R | audition for the lead on the spot, with a speech you made up that morning | v: stimulation, self-direction | grants: a lead role to remember | tribal: jump up and play the hare for the elders, making it up as you go | magic: try for the fairy queen with a speech you made up on the way to school | chance: 24
+- G | paint the set and run the lights with the friends who never act | v: benevolence, tradition | grants: stagecraft | tribal: help the mothers paint the hide screens and gather wood for the fire | magic: help paint the masque's scenery with the friends who never take a part | chance: 88
+- W>U | audition for any part, after asking the drama teacher exactly what it needs | v: conformity, achievement | grants: acting | tribal: ask the elders what each small part needs, and play whichever part they choose | magic: ask the schoolmaster what each part needs, and try for whichever suits | chance: 80
+- U>B | join the drama teacher's Saturday youth theatre, where she finds her casts, once a parent signs | v: achievement | title: youth theatre member | tribal: ask your mother's leave to learn at the old teller's fire, where the elders find their players | magic: join the guild's children's company, a parent's mark on the roll, where the masque finds its players | chance: 90
+- B>R | skip it: the rehearsals would eat every free evening until the spring holidays | v: hedonism, self-direction | tribal: skip it: the telling would take every evening you could spend at the river | magic: skip it: the practices would eat every evening until the feast | chance: 92
+- R>G | audition as a pair with your best friend, happy with any parts going | v: benevolence, stimulation | grants: acting | mark: made a friend | tribal: go before the elders with your hearth-friend, and play two crows together | magic: try out as a pair with your best friend, glad of any parts | chance: 88
+- G>W | ask the drama teacher to let the younger ones from your street sing in the chorus | v: benevolence, universalism | door | tribal: ask the elders to let the smallest children of your hearth be the young hares | magic: ask the schoolmaster to let the little ones from your lane sing in the chorus | chance: 30
+works: When the parts are given out, {Ns} name is where {N} hoped it would be.
+works: Within two weeks {N} knows exactly where to stand, what to do, and whose line is the cue.
+fails: When the parts are given out, {Ns} name is further down than {N} hoped.
+fails: On the day {N} loses nerve at the door, and walks home instead.
+
+# ---------------------------------------------------------------- pair B, open to teenagers and adults (no holds): calls BR (cycle s2) / calls WUG (cycle s2)
+
+== the local players need a cast
+tier: everyday
+share: .15
+share_group: local_doors
+rate: 0.025
+times: per teenager or adult a year: about 1 in 25 see a call from the local players they could answer; the UK amateur theatre association's survey counted 437,800 people taking part (2002), and about 4 lives in 100 act with amateurs at some point (catalogue share; estimate)
+gap: 3-8
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: BR
+tone: joy
+life: community, leisure, performing
+horizon: months
+roles: friend, neighbour, colleague, the society's director
+earth: a notice in the library window: the local players hold open auditions for the autumn play
+tribal: the band's tellers want more players for the midwinter telling
+magic: the guild's mystery players need new players for the feast-day pageant
+scene: A notice in the library window: the local players hold open auditions for their autumn play on Tuesday evening in the church hall. No experience needed, all ages welcome, and parts for eleven.
+scene W: The society has put on two plays a year for forty years, and the notice says so with some pride. {N} likes the thought of helping something that old keep going.
+scene U: {N} looks the play up: a comedy of manners in three acts, with one part that is all timing and another that is all stillness. It would be interesting to find out which {N} could do.
+scene B: The local paper reviews the players every autumn, and half the town comes to see them. A good part would put {Ns} name about, and the society's chair knows everybody.
+scene R: {N} has not been on a stage since school, and has missed it every single year. The thought of the lights and the first-night nerves sets {Ns} heart racing.
+scene G: {friend} has acted with the players for years and keeps saying {N} should come. It is the same church hall where {N} went to playgroup, and the same faces at every show.
+scene tribal: As the nights lengthen, the band's tellers go from hearth to hearth asking who will play in the midwinter telling. They want hunters for the herd, a voice for the wolf, and someone who can make the children laugh.
+scene magic: A notice goes up at the guild hall: the mystery players need new players for the feast-day pageant, no guild token needed, all welcome to try. The pageant wagons are already being painted in the yard.
+- W | go to the open auditions, and promise to be at every single rehearsal | v: conformity, benevolence | title: amateur actor | binds | tribal: go to the tellers, and promise to be at the fire every night until midwinter | magic: go to the trials, and swear to every practice until the feast | chance: 75
+- U | read the play from the library first, then audition for the part that suits you | v: self-direction, achievement | title: amateur actor | tribal: listen to the old midwinter tellings first, then ask for the part you could play best | magic: read the old pageant first, then try for the part that suits you best | chance: 55
+- B | audition, and make sure the director knows you want a part with real lines | v: achievement, power | title: amateur actor | tribal: go to the tellers, and make sure they know you want more than a place in the herd | magic: try out, and let the pageant master know you want a part with lines | chance: 55
+- R | turn up on the night and read for anything, just for the fun of it | v: stimulation, hedonism | title: amateur actor | tribal: walk into the tellers' circle and play whatever they ask, for the joy of it | magic: turn up at the trials and read for anything, just for the fun of it | chance: 80
+- G | audition alongside the neighbour who has been in every play for twenty years | v: tradition, benevolence | title: amateur actor | habit | tribal: go to the tellers with the old hunter who has played the bear every midwinter of your life | magic: go to the trials with the neighbour who has played in every pageant for twenty years | chance: 65
+- W>B | join the society's committee first, and audition once you know how parts are given | v: conformity, power | aims: amateur actor | tribal: sit with the tellers first, and learn how they choose who plays what | magic: join the guild's pageant committee first, and learn how the parts are given | chance: 70
+- U>R | watch the dress rehearsal of their spring show, and see whether the spark catches | v: self-direction, stimulation | door | tribal: watch the next telling from the edge of the firelight, and see whether the spark catches | magic: watch a pageant practice from the yard, and see whether the spark catches | chance: 90
+- B>G | say no: the autumn evenings belong to the family | v: security, benevolence | mark: turned down a chance | tribal: say no: the winter evenings belong to your own hearth | magic: say no: the evenings belong to the family workshop | chance: 92
+- R>W | sell the tickets door to door, with all the cheek you have | v: benevolence, stimulation | body: light | tribal: go to every hearth and call the families to the telling, with all the cheek you have | magic: cry the pageant through the lanes, with all the cheek you have | chance: 65
+- G>U | help the old set-builder in his shed, and learn how the flats are made | v: tradition, self-direction | grants: stagecraft | mark: learned a skill | tribal: help the old mask-maker at her fire, and learn how the masks and screens are made | magic: help the old wagon-wright, and learn how the pageant's scenery is built | chance: 80
+works: The parts are given out, and {Ns} part has lines worth learning.
+works: By the first rehearsal {N} knows half the company by name, and they know {N}.
+fails: The night of the choosing clashes with other work, and the parts are given out without {N}.
+fails: {N} goes along, reads badly from nerves, and is thanked politely and not called back.
+
+== extras wanted for a film in town
+tier: everyday
+share: .15
+share_group: local_doors
+rate: 0.025
+times: per teenager or adult a year: about 1 in 25 hear of a call for extras they could answer, more in towns where films are made; the largest US background agency has about 200,000 people registered, and about 8 lives in 1,000 work as an extra at some point (catalogue share; estimate)
+gap: 3-8
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: WUG
+tone: joy
+life: work, community, leisure
+horizon: week
+roles: neighbour, friend, colleague, an assistant director
+earth: a film is shooting in the high street, and the background agency wants locals for a day
+tribal: a neighbouring band's great telling needs many bodies for the herd, the war band and the dead
+magic: the illusionists' procession needs a crowd of townsfolk for its opening night, paid by the night
+scene: Trucks, cables and a catering van have taken over the high street, and the shop signs have been changed to a town that does not exist. A notice in the café window says the background agency wants locals for a day: a five o'clock call, a day's pay, and no lines.
+scene W: The notice is very clear: arrive at five, bring two changes of plain clothes with no logos, and do exactly what the assistant director says. {N} could do that.
+scene U: {N} has always wondered how a film is really made: who decides where the camera goes, and why it takes all day to shoot a minute. Here is a chance to stand in the middle of it.
+scene B: A day's pay for standing in a street, and the agency keeps the names of people who turn up on time. {N} wonders how many more days a year that could mean.
+scene R: A real film, with real actors, on {Ns} own high street! {N} wants to be in it, even if only as the back of a head.
+scene G: The whole street is out watching: the baker, the old men from the bench, the children on their way to school. {N} has known these pavements all {Ns} life, and now they are going to be in a film.
+scene tribal: Runners come from the band over the ridge: their great telling needs many bodies for the herd, the war band and the dead, and anyone who walks over will be fed for three days.
+scene magic: The illusionists have drawn their wagons up outside the walls, and a crier calls for townsfolk to walk in the opening night's procession, a copper a night, while the glamours blaze overhead.
+- W | sign up, be there at five, and stand on the crew's exact mark all day | v: conformity, security | title: background artist | tribal: walk over the ridge, and stand in the herd exactly on the shaper's mark | magic: sign up for the procession, and keep exactly to the marks the illusionist's man gives | chance: 40
+- U | sign up, and spend the day watching how the crew sets up every shot | v: self-direction | title: background artist | tribal: walk over the ridge, and watch how their shaper makes the great telling | magic: walk in the procession, and watch how the glamours are cast and held | chance: 35
+- B | sign up, and ask what pays extra: your own car, a costume, a line | v: achievement, security | title: background artist | tribal: walk over, and ask what the band gives for words to speak instead of a place in the herd | magic: sign up, and ask what pays more than a copper: a costume, a torch, a line | chance: 15
+- R | sign up just to be in a film, and tell everyone you know | v: stimulation, hedonism | title: background artist | tribal: run over the ridge to be in the great telling, and tell every hearth on the way | magic: sign up for the procession for the fun of it, and tell the whole lane | chance: 50
+- G | sign up with three neighbours, and stand together in the crowd of your own high street | v: tradition, benevolence | title: background artist | tribal: walk over with your own kin, and play the herd side by side | magic: walk in the procession through your own streets, beside your own neighbours | chance: 15
+- W>B | sign with the background agency properly, photographs and all, for the next calls | v: security, achievement | grants: casting directory listing | tribal: ask their shaper to remember your name for the tellings to come | magic: put your name on the illusionists' roll for the processions to come | chance: 70
+- U>R | ask an assistant director whether locals are ever given a line | v: self-direction, stimulation | tribal: ask their shaper whether a player from another band is ever given words to speak | magic: ask the illusionist's man whether townsfolk are ever given a line | chance: 75
+- B>G | say no: a day's pay will not cover the day off work | v: power | self_control: + | tribal: say no: three days over the ridge is three days of hunting lost | magic: say no: a copper a night will not cover the shop shut | chance: 92
+- R>W | knock on the neighbours' doors so the whole street signs up together | v: benevolence, stimulation | mark: made a friend | tribal: run to every hearth so the whole band walks over together | magic: rouse the whole lane to walk in the procession together | chance: 60
+- G>U | watch from the pavement with the neighbours, and see how a film is made | v: tradition, self-direction | door | tribal: watch the great telling from the hillside with your own kin | magic: watch the procession from your doorstep, and see how the glamours are made | chance: 92
+works: The day is long and cold and strange, and {N} goes home paid, with a story to tell for years.
+works: Whatever {N} chose, it turns out as {N} wanted, and everyone talks of nothing else for a week.
+fails: The whole thing is called off at dawn, and {N} hears about it only on arrival.
+fails: {N} spends the whole day waiting in the cold, and is used for one moment nobody will ever see.
+
+# ---------------------------------------------------------------- pair C, people who already act (holds: youth theatre member | amateur actor | a lead role to remember | acting): calls WB (cycle s3) / calls URG (cycle s3)
+# The places are won at their real chance for an ordinary applicant (a drama school place 10 to 15, paid work from an
+# open call 5 to 10), one try in every color; the other acts build the skills, listings and plans that lift those odds.
+# Round 5, 2026-10-07 (checklist P9): the open call's five tries for [professional actor] are long shots (4 or 5, a bold
+# try at the next rung by an amateur, an extra or a drama student of two years) and carry `grants_if_fails: a long shot
+# that missed`; Black's and Red's go from 6 to 5, and their cross options B>W and R>U from 83 to 84, so every means
+# color keeps the same total across the pair.
+
+== drama school auditions
+tier: everyday
+share: .12
+share_group: training_doors
+rate: 0.05
+times: per young person who acts a year: about 1 in 7 think of applying; about 12,000 apply for about 1,550 places a year at 22 accredited UK drama schools, about 1 in 8 gets one, and about 3 lives in 1,000 train at drama school (catalogue share)
+gap: 1-3
+stages: juvenile young_adult adult
+age: 16-40
+calls: WB
+holds: youth theatre member | amateur actor | a lead role to remember | acting
+tone: mixed
+life: education, performing, money
+horizon: months
+roles: mentor, friend, parent, rival
+earth: the drama schools' audition season: forms, fees, two speeches and a song
+tribal: an old teller of another band will take one apprentice this winter, and asks to see what the young ones can do
+magic: the players' guild school opens its doors for the trials at the spring fair
+scene: The drama schools' audition season opens in the autumn: a form and a fee for each school, two contrasting speeches, sixteen bars of a song, and a train to a city for a day of workshops and recalls. Most schools take one applicant in eight, or fewer.
+scene W: Each school publishes its rules: the length of the speeches, what to wear, the deadlines. {N} keeps a folder with every one of them, and {mentor} has offered to hear the speeches every week.
+scene U: {N} has read that the panels look for truth before polish, and has been trying to work out what that means in a speech written four hundred years ago.
+scene B: A place at one of the big schools means agents at the showcase, and agents mean work. {N} counts the fees, the schools and the odds, and wonders which panel matters most.
+scene R: {N} wants this more than anything, and cannot sit still for thinking about it. Two speeches, a song, a room of strangers: three minutes to show them everything.
+scene G: Nobody in {Ns} family has ever done anything like this, and the nearest school is a long way from home. {N} thinks about the local players, the friends there, and what leaving would mean.
+scene tribal: Word comes that an old teller of a band two valleys away will take one apprentice for the winter. The young ones who want it must walk there and play before her fire, and she will choose one.
+scene magic: The players' guild school posts its trials at the spring fair: two pieces, one old and one new, a song, and a fee to the guild. The masters take a handful each year from the crowd at the door.
+- W | apply to the three schools your drama teacher recommends, and rehearse the speeches by the book | v: conformity | title: drama school student | tribal: walk to the old teller with your own elders' blessing, and play the telling exactly as you were taught | magic: apply to the guild school as your old teacher advises, and learn both pieces by the book | chance: 13
+- U | spend months on two speeches you understand line by line, then apply | v: achievement, self-direction | title: drama school student | mark: learned a skill | habit | tribal: spend the autumn on one telling until you know why every word is there, then walk over | magic: spend months on two pieces until you understand every line, then try | chance: 14
+- B | apply to every accredited school at once, fees and all, to raise your odds | v: achievement, power | title: drama school student | requires: savings | without: means | lacking: .5 | tribal: walk to every teller who might take an apprentice, with a gift for each | magic: try for every school of players in the realm, and pay every fee | chance: 15
+- R | audition with the speech you cannot say without crying, and let the panel see it | v: stimulation, self-direction | title: drama school student | identity | tribal: play the telling that brings the tears, and let the old teller see it | magic: try with the piece that brings the tears, and let the masters see it | chance: 13
+- G | audition only at the school in your own city, near family and the local players | v: tradition, benevolence | title: drama school student | tribal: walk only to the teller of the next band along, so your kin are near | magic: try only for the guild school in your own city, near family and friends | chance: 13
+- W>R | ask your old drama teacher to hear your speeches every week until the auditions | v: conformity, achievement | habit | tribal: ask the old teller of your own band to hear your telling every night until you go | magic: ask your old teacher to hear your pieces every week until the trials | chance: 85
+- U>G | take a foundation year first, and grow into the speeches before auditioning | v: self-direction, security | aims: drama school student | tribal: spend a winter at your own band's fire first, and grow into the telling before walking over | magic: take a year in the guild's preparatory class first, and grow into the pieces | chance: 84
+- B>W | take a paid weekend course with one school's own tutors, so they know your face | v: achievement, conformity | door | tribal: bring the old teller a gift in autumn, so she knows your face before the trial | magic: pay for a week of lessons with the guild school's own masters, so they know your face | chance: 83
+- R>U | go to every audition you can afford, and treat each one as a lesson | v: stimulation, self-direction | grants: auditioning | door | aims: drama school student | tribal: play before every teller who will watch, and learn from each one | magic: try before every company that holds trials, and learn from each one | chance: 85
+- G>B | not this year: work and save the fees, and apply next autumn | v: security, achievement | mark: turned down a chance | self_control: + | tribal: not this winter: hunt and lay by stores, and walk over next year | magic: not this year: work and put coin by for the fees, and try next spring | chance: 85
+works: Word comes in the spring with the offer of a place, or the thing {N} worked for comes right.
+works: The day of the trial goes well, and {N} leaves knowing every word was true.
+fails: The answers come back one by one, each a polite no, and {N} keeps every one of them.
+fails: The fees, the journeys and the nerves add up, and {N} stops before the season is over.
+
+== an open audition in the city
+tier: everyday
+share: .12
+share_group: training_doors
+rate: 0.05
+times: per amateur actor, extra or drama student of two years or more a year: about 1 in 10 go to an open call for paid work; most open calls cast a handful from hundreds (estimate)
+gap: 1-3
+stages: juvenile young_adult adult
+age: 16-40
+calls: URG
+holds: amateur actor | background artist | drama school student
+tenure: 2-100
+tone: mixed
+life: work, performing
+horizon: week
+roles: rival, friend, colleague, a casting assistant
+earth: an open call for a new show in the city: no agent needed, and the queue is round the block by seven
+tribal: the keeper of the gathering's tellings will hear any player before the summer telling
+magic: a travelling company sets up its wagons in the square and will hear anyone who wants to join
+scene: An open call for a new touring show: no agent needed, bring a headshot and a CV, one minute of speech. By seven in the morning the queue goes round the block, and the casting assistant with the clipboard says they will see everyone, eventually.
+scene W: There is a system: numbers at the door, groups of ten called in, one minute each and no exceptions. {N} has a number, a folder and a bottle of water, and means to do it properly.
+scene U: {N} has read the play they are casting and knows which parts are still open. One minute is not long; it is enough for one true moment, if it is the right one.
+scene B: The people in the queue are rivals, but they are also a list of who is working and who is not. {N} notes the casting assistant's name on the lanyard and remembers it.
+scene R: Six hundred hopefuls and one minute each. {N} feels the old fire: this is the kind of door that only opens for someone who kicks it.
+scene G: {friend} from the local players came along for company, with sandwiches and a flask. Whatever happens, they will have a story to take home.
+scene tribal: The keeper of the gathering's tellings sits on a rock above the summer camp and will hear any player who comes before the great telling. Players from every band wait their turn in the long grass.
+scene magic: A travelling company has drawn its wagons into a ring in the square, and its master will hear anyone who wants to join: one piece, spoken from the tailboard of the first wagon, before the whole market.
+- W | queue from six with headshot and CV, and give them exactly the speech they asked for | v: conformity | title: professional actor | grants_if_fails: a long shot that missed | tribal: wait your turn below the keeper's rock, and play the telling exactly as he asked | magic: wait your turn by the wagons, and give the master exactly the piece he asked for | chance: 4
+- U | learn a speech from the very play they are casting, and know every line of it | v: achievement, self-direction | title: professional actor | grants_if_fails: a long shot that missed | mark: learned a skill | self_control: + | tribal: learn a piece of the very telling the keeper means to play, and know every word of it | magic: learn a piece from the company's own play, and know every line of it | chance: 5
+- B | add "can ride a horse" to your CV, since the show has a horse in it | v: achievement, power | title: professional actor | grants_if_fails: a long shot that missed | mark: hid a wrong | closed: approval: a lie on the CV; backfire: the first rehearsal is on horseback, and the company lets the liar go | self_control: - | tribal: tell the keeper you have danced the spear-dance at three gatherings, though you never have | magic: tell the master you can ride, since the play has a cavalry charge | chance: 5
+- R | give them the rawest minute they will see all day, polish or no polish | v: stimulation | title: professional actor | grants_if_fails: a long shot that missed | tribal: give the keeper the wildest telling he will see all summer | magic: give the master the wildest piece he will hear at the whole fair | chance: 5
+- G | go with friends from the local players, and audition together for the ensemble | v: benevolence, tradition | title: professional actor | grants_if_fails: a long shot that missed | mark: made a friend | tribal: go with the players of your own band, and ask to be the herd together | magic: go with your friends from the mystery players, and try for the crowd parts together | chance: 5
+- W>R | wait all day for your slot, and keep your nerve when the queue is cut | v: conformity, stimulation | grants: auditioning | self_control: + | tribal: wait below the rock from dawn to dusk for your turn, and keep your nerve | magic: wait the whole market day for your turn on the tailboard, and keep your nerve | chance: 85
+- U>G | leave your details with the casting office for the next show, and go home | v: security, self-direction | grants: casting directory listing | tribal: ask the keeper to remember your name next summer, and walk home | magic: leave your name on the company's roll for the next fair, and go home | chance: 84
+- B>W | ask the casting assistant what an agent would want to see, and plan from there | v: achievement, conformity | aims: professional actor | self_control: + | tribal: ask the keeper's helper what the keeper looks for, and make a plan for next summer | magic: ask the master's clerk what the company looks for, and plan from there | chance: 84
+- R>U | leave the queue at noon, and spend the afternoon at a drop-in improvisation class | v: stimulation, self-direction | grants: improvisation | door | tribal: leave the waiting at noon, and spend the day making up tellings with the players by the stream | magic: leave the line at noon, and spend the afternoon playing without a book in the inn yard | chance: 84
+- G>B | go home, and come back next year with a better speech and a proper headshot | v: security, achievement | self_control: + | aims: professional actor | tribal: go home to your band, and come back next summer with a better telling | magic: go home, and come back to the next fair with a better piece | chance: 84
+works: Days later word comes: they want {N}, or the day gives {N} exactly what {N} came for.
+works: {N} walks out into the evening knowing the minute went as well as it could.
+fails: {N} waits nine hours, is seen for forty seconds, and never hears another word.
+fails: The hearing stops at dusk with half the line still waiting, {N} among them.
+
+# ---------------------------------------------------------------- echoes: the school play (cycle s4), retirement (cycle s1), an idea or the wish to be seen (cycle s2), a lucky letter (cycle s3)
+# Each is even on its own (five one-color options and one full cross cycle), once in a life, at the rate the brief sets;
+# its engine condition is in engine-conditions.py (ECHO_STAGE), and its after:, likelier: and rarer: lines say the same
+# in words.
+
+== the part you never got to play
+tier: echo
+rate: 0.01
+once: yes
+stages: young_adult adult mature elder
+age: 18-95
+times: per person who met the school play as a child: about 1 in 50 come back to the stage as adults, years later (estimate)
+tone: mixed
+life: performing, leisure, meaning
+horizon: months
+roles: friend, partner, colleague, the players' director
+earth: a notice for the local players' auditions, in the same hall where the school play was
+tribal: the children rehearse the small spirits for midwinter, and you remember the part you wanted
+magic: the guild's pageant wagons roll past, and you remember the masque you were too shy to try for
+after: moment 'the school play' as a child under 13, and now 18 or more, neither acting with the local players nor for a living (no [amateur actor], no [professional actor])
+delay: 6-40
+likelier: much Red and Green in the color history; time to spare; singing or dancing kept up since
+rarer: stress above 1.5; little money; children at home and little time
+scene: Years after the school play, {N} walks past the old school hall and sees a notice in the porch: the local players hold their auditions there next week. The smell of floor polish and dusty curtains comes back all at once.
+scene W: {N} never did get the part back then, and always half believed it went to the right child. Still, the notice says all are welcome, and there is no rule about being too old.
+scene U: {N} still remembers the lines of the part that went to someone else, every one of them, which is strange after so many years. It would be interesting to know whether there was anything there.
+scene B: The child who got that part went on to nothing much, {N} has heard. {N} wonders, not for the first time, what the right chance might have led to.
+scene R: Standing in that porch, {N} feels the old ache like a bruise: the costume made from curtains, the part that went to someone else, the wanting. It has not gone anywhere.
+scene G: {N} thinks of the teacher who ran the play, the families on plastic chairs, the curtains that stuck. It belongs to a time and a place, and the place is still here.
+scene tribal: The children of the band are learning the small spirits for midwinter, squeaking like mice and stamping like elk. {N} watches from the edge of the firelight and remembers the hare's part, given to another child all those winters ago.
+scene magic: The guild's pageant wagons roll through the square, painted and garlanded, and the players wave from the tailboards. {N} remembers the schoolroom masque, and the part {N} was too shy to try for.
+- W | go to the auditions in that same hall, and take any part they offer | v: conformity, achievement | title: amateur actor | identity | tribal: ask the band's tellers for a place in the midwinter telling, whatever part they give | magic: go to the mystery players' trials, and take any part they offer | chance: 80
+- U | find out whether the drama schools take people your age, and send for the forms | v: self-direction, achievement | aims: drama school student | identity | tribal: ask whether an old teller of another band would take an apprentice of your age | magic: find out whether the guild school takes scholars of your age, and send for the rolls | chance: 65
+- B | ring the players' director, and ask what it would take to be cast in something good | v: achievement, power | door | tribal: ask the shaper of the telling, quietly, what it would take to be given a real part | magic: call on the pageant master, and ask what it would take to be cast well | chance: 75
+- R | turn up at the auditions on a whim, and sing the song from the school play | v: stimulation, hedonism | title: amateur actor | tribal: walk into the tellers' circle and dance the hare the way you always wanted to | magic: turn up at the trials on a whim, and sing the song from the old masque | chance: 70
+- G | let it rest: that part belongs to the child you were | v: tradition, security | tribal: let it rest: that part belongs to the child you were | magic: let it rest: the masque belongs to the child you were | chance: 80
+- W>G | sign up as an extra for the film in town, and bring the family to watch | v: conformity, benevolence | title: background artist | tribal: walk in the herd at a neighbouring band's great telling, with your own kin alongside | magic: walk in the illusionists' procession, and bring the family to watch | chance: 70
+- U>W | offer to help backstage at the local players' next show, and watch how it is made | v: benevolence, self-direction | tribal: offer to tend the fire and the screens at midwinter, and watch how the telling is made | magic: offer to help with the pageant wagons, and watch how the play is made | chance: 85
+- B>U | pay a coach for a few lessons, and find out if there is anything there | v: achievement, self-direction | grants: acting | mark: learned a skill | tribal: give an old teller a good hide for a winter's teaching, and find out if there is anything there | magic: pay an old player for lessons, and find out if there is anything there | chance: 75
+- R>B | post the old school-play photograph online, and announce you are going back on stage | v: achievement, stimulation | identity | tribal: tell every hearth you mean to play at midwinter, and a better part than the hare | magic: tell the whole tavern you mean to be in the next pageant, and in a part worth having | chance: 75
+- G>R | put on a little play at home with the children in the family | v: benevolence, hedonism | tribal: play the hare for the children of your hearth by the fire, the way you always wanted to | magic: put on a little masque at home for the children of the family | chance: 70
+works: {N} steps onto a stage again, or close to one, and finds the old ache has turned into something better.
+works: Within a few months {N} has a part, a place or a plan, and wonders what took so long.
+fails: The day comes and goes, and {N} stays home and tells no one.
+fails: {N} goes along, feels too old and too slow among the regulars, and does not go back.
+
+== never too late for the stage
+tier: echo
+rate: 0.02
+once: yes
+stages: mature elder
+age: 55-95
+times: per new retiree: about 1 in 40 take up amateur theatre or extra work in the first years of retirement; amateur societies draw members of every age (estimate)
+tone: joy
+life: leisure, community, performing
+horizon: months
+roles: partner, friend, neighbour, the players' director
+earth: a notice for the local players, and a whole week free for rehearsals at last
+tribal: too old for the hunt, you are asked to tell the old stories at the fire
+magic: the guild's mystery players want grey heads for the elders in the pageant
+after: moment 'the first months of retirement', and now retired, not already an amateur actor (no [amateur actor]), with health enough for evening rehearsals
+delay: 0-3
+likelier: an amateur actor, a youth theatre member or a lead role in the past; time to spare; much Green and Red in the color history
+rarer: poor health; little money; a partner who gives little support
+scene: The leaving party is a few weeks behind {N}, and the days have a strange width to them. In the library a notice says the local players are casting their spring play, rehearsals on Tuesday and Thursday evenings, and they are short of older actors.
+scene W: For forty years {Ns} week belonged to someone else's timetable. A society with a rehearsal schedule and a part to learn by a date is a shape {N} understands.
+scene U: {N} has always wondered how actors remember it all, and what it is like to become someone else for two hours. There is time to find out now.
+scene B: {N} spent a working life being listened to in meetings, and misses it more than expected. A stage is another room where people listen.
+scene R: {N} feels oddly giddy reading the notice, like a teenager. Why not? Who is going to stop {N} now?
+scene G: Half the faces in the players' photographs are people {N} has known for years: the woman from the post office, the old headmaster, a neighbour from two doors down. They are all growing older together, on a stage.
+scene tribal: The hunt has gone on without {N} this season, and the young ones run faster now. At the fire one night the old teller nods at {N}: the band needs someone to tell the old stories, and {N} remembers them all.
+scene magic: The guild's mystery players nail a notice to the hall door: grey heads wanted for the elders and the kings in the feast-day pageant, no experience needed. {N} reads it twice.
+- W | join the local players, and be word-perfect by the first read-through | v: conformity, achievement | title: amateur actor | self_control: + | tribal: join the band's players for the midwinter telling, and know every word by the first fire | magic: join the mystery players, and know your lines before the first practice | chance: 70
+- U | take an acting class for older beginners at the college, and learn it properly | v: self-direction | grants: acting | mark: learned a skill | tribal: sit with the old teller through the winter, and learn how a telling is held | magic: take lessons from an old player of the guild, and learn the craft properly | chance: 75
+- B | sign with the background agency: adverts and films want older faces, and it pays | v: achievement, security | title: background artist | tribal: offer to walk as one of the dead in a neighbouring band's great telling, for a share of the feast | magic: put your name down for the illusionists' processions: they pay grey heads by the night | chance: 75
+- R | audition for the players' next show on a whim, and go for the loudest part | v: stimulation, hedonism | title: amateur actor | tribal: stand up at the fire and play the old bear, loud enough to wake the sleepers | magic: try for the pageant's king on a whim, the loudest part in it | chance: 65
+- G | let it rest: the garden and the family fill the week well enough | v: tradition, benevolence | tribal: let it rest: the grandchildren and your own fire are enough | magic: let it rest: the garden and the family fill the days well enough | chance: 80
+- W>U | offer to prompt for the players, and learn how a show is put together | v: benevolence, self-direction | door | aims: amateur actor | tribal: offer to keep the masks and give the players their signs, and learn how a telling runs | magic: offer to hold the book for the mystery players, and learn how a pageant is made | chance: 80
+- U>B | read the plays the players have chosen, and pick the part you could win | v: achievement, self-direction | tribal: listen to the tellings the band will play, and choose the part you could win | magic: read the pageant's book, and pick the part you could win | chance: 75
+- B>R | start a play-reading group at home, and choose every play yourself | v: hedonism, self-direction | habit | tribal: gather the old ones at your own hearth for tellings, and choose every story yourself | magic: start a reading circle in your parlour, and choose every play yourself | chance: 75
+- R>G | read stories aloud at the library's Saturday story time for small children | v: benevolence, stimulation | grants: telling a story aloud | habit | tribal: tell the children of the band the old stories at dusk, with all the voices | magic: read tales aloud to the children at the guild hall on feast days | chance: 85
+- G>W | go along with an old friend to the players' social evening first | v: benevolence, tradition | mark: made a friend | tribal: sit with your old friends at the tellers' fire first, and listen | magic: go with an old friend to the mystery players' supper first | chance: 70
+works: By the spring {N} has a part, a head full of lines, and a whole new set of friends.
+works: {N} finds that the years have left a voice worth hearing, and people who want to hear it.
+fails: The first evening is all in-jokes and old hands, and {N} slips out before the end and does not go back.
+fails: A bad winter for {Ns} health puts the whole idea away for another year.
+
+== the show you wrote to star in
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult adult mature elder
+age: 17-95
+times: per person who can act and meets an idea that will not let go, or the wish to be seen: about 1 in 15 write and book a show of their own; the largest fringe festival had over 3,300 shows in 2024, most of them from small companies (estimate)
+tone: joy
+life: performing, making, money
+horizon: months
+roles: friend, partner, colleague, mentor
+earth: an idea for a one-person show, and the fringe's registration closes in a month
+tribal: a telling of your own, and the outer fires at the gathering where anyone may play
+magic: a play of your own, and a pitch at the fair's booths
+after: moment 'inspiration strikes' or 'wanting to be noticed' in someone who can act ([acting]), 17 or more, holding no lead ([lead actor or actress]) and no [a fringe slot]
+delay: 0-2
+likelier: writing stories or scripts; improvisation; much Red and Blue in the color history
+rarer: stress above 1.5; little money; more than one child at home
+scene: The idea arrives whole on a bus and will not leave: a one-person show, an hour long, about something only {N} could tell. The fringe's registration closes in a month, and the cheapest rooms go first.
+scene W: {N} wants to do it properly: the script finished before a room is booked, a budget written down, every form in on time. The festival's rules run to forty pages, and {N} reads all of them.
+scene U: The idea has a shape {N} can almost see: where it starts, where it turns, the one image it builds toward. {N} fills a notebook in a week.
+scene B: Nobody is going to hand {N} a part worth having. A show of {Ns} own, with {Ns} own name on the poster, is a part nobody can give to someone else.
+scene R: {N} cannot sleep for it. The show is already playing in {Ns} head every night, to a full room that laughs in all the right places.
+scene G: The story is really {Ns} grandmother's, or the street's: something that happened here, to people {N} knows, that nobody has ever put on a stage.
+scene tribal: A telling of {Ns} own has been growing all winter, a story nobody in the band has heard. At the gathering the outer fires belong to anyone who wants to play, and the clans wander from one to the next.
+scene magic: A play of {Ns} own has been going round {Ns} head for a season. The fair's booths can be hired by the week, and the crowds that come for the wagons spill into them.
+- W | finish the script first, then register with the fringe properly, every form on time | v: conformity, achievement | grants: a fringe slot | tribal: shape the telling to its end first, then ask the keeper for a place at the outer fires | magic: finish the play first, then take out the fair's licence properly, every seal in order | chance: 70
+- U | write and rewrite the script for a month before showing it to anyone | v: achievement, self-direction | grants: writing scripts | habit | self_control: + | tribal: tell it to yourself on the long walks, over and over, until every part fits | magic: write and rewrite the play for a month before anyone sees a page | chance: 75
+- B | book the best room you can afford with your savings, and sell it hard | v: achievement, power | grants: a fringe slot | requires: savings | without: means | lacking: .5 | binds | tribal: trade your best furs for a good place at the outer fires, and bring the crowd yourself | magic: hire the best booth you can afford, and cry it through the fair yourself | chance: 80
+- R | book the cheapest room at the fringe tonight, before the nerve goes | v: stimulation | grants: a fringe slot | tribal: walk to the gathering with nothing but the telling, and take the first empty fire | magic: hire the cheapest booth at the fair tonight, before your nerve goes | chance: 70
+- G | let it rest: the idea can grow quietly in a notebook for a year or two | v: tradition, security | tribal: let it rest: the telling can grow quietly by your own fire for a winter or two | magic: let it rest: the play can grow in a drawer for a year or two | chance: 80
+- W>B | set up a small company with two friends, with a bank account and a written agreement | v: security, conformity | grants: a company of your own | binds | tribal: gather two friends as a band of players, with a promise sworn at the fire | magic: found a small company with two friends, with a licence and a written agreement | chance: 75
+- U>R | work the show out by improvising it for friends, week after week | v: self-direction, stimulation | grants: improvisation | tribal: make the telling up anew at your own fire each night, until it finds its shape | magic: play it without a book for friends, week after week, until it finds its shape | chance: 70
+- B>G | ask the family business to pay the venue fee, with its name on the poster | v: achievement, benevolence | tribal: ask your kin to feast the crowd at your fire, and promise them the honour of it | magic: ask the family workshop to pay for the booth, its name on the playbill | chance: 65
+- R>W | put the show on free in the community hall first, for anyone who comes | v: benevolence, universalism | tribal: tell it free at every hearth of your own band first | magic: play it free in the ward's hall first, for anyone who comes | chance: 75
+- G>U | ask the old ones at home for their stories, and build the show from them | v: tradition, self-direction | tribal: sit with the old ones of your band, and build the telling from what they remember | magic: ask the old folk of the lane for their stories, and build the play from them | chance: 65
+works: The show goes up, rough at the edges, and the people who came stay behind to talk about it.
+works: {N} has something of {Ns} own at last, with {Ns} own name on it, and it feels better than any part ever given.
+fails: The money, the forms and the fear pile up, and the idea goes back to sleep.
+fails: The show goes up to a room of seven people, three of them friends, and {N} wonders what it was all for.
+
+# The part was offered, so saying yes takes it at 50 to 60 (the company can still change its mind); reading for the lead
+# of the small touring show is a long shot at 12 (the part and a lead to remember, never the lead itself). Each
+# color has one long or uncertain act and one surer one, so the moment is even.
+
+== the part that came with the letter
+tier: echo
+rate: 0.1
+once: yes
+stages: young_adult adult mature
+age: 17-65
+times: per amateur actor, extra or drama student who can act and met an unexpected chance of a role: about 1 in 8 are offered paid work from it (estimate)
+tone: joy
+life: work, performing, home
+horizon: months
+roles: partner, boss, friend, colleague
+earth: a letter from a small touring company: someone saw you, and there is a part
+tribal: a band upriver sends word: their teller has heard of you, and wants you for the winter
+magic: a sealed letter from a travelling company's master: a part, if you can join the wagons by spring
+after: moment 'an unexpected chance: a grant, a role, a stage' in someone who can act ([acting]), 17 or more and not yet a professional actor (no [professional actor]), on the rung below a paid part: an amateur actor or an extra of two years or more, or a drama student of a year or more
+delay: 0-1
+likelier: a lead role to remember; acting with the local players; a listing in the casting directory
+rarer: stress above 1.5; more than one child at home; poor health
+scene: A letter comes from a small touring company {N} has never heard of. Its director saw {N} in a show, and there is a part in the spring tour: twelve weeks, forty towns, a small fee, and a different bed every week.
+scene W: The letter is courteous and exact: the dates, the fee, the terms of the contract, a reply by the end of the month. {N} reads it like a promise someone is already keeping.
+scene U: {N} looks the company up: three tours, good notices in small papers, and a play {N} has read and loved. It is a real chance to learn the work from the inside.
+scene B: A paid part means a real credit, the actors' union, an agent who might return a call. {N} reads the cast list twice and sees the lead has not been cast yet.
+scene R: {N} reads it three times standing in the hall, then shouts. Someone saw {N}, and wants {N}, and it is real.
+scene G: Twelve weeks on the road means twelve weeks away from home: {partner}, the friends, the day job, the garden. {N} sits with the letter at the kitchen table for a long time.
+scene tribal: A runner comes down the river with word from a band upriver: their teller has heard of {Ns} tellings at the gathering, and wants {N} at their fire for the whole winter, fed by every hearth.
+scene magic: A sealed letter with a travelling company's mark comes by the carrier: its master saw {N} at the fair, and there is a part for {N}, if {N} can join the wagons by spring.
+- W | write back by return, accept the part, and give the day job proper notice | v: conformity, security | title: professional actor | tribal: send word back by the runner that you will come, and settle your duties at home first | magic: seal your answer the same day, and give your master proper notice | chance: 58
+- U | ask for the script first, read it twice, then say yes | v: self-direction, achievement | title: professional actor | binds | tribal: ask the runner which tellings they will want, and say yes once you know them | magic: ask for the play first, read it twice, then send your answer | chance: 55
+- B | see that the lead is not cast yet, and ask to read for it instead | v: achievement, power | title: professional actor | grants: a lead role to remember | aims: professional actor | tribal: ask to wear the great mask of their winter telling, not a lesser part | magic: write back asking to read for the leading part, not the one offered | chance: 12
+- R | say yes, and walk out of the day job the same afternoon | v: stimulation, self-direction | title: professional actor | mark: broke your word | closed: approval: leaving a job without notice; backfire: no reference, and the old boss tells anyone who asks | self_control: - | tribal: leave with the runner that same day, hunt or no hunt | magic: say yes, and walk out of your master's shop the same afternoon | chance: 55
+- G | turn it down: home, the family and the day job come first | v: tradition, benevolence | mark: turned down a chance | identity | tribal: send word back that your place is with your own band this winter | magic: write back that home and family come first | chance: 90
+- W>R | ask the day job for twelve weeks' unpaid leave, by the book, before answering | v: conformity, stimulation | tribal: ask the elders' leave to be gone for the winter, before answering | magic: ask your master for a season's leave, by the guild's rules, before answering | chance: 45
+- U>G | ask for a week to think, and ask an actor you trust about the company | v: security, self-direction | tribal: ask an old teller who has been upriver what that band is like, before answering | magic: ask an old player what the company is really like, before answering | chance: 50
+- B>W | put your name in the casting directory, now that a company has written | v: achievement, security | grants: casting directory listing | tribal: make sure every band at the gathering hears that a band upriver has sent word | magic: put your name on the brokers' roll, now that a company has sent word | chance: 90
+- R>U | turn it down, but ask to sit in on their rehearsals and learn | v: self-direction, stimulation | self_control: + | tribal: send word you cannot come, but ask to watch their tellings at the gathering | magic: decline, but ask to watch the company rehearse when it passes through | chance: 48
+- G>B | write back that you will come if the company finds work for your partner too | v: benevolence, security | binds | tribal: send word you will come if your partner's hearth can winter there too | magic: write back that you will come if the company takes your partner on as well | chance: 15
+works: The answer goes back, and {N} never once regrets it in the year that follows.
+works: By spring {N} is on the road with a company, learning the work from the inside.
+fails: The company goes quiet after the first reply, and the part goes to someone else.
+fails: Three weeks into the tour the money runs out, and {N} comes home with nothing but stories.

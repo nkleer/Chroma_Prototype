@@ -1,0 +1,992 @@
+# Chroma library, modern Earth: JUVENILE stage (ages 10 to 18). Grid: earth-plan.md. Rules: library-spec.md.
+# Syntax: header of build.py. Compile and check the whole batch: python3 build.py earth
+
+# ---------------------------------------------------------------- pair 1: calls WU (cycle s2) / calls BRG (cycle s4)
+
+== exams are coming
+tier: everyday
+at: school
+stages: juvenile
+age: 13-18
+calls: WU
+tone: trouble
+life: school
+horizon: week
+roles: parent, rival, friend, a teacher
+earth: the big end-of-year exams are three weeks away and revision has barely started
+times: Nearly every teenager in school, once or twice a year, before the big end-of-year exams (estimate)
+gap: .8-1
+scene: The exams start in three weeks. {Ns} desk is buried under past papers, and the phone keeps lighting up.
+scene W: The exam timetable is stuck to the fridge, every date circled in pen by {parent}. {N} means to be ready for each one.
+scene U: {N} spreads the whole syllabus across the floor. There are gaps in it, and gaps can be mapped and filled.
+scene B: Only the top marks get a place in the advanced class next year, and {rival} has been revising since the spring.
+scene R: The sun is out, the exams are weeks away, and every hour at the desk feels like a cage.
+scene G: {N} has always been good at some subjects and hopeless at others, like {parent} before them. Three weeks will not change that much.
+- W | revise every evening at the same time, with the phone in another room | habit | v: conformity, achievement | chance: 78
+- U | work through every past paper and study each mistake you make | habit | v: achievement, self-direction | mark: learned a skill | chance: 82
+- B | get hold of the answers going round the group chats | habit | v: achievement | mark: hid a wrong | closed: approval: cheating; backfire: caught, and the paper voided | tech: phone | chance: 30
+- R | turn revision into a loud game with friends: quizzes, forfeits, music | habit | v: hedonism | chance: 60
+- G | keep your usual days, sleep and meals, and trust what you already know | v: security | chance: 48
+- W>B | sign up for every extra revision class, to finish ahead of your rival | v: achievement | chance: 62
+- U>R | plan revision so cleverly that your evenings stay free | v: hedonism, self-direction | chance: 62
+- B>G | drop the subjects you will fail anyway, and pour everything into your gifts | v: achievement | mark: took a wild risk | chance: 59
+- R>W | pull all-nighters before each paper, so you do not let the family down | body: light | v: conformity, achievement | chance: 45
+- G>U | learn it all by heart the old-fashioned way, reading your notes aloud until they stick | habit | v: tradition, achievement | chance: 65
+works: The paper turns over, and the first question is one {N} knows cold.
+works: The results come in, better than {N} dared to hope.
+fails: {Ns} mind goes blank halfway through the first paper.
+fails: The results arrive, and {parent} goes very quiet.
+
+== a fight after school
+tier: everyday
+at: school
+stages: juvenile
+age: 11-17
+calls: BRG
+tone: trouble
+life: conflict, body
+horizon: moment
+roles: rival, friend, a teacher, a crowd of onlookers
+earth: word goes round that someone is going to fight you at the gates after school
+times: About 1 in 3 teenagers, once or twice; about 1 in 4 US high school boys and 1 in 8 girls are in a physical fight in a year (CDC YRBS 2021)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Word has gone round: {rival} will be waiting at the gates after the last bell, and half the year is coming to watch.
+scene W: {N} has done nothing to deserve this, and everyone knows it. Somebody ought to stop it before it starts.
+scene U: {N} replays the last week, trying to work out what {rival} thinks happened and who stirred it up.
+scene B: If {N} backs down now, the whole school will know by morning. This is about who gets pushed around for the next three years.
+scene R: {Ns} heart is hammering and their fists are already tight. The last lesson drags on for ever.
+scene G: Some fights come whatever anyone does. {N} feels this one in the stomach, the way a dog feels a storm on the way.
+- W | tell the teacher on gate duty what is planned | v: security, conformity | closed: approval: telling on others; backfire: called a snitch for the rest of the year | chance: 75
+- U | message your rival first and find out what they think you did | v: security | act: message their rival first and find out what the rival thinks they did | tech: phone | chance: 55
+- B | get two older kids to stand behind you at the gate | v: power, security | act: get two older kids to stand behind them at the gate | chance: 72
+- R | walk out of the gate past them, head up, and refuse to fight | v: self-direction | chance: 60
+- G | round up your cousins and the kids from your street to face them together | identity | body: heavy | v: benevolence (in-group), power | closed: approval: a gang fight; backfire: everyone suspended, and a feud between streets | chance: 50
+- W>G | ask your parents to ring the other family and settle it between the households | v: security, tradition | chance: 52
+- U>W | save the threatening messages and hand them to the head of year | v: security, conformity | tech: phone | chance: 75
+- B>U | pay one of their friends to tell you exactly what is planned | v: security, power | act: pay one of their friends to tell them exactly what is planned | chance: 54
+- R>B | throw the first punch, so nobody pushes you around again | body: heavy | v: power | mark: made an enemy | closed: approval: fighting; backfire: suspended, and the feud goes on | act: throw the first punch, so nobody pushes them around again | role: men | chance: 50
+- G>R | have it out fair and square on the field, then shake hands and let it go | body: heavy | v: none clear (settling it by strength) | mark: took a wild risk | closed: approval: fighting; backfire: caught by a teacher, and both suspended | role: men | chance: 45
+works: It is over almost before it starts, and by Friday nobody is talking about it.
+works: {N} walks home with friends, and {rival} keeps well away.
+fails: There is a scuffle at the gates, a torn shirt, and a letter home.
+fails: The next day everyone is talking about {N}, and not kindly.
+
+# ---------------------------------------------------------------- pair 2: calls UB (cycle s3) / calls WRG (cycle s1)
+
+== you learn a secret about a friend
+tier: everyday
+stages: juvenile
+age: 12-18
+calls: UB
+tone: mixed
+life: friends
+horizon: week
+roles: friend, rival, the group
+earth: you find out your friend is secretly going out with someone the whole group can't stand
+times: Most teenagers, about once a year (estimate)
+gap: .8-1
+scene: A message lights up {friend}'s phone, and {N} sees the name: {rival}. {friend} has been going out with them in secret for weeks.
+scene W: The group swore there would be no secrets between them. {N} cannot decide which matters more, the promise or the friend.
+scene U: So that explains the late replies and the strange excuses. {N} starts fitting the rest of it together.
+scene B: Nobody else knows. For once {N} holds something the whole group would give a lot to hear.
+scene R: It lands like a slap: {friend}, of all people, and with {rival}.
+scene G: People fall for whoever they fall for. {N} watches {friend} smile at the phone and remembers how long the two of them have been friends.
+- W | tell your friend you will not lie for them, and that secrets break the group | v: benevolence (honesty), conformity | chance: 60
+- U | read back through their messages while they are out of the room | v: self-direction | mark: hid a wrong | closed: approval: reading a friend's phone; backfire: caught, and the friendship ends | act: read back through their friend's messages while the friend is out of the room | tech: phone | chance: 62
+- B | keep the secret, and make sure your friend knows you are keeping it | v: power | chance: 80
+- R | blurt it out at lunch in front of everyone | v: stimulation | mark: made an enemy | chance: 12
+- G | let it be; it is their life, and the friendship matters more | v: benevolence, universalism (tolerance) | chance: 80
+- W>R | swear to keep their secret, and cover for them when they sneak off | binds | v: benevolence | mark: hid a wrong | closed: approval: lying to parents for a friend; backfire: caught in the lie, and both in trouble | chance: 70
+- U>G | spend time with the one the group can't stand, to see what your friend sees | door | identity | v: universalism (tolerance) | mark: made a friend | chance: 60
+- B>W | use what you know to force a truce between your group and theirs | v: security, power | chance: 32
+- R>U | ask them straight out, right now, how on earth it happened | v: self-direction | chance: 80
+- G>B | wait it out patiently; when it ends, your friend will owe you | v: power | act: wait it out patiently; when it ends, their friend will owe them | chance: 65
+works: The secret stays where it belongs, and the friendship holds.
+works: {friend} tells the others in their own time, and it goes better than anyone feared.
+fails: By Monday everyone knows, and {friend} thinks {N} told them.
+fails: {friend} stops answering {Ns} messages.
+
+== summer camp
+tier: everyday
+stages: juvenile
+age: 10-16
+calls: WRG
+tone: joy
+life: leisure, nature
+horizon: week
+roles: friend, a counsellor, the other campers
+earth: two weeks at a summer camp by a lake, sleeping in cabins, phones handed in at the gate
+times: About 1 in 3 young people, one or a few summers, at a camp or on a school residential trip (estimate)
+gap: .8-1
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The coach pulls up at a camp by a lake. Phones go into a basket at the gate, and the cabins smell of pine and old sleeping bags.
+scene W: There is a washing-up rota, a flag raised every morning, and points for the tidiest cabin. {N} wants their cabin to win.
+scene U: The lake, the woods, a night sky with no streetlights: {N} has a notebook and two weeks to find out about all of it.
+scene B: The cabins choose their leaders on the first night. {N} quietly sizes up who the others will listen to.
+scene R: No parents, no phones, and a rope swing over the water. {N} drops their bag and runs.
+scene G: The air smells of pine and woodsmoke, and by the second night {N} sleeps better than they have all year.
+- W | look out for the shy kid in your cabin and bring them into every game | v: benevolence | mark: made a friend | chance: 82
+- U | spend your free hours at the nature hut, identifying everything you find | v: self-direction | chance: 88
+- B | trade the snacks from home for the best bunk and the easiest chores | v: power, hedonism | chance: 88
+- R | try the rope swing, the climbing wall and the kayaks, all on the first day | body: heavy | v: stimulation | chance: 92
+- G | let go of home and phones, and live by the sun and the lake | door | v: universalism (nature), hedonism | chance: 72
+- W>U | go to every workshop on the timetable and earn every badge | v: achievement | mark: learned a skill | chance: 60
+- U>B | find a loophole in the camp's points system and win your cabin the trophy | v: achievement, power | closed: approval: gaming the rules; backfire: the points struck off on the last day | chance: 32
+- B>R | sneak into the kitchen after lights out and raid the sweets | v: hedonism | mark: defied an authority | closed: approval: out of bounds at night; backfire: caught, and no campfire on the last night | chance: 65
+- R>G | leap into the cold lake at dawn with the whole cabin, whooping | body: heavy | v: stimulation | chance: 90
+- G>W | comfort the homesick younger ones at bedtime with the stories you grew up with | v: benevolence, tradition | mark: helped someone in need | chance: 82
+works: {N} comes home sunburnt and scratched, with three new friends and a song stuck in their head.
+works: On the last night, round the fire, {N} does not want it to end.
+fails: {N} is homesick from the first night and counts the days.
+fails: A row in the cabin sours the whole fortnight.
+
+# ---------------------------------------------------------------- pair 3: calls BR (cycle s4) / calls WUG (cycle s2)
+
+== a party at a house with no parents
+tier: everyday
+stages: juvenile
+age: 13-18
+calls: BR
+tone: joy
+life: friends, leisure
+horizon: moment
+roles: friend, rival, parent, the host, a neighbour
+earth: an older kid's parents are away for the weekend, and half the year is invited round
+times: Most teenagers, once or a few times, mostly between fifteen and eighteen (estimate)
+gap: .8-1
+scene: The parents are away, the house is packed by nine, and the music shakes the windows. Somebody has brought bottles from home.
+scene W: {N} promised {parent} to be home by eleven. The kitchen is already a mess, and the neighbours have started looking out of their windows.
+scene U: {N} leans against the wall for a while, watching who talks to whom and working out how the night is going to go.
+scene B: Everyone who matters in the year is here. A night like this decides who is in and who is out.
+scene R: The bass is in {Ns} chest, everyone is shouting the words, and the night has only just begun.
+scene G: Half the faces here {N} has known since they were small. Out in the garden it is cool and quiet, and the stars are out.
+- W | phone the host's parents when things get out of hand | identity | v: security, conformity | mark: made an enemy | closed: approval: telling on the party; backfire: frozen out by half the year | chance: 45
+- U | nurse one drink all night and watch how everyone else behaves | v: security, self-direction | closed: law: underage drinking; backfire: caught along with everyone else | law: alcohol | chance: 92
+- B | take a bottle from your parents' cabinet to get in with the right crowd | habit | v: power | mark: hid a wrong | closed: law: underage drinking, and the bottle is not theirs to take; backfire: found out at home | law: alcohol | chance: 72
+- R | drink, dance, and stay until the very end | habit | body: light | v: hedonism, stimulation | closed: law: underage drinking; backfire: sick, caught, and grounded | law: alcohol | chance: 75
+- G | keep to the garden with your oldest friends, and freeze out the newcomers | v: security | mark: made an enemy | closed: approval: freezing people out; backfire: the host asks the whole crowd to leave | chance: 65
+- W>G | stay behind and help the host clean up before the parents get back | v: benevolence, conformity | mark: hid a wrong | closed: approval: covering up the party; backfire: the parents find out anyway, and the helpers get the blame | chance: 60
+- U>W | plan the lifts and the night buses so everyone gets home safe | v: security, benevolence | chance: 75
+- B>U | work the room and collect everyone's gossip to use later | v: power | chance: 92
+- R>B | challenge the most popular kid to a drinking game, and win | body: light | v: power, stimulation | mark: took a wild risk | closed: law: underage drinking; backfire: sick in front of everyone | law: alcohol | chance: 42
+- G>R | put on the old songs everyone knows and get the whole house singing | v: hedonism | chance: 62
+works: It is the best night of the year, and the photos prove it.
+works: {N} gets home on time, tired and happy, with a story to tell.
+fails: A neighbour calls the police about the noise, and every parent hears about it.
+fails: {N} wakes up with a pounding head and a phone full of messages they would rather not read.
+
+== a Saturday job at the corner shop
+tier: everyday
+at: employer
+stages: juvenile
+age: 13-18
+calls: WUG
+tone: mixed
+life: work, money
+horizon: week
+roles: boss, friend, a regular customer, the owner's family
+earth: your first part-time job, Saturdays at the corner shop, and today the owner leaves you alone at the till
+times: About half of teenagers, once, a first part-time job while at school; about 15 in 100 teenagers a year start one (estimate)
+once: yes
+share: .5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is {Ns} third Saturday at the corner shop, and today {boss} has gone to the wholesaler and left {N} alone behind the till.
+scene W: {boss} counted the float with {N} this morning and handed over the keys. {N} means to account for every penny.
+scene U: The stockroom is chaos, the price labels are a mess, and {N} can already see three ways to run the place better.
+scene B: A till full of cash, shelves of cigarettes and scratch cards, and nobody watching. {N} notices all of it.
+scene R: The sun is out, {friend} keeps texting from the park, and {N} is stuck stacking tins.
+scene G: The same faces come in every Saturday: the old man for his paper, the twins for sweets. {N} is starting to know them all by name.
+- W | count the till to the penny and write down every sale | habit | v: conformity, benevolence (dependability) | chance: 92
+- U | learn the stock system and sort out the chaos in the stockroom | v: achievement, self-direction | mark: learned a skill | chance: 75
+- B | pocket a few notes from the till; the owner never counts properly | habit | v: power, hedonism | mark: hid a wrong | closed: law: theft; backfire: caught on the camera, and sacked | chance: 70
+- R | turn the radio up and dance behind the counter between customers | v: hedonism | chance: 92
+- G | chat with the regulars and learn everyone's name and usual order | habit | v: benevolence | mark: made a friend | chance: 85
+- W>B | follow every rule so well that the owner gives you more hours | v: achievement | act: follow every rule so well that the owner gives them more hours | chance: 55
+- U>R | learn the routine so well you finish early and have the shop to yourself | v: hedonism, self-direction | chance: 72
+- B>G | slip the out-of-date food to the old man who can't afford his shopping | v: benevolence | mark: helped someone in need | closed: approval: giving away stock; backfire: the owner docks the pay | chance: 90
+- R>W | run after the kid who just pocketed a drink and bring it back | body: heavy | v: security, conformity | chance: 62
+- G>U | ask the owner's mother, who ran the shop for forty years, how she did it | v: tradition, self-direction | chance: 90
+works: {boss} comes back, checks the till, and asks {N} to do Sundays as well.
+works: At five o'clock {N} walks out with a pay packet and a story for {friend}.
+fails: The till is short at closing, and {N} cannot explain it.
+fails: {boss} comes back early, at the worst possible moment.
+
+# ---------------------------------------------------------------- pair 4: calls RG (cycle s1) / calls WUB (cycle s3)
+
+== a band or a sport that takes over your life
+tier: everyday
+stages: juvenile
+age: 12-18
+calls: RG
+tone: joy
+life: passion, body
+horizon: months
+roles: mentor, friend, parent, the band or the team
+earth: the band you started with friends, or the club you joined, now fills every evening and weekend
+times: About 1 in 3 teenagers, one or two such passions in the teenage years (estimate)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: These days {Ns} life runs on one thing: practice after school, again at weekends, and the rest of the time thinking about it.
+scene W: {mentor} expects everyone at every session, on time and ready. {N} has not missed one since the autumn.
+scene U: {N} films every session and watches it back at night, looking for the one thing to fix next.
+scene B: There is talk of a scout coming, or a real gig in front of a real crowd. {N} intends to be the one people remember.
+scene R: When it is going well, nothing else exists: no homework, no worries, just sweat and noise and joy.
+scene G: {N} found this the way a seedling finds the light. It feels less like a hobby than something they were born to do.
+- W | never miss a session, and be the one who sets up and packs away | habit | v: benevolence (dependability), conformity | chance: 76
+- U | study the best in the world and drill your weakest skill | habit | v: achievement | mark: learned a skill | self_control: + | chance: 76
+- B | put in the extra hours to earn the lead spot outright | habit | identity | v: achievement, power | mark: learned a skill | self_control: + | chance: 60
+- R | let it swallow everything else: homework, sleep, the lot | habit | v: stimulation, hedonism | chance: 68
+- G | play by feel, the way it comes most naturally | v: self-direction | chance: 62
+- W>U | sign up for proper lessons or coaching and do every exercise they set | v: achievement | mark: learned a skill | chance: 72
+- U>B | work out what the scouts or the bookers look for, and give them exactly that | v: achievement, power | chance: 35
+- B>R | talk the head into letting you off lessons on match or gig days | v: self-direction | act: talk the head into letting them off lessons on match or gig days | chance: 42
+- R>G | throw yourself in so hard that the others become your second family | binds | v: benevolence | chance: 85
+- G>W | stay loyal to the club or band that took you in, whoever else calls | binds | v: tradition, benevolence | act: stay loyal to the club or band that took them in, whoever else calls | chance: 65
+works: The big day comes, and {N} is better than they have ever been.
+works: Someone who matters says {Ns} name out loud.
+fails: {Ns} grades slide, and {parent} sets a deadline: fix them, or give it up.
+fails: An injury, a row, a split: in one week it is over, for now.
+
+== a group project where nobody pulls their weight
+tier: everyday
+at: school
+stages: juvenile
+age: 11-18
+calls: WUB
+tone: trouble
+life: school
+horizon: week
+roles: friend, rival, a teacher, classmates
+earth: a group project counts for a big mark, and the rest of your group is doing nothing
+times: Most students, about once a year or more (estimate)
+gap: .8-1
+scene: The group project is due on Friday. In the group chat {N} has asked four times who is doing what, and nobody has answered.
+scene W: The task sheet says every member must contribute. {N} reads it again and wonders whose job it is to make that true.
+scene U: {N} can see exactly how the project should go. The problem is the three people who are meant to help.
+scene B: Everyone gets the same mark, whoever does the work. {N} thinks hard about who should get the credit.
+scene R: {N} wants to shake every one of them. Friday is four days away and the slides are still blank.
+scene G: It is always this way: some pull and some drift, like any herd. {N} has always been one of the ones who pull.
+- W | split the work fairly, write down who does what, and chase them up | v: conformity | chance: 55
+- U | do the whole thing yourself, and do it properly | identity | v: achievement | chance: 75
+- B | do the key part yourself, and hold it back until they do theirs | v: power, achievement | chance: 65
+- R | blow up at them all in the group chat | v: none clear (frustration let out) | tech: phone | chance: 40
+- G | do your own part, let the rest go, and accept whatever mark comes | v: tradition (humility) | chance: 35
+- W>R | report the slackers to the teacher by name, and ask to work alone next time | v: self-direction, conformity | closed: approval: telling on classmates; backfire: frozen out by the group | chance: 58
+- U>G | find what each of them is actually good at and give them that part | v: benevolence, achievement | chance: 65
+- B>W | promise pizza if they all come round and do their share | v: conformity | chance: 78
+- R>U | pitch a wild new idea that gets everyone fired up to work | v: stimulation, self-direction | chance: 58
+- G>B | let the slackers sink, and make your own part the one that stands out | v: achievement, power | chance: 55
+works: The project comes back with the top mark, and the teacher mentions {Ns} part by name.
+works: Against all odds, the group pulls together on the last night.
+fails: The presentation falls apart in front of the whole class.
+fails: Everyone gets the same poor mark, and {N} fumes about it for weeks.
+
+# ---------------------------------------------------------------- pair 5: calls WG (cycle s2) / calls UBR (cycle s4)
+
+== a coming-of-age ceremony
+tier: everyday
+at: faith body
+stages: juvenile
+age: 12-16
+calls: WG
+tone: joy
+life: faith, tradition
+horizon: months
+rite: young_adult
+roles: parent, grandparent, elder, a priest or teacher of the faith
+earth: your confirmation, bar or bat mitzvah, or another coming-of-age rite is set for the spring, with classes first
+times: Under half of teenagers in most rich countries now, once, at twelve to sixteen; more where the family keeps a faith (estimate)
+once: yes
+share: .4
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The ceremony is set for the spring: months of classes, words to learn by heart, and the whole family coming to watch.
+scene W: {N} will stand up in front of everyone and make a promise. {parent} says it is the day a child becomes a full member.
+scene U: {N} has questions the classes never quite answer, and pages of old words to learn before spring.
+scene B: Relatives are coming from all over, and every one of them will bring an envelope. {N} counts heads.
+scene R: {N} keeps picturing it: standing up in front of everyone, heart going, voice shaking, the whole room watching.
+scene G: {grandparent} went through the same ceremony, in the same building, at the same age. The old photograph hangs in the hall.
+- W | go to every class, learn every word, and do it properly | v: tradition, conformity | tags: commit:faith | chance: 88
+- U | ask the hard questions, and go through with it only if the answers hold | v: self-direction | chance: 55
+- B | go through with it for the party, the presents and the envelopes of money | v: hedonism, power | chance: 90
+- R | tell your parents you don't believe it, and will not stand up and pretend | identity | v: self-direction | mark: defied an authority | chance: 45
+- G | wear the old family clothes and do it exactly as your family always has | identity | v: tradition | tags: commit:faith | chance: 85
+- W>B | deliver your reading perfectly, so it outshines your cousin's last year | v: achievement | chance: 45
+- U>R | study the faith deeply and make it your own, on your own terms | identity | v: self-direction | tags: commit:faith | chance: 72
+- B>G | strike a deal: you will do it for a trip to where your grandparents grew up | binds | v: tradition, power | tags: commit:faith | chance: 64
+- R>W | stand up and speak the vow with your whole heart, voice shaking | binds | v: tradition | tags: commit:faith | chance: 85
+- G>U | ask your grandparents what the old words meant to them, and write it all down | v: tradition, self-direction | chance: 92
+works: The day goes beautifully, and {parent} cries in the front row.
+works: {N} walks out of the ceremony feeling taller, and older.
+fails: {N} stumbles over the words in front of everyone.
+fails: The day turns into a family row, and nobody remembers the ceremony.
+
+== someone starts mocking you online
+tier: everyday
+stages: juvenile
+age: 11-18
+calls: UBR
+tone: trouble
+life: friends, media
+horizon: week
+roles: rival, friend, parent, a teacher
+earth: an account nobody admits to has started posting memes that make fun of you
+times: Many teenagers, once or twice; about 1 in 6 US high school students are bullied online in a year (CDC YRBS 2023)
+gap: 2-4
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: An account with no name has started posting memes about {N}: the clothes, the voice, the walk. By lunchtime half the year has seen them.
+scene W: There are rules about this at school, and laws outside it. {N} wonders why nobody has stopped it yet.
+scene U: Whoever runs the account writes like someone {N} knows. The spelling, the timing, the jokes: it is a puzzle, and puzzles can be solved.
+scene B: Someone thinks they can make {N} small. {N} starts thinking about what that someone has to lose.
+scene R: Every new post makes {Ns} face burn. {N} wants to scream, throw the phone, find whoever it is.
+scene G: {N} puts the phone face down and goes out into the garden. The trees do not care what anyone posts.
+- W | report the account, and ask the school to deal with it | v: conformity, security | chance: 45
+- U | hack into the account to find out who runs it | v: security, self-direction | closed: law: getting into someone's account; backfire: traced, and in trouble with the police | chance: 15
+- B | dig up something on whoever is behind it, and let them know you have it | v: power | mark: made an enemy | chance: 30
+- R | post a video laughing at the memes yourself, so they lose their sting | v: none clear (laughing it off) | chance: 50
+- G | log off for a week and spend it with people who know you | v: security, benevolence | act: log off for a week and spend it with people who know them | chance: 45
+- W>G | tell your parents everything, and let the family close ranks around you | v: security | act: tell their parents everything, and let the family close ranks around them | chance: 55
+- U>W | trace the account to its owner and take the proof to their parents | v: security, conformity | mark: made an enemy | chance: 55
+- B>U | make a fake account to get inside their circle and find out who it is | v: security | closed: approval: lying online; backfire: found out, and the mockery gets worse | chance: 50
+- R>B | confront the one you suspect in the corridor, so everyone sees you are not scared | v: power | chance: 60
+- G>R | gather your oldest friends and gang up on the one you suspect | v: power | mark: made an enemy | closed: approval: ganging up; backfire: suspended, and the posts get worse | chance: 30
+works: The account vanishes overnight, and nobody mentions it again.
+works: {friend} stands by {N} in public, and the laughter dies away.
+fails: It gets worse before it gets better, and {N} dreads every buzz of the phone.
+fails: The school holds an assembly about kindness, and the posts go on.
+
+# ---------------------------------------------------------------- pair 6: calls WB (cycle s3) / calls URG (cycle s1)
+
+== a teacher offers you a role of responsibility
+tier: everyday
+at: school
+stages: juvenile
+age: 12-18
+calls: WB
+tone: joy
+life: school
+horizon: months
+roles: mentor, rival, friend, younger pupils
+earth: a teacher asks you to be a prefect, class captain or a member of the school council
+times: About 1 in 4 teenagers, once or twice in secondary school (estimate)
+gap: 2-4
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: After class {mentor} keeps {N} behind and asks whether they would take on being a prefect: a badge, duties, and a say in how things are run.
+scene W: A badge on the blazer, a rota of duties, younger pupils to look after. {N} feels the weight of being trusted.
+scene U: {N} keeps a list of everything the school does badly. Now there might be a way to change some of it.
+scene B: Prefects get their own common room, the ear of the head teacher, and a line on every application. {rival} wanted this badge badly.
+scene R: Meetings, corridor duty, telling people to walk and not run. {N} is not sure they want to become one of those.
+scene G: {N} has always been the one the younger ones come to with their troubles. It seems the teachers have noticed too.
+- W | accept, and do every duty properly, even the dull ones | binds | identity | v: conformity, benevolence (dependability) | chance: 78
+- U | ask exactly what the role involves before you say yes | v: security, self-direction | act: ask exactly what the role involves before they say yes | chance: 90
+- B | accept, and use the badge for the privileges and the line on your record | door | v: power, achievement | chance: 82
+- R | turn it down; you would rather not boss your friends around | v: self-direction | mark: turned down a chance | chance: 92
+- G | accept, and look after the younger ones the way older kids looked after you | v: benevolence, tradition | mark: helped someone in need | act: accept, and look after the younger ones the way older kids looked after them | chance: 80
+- W>R | use the council to win everyone the right to wear their own clothes on Fridays | v: self-direction | chance: 20
+- U>G | design a buddy scheme that pairs each new pupil with an older one | v: benevolence | chance: 68
+- B>W | keep a list of who breaks the rules, and use it to keep them in line | v: power, conformity | chance: 38
+- R>U | say yes on the spot, and learn how the school really works from inside | door | v: stimulation, self-direction | chance: 85
+- G>B | stay as you are, and let people come to you; influence will follow | v: power | act: stay as they are, and let people come to them; influence will follow | chance: 55
+works: The badge suits {N}, and the younger ones start bringing their problems to them.
+works: At parents' evening {mentor} tells {parent} that {N} has grown into the role.
+fails: {N} is caught between the teachers and their own friends, and pleases neither.
+fails: Within a month the role is a chore, and {rival} makes sure everyone knows it.
+
+== a sleepless night wondering who you are
+tier: everyday
+stages: juvenile
+age: 13-18
+calls: URG
+tone: mixed
+life: inner, identity
+horizon: moment
+roles: parent, friend, grandparent
+earth: three in the morning, wide awake, wondering who you really are and who you are meant to become
+times: Most teenagers, now and then, a few nights a year (estimate)
+gap: 0-.5
+scene: It is three in the morning. {N} lies awake staring at the ceiling, wondering who they really are when nobody is watching.
+scene W: {N} goes over the person {parent} expects, the person the school expects, the person the faith expects. Which one is real?
+scene U: {N} turns it over like a problem: the things they believe, the things they were told, and which is which.
+scene B: Everyone else seems to know what they want. {N} means to decide who to be before somebody else decides it for them.
+scene R: {Ns} chest feels too small for everything inside it. Somewhere there is a life that would fit, and {N} wants it now.
+scene G: Outside, a fox crosses the empty road under the streetlight. {N} watches it and wonders whether people, too, are simply born what they are.
+- W | decide to be the person your family raised you to be | identity | v: tradition, conformity | act: decide to be the person their family raised them to be | chance: 62
+- U | write down what you believe and why, and question every line | habit | v: self-direction | chance: 65
+- B | decide that from now on you alone choose who you become | identity | v: self-direction, power | act: decide that from now on they alone choose who they become | chance: 70
+- R | get up, put music on low, and dance it out until dawn | body: light | v: hedonism, stimulation | chance: 62
+- G | lie still, let the questions come, and trust the answers to grow in time | v: none clear (patience) | chance: 72
+- W>U | arrange to talk the big questions over with a teacher or priest you trust | door | v: self-direction, tradition | chance: 85
+- U>B | plan the person you will be next year, down to the clothes and the friends | v: self-direction, power | chance: 62
+- B>R | decide to drop the friends who keep you small, and live as you like | v: self-direction | act: decide to drop the friends who keep them small, and live as they like | chance: 62
+- R>G | pour it all out in a long message to your oldest friend at 3 a.m. | v: security (belonging) | tech: phone | chance: 90
+- G>W | repeat the prayer or the words you learned as a small child until you fall asleep | v: tradition, security | chance: 85
+works: By dawn something has settled, and {N} sleeps at last.
+works: The next day {N} feels lighter, as if a question has found its proper place.
+fails: Dawn comes grey, and {N} drags through the day half asleep.
+fails: The questions are still there the next night, and the night after.
+
+# ---------------------------------------------------------------- pair 7: calls UR (cycle s4) / calls WBG (cycle s2)
+
+== a new hobby you cannot put down
+tier: everyday
+stages: juvenile
+age: 10-18
+calls: UR
+tone: joy
+life: leisure
+horizon: months
+roles: friend, parent, mentor, a neighbour
+earth: a hobby that eats every spare hour: an old camera from a car-boot sale, a sketchbook, a coding app
+times: Most teenagers, one or two consuming hobbies over the teenage years (estimate)
+gap: 2-4
+scene: Since {N} found an old camera at a car-boot sale, it goes everywhere with them, and every free hour disappears into it.
+scene W: {N} has joined the photography club at the library. There is a theme every month and a competition in the summer.
+scene U: Shutter speed, aperture, light: {N} reads the manual at breakfast and tests every setting until it makes sense.
+scene B: A neighbour paid {N} for photographs of her shop window. {N} starts wondering what else people would pay for.
+scene R: {N} cannot walk down a street now without seeing pictures everywhere: rain on a bus window, a stranger laughing.
+scene G: Before dawn {N} lies in the wet grass by the river, camera ready, waiting for the heron to lift.
+- W | join the club, shoot the monthly theme, and enter the summer competition | habit | door | v: achievement, conformity | chance: 76
+- U | read everything about it and practise one technique until you master it | habit | v: achievement, self-direction | mark: learned a skill | chance: 76
+- B | start charging neighbours and friends for photographs | habit | door | v: achievement, power | chance: 70
+- R | shoot a hundred pictures a day, of anything that catches your eye | habit | v: stimulation | chance: 82
+- G | slip into the private nature reserve at dawn to photograph the nesting birds | habit | v: universalism (nature) | closed: law: trespass on a reserve; backfire: a warden, and a fine | chance: 55
+- W>G | photograph the old people on your street and make a book for the community centre | v: benevolence, tradition | chance: 60
+- U>W | teach the younger kids at the club what you have worked out | v: benevolence | chance: 88
+- B>U | trade your old phone for a lens worth twice as much | v: achievement | chance: 39
+- R>B | climb onto a roof for the shot that will make your name online | body: heavy | v: power, stimulation | mark: took a wild risk | closed: law: trespass; backfire: caught, or a nasty fall | chance: 15
+- G>R | wander with the camera all day, going wherever the light leads | v: self-direction, stimulation | chance: 82
+works: One of {Ns} pictures ends up framed on a wall, and not only at home.
+works: Months later {N} is still at it, and better every week.
+fails: The hobby swallows {Ns} homework, and {parent} takes the camera away.
+fails: The spell fades as fast as it came, and the camera gathers dust.
+
+== your sibling is in trouble and you know why
+tier: everyday
+stages: juvenile
+age: 10-18
+calls: WBG
+tone: trouble
+life: family
+horizon: week
+roles: sibling, parent, grandparent, some older kids
+earth: money is missing from the kitchen jar, your sibling is getting the blame, and you know what it was for
+times: About 1 in 3 teenagers with a brother or sister, once or twice (estimate)
+gap: 4-8
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Money has gone from the kitchen jar and {sibling} is being shouted at. {N} knows why: {sibling} broke an older kid's phone and has been paying it off.
+scene W: {parent} keeps asking for the truth, and {N} has it. Keeping quiet is starting to feel like lying.
+scene U: {N} knows half the story. The other half, who the older kids are and how much is still owed, is the half that matters.
+scene B: {sibling} owes money to the older kids, and now owes {N} silence too. {N} has never had this much on {sibling} before.
+scene R: Watching {sibling} take the shouting alone makes {N} want to leap up and yell out the whole story.
+scene G: Whatever {sibling} has done, they share a room, a surname and a whole childhood. {N} is not about to forget that.
+- W | tell your parents the whole truth so it can be put right properly | v: conformity, security | closed: approval: telling on a sibling; backfire: a sibling who does not forgive it | chance: 68
+- U | find out exactly how much is owed, and to whom, before saying anything | v: security | chance: 68
+- B | keep quiet, and make your sibling pay you back in favours for months | binds | v: power | mark: hid a wrong | act: keep quiet, and make their sibling pay them back in favours for months | chance: 45
+- R | burst in and tell everyone the older kids are the real problem | v: benevolence | chance: 65
+- G | go with your sibling and pay off the rest together, out of your own savings | v: benevolence | mark: helped someone in need | chance: 68
+- W>B | tell your parents, and make sure they see you are the responsible one | v: power, conformity | closed: approval: telling on a sibling; backfire: a sibling who turns cold | chance: 60
+- U>R | work out a plan to clear the debt so your sibling is free of them | v: benevolence, self-direction | chance: 65
+- B>G | warn the older kids you'll go to the police unless they back off | v: security | mark: made an enemy | chance: 60
+- R>W | say you took the money yourself, so the row stops tonight | v: benevolence, security | mark: hid a wrong | chance: 80
+- G>U | take your sibling on a long walk until the whole story comes out | v: benevolence | chance: 75
+works: The truth comes out, the debt is paid, and the house goes quiet again.
+works: {sibling} catches {Ns} eye across the table, and something passes between them that will last.
+fails: {parent} hears the rest of the story from someone else, and both of them are in trouble.
+fails: {sibling} will not speak to {N} for weeks.
+
+# ---------------------------------------------------------------- pair 8: calls BG (cycle s1) / calls WUR (cycle s3)
+
+== your body is changing
+tier: everyday
+stages: juvenile
+age: 10-16
+calls: BG
+tone: mixed
+life: body
+horizon: months
+roles: parent, grandparent, sibling, rival, the school nurse
+earth: a growth spurt, a voice that cracks, spots, and clothes that no longer fit
+times: Nearly every young person, once, a stretch of two to four years; puberty usually starts at 8 to 13 in girls and 9 to 14 in boys (NHS)
+once: yes
+scene: {N} has grown a hand's width since the summer. Nothing fits, the voice wobbles, and the mirror shows someone half familiar.
+scene W: {N} wonders what is normal and what is not. The leaflet from school says everything is, which is no help at all.
+scene U: {N} reads up at night on what is happening and why, and finds it strangely fascinating.
+scene B: {N} is suddenly taller than {rival}. People look at {N} differently now, and {N} notices which looks are useful.
+scene R: Everything feels too big and too clumsy and too much, and {N} cannot sit still for five minutes.
+scene G: {parent} shot up at exactly the same age, says {grandparent}. It runs in the family, like the nose and the laugh.
+- W | keep a strict routine of washing, sleep and early nights | habit | v: conformity, security | chance: 72
+- U | read up on what is happening and why, until it makes sense | v: self-direction | chance: 92
+- B | use your new height and strength to stop being pushed around | body: light | v: power, security | chance: 75
+- R | throw the new energy into running, climbing, anything fast | habit | body: heavy | v: stimulation | chance: 88
+- G | let your body do what it is doing, and stop checking the mirror | v: none clear (accepting the body) | chance: 55
+- W>U | ask the school nurse the questions you have been too shy to ask | v: security, self-direction | chance: 92
+- U>B | study how the confident kids dress and move, and remake your style | identity | v: power | chance: 62
+- B>R | talk your way into the older kids' training sessions at the boxing gym | body: heavy | v: stimulation | role: men | chance: 70
+- R>G | test your new strength wrestling with your cousins on the lawn | body: heavy | v: stimulation, hedonism | chance: 90
+- G>W | ask the parent you are closest to how it went for them, and take their advice | v: tradition, conformity | chance: 85
+works: Bit by bit {N} grows into the new body, and starts to like it.
+works: One morning {N} catches their reflection and, for once, grins.
+fails: A cruel nickname at school sticks for a whole term.
+fails: {N} spends the season hiding in baggy clothes and dreading the changing rooms.
+
+== a debate or contest at school
+tier: everyday
+at: school
+stages: juvenile
+age: 11-18
+calls: WUR
+tone: joy
+life: school
+horizon: week
+roles: rival, mentor, friend, parent
+earth: you are on the team for the school debating final, in front of the whole hall
+times: About 1 in 4 teenagers, once or a few times, in a debate, a quiz or a spelling contest (estimate)
+gap: 2-4
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} is on the team for Friday's debating final, in front of the whole school, and {rival} is captain of the other side.
+scene W: There are rules: time limits, points of order, a judge's sheet. {N} means to win fairly and by the book.
+scene U: {N} has the motion, a stack of articles, and four days to know the other side's case better than they do.
+scene B: The winners get a cup and their photo in the local paper. Beating {rival} in front of everyone would be the real prize.
+scene R: {N} cannot wait to stand up there and let it rip, heart pounding, the hall roaring.
+scene G: {N} speaks best about things they know in their bones: home, the river, the people on their street.
+- W | prepare by the rules and keep to the time limit to the second | v: conformity, achievement | chance: 58
+- U | dig up the other captain's old posts and quote them back in the debate | v: power, achievement | mark: made an enemy | closed: approval: a personal attack; backfire: points docked for bad conduct | tech: internet | chance: 30
+- B | bargain with your coach for the closing speech, where the points are won | v: power, achievement | chance: 68
+- R | throw away your notes and speak from the heart | identity | v: stimulation, self-direction | chance: 62
+- G | stay calm, breathe, and trust the words to come when it counts | v: none clear (trusting instinct) | chance: 55
+- W>R | practise with your coach until you can let yourself go on the night | v: achievement | mark: learned a skill | chance: 65
+- U>G | weave true stories from your own town into the argument | v: achievement, tradition | chance: 65
+- B>W | drop your weakest teammate for a stronger speaker, for the school's sake | v: achievement, conformity | chance: 58
+- R>U | argue the motion with your family at dinner every night to sharpen your case | v: achievement, stimulation | chance: 75
+- G>B | fill the front rows with your friends, and have them jeer the other side | v: power | closed: approval: heckling; backfire: points docked, and the friends asked to leave | chance: 25
+works: The judges' decision is read out, and the hall erupts on {Ns} side.
+works: {N} loses on points but wins the room, and {mentor} says so.
+fails: {N} freezes at the podium, and the silence goes on far too long.
+fails: {rival} takes {Ns} best point apart, to laughter.
+
+# ---------------------------------------------------------------- pair 9: calls WR (cycle s2) / calls UBG (cycle s4)
+
+== a friend is being picked on
+tier: everyday
+at: school
+stages: juvenile
+age: 10-17
+calls: WR
+tone: trouble
+life: friends, conflict
+horizon: week
+roles: friend, rival, a teacher, the ringleader's gang
+earth: a gang in your year picks on your friend every day in the corridors
+times: About half of teenagers, once or twice; about 1 in 5 US high school students are bullied at school in a year (CDC YRBS 2023)
+gap: 2-4
+share: .5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Every day {rival}'s gang finds {friend} in the corridor: a shove, a bag tipped out, laughter. {friend} pretends not to mind.
+scene W: It is plainly wrong, and there are teachers in every corridor. {N} wonders why nobody has done anything yet.
+scene U: {N} has noticed when and where it happens: the same corridor, the same five minutes, never when a teacher is near.
+scene B: Standing with {friend} could make {N} a target too. {N} weighs it up.
+scene R: {N} watches the bag hit the floor and feels the heat rise in their face.
+scene G: {N} and {friend} have been friends since they were small. Packs always go for the one that walks alone.
+- W | report it to the head of year, with names, dates and places | v: universalism (justice), conformity | mark: helped someone in need | chance: 50
+- U | change routes and times so they never catch your friend alone | v: security, benevolence | chance: 58
+- B | keep your distance from your friend until it blows over | v: security | mark: refused someone in need | chance: 22
+- R | step in and shove the ringleader away from your friend | body: light | v: benevolence | mark: made an enemy | closed: approval: fighting; backfire: detention, or worse | role: men | chance: 58
+- G | walk beside your friend everywhere, so they are never alone | habit | v: benevolence | mark: helped someone in need | chance: 70
+- W>B | report every small slip the ringleader makes until the school expels them | v: power, conformity | mark: made an enemy | closed: approval: hounding someone out; backfire: the gang's friends close in | chance: 15
+- U>R | teach your friend some sharp comebacks so they can stand up for themselves | v: benevolence, self-direction | chance: 45
+- B>G | get your older cousins to have a quiet word with the ringleader | v: security, power | chance: 73
+- R>W | stand up in class and say out loud what everyone has been ignoring | identity | v: universalism (justice) | chance: 55
+- G>U | watch the gang for a week, learning who leads and who only follows | v: security | chance: 30
+works: The picking stops, and {friend} starts laughing again at lunch.
+works: The ringleader backs off, and the corridor goes quiet.
+fails: It gets worse, and now {N} is a target too.
+fails: {friend} asks {N} to stop helping, and goes quiet.
+
+== you are grounded for a week
+tier: everyday
+stages: juvenile
+age: 11-17
+calls: UBG
+tone: trouble
+life: home
+horizon: week
+roles: parent, sibling, friend, grandparent
+earth: you came home two hours late, and now it is a week with no phone, no friends and straight home after school
+times: Many teenagers, once or a few times, mostly at thirteen to sixteen (estimate)
+gap: .8-1
+scene: {N} came home two hours late, and now it is a week with no phone, no friends, and straight home after school.
+scene W: {N} broke the rule and knows it. A week is fair, more or less.
+scene U: {N} lies on the bed in the quiet house and starts thinking about what else a week could be for.
+scene B: {parent} has hidden the phone somewhere in the house. {N} has a fairly good idea where.
+scene R: It is Friday night, {friend} is at the party everyone has talked about for a month, and {N} is stuck at home.
+scene G: The week stretches out, slow and quiet. {grandparent} says there are worse places to be stuck than home.
+- W | serve the week without complaint, and apologise properly | v: conformity | mark: owned up | chance: 80
+- U | crack the parental controls on the family computer and get back online | v: self-direction | mark: hid a wrong | closed: approval: breaking the grounding; backfire: caught, and the router locked away | tech: computer | chance: 65
+- B | find where the phone is hidden and use it at night | habit | v: self-direction, hedonism | mark: hid a wrong | closed: approval: breaking the grounding; backfire: caught, and two more weeks | tech: phone | chance: 88
+- R | climb out of the window on Friday and go to the party anyway | body: light | v: hedonism, stimulation | mark: defied an authority | closed: approval: sneaking out; backfire: caught, and grounded for a month | chance: 85
+- G | cook with your grandparent every evening and learn the family recipes | v: tradition | mark: learned a skill | chance: 90
+- W>G | offer to do all the family's chores this week, to make peace at home | v: benevolence, conformity | chance: 85
+- U>W | write your parents a careful case for a fairer curfew, with reasons | v: self-direction, conformity | chance: 60
+- B>U | sweet-talk your sibling into passing on all the news from your friends | v: security (belonging) | chance: 85
+- R>B | make your parents laugh every evening, until they end it early | v: self-direction, hedonism | chance: 40
+- G>R | spend every evening outside in the garden, the one freedom left | v: hedonism | chance: 90
+works: The week passes, and {parent} hands the phone back a day early.
+works: By the end of the week {N} and {parent} are actually talking again.
+fails: The week becomes two, and the house is cold with silence.
+fails: {N} misses the one weekend everyone will talk about for months.
+
+# ---------------------------------------------------------------- pair 10: calls UG (cycle s3) / calls WBR (cycle s1)
+
+== a long walk alone
+tier: everyday
+stages: juvenile
+age: 12-18
+calls: UG
+tone: joy
+life: nature, inner
+horizon: moment
+roles: parent, friend, a farmer, a stranger on the path
+earth: a free day, and you set off walking alone, out of town, along the river and into the hills
+times: About 1 in 3 teenagers, a few times a year (estimate)
+gap: 0-.5
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} sets off alone with a bottle of water and no plan, out past the last houses and along the river toward the hills.
+scene W: {N} told {parent} the route and the time to be back, and means to keep to both.
+scene U: Every bend of the path is a question: what that bird is, where the stream goes, how old the stone wall is.
+scene B: Out here nobody wants anything from {N}. It is the first chance in weeks to think about what {N} wants, and how to get it.
+scene R: The wind hits {Ns} face at the top of the hill, and {N} breaks into a run for no reason at all.
+scene G: The path is older than the town. {N} walks it slowly, listening to the river, and feels the noise of the week drain away.
+- W | keep to the route you promised, and be home exactly on time | v: conformity, security | mark: kept your word | chance: 94
+- U | take a field guide and name every plant and bird you pass | door | v: self-direction | mark: learned a skill | chance: 92
+- B | use the quiet to plan exactly how you will get what you want this year | v: achievement, power | chance: 92
+- R | leave the path and scramble up to the highest point you can see | body: heavy | v: stimulation | mark: took a wild risk | chance: 80
+- G | sit by the river for an hour and do nothing at all | v: universalism (nature), hedonism | chance: 95
+- W>R | promise yourself a long walk every Sunday, whatever else happens | habit | v: hedonism, self-direction | chance: 55
+- U>G | map the old footpaths around your town and walk each one in turn | habit | v: self-direction, tradition | chance: 75
+- B>W | cut across the private farmland, so you are home exactly when you promised | v: conformity | closed: approval: trespass; backfire: chased off by the farmer, and home later than ever | chance: 80
+- R>U | follow the stream on a whim, just to see where it goes | door | v: stimulation, self-direction | chance: 85
+- G>B | pick a bag of wild blackberries along the lanes and sell them to the neighbours | v: achievement | chance: 50
+works: {N} comes home muddy, tired, and calmer than in weeks.
+works: Somewhere on the hill, something {N} has been worrying about simply stops mattering.
+fails: Rain sets in, the path vanishes, and {N} gets home soaked and late.
+fails: {N} turns an ankle on the way down and limps the last mile.
+
+== tryouts for the team
+tier: everyday
+at: school
+stages: juvenile
+age: 11-17
+calls: WBR
+tone: mixed
+life: body, sport
+horizon: week
+roles: mentor, rival, friend, parent
+earth: tryouts for the school team are on Saturday, and there are twice as many players as places
+times: About half of teenagers, once a year while they play; about half of US high school students play on a sports team in a year (CDC YRBS)
+gap: .8-1
+share: .5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: Thirty kids, fifteen places, one cold Saturday morning. {N} laces up at the side of the pitch with a stomach full of knots.
+scene W: {mentor} has a clipboard and a whistle. {N} intends to arrive early, listen hard, and do every drill properly.
+scene U: {N} has watched last season's matches and knows what {mentor} looks for: positioning, not flash.
+scene B: There is one place left in {Ns} position, and {rival} wants it too. Only one of them walks off with it.
+scene R: The whistle goes and {N} is off before anyone else, legs burning, lungs on fire, loving every second.
+scene G: {N} was born to run; {parent} was the fastest in the county at the same age. Today the body will do what it does.
+- W | turn up early, follow every instruction, and give every drill your best | v: conformity, achievement | chance: 58
+- U | study what the coach values and train exactly that all week | v: achievement | chance: 64
+- B | tackle your rival hard in the trial match, right where the coach can see | body: heavy | identity | v: power, achievement | mark: made an enemy | closed: approval: a dirty tackle; backfire: sent off in front of the coach | chance: 60
+- R | give it everything from the first whistle to the last | body: heavy | v: stimulation, achievement | chance: 72
+- G | play your natural game, and accept whatever the list says | v: tradition (humility) | chance: 45
+- W>U | ask the coach afterwards what to work on, whatever the result | v: achievement, self-direction | chance: 94
+- U>B | sneak a look at the coach's notes to find which places are still open | v: achievement, power | closed: approval: snooping; backfire: caught, and dropped from the trial | chance: 45
+- B>R | pay a senior player out of your savings to train with you every evening | body: heavy | v: achievement, stimulation | mark: learned a skill | act: pay a senior player out of their savings to train with them every evening | chance: 68
+- R>G | talk your whole gang of friends into trying out with you | v: benevolence, stimulation | act: talk their whole gang of friends into trying out with them | chance: 68
+- G>W | if you don't make it, offer to help the team anyway: kit, water, scores | v: benevolence | chance: 82
+works: The list goes up on the noticeboard, and {Ns} name is on it.
+works: {mentor} takes {N} aside afterwards and says to keep at it.
+fails: The list goes up, and {Ns} name is not on it.
+fails: A twisted knee halfway through ends the trial for {N}.
+
+# ---------------------------------------------------------------- life events
+
+== your first real job
+tier: life event
+at: employer
+stages: juvenile
+age: 14-19
+per_year: 0 .15 0 0 0 0
+drivers: prosper+.4 ties+.3 health+.2 money+.2 unrest-.3
+times: once, usually between fifteen and eighteen: about 15 in 100 teenagers a year start a part-time job (D13, data)
+likelier: a growing economy, family or friends who know someone hiring, a town with cafés, shops and farms, good health
+rarer: a recession, unrest, poor health, no money for the fares or the clothes the job needs, strict rules on child labour, long school days, a family that forbids it
+once: yes
+excludes: career
+domain: career1
+rite: young_adult
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, parent, friend
+earth: your first real job with a contract and a payslip: a café, a supermarket, a farm in summer, a building site
+scene: {N} has a job: a name badge, a rota on the staffroom wall, and a first payslip with their name printed on it.
+scene W: {N} signs the contract, reads the staff handbook cover to cover, and turns up fifteen minutes early on the first day.
+scene U: Everything is new: the till, the stock, the way {boss} talks to customers. {N} wants to learn all of it.
+scene B: {N} earns their own money now, and nobody can tell them how to spend it. That is a kind of power.
+scene R: The first shift is noise, rush and aching feet, and {N} walks out at closing time feeling grown up.
+scene G: {parent} started work at the same age, in the same kind of place. Some things are handed down like an old coat.
+- W | be on time for every shift, and do every task by the book | v: conformity | tags: commit:career | chance: 85
+- U | learn how the whole business works, from the stockroom to the accounts | v: self-direction, achievement | mark: learned a skill | tags: commit:career | chance: 68
+- B | make yourself indispensable, then ask for more hours and better pay | v: achievement, power | tags: commit:career | chance: 76
+- R | throw yourself into it, love the rush, and make friends with the whole crew | v: stimulation | mark: made a friend | tags: commit:career | chance: 88
+- G | settle in, keep your head down, and stay, the way your family always has | v: tradition, security | tags: commit:career | chance: 68
+- BG | work every hour you can get and save every penny, like a squirrel before winter | habit | v: security, achievement | chance: 78
+- BR | quit the moment it gets boring, and blow the pay on a good time | v: hedonism | mark: turned down a chance | chance: 20
+- UR | come up with a better way to run your section, and pitch it to the boss | door | v: achievement, self-direction | chance: 45
+- WG | hand most of your first pay to your family, as is expected | identity | v: tradition, benevolence | chance: 94
+- WU | learn your rights at work and make sure every payslip is right | v: security, universalism (justice) | chance: 92
+works: Within a month {boss} is asking for {N} by name on the busy shifts.
+works: {N} opens a bank account and watches it slowly grow.
+fails: {N} is let go after a few weeks, with no reason given.
+fails: The shifts eat into everything else, and school starts to slip.
+
+== a close friend moves away
+tier: life event
+stages: juvenile
+age: 10-18
+per_year: 0 .1 0 0 0 0
+drivers: ties+.3 unrest+.3 prosper+.2
+gap: 2-4
+times: once or twice in the teenage years (estimate: Part D has no entry for a friend's move; leans on D37, about 7 to 10 in 100 families with children moving each year, and a teenager having several close friends)
+likelier: a mobile country, rented homes, parents in the forces or on short contracts, a boom elsewhere, unrest
+rarer: villages where families stay for generations, owned homes, settled times
+tone: trouble
+life: friends
+horizon: months
+roles: friend, parent, the old group
+earth: your best friend's family is moving to another city at the end of the month
+scene: {friend}'s family is moving to another city at the end of the month. The boxes are already stacked in the hall.
+scene W: {N} and {friend} always said they would be friends for ever. Now the promise will have to hold across three hundred miles.
+scene U: {N} looks up the distance, the train times and the price of a ticket. There must be a way to make this work.
+scene B: With {friend} gone, the group will need someone new at its centre. {N} notices the thought and does not quite push it away.
+scene R: It is unfair, it is too soon, and nobody asked {N} what they thought.
+scene G: People move like birds and seasons. {N} helps carry the boxes and tries to remember everything.
+- W | promise to write every week, and keep that promise | v: benevolence | mark: kept your word | chance: 45
+- U | plan the visits: train times, savings, the summer holidays | v: benevolence | chance: 62
+- B | help them sell what they cannot take, for a fair cut | v: power (resources), achievement | chance: 75
+- R | skip school to spend their whole last day together | v: benevolence, hedonism | closed: approval: truancy; backfire: detention, and a row at home | chance: 85
+- G | help them pack, say a proper goodbye, and let them go | v: benevolence | chance: 80
+- RG | spend one last wild night camping out together before the move | body: light | v: stimulation | mark: took a wild risk | closed: approval: out all night; backfire: caught, and grounded for the last week | chance: 80
+- UB | keep tabs on their new life online, and on whoever replaces you | v: security | act: keep tabs on their friend's new life online, and on whoever replaces them | tech: internet | chance: 42
+- UG | bury a time capsule together, to dig up in ten years | binds | v: tradition, benevolence | chance: 90
+- WB | throw the farewell party yourself, and step into their place in the group | v: power, benevolence | chance: 65
+- WR | get the whole group out to wave them off on moving day, with a huge banner | identity | v: benevolence, stimulation | chance: 85
+works: The messages keep coming, and the friendship holds across the miles.
+works: Missing {friend} slowly makes room for new people in {Ns} life.
+fails: The messages thin out, and by spring they have stopped.
+fails: {N} spends a long, lonely term eating lunch alone.
+
+== money runs out at home
+tier: life event
+stages: juvenile
+age: 10-18
+per_year: 0 .04 0 0 0 0
+drivers: money-.6 prosper-.5 unrest+.4 health-.2
+gap: 3-6
+times: once or twice in a childhood for many families: serious debt crises reach about 3 to 5 in 100 households a year in the parents' working years (D59, estimate; D59's own juvenile rate is zero because it counts a person's own bankruptcy), and a parent's job loss (D57) is the usual start
+likelier: one income, insecure work, a parent's job loss, a recession, illness and medical bills, a divorce, gambling or drinking at home, a big family, debt
+rarer: savings, two steady incomes, health insurance, a welfare state, relatives who can help, a growing economy
+rite: young_adult
+tone: trouble
+life: family, money
+horizon: months
+roles: parent, sibling, grandparent, friend, neighbours
+earth: a parent loses their job, the bills pile up, and the fridge gets emptier every week
+scene: {parent} has lost their job. The heating stays off until evening, the shopping is all the cheapest brands, and letters pile up unopened on the mat.
+scene W: At night {N} hears {parent} on the phone, apologising to someone about a bill. Everyone in this house will have to do their part.
+scene U: {N} finds the bank letters in a drawer and reads them twice. The numbers are bad, but numbers can be worked with.
+scene B: {friend} has new trainers again. {N} decides they are done waiting for money to come to them.
+scene R: {N} is furious, at the company, at the bank, at the whole unfair world, and nobody at home will say it out loud.
+scene G: {grandparent} talks about the hard winters of their own childhood, when everyone went without and got through together.
+- W | cut back on everything without complaint, and help keep the house running | v: conformity, benevolence | chance: 70
+- U | compare the prices of everything the family buys, and find where to save | v: security | mark: learned a skill | chance: 82
+- B | do cash jobs for the neighbours, and keep a cut for yourself | v: achievement, power | chance: 80
+- R | keep the house laughing: games, music and silly nights in for everyone | v: benevolence, hedonism | chance: 65
+- G | help grow vegetables and cook cheap meals from whatever is in the cupboard | habit | v: security, benevolence | mark: learned a skill | chance: 70
+- WUR | start a Saturday car wash with friends, with a rota, prices and a sign | v: achievement, benevolence | chance: 72
+- WUB | lend your parent your savings, and write down exactly what they owe you | binds | v: security, power | act: lend their parent their savings, and write down exactly what the parent owes them | chance: 72
+- WRG | tell your friends straight out how things are, and share what you all have | identity | v: benevolence | mark: made a friend | chance: 72
+- UBG | find things in the house worth selling, and haggle hard for the best price | v: security, achievement | closed: approval: selling family things without asking; backfire: a row when a parent misses something | chance: 70
+- BRG | shoplift food when the cupboards are bare | v: security, benevolence | mark: hid a wrong | closed: law: theft; backfire: caught, and a police caution | chance: 70
+works: The family gets through the worst of it, and {N} learns what they are made of.
+works: {parent} finds new work, and the heating comes back on.
+fails: Things get worse before they get better, and there is talk of losing the house.
+fails: The strain shows in every row at the dinner table.
+
+== you win a scholarship or a place
+tier: life event
+at: school
+stages: juvenile
+age: 11-18
+per_year: 0 .05 0 0 0 0
+drivers: community+.3 ties+.3 money+.2 prosper+.2 unrest-.3 fortune+.1
+times: about 5 in 100 teenagers a year win a scholarship or a selective place (estimate scaled down from D22, which counts any award or prize at about 10 in 100; contests alone, D23, reach 8 in 100)
+likelier: good schools and clubs within reach, friends and a community that notice talent, a family that pushes, money for fees and travel, means-tested scholarships, a talent spotted early
+rarer: no selective schools or clubs nearby, a family that cannot pay the fees or the travel, a teenager who keeps to themselves, war or displacement
+rite: young_adult
+tone: joy
+life: school
+horizon: years
+roles: parent, mentor, friend, rival
+earth: a letter says you have won a place: a scholarship to a better school, a youth academy, a national youth orchestra
+scene: The letter comes on a Tuesday: {N} has won a scholarship to a school two towns away. New uniform, early buses, and everyone left behind.
+scene W: {parent} reads the letter three times and then puts it in a frame. {N} feels the weight of everyone's pride.
+scene U: The new school has laboratories, a real library, and teachers who have written books. {N} reads the brochure until it falls apart.
+scene B: A place like that opens doors that stay shut for everyone else. {N} intends to walk through every one of them.
+scene R: {N} screams, jumps on the bed, and phones everyone they have ever met.
+scene G: {N} thinks of the friends from the street, the walk to the old school, the corner shop. Not all of it will come along.
+- W | accept, and write proper thank-you letters to everyone who helped | v: conformity, benevolence | chance: 72
+- U | read everything about the new school and arrive already ahead | v: achievement | chance: 72
+- B | take it, and drop the old friends who would hold you back | identity | v: achievement, power | act: take it, and drop the old friends who would hold them back | chance: 68
+- R | ring everyone you know, and celebrate as loudly as you can | v: hedonism | chance: 78
+- G | turn it down, and stay with your friends and family where you belong | identity | v: tradition, security | mark: turned down a chance | closed: approval: turning down the family's hopes; backfire: a long row at home | chance: 60
+- WUG | accept, and keep helping your old friends with their homework after school | v: benevolence | chance: 55
+- WBR | take the place, and race to the top of the new class in the first term | v: achievement | chance: 30
+- WBG | accept for the family's sake, and carry their hopes like a debt to repay | binds | v: tradition, achievement | chance: 65
+- URG | take it, and learn to fend for yourself on the long journey each day | door | v: self-direction | chance: 82
+- UBR | bluff that you have another offer, and hold out for a better one | v: power, achievement | mark: took a wild risk | chance: 25
+works: The first term goes better than {N} dared to hope.
+works: {N} finds people at the new place who think the way they do.
+fails: {N} feels out of place among richer, sharper kids, and dreads every morning bus.
+fails: The old friends drift away, and the new ones have not arrived yet.
+
+== a trip far from home
+tier: life event
+at: school
+stages: child juvenile young_adult
+age: 12-19
+per_year: .02 .03 .05 0 0 0
+drivers: money+.5 prosper+.3 health+.2 era+.2 unrest-.4
+gap: 2-4
+times: once or twice in the school years for those who go: about 2 in 100 children, 3 in 100 teenagers and 5 in 100 young adults a year make the journey of a lifetime (D29, estimate)
+likelier: money, good health, a school with exchanges, relatives abroad, cheap travel, few duties at home, peace and open borders
+rarer: poverty, poor health, caring duties at home, a family that never travels, closed borders, war
+rite: young_adult
+tone: joy
+life: travel, door
+horizon: week
+roles: friend, a teacher, a host family
+earth: a school exchange or a trip abroad: a new country, a new language, two weeks far from home
+scene: Two weeks on an exchange in another country: a host family, a language {N} barely speaks, and food that smells like nothing at home.
+scene W: The school sent a list of rules and the host family's address. {N} wants to be a good guest and a credit to the school.
+scene U: Street signs, menus, the way people greet each other: everything is a puzzle, and {N} wants to solve all of it.
+scene B: Nobody here knows who {N} is back home. For two weeks {N} can be anyone they like.
+scene R: The plane drops through the clouds onto a city {N} has only seen in pictures, and {Ns} face is pressed to the window.
+scene G: The air smells different, the trees are different, the light is different. {N} misses home and loves it here, both at once.
+- W | follow the group's rules and be a model guest in your host family's home | door | v: conformity, benevolence | chance: 88
+- U | speak only their language all fortnight, however badly | door | v: self-direction, achievement | mark: learned a skill | chance: 62
+- B | bring sweets from home and sell them at three times the price | v: achievement, power | chance: 58
+- R | slip away from the group to explore the city on your own | door | v: stimulation | mark: took a wild risk | closed: approval: leaving the group; backfire: lost, and sent home early | chance: 80
+- G | spend your days with the host family's grandparents, learning how they live | door | v: tradition, universalism (tolerance) | mark: made a friend | chance: 72
+- W>B | report the friends who broke curfew, so the teachers pick you to lead next time | v: achievement, power | closed: approval: telling on friends; backfire: shunned for the rest of the trip | act: report the friends who broke curfew, so the teachers pick them to lead next time | chance: 30
+- U>R | research the city's hidden corners and lead your friends there after curfew | v: stimulation | closed: approval: out after curfew; backfire: the trip cut short | chance: 65
+- B>G | smuggle home a local food that customs forbid, as a present for your family | v: benevolence | closed: law: customs rules; backfire: confiscated at the airport, and a fine | chance: 75
+- R>W | throw yourself into the host family's festival as if you were one of them | v: universalism (tolerance) | chance: 92
+- G>U | walk the countryside with your host and learn the name of everything in their language | door | v: self-direction | mark: learned a skill | chance: 75
+works: {N} comes home with a new language half in their head and a friend on the other side of the world.
+works: The trip changes how {N} sees home, in ways that take years to notice.
+fails: {N} is homesick and sick from the food, and counts the days.
+fails: A row with the host family sours the whole fortnight.
+
+== a teacher or coach who believes in you
+tier: life event
+at: school
+stages: child juvenile young_adult
+age: 12-22
+per_year: .05 .05 .1 0 0 0
+drivers: ties+.3 community+.3 prosper+.2 money+.2 unrest-.3 fortune+.1
+gap: 3-6
+times: once or twice in the school and student years: a mentor takes up about 5 in 100 teenagers and 10 in 100 young adults a year (D20, estimate); under twelve it comes as its child version, a teacher who sees something in you
+likelier: small classes, clubs and teams, a school that keeps its teachers, a talent that shows, a young person who stays after class
+rarer: overcrowded schools, frequent moves, poverty, unrest, discrimination, a young person who keeps to themselves
+tone: joy
+life: school, mentor
+horizon: years
+roles: mentor, parent, rival
+earth: a teacher or coach takes you aside, says you could go far, and offers to help
+scene: After the lesson {mentor} holds {N} back and says, quietly, that {N} could go much further than anyone has told them.
+scene W: {mentor} expects a lot, sets extra work and checks every page. {N} does not want to let them down.
+scene U: {mentor} lends {N} a book that is far too hard and says to come back with questions. {N} reads it twice.
+scene B: Someone with influence is on {Ns} side now. {N} begins to see what a word from {mentor} could open.
+scene R: Nobody has ever said that to {N} before. {N} walks home grinning at strangers.
+scene G: {mentor} says {N} has a gift. {N} has always felt it, the way a plant knows where the light is.
+- W | do every piece of extra work they set, on time, and thank them properly | v: conformity, achievement | chance: 70
+- U | ask for a reading list and work through every book on it | v: self-direction | chance: 70
+- B | ask them to put in a word for you with people who can open doors | door | v: achievement, power | act: ask them to put in a word for them with people who can open doors | chance: 75
+- R | throw yourself into it overnight, with everything you have got | v: stimulation, achievement | chance: 68
+- G | thank them, and keep growing at your own pace | v: self-direction | chance: 62
+- W>G | help them coach the younger kids on Saturday mornings | door | v: benevolence | chance: 88
+- U>W | ask to train under them for a year, and learn to teach as they do | binds | v: achievement, benevolence | chance: 75
+- B>U | lean on their kindness for free extra lessons | v: achievement | chance: 73
+- R>B | go after the top prize in your year, fired up by what they said | v: achievement, stimulation | chance: 40
+- G>R | stop holding back the gift you were born with, and let it run | identity | v: self-direction, stimulation | chance: 65
+works: A year later {N} is doing things nobody expected, least of all {N}.
+works: {mentor} writes a reference that opens a door {N} did not know was there.
+fails: {mentor} leaves at the end of the year, and the momentum goes with them.
+fails: {N} cannot live up to the faith placed in them, and starts avoiding {mentor} in the corridors.
+
+== a teacher who sees something in you
+tier: life event
+at: school
+stages: child, juvenile
+age: 6-12
+per_year: .02 .05 0 0 0 0
+drivers: ties+.3 community+.3 prosper+.2 money+.2 unrest-.3 fortune+.1
+gap: 3-6
+variant_of: a teacher or coach who believes in you
+times: once in the primary school years for some: a teacher or coach singles out about 2 in 100 children a year and offers real help (D20, estimate); from twelve it comes as a teacher or coach who believes in you
+likelier: small classes, clubs and teams, a school that keeps its teachers, a talent that shows, a child who stays after class
+rarer: overcrowded schools, frequent moves, poverty, unrest, discrimination, a child who keeps to themselves
+tone: joy
+life: school, mentor
+horizon: years
+roles: mentor, parent, rival
+earth: a teacher or coach keeps you back after class, says you have a gift, and offers to help you with it
+scene: After class {mentor} keeps {N} back and says, kindly, that {N} is good at this, really good, and could be better still.
+scene W: {mentor} hands {N} a folder of extra work and a chart of squares to fill. {N} means to fill every one of them.
+scene U: {mentor} lends {N} a book meant for much older children and says to come back with questions. {N} reads it under the covers by torchlight.
+scene B: {N} is the one {mentor} picked. {rival} has noticed, and so has everyone else in the class.
+scene R: Nobody has ever said that to {N} before. {N} runs the whole way home to tell {parent}.
+scene G: {mentor} says {N} has a gift. {N} has always felt it, the way a seed knows which way is up.
+- W | do every bit of extra work they set, neatly and on time | v: conformity, achievement | chance: 72
+- U | ask them for harder books and puzzles, and work through every one | v: self-direction | chance: 70
+- B | ask them to put you in the special group, ahead of the others | door | v: achievement, power | act: ask the teacher to put them in the special group, ahead of the others | chance: 73
+- R | throw yourself into it, and talk about nothing else at home | v: stimulation, achievement | chance: 80
+- G | say thank you, and keep going at your own pace | v: self-direction | chance: 65
+- W>G | help them look after the little ones at the club or in the playground | door | v: benevolence | chance: 88
+- U>W | ask to be their helper every week, and learn how they do things | binds | v: achievement, benevolence | chance: 82
+- B>U | make yourself their favourite, and get all the extra help going | v: achievement | chance: 68
+- R>B | tell the whole class the teacher says you are the best | v: power | chance: 25
+- G>R | stop hiding what you are good at, and show it off for the joy of it | identity | v: self-direction, stimulation | chance: 60
+works: By the end of the year {N} can do things that surprise everyone, {N} most of all.
+works: {mentor} tells {parent} at the school gate that {N} is one to watch.
+fails: {mentor} moves to another school, and the extra help stops.
+fails: The others start calling {N} the teacher's pet, and {N} stops putting a hand up.

@@ -1,0 +1,1130 @@
+# Chroma library, modern Earth: INNER DRIVERS across stages (states that build up and push the person to act). Plan: earth-plan.md "Across stages".
+# Syntax: header of build.py. Each driver is even on its own: alpha even, the five one-color options and one full cross cycle (s1 to s4 spread evenly).
+
+# ---------------------------------------------------------------- painful and draining states
+
+== the same week, over and over
+tier: inner
+stages: all
+age: 12-110
+tone: mixed
+life: work, school, home
+horizon: months
+roles: friend, colleague, a neighbour
+earth: the same alarm, the same bus, the same tasks, and a flat grey feeling that nothing new will ever happen
+requires: twelve or more ordinary weeks in a row (no life event, no new commitment, no move), and meaning below 0.45 or competence unchanged over the whole stretch
+likelier: juvenile and young adult years; a routine job or a long school term; autonomy below 0.4 (little say over the day); retirement without plans; much Red in the color history
+rarer: an absorbing hobby or plan; a new child, job or move within the year; a goal the routine clearly serves; high steadiness
+times: Most people, a stretch or two a year, at any age from the teens on (estimate)
+gap: 0-0.5
+scene: The alarm, the bus, the same desk, the same voices. Halfway through the morning {N} notices they have been staring at the clock for ten minutes.
+scene W: {N} keeps to the timetable as always, but lately the duties feel like a coat gone thin at the elbows.
+scene U: {Ns} mind wanders off for the third time this hour, and {N} starts to wonder what exactly it is looking for.
+scene B: {N} looks round at the same faces doing the same things and thinks: nobody gets anywhere like this.
+scene R: {Ns} legs jiggle under the desk. Every part of {N} wants to stand up, walk out and do something, anything.
+scene G: The days come round like the same leaf turning in the same eddy. {N} wonders whether this is a season or a whole life.
+- W | do every dull task properly, and take pride in a job done right | habit | v: conformity, achievement | chance: 78
+- U | make a game of the routine: time yourself, and beat yesterday's record | v: achievement, self-direction | chance: 82
+- B | trade a favour to get someone else to do the dull part | v: power, hedonism | chance: 82
+- R | drop it all for an afternoon and go somewhere you have never been | v: stimulation | closed: approval: skipping school or work; backfire: missed, and in trouble for it | chance: 85
+- G | stop fighting it: look out of the window and let the hours drift by | v: none clear (letting time pass) | chance: 58
+- W>U | ask whoever is in charge to let you learn a new part of the work | door | v: self-direction, conformity | mark: learned a skill | act: ask whoever is in charge to let them learn a new part of the work | chance: 64
+- U>B | find a way to finish the routine in half the time, and keep the rest | v: achievement, hedonism | closed: approval: idling on paid or set time; backfire: found out, and given twice the work | chance: 70
+- B>R | stir up a little trouble between two others, just to see what happens | v: stimulation | mark: made an enemy | closed: approval: mischief-making; backfire: found out, and left out | chance: 69
+- R>G | get outside and run, climb or swim until the heaviness lifts | body: light | v: stimulation, hedonism | chance: 90
+- G>W | join the neighbours who tend the shared garden every Saturday | door | habit | v: tradition, benevolence | mark: made a friend | chance: 82
+works: By the end of the month {N} has something to look forward to on Thursdays.
+works: The days are still the same days, but {N} no longer counts the minutes.
+fails: Nothing changes, and the grey weeks roll on.
+fails: The attempt goes wrong, and {N} ends up in trouble as well as bored.
+
+== a friend's good news stings
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: friends, work, school
+horizon: week
+roles: friend, sibling, colleague
+earth: a friend of your own age gets the prize, the promotion, the house or the baby you wanted, and everyone is congratulating them
+requires: a friend, sibling or colleague within about five years of the person's age had a success within the last three months (a prize, a place, a promotion, a wedding, a baby, a house) in a field where the person's own competence is below 0.5
+likelier: the two are alike in age, sex and path; the person's own standing is low or falling; juvenile and young adult years; a week of scrolling through other people's highlights; much Black in the color history
+rarer: with age (envy falls after fifty); satisfaction above 0.65; gratitude acts within the year; the success is in a field the person does not care about
+times: Nearly everyone, a few times a year, most sharply between friends of the same age (estimate)
+gap: 0-0.5
+scene: {friend} has the thing {N} wanted, and everyone is congratulating them. {N} smiles along, and something small and sour turns over inside.
+scene W: {N} knows {friend} earned it fairly, and is ashamed of the sour feeling. A good friend should only be glad.
+scene U: {N} keeps going over it: what did {friend} do differently, and where exactly did {N} fall behind?
+scene B: It should have been {Ns}. {N} watches {friend} take the applause and starts counting what {friend} has that {N} does not.
+scene R: The smile hurts. {N} wants to shout, or cry, or both, and leaves the room before it shows.
+scene G: Some trees grow faster than others in the same soil. {N} tells themselves this, and does not quite believe it yet.
+- W | congratulate them warmly, and keep the sour feeling to yourself | v: conformity, benevolence | chance: 80
+- U | ask them how they did it, step by step, and take notes | door | v: self-direction, achievement | chance: 80
+- B | decide you will have the same within a year, and start working for it | v: achievement | chance: 50
+- R | admit your jealousy to them out loud, and laugh about it together | v: benevolence | mark: owned up | chance: 78
+- G | stop scrolling, count what is good in your own life, and let it settle | habit | v: tradition (humility) | chance: 90
+- W>B | ask the people who decide what it takes to be picked next time | v: achievement, power | chance: 68
+- U>R | work out what they did, then try something bolder they would never dare | v: stimulation, achievement | mark: took a wild risk | chance: 55
+- B>G | avoid them for a while and unfollow them, until it stops hurting | v: security | chance: 88
+- R>W | lead the cheering for them, louder than anyone, in front of everyone | v: benevolence | chance: 78
+- G>U | go back to what you are naturally good at, and grow it patiently | habit | v: achievement, self-direction | mark: learned a skill | chance: 78
+works: The sting fades, and {N} can look {friend} in the eye again.
+works: {N} turns the feeling into a push, and gets somewhere of their own.
+fails: The sourness stays, and every new piece of good news makes it worse.
+fails: Something {N} said gets back to {friend}, and things between them go cold.
+
+== guilt that will not go away
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: friends, family, faith
+horizon: months
+roles: friend, sibling, parent, an elder
+earth: something you did, or failed to do, weeks ago, and nobody mentions it, but you cannot stop thinking about it
+requires: a mark 'broke your word', 'hid a wrong' or 'refused someone in need' within the last two years, or an act against the ends the person holds most that hurt someone close; and peace below 0.45 for four weeks or more
+likelier: much White or Green in the color history (benevolence, conformity, tradition ranked high); the person wronged is close and still around; reactivity above 1; a faith commitment held
+rarer: the harm was small or shared; the person owned up at the time; much Black in the color history; the person wronged has moved away or died long ago
+times: Most people, a guilt that lingers for weeks every year or two (estimate)
+gap: 0.8-1
+scene: It was weeks ago, and nobody mentions it any more. But {N} keeps coming back to it at night, the way a tongue goes back to a broken tooth.
+scene W: {N} knows exactly what was owed and was not given. The knowledge sits like a stone in a pocket, heavier every day.
+scene U: {N} replays it again: the moment, the choice, what should have been said instead. The replay never changes the ending.
+scene B: {N} tells themselves it is done, it is over, everyone does such things. The thought will not stay down.
+scene R: Every time {N} sees {friend}, {Ns} face goes hot and {N} has to look away.
+scene G: The wrong has put down roots. {N} feels it under everything, the way damp gets into the walls of a house.
+- W | confess it to a parent, an elder or a priest, and make the amends they ask | v: tradition, conformity | chance: 82
+- U | write it all down, honestly, until you understand why you did it | v: self-direction | chance: 80
+- B | decide guilt is a leash other people hold, and stop wearing it | identity | v: self-direction, power | chance: 65
+- R | go round tonight and pour the whole thing out, tears and all | v: benevolence | mark: owned up | chance: 78
+- G | accept that it happened, carry it quietly, and be kinder from now on | v: benevolence, tradition (humility) | chance: 69
+- W>R | own up to whoever is in charge and take the punishment, to be free of it | v: conformity | mark: owned up | identity | chance: 78
+- U>G | find a quiet way to repair the harm, and never say who caused it | v: benevolence | mark: hid a wrong | chance: 75
+- B>W | give money to a good cause until the feeling eases | v: universalism | tags: pay:money-.05 | chance: 70
+- R>U | cry it out fully, then sit down and work out what the lesson is | v: self-direction | chance: 75
+- G>B | keep away from the one you hurt, and let time bury it | v: security | chance: 48
+works: The weight lifts, a little at first, then for good.
+works: {N} faces it, and the person {N} wronged is gentler than {N} feared.
+fails: The guilt stays, and leaks into everything {N} does.
+fails: Trying to set it right opens the wound again, for both of them.
+
+== shame after a public failure
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: school, work, community
+horizon: months
+roles: friend, rival, boss, parent
+earth: everyone saw you fail, and now you feel their eyes on you everywhere you go
+requires: a failure seen by others within the last month (an exam failed, a job lost, a debt or a secret come out, a collapse on stage or on the pitch), and competence or belonging below 0.4
+likelier: reactivity above 1.2; much White in the color history (honour and face matter); juvenile years; harsh critics at home; outlook below 0.4
+rarer: unconditional support (ties and belonging above 0.6); a forgiving community; steadiness above 1; the failure stayed private
+times: Most people, every few years, most often in the teens and twenties (estimate)
+gap: 2-4
+scene: Everyone saw. {N} walks past the people who saw and feels their eyes on the back of {Ns} neck, though nobody is looking.
+scene W: {N} let everyone down, in front of everyone. {N} cannot stop imagining what they all say about it now.
+scene U: {N} goes over the failure again and again, searching for the exact moment it went wrong, and finds a dozen.
+scene B: {N} hates that they saw it. Weakness shown is weakness used, and {N} knows exactly who will use it.
+scene R: The memory comes back in hot flashes, in the shower, on the stairs, and each time {N} wants to hit something or hide.
+scene G: {N} feels small, like a stunted plant beside the others in the row, and wants to be left alone in the shade.
+- W | apologise to those you let down, and work twice as hard to win back their trust | v: conformity, achievement | habit | chance: 75
+- U | work out precisely what went wrong, and practise until it cannot happen again | habit | v: achievement, self-direction | mark: learned a skill | chance: 80
+- B | say nothing, work like mad, and win so big next time that they forget | v: achievement, power (face) | chance: 50
+- R | make a joke of it, loudly, before anyone else can | v: none clear (laughing it off) | chance: 72
+- G | keep your head down, stay home a while, and let the talk die away | v: security, tradition (humility) | chance: 70
+- W>G | own it in front of everyone, and ask for their forgiveness | identity | v: benevolence, tradition (humility) | mark: owned up | chance: 75
+- U>W | rehearse in secret for months, and come back word-perfect for the next try | v: achievement, conformity | chance: 75
+- B>U | change school, club or job, and start again where nobody knows | door | v: self-direction | chance: 75
+- R>B | lash out at the one who made it public | v: power | mark: made an enemy | closed: approval: a scene; backfire: more people see it | chance: 35
+- G>R | go off alone into the hills or the park and shout it out of your body | body: light | v: none clear (feeling let out) | chance: 71
+works: The talk dies down, and {N} finds they can walk into the room again.
+works: The next chance comes, and this time {N} gets it right.
+fails: The failure follows {N} around for months, like a nickname that will not wear off.
+fails: {N} hides from everyone, and the hiding becomes its own trouble.
+
+== the itch to be somewhere else
+tier: inner
+stages: juvenile+
+age: 15-110
+tone: mixed
+life: home, leisure, work
+horizon: months
+roles: friend, sibling, partner, parent
+earth: a plane overhead, a postcard from a friend, and suddenly the street outside looks too small
+requires: the same town, home and job or school for five years or more with no new role, and autonomy or meaning below 0.45; or an age ending in 9 or 0; or a friend or sibling who made a big move within the year
+likelier: ages ending in 9; much Red or Black in the color history (stimulation and self-direction ranked high); a child left home within the year; freedom above 0.6; just after New Year or a birthday
+rarer: a new role, child or project within the year; much White or Green in the color history (security and tradition ranked high); money below 0.2
+times: Most people, about once a year, more at round birthdays; about 1 in 6 adults worldwide say they would move abroad if they could (Gallup)
+gap: 0.8-1
+scene: A plane crosses the sky over {Ns} street. {N} watches it until it is gone, and goes on standing there afterwards.
+scene W: {N} has a good life here, people who count on them, and a list of reasons to stay. Lately the list has stopped working.
+scene U: {N} has started reading about other cities late at night: rents, jobs, languages, how long the winters last.
+scene B: Everyone who got anywhere left this town. {N} looks at the ones who stayed and does not want to be one of them.
+scene R: {Ns} feet itch. A song on the radio, the smell of diesel at the station, and {N} wants to be gone by morning.
+scene G: Birds leave every autumn without asking anyone. {N} feels the same tug, and wonders whether it means go or wait.
+- W | talk it through with the family, and agree on a trip everyone can live with | v: conformity, benevolence | chance: 78
+- U | research three places properly, visit the best one, then decide | v: self-direction, security | chance: 82
+- B | apply for jobs or courses elsewhere, and tell nobody until it is settled | v: self-direction, achievement | mark: moved away | chance: 65
+- R | pack one bag and take the next train out, just to see | door | v: stimulation | mark: took a wild risk | chance: 88
+- G | wait until the urge has lasted a whole season; only then trust it | v: security, tradition (humility) | chance: 68
+- W>U | sign up for an official exchange or posting through work or school | door | v: self-direction, conformity | chance: 68
+- U>B | work out where you would get on fastest, and commit to moving there | binds | v: achievement, power (resources) | mark: moved away | chance: 68
+- B>R | blow your savings on a ticket somewhere far, and stay until the money runs out | identity | v: stimulation, hedonism | mark: left home | chance: 80
+- R>G | walk out of town on foot, and sleep under the open sky for a few nights | body: light | v: universalism (nature), stimulation | chance: 90
+- G>W | go back to where your family came from, and help out there for a summer | door | v: tradition, benevolence | mark: helped someone in need | chance: 78
+works: {N} goes, and comes back to find the old street looking new again.
+works: The plan takes shape, and the itch turns into a date on the calendar.
+fails: Nothing comes of it, and the itch turns sour.
+fails: {N} goes, and finds the same restlessness waiting at the other end.
+
+== running on empty
+tier: inner
+stages: juvenile+
+age: 18-90
+tone: trouble
+life: work, family, body
+horizon: months
+roles: boss, colleague, partner, child
+earth: weeks of early starts and late nights, and this morning you sat in the car for ten minutes before you could make yourself go in
+requires: stress above 1.5 for twelve weeks or more, with time below 0.2 and no week of rest; plus autonomy below 0.4 or a clash between what the job demands and the ends the person holds most
+likelier: a caring job, or caring for a parent or a sick child; career and children held at once; much White in the color history (cannot say no) or much Blue (perfectionism); unfair treatment at work
+rarer: autonomy above 0.6; a supportive partner or team (ties above 0.6); firm limits on hours; satisfaction above 0.65
+times: Many working adults, a breaking point every year or two in hard stretches; about 2 in 3 US workers feel burned out at least sometimes (Gallup 2018)
+gap: 0.8-1
+scene: {N} sits in the parked car outside work for ten minutes, engine off, unable to make the hand open the door.
+scene W: So many people are counting on {N}. {N} cannot let them down, and cannot remember the last time {N} slept through the night.
+scene U: {N} reads the same sentence four times and it still will not go in. The mind {N} always relied on has turned to fog.
+scene B: {N} has given this place everything, and {boss} still asks for more. {N} starts to wonder what all of it is buying.
+scene R: {N} snaps at {colleague} over nothing, and then cannot stop crying in the toilets.
+scene G: {N} feels like a field farmed too many seasons without rest. Nothing more will grow until something is left fallow.
+- W | ask formally for lighter duties, and hold the line once it is agreed | v: security, conformity | chance: 68
+- U | log every hour for a week, then cut whatever does not truly need doing | v: self-direction, security | chance: 70
+- B | go cynical: do the bare minimum, and save your strength for yourself | habit | v: hedonism, security | chance: 80
+- R | walk out in the middle of the shift, and stay away until you feel human | v: self-direction | closed: approval: walking out; backfire: a warning, or the sack | chance: 62
+- G | take sick leave and sleep for as long as the body asks | v: security | chance: 75
+- W>B | file a formal complaint about the workload, strictly by the book | v: power, security | chance: 50
+- U>R | plan a three-month break down to the last detail, then take it | v: stimulation, self-direction | chance: 68
+- B>G | trade the salary for a smaller job and a slower life somewhere quiet | binds | v: security, hedonism | mark: moved away | chance: 72
+- R>W | stand up at the next meeting and say what this job is doing to everyone | identity | v: universalism (fairness) | mark: defied an authority | chance: 45
+- G>U | spend a week in a cabin with no screens, and let your mind clear | door | v: self-direction | chance: 72
+works: {N} rests, and one morning the tiredness is simply gone.
+works: Something gives at work, and the weeks get lighter.
+fails: {N} keeps going until the body decides instead, and {N} falls ill.
+fails: The change costs more than it saves, and the tiredness comes back with interest.
+
+== the anniversary of a death
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: loss, family
+horizon: week
+roles: dead, parent, sibling, partner
+earth: the day someone you loved died comes round again, and the world carries on as if it were any other day
+requires: the death of someone close (a parent, partner, child, sibling, grandparent or friend) a year or more ago, and the date, their birthday or a holiday they loved comes round this week
+likelier: the death was sudden, or of a child or partner; the first few anniversaries; belonging below 0.4; few other ties; their things still in the house
+rarer: many years have passed; a faith and its rites; a family that marks the day together (ties above 0.6)
+times: Nearly everyone who has lost someone close, once a year around the date; grief researchers call these anniversary reactions
+gap: 0.8-1
+scene: The date on the calendar is just a number to everyone else. {N} wakes before the alarm, knowing exactly what day it is.
+scene W: Every year on this day {N} lights a candle for {dead}. Someone has to remember properly, and it falls to {N}.
+scene U: {N} counts the years since {dead} died and finds the number does not fit: it feels both much longer and much shorter.
+scene B: {N} thinks of everything {dead} never got round to, and hears the clock of {Ns} own life ticking louder.
+scene R: A song in the shop, the one {dead} always sang, and {N} has to put the basket down and walk out.
+scene G: The same blossom is out that was out the week {dead} died. {N} stands under it for a long time.
+- W | go to the grave with the family, and keep the day as it should be kept | habit | v: tradition, conformity | chance: 90
+- U | write down every memory of them you still have, before it fades | v: tradition, self-direction | chance: 90
+- B | use the day to make the decision for yourself that you keep putting off | v: self-direction, achievement | chance: 78
+- R | let yourself cry, loudly, wherever it comes | v: none clear (grief let out) | role: women | chance: 85
+- G | sit in silence in a place they loved, and let the grief pass through | v: tradition, universalism (wisdom) | chance: 90
+- W>R | start a yearly game in their name with friends, and play their music after | binds | v: benevolence, stimulation | chance: 79
+- U>G | learn to cook their signature dish exactly, from their old notes | v: tradition | mark: learned a skill | chance: 82
+- B>W | chip in for a bench with their name on it, where everyone will see | identity | v: tradition, benevolence | tags: pay:money-.05 | chance: 78
+- R>U | go on impulse to the place they died, to make sense of it at last | v: self-direction | chance: 68
+- G>B | let the day pass unmarked this year, and keep your strength for the living | v: security | chance: 60
+works: The day is hard, and then it is over, and {N} feels lighter for having marked it.
+works: Remembering {dead} out loud, {N} laughs for the first time in a long while.
+fails: The grief comes back as fresh as the first week, and stays for days.
+fails: {N} spends the day alone and wrong-footed, and nobody else seems to remember.
+
+== nothing seems to matter
+tier: inner
+stages: juvenile+
+age: 15-110
+tone: trouble
+life: faith, work, home
+horizon: months
+roles: friend, partner, an elder
+earth: you got what you were working for, or lost it, and now the days look like grey cardboard
+requires: meaning below 0.3 for eight weeks or more; or a goal held for years reached or lost within the year (graduation, retirement, the children gone, a cause won or lost) with meaning below 0.45; or a success that brought no rise in satisfaction
+likelier: young adult years and old age; an age ending in 9 or 0; within a few years of leaving a faith; ends mostly money and image (much Black in the ends); baseline mood below 0.45
+rarer: belonging above 0.6; a faith or community commitment held; children; work felt as a calling (career held, meaning above 0.6)
+times: Many people, every several years, after a goal is reached or lost or in a low stretch; about 1 in 5 US adults has a major depressive episode in life (Hasin and colleagues 2018)
+gap: 3-8
+scene: {N} does everything that needs doing, and none of it seems to weigh anything. At night {N} lies awake asking what it is all for.
+scene W: {N} used to know what the duties were for. Now {N} keeps them out of habit, like lamps left burning in an empty house.
+scene U: {N} has an answer for every question except the one that keeps coming back: why any of it?
+scene B: {N} got what {N} wanted. It sits on the shelf like a trophy, and {N} feels nothing when {N} looks at it.
+scene R: Nothing makes {Ns} heart beat faster any more. Not music, not love, not anger. {N} would take any feeling over this.
+scene G: {N} feels cut off, like a branch that has come away from the tree and does not know it yet.
+- W | turn to a faith, old or new, and keep its practices faithfully | habit | v: tradition | tags: commit:faith | chance: 70
+- U | read the philosophers and keep a journal until you have an answer of your own | door | v: self-direction | chance: 65
+- B | buy something big and expensive, just to feel something | v: hedonism, power (resources) | tags: pay:money-.1 | chance: 45
+- R | quit something or start something, anything, so long as it is sudden | v: stimulation | mark: took a wild risk | chance: 62
+- G | stop asking, and live small, slow days close to home until it lifts | v: tradition (humility), security | chance: 68
+- W>G | volunteer at the hospice, and sit with people at the end of their lives | v: benevolence, universalism | mark: helped someone in need | chance: 80
+- U>W | study how the people you most admire live, and copy their code | identity | v: conformity, self-direction | chance: 65
+- B>U | pay for a course or a therapist, and treat the emptiness like a project | door | v: self-direction | chance: 75
+- R>B | pick the fiercest rival you can find, and set out to beat them | v: achievement, stimulation | mark: made an enemy | chance: 62
+- G>R | sleep out alone on a hill under the stars until something stirs | door | body: light | v: stimulation, universalism (nature) | chance: 65
+works: Slowly, without {N} noticing when, the days take on weight again.
+works: {N} finds one thing that matters, and it is enough to start with.
+fails: The emptiness hangs on through the season, and {N} stops expecting it to lift.
+fails: What {N} tried feels hollow too, and {N} gives it up.
+
+== homesick
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: home, family
+horizon: months
+roles: parent, grandparent, sibling, friend
+earth: a new room in a new place, and a pang every evening when you think of the kitchen at home
+requires: moved away from home within the last three months (a camp, boarding school, university, a job abroad, migration, a care home), with ties back home above 0.5 and belonging in the new place below 0.4
+likelier: a first time away; strong family ties; a new place very unlike home; few new friends yet; holidays and family birthdays; reactivity above 1.2
+rarer: earlier time away; quick new friendships; plenty of sport and activity; a partner who came along
+times: Most people, a few times in a life: camp, university, a job far away, a care home; for most it fades within months (estimate)
+gap: 2-6
+scene: Every evening around six, when the light goes, {N} thinks of the kitchen at home and the voices in it, and the new room feels very far away.
+scene W: At home {N} knew where everything went and who would be at the table. Here every day has to be worked out from nothing.
+scene U: {N} keeps catching small wrongnesses: the bread tastes different, the birds sound different, the light falls at the wrong angle.
+scene B: {N} came here to get on, and knows it. But nobody here knows {Ns} name yet, and that is harder than {N} expected.
+scene R: A smell of cooking in the corridor, almost like the dish {grandparent} makes, and {N} has to sit down on the stairs.
+scene G: {N} feels like a plant moved to a new pot, roots all bunched up, not yet sure the soil will take.
+- W | tell the warden or the tutor you are struggling, and take the help on offer | v: security, conformity | chance: 77
+- U | learn the new place properly: map it, read about it, find what works | door | v: self-direction, security | chance: 85
+- B | remind yourself what this place is a step towards, and push through | v: achievement | chance: 82
+- R | say yes to every party and every invitation, starting tonight | door | v: stimulation | chance: 82
+- G | pack it in and go home | v: security, tradition | mark: turned down a chance | closed: approval: quitting halfway; backfire: the place is lost, and the money with it | chance: 58
+- W>U | enrol in the local language or orientation course, and go to every class | v: self-direction, conformity | mark: learned a skill | chance: 80
+- U>B | work out who here could be useful, and make yourself known to them | v: power, achievement | chance: 72
+- B>R | talk your way into a cheap lift home with someone driving that way | v: hedonism | chance: 78
+- R>G | share the food and music from home with the whole corridor, tonight | v: tradition, benevolence | chance: 90
+- G>W | find the people here from where you come from, and keep the old holidays together | habit | v: tradition, conformity | mark: made a friend | chance: 78
+works: One evening {N} realises the pang did not come, and the new place has started to feel like a place.
+works: {N} finds a corner of home in the new town, and the rest becomes bearable.
+fails: The pang gets worse each week, and {N} can think of little else.
+fails: {N} leaves too early and regrets it, or stays too long and is miserable.
+
+== anger that keeps building
+tier: inner
+stages: all
+age: 12-110
+tone: trouble
+life: work, family, community
+horizon: months
+roles: rival, boss, sibling, a neighbour
+earth: the same person keeps doing the same thing, and every time it happens the heat rises a little higher
+requires: the same person or situation has slighted, blocked or wronged the person three or more times within the last three months with no apology, and stress above 1 with peace below 0.4
+likelier: health below 0.5 (pain, tiredness); much Red or Black in the color history; reactivity above 1.2; an old history with this person; the wrong touches someone the person protects
+rarer: steadiness above 1; ties with the one who did it above 0.6; time and space to cool off; much White or Blue restraint in the color history
+times: Most people, a few times a year at this pitch; milder anger comes several times a week for most (Averill's diary studies)
+gap: 0-0.5
+scene: It has happened again. {N} says nothing, smiles even, but the heat that has been building for weeks climbs another notch.
+scene W: There are rules for how people treat each other, and {rival} breaks them every time. Someone ought to make it stop.
+scene U: {N} lies awake rehearsing the argument, every line of it, and wins it every time in the dark.
+scene B: {N} keeps a careful tally of every slight. One day the account will be settled, with interest.
+scene R: {Ns} jaw aches from clenching. One more time, just one more, and {N} knows it is all going to come out.
+scene G: Pressure builds under the ground for a long time before the mountain moves. {N} can feel it building now.
+- W | write a formal complaint that sets out every incident with dates | v: conformity, security | chance: 65
+- U | count to ten, step away, and come back only when your head is cool | habit | v: self-direction, conformity | chance: 85
+- B | wait patiently, and pay them back when they least expect it | v: power | mark: made an enemy | closed: approval: revenge; backfire: it escalates, and both sides suffer | chance: 66
+- R | have it out with them, face to face, right now | v: self-direction, power | chance: 68
+- G | forgive them in your own heart, and let the thing go | v: benevolence, tradition (humility) | chance: 68
+- W>B | report them for every small rule they break, until they are punished | v: power, conformity | closed: approval: a vendetta by the rulebook; backfire: seen as petty, and the rules turn on the one who used them | chance: 45
+- U>R | write a cutting letter, every word chosen, and send it while still angry | v: power, self-direction | chance: 50
+- B>G | cut them out of your life without a word, and let them wonder why | v: security | mark: made an enemy | chance: 80
+- R>W | lose your temper in public, so everyone finally sees what they have done | identity | v: universalism (fairness) | chance: 42
+- G>U | sit with the anger until you see what it is really about | v: self-direction | chance: 72
+works: The anger finds its way out, and the air clears.
+works: {rival} backs off, and {N} sleeps properly for the first time in weeks.
+fails: It all comes out at the worst possible moment, in front of the wrong people.
+fails: The anger turns inward and sours, and {N} carries it around for months.
+
+== a craving that keeps calling
+tier: inner
+stages: juvenile+
+age: 13-110
+tone: mixed
+life: body, leisure
+horizon: week
+roles: friend, partner
+earth: a drink, a bet, a cigarette, something sweet, a screen: the thing your body has learned to want, calling at the usual hour
+requires: an act flagged habit around a pleasure (drink, gambling, smoking, sweets, a screen) chosen eight or more times within the last year, and a cue this week (the usual hour, a place, a smell, a friend who shares it); or a day without it after many; stress above 1 makes it stronger
+likelier: stress above 1.5; tiredness; the evening after a day of hard self-control; much Red or Black in the color history; friends who share the habit
+rarer: a place with none of the cues; an absorbing goal; good sleep; a partner or child who would be hurt by it
+times: Nearly everyone with a habit, most weeks; about 1 in 9 US adults still smoke cigarettes (CDC 2021)
+scene: It is the usual hour. {Ns} hands know where it is before {Ns} mind has decided anything.
+scene W: {N} made a rule about this, and kept it for nine days. Now the rule feels thin as paper.
+scene U: {N} watches the wanting rise like a line on a chart: the trigger, the climb, the peak. Knowing the pattern does not make it smaller.
+scene B: {N} has earned this. After the day {N} has had, who is anyone to say no?
+scene R: The wanting is everywhere, in the mouth, in the hands, in the chest. Just once, just now.
+scene G: The body wants what the body wants. {N} listens, and wonders whether it is hunger or habit talking.
+- W | keep your rule, and tell someone you trust that you kept it | v: conformity | chance: 82
+- U | time the craving for twenty minutes, knowing it will peak and fall | v: self-direction, security | chance: 82
+- B | give in, but do it where nobody will see | habit | v: hedonism | mark: hid a wrong | chance: 65
+- R | give in fully, and enjoy every second of it | habit | v: hedonism | chance: 62
+- G | go for a walk until it passes, the way weather passes | v: security | chance: 90
+- W>R | swap it for a weekly game or night out with friends who never touch it | v: hedonism, conformity | chance: 75
+- U>G | learn what your body is really asking for, and give it that instead | v: security, self-direction | chance: 75
+- B>W | bet a friend real money that you can quit for three months | binds | v: achievement, conformity | chance: 70
+- R>U | throw out every bottle, packet or app in the house, tonight | v: security, self-direction | self_control: + | chance: 88
+- G>B | stay close to the friends who share it, so there is always some to hand | v: hedonism, conformity | closed: approval: keeping the company that feeds the habit; backfire: found out, and trusted less | chance: 45
+works: The wanting rises, peaks and passes, and {N} is still standing.
+works: {N} finds something that answers the craving without the cost.
+fails: Once becomes three times, and the evening is gone.
+fails: {N} holds out for days, then gives in harder than ever.
+
+== trapped by a promise
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: love, family, work
+horizon: months
+roles: partner, parent, boss, an elder
+earth: you gave your word years ago, a contract, a vow, a promise to stay or to care, and now it holds you like a fence
+requires: an act flagged binds (a vow, a debt, a contract, a promise to care for someone) or a commitment held for a year or more, and autonomy below 0.35 for eight weeks or more; or a plan to leave it blocked again within the year
+likelier: much Red or Black in the color history (self-direction and stimulation ranked high); money below 0.25; dependence on one person; family or community against leaving; a caring role
+rarer: savings; a life and friends outside the promise (ties above 0.6); meaning found in the role (meaning above 0.6); much White in the ends
+times: Many people, at some stretch of life, for months or years at a time: a marriage, a mortgage, a parent's care (estimate)
+gap: 2-4
+scene: {N} said yes, years ago, and meant it. Now the promise sits at the centre of every day, and {N} has started counting the bars.
+scene W: A promise is a promise. {N} repeats it like a prayer, and the prayer is wearing thin.
+scene U: {N} reads the old agreement again, line by line, looking for the clause that was never really there.
+scene B: {N} was young and did not know what it would cost. Somebody else is getting the better end of this deal.
+scene R: {N} catches themselves at the window, looking at the road, and the wanting to just walk is so strong it hurts.
+scene G: Some roots grow round a stone and cannot let go without tearing. {N} wonders which of them is the stone.
+- W | keep the promise to the letter, and stop asking whether you want to | identity | v: conformity, tradition | mark: kept your word | chance: 75
+- U | study every word of the agreement until you find the clause that lets you out | v: self-direction | mark: broke your word | closed: approval: wriggling out on a technicality; backfire: seen through, and trusted by no one | act: study every word of the agreement until they find the clause that lets them out | self_control: - | chance: 42
+- B | renegotiate hard: say you will walk away unless the terms change | v: power, self-direction | chance: 65
+- R | break it, today, and walk out with one bag | identity | v: self-direction, stimulation | mark: broke your word | chance: 72
+- G | accept it as your lot, and find what peace grows inside the fence | v: tradition (humility) | chance: 72
+- W>G | ask the people it binds to release you honestly, with their blessing | v: benevolence, conformity | act: ask the people it binds to release them honestly, with their blessing | self_control: - | chance: 68
+- U>W | draw up a fair new arrangement that keeps the spirit and frees the letter | binds | v: universalism (fairness), self-direction | chance: 65
+- B>U | pay someone to carry part of the load, and spend the hours studying | door | v: self-direction | mark: learned a skill | chance: 80
+- R>B | start a secret life on the side, just for yourself | v: hedonism, self-direction | mark: hid a wrong | closed: approval: a betrayal; backfire: discovered, and everything breaks at once | chance: 65
+- G>R | let it wear away slowly: show up less and less until it falls away | v: self-direction | mark: broke your word | chance: 62
+works: {N} finds a way to live with the promise, or out of it, and breathes again.
+works: The people bound by it understand more than {N} feared.
+fails: Nothing moves, and the walls feel closer every month.
+fails: {N} breaks loose, and the breaking costs more than {N} imagined.
+
+== jealousy in love
+tier: inner
+stages: juvenile+
+age: 14-110
+tone: trouble
+life: love
+horizon: week
+roles: partner, rival, friend
+domain: partner
+earth: your partner's attention drifts toward someone else, and you cannot stop watching it happen
+requires: a partner held, or for a juvenile a first love courted within the last three months, and within the week the partner's time, messages or praise turned toward someone else; plus belonging below 0.5 or an earlier betrayal in the history
+likelier: an earlier betrayal (a friend or partner broke faith); heavy dependence on the partner (few other ties); reactivity above 1.2; juvenile and young adult years
+rarer: years of trust (partner held five years or more with ties above 0.6); a full life outside the relationship; steadiness above 1
+times: Most people in love, a sharp pang every few years, more often in first loves (estimate)
+gap: 2-4
+scene: {partner} laughs at something on their phone and turns the screen away, and {N} feels the floor tilt a little.
+scene W: They made promises to each other. {N} has kept every one, and is suddenly not sure {partner} has.
+scene U: {N} notices the pattern before anything else: the late evenings, the new name that keeps coming up, the phone face down.
+scene B: {N} has seen how {rival} looks at {partner}. {N} is not going to lose what is {Ns} without a fight.
+scene R: The thought of {partner} with {rival} hits {N} like a fist, and for a moment {N} can hardly breathe.
+scene G: Something has shifted between {N} and {partner}, the way the air shifts before weather. {N} feels it in {Ns} skin.
+- W | tell them calmly how you feel, and ask them for the truth | v: benevolence, conformity | chance: 82
+- U | watch quietly for a few weeks, and see whether the pattern holds | v: security, self-direction | chance: 68
+- B | break it off first, before they get the chance to do it | v: security, self-direction | chance: 50
+- R | confront them right now, voice raised, and demand to know | v: power, security | chance: 62
+- G | trust the bond you have built, and let time show what is true | v: benevolence, security | chance: 75
+- W>U | agree a time each week to talk it through honestly, and keep to it | v: benevolence, security | chance: 85
+- U>B | secretly go through their messages when they leave the phone lying around | v: security, power | mark: hid a wrong | closed: approval: a breach of trust; backfire: caught, and the trust gone either way | tech: phone | chance: 65
+- B>R | flirt with someone else where they can see, so they feel it too | v: power, hedonism | chance: 32
+- R>G | hold them close tonight, and swear to fight the world for them | binds | v: benevolence | chance: 80
+- G>W | ask old friends you both trust to help talk it through | v: tradition, conformity | chance: 65
+works: The truth comes out, and it is gentler than {N} feared.
+works: {N} and {partner} talk it through until the suspicion has nowhere left to live.
+fails: The suspicion spreads into every evening, and {partner} grows tired of being watched.
+fails: The fear turns out to be true, and {N} finds out the hard way.
+
+== feeling invisible
+tier: inner
+stages: juvenile+
+age: 12-110
+tone: trouble
+life: family, work, community
+horizon: months
+roles: sibling, colleague, child, a neighbour
+earth: at the table, in the meeting, in the family chat, people talk over you and past you as if the chair were empty
+requires: belonging below 0.35 for six weeks or more while ties stay above 0.3 (people are around, but nobody asks, answers or notices); or retirement within the year with ties falling
+likelier: old age, older women especially; a newcomer; reactivity below 0.8 (a quiet temperament); a low-status role; louder siblings or colleagues
+rarer: a role others rely on; a close circle; public standing; much Red in the color history
+times: Many people, a stretch every year or two; about 1 in 2 US adults report loneliness (US Surgeon General 2023)
+gap: 0.8-1
+scene: {N} says something at the table. Nobody answers, and the talk flows on round {N} like water round a stone.
+scene W: {N} has done the right thing for years, quietly, and nobody has once said they noticed. {N} begins to wonder whether it counts.
+scene U: {N} starts to keep count: how many times {N} spoke this week, and how many times anyone replied.
+scene B: Nobody listens to someone who has nothing they want. {N} sees that clearly now, and does not like what it means.
+scene R: {N} wants to stand on the table and shout, just to see whether anyone would look up.
+scene G: {N} feels like an old tree at the edge of the field. Everyone walks past it, and nobody remembers who planted it.
+- W | make yourself useful to everyone, and trust that it will be noticed in time | v: conformity, benevolence | chance: 65
+- U | write what you think every week, in a letter to the paper or online | habit | identity | v: self-direction | chance: 68
+- B | make yourself the one who holds the keys, the money or the list | binds | v: power | chance: 80
+- R | get up at the next open mic or talent night, and make the room listen | v: stimulation, power (face) | chance: 55
+- G | stop trying to be heard, and turn to the garden, the dog and the quiet | v: tradition (humility) | chance: 55
+- W>B | stand for election to the council or committee, so your voice has to count | identity | v: power, achievement | chance: 48
+- U>R | learn to tell stories so well that the room goes quiet when you start | v: achievement, stimulation | mark: learned a skill | chance: 68
+- B>G | drop the crowd that never listens, and keep only the two or three who do | v: security, benevolence | chance: 85
+- R>W | tell the whole table, there and then, what it feels like to be ignored | v: benevolence | chance: 75
+- G>U | sit back and watch them all closely; the quiet one sees the most | v: self-direction | chance: 58
+works: Someone turns, at last, and asks {N} what {N} thinks, and waits for the answer.
+works: {N} finds a place where {Ns} voice carries.
+fails: The silence round {N} grows, and {N} stops speaking at all.
+fails: The attempt to be seen goes badly, and now {N} is noticed for the wrong thing.
+
+== a sense of injustice
+tier: inner
+stages: juvenile+
+age: 12-110
+tone: mixed
+life: community, work
+horizon: months
+roles: boss, colleague, friend, a neighbour
+earth: a rule bent for the powerful and enforced on everyone else, and you cannot stop thinking about it
+requires: the person or their group treated worse than others for no fair reason within the last month (passed over, underpaid, singled out, a rule enforced on them and waived for the powerful), or news of an injustice touching the ends the person holds most; and the feeling has not faded after four weeks
+likelier: much White in the ends (rules should bind everyone); the unfairness falls on a group the person belongs to; outlook above 0.45 (change looks possible); juvenile and young adult years
+rarer: the person gains from the arrangement; outlook below 0.3 (nothing ever changes); much Green acceptance in the color history
+times: Most people, about once a year at this strength, over something done to them or news that touches what they hold dear (estimate)
+gap: 0.8-1
+scene: It is not even {Ns} own business, strictly speaking. But {N} cannot stop thinking about it, and every time it comes back {Ns} hands go tight.
+scene W: There is a rule, and it was bent for the people who could afford it. If it does not bind everyone, it binds no one.
+scene U: {N} lays out the facts side by side: who got what, and why. The numbers do not add up, and {N} wants to know who made them.
+scene B: The people at the top look after their own. {N} has always known it. What galls is how openly they do it.
+scene R: {Ns} blood is up. {N} wants to march into the office and say it to their faces, right now.
+scene G: When one tree takes all the light, the ones beneath it wither. {N} has seen it in the woods, and now sees it here.
+- W | expose the one responsible in public, and keep at it until they lose their post | v: universalism (fairness), power | mark: made an enemy | closed: approval: a shaming campaign; backfire: the crowd turns, or a suit for libel | chance: 45
+- U | document everything, and take it through every proper channel, step by step | identity | v: universalism (fairness), conformity | chance: 65
+- B | get yourself a seat at the table where such rules are made | v: power | chance: 40
+- R | speak out at the next meeting and name names | identity | v: universalism (fairness), stimulation | mark: defied an authority | chance: 78
+- G | accept that the world has always worked this way, and tend your own corner | v: tradition (humility) | chance: 65
+- W>R | rally everyone who feels the same, and protest it together, loudly | v: universalism, stimulation | chance: 78
+- U>G | find the old law or charter that protects your people, and hold them to it | v: universalism, tradition | chance: 50
+- B>W | quietly help yourself to what you are owed, and say nothing | v: power (resources), universalism (fairness) | mark: hid a wrong | closed: law: theft; backfire: caught, and the unfairness turned on the taker | chance: 78
+- R>U | keep asking the awkward question, loudly, until someone has to answer | v: self-direction, universalism | chance: 68
+- G>B | close ranks with your own kind, and stop trusting anyone outside | identity | v: security, tradition | chance: 75
+works: The unfairness is put right, or at least named out loud, and {N} can sleep again.
+works: Others turn out to feel the same, and {N} is no longer alone with it.
+fails: Nothing changes, and the powerful carry on as before.
+fails: {N} pays for speaking up, and the people responsible do not.
+
+== feeling old
+tier: inner
+stages: adult+
+age: 38-110
+tone: mixed
+life: body, aging, work
+horizon: months
+roles: boss, child, partner, friend
+earth: a stranger offers you their seat on the bus, and you catch your own face in the window
+requires: felt age catches up with real age: health below 0.6 with something the body used to do now lost, or a round birthday from 40 (40, 50, 60, 70, 80), or within the year a first grandchild, a younger boss or the death of a friend of the same age
+likelier: health below 0.5; retirement within two years; a job or circle that prizes youth; few friends of other ages; outlook below 0.4
+rarer: health above 0.8; friends of every age; much Green in the color history (ageing accepted); an active role others rely on
+times: Nearly everyone from midlife on, every few years; adults over 40 tend to feel about a fifth younger than they are (Rubin and Berntsen 2006)
+gap: 3-6
+scene: A young stranger offers {N} a seat on the bus. {N} sits, thanks them, and catches {Ns} own face in the dark window.
+scene W: {N} still does everything the way it should be done, only slower now, and wonders how long before the young ones take it over.
+scene U: {N} notices the small print has got smaller and the stairs longer, and keeps a quiet list of what has changed.
+scene B: {boss} is half {Ns} age. {N} knows what the young think of the old, and does not intend to be put out to grass.
+scene R: Inside, {N} is still nineteen. The knees disagree, and {N} is furious with them.
+scene G: Every season leaves its ring in the wood. {N} counts them in the mirror, and is not sure yet whether to mind.
+- W | book every check-up, and follow the doctor's advice to the letter | habit | v: security, conformity | chance: 85
+- U | learn something completely new, to prove the mind is still young | door | v: self-direction | mark: learned a skill | chance: 82
+- B | dye the grey, buy younger clothes, and knock a few years off your age | v: power (face), hedonism | chance: 72
+- R | take up a fast, hard sport and train like a teenager | habit | body: heavy | v: stimulation, achievement | chance: 60
+- G | accept the lines on your face as the record of a life | v: tradition (humility) | chance: 85
+- W>G | start mentoring the young ones at work or in the club | v: benevolence, tradition | chance: 85
+- U>W | write down all you know about the work, so it is still done right later | v: benevolence, conformity | chance: 90
+- B>U | pay for the treatments and gadgets that keep body and mind sharp | v: achievement, security | chance: 62
+- R>B | refuse to step aside, and fight anyone who suggests you should | v: power | chance: 50
+- G>R | go back to the place you were young, and swim in the same cold river | body: light | v: stimulation, tradition | chance: 85
+works: {N} makes a kind of peace with the years, and finds they have given as much as they took.
+works: The body answers better than {N} feared, and the mirror stops mattering so much.
+fails: Every small loss feels like the start of a long slide, and {N} broods on it.
+fails: {N} pushes too hard to stay young, and pays for it.
+
+# ---------------------------------------------------------------- longings and urges (mixed)
+
+== wanting to be noticed
+tier: inner
+stages: all
+age: 12-110
+tone: mixed
+life: school, work, family
+horizon: week
+roles: sibling, rival, boss, a teacher
+earth: everyone else's name gets called, and you want, just once, for the room to turn and look at you
+requires: belonging or competence below 0.45 with no praised act in the last eight weeks; or a sibling, friend or colleague praised in front of the person within the week
+likelier: juvenile years; a new baby or a star sibling in the family; much Black or Red in the color history; a crowded class or office where only the loud are heard
+rarer: a role others rely on; praise within the month; much Green in the color history; steadiness above 1
+times: Nearly everyone, a few times a year, most sharply in the teens (estimate)
+gap: 0-0.5
+scene: Everyone is looking at someone else again. {N} feels the wish rise, bright and a little ashamed: just once, look at me.
+scene W: {N} has done everything asked, and done it well. Surely someone ought to say so.
+scene U: {N} notices exactly who gets attention here and why: who speaks first, who speaks loudest, who gets the last word.
+scene B: Attention is a kind of currency. {N} has noticed that {rival} has plenty of it, and {N} has none.
+scene R: {N} wants to sing, to shout, to turn a cartwheel in the middle of the room, anything to make them all look.
+scene G: The bright flowers get the bees. {N} wonders, for the first time, whether to be bright.
+- W | volunteer for the job at the front: reading, leading, speaking for the group | v: achievement, conformity | chance: 75
+- U | learn one thing better than anyone around, and wait to be asked | habit | v: achievement, self-direction | mark: learned a skill | chance: 68
+- B | befriend whoever everyone already watches, and stand next to them | door | v: power | chance: 73
+- R | do something loud and daring right in the middle of everyone | body: light | v: stimulation, power (face) | chance: 68
+- G | let your natural gift show without fuss, and wait for the right people to notice | v: achievement, tradition (humility) | chance: 60
+- W>U | enter the contest that names the best, and prepare by its rules | v: achievement, conformity | chance: 45
+- U>B | arrange things so the one in charge sees your best work first | v: power, achievement | chance: 72
+- B>R | spend your savings on a look or a party everyone will talk about | v: hedonism, power (face) | chance: 78
+- R>G | dress, sing or dance as yourself, loudly, whatever people think | identity | v: self-direction | chance: 78
+- G>W | bring your best cake, carving or vegetables to the town show | v: achievement, tradition | mark: made a friend | chance: 78
+works: Someone notices, and says so, and {N} carries the moment around for days.
+works: {N} finds a way to be seen that feels like {N}.
+fails: Nobody looks, or they look and then look away.
+fails: The bid for attention goes wrong, and {N} is noticed for the wrong reason.
+
+== longing for a child
+tier: inner
+stages: young_adult+
+age: 22-52
+tone: mixed
+life: family, love
+horizon: years
+roles: partner, sibling, friend, parent
+domain: children
+earth: a friend hands you their newborn, and the weight of it in your arms stays with you for weeks
+requires: no children held (or the youngest child five or older), and within the year a friend's or sibling's baby, a baby held, or a round birthday (30, 35, 40); plus meaning or belonging below 0.6
+likelier: a partner held for two years or more; much Green or White in the ends (family and tradition ranked high); friends having children; ages 28 to 38
+rarer: career loaded so heavily that time is below 0.2; money below 0.2; much Black or Red in the color history (self-direction ranked high); a breakup within the year
+times: Many adults without children, now and then from the late twenties into the forties; 'baby fever' is measured in women and men (Brase and Brase 2012)
+gap: 2-4
+scene: {sibling} hands {N} the new baby. It is very light and very warm, and {N} still feels it long after handing it back.
+scene W: {Ns} parents raised a family, and theirs did before them. {N} feels the long line of it, and {Ns} own place at the end of the line.
+scene U: {N} catches themselves working out the years: how old {N} would be when a child started school, finished school, left home.
+scene B: {N} wants a child of {Ns} own, and does not much care what anyone thinks about the timing or the way.
+scene R: The longing comes out of nowhere, in the supermarket, in the park, a pull so strong it takes {Ns} breath away.
+scene G: Everything alive wants to go on. {N} feels it in {Ns} body like spring rising in a tree.
+- W | talk it over with your partner, and plan for it properly, together | v: benevolence, security | chance: 82
+- U | read everything, see the doctor, and learn exactly what the chances are | v: self-direction, security | chance: 90
+- B | decide to have a child on your own terms, with a partner or without | identity | v: self-direction | chance: 82
+- R | stop waiting for the right moment, and set about having a baby now | binds | v: benevolence, hedonism | tags: commit:children | chance: 65
+- G | trust that it will come if it is meant to, and live fully meanwhile | v: tradition (humility) | chance: 62
+- W>B | put your name on the clinic's list, and follow every step it sets | v: self-direction, conformity | tech: modern medicine | chance: 55
+- U>R | write down every reason for and against, then go with the one that makes you cry | v: self-direction | act: write down every reason for and against, then go with the one that makes them cry | chance: 85
+- B>G | move near your parents, so a child would have free care and a whole family | v: tradition, security | chance: 68
+- R>W | throw yourself into being the best aunt or uncle anyone ever had | habit | v: benevolence | chance: 78
+- G>U | foster a child who needs a home for a while, and learn as you go | binds | v: benevolence, self-direction | mark: helped someone in need | tags: commit:children | chance: 62
+works: Something is decided, and the longing turns into a plan or a peace.
+works: The way forward opens, in its own time, and {N} feels ready for it.
+fails: The months go by with nothing settled, and the ache grows.
+fails: The plan meets a wall, and {N} has to grieve something that never was.
+
+== longing for love
+tier: inner
+stages: juvenile+
+age: 14-110
+tone: mixed
+life: love
+horizon: months
+roles: friend, prospect, sibling
+excludes: partner
+earth: a couple laughing together at the next table, and the empty chair across from you suddenly very loud
+requires: no partner held for a year or more (or since a breakup or a death), belonging below 0.5, and within the month a wedding, a couple in love close by, or a song that lands
+likelier: young adult years; friends pairing off; a round birthday; late life after a partner's death; much Red in the color history
+rarer: a heartbreak within the last six months; close friends (belonging above 0.65); much White or Blue restraint where courting is frowned on
+times: Many single people, a few times a year: a wedding, a couple close by, a song (estimate)
+gap: 0-0.5
+scene: At the next table a couple are laughing at nothing. {N} looks at the empty chair opposite and feels the quiet of it all the way down.
+scene W: {N} has always pictured it: a home, a promise, someone to keep it with. The picture is still there, waiting for a face.
+scene U: {N} wonders, not for the first time, what exactly is missing: the person, or the idea of the person.
+scene B: Everyone else seems to find someone. {N} starts to think it is simply a matter of going out and getting what {N} wants.
+scene R: The longing is like hunger. {N} wants to be held, to be wanted, to fall headlong, and soon.
+scene G: Even the swans pair up in spring. {N} watches them on the river and trusts, nearly, that it will come.
+- W | decide to wait for someone serious, and save yourself for a real commitment | v: conformity, tradition | chance: 55
+- U | think hard about what you truly want in a partner, and write it down | v: self-direction | chance: 62
+- B | dress your best and go where the most eligible people are | v: power (face), hedonism | chance: 72
+- R | tell the one you like that you like them, straight away | v: stimulation, hedonism | mark: took a wild risk | chance: 50
+- G | trust the right person will come in time, and live well meanwhile | v: security, tradition (humility) | chance: 65
+- W>R | agree to a date a friend sets up, and go with an open heart | door | v: stimulation, hedonism | chance: 72
+- U>G | track down the one you lost touch with years ago, the one who got away | v: benevolence, tradition | chance: 32
+- B>W | use every contact you have to get introduced to someone serious | v: security, tradition | chance: 72
+- R>U | go on a date a week with anyone who asks, to learn what you want | habit | door | v: stimulation, self-direction | chance: 85
+- G>B | follow your instinct and go after the one you want, though they are taken | v: hedonism, self-direction | mark: made an enemy | closed: approval: courting someone already attached; backfire: a scandal, and a lasting feud | chance: 22
+works: Someone appears, or reappears, and {N} feels the old quiet begin to lift.
+works: {N} meets people, laughs more, and the longing loosens its grip.
+fails: Each try ends in an awkward goodbye, and the empty chair gets louder.
+fails: {N} reaches for the wrong person, and gets hurt.
+
+== the urge to protect
+tier: inner
+stages: all
+age: 12-110
+tone: mixed
+life: family, community
+horizon: week
+roles: child, sibling, parent, a neighbour
+earth: someone you love is being pushed around, cheated or put at risk, and every part of you rises up
+requires: within the week someone in the person's care (a child, a younger sibling, an old parent, a friend, a pet) threatened, mocked, cheated or put at risk, with ties to them above 0.5
+likelier: parents, most of all of small children; much Green or White in the color history; reactivity above 1.2; the threat has a face and a name
+rarer: stress above 2 (exhaustion); weak ties with the one at risk; the threat is far away and faceless
+times: Most parents and carers, a few times a year (estimate)
+gap: 0-0.5
+scene: {N} sees it happen: someone in {Ns} care pushed aside, talked down to, put in danger. Something old and fierce wakes up in {N}.
+scene W: {N} is responsible for them. That is not a feeling, it is a fact, and {N} intends to act on it.
+scene U: {N} goes very calm and very clear, and starts working out exactly where the danger comes from and how to cut it off.
+scene B: Nobody touches what is {Ns}. {N} files away the face of the one who did it, and starts thinking about leverage.
+scene R: The heat goes straight up {Ns} spine. {N} is moving before {N} has decided anything.
+scene G: {N} feels it the way an animal does, in the shoulders and the teeth: this one is mine, and I will stand over them.
+- W | report it to whoever is responsible, and see that the rules are enforced | v: security, conformity | chance: 70
+- U | work out where the danger comes from, and quietly put a safeguard in place | v: security | chance: 78
+- B | find the leverage on the one responsible, and make them back off for good | v: power, security | mark: made an enemy | chance: 73
+- R | step straight in between them and the danger, there and then | body: light | v: benevolence | mark: helped someone in need | chance: 80
+- G | keep them close, and keep every stranger away from the door | v: security, benevolence | closed: approval: shutting people out; backfire: suspicion, and a lonely household | chance: 72
+- W>G | rally the neighbours or classmates to face down the troublemaker together | identity | v: security, benevolence | mark: made an enemy | closed: approval: ganging up on someone; backfire: a feud, with the law or the school on the wrong side | chance: 70
+- U>W | teach them the rules of staying safe until they know them by heart | habit | v: security, conformity | chance: 78
+- B>U | call in a favour to get them taught to stand up for themselves | v: security, achievement | chance: 72
+- R>B | lose your temper and threaten the one responsible to their face | v: power | closed: law: threats; backfire: the police, or a complaint against the one who threatened | chance: 48
+- G>R | let them fight their own battle, and stand right behind them while they do | identity | v: self-direction, benevolence | chance: 70
+works: The danger passes, and the one {N} protects is safe.
+works: {N} stands firm, and the threat backs off for good.
+fails: {N} overdoes it, and the one being protected is embarrassed by the fuss.
+fails: The threat is bigger than {N} thought, and {N} cannot stop it alone.
+
+== needing to be alone
+tier: inner
+stages: all
+age: 12-110
+tone: mixed
+life: home, family
+horizon: week
+roles: partner, child, sibling, parent
+earth: people in every room, voices on every side, and a growing need for one hour with nobody in it
+requires: time below 0.15 (no hour of one's own) for four weeks or more with people pressing on every side (children or caring held, a shared room, a full house), and stress above 1
+likelier: small children at home; a caring role; a shared room in the juvenile years; a full house over the holidays; much Blue or Green in the color history
+rarer: living alone; belonging below 0.35 (then it is loneliness, not this); much Red in the color history
+times: Most parents of young children and most carers, a few times a year (estimate)
+gap: 0-0.5
+scene: Someone is talking in every room of the house. {N} stands in the kitchen holding a cup of tea gone cold, wanting one hour with nobody in it.
+scene W: {N} has been there for everyone, every day, for weeks. {N} is ashamed to want time alone, and wants it badly.
+scene U: {Ns} thoughts keep getting cut off halfway. {N} longs for a long, quiet stretch to finish just one of them.
+scene B: Everyone takes a piece of {N}. {N} starts to think that some of {Ns} time ought to belong to {N}.
+scene R: One more question, one more knock on the door, and {N} feels ready to scream.
+scene G: Even wolves leave the pack for a while. {N} feels the pull of the quiet places, the way a thirsty animal feels water.
+- W | ask the household for one protected hour a day, and keep it as agreed | v: security, conformity | chance: 72
+- U | lock the door, switch off every screen, and follow one thought to its end | v: self-direction | chance: 85
+- B | invent an appointment, and spend the time alone instead | habit | v: hedonism, self-direction | mark: hid a wrong | chance: 90
+- R | slam the door, put the music on loud, and let nobody in | v: hedonism, self-direction | chance: 70
+- G | slip off alone to the woods for the day, telling no one where | v: universalism (nature), self-direction | closed: approval: vanishing without a word; backfire: a search, and a row on return | chance: 85
+- W>U | sign up for a meditation class, and keep its rule of silence | door | v: tradition, self-direction | chance: 80
+- U>B | rework the week so one evening belongs to nobody but yourself | v: self-direction, hedonism | chance: 75
+- B>R | spend your own money on a day out alone, doing exactly as you please | v: hedonism, self-direction | chance: 92
+- R>G | take the bike and ride until the houses run out | door | body: light | v: stimulation, universalism (nature) | chance: 92
+- G>W | rise before everyone else, and keep the dawn hour as a quiet rite | habit | v: tradition, security | chance: 78
+works: {N} gets the quiet hour, and comes back to the others gentler.
+works: Alone at last, {N} hears {Ns} own thoughts again, and likes some of them.
+fails: The quiet never comes, and {N} snaps at the people {N} loves.
+fails: {N} takes the time, and comes back to a house full of hurt feelings.
+
+# ---------------------------------------------------------------- pleasant and energising states
+
+== pride after a success
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: work, school, leisure
+horizon: week
+roles: parent, mentor, colleague, friend
+earth: you did the hard thing, and did it well, and the glow of it will not go away
+requires: an option succeeded within the week that was hard for the person (difficulty above their skill) in a field they care about, or praise from someone they respect; competence rising
+likelier: success credited to effort; childhood and juvenile years; much Black or White in the color history (standing matters)
+rarer: much Green humility in the color history; a circle where self-praise is frowned on; the success came at someone else's cost
+times: Nearly everyone, a few times a year after a hard thing done well (estimate)
+gap: 0-0.5
+scene: {N} did it. The hard thing, the one {N} was not sure of, is done and done well, and the glow keeps coming back all week.
+scene W: {N} kept at it when it would have been easy to stop, and it was done properly. It was earned, fairly.
+scene U: {N} keeps going back over how it was done, admiring the pieces that fitted, already seeing what could be better next time.
+scene B: {N} won, and everyone saw. {N} intends to make sure they keep remembering it.
+scene R: {N} wants to run down the street shouting. {N} did it, {N} actually did it.
+scene G: {N} feels it like sun on the back after a long climb, warm and quiet and deserved.
+- W | frame the certificate and hang it where the family can see | v: achievement, tradition | chance: 90
+- U | take on a harder challenge straight away, while the skill is fresh | v: achievement, self-direction | mark: learned a skill | chance: 70
+- B | let yourself look down a little on the ones who did not make it | v: power | chance: 74
+- R | run home and tell everyone you meet on the way | v: stimulation, hedonism | chance: 80
+- G | savour it quietly, and thank the people who helped along the way | v: benevolence, tradition (humility) | chance: 92
+- W>B | claim the title, the badge or the rank it formally entitles you to | identity | v: power, achievement | act: claim the title, the badge or the rank it formally entitles them to | chance: 90
+- U>R | use the same method on something twice as wild, just for the thrill | v: stimulation | chance: 55
+- B>G | spend the reward on a pet or a garden plot of your own to tend | binds | v: security, universalism (nature) | chance: 88
+- R>W | take the whole team out to celebrate, and toast every one of them | v: benevolence | tags: pay:money-.05 | chance: 90
+- G>U | take someone younger under your wing, and pass the skill on properly | binds | v: benevolence, tradition | chance: 75
+works: The glow carries {N} through the next hard thing too.
+works: People remember it, and {N} is asked to do more.
+fails: {N} makes too much of it, and people start to roll their eyes.
+fails: The next try goes badly, and the glow turns into pressure.
+
+== a curiosity that will not let go
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: school, leisure, nature
+horizon: months
+roles: mentor, friend, grandparent, a teacher
+earth: a question lodges in your head, a strange object, a half-told story, a puzzle, and it will not let you go
+requires: safety and competence at 0.45 or more (enough security to explore), time above 0.3, and within the week a gap noticed between what the person knows and wants to know (a puzzle, a strange object, a half-told story, a new field within reach)
+likelier: childhood; a secure base (belonging above 0.6); much Blue in the color history; free time; a new place or person nearby; old age, for a chosen subject
+rarer: stress above 1.5; money below 0.2; a rigid routine; exhaustion
+times: Many people, a few times a year; for some it becomes a lifelong interest (estimate)
+gap: 0-0.5
+scene: It started with something small, a strange object, a word, a half-told story. Now {N} thinks about it on the bus, in the bath, falling asleep.
+scene W: {N} wants to understand it properly, the right way, from the beginning, with nothing skipped.
+scene U: There is a gap, and {N} can almost see the shape of what fills it. Not knowing has become an itch {N} cannot leave alone.
+scene B: Whoever understands this first will have something nobody else has. {N} means to be that person.
+scene R: {N} cannot sit still with it. {N} wants to go and see, touch and try, right now, and find out by doing.
+scene G: {N} watches it the way one watches a bird: patiently, without grabbing, waiting for it to show what it is.
+- W | ask a teacher or an expert, and follow the proper course of study | door | v: conformity, self-direction | chance: 82
+- U | take it apart, look everything up, and keep notes until you understand | habit | v: self-direction | mark: learned a skill | chance: 90
+- B | open the letter, drawer or file that was meant to stay shut | v: self-direction, power | mark: hid a wrong | closed: approval: snooping; backfire: caught, and trusted less | chance: 88
+- R | go and see it for yourself, today, whatever it takes to get there | door | v: stimulation, self-direction | chance: 78
+- G | watch it patiently over many days, and let it show what it is | v: universalism (nature), self-direction | chance: 69
+- W>R | join the club or society for it, and go on every outing | v: stimulation, conformity | mark: made a friend | chance: 80
+- U>G | learn the name of every bird, stone, star or bone in it | v: universalism (nature), self-direction | chance: 78
+- B>W | offer what you have found out in exchange for a place in the club | binds | v: power, conformity | chance: 75
+- R>U | try it with your own hands straight away, and learn from every mistake | v: self-direction, stimulation | chance: 80
+- G>B | keep what you discovered to yourself, the way a fox keeps its den | v: security, power | chance: 72
+works: The answer comes, and with it three new questions {N} cannot wait to chase.
+works: {N} understands it at last, and the understanding feels like a small light switched on.
+fails: The trail goes cold, and the question nags at {N} for months.
+fails: Curiosity leads {N} somewhere {N} should not have gone.
+
+== ambition wakes up
+tier: inner
+stages: juvenile+
+age: 16-75
+tone: joy
+life: work, school
+horizon: years
+roles: boss, mentor, rival, colleague
+earth: someone mentions an opening above you, and for the first time you think: why not me?
+requires: competence above 0.55 with a success or praise within the month, and a visible next step within reach (an opening, a mentor's push, a rival's rise); plus satisfaction below 0.7
+likelier: young adult years; growing up with little (money low in childhood); pride within the month; much Black or Blue in the color history; a mentor
+rarer: burnout within the year; much Green humility in the color history; old age, as the horizon shortens; a baby at home
+times: Many people, every few years when a next step comes within reach, mostly in the working years (estimate)
+gap: 2-4
+scene: Someone mentions the opening one rank up, and {N} hears {Ns} own voice say, quietly, inside: why not me?
+scene W: {N} has served faithfully. Now there is a place where {N} could serve more, and better, if they would let {N}.
+scene U: {N} starts mapping the path: the skills needed, the years, the people who decide. It looks long, and possible.
+scene B: {N} can see the next rung, and the one after that. For the first time, {N} wants the whole ladder.
+scene R: {Ns} heart is up. {N} wants to go for it now, today, before the feeling has time to cool.
+scene G: {N} feels something in {Ns} own nature stretching, like a sapling that has found the light.
+- W | apply for the post through the proper process, and earn it on merit | v: achievement, conformity | chance: 62
+- U | enrol in the long professional training the next step requires | binds | v: achievement, self-direction | mark: learned a skill | tags: commit:career | chance: 82
+- B | apply for the top job, and let it be known you mean to have it | identity | v: achievement, power | chance: 20
+- R | quit and start your own venture now, while the fire is hot | binds | v: self-direction, stimulation | mark: took a wild risk | chance: 48
+- G | do the work you are good at, and let the next step come in its season | v: tradition (humility), achievement | chance: 62
+- W>G | ask an elder in the trade for an apprenticeship, and learn it the old way | binds | v: tradition, achievement | mark: learned a skill | chance: 72
+- U>W | find out in secret what the selection panel wants, then be exactly that | v: achievement, conformity | closed: approval: prying into the selection; backfire: found out, and struck off the list | chance: 60
+- B>U | pay for a coach who has trained winners before | habit | v: achievement | mark: learned a skill | chance: 78
+- R>B | pitch your boldest idea straight to the people at the top, today | v: achievement, stimulation | chance: 40
+- G>R | return to the craft you were born for, and make your own name in it | identity | v: self-direction, achievement | mark: took a wild risk | chance: 55
+works: The first step lands, and the ladder looks climbable.
+works: {N} gets the chance, and rises to meet it.
+fails: The door stays shut, and {N} has to swallow the wanting.
+fails: {N} climbs, and finds the view from the next rung is not what {N} hoped.
+
+== the urge to make something
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: leisure, home, making
+horizon: week
+roles: grandparent, friend, a neighbour
+earth: your hands want to make something, a song, a shelf, a cake, a painting, and nothing else will do
+requires: time above 0.3 with tools or materials at hand, and within the month a strong feeling wanting out (love, grief, anger, joy) or inspiration within the week; or autonomy above 0.5 after many ordinary weeks in a row
+likelier: childhood; the years after work ends; much Red or Blue in the color history; early encouragement; a free weekend
+rarer: harsh criticism of something the person made within the year; time below 0.15; being watched or graded all day
+times: Many people, a few times a year (estimate)
+gap: 0-0.5
+scene: {Ns} hands keep wanting something to do. A song, a shelf, a cake, a picture: {N} does not know yet, only that something wants to be made.
+scene W: {N} wants to make something properly, well made and useful, the way {grandparent} made things to last.
+scene U: {N} has the design half drawn in {Ns} head already, every joint and measurement, and cannot wait to see whether it works.
+scene B: {N} can see the thing nobody has made yet, the one people would pay for, and wants to be the one who makes it.
+scene R: The feeling is too big to keep inside. It has to come out somewhere, in paint or noise or wood.
+scene G: {N} wants to make something with {Ns} own hands, from what grows and what lies around, the way people always have.
+- W | make something useful for the house, properly, to last for years | v: security, achievement | chance: 85
+- U | draw up the design to the last measurement, then build it exactly | v: self-direction, achievement | chance: 78
+- B | make something people will pay for, and sell it at the market | door | v: achievement, power (resources) | chance: 76
+- R | paint, play or bake all weekend, for nothing but the joy of it | habit | v: hedonism, self-direction | chance: 93
+- G | knit, carve or sew something with your own hands for someone you love | v: benevolence, tradition | chance: 90
+- W>U | join a guild or workshop, and learn each technique by its rules | habit | v: conformity, self-direction | mark: learned a skill | chance: 82
+- U>B | design something nobody has made yet, and work out how to sell it | identity | v: achievement, power (resources) | tags: pay:money-.05 | chance: 55
+- B>R | blow your savings on the best tools and materials, and go wild with them | v: hedonism, stimulation | chance: 88
+- R>G | paint a huge mural of the river and its birds on the bridge, at night | v: self-direction, universalism (nature) | closed: law: painting public property; backfire: a fine, and the mural scrubbed off | chance: 70
+- G>W | make decorations for the local festival by hand, and do it every year | binds | v: tradition, benevolence | mark: kept your word | chance: 80
+works: The thing gets made, a little crooked perhaps, and {N} cannot stop looking at it.
+works: Someone sees what {N} made and asks how it was done.
+fails: It does not come out the way {N} saw it, and {N} puts it away unfinished.
+fails: {N} loses a whole weekend to it, and has nothing to show at the end.
+
+== a burst of energy
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: body, home, leisure
+horizon: moment
+roles: friend, sibling, a neighbour
+earth: you wake before the alarm with energy fizzing in your arms and legs, and the whole day looks possible
+requires: health above 0.75 and stress below 0.6 for three weeks or more; or recovery from an illness within the month; or the first warm days of spring; or a month of a body act flagged habit
+likelier: childhood and juvenile years; much Red or Green in the color history; spring; good sleep
+rarer: illness; overwork (time below 0.15); stress above 1.5; old age without a recovery
+times: Most healthy people, a few times a year, often in spring or after an illness (estimate)
+gap: 0-0.5
+scene: {N} wakes before the alarm with energy fizzing in {Ns} arms and legs. The whole day looks possible, and then some.
+scene W: {N} has strength to spare, and the list of things that ought to be done has never looked so short.
+scene U: {Ns} mind is quick and clear this morning, every thought landing where it should. {N} wants to use it before it fades.
+scene B: {N} feels strong enough to take on anyone today, and starts to think about what that strength could win.
+scene R: {N} cannot keep still. {N} wants to run, dance, shout and climb something, all before breakfast.
+scene G: {N} feels like the first warm day of spring itself, sap rising, everything wanting to grow.
+- W | clean the house top to bottom, and make everyone put their things away | v: conformity, security | closed: approval: bossing the household; backfire: a row, and a cold shoulder for days | chance: 85
+- U | tackle the hardest problem you have been putting off, while your head is clear | v: achievement, self-direction | chance: 78
+- B | take on every odd job going, and save every penny | habit | v: achievement, power (resources) | chance: 80
+- R | dance until dawn, or run until your legs give out | body: heavy | v: hedonism, stimulation | chance: 78
+- G | dig over the whole garden in a day, and plant it | body: heavy | v: universalism (nature), hedonism | chance: 77
+- W>B | organise a street clean-up, and make sure everyone knows who led it | v: power (face), benevolence | chance: 56
+- U>R | turn the energy into a hard, fast new skill: juggling, climbing, a dance | door | v: stimulation, achievement | mark: learned a skill | chance: 72
+- B>G | clear the neighbours' overgrown gardens in a day, and charge for it | body: heavy | v: security, achievement | chance: 78
+- R>W | get the whole street out for a match or a dance, on the spot | v: benevolence, stimulation | chance: 45
+- G>U | walk a long new route across country, and learn the land as you go | door | v: self-direction, universalism (nature) | chance: 88
+works: The day fills up with things done, and {N} goes to bed tired in the good way.
+works: The energy spills over onto everyone round {N}, and the day turns into a small celebration.
+fails: {N} overdoes it, and wakes the next morning aching from head to foot.
+fails: The burst fades by noon, leaving a half-finished mess.
+
+== gratitude
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: friends, family, faith
+horizon: week
+roles: friend, neighbour, parent, mentor
+earth: someone went out of their way for you, and the warmth of it keeps coming back at odd moments
+requires: within the last two weeks a kindness, gift or help that cost the giver something (time, money, risk), or survival of a danger or illness, or a reminder of what the person has (visiting the sick, coming home after hard travel); peace above 0.4
+likelier: the help was meant and costly; much White or Green in the color history; older age (gratitude deepens with age); a faith commitment held
+rarer: much Black in the color history (power ranked high, motives suspected); stress above 2
+times: Nearly everyone, a few times a year after a real kindness (estimate)
+gap: 0-0.5
+scene: {friend} went out of their way, at real cost, for {N}. The warmth of it keeps coming back at odd moments, washing up, waiting for the bus.
+scene W: {N} owes {friend} now, and is glad to. A debt like this is a thread that ties people together.
+scene U: {N} keeps turning it over: why did {friend} do it, what did it cost, and what would be the right way to answer?
+scene B: {N} is not used to being given things for nothing. {N} is grateful, and a little wary, and wants to know what it means.
+scene R: {N} wants to throw both arms round {friend} and not let go.
+scene G: {N} feels held, the way a field is held by its hedges. It is a quiet, solid feeling, and {N} wants to pass it on.
+- W | return the favour twice over, and promise to be there whenever needed | binds | v: benevolence | mark: kept your word | chance: 88
+- U | write a careful letter saying exactly what it meant, and why | v: benevolence, self-direction | chance: 93
+- B | quietly work out what they might want in return, and settle it fast | v: security, power | chance: 74
+- R | throw your arms round them, and swear you will repay it one day | binds | v: benevolence | mark: made a friend | chance: 90
+- G | pass the kindness on to the next stranger who needs it | v: universalism, benevolence | mark: helped someone in need | tags: win:ties+.05 | chance: 90
+- W>R | plan a thank-you surprise for them with the people they love | v: benevolence, hedonism | tags: pay:money-.05 | chance: 82
+- U>G | find out what they love, and grow or make them exactly that | v: benevolence | chance: 82
+- B>W | set aside a share of your money every month for a good cause | binds | v: universalism, benevolence | chance: 85
+- R>U | ask to work beside them for a day, to learn how they do what they do | door | v: self-direction, benevolence | chance: 75
+- G>B | keep the gift close and say little; thanks said too often becomes a debt | v: self-direction, security | chance: 55
+works: {N} finds the right way to answer the kindness, and the bond between them deepens.
+works: The warmth spreads: {N} passes it on, and someone else's day turns.
+fails: {N} fumbles the thanks, and it comes out stiff and awkward.
+fails: The gift turns into a debt {N} feels obliged to keep repaying.
+
+== a quiet contentment
+tier: inner
+stages: young_adult+
+age: 20-110
+tone: joy
+life: home, family
+horizon: months
+roles: partner, child, a neighbour
+earth: an ordinary evening, the dishes done, someone you love in the next room, and the sudden thought: this is enough
+requires: safety, belonging and competence all at 0.55 or more for twelve weeks or more, with no life event in that time, stress below 0.6 and satisfaction above 0.6
+likelier: later life; money above 0.5 and close ties; much Green or White in the color history; a garden or a settled home
+rarer: much Red or Black in the color history (stimulation and achievement ranked high); a circle where everyone compares; a rival's rise within the month
+times: Many people, a few times a year in settled stretches, fewer in hard ones (estimate)
+gap: 0-0.5
+scene: An ordinary evening. The dishes are done, someone {N} loves is humming in the next room, and {N} thinks, quite suddenly: this is enough.
+scene W: Everything is in its place, the bills are paid, the people {N} is responsible for are safe. {N} feels the deep quiet of things done right.
+scene U: {N} notices, almost with surprise, that there is nothing to fix tonight, and wonders how long that can last.
+scene B: {N} built this, piece by piece. Looking round at it, {N} feels the satisfaction of someone who got what they came for.
+scene R: {N} puts the music on low and dances a few steps round the kitchen, alone, for no reason at all.
+scene G: The light goes gold across the garden. {N} sits on the step and feels part of it, rooted and unhurried.
+- W | refuse every change at work or in the street, and complain about whoever pushes one | v: security, conformity | closed: approval: blocking every change; backfire: left behind, and resented for it | chance: 45
+- U | write down what makes these days good, so it can be kept | v: security, self-direction | chance: 92
+- B | put money aside every month, so this life stays safe whatever comes | habit | v: security, power (resources) | chance: 90
+- R | throw the doors open and invite everyone round for a long, loud lunch | v: hedonism, benevolence | chance: 90
+- G | turn down the move or the promotion, and stay where you are rooted | identity | v: security, tradition | mark: stayed home | chance: 90
+- W>G | join the parish or village council, to keep the place as it is | binds | v: tradition, security | tags: commit:community | chance: 78
+- U>W | draw up the household budget and the will, so everything stays in order | v: security, conformity | chance: 93
+- B>U | buy the books, telescope or course you always wanted, now there is room | door | v: self-direction, hedonism | chance: 92
+- R>B | spend a little on yourself, without guilt, because you have earned it | v: hedonism | tags: pay:money-.05 | chance: 93
+- G>R | walk barefoot on the grass at dusk, and let the evening last | body: light | v: hedonism, universalism (nature) | chance: 95
+works: The evening goes on being good, and {N} lets it.
+works: {N} notices the good days for what they are, and keeps them.
+fails: A small restlessness creeps in, and the contentment starts to feel like a rut.
+fails: {N} holds on so tightly to how things are that the first change feels like a disaster.
+
+== hope after a hard time
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: work, body, family
+horizon: months
+roles: friend, partner, mentor, parent
+earth: after a long, hard stretch, a door opens a crack, and you catch yourself making plans again
+requires: a hard stretch within the last year (stress above 1.5, or a loss, an illness, a job lost or a breakup), now easing: stress falling for six weeks or more, and within the month a way opening (an offer, a recovery, a reconciliation, a treatment working, someone who believes in the person)
+likelier: outlook above 0.45; earlier successes; support (ties above 0.5); a faith commitment held
+rarer: repeated failures within the year (outlook below 0.3); money below 0.15 for a long time; baseline mood below 0.4
+times: Most people, every few years as a hard stretch eases (estimate)
+gap: 2-5
+scene: After the long hard months, a door has opened, only a crack. {N} catches themselves making plans again, and is almost afraid to.
+scene W: {N} kept going through the worst of it, one day and one duty at a time. Now, it seems, the keeping going is being answered.
+scene U: {N} can see a way through now, step by step, and wants to write the steps down before the picture blurs.
+scene B: The bad stretch taught {N} what {N} can survive. Now {N} wants to see what {N} can take.
+scene R: {Ns} chest feels light for the first time in months. {N} wants to tell everyone, to sing, to run.
+scene G: The first shoots after a long winter. {N} does not trust them yet, but cannot stop looking.
+- W | keep every promise you made in the dark days, one by one | v: conformity, tradition | mark: kept your word | chance: 75
+- U | make a careful step-by-step plan, and start on step one this week | v: self-direction, security | chance: 85
+- B | apply for everything going, and grab whatever comes first | v: achievement | chance: 81
+- R | sign up on the spot for the race, course or trip you promised yourself | binds | v: stimulation, achievement | chance: 80
+- G | let it come slowly, and do not rush the healing | v: security, tradition (humility) | chance: 72
+- W>U | follow the recovery plan or the course to the end, step by step | v: security, self-direction | mark: learned a skill | chance: 67
+- U>B | write up how you got through, and put it where people will notice | identity | v: achievement, power (face) | chance: 62
+- B>R | treat yourself to the big thing you went without all through the hard months | v: hedonism, stimulation | chance: 90
+- R>G | celebrate, loud and long, with the people who stood by through it all | v: benevolence, tradition | chance: 90
+- G>W | plant a tree with the family, to tend together in the years to come | binds | v: tradition, benevolence | tags: pay:money-.05 | chance: 85
+works: The door opens wider, and {N} walks through it.
+works: The plans hold, one small step after another, and the hard time slips into the past.
+fails: The hope comes too early, and the next setback hits harder for it.
+fails: The opening closes again, and {N} has to wait for another.
+
+== inspiration strikes
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: leisure, work, making
+horizon: week
+roles: mentor, friend, colleague
+earth: you watched someone do something so well it lit something in you, and you cannot sit still
+requires: within the week the person saw someone do something excellent (a performance, a speech, a feat, a well-made thing) or met an idea that opens a possibility; time above 0.25 and stress below 1.5
+likelier: much Blue or Red in the color history; mastery goals; a free evening; a mentor
+rarer: fatigue; a rigid routine; outlook below 0.3 (cynicism)
+times: Many people, a few times a year: a concert, a match, a talk, a well-made thing (estimate)
+gap: 0-0.5
+scene: {N} watched someone do something so well that the whole room went quiet. On the way home {Ns} head is buzzing, and {N} cannot sit still.
+scene W: That is what it looks like when something is done truly right. {N} wants to be worthy of it.
+scene U: {N} is already taking it apart in {Ns} head: how it was done, what made it work, what {N} could do with the same idea.
+scene B: {N} saw what that kind of skill earns: the silence, the applause, the name. {N} wants that.
+scene R: Something caught fire in {N} tonight. {N} wants to start now, this minute, before the fire goes out.
+scene G: {N} recognised something in it, the way one recognises a song from childhood: this is what {N} was made for.
+- W | write to thank them properly, and ask how they learned it | v: benevolence, self-direction | mark: made a friend | chance: 72
+- U | study their work line by line, and pass off a copy as your own | v: achievement | mark: hid a wrong | closed: approval: copying another's work; backfire: exposed, and the name ruined | chance: 70
+- B | ask to work for them, and make yourself indispensable | v: achievement, power | chance: 59
+- R | drop what you are doing, and throw everything at the new idea from tomorrow | v: self-direction, stimulation | chance: 62
+- G | trust the pull, and give it a season to take root | v: self-direction | chance: 62
+- W>B | enrol in the academy's formal programme, and aim for its top prize | v: achievement | chance: 45
+- U>R | start drafting that same night, and keep going until dawn | v: self-direction, stimulation | chance: 80
+- B>G | turn the idea into something to sell from home, with the family helping | v: achievement, security | chance: 68
+- R>W | tell everyone what you saw, and talk them into joining in | v: benevolence, universalism | chance: 65
+- G>U | go out into the woods or fields, and let the idea grow in silence | door | v: self-direction | chance: 68
+works: {N} makes a start that same week, and the start holds.
+works: The spark turns into something real, rough at first, then better.
+fails: By the weekend the fire has gone out, and {N} feels foolish.
+fails: {N} throws too much at the new idea too fast, and it collapses.
+
+== awe
+tier: inner
+stages: all
+age: 12-110
+tone: joy
+life: nature, faith, leisure
+horizon: moment
+roles: friend, child, grandparent
+earth: a sky full of stars, the sea, a mountain, a birth, and suddenly your own worries look very small
+requires: within the day something vast (mountains, the sea, a night sky away from city light, a storm, a cathedral, a birth, a great work of art, a crowd moving as one), with stress below 1.5
+likelier: time outdoors and travel; a faith commitment held; childhood and old age; much Green or Blue in the color history
+rarer: a city life that rarely leaves town; hurry (time below 0.15); long hours in front of screens
+times: Most people, a few times a year at this strength: a night sky, the sea, a mountain, a birth (estimate)
+gap: 0-0.5
+scene: {N} stands under a sky so full of stars that the dark between them looks crowded. {Ns} worries shrink to their true size.
+scene W: Something this vast must have an order to it. {N} feels the urge to kneel, or to give thanks to someone.
+scene U: {N} tries to take it in and cannot. How far away is that light? How old? {N} needs to know.
+scene B: Standing before it, {N} feels very small, and then, strangely, very hungry: to matter, to leave a mark this size.
+scene R: {Ns} skin prickles from head to foot. {N} wants to shout into it, or laugh, or cry, all at once.
+scene G: {N} feels like one leaf on a very old tree, and the feeling is not frightening at all. It is like coming home.
+- W | shush the loud ones nearby, so the moment is kept as it should be | v: tradition, conformity | closed: approval: telling strangers off; backfire: a row on the spot | chance: 56
+- U | sign up for a year's evening course in the stars, the rocks or the sea | binds | v: self-direction, universalism (nature) | mark: learned a skill | tags: pay:money-.05 | chance: 82
+- B | climb the highest peak within reach, so you stand above all of it | body: heavy | v: achievement, power | mark: took a wild risk | chance: 78
+- R | strip off and run into the sea, or shout from the summit | body: light | v: stimulation, hedonism | chance: 90
+- G | sit still until the feeling settles into your bones | v: universalism (wisdom), tradition (humility) | chance: 90
+- W>R | join a group walk along the old pilgrim road, singing with strangers | door | v: tradition, stimulation | chance: 85
+- U>G | map and photograph the place, and campaign to have it protected | identity | v: universalism (nature) | chance: 55
+- B>W | talk whoever has the power into protecting the place for good | v: universalism, power | chance: 30
+- R>U | go back night after night, chasing the feeling, until you understand it | habit | v: stimulation, self-direction | chance: 65
+- G>B | climb the fence into the reserve at night, to have it all to yourself | v: hedonism, universalism (nature) | mark: defied an authority | closed: law: trespass; backfire: caught by the warden, and fined | chance: 78
+works: The feeling stays with {N} for days, and {N} is kinder to everyone for it.
+works: {N} comes home changed, with the vastness folded quietly inside.
+fails: The moment passes, and {N} cannot find the feeling again.
+fails: Chasing it, {N} takes a risk too far, and the day ends badly.
+
+== an old song brings it all back
+tier: inner
+stages: juvenile+
+age: 25-110
+tone: joy
+life: home, family, friends
+horizon: week
+roles: grandparent, friend, sibling, an old flame
+earth: an old song comes on the radio, and you are seventeen again, with the window down and the whole summer ahead
+requires: a smell, song, place or object from the past within the day, or a reunion, a move or a round birthday; plus belonging or meaning below 0.55 (the present feels thin), or age above 50
+likelier: belonging below 0.4; boredom or meaninglessness within the year; moving house; old age; much Green or White in the color history
+rarer: a full, absorbing present (satisfaction above 0.75); much Red in the color history (living for now)
+times: Nearly everyone, a few times a year at this strength; about 4 in 5 students felt nostalgia at least weekly (Wildschut and colleagues 2006)
+gap: 0-0.5
+scene: An old song comes on in the shop, and for three minutes {N} is seventeen again, with the window down and the whole summer ahead.
+scene W: Things were done properly then: Sunday dinners, letters answered, everyone in their place. {N} misses the shape of it.
+scene U: {N} tries to remember exactly how it was, and notices the memory is warmer than the facts. {N} wonders which to trust.
+scene B: {N} remembers who {N} was back then, hungry and sure of everything, and wants a little of that edge back.
+scene R: The song goes straight to {Ns} chest. {N} turns it up loud and sings every word.
+scene G: The smell of cut grass and woodsmoke, and {N} is back in {grandparent}'s garden, small and safe, with the long evening ahead.
+- W | insist the family keep every old custom, and shame anyone who skips one | v: tradition, conformity | closed: approval: shaming relatives; backfire: a rift at the next holiday | chance: 50
+- U | put the family's old pictures and letters in order, with dates and names | v: tradition, self-direction | chance: 90
+- B | look up the old flame or the old friend, just to see what might have been | v: hedonism, self-direction | chance: 75
+- R | put the old records on loud, and sing every word with the windows open | v: hedonism, stimulation | chance: 93
+- G | move back to the town where you grew up | binds | identity | v: tradition, security | mark: came home | tags: pay:money-.1 | chance: 68
+- W>G | organise a reunion of the old class, team or street | v: benevolence, tradition | mark: made a friend | chance: 85
+- U>W | take on the job of keeping the town's archive | binds | v: tradition, conformity | chance: 70
+- B>U | buy back the old house, car or toys, and restore them piece by piece | identity | v: hedonism, achievement | chance: 70
+- R>B | get the old band back together, and play to win | binds | v: stimulation, achievement | chance: 62
+- G>R | climb the hill where you played as a child, and stay to watch the sunset | v: tradition, hedonism | chance: 92
+works: {N} comes back from the past warmed, and the present feels less thin.
+works: An old thread, picked up again, turns out to still be strong.
+fails: The past looks so golden that the present seems grey beside it.
+fails: {N} goes looking for the old days and finds them gone.

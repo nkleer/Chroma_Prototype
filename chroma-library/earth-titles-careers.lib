@@ -1,0 +1,808 @@
+# Chroma library, modern Earth: TITLE MOMENTS of careers (titles volume 2), an everyday pair per career title that only its holder meets (holds:).
+# Syntax: header of build.py. Rules: library-spec.md. Brief: drafts/titles2/MOMENTS-BRIEF.md. Seeds: Emren's "Modern Earth: 100 More Titles" (each pair's first moment grows from the title's turning point).
+
+# ---------------------------------------------------------------- laboratory technician (T2-001): calls WB (cycle s1) / calls URG (cycle s2)
+
+== a culture that smells wrong at closing time
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 18-67
+calls: WB
+holds: laboratory technician
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague, mentor
+earth: at closing time one culture in the incubator smells different, and tomorrow's run depends on whether you speak up
+times: Most laboratory technicians, about once a year; contamination is a routine hazard of culture work, and roughly 1 in 300 US workers does lab bench work (estimate from BLS)
+gap: 0.8-1
+scene: At closing time {N} notices that one of the cultures smells different. Tomorrow's run now depends on whether {N} speaks up.
+scene W: The protocol says any suspected contamination is logged and reported before the next run, whoever made the batch. The logbook lies open on the bench.
+scene U: The smell is faintly sweet, not the usual warm yeasty note. {N} holds the flask up to the light and starts listing what could cause it.
+scene B: Speaking up cancels tomorrow's run, and {boss} will want to know whose batch it was. {N} prepared that batch.
+scene R: {Ns} coat is on and the last bus goes in ten minutes, but the smell will not let {N} go.
+scene G: After two years at this bench {N} knows how a healthy culture smells, the way a farmer knows a sick cow at a glance. This one is wrong.
+- W | log the suspect flask and report it to the supervisor on the way out | v: conformity, security | chance: 88
+- U | stay late, plate a sample and look at it under the microscope | v: achievement | self_control: + | chance: 60
+- B | come in at six and remake the batch yourself before anyone asks | v: achievement, security | self_control: + | chance: 85
+- R | trust your nose and pull the flask out of the run on the spot | v: self-direction | chance: 90
+- G | ring your old trainer at home and describe the smell | v: tradition | chance: 70
+- W>U | work through the contamination checklist line by line, noting what you learn | v: achievement | mark: learned a skill | chance: 75
+- U>B | check the prep log to see whose batch it was, and only then speak | v: power, security | chance: 95
+- B>R | slip out for your bus and let the morning shift find it | v: hedonism | closed: approval: leaving a suspected contamination unreported; backfire: the run fails and the log shows who was last in | mark: hid a wrong | self_control: - | chance: 80
+- R>G | stay on and split the healthy flasks off by hand, to save what is still alive | v: security | chance: 65
+- G>W | set the flask aside with a note for the morning, as the old hands do | v: tradition, conformity | chance: 65
+works: The bad flask is caught in time, and the next day's run goes ahead clean.
+works: {boss} looks at the plate in the morning, nods, and thanks {N} for the catch.
+fails: The run fails at noon the next day, and a week's work goes into the autoclave.
+fails: The culture turns out to be fine, and {N} has held up the whole lab for nothing.
+
+== the same two hundred samples a day
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 18-67
+calls: URG
+holds: laboratory technician
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague
+earth: months into the job, every day is the same run of samples, and the work has gone dull
+times: Most laboratory technicians, in dull stretches most years; routine testing is the bulk of lab work (estimate)
+gap: 0.8-1
+scene: Eight months in, {N} runs the same two hundred samples every day and could do the whole protocol asleep.
+scene W: The routine is the point: every sample handled the same way, so every result means the same thing. The days are still long.
+scene U: {N} has noticed that one step of the protocol wastes twenty minutes a day, and nobody has ever asked why it is there.
+scene B: {colleague} was moved onto the research team after a year. {N} has been here eight months and is still pipetting the same racks.
+scene R: Pipette, spin, label, repeat. By three in the afternoon {N} wants to fling the rack aside and walk out into the sun.
+scene G: Under the microscope the cells are never quite the same twice, even when the work is. {N} watches them divide while the centrifuge hums.
+- W | keep to the protocol to the letter and let the steady days pay the rent | v: security, conformity | self_control: + | chance: 90
+- U | skip the double-check on the samples that always come back normal | v: achievement | self_control: - | closed: approval: skipping a required check; backfire: an abnormal sample slips through | chance: 85
+- B | take every overtime shift going, and save it all for a deposit | v: achievement, security | habit | self_control: + | chance: 85
+- R | ring in sick on the first warm Friday and go to the coast | v: hedonism | habit | self_control: - | closed: approval: a sick day that is not; backfire: a colleague sees the photographs | chance: 92
+- G | take the work one rack at a time, and stop fighting the sameness | v: tradition (acceptance) | self_control: + | chance: 75
+- W>B | sign up for the evening certificate that lifts your pay grade | v: achievement | door | binds | grants: professional registration | chance: 60
+- U>R | learn to run the new sequencer, so the job stops being the same every day | v: stimulation, self-direction | mark: learned a skill | chance: 70
+- B>G | bargain for a four-day week and spend the fifth day in the garden | v: self-direction, hedonism | chance: 40
+- R>W | tell the team meeting the rota is unfair, and say how to fix it | v: universalism | chance: 40
+- G>U | learn from the oldest technician the tricks the manuals leave out | v: tradition, achievement | door | mark: learned a skill | chance: 82
+works: The weeks find a better shape, and {N} goes home in the evenings with something left over.
+works: {boss} notices, and by spring the work has a part in it that is {Ns} own.
+fails: Nothing changes, and by Friday the racks look exactly the way they did on Monday.
+fails: {boss} hears about it before {N} is ready, and the conversation goes badly.
+
+# ---------------------------------------------------------------- book editor (T2-012): calls BR (cycle s3) / calls WUG (cycle s1)
+
+== the cleanest sentence in the manuscript
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 21-75
+calls: BR
+holds: book editor
+tone: mixed
+life: work
+horizon: week
+roles: an author, colleague
+earth: deep in an edit, the cleanest sentence in the manuscript is also the one that sounds least like its author
+times: Most book editors, a few times a year; smoothing a writer's voice away is a known risk of close editing (estimate)
+gap: 0-0.5
+scene: Deep in the edit, {N} reaches the cleanest sentence in the whole manuscript, and it is also the one that sounds least like its author.
+scene W: The house style asks for clear, correct sentences, and this one is flawless. {N} still feels it belongs to someone else.
+scene U: {N} reads the paragraph aloud three times. Every other line has the author's odd stop-start rhythm; this one has none, and the reason nags.
+scene B: This author could break through with this book, but only if the voice survives. {N} staked a good deal on that voice at the acquisitions meeting.
+scene R: The sentence is perfect and dead. {N} wants to scrawl a question mark across it big enough to tear the page.
+scene G: The author writes the way people talk where they grew up, with the knots left in the wood. This one sentence has been planed smooth.
+- W | flag it with a gentle margin note, and leave the choice to the author | v: benevolence, conformity | chance: 75
+- U | rewrite it three ways, each closer to the author's voice, and send them all | v: achievement | chance: 75
+- B | ring the author and argue that the rough version will make both your names | v: achievement, power | chance: 72
+- R | cut the sentence outright and leave a blunt note asking for the real one | v: self-direction | chance: 72
+- G | let it stand; every book has one sentence written in another mood | v: tradition (acceptance) | chance: 72
+- W>R | write the author's quirks into the style sheet, so no copyeditor irons them out | v: self-direction | chance: 92
+- U>G | read the author's early stories to find where the voice first came from | v: universalism (understanding) | door | chance: 90
+- B>W | smooth it and every line like it, and hand the author a tidier book | v: power, conformity | closed: approval: changing an author's words without asking; backfire: the author finds out at proof stage | chance: 75
+- R>U | stay up with the manuscript until you can hear what the sentence should be | v: achievement | self_control: + | chance: 70
+- G>B | take the author to lunch and let them come round to cutting it themselves | v: power | chance: 58
+works: The author reads the note, laughs, and sends back a sentence only they could have written.
+works: The paragraph sounds like a person again, and the edit goes back a day early.
+fails: The author takes the note badly, and the next email is short and cold.
+fails: The sentence stays as it was, and a reviewer quotes it as the book's one false note.
+
+== three books due in the same fortnight
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 21-75
+calls: WUG
+holds: book editor
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, partner
+earth: three manuscripts are due back at the printers in the same fortnight, and there is honestly time for two
+times: Most book editors, about once a year in the busy run before a season's list (estimate)
+gap: 0.8-1
+scene: Three manuscripts are due at the printers in the same fortnight, and {N} has honestly got time for two.
+scene W: Every author was promised a date in writing, and {N} signed each of those letters.
+scene U: {N} draws the fortnight as a grid on the back of a proof page, hour by hour, looking for hidden slack.
+scene B: One of the three is the house's big autumn title. The other two are small books nobody upstairs will miss if they slip.
+scene R: The stack of pages on {Ns} desk is taller than the coffee mug, and {N} is three days behind and furious about it.
+scene G: {partner} has stopped asking when {N} will be home. The deadline season comes every autumn, like the falling leaves.
+- W | work every evening until all three are done, as promised | v: conformity, achievement | self_control: + | mark: kept your word | chance: 55
+- U | draw up a checklist so each book gets exactly the passes it needs, no more | v: achievement | chance: 78
+- B | put the big title first and let the two small ones slip a month | v: achievement, power | mark: broke your word | chance: 92
+- R | take the smallest book to a café and blitz it in one long, wild day | v: stimulation, achievement | chance: 78
+- G | go home at a sane hour, and trust the books to keep till morning | v: security, benevolence | chance: 55
+- W>U | ask for the standard extension the house allows, so every book gets a proper edit | v: achievement | chance: 60
+- U>B | plan the fortnight so the big autumn title gets your best hours | v: achievement, power | chance: 85
+- B>R | hand the smallest book to a freelance friend and keep your weekends | v: hedonism | chance: 85
+- R>G | bring the proofs home and edit at the kitchen table, among the family | v: benevolence | chance: 85
+- G>W | ring each author in turn and agree a new date together | v: benevolence, conformity | chance: 80
+works: All three books go to the printer, and the authors never learn how close it was.
+works: The fortnight bends without breaking, and {N} gets a Sunday back.
+fails: One book goes out with a typo on its first page, and the author spots it before anyone else.
+fails: The schedule slips across the board, and {boss} wants a word.
+
+# ---------------------------------------------------------------- cleaner (T2-027): calls URG (cycle s4) / calls WB (cycle s2)
+
+== the last two people in the building
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 16-75
+calls: URG
+holds: cleaner
+tone: mixed
+life: work
+horizon: moment
+roles: an office worker, boss
+earth: late at night the office is empty except for you, cleaning, and one exhausted worker still at a desk
+times: Most night office cleaners, many times a year; about 1 in 50 US workers cleans for a living (estimate from BLS)
+gap: 0-0.5
+scene: The building is empty except for {N}, with the trolley, and one exhausted worker hunched at a desk on the fourth floor. Each knows a side of the place the managers rarely see.
+scene W: The rota says the fourth floor is done by ten, desks wiped and bins emptied, whoever is still sitting there. {N} keeps to the rota.
+scene U: {N} can read an office by its bins: the energy drinks, the shredded drafts, takeaway boxes at the same desk every night this month.
+scene B: The worker at the desk looks like someone who matters here, and {N} has been hoping for a daytime contract in this building.
+scene R: It is nearly eleven and the young worker looks ready to cry. {N} wants to switch off the screen and send them home.
+scene G: Two people awake in a sleeping building, each doing the night's work. {N} pushes the trolley slowly, so as not to break the quiet.
+- W | clean around the desk quietly and leave that bin for last | v: conformity, benevolence | chance: 90
+- U | ask what keeps them at the desk so late every night this month | v: benevolence | chance: 72
+- B | mention you are after more hours, in case the worker knows who hires cleaners | v: achievement, security | door | chance: 25
+- R | make two teas and sit down with them for ten minutes | v: benevolence, hedonism | chance: 93
+- G | say nothing and let them be; some nights are like that | v: tradition (acceptance) | chance: 92
+- W>G | leave a clean mug and a biscuit on the desk, as you would for anyone | v: benevolence | chance: 90
+- U>W | tell them about the overtime rule the managers hope nobody reads | v: universalism (fairness) | chance: 65
+- B>U | glance through the papers on the desk while they step out | v: power | habit | closed: approval: reading what is not meant for a cleaner; backfire: they walk back in | chance: 92
+- R>B | grumble together about the managers until you have a friend on the inside | v: power, benevolence | mark: made a friend | chance: 78
+- G>R | hum along to the radio on the empty floor, as if the building were your own | v: hedonism | chance: 95
+works: The worker looks up, and for a few minutes the fourth floor feels less empty for both of them.
+works: The floor is done by ten, and on the way out the worker asks {Ns} name for the first time.
+fails: The worker snaps that they are busy, and {N} pushes the trolley on with a hot face.
+fails: A manager comes up in the lift and asks why the fourth floor is not finished.
+
+== a client asks to cut out the agency
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 16-75
+calls: WB
+holds: cleaner
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, a client family
+earth: a family you clean for through an agency offers to pay you directly, at more per hour, if the agency is left out
+times: Many agency cleaners in homes, once every few years; cash-in-hand offers are common in domestic cleaning (estimate)
+gap: 2-4
+scene: The family {N} cleans for on Tuesdays wants to cut out the agency: more money for {N}, less for the agency, and nobody the wiser.
+scene W: {N} signed an agency contract that says clients cannot be taken on privately for a year. The family's offer sits uneasily next to it.
+scene U: {N} works out the numbers on the back of a shopping list: the agency takes nearly a third, and four regular clients might make the same offer.
+scene B: Four good clients, a car boot full of kit, a few cards in the post office window: {N} can see a small business taking shape.
+scene R: {N} is sick of the agency's texts at six in the morning and rotas changed without asking. This offer feels like a door swinging open.
+scene G: The family has had {N} in the house for three years, and the children leave drawings on the fridge for {N}. It feels more like kin than a client.
+- W | explain to the family that the agency's contract rules it out for a year | v: conformity | mark: kept your word | chance: 75
+- U | read the small print and find out exactly what the contract allows | v: security, self-direction | chance: 95
+- B | print cards, buy your own kit and start a client list of your own | v: achievement, self-direction | identity | self_control: + | chance: 65
+- R | say yes on the spot; the agency's six o'clock texts can go to someone else | v: self-direction | mark: broke your word | closed: approval: breaking the agency's no-poaching clause; backfire: the agency holds back the last month's pay | chance: 88
+- G | stay with the agency, and keep Tuesdays as they have always been | v: security, tradition | chance: 78
+- W>B | report the family's offer to the agency, and claim the finder's bonus | v: power, conformity | closed: approval: reporting a client family; backfire: the family finds out and ends the work | chance: 60
+- U>R | work out how many clients it takes to go it alone, and set a date | v: self-direction | chance: 72
+- B>G | take the cash in hand and put the extra towards the family holiday | v: benevolence | closed: law: undeclared cash income; backfire: a letter from the tax office | chance: 90
+- R>W | get the other cleaners together and go to the agency as one about its cut | v: universalism | mark: defied an authority | chance: 35
+- G>U | ask an older cleaner who went independent how it really went | v: self-direction | door | chance: 80
+works: By spring the work is on a footing {N} chose, and the money stretches further than before.
+works: The family is pleased, the arrangement holds, and Tuesdays go on as they always have.
+fails: A letter from the agency arrives, quoting clause eleven of the contract.
+fails: Two clients drop away, and the month's money comes up short.
+
+# ---------------------------------------------------------------- postal worker (T2-029): calls UG (cycle s3) / calls WBR (cycle s4)
+
+== the gate where nobody waits
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 17-67
+calls: UG
+holds: postal worker
+tone: trouble
+life: work, community
+horizon: moment
+roles: boss, a customer on the round
+earth: the person who always waits at the gate for the post has not appeared for several days
+times: Most postal workers on a long round, about once a year; posties are often the first to notice an older customer is unwell (estimate)
+gap: 0.8-1
+scene: The person who always waits at the gate on {Ns} round has not appeared for several days. Familiarity has become a small responsibility.
+scene W: There is a form at the depot for a customer who may need help, and {N} has never once filled it in. Today might be the day.
+scene U: Four days of letters on the mat, the curtains half drawn at the same angle, the milk not taken in. {N} adds it up on the way down the path.
+scene B: {N} has eighty more doors before one o'clock and a handheld timing the round. Stopping costs minutes {N} does not have.
+scene R: {N} misses the wave and the same bad joke about the weather. The empty gate makes {Ns} chest tight.
+scene G: Six years of the same face at the same gate, as regular as the seasons on the round. A gap in the pattern says something is wrong.
+- W | report a welfare concern at the depot, as the guidance says | v: benevolence, conformity | chance: 65
+- U | ask the neighbours when anyone last saw them come or go | v: benevolence | chance: 72
+- B | keep to the round; the job is the post, not checking on people | v: security, achievement | chance: 95
+- R | knock hard and call their name through the letterbox until something stirs | v: benevolence | body: light | chance: 55
+- G | leave a note in your own hand, asking them to wave tomorrow | v: benevolence | mark: helped someone in need | chance: 40
+- W>R | ask the supervisor for ten minutes off the round, and go back now | v: benevolence | chance: 65
+- U>G | find a relative's name on old parcels and track the family down | v: benevolence | closed: approval: using what the post shows; backfire: a complaint about privacy | chance: 50
+- B>W | make the council take it on today, and get the officer's name in writing | v: security, power | chance: 60
+- R>U | climb the side gate and look through the kitchen window | v: benevolence | body: light | closed: law: going onto private property; backfire: a neighbour calls the police | chance: 75
+- G>B | ask the woman at the corner shop to look in, and keep your round on time | v: security | chance: 65
+works: They are found in time after a fall in the kitchen, and by spring they are back at the gate.
+works: {N} learns they are only away at a daughter's, and the post is held at the depot that afternoon.
+fails: Nobody answers, nobody knows, and the post goes on piling up behind the door.
+fails: {N} falls behind on the round, and {boss} wants an explanation that a feeling does not satisfy.
+
+== the round is redrawn
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 17-67
+calls: WBR
+holds: postal worker
+tone: trouble
+life: work, community
+horizon: months
+roles: boss, colleague
+earth: the depot redraws the rounds, and yours gains eighty doors, a hill and a handheld that logs every stop
+times: Most postal workers, every few years; rounds are revised as letters fall and parcels grow (estimate)
+gap: 3-6
+scene: The depot has redrawn the rounds. {Ns} gains eighty doors, a steep hill, and a handheld that logs every minute {N} stands still.
+scene W: There are agreed limits on how long a round may take, signed years ago. {N} wonders whether anyone upstairs has read them lately.
+scene U: {N} spreads the new map on the kitchen table and starts working out a better order for the eighty extra doors.
+scene B: The new round passes the business park, where someone with a van could pick up plenty of private parcel work.
+scene R: Eighty more doors and a machine on the belt timing every breath. {N} feels the old pleasure of the round drain away in a day.
+scene G: {N} has walked the old streets for nine years and knows where every dog sleeps. Half of them now go to a stranger.
+- W | log the extra hours every day and take the figures to the union rep | v: conformity, security | chance: 40
+- U | redraw the walk order yourself until the round fits the shift | v: achievement, self-direction | mark: learned a skill | chance: 80
+- B | take the voluntary redundancy and put it into a courier van of your own | v: achievement, self-direction | binds | drops: postal worker | mark: took a wild risk | tech: car | chance: 55
+- R | walk out of the briefing with the others when the new rounds are read | v: self-direction | mark: defied an authority | closed: approval: an unofficial walkout; backfire: a written warning | chance: 25
+- G | ask to keep the streets you know, even if it means the earlier shift | v: tradition, security | chance: 50
+- W>G | write down which old customers need care, for whoever takes your streets | v: benevolence | chance: 95
+- U>W | time the new rounds with a stopwatch and show they break the agreement | v: universalism (fairness) | chance: 45
+- B>U | buy the depot manager a pint and find out what the next shake-up holds | v: power | chance: 75
+- R>B | attack the new round flat out, and claim every minute of overtime it takes | v: achievement, power | chance: 68
+- G>R | take the new hill as a gift: the best view on the round, every morning | v: stimulation, hedonism | chance: 88
+works: Within a month the new round has a rhythm, and {N} is home by two most days.
+works: The depot gives way on part of it, and the worst of the hill goes to a van round.
+fails: The new round runs late every day, and the handheld marks {N} as the slowest on the shift.
+fails: A letter about performance turns up in {Ns} pigeonhole, and {colleague} gets the same one.
+
+# ---------------------------------------------------------------- merchant seafarer (T2-032): calls WR (cycle s1) / calls UBG (cycle s2)
+
+== a message from home on the night watch
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 16-65
+calls: WR
+holds: merchant seafarer
+tone: trouble
+life: work, family
+horizon: moment
+roles: parent, sibling, boss
+earth: a message from home reaches you on watch at sea: you can reply, but you cannot be there
+times: Most merchant seafarers, a few times in a career, being away for months at a time; there are about 1.9 million seafarers (BIMCO and ICS 2021)
+gap: 2-5
+scene: A message from home arrives during {Ns} night watch: {parent} is in hospital after a fall. {N} can reply, but cannot be there.
+scene W: The watch is {Ns} to keep until four, and the bridge cannot be left. {N} reads the message twice and keeps an eye on the radar.
+scene U: {N} works it out: eleven days to the next port, a flight from there, two days more to get home. The arithmetic does not help.
+scene B: The contract runs four more months, and breaking it costs the bonus and perhaps the next berth. {N} has worked too hard for this one.
+scene R: {N} wants to be at the bedside now, and instead there are four hours of dark water and a blinking screen.
+scene G: The ship moves on through the night, and far behind it {parent} lies in a hospital bed. Sea and home have always pulled at {N} like two tides.
+- W | finish the watch properly, then write a long reply at the end of it | v: conformity, benevolence | self_control: + | chance: 88
+- U | find out from the hospital exactly how serious it is before deciding anything | v: security | chance: 60
+- B | decide the contract comes first: the money keeps the whole family going | v: security, achievement | self_control: + | chance: 88
+- R | record a voice message on the bridge wing, saying everything you feel | v: benevolence | chance: 90
+- G | write back calmly that you will be home when the voyage ends | v: tradition | self_control: + | chance: 83
+- W>U | ask the captain for a satellite call, as the rules allow in a family emergency | v: security | chance: 78
+- U>B | work out the cheapest way home that still keeps your contract bonus | v: achievement, security | chance: 45
+- B>R | offer the captain extra watches in return for signing off at the next port | v: benevolence, self-direction | chance: 45
+- R>G | ring home and sing down the line the song your parent always sang | v: benevolence, tradition | chance: 75
+- G>W | ask your brother or sister to be there in your place, and keep your post | v: benevolence, conformity | chance: 70
+works: The reply reaches home before morning, and {parent} has it read aloud on the ward.
+works: The news from the hospital is better by the end of the watch, and {N} sleeps for once.
+fails: The signal drops, and the message sits unsent until the ship clears the weather.
+fails: {sibling} writes back, short and hurt: everyone else is there.
+
+== an offer of work ashore
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature
+age: 16-65
+calls: UBG
+holds: merchant seafarer
+tone: mixed
+life: work, family
+horizon: months
+roles: partner, boss, colleague
+earth: after years at sea the company offers you a desk in the port office: home every night, a third less pay
+times: Many long-serving seafarers, once or twice in a career; port office jobs are the usual step off the ships (estimate)
+gap: 6-12
+scene: The company offers {N} a job ashore in the port office: home every night, a third less money, and no more horizon.
+scene W: {N} has a crew who count on {N} at sea and a family who count on {N} at home, and only one of them can have {N} every day.
+scene U: {N} lays out the two lives on paper: the pay, the pension, the months away, the hours in traffic. The columns come out almost even.
+scene B: Ashore, {N} would be the one assigning crews instead of waiting to be assigned. The desk could lead somewhere.
+scene R: {N} has never once been bored at sea. An office with a window onto the docks sounds like a cage with a view.
+scene G: {partner} has planted a garden that {N} has seen in only two of the last six springs.
+- W | ask the crew and the family what they need, and go with the greater need | v: benevolence, conformity | chance: 60
+- U | ask for six months ashore on trial before giving up the sea for good | v: security, self-direction | door | chance: 35
+- B | take the desk and aim to run the crewing office within two years | v: achievement, power | drops: merchant seafarer | title: office clerk | chance: 40
+- R | turn it down without a second thought; the sea is where you belong | v: stimulation, self-direction | identity | chance: 92
+- G | take the shore job and be there for every season at home at last | v: benevolence, tradition | mark: came home | drops: merchant seafarer | chance: 75
+- W>B | stay at sea and sign up for the officer's course that raises your pay | v: achievement | door | binds | grants: rank | chance: 55
+- U>R | sign with a company that runs shorter rotations, two months on and two off | v: self-direction | binds | chance: 55
+- B>G | use the offer to bargain for shorter voyages and more leave at home | v: benevolence, power | chance: 50
+- R>W | tell the captain straight out that you stay as long as the crew does | v: benevolence | binds | chance: 78
+- G>U | wait one more voyage, and see how it feels to come home this time | v: self-direction | chance: 85
+works: The choice settles, and {N} sleeps well the first night after making it.
+works: {partner} hears the news and laughs out loud down the phone.
+fails: The decision is made, and for months {N} keeps glancing towards the water.
+fails: The company takes the offer back while {N} is still making up {Ns} mind.
+
+# ---------------------------------------------------------------- professional beekeeper (T2-035): calls BG (cycle s3) / calls WUR (cycle s4)
+
+== the colonies and the calendar disagree
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-85
+calls: BG
+holds: professional beekeeper
+tone: mixed
+life: work, nature
+horizon: week
+roles: a farmer, mentor
+earth: the contract says the hives go to the orchard on Monday, but after a cold spring the colonies look far from ready
+times: Most beekeepers who rent hives for pollination, in late springs every year or two; contracts fix the dates months ahead (estimate)
+gap: 0.8-1
+scene: The calendar says the hives go to the orchard on Monday. The colonies, slow and thin at the entrances after a cold spring, suggest otherwise.
+scene W: {N} signed a contract with the orchard: forty hives on site by the first blossom. In this trade a beekeeper's word is the business.
+scene U: {N} has kept records for nine springs: brood frames, temperatures, flights at the entrance. This year's numbers sit lower than any before.
+scene B: The orchard pays well, and two other beekeepers would gladly take the contract next year if {N} lets the farmer down.
+scene R: {N} has been itching for the blossom all winter. Waiting another week feels like holding a breath.
+scene G: Bees keep their own calendar, and this spring it runs late. {N} watches the cold entrances and feels the season turning slowly.
+- W | move them on Monday as contracted, and say nothing about how weak they are | v: conformity, security | mark: hid a wrong | closed: approval: hiding weak colonies from a client; backfire: the farmer lifts a lid | chance: 55
+- U | open every hive, count the brood frames and decide hive by hive | v: achievement | chance: 85
+- B | ring the farmer, explain, and agree a later date before a rival hears | v: security, power | chance: 78
+- R | load the strongest twenty hives tonight and drive them out | v: achievement | body: heavy | tech: car | chance: 85
+- G | wait the week the bees ask for, whatever the contract says | v: universalism (nature) | closed: approval: breaking the delivery date; backfire: the farmer holds back the payment | mark: broke your word | chance: 50
+- W>R | draw up a loading rota so the move can happen the hour they are ready | v: achievement | chance: 80
+- U>G | feed the weak colonies syrup and pollen, and watch how they answer | v: universalism (nature) | chance: 70
+- B>W | buy twenty strong hives from a neighbour to keep your word to the orchard | v: security, achievement | mark: kept your word | chance: 80
+- R>U | drive out to the orchard at dawn and look at the buds yourself | v: self-direction | tech: car | chance: 95
+- G>B | ask the old beekeeper down the valley for strong colonies on credit | v: security, achievement | binds | chance: 60
+works: The orchard blossoms with the hives humming in it, and the farmer books forty more for next spring.
+works: The colonies build up within the week, and the move goes smoothly at dusk.
+fails: Half the hives arrive weak, and the blossom passes with the bees barely flying.
+fails: The farmer rings a rival on Tuesday, and next year's contract goes with that call.
+
+== a third of the hives dead after winter
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-85
+calls: WUR
+holds: professional beekeeper
+tone: trouble
+life: work, nature
+horizon: months
+roles: mentor, partner
+earth: on the first warm day of spring you open the hives and find a third of the colonies dead
+times: Most beekeepers, every few years; US winter losses have often run 20 to 40 in 100 colonies (Bee Informed Partnership surveys)
+gap: 2-4
+scene: On the first warm day of the year {N} opens the hives and finds a third of the colonies dead, clustered on empty comb.
+scene W: Losses this size are to be reported to the bee inspector, and the register has a form for it. {N} reaches for the folder.
+scene U: {N} sends samples off and pulls the winter's records: mites, stores, the cold snap in February. One of them did this.
+scene B: A third of the stock is gone, and a third of this year's honey money with it. {N} starts adding up what it takes to rebuild.
+scene R: {N} sits on an upturned crate among the silent hives and lets the grief come out loud.
+scene G: Every beekeeper loses colonies; the old ones speak of it like weather. {N} breathes in the smell of old comb and spring grass.
+- W | report the losses to the bee inspector and follow the advice to the letter | v: conformity, security | chance: 75
+- U | send samples to the lab, and find out what killed them before restocking | v: achievement, security | mark: learned a skill | chance: 78
+- B | split the strong colonies hard and rebuild the numbers by midsummer | v: achievement | chance: 70
+- R | drive to the queen breeder that morning and buy back everything you lost | v: self-direction | self_control: - | tech: car | chance: 85
+- G | sell most of the hives and go back to keeping a few for love | v: security, hedonism | self_control: - | drops: professional beekeeper | chance: 72
+- W>G | warn the other beekeepers in the valley, so their bees are spared | v: universalism, benevolence | mark: helped someone in need | chance: 92
+- U>W | write up what you found for the beekeepers' association newsletter | v: universalism | identity | chance: 90
+- B>U | pay a bee scientist for a day to go through the whole apiary | v: achievement | chance: 90
+- R>B | borrow against the house for new stock: double the hives or lose the lot | v: achievement, power | binds | mark: took a wild risk | chance: 35
+- G>R | let the survivors build up in their own time, and enjoy the slower year | v: hedonism, universalism (nature) | chance: 70
+works: By midsummer the apiary is humming again, smaller but healthy.
+works: The cause turns out to be clear and fixable, and next winter the hives come through.
+fails: The rebuilt colonies dwindle again by autumn, and the honey money barely covers the sugar.
+fails: The bank statement in June shows how deep the hole really is.
+
+# ---------------------------------------------------------------- funeral director (T2-036): calls WG (cycle s1) / calls UBR (cycle s2)
+
+== one song for a divided family
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-75
+calls: WG
+holds: funeral director
+tone: mixed
+life: work, faith
+horizon: week
+roles: a grieving family, colleague
+earth: a family arranging a funeral cannot agree on a single religious tradition, but everyone remembers the same song
+times: Most funeral directors, many times a year; mixed-faith and no-faith families are now common at funerals (estimate)
+gap: 0-0.5
+scene: The family in the arrangement room cannot agree on a single religious tradition for the funeral, but every one of them remembers the same song.
+scene W: There are proper forms for every faith, and {N} knows them all. The difficulty is that this family wants three of them at once.
+scene U: {N} listens and maps it out: the widow's church, the son's mosque, the daughter's nothing-at-all, and one old song running through all of them.
+scene B: Families choose the firm that gives them a service they can all bear, and {N} wants this to be the family that recommends the firm to the whole town.
+scene R: When the song comes up the whole family starts humming it at once, then crying, and {N} feels a lump in {Ns} own throat.
+scene G: Families break and mend around a death; {N} has seen it a hundred times. The song is the root they still share.
+- W | lay out each tradition's rites and help them settle on an order all accept | v: conformity, tradition | chance: 55
+- U | design a service in parts: a reading from each faith, joined by the song | v: universalism, self-direction | chance: 78
+- B | steer them firmly to the one plan that keeps the peace, and book it today | v: power, achievement | chance: 82
+- R | suggest they all sing the song together at the end, unaccompanied | v: benevolence | chance: 90
+- G | let the eldest decide for everyone, as families always used to | v: tradition | closed: approval: overruling the grieving children; backfire: a row at the graveside | chance: 35
+- W>U | explain what the law requires and what is only custom, so they know their choices | v: self-direction, universalism | chance: 85
+- U>B | find out which relative is paying, and shape the plan around them | v: power | chance: 85
+- B>R | call in a favour to get a live musician who knows the song, at short notice | v: benevolence, hedonism | chance: 75
+- R>G | tell the family plainly that they are all mourning the same person | v: benevolence | chance: 72
+- G>W | let them talk it out over tea, however long it takes, then draw up the order | v: benevolence, conformity | chance: 70
+works: The service holds all of them, and when the song begins the whole room sings.
+works: The family leaves the arrangement room with one plan and, for once, one voice.
+fails: The son walks out of the meeting, and the plan has to be redrawn twice.
+fails: On the day, half the family sits on one side of the room and will not look at the other half.
+
+== the night phone rings again
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-75
+calls: UBR
+holds: funeral director
+tone: trouble
+life: work, home
+horizon: week
+roles: partner, colleague, boss
+earth: you are on call, and at three in the morning the phone rings for the third night running: a death at home, a family waiting
+times: Most funeral directors on call, in a run of hard nights most winters; deaths peak in winter (ONS)
+gap: 0.8-1
+scene: At three in the morning the on-call phone rings for the third night running: a death at home, and a family waiting for someone to come.
+scene W: Someone has to go, gently and properly, at any hour. That is the promise the firm makes, and {N} has made it too.
+scene U: {N} counts the hours slept this week, eleven, and knows exactly what tiredness does to judgement at a bedside.
+scene B: {colleague} has swapped out of every night this month. {N} has noticed, and has had enough of being the one who never says no.
+scene R: {N} sits up with a thudding heart and, for a moment, wants to hurl the phone at the wall.
+scene G: {partner} turns over in the dark and says nothing. Death keeps its own hours, and has never once asked {N} for permission.
+- W | get dressed, go, and do it as carefully as the very first time | v: benevolence, conformity | identity | chance: 92
+- U | log every call-out for a month and show the manager what the hours cost | v: security | habit | chance: 55
+- B | tell the colleague who dodges nights, to their face, that this one is theirs | v: power, self-direction | mark: made an enemy | chance: 65
+- R | go, then tell the manager at breakfast that you are taking next week off | v: self-direction | chance: 75
+- G | go, and afterwards sit in the garden at dawn until the night has passed | v: none clear (letting it pass) | habit | chance: 90
+- W>B | report the colleague who dodges nights to the manager, by name | v: power, conformity | closed: approval: informing on a colleague; backfire: the team turns cold | chance: 55
+- U>R | learn a breathing routine from a grief counsellor and use it in the car | v: self-direction | habit | self_control: + | mark: learned a skill | chance: 77
+- B>G | refuse weekend calls this month, whoever complains, and stay home | v: benevolence | chance: 65
+- R>W | ring the backup colleague now, and offer to go out to the family together | v: benevolence, conformity | chance: 80
+- G>U | sit longer with the family than the job needs, and learn from their grief | v: benevolence | door | mark: helped someone in need | chance: 75
+works: The night passes, and by the weekend the rota has room in it again.
+works: {N} comes home at dawn, sleeps until noon, and wakes up steady.
+fails: The tiredness shows: a name spelt wrong on an order of service, and a family that notices.
+fails: {partner} says, quietly, that {N} is never really home any more.
+
+# ---------------------------------------------------------------- tattoo artist (T2-038): calls BR (cycle s3) / calls WUG (cycle s4)
+
+== a sketch that matters more than it looks
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-75
+calls: BR
+holds: tattoo artist
+tone: mixed
+life: work, art
+horizon: moment
+roles: a client, colleague
+earth: a client brings a sketch that is awkwardly drawn and deeply important, and wants it tattooed
+times: Most tattoo artists, a few times a year; memorial pieces are among the most common requests (estimate)
+gap: 0-0.5
+scene: A client lays a sketch on {Ns} counter, drawn on a napkin by the client's late father: awkward, wobbly and deeply important. {N} has to improve the design without replacing its meaning.
+scene W: {N} has a rule: never put lines on skin that will blur in ten years. This sketch breaks most of the rules of what holds up.
+scene U: {N} studies the wobbly lines. The hand was unsure, but the proportions say something, and there is a way to keep both.
+scene B: A piece like this gets photographed and shared. Done well it could bring in a dozen clients; done badly it still carries {Ns} name.
+scene R: The client's eyes fill as they talk about it, and {N} feels the need to get it exactly right burning in {Ns} own hands.
+scene G: Shaky lines from a hand that is gone now. {N} thinks some marks should keep the tremor of the person who made them.
+- W | explain honestly which lines will blur, and agree each change before inking | v: benevolence, conformity | chance: 80
+- U | trace it, keep every quirk, and redraw only what the needle cannot hold | v: achievement | chance: 78
+- B | redraw it in your own style; your name goes on the work | v: power, achievement | identity | chance: 45
+- R | draw it straight onto the skin with a marker, together, until it feels right | v: self-direction, stimulation | chance: 78
+- G | tattoo it exactly as drawn, wobbles and all | v: tradition, benevolence | identity | chance: 70
+- W>R | book a second session just to try the stencil on and live with it a week | v: self-direction | chance: 80
+- U>G | ask to see more of the father's drawings, and learn his hand | v: benevolence, tradition | chance: 75
+- B>W | refuse to ink it as it is; your studio does not put out work that blurs | v: power, conformity | chance: 65
+- R>U | stay after closing and draw twenty versions until one is right | v: achievement | habit | self_control: + | chance: 78
+- G>B | do it with care, then ask if you can share it, with the story, online | v: achievement | tech: internet | chance: 72
+works: The client looks in the mirror for a long time, then hugs {N} without a word.
+works: The piece heals clean, and every wobble that mattered is still there.
+fails: The client says it is lovely, in the voice people use when it is not.
+fails: The lines spread a little in healing, and {N} sees every fault each time the client waves.
+
+== an ache in the tattooing wrist
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 18-75
+calls: WUG
+holds: tattoo artist
+tone: trouble
+life: work, health
+horizon: months
+roles: colleague, mentor
+earth: after years of long sessions your wrist aches for hours after work, and the diary is full for months
+times: Most working tattoo artists, in flares every few years after their first decade; aches and pain are common in the trade (Keester and Sommerich 2017)
+gap: 2-4
+scene: After eight-hour sessions {Ns} wrist aches long into the night, and the booking diary is full until spring.
+scene W: Every client in that diary was given a date, and a deposit was taken. {N} does not like to break a booking.
+scene U: {N} notices the ache is worst after shading, and starts thinking about grips, angles and the weight of the machine.
+scene B: The diary is full because {N} is the best in town right now. Every cancelled session is money, and a client who might go elsewhere.
+scene R: {N} loves the buzz of the machine more than anything, and the thought of putting it down even for a month is unbearable.
+scene G: The body has been giving its signal for months. {N} has heard old artists talk about hands that simply stopped one day.
+- W | see a doctor, and follow whatever rest they prescribe | v: security, conformity | chance: 70
+- U | switch to a lighter machine and a new grip, and track the ache for a month | v: achievement | mark: learned a skill | chance: 72
+- B | hire a junior for the simple pieces, and keep the big work for yourself | v: achievement, power | chance: 85
+- R | cancel a month of bookings at once and go travelling until the hand heals | v: stimulation, hedonism | door | chance: 82
+- G | cut down to four days a week, and let the hand set the pace | v: security | self_control: + | chance: 75
+- W>G | set yourself a firm rule: no session over four hours, ever | v: security | habit | chance: 65
+- U>W | write a safe-working guide for the studio, so the juniors are spared it | v: benevolence | chance: 90
+- B>U | pay for sessions with a hand physiotherapist who treats musicians | v: achievement, security | chance: 85
+- R>B | teach a weekend workshop, and earn from your name instead of your wrist | v: achievement | chance: 70
+- G>R | take the slower weeks as a gift, and draw just for the pleasure of it | v: hedonism | chance: 90
+works: By spring the ache has faded to a whisper, and the diary is still full.
+works: The new routine holds, and {N} finishes a long back piece without a twinge.
+fails: The ache turns to numbness, and two sessions have to be cancelled in one week.
+fails: Clients drift to the studio across the road while {N} rests.
+
+# ---------------------------------------------------------------- novelist (T2-043): calls UB (cycle s1) / calls WRG (cycle s2)
+
+== the ending the publisher wants
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-95
+calls: UB
+holds: novelist
+tone: mixed
+life: work, art
+horizon: months
+roles: an editor, partner, friend
+earth: a publisher likes your book but asks for an ending you no longer believe
+times: Many published novelists, once or twice in a career; an editor asking for a different ending is an old story in publishing (estimate)
+gap: 6-12
+scene: The publisher likes the book and wants it. They ask only for a different ending, one {N} no longer believes.
+scene W: Keeping faith with the people who back a book matters to {N}. So does keeping faith with the book.
+scene U: {N} reads the editor's notes three times. They are not foolish notes; they point at something the last chapter has not earned.
+scene B: A contract with a real publisher, an advance, a launch: all of it rests on one chapter {N} could rewrite in a week.
+scene R: The ending is the truest thing {N} has ever written. Changing it feels like tearing a page out of {Ns} own life.
+scene G: The book grew its ending the way a tree grows its shape. {N} is not sure it can be pruned without killing it.
+- W | write the ending the publisher asks for, as well as you honestly can | v: conformity, achievement | mark: gave in to pressure | self_control: - | chance: 75
+- U | write both endings, and send the better one with your reasons | v: achievement, self-direction | self_control: + | chance: 65
+- B | sign now, take the advance, and fight for the ending at the proof stage | v: power, achievement | chance: 40
+- R | refuse: the ending stays, or the book goes elsewhere | v: self-direction | identity | mark: turned down a chance | chance: 35
+- G | put the book in a drawer for a month, and let the ending show itself | v: self-direction | chance: 65
+- W>U | ask for a meeting with the editor to understand what the notes really mean | v: self-direction | chance: 92
+- U>B | rewrite it so it seems to do what they asked, and keep what matters | v: achievement, power | chance: 60
+- B>R | get an agent to shop the book around, so you can afford to say no | v: self-direction | door | chance: 20
+- R>G | take the manuscript back to the town it is set in, and read the ending there | v: self-direction, tradition | chance: 80
+- G>W | let your writing group read both versions, and go with what they agree | v: conformity | chance: 65
+works: The book goes to press with an ending {N} can read aloud without flinching.
+works: The editor reads the new pages and writes back one line: this is it.
+fails: The publisher withdraws the offer, politely, by email on a Friday afternoon.
+fails: The book comes out with the new ending, and {N} cannot bear to read the last chapter at events.
+
+== a royalty statement smaller than the rent
+tier: everyday
+rate: 0.5
+stages: young_adult adult mature elder
+age: 20-95
+calls: WRG
+holds: novelist
+tone: trouble
+life: work, money
+horizon: months
+roles: parent, partner, friend
+earth: the royalty statement comes, and it would not cover a single month's rent
+times: Most novelists, with nearly every statement; the median UK professional author earned about 7,000 pounds in 2022 (ALCS)
+gap: 0.8-1
+scene: The royalty statement comes in the post, and it would not cover a single month's rent. The next book is half written.
+scene W: {N} has a share of the household bills to pay every month, books or no books, and has always paid on time.
+scene U: {N} spreads out three years of statements and sees the curve: each book sells a little less than the last.
+scene B: There is money in writing, just not in this kind: copywriting, ghostwriting, a television pitch. {N} knows people who switched and are doing well.
+scene R: {N} tears the statement in half and goes back to the desk. The book is alive, and that is what matters this morning.
+scene G: {parent} keeps saying there is always a room at home. The book is half written, and the old house is quiet.
+- W | take a steady part-time job and write in the early mornings | v: security, conformity | habit | chance: 70
+- U | rework the budget to the last coin, and buy a year of writing time | v: self-direction | self_control: + | chance: 50
+- B | take the full-time copywriting job you were offered, and stop writing for a living | v: security, achievement | self_control: - | drops: novelist | chance: 92
+- R | ignore the statement and finish the book this month, whatever it takes | v: self-direction, stimulation | self_control: + | chance: 50
+- G | move back home for a year and write in your old bedroom | v: tradition, security | mark: came home | chance: 72
+- W>B | apply for an arts grant, filling in every box properly | v: achievement | chance: 15
+- U>R | teach an evening writing class, and use it to buy your mornings free | v: self-direction | chance: 78
+- B>G | let out the spare room, and use the rent to stay home with the book | v: security | chance: 85
+- R>W | get the town's writers together for a ticketed reading night, and split the takings fairly | v: universalism, benevolence | chance: 70
+- G>U | let the book grow slowly, and read the old masters while it does | v: self-direction | habit | chance: 68
+works: The money holds for another year, and the book gets its ending.
+works: The bills are paid by the first of the month, and the pages keep coming.
+fails: By spring the account is empty, and the book is still half written.
+fails: The new arrangement eats the writing hours, and the manuscript gathers dust.
+
+# ---------------------------------------------------------------- court interpreter (T2-044): calls WU (cycle s3) / calls BRG (cycle s4)
+
+== a short answer with two meanings
+tier: everyday
+at: court
+rate: 0.5
+stages: young_adult adult mature elder
+age: 23-75
+calls: WU
+holds: court interpreter
+tone: trouble
+life: work
+horizon: moment
+roles: a judge, a witness, a barrister
+earth: in court a witness gives a short answer that could mean two different things, and the room is impatient for the next question
+times: Most court interpreters, many times a year; short answers that can mean two things are part of every hearing (estimate)
+gap: 0-0.5
+scene: The witness answers in three words, and the three words could mean two quite different things. The courtroom waits, impatient for the next question.
+scene W: The interpreter's oath is to render every word faithfully, adding nothing and leaving nothing out. {N} cannot render both meanings in one breath.
+scene U: {N} runs the words through again: the dialect, the tense, the pause before the last word. One meaning is likelier, but not certain.
+scene B: The barrister glances at the clock. This judge does not like interpreters who interrupt, and {N} wants to keep getting work in this court.
+scene R: {N} can see the witness's hands shaking. Whatever {N} says next goes into the record as that person's own voice.
+scene G: The witness speaks the way people speak in the villages {Ns} grandmother came from, where one word can carry two loads.
+- W | tell the judge there is an ambiguity, and ask leave to clarify it | v: conformity, universalism | identity | chance: 78
+- U | give the likelier meaning, and note the ambiguity for the record | v: universalism | chance: 90
+- B | give the likelier meaning and move on; this court wants speed | v: security, achievement | chance: 80
+- R | turn to the witness and ask, in their language, which they meant | v: benevolence | chance: 82
+- G | render it word for word, ambiguity and all, as it was spoken | v: tradition | chance: 60
+- W>R | ask the court to let the witness answer again, fully, in their own words | v: self-direction | chance: 68
+- U>G | explain to the court how people in that region use the phrase | v: universalism | chance: 62
+- B>W | tell the court firmly that it must slow down, or the record will be wrong | v: power, conformity | identity | chance: 62
+- R>U | say both meanings aloud at once, and let the questions sort them out | v: universalism | chance: 75
+- G>B | say nothing now, and mention it quietly to the defence lawyer at the break | v: benevolence | closed: approval: a private word in one side's ear; backfire: removed from the court's list | chance: 75
+works: The ambiguity goes on the record, the witness explains, and the case moves on solid ground.
+works: The judge nods at {N}, and at the break the clerk asks {N} back for the next trial.
+fails: The barrister sighs, the judge says to move on, and the doubt stays in the record.
+fails: Months later the answer comes back on appeal, quoted against the witness.
+
+== the court work goes to an agency
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 23-75
+calls: BRG
+holds: court interpreter
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, partner
+earth: the courts hand interpreting to a private agency that pays a third less, with travel unpaid
+times: Many court interpreters, once or twice in a career; England and Wales handed court interpreting to a private firm in 2012
+gap: 8-15
+scene: The courts have handed interpreting to a private agency. The new rate is a third lower, travel is unpaid, and the first booking is two hours away.
+scene W: {N} took an oath to serve the court, and the court has not changed; only the agency taking its cut in the middle is new.
+scene U: {N} reads the agency's contract clause by clause and finds where the real losses hide: cancellations, waiting time, mileage.
+scene B: Half the experienced interpreters are refusing the agency. Whoever signs now gets the pick of the bookings.
+scene R: {N} is furious. Twelve years of qualifications and evenings of vocabulary lists, priced below a plumber's callout fee.
+scene G: The people in the dock still need someone who speaks their language, whatever the agency pays. {N} thinks of the families waiting in the corridors.
+- W | keep serving the courts through the agency, as your oath asks | v: conformity | identity | chance: 78
+- U | sign the agency's contract only once the worst clauses are bargained out | v: achievement, security | binds | chance: 45
+- B | sign early and take the pick of the best bookings | v: achievement, power | chance: 90
+- R | join the boycott and picket the courthouse steps with the others | v: universalism, self-direction | identity | body: light | mark: defied an authority | chance: 25
+- G | keep taking the cases from your own community, whatever the rate | v: benevolence | identity | chance: 72
+- W>G | write to the judges about the families left without a proper interpreter | v: universalism | chance: 20
+- U>W | document every hearing the new system got wrong, and publish the report | v: universalism | identity | chance: 20
+- B>U | use the quiet months to qualify in a rarer language that pays more | v: achievement | mark: learned a skill | chance: 65
+- R>B | leave the courts for conference work, and charge what you are worth | v: achievement, self-direction | drops: court interpreter | chance: 50
+- G>R | spend the empty days with your family, and let the anger go | v: benevolence, hedonism | chance: 75
+works: The bookings settle into something {N} can live on, and the work stays good.
+works: Within the year the courts fix the worst of the rates, and {N} is still in the courtroom.
+fails: The agency sends {N} two hours away to a hearing that is cancelled on arrival, unpaid.
+fails: The month's income comes in at half the old rate, and the bills do not wait.
+
+# ---------------------------------------------------------------- professional conservator (T2-045): calls RG (cycle s1) / calls WUB (cycle s2)
+
+== the damage is part of the story
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 23-75
+calls: RG
+holds: professional conservator
+tone: mixed
+life: work, art
+horizon: months
+roles: boss, colleague
+earth: a banner comes in for conservation, and its stains and tears are part of its history
+times: Most object and textile conservators, a few times a year; whether to keep the marks of use is a core question of the trade (estimate)
+gap: 0-0.5
+scene: The banner on {Ns} bench is torn and stained from the day it was carried through the great strike. Removing every mark would also remove part of its story.
+scene W: The conservation code is plain: do the least that is needed, and make every step reversible. The museum wants it looking new for the anniversary.
+scene U: Under the magnifier {N} can tell the old stains apart: rain, soot, and one long rusty mark that might be something else entirely.
+scene B: The anniversary show will be the museum's biggest in years, {boss} wants a banner that photographs well, and {Ns} contract is up for renewal.
+scene R: {N} can almost hear the crowd it was carried through. Every tear in it seems to shout.
+scene G: Cloth ages like everything else, and this cloth has aged with a town's memory in it. {N} wants to help it last, not make it young.
+- W | follow the code: stabilise it, clean nothing that is history, record every step | v: conformity, tradition | chance: 90
+- U | analyse each stain, and keep only the ones that belong to that day | v: achievement, universalism | mark: learned a skill | chance: 72
+- B | give the director the bright banner they want; the renewal depends on it | v: security, achievement | chance: 90
+- R | argue at the planning meeting for showing it torn, stained and as carried | v: self-direction, universalism | chance: 45
+- G | do almost nothing: support the torn parts and let it hang as it has aged | v: tradition, universalism | identity | chance: 45
+- W>U | photograph and record every mark before anything touches it | v: tradition | chance: 95
+- U>B | write a report so learned that the director cannot argue with it | v: power | chance: 62
+- B>R | go over the director's head to the trustees to show it as it is | v: self-direction | mark: defied an authority | chance: 45
+- R>G | go and find the strikers' grandchildren, and ask what the marks mean to them | v: tradition, benevolence | door | chance: 75
+- G>W | propose the middle way the old conservators used: clean the face, keep the scars | v: tradition, conformity | chance: 68
+works: The banner goes on show, and visitors stand in front of it for a long time.
+works: The director reads {Ns} plan, nods, and the work goes ahead as {N} chose.
+fails: The director overrules {N}, and the banner goes on show in a way {N} did not choose.
+fails: A small test clean lifts more than {N} meant, and the treatment record has to say so.
+
+== the grant runs out in June
+tier: everyday
+at: employer
+rate: 0.5
+stages: young_adult adult mature elder
+age: 23-75
+calls: WUB
+holds: professional conservator
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague
+earth: the grant that pays for your post runs out in June, and three hundred objects are still waiting
+times: Many museum conservators, every few years; many posts are fixed-term and paid by project grants (estimate)
+gap: 2-4
+scene: The grant that pays for {Ns} post runs out in June. Three hundred objects are still on the waiting list, and the museum has no money to keep {N} on.
+scene W: {N} promised the trustees a condition survey of the whole collection. It is two-thirds done.
+scene U: {N} ranks the waiting objects by risk: which will crumble without care in five years, and which can wait twenty.
+scene B: Private collectors pay three times what the museum does, and {N} has a list of their numbers from a conference.
+scene R: {N} is furious at a board that found money for a new café and none for the collection.
+scene G: Some of these objects have waited a hundred years. Some can wait another hundred, and some cannot.
+- W | finish the survey before June, so whoever comes next can pick it up | v: benevolence, conformity | mark: kept your word | chance: 70
+- U | rank the waiting objects by risk, and save the most fragile first | v: universalism, achievement | chance: 92
+- B | ring the collectors and set up a private studio for when the grant ends | v: achievement, self-direction | binds | chance: 65
+- R | tell the trustees to their faces what the new café cost the collection | v: universalism | mark: defied an authority | chance: 20
+- G | accept that not everything can be saved, and pack the rest well for a long wait | v: tradition, universalism | chance: 78
+- W>B | write the grant renewal properly, with every figure and letter of support | v: achievement, security | chance: 25
+- U>R | research the objects' stories and launch a public appeal around them | v: self-direction | chance: 30
+- B>G | pitch the collection to a rich local family who want their name on something lasting | v: achievement | chance: 25
+- R>W | rally the volunteers to give their weekends to the packing | v: benevolence | chance: 82
+- G>U | spend the last months teaching the volunteers everything you know | v: benevolence, universalism | chance: 80
+works: By June the most fragile objects are safe, and the work has a future past {Ns} contract.
+works: Money turns up from somewhere unexpected, and the post runs another three years.
+fails: June comes, the lab is locked, and two hundred objects wait in the dark.
+fails: {N} works every weekend to the end and still leaves with the survey unfinished.

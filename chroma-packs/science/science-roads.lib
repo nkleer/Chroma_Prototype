@@ -1,0 +1,577 @@
+# Chroma content pack, Science, Research and Discovery (modern Earth). PART 3 of the pack's moments: LIFE ON THE SIDE ROADS
+# AND COMMUNITY RUNGS, an everyday pair per title that only its holder meets (holds:): the research software engineer, the
+# research data steward, the evidence synthesis specialist, the science communication specialist, the participatory
+# research coordinator, and the three community titles (citizen scientist, community observer, volunteer research
+# organiser).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md. Brief: chroma-packs/science/MOMENTS-BRIEF.md
+# (part 3). Titles and perks: chroma-packs/science/catalogue.py. Seeds: Emren's "Science, Research & Discovery: expanded
+# design v2" (sections 4, 6, 9, 10, 12 and 14): credit, access and money apart from competence; null and muddled results as
+# real work; integrity open to every color.
+
+# ---------------------------------------------------------------- research software engineer: calls UB / WRG (cycle s1)
+
+== the code everyone uses has a bug
+tier: everyday
+rate: 0.5
+times: per research software engineer: a bug in a package many labs rely on turns up a few times a year, and one that may have changed published numbers perhaps once every few years; about 1 life in 500 ever works as a research software engineer (estimate)
+stages: young_adult adult mature elder
+age: 20-70
+calls: UB
+holds: research software engineer
+tone: trouble
+life: work
+horizon: week
+roles: colleague, boss, mentor
+earth: you find a bug in the analysis package dozens of labs rely on, and some published numbers may be off
+scene: Late on a Tuesday, {N} finds that the analysis package dozens of labs rely on has been rounding one value wrongly for two years. Some published numbers may be off.
+scene W: Every lab that cites the package trusted it to do what the manual says. The list of those labs, in a file on {Ns} desktop, runs to four pages.
+scene U: The bug only bites when two rare settings meet. {N} wants to know exactly which results it touched before saying a word to anyone.
+scene B: The bug came in with one of {Ns} own changes, two years ago, and the grant that pays for the package is up for renewal this month.
+scene R: First a sick lurch in the stomach, then an odd thrill: it is a beautiful bug, and nobody else in the world has seen it yet.
+scene G: The package has grown for ten years, patch on patch, like an old farmhouse. {N} has found a crack in a wall nobody has touched since it was built.
+- W | post a warning to every user today, naming the versions affected | v: universalism, conformity | mark: owned up | chance: 93
+- U | trace every result the bug could have touched before telling anyone | v: achievement | self_control: + | chance: 65
+- B | fix it quietly in the next release and say nothing about the old numbers | v: security, power | mark: hid a wrong | closed: approval: hiding a known error from the people who rely on the code; backfire: a user finds the bug in an old version and traces it to the silent fix | self_control: - | chance: 90
+- R | stay up through the night writing the fix, and ship it by breakfast | v: achievement, stimulation | chance: 75
+- G | ring the package's retired founder and ask how that part was meant to work | v: tradition | door | chance: 60
+- W>U | write the test that would have caught it, and make it a rule for every change | v: conformity, achievement | habit | mark: learned a skill | grants: reproducible workflow | chance: 88
+- U>B | work out which big labs are hit and tell them first, privately | v: power | chance: 70
+- B>R | use the bug to win a fortnight off support duty, to rebuild the module your way | v: self-direction | chance: 60
+- R>G | pour a wild month into rewriting the crumbling module so it lasts another decade | v: security, benevolence | self_control: + | chance: 50
+- G>W | ask the long-time users to recheck their own results together, as the project always has | v: universalism, tradition | chance: 55
+works: The fix goes out, the labs rerun their numbers, and most of the published results barely move.
+works: Two labs write to thank {N}, and one asks for help checking an old paper.
+fails: A reviewer spots the bug in someone else's paper first, and the questions arrive at {Ns} desk.
+fails: The fix breaks something else, and the help forum fills up overnight.
+
+# Round 5, 2026-10-07 (P1, P12, P16): G>W makes the tool a shared service, a facility of its own ([research facility
+# lead], the Green road), for an engineer whose work others can rerun ([reproducible workflow]), at 10 on an everyday
+# moment that comes often.
+== a paper that thanks everyone but your software
+tier: everyday
+rate: 0.5
+times: per research software engineer: a paper that ran its analysis on their software and does not credit it appears several times a year; much of the research software in daily use is never cited by the papers that rely on it (estimate)
+stages: young_adult adult mature elder
+age: 20-70
+calls: WRG
+holds: research software engineer
+tone: mixed
+life: work
+horizon: week
+roles: colleague, boss, friend
+earth: a much-praised paper ran every analysis on your software, and its thanks go to everyone but the software
+scene: A paper from down the corridor makes the news, and every figure in it came out of {Ns} software. The acknowledgements thank the funders, the reviewers and the coffee machine, but not the code.
+scene W: There is a proper way to credit software, a citation and a version number, and {N} wrote the guidance page that explains it. The paper ignored every line.
+scene U: {N} counts: eleven papers this year ran on the tool, and four cite it. Citations are what the next review of the software will be judged on.
+scene B: Software nobody cites looks unused, and unused software loses its funding. {colleague}, the paper's first author, is up for promotion on the strength of it.
+scene R: {N} reads the acknowledgements twice and feels the heat climb up the neck. Months of evenings went into that tool.
+scene G: Software is like the pipes in a house: nobody thanks them until they burst. {N} has always half known this, and it still stings.
+- W | write to the journal and ask for a correction that adds the citation | v: universalism, conformity | chance: 45
+- U | make the software print how to cite it at the end of every run | v: achievement | chance: 80
+- B | list every paper that ran on your tool and ask for a regrade on them | v: achievement, power | identity | chance: 45
+- R | say it straight out at the lab meeting: the software made that paper | v: self-direction | identity | chance: 75
+- G | let it go; the people who matter know who built the tool | v: tradition (humility) | chance: 90
+- W>U | draft the institute's first rule on how research software is credited | v: conformity, achievement | chance: 55
+- U>B | publish a short paper on the software itself, so it has something citable | v: achievement, power | grants: published research | chance: 65
+- B>R | grab a free demo slot at the big conference and show the tool off | v: stimulation, achievement | door | chance: 85
+- R>G | buy the first author a drink and tell them, friend to friend, how it felt | v: benevolence | mark: made a friend | chance: 80
+- G>W | propose the tool as a shared service with its own budget, and offer to run it | title: research facility lead | requires: reproducible workflow | without: impossible | v: universalism, benevolence | chance: 10
+works: The next paper from down the corridor cites the software, and its first author says thanks in the lift.
+works: The tool's use is counted properly at last, and its funding review goes smoothly.
+fails: Nothing changes, and the next paper thanks the coffee machine again.
+fails: The first author takes it personally, and the corridor goes quiet whenever {N} walks down it.
+
+# ---------------------------------------------------------------- research data steward: calls RG / WUB (cycle s2)
+
+== a request for data you promised to protect
+tier: everyday
+rate: 0.5
+times: per research data steward: a request for identifiable data held under a promise of privacy comes perhaps once or twice a year, often from a respected researcher with a good reason; about 1 life in 1,000 ever works as a research data steward (estimate)
+stages: young_adult adult mature elder
+age: 22-70
+calls: RG
+holds: research data steward
+tone: trouble
+life: work, community
+horizon: week
+roles: colleague, boss, elder
+earth: a respected researcher asks for the full survey file, addresses and all, that the town gave on a promise of privacy
+scene: {colleague} from a big university wants the full health survey file, addresses included, for a study of the old factory's pollution. Three thousand people in {place} answered the survey on a promise that no address would ever leave the archive.
+scene W: The consent form is clear, and {N} has read it a hundred times: answers for research, addresses never. Rules that bend for a good cause are not rules.
+scene U: There may be a way to give the study what it needs without a single address: distances to the factory, worked out inside the archive. {N} starts sketching it on the back of an envelope.
+scene B: {colleague} sits on the committee that decides the archive's funding next spring. A refusal will be remembered.
+scene R: {N} met some of these people when the survey was taken: a woman who brought biscuits, a man who told his whole life story. The thought of their addresses in an email makes {N} angry.
+scene G: The town trusted the archive the way people trust the old bank on the high street. Trust like that took thirty years to grow and could go in a week.
+- W | refuse, and quote the consent form's exact words | v: conformity, security | chance: 92
+- U | work out the distances inside the archive, so no address ever leaves it | v: achievement, universalism | mark: learned a skill | chance: 72
+- B | send the full file, addresses and all, and keep the committee sweet | v: power, security | mark: broke your word | closed: law: sharing personal data beyond what people agreed to; backfire: a breach report, and the archive's name in the local paper | self_control: - | chance: 82
+- R | tell the requester in plain, heated words what those people were promised | v: benevolence | chance: 72
+- G | ask the old survey team what people were told on their doorsteps | v: tradition | chance: 80
+- W>B | refuse in writing, copy the archive's director, and keep a record of it all | v: security | chance: 90
+- U>R | open a locked online room where the study can explore but never download | v: self-direction, stimulation | binds | chance: 70
+- B>G | trade a safe extract for the university's help keeping the archive alive | v: security, power | chance: 38
+- R>W | stand up at the ethics committee and argue that the town must be asked first | v: universalism | identity | chance: 72
+- G>U | hold an evening at the community centre so people can decide whether to join the study | v: universalism, benevolence | binds | chance: 40
+works: The study gets what it needs, and not one address leaves the archive.
+works: {colleague} accepts the answer, and the town's trust in the archive holds.
+fails: {colleague} goes over {Ns} head, and the archive's director wants an explanation by Friday.
+fails: Word reaches {place} that its survey was asked for, and people start asking questions at the shop.
+
+== the archive nobody funds
+tier: everyday
+rate: 0.5
+times: per research data steward: a collection or archive losing its money comes perhaps once in five to ten years of a working life, since most grants pay for new data and few for keeping old data (estimate)
+stages: young_adult adult mature elder
+age: 22-70
+calls: WUB
+holds: research data steward
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague, elder
+earth: the archive you look after loses its funding at the end of the year, because every grant pays for new data and none for the old
+scene: The letter says it kindly: the archive {N} looks after, thirty years of records, has no funding after December. Every grant pays for new data, and none pays to keep the old.
+scene W: Hundreds of studies cite the archive, and the people who made those records were told their work would be kept. {N} feels that promise as {Ns} own.
+scene U: {N} pulls the download logs: forty countries last year, and a spike every time a flood or a drought makes the news. The numbers make the case, if anyone reads them.
+scene B: {Ns} own salary sits on the same budget line as the servers. Whoever saves the archive will also decide who runs it.
+scene R: {N} wants to march into the dean's office with a hard drive in each hand and drop them on the desk.
+scene G: Some of these records were written by hand by people long dead, the seasons of a whole region one line at a time. {N} cannot picture them simply gone.
+- W | write to every user and ask them to sign a letter to the funders | v: universalism | chance: 35
+- U | build the case from the download logs and send it to three funders | v: achievement | chance: 35
+- B | take the data job a bank keeps offering, before the axe falls | v: security, achievement | drops: research data steward | chance: 80
+- R | post the letter online with a photo of the old drives, and ask for help | v: stimulation, universalism | identity | chance: 35
+- G | copy everything to a second home at another university, just in case | v: security, tradition | chance: 72
+- W>B | put the archive's case to the director in the formal budget review | v: security | chance: 45
+- U>R | turn the records into a live map anyone can play with, to show what they hold | v: stimulation | chance: 85
+- B>G | trade your own hours down to three days a week, so the servers keep running | v: security, benevolence | binds | self_control: + | chance: 65
+- R>W | give your evenings to keeping the archive running until money is found | v: benevolence, universalism | habit | self_control: + | binds | chance: 85
+- G>U | gather the old data keepers for a day and write down what only they remember | v: tradition | door | mark: learned a skill | chance: 75
+works: A funder steps in for three more years, and the servers hum on.
+works: The archive survives on a smaller budget, and its users finally know what it costs to keep.
+fails: December comes, the money ends, and the archive goes read-only while its future is argued over.
+fails: The rescue falls through, and {boss} starts asking which parts of the archive could simply be switched off.
+
+# ---------------------------------------------------------------- evidence synthesis specialist: calls WG / UBR (cycle s3)
+
+== the evidence points where nobody wants it to
+tier: everyday
+rate: 0.5
+times: per evidence synthesis specialist: a review finding that a well-loved programme makes no measurable difference, with its backers paying for the review, comes perhaps once every few years; about 1 life in 2,000 ever works in evidence synthesis (estimate)
+stages: young_adult adult mature elder
+age: 24-75
+calls: WG
+holds: evidence synthesis specialist
+tone: trouble
+life: work
+horizon: months
+roles: boss, colleague, elder
+earth: your review finds that a much-loved programme, run by the charity paying for the review, makes no measurable difference
+scene: The review {N} has spent a year on is nearly done, and the pooled evidence says the parenting course the charity has run for twenty years makes no measurable difference. The charity paid for the review.
+scene W: The protocol was registered before a single study was read, and it says the findings are published whatever they show. {N} signed it.
+scene U: Twelve trials, most of them small, two of them good. {N} reads the two good ones again, looking for anything the pooled number hides.
+scene B: The charity is {Ns} biggest client, and its director has already asked, very politely, whether the summary could lead with the positives.
+scene R: {N} has met the volunteers who run the course: warm, tireless people. Writing this feels like kicking them.
+scene G: The course has been part of the town's life for twenty years, like the Saturday market. Some things matter in ways a trial cannot measure, and {N} knows that is not the question that was asked.
+- W | publish the finding exactly as the protocol says, softening nothing | v: universalism, conformity | identity | chance: 70
+- U | check whether the two good trials tell a different story, and report that too | v: achievement, universalism | chance: 80
+- B | ask the charity for a second contract, to rebuild the course around the evidence | v: achievement, power | chance: 50
+- R | go and tell the volunteers yourself, before they read it anywhere else | v: benevolence | chance: 82
+- G | soften the summary for the volunteers' sake, as an old friend of the course would | v: benevolence, tradition | mark: gave in to pressure | closed: approval: slanting a review's summary; backfire: another team reanalyses the review and says so in print | self_control: - | chance: 90
+- W>R | invoke the contract's clause that guarantees your right to publish | v: self-direction | chance: 75
+- U>G | visit the families the course did help, to learn what the charity should keep | v: benevolence, universalism | door | chance: 60
+- B>W | offer the director a neutral wording that keeps both the client and the record | v: security, conformity | chance: 75
+- R>U | throw out the draft and rerun the whole analysis from scratch, just to be sure | v: achievement | self_control: + | chance: 88
+- G>B | settle the wording over a long lunch with the director, and keep the work coming | v: power | chance: 70
+works: The review comes out as written, and the charity starts redesigning the course around what the evidence shows.
+works: The director reads it twice, sighs, and thanks {N} for being straight with them.
+fails: The charity sits on the review for a year, and the course carries on unchanged.
+fails: A newspaper gets hold of it first, and the volunteers read about it in the worst possible way.
+
+== a hundred studies and no agreement
+tier: everyday
+rate: 0.5
+times: per evidence synthesis specialist: nearly every review meets studies that measure the same thing in many ways, and a policy team that wants one number anyway comes a few times a year; about 1 life in 2,000 ever works in evidence synthesis (estimate)
+stages: young_adult adult mature elder
+age: 24-75
+calls: UBR
+holds: evidence synthesis specialist
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, mentor
+earth: a hundred studies passed the screening, they measure the same thing in forty ways, and the policy team wants one number
+scene: One hundred and four studies passed the screening, and they measure the same outcome in thirty-eight different ways. The policy team wants one number by the end of the month.
+scene W: The method's rules say what can be pooled and what cannot, and most of this cannot. {N} also knows the policy team will decide either way, with or without the review.
+scene U: {N} spreads the studies over the floor in piles by method. A pattern almost shows, the way a face almost shows in a cloud.
+scene B: A clean single number would get the review quoted for years, and {Ns} name with it. A list of caveats gets quoted by nobody.
+scene R: Three months of reading, and the honest answer is "it depends". {N} wants to laugh and throw the whole stack in the air.
+scene G: Every field goes through a muddle like this before it settles, the way a river runs muddy after the spring rains. {N} has seen it before.
+- W | report that the evidence cannot be pooled, and say exactly why | v: universalism, conformity | chance: 72
+- U | sort the studies by method, card by card, every evening until the pattern shows | v: achievement | mark: learned a skill | habit | self_control: + | chance: 65
+- B | send the best single estimate you can defend, under your own name | v: achievement, power | identity | chance: 82
+- R | quietly drop the studies that muddy the picture, and go with your gut | v: self-direction | mark: hid a wrong | closed: approval: dropping studies without saying so; backfire: a methods reviewer finds the missing studies and says so in public | chance: 68
+- G | tell the policy team to wait two years for the trials now running | v: tradition (patience), security | chance: 30
+- W>R | keep strictly to the method, and work the weekends so the answer comes before the vote | v: achievement | self_control: + | chance: 55
+- U>G | map where the studies disagree and why, so the next trials can grow from it | v: universalism | chance: 67
+- B>W | trade the policy team a smaller, solid answer for the extra month you need | v: security, conformity | chance: 65
+- R>U | follow the one strange subgroup that keeps turning up, wherever it leads | v: stimulation | chance: 35
+- G>B | call on the old circle of reviewers who untangled this field once before | v: security, power | chance: 82
+works: The review goes out with a clear answer to a narrower question, and the policy team uses it.
+works: The policy team accepts the honest muddle, and the next round of trials is designed around it.
+fails: The deadline passes, and the decision is made without the review.
+fails: The policy team takes a number from somewhere else, and nobody reads the review's caveats.
+
+# ---------------------------------------------------------------- science communication specialist: calls WB / URG (cycle s4)
+
+== the headline gets it wrong
+tier: everyday
+rate: 0.5
+times: per science communication specialist: a careful release that comes back as a headline promising far too much happens a few times a year; even when UK university health releases did not exaggerate, about 1 news story in 10 to 1 in 6 still did (Sumner and colleagues, BMJ 2014)
+stages: young_adult adult mature elder
+age: 22-75
+calls: WB
+holds: science communication specialist
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, rival
+earth: your careful press release about a small study comes back as a national headline that promises far too much
+scene: The press release {N} wrote said a study in mice suggests a possible link. By breakfast a national paper's headline says chocolate halves the risk of dementia, and it is everywhere.
+scene W: People will change what they eat on the strength of that headline. {N} feels responsible for every one of them, because the release went out under {Ns} name.
+scene U: {N} lays the release beside the article and marks where the meaning slipped: one word in the second paragraph, "may", quietly dropped by the paper.
+scene B: The story has been shared two hundred thousand times, and {boss} has already forwarded the numbers with three exclamation marks. The lead scientist has sent one line: call me.
+scene R: {N} reads the headline on the bus and nearly shouts out loud. Someone across the aisle is reading it too, nodding.
+scene G: A story like this runs its course like a fever, high for three days and then gone. What matters is what is left standing when it passes.
+- W | ask the paper for a correction, and publish a clarification of your own today | v: universalism, conformity | chance: 40
+- U | quietly add the missing caveat to the online release, with no note of the change | v: security | mark: hid a wrong | closed: approval: changing a published release without notice; backfire: an archived copy shows the change, and a reporter writes about it | self_control: - | chance: 80
+- B | ride the wave and line up radio interviews while the story is hot | v: achievement, power | door | chance: 85
+- R | ring the reporter and tell them exactly what you think of that headline | v: self-direction | mark: made an enemy | chance: 70
+- G | let it blow over, and make the next release harder to twist | v: tradition (patience), security | chance: 65
+- W>G | call the lead scientist before anyone else, and sort it out together | v: benevolence, conformity | chance: 85
+- U>W | write a plain explainer of what the study did and did not show | v: universalism | chance: 70
+- B>U | trade the reporter an exclusive on the next study for a fair follow-up now | v: power, universalism | chance: 50
+- R>B | go on the breakfast show yourself and own the story before anyone else does | v: power, stimulation | chance: 55
+- G>R | sit with the lead scientist over a long coffee and let them get it all out | v: benevolence | chance: 90
+works: The correction runs the next day, and the story settles into something nearer the truth.
+works: The lead scientist calls back calmer, and the next release is written together.
+fails: The headline outlives every correction, and {N} hears it repeated at a family dinner months later.
+fails: The lead scientist stops answering, and the next study's news goes to another office.
+
+== a live interview on a hard question
+tier: everyday
+rate: 0.5
+times: per science communication specialist: a live interview that presses for a yes or a no on an unsettled question comes a few times a year, and weekly during a local scare; about 1 life in 1,000 ever works as a science communicator (estimate)
+stages: young_adult adult mature elder
+age: 22-75
+calls: URG
+holds: science communication specialist
+tone: mixed
+life: work
+horizon: moment
+roles: parent, boss, rival
+earth: on live radio the presenter wants a yes or a no on whether the town's water is safe, and the honest answer takes longer
+scene: The on-air light comes on, and the presenter turns to {N}: "So, is the town's water safe or not? Yes or no." The honest answer takes more than ten seconds.
+scene W: Thousands of people are listening at their kitchen tables, and some will decide tonight what to give their children to drink. {N} owes them the truth, with its doubts left in.
+scene U: {N} has three numbers ready, ranked, and a sentence for each. The trick is choosing the one that survives being cut off halfway.
+scene B: The presenter likes a fight, and the other guest is a local politician who wants one too. Whoever sounds surest will win the hour.
+scene R: {Ns} heart is going like a drum, and somehow it feels wonderful. This is what {N} trained for.
+scene G: {N} thinks of {parent}, listening at home with the radio on the windowsill, and decides to answer as if talking to no one else.
+- W | give the honest answer, doubts and all, even if it sounds weak | v: universalism | chance: 55
+- U | quote only the reassuring figure, and leave the other two unsaid | v: security, achievement | mark: hid a wrong | closed: approval: leaving out the worrying figures; backfire: the full figures are published the next week | chance: 75
+- B | make sure you get the last word, and spend it on the one number that matters | v: power, achievement | chance: 65
+- R | let your excitement show and tell them why this question keeps you up at night | v: stimulation | act: let their excitement show and tell the listeners why this question keeps them up at night | chance: 88
+- G | talk it through the way you would with a neighbour over the fence | v: benevolence | chance: 75
+- W>G | give the water board's helpline twice, so worried families know where to turn | v: benevolence, security | chance: 95
+- U>W | correct the politician's wrong figure on air, calmly, with the source | v: universalism | identity | mark: made an enemy | chance: 50
+- B>U | steer every question back to the three points you came to make | v: achievement | self_control: + | chance: 75
+- R>B | take the politician on head-first and win the room | v: power, stimulation | chance: 60
+- G>R | let the silence sit after the question, until the answer comes from the gut | v: self-direction | chance: 45
+works: The interview lands, and the phone-in afterwards is full of people saying they finally understand.
+works: A clip of {Ns} answer goes round the town, and the water board asks {N} to help with its next notice.
+fails: The answer comes out tangled, and the presenter moves on with a shrug.
+fails: The clip that spreads is the worst five seconds, cut out of context.
+
+# ---------------------------------------------------------------- participatory research coordinator: calls UR / WBG (cycle s1)
+
+== the meeting in the village hall
+tier: everyday
+rate: 0.5
+times: per participatory research coordinator: a full public meeting where the people in the study ask why there is still no answer comes about once or twice a year; about 1 life in 2,000 ever coordinates a community research project (estimate)
+stages: young_adult adult mature elder
+age: 22-75
+calls: UR
+holds: participatory research coordinator
+tone: mixed
+life: work, community
+horizon: moment
+roles: elder, colleague, boss
+earth: the village hall is full, and the residents want to know why the flooding study they joined still has no answer
+scene: The village hall smells of tea urns and wet coats, and every chair is taken. The residents want to know why, eighteen months in, the flooding study still has no answer.
+scene W: {N} promised the village a report every quarter, and the last one was late. The minutes of that meeting are pinned to the noticeboard by the door.
+scene U: {N} has the first results in a folder: suggestive, not solid. Showing them now would answer the room, and might mislead it.
+scene B: The council's flood money will be shared out in the spring, to whichever village makes the strongest case. Everyone in the hall knows it.
+scene R: A farmer at the back stands up, flushed, and says his family has read this river for three generations and nobody has asked them a thing. Half the room claps.
+scene G: The hall was built by the villagers' grandparents after the great flood seventy years ago, and the high-water mark is still painted on the wall beside the stage.
+- W | apologise for the late report, and set a date you can keep | v: conformity, benevolence | mark: owned up | self_control: + | chance: 80
+- U | show the early results, with every doubt spelled out on the slide | v: universalism | identity | chance: 65
+- B | tell them plainly the results will strengthen their case for the flood money | v: power | chance: 75
+- R | invite the farmer to the front and hand him the microphone | v: benevolence, self-direction | mark: made a friend | chance: 75
+- G | ask the oldest residents to mark on the map where the water has always come | v: tradition | chance: 85
+- W>U | write the villagers' questions into the study plan, one by one, on the spot | v: universalism, conformity | binds | chance: 75
+- U>B | sketch how a village network of rain gauges would make their case harder to ignore | v: power, achievement | chance: 75
+- B>R | offer the loudest critics seats on the steering group, and let them run with it | v: power, self-direction | binds | chance: 70
+- R>G | stay until the last chair is stacked, talking with whoever lingers | v: benevolence | chance: 92
+- G>W | let the village elders chair the next meeting, as the village did things before the study | v: tradition, conformity | chance: 50
+works: The meeting ends late but warmer, and the villagers sign up to keep measuring through the winter.
+works: The farmer comes over afterwards, and his family's flood notes go into the study.
+fails: Half the room walks out before the end, and the study loses its rain-gauge volunteers.
+fails: The local paper reports the meeting as a row, and the council takes note.
+
+== whose data are these
+tier: everyday
+rate: 0.5
+times: per participatory research coordinator: a clash between a journal or funder asking for open data and a community that says the data are its own comes perhaps once in each project, more often as open-data rules spread (estimate)
+stages: young_adult adult mature elder
+age: 22-75
+calls: WBG
+holds: participatory research coordinator
+tone: trouble
+life: work, community
+horizon: months
+roles: boss, elder, friend
+earth: the journal wants the study's data made open, and the fishing families who gathered it say the map of the fish is theirs
+scene: The journal will publish the study only if the full dataset is made open. The fishermen's association, who logged every catch for four years, says the map of where the fish are is theirs, and not for the trawlers.
+scene W: There is a signed partnership agreement, and {N} wrote half of it. It says the data are shared, and it never says what shared means.
+scene U: {N} works out what could be released safely: blurred locations, monthly totals. Whether that still meets the journal's rules is another question.
+scene B: Whoever holds the map holds the fishing grounds. A trawler company has already asked, through a friend of {boss}, what the data would cost.
+scene R: {N} has been out on the boats at four in the morning, hauling nets with these people. Handing their grounds to strangers would feel like betrayal.
+scene G: Fishing families here have kept their best grounds to themselves for generations, passed from parent to child. The study asked them to write those grounds down.
+- W | release the full data as the university's rules say, whatever the association thinks | v: conformity | mark: broke your word | closed: approval: releasing data the partners refused; backfire: the association pulls out and warns every harbour on the coast | self_control: - | chance: 75
+- U | release only blurred locations and monthly totals, and explain the method | v: achievement, universalism | identity | chance: 75
+- B | offer the association a place among the authors and a share of any data income | v: achievement, power | chance: 58
+- R | side with the fishers out loud, and tell the journal to publish without the data | v: benevolence, self-direction | chance: 30
+- G | hand the data back to the association, and let them keep it | v: tradition, benevolence | identity | mark: kept your word | self_control: + | chance: 90
+- W>U | ask the journal for the exception its own rules allow for community data | v: conformity, achievement | chance: 50
+- U>B | design a licence that lets the association decide who gets the data, and charge for it | v: power, self-direction | binds | chance: 60
+- B>R | find a journal with looser rules and publish there, free of the fight | v: self-direction | chance: 75
+- R>G | go down to the harbour at dawn and hear the families out on the boats | v: benevolence | door | grants: community partners | chance: 80
+- G>W | let the association's oldest skippers decide, the way the harbour settles things | v: tradition | chance: 55
+works: The data find a home that both the journal and the association can live with, and the study goes to press.
+works: The association agrees, and the skippers ask for the next study to be theirs from the start.
+fails: The association withdraws, and four years of logbooks go back into a drawer at the harbour.
+fails: The paper is rejected, and {boss} asks why {N} let it come to this.
+
+# ---------------------------------------------------------------- citizen scientist: calls BG / WUR (cycle s2)
+
+== the same stretch of river, every Sunday
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per citizen scientist with a regular count: a count day when rain or a hard week makes going a chore comes several times a season; about 1 US adult in 10 takes part in citizen science in a year (Pew Research Center 2020), and about 6 lives in 100 keep at it (estimate)
+stages: child+
+age: 12-95
+calls: BG
+holds: citizen scientist
+tone: mixed
+life: leisure, nature
+horizon: months
+roles: friend, parent, elder
+earth: thirty Sundays in a row you have counted the same mile of river, and this morning it is raining sideways
+scene: Thirty Sundays in a row {N} has walked the same mile of river with a clipboard. This morning it is raining sideways, and the warm kitchen is right there.
+scene W: The survey needs the same mile counted every week, or the line on its graph breaks. {N} signed up for the whole year.
+scene U: The counts have been flat for weeks, and {N} has started to wonder whether the method can see a real change, or only the weather.
+scene B: The survey's app ranks its volunteers by records sent in, and {N} is fourth in the region. One more good season and the top spot is in reach.
+scene R: {N} loved the first Sundays: the kingfisher, the mist, the mud. Lately it feels like homework.
+scene G: The river is different every week and the same every year: the alders leaf, the water drops, the herons come back. {N} has started to feel the year the way a farmer does.
+- W | go out in the rain anyway; a promise to the survey is a promise | v: conformity | habit | mark: kept your word | self_control: + | chance: 88
+- U | read up on the method, to see whether the flat counts mean anything | v: self-direction, achievement | door | chance: 85
+- B | aim for the top spot, and add a second stretch of river on Saturdays | v: achievement | habit | self_control: + | chance: 82
+- R | take the day off and do something completely different | v: hedonism | self_control: - | chance: 95
+- G | stay home and write in the usual numbers; the river never changes this time of year | v: tradition, hedonism | mark: hid a wrong | closed: approval: entering counts that were never made; backfire: a survey checker spots rows that never change | self_control: - | chance: 88
+- W>B | ask the survey for a proper training day, so your records count as expert ones | v: achievement, power | door | chance: 50
+- U>R | set a cheap trail camera on the bank to catch what you miss | v: stimulation | mark: learned a skill | chance: 65
+- B>G | talk the angling club into letting you walk their private bank as well | v: power, universalism | act: talk the angling club into letting them walk its private bank as well | chance: 55
+- R>W | talk a friend into coming every week, so the count never misses a Sunday | v: benevolence, conformity | mark: made a friend | binds | chance: 65
+- G>U | keep a notebook of what the river does beyond the count: water, leaves, light | v: universalism | habit | aims: community observer | chance: 70
+works: The Sundays find their rhythm again, and by autumn {Ns} records fill a whole stretch of the survey's map.
+works: One wet morning a kingfisher lands a few feet away, and {N} remembers why this started.
+fails: {N} misses three Sundays in a row, and the survey's line for this stretch of river goes blank.
+fails: The counts stay flat and grey, and the clipboard ends up on a shelf by the door.
+
+# Round 5, merge (packs thread, two pooled runs of 1,600 lives): [a nose for the odd result] came to about 1 life in 8
+# (12x its share), most of it from this moment and 'a project online asks for a thousand pairs of eyes'; the volunteer's act here no longer grants it (the
+# scientists' and the field's acts still do, and the rule from fieldwork or lab work).
+== your record does not match the official one
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per citizen scientist who measures what an official station also measures: a clear, lasting mismatch with the official record turns up perhaps once in several years; many such gaps come from method, and some point to something real (estimate)
+stages: child+
+age: 12-95
+calls: WUR
+holds: citizen scientist
+tone: trouble
+life: leisure, nature, community
+horizon: months
+roles: friend, grandparent, elder
+earth: your water tests from the brook show a sharp rise after every storm, and the official station shows nothing at all
+scene: {Ns} water tests from the brook behind {place} show a sharp rise every time it rains. The agency's official station, two miles downstream, shows nothing at all.
+scene W: The agency's figures are the ones the law listens to, and {N} has always trusted them. Now one of the two records must be wrong.
+scene U: {N} lays the two records side by side. The station samples once a month, on a fixed day; {Ns} tests catch the hours after a storm. Both could be right.
+scene B: The agency's reply was polite and short: volunteer data cannot be used. {N} notices that a reply like that is easiest to write when nobody else is asking.
+scene R: {N} has watched the brook go cloudy and smell of the farm after every downpour. A spreadsheet will not talk {N} out of what {Ns} own eyes saw.
+scene G: The brook runs past the house where {grandparent} grew up. Something in it has changed, the way an old friend's face changes when they are unwell.
+- W | delete the odd readings from your log, since the official station must be right | v: conformity | mark: hid a wrong | closed: approval: deleting one's own data to fit; backfire: the survey's checkers see the gaps and ask why | self_control: - | chance: 90
+- U | buy a better test kit and sample both spots at the same hour for a month | v: achievement | habit | self_control: + | mark: learned a skill | chance: 75
+- B | take your numbers to the local paper before the agency can shrug them off | v: power | identity | mark: made an enemy | chance: 70
+- R | post the photos of the cloudy brook online and tag the agency | v: self-direction | chance: 55
+- G | ask the farmers upstream, who know the brook, what has changed this year | v: tradition | chance: 65
+- W>B | get the parish council to log the complaint officially, so the agency has to answer | v: power, conformity | chance: 45
+- U>R | rig up a cheap sensor that tests the brook every hour, even at night | v: stimulation, achievement | chance: 47
+- B>G | offer the upstream farmer your records in return for a look at his drains | v: universalism, security | chance: 65
+- R>W | go out in the storm at night to take the sample that settles it | v: universalism, stimulation | body: light | mark: took a wild risk | chance: 55
+- G>U | keep testing quietly, season after season, until the pattern speaks for itself | v: universalism, tradition | self_control: + | habit | chance: 50
+works: The agency sends someone out after a storm, and the next month's official figures show the rise.
+works: The records are checked, and {Ns} name goes on the survey's list of volunteers whose data it trusts.
+fails: The agency files the readings away unread, and the brook goes on clouding after every storm.
+fails: The test kit turns out to have been faulty all along, and {N} has to start again from scratch.
+
+# ---------------------------------------------------------------- community observer: calls WR / UBG (cycle s3)
+
+== forty years of rain in one notebook
+tier: everyday
+rate: 0.5
+times: per community observer: a trip, an illness or a family need that would break the record comes up every year or two; records with no gap for decades are rare, and about 1 life in 50 ever keeps a long record of one place (estimate)
+stages: juvenile+
+age: 12-100
+calls: WR
+holds: community observer
+tone: mixed
+life: leisure, nature, friends
+horizon: week
+roles: elder, friend
+earth: the rain record has no gap in forty years, and a three-week trip with a friend would make the first one
+scene: The rain notebook has no gap in forty years: {elder} read the gauge every morning at nine for most of them, and {N} has done it since. Now {friend} has asked {N} along on a three-week trip, and the record would break.
+scene W: Forty years, no gaps: that is what makes the notebook worth anything to the weather service. {N} feels the weight of every one of those mornings.
+scene U: {N} wonders how much a three-week gap really costs the record, and whether the nearest station's readings could fill it honestly.
+scene B: In the wet months a three-week hole would cost the record most; in the dry ones hardly anything. {N} starts working out how to get {friend} to wait.
+scene R: Three weeks somewhere new, with {friend}: {N} wants it so badly that the notebook on the windowsill starts to look like a chain.
+scene G: Rain falls whether anyone writes it down or not. Still, the morning walk to the gauge has become as much a part of {N} as breakfast.
+- W | turn the trip down; the record comes first | v: conformity, tradition | mark: turned down a chance | chance: 90
+- U | leave the gap, and fill it from the nearest station, clearly marked as such | v: achievement, universalism | chance: 88
+- B | get your friend to move the trip to the dry season, when a gap costs least | v: self-direction, achievement | chance: 73
+- R | go on the trip, and fill in the three weeks afterwards with a good guess | v: stimulation, hedonism | mark: hid a wrong | closed: approval: inventing readings for a public record; backfire: the weather service compares them with the nearest station and asks questions | self_control: - | chance: 90
+- G | go, and let the gap come; rain falls the same whether written down or not | v: tradition (acceptance), hedonism | chance: 92
+- W>R | follow the weather service's rules for a stand-in observer, then go with a clear head | v: hedonism, conformity | chance: 58
+- U>G | set up an automatic gauge beside the old one, so the record runs on | v: security | mark: learned a skill | chance: 72
+- B>W | ask the weather service to pay for an automatic gauge, since it uses your figures | v: security, power | chance: 55
+- R>U | take a rain gauge on the trip and keep a second notebook there | v: stimulation | door | chance: 85
+- G>B | teach a younger relative the gauge, so the record stays in the family's hands | v: tradition, power | binds | chance: 70
+works: The record runs on without a break, and the old notebook stays in its place on the windowsill.
+works: The weather service writes to say the long record helped it check a new flood model.
+fails: A storm comes the one week nobody was watching, and the notebook will always have a hole where it should be.
+fails: {friend} goes without {N}, and things between them are cooler for a while.
+
+== the developers want your survey
+tier: everyday
+rate: 0.07
+times: per community observer: a builder or its consultants asking for the records of a surveyed place comes perhaps once in ten to twenty years of keeping them, more often near growing towns (estimate)
+stages: juvenile+
+age: 12-100
+calls: UBG
+holds: community observer
+tone: trouble
+life: nature, community, money
+horizon: months
+roles: elder, friend, rival
+earth: a builder wants houses on the meadow you have surveyed for years, and its consultants ask for your records, for a fee
+scene: A builder plans eighty houses on the meadow behind {place}, and its consultants have written asking for {Ns} survey records: years of birds, flowers and moths, field by field. They offer a fee.
+scene W: There is a public planning process, and evidence should go to it openly, whoever it helps. {N} believes in that, and finds it harder to believe this week.
+scene U: {N} knows what the records show: the meadow is richer than anything around it, except in the two dry years. A careless reader could make the dry years the whole story.
+scene B: The fee is more money than the records have ever earned. And whoever holds the only long record of the meadow holds a card in this game.
+scene R: The thought of diggers on the meadow makes {Ns} hands shake. {N} wants to tear the letter in half.
+scene G: Skylarks nest in the long grass every spring, and they were there before the town. {N} has watched generation after generation of them rise.
+- W | send the records to the planning office, where everyone can see them | v: universalism, conformity | chance: 60
+- U | send the consultants the records with a careful note on what the dry years mean | v: universalism, achievement | chance: 55
+- B | sell the builder the records, and take the fee | v: achievement, security | chance: 92
+- R | refuse flat out, and tell the builder what you think of eighty houses on a meadow | v: self-direction | mark: made an enemy | chance: 45
+- G | keep the records to yourself; the meadow is not theirs to measure | v: tradition | identity | chance: 90
+- W>R | register as a formal objector, so you can speak at the hearing | v: universalism, self-direction | identity | door | chance: 67
+- U>G | map where on the site the rare plants grow, so any plan has to spare them | v: universalism | grants: fieldwork | chance: 60
+- B>W | demand that the builder pay for an independent survey before anything is decided | v: universalism, power | chance: 55
+- R>U | throw yourself into a dawn-to-dusk survey this June, to catch everything that lives there | v: achievement, stimulation | body: light | chance: 55
+- G>B | ask the landowner's family, who have known you for years, not to sell | v: power, tradition | act: ask the landowner's family, who have known them for years, not to sell | chance: 23
+works: The records reach the planning hearing, and the meadow's two best fields are left out of the plan.
+works: The consultants' report has to quote {Ns} figures in full, and the builder redraws the scheme.
+fails: The houses are approved anyway, and {Ns} records are quoted in the report as proof the meadow is ordinary.
+fails: The neighbours argue about what {N} did, and the street splits over it.
+
+# ---------------------------------------------------------------- volunteer research organiser: calls UG / WBR (cycle s4)
+
+== volunteers drifting away
+tier: everyday
+rate: 0.5
+times: per volunteer research organiser: a clear fall in turnout over a few seasons comes every few years in most volunteer projects, as founders age and newcomers move on; about 3 lives in 1,000 ever organise volunteer research (estimate)
+stages: young_adult+
+age: 18-90
+calls: UG
+holds: volunteer research organiser
+tone: trouble
+life: community, leisure
+horizon: months
+roles: friend, elder, colleague
+earth: the volunteer survey you organise had sixty people three years ago, and this spring twenty-two turn up
+scene: Three years ago sixty volunteers came to the spring briefing. This year {N} counts twenty-two chairs filled, and half the faces are grey.
+scene W: Every volunteer signed up for a season, and a season is what the survey needs to mean anything. {N} keeps the register, and its gaps hurt.
+scene U: {N} goes through the old sign-up sheets: people drop away in the third month, almost always after the long winter counts. There is a pattern there.
+scene B: The grant that pays for the kits asks for volunteer numbers in its report, and this year's numbers will not look good.
+scene R: The first year was a joy: muddy boots, the pub after every count, people laughing in the rain. Somewhere along the way it became a chore, and {N} misses the fun as much as the people.
+scene G: Groups like this rise and fall like a tide; {N} saw the old naturalists' society shrink and come back. The ones who stay are like family now.
+- W | ring every lapsed volunteer in turn, and ask kindly whether they will be back | v: benevolence, conformity | chance: 60
+- U | count every one-off visitor as a volunteer in the funder's report | v: security, achievement | mark: hid a wrong | closed: approval: inflating the numbers in a report to a funder; backfire: the funder asks to see the sign-in sheets | self_control: - | chance: 75
+- B | offer every regular a kit of their own to keep, if they stay the whole season | v: achievement | chance: 75
+- R | bring back the pub after every count, and make it fun again | v: hedonism, benevolence | habit | chance: 90
+- G | let the drifting ones go, and look after the twenty-two who stayed | v: tradition, benevolence | self_control: + | chance: 85
+- W>G | set up a buddy system, so no newcomer counts alone in their first season | v: benevolence | grants: organising people | chance: 80
+- U>W | cut the winter counts to the ones the analysis truly needs, and write down why | v: achievement, conformity | chance: 65
+- B>U | recruit at the university each term, where students need field hours for their degrees | v: achievement | habit | chance: 75
+- R>B | throw a big launch with the local radio, and make the survey the thing to join | v: power, stimulation | chance: 40
+- G>R | hand the night walks to the youngest volunteers, and let them run them their way | v: self-direction, benevolence | chance: 55
+works: By autumn the chairs are fuller, and two of the new faces are leading counts of their own.
+works: The survey shrinks but steadies, and the people who stay say it is the best season yet.
+fails: The spring count goes ahead with nine people, and two sites are left uncounted.
+fails: The funder's report goes in late and thin, and the kit grant is cut for next year.
+
+== a scientist wants your volunteers' data
+tier: everyday
+rate: 0.5
+times: per volunteer research organiser: a professional scientist asking for the project's long volunteer records for a paper comes perhaps once every few years, once the records run to a decade or more (estimate)
+stages: young_adult+
+age: 18-90
+calls: WBR
+holds: volunteer research organiser
+tone: mixed
+life: community, work
+horizon: months
+roles: mentor, friend, elder
+earth: a professor wants the survey's ten years of volunteer records for a big paper, with your name on it and a line of thanks for the rest
+scene: A professor from the university has found the survey's ten years of records online and wants them for a major paper. The offer: {Ns} name among the authors, and a line of thanks for "the volunteers".
+scene W: Two hundred people collected those records in all weathers. A line of thanks under a professor's name does not seem a fair account of who did the work.
+scene U: A real analysis could answer the question the volunteers have wondered about for years, which the group could never answer alone.
+scene B: A name on a paper in a big journal would open doors for {N} that ten years of organising never did. The professor knows that, and so does {N}.
+scene R: The professor's email called the volunteers "a resource". {N} read the word aloud at the kitchen table, then read it again, louder.
+scene G: The data grew the way a hedge grows, a little each year, tended by many hands. {N} has never thought of it as anyone's to give away.
+- W | agree only if every regular volunteer is named in the paper | v: universalism | identity | chance: 50
+- U | ask the professor to share the analysis with the group before it is published | v: universalism, achievement | chance: 60
+- B | take the authorship, and say nothing to the volunteers until the paper is out | v: achievement, power | mark: hid a wrong | closed: approval: giving away the group's data without asking it; backfire: a volunteer finds the paper and asks the group how it happened | grants: published research | chance: 85
+- R | put the offer to the volunteers at the next count, and let them shout it out | v: self-direction, benevolence | chance: 90
+- G | say no; the data stays with the people who gathered it | v: tradition | mark: turned down a chance | identity | chance: 92
+- W>G | write simple terms for any scientist who wants the data, and let the group vote | v: conformity, universalism | binds | chance: 85
+- U>W | look up how the professor has treated volunteers in past papers | v: universalism | chance: 75
+- B>U | bargain for a second paper written by the volunteers themselves, with the professor's help | v: achievement, power | chance: 40
+- R>B | ring the professor and say the price is real credit, or no data | v: power, self-direction | chance: 55
+- G>R | invite the professor out on a dawn count first, to meet the people and the place | v: benevolence, stimulation | chance: 45
+works: The paper comes out with the volunteers' names in it, and the group reads it aloud at the next count.
+works: The professor agrees to the group's terms, and a second study is planned together.
+fails: The professor takes the data from the public pages anyway, and the group's work appears under other names.
+fails: The volunteers split over the offer, and three of the longest-serving ones stop coming.

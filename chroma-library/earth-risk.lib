@@ -1,0 +1,617 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: RISK, DRUGS, THE HOSPITAL AND DYING BEFORE ONE'S TIME (next batch, Emren's point 11:
+# "is it possible for character to wake up in hospital ... drugs ... Can character die before biological terminance?").
+# Syntax: header of build.py. Rules: library-spec.md, drafts/next2/BRIEF.md. Ten everyday moments, each calling two colors,
+# in two blocks of five whose calls go round all five colors twice (juvenile and young adult: WG WU UB BR RG; young adult
+# and adult: WB BG UG UR WR), so every stage is called evenly; five life events (pairs D2a and D2b, triads of D4a and D4b,
+# cross cycle s2) and one echo. Cross cycles s1 to s4 three times each.
+# death_if_fails (engine 21:06): the share of an act's failures that end the character's life; never on an act under 12.
+# No recipes, doses or method detail; nothing graphic; suicide and self-harm are never options.
+
+# ---------------------------------------------------------------- everyday: a vape behind the sports hall (calls WG, cycle s1)
+
+== a vape passed round behind the sports hall
+tier: everyday
+at: school
+stages: juvenile young_adult
+age: 12-19
+calls: WG
+tone: mixed
+life: friends, body
+horizon: moment
+roles: friend, rival, grandparent, a teacher
+earth: at break, behind the sports hall, a sweet-smelling vape is going from hand to hand, and now it is your turn
+times: Most teenagers are offered one, a few times in secondary school (estimate); about 1 in 5 of 11 to 17 year-olds in Great Britain have tried vaping (ASH 2024)
+gap: 2-4
+scene: Behind the sports hall the air smells of mango sweets. A vape is going from hand to hand, and now {friend} holds it out to {N}.
+scene W: Everyone in the circle has had a go, and {N} is the only one left. The rule is not written anywhere, but everyone knows it.
+scene U: {N} has read that these things hook people faster than cigarettes ever did, and is curious all the same what the fuss is about.
+scene B: The ones passing it round are the ones everyone wants to sit with at lunch. A place in this circle is worth something.
+scene R: The bell goes in four minutes, a teacher could turn the corner at any second, and {Ns} heart is going fast.
+scene G: {grandparent} smoked all their life and coughed every morning {N} can remember. The sweet cloud drifts past as if it has nothing to do with that.
+- W | take one pull, the way everyone in the circle has, and pass it on | habit | v: conformity | self_control: - | closed: approval: vaping at school; backfire: caught, and a letter home | chance: 90
+- U | try the one with something stronger in it, just to see what it does | v: self-direction, stimulation | mark: used drugs | body: light | closed: law: an illegal drug; backfire: sick and shaking in the toilets, and the school rings home | law: drugs | chance: 74
+- B | buy your own from the older kid who sells them, and make sure everyone sees | v: power, achievement | closed: law: under age to buy; backfire: confiscated, and a letter home | chance: 68
+- R | blow the biggest cloud anyone has seen, and wait for the cheer | habit | v: stimulation, hedonism | body: light | closed: approval: vaping at school; backfire: a coughing fit, and a teacher round the corner | chance: 84
+- G | say no, thinking of your grandparent's cough, and stay in the circle anyway | identity | v: security, tradition | self_control: + | chance: 76
+- W>U | ask the school nurse straight out what vaping does to a body | v: self-direction | chance: 70
+- U>B | pretend to inhale, so you look like one of them without getting hooked | v: power, security | chance: 84
+- B>R | swipe the vape from a bag when nobody is looking, and try it alone later | v: hedonism, stimulation | mark: hid a wrong | chance: 90
+- R>G | drag your best friend off to kick a ball about instead, the way you used to | v: benevolence, stimulation | chance: 76
+- G>W | tell your grandparent everything, and let them have a word with the school | v: security, tradition | mark: made an enemy | closed: approval: telling on the circle; backfire: everyone guesses who told | chance: 80
+works: The bell goes, and {N} walks back in still part of the group, and still themselves.
+works: Nobody makes a thing of it, and by the end of the week {N} knows where they stand.
+fails: A teacher turns the corner, and every name in the circle goes in the book.
+fails: {N} coughs until their eyes stream, and the whole group laughs.
+
+# ---------------------------------------------------------------- everyday: a drinking game (calls WU, cycle s4)
+
+== a drinking game round the kitchen table
+tier: everyday
+stages: juvenile young_adult
+age: 17-25
+calls: WU
+tone: mixed
+life: friends, study
+horizon: moment
+roles: friend, rival, strangers, the neighbours
+earth: the first week in halls or a new flat: twelve near-strangers round a kitchen table, a deck of cards and a drinking game with rules
+times: Most young people who go to college or share a flat, several times in their late teens and early twenties (estimate)
+gap: 2-4
+scene: A new term, a new flat: twelve near-strangers sit round a sticky kitchen table with a deck of cards, and the game has rules {N} is still learning.
+scene W: Break a rule, drink: everyone at the table plays by the same ones, and {N} wants to belong here.
+scene U: {N} has spotted how the scoring works: whoever deals hardly drinks at all.
+scene B: Whoever wins tonight will be the name everyone knows by Friday. {rival} from the floor above clearly wants it to be them.
+scene R: Cards slap on the table, everyone is shouting, and the next round is a race.
+scene G: These people will be {Ns} neighbours for a year, maybe friends for life. Somewhere round this noisy table, a household is forming.
+- W | play strictly by the rules, and drink whatever the cards say | habit | v: conformity | mark: took a wild risk | body: heavy | death_if_fails: 0.002 | self_control: - | chance: 76
+- U | fill your cup with water when nobody is looking, and play along | habit | v: security | chance: 84
+- B | rig the deck so your rival loses every round | v: power, achievement | chance: 66
+- R | take the forfeit nobody else will: the rest of the bottle, in one go | v: stimulation | mark: took a wild risk | body: heavy | chance: 72
+- G | slip out to the back step and talk with the quiet one who left early | v: benevolence | mark: made a friend | chance: 72
+- W>G | suggest a rule that anyone may sit a round out, so everyone stays in the game | v: benevolence, conformity | chance: 74
+- U>W | keep a quiet tally of every player's drinks, and call time on anyone past it | v: security, benevolence | mark: helped someone in need | chance: 66
+- B>U | use the game's truth forfeits to find out everyone's secrets | v: power | chance: 82
+- R>B | take your rival on head to head, loser drinks double | v: power, stimulation | body: heavy | chance: 76
+- G>R | fetch the old guitar and turn the game into a singalong | v: hedonism, tradition | chance: 76
+works: The kitchen becomes a household that night, and {N} is part of it.
+works: {N} wakes clear-headed enough for the first lecture, with a dozen new numbers in the phone.
+fails: {N} spends the night on the bathroom floor, and by morning everyone has heard about it.
+fails: The game turns sour, a glass breaks, and the neighbours start banging on the wall.
+
+# ---------------------------------------------------------------- everyday: pills at a party (calls UB, cycle s4)
+
+== a bag of pills in the party kitchen
+tier: everyday
+stages: juvenile young_adult
+age: 15-25
+calls: UB
+tone: mixed
+life: friends, body
+horizon: moment
+roles: friend, the host, a stranger
+earth: in the kitchen at a party, someone you half know opens a little bag of pills and offers them round
+times: About 1 in 3 young people, once or twice (estimate); a few in 100 of 16 to 24 year-olds in England and Wales take ecstasy in a year (ONS crime survey)
+gap: 3-6
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: In the crowded kitchen, a lad {N} half knows opens a little bag of pills and holds it out. "Go on. Everyone's having one."
+scene W: {N} heard the warnings in assembly, and the host's parents trusted everyone tonight. {friend} is watching to see what {N} will do.
+scene U: Nobody here knows what is in those pills, not even the one handing them out. {N} cannot stop thinking about that, and about wanting to know.
+scene B: The seller is making a lot of money tonight, and he has a friendly eye on {N}. A favour now might be worth something later.
+scene R: The music has just kicked up, the whole room is jumping, and {N} wants the night to go up a level.
+scene G: Out of the window the garden is dark and still. The party feels like weather building, and {N} cannot tell yet which way it will turn.
+- W | take one alongside your friend, so they are not in it alone | v: benevolence | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: a bad night in hospital, or the police | self_control: - | law: drugs | chance: 74
+- U | refuse anything nobody can say what is in | identity | v: security, self-direction | self_control: + | chance: 92
+- B | keep the seller sweet, and save his number for later | v: power, security | chance: 70
+- R | take one and dance | v: hedonism, stimulation | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: a bad night in hospital, or the police | law: drugs | chance: 80
+- G | take one out in the dark garden, under the trees, away from the crush | v: hedonism, universalism (nature) | self_control: - | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: a bad night in hospital, or the police | law: drugs | chance: 76
+- W>G | find the host and quietly tell them what is going round their parents' house | v: security, benevolence | closed: approval: telling on the seller; backfire: the seller's friends find out who told | chance: 78
+- U>W | look up the markings on the pill, and warn everyone if they are bad | v: security, benevolence | mark: helped someone in need | tech: internet | chance: 60
+- B>U | flatter the seller into a free one, and see what it does | v: stimulation, self-direction | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: a bad night in hospital, or the police | law: drugs | chance: 80
+- R>B | grab the bag off the seller and pocket the lot | v: power, stimulation | mark: broke the law | body: light | closed: law: possession, and theft from a dealer; backfire: the seller's friends come looking | chance: 70
+- G>R | skip the pills, and dance barefoot on the lawn until the sky gets light | v: hedonism | chance: 72
+works: The night burns bright and then burns out, and {N} gets home as the birds start.
+works: Nothing goes wrong, and by Monday the party is just a story.
+fails: Someone collapses by the back door, and the party ends with an ambulance and a lot of parents.
+fails: {N} spends the small hours sick and frightened in the bathroom, with {friend} knocking on the door.
+
+# ---------------------------------------------------------------- everyday: a dare on the factory roof (calls BR, cycle s3)
+
+== a dare on the factory roof
+tier: everyday
+stages: juvenile young_adult
+age: 13-21
+calls: BR
+tone: mixed
+life: friends, risk
+horizon: moment
+roles: friend, rival, parent, a security guard
+earth: at night on the roof of the empty factory, the dare is to jump the gap to the next roof
+times: Uncommon: perhaps 1 in 6 teenagers, mostly boys, once or twice (estimate); teenagers take far more risks with friends watching (Gardner and Steinberg 2005)
+gap: 3-8
+share: .17
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is dark on the roof of the empty factory. Between this roof and the next is a gap of two long strides above a three-storey drop, and {rival} has just jumped it.
+scene W: {N} promised {parent} to stay away from the old factory, and this is very much inside it. Someone has to think about getting everybody down.
+scene U: {N} measures the gap by eye: the run-up, the distance, and whether the far edge is solid or rotten.
+scene B: {rival} cleared it and is grinning across the gap. If {N} does not jump now, everyone will be talking about it on Monday.
+scene R: The town lights are spread out below, the wind is cold, and {Ns} legs are already itching to run.
+scene G: Pigeons shift in the rafters below. The old building creaks as if it has had enough of people climbing on it.
+- W | refuse, and talk the others into climbing down the way you came | v: security, benevolence | chance: 60
+- U | walk the edge until you find the narrowest point, and jump there | v: achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | closed: law: trespass; backfire: the police, and a caution | chance: 80
+- B | jump it filming on your phone, and post it for the views | identity | v: power, achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | closed: law: trespass, and the video is the proof; backfire: the police see it too | tech: phone | chance: 78
+- R | take a run at it and jump | v: stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | closed: law: trespass; backfire: the police, and a caution | chance: 75
+- G | sit with your back to the chimney, watch the lights, and let them jump | v: security, universalism (nature) | chance: 82
+- W>R | agree on one jump each, in turn, then everyone off the roof together | v: conformity, stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | closed: law: trespass; backfire: the police, and a caution | self_control: - | chance: 84
+- U>G | point out the rotten roofing, and explain why the far edge will not hold | v: universalism, security | chance: 64
+- B>W | threaten to tell everyone's parents unless they all climb down now | v: security, power | chance: 66
+- R>U | shout down into the empty hall below, and listen to how far the echo goes | v: stimulation, self-direction | chance: 70
+- G>B | wait for the gusts to drop, then jump when your body says now | v: achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | closed: law: trespass; backfire: the police, and a caution | chance: 62
+works: Everyone gets down in one piece, and the night turns into a story they will tell for years.
+works: {N} gets home before midnight, shaking a little, and nobody at home suspects a thing.
+fails: Someone lands badly on the far roof, and the night ends with an ambulance at the factory gate.
+fails: A security guard's torch finds them, and the police drive {N} home.
+
+# ---------------------------------------------------------------- everyday: a joint at a friend's (calls RG, cycle s2)
+
+== a joint going round at a friend's
+tier: everyday
+stages: juvenile young_adult
+age: 14-25
+calls: RG
+tone: mixed
+life: friends, body
+horizon: moment
+roles: friend, parent, the friend's older cousin
+earth: on a friend's bedroom floor, with the window open and the music low, a joint is going round the circle
+times: Most young people, a few times in their teens and twenties (estimate); 17 in 100 US high-schoolers used cannabis in the past month (CDC YRBS 2023)
+gap: 2-4
+scene: The window is open, the music is low, and a joint is making its way round the circle on {friend}'s bedroom floor.
+scene W: {friend}'s parents are downstairs watching television, and {N} knows exactly what they would say. It is still against the law here.
+scene U: {N} has read three different things about what this does to a young brain, and none of them agree. Here is a chance to find out first-hand.
+scene B: {friend}'s older cousin brought it, and the cousin knows people. Being easy about this could open doors.
+scene R: Everyone is laughing at nothing, the song is perfect, and the joint is two people away.
+scene G: Nobody is in a hurry. The talk drifts, the smoke drifts out of the window, and the evening feels as if it could go on for ever.
+- W | pass it on untouched, and say plainly that you would rather not | identity | v: conformity, security | self_control: + | chance: 82
+- U | take one small pull, and pay close attention to what it does | v: self-direction, stimulation | mark: used drugs | body: light | closed: law: cannabis is illegal here; backfire: hours of racing thoughts, or caught | law: drugs | chance: 76
+- B | ask the cousin where it comes from, and whether there is money in it | door | v: power, achievement | chance: 66
+- R | smoke every time it comes round, and laugh until your ribs hurt | habit | v: hedonism | mark: used drugs | body: light | closed: law: cannabis is illegal here; backfire: sick on the bathroom floor, and found out at home | self_control: - | law: drugs | chance: 78
+- G | take your turn when it reaches you, slowly, and let the talk drift | habit | v: hedonism | mark: used drugs | body: light | closed: law: cannabis is illegal here; backfire: the smell goes home on every coat | law: drugs | chance: 80
+- W>B | promise to say nothing to anyone's parents, and keep note of who owes the favour | v: power | chance: 78
+- U>R | put on the album you have been saving, and turn it into a listening party | v: hedonism, stimulation | chance: 80
+- B>G | leave early with an excuse about your sibling, and keep out of it | v: security | self_control: + | chance: 92
+- R>W | snap at the others when they push the youngest in the room to try it | v: benevolence | mark: made an enemy | chance: 80
+- G>U | go out into the garden alone and think about what you actually want | v: self-direction | chance: 80
+works: The evening ends easy, and {N} cycles home with the night air on their face.
+works: Nothing bad comes of it, and {N} knows a little more about the people in that room.
+fails: {friend}'s mother opens the door, and the smell tells her everything.
+fails: {N} goes quiet and strange inside, and the walk home is a long one.
+
+# ---------------------------------------------------------------- everyday: cocaine at the office party (calls WB, cycle s3)
+
+# gate: a career held (it is the firm's own party); left without needs: so the block's calls stay even for everyone
+== cocaine at the office party
+tier: everyday
+at: employer
+stages: young_adult adult
+age: 22-45
+calls: WB
+tone: mixed
+life: work, leisure, body
+horizon: moment
+roles: colleague, boss, partner
+earth: late at the office's year-end party, a senior colleague nods you towards the toilets and offers cocaine
+times: Uncommon: perhaps 1 in 10 office workers, once or twice, more in some trades (estimate); about 2 to 3 in 100 adults in England and Wales use cocaine in a year (ONS)
+gap: 6-12
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is late at the office's year-end party. {colleague} catches {Ns} eye, taps the side of their nose and nods towards the toilets.
+scene W: {N} signed the firm's code of conduct in the first week, and it says plainly what happens to anyone caught with drugs.
+scene U: {N} notices who comes back from the toilets talking too fast, and starts to see who belongs to which circle.
+scene B: {colleague} is close to {boss}, and the inner circle seems to form in that corridor. Saying yes would mean being one of them.
+scene R: The music is loud, the bar is free, and the night is nowhere near ready to end.
+scene G: These are the people {N} sees every working day. Tonight they look like strangers wearing their faces.
+- W | say a polite no, and stay in the main room until the taxis | v: conformity, security | chance: 82
+- U | decline, and watch with interest how the evening changes everyone | v: self-direction | chance: 86
+- B | go with them, because that corridor is where the real decisions get made | habit | v: power, achievement | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: law: illegal drugs, and a sacking offence; backfire: seen by the wrong person, and a disciplinary | law: drugs | chance: 80
+- R | grab the microphone and start the karaoke, so the party stays out here | v: hedonism | chance: 80
+- G | step outside into the cold and ring someone you love | v: benevolence, security | chance: 86
+- W>R | join in once, because this team does everything together | v: conformity, hedonism | self_control: - | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: law: illegal drugs, and a sacking offence; backfire: seen by the wrong person, and a disciplinary | law: drugs | chance: 76
+- U>G | say no with a reason everyone accepts: you are training for a marathon | v: security | chance: 72
+- B>W | threaten to report your colleague unless they stop offering it to the juniors | v: security, power | chance: 76
+- R>U | ask your colleague straight out why they need it to have fun | door | v: self-direction | chance: 76
+- G>B | let the night run its course, and be the clear-eyed one at the nine o'clock meeting | v: achievement | chance: 70
+works: Monday comes, and {N} walks into the office on easy terms with everyone.
+works: The party ends at two, and {N} gets home with nothing to regret by morning.
+fails: {N} spends Sunday with a racing heart and a dread that will not lift.
+fails: Someone saw, and by Monday it has reached {boss}.
+
+# ---------------------------------------------------------------- everyday: a swim past the buoys (calls BG, cycle s3)
+
+== a race to the rocks across the bay
+tier: everyday
+stages: young_adult adult
+age: 16-45
+calls: BG
+tone: mixed
+life: leisure, body, nature
+horizon: moment
+roles: friend, partner, a lifeguard
+earth: on a hot afternoon, friends dare each other to swim to the rocks across the bay, past the buoys and the warning flags
+times: Uncommon: perhaps 1 in 6 people, mostly young men, once or twice (estimate); most people who drown in UK waters are men (National Water Safety Forum)
+gap: 6-12
+share: .17
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is a hot afternoon at the beach. {friend} points at the rocks across the bay, far beyond the buoys, and says the last one there buys the drinks.
+scene W: The lifeguard has the warning flags up, and the sign says the current turns at this time of day. {N} has never once ignored a lifeguard.
+scene U: {N} watches the water. A calm, darker lane runs straight out from the shore where the waves do not break, and {N} knows what that means.
+scene B: {friend} has won every race this summer. {N} swims better than anyone thinks and would love to prove it.
+scene R: The sea is glittering, the sun is hot on {Ns} shoulders, and the cold water is calling.
+scene G: The tide is on the turn; {N} can feel it in the way the waves have changed. The sea has a mind of its own this afternoon.
+- W | stay between the flags, and swim there while the others go | v: conformity, security | chance: 82
+- U | swim well clear of the dark lane, and turn back at the first buoy | v: security, achievement | body: light | chance: 88
+- B | stay on the sand holding the bets, and keep the winnings | v: power | chance: 84
+- R | sprint into the waves and race them to the rocks | v: stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.005 | closed: approval: swimming outside the flags; backfire: the lifeguard's whistle, and a dressing-down | chance: 70
+- G | float on your back in the shallows, and let the tide decide | v: hedonism, universalism (nature) | chance: 90
+- W>R | borrow a float from the lifeguard hut without asking, and swim out with them | v: stimulation, security | mark: took a wild risk | body: heavy | closed: approval: taking the lifeguard's float; backfire: a dressing-down in front of the whole beach | self_control: - | chance: 70
+- U>G | explain the dark lane of water, and why today the sea is not for racing | v: universalism, benevolence | chance: 64
+- B>W | offer to buy everyone's drinks if they all stay in the shallows | v: security, benevolence | chance: 68
+- R>U | swim to the first buoy and back against the clock, to see how fast you are | habit | v: achievement, stimulation | body: light | self_control: + | chance: 80
+- G>B | wait for the tide to turn, then win the race with it at your back | v: achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.003 | closed: approval: swimming outside the flags; backfire: the lifeguard's whistle, and a dressing-down | chance: 62
+works: Everyone is back on the sand by teatime, salty, sunburnt and laughing.
+works: {N} comes out of the sea tingling all over, and the evening tastes better for it.
+fails: The current takes someone out past the rocks, and the lifeguard's boat goes roaring after them.
+fails: {N} swallows half the bay, and staggers out coughing and frightened.
+
+# ---------------------------------------------------------------- everyday: a pill at a festival (calls UG, cycle s2)
+
+== a pill offered in the festival crowd
+tier: everyday
+stages: young_adult adult
+age: 18-35
+calls: UG
+tone: mixed
+life: leisure, music, body
+horizon: moment
+roles: friend, partner, a stranger, stewards
+earth: deep in a festival crowd at night, a smiling stranger presses a pill into your hand
+times: Uncommon: perhaps 1 in 10 young adults, once or twice, mostly regular festival-goers (estimate)
+gap: 6-12
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The headliners are on, the crowd moves like one body, and a smiling stranger presses a pill into {Ns} hand. "Trust me," the stranger shouts over the bass.
+scene W: The festival rules are on every screen: no drugs, and the welfare tent is by the north gate. {friend} is somewhere near, and {N} said they would stick together.
+scene U: The pill is stamped with a little logo. Somewhere on this site there is a testing tent that could say what it really is.
+scene B: The stranger has a whole bag and is handing them out like samples. Free tonight usually means a price later.
+scene R: Fifty thousand people are singing the same line, the lights are pouring down, and the night wants to be bigger still.
+scene G: All these people swaying together under the dark sky feel like one tribe. Taking it would feel like joining in a very old kind of rite.
+- W | take it, because the whole group agreed to try one together this weekend | v: conformity | self_control: - | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: the medical tent, or the police | law: drugs | chance: 76
+- U | take it to the testing tent before deciding anything | door | v: security, self-direction | self_control: + | chance: 76
+- B | follow the stranger at a distance, to see who supplies the whole field | v: power, self-direction | chance: 74
+- R | hand it back, and dance at the front on nothing but the music | v: hedonism, stimulation | body: light | self_control: + | chance: 88
+- G | take it from the stranger's hand like a gift, the way the crowd shares everything | habit | v: universalism, hedonism | self_control: - | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: the medical tent, or the police | law: drugs | chance: 74
+- W>B | say no, because the new job starts with a drug test next month | v: security, achievement | chance: 74
+- U>R | let your friend take one first, and take one too only if they seem fine | v: stimulation, hedonism | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: approval: using a friend to test it; backfire: the friend has a bad night, and knows why | chance: 74
+- B>G | give it to the stranger's friends, and join their camp for the weekend | door | v: hedonism | chance: 76
+- R>W | chase after the stranger and shout at them to stop handing them out | identity | v: benevolence, universalism | mark: made an enemy | body: light | chance: 62
+- G>U | drop it in the grass, and watch the crowd until it makes sense | door | v: self-direction | chance: 76
+works: The night is everything it promised, and {N} watches the sun come up over the tents.
+works: {N} finds the group again at the flag they agreed on, and the weekend rolls on.
+fails: {N} ends up on a camp bed in the welfare tent, wrapped in foil, with a volunteer saying {Ns} name.
+fails: Security pulls {N} aside at the gate, and the weekend ends in a portable cabin.
+
+# ---------------------------------------------------------------- everyday: a climb beyond your skill (calls UR, cycle s4)
+
+== the last pitch as the weather turns
+tier: everyday
+stages: young_adult adult
+age: 18-45
+calls: UR
+tone: mixed
+life: leisure, body, nature
+horizon: moment
+roles: friend, partner, a mountain guide
+earth: halfway up a ridge beyond your skill, the summit is an hour away and the cloud is coming in
+times: Uncommon: perhaps 1 in 8 adults, mostly keen walkers and climbers, once or a few times (estimate)
+gap: 6-12
+share: .12
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Halfway up the ridge the rock turns slick and the cloud is coming in fast. The summit is an hour away, and {friend} is already reaching for the next hold.
+scene W: The guidebook says to turn back if the cloud comes down below the col, and it is below the col now. {N} wrote the turn-back time on the back of {Ns} hand this morning.
+scene U: {N} studies the map: the ridge narrows past the next tower, and the way down from the top needs clear weather to find.
+scene B: Three summers of planning went into this summit, and everyone in the club has done this ridge. Turning back means doing it all again next year.
+scene R: The wind is roaring, the drop on either side is enormous, and {Ns} whole body is singing.
+scene G: The mountain is closing in around them, grey and patient. It has been here a long time, and it will still be here next summer.
+- W | keep to the plan the whole party agreed at breakfast: the summit, then down | v: conformity | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 70
+- U | check the map and the forecast again, and pick the safer gully down | v: security | chance: 76
+- B | push on for the summit; three summers of planning are not to be wasted | v: achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 68
+- R | climb on into the cloud, whooping, and trust your hands | v: stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 66
+- G | climb on slowly, feeling for each hold, as the mountain allows | v: universalism (nature), security | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 66
+- W>G | rope everyone together, and lead the slowest down first | v: benevolence, security | body: heavy | chance: 76
+- U>W | radio your position to the rescue team, then go on with care | v: security | body: heavy | death_if_fails: 0.005 | chance: 70
+- B>U | pay the guided party ahead for a place on their rope | v: security, achievement | self_control: + | chance: 78
+- R>B | race your friend down the scree to settle who is faster | v: power, stimulation | body: heavy | chance: 80
+- G>R | drop off the ridge to the tarn below, and swim in it before the rain | v: hedonism, universalism (nature) | body: light | chance: 80
+works: Everyone is off the mountain by dusk, soaked, laughing and starving.
+works: The cloud lifts for a minute at the top, and {N} sees half the country spread out below.
+fails: Someone slips on the wet rock, and the day ends with a helicopter and a stretcher.
+fails: The cloud comes down thick, and they spend a long cold night lost on the hill.
+
+# ---------------------------------------------------------------- everyday: the car keys after drinks (calls WR, cycle s1)
+
+== the car keys after a few drinks
+tier: everyday
+at: police
+stages: young_adult adult
+age: 18-50
+calls: WR
+holds: driving licence
+tone: trouble
+life: leisure, body, law
+horizon: moment
+roles: friend, parent, the landlord, the police
+earth: the pub is closing, the car is outside, you have had a few, and home is twelve miles of country road away
+times: Many drivers who drink, now and then over the years; about 1 in 50 US adults drove after drinking too much in the past month (CDC 2011)
+gap: 3-6
+scene: The pub is closing. The car is in the car park, home is twelve miles of dark country road away, and {N} has had more than one.
+scene W: The law has a limit, and {N} has always kept to it. Tonight {N} honestly cannot say which side of it they are on.
+scene U: {N} counts back over the evening: when each drink was, how big, how long ago. The sum comes out differently every time.
+scene B: A taxi out here costs a fortune and takes an hour, and the car would have to be fetched in the morning anyway.
+scene R: {N} feels fine, the night is warm, and the road home is one {N} could drive with their eyes shut.
+scene G: {friend} is slurring a little and wants a lift. Outside, the lane is black between the hedges, and an owl is calling.
+- W | leave the car, phone for a taxi, and wait however long it takes | v: conformity, security | self_control: + | chance: 82
+- U | blow into the pub's breathalyser machine, and drive if it says yes | habit | v: security | self_control: - | mark: took a wild risk | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | closed: law: driving over the limit; backfire: the machine was wrong, and the police are not | chance: 76
+- B | sleep it off on the back seat, and drive home at first light | v: security | self_control: + | chance: 76
+- R | talk the landlord into a lock-in, and worry about the car tomorrow | v: hedonism | chance: 72
+- G | ask the landlord, an old friend, for the sofa in the back room | v: security, tradition | chance: 74
+- W>U | wait on water for as long as the rule of thumb says, then drive | v: security | suspends_if_fails: driving licence | for_years: 1 | chance: 70
+- U>B | drive, with mints and a story ready in case the police stop the car | v: security, power | self_control: - | mark: broke the law | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: the story does not hold up | chance: 76
+- B>R | take the back lanes where nobody checks, and be home in twenty minutes | habit | v: hedonism, self-direction | mark: broke the law | body: heavy | death_if_fails: 0.004 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: a crash, or a ban and a record | chance: 76
+- R>G | walk your friend home along the lanes, singing, however long it takes | v: benevolence, hedonism | body: light | self_control: + | chance: 80
+- G>W | ring home for a lift, however late, the way the family always said to | v: security, tradition | chance: 78
+works: {N} wakes up at home the next morning, and the night ends there.
+works: Everyone gets home safe, and by lunchtime the car is back where it belongs.
+fails: A police car pulls out behind {N} on the long straight by the reservoir, lights flashing.
+fails: No lift comes, the night turns cold, and it is nearly dawn before {N} gets home.
+
+# ---------------------------------------------------------------- life event: a friend who will not wake (pairs D2a)
+
+== a friend who will not wake up
+tier: life event
+stages: juvenile young_adult adult
+age: 15-35
+per_year: 0 .004 .008 .002 0 0
+drivers: ties+.2 era+.2 unrest+.2 community-.2 trouble+.1
+gap: 3-10
+times: estimate: about 4 in 1,000 teenagers, 8 in 1,000 young adults and 2 in 1,000 adults a year are the one who finds a friend they cannot wake after drink or drugs; the young carry most emergency visits for alcohol poisoning and overdose, and most of those brought in survive (NIAAA, CDC); about one or two in a hundred lives meet it more than once
+likelier: friends who drink hard or use drugs, house parties and festivals, a scene where nobody calls for help
+rarer: a sober circle, friends who look out for each other, a first-aid course
+tone: trouble
+life: friends, body, health
+horizon: moment
+roles: friend, parent, a paramedic, the police
+earth: at four in the morning after a night out, a friend on the sofa will not wake up however hard you shake them
+scene: It is four in the morning. {friend} is on the sofa, grey-faced and breathing strangely, and does not wake however hard {N} shakes them.
+scene W: There is a number for exactly this. {N} knows the rule: call first, ask questions later.
+scene U: {N} tries to think in order: breathing, colour, what was taken, how long ago. The facts are what will matter to whoever comes.
+scene B: There are drugs on the table and {Ns} name is on the lease. An ambulance might bring the police with it.
+scene R: {Ns} heart is hammering. {N} cannot just stand here; something has to be done, right now.
+scene G: {N} kneels by {friend} and holds a cold hand. They have known each other since they were small.
+- W | ring the emergency number at once, and do exactly what the operator says | v: benevolence, conformity | mark: helped someone in need | chance: 62
+- U | turn your friend on their side, watch the breathing, and call only if it worsens | v: security, benevolence | chance: 62
+- B | hide the drugs and clear the flat before ringing anyone | v: security, power | mark: hid a wrong | closed: law: hiding evidence, and a delay; backfire: the delay costs minutes that matter | chance: 64
+- R | haul your friend into a cold shower to shock them awake | v: benevolence | body: heavy | chance: 60
+- G | sit holding their hand, talking to them, until they stir | v: benevolence | closed: approval: not calling for help; backfire: they get worse, and everyone asks why nobody rang for help | chance: 66
+- WU | phone for an ambulance, and tell them exactly what was taken and when | v: benevolence, security | mark: owned up | chance: 74
+- WG | wake the neighbours, and get every grown-up in the building to help | v: benevolence | mark: helped someone in need | chance: 62
+- UR | flag down a taxi and get your friend to the hospital faster than any ambulance | v: benevolence | body: heavy | chance: 64
+- BR | run, before anyone can say you were there | v: security, self-direction | mark: refused someone in need | closed: approval: leaving a friend in danger; backfire: someone saw, and everyone knows | chance: 76
+- BG | ring your friend's family, and keep the doctors and the police out of it | v: security, tradition | mark: hid a wrong | closed: approval: keeping a friend in danger from the doctors; backfire: help comes late | chance: 60
+works: {friend} comes round in the end, grey and shaking, and alive.
+works: By the next afternoon {friend} is sitting up in a hospital bed, asking for toast.
+fails: {friend} spends three days in intensive care, and {N} spends them in the corridor.
+fails: The police come with the ambulance, and the questions go on until dawn.
+
+# ---------------------------------------------------------------- life event: painkillers after an injury (pairs D2b)
+
+# gate: an injury or an operation in the last year (a failed act with body: heavy, 'a serious accident or illness', 'an operation gives something back', 'an operation that makes things better', 'a fall at home')
+== the last week of the painkillers
+tier: life event
+at: hospital
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .004 .008 .01 .008
+drivers: health-.4 stress+.3 money-.2 era+.3 trouble+.15
+gap: 5-15
+times: estimate: about 4 in 1,000 young adults, 8 in 1,000 adults and 1 in 100 people from midlife on a year reach the end of a course of strong painkillers after an injury or an operation and still want them; about 6 in 100 people given opioids after surgery are still taking them three to six months later (Brummett 2017, JAMA Surgery), and prescribing has fallen since 2012 (CDC)
+likelier: a bad back, a sports injury or an operation, a doctor generous with prescriptions, stress, an era of easy pills
+rarer: a doctor who tapers early, physiotherapy and patience, a family that notices
+tone: trouble
+life: body, health
+horizon: months
+roles: a doctor, partner, friend, colleague, grandparent
+earth: weeks after a bad injury the pain is mostly gone, the prescription is nearly finished, and you still want the pills
+scene: The injury has mostly healed, and the bottle of painkillers is nearly empty. {N} counts what is left and feels a small, cold fear of the day it runs out.
+scene W: The label says how many and how often, and {N} has kept to it, mostly. The doctor said the course ends this week.
+scene U: {N} has started watching the clock: the hour before the next pill is the worst. {N} knows what that pattern means.
+scene B: {N} knows which doctor at the practice signs repeat prescriptions without asking questions.
+scene R: The pills take the edge off everything, not just the back. The week feels flat and grey without them.
+scene G: The body heals in its own time. {grandparent} used to say that pain is a messenger, not an enemy.
+- W | finish the course as written, and hand the leftovers back at the pharmacy | v: conformity, security | self_control: + | chance: 66
+- U | keep a diary of the cravings, and come off them on a plan you draw up | habit | v: self-direction, security | self_control: + | chance: 60
+- B | order more from an online pharmacy that asks no questions | habit | v: hedonism, security | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: law: prescription drugs without a prescription; backfire: the pills are fakes | self_control: - | law: drugs | tech: internet | chance: 66
+- R | buy more from a friend of a friend when the bottle runs out | habit | v: hedonism | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: pills bought on the street; backfire: the pills are not what they seem | self_control: - | law: drugs | chance: 70
+- G | let the pain come back, and go out walking with it every morning | habit | v: security, universalism (nature) | body: light | self_control: + | chance: 66
+- RG | bin the last pills, and go up into the hills to sweat it out | v: self-direction, universalism (nature) | body: heavy | self_control: + | chance: 52
+- UB | tell the other doctor a well-rehearsed story, for a new prescription | v: hedonism, security | mark: hid a wrong | closed: approval: lying to a doctor; backfire: the records are shared, and every prescription stops | self_control: - | chance: 66
+- UG | ask the physiotherapist about other ways to live with the pain | door | v: security, self-direction | mark: learned a skill | chance: 70
+- WB | sign up for the clinic's programme quietly, so nobody at work finds out | binds | v: security, achievement | self_control: + | chance: 58
+- WR | tell your partner or closest friend everything, and hand them the bottle | binds | v: benevolence, conformity | mark: owned up | chance: 66
+works: The last pill goes, the bad weeks pass, and {N} sleeps through a night again.
+works: {N} comes off them slowly, and one morning notices that the clock has stopped mattering.
+fails: The bottle runs out on a Friday, and the weekend is the longest of {Ns} life.
+fails: By the spring the pills are part of every day, and {N} has stopped counting.
+
+# ---------------------------------------------------------------- life event: a heart scare and the drink (triads of D4a)
+
+# gate: drinks heavily (a drinking act flagged habit chosen often in recent years, the pull of 'a craving that keeps calling'); never a lifelong non-drinker
+== a racing heart after a heavy weekend
+tier: life event
+at: hospital
+stages: adult mature elder
+age: 35-90
+per_year: 0 0 0 .002 .006 .008
+drivers: stress+.4 health-.4 money-.1 trouble+.15
+gap: 3-10
+times: estimate: about 2 in 1,000 adults, 6 in 1,000 people in midlife and 8 in 1,000 elders a year end up in hospital with a racing or stumbling heart after heavy drinking (the "holiday heart" of Ettinger 1978); atrial fibrillation rises steeply with age, and each daily drink raises the risk by about 8 in 100 (Kodama 2011, Journal of the American College of Cardiology)
+likelier: heavy weekends, high blood pressure, stress, a family history, age
+rarer: light drinking, fitness, a doctor seen regularly
+tone: trouble
+life: body, health
+horizon: months
+roles: a doctor, partner, friend, parent, child
+earth: on the Monday after a heavy weekend your heart starts racing and stumbling, and the hospital asks how much you drink
+scene: On the Monday after a long weekend of drinking, {Ns} heart starts racing and stumbling like a bird against a window. By noon {N} is on a trolley with wires on their chest, and a young doctor is asking how much {N} drinks.
+scene W: The doctor wants an honest number. {N} has always filled in forms truthfully, and the true number looks like a shock once it is written down.
+scene U: {N} watches the ragged trace on the monitor and wants to know exactly what is going on in there, and what the drink has to do with it.
+scene B: {N} knows the right number to give: low enough to sound sensible, high enough to be believed.
+scene R: {N} is frightened, and furious at being frightened. Life without the weekends would hardly be life.
+scene G: {parent} went the same way: a flushed face and a bad heart at sixty. {N} watches the screen and thinks of that.
+- W | give the doctor the true number, and sign up for the clinic | habit | v: conformity, security | mark: owned up | chance: 64
+- U | read everything on the heart and drink, and set your own strict limits | habit | v: self-direction, security | mark: learned a skill | self_control: + | chance: 64
+- B | give the doctor a lower number, and carry on as before at home | habit | v: hedonism, security | mark: hid a wrong | self_control: - | chance: 62
+- R | discharge yourself, go to the pub, and drink to being alive | v: hedonism, stimulation | mark: defied an authority | closed: approval: leaving against medical advice; backfire: the heart goes again, worse | self_control: - | chance: 68
+- G | stop drinking quietly, and spend the weekends out of doors instead | v: security, universalism (nature) | self_control: + | chance: 65
+- WUR | take on a dry year as a challenge, with a race at the end | binds | v: achievement, stimulation | self_control: + | chance: 50
+- WUB | follow the cardiologist's plan to the letter, with the best specialist money can buy | binds | v: security, achievement | self_control: + | chance: 70
+- WBG | tell the family, and agree a house rule: no drink in the house | v: security, tradition | self_control: + | chance: 60
+- URG | learn to cook properly, cycle to work, and let the body mend | habit | v: self-direction, security | body: light | chance: 62
+- BRG | decide that life is short, and keep the weekends exactly as they are | habit | v: hedonism, tradition (acceptance) | mark: took a wild risk | death_if_fails: 0.003 | self_control: - | chance: 55
+works: The heart settles into its old rhythm, and {N} goes home with a leaflet and a new resolve.
+works: Six months on, the trace on the screen is steady, and the doctor says so.
+fails: Two weeks later the heart stumbles again, and this time the ambulance comes to the house.
+fails: The weekends go on as before, and the pill boxes on the kitchen shelf multiply.
+
+# ---------------------------------------------------------------- life event: driving with failing eyes (triads of D4b)
+
+# gate: still drives: has('driving licence') (holds:) and has('car') or a household car
+== the cyclist at dusk
+tier: life event
+stages: mature elder
+age: 60-100
+per_year: 0 0 0 0 .005 .02
+drivers: health-.5 era+.1
+gap: 3-10
+holds: driving licence
+times: estimate: about 5 in 1,000 drivers in their sixties and 2 in 100 elders who still drive a year have a near miss they come to blame on their eyes; drivers with cataracts have about two and a half times the crash rate (Owsley 1999), and cataract surgery cuts it by about half (Owsley 2002, JAMA)
+likelier: cataracts or macular disease, driving at dusk and in rain, a home far from the buses, no one else to drive
+rarer: regular eye tests, a partner who drives, a town with good buses
+tone: trouble
+life: body, freedom
+horizon: months
+roles: child, partner, friend, a doctor, a stranger
+earth: driving home at dusk, a cyclist appears at your bonnet out of nowhere, and you brake just in time
+scene: At dusk on the ring road a cyclist appears at {Ns} bonnet as if out of nowhere. {N} stamps on the brake, the bike wobbles past, and the rider's shout carries through the closed window.
+scene W: Every few years the licence form asks whether {Ns} eyes meet the standard, and {N} has always ticked yes.
+scene U: {N} replays it: the cyclist had lights. They were there all along, and {Ns} eyes simply did not catch them.
+scene B: Without the car {N} would depend on others for every errand, every visit, every scrap of independence.
+scene R: {Ns} hands are shaking on the wheel, and {N} wants to roar at the cyclist, at the dark, at getting old.
+scene G: The light goes earlier every autumn, and lately {Ns} eyes seem to go with it.
+- W | report the near miss and your eyesight to the licensing office yourself | v: conformity, universalism | mark: owned up | takes: driving licence | chance: 70
+- U | book an eye test for the next morning, and find out exactly what is wrong | v: self-direction, security | chance: 82
+- B | say nothing, and stop driving after dark, so nobody need ever know | v: self-direction, security | mark: hid a wrong | chance: 76
+- R | shout after the cyclist, then drive on home as if nothing happened | v: self-direction | chance: 74
+- G | park the car, walk the last mile home, and leave the keys on the hook | v: security, tradition (acceptance) | body: light | chance: 74
+- WUG | have the cataract operation the optician has been urging for years | v: security | chance: 75
+- WRG | tell the family that night, and let them take the car keys | v: benevolence, security | chance: 80
+- WBR | sell the car the same week, and spend the money on taxis | v: self-direction, security | self_control: + | chance: 85
+- UBR | buy a car with every sensor and camera going, and keep on driving | v: self-direction, power | chance: 60
+- UBG | map who in the street drives where, and trade favours for lifts | binds | v: security, benevolence | mark: made a friend | chance: 65
+works: The fright passes, and {N} finds a way of getting about that frightens nobody.
+works: Within a month {N} has settled into a new routine, and sleeps better for it.
+fails: A month later {N} clips a parked van in the rain, and the questions start.
+fails: {N} sits in the kitchen turning the car keys over, and the house feels very small.
+
+# ---------------------------------------------------------------- life event: up the ladder (cross cycle s2)
+
+# gate: ~has('living in residential care'), and a house with gutters to clear (has('homeowner') or a rented house)
+== up the ladder to clear the gutters
+tier: life event
+stages: mature elder
+age: 55-100
+per_year: 0 0 0 0 .03 .05
+drivers: health-.3 money-.2 ties-.2
+gap: 2-5
+times: estimate: about 3 in 100 people in midlife and 5 in 100 elders a year face a job up a ladder they are no longer steady enough for; well over 100,000 people a year in the United States are treated in hospital after a fall from a ladder, and the old are the likeliest to be admitted or to die of it (D'Souza 2007, American Journal of Preventive Medicine)
+likelier: a house of one's own, living alone, little money for help, a lifetime of doing it oneself
+rarer: a flat, family or neighbours close by, money for a firm, a bad fall already
+tone: mixed
+life: home, body
+horizon: moment
+roles: child, neighbour, partner
+earth: autumn leaves have blocked the gutters again, the ladder is in the shed, and you are not as steady as you were
+scene: The gutters are full of leaves again and water is spilling down the front wall. The old ladder is in the shed, and {N} is not as steady on their feet as they were.
+scene W: {child} made {N} promise, after the last fall, never to go up a ladder alone again. The water keeps dripping all the same.
+scene U: {N} knows the angle a ladder should stand at and how to tie it off. Knowing it and doing it at this age are two different things.
+scene B: The firm that does gutters wants a day's wages for twenty minutes' work, and {N} did this job for forty years without paying anyone.
+scene R: It is a bright, cold morning, {N} feels good today, and the job would take ten minutes.
+scene G: Every autumn of {Ns} life the leaves have come down and someone has gone up to clear them. That someone was always {N}.
+- W | keep your promise, and ring a firm to do it properly | v: conformity, security | mark: kept your word | chance: 88
+- U | set the ladder at the right angle, tie it off, and go up slowly | v: self-direction, achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.005 | chance: 82
+- B | find someone at the pub who will do it for cash, no questions asked | v: security, power | chance: 74
+- R | nip up the ladder right now and get it done before anyone can fuss | v: self-direction, stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 72
+- G | go up as you have every autumn of your life, and trust your hands | habit | v: tradition | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 80
+- W>B | ask the council's handyman scheme for older people, which costs next to nothing | v: security, achievement | chance: 60
+- U>R | rig a pole and a hose to clear the gutter from the ground | v: self-direction | mark: learned a skill | chance: 68
+- B>G | guilt your grown child into coming over on Sunday to do it | v: security | chance: 76
+- R>W | bang on the neighbour's door and talk them into doing it today, for lunch | v: benevolence, security | chance: 74
+- G>U | watch where the water runs in the next storm, and learn what the house needs | v: self-direction | mark: learned a skill | chance: 70
+works: The gutters run clear by lunchtime, and the dripping stops.
+works: The job gets done, and {N} sits down with a cup of tea feeling about forty.
+fails: The ladder shifts on the wet path, and {N} ends up on the grass with a wrist that will not bend.
+fails: Weeks go by, the leaves stay put, and damp spreads across the front bedroom wall.
+
+# ---------------------------------------------------------------- echo: waking up in hospital (cycle s1)
+
+== waking up in hospital
+tier: echo
+at: hospital
+stages: juvenile+
+age: 12-110
+after: mark 'used drugs' or 'took a wild risk' on an act that failed (an overdose, a crash, a fall, a night that went wrong)
+delay: 0-1
+likelier: a heavy act (body: heavy) or one with death_if_fails; a failure far from help
+rarer: friends who stayed sober and called for help early; a light act
+tone: trouble
+life: body, health
+horizon: week
+roles: friend, parent, partner, a nurse, a doctor, the police
+earth: you wake up in a hospital bed with a drip in your arm, and slowly the night comes back to you
+times: Follows some failed risks: perhaps 1 in 4 nights that go badly wrong (an overdose, a crash, a fall) end in a hospital bed (estimate)
+scene: {N} wakes under strip lights with a drip in one arm and a plastic band on the wrist. Slowly, in pieces, it comes back: what happened, and how it went wrong.
+scene W: A nurse is going through a form at the end of the bed, asking the questions in order. {N} knows there are rules for what happens next, and honest answers are part of them.
+scene U: {N} reads the chart clipped to the bed before anyone comes, trying to work out what happened and how bad it was.
+scene B: {N} is already working out the story: what to say, to whom, and what nobody needs to know.
+scene R: {Ns} whole body aches, and the first feeling, before fear or shame, is a fierce, odd gladness to be alive.
+scene G: {friend} is asleep in the chair beside the bed, still in a coat, and must have been there all night.
+- W | tell the whole truth to anyone who asks, other people's names included | v: conformity, universalism | mark: owned up | closed: approval: naming the others; backfire: frozen out by the people named | chance: 80
+- U | read your own notes on the desk while nobody is looking | v: self-direction | closed: approval: reading files not meant for patients; backfire: a nurse catches it, and the doctors turn guarded | chance: 78
+- B | get the story straight before anyone else talks, and tell it first | v: security, power | chance: 72
+- R | pull out the drip and discharge yourself the moment you can stand | v: self-direction, stimulation | body: heavy | chance: 68
+- G | let the family close ranks round the bed, and answer nobody's questions | v: security, tradition | mark: hid a wrong | closed: approval: shutting out the people who need answers; backfire: the questions come back harder | chance: 76
+- W>U | sign up for the course the hospital offers people who come in this way | habit | door | v: self-direction | chance: 70
+- U>B | find out what anyone actually knows before saying a word | v: security, power | chance: 72
+- B>R | laugh it off with everyone, and start planning the next time | v: hedonism, stimulation | self_control: - | chance: 78
+- R>G | cry when the family walks in, and let them see how scared you were | v: benevolence, security | chance: 82
+- G>W | make a quiet vow at the bedside to change how you live | binds | v: tradition, conformity | self_control: + | chance: 74
+works: The doctors let {N} go home after two days, with a leaflet, a bruise and a great deal to think about.
+works: {N} walks out of the hospital into a bright, cold morning and breathes it in.
+fails: The doctor's face is serious: there is damage that will take months to heal.
+fails: On the third day the questions start: from the family, from work, and from people with forms.

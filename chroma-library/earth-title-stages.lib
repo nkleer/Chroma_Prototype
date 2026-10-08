@@ -1,0 +1,1172 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: TITLE STAGES. Generic moments that any holder of a kind of title meets (holds: kind:<kind>),
+# in three stages of tenure: new (tenure: 0-1), settled (2-7), senior or veteran (8-60). Emren's point 6 (2026-10-05 20:39):
+# "beginning of scout role can be different than senior/veteran scout. Event can allow players explore their title and perk
+# opportunities, or transition from the stage of title." Brief: drafts/next2/BRIEF.md. Syntax: header of build.py.
+# {title} stands for the held title's say form from the catalogue ("a nurse", "on the team", "married", "a parent"). Because
+# those forms mix nouns, phrases and adjectives, it is always written after "has been" or "have been", where every form reads.
+# drops: {title} on an option means the act ends whichever title of that kind is held (a note for the engine).
+# Calls: each of the ten pairs three times (every color called 12 times); cross cycles s1 x8, s2 x8, s3 x7, s4 x7.
+# Ages: careers, faith, partner and children are adult moments (18 and over); community moments start at 12 and are worded
+# for a teenager in a troop, a team or a band as much as for an adult on a committee.
+
+# ================================================================ CAREER (holds: kind:career)
+# ---------------------------------------------------------------- new: learning the ropes (calls UG, s1)
+
+== nobody wrote down how it is really done
+tier: everyday
+at: employer
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-72
+calls: UG
+holds: kind:career
+tenure: 0-1
+tone: mixed
+life: work
+horizon: months
+roles: colleague, boss, mentor
+earth: you have been {title} for a few weeks: the manual says one thing, and the people who have done it for years do another
+times: Nearly everyone new in a job, once per job, in the first weeks or months; US baby boomers held about 12 jobs between 18 and 54 (BLS NLSY79)
+scene: {N} has been {title} for two months and has learned that the training covered half the job. The other half lives in the heads of people who have done it for years.
+scene W: There is a handbook, a code and a right way, and {N} has read all of it. Nobody on the floor seems to work from it.
+scene U: {N} keeps a notebook in a back pocket: who knows what, which steps get skipped, what the manual never mentions. It fills up fast.
+scene B: {N} has already worked out who really runs the place, and it is not the name on the office door.
+scene R: {N} would rather get stuck in and learn by getting it wrong a few times than sit through another week of watching.
+scene G: {colleague} has done this work for twenty years and moves through it without hurrying, the way old hands do. {N} watches, and copies.
+- W | learn the handbook by heart and do every task exactly as it is written | habit | v: conformity, security | chance: 88
+- U | keep a notebook of every trick the old hands use, and test each one | v: achievement, self-direction | mark: learned a skill | chance: 85
+- B | make yourself useful to whoever really runs the place | v: power, security | grants: friend in power | chance: 75
+- R | take on the hardest job on the list before being signed off for it | v: stimulation, achievement | body: light | closed: approval: working beyond one's training; backfire: it goes wrong and the newcomer is taken off the floor | chance: 65
+- G | ask the oldest hand if you can work beside them for a season | door | v: tradition, benevolence | grants: mentor | mark: learned a skill | chance: 72
+- W>U | ask your supervisor for a proper training plan, with dates and sign-offs | v: self-direction, conformity | chance: 80
+- U>B | work out which parts of the job the managers actually check | v: achievement, power | chance: 82
+- B>R | skip the slow parts nobody checks and get to the parts you enjoy | habit | v: hedonism, stimulation | self_control: - | closed: approval: cutting corners in training; backfire: a skipped step goes wrong in front of a supervisor | chance: 80
+- R>G | go out with the crew after the shift, and mostly listen | habit | v: benevolence, hedonism | mark: made a friend | chance: 90
+- G>W | follow the crew's habit of skipping the slow safety step, as the old hands do | v: tradition, conformity | closed: law: skipping a safety rule; backfire: an inspection, or an injury | mark: gave in to pressure | chance: 75
+works: Within a month {N} can do the job without looking round for someone to ask.
+works: {colleague} starts calling {N} by a nickname, which on this floor means something.
+fails: {N} learns the wrong way first, and has to unlearn it in front of everyone.
+fails: The weeks blur, and {N} still feels like a visitor in someone else's workplace.
+
+# ---------------------------------------------------------------- new: the first mistake in front of others (calls WR, s2)
+
+== the first mistake with everyone watching
+tier: everyday
+at: employer
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-72
+calls: WR
+holds: kind:career
+tenure: 0-1
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, rival
+earth: you have been {title} for a few weeks when you make your first real mistake, and the whole place sees it
+times: Most people new in a job, once per job, in the first months; a first mistake in front of others is part of learning most jobs (estimate)
+scene: {N} has been {title} for six weeks when {N} gets something wrong in front of everyone, and the silence afterwards is the loudest thing in the room.
+scene W: {N} knows exactly which rule was broken, and that a newcomer is judged on what they do in the next hour.
+scene U: Even with every eye on {N}, part of {Ns} mind is already working out where the step went wrong, and why.
+scene B: {boss} saw it. So did {rival}, who wanted this job and did not get it.
+scene R: {Ns} face burns. The urge is to laugh it off, or walk out, or shout at whoever left the thing where it was.
+scene G: Everyone who has done this work for long has a first-mistake story. {N} has just been handed one.
+- W | own it at once, out loud, and put it right before anything else | v: conformity, benevolence | mark: owned up | self_control: + | chance: 82
+- U | write down exactly what happened and work out the cause before going to sleep | v: achievement, self-direction | chance: 90
+- B | let it be thought the mix-up came from the shift before | v: security, power | mark: hid a wrong | closed: approval: blaming others; backfire: the shift before has the log to prove otherwise | chance: 60
+- R | laugh at yourself before anyone else can, and carry straight on | v: hedonism, self-direction | act: laugh at themselves before anyone else can, and carry straight on | chance: 85
+- G | let the sting pass, and come in tomorrow as on any other day | v: tradition (acceptance), security | self_control: + | chance: 75
+- W>B | write the incident up so the record shows you followed procedure | v: security, power | closed: approval: shading an official record; backfire: the camera footage shows otherwise | chance: 60
+- U>R | find the fastest fix, then slip out before it turns into a meeting | v: hedonism, self-direction | self_control: - | chance: 75
+- B>G | bring cakes in next morning and let the mistake become a crew joke | v: benevolence, security | chance: 88
+- R>W | go straight to the person it affected and apologise to their face | v: benevolence, conformity | chance: 85
+- G>U | ask the oldest hand what their own first mistake was | door | v: tradition, self-direction | chance: 85
+works: By the end of the week it is a story, not a stain, and {N} is the one telling it.
+works: {boss} mentions it once, briefly, and seems to think better of {N} for how it was handled.
+fails: The mistake follows {N} around for weeks, brought up whenever anything else goes wrong.
+fails: A formal note goes on file, and {N} lies awake replaying the moment.
+
+# ---------------------------------------------------------------- settled: a chance to specialise or take on more (calls WB, s3)
+
+== the job could grow in two directions
+tier: everyday
+at: employer
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-75
+calls: WB
+holds: kind:career
+tenure: 2-7
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, mentor
+earth: you have been {title} for a few years, you are good at it, and the job could grow in more than one direction
+times: Many workers, once per job, two to seven years in; the median time with one employer is about 4 years in the US (BLS)
+scene: {N} has been {title} for four years and is good at it, and {boss} has asked what {N} wants next. There is more than one answer.
+scene W: A supervisor's post is opening: a desk, a rota to keep, other people's mistakes to answer for. {N} would do it properly.
+scene U: There is a corner of the work that nobody here truly understands, and {N} has been reading about it at night.
+scene B: {N} has a list of the customers, suppliers and people upstairs who now ask for {N} by name. That list is worth something.
+scene R: {N} could stay where the work is most fun, or blow it all up and go out alone.
+scene G: {mentor} once said a trade is like a tree: it grows taller or it grows wider, but it has to grow. {N} has been wondering which.
+- W | apply for the supervisor's post and do the training it asks for | identity | v: achievement, conformity | title: shift manager | requires: trusted with the keys | without: approval | lacking: .5 | chance: 30
+- U | study for the specialist qualification at night, for as long as it takes | habit | v: achievement, self-direction | mark: learned a skill | self_control: + | chance: 55
+- B | quietly build up your own clients, the kind who would follow anywhere | v: power, security | grants: loyal clientele | chance: 70
+- R | hand in your notice and set up a firm of your own | identity | v: self-direction, stimulation | title: founder of a firm | mark: took a wild risk | requires: savings | without: means | lacking: .4 | chance: 12
+- G | stay where you are, and grow deeper at what you already do well | v: tradition, security | chance: 80
+- W>R | ask in writing for a rota that leaves one weekday free each week | v: self-direction, hedonism | chance: 65
+- U>G | take on a trainee and teach them what took you years to learn | binds | v: benevolence, tradition | chance: 70
+- B>W | make sure you are the one trusted to open up and lock up | v: power, security | chance: 80
+- R>U | throw yourself at the hardest problem nobody else will touch | v: stimulation, achievement | self_control: + | chance: 70
+- G>B | let the people you have looked after for years spread your name | v: power, benevolence | chance: 45
+works: The new direction takes, and within a year the work has a shape that is plainly {Ns} own.
+works: {boss} agrees, and puts it in writing before anyone can change their mind.
+fails: The door {N} chose stays shut this round, and someone else walks through it.
+fails: {N} takes on more than the week can hold, and something important slips.
+
+# ---------------------------------------------------------------- settled: a plateau and a rival (calls UR, s4)
+
+== the colleague who started the same month
+tier: everyday
+at: employer
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-75
+calls: UR
+holds: kind:career
+tenure: 2-7
+tone: mixed
+life: work
+horizon: months
+roles: rival, boss, colleague, parent
+earth: you have been {title} for some years, the work runs on its own, and the person who started the same month as you is pulling ahead
+times: Many workers, once per job, a few years in, when a peer is promoted first; about 1 in 7 employees of US tech firms is promoted in a year (Pave)
+scene: {N} has been {title} for five years. The work runs itself now, and {rival}, who started the same month, has just been given the project {N} wanted.
+scene W: {N} has done everything asked, on time and properly, year after year. It is not clear that anyone has noticed.
+scene U: {N} can predict every working day before it happens. A mind the work used to stretch now idles through it.
+scene B: {rival} is not better at the job. {rival} is better at being seen doing it, and {N} has started taking notes.
+scene R: On the drive in, {N} catches {Ns} own face in the mirror and does not like how bored it looks.
+scene G: Every trade has its long flat stretch, {parent} used to say: the years when nothing shows above ground and the roots go down.
+- W | report the rival for the small rule they bend every week | v: conformity, power | closed: approval: informing on a colleague; backfire: the team finds out who told | chance: 70
+- U | teach yourself the skill the job will need in five years' time | habit | v: achievement, self-direction | mark: learned a skill | self_control: + | chance: 78
+- B | make sure the bosses know who really did the rival's best work | v: power, achievement | mark: made an enemy | chance: 65
+- R | apply for something completely different, just to feel the jolt | door | v: stimulation, self-direction | chance: 60
+- G | accept the flat years, and put your heart into the life outside work | v: tradition (acceptance), hedonism | chance: 75
+- W>G | offer to train the newcomers, as the old hands once trained you | v: benevolence, tradition | grants: teaching | act: offer to train the newcomers, as the old hands once trained them | chance: 82
+- U>W | write up the better way you have found and send it through proper channels | v: universalism, conformity | chance: 65
+- B>U | take the rival to lunch and find out exactly how they got ahead | door | v: achievement | chance: 85
+- R>B | tell the boss you want the next big project, or you will leave | v: power, self-direction | chance: 55
+- G>R | take the long holiday you have been saving up, and see how you feel after | v: hedonism | chance: 85
+works: Something shifts, a new piece of work or a new skill, and the days start to have edges again.
+works: {boss} sees it, and the next big job comes to {N} without being asked for.
+fails: The next project goes to {rival} as well, and the talk about it in the canteen is hard to sit through.
+fails: The flat stretch goes on, and {N} starts counting the months to the next change.
+
+# ---------------------------------------------------------------- senior: the old guard and the new ways (calls BG, s1)
+
+== the newcomers do it a new way
+tier: everyday
+at: employer
+rate: .5
+once: yes
+stages: young_adult+
+age: 26-80
+calls: BG
+holds: kind:career
+tenure: 8-60
+tone: mixed
+life: work
+horizon: months
+roles: colleague, boss, a trainee
+earth: you have been {title} for many years, the newcomers do the work a new way, and they look to you to bless it or block it
+times: About half of long-serving workers, once per job, after eight years or more; median tenure is nearly 10 years for US workers aged 55 to 64 (BLS)
+share: .5
+scene: {N} has been {title} for longer than the place has had its present shape. Now the newcomers do the work a new way, and they keep glancing at {N}.
+scene W: The old way had reasons, written in near-misses and complaints nobody else remembers. {N} remembers.
+scene U: The new method is faster on paper. {N} wants to see it on a bad day before deciding anything.
+scene B: Whoever decides which way stays will matter here for years. Right now that could be {N}, if {N} wants it.
+scene R: The newcomers are loud and quick and a little careless, and {N} catches {Ns} own younger self in them.
+scene G: Old ways and new ones have always gone round like this, {N} thinks; each new crop believes it invented the harvest.
+- W | report the newcomers' shortcuts to head office, by name | v: conformity, security | mark: made an enemy | closed: approval: going over the team's heads; backfire: the crew closes ranks against the old hand | chance: 65
+- U | run both methods side by side for a month and count the results | v: achievement, universalism | chance: 80
+- B | back the new way early, so you are the one who brought it in | v: power, achievement | grants: inner circle at work | chance: 75
+- R | tell the newcomers loudly that half their shortcuts will hurt someone | v: self-direction, security | closed: approval: shouting at junior staff; backfire: a complaint goes to personnel | chance: 80
+- G | let the new way prove itself or fail, as such things always have | v: tradition (acceptance) | chance: 65
+- W>U | write down everything the old way knows before it is lost | v: tradition, universalism | chance: 88
+- U>B | get into the new system's settings and quietly keep the old way running | v: power, security | closed: approval: tampering with a work system; backfire: an audit traces the change | mark: hid a wrong | chance: 60
+- B>R | take the redundancy money while it is generous, and go travelling | v: hedonism, self-direction | drops: {title} | chance: 85
+- R>G | take the youngest newcomer under your wing, mistakes and all | binds | v: benevolence | chance: 85
+- G>W | keep the old way for the jobs where it matters, and let go of the rest | v: security, tradition | chance: 72
+works: The work settles into a shape that keeps the best of both, and the newcomers start asking {N} first.
+works: Whatever {N} chose holds, and within a year nobody remembers there was a quarrel.
+fails: The newcomers go round {N}, and decisions start being made in rooms {N} is not in.
+fails: The change goes badly, and everyone remembers whose side {N} was on.
+
+# ---------------------------------------------------------------- senior: a last big chance, or handing over (calls BR, s2)
+
+== the biggest job of a career, late in the day
+tier: everyday
+at: employer
+rate: .5
+once: yes
+stages: young_adult+
+age: 30-80
+calls: BR
+holds: kind:career
+tenure: 8-60
+tone: mixed
+life: work
+horizon: years
+roles: boss, partner, mentor, colleague
+earth: you have been {title} for many years, and the biggest job of your career arrives just as you were starting to think about handing over
+times: Some long-serving workers, perhaps 1 in 4, once, late in a career; big late projects tend to go to the most experienced (estimate)
+share: .25
+scene: {N} has been {title} for many years when the biggest piece of work of a whole career is offered, just as {N} had started to think about handing over.
+scene W: {N} promised {partner} the hours would get shorter from now on. This would make them longer for two years at least.
+scene U: {N} knows more about this work than almost anyone. The question is whether that is still enough, at this age, at this pace.
+scene B: This is the one that would put {Ns} name on something for good. There will not be another offer like it.
+scene R: {N} feels a jolt of the old hunger, the one that pulled {N} into this work in the first place.
+scene G: {N} has trained half the people who could do it. Perhaps it is their turn, and {Ns} turn to watch from the side.
+- W | take it on, with a named successor working alongside from the first day | v: benevolence, conformity | chance: 70
+- U | take it, and write the method down as you go so it outlives you | v: achievement, universalism | act: take it, and write the method down along the way so it outlives them | chance: 75
+- B | ask for a stake in the firm as the price of doing it | binds | v: power, achievement | grants: stake in the firm | chance: 50
+- R | say yes on the spot, and throw every hour you have at it | binds | v: stimulation, achievement | chance: 70
+- G | turn it down, and recommend the best person you ever trained | v: benevolence, tradition | mark: turned down a chance | chance: 85
+- W>B | accept, on condition that the credit carries your name in writing | v: power, security | grants: name in the field | chance: 70
+- U>R | work out a way to do it part time, from home, on your own hours | v: self-direction | chance: 60
+- B>G | take it, and put every penny towards a place by the sea for later | v: security, hedonism | grants: place by the sea | chance: 65
+- R>W | say plainly that you are done being {title}, and hand over your work | v: self-direction, benevolence | drops: {title} | takes: trusted with the keys | chance: 90
+- G>U | ask your old mentor what they wish they had done at your age | v: tradition, self-direction | chance: 75
+works: The choice sits well, and a year on {N} can say why it was the right one.
+works: The work, or the handing over, goes better than {N} feared, and people say so.
+fails: {N} chooses, and spends months wondering about the other road.
+fails: The pace is too much, and by winter {Ns} body is keeping the score.
+
+# ================================================================ COMMUNITY (holds: kind:community; from 12, for teenagers and adults)
+# ---------------------------------------------------------------- new: finding who to trust (calls WB, s3)
+
+== the pecking order nobody mentions
+tier: everyday
+rate: 2
+once: yes
+stages: juvenile+
+age: 12-85
+calls: WB
+holds: kind:community
+tenure: 0-1
+tone: mixed
+life: community, friends
+horizon: months
+roles: friend, rival, elder
+earth: you have been {title} for a few weeks, and the group has rules nobody wrote down and a pecking order nobody mentions
+times: Nearly everyone who joins a club, team or group, once per group, in the first weeks; about 1 in 4 US adults volunteers through an organisation (AmeriCorps)
+scene: {N} has been {title} for a few weeks and has worked out that the group has a pecking order nobody mentions and rules nobody wrote down.
+scene W: There is a right way to belong here, and {N} can feel it: where to stand, when to speak, who goes first. {N} wants to learn it properly.
+scene U: {N} watches who talks to whom, who gets listened to and who gets quietly talked over, and draws a map of it in {Ns} head.
+scene B: Two people really run this group, and they do not like each other. Whoever {N} sides with first will decide a great deal.
+scene R: {N} does not care about the pecking order. {N} came for the thing itself and wants to get on with it.
+scene G: The group is older than any of its members. {N} can feel the habits of people long gone in the way things are done.
+- W | learn the group's ways and keep to them, even the ones that seem odd | v: conformity, tradition | chance: 80
+- U | read back through the group's old messages and minutes without asking anyone | v: self-direction, security | closed: approval: reading what was not meant for newcomers; backfire: someone notices, and the nickname 'snoop' sticks | chance: 80
+- B | attach yourself to whichever of the two leaders looks likely to win | v: power, security | chance: 70
+- R | ignore the pecking order and say what you think from the first week | identity | v: self-direction, stimulation | chance: 65
+- G | sit back for a season and let the group get used to you | v: tradition (humility), security | act: sit back for a season and let the group get used to them | chance: 75
+- W>R | ask the leaders to set the rules out plainly, so newcomers can just get on | v: self-direction, universalism | chance: 55
+- U>G | find out the group's history and the stories behind its odd habits | door | v: tradition, self-direction | chance: 80
+- B>W | offer to do the dull jobs nobody wants, in return for a say | v: power, conformity | chance: 80
+- R>U | try every part of what the group does in your first month | v: stimulation, self-direction | chance: 80
+- G>B | stick close to the friend who brought you in, and grow your corner together | v: security, power | mark: made a friend | act: stick close to the friend who brought them in, and grow their corner together | chance: 75
+works: By the end of the season {N} knows where to stand, and someone saves {N} a place.
+works: One of the old members starts telling {N} things the newer ones never hear.
+fails: {N} steps on the wrong toes early, and it takes months to live down.
+fails: {N} still feels like the newest face in the room long after that should have worn off.
+
+# ---------------------------------------------------------------- new: the first time it feels like yours (calls RG, s4)
+
+== the first time the group counts on you
+tier: everyday
+rate: 2
+once: yes
+stages: juvenile+
+age: 12-85
+calls: RG
+holds: kind:community
+tenure: 0-1
+tone: joy
+life: community, friends
+horizon: moment
+roles: friend, rival, elder
+earth: you have been {title} for less than a year when someone is missing on the big day, and the group turns to you
+times: Most new members of a group, once per group, within the first year; groups lean on whoever is there on the day (estimate)
+scene: {N} has been {title} for less than a year, and today, on the big day, someone is missing and every face turns to {N}.
+scene W: {N} knows the drill, at least on paper, and the group needs someone to do it right. This is what joining meant.
+scene U: {N} runs through it in {Ns} head: the order, the timing, the one part that always goes wrong. There are ten minutes left.
+scene B: Whoever steps up today will not be the new one any more. {N} can see {rival} thinking the same thing.
+scene R: {Ns} heart is pounding and {N} is grinning. This is exactly the moment {N} joined for.
+scene G: The group has always found someone when it needed one, the way a flock closes a gap. Today the gap is {Ns} shape.
+- W | step in and do it exactly the way it has been practised | v: conformity, benevolence | chance: 75
+- U | take two minutes to check the plan with the person who usually does it | v: achievement, security | chance: 80
+- B | step in, and make sure the leaders know who saved the day | v: power, achievement | chance: 75
+- R | throw yourself in and trust the moment to carry you | v: stimulation | act: throw themselves in and trust the moment to carry them | chance: 72
+- G | step back and let someone longer in the group take it | v: tradition (humility) | mark: turned down a chance | chance: 88
+- W>G | gather everyone first and agree who does what, so nobody is left out | v: benevolence, universalism | chance: 75
+- U>W | spot the gap in the plan nobody else has seen, and fix it quietly | v: security, achievement | chance: 60
+- B>U | let the keenest rival take the hard part, and learn by watching | v: achievement | chance: 90
+- R>B | talk over the doubters and take the lead before anyone else can | v: power, stimulation | mark: made an enemy | chance: 65
+- G>R | trust your gut over the plan when the moment comes | v: self-direction, stimulation | chance: 55
+works: It goes well, better than well, and for the first time {N} walks home feeling the group is {Ns} own.
+works: Someone who has been {title} for years claps {N} on the shoulder and says nothing, which says everything.
+fails: It goes wrong in front of everyone, and {N} goes home wishing the floor had opened.
+fails: Someone else saves the day in the end, and {N} is left standing to one side.
+
+# ---------------------------------------------------------------- settled: taking on more (calls WU, s1)
+
+== the job in the group nobody else wants
+tier: everyday
+rate: 1
+once: yes
+stages: juvenile+
+age: 12-88
+calls: WU
+holds: kind:community
+tenure: 2-7
+tone: mixed
+life: community
+horizon: years
+roles: elder, friend, rival
+earth: you have been {title} for a few years, the group needs someone to take on more, and everyone else is looking at their shoes
+times: Many members, once per group, two to seven years in, when an organiser steps down; in most groups a small core does most of the work (estimate)
+scene: {N} has been {title} for three years, and at the end of the meeting the old organiser says they cannot carry on. Everyone else looks at their shoes.
+scene W: Someone has to keep the list, book the hall, mind the money and answer the messages. {N} has always believed that someone should be whoever is asked.
+scene U: {N} has seen how the records are kept and the rota is run, and already knows three ways to do it better.
+scene B: Whoever does the organising decides who plays, who goes and who waits. That is a kind of power, small as it is.
+scene R: {N} joined for the fun of it. Turning it into lists and messages feels like a small death.
+scene G: {elder} kept this group alive for twenty years and is tired now. Somebody has to take the weight, or it withers.
+- W | say yes, and take on the organising from next week | v: benevolence, conformity | grants: organising people | chance: 45
+- U | offer to sort out the records and the money, and nothing else | v: achievement, security | grants: bookkeeping | chance: 80
+- B | take the organising on, and fill the main jobs with your own friends | v: power | chance: 75
+- R | say no plainly: you came to take part, not to run things | v: self-direction, hedonism | chance: 82
+- G | share the work out among the old hands so no one carries it alone | v: benevolence, tradition | chance: 65
+- W>U | take the first-aid course the group has needed for years | door | v: benevolence, achievement | grants: first-aid certificate | chance: 85
+- U>B | plan a new way of raising money that leaves you in charge of it | v: power, achievement | chance: 60
+- B>R | agree to run things only if you get the best spot as well | v: power, hedonism | chance: 60
+- R>G | throw a party to bring back the members who drifted away | v: benevolence, hedonism | chance: 72
+- G>W | ask the oldest member to stay on as an adviser while you learn | v: tradition, security | grants: mentor | chance: 80
+works: The group comes through the change, and by the end of the year {N} is the one people message with questions.
+works: The work turns out to suit {N}, and the group is in better shape than it has been for years.
+fails: The work piles up faster than {N} can clear it, and a few members drift away.
+fails: An argument over who should have done it splits the group for a season.
+
+# ---------------------------------------------------------------- settled: a rival (calls BR, s2)
+
+== a newcomer gets the place you were waiting for
+tier: everyday
+rate: 1
+once: yes
+stages: juvenile+
+age: 12-88
+calls: BR
+holds: kind:community
+tenure: 2-7
+tone: trouble
+life: community, friends
+horizon: months
+roles: rival, elder, friend, grandparent
+earth: you have been {title} for a few years, and a newcomer is given the place, the part or the role you had been waiting your turn for
+times: Many members, once per group, a few years in; roles in most groups go by more than length of service (estimate)
+scene: {N} has been {title} for four years and waited patiently. This season the place {N} wanted has gone to {rival}, who joined last spring.
+scene W: There was meant to be an order to these things: wait, serve, and the turn comes. Someone has skipped it.
+scene U: {N} wants to know what {rival} has that {N} does not, and whether it can be learned.
+scene B: {rival} is good, and the leaders like a fresh face. {N} has been taken for granted, and knows it.
+scene R: {N} sits through the announcement with a polite face and a burning chest.
+scene G: Seasons turn in every group, {grandparent} used to say: some years it is one person's turn, some years another's.
+- W | ask the leaders, privately and politely, how the choice was made | v: conformity, security | chance: 80
+- U | watch the newcomer closely for a month and work out what they do better | v: achievement, self-direction | mark: learned a skill | chance: 75
+- B | let it be known around the group that the newcomer is the leaders' pet | v: power | mark: made an enemy | chance: 70
+- R | leave for another group where nobody makes you wait | v: self-direction | drops: {title} | act: leave for another group where nobody makes them wait | chance: 75
+- G | congratulate the newcomer, and wait for your season to come round | v: tradition (patience), benevolence | self_control: + | chance: 70
+- W>B | ask for a fair trial for the place next season, in front of everyone | v: achievement, power | chance: 55
+- U>R | practise on your own every day until you are plainly better | habit | v: achievement, stimulation | self_control: + | chance: 60
+- B>G | make a friend of the newcomer, and make the two of you the group's core | v: power, benevolence | mark: made a friend | chance: 70
+- R>W | stand up at the next meeting and say plainly that it was unfair | v: universalism | mark: defied an authority | chance: 55
+- G>U | ask the oldest member whether this has happened before, and how it ended | v: tradition | chance: 85
+works: By the next season the bitterness has gone, and {N} has a place that fits.
+works: The leaders think again, and {N} gets a turn after all.
+fails: The rift with {rival} hardens, and the group starts to feel like two camps.
+fails: Nothing changes, and {N} spends the season on the edge of things.
+
+# ---------------------------------------------------------------- senior: the old guard against new ways (calls UG, s3)
+
+== the newer members want to change how it is done
+tier: everyday
+rate: .5
+once: yes
+stages: juvenile+
+age: 14-90
+calls: UG
+holds: kind:community
+tenure: 8-60
+tone: mixed
+life: community
+horizon: months
+roles: elder, rival, friend
+earth: you have been {title} for many years, and the newer members want to change the way the group has always done things
+times: Most long-standing members, once per group, after eight years or more; newer members push for change in most groups that last (estimate)
+scene: {N} has been {title} longer than almost anyone left, and the newer members want to change the way things have always been done.
+scene W: The old ways were agreed, argued over and agreed again, long before the newcomers arrived. {N} feels answerable for them.
+scene U: Some of the new ideas are good, and some are the same bad ideas {N} watched fail years ago under other names.
+scene B: The newcomers outnumber the old hands now. Whoever leads the change will lead the group.
+scene R: Part of {N} is delighted. The group has been stuck in a rut for years, and somebody finally wants to shake it.
+scene G: The group is like an old hedge: it needs cutting back, not pulling up by the roots.
+- W | insist that only members of long standing may vote on the change | identity | v: conformity, tradition | closed: approval: changing the rules to win; backfire: the newer members walk out | chance: 60
+- U | dig out the old records and show which changes were tried before | v: universalism, security | chance: 70
+- B | lead the change yourself, so it goes the way you want | v: power | grants: not to be crossed | chance: 60
+- R | throw your weight behind the newcomers and enjoy the shake-up | v: stimulation, self-direction | chance: 80
+- G | keep the one or two old customs that matter most, and let the rest go | v: tradition | chance: 65
+- W>R | propose a trial season with the new ways, and an honest look at the end | v: self-direction, universalism | chance: 75
+- U>G | write down the group's story before the old ways are gone | v: tradition | chance: 80
+- B>W | quietly fill the next meeting with old hands to block it | v: power, tradition | closed: approval: rigging a meeting; backfire: the newer members find out and leave | chance: 65
+- R>U | go along to one of the newcomers' own gatherings and see what they love | door | v: stimulation, universalism | chance: 78
+- G>B | keep the newcomers off the old jobs until they have served their years | v: power, tradition | closed: approval: shutting newer members out; backfire: they complain, and the old hands are told to make room | mark: made an enemy | chance: 60
+works: The group finds a new shape, and the best of the old one survives inside it.
+works: Old hands and newcomers end the season at one table, arguing about something else.
+fails: The group splits, and half the old faces stop coming.
+fails: The change goes through over {Ns} head, and {N} feels like a guest in a group {N} helped build.
+
+# ---------------------------------------------------------------- senior: handing over, someone new to train (calls WR, s4); 18 and over, so the five
+# community moments open to teenagers call every color twice
+
+== someone has to carry it on after you
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 18-90
+calls: WR
+holds: kind:community
+tenure: 8-60
+tone: mixed
+life: community
+horizon: years
+roles: friend, elder, a newcomer
+earth: you have been {title} for many years, you are one of the oldest hands, and it is time to think about who carries it on
+times: Many long-standing members, once per group, after many years; most long-lived groups pass their roles to younger members in time (estimate)
+scene: {N} has been {title} for many years and is one of the oldest hands in the group, and a keen younger member keeps watching how {N} does everything.
+scene W: Groups last because each generation hands on to the next. {N} has never yet trained anyone properly, and feels the duty of it.
+scene U: Everything {N} knows about the group lives in {Ns} head, and almost none of it is written down.
+scene B: {N} has a standing here that took years to earn. Handing it on means giving it away.
+scene R: {N} still loves it, every minute, and is not ready to stand at the side and clap.
+scene G: Every year the young ones come in like spring growth. {N} has been the old wood for a while now.
+- W | take the keen younger member under your wing and teach them everything | v: benevolence, tradition | chance: 80
+- U | write a guide to how everything really works, for whoever comes next | v: universalism, benevolence | chance: 75
+- B | stay at the centre, and let the young one wait their turn as you did | v: power, security | act: stay at the centre, and let the young one wait their turn as they once did | chance: 80
+- R | give it everything for one last great season, then go out on a high | v: stimulation, achievement | body: light | self_control: + | chance: 80
+- G | keep turning up, and let your part shrink as the young ones grow | v: tradition | chance: 80
+- W>G | hand over your role at a proper send-off, with everyone there | v: tradition, benevolence | drops: {title} | takes: trusted with the keys | chance: 75
+- U>W | draw up a plan for the handover and put it to the whole group | v: security, conformity | chance: 75
+- B>U | teach the young one in return for being shown the new tools | v: achievement, self-direction | mark: learned a skill | chance: 80
+- R>B | tell the group bluntly that you will lead it, or leave it | v: power | chance: 65
+- G>R | leave the running to others and go back to simply enjoying it | v: hedonism | self_control: - | chance: 80
+works: The group carries on, a little different and plainly alive, and {N} can see {Ns} own hand in it.
+works: The young one does it well, and asks {N} for advice for years afterwards.
+fails: The handover goes badly, and the group stumbles through its next season.
+fails: {N} hangs on too long, or lets go too fast, and both sides feel it.
+
+# ================================================================ FAITH (holds: kind:faith; worship, causes and parties alike)
+# ---------------------------------------------------------------- new: learning the ropes (calls WU, s1)
+
+== the words everyone else already knows
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-90
+calls: WU
+holds: kind:faith
+tenure: 0-1
+tone: mixed
+life: faith, community
+horizon: months
+roles: elder, friend, mentor
+earth: you have been {title} for a few months, and everyone around you knows the words, the gestures and the reasons, while you are still learning them
+times: Nearly everyone who joins a faith as an adult, once, in the first months; about a third of US adults have left the religion they were raised in, for another or for none (Pew)
+scene: {N} has been {title} for a few months, and at every gathering the others know the words, the gestures and the reasons by heart while {N} is a beat behind.
+scene W: There is a right way to do this, handed down with care, and {N} wants to do it properly, not just look as if {N} belongs.
+scene U: {N} keeps asking why: why this word, this order, this rule. Some of the answers are deep, and some are only habit.
+scene B: {N} notices who is listened to here, and how they talk. Belief has its own pecking order.
+scene R: What brought {N} here was a feeling, sudden and strong. The rules and the jargon keep getting in its way.
+scene G: The others say the words without thinking, the way people speak the language they grew up in. {N} wants that ease.
+- W | learn the words and the forms properly, and keep them faithfully | habit | v: tradition, conformity | chance: 80
+- U | read the founding texts for yourself, from beginning to end | v: self-direction, universalism | mark: learned a skill | chance: 80
+- B | model yourself on the person everyone listens to | v: power, achievement | chance: 80
+- R | keep coming for the feeling, and skip the parts that leave you cold | habit | v: hedonism, self-direction | act: keep coming for the feeling, and skip the parts that leave them cold | chance: 88
+- G | stop studying it and just turn up, until it soaks in | v: tradition (patience) | chance: 75
+- W>U | ask for proper instruction from whoever is appointed to teach newcomers | door | v: tradition, conformity | grants: mentor | chance: 75
+- U>B | learn the inner arguments well enough to hold your own with the leaders | v: power, achievement | chance: 65
+- B>R | pretend to know more than you do, to be let into the exciting part sooner | v: stimulation, power | act: pretend to know more than they do, to be let into the exciting part sooner | chance: 65
+- R>G | throw yourself into the next gathering with your whole heart, and see who you meet | v: benevolence, stimulation | chance: 80
+- G>W | sit with the same old couple every week, and do what they do | habit | v: tradition, conformity | chance: 85
+works: One day {N} says the words without thinking, and realises they have become {Ns} own.
+works: {elder} takes {N} aside and explains the one thing the books never say.
+fails: {N} gets the forms wrong in front of everyone, and the kindness that follows stings worse than a scolding.
+fails: The words stay foreign, and {N} wonders whether this was a mistake.
+
+# ---------------------------------------------------------------- new: finding who to trust (calls UB, s2)
+
+== a welcome that feels too warm
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-90
+calls: UB
+holds: kind:faith
+tenure: 0-1
+tone: mixed
+life: faith, friends
+horizon: months
+roles: elder, friend, rival
+earth: you have been {title} for less than a year, one of the old hands is very warm towards you, and you cannot yet tell what they want
+times: Many newcomers to a faith group, once, in the first year; most groups have members eager to draw newcomers in (estimate)
+scene: {N} has been {title} for less than a year. One of the long-standing members has been very warm, very fast, and {N} cannot yet tell what they want.
+scene W: {N} wants to trust the people here; that is half the point of belonging to something. But trust should be earned.
+scene U: The warmth comes with a lot of questions, about {Ns} work, {Ns} money, {Ns} family. {N} has started keeping track of them.
+scene B: Maybe this person wants something. Maybe {N} could use that: a friend near the top is worth a great deal.
+scene R: {N} simply likes them, the way people sometimes like someone at once. Why should it be more complicated than that?
+scene G: {elder}, who has been here for decades, watches the two of them with a look {N} cannot read.
+- W | treat everyone alike, and wait to see who keeps faith over time | v: universalism, conformity | chance: 72
+- U | ask around quietly about this person's history in the group | v: security | chance: 80
+- B | accept the friendship and see which doors it opens | door | v: power | grants: friend in power | chance: 70
+- R | ask them to their face what they are after | v: self-direction | chance: 70
+- G | stay with the quiet, steady members, and let time show who is who | v: tradition, security | mark: made a friend | chance: 75
+- W>B | tell the leaders about the questions, so it is on record | v: security | chance: 70
+- U>R | play along for a while to see where it goes, and keep your eyes open | v: stimulation, security | chance: 75
+- B>G | give the warm one the small favours they ask, to keep your place | v: security, conformity | chance: 80
+- R>W | warn the other newcomers about what you have noticed | v: benevolence, universalism | chance: 70
+- G>U | ask the oldest member what they make of it, and listen to the silences too | v: tradition | chance: 82
+works: Time shows who is who, and {N} ends the year with one friend here worth keeping.
+works: The warmth turns out to be just warmth, and {N} is glad not to have pushed it away.
+fails: {N} trusts the wrong person, and learns it in a way that is hard to forget.
+fails: Suspicion sours the first year, and {N} never quite settles among them.
+
+# ---------------------------------------------------------------- settled: taking on more, the keys within reach (calls BG, s3)
+
+== the keys to the meeting hall
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 18-95
+calls: BG
+holds: kind:faith
+tenure: 2-7
+tone: mixed
+life: faith, community
+horizon: years
+roles: elder, friend, rival
+earth: you have been {title} for a few years, and you are asked to take on more: a set of keys, a class to teach, a seat on the committee
+times: Many regular members of a faith group, once, a few years in; congregations run on volunteers drawn from their regulars (estimate)
+scene: {N} has been {title} for four years, and after the gathering {elder} presses a set of keys into {Ns} hand and asks whether {N} would take on more.
+scene W: Being trusted with the keys means being trusted with the people. {N} feels the weight of it, and the honour.
+scene U: The work would mean learning the whole thing from the inside: the money, the rules, the arguments nobody airs in public.
+scene B: The people with keys are the people who decide things. {N} has noticed that for a while.
+scene R: {N} came for the fire of it, not to stack chairs and count the takings. Or perhaps this is how the fire is kept.
+scene G: {elder} took the keys from someone older, who took them from someone older still. They are worn smooth with hands.
+- W | accept the keys and every duty that comes with them | binds | v: benevolence, tradition | grants: trusted with the keys | chance: 80
+- U | offer to teach the newcomers, and prepare every session properly | v: benevolence, achievement | chance: 80
+- B | take the keys, and borrow from the funds when money is tight | v: security, power | mark: hid a wrong | closed: law: taking money held in trust; backfire: the books are checked and it comes out | chance: 70
+- R | say no: you came for the belief, not the chores | v: self-direction | mark: turned down a chance | chance: 90
+- G | take the keys, and keep everything just as it has always been kept | binds | v: tradition | chance: 75
+- W>R | accept, but agree in writing which evenings stay free | v: self-direction, conformity | chance: 75
+- U>G | learn the group's history and become the one who keeps its memory | v: tradition | grants: the one everyone asks | chance: 70
+- B>W | take on the accounts and keep them spotless, so nobody can question a penny | v: security, power | grants: bookkeeping | self_control: + | chance: 85
+- R>U | say yes, and try a new idea at every gathering to see what works | v: stimulation, self-direction | chance: 65
+- G>B | let your circle of friends draw new people in, and grow the group | v: power, benevolence | grants: good name in town | chance: 60
+works: {N} takes up the work, and within a year it is hard to picture the place without {N} in it.
+works: The trust turns out to be deserved, and {elder} says so in front of everyone.
+fails: The extra work eats into everything else, and the belief itself starts to feel like a chore.
+fails: A quarrel over how {N} does things splits the committee, and it lands on {N}.
+
+# ---------------------------------------------------------------- settled: a plateau, the dry season (calls UR, s4)
+
+== when believing goes quiet for a while
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 18-95
+calls: UR
+holds: kind:faith
+tenure: 2-7
+tone: trouble
+life: faith
+horizon: months
+roles: elder, friend, partner, grandparent
+earth: you have been {title} for some years, the feeling that brought you in has gone quiet, and you keep turning up anyway
+times: Many believers, once, some years in, when faith goes quiet and they keep coming anyway; dry spells are widely reported (estimate)
+scene: {N} has been {title} for five years. The fire that brought {N} in has gone quiet, and {N} keeps turning up out of something that is not quite habit and not quite faith.
+scene W: {N} made a commitment, and commitments are kept in the dry seasons too. That is what makes them commitments.
+scene U: {N} has started noticing contradictions that never bothered {N} before, and keeps a list of them in a notebook.
+scene B: The people at the top seem to get more out of this than {N} does. {N} has started to wonder what {N} is getting.
+scene R: {N} misses the feeling more than the belief: the rush, the singing or the marching, the sense of being swept up.
+scene G: Even a deep well has a low season, {grandparent} used to say, and the bucket waits for the rain.
+- W | keep every commitment through the dry season, without complaint | habit | v: tradition, conformity | self_control: + | mark: kept your word | chance: 70
+- U | write down every doubt, and follow the questions wherever they lead | identity | v: self-direction, universalism | title: seeker | chance: 65
+- B | give less of your time until it gives you more back | v: power, self-direction | act: give less of their time until it gives them more back | chance: 85
+- R | go on a pilgrimage or a long march, somewhere new, to feel it again | door | v: stimulation | body: light | title: seeker | chance: 70
+- G | let it be quiet, and wait without forcing anything | v: tradition (acceptance) | chance: 60
+- W>G | take on a small regular service for others, and let that carry you | v: benevolence | act: take on a small regular service for others, and let that carry them | chance: 75
+- U>W | read the critics' best case, then write down what you still believe | v: self-direction, universalism | chance: 75
+- B>U | look into what the leaders really do with the money and the power | v: security, universalism | chance: 65
+- R>B | tell the leaders the gatherings have gone dull, and demand something better | v: self-direction, power | chance: 50
+- G>R | stop going for a season, and see whether you miss it | v: self-direction, hedonism | drops: {title} | chance: 80
+works: Something stirs again, quieter than before and harder to shake.
+works: {N} comes through the dry season knowing more surely why {N} is still there.
+fails: The quiet hardens into distance, and {N} goes to fewer and fewer gatherings.
+fails: Doubts said aloud cost {N} a friend or two among the others.
+
+# ---------------------------------------------------------------- senior: the old guard against new ways (calls WG, s1)
+
+== new voices at the old gatherings
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 26-100
+calls: WG
+holds: kind:faith
+tenure: 8-60
+tone: mixed
+life: faith, community
+horizon: months
+roles: elder, friend, rival, a newcomer
+earth: you have been {title} for many years, and the newer members want new words, new music and new ways, and they look at you
+times: Most long-standing members of a faith group, once, after many years; newer members want new words and music (estimate)
+scene: {N} has been {title} for many years, long enough to be one of the old faces. The newer members want new words, new music and new ways of doing it, and they keep looking at {N}.
+scene W: The forms were handed down for good reasons, and {N} has kept them faithfully. Now they are called stiff.
+scene U: {N} has seen two waves of change before. Some of what they brought was wisdom, and some of it is already forgotten.
+scene B: The newcomers are the future of the place. Whoever they trust will be running it in ten years.
+scene R: The new music is loud and joyful and a little rough, and {Ns} feet are tapping before {N} can stop them.
+scene G: Belief that never changes dies, and belief that changes too fast forgets itself. {N} is old enough to have seen both.
+- W | have the new music ruled out of order under the old rules | v: tradition, conformity | closed: approval: using the rules to shut people out; backfire: the newer members leave and take the young with them | chance: 60
+- U | sit down with the newcomers and ask what each change is meant to do | v: universalism, self-direction | chance: 82
+- B | back the newcomers early, and become their voice among the old guard | identity | v: power | chance: 75
+- R | join in with the new music, and let the old faces disapprove | v: stimulation, hedonism | chance: 88
+- G | keep the oldest rites for those who have earned them, and nobody else | identity | v: tradition | closed: approval: keeping newer members out; backfire: the leaders overrule it in public | chance: 65
+- W>U | start a study group where old and new read the founding words together | door | v: universalism, tradition | chance: 75
+- U>B | work out which changes will bring in new members, and back only those | v: achievement, power | chance: 70
+- B>R | use your standing to win the loud new music a proper place | v: hedonism, power | chance: 70
+- R>G | befriend the boldest newcomer and show them everything you know | binds | v: benevolence | chance: 75
+- G>W | step back from the argument and let old and young find their own peace | v: tradition, benevolence | chance: 70
+works: The gatherings change, and the old heart of them is still beating inside the new.
+works: The newer members start coming to {N} first, to ask what something used to mean.
+fails: The quarrel turns bitter, and some of the oldest faces stop coming.
+fails: {N} picks a side, and the other side does not forget it.
+
+# ---------------------------------------------------------------- senior: being the one people ask, or stepping down (calls RG, s2)
+
+== the one they ring at night
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 26-100
+calls: RG
+holds: kind:faith
+tenure: 8-60
+tone: mixed
+life: faith, community
+horizon: years
+roles: friend, elder, partner, a newcomer
+earth: you have been {title} for many years, you are the one people come to with their doubts and their troubles, and it has started to weigh
+times: Some long-standing members, perhaps 1 in 5, once, after many years; the one others turn to with their troubles (estimate)
+share: .12
+scene: {N} has been {title} for many years and is the one people come to: the newcomer with doubts, the old friend in trouble, the late-night caller. Tonight the phone rings again.
+scene W: {N} has always believed that being trusted is a duty, not an honour. Some weeks it is a heavy one.
+scene U: {N} has heard every kind of doubt by now and has answers for most. The hardest ones are {Ns} own.
+scene B: People owe {N} a great deal, and they know it. {N} has never quite decided what to do with that.
+scene R: {N} cares about every one of them, sometimes too much, and some nights it feels like being drained dry.
+scene G: An old tree gives shade whether it means to or not. {N} has grown into one without noticing.
+- W | drive out through the storm to the one who rang in tears | v: benevolence | mark: helped someone in need | body: light | death_if_fails: 0.002 | tech: car | chance: 75
+- U | start a proper group for the people with doubts, with a time and a plan | v: benevolence, universalism | grants: counselling | chance: 75
+- B | let it be known that favours done are favours owed | v: power | chance: 70
+- R | answer every call at any hour, whatever it costs | v: benevolence | chance: 75
+- G | let go of it gently after all these years, and live quietly | identity | v: tradition (acceptance), hedonism | drops: {title} | chance: 85
+- W>B | set fixed hours for callers, and keep the rest of the week for yourself | v: security, self-direction | act: set fixed hours for callers, and keep the rest of the week for themselves | chance: 70
+- U>R | write a book from what people have told you over the years, names changed | v: achievement, self-direction | closed: approval: using confidences; backfire: someone recognises their own story | act: write a book from what people have told them over the years, names changed | mark: broke your word | chance: 60
+- B>G | call in the favours you are owed to get the group a home of its own | v: power, tradition | chance: 60
+- R>W | tell the leaders to their faces that the ones who need help are being failed | v: universalism, benevolence | mark: defied an authority | chance: 55
+- G>U | sit alone with the one question you never answered, however long it takes | v: self-direction | chance: 70
+works: {N} finds a way to carry it that does not empty {N} out, and the calls keep coming.
+works: Someone {N} sat up with years ago comes back to say what it meant.
+fails: {N} gives too much for too long, and ends the year worn out and short-tempered.
+fails: Someone {N} could not reach in time drifts away from the group, and {N} carries it.
+
+# ================================================================ PARTNER (holds: kind:partner; adults; fits a sweetheart, a spouse and a nonromantic life partner)
+# ---------------------------------------------------------------- new: the first mistake in front of each other (calls BR, s3)
+
+== the first argument that really matters
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-95
+calls: BR
+holds: kind:partner
+tenure: 0-1
+tone: trouble
+life: love, home
+horizon: week
+roles: partner, friend, parent
+earth: you have been {title} for less than a year when you and your partner have your first argument that really matters
+times: Nearly every couple, once per relationship, within the first year; most couples have a first serious row within months (estimate)
+scene: {N} has been {title} for less than a year when {N} and {partner} have their first argument that really matters, and it is not really about the washing-up.
+scene W: {N} believes that two people who mean to last must learn to fight fair, and right now neither of them is.
+scene U: Under the raised voices {N} can hear the real question: whose way of living wins, now that there are two of them.
+scene B: {N} has given ground three times already this year. Giving ground on this one too would set the pattern for good.
+scene R: The words are out before {N} can stop them, and they are true, and they are the wrong thing to say.
+scene G: {Ns} parents had this same argument, {N} realises, in this same tone, for forty years.
+- W | stop, and suggest rules for arguing: no shouting, no old grudges, no walking out | v: conformity, benevolence | chance: 70
+- U | sleep on it, then write down what the argument was really about | v: self-direction | chance: 82
+- B | end it now, before more of your life goes into it | v: self-direction, security | drops: {title} | chance: 80
+- R | say everything you feel, all of it, and let it burn itself out | v: self-direction | chance: 65
+- G | go for a long walk, and come back when the anger has passed | habit | v: tradition (patience), security | self_control: + | chance: 85
+- W>R | apologise properly for your share, then take them out somewhere | v: benevolence, hedonism | mark: owned up | chance: 75
+- U>G | compare notes on how each of your families used to argue | v: benevolence, tradition | chance: 80
+- B>W | agree a truce on terms that suit you, and get it said out loud | v: power, security | act: agree a truce on terms that suit them, and get it said out loud | chance: 70
+- R>U | storm out for the night, and come back with a clearer head | v: self-direction | self_control: - | chance: 70
+- G>B | let it go this time, and keep it in mind for the next one | v: power, security | chance: 80
+works: They come through it knowing each other better, and the next argument is a little fairer.
+works: By morning they are laughing about it, and something important has been settled without being said.
+fails: The argument goes round in circles for days and leaves a mark on both of them.
+fails: Words said that night are remembered for years.
+
+# ---------------------------------------------------------------- new: the first time it feels like theirs (calls RG, s4)
+
+== the first thing that is only theirs
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-95
+calls: RG
+holds: kind:partner
+tenure: 0-1
+tone: joy
+life: love, home, leisure
+horizon: months
+roles: partner, friend, parent
+earth: you have been {title} for a few months, and you and your partner have found a ritual, a place or a joke that belongs to the two of you alone
+times: Most couples, once per relationship, in the first months; shared places, jokes and rituals form early in most couples (estimate)
+scene: {N} has been {title} for a few months, and {N} and {partner} have found something that is only theirs: a café on Saturdays, a running joke, a walk at dusk.
+scene W: {N} wants to protect it, to make it a promise: every week, whatever else happens.
+scene U: {N} catches {partner} doing the small thing again and realises {N} is learning a person the way one learns a language.
+scene B: {N} has noticed that the ritual always happens on {Ns} terms, and has no intention of changing that.
+scene R: {N} wakes on a free morning wanting to do something mad with {partner}, right now, before the day turns sensible.
+scene G: Like two plants in one pot, their habits are winding round each other without anyone deciding it.
+- W | make it a promise: this one thing, every week, whatever else happens | binds | v: tradition, benevolence | chance: 75
+- U | plan a surprise built from everything you have learned about them | v: benevolence, achievement | chance: 75
+- B | keep a part of your life separate, just in case | v: security, self-direction | chance: 90
+- R | drive through the night to the coast on a whim, just the two of you | v: stimulation, hedonism | mark: took a wild risk | death_if_fails: 0.002 | tech: car | chance: 85
+- G | let it grow on its own, without naming it or planning it | v: tradition (acceptance) | chance: 75
+- W>G | ask to meet their family properly, and make a good impression | v: tradition, conformity | grants: in-laws who took you in | chance: 65
+- U>W | work out a fair split of money and chores before it becomes a quarrel | v: universalism, security | chance: 80
+- B>U | find out what they really want from life before committing any further | v: security, self-direction | chance: 80
+- R>B | tell them plainly what you need from this, and accept nothing less | v: power, self-direction | chance: 70
+- G>R | get a dog together, though the lease says no pets | binds | v: hedonism, benevolence | grants: dog of one's own | closed: law: the tenancy forbids pets; backfire: the landlord finds out | chance: 70
+works: The small thing becomes a fixed point in both their weeks, and they both guard it.
+works: {partner} mentions it to friends, a little proudly, as something that is theirs.
+fails: Life crowds in, and the ritual quietly stops without either of them deciding it.
+fails: It turns out the two of them wanted different things from it, and it becomes a small sore spot.
+
+# ---------------------------------------------------------------- settled: a chance to take on more (calls UB, s1)
+
+== a big offer in another city
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-75
+calls: UB
+holds: kind:partner
+tenure: 2-7
+tone: mixed
+life: love, work
+horizon: months
+roles: partner, boss, friend, parent
+earth: you have been {title} for a few years when you are offered something big in another city, and only one life can come first
+times: Some people with a partner, perhaps 1 in 5, once per relationship, a few years in; work is a leading reason for long-distance moves (US Census CPS)
+share: .2
+scene: {N} has been {title} for four years when the offer arrives: the chance of a working lifetime, in a city four hundred miles from everything {partner} has built.
+scene W: {N} made promises when the two of them set up their life together, and none of the promises said anything about leaving.
+scene U: {N} has made a table of it: money, careers, friends, rent, weather. It gives no answer, only a clearer question.
+scene B: This is {Ns} chance. {N} has given way on {partner}'s plans before, and is not sure about giving way again.
+scene R: {N} wants to go, with a hunger that is almost frightening, and does not know how to say so.
+scene G: {partner} has roots here: family down the road, friends from school, a garden that took years. {N} can see what pulling them up would cost.
+- W | turn it down, because the life you built together comes first | v: benevolence, tradition | mark: turned down a chance | chance: 80
+- U | set out every option on paper together, and decide only when you both agree | v: universalism, security | chance: 70
+- B | take the offer, and expect them to follow once they are ready | v: achievement, power | chance: 60
+- R | ask them, tonight and with your whole heart, to come on the adventure | v: stimulation, benevolence | chance: 65
+- G | stay, and look again at what this place still has to offer | v: tradition, security | chance: 65
+- W>U | try six months of living apart in the week, then decide | v: self-direction, security | chance: 60
+- U>B | pretend you have said yes, to force a better offer where you are | v: power, achievement | grants: inner circle at work | closed: approval: bluffing an employer; backfire: the bluff is called and both offers go | chance: 50
+- B>R | take the job, and tell them you need a year on your own anyway | v: self-direction, achievement | drops: {title} | mark: moved away | chance: 75
+- R>G | tell them every fear and hope you have, and decide it from the heart together | v: benevolence | chance: 75
+- G>W | ask both families what they think before anything is decided | v: tradition, conformity | chance: 75
+works: They make the choice together, and a year later neither of them would undo it.
+works: The decision costs something, but it is the kind of cost that binds two people closer.
+fails: The choice is made, and one of them carries a quiet grudge about it for years.
+fails: The argument about it goes on long after the offer has gone.
+
+# ---------------------------------------------------------------- settled: a plateau, and someone else's attention (calls WB, s2)
+
+== talking only about the shopping list
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-100
+calls: WB
+holds: kind:partner
+tenure: 2-7
+tone: trouble
+life: love, home
+horizon: months
+roles: partner, colleague, friend
+earth: you have been {title} for some years, you and your partner talk mostly about bills, rotas and shopping, and someone else has started to listen to you
+times: Many couples, once per relationship, a few years in; satisfaction tends to fall over the first years together (Kurdek 1999 and other long-run studies)
+scene: {N} has been {title} for six years and realises that every conversation with {partner} this month has been about bills, rotas or the shopping.
+scene W: Nothing is wrong, exactly. The life runs well, and the promises are kept. {N} just cannot remember their last real conversation.
+scene U: {N} counts it up one evening: four minutes of talk all week about anything that was not arrangements.
+scene B: {colleague} laughs at {Ns} jokes and asks about {Ns} day. It is pleasant to be someone's interesting person again.
+scene R: {N} wants a night out, a row, anything with some heat in it, rather than another evening of two people on two screens.
+scene G: Long partnerships have their winters, {N} has heard. Nobody said how quiet they would be.
+- W | keep one evening a week only for the two of you, and never cancel it | v: benevolence, tradition | self_control: + | chance: 75
+- U | suggest seeing a counsellor together before it gets worse | v: security, self-direction | chance: 65
+- B | let the colleague's attention fill the gap, and say nothing at home | habit | v: hedonism, power | mark: hid a wrong | self_control: - | closed: approval: a secret closeness outside the partnership; backfire: a message is seen | chance: 70
+- R | pick a fight, just to feel something again | habit | v: stimulation | self_control: - | chance: 57
+- G | let the quiet season be, trusting it to turn on its own | v: tradition (acceptance) | chance: 50
+- W>B | sit down and renegotiate who does what, so you both get time back | v: security, self-direction | chance: 75
+- U>R | plan a surprise trip to somewhere neither of you has ever been | v: stimulation | chance: 80
+- B>G | put your savings together into a home of your own | binds | v: security | title: homeowner | chance: 60
+- R>W | tell your partner the truth: that you miss them, and you are scared | v: benevolence | chance: 75
+- G>U | ask the couple you most admire how they got through their quiet years | v: tradition, self-direction | chance: 80
+works: Something warms again between them, slowly, the way a house warms after the heating comes back on.
+works: {partner} turns out to have felt the same, and was waiting for {N} to say it.
+fails: The quiet goes on, and both of them get better at living around each other.
+fails: Something said in frustration lands harder than meant, and a hard week follows.
+
+# ---------------------------------------------------------------- senior: a last big chance (calls UG, s3)
+
+== a new chapter proposed over breakfast
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 30-100
+calls: UG
+holds: kind:partner
+tenure: 8-60
+tone: mixed
+life: love, home
+horizon: years
+roles: partner, child, friend
+earth: you have been {title} for many years when your partner suggests something big: sell up, move, learn something new, start again somewhere
+times: Some long-term couples, perhaps 1 in 4, once, after many years together; many couples remake their plans when children leave or work ends (estimate)
+share: .25
+scene: {N} has been {title} for many years when {partner} says over breakfast, quite calmly, that they would like the two of them to do something completely new before it is too late.
+scene W: {N} built a life around fixed points: the house, the routine, the people nearby. The word "new" lands like a door banging.
+scene U: Despite {Ns} caution, {N} is curious: what exactly does {partner} mean, and how long have they been thinking it?
+scene B: {N} has spent years working for the life they have now. Throwing any of it away would need a good reason.
+scene R: Something in {N} lights up. It has been a long time since either of them surprised the other.
+scene G: The years have shaped them both the way weather shapes stone. Perhaps it is time for a new season, or perhaps this is the season of staying.
+- W | agree to one big change, carefully planned, and keep the rest as it is | v: security, tradition | chance: 75
+- U | learn to sail together, and plan a long voyage down to the last tide | v: stimulation, achievement | grants: boat handling | body: light | death_if_fails: 0.002 | chance: 55
+- B | agree, as long as the money stays in your own name | v: security, power | chance: 70
+- R | say yes before your sensible self can talk you out of it | v: stimulation, self-direction | act: say yes before their sensible self can talk them out of it | chance: 80
+- G | say no, gently: this home and these years are enough | v: tradition, security | chance: 65
+- W>R | promise them one real adventure a year, and keep the promise | v: stimulation, tradition | chance: 70
+- U>G | find out everything about the place they dream of, and visit it together first | v: universalism, security | chance: 80
+- B>W | sell the family home and buy something smaller, with money to spare | v: security | grants: savings | chance: 75
+- R>U | sign up together for a course in something neither of you knows | v: stimulation, self-direction | chance: 85
+- G>B | let them go off alone on the adventure, and enjoy the house to yourself | v: hedonism, self-direction | act: let them go off alone on the adventure, and enjoy the house alone | chance: 70
+works: The new chapter begins, and the two of them are more interesting to each other than they have been in years.
+works: Whatever they choose, they choose it together, and it feels like a second beginning.
+fails: The plan stalls in arguments about money and who gives up what.
+fails: One of them goes along with it, and the resentment arrives a year later.
+
+# ---------------------------------------------------------------- senior: being the ones people ask, or stepping down (calls WG, s4)
+
+== asked how the two of them have lasted
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 30-105
+calls: WG
+holds: kind:partner
+tenure: 8-60
+tone: mixed
+life: love, family
+horizon: week
+roles: partner, friend, child, sibling
+earth: you have been {title} for many years, and a young couple asks you and your partner how you have lasted; the honest answer is complicated
+times: Many long-term couples, once, after many years together; long marriages draw such questions at weddings and anniversaries (estimate)
+scene: {N} has been {title} for many years, and at a wedding a young couple asks {N} and {partner} how they have lasted so long. {partner} looks at {N} to answer.
+scene W: {N} knows the true answer is plain and unglamorous: they kept their promises on the days they did not feel like it.
+scene U: {N} has thought about it often, and still cannot say how much of it was skill and how much was luck.
+scene B: {N} could give the pretty answer. The honest one includes the years when {N} nearly left.
+scene R: {N} grins, takes {partner} by the hand, and is tempted to say something outrageous.
+scene G: Two old trees lean together after years of the same wind. {N} is not sure that can be taught.
+- W | tell them the truth: promises kept on the days you did not feel like it | v: tradition, benevolence | chance: 80
+- U | give them the three things you have learned, in order of importance | v: benevolence, universalism | chance: 80
+- B | give them the pretty answer, and keep the hard years private | v: security, power | chance: 90
+- R | pull your partner onto the dance floor by way of an answer | v: hedonism, stimulation | chance: 85
+- G | say it cannot be taught, only grown, and leave it there | v: tradition | chance: 85
+- W>G | invite the young couple to dinner, and keep inviting them over the years | v: benevolence, tradition | mark: made a friend | chance: 75
+- U>W | ask your partner, later that night, what they would have answered | v: benevolence, self-direction | chance: 80
+- B>U | admit at last that you stayed partly for comfort, and ask if that is enough | identity | v: self-direction, universalism | chance: 55
+- R>B | tell your partner that night that you want your own life back | v: self-direction, hedonism | drops: {title} | chance: 65
+- G>R | take your partner back to the place you first met, the next morning | v: hedonism, tradition | chance: 80
+works: The question opens something good between them, and they talk on the way home as they have not talked in years.
+works: The young couple keeps in touch, and {N} and {partner} find they like being asked.
+fails: The question stirs up an old hurt, and the drive home is silent.
+fails: What {N} says comes out wrong, and {partner} hears it as a complaint.
+
+# ================================================================ CHILDREN (holds: kind:children; adults; fits a parent, a stepparent, a foster parent, a guardian, a grandparent)
+# ---------------------------------------------------------------- new: learning the ropes (calls WR, s1)
+
+# gate: a child under 6 in the character's care, so the bedtime night fits (a new stepparent or guardian of an older child meets 'advice from every side')
+== the first night alone in charge
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-80
+calls: WR
+holds: kind:children
+tenure: 0-1
+tone: mixed
+life: family, home
+horizon: moment
+roles: child, parent, friend
+earth: you have been {title} for a few weeks, you are alone in charge for a whole night for the first time, and the child will not settle
+times: Nearly every new parent or carer of a small child, once, in the first weeks or months; about 1 in 6 US women in their early forties has never had a child (Census)
+scene: {N} has been {title} for a few weeks, and tonight, for the first time, {N} is alone in charge and {child} will not settle.
+scene W: {N} has the routine written on the fridge: bath, story, light off, door ajar. The routine is not working.
+scene U: {N} runs through the list: hungry, too warm, too cold, frightened, ill. There must be a reason, if {N} can only find it.
+scene B: Nobody else is home, and {N} is set on proving it can be done without ringing anyone for help.
+scene R: {Ns} heart is going like a drum. Every cry goes straight through {N}, and {N} wants to scoop {child} up and make it stop.
+scene G: Somewhere, {N} thinks, everyone who ever raised a child has stood exactly here at this hour, in the same helpless love.
+- W | keep to the routine, calmly, however long it takes | v: conformity, security | chance: 60
+- U | work through the possible causes one by one until you find it | v: achievement | chance: 75
+- B | ring nobody, and get through the night on your own wits | v: achievement, self-direction | self_control: + | chance: 65
+- R | scoop them up and walk the house singing until they drop off | v: benevolence | body: light | self_control: + | chance: 75
+- G | lie down beside them and let the night take its course | v: tradition (acceptance), benevolence | chance: 65
+- W>U | sign up for a children's first-aid course the very next week | v: security, benevolence | grants: first-aid certificate | chance: 88
+- U>B | read up on sleep, and design a routine that gets everyone their nights back | v: achievement, security | chance: 70
+- B>R | strike a deal with a friend: a night off next week in return for a favour | v: hedonism | chance: 75
+- R>G | ring the most experienced parent you know, at midnight, just to hear a calm voice | v: security, tradition | chance: 85
+- G>W | do it the way your own family always did, old songs and all | v: tradition | chance: 70
+works: Near dawn {child} falls asleep at last, and {N} feels like someone who has crossed a mountain.
+works: By the end of the week {N} has a way that works, and the nights stop being a battle.
+fails: Morning comes with nobody having slept, and {N} feels like a failure at breakfast.
+fails: {N} ends up ringing for help at three in the morning, and hates having to.
+
+# ---------------------------------------------------------------- new: finding who to trust (calls WU, s2)
+
+== advice from every side
+tier: everyday
+rate: 2
+once: yes
+stages: young_adult+
+age: 18-80
+calls: WU
+holds: kind:children
+tenure: 0-1
+tone: mixed
+life: family
+horizon: months
+roles: parent, grandparent, friend, child, a neighbour
+earth: you have been {title} for a few months, everyone has advice, the books disagree, and you have to decide whom to trust
+times: Nearly every new parent, once, in the first months; advice from family, friends and books rarely agrees (estimate)
+scene: {N} has been {title} for a few months, and everyone has advice: {parent}, the neighbours, the books, the internet, a stranger at the bus stop. None of it agrees.
+scene W: {N} wants to do this properly, by the book, except that the books contradict each other on almost everything.
+scene U: {N} has started checking the studies behind the advice, and is learning how little of it is actually known.
+scene B: {N} is tired of being told. {N} is the one doing this, and wants to be the one who decides.
+scene R: {N} is sick of the noise and wants to go on instinct and love, and let everyone else mind their own business.
+scene G: {grandparent} raised a large family with none of these books, and keeps saying so, kindly.
+- W | pick one well-regarded guide and follow it faithfully | v: conformity, security | chance: 70
+- U | read the research yourself, and make up your own mind | v: self-direction | mark: learned a skill | chance: 75
+- B | listen politely to everyone, then do exactly what suits you | v: self-direction, power | act: listen politely to everyone, then do exactly what suits them | chance: 85
+- R | tell the next person who offers advice to keep it to themselves | v: self-direction | chance: 78
+- G | lean on the family, and do what the grandparents did | v: tradition, security | grants: family who will always take you in | chance: 70
+- W>B | ask the doctor, and quote them to anyone who argues | v: power, conformity | chance: 75
+- U>R | find the one thing everyone agrees on, and stop worrying about the rest | v: hedonism, self-direction | chance: 70
+- B>G | join others in the same boat, and trade favours as well as advice | door | v: security, benevolence | mark: made a friend | chance: 72
+- R>W | tell the loudest adviser in the family where the line is, and hold it | v: self-direction, security | chance: 60
+- G>U | ask the oldest person in the family why each old way was done | door | v: tradition, self-direction | chance: 85
+works: {N} finds a way of doing things that feels like {Ns} own, and the advice stops stinging.
+works: One voice among all of them turns out to be worth listening to, and {N} keeps it close.
+fails: {N} follows the wrong advice for weeks, and has to undo it.
+fails: A quarrel about how {N} is doing it leaves a chill in the family that lasts the year.
+
+# ---------------------------------------------------------------- settled: taking on more, and the facets within reach (calls UB, s3)
+
+# gate: a child of school age (5 to 16) living at home; the two facet options (home-educating parent, parent raising a child across languages) refine has('mother or father') only
+== a week with no room left in it
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-90
+calls: UB
+holds: kind:children
+tenure: 2-7
+tone: trouble
+life: family, work
+horizon: months
+roles: child, partner, boss, parent
+earth: you have been {title} for a few years, the week is full to the edges, and something has to change: work, school or the way you live
+times: Most working parents of school-age children, once, a few years in; more than half of US working parents find balancing job and family hard (Pew 2015)
+scene: {N} has been {title} for four years, and the week is full to the edges: work, school runs, meals, forms, appointments, and a child who needs more of {N} than there is.
+scene W: {N} keeps a family calendar in three kinds of pen, and every square is full.
+scene U: {N} has worked out that the family spends nine hours a week in the car. There has to be a better way to arrange all this.
+scene B: {N} could take the better-paid post and pay someone to do half of it, or turn it down and stay short of money and present.
+scene R: {N} wants to throw the whole timetable in the bin and take {child} to the sea for a week.
+scene G: {parent} raised a family on half the money and a quarter of the rushing. {N} wonders what got lost on the way.
+- W | cut your working hours, and accept the drop in pay | v: benevolence, security | chance: 65
+- U | take the child out of school and teach them at home | identity | binds | v: self-direction, benevolence | title: home-educating parent | chance: 50
+- B | take on night work as well, and drive home on four hours' sleep | habit | v: achievement, security | body: heavy | death_if_fails: 0.002 | chance: 60
+- R | take the children to the sea for a week in term time | v: hedonism, stimulation | closed: law: a term-time holiday without leave; backfire: a fine from the school | chance: 80
+- G | move nearer the grandparents, so the family can share the load | v: tradition, security | mark: moved away | chance: 60
+- W>R | draw up a fair rota for the whole household, with one free evening each | v: universalism, hedonism | chance: 75
+- U>G | raise the child in both family languages, as a deliberate plan | binds | v: tradition, achievement | title: parent raising a child across languages | chance: 70
+- B>W | ask for flexible hours, citing the law that says the employer must consider it | v: security, power | chance: 55
+- R>U | sign up for a class together, something new for both of you | v: stimulation, self-direction | chance: 80
+- G>B | swap childcare with the neighbours, so everyone's week gets lighter | binds | v: security, benevolence | grants: neighbour who has your back | chance: 70
+works: The week finds a new shape, tighter in places and freer in others, and the house breathes again.
+works: The change {N} chose holds, and by the end of the year it is simply how the family lives.
+fails: The new arrangement collapses within a month, and the rushing comes back worse.
+fails: Something gives anyway: a missed appointment, a burnt dinner, a row in the car.
+
+# ---------------------------------------------------------------- settled: a rival (calls UR, s4)
+
+# gate: a child under 18 in the character's care
+== the child's new favourite grown-up
+tier: everyday
+rate: 1
+once: yes
+stages: young_adult+
+age: 20-90
+calls: UR
+holds: kind:children
+tenure: 2-7
+tone: mixed
+life: family
+horizon: months
+roles: child, partner, grandparent, a coach or teacher
+earth: you have been {title} for a few years, and the child you care for has a new favourite grown-up, and it is not you
+times: Most parents, once, a few years in; school-age children widen their circle of trusted adults (estimate)
+scene: {N} has been {title} for five years, and lately every other sentence {child} says starts with someone else's name: a coach, a teacher, an aunt, the other parent.
+scene W: {N} knows it is healthy for a child to look up to other adults. Knowing it does not stop the small ache.
+scene U: {N} wants to understand what the other grown-up gives {child} that {N} does not, and whether it can be learned.
+scene B: {N} has given years of nights and money and worry, and someone else gets the hero worship. It does not feel fair.
+scene R: Jealousy flares hot and sudden, and {N} is ashamed of it, and it flares again anyway.
+scene G: Children grow towards whatever light is there, {grandparent} says. It is no judgement on the soil.
+- W | thank the other grown-up for what they give, and mean it | v: benevolence | chance: 80
+- U | ask the child what they love about that person, and really listen | v: benevolence, universalism | chance: 80
+- B | plan a treat the other grown-up could never match | v: power, hedonism | chance: 72
+- R | admit to the child, with a laugh, that you are a bit jealous | v: benevolence, self-direction | chance: 78
+- G | let it be; a child needs more than one grown-up | v: tradition (acceptance) | chance: 75
+- W>G | invite the other grown-up to the next family occasion | v: benevolence, tradition | mark: made a friend | chance: 75
+- U>W | learn the thing they share with the child, so the home has it too | v: achievement, benevolence | mark: learned a skill | chance: 70
+- B>U | find out quietly what the other grown-up is like before trusting them further | v: security | chance: 85
+- R>B | tell the other grown-up to their face to back off a little | v: power | mark: made an enemy | closed: approval: confronting someone the child loves; backfire: the child takes the other side | chance: 50
+- G>R | take the child camping for a weekend, just the two of you | v: stimulation, benevolence | grants: knowing the woods | chance: 80
+works: The jealousy fades, and {child} ends up with one more grown-up on their side and {N} still first among them.
+works: {child} notices the effort, and something warm passes between them without a word.
+fails: The ache turns into a small war, and {child} is caught in the middle.
+fails: {N} says the wrong thing at the wrong moment, and {child} goes quiet for a week.
+
+# ---------------------------------------------------------------- senior: needed less, a last big chance (calls BG, s1)
+
+# gate: the youngest child in the character's care is 10 or older; title: parent of independent adult children only once that child lives on their own (the title's own rule)
+== needed a little less each year
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 34-100
+calls: BG
+holds: kind:children
+tenure: 8-60
+tone: mixed
+life: family, home
+horizon: years
+roles: child, partner, friend
+earth: you have been {title} for many years, the child needs you less every year, and there is room in your life you have not had for a long time
+times: Nearly every parent, once, as the youngest child grows past ten; children need less hands-on care through the teens (estimate)
+scene: {N} has been {title} for many years, and {child} needs {N} a little less every year. There is room in {Ns} life that has not been there for a long time.
+scene W: {N} still keeps the old timetable in {Ns} head: pickups, meals, curfews. Half of it no longer applies.
+scene U: {N} has a list of things put off for years, a course, a language, a journey, and takes it out and reads it again.
+scene B: For years, most of what {N} earned went on {child}. Now some of it could go on {N}.
+scene R: {N} feels a restlessness that has been asleep since before {child} came along.
+scene G: The young bird is testing its wings. {N} knows the nest was always meant to empty.
+- W | keep the family's rituals going, for whenever they are needed | v: tradition, benevolence | chance: 75
+- U | go back to studying the thing you gave up all those years ago | door | v: self-direction, achievement | mark: learned a skill | chance: 75
+- B | put money aside for yourself at last, before anyone asks for it | v: security, power | grants: savings | self_control: + | chance: 75
+- R | take the journey you have dreamed of since before they came along | v: stimulation, hedonism | grants: passport | chance: 70
+- G | walk the high hills alone, as you did when you were young | habit | v: universalism (nature), self-direction | body: heavy | death_if_fails: 0.002 | mark: took a wild risk | chance: 75
+- W>U | volunteer to teach a class for people new to raising children | v: benevolence, universalism | grants: teaching | chance: 70
+- U>B | help them take the next big step on their own, and plan the money together | v: achievement, security | chance: 70
+- B>R | sell what the family has outgrown, and spend it all on yourself | v: hedonism | act: sell what the family has outgrown, and spend it all on themselves | chance: 85
+- R>G | ask them along on one great journey before life takes them further away | v: benevolence, stimulation | chance: 60
+- G>W | let them go, and keep the door open and the light on | v: tradition, benevolence | title: parent of independent adult children | chance: 75
+works: The new room in {Ns} life fills with something good, and {child} seems glad of it.
+works: {N} and {child} find a new footing, more like two people who choose each other's company.
+fails: The space stays empty and aching, and {N} hovers more than {N} means to.
+fails: {N} reaches for the old life and finds it has moved on without {N}.
+
+# ---------------------------------------------------------------- senior: the one people ask, old ways and new (calls WG, s2)
+
+== the young parents ask the old hand
+tier: everyday
+rate: .5
+once: yes
+stages: young_adult+
+age: 30-105
+calls: WG
+holds: kind:children
+tenure: 8-60
+tone: joy
+life: family, community
+horizon: week
+roles: sibling, friend, child, a neighbour
+earth: you have been {title} for many years, a younger parent in the family or the street comes to you for help, and they do everything differently
+times: Many experienced parents, once, after many years; experienced parents are a common source of advice for new ones (estimate)
+scene: {N} has been {title} for many years and is the one the younger ones ring: {sibling}'s boy with a newborn, the couple next door, a friend whose teenager has gone silent. They do everything differently.
+scene W: {N} has a proper way of doing things, learned the hard way. Half of it is now said to be wrong.
+scene U: {N} is fascinated by how much the advice has changed, and how little the children have.
+scene B: Being the one people ask is a kind of standing, and {N} rather likes it.
+scene R: {N} sees the panic in the young faces and remembers it exactly, and wants to rush in and fix everything.
+scene G: The same worries come round with every generation, like the seasons, wearing new clothes.
+- W | agree to be the new baby's godparent, and take it seriously | binds | v: tradition, benevolence | grants: godchild | chance: 88
+- U | read up on the new methods before saying a word | v: universalism, self-direction | chance: 85
+- B | help, and make sure they know whom to come to next time | v: power, benevolence | grants: the one everyone asks | chance: 70
+- R | turn up with a hot meal and take over for an afternoon so they can sleep | v: benevolence | mark: helped someone in need | chance: 90
+- G | tell them what nobody told you: that most of it sorts itself out | v: tradition | act: tell them what nobody ever told them: that most of it sorts itself out | chance: 70
+- W>B | tell them firmly what they are doing wrong, as an elder should | v: power, conformity | mark: made an enemy | chance: 55
+- U>R | ask them to teach you the new way, and try it alongside them | door | v: stimulation, self-direction | act: ask them to teach the new way, and try it alongside them | chance: 85
+- B>G | offer to mind the little ones one day a week, in return for Sunday lunches | binds | v: benevolence, tradition | chance: 80
+- R>W | stand up for them when the rest of the family criticises their choices | v: benevolence, universalism | chance: 70
+- G>U | tell them about your own worst first year, and let the story teach | v: tradition, benevolence | chance: 80
+works: The young ones go home steadier, and {N} goes home feeling useful in a way that had been missing.
+works: Old ways and new ones meet over the kitchen table, and both sides learn something.
+fails: The help lands as criticism, and the young ones stop ringing for a while.
+fails: {N} gives too much and is taken for granted, which stings more than expected.

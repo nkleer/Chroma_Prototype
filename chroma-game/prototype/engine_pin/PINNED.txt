@@ -1,0 +1,1 @@
+Final re-pin (row G1), 2026-10-07 16:19Z: see PINNED-final.txt (sizes and md5s). The engine, the Library (with dreams.py), the packs (science politics stage) and the outer world (world.py world_keys.py world_link.py world_people.py ), pinned together.

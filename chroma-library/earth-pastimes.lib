@@ -1,0 +1,765 @@
+# death_if_fails rescaled for real per-act risk (drafts/repeats/rescale_death.py)
+# Chroma library, modern Earth: PASTIMES and the small pleasures of ordinary life (next batch, drafts/next2/).
+# Emren's point 11 ("drugs, fishing... There are lots of things that character can interact") and point 15 ("appreciate
+# this glorious complexity and simplicity"). Twenty everyday moments, child to elder. Each calls two colors; over the
+# file each of the ten pairs is called twice, and ten moments span two neighbouring stages, so every stage meets exactly
+# five moments and calls each color twice (each stage even in calls, means, ends and chance). Cross cycles s1 to s4
+# five times each.
+# Syntax: header of build.py. Rules: library-spec.md. Brief: drafts/next2/BRIEF.md.
+
+# ---------------------------------------------------------------- child: calls WG (cycle s1)
+
+# gate: a grandparent alive and within reach (the cast fills {grandparent}); the format has no field for it
+== a first fish on a grandparent's line
+tier: everyday
+stages: child
+age: 8-12
+calls: WG
+once: yes
+tone: joy
+life: family, nature, play
+horizon: moment
+roles: grandparent, sibling, the old men on the next peg
+earth: your grandparent takes you fishing at dawn, and the float goes under for the first time
+times: Some children, once; perhaps 1 in 5 are taken fishing by a grandparent (estimate); about 1 in 5 Americans aged 6 and over went fishing in 2023 (RBFF)
+share: .2
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: {grandparent} and {N} sit on upturned buckets at the river's edge at six in the morning, a tin of maggots between them and a flask of sweet tea going cold. The float bobs, and bobs, and then it is gone.
+scene W: {grandparent} gave the rules in the car: no shouting, wet hands before touching a fish, and the little ones go back. {N} has said them over and over all the way to the river.
+scene U: The float, the split shot, a hook no bigger than a fingernail: {N} wants to know why each one sits where it does, and why the fish come to this bend and not the next.
+scene B: {sibling} caught a perch last summer and has not stopped talking about it since. {N} means to come home with something bigger.
+scene R: The rod tip dips, the reel gives a thin scream, and {Ns} heart goes so fast that every rule from the car flies straight out of their head.
+scene G: Mist lies on the water, a heron stands in the shallows, and the river smells of mud and weed. {grandparent} fished this same bend as a child, beside their own grandfather.
+- W | wet your hands, unhook it the way you were shown, and slip it back | v: conformity, universalism (nature) | chance: 70
+- U | ask what every knot and weight is for, then tie the next hook yourself | door | v: self-direction | mark: learned a skill | chance: 65
+- B | tell everyone at home it was twice the size it really was | v: power, achievement | mark: hid a wrong | chance: 75
+- R | heave the rod up so hard the fish flies over your head into the grass | body: light | v: stimulation | chance: 58
+- G | sit still all morning and watch the water the way your grandparent does | v: tradition, universalism (nature) | mark: learned a skill | self_control: + | grants: hunting and fishing | chance: 65
+- W>U | do each step exactly as you are shown, and say it back out loud | v: conformity, self-direction | mark: learned a skill | chance: 72
+- U>B | watch where the old men on the next peg cast, and quietly cast there too | v: achievement | chance: 75
+- B>R | promise to wash up all week if you can stay another hour | v: hedonism, stimulation | act: promise to wash up all week if they can stay another hour | chance: 68
+- R>G | let the fish go yourself, in tears, and wave it off down the river | v: universalism (nature), benevolence | chance: 82
+- G>W | carry the trout home for supper and give everyone at the table a piece | v: tradition, benevolence | chance: 75
+works: The fish comes out of the water silver and kicking, and {grandparent} laughs out loud.
+works: {N} goes home smelling of river and maggots, and tells the story four times before bed.
+fails: The line goes slack, and the hook comes back bare with the bait gone.
+fails: The fish twists off at the bank, and {N} is quiet all the way back to the car.
+
+# ---------------------------------------------------------------- child and juvenile: calls UG (cycle s2)
+
+== the garden bird count
+tier: everyday
+stages: child juvenile
+age: 5-14
+calls: UG
+tone: joy
+life: home, nature, school
+horizon: moment
+roles: parent, sibling, grandparent, a teacher
+earth: one hour at the kitchen window on a January weekend, counting the birds for the national survey
+times: Some children, once or a few times, often through school; over half a million people a year count garden birds for the RSPB Big Garden Birdwatch
+gap: 2-4
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is the weekend of the big bird count, and {N} kneels on a kitchen chair at the window with a pencil, a tally sheet from school and one hour to fill it.
+scene W: The sheet is very clear: one hour only, and for each kind, only the most seen at one time. The kitchen clock is there to keep {N} honest.
+scene U: Coal tit, great tit, marsh tit: they all look the same until suddenly they do not. The bird book lies open on the sill at the page of little ones.
+scene B: The teacher said the longest honest list in the class wins the job of feeding the guinea pig for a week. {N} wants that job badly.
+scene R: Ten minutes in there has been one pigeon, and {N} is squirming on the chair with their nose squashed against the cold glass.
+scene G: Frost on the lawn, crumbs on the feeder, and a robin on the fence post as if it owns the whole garden. {N} breathes a cloud on the glass and waits.
+- W | count only what you see, for exactly one hour by the kitchen clock | v: conformity | chance: 85
+- U | look up every bird in the book until you can tell the tits apart | habit | v: self-direction, achievement | mark: learned a skill | chance: 70
+- B | add a woodpecker to the sheet that you never saw | v: achievement, power | mark: hid a wrong | closed: approval: a made-up sighting; backfire: the teacher asks for a drawing of it, and the story comes apart | chance: 65
+- R | give up on the window and run out to chase the pigeons off the lawn | body: light | v: stimulation, hedonism | chance: 70
+- G | scatter crumbs on the sill, keep very still, and wait for them to come | v: universalism (nature) | chance: 62
+- W>B | count strictly by the rules and hand your sheet in first, to win | v: achievement | chance: 55
+- U>R | make a hide out of a sheet and two chairs, and spy on the birds | v: stimulation, self-direction | chance: 72
+- B>G | swap your sweets with your brother or sister for the last of the bird seed | v: universalism (nature) | chance: 78
+- R>W | shout the whole family to the window when the woodpecker lands | v: benevolence, stimulation | chance: 72
+- G>U | ask a grandparent the old country names for the birds, and write them in | door | v: tradition, self-direction | chance: 80
+works: By the end of the hour the sheet has eleven kinds on it, and a robin came close enough to see its eye.
+works: The sheet goes in on Monday, and the teacher pins it up on the classroom wall.
+fails: A cat sits under the feeder all hour, and the sheet stays almost empty.
+fails: {N} gets the birds muddled, and the sheet comes back covered in question marks.
+
+# ---------------------------------------------------------------- child: calls UB (cycle s3)
+
+== a chess tournament in the school hall
+tier: everyday
+stages: child
+age: 7-12
+calls: UB
+tone: mixed
+life: school, play, friends
+horizon: moment
+roles: rival, friend, grandparent, an arbiter
+earth: the chess club's Saturday tournament, with clocks, score sheets and a trophy the size of an egg cup
+times: Rare: perhaps 1 in 20 children, a few times while in a chess club (estimate)
+gap: 2-4
+share: .05
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Sixty children sit in rows in the school hall on a Saturday morning, every board set up the same, every clock ticking, and {N} is to move second against a boy in a bow tie.
+scene W: Touch a piece and it must be moved; write down every move; shake hands before and after. {N} knows the rules by heart and means to keep every one.
+scene U: {N} has spent a month on one opening from a library book and has a trap ready on move seven, if the other side walks into it.
+scene B: The trophy goes to whoever wins most games, and {rival} is on the next table, grinning. {N} wants to be the one holding it.
+scene R: The clock clacks, {Ns} knee jiggles under the table, and the urge to hurl every piece forward at once is almost too much to bear.
+scene G: The old wooden set came from {grandparent} in a biscuit tin, and the pieces are worn smooth by forty years of fingers.
+- W | resign politely the moment your queen is lost, as a good sport should | v: conformity, tradition | self_control: - | chance: 72
+- U | spring the trap from the library book on move seven | v: achievement | chance: 50
+- B | offer a draw while losing, with the face of someone who is winning | v: power, achievement | chance: 62
+- R | throw every piece at the other king from the very first move | v: stimulation | chance: 45
+- G | play slowly and steadily, the way a grandparent taught you on the old set | v: tradition | chance: 65
+- W>R | stand up to the arbiter for a friend who swears the piece was never touched | v: benevolence | chance: 58
+- U>G | replay the lost game slowly at home, until the loss stops stinging | v: self-direction | chance: 80
+- B>W | give the noisy table your sweets to keep quiet, so the hall can think | v: conformity, security | chance: 70
+- R>U | play the fastest, wildest games in the break, just to see what happens | v: stimulation, self-direction | chance: 85
+- G>B | sit back, let the show-off attack, and wait for the blunder | v: achievement | chance: 65
+works: {N} wins three games out of five and goes home with a certificate and the egg-cup trophy.
+works: The trap works on move seven, and the other child's mouth falls open.
+fails: The clock runs out with {N} a whole queen ahead, and the arbiter calls it a loss.
+fails: {N} loses every game and rides home in silence with their face to the car window.
+
+# ---------------------------------------------------------------- child and juvenile: calls WR (cycle s4)
+
+== practice before tea
+tier: everyday
+stages: child juvenile
+age: 6-14
+calls: WR
+tone: mixed
+life: home, school, play
+horizon: week
+roles: parent, friend, grandparent, a music teacher
+earth: half an hour of violin practice before tea, the kitchen timer ticking and your friends outside
+times: About 1 in 3 children, most days for years while they take music lessons (estimate)
+gap: 0-.5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+share: .33
+scene: The violin case lies open on the bed, the kitchen timer is set for thirty minutes, and through the window {N} can hear {friend} kicking a ball against the garage doors.
+scene W: The teacher's notebook says thirty minutes a day, scales first, and {parent} signs it every night. {N} hates to bring it back unsigned.
+scene U: There is one bar in the new piece where the fingers tangle every single time. {N} slows it right down to see exactly where it goes wrong.
+scene B: The grade one exam is in three weeks, and the child in the lesson before {Ns} passed it last term with a distinction.
+scene R: {N} would rather play the tune from the television advert by ear, loud and wrong and glorious, than the same scale for the fortieth time.
+scene G: The violin was {Ns} grandparent's, and the case still smells of rosin and the cupboard under their stairs.
+- W | practise the full thirty minutes every day until the exam, timer and all | habit | v: conformity, achievement | self_control: + | chance: 68
+- U | take the tangled bar at half speed, ten times over, until the fingers know it | v: achievement, self-direction | mark: learned a skill | chance: 75
+- B | ask for a coin for every day of practice, and save every one | habit | v: achievement, security | self_control: + | chance: 88
+- R | play the advert tune by ear, over and over, until every note is right | v: self-direction, hedonism | mark: learned a skill | self_control: + | chance: 85
+- G | play the slow tune your grandparent used to hum, for nobody but yourself | v: tradition | chance: 70
+- W>G | play the new piece to the grandparents on the phone every Sunday | v: benevolence, tradition | chance: 85
+- U>W | fill in the practice chart for days you never played | v: conformity | mark: hid a wrong | closed: approval: a forged chart; backfire: the teacher hears the truth in the first bar | self_control: - | chance: 78
+- B>U | spend your birthday money on lessons with the better teacher across town | binds | v: achievement | mark: learned a skill | grants: musical instrument | chance: 62
+- R>B | put your name down to play in assembly, to outshine the one who passed first | binds | v: achievement, stimulation | chance: 65
+- G>R | take the violin out into the garden and play to the birds, for joy | v: hedonism, universalism (nature) | chance: 82
+works: The tangled bar comes right at last, and the whole piece suddenly sounds like music.
+works: At the next lesson the teacher listens to the end without a word, and then smiles.
+fails: The strings squeal, the timer rings, and the piece is no better than yesterday.
+fails: The lesson goes badly, and the notebook comes home with a sad face drawn in the margin.
+
+# ---------------------------------------------------------------- child and juvenile (12 and over): calls BR (cycle s1)
+
+== fishing the canal with friends
+tier: everyday
+stages: child juvenile
+age: 12-17
+calls: BR
+tone: joy
+life: friends, nature, play
+horizon: moment
+roles: friend, parent, an older lad from the estate, a bailiff
+earth: a summer evening fishing the canal with friends, rods tied to the bikes, a tin of sweetcorn and nobody's parents
+times: Uncommon: perhaps 1 in 8 teenagers, a few summer evenings a year for a few years (estimate)
+gap: 2-4
+share: .12
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Three bikes lie in the long grass by the lock, rods tied to the crossbars, and {N} and {friend} sit on the warm stone with a tin of sweetcorn and a bag of chips going cold. Somewhere under the brown water the carp are moving.
+scene W: The sign on the lock says no fishing without a rod licence, and the bailiff walks this stretch on Sundays. {Ns} licence money is still in a jar at home.
+scene U: {N} has watched the old match anglers at the bridge for weeks: they feed a little and often, and they fish the far bank under the trees.
+scene B: An older lad from the estate says a big carp fetches good money from a man at the pub. {N} has never had that much money all at once.
+scene R: The evening is hot, the lock gates are high, and {friend} is already pulling off a shirt and daring {N} to jump.
+scene G: Swallows skim the water, a kingfisher flashes under the bridge, and the canal smells of warm stone and weed.
+- W | buy a rod licence with your own money before casting a line | v: conformity, security | grants: fishing licence | chance: 92
+- U | feed a little and often and fish the far bank, as the old men do | v: achievement | grants: hunting and fishing | chance: 62
+- B | sell the big carp to the man at the pub for cash | v: power, achievement | mark: broke the law | closed: law: taking fish from a club water to sell; backfire: the bailiff takes names and the rods | chance: 50
+- R | jump off the lock gate into the canal on a dare | body: heavy | v: stimulation | mark: took a wild risk | closed: approval: swimming at the locks is banned for a reason; backfire: a gash from a sunken trolley, or worse | death_if_fails: 0.001 | chance: 80
+- G | sit on the warm stone until dark and watch the kingfisher come and go | v: universalism (nature) | chance: 65
+- W>U | ask the old match angler at the bridge to show you how he plumbs the depth | v: self-direction | act: ask the old match angler at the bridge to show them how he plumbs the depth | chance: 50
+- U>B | work out when the bailiff walks the stretch, and fish when he does not | v: power | mark: broke the law | closed: law: fishing without a rod licence; backfire: a fine, and the rod taken | chance: 80
+- B>R | sell your old games to buy the best rod in the tackle shop window | v: hedonism, achievement | chance: 92
+- R>G | stay out on the towpath with your friends until the bats come out | v: hedonism, universalism (nature) | chance: 62
+- G>W | show the younger kids how to hold a fish so it swims away alive | v: benevolence, universalism (nature) | chance: 78
+works: The float slides away under the far bank, and a fat golden carp comes up the net with the whole towpath cheering.
+works: The evening ends with wet jeans, a sunburnt neck and a story that will last all summer.
+fails: The bailiff comes along the towpath, takes everyone's names, and walks off with the rods.
+fails: Three hours, two lost hooks, and nothing on the line but a crisp packet.
+
+# ---------------------------------------------------------------- juvenile and young adult: calls WB (cycle s2)
+
+== a late raid with the online team
+tier: everyday
+stages: juvenile young_adult
+age: 12-22
+calls: WB
+tone: joy
+life: friends, play, home
+horizon: moment
+roles: friend, parent, sibling, players from other towns
+earth: a Friday night raid in an online game with your team, headsets on and the house asleep
+times: Many teenagers, most weeks; Pew 2024: 85 in 100 US teens play video games, about 4 in 10 daily
+gap: 0-.75
+scene: It is past eleven on a Friday, the house is dark, and {Ns} screen glows with five little portraits of friends from three different towns, all waiting on the same boss.
+scene W: The team agreed the rules: everyone online at ten, nobody quits mid-fight, and loot goes to whoever needs it most. {N} set an alarm so as not to be late.
+scene U: The boss has three phases, and {N} has watched every video of it there is. Phase two is where teams fall apart.
+scene B: The rarest item in the game drops from this boss one time in fifty, and {N} wants it more than anything, and wants it to be theirs.
+scene R: Headset on, heart pounding, {friend} yelling in one ear and the music thumping in the other: this is the best part of the whole week.
+scene G: {friend} moved away two years ago, and this is the one place they still meet every week, in a forest that does not exist, laughing the way they used to.
+- W | log on at ten as agreed and follow the raid leader's calls to the letter | v: conformity | chance: 85
+- U | learn the boss's second phase and talk the team through it before the pull | v: achievement | chance: 70
+- B | buy a stronger character with your parent's card, without asking | habit | v: achievement, power | mark: hid a wrong | closed: approval: a parent's card without asking; backfire: the bank statement, and the console locked in a cupboard | chance: 55
+- R | play on until the sun comes up, though you promised to stop at one | habit | v: hedonism, stimulation | mark: broke your word | self_control: - | chance: 85
+- G | leave the raid halfway and just talk with the old friend on voice chat | v: benevolence | mark: broke your word | closed: approval: the team's rule is that nobody quits mid-fight; backfire: the raid fails, and the team goes cold for a week | self_control: - | chance: 85
+- W>B | offer to lead the raid, and keep the loot list fair and in your hands | v: power | chance: 55
+- U>R | find a glitch that skips the boss's second phase, and try it live | v: stimulation | closed: approval: exploiting a bug; backfire: an account ban for a week | self_control: - | chance: 70
+- B>G | trade your best item for the one your old friend has chased for months | v: benevolence | chance: 85
+- R>W | hold on in the fight until three in the morning, so the team does not wipe | v: benevolence, conformity | self_control: + | chance: 55
+- G>U | trust your gut on the pull instead of the guides, and learn from what happens | v: self-direction | chance: 55
+works: The boss falls on the fourth try, and five voices scream together in {Ns} ears.
+works: It is a ragged night of wipes and jokes, and {N} goes to bed grinning at three in the morning.
+fails: The team wipes in phase two again and again, until someone quits in a temper.
+fails: {parent} appears at the door in a dressing gown and pulls the plug out of the wall.
+
+# ---------------------------------------------------------------- juvenile and young adult: calls UG (cycle s3)
+
+== two nights camping with friends by a lake
+tier: everyday
+stages: juvenile young_adult
+age: 14-21
+calls: UG
+tone: joy
+life: friends, nature, home
+horizon: week
+roles: friend, parent, a campsite warden
+earth: two nights camping by a lake with friends, and no adults for miles
+times: About 1 in 3 teenagers, once or a few times (estimate)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The tent goes up crooked on the third try, the stove hisses, the beans catch on the bottom of the pan, and the lake turns pink and then grey as {N} and {friend} sit in the doorway with nobody to tell them when to sleep.
+scene W: {N} promised {parent} two things: a text every night at nine, and nobody in the lake after dark. {N} gave their word on both.
+scene U: {N} has the map, the forecast, three knots learned from videos and a checklist taped inside the lid of the food box. This trip will be done properly.
+scene B: The best pitch, flat and right by the water, goes to whoever gets there first, and the families arrive after lunch.
+scene R: No parents, no teachers, a lake, a pile of driftwood and a whole night ahead. {N} wants to do everything at once, starting with a fire.
+scene G: An owl calls across the water, the fire pops, and the stars come out one by one until there are far too many to count.
+- W | send the text at nine every night, exactly as promised | v: conformity, benevolence | mark: kept your word | tech: phone | chance: 90
+- U | pitch the tent by the book, guy ropes pegged and a trench against the rain | v: achievement, security | mark: learned a skill | chance: 70
+- B | grab the best pitch by the water before the families arrive | v: power, security | chance: 80
+- R | build a roaring fire on the shore, though the site bans fires | v: stimulation, hedonism | closed: approval: the campsite bans open fires; backfire: the warden puts it out and sends everyone home a day early | chance: 62
+- G | drag your sleeping bag out of the tent and sleep under the open sky | v: universalism (nature) | chance: 88
+- W>R | ask the warden properly if the group may sit up by the fire past quiet hours | v: self-direction, conformity | chance: 55
+- U>G | learn the stars from an app and name them for the others, one by one | v: universalism (nature), self-direction | tech: phone | chance: 75
+- B>W | trade your biscuits to the family next door for a lend of their gas | v: security | chance: 65
+- R>U | set off round the lake at dawn with no map, to see the far side | door | v: stimulation, self-direction | mark: took a wild risk | chance: 82
+- G>B | catch a fish from the lake, cook it on the fire, and eat like kings | v: self-direction, hedonism | mark: broke the law | closed: law: fishing a private lake without a permit; backfire: the warden takes the rod and rings home | chance: 55
+works: The tent holds through a night of rain, and in the morning the lake is as flat as glass.
+works: They come home sunburnt, smoky and somehow two days older, with stories they will not tell their parents.
+fails: The tent floods at two in the morning, and they spend the rest of the night shivering in the toilet block.
+fails: A call to the warden, a call home, and a long silent drive back a day early.
+
+# ---------------------------------------------------------------- young adult and adult: calls WU (cycle s4)
+
+== the Tuesday pub quiz
+tier: everyday
+stages: young_adult adult
+age: 18-40
+calls: WU
+tone: joy
+life: friends, play
+horizon: week
+roles: friend, rival, a quizmaster, the landlord
+earth: the Tuesday quiz at the pub on the corner: six friends, one answer sheet, and a jackpot that rolls over
+times: Some young adults, perhaps 1 in 5, most weeks for a spell; others never (estimate)
+gap: 0-1.5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+share: .2
+scene: Six of them squeeze round the sticky table by the fruit machine with one pencil, one answer sheet and a bag of crisps split open in the middle, and the quizmaster taps the microphone. Round one: geography.
+scene W: The team has rules: one answer per question, agreed by vote, and phones face down in the middle of the table. {N} keeps the sheet and keeps to them.
+scene U: {N} has spent the week learning flags and capitals on the bus, and wants this geography round more than anything.
+scene B: The jackpot has rolled over three weeks running, and the team that won it last month were checking their phones in the toilets. {N} saw them.
+scene R: The music round is next, the drinks are cold, and {N} knows the answer to the first question before the quizmaster finishes reading it.
+scene G: Same pub, same table, same faces every Tuesday for two years. The landlord starts pouring {Ns} drink before {N} reaches the bar.
+- W | write down the answer the team votes for, even when you think it is wrong | v: conformity | mark: gave in to pressure | self_control: - | chance: 55
+- U | spend the week learning capitals and flags on the bus | habit | v: achievement | mark: learned a skill | self_control: + | chance: 72
+- B | insist the jackpot is split only among those who came every week | v: power | mark: made an enemy | chance: 75
+- R | bet the team's whole kitty on the double-points round, on a hunch | habit | v: stimulation | mark: took a wild risk | chance: 50
+- G | keep the same table and the same team every Tuesday, win or lose | habit | v: tradition, benevolence | mark: made a friend | grants: regular at the local | chance: 62
+- W>G | sign the team up for the league, so the old crowd meets every week | v: tradition, benevolence | chance: 85
+- U>W | report the phone cheats to the quizmaster, with the times you saw them go | identity | v: conformity, universalism | mark: made an enemy | closed: approval: telling tales on regulars; backfire: the other team's friends turn the whole pub cold | chance: 68
+- B>U | offer to buy the rounds if the clever stranger at the bar joins the team | door | v: achievement | mark: made a friend | chance: 65
+- R>B | charm the landlord into a free round for the best team name | v: hedonism, power | chance: 88
+- G>R | forget the score and sing along to the whole music round | v: hedonism | chance: 80
+works: They win by half a point, and the whole table screams when the quizmaster reads out the scores.
+works: Fourth place, a free round of drinks for the best team name, and a night nobody wants to end.
+fails: Last place, and the wooden spoon goes on their table for the whole pub to see.
+fails: A row breaks out over a wrong answer, and two of the team leave before the last round.
+
+# ---------------------------------------------------------------- young adult and adult: calls BR (cycle s1)
+
+== a first half marathon
+tier: everyday
+stages: young_adult adult
+age: 18-40
+calls: BR
+once: yes
+tone: mixed
+life: health, friends, play
+horizon: week
+roles: colleague, friend, parent, the other runners
+earth: race day at your first half marathon, a number pinned to your shirt and thirteen miles ahead
+times: Rare: perhaps 1 in 20 adults, once (estimate); US races counted about 2 million half marathon finishes a year in the mid-2010s (Running USA)
+share: .05
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Eight thousand runners shuffle at the start line with the sun already warm at nine, safety pins and water bottles everywhere, and {N} has a number on their chest and thirteen miles ahead.
+scene W: Twelve weeks of the training plan are taped to the fridge, every run ticked, every rest day kept. Today {N} means to run exactly the pace the plan says.
+scene U: {N} knows the course by heart: the hill at mile eight, the wind along the river, a water station every two miles. The watch is set to the second.
+scene B: {colleague} bet {N} a month of coffees that they would never break two hours, in front of the whole office.
+scene R: The gun goes, the crowd roars, the drummers under the bridge are booming, and {Ns} legs want to run as they have never run before.
+scene G: The route follows the river under trees just turning, and the leaves crunch underfoot. {N} has run this path a hundred mornings, alone with the ducks.
+- W | run the pace the plan says, mile after mile, whatever the others do | v: conformity, achievement | self_control: + | chance: 72
+- U | run by the watch and the heart rate, and save it all for the hill | v: achievement | chance: 70
+- B | skip the water stations on a hot morning to shave a minute off | body: heavy | v: achievement, power | death_if_fails: 0.001 | chance: 58
+- R | go off with the fast runners at the gun and hang on for dear life | body: heavy | v: stimulation | self_control: - | chance: 50
+- G | run for the river and the trees, and let the time be whatever it is | v: universalism (nature), hedonism | chance: 75
+- W>U | join the running club and do the coach's Tuesday intervals all winter | habit | door | v: achievement | mark: learned a skill | title: club member | grants: keeping fit | chance: 68
+- U>B | tuck in behind a tall runner along the river, out of the headwind | v: achievement | chance: 70
+- B>R | pay extra for a place in the front pen, among the club runners | v: power, stimulation | chance: 82
+- R>G | stop at mile ten and walk a cramping stranger to the finish | v: benevolence | mark: helped someone in need | chance: 90
+- G>W | run for the hospice that nursed a grandparent, as the family asked | binds | v: benevolence, tradition | chance: 65
+works: {N} crosses the line with arms in the air, and a stranger hangs a medal round their neck.
+works: The last mile hurts like nothing else, and {N} finishes with a time to be proud of and a grin that will not go.
+fails: At mile nine the legs go, and {N} walks the last four miles among the stragglers.
+fails: Cramp, the medical tent, a foil blanket, and no medal.
+
+# ---------------------------------------------------------------- young adult: calls RG (cycle s2)
+
+== a beginners' salsa class
+tier: everyday
+stages: young_adult
+age: 18-32
+calls: RG
+tone: joy
+life: friends, love, play
+horizon: week
+roles: prospect, friend, grandparent, a dance teacher
+earth: a Thursday beginners' salsa class above a bar, where nobody needs a partner and everybody rotates
+times: Uncommon: perhaps 1 in 10 young adults try a dance class like this, once or twice (estimate)
+gap: 6-12
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Thirty strangers stand in two rings in a room above a bar, the speakers thump out a slow salsa, and every two minutes the teacher shouts "change!" and {N} has a new partner and the same two left feet.
+scene W: Quick, quick, slow: the teacher counts, and the class counts with her. {N} likes that there is a right way, and means to learn it.
+scene U: Every turn is only a pattern of weight and timing, and {N} wants to work out the pattern before the next change.
+scene B: {prospect} is in the other ring, three partners away, and {N} came to this class for exactly that reason.
+scene R: The beat gets into {Ns} hips before the steps reach the brain, and for one glorious minute {N} stops counting.
+scene G: {grandparent} danced like this at every family wedding with eyes closed, and the music feels oddly familiar, like something remembered.
+- W | count every step out loud and do it exactly as the teacher shows | v: conformity | mark: learned a skill | chance: 80
+- U | film the turn pattern after class and break it down in the kitchen | v: achievement, self-direction | tech: phone | chance: 75
+- B | time the rotation so you land opposite the one you came to meet | v: power, hedonism | chance: 60
+- R | stop counting and dance it the way the music says | body: light | v: hedonism, self-direction | chance: 65
+- G | close your eyes and let your partner's lead carry you | v: hedonism | act: close their eyes and let the partner's lead carry them | chance: 65
+- W>B | come back every Thursday until you can teach the beginners yourself | v: achievement, power | mark: learned a skill | grants: dancing | chance: 60
+- U>R | learn three turns at home so you can show off at Saturday's social | v: stimulation, achievement | chance: 65
+- B>G | buy a round after class, so the strangers become your crowd | door | v: benevolence, power | mark: made a friend | chance: 80
+- R>W | ask the shyest one standing by the wall to dance, and stay with them through it | v: benevolence | mark: made a friend | self_control: + | chance: 75
+- G>U | dance with the old couple in the corner and pick up the steps by feel | door | v: tradition, self-direction | mark: learned a skill | chance: 75
+works: By the end of the night {N} can do a turn without thinking, and laughs out loud when it comes off.
+works: {N} walks down the stairs into the night with sore feet, a phone number and a promise to come back.
+fails: {N} treads on four different sets of toes and slips out before the social.
+fails: The steps will not stick, and {N} spends the whole hour one beat behind everyone else.
+
+# ---------------------------------------------------------------- adult: calls BG (cycle s3)
+
+# gate: none required (a borrowed rod will do); likelier with has('hunting and fishing') or has('fishing licence')
+== dawn on the lake, alone with a rod
+tier: everyday
+stages: adult
+age: 24-60
+calls: BG
+tone: joy
+life: nature, health, home
+horizon: moment
+roles: boss, partner, a bailiff, the poachers
+earth: an hour before dawn at a still lake, alone, rods out and the flask on, before the week begins
+times: Some adults, mostly anglers, many early mornings a year; most never (estimate); about 1 in 5 Americans aged 6 and over went fishing in 2023 (RBFF)
+gap: 2-4
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: At half past four the car park is empty, the lake is dark glass under a thin mist, and {N} sits on a folding chair with two rods out, a flask of coffee and the bite alarm silent. A coot calls somewhere, and the week has not started yet.
+scene W: The club card in {Ns} wallet lists the rules: barbless hooks, an unhooking mat, every fish back within the minute. Across the water, a net is staked out where no net should be.
+scene U: The wind has gone round to the south-west overnight, and the fish will follow it to the far bank. Six years of notebooks on every session agree.
+scene B: This is the one hour of the week that belongs to nobody but {N}: no {boss}, no phone, no one wanting anything at all.
+scene R: The alarm screams, line is tearing off the reel, and {N} is out of the chair before the coffee hits the grass.
+scene G: The mist lifts off the water in slow curls, a grebe dives and comes up twenty yards away, and {N} feels the lake waking up around them.
+- W | report the staked net to the bailiff and keep watch on it until help comes | v: conformity, universalism (nature) | chance: 70
+- U | read the wind, move to the far bank, and change down to a smaller hook | v: achievement | chance: 60
+- B | switch the phone off, let the work calls ring out, and keep the whole morning | habit | v: self-direction, hedonism | chance: 80
+- R | strip off and swim out into the cold lake as the sun comes up | body: heavy | v: stimulation, hedonism | chance: 88
+- G | wade out along the old bar in your waders, to where the big fish feed | body: heavy | v: universalism (nature) | mark: took a wild risk | closed: approval: the club rules ban wading; backfire: a ban from the water if the bailiff sees | death_if_fails: 0.003 | chance: 60
+- W>R | cut the poachers' net loose yourself and let the trapped fish swim free | v: universalism (nature), benevolence | mark: broke the law | closed: law: damaging another's property; backfire: the poachers come back angry, and the police take a statement | chance: 70
+- U>G | write up every session in the notebook: the weather, the water, the wind | habit | v: self-direction, universalism (nature) | chance: 80
+- B>W | photograph the poachers' van and number plate, and post them for the town to see | v: power, security | mark: made an enemy | tech: internet | chance: 60
+- R>U | drive to the gravel pit nobody fishes, on a hunch, just to find out | door | v: stimulation, self-direction | tech: car | chance: 52
+- G>B | keep the swim where the big fish feed a secret from the whole club | v: power, tradition | chance: 80
+works: The line tightens at first light, and a great bronze carp slides over the net cord in the mist.
+works: No fish at all, and it hardly matters: {N} drives home at nine with the whole week's noise gone quiet.
+fails: The fish bolts for the reeds, the line parts with a crack, and the lake goes silent.
+fails: Rain sets in at five, the coffee goes cold, and {N} packs up soaked and empty-handed.
+
+# ---------------------------------------------------------------- adult: calls UR (cycle s4)
+
+== a dinner for twelve from an untried recipe
+tier: everyday
+stages: adult
+age: 24-60
+calls: UR
+tone: mixed
+life: home, friends, family
+horizon: week
+roles: boss, partner, friend, grandparent
+earth: twelve people coming to dinner on Saturday, and you have chosen a dish you have never once cooked
+times: About half of adults, once every few years, often for a milestone or a holiday (estimate)
+gap: 3-6
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+share: .5
+scene: Twelve people are coming on Saturday, the oven is too small, the recipe runs to three pages, and {N} has never once cooked the dish. The kitchen smells of toasted cumin and quiet panic.
+scene W: {N} promised a proper meal: a starter, a main and a pudding, everyone seated at seven, and nobody's allergy forgotten.
+scene U: The recipe calls the sauce "the soul of the dish" and gives no temperature for the oil. {N} has a thermometer, a notebook and a test run planned for Thursday.
+scene B: {boss} is one of the twelve. A dinner people talk about for months never hurt anybody's chances.
+scene R: Chillies, a hot pan, the music up loud, and a recipe that is more of a suggestion. {N} cannot wait to start throwing things in.
+scene G: {grandparent} made this dish for every feast day, and nobody ever wrote it down.
+- W | follow the recipe to the gram and seat everyone at seven sharp | v: conformity | chance: 65
+- U | cook the whole dish once on Thursday as a test, and take notes | v: achievement | mark: learned a skill | self_control: + | chance: 72
+- B | seat the boss next to the best wine, and steer the talk all evening | v: power, achievement | chance: 85
+- R | throw the recipe away and cook by taste, with twice the chilli | v: stimulation, self-direction | chance: 60
+- G | ring an old aunt and cook the dish the way the family always did | v: tradition | mark: learned a skill | chance: 68
+- W>G | make sure every guest's diet is catered for, so everyone eats together | v: benevolence | chance: 75
+- U>W | draw up a timetable for every pan and pin it to the cupboard door | v: security | chance: 68
+- B>U | charm a free lesson out of the chef at your local restaurant | v: achievement | mark: made a friend | act: charm a free lesson out of the chef at their local restaurant | chance: 55
+- R>B | set the pudding alight at the table with the lights off, for the show | body: light | v: stimulation, power | chance: 80
+- G>R | cook outside over charcoal and let everyone pitch in with the chopping | v: hedonism, benevolence | grants: cooking for a crowd | chance: 72
+works: The dish arrives at the table steaming, the room goes quiet, and then twelve people ask for the recipe.
+works: The sauce splits and is saved, the meat is late, and it is the best night anyone has had in months.
+fails: The smoke alarm goes off halfway through the main course, and dinner becomes twelve pizzas from the place on the corner.
+fails: The dish comes out bland and grey, and the guests are far too polite to say so.
+
+# ---------------------------------------------------------------- adult: calls WG (cycle s1)
+
+== Saturday walks for the dog shelter
+tier: everyday
+at: charity
+stages: adult
+age: 24-60
+calls: WG
+tone: mixed
+life: community, nature, health
+horizon: months
+roles: friend, partner, a shelter volunteer, a care home
+earth: Saturday mornings walking dogs for the rescue shelter on the edge of town
+times: Uncommon: perhaps 1 in 30 adults, for a spell of months or years (estimate); about 1 in 4 US adults volunteer formally in a year (AmeriCorps 2021)
+gap: 6-12
+share: .033
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The shelter smells of disinfectant and wet dog, the kennels erupt in barking as {N} walks past, and a volunteer hands over a lead with a lurcher on the end of it who has been here eleven months.
+scene W: There is a rota on the corkboard, a sign-in sheet, and a rule for every dog: this one muzzled, that one never off the lead. {Ns} name is down for every Saturday until the year's end.
+scene U: The lurcher flinches at any hand raised above its head and pulls toward every hedge. {N} wants to understand what made it this way, and what might undo it.
+scene B: The walk does {N} more good than any gym: fresh air, an empty head, and a reason to get out of bed on a Saturday.
+scene R: The field behind the shelter is wide and empty, the dog is trembling with the wish to run, and so, honestly, is {N}.
+scene G: Out on the lane the lurcher calms and noses along the verges, and {N} falls into its slow pace, the frost cracking under their boots.
+- W | sign the rota for every Saturday until the new year, and keep to it | binds | v: benevolence, conformity | mark: kept your word | self_control: + | chance: 75
+- U | read up on frightened dogs and teach the lurcher to take food from a hand | v: benevolence, achievement | grants: handling animals | chance: 60
+- B | walk only the easy dogs that look good in your photographs | identity | v: hedonism, power | self_control: - | chance: 90
+- R | let the lurcher off the lead in the empty field to run | body: light | v: stimulation | closed: approval: the shelter's rule is never off the lead; backfire: the dog bolts for the road | chance: 55
+- G | walk the slow old dogs nobody picks, at whatever pace they set | v: benevolence, universalism (nature) | chance: 75
+- W>U | do the shelter's handling course, so you can take out the difficult dogs | v: achievement | mark: learned a skill | chance: 65
+- U>B | use what you have learned to start a paid dog-walking round in the street | binds | v: achievement, power | chance: 80
+- B>R | talk the manager into letting you take a dog away for a weekend in the hills | v: stimulation | act: talk the manager into letting them take a dog away for a weekend in the hills | chance: 50
+- R>G | fall for the frightened lurcher and take it home that same day | binds | v: benevolence, universalism (nature) | grants: dog of one's own | chance: 85
+- G>W | take the gentlest dogs round the care home on the way back, for stroking | v: benevolence | mark: helped someone in need | chance: 65
+works: The lurcher trots home with its tail up for the first time, and the volunteer at the desk notices.
+works: {N} drives home muddy to the knees and smelling of dog, lighter than in weeks.
+fails: The dog slips its collar at the gate, and the rest of the morning is a frantic search of the lanes.
+fails: The dog {N} has walked for months is adopted on a weekday, and {N} never gets to say goodbye.
+
+# ---------------------------------------------------------------- mature: calls WR (cycle s2)
+
+== an away match in the rain
+tier: everyday
+stages: mature
+age: 40-70
+calls: WR
+tone: mixed
+life: friends, play, community
+horizon: moment
+roles: friend, a steward, the old supporters' crowd, the home fans
+earth: an away match three hundred miles from home with the old supporters' crowd, in the rain
+times: Some lifelong fans, several times a season; most people never (estimate)
+gap: 2-4
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Four thousand away fans are packed into one end of a stranger's stadium, rain blowing sideways under the roof, the air thick with wet coats and fried onions, and {N} is singing the songs they sang at fifteen beside people who have gone grey alongside them.
+scene W: Thirty-one years with a season ticket, the scarf from {parent}, and the minibus that leaves the club car park at six. {N} has not missed an away trip in a decade, and drives the minibus home.
+scene U: {N} has the train times, the form guide and the referee's record with away sides, written in biro on the back of the ticket.
+scene B: {N} has a spare ticket in an inside pocket, and outside the ground people are offering three times its face value.
+scene R: The equaliser goes in in the ninetieth minute, four thousand people lose their minds at once, and {N} is hugging a stranger, and the stranger is crying.
+scene G: The club is in {Ns} blood, handed down like the scarf: three generations of the family have stood in this end and sung these songs.
+- W | drive the old crowd's minibus home through the night, as you promised | identity | v: benevolence, conformity | mark: kept your word | death_if_fails: 0.002 | tech: car | chance: 88
+- U | learn the home side's weak flank and shout it at the players all game | v: achievement, stimulation | chance: 70
+- B | sell the spare ticket to a tout for three times what it cost | v: power, achievement | mark: broke the law | closed: law: touting a match ticket; backfire: a steward sees, and the season ticket is suspended | chance: 75
+- R | sing yourself hoarse and stand on the seat when the equaliser goes in | body: light | identity | v: hedonism, stimulation | chance: 85
+- G | stand in the family's old spot in the seated end, as three generations did | identity | v: tradition | mark: defied an authority | closed: approval: standing in a seated section; backfire: a steward's warning, then ejection | chance: 60
+- W>B | point out the lad with the flare to the stewards, to keep your season ticket safe | v: security, power | mark: made an enemy | closed: approval: informing on your own end; backfire: frozen out on the minibus home | chance: 52
+- U>R | learn the home fans' songs on the way, and sing them back word perfect | v: stimulation | chance: 70
+- B>G | pull strings to get the whole old crowd seats together in one row | v: benevolence, power | chance: 65
+- R>W | step between the drunk lad and the steward before it turns into a fight | body: light | v: security, benevolence | chance: 55
+- G>U | tell the young fans on the minibus the stories of the bad years and the good | v: tradition | mark: made a friend | chance: 80
+works: A late equaliser, a sodden ride home, and {N} hoarse and happy at two in the morning.
+works: They lose three-nil, and still the old crowd sing all the way down the motorway.
+fails: The match is called off at half time for a waterlogged pitch, three hundred miles from home.
+fails: A scuffle outside the ground, a police line, and a long cold wait in a pen before anyone can leave.
+
+# ---------------------------------------------------------------- mature: calls UB (cycle s3)
+
+== a chair rescued from a skip
+tier: everyday
+stages: mature
+age: 40-75
+calls: UB
+tone: joy
+life: home, work
+horizon: months
+roles: partner, a neighbour, a dealer at the market
+earth: an old oak chair sticking out of a skip on the next street, a leg loose and the seat split
+times: Uncommon: perhaps 1 in 10 adults, once or twice (estimate)
+gap: 6-12
+share: .1
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: An oak chair sticks out of a skip on the next street, one leg hanging by a peg, the rush seat split, the varnish gone the colour of strong tea. Under the seat there is a maker's stamp, half worn away, and {N} stands in the drizzle looking at it.
+scene W: The skip is outside a house being cleared after a death, and someone paid for it. {N} would not dream of taking anything without asking first.
+scene U: The joints are pegged, not screwed, and that stamp could date it to within ten years. {N} is already planning how to take it apart without breaking the old glue lines.
+scene B: {N} has seen chairs like this in the antique shop window on the high street, with a price ticket in three figures.
+scene R: {N} wants it home, in pieces on the kitchen table, tonight.
+scene G: Someone sat in this chair for seventy years by a fire, through wars and births and funerals. It deserves better than the tip.
+- W | knock on the door and ask the family if you may take it | v: conformity | chance: 85
+- U | trace the maker's stamp at the library and restore it to how it left the workshop | identity | v: achievement, self-direction | grants: restoring old things | chance: 60
+- B | do it up and sell it on at the antiques fair for a tidy profit | v: achievement, power | chance: 70
+- R | pull it out of the skip and carry it home on your head in the rain | body: light | v: stimulation | mark: broke the law | closed: law: taking from a skip without asking is theft; backfire: the owner comes out shouting | chance: 80
+- G | mend it slowly over the winter with hide glue and rush from the riverbank | habit | v: tradition, universalism (nature) | mark: learned a skill | self_control: + | chance: 70
+- W>R | ask the family first, then paint it in bold stripes for the garden | v: hedonism, conformity | chance: 55
+- U>G | take an evening class and learn to rush a seat the old way | door | v: self-direction, tradition | mark: learned a skill | chance: 80
+- B>W | haggle the whole skip-load off the builders and give it to the repair cafe | v: benevolence, power | chance: 70
+- R>U | take it apart on the kitchen table tonight, to see how it was made | v: stimulation, self-direction | mark: learned a skill | chance: 60
+- G>B | leave it exactly as it is, patina and all, and watch its value climb | v: power, security | chance: 70
+works: By spring the chair stands by the fire again, the oak glowing, and it does not wobble when {N} sits in it.
+works: The stamp turns out to be from a famous workshop, and the chair is worth far more than anyone thought.
+fails: The old glue lines will not part, and a back leg splits clean along the grain.
+fails: The chair sits in pieces in the garage for three years, gathering dust.
+
+# ---------------------------------------------------------------- mature and elder: calls RG (cycle s4)
+
+== the dawn swimmers at the cove
+tier: everyday
+stages: mature elder
+age: 40-80
+calls: RG
+tone: joy
+life: health, nature, friends
+horizon: months
+roles: friend, partner, colleague, the dawn swimmers
+earth: a winter morning with the dawn swimmers at the cove, and the sea at nine degrees
+times: Uncommon: perhaps 1 in 30 older adults take up winter sea swimming, and then swim most weeks (estimate)
+gap: 6-12
+share: .033
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: It is seven on a February morning, the beach is grey and the sea is nine degrees, and a dozen people in woolly hats and changing robes stand at the water's edge, steaming, laughing and swearing softly. {N} drops the towel.
+scene W: The group has swum here every single morning for four years, through storms and on every holiday. There is a register in a plastic wallet, and {Ns} name has a tick for every day this month.
+scene U: Tide table, water temperature, wind direction: {N} checks them all before leaving the house, and keeps a log of how long the body can take the cold.
+scene B: {N} has read that cold water cuts stress, burns fat and keeps the joints young, and means to have every last bit of that.
+scene R: The cold hits like a slap, the breath goes, and then the whole body is shouting and alive, and {N} is whooping at the sky.
+scene G: A seal's head bobs up beyond the rocks, watching. It is the same sea it was for every fisher in the village, and it does not care at all who swims in it.
+- W | swim at seven every morning of the year, whatever the flags say, and tick the register | habit | identity | v: conformity, tradition | closed: approval: swimming under a red flag; backfire: the coastguard is called out, and the group is in the paper | chance: 50
+- U | keep a log of the water and your minutes in it, and build up slowly | v: achievement, security | chance: 80
+- B | tell everyone you know about the winter swims, until they ask how you do it | identity | v: power, achievement | act: tell everyone they know about the winter swims, until they ask how they do it | chance: 70
+- R | run into the waves shouting, and stay in until you cannot feel your feet | body: heavy | habit | v: stimulation | mark: took a wild risk | chance: 75
+- G | float on your back past the rocks and let the seal come closer | v: universalism (nature) | chance: 60
+- W>G | bring a flask of soup for the whole group every Sunday, without fail | v: benevolence | chance: 90
+- U>W | write the group's safety rules: never alone, always a float, a spotter ashore | v: security | chance: 60
+- B>U | pay a coach for private lessons to fix your stroke before the summer race | binds | v: achievement | mark: learned a skill | self_control: + | chance: 70
+- R>B | race the young ones out to the buoy and back, and beat them | body: heavy | v: achievement, stimulation | chance: 65
+- G>R | leave the watch at home and go in whenever the sea looks right | v: self-direction, hedonism | self_control: - | chance: 80
+works: {N} comes out pink and tingling, gulps hot tea on the shingle, and feels ten years younger all day.
+works: The sun comes up over the headland while they are still in the water, and nobody speaks for a long minute.
+fails: The cold bites too deep, and {N} shakes for an hour in the car with the heater on full.
+fails: A swell comes in from nowhere, knocks {N} off their feet and drags them over the stones.
+
+# ---------------------------------------------------------------- mature and elder: calls WU (cycle s1); only for grandparents
+
+# gate: holds: grandparent; likelier with has('hunting and fishing'), the skill being handed on
+== teaching a grandchild to fish
+tier: everyday
+stages: mature elder
+age: 50-95
+calls: WU
+holds: grandparent
+tone: joy
+life: family, nature, play
+horizon: moment
+roles: grandchild, child, partner
+earth: you take a grandchild fishing for the first time, to the same water you were taken to as a child
+times: Some grandparents, perhaps 1 in 6, once for each grandchild they take (estimate)
+gap: 6-12
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+share: .12
+scene: {N} carries both rods and the bait box down the bank while the grandchild runs ahead in wellies two sizes too big, and the river is just as it was when {N} was small, brown and quick and smelling of weed.
+scene W: There are things a child must learn first: wet hands, a quiet bank, the little ones go back. {N} learned them on this bank and means to pass on every one.
+scene U: {N} has tied these knots so often that the fingers do it alone. Now it all has to slow right down, so the hands can explain what they know.
+scene B: {N} wants this child to love fishing, and to love it with {N}, not with the other grandparents and their theme parks.
+scene R: The grandchild casts into a tree, then into a cowpat, and {N} has not laughed this hard in years.
+scene G: The child sits on the very stone where {N} once sat beside their own grandfather. The river goes on, as it always has.
+- W | teach the rules before the rod: wet hands, a quiet bank, small ones back | v: tradition, conformity | chance: 80
+- U | tie each knot slowly while the child copies, until they can do it alone | v: benevolence, self-direction | chance: 70
+- B | hook a fish yourself, then pass the rod and swear it was the child's | v: power, benevolence | chance: 58
+- R | let the child cast wild into the trees, and laugh at every tangle | v: hedonism | chance: 75
+- G | sit on the old stone together and say nothing, and just watch the float | v: tradition, universalism (nature) | chance: 60
+- W>U | give the child a fishing book and test them on it at every visit | v: achievement | chance: 64
+- U>B | show the child where the big perch hide under the willow, and swear them to secrecy | v: power, benevolence | chance: 74
+- B>R | promise an ice cream for every fish, and race the child to the van | v: hedonism | chance: 86
+- R>G | pull off your boots and paddle in the shallows with the child, hunting crayfish | body: light | v: universalism (nature), hedonism | chance: 69
+- G>W | hand on your own grandfather's reel, and tell the child where it came from | binds | v: tradition | chance: 84
+works: The float dips, the child strikes, and a small perch comes up shining, and the shriek carries half a mile down the river.
+works: Nothing bites all afternoon, and on the way home the child asks when they can go again.
+fails: The child is bored in twenty minutes and wants to go home to a screen.
+fails: The line snaps on the only bite of the day, and the child cries all the way to the car.
+
+# ---------------------------------------------------------------- mature and elder: calls BG (cycle s2)
+
+== a rare bird at the marsh hide
+tier: everyday
+stages: mature elder
+age: 50-95
+calls: BG
+tone: joy
+life: nature, friends
+horizon: moment
+roles: friend, rival, a reserve warden, the photographers
+earth: word goes round that a rare wader has turned up on the marsh, and by dawn the hide is full of telescopes
+times: Some keen birdwatchers, a few times a year; most people never (estimate)
+gap: 3-8
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The hide smells of creosote and damp coats, twenty telescopes poke out through the slot, and somewhere on the mudflat, among a thousand dunlin, is a bird that has not been seen in the county for thirty years.
+scene W: A sighting this rare must be written up for the county recorder, with notes, a sketch and two witnesses, or it does not count. {N} has done it properly for forty years.
+scene U: The tide is falling, the flock will move to the far channel within the hour, and {N} has worked out where the bird will feed next.
+scene B: Only three people in the county have this bird on their lists. {N} means to be the fourth, and the first with a photograph on the website.
+scene R: Someone whispers "there!", every telescope swings at once, and {Ns} heart thumps like a child's.
+scene G: Frost on the reeds, curlews calling, the tide breathing in and out across the mud. {N} would be content here even if the bird never shows.
+- W | write up the sighting for the county recorder, with a sketch and two witnesses | v: conformity, universalism | chance: 75
+- U | walk out across the mud to the far channel, timed by the tide tables | body: heavy | v: achievement | mark: took a wild risk | closed: approval: the reserve's signs forbid the mud; backfire: the coastguard is called out | death_if_fails: 0.005 | chance: 70
+- B | creep out of the hide and flush the bird up for a photograph | v: achievement, power | closed: approval: flushing a rare bird off a reserve; backfire: banned from the reserve, and named on every forum | chance: 50
+- R | ring every friend you have from the hide, whispering at the top of your voice | v: stimulation, benevolence | tech: phone | chance: 80
+- G | put the telescope down and watch the marsh until the bird walks into view | v: universalism (nature) | self_control: + | chance: 60
+- W>B | volunteer as the reserve's warden, so the hide keys are yours | v: power | act: volunteer as the reserve's warden, so the hide keys are theirs | chance: 55
+- U>R | work out where it will roost tonight, and be there alone at dusk | v: stimulation | chance: 60
+- B>G | keep quiet about a second rare bird on the far pool, so the crowds stay away | v: universalism (nature) | chance: 80
+- R>W | tell off the photographers creeping out onto the mud, loud enough for all | v: universalism, conformity | mark: made an enemy | chance: 50
+- G>U | listen for its call among the curlews, as the old birders did before telescopes | v: self-direction, tradition | mark: learned a skill | chance: 70
+works: The bird walks out from behind the dunlin into full view, and twenty people in the hide hold their breath at once.
+works: {N} sees it for four seconds through the scope, clear as day, and goes home to write it in the book that holds forty years of birds.
+fails: The flock lifts all at once and whirls away over the sea, and the bird is not seen again.
+fails: A morning of frost and squinting, and it turns out the bird left the night before.
+
+# ---------------------------------------------------------------- elder: calls WB (cycle s3)
+
+== the knitting circle at the library
+tier: everyday
+stages: elder
+age: 60-100
+calls: WB
+tone: joy
+life: community, friends, home
+horizon: months
+roles: rival, friend, sibling, a librarian
+earth: the Wednesday knitting circle at the library, needles clicking, a pattern on the table and the county show coming up
+times: Some older people, mostly women, most weeks for those in a group; most never join one (estimate)
+gap: 2-4
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: Eight chairs stand in a circle in the library's back room, with a tin of biscuits, a basket of wool ends and the steady click of needles under the talk. {N} has a half-made cardigan on the needles and a pattern on their knee.
+scene W: Every winter the circle knits squares for blankets for the children's ward, and every square must be exactly eight inches or the blankets will not lie flat. {N} keeps the count.
+scene U: The cable pattern on the chart is four symbols too clever for anyone in the room. {N} has a pencil, a magnifying glass and the whole afternoon.
+scene B: The county show's knitting cup has gone to {rival} three years running. {N} has been studying that tension, and has a plan.
+scene R: The whole circle knits in beige and lavender. {N} has a bag of wool in shocking orange and an idea that would make the librarian faint.
+scene G: The needles were {Ns} mother's, the pattern came from a cousin, and the stitch goes back further than anyone in the family can remember.
+- W | unpick any square that is not exactly eight inches, whoever knitted it | v: conformity | mark: made an enemy | closed: approval: unpicking other people's work; backfire: two of the circle walk out | chance: 80
+- U | puzzle out the cable chart stitch by stitch, until the pattern comes | v: achievement, self-direction | mark: learned a skill | chance: 70
+- B | study the champion's tension for months, and enter the show to beat them | v: achievement | mark: learned a skill | self_control: + | chance: 45
+- R | cover the bench outside the town hall in orange knitting, one night | identity | v: stimulation, self-direction | mark: broke the law | closed: law: decorating public property without leave; backfire: the council cuts it off, and the paper asks who did it | chance: 80
+- G | knit your mother's old pattern, slowly, and teach it to anyone who asks | identity | v: tradition | chance: 75
+- W>R | start a lunchtime class for the teenagers from the school next door | door | v: benevolence | chance: 55
+- U>G | work out the old stitch from a photograph of a grandmother's shawl | v: tradition, self-direction | chance: 65
+- B>W | sell your best pieces at the craft fair and give the takings to the circle | v: benevolence, achievement | chance: 90
+- R>U | throw away the pattern and knit whatever comes, just to see what happens | v: self-direction, stimulation | chance: 55
+- G>B | let the gossip about the rival's shop-bought wool spread, and say nothing | v: power | mark: made an enemy | closed: approval: letting a rumour do the work; backfire: the rival finds out who started it | chance: 60
+works: The cardigan comes off the needles perfect, and the circle passes it round like a newborn.
+works: The show cup comes home to the circle at last, and there is cake on Wednesday.
+fails: A dropped stitch twenty rows back, and the whole evening's work has to come undone.
+fails: A row breaks out over the show, and two of the circle stop coming on Wednesdays.
+
+# ---------------------------------------------------------------- elder: calls UR (cycle s4)
+
+== the camera club's theme of the month
+tier: everyday
+stages: elder
+age: 60-95
+calls: UR
+tone: joy
+life: nature, friends, play
+horizon: week
+roles: rival, child, friend, a judge at the club
+earth: the camera club's theme this month is "water", the deadline is Friday, and the camera is still new
+times: Uncommon: perhaps 1 in 30 older adults belong to a camera club, with a theme most months (estimate)
+gap: 2-4
+rate: .5
+# rate lowered (drafts/repeats/everyday.py)
+scene: The camera club's theme this month is "water", the deadline is Friday, and {N} stands on the harbour wall at dawn with a camera the family gave them for a big birthday, still learning what half the buttons do.
+scene W: The club's rules are strict: one print, unaltered, with a title and the settings written on the back. {N} has read them twice.
+scene U: Aperture, shutter speed, the way light bends on moving water: {N} has the manual open on the wall and wants to understand every number in it.
+scene B: {rival} has won the monthly cup four times this year. {N} has a mind to take it away from them.
+scene R: A wave smashes white against the harbour wall, and {N} wants to be closer, much closer, right in the spray with the camera.
+scene G: Gulls on the posts, a heron in the shallows, the light changing slowly from grey to gold. {N} could stand here all morning without pressing anything at all.
+- W | complain to the committee that the rival's winning print was edited | v: conformity | mark: made an enemy | closed: approval: accusing a fellow member; backfire: the complaint fails, and the club takes sides | chance: 50
+- U | learn the manual settings one by one, until the camera stops guessing | v: achievement, self-direction | mark: learned a skill | self_control: + | chance: 70
+- B | find where last year's winning shot was taken, and take it again, better | v: achievement, power | chance: 60
+- R | climb down the harbour steps into the spray for the shot | body: heavy | v: stimulation | mark: took a wild risk | chance: 75
+- G | walk the same lane every week and photograph the same tree through the year | habit | v: universalism (nature), tradition | chance: 60
+- W>G | offer to photograph the village's oldest people for the history society | v: benevolence, tradition | chance: 84
+- U>W | teach the beginners' evening at the club, with handouts on exposure | binds | v: benevolence | chance: 64
+- B>U | buy a widow's expensive lens second-hand, at half what it is worth | v: achievement, power | chance: 74
+- R>B | enter the boldest picture you have, the one nobody else would dare | v: achievement, stimulation | chance: 60
+- G>R | put the camera away and paddle along the shore with the gulls | v: hedonism | chance: 75
+works: The print wins the month, and the judge holds it up and says it is the first picture of the evening that breathes.
+works: {N} comes home with four hundred pictures and one, just one, that is exactly what they saw.
+fails: Every shot of the morning is blurred, and the deadline comes and goes.
+fails: The camera takes a wave full in the lens, and the screen goes dark for good.
+

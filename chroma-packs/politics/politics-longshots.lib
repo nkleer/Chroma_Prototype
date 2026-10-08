@@ -1,0 +1,531 @@
+# Chroma content pack Politics: LONG SHOTS and the ANTI-STORY (chroma-packs/LONGSHOTS-BRIEF.md, 2026-10-06). Live with
+# the pack since 10-06 19:37 Emren's time (16:37 UTC); the changes to older moments are in politics-events.lib.
+# Emren (packs thread, 06:06): "everything can be possible to push, but probability to not happen can be so low ... this
+# may create another story (anti-story maybe?)".
+# Round 2, Emren (Gamification thread, 09:18): "can someone try to become a parliamant member, out of nothing? ... Big
+# titles like parliament member needs consecutive steps ... Achieving important and not common title must have
+# commitment, and maybe consistency, attemps to get it ... life is not a linear line that all people are following.
+# Sometimes bad luck can block the chane, shaping the fate, or vice versa." So every long shot here is a bold try at the
+# next rung, or a skip of at most one rung by someone with years on the rung below (brief, section 1, 09:21). The years
+# are LIFE gates with yrs_has() in engine-conditions.py (LIFE_POLITICS_LONGSHOTS); holds: only says which
+# names can bring a person here, the gate says how long they must have held them, and who may not come.
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/library-spec.md, politics/MOMENTS-BRIEF.md and the
+# long-shots brief. Names in title:, grants:, takes:, holds: and aims: come from politics/catalogue.py, core/reach.py,
+# core/longshot.py and the base catalogue.
+#
+# Seven life events (six, and L6 in round 5), each even on its own (alpha even, stakes 1.0): five one-color singles at
+# the same written chance and a full pair set at one chance (the polling day and L6: a four-color set). The engine's
+# earned odds lift a prepared person (helps.py: HELPS for the title, counted by years held since 09:22; WINDOWS for the
+# moment; each earlier failed try at the same title adds try_lift), never above 90 percent, and the top two rungs keep
+# their half lifts (LIFT_POLITICS).
+#   moment                                       singles give                         chance  who may meet it (LIFE gate)
+#   'standing with no party behind you'          parliamentary candidate (a step)     70      councillor 4 years, mayor 2,
+#                                                                                              a former member, or a civic
+#                                                                                              voice 6 years with a cause
+#                                                                                              or a civic post
+#   'a run for mayor from outside the council'   mayoral candidate (a step)           70      party branch officer 4 years,
+#                                                                                              committee, union rep or
+#                                                                                              local hero 5, governor 4, a
+#                                                                                              good name 10, own firm 8,
+#                                                                                              family business 10
+#   'polling day for mayor'                      mayor (skips the council seat)       10      a mayoral candidate (holds:)
+#   'a challenge from the back benches'          party leader (skips the front bench) 2       member of parliament 4 years,
+#                                                                                              no post
+#   'the campaign nobody gave a chance'          head of government (the next rung)   2       party leader 2 years
+#   'writing in cold for a job in politics'      a career entry from the rung below,  5       the rung each single requires
+#                                                one post per color (round 5: a long          (round 3): branch officer 1
+#                                                shot)                                        year, data analyst 2 with a
+#                                                                                              degree, salesperson or
+#                                                                                              journalist 3, caseworker 1
+#   'the campaign loses its organiser'           campaign organiser (W, B, R),        5       a campaign volunteer or
+#   (round 5)                                    constituency caseworker (G),                 branch officer of a year,
+#                                                pollster (U, a data analyst)                 none of the three posts yet
+# Big titles are a process (round 3, engine check 11:18: no mayor from nothing either). The two runs are the steps:
+# they give a candidacy, and a vote decides. 'election night' (politics-events.lib) decides the seat at its written
+# chance times lacking .04 for a candidate with no party nomination, about 2 in 100; 'polling day for mayor' decides
+# the chain at about 1 in 10 for someone who never sat on the council. Either miss is a long shot (the engine counts a
+# failed act for a title at true odds under .1 by itself, engine 08:21; the polling day's singles also carry
+# `grants_if_fails: a long shot that missed`): it gives the perk, sets ago_fail_long and remembers the title as
+# {missed}. The singles of the two contests inside parliament are long shots and carry the perk on a miss. Round 5,
+# 2026-10-07 (P9): the career entry by letter is a long shot too (5), with the campaign's own posts in L6, and every
+# long-shot option in the pack names the perk in grants_if_fails, 'election night' included. Each career and summit
+# has one (PACK.md, "Long shots by title"); [minister] is given by appointment and has none.
+# Each line's two halves are used together (D6 by the first two, D2 by the next two, which share stages); D1a matches
+# the extra D1b of 'a seat the party cannot win' in politics-events.lib, so the pack's pair counts stay even. The
+# polling day's four-color set (the ways out: a deal, a joint ticket, standing aside) leaves the pair, triad and cross
+# counts as they were.
+# Two echoes anchored on the perk (engine conditions: ECHO_POLITICS_LONGSHOTS in engine-conditions.py):
+#   'the race comes round again'       the second try at the title missed (title: {missed}, chance 12, cycle s1),
+#                                      after 'election night', 'polling day for mayor', the two contests inside
+#                                      parliament, or 'the leadership falls vacant'
+#   'making peace with the long shot'  what the attempt gave, after any long shot in the pack (cycle s2)
+# No option carries `mark: took a wild risk` (the base hospital echo; since 07:56 it also needs a failed bodily act).
+# Luck opens only the next step here: a vacancy, a stumbling leader or a bad poll is the occasion, never a title two
+# rungs up. per_year is the yearly rate per person who passes the gate, estimates unless a source is named, about ten
+# times the real rate on purpose (Emren, 05:20 and 07:14: many lives should see the option). Player-facing lines keep
+# the timeless modern setting (Emren 10:42: no year, brand, platform, real place, institution, holiday or person).
+
+# ================================================================ the long shots
+# ---------------------------------------------------------------- L1. standing with no party behind you (pairs D6b)
+# Only for someone with a real local base held for years: a councillor of four years, a mayor of two, a former member,
+# or a voice at the town hall of six years who also leads a cause, a union branch, a residents' committee or a school
+# board (LIFE gate). Every color has one way to stand alone; the act gets the person onto the ballot (ten signatures, a
+# deposit, a campaign that holds together), and 'election night' then decides at long odds. The pairs are a pledge
+# from the party candidates, someone else's campaign, the party from inside, staying out, or the town's questions.
+
+== standing with no party behind you
+tier: life event
+stages: young_adult adult mature elder
+age: 22-85
+holds: local councillor | mayor | former member of parliament | voice at the town hall
+per_year: 0 0 .002 .01 .01 .005
+drivers: unrest+.3 era+.2
+times: per councillor of four years, mayor of two, former member or long-standing civic voice a year: about 1 in 100 weighs standing for parliament with no party (estimate, about ten times the real rate on purpose); getting on the ballot takes ten signatures and a deposit (500 pounds in the UK, Electoral Commission), and most who file are nominated; a few hundred independents stand at each UK general election (4,515 candidates in all in 2024, House of Commons), and between none and six have won at each of the last four (House of Commons results), about 1 in 100; here 'election night' decides at about 2 in 100 for a candidate with no party nomination
+likelier: a local fight the parties ignored, a member who has held the seat for decades, an angry year with every party in disgrace, many years on the council, a name the town already knows
+rarer: a contented town, a close race between two parties where every vote is spoken for, a party card in the pocket, no money to spare, heavy care duties
+gap: 4-8
+domain: community.5
+tone: mixed
+life: community, work
+horizon: months
+roles: friend, partner, rival, colleague
+earth: an election is called, every party has its candidate, and none of them is from the town you have served for years
+tribal: the band will choose its speaker for the great gathering, and the faction's elders have named theirs, a stranger to your hearths
+magic: the lots for the city's seat in the Assembly are called, and every name on the roll carries a faction's seal
+scene: The election is called on a Tuesday, and every party already has its candidate, none of them from the town. {N} has spent years in its public life: the council chamber, the residents' meetings, the fight to keep the library open. The nomination papers want ten signatures and a deposit, and they are due on Thursday week.
+scene W: Anyone of age may stand: the law says so, and {N} has read it twice. Ten signatures, a deposit, a form filed by noon on the right day. After years of the council's standing orders, these rules hold no fears.
+scene U: {N} has the results from every ward {N} ever fought, and the last three for the seat beside them. On paper there is a way through, if the town's own votes and the stay-at-homes could be joined up.
+scene B: Years of council work leave a ledger of favours: the traders helped with a licence, the clubs with a grant, the families with a housing case. {N} has never called them in. This would be the time.
+scene R: The parties have had their turn. For years {N} has watched them send candidates who leave the day after the count, and is tired of saying so only in the council chamber.
+scene G: The town has sent the same kind of member to parliament for forty years, and not one of them ever lived on its streets. {N} has, and half the doors in the ward have opened to {N} at some time in the last ten years.
+scene tribal: The band will choose its speaker for the great gathering at the next full moon, and the faction's elders have named a man from another valley. {N} has spoken at the council fire for many summers with no faction's blessing, and the far hearths listen. A hawk circled {Ns} hearth that morning, and some say it was a sign.
+scene magic: The lots for the city's seat in the Assembly will be cast at midsummer, and so far every name on the roll carries a faction's seal. {N} has sat on the ward council for years under none. A hedge-witch in the lower town sells luck charms to candidates; she says she has never sold one to someone standing alone.
+- W | file the nomination papers by the book, and stand as an independent | title: parliamentary candidate | aims: member of parliament | v: conformity, universalism | tribal: ask the elders by the old custom to hear you as the band's speaker, with no faction | magic: enter your name on the Assembly roll by every form, with no faction's seal | chance: 70
+- U | stand on a plan for the seat, costed line by line, that no party offered | title: parliamentary candidate | v: achievement, self-direction | tribal: ask to be sent on a plan for the band's summer that no faction offered | magic: stand on a written plan for the city, costed coin by coin, that no faction offered | chance: 70
+- B | call in the favours of years, and raise the deposit and the leaflets from them | title: parliamentary candidate | v: power, achievement | tribal: call in the gifts of many summers, and ask to be sent with them behind you | magic: call in the favours of years, and raise the roll fee and the heralds from them | chance: 70
+- R | stand, and say out loud at every hustings what the parties will not | title: parliamentary candidate | aims: member of parliament | v: stimulation, self-direction | tribal: stand up at every fire and say what the faction's elders will not | magic: stand with the hedge-witch's charm at your throat, and cry in every square what the factions will not | chance: 70
+- G | stand as the town's own candidate, carried by the neighbours of many years | title: parliamentary candidate | v: tradition, universalism | tribal: ask to be sent as the band's own, carried by the hearths of many summers | magic: stand as the ward's own, carried by the neighbours and the old houses of the lane | chance: 70
+- BR | call a public meeting, and make every party candidate sign the town's pledge | v: power, stimulation | tribal: call the bands to a fire of your own, and make every speaker swear to the far hearths' needs | magic: call a meeting in the guild hall, and make every candidate sign the ward's pledge | chance: 85
+- RG | knock on doors for the independent the town already knows and trusts | title: campaign volunteer | v: benevolence, stimulation | tribal: walk the hearths for the one the band already trusts | magic: carry the banner of the ward's own candidate through the lanes | chance: 85
+- UB | join the party that comes closest, and go for its nomination from inside | title: party member | v: achievement, power | tribal: bind yourself to the faction nearest your mind, and seek its blessing from within | magic: swear to the faction nearest your mind, and seek its seal from within | chance: 85
+- WG | stay out of it, and keep the time for the council work and the family | mark: turned down a chance | v: security, tradition | tribal: stay at your own hearth, and keep the summer for the council fire and the family | magic: stay out of it, and keep the season for the ward council and the family | chance: 85
+- WU | send every candidate the town's questions, and publish all their answers | v: universalism, conformity | tribal: put the band's questions to every speaker at the fire, and remember the answers | magic: send every candidate the ward's questions, and nail their answers to the hall door | chance: 85
+works: When it is over {N} has done what {N} set out to do, and people who never noticed {N} before stop in the street to say so.
+works: Something comes of the weeks that nobody predicted, and {N} wakes the next morning to a slightly different life.
+fails: The papers come back from the returning officer with two signatures struck out, and the deadline passed at noon. {N} folds the form into a pocket and walks back past the council offices.
+fails: It does not come off: the helpers and the money are not there in time. On the drive home {N} is already counting what the weeks cost, and what they taught.
+
+# ---------------------------------------------------------------- L2. a run for mayor from outside the council (pairs D6a)
+# Most mayors come up through the council ('the town needs a mayor'). Here a person who has never sat on it, but has
+# years of standing in the town by another road (a party branch office, a committee or a school board, a union branch,
+# a business of many years, a name the town has known for a decade; LIFE gate), decides to run in a direct election.
+# Round 3 (engine check 11:18): the run is the step, as for parliament. The singles give [mayoral candidate] (getting
+# on the ballot with a campaign that holds together), and 'polling day for mayor' below decides at long odds. The
+# pairs are the council first, a plan or a newsletter, backing someone better placed, or the one hard question.
+# Round 5, 2026-10-07 (P4): [mayoral candidate] held about half its target (fits 11b and 12b: .010 to .012 against
+# .02), met by as many as held it. More doors, at the same rate and chances: a party member of six years (most
+# directly elected mayors are a party's candidates) and an activist of five (a cause the town knows) may now be urged to
+# run as well (holds: and the LIFE gate in engine-conditions.py).
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== a run for mayor from outside the council
+tier: life event
+stages: young_adult adult mature elder
+age: 25-85
+holds: local party officer | voice at the town hall | residents' committee member | school-governance board member | union rep | local hero | good name in town | founder of a firm | family business | party member | activist in a cause
+per_year: 0 0 .001 .002 .002 .001
+drivers: unrest+.2 era+.1 community+.1
+times: per person with years of standing in a town outside its council (a branch officer of four years, a committee member, union rep, activist or local hero of five, a party member of six, a school governor of four, a good name of ten, a firm of eight, a family business of ten) a year: about 1 in 500 is urged to run for mayor (estimate, about ten times the real rate on purpose); getting on the ballot takes signatures, and a deposit in some places, and most who file with a campaign behind them are nominated (estimate); France has a mayor for each of its 34,875 communes (DGCL 2025) and the US about 19,500 municipalities (Census of Governments); here 'polling day for mayor' then decides at about 1 in 10 (estimate)
+likelier: a mayor in office for many terms, a scandal at the town hall, a town that elects its mayor directly, a name everyone in the market knows
+rarer: a mayor chosen by the council alone, a contented town, a newcomer to the place, a life far from its streets
+gap: 4-8
+domain: community.5
+tone: mixed
+life: community
+horizon: months
+roles: friend, rival, partner, colleague
+earth: the mayor stands again with the council behind them, and nobody expects a contest
+tribal: the old head of the camp will lead again unless someone asks the band to choose
+magic: the burgomaster's chain has passed between three guild houses for a hundred years, and the lots are due at the autumn fair
+scene: The mayor is standing again, with the council and the old names behind them, and nobody expects a contest. {N} has never sat on the council, but has spent years in the town's life outside it, and at the bakery and the school gate people keep saying that someone should stand, and that {N} would be the one to do it.
+scene W: {N} has served the town for years by its rules in other chairs, and the charter is plain: any resident may stand for mayor. A fair contest is good for the town even when the result looks settled.
+scene U: {N} has read the town's accounts in the library and found what the council never explains: where the money for the roads went. Someone from outside the chamber, with the numbers, could ask the questions nobody on the council will.
+scene B: The mayor's people have run the town hall for twelve years. In {Ns} own years in the town's business {N} has met a few of the firms they have crossed, and knows what those firms might give to see them gone.
+scene R: {N} has shouted from the public gallery for years and never once sat on the council's benches, and does not mean to start by asking permission. The town needs shaking, and {N} wants to do the shaking.
+scene G: {Ns} family has lived in the town for four generations, and {N} knows half its streets by the names of who lives on them. The town hall stopped listening to those streets years ago.
+scene tribal: The old head of the camp will lead the moves again unless someone stands at the fire and asks the band to choose. {N} has never spoken at the council fire, but for many summers the families on the far side of the camp have come to {Ns} hearth with their troubles.
+scene magic: The burgomaster's chain has passed between three old guild houses for a hundred years. {N} belongs to none of them, though {Ns} name has hung over a shop in the square for twenty years, and the lots for the chain will be cast at the autumn fair. A fortune-teller at the last fair told {N}, laughing, that chains can be broken.
+- W | stand for mayor on a promise to run the town hall by its own rules | title: mayoral candidate | v: conformity, universalism | tribal: ask the band to choose you as head of the camp, by the old custom of asking | magic: stand for the chain on a promise to keep the town's charter to the letter | chance: 70
+- U | stand on what the town's own accounts show, and ask where the money went | title: mayoral candidate | v: achievement, self-direction | tribal: ask to lead the camp, and show the band where the winter stores went | magic: stand on the town's own ledgers, and ask aloud where the coin went | chance: 70
+- B | stand with the backing of the businesses the town hall has crossed | title: mayoral candidate | aims: mayor | v: power, achievement | tribal: ask to lead the camp with the families the old head has slighted at your back | magic: stand for the chain with the guilds the old houses have crossed at your back | chance: 70
+- R | stand, and hold a meeting in the square every Saturday until polling day | title: mayoral candidate | v: stimulation, self-direction | tribal: stand up at the fire every night until the band chooses | magic: stand, and speak from the fountain steps every market day until the lots | chance: 70
+- G | stand as the candidate of the old streets the town hall forgot | title: mayoral candidate | aims: mayor | v: tradition, universalism | tribal: ask to lead as the one the far hearths trust | magic: stand for the chain as the voice of the old lanes the guild houses forgot | chance: 70
+- BG | stand for the council first, in the ward where the family is known | title: council candidate | v: achievement, tradition | tribal: ask to be heard at the council fire first, where your family is known | magic: stand for the town council first, in the ward where your house is known | chance: 80
+- UG | write a plan for the old streets, and take it to every candidate | v: universalism | tribal: work out where the far hearths should camp next winter, and take it to every elder | magic: draw up a plan for the old lanes, and take it to every candidate for the chain | chance: 80
+- UR | start a newsletter that asks the town hall the questions nobody asks | v: self-direction, stimulation | tribal: bring the band's questions to the fire every night, and ask the old head to answer them | magic: print a broadsheet that asks the town hall the questions nobody asks | chance: 80
+- WB | back the councillor who would make a better mayor, for a say in the plan | v: power | tribal: stand behind a voice at the fire who would lead better, for a say in the moves | magic: back a councillor who would wear the chain better, for a say in the town's plan | chance: 80
+- WR | ask the mayor the question everyone wants answered, at the public meeting | v: universalism, stimulation | tribal: ask the old head at the fire the question every family wants answered | magic: ask the burgomaster, before the whole guild hall, the question every house wants answered | chance: 80
+works: {N} sees it through, and by the end of it the town hall knows {Ns} name and has stopped pretending not to.
+works: When the autumn comes, what {N} set out to do is done, and people in the market stop {N} to talk about it.
+fails: The campaign never quite gets off the ground: the hall stays half empty, the helpers drift back to their own lives, and {N} lets the deadline pass with the papers still on the kitchen table.
+fails: It does not come off, and for a few weeks the town has a joke about it; by spring {N} is the one telling it.
+
+# ---------------------------------------------------------------- L2b. polling day for mayor (four-color set)
+# The vote that decides the run above (round 3). A candidate who never sat on the council wins at an outsider's odds
+# (chance 10, every color; a good name, a voice at the town hall and a loyal team lift it through HELPS for mayor, and
+# an earlier failed try through try_lift). The singles are how the day is spent; a miss carries the perk. The
+# four-color set is the ways out in the last days: a deal, a joint ticket, standing aside. The moment drops the
+# candidacy, won or lost.
+
+== polling day for mayor
+tier: life event
+stages: young_adult adult mature elder
+age: 25-90
+holds: mayoral candidate
+drops: mayoral candidate
+per_year: 0 0 1 1 1 1
+drivers: unrest+.2 era+.1
+times: per mayoral candidate: once a candidacy; where the mayor is elected directly, the sitting mayor or the council's own candidate wins most races (estimate), and someone who never sat on the council, with years of standing in the town behind them, wins perhaps 1 race in 10 (estimate), more often in an angry year or against a mayor in office for many terms; France has a mayor for each of its 34,875 communes (DGCL 2025) and the US about 19,500 municipalities (Census of Governments); about 1 life in 500 ever stands for mayor (catalogue share; estimate)
+likelier: a candidacy that runs to polling day
+rarer: a candidate who withdraws, an election called off
+gap: 1.5-3
+domain: community.5
+tone: mixed
+life: community
+horizon: week
+roles: partner, friend, rival, colleague
+earth: polling day for mayor, and the count in the town hall by nine
+tribal: the band stands in a ring at the full moon, and each family walks to stand behind the one it wants as head of the camp
+magic: the urns for the burgomaster's chain are opened in the guild hall at dusk, under the Order's seal
+scene: Polling day. The posters are up on every lamp post, the mayor's face on most of them and {Ns} on the rest. The polls close at ten, and the count is in the town hall, under the portraits of mayors who all sat on the council first.
+scene W: {N} voted at seven, has kept to every rule of the day, and has checked twice that the agents know where to stand at the count.
+scene U: {N} has the morning's turnout street by street. The old streets are voting; the new estates are not, yet.
+scene B: The mayor's people have run the town hall for years and know how to get their voters out. {N} has put the last of the money into cars for the old and the housebound.
+scene R: {N} has not sat down since six in the morning: a loudspeaker in the square, a handshake at every school gate, a joke for every queue.
+scene G: {Ns} family is out on the old streets, knocking on doors that have opened to them for generations, and the neighbours who promised are coming out in their coats.
+scene tribal: At the full moon the band stands in a wide ring, and the elders call the old head of the camp and then {N}. Each family walks to stand behind the one it wants, and {N} watches the lines grow, slowly, on both sides.
+scene magic: At dusk in the guild hall the Order's witnesses break the seals on the urns for the burgomaster's chain. The old guild houses stand together by the hearth, {Ns} people stand by the door, and the fortune-teller in the crowd has stopped laughing.
+- W | keep to every rule of the day, and be at the count when the boxes open | title: mayor | grants_if_fails: a long shot that missed | v: conformity, security | tribal: keep every custom of the choosing, and stand in the ring when the elders call | magic: keep every form of the day, and stand by the urns when the seals break | chance: 10
+- U | send every helper to the streets where the turnout is still low | title: mayor | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: send every friend to the hearths that have not yet walked to the ring | magic: send every runner to the lanes where the urns are still light | chance: 10
+- B | spend the last of the money on lifts to the polls for the housebound | title: mayor | grants_if_fails: a long shot that missed | aims: mayor | v: power, achievement | tribal: give the last of your stores so the old and the lame can be carried to the ring | magic: spend the last of your purse on carts to the urns for the old and the lame | chance: 10
+- R | spend the whole day in the square with a loudspeaker until the polls close | title: mayor | grants_if_fails: a long shot that missed | v: stimulation, hedonism | tribal: drum and sing at the edge of the ring until the last family has walked | magic: cry your name from the fountain steps until the urns are sealed | chance: 10
+- G | walk the old streets with the family, knocking on every door that ever opened | title: mayor | grants_if_fails: a long shot that missed | aims: mayor | v: tradition, benevolence | tribal: walk the far hearths with your family, and bring every household to the ring | magic: walk the old lanes with your house, knocking on every door that ever opened | chance: 10
+- UBRG | trade your helpers to the challenger in the last days, for your plan in their programme | v: power, benevolence | tribal: send your friends to stand behind the strongest challenger, for your plan in the next moves | magic: lend your runners to the strongest challenger, for your plan in their charter | chance: 80
+- WBRG | stop campaigning, and send every helper to the challenger likeliest to beat the mayor | v: power, universalism | tribal: step out of the ring, and send your families behind the one likeliest to beat the old head | magic: stand down from the lots, and send your runners to the one likeliest to win the chain | chance: 80
+- WURG | step aside for the younger candidate the old streets trust more, and run their day | v: benevolence, universalism | tribal: step aside for the younger one the far hearths trust more, and walk the hearths for them | magic: stand down for the younger candidate the old lanes trust more, and run their day at the urns | chance: 80
+- WUBG | agree a joint ticket with the strongest rival, and take the deputy's post if it wins | v: power, security | tribal: join with the strongest rival, and take the place at their side if the band chooses them | magic: join lists with the strongest rival, and take the deputy's seal if the chain is theirs | chance: 80
+- WUBR | concede before the count, and take the campaign's plan to whoever wins, in writing | v: achievement, conformity | tribal: step out of the ring before the families walk, and bring your plan to whoever is chosen | magic: concede before the seals break, and take your plan to whoever wins the chain, in writing | chance: 80
+works: By nine the count is done, and the town wakes the next morning to something {N} made happen.
+works: {N} sees the day through, and by the end of it the town hall has to reckon with {Ns} name.
+fails: The count is done by nine in the town hall. {N} comes second of three, closer than anyone predicted and not close enough, shakes the mayor's hand on the steps and walks home past the bakery.
+fails: It does not come off. The next morning {N} takes the posters down one lamp post at a time, and people stop in the street to say they voted for {N}.
+
+# ---------------------------------------------------------------- L3. a challenge from the back benches (pairs D2a)
+# No vacancy: the leader is in trouble, the senior names wait for each other, and a back-bencher with four years or
+# more in the seat and no post (LIFE gate) could move first, skipping the front bench. 'the leadership falls vacant'
+# covers the open contest; this is the challenge, at long odds for every color (about 1 in 50). A failed challenge
+# scatters the challenger's allies. The pairs are the deals, the article, loyalty with the hard truth, and fair rules.
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== a challenge from the back benches
+tier: life event
+stages: adult mature elder
+age: 25-90
+holds: member of parliament
+per_year: 0 0 0 .004 .005 .003
+drivers: unrest+.3 prosper-.2 trouble+.1
+times: per member of parliament with four years or more in the seat and no post a year: about 1 in 200 thinks seriously about challenging the leader from the back benches (estimate); most parties change leader every four to six years, nearly always for a name from the front bench, and a back-bencher with no following and no name across the country wins perhaps 1 contest in 50 (estimate)
+likelier: a leader behind in the polls, a party that lets its members choose, many years on the back benches, a cause the leadership has dropped
+rarer: a leader just elected, a party winning comfortably, a member with a post to lose
+gap: 3-6
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, rival, friend, partner
+earth: the leader is in trouble, the senior names wait for each other, and someone from the back benches could move first
+tribal: the faction's head has led the families badly for two summers, and the elders mutter but do nothing
+magic: the head of the faction has lost three votes in the Assembly this season, and the great houses wait for each other
+scene: The leader is in trouble: the polls are bad, the party is restless, and every senior name is waiting for someone else to move first. Late one night in the tea room {colleague} says it plainly: the front bench will never do it, so it will have to be someone from the back.
+scene W: The party's rules allow any member with enough nominations to challenge. {N} has sat in the house for years and never thought of it as a rule meant for someone like {N}, until now.
+scene U: {N} has the numbers on the party's slide in a notebook, seat by seat, kept up for years. Nobody at the top seems to have read them.
+scene B: Nobody at the top will risk a career on a challenge. That leaves the field to whoever has least to lose, and {N} has spent years on the back benches with very little to lose.
+scene R: {N} is sick of the waiting, the briefings, the unnamed quotes in the papers. If somebody is going to say it, it might as well be said out loud, by name.
+scene G: {N} thinks of the members back home who knock on doors every winter for a party that no longer listens to them. Someone should speak for them, even from the last row.
+scene tribal: The faction's head has led the families badly for two summers, and the elders mutter but do nothing. {N}, a speaker of many gatherings whom nobody heeds, could step into the ring and ask the families to choose again.
+scene magic: The head of the faction has lost three votes in the Assembly this season, and the great houses wait for each other to move. {N} has sat on the back bench of the hall for years, where nobody looks, beside an old mage who mutters that the faction's lots have not favoured its head since the comet.
+- W | gather the nominations the rules require, and challenge the leader in the open | title: party leader | grants_if_fails: a long shot that missed | takes_if_fails: allies in the party | v: conformity, universalism | tribal: ask the elders, by the custom of the ring, for the families to choose again | magic: gather the seals the faction's charter asks, and challenge its head openly | chance: 2
+- U | publish a plan to turn the party round, and challenge on it | title: party leader | grants_if_fails: a long shot that missed | takes_if_fails: allies in the party | aims: party leader | v: achievement, self-direction | tribal: lay out at the fire how the faction could win back the bands, and ask to lead it | magic: publish a treatise on how the faction could win back the Assembly, and challenge on it | chance: 2
+- B | count the nominations in secret, and strike the morning the leader stumbles | title: party leader | grants_if_fails: a long shot that missed | takes_if_fails: allies in the party | v: power, achievement | tribal: count the families' promises quietly, and step into the ring the day the head stumbles | magic: count the houses' seals in secret, and strike the morning the head stumbles | chance: 2
+- R | stand up at the members' meeting and call for the leader to go | title: party leader | grants_if_fails: a long shot that missed | takes_if_fails: allies in the party | aims: party leader | v: stimulation, self-direction | tribal: stand up at the gathering and call for the faction's head to step aside | magic: stand up in the faction's hall and call for its head to go | chance: 2
+- G | challenge as the voice of the members in the towns the party forgot | title: party leader | grants_if_fails: a long shot that missed | takes_if_fails: allies in the party | v: tradition, universalism | tribal: ask to lead as the voice of the far bands the faction forgot | magic: challenge as the voice of the small towns and old wards the faction forgot | chance: 2
+- BG | back the strongest challenger quietly, for a post in the new team | grants: allies in the party | v: power | tribal: stand quietly behind the strongest challenger, for a duty at the new head's side | magic: back the strongest challenger quietly, for an office in the new head's gift | chance: 75
+- BR | let it be known you might run, and see what the leader offers | act: let it be known they might run, and see what the leader offers | v: power, stimulation | tribal: let the families hear you might step into the ring, and see what the head offers | magic: let the houses hear you might challenge, and see what the head offers | chance: 75
+- UR | write the article that says what everyone in the party thinks, and sign it | v: self-direction, stimulation | tribal: tell the singers what everyone at the fire thinks, and let them sing it with your name | magic: write the broadsheet that says what every member thinks, and sign it | chance: 75
+- WG | stay loyal in public, and tell the leader the hard truth in private | v: conformity, benevolence | tribal: stand by the faction's head at the fire, and tell the head the hard truth alone | magic: stand by the head in the Assembly, and tell the hard truth behind closed doors | chance: 75
+- WU | ask the party's ruling body for an open contest under fair rules | v: conformity, universalism | tribal: ask the elders for an open choosing in the ring, by the old custom | magic: petition the faction's council for an open contest under a sealed charter | chance: 75
+works: {N} does what {N} set out to do, and by the end of the week the whole party knows {Ns} name.
+works: The party settles its quarrel, and {Ns} part in it is remembered on both sides of the room.
+fails: Nominations close at noon on Friday and {Ns} count is eleven short. {N} reads the statement out on the steps anyway, then takes the late train home with the papers folded on one knee.
+fails: It does not come off. For a season the leader's people are cool in the corridors, and {N} eats alone in the tea room more often than before.
+
+# ---------------------------------------------------------------- L4. the campaign nobody gave a chance (pairs D2b)
+# The leader of a party far behind in the polls, two years or more in the post (LIFE gate), goes into a general
+# election: the next rung, at long odds. 'the country goes to the polls' gives a leader of one of the two largest
+# parties about 1 chance in 2; a party that starts third or lower almost never wins (about 1 in 50 here, for every
+# color). The pairs are the honest campaigns of a small party: hold what you have, a deal before polling day, the long
+# manifesto, a pact, and the debates.
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 1 option (check.py section 4).
+== the campaign nobody gave a chance
+tier: life event
+stages: adult mature elder
+age: 30-95
+holds: party leader
+per_year: 0 0 0 .03 .03 .02
+drivers: unrest+.3 era+.2
+times: per party leader of two years or more a year: about 3 in 100 lead a party far behind in the polls into a general election (estimate); the leader of one of the two largest parties wins about 1 time in 2, while a party that starts the campaign third or lower forms the government only a few times in a generation across the democracies (estimate); about 1 life in two to three million heads a government (catalogue share; estimate)
+likelier: an angry year, both big parties in disgrace, a leader known across the country, a voting system that rewards a surge
+rarer: a contented country, a two-party system with high walls, a party with no money and no seats
+gap: 4-6
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: partner, colleague, rival, boss, friend
+earth: the election is called with the party third in every poll, a long way behind the two big ones
+tribal: the gathering will choose a chief of the clans, and the faction is the smallest at the meadow
+magic: the throne will name its Chancellor from the faction that wins the Assembly, and the faction holds a handful of seats
+scene: The election is called with the party third in every poll, a long way behind the two big ones. {N} has led it for years through bad polls and good ones, the commentators have already written it off, and the only question on the morning shows is how badly {N} will lose.
+scene W: {N} believes the country deserves a real choice, and a party that stands everywhere and campaigns properly to the last day, whatever the polls say.
+scene U: {N} has the seat-by-seat numbers. A swing nobody expects, in forty seats nobody is watching, would change everything, and the numbers say it is possible, just.
+scene B: Third place means the big parties ignore {N}, and that leaves room to move. {N} has a plan for the last week that nobody will see coming.
+scene R: {N} loves being the underdog. The crowds are small but loud, and every one of them is a reason to keep going.
+scene G: {N} thinks of the places where the party was born, the halls and the market towns, and means to win them back one at a time.
+scene tribal: The gathering will choose a chief of the clans, and {Ns} faction is the smallest at the meadow, a few bands from the far valleys. The great factions have already counted the summer as theirs.
+scene magic: The throne will name its Chancellor from the faction that wins the Assembly, and {Ns} faction holds a handful of seats among hundreds. In the taverns they say the chain will go to one of the two great houses, as it always has, and an augur in the market will not take bets on it either way.
+- W | stand in every seat, and campaign to the last day as if it could be won | title: head of government | grants: a household name | grants_if_fails: a long shot that missed | aims: head of government | v: conformity, security | tribal: send a speaker to every fire of the valley, and campaign to the last night as if it could be won | magic: put a name on the lots of every ward, and campaign to the last day as if it could be won | chance: 2
+- U | pour everything into the forty seats the polls are not watching | title: head of government | grants: a household name | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: give every feast and every visit to the bands nobody else is counting | magic: pour the coffer into the forty wards the great houses are not watching | chance: 2
+- B | hold back the party's one big promise for the last week, then spring it | title: head of government | grants: a household name | grants_if_fails: a long shot that missed | aims: head of government | v: power, achievement | tribal: keep the faction's great gift secret until the last night, then give it before all the clans | magic: keep the faction's one great promise sealed until the last week, then break the seal | chance: 2
+- R | turn every small rally into a carnival, and dare the cameras to ignore it | title: head of government | grants: a household name | grants_if_fails: a long shot that missed | v: stimulation, hedonism | tribal: turn every small fire into a feast with drums, and dare the singers to ignore it | magic: turn every small meeting into a fair with music, and dare the heralds to ignore it | chance: 2
+- G | campaign in the market towns where the party was born, one by one | title: head of government | grants: a household name | grants_if_fails: a long shot that missed | v: tradition, universalism | tribal: go back to the far valleys where the faction was first bound, one camp at a time | magic: campaign in the old market towns where the faction was founded, one by one | chance: 2
+- RG | fight to hold every seat the party already has, street by street | v: tradition, stimulation | tribal: fight to keep every band that already stands with the faction, hearth by hearth | magic: fight to hold every seat the faction already has, ward by ward | chance: 75
+- UB | agree a deal in advance with the likely winner, for a say in government | grants: coalition building | v: power, achievement | tribal: agree with the likeliest chief before the choosing, for a duty at the chief's side | magic: seal a bargain in advance with the likeliest house, for a place on the Crown's council | chance: 75
+- UG | write a manifesto for the long road: ten years, not six weeks | v: universalism | tribal: tell the faction's long plan at the fire: ten summers, not one | magic: write the faction's charter for the long road: ten years, not one season | chance: 75
+- WB | agree with the nearest party not to stand against each other in close seats | v: power | tribal: agree with the nearest faction not to stand against each other at the close fires | magic: agree with the nearest faction not to contest each other's close wards | chance: 75
+- WR | debate anyone, anywhere, on live television, and be honest about the odds | grants: debating | v: universalism, stimulation | tribal: dispute with any speaker at any fire, and say plainly how the summer stands | magic: dispute with any rival in any square, and say plainly how the lots stand | chance: 75
+works: The campaign goes the way {N} meant it to, and on the last night the halls are fuller than anyone predicted.
+works: By the end the party is talked about in places that had forgotten it, and {N} is the reason.
+fails: At four in the morning the seats are counted, and the party has its few, as the polls said. {N} concedes in a half-empty hall and thanks the volunteers by name before the cameras leave.
+fails: It does not come off. {N} sleeps for a day, then gets up and rings every candidate who lost, one by one.
+
+# ---------------------------------------------------------------- L5. writing in cold for a job in politics (pairs D1a)
+# A career entry from the rung below (round 3, engine check 11:18: no career with no rung below). Each single requires
+# the rung its post grows from in roles.py (after=), with `without: impossible`, and the LIFE gate asks for the years
+# on it: W party official from local party officer (1 year; "keeps the rules, the lists and the money"), U policy
+# analyst from data analyst (2 years, with a degree; "follows the evidence"), B lobbyist from salesperson (3 years;
+# "knows exactly whom to call"), R speechwriter from journalist (3 years; "finds the words that make a hall rise"), G
+# political adviser from constituency caseworker (1 year; "keeps the boss true to the people who sent them"). Most
+# posts go to people someone inside vouches for; a good letter from the rung below lands about 1 time in 10. No perk on
+# failure (chance 10, lifted by HELPS and the years for most who meet it); the pairs are the slower ways in.
+# Round 5, 2026-10-07 (P9, P5): a letter with no one to vouch for it is a long shot: the singles 10 to 5, each with the
+# perk on a miss; the pairs are still the slower ways in. The three careers with no letter here (campaign organiser,
+# constituency caseworker, pollster) have their long shot in L6, 'the campaign loses its organiser', below.
+
+== writing in cold for a job in politics
+tier: life event
+stages: young_adult adult mature elder
+age: 20-70
+holds: local party officer | data analyst | salesperson | journalist | constituency caseworker
+tenure: 1-60
+per_year: 0 0 .004 .003 .002 .001
+drivers: era+.2 fortune+.1
+times: per person a rung below a post in politics (a branch officer or a member's caseworker of a year, a data analyst of two with a degree, a salesperson or a journalist of three) a year: about 1 in 300 writes in for the post above (estimate, about ten times the real rate on purpose); there are about 2,200 think tanks in the US and 500 in the UK (Penn TTCSP 2020) and about 12,000 to 13,000 registered US federal lobbyists a year (OpenSecrets), with a few hundred speechwriting posts and a few thousand staff to members in a large country (catalogue estimates); most posts go to people someone inside vouches for, and a letter from the rung below with no one to vouch lands about 1 time in 20 (estimate)
+likelier: a new government hiring, a member newly elected for the person's own town, a skill the trade is short of, a friend near power
+rarer: a government at the end of its term, a hiring freeze after a defeat, no time to write the letter
+gap: 3-8
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: friend, mentor, boss, partner
+earth: a job advert, or a name in an article: the people who run the country need writers, researchers, organisers and fixers
+tribal: the band's speaker has no one to remember the old sayings, keep the faction's bonds or shape his words
+magic: the faction houses post their wants on the guild hall door: a steward, a rhetor, a scholar of statecraft, an advocate
+scene: A job advert in the back of the paper, or a name in an article: the people who run the country need writers, researchers, organisers and fixers. {N} has spent years one rung below that work: running a branch, taking a member's cases, reporting, selling to the people who decide, or building the numbers others quote. The letter would take one evening to write.
+scene W: There is a proper way to apply for anything, and the party's head office advertises its posts like any employer. {N} reads the job description three times, and ticks off every line from years of running the branch.
+scene U: {N} has spent years building the numbers others quote, and has an idea the think tanks have missed, with the evidence to back it. A paper sent cold to the right desk might be read, if it is good enough.
+scene B: {N} has spent years selling to the people who decide, and knows that jobs like these are rarely advertised. They go to people someone vouches for, and {N} knows someone who knows someone.
+scene R: {N} heard the leader's last big speech and thought, honestly, that it could have been better. After years of writing for a living, {N} could write a better one tonight.
+scene G: The new member for {Ns} town has never lived there. Somebody in that office should know its streets, and {N} has learned every one of them through years of other people's cases.
+scene tribal: The speaker the band sends to the gathering has no one to remember the old sayings, no one to keep the faction's bonds, no singer to shape his words. {N} has carried messages between the hearths for many summers, and knows how to do each of those things.
+scene magic: The faction houses of the city post their wants on the guild hall door: a steward, a rhetor, a scholar of statecraft, an advocate. {N} has no patron in any house, only years of good work and a better head. A scryer in the lower town offers to read whether the letter will be answered, for a silver piece.
+- W | apply for the post the party's head office advertises, by every form | title: party official | requires: local party officer | without: impossible | grants_if_fails: a long shot that missed | door | v: conformity, security | tribal: offer the elders to keep the faction's bonds, and recite every marriage and gift to prove it | magic: apply to a faction's house for its steward's post, by every form | chance: 5
+- U | send a think tank a paper nobody asked for, and ask for a desk | title: policy analyst | requires: data analyst | without: impossible | grants_if_fails: a long shot that missed | door | aims: policy analyst | v: achievement, self-direction | tribal: go to the old speakers and offer to remember what was tried before, and what came of it | magic: send the academy a treatise on statecraft unasked, and ask for a chair | chance: 5
+- B | turn years of selling to the right people into a desk at a public affairs firm | title: lobbyist | requires: salesperson | without: impossible | grants_if_fails: a long shot that missed | door | v: power, achievement | tribal: turn years of trading with the flint-traders into a go-between's place at the chief's side | magic: turn years of trade with the great houses into an advocate's seat at court | chance: 5
+- R | write the leader a better speech than the last one, and post it to the office | title: speechwriter | requires: journalist | without: impossible | grants_if_fails: a long shot that missed | door | v: stimulation, self-direction | tribal: make the speaker better words than his last, and sing them at his fire unasked | magic: write the faction's head a better oration than the last, and send it unasked | chance: 5
+- G | offer the town's new member the streets you learned through years of casework | act: offer the town's new member the streets they learned through years of casework | title: political adviser | requires: constituency caseworker | without: impossible | grants_if_fails: a long shot that missed | door | aims: political adviser | v: benevolence, tradition | tribal: offer to sit behind the band's new speaker as the one who knows every hearth | magic: write to the ward's new member of the Assembly, offering to be the one who knows its lanes | chance: 5
+- BG | work an unpaid month in the local member's office, and learn who decides what | v: power, security | tribal: sit a moon behind the band's speaker unasked for anything, and learn who decides what | magic: clerk a month unpaid for a member of the Assembly, and learn who decides what | chance: 80
+- BR | knock on doors for a campaign first, where such jobs are really handed out | title: campaign volunteer | v: achievement, stimulation | tribal: walk the hearths for a speaker first, where such places are really given | magic: carry a faction's banner through the wards first, where such posts are really handed out | chance: 80
+- UG | write for the local paper on the town's politics, under your own name | v: universalism | tribal: keep the tales of the council fire, and tell them fairly to anyone who asks | magic: write on the town's quarrels for the broadsheet, under your own name | chance: 80
+- WR | work the polling station on election day, and see how it really runs | title: polling-station volunteer | v: conformity, stimulation | tribal: keep the counting stones at the choosing, and see how it really runs | magic: stand witness at the warded urns, and see how the lots really run | chance: 80
+- WU | take an evening course in public policy, and apply properly next year | mark: learned a skill | v: achievement, conformity | tribal: sit with the elders through a winter of council fires, and ask properly next summer | magic: take the academy's evening lectures on statecraft, and apply properly next year | chance: 80
+works: {N} sees it through, and by the end of the season knows more about how the work is really done than any book could teach.
+works: Something comes of it: a name to call, a door half open, and a reason to keep going.
+fails: The reply comes in a thin envelope: no, with one sentence of real praise for the work, signed by someone {N} has seen on television. {N} keeps it in a drawer.
+fails: Nothing comes back at all. {N} waits a month, then two, then starts on the next thing, a little wiser about how such doors open.
+
+# ---------------------------------------------------------------- L6. the campaign loses its organiser (four-color set)
+# Round 5, 2026-10-07 (P9): the long shot for the campaign's own posts, the three careers that had none (campaign
+# organiser, constituency caseworker, pollster). Two weeks before polling day the paid organiser walks out, and a
+# volunteer or branch officer of a year or more (holds:, tenure: and the LIFE gate in engine-conditions.py) could step
+# into the gap: the next rung, at long odds (5 for every color; the post nearly always goes to someone the party sends
+# in). White, Black and Red each try for the organiser's post in their own way, Green for the casework the organiser
+# carried, Blue for the data desk (a data analyst only, without: impossible). A miss gives the perk. The four-color set
+# is the ways out (help whoever comes, a name from the next seat, the doorsteps, a call round the branch, stepping
+# back), as at 'polling day for mayor', so the pack's pair, triad and cross counts stay as they were.
+
+== the campaign loses its organiser
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+holds: campaign volunteer | local party officer
+tenure: 1-100
+per_year: 0 0 .01 .01 .008 .005
+drivers: era+.2 unrest+.1
+times: per campaign volunteer or local party officer of a year or more, a year: about 1 in 100 is on a campaign that loses its organiser, agent or data lead in the last weeks before a vote (estimate: staff turn over fast on short campaigns, and most campaigns fall in election years); the post nearly always goes to someone the party sends in, and a volunteer who steps up keeps it about 1 time in 20 (estimate)
+likelier: an election called early, a small campaign with one paid organiser, years of loyal work on the doorsteps, a candidate who knows the volunteer
+rarer: a well-funded campaign with staff to spare, a party office close by, no time to spare from work or family
+gap: 4-8
+domain: career.5
+tone: mixed
+life: work, community
+horizon: week
+roles: boss, colleague, friend, rival
+earth: two weeks before polling day the campaign's paid organiser walks out, and the office is in chaos
+tribal: half a moon before the gathering, the young man who walked the valley for the speaker goes off to another band
+magic: a fortnight before the lots, the faction house's chief runner takes another house's silver and is gone
+scene: Two weeks before polling day the campaign's paid organiser walks out after a row with the candidate. The rota is half empty, the leaflets are still in their boxes, and nobody knows the password to the canvass data. {N} has knocked on doors for this party for years, and everyone in the office is looking at everyone else.
+scene W: Somebody has to keep the spending log, the imprints on the leaflets and the rota inside the rules, or the whole campaign could be challenged. {N} knows those rules better than anyone left in the room.
+scene U: The canvass returns are a mess: three spreadsheets that disagree about the same streets. {N} could sort them out in a night, if anyone handed over the password.
+scene B: The candidate needs someone to run this now, and the party's regional office will take a week to send anyone. {N} sees exactly what this moment is worth.
+scene R: Two weeks, a half-empty rota and a race still there to be won. {N} can feel the pull of it already.
+scene G: The organiser kept a list of residents who rang with problems, and nobody has called them back. {N} knows half of those names from the street.
+scene tribal: Half a moon before the gathering, the young man who walked the valley for the speaker has gone to another band's fire. The hearths have not been visited, the gifts are not counted, and the speaker's own kin look at {N}, who has carried his words for many summers.
+scene magic: A fortnight before the lots, the faction house's chief runner has taken another house's silver and gone. The ward rolls are in disorder, the broadsheets are unprinted, and the steward's eyes fall on {N}, who has carried the faction's banner for years.
+- W | offer to run the last two weeks strictly by the book: rota, spending log, leaflets | title: campaign organiser | grants_if_fails: a long shot that missed | v: conformity, security | tribal: offer the speaker's kin to keep the gifts and the round of hearths in order, by the old custom | magic: offer the steward to keep the rolls, the silver and every seal in order until the lots | chance: 5
+- U | rebuild the canvass data overnight, and ask the candidate for the data desk | title: pollster | requires: data analyst | without: impossible | grants_if_fails: a long shot that missed | v: achievement, conformity | tribal: count overnight which hearths lean which way, and ask to keep the count for the speaker | magic: set the ward tallies straight overnight, and ask the steward for the reckoner's stool | chance: 5
+- B | ring the candidate before the regional office does, and ask for the organiser's post | title: campaign organiser | grants_if_fails: a long shot that missed | v: power, achievement | tribal: go to the speaker before his kin do, and ask to walk the valley in the young man's place | magic: reach the candidate before the faction house does, and ask for the chief runner's place | chance: 5
+- R | pick up the clipboard, fill the rota by midnight, and simply start running it | title: campaign organiser | grants_if_fails: a long shot that missed | v: stimulation | tribal: take up the young man's staff, gather the young hunters by nightfall, and set off down the valley | magic: take up the runner's satchel, rouse the wards by midnight, and simply start | chance: 5
+- G | call back every resident on the organiser's list, and ask to keep the casework | title: constituency caseworker | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: visit every hearth that sent a trouble to the speaker, and ask to keep carrying them | magic: call on every petitioner the runner left waiting, and ask to keep the petitions | chance: 5
+- WUBG | help whoever the party sends in, and keep your own ward's lists in order for them | v: conformity, benevolence | tribal: help whoever the elders send, and keep your own hearths' count ready for them | magic: serve whoever the faction house sends, and keep your own ward's rolls in order for them | chance: 80
+- WUBR | put forward the organiser from the next seat's campaign, and hold the phones till they come | v: achievement, conformity | tribal: send for the one who walked the next valley for his speaker, and keep the word moving till he comes | magic: send for the runner of the next ward's campaign, and keep the messages moving till they come | chance: 80
+- WURG | keep knocking on doors, and leave the running of it to the candidate | habit | v: benevolence, universalism | tribal: keep walking the hearths, and leave the leading of it to the speaker | magic: keep carrying the banner door to door, and leave the running of it to the candidate | chance: 80
+- WBRG | ring round the branch for someone who has run a campaign before | v: tradition, conformity | tribal: ask among the old ones for someone who has walked the valley for a speaker before | magic: ask round the faction for someone who has run a season of lots before | chance: 80
+- UBRG | step back: two weeks of this would cost the day job and the family too much | mark: turned down a chance | v: security, self-direction | tribal: step back: half a moon of this would cost the hunt and the family too much | magic: step back: a fortnight of this would cost the workshop and the household too much | chance: 80
+works: {N} runs the last two weeks, and whatever the count says, the party asks {N} to stay on.
+works: The office settles around {N} within a day, and the rota fills faster than anyone expected.
+fails: On Monday the regional office sends in its own organiser, who thanks {N} for holding the fort and takes back the clipboard. {N} goes out canvassing that evening anyway.
+fails: The candidate says no, kindly, in the car park: they need someone the party knows. {N} drives home past the posters {N} put up, and is back on the doorsteps by the weekend.
+
+# ================================================================ the anti-story: two echoes on the perk
+# ---------------------------------------------------------------- E1. the race comes round again (cycle s1)
+# The second try: years after a long shot at a final rung missed ('election night' with no nomination, 'polling day
+# for mayor' from outside the council, a back-bench challenge, a small party's campaign for government, or an open
+# leadership contest without reach), the same race comes round again. The singles give the title the person missed
+# ({missed}, engine 08:21), at chance 12 against the first try's 2 to 10 (election night 50 x .04, the leadership 15 to
+# 17 x .2, the two contests inside parliament at 2, polling day for mayor at 10), and below the fair races (30 to 50):
+# a name people remember, a team that knows how. {missed} gets no HELPS lift and no try_lift (batch.py builds the
+# earned odds from named titles only), so the written 12 alone carries "likelier than the first". The gate keeps it to the same rung
+# (a leadership only while still in the seat, the government only while still leading) and to the same miss (no other
+# long shot missed since). The cross cycle is the other ways to carry it on: the account for the next one, someone
+# else's race, a younger rival's team, the old team's party, the money given away.
+
+== the race comes round again
+tier: echo
+rate: 0.15
+once: yes
+stages: young_adult+
+age: 24-85
+times: per person who went for a seat, a mayoralty, a party's lead or the government on long odds and lost: about 1 in 5 tries again at a later contest (estimate); the second run starts with a name people remember and a team that knows how, and a candidate who stands again usually does better than the first time (estimate); here the second try is written at 12 in 100, above every first try (2 to 10) and below the fair races (30 to 50)
+tone: mixed
+life: community, work
+horizon: months
+roles: friend, partner, rival, colleague
+earth: years after the long shot that missed, the same race comes round again, and people still remember your name
+tribal: summers after the band chose another, the same choosing comes round again, and some hearths still say your name
+magic: years after the lots went against you, the same seat, chain or seal is up for the casting again
+after: moment 'election night', 'polling day for mayor', 'a challenge from the back benches', 'the campaign nobody gave a chance' or 'the leadership falls vacant' within the last month, a long shot taken there and missed ([a long shot that missed] held, and a failed long shot that month); when it comes, no other long shot missed since, and a leadership or the government only while the person still holds the rung below it
+delay: 3-12
+likelier: the holder of the post standing down, every party in disgrace, the old campaign team still in touch, a name still known, time and a little money to spare
+rarer: stress above 1.5; little money; a move away since the first race
+scene: Years after the long shot that missed, the same race comes round again: the seat falls vacant, the mayor stands down, the leader stumbles, or the country goes back to the polls. On the first evening three people ring, one of them {friend}, who still has the old list of supporters in a drawer.
+scene W: {N} reads the rules again. Nothing has changed: the same forms, the same deadlines, the same right as anyone. What has changed is that {N} knows how it is done.
+scene U: {N} still has the old results, and the new ones beside them. The gap is smaller than it was, and {N} can see exactly where the votes would come from.
+scene B: Last time {N} went in with too little. This time there are people who owe {N} favours, and a name the papers already know.
+scene R: The old fire is still there. {N} told {partner} it was a one-off, and both of them knew it was not.
+scene G: The people who backed {N} last time never forgot. At the shop and at the school gate they keep asking when {N} will try again.
+scene tribal: Summers after the band chose another, the same choosing comes round again, and the one chosen then is too stiff to make the walk. At some hearths they still say {Ns} name.
+scene magic: Years after the lots went against {N}, the same seat, chain or seal is up for the casting again. The hedge-witch in the lower town says she remembers {N}, and that charms are cheaper the second time.
+- W | try again, by the same rules, with everything learned the first time | title: {missed} | grants_if_fails: a long shot that missed | v: conformity, security | tribal: ask again by the old custom, knowing now how it is done | magic: enter your name for the casting again, by every form, knowing now how it is done | chance: 12
+- U | try again on the numbers, only where the gap can close | title: {missed} | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: ask again, and spend every day at the hearths that came closest last time | magic: try again, and spend every coin where the gap can close | chance: 12
+- B | try again, and call in every favour gathered since the first time | title: {missed} | grants_if_fails: a long shot that missed | v: power, achievement | tribal: ask again, and call in every gift given since the first summer | magic: try again, and call in every favour owed since the first lots | chance: 12
+- R | try again, louder, and enjoy every minute of it this time | title: {missed} | grants_if_fails: a long shot that missed | v: stimulation, hedonism | tribal: ask again, louder at every fire, and enjoy every night of it | magic: try again, louder in every square, with the cheaper charm this time | chance: 12
+- G | try again for the people who asked, with the old team at the door | title: {missed} | grants_if_fails: a long shot that missed | v: tradition, benevolence | tribal: ask again for the hearths that asked, with the old friends walking beside you | magic: try again for the lanes that asked, with the old team at every door | chance: 12
+- W>U | write a plain account of the first try, for whoever comes next | v: universalism, achievement | tribal: teach the young at the fire how the first asking went, for whoever asks next | magic: write a plain account of the first casting, for whoever tries next | chance: 80
+- U>B | be a younger candidate's agent, and run their numbers like a machine | v: achievement, power | tribal: stand behind a younger one who asks the band, and count every family for them | magic: be a younger candidate's agent, and tally their lanes like a guild clerk | chance: 80
+- B>R | back a younger rival this time, for a place in their team | v: power, stimulation | tribal: stand behind a younger rival this time, for a place at their side | magic: back a younger rival this time, for a seat at their table | chance: 80
+- R>G | throw a party for the old campaign team, and let the race go | grants: a loyal campaign team | v: hedonism, benevolence | tribal: hold a feast for the friends who walked the hearths, and let the choosing go | magic: throw a feast for the old team at the tavern, and let the casting go | chance: 80
+- G>W | let it go, and give what it would cost to the town's food bank | mark: helped someone in need | v: benevolence, universalism | tribal: let it go, and give the stores you would have spent to the hungriest hearths | magic: let it go, and give the fee to the almshouse of the lower town | chance: 80
+works: {N} sees it through this time with open eyes, and whatever the count says, everyone knows exactly who {N} is.
+works: The second time feels different: steadier, and stranger, and in the end worth it.
+fails: One place higher this time, and a good deal closer. {N} laughs on the stage at the count, and is not sure why.
+fails: It does not come off again. {N} walks home the long way, past the hall where the count was, and finds it does not hurt the way it did.
+
+# ---------------------------------------------------------------- E2. making peace with the long shot (cycle s2)
+# The anti-story's payoff: years after any long shot in the pack missed (the seat at 'election night', a selection from
+# outside the party at 'a seat falls vacant', the open leadership, 'polling day for mayor', the two contests inside
+# parliament, or the career entry by letter), what the attempt gave. Telling it, teaching it, cheering someone younger on, or letting it rest. Every option is in the
+# person's own hands (chance 85 and 80).
+
+# Round 5, 2026-10-07 (P14): value tags read from the act on 2 options (check.py section 4).
+== making peace with the long shot
+tier: echo
+rate: 0.3
+once: yes
+stages: young_adult+
+age: 25-100
+times: per person who went for a long shot in politics and missed: about 2 in 5 come back to it years later in a settled way, telling it, teaching it, cheering someone younger on or letting it rest (estimate)
+tone: mixed
+life: meaning, community
+horizon: months
+roles: friend, partner, child, colleague, mentor
+earth: years later the old leaflet, or the letter, turns up in a drawer, and a young neighbour is thinking of standing
+tribal: a child at the fire asks about the summer you asked the band for more than it would give
+magic: an apprentice at the guild hall finds your old broadsheet in a drawer and asks what happened
+after: moment 'election night', 'a seat falls vacant', 'the leadership falls vacant', 'polling day for mayor', 'a challenge from the back benches', 'the campaign nobody gave a chance' or 'writing in cold for a job in politics' within the last month, a long shot taken there and missed ([a long shot that missed] held, and a failed long shot that month)
+delay: 2-15
+likelier: age; a quiet year; children grown or retired; a young person nearby with the same itch; friends from the attempt still around
+rarer: stress above 1.5; poor health; a fresh grievance about the old race
+scene: Years later, sorting a drawer, {N} finds the papers from the attempt: a leaflet with a younger face on it, a letter, a speech nobody heard. That evening a young neighbour mentions over the fence that they are thinking of standing for something.
+scene W: {N} did it properly, by the rules, and lost by them. There is a quiet pride in that, which took years to notice.
+scene U: {N} can say now exactly why it failed, and what it would have taken. The account is cooler than it was, and more useful.
+scene B: It cost money, time and a few friends. {N} has done the sum many times, and lately it comes out closer to even.
+scene R: {N} would do it again. That is the surprising part: not the losing, but how much {N} still loved the trying.
+scene G: The neighbours who walked the streets with {N} still say hello in a particular way. Whatever was lost, that was kept.
+scene tribal: At the fire a child asks about the summer {N} asked the band for more than it would give. The old ones smile; they remember it better than {N} thought.
+scene magic: An apprentice at the guild hall finds {Ns} old broadsheet in a drawer, the ink faded and the promises still there, and brings it over to ask what happened.
+- W | write it down plainly, as it happened, for the town's archive | v: tradition, conformity | tribal: tell it plainly at the fire, as it happened, so the band keeps it | magic: write it down plainly for the guild hall's chronicle | chance: 85
+- U | teach an evening course on how politics really works, the losses included | v: achievement, self-direction | tribal: teach the young at the fire how the band really chooses, the losses included | magic: give the academy a winter of lectures on how the Assembly really works, the losses included | chance: 85
+- B | tell the story at dinners, and let it open the doors it can | v: power, achievement | tribal: tell the story at every feast, and let it win the friends it can | magic: tell the story at every guild dinner, and let it open the doors it can | chance: 85
+- R | help a young neighbour stand, and cheer loudest at their count | mark: helped someone in need | v: stimulation, benevolence | tribal: stand behind a young one who asks to be heard, and shout loudest when the families choose | magic: help a young neighbour stand for the lots, and cheer loudest at the urns | chance: 85
+- G | let it rest, and keep the old papers in a drawer where they belong | v: tradition | tribal: let it rest, and keep the memory where it belongs | magic: let it rest, and keep the old broadsheet in the chest where it belongs | chance: 85
+- W>B | join the board that oversees local elections, so newcomers get a fair start | v: conformity, universalism | tribal: sit with the keepers of the counting stones, so newcomers get a fair hearing | magic: sit with the Order's witnesses at the urns, so newcomers get a fair start | chance: 80
+- U>R | write the whole story as a book, and let it sting where it should | v: self-direction, stimulation | tribal: make the whole story into a long tale for the singers, stings and all | magic: write the whole story as a chapbook, and let it sting where it should | chance: 80
+- B>G | set up a small fund for first-time candidates from the old streets | v: benevolence, universalism | tribal: lay by stores each autumn for the young ones from the far hearths who ask to be heard | magic: endow a small purse for first-time candidates from the old lanes | chance: 80
+- R>W | coach the school debating team, and teach them how to lose well | v: benevolence, stimulation | tribal: teach the band's children to speak at the fire, and how to lose well | magic: coach the academy's young disputants, and teach them how to lose well | chance: 80
+- G>U | meet the old team each year on the anniversary, and work out what it taught | v: tradition, benevolence | tribal: sit with the old friends each year at the same moon, and work out what it taught | magic: meet the old team each year at the same tavern, and work out what it taught | chance: 80
+works: {N} finds the old attempt has become a story worth telling, and the telling does someone else some good.
+works: Something settles. The long shot is part of {Ns} life now, neither a wound nor a boast.
+fails: The old disappointment comes back sharper than expected, and {N} puts the papers away again for another year.
+fails: Nobody seems to want the story just now, and {N} keeps it for later.

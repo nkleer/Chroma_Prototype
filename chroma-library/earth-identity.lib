@@ -1,0 +1,525 @@
+# Chroma library, modern Earth: sexual orientation and gender identity (next batch, Library thread, 2026-10-05).
+# Emren's point 11 and the card "Sex set, rest found"; Emren 21:00: "society and peer-pressure, events and histories must
+# be important for sex orientation and experience impact". Research and rules: drafts/identity-research.md.
+# Sex is set at setup. Attraction (attr 0 to 4) and gender unease are hidden traits drawn at real rates and changed by no
+# act; these moments are how they are found in play, and how the society around the character carries them.
+# Gates for the engine are the "# gate:" lines above each situation. No moment presents a past event as a cause, no
+# pressure to change works, nothing sexual involves anyone under 18, and nothing is graphic.
+# Syntax: header of build.py. Rules: library-spec.md and drafts/next2/BRIEF.md.
+
+# ---------------------------------------------------------------- inner: a first stirring (cycle s1)
+
+# gate: attr >= 1 & age >= 10
+== a feeling for a friend that does not fit
+tier: inner
+stages: child juvenile
+age: 10-15
+tone: mixed
+life: inner, friends, love
+horizon: months
+roles: friend, parent, sibling
+earth: a warm, confusing feeling for a friend of your own sex, not the crush everyone expects you to have
+requires: drawn at least a little to the same sex (attr >= 1) and aged 10 or more; a close friend of the same sex seen most days (school, a team, a club), in the months when the first crushes start in the class
+likelier: puberty and the first couples in the class (median age of a first such thought is 12, Pew 2013); a close same-sex friendship; a film, a song or a person in the news that shows such feelings; a time and place where they can be named
+rarer: no close friend of the same sex; a home or a school where such feelings are never mentioned (they come all the same, and are named later)
+times: Once, around 10 to 14, for most young people drawn at all to their own sex; Pew 2013: LGB adults first thought they might be at a median age of 12
+once: yes
+scene: {friend} leans over on the bus to share an earphone, and {Ns} stomach turns over. Everyone in the class has started talking about crushes, and this feels like what they describe, only not about the person anyone would expect.
+scene W: Everyone knows how it is meant to go: the class pairs off, boys with girls, and the grown-ups tease. {N} has always kept the rules, and this feeling is not in them.
+scene U: {N} notices it the way one notices a new word: a warmth when {friend} sits close, a sting when {friend} talks about someone else. {N} wants to know what it is called.
+scene B: {N} works out quickly that this is a feeling to keep close. Whatever it is, it belongs to {N}, and nobody is going to make gossip of it.
+scene R: When {friend} grins, {Ns} heart bangs like a door in the wind. It is the best feeling {N} has ever had, and the most confusing.
+scene G: Something new is growing in {N}, quiet as a bulb under snow. It is not what anyone said would come, but it feels like part of {N} all the same.
+- W | tell yourself it is only a close friendship, and carry on as normal | habit | v: conformity, security | chance: 85
+- U | look the feeling up quietly, page after page, until it has a name | v: self-direction | chance: 80
+- B | keep it entirely to yourself, and notice who could be trusted with it one day | v: security | mark: kept it hidden | chance: 85
+- R | write your friend a note about the feeling, and slip it into their bag | v: stimulation, benevolence | chance: 62
+- G | let the feeling be, without deciding yet what it means | v: self-direction (accepting oneself) | chance: 85
+- W>U | ask a trusted adult, in general terms, whether such feelings are normal | door | v: security, self-direction | chance: 74
+- U>B | keep a private diary in a code only you can read | habit | v: security, self-direction | mark: kept it hidden | chance: 80
+- B>R | arrange to sit next to your friend in every class you can | v: hedonism | chance: 75
+- R>G | spend every free afternoon outdoors with your friend, glad just to be near | habit | v: hedonism, benevolence | chance: 95
+- G>W | keep the friendship just as it is, so nothing spoils the old group | v: conformity, benevolence | mark: kept it hidden | chance: 75
+works: The feeling has a shape now, and {N} carries it more easily.
+works: {N} and {friend} stay close, and the strange new feeling becomes part of the year.
+fails: {N} lies awake for weeks, more muddled than before.
+fails: Something shifts with {friend}, and the easy closeness of before is gone.
+
+# ---------------------------------------------------------------- inner: gender unease, the clothes and the name (cycle s2)
+
+# gate: unease & age >= 8
+== the clothes and the name that do not fit
+tier: inner
+stages: child juvenile young_adult
+age: 8-25
+tone: trouble
+life: inner, body, family
+horizon: months
+roles: parent, grandparent, sibling, friend
+earth: the clothes, the name and the place you are given as a boy or a girl feel like someone else's, or only half yours
+requires: gender unease (unease: the sex they were raised as does not fit their own gender, or not only; trans or nonbinary) and aged 8 or more; a day that sorts boys from girls (a uniform, a team, a party outfit, the name called out)
+likelier: the years just before and during puberty (about 1.4 in 100 of 13 to 17 year-olds identify as transgender, Williams Institute 2022); a school or a family that splits boys and girls sharply; a family occasion with clothes laid out; a book, a film or a person who shows another way to be
+rarer: a family and a school with loose ideas of how boys and girls dress and play (the feeling is the same; it pinches less)
+times: Most young people with gender unease, again and again from childhood into the twenties; about 1.4 in 100 of 13 to 17 year-olds identify as transgender (Williams Institute 2022)
+gap: 3-6
+scene: It is {grandparent}'s birthday, and {N} has been dressed for the photographs the way everyone expects. In the hall mirror the clothes look like a costume, and when {parent} calls {Ns} name, it sounds like someone else's.
+scene W: {N} knows what is expected at a family party and does it, every button done up. In the photographs {N} stands up straight and feels like a stand-in for somebody else.
+scene U: {N} has been keeping notes for years, in a way: which clothes feel like a disguise, which games feel like home, which name {N} answers to in daydreams.
+scene B: {N} has learned to wear the clothes like armour and give nothing away. Nobody needs to know what goes on underneath, not yet.
+scene R: {N} wants to rip off the stiff collar and run. Everything in the mirror is wrong, or only half right, and the wrongness burns.
+scene G: {N} feels like a plant in the wrong pot: the roots are fine, but they press against the sides.
+- W | wear what is expected today, and keep the peace for the family | v: conformity, benevolence | mark: kept it hidden | chance: 88
+- U | read everything you can find about people who have felt this way | door | v: self-direction | chance: 85
+- B | keep a few clothes of your own choosing hidden, for when you are alone | habit | v: self-direction | mark: kept it hidden | chance: 80
+- R | change into clothes that feel right the moment the photographs are done | v: self-direction, stimulation | mark: defied an authority | closed: approval: breaking the family's dress code at a party; backfire: a row in front of the guests, and sent upstairs | norm: transition | chance: 90
+- G | tell yourself this is how you are made, and wait until it can show | v: self-direction (accepting oneself) | mark: kept it hidden | chance: 75
+- W>B | offer to keep every house rule for a month, in return for choosing your own clothes | self_control: + | v: self-direction | chance: 62
+- U>R | change your style quietly, one piece at a time, so nobody makes a fuss | identity | v: self-direction | chance: 65
+- B>G | find the one relative who will not mind, and spend the party at their side | v: security, benevolence | chance: 70
+- R>W | blurt out to your sibling that the name feels wrong, and ask them to understand | v: self-direction, benevolence | mark: named their gender | chance: 62
+- G>U | slip out into the garden alone, and listen to what the feeling is saying | v: self-direction | closed: approval: slipping away from a family party; backfire: missed for the photographs, and a scolding | chance: 75
+works: {N} gets through the day with something of {Ns} own still whole.
+works: For a few hours the feeling eases, and {N} catches a glimpse of who {N} might be.
+fails: The day is long and the photographs are worse, and {N} cannot bear to look at them.
+fails: There is a row, and the wrongness is sharper afterwards.
+
+# ---------------------------------------------------------------- everyday pair 1 (no gate; juvenile to mature): calls UBR (cycle s3) / calls WG (cycle s2)
+
+== someone mocked for being different
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature
+age: 11-67
+calls: UBR
+tone: trouble
+life: school, work, friends
+horizon: week
+roles: rival, friend, colleague, a teacher or a manager
+earth: a classmate or a colleague is mocked by the group for not acting the way a boy or a girl, a man or a woman, is supposed to
+times: Most teenagers see it many times at school, adults now and then at work; GLSEN surveys find nearly all LGBTQ pupils in US schools hear such remarks (adult part an estimate)
+gap: 3-8
+scene: In the corridor {rival} and two others trail a quiet member of the group, calling out the word they have used all month, and half the corridor laughs.
+scene W: The rules on the noticeboard say nobody is to be picked on, and here it is happening right under them. {N} feels the duty to say something like a weight on the chest.
+scene U: {N} has watched it for weeks and seen the pattern: always the same three, always when nobody in charge is near, always the same word.
+scene B: {N} sees how it works: whoever stands next to the target becomes the next one. Keeping clear is the smart thing, and {N} hates how smart it is.
+scene R: The laughter makes {Ns} face burn. {N} wants to shove through the crowd and tell {rival} where to go.
+scene G: The one being mocked walks with eyes on the floor, the way a hurt animal moves. {N} remembers them on the first day, shy and hopeful, before everyone sorted themselves into groups.
+- W | report the name-calling to whoever is in charge, with the dates and the names | v: universalism, conformity | mark: helped someone in need | chance: 70
+- U | ask them, away from everyone, what would actually help | v: benevolence | mark: helped someone in need | chance: 80
+- B | keep your distance, so the mocking does not turn on you | v: security | mark: refused someone in need | act: keep their distance, so the mocking does not turn on them | chance: 88
+- R | step in front of them and tell the mockers to back off | identity | v: universalism, stimulation | mark: made an enemy | chance: 75
+- G | sit with them at lunch every day, as if nothing were odd | habit | identity | v: benevolence | mark: made a friend | chance: 82
+- W>R | ask whoever is in charge for a group talk where everyone can speak freely | door | v: universalism | chance: 80
+- U>G | find out what they love, and bring them along to a club where it fits | v: benevolence | mark: made a friend | chance: 70
+- B>W | warn the ringleader that a video exists and will reach the people in charge | v: power, universalism | closed: approval: threats; backfire: the video goes round, and the one being mocked is hurt again | chance: 62
+- R>U | ask the mockers, loudly and in front of everyone, why it bothers them so much | v: universalism, stimulation | chance: 75
+- G>B | laugh along with the rest, since that is how the pecking order works | self_control: - | v: power, security | mark: gave in to pressure | closed: approval: joining in the bullying; backfire: someone in charge hears, and there is trouble | chance: 68
+works: By the end of the week the corridor is quieter, and {N} can live with the part played in it.
+works: Things settle, and within a month the one being mocked walks a little taller.
+fails: The mocking goes on, and {N} feels sick about it every morning.
+fails: The mockers turn on {N} as well, and the next weeks are hard ones.
+
+== your sibling brings home a same-sex partner
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature
+age: 12-75
+calls: WG
+tone: mixed
+life: family
+horizon: moment
+roles: sibling, parent, grandparent
+earth: at the holiday meal a brother, a sister or a cousin brings home a partner of the same sex for the first time
+times: About 1 in 4 people, once (estimate); about 9 in 100 US adults identify as LGBTQ+ (Gallup 2024), so many families have a brother, sister or cousin who will
+once: yes
+share: .25
+scene: {sibling} arrives for the holiday meal and, for the first time, brings a partner: someone of the same sex, holding flowers and a cake, smiling hard. Around the table the family goes very polite.
+scene W: {N} was raised to welcome every guest at this table, and also on teachings that have hard words for this. Both are being tested before the soup.
+scene U: {N} watches the room: {parent}'s fixed smile, {grandparent}'s silence, the partner trying too hard. It is like a play where nobody has learned their lines.
+scene B: {N} sees at once that all the family's attention will be on {sibling} today. The usual questions about {Ns} own life will not come up, and that is not nothing.
+scene R: {N} sees the partner's hands shaking round the cake tin and wants to do something, anything, to break the ice.
+scene G: The family has gathered round this table for every holiday {N} can remember. Today it has one more chair, and the old table holds it.
+- W | lay a place for the partner, and treat them as any other guest | v: benevolence, tradition | chance: 90
+- U | ask the partner about their work and their life, and really listen | v: universalism | mark: made a friend | chance: 75
+- B | stay polite but distant, and keep your opinions to yourself | v: security | chance: 92
+- R | raise a glass to the two of them before anyone can make it awkward | v: benevolence, stimulation | chance: 80
+- G | sit beside your grandparent and help them come round, slowly | v: benevolence, tradition | chance: 62
+- W>B | refuse to sit at the same table, and let the family choose | identity | v: tradition, power | closed: approval: snubbing a guest at the family table; backfire: the family chooses, and not as hoped | chance: 60
+- U>R | start a quiz after dinner, so everyone has to talk and laugh together | v: hedonism, benevolence | chance: 75
+- B>G | take your parent aside: accept this, or lose your sibling for good | v: benevolence, power | chance: 58
+- R>W | call out the uncle who makes a snide remark, right there at the table | v: universalism | chance: 70
+- G>U | take the partner round the garden after lunch, and get to know them | door | v: benevolence | mark: made a friend | chance: 88
+works: By the pudding the talk is easy, and the partner is laughing at the old family jokes.
+works: {sibling} catches {Ns} eye across the table and mouths a silent thanks.
+fails: The meal limps to an early end, and {sibling} and the partner leave before the coffee.
+fails: Something said at the table is not forgotten, and the next holiday is thinner.
+
+# ---------------------------------------------------------------- inner: a dawning certainty (cycle s3)
+
+# gate: attr >= 2 & age >= 13
+== the feeling is not going to pass
+tier: inner
+stages: juvenile young_adult
+age: 13-22
+tone: mixed
+life: inner, love
+horizon: months
+roles: friend, parent, sibling
+earth: one ordinary evening it becomes clear that the pull toward your own sex is not a phase and is not going away
+requires: drawn to both sexes or mostly the same sex (attr >= 2) and aged 13 or more; a first stirring some years before, and the feeling has outlasted crushes, teasing and school years
+likelier: the mid to late teens (median age of feeling sure is 17, Pew 2013); a friend, a film or a public figure that names it; a time and place where it can be said; a first crush that is returned
+rarer: a home, a faith or a country where it is condemned (the certainty comes later, often in the twenties; it is not prevented)
+times: Once, in the mid to late teens, for most people drawn to their own sex, later where it is condemned; Pew 2013: LGB adults felt sure at a median age of 17
+once: yes
+scene: {N} stands by the wall at the school dance, watching the couples sway, and the thought arrives whole and quiet: this is not a phase. It has not passed in four years, and it is not going to.
+scene W: {N} has waited years for the feeling to fade, as everyone said it would. Tonight {N} knows it will not, and every plan the family has made for {N} wobbles.
+scene U: {N} has tested it like a theory, year after year, and the results always come out the same. There is no mistake in the sums.
+scene B: So this is how it is. {N} turns the fact over and starts working out who must never know, who might, and what it will cost.
+scene R: The certainty arrives like a door flung open. {N} is scared stiff and, underneath, wildly happy.
+scene G: It feels less like a discovery than a recognition, like hearing a song whose words {N} has always known.
+- W | decide to keep it quiet until you have left home | v: security, conformity | mark: kept it hidden | chance: 85
+- U | find honest books and sites, and read until the fear has answers | v: self-direction | chance: 85
+- B | promise yourself to live on your own terms, whoever minds | identity | v: self-direction | chance: 80
+- R | say it out loud in your empty room, just to hear how it sounds | v: self-direction, stimulation | chance: 92
+- G | look for a group in town where young people like this meet | door | v: security (belonging) | mark: made a friend | chance: 72
+- W>R | make a plan for the day you are free to be yourself, and stick to it | v: self-direction | chance: 75
+- U>G | learn the long history of people who felt the same, until it feels ordinary | v: universalism | chance: 75
+- B>W | decide what to show and what to hide, person by person, to keep the peace | v: security | mark: kept it hidden | chance: 80
+- R>U | pour every feeling onto paper in one honest, furious night | v: self-direction | chance: 68
+- G>B | keep to the family's ways for now, and let nobody guess | v: tradition, security | mark: kept it hidden | chance: 88
+works: The certainty settles into something {N} can live with.
+works: {N} wakes the next morning feeling lighter, and more like {N}.
+fails: Fear crowds in for weeks, and {N} sleeps badly.
+fails: {N} pushes the thought away, and it comes back louder.
+
+# ---------------------------------------------------------------- everyday pair 2 (attr >= 2; juvenile to adult): calls UR (cycle s1) / calls WBG (cycle s2)
+
+# gate: attr >= 2 & ~mark('came out') & age >= 14
+== the first person you tell
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult
+age: 14-45
+calls: UR
+tone: mixed
+life: friends, love
+horizon: moment
+roles: friend, sibling
+earth: after years of knowing, you tell one person, a close friend or a sibling, that you are gay or bisexual
+times: Most gay and bisexual people, once; Pew 2013: LGB adults first told a close friend or family member at a median age of about 20, younger generations sooner
+gap: 2-4
+scene: {N} and {friend} are sitting on the low wall outside the chip shop, as they have a hundred times, and {N} has decided that tonight is the night. The words are ready. The mouth is dry.
+scene W: {N} has chosen {friend} with care: someone who keeps promises. {N} only hopes that {friend}'s ideas of right and wrong have room for this.
+scene U: {N} has rehearsed it a dozen ways and guessed {friend}'s answer to each. None of the guesses help now.
+scene B: {N} has weighed it up: {friend} is loyal, has secrets too, and has more to lose by telling than by keeping quiet. It is as safe a bet as {N} will get.
+scene R: {Ns} heart is going like a drum. Either it comes out now or it stays in for good, and {N} cannot stand for good.
+scene G: {N} has known {friend} since they were both small. If anyone in the world can take this as part of the same old {N}, it is {friend}.
+- W | ask your friend to promise to keep it secret, then tell them | v: security | mark: came out | chance: 80
+- U | test the water first with a question about someone famous who came out | v: security | chance: 82
+- B | tell only the friend with a secret of their own to keep | v: security, power | mark: came out | chance: 82
+- R | just say it, straight out, before the nerve goes | v: self-direction | mark: came out | chance: 75
+- G | wait for a quiet moment that feels right, and let it come out naturally | identity | v: self-direction | mark: came out | chance: 78
+- W>U | write it in a careful letter, so the words come out right | v: self-direction | mark: came out | chance: 80
+- U>B | say it is about someone else, and watch how your friend reacts | self_control: - | v: security | mark: kept it hidden | chance: 78
+- B>R | wait for a night when your friend owes you one, then pour it all out | v: self-direction | mark: came out | act: wait for a night when the friend owes them one, then pour it all out | chance: 78
+- R>G | blurt it out in tears, and let your friend hold you | v: benevolence, security | mark: came out | grants: friend for life | act: blurt it out in tears, and let the friend hold them | chance: 85
+- G>W | decide not to tell anyone yet, and keep the peace a while longer | v: security, conformity | mark: kept it hidden | chance: 82
+works: {friend} listens to the end, and then says the one thing {N} needed to hear.
+works: The night goes on and the world has not ended; if anything it is bigger.
+fails: {friend} goes stiff and changes the subject, and the walk home is very quiet.
+fails: Within a week someone else knows, and {N} did not tell them.
+
+# gate: attr >= 2 & age >= 15
+== a love nobody can know about
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult
+age: 15-40
+calls: WBG
+tone: mixed
+life: love
+horizon: months
+roles: prospect, friend, parent
+earth: a first love with someone of your own sex, and nobody can know: not the family, not the school or the work, not the street
+times: Many gay and bisexual people, once, in the teens or twenties, more often where it is condemned (estimate); hiding adds lasting stress (Meyer 2003)
+once: yes
+scene: {N} and {prospect} meet at the bus shelter at the far end of the park, where nobody they know ever goes. They hold hands for twenty minutes and let go the moment a car turns the corner.
+scene W: {N} hates the lying: the invented evening class, the friend's house that is really the park. Honesty was always the first rule, and love has made {N} break it every week.
+scene U: {N} has built a whole system: separate chats, a nickname in the phone, routes home that never cross. It works, and it is exhausting.
+scene B: Nobody gets to take this. {N} guards the secret like money, and enjoys a little the power of a life nobody else knows about.
+scene R: It is the best thing that has ever happened, and {N} wants to shout it from the rooftops, and cannot.
+scene G: The love feels as natural as breathing. It is the hiding that feels unnatural, like a plant kept in a cupboard.
+- W | keep it secret for now, but refuse to tell any outright lies | v: conformity, security | mark: kept it hidden | chance: 80
+- U | plan every meeting with care, so nobody ever finds out | v: security | mark: kept it hidden | closed: approval: sneaking out behind the family's back; backfire: caught, and the questions start | chance: 80
+- B | let people think you are seeing someone else, as a cover | v: security | mark: hid a wrong | chance: 78
+- R | walk down the high street hand in hand, and let people see | identity | v: stimulation, self-direction | mark: came out | closed: approval: a same-sex couple where people frown on it; backfire: the talk of the street, and trouble at home | norm: coming out | chance: 65
+- G | bring them home as your best friend, and let the family grow fond of them | v: benevolence, tradition | chance: 78
+- W>B | get a friend to cover for the meetings, with a story agreed in advance | v: security | closed: approval: deceiving the family; backfire: the friend slips, and both stories fall apart | chance: 75
+- U>R | plan a day trip to the city, where two people can hold hands in the street | v: stimulation, hedonism | chance: 75
+- B>G | lie about weekend shifts, and spend the hours together by the river | v: hedonism | mark: kept it hidden | chance: 77
+- R>W | swear to each other to stop hiding by the summer, whatever it costs | binds | v: benevolence, self-direction | chance: 90
+- G>U | take it slowly, and learn who the other person really is | self_control: + | v: benevolence, self-direction | chance: 77
+works: The months together are the happiest {N} has known, secret or not.
+works: The two of them find a small, safe corner of the world that is only theirs.
+fails: Someone sees them, and by Monday the story is everywhere.
+fails: The strain of the hiding is too much, and {prospect} ends it.
+
+# ---------------------------------------------------------------- life event: telling the family (pairs D5b)
+
+# gate: (attr >= 2 | unease) & age >= 13
+== telling the family who you are
+tier: life event
+stages: juvenile young_adult adult mature
+age: 13-65
+per_year: 0 .025 .035 .02 .01 0
+drivers: era+.5 ties+.2 prosper+.1 harsh-.4 unrest-.2 stress-.1
+once: yes
+times: once, if ever: per person it concerns (attr >= 2, or gender unease) about 2 to 4 in 100 a year from the mid-teens into the thirties and fewer later, so that about two in three tell the family in a lifetime (estimate from Pew 2013: median first telling at about 20; about 6 in 10 LGB adults have told their mother and 4 in 10 their father, bisexual people far less often); younger generations tell sooner. Closes at 65, when most parents are gone; later tellings come through 'a late truth inside a marriage' and 'a name that has waited for decades'
+likelier: a time and place where it is legal and spoken of; a family that has said kind things about people like this; a partner to bring home; a steady income or a home of one's own; friends who already know
+rarer: a family faith or a community that condemns it; a country that punishes it; depending on the family for money or a roof; a family already in crisis
+tone: mixed
+life: family, identity
+horizon: years
+roles: parent, sibling, grandparent
+earth: you tell your parents who you love, or who you are, and wait for what comes next
+scene: Sunday lunch is over and {parent} is stacking the plates when {N} asks everyone to sit back down. The sentence has been rehearsed for years, and now it comes out in one breath.
+scene W: {N} wants to do this properly: at home, at the table, with the whole family, the way important things have always been said. {N} only hopes the family's rules have room for the truth.
+scene U: {N} has thought it all through: who to tell first, the questions that will come, the leaflet folded in a pocket for {parent}. Nothing on paper says how a face will look.
+scene B: {N} has chosen the moment with care: after the job offer, with a place of {Ns} own lined up. Whatever the family says, nobody can take away the roof.
+scene R: {N} is done with pretending at every birthday and every holiday. It is coming out today, whatever happens, and {Ns} hands are shaking.
+scene G: {N} wants the family to know the whole of {N}, the way they have always known each other's joys and troubles. Belonging to them by halves is no longer enough.
+- W | tell them all together at the family table, calmly and with respect | identity | v: tradition, benevolence | mark: came out | chance: 60
+- U | tell them with answers ready, and meet every question with patience | identity | v: universalism | mark: came out | chance: 64
+- B | wait until you no longer depend on them, then tell them on your own terms | identity | self_control: + | v: self-direction, security | mark: came out | chance: 62
+- R | say it at the big family party, out loud, and let the chips fall | v: stimulation, self-direction | mark: came out | chance: 60
+- G | tell your grandparent first, and let the news travel through the family gently | v: tradition, benevolence | mark: came out | chance: 60
+- BR | tell them, and walk out for good if they will not accept it | v: self-direction | mark: came out | chance: 60
+- RG | cry it out at the kitchen table, and ask for a hug | v: benevolence, security | mark: came out | chance: 75
+- UG | ask a cousin who already knows to sit in when you tell them | v: security, benevolence | mark: came out | chance: 65
+- WB | keep it from them for good, and keep the family as it is | v: security, conformity | mark: kept it hidden | chance: 75
+- WU | write them a long, careful letter, and give them a week to take it in | v: benevolence, self-direction | mark: came out | chance: 65
+works: {parent} is quiet for a long moment, then reaches across the table and takes {Ns} hand.
+works: It is not easy, and the questions go on for months, but the family holds, and {N} is part of it as {N} really is.
+fails: {parent} leaves the room without a word, and the door stays closed for a long time.
+fails: There are shouts and tears, and {N} leaves that night not knowing when the way back will open.
+
+# ---------------------------------------------------------------- everyday pair 3 (juvenile to mature): calls WUG (cycle s4, attr >= 2) / calls BR (cycle s1, unease)
+
+# gate: attr >= 2 & ~mark('came out') & age >= 16
+== everyone asks when you will settle down
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature
+age: 16-60
+calls: WUG
+tone: trouble
+life: love, family
+horizon: months
+roles: parent, grandparent, sibling, prospect
+earth: everyone asks when you will find someone of the other sex and settle down, and a match is being lined up for you
+times: Most gay and bisexual people not out to their family, at gatherings through the twenties and thirties (estimate); Pew 2013: about 4 in 10 LGB adults had not told their mother
+gap: 2-4
+scene: At {sibling}'s wedding three aunts in a row ask {N} when it will be {Ns} turn, and {parent} has already seated a nice young person of the other sex next to {N} at dinner.
+scene W: Everyone in the family was married by twenty-five. {N} can feel the expectation like a hand on the back, gentle and firm.
+scene U: {N} counts it up: four relatives, two set-ups, one dating app {parent} installed without asking. The pressure is not going away; only the answer to it can change.
+scene B: A good match would end the questions, please the family and open certain doors. {N} weighs that against a whole life, coldly.
+scene R: {N} wants to stand on a chair and tell the whole hall to mind its own business.
+scene G: {grandparent} talks of great-grandchildren as if they were already planted. {N} loves the old roots, and cannot grow the way they expect.
+- W | go on the date your parents arranged, to keep the peace | self_control: - | v: conformity, benevolence | mark: gave in to pressure | chance: 85
+- U | invent a demanding career as the reason, and keep them guessing | v: security | mark: kept it hidden | closed: approval: lying to the family; backfire: the story is checked, and it does not hold | chance: 75
+- B | agree a marriage of convenience with a friend who has the same secret | binds | v: security, power | mark: kept it hidden | chance: 60
+- R | say plainly, in front of everyone, that you will marry when and whom you please | v: self-direction | chance: 75
+- G | lean on the cousin who never married, who seems to understand without asking | v: security (belonging), benevolence | chance: 75
+- W>G | promise your grandparent you will think about it, to give them peace | v: benevolence, tradition | chance: 70
+- U>W | enrol on a long course far from home, so the questions have to wait | binds | v: self-direction, conformity | mark: moved away | chance: 80
+- B>U | string the matchmakers along with vague answers, to learn who is pushing and why | v: security | chance: 95
+- R>B | throw yourself into work and friends, and let the life you build answer them | v: self-direction, achievement | chance: 70
+- G>R | take on a plot at the allotments, and spend every weekend there | binds | v: self-direction, tradition | chance: 80
+works: The questions die down for a while, and {N} breathes more easily.
+works: {N} gets through the season on {Ns} own terms, more or less.
+fails: The pressure only grows, and every family gathering becomes a test.
+fails: {parent} takes it badly, and the months at home turn cold.
+
+# gate: unease & age >= 12
+== asking to be called by another name
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature
+age: 12-70
+calls: BR
+tone: mixed
+life: identity, friends
+horizon: moment
+roles: friend, colleague, a teacher
+earth: for the first time you ask someone to call you by the name that fits, and to use the words that fit
+times: Most transgender and nonbinary people, once, most often in the teens or twenties; about 0.5 in 100 US adults and 1.4 in 100 of 13 to 17 year-olds identify as transgender (Williams Institute 2022)
+once: yes
+scene: {N} has written the name a hundred times on scraps of paper and deleted it from a hundred messages. Today, walking with {friend}, {N} finally asks {friend} to try saying it out loud.
+scene W: {N} wants to ask properly, without fuss, the way one asks a favour that matters. Saying it feels like signing something.
+scene U: {N} has chosen the name with care: how it sounds, what it means, how it looks written down. Now comes the part no amount of thinking can settle.
+scene B: {N} has decided whom to ask first: the one person who will not laugh, and who can be trusted to keep it until {N} is ready.
+scene R: {N} cannot bear to hear the old name one more time, and it comes out before {N} has quite decided: "Call me something else."
+scene G: The new name fits like a coat that was always meant for {N}. Saying it aloud is only letting it be worn.
+- W | ask your friend, politely and plainly, to use the new name from now on | v: self-direction | mark: named their gender | chance: 80
+- U | write a short note that explains the name and the words, and hand it over | v: self-direction | mark: named their gender | chance: 80
+- B | use the name first among strangers in another town, where nothing gets back home | door | v: security, self-direction | chance: 85
+- R | introduce yourself by the new name to the next person you meet | identity | v: self-direction, stimulation | mark: named their gender | chance: 85
+- G | let the friends who know you best try the name, a little at a time | v: benevolence, security | mark: named their gender | act: let the friends who know them best try the name, a little at a time | chance: 80
+- W>U | ask a teacher or a manager how such requests are handled, before saying anything | v: security | chance: 80
+- U>B | change the name on your accounts first, so it is in place before anyone can argue | identity | v: self-direction, power | mark: named their gender | closed: approval: changing school or work records without asking; backfire: changed back, and a meeting called | norm: transition | chance: 80
+- B>R | tell people the old name was a family nickname you have outgrown | identity | v: self-direction | chance: 75
+- R>G | go out with your friends that weekend as yourself, in clothes that fit the name | door | v: self-direction, hedonism | mark: named their gender | chance: 75
+- G>W | wait until the family is ready, and keep the old name at home for now | v: security, benevolence | mark: kept it hidden | chance: 80
+works: {friend} says the name, a little shyly, and {N} feels it land exactly where it belongs.
+works: By the end of the month the name is simply what {N} is called.
+fails: {friend} laughs, then sees {Ns} face and stops, but the moment is spoiled.
+fails: The old name keeps coming back, and every slip stings.
+
+# ---------------------------------------------------------------- everyday pair 4 (no gate; juvenile to elder): calls UG (cycle s4) / calls WBR (cycle s3)
+
+== a friend comes out to you
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature elder
+age: 13-95
+calls: UG
+tone: mixed
+life: friends
+horizon: moment
+roles: friend
+earth: a close friend tells you, nervously, that they are gay, and you are among the first to know
+times: About half of people, once or twice in a life, most often in the teens and twenties (estimate); Pew 2013: nearly 9 in 10 Americans know someone gay or lesbian
+gap: 20-40
+share: .5
+scene: Over a late coffee {friend} goes quiet, turns the cup round twice, and then says it in a rush, before the nerve goes: {friend} is gay, and {N} is the first person {friend} has ever told.
+scene W: {N} was brought up on firm ideas of right and wrong, and some of them are speaking up right now. But {friend} is still {friend}, the same as five minutes ago, and waiting.
+scene U: A dozen small things suddenly make sense to {N}: the stories that never had names in them, the subject changed so often. Questions crowd in.
+scene B: {N} understands that {friend} has just handed over something precious and dangerous. Whoever holds a secret like this holds a little power, and {N} feels the weight of it.
+scene R: {Ns} first impulse is to hug {friend} so hard the coffee spills. The second is to ask why on earth {friend} waited so long.
+scene G: {N} looks at {friend}, the same face as at ten and at fifteen, and something settles: people are what they are, like weather, like rivers.
+- W | say gently that it goes against what you were taught, but you still care | v: tradition, benevolence | chance: 80
+- U | ask gentle questions about how long they have known and what it is like | v: universalism, self-direction | chance: 85
+- B | say it is fine, then quietly keep a little more distance from now on | v: security | mark: refused someone in need | chance: 88
+- R | hug them hard, and say the friendship is exactly the same as before | v: benevolence | chance: 80
+- G | carry on just as before, and let the friendship speak for itself | v: benevolence, tradition | chance: 82
+- W>G | promise to keep the secret and stand by them, whatever anyone says | binds | v: benevolence | mark: kept your word | chance: 80
+- U>W | find out where the nearest support group meets, and offer to go along the first time | v: benevolence | mark: helped someone in need | chance: 75
+- B>U | tell one mutual friend in confidence, to see what they make of it | v: self-direction (curiosity) | mark: hid a wrong | closed: approval: outing a friend; backfire: it spreads, and the friend learns who started it | self_control: - | chance: 72
+- R>B | say straight out that it makes you uncomfortable | v: security | act: say straight out that it makes them uncomfortable | chance: 80
+- G>R | take them for a long walk in the hills, and let them talk it all out | v: benevolence | mark: helped someone in need | chance: 78
+works: {friend} lets out a long breath, and the evening goes on, lighter than before.
+works: Something new and steady settles between {N} and {friend}.
+fails: {friend} goes quiet, pays for the coffee and leaves early.
+fails: Over the next weeks {N} and {friend} see less and less of each other.
+
+== a pride march comes down the high street
+tier: everyday
+rate: 0.5
+stages: juvenile young_adult adult mature elder
+age: 12-100
+calls: WBR
+tone: joy
+life: community
+horizon: moment
+roles: friend, parent, a neighbour
+earth: a pride march with music and banners comes down the main street on a Saturday, and the whole town has an opinion
+times: Many people in towns and cities, a few times in a life when a march comes through their own streets; others never (estimate)
+gap: 10-20
+share: .4
+scene: On Saturday the high street fills with music, banners and a float with a brass band, and the march moves slowly past the shops. Some people on the pavement cheer, some film it, some turn their backs.
+scene W: {N} notices the police lining the route, the permit taped to a lamppost, the church group with its own placards on the far corner. Everyone has a side, and the town is watching who stands where.
+scene U: {N} watches faces as much as floats: the old couple holding hands at the front, the teenager trying not to cry, the man outside the bakery who will not look.
+scene B: The street is packed, the shops are busy and the cameras are everywhere. {N} sees a chance to be seen there, or a reason not to be.
+scene R: The drums hit {N} in the chest, the music is loud and the sun is out. Standing still is impossible.
+scene G: The march is full of families, pushchairs and grandparents with flags. It looks less like a protest than a village fete that has learned to walk.
+- W | stand on the pavement with the neighbours and clap the marchers past | identity | v: universalism, conformity | chance: 90
+- U | ask a marcher what the march is for, and listen to the whole answer | door | v: universalism | chance: 85
+- B | keep well away from the march, so nobody sees you there | v: security | act: keep well away from the march, so nobody sees them there | chance: 95
+- R | jump in and dance with the marchers all the way to the park | body: light | v: hedonism, stimulation | chance: 95
+- G | bring the family down with a picnic, as if it were the town fete | v: universalism, benevolence | chance: 90
+- W>R | volunteer as a steward for next year's march, keeping the route safe | v: benevolence, universalism | title: activist in a cause | chance: 70
+- U>G | read up on the town's own history of people who had to hide | v: universalism | mark: learned a skill | chance: 75
+- B>W | sell cold drinks along the route, and give a cut to the organisers | v: achievement, benevolence | chance: 65
+- R>U | go and argue with the counter-protesters, to hear their reasons | door | v: self-direction, universalism | closed: approval: a shouting match in the street; backfire: the police step in | chance: 65
+- G>B | turn your back on the march with the old families on the corner | identity | v: tradition, power | chance: 70
+works: It turns into one of those days the town talks about for years, and {N} was there.
+works: {N} goes home sunburnt and hoarse, with plenty to think about.
+fails: A scuffle on the corner sours the afternoon, and {N} goes home early.
+fails: Someone {N} knows saw {N} there, and has something to say about it on Monday.
+
+# ---------------------------------------------------------------- inner: a late realisation inside a marriage (cycle s4)
+
+# gate: attr >= 2 & ~mark('came out') & age >= 35
+== a late truth inside a marriage
+tier: inner
+stages: adult mature elder
+age: 35-85
+holds: kind:partner
+tone: mixed
+life: inner, love, home
+horizon: years
+roles: partner, friend, child
+requires: drawn to both sexes or mostly the same sex (attr >= 2), never came out (~mark('came out')), aged 35 or more and holding a partner (most late realisations come inside a long marriage); often after years of 'kept it hidden' or 'gave in to pressure'
+likelier: a friendship with someone of the same sex that grows close; the children growing up and leaving; a death or an illness that makes time feel short; an era more open than the one they grew up in; women more often than men (attraction shifts more over the life course in women, Diamond 2008)
+rarer: a community or a country that punishes it; a faith the whole family shares (it is felt the same, but pressed down for longer)
+earth: in midlife, inside a long marriage, you admit at last that you are drawn to your own sex, and perhaps always were
+times: Rare: a minority of gay and bisexual people married to the other sex, once, in midlife (estimate); women's attractions shift more over life than men's (Diamond 2008)
+once: yes
+scene: At a wedding {N} dances once with an old friend of the same sex and feels the jolt from school, the one {N} folded away and married past. Twenty years with {partner}, and it is still there.
+scene W: {N} made vows and meant them. Now {N} lies awake beside {partner}, knowing those vows were made by someone who had not yet told the truth, even inwardly.
+scene U: {N} looks back over the years and sees it everywhere, like a watermark held up to the light: the crushes explained away, the films watched twice, the unease at weddings.
+scene B: {N} has built a good life: the house, the name, the friends. Every piece of it rests on a story {N} no longer believes, and {N} starts counting what the truth would cost.
+scene R: Half a life lived at half volume. {N} feels it all at once, grief and relief and a fierce urge to do something about it now.
+scene G: {N} feels like a tree that has grown round a wire for decades. The wire is still there; the tree has simply kept growing.
+- W | keep faith with the marriage, and carry the truth quietly | v: tradition, benevolence | mark: kept it hidden | chance: 85
+- U | see a counsellor alone, and work out what is true before saying anything | self_control: + | v: self-direction | chance: 80
+- B | keep the marriage for the home you share, and lead a private life on the side | v: hedonism, security | mark: hid a wrong | closed: approval: deceiving a partner; backfire: found out, and the marriage and the trust break together | chance: 65
+- R | tell your partner tonight, all of it, whatever happens next | self_control: + | v: self-direction, benevolence | mark: came out | chance: 60
+- G | let it be what it is: a part of you, as it always was | v: self-direction (accepting oneself) | act: let it be what it is: a part of them, as it always was | chance: 60
+- W>G | tell your partner honestly, and ask to stay a family whatever comes | v: benevolence | mark: came out | chance: 60
+- U>W | plan a fair way to part, with a counsellor's help, before saying a word | v: universalism, security | chance: 65
+- B>U | go to a support group in another town, under a different name | door | v: self-direction | chance: 80
+- R>B | leave the marriage and start again on your own terms, at once | v: self-direction, hedonism | mark: left home | chance: 85
+- G>R | go away alone to the sea for a week, without saying why | v: self-direction, hedonism | closed: approval: leaving home for a week with no reason given; backfire: the family fears the worst, and the trust frays | chance: 85
+works: {N} finds words for it at last, and the ground holds.
+works: Whatever comes next, {N} has stopped lying, at least inwardly.
+fails: The truth comes out sideways and at the worst moment, and the house goes cold.
+fails: {N} folds it away again, and the old weight settles back on {Ns} chest.
+
+# ---------------------------------------------------------------- inner: gender unease found late (cycle s2)
+
+# gate: unease & ~mark('named their gender') & age >= 30
+== a name that has waited for decades
+tier: inner
+stages: adult mature elder
+age: 30-85
+tone: mixed
+life: inner, identity, body
+horizon: years
+roles: friend, sibling
+requires: gender unease (unease: trans or nonbinary), never named their gender (~mark('named their gender')), aged 30 or more; a turning point that leaves room to think (the children grown, a parent's death, a health scare, retirement) or a long quiet stretch
+likelier: an era more open than the one they grew up in; reading about or meeting someone who changed their life late; the children grown; a parent's death
+rarer: a job, a faith or a country that would punish it (it is felt the same, but said later or never)
+earth: in midlife you admit at last that the sex you were raised as has never felt like your own, or not only your own, and that it is not going away
+times: Rare: some transgender and nonbinary people who never came out, once, often after the children leave, a loss or retirement (estimate); about 0.5 in 100 US adults identify as transgender (Williams 2022)
+once: yes
+scene: Clearing a box in the loft, {N} finds an old school photo and stares at the child in it, dressed and named as everyone decided. Decades on, the feeling that child had has never once gone away.
+scene W: {N} has done everything expected for decades: the work, the family, the part {N} was given. The duty was real. So is this, and {N} cannot carry both forever.
+scene U: {N} has read about people who changed their lives at fifty and sixty, and kept every article in a folder. Tonight {N} takes the folder out again.
+scene B: {N} has a career, a reputation and a lot to lose. {N} also has one life, half spent, and starts counting what the rest of it is worth.
+scene R: {N} catches a reflection in a shop window and feels the old wrongness flare, sharp as the first time. Enough waiting.
+scene G: Some things take a long season to rise. {N} feels this one rising now, slow and certain as sap in spring.
+- W | go on as before, for the sake of the people who rely on you | v: benevolence, conformity | mark: kept it hidden | act: go on as before, for the sake of the people who rely on them | chance: 60
+- U | talk it through with a doctor or a counsellor who knows this field | v: self-direction | chance: 75
+- B | begin living as yourself in private, on your own terms, for now | v: self-direction | mark: kept it hidden | chance: 85
+- R | tell the people closest to you this week, and start living as yourself | v: self-direction, stimulation | mark: named their gender | act: tell the people closest to them this week, and start living as themselves | chance: 70
+- G | accept the feeling as simply part of who you are, and let it come in time | v: self-direction (accepting oneself) | chance: 70
+- W>B | find out the legal steps for a change of name, and get the papers ready | v: self-direction, security | closed: law: where the law allows no change of name or sex on papers; backfire: refused, and the request on record | chance: 90
+- U>R | make a careful plan for the year you will start living openly | v: self-direction | chance: 75
+- B>G | quietly find a group in the next city of people who have been through it | v: security (belonging) | chance: 65
+- R>W | tell your partner or oldest friend everything, because they deserve the truth | v: benevolence | mark: named their gender | chance: 80
+- G>U | go back to the town you grew up in, and walk it, remembering how it felt | v: self-direction, tradition | chance: 80
+works: For the first time in years, {N} feels that the life ahead might actually fit.
+works: The decision settles, and {N} sleeps through the night.
+fails: The fear wins for now, and {N} puts the folder back in the drawer.
+fails: {N} says too much too soon to the wrong person, and the weeks that follow are hard.

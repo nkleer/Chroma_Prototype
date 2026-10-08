@@ -1,0 +1,1014 @@
+# Chroma library, modern Earth: CHILD stage (ages 3 to 12). Grid: earth-plan.md. Rules: library-spec.md.
+# Syntax: header of build.py. Compile and check the whole batch: python3 build.py earth
+# The first three situations were written by the Library thread as the worked example for every stage file.
+# Audit 2026-10-05 (realism of options, Emren 09:25): changes in drafts/audit/earth-child-changes.md.
+
+# ---------------------------------------------------------------- pair 1: calls WU (cycle s1) / calls BRG (cycle s3)
+
+== a test at school tomorrow
+tier: everyday
+at: school
+stages: child
+age: 6-14
+calls: WU
+tone: trouble
+life: school
+horizon: moment
+roles: parent, grandparent, friend, a teacher
+earth: a spelling or maths test tomorrow, and the worksheet is still blank
+times: Nearly every school child, many times a year, from weekly spelling tests to end-of-term papers (estimate)
+gap: 0-.4
+scene: Tomorrow there is a test, and {N} has a page of sums that will not stay put in their head.
+scene W: The teacher said everyone must be ready tomorrow. {N} wants to be one of the ones who is.
+scene U: {N} spreads the worksheets across the bed. Somewhere in them is a pattern, if only it would show itself.
+scene B: Whoever scores best tomorrow gets to sit by the window for a month. {N} wants that seat.
+scene R: The sun is out, {friend} is calling from the street, and the test is not until tomorrow.
+scene G: {parent} sat the same test in the same school at the same age. The old exercise book is still on the shelf.
+- W | revise the way the teacher showed you, then go to bed on time | habit | v: conformity | chance: 75
+- U | make flashcards and test yourself until you get every one | habit | v: achievement, self-direction | mark: learned a skill | chance: 82
+- B | get the answers from an older kid who sat the same test | v: achievement | mark: hid a wrong | closed: approval: cheating; backfire: caught, a zero and a note home | chance: 60
+- R | turn the hard sums into a rhyme, and chant it until it sticks | v: hedonism, stimulation | chance: 65
+- G | ask a grandparent to help you revise, the way they once helped your parent | v: tradition, benevolence | act: ask a grandparent to help them revise, the way that grandparent once helped their parent | chance: 75
+- W>U | stay after class and ask the teacher to explain what you missed | v: self-direction, conformity | chance: 75
+- U>B | work out which questions are worth the most marks and learn only those | v: achievement | chance: 60
+- B>R | pretend to be sick so you can stay home tomorrow | v: hedonism | mark: hid a wrong | closed: approval: lying; backfire: found out, and the test the day after anyway | chance: 65
+- R>G | cry that you cannot do it, and let mum or dad hold you | v: security, benevolence | act: cry that they cannot do it, and let mum or dad hold them | chance: 75
+- G>W | revise at the kitchen table while the family keeps you company | habit | v: conformity, tradition | chance: 78
+works: The questions are the very ones {N} prepared for.
+works: The test comes back with a smile drawn at the top.
+fails: Half the page stays blank.
+fails: The mark comes home, and so does a note.
+
+== a stray dog follows you home
+tier: everyday
+stages: child
+age: 4-14
+calls: BRG
+tone: mixed
+life: home, nature
+horizon: week
+roles: parent, sibling, a neighbour
+earth: a thin dog with a collar and no tag follows you from the park
+times: About 1 in 4 children, once or twice in childhood; about 3 million dogs enter US shelters a year, many of them found loose (ASPCA) (estimate)
+gap: 4-8
+share: .25
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: A thin brown dog has followed {N} all the way from the park and now sits at the gate, wagging.
+scene W: The dog has a collar but no tag. Somewhere, someone must be missing it, and {N} feels that is now their problem.
+scene U: The dog follows {N} home, and {N} cannot stop wondering where it came from and why it chose them.
+scene B: A dog follows {N} home. {N} has always wanted one, and {parent} has always said no. Nobody has to know.
+scene R: A scruffy dog trots after {N} all the way home, and {N} is already in love.
+scene G: A stray dog curls up by {Ns} back door as if it has always lived there.
+- W | take it to the vet so they can find its owner | v: benevolence, conformity | mark: helped someone in need | chance: 70
+- U | work out where it came from by asking up and down the street | v: self-direction | chance: 70
+- B | hide it in the shed and keep it for yourself | v: hedonism, power | mark: hid a wrong | closed: approval: not yours, and no pets allowed; backfire: found, a row at home | chance: 60
+- R | run inside shouting that you have a dog now | v: stimulation, hedonism | chance: 55
+- G | feed it and let it decide whether to stay | v: universalism (nature) | chance: 60
+- W>R | promise to walk it every single day if you can keep it | binds | v: benevolence, hedonism | act: promise to walk it every single day if they can keep it | chance: 45
+- U>G | find out what it needs and make it a warm box with water | v: universalism (nature), benevolence | chance: 85
+- B>W | find the owner yourself, door to door, and ask if there is a reward | v: achievement, power | mark: helped someone in need | chance: 55
+- R>U | follow the dog back the way it came, to see where it lives | v: stimulation, self-direction | mark: took a wild risk | closed: approval: wandering off alone; backfire: lost, and a search party | chance: 55
+- G>B | keep it in the garden, where it scares off the kids who bother you | v: power, security | closed: approval: keeping a lost dog to frighten other children; backfire: the dog snaps at a child, and the owner comes for it | act: keep it in the garden, where it scares off the kids who bother them | chance: 45
+works: The dog ends up where it belongs, and {N} goes to bed happy.
+works: {parent} sighs, and says the dog can stay a while.
+fails: The dog runs off in the night and does not come back.
+fails: There is a row at home about the dog, and {N} loses the argument.
+
+# ---------------------------------------------------------------- life event: starting school (pairs D1a)
+
+== starting school
+tier: life event
+at: school
+stages: child
+age: 4-7
+per_year: .35 0 0 0 0 0
+drivers: prosper+.1 unrest-.3
+times: once, between four and seven
+likelier: a country with school from an early age, peace
+rarer: war, displacement, a family that keeps children home
+tone: mixed
+life: school
+horizon: years
+roles: parent, sibling, a teacher, the other children
+earth: your first day at school
+scene: It is {Ns} first day at school. The building is huge, and full of strangers.
+scene W: {N} has a new bag, new shoes, and a list of rules {parent} went over at breakfast.
+scene U: {N} walks into a classroom full of books, maps and jars, and wants to know what all of it is for.
+scene B: There are thirty children in the class and one teacher. {N} already sees who the others listen to.
+scene R: The school gate swings open, and the noise from the playground hits {N} like a wave.
+scene G: {sibling} went to this school, and {parent} before that. {N} walks in holding a hand.
+- W | line up, listen, and learn the rules quickly | habit | v: conformity | chance: 85
+- U | ask the teacher a hundred questions on the first day | door | v: self-direction | chance: 80
+- B | make friends with the kid the others already listen to | v: power, security | mark: made a friend | tags: win:ties+.05 | chance: 75
+- R | run straight into the playground and join the first game you see | v: stimulation | tags: win:ties+.05 | chance: 90
+- G | stay close to your sibling and the kids from your street | v: security, tradition | chance: 75
+- WU | sit at the front and do exactly what is asked, and do it well | habit | v: achievement, conformity | chance: 82
+- BR | push to the front of every line and grab the best seat | v: power, hedonism | closed: approval: pushing; backfire: told off in front of everyone | chance: 75
+- UG | spend every break watching the ants by the fence | v: universalism (nature), self-direction | chance: 60
+- WR | volunteer for every job, brave and eager to help | v: benevolence, stimulation | chance: 80
+- BG | keep to your own little gang and guard your corner of the yard | v: security, power | chance: 75
+works: By the end of the week {N} has a friend and a favourite peg for their coat.
+works: {N} comes home every day full of stories.
+fails: {N} cries every morning at the gate for weeks.
+fails: School starts badly, and {N} dreads Mondays for a long time.
+
+# ---------------------------------------------------------------- pair 2: calls UB (cycle s2) / calls WRG (cycle s4)
+
+== a game of hide and seek
+tier: everyday
+stages: child
+age: 4-11
+calls: UB
+tone: joy
+life: play, friends
+horizon: moment
+roles: friend, sibling, the kids on the street
+earth: hide and seek with the kids on your street, as the light goes
+times: Nearly every child, many times a year, most of all on long summer evenings (estimate)
+gap: 0-.5
+scene: {friend} is counting to fifty against the garage door, and the whole street, gardens and hedges and bins, is a hiding place.
+scene W: Everyone agreed the rules: no hiding indoors, no moving once hidden. {N} means to keep to them, even if the others do not.
+scene U: {N} has watched three rounds already and knows exactly where {friend} looks first, and where {friend} never looks at all.
+scene B: Last one found wins, and the winner picks the next game. {N} wants to pick the next game.
+scene R: Forty-one, forty-two. {Ns} heart is hammering, there is no time to think, only to run.
+scene G: {N} folds into the long grass behind the shed, among the snails and the beetles, and goes very still.
+- W | call foul when the seeker peeks, and make them count again from one | v: conformity | chance: 45
+- U | study where the seeker always looks first, and hide in the one place they never check | v: achievement, self-direction | chance: 65
+- B | sneak indoors, which is against the rules, where nobody will ever look | v: power, achievement | chance: 85
+- R | burst out of the hedge and race for home before the seeker can turn round | body: light | v: stimulation | chance: 60
+- G | curl up in the long grass and keep so still a robin lands beside you | v: universalism (nature) | act: curl up in the long grass and keep so still a robin lands beside them | chance: 50
+- W>B | make a new rule that the littlest kids always have to be the seeker | v: power | closed: approval: an unfair rule; backfire: the little ones go home crying, and the big ones get the blame | chance: 55
+- U>R | leave your coat poking out of one bush as a decoy, and hide in another | v: stimulation, self-direction | chance: 60
+- B>G | let one of the little ones share your secret spot, if they swear to stay quiet | v: benevolence, power | chance: 45
+- R>W | jump out on purpose, so the little one who keeps losing finally finds someone | v: benevolence | chance: 92
+- G>U | stay hidden long after the game ends, learning the sounds of the street at dusk | v: self-direction, universalism (nature) | closed: approval: staying out after dark when the others have gone home; backfire: a worried parent calling up and down the street | chance: 75
+works: {N} is the last one found, and gets to choose the next game.
+works: Nobody finds {N} until the streetlights come on, and everyone agrees it was the best round ever.
+fails: {N} is found in the first ten seconds, giggling.
+fails: A row breaks out over the rules, and the game ends early.
+
+== your little cousin comes to stay
+tier: everyday
+stages: child
+age: 5-12
+calls: WRG
+tone: mixed
+life: family
+horizon: week
+roles: a younger cousin, parent, grandparent
+earth: your little cousin stays for a week and sleeps on a mattress in your room
+times: About half of children, once or a few times, a week in the school holidays (estimate)
+gap: 2-4
+share: .5
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {Ns} little cousin arrives with a rucksack nearly as big as they are, and will sleep on a mattress in {Ns} room for a whole week.
+scene W: {parent} says {N} is the host now, and a good host shares. {N} takes that very seriously.
+scene U: The little cousin talks with a funny accent, believes in strange things and knows a card game {N} has never heard of.
+scene B: The little cousin gets the attention, the bigger slice and the front seat. {N} is counting every one.
+scene R: A whole week with someone to run, shout and build dens with, and {N} can hardly wait for the car to pull up.
+scene G: The little cousin has {Ns} grandparent's chin and {Ns} parent's laugh. Family is family, even the small loud ones.
+- W | give your cousin your own bed and take the mattress, because guests come first | v: benevolence, conformity | chance: 80
+- U | learn your cousin's card game, then win every round by secretly marking the cards | v: achievement | closed: approval: cheating; backfire: caught, and the cousin tells the whole family | chance: 75
+- B | charge your cousin a sweet for every go on your bike | v: power | chance: 70
+- R | whisper and giggle under the covers long after lights out | v: hedonism, stimulation | closed: approval: lights out means lights out; backfire: told off, and moved to separate rooms | chance: 90
+- G | take your cousin to the den by the stream that only family knows about | v: tradition, benevolence | tags: win:ties+.05 | chance: 78
+- W>G | make up your cousin's bed properly and set out a welcome card from the whole family | v: benevolence, tradition | chance: 90
+- U>W | explain the house rules to your cousin, with a list, so they stay out of trouble | v: conformity, benevolence | chance: 55
+- B>U | swap your cousin your worst toy for their book of magic tricks | door | v: self-direction, power | chance: 63
+- R>B | challenge your cousin to a race to the car, winner gets the front seat | v: achievement, stimulation | chance: 50
+- G>R | roughhouse with your cousin on the lawn like a pair of puppies | body: light | v: hedonism, stimulation | chance: 75
+works: By the end of the week the two of them are inseparable, and both cry when the car comes.
+works: The little cousin goes home with a drawing of {N} and a new favourite game.
+fails: The cousin cries for home every night, and somehow {N} gets the blame.
+fails: By Wednesday they are fighting over everything, and {parent} has to step in.
+
+# ---------------------------------------------------------------- pair 3: calls BR (cycle s3) / calls WUG (cycle s1)
+
+== the last slice of birthday cake
+tier: everyday
+stages: child
+age: 3-12
+calls: BR
+tone: mixed
+life: family, food
+horizon: moment
+roles: sibling, parent, grandparent
+earth: one slice of your birthday cake left on the plate the morning after
+times: Most children with a brother or sister, once a year, the morning after a birthday (estimate)
+gap: .8-1
+scene: It was {Ns} birthday yesterday. One slice of the chocolate cake is left on the plate, and {N} and {sibling} both saw it at the same moment.
+scene W: {N} has had two slices already and {sibling} has had one, and {N} knows exactly what fair looks like, even when it hurts.
+scene U: {N} squints at the slice. There must be a cleverer way to settle this than shouting.
+scene B: One slice, and the first one to the plate gets it. {N} is two steps closer.
+scene R: The smell of chocolate fills the whole kitchen, and {N} wants that slice more than anything in the world.
+scene G: {grandparent} baked the cake the way it has been baked for every birthday in the family, and there is one slice left.
+- W | cut it exactly in half: one of you cuts, the other chooses | v: universalism (fairness), conformity | act: cut it exactly in half, one cutting and the other choosing | chance: 88
+- U | challenge your sibling to a times-table quiz, winner takes the slice | v: achievement | chance: 45
+- B | lick the top of it, so nobody else will want it | v: power, hedonism | chance: 90
+- R | grab it and stuff it in before anyone can say a word | body: light | v: hedonism | chance: 80
+- G | leave it for your grandparent, who baked it and has not had a bite | v: benevolence, tradition | chance: 70
+- W>R | hold a fair contest for it: the funniest joke wins, and everyone votes | v: hedonism, universalism (fairness) | chance: 70
+- U>G | cut it into tiny squares so everyone in the family gets a taste | v: benevolence | chance: 92
+- B>W | give your sibling the slice, on a promise that you get the next one | v: power, universalism (fairness) | chance: 90
+- R>U | beg to bake a whole new cake right now, so you learn how it is done | door | v: self-direction, stimulation | mark: learned a skill | chance: 45
+- G>B | claim it by family custom: the birthday child always gets the last slice | v: tradition, power | chance: 55
+works: The last slice is settled, and nobody ends up in tears.
+works: Everyone laughs, and the plate is licked clean.
+fails: The slice ends up face down on the floor, and nobody gets it.
+fails: {sibling} storms off, and {N} is sent upstairs.
+
+== Saturday chores
+tier: everyday
+stages: child
+age: 5-12
+calls: WUG
+tone: trouble
+life: home
+horizon: moment
+roles: parent, sibling, grandparent, friend
+earth: a chore list on the fridge, and the sun is shining outside
+times: Most children, most weeks, from about five or six (estimate)
+gap: 0-.5
+scene: It is Saturday morning, and the list on the fridge has {Ns} name at the top: tidy the room, clean out the rabbit, help with the dishes.
+scene W: Everyone in the house has a job on Saturday. {N} knows the list by heart, and knows it is only fair.
+scene U: {N} reads the list and sees a puzzle: what is the fastest possible order to do it all in?
+scene B: {sibling} has the easy jobs again. {N} wants to know why, and what doing the hard ones is worth.
+scene R: Outside the sun is out and {friend} is already riding up and down the street. Inside there is a sink full of dishes.
+scene G: {grandparent} is out in the garden pulling weeds, the same Saturday job for forty years, and waves for {N} to come out.
+- W | do every job on the list, properly, before anything else | habit | v: conformity | chance: 75
+- U | work out the quickest order for the jobs, and time yourself doing them | v: achievement | chance: 82
+- B | pay your little sibling your sweets to do your share | v: power | chance: 69
+- R | stuff everything under the bed and run out to play | habit | v: hedonism | mark: hid a wrong | closed: approval: not done properly; backfire: found out, and kept in tomorrow | chance: 65
+- G | weed the garden alongside your grandparent, the way they like it done | habit | v: tradition, benevolence | chance: 72
+- W>U | ask to be shown how the washing machine works, so you can do it right | v: self-direction, conformity | mark: learned a skill | chance: 90
+- U>B | quietly redo the chore chart so your jobs come out the smallest | v: power | mark: hid a wrong | closed: approval: rigging the list; backfire: found out, and extra jobs on top | chance: 65
+- B>R | strike a deal: every job done buys half an hour more up tonight | v: hedonism, power | chance: 75
+- R>G | turn the washing up into a bubble fight with your sibling, then mop it all up | v: hedonism, benevolence | chance: 70
+- G>W | clean out the rabbit first, because animals cannot wait for anyone | v: benevolence, universalism (nature) | chance: 85
+works: By lunchtime the jobs are done, and the whole afternoon is free.
+works: {parent} checks the room, nods, and hands over the pocket money.
+fails: The jobs drag on all day, and the sun goes down on them.
+fails: {parent} opens the wardrobe door, and everything falls out.
+
+# ---------------------------------------------------------------- pair 4: calls RG (cycle s4) / calls WUB (cycle s2)
+
+== a day at the beach
+tier: everyday
+stages: child
+age: 3-12
+calls: RG
+tone: joy
+life: leisure, nature
+horizon: moment
+roles: parent, sibling, friend
+earth: a hot day at the seaside or the lake: sand, cold water, a cool box of sandwiches
+times: Most children, once or a few times a year, mostly in summer; inland families often once a year on holiday (estimate)
+gap: .8-1
+scene: The car door opens on hot sand, salt wind and the roar of the waves. {N} has a bucket in one hand and a sandwich in the other.
+scene W: {parent} has put up the windbreak and pointed out the lifeguard's flags. {N} knows the line in the water that nobody crosses.
+scene U: The tide has gone out and left a hundred rock pools behind, each one a little world waiting to be understood.
+scene B: Up by the car park there is an ice cream van, and {N} already has a plan for getting two.
+scene R: The sea is freezing and enormous, and {N} is already running at it, shrieking.
+scene G: {N} digs both feet into the cool wet sand and watches the waves come and go, come and go.
+- W | stay between the flags and keep an eye on the younger ones in the water | v: security, benevolence | chance: 90
+- U | spend the day in the rock pools, finding out the name of every creature | v: self-direction | mark: learned a skill | chance: 90
+- B | dig a moat round your family's spot and charge the other kids a shell to cross | v: power | chance: 75
+- R | run into the waves again and again, until your lips go purple | body: light | v: stimulation, hedonism | chance: 90
+- G | lie buried to the neck in warm sand, listening to the sea | v: hedonism, universalism (nature) | chance: 95
+- W>G | pick up every bit of litter on the beach, for the gulls and the fish | v: universalism (nature) | chance: 80
+- U>W | read the tide board and warn your family before the water reaches the towels | v: security, benevolence | chance: 75
+- B>U | trade your spade for a boy's snorkel mask so you can see under the water | door | v: self-direction | chance: 55
+- R>B | race your sibling to the rocks and back; the loser buys the ice creams | body: light | v: achievement, stimulation | chance: 50
+- G>R | wander off along the shore after the crabs, further than ever before | door | v: stimulation, universalism (nature) | mark: took a wild risk | closed: approval: wandering out of sight; backfire: a frightened search and a cross parent | chance: 70
+works: {N} comes home sunburnt, salty and happier than in weeks.
+works: The day ends with chips on the sea wall and a sky full of gulls.
+fails: A wasp sting, a lost spade and a long sulk in the car.
+fails: The weather turns, and everyone runs for the car in the rain.
+
+== a board game night with the family
+tier: everyday
+stages: child
+age: 5-12
+calls: WUB
+tone: mixed
+life: family, play
+horizon: moment
+roles: parent, sibling, grandparent
+earth: the old board game comes out of the cupboard after dinner
+times: Many families, a few times a year, more in winter (estimate)
+gap: 0-.4
+scene: After dinner the old board game comes out of the cupboard, in its taped-up box, with a button standing in for the missing piece.
+scene W: The rules are printed inside the lid, and {N} means to see they are followed, every single one.
+scene U: {N} has read the rules twice and has a plan: buy the cheap streets early, then wait.
+scene B: {sibling} always wins. Tonight {N} is going to win, whatever it takes.
+scene R: {N} throws the dice so hard they fly off the table and under the sofa.
+scene G: {grandparent} plays the little silver boot, every game, every year. It is a family thing.
+- W | own up when the banker hands you too much money by mistake | v: conformity, benevolence | mark: owned up | act: own up when the banker hands them too much money by mistake | chance: 90
+- U | play the long game: buy the cheap streets and wait for the others to slip | v: achievement | chance: 35
+- B | trade hard with everyone at the table, and win it fair and square | v: achievement, power | chance: 45
+- R | flip the board when you lose everything on one roll | v: none clear (temper let out) | closed: approval: a tantrum; backfire: sent to bed early | chance: 20
+- G | insist on your grandparent's old house rules, the way it has always been played | v: tradition | chance: 60
+- W>B | take the job of banker and run it strictly, so everyone has to come to you | v: power | closed: approval: bossing everyone about; backfire: the others refuse to play on | act: take the job of banker and run it strictly, so everyone has to come to them | chance: 65
+- U>R | invent a wild new rule halfway through, to make it more exciting | v: stimulation, self-direction | closed: approval: changing the rules mid-game; backfire: accused of cheating, and the game breaks up | chance: 55
+- B>G | sell your sibling a street on the cheap, so they stay in the game | v: benevolence | chance: 92
+- R>W | stand up and shout at everyone to stop squabbling and just play | v: benevolence, security | chance: 50
+- G>U | sit back and watch how each person plays, learning more about them than they know | v: self-direction | chance: 92
+works: It is midnight before anyone notices the time, and it was the best night in months.
+works: {N} wins for the first time ever, and is unbearable about it until breakfast.
+fails: The game ends in a shouting match, and the box goes back in the cupboard for a year.
+fails: {N} is bankrupt within the hour and goes to bed in a huff.
+
+# ---------------------------------------------------------------- pair 5: calls WG (cycle s1) / calls UBR (cycle s3)
+
+== a holiday meal with the whole family
+tier: everyday
+stages: child
+age: 3-12
+calls: WG
+tone: joy
+life: family, tradition
+horizon: moment
+roles: grandparent, parent, sibling, aunts, uncles and cousins
+earth: a big holiday dinner at your grandparents', with relatives you see once a year
+times: Nearly every child, once or twice a year, at the year's big holiday (estimate)
+gap: .8-1
+scene: The whole family is squeezed round {Ns} grandparents' table for the holiday meal, elbow to elbow, with relatives {N} sees only once a year.
+scene W: There is a right way to do the holiday: best clothes, a toast, and nobody starts until everybody is served. {N} sits up very straight.
+scene U: {N} is next to a great-uncle who knows things about the family that nobody else will say out loud.
+scene B: There are presents under the tree, and {N} has already worked out which relatives give the best ones.
+scene R: The cousins are under the table, the music is loud, and {N} has eaten three bread rolls before the soup.
+scene G: The same dish, the same songs, the same tablecloth as every year, and {grandparent} at the head of the table. All is as it should be.
+- W | tell your cousins off for starting before everyone is served | v: conformity, tradition | closed: approval: bossing the cousins; backfire: the cousins leave them out of every game | chance: 45
+- U | ask your great-uncle what the family was like long ago, and remember every word | v: self-direction, tradition | chance: 90
+- B | butter up the rich aunt so her present is the biggest one | v: power | chance: 54
+- R | slip off with the cousins to run wild in the garden before pudding | v: stimulation, hedonism | chance: 90
+- G | learn the old family song, and sing it with the grown-ups at the end | identity | v: tradition | mark: learned a skill | chance: 75
+- W>U | offer to make the toast, and practise it until it is word perfect | v: achievement, tradition | chance: 78
+- U>B | listen in on the grown-ups at the far end to learn the family secrets | v: power | closed: approval: eavesdropping; backfire: caught listening, and sent off to the kitchen | chance: 60
+- B>R | slide your sprouts onto your cousin's plate while the grown-ups are talking | v: hedonism | chance: 85
+- R>G | hug every single relative, even the ones with scratchy cheeks | v: benevolence | tags: win:ties+.05 | chance: 95
+- G>W | sit with your great-grandmother, who cannot hear well, so she is not left out | v: benevolence | mark: helped someone in need | chance: 92
+works: The meal goes on for hours, and {N} falls asleep on a pile of coats.
+works: Someone tells a story about {Ns} parent as a child, and the whole table roars.
+fails: Two of the grown-ups start an argument, and the meal goes quiet and cold.
+fails: {N} is told off in front of everyone, and spends the pudding in tears.
+
+== the empty house at the end of the street
+tier: everyday
+stages: child
+age: 7-12
+calls: UBR
+tone: mixed
+life: friends, risk
+horizon: week
+roles: friend, a neighbour, parent
+earth: an empty house with boarded windows that the kids say is haunted
+times: About 1 in 3 children, once, where an empty house stands near home (estimate)
+once: yes
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: The empty house at the end of the street has a broken window round the back, and {friend} swears there is a light in it at night.
+scene W: {N} reads the sign on the gate twice. Private property. Keep out.
+scene U: Nobody knows who lived there, or why they left in such a hurry. {N} has a theory, and wants to test it.
+scene B: Empty houses have things left in them, and nobody around to say whose they are.
+scene R: The gate creaks, the wind moans in the chimney, and {Ns} heart is going like a drum. It is the best feeling in the world.
+scene G: Ivy has grown over the windows, and a fox has made its den under the porch. The house is going back to the wild.
+- W | tell your friends it is somebody's house, and stay on the pavement | v: conformity | chance: 45
+- U | watch the house every evening for a week and keep a log of what you see | habit | v: self-direction | closed: approval: spying on the neighbours; backfire: a neighbour complains to the parents | chance: 55
+- B | take the old bike leaning in the garden, since nobody seems to want it | v: power | mark: hid a wrong | closed: law: theft; backfire: the owner's son turns up asking for it | chance: 75
+- R | run up and bang on the front door, then sprint away screaming | body: light | v: stimulation | mark: took a wild risk | chance: 90
+- G | leave the house to the fox and the ivy, and watch from the hedge | v: universalism (nature) | chance: 80
+- W>R | start a proper club with a password and rules, with the garden as its den | identity | v: stimulation, conformity | chance: 60
+- U>G | ask the old lady next door who lived there, and listen to her whole story | door | v: tradition, self-direction | mark: made a friend | tags: win:ties+.05 | chance: 82
+- B>W | offer to keep watch on the house for the neighbours, for a coin a week | v: power, security | chance: 39
+- R>U | creep inside with a torch, just to find out once and for all | body: light | v: stimulation, self-direction | closed: law: trespass; backfire: caught by a neighbour, and the parents told | chance: 75
+- G>B | claim the wild garden as your gang's ground, and keep the other kids out | v: power, security | closed: approval: not their garden; backfire: chased off by the owner, and the other kids hold a grudge | chance: 55
+works: The mystery of the empty house has a perfectly ordinary answer, and a very good story to go with it.
+works: {N} and {friend} have a secret that the whole street wants to know.
+fails: A neighbour shouts from an upstairs window, and {N} runs all the way home with a pounding heart.
+fails: {parent} finds out, and it is a long, quiet talk at the kitchen table.
+
+# ---------------------------------------------------------------- pair 6: calls WB (cycle s2) / calls URG (cycle s4)
+
+== your first pocket money
+tier: everyday
+stages: child
+age: 5-12
+calls: WB
+tone: joy
+life: money
+horizon: months
+roles: parent, sibling, grandparent
+earth: a few coins every Saturday for the first time, and the corner shop two streets away
+times: Most children, once, usually between five and eight (estimate)
+once: yes
+scene: For the first time, {N} gets pocket money: a few coins every Saturday, to spend however {N} likes.
+scene W: {parent} says the money comes with a few jobs, and that it is good to put some by. {N} wants to do it properly.
+scene U: {N} counts the coins three times, then starts working out what they add up to in a month, and in a year.
+scene B: Money. Real money, of {Ns} very own. {N} can already feel how much more of it there could be.
+scene R: The corner shop has sherbet, comics and a water pistol in the window, and {Ns} pocket is jingling.
+scene G: {grandparent} hands over an old tin money box, the same one that sat on the shelf when {grandparent} was small.
+- W | promise to save half of it every week, and keep to it | binds | v: security, conformity | mark: kept your word | chance: 55
+- U | compare the prices at three shops before buying anything | habit | v: achievement, security | chance: 88
+- B | lend coins to your sibling and ask for two back for every one | habit | v: power | chance: 48
+- R | run to the shop and spend the lot on sweets the same afternoon | habit | v: hedonism | chance: 92
+- G | drop every coin in the old family money box and leave them there | habit | v: security, tradition | chance: 80
+- W>B | do extra jobs round the house, properly, for extra coins | v: achievement | chance: 80
+- U>R | save for months for the one big thing you really want | v: hedonism, self-direction | chance: 50
+- B>G | offer to pay for a goldfish yourself, if your parents will let you keep one | binds | v: self-direction, universalism (nature) | act: offer to pay for a goldfish themselves, if their parents will let them keep one | chance: 75
+- R>W | empty your pockets into the charity tin on the spot, because they need it more | v: benevolence | mark: helped someone in need | chance: 95
+- G>U | ask your grandparent how they saved at your age, and copy them | door | v: tradition, self-direction | mark: learned a skill | chance: 75
+works: The jar fills slowly, and {N} feels very grown up.
+works: {N} buys something with money that was truly {Ns} own, and it feels wonderful.
+fails: The money is gone by Monday, and there is nothing to show for it.
+fails: The coins go missing, and there is a row about who took them.
+
+== a thunderstorm at night
+tier: everyday
+stages: child
+age: 3-10
+calls: URG
+tone: trouble
+life: home, fear
+horizon: moment
+roles: parent, sibling
+earth: thunder shakes the windows at two in the morning, and the night light goes out
+times: Most children, once or a few times a year, more in hot inland places and fewer near cool coasts (estimate)
+gap: 0-.5
+scene: At two in the morning a crack of thunder shakes the windows, the night light flickers out, and {N} is wide awake in the dark.
+scene W: {parent} always says to stay in bed and be brave. {N} grips the covers and tries hard to do as told.
+scene U: Flash. One, two, three, four. Boom. {N} counts in the dark and wonders how far away it is.
+scene B: The storm is the perfect excuse. Tonight nobody can say no to the big bed.
+scene R: Every crash goes through {N} like an electric shock, half terror and half thrill.
+scene G: The rain roars on the roof and the old tree bends in the garden. Storms come, and storms pass.
+- W | stay in your own bed, as you were told, and wait for the storm to pass | v: conformity | chance: 50
+- U | count the seconds between flash and thunder to work out how far away it is | v: self-direction | chance: 82
+- B | let your sibling into your bed, but only in return for their pudding tomorrow | v: power | act: let their sibling into their bed, but only in return for the sibling's pudding tomorrow | chance: 85
+- R | scream and run for your parents' room as fast as your legs will go | body: light | v: security | chance: 92
+- G | press your face to the window and watch the lightning light up the trees | v: universalism (nature), stimulation | chance: 65
+- W>G | creep in to comfort your sibling, and stay until they fall asleep | v: benevolence | mark: helped someone in need | chance: 90
+- U>W | find the torch where it is always kept, and light the landing for everyone | v: security, benevolence | chance: 90
+- B>U | sneak your tablet under the covers and look up how storms work | habit | v: self-direction | closed: approval: no screens at night; backfire: found, and the tablet taken away | tech: internet | chance: 80
+- R>B | wail until your parents give in and let you sleep in their bed | habit | v: hedonism, security | act: wail until their parents give in and let them sleep in their bed | chance: 75
+- G>R | slip out to the back step to feel the warm rain on your face | body: light | v: stimulation, universalism (nature) | mark: defied an authority | closed: approval: out of bed in a storm; backfire: caught, soaked and scolded | chance: 70
+works: The storm rolls away, and {N} falls asleep to the sound of dripping gutters.
+works: In the morning there are branches all over the lawn, and {N} has a story to tell at school.
+fails: {N} lies awake until dawn, jumping at every rumble.
+fails: The whole house ends up awake at three in the morning, and everyone is cross.
+
+# ---------------------------------------------------------------- pair 7: calls UR (cycle s3) / calls WBG (cycle s1)
+
+== a box of craft things and a free hour
+tier: everyday
+stages: child
+age: 3-12
+calls: UR
+tone: joy
+life: play, making
+horizon: moment
+roles: parent, sibling, friend, a neighbour
+earth: a shoebox of glue, card, pipe cleaners and glitter on the kitchen table
+times: Nearly every child, many times a year (estimate)
+gap: 0-.5
+scene: A shoebox of glue, card, pipe cleaners and glitter sits on the kitchen table, and {N} has a whole free hour.
+scene W: {parent} has spread out old newspaper and said to clear up after. The old lady next door is ill, and {N} knows what a proper card should look like.
+scene U: {N} has seen a picture of a marble run with ramps and trapdoors, and is sure one can be built from cardboard tubes.
+scene B: Everyone at school is mad about friendship bracelets this week, and {N} has a whole box of thread.
+scene R: Glitter! {N} tips the whole tub out, and the table becomes a galaxy.
+scene G: {N} has a pocketful of conkers, feathers and pine cones from the park, and wants to make something out of them.
+- W | make a get-well card for the sick neighbour, neatly, and deliver it yourself | v: benevolence | chance: 92
+- U | build a marble run from tubes and tape, and test it until it works | v: achievement, self-direction | chance: 70
+- B | make friendship bracelets and sell them to the kids on your street | habit | v: achievement, power | chance: 65
+- R | tip out the glitter, paint and glue all at once and see what happens | v: stimulation | chance: 75
+- G | build a house for the hedgehog out of sticks and leaves | v: universalism (nature) | chance: 72
+- W>R | follow the kite instructions step by step, then run with it across the park | body: light | v: stimulation, conformity | chance: 40
+- U>G | press flowers and leaves from the garden and label them in a book | v: universalism (nature), self-direction | chance: 90
+- B>W | make the poster for the school fair, and make sure your name goes on it big | identity | v: achievement, power | chance: 78
+- R>U | stick everything to everything, to find out which glue holds best | v: self-direction, stimulation | chance: 92
+- G>B | string your hardest conker and take on every kid in the street | v: power, achievement | chance: 20
+works: By the end of the hour there is a thing on the table that did not exist before, and {N} is very proud of it.
+works: {parent} puts it on the shelf, and visitors are shown it for weeks.
+fails: The glue does not hold, and the whole thing collapses with a sad flop.
+fails: There is glitter in the carpet, in the cat and in the soup, and {parent} is not amused.
+
+== sharing a room with your sibling
+tier: everyday
+stages: child
+age: 3-12
+calls: WBG
+tone: trouble
+life: family, home
+horizon: months
+roles: sibling, parent
+earth: a small bedroom split between two beds, and a line nobody can agree on
+times: About half of children share a bedroom with a brother or sister for some years, and the rows come most weeks (estimate)
+gap: 0-1
+share: .6
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} and {sibling} share a small bedroom, and tonight {sibling} has spread comics, socks and a half-eaten apple all over {Ns} side.
+scene W: There should be a rule about whose side is whose. {N} has a roll of tape and a strong sense of what is fair.
+scene U: {N} lies awake listening to {sibling} snore and works out, for the hundredth time, how to get some peace.
+scene B: {sibling} has the bed by the window, the bigger drawer and the better lamp. {N} has been keeping count.
+scene R: {sibling} is singing the same song again, for the fortieth time, and {N} is about to explode.
+scene G: {N} and {sibling} have shared this room for as long as {N} can remember. Some nights they whisper till midnight; some nights they fight.
+- W | tape a line across the room and fine your sibling for every toe over it | v: security, conformity | closed: approval: rules a sibling never agreed to; backfire: a row, and the tape torn up | chance: 45
+- U | build a reading den in the cupboard, with a torch, where you can be alone | v: self-direction | chance: 90
+- B | offer your sibling a week of your puddings for the bed by the window | v: power (resources) | chance: 60
+- R | throw a pillow at your sibling and start an all-out pillow fight | habit | body: light | v: stimulation, hedonism | chance: 85
+- G | whisper stories in the dark until you both fall asleep | habit | v: benevolence | chance: 85
+- W>U | ask your parents for a quiet hour each evening, to read in peace | v: self-direction, conformity | chance: 75
+- U>B | read your sibling's diary for something to use in the next row | v: power | closed: approval: snooping; backfire: caught, and no trust for weeks | chance: 60
+- B>R | make a pact with your sibling to cover for each other when you stay up late | binds | v: hedonism, stimulation | chance: 75
+- R>G | have a huge shouting row, then make up with a hug before bed | v: benevolence | chance: 70
+- G>W | let the small things go, because family has to live together | v: benevolence, tradition | chance: 65
+works: {N} and {sibling} work out a truce, and the room is quiet at last.
+works: They end up laughing in the dark until {parent} knocks on the wall.
+fails: The row wakes the whole house, and both of them are in trouble.
+fails: {sibling} sulks for three days, and the room turns into a cold war.
+
+# ---------------------------------------------------------------- pair 8: calls BG (cycle s4) / calls WUR (cycle s2)
+
+== your pet dies
+tier: everyday
+stages: child
+age: 4-12
+calls: BG
+tone: trouble
+life: loss, nature
+horizon: week
+roles: parent, sibling, grandparent, a vet
+earth: the old hamster is lying very still in the corner of its cage one morning
+times: About half of children, once or twice, often a small pet first; about 2 in 3 US households keep a pet (APPA), and hamsters live two or three years
+gap: 3-6
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: One morning the old hamster is lying very still in the corner of its cage, and does not wake when {N} taps the bars.
+scene W: {N} fed the hamster every day and cleaned its cage every Sunday. Now there is one last thing to do for it, and it must be done right.
+scene U: {N} wants to know why. Was it old? Was it ill? Did {N} do something wrong?
+scene B: The cage is empty, and {N} already knows which pet shop has the lop-eared rabbits.
+scene R: The tears come all at once, hot and loud, and {N} cannot make them stop.
+scene G: Everything that lives dies, {grandparent} says gently. The hamster had a good long life, for a hamster.
+- W | hold a proper funeral with the family, and say a few words | v: tradition, conformity | chance: 80
+- U | find out how long hamsters live, and what it might have died of | v: self-direction | chance: 85
+- B | offer to do extra chores every week to earn the next pet yourself | v: achievement | chance: 65
+- R | cry and cry, and refuse to go to school the next day | v: none clear (grief let out) | chance: 75
+- G | bury it yourself under the apple tree, so it becomes part of the garden | v: universalism (nature), tradition | chance: 85
+- W>G | make a little headstone and visit the grave every Sunday | habit | v: tradition | chance: 75
+- U>W | find out what you could have done better, so the next pet is looked after properly | v: benevolence, achievement | mark: learned a skill | chance: 65
+- B>U | swap the empty cage with a classmate for their big book about animals | door | v: self-direction | chance: 58
+- R>B | blame your sibling loudly for forgetting to feed it, in front of everyone | v: power | chance: 30
+- G>R | throw stones into the river, as hard as you can, until the hurt eases | body: light | v: none clear (grief let out) | chance: 75
+works: {N} cries, and then, slowly, starts to remember the funny things the hamster used to do.
+works: The little grave in the garden becomes a place {N} visits and talks to.
+fails: {N} has bad dreams for a week and will not go near the empty cage.
+fails: Nobody seems to understand, and {N} feels very alone with it.
+
+== a new kid joins your class
+tier: everyday
+at: school
+stages: child
+age: 5-12
+calls: WUR
+tone: mixed
+life: school, friends
+horizon: week
+roles: a teacher, the new kid, friend, rival
+earth: a new kid from far away stands at the front of the class on a wet Monday
+times: Nearly every child, about once a year; about 1 in 10 Americans move home in a year (US Census), so most classes gain a new face or two
+gap: .8-1
+scene: On Monday the teacher brings in a new kid, who stands at the front of the class in a coat that is too big, staring at the floor.
+scene W: Someone has to show the new kid where everything is. {N} knows that is what a good classmate does.
+scene U: The new kid comes from far away, has a strange lunch box and speaks another language at home. {N} wants to know everything.
+scene B: Nobody has claimed the new kid yet. Whoever gets there first has one more in their gang.
+scene R: The new kid looks as scared as {N} felt on the first day of school, and {N} feels it right in the stomach.
+scene G: The new kid is not from round here, and does everything differently. {N} is not sure yet what to make of that.
+- W | offer to be the new kid's buddy and show them where everything is | door | v: benevolence, conformity | mark: made a friend | tags: win:ties+.05 | chance: 78
+- U | correct the new kid's grammar in front of the whole class | v: achievement | closed: approval: showing someone up; backfire: the class laughs at the know-all, and the new kid will not speak to them | chance: 35
+- B | get the new kid into your gang before the other gang does | v: power | chance: 75
+- R | make the new kid your best friend at break, sealed with a spit handshake | binds | v: stimulation, benevolence | mark: made a friend | chance: 75
+- G | keep the new kid out of your old gang, since they are not from round here | v: security, tradition | mark: refused someone in need | closed: approval: shutting a newcomer out; backfire: the teacher steps in, and the gang splits over it | chance: 55
+- W>B | report the new kid to the teacher for every little thing they get wrong | v: power, conformity | mark: made an enemy | closed: approval: telling tales; backfire: the whole class turns against a telltale | chance: 40
+- U>R | learn a few words of the new kid's language, to make them laugh | v: self-direction, benevolence | tags: win:ties+.05 | chance: 80
+- B>G | use your standing with the others to make sure the new kid gets let in | v: benevolence, power | chance: 73
+- R>W | shout at the kids who mock the new kid's accent | identity | v: universalism (fairness), benevolence | mark: made an enemy | chance: 55
+- G>U | wait and watch for a week, to see what the new kid is really like | v: self-direction, security | chance: 60
+works: By Friday the new kid is laughing in the playground, and {N} has a new friend.
+works: The new kid's family asks {N} round for dinner, and the food is like nothing {N} has ever tasted.
+fails: The new kid stays quiet and alone, and {N} cannot get through.
+fails: The class takes sides over the new kid, and {N} ends up on the losing one.
+
+# ---------------------------------------------------------------- pair 9: calls WR (cycle s1) / calls UBG (cycle s3)
+
+== the school play
+tier: everyday
+at: school
+stages: child
+age: 5-12
+calls: WR
+tone: joy
+life: school, performing
+horizon: moment
+roles: a teacher, parent, grandparent, friend, rival
+earth: the night of the end-of-year play, with costumes made from old curtains
+times: Most primary school children, once a year, at the end of term or at the winter holiday (estimate)
+gap: .8-1
+scene: It is the night of the school play. The hall smells of floor polish and hairspray, the parents are filing in, and {N} is backstage in a costume made from old curtains.
+scene W: {N} has learned every line, and knows that if one person forgets theirs, the whole play falls apart.
+scene U: {N} has been watching how the teacher lights the stage, and wants to know what every switch on the board does.
+scene B: {rival} got the lead. {N} got Tree Number Three. That is not the end of the story.
+scene R: The curtain twitches, the hall goes quiet, and {Ns} whole body is fizzing.
+scene G: {grandparent} is in the third row, in the same seat as at every school play {Ns} parent was ever in.
+- W | keep the little ones in line backstage, so everyone goes on at the right moment | v: conformity, benevolence | chance: 55
+- U | ask to work the lights and sound, and learn how it is all done | identity | v: self-direction | mark: learned a skill | chance: 40
+- B | play your small part so well that you steal the show from the lead | identity | v: power, achievement | chance: 35
+- R | make up a joke on stage that was never in the script | identity | v: stimulation | closed: approval: going off script; backfire: the teacher is furious | chance: 70
+- G | be the best tree a play ever had, steady and still, one part of the whole | v: tradition (humility) | chance: 92
+- W>U | go over your lines one last time in the wings, word for word | v: achievement, conformity | chance: 92
+- U>B | quietly learn the lead's lines, in case they get stage fright | v: achievement, power | chance: 20
+- B>R | trade your tree costume with a friend for a part with a sword fight | v: stimulation | chance: 34
+- R>G | run into your grandparent's arms the moment the curtain falls | v: benevolence | chance: 95
+- G>W | get the whole street to come, the way the neighbours always turn out for the play | v: tradition, benevolence | chance: 35
+works: The applause goes on and on, and {N} takes a bow on shaking knees.
+works: Afterwards, everyone says {N} was the best thing in it.
+fails: {N} forgets a line and freezes, and the silence goes on forever.
+fails: The scenery wobbles and falls, and the whole hall laughs at the wrong moment.
+
+== a long car journey
+tier: everyday
+stages: child
+age: 3-12
+calls: UBG
+tone: trouble
+life: family, boredom
+horizon: moment
+roles: parent, sibling, grandparent
+earth: six hours in the back seat to the grandparents', wedged between a sibling and a cool box
+times: Many children, once or twice a year, to the grandparents or on holiday (estimate)
+gap: 0-.5
+scene: Six hours in the back seat to {grandparent}'s house, wedged between {sibling} and a cool box, and the motorway goes on and on.
+scene W: {parent} said no squabbling, no kicking the seat, and the first to complain loses the sweets. {N} means to keep the sweets.
+scene U: {N} has the road atlas open on both knees and is ticking off every junction and river they pass.
+scene B: There is one bag of crisps, one window seat and one pair of headphones. {N} means to end up with all three.
+scene R: {N} has been sitting still for two whole hours, and every part of {N} wants to scream.
+scene G: Fields, cows, a hawk on a fence post, hills fading into the distance. {N} leans on the window and lets the country go by.
+- W | tell on your sibling for every kick, so they are the one who loses the sweets | v: conformity, power | closed: approval: telling tales; backfire: the sibling gets even at the next stop | chance: 55
+- U | follow the route on the map and call out every town you pass | v: self-direction | chance: 92
+- B | eat your sibling's crisps while they are asleep | v: hedonism, power | mark: hid a wrong | chance: 90
+- R | make up a song about every lorry you pass, and get the whole car singing | v: hedonism | chance: 65
+- G | lean on the window and watch the fields and the weather go by | v: universalism (nature), hedonism | chance: 85
+- W>R | start a game of I-spy with proper turns, so the miles fly by | v: hedonism, conformity | chance: 80
+- U>G | keep a list of every animal you spot, to look them all up later | v: universalism (nature), self-direction | chance: 90
+- B>W | offer to keep the peace in the back if you get to choose the music | v: power, security | chance: 75
+- R>U | beg to stop at every sign for a castle or a cave, and explore them all | door | v: stimulation, self-direction | chance: 30
+- G>B | stretch out and doze until you have the whole back seat to yourself | v: hedonism, power | chance: 45
+works: The hours slide by, and suddenly {grandparent} is there, waving at the gate.
+works: {N} and {sibling} invent a game that lasts the whole way, and they are still laughing when the car stops.
+fails: Someone is sick in a carrier bag on the hard shoulder.
+fails: A traffic jam doubles the journey, and everyone arrives in a foul mood.
+
+# ---------------------------------------------------------------- pair 10: calls UG (cycle s2) / calls WBR (cycle s4)
+
+== a jar of tadpoles
+tier: everyday
+stages: child
+age: 4-11
+calls: UG
+tone: joy
+life: nature, learning
+horizon: months
+roles: sibling, friend, a teacher, a park keeper
+earth: a jam jar of tadpoles scooped from the pond in the park
+times: About 1 in 3 children, once or twice, in a spring with a pond nearby (estimate)
+gap: 2-4
+share: .33
+rate: 1
+# rate lowered (drafts/repeats/everyday.py)
+scene: {N} has scooped a jam jar of tadpoles out of the pond in the park, and they wriggle in the murky water like commas.
+scene W: The sign by the pond says the frogs are protected. {N} stops and wonders whether taking tadpoles home is allowed.
+scene U: Some of the tadpoles already have tiny back legs. {N} wants to see exactly how a tadpole becomes a frog, day by day.
+scene B: Twenty tadpoles, and every kid in the class would give anything for one.
+scene R: {N} cannot wait for them to be frogs, jumping, everywhere, all at once.
+scene G: Every spring the frogs come back to the same pond to lay their eggs, and {N} has the next ones in a jar.
+- W | ask the park keeper whether you may take them, and put them back if not | v: conformity | chance: 75
+- U | keep a tadpole diary every day, for the science fair you signed up for | habit | binds | v: self-direction, achievement | mark: learned a skill | chance: 55
+- B | keep the whole jar for yourself, though your friend caught half of them | v: power | chance: 63
+- R | run all the way to school with the jar to show everyone, slopping water | body: light | v: stimulation, hedonism | chance: 75
+- G | tip them back into the pond, where they belong | v: universalism (nature) | chance: 95
+- W>B | make yourself the class tadpole keeper, with a rota and a chart | identity | v: power, achievement | closed: approval: taking charge without asking the teacher; backfire: the job goes to someone else, in front of the class | chance: 55
+- U>R | build a ramp of stones so the froglets can climb out when they are ready | v: universalism (nature), self-direction | chance: 75
+- B>G | trade your comics for an old fish tank, so the tadpoles have a proper home | v: universalism (nature) | chance: 75
+- R>W | rush at the big boys throwing stones at the frogspawn and make them stop | body: light | v: universalism (nature), benevolence | chance: 35
+- G>U | sit by the pond for hours to see where the grown frogs go | habit | door | v: universalism (nature), self-direction | mark: learned a skill | chance: 55
+works: One morning there are tiny frogs climbing the side of the jar, and {N} cannot stop grinning.
+works: {N} carries the froglets back to the pond and watches them hop into the reeds.
+fails: The water turns cloudy, and one by one the tadpoles stop moving.
+fails: The jar tips over in the hall, and there are tadpoles all over the carpet.
+
+== sports day
+tier: everyday
+at: school
+stages: child
+age: 5-12
+calls: WBR
+tone: joy
+life: school, body
+horizon: moment
+roles: parent, friend, rival, a teacher
+earth: sports day on the school field: sack race, egg and spoon, parents in folding chairs
+times: Nearly every school child, once a year in early summer, as sports day or field day (estimate)
+gap: .8-1
+scene: It is sports day. The field is marked out in chalk lanes, the parents sit in folding chairs, and {N} has a number pinned to their shirt.
+scene W: The class has been split into teams, and the team with the most points wins the cup. {N} means to pull their weight.
+scene U: {N} watched last year's races closely, and noticed that the egg and spoon goes to the slow and steady, not the fast.
+scene B: {rival} has won the sprint three years running. This year {N} means to beat them, one way or another.
+scene R: The whistle is about to go, the grass smells freshly cut, and {N} is bouncing on their toes.
+scene G: {N} is not the fastest or the strongest, the sun is warm, and the whole school is out on the field.
+- W | call out your rival's false start to the teacher, though you are not quite sure | v: conformity | closed: approval: a doubtful accusation; backfire: the teacher saw it all, and the telling-off goes the other way | chance: 35
+- U | practise your start for weeks until you push off faster than anyone | habit | v: achievement | chance: 78
+- B | bet your rival a week of sweets that you win the sprint this year | body: light | v: power, achievement | chance: 45
+- R | run the sprint flat out, arms pumping, as if your life depended on it | body: light | v: achievement, stimulation | chance: 65
+- G | go at your own pace in the long race and enjoy the sun on your face | v: hedonism | chance: 92
+- W>G | carry water to the little ones and help them find their lanes | v: benevolence | chance: 92
+- U>W | work out the best order for your team's relay, and talk the teacher into it | v: achievement | chance: 50
+- B>U | help the older kids' coach clear up, in exchange for some running tips | v: achievement, self-direction | mark: learned a skill | chance: 85
+- R>B | challenge your rival to a race after school, one on one, and win it | body: light | v: achievement, stimulation | chance: 50
+- G>R | kick off your shoes and run the race barefoot on the cool grass | identity | body: light | v: stimulation, hedonism | chance: 75
+works: {N} comes home with a sticker, grass stains and a sore throat from shouting.
+works: {Ns} team wins the cup, and the whole class goes wild.
+fails: {N} trips in the sack race and lands on the grass to a roar of laughter.
+fails: {N} comes last in everything, and the walk home is a long one.
+
+# ---------------------------------------------------------------- life event: your parents split up (pairs D1b)
+
+== your parents split up
+tier: life event
+stages: child juvenile young_adult
+age: 12-18
+per_year: .02 .02 .01 0 0 0
+drivers: stress+.4 money-.3 community-.3 era+.2
+once: yes
+times: once, sometimes twice: about 2.5 in 100 children and 2 in 100 teenagers a year see their parents part, and 1 in 100 young adults still at home (D46, estimate); more where parents never married, fewer in much of Europe. Point 12 (Emren 2026-10-05): once: parents part once; a second split (a step-parent) is rare and not told as this event.
+likelier: money worries, family strife, a parent's drinking or addiction, very young or unmarried parents, a time when divorce is easy and common
+rarer: enough money, a faith or a close community, a close and steady family, parents who married older
+tone: trouble
+life: family
+horizon: years
+roles: parent, sibling, grandparent
+earth: your parents tell you they are going to live in two houses
+scene: {Ns} parents sit {N} down at the kitchen table, both with careful faces. They are separating, and it sounds as if they rehearsed the words.
+scene W: {N} wants to know how it will work: which nights where, who pays for what, where the holidays go. If there is a plan, it can be lived with.
+scene U: {N} has heard the arguments through the floor for a year and has a fair idea of the reasons already. Now {N} wants the true version.
+scene B: Two houses means two sets of rules, and two parents who both feel guilty. {N} notices how much room that leaves.
+scene R: {N} is too old to cry in front of them and too angry not to. The chair scrapes back hard across the floor.
+scene G: That evening {grandparent} rings. Some things change, {grandparent} says, but a family is still a family.
+- W | keep to the agreed week between the two homes, and keep up at school | v: security, conformity | chance: 78
+- U | ask each parent, on their own, for the real reasons, and compare the answers | v: self-direction | chance: 50
+- B | play your parents off against each other for money, freedom and a later curfew | habit | v: power, hedonism | chance: 65
+- R | tell them both, tears and all, how much this hurts and that you love them | v: none clear (feelings spoken straight out) | chance: 65
+- G | move in with your grandparents for a while, away from both houses | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 65
+- RG | refuse to change schools or leave your friends, whatever the grown-ups decide | identity | v: security, tradition | chance: 75
+- UB | listen in on their phone calls, to know what is coming before anyone says | habit | v: security | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | chance: 75
+- UR | choose which parent to live with, and argue your case to both | identity | v: self-direction | chance: 70
+- WB | get both parents to agree one set of rules, and hold them to it | v: security, power | chance: 45
+- WG | keep the peace at both houses, and keep how you feel to yourself | v: benevolence, conformity | chance: 45
+works: Slowly the two houses become two homes, and {N} has a toothbrush in each.
+works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
+fails: {N} goes quiet at school, and the teacher calls home.
+fails: The Friday handovers are cold and tense, and {N} dreads every one.
+
+# a child version of the same event (variant_of): the options above are worded for twelve to eighteen
+
+== two houses from now on
+variant_of: your parents split up
+tier: life event
+stages: child, juvenile
+age: 3-12
+per_year: .025 .02 0 0 0 0
+drivers: stress+.4 money-.3 community-.3 era+.2
+once: yes
+times: once, sometimes twice: about 2.5 in 100 children and 2 in 100 teenagers a year see their parents part, and 1 in 100 young adults still at home (D46, estimate); more where parents never married, fewer in much of Europe
+likelier: money worries, family strife, a parent's drinking or addiction, very young or unmarried parents, a time when divorce is easy and common
+rarer: enough money, a faith or a close community, a close and steady family, parents who married older
+tone: trouble
+life: family
+horizon: years
+roles: parent, sibling, grandparent
+earth: your parents tell you they are going to live in two houses
+scene: {Ns} parents sit {N} down at the kitchen table, both with careful faces. They are going to live in two houses from now on, and it is not {Ns} fault.
+scene W: {N} wants to know the rules now: which nights where, who does the school run, what happens at birthdays. If there are rules, it might be all right.
+scene U: {N} has heard the arguing through the floor for months, and has been trying to work out the reason ever since.
+scene B: Two houses means two bedrooms, two lots of birthday presents, and two parents who both feel bad. {N} notices that.
+scene R: {N} does not want two houses. {N} wants everything back the way it was, and says so, loudly, through tears.
+scene G: {N} looks at the family photo on the fridge. Some things change, {grandparent} says, but a family is still a family.
+- W | learn the new week by heart, which nights where, and keep to it | v: security, conformity | chance: 78
+- U | ask both parents, one at a time, to explain exactly why | v: self-direction | chance: 60
+- B | pack your own bag for each house, so nothing you need is ever left behind | habit | v: self-direction, security | chance: 70
+- R | shout that you hate them both, and slam your door | v: none clear (hurt let out) | chance: 55
+- G | refuse to go to the other house, and stay at your grandparents' instead | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 60
+- RG | dig in your heels: you will not leave your school or your friends | identity | v: security, tradition | chance: 65
+- UB | listen at doors, to know what is coming before anyone tells you | habit | v: security | act: listen at doors, to know what is coming before anyone tells them | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | chance: 75
+- UR | hatch a plan to get your parents back together, and put it into action | identity | v: benevolence, stimulation | chance: 20
+- WB | make both parents agree the same rules for you, and hold them to it | v: security, power | act: make both parents agree the same rules for them, and hold them to it | chance: 50
+- WG | try to be extra good at both houses, so nobody else gets upset | v: benevolence, conformity | chance: 45
+works: Slowly the two houses become two homes, and {N} has a toothbrush in each.
+works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
+fails: {N} goes quiet at school, and the teacher calls home.
+fails: The Friday handovers are cold and tense, and {N} dreads every one.
+
+# ---------------------------------------------------------------- life event: the family moves to a new town (triads from D2a)
+
+== the family moves to a new town
+tier: life event
+stages: child juvenile
+age: 12-17
+per_year: .03 .03 0 0 0 0
+drivers: prosper+.3 community-.3 ties-.2 era+.2
+gap: 2-4
+times: about 10 in 100 children and 7 in 100 teenagers a year move home with their family, and about four in ten of those moves go to another town (D37, data and estimate); US moves are at a record low, about half the rate of the 1960s
+likelier: a parent's new job, a split, renting, a growing economy, cheap and easy travel
+rarer: owning the home, grandparents and family nearby, a close community, a family farm or business
+moves: yes
+tone: mixed
+life: home, friends
+horizon: years
+roles: parent, sibling, friend, grandparent
+earth: the family moves to a town you have only seen on a map
+scene: The house is full of boxes and the walls are bare. Tomorrow the van leaves for a town {N} has only ever seen on a map, and all of {Ns} friends are staying here.
+scene W: {N} has a list of everyone to keep in touch with, and means to keep at it, not just for the first month.
+scene U: {N} has looked the new town up: its river, its schools, the late bus to the city. It might be interesting.
+scene B: In the new town nobody knows who {N} was. {N} can be anyone at all.
+scene R: Nobody asked {N}. {N} is leaving friends, a team and a whole life behind, and is furious about it.
+scene G: {N} walks past the old school, the park and the corner shop one last time, trying to fix each one in memory.
+- W | promise every friend you will keep in touch, and message them every week | v: benevolence | tags: win:ties+.05 | tech: phone | chance: 55
+- U | look up everything about the new town: the schools, the clubs, the buses | v: self-direction | chance: 70
+- B | decide to reinvent yourself at the new school, as someone people look up to | identity | v: power, self-direction | chance: 55
+- R | throw a loud goodbye party for your friends on the last night | v: hedonism, benevolence | chance: 75
+- G | walk your old streets one last time, and promise yourself you will come back | binds | v: tradition | chance: 65
+- WUR | join a team or a club in the first week, to find your feet fast | door | v: self-direction, stimulation | chance: 78
+- WUG | set up your new room with all your old things, just as it was | v: security, tradition | chance: 70
+- WBG | stay close to your family and keep a low profile until you know who to trust | v: security | chance: 55
+- UBR | work out who runs things at the new school, and get on their side fast | v: power, security | chance: 65
+- BRG | square up to the first kid at the new school who tries to push you around | body: light | v: power | closed: approval: fighting; backfire: suspended in the first week, with a reputation | act: square up to the first kid at the new school who tries to push them around | role: men | chance: 60
+works: Within a month {N} has a new best friend and a favourite path to school.
+works: The new town has a river, a library and a kid next door who is just as new.
+fails: {N} spends lunchtimes alone for weeks, and the old friends slowly stop replying.
+fails: {N} begs every night to go back, and nothing feels right for a long time.
+
+# a child version of the same event (variant_of): the options above are worded for twelve to seventeen
+
+== moving to a new town
+variant_of: the family moves to a new town
+tier: life event
+stages: child, juvenile
+age: 3-12
+per_year: .04 .03 0 0 0 0
+drivers: prosper+.3 community-.3 ties-.2 era+.2
+gap: 2-4
+times: about 10 in 100 children and 7 in 100 teenagers a year move home with their family, and about four in ten of those moves go to another town (D37, data and estimate); US moves are at a record low, about half the rate of the 1960s
+likelier: a parent's new job, a split, renting, a growing economy, cheap and easy travel
+rarer: owning the home, grandparents and family nearby, a close community, a family farm or business
+moves: yes
+tone: mixed
+life: home, friends
+horizon: years
+roles: parent, sibling, friend, grandparent
+earth: the family moves to a town you have only seen on a map
+scene: The house is full of boxes, the walls are bare, and tomorrow the van takes everything to a town {N} has only ever seen on a map.
+scene W: {N} has written every friend's address in a notebook, and means to write to each of them, every month, without fail.
+scene U: {N} has looked the new town up: its river, its football team, a school with a pond. It might be interesting.
+scene B: In the new town nobody knows who {N} was. {N} can be anyone at all.
+scene R: {N} does not want to go. {N} kicks the boxes, and then cries in the empty bedroom.
+scene G: {N} says goodbye to the tree in the back garden, the one with {Ns} initials carved in the bark.
+- W | write down every friend's address, and promise to write to each one | v: benevolence | tags: win:ties+.05 | chance: 50
+- U | find out everything about the new town before you get there | v: self-direction | act: find out everything about the new town before they get there | chance: 65
+- B | decide to be someone new at the new school, someone the others look up to | identity | v: power, self-direction | chance: 50
+- R | refuse to pack, and lock yourself in the bathroom | v: none clear (hurt let out) | chance: 45
+- G | bury a tin of treasures in the old garden, and promise to come back for it | binds | v: tradition | chance: 75
+- WUR | join every club at the new school in the first week, to learn the place fast | door | v: self-direction, stimulation | chance: 75
+- WUG | plan the new bedroom carefully, with all your old things around you | v: security, tradition | act: plan the new bedroom carefully, with all their old things around them | chance: 75
+- WBG | stick close to your family and keep your head down until you know who to trust | v: security | chance: 60
+- UBR | work out who runs the new playground, and get on their side fast | v: power, security | chance: 65
+- BRG | square up to the biggest kid on the first day, so nobody pushes you around | body: light | v: power | closed: approval: fighting; backfire: sent home on the first day, with a reputation | act: square up to the biggest kid on the first day, so nobody pushes them around | role: men | chance: 50
+works: Within a month {N} has a new best friend and a favourite path to school.
+works: The new town has a river, a library and a kid next door who is just as new.
+fails: {N} spends lunchtimes alone for weeks, and writes long letters home that nobody answers.
+fails: {N} begs every night to go back, and nothing feels right for a long time.
+
+# ---------------------------------------------------------------- life event: a grandparent dies (triads from D2b)
+
+== a grandparent dies
+tier: life event
+stages: child
+age: 3-12
+per_year: .05 0 0 0 0 0
+drivers: harsh+.4 health-.3 money-.2
+times: estimate (Part D has no entry for a grandparent's death): about one child in twenty loses a grandparent each year; about two in five have lost one by twelve
+likelier: older grandparents, poverty, a harsh life, illness in the family
+rarer: young and healthy grandparents, good health care
+kills: grandparent
+tone: trouble
+life: loss, family
+horizon: months
+roles: grandparent, parent, sibling
+earth: a grandparent dies, and there is a funeral to go to
+scene: {parent} comes into {Ns} room, sits on the end of the bed, and says that {grandparent} died in the night, peacefully, in the hospital.
+scene W: There will be a funeral on Friday, and {N} has been asked to read a short poem. {N} wants to do it properly, for {grandparent}.
+scene U: {N} keeps asking where {grandparent} has gone, exactly, and nobody's answer quite fits.
+scene B: The grown-ups talk in low voices about {grandparent}'s house and things. {N} wonders what will happen to the stamp collection.
+scene R: {N} never got to say goodbye. The thought burns, and {N} cannot sit still with it.
+scene G: {grandparent} planted the roses by the gate the year {N} was born. They are flowering now, as if nothing has happened.
+- W | read a poem at the funeral, standing up straight in front of everyone | identity | v: tradition, conformity | chance: 75
+- U | ask every question you have about dying, until someone gives a real answer | v: self-direction | chance: 70
+- B | ask for your grandparent's watch, before anyone else thinks to | v: power | chance: 65
+- R | cry out loud at the funeral, and not care who hears | v: none clear (grief let out) | chance: 85
+- G | promise to look after the roses your grandparent planted, for as long as you live | binds | v: tradition | chance: 75
+- WUB | make a careful album of the old photos and letters, and keep it as your own | v: tradition, security | chance: 90
+- WRG | keep your grandparent's photo by your bed, and say goodnight to it every night | habit | v: tradition, benevolence | chance: 92
+- WBR | take over your grandparent's daily jobs, like walking the dog, and be proud of it | binds | v: benevolence, power | chance: 75
+- URG | go alone to the pond where you used to fish together, and sit with it | v: self-direction, tradition | closed: approval: going off alone without a word; backfire: a frightened search at dusk | chance: 75
+- UBG | decide that crying does not help, and keep your feelings to yourself | identity | v: security | chance: 40
+works: {N} cries, and remembers, and slowly the memories turn warm.
+works: The family gathers close, and {N} hears stories about {grandparent} that nobody had told before.
+fails: {N} has bad dreams for weeks, and is frightened of hospitals.
+fails: Nobody explains anything, and {N} is left alone with all the questions.
+
+# ---------------------------------------------------------------- life event: a pet of your own (cycle s1)
+
+== a pet of your own
+tier: life event
+stages: child juvenile
+age: 4-16
+per_year: .1 .07 0 0 0 0
+drivers: money+.4 health+.2 era+.2
+once: yes
+times: about 10 in 100 children and 7 in 100 teenagers a year see a new animal join the family (D42, estimate); about two thirds of US households keep a pet, and pets live 10 to 15 years. Point 12 (Emren 2026-10-05): once: the first animal of one's own; later pets come with the [dog of one's own] and [cat of one's own] perks (point 12: two in 15 of 100 test lives came within two years).
+likelier: an owned house with a garden, money enough, children at home, a parent who grew up with animals, after a pet has died
+rarer: renting, a landlord who says no, frequent moves, money trouble, poor health or allergies
+tone: joy
+life: home, nature
+horizon: years
+roles: parent, sibling, a neighbour, a vet
+earth: a kitten of your own, and the job of looking after it
+scene: A kitten tumbles out of a cardboard box onto the kitchen floor. {parent} says it belongs to {N}, and so does looking after it.
+scene W: {parent} has written a list on the fridge: feed twice a day, fresh water, clean the tray. {N} reads it and nods, very seriously.
+scene U: {N} has already borrowed three library books about cats, and wants to know what every twitch of that tail means.
+scene B: It is {Ns} kitten, not {Ns} sibling's, and {N} intends to make that clear from the very first day.
+scene R: The kitten pounces on {Ns} shoelace, and {N} is instantly and completely in love.
+scene G: The kitten finds the warmest patch of sun on the floor and curls up in it. {N} lies down beside it.
+- W | feed it and clean up after it every day, exactly as you promised | v: benevolence, conformity | mark: kept your word | chance: 55
+- U | read every library book about cats, and learn what its tail is saying | v: self-direction | mark: learned a skill | chance: 90
+- B | keep it in your room, and let your sibling hold it only when you say | v: power | chance: 73
+- R | play with it for hours, chasing string all over the house | habit | v: hedonism, stimulation | chance: 92
+- G | let it sleep on your bed every night, curled against your feet | v: benevolence, universalism (nature) | closed: approval: no pets on the beds; backfire: fleas, and the bedding stripped | chance: 75
+- W>U | ask the vet how to look after it properly, and write it all down | door | v: self-direction, conformity | chance: 70
+- U>B | teach it tricks so it wins the pet show at the school fair | identity | v: achievement, power | chance: 20
+- B>R | skip your chores to play with the kitten, and say you were feeding it | v: hedonism | mark: hid a wrong | closed: approval: lying; backfire: found out, and kitten time rationed | chance: 70
+- R>G | carry it out into the garden to show it the grass and the birds | v: universalism (nature), stimulation | chance: 80
+- G>W | introduce it slowly to the neighbour's old dog, until the two can share the garden | v: benevolence, security | mark: made a friend | chance: 50
+works: The kitten grows into a big, lazy cat that sleeps on {Ns} bed every night.
+works: {N} turns out to be good at caring for something small, and everyone notices.
+fails: The kitten scratches, hides under the sofa and will not come out for {N}.
+fails: The novelty wears off, and {parent} ends up doing all the feeding.
+
+# ---------------------------------------------------------------- life event: you are picked for something special (cycle s3)
+
+== you are picked for something special
+tier: life event
+at: school
+stages: child
+age: 6-12
+per_year: .1 0 0 0 0 0
+drivers: ties+.3 community+.3 money+.2 prosper+.2 unrest-.3 fortune+.1
+gap: 2-4
+times: about 10 in 100 children a year are picked or honoured for something: a team, a choir, a top set, a part in a show, a school prize (D22, estimate); most children are picked at least once before twelve
+likelier: a good school, friends, clubs and a close community, money for lessons and fees, a gift someone has noticed, practice
+rarer: a crowded or poor school, money trouble, frequent moves, unrest, a family with no time to take the child, a shy child who keeps to themselves
+tone: joy
+life: school, a team, a choir
+horizon: months
+roles: a teacher, parent, grandparent, rival, friend
+earth: you are picked for the county choir, out of the whole school
+scene: At assembly the head teacher reads out the names of the children chosen for the county choir, and the last name is {Ns}.
+scene W: Being chosen means rehearsals every Saturday and a uniform to keep clean. {N} is proud to have been trusted with it.
+scene U: Only six children from the whole school were picked. {N} wants to know what the judges heard, and how to get even better.
+scene B: {rival} was not picked. {N} was. {N} enjoys that rather more than is polite.
+scene R: {N} hears the name and leaps up in the middle of assembly with a whoop.
+scene G: {grandparent} sang in this same choir, sixty years ago. It seems to run in the family.
+- W | turn up early to every practice, in a clean uniform | v: conformity, achievement | chance: 85
+- U | sign up for extra lessons with the choir master, every week of the year | binds | v: achievement | self_control: + | chance: 75
+- B | practise every evening until yours is the best voice in the choir | habit | v: achievement | mark: learned a skill | act: practise every evening until theirs is the best voice in the choir | self_control: + | chance: 55
+- R | say yes on the spot to every concert, before anyone can talk you out of it | binds | door | v: stimulation | act: say yes on the spot to every concert, before anyone can talk them out of it | chance: 80
+- G | stay modest, do your part, and enjoy being one voice among many | v: tradition (humility), benevolence | tags: win:ties+.05 | chance: 78
+- W>R | ask for the solo, promising to work twice as hard for it | v: achievement, stimulation | chance: 20
+- U>G | find out who sang in it long ago, and learn the old songs they loved | v: tradition, self-direction | chance: 75
+- B>W | put in a word with the choir master, so your best friend gets a try-out too | v: benevolence | mark: helped someone in need | tags: win:ties+.05 | chance: 65
+- R>U | try every hard piece at once, mistakes and all, to learn faster | v: achievement, stimulation | mark: learned a skill | chance: 60
+- G>B | trust your natural gift, skip practice, and still expect the best part | v: power, achievement | closed: approval: skipping practice; backfire: dropped from the concert | chance: 15
+works: The concert is a triumph, and {N} walks home a foot taller.
+works: {N} makes friends from all over the county, and there is a photo in the local paper.
+fails: The first rehearsal is far harder than {N} expected, and {N} wants to give up.
+fails: {N} is quietly dropped after a month, and does not want to talk about it.
