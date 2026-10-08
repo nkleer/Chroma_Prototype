@@ -22,8 +22,10 @@ the copied scripts to that tree, and runs every check there, up to --cores at a 
   --repo, --commit: a candidate from the repository (CONTRIBUTING.md, "Publishing a version": a release is checked
             from a commit of main). --commit REF exports exactly that commit's files (git archive) from --repo (default
             /home/claude/chroma_prototype) and checks them; --repo DIR alone checks the checkout as it is. The commit is
-            written in the summary and in every result line (results.jsonl), which record.py reads. Check scripts the
-            repository does not hold yet (the Library's build.py and check.py, chroma-packs/tools) come from the shared folder.
+            written in the summary and in every result line (results.jsonl), which record.py reads. The commit's own
+            chroma-release/ scripts run; check scripts the repository does not hold yet (the Library's build.py and
+            check.py, chroma-packs/tools, the Engine's calibration scripts) come from the shared folder. Run from a
+            checkout, this script still works in the shared folder (or CHROMA_PROJECT) and writes its run folder there.
   --only, --skip: check ids, or @engine, @library, @packs, @game, @release for all of one owner's checks, so a run
             can be split over several machines (each writes its own run folder here).
   --ref     an earlier run folder (out/v22checks_...), or several separated by commas (a split run); a check's log is
@@ -48,7 +50,10 @@ A check that another check waits on runs whenever that one runs. --no-reuse runs
 shell tool (cp, cmp, cat) is not seen by the hook; those checks name the files they read that way in EXTRA."""
 import sys, os, argparse, ast, json, re, shutil, subprocess, time, glob, hashlib
 
-REAL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# the project folder: where this script sits, unless that is a repository checkout (which holds the code and content, not
+# every owner's check scripts, notes and outputs); then the shared folder, or CHROMA_PROJECT
+REAL = os.environ.get("CHROMA_PROJECT") or ("/mnt/project-files" if os.path.isdir(os.path.join(HERE, ".git")) else HERE)
 sys.path.insert(0, os.path.join(REAL, "chroma-env")); sys.path.insert(0, os.path.join(REAL, "chroma-release"))
 os.environ.setdefault("CHROMA_ROOT", REAL)
 from paths import NAMES   # backend plan item 6: the live folders are named once, in chroma-env/paths.py
@@ -243,6 +248,7 @@ if a.list:
 
 stamp = time.strftime("%Y%m%d-%H%M%S", time.gmtime())
 COMMIT = None                    # the repository commit checked (repo workflow step 6: a release is checked from a commit of main)
+CAND = None                      # its files' root: its own chroma-release/ scripts are the ones that run
 if a.repo or a.commit:
     repo = os.path.abspath(a.repo or "/home/claude/chroma_prototype")
     git = lambda *x: subprocess.run(["git", "-C", repo] + list(x), capture_output=True, text=True, check=True).stdout.strip()
@@ -256,6 +262,7 @@ if a.repo or a.commit:
         cand = repo
         COMMIT = dict(repo=repo, commit=git("rev-parse", "HEAD"), ref=git("rev-parse", "--abbrev-ref", "HEAD"),
                       dirty=bool(git("status", "--porcelain", "--untracked-files=no")))
+    CAND = cand
     for k, v in LIVE.items():
         if getattr(a, k) is None and os.path.isdir(os.path.join(cand, v)):
             setattr(a, k, os.path.join(cand, v))
@@ -333,7 +340,7 @@ def build_tree():
     cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
     R = os.path.join(T, "chroma-release")
     for pat in ("*.py", "*.js"):
-        cp_files(os.path.join(REAL, "chroma-release"), R, pat)
+        cp_files(os.path.join(CAND if CAND and os.path.isdir(os.path.join(CAND, "chroma-release")) else REAL, "chroma-release"), R, pat)
     n = 0                                                     # absolute project paths in the copies point at the tree
     for r, ds, fs in os.walk(T):
         if os.path.islink(r):
