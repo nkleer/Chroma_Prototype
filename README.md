@@ -19,7 +19,8 @@ The main paths on `main`:
 |---|---|---|
 | `chroma-game/prototype/` | Gamification | the game: Python code, page source and built page, `engine_pin/` (the pinned engine, Library and packs) |
 | `chroma-engine/v22-speedpass/` | Engine | the live engine (v22's engine with the speed pass: same lives, faster) |
-| `chroma-engine/prototype/calib_v8/rarity.json` | Engine | the rarity table the game's `rarity.py` came from |
+| `chroma-engine/v22-speedpass/rarity.json` | Engine | the rarity table the game's `rarity.py` came from (the same bytes as `chroma-engine/prototype/calib_v8/rarity.json`, where `release/v22.1` has it too) |
+| `chroma-engine/tools/` | Engine | the Engine's checks, which Release's rows run (`tools/README.md`) |
 | `chroma-library/` | Library | the compiled Earth batch (`earth*.py`, `dreams.py`) and its `.lib` sources |
 | `chroma-packs/` | Life pathways and content packs | core, politics (Packs v7), science, stage |
 | `chroma-art/game/` | Visuals for the game | the pictures the page uses (`pictures.json`, `pics/`) |
