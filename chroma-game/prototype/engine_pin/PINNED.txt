@@ -1,1 +1,2 @@
+Pause-points re-pin, 2026-10-08 (branch game/pause-points): engine.py 8af80e82f2a6 (chroma-engine/v22-speedpass on main: run_steps(), PAUSES, STATE; same lives as v22.1) replaces e89422bfc424; every other file as PINNED-v22.1.txt. link.py now loads this engine and checks its pauses.
 Final re-pin (row G1), 2026-10-07 16:19Z: see PINNED-final.txt (sizes and md5s). The engine, the Library (with dreams.py), the packs (science politics stage) and the outer world (world.py world_keys.py world_link.py world_people.py ), pinned together.
