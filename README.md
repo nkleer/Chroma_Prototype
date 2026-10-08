@@ -13,6 +13,8 @@ Each `release/<version>` branch holds exactly the files that version is built fr
 shared folder, each byte-identical to that version's manifest there (`chroma-env/live-<version>-manifest.txt`); `main`
 starts from the newest one and adds finished, checked work. Live now: **v22.1** (published 2026-10-08 13:10 UTC, artifact version 1791464842-7382; 464 files).
 
+The main paths on `main`:
+
 | Path | Owner thread | What |
 |---|---|---|
 | `chroma-game/prototype/` | Gamification | the game: Python code, page source and built page, `engine_pin/` (the pinned engine, Library and packs) |
@@ -21,7 +23,7 @@ starts from the newest one and adds finished, checked work. Live now: **v22.1** 
 | `chroma-library/` | Library | the compiled Earth batch (`earth*.py`, `dreams.py`) and its `.lib` sources |
 | `chroma-packs/` | Life pathways and content packs | core, politics (Packs v7), science, stage |
 | `chroma-art/game/` | Visuals for the game | the pictures the page uses (`pictures.json`, `pics/`) |
-| `chroma-hud/sync21.py`, `pubmap.py` | Gamification | build and publish helpers |
+| `chroma-game/tools/` | Gamification | `build.py` (one build command), `webdir.py` and `pubmap.py` (on `release/v22.1` these were `chroma-hud/sync21.py` and `pubmap.py`) |
 
 ## Versions
 
