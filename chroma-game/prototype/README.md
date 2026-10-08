@@ -581,7 +581,25 @@ coordinator's word (artifact version id 1791406097-00ca; capability downloads ke
   own step), the 9 browser drivers with 0 page errors, test/wasm_check.js, 24 steered lives, and the reading's fit
   probes test/probe_fit_cx3.js and test/probe_fit_geo.js at 1280x800, 1280x720 and 1024x768. After it, C-G4 on the live
   files: every worker SOURCE equals prototype/, every picture present.
-- Known for the next version: when the mouse leaves one card, the reading of a card that has keyboard focus closes.
+- Known for the next version: when the mouse leaves one card, the reading of a card that has keyboard focus closes
+  (fixed in version 22.1, below).
 - To publish again: chroma-game/staging-final/ keeps sync21.py (build the page and the py folder) and pubmap.py (the
   files list: pictures, worker.js, .py as text/plain); publish the page to the same link without capabilities, so
   downloads stays.
+
+
+## Version 22.1 (Emren 2026-10-08 10:47 UTC: the v22 health list, as recommended; no new features)
+
+Clean, solid and fast, with the same lives as version 22:
+- The Engine's speed pass (chroma-engine/v22-speedpass, SPEEDPASS.md): engine.py, world.py, world_link.py and
+  world_people.py re-pinned; every other pinned file as before (engine_pin/PINNED-v22.1.txt). Same lives: whole lives
+  in all six settings played through the page's bridge give the same record step for step (test/same_life.py).
+- A tribal or magic life shows its world's own tarot card (V The River, VI The Spires) where an Earth picture would
+  show: the moment and outcome cards, the waiting card and the everyday interlude (worldCard in app.js; v22 showed no
+  picture on those moments and modern Earth pictures in the interlude). Earth lives are unchanged (test/world_pics.js).
+- When the mouse leaves a card, the reading goes back to the card that has keyboard focus, or a card still under the
+  mouse, before it goes idle (test/focus_check.js).
+- Windows 760 px tall or less get tighter spacing in a moment, so eleven options fit at 1280x720 without scrolling
+  (head.html; test/fit720_lab.js measures it). A sixteen-option moment can still scroll there.
+- The help screen (h) lists g, the World panel.
+- Saves from version 22 load (test/save_carry.js: the autosave's Continue and a saved file).

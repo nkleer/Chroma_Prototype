@@ -27,6 +27,10 @@ Rules kept (world-build.md "Rules every part keeps"):
 - numpy and the standard library only; no file input or output; safe in Pyodide.
 """
 import numpy as np
+try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
+    from numpy._core.umath import clip as _uclip
+except ImportError:
+    from numpy.core.umath import clip as _uclip
 from library import COLORS, NEEDS, NEED_MAP_V6, ERA_KINDS
 from combos import IDEAS, ERA_COMBOS
 from world_keys import (TIME_OF_YEAR, HOLY_KEYS, WHO_SLOTS, CAST_WANTS, GROUP_KINDS, FEATURES, INST_KINDS, LAW_KEYS,
@@ -382,7 +386,7 @@ def _cl(x, lo, hi):
 
 
 def _logit(p):
-    p = np.clip(p, 1e-4, 1 - 1e-4)
+    p = _uclip(p, 1e-4, 1 - 1e-4)
     return np.log(p / (1 - p))
 
 
@@ -535,10 +539,10 @@ class World:
         self.loc_crime = self.loc_crime0.copy()
         hz = np.array([x[10] for x in rows], float)
         hz[:, 2] *= r.uniform(0.0, 2.0)                    # how seismic this world's land is
-        self.loc_hazards = np.clip(hz * np.exp(0.2 * r.normal(size=hz.shape)), 0, 1)
+        self.loc_hazards = _uclip(hz * np.exp(0.2 * r.normal(size=hz.shape)), 0, 1)
         self.loc_nature = np.array([x[11] for x in rows], float)
         self.loc_place = np.array([x[12] for x in rows])
-        self.loc_services = np.clip(np.array([[.6, .55, .4], [.7, .65, .55], [.8, .75, .7], [.85, .85, .85]])[self.loc_size]
+        self.loc_services = _uclip(np.array([[.6, .55, .4], [.7, .65, .55], [.8, .75, .7], [.85, .85, .85]])[self.loc_size]
                                     + 0.05 * r.normal(size=(nl, 3)), 0.1, 1)
         self.loc_unemp = np.full(nl, self.natural)
         self.loc_trend = np.ones(nl, int)
@@ -559,7 +563,7 @@ class World:
         cum = np.cumsum(self.loc_class_mix, 1)[self.nb_loc]
         self.nb_class = (q[:, None] > cum[:, :2]).sum(1)
         self.n_nb = len(self.nb_loc)
-        self.nb_efficacy = np.clip(np.array([.45, .58, .70])[self.nb_class] + 0.06 * r.normal(size=self.n_nb), .1, .95)
+        self.nb_efficacy = _uclip(np.array([.45, .58, .70])[self.nb_class] + 0.06 * r.normal(size=self.n_nb), .1, .95)
         self.nb_crime = self.loc_crime[self.nb_loc].copy()
         # ---- population groups (spec 2 §6): age band x class x place x faith (0 secular, 1.. faiths) x migrant
         self.pop = self._init_pop(r)
@@ -747,19 +751,19 @@ class World:
                 "charity": .60, "council": .45, "ministry": .40}   # OECD Trust Survey 2023 where measured (media set
                                                                          # higher so its lower capacity lands it near 0.4); others estimates
         self.inst_legit0 = np.array([base[INST_KINDS[x]] for x in k])
-        self.inst_legitimacy = np.clip(self.inst_legit0 + 0.05 * r.normal(size=n), .05, .95)
-        self.inst_capacity = np.clip(0.7 + 0.08 * r.normal(size=n), .2, 1)
-        self.inst_corruption = np.clip(0.12 + 0.05 * r.normal(size=n), .01, .6)
+        self.inst_legitimacy = _uclip(self.inst_legit0 + 0.05 * r.normal(size=n), .05, .95)
+        self.inst_capacity = _uclip(0.7 + 0.08 * r.normal(size=n), .2, 1)
+        self.inst_corruption = _uclip(0.12 + 0.05 * r.normal(size=n), .01, .6)
         self.inst_age = r.uniform(5, 80, n)
         self.inst_age[self.inst_firm & (self.inst_level == 0)] = r.uniform(0, 30, (self.inst_firm & (self.inst_level == 0)).sum())
-        self.inst_finances = np.clip(0.5 + 0.15 * r.normal(size=n), 0, 1)
+        self.inst_finances = _uclip(0.5 + 0.15 * r.normal(size=n), 0, 1)
         self.inst_leader_fig = np.full(n, -1)
         self.inst_leader_pie = _norm(np.where(self.inst_public[:, None], self.G, self.V) * np.exp(0.3 * self._cn(r, n)))
         self.inst_leader_q = r.integers(0, 24, n).astype(float)
         self.inst_gen = np.zeros(n, int)                    # bumps when a firm closes and a new one takes its place
         oc = np.array([.78, .92, 1.0])
-        self.inst_open_cls = np.clip(oc + 0.04 * r.normal(size=(n, 3)), .3, 1)
-        self.inst_open_mig = np.clip(0.70 + 0.05 * r.normal(size=n), .3, 1)    # Bertrand and Mullainathan 2004: ~2/3
+        self.inst_open_cls = _uclip(oc + 0.04 * r.normal(size=(n, 3)), .3, 1)
+        self.inst_open_mig = _uclip(0.70 + 0.05 * r.normal(size=n), .3, 1)    # Bertrand and Mullainathan 2004: ~2/3
         self._openness()
         self._state_corruption()
 
@@ -915,7 +919,7 @@ class World:
         self.ext_war = np.array([int(home.war > 0)] + [int(home.ext_war[j]) for j in others])
         self.ext_next_gov = np.array([max(int(home.next_vote), 1) if home.regime >= 0 else 28]
                                      + [int(home.ext_next_gov[j]) for j in others])
-        self.ext_migration = np.clip(0.2 * (1 - self.ext_rich) + 0.6 * self.ext_war + 0.2 * (self.ext_phase == 1), 0, 1)
+        self.ext_migration = _uclip(0.2 * (1 - self.ext_rich) + 0.6 * self.ext_war + 0.2 * (self.ext_phase == 1), 0, 1)
         self.world_rec, self.world_q = int(home.world_rec), int(home.world_q)
         if self.war_with >= n:
             self.war_with = -1
@@ -1031,7 +1035,7 @@ class World:
         self.lockdown = 0.35 if self.pandemic == 2 else 0.15 if self.pandemic in (1, 3) else 0.0
         scar = (max(self.energy, 0) + max(self.food, 0)) / 6.0
         lh = np.log(np.maximum((self.loc_hazards * np.array(p["dis_base"]) * self.extremes).sum(1), 1e-4) / self.haz_ref)
-        self.harsh_loc = np.clip(0.5 * lh, -1, 1.5) + 0.5 * np.minimum(self.loc_disaster, 1) + np.minimum(scar, 1.5)
+        self.harsh_loc = _uclip(0.5 * lh, -1, 1.5) + 0.5 * np.minimum(self.loc_disaster, 1) + np.minimum(scar, 1.5)
 
     def _strike(self):
         """Disasters drawn for this week strike: the locality's recovery, its services, the record, disaster_now."""
@@ -1084,7 +1088,7 @@ class World:
         closed = (self.ext_regime < 0) | (self.regime < 0)
         tgt = np.where(dem, 0, np.where(closed, 2 + (self.ext_phase == 1), 1))
         mv = x[:, 6] < 0.03
-        self.ext_relation = np.clip(self.ext_relation + np.where(mv, np.sign(tgt - self.ext_relation), 0), 0, 3).astype(int)
+        self.ext_relation = _uclip(self.ext_relation + np.where(mv, np.sign(tgt - self.ext_relation), 0), 0, 3).astype(int)
         # neighbours' own wars (refugees)
         ew = self.ext_war == 1
         self.ext_war = np.where(ew, (x[:, 7] > 0.08).astype(int), (x[:, 7] < 0.0015 * (1 + 3 * (self.ext_regime < 6)) * self.pace).astype(int))
@@ -1118,7 +1122,7 @@ class World:
                 self._event("abroad", "war comes home", None, dict(society=self.war_with), big=True)
         self.lost_war_q = max(self.lost_war_q - 1, 0)
         # migration push: neighbours at war or poor, the home economy pulling
-        self.ext_migration = np.clip(0.2 * (1 - self.ext_rich) + 0.6 * self.ext_war + 0.2 * (self.ext_phase == 1), 0, 1)
+        self.ext_migration = _uclip(0.2 * (1 - self.ext_rich) + 0.6 * self.ext_war + 0.2 * (self.ext_phase == 1), 0, 1)
 
     # ------------------------------------------------------------------------------------------------ economy (spec 1 §2)
     def _econ_q(self):
@@ -1197,11 +1201,11 @@ class World:
         u_s = self.natural * stru / (sh * stru).sum() + (self.unemp - self.natural) * cyc / (sh * cyc).sum() \
             + 6 * np.maximum(self.automation - 0.15, 0)
         u_s *= self.unemp / max((sh * u_s).sum(), 1e-6)
-        self.unemp_sector = np.clip(u_s, 0.5, 40)
+        self.unemp_sector = _uclip(u_s, 0.5, 40)
         self.nat_sector = self.natural * stru / (sh * stru).sum()
         lu = (self.loc_sectors * self.unemp_sector).sum(1) * self.loc_ufac
         lu *= self.unemp / max((self.loc_pop_share * lu).sum(), 1e-6)
-        self.loc_unemp = self.unemp_loc = np.clip(lu, 0.5, 45)
+        self.loc_unemp = self.unemp_loc = _uclip(lu, 0.5, 45)
         self.prosper = self.gap
         self.phase_key = PHASES[self.phase]
 
@@ -1248,7 +1252,7 @@ class World:
                                            0.25 + 0.75 * np.mean([nr[NI["coming out"]], nr[NI["transition"]], (2 - self.laws[LI["same-sex marriage"]]) / 2]),
                                            0.35 + 0.65 * nr[NI["role crossing"]]])
         old = self.rights.copy()
-        self.rights = np.clip(self.rights + 0.06 * (tgt - self.rights), 0, 1)
+        self.rights = _uclip(self.rights + 0.06 * (tgt - self.rights), 0, 1)
         self.rights[2] = min(self.rights[2], 1.0 - self.lockdown)
         for k in np.nonzero(np.floor(self.rights * 10) != np.floor(old * 10))[0]:
             self._event("state", "right gained" if self.rights[k] > old[k] else "right lost", RIGHTS[k], round(float(self.rights[k]), 1), big=False)
@@ -1308,7 +1312,7 @@ class World:
         self._event("state", "government falls", None, dict(party=old), big=True)
 
     def _set_law(self, k, s):
-        s = int(np.clip(s, 0, 2))
+        s = int(_uclip(s, 0, 2))
         if s == self.laws[k]:
             return
         old = self.laws[k]
@@ -1348,30 +1352,30 @@ class World:
         budget = 0.6 + 0.4 * (self.welfare - self.p["welfare0"]) + 0.15 * self.gap
         ct = np.where(pub, self.capacity * (0.75 + 0.4 * budget), 0.45 + 0.45 * self.inst_finances)
         ct = np.where(fb, 0.4 + 0.8 * self.faith_share[np.maximum(self.inst_faith, 0)], ct)
-        self.inst_capacity = np.clip(self.inst_capacity + 0.05 * (ct - self.inst_capacity) + 0.01 * r.normal(size=n), .05, 1)
+        self.inst_capacity = _uclip(self.inst_capacity + 0.05 * (ct - self.inst_capacity) + 0.01 * r.normal(size=n), .05, 1)
         # corruption rises where oversight is weak and leaders entrench; falls with reform
         cterm = 0.12 * (1.9 - self.law_rule) / 1.0 * (1 + 0.3 * np.minimum(self.inst_leader_q / 24, 2))
-        self.inst_corruption = np.clip(self.inst_corruption + 0.02 * (cterm * 0.85 - self.inst_corruption) + 0.006 * r.normal(size=n), .01, .9)
+        self.inst_corruption = _uclip(self.inst_corruption + 0.02 * (cterm * 0.85 - self.inst_corruption) + 0.006 * r.normal(size=n), .01, .9)
         self._state_corruption()
         # legitimacy follows performance, scandals, the media's mood and trust (OECD trust targets by kind)
         lt = self.inst_legit0 * (1 + 0.6 * (self.inst_capacity - 0.84)) * (1 - 0.8 * (self.inst_corruption - 0.14)) \
             * (0.45 + 0.55 * self.trust / self.p["trust0"] - 0.3 * (self.fear - self.p["fear0"]))
         gov = (k == INST_KINDS.index("ministry"))
         lt = np.where(gov, lt * (0.55 + 0.8 * (self.support - 0.5) + 0.45), lt)
-        self.inst_legitimacy = np.clip(self.inst_legitimacy + 0.06 * (lt - self.inst_legitimacy), .02, .98)
+        self.inst_legitimacy = _uclip(self.inst_legitimacy + 0.06 * (lt - self.inst_legitimacy), .02, .98)
         # openness by class and migrant status (R9): corruption favours insiders, trust and rights open doors
         oc = np.array([.78, .92, 1.0]) - np.array([.6, .2, 0.0])[None, :] * (self.inst_corruption[:, None] - 0.12) \
             - np.array([.4, .1, 0])[None, :] * (self.ineq - 0.32)
-        self.inst_open_cls += 0.05 * (np.clip(oc, .2, 1) - self.inst_open_cls)
+        self.inst_open_cls += 0.05 * (_uclip(oc, .2, 1) - self.inst_open_cls)
         om = 0.70 + 0.25 * (self.trust - 0.45) + 0.2 * (self.rights[0] - 0.85) - 0.3 * max(self.mig_in - 0.01, 0) * 20
-        self.inst_open_mig += 0.05 * (np.clip(om, .3, 1) - self.inst_open_mig)
+        self.inst_open_mig += 0.05 * (_uclip(om, .3, 1) - self.inst_open_mig)
         self._openness()
         # firms live and die with the economy (business demography: 8-10% exit a year); public employers follow the
         # state's budget (welfare level and the public share), not the cycle (spec 1 §2)
         firm, pube = self.inst_firm, self.inst_pubemp
         cyc = np.array([0.9, 1.5, 1.0, 0.6, 0.3])[np.maximum(self.inst_sector, 0)]
         ftgt = np.where(pube, 0.5 + 1.2 * (self.welfare - p["welfare0"]), 0.5 + 0.5 * cyc * self.gap)
-        self.inst_finances = np.clip(self.inst_finances + 0.15 * (ftgt - self.inst_finances)
+        self.inst_finances = _uclip(self.inst_finances + 0.15 * (ftgt - self.inst_finances)
                                      - 0.05 * self.automation[np.maximum(self.inst_sector, 0)] * firm + 0.05 * r.normal(size=n), -0.5, 1)
         ex = p["firm_exit"] * np.exp(-3 * (self.inst_finances - 0.5)) * np.where(self.inst_level == 2, p["firm_big"], 1.0)
         ex = np.where(pube, p["pub_exit"] * np.exp(-3 * (self.inst_finances - 0.5)), ex)
@@ -1437,21 +1441,21 @@ class World:
         eff = np.bincount(nbl, self.nb_efficacy, nl) / np.bincount(nbl, None, nl)
         ct = self.loc_crime0 * (1 + 0.08 * (self.loc_unemp - self.natural * self.loc_ufac)) * (1 + 2.0 * (self.ineq - 0.32)) \
             * (1.35 - 0.6 * eff) / (1.35 - 0.6 * 0.57) * (1 + 0.3 * (self.war == 2))
-        self.loc_crime = np.clip(self.loc_crime + 0.1 * (ct - self.loc_crime) + 0.01 * r.normal(size=nl), 0.01, 1)
+        self.loc_crime = _uclip(self.loc_crime + 0.1 * (ct - self.loc_crime) + 0.01 * r.normal(size=nl), 0.01, 1)
         wave = (self.loc_crime > 1.3 * self.loc_crime_ma) & (x[:, 0] < 0.5)
         for l in np.nonzero(wave)[0]:
             self._event("place", "crime wave", None, dict(loc=int(l)), big=False)
             self.loc_crime_ma[l] = self.loc_crime[l]
         self.loc_crime_ma += 0.05 * (self.loc_crime - self.loc_crime_ma)
         nbf = np.array([1.6, 0.9, 0.5])[self.nb_class] * (1.4 - 0.8 * self.nb_efficacy) / (1.4 - 0.8 * 0.57)
-        self.nb_crime = np.clip(self.loc_crime[self.nb_loc] * nbf, 0.005, 1)
+        self.nb_crime = _uclip(self.loc_crime[self.nb_loc] * nbf, 0.005, 1)
         et = np.array([.45, .58, .70])[self.nb_class] + 0.3 * (self.trust - 0.45) - 0.2 * (self.loc_unemp[self.nb_loc] - 5) / 10
-        self.nb_efficacy = np.clip(self.nb_efficacy + 0.03 * (et - self.nb_efficacy) + 0.01 * r.normal(size=self.n_nb), .05, .98)
+        self.nb_efficacy = _uclip(self.nb_efficacy + 0.03 * (et - self.nb_efficacy) + 0.01 * r.normal(size=self.n_nb), .05, .98)
         # rent follows the housing gap and local growth; services follow the state budget
-        self.loc_rent = np.clip(self.loc_rent + 0.05 * (self.loc_rent0 * (1 + 0.5 * self.housing) * (1 + 3 * self.loc_growth) - self.loc_rent), 0.2, 4)
+        self.loc_rent = _uclip(self.loc_rent + 0.05 * (self.loc_rent0 * (1 + 0.5 * self.housing) * (1 + 3 * self.loc_growth) - self.loc_rent), 0.2, 4)
         st = np.array([[.6, .55, .4], [.7, .65, .55], [.8, .75, .7], [.85, .85, .85]])[self.loc_size] \
             * (0.8 + 0.4 * self.capacity) * (0.85 + 0.5 * (self.welfare - self.p["welfare0"]) + 0.1 * self.gap)
-        self.loc_services = np.clip(self.loc_services + 0.04 * (st - self.loc_services), 0.05, 1)
+        self.loc_services = _uclip(self.loc_services + 0.04 * (st - self.loc_services), 0.05, 1)
         # local politics: own cycle, same thermostat
         self.loc_next_vote -= 1
         for l in np.nonzero(self.loc_next_vote <= 0)[0]:
@@ -1478,7 +1482,7 @@ class World:
         tgt = self.norm_x0 + p["norm_v"] * fitV + p["norm_era"] * fitE + p["norm_law"] * (lawsign - self.lawsign0) - back
         young = self._share_young()
         rr = p["norm_r"] / 4 * (1 + 2.0 * (young - 0.2)) * (1 + 0.5 * self.comm)
-        self.norm_x = self.norm_x + rr * np.clip(tgt - self.norm_x, -1, 1) + 0.25 * self.norm_push + 0.012 * nz
+        self.norm_x = self.norm_x + rr * _uclip(tgt - self.norm_x, -1, 1) + 0.25 * self.norm_push + 0.012 * nz
         self.norm_push *= 0.5
         self.norm_hist = np.roll(self.norm_hist, -1, 0); self.norm_hist[-1] = self.norm_x
         self.norm_speed = float(np.abs(speed).mean())
@@ -1538,7 +1542,7 @@ class World:
         auton = 0.15 + 0.6 * (1 - self.rights.mean()) + 1.2 * lawc + 0.8 * mis + 0.3 * self.lockdown
         compet = 0.15 + 0.04 * np.maximum(u_g - 4, 0) + 0.3 * (self.automation.mean()) * lower + 0.8 * mis
         mean_ = 0.20 - 0.12 * rel + 0.08 * (1 - rel) * (self.phase == 1) + 0.8 * mis + 1.0 * speed
-        U = np.clip(np.stack([safety, belong, auton, compet, mean_], 1), 0, 1)
+        U = _uclip(np.stack([safety, belong, auton, compet, mean_], 1), 0, 1)
         return U
 
     def _society_q(self):
@@ -1858,9 +1862,9 @@ class World:
                 self._event("tech", "arrives", key, None, big=False)
         openness = float(self.V @ self.DOPEN) * 5
         sp = p["tech_r"] * (1 + 0.5 * self.gap) * (1 + 0.3 * openness)
-        a = np.clip(self.tech_adopt_v, 1e-4, 1 - 1e-4)
+        a = _uclip(self.tech_adopt_v, 1e-4, 1 - 1e-4)
         c = np.maximum(self.tech_ceil, 1e-3)
-        frac = np.clip(a / c, 1e-4, 1 - 1e-4)
+        frac = _uclip(a / c, 1e-4, 1 - 1e-4)
         before = self.tech_adopt_v.copy()
         self.tech_adopt_v = np.where(self.tech_exists, c * _sig(_logit(frac) + sp), 0.0)
         for i in np.nonzero((before < 0.5 * c) & (self.tech_adopt_v >= 0.5 * c) & (np.array(self.tech_born) > 0))[0]:
@@ -1878,7 +1882,7 @@ class World:
         base = np.array([.10, .25, .15, .10, .03]) * (0.7 if lvl == "behind" else 1.3 if lvl == "ahead" else 1.0)
         spread = np.array([max(self.tech_adopt_v[i] - before[i], 0) for i in range(len(self.tech_keys))])
         mach = float(sum(spread[i] for i in range(len(self.tech_keys)) if kinds[i] == NEW_TECH.index("new machine")))
-        self.automation = np.clip(self.automation + 0.15 * (base - self.automation) + mach * np.array([.3, 1.0, .6, .3, .1]), 0, 1)
+        self.automation = _uclip(self.automation + 0.15 * (base - self.automation) + mach * np.array([.3, 1.0, .6, .3, .1]), 0, 1)
         # sectors: automation shrinks the exposed sectors, new kinds of jobs grow knowledge, welfare moves the public sector
         jobs = adopt_of("new kind of job")
         tilt = np.array([-.4, -.6, -.1, .2, 0]) * (self.automation - base) * 2 + np.array([0, 0, 0, .15, 0]) * jobs \
@@ -2104,21 +2108,21 @@ class World:
                 elif dom == "economy" and key == "housing":
                     self.housing = _cl(self.housing + 0.01 * a, -1, 1); done = 0.01 * a
                 elif dom == "place" and key == "crime":
-                    self.loc_crime[int(idx)] = np.clip(self.loc_crime[int(idx)] + 0.02 * a, 0.01, 1); done = 0.02 * a
+                    self.loc_crime[int(idx)] = _uclip(self.loc_crime[int(idx)] + 0.02 * a, 0.01, 1); done = 0.02 * a
                 elif dom == "place" and key == "efficacy":
-                    self.nb_efficacy[int(idx)] = np.clip(self.nb_efficacy[int(idx)] + 0.03 * a, 0.05, 0.98); done = 0.03 * a
+                    self.nb_efficacy[int(idx)] = _uclip(self.nb_efficacy[int(idx)] + 0.03 * a, 0.05, 0.98); done = 0.03 * a
                 elif dom == "place" and key == "unemp":
                     self.loc_ufac[int(idx)] = max(0.3, self.loc_ufac[int(idx)] + 0.02 * a); done = 0.02 * a
                 elif dom == "institution" and key in ("legitimacy", "corruption", "capacity"):
                     arr = getattr(self, "inst_" + key); i = int(idx)
-                    arr[i] = np.clip(arr[i] + 0.03 * a, 0.01, 0.99); done = 0.03 * a
+                    arr[i] = _uclip(arr[i] + 0.03 * a, 0.01, 0.99); done = 0.03 * a
                 elif dom == "institution" and key == "reform" and a > 0:
                     i = int(idx)
                     if a >= 1.5: self._reform_inst(i, self.inst_native[i], step=0.2 * a)
                     done = a
                 elif dom == "tech" and key == "adopt" and idx in self.tech_keys:
                     i = self.tech_keys.index(idx)
-                    self.tech_adopt_v[i] = np.clip(self.tech_adopt_v[i] + 0.002 * a, 0, self.tech_ceil[i]); done = 0.002 * a
+                    self.tech_adopt_v[i] = _uclip(self.tech_adopt_v[i] + 0.002 * a, 0, self.tech_ceil[i]); done = 0.002 * a
                 elif dom == "tech" and key == "medical":
                     self.medical0 = _cl(self.medical0 + 0.005 * a, 0, 0.95); done = 0.005 * a
                 elif dom == "tech" and key == "invent" and a >= 2.0:
@@ -2130,7 +2134,7 @@ class World:
                     d = 0.002 * a * self.pop[1:, :, :, 1:, :]
                     self.pop[1:, :, :, 1:, :] -= d; self.pop[1:, :, :, :1, :] += d.sum(3, keepdims=True); done = 0.002 * a
                 elif dom == "abroad" and key == "relation" and abs(a) >= 1:
-                    j = int(idx); self.ext_relation[j] = int(np.clip(self.ext_relation[j] - np.sign(a), 0, 3)); done = -np.sign(a)
+                    j = int(idx); self.ext_relation[j] = int(_uclip(self.ext_relation[j] - np.sign(a), 0, 3)); done = -np.sign(a)
                 elif dom == "nature" and key == "warming":
                     done = 0.0
             except (ValueError, IndexError):
@@ -2174,7 +2178,7 @@ class World:
         """A generation's mix: fixed when it is 15 to 25; the current base while it is younger."""
         b = int(self.Y0 + np.floor(birth_week / 52))
         self._ensure_coh(self.t // 52)
-        b = int(np.clip(b, 0, len(self.coh) - 1))
+        b = int(_uclip(b, 0, len(self.coh) - 1))
         return self.coh[b].copy()
 
     def rate_mult(self, kind):

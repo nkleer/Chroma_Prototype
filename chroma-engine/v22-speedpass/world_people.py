@@ -30,6 +30,10 @@ weeks; each is safe to call twice in a week.
 """
 import sys
 import numpy as np
+try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
+    from numpy._core.umath import clip as _uclip
+except ImportError:
+    from numpy.core.umath import clip as _uclip
 from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
@@ -203,6 +207,14 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                secret=((0.10, 0.10), (-0.05, -0.05), "kept your word", None))
 
 
+def _isin_small(a, vals):
+    """Speed pass: np.isin against a few whole numbers, as equalities (the same answer, without isin's sorting)."""
+    a = np.asarray(a); r = np.zeros(a.shape, bool)
+    for v_ in vals:
+        r |= a == v_
+    return r
+
+
 def _csum(x):
     """Sum over the colors (the last axis), in float64 in a fixed order: fast for the (N, K, C) arrays, and exact
     enough that relabelling the colors changes nothing (the equivariance test)."""
@@ -265,7 +277,7 @@ def _sig(x):
 
 
 def _logit(p):
-    p = np.clip(p, 0.02, 0.98)
+    p = _uclip(p, 0.02, 0.98)
     return np.log(p / (1 - p))
 
 
@@ -417,7 +429,7 @@ class People:
         v = np.asarray(v, float)
         if v.ndim == 0 or locs is None:
             return float(v) if v.ndim == 0 else v
-        return v[np.clip(locs, 0, len(v) - 1)]
+        return v[_uclip(locs, 0, len(v) - 1)]
 
     def _cohort(self, born):
         """The generation's mix for each birth week (a table by birth year; a generation still under 26 is read
@@ -527,10 +539,10 @@ class People:
         sec = np.where(age >= 16, sec, -1)
         pp_ = np.interp(age, [18, 25, 32, 45, 65, 80], [0.05, 0.35, 0.6, 0.68, 0.65, 0.45])
         mpart = adult & (rng.random(E) < pp_)
-        nk = np.where(age > 24, rng.poisson(np.clip((age - 24) / 10, 0, 1.8)), 0)
-        hb = np.clip(1 - 0.012 * np.maximum(0, age - 35), 0.2, 1)
-        health = np.clip(hb - 0.1 * rng.random(E), 0.05, 1)
-        money = np.clip(np.array([0.3, 0.5, 0.75])[cl] + 0.1 * emp - 0.15 * (adult & (age < 65) & ~emp)
+        nk = np.where(age > 24, rng.poisson(_uclip((age - 24) / 10, 0, 1.8)), 0)
+        hb = _uclip(1 - 0.012 * np.maximum(0, age - 35), 0.2, 1)
+        health = _uclip(hb - 0.1 * rng.random(E), 0.05, 1)
+        money = _uclip(np.array([0.3, 0.5, 0.75])[cl] + 0.1 * emp - 0.15 * (adult & (age < 65) & ~emp)
                         + 0.08 * rng.standard_normal(E), 0.02, 1)
         stand = np.where(adult, rng.choice(4, E, p=P["stand_p"]), 0)
         return dict(n=n, born=born, pie=pie, fem=rng.random(E) < 0.5, mloc=loc, mcls=cl, emp=emp, sector=sec,
@@ -574,7 +586,7 @@ class People:
         self.fbiz[n, slot] = sl(F.get("fbiz", False))
         self.kof[n, slot] = -1 if kof is None else sl(kof)
         self.since[n, slot] = t; self.died_t[n, slot] = np.where(sl(alive), NEVER, t)
-        c0 = np.clip(sl(c0), 0, 1); self.c[n, slot] = c0; self.cmax[n, slot] = c0
+        c0 = _uclip(sl(c0), 0, 1); self.c[n, slot] = c0; self.cmax[n, slot] = c0
         self.trust[n, slot] = sl(trust0); self.last[n, slot] = t
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
         self.brk[n, slot] = NEVER; self.mood[n, slot] = 0.6; self.want[n, slot] = -1; self.wripe[n, slot] = 0
@@ -689,7 +701,7 @@ class People:
         self.vol_tgt = rng.choice(3, N, p=[0.25, 0.5, 0.25])
         allN = np.arange(N)
         # parents: the mother first, then a partner chosen alike (assortative: the best of five)
-        am = np.clip(rng.normal(30.5, 5.2, N), 17, 46); af = np.clip(am + rng.normal(2.5, 4.0, N), 18, 62)
+        am = _uclip(rng.normal(30.5, 5.2, N), 17, 46); af = _uclip(am + rng.normal(2.5, 4.0, N), 18, 62)
         Fm = self._gen(allN, t0 - (am * 52).astype(np.int64), t0); Fm["fem"][:] = True
         Ff = self._gen(allN, t0 - (af * 52).astype(np.int64), t0, mcls=self.cls, p_same_cls=0.8); Ff["fem"][:] = False
         cands = np.stack([self._dirichlet(self._popmean(self.loc, Ff["born"])) for _ in range(5)], 1)
@@ -732,7 +744,7 @@ class People:
         # grandparents: alive now if they lived through the years since the parent was born
         gp_n, gp_b, gp_f, gp_s, gp_l, gp_fa, gp_pa = [], [], [], [], [], [], []
         for par_age, par_pie, par_line, F_ in ((am, Fm["pie"], Fm["line"], Fm), (af, Ff["pie"], self.pline, Ff)):
-            ga = par_age + np.clip(rng.normal(28, 5, N), 17, 45)
+            ga = par_age + _uclip(rng.normal(28, 5, N), 17, 45)
             for fem_, gage in ((True, ga), (False, ga + rng.normal(2.5, 3.5, N))):
                 live = rng.random(N) < self._surv(gage - par_age, gage)
                 gp_n.append(allN[live]); gp_b.append(t0 - (gage[live] * 52).astype(np.int64)); gp_f.append(np.full(live.sum(), fem_))
@@ -815,9 +827,9 @@ class People:
         cast = lg.get("cast", [])
         kids = [m_ for m_ in cast if "child" in m_.get("roles", []) and m_.get("alive") and 18 <= (t - m_["born"]) / 52 <= 46]
         if not kids:
-            self.loc[n] = int(np.clip(lg.get("loc", self.loc[n]), 0, self.n_loc - 1)); return
+            self.loc[n] = int(_uclip(lg.get("loc", self.loc[n]), 0, self.n_loc - 1)); return
         par = kids[int(self.rng.integers(len(kids)))]
-        self.loc[n] = int(np.clip(par.get("mloc", lg.get("loc", self.loc[n])), 0, self.n_loc - 1))
+        self.loc[n] = int(_uclip(par.get("mloc", lg.get("loc", self.loc[n])), 0, self.n_loc - 1))
         self.cls[n] = int(lg.get("cls", self.cls[n]))
         self._pick_nb([n])
         keep = self.used[n] & ((self.rmask[n] & (BIT["parent"] | BIT["sibling"])) != 0)
@@ -866,7 +878,7 @@ class People:
             self._leave(n, min(vol, key=lambda j_: self.sts[n, j_]), t, "full")
             free = np.nonzero(self.skind[n] < 0)[0]
         j = int(free[0]); a = self._age(t)
-        self.skind[n, j] = g; self.scoh[n, j] = np.clip(KTA[g, K_COH] + 0.08 * rng.standard_normal(), 0.05, 0.95)
+        self.skind[n, j] = g; self.scoh[n, j] = _uclip(KTA[g, K_COH] + 0.08 * rng.standard_normal(), 0.05, 0.95)
         self.srank[n, j] = 0.5 if kind in ("household", "class") else 0.25
         self.sts[n, j] = KTA[g, K_TSY] if a < 18 else KTA[g, K_TS]
         self.ssize[n, j] = max(1, int(KTA[g, K_SIZE] * rng.lognormal(0, 0.4)))
@@ -927,7 +939,7 @@ class People:
             anch = np.where((refs >= 0)[:, None], prof[np.maximum(refs, 0)], lm)
         elif kind == "congregation" and self.n_faith:
             fp = _norm(np.asarray(W.faith_profile, float))
-            anch = np.where((refs >= 0)[:, None], fp[np.clip(refs, 0, len(fp) - 1)], lm)
+            anch = np.where((refs >= 0)[:, None], fp[_uclip(refs, 0, len(fp) - 1)], lm)
         elif kind == "movement" and cause is not None:
             anch = np.tile(_norm(np.asarray(cause, float)), (E, 1))
         elif kind in ("club", "scene", "online", "gang", "movement"):
@@ -944,7 +956,7 @@ class People:
         self.snorm[ns, js] = anch if kind == "household" else _norm(0.6 * anch + 0.4 * lm)
         if kind == "neighbours":
             eff = np.asarray(self._wf("nb_efficacy", np.full(max(self.n_nb, 1), 0.5)), float)[np.maximum(self.nb[ns], 0)]
-            self.scoh[ns, js] = np.clip(0.2 + 0.5 * eff, 0.05, 0.95)
+            self.scoh[ns, js] = _uclip(0.2 + 0.5 * eff, 0.05, 0.95)
         cnt = np.round(KTA[g, K_NCAST] * rng.lognormal(0, 0.25, E)).astype(np.int64)
         self.sncast[ns, js] = cnt + (K_LEAD[g] is not None)
         if self._defer is not None:   # the month's joins get their members in one batch (_fill_members)
@@ -973,9 +985,9 @@ class People:
         op = np.full(len(ns), float(om.mean()))
         if kind in INST_OF:
             hr = refs >= 0
-            op[hr] = om[np.clip(refs[hr], 0, len(om) - 1)]
+            op[hr] = om[_uclip(refs[hr], 0, len(om) - 1)]
         g0, tau = self.P["mig_gate"]
-        base = np.clip(op, 0, 1) * (g0 + (1 - g0) * self.lang[ns])
+        base = _uclip(op, 0, 1) * (g0 + (1 - g0) * self.lang[ns])
         yrs = np.maximum(t - self.arr_t[ns], 0) / 52.0
         p_ = base + (1 - base) * (1 - np.exp(-yrs / tau))
         p_ = np.where(st == STATUS.index("resident"), 0.5 + 0.5 * p_, p_)
@@ -1038,7 +1050,7 @@ class People:
                 ag = rng.uniform(1, 88, m_)
             else:
                 ag = np.maximum(5, a + rng.normal(0, 10 if a >= 18 else 3, m_))
-            ages[h] = np.clip(ag, 0, 99)
+            ages[h] = _uclip(ag, 0, 99)
         born = t - (ages * 52).astype(np.int64)
         sel = np.where(np.isin(g, VOLUNTARY) | np.isin(g, [G["online"], G["gang"]]), 0.5, 0.25)[:, None]
         F = self._gen(n, born, t, ctx=self.snorm[n, j], sel=1.0, mcls=self.cls[n], p_same_cls=0.4)
@@ -1049,7 +1061,7 @@ class People:
         F["emp"] = np.where(wk, True, F["emp"]); F["sector"] = np.where(wk & (self.psector[n] >= 0), self.psector[n], F["sector"])
         F["inst"] = np.where(wk | (g == G["class"]) | (g == G["unit"]), self.sref[n, j], -1)
         rn = np.where(ld, LEAD_ROLE[g], MEMBER_ROLE_OF[g]).astype(np.int64)
-        c0 = np.clip(0.04 + 0.08 * rng.random(E), 0.03, 0.2)
+        c0 = _uclip(0.04 + 0.08 * rng.random(E), 0.03, 0.2)
         sl = self._add(F, t, rn, c0=c0, trust0=0.5, setbit=j, ctx_read=self.snorm[n, j], acc0=0.05,
                        quiet=np.broadcast_to(np.asarray(quiet, bool), (E,)) | ld, via="group")
         return sl
@@ -1134,7 +1146,7 @@ class People:
         inst_k = act & np.isin(g, [G["class"], G["work"], G["unit"], G["ward"]]) & (self.sref >= 0)
         if inst_k.any():
             prof = _norm(np.asarray(W.inst_profile, float))
-            self.sanch[inst_k] = prof[np.clip(self.sref[inst_k], 0, len(prof) - 1)]
+            self.sanch[inst_k] = prof[_uclip(self.sref[inst_k], 0, len(prof) - 1)]
         V = _norm(np.asarray(W.V, float))
         young = 1.5 if a < 25 else 1.0
         tgt = (KTA[g, K_WM][..., None] * memmix + 0.15 * self.srank[..., None] * self.w[:, None, :]
@@ -1161,7 +1173,7 @@ class People:
         thr = 0.1 * ((g == G["unit"]) & (int(self._wf("war", 0)) > 0))
         tc = KTA[g, K_COH] - 0.8 * (disp - 0.35) + thr
         self.scoh += (act * ((1 - 0.96 ** dm) * (tc - self.scoh) + 0.015 * np.sqrt(dm) * self.rng.standard_normal((N, M)))).astype(f32)
-        self.scoh = np.clip(self.scoh, 0.02, 0.98).astype(f32)
+        self.scoh = _uclip(self.scoh, 0.02, 0.98).astype(f32)
         # members' strictness on norm keys (for the local norms)
         self.sstrict = np.where(mw > 0, Rw[:, 1] / np.maximum(mw, 1e-9), 0).astype(f32)
         # splits: low cohesion and members pulling apart; the character goes with the side that fits them
@@ -1184,11 +1196,11 @@ class People:
         agew = np.where((g == G["class"]) & (12 <= a < 19), 1.5, 1.0)
         sw = self.sts * (0.5 + self.scoh) * agew * act
         self._setw = sw.sum(1); self._setmix = (sw[..., None] * self.snorm).sum(1)
-        fitj = np.clip(likeness(self.snorm, self.w[:, None, :]), 0, 1)
+        fitj = _uclip(likeness(self.snorm, self.w[:, None, :]), 0, 1)
         accj = 0.5 * fitj + 0.5 * self.srank
         self._belong_set = (self.sts * self.scoh * accj * act).sum(1)
         self._comm = (COMM_W[g] * self.scoh * accj * act).sum(1)
-        self.community = np.clip(self.P["comm_k"] * (self._comm - self.P["comm_ref"]), -0.5, 0.5)
+        self.community = _uclip(self.P["comm_k"] * (self._comm - self.P["comm_ref"]), -0.5, 0.5)
 
     # ------------------------------------------------------------------ the weekly, monthly and quarterly ticks
     def _read_S(self, t, S):
@@ -1371,7 +1383,7 @@ class People:
         rd = self.read; tmp = self.pie * a_[..., None]; tmp += m_[..., None] * self.lens.astype(f32)[:, None, :]
         rd *= (f32(1) - a_ - m_)[..., None]; rd += tmp
         # trust drifts toward what likeness and shared history support
-        tb = np.clip(f32(0.45) + f32(0.35) * lk + f32(0.05) * self.mgood - f32(0.1) * self.mbad, f32(0.02), f32(0.98))
+        tb = _uclip(f32(0.45) + f32(0.35) * lk + f32(0.05) * self.mgood - f32(0.1) * self.mbad, f32(0.02), f32(0.98))
         self.trust += live * f32(P["trust_k"]) * (tb - self.trust)
         # breaks: a fight or a betrayal (rarer among the alike; kin rarely)
         rm = self.rmask
@@ -1598,7 +1610,7 @@ class People:
         """The engine's partner commitment begins: a prospect from the cast, or someone new chosen alike (spouses
         start alike: the best of six); their family and friends join through them."""
         P = self.P; rng = self.rng; a = self._age(t)
-        same = rng.random() < P["same_sex"][int(np.clip(self.attr[n], 0, 4))]
+        same = rng.random() < P["same_sex"][int(_uclip(self.attr[n], 0, 4))]
         if self.partner_same is not None:
             same = bool(self.partner_same[n])
         want_fem = bool(self.female[n]) == bool(same)
@@ -1690,9 +1702,9 @@ class People:
             for n_ in nz(leaving):
                 self.leave(int(n_), "class", t, "finished")
             if a < 19:
-                pu = np.asarray(P["p_uni"])[np.clip(self.cls, 0, 2)]
+                pu = np.asarray(P["p_uni"])[_uclip(self.cls, 0, 2)]
                 self._join_many(nz(sec & (rng.random(N) < pu)), "class", t)
-        nvol = np.isin(self.skind, VOLUNTARY).sum(1)
+        nvol = _isin_small(self.skind, VOLUNTARY).sum(1)
         if 6 <= a < 18:   # children's and teenagers' activities; a scene or an online community for some teens
             self._join_many(nz(live & (nvol < self.vol_tgt) & (rng.random(N) < 0.1)), "club", t)
             if a >= 13:
@@ -1708,7 +1720,7 @@ class People:
                 self._join_many(nz(live & ~has("online") & (rng.random(N) < vj["online"] * mo)), "online", t)
         # leaving groups: a steady rate, faster in old age (settings thin out)
         lv = P["vol_leave"] * (1 + max(0.0, a - 70) / 10) * (0.6 if a < 18 else 1.0) * mo
-        vol_or_on = np.isin(self.skind, np.concatenate([VOLUNTARY[VOLUNTARY != G["congregation"]], [G["online"]]]))
+        vol_or_on = _isin_small(self.skind, np.concatenate([VOLUNTARY[VOLUNTARY != G["congregation"]], [G["online"]]]))
         for n_, j_ in zip(*np.nonzero(vol_or_on & (rng.random(self.skind.shape) < lv) & live[:, None])):
             if self.skind[n_, j_] == G["movement"] and self.srank[n_, j_] > 0.6:
                 continue
@@ -1725,7 +1737,7 @@ class People:
             if a >= 16:
                 for n_ in nz(live & ~held[:, FAI] & has("congregation")):
                     self.leave(int(n_), "congregation", t, "left the faith")
-            nvol = np.isin(self.skind, VOLUNTARY).sum(1)
+            nvol = _isin_small(self.skind, VOLUNTARY).sum(1)
             self._join_many(nz(live & held[:, COM] & (nvol == 0)), "club", t)
         elif held.shape[1] > FAI and a < 14:   # a child goes to the congregation with a practising family
             self._join_many(nz(live & held[:, FAI] & ~has("congregation") & (self.pfaith >= 0)), "congregation", t)
@@ -1779,12 +1791,12 @@ class People:
         age = self._qage if getattr(self, "_qage_t", None) == t else (t - self.born).astype(f32) * f32(1 / 52.0)
         rm = self.rmask; part = (rm & BIT["partner"]) != 0
         # health: the age curve, serious illness (season, pandemic and medicine through W.rate_mult)
-        hb = np.clip(f32(1) - f32(0.012) * np.maximum(age - 35, f32(0)), f32(0.2), f32(1))
+        hb = _uclip(f32(1) - f32(0.012) * np.maximum(age - 35, f32(0)), f32(0.2), f32(1))
         x_ = np.maximum(age - 30, f32(0))
         ill = live & (U[0] < (f32(P["ill_p"][0]) + f32(P["ill_p"][1] / 10) * x_ * np.sqrt(x_)) * f32(dy)
                       * self._rate_at("illness", self.mloc))
         h = self.health
-        self.health = np.clip(h + f32(1 - 0.85 ** nq) * (hb - h) - f32(0.35) * ill, f32(0.02), f32(1))   # (the dead's drift is unread)
+        self.health = _uclip(h + f32(1 - 0.85 ** nq) * (hb - h) - f32(0.35) * ill, f32(0.02), f32(1))   # (the dead's drift is unread)
         # jobs: loss by the economy and sector, finding work by unemployment, retirement
         jm = np.asarray(self._rate("jobloss"), float)
         sec = self.sector
@@ -1794,12 +1806,12 @@ class People:
         un = float(self._unemp("unemp")); nat = float(self._unemp("natural"))
         wa = (age >= 18) & (age < 64) & (sec >= 0)
         find = live & ~emp & wa & (U[2] < np.where(age < 19, f32(1 - 0.5 ** nq),
-                                                   f32(min(1.0, P["rehire"] * np.clip(1 - 4 * (un - nat), 0.3, 1.5) * dy))))
+                                                   f32(min(1.0, P["rehire"] * _uclip(1 - 4 * (un - nat), 0.3, 1.5) * dy))))
         emp2 = ((emp & ~lose) | find) & (age < 65)
         self.emp = emp2
         tm = (np.take(np.array([0.3, 0.5, 0.75], f32), _ix(self.mcls), mode="clip") + f32(0.12) * emp2
               - f32(0.15) * (~emp2 & (age >= 18) & (age < 65)))
-        self.money = np.clip(self.money + f32(1 - 0.8 ** nq) * (tm - self.money), f32(0.02), f32(1))
+        self.money = _uclip(self.money + f32(1 - 0.8 ** nq) * (tm - self.money), f32(0.02), f32(1))
         # partners, divorces, children (the character's own partner follows the engine)
         mp = self.mpart
         cpl = live & ~mp & (age >= 20) & (age < 70) & (U[3] < P["couple_p"] * dy)
@@ -1824,7 +1836,7 @@ class People:
             self.mset[mn, mk] &= ~loc_bits
         # mood: events knock it down, it comes back
         bad = ill | lose | div
-        self.mood = np.clip(self.mood + f32(1 - 0.8 ** nq) * (f32(0.6) - self.mood) - f32(0.3) * bad, f32(0), f32(1))
+        self.mood = _uclip(self.mood + f32(1 - 0.8 ** nq) * (f32(0.6) - self.mood) - f32(0.3) * bad, f32(0), f32(1))
         # colors: a slow drift toward their surroundings, faster when young; the character's children toward the
         # household (upbringing); partners barely converge (Caspi, Herbener and Ozer 1992); a step after a big event
         dn, dk = _nz2(live & ((age < 25) | (self.c >= P["layer_c"][2]) | part))
@@ -1843,7 +1855,7 @@ class People:
         pi += rate[:, None] * (ctx - pi)
         bd = bad[dn, dk]
         if bd.any():
-            st_ = (0.05 * (1 - np.clip(da[bd], 0, 90) / 100))[:, None]
+            st_ = (0.05 * (1 - _uclip(da[bd], 0, 90) / 100))[:, None]
             pi[bd] += st_ * (self._dirichlet(np.full((int(bd.sum()), C), 1.0 / C), 1.0) - pi[bd])
         self.pie[dn, dk] = pi = _norm(pi)
         self._psq[dn, dk] = _csum(pi * pi)
@@ -2100,7 +2112,7 @@ class People:
         if key == "rival" and accepted:   # competing for the place: winning makes an enemy, losing costs trust
             dc, dtr, mk = ((-0.1, -0.1, "made an enemy") if succ else (-0.03, -0.05, None))
             self.rmask[n, k] |= BIT["rival"]
-        self.c[n, k] = np.clip(self.c[n, k] + dc, 0, 1); self.trust[n, k] = np.clip(self.trust[n, k] + dtr, 0, 1)
+        self.c[n, k] = _uclip(self.c[n, k] + dc, 0, 1); self.trust[n, k] = _uclip(self.trust[n, k] + dtr, 0, 1)
         if mk:
             bad = mk in ("refused someone in need", "made an enemy", "broke your word")
             if bad:
@@ -2152,7 +2164,7 @@ class People:
         fi = self._fi; f32 = np.float32
         cc = np.take(self.c, fi)
         ok = np.take(self.used, fi) & np.take(self.lv, fi) & (cc >= L2)
-        qf = np.clip((np.take(self.born, fi).astype(np.int64) + 20 * 52 - self.t0) // 13, 0, len(nh) - 1)
+        qf = _uclip((np.take(self.born, fi).astype(np.int64) + 20 * 52 - self.t0) // 13, 0, len(nh) - 1)
         # each close person's acceptance (N, KC, NNORM; float32, the whole close index, weighted 0 where not close):
         # half the norms now, half those when they were 20, less their strictness, plus a fixed personal view
         z = (0.5 * lnh).astype(f32)[qf]; z += (0.5 * now).astype(f32); z -= f32(1.2) * np.take(self.strict, fi)[..., None]
@@ -2163,7 +2175,7 @@ class People:
         wcl = (P["circle_w"] * sw / (sw + 1.0))[:, None]
         dt = (t - self._last_appr) / 52.0 if self._last_appr is not None else 0.0
         self.objk *= 0.5 ** (dt / P["obj_half"]); self._last_appr = t
-        self.approval = np.clip((1 - wcl) * self.local_norm + wcl * circle - self.objk, 0, 1) - nh[-1][None, :]
+        self.approval = _uclip((1 - wcl) * self.local_norm + wcl * circle - self.objk, 0, 1) - nh[-1][None, :]
 
     def _standing(self, t):
         """Standing per domain and per ring (spec 7 §2: a famous actor has national standing in culture and ordinary
@@ -2189,18 +2201,18 @@ class People:
         mv = self.skind == G["movement"]
         st[:, 3] = np.maximum(st[:, 3], np.where((mv & (self.srank >= 0.85)).any(1), 2, np.where((mv & (self.srank >= 0.6)).any(1), 1, 0)))
         st[:, 2] = np.maximum(st[:, 2], np.where((mv & (self.srank >= 0.85)).any(1), 2, 0))
-        st = np.clip(np.round(st), 0, 3)
+        st = _uclip(np.round(st), 0, 3)
         sd = st[:, RING_OF]   # (N, domains): what holds across a whole ring
         ds = getattr(self, "dom_st", None); ts = getattr(self, "title_st", None)
         if ds is not None:
-            sd = np.maximum(sd, np.clip(np.round(np.asarray(ds, float).reshape(N, len(DOMAINS))), 0, 3))
+            sd = np.maximum(sd, _uclip(np.round(np.asarray(ds, float).reshape(N, len(DOMAINS))), 0, 3))
         elif ts is not None:
             ts = np.asarray(ts, float); tr = np.zeros((N, 4))
             if ts.ndim == 1:
                 tr[:, 1:] = ts[:, None]
             else:
                 tr = ts.reshape(N, 4)
-            sd = np.maximum(sd, np.clip(np.round(tr), 0, 3)[:, RING_OF])
+            sd = np.maximum(sd, _uclip(np.round(tr), 0, 3)[:, RING_OF])
         for r_ in range(1, 4):
             st[:, r_] = sd[:, RING_OF == r_].max(1)
         st[:, 0] = st[:, 1:].max(1)
@@ -2216,7 +2228,7 @@ class People:
 
     def _felt(self):
         o = self.outlook
-        self.felt_reach = np.clip(self.reach + self.P["fr_k"] * (o - 0.45)[:, None] * (1 + self.reach) + self.fr_bias[:, None], 0, 3)
+        self.felt_reach = _uclip(self.reach + self.P["fr_k"] * (o - 0.45)[:, None] * (1 + self.reach) + self.fr_bias[:, None], 0, 3)
 
     # ------------------------------------------------------------------ what the engine reads each week
     def _outputs(self, t):
@@ -2239,12 +2251,12 @@ class People:
         tw = b0 + pk * np.exp(-((a - at) / wd) ** 2)
         self.niche = _norm((1 - tw) * msc + tw * times[None, :])
         self._msg_raw = tot
-        self.msg_w = np.clip(tot / P["msg_ref"], 0.25, 2.5)
+        self.msg_w = _uclip(tot / P["msg_ref"], 0.25, 2.5)
         bs, bc = P["belong_k"]
         self.belong = 1 - np.exp(-(bs * self._belong_set + bc * c2.sum(1)))
         self.help = 1 - np.exp(-(c * self._cav).sum(1) / P["help_H"])
-        hard = np.clip(self.stress - 0.5, 0, 1)
-        self.support = np.clip(P["sup_k"] * (self.help - P["help_ref"]) * (1 + hard), -0.3, 0.3)
+        hard = _uclip(self.stress - 0.5, 0, 1)
+        self.support = _uclip(P["sup_k"] * (self.help - P["help_ref"]) * (1 + hard), -0.3, 0.3)
         self._felt()
         ct = P["contagion"]
         self.contagion = dict(divorce=1 + ct[0] * np.exp(-(t - self.cont_t[:, 0]) / 104.0),
@@ -2261,7 +2273,7 @@ class People:
         if not E:
             return dict(approval=np.zeros(0), results=[])
         ma = _norm(np.asarray(ma, float).reshape(E, C))
-        q = np.clip(np.broadcast_to(np.asarray(succ, float), (E,)), 0, 1)
+        q = _uclip(np.broadcast_to(np.asarray(succ, float), (E,)), 0, 1)
         vis = np.broadcast_to(np.asarray(0.5 if visibility is None else visibility, float), (E,))
         def as_idx(v_, tab):
             if v_ is None:
@@ -2297,10 +2309,10 @@ class People:
         # 2. rank in groups: acts that fit the group's ways better than its members do (and work) raise it
         sk = self.skind[ix] >= 0
         fs = C * np.matmul(self.snorm[ix], ma[:, :, None])[..., 0] - 1.0
-        vs = np.clip(2 * vis, 0, 1)[:, None] * sk * np.minimum(1, self.sts[ix] * 4)
+        vs = _uclip(2 * vis, 0, 1)[:, None] * sk * np.minimum(1, self.sts[ix] * 4)
         d_ = fs - self._fitm[ix]
         dr = P["rank_k"] * vs * np.where(d_ > 0, q[:, None] * d_, d_)
-        self.srank[ix] = np.clip(self.srank[ix] + dr, 0, 1)
+        self.srank[ix] = _uclip(self.srank[ix] + dr, 0, 1)
         # 3. levers
         res = []
         for e_ in np.nonzero((lev >= 0) & (dom >= 0) & ~self.dead[idx])[0]:
@@ -2454,7 +2466,7 @@ class People:
         role = (R["prospect"] if slot == "partner" else R["kin"] if slot in ("parent", "child", "sibling", "grandparent")
                 else R[slot] if slot in R and slot not in ("dead", "at") else R["acquaintance"])
         if slot == "prospect":
-            same = rng.random() < self.P["same_sex"][int(np.clip(self.attr[n], 0, 4))]
+            same = rng.random() < self.P["same_sex"][int(_uclip(self.attr[n], 0, 4))]
             F["fem"] = np.array([bool(self.female[n]) == bool(same)])
         if slot in ("boss", "teacher", "mentor", "elder", "at"):
             F["stand"] = np.array([1])
@@ -2477,7 +2489,7 @@ class People:
         pc = np.exp(-(t - self.par_change) / 26.0)
         un = float(self._unemp("unemp"))
         ul = np.asarray(self._unemp("unemp_loc", np.full(self.n_loc, un)), float)[self.loc]
-        r = r * (1 + 1.5 * pc) * np.clip(1 + 3 * (ul - un), 0.7, 1.5)
+        r = r * (1 + 1.5 * pc) * _uclip(1 + 3 * (ul - un), 0.7, 1.5)
         return np.full(self.N, r / 52.0) if np.ndim(r) == 0 else r / 52.0
 
     def move(self, n, loc=None, why=None, t=None, local=None):
@@ -2585,7 +2597,7 @@ class People:
         self._leave_all(n, hh, t, "emigrated")
         # people from the old country met there (drawn from the old society, before the switch)
         nd = int(rng.integers(2, 6))
-        ages = np.clip(max(a, 25.0) + rng.normal(0, 8, nd), 1, 90)
+        ages = _uclip(max(a, 25.0) + rng.normal(0, 8, nd), 1, 90)
         Fd = self._gen(np.full(nd, n), t - (ages * 52).astype(np.int64), t, ctx=np.tile(self.w[n], (nd, 1)), sel=0.2)
         if self.N == 1 and W_new is not None and W_new is not self.W:   # the neighbour at full detail
             self._Ws[old] = self.W
@@ -2621,7 +2633,7 @@ class People:
                 self._switch(Wh)
         ps = np.nonzero(self._has_role(n, "parent") & self.lv[n] & (self.msoc[n] == home))[0]
         loc = int(self.mloc[n, ps[0]]) if len(ps) else int(self.loc_home[n])
-        loc = int(np.clip(loc, 0, self.n_loc - 1))
+        loc = int(_uclip(loc, 0, self.n_loc - 1))
         self.soc[n] = home; self.loc[n] = loc; self.arr_t[n] = t
         self.lang[n] = 1.0; self.stat[n] = STATUS.index("citizen")
         self.cls[n] = max(int(self.cls[n]), int(self.cls_home[n]))
@@ -2636,7 +2648,7 @@ class People:
 
     def lang_boost(self, n, x):
         """The engine adds to life n's language skill (a course, a partner from there): x of what is left to learn."""
-        n = int(n); l_ = float(self.lang[n]); l_ += float(np.clip(x, 0, 1)) * (1 - l_)
+        n = int(n); l_ = float(self.lang[n]); l_ += float(_uclip(x, 0, 1)) * (1 - l_)
         self.lang[n] = 1.0 if l_ > 0.995 else l_
 
     def _lang_step(self, t):

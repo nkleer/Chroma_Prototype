@@ -9,6 +9,10 @@ Rules kept: no color pair is special here (only the modules' overlap and distanc
 on the lives except through pushes; keys only, the game writes the words."""
 import re
 import numpy as np
+try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
+    from numpy._core.umath import clip as _uclip
+except ImportError:
+    from numpy.core.umath import clip as _uclip
 import world as WM
 import world_people as PM
 import world_keys as WK
@@ -86,6 +90,14 @@ def title_domain(name, inst, sector):
 
 MIGRATE_T = {"immigrant", "refugee", "asylum applicant"}   # the catalogue's titles that take a life to another society
 CITIZEN_T = {"naturalised citizen", "citizenship"}
+
+
+def _isin_small(a, vals):
+    """Speed pass: np.isin against a few whole numbers, as equalities (the same answer, without isin's sorting)."""
+    a = np.asarray(a); r = np.zeros(a.shape, bool)
+    for v_ in vals:
+        r |= a == v_
+    return r
 
 
 class WorldLink:
@@ -251,7 +263,7 @@ class WorldLink:
     def accept(self):
         """Acceptance per norm key where each person lives and among their own people (N, n_norm), 0 to 1."""
         nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS])
-        return np.clip(nv[None, :] + np.asarray(self.PP.approval, float), 0, 1)
+        return _uclip(nv[None, :] + np.asarray(self.PP.approval, float), 0, 1)
 
     # ---- every week, before the engine's week
     def week(self, t, S_):
@@ -410,12 +422,16 @@ class WorldLink:
             ok = (feat.astype(np.float32) @ self.where.T.astype(np.float32)) > 0                             # N, S
             f *= np.where(need[None], ok, 1.0)
         if (self.group >= 0).any():   # a setting of that kind the person is in
-            ing = np.stack([(PP.skind == g_).any(1) for g_ in range(len(WK.GROUP_KINDS))], 1)
+            ing = (np.asarray(PP.skind)[:, :, None] == np.arange(len(WK.GROUP_KINDS))[None, None, :]).any(1)   # speed pass: one comparison
             gs_ = self.group >= 0
             f[:, gs_] *= ing[:, self.group[gs_]]
         if (self.prem >= 0).any():   # a moment that needs a technology the world has not got
+            th_ = {}   # speed pass: each technology asked once a week
             for si in np.nonzero(self.prem >= 0)[0]:
-                if not W.tech_has(WK.TECH_KEYS[self.prem[si]]):
+                k_ = int(self.prem[si])
+                if k_ not in th_:
+                    th_[k_] = W.tech_has(WK.TECH_KEYS[k_])
+                if not th_[k_]:
                     f[:, si] = 0.0
         self.fac = f
         return f
@@ -424,15 +440,14 @@ class WorldLink:
         """Per person and moment, the world's multiplier on a life event's yearly rate (N, S)."""
         W, PP, N, S = self.W, self.PP, self.N, self.S
         r = np.ones((N, S))
-        for k_, nm_ in enumerate(RK):
-            m_ = self.rk == k_
-            if not m_.any():
-                continue
+        if getattr(self, "_rk_m", None) is None:   # speed pass: each kind's moments found once (rk never changes)
+            self._rk_m = [(k_, nm_, self.rk == k_) for k_, nm_ in enumerate(RK) if (self.rk == k_).any()]
+        for k_, nm_, m_ in self._rk_m:
             v_ = W.rate_mult(nm_)
             if nm_ in ("disaster", "crime"):
                 v_ = np.asarray(v_, float)[PP.loc][:, None]
             elif nm_ == "jobloss":
-                v_ = np.asarray(v_, float)[np.clip(held_title_sector, 0, len(v_) - 1)][:, None]
+                v_ = np.asarray(v_, float)[_uclip(held_title_sector, 0, len(v_) - 1)][:, None]
                 v_ = np.where((held_title_sector >= 0)[:, None], v_, float(np.mean(W.rate_mult("jobloss"))))
             r[:, m_] *= v_
         r[:, self.wm_s] = 0.0          # these come on the world's events instead
@@ -463,7 +478,7 @@ class WorldLink:
                 if not W.tech_has(key):
                     gone |= te == k_
                 else:
-                    ad_ = np.array([W.tech_adopt(key, cls=int(c_)) for c_ in range(3)])[np.clip(PP.cls, 0, 2)]
+                    ad_ = np.array([W.tech_adopt(key, cls=int(c_)) for c_ in range(3)])[_uclip(PP.cls, 0, 2)]
                     u_mea = np.maximum(u_mea, np.where(te == k_, 1 - ad_[:, None], 0.0))
         return u_law, law_open, u_app, u_mea, gone
 
@@ -481,7 +496,7 @@ class WorldLink:
         of coming out .70 x the sexuality right .73 after the 80-year burn-in, seeds 1-8), up to 1 where neither holds.
         A faith's community is in the local norms already, so the engine adds no faith term with the world on."""
         a_ = self.acc_[:, self.NI["coming out"]] * float(np.asarray(self.W.rights)[WM.RIGHTS.index("sexuality")])
-        return np.clip((CLIM_REF - a_) / CLIM_REF, 0, 1)
+        return _uclip((CLIM_REF - a_) / CLIM_REF, 0, 1)
 
     def channel_rates(self):
         """Per person and moment (N, S): a close person's divorce or quitting makes one's own likelier for a while
@@ -497,14 +512,14 @@ class WorldLink:
             ma_ = PP.P["move_age"]
             base = np.interp(PP._age(PP.t), [a_ for a_, _ in ma_], [r_ for _, r_ in ma_]) / 52.0
             mw_ = np.broadcast_to(np.asarray(PP.move_wish(), float), (self.N,))
-            r[:, self.move_s] *= np.clip(mw_ / max(float(base), 1e-9), 0.5, 3.0)[:, None]
+            r[:, self.move_s] *= _uclip(mw_ / max(float(base), 1e-9), 0.5, 3.0)[:, None]
         return r
 
     def reach_pull(self, s):
         """(N, K) pull toward voice and subvert at institutions and the outer rings by felt reach (spec 7 §6): what makes
         a character vote, petition or organise. Zero at a felt reach of 0.75 (one of many who still count)."""
         lv = self.lev_i[s]; dm = self.dom_i[s]
-        on = np.isin(lv, [WK.LEVERS.index("voice"), WK.LEVERS.index("subvert")]) & (dm >= 0)
+        on = _isin_small(lv, [WK.LEVERS.index("voice"), WK.LEVERS.index("subvert")]) & (dm >= 0)
         if not on.any():
             return 0.0
         ring = np.where(dm >= 0, PM.RING_OF[np.maximum(dm, 0)], 0)
@@ -522,7 +537,7 @@ class WorldLink:
         jo, ao = self.job_o[s], self.adm_o[s]
         if jo.any():
             ul = np.asarray(getattr(W, "loc_unemp", np.full(PP.n_loc, U_REF)), float)[PP.loc]
-            d += jo * np.clip(0.5 * np.log(np.maximum(ul, 0.5) / U_REF) / 3.0, -0.15, 0.25)[:, None]
+            d += jo * _uclip(0.5 * np.log(np.maximum(ul, 0.5) / U_REF) / 3.0, -0.15, 0.25)[:, None]
         if ao.any() or self.ill_s[s].any():
             cap = np.asarray(W.inst_capacity, float); kd = np.asarray(W.inst_kind); il = np.asarray(W.inst_loc)
             def local(kind, v):   # the mean over that kind's institutions in each person's town, else the country's
@@ -533,14 +548,14 @@ class WorldLink:
                 cnt = np.bincount(il[m_].astype(np.intp), minlength=PP.n_loc)
                 return np.where(cnt[PP.loc] > 0, tot[PP.loc] / np.maximum(cnt[PP.loc], 1), v[m_].mean())
             if ao.any():
-                oc = np.asarray(W.inst_open_cls, float)[:, np.clip(PP.cls, 0, 2)]   # n_inst, N: openness to each one's class
+                oc = np.asarray(W.inst_open_cls, float)[:, _uclip(PP.cls, 0, 2)]   # n_inst, N: openness to each one's class
                 uni = kd == WK.INST_KINDS.index("university")
                 op_ = oc[uni].mean(0) if uni.any() else np.full(N, OPEN_REF)
                 f_ = local("university", cap) / CAP_REF * op_ / OPEN_REF
-                d += ao * np.clip(-np.log(np.maximum(f_, 0.1)) / 3.0, -0.15, 0.2)[:, None]
+                d += ao * _uclip(-np.log(np.maximum(f_, 0.1)) / 3.0, -0.15, 0.2)[:, None]
             if self.ill_s[s].any():
                 f_ = local("hospital", cap) / CAP_REF
-                d += self.ill_s[s][:, None] * np.clip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
+                d += self.ill_s[s][:, None] * _uclip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
         return d
 
     # ---- other societies (spec 5 §5; Emren 10:30 "Yes, fully")
@@ -610,7 +625,7 @@ class WorldLink:
         the commitments already count (community: its largest group; faith: the congregation; career: work), against
         the typical life's (TIME_REF), so 0 at the typical world."""
         PP = self.PP; sk = np.asarray(PP.skind); ts = np.where(sk >= 0, np.asarray(PP.sts, float), 0.0)
-        vk = np.isin(sk, [PM.G[g_] for g_ in ("club", "scene", "online", "gang", "movement")])
+        vk = _isin_small(sk, [PM.G[g_] for g_ in ("club", "scene", "online", "gang", "movement")])
         vs = np.where(vk, ts, 0.0)
         cg = np.where(sk == PM.G["congregation"], ts, 0.0).sum(1)
         extra = vs.sum(1) - np.where(held[:, com], vs.max(1), 0.0) + np.where(held[:, fai], 0.0, cg)
@@ -627,9 +642,9 @@ class WorldLink:
         housing is dear for those without a home of their own, prices eating a fixed income, the welfare floor for those
         out of work, the rights there are. 0 at the burn-in's typical world."""
         W, PP = self.W, self.PP
-        rent = -0.05 * float(np.clip(W.housing, -1, 1)) * ~np.asarray(PP.own_home, bool)
+        rent = -0.05 * float(_uclip(W.housing, -1, 1)) * ~np.asarray(PP.own_home, bool)
         inf_ = self._pub.get("inflation"); inf_ = INFL_REF if inf_ is None else float(inf_)
-        price = -0.004 * np.clip(inf_ - INFL_REF, -5, 15) * ~np.asarray(employed, bool)
+        price = -0.004 * _uclip(inf_ - INFL_REF, -5, 15) * ~np.asarray(employed, bool)
         floor = 0.15 * (float(W.welfare) - WELF_REF) * ~np.asarray(employed, bool)
         free = np.full(self.N, 0.2 * (float(np.mean(W.rights)) - RIGHTS_REF))
         return rent + price + floor, free

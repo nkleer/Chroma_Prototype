@@ -1,0 +1,12 @@
+Speed pass check, 2026-10-08 11:02 UTC
+  base /mnt/project-files/chroma-engine/archive/live-v22 (engine.py 5fb02ecd3ab8, 13 files)
+  new  /tmp/claude-0/-home-claude/3ca38724-0094-59b6-8d58-92416adc1ff8/scratchpad/speed/v22r4 (engine.py e89422bfc424, 13 files)
+  Library /mnt/project-files/chroma-library, packs /mnt/project-files/chroma-packs; 20 lives x 80 years, seeds 5, worlds seed; P new {}, P base {}
+  game base: /mnt/project-files/chroma-game/prototype (game.py 519736353b08) with engine_pin's batch.py, combos.py, earth_rules.py, engine.py, explain.py, foresee.py, library.py, life.py, schwartz.py, world.py, world_keys.py, world_link.py, world_people.py from base
+  game new: /mnt/project-files/chroma-game/prototype (game.py 519736353b08) with engine_pin's batch.py, combos.py, earth_rules.py, engine.py, explain.py, foresee.py, library.py, life.py, schwartz.py, world.py, world_keys.py, world_link.py, world_people.py from new
+ok   id-5-seed: base 45 s, new 40 s CPU (1.13x faster): identical (59 outputs compared)
+ok   game-1: 50 moments, life ends over at 71.8; base 109 s, new 91 s CPU (1.19x faster): identical (151 texts and HUDs)
+ok   game-5: 44 moments, life ends over at 78.3; base 44 s, new 43 s CPU (1.04x faster): identical (133 texts and HUDs)
+All runs: base 198 s, new 173 s CPU: 1.14x faster overall
+Speed pass: PASS (identical lives)
+report: /tmp/claude-0/-home-claude/3ca38724-0094-59b6-8d58-92416adc1ff8/scratchpad/rel/chroma-release/out/speedpass_20261008-110256.txt; scratch /tmp/claude-0/-home-claude/3ca38724-0094-59b6-8d58-92416adc1ff8/scratchpad/rel/work

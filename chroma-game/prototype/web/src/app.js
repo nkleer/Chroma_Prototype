@@ -1316,8 +1316,13 @@ function optIcon(o, sit) {
 // child version, then the first life domain, then the tier; the colors and a glyph show until it loads, or if it is missing
 const PICS = __PICS__;
 { const f = $("fab"), u = PICS.texture && PICS.texture.unwritten_future; if (f && u) f.style.backgroundImage = `url("${u}")`; }
+// a tribal or magic life shows its own world's tarot card (V The River, VI The Spires) wherever an Earth picture would show:
+// the engravings are of the modern Earth (v22 patch, Emren 10-07 21:44 UTC); Earth lives read the pictures as before
+const WORLD_CARD = { tribal: "5", magic: "6" };
+const worldCard = (L) => { const k = WORLD_CARD[L && L.setting]; return k ? (PICS.tarot && PICS.tarot[k]) || "" : null; };
 function picFor(a) {
   if (!a) return "";
+  const w = worldCard(hud && hud.life); if (w != null) return w;
   const d = String(a.life || "").split(",").map((x) => x.trim()).find((x) => PICS.domain[x]);
   return PICS.situation[a.sit] || PICS.situation[a.variant_of] || (d && PICS.domain[d]) || PICS.tier[a.tier] || "";
 }
@@ -1495,13 +1500,22 @@ function renderTable(h) {
   $("evPeek").addEventListener("click", () => setPeek(true));
   const strip = $("evStrip"), idleStrip = strip ? strip.innerHTML : "";
   const fill = (o, num) => { if (!strip) return; strip.classList.remove("idle"); strip.innerHTML = stripHTML(o, num); };
-  const unfill = () => { if (!strip || tableEl.classList.contains("choosing")) return; strip.classList.add("idle"); strip.innerHTML = idleStrip; };
+  // v22.1: when the mouse leaves a card, the reading goes back to the card that has keyboard focus, or to a card still
+  // under the mouse, before it goes idle (v22 closed it even while another card had focus)
+  let hov = null;
+  const unfill = () => {
+    if (!strip || tableEl.classList.contains("choosing")) return;
+    const f = document.activeElement;
+    if (f && f.classList && f.classList.contains("opt") && tableEl.contains(f)) return fill(cp.options[+f.dataset.i], +f.dataset.num);
+    if (hov && hov[2].isConnected) return fill(hov[0], hov[1]);
+    strip.classList.add("idle"); strip.innerHTML = idleStrip;
+  };
   tableEl.querySelectorAll(".opt").forEach((b) => {
     const o = cp.options[+b.dataset.i], num = +b.dataset.num;
     const hl = (on) => hudEl.querySelectorAll(".orb").forEach((x) => x.classList.toggle("hl", on && o.ends.includes(x.dataset.c)));
-    b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") { hl(true); fill(o, num); } });
-    b.addEventListener("pointerleave", () => { hl(false); unfill(); });
-    b.addEventListener("focus", () => fill(o, num)); b.addEventListener("blur", unfill);
+    b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") { hov = [o, num, b]; hl(true); fill(o, num); } });
+    b.addEventListener("pointerleave", () => { if (hov && hov[2] === b) hov = null; hl(false); unfill(); });
+    b.addEventListener("focus", () => fill(o, num)); b.addEventListener("blur", () => setTimeout(unfill, 0));   // after focus has landed
     b.addEventListener("click", () => {
       const go = () => send(o.own ? "" : String(o.n));
       if (!touchUI || selected === o.n) return go();
@@ -1590,6 +1604,7 @@ const interEl = document.createElement("div"); interEl.className = "inter"; inte
 const IL = { on: false };
 let lastSent = "";
 function ilPic(L, age) {
+  const w = worldCard(L); if (w != null) return w;
   const held = new Set((L.titles || []).map((t) => t.kind));
   const pool = age < 5 ? ["family", "home", "play"] : age < 18 ? ["school", "friends", "play", "family"] :
     [held.has("career") ? "work" : "home", held.has("children") ? "children" : "friends", held.has("partner") ? "partner" : "leisure",
@@ -2356,6 +2371,7 @@ function openHelp() {
     <dt><kbd>p</kbd></dt><dd>Dreams and plans: make a plan for them, or drop one</dd>
     <dt><kbd>c</kbd></dt><dd>The character sheet: everything about them</dd>
     <dt><kbd>b</kbd></dt><dd>The Book of Moments: what all your lives have met</dd>
+    <dt><kbd>g</kbd></dt><dd>The World panel: the times, government, economy, laws and the history of the world around them (modern Earth lives)</dd>
     <dt><kbd>i</kbd></dt><dd>The everyday interlude between moments: slow, short or off</dd>
     <dt><kbd>s</kbd> <kbd>o</kbd></dt><dd>Save this life to a file; load one</dd>
     <dt><kbd>a</kbd></dt><dd>Autosave after every choice into one slot in this browser, on or off (Continue on the start screen)</dd>
