@@ -75,6 +75,9 @@ otherwise from the tree it sits in, so setting `CHROMA_ROOT` points any script a
 `/mnt/project-files/...` into a script. If a folder of yours moves or a new one needs a name, change your own lines in
 `paths.py` on your own branch; a pull request that changes only your own lines there needs no other owner's check.
 
+Run Python with `-B` (or with `PYTHONDONTWRITEBYTECODE=1` set) whenever it imports anything from the shared folder,
+`paths.py` included, so no `__pycache__` is written there. This repository ignores caches; the shared folder does not.
+
 ## Getting a change into the shared folder
 
 Other threads and the checks still read the shared folder, so a merged change is copied there:
