@@ -1,11 +1,12 @@
 """The game's link to the Chroma engine.
 
-The engine (owned by the engine design thread) runs whole populations in one call and has no
-pause points. For the game we load a pinned copy of it (engine_pin/) and, at import time, insert
-six pause points into its weekly loop. That turns run() into a generator: every week it hands the
-game a snapshot of its state and waits for an answer. Nothing in the engine's equations changes.
+The engine (owned by the Engine thread) has its own pause points (backend plan item 2): engine.run_steps() is run() as
+a generator that pauses six times a week and hands the game the run's state. engine.PAUSES lists the pauses,
+run_steps()'s docstring says where each one is and what may be sent back, and engine.STATE names the run's variables
+the game, explain.py and foresee.py may read at a pause. This file loads the pinned copy of the engine (engine_pin/)
+as module `engine` and checks that it offers those pause points; it no longer changes the engine's text.
 
-Pause points (each yields (kind, t, locals, value) and receives the possibly changed value back):
+Pause points (each yields (kind, t, state, value) and receives the possibly changed value back):
   "week"   start of each week, after the outside-world intervention     (value: None)
   "situation" after this week's situation is drawn                        (value: situation index array `s`)
   "choose" right after the character has picked an option               (value: chosen index array `a`)
@@ -13,9 +14,7 @@ Pause points (each yields (kind, t, locals, value) and receives the possibly cha
   "learn"  right after the surprise of the outcome is computed          (value: prediction error `delta`)
   "end"    end of each week                                             (value: None)
 
-If an anchor line is missing (the engine changed), loading fails loudly with the anchor's text,
-so a re-pin never silently runs without the hooks. These are the hooks to move into the engine
-itself later.
+If the pinned engine lacks run_steps() or these pauses, loading fails loudly, so a re-pin never runs without them.
 """
 import os
 import sys
@@ -23,45 +22,11 @@ import types
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PIN = os.path.join(HERE, "engine_pin")
-
-# (anchor text, text inserted before it, text inserted after it)
-PATCHES = [
-    ("        e_i, e_p = era_i[t], era_p[t]\n",
-     "        _ = yield (\"week\", t, locals(), None)\n", None),
-    ("        s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)\n",
-     None, "        s = yield (\"situation\", t, locals(), s)\n"),
-    ("        a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)\n",
-     None, "        a = yield (\"choose\", t, locals(), a)\n"),
-    ("        succ = rng.random(N) < p_true\n",
-     "        p_true = yield (\"odds\", t, locals(), p_true)\n", None),
-    ("        delta = np.where(idle, 0.0, r - (ph - (1 - ph) * P[\"loss\"]) * stakes)\n",
-     None, "        delta = yield (\"learn\", t, locals(), delta)\n"),
-    ("    z = bound_logratios(z, P[\"min_color\"], P[\"max_color\"]); y = bound_logratios(y, P[\"min_color\"], P[\"max_color\"])\n    W_hist.append",
-     "        _ = yield (\"end\", t, locals(), None)\n", None),
-]
-
-
-SIG = "def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):"
-
-
-def _with_steps(src):
-    """Return the engine source plus run_steps(): a copy of run() with the pause points inserted.
-    The original run() is left exactly as it is."""
-    if src.count(SIG) != 1:
-        raise RuntimeError("engine changed: run() signature not found:\n" + SIG)
-    body = src.split(SIG, 1)[1]
-    end = body.find("\ndef ")
-    run_text = SIG + (body[:end] if end >= 0 else body)
-    for anchor, before, after in PATCHES:
-        if run_text.count(anchor) != 1:
-            raise RuntimeError(f"engine changed: anchor found {run_text.count(anchor)} times, expected once:\n{anchor}")
-        run_text = run_text.replace(anchor, (before or "") + anchor + (after or ""))
-    return src + "\n\n# ---- added by the game's link.py: the same weekly loop, pausing for the game\n" + \
-        run_text.replace("def run(", "def run_steps(", 1) + "\n"
+PAUSES = ("week", "situation", "choose", "odds", "learn", "end")
 
 
 def load_engine(path=PIN):
-    """Load the pinned engine as module `engine` with an extra generator run_steps()."""
+    """Load the pinned engine as module `engine`; its run_steps() is the generator the game drives."""
     if path not in sys.path:
         sys.path.insert(0, path)
     with open(os.path.join(path, "engine.py"), encoding="utf-8") as f:
@@ -69,7 +34,10 @@ def load_engine(path=PIN):
     mod = types.ModuleType("engine")
     mod.__file__ = os.path.join(path, "engine.py")
     sys.modules["engine"] = mod
-    exec(compile(_with_steps(src), mod.__file__, "exec"), mod.__dict__)
+    exec(compile(src, mod.__file__, "exec"), mod.__dict__)
+    if not callable(getattr(mod, "run_steps", None)) or tuple(getattr(mod, "PAUSES", ())) != PAUSES:
+        raise RuntimeError("engine changed: the pinned engine.py does not offer run_steps() with the pauses "
+                           + ", ".join(PAUSES))
     return mod
 
 

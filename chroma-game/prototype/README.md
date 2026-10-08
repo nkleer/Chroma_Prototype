@@ -25,8 +25,9 @@ resolution ("what came of it") waits; Enter goes on. p makes or drops a plan (ad
   reference; see PINNED.txt). Never edited.
 - `worldview.py`: the outer world as the player sees it (world panel, world lines in the story, the cast circle,
   reach, lever chips); names people, places and eras. See the last section.
-- `link.py`: loads the pinned engine and adds `run_steps()`, a copy of `run()` with six pause points
-  (week, situation, choose, odds, learn, end). Loading fails loudly if an anchor line is missing.
+- `link.py`: loads the pinned engine, which offers `run_steps()` with six pause points (week, situation, choose,
+  odds, learn, end) itself since the Engine's pause points (engine.py 8af80e82f2a6). Loading fails loudly if the pinned
+  engine lacks `run_steps()` or those pauses. (Up to version 22.1 link.py patched a copy of `run()` by anchor lines.)
 - `story.py`: the built-in story layer (see below).
 - `game.py`: the game layer (setup, checkpoints, forced-pick costs, life-event timing, status, review); it hands
   every engine event to story.py.
@@ -603,3 +604,11 @@ Clean, solid and fast, with the same lives as version 22:
   (head.html; test/fit720_lab.js measures it). A sixteen-option moment can still scroll there.
 - The help screen (h) lists g, the World panel.
 - Saves from version 22 load (test/save_carry.js: the autosave's Continue and a saved file).
+
+
+## Next version (on the repository's main, not live)
+
+- The Engine's pause points: engine_pin/engine.py is the Engine's 8af80e82f2a6 (chroma-engine/v22-speedpass on main),
+  which carries `run_steps()`, `PAUSES` and `STATE` itself; link.py is the Engine's chroma-engine/notes/link-for-game.py
+  and only loads and checks it, so an engine change no longer breaks the game through anchor lines. Same lives: presets
+  1 to 6, seed 7, give the same record step for step as live v22.1 (test/same_life.py).
