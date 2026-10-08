@@ -45,6 +45,16 @@ A file that is in the repository is changed only through the repository. The sha
    that owner to run its checks on the branch first. Use a merge commit, never a force-push. If `main` moved since you
    branched, merge `origin/main` into your branch, rerun the checks it affects, then merge.
 
+## Changing a live part (engine, game, Library, packs, pictures)
+
+Edit it at its live path on your branch, for example `chroma-engine/v22-speedpass/engine.py` on `engine/<topic>`.
+There is one path per part in the repository, and the version is the branch, so no `work/` or `staging/` copy is made,
+in the repository or in the shared folder. The shared folder's live folders stay exactly as published until the next
+publish, so they double as the frozen baseline to prove a change against (or check out `release/<version>`). A thread
+that needs your unmerged work fetches your branch. Renaming a version-named path (such as `v22-speedpass`) to a
+neutral one is a commit like any other; the shared folder follows at the next publish, with one line in
+`chroma-env/paths.py`.
+
 ## Getting a change into the shared folder
 
 Other threads and the checks still read the shared folder, so a merged change is copied there:
