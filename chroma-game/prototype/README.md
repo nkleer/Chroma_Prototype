@@ -618,6 +618,17 @@ Clean, solid and fast, with the same lives as version 22:
   its stage 1 hooks (own_k, drift_k, ev_push_k, era_push_k, steer, steer_k; STATE pr0, steer_moved, e_i, e_p) are all
   off by default. test/same_engine.py records the engine's state step by step: lives left to choose (presets 1 to 6,
   seed 7) match live v22.1.
+- Stage 1, played lives (v22.2): pivotal picks (item 4: a pick teaches more the farther it is from who they are, a
+  season's lean, quiet weeks at half, picks leading to plans, names from four years of colors and "becoming", threads
+  first with the thread line), the voice in their head (item 3, Library VOICE lines, the Book's voice page), the light
+  steer and the era's pull (P3: the lean buttons beside "Let them choose", "with/against the times" on options), the
+  world in their life (item 11: WL1 lines, WL3 notes on options, WL4 year lines, WL5 in the World panel, WL6 disaster
+  readings by hazard), the song in the Library's words with the voice's last sentence and the last talk, and the
+  rarity rebuild of 2026-10-08 (rarity.json). Settings in GAME; GAME_OFF (CHROMA_GAME=off) switches them all off, and
+  then played lives match live v22.1 step for step (presets 1 to 6, seed 7, own and push; push preset 6 differs by G1's
+  fold). Saves are version 2; an older save replays under the new rules with a note. The turning point and the World
+  panel's steers are built but off (turn_max 0, world_steers False) until v22.3. Checks: test/steer_check.py (Release's
+  ten steered rows; how to drive a life: test/STEERED.md) and test/play_check.js (the page).
 
 
 ## Needs, hindsight and trust (2026-10-09, game side; on branch claude/charming-shannon-wpmw04, not live)
