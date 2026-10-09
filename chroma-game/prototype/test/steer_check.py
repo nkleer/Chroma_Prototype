@@ -226,7 +226,7 @@ def target(t, R):
             for x in r["feed"]:
                 if x["tag"] == "world_fx":
                     n += 1
-                    if not any(abs(y["age"] - x["age"]) <= 0.1 for y in r["times"]):
+                    if not any(abs(y["age"] - x["age"]) <= 0.1 and y.get("told", True) for y in r["times"]):
                         bad.append((r["seed"], x["age"], x["text"][:60]))
                 elif x["tag"] == "world_year":
                     ny += 1
@@ -246,7 +246,7 @@ def target(t, R):
     elif t == "voice_careful":
         named = [v[1] for r in rs for v in r["vnames"] if v[2] >= 5]
         other = sorted({x for x in named if x not in ("the careful voice", "the timid voice")})
-        sides = sorted({v.split("{voice}")[0] for k, d in __import__("earth_story").VOICE["name"].items() if k != "safety"
+        sides = sorted({v.split("{voice}")[0] for k, d in __import__("game").ES.VOICE["name"].items() if k != "safety"
                         for v in d.values()} - {"the "})
         stray = [x for r in rs for x in voice_texts(r) if any(s.strip() and s.strip() in x for s in sides)]
         say(f"moments with a named voice: {len(named)}; named otherwise: {other or 'none'}; lines naming another side: {len(stray)}")

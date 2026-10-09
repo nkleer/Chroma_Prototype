@@ -562,6 +562,7 @@ class Game:
         self._voice_said = {}           # item 3: how often each kind of voice line was told (the second variant after the first)
         self._trust_side = np.zeros(C, int)     # trust per color past .5 (1) or -.5 (-1), for the turn lines
         self._vyear = dict(steer=0, won=0, turn=None)   # this year's pushes, the ones that worked, a trust turn
+        self._vline_y = None            # the year of age of the last voice line in the story (one a year at most)
         self._vlast = {}                # color -> the last push mostly in that color (worked, the moment's name)
         self._w_start = None            # their colors when the player came in (what life and the voice moved since)
         self._name_mark = None          # colors and the voice's change when the name last changed (for "became")
@@ -1279,7 +1280,8 @@ class Game:
             key = (kind, ch, d)
             yk = abs(float(e.get("size", 0))) / (WFX_BAND.get(ch, WFX_BAND["risk"])[1] if ch != "option" else 1.0)
             self._wyear[key] = self._wyear.get(key, 0.0) + min(yk, 2.0)
-            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN:
+            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN:     # counted for the year's line, not told again
+                self.history["times"].append(dict(age=round(t / 52, 1), kind=k, channel=ch, dir=d, told=False))
                 continue
             self._wfx_t[key] = t
             cause = self._wcause_text(e.get("cause"), kind)
@@ -1349,7 +1351,7 @@ class Game:
             return None
         p = self.wv.panel(wd[0], wd[1], self.age())
         if isinstance(p, dict):
-            p["times"] = self.history.get("times", [])[-60:]
+            p["times"] = [x for x in self.history.get("times", []) if x.get("told", True)][-60:]
             p["steers"] = self.history.get("steers", [])[-200:] if GAME["world_steers"] else []
         return p
 
@@ -1377,7 +1379,8 @@ class Game:
         if v["steer"] < VOICE_MIN:
             quiet = v["n"] >= 10 and v["steer"] / v["n"] < 0.2
             return (V["quiet"] if quiet else V["none"]).replace("{voice}", noun)
-        ax = np.asarray(v["ax"], float); i = int(np.argmax(np.abs(ax))); sg = 1 if ax[i] > 0 else -1
+        ax = np.asarray(v.get("rk") or v["ax"], float)   # the side its pushes stood for most steadily among the open ways
+        i = int(np.argmax(np.abs(ax))); sg = 1 if ax[i] > 0 else -1
         side = VOICE_SIDES[i][1 if sg > 0 else 2]
         cols = [c for c in range(C) if VOICE_AX[i, c] * sg > 0]
         tr = float(np.mean(self.trust[cols])) if cols else 0.0
@@ -1410,6 +1413,11 @@ class Game:
         v["steer"] += 1; v["rel"] = round(v["rel"] + rel, 3)
         v["d"] = [round(x + float(y), 4) for x, y in zip(v["d"], diff)]
         v["ax"] = [round(x + float(y), 4) for x, y in zip(v["ax"], VOICE_AX @ diff)]
+        ks = [o for o in range(m.shape[0]) if m[o].sum() > 0]
+        if len(ks) > 1:                                  # where the pick stood among the open ways, per side (-1 to 1)
+            vals = np.array([VOICE_AX @ cv(o) for o in ks]); pv = VOICE_AX @ cv(k)
+            rk = ((vals < pv - 1e-9).sum(0) - (vals > pv + 1e-9).sum(0)) / (len(ks) - 1)
+            v["rk"] = [round(x + float(y), 4) for x, y in zip(v.get("rk") or [0.0] * len(VOICE_SIDES), rk)]
         dw = np.asarray(moved.get("dw") or np.zeros(C), float) / 100 + np.asarray((rs.get("pivot") or {}).get("moved") or np.zeros(C), float) / 100
         v["dw"] = [round(float(x) + float(y), 4) for x, y in zip(self._vdw(), dw)]; v["dw_t"] = int(self.t)
         self._vyear["steer"] += 1; self._vyear["won"] += int(worked)
@@ -1440,9 +1448,18 @@ class Game:
             st = 1 if self.trust[i] >= 0.5 else -1 if self.trust[i] <= -0.5 else 0
             if st and st != self._trust_side[i]:
                 d = "up" if st > 0 else "down"
-                self._say(self._vfill(self._vsay("turn", ES.VOICE["trust_turn"][c][d])), 0, "voice", turn=d, color=c)
+                self._vline(self._vfill(self._vsay("turn", ES.VOICE["trust_turn"][c][d])), turn=d, color=c)
                 self._vyear["turn"] = d
             self._trust_side[i] = st
+
+    def _vline(self, text, **meta):
+        """A voice line in the story: one a year at most (voice-mechanics.md section 9), the first that comes."""
+        y = int(round(self.t / 52, 1))
+        if y == self._vline_y:
+            return False
+        self._vline_y = y
+        self._say(text, 0, "voice", **meta)
+        return True
 
     def _vdw(self):
         """What the voice's pushes still hold of their colors now, per color: each push's move, fading as life pulls
@@ -1463,7 +1480,7 @@ class Game:
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
         tr = float(np.mean(self.trust[pushed])) if pushed else 0.0
         key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
-        self._say(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), 0, "voice", became=lbl, share=round(share, 2))
+        self._vline(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), became=lbl, share=round(share, 2))
 
     def _voice_chapter(self, age):
         """Item 3: at most one voice line in a year's chapter, and only in years with something to say: the first year of
@@ -1484,7 +1501,7 @@ class Game:
         if y["steer"]:
             v["last_age"] = age
         if kind:
-            self._say(self._vfill(self._vsay("ch_" + kind, V[kind])), 0, "voice", chapter=kind)
+            self._vline(self._vfill(self._vsay("ch_" + kind, V[kind])), chapter=kind)
 
     def voice_review(self, h):
         """Item 3 at the end of a life: the voice's last sentence for the song (VOICE end) and the Book's line for this
