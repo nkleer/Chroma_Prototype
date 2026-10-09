@@ -1,0 +1,647 @@
+{
+ "about": "Chroma icons from game-icons.net (CC BY 3.0). Every icon is a <symbol> in icons.svg, viewBox 0 0 512 512, fill-based: style with fill: currentColor and no stroke.",
+ "credit": {
+  "source": "https://game-icons.net",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "authors": [
+   "Andy Meneely",
+   "Caro Asercion",
+   "Delapouite",
+   "Lorc",
+   "Sbed",
+   "Skoll",
+   "Zeromancer"
+  ]
+ },
+ "fallback_order": {
+  "picture": [
+   "situation name",
+   "variant_of",
+   "domain (first life domain)",
+   "tier"
+  ],
+  "option": [
+   "option[situation][index]",
+   "act (commit kind, pay/win kind, or mark)",
+   "color (first end colour, else first means colour)"
+  ]
+ },
+ "map": {
+  "tag": {
+   "birth": "gi-baby-face",
+   "start": "gi-psychic-waves",
+   "choice": "gi-direction-signs",
+   "ordinary": "gi-coffee-cup",
+   "loss": "gi-broken-heart",
+   "death": "gi-grave-flowers",
+   "crisis": "gi-lightning-storm",
+   "outside": "gi-world",
+   "move": "gi-cardboard-box",
+   "era": "gi-sands-of-time",
+   "read": "gi-newspaper",
+   "clash": "gi-crossed-swords",
+   "rite": "gi-stairs-goal",
+   "turn": "gi-return-arrow",
+   "breakthrough": "gi-broken-wall",
+   "healed": "gi-seedling",
+   "hardened": "gi-stone-wall",
+   "trouble": "gi-raining",
+   "fortune": "gi-horseshoe",
+   "temper": "gi-drama-masks"
+  },
+  "kind": {
+   "career": "gi-briefcase",
+   "partner": "gi-linked-rings",
+   "children": "gi-family-house",
+   "community": "gi-village",
+   "faith": "gi-prayer"
+  },
+  "res": {
+   "money": "gi-coins",
+   "time": "gi-alarm-clock",
+   "health": "gi-heart-beats",
+   "ties": "gi-shaking-hands",
+   "freedom": "gi-feather"
+  },
+  "need": {
+   "safety": "gi-checked-shield",
+   "belonging": "gi-campfire",
+   "autonomy": "gi-compass",
+   "competence": "gi-gear-hammer",
+   "meaning": "gi-star-swirl"
+  },
+  "goal": {
+   "dream": "gi-night-sleep",
+   "passion": "gi-fire",
+   "plan": "gi-checklist"
+  },
+  "role": {
+   "kin": "gi-family-tree",
+   "love": "gi-hearts",
+   "friend": "gi-high-five",
+   "work": "gi-briefcase",
+   "rival": "gi-angry-eyes",
+   "child": "gi-baby-bottle",
+   "other": "gi-person"
+  },
+  "meter": {
+   "content": "gi-sun",
+   "peace": "gi-lotus",
+   "strain": "gi-weight-crush",
+   "wanting": "gi-grab"
+  },
+  "setting": {
+   "earth": "gi-world",
+   "tribal": "gi-campfire",
+   "magic": "gi-crystal-ball"
+  },
+  "domain": {
+   "work": "gi-briefcase",
+   "family": "gi-family-tree",
+   "home": "gi-house",
+   "body": "gi-body-balance",
+   "health": "gi-heart-plus",
+   "school": "gi-school-bag",
+   "friends": "gi-high-five",
+   "leisure": "gi-beach-ball",
+   "money": "gi-two-coins",
+   "community": "gi-village",
+   "love": "gi-hearts",
+   "loss": "gi-tombstone",
+   "inner": "gi-mirror-mirror",
+   "children": "gi-baby-bottle",
+   "nature": "gi-oak-leaf",
+   "public life": "gi-vote",
+   "partner": "gi-linked-rings",
+   "play": "gi-kid-slide",
+   "conflict": "gi-fist",
+   "faith": "gi-prayer",
+   "era": "gi-sands-of-time",
+   "passion": "gi-fire",
+   "travel": "gi-backpack",
+   "mind": "gi-brain",
+   "study": "gi-graduate-cap"
+  },
+  "tier": {
+   "life event": "gi-star-swirl",
+   "everyday": "gi-coffee-cup",
+   "inner": "gi-mirror-mirror",
+   "read": "gi-newspaper"
+  },
+  "act": {
+   "commit:career": "gi-briefcase",
+   "commit:partner": "gi-linked-rings",
+   "commit:children": "gi-family-house",
+   "commit:community": "gi-village",
+   "commit:faith": "gi-prayer",
+   "pay:money": "gi-two-coins",
+   "win:money": "gi-two-coins",
+   "win:ties": "gi-shaking-hands",
+   "learned a skill": "gi-gear-hammer",
+   "made an enemy": "gi-angry-eyes",
+   "hid a wrong": "gi-locked-box",
+   "made a friend": "gi-high-five",
+   "helped someone in need": "gi-help",
+   "took a wild risk": "gi-rolling-dices",
+   "kept your word": "gi-contract",
+   "owned up": "gi-hand",
+   "moved away": "gi-cardboard-box",
+   "defied an authority": "gi-fist",
+   "turned down a chance": "gi-closed-doors",
+   "stayed home": "gi-house",
+   "left home": "gi-exit-door",
+   "broke your word": "gi-broken-tablet",
+   "refused someone in need": "gi-locked-door",
+   "gave in to pressure": "gi-puppet",
+   "came home": "gi-house-keys"
+  },
+  "color": {
+   "W": "gi-scales",
+   "U": "gi-open-book",
+   "B": "gi-crown",
+   "R": "gi-fire",
+   "G": "gi-oak-leaf"
+  },
+  "option": {
+   "a narrow escape": [
+    "gi-candle-light",
+    "gi-magnifying-glass",
+    "gi-cupcake",
+    "gi-mountain-climbing",
+    "gi-sun",
+    "gi-police-badge",
+    "gi-first-aid-kit",
+    "gi-scales",
+    "gi-megaphone",
+    "gi-meditation"
+   ],
+   "a long dark season": [
+    "gi-calendar",
+    "gi-notebook",
+    "gi-locked-door",
+    "gi-headphones",
+    "gi-bed",
+    "gi-stethoscope",
+    "gi-open-book",
+    "gi-scissors",
+    "gi-conversation",
+    "gi-family-house"
+   ],
+   "falling in love": [
+    "gi-linked-rings",
+    "gi-conversation",
+    "gi-wallet",
+    "gi-hearts",
+    "gi-seedling",
+    "gi-hourglass",
+    "gi-hot-meal",
+    "gi-trail",
+    "gi-domino-mask",
+    "gi-chained-heart"
+   ],
+   "a parent dies": [
+    "gi-candles",
+    "gi-think",
+    "gi-cracked-mask",
+    "gi-shouting",
+    "gi-plant-seed",
+    "gi-screaming",
+    "gi-open-chest",
+    "gi-notebook",
+    "gi-house-keys",
+    "gi-podium"
+   ]
+  }
+ },
+ "icons": {
+  "gi-alarm-clock": {
+   "name": "alarm-clock",
+   "author": "Delapouite"
+  },
+  "gi-angry-eyes": {
+   "name": "angry-eyes",
+   "author": "Delapouite"
+  },
+  "gi-baby-bottle": {
+   "name": "baby-bottle",
+   "author": "Delapouite"
+  },
+  "gi-baby-face": {
+   "name": "baby-face",
+   "author": "Delapouite"
+  },
+  "gi-backpack": {
+   "name": "backpack",
+   "author": "Delapouite"
+  },
+  "gi-beach-ball": {
+   "name": "beach-ball",
+   "author": "Delapouite"
+  },
+  "gi-bed": {
+   "name": "bed",
+   "author": "Delapouite"
+  },
+  "gi-body-balance": {
+   "name": "body-balance",
+   "author": "Delapouite"
+  },
+  "gi-brain": {
+   "name": "brain",
+   "author": "Lorc"
+  },
+  "gi-briefcase": {
+   "name": "briefcase",
+   "author": "Delapouite"
+  },
+  "gi-broken-heart": {
+   "name": "broken-heart",
+   "author": "Lorc"
+  },
+  "gi-broken-tablet": {
+   "name": "broken-tablet",
+   "author": "Lorc"
+  },
+  "gi-broken-wall": {
+   "name": "broken-wall",
+   "author": "Delapouite"
+  },
+  "gi-calendar": {
+   "name": "calendar",
+   "author": "Delapouite"
+  },
+  "gi-campfire": {
+   "name": "campfire",
+   "author": "Lorc"
+  },
+  "gi-candle-light": {
+   "name": "candle-light",
+   "author": "Lorc"
+  },
+  "gi-candles": {
+   "name": "candles",
+   "author": "Delapouite"
+  },
+  "gi-cardboard-box": {
+   "name": "cardboard-box",
+   "author": "Delapouite"
+  },
+  "gi-chained-heart": {
+   "name": "chained-heart",
+   "author": "Lorc"
+  },
+  "gi-checked-shield": {
+   "name": "checked-shield",
+   "author": "Lorc"
+  },
+  "gi-checklist": {
+   "name": "checklist",
+   "author": "Delapouite"
+  },
+  "gi-closed-doors": {
+   "name": "closed-doors",
+   "author": "Delapouite"
+  },
+  "gi-coffee-cup": {
+   "name": "coffee-cup",
+   "author": "Delapouite"
+  },
+  "gi-coins": {
+   "name": "coins",
+   "author": "Delapouite"
+  },
+  "gi-compass": {
+   "name": "compass",
+   "author": "Lorc"
+  },
+  "gi-contract": {
+   "name": "contract",
+   "author": "Delapouite"
+  },
+  "gi-conversation": {
+   "name": "conversation",
+   "author": "Lorc"
+  },
+  "gi-cracked-mask": {
+   "name": "cracked-mask",
+   "author": "Lorc"
+  },
+  "gi-crossed-swords": {
+   "name": "crossed-swords",
+   "author": "Lorc"
+  },
+  "gi-crown": {
+   "name": "crown",
+   "author": "Lorc"
+  },
+  "gi-crystal-ball": {
+   "name": "crystal-ball",
+   "author": "Lorc"
+  },
+  "gi-cupcake": {
+   "name": "cupcake",
+   "author": "Delapouite"
+  },
+  "gi-direction-signs": {
+   "name": "direction-signs",
+   "author": "Delapouite"
+  },
+  "gi-domino-mask": {
+   "name": "domino-mask",
+   "author": "Lorc"
+  },
+  "gi-drama-masks": {
+   "name": "drama-masks",
+   "author": "Lorc"
+  },
+  "gi-exit-door": {
+   "name": "exit-door",
+   "author": "Delapouite"
+  },
+  "gi-family-house": {
+   "name": "family-house",
+   "author": "Delapouite"
+  },
+  "gi-family-tree": {
+   "name": "family-tree",
+   "author": "Delapouite"
+  },
+  "gi-feather": {
+   "name": "feather",
+   "author": "Lorc"
+  },
+  "gi-fire": {
+   "name": "fire",
+   "author": "Sbed"
+  },
+  "gi-first-aid-kit": {
+   "name": "first-aid-kit",
+   "author": "Delapouite"
+  },
+  "gi-fist": {
+   "name": "fist",
+   "author": "Skoll"
+  },
+  "gi-gear-hammer": {
+   "name": "gear-hammer",
+   "author": "Lorc"
+  },
+  "gi-grab": {
+   "name": "grab",
+   "author": "Lorc"
+  },
+  "gi-graduate-cap": {
+   "name": "graduate-cap",
+   "author": "Delapouite"
+  },
+  "gi-grave-flowers": {
+   "name": "grave-flowers",
+   "author": "Delapouite"
+  },
+  "gi-hand": {
+   "name": "hand",
+   "author": "Lorc"
+  },
+  "gi-headphones": {
+   "name": "headphones",
+   "author": "Delapouite"
+  },
+  "gi-heart-beats": {
+   "name": "heart-beats",
+   "author": "Delapouite"
+  },
+  "gi-heart-plus": {
+   "name": "heart-plus",
+   "author": "Zeromancer"
+  },
+  "gi-hearts": {
+   "name": "hearts",
+   "author": "Skoll"
+  },
+  "gi-help": {
+   "name": "help",
+   "author": "Sbed"
+  },
+  "gi-high-five": {
+   "name": "high-five",
+   "author": "Lorc"
+  },
+  "gi-horseshoe": {
+   "name": "horseshoe",
+   "author": "Delapouite"
+  },
+  "gi-hot-meal": {
+   "name": "hot-meal",
+   "author": "Delapouite"
+  },
+  "gi-hourglass": {
+   "name": "hourglass",
+   "author": "Lorc"
+  },
+  "gi-house": {
+   "name": "house",
+   "author": "Delapouite"
+  },
+  "gi-house-keys": {
+   "name": "house-keys",
+   "author": "Delapouite"
+  },
+  "gi-kid-slide": {
+   "name": "kid-slide",
+   "author": "Delapouite"
+  },
+  "gi-lightning-storm": {
+   "name": "lightning-storm",
+   "author": "Lorc"
+  },
+  "gi-linked-rings": {
+   "name": "linked-rings",
+   "author": "Lorc"
+  },
+  "gi-locked-box": {
+   "name": "locked-box",
+   "author": "Delapouite"
+  },
+  "gi-locked-door": {
+   "name": "locked-door",
+   "author": "Delapouite"
+  },
+  "gi-lotus": {
+   "name": "lotus",
+   "author": "Lorc"
+  },
+  "gi-magnifying-glass": {
+   "name": "magnifying-glass",
+   "author": "Lorc"
+  },
+  "gi-meditation": {
+   "name": "meditation",
+   "author": "Lorc"
+  },
+  "gi-megaphone": {
+   "name": "megaphone",
+   "author": "Delapouite"
+  },
+  "gi-mirror-mirror": {
+   "name": "mirror-mirror",
+   "author": "Lorc"
+  },
+  "gi-mountain-climbing": {
+   "name": "mountain-climbing",
+   "author": "Caro Asercion"
+  },
+  "gi-newspaper": {
+   "name": "newspaper",
+   "author": "Delapouite"
+  },
+  "gi-night-sleep": {
+   "name": "night-sleep",
+   "author": "Delapouite"
+  },
+  "gi-notebook": {
+   "name": "notebook",
+   "author": "Delapouite"
+  },
+  "gi-oak-leaf": {
+   "name": "oak-leaf",
+   "author": "Delapouite"
+  },
+  "gi-open-book": {
+   "name": "open-book",
+   "author": "Lorc"
+  },
+  "gi-open-chest": {
+   "name": "open-chest",
+   "author": "Skoll"
+  },
+  "gi-person": {
+   "name": "person",
+   "author": "Delapouite"
+  },
+  "gi-plant-seed": {
+   "name": "plant-seed",
+   "author": "Delapouite"
+  },
+  "gi-podium": {
+   "name": "podium",
+   "author": "Delapouite"
+  },
+  "gi-police-badge": {
+   "name": "police-badge",
+   "author": "Andy Meneely"
+  },
+  "gi-prayer": {
+   "name": "prayer",
+   "author": "Lorc"
+  },
+  "gi-psychic-waves": {
+   "name": "psychic-waves",
+   "author": "Lorc"
+  },
+  "gi-puppet": {
+   "name": "puppet",
+   "author": "Lorc"
+  },
+  "gi-raining": {
+   "name": "raining",
+   "author": "Lorc"
+  },
+  "gi-return-arrow": {
+   "name": "return-arrow",
+   "author": "Lorc"
+  },
+  "gi-rolling-dices": {
+   "name": "rolling-dices",
+   "author": "Delapouite"
+  },
+  "gi-sands-of-time": {
+   "name": "sands-of-time",
+   "author": "Lorc"
+  },
+  "gi-scales": {
+   "name": "scales",
+   "author": "Lorc"
+  },
+  "gi-school-bag": {
+   "name": "school-bag",
+   "author": "Delapouite"
+  },
+  "gi-scissors": {
+   "name": "scissors",
+   "author": "Lorc"
+  },
+  "gi-screaming": {
+   "name": "screaming",
+   "author": "Lorc"
+  },
+  "gi-seedling": {
+   "name": "seedling",
+   "author": "Delapouite"
+  },
+  "gi-shaking-hands": {
+   "name": "shaking-hands",
+   "author": "Delapouite"
+  },
+  "gi-shouting": {
+   "name": "shouting",
+   "author": "Lorc"
+  },
+  "gi-stairs-goal": {
+   "name": "stairs-goal",
+   "author": "Delapouite"
+  },
+  "gi-star-swirl": {
+   "name": "star-swirl",
+   "author": "Lorc"
+  },
+  "gi-stethoscope": {
+   "name": "stethoscope",
+   "author": "Delapouite"
+  },
+  "gi-stone-wall": {
+   "name": "stone-wall",
+   "author": "Delapouite"
+  },
+  "gi-sun": {
+   "name": "sun",
+   "author": "Lorc"
+  },
+  "gi-think": {
+   "name": "think",
+   "author": "Delapouite"
+  },
+  "gi-tombstone": {
+   "name": "tombstone",
+   "author": "Lorc"
+  },
+  "gi-trail": {
+   "name": "trail",
+   "author": "Delapouite"
+  },
+  "gi-two-coins": {
+   "name": "two-coins",
+   "author": "Delapouite"
+  },
+  "gi-village": {
+   "name": "village",
+   "author": "Delapouite"
+  },
+  "gi-vote": {
+   "name": "vote",
+   "author": "Delapouite"
+  },
+  "gi-wallet": {
+   "name": "wallet",
+   "author": "Delapouite"
+  },
+  "gi-weight-crush": {
+   "name": "weight-crush",
+   "author": "Sbed"
+  },
+  "gi-world": {
+   "name": "world",
+   "author": "Lorc"
+  }
+ }
+}
