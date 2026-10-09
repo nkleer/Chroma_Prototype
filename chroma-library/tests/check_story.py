@@ -321,6 +321,11 @@ need_keys("SONG.cause_death", S["cause_death"], ["parent", "sibling", "friend", 
 need_keys("SONG.drift", S["drift"], ["big", "mid", "small"])
 per_color("SONG.rise", S["rise"], ["first", "again"])
 per_color("SONG.fall", S["fall"], ["first", "again"])
+for key in ("rise", "fall"):    # "again" is a list the game takes in turn, so a song does not repeat a clause
+    for c, d in S[key].items():
+        ag = d.get("again")
+        if not (isinstance(ag, list) and len(ag) >= 3 and len(set(ag)) == len(ag)):
+            fail("1 coverage", f"SONG.{key}.{c}.again: wanted a list of 3 or more different clauses")
 per_color("SONG.rare_moment", S["rare_moment"])
 need_keys("SONG.deeds_reach", S["deeds_reach"], ["own", "other"])
 need_keys("SONG.deeds_won", S["deeds_won"], ["often", "half", "seldom"])
