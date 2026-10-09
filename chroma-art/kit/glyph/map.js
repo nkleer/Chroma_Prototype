@@ -55,6 +55,8 @@ const MAP = {
   },
   lever: { exit: 'door-open', voice: 'megaphone', loyalty: 'anchor', neglect: 'shrug', subvert: 'domino-mask' },
   panel: { world: 'globe', push: 'crowd' },
+  // the shadow states, by the state word a colour's shadow shows (item 2 of the implementation list, chroma-ideas/shadows-mechanics.md)
+  shadow: { rigid: 'shadow-rigid', indecisive: 'shadow-indecisive', ruthless: 'shadow-ruthless', reckless: 'shadow-reckless', stuck: 'shadow-stuck' },
   // every option of the live Library (2026-10-06: earth, science, politics, stage; situations and echoes): moment name -> one glyph per option, in option order
   option: require('./option_map.json'),
 };

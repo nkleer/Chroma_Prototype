@@ -71,6 +71,8 @@ for grp, v in ink['map'].items():
     for key, x in v.items():
         for i in (x if isinstance(x, list) else [x]):
             if i not in symbols: fail(f'ink-icons.json map.{grp} "{key}": {i} is not in ink-icons.svg')
+for key, i in ink.get('masks', {}).items():
+    if f'<mask id="{i}"' not in svg: fail(f'ink-icons.json masks "{key}": {i} is not a mask in ink-icons.svg')
 texts = json.load(open(os.path.join(GAME, 'ink-option-texts.json'), encoding='utf-8'))['option']
 opt = ink['map']['option']
 for s in moments:

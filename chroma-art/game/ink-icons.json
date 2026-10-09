@@ -1,5 +1,5 @@
 {
- "about": "Chroma's own icons, drawn by the visuals thread as woodcut glyphs (chroma-art/kit/glyph). Every icon is a <symbol id=\"ci-...\"> in ink-icons.svg, viewBox 0 0 48 48, fill only, coloured by currentColor. Some carve their details with a <mask> that sits in the same sprite's <defs>, so inline the whole sprite once in the page. No third-party art, so no credits are needed.",
+ "about": "Chroma's own icons, drawn by the visuals thread as woodcut glyphs (chroma-art/kit/glyph). Every icon is a <symbol id=\"ci-...\"> in ink-icons.svg, viewBox 0 0 48 48, fill only, coloured by currentColor. Some carve their details with a <mask> that sits in the same sprite's <defs>, so inline the whole sprite once in the page. No third-party art, so no credits are needed. masks names the hatch masks for the shadow band on the wheel (lines in the page's own units: fill the band with ink and set mask=\"url(#ci-hatch)\").",
  "credit": null,
  "fallback_order": {
   "picture": [
@@ -258,6 +258,13 @@
   "panel": {
    "world": "ci-globe",
    "push": "ci-crowd"
+  },
+  "shadow": {
+   "rigid": "ci-shadow-rigid",
+   "indecisive": "ci-shadow-indecisive",
+   "ruthless": "ci-shadow-ruthless",
+   "reckless": "ci-shadow-reckless",
+   "stuck": "ci-shadow-stuck"
   },
   "option": {
    "a performance review": [
@@ -10311,6 +10318,10 @@
    ]
   }
  },
+ "masks": {
+  "shadow_band": "ci-hatch",
+  "shadow_band_strong": "ci-crosshatch"
+ },
  "icons": {
   "ci-color-w": {
    "name": "color W"
@@ -11157,6 +11168,21 @@
   },
   "ci-phone-heart": {
    "name": "phone-heart"
+  },
+  "ci-shadow-rigid": {
+   "name": "shadow-rigid"
+  },
+  "ci-shadow-indecisive": {
+   "name": "shadow-indecisive"
+  },
+  "ci-shadow-ruthless": {
+   "name": "shadow-ruthless"
+  },
+  "ci-shadow-reckless": {
+   "name": "shadow-reckless"
+  },
+  "ci-shadow-stuck": {
+   "name": "shadow-stuck"
   }
  }
 }

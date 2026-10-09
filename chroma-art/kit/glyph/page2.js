@@ -2,8 +2,7 @@
 const fs = require('fs');
 const { path: shared } = require('../paths');
 const { MAP } = require('./map');
-const FILES = ['glyphs', 'glyphs_tags', 'glyphs_needs', 'glyphs_acts', 'glyphs_opts_a', 'glyphs_opts_b', 'glyphs_o1', 'glyphs_o2', 'glyphs_o3', 'glyphs_o4', 'glyphs_o5', 'glyphs_o6', 'glyphs_o7', 'glyphs_p1', 'glyphs_p2', 'glyphs_w42'];
-const ALL = FILES.flatMap((f) => require(`./${f}`).GLYPHS);
+const { GLYPHS: ALL } = require('./all');
 const byName = new Map(ALL.map((g) => [g.name, g]));
 const GI = JSON.parse(fs.readFileSync(shared('art_old_icons', 'icons.json'))).map;
 const giSvg = fs.readFileSync(shared('art_old_icons', 'icons.svg'), 'utf8');
