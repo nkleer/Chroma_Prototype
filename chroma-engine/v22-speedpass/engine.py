@@ -796,6 +796,17 @@ DEFAULT = dict(
                          # whether it works or not, by how much there was still to learn
     cu_ask_rate=0.01,    # C4 "the one people ask": grows weekly from 35 while Blue skill is high and Blue held, fades slowly
     cu_ask=0.004,        # C4: from 50 it meets belonging and meaning weekly, by how much they are asked
+    # each person's own colour-to-need table (P4; the Game's engine-needs-and-steering.md §1 and §4), behind nm_on=False:
+    # NMP starts as the shared table and moves with what feeds them, within a band, each colour's column kept at its total
+    nm_on=False,
+    nm_lr_moment=0.01,   # an act that worked feeds what was lacking: its colours' cells for the needs that lacked most grow
+    nm_lr_habit=0.0005,  # the colours one keeps using while a need lacks are slowly tied to it
+    nm_lr_goal=0.0005,   # a held dream, passion or plan ties its colours to its domain's needs, by its strength
+    nm_band=(0.5, 2.0),  # each cell stays within this band of the shared value
+    nm_back=10.0,        # years for the table to drift halfway back to the shared one, unless kept up
+    ev_need_k=0.0,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
+    ev_state_k=0.0,      # at peace and content, a bad event adds less stress; strained, more
+    ev_reach_k=0.0,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
     thr_vec=None,        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
                          # (anxiety-based minus growth values, AXSEC_SW), not on Magic's security axis, which counted Blue as
                          # fully security. None: Magic's axis (v10-v22); or a 5-vector
@@ -862,7 +873,8 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
 UPD_OFF = dict(dis_match=False, drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
-               hz_self=0.0, hz_want=0.03, domains=False, curious=False)
+               hz_self=0.0, hz_want=0.03, domains=False, curious=False, nm_on=False, ev_need_k=0.0, ev_state_k=0.0,
+               ev_reach_k=0.0)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1076,6 +1088,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
     SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
+    NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
+    NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
     CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
     NA_OUT = len(ADJECTIVES) if SHON else ADJ_BASE   # the adjectives the outputs carry
     DOM_ON = bool(P["domains"]); NA_D = len(AREAS)
@@ -2621,7 +2635,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
-        serves = np.einsum("jc,nkc->nkj", NMAP, np.maximum(e, 0))            # needs each option meets
+        serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
+            np.einsum("jc,nkc->nkj", NMAP, np.maximum(e, 0))            # needs each option meets
         relief = np.einsum("nj,nkj->nk", lack, serves) * p_hat
         # gate 1, the world: is the option open to this person at all?
         acc = _uclip(P["access_base"] + P["access_k"] * (np.einsum("nkc,nc->nk", m, nic) - 0.2), 0.05, 1.0)
@@ -2987,10 +3002,27 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # needs: drain weekly; your niche supplies some; successful acts meet the needs
         # their ends serve; acting against a value's ends drains the needs it meets. Only the act's own ends
         # drain needs: a world that frames colors as opposed adds inner tension (peace), not deprivation (v4)
-        need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
-        room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
-        need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
-        need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
+        if NM_ON:   # P4: through each person's own table
+            need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * np.einsum("njc,nc->nj", NMP, nic)
+            room = (1 - need) if P["satiate"] else 1.0
+            need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.einsum("njc,nc->nj", NMP, np.maximum(ea, 0)), 0) * act_ * room
+            need += 0.06 * np.einsum("njc,nc->nj", NMP, np.minimum(ea0, 0)) * act_
+            # the table moves (§1): an act that worked feeds what lacked most, through its colours (one that failed, the
+            # reverse, at half); habit ties the colours used to what lacks; held goals tie theirs to their domain's needs
+            ep_ = np.maximum(ea, 0); sg_ = np.where(succ, 1.0, -0.5) * stakes * (~idle)
+            dNM = P["nm_lr_moment"] * sg_[:, None, None] * (lack - lack.mean(1, keepdims=True))[:, :, None] * ep_[:, None, :]
+            dNM += P["nm_lr_habit"] * lack[:, :, None] * (ma - 0.2)[:, None, :] * act_[:, :, None]
+            gw_ = gs * (gd >= 0)
+            if gw_.any():
+                dNM += P["nm_lr_goal"] * np.einsum("ng,ngj,ngc->njc", gw_, KPAY[np.maximum(gd, 0)], gm - 0.2)
+            NMP = NMP + dNM * (NMAP > 0)[None] + (NMAP[None] - NMP) * (np.log(2) / (52 * P["nm_back"]))
+            NMP = np.clip(NMP, NM_LO[None], NM_HI[None])
+            NMP = NMP * (NM_TOT / np.maximum(NMP.sum(1), 1e-9))[:, None, :]     # each colour's column keeps its total
+        else:
+            need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
+            room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
+            need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
+            need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
         if P["disc_win"]:   # v7 discipline: a hard thing done on purpose (the act the person meant, against the odds), most
             hw_ = tried & succ & (p_true < 0.4)          # formative in childhood as temperament is; slowly drifts back to even
             dsc[hw_] += P["disc_win"] * TST[stage[hw_]] / TST[2] * (P["disc_range"][1] - dsc[hw_])
@@ -3477,6 +3509,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     rd_ = (pr_.cumsum(1) > rng.random((len(ii_), 1))).argmax(1)
                     imp_ = e_["impact"][rd_]
                     an_ = np.array([e_["also"][r_][0] for r_ in rd_]); ar_ = np.array([e_["also"][r_][1] for r_ in rd_])
+                    thr_ = np.maximum(-np.asarray(e_["base_need"], float), 0)   # P4 §4: the needs it threatens
+                    ev_by_ = (P["ev_need_k"] or P["ev_state_k"] or P["ev_reach_k"]) and thr_.sum() > 0
+                    if ev_by_:
+                        thr_ = thr_ / thr_.sum()
+                        calm_ = _uclip(peace[ii_] + content[ii_] - 0.5, 0, 1)   # at peace and content: 1; strained: 0
+                        if P["ev_need_k"]:   # it lands harder on a need already lacking
+                            imp_ = imp_ * _uclip(1 + P["ev_need_k"] * (lack[ii_] @ thr_ - 0.3), 0.5, 2.0)
                     need[ii_] += P["read_k"] * imp_[:, None] * e_["base_need"][None] + an_
                     r0_ = res[ii_].copy() if WFX_ON and j_ in DIS_J_ else None
                     res[ii_] = _uclip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
@@ -3489,9 +3528,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     if good_:
                         mood[ii_] += 0.1 * imp_
                     else:
-                        stress[ii_] += 0.3 * imp_; mood[ii_] -= 0.1 * imp_
+                        stress[ii_] += 0.3 * imp_ * ((1 + P["ev_state_k"] * (1 - 2 * calm_)) if ev_by_ and P["ev_state_k"] else 1.0)
+                        mood[ii_] -= 0.1 * imp_
                     msg_ = np.eye(C)[e_["want"][rd_]]
                     take_in(ii_, msg_, P["read_want"] * imp_, 7)
+                    if ev_by_ and P["ev_reach_k"] and not good_:   # they reach for what their own table ties to safety
+                        tb_ = NMP[ii_] if NM_ON else np.repeat(NMAP[None], len(ii_), 0)   # (strained) or belonging (calm)
+                        rch_ = (1 - calm_)[:, None] * tb_[:, NIDX["safety"]] + calm_[:, None] * tb_[:, NIDX["belonging"]]
+                        take_in(ii_, rch_ / np.maximum(rch_.sum(1, keepdims=True), 1e-9), P["ev_reach_k"] * imp_, 7)
                     for q_, n in enumerate(ii_):
                         read_log.append((int(n), t, int(j_), int(rd_[q_])))
                         if n in events:
@@ -3524,7 +3568,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             fa = _uclip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)[:, None]
             nimp += P["flex_rate"] * fa * ((1 - P["flex_depth"] * lack_raw) - nimp) + P["flex_rate"] * 0.2 * (1 - nimp)
         lack = nimp * lack_raw + P["duty_w"] * P["duty_asp"] * np.minimum(1, (held * I) @ DUTY)
-        felt = lack @ NMAP                      # how much each color's ends could meet what is lacking
+        felt = np.einsum("nj,njc->nc", lack, NMP) if NM_ON else lack @ NMAP   # how much each color's ends could meet what is lacking
         dV = P["zeta"] * (w / w.max(1, keepdims=True)) * felt * (SE - P["eps0"])   # v2 direct channel (zeta=0 in v3)
         stress += 0.02 * (nimp * lack_raw).sum(1)
 
@@ -4083,6 +4127,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
+                **(dict(need_map=dict(person=NMP, shared=NMAP, needs=list(NEEDS))) if NM_ON else {}),
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
                 **(dict(areas=dict(names=AREAS, offsets=Dz, hist=D_hist,   # each area's colors are softmax(core z + offset)
@@ -4123,6 +4168,8 @@ STATE = (
     "shS", "shA", "sh_src", "sh_seen", "SHON",
     # a curious, thinking life (stage 2, item 7 C4): how much others come to them for answers, 0 to 1
     "asked", "CU_ON",
+    # each person's own colour-to-need table (stage 2, P4): needs x colours, from the shared table
+    "NMP", "NM_ON",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option
