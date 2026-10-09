@@ -2346,6 +2346,7 @@ function renderReview(h) {
   reviewEl.hidden = false;
   reviewEl.innerHTML = `<div class="mh" style="justify-content:center"><span class="kick">${ic("candle")} The end of a life</span></div>
     <p class="epi" data-i="review">${rich(r.epitaph)}</p>
+    ${r.story ? `<p class="lifep">${esc(r.story)}</p>` : ""}
     <div class="peace"><div class="kick">${ic("ci-scales")} The peace reading</div><p class="pw">${esc((r.reading || {}).words || "")}</p>${(r.long_shots || []).slice(0, 3).map((x) => `<p class="pls${x.made ? " made" : ""}">${ic("star")} ${esc(x.words)}</p>`).join("")}${(r.long_shots || []).length > 3 ? `<p class="pls muted">and ${r.long_shots.length - 3} more long shots</p>` : ""}</div>
     <div class="gauges">${gauge(r.fulfilment, "Satisfaction", "var(--sat)", "Their satisfaction, averaged over every week from 18 on.")}${gauge(r.serenity, "Peace", "var(--peace)", "Their peace, averaged over every week from 18 on.")}${gauge(r.integrity, "True to self", "var(--gold)", "1 minus the average reluctance of the choices you pushed on them. Choices left to them count as fully their own.")}${r.gifts != null ? gauge(r.gifts, "Their gifts", "var(--want)", "At each moment, their skill in the ways the chosen act used, against their best skill; averaged over every choice.") : ""}</div>
     <div class="muted center pnote">How well they lived is satisfaction and peace. How much the life was their own is being true to themselves and using their gifts. It is a reading, not a score.</div>

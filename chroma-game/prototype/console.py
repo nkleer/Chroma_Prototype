@@ -742,7 +742,7 @@ class Console:
 
     def _review(self):
         r = self.g.review
-        L = ["", r["epitaph"], "", "== LIFE REVIEW ==",
+        L = ["", r["epitaph"], "", *([r["story"], ""] if r.get("story") else []), "== LIFE REVIEW ==",
              f"Fulfilment (satisfaction through adulthood): {r['fulfilment']:.2f}",
              f"Serenity (peace through adulthood):         {r['serenity']:.2f}",
              f"Integrity (lived by their own wants):       {r['integrity']:.2f}",
