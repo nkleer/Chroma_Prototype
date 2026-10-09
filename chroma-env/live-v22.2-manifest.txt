@@ -115,7 +115,7 @@ f9155120c09c823512cd9ab2b6c02467       1632  chroma-game/prototype/web/src/build
 f10d30f3c85733a06c4cab440c527cb8     646318  chroma-game/prototype/web/src/ink-option-texts.json
 3e5ff2d253b2e9a2cffbb59118cf40ad       3105  chroma-game/prototype/web/src/live_icons.py
 0728023f2d58869b55b033229f457560     144467  chroma-game/prototype/web/src/option-icons-live.json
-ada85367f1b48bebc5ea033ae7a8f051      16198  chroma-game/prototype/web/src/sprite.svg
+d397cf2e52f9ba509a2bd247619fe847      16198  chroma-game/prototype/web/src/sprite.svg
 b698d33e829e36aa4650497bdfb5d3d6        638  chroma-engine/v22-speedpass/MD5SUMS
 75a7ad61ceaa55b1eef49081524d6423       6139  chroma-engine/v22-speedpass/SPEEDPASS.md
 a32e314f926f61af29f4cf438651f983      51612  chroma-engine/v22-speedpass/batch.py

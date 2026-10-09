@@ -12,9 +12,12 @@ Versions, with their folders named in paths.py:
           live-v22.1-manifest.txt, recorded while v22.1 was live, so its game and engine paths are read at those folders
    v22    the older rollback: game_v22 (chroma-game/prototype-v22), engine_v22; live-v22-manifest.txt, read the same way
 The Library's compiled files, the packs and the pictures are shared; each version lists the ones it was built from.
+So a rollback's check shows a shared file as changed once a later version changed it (v22.1 and v22: three
+chroma-art/game ink files since v22.2); release/<version> holds that version's exact files.
 A manifest is written from the shared folder only after its files match the release branch (CONTRIBUTING.md).
 
-Every recorded file is checked at the path it was recorded under; the folders paths.py names decide only which files
+An .svg is recorded and compared without the C2PA stamp the shared folder adds to it. Every recorded file is checked
+at the path it was recorded under; the folders paths.py names decide only which files
 are listed as new. Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
 """
 import hashlib, os, re, sys
@@ -71,8 +74,34 @@ def md5(p):
     return h.hexdigest()
 
 
+# The shared folder stamps every .svg written to it with a C2PA provenance block (a new one each time, within seconds):
+# an xmlns:c2pa attribute and a <metadata><c2pa:manifest>...</c2pa:manifest></metadata> block. It is not content, so
+# an .svg is recorded and compared without it (Visuals found this on 10-09).
+C2PA = re.compile(rb"<metadata><c2pa:manifest>.*?</c2pa:manifest></metadata>", re.S)
+
+
+def plain(data):
+    return C2PA.sub(b"", data, count=1).replace(b' xmlns:c2pa="http://c2pa.org/manifest"', b"", 1)
+
+
+def hashes(p):
+    """The md5s a recorded file may match: its bytes, and for an .svg also its bytes without the C2PA stamp."""
+    h = md5(p)
+    if not p.endswith(".svg"):
+        return {h}
+    with open(p, "rb") as f:
+        return {h, hashlib.md5(plain(f.read())).hexdigest()}
+
+
+def record_md5(p):
+    if not p.endswith(".svg"):
+        return md5(p)
+    with open(p, "rb") as f:
+        return hashlib.md5(plain(f.read())).hexdigest()
+
+
 def write(dst, version):
-    rows = [f"{md5(p)}  {os.path.getsize(p):>9}  {os.path.relpath(p, ROOT)}" for p in listing(version)]
+    rows = [f"{record_md5(p)}  {os.path.getsize(p):>9}  {os.path.relpath(p, ROOT)}" for p in listing(version)]
     open(dst, "w").write("\n".join(rows) + "\n")
     print(version + ":", len(rows), "files,", round(sum(int(r.split()[1]) for r in rows) / 1e6, 1), "MB ->", dst)
     return 0
@@ -92,7 +121,7 @@ def check(src, version):
     # every recorded file is checked where it was recorded, even when paths.py's names no longer reach it (rarity_live
     # moved 10-08); the names only decide which files count as new
     have = [p for p in want if os.path.isfile(os.path.join(ROOT, p))]
-    changed = [p for p in have if md5(os.path.join(ROOT, p)) != want[p]]
+    changed = [p for p in have if want[p] not in hashes(os.path.join(ROOT, p))]
     missing = [p for p in want if p not in have]
     now = dict.fromkeys(os.path.relpath(p, ROOT) for p in listing(version))
     added = [p for p in now if p not in want]
