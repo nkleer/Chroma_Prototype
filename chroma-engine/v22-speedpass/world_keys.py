@@ -7,6 +7,7 @@ TIME_OF_YEAR = ["winter", "spring", "summer", "autumn"]
 HOLY_KEYS = ["feast", "fast", "pilgrimage", "mourning"]
 WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "mentor", "boss", "colleague", "partner", "ex",
              "prospect", "child", "dead", "teacher", "neighbour"]
+WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
@@ -32,6 +33,7 @@ LAW_STATES = ["legal", "restricted", "banned"]
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
 LEVERS = ["exit", "voice", "loyalty", "neglect", "subvert"]
+LEVERS += ["found", "fund", "lead", "office"]                # spheres (item 15): levers by standing (phase 4 gives them effects)
 DOMAINS = ["close", "group", "place", "institution", "state", "economy", "culture", "tech", "nature", "belief", "abroad"]
 RECORD_DOMAINS = DOMAINS + ["figure", "era"]          # the public record and history log also name these
 # titles (catalogue keywords)

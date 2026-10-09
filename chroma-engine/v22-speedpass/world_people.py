@@ -44,7 +44,8 @@ KN = [c_[0] for c_ in COMMITMENTS]
 CAR, PAR, KID, COM, FAI = (KN.index(k_) for k_ in ("career", "partner", "children", "community", "faith"))
 MON, TIM, HEA = (RESOURCES.index(r_) for r_ in ("money", "time", "health"))
 ENGINE_ROLES = ["parent", "sibling", "friend", "grandparent", "partner"]   # the engine's ROLES: the columns of alive
-ROLE = list(WHO_SLOTS) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"]
+_NW = WHO_SLOTS.index("keeper") if "keeper" in WHO_SLOTS else len(WHO_SLOTS)   # slots appended later go after the own
+ROLE = list(WHO_SLOTS[:_NW]) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"] + list(WHO_SLOTS[_NW:])
 R = {r_: i_ for i_, r_ in enumerate(ROLE)}
 BIT = {r_: 1 << i_ for i_, r_ in enumerate(ROLE)}
 GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPHERES.index(GROUP_SPHERE[k_]) for k_ in GROUP_KINDS])
@@ -2373,6 +2374,9 @@ class People:
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
         lv = LEVERS[lev]; ring = int(RING_OF[dom]); reach = float(self.dreach[n, dom])   # the domain's own reach
+        if lv not in P["backfire"]:   # the spheres' levers (found, fund, lead, office) act from phase 4 (item 15)
+            return dict(kind="push", n=int(n), t=int(t), lever=lv, domain=DOMAINS[dom], target=None, size="none",
+                        backfire=False)
         size = base * reach * q
         bfp = P["backfire"][lv]
         if lv == "voice":

@@ -1799,7 +1799,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
                   harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
-                  founding=NO_FOUND)   # C5: a movement founding in the person's place, with a free slot (not built yet)
+                  founding=NO_FOUND,   # C5: a movement founding in the person's place, with a free slot (not built yet)
+                  haunts=NO_FOUND)     # spheres phase 2: haunts built (the haunt choices); not yet
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):
