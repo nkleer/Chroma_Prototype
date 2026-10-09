@@ -68,7 +68,8 @@ ROLES_POLITICS = {
     # and 'the leadership falls vacant' after four years: about .095 a year) than hold it.
     # Emren 10-09 ("0.1% is not playable"; "Shorten the steps"): every summit in 1 life in 100 or more, so the ladder
     # above the seat opens: a seat is lost at half as many elections (.25), office about 1 member in 2 (.08 a year),
-    # leadership after 2 years in the seat (was 4) at .06 a year, government about 1 leader in 2 (.15 a year)
+    # leadership after 2 years in the seat (was 4) at .12 a year and held longer (replaced at .08 a year, was .15),
+    # government for most leaders who hold on (.3 a year, and only the leadership asked: it grants the fame itself)
     "minister": dict(refines="member of parliament",
                      req="has('member of parliament') & (yrs_has('member of parliament') >= 2)", rate=0.08,   # 10-09: .02 to .08
                      weight="ties", lose="yrs_has('minister') >= 1", lrate=0.3, lwhy="moved out at a reshuffle"),
@@ -76,12 +77,12 @@ ROLES_POLITICS = {
                          req="has('member of parliament') & (yrs_has('member of parliament') >= 2) & "   # 10-09: 4 to 2 years
                              "(was('minister') | has('a following in the party') | has('known across the country'))",
                          rungs=["minister", "a following in the party", "known across the country"],
-                         rate=0.06, weight="colors", grants=["known across the country"],   # 10-09: .02 to .06; round 4: as written, not
+                         rate=0.12, weight="colors", grants=["known across the country"],   # 10-09: .02 to .12; round 4: as written, not
                          # fitted (TARGET below), so about 1 member in 10 ever leads a party
-                         lose="yrs_has('party leader') >= 2", lrate=0.15, lwhy="replaced by the party"),
+                         lose="yrs_has('party leader') >= 2", lrate=0.08, lwhy="replaced by the party"),   # 10-09: .15 to .08
     "head of government": dict(refines="party leader",
-                               req="has('party leader') & has('known across the country')",
-                               rungs=["known across the country"], rate=0.15,   # 10-09: .05 to .15; round 4: about 1 leader in 3
+                               req="has('party leader')",   # 10-09: the leadership grants [known across the country] itself
+                               rate=0.3,   # 10-09: .05 to .3, most leaders who last a few years; round 4: about 1 leader in 3
                                grants=["a household name"], lose="yrs_has('head of government') >= 1", lrate=0.2,
                                lwhy="the government fell, or the term ran out"),
     # careers: side roads
