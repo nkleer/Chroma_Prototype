@@ -3452,9 +3452,9 @@ SONG_OWN = {
                         other="When the moment came, they reached most often for their {noun}, though it was not the color they wore longest."),
     "deeds_won": dict(often="And {gods} favoured them more often than not.", half="Half the time they won, and half the time they rose again.",
                       seldom="Often they failed, and every time they got up and went on."),
-    "deeds_pushed": "And {n} times {hand} was on them, and it pushed them toward {noun}",
+    "deeds_pushed": "And {n} times {hand} was on them, and it pushed them toward their {noun}",
     "deeds_pushed_end": dict(willing=", and they went willingly.", bore=", and they bore it.", against=", against their own heart."),
-    "deeds_once": "Once {hand} was on them, and it pushed them toward {noun}",
+    "deeds_once": "Once {hand} was on them, and it pushed them toward their {noun}",
     "deeds_free": "No god bent their will: every road they walked, they chose.",
     "shape": dict(       # the shape of their contentment over the adult years
         rise="Their life climbed like a road into the hills: the hardest years were the first, the best came late.",
@@ -3518,8 +3518,20 @@ def _cap(s):
 
 
 def _num(n, W):
-    """'three', and digits past the song's last number word."""
-    return W["numbers"][n] if 0 <= n < len(W["numbers"]) else str(n)
+    """'three'; past the song's last number word, the Library's "many" when it gives one (else digits)."""
+    if 0 <= n < len(W["numbers"]):
+        return W["numbers"][n]
+    return W.get("many") or ("many" if len(W["numbers"]) > 7 else str(n))
+
+
+def _again(entry, seen, key):
+    """A color's first or repeat line (flicker, rise, fall); the k-th repeat takes again[(k-1) % len] when the Library
+    gives a list (Library PR #29), the one line when it gives a string."""
+    k = seen.get(key, 0); seen[key] = k + 1
+    if not k:
+        return entry["first"]
+    a = entry["again"]
+    return a[(k - 1) % len(a)] if isinstance(a, (list, tuple)) else a
 
 
 def _song_colors(h):
@@ -3653,14 +3665,13 @@ def life_paragraph(name, h, review, setting):
     # the invocation: a life of many shapes takes Ovid's opening, a steadier one its lead color's, full or cut short
     V = [(W["open_many"].format(N=name, ep=ep, age=age, n=_num(n_shapes, W)) if n_shapes >= 4 else
           W["open"][lead]["full" if age >= OPEN_FULL else "short"].format(N=name, ep=ep, age=age)) + "."]
-    used = set()
+    used = {}
     for i, (kind, ls, a0, a1) in enumerate(eps):
         a0i, dur = int(a0), int(round(a1 - a0))
         if kind == "swing":
             both, flick = set(ls[0]) & set(ls[1]), set(ls[0]) ^ set(ls[1])
             fc = max(flick, key=lambda c: allw[COLORS.index(c)]) if flick else lead
-            img = W["flicker"][fc]["again" if fc in used else "first"]   # the same color flickering again
-            used.add(fc)
+            img = _again(W["flicker"][fc], used, "k" + fc)              # the same color flickering again
             winds = (W["winds_both"].format(adjs=adjs(both), nouns=_nouns(flick)) if both else
                      W["winds_apart"].format(a=adjs(ls[0]), b=adjs(ls[1])))
             cause, ck = _epic_cause(met, a0, share, say_of, W) if i else (None, None)
@@ -3684,9 +3695,7 @@ def life_paragraph(name, h, review, setting):
                 head = W["turn"][ck]["big" if size >= 0.25 else "small"].format(cause=cause, gods=W["gods"])
             else:
                 head = W["drift"]["big" if size >= 0.25 else "mid" if size >= 0.12 else "small"].format(Decade=_cap(_decade(a0i, W)))
-            parts = ([W["rise"][up]["again" if up in used else "first"]] if up else []) + \
-                    ([W["fall"][dn]["again" if "f" + dn in used else "first"]] if dn else [])
-            used |= {up} if up else set(); used |= {"f" + dn} if dn else set()
+            parts = ([_again(W["rise"][up], used, up)] if up else []) + ([_again(W["fall"][dn], used, "f" + dn)] if dn else [])
             s_ = head + (" " + _cap("; ".join(parts)) + "." if parts else "")
             if any(ls[0] in e[1] for e in eps[:i - 1]) and not harbour:
                 s_ += " " + W["home"]
