@@ -309,6 +309,8 @@ TARGET_POLITICS = {
     # parliament's own target is .0018 (Emren 14:41: "Keep odds higher than real, but not super unrealistically")
     "member of parliament": "summit", "minister": "summit",
     "mayor": "summit",
+    # Emren 10-09 (every summit in 1 life in 100 or more): [party leader] and [head of government] are fitted summits too
+    "party leader": "summit", "head of government": "summit",
     "campaign volunteer": "community", "polling-station volunteer": "community",
     # Round 5, 2026-10-07: [local party officer] at 5x its real share (.05), not the community 10x (.1). Only party
     # members can take the post (after= party member), and members are about .057 of lives in play, so .1 cannot be
