@@ -259,6 +259,10 @@ EXTRA = {
                     "chroma-library/earth_stage.py"],
     "rarity": [NAMES["rarity_live"][0]],
 }
+# A steered row whose lives are already in the run's cache reads only the driver and the cache, so its proof names the
+# game and its pinned engine too: a later run reuses its pass only when they are unchanged.
+for sid, _, _ in STEERED:
+    EXTRA[sid] = ["chroma-game/prototype/*.py", "chroma-game/prototype/engine_pin/*.py", "chroma-game/prototype/" + STEER]
 
 ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
 ap.add_argument("--level", default="quick", choices=("fast", "quick", "full"))

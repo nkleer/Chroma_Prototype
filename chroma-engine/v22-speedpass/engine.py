@@ -849,6 +849,17 @@ DEFAULT = dict(
     steer_k=1.0,         # drawn. It adds steer_k * (5 * m @ mix - 1) to each option's pull (1: a third of the values' pull)
     wfx_step=0.01,       # a world effect on a drifting quantity (money, freedom, safety) is reported once it moved this much
     dis_match=False,     # WL6: a disaster brings the outside events of its own hazard (a fire's, not a flood's); off: any
+    # the times as a steady current (item 12; world-in-life.md §6, living-world.md §1), behind cur_on=False: each month
+    # the colours of the world around them (people and groups, the places they are inside, the times) push a little, and
+    # the push takes over part of the random drift, so lives change for reasons. Target: about 10% (8 to 12) of colour
+    # movement, drift's share down by as much, 50-year stability toward .15 to .45
+    cur_on=False,
+    cur_k=0.35,          # the monthly push at full exposure (log-ratio units x plasticity): about 10% of colour movement, world on
+    cur_off=0.55,        # with the world off (tribal and magic settings), its size against cur_k (the niche and the era): about 9%
+    cur_mix=(0.5, 0.25, 0.25),   # the current's parts: close people, the places they are inside, the times (era and climate)
+    cur_age=(0.3, 1.0, 20.0, 7.0),   # exposure by age: base + peak x exp(-((age - at) / width)^2); most at 15 to 25, never zero
+    cur_mem=1.0,         # years over which what reaches them adds up (a new circle or job takes a while to tell)
+    cur_cut=0.55,        # the share of the random weekly noise the current takes over (stability rows stay in their ranges)
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -882,7 +893,7 @@ UPD_OFF = dict(dis_match=False,
                # each person's need table and events by need and state
                drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
                hz_self=0.0, hz_want=0.03, domains=False, curious=False, nm_on=False, ev_need_k=0.0, ev_state_k=0.0,
-               ev_reach_k=0.0,
+               ev_reach_k=0.0, cur_on=False,
                # stage 3, LW1 and LW2 (stage3-rules.md §8)
                cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
@@ -1102,6 +1113,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     plast = np.zeros(N); ctrl = np.zeros(N)
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
+    CUR_ON = bool(P["cur_on"]); cur_sum = np.zeros(N); cur_m = None   # item 12: the steady current, and how much it moved each life
     SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
     NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
     NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
@@ -1760,6 +1772,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
     HAD_IDX = {}
+    NO_FOUND = np.zeros(N, bool)   # C5 founding (earth_rules INNER "a following of your own"): built with C5
     def cond_ns(t, age, w):
         """The engine's condition vocabulary (batch.COND_VOCAB): one value per person."""
         def ys(x):
@@ -1782,7 +1795,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   fails13=fails13, hedon_n=hedon_n, bodyhab_n=bodyhab_n, n_moves=n_moves, heavy_risk=heavy_risk, bind_m=bind_m,
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
-                  harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t])
+                  harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
+                  founding=NO_FOUND)   # C5: a movement founding in the person's place, with a free slot (not built yet)
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):
@@ -2116,11 +2130,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if k_ < lw_.shape[0] and lw_[k_] >= 0:
                 u_ = float(wco_["ul"][n, k_])
                 if u_ > 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
                 elif wco_["lo"][n, k_] and wco_["closed0"][n, k_] == 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], -1.0, "allowed")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], -1.0, "allowed")
             if k_ < nm_.shape[0] and nm_[k_] >= 0 and wco_["ua"][n, k_] >= WFX_OPT[0]:
-                add(k_, "norm", WK_.NORM_KEYS[nm_[k_]], wco_["ua"][n, k_], "frowned on")
+                add(k_, "norm", WK_.NORM_KEYS_ALL[nm_[k_]], wco_["ua"][n, k_], "frowned on")
             if wco_.get("role") is not None and wco_["role"][n, k_] >= WFX_OPT[0]:
                 add(k_, "role", "role crossing", wco_["role"][n, k_], "frowned on")
             if k_ < te_.shape[0] and te_[k_] >= 0:
@@ -3941,6 +3955,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         noise = centre(rng.normal(0, P["noise"], (N, C)))
         if P["drift_k"] != 1.0:   # played lives: the game weighs the random drift
             noise = P["drift_k"] * noise
+        if CUR_ON:   # item 12: the current takes over part of the random drift
+            noise = (1 - P["cur_cut"]) * noise
         support =0.5 * (need[:, NIDX["belonging"]] + res[:, TIE])          # being cared for: belonging and ties
         if WON:   # and what the cast and the settings give in hard weeks
             support = support + np.asarray(WL.PP.support, float)
@@ -3964,6 +3980,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             hl_ = np.array([held[:, CAR] | (stage <= 2), np.ones(N, bool), np.ones(N, bool), held[:, FAI]]).T   # school is work
             Dz *= (1 - np.log(2) / (52 * np.where(hl_, P["dom_half"], P["dom_end_half"])))[:, :, None]
             Dz = np.clip(Dz - Dz.mean(2, keepdims=True), -P["dom_cap"], P["dom_cap"])
+        if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
+            if WON:
+                cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
+            else:   # no outer world: the niche stands for people and places (the circle's turnover is random)
+                cl_, st_ = nic, nic
+                wp_ = np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
+                tm_ = np.broadcast_to(tm_ / tm_.sum(), (N, C))
+            cm_ = P["cur_mix"]
+            cur_ = (cm_[0] * cl_ + cm_[1] * st_ + cm_[2] * tm_) / sum(cm_)
+            cur_m = cur_.copy() if cur_m is None else cur_m + (cur_ - cur_m) / (12 * P["cur_mem"])   # what has reached them lately
+            cur_ = cur_m
+            b0_, pk_, at_, wd_ = P["cur_age"]
+            cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
         z_new = centre(z + dz_ + drift)
         v = 0.7 * v + 0.3 * (z_new - z)
         if P["tw_pen"]:    # a big life event reaches the deep core directly, in proportion to how hard it hit
@@ -4142,6 +4172,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
+                **(dict(current=cur_sum) if CUR_ON else {}),
                 **(dict(need_map=dict(person=NMP, shared=NMAP, needs=list(NEEDS))) if NM_ON else {}),
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
@@ -4185,6 +4216,8 @@ STATE = (
     "asked", "CU_ON",
     # each person's own colour-to-need table (stage 2, P4): needs x colours, from the shared table
     "NMP", "NM_ON",
+    # the times as a steady current (item 12): how much it has moved each life's colours so far
+    "cur_sum", "cur_m", "CUR_ON",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option
