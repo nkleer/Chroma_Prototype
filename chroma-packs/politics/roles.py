@@ -54,7 +54,7 @@ ROLES_POLITICS = {
     "member of parliament": dict(req="has('parliamentary candidate') & has('parliamentary nomination')",
                                  after=["parliamentary candidate"], rungs=["parliamentary nomination"], rate=0.0005,
                                  starts=True, weight="colors",
-                                 lose=[("(yrs_has('member of parliament') >= 1) & chance(.5)",
+                                 lose=[("(yrs_has('member of parliament') >= 1) & chance(.25)",   # Emren 10-09: .5 to .25
                                         "lost the seat at an election"),
                                        ("(age >= 60) & (yrs_has('member of parliament') >= 10)", "stood down")],
                                  lrate=0.12, lend="lost job"),
@@ -66,19 +66,22 @@ ROLES_POLITICS = {
     # .13 a year here, so the call and this rule together (about .07 a year) make about 1 member in 4 to 1 in 3 a
     # minister, the real share. Rate .05 to .02, so the call carries the road and more members meet office (the call,
     # and 'the leadership falls vacant' after four years: about .095 a year) than hold it.
+    # Emren 10-09 ("0.1% is not playable"; "Shorten the steps"): every summit in 1 life in 100 or more, so the ladder
+    # above the seat opens: a seat is lost at half as many elections (.25), office about 1 member in 2 (.08 a year),
+    # leadership after 2 years in the seat (was 4) at .06 a year, government about 1 leader in 2 (.15 a year)
     "minister": dict(refines="member of parliament",
-                     req="has('member of parliament') & (yrs_has('member of parliament') >= 2)", rate=0.02,
+                     req="has('member of parliament') & (yrs_has('member of parliament') >= 2)", rate=0.08,   # 10-09: .02 to .08
                      weight="ties", lose="yrs_has('minister') >= 1", lrate=0.3, lwhy="moved out at a reshuffle"),
     "party leader": dict(refines="member of parliament",
-                         req="has('member of parliament') & (yrs_has('member of parliament') >= 4) & "
+                         req="has('member of parliament') & (yrs_has('member of parliament') >= 2) & "   # 10-09: 4 to 2 years
                              "(was('minister') | has('a following in the party') | has('known across the country'))",
                          rungs=["minister", "a following in the party", "known across the country"],
-                         rate=0.02, weight="colors", grants=["known across the country"],   # round 4: as written, not
+                         rate=0.06, weight="colors", grants=["known across the country"],   # 10-09: .02 to .06; round 4: as written, not
                          # fitted (TARGET below), so about 1 member in 10 ever leads a party
                          lose="yrs_has('party leader') >= 2", lrate=0.15, lwhy="replaced by the party"),
     "head of government": dict(refines="party leader",
                                req="has('party leader') & has('known across the country')",
-                               rungs=["known across the country"], rate=0.05,   # round 4: about 1 leader in 3
+                               rungs=["known across the country"], rate=0.15,   # 10-09: .05 to .15; round 4: about 1 leader in 3
                                grants=["a household name"], lose="yrs_has('head of government') >= 1", lrate=0.2,
                                lwhy="the government fell, or the term ran out"),
     # careers: side roads
