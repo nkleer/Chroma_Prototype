@@ -1450,7 +1450,11 @@ class Game:
                         names = {p_["id"]: who_word(byid.get(p_["id"], p_), p_["name"])
                                  for p_ in self.wv.circle(wd[2], names=self.cast_names(wd[2])) if p_["layer"] <= 3} if wd else {}
                         wl = self.wv.line(w_, names)
-                        if wl:
+                        if wl:                          # G2 (B package): the same world line is not told again within WORLD_AGAIN weeks
+                            told = self.__dict__.setdefault("_wline_t", {})
+                            if t - told.get((w_["kind"], wl[1]), -10 ** 6) < WORLD_AGAIN:
+                                continue
+                            told[(w_["kind"], wl[1])] = t
                             lvl = 0 if w_.get("big") or (w_.get("self") and w_["kind"] not in ("local_election", "crime_wave")) else \
                                 2 if w_["kind"] == "local_election" else 1     # a council vote is for the detailed story only
                             self._say(mk("O", f"{w_['kind']}|{wl[0]}|{int(bool(w_.get('big')))}", self.story.fill(wl[1])),
@@ -2393,6 +2397,7 @@ LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only title
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
+WORLD_AGAIN = 104        # G2 (B package): weeks before the same world line (kind and words) is told again
 
 NEED_HINT = ("{N}'s sense of {need} is running thin. Needs fade a little every week unless something feeds them: acts that "
              "work, the people and roles in their life, money, health and free time. A need that is lacking pulls satisfaction "

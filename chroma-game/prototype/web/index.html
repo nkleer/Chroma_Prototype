@@ -4035,6 +4035,9 @@ function openBook() {
   const deeds = [...new Set([...count(E_, ["d|"]), ...count(B_, ["d|"])])], titles = count(E_, ["t|"]);
   const ID_ = ((bookCat.earth || bookCat.base || {}).idents) || {}, idents = Object.entries(ID_).map(([l, v]) => [l, v[0]]);
   const met = (ks) => ks.filter(has).length;
+  // G3 (B package): one count of moments. The Book's count is the situations the story tells plus the life events, and
+  // says so, so it agrees with the situation count elsewhere (822 situations and 59 life events: 881 moments)
+  const momDef = (ks) => { const s_ = ks.filter((k) => k.startsWith("s|")).length; return `${bookDef.moments} Here: ${s_} situations and ${ks.length - s_} life events.`; };
   const stat = (n, of, label, def) => `<div class="bst" data-def="${esc(def || "")}"><b>${n}</b>${of != null ? `<span class="of">of ${of}</span>` : ""}<span class="bl">${label}</span></div>`;
   // rare moments met, rarest first
   const rare = Object.keys(S).filter((k) => /^[sed]\|/.test(k) && S[k].n).map((k) => [k, bookInfo(k)]).filter(([k, i]) => i && (k.startsWith("d|") ? STAR_DEEDS.has(k.slice(2)) : isRare(i.sh))).sort((a, b) => (a[1].sh ?? 1) - (b[1].sh ?? 1));
@@ -4062,7 +4065,7 @@ function openBook() {
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
     <div class="shh"><div class="bhd">${ic("ci-bookshelf")}<div><div class="shn">The Book of Moments</div><div class="muted">${lives.length ? `What ${lives.length === 1 ? "one life has" : lives.length + " lives have"} met, kept in this browser.` : "What your lives meet is kept here, in this browser."} It records; it does not rank.</div></div></div>
       <button class="ghost" id="bkClose" aria-label="Close">${ic("x")}</button></div>
-    ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", bookDef.moments)}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", bookDef.moments) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
+    ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
       <section><h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
