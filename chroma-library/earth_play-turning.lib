@@ -1,0 +1,38 @@
+# Chroma library, modern Earth: moments offered only in PLAYED lives (implementation list "v22", item 4, gameplay-feel.md 5.6).
+# Library thread, 2026-10-09. Compiled to earth_play.py ("python3 -B build.py earth_play"), never into earth.py: a moment in
+# earth.py would come to lives with no player too and change them. The game's played-life hook offers these moments; the
+# engine's own rates never bring them (rate: 0, so a batch that loads this file does not draw them either).
+# Syntax: header of build.py.
+
+# ---------------------------------------------------------------- the price of a push builds to a turning point
+
+== the day it all comes to a head
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: home, work, friends
+horizon: years
+rate: 0
+roles: friend, partner, parent
+earth: for a long time you have lived one way while something in you pulls another, and now it cannot go on
+requires: a played life only (the game's hook, never the engine's rates): the price of the player's pushes against the character's own pull (strain, pent-up wanting and stress from steered picks) has built past the game's line over a season or more
+likelier: many heavy pushes against them; pushes resented in hindsight; low trust in the voice; a shadow growing in the color pushed against
+rarer: pushes they came to own (accepted in hindsight); high trust in the voice; a life the player mostly leaves to them
+times: In played lives only, at most once or twice a life, when the steering has run against them for a long time (the game's hook)
+gap: 5-30
+scene: For a long time now {N} has been living one way while something deeper pulls another. Tonight, alone, {N} knows it cannot go on like this. One of them has to win.
+scene W: {N} has done what was asked for so long that {N} no longer knows which duties are their own. Something has to give, and it has to be decided now.
+scene U: {N} lies awake turning it over: which of these two lives is the real one? There is no more time to study it. {N} has to choose.
+scene B: {N} counts what this double life has cost, and the sum is too high. Tonight {N} decides which self gets the rest of it.
+scene R: It boils over. {N} is shaking with it, done with half measures and done with pretending.
+scene G: Like a tree grown crooked against a wall, {N} has bent as far as a person can bend. Now it either breaks, or it settles.
+- W | from now on, live by your duties and keep faith with those who count on you | identity | v: conformity, benevolence | act: settle for good on a life of duty and keeping faith | chance: 55
+- U | from now on, think things through and follow what you find to be true | identity | v: self-direction | act: settle for good on a life of thinking things through | chance: 55
+- B | from now on, put your own way first and make of your life what you choose | identity | v: achievement, power | act: settle for good on putting their own way first | chance: 55
+- R | from now on, follow your heart wherever it goes, whatever it costs | identity | v: stimulation, hedonism | act: settle for good on following their heart | chance: 55
+- G | from now on, accept who you are and stay rooted where you belong | identity | v: tradition, security | act: settle for good on staying rooted in who they are | chance: 55
+works: {N} wakes the next morning as someone who has decided, and the decision holds.
+works: It is not easy, but the two halves of {N} stop fighting. One of them has won.
+fails: {N} decides, and within weeks the old pull is back as strong as ever.
+fails: The resolve breaks on the first hard day, and {N} is pulled two ways again.
