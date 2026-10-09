@@ -2,6 +2,82 @@
 
 Open ideas for the game thread, newest first. Each says what is wrong, why it matters and what could be done.
 
+## The inner voice: how the character comes to know the player (Emren, 2026-10-09)
+
+**Goal.** Make the player-character relationship richer without making the character depend on the player. The
+character lives their own life first. Only over time may they notice that the voice inside them can be talked to,
+negotiated with, and leaned on, or argued with and ignored.
+
+### Discovering the voice
+
+The character does not start out knowing the player is there.
+- **At first** the player's steers feel like the character's own hunches. Nothing talks back, and the character does
+  not ask for anything.
+- **Over time** the character may notice the voice. A hidden awareness grows with age and with how the player's steers
+  turned out (see "Color inertia and trust" below), and stages unlock in order:
+  1. **Noticing:** the story marks it once ("*That wasn't quite my own thought.*").
+  2. **Asking for help:** at hard moments, when the heart and head disagree or the odds are poor, the character may
+     turn to the voice. A steer they asked for costs less and builds trust. What they ask for follows their colors:
+     Blue asks for information, White for guidance, Red for permission, Black only when cornered, Green when the world
+     feels too big.
+  3. **Negotiating:** when the player steers strongly, the character can answer with a counter-offer, an option that
+     mixes the player's color with theirs ("*I'll take the job, but not in another city.*").
+  4. **Opening up:** parts of the inner life stay hidden from the player until trust grows (secret dreams, fears,
+     something they hide from the world; the engine already models hiding and coming out). The character sheet fills
+     in as they open up.
+- **It can go the other way.** A character the voice has hurt may stop listening, argue back, or refuse light steers.
+  Some characters never discover the voice at all.
+
+### Inner support
+
+Actions on how the character feels, not on which option they take. Cheaper than a steer, and they never cause a
+rebellion. Each acts on a value the engine already has:
+
+| Action | What it does | Engine value |
+|---|---|---|
+| Encourage | raises belief in a color before a hard try | belief per color (`SE`) |
+| Calm | lowers strain after a blow | `stress` |
+| Remind | brings back a dream or value they are drifting from | goal strength (dreams, passions, plans) |
+| Tell the truth | moves felt odds toward the real odds when hope or gloom distorts them | `outlook` and the felt odds |
+| Stay with them | the player watches a grief or crisis instead of skipping it | `support` (being cared for) |
+
+How it could work:
+- **Small and temporary.** Each action is a nudge that fades back over weeks, unless the character's own life
+  confirms it (encouragement before a try that succeeds sticks, because success raises belief anyway).
+- **Received according to who they are.** The effect is scaled by awareness and trust, and by color: Blue takes the
+  truth, Red takes encouragement and company, White takes reminders of duty, Black accepts little that is not useful,
+  Green takes calm. Before the character notices the voice, support works only weakly, as a passing feeling.
+- **A limited budget.** A few actions per year, so the player chooses when it matters.
+- **No dependence.** Leaning on the voice too often slows the character's own coping: their discipline and steadiness
+  grow less than they would have. A character who was supported well but sparingly ends up stronger than one who was
+  carried.
+
+### Who the player is to them
+
+How the character understands the voice depends on the setting and on who they are:
+- Modern Earth: intuition, an inner voice, a conscience.
+- Tribal world: a spirit, an ancestor.
+- World of magic: a patron, a familiar.
+
+That understanding changes how they respond. A believer may obey a spirit; a sceptic may distrust a voice; a Blue
+character may want to understand it; a Black one may try to use it. Their faith and colors decide which reading they
+take, and it can change over the life.
+
+### A last conversation
+
+At the end of a life, the character speaks to the voice: what it gave them, what it cost them, and whether they were
+glad of it. The words come from the relationship as it ended (awareness, trust per color, the steers they came to
+accept or resented) and become part of the end-of-life reading. A character who never noticed the voice has no
+conversation; the reading says so in a line.
+
+### Not taken for now
+
+- The character knowing things the player does not (how others really feel, rumors). Not now.
+- Promises between player and character, shared memories of past steers, and making amends. Not in that form.
+- Life stages that make the player a parent in childhood: it would make the character depend on the player early.
+
+Related: "Character, player and outer world" and "Player intervention that helps" below.
+
 ## Character, player and outer world: three forces that shape a life (Emren, 2026-10-09)
 
 **Goal.** Make choices matter and give the game more variety by letting three elements act on each other:
