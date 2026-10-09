@@ -1313,7 +1313,7 @@ function waitingCard() {
 const ACC_CLS = { "would go with it": "a0", "okay with it": "a1", reluctant: "a2", "against it": "a3", "their own pick": "own" };
 const ACC_WORD = { "would go with it": "Would go with it", "okay with it": "Okay with it", reluctant: "Reluctant", "against it": "Against it", "their own pick": "Their own pick" };
 const ACC_HELP = { "would go with it": "What they lean to, or close to it: pushed here, it costs them nothing.", "okay with it": "Not their first wish, but they are not against it: pushed here, it costs them nothing.",
-  reluctant: "They would rather not: its colors lean against theirs, or they would rather do nothing. Weaker effort, some strain, and a wanting they swallow.", "against it": "It belongs to the colors opposed to who they are and who they want to be (as this world sees colors): half-hearted effort, strain, and pent-up wanting that can break through later.",
+  reluctant: "They would rather not: its colors lean against theirs, or they would rather do nothing. Weaker effort, some strain, and a wanting they swallow.", "against it": "It goes against who they are and who they want to be: half-hearted effort, strain, and pent-up wanting that can break through later.",
   "their own pick": "What they lean toward right now. Letting them choose costs nothing." };
 const PLATE = { W: "#a88d3c", U: "#2c69b0", B: "#4a3a5e", R: "#b44627", G: "#2d7a46" };
 const LIFE_ICON = [[/loss|grief|death/, "candle"], [/love|partner/, "heart"], [/child/, "child"], [/family|home/, "home"], [/work|money|career/, "case"],
@@ -1430,8 +1430,9 @@ function hhBars(o) {
 }
 function tipOption(o, name, num) {
   const f = o.follows || {}, rows = [], acc = o.own ? "their own pick" : o.accept || "okay with it";
-  const enemy = acc === "against it" && o.clash && o.clash.length ? `<br><span class="down">${o.clash.map((c) => pip(c) + " " + CNAME[c]).join(" and ")} ${o.clash.length > 1 ? "are enemies" : "is an enemy"} of who they are</span>` : "";
-  rows.push(["How they feel", `<b>${ACC_WORD[acc]}</b>` + (o.status === "didn't think of it" ? " (they hadn't thought of it)" : "") + enemy]);
+  // no colour or pair is called an enemy (implementation list item 5, chroma-philosophy/enemy-pairs.md): the option goes against who they are
+  const against = acc === "against it" && o.clash && o.clash.length ? `<br><span class="down">${o.clash.map((c) => pip(c)).join("")} This goes against who they are</span>` : "";
+  rows.push(["How they feel", `<b>${ACC_WORD[acc]}</b>` + (o.status === "didn't think of it" ? " (they hadn't thought of it)" : "") + against]);
   if (o.lever) rows.push(["A push on the world", `${ic(o.lever.icon)} ${esc(o.lever.name)}: ${esc(o.lever.what)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}`]);
   if (o.means.length) {
     rows.push(["Feels", `${fpct(o.felt)} likely to work`]);
@@ -1456,6 +1457,11 @@ function tipOption(o, name, num) {
   return tipBox(`<span class="num">${num || o.n}</span> ${esc(cap(o.label))}`, "", rows, esc(ACC_HELP[acc]));
 }
 let lastArt = null, lastCpKey = "", CPNUM = new Map();
+// G1 (B package): "Out of reach, but you could force it" folds into one row until opened; the choice is kept in this
+// browser. Folded cards are not drawn at all, so nothing hidden can be hovered, clicked or measured. openOOR(num) opens
+// the fold and focuses that card: a number key on a folded card shows it first, and the same key again pushes.
+let oorOpen = false; try { oorOpen = localStorage.getItem("chroma.oorOpen") === "1"; } catch (_) {}
+let openOOR = null;
 function evHead(kick, title, right) { return `<div class="evh"><span class="kick">${kick}</span><h2 id="evTitle">${title}</h2>${right || ""}</div>`; }
 function renderTable(h) {
   const cp = h && h.cp, L = h && h.life;
@@ -1485,13 +1491,19 @@ function renderTable(h) {
   const parts = groups.map(([st, title]) => {
     const xs = idx.filter(([o]) => o.status === st && o.means.length).sort((a, b) => a[0].n - b[0].n);
     xs.forEach(([o]) => order.push(o));
-    return [title, xs];
+    return [title, xs, st];
   });
   const passes = idx.filter(([o]) => !o.means.length);
   passes.forEach(([o]) => order.push(o));
   CPNUM = new Map(order.map((o, k) => [k + 1, o]));
   const numOf = (o) => order.indexOf(o) + 1;
-  const rows = parts.map(([title, xs]) => xs.length ? (title ? `<div class="ask sub">${title}</div>` : "") + `<div class="ogrid">${xs.map(([o, i]) => optRow(o, i, numOf(o))).join("")}</div>` : "").join("")
+  const cards = (xs) => xs.map(([o, i]) => optRow(o, i, numOf(o))).join("");
+  const oorXs = (parts.find((p) => p[2] === "out of reach") || [0, []])[1];
+  const nums = (xs) => { const a = numOf(xs[0][0]), b = numOf(xs[xs.length - 1][0]); return a === b ? `key ${a}` : `keys ${a}–${b}`; };
+  const rows = parts.map(([title, xs, st]) => !xs.length ? "" : st === "out of reach"
+      ? `<button type="button" class="ask sub oorfold" id="evOOR" aria-expanded="${oorOpen}" aria-controls="evOORg">${ic("lock")} ${title} <small>${xs.length} ${xs.length > 1 ? "options" : "option"} · ${nums(xs)}</small><span class="chev" aria-hidden="true">▸</span></button>`
+        + `<div class="ogrid oorg" id="evOORg">${oorOpen ? cards(xs) : ""}</div>`
+      : (title ? `<div class="ask sub">${title}</div>` : "") + `<div class="ogrid">${cards(xs)}</div>`).join("")
     + passes.map(([o, i]) => optRow(o, i, numOf(o))).join("");
   const pick = cp.options.filter((o) => o.heart_pick || o.head_pick || o.own);
   const cs = [...new Set([].concat(...pick.map((o) => o.ends)))].slice(0, 2);
@@ -1535,7 +1547,7 @@ function renderTable(h) {
     if (hov && hov[2].isConnected) return fill(hov[0], hov[1]);
     strip.classList.add("idle"); strip.innerHTML = idleStrip;
   };
-  tableEl.querySelectorAll(".opt").forEach((b) => {
+  const bindOpt = (b) => {
     const o = cp.options[+b.dataset.i], num = +b.dataset.num;
     const hl = (on) => hudEl.querySelectorAll(".orb").forEach((x) => x.classList.toggle("hl", on && o.ends.includes(x.dataset.c)));
     b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") { hov = [o, num, b]; hl(true); fill(o, num); } });
@@ -1552,7 +1564,22 @@ function renderTable(h) {
       b.after(d); $("pushIt").addEventListener("click", go);
       d.scrollIntoView({ block: "nearest" });
     });
-  });
+  };
+  tableEl.querySelectorAll(".opt").forEach(bindOpt);
+  const fold = $("evOOR");
+  const setOOR = (on) => {
+    const g = $("evOORg"); if (!fold || !g) return;
+    const had = g.contains(document.activeElement);
+    oorOpen = on; try { localStorage.setItem("chroma.oorOpen", on ? "1" : ""); } catch (_) {}
+    fold.setAttribute("aria-expanded", String(on));
+    if (hov && g.contains(hov[2])) hov = null;
+    g.innerHTML = on ? cards(oorXs) : "";
+    g.querySelectorAll(".opt").forEach(bindOpt);
+    if (had) fold.focus();
+    unfill();
+  };
+  openOOR = fold ? (num) => { if (!oorOpen) setOOR(true); const b = $("evOORg").querySelector(`.opt[data-num="${num}"]`); if (b) { b.focus({ preventScroll: true }); b.scrollIntoView({ block: "nearest" }); } } : null;
+  if (fold) fold.addEventListener("click", () => { setOOR(!oorOpen); if (oorOpen) { const g = $("evOORg"); if (g.lastElementChild) g.lastElementChild.scrollIntoView({ block: "nearest" }); } });
 }
 
 const SURPRISE = { better: "better than they expected", "as expected": "as they expected", worse: "worse than they feared" };
@@ -2552,7 +2579,11 @@ document.addEventListener("keydown", (e) => {
     const max = hud.cp.options.length;
     digitBuf += e.key; clearTimeout(digitTimer);
     // the number on the card (shown in order, without gaps) is mapped back to the engine's own option number
-    const fire = () => { const n = +digitBuf; digitBuf = ""; const o = CPNUM.size ? CPNUM.get(n) : hud.cp.options.find((x) => x.n === n); if (o) send(o.own ? "" : String(o.n)); };
+    const fire = () => {
+      const n = +digitBuf; digitBuf = ""; const o = CPNUM.size ? CPNUM.get(n) : hud.cp.options.find((x) => x.n === n);
+      if (o && o.status === "out of reach" && !oorOpen && openOOR) return openOOR(n);   // a folded card is shown first
+      if (o) send(o.own ? "" : String(o.n));
+    };
     if (max >= 10 && digitBuf === "1") digitTimer = setTimeout(fire, 450); else fire();
     return;
   }

@@ -1550,4 +1550,14 @@
     .ogrid .opt .ometa { min-height: 16px; }
     .opt.onone { margin-top: 2px; padding-block: 3px; }
   }
+  /* G1 (B package): "Out of reach, but you could force it" folds into one row until opened; its cards are drawn only
+     when open. The row is a button (Enter or Space), with the count and the keys of the cards inside. */
+  .ev .ask.oorfold { width: 100%; border: 0; background: none; padding: 2px 0; cursor: pointer; text-align: left; color: var(--gold); }
+  .ev .ask.oorfold::after { order: 1; }
+  .ev .ask.oorfold .chev { order: 2; font-size: 11px; letter-spacing: 0; transition: transform 0.18s ease; }
+  .ev .ask.oorfold[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .ev .ask.oorfold:hover small, .ev .ask.oorfold:focus-visible small { color: var(--ink2); }
+  .ev .ask.oorfold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  .ogrid.oorg:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .ev .ask.oorfold .chev { transition: none; } }
 </style>

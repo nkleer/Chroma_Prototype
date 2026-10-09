@@ -282,7 +282,7 @@ WORLDS = {
     "neutral": ("Neutral world: nobody frames any colors as opposed", "neutral"),
     "questions": ("Mild tension on Magic's five questions (group vs individual, security vs freedom, ...); joining opposed "
                   "ways can pay off or tear (the engine's default world)", "mild"),
-    "pie": ("Magic's color pie taken literally: enemies clash, allies bond", "pie"),
+    "pie": ("Magic's color pie taken literally: opposite colors clash, neighbouring colors bond", "pie"),
 }
 
 
