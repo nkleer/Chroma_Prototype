@@ -9,7 +9,7 @@ import random
 import time
 import numpy as np
 from game import Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
-from story import SETTINGS, WORLD, plain
+from story import SETTINGS, WORLD, plain, NEED_SAY
 
 CHUNK = 104           # weeks simulated per call before handing back to the screen
 # a random name for the character: from their birth sex's list or either (chroma-identity/for-the-game.md §4); a start
@@ -691,6 +691,10 @@ class Console:
                 bits.append(f"could start a {o['commit']}")
             if o.get("needs"):                  # titles and perks: what it needs, what helps, what it gives or takes
                 bits.append(o["needs"]["line"])
+            for x in o["follows"].get("lift", []):   # a lacking need it would feed if it works
+                bits.append(f"meets {NEED_SAY[x['need']]} ({x['word']}, {x['level'] * 100:.0f}%): {x['lift']} to satisfaction")
+            if o["idx"] != own and o.get("trust", 0.0) and abs(o["trust"]) >= 0.05:
+                bits.append(("trusts you" if o["trust"] > 0 else "distrusts you") + " in these colors")
             L.append("     " + "; ".join(bits))
             for fx in o.get("roles_fx", []):
                 L.append("     " + fx["line"])
@@ -738,11 +742,12 @@ class Console:
 
     def _review(self):
         r = self.g.review
-        L = ["", r["epitaph"], "", "== LIFE REVIEW ==",
+        L = ["", r["epitaph"], "", *([r["story"], ""] if r.get("story") else []), "== LIFE REVIEW ==",
              f"Fulfilment (satisfaction through adulthood): {r['fulfilment']:.2f}",
              f"Serenity (peace through adulthood):         {r['serenity']:.2f}",
              f"Integrity (lived by their own wants):       {r['integrity']:.2f}",
-             f"Checkpoints: {r['own']} left to them, {r['forced']} pushed by you",
+             f"Checkpoints: {r['own']} left to them, {r['forced']} pushed by you"
+             + (f" ({r.get('accepted', 0)} they came to accept, {r.get('resented', 0)} they resented)" if r["forced"] else ""),
              f"Ended as: {r['final']}",
              f"Identities lived ({r['paths']}): " + " > ".join(r["path"]),
              "", "Press Enter for a new life."]

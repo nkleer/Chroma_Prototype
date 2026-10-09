@@ -124,6 +124,9 @@ class WorldLink:
         W = P.get("world_obj")
         if W is None:
             ws = P.get("world_seed")
+            s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
+            if s3_:
+                cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = WM.World(int(seed if ws is None else ws), cfg=cfg)
             W.burn_in(burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
