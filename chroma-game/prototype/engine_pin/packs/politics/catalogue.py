@@ -43,7 +43,7 @@ PERKS = []
 
 # ---------------------------------------------------------------- careers: the road to parliament and office
 TITLES += [
-  dict(name="campaign organiser", kind="career", sector="services", institution="party", standing=0, ways="R W",
+  dict(name="campaign organiser", kind="career", sector="services", institution="party", standing=0, sphere="rule", face="rule.R", ways="R W",
        profiles=[("R W", "Knocks on doors from dawn to dark for a cause worth winning, and makes the volunteers believe "
                          "it too."),
                  ("B", "Runs the target lists, the rota and the volunteers like a machine built to win."),
@@ -57,7 +57,7 @@ TITLES += [
        lost="the election over and no next campaign; a step up to [political adviser] or [party official]; 'burnout'",
        needs="[campaigning], [organising people] or a season as a [campaign volunteer]",
        turning="Forty volunteers, one weekend left, and the target lists say the ward is lost."),
-  dict(name="constituency caseworker", kind="career", sector="public", institution="party", standing=0, ways="G W",
+  dict(name="constituency caseworker", kind="career", sector="public", institution="party", standing=0, sphere="rule", face="rule.G", ways="G W",
        profiles=[("G W", "Treats every resident as a neighbour, and sees each case through to the end."),
                  ("U", "Knows every form, deadline and office, and finds the rule that unlocks a case."),
                  ("B R", "Picks a fight with the housing office for whoever walks in, and keeps count of the wins.")],
@@ -69,7 +69,7 @@ TITLES += [
               "learned the hard way",
        lost="the member losing the seat; a step up to [political adviser]; 'burnout'",
        needs="[handling red tape], [graduate] or a season as a [campaign volunteer]"),
-  dict(name="political adviser", kind="career", sector="public", institution="ministry", standing=1, ways="U B",
+  dict(name="political adviser", kind="career", sector="public", institution="ministry", standing=1, sphere="rule", face="rule.B", ways="U B",
        profiles=[("U B", "Shapes decisions from the room next door, with knowledge and discretion."),
                  ("W G", "Serves the office faithfully, and keeps the boss true to the people who sent them."),
                  ("R", "Burns for the cause inside the building, and tells the boss the hard thing to their face.")],
@@ -84,7 +84,7 @@ TITLES += [
             "a step into a race of their own ('a seat falls vacant')",
        needs="[graduate] in most offices, or years of [campaigning]; a member or a minister who hires them",
        turning="The night before the big announcement, the adviser knows something the boss does not want to hear."),
-  dict(name="member of parliament", kind="career", sector="public", institution="party", standing=2, ways="W U",
+  dict(name="member of parliament", kind="career", sector="public", institution="party", standing=2, sphere="rule", ways="W U",
        profiles=[("W U", "Serves the law and the evidence, and reads every bill before voting on it."),
                  ("B R", "Fights to rise, loves the battle in the chamber, and makes a name."),
                  ("G", "Stands for the place they come from and the people who have always lived there.")],
@@ -104,7 +104,7 @@ TITLES += [
 # Each is held on top of [member of parliament] (head of government on top of party leader), adds its ways and meets
 # to the career, and ends when the seat ends. Shares are tiny, and the top stays reachable through the moments.
 TITLES += [
-  dict(name="minister", kind="career", sector="public", institution="ministry", standing=3, ways="W U", refines="member of parliament",
+  dict(name="minister", kind="career", sector="public", institution="ministry", standing=3, sphere="rule", ways="W U", refines="member of parliament",
        profiles=[("W U", "Runs the department by the rules and the evidence, and answers to parliament for it."),
                  ("B", "Trades favours, builds a power base in cabinet, and gets what the department wants."),
                  ("R G", "Speaks for the angry and guards what the country has always been, whatever the officials "
@@ -118,7 +118,7 @@ TITLES += [
        lost="'the reshuffle'; resigning over a vote or 'a scandal breaks'; the government falling; the seat lost",
        needs="[member of parliament] in most systems; a leader who asks; [allies in the party] help",
        turning="A policy the minister argued against in cabinet is now theirs to defend in the chamber."),
-  dict(name="party leader", kind="career", sector="public", institution="party", standing=3, ways="R", refines="member of parliament",
+  dict(name="party leader", kind="career", sector="public", institution="party", standing=3, sphere="rule", ways="R", refines="member of parliament",
        profiles=[("R", "Leads by conviction and voice, and the members follow the fire."),
                  ("W G", "Holds a broad church together, and keeps every wing of the party at the table."),
                  ("B U", "Holds the party through its machine and a long plan, three moves ahead of rivals.")],
@@ -132,7 +132,7 @@ TITLES += [
        lost="'the party turns on its leader'; a lost general election; resigning",
        needs="[member of parliament] for years; [known across the country] in most parties",
        turning="The party is at war with itself, and both sides want the leader to choose."),
-  dict(name="head of government", kind="career", sector="public", institution="ministry", standing=3, ways="W", refines="party leader",
+  dict(name="head of government", kind="career", sector="public", institution="ministry", standing=3, sphere="rule", ways="W", refines="party leader",
        profiles=[("W", "Governs for the whole country, through the constitution and its institutions."),
                  ("U B", "Governs by strategy and control, a step ahead of rivals and of events."),
                  ("R G", "Governs as the voice of the people and the guardian of the nation and its ways.")],
@@ -149,7 +149,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- careers: side roads of the pathway
 TITLES += [
-  dict(name="party official", kind="career", sector="services", institution="party", standing=1, ways="W B",
+  dict(name="party official", kind="career", sector="services", institution="party", standing=1, sphere="rule", face="rule.B", ways="W B",
        profiles=[("W B", "Keeps the rules, the lists and the money of the party in order, and holds the machine "
                          "together."),
                  ("G", "Holds the party family together through every leader and every defeat."),
@@ -161,7 +161,7 @@ TITLES += [
        gained="years as a [campaign organiser] or [local party officer]; a post at party headquarters",
        lost="a new leader who brings their own people; money running out after a defeat; 'burnout'",
        needs="[party member]; [organising people] or [campaigning]"),
-  dict(name="lobbyist", kind="career", sector="services", institution="employer", standing=1, ways="B U",
+  dict(name="lobbyist", kind="career", sector="services", institution="employer", standing=1, sphere="rule", face="rule.B", ways="B U",
        profiles=[("B U", "Sells access and argument to whoever pays, and knows exactly whom to call."),
                  ("W", "Makes the case of the client openly, within the register and its rules."),
                  ("R G", "Lobbies for a cause or a place they love: farmers, a charity, the factory of a town.")],
@@ -175,7 +175,7 @@ TITLES += [
        lost="a client gone; a ban after 'a donor wants a favour' turns into a scandal; a return to office",
        needs="[graduate] or years in politics; [registered lobbyist] where the law asks for it",
        turning="An old colleague is now the one who decides, and the client wants a meeting by Friday."),
-  dict(name="policy analyst", kind="career", sector="public", institution="ministry", standing=0, ways="U",
+  dict(name="policy analyst", kind="career", sector="public", institution="ministry", standing=0, sphere="rule", face="rule.U", ways="U",
        profiles=[("U", "Follows the evidence to the policy, wherever it leads."),
                  ("W G", "Designs policy that protects the institutions and communities people rely on."),
                  ("B R", "Writes bold ideas that grab attention and move a party, and enjoys the fight.")],
@@ -186,7 +186,7 @@ TITLES += [
        gained="[graduate] and a post at a think tank, a party or a charity; years as a [political adviser]",
        lost="the money of the funders moving on; a move into government as a [political adviser]",
        needs="[graduate]; [finding things out] or [working with data] help"),
-  dict(name="speechwriter", kind="career", sector="public", institution="ministry", standing=0, ways="R U",
+  dict(name="speechwriter", kind="career", sector="public", institution="ministry", standing=0, sphere="rule", face="rule.R", ways="R U",
        profiles=[("R U", "Finds the words that make a hall rise, and polishes them until they ring."),
                  ("G", "Writes in the plain voice of the people back home."),
                  ("W B", "Writes words for power, so that every line can be defended and every promise kept.")],
@@ -197,7 +197,7 @@ TITLES += [
        gained="years as a [political adviser] or [journalist] with [writing stories] or [editing]",
        lost="the speaker losing office; a move to novels or journalism",
        needs="[writing speeches], [writing stories] or [editing]"),
-  dict(name="pollster", kind="career", sector="knowledge", institution="employer", standing=0, ways="U",
+  dict(name="pollster", kind="career", sector="knowledge", institution="employer", standing=0, sphere="rule", face="rule.U", ways="U",
        profiles=[("U", "Measures what a country thinks, and trusts the method over the hunch."),
                  ("W G", "Listens to people in focus groups and reports fairly what they really say."),
                  ("B R", "Sells the numbers that win, and lives for the night the exit poll lands.")],
@@ -213,7 +213,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- community: democracy as a pastime, and the mayor
 TITLES += [
-  dict(name="campaign volunteer", kind="community", ways="R G",
+  dict(name="campaign volunteer", kind="community", sphere="rule", face="rule.R", ways="R G",
        profiles=[("R G", "Gives evenings and weekends to a cause or a candidate they believe in."),
                  ("W", "Does the dull work of democracy: the leaflets, the lists, the phone calls."),
                  ("B U", "Volunteers to learn the trade and meet the people who matter.")],
@@ -225,7 +225,7 @@ TITLES += [
               "the council",
        lost="the election over; no time any more; a quarrel with the candidate",
        needs="age 14 or more; a cause or a candidate"),
-  dict(name="polling-station volunteer", kind="community", ways="G W",
+  dict(name="polling-station volunteer", kind="community", sphere="rule", face="rule.W", ways="G W",
        profiles=[("G W", "Opens the village hall for every election, as it has always been done."),
                  ("B", "Takes the fee for the day and a front-row seat at how power is counted."),
                  ("U R", "Loves the long day and the late count, and notices every odd thing.")],
@@ -236,7 +236,7 @@ TITLES += [
        gained="'poll workers wanted for election day'",
        lost="no call for the next election; the body no longer up to a fifteen-hour day",
        needs="age 16 to 18 or more, by country; a short training"),
-  dict(name="mayor", kind="community", institution="council", standing=2, ways="G W",
+  dict(name="mayor", kind="community", institution="council", standing=2, sphere="rule", ways="G W",
        profiles=[("G W", "Looks after the town as a whole: its streets, its old places and its people."),
                  ("B U", "Runs the budget and the patronage of the town hall with a long plan, and gets things built."),
                  ("R", "A big, warm personality who gets the town talking and the cranes up.")],
@@ -256,7 +256,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- faith (cause): the local party
 TITLES += [
-  dict(name="local party officer", kind="faith", ways="G W",
+  dict(name="local party officer", kind="faith", sphere="rule", face="rule.B", ways="G W",
        profiles=[("G W", "Holds the branch together like a family, meeting after meeting, year after year."),
                  ("B", "Controls the branch: the membership list, the selection meeting and the votes."),
                  ("U R", "Wakes a sleepy branch up with new ideas and new people.")],
