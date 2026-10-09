@@ -2,8 +2,8 @@
 
     python3 -B tests/check_spheres.py [path/to/earth_spheres.py] [--setting path/to/check_setting.py]
 
-1 coverage    every sphere, face (45), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
-2 length      names 6 words at most, rungs 7, roles 12, lines, readings and hover lines 35
+1 coverage    every sphere, face (45), pair (90), modern event (175), cascade (13), cast (45), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
+2 length      names 6 words at most (event names 10), rungs 7, roles 12 (cast roles 14), lines, readings and hover lines 35
 3 duplicates  no line or reading said twice; no two faces of one sphere share a name
 4 color words no color named, no Magic term, no combination name in brackets
 5 style       straight double quotes, curly apostrophes and double spaces are refused; lines end a sentence, names do not
@@ -44,7 +44,9 @@ def fail(check, msg):
 spec = importlib.util.spec_from_file_location("earth_spheres_checked", PATH)
 M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
-SP, FA, PL, RU, PS = (getattr(M, n, {}) for n in ("SPHERE", "FACE", "PLACE", "RUNG", "PLACE_SHORT"))
+SP, FA, PL, RU, PS, PA, EV, CA, CC = (getattr(M, n, {}) for n in ("SPHERE", "FACE", "PLACE", "RUNG", "PLACE_SHORT", "PAIR",
+                                                                  "EVENT", "CAST", "CASCADE"))
+WHEEL = "WU UB BR RG GW WB UR BG RW GU".split()
 
 # ------------------------------------------------------------------------------------------------- 1 coverage
 for s in SPHERES:
@@ -58,6 +60,12 @@ for s in SPHERES:
             fail("1 coverage", f"FACE.{s}.{c}.hover: a key that is not a driver: {[k for k in f['hover'] if k not in DRIVERS]}")
     if not (isinstance(RU.get(s), list) and len(RU[s]) == 5):
         fail("1 coverage", f"RUNG.{s}: wanted five rungs")
+    for pk in WHEEL:
+        p = PA.get(f"{s}.{pk}")
+        if not p or not {"name", "idea", "line", "shadow", "place", "role"} <= set(p):
+            fail("1 coverage", f"PAIR.{s}.{pk}: wanted name, idea, line, shadow, place and role")
+if set(k.split(".")[1] for k in PA) - set(WHEEL):
+    fail("1 coverage", "PAIR: a key not in wheel order")
 extra = [k for k in FA if k.split(".")[0] not in SPHERES or k.split(".")[1] not in COLORS]
 if extra:
     fail("1 coverage", f"FACE: keys that are not faces: {extra}")
@@ -72,6 +80,7 @@ for k, p in PL.items():
 # the data, when it is there: every subsector and driver line it names has words here
 DATA = os.path.join(os.environ.get("CHROMA_ROOT", "/mnt/project-files"), "chroma-ideas", "spheres-data")
 data_note = "skipped (no chroma-ideas/spheres-data)"
+MODERN = set()   # the data's modern event keys, sphere.event
 if os.path.isdir(DATA):
     import json
     for s in SPHERES:
@@ -84,6 +93,17 @@ if os.path.isdir(DATA):
             have = set(FA.get(f"{s}.{c}", {}).get("hover", {}))
             if want - have:
                 fail("1 coverage", f"FACE.{s}.{c}.hover: no line for {sorted(want - have)}")
+        want = {f"{s}.{e['key']}" for e in d["events"] if (e.get("wording") or {}).get("modern")}
+        MODERN |= want
+        have = {k for k in EV if k.split(".")[0] == s}
+        if want - have:
+            fail("1 coverage", f"EVENT: modern events with no words: {sorted(want - have)}")
+        if have - want:
+            fail("1 coverage", f"EVENT: keys the data does not have: {sorted(have - want)}")
+    L = json.load(open(os.path.join(DATA, "links.json"), encoding="utf-8"))
+    want = {c["id"] for c in L["colour"]["cascades"] if "modern" in c["epochs"]}
+    if want != set(CC):
+        fail("1 coverage", f"CASCADE: wanted {sorted(want)}, have {sorted(CC)}")
     data_note = "against " + DATA
 
 # ------------------------------------------------------------------------------------------------- lines
@@ -98,6 +118,30 @@ for k, p in PL.items():
     for c in COLORS:
         if isinstance(p.get(c), tuple) and len(p[c]) == 2:
             ALL += [(f"PLACE.{k}.{c}.role", p[c][0], "name", 12), (f"PLACE.{k}.{c}.reading", p[c][1], "line", 35)]
+for k, p in PA.items():
+    ALL += [(f"PAIR.{k}.name", p["name"], "name", 7), (f"PAIR.{k}.place", p["place"], "name", 12),
+            (f"PAIR.{k}.role", p["role"], "name", 12)]
+    ALL += [(f"PAIR.{k}.{f}", p[f], "line", 40) for f in ("idea", "line", "shadow")]
+for k, e in EV.items():
+    if e.get("tone") not in ("good", "bad", "mixed"):
+        fail("1 coverage", f"EVENT.{k}.tone: {e.get('tone')}")
+    ALL += [(f"EVENT.{k}.name", e["name"], "name", 10), (f"EVENT.{k}.line", e["line"], "line", 40),
+            (f"EVENT.{k}.self", e["self"], "line", 40)]
+for k, c in CA.items():
+    if k not in FA:
+        fail("1 coverage", f"CAST.{k}: not a face")
+    ALL += [(f"CAST.{k}.role", c["role"], "name", 14), (f"CAST.{k}.place", c["place"], "name", 12),
+            (f"CAST.{k}.line", c["line"], "line", 35)]
+if len(CA) != 45:
+    fail("1 coverage", f"CAST: {len(CA)} faces, wanted 45")
+for k, c in CC.items():
+    ALL.append((f"CASCADE.{k}.name", c["name"], "name", 6))
+    for i, st in enumerate(c["steps"]):
+        if st["event"] and st["event"] in MODERN and st["event"] not in EV:
+            fail("1 coverage", f"CASCADE.{k}.{i}: event {st['event']} has no EVENT words")
+        ALL.append((f"CASCADE.{k}.{i}.t", st["t"], "line", 40))
+        if st["me"]:
+            ALL.append((f"CASCADE.{k}.{i}.me", st["me"], "line", 40))
 for s, rs in RU.items():
     ALL += [(f"RUNG.{s}.{i}", t, "name", 7) for i, t in enumerate(rs)]
 for (k, e), t in PS.items():
@@ -154,7 +198,7 @@ if SETTING and os.path.exists(SETTING):
 
 NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
+print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
     extra_ = f", {setting_note}" if nm == "7 setting" else ""
