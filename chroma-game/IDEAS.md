@@ -2,6 +2,43 @@
 
 Open ideas for the game thread, newest first. Each says what is wrong, why it matters and what could be done.
 
+## Player intervention that helps: pushing toward what they need (Emren, 2026-10-09)
+
+**Problem.** The player should be able to help a character meet their needs, and through them raise satisfaction and
+peace, even by pushing them to an option they are less than okay with. Today a push almost always costs and rarely
+pays back.
+
+What a push does now (`game.py`, GAME settings; the reluctance words come from explain.before's accept levels):
+- Reluctance ("would go with it", "okay with it", "reluctant", "against it") lowers the true odds (half-hearted
+  effort), adds stress (peace falls), adds pent-up pressure toward what they wanted, and keeps only part of the
+  learning (40% at full reluctance). Forcing an out-of-reach option can backfire (stress, money).
+- Acting outside their own strongest colors drains autonomy a little.
+- Every push counts against "their own" in the end-of-life reading.
+- What a push can give: if the option succeeds, its ends meet needs the same way as their own pick would. Nothing
+  rewards a push that met a need they lacked, and nothing changes how they feel about the push afterwards.
+
+What it could do:
+- **Hindsight.** When a pushed act works and meets a need they lacked, part of the reluctance turns into acceptance
+  ("you were right"): the stress and the pent-up pressure ease, the autonomy cost shrinks, and the end-of-life reading
+  counts it as a push they came to own rather than one they resented. When it fails or meets nothing they lacked,
+  the resentment stays or grows.
+- **Ties to the living table** (see "Colors and needs" below). A push that met a need through a color they did not
+  trust for it shifts their own color-to-need table: the next time, that option feels less foreign and the reluctance
+  is lower. Repeated good pushes become their own way; repeated bad ones make them resist the player more.
+- **Show the trade before the push.** At a choice: which lacking need the option would meet, how much that could lift
+  satisfaction, against what the push will cost in peace and in "their own". After it: whether the push paid off
+  ("They didn't want this, but it gave them the belonging they were missing").
+- **Gentler interventions than a push.** Ways to steer without forcing, for example a nudge that lowers reluctance a
+  little at a smaller cost, or helping them make a plan aimed at a lacking need (plans are adults only now).
+- **A goal for the player.** The end-of-life reading could praise a life where the player's pushes were few, well
+  timed and later accepted, so a good guardian differs from a controlling one.
+
+Things to settle: how much hindsight can undo (never all of it, or forcing becomes free); whether acceptance depends
+on how content and at peace they are at the time; and how it fits the "their own" score, which now only counts the
+reluctance at the moment of the push.
+
+Related: "Colors and needs" (the living table) and "Make needs visible and learnable" below.
+
 ## Colors and needs: a shallow, weak, uniform link (Emren, 2026-10-09)
 
 **Problem.** The link between a color's means and ends and the five needs is shallow, weak per act and not very
