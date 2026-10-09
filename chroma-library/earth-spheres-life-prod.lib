@@ -1,0 +1,396 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, production life moments. Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; spheres-data/
+# prod.json character.moments and doors). Every moment carries sphere: prod, every option the face it acts in (a cross
+# option X>Y the means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Evenness: inside each moment every one-colour option has one chance, every cross option one chance, every pair option
+# one chance, so each colour's mean is the same in every stage.
+# Everyday pair: the share-out after a good season WG (s2) with a quicker way at the bench UBR (s4).
+# Life events and their pair sets: a row of one's own D1a, the test piece D2b, hurt on the job D3a, the first hire D4b,
+# no one to take the trade on D5a, the first thing made that sold D6b, a backer for the workshop D1b.
+# Skipped as already written (earth.py or ready/): first day at the works (your first real job), first wage (the first
+# payslip and the first rent), a lean year (lean times, again; a dry year on the land), laid off (losing your job), a
+# strike (a strike vote at work), taking over the holding (a parent asks you to take over the family shop), the venture
+# fails (financial ruin), teaching an apprentice (a younger colleague needs a mentor), the works closes (everything
+# rested on the one thing), the last day of work (the last day at work).
+
+# ================================================================ everyday: the share-out after a good season (prod.wild)
+
+# ---------------------------------------------------------------- everyday, calls WG (cycle s2); partner: a quicker way at the bench
+
+== the share-out after a good season
+tier: everyday
+sphere: prod
+haunt: prod.wild
+ladder: regular
+stages: young_adult adult mature
+age: 18-65
+calls: WG
+rate: 1
+share: .12
+tone: joy
+life: work, money, friends
+horizon: week
+roles: boss, colleague, friend
+who: boss, colleague
+earth: the best season in years is sold, and the crew sits down in the shed to split what it earned
+times: Work paid partly in shares of a season (fishing crews, harvest gangs, seasonal teams with a bonus pool) is the lot of a minority of working lives; sitting in on the share-out of an unusually good season comes to about 1 in 8 lives, a few times each (estimate)
+likelier: a fishing or farming town, a crew or co-op paid by shares, a run of good weather, a small firm with a bonus pool
+rarer: a salaried post, a big employer, hard years, work done alone
+gap: 2-6
+scene: The season is sold and it was the best in years. The crew crowds into the net shed with tea and the skipper's ledger, and {boss} reads out the takings. Now the shares have to be split, and {colleague} has had a bad year at home.
+scene W: {N} wants every share counted out to the last coin, the same rule for the skipper as for the newest hand.
+scene U: {N} has kept a tally all season of who hauled what, and the figures do not quite match the ledger.
+scene B: {N} worked the hardest weeks of the season and means to see it in the share.
+scene R: {N} has the money spent twice over already, and the crew is talking about a night out.
+scene G: {N} thinks of the boat's fund for the lean years, and of the old hand who cannot work next season.
+- W | have the ledger read out line by line, so everyone sees the same figures | v: conformity, universalism | lever: voice | sphere: prod.W | chance: 80
+- U | check the takings against your own tally before anyone signs | act: check the takings against their own tally before anyone signs | v: self-direction, security | sphere: prod.U | chance: 80
+- B | make the case for a bigger share for those who worked the worst weeks | v: achievement, power | sphere: prod.B | chance: 80
+- R | take your share in cash and stand the whole crew a night out | act: take their share in cash and stand the whole crew a night out | v: hedonism, stimulation | sphere: prod.R | chance: 80
+- G | put part of your share into the boat's fund for the next lean year | act: put part of their share into the boat's fund for the next lean year | v: security, tradition | lever: loyalty | sphere: prod.G | chance: 80
+- W>B | propose a written rule for the shares, so next year's split needs no argument | v: conformity, power | sphere: prod.W | chance: 70
+- U>R | work out how much more a second boat would bring in, and pitch it over tea | v: stimulation, achievement | sphere: prod.U | chance: 70
+- B>G | buy the old hand's share in the boat at a price he can retire on | v: benevolence, power | lever: fund | sphere: prod.B | chance: 70
+- R>W | say out loud that the colleague with the bad year at home needs a little more | v: benevolence | mark: helped someone in need | sphere: prod.R | chance: 70
+- G>U | keep the season's figures in the old family book, beside the years before | v: tradition, universalism | sphere: prod.G | chance: 70
+works: The shares are split without a cross word, and the crew walks out of the shed into a good evening together.
+works: The way {N} handled the share-out is remembered, and the next season {N} is asked to keep the ledger.
+fails: An argument over two shares turns sour, and {colleague} does not sign on for next season.
+fails: The money goes faster than anyone planned, and by winter {N} wishes more of it had been kept back.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: the share-out after a good season
+
+== a quicker way at the bench
+tier: everyday
+sphere: prod
+haunt: prod.craft
+ladder: regular
+stages: young_adult adult mature
+age: 18-65
+calls: UBR
+rate: 1
+share: .15
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, mentor
+who: boss, colleague
+earth: you have found a way to do the job in half the time, and the whole workshop could use it
+times: Most hands who stay in a trade for some years find small improvements of their own; finding one that the whole crew or workshop could take up, and having to decide what to do with it, comes to about 1 in 7 lives, a few times each (estimate)
+likelier: hands-on work at a bench, on a line or in a field, a curious person, a workshop that rewards suggestions
+rarer: work done to a fixed script, a large firm with no say for the floor, a first year in the job
+gap: 2-8
+scene: After weeks of fiddling {N} has a jig, a new order of steps, that does the job in half the time. {colleague} has seen it. If {boss} finds out, the whole workshop will work this way, and the daily target may go up for everyone.
+scene W: {N} wonders whether a better way belongs to the workshop that pays for the hours it was found in.
+scene U: {N} is sure the method could be better still, and has three more ideas pinned above the bench.
+scene B: {N} knows a good method is worth something, and is not giving it away for a pat on the back.
+scene R: {N} found it by playing about on a slow afternoon, and the fun of it was the best part.
+scene G: {N} learned the old way from {mentor}, and wonders what is lost if the old way goes.
+- W | take it to the foreman, and ask that the target stay where it is | v: conformity, benevolence | lever: voice | sphere: prod.W | chance: 80
+- U | test it for a month and write down every result before you show anyone | act: test it for a month and write down every result before they show anyone | v: self-direction, achievement | sphere: prod.U | chance: 80
+- B | keep it to yourself, and use the time saved to take on extra paid work | act: keep it to themselves, and use the time saved to take on extra paid work | v: power, achievement | sphere: prod.B | chance: 80
+- R | show it off to the crew at the break, just for the pleasure of it | v: stimulation, hedonism | mark: made a friend | sphere: prod.R | chance: 80
+- G | ask your old mentor what they think before changing anything | act: ask their old mentor what they think before changing anything | v: tradition, security | sphere: prod.G | chance: 80
+- W>G | teach it to the newest hands first, so it never belongs to one person | v: benevolence, universalism | sphere: prod.W | chance: 70
+- U>W | write the method up properly and put it in the workshop's book | v: conformity, achievement | sphere: prod.U | chance: 70
+- B>U | ask for a bonus or a raise in return for the method, in writing | v: power, achievement | sphere: prod.B | chance: 70
+- R>B | quit the workshop and sell the method to its rival down the road | v: self-direction, power | lever: exit | mark: took a wild risk | sphere: prod.R | chance: 70
+- G>R | blend the new way with the old, keeping what feels right in each | v: tradition, stimulation | sphere: prod.G | chance: 70
+works: The new way spreads through the workshop, and the crew starts calling the jig by {Ns} name.
+works: {N} comes out of it with more time, more say and a reputation as the one who finds better ways.
+fails: The target goes up for everyone, and some of the crew blame {N} for it.
+fails: {boss} takes the method to the owners as his own idea, and {N} gets nothing for it.
+
+# ================================================================ life events
+
+# ---------------------------------------------------------------- life event: a row of one's own on the family plot (pairs D1a)
+
+== a row of your own on the family plot
+tier: life event
+sphere: prod
+haunt: prod.land
+ladder: newcomer
+stages: child juvenile
+age: 7-15
+per_year: .02 .015 0 0 0 0
+drivers: family+.2 harsh-.3
+times: Children in farming or gardening families often help in the fields and the vegetable plot; being given a row or patch of one's own to grow and harvest comes to about 1 in 7 lives (estimate). Light help on the family plot only, never paid work or anything dangerous
+likelier: a farming family, a garden or allotment at home, a grandparent who grows food, a small town or village
+rarer: a city flat with no outside space, a family under strain, a household that moves often
+gap: 3-8
+tone: joy
+life: home, family, play
+horizon: months
+roles: grandparent, parent, sibling
+who: grandparent, parent
+earth: a grandparent gives you a row of the vegetable plot to grow whatever you like, and in late summer it is ready
+scene: In spring {grandparent} gave {N} one row at the end of the family plot. All summer {N} has watered it after school, and now the beans, the carrots and one enormous marrow are ready to pick.
+scene W: {N} wants to do it properly, every weed out and every plant staked, the way the grown-ups keep their rows.
+scene U: {N} has been checking the row every morning, and has questions about why the carrots by the wall grew best.
+scene B: {N} has noticed people pay for vegetables at the farm gate, and wonders what this row is worth.
+scene R: {N} mostly wants to see how big the marrow can grow before someone makes it into soup.
+scene G: {N} likes doing what {grandparent} does, and wants next year's row to come from this one.
+- W | pick it all and share it out at supper, a fair helping for everyone | v: benevolence, conformity | sphere: prod.W | chance: 55
+- U | keep a notebook of what grew best, and why you think it did | act: keep a notebook of what grew best, and why they think it did | v: self-direction, universalism | mark: learned a skill | sphere: prod.U | chance: 55
+- B | set out a box of beans at the farm gate with a price you chose | act: set out a box of beans at the farm gate with a price they chose | v: achievement, power | sphere: prod.B | chance: 55
+- R | leave the marrow on the vine to see how huge it can get | v: stimulation, hedonism | sphere: prod.R | chance: 55
+- G | save seeds from the best plants for next spring, the way your grandparent does | act: save seeds from the best plants for next spring, the way their grandparent does | v: tradition | sphere: prod.G | chance: 55
+- BG | turn the bruised ones into jam and give the tops to the hens | v: security, tradition | sphere: prod.BG | chance: 50
+- BR | swap the strawberries at school for whatever you want most that week | act: swap the strawberries at school for whatever they want most that week | v: hedonism, achievement | sphere: prod.BR | chance: 50
+- UG | learn from your grandparent which plants grow well side by side | act: learn from their grandparent which plants grow well side by side | v: tradition, universalism | mark: learned a skill | sphere: prod.GU | chance: 50
+- WR | carry a basket round to the old neighbour who can no longer garden | v: benevolence | mark: helped someone in need | sphere: prod.RW | chance: 50
+- WU | weigh every picking on the kitchen scales and keep the family's harvest list | v: conformity, achievement | sphere: prod.WU | chance: 50
+works: The row does well, the family praises the beans at supper, and {N} asks for two rows next spring.
+works: {grandparent} shows {N} the seed store and its labelled jars, and {N} is given a jar of their own.
+fails: Slugs get most of the row in a wet week, and {N} learns how quickly a summer's work can go.
+fails: {sibling} picks half the row before it is ready, and the argument lasts longer than the beans.
+
+# ---------------------------------------------------------------- life event: the test piece (pairs D2b)
+
+== the test piece on the judges' bench
+tier: life event
+sphere: prod
+haunt: prod.craft
+ladder: regular
+stages: young_adult adult
+age: 19-35
+per_year: 0 0 .01 .005 0 0
+drivers: prosper+.2 money-.2
+times: An apprenticeship or trade training that ends in a practical test judged by masters of the trade (a test piece, a trade test, a final assessment) is taken by roughly 1 in 8 people in a working life where such training is common (estimate)
+likelier: an apprenticeship, a family in the trade, a country with strong trade training, a skilled trade such as joinery, metalwork or baking
+rarer: a university route, work with no formal trade test, a life in an office from the start
+gap: 2-10
+tone: mixed
+life: work, achievement
+horizon: week
+roles: mentor, rival, colleague
+who: mentor, rival
+earth: the night before your trade test you find a flaw in the piece you will lay before the judges
+scene: Three years of apprenticeship come down to one piece: a cabinet with a dovetailed drawer, to be laid on the bench tomorrow before three masters of the trade. Tonight {N} finds a hairline gap in one joint. {mentor} says it is small. {rival} has already finished.
+scene W: {N} wants to pass honestly or not at all, and the gap is there whether anyone sees it or not.
+scene U: {N} can see exactly why the joint opened: the wood moved in the damp week, and it could happen again.
+scene B: {N} needs the pass for the better pay that comes with it, and the judges look at a lot of pieces in a day.
+scene R: {N} is half tempted to start again tonight with something bolder, gap and all forgotten.
+scene G: {N} thinks of {mentor}, who taught every cut, and does not want to shame the bench they learned at.
+- W | tell the judges about the gap before they find it | v: conformity, universalism | mark: owned up | sphere: prod.W | chance: 55
+- U | work through the night to recut the joint, and note every step | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 55
+- B | set the piece in the light so the eye goes to its best side | v: achievement, power | sphere: prod.B | chance: 55
+- R | start a new drawer from scratch tonight, to a bolder design | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.R | chance: 55
+- G | finish it exactly the way your mentor taught, step by careful step | act: finish it exactly the way their mentor taught, step by careful step | v: tradition, conformity | sphere: prod.G | chance: 55
+- RG | put the rule away and finish the joint by feel, as your hands tell you | act: put the rule away and finish the joint by feel, as their hands tell them | v: self-direction, stimulation | sphere: prod.RG | chance: 50
+- UB | find out from past apprentices what these judges always mark down | v: achievement, power | sphere: prod.UB | chance: 50
+- UG | pick a seasoned board from the old stock and read its grain before you cut | act: pick a seasoned board from the old stock and read its grain before they cut | v: tradition, universalism | sphere: prod.GU | chance: 50
+- WB | ask the workshop to stand behind a second attempt if this one fails | v: security, power | sphere: prod.WB | chance: 50
+- WR | lend your rival your best chisel when theirs breaks on the morning of the test | act: lend their rival their best chisel when theirs breaks on the morning of the test | v: benevolence, universalism | mark: made a friend | sphere: prod.RW | chance: 50
+works: The masters turn the drawer over twice and nod, and {N} goes home with the trade's mark and a new rate of pay.
+works: The judges find the gap but praise the honesty and the rest of the work, and the pass is the sweeter for it.
+fails: The piece is sent back with a note, and {N} must wait six months to try again while {rival} moves on.
+fails: {N} passes, but with a lower grade than hoped, and the gap is all {N} can see in the piece for years.
+
+# ---------------------------------------------------------------- life event: hurt on the job (pairs D3a)
+
+== hurt on the job
+tier: life event
+sphere: prod
+stages: young_adult adult mature
+age: 18-64
+per_year: 0 0 .005 .005 .005 0
+drivers: harsh+.3 prosper-.1 stress+.2
+times: Work injuries that keep someone off work for days or weeks run at about 1 to 3 in 100 workers a year in manual trades (labour statistics in many countries); one that matters in a life, with a choice about how to report it and go on, comes to about 1 in 5 lives over a working life (estimate)
+likelier: manual work on farms, boats, building sites, in workshops or warehouses, a small firm cutting corners, long shifts
+rarer: office work, a firm with a strong safety record, a union site, part-time work
+gap: 5-20
+tone: trouble
+life: work, health, money
+horizon: months
+roles: boss, colleague, partner
+who: boss, colleague
+earth: you hurt your hand on a machine at work, and the foreman asks you not to put it in the accident book
+scene: A guard on the cutting machine had been loose for weeks, and today {Ns} hand paid for it. The hospital says six weeks off. On the phone {boss} asks {N} not to put it in the accident book: the site's safety bonus depends on it, and {N} will be looked after.
+scene W: {N} thinks the accident book exists for exactly this, and the guard is still loose.
+scene U: {N} keeps going over the moment it happened, and is sure it could be stopped from happening again.
+scene B: {N} has six weeks without pay to think about, and a boss who needs a favour.
+scene R: {N} hates being stuck at home already, and the hand hurts less than the boredom.
+scene G: {N} thinks of {partner} and the household that runs on {Ns} wage, and of the young hands on that same machine.
+- W | put the accident in the book, exactly as it happened | v: conformity, universalism | lever: voice | pushes: institution | mark: defied an authority | sphere: prod.W | chance: 55
+- U | work out why the guard failed, and write down how to stop it next time | v: universalism, self-direction | sphere: prod.U | chance: 55
+- B | agree to keep quiet in return for full pay until you are back | act: agree to keep quiet in return for full pay until they are back | v: power, security | sphere: prod.B | chance: 55
+- R | go back as soon as the stitches are out, and laugh about it in the canteen | v: stimulation | mark: took a wild risk | sphere: prod.R | chance: 55
+- G | let the family carry you through the weeks off, and heal properly | act: let the family carry them through the weeks off, and heal properly | v: security, tradition | sphere: prod.G | chance: 55
+- BG | take the payout, and look for work your hand can still do | act: take the payout, and look for work their hand can still do | v: security, achievement | sphere: prod.BG | chance: 50
+- RG | spend the weeks off working your hand back into shape at the old bench at home | act: spend the weeks off working their hand back into shape at the old bench at home | v: self-direction, tradition | sphere: prod.RG | chance: 50
+- UB | read the rules on claims, and claim every week of pay you are owed | act: read the rules on claims, and claim every week of pay they are owed | v: security, power | sphere: prod.UB | chance: 50
+- WR | ring the crew and get the machine stopped until the guard is fixed for everyone | v: benevolence, universalism | lever: voice | pushes: institution | sphere: prod.RW | chance: 50
+- WU | ask for the inspector, and have every machine on the floor checked | v: conformity, security | lever: voice | pushes: institution | sphere: prod.WU | chance: 50
+works: The hand heals, the guard is fixed, and {N} goes back to a floor that is a little safer for the next person.
+works: The weeks off are hard, but the pay comes, and {N} returns with the respect of the whole crew.
+fails: The hand never quite heals, and {N} has to find lighter work, on less pay.
+fails: {boss} does not forget how {N} handled it, and the good shifts start going to other people.
+
+# ---------------------------------------------------------------- life event: the first hire (pairs D4b)
+
+== taking on your first hand
+tier: life event
+sphere: prod
+haunt: prod.craft
+ladder: known
+stages: adult mature
+age: 25-60
+per_year: 0 0 0 .004 .004 0
+drivers: prosper+.4 money+.2 unrest-.2
+times: About 1 in 10 working people run a business of their own at some point, and roughly half of those ever take on a first employee; hiring a first hand comes to about 1 in 15 lives (estimate)
+likelier: a trade or a small business of one's own, a farm or a boat, boom years, a full order book
+rarer: a salaried career, hard times, a business kept deliberately to one person
+gap: 5-20
+tone: mixed
+life: work, money
+horizon: months
+roles: friend, colleague, partner
+who: friend
+earth: your small workshop has more orders than your two hands can do, and you have to take on your first worker
+scene: The orders have outgrown {N}. For the first time the workshop can pay someone else, if only just. Two people answered the card in the window: a skilled stranger who wants a proper wage, and {Ns} friend's daughter, just out of college, keen and untried.
+scene W: {N} wants a fair wage, a written contract and a hand who is treated as {N} once wished to be treated.
+scene U: {N} wants to see each of them work before deciding anything.
+scene B: {N} knows the wage comes straight out of the margin, and the margin is thin.
+scene R: {N} likes working alone, loud music and odd hours, and wonders whether anyone could fit that.
+scene G: {N} thinks of who could take this on one day, and of the master who once took a chance on {N}.
+- W | write a fair contract, the wage and the hours, before anyone starts | v: conformity, universalism | sphere: prod.W | chance: 55
+- U | give each of them a trial day and keep the one who works best | v: achievement, self-direction | sphere: prod.U | chance: 55
+- B | hire the one who will take the lowest wage, and keep the margin | v: power, achievement | sphere: prod.B | chance: 55
+- R | hire the one you would most like to spend long days beside | act: hire the one they would most like to spend long days beside | v: hedonism, self-direction | sphere: prod.R | chance: 55
+- G | take on the friend's daughter, and teach her the trade from the start | v: benevolence, tradition | lever: lead | sphere: prod.G | chance: 55
+- BR | pay someone by the job instead, and keep the workshop your own | v: self-direction, power | sphere: prod.BR | chance: 50
+- UB | hire the one who worked at your rival's shop, and learn how they do it | act: hire the one who worked at their rival's shop, and learn how they do it | v: power, achievement | sphere: prod.UB | chance: 50
+- UG | look for the one who learns fastest, and train them in your methods | act: look for the one who learns fastest, and train them in their methods | v: universalism, tradition | sphere: prod.GU | chance: 50
+- WG | offer the new hand a share of the profits as well as the wage | v: benevolence, universalism | sphere: prod.GW | chance: 50
+- WR | promise the new hand you will never ask for an unsafe job, and mean it | act: promise the new hand they will never ask for an unsafe job, and mean it | v: benevolence | mark: kept your word | sphere: prod.RW | chance: 50
+works: The new hand fits, the orders go out on time, and for the first time {N} takes a whole weekend off.
+works: Within a year the workshop has two hands, and {N} realises they have become someone's boss.
+fails: The wage eats the profit in a slow month, and {N} has to let the new hand go with an apology.
+fails: The hire does not work out, and {N} spends more time fixing the work than doing their own.
+
+# ---------------------------------------------------------------- life event: no one to take the trade on (pairs D5a)
+
+== no one to take the trade on
+tier: life event
+sphere: prod
+haunt: prod.land
+ladder: pillar
+stages: mature elder
+age: 55-82
+per_year: 0 0 0 0 .005 .006
+drivers: prosper-.1 family-.2 era+.2
+times: Most family farms and small firms change hands within a generation, and in many places fewer than a third pass to a child; an owner facing the end of a working life with no heir who wants the trade comes to about 1 in 10 lives (estimate)
+likelier: a family farm, shop or workshop, children who left for the city or for other work, a trade in decline
+rarer: no business of one's own, a child already working in the trade, a large firm with managers
+gap: 10-25
+tone: mixed
+life: work, family, money
+horizon: years
+roles: child, colleague, friend
+who: child, colleague
+earth: you are ready to hand on the family farm or workshop, and none of your children wants it
+scene: Forty years of work, and {N} is tired. {child} has a life in the city and said it kindly but clearly: no. A buyer from a big firm has made an offer that would close the place. {colleague}, the hired hand of twelve years, has said nothing, but is plainly waiting.
+scene W: {N} wants whatever happens to be fair to the hand who gave twelve years and to the children too.
+scene U: {N} has forty years of knowledge in their head and in shoeboxes of notes, and none of it is written down properly.
+scene B: {N} built this, and wants the best price for it, and a comfortable old age.
+scene R: Part of {N} would be glad to lock the gate and finally see something of the world.
+scene G: {N} cannot bear to think of the place going quiet, kin or no kin.
+- W | draw up a fair sale, and see that the hands keep their jobs | v: universalism, conformity | sphere: prod.W | chance: 55
+- U | write down everything you know about the work, for whoever comes next | act: write down everything they know about the work, for whoever comes next | v: universalism, self-direction | sphere: prod.U | chance: 55
+- B | sell to the highest bidder, and enjoy what you earned | act: sell to the highest bidder, and enjoy what they earned | v: power, hedonism | sphere: prod.B | chance: 55
+- R | lock the gate for a year, and take the long trip you always put off | act: lock the gate for a year, and take the long trip they always put off | v: stimulation, hedonism | sphere: prod.R | chance: 55
+- G | offer the place to the hired hand who loves it, though they are not kin | v: benevolence, tradition | lever: loyalty | sphere: prod.G | chance: 55
+- BG | sell the land and the tools piece by piece, and let nothing go to waste | v: security, power | sphere: prod.BG | chance: 50
+- UB | keep the name and the recipes, and license them to a bigger firm | v: power, achievement | sphere: prod.UB | chance: 50
+- UR | turn the old barn into something new, a school for the trade or a maker space | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 50
+- WG | offer the whole place to the hands and the neighbours as a cooperative | v: benevolence, universalism | lever: found | pushes: economy | sphere: prod.GW | chance: 50
+- WR | turn down the buyer who would close it, though they offer most, and say why | act: turn down the buyer who would close it, though they offer most, and say why | v: universalism, benevolence | mark: turned down a chance | sphere: prod.RW | chance: 50
+works: The place goes on, in new hands, and {N} still drops by most mornings to see how the work is going.
+works: {N} lets go, gladly, and the years after the work turn out better than {N} feared.
+fails: The sale drags on for years, and the place runs down while {N} waits for the right answer.
+fails: The new owners change everything within a season, and {N} cannot bring themselves to drive past.
+
+# ---------------------------------------------------------------- life event: the first thing one made that sold (pairs D6b)
+
+== the first thing you made that sold
+tier: life event
+sphere: prod
+haunt: prod.craft
+ladder: newcomer
+stages: juvenile young_adult adult
+age: 13-40
+per_year: 0 .008 .006 .003 0 0
+drivers: prosper+.2 community+.1
+times: Making something by hand and selling it (at a school fair, a craft market, online or to a neighbour) for the first time comes to about 1 in 7 lives, most often in the teens and twenties (estimate)
+likelier: a maker or crafter in the family, a town with markets and fairs, a hobby in wood, clay, cloth or metal, a school with a craft room
+rarer: no time or space to make things, a family that sees making as a waste of time, a life with no markets near
+gap: 3-15
+tone: joy
+life: work, achievement, money
+horizon: moment
+roles: friend, mentor, parent
+who: friend, mentor
+earth: at the weekend market a stranger picks up a bowl you made, turns it over, and buys it
+scene: {N} has a corner of {Ns} friend's stall at the weekend market, and a row of things made over months. A stranger picks up one of the bowls, turns it over in the light, and pays for it without haggling. It is the first thing {N} has made that anyone has bought.
+scene W: {N} is not sure the price was fair to the buyer, and wants to get the rest right.
+scene U: {N} wants to know what the stranger saw in that bowl and not the others.
+scene B: {N} is already wondering how many more could be sold, and at what price.
+scene R: {N} feels like shouting, and has the money spent in their head already.
+scene G: {N} wants to tell {mentor}, who first showed {N} how to hold the tools.
+- W | price the rest by the hours and the materials, no more and no less | v: universalism, conformity | sphere: prod.W | chance: 55
+- U | ask the buyer what made them choose it, and remember every word | v: self-direction, universalism | sphere: prod.U | chance: 55
+- B | raise the price on the rest of the row straight away | v: achievement, power | sphere: prod.B | chance: 55
+- R | spend it that afternoon on something you have wanted for ages | act: spend it that afternoon on something they have wanted for ages | v: hedonism, stimulation | sphere: prod.R | chance: 55
+- G | go straight round to show your mentor the first sale | act: go straight round to show their mentor the first sale | v: tradition, benevolence | sphere: prod.G | chance: 55
+- BR | make ten more before next weekend and take a stall of your own | act: make ten more before next weekend and take a stall of their own | v: achievement, stimulation | sphere: prod.BR | chance: 50
+- RG | make the next one by feel alone, with no pattern at all | v: self-direction, stimulation | sphere: prod.RG | chance: 50
+- UB | work out which pieces sell best, and make only those | v: achievement, power | sphere: prod.UB | chance: 50
+- WG | split the takings with the friend who lent you the stall | act: split the takings with the friend who lent them the stall | v: benevolence | mark: made a friend | sphere: prod.GW | chance: 50
+- WU | put your own mark on the base of every piece, and stand behind each one | act: put their own mark on the base of every piece, and stand behind each one | v: conformity, achievement | sphere: prod.WU | chance: 50
+works: The stranger comes back the next month for another, and {N} starts to think of the making as more than a hobby.
+works: {N} keeps the first takings in the tool box for luck, and the work gets better from that day on.
+fails: Nothing else sells for the rest of the summer, and {N} wonders whether the first sale was a fluke.
+fails: {N} rushes the next batch to sell more, and the market can tell.
+
+# ---------------------------------------------------------------- life event: a backer for the workshop (pairs D1b)
+
+== a backer for the workshop
+tier: life event
+sphere: prod
+haunt: prod.craft
+ladder: known
+stages: adult mature
+age: 26-60
+per_year: 0 0 0 .004 .003 0
+drivers: prosper+.4 money+.2 unrest-.2
+times: Small firms that take outside money from a backer, a partner or an investor are a minority; being offered serious money for a share of a small business of one's own comes to about 1 in 15 lives (estimate)
+likelier: a small firm or workshop of one's own with a good name, boom years, a city or a busy town, customers with money
+rarer: no business of one's own, hard times, a trade in decline, a remote place
+gap: 5-20
+tone: mixed
+life: work, money
+horizon: years
+roles: partner, friend, colleague
+who: partner
+earth: a customer with money offers to put enough behind your workshop to triple it, for half of it and a say in what you make
+scene: A regular customer, who made a fortune in another line, has been watching {Ns} workshop for a year. Over coffee she offers enough to triple it: new machines, a shop front, three hands. In return she wants half the firm and a say in what it makes. {partner} thinks it is the chance of a lifetime.
+scene W: {N} wants every line of it in writing, and wants to know what becomes of the customers who have been loyal for years.
+scene U: {N} wants to know what she has backed before, and how those ventures ended.
+scene B: {N} wants the money and the growth, but on {Ns} own terms.
+scene R: {N} started this workshop to answer to no one, and the word "say" has spoiled the coffee.
+scene G: {N} thinks of {Ns} family, of the name over the door, and of whether there will still be a workshop to hand on.
+- W | have a lawyer write down every share and every duty before you sign | act: have a lawyer write down every share and every duty before they sign | v: security, conformity | sphere: prod.W | chance: 55
+- U | look into every venture she has backed before you answer | act: look into every venture she has backed before they answer | v: self-direction, security | sphere: prod.U | chance: 55
+- B | bargain until you keep the larger share and the last word | act: bargain until they keep the larger share and the last word | v: power, achievement | sphere: prod.B | chance: 55
+- R | turn it down, and keep the freedom to make whatever you like | act: turn it down, and keep the freedom to make whatever they like | v: self-direction | mark: turned down a chance | sphere: prod.R | chance: 55
+- G | ask the family to put in their savings instead, so it stays in the family | v: tradition, security | lever: fund | sphere: prod.G | chance: 55
+- RG | stay small and keep making things the slow way, by hand | v: self-direction, tradition | sphere: prod.RG | chance: 50
+- UB | take the money, but keep your methods out of the contract | act: take the money, but keep their methods out of the contract | v: power, security | sphere: prod.UB | chance: 50
+- UR | spend her money on the new machine you have dreamed of building | act: spend her money on the new machine they have dreamed of building | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.UR | chance: 50
+- WB | take the money, build the bigger workshop, and hire from the town | v: achievement, benevolence | lever: lead | pushes: economy | sphere: prod.WB | chance: 50
+- WG | ask the hands and the regulars to buy in instead, a small share each | v: benevolence, universalism | lever: found | sphere: prod.GW | chance: 50
+works: The workshop grows without losing what made it good, and {N} hires three people from the street where it began.
+works: {N} finds a way forward on {Ns} own terms, and the workshop is still {Ns} own ten years later.
+fails: The backer's say grows into the last word, and within two years {N} is working for her in {Ns} own workshop.
+fails: {N} turns the offer down, and watches a rival take the same money and the customers with it.

@@ -1,0 +1,813 @@
+# Chroma library, modern Earth: the faith sphere's events as they touch a life (Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 3). Design: chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/faith.json (events: wording.modern and on_character). Fields: build.py (WORLD_SIT,
+# WORLD_OPT, the spheres' sphere:, haunt:, ladder:, sphere_event:).
+#
+# Every moment here is an event moment: a life event the Engine fires on its faith event (sphere_event:) for the people
+# the '# world:' line's selector names; per_year is all 0 (they exist only with the world on) and there are no drivers.
+# The '# world:' line names the event key, the selector and the share of selected people who get the moment (estimate).
+# Every moment carries sphere: faith; every option carries the face it acts in (faith.X for a one-colour option, the
+# pair face in wheel order for a pair option, so WG takes faith.GW, WR faith.RW and UG faith.GU).
+#
+# One moment for each of the 22 faith events with a modern epoch and an on_character line, except three the world
+# already fires: faith_revival ("a revival fills the square", earth-world-eras.lib), new_teaching ("a new faith comes
+# to town", C5 in earth-world-institutions.lib) and schism ("the congregation splits in two", earth-world-wants.lib,
+# the same split over who leads, one half keeping the building). coming_of_age is told from the family's side, since
+# the young person's own rite is the everyday "a coming-of-age ceremony".
+#
+# Layout: five one-colour options and one pair set in every moment; the twelve D1-D6 halves are each used once or
+# twice. Evenness: in every moment the five one-colour options share one chance and the five pair options another
+# (each colour sits in exactly two pairs), so every colour has the same mean chance in each moment and in every stage.
+# No flags.
+#
+# No real faith is named and no one culture's festival; faith conflict is told indirectly (a broken shop window, a
+# banned neighbour's books, a quarrel over a wedding). The scandal is about money. Claims of wonders are told as what
+# people say.
+
+# ---------------------------------------------------------------- coming_of_age (pairs D3a)
+
+# world: sphere event coming_of_age, selector members, share .5
+== the young one's rite of passage
+tier: life event
+sphere: faith
+sphere_event: coming_of_age
+at: faith body
+stages: adult mature
+age: 35-65
+per_year: 0 0 0 0 0 0
+times: World event: coming_of_age (sphere faith). Fires for members of a faith that keeps its rites when a young person of their household reaches the age the faith marks; a parent in such a faith sees one to three children through it (estimate); share .5
+likelier: a family that keeps the faith; a close congregation; several children in the house
+rarer: a family that keeps the faith in name only; a scattered family; few children
+gap: 2-10
+tone: joy
+life: faith, family, rites
+horizon: months
+roles: child, parent
+earth: your child reaches the age your faith marks, and the rite, the class and the party all fall to the family
+scene: {child} has reached the age the faith marks. The ceremony is short; the party will last all afternoon. {parent} has already cried once and will not say why.
+scene W: {N} has helped {child} learn every word of the rite, and wants the day to go exactly as it should.
+scene U: {child} keeps asking what the words of the rite actually mean, and {N} is not sure they can say.
+scene B: The whole congregation will be watching, and families are judged by how such a day is kept. {N} has a budget in mind and a guest list.
+scene R: {child} is nervous and excited at once, and {N} remembers how their own rite felt: like a door swinging open.
+scene G: The same words were said over {N}, and over {parent} before them. Today they will be said over {child}.
+- W | go over the rite's words with the young one each evening until they are sure | v: tradition, conformity | lever: loyalty | pushes: belief | sphere: faith.W | chance: 70
+- U | explain to the young one what each part of the rite means, and why | v: universalism, self-direction | sphere: faith.U | chance: 70
+- B | throw the biggest party the street has seen, and invite the people who matter | v: achievement, power | sphere: faith.B | chance: 70
+- R | stand up at the party and give a speech that has the whole room in tears | v: stimulation, benevolence | sphere: faith.R | chance: 70
+- G | bring out the old family keepsake, and pass it on at the end of the rite | v: tradition, benevolence | sphere: faith.G | chance: 70
+- BG | spend beyond the family's means, so the family is not outdone | v: power, tradition | sphere: faith.BG | chance: 60
+- RG | take the young one and friends out for a night under the sky, as of old | v: tradition, stimulation | sphere: faith.RG | chance: 60
+- UB | ask a respected elder to take the young one under their wing from now on | v: achievement, security | sphere: faith.UB | chance: 60
+- WR | gather every relative under one roof for the day, even the ones who stopped speaking | v: benevolence, tradition | pushes: close | sphere: faith.RW | chance: 60
+- WU | sit in on the class before the rite, and help the teacher with the nervous ones | v: conformity, universalism | sphere: faith.WU | chance: 60
+works: The day goes well, and {child} carries something from it that will last.
+works: Years later {child} still talks about the rite, and about who stood beside them that day.
+fails: A family quarrel spoils the afternoon, and that is what {child} remembers most.
+fails: The rite passes in a blur of costs and nerves, and nobody quite enjoys it.
+
+# ---------------------------------------------------------------- pilgrimage (pairs D5b)
+
+# world: sphere event pilgrimage, selector place, share .15
+== the old walking road is full again
+tier: life event
+sphere: faith
+sphere_event: pilgrimage
+haunt: faith.shrines
+holy: pilgrimage
+at: faith body
+stages: juvenile+
+age: 16-80
+per_year: 0 0 0 0 0 0
+times: World event: pilgrimage (sphere faith). Fires for the people of a place on or near a pilgrim road in the walking season of a safe, well-off year; most people never walk one, and of those near a busy road perhaps 1 in 7 sets out in a given season (estimate); share .15
+likelier: a town on an old pilgrim road; a promise made in a hard year; a question carried for years; good health
+rarer: poor health; small children at home; a lean year; a person far from any road
+gap: 5-30
+tone: joy
+life: faith, travel, friendship
+horizon: week
+roles: friend, parent
+earth: the old pilgrim road is busy this season, and a friend offers you a place in a group walking to the shrine
+scene: The old walking road is full again this season: believers, seekers and the merely curious, all with blisters. {friend} has a spare place in a group setting off next week, three weeks on foot to the shrine.
+scene W: {N} made a promise last year, when things were bad, to walk the road if they came right. They did.
+scene U: {N} has a question that has followed them for years. Perhaps three weeks of walking will settle it.
+scene B: The road is a long walk, and also a long run of inns, guides and strangers worth knowing. {N} sees both.
+scene R: {N} wants to go simply for the going: the road, the dust, the singing round the fire at night.
+scene G: {parent} walked the road when young, and still keeps a shell from the shrine on the windowsill.
+- W | walk the whole road to keep the promise you made, every step of it | v: tradition, conformity | mark: kept your word | lever: loyalty | sphere: faith.W | chance: 65
+- U | walk with a notebook, and ask each pilgrim why they came | v: self-direction, universalism | sphere: faith.U | chance: 65
+- B | go as a paid guide for a group of first-timers | v: achievement | sphere: faith.B | chance: 65
+- R | set off alone at dawn, with no plan for where to sleep | v: stimulation, self-direction | mark: took a wild risk | sphere: faith.R | chance: 65
+- G | carry a stone from the family graves and leave it at the shrine | v: tradition, benevolence | sphere: faith.G | chance: 65
+- BR | sell cold drinks and blister plasters at the steepest bend of the road | v: achievement, hedonism | sphere: faith.BR | chance: 55
+- RG | walk the last stretch barefoot, the way the old pilgrims did | v: tradition, stimulation | sphere: faith.RG | chance: 55
+- UG | fall in beside an old pilgrim and learn the road's stories as you walk | v: tradition, universalism | sphere: faith.GU | chance: 55
+- WB | help run the pilgrims' hostel for the season, and keep its books straight | v: security, benevolence | sphere: faith.WB | chance: 55
+- WU | learn the road's old prayers by heart before setting out | v: tradition, conformity | mark: learned a skill | sphere: faith.WU | chance: 55
+works: {N} comes home footsore and lighter, with friends from three towns away.
+works: Somewhere on the road the question {N} carried quietly settles.
+fails: Blisters, rain and a quarrel in the group, and {N} turns back halfway.
+fails: The road is so crowded that {N} finds no quiet on it at all.
+
+# ---------------------------------------------------------------- scandal (pairs D4a)
+
+# world: sphere event scandal, selector members, share .6
+== the building fund is gone
+tier: life event
+sphere: faith
+sphere_event: scandal
+haunt: faith.congregation
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: scandal (sphere faith). Fires for the members of a congregation whose house is rich and badly overseen when an insider or the press brings a misuse of its money to light; a lifelong member lives through one perhaps once in a life (estimate); share .6
+likelier: a rich house with loose oversight; a leader in post for decades; a free press in town
+rarer: a small house that counts its money in the open; a closed regime that silences the press
+gap: 15-40
+tone: trouble
+life: faith, community, money
+horizon: months
+roles: grandparent, friend
+earth: the news breaks that your congregation's leader spent the building fund on himself, and half the seats go empty
+scene: The news breaks on a weekday: the congregation's leader spent the building fund on a house and a car for himself. By the next rest day half the seats are empty, and everyone asks who else knew.
+scene W: {N} has given to that fund every month for years, and kept the rules the leader preached.
+scene U: {N} wants to see the accounts, all of them, before believing anything either way.
+scene B: The leader is finished. Someone will have to take over the board, and the board decides a great deal.
+scene R: {N} feels the anger rise: all those sermons on honesty, and this.
+scene G: {grandparent} helped build the old hall with their own hands. "The house is not the man," {grandparent} says.
+- W | stand up at the members' meeting and ask the leader to step down | v: conformity, universalism | lever: voice | pushes: group congregation | sphere: faith.W | chance: 60
+- U | ask to see the accounts, and go through them line by line | v: self-direction, universalism | lever: voice | pushes: institution faith body | sphere: faith.U | chance: 60
+- B | put your name forward for the board while the old one falls | v: power, achievement | lever: lead | sphere: faith.B | chance: 60
+- R | tell the leader to their face, in front of everyone, what you think of them | v: stimulation, universalism | mark: made an enemy | lever: voice | sphere: faith.R | chance: 60
+- G | keep coming on the holy days, for the sake of the old hall | v: tradition, security | lever: loyalty | pushes: group congregation | sphere: faith.G | chance: 60
+- BG | quietly move the family to another house of worship across town | v: security | lever: exit | sphere: faith.BG | chance: 50
+- RG | stop going, and spend the rest day with the family instead | v: hedonism, tradition | lever: neglect | sphere: faith.RG | chance: 50
+- UR | tell a reporter what you know about where the fund went | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: culture | sphere: faith.UR | chance: 50
+- WB | push for an outside auditor and new rules on every fund | v: security, conformity | lever: voice | pushes: institution faith body | sphere: faith.WB | chance: 50
+- WU | help draw up a fair plan to pay the givers back | v: universalism, benevolence | sphere: faith.WU | chance: 50
+works: The worst comes out and is dealt with, and {N} can still look the congregation in the eye.
+works: A year on the seats are filling again, under rules that keep the money in sight.
+fails: The quarrel over who knew splits old friends, and {N} is caught in the middle of it.
+fails: Nothing changes but the faces at the front, and {N} stops believing it ever will.
+
+# ---------------------------------------------------------------- faith_outlawed (pairs D6a)
+
+# world: sphere event faith_outlawed, selector place, share .3
+== a box of books from next door
+tier: life event
+sphere: faith
+sphere_event: faith_outlawed
+at: faith body
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+times: World event: faith_outlawed (sphere faith). Fires for the people of a place when the rule lists a faith as dangerous; rare in settled times, and most who live through it meet it through a neighbour or a colleague (estimate); share .3
+likelier: a regime short on tolerance; a faith tied to an enemy abroad or a revolt; an established faith pressing for a ban
+rarer: a free and settled country; high trust; a town with no members of the listed faith
+gap: 20-60
+tone: trouble
+life: faith, neighbours, law
+horizon: months
+roles: parent
+earth: the government lists your neighbours' faith as dangerous, and they ask you to hide a box of their books
+scene: The government has listed the faith of the family next door as dangerous. The father has lost his job, and they pray behind drawn curtains now. Tonight the mother knocks with a box of books and asks {N} to keep it for a while.
+scene W: The law is the law, {N} was taught. But the family next door has never done anyone harm.
+scene U: {N} reads the order twice. Nothing in it says what the faith has actually done.
+scene B: A box like that could cost {N} a great deal, or buy goodwill in the right office.
+scene R: {N} feels a hot rush of anger at the order, and at the fear in the neighbour's face.
+scene G: {parent} remembers other lists in other years. "Families look after families," {parent} says.
+- W | keep the box, and tell the family they are still welcome at your table | v: benevolence, universalism | mark: helped someone in need | lever: subvert | pushes: close | sphere: faith.W | chance: 55
+- U | find a lawyer who will take the family's case against the order | v: universalism, self-direction | mark: helped someone in need | lever: voice | pushes: state | sphere: faith.U | chance: 55
+- B | hand the box to the authorities, and keep your own record clean | v: security, power | mark: refused someone in need | sphere: faith.B | chance: 55
+- R | join the crowd outside the town hall calling for the order to go | v: universalism, stimulation | lever: voice | pushes: state | sphere: faith.R | chance: 55
+- G | say no to the box, but bring the family bread every week | v: benevolence, security | mark: helped someone in need | sphere: faith.G | chance: 55
+- BG | hide the books under the floorboards, and say nothing to anyone | v: security, benevolence | lever: subvert | sphere: faith.BG | chance: 45
+- UG | let the family hold their prayers in your back room on rest days | v: universalism, benevolence | mark: defied an authority | lever: subvert | sphere: faith.GU | chance: 45
+- UR | write up the family's story without names, and send it to the papers | v: universalism, self-direction | lever: voice | pushes: culture | sphere: faith.UR | chance: 45
+- WB | ask a friend in the council office how the family can appeal | v: security, benevolence | lever: voice | pushes: institution council | sphere: faith.WB | chance: 45
+- WR | stand on the step beside the family when the officers come to call | v: benevolence, universalism | mark: defied an authority | sphere: faith.RW | chance: 45
+works: The family gets through the hard years, and does not forget who stood by them.
+works: In time the order is lifted, and {N} knows what part they played.
+fails: Word gets round the street, and {N} is watched with suspicion for a long time.
+fails: The family leaves town in the night, and {N} never learns where they went.
+
+# ---------------------------------------------------------------- tolerance (pairs D1b)
+
+# world: sphere event tolerance, selector place, share .4
+== the leaders of every faith share a meal
+tier: life event
+sphere: faith
+sphere_event: tolerance
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: tolerance (sphere faith). Fires for the people of a place when, after a costly quarrel between faiths or when trade needs everyone, the rule and the faiths' leaders make peace; a person lives through such a turn once in a life at most (estimate); share .4
+likelier: a town of several faiths; a quarrel lately ended; good trade; leaders who know each other
+rarer: a town of one faith; a fresh grievance; hard times
+gap: 20-60
+tone: joy
+life: faith, community, friendship
+horizon: months
+roles: friend, grandparent
+earth: the leaders of every faith in your town share a meal, and your friend of another faith can now marry openly
+scene: The leaders of every faith in town share a meal, and it makes the local paper. It is a start. {friend}, whose family keeps another faith, can now plan a wedding openly, and feasts from every side fill the town's year.
+scene W: {N} was raised to keep to their own. The new peace asks for a wider courtesy, and {N} means to keep it properly.
+scene U: {N} has always wondered what the neighbours believe. Now people are asking each other.
+scene B: Open doors between the faiths mean new customers, new partners and friends in useful places.
+scene R: The streets are louder and brighter with every faith's feast. {N} wants to be at all of them.
+scene G: {grandparent} remembers when the faiths of the town shared one market and one well, before the bad years.
+- W | invite a family of another faith to share your holy day meal | v: benevolence, tradition | sphere: faith.W | chance: 70
+- U | join a circle that reads each faith's teachings together, one evening a month | v: universalism, self-direction | sphere: faith.U | chance: 70
+- B | open your shop on every faith's feast days, with something for each | v: achievement | sphere: faith.B | chance: 70
+- R | go to every feast in town this year, whoever is hosting | v: stimulation, hedonism | sphere: faith.R | chance: 70
+- G | keep your own feasts as always, and greet the others warmly in the street | v: tradition, security | lever: loyalty | sphere: faith.G | chance: 70
+- RG | dance at your friend's wedding, whatever the old aunts say | v: benevolence, hedonism | mark: made a friend | sphere: faith.RG | chance: 60
+- UB | broker a deal for the faiths to share the empty hall on different days | v: achievement, universalism | sphere: faith.UB | chance: 60
+- UR | write to the paper about the shared meal, and ask for another next year | v: universalism, self-direction | lever: voice | pushes: culture | sphere: faith.UR | chance: 60
+- WB | ask the council to put every faith's holy days in the town calendar | v: universalism, conformity | lever: voice | pushes: institution council | sphere: faith.WB | chance: 60
+- WG | help cook for a feast that the two faiths of the street share | v: benevolence, tradition | sphere: faith.GW | chance: 60
+works: The peace holds, and {N} has friends now across a line that once seemed fixed.
+works: A year on, the shared meal has become a habit of the town, and {N} is part of it.
+fails: Old suspicions return with the first bad news, and the shared tables empty again.
+fails: The others welcome {N}, but at home {N} is scolded for it.
+
+# ---------------------------------------------------------------- sign (pairs D2b)
+
+# world: sphere event sign, selector place, share .4
+== a face in the window
+tier: life event
+sphere: faith
+sphere_event: sign
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: sign (sphere faith). Fires for the people of a place when a claimed sign (a healing, a light, a vision) is taken up, most where devotion is high and fear is wide; a town sees one that draws crowds perhaps once in a generation (estimate); share .4
+likelier: devout towns; fearful times; an illness in the family; a clip that spreads online
+rarer: a town where few believe; settled times; a sceptical press
+gap: 15-50
+tone: mixed
+life: faith, family, community
+horizon: months
+roles: grandparent
+earth: people say a holy face has appeared in an old window, cars line the road, and your grandparent says their pain has eased
+scene: A clip of what people say is a holy face in an old window has gone everywhere. By the weekend cars line the road outside, and {grandparent} says the pain in their hip eased after praying there. Nobody can say what happened.
+scene W: The faith's elders have asked people to be careful what they claim, and to come to the regular rites instead.
+scene U: {N} watches the clip frame by frame. Light, old glass, and a crowd that wants to see something. Or something else.
+scene B: Thousands of visitors need parking, food, candles and somewhere to stay. Someone will do well out of it.
+scene R: {N} stands in the crowd at dusk and feels the hair rise on their arms as the singing starts.
+scene G: {grandparent} lights a candle for the dead at the window every evening now, and asks {N} to come too.
+- W | ask the elders to keep the crowds orderly and the claims modest | v: security, conformity | lever: voice | pushes: belief | sphere: faith.W | chance: 65
+- U | look into what the window really shows before believing or scoffing | v: self-direction, universalism | sphere: faith.U | chance: 65
+- B | rent out your driveway to the visitors by the hour | v: achievement | sphere: faith.B | chance: 65
+- R | join the crowd at the window and sing with them until late | v: stimulation | sphere: faith.R | chance: 65
+- G | go with your grandparent each evening, and light a candle beside them | v: tradition, benevolence | sphere: faith.G | chance: 65
+- RG | trust what your heart says about it, and say so to anyone who asks | v: self-direction, tradition | pushes: belief | sphere: faith.RG | chance: 55
+- UB | sell your sharpest photographs of the window to the papers | v: achievement, self-direction | sphere: faith.UB | chance: 55
+- UG | say nothing against the healing, and simply keep your grandparent company | v: benevolence | pushes: close | sphere: faith.GU | chance: 55
+- WB | help the council set up parking and first aid for the crowds | v: security, benevolence | sphere: faith.WB | chance: 55
+- WR | warn the crowd not to give up their medicine on the strength of a story | v: benevolence, universalism | lever: voice | sphere: faith.RW | chance: 55
+works: Whatever the window shows, the weeks of crowds leave {N} with something {N} values.
+works: {Ns} grandparent has good weeks, and {N} is glad to have shared them.
+fails: The crowds turn quarrelsome, and the street is sick of the whole business.
+fails: The story falls apart in the papers, and those who believed feel foolish.
+
+# ---------------------------------------------------------------- rites_cut (pairs D2a)
+
+# world: sphere event rites_cut, selector place, share .3
+== ten people at the graveside
+tier: life event
+sphere: faith
+sphere_event: rites_cut
+holy: mourning
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: rites_cut (sphere faith). Fires for the people of a place when a plague, a famine or a war kills faster than the rites can be held, or gatherings are banned; in such a season perhaps 3 in 10 lose someone close whose rites are cut short (estimate); share .3
+likelier: an epidemic with gatherings banned; a war nearby; an old or frail family
+rarer: settled years; a young family; a place far from the trouble
+gap: 20-80
+tone: trouble
+life: faith, grief, family
+horizon: months
+roles: dead, parent
+earth: the rules this season allow ten people at a funeral, and you and the rest of the family watch on a screen
+scene: The rules this season allow ten people at a funeral. {Ns} family watches {dead}'s on a screen, and no one can hold anyone. The grief has nowhere to go.
+scene W: The rites say the whole community must honour the dead. The rules say ten. {N} keeps both as best they can.
+scene U: {N} wonders what a rite is for, if it can be cut down to ten people and a camera.
+scene B: There are ten places, and the family is arguing over who gets one. {N} could claim a seat.
+scene R: {N} cannot bear to watch through glass. Every part of them wants to be in that room.
+scene G: {parent} keeps saying the dead will not rest until they are sent off properly.
+- W | give up your own place so an older relative can be there | v: benevolence, conformity | sphere: faith.W | chance: 60
+- U | write a eulogy, and send it to every relative who cannot come | v: benevolence, self-direction | sphere: faith.U | chance: 60
+- B | make sure your side of the family gets the places that count | v: power | mark: made an enemy | sphere: faith.B | chance: 60
+- R | stand outside the gate in the rain, as close as the rules allow | v: stimulation, benevolence | sphere: faith.R | chance: 60
+- G | promise the family a proper second rite when the rules lift | v: tradition | sphere: faith.G | chance: 60
+- BG | pay for a stone and a gathering later that no one will forget | v: tradition, power | lever: fund | sphere: faith.BG | chance: 50
+- BR | slip into the back of the hall, and break the rule to be there | v: self-direction, stimulation | mark: broke the law | lever: subvert | sphere: faith.BR | chance: 50
+- UR | gather the cousins online that night to tell stories of the dead until late | v: benevolence, stimulation | sphere: faith.UR | chance: 50
+- WG | keep the old mourning days at home, with a candle and an empty chair | v: tradition | lever: loyalty | sphere: faith.GW | chance: 50
+- WU | ask the faith's leaders for a short rite that families can hold at home | v: conformity, benevolence | lever: voice | pushes: belief | sphere: faith.WU | chance: 50
+works: Years later the second rite is held at last, and the family finally says goodbye.
+works: The grief finds its way out, slowly, through the small rites the family kept.
+fails: The goodbye never quite happens, and {N} carries it unfinished.
+fails: The quarrel over the ten places outlasts the mourning.
+
+# ---------------------------------------------------------------- temple_raised (pairs D5a)
+
+# world: sphere event temple_raised, selector members, share .6
+== the new house of worship opens
+tier: life event
+sphere: faith
+sphere_event: temple_raised
+haunt: faith.congregation
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: temple_raised (sphere faith). Fires for the members of a growing congregation when its new building opens; a lifelong member sees one built perhaps once in a life (estimate); share .6
+likelier: a growing congregation; a generous patron; good times; a town with room to build
+rarer: a shrinking congregation; hard times; a council that refuses the permits
+gap: 20-60
+tone: joy
+life: faith, community
+horizon: months
+roles: friend
+earth: after ten years of fundraising your congregation's new building opens, and there are jobs for everyone
+scene: After ten years of fundraising the new house of worship opens. Children's drawings line the hallway, the old families' names are on the founders' board, and there is a long list of jobs still to do.
+scene W: {N} sat through every planning meeting for ten years. Now there is a rota to fill and a building to keep.
+scene U: {N} looks at the new rooms and thinks about what they should be used for, every day, not only on the rest day.
+scene B: The founders' board lists the names that gave most. {N} reads them, and notices whose are missing.
+scene R: The first service in the new hall is loud with singing, and {N} feels it in their chest.
+scene G: Two old benches from the old building have come with the congregation. {N} sits on the family's, in the same place.
+- W | take charge of the new building's cleaning and repairs rota | v: conformity, benevolence | lever: loyalty | pushes: group congregation | sphere: faith.W | chance: 70
+- U | start a weekday class in one of the new rooms | v: universalism, self-direction | lever: found | sphere: faith.U | chance: 70
+- B | pay for a room and have it named for your family | v: power, achievement | lever: fund | sphere: faith.B | chance: 70
+- R | help put on a first-night concert for the whole town | v: stimulation, benevolence | sphere: faith.R | chance: 70
+- G | carry the family's old bench in from the old building | v: tradition | sphere: faith.G | chance: 70
+- BG | buy a carved stone with your parents' names for the front wall | v: tradition, power | lever: fund | sphere: faith.BG | chance: 60
+- UB | sit on the committee that decides who may use the rooms | v: power, security | lever: lead | pushes: group congregation | sphere: faith.UB | chance: 60
+- UR | paint a mural in the hallway with the children of the congregation | v: self-direction, stimulation | sphere: faith.UR | chance: 60
+- WG | cook for everyone on the opening day, the way it was done at the old hall | v: tradition, benevolence | sphere: faith.GW | chance: 60
+- WR | lead the procession from the old building to the new one | v: tradition, stimulation | sphere: faith.RW | chance: 60
+works: The new building fills, and {N} has a place in it for years.
+works: A year on, the rooms are in use every day, and {N} helped make that so.
+fails: The building opens with debts, and quarrels over the bills follow.
+fails: The new hall feels too grand, and the old warmth is slow to follow.
+
+# ---------------------------------------------------------------- young_drift (pairs D1a)
+
+# world: sphere event young_drift, selector members, share .4
+== none of your friends go any more
+tier: life event
+sphere: faith
+sphere_event: young_drift
+at: faith body
+stages: young_adult adult
+age: 18-40
+per_year: 0 0 0 0 0 0
+times: World event: young_drift (sphere faith). Fires for the young members of a faith in long secure, well-schooled times when the rites feel far from young lives; in such times many of the young drift and some come back at a birth or a death (estimate); share .4
+likelier: a move to a city; university; friends who never went; long secure times
+rarer: a close-knit faith town; a family that keeps the rites daily; hard times
+gap: 5-20
+tone: mixed
+life: faith, family, friendship
+horizon: years
+roles: parent
+earth: none of your friends go to the house of worship any more, and you have not been for months, but you still light the candles at your parents'
+scene: None of {Ns} friends go to the house of worship any more, and {N} has not been for months. At the holidays {N} still lights the candles at {parent}'s house, and {parent} watches as if waiting for something.
+scene W: {N} was raised to turn up every rest day. Missing it still feels like breaking a promise.
+scene U: {N} is not sure what they believe now, and wants to find out honestly before deciding anything.
+scene B: The rest days are free now, and {N} has plans for them: work, study, a business on the side.
+scene R: Freedom tastes good: lie-ins, long mornings, friends. {N} does not miss the hard benches.
+scene G: The candles at {parent}'s house still mean something. {N} is not ready to let go of them.
+- W | go back once a month, for your parent's sake | v: conformity, tradition | lever: loyalty | pushes: close | sphere: faith.W | chance: 65
+- U | read the teachings again as a grown-up, and see what still stands | v: self-direction | sphere: faith.U | chance: 65
+- B | use the free mornings for a course that could change your work | v: achievement | mark: learned a skill | sphere: faith.B | chance: 65
+- R | tell your parent, kindly, that you have stopped believing | v: self-direction | norm: leaving a faith | lever: exit | pushes: close | sphere: faith.R | chance: 65
+- G | keep the home rites, and let the house of worship go | v: tradition | lever: neglect | sphere: faith.G | chance: 65
+- BG | come only at the holidays, and keep the peace at home | v: security, tradition | lever: neglect | sphere: faith.BG | chance: 55
+- BR | spend the rest days as you please, and stop explaining yourself | v: hedonism, self-direction | lever: exit | sphere: faith.BR | chance: 55
+- UG | ask your parent what the faith gave them, and really listen | v: benevolence, universalism | pushes: close | sphere: faith.GU | chance: 55
+- WR | bring your friends along to a holiday service, for the music and the food | v: benevolence, stimulation | sphere: faith.RW | chance: 55
+- WU | look for a quieter house of worship where questions are welcome | v: universalism, tradition | sphere: faith.WU | chance: 55
+works: {N} finds a way to live with the faith, near or far, that does not cost the family.
+works: Years later, at a birth or a death, {N} finds the old words still there when needed.
+fails: {parent} takes the drift hard, and the holidays grow quiet and careful.
+fails: {N} drifts from the faith and the old friends alike, and nothing fills the gap.
+
+# ---------------------------------------------------------------- holy_days (pairs D6b)
+
+# world: sphere event holy_days, selector members, share .5
+== the fast ends and the table fills
+tier: life event
+sphere: faith
+sphere_event: holy_days
+holy: feast
+at: faith body
+stages: juvenile+
+age: 12-100
+per_year: 0 0 0 0 0 0
+times: World event: holy_days (sphere faith). Fires for the members of a household that keeps the holy days when the sacred year's fast ends in its feast; the feast comes every year, and this moment is the year it is felt, about every few years in a life of faith (estimate); share .5
+likelier: a family that keeps the fast; a death in the family in the last year; a newcomer at the table
+rarer: a member in name only; a family scattered far; a year away from home
+gap: 3-10
+tone: joy
+life: faith, family, rites
+horizon: week
+roles: dead, parent
+earth: the fast is over, you are home for the feast with everyone, and the empty chair is the one you all notice
+scene: The days of the fast are over, and everyone has come home for the feast: the old arguments, the same dishes, someone new at the table. At one end stands the chair that was {dead}'s, and everyone notices it.
+scene W: {N} kept the fast to the end this year, every day of it, as the family always has.
+scene U: {N} spent the quiet days of the fast thinking more than eating, and has questions for the table.
+scene B: Everyone is home at once, the one time in the year. {N} has things to settle with some of them.
+scene R: After days of hunger and quiet the full table is a joy, and {N} is ready to make it loud.
+scene G: {parent} has cooked {dead}'s dish exactly as {dead} did, and the smell fills the house.
+- W | say the blessing for the meal, and name the dead in it | v: tradition, conformity | sphere: faith.W | chance: 75
+- U | ask the oldest at the table what the fast was first for | v: universalism, tradition | sphere: faith.U | chance: 75
+- B | use the meal to patch up a quarrel that has been costing you | v: achievement, security | pushes: close | sphere: faith.B | chance: 75
+- R | get everyone singing the old songs before the dishes are cleared | v: stimulation, hedonism | sphere: faith.R | chance: 75
+- G | set a plate at the empty chair, the way the old families did | v: tradition, benevolence | sphere: faith.G | chance: 75
+- BR | stay out late with old friends from town, and skip the second day | v: hedonism, self-direction | lever: neglect | sphere: faith.BR | chance: 65
+- RG | tell the funniest stories of the dead until the whole table laughs | v: benevolence, stimulation | sphere: faith.RG | chance: 65
+- UB | sit beside the newcomer and find out who they really are | v: security, self-direction | sphere: faith.UB | chance: 65
+- WG | stand at the stove beside your parent, and learn the lost one's dish | v: tradition, benevolence | mark: learned a skill | sphere: faith.GW | chance: 65
+- WU | draw up who cooks what next year, so no one carries the feast alone | v: conformity, benevolence | sphere: faith.WU | chance: 65
+works: The table is loud and kind this year, and {N} carries the feeling into the months ahead.
+works: Someone new is welcomed, someone missing is remembered, and the family holds.
+fails: An old argument flares at the table, and someone leaves before the sweets.
+fails: The empty chair is too much this year, and the feast ends early and quiet.
+
+# ---------------------------------------------------------------- calling (pairs D3b)
+
+# world: sphere event calling, selector members, share .1
+== a call to serve after a loss
+tier: life event
+sphere: faith
+sphere_event: calling
+ladder: regular
+at: faith body
+stages: young_adult adult mature
+age: 25-60
+per_year: 0 0 0 0 0 0
+times: World event: calling (sphere faith). Fires for members of a faith where devotion runs high, its ladder is open and a mentor sees a gift, often after a crisis; few members ever feel called, perhaps 1 in 10 of those it touches (estimate); share .1
+likelier: a recent loss; a devout family; a mentor in the faith; a life that has lost its old shape
+rarer: a busy family life; little time at the house of worship; a faith with a closed ladder
+gap: 10-40
+tone: mixed
+life: faith, work, meaning
+horizon: years
+roles: mentor, partner
+earth: after a loss you keep finding yourself sitting with the grieving, and your mentor says you should train as a faith counsellor
+scene: Since the loss, {N} keeps finding themselves at the house of worship, sitting with others who grieve. {mentor} says {N} has a gift for it. The faith's counsellor training starts in the autumn: two years, little pay, and work that never quite stops.
+scene W: There are people in hospital beds and empty houses with no one to sit with them. {N} could be the one.
+scene U: {N} wants to understand what happens in a person who loses everything, and how to help them through it.
+scene B: The training would give {N} a title, a place in the faith and a voice that people listen to.
+scene R: The pull is like a fire in the chest. {N} has never been so sure of anything, or so unsure.
+scene G: {Ns} family has always had someone in the faith's service. Perhaps this time it is {N}.
+- W | start the training, and give the next years to those who grieve | v: benevolence, tradition | lever: loyalty | pushes: belief | sphere: faith.W | chance: 55
+- U | take one evening course first, to test whether the call holds | v: self-direction | mark: learned a skill | sphere: faith.U | chance: 55
+- B | train, and aim to lead the faith's counselling work in the district one day | v: achievement, power | sphere: faith.B | chance: 55
+- R | leave your job this month and answer the call at once | v: self-direction, stimulation | mark: took a wild risk | sphere: faith.R | chance: 55
+- G | ask your family's blessing before taking a single step | v: tradition, benevolence | pushes: close | sphere: faith.G | chance: 55
+- BR | train, but keep the rest of your life exactly your own | v: self-direction, hedonism | sphere: faith.BR | chance: 45
+- UG | sit with the dying on the ward as a volunteer for a year, then decide | v: benevolence, universalism | sphere: faith.GU | chance: 45
+- UR | keep a journal of the call, and talk it through with a teacher you trust | v: self-direction, universalism | sphere: faith.UR | chance: 45
+- WB | set out a plan with your partner: savings, hours and a date to look again | v: security | pushes: close | sphere: faith.WB | chance: 45
+- WG | turn the training down for now, and serve the grieving in your own street | v: benevolence, tradition | mark: turned down a chance | sphere: faith.GW | chance: 45
+works: The work is hard and right, and {N} becomes someone others lean on.
+works: Whatever {N} decides, they decide it with open eyes, and the family stays close.
+fails: The training costs more than {N} guessed, in money and in time at home.
+fails: The call fades in the second year, and {N} is left unsure what it was.
+
+# ---------------------------------------------------------------- grove_felled (pairs D4b)
+
+# world: sphere event grove_felled, selector place, share .3
+== the hill of offerings is cleared
+tier: life event
+sphere: faith
+sphere_event: grove_felled
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: grove_felled (sphere faith). Fires for the people of a place when a boom needs the land of an old sacred grove or hill and the rule sides with the builders; a town loses such a place once in several generations (estimate); share .3
+likelier: a building boom; a council that favours developers; old rites grown weak
+rarer: a protected site; a strong local faith; a slump with nothing to build
+gap: 30-80
+tone: trouble
+life: faith, nature, community
+horizon: months
+roles: grandparent
+earth: a developer clears the hill where your town has left offerings for generations, and a protest camp forms at the gate
+scene: A developer has begun clearing the hill where people have left offerings for generations, and ribbons still hang in the cut trees. A protest camp has formed at the gate, and the builders are hiring by the day.
+scene W: There are permits and there is right. {N} has always believed the two should match, and here they do not.
+scene U: {N} wants to know who sold the hill, and how, and whether it was ever theirs to sell.
+scene B: The builders pay well, and the houses they put up will sell. {N} could take the work.
+scene R: The camp at the gate sings all night. {N} feels the pull to be there in the mud with them.
+scene G: {grandparent} went up the hill every spring for seventy years. Now {grandparent} will not speak of it at all.
+- W | ask the council to check whether the permits were granted properly | v: conformity, universalism | lever: voice | pushes: institution council | sphere: faith.W | chance: 55
+- U | dig through the records to find out who sold the hill, and how | v: self-direction, universalism | sphere: faith.U | chance: 55
+- B | take the builders' day wages while the work lasts | v: achievement, security | sphere: faith.B | chance: 55
+- R | join the camp at the gate, and stay as long as it holds | v: universalism, stimulation | lever: voice | pushes: nature | sphere: faith.R | chance: 55
+- G | go up the hill one last time with your grandparent before it is gone | v: tradition, benevolence | sphere: faith.G | chance: 55
+- BR | sell hot food to the camp and the builders alike | v: achievement | sphere: faith.BR | chance: 45
+- UB | press the developer to spare the oldest trees in return for a quiet site | v: power, universalism | lever: voice | pushes: nature | sphere: faith.UB | chance: 45
+- UG | take cuttings from the old trees to plant on another hill | v: tradition, universalism | sphere: faith.GU | chance: 45
+- WG | help the old families gather the offerings before the machines reach them | v: tradition, benevolence | sphere: faith.GW | chance: 45
+- WR | stand in front of the first machine when it moves at dawn | v: universalism, stimulation | mark: took a wild risk | lever: voice | pushes: nature | sphere: faith.RW | chance: 45
+works: Part of the hill is saved, and the old rites find a place on it.
+works: The hill is lost, but {N} kept faith with it, and {grandparent} knows it.
+fails: The trees come down anyway, and the town is split over it for years.
+fails: A quarrel at the gate turns old neighbours against {N}.
+
+# ---------------------------------------------------------------- temple_feeds (pairs D1a)
+
+# world: sphere event temple_feeds, selector place, share .3
+== the food bank opens five days a week
+tier: life event
+sphere: faith
+sphere_event: temple_feeds
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+times: World event: temple_feeds (sphere faith). Fires for the people of a place in a slump when the faith keeps a kitchen or a food bank and public relief is thin; in such a slump perhaps 3 in 10 eat at its table or serve at it (estimate); share .3
+likelier: a slump; job losses in town; thin public relief; a faith with a kitchen
+rarer: good times; strong public relief; a town with no faith house
+gap: 10-30
+tone: joy
+life: faith, community, money
+horizon: months
+roles: grandparent
+earth: in a hard year the food bank in the faith's hall opens five days a week, and you could serve there or need it
+scene: Times are hard, and the food bank in the faith's hall now opens five days a week. Half the volunteers are not believers. This winter {N} could serve at its table, or may need to eat at it.
+scene W: The hall's rota has gaps every day, and {N} was raised to fill gaps like that.
+scene U: {N} notices who comes now who never came last year, and wonders what has changed in the town.
+scene B: Money is tight at home too. The hall's shelves are full, and nobody asks questions.
+scene R: {N} wants to do something now, today, not sit on a committee about it.
+scene G: {grandparent} remembers the hard years when the hall fed the whole street, and how the street never forgot.
+- W | sign up for two shifts a week on the food bank rota | v: benevolence, conformity | lever: loyalty | sphere: faith.W | chance: 70
+- U | find out who in town is going hungry and why, and tell the council | v: universalism | lever: voice | pushes: institution council | sphere: faith.U | chance: 70
+- B | take a parcel home for your own family, and let pride wait | v: security | sphere: faith.B | chance: 70
+- R | cook a hot meal for the queue on the coldest night | v: benevolence, stimulation | sphere: faith.R | chance: 70
+- G | bring in the surplus from your garden and the neighbours' | v: benevolence, tradition | mark: helped someone in need | sphere: faith.G | chance: 70
+- BG | ask the shops you know to give their unsold food each night | v: achievement, benevolence | sphere: faith.BG | chance: 60
+- BR | run a lively raffle night to fill the hall's shelves | v: stimulation, benevolence | lever: fund | sphere: faith.BR | chance: 60
+- UG | eat at the hall's table with your family, and help clear up after | v: security, benevolence | sphere: faith.GU | chance: 60
+- WR | stand at the door and greet everyone who comes by name | v: benevolence | sphere: faith.RW | chance: 60
+- WU | set up a fair system so the food goes to those who need it most | v: universalism, conformity | sphere: faith.WU | chance: 60
+works: The hall gets the town through the hard months, and {N} was part of it.
+works: Strangers from the queue become friends, and {N} keeps up with some of them.
+fails: The shelves run empty before spring, and the hall has to turn people away.
+fails: Pride and quarrels sour the work, and {N} drifts away from it.
+
+# ---------------------------------------------------------------- holy_war (pairs D3a)
+
+# world: sphere event holy_war, selector place, share .3
+== a broken shop window on the high street
+tier: life event
+sphere: faith
+sphere_event: holy_war
+at: faith body
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+times: World event: holy_war (sphere faith). Fires for the people of a place while a war is fought abroad in a faith's name and feeling at home turns against neighbours of the other faith; a town lives through such a stretch perhaps once or twice in a long life (estimate); share .3
+likelier: a war abroad in the news; a town of two faiths; hard times; low trust
+rarer: a town of one faith; high trust; peace abroad
+gap: 15-50
+tone: trouble
+life: faith, neighbours, community
+horizon: months
+roles: friend
+earth: a war abroad is fought in a faith's name, and on your street a neighbour's shop window is broken in the night
+scene: Far away a war is fought in a faith's name. On the high street a neighbour's shop window was broken in the night, and the owner, whose family keeps the other faith, is sweeping up the glass. He asks {N} for help.
+scene W: {N} believes the law should protect every shopkeeper alike, and here it has not.
+scene U: {N} hears the talk in the pub turning ugly, and wants to understand where it comes from.
+scene B: Some on the street are glad and some are afraid. {N} sees whose side will count in the end.
+scene R: {N} is angry: at the war, at whoever broke the window, at everyone saying nothing.
+scene G: {N} has bought bread from that shop every morning for years. That counts for something.
+- W | go to the police with the owner, and give your account of the night | v: security, universalism | lever: voice | pushes: institution police | sphere: faith.W | chance: 60
+- U | ask the owner round for coffee and hear what the last weeks have been like | v: universalism, benevolence | mark: made a friend | sphere: faith.U | chance: 60
+- B | keep out of it, and keep your own door shut for a few days | v: security | mark: refused someone in need | lever: neglect | sphere: faith.B | chance: 60
+- R | keep watch at the shop door for the next few nights | v: benevolence, stimulation | sphere: faith.R | chance: 60
+- G | keep buying your bread there every morning, as always | v: tradition, benevolence | lever: loyalty | sphere: faith.G | chance: 60
+- BG | raise a quiet collection on the street to pay for new glass | v: benevolence, security | lever: fund | sphere: faith.BG | chance: 50
+- RG | get the whole street out for a supper on the pavement, every family together | v: benevolence, stimulation | pushes: place | sphere: faith.RG | chance: 50
+- UB | take a quiet word to the people stirring things up in the pub | v: power, security | sphere: faith.UB | chance: 50
+- WR | speak at the council meeting against the hatred on the street | v: universalism, benevolence | lever: voice | pushes: institution council | sphere: faith.RW | chance: 50
+- WU | help the owner fit shutters and a camera before the next night | v: security, benevolence | sphere: faith.WU | chance: 50
+works: The street closes ranks around the shop, and the worst of it passes.
+works: The owner and {N} become friends of a kind neither of them expected.
+fails: More windows go before the war ends, and the street goes quiet with fear.
+fails: Some on the street tell {N} they chose the wrong side, and do not forget it.
+
+# ---------------------------------------------------------------- succession (pairs D6a)
+
+# world: sphere event succession, selector members, share .5
+== the leader of thirty years steps down
+tier: life event
+sphere: faith
+sphere_event: succession
+haunt: faith.congregation
+at: faith body
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+times: World event: succession (sphere faith). Fires for the members of a congregation when its long-serving leader dies or retires; a lifelong member sees the leader change a few times in a life (estimate); share .5
+likelier: an old leader; a congregation that rested on one person; rival candidates
+rarer: a congregation with shared leadership; a leader newly in post
+gap: 10-30
+tone: mixed
+life: faith, community
+horizon: months
+roles: mentor
+earth: your congregation's leader of thirty years retires, the search for the next one takes a year, and some say you should stand
+scene: The congregation's leader of thirty years, who taught {N} most of what {N} knows of the faith, is retiring. The search committee will meet for a year, there will be a vote, and some say {N} should put a name forward.
+scene W: {N} trusts the old way of choosing: the committee, the elders, the vote, all in order.
+scene U: {N} has views on what the next leader must understand, and on what the old one never did.
+scene B: A new leader will reshape the board, the funds and the rotas. Whoever is close to the choosing will matter.
+scene R: {N} wants a leader who can set the hall alight again, not another safe pair of hands.
+scene G: {mentor} has married, named and buried three generations here. {N} cannot picture the place without them.
+- W | serve on the search committee, and keep it fair and by the book | v: conformity, universalism | lever: voice | pushes: group congregation | sphere: faith.W | chance: 60
+- U | write down what the congregation needs, and send it to the committee | v: universalism, self-direction | lever: voice | pushes: group congregation | sphere: faith.U | chance: 60
+- B | put your own name forward for the post | v: achievement, power | lever: lead | sphere: faith.B | chance: 60
+- R | campaign loudly for the young preacher who fills the hall | v: stimulation, self-direction | lever: voice | pushes: group congregation | sphere: faith.R | chance: 60
+- G | throw the old leader a farewell the whole town will remember | v: tradition, benevolence | sphere: faith.G | chance: 60
+- BG | back the candidate the old families want, and keep the peace | v: security, tradition | lever: loyalty | sphere: faith.BG | chance: 50
+- UG | ask the old leader, privately, whom they would choose and why | v: tradition, universalism | sphere: faith.GU | chance: 50
+- UR | invite every candidate to speak openly to the whole congregation | v: universalism, stimulation | lever: voice | pushes: group congregation | sphere: faith.UR | chance: 50
+- WB | steer the choosing over quiet coffees in the back room | v: power, security | lever: subvert | sphere: faith.WB | chance: 50
+- WR | hold a night of song in thanks for the old leader before the vote | v: tradition, stimulation | sphere: faith.RW | chance: 50
+works: The new leader settles in, and {N} feels the choice was made well.
+works: The old leader's blessing passes on, and the congregation holds together.
+fails: The vote splits the congregation, and the losing side starts meeting elsewhere.
+fails: The search drags on for two years, and the seats empty while it does.
+
+# ---------------------------------------------------------------- temple_lands_taken (pairs D2b)
+
+# world: sphere event temple_lands_taken, selector place, share .2
+== the retreat house is sold
+tier: life event
+sphere: faith
+sphere_event: temple_lands_taken
+at: faith body
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+times: World event: temple_lands_taken (sphere faith). Fires for the people of a place when a rule short of money takes and sells a weakened faith's lands and houses; rare, once in several generations, and it touches mostly those with kin or work in those houses (estimate); share .2
+likelier: a government short of money; a faith split or weakened; an upheaval; rich old faith estates
+rarer: a strong faith; settled times; a faith with few lands
+gap: 30-80
+tone: mixed
+life: faith, family, land
+horizon: months
+roles: elder
+earth: the government sells off the faith's old estates, and the retreat house where your aunt has lived for forty years is to become a hotel
+scene: Short of money, the government has taken the faith's old estates and is selling them off. The retreat house where {Ns} aunt has lived for forty years is to become a hotel, and a cousin has already bought a field of its land.
+scene W: The house's dozen old residents have nowhere to go. Someone must see that they are cared for.
+scene U: {N} wants to know where the house's library and records will go before they are lost.
+scene B: The land is going cheap. The cousin is already richer for it, and there is more for sale.
+scene R: {N} is furious that a house of prayer is to become a hotel bar.
+scene G: {Ns} aunt says the old house belongs to the land and the dead, not to any buyer.
+- W | take your aunt and one of her old friends into your home | v: benevolence | mark: helped someone in need | sphere: faith.W | chance: 60
+- U | save the house's books and records for the town library | v: universalism, tradition | sphere: faith.U | chance: 60
+- B | buy a field of the land yourself while the price is low | v: achievement, power | sphere: faith.B | chance: 60
+- R | join the petition to stop the sale, and speak at the hearing | v: universalism, stimulation | lever: voice | pushes: state | sphere: faith.R | chance: 60
+- G | help the old residents keep their graveyard out of the sale | v: tradition | lever: voice | sphere: faith.G | chance: 60
+- RG | camp in the old orchard on the last night with your aunt and her friends | v: tradition, stimulation | sphere: faith.RG | chance: 50
+- UB | read the sale's small print, and find the clause that saves the prayer room | v: achievement, tradition | sphere: faith.UB | chance: 50
+- UG | record your aunt's memories of the house before they are forgotten | v: tradition, universalism | sphere: faith.GU | chance: 50
+- WB | press the council to keep part of the house as a care home | v: security, benevolence | lever: voice | pushes: institution council | sphere: faith.WB | chance: 50
+- WR | tell the cousin to their face that the field was never theirs to buy | v: tradition, universalism | mark: made an enemy | sphere: faith.RW | chance: 50
+works: Something of the old house survives, and its old residents are looked after.
+works: The sale goes through, but {N} saved what could be saved and can live with it.
+fails: The house becomes a hotel, and the family quarrels over the cousin's field for years.
+fails: The old residents are scattered to strangers' care, and {Ns} aunt does not settle.
+
+# ---------------------------------------------------------------- marriage_across (pairs D4a)
+
+# world: sphere event marriage_across, selector members, share .3
+== a wedding with two rites
+tier: life event
+sphere: faith
+sphere_event: marriage_across
+at: faith body
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+times: World event: marriage_across (sphere faith). Fires for members of a faith in a place open enough that young people of different faiths meet and marry; in such places a family sees one such wedding every generation or so (estimate); share .3
+likelier: a mixed town; high tolerance; university or work far from home; a large family
+rarer: a town of one faith; a closed community; low trust between the faiths
+gap: 10-40
+tone: joy
+life: faith, family, love
+horizon: months
+roles: sibling, parent
+earth: your brother or sister marries someone of another faith, with two rites back to back, and some of the family will not come
+scene: {sibling} is marrying someone of another faith. The wedding will have two rites back to back, one grandmother from each side, and music that offends everyone a little. Some of the family say they will not come.
+scene W: {N} was raised to marry within the faith and to honour the family's word. The family's word is now divided.
+scene U: {N} is curious about the other family's rite, and wants to understand it before the day.
+scene B: The other family is well connected. A good wedding could open doors for everyone.
+scene R: {N} loves that {sibling} is marrying for love, whatever anyone says.
+scene G: {parent} worries aloud about which feasts the new household will keep, and whose graves they will tend.
+- W | ask the couple, gently, whether one of them will take up the other's faith | v: tradition, conformity | sphere: faith.W | chance: 70
+- U | learn the other family's rite, so you can follow it on the day | v: universalism, self-direction | mark: learned a skill | sphere: faith.U | chance: 70
+- B | make friends with the other family's most useful relatives | v: achievement, power | sphere: faith.B | chance: 70
+- R | stand up at the wedding and toast the couple, loud and proud | v: benevolence, stimulation | norm: mixed marriage | sphere: faith.R | chance: 70
+- G | stay away from the wedding, and keep to the family's old ways | v: tradition | mark: stayed home | pushes: close | sphere: faith.G | chance: 70
+- BG | pay for the feast, so both families eat as well as each other | v: benevolence, power | sphere: faith.BG | chance: 60
+- RG | dance with both grandmothers, whatever the band is playing | v: benevolence, hedonism | sphere: faith.RG | chance: 60
+- UR | help the couple write a rite of their own that honours both sides | v: self-direction, universalism | sphere: faith.UR | chance: 60
+- WB | broker a seating plan that keeps the quarrelsome uncles apart | v: security | sphere: faith.WB | chance: 60
+- WU | sit both sets of parents down before the day and agree the order of things | v: conformity, universalism | pushes: close | sphere: faith.WU | chance: 60
+works: The wedding is noisy and odd and lovely, and the families leave it a little closer.
+works: Years later both families' feasts are kept in {Ns} sibling's home, and {N} is welcome at each.
+fails: Half the family stays away, and the gap lasts long after the wedding.
+fails: The day goes well, but the quarrel over the household's faith comes later.
+
+# ---------------------------------------------------------------- endowment (pairs D5b)
+
+# world: sphere event endowment, selector place, share .3
+== a fortune left to the food bank
+tier: life event
+sphere: faith
+sphere_event: endowment
+at: faith body
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+times: World event: endowment (sphere faith). Fires for the people of a place when a rich patron leaves or gives a fortune to the faith's works; a town sees a large gift like this perhaps once in a generation (estimate); share .3
+likelier: a fortune made in town; an old patron near the end of life; a faith with works to fund
+rarer: hard times; a town with no great fortunes; a rule that taxes such gifts away
+gap: 15-50
+tone: joy
+life: faith, money, community
+horizon: years
+roles: friend
+earth: a businesswoman leaves her fortune to the faith's food bank, and you are asked to help decide how it is spent
+scene: A businesswoman who grew up poor in the town has left her fortune to the faith's food bank. A plaque goes up, and so does a new kitchen, and {N} is asked to sit on the board that decides how the rest is spent.
+scene W: The gift comes with a long list of conditions, and {N} means to see every one of them kept.
+scene U: {N} wants to know what the town actually needs most before a single thing is bought.
+scene B: A fortune with a board around it is a kind of power. {N} sees who wants a seat at that table.
+scene R: {N} wants the money working now: hot meals, warm coats, a party for the whole street.
+scene G: {N} thinks of the old gifts that still feed the town, made by people long dead, and of what {N} might leave.
+- W | keep the gift's conditions to the letter, year after year | v: conformity, tradition | lever: lead | sphere: faith.W | chance: 65
+- U | ask the town what it needs most before anything is spent | v: universalism | sphere: faith.U | chance: 65
+- B | give a gift of your own beside hers, with your name on a second plaque | v: achievement, power | lever: fund | sphere: faith.B | chance: 65
+- R | throw open the new kitchen with a feast for the whole street | v: stimulation, benevolence | sphere: faith.R | chance: 65
+- G | write a gift to the kitchen into your own will | v: tradition, benevolence | lever: fund | sphere: faith.G | chance: 65
+- BR | push to spend the money fast and boldly on something new | v: stimulation, achievement | sphere: faith.BR | chance: 55
+- RG | cook in the new kitchen at weekends, and teach the young to cook | v: benevolence, tradition | sphere: faith.RG | chance: 55
+- UG | set up a fund for poor children's schooling, as the old gifts did | v: universalism, tradition | lever: found | sphere: faith.GU | chance: 55
+- WB | invest the fortune carefully so it lasts a hundred years | v: security | sphere: faith.WB | chance: 55
+- WU | draw up clear rules for who may ask for help, and how | v: conformity, universalism | sphere: faith.WU | chance: 55
+works: The gift does good for years, and {N} can see the difference on the street.
+works: {N} learns what a gift that outlives the giver can do, and means to leave one too.
+fails: The board quarrels over the money, and the kitchen stands half-used.
+fails: The fortune is spent too fast, and in five years little is left of it.
+
+# ---------------------------------------------------------------- funeral (pairs D3b)
+
+# world: sphere event funeral, selector members, share .5
+== the funeral bill
+tier: life event
+sphere: faith
+sphere_event: funeral
+holy: mourning
+at: faith body
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+times: World event: funeral (sphere faith). Fires for the members of a household that keeps the rites when a death comes in the household or the close circle; most adults arrange or share in a few such funerals in a life (estimate); share .5
+likelier: an old or ill relative; a family that keeps the rites; standing that rides on how the dead are honoured
+rarer: a small, young family; a family that keeps no rites
+gap: 5-20
+tone: mixed
+life: faith, family, money, grief
+horizon: months
+roles: dead
+earth: a death in your family: the funeral director is kind and the bill is not, and the cousins argue over who speaks and what to spend
+scene: {dead} has died, and the rites must be paid for. The funeral director is kind and the bill is not. The cousins are arguing over who speaks, what to spend, and whether to borrow so the family is not shamed.
+scene W: The rites must be done properly, the same for this death as for any other. {N} means to see it so.
+scene U: {N} wants to know what {dead} would actually have wanted, before the family spends anything.
+scene B: The family's standing rides on this funeral. {N} can see who is watching and what they expect.
+scene R: {N} wants to stand at the grave and sing {dead}'s favourite song, whatever the rite says.
+scene G: The old songs, the old dishes, the old prayers at the grave: {N} wants every one of them kept.
+- W | split the bill fairly between the cousins, by what each can pay | v: universalism, conformity | sphere: faith.W | chance: 60
+- U | find what the dead one wrote down about their wishes, and follow it | v: self-direction, tradition | sphere: faith.U | chance: 60
+- B | borrow what it takes so the funeral is the finest the street has seen | v: power, tradition | sphere: faith.B | chance: 60
+- R | sing the old song at the grave, and let the tears come | v: benevolence, stimulation | sphere: faith.R | chance: 60
+- G | keep every mourning custom the family has, down to the last | v: tradition | lever: loyalty | sphere: faith.G | chance: 60
+- BR | speak at the service yourself, and make the farewell your own | v: self-direction, achievement | sphere: faith.BR | chance: 50
+- UG | choose a simple rite, and give what is saved to the dead one's favourite cause | v: universalism, benevolence | sphere: faith.GU | chance: 50
+- UR | write the eulogy from the stories every cousin sends you | v: benevolence, self-direction | sphere: faith.UR | chance: 50
+- WB | ask the faith's funeral fund for help, and fill in every form | v: security | sphere: faith.WB | chance: 50
+- WG | cook the funeral meal with the aunts, the way it has always been done | v: tradition, benevolence | sphere: faith.GW | chance: 50
+works: The dead are honoured well, and the family comes through it together.
+works: The bill is paid and the song is sung, and {N} is glad of how it went.
+fails: The family borrows too much, and the debt outlasts the grief.
+fails: The quarrel over the arrangements splits the cousins for years.

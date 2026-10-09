@@ -9,6 +9,8 @@
 5 style       straight double quotes, curly apostrophes and double spaces are refused; lines end a sentence, names do not
 6 safety      nothing sexual, no self-harm, no harm to a child
 7 setting     the timeless setting (patterns from check_setting.py when given)
+8 faces       in the earth-spheres-*.lib moments every option has a sphere: face, and the faces are even by colour
+              (each option counts 1, split over its face's letters; the totals within 1%)
 Exits 1 on any problem.
 """
 import os, re, sys, importlib.util
@@ -217,12 +219,28 @@ if SETTING and os.path.exists(SETTING):
                 fail("7 setting", f"{kind}: '{m.group(0)}' in {at}: {text}")
     setting_note = "patterns from " + SETTING
 
-NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting"]
+import glob
+face_w = {c: 0.0 for c in COLORS}
+n_opt = 0
+for f in sorted(glob.glob(os.path.join(os.path.dirname(PATH), "earth-spheres-*.lib"))):
+    for i, ln in enumerate(open(f, encoding="utf-8"), 1):
+        if not ln.startswith("- "):
+            continue
+        n_opt += 1
+        m = re.search(r"\| sphere: ([a-z]+)\.([WUBRG]{1,2}) ?(\||$)", ln)
+        if not m:
+            fail("8 faces", f"{os.path.basename(f)}:{i}: an option with no sphere: face")
+            continue
+        for c in m.group(2):
+            face_w[c] += 1 / len(m.group(2))
+if n_opt and max(face_w.values()) - min(face_w.values()) > .01 * n_opt / 5:
+    fail("8 faces", f"faces uneven by colour over {n_opt} options: {face_w}")
+NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting", "8 faces"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
 print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
-    extra_ = f", {setting_note}" if nm == "7 setting" else ""
+    extra_ = f", {setting_note}" if nm == "7 setting" else (f", {n_opt} options: " + " ".join(f"{c} {v:.0f}" for c, v in face_w.items()) if nm == "8 faces" else "")
     print(f"- {nm}: {'PASS' if not ps else f'FAIL ({len(ps)})'}{extra_}")
     for p in ps[:12]:
         print(f"    {p}")

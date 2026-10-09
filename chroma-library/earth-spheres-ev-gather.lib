@@ -1,0 +1,714 @@
+# Chroma library, modern Earth: the gathering sphere's events as they touch a life (Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3). Design: chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/gather.json (events with on_character and the modern epoch; each scene is built on the
+# event's wording.modern and on_character). Face words: chroma-library/earth_spheres.py. Fields: build.py (the spheres'
+# fields of world-fields.md, 2026-10-09).
+#
+# Every moment here is an event moment: a life event the Engine fires on its sphere event (sphere_event: <key>) for the
+# people its selector names (place, members or all); per_year is all 0 and there are no drivers. The '# world:' line
+# above each moment gives the event key, the selector and the share of selected people who meet the moment (estimate).
+# Seventeen moments, one per gather event of the modern epoch that has on_character, except great_feast (another writer
+# has the great gathering). Tone follows the event's tone (good = joy, bad = trouble, mixed = mixed): 6 joy, 6 trouble,
+# 5 mixed.
+#
+# Options: sphere: on each is the face the act is in (one-colour X: gather.X; a pair: its pair face in wheel order, so
+# WR is gather.RW, WG gather.GW, UG gather.GU). Levers (lever:) where the act plainly is one, from character.levers.
+# The brawl moment is the morning after (the witness statement, the hospital, the other side's story), since 'a pub
+# argument turns into a fight' (earth-crime.lib) already holds the fight itself.
+#
+# Layout: each a life event with the five one-colour options and one pair set. The 17 use all twelve halves of D1 to D6,
+# five of them twice (D1b, D2b, D3a, D5b, D6a), each chosen to hold the event's own pair faces where it has them.
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
+# colour has the same mean chance in each moment and in every stage. No flags.
+
+# ---------------------------------------------------------------- meeting_place_opens (pairs D2a)
+
+# world: sphere event meeting_place_opens, selector place, share .3
+== a new café on the corner
+tier: life event
+sphere: gather
+sphere_event: meeting_place_opens
+haunt: gather.house
+stages: juvenile young_adult adult mature elder
+age: 15-90
+per_year: 0 0 0 0 0 0
+gap: 4-15
+times: World event: meeting_place_opens (sphere gather). Selector place: a new meeting place opens in a growing quarter or a town with free time and wages rising; about 3 in 10 of the people living near it try it and feel the pull between the new place and the old (share .3, estimate), a few times in a life (estimate)
+likelier: a growing quarter, rising wages and free evenings, a person with a regular haunt nearby
+rarer: a shrinking town, long working hours, a person who seldom goes out
+tone: joy
+life: friends, community
+horizon: months
+roles: friend, keeper, regular
+earth: a café opens on the corner, with long tables and a board of what is on this week, and the old place down the road feels quieter
+scene: A café has opened on the corner, with long tables and a board by the door listing what is on this week. Half of {Ns} old crowd has already been, and the old place down the road feels quieter.
+scene W: {N} has gone to the same place on the same night for years. The old keeper notices who stops coming.
+scene U: The board lists a talk on Tuesdays and a quiz on Thursdays. {N} wants to know who will turn up to argue.
+scene B: Whoever is first through a new door gets to know the owner. {N} sees a room still deciding whose it is.
+scene R: New music, new faces, and a place nobody has made rules for yet. {N} wants to be there on the opening night.
+scene G: The old bar has {Ns} name on a mug behind the counter. A new place is a new place, and {N} is in no hurry.
+- W | offer to set out the long tables on the new place's open community night | v: benevolence, universalism | sphere: gather.W | chance: 72
+- U | go to the Tuesday talk and argue the question with strangers | v: self-direction, stimulation | mark: made a friend | sphere: gather.U | chance: 72
+- B | get to know the owner in the first week, before anyone else does | v: power, achievement | sphere: gather.B | chance: 77
+- R | be there on the opening night and stay until they stack the chairs | v: hedonism, stimulation | sphere: gather.R | chance: 85
+- G | keep to the old bar, where your name is on a mug behind the counter | v: tradition, security | lever: loyalty | pushes: place | sphere: gather.G | chance: 74
+- BG | split the week between both places, and stay on good terms with both keepers | v: security, benevolence | sphere: gather.BG | chance: 66
+- BR | ask the owner for the back room on Fridays, and fill it with your own crowd | v: self-direction, achievement | lever: found | pushes: place | sphere: gather.BR | chance: 44
+- UR | take the old quiz team to the new place, and win on the first night | v: achievement, stimulation | sphere: gather.UR | chance: 50
+- WG | ask the new owner to welcome the old regulars with a shared supper | v: benevolence, universalism | sphere: gather.GW | chance: 50
+- WU | help run the Tuesday talks, so that anyone who comes may speak | v: universalism, benevolence | sphere: gather.WU | chance: 70
+works: The new place and the old both find their crowd, and {N} has a seat in each.
+works: A year on, the café on the corner feels as if it was always there, and {N} is part of why.
+fails: The new place is the fashion for one summer, then half empty, and the old one has closed meanwhile.
+fails: {N} drifts between the two and ends the year a regular at neither.
+
+# ---------------------------------------------------------------- keeper_dies (pairs D6a)
+
+# world: sphere event keeper_dies, selector members, share .6
+== the wake in the old bar
+tier: life event
+sphere: gather
+sphere_event: keeper_dies
+haunt: gather.house
+ladder: regular
+who: keeper
+stages: young_adult adult mature elder
+age: 20-95
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: keeper_dies (sphere gather). Selector members: the regulars of a bar or hall whose ageing keeper dies with no successor ready; about 6 in 10 of the regulars feel it as more than news (share .6, estimate), once or twice in a life of going out (estimate)
+likelier: years as a regular at one place, a keeper who ran it alone for decades, a small town
+rarer: a chain bar with managers who come and go, a person who moves between many places
+tone: mixed
+life: friends, community, loss
+horizon: months
+roles: friend, parent, keeper, regular
+earth: the owner of the bar you have gone to for years has died, and the regulars hold the wake in the bar itself
+scene: The bar's owner of thirty years has died. The regulars hold the wake in the bar itself, under the photos on the wall, and someone says the place will be sold by the spring.
+scene W: The owner kept a slate for those short of money and a stool for whoever came alone. {N} wonders who will keep them now.
+scene U: {N} knows the place better than most: the books, the suppliers, the rent. It could be kept going, with the right plan.
+scene B: A bar with a name and a crowd is worth something. {N} has heard the owner's daughter does not want it.
+scene R: The owner would have hated a quiet wake. {N} means to give them the loudest night the bar has seen.
+scene G: {N} first came here with {parent}. The owner knew every face in the room, and now nobody does.
+- W | organise a whip-round for the owner's family and the staff out of work | v: benevolence | mark: helped someone in need | sphere: gather.W | chance: 81
+- U | draw up a plan to keep the bar open, and take it to the family | v: self-direction, achievement | sphere: gather.U | chance: 57
+- B | ask the family for first refusal on the lease, before anyone else asks | v: power, achievement | lever: lead | pushes: place | sphere: gather.B | chance: 64
+- R | lead the wake the way the owner would have wanted, loud and long | v: hedonism, benevolence | sphere: gather.R | chance: 72
+- G | speak at the funeral about the owner and the old days at the bar | v: tradition, benevolence | sphere: gather.G | chance: 56
+- BG | keep coming whoever buys it, and tell the new owner who the old regulars are | v: security, benevolence | lever: loyalty | pushes: place | sphere: gather.BG | chance: 68
+- UG | gather the regulars' stories and photos of the bar before they are lost | v: tradition, universalism | sphere: gather.GU | chance: 64
+- UR | hold a night of stories about the owner, with the owner's favourite band after | v: stimulation, benevolence | sphere: gather.UR | chance: 66
+- WB | pay for the wake, and ask the regulars to join a fund to buy the bar | v: benevolence, power | lever: fund | pushes: place | sphere: gather.WB | chance: 48
+- WR | rally the regulars to object together when a developer bids for the building | v: security, tradition | lever: voice | pushes: place | sphere: gather.RW | chance: 34
+works: The bar stays open under someone who knew the old owner, and the stool by the window is still kept.
+works: {N} grieves among people who understand, and comes out of that winter with friends closer than before.
+fails: The bar is sold, the photos come down, and the new place has nobody's name in it.
+fails: The wake is the last night the regulars spend together, and after it they scatter to other bars.
+
+# ---------------------------------------------------------------- brawl (pairs D1b)
+
+# world: sphere event brawl, selector place, share .1
+== the morning after the fight outside the club
+tier: life event
+sphere: gather
+sphere_event: brawl
+haunt: gather.night
+stages: young_adult adult
+age: 18-50
+per_year: 0 0 0 0 0 0
+gap: 3-12
+times: World event: brawl (sphere gather). Selector place: a fight at closing time that puts someone in hospital, likelier with heavy drinking, crowds and young people out of work; about 1 in 10 of the young people who go out in that town know someone hurt or saw it (share .1, estimate), once or twice in the years of going out, many never (estimate)
+likelier: nights out in the town centre, a crowd that drinks hard, an old feud between two sets of friends
+rarer: a quiet town, a crowd that goes home early, older age
+tone: trouble
+life: friends, conflict, law
+horizon: week
+roles: friend, parent, rival
+earth: outside the club at closing time a shove becomes a fight, and your friend goes to hospital
+scene: Outside the club at closing time, a shove became a fight, and {friend} went to hospital with a broken cheekbone. The next morning the police want witnesses, and the other side's friends are saying {friend} started it.
+scene W: {N} saw who threw the first punch. The police have asked for statements, and that is what statements are for.
+scene U: The stories going round do not match. {N} wants to know what the door cameras show before saying anything.
+scene B: The man who did it has a cousin who runs the door at half the clubs in town. Anything {N} says will be remembered.
+scene R: {N} is still shaking with anger. Someone put {friend} in hospital, and everybody knows who.
+scene G: {Ns} friend's mother has been at the hospital all night. {N} thinks first of the family.
+- W | give the police a statement of exactly what you saw | v: conformity, universalism | sphere: gather.W | chance: 81
+- U | ask the club for the camera footage before anyone tells their story | v: self-direction, universalism | sphere: gather.U | chance: 57
+- B | keep your name out of it, and stay friendly with the doormen | v: security, power | sphere: gather.B | chance: 72
+- R | go to his usual bar and tell him to his face what you think of him | v: stimulation, power | mark: made an enemy | sphere: gather.R | chance: 47
+- G | sit with your friend's family at the hospital through the long day | v: benevolence | mark: helped someone in need | sphere: gather.G | chance: 70
+- RG | bring the old crowd to the bedside with food and music, so your friend laughs again | v: benevolence, hedonism | sphere: gather.RG | chance: 72
+- UB | find out quietly who saw what, and whom the police will believe | v: power, security | sphere: gather.UB | chance: 52
+- UR | write the whole night down while you are still angry, then decide what to do | v: self-direction | sphere: gather.UR | chance: 80
+- WB | pay for a lawyer for your friend, and ask the regulars to chip in | v: benevolence, security | sphere: gather.WB | chance: 50
+- WG | ask the elders of both families to sit down before it turns into a feud | v: security, tradition | sphere: gather.GW | chance: 34
+works: The footage backs up what {N} says, and {friend} is home within the week.
+works: It does not grow into a feud, and by summer the two crowds can share a street again.
+fails: The stories harden into sides, and {N} cannot walk past that club again without a look over the shoulder.
+fails: {friend} heals slowly, and blames {N} a little for what was or was not done.
+
+# ---------------------------------------------------------------- curfew (pairs D4b)
+
+# world: sphere event curfew, selector place, share .5
+== the bars must close at ten
+tier: life event
+sphere: gather
+sphere_event: curfew
+stages: juvenile young_adult adult mature
+age: 15-70
+per_year: 0 0 0 0 0 0
+gap: 5-25
+times: World event: curfew (sphere gather). Selector place: a rule that fears crowds sets an early closing hour in a season of unrest, war or panic; about half of the people who go out in the evenings feel it as a change in their own week (share .5, estimate), rarely more than once or twice in a life (estimate)
+likelier: unrest in the streets, a war, a moral panic, a person who goes out most weeks
+rarer: calm years, a person whose evenings are spent at home
+tone: trouble
+life: friends, community, law
+horizon: months
+roles: friend, partner, keeper
+earth: a new rule says bars must close at ten, and the parties move into flats and basements
+scene: A new rule says every bar must close at ten. By half past, the streets are quiet and the patrols are out, and the parties have moved into flats and basements where nobody checks the door.
+scene W: A rule is a rule, and the patrols are out. {N} worries most about the people who now walk home alone at ten.
+scene U: {N} wants to know who decided this, and on what figures. Nobody has said what the closing hour is meant to stop.
+scene B: When the doors close at ten, someone will run the door that stays open. {N} can see who will make money from it.
+scene R: Ten o'clock. The night has barely started, and {N} is not going to be sent home like a child.
+scene G: The family's Saturday at the bar has become Saturday at home. {N} thinks it might not be the worst thing.
+- W | keep the closing hour, and see the older regulars safely home by ten | v: conformity, benevolence | sphere: gather.W | chance: 77
+- U | ask the council in writing what the closing hour is for, and share the answer | v: self-direction, universalism | lever: voice | pushes: state | sphere: gather.U | chance: 56
+- B | rent a basement and run the after-hours door yourself | v: power, achievement | mark: broke the law | lever: subvert | sphere: gather.B | chance: 56
+- R | go to the basement parties and walk home long after the curfew | v: hedonism, stimulation | mark: defied an authority | lever: subvert | sphere: gather.R | chance: 70
+- G | move the Saturday gathering to your kitchen, and invite the whole street | v: benevolence, tradition | sphere: gather.G | chance: 63
+- BR | throw your own party in a flat, music loud, door open to friends of friends | v: hedonism, self-direction | lever: subvert | sphere: gather.BR | chance: 68
+- UB | find out which bars the patrols leave alone, and why | v: power, security | sphere: gather.UB | chance: 68
+- UG | start a reading evening at home on the nights the bars are shut | v: self-direction, tradition | sphere: gather.GU | chance: 68
+- WG | set up a rota so nobody on the street walks home alone at night | v: benevolence, security | sphere: gather.GW | chance: 54
+- WR | march against the closing hour, singing with the bar crowd | v: self-direction, universalism | lever: voice | pushes: state | sphere: gather.RW | chance: 40
+works: The closing hour is lifted by autumn, and {N} comes through it with friends who stood together.
+works: {N} finds a way to keep the evenings that matter, inside the rule or around it.
+fails: The patrols stop {N} on the way home, and there is a fine and a name on a list.
+fails: The bar {N} loved does not reopen, and the old crowd never gathers in one place again.
+
+# ---------------------------------------------------------------- drink_banned (pairs D5b)
+
+# world: sphere event drink_banned, selector all, share .4
+== the dry years
+tier: life event
+sphere: gather
+sphere_event: drink_banned
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: drink_banned (sphere gather). Selector all: a temperance or revival movement wins the rule and drink is banned across the country (the world's 'state: alcohol banned' maps onto it, spheres-implementation section 5); about 4 in 10 adults feel it as a turn in their own evenings (share .4, estimate), seldom more than once in a life (estimate)
+likelier: a revival in the land, a person who goes out to drink, a town with many bars
+rarer: a person who never drank, a life spent mostly at home
+tone: trouble
+life: friends, community, law
+horizon: years
+roles: friend, keeper, colleague
+earth: drink is banned, the clubs serve it in teacups, and the bribes go up every month
+scene: Drink is now against the law. The clubs serve it in teacups behind a knock on the door, the bribes go up every month, and the hall down the road has opened a sober reading room.
+scene W: The new law says drink ruins families. {N} has seen that it can, and also that the bar was where the lonely went.
+scene U: {N} reads the figures both sides wave about. They cannot all be true.
+scene B: A ban makes a market. {N} knows who is already moving crates at night.
+scene R: The bar was where {N} laughed, sang and forgot the week. Now it is a back room with a password.
+scene G: Every family toast at every wedding is now against the law. {N} cannot see the old ones giving that up.
+- W | keep the law, and help out at the sober reading room's evenings | v: conformity, benevolence | sphere: gather.W | chance: 75
+- U | weigh what each side claims, and argue it out at the debating club | v: self-direction, universalism | sphere: gather.U | chance: 70
+- B | sell the bottles in your cellar to the back-room clubs, at a good price | v: power, achievement | mark: broke the law | lever: subvert | sphere: gather.B | chance: 68
+- R | learn the knock, and keep your Friday nights at the teacup club | v: hedonism, stimulation | mark: broke the law | lever: subvert | sphere: gather.R | chance: 65
+- G | brew a little at home for the family feasts, as the old ones did | v: tradition, security | mark: broke the law | sphere: gather.G | chance: 54
+- BR | open a teacup club of your own at the back of a café | v: power, hedonism | mark: broke the law | lever: found | sphere: gather.BR | chance: 46
+- RG | keep the dances going in the hall, with fruit punch and the same band | v: hedonism, tradition | lever: loyalty | pushes: place | sphere: gather.RG | chance: 64
+- UG | learn the old soft drinks your grandmother made, and share the recipes | v: tradition, self-direction | mark: learned a skill | sphere: gather.GU | chance: 68
+- WB | pay the old bar's rent through the ban, so it can open again one day | v: benevolence, tradition | lever: fund | pushes: place | sphere: gather.WB | chance: 58
+- WU | put the case for repeal to the town meeting, with the facts and a vote | v: universalism, self-direction | lever: voice | pushes: state | sphere: gather.WU | chance: 32
+works: {N} gets through the dry years with a clean record and the friends that matter.
+works: When the ban is lifted, {N} is there on the first night, and the old crowd is still a crowd.
+fails: A raid on a back room puts {Ns} name in the local news.
+fails: The dry years scatter the old crowd, and {N} spends many evenings alone.
+
+# ---------------------------------------------------------------- hall_lost (pairs D3b)
+
+# world: sphere event hall_lost, selector members, share .6
+== the flood in the community centre
+tier: life event
+sphere: gather
+sphere_event: hall_lost
+haunt: gather.hall
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: hall_lost (sphere gather). Selector members: the groups that met in a hall lost to fire, flood or storm; about 6 in 10 of their members feel the loss as their own (share .6, estimate), once in a life for most who meet it at all (estimate)
+likelier: an old building, a flood plain, years in one of the hall's groups
+rarer: a new building, a person in no club or group
+tone: mixed
+life: community, friends, home
+horizon: years
+roles: friend, grandparent, elder, patron, regular
+earth: a flood ruins the community centre, and for a year its groups meet in kitchens or not at all
+scene: The flood has ruined the community centre: the floor is up, the chairs are gone, and the noticeboard is pulp. For a year its groups will meet in kitchens, or not at all.
+scene W: Every Tuesday for years the hall was open for anyone. {N} thinks of the people who had nowhere else to go.
+scene U: {N} wants to know whether the building can be saved, what it would cost, and who would pay.
+scene B: A rich family in {place} has offered to pay for the new roof. {N} wonders what they will want in return.
+scene R: The mud is still on the walls, and {N} is already itching to get in there with a shovel and some music.
+scene G: {N} danced at a wedding in that hall, and stood at the wake for {grandparent}. The building holds half a life.
+- W | turn up with gloves every Saturday until the hall is cleared | v: benevolence, conformity | lever: loyalty | pushes: place | sphere: gather.W | chance: 72
+- U | get the building surveyed, and work out what saving it truly costs | v: self-direction, security | sphere: gather.U | chance: 72
+- B | take the rich family's money, and get your group the best room in the new hall | v: power, achievement | sphere: gather.B | chance: 75
+- R | throw a fundraising party in the car park, mud and all | v: stimulation, benevolence | sphere: gather.R | chance: 75
+- G | host your group in your own kitchen every week until the hall is back | v: benevolence, tradition | sphere: gather.G | chance: 67
+- BR | start a new night of your own in a rented room while the hall is shut | v: self-direction, stimulation | lever: found | sphere: gather.BR | chance: 56
+- UG | save the old photos and records from the mud, and dry them page by page | v: tradition, universalism | sphere: gather.GU | chance: 62
+- UR | draw up a better hall with the young members, and show it at the meeting | v: self-direction, stimulation | lever: voice | pushes: place | sphere: gather.UR | chance: 52
+- WB | join the committee that spends the rebuilding money, and share it among every group | v: power, universalism | lever: lead | pushes: place | sphere: gather.WB | chance: 52
+- WG | hold a shared supper each month so the scattered groups still meet | v: benevolence, tradition | sphere: gather.GW | chance: 62
+works: The hall reopens the next autumn, and {N} is in the room when the first group meets again.
+works: The year of kitchens brings the neighbours closer than the hall ever did.
+fails: The money never comes, and the hall stays boarded up with the old noticeboard still on the wall.
+fails: Two of the groups never meet again, and {N} misses them more than expected.
+
+# ---------------------------------------------------------------- peace_feast (pairs D3a)
+
+# world: sphere event peace_feast, selector place, share .6
+== long tables in the street when the war ends
+tier: life event
+sphere: gather
+sphere_event: peace_feast
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: peace_feast (sphere gather). Selector place: the first great gathering after a war, a siege, an epidemic or a long ban ends; about 6 in 10 of the people living there remember it as a night of their own (share .6, estimate), once in a life for most who live through a war (estimate)
+likelier: a long war or ban just over, a soldier home in the family, a town that lost many
+rarer: a place far from the war, a family in mourning
+tone: joy
+life: community, family, love
+horizon: week
+roles: friend, sibling, prospect, partner
+earth: the war is over and the soldiers are home: the street puts out long tables, and the bars stay open until dawn
+scene: The war is over and the soldiers are home. The street has put out long tables, every bar is open until dawn, and people who have not laughed in years are dancing in the road.
+scene W: {N} thinks of the families whose soldier is not coming home. Someone should make sure they are not left at the edge of the party.
+scene U: {N} keeps listening to the soldiers' stories. Nobody tells the war the way the news did.
+scene B: Everyone in {place} is out tonight, and everyone is in a giving mood. {N} notices who is talking to whom.
+scene R: Years of fear, gone in one night. {N} wants to dance until the sun comes up.
+scene G: {sibling} is home. That is all {N} can think about: the whole family at one table again.
+- W | fetch the families who lost someone, and give them the first seats at the table | v: benevolence, universalism | mark: helped someone in need | sphere: gather.W | chance: 76
+- U | sit with the soldiers and listen to what the war was really like | v: universalism, self-direction | sphere: gather.U | chance: 84
+- B | spend the night meeting everyone who matters, while every door is open | v: power, achievement | mark: made a friend | sphere: gather.B | chance: 83
+- R | dance in the street with strangers until dawn | v: hedonism, stimulation | sphere: gather.R | chance: 85
+- G | carry the family table out into the street and cook the dish everyone missed | v: tradition, benevolence | sphere: gather.G | chance: 85
+- BG | sit with the soldier nobody wants to talk to, and keep the drinks coming | v: benevolence | sphere: gather.BG | chance: 72
+- RG | ask the one you have been watching all night to dance | v: hedonism, stimulation | mark: made a friend | sphere: gather.RG | chance: 52
+- UB | introduce the soldiers home without work to the people who are hiring | v: achievement, benevolence | sphere: gather.UB | chance: 56
+- WR | lead the whole street in the old songs from before the war | v: tradition, stimulation | sphere: gather.RW | chance: 72
+- WU | set up a table where people can ask after the missing and the found | v: benevolence, universalism | sphere: gather.WU | chance: 70
+works: {N} remembers that night for the rest of {Ns} life, and so does someone {N} met there.
+works: The street keeps one long table every year after, on the same night.
+fails: Past midnight the grief catches up, and {N} ends the night in tears on a doorstep.
+fails: Too much drink and too many feelings, and {N} says something to {sibling} that is hard to take back.
+
+# ---------------------------------------------------------------- slump_shifts (pairs D1a)
+
+# world: sphere event slump_shifts, selector place, share .4
+== hard times fill the soup night
+tier: life event
+sphere: gather
+sphere_event: slump_shifts
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 6-20
+times: World event: slump_shifts (sphere gather). Selector place: a slump or lean year of a year or more moves the town's evenings to cheap and free places; about 4 in 10 of the people living there feel their own evenings change (share .4, estimate), two or three times in a life (estimate)
+likelier: a slump, work lost in the family, a town with one big employer
+rarer: a person in secure work, a town the slump passes by
+tone: mixed
+life: friends, community, money
+horizon: years
+roles: friend, keeper, colleague
+earth: work is scarce: the smart bar shuts, and the old corner bar and the community centre are full every evening
+scene: Work is scarce. The smart bar on the high street has shut, and the old corner bar and the community centre's soup night are full every evening. {friend} is talking about leaving town for work.
+scene W: The soup night needs hands, and the people coming are neighbours. {N} has the time, if not the money.
+scene U: The free reading room is full of people studying the job notices. {N} could use an evening there too.
+scene B: Hard times are when ties count. {N} knows which regulars at the corner bar still have work to give out.
+scene R: No money for a night out is no reason to stay in. {N} wants a party that costs nothing.
+scene G: The family has cut the Sunday dinner to three dishes. {N} worries that {friend} will leave and not come back.
+- W | help serve at the soup night twice a week | v: benevolence | mark: helped someone in need | sphere: gather.W | chance: 70
+- U | spend the evenings in the reading room learning a trade that is still hiring | v: achievement, self-direction | mark: learned a skill | sphere: gather.U | chance: 70
+- B | sit at the bar where the bosses drink, and ask who needs a hand this week | v: achievement, power | sphere: gather.B | chance: 71
+- R | throw a party where everyone brings what they can | v: hedonism, benevolence | sphere: gather.R | chance: 81
+- G | keep the Sunday dinner going, however small, with a place kept for your friend | v: tradition, benevolence | sphere: gather.G | chance: 68
+- BG | keep going to the corner bar, and buy a drink for whoever is out of work | v: benevolence | lever: loyalty | pushes: place | sphere: gather.BG | chance: 78
+- BR | go with your friend to the town where the work is, for a while | v: self-direction, stimulation | mark: moved away | lever: exit | sphere: gather.BR | chance: 52
+- UG | start a swap night for tools, clothes and seeds at the community centre | v: benevolence, universalism | lever: found | pushes: place | sphere: gather.GU | chance: 58
+- WR | get the old team back together for free matches in the park | v: stimulation, benevolence | sphere: gather.RW | chance: 58
+- WU | help keep the job board, so every new post is seen by everyone | v: universalism, benevolence | sphere: gather.WU | chance: 74
+works: The hard years pass, and {N} is still among friends at the end of them.
+works: The soup night and the swap night become something the town keeps even when the work comes back.
+fails: {friend} leaves for work and does not come back.
+fails: The corner bar shuts too in the second winter, and {N} spends the evenings alone.
+
+# ---------------------------------------------------------------- great_fair (pairs D2b)
+
+# world: sphere event great_fair, selector place, share .2
+== three days at the convention
+tier: life event
+sphere: gather
+sphere_event: great_fair
+haunt: gather.great
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+gap: 1-10
+times: World event: great_fair (sphere gather). Selector place: the region's yearly meeting comes to town in a good season; about 2 in 10 of the people living there go for more than an hour (share .2, estimate), some every year, many never (estimate)
+likelier: a hobby, a trade or a passion with a convention of its own, a town with a big hall
+rarer: a person with no free days, a small remote place
+tone: joy
+life: friends, interests, work
+horizon: week
+roles: friend, rival, prospect
+earth: the convention fills the hall for three days: stalls, talks, and old friends seen once a year
+scene: The convention fills the hall for three days: stalls, talks, a contest on the last afternoon, and old friends {N} sees only once a year. Thousands of strangers share the same passion.
+scene W: {N} has helped at the door for years. Somebody has to hand out the badges and help the lost ones find their way.
+scene U: The talks are what {N} came for: three days of people who know more than {N} does.
+scene B: Everyone in the trade is here. {N} has a stack of cards and a list of people to meet.
+scene R: Three days with no work, and a party every night in the hotel bar. {N} is ready.
+scene G: {N} meets the same old friends at the same café table every year. It is the best weekend of the year.
+- W | volunteer at the door and help the newcomers find their way | v: benevolence | sphere: gather.W | chance: 68
+- U | go to every talk you can and fill a notebook | v: self-direction | mark: learned a skill | sphere: gather.U | chance: 81
+- B | work the stalls with your cards, and come home with three new contacts | v: achievement, power | sphere: gather.B | chance: 74
+- R | enter the contest on the last afternoon, in front of everyone | v: stimulation, achievement | sphere: gather.R | chance: 55
+- G | meet the old friends at the same café table, as every year | v: tradition, benevolence | sphere: gather.G | chance: 75
+- RG | dance at the last night's party with the strangers you met that day | v: hedonism | mark: made a friend | sphere: gather.RG | chance: 84
+- UB | trade news with the stallholders each morning before the doors open | v: achievement, power | sphere: gather.UB | chance: 72
+- UG | show what you have made or grown at a stall of your own | v: achievement, self-direction | sphere: gather.GU | chance: 44
+- WB | pay for the club's table, and host the members who cannot afford to come | v: benevolence, power | lever: fund | pushes: group club | sphere: gather.WB | chance: 58
+- WR | turn up in the club shirt with the whole group, and cheer your side on | v: stimulation, tradition | sphere: gather.RW | chance: 84
+works: {N} goes home with new friends, a full notebook and a reason to come back next year.
+works: Someone met at the convention becomes part of {Ns} life.
+fails: The three days are a blur, and {N} comes home tired, broke and no wiser.
+fails: The old friends do not all come this year, and the café table feels thin.
+
+# ---------------------------------------------------------------- doors_close (pairs D5a)
+
+# world: sphere event doors_close, selector members, share .4
+== the club adds a waiting list
+tier: life event
+sphere: gather
+sphere_event: doors_close
+haunt: gather.hall
+ladder: known
+stages: young_adult adult mature elder
+age: 20-90
+per_year: 0 0 0 0 0 0
+gap: 8-25
+times: World event: doors_close (sphere gather). Selector members: an old club closes its doors to newcomers as inequality rises or new families arrive; about 4 in 10 of its members face the vote or the newcomer at the door as a choice of their own (share .4, estimate), once or twice in a life of clubs (estimate)
+likelier: rising inequality, a wave of newcomers to the town, a long-standing member
+rarer: a new club, a town with few newcomers
+tone: trouble
+life: community, friends, conflict
+horizon: months
+roles: friend, regular, elder
+earth: the club raises its fee and adds a waiting list, and the members vote on who comes in
+scene: The club has raised its fee and added a waiting list, and on Thursday the members vote on who comes off it. {friend}, new in town, has waited a year, and the new families talk of starting their own club.
+scene W: The club's rules have always been the same for everyone. {N} is not sure they still are.
+scene U: {N} has read the minutes. The waiting list moves faster for some names than for others.
+scene B: The club is worth belonging to because not everyone can. {N} knows the older members want it to stay that way.
+scene R: {N} thinks the whole thing is nonsense. A club is the people who want to come, not a list.
+scene G: The club has been the same families for three generations. {N} feels the pull of that, and its cost.
+- W | vote to let in everyone on the list, in the order they applied | v: universalism, conformity | lever: voice | pushes: group club | sphere: gather.W | chance: 63
+- U | show the meeting what the minutes say about who waits and who does not | v: universalism, self-direction | lever: voice | pushes: group club | sphere: gather.U | chance: 64
+- B | vote with the old members, and keep the fee where it is | v: power, security | lever: loyalty | pushes: group club | sphere: gather.B | chance: 73
+- R | resign from the club and say why, loudly | v: self-direction | lever: exit | pushes: group club | sphere: gather.R | chance: 71
+- G | keep the old families' club as it is, and invite your friend home instead | v: tradition, benevolence | sphere: gather.G | chance: 63
+- BG | sponsor your friend yourself, and vouch for them in front of the members | v: benevolence, power | sphere: gather.BG | chance: 40
+- UB | find out quietly who on the committee could move your friend up the list | v: power | sphere: gather.UB | chance: 54
+- UR | help the new families start their own club, with talks and a band | v: self-direction, stimulation | lever: found | sphere: gather.UR | chance: 58
+- WG | offer to run a free open night each month for anyone in town | v: universalism, benevolence | sphere: gather.GW | chance: 74
+- WR | rally the younger members to vote the waiting list down | v: universalism, stimulation | lever: voice | pushes: group club | sphere: gather.RW | chance: 40
+works: The vote goes the way {N} hoped, and {friend} walks in through the front door.
+works: {N} comes out of it knowing exactly what kind of member {N} means to be.
+fails: The vote goes the other way, and {friend} stops answering {Ns} calls.
+fails: The club splits in two, and both halves blame {N} a little.
+
+# ---------------------------------------------------------------- informer (pairs D6b)
+
+# world: sphere event informer, selector members, share .3
+== someone at the table passes it on
+tier: life event
+sphere: gather
+sphere_event: informer
+haunt: gather.house
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: informer (sphere gather). Selector members: a rule that fears talk pays informers in the bars and halls; about 3 in 10 of a haunt's regulars learn of it through a friend who pays for something said (share .3, estimate), once in a life where it happens at all (estimate)
+likelier: weak speech rights, unrest or war, a table where politics is talked
+rarer: a free country in calm years, a table that talks only of sport
+tone: trouble
+life: friends, community, law
+horizon: months
+roles: friend, regular, colleague
+earth: someone in the group passes on what is said, and a friend loses their job over a joke made at the bar
+scene: Someone at the regulars' table has been passing on what is said there. {friend} has lost a job over a joke made at the bar a month ago, and now everyone at the table watches everyone else.
+scene W: The table had one rule: what is said here stays here. Someone broke it, and {N} wants it known that the rule still stands.
+scene U: Only six people heard that joke. {N} starts to work out who.
+scene B: The informer must be getting something for it. {N} wonders what, and from whom.
+scene R: {N} wants to stand on a chair and say what everyone is thinking, whoever is listening.
+scene G: {N} has known most of these people for twenty years. From now on, the real talk happens at home.
+- W | stand up at the table and remind everyone what the rule has always been | v: conformity, benevolence | lever: voice | pushes: place | sphere: gather.W | chance: 75
+- U | work out quietly who could have known, and keep it to yourself | v: self-direction, security | sphere: gather.U | chance: 72
+- B | find out what the informer is being paid, and by whom | v: power, security | sphere: gather.B | chance: 56
+- R | tell the joke again, louder, in front of the whole bar | v: self-direction, stimulation | mark: defied an authority | lever: voice | pushes: state | sphere: gather.R | chance: 50
+- G | stop talking at the bar, and keep the real talk for your own kitchen table | v: security, tradition | lever: neglect | sphere: gather.G | chance: 61
+- BR | find a new bar with your own crowd, where you choose who sits down | v: self-direction, security | lever: exit | pushes: place | sphere: gather.BR | chance: 70
+- RG | take the old crowd to the hills for a weekend, where nobody is listening | v: stimulation, security | sphere: gather.RG | chance: 66
+- UB | feed the table a false story, and see where it turns up | v: power, self-direction | sphere: gather.UB | chance: 54
+- WG | help your friend find new work, and get the table to chip in meanwhile | v: benevolence | mark: helped someone in need | sphere: gather.GW | chance: 48
+- WU | write to the employer with the regulars' names, saying the joke was only a joke | v: universalism, benevolence | lever: voice | pushes: institution employer | sphere: gather.WU | chance: 38
+works: The informer is found out and stops coming, and the table slowly learns to laugh again.
+works: {friend} finds new work, and knows who stood by them.
+fails: Nobody is found out, and the table never talks freely again.
+fails: Someone at the table starts to wonder aloud whether the informer is {N}.
+
+# ---------------------------------------------------------------- evenings_home (pairs D4a)
+
+# world: sphere event evenings_home, selector members, share .5
+== the team is down to nine players
+tier: life event
+sphere: gather
+sphere_event: evenings_home
+haunt: gather.games
+stages: juvenile young_adult adult mature
+age: 14-75
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: evenings_home (sphere gather). Selector members: home screens and long journeys home thin a town's clubs and teams until one folds for want of a secretary; about half of its members feel it as a choice of their own (share .5, estimate), once or twice in a life of clubs (estimate)
+likelier: a suburb, long journeys to work, a small amateur club
+rarer: a club with a paid organiser, a close-knit village team
+tone: mixed
+life: friends, interests, home
+horizon: months
+roles: friend, partner, regular
+earth: screens in every room and a long drive home after work, and your team is close to folding for lack of players
+scene: With screens in every room and a long drive home after work, the team is down to nine players. The secretary has quit, nobody wants the job, and the league wants an answer by Friday.
+scene W: {N} has turned up every Sunday for years. A team is a promise, and {N} hates to see it broken.
+scene U: {N} wonders whether the team could play a shorter season, or join with the club in the next town.
+scene B: The league needs teams. Whoever keeps this one alive will have a say in the league.
+scene R: Sunday matches are the best part of the week. {N} will not let them go without a fight.
+scene G: Evenings at home with {partner} and the screen are nice, if {N} is honest. Maybe it is time.
+- W | take on the secretary's job, so someone holds the team together | v: benevolence, conformity | lever: loyalty | pushes: group club | sphere: gather.W | chance: 63
+- U | work out a plan to merge with the club in the next town | v: self-direction, security | sphere: gather.U | chance: 61
+- B | use the team's trouble to win yourself a seat on the league committee | v: power, achievement | lever: lead | sphere: gather.B | chance: 62
+- R | ring every old player and talk them into one more season | v: stimulation, benevolence | sphere: gather.R | chance: 65
+- G | let the team go, and keep Sunday evenings for home | v: hedonism, security | lever: exit | pushes: group club | sphere: gather.G | chance: 64
+- BG | say plainly that the team has run its course, and buy the last round | v: security, benevolence | sphere: gather.BG | chance: 72
+- RG | start a kickabout in the park instead, with no league and no list | v: hedonism, self-direction | lever: found | sphere: gather.RG | chance: 62
+- UR | set up a group chat and a shorter match that fits a working week | v: self-direction, stimulation | tech: phone | sphere: gather.UR | chance: 70
+- WB | pay the league fees yourself this season, to keep the team alive | v: benevolence, tradition | lever: fund | pushes: group club | sphere: gather.WB | chance: 66
+- WU | call a meeting where every player gets a say on what happens next | v: universalism | lever: voice | pushes: group club | sphere: gather.WU | chance: 70
+works: The team plays on another season, and the Sunday mornings keep their shape.
+works: Whatever happens to the team, {N} keeps the friendships it made.
+fails: The team folds by spring, and the shirts go into a box in the loft.
+fails: {N} drifts into evenings in front of the screen and sees the old players only by chance in the street.
+
+# ---------------------------------------------------------------- society_wave (pairs D3a)
+
+# world: sphere event society_wave, selector place, share .3
+== a dozen new groups in a year
+tier: life event
+sphere: gather
+sphere_event: society_wave
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: society_wave (sphere gather). Selector place: volunteers start many new groups at once in a town of strangers with free weekends; about 3 in 10 of the people living there are asked to join one, and then to help run it (share .3, estimate), once or twice in a life (estimate)
+likelier: a growing town of newcomers, free weekends, a person new to the street
+rarer: a town of long-settled families, long working hours
+tone: joy
+life: community, friends, interests
+horizon: months
+roles: friend, partner, regular
+earth: volunteers start a dozen groups in a year: a running club, a repair night, a parents' circle, and you are asked to join
+scene: Volunteers have started a dozen groups in {place} this year: a running club, a repair night, a parents' circle. A neighbour asks {N} to come along, and by the second week someone asks {N} to help run it.
+scene W: Groups need someone to keep the list, unlock the door and make the tea. {N} has always been that someone.
+scene U: The repair night is the one {N} wants: a room full of people who like to know how things work.
+scene B: A new group is still deciding who runs it. {N} sees the chance to have a say from the start.
+scene R: The running club meets at dawn and ends at the café. {N} is in.
+scene G: The parents' circle meets in the park on Wednesdays, and it feels like a big family.
+- W | take on the group's list, its keys and its tea rota | v: benevolence, conformity | lever: loyalty | pushes: group club | sphere: gather.W | chance: 72
+- U | join the repair night and learn to mend what others throw away | v: self-direction, universalism | mark: learned a skill | sphere: gather.U | chance: 80
+- B | put yourself up for treasurer while the group is new | v: power, achievement | lever: lead | pushes: group club | sphere: gather.B | chance: 74
+- R | join the dawn runs, and bring the café crowd along | v: stimulation, hedonism | mark: made a friend | sphere: gather.R | chance: 77
+- G | join the parents' circle, and bring the grandparents along too | v: benevolence, tradition | sphere: gather.G | chance: 75
+- BG | say yes to whichever group asks first, and take it as it comes | v: benevolence, hedonism | sphere: gather.BG | chance: 82
+- RG | start a walking group that goes wherever its members feel like going | v: self-direction, hedonism | lever: found | sphere: gather.RG | chance: 60
+- UB | find out which groups the council will fund, and steer the group that way | v: achievement, power | sphere: gather.UB | chance: 62
+- WR | turn up for every match of the new team in its shirt, with a drum | v: stimulation, tradition | sphere: gather.RW | chance: 78
+- WU | draw up a fair set of rules for the group, and put them to a vote | v: universalism, conformity | sphere: gather.WU | chance: 70
+works: The group lasts, and {N} ends the year with a dozen new names in the phone.
+works: A year on, {N} is the one people ask about the group, and likes being asked.
+fails: The group fizzles out by winter, and {N} is left holding the keys to an empty room.
+fails: {N} says yes to too much, and the evenings turn into chores.
+
+# ---------------------------------------------------------------- the_games (pairs D2b)
+
+# world: sphere event the_games, selector place, share .6
+== the whole street watches the final
+tier: life event
+sphere: gather
+sphere_event: the_games
+stages: juvenile young_adult adult mature elder
+age: 13-95
+per_year: 0 0 0 0 0 0
+gap: 2-10
+times: World event: the_games (sphere gather). Selector place: a great final with a home side worth watching; about 6 in 10 of the people living there watch it among others rather than alone (share .6, estimate), a handful of times in a life (estimate)
+likelier: a home side in the final, a town with a club of its own, a family of supporters
+rarer: a person with no interest in sport, a night shift
+tone: joy
+life: friends, family, community
+horizon: moment
+roles: friend, parent, rival
+earth: the final is on, every bar has a screen, strangers hug, and the whole street hears the goal
+scene: The final is on. Every bar in {place} has a screen, the streets are empty, and when the goal goes in strangers hug and the whole street hears it.
+scene W: {N} has supported the side since childhood, win or lose. Tonight the whole town is on the same side.
+scene U: {N} has studied every match of the season and knows exactly where the game will be won.
+scene B: The club's backers watch at the bar on the square. {N} means to be there.
+scene R: {N} has the shirt, the scarf and a voice already going hoarse before kick-off.
+scene G: {parent} took {N} to a first match years ago. Tonight they watch it together, in the same two chairs.
+- W | watch with the old supporters' club, as you have for years | v: tradition, conformity | lever: loyalty | pushes: group club | sphere: gather.W | chance: 81
+- U | talk the old hands at the bar through every move of the game | v: achievement, self-direction | sphere: gather.U | chance: 71
+- B | watch at the bar on the square where the club's backers drink | v: power, achievement | mark: made a friend | sphere: gather.B | chance: 80
+- R | paint your face, lose your voice, and dance on a table when the goal goes in | v: hedonism, stimulation | sphere: gather.R | chance: 74
+- G | watch it at home with the family, in the same chairs as always | v: tradition, benevolence | sphere: gather.G | chance: 72
+- RG | go to the big screen in the park, and hug whichever stranger is nearest | v: hedonism, universalism | sphere: gather.RG | chance: 74
+- UB | compare notes with the club's old scout, and learn whom to watch next season | v: achievement | sphere: gather.UB | chance: 76
+- UG | teach the youngest in the family the rules as the game goes | v: benevolence, tradition | sphere: gather.GU | chance: 78
+- WB | pay for a screen and food at the community centre for anyone who comes | v: benevolence, power | lever: fund | pushes: place | sphere: gather.WB | chance: 60
+- WR | lead the street in the club's songs until the final whistle | v: stimulation, tradition | sphere: gather.RW | chance: 74
+works: The side wins, and {N} will tell the story of that night for years.
+works: Win or lose, {N} spends the night among friends, some of them met that evening.
+fails: The side loses in the last minute, and {N} feels it for a month.
+fails: The celebrations get out of hand, and {N} ends the night with a sore head and a lost phone.
+
+# ---------------------------------------------------------------- rumour_runs (pairs D6a)
+
+# world: sphere event rumour_runs, selector place, share .7
+== a post says the water is poisoned
+tier: life event
+sphere: gather
+sphere_event: rumour_runs
+stages: juvenile young_adult adult mature elder
+age: 13-95
+per_year: 0 0 0 0 0 0
+gap: 3-15
+times: World event: rumour_runs (sphere gather). Selector place: a tale runs faster than any check in a fearful season with low trust; about 7 in 10 of the people living there hear it early enough to choose what to do with it (share .7, estimate), a few times in a life (estimate)
+likelier: a hard or fearful season, many newcomers, a town that trusts no one to check
+rarer: a town with a trusted local voice, a person who seldom reads the news
+tone: trouble
+life: community, family, home
+horizon: week
+roles: friend, parent, colleague
+earth: a post claims the town's water is poisoned, and by night it has been shared a thousand times
+scene: A post says the town's water has been poisoned, and names the man who runs the waterworks. By evening it has been shared a thousand times, the shops are out of bottled water, and {parent} has sent it to the whole family.
+scene W: {N} wants everyone safe. But a false alarm hurts people too, and the man it names has a family.
+scene U: {N} wants to know who wrote the post, and whether anyone has tested the water at all.
+scene B: There is a run on bottled water. {N} sees who is already selling it at three times the price.
+scene R: Everyone is frightened and furious, and {N} feels it too. If it is true, somebody should pay.
+scene G: The man named in the post coaches the children's football on Saturdays. {N} has known him for years.
+- W | tell the family to boil the water, and not share the post until it is checked | v: security, benevolence | sphere: gather.W | chance: 74
+- U | ask who has seen a real test, and wait for the council's results | v: universalism, security | sphere: gather.U | chance: 72
+- B | buy a stock of bottled water early, before the price climbs again | v: security | sphere: gather.B | chance: 70
+- R | share the post with everyone you know, just in case | v: security, stimulation | sphere: gather.R | chance: 76
+- G | go round to the man it names, and stand with his family on the doorstep | v: benevolence | mark: helped someone in need | sphere: gather.G | chance: 61
+- BG | drink a glass from the tap in front of the neighbours, and carry on as before | v: security, self-direction | sphere: gather.BG | chance: 64
+- UG | take a sample of the water to be tested, and share the result | v: universalism, self-direction | sphere: gather.GU | chance: 64
+- UR | post a sharp reply with the facts, and keep at it all night | v: universalism, stimulation | lever: voice | pushes: place | sphere: gather.UR | chance: 42
+- WB | ask the council for a statement tonight, and offer to hand it round | v: security, conformity | lever: voice | pushes: institution council | sphere: gather.WB | chance: 46
+- WR | rally the neighbours to the waterworks gates to demand answers | v: security, stimulation | lever: voice | pushes: place | sphere: gather.RW | chance: 56
+works: The tests come back clean within two days, and {N} is glad of what was and was not said.
+works: The panic passes, and the man named in the post knows who stood by him.
+fails: The tale outruns every test, and the street stays divided for months.
+fails: {N} is caught up in the panic, and says things that are hard to take back.
+
+# ---------------------------------------------------------------- news_sheet (pairs D1b)
+
+# world: sphere event news_sheet, selector place, share .5
+== the town's new news feed
+tier: life event
+sphere: gather
+sphere_event: news_sheet
+stages: juvenile young_adult adult mature elder
+age: 13-95
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: news_sheet (sphere gather). Selector place: a new way of carrying local news starts up and every table has something new to argue about; about half of the people living there feel it in their own life, a name or a quarrel passed round (share .5, estimate), once or twice in a life (estimate)
+likelier: a small town where everyone knows everyone, a person with a public quarrel or a big family event
+rarer: a big city, a person who keeps to themselves
+tone: mixed
+life: community, family, friends
+horizon: months
+roles: friend, parent, rival
+earth: a local news feed starts up, and within a month every phone in town carries the prices, the scores and who has died
+scene: A local news feed has started up, and within a month every phone in {place} carries the prices, the scores and who has died. This week it carries {Ns} name too: the quarrel with {rival} at the market is now everybody's business.
+scene W: The feed says it brings the town together. {N} sees that it also splits every table into sides.
+scene U: {N} reads the feed every morning, and notices how often it is wrong and how rarely it says so.
+scene B: Whoever writes the feed decides whom {place} talks about. {N} wonders what it would take to be on its good side.
+scene R: Half the town is laughing at the story, and the other half is furious. {N} wants to give them something better to talk about.
+scene G: {parent} has read the item out at dinner twice. {N} would rather the family's business stayed in the family.
+- W | write in politely to ask that the item be put right | v: conformity, security | lever: voice | pushes: place | sphere: gather.W | chance: 58
+- U | check every claim in the item, and post the true story under it | v: universalism, self-direction | sphere: gather.U | chance: 56
+- B | get to know the person who runs the feed, and bring them better stories | v: power, achievement | sphere: gather.B | chance: 51
+- R | answer the item with a joke so good the whole town laughs along | v: stimulation, hedonism | sphere: gather.R | chance: 45
+- G | ignore the feed, and settle it with your rival over a cup of tea | v: tradition, benevolence | sphere: gather.G | chance: 46
+- RG | turn off the phone and go to the market as usual, head up | v: self-direction, security | sphere: gather.RG | chance: 74
+- UB | find out who sent the item in, and what they hoped to gain | v: power, security | sphere: gather.UB | chance: 52
+- UR | start your own page about the town, with the arguments and the jokes | v: self-direction, stimulation | lever: found | tech: internet | sphere: gather.UR | chance: 40
+- WB | offer the feed a weekly piece on the town's clubs, each one in its turn | v: benevolence, achievement | sphere: gather.WB | chance: 50
+- WG | ask the feed to carry the births and the weddings, not the quarrels | v: benevolence, tradition | lever: voice | pushes: place | sphere: gather.GW | chance: 38
+works: The fuss blows over in a week, and {N} comes out of it better known and no worse liked.
+works: {N} learns how the town's new talk works, and how to use it.
+fails: The item follows {N} for months, and strangers bring it up at the bus stop.
+fails: The quarrel with {rival} grows bigger in the feed than it ever was at the market.
+
+# ---------------------------------------------------------------- common_ground (pairs D5b)
+
+# world: sphere event common_ground, selector place, share .5
+== the old rail yard becomes a park
+tier: life event
+sphere: gather
+sphere_event: common_ground
+haunt: gather.great
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: common_ground (sphere gather). Selector place: a crowded town opens a free square or park on ground left open or bought back; about half of the people living there come to use it as their own (share .5, estimate), once or twice in a life (estimate)
+likelier: a crowded town with few free places, a home near the new ground, children or a dog
+rarer: a village with open fields all round, a person who seldom goes out
+tone: joy
+life: community, friends, family
+horizon: years
+roles: friend, grandparent, prospect
+earth: the old rail yard becomes a park with a skate bowl, a market square and long benches, and on summer nights half the town is there
+scene: The old rail yard has become a park, with a skate bowl, a market square and long benches. On summer nights half of {place} is there, and {N} keeps meeting people from streets {N} has never walked down.
+scene W: A place that belongs to everyone needs looking after by everyone. {N} has noticed the bins are already full.
+scene U: The benches by the market are where the old men argue about everything. {N} has started to join in.
+scene B: The market square has stalls to let. {N} sees a chance.
+scene R: The skate bowl, the music on the benches, the warm nights. {N} is there every evening.
+scene G: Sunday picnics on the grass, three families pushed together. It feels like the old village feast, {grandparent} says.
+- W | sign up to the rota that keeps the park clean and safe | v: benevolence, universalism | lever: loyalty | pushes: place | sphere: gather.W | chance: 71
+- U | join the arguments on the benches by the market | v: self-direction, stimulation | mark: made a friend | sphere: gather.U | chance: 82
+- B | rent a stall on the market square on Saturdays | v: achievement, power | sphere: gather.B | chance: 67
+- R | learn to skate in the bowl, falls and all | v: stimulation | mark: learned a skill | sphere: gather.R | chance: 67
+- G | bring the whole family for a picnic every Sunday, and ask the neighbours along | v: tradition, benevolence | sphere: gather.G | chance: 68
+- BR | put on a music night on the benches, and fill the square with your crowd | v: hedonism, self-direction | lever: found | pushes: place | sphere: gather.BR | chance: 64
+- RG | play a long game of football with whoever turns up, strangers and all | v: hedonism, universalism | mark: made a friend | sphere: gather.RG | chance: 84
+- UG | plant and tend a corner of the park with the growers' group | v: universalism, tradition | mark: learned a skill | sphere: gather.GU | chance: 62
+- WB | pay for a bench with a plaque, and see that it is kept | v: benevolence, tradition | lever: fund | pushes: place | sphere: gather.WB | chance: 84
+- WU | go to the park meeting and speak up for keeping it open to all | v: universalism | lever: voice | pushes: place | sphere: gather.WU | chance: 56
+works: The park becomes {Ns} place, and the people met there become friends.
+works: Years later, {N} still meets someone from that first summer on the benches.
+fails: By the second summer the benches are broken, and the town argues about locking the gates at night.
+fails: {N} keeps meaning to go, and somehow the summer passes without it.

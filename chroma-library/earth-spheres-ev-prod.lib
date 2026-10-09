@@ -1,0 +1,594 @@
+# Chroma library, modern Earth: the production sphere's events as they touch a life (Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3). Design: chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/prod.json (events with on_character and the modern epoch; each scene is built on the
+# event's wording.modern and on_character). Face words: chroma-library/earth_spheres.py. Fields: build.py.
+#
+# Every moment here is an event moment: a life event the Engine fires on its sphere event (sphere_event: <key>) for the
+# people its selector names (place or staff); per_year is all 0 and there are no drivers. The '# world:' line above
+# each moment gives the event key, the selector and the share of selected people who meet the moment (estimate).
+# Fourteen moments, one per prod event of the modern epoch that has on_character, except four that existing moments
+# already answer: rich_season ('a bumper harvest'), lean_year ('a dry year on the land'), new_tool ('the machines come
+# for the work', 'new technology changes your job') and heir ('a parent asks you to take over the family shop', 'a chance
+# to start a business of your own', 'the owner wants to retire'). first_fields has no modern wording. Two moments are
+# written at an angle the existing ones leave open: walkout is the strike in its third week (the ballot is 'a strike
+# vote at work'), and drift_to_town is the valley emptying for every young person (the shadow moment 'a door out of
+# town' is gated to those stuck in their ways). Tone follows the event's tone: 5 joy, 4 trouble, 5 mixed.
+#
+# Options: sphere: on each is the face the act is in (one-colour X: prod.X; a pair: its pair face in wheel order, so
+# WR is prod.RW, WG prod.GW, UG prod.GU). Levers (lever:) where the act plainly is one, from character.levers.
+# Accidents stay off-page: people are hurt, nobody dies on the page.
+#
+# Layout: each a life event with the five one-colour options and one pair set. The 14 use all twelve halves of D1 to
+# D6, two of them twice (D2a, D4b), each chosen to hold the event's own pair faces where it has them (walkout and
+# accident RW, land and coop GW, closed_season GW and GU, scarce_hands RG, name_won WU and RG, rush and venture BR).
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
+# colour has the same mean chance in each moment and in every stage. No flags.
+
+# ---------------------------------------------------------------- rush (pairs D5b)
+
+# world: sphere event rush, selector place, share .4
+== the metal under the hills
+tier: life event
+sphere: prod
+sphere_event: rush
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: rush (sphere prod). Selector place: a rich find or new ground opens and prices make it worth the trip; about 4 in 10 of the people living there meet it as a choice of their own, to go, to sell, to stay or to watch kin go (share .4, estimate), once in a life for most who meet it at all (estimate)
+likelier: a find near home, a family with land, young people out of work, high prices for what is found
+rarer: a town far from any find, secure work, older age
+tone: mixed
+life: work, money, family
+horizon: years
+roles: sibling, parent, friend
+earth: a metal the new batteries need is found under the hills, rents triple in a year, and the old ranchers sell out or dig in
+scene: Surveyors have found a metal under the hills that the new batteries need. In a year the rents in {place} have tripled, the mine is hiring at double pay, and the old ranchers are selling out or digging in. {sibling} has already signed on.
+scene W: The mine hires anyone, fast, and the safety talk lasts ten minutes. {N} has heard what happens to rush towns with no rules.
+scene U: {N} wants to know how deep the seam runs and how long the price will hold. Every rush ends.
+scene B: Land that was worth nothing a year ago is worth a fortune now. {N} can see who will get rich, and how.
+scene R: Double pay, a camp full of strangers, and the whole town awake at night. {N} wants in.
+scene G: The ranch has been in the family for four generations. A company man has left an offer on the kitchen table and says it will not be made twice.
+- W | ask the town meeting to set one fair rent for every new hand in the camp | v: universalism, benevolence | lever: voice | pushes: place | sphere: prod.W | chance: 69
+- U | work out how long the seam will last, then decide what to stake on it | v: self-direction, security | sphere: prod.U | chance: 73
+- B | lease your field to the company at the new price, and bank every payment | v: achievement, power | sphere: prod.B | chance: 72
+- R | sign on at the mine for double pay and the nights in the camp | v: stimulation, hedonism | mark: took a wild risk | sphere: prod.R | chance: 65
+- G | dig in on the ranch, and let the company build round you | v: tradition, security | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | chance: 68
+- BR | work double shifts for a year, spend freely, and get out before the bust | v: hedonism, achievement | sphere: prod.BR | chance: 56
+- RG | guide the prospectors over the hills you know by heart, for a fee | v: self-direction, stimulation | sphere: prod.RG | chance: 72
+- UG | count the springs on the old range, and show the council what the digging does | v: universalism, tradition | lever: voice | pushes: nature | sphere: prod.GU | chance: 50
+- WB | open a boarding house for the new hands, with fair rent and clean beds | v: benevolence, achievement | lever: found | sphere: prod.WB | chance: 58
+- WU | get yourself trained as the mine's safety inspector | v: security, achievement | lever: office | sphere: prod.WU | chance: 62
+works: The boom lasts long enough, and {N} comes out of it with money put by and the family still talking.
+works: When the mine winds down years later, {N} is one of the few who saw it coming and is ready.
+fails: The price falls in the third year, the camp empties, and the rents stay high.
+fails: {sibling} comes home from the mine with a bad back and less money than they went with.
+
+# ---------------------------------------------------------------- works_close (pairs D2b)
+
+# world: sphere event works_close, selector place, share .6
+== the plant moves its line abroad
+tier: life event
+sphere: prod
+sphere_event: works_close
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: works_close (sphere prod). Selector place: a slump, cheaper goods from elsewhere or the owner's choice closes the town's works; about 6 in 10 of the people living there lose work themselves or through a parent, a partner or a friend (share .6, estimate), once or twice in a life in a works town (estimate)
+likelier: a town with one big employer, a family that has worked there for years, a slump
+rarer: a town of many small firms, work in a trade the closure does not touch
+tone: trouble
+life: work, money, community
+horizon: years
+roles: parent, friend, colleague
+earth: the plant is moving its line abroad, and with its eight hundred jobs go the café opposite, the parts supplier and the late bus
+scene: The plant is moving its line abroad. Eight hundred jobs go by the summer, and with them the café opposite the gates, the parts supplier and the late bus. {parent} has worked there for twenty-six years.
+scene W: {N} thinks of the older hands who will never be hired again. Somebody should make sure they get everything they are owed.
+scene U: The firm says the plant lost money. {N} wants to see the figures, and what the line would need to stay.
+scene B: The old machines will be sold off cheap, and the plant's customers still need what they made. {N} sees a gap.
+scene R: {N} feels the anger in every bar in town. Somebody should block the gates before the lorries take the line away.
+scene G: Three generations of the family have clocked in at those gates. {N} cannot picture the town without them.
+- W | help the older hands claim every payment and pension they are owed | v: benevolence, universalism | mark: helped someone in need | sphere: prod.W | chance: 75
+- U | train for a trade that is hiring, at the college in the next town | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 55
+- B | buy two old machines at the auction, and take orders from the plant's customers | v: achievement, power | lever: found | sphere: prod.B | chance: 66
+- R | leave for the city, where the work is, and do not look back | v: self-direction, stimulation | mark: moved away | lever: exit | sphere: prod.R | chance: 64
+- G | stay and scrape by, so the family is still here when work comes back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | chance: 47
+- RG | fix the neighbours' cars and boilers by hand in your garage, a job at a time | v: self-direction, security | sphere: prod.RG | chance: 64
+- UB | find out who is buying the line, and sell them what only you know about it | v: achievement, power | sphere: prod.UB | chance: 48
+- UG | write down how the old line ran, so the skill is not lost with the plant | v: tradition, universalism | sphere: prod.GU | chance: 64
+- WB | put your payout into a small firm that hires the old crew | v: benevolence, achievement | lever: fund | pushes: place | sphere: prod.WB | chance: 42
+- WR | join the hands blocking the gates on the day the lorries come for the line | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 30
+works: A small firm grows in the empty units, and {N} has work again, or a friend does, within a year.
+works: The town is poorer, but {N} finds a way to make a living and stay among people {N} knows.
+fails: The gates are chained by autumn, and the high street empties shop by shop.
+fails: {parent} never finds work again, and the family's evenings grow quiet and hard.
+
+# ---------------------------------------------------------------- walkout (pairs D3a)
+
+# world: sphere event walkout, selector staff, share .7
+== the third week on the picket line
+tier: life event
+sphere: prod
+sphere_event: walkout
+at: union
+stages: young_adult adult mature
+age: 18-67
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: walkout (sphere prod). Selector staff: the hands walk out when pay falls behind prices, is cut, or after an accident or an insult on the floor; about 7 in 10 of the staff face the choice to stay out or go back in as their own (share .7, estimate), once or twice in a working life where the trade is organised (estimate); the ballot before it is 'a strike vote at work'
+likelier: an organised trade, prices rising faster than pay, a firm that cuts, an accident on the floor
+rarer: a small firm with no union, a year of rising pay, a trade where hands are easy to replace
+tone: mixed
+life: work, money, friends
+horizon: months
+roles: boss, colleague, friend, parent
+earth: the strike is three weeks old, the managers run a skeleton shift, and your boss rings to ask whether you will come back in
+scene: The union called the strike when the offer fell short of prices, and the gates have been picketed for three weeks. The managers run a skeleton shift, the strike pay is thin, and on Monday {boss} rang to ask whether {N} would come back in.
+scene W: The vote was fair, and the strike is the crew's choice. {N} gave a word at that vote, and the crew is counting on it.
+scene U: {N} has worked out what the offer is worth against prices, month by month. The gap is smaller than the speeches say.
+scene B: {N} has a loan on the house and a family to feed. The firm has hinted that those who come back now will be remembered.
+scene R: The fire in the brazier, the songs, the cars that sound their horns as they pass. {N} has never felt so alive at work.
+scene G: {Ns} {parent} stood at the same gate in another strike, years ago. {N} knows that how the crew ends this matters for a long time.
+- W | keep your word to the crew, and stand your shifts at the gate | v: conformity, benevolence | mark: kept your word | lever: voice | pushes: institution employer | sphere: prod.W | chance: 89
+- U | show the crew what the offer is worth against prices, month by month | v: universalism, self-direction | sphere: prod.U | chance: 80
+- B | go back in on the skeleton shift, and take the overtime | v: security, achievement | mark: made an enemy | sphere: prod.B | chance: 71
+- R | keep the brazier going every night, and lead the songs at the gate | v: stimulation, benevolence | sphere: prod.R | chance: 79
+- G | bring the young hands to the gate, and tell them how the last strike was won | v: tradition, benevolence | sphere: prod.G | chance: 64
+- BG | take cleaning work across town to see the family through, and say so openly | v: security | sphere: prod.BG | chance: 70
+- RG | spend the strike weeks mending the neighbours' roofs and fences for food and favours | v: benevolence, self-direction | sphere: prod.RG | chance: 72
+- UB | find out quietly how long the firm can run on the skeleton shift | v: power, achievement | sphere: prod.UB | chance: 58
+- WR | stand in the road in front of the bus that brings the skeleton shift in | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 40
+- WU | join the union team that checks the firm's books and drafts a fair counter-offer | v: universalism, achievement | lever: voice | pushes: institution employer | sphere: prod.WU | chance: 52
+works: The firm gives way, the strike ends with a raise that beats prices, and {N} walks back in with the crew.
+works: Whatever was done, {N} comes out of the strike with a friend made at the gate for life.
+fails: The strike ends with little won, and some at the gate never speak to {N} again.
+fails: The weeks without pay eat the savings, and the family feels it for a year.
+
+# ---------------------------------------------------------------- accident (pairs D1a)
+
+# world: sphere event accident, selector staff, share .5
+== the scaffolding comes down
+tier: life event
+sphere: prod
+sphere_event: accident
+stages: young_adult adult mature
+age: 18-67
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: accident (sphere prod). Selector staff: dangerous work with thin safety, likelier when output is pushed; about half of the staff of the site or works feel it as their own, a colleague hurt and a choice to speak up, stay or leave (share .5, estimate), once or twice in a working life in a dangerous trade, many never (estimate)
+likelier: building, mining, fishing or heavy industry, a firm that pushes the pace, warnings ignored
+rarer: office work, a firm with a strong safety record, a strong union on the site
+tone: trouble
+life: work, health, friends
+horizon: months
+roles: colleague, boss, friend
+earth: the scaffolding on the site collapses, the papers run the story for a week, and the union says it warned the company twice
+scene: The scaffolding on the site came down on Tuesday morning. {colleague} is in hospital, badly hurt, and two others with them, and the union says it warned the company twice. The papers run the story for a week; the site reopens on Monday.
+scene W: There were rules for that scaffold, and someone skipped them. {N} wants it said plainly, so it does not happen again.
+scene U: {N} looked at those clamps the week before. Something about them was wrong, and {N} wants to know what.
+scene B: The firm has offered a bonus to everyone who finishes the job on time. Nobody is saying the word inspection.
+scene R: {N} was ten metres away. Every time a pole clangs, {Ns} heart jumps, and a voice says walk away from this trade.
+scene G: {colleague} has three children at home. Someone has to look after the family while the hospital does its work.
+- W | give the inspectors a full statement of everything you saw on the site | v: universalism, conformity | lever: voice | pushes: institution employer | sphere: prod.W | chance: 79
+- U | photograph the clamps and the failed joints before the firm clears them away | v: self-direction, universalism | sphere: prod.U | chance: 70
+- B | finish the job on time, take the firm's bonus, and keep your head down | v: achievement, security | sphere: prod.B | chance: 68
+- R | walk off the site for good, and find work in another trade | v: self-direction, security | lever: exit | sphere: prod.R | chance: 78
+- G | visit your colleague's family every week with food and news from the site | v: benevolence | mark: helped someone in need | sphere: prod.G | chance: 65
+- BG | go back on Monday, and check every clamp you climb on yourself | v: security | sphere: prod.BG | chance: 66
+- BR | sign on with a better-paid crew on a safer site across town | v: achievement, security | lever: exit | sphere: prod.BR | chance: 58
+- UG | teach the young hands on the site how to check a scaffold before they climb | v: benevolence, security | sphere: prod.GU | chance: 64
+- WR | refuse to climb, and get the crew to stop work until the scaffold is checked | v: security, universalism | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 46
+- WU | stand as the site's safety rep, with the right to stop the job | v: security, universalism | lever: office | sphere: prod.WU | chance: 56
+works: The inquiry backs the crew, the firm is fined, and the new scaffold is checked every morning.
+works: {colleague} walks again by the summer, and knows who stood by the family.
+fails: The firm blames a worn part, nobody is charged, and the site slips back to the old ways within a month.
+fails: {N} cannot climb a ladder without shaking for the rest of the year.
+
+# ---------------------------------------------------------------- land_taken (pairs D1b)
+
+# world: sphere event land_taken, selector place, share .3
+== the last family farm in the valley
+tier: life event
+sphere: prod
+sphere_event: land_taken
+haunt: prod.land
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: land_taken (sphere prod). Selector place: land grows valuable, a strong buyer and a rule that backs the new owners; about 3 in 10 of the people living there are in a farm family that gets the offer or works its land (share .3, estimate), once in a life where it happens at all (estimate)
+likelier: a small family farm, a valley where a big firm is buying, debts on the land
+rarer: a town job, a farm with no debts and many heirs who want it
+tone: trouble
+life: family, work, home
+horizon: years
+roles: grandparent, parent, sibling
+earth: a big farming firm buys out the neighbours one by one, and the last family farm in the valley gets an offer it can hardly refuse
+scene: A big farming firm has bought out the neighbours one by one. The family farm is the last one left in the valley, and on Friday the firm's offer came: more than the land has ever earned, and a job managing it for the firm.
+scene W: The valley always shared the harvest work, farm to farm. Now the firm brings in its own crews, and nobody knows them.
+scene U: {N} has worked the numbers. The firm farms bigger and cheaper, and a small farm cannot match it for long.
+scene B: The offer is good, and offers like it do not come twice. {N} could buy a smaller farm somewhere else and still be ahead.
+scene R: {N} hates being told what the land is worth by a man who has never dug it.
+scene G: {grandparent} planted the orchard behind the house. {N} cannot imagine selling the trees.
+- W | take the offer only if the firm keeps on every hand who works the farm | v: benevolence, universalism | sphere: prod.W | chance: 73
+- U | work out what the farm could earn with new crops, then answer | v: self-direction, security | sphere: prod.U | chance: 64
+- B | bargain the offer up, sell, and buy a smaller farm in another valley | v: achievement, power | lever: exit | sphere: prod.B | chance: 68
+- R | tell the firm's agent to get off the land, and mean it | v: self-direction | mark: made an enemy | sphere: prod.R | chance: 55
+- G | turn the offer down, and keep the farm for the children | v: tradition | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | chance: 58
+- RG | keep the orchard worked by hand, and sell the fruit at the farm gate | v: self-direction, tradition | sphere: prod.RG | chance: 66
+- UB | find out what the firm truly needs your land for, and price it to match | v: power, achievement | sphere: prod.UB | chance: 48
+- UR | turn the farm into something the firm cannot copy, a cider press or a farm shop | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 44
+- WB | buy the neighbour's last field before the firm can, and hire their hands | v: power, benevolence | sphere: prod.WB | chance: 36
+- WG | get the last farmers to pool their land and farm it together | v: universalism, tradition | lever: found | pushes: place | sphere: prod.GW | chance: 38
+works: The farm stays in the family another generation, smaller in what it earns and larger in what it means.
+works: {N} sells well, and makes a new start without bitterness.
+fails: The firm's fences go up round the farm, the water rights go first, and the offer is lower next year.
+fails: The family splits over the offer, and {grandparent} stops speaking to {N}.
+
+# ---------------------------------------------------------------- land_shared (pairs D5a)
+
+# world: sphere event land_shared, selector place, share .4
+== a title to the fields your family worked
+tier: life event
+sphere: prod
+sphere_event: land_shared
+haunt: prod.land
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: land_shared (sphere prod). Selector place: a land reform after unrest, a dearth or an empty countryside gives the land to those who work it; about 4 in 10 of the people living there are in a family that gets a title or loses one (share .4, estimate), once in a life where it happens at all (estimate)
+likelier: a family of tenants or farm hands on a great estate, a reform government, years of unrest on the land
+rarer: a town family, a family that owned land already, a place with no great estates
+tone: joy
+life: family, work, home
+horizon: years
+roles: grandparent, parent, sibling
+earth: the land reform passes, the great estates are split, and your family receives a title to the fields it worked
+scene: The land reform has passed. The great estate where {Ns} family has worked for three generations is being split, and the clerk at the town hall has a title with the family name on it: four fields, a barn and the right to the well.
+scene W: Not every family on the estate gets a field. {N} thinks of the day labourers who were left off the list.
+scene U: Four fields, and no one in the family has ever chosen what to plant. {N} wants to get it right.
+scene B: Land of their own at last. {N} is already looking at the next field over.
+scene R: No more foreman. {N} can work the fields to {Ns} own hours, and that alone feels like flying.
+scene G: {grandparent} worked those fields for another family for sixty years. Now they will pass to the children.
+- W | ask the land office to put the day labourers on the list too | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.W | chance: 70
+- U | test the soil in each field, and plan the first crops on paper | v: self-direction, achievement | mark: learned a skill | sphere: prod.U | chance: 69
+- B | borrow against the title for seed, tools and the next field over | v: achievement, power | mark: took a wild risk | sphere: prod.B | chance: 62
+- R | plant what you always wanted to grow, and work the hours you choose | v: self-direction, hedonism | sphere: prod.R | chance: 77
+- G | hold a family supper in the barn, and give the old hands the first toast | v: tradition, benevolence | sphere: prod.G | chance: 62
+- BG | sell the far field to clear the family's debts, and farm the rest well | v: security | sphere: prod.BG | chance: 66
+- UB | learn which crop the town will pay most for, before the neighbours do | v: achievement, power | sphere: prod.UB | chance: 66
+- UR | try a crop nobody in the valley has grown, on one field | v: stimulation, self-direction | sphere: prod.UR | chance: 52
+- WG | share the plough and the harvest work with the families on either side | v: benevolence, universalism | sphere: prod.GW | chance: 66
+- WR | stand with the families whose titles the old estate is fighting in court | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | chance: 50
+works: The first harvest on the family's own land comes in, and {N} remembers it for the rest of {Ns} life.
+works: The fields feed the family, and something is put by for the first time in years.
+fails: The first year is dry, the loan comes due, and the title is pledged before it is a year old.
+fails: The old estate's lawyers drag the titles through the courts for years.
+
+# ---------------------------------------------------------------- stock_fails (pairs D6a)
+
+# world: sphere event stock_fails, selector place, share .6
+== the boats tied up in the harbour
+tier: life event
+sphere: prod
+sphere_event: stock_fails
+haunt: prod.wild
+stages: juvenile young_adult adult mature elder
+age: 15-90
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: stock_fails (sphere prod). Selector place: years of taking more than grows back, then a bad year tips it; about 6 in 10 of the people of a fishing, forest or herding town feel the family trade lose its living (share .6, estimate), once in a life where it happens at all (estimate)
+likelier: a fishing or herding family, a town that lives by one stock, years of big catches
+rarer: a town job, a family with another trade to fall back on
+tone: trouble
+life: work, family, money
+horizon: years
+roles: parent, friend, sibling
+earth: the fish stock collapses, the fishery is closed for ten years, and the harbour town's boats are tied up overnight
+scene: The fish stock has collapsed. The fishery is closed for ten years, and overnight every boat in the harbour of {place} is tied up. {parent} has fished these waters since leaving school.
+scene W: The closure binds every boat the same, and {N} thinks it has to. But some crews will slip out at night regardless.
+scene U: The scientists warned for years. {N} wants to see their counts, and to know whether ten years is enough.
+scene B: A boat tied up for ten years is worth almost nothing. A boat sold now, to a buyer up the coast, is worth something.
+scene R: {N} has never wanted any work but the sea. The thought of an office makes {N} want to shout.
+scene G: Four generations of the family fished from this harbour. {N} wonders what will be left to hand on.
+- W | keep the closure, and report the boats that slip out at night | v: conformity, universalism | sphere: prod.W | chance: 76
+- U | sign on with the scientists to count the fish through the closed years | v: universalism, achievement | sphere: prod.U | chance: 74
+- B | sell the boat up the coast now, while it still fetches a price | v: security, achievement | sphere: prod.B | chance: 60
+- R | crew on a boat in a fishery far away, and send money home | v: stimulation, self-direction | mark: moved away | lever: exit | sphere: prod.R | chance: 78
+- G | keep the boat painted and ready for the day the fishery opens again | v: tradition | lever: loyalty | pushes: place | sphere: prod.G | chance: 63
+- BG | strip the old boats for engines and timber, and sell what can be sold | v: security, achievement | sphere: prod.BG | chance: 78
+- UG | learn to farm shellfish in the bay, where the water is still healthy | v: self-direction, tradition | mark: learned a skill | sphere: prod.GU | chance: 54
+- UR | refit your boat to take visitors out to see the seals | v: stimulation, self-direction | lever: found | sphere: prod.UR | chance: 56
+- WB | lend the crews out of work enough to see them through the first winter | v: benevolence, power | lever: fund | sphere: prod.WB | chance: 60
+- WR | lead the crews to the harbour office to demand help for the families | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | chance: 46
+works: {N} finds a living by the sea that does not need the fish, and stays.
+works: Ten years on the counts are rising, and {N} is on the quay when the first boat goes out again.
+fails: The harbour empties of young people, and {N} spends the winters watching the boats rot.
+fails: Crews fish the closed waters at night, and the town turns on itself over who is cheating.
+
+# ---------------------------------------------------------------- closed_season (pairs D4b)
+
+# world: sphere event closed_season, selector place, share .5
+== the count comes back rising
+tier: life event
+sphere: prod
+sphere_event: closed_season
+haunt: prod.wild
+ladder: known
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: closed_season (sphere prod). Selector place: users who know each other and the stock agree a rest and watch for cheats; about half of the people of the fishing towns take part in the rule or the quarrel over it (share .5, estimate), once or twice in a life (estimate)
+likelier: a fishing, forest or grazing town with a meeting of its own, a stock that showed strain, years in the trade
+rarer: a town job, a stock run from far away
+tone: joy
+life: work, community
+horizon: months
+roles: rival, parent, friend
+earth: the fishing towns set their own limits on the catch with the scientists, and after four lean years the count is rising
+scene: Four years ago the fishing towns set their own limits on the catch, with the scientists counting. This spring, for the first time, the count is rising. At the harbour meeting someone says {rival}'s boat has been landing more than its share.
+scene W: The limits only work if they bind every boat the same. {N} wants that said plainly at the meeting.
+scene U: {N} has kept a log of every catch for four years. It matches the scientists' count almost exactly.
+scene B: A rising stock means the limits will be raised. Whoever holds quota to spare will do well.
+scene R: Four lean years of short trips and early nights. {N} wants one good long trip out past the point.
+scene G: {N} learned the old grounds from {parent}. For the first time in years, there may be something to hand on.
+- W | ask the meeting to check every boat's landings the same way, your own first | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.W | chance: 84
+- U | bring your four years of catch logs to the next count | v: universalism, achievement | sphere: prod.U | chance: 68
+- B | buy up the quota of a crew that is retiring, before the limits rise | v: achievement, power | sphere: prod.B | chance: 68
+- R | take the boat out past the point for one long trip, within your share | v: stimulation, hedonism | sphere: prod.R | chance: 79
+- G | take the youngest of the family out on the first good trip to the old grounds | v: tradition, benevolence | sphere: prod.G | chance: 70
+- BR | fish every day the season allows, and spend the summer as you please | v: hedonism, achievement | sphere: prod.BR | chance: 76
+- UB | keep your best grounds to yourself until the new limits are set | v: power, security | sphere: prod.UB | chance: 70
+- UG | help the scientists tag the young fish, so next year's count is truer | v: universalism, tradition | sphere: prod.GU | chance: 76
+- WG | land your catch together with the small boats, so all get the same price | v: universalism, benevolence | lever: loyalty | pushes: place | sphere: prod.GW | chance: 66
+- WR | go to the rival's boat and tell them, in front of the crews, to land fair | v: universalism, self-direction | mark: made an enemy | lever: voice | pushes: place | sphere: prod.RW | chance: 48
+works: The count rises again the next year, and {N} is proud of a rule the towns made themselves.
+works: The cheating is put right without a feud, and the boats go out on fair terms.
+fails: The meeting splits over the cheating, and two towns walk out of the agreement.
+fails: {rival} learns who spoke against them, and the harbour is a cold place for a while.
+
+# ---------------------------------------------------------------- scarce_hands (pairs D6b)
+
+# world: sphere event scarce_hands, selector place, share .4
+== a sign in every window
+tier: life event
+sphere: prod
+sphere_event: scarce_hands
+stages: juvenile young_adult adult mature
+age: 16-70
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: scarce_hands (sphere prod). Selector place: an epidemic, a war or an exodus leaves more work than workers; about 4 in 10 of the people living there feel it in their own pay, hours or hiring (share .4, estimate), once or twice in a life (estimate)
+likelier: work in kitchens, farms or care, an epidemic or a war just past, young people gone to the city
+rarer: a trade with plenty of hands, a place the loss passed by
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, friend, colleague
+earth: after the epidemic the kitchens and farms cannot fill their posts, pay rises for the first time in years, and the farm buys a picking machine
+scene: Since the epidemic, the kitchens and farms around {place} cannot fill their posts. Every window asks for staff, pay is rising at last, and the farm up the road has bought a picking machine. {boss} asks what it would take to keep {N}.
+scene W: {N} always thought the pay was too low for the work. Now everyone can see it.
+scene U: The picking machine does the work of twenty. {N} wants to know how it works, and who will run it.
+scene B: For once the hands hold the cards. {N} knows exactly what {N} is worth this year.
+scene R: Every window has a sign. {N} could walk out tomorrow and start somewhere else by Monday.
+scene G: The farm had the same pickers for years, and half of them did not come back. {N} worries about the next harvest.
+- W | ask for the same raise for every hand on the team, not only yourself | v: universalism, benevolence | lever: voice | pushes: institution employer | sphere: prod.W | chance: 85
+- U | learn to run and mend the picking machine | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 79
+- B | name a high figure and a say in the rota, and get it in writing | v: power, achievement | sphere: prod.B | chance: 68
+- R | walk out, and take the best-paid job going across town | v: self-direction, stimulation | lever: exit | sphere: prod.R | chance: 69
+- G | stay on at the old rate, and help the farm bring in the harvest | v: tradition, benevolence | lever: loyalty | sphere: prod.G | chance: 70
+- BR | work two jobs at the new rates for a year, and spend it on living well | v: hedonism, achievement | sphere: prod.BR | chance: 66
+- RG | cook by eye and by the day, for whichever kitchen pays most | v: self-direction, hedonism | sphere: prod.RG | chance: 74
+- UB | find out what every kitchen in town is paying, then bargain | v: achievement, power | sphere: prod.UB | chance: 76
+- WG | bring in friends and neighbours to share the harvest work for fair pay | v: benevolence, universalism | sphere: prod.GW | chance: 64
+- WU | help draw up a fair pay scale for the trade in town, posted for all | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.WU | chance: 44
+works: {N} comes out of the hard year with better pay, more say and a trade worth keeping.
+works: The farm and the kitchens find their hands again, and {N} helped them do it fairly.
+fails: The machine takes the picking work, and the raise lasts one season.
+fails: {N} moves from job to job chasing pay, and ends the year tired and no better off.
+
+# ---------------------------------------------------------------- coop (pairs D3b)
+
+# world: sphere event coop, selector place, share .4
+== the cooperative's own cheese plant
+tier: life event
+sphere: prod
+sphere_event: coop
+haunt: prod.land
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: coop (sphere prod). Selector place: producers squeezed by buyers or lenders, with trust among them and someone to keep the accounts, found a shared venture; about 4 in 10 of the people living there are in a household that joins or works for it (share .4, estimate), once in a life for most who meet it at all (estimate)
+likelier: a family farm or small producer, a big buyer that sets the price, neighbours who trust each other
+rarer: a town job, a big farm that sells on its own terms
+tone: joy
+life: work, community, money
+horizon: years
+roles: friend, parent
+earth: the dairy farmers form a cooperative to build their own cheese plant, and hold together when the big buyer drops its price to break them
+scene: The dairy farmers around {place} have formed a cooperative to build their own cheese plant. The big buyer dropped its price to break them, and they have held together. The first cheeses go into the cellar this spring.
+scene W: One member, one vote, one fair price for every load. {N} believes in it.
+scene U: {N} has offered to keep the books. The plant only works if someone counts every cost.
+scene B: {N} could get a better price elsewhere this month. But a share in a plant is a share in something that grows.
+scene R: The long meetings make {N} restless. But the plant itself is something {N} can put {Ns} hands to.
+scene G: The family farm was close to being sold. With the cooperative, {N} thinks it may last another generation.
+- W | sell every load through the cooperative, even in a month the buyer pays more | v: conformity, benevolence | lever: loyalty | pushes: place | sphere: prod.W | chance: 70
+- U | keep the cooperative's books, and post the figures every month | v: universalism, achievement | sphere: prod.U | chance: 79
+- B | put your savings into extra shares while they are cheap | v: achievement, security | lever: fund | sphere: prod.B | chance: 79
+- R | help build the plant with your own hands, weekends and all | v: stimulation, benevolence | sphere: prod.R | chance: 80
+- G | bring your children to the meetings, so they learn how it is run | v: tradition, benevolence | sphere: prod.G | chance: 65
+- BR | drive the cooperative's cheese to the city markets yourself, and sell it hard | v: achievement, stimulation | sphere: prod.BR | chance: 60
+- UG | learn the old cheese-making from the last farm that does it, and teach the plant | v: tradition, self-direction | mark: learned a skill | sphere: prod.GU | chance: 62
+- UR | build a cheaper way to cool the milk on the farms, and show the members | v: self-direction, achievement | sphere: prod.UR | chance: 50
+- WB | stand for the board, and see that the small farms get the same as the large | v: power, universalism | lever: office | sphere: prod.WB | chance: 52
+- WG | share the milk run with the neighbours, so no farm's load is left behind | v: benevolence, universalism | sphere: prod.GW | chance: 78
+works: The buyer gives up, the first cheeses sell out, and {N} has a share in something that will outlast them all.
+works: The cooperative holds, and the family farm is safe for another generation.
+fails: Two big farms sell to the buyer in the hardest month, and the plant opens a year late.
+fails: The meetings grow bitter over the price, and {N} stops going.
+
+# ---------------------------------------------------------------- war_works (pairs D2a)
+
+# world: sphere event war_works, selector staff, share .6
+== overtime for the war abroad
+tier: life event
+sphere: prod
+sphere_event: war_works
+stages: young_adult adult mature
+age: 18-67
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: war_works (sphere prod). Selector staff: a war abroad or at home turns the works to its orders; about 6 in 10 of the staff of a works with war orders feel it in their own hours, pay or conscience (share .6, estimate), once in a life for most who meet it at all (estimate)
+likelier: a works that makes parts, vehicles, cloth or food the war needs, a family member serving
+rarer: work far from any war order, a country at peace with its neighbours
+tone: mixed
+life: work, money, community
+horizon: years
+roles: colleague, sibling, boss
+earth: the war abroad doubles the orders at the plant, there is overtime every weekend, and protesters stand at the gate
+scene: The war abroad has doubled the orders at the plant. There is overtime every weekend, the pay has never been better, and every morning protesters stand at the gate with banners about what the plant makes. {colleague} has started crossing the road to avoid them.
+scene W: The orders press harder every week, and the weekend hours never stop. {N} wants a limit, and the work done safely.
+scene U: {N} has seen the drawings. The new parts are not what the plant used to make, and {N} has questions.
+scene B: Double pay every weekend. {N} could clear the loan on the house by spring.
+scene R: {N} walks past the protesters every morning, and part of {N} wants to stand with them.
+scene G: {sibling} is serving abroad. {N} thinks of every family waiting for news, and of what the town will be after.
+- W | ask the union to set a limit on the weekend hours for everyone | v: benevolence, security | lever: voice | pushes: institution employer | sphere: prod.W | chance: 63
+- U | ask the engineers exactly what the new parts are for | v: self-direction, universalism | sphere: prod.U | chance: 68
+- B | take every weekend of overtime, and clear the loan by spring | v: achievement, security | sphere: prod.B | chance: 65
+- R | quit the plant, and join the protesters at the gate | v: universalism, self-direction | lever: exit | sphere: prod.R | chance: 69
+- G | keep the plant's old customers supplied on the side, for when the war ends | v: tradition, security | sphere: prod.G | chance: 66
+- BG | take the overtime as it comes, and save it all for when the orders stop | v: security | sphere: prod.BG | chance: 66
+- BR | sign on for the double shifts, and spend the pay as fast as it comes | v: hedonism, achievement | sphere: prod.BR | chance: 70
+- UR | rig up a faster way to make the new part, just to see if it works | v: stimulation, achievement | sphere: prod.UR | chance: 58
+- WG | set up a rota so the weekend shifts are shared fairly across the floor | v: universalism, benevolence | sphere: prod.GW | chance: 68
+- WU | check every new part against the standard, however fast the orders come | v: conformity, security | sphere: prod.WU | chance: 72
+works: The orders keep the town in work, and {N} comes through the war with money saved and no shame in how it was earned.
+works: {sibling} comes home, and the overtime money pays for the welcome.
+fails: The hours grind {N} down, and the money goes as fast as it comes.
+fails: The war ends, the orders stop overnight, and the plant lays off the newest hands first.
+
+# ---------------------------------------------------------------- name_won (pairs D4a)
+
+# world: sphere event name_won, selector place, share .4
+== the valley's oil in the papers
+tier: life event
+sphere: prod
+sphere_event: name_won
+haunt: prod.land
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: name_won (sphere prod). Selector place: a place's craft or crop reaches far markets and buyers want more; about 4 in 10 of the people living there feel it in their work, their prices or their land (share .4, estimate), once in a life for most who meet it at all (estimate)
+likelier: a family that grows or makes the thing, a place with a long craft, a good writer's visit or a prize
+rarer: a town job, a place with no craft of its own
+tone: joy
+life: work, family, money
+horizon: years
+roles: grandparent, parent
+earth: a food writer calls the valley's olive oil the best she has tasted, visitors come to the presses, and land prices climb
+scene: A food writer has called the valley's olive oil the best she has ever tasted. Coaches of visitors come to the presses, city shops want twice the stock, and land prices are climbing. {parent} has been asked to press twice as much by autumn.
+scene W: The oil is good because every grove keeps the old standard. {N} fears what twice the stock will do to it.
+scene U: {N} wants to know what makes this oil better, down to the soil and the hour of picking.
+scene B: Twice the orders, twice the price. {N} sees money in every jar with the valley's name on it.
+scene R: Visitors, music in the square, a stall at the press. {N} loves the noise of it.
+scene G: {grandparent} pressed oil the same way for sixty years. Now strangers photograph the old stone.
+- W | press only what meets the old standard, however many orders come | v: conformity, tradition | sphere: prod.W | chance: 83
+- U | send the oil to be tested, and learn what makes it the best | v: self-direction, achievement | sphere: prod.U | chance: 80
+- B | raise your price, and sign the city shop's biggest order | v: achievement, power | sphere: prod.B | chance: 77
+- R | open a stall at the press for the visitors, with tastings and music | v: hedonism, stimulation | sphere: prod.R | chance: 72
+- G | teach the young of the family the old pressing, before the rush changes it | v: tradition, benevolence | sphere: prod.G | chance: 63
+- BG | keep the grove as it is, and sell only the land you cannot work | v: security | sphere: prod.BG | chance: 70
+- RG | pick by hand on the morning the fruit feels right, as the old ones did | v: tradition, self-direction | sphere: prod.RG | chance: 74
+- UR | try a new pressing of your own, and enter it at the fair | v: stimulation, achievement | sphere: prod.UR | chance: 52
+- WB | build a shared press the small growers can use at a fair rate | v: benevolence, achievement | lever: found | pushes: place | sphere: prod.WB | chance: 46
+- WU | help write a mark that only the valley's true oil may carry | v: universalism, tradition | sphere: prod.WU | chance: 58
+works: The valley's oil keeps its name, and {N} is proud of every jar.
+works: The good years pay for a new roof and a wedding, and the grove is still the family's.
+fails: The orders outrun the groves, cheap oil is sold under the valley's name, and the name fades.
+fails: Land prices climb until the young of the valley cannot afford a grove of their own.
+
+# ---------------------------------------------------------------- drift_to_town (pairs D4b)
+
+# world: sphere event drift_to_town, selector place, share .5
+== the school bus leaves half empty
+tier: life event
+sphere: prod
+sphere_event: drift_to_town
+stages: juvenile young_adult adult
+age: 15-40
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: drift_to_town (sphere prod). Selector place: land short or taken, wages in town and a road to get there; about half of the young people living there face going or staying as a choice of their own, or watch a sibling or friend go (share .5, estimate), once or twice in the young years (estimate); the shadow moment 'a door out of town' is the same pull for those stuck in their ways
+likelier: a village or farming valley, a sibling or friend already in the city, little work at home
+rarer: a city, a family business that needs the young, work nearby
+tone: mixed
+life: family, work, home
+horizon: years
+roles: sibling, parent, friend
+earth: the school bus leaves the valley half empty, the young rent rooms four to a flat in the city, and a sibling says there is a room for you
+scene: The school bus leaves the valley half empty these days. The young are in the city, renting rooms four to a flat and calling home at the weekend. {sibling} rang on Sunday: there is a room going, and work, if {N} wants it.
+scene W: {N} thinks of the old ones left in the valley, and of who will bring in their harvest when the young are gone.
+scene U: {N} has set the city wages and the city rents side by side. The sums are closer than people think.
+scene B: The city is where the money and the chances are. {N} knows nobody gets rich in the valley.
+scene R: Four to a flat, noise all night, work in a new place every month. It sounds like freedom.
+scene G: The farm has been in the family for generations, and {parent} is getting old. Someone has to stay.
+- W | stay, and take on the shared harvest work the young have left behind | v: benevolence, conformity | mark: stayed home | sphere: prod.W | chance: 75
+- U | weigh the city wages against the city rents, and only then decide | v: security, self-direction | sphere: prod.U | chance: 75
+- B | take the room in the city, and save for a business of your own | v: achievement, power | mark: moved away | lever: exit | sphere: prod.B | chance: 70
+- R | go to the city with one bag and no plan, and see what happens | v: stimulation, self-direction | mark: left home | lever: exit | sphere: prod.R | chance: 75
+- G | stay, and take on the farm from your parent | v: tradition | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | chance: 65
+- BR | work the city season, and come home flush for the winter | v: hedonism, achievement | sphere: prod.BR | chance: 70
+- UB | learn a skill the city pays for, and sell it from the valley online | v: self-direction, achievement | tech: remote work | sphere: prod.UB | chance: 50
+- UG | learn to grow what the city markets pay for, and stay on the land | v: self-direction, tradition | mark: learned a skill | sphere: prod.GU | chance: 60
+- WG | help the families who stayed share the work of the farms that lost their young | v: benevolence, universalism | sphere: prod.GW | chance: 70
+- WR | campaign to keep the valley school open, though the bus is half empty | v: universalism, tradition | lever: voice | pushes: place | sphere: prod.RW | chance: 40
+works: {N} chooses, and keeps a good bond with the ones on the other side of the choice.
+works: The valley keeps enough of its young, and {N} is one of the reasons why.
+fails: {sibling} calls home less and less, and then hardly at all.
+fails: {N} ends up between the two places, at home in neither.
+
+# ---------------------------------------------------------------- venture_founded (pairs D2a)
+
+# world: sphere event venture_founded, selector place, share .2
+== four of the old crew in a rented unit
+tier: life event
+sphere: prod
+sphere_event: venture_founded
+haunt: prod.craft
+stages: young_adult adult mature
+age: 20-65
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: venture_founded (sphere prod). Selector place: room to found, idle hands and skill nearby, and a founder with savings or a backer; about 2 in 10 of the people living near it are asked to join early, put money in or take its work (share .2, estimate), a few times in a working life (estimate)
+likelier: skilled work, a recent layoff in town, a friend or old colleague who starts a firm
+rarer: a town with no idle hands, work in a large secure post far from any new firm
+tone: joy
+life: work, money, friends
+horizon: years
+roles: friend, partner, parent
+earth: a laid-off engineer opens a small firm in a rented unit and asks four of the old crew to join; the bank said no twice, an aunt said yes
+scene: {friend}, laid off from the plant last year, has opened a small firm in a rented unit on the estate. The bank said no twice; an aunt said yes. {friend} wants four of the old crew, and has asked {N} first.
+scene W: {N} trusts {friend} to pay fair and keep the place safe. That counts for more than the wage.
+scene U: {N} has seen the plans. The idea is clever, and {N} wants to help make it work.
+scene B: A small firm that grows needs partners. {N} wonders what a stake would cost.
+scene R: No managers, no forms, a radio on the bench. {N} has wanted work like this for years.
+scene G: {N} would be leaving a safe job with a pension. {N} thinks of the family, and of what this could become.
+- W | join on a fair wage, and help your friend set the safety rules from day one | v: benevolence, security | sphere: prod.W | chance: 72
+- U | join as the one who works out how to make the product better and cheaper | v: achievement, self-direction | sphere: prod.U | chance: 78
+- B | put your savings in for a share, and a say in where the firm goes | v: achievement, power | mark: took a wild risk | lever: fund | sphere: prod.B | chance: 63
+- R | quit the safe job on Friday, and start at the unit on Monday | v: stimulation, self-direction | lever: exit | sphere: prod.R | chance: 75
+- G | keep the safe job for the family's sake, and help at the unit on Saturdays | v: security, benevolence | sphere: prod.G | chance: 68
+- BG | join, but keep your savings out of it until the first year's books are in | v: security | sphere: prod.BG | chance: 78
+- BR | take piece work from the new firm, and keep your own hours | v: self-direction, achievement | sphere: prod.BR | chance: 76
+- UR | build the unit's first machine from parts out of the old plant | v: stimulation, achievement | sphere: prod.UR | chance: 54
+- WG | bring in two of the old crew who have found no work since the plant shut | v: benevolence | mark: helped someone in need | sphere: prod.GW | chance: 66
+- WU | set up the firm's quality checks, so its first orders go out right | v: achievement, conformity | sphere: prod.WU | chance: 70
+works: The firm wins its first big order, and {N} is there at the start of something.
+works: Two years on there are twelve on the payroll, and {friend} still buys the first round on Fridays.
+fails: The first year is hard, a big customer does not pay, and the unit closes.
+fails: {N} and {friend} fall out over money, and the old friendship does not survive the firm.

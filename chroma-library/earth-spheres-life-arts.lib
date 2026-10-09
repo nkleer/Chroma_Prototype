@@ -1,0 +1,403 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, arts life moments. Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; the list is
+# character.moments in spheres-data/arts.json). Every moment carries sphere: arts, every option the face it acts in
+# (a cross option X>Y the means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# Evenness: in every life event each one-colour option has chance 60 and each pair option 50; in every everyday moment
+# each one-colour option 75 and each cross option 65; so each colour's mean is the same in every stage.
+# Everyday pair (one calls two colours, its partner the other three, same stages and ages): the play that will not
+# leave you UG (s4) with first-night nerves in the wings WBR (s2).
+# Life events and their pair sets: the song learned at a parent's knee D1b, the funeral where everyone sings D2a, the
+# hall committee turns down your play D3b, asked to play at a friend's wedding D4a, the last telling at the bedside D5a,
+# a child picks up your old instrument D6b, strangers singing your song D5b.
+# Doors (arts.json character.doors) used as works: lines: an audition (first-night nerves), a commission for a wedding
+# (asked to play), a printer or producer who wants their work (strangers singing your song), a collector who asks to
+# write down their songs (the last telling).
+# Skipped as already written: the song of their youth heard years later ('an old song brings it all back', earth.py);
+# the scene they loved goes mainstream ('the first club is a chain bar now', ready/ev-arts, event scene_sells); a
+# festival night remembered for life ('a festival weekend', earth.py, and 'the folk festival in the field', ready/ev-arts).
+
+# ================================================================ the first song (at home)
+
+# ---------------------------------------------------------------- life event: the song learned at a parent's knee (pairs D1b)
+
+== the song learned at a parent's knee
+tier: life event
+sphere: arts
+ladder: newcomer
+once: yes
+stages: child
+age: 3-8
+per_year: .04 0 0 0 0 0
+drivers: family+.3 ties+.2 stress-.2
+times: Nearly every child is sung to at bedtime somewhere in childhood; a whole song learned from a parent, verse by verse, and kept for life comes to about 1 in 5 lives, once (estimate), set at 4 in 100 a year from 3 to 8
+likelier: a family that sings at home, a grandparent living nearby, a parent who was sung to as a child
+rarer: long working hours and rushed bedtimes, a house where the screen is always on, a parent who never sings
+gap: 20-60
+tone: joy
+life: family, home, play
+horizon: years
+roles: parent, grandparent, sibling
+who: parent
+earth: your mother or father teaches you the old song their own parent sang to them, one verse a night at bedtime
+scene: Every night at bedtime {parent} sings {N} the same old song, the one {grandparent} sang long ago. Tonight {parent} stops after the first verse, smiles, and asks {N} to sing it back.
+scene W: {N} wants to get every word right, just the way {parent} sings it, so it can be sung properly at {grandparent}'s birthday.
+scene U: {N} wants to know what the strange old words mean, and why the boat in the song never comes home.
+scene B: {N} has worked out that a good song at bedtime means ten more minutes before the light goes out.
+scene R: {N} loves the loud bit in the middle, and sings it so hard the dog starts barking downstairs.
+scene G: {grandparent} hums the same tune in the kitchen. The song seems to belong to the whole family, and now to {N} too.
+- W | learn one verse every night until the whole song is yours by heart | act: learn one verse every night until the whole song is theirs by heart | v: conformity, tradition | sphere: arts.W | chance: 60
+- U | ask what every strange word means before singing it back | v: self-direction | sphere: arts.U | chance: 60
+- B | sing it at the family party, and take a bow when everyone claps | v: achievement | sphere: arts.B | chance: 60
+- R | sing the loud bit as loud as you can, and dance round the bed | act: sing the loud bit as loud as they can, and dance round the bed | v: hedonism, stimulation | sphere: arts.R | chance: 60
+- G | ask the grandparent to sing it too, the way it was sung long ago | v: tradition | sphere: arts.G | chance: 60
+- RG | sing it on the walk to school every morning, stamping on the beat | v: hedonism, tradition | sphere: arts.RG | chance: 50
+- UB | pick out the tune on the toy piano, and play it for the visitors | v: achievement, self-direction | sphere: arts.UB | chance: 50
+- UR | make up a new verse about the dog, and sing it at tea | v: self-direction, stimulation | sphere: arts.UR | chance: 50
+- WB | put a hand up at assembly when the teacher asks who knows a song | v: achievement, conformity | sphere: arts.WB | chance: 50
+- WG | sing it each night to the baby in the cot, word for word | v: benevolence, tradition | sphere: arts.GW | chance: 50
+works: The song stays: decades on {N} still knows every verse, and sings it without thinking when the house is quiet.
+works: At {grandparent}'s birthday {N} sings it through alone, and {grandparent} has to wipe their eyes.
+fails: {N} mixes up the verses, {sibling} laughs, and for a long time {N} will not sing in front of anyone.
+fails: Bedtimes get rushed, the song stops after a few weeks, and only the first line stays with {N}.
+
+# ================================================================ the stage (arts.stage)
+
+# ---------------------------------------------------------------- everyday, calls UG (cycle s4); partner: first-night nerves in the wings
+
+== the play that will not leave you
+tier: everyday
+sphere: arts
+haunt: arts.stage
+ladder: newcomer
+stages: juvenile+
+age: 14-100
+calls: UG
+rate: .5
+share: .25
+tone: joy
+life: play, identity, family
+horizon: months
+roles: friend, parent, grandparent
+who: friend
+earth: a friend takes you to a small play, and on the walk home you find you see your own family differently
+times: Most people see some live show, film or exhibition in a lifetime; one that changes how they see part of their own life, and stays with them, comes to about 1 in 4 lives, once or twice (estimate)
+likelier: a town with a theatre or arts centre, a school trip to a play, a friend who goes to shows
+rarer: no stage within reach, long working hours, a family that never goes out to shows
+gap: 5-20
+scene: {friend} had a spare ticket for a small play in the room above the library. It is about a family that will not talk about a son who left, and on the walk home {N} cannot stop thinking about {Ns} own family.
+scene W: The play ends with the family laying one more place at the table. {N} thinks of the cousin nobody has rung in years.
+scene U: {N} wants to know how the writer did it: how four chairs and four actors made a room full of strangers go quiet.
+scene B: Afterwards {N} hears that the writer used to work in the bakery on the high street. A baker, and now the whole town is talking about her.
+scene R: {N} cried in the second act and does not care who saw. Something has been shaken loose.
+scene G: The family on stage spoke the way {Ns} grandparents speak, and sang a song {N} has not heard since childhood.
+- W | ring the relative the family stopped talking to, that same evening | v: benevolence, tradition | sphere: arts.W | chance: 75
+- U | read the script twice, and work out how the play does what it does | v: self-direction, universalism | sphere: arts.U | chance: 75
+- B | find out how the baker got her play staged, and ask her over a coffee | v: achievement | sphere: arts.B | chance: 75
+- R | go back the next night with everyone you can talk into coming | act: go back the next night with everyone they can talk into coming | v: stimulation, hedonism | sphere: arts.R | chance: 75
+- G | ask your grandparents about the song, and the family it came from | act: ask their grandparents about the song, and the family it came from | v: tradition | sphere: arts.G | chance: 75
+- W>G | write to the company and ask them to bring the play to the old people's home | v: benevolence, tradition | sphere: arts.W | chance: 65
+- U>W | write a careful review for the library newsletter, so others will go | v: universalism, benevolence | sphere: arts.U | chance: 65
+- B>U | sign up for the writing course the company runs, and pay for it yourself | act: sign up for the writing course the company runs, and pay for it themselves | v: achievement, self-direction | sphere: arts.B | chance: 65
+- R>B | start a play of your own that night, and promise it will be staged by spring | act: start a play of their own that night, and promise it will be staged by spring | v: achievement, stimulation | sphere: arts.R | chance: 65
+- G>R | sing the old song at the next family meal, and see who joins in | v: tradition, hedonism | sphere: arts.G | chance: 65
+works: The play stays with {N} for years, and something in {Ns} family shifts a little because of it.
+works: {N} starts going to every show the little room puts on, and soon knows the people who run it.
+fails: By the next week ordinary life has closed over it, and the feeling is hard to find again.
+fails: At home {N} tries to talk about it, and the family changes the subject.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s2); partner: the play that will not leave you
+
+== first-night nerves in the wings
+tier: everyday
+sphere: arts
+haunt: arts.stage
+ladder: regular
+stages: juvenile+
+age: 14-100
+calls: WBR
+rate: .4
+share: .15
+tone: mixed
+life: play, friends
+horizon: moment
+roles: friend, rival, mentor, parent
+who: friend
+earth: the amateur company's first night: the hall is full, your cue is two minutes away, and your mouth has gone dry
+times: Amateur theatre, choirs, bands and dance schools take in a fair share of people at some time of life; standing in the wings on a first night with real nerves comes to about 1 in 7 lives, a few times (estimate). Earth's 'the school play' is the child's version; this is the young person's and the adult's
+likelier: a town with an amateur company or dance school, a person in a band or choir, a friend who talks them into an audition
+rarer: shyness that keeps a person off any stage, long working hours, no company nearby
+gap: 2-10
+scene: The amateur company's first night: the church hall is full, {parent} is in the third row, and {Ns} first cue is two minutes away. In the wings {N} cannot remember the opening line, and {rival}, the understudy, is watching.
+scene W: The whole cast has rehearsed for three months. {N} cannot let them down now, and the thought makes it worse.
+scene U: {N} goes over the moves in their head: cross on the third line, stop by the chair. The words will come if the moves do.
+scene B: The local paper's critic is in the front row. A good night here could mean the lead in the spring show.
+scene R: {Ns} heart is going like a drum. Half of it is terror and half is something {N} would not trade for anything.
+scene G: {mentor}, who has been with the company forty years, says every first night is like this, and always was.
+- W | check every prop on the table one last time, for the whole cast | v: conformity, benevolence | sphere: arts.W | chance: 75
+- U | close your eyes and walk the first scene through in your head | act: close their eyes and walk the first scene through in their head | v: self-direction, security | sphere: arts.U | chance: 75
+- B | tell yourself the critic came to see you, and walk on as if it were true | act: tell themselves the critic came to see them, and walk on as if it were true | v: achievement, power | sphere: arts.B | chance: 75
+- R | jump up and down, shake it all out, and go on at full tilt | v: stimulation | sphere: arts.R | chance: 75
+- G | touch the old doorframe for luck, as every player in the company does | v: tradition | sphere: arts.G | chance: 75
+- W>B | hold the cast's circle, and give the speech that steadies everyone | v: benevolence, achievement | sphere: arts.W | chance: 65
+- U>R | trust the weeks of drilling, and throw yourself into the first scene | act: trust the weeks of drilling, and throw themselves into the first scene | v: stimulation, self-direction | sphere: arts.U | chance: 65
+- B>G | aim to earn a place on the company's wall of old programmes tonight | v: achievement, tradition | sphere: arts.B | chance: 65
+- R>W | grab the understudy's hand, and pull them into the warm-up shout | v: benevolence, stimulation | sphere: arts.R | chance: 65
+- G>U | listen to the old hand's first-night story, and take the lesson in it | v: tradition, self-direction | sphere: arts.G | chance: 65
+works: The first line comes, then the rest, and by the interval {N} cannot remember being afraid.
+works: The curtain call is loud, {parent} is on their feet, and the director asks {N} to audition for the spring show.
+fails: {N} dries on the opening line, the prompter calls it, and a laugh runs round the hall.
+fails: The nerves never quite leave, and {N} walks through the part instead of playing it, and knows it.
+
+# ---------------------------------------------------------------- life event: the hall committee turns down your play (pairs D3b)
+
+== the hall committee turns down your play
+tier: life event
+sphere: arts
+haunt: arts.stage
+ladder: known
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .002 .002 .002 .001
+drivers: harsh+.3 unrest+.2 community+.1
+times: Work refused by a stage, a publisher or a gallery is common for anyone who makes things; a piece about one's own town turned down, mocked or kept off its stage, in a way that becomes a local row, comes to about 1 in 10 lives (estimate), set at 2 in 1000 a year from 18 and less in old age
+likelier: a small town with one hall, a play or song about local people or local wrongs, a strict or long-serving committee
+rarer: a big city with many stages, a person who never shows their work, a committee that stages anything
+gap: 5-20
+tone: trouble
+life: work, community, identity
+horizon: months
+roles: rival, friend, mentor, grandparent
+who: rival
+earth: you wrote a play about the town, and the hall committee refuses to stage it, saying it would offend people
+scene: For a year {N} wrote a play about the town: the closed mill, the families who left, the ones who did well out of it. The hall committee has turned it down. At the meeting {rival} read one line aloud, and the room laughed.
+scene W: The committee has its rules, and {N} kept to every one: the length, the cast, the forms. Being refused anyway feels like being told the town is not theirs to write about.
+scene U: {N} wants to know exactly which scenes the committee objected to, and whether those scenes are wrong or simply true.
+scene B: {N} has spent a year on this. There are other stages and other towns, and a refusal can be made into a story of its own.
+scene R: The laugh is still ringing in {Ns} ears. {N} wants to stand on the hall steps and read the whole thing out.
+scene G: The play is built on the stories {grandparent} told at the kitchen table. Turning it down feels like turning those people away.
+- W | write to the committee, ask for its reasons in writing, and appeal | v: conformity, self-direction | lever: voice | sphere: arts.W | chance: 60
+- U | rewrite the scenes they hated until no fair reader could object | v: achievement, self-direction | sphere: arts.U | chance: 60
+- B | send it to the theatre in the city, and mention the refusal in the letter | v: achievement, power | lever: exit | sphere: arts.B | chance: 60
+- R | read the whole play aloud on the hall steps on its would-be opening night | v: stimulation, self-direction | lever: voice | sphere: arts.R | chance: 60
+- G | read it to the families whose stories are in it, and ask what they think | v: tradition, benevolence | sphere: arts.G | chance: 60
+- WB | get a councillor to back it, and bring it to the committee again in spring | v: power, conformity | lever: voice | sphere: arts.WB | chance: 50
+- WG | ask the oldest families to come to the next meeting and speak for it | v: tradition, conformity | lever: voice | sphere: arts.GW | chance: 50
+- UG | cut it to one quiet hour, and stage it in a front room for the neighbours | v: tradition, self-direction | lever: subvert | sphere: arts.GU | chance: 50
+- UR | turn the empty mill into a stage for one night, with a cast of friends | v: self-direction, stimulation | lever: found | sphere: arts.UR | chance: 50
+- BR | post the line they laughed at online, and let the town decide who looks foolish | v: power, stimulation | tech: internet | sphere: arts.BR | chance: 50
+works: The fuss fills the hall in the end: the play is staged the next season, and the families in it sit in the front row.
+works: The city theatre writes back wanting to read more, and the committee's refusal ends up in the first line of every review.
+fails: The refusal stands, the town takes the committee's side, and {N} puts the play in a drawer for years.
+fails: The row turns personal, {rival} never forgets it, and {N} stops being asked to anything at the hall.
+
+# ================================================================ the song (arts.song)
+
+# ---------------------------------------------------------------- life event: asked to play at a friend's wedding (pairs D4a)
+
+== asked to play at a friend's wedding
+tier: life event
+sphere: arts
+haunt: arts.song
+ladder: known
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 .004 .004 .002 .0005
+drivers: ties+.3 family+.2 community+.1
+times: Many weddings have live music, and a friend or relative who sings or plays is often asked; being asked to perform at a friend's or relative's wedding comes to about 1 in 6 lives, most of them people who sing or play (estimate), set at 4 in 1000 a year from 18 to the forties
+likelier: a person known to sing or play, a large circle of friends marrying, a family where someone always plays at weddings
+rarer: no instrument or voice anyone knows of, few friends marrying, weddings with hired bands only
+gap: 3-15
+tone: joy
+life: friends, play, love
+horizon: months
+roles: friend, partner, sibling
+who: friend
+earth: your friend asks you to sing or play as they walk down the aisle, and then for the first dance, and you have five weeks
+scene: {friend} is getting married, and has asked {N} to play as the couple walk in, and then for the first dance: the song they met to. There are five weeks to learn it, a hundred and fifty guests, and {N} has not played in front of a crowd in years.
+scene W: To be asked to play at a wedding is to be trusted with the day itself. {N} means to deserve it.
+scene U: The song was written for a full band. {N} has to find a way to make it work on one instrument and still sound like itself.
+scene B: The couple's families are well off and well connected. A good afternoon could bring {N} more weddings, and paid ones.
+scene R: {N} said yes before {friend} had finished asking, and has been humming it ever since.
+scene G: In {Ns} family there has always been someone to play at the weddings. This time it is {N}.
+- W | practise every evening for five weeks, until it cannot go wrong | v: conformity, benevolence | sphere: arts.W | chance: 60
+- U | work out a new arrangement for one instrument, note by note | v: self-direction, achievement | sphere: arts.U | chance: 60
+- B | agree a fee, kindly but firmly, and bring cards for the guests | v: achievement, power | sphere: arts.B | chance: 60
+- R | play it your own way on the day, with all the feeling you have | act: play it their own way on the day, with all the feeling they have | v: stimulation, hedonism | sphere: arts.R | chance: 60
+- G | play the old wedding tune of the region first, then their song | v: tradition | sphere: arts.G | chance: 60
+- WU | ask the couple exactly what they want, and rehearse it in the real room | v: benevolence, security | sphere: arts.WU | chance: 50
+- WB | bring in two friends from the old band, rehearsed and properly paid | v: achievement, conformity | sphere: arts.WB | chance: 50
+- UR | write a verse of your own about the couple, and add it at the end | act: write a verse of their own about the couple, and add it at the end | v: self-direction, benevolence | sphere: arts.UR | chance: 50
+- RG | get the whole hall dancing the old way straight after the first dance | v: hedonism, tradition | sphere: arts.RG | chance: 50
+- BG | play for nothing, as your gift, and let both families remember who gave it | act: play for nothing, as their gift, and let both families remember who gave it | v: tradition, power | sphere: arts.BG | chance: 50
+works: The first dance goes perfectly, the room goes quiet, and {friend} cries in the middle of it.
+works: Three guests ask for {Ns} number before the cake is cut, and one of them wants music for a wedding next summer.
+fails: Nerves get into {Ns} hands, a string slips in the second verse, and {N} can think of nothing else all evening.
+fails: The sound system fails, and nobody past the third table hears a note.
+
+# ---------------------------------------------------------------- life event: strangers singing your song (pairs D5b)
+
+== strangers singing your song
+tier: life event
+sphere: arts
+haunt: arts.song
+ladder: known
+stages: young_adult adult mature elder
+age: 20-100
+per_year: 0 0 .001 .001 .001 .0005
+drivers: community+.2 ties+.1
+times: Songs made for a local room do sometimes travel by ear and lose their maker's name, as folk song always has (estimate); hearing one's own song sung by strangers who think it old comes to about 1 in 20 lives, nearly all of them people who write songs or verses (estimate), set at 1 in 1000 a year from 20
+likelier: a person who writes songs for friends and the local, a song with a chorus anyone can join, a town people leave for elsewhere
+rarer: a person who never writes or sings, songs kept in a notebook and never sung out
+gap: 10-40
+tone: joy
+life: play, identity, friends
+horizon: moment
+roles: friend, partner, rival
+who: friend
+earth: years after you wrote a song for a friend's birthday, you hear a table of strangers singing it in a far-off bar, and none of them know it is yours
+scene: Years ago {N} wrote a song for {Ns} friend's birthday and sang it a few times at the local. Tonight, in a bar in a town two hundred miles away, a table of strangers is singing it, the words a little changed. One of them says it is an old folk song.
+scene W: The song has become part of other people's nights. {N} feels it belongs to them now as much as to anyone.
+scene U: {N} listens hard: two lines have changed, and one of them is better than the line {N} wrote.
+scene B: {N} wrote that. {Ns} name should be on it, and maybe there is money in it somewhere.
+scene R: {N} wants to jump up on the table and sing it with them, loudest of all.
+scene G: An old folk song, they say. {N} thinks of how every old song began with someone like {N}.
+- W | join in quietly, and let it go on being everyone's song | v: universalism, benevolence | sphere: arts.W | chance: 60
+- U | ask them where they learned it, and trace how it travelled | v: self-direction, universalism | sphere: arts.U | chance: 60
+- B | tell the table you wrote it, and register it in your name the next morning | act: tell the table they wrote it, and register it in their name the next morning | v: achievement, power | sphere: arts.B | chance: 60
+- R | stand up and sing the verse they have forgotten, at the top of your voice | act: stand up and sing the verse they have forgotten, at the top of their voice | v: stimulation, hedonism | sphere: arts.R | chance: 60
+- G | say nothing and smile, since that is how the old songs were always made | v: tradition | sphere: arts.G | chance: 60
+- WU | keep the better line, and write the song out properly for anyone to use | v: universalism, benevolence | sphere: arts.WU | chance: 50
+- WB | write to the folk society so the song is listed under your name | act: write to the folk society so the song is listed under their name | v: achievement, conformity | sphere: arts.WB | chance: 50
+- UG | learn the strangers' new lines, and sing their version at the local from now on | v: tradition, universalism | sphere: arts.GU | chance: 50
+- RG | buy the table a round, and sing every verse with them until closing | v: hedonism | sphere: arts.RG | chance: 50
+- BR | film the strangers singing it, and post it with the true story | v: achievement, stimulation | tech: phone | sphere: arts.BR | chance: 50
+works: Word gets back home, and the local holds a night in {Ns} honour; the song is sung louder than ever.
+works: A producer hears the story, and writes to ask whether {N} has any more songs like it.
+fails: Nobody at the table believes {N}, and a laugh follows {N} back to the bar.
+fails: Someone else has already put their name on the song, and proving otherwise would take years.
+
+# ================================================================ rites and passing on
+
+# ---------------------------------------------------------------- life event: the funeral where everyone sings (pairs D2a)
+
+== the funeral where everyone sings
+tier: life event
+sphere: arts
+holy: mourning
+stages: juvenile+
+age: 14-100
+per_year: 0 .002 .002 .002 .003 .003
+drivers: community+.3 ties+.2 family+.2
+times: Most funerals have some singing or music; a funeral where the whole room sings the dead person's song, and the mourner is the one who starts or carries it, comes to about 1 in 6 lives (estimate), set at 2 to 3 in 1000 a year, a little more in later life
+likelier: a family or town that sings, a dead friend or relative known for singing, a person known to have a voice
+rarer: a family that hires all the music, a quiet private funeral, a person who never sings in public
+gap: 5-20
+tone: mixed
+life: death, community, family
+horizon: week
+roles: dead, friend, sibling, elder
+who: dead
+earth: at the funeral of someone who loved to sing, the whole room stands to sing their favourite song, and you are asked to start it
+scene: {dead} sang at every party for fifty years, and the family has asked for no organ, only voices. The chapel is full, the song sheet is in every hand, and someone has to start the first line. The family looks at {N}.
+scene W: Nobody in this room should have to grieve alone, and a song everyone can join is the way to make sure of it.
+scene U: {N} knows the song has a key most voices can reach and one that almost none can. Starting it wrong would sink the room.
+scene B: The family is grateful to whoever carries this. {N} feels the whole chapel waiting for someone to step up.
+scene R: {Ns} throat is tight. If {N} opens their mouth, it will come out as a sob or as a roar.
+scene G: It is the old song from the coast, the one {dead} learned from their own grandmother and sang on every birthday.
+- W | stand, start the first line clearly, and keep the room together to the end | v: benevolence, conformity | sphere: arts.W | chance: 60
+- U | hum the note quietly first, so the room starts in a key it can reach | v: self-direction, benevolence | sphere: arts.U | chance: 60
+- B | step up to the front, start it alone, and carry the whole chapel | v: achievement | sphere: arts.B | chance: 60
+- R | sing it through the tears, as loudly as the dead would have wanted | v: benevolence, stimulation | sphere: arts.R | chance: 60
+- G | sing the old coast verse the family thought was lost | v: tradition | sphere: arts.G | chance: 60
+- WU | hand round the words, and agree with the family who leads which verse | v: conformity, security | sphere: arts.WU | chance: 50
+- WG | ask the oldest mourners to sing the old verse first, then everyone joins | v: tradition, benevolence | sphere: arts.GW | chance: 50
+- UR | change one line to name what everyone loved in them, and sing it out | v: self-direction, benevolence | sphere: arts.UR | chance: 50
+- BR | start a second song nobody planned, the rowdy one they loved best | v: hedonism, stimulation | sphere: arts.BR | chance: 50
+- BG | record the room singing, and give the family a copy to keep | v: tradition, achievement | tech: phone | sphere: arts.BG | chance: 50
+works: The whole chapel sings, even the ones who never do, and the family says it was exactly what {dead} would have wanted.
+works: Weeks later people still stop {N} in the street to talk about the singing.
+fails: The first note comes out wrong, the room never quite finds the tune, and it ends in a ragged hush.
+fails: {N} gets as far as the second verse and cannot go on, and someone else has to finish it.
+
+# ---------------------------------------------------------------- life event: the last telling at the bedside (pairs D5a)
+
+== the last telling at the bedside
+tier: life event
+sphere: arts
+haunt: arts.tale
+stages: juvenile+
+age: 12-90
+per_year: 0 .003 .002 .002 .002 .001
+drivers: family+.3 ties+.2
+times: Many families have one elder who keeps the old tales; sitting with that elder near the end to hear a tale through one last time comes to about 1 in 8 lives (estimate), set at 2 to 3 in 1000 a year, a little more in the teens and twenties when grandparents are old. With the world on, the arts event last_teller is the town's version, after the death; this is the bedside before it
+likelier: a grandparent or great-aunt who tells tales, a family from the country or the coast, a family that lives close
+rarer: a family scattered far apart, elders who never told the old tales, a death that comes suddenly
+gap: 10-40
+tone: mixed
+life: family, death, identity
+horizon: moment
+roles: grandparent, parent, sibling, elder
+who: grandparent
+earth: your grandparent, who knows the old tales nobody else remembers, asks you to sit close and hear the long one, all the way through, one last time
+scene: {grandparent} is very ill now, and sleeps most of the day. This evening they wake clear and ask {N} to sit close: they want to tell the long tale, the one about the drowned village, all the way through, one last time. Nobody else left knows how it ends.
+scene W: {grandparent} is handing something on. {N} feels the weight of being the one chosen to carry it.
+scene U: {N} has heard pieces of it all their life, and never the whole. Tonight the gaps might finally fill.
+scene B: {N} knows a tale like this is worth keeping: the library, the folk society, a book one day. It should not be lost.
+scene R: {N} wants to hold {grandparent}'s hand and never let go, and to laugh at the funny parts the way they always did.
+scene G: The tale came down from {grandparent}'s grandmother, and hers before her. {N} is the next link.
+- W | listen without a word, then promise to tell it to the next child in turn | v: tradition, benevolence | sphere: arts.W | chance: 60
+- U | ask about every gap and every strange name before the evening ends | v: self-direction, universalism | sphere: arts.U | chance: 60
+- B | record it on the phone, every word, and keep the copy safe | v: security, achievement | tech: phone | sphere: arts.B | chance: 60
+- R | laugh at the old jokes, cry at the end, and hold their hand all through | v: benevolence, hedonism | sphere: arts.R | chance: 60
+- G | tell it back to them the next night, so they can hear it is kept | v: tradition | sphere: arts.G | chance: 60
+- WG | gather the family round the bed the next night to hear it together | v: tradition, benevolence | sphere: arts.GW | chance: 50
+- WR | ring the cousins far away, and hold up the phone so they hear it too | v: benevolence, stimulation | tech: video calls | sphere: arts.RW | chance: 50
+- UB | write it out that night, word for word, with notes on every strange name | v: achievement, universalism | sphere: arts.UB | chance: 50
+- UR | ask them to tell the ending again, then the bits they always left out | v: self-direction, stimulation | sphere: arts.UR | chance: 50
+- BG | take the tale to the folk society, and have it kept under the family's name | v: tradition, achievement | sphere: arts.BG | chance: 50
+works: {grandparent} gets to the end and squeezes {Ns} hand; years later {N} tells it at the fireside, word for word.
+works: A collector from the folk society hears of the tale and asks to write it down, with {grandparent}'s name on it.
+fails: {grandparent} drifts off before the ending and never wakes clear again, and the ending is gone.
+fails: {N} keeps the start and the end, but the middle blurs within a year, and nobody is left to ask.
+
+# ---------------------------------------------------------------- life event: a child picks up your old instrument (pairs D6b)
+
+== a child picks up your old instrument
+tier: life event
+sphere: arts
+ladder: known
+stages: adult mature elder
+age: 35-95
+per_year: 0 0 0 .002 .003 .002
+drivers: family+.3 ties+.1
+times: Many adults played an instrument once and put it away; a child or grandchild finding it and asking to be taught comes to about 1 in 8 lives (estimate), set at 2 to 3 in 1000 a year from the mid-thirties. Earth's 'practice before tea' and 'the lessons get hard' are the child's side of it
+likelier: a person who played for years, an instrument kept in the house, a child who lives with or near them
+rarer: no instrument kept, no children or grandchildren nearby, a family with no music in it
+gap: 5-20
+tone: joy
+life: family, play, home
+horizon: years
+roles: child, grandparent
+who: child
+earth: your child or grandchild finds your old instrument in its case and asks you to teach them
+scene: {child} found the old case at the back of the wardrobe: the instrument {N} played for years and then put away. Now {child} stands in the kitchen with it, holding it all wrong, and asks {N} to teach them.
+scene W: {N} learned properly, scales and all, from a strict old teacher. Teaching it is a responsibility, not a game.
+scene U: {N} sees at once how wrong the grip is, and remembers how many years it took to learn to hold it right.
+scene B: {child} might be good. Really good. {N} thinks of the competitions, the music school, the chances {N} never had.
+scene R: The first squeak out of it makes them both laugh. {N} has not felt this happy about the thing in years.
+scene G: It was {Ns} own grandparent's instrument before it was {Ns}. Now it may pass down again.
+- W | teach the scales first, every evening, the way you were taught | act: teach the scales first, every evening, the way they were taught | v: tradition, conformity | sphere: arts.W | chance: 60
+- U | show them the proper grip, and explain why each finger goes where it does | v: self-direction | sphere: arts.U | chance: 60
+- B | find them the best teacher in town, and pay for the lessons | v: achievement | lever: fund | sphere: arts.B | chance: 60
+- R | take up your own playing again, and play together every evening | act: take up their own playing again, and play together every evening | v: hedonism, benevolence | sphere: arts.R | chance: 60
+- G | teach them the old tunes by ear, the way your grandparent taught you | act: teach them the old tunes by ear, the way their own grandparent taught them | v: tradition | sphere: arts.G | chance: 60
+- WU | set a fair half hour of practice a day, and keep a chart on the fridge | v: conformity, achievement | sphere: arts.WU | chance: 50
+- WG | give them the instrument for keeps, with the story of everyone who played it | v: tradition, benevolence | sphere: arts.GW | chance: 50
+- UB | plan the exams a year ahead, and put them in for the first one | v: achievement, power | sphere: arts.UB | chance: 50
+- RG | take them to the Sunday afternoon session, and let them sit in at the back | v: hedonism, tradition | sphere: arts.RG | chance: 50
+- BR | form a family band for the summer fair, and put them at the front | v: stimulation, achievement | sphere: arts.BR | chance: 50
+works: {child} keeps at it, and one evening plays a whole tune for {N} without a mistake; the case never goes back in the wardrobe.
+works: A year on, {child} is better than {N} ever was, and {N} is prouder of that than of anything {N} played.
+fails: Three weeks in, {child} loses interest, and the instrument goes back in its case.
+fails: {N} pushes too hard, the lessons turn into rows, and {child} stops wanting to play at all.

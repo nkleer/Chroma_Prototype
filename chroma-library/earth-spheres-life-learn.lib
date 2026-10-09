@@ -1,0 +1,301 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, learning's life moments. Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3 (chroma-ideas/spheres-data/learn.json character.moments). Every moment carries
+# sphere: learn, every option the face it acts in (a cross option X>Y the means colour's face; a pair option the
+# wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Skipped as already written (earth.py or s4/ready): the first day at school ('starting school'), a teacher who sees
+# them ('a teacher who sees something in you'), a teacher who shames them ('told off in front of the class'), passing or
+# failing the exam ('four points short on the results letter', 'earning a qualification'), teaching someone what they
+# know ('a young learner at the kitchen table'), a discovery of their own ('a breakthrough in your work', 'the fault
+# nobody else could find'), learning something new late in life ('you take up an instrument or a language').
+# Evenness: inside each moment every one-colour option has one chance, every cross option one chance, every pair option
+# one chance. Everyday pair: learning to read UG (s2) with a child of your own starts school WBR (s4).
+# Life events and their pair sets: leaving school D6a, the master's bench D1b, the final piece D3b, the first in the
+# family D5b, the old well D2a.
+
+# ---------------------------------------------------------------- everyday, calls UG (cycle s2)
+
+== learning to read
+tier: everyday
+sphere: learn
+ladder: newcomer
+stages: child
+age: 4-8
+calls: UG
+rate: 1
+share: .8
+tone: mixed
+life: school, learning, family
+horizon: months
+roles: parent, grandparent, sibling
+who: parent
+earth: you are learning to read: the book bag home every night, the letters that will not sit still, and one word that refuses to come
+times: Nearly every child in a schooled town learns to read in the first years of school, a near-universal step of life (estimate); the months when it is real work at the kitchen table come to most children, set at share .8
+likelier: books at home, a parent or grandparent who reads aloud, a patient teacher, an older brother or sister who reads
+rarer: a home with no books, a child moved often between schools, trouble with the eyes or ears not yet found
+gap: 1-3
+scene: Every night the book bag comes home with a thin reading book inside, and {parent} sits with {N} at the kitchen table. Some words come easily now. Others, like "though" and "laugh", refuse to make any sense at all.
+scene W: The teacher has a chart with a star for every book read, and {N} wants that row to be as long as everyone else's.
+scene U: {N} has noticed that the same letters make different sounds in different words, and wants to know why.
+scene B: {sibling} can already read the comics. {N} wants to catch up, fast, and be the best reader in the class.
+scene R: {N} would much rather make up the story from the pictures than sound out every word on the page.
+scene G: {grandparent} keeps an old storybook with soft, worn corners on the high shelf, the very one {parent} learned to read from.
+- W | sound out every word the way the teacher showed, one letter at a time | v: conformity, achievement | sphere: learn.W | chance: 85
+- U | ask what the strange words mean, and why they are spelled so oddly | v: self-direction, universalism | sphere: learn.U | chance: 85
+- B | race to finish more reading books than anyone else in the class | v: achievement | sphere: learn.B | chance: 85
+- R | tell the story from the pictures, and make up the bits you cannot read | act: tell the story from the pictures, and make up the bits they cannot read | v: stimulation, self-direction | sphere: learn.R | chance: 85
+- G | read the old family storybook aloud with your grandparent every evening | act: read the old family storybook aloud with their grandparent every evening | v: tradition | sphere: learn.G | chance: 85
+- W>B | read every book on the class chart in order, to earn the reader's badge | v: achievement, conformity | sphere: learn.W | chance: 75
+- U>R | pick a hard book about stars or dinosaurs, and fight through it word by word | v: self-direction, stimulation | sphere: learn.U | chance: 75
+- B>G | read the bedtime story to a little cousin, so the family sees you are grown | act: read the bedtime story to a little cousin, so the family sees they are grown | v: achievement, tradition | sphere: learn.B | chance: 75
+- R>W | jump in and read the hard page out loud for a classmate who is stuck | v: benevolence, stimulation | sphere: learn.R | chance: 75
+- G>U | ask your grandparent how they learned to read, and from which book | act: ask their grandparent how they learned to read, and from which book | v: tradition, universalism | sphere: learn.G | chance: 75
+works: One evening {N} reads a whole page without stopping, and {parent} pretends not to have tears in their eyes.
+works: By the summer {N} is reading under the covers by torchlight, long after the light should be out.
+fails: The letters keep jumbling, {N} starts hiding the book bag, and the teacher asks {parent} to have {Ns} eyes tested.
+fails: {N} is moved to the slower reading table, and for a few weeks it feels as if everyone has noticed.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s4); partner: learning to read
+
+== a child of your own starts school
+tier: everyday
+sphere: learn
+stages: young_adult adult mature
+age: 22-50
+calls: WBR
+rate: .5
+share: .45
+tone: mixed
+life: family, school
+horizon: week
+roles: child, parent, partner
+who: child
+earth: your own child starts school on Monday: new shoes, the name labels sewn in, and a gate you will have to walk away from
+times: Nearly every child starts school, and most parents walk them to the gate on the first morning; a near-universal step for parents (estimate; about 7 in 10 adults raise a child), so share .45 across all lives, once or a few times
+likelier: a parent of young children, a school within walking distance, a first child
+rarer: no children, a child raised by others, a parent working away
+gap: 2-6
+scene: {child} starts school on Monday. The uniform is too big, the name labels are sewn in, and the lunch box has been packed twice. At the gate {child} holds on tight and will not let go of {Ns} hand.
+scene W: The school sent a list, and {N} has followed it to the letter: the labelled peg, the spare socks, the form signed and returned.
+scene U: {N} has read up on the first weeks of school, and has questions for the teacher about how the class will run.
+scene B: {N} fought hard for a place at this school, the one with the best results, and wants {child} to start well.
+scene R: {N} remembers {Ns} own first day, the noise and the fright, and would like to march in and stay all morning.
+scene G: {parent} walked {N} to a gate just like this one, years ago, and has come along today to see it happen again.
+- W | hand the child to the teacher with a hug, and leave at the bell | v: conformity, benevolence | sphere: learn.W | chance: 80
+- U | ask the teacher how the first week runs, and what you can do at home | act: ask the teacher how the first week runs, and what they can do at home | v: universalism, benevolence | sphere: learn.U | chance: 80
+- B | introduce yourself to the teacher and the head, so they know this family | act: introduce themselves to the teacher and the head, so they know this family | v: power, achievement | sphere: learn.B | chance: 80
+- R | crouch down, promise an adventure after school, and go before the tears start | v: stimulation, benevolence | sphere: learn.R | chance: 80
+- G | tuck a small family keepsake in the child's pocket, to hold when they miss home | v: tradition, benevolence | sphere: learn.G | chance: 80
+- W>G | join the rota of parents who walk the children from the estate each morning | v: benevolence, tradition | pushes: group neighbours | sphere: learn.W | chance: 70
+- U>W | read the school's rules and plans, and offer to help on the parents' board | v: conformity, universalism | sphere: learn.U | chance: 70
+- B>U | befriend the parent who knows everything about the school, and learn all of it | v: power, achievement | sphere: learn.B | chance: 70
+- R>B | throw a loud party for the whole class, so your child starts with friends | act: throw a loud party for the whole class, so the child starts with friends | v: stimulation, power | sphere: learn.R | chance: 70
+- G>R | walk the long way in, past the river, singing the song your own parent sang | act: walk the long way in, past the river, singing the song their own parent sang | v: tradition, stimulation | sphere: learn.G | chance: 70
+works: {child} runs out at three with a painting and a new friend's name, and talks all the way home.
+works: The first weeks settle, and the walk to the gate becomes the best part of {Ns} day.
+fails: {child} cries at the gate every morning for a month, and {N} walks away feeling awful each time.
+fails: {N} hovers and fusses, and the teacher has to ask, kindly, for the parents to leave the yard.
+
+# ---------------------------------------------------------------- life event: leaving school for a wage (pairs D6a)
+
+== leaving school for a wage
+tier: life event
+sphere: learn
+stages: juvenile young_adult
+age: 16-19
+per_year: 0 .05 .02 0 0 0
+drivers: money-.4 harsh+.3 prosper-.2 stress+.1
+times: Leaving school at the first chance to bring in a wage is common where families are short of money (estimate; early leaving rises with hardship at home), set at 5 in 100 a year at 16 and 17 and 2 in 100 at 18 and 19, about 1 in 7 lives
+likelier: a family short of money, a parent out of work or ill, a job offered by someone the family knows, a pupil who finds school a struggle
+rarer: a family that can spare the wage, a pupil near the top of the class, a scholarship, a town with no work for the young
+gap: 10-40
+tone: mixed
+life: school, work, family
+horizon: years
+roles: parent, grandparent, mentor, boss
+who: parent
+earth: you are sixteen, the family needs another wage, and the warehouse says you can start on Monday if you leave school now
+scene: {parent} has been off work since the spring, and money is tight. The warehouse that hires school leavers has a place for {N} from Monday, but {mentor}, {Ns} teacher, says {N} could pass the final exams next summer with ease.
+scene W: {N} feels it plainly: the family has fed and clothed {N} for sixteen years, and now it is {Ns} turn.
+scene U: {N} has worked out what a year's wage comes to, and what the exams might be worth over a whole working life.
+scene B: A wage of {Ns} own, now, while classmates still ask for pocket money. {N} can see the appeal.
+scene R: {N} is sick of the classroom, the bells and the bus, and the warehouse sounds like the start of real life.
+scene G: {grandparent} left school at fourteen to work, and so did {parent}. In this family, that is simply what people do.
+- W | take the job, and hand the wage to the family every Friday | v: benevolence, conformity | sphere: learn.W | chance: 65
+- U | ask the school about night classes, so you can sit the exams while working | act: ask the school about night classes, so they can sit the exams while working | v: self-direction, achievement | sphere: learn.U | chance: 65
+- B | take the job, and keep back enough of each wage to build something of your own | act: take the job, and keep back enough of each wage to build something of their own | v: power, achievement | lever: exit | sphere: learn.B | chance: 65
+- R | walk out of school on Friday, and turn up at the warehouse on Monday | v: stimulation, self-direction | lever: exit | sphere: learn.R | chance: 65
+- G | ask the grandparents what to do, and do whatever the family decides | v: tradition, conformity | sphere: learn.G | chance: 65
+- BG | take the job an uncle's friend offers, where the family can keep an eye on you | act: take the job an uncle's friend offers, where the family can keep an eye on them | v: security, tradition | sphere: learn.BG | chance: 55
+- UG | stay at school, and learn the family trade from a grandparent at weekends | v: tradition, achievement | sphere: learn.GU | chance: 55
+- UR | find a weekend job that pays nearly as much, and stay on at school | v: self-direction, achievement | sphere: learn.UR | chance: 55
+- WB | ask the warehouse to hold the place a year, and work every Saturday until then | v: achievement, security | sphere: learn.WB | chance: 55
+- WR | tell your parent straight out that you mean to finish school, and why | act: tell their parent straight out that they mean to finish school, and why | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: learn.RW | chance: 55
+works: The plan holds: the family gets through the hard year, and {N} keeps a door to learning open for later.
+works: Years afterwards {N} can say that the choice at sixteen was {Ns} own, and stand by it.
+fails: The job ends after six months, and the school will not take {N} back in time for the exams.
+fails: {N} stays at school, the money runs out anyway, and {parent} takes a second job and says nothing about it.
+
+# ---------------------------------------------------------------- life event: an apprenticeship's hard first year (pairs D1b)
+
+== the first year at the master's bench
+tier: life event
+sphere: learn
+haunt: prod.craft
+ladder: newcomer
+stages: juvenile young_adult
+age: 16-26
+per_year: 0 .02 .015 0 0 0
+drivers: prosper+.2 community+.1 money-.1
+times: Something like 1 in 6 young people start an apprenticeship or learn a trade at a master's side (estimate; it varies widely between towns and trades), and the first year is the hard one; set at 2 in 100 a year at 16 and 17 and 1.5 in 100 from 18 to 26, about 1 in 6 lives
+likelier: a family in a trade, a town with workshops and builders, a young person who likes to work with their hands, a master who takes learners
+rarer: a town with no workshops, a family set on a university place, a trade that has died out locally
+gap: 10-40
+tone: trouble
+life: work, learning
+horizon: months
+roles: mentor, colleague, parent, friend
+who: mentor
+earth: three months into your apprenticeship you still sweep the floor and fetch the tea, and the master has not let you near the real work
+scene: Three months into the apprenticeship, {N} still sweeps the floor, fetches the tea and sorts screws into jars. {mentor}, the master, says little, lets nothing pass, and has not once let {N} near the real work. {colleague} swears it gets better.
+scene W: The signed agreement says what {N} will be taught, and when. {N} has read it, and is keeping count.
+scene U: {N} watches every move {mentor} makes at the bench, and wants to know why each one is done just so.
+scene B: {N} can see which apprentices {mentor} trusts. Those are the ones who will get the good jobs later.
+scene R: {Ns} hands itch. {N} is sure they could do the job, if anyone would only let them try.
+scene G: This is how {mentor} was taught, and how {Ns} master's own master taught before that: sweep first, watch, wait.
+- W | do every task to the letter, and ask when the next stage of training begins | v: conformity, achievement | sphere: learn.W | chance: 65
+- U | write down everything the master does at the bench, and study it at night | v: self-direction, achievement | mark: learned a skill | sphere: learn.U | chance: 65
+- B | make yourself useful to the best customers, so they ask for you by name | act: make themselves useful to the best customers, so they ask for them by name | v: achievement, power | sphere: learn.B | chance: 65
+- R | stay late and try the real work on the scrap pieces, without asking | v: stimulation, self-direction | sphere: learn.R | chance: 65
+- G | sweep and watch without complaint, the way the master was taught before you | act: sweep and watch without complaint, the way the master was taught before them | v: tradition, conformity | lever: loyalty | sphere: learn.G | chance: 65
+- RG | make something small at home with the old family tools, and bring it in to show | v: stimulation, tradition | sphere: learn.RG | chance: 55
+- UB | learn the one skill nobody else in the shop has bothered to master | v: achievement, self-direction | sphere: learn.UB | chance: 55
+- UR | go and watch how another workshop does the job, on your day off | act: go and watch how another workshop does the job, on their day off | v: stimulation, self-direction | sphere: learn.UR | chance: 55
+- WB | ask the master, politely, for a date to start on real work | v: achievement, conformity | lever: voice | sphere: learn.WB | chance: 55
+- WG | help the older apprentice with their jobs, and learn from them in turn | v: benevolence, tradition | sphere: learn.GW | chance: 55
+works: One Monday {mentor} hands {N} a real job without a word, checks it, and says nothing, which means it is good.
+works: By the end of the year {N} does one thing in the workshop better than anyone, and {mentor} sends customers to {N} for it.
+fails: {mentor} catches {N} cutting a corner, and the sweeping goes on for another six months.
+fails: {N} grows so fed up that they nearly walk out, and {parent} has to talk them into staying.
+
+# ---------------------------------------------------------------- life event: the masterpiece or final work judged (pairs D3b)
+
+== the final piece before the judges
+tier: life event
+sphere: learn
+ladder: regular
+stages: young_adult adult mature
+age: 18-60
+per_year: 0 0 .015 .005 .002 0
+drivers: prosper+.2 era+.2 money+.1
+times: Finishing a course of learning with a final work judged in person (a trade's test piece, a degree show, a thesis defended, a final recital) comes to about 1 in 4 lives (estimate), mostly in the twenties, set at 1.5 in 100 a year from 18 to 29 and less after
+likelier: a long training in a trade, an art or a field of study, a good mentor, a town with a college
+rarer: schooling that ended early, a trade learned without papers, a course with written exams only
+gap: 5-30
+tone: mixed
+life: learning, work
+horizon: week
+roles: mentor, rival, parent, friend
+who: mentor
+earth: after years of training your final piece goes before the judges: a test piece, a thesis or a recital, and one afternoon to defend it
+scene: Years of training come down to one afternoon. {Ns} final piece sits on the table before three judges, and {mentor} waits outside in the corridor. {rival} went in first, and came out pale and silent.
+scene W: {N} has met every requirement on the list, twice over, and has the papers to prove it.
+scene U: {N} knows the piece has one flaw the judges may never notice, and cannot decide whether to point it out.
+scene B: Two of the judges are known to like a confident answer. {N} has rehearsed one in the mirror all week.
+scene R: {N} changed the piece last week on a hunch, against {Ns} mentor's advice, and still thinks it was right.
+scene G: The piece is made the way {mentor} taught it, and the way {Ns} mentor was taught in turn.
+- W | answer every question plainly, and show the judges each step of the work | v: conformity, achievement | sphere: learn.W | chance: 65
+- U | point out the flaw yourself, and explain how you would fix it | act: point out the flaw themselves, and explain how they would fix it | v: universalism, self-direction | mark: owned up | sphere: learn.U | chance: 65
+- B | lead with the piece's strongest part, and steer the judges past its weak one | v: achievement, power | sphere: learn.B | chance: 65
+- R | defend the risky change you made last week, with all the fire you have | act: defend the risky change they made last week, with all the fire they have | v: self-direction, stimulation | sphere: learn.R | chance: 65
+- G | tell the judges whose way of working you learned, and stand on it | act: tell the judges whose way of working they learned, and stand on it | v: tradition | sphere: learn.G | chance: 65
+- BR | turn the afternoon into a show the judges will talk about for years | v: stimulation, achievement | sphere: learn.BR | chance: 55
+- UG | lay out the old pattern books the work was drawn from, page by page | v: tradition, universalism | sphere: learn.GU | chance: 55
+- UR | ask the judges to try the piece for themselves, there and then | v: stimulation, self-direction | sphere: learn.UR | chance: 55
+- WB | bring letters from the master and from clients, and set them on the table | v: achievement, conformity | sphere: learn.WB | chance: 55
+- WG | thank your master before the judges, before a single word about the piece | act: thank their master before the judges, before a single word about the piece | v: tradition, benevolence | sphere: learn.GW | chance: 55
+works: The judges confer for five minutes and come out to shake {Ns} hand: the piece passes, and so does {N}.
+works: One judge asks for {Ns} number afterwards; there is a post that needs exactly what {N} has just shown.
+fails: The judges send the piece back for another year's work, and {N} walks past {mentor} unable to speak.
+fails: {N} passes, but only just, and {rival} passes with honours on the same afternoon.
+
+# ---------------------------------------------------------------- life event: the first in the family with a credential (pairs D5b)
+
+== the first in the family to graduate
+tier: life event
+sphere: learn
+haunt: learn.higher
+stages: young_adult adult mature
+age: 21-60
+per_year: 0 0 .012 .003 .001 0
+drivers: era+.3 prosper+.2 money-.1
+times: Where higher learning has spread within a generation, many graduates are the first in their family to finish a degree or diploma (estimate; often a third or more of a year's graduates where colleges are new), about 1 in 7 lives, set at 1.2 in 100 a year from 21 to 29 and less after
+likelier: parents who left school early, a town where the college is new, a scholarship, a family that pushed for it
+rarer: a family of graduates, schooling that ended early, a town far from any college
+gap: 10-40
+tone: joy
+life: family, learning
+horizon: years
+roles: parent, grandparent, sibling, friend
+who: parent
+earth: you are the first in your family to graduate, and your parents sit in the great hall in their best clothes, not sure when to clap
+scene: Graduation day: {parent} and {grandparent} sit in the great hall in their best clothes, the first of the family ever inside one. Afterwards {Ns} classmates head off to a smart lunch, and {Ns} family has brought sandwiches.
+scene W: {N} owes this day to the people in the third row, and wants them to know it.
+scene U: {N} has learned a way of thinking the family does not share, and has started to notice the gap at the dinner table.
+scene B: The certificate opens doors no one in the family could ever knock on. {N} already has two interviews lined up.
+scene R: {N} wants to throw the cap in the air, run to the third row and swing {grandparent} round.
+scene G: {grandparent} left school at twelve. To {N} the certificate belongs to the whole family, not to one person.
+- W | thank your family by name when the graduates are asked to stand | act: thank their family by name when the graduates are asked to stand | v: benevolence, tradition | sphere: learn.W | chance: 65
+- U | spend the evening explaining to the family what you studied, and why it matters | act: spend the evening explaining to the family what they studied, and why it matters | v: universalism, benevolence | sphere: learn.U | chance: 65
+- B | leave the family lunch early to meet the people who can help your career | act: leave the family lunch early to meet the people who can help their career | v: achievement, power | sphere: learn.B | chance: 65
+- R | skip the smart lunch, and take the whole family for a loud meal you cannot afford | act: skip the smart lunch, and take the whole family for a loud meal they cannot afford | v: hedonism, benevolence | sphere: learn.R | chance: 65
+- G | hang the certificate in your parents' front room, where the whole street will see it | act: hang the certificate in their parents' front room, where the whole street will see it | v: tradition, security | sphere: learn.G | chance: 65
+- BR | take the best-paid offer in the city that same week, and send money home | v: achievement, stimulation | mark: moved away | sphere: learn.BR | chance: 55
+- RG | throw a party on the home street, and invite every neighbour who ever helped | v: tradition, hedonism | sphere: learn.RG | chance: 55
+- UG | ask the grandparents for the story of why none of them could study | v: tradition, universalism | sphere: learn.GU | chance: 55
+- WB | set up a small fund so the next cousin can study without your debts | act: set up a small fund so the next cousin can study without their debts | v: benevolence, achievement | lever: fund | sphere: learn.WB | chance: 55
+- WU | go back to your old school, and tell the pupils there that it can be done | act: go back to their old school, and tell the pupils there that it can be done | v: universalism, benevolence | sphere: learn.WU | chance: 55
+works: The photo from that day goes up on {Ns} parents' wall, and stays there for the rest of their lives.
+works: Two years later a younger cousin applies to the same college, and names {N} as the reason.
+fails: The family feels out of place all day, and the drive home is quiet and stiff.
+fails: The certificate opens fewer doors than promised, and {N} goes back to the same job as before, with a debt.
+
+# ---------------------------------------------------------------- life event: the day the old knowledge proves right (pairs D2a)
+
+== the old well that never ran dry
+tier: life event
+sphere: learn
+ladder: known
+stages: adult mature elder
+age: 40-95
+per_year: 0 0 0 .002 .005 .008
+drivers: harsh+.3 community+.2 era-.1
+times: Local knowledge that experts first dismissed and later relied on (springs, weather signs, flood lines, old ways of building) is well known (estimate; Berkes 2012 on traditional ecological knowledge); a time when what the elders taught is proved right in front of the town comes to about 1 in 5 lives, mostly after 45
+likelier: a person who grew up in the same town, a grandparent who taught the land, a dry or hard year, a small place
+rarer: a newcomer to the town, a big city, a family that moved often, a person who never listened to the old ones
+gap: 10-40
+tone: joy
+life: community, neighbours, family
+horizon: months
+roles: neighbour, friend, child
+who: neighbour
+earth: in the long drought the taps run two hours a day, and the old well your grandfather showed you, the one the engineers called dry, still runs
+scene: The drought is in its third month, and the taps in {place} run for two hours a day. {N} remembers the old well behind the chapel that {Ns} grandfather once showed them. The engineers said years ago it was dry. It is not.
+scene W: Water in {place} belongs to everyone, and {N} wants it shared fairly, by a list, before anyone else gets ideas.
+scene U: {N} wants to know why the engineers' maps missed it, and what else the old ones knew that nobody wrote down.
+scene B: Whoever holds the key to that well this summer will be owed something by half the town.
+scene R: {N} has already been down with a bucket and a torch, and came up soaked to the knees and laughing.
+scene G: {Ns} grandfather said the spring never fails while it is kept clean. He said it every summer, and nobody listened.
+- W | tell the council at once, and ask for a fair rota at the well | v: universalism, conformity | lever: voice | pushes: place | sphere: learn.W | chance: 65
+- U | bring the engineers to see it, and find out why their maps missed it | v: universalism, self-direction | sphere: learn.U | chance: 65
+- B | keep the key yourself, and decide who draws water from the well | act: keep the key themselves, and decide who draws water from the well | v: power | sphere: learn.B | chance: 65
+- R | clear the well out yourself this weekend, with whoever turns up to help | act: clear the well out themselves this weekend, with whoever turns up to help | v: stimulation, benevolence | sphere: learn.R | chance: 65
+- G | clean the spring the old way, and say your grandfather's words over it | act: clean the spring the old way, and say their grandfather's words over it | v: tradition | sphere: learn.G | chance: 65
+- BG | have the council name the well after your family before you hand it over | act: have the council name the well after their family before they hand it over | v: tradition, power | sphere: learn.BG | chance: 55
+- BR | stand up at the town meeting, and tell the engineers to their faces they were wrong | v: power, stimulation | lever: voice | sphere: learn.BR | chance: 55
+- UR | test the water with a kit from the shop, and post the results for the town | v: universalism, stimulation | sphere: learn.UR | chance: 55
+- WG | teach the children at the school how to find and keep a spring | v: tradition, benevolence | sphere: learn.GW | chance: 55
+- WU | write down all the old ones said about water, and give it to the library | v: universalism, tradition | sphere: learn.WU | chance: 55
+works: The well carries the street through to the autumn rains, and the council puts the old spring on its maps.
+works: For the rest of the summer people stop {N} in the market to ask what else the old ones knew.
+fails: The council fences the well off as unsafe, and the engineers take the credit when it opens again.
+fails: The water turns out fit only for gardens, and half the town laughs at the fuss {N} made.

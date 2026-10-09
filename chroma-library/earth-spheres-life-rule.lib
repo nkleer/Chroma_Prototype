@@ -1,0 +1,354 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, rule life moments. Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5): the rule sphere's
+# character.moments (chroma-ideas/spheres-data/rule.json) as ordinary life moments with their own rates.
+# Every moment carries sphere: rule, every option the face it acts in (sphere: rule.R; a cross option X>Y the means
+# colour's face; a pair option the wheel-order pair face, WG as .GW, UG as .GU).
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# Evenness: everyday one-colour options 75, cross options 65; life-event one-colour options 60, pair options 50.
+# Everyday pairs (one calls two colours, its partner the other three, same stages and ages): a fine you think is unfair
+# UR (s1) with the first time you speak at the meeting WBG (s2); the organiser's offer BG (s3) with the councillor
+# calling in the favour WUR (s4).
+# Life events and their pair sets: called as a witness D1b, asked for a bribe D2a, the trial of a friend D3b, the crowd
+# at the town hall steps D4a.
+# Skipped as already written: boundary or inheritance quarrel ('a dispute over an inheritance', 'the neighbour who
+# wants your land'); election day ('election day'); the day a law changes their life ('a new law opens a door', 'the
+# old laws come back'); a pardon brings someone home ('the amnesty list').
+
+# ================================================================ everyday moments
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the first time you speak at the meeting
+
+== a fine you think is unfair
+tier: everyday
+sphere: rule
+at: council
+stages: young_adult+
+age: 18-100
+calls: UR
+rate: .5
+share: .3
+tone: trouble
+life: money, public life
+horizon: months
+roles: neighbour, friend
+earth: a fine arrives for parking in a bay whose new sign is half hidden behind a hedge, and paying is easier than fighting
+times: Most adults get a parking, transport or council fine at some point; one that feels unfair enough to weigh fighting it comes to about 3 in 10 lives, a few times each (estimate)
+likelier: a car owner, a town that has just changed its parking or bin rules, a busy street
+rarer: no car, a village with no wardens, a person who never questions a letter from the council
+gap: 3-10
+scene: A letter from the council: a fine for parking in a bay {N} has used for years. The sign is new, and half hidden behind a hedge. Paying is quick. Appealing means a form, photographs and a hearing on a weekday.
+scene W: {N} broke a rule, fair or not. The real question is whether the rule was put up fairly.
+scene U: By the look of the cars, forty people have been fined on that bay this month. The council must know.
+scene B: {N} knows someone who knows someone at the council. A quiet word might make it go away.
+scene R: It is a trap, plain and simple, and {N} is not going to pay for a trap.
+scene G: Everyone on the street has parked there since the old shop closed. Nobody asked the street.
+- W | pay the fine on time, and write to ask that the sign be moved | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 75
+- U | photograph the hedge and the sign, and lodge a careful appeal | v: self-direction, security | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | ring the cousin who works at the council, and ask what can be done | v: power, security | lever: subvert | sphere: rule.B | chance: 75
+- R | refuse to pay, and tell the council why in a very blunt letter | v: self-direction | lever: voice | mark: defied an authority | sphere: rule.R | chance: 75
+- G | ask the neighbours what they did when the old fines came | v: tradition, security | sphere: rule.G | chance: 75
+- W>U | ask for the order that set up the bay, and check every step was followed | v: conformity, universalism | sphere: rule.W | chance: 65
+- U>B | find the ruling that voided fines under hidden signs, and quote it back | v: achievement, power | lever: voice | pushes: institution council | sphere: rule.U | chance: 65
+- B>R | pay it, then post the photo of the hedge where the whole town will see | v: power, stimulation | lever: voice | tech: internet | sphere: rule.B | chance: 65
+- R>G | knock on every door in the street, and get everyone fined to appeal together | v: universalism, benevolence | lever: voice | pushes: group neighbours | sphere: rule.R | chance: 65
+- G>W | cut the hedge back yourself on Sunday, so nobody else gets caught | act: cut the hedge back themselves on Sunday, so nobody else gets caught | v: benevolence, tradition | sphere: rule.G | chance: 65
+works: The fine is cancelled, the sign is moved into the open, and the street stops paying for a hedge.
+works: {N} pays, but by the spring the bay is marked properly and nobody else is caught.
+fails: The appeal is turned down on a missed date, and the fine has doubled.
+fails: {N} loses a morning at the hearing, and the fine stands, with costs.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: a fine you think is unfair
+
+== the first time you speak at the meeting
+tier: everyday
+sphere: rule
+haunt: rule.counsel
+ladder: newcomer
+at: council
+stages: young_adult+
+age: 18-100
+calls: WBG
+rate: .3
+share: .2
+tone: mixed
+life: public life, community
+horizon: moment
+roles: neighbour, friend
+earth: the council's open meeting has the crossing on your street on its list, and members of the public may speak for three minutes
+times: Speaking for the first time at a public meeting of a council, school board or residents' body comes to about 1 in 5 lives (estimate; most people never speak at one, Verba, Schlozman and Brady 1995 on who takes part); a person meets the moment once, sometimes twice in a new town
+likelier: a homeowner or long-time tenant, a parent of young children, a street with one plain grievance, a town with open meetings
+rarer: a newcomer who does not know the meetings exist, a person who works evenings, a big city where the council is far away
+gap: 10-40
+scene: The council's open meeting has the crossing outside the school on its list, and the public may speak for three minutes each. {N} has filled in the slip. The chamber is half full, the councillors look tired, and {Ns} name is called next.
+scene W: There is a proper way to do this: name, street, the point, and thanks to the chair. {N} wants to do it properly.
+scene U: {N} has the figures on a card: the near misses, the speeds, the times of day. Three minutes is enough if nothing is wasted.
+scene B: Two councillors will decide this, and {N} can see which two. The speech is really for them.
+scene R: {Ns} hands are shaking, but the anger is steadier than the hands. An old man was nearly knocked down there last week.
+scene G: The old families of the street have always spoken through the same man. Tonight {N} speaks for {Ns} own household.
+- W | thank the chair, give your name and street, and keep to three minutes | act: thank the chair, give their name and street, and keep to three minutes | v: conformity | lever: voice | pushes: institution council | sphere: rule.W | chance: 75
+- U | read out the near misses, the speeds and the times, and nothing else | v: universalism, achievement | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | speak straight to the two councillors who will decide, by name | v: power, achievement | lever: voice | pushes: institution council | sphere: rule.B | chance: 75
+- R | put the card away, and say what it is like to cross there with the shopping | v: self-direction, stimulation | lever: voice | sphere: rule.R | chance: 75
+- G | ask the oldest neighbour to stand beside you while you speak | act: ask the oldest neighbour to stand beside them while they speak | v: tradition, security | sphere: rule.G | chance: 75
+- W>B | ask the chair to put the crossing on the next meeting's list, in the minutes | v: conformity, power | pushes: institution council | sphere: rule.W | chance: 65
+- U>R | end on one figure so stark that the gallery gasps | v: stimulation, universalism | sphere: rule.U | chance: 65
+- B>G | bring twenty neighbours to fill the gallery, so the councillors see the street | v: power, tradition | pushes: group neighbours | sphere: rule.B | chance: 65
+- R>W | ask each councillor to say aloud, before the vote, whether they have walked it | v: universalism, stimulation | lever: voice | pushes: institution council | sphere: rule.R | chance: 65
+- G>U | tell how the street crossed safely when the old crossing warden stood there | v: tradition, universalism | sphere: rule.G | chance: 65
+works: The chair thanks {N} by name, the crossing goes on the list, and afterwards a councillor's agent asks whether {N} has ever thought of standing.
+works: {N} sits down shaking and finds it was easier than feared; the next time comes sooner.
+fails: {Ns} voice goes thin halfway through, the three minutes run out, and the chair moves on.
+fails: The councillors read their papers the whole time, and the crossing is put off for a year.
+
+# ---------------------------------------------------------------- everyday, calls BG (cycle s3); partner: the councillor calls in the favour
+
+== the organiser's offer at the surgery
+tier: everyday
+sphere: rule
+haunt: rule.voice
+at: party
+stages: young_adult+
+age: 20-100
+calls: BG
+rate: .4
+share: .15
+tone: mixed
+life: home, public life, money
+horizon: months
+roles: parent, neighbour, patron
+who: patron
+earth: your landlord will not mend the damp, and the councillor's organiser says it can be sorted by Friday, if your family remembers who helped come the election
+times: Help with a housing, permit or benefits quarrel offered by a councillor's or party's organiser with the vote in view is common where politics runs on favours (Stokes 2005 on brokers and their clients); being offered such a trade comes to about 1 in 6 lives, once or twice (estimate)
+likelier: a council estate or a poor ward, a town where one party has held the seat for years, a family that votes as a bloc, a long quarrel with a landlord or an office
+rarer: a well-off street, a town where offices answer by rule, a person who has never needed the council's help
+gap: 5-20
+scene: For a year the landlord has ignored the damp in {Ns} flat. At the councillor's Saturday surgery her organiser listens, nods, and says it can be sorted by Friday. Then, lightly: the election is in May, and the family will remember who helped.
+scene W: Help should not have a price. Either the landlord is breaking the rules or he is not, and a vote has nothing to do with it.
+scene U: {N} wonders what the organiser can do that the housing office cannot, and why.
+scene B: It is a fair trade, and {N} knows it: help now, a vote later, and a friend at the council for years.
+scene R: {N} came for a repair, not a deal, and feels the heat rise.
+scene G: This is how {Ns} parent got the flat in the first place, thirty years ago. Everyone on the estate knows how it works.
+- W | say you will vote as you see fit, and ask for help by the rules | act: say they will vote as they see fit, and ask for help by the rules | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.W | chance: 75
+- U | ask the organiser exactly what she will do, and write it all down | v: security, self-direction | sphere: rule.U | chance: 75
+- B | shake on it, and offer the votes of your whole stairwell too | act: shake on it, and offer the votes of their whole stairwell too | v: power, security | lever: loyalty | pushes: institution party | sphere: rule.B | chance: 75
+- R | tell the organiser you are not for sale, and walk out | act: tell the organiser they are not for sale, and walk out | v: self-direction | lever: exit | mark: turned down a chance | sphere: rule.R | chance: 75
+- G | take the help as your family always has, and say nothing more | act: take the help as their family always has, and say nothing more | v: tradition, security | lever: loyalty | sphere: rule.G | chance: 75
+- W>R | take the landlord to the housing tribunal yourself, and tell the surgery why | act: take the landlord to the housing tribunal themselves, and tell the surgery why | v: self-direction, universalism | lever: voice | pushes: institution court | sphere: rule.W | chance: 65
+- U>G | find the tenancy rule the landlord is breaking, and share it with the neighbours | v: universalism, benevolence | pushes: group neighbours | sphere: rule.U | chance: 65
+- B>W | accept, and ask that every damp flat on the stairwell be fixed as well | v: benevolence, power | lever: voice | sphere: rule.B | chance: 65
+- R>U | ask the organiser, loudly, in the waiting room, whether every repair costs a vote | v: stimulation, universalism | lever: voice | sphere: rule.R | chance: 65
+- G>B | ask the estate's oldest family to put in a word with the councillor for you | act: ask the estate's oldest family to put in a word with the councillor for them | v: tradition, power | sphere: rule.G | chance: 65
+works: The damp is fixed within the month, and nobody ever asks how {N} voted.
+works: The whole stairwell gets its repairs, and the landlord learns that the estate has friends.
+fails: Nothing is fixed, and in May a leaflet comes through the door with {Ns} name on the list of supporters.
+fails: {N} turns the deal down, and the repair waits another winter.
+
+# ---------------------------------------------------------------- everyday, calls WUR (cycle s4); partner: the organiser's offer at the surgery
+
+== the councillor calls in the favour
+tier: everyday
+sphere: rule
+haunt: rule.voice
+ladder: known
+at: council
+stages: young_adult+
+age: 20-100
+calls: WUR
+rate: .4
+share: .15
+tone: mixed
+life: public life, community, neighbours
+horizon: week
+roles: parent, neighbour, patron
+who: patron
+earth: the councillor who once got your parent's flat repaired asks you to speak for her friend's building plan at Thursday's meeting
+times: Where favours bind voters to patrons, the favour is expected back at the next vote or meeting (Stokes 2005; Scott 1972 on patron and client); being asked to repay a favour in public, by a word or a vote, comes to about 1 in 7 lives (estimate)
+likelier: a family once helped by a councillor or party, a person the street listens to, a ward where one patron has held the seat for years
+rarer: a family that has never asked the council for anything, a newcomer, a town where offices answer by rule
+gap: 5-20
+scene: Years ago the councillor got {Ns} parent's flat repaired when nobody else would. Now she rings: her friend's building plan goes to the meeting on Thursday, the neighbours are against it, and a word from {N}, whom the street trusts, would settle it.
+scene W: A debt is a debt. But {N} owes the councillor, not her friend's plan.
+scene U: {N} has not read the plan. It might be good. It might be dreadful.
+scene B: Paying a favour back on time is how a person keeps friends at the council. Failing to is how they lose them.
+scene R: {N} feels the hook in it, and hates it.
+scene G: The councillor has helped half the families on the street. That is how the street works, and how it has always paid her back.
+- W | tell her you will read the plan, and speak only if you believe in it | act: tell her they will read the plan, and speak only if they believe in it | v: universalism, conformity | sphere: rule.W | chance: 75
+- U | read the whole plan, and go to the meeting with three questions | v: self-direction, universalism | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | speak for the plan, and make sure she knows the debt is paid | v: power, security | lever: loyalty | pushes: institution council | sphere: rule.B | chance: 75
+- R | tell her plainly that a repair years ago did not buy your voice | act: tell her plainly that a repair years ago did not buy their voice | v: self-direction | lever: voice | mark: made an enemy | sphere: rule.R | chance: 75
+- G | ask the neighbours what they think first, and stand with them | v: tradition, benevolence | pushes: group neighbours | sphere: rule.G | chance: 75
+- W>G | pay her back another way, with a day's work for the ward's old people | v: benevolence, conformity | sphere: rule.W | chance: 65
+- U>W | find out whether the plan breaks any rule, and tell her before Thursday | v: universalism, conformity | sphere: rule.U | chance: 65
+- B>U | agree, on condition that she first gets you the council's own report on it | act: agree, on condition that she first gets them the council's own report on it | v: power, self-direction | sphere: rule.B | chance: 65
+- R>B | speak against the plan at the meeting, and dare her to call it disloyal | v: self-direction, power | lever: voice | pushes: institution council | sphere: rule.R | chance: 65
+- G>R | walk to the meeting with the oldest neighbours, and let them say it loudly | v: tradition, stimulation | lever: voice | pushes: group neighbours | sphere: rule.G | chance: 65
+works: {N} keeps faith with both the street and the councillor, and each trusts {N} a little more.
+works: The plan is changed before the vote, and {Ns} word is part of why.
+fails: The councillor stops returning calls, and the next time {N} needs help, the door is shut.
+fails: The street hears that {N} spoke for the plan, and some neighbours stop saying good morning.
+
+# ================================================================ life events
+
+# ---------------------------------------------------------------- life event: called as a witness against someone you know (pairs D1b)
+
+== called as a witness against someone you know
+tier: life event
+sphere: rule
+at: court
+stages: juvenile+
+age: 15-90
+per_year: 0 .001 .004 .004 .003 .001
+drivers: trouble+.3 unrest+.2 community+.1
+times: Being called to give evidence at a court or tribunal against someone one knows (a colleague, neighbour or relative) comes to about 1 in 5 lives (estimate), set at 1 in 1000 a year in the teens, 4 in 1000 from 18 to 44, less after
+likelier: a workplace with cash or stock, a close street, a family with someone in trouble, a person who was there when it happened
+rarer: a quiet life far from trouble, a town where quarrels are settled before they reach a court
+gap: 5-30
+tone: trouble
+life: work, public life, friends
+horizon: months
+roles: colleague, friend, neighbour
+who: colleague
+earth: you saw what your colleague did at the yard, and now a letter calls you to give evidence at the trial
+scene: {N} was there the night the money went from the yard's till, and saw {colleague} at it. Now a letter calls {N} to give evidence at the courthouse in four weeks. {Ns} colleague's family lives two streets away.
+scene W: {N} will swear an oath to tell the truth, and means to keep it, however it lands.
+scene U: What did {N} actually see, and what has {N} filled in since? Memory is less sure than the letter assumes.
+scene B: Whatever {N} says will cost something: a friend, a job, a name at the yard. {N} wants to know which costs least.
+scene R: {N} is angry at being dragged into it, and angrier at {Ns} colleague for doing it.
+scene G: In {place} people do not stand up in court against their own. The street will remember which side {N} took.
+- W | swear the oath, and tell the court exactly what you saw | act: swear the oath, and tell the court exactly what they saw | v: conformity, universalism | mark: kept your word | lever: loyalty | pushes: institution court | sphere: rule.W | chance: 60
+- U | write down tonight what you saw, before anyone else can tell you | act: write down tonight what they saw, before anyone else can tell them | v: self-direction, universalism | sphere: rule.U | chance: 60
+- B | ask the lawyer whether you can be let off, and keep your head down | act: ask the lawyer whether they can be let off, and keep their head down | v: security | lever: neglect | sphere: rule.B | chance: 60
+- R | tell your colleague to their face that you will not lie for them | act: tell their colleague to their face that they will not lie for them | v: self-direction | lever: voice | pushes: close colleague | sphere: rule.R | chance: 60
+- G | go to your colleague's family first, so they hear it from you | act: go to their colleague's family first, so they hear it from them | v: tradition, benevolence | sphere: rule.G | chance: 60
+- RG | go with the family to urge your colleague to own up before the trial | act: go with the family to urge their colleague to own up before the trial | v: benevolence, tradition | pushes: close colleague | sphere: rule.RG | chance: 50
+- UB | tell the defence lawyer, too, which parts you are sure of and which not | act: tell the defence lawyer, too, which parts they are sure of and which not | v: universalism, security | sphere: rule.UB | chance: 50
+- UR | say in court what you saw, and that the yard's careless rules made it easy | act: say in court what they saw, and that the yard's careless rules made it easy | v: universalism, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
+- WB | ask the yard's manager to stand by you, so your job is safe after the trial | act: ask the yard's manager to stand by them, so their job is safe after the trial | v: security, conformity | sphere: rule.WB | chance: 50
+- WG | give your evidence plainly, then call on the family the next day as before | act: give their evidence plainly, then call on the family the next day as before | v: benevolence, conformity | sphere: rule.GW | chance: 50
+works: {N} tells it straight, the court weighs it, and in time the street respects it.
+works: {Ns} colleague owns up before the trial, and {N} never has to stand in the witness box.
+fails: The defence lawyer picks {Ns} memory apart, and {N} leaves the box feeling like the one on trial.
+fails: The verdict goes one way and the street the other, and for a year the shop goes quiet when {N} walks in.
+
+# ---------------------------------------------------------------- life event: asked for a bribe (pairs D2a)
+
+== the clerk who wants something for the licence
+tier: life event
+sphere: rule
+at: council
+stages: young_adult+
+age: 20-80
+per_year: 0 0 .003 .004 .003 .001
+drivers: unrest+.3 money+.2 harsh+.2
+times: How often an official asks for a bribe differs hugely between places, from very rare to a yearly event for many adults (estimate, after cross-country bribery surveys); for an ordinary modern town it is set at 3 or 4 in 1000 a year in working life, about 1 in 6 lives, more where offices are poorly paid and little watched
+likelier: a person starting a shop or a building job, a town where officials are poorly paid, a hard or unsettled time, an office no one audits
+rarer: a salaried life with little need of permits, a town where every file is tracked and open, a person who never deals with offices
+gap: 5-30
+tone: trouble
+life: work, money, public life
+horizon: months
+roles: partner, parent
+who: partner
+earth: the clerk at the permits office says your shop licence could take a year, or a week for someone who knows how to be thankful
+scene: {N} has waited four months for the licence to open the shop. At the permits office the clerk turns the file over, sighs, and says it could take another year, or a week, for someone who knows how to be thankful. {partner} has already signed the lease.
+scene W: There is a rule for this licence, and a queue, and {N} is in it. Paying would jump everyone else in the queue.
+scene U: {N} wants to know who else has been asked, and whether the delays follow a pattern.
+scene B: It is a small sum next to a year's lost rent. {N} knows that is exactly how the clerk has done the sum.
+scene R: {N} wants to say it again, loudly, across the whole office.
+scene G: The old shopkeepers on the street would know how this is done here. They always have.
+- W | tell the clerk you will wait your turn, and ask for a written date | act: tell the clerk they will wait their turn, and ask for a written date | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 60
+- U | note the clerk's words and the time, and ask round who else was asked | v: universalism, security | sphere: rule.U | chance: 60
+- B | slip an envelope into the file, and ask when the licence will be ready | v: achievement, power | lever: subvert | mark: broke the law | sphere: rule.B | chance: 60
+- R | ask the clerk to say that again, loudly, so the whole queue can hear | v: self-direction, stimulation | lever: voice | sphere: rule.R | chance: 60
+- G | ask the oldest shopkeeper on the street how it is done here | v: tradition, security | sphere: rule.G | chance: 60
+- BG | ask an old family friend on the council to have a quiet word with the clerk | v: security, tradition | lever: subvert | sphere: rule.BG | chance: 50
+- BR | record the clerk on the phone the next time, and let the clerk know it | v: power, self-direction | tech: phone | sphere: rule.BR | chance: 50
+- UR | gather the other shopkeepers' stories, and take them to the local paper | v: universalism, self-direction | lever: voice | pushes: institution media | sphere: rule.UR | chance: 50
+- WG | get the traders' association to complain together, so nobody stands alone | v: universalism, tradition | lever: voice | pushes: institution council | sphere: rule.GW | chance: 50
+- WU | write to the council's auditor with the dates, the words and the file number | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.WU | chance: 50
+works: The licence comes through on time, and {N} pays nothing beyond the fee.
+works: The clerk is moved off the counter, and the next shopkeeper in the queue is not asked.
+fails: The file stays lost for a year, and the rent on the empty shop eats the savings.
+fails: Word gets round that {N} paid, and the next season the clerk asks for more.
+
+# ---------------------------------------------------------------- life event: the trial of a friend (pairs D3b)
+
+== the trial of a friend
+tier: life event
+sphere: rule
+at: court
+stages: young_adult+
+age: 18-90
+per_year: 0 0 .004 .003 .002 .001
+drivers: trouble+.3 unrest+.2 ties+.1
+times: Having a close friend stand trial on a serious charge, and sitting through it, comes to about 1 in 7 lives (estimate), set at 4 in 1000 a year from 18 to 29, a little less in each later stage
+likelier: a wide circle of friends, a friend in money trouble or in with a rough crowd, a town where cases go to trial rather than settle
+rarer: a small, settled circle, a town where quarrels are settled before court, a person who keeps friends at arm's length
+gap: 5-30
+tone: trouble
+life: friends, public life
+horizon: months
+roles: friend, parent
+who: friend
+earth: your oldest friend is on trial for fraud at the courthouse, and each day in the gallery you learn something you did not know
+scene: {friend} is on trial for taking money from the firm where they kept the books. {N} sits in the public gallery every morning. On the third day the bank records go up on the screen, and {N} recognises the holiday the money paid for.
+scene W: {N} wants the court to be fair to {Ns} friend. {N} is no longer sure that fair means not guilty.
+scene U: {N} follows every exhibit, and wonders how much of this {friend} hid from everyone, and for how long.
+scene B: {N} has to weigh what being seen in that gallery is costing, at work and with the neighbours.
+scene R: {N} wants to stand up and shout that the lawyers have it wrong, and is less sure each day that they do.
+scene G: {Ns} friend's mother sits in the gallery too, every day, in the same seat, and nobody else from the family has come.
+- W | keep your seat in the gallery every day until the verdict, whatever it is | act: keep their seat in the gallery every day until the verdict, whatever it is | v: benevolence, conformity | lever: loyalty | sphere: rule.W | chance: 60
+- U | ask your friend for the whole truth, and decide after hearing it | act: ask their friend for the whole truth, and decide after hearing it | v: self-direction, universalism | sphere: rule.U | chance: 60
+- B | stop going, and keep your name well away from the case | act: stop going, and keep their name well away from the case | v: security | lever: exit | sphere: rule.B | chance: 60
+- R | tell your friend straight that you are angry, and that you are staying anyway | act: tell their friend straight that they are angry, and that they are staying anyway | v: benevolence, self-direction | pushes: close friend | sphere: rule.R | chance: 60
+- G | sit beside your friend's mother every day, so she is not alone there | act: sit beside their friend's mother every day, so she is not alone there | v: benevolence, tradition | mark: helped someone in need | sphere: rule.G | chance: 60
+- BR | visit your friend in the cells at lunch, and urge them to take the plea | act: visit their friend in the cells at lunch, and urge them to take the plea | v: power, self-direction | pushes: close friend | sphere: rule.BR | chance: 50
+- UG | find out who lost money, and what the family could pay back | v: universalism, benevolence | sphere: rule.GU | chance: 50
+- UR | write to the judge about who your friend was before, and what went wrong | act: write to the judge about who their friend was before, and what went wrong | v: benevolence, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
+- WB | find your friend a sharper lawyer through someone you know, and pay the first fee | act: find their friend a sharper lawyer through someone they know, and pay the first fee | v: benevolence, power | lever: fund | sphere: rule.WB | chance: 50
+- WG | promise the mother you will visit, whatever the sentence | act: promise the mother they will visit, whatever the sentence | v: benevolence, tradition | sphere: rule.GW | chance: 50
+works: Whatever the verdict, {friend} knows who stayed, and the friendship comes through it changed but whole.
+works: {friend} owns up, pleads to a lesser charge, and starts to pay the money back.
+fails: The verdict is guilty, and {friend} will not see {N} at the visiting hour.
+fails: {N} is named in the local paper as a friend of the accused, and some at work keep their distance.
+
+# ---------------------------------------------------------------- life event: a crowd in the square, and a choice (pairs D4a)
+
+== the crowd at the town hall steps
+tier: life event
+sphere: rule
+at: council
+stages: juvenile+
+age: 16-80
+per_year: 0 .004 .006 .003 .002 .001
+drivers: unrest+.5 trouble+.2 era+.1
+times: Being in a crowd at a protest or a public gathering that turns tense, and choosing what to do in that minute, comes to about 1 in 6 lives (estimate; far more in years of unrest), set at 6 in 1000 a year from 18 to 29, less after
+likelier: a young adult in a town or city, a year of closures, cuts or anger at the council, friends who march
+rarer: a remote village, a quiet decade, a person who never goes to a protest
+gap: 5-30
+tone: mixed
+life: public life, community, friends
+horizon: moment
+roles: friend, neighbour
+who: friend
+earth: the crowd in the square has waited all afternoon for the council's answer, and at dusk a bottle flies from near the front
+scene: All afternoon the crowd has filled the square in front of the town hall, waiting for the council's answer on the closures. At dusk the doors stay shut, a bottle flies from somewhere near the front, and the police line takes a step forward. {friend} grabs {Ns} arm.
+scene W: {N} came to be counted, peacefully, not for this. Someone has to keep this a hearing and not a riot.
+scene U: {N} looks for the way out of the square, and for who threw that bottle. It did not come from anyone {N} knows.
+scene B: The crowd is waiting for someone to tell it what to do next. Whoever does will be remembered.
+scene R: The anger in the square is {Ns} anger too, and it is rising fast.
+scene G: These are {Ns} neighbours, the families from the street that is closing. {N} will not leave them standing here alone.
+- W | link arms with the stewards, and hold the front still and quiet | v: security, conformity | lever: loyalty | sphere: rule.W | chance: 60
+- U | lead your friend down the side street before the square closes | act: lead their friend down the side street before the square closes | v: security, self-direction | lever: exit | sphere: rule.U | chance: 60
+- B | climb onto the fountain, and tell the crowd where to go next | v: power, stimulation | lever: lead | sphere: rule.B | chance: 60
+- R | stay at the front, and chant until the doors open | v: stimulation, self-direction | lever: voice | pushes: institution council | sphere: rule.R | chance: 60
+- G | gather the families from your street, and see every one of them home | act: gather the families from their street, and see every one of them home | v: benevolence, tradition | sphere: rule.G | chance: 60
+- BG | find the councillor you know, and get the street's elders in by the side door | act: find the councillor they know, and get the street's elders in by the side door | v: tradition, power | sphere: rule.BG | chance: 50
+- RG | start the town's old song, loud, until the whole square is singing instead | v: tradition, stimulation | sphere: rule.RG | chance: 50
+- UR | film the police line and the front calmly, so the truth of the night is kept | v: universalism, self-direction | tech: phone | sphere: rule.UR | chance: 50
+- WB | offer the officer in charge three speakers to go in and see the council tonight | v: security, power | lever: voice | pushes: institution council | sphere: rule.WB | chance: 50
+- WU | tell the stewards who threw the bottle, and which way they went | v: security, conformity | sphere: rule.WU | chance: 50
+works: The square calms, the doors open, and three of the crowd go in to speak; the closures are put off for a month.
+works: {N} gets home with everyone {N} came with, and the night is remembered for the singing, not the bottle.
+fails: The police clear the square, and {N} spends half the night at the station giving a statement.
+fails: The night is on every screen as a riot, and the closures go ahead with the town split over it.

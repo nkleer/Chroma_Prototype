@@ -1,0 +1,539 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, commerce life moments. Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; the list is
+# character.moments in spheres-data/comm.json). Every moment carries sphere: comm, every option the face it acts in
+# (a cross option X>Y the means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# No currency, brand, bank or company is named: money is "the takings", "the float", "a month's pay".
+# Evenness: in every life event each one-colour option has chance 60 and each pair option 50; in every everyday moment
+# each one-colour option 75 and each cross option 65; so each colour's mean is the same in every stage.
+# Everyday pair (one calls two colours, its partner the other three, same stages and ages): haggling at the Sunday
+# market BR (s1) with the torn page in the tab book WUG (s3).
+# Life events and their pair sets: the first coins at the car-boot table D1a, the first signature on monthly payments
+# D1b, the lender's yes or no D2a, the shop's opening day D2b, the regular who never pays D3a, the pitch fee doubles
+# D3b, the order that makes the business D4a, the bargain that was a cheat D4b, the keys of the shop to a grown child
+# D5a, the last market day at the old pitch D6b.
+# Doors (comm.json character.doors) used as works: and fails: lines: a loan or a refusal, and credit refused for who
+# they are (the lender's yes or no); a stall in the market and a new far market (the pitch fee doubles); a tab from
+# the shop (the torn page).
+# Skipped as already written: a price that doubles ('the shop that tripled the price of water', 'the weekly shop buys
+# less each month', 'money that buys less every month', 'the rent goes up by a fifth', ready/ev-comm; the stall's own
+# fee is 'the pitch fee doubles' here); a deal that breaks them ('financial ruin' and 'a business partner about to
+# ruin you', earth.py); lending to a sibling ('a brother or sister in debt asks for help', earth.py); standing in the
+# line to be picked at dawn ('picked at the gate at dawn', ready/gathering); the first wage paid by a stranger ('a
+# Saturday job at the corner shop', 'your first real job', 'the first payslip and the first rent', earth.py).
+# Next to earth.py: 'a parent asks you to take over the family shop' and 'the owner wants to retire' are the heir's
+# side, so 'the keys of the shop to a grown child' is the elder's; 'buying a home' is the mortgage, so the first
+# signature here is goods on monthly payments; 'a scam phone call' is the attempt, so 'the bargain that was a cheat' is
+# a cheat already done and found out. With prod (sph-life-prod): the first thing made and sold, and a farm or workshop
+# handed on, are theirs.
+
+# ================================================================ the market (comm.market)
+
+# ---------------------------------------------------------------- life event: the first coins at the car-boot table (pairs D1a)
+
+== the first coins at the car-boot table
+tier: life event
+sphere: comm
+haunt: comm.market
+ladder: newcomer
+once: yes
+stages: child juvenile
+age: 8-14
+per_year: .02 .02 0 0 0 0
+drivers: money+.2 community+.2
+times: Many children sell outgrown toys and books at a school fair, a car-boot sale or a table by the gate; a first sale that stays in memory comes to about 1 in 7 lives, once (estimate), set at 2 in 100 a year from 8 to 14
+likelier: a family that goes to car-boot sales or markets, a town with a weekly sale, a child saving up for something
+rarer: a remote farm, a family that gives old things away, a child kept from public places
+gap: 10-40
+tone: joy
+life: money, family, play
+horizon: moment
+roles: parent, sibling
+who: parent
+earth: you set out your outgrown toys on a corner of the family's table at the car-boot sale, and wait for your first customer
+scene: {parent} has given {N} one corner of the table at the Sunday car-boot sale. {Ns} old toys and books sit in a row with prices on paper labels, and the first buyers are coming down the line.
+scene W: {N} has written a fair price on every label, and means to give the right change every time.
+scene U: {N} watches the next table to see which things go first, and at what price.
+scene B: {sibling} has the other corner of the table. {N} means to go home with more.
+scene R: The man three tables down is shouting his prices, and a crowd has already gathered round him. {N} wants a crowd too.
+scene G: {N} remembers which toy came from which birthday, and some of them are hard to let go.
+- W | sell each toy at the price on its label, and count the change out loud | v: conformity, security | sphere: comm.W | chance: 60
+- U | move the toys that sell to the front, and mark down the rest | v: achievement, self-direction | sphere: comm.U | chance: 60
+- B | ask more from the buyers who look keen, and less from the ones who walk on | v: power, achievement | sphere: comm.B | chance: 60
+- R | call out to every passer-by, and make them laugh until they stop | v: stimulation, hedonism | sphere: comm.R | chance: 60
+- G | give the best toy free to a small child whose parent cannot afford it | v: benevolence | sphere: comm.G | chance: 60
+- WU | keep a page of what sold and for how much, all morning | v: achievement, conformity | sphere: comm.WU | chance: 50
+- WR | stand up to the grown-up who tries to pay half the label price | v: self-direction, conformity | lever: voice | sphere: comm.RW | chance: 50
+- UG | swap a box of comics with the child at the next table instead of selling it | v: benevolence, self-direction | sphere: comm.GU | chance: 50
+- BR | auction the last three toys to the small crowd, and take the top bid | v: stimulation, achievement | sphere: comm.BR | chance: 50
+- BG | put half the takings in the family tin, and keep the rest for yourself | act: put half the takings in the family tin, and keep the rest for themselves | v: security, tradition | sphere: comm.BG | chance: 50
+works: By noon the corner is half empty, and {N} carries home a tin of coins counted three times on the way.
+works: A woman who bought a doll comes back to say her daughter loves it, and {N} glows all afternoon.
+fails: Hardly anyone stops at {Ns} corner, and {N} watches a favourite toy go for almost nothing.
+fails: A grown-up talks {N} down to a few coins for the best thing on the table, and {N} only understands it later.
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s1); partner: the torn page in the tab book
+
+== haggling at the Sunday market
+tier: everyday
+sphere: comm
+haunt: comm.market
+stages: juvenile+
+age: 16-100
+calls: BR
+rate: .5
+share: .3
+tone: mixed
+life: money, play
+horizon: moment
+roles: regular
+who: regular
+earth: at the Sunday market you want the old chair on the dealer's stall, and the price on it is only where the talking starts
+times: Haggling over a second-hand price at a flea market, a car-boot sale or a market stall is common in most places, more so where prices are rarely fixed; a haggle that matters, won or lost, reaches about 3 in 10 lives, a few times (estimate)
+likelier: a town with a weekly market or flea market, a person furnishing a first home, a place where prices are rarely fixed
+rarer: a town of chain shops with fixed prices, a person who buys everything new or online
+gap: 2-8
+scene: There is a chair on the Sunday market stall that {N} wants, an old one with good legs. The dealer names a price, folds his arms and waits, and the stalls around go quiet to listen.
+scene W: {N} thinks the price should be the same for anyone who asks, and wonders what the dealer asked the last buyer.
+scene U: {N} saw a chair like it two rows down last week, for less, and knows how long this one has sat here.
+scene B: {N} has cash in one pocket and a lower figure ready, and means not to show how much the chair is wanted.
+scene R: {N} loves this part: the offer, the groan, the walk away and the call back.
+scene G: {Ns} family has bought from this dealer for years, and the old man still asks after all of them by name.
+- W | ask the dealer what a fair price is, and pay it without a fight | v: conformity, benevolence | sphere: comm.W | chance: 75
+- U | point out the wobble in one leg, and the cheaper chair two rows down | v: achievement, self-direction | sphere: comm.U | chance: 75
+- B | offer half, show the cash, and do not move from it | v: power, achievement | sphere: comm.B | chance: 75
+- R | walk away laughing, and wait to be called back | v: stimulation, hedonism | sphere: comm.R | chance: 75
+- G | ask after his family, and leave the price to him | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>U | ask the stallholders round about, openly, what such chairs fetch before making an offer | v: universalism, conformity | sphere: comm.W | chance: 65
+- U>B | judge his lowest price by how long the chair has sat, and offer just above | v: achievement, power | sphere: comm.U | chance: 65
+- B>R | make one bold cash offer for the chair and the lamp, take it or leave it | v: stimulation, power | sphere: comm.B | chance: 65
+- R>G | turn the haggle into a show for the crowd, and buy the dealer a tea after | v: hedonism, benevolence | sphere: comm.R | chance: 65
+- G>W | offer to help him pack the stall at closing in return for a lower price | v: benevolence, conformity | sphere: comm.G | chance: 65
+works: The dealer laughs, spits on his palm and shakes, and the chair goes home for less than {N} dared hope.
+works: {N} pays a little more than planned, but the dealer throws in the lamp and calls {N} by name the next Sunday.
+fails: {N} walks away to wait for the call back, and turns round to see the chair sold to someone else.
+fails: At home the chair turns out to be worth half what {N} paid: the dealer was the better hand.
+
+# ================================================================ the shop (comm.shop)
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s3); partner: haggling at the Sunday market
+
+== the torn page in the tab book
+tier: everyday
+sphere: comm
+haunt: comm.shop
+ladder: newcomer
+stages: juvenile+
+age: 16-100
+calls: WUG
+rate: .3
+share: .2
+tone: joy
+life: money, community
+horizon: months
+roles: keeper, neighbour
+who: keeper
+earth: after a hard winter you come in to pay the first part of your tab at the corner shop, and the shopkeeper tears the page out of the book
+times: Shop credit among neighbours is common where small shops still keep a book; having a debt quietly let go by a shopkeeper or a neighbour in a hard time comes to about 1 in 5 lives (estimate)
+likelier: a small town or a close street with a family shop, a hard winter, a long-standing customer
+rarer: a big city of chain shops, a person who never buys on credit, a newcomer to the street
+gap: 5-20
+scene: Since the winter {N} has bought bread and milk on the tab at the corner shop. Today {N} comes in to pay the first part, and the shopkeeper tears the page from the book. "That one is done," she says, and serves the next customer.
+scene W: {N} has never left a debt unpaid, and the torn page feels like a kindness and a weight together.
+scene U: {N} wonders how many other pages the shopkeeper has torn out, and how the shop stays open at all.
+scene B: {N} does not like owing anyone, least of all a favour that cannot be paid back in money.
+scene R: {N} could hug her across the counter, and very nearly does.
+scene G: {Ns} grandmother bought on a tab at this same counter, and paid it back in jam and mending.
+- W | put the money in the charity tin, since the shop will not take it | v: conformity, benevolence | sphere: comm.W | chance: 75
+- U | ask the shopkeeper plainly how the book works, and what you can do for it | act: ask the shopkeeper plainly how the book works, and what they can do for it | v: universalism, self-direction | sphere: comm.U | chance: 75
+- B | insist on paying every coin, and leave it on the counter if she refuses | v: power, security | sphere: comm.B | chance: 75
+- R | thank her out loud in front of the whole queue | v: stimulation, benevolence | sphere: comm.R | chance: 75
+- G | thank her quietly, and do all your shopping at her counter from now on | act: thank her quietly, and do all their shopping at her counter from now on | v: tradition, benevolence | lever: loyalty | sphere: comm.G | chance: 75
+- W>R | write her a thank-you card, and ask to pin it in the window | v: benevolence, stimulation | sphere: comm.W | chance: 65
+- U>G | keep a quiet count of what was let go, and return it in small kindnesses | v: benevolence, tradition | sphere: comm.U | chance: 65
+- B>W | stake a small fund at the till that others in a hard month can draw on | v: universalism, power | lever: fund | sphere: comm.B | chance: 65
+- R>U | spend the afternoon helping her stack the shelves, and learn how the shop runs | v: self-direction, stimulation | sphere: comm.R | chance: 65
+- G>B | trade her a week of help behind the counter, until the two of you are square | act: trade her a week of help behind the counter, until the two of them are square | v: security, self-direction | sphere: comm.G | chance: 65
+works: The shopkeeper waves the thanks away, but from then on {N} is greeted like family at the counter.
+works: The hard months pass, and when the shopkeeper falls ill in the spring, {N} is the first to mind the till.
+fails: {N} feels the favour sitting there on every visit, and starts buying bread at the superstore instead.
+fails: Word spreads that the shop forgives tabs, and by the summer the shopkeeper has to close the book for everyone.
+
+# ---------------------------------------------------------------- life event: the shop's opening day (pairs D2b)
+
+== the shop's opening day
+tier: life event
+sphere: comm
+haunt: comm.shop
+ladder: known
+stages: young_adult adult mature
+age: 25-65
+per_year: 0 0 .003 .006 .003 0
+drivers: prosper+.3 money+.1
+times: About one adult in ten works on their own account, and fewer open a shop, a café or a stall with a door of their own; an opening day comes to about 1 in 8 lives (estimate), set at 6 in 1000 a year in the adult years
+likelier: a family that trades, a town with empty shopfronts and low rents, savings or a loan in hand, a redundancy payment
+rarer: a place where shops need permits few can get, a person with no savings and no one to vouch, a big city of chains
+gap: 5-30
+tone: joy
+life: work, community
+horizon: week
+roles: partner, friend
+who: partner
+earth: the sign is up, the shelves are full, and the door of your own shop opens for the first time
+scene: At eight the sign goes up over the door with {Ns} name on it, freshly painted. The shelves are full, the float is in the till, and {partner} has propped the door open. Nobody has come in yet.
+scene W: The prices are on every shelf, the scales are checked, and {N} means the first customer to get exactly what the last one does.
+scene U: {N} has a notebook ready to log every sale, every question and every customer who leaves without buying.
+scene B: Everything {N} owns is in this shop. Today it starts paying its way, or it does not.
+scene R: {N} wants a crowd, music on the step, and the first day talked about up and down the street.
+scene G: The neighbours have sent flowers, and the old grocer from across the road has come over to wish {N} luck.
+- W | open on the hour posted, and give the first customer honest weight and a receipt | v: conformity, security | sphere: comm.W | chance: 60
+- U | log every customer who comes in, and what they ask for that you do not stock | act: log every customer who comes in, and what they ask for that the shop does not stock | v: achievement, self-direction | sphere: comm.U | chance: 60
+- B | stand at the door yourself, and talk every passer-by into one small purchase | act: stand at the door themselves, and talk every passer-by into one small purchase | v: achievement, power | sphere: comm.B | chance: 60
+- R | hand out free samples on the step, with music playing, until a crowd comes | v: stimulation, hedonism | sphere: comm.R | chance: 60
+- G | give the first sale to the old grocer across the road, and refuse his money | v: tradition, benevolence | sphere: comm.G | chance: 60
+- WB | frame the first note taken, and pin the shop's terms beside it | v: conformity, achievement | sphere: comm.WB | chance: 50
+- WR | put a price board in the window, and dare the big shops to beat it | v: universalism, stimulation | sphere: comm.RW | chance: 50
+- UB | note which neighbours buy most, and offer them a regulars' card by the afternoon | v: achievement, power | sphere: comm.UB | chance: 50
+- UG | ask each customer what the street is missing, and order it in for next week | v: benevolence, self-direction | sphere: comm.GU | chance: 50
+- RG | close at noon for a party on the pavement, with the whole street invited | v: hedonism, benevolence | sphere: comm.RG | chance: 50
+works: By closing time the till is fuller than {N} dared hope, and two customers have already come back for more.
+works: The old grocer across the road becomes a friend, and sends over the customers he cannot serve.
+fails: Only a handful of people come in all day, and {N} counts the takings twice, as if that could make them more.
+fails: A delivery lorry blocks the door all morning, and the shop opens at noon to an empty street.
+
+# ---------------------------------------------------------------- life event: the regular who never pays (pairs D3a)
+
+== the regular who never pays
+tier: life event
+sphere: comm
+haunt: comm.shop
+ladder: known
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 .003 .006 .006 .002
+drivers: harsh+.2 money-.1 trouble+.1
+times: Most small traders and self-employed people meet a customer or client who keeps promising to pay and never does; one that matters enough to act on comes to about 1 in 6 lives (estimate)
+likelier: a shop or trade that gives credit, a small town where everyone knows everyone, a hard winter
+rarer: a trade paid in advance or by card at the counter, an employee with no book of their own
+gap: 4-15
+tone: trouble
+life: work, money
+horizon: months
+roles: regular
+who: regular
+earth: a regular has bought on the book at your shop all winter, and every week the promise to pay is the same
+scene: One regular has bought on the book all winter, a little each week and always with a promise. The page is now longer than a month's takings, and today he is back at the counter with his basket.
+scene W: The book is fair to everyone, and {N} cannot keep it fair if one name never pays.
+scene U: {N} has added the page up: if he never pays, the shop loses the whole of its winter profit.
+scene B: {N} knows what this is. He thinks the shop is soft, and so does everyone watching.
+scene R: {N} has had enough of the smile, the basket and the promise.
+scene G: He has bought here for twenty years, and his wife was ill all winter.
+- W | tell him kindly that the book is closed until the page is paid | v: conformity, security | sphere: comm.W | chance: 60
+- U | work out with him what he can pay each week, and write it down | v: security, universalism | sphere: comm.U | chance: 60
+- B | keep his basket behind the till until he pays something today | v: power, security | sphere: comm.B | chance: 60
+- R | tell him in front of the whole queue that he owes you the winter | act: tell him in front of the whole queue that he owes the shop the winter | v: self-direction, stimulation | sphere: comm.R | chance: 60
+- G | serve him as always, and trust him to pay when he can | v: benevolence, tradition | sphere: comm.G | chance: 60
+- WU | send him a plain written account, with dates, and a fair day to settle | v: conformity, security | sphere: comm.WU | chance: 50
+- WR | take the debt to the small claims hearing at the town hall | v: self-direction, conformity | lever: voice | sphere: comm.RW | chance: 50
+- UB | sell the debt to a collector for half, and be done with it | v: security, achievement | sphere: comm.UB | chance: 50
+- RG | strike it from the book with a laugh, and ask him to bring his wife | v: benevolence, hedonism | sphere: comm.RG | chance: 50
+- BG | take his old bicycle as surety until the page is paid | v: security, power | sphere: comm.BG | chance: 50
+works: The regular pays a little each week, and in the last week brings a cake his wife baked by way of thanks.
+works: The page is closed, and the whole street learns that the shop is kind but nobody's fool.
+fails: He stops coming in, takes his custom to the superstore, and never pays a coin.
+fails: The row is talked about for weeks, and two other regulars quietly do their shopping elsewhere.
+
+# ---------------------------------------------------------------- life event: the keys of the shop to a grown child (pairs D5a)
+
+== the keys of the shop to a grown child
+tier: life event
+sphere: comm
+haunt: comm.shop
+ladder: pillar
+stages: mature elder
+age: 55-85
+per_year: 0 0 0 0 .004 .003
+drivers: family+.2 ties+.1
+times: About one small family business in three passes to a child; handing one's own shop to a grown son or daughter comes to about 1 in 15 lives (estimate). Earth's 'a parent asks you to take over the family shop' is the same hand-over from the heir's side
+likelier: a family shop of long standing, a grown child who has worked in it, poor health or a long wish to stop
+rarer: a shop in rented premises near the end of its lease, no children, children settled far away
+gap: 20-40
+tone: mixed
+life: work, family
+horizon: years
+roles: child
+who: child
+earth: after thirty years behind the counter you hand the keys of your shop to your grown child, who means to change everything
+scene: After thirty years behind the counter, {N} puts the shop keys on the kitchen table in front of {child}. {child} has plans already: new shelves, orders by phone, longer hours. The old tab book is on the table too.
+scene W: {N} wrote down every rule of the shop over the years, and wonders which of them {child} will keep.
+scene U: {N} has the books of thirty years, and knows which of those plans have been tried before.
+scene B: The shop is {Ns} name and {Ns} life. Handing it over means no longer being the one who decides.
+scene R: {N} is tired of early mornings, and the open road is calling: a long trip, at last.
+scene G: The regulars have known {child} since the pram. {N} hopes they will stay.
+- W | write down the shop's terms and suppliers, and hand them over with the keys | v: tradition, conformity | sphere: comm.W | chance: 60
+- U | go through thirty years of the books together, one season at a time | v: universalism, security | sphere: comm.U | chance: 60
+- B | keep the lease in your own name for five more years, and see how it goes | act: keep the lease in their own name for five more years, and see how it goes | v: power, security | sphere: comm.B | chance: 60
+- R | hand over the keys, and leave on a long trip the next morning | v: stimulation, self-direction | sphere: comm.R | chance: 60
+- G | stand behind the counter one day a week, so the regulars see the hand-over | v: tradition, benevolence | sphere: comm.G | chance: 60
+- WG | tell each regular yourself, and ask them to give the new ways a fair try | act: tell each regular in person, and ask them to give the new ways a fair try | v: benevolence, tradition | sphere: comm.GW | chance: 50
+- WR | hold a farewell day at the old prices, and announce the hand-over from the step | v: tradition, stimulation | sphere: comm.RW | chance: 50
+- UB | sell the shop to your child at a fair valuation, with the papers drawn up properly | act: sell the shop to their child at a fair valuation, with the papers drawn up properly | v: security, achievement | sphere: comm.UB | chance: 50
+- UR | learn the phone orders alongside your child, and try the new way first | act: learn the phone orders alongside their child, and try the new way first | v: self-direction, stimulation | tech: phone | sphere: comm.UR | chance: 50
+- BG | collect the old debts in the tab book yourself before handing over | act: collect the old debts in the tab book themselves before handing over | v: security, power | sphere: comm.BG | chance: 50
+works: {child} keeps the old name over the door and the regulars stay; within two years the shop is busier than it has ever been.
+works: {N} comes in on Thursdays, and finds it good to be a customer in the shop at last.
+fails: {child} changes everything in the first month, the old regulars drift away, and {N} bites back every word.
+fails: Within a year {child} admits the shop is not for them, and {N} is back behind the counter at seventy.
+
+# ================================================================ credit (comm.credit)
+
+# ---------------------------------------------------------------- life event: the first signature on monthly payments (pairs D1b)
+
+== the first signature on monthly payments
+tier: life event
+sphere: comm
+haunt: comm.credit
+ladder: newcomer
+once: yes
+stages: young_adult adult
+age: 18-35
+per_year: 0 0 .02 .005 0 0
+drivers: money-.2 prosper+.1
+times: Buying goods on instalments, or signing a first credit agreement, is very common; the signing felt as a weighty step comes to about 1 in 5 lives, once (estimate). Earth's 'buying a home' is the mortgage
+likelier: a first flat, a low wage and an empty room, a town where shops sell on credit
+rarer: a family that never buys on credit, a faith or custom against interest, someone refused credit
+gap: 10-40
+tone: mixed
+life: money, home
+horizon: months
+roles: parent, partner
+who: partner
+earth: you sign for a sofa, a bed and a fridge on two years of monthly payments, and the clerk slides the pen across the desk
+scene: The new flat is empty, and the furniture shop will deliver a sofa, a bed and a fridge on Friday. All {N} has to do is sign for two years of monthly payments. The clerk slides the pen across the desk.
+scene W: {N} has read every line of the agreement, the late fees too, and means to keep every one of its terms.
+scene U: {N} has added the payments up on the phone: the total is a third more than the prices on the tags.
+scene B: {N} wants the flat to look like the home of someone who is going somewhere.
+scene R: The sofa is perfect, the delivery is Friday, and the first payment is a whole month away.
+scene G: {parent} never bought anything that could not be paid for at once, and {Ns} hand hesitates over the pen.
+- W | read the agreement through with the clerk, line by line, before you sign | act: read the agreement through with the clerk, line by line, before signing | v: conformity, security | sphere: comm.W | chance: 60
+- U | take the papers home, compare the total with two other shops, and come back | v: security, self-direction | sphere: comm.U | chance: 60
+- B | tell the clerk you will sign today if the interest comes off | act: tell the clerk they will sign today if the interest comes off | v: power, achievement | sphere: comm.B | chance: 60
+- R | sign with a flourish, and have the sofa on Friday | v: hedonism, stimulation | sphere: comm.R | chance: 60
+- G | take the old sofa from the family's spare room, and sign only for the bed | v: tradition, security | sphere: comm.G | chance: 60
+- WB | pay a large deposit now, so the payments end in a year | v: security, achievement | sphere: comm.WB | chance: 50
+- WG | set up a household fund with your partner, and pay each month from it together | act: set up a household fund with their partner, and pay each month from it together | v: benevolence, security | sphere: comm.GW | chance: 50
+- UB | find the offer with no interest if paid inside a year, and plan to beat it | v: achievement, power | sphere: comm.UB | chance: 50
+- UR | walk out, buy it all second hand online that evening, and owe nothing | v: self-direction, stimulation | tech: internet | lever: exit | sphere: comm.UR | chance: 50
+- RG | sign for the sofa, and throw a housewarming for everyone who helped with the move | v: hedonism, benevolence | sphere: comm.RG | chance: 50
+works: The payments go out on time each month, and two years later {N} owns every stick, with a good credit record to show for it.
+works: {partner} sits on the new sofa the first night and says it feels like home at last.
+fails: A month of short hours makes one payment late, and the fees pile on faster than {N} can follow.
+fails: By the end the sofa has cost almost twice its tag, and it is already sagging.
+
+# ---------------------------------------------------------------- life event: the lender's yes or no (pairs D2a)
+
+== the lender's yes or no
+tier: life event
+sphere: comm
+haunt: comm.credit
+ladder: regular
+stages: young_adult adult mature
+age: 22-60
+per_year: 0 0 .008 .01 .004 0
+drivers: prosper+.2 money-.1 harsh+.1
+times: Asking a bank or a lender in person for a business or venture loan, and waiting for the answer, comes to about 1 in 5 lives (estimate); refusals fall more often on the young, the poor and those with no record or no one to vouch for them
+likelier: a person who has worked years for someone else in a trade, a plan for a van, a stall or a shop, a town with a branch bank
+rarer: a family that lends among itself, a person with no plan to trade, a place with no lender in reach
+gap: 5-20
+tone: mixed
+life: work, money
+horizon: months
+roles: partner
+earth: you sit across the loan desk with a plan for a van and a stall of your own, and the lender turns the pages without a word
+scene: {N} has a plan in a folder: a van, a pitch at three markets, figures for two years. Across the loan desk the lender turns the pages slowly, then looks up. "Tell me why we should."
+scene W: Every figure in the folder is honest, the bad months included. {N} will not dress it up.
+scene U: {N} has worked the plan through four times, and knows every weak spot better than the lender does.
+scene B: {N} has rehearsed the answer, and means to leave with the money or with a better offer elsewhere.
+scene R: {N} hates sitting still in a borrowed jacket. The plan is good, and the right thing would be to start tomorrow.
+scene G: Three neighbours have promised to buy from the van. {N} wishes the lender could meet them.
+- W | walk the lender through the honest figures, the bad months first | v: conformity, security | sphere: comm.W | chance: 60
+- U | show how the risk is spread across three markets and two seasons | v: achievement, security | sphere: comm.U | chance: 60
+- B | mention the other lender who is already interested, true or not | v: power, achievement | sphere: comm.B | chance: 60
+- R | tell the lender the story of the trial stall day that sold out by noon | v: stimulation, self-direction | sphere: comm.R | chance: 60
+- G | bring letters from the regulars who have promised to buy from the van | v: tradition, benevolence | sphere: comm.G | chance: 60
+- WU | ask what the bank needs for a yes, and come back in a month meeting it | v: conformity, achievement | sphere: comm.WU | chance: 50
+- WG | ask the stallholders' savings circle to stand surety together | v: benevolence, universalism | sphere: comm.GW | chance: 50
+- UR | walk out, and pay for the first van with orders taken in advance from the regulars | v: self-direction, stimulation | lever: exit | sphere: comm.UR | chance: 50
+- BR | offer the lender a share of the takings instead of a fixed rate | v: power, stimulation | sphere: comm.BR | chance: 50
+- BG | put up the family's savings as surety, and borrow half as much | v: security, tradition | sphere: comm.BG | chance: 50
+works: The lender closes the folder and says yes, and the van is parked outside {Ns} door by the end of the month.
+works: The answer is no, but the lender names what would make it yes, and {N} comes back a year later and gets it.
+fails: The answer is no, with no reason given, and on the way out {N} passes a borrower with half the plan, walking out smiling.
+fails: The loan comes through at a rate that will eat the first two years of the van's profit.
+
+# ================================================================ trade at large
+
+# ---------------------------------------------------------------- life event: the pitch fee doubles (pairs D3b)
+
+== the pitch fee doubles
+tier: life event
+sphere: comm
+haunt: comm.market
+ladder: known
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 .002 .004 .004 .002
+drivers: harsh+.2 prosper-.2 unrest+.1
+times: Market and street traders face rising pitch fees and rents; a fee rise that threatens one's own stall comes to about 1 in 12 lives, nearly all of them market traders (estimate). The superstore's coming is 'the superstore on the ring road' (ready/ev-comm)
+likelier: a market sold to a private owner, a town centre being rebuilt, a trader on thin margins
+rarer: a market run by the council on fixed fees, a person who never trades
+gap: 5-20
+tone: trouble
+life: work, money, community
+horizon: months
+roles: colleague
+who: colleague
+earth: the market's new owners double the pitch fee from next month, and the stall you have kept for years no longer pays
+scene: The notice is taped to every stall by seven: the market has new owners, and from next month the pitch fee doubles. {N} does the sums on the back of the notice. At the new fee the stall barely pays.
+scene W: The old fee was set by the council in the open. Nobody asked the stallholders about this one.
+scene U: {N} can see the plan behind it: empty the market, then sell the site.
+scene B: Half the stallholders will fold. Whoever stays will have the market to themselves.
+scene R: {N} wants to tear the notice down and throw it on the brazier.
+scene G: {colleague} at the next stall has been there forty years, and is already packing up, slowly.
+- W | call a meeting of every stallholder, and ask the council to review the fee | v: universalism, conformity | lever: voice | sphere: comm.W | chance: 60
+- U | find out who bought the market, and what they mean to build on it | v: self-direction, universalism | sphere: comm.U | chance: 60
+- B | offer to take the empty pitches at the old rate, and wait the owners out | v: power, achievement | sphere: comm.B | chance: 60
+- R | take the stall on the road to the fair towns, and leave the market behind | v: stimulation, self-direction | lever: exit | sphere: comm.R | chance: 60
+- G | stay on at the new fee for the regulars who have bought from you for years | act: stay on at the new fee for the regulars who have bought from them for years | v: tradition, security | lever: loyalty | sphere: comm.G | chance: 60
+- WB | ask the lawyer two stalls down to read the old lease for a clause they broke | v: conformity, power | sphere: comm.WB | chance: 50
+- WG | start a stallholders' co-op, and run your own market in the church car park | act: start a stallholders' co-op, and run their own market in the church car park | v: universalism, benevolence | lever: found | sphere: comm.GW | chance: 50
+- UR | sell online through the week, and from the van at the market gate on Saturdays | v: self-direction, stimulation | tech: internet | sphere: comm.UR | chance: 50
+- UG | share one pitch with the old neighbour, splitting the fee and the days | v: benevolence, security | sphere: comm.GU | chance: 50
+- BR | sell off the stock at one great last market, and start again elsewhere | v: stimulation, achievement | lever: exit | sphere: comm.BR | chance: 50
+works: The stallholders hold together, and the council caps the fee for three years.
+works: {N} finds a better pitch in a market two towns away, and the takings there are higher within a season.
+fails: Half the market is empty by the spring, and with the crowds gone {Ns} stall fades with it.
+fails: {N} hangs on for a year at the new fee, then gives up the pitch with nothing saved.
+
+# ---------------------------------------------------------------- life event: the order that makes the business (pairs D4a)
+
+== the order that makes the business
+tier: life event
+sphere: comm
+ladder: known
+stages: young_adult adult mature
+age: 24-65
+per_year: 0 0 .002 .005 .003 0
+drivers: prosper+.3 fortune+.2
+times: Among people who trade on their own account, a single deal that changes the size of the business comes to about 1 in 10 lives (estimate)
+likelier: a small maker or trader with a good name, a boom year, a trade fair in reach
+rarer: a person employed by others all their life, a depressed region, a trade with no big buyers
+gap: 10-30
+tone: joy
+life: work, money
+horizon: years
+roles: partner
+earth: a buyer for a chain of shops tastes your sauce at the trade fair, and offers an order ten times bigger than any you have filled
+scene: At the trade fair a buyer for a chain of shops tries {Ns} sauce at the stand, then offers an order ten times bigger than any {N} has filled. The contract can be signed on the spot, at a price {N} must meet every month for three years.
+scene W: The terms are fair on paper, and {N} means to keep every one of them, which means knowing first whether that can be done.
+scene U: Ten times the order means ten times the tomatoes, a bigger kitchen and staff. {N} starts the sums at once.
+scene B: This is the deal that turns a kitchen into a firm. {N} means to get the best terms out of it.
+scene R: {N} wants to shout, hug the buyer, and say yes before the buyer can think twice.
+scene G: The sauce is an old family recipe, made with the neighbours' tomatoes. {N} wonders who it is for, ten times over.
+- W | sign only for what you know you can deliver, and say so plainly | act: sign only for what they know they can deliver, and say so plainly | v: conformity, security | sphere: comm.W | chance: 60
+- U | ask for a week to cost the order, and come back with a plan | v: security, achievement | sphere: comm.U | chance: 60
+- B | say yes, and hold out for a better price per jar before signing | v: power, achievement | sphere: comm.B | chance: 60
+- R | sign on the spot, and work out the kitchen tomorrow | v: stimulation, hedonism | sphere: comm.R | chance: 60
+- G | ask the neighbours who grow the tomatoes whether they can grow ten times as many | v: benevolence, tradition | sphere: comm.G | chance: 60
+- WU | have someone you trust read the contract, clause by clause, before signing | act: have someone they trust read the contract, clause by clause, before signing | v: security, conformity | sphere: comm.WU | chance: 50
+- WB | borrow from the family against the contract, and build a proper kitchen | v: achievement, tradition | sphere: comm.WB | chance: 50
+- UR | offer the buyer a new recipe that nobody else makes, at a higher price | v: self-direction, achievement | sphere: comm.UR | chance: 50
+- BG | keep the old customers first, and give the chain only what is left | v: tradition, power | sphere: comm.BG | chance: 50
+- RG | throw a party for the growers and the kitchen, then hire them all | v: hedonism, benevolence | sphere: comm.RG | chance: 50
+works: The first delivery goes out on time, and within a year {N} has a kitchen, six staff and a name that buyers ask for.
+works: {N} keeps the business small but sure, and {partner} and {N} are offered a partnership by a larger maker the next year.
+fails: The order is filled, but the price was too low, and every jar sold loses a little money.
+fails: The kitchen cannot keep up, a delivery fails, and the chain cancels the contract in the spring.
+
+# ---------------------------------------------------------------- life event: the bargain that was a cheat (pairs D4b)
+
+== the bargain that was a cheat
+tier: life event
+sphere: comm
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .005 .004 .003 .003
+drivers: harsh+.2 trouble+.2
+times: Being sold goods with a hidden fault by a private seller or a dealer, and finding out after, is common; a cheat large enough to act on comes to about 1 in 6 lives (estimate). Earth's 'a scam phone call' is the attempt; this is the cheat already done
+likelier: a first car or van, buying second hand for cash, a town with many private sellers
+rarer: a person who buys only new, a buyer who brings a mechanic
+gap: 5-20
+tone: trouble
+life: money
+horizon: months
+roles: friend
+who: friend
+earth: the mechanic lifts your second-hand car and shows you the rust painted over and the mileage turned back: the seller knew
+scene: The car was a bargain, bought for cash from a man on the other side of town. Three weeks later the mechanic lifts it up and shows {N} the rust painted over and the mileage turned back. The seller knew.
+scene W: {N} shook the man's hand on it. A handshake is meant to mean something.
+scene U: {N} goes back over every word of the sale, looking for the question that should have been asked.
+scene B: {N} paid in cash. The man knows it, and probably thinks {N} will just let it go.
+scene R: {N} wants to drive straight round there and have it out on his doorstep.
+scene G: {friend} bought a car from the same man last year. {N} wonders how many others he has done this to.
+- W | report the sale to the consumer office, with the mechanic's written report | v: conformity, universalism | lever: voice | sphere: comm.W | chance: 60
+- U | find the car's old service records, and prove what the mileage really was | v: self-direction, achievement | sphere: comm.U | chance: 60
+- B | go round with the report and offer him a quiet deal: half back, or court | v: power, security | sphere: comm.B | chance: 60
+- R | park the car outside his house with a sign saying what he did | v: stimulation, self-direction | sphere: comm.R | chance: 60
+- G | warn everyone you know, and ask who else has bought from him | v: benevolence, universalism | sphere: comm.G | chance: 60
+- WG | gather the others he cheated, and take him to the small claims court together | v: universalism, benevolence | lever: voice | sphere: comm.GW | chance: 50
+- WR | stand by his car lot on Saturday morning, and tell every buyer what he did | v: universalism, stimulation | lever: voice | sphere: comm.RW | chance: 50
+- UB | sell the car to a breaker for parts, and learn what to check next time | v: security, achievement | sphere: comm.UB | chance: 50
+- UG | have the mechanic teach you to check a car, and help friends buy theirs | act: have the mechanic teach them to check a car, and help friends buy theirs | v: benevolence, self-direction | sphere: comm.GU | chance: 50
+- BR | answer his next advert, and confront him in front of the next buyer | v: power, stimulation | sphere: comm.BR | chance: 50
+works: Faced with the report, the seller pays back most of the price, and {N} never buys again without a mechanic.
+works: {N} finds four others he cheated, and together they get their money back and his adverts taken down.
+fails: The man has moved on, his number is dead, and the loss is {Ns} to carry.
+fails: The claim drags on for months, and the costs come close to what was lost.
+
+# ---------------------------------------------------------------- life event: the last market day at the old pitch (pairs D6b)
+
+== the last market day at the old pitch
+tier: life event
+sphere: comm
+haunt: comm.market
+ladder: pillar
+once: yes
+stages: mature elder
+age: 58-90
+per_year: 0 0 0 0 .002 .004
+drivers: health-.2 ties+.1
+times: Among those who keep a market stall or a small shop into later life, a last day of trading before stopping is a near-certain step; it comes to about 1 in 15 lives (estimate)
+likelier: a long-kept stall or shop, failing health, a family that wants the trader to rest
+rarer: a trader who sells up suddenly, a person who never kept a stall or a shop
+gap: 30-60
+tone: mixed
+life: work, community
+horizon: moment
+roles: colleague
+who: colleague
+earth: it is your last market day after forty years at the same pitch, and the regulars have heard
+scene: It is {Ns} last Saturday at the pitch after forty years. The stock is nearly gone, {colleague} has brought a flask of tea, and the regulars keep coming by, some to buy, most just to shake hands.
+scene W: {N} means to run this last day like every other: the scales checked, the prices posted, the pitch swept clean at the end.
+scene U: {N} has a notebook of forty years: prices, weather, faces. It reads like a history of the town.
+scene B: The pitch is worth something. Three traders have already asked {N} who it goes to.
+scene R: {N} wants to sell the last of everything by noon, and spend the afternoon at the café.
+scene G: {N} sold to the grandparents of the children who are buying today.
+- W | sweep the pitch clean at closing, and hand the key back to the warden in person | v: tradition, conformity | sphere: comm.W | chance: 60
+- U | give the notebook of forty years' prices to the town library | v: universalism, tradition | sphere: comm.U | chance: 60
+- B | sell the pitch to the highest bidder among the waiting traders | v: power, achievement | sphere: comm.B | chance: 60
+- R | sell off the whole stock cheap by noon, and buy the round at the café | v: hedonism, stimulation | sphere: comm.R | chance: 60
+- G | give the last of the stock to the regulars as keepsakes | v: benevolence, tradition | sphere: comm.G | chance: 60
+- WU | teach the youngest trader on the row to keep the books before you go | act: teach the youngest trader on the row to keep the books before they go | v: benevolence, tradition | sphere: comm.WU | chance: 50
+- WG | pass the pitch to the young trader at the top of the waiting list, for nothing | v: benevolence, universalism | sphere: comm.GW | chance: 50
+- UB | keep a share in the pitch, and let a younger trader run it for a cut | v: security, power | sphere: comm.UB | chance: 50
+- RG | stay until the lamps go up, and dance with the stallholders round the brazier | v: hedonism, tradition | sphere: comm.RG | chance: 50
+- BR | auction the old scales and the sign to the crowd, for the stories | v: stimulation, achievement | sphere: comm.BR | chance: 50
+works: The regulars give {N} a card signed by half the town, and a photograph of the old pitch goes up on the café wall.
+works: {N} goes back the next Saturday as a customer, and is surprised how good it feels.
+fails: The day passes quietly, and {N} drives home with half the stock and a strange, empty feeling.
+fails: The pitch goes to a trader {N} does not like, and the last day ends in an argument over the sign.
