@@ -369,7 +369,36 @@ W_DEFAULT = dict(
                        # about 1 in 3 over a lifetime, most by their late twenties)
     join_p=0.004,      # yearly chance a secular adult joins a faith
     switch_p=0.002,    # yearly chance of changing faith
+    # ---- stage 3 of the v22 update (chroma-world/model/stage3-rules.md §2, §3, §8). Each switch is a rule; off, the
+    # world runs exactly as v22.1 (engine UPD_OFF; a world saved before stage 3 loads with them off). Off by default:
+    # stage 1 goes live alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
+    cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
+    cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
+    coh_inst=0.10,     # LW1 1b: the young take in what schools, universities and media stand for (I -> K)
+    coh_scene=0.06,    # LW1 1c: the mobilised groups' want (and a revival's faith) reaches the young (G -> K)
+    coh_adult=0.20,    # LW1 1d: generations past 25 move with the times at this share of the young's pace (Danigelis 2007)
+    coh_anchor_s3=0.05,   # LW1 1e: the pull back to the starting values, loosened to about a third
+    anc_r=0.003,       # LW1 1e: the deep culture itself moves toward the society's values (a time constant of ~300 y)
+    coh_back=0.5,      # LW1 1f: groups left behind brake the culture's change of the last decade (Norris and Inglehart 2019)
+    acc_calm=1.61,     # LW1 1g: the shake index acc in a calm year (median of calm years, tools/world_alone.py, 10-09)
+    k_sh=2.0,          # LW1 1g: m_sh = clip(1 + k_sh (acc - acc_calm), 1, 3): about 1 decade in 7 shaken
+    gov_voter=0.30,    # LW2 2a: a new government moves this far from its party's colours toward what voters want
+    lead_k=0.15,       # LW2 2a: the head of government's own touch
+    party_k=0.01,      # LW2 2a': quarterly pull of a party toward its voters (Adams, Clark, Ezrow and Glasgow 2004)
+    loser_k=0.03,      # LW2 2a': ... and of a party that lost office toward the median, for four quarters
+    q_theta_s3=0.11, q_k_s3=1.6, q_hab_s3=0.75, era_on_s3=0.012, era_off_s3=0.007,   # LW2 2c: pressure, habit, eras (refit)
+    coh_gain=1.0,      # LW1: the era's and the times' security pull on the young (coh_era, coh_sec), refit with the rest
+    lose_k=5.0,        # LW2 2d: grievance built per unit of a group's loss at a breakthrough or an era's start
+    grv_fade=1 / 15.0, # LW2 2d: yearly fading of a grievance
+    lead_spread_s3=0.15,  # LW2 2e: spread of an institution leader's colours around the government's or society's
 )
+# the switches above (stage3-rules.md §8)
+S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
+            "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
+# their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
+S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_anchor_s3", "anc_r", "coh_back", "acc_calm", "k_sh", "gov_voter",
+             "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
+             "lose_k", "grv_fade", "lead_spread_s3")
 
 # ------------------------------------------------------------------------------------------------- small helpers
 
@@ -439,6 +468,10 @@ class World:
         self.log, self.record, self.push_log = [], [], []
         self._queue = []
         self._setup(int(start_t))
+
+    def _s3(self, k):
+        """Whether a stage 3 rule of the v22 update is on (stage3-rules.md §8)."""
+        return bool(self.p.get(k, False))
 
     def _tables(self):
         """Every color-indexed table, permuted once (color_perm)."""
@@ -574,7 +607,10 @@ class World:
         self.Y0 = 110                                      # cohort array row of birth year 0 (oldest born -110 y)
         y0 = self.t // 52                                  # 0 at home; a spawned neighbour starts later
         ncoh = self.Y0 + max(400, y0 + 130)
-        self.coh = np.tile(self.VPRE, (ncoh, 1)) * np.exp(p["coh_noise"] * self._cn(r, ncoh))
+        nz_ = self._cn(r, ncoh)
+        if self._s3("cult_no_dice"):                       # LW1 1h: no dice in the culture
+            nz_ = 0.0 * nz_
+        self.coh = np.tile(self.VPRE, (ncoh, 1)) * np.exp(p["coh_noise"] * nz_)
         self.coh /= self.coh.sum(1, keepdims=True)
         self.coh_fixed = np.zeros(len(self.coh), bool); self.coh_fixed[:self.Y0 + y0 - 14] = True
         self.coh_n = np.zeros(len(self.coh)); self.coh_n[:self.Y0 + y0 - 14] = 11
@@ -620,6 +656,8 @@ class World:
         # ---- institutions (spec 4) and public figures (spec 5 §6)
         self._init_inst(r)
         self._init_figs(r)
+        if self._s3("hist_chance_only"):                   # LW2 2e: the first government is its party's (drawn as before)
+            self.G = self.inst_profile[self.party_ids[self.gov_party]].copy()
         # ---- society (spec 6)
         self.Q, self.open_q, self.since_break, self.gap_now = 0.0, 0, 40, 0.0
         self.Pos = self._pos()
@@ -1214,16 +1252,19 @@ class World:
         p, r = self.p, self.R[4]
         x = r.random(8); xl = r.random(NL); nz = self._cn(r)
         d = _tv(self.G, self.Dem)
+        sn_ = r.normal()
+        if self._s3("hist_chance_only"):                   # LW2 2e: support follows the record, not dice
+            sn_ = 0.0
         self.support += (-p["rule_cost"] / 4 + p["ev_gap"] * (self.gap - self.gap_prev) - p["ev_u"] * (self.unemp - self.unemp_prev)
                          - p["ev_infl"] * max(self.infl - 4, 0) - p["th_sup"] * 0.25 * max(d - 0.05, 0)
-                         + 0.03 * (0.5 - self.support) * 0.25 + p["s_noise"] * r.normal())
+                         + 0.03 * (0.5 - self.support) * 0.25 + p["s_noise"] * sn_)
         self.support = _cl(self.support, 0.05, 0.95)
         self.gov_q += 1
         self.next_vote -= 1
         if self.next_vote <= 0 and self.regime >= 0:
             self._election(x, nz)
-        elif self.regime < 0 and x[5] < 0.01:
-            self.G = _norm(self.G + 0.1 * (self.Dem - self.G))   # closed regimes reshuffle rarely
+        elif self.regime < 0 and (self.Q > 0.5 * getattr(self, "q_thr", 1e9) if self._s3("hist_chance_only") else x[5] < 0.01):
+            self.G = _norm(self.G + 0.1 * (self.Dem - self.G))   # closed regimes reshuffle rarely (2e: when pressure builds)
         # the law book (spec 1 §3): the support a law has (the norm, the government's fit with the law's colors, pushes
         # that count for more where the norms agree) points to a state; the law moves one step toward it with a small
         # chance each quarter, so laws trail norms by years
@@ -1268,7 +1309,17 @@ class World:
         p = self.p
         res = self.support + p["e_noise"] * (2 * x[0] - 1) * 1.7
         turnout = _cl(0.66 - 0.15 * (self.polar - 0.1) * 0 + 0.1 * (self.trust - 0.45) + 0.03 * (2 * x[1] - 1), 0.3, 0.9)
-        if res < 0.5:
+        if res < 0.5 and self._s3("hist_party_gov"):    # LW2 2a: the party closest to demand governs in its own colours,
+            d = np.array([_tv(self.inst_profile[i], self.Dem) for i in self.party_ids])   # moved toward its voters, with
+            d[self.gov_party] = 9                                                         # its leader's touch
+            old = self.gov_party
+            self._change_gov(int(np.argmin(d)), x[3])
+            Pw = self.inst_profile[self.party_ids[self.gov_party]]
+            fid = self.fig_role_now.get(0)
+            L = np.asarray(self.F_pie[fid], float) if fid is not None and fid >= 0 else Pw
+            self.G = _norm(Pw + p["gov_voter"] * (self.Dem - Pw) + p["lead_k"] * (L - Pw))
+            self.s3_loser = (int(old), 4)
+        elif res < 0.5:
             Gn = _norm(self.Dem + p["k_thermo"] * (self.Dem - self.G))
             self.G = _norm(Gn * np.exp(p["g_noise"] * nz))
             d = np.array([_tv(self.inst_profile[i], self.G) for i in self.party_ids])
@@ -1277,6 +1328,7 @@ class World:
             self._change_gov(int(np.argmin(d)), x[3])
             pid = self.party_ids[self.gov_party]
             self.inst_profile[pid] = 0.5 * self.inst_profile[pid] + 0.5 * self.G
+        if res < 0.5:
             self.support = p["s_win"] + 0.02 * (2 * x[2] - 1)
             self._event("state", "election", "change", dict(party=self.gov_party, leader=self.fig, colors=self.G.round(2).tolist(),
                                                               support=round(float(res), 2), turnout=round(turnout, 2)), big=True)
@@ -1334,7 +1386,8 @@ class World:
         self.tenure_sum = getattr(self, "tenure_sum", 0.0) + float(self.inst_leader_q[newl].sum())   # hidden, for tests
         self.tenure_n = getattr(self, "tenure_n", 0) + int(newl.sum())
         base = np.where(pub[:, None], self.G, self.V)
-        self.inst_leader_pie = np.where(newl[:, None], _norm(base * np.exp(0.3 * nz)), self.inst_leader_pie)
+        ls_ = p["lead_spread_s3"] if self._s3("hist_chance_only") else 0.3   # LW2 2e: who leads is chance, their colours
+        self.inst_leader_pie = np.where(newl[:, None], _norm(base * np.exp(ls_ * nz)), self.inst_leader_pie)   # less so
         self.inst_leader_q = np.where(newl, 0, self.inst_leader_q)
         for i in np.nonzero(newl & (self.inst_level == 2))[0]:          # local routine changes stay off the record
             self._inst_event(i, "new leader")
@@ -1388,7 +1441,7 @@ class World:
             big = self.inst_level[i] == 2
             self._inst_event(i, "scandal", big=bool(big))
             if x[i, 3] < 0.5 and self.inst_leader_fig[i] < 0:
-                self.inst_leader_q[i] = 0; self.inst_leader_pie[i] = _norm(base[i] * np.exp(0.3 * nz[i]))
+                self.inst_leader_q[i] = 0; self.inst_leader_pie[i] = _norm(base[i] * np.exp(ls_ * nz[i]))
                 self._inst_event(i, "new leader")
             if self.inst_leader_fig[i] >= 0:
                 self._fig_scandal(self.inst_leader_fig[i])
@@ -1416,7 +1469,7 @@ class World:
             self.inst_native[i] = self._profile_src(g); self.inst_profile[i] = self.inst_native[i].copy()
             self.inst_finances[i], self.inst_age[i], self.inst_gen[i] = 0.5, 0.0, self.inst_gen[i] + 1
             self.inst_corruption[i], self.inst_legitimacy[i], self.inst_leader_q[i] = 0.1, self.inst_legit0[i], 0
-            self.inst_leader_pie[i] = _norm(self.V * np.exp(0.3 * nz[i]))
+            self.inst_leader_pie[i] = _norm(self.V * np.exp(ls_ * nz[i]))
             self._inst_event(i, "new firm", big=False)
         self.n_closures = getattr(self, "n_closures", 0) + int(close.sum())
 
@@ -1471,7 +1524,7 @@ class World:
         p, r = self.p, self.R[7]
         nz = r.normal(size=NN)
         # norms: logit S-curves toward a target set by the modern baseline, the value climate, the era and the law
-        fitV = (self.V - self.V_anchor) @ self.NPROF.T
+        fitV = (self.V - (self._anchor0() if self._s3("cult_anchor") else self.V_anchor)) @ self.NPROF.T   # 1e
         fitE = self.era_i * ((self.era_p - 0.2) @ self.NPROF.T) if self.era_key is not None else 0.0
         lawsign = np.zeros(NN); lawsign[:NL] = 1.0 - self.laws
         for kk, ri in NORM_RIGHT.items():
@@ -1482,6 +1535,8 @@ class World:
         tgt = self.norm_x0 + p["norm_v"] * fitV + p["norm_era"] * fitE + p["norm_law"] * (lawsign - self.lawsign0) - back
         young = self._share_young()
         rr = p["norm_r"] / 4 * (1 + 2.0 * (young - 0.2)) * (1 + 0.5 * self.comm)
+        if self._s3("cult_no_dice"):                       # LW1 1h: no dice in the culture
+            nz = 0.0 * nz
         self.norm_x = self.norm_x + rr * _uclip(tgt - self.norm_x, -1, 1) + 0.25 * self.norm_push + 0.012 * nz
         self.norm_push *= 0.5
         self.norm_hist = np.roll(self.norm_hist, -1, 0); self.norm_hist[-1] = self.norm_x
@@ -1558,6 +1613,8 @@ class World:
         voice = np.where(self.gidx[1] == 2, np.maximum(voice, 0.5), voice)
         wv = size * voice
         wq = size * (1 + p["mobil"] * U.sum(1))
+        if self._s3("hist_grievance") and getattr(self, "s3_grv", None) is not None:   # LW2 2d: those the last change
+            wq = wq * (1 + self.s3_grv)                                                # left behind push harder
         D0 = (wv[:, None] * want).sum(0) / wv.sum()
         Dq0 = (wq[:, None] * want).sum(0) / wq.sum()
         self.D0 = D0                                       # demand before the thermostat (hidden; tests)
@@ -1583,14 +1640,16 @@ class World:
             self.gap_slow = max(self.gap_slow, gap)
             self.mandate_q -= 1
         self.gap_now = gap
-        exc = max(gap - p["q_tol"] - p["q_hab"] * (p["mixed_hab"] if mixed else 1.0) * self.gap_slow, 0)
-        self.Q = self.Q * (1 - p["q_decay"]) + self.pace * p["q_k"] * exc * max(acc, 0.2)
+        hp_ = self._s3("hist_pressure")
+        exc = max(gap - p["q_tol"] - p["q_hab_s3" if hp_ else "q_hab"] * (p["mixed_hab"] if mixed else 1.0) * self.gap_slow, 0)
+        self.Q = self.Q * (1 - p["q_decay"]) + self.pace * p["q_k_s3" if hp_ else "q_k"] * exc * max(acc, 0.2)
+        self._s3_society(U, want, size, wv, wq, D0, acc)
         age_i = float(np.minimum(self.inst_age, 120) @ self.inst_reach) / (float(self.inst_reach.sum()) + 1e-9) / 60
         rigid = float((self.law_since > 20).sum()) / NL
         hold = (0.55 + 0.15 * age_i + 0.2 * self.capacity + 0.15 * rigid + 1.0 * (self._share_old() - 0.25)
                 + 0.4 * (self.regime < -5) * (1 - self.demo) - p["mixed_hold"] * mixed)
         self.hold = hold
-        self.q_thr = p["q_theta"] * max(hold, 0.2) ** p["q_hold"]
+        self.q_thr = p["q_theta_s3" if hp_ else "q_theta"] * max(hold, 0.2) ** p["q_hold"]
         self.open_q = max(self.open_q - 1, 0)
         self.since_break += 0.25
         if self.Q > self.q_thr:
@@ -1601,6 +1660,7 @@ class World:
     def _breakthrough(self, U, want, size, x, nz):
         """Reform, revolution, revival or restoration (spec 6 §5); then pressure resets and the society stays open."""
         p = self.p
+        pos_before = self.Pos.copy()
         exc = self.unmet_mean - self.need_base
         change = _tv(self.Pos, self.pos_hist[0])
         if self.regime < 6 and (self.unrest > 0.3 or (self.phase == 1 and self.severity == 2) or self.war == 2 or self.lost_war_q > 0):
@@ -1631,7 +1691,7 @@ class World:
             self.G = _norm(self.G + step * (T - self.G))
             self._event("belief", "revival", None, dict(faith=f), big=True)
         else:                                                # a landslide or a wave of reforms: the order is formed anew
-            Gt = _norm(T * np.exp(0.5 * p["g_noise"] * nz))
+            Gt = T if self._s3("hist_pressure") else _norm(T * np.exp(0.5 * p["g_noise"] * nz))   # 2c: no spread
             self.G = Gt if kind != 0 else _norm(self.G + p["ref_g"] * (Gt - self.G))   # a reform goes part of the way
             old = self.gov_party
             d = np.array([_tv(self.inst_profile[i], self.G) for i in self.party_ids])
@@ -1645,7 +1705,8 @@ class World:
             else:
                 self.support = min(0.95, self.support + 0.05)
             pid = self.party_ids[self.gov_party]
-            self.inst_profile[pid] = 0.5 * self.inst_profile[pid] + 0.5 * self.G
+            if not self._s3("hist_party_gov"):               # 2a: a party keeps its own colours; they move with its voters
+                self.inst_profile[pid] = 0.5 * self.inst_profile[pid] + 0.5 * self.G
         # laws: a burst of landmark laws toward the target; institutions reorganised toward it
         fit = (T - 0.2) @ self.NPROF[:NL].T
         n = _sig(self.norm_x[:NL])
@@ -1664,11 +1725,98 @@ class World:
             self._regime_derived()
         self.Q = 0.0
         self.Pos = self._pos()
+        if self._s3("hist_grievance"):                     # LW2 2d: who lost by this change keeps it in mind
+            self._grieve(want, pos_before, self.Pos)
         self.gap_slow = _tv(self.Pos, self.Dem_q)          # the new order becomes what people measure against
         self.open_q = int(p["q_open"][kind] * 4)
         self.since_break = 0.0
         self.break_kind = kind
         self.break_t = self.t
+
+    # ---- stage 3 of the v22 update (chroma-world/model/stage3-rules.md §2 and §3)
+    def _anchor0(self):
+        """The starting value climate, which the norms keep reading when the anchor itself moves (LW1 1e)."""
+        if getattr(self, "V_anchor0", None) is None:
+            self.V_anchor0 = np.asarray(self.V_anchor, float).copy()
+        return self.V_anchor0
+
+    def _m_sh(self):
+        """LW1 1g: how shaken the last year was, 1 (calm) to 3, from the year's mean of the accelerators."""
+        p = self.p
+        a = getattr(self, "s3_acc", None)
+        acc = float(np.mean(a)) if a else p["acc_calm"]
+        return float(_cl(1 + p["k_sh"] * (acc - p["acc_calm"]), 1, 3))
+
+    def _s3_young_pull(self):
+        """LW1 1b and 1c: what schools and media stand for, and the movements of the time, pulling the young."""
+        p, out = self.p, np.zeros(C)
+        if self._s3("cult_schools"):
+            k = self.inst_kind
+            sm = np.isin(k, [INST_KINDS.index("school"), INST_KINDS.index("university"), INST_KINDS.index("media")])
+            w = self.inst_capacity[sm] * self.inst_reach[sm]
+            if w.sum() > 0:
+                out += p["coh_inst"] * ((w[:, None] * self.inst_profile[sm]).sum(0) / w.sum() - self.Vc)
+        if self._s3("cult_scenes") and getattr(self, "s3_mw", None) is not None:
+            out += p["coh_scene"] * self.s3_mob * (self.s3_mw - self.Vc)
+        return out
+
+    def _grieve(self, want, before, after):
+        """LW2 2d: each group's loss from a change of the order becomes a grievance that fades over years."""
+        loss = np.maximum(_tv(want, after) - _tv(want, before), 0)
+        g = getattr(self, "s3_grv", None)
+        self.s3_grv = (np.zeros(len(loss)) if g is None else g) + self.p["lose_k"] * loss
+
+    def _s3_society(self, U, want, size, wv, wq, D0, acc):
+        """The stage 3 rules that read society's quarter: the shake (1g), movements (1c), parties (2a'), grievances."""
+        p = self.p
+        if not any(self._s3(k) for k in S3_RULES):
+            return
+        self.s3_want, self.s3_size = want, size
+        if self._s3("cult_shake"):                         # 1g, plus fast growth: the gap a deviation above its mean
+            gm = getattr(self, "s3_gap_m", None)
+            if gm is None:
+                gm, gv = float(self.gap), 0.0
+            else:
+                gv = self.s3_gap_v
+            gm += 0.01 * (self.gap - gm); gv += 0.01 * ((self.gap - gm) ** 2 - gv)
+            self.s3_gap_m, self.s3_gap_v = gm, gv
+            self.s3_boom_q = (getattr(self, "s3_boom_q", 0) + 1) if self.gap - gm > np.sqrt(max(gv, 1e-12)) else 0
+            self.acc = float(acc + 0.5 * (self.s3_boom_q >= 4))
+            self.s3_acc = (getattr(self, "s3_acc", []) + [self.acc])[-4:]
+        if self._s3("cult_scenes"):                        # 1c: the movements of the time (and a revival's faith)
+            u = 1 + p["mobil"] * U.sum(1)
+            ub = float((size * u).sum() / size.sum())
+            w = size * np.maximum(u - ub, 0)
+            mw = (w[:, None] * want).sum(0) / w.sum() if w.sum() > 0 else self.Vc.copy()
+            m0 = getattr(self, "s3_mob_m", None)
+            m0 = ub if m0 is None else m0 + (ub - m0) / 200
+            self.s3_mob_m = m0
+            mob = float(_cl(ub / m0 - 1, 0, 1))
+            rv = getattr(self, "revival", (0, 0))
+            if rv[1] > 0:
+                mw, mob = 0.5 * mw + 0.5 * self.FPROF[rv[0]], max(mob, 0.5)
+            self.s3_mw, self.s3_mob = _norm(mw), mob
+        if self._s3("hist_party_gov"):                     # 2a': parties move slowly with their voters
+            ids = self.party_ids
+            prof = self.inst_profile[ids]
+            close = np.argmin(0.5 * np.abs(want[:, None, :] - prof[None]).sum(-1), 1)
+            lam = _cl((self._m_sh() - 1) / 2, 0, 1) if self._s3("cult_shake") else 0.0
+            w = (1 - lam) * wv + lam * wq
+            ls = getattr(self, "s3_loser", (-1, 0))
+            for j in range(len(ids)):
+                sel = close == j
+                if w[sel].sum() > 0:
+                    B = (w[sel][:, None] * want[sel]).sum(0) / w[sel].sum()
+                    prof[j] = prof[j] + p["party_k"] * (B - prof[j])
+                if j == ls[0] and ls[1] > 0:
+                    prof[j] = prof[j] + p["loser_k"] * (D0 - prof[j])
+            self.inst_profile[ids] = _norm(prof)
+            if ls[1] > 0:
+                self.s3_loser = (ls[0], ls[1] - 1)
+        if self._s3("hist_grievance") and getattr(self, "s3_grv", None) is not None:
+            if len(self.s3_grv) != len(want):
+                self.s3_grv = np.zeros(len(want))
+            self.s3_grv = self.s3_grv * (1 - p["grv_fade"] / 4)
 
     def _era(self):
         """Name what emerges (spec 6 §6): an era while Pos leans clearly toward one combination.
@@ -1688,18 +1836,19 @@ class World:
         nd = np.linalg.norm(d)
         best = int(np.argmax(COMBO_DIR @ d)) if nd > 0 else -1
         self.lean = lean
+        e_on, e_off = self._era_th()
         just = getattr(self, "break_t", -1) == self.t
         if just and getattr(self, "break_kind", 0) == 2 and best >= 0 and not (self.era_key is not None and self.era_k == 2):
             if self.era_key is not None:                      # a revival is a cosmology era (spec 6 §5-6): it ends the
                 self._era_end()                               # running one and names its own, even on a faint lean
-            self._era_begin(best, max(lean, p["era_on"]))
+            self._era_begin(best, max(lean, e_on))
             return
         if self.era_key is None:
-            if lean > p["era_on"] and best >= 0:
+            if lean > e_on and best >= 0:
                 self._era_begin(best, lean)
             return
         cur = COMBO_KEYS.index(self.era_key)
-        if lean < p["era_off"]:
+        if lean < e_off:
             self._era_end()
             return
         cos = float(COMBO_DIR[cur] @ d / nd)
@@ -1707,7 +1856,7 @@ class World:
             self.era_lead_q += 1
             if self.era_lead_q >= p["era_switch"] or (just and cos < 0):
                 self._era_end()
-                if lean > p["era_on"]:
+                if lean > e_on:
                     self._era_begin(best, lean)
                 return
         else:
@@ -1716,7 +1865,13 @@ class World:
 
     def _inten(self, lean):
         p = self.p
-        return _cl(0.3 + 0.7 * (lean - p["era_on"]) / (p["era_hi"] - p["era_on"]), 0.3, 1.0)
+        e_on = self._era_th()[0]
+        return _cl(0.3 + 0.7 * (lean - e_on) / (p["era_hi"] - e_on), 0.3, 1.0)
+
+    def _era_th(self):
+        """The era's start and end leans (LW2 2c refits them when pressure alone makes the eras)."""
+        p = self.p
+        return (p["era_on_s3"], p["era_off_s3"]) if self._s3("hist_pressure") else (p["era_on"], p["era_off"])
 
     def _era_begin(self, best, lean):
         key = COMBO_KEYS[best]
@@ -1734,6 +1889,14 @@ class World:
         self.n_era += 1
         by_break = getattr(self, "break_t", -10 ** 9) >= self.t - 8 * 13
         self.era_at.append([self.t, key, round(self.era_i, 3), ERA_KINDS[kind]])
+        if self._s3("hist_grievance") and getattr(self, "s3_want", None) is not None:   # LW2 2d
+            if getattr(self, "s3_grv", None) is None or len(self.s3_grv) != len(self.s3_want):
+                self.s3_grv = np.zeros(len(self.s3_want))
+            w_ = self.s3_size * self.s3_grv
+            if w_.sum() > 0:                               # what the last change's losers want, as this era starts (tests)
+                self.s3_era_ans = getattr(self, "s3_era_ans", []) + [(int(self.t), ((w_[:, None] * self.s3_want).sum(0)
+                                                                                     / w_.sum()).tolist(), key)]
+            self._grieve(self.s3_want, self.Pos_slow, self.Pos_era)
         self._event("era", "era begins", key, dict(kind=ERA_KINDS[kind], idea=IDEAS[key][0], intensity=round(self.era_i, 2),
                                                     breakthrough=bool(by_break)), big=True)
 
@@ -1935,10 +2098,18 @@ class World:
         nz = self._cn(r)
         sec = self.security()
         self.sec_hist = getattr(self, "sec_hist", []) + [round(sec, 4)]
-        base = _norm((1 - p["coh_anchor"]) * self.Vc + p["coh_anchor"] * self.V_anchor)
+        ca_ = p["coh_anchor_s3"] if self._s3("cult_anchor") else p["coh_anchor"]     # LW1 1e
+        base = _norm((1 - ca_) * self.Vc + ca_ * self.V_anchor)
         era = self.era_i * (self.era_p - 0.2) if self.era_key is not None else np.zeros(C)
         open_ = 1.5 if self.open_q > 0 else 1.0
-        imp = _norm(base + p["coh_era"] * open_ * era + p["coh_sec"] * (sec - SEC_REF) * self.DSEC * 0.2) * np.exp(p["coh_noise"] * nz)
+        m_ = self._m_sh() if self._s3("cult_shake") else 1.0                          # LW1 1g: shaken times move faster
+        if self._s3("cult_no_dice"):                                                  # LW1 1h: no dice in the culture
+            nz = 0.0 * nz
+        if m_ == 1.0 and not (self._s3("cult_schools") or self._s3("cult_scenes")):
+            imp = _norm(base + p["coh_era"] * open_ * era + p["coh_sec"] * (sec - SEC_REF) * self.DSEC * 0.2) * np.exp(p["coh_noise"] * nz)
+        else:
+            imp = _norm(base + m_ * p["coh_gain"] * (p["coh_era"] * open_ * era + p["coh_sec"] * (sec - SEC_REF) * self.DSEC * 0.2)
+                        + m_ * self._s3_young_pull()) * np.exp(p["coh_noise"] * nz)
         imp /= imp.sum()
         self._ensure_coh(y)
         for age in range(15, 26):
@@ -1952,6 +2123,15 @@ class World:
         for b in range(max(self.Y0 + y - 14, 0), self.Y0 + y + 1):       # the unformed young follow the society
             if not self.coh_fixed[b] and self.coh_n[b] == 0:
                 self.coh[b] = base
+        if self._s3("cult_adults"):                        # LW1 1d: generations past 25 move with the times, a fifth as fast
+            bs = np.arange(max(self.Y0 + y - 100, 0), max(self.Y0 + y - 25, 0))
+            bs = bs[self.coh_fixed[bs]]
+            if len(bs):
+                self.coh[bs] += p["coh_adult"] / 11 * m_ * (imp - self.coh[bs])
+                self.coh[bs] /= self.coh[bs].sum(1, keepdims=True)
+        if self._s3("cult_anchor"):                        # LW1 1e: the deep culture itself moves over centuries
+            self._anchor0()
+            self.V_anchor = _norm(self.V_anchor + p["anc_r"] * (self.Vc - self.V_anchor))
 
     def security(self):
         """How secure the times are for the young (0..1): work, war, pandemic, prices, welfare (estimate)."""
@@ -2055,7 +2235,14 @@ class World:
             self.mig_tilt = p["tilt_mig"] * (ev - self.Vc)
         tm = np.vstack([np.zeros(C), self.mig_tilt])
         a, c, pl, f, m = self.gidx
-        self.gmix = _norm(cb[a] + tc[c] + tp[pl] + tf[f] + tm[m], 0.01)
+        if self._s3("cult_pushback") and getattr(self, "group_unmet", None) is not None and len(self.Vc_hist) > 10:
+            dV = self.V - np.asarray(self.Vc_hist[-11])  # LW1 1f: the last decade's change, braked by those it leaves behind
+            u_ = self.group_unmet.sum(1); u_ = _uclip(u_ / max(u_.mean(), 1e-9) - 1, 0, 2)
+            lb = (u_ * np.where(a >= 4, 1.0, np.where(a >= 3, 0.5, 0.2)) * np.array([0.7, 1.0, 1.3])[pl]
+                  * np.array([1.3, 1.0, 0.7])[c])
+            self.gmix = _norm(cb[a] + tc[c] + tp[pl] + tf[f] + tm[m] - p["coh_back"] * lb[:, None] * dV, 0.01)
+        else:
+            self.gmix = _norm(cb[a] + tc[c] + tp[pl] + tf[f] + tm[m], 0.01)
         a_ = self.pop.sum((1, 2, 3, 4))
         self.old_share, self.young_share = float(a_[5:].sum() / a_[1:].sum()), float(a_[1:3].sum() / a_[1:].sum())
         fs = self.pop.sum((0, 1, 2, 4))
@@ -2262,13 +2449,22 @@ class World:
             s = g.bit_generator.state
             rng.append(dict(bit_generator=s["bit_generator"], state={a: str(b) for a, b in s["state"].items()},
                             has_uint32=int(s["has_uint32"]), uinteger=str(s["uinteger"])))
-        return dict(version=1, seed=self._seed, society=int(self.society_id),
-                    cfg=_jsafe({k: v for k, v in self.cfg.items() if k != "legacy"}),
-                    params=_jsafe(self.p), perm=self.perm.tolist(), rng=rng, state=st)
+        cfg, par = {k: v for k, v in self.cfg.items() if k != "legacy"}, dict(self.p)
+        if not any(self._s3(k) for k in S3_RULES):        # stage 3 off: saved as v22.1 saved it (load restores them)
+            par = {k: v for k, v in par.items() if k not in S3_RULES + S3_PARAMS}
+            cp_ = {k: v for k, v in (cfg.get("params") or {}).items() if k not in S3_RULES + S3_PARAMS}
+            cfg = {k: v for k, v in cfg.items() if k != "params"}
+            if cp_:
+                cfg["params"] = cp_
+        return dict(version=1, seed=self._seed, society=int(self.society_id), cfg=_jsafe(cfg),
+                    params=_jsafe(par), perm=self.perm.tolist(), rng=rng, state=st)
 
     @classmethod
     def load(cls, d):
-        W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=d["params"], society=d.get("society", 0))
+        params = dict(d["params"])
+        for k in S3_RULES:                                 # saved before stage 3: its rules stay as they were
+            params.setdefault(k, False)
+        W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))
         for k, v in d["state"].items():
             if isinstance(v, dict) and "__nd__" in v:
                 v = np.array(v["data"], dtype=v["__nd__"]).reshape(v["shape"])

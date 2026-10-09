@@ -565,16 +565,19 @@ def _world_fields(L):
             seen += [x for x in vals(src.get("roles", "")) if x in WK.WHO_SLOTS]
             who[si] = list(dict.fromkeys(seen))
     law = np.full((S, K), -1); norm = np.full((S, K), -1); tech = np.full((S, K), -1); lever = np.full((S, K), -1)
+    law_neg = np.zeros((S, K), bool); norm_neg = np.zeros((S, K), bool)   # a leading minus: the other way round
     push = np.full((S, K), -1); push_sub = {}; role = np.full((S, K), -1)
     for si in range(S):
         for ki, nt in enumerate(L["notes"][si]):
             if not nt:
                 continue
             nm = f"moment {L['src'][si].get('name', si)!r}, option {ki + 1}"
-            if nt.get("law"):
-                law[si, ki] = one(nt["law"], WK.LAW_KEYS, nm)[0]
+            if nt.get("law"):   # a leading minus closes the option the other way round (v23 W38: -conscription)
+                lv_ = str(nt["law"]).strip(); law_neg[si, ki] = lv_.startswith("-")
+                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS, nm)[0]
             if nt.get("norm"):
-                norm[si, ki] = one(nt["norm"], WK.NORM_KEYS, nm)[0]
+                nv_ = str(nt["norm"]).strip(); norm_neg[si, ki] = nv_.startswith("-")
+                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS, nm)[0]
             if nt.get("tech"):
                 tech[si, ki] = one(nt["tech"], WK.TECH_KEYS, nm)[0]
             if nt.get("role"):   # N1b: women, men (an act the world reserves for that sex), keep or cross (the scene's role)
@@ -600,7 +603,7 @@ def _world_fields(L):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
-             W_LAW=law, W_NORM=norm, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
+             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)

@@ -124,6 +124,9 @@ class WorldLink:
         W = P.get("world_obj")
         if W is None:
             ws = P.get("world_seed")
+            s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
+            if s3_:
+                cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = WM.World(int(seed if ws is None else ws), cfg=cfg)
             W.burn_in(burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
@@ -183,6 +186,8 @@ class WorldLink:
         self.want = np.asarray(L.get("W_WANT", np.full(S, -1)))
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
+        self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
+        self.norm_neg = np.asarray(L.get("W_NORM_NEG", np.zeros((S, K), bool)))   # goes against the law or norm in force
         self.push = np.asarray(L.get("W_PUSH", np.full((S, K), -1)))
         self._infer_pushes(E, L, S, K)
         self.ssm = WK.LAW_KEYS.index("same-sex marriage")
@@ -491,6 +496,8 @@ class WorldLink:
         gone = np.zeros((N, K), bool)
         if (lw >= 0).any():
             st_ = np.array([W.law_state(k_) for k_ in WK.LAW_KEYS])[np.maximum(lw, 0)]   # 0 legal, 1 restricted, 2 banned
+            if self.law_neg.any():   # -key: against the law where the act is in force or allowed (evading a call-up)
+                st_ = np.where(self.law_neg[s], 2 - st_, st_)
             app_ = lw >= 0
             app_ &= (lw != self.ssm) | partner_same[:, None]      # same-sex marriage's law binds a same-sex couple only
             u_law = np.where(app_, np.where(st_ == 2, 1.0, np.where(st_ == 1, 0.5, 0.0)), 0.0)
@@ -498,6 +505,8 @@ class WorldLink:
         if (nm >= 0).any():
             acc_ = self.acc_                                        # N, n_norm: society's norm with the close circle's view
             a_ = np.take_along_axis(acc_, np.maximum(nm, 0), 1)
+            if self.norm_neg.any():   # -key: frowned on where the norm is accepted (snubbing a same-sex partner)
+                a_ = np.where(self.norm_neg[s], 1 - a_, a_)
             u_app = np.where(nm >= 0, 2.0 * (1 - a_), 0.0)
         if (te >= 0).any():
             for k_ in np.unique(te[te >= 0]):

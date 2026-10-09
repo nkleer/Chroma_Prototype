@@ -175,6 +175,25 @@ TIERS = ["everyday", "life event", "inner", "echo", "engine"]
 TAGS4 = ["habit", "door", "identity", "binds"]
 
 
+# v23 life domains (Emren 10-04: "coefficients on the current color allocation; the deep core stays one, with modifiers per
+# domain (work, home, friends, faith...)"). A moment's area: the Library's area: mark, else its first life: tag that names one.
+AREAS = ["work", "home", "friends", "faith"]
+AREA_OF_LIFE = {"work": 0, "school": 0, "study": 0, "learning": 0, "family": 1, "home": 1, "love": 1, "children": 1,
+                "partner": 1, "loss": 1, "care": 1, "friends": 2, "community": 2, "play": 2, "leisure": 2, "sport": 2,
+                "neighbours": 2, "a team": 2, "a choir": 2, "volunteering": 2, "faith": 3, "tradition": 3}
+
+
+def area_of(s):
+    """The life area a moment belongs to (index in AREAS), or -1 for the core (alone, the body, money, the world)."""
+    a_ = str(s.get("area", "") or "").strip()
+    if a_:
+        return AREAS.index(a_) if a_ in AREAS else -1
+    for t_ in str(s.get("life", "") or "").split(","):
+        if t_.strip() in AREA_OF_LIFE:
+            return AREA_OF_LIFE[t_.strip()]
+    return -1
+
+
 def compile_library(symmetric=False, situations=None):
     """symmetric=True adds all 10 rotations/reflections of the pie, so situation
     CONTENT favours no color. Used to test the engine rather than the library.
@@ -185,7 +204,7 @@ def compile_library(symmetric=False, situations=None):
         for key in ("M", "E", "ALPHA"):
             out[key] = np.concatenate([base[key][..., perm_inv(p)] for p in DIHEDRAL], 0)
         for key in ("DIFF", "MASK", "STAKES", "STG", "RIT", "OVR", "REQ", "PAY", "WIN", "LOSE", "COMMIT", "NEEDK", "EXCLK", "DOM", "RATE", "AGE", "DRV",
-                    "TIER", "ONCE", "ONCE_K", "KILLS", "ENDS", "MOVES", "MARK", "CLOSED", "BODY", "TAG", "HEDON", "SC"):
+                    "TIER", "ONCE", "ONCE_K", "KILLS", "ENDS", "MOVES", "MARK", "CLOSED", "BODY", "TAG", "HEDON", "SC", "AREA"):
             out[key] = np.concatenate([base[key]] * 10, 0)
         out["PERY"] = np.concatenate([base["PERY"] / 10] * 10, 0)      # ten copies of each life event share its base rate
         out["OID"] = np.concatenate([base["OID"] + i * base["NOPT"] for i in range(10)], 0)
@@ -204,6 +223,7 @@ def compile_library(symmetric=False, situations=None):
     KILLS = np.array([ROLES.index(s["kills"].strip()) if s.get("kills") else -1 for s in SITUATIONS_])
     ENDS = np.array([kind_or_none(s.get("ends", "").strip() or None) for s in SITUATIONS_])
     MOVES = np.array([bool(s.get("moves")) for s in SITUATIONS_])
+    AREA = np.array([area_of(s) for s in SITUATIONS_], int)
     MARK = np.full((S, K), -1); CLOSED = np.full((S, K), -1); BODY = np.zeros((S, K)); TAG = np.zeros((S, K, 4), bool)
     HEDON = np.zeros((S, K), bool); notes = []
     SC = np.zeros((S, K))                     # v7: self_control "+" (a promise kept, holding on, saving up) or "-" (giving in, giving up)
@@ -262,7 +282,7 @@ def compile_library(symmetric=False, situations=None):
                 REQ=REQ, PAY=PAY, WIN=WIN, LOSE=LOSE, COMMIT=COMMIT, NEEDK=NEEDK, EXCLK=EXCLK, DOM=DOM, RATE=RATE, AGE=AGE, PERY=PERY, DRV=DRV,
                 RECON=names.index("reconsidering a commitment"),
                 TIER=TIER, ONCE=ONCE, ONCE_K=ONCE_K, KILLS=KILLS, ENDS=ENDS, MOVES=MOVES, MARK=MARK, CLOSED=CLOSED, BODY=BODY, TAG=TAG,
-                HEDON=HEDON, SC=SC, MARKS=marks, src=list(SITUATIONS_), notes=notes)
+                HEDON=HEDON, SC=SC, AREA=AREA, MARKS=marks, src=list(SITUATIONS_), notes=notes)
 
 
 LIB = compile_library()
@@ -506,10 +526,40 @@ DEFAULT = dict(
     chi=0.03, xi=0.01,
     framing="mild",     # v6 default (Emren 22:46): mild tension on Magic's five questions. Name in FRAMINGS or a 5x5 matrix: how the world reads color relations
     ten_good=0.05, ten_bad=0.2, ten_split=0.5,   # v6: acts joining opposed colors pay off in meaning when they work, in stress
-                                                # and lost integration when they fail
+                                                # and lost integration when they fail. Enemy pairs (item 5, Emren 10-07 12:42
+                                                # UTC): a fair bet, ten_bad = ten_good (.05), from the stage 2 refit
     mu=0.3,          # strength of framing tension/synergy (v3: 0.1 was too weak once upkeep and needs balance people)
+    drift_frames=None,   # enemy pairs (item 5): the framing's weekly drift (mu) and its cut on ends sought through opposed
+    ends_frames=None,    # means only in these worlds (Magic's pie taken literally; ("pie", "axes") from the stage 2 refit); the
+                         # default world keeps its tension as felt calm and the bet, and every pair is an ordinary way to live
+                         # (chroma-philosophy/enemy-pairs.md). None: every world (v6-v22.1)
     iota=0.1,        # integration learning
     upkeep=0.08,     # v6 (v4-v5: 0.13). cost of holding a concentrated identity (v4: 0.13 keeps strong dominance above 0.6 rare once eras and events push)
+    # Shadows (Emren 2026-10-07 12:18 UTC, chroma-philosophy/shadows.md), in place of upkeep: a colour that rules a life
+    # shows its own weakness, as Magic's writing names it, and the costs it brings pull the person back toward what they
+    # lack through the loops the engine has (a failure teaches what the moment called for: fail_fit)
+    shadows=False,             # item 2, on from the stage 2 refit
+    # light and shadow (chroma-ideas/shadows-mechanics.md, 10-08): each colour has a shadow part s (0 to 1), which grows
+    # toward a target from four sources: holding on while life asks to move, ruling the life, no enemy colour to argue,
+    # strain. Its force e = min(1, w x s / sh_full) drives the effects; a state word shows from 18 (on .5, off .35)
+    sh_age=13.0,               # a shadow part can grow from this age
+    sh_src=(0.5, 0.5, 0.4, 0.4),   # how far each source alone moves the target: holding on, ruling, no counterweight, strain
+    sh_grow=6.0, sh_fade=12.0,  # months for the shadow part to move most of the way to its target, growing and fading
+    sh_full=0.20,              # the shadowed share (w x s) at which the force is full
+    sh_care=0.5,               # being cared for softens the target (check 3: shadows can be lived with)
+    sh_integ=0.5,              # holding an enemy pair well (integration J with either enemy) softens it
+    sh_over=0.5,               # overuse: utility bonus, at full force, on options in the shadowed colour's ways (heart and head)
+    sh_counter=0.03,           # a counter-pick that works (the player picks another way than the shadow's pull) lowers s
+    sh_seen=0.15,              # a reflection moment met lowers s and marks the shadow seen
+    sh_gain=(1.0, 1.0, 1.0, 1.0, 1.0),   # per colour, W U B R G: fitted so each dominant colour lasts about as long (check 2)
+    sh_fail=1.0,               # logit cost, at a full shadow, on acts in the colour's own ways: its own downfall (unseen in felt odds)
+    sh_tie=0.10,               # W rigid, B ruthless (R reckless half): ties fall by this much at a full shadow (people leave)
+    sh_strain=0.004,           # W rigid: weekly strain of duty held too hard (stress)
+    sh_form="own",   # how the pull works: "own" (the shadowed color gives way) or "balance" (back toward what is lacking)
+    sh_pull=0.05,   # an active shadow pulls its own color back (log-ratio share a week at full strength)
+    sh_lapse=0.15,             # U indecisive: share of chosen acts lost while weighing them, at a full shadow (the chance passed)
+    sh_body=0.10, sh_burn=0.5,  # R reckless: health falls by this much at a full shadow; discipline wears (yearly share)
+    sh_door=0.5,               # G stuck in their ways: moments that could start something new come this much less often
     # dynamics
     mom=0.25, kappa_e=0.02, eps_core=0.01, M0=90.0, noise=0.03,   # v6 M0 (v5: 25)
     settle_log=True,  # v3: experience lowers plasticity logarithmically (v2: in proportion), so adults keep changing
@@ -678,6 +728,11 @@ DEFAULT = dict(
     world=False,         # the outer world (world.py, world_people.py through world_link.py): a living society around the lives
     world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy; burn_years), world_seed (else the run's)
     world_seed=None, world_obj=None, people_obj=None,   # a World or People already made (the game's saved world), else new
+    # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
+    # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
+    # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
+    cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
+    cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -688,6 +743,7 @@ DEFAULT = dict(
     # A world setting (Emren 07:12: a soft trend that society, institutions, the state and peers can set; other worlds can
     # turn it, e.g. a society that sacrifices its elders): hz_tilt is which color ends limited time favors there.
     hz_k=1.0,            # weight of the felt horizon on what an option is worth (its ways and ends, by hz_tilt)
+    hz_self=0.0,         # next version (Blue): the felt horizon's trend moves who one is too, not only the want (weekly, logits)
     hz_want=0.03,        # weekly pull of a short horizon on the want, toward the colors hz_tilt favors (.025 before
                          # the point 9 content curve, which took some of the push toward tradition away; re-measured)
     # (Earth scorecard, 300 lives: age r conservation +.10, openness -.10, self-enhancement -.11, self-transcendence +.11;
@@ -731,6 +787,34 @@ DEFAULT = dict(
     # take on (Lazarus 1984; prevention vs promotion focus, Higgins 1997; anxiety-based vs growth values, Schwartz 2012).
     # It comes from where the deep core sits on the security-vs-freedom axis, from recent hard events, and from reactivity.
     thr0=0.0,            # logit of threat focus for an even person with no history
+    domains=False,      # life areas (A7, item 4), on from the stage 2 refit: a small offset on the colors per area (work, home, friends, faith); identity reads the core
+    dom_share=0.3,      # the share of what a moment in an area teaches that stays in that area (the rest reaches the core)
+    dom_half=3.0,       # years for an area's offset to fade halfway back to the core
+    dom_end_half=1.0,   # ... while that part of life is not held (no work, no faith)
+    dom_cap=0.6,        # largest offset per color, in log-ratio units (about +-.1 on a share near .2)
+    # a curious, thinking life rewarded (item 7, chroma-ideas/curious-life.md C2 to C4), behind curious=False:
+    curious=False,
+    cu_keep=0.7,         # C2: from cu_age, skill in Blue's ways fades this much more slowly (knowledge keeps into the 60s)
+    cu_age=40.0,
+    cu_late=0.004,       # C2: from 55, skill in Blue's ways above a beginner's meets competence (and half as much meaning) weekly
+    cu_learn=0.03,       # C3: an act in Blue's ways that teaches something new meets meaning (and half as much autonomy),
+                         # whether it works or not, by how much there was still to learn
+    cu_ask_rate=0.01,    # C4 "the one people ask": grows weekly from 35 while Blue skill is high and Blue held, fades slowly
+    cu_ask=0.004,        # C4: from 50 it meets belonging and meaning weekly, by how much they are asked
+    # each person's own colour-to-need table (P4; the Game's engine-needs-and-steering.md §1 and §4), behind nm_on=False:
+    # NMP starts as the shared table and moves with what feeds them, within a band, each colour's column kept at its total
+    nm_on=False,
+    nm_lr_moment=0.01,   # an act that worked feeds what was lacking: its colours' cells for the needs that lacked most grow
+    nm_lr_habit=0.0005,  # the colours one keeps using while a need lacks are slowly tied to it
+    nm_lr_goal=0.0005,   # a held dream, passion or plan ties its colours to its domain's needs, by its strength
+    nm_band=(0.5, 2.0),  # each cell stays within this band of the shared value
+    nm_back=10.0,        # years for the table to drift halfway back to the shared one, unless kept up
+    ev_need_k=0.0,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
+    ev_state_k=0.0,      # at peace and content, a bad event adds less stress; strained, more
+    ev_reach_k=0.0,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
+    thr_vec=None,        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
+                         # (anxiety-based minus growth values, AXSEC_SW), not on Magic's security axis, which counted Blue as
+                         # fully security. None: Magic's axis (v10-v22); or a 5-vector
     thr_axis=1.0,        # weight of the deep core's position on the security-vs-freedom axis (W U security, B R freedom)
     thr_hist=1.0,        # weight of recent hard events (wound, trouble)
     thr_react=0.5,       # weight of reactivity (temperament) above its even level
@@ -765,6 +849,17 @@ DEFAULT = dict(
     steer_k=1.0,         # drawn. It adds steer_k * (5 * m @ mix - 1) to each option's pull (1: a third of the values' pull)
     wfx_step=0.01,       # a world effect on a drifting quantity (money, freedom, safety) is reported once it moved this much
     dis_match=False,     # WL6: a disaster brings the outside events of its own hazard (a fire's, not a flood's); off: any
+    # the times as a steady current (item 12; world-in-life.md §6, living-world.md §1), behind cur_on=False: each month
+    # the colours of the world around them (people and groups, the places they are inside, the times) push a little, and
+    # the push takes over part of the random drift, so lives change for reasons. Target: about 10% (8 to 12) of colour
+    # movement, drift's share down by as much, 50-year stability toward .15 to .45
+    cur_on=False,
+    cur_k=0.35,          # the monthly push at full exposure (log-ratio units x plasticity): about 10% of colour movement, world on
+    cur_off=0.55,        # with the world off (tribal and magic settings), its size against cur_k (the niche and the era): about 9%
+    cur_mix=(0.5, 0.25, 0.25),   # the current's parts: close people, the places they are inside, the times (era and climate)
+    cur_age=(0.3, 1.0, 20.0, 7.0),   # exposure by age: base + peak x exp(-((age - at) / width)^2); most at 15 to 25, never zero
+    cur_mem=1.0,         # years over which what reaches them adds up (a new circle or job takes a while to tell)
+    cur_cut=0.55,        # the share of the random weekly noise the current takes over (stability rows stay in their ranges)
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -793,7 +888,16 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
                scar_pull=0.0)
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
-UPD_OFF = dict(dis_match=False)
+UPD_OFF = dict(dis_match=False,
+               # stage 2 (who they become): enemy pairs, shadows, threat axis and aging pull, life areas, a curious life,
+               # each person's need table and events by need and state
+               drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
+               hz_self=0.0, hz_want=0.03, domains=False, curious=False, nm_on=False, ev_need_k=0.0, ev_state_k=0.0,
+               ev_reach_k=0.0, cur_on=False,
+               # stage 3, LW1 and LW2 (stage3-rules.md §8)
+               cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
+               cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
+               hist_chance_only=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -829,9 +933,15 @@ ADJECTIVES = [
     ("searching", "searching", "gap", +1, 0.148, 0.138, 12, "impossible", 0.1),
     ("settled", "settled in who they are", "gap", -1, 0.0624, 0.0706, 12, "impossible", 0.1),
 ]
-ADJ_NAMES = [a_[0] for a_ in ADJECTIVES]; ADJ_ID = {nm: i for i, nm in enumerate(ADJ_NAMES)}
-ADJ_SAY = [a_[1] for a_ in ADJECTIVES]
-ADJ_WITHOUT = np.array([("law", "approval", "means", "impossible").index(a_[7]) for a_ in ADJECTIVES])
+SH_STATES = ["rigid", "indecisive", "ruthless", "reckless", "stuck in their ways"]   # W U B R G
+ADJ_BASE = len(ADJECTIVES)   # the adjectives before the shadow states (the outputs with shadows off)
+# the five shadow states (stage 2, item 2), read like the adjectives (holds: rigid) and indexed after them: ADJ_ALL is the
+# whole table (ADJ_NAMES, ADJ_ID, ADJ_SAY follow it); ADJECTIVES stays the 21 states, never held by the shadows
+SH_ADJECTIVES = [(nm_, nm_, "shadow_" + c_, +1, 0.5, 0.35, 18, "impossible", 0.05) for nm_, c_ in zip(SH_STATES, "WUBRG")]
+ADJ_ALL = ADJECTIVES + SH_ADJECTIVES
+ADJ_NAMES = [a_[0] for a_ in ADJ_ALL]; ADJ_ID = {nm: i for i, nm in enumerate(ADJ_NAMES)}
+ADJ_SAY = [a_[1] for a_ in ADJ_ALL]
+ADJ_WITHOUT = np.array([("law", "approval", "means", "impossible").index(a_[7]) for a_ in ADJ_ALL])
 
 
 def softmax(z, axis=-1):
@@ -864,6 +974,10 @@ STEP_INC = 0.5       # progress a person imagines one good step brings, in units
 # v7 felt horizon: the color ends that limited time favors. Derived from the Schwartz map (schwartz.LOAD): the colors whose
 # values rise with age in surveys (conservation, self-transcendence) against those that fall (openness, self-enhancement)
 HZ_TILT = np.array([0.96, 0.05, -1.0, -0.62, 0.61])
+# next version (Blue): where the deep core sits between anxiety-based and growth values on the Schwartz map, for the threat
+# focus: schwartz.LOAD, self-protection (power, security, conformity, tradition) minus growth (self-direction, stimulation,
+# benevolence, universalism), scaled to 1 (Schwartz 2012; Sortheix & Schwartz 2017, the source the v10 layer cites)
+AXSEC_SW = np.array([1.0, 0.526, -0.842, -0.737, 0.053])
 HZ_ROLE = np.array([1.0, 1.0, 1.0, 0.4, 1.5, 1.5])   # how strongly each death reminds: parent, sibling, friend, grandparent, partner, child
 
 
@@ -953,7 +1067,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     FRpos = np.maximum(FR, 0)
     # default ends: serve your method colors, and (only if the culture frames them as
     # opposed) work against the opposed colors
-    Eeff = np.where(L["OVR"][..., None], L["E"], L["E"] - 0.25 * np.einsum("ij,skj->ski", FRpos, L["M"]))
+    FRN_ = P["framing"] if isinstance(P["framing"], str) else None
+    in_fr = lambda key: P[key] is None or FRN_ is None or FRN_ in P[key]   # a custom matrix keeps both
+    Eeff = L["E"] if not in_fr("ends_frames") else \
+        np.where(L["OVR"][..., None], L["E"], L["E"] - 0.25 * np.einsum("ij,skj->ski", FRpos, L["M"]))
+    MU_ = P["mu"] if in_fr("drift_frames") else 0.0
     T = years * 52
     z = np.zeros((N, C)); k = np.zeros((N, C)); v = np.zeros((N, C))
     M = np.zeros(N); D = np.zeros((N, C)); J = np.zeros((N, C, C))
@@ -995,6 +1113,21 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     plast = np.zeros(N); ctrl = np.zeros(N)
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
+    CUR_ON = bool(P["cur_on"]); cur_sum = np.zeros(N); cur_m = None   # item 12: the steady current, and how much it moved each life
+    SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
+    NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
+    NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
+    CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
+    NA_OUT = len(ADJ_ALL) if SHON else ADJ_BASE   # the adjectives the outputs carry
+    DOM_ON = bool(P["domains"]); NA_D = len(AREAS)
+    Dz = np.zeros((N, NA_D, C)); D_hist = []   # v23 life domains: each area's offset on the colors (log-ratio units)
+    # light and shadow: the shadow part s (shS), its force e (shA), the four sources (sh_src: holding on, ruling, no
+    # counterweight, strain), whether the person has seen it (a reflection met), the last reflection and breakthrough
+    shS = np.zeros((N, C)); shA = np.zeros((N, C)); sh_src = np.zeros((N, C, 4)); sh_seen = np.zeros((N, C), bool)
+    sh_rt = np.full((N, C), -10 ** 7); sh_brk = np.full(N, -10 ** 7); sh_n = np.zeros((N, C), int); sh_log = []
+    ENEMY_B = ENEMY > 0
+    # the colours over the last ten years, each quarter (pair and insight moments: a colour's rise, how long it has held)
+    w_q = np.full((40, N, C), 0.2); w_qi = 0
     HZT = HZ_TILT if P["hz_tilt"] is None else (parse(P["hz_tilt"]) if isinstance(P["hz_tilt"], str) else np.asarray(P["hz_tilt"], float))
     HZW = np.maximum(HZT, 0) / max(np.maximum(HZT, 0).sum(), 1e-9)   # where a short horizon pulls the want
     V_hist = {k_: [] for k_ in ("acc", "chan", "core", "wound", "support", "trouble", "fortune", "habit", "role", "SE", "ctrl", "plast", "Q", "doors", "content", "peace", "skill", "fneed", "mood", "stress", "cload", "tension",
@@ -1015,10 +1148,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     lvl = np.full(N, 0.6); mood = np.zeros(N); content = np.full(N, 0.6); peace = np.full(N, 0.6)   # meta variables
     hold = np.full((N, C), 0.2)
     gap_r = np.zeros(N); q_rel = np.zeros(N); unmet = np.zeros(N); hzf = np.zeros(N)
-    NA_ = len(ADJECTIVES); adj = np.zeros((N, NA_), bool); adj_since = np.zeros((N, NA_)); adj_log = []   # v7 adjectives
+    NA_ = len(ADJ_ALL); adj = np.zeros((N, NA_), bool); adj_since = np.zeros((N, NA_)); adj_log = []   # v7 adjectives
     adj_v = None
-    ADJ_SIDE = np.array([a_[3] for a_ in ADJECTIVES], float); ADJ_ON = np.array([a_[4] for a_ in ADJECTIVES])
-    ADJ_OFF = np.array([a_[5] for a_ in ADJECTIVES]); ADJ_AGE = np.array([a_[6] for a_ in ADJECTIVES], float)
+    ADJ_SIDE = np.array([a_[3] for a_ in ADJ_ALL], float); ADJ_ON = np.array([a_[4] for a_ in ADJ_ALL])
+    ADJ_OFF = np.array([a_[5] for a_ in ADJ_ALL]); ADJ_AGE = np.array([a_[6] for a_ in ADJ_ALL], float)
     SMID = np.asarray(P["sat_mid_stage"], float) - 0.8 + P["sat_mid"]
     smid = np.full(N, SMID[0]); hope = lvl + P["hope_young"]   # v7: what counts as enough now; what life is hoped to give
     RST = None if P["r_stage"] is None else np.asarray(P["r_stage"], float)
@@ -1060,7 +1193,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     reb = np.zeros((N, 2))                                       # v6: tension rebounds over the life (fit together, split)
     trouble = np.zeros(N); fortune = np.zeros(N)                 # v6: recent big events that went badly / well (decay over years)
     thr = np.full(N, 0.5); mem_s = np.zeros((N, C)); mem_f = np.zeros((N, C)); scar = np.zeros((N, C))   # v10 interpretation
-    AXSEC = np.array(AXES["security vs freedom"], float)
+    AXSEC = np.array(AXES["security vs freedom"], float) if P["thr_vec"] is None else \
+        (AXSEC_SW if P["thr_vec"] == "schwartz" else np.asarray(P["thr_vec"], float))
     MIS_ON = any(P[k_] for k_ in ("mis_focus", "mis_mem", "mis_scar", "mis_mood", "mis_status"))
     DMS_ = 0.5 ** (1 / (52 * P["mem_pos"])); DMF_ = 0.5 ** (1 / (52 * P["mem_neg"]))
     hub_ = np.zeros(N); xp_ = np.zeros((N, C))                    # status held (hubris) and expertise by color, yearly
@@ -1119,6 +1253,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     pres_c = np.zeros((N, C)); pres_d = np.zeros((N, NK)); pres_n = np.zeros(N)   # how often chances in each color and domain come
     regret = np.zeros(N); goal_log = []; gid_next = [1]
     HAS_STEP = np.stack([(L["COMMIT"] == d_).any(1) for d_ in range(NK)], 1).astype(float)   # S x NK: a situation can start it
+    SH_REFL = np.array([SH_STATES.index(str((L["src"][i_] if i_ < len(L["src"]) else {}).get("holds") or "").strip())
+                        if L["TIER"][i_] == TIERS.index("inner") and str((L["src"][i_] if i_ < len(L["src"]) else {}).get("holds") or "").strip()
+                        in SH_STATES else -1 for i_ in range(L["S"])], int)   # the shadow a reflection moment sees, else -1
+    SH_NEW = HAS_STEP.max(1)                                                                  # shadows: a moment that opens something new
     SPRIOR = step_prior(L, P)
     MS_ = L["M"] * L["MASK"][..., None]
     def goal_rel_S(mix, dom):
@@ -1291,7 +1429,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     MIDX = {m_: i_ for i_, m_ in enumerate(L["MARKS"])}; NM = len(L["MARKS"]); SIDX = {n_: i_ for i_, n_ in enumerate(L["names"])}
     mark_last = np.full((N, NM), NEVER); mark_first = np.full((N, NM), NEVER); mark_ok = np.zeros((N, NM), bool)
     mark_n = np.zeros((N, NM), np.int32)
-    sit_last = np.full((N, L["S"]), NEVER); once_done = np.zeros((N, L["S"]), bool)
+    sit_last = np.full((N, L["S"]), NEVER); sit_first = np.full((N, L["S"]), NEVER); once_done = np.zeros((N, L["S"]), bool)
     ROOT = np.asarray(L.get("ROOT", np.arange(L["S"])))                  # each situation's original (itself, or variant_of)
     HASFAM_ = np.bincount(ROOT, minlength=L["S"])[ROOT] > 1               # situations that share their original with another
     def _gap(g_):   # the Library's gap: "2-5", (2, 5) or 3 (years)
@@ -1689,6 +1827,25 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             ns["has"] = ns["was"] = lambda nm: np.zeros(N, bool); ns["yrs_has"] = lambda nm: np.zeros(N)
             ns["n_titles"] = ns["n_perks"] = np.zeros(N)
         ns["betrayed"] = had(["a partner's affair comes to light", "betrayed by a friend or a business partner"], 10)
+        # stage 2 (Library's for-the-engine-stage2.md): a colour's rise over some years, how long it (or a pair) has held
+        # above a share (quarterly, up to ten years), and the shadow's force, part, seen and years since its reflection
+        def q_back(yrs):
+            return w_q[(w_qi - 1 - int(round(4 * yrs))) % 40] if w_qi > int(round(4 * yrs)) else np.full((N, C), 0.2)
+        def q_run(ok_):   # ok_ (40 quarters newest first, N): the quarters in a row, from the newest, that hold, in years
+            return np.cumprod(ok_, 0).sum(0) / 4.0
+        def q_new():
+            return w_q[(w_qi - 1 - np.arange(min(w_qi, 40))) % 40]
+        def first_age(names_):   # the age a moment (or any of a list) was first met, 99 if never
+            idx_ = [i_ for n_ in names_ for i_ in FAMILY.get(n_, [SIDX[n_]] if n_ in SIDX else [])]
+            if not idx_:
+                return np.full(N, 99.0)
+            f_ = np.where(sit_first[:, idx_] <= NEVER // 2, 10 ** 9, sit_first[:, idx_]).min(1)
+            return np.where(f_ >= 10 ** 9, 99.0, f_ / 52.0)
+        ns.update(first_age=first_age, rise=lambda c, yrs=2: w[:, IDX[c]] - q_back(yrs)[:, IDX[c]],
+                  above_yrs=lambda c, th: q_run(q_new()[:, :, IDX[c]] > th),
+                  pair_yrs=lambda c1, c2, th: q_run((q_new()[:, :, IDX[c1]] > th) & (q_new()[:, :, IDX[c2]] > th)),
+                  sh=lambda c: shA[:, IDX[c]], sh_part=lambda c: shS[:, IDX[c]], sh_seen=lambda c: sh_seen[:, IDX[c]],
+                  sh_ago=lambda c: ys(sh_rt[:, IDX[c]]))
         ns["adj"] = lambda nm: adj[:, ADJ_ID[nm]]                       # v7 adjectives: adj('wealthy'), is_wealthy
         ns["yrs_adj"] = lambda nm: np.where(adj[:, ADJ_ID[nm]], (t - adj_since[:, ADJ_ID[nm]]) / 52, 0.0)
         ns.update({"is_" + nm_.replace(" ", "_"): adj[:, i_] for i_, nm_ in enumerate(ADJ_NAMES)})
@@ -1991,6 +2148,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     for t in range(T):
         age = t / 52.0
         z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
+        if t % 13 == 0:   # the colours each quarter (conditions: rise, above_yrs, pair_yrs)
+            w_q[w_qi % 40] = softmax(z); w_qi += 1
         if age > 12 and t % 52 == 0:                                   # nobody stays perfectly unbiased
             w0_ = softmax(z); flat = (w0_.max(1) - w0_.min(1)) < P["min_spread"]
             if flat.any():
@@ -2046,13 +2205,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if t % record_every == 0:
             W_hist.append(w.copy()); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
             R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
+            if DOM_ON:
+                D_hist.append(Dz.astype(np.float32))
             V_hist["acc"].append(plast * ctrl); V_hist["core"].append(softmax(k)); V_hist["SE"].append(SE.copy())
             V_hist["habit"].append(habit / np.maximum(habit.sum(1, keepdims=True), 1e-9))
             V_hist["role"].append(np.einsum("nk,nkc->nc", held * I, prof))
             V_hist["ctrl"].append(ctrl.copy()); V_hist["plast"].append(plast.copy()); V_hist["Q"].append(Q.copy())
             V_hist["content"].append(content.copy()); V_hist["peace"].append(peace.copy()); V_hist["skill"].append(sig.copy())
-            V_hist["need"].append(need.copy()); V_hist["adj"].append(adj.copy())
-            V_hist["adj_v"].append(adj_v * ADJ_SIDE if adj_v is not None else np.full((N, NA_), np.nan))
+            V_hist["need"].append(need.copy()); V_hist["adj"].append(adj[:, :NA_OUT].copy())
+            V_hist["adj_v"].append((adj_v * ADJ_SIDE)[:, :NA_OUT] if adj_v is not None else np.full((N, NA_OUT), np.nan))
             for nm_, v_ in (("fneed", f_need), ("mood", mood), ("stress", stress), ("cload", cload), ("tension", tension),
                             ("react", react), ("steady", steady), ("base_mood", base_mood), ("outlook", outlook), ("gap", gap_r),
                             ("wound", wound), ("support", support), ("trouble", trouble), ("fortune", fortune), ("horizon", fhz), ("discipline", dsc), ("lvl", lvl), ("q_rel", q_rel), ("unmet", unmet), ("hope_w", hzf * unmet), ("threat", thr), ("scar", scar.sum(1))):
@@ -2158,10 +2319,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
             gapw_[:, GAPX_I] = _uclip(((t - sit_last[:, GAPX_I]) / 52 - GAPXLO_[:, GAPX_I]) / GAPXW_[:, GAPX_I], 0, 1)
             aff = aff * gapw_
-        seekE = 1.0
+        if SHON:   # G stuck in their ways: moments that could start something new come less often
+            sdr_ = 1 - P["sh_door"] * shA[:, 4][:, None] * SH_NEW[None]
+            aff = aff * sdr_
+        seekE = 1.0 if not SHON else sdr_
         if GON:   # v7: plans (and a little, passions) make people seek chances for them; a domain plan seeks its life events
             aff = aff * (1 + P["g_seek"] * np.einsum("ng,ngs->ns", gs * np.where(gk == 2, 1.0, np.where(gk == 1, 0.5, 0.0)), gsr))
-            seekE = 1 + P["g_seek_ev"] * np.einsum("ng,ngs->ns", gs * ((gk == 2) & (gd >= 0)), gsr)
+            seekE = seekE * (1 + P["g_seek_ev"] * np.einsum("ng,ngs->ns", gs * ((gk == 2) & (gd >= 0)), gsr))
         if P["base_rates"]:
             # v6: life events come at their real yearly rates; every other week is ordinary life (an everyday situation)
             # the outside context moves each kind of event: family, resources, the era, the world
@@ -2470,7 +2634,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             gU_R = gU_I = gN = 0.0
 
         # ---- 2. choice
-        w_hat = softmax(z + P["act"] * alpha)
+        if DOM_ON:   # in an area of life the colors that weigh the options are the core plus that area's offset
+            area_ = L["AREA"][s]; inA_ = area_ >= 0
+            zA_ = z + np.where(inA_[:, None], Dz[ar, np.maximum(area_, 0)], 0.0)
+            w_hat = softmax(zA_ + P["act"] * alpha)
+        else:
+            w_hat = softmax(z + P["act"] * alpha)
         a_hat = softmax(y + P["act"] * alpha)
         V = np.einsum("nc,nkc->nk", w_hat, e)            # what current motives value
         VA = np.einsum("nc,nkc->nk", a_hat, e)           # what the person wants to value
@@ -2493,7 +2662,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
-        serves = np.einsum("jc,nkc->nkj", NMAP, np.maximum(e, 0))            # needs each option meets
+        serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
+            np.einsum("jc,nkc->nkj", NMAP, np.maximum(e, 0))            # needs each option meets
         relief = np.einsum("nj,nkj->nk", lack, serves) * p_hat
         # gate 1, the world: is the option open to this person at all?
         acc = _uclip(P["access_base"] + P["access_k"] * (np.einsum("nkc,nc->nk", m, nic) - 0.2), 0.05, 1.0)
@@ -2534,6 +2704,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             U_I[ri, 2] += -xc
         if WON:   # the world: felt reach makes voice and organising at institutions and the state feel worth it (spec 7 §6)
             rU_ = WL.reach_pull(s); U_R = U_R + rU_; U_I = U_I + rU_
+        if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
+            shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
                           * _uclip(1 + P["peace_ctrl"] * (peace - 0.55), 0.5, 1.3))     # a calm mind steers better
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
@@ -2546,8 +2718,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             pr = softmax(np.where(seen, (U + sU_) / tau[:, None], -np.inf))
             P["steer"] = None
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
+        if SHON:   # U indecisive: while they weigh it, the chance passes (the act becomes doing nothing, where there is one)
+            lap_ = (rng.random(N) < P["sh_lapse"] * shA[:, 1]) & ~do_nothing[ar, a] & do_nothing.any(1)
+            if lap_.any():
+                a = np.where(lap_, do_nothing.argmax(1), a)
         if pausing:
             steer_moved = pr[ar, a] - pr0[ar, a]   # how much the steer raised (or lowered) the drawn option's odds
+            a_self = a.copy()                      # the character's own pick (a counter-pick lowers its shadow)
             a = yield Pause("choose", t, locals(), a)
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
@@ -2565,7 +2742,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- 3. outcome vs expectation
         fit = P["fit"] * (ma * (alpha - alpha.mean(1, keepdims=True))).sum(1)
-        p_true = 1 / (1 + np.exp(-earned(P["gain"] * ((ma * (sig + f_tot)).sum(1) + fit - da) + (pbump[ar, a] if RON else 0.0),
+        shc_ = P["sh_fail"] * (ma * shA).sum(1) if SHON else 0.0   # shadows: over-reliance on a ruling colour costs
+        p_true = 1 / (1 + np.exp(-earned(P["gain"] * ((ma * (sig + f_tot)).sum(1) + fit - da) + (pbump[ar, a] if RON else 0.0) - shc_,
                                          earn[ar, a] if np.ndim(earn) else 0.0)))
         if np.ndim(lackf):
             p_true = p_true * lackf[ar, a]
@@ -2574,7 +2752,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             rf_ = sig + f_tot + (PB / P["gain"] if RON else 0.0)
             np.add.at(ref_sum, s, rf_); np.add.at(ref_cnt, s, 1.0)
             fk_ = P["fit"] * np.einsum("nkc,nc->nk", m, alpha - alpha.mean(1, keepdims=True))
-            pk_ = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + f_tot) + fk_ - diff) + pbump, earn)))
+            pk_ = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + f_tot) + fk_ - diff) + pbump
+                                          - (P["sh_fail"] * np.einsum("nkc,nc->nk", m, shA) if SHON else 0.0), earn)))
             pk_ = pk_ * lackf                                  # as the engine draws them: earned odds and lacking: included
             if np.ndim(earn):   # the mean earned lift on the options that give a title, for the reference (CHANCE_REF's 6th)
                 tk_ = GR["A_EARN"][s] >= 0
@@ -2583,6 +2762,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if pausing:
             p_true = yield Pause("odds", t, locals(), p_true)
         succ = rng.random(N) < p_true
+        if SHON:   # a shadow shows: an act in the ruling colour's own ways fails while its shadow is strong (check 5)
+            shw_ = (ma * shA)
+            for n in np.nonzero(~succ & ~idle & (shw_.max(1) > 0.3))[0]:
+                c_ = int(shw_[n].argmax()); sh_n[n, c_] += 1
+                sh_log.append((int(n), t, c_, int(s[n]), int(a[n])))
+                if n in events:
+                    events[n].append(dict(shadow=dict(age=round(age, 2), state=SH_STATES[c_], strength=round(float(shA[n, c_]), 2),
+                                                      through=L["labels"][s[n]][a[n]])))
         long_miss = (~succ & ~idle & ~recon & (p_true < P["long_shot"]) & (LONGT_[s, a] | (missed_at(GR["A_TITLE"][s, a], s, a) >= 0))
                      ) if RON else np.zeros(N, bool)
         if RON:   # a failed try at a title (else a perk with its own helps) is remembered for the next (try_lift)
@@ -2604,7 +2791,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
-        sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
+        if CU_ON:   # C2: understanding keeps into later life (Blue skill fades more slowly from cu_age); C3 reads its growth
+            sg0_ = sig[:, 1].copy()
+            sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma) * np.where((np.arange(C) == 1)[None] & (age >= P["cu_age"]),
+                                                                       1 - P["cu_keep"], 1.0)
+        else:
+            sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -2706,6 +2898,39 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
+        if SHON:   # shadows: rigid and ruthless lose people, reckless burns bridges and the body pays, rigid strains on duty
+            res[:, TIE] -= 0.01 * P["sh_tie"] * (shA[:, 0] + shA[:, 2] + 0.5 * shA[:, 3])
+            res[:, HEA] -= 0.01 * P["sh_body"] * shA[:, 3]
+            stress += P["sh_strain"] * shA[:, 0]
+            dsc -= P["sh_burn"] / 52 * shA[:, 3] * (dsc - P["disc_range"][0])
+            # the four sources (shadows-mechanics.md §3), each 0 to 1
+            a_w_ = softmax(y)
+            sh_src[:, :, 0] = _uclip(2.5 * (hold - 0.2), 0, 1) * _uclip(5 * (w - a_w_), 0, 1) \
+                * _uclip((t - sh_brk) / 52.0, 0, 1)[:, None]                 # holding on (a breakthrough lets go for a while)
+            sh_src[:, :, 1] = _uclip((w - 0.30) / 0.30, 0, 1)                   # ruling
+            en_max_ = np.where(ENEMY_B[None], w[:, None, :], 0.0).max(2)       # the stronger of its two enemies
+            sh_src[:, :, 2] = _uclip((0.12 - en_max_) / 0.09, 0, 1)             # no counterweight
+            sh_src[:, :, 3] = _uclip(stress / 1.5 + Q / 4, 0, 1)[:, None] * w / w.max(1, keepdims=True)   # strain
+            sk_ = np.asarray(P["sh_src"], float)
+            tgt_ = 1 - np.prod(1 - sk_[None, None] * sh_src, 2)
+            sup_ = np.clip(0.5 * (need[:, NIDX["belonging"]] + res[:, TIE]), 0, 1)
+            integ_ = np.where(ENEMY_B[None], J, 0.0).max(2)                    # an enemy pair held well
+            tgt_ = tgt_ * (1 - P["sh_care"] * sup_)[:, None] * (1 - P["sh_integ"] * integ_) * (age >= P["sh_age"])
+            tgt_ = np.clip(tgt_ * SHG_[None], 0, 1)
+            up_ = tgt_ > shS                                                   # shadows come faster than they go
+            shS += (tgt_ - shS) / (4.33 * np.where(up_, P["sh_grow"], P["sh_fade"]))
+            if pausing and not recon.all():   # the Voice leads them out: the shadow pulled the character's own pick, the
+                # player picked another way, and it worked
+                ctr_ = (a != a_self) & succ & ~idle & ~recon
+                for n in np.nonzero(ctr_)[0]:
+                    pu_ = shA[n] * m[n, a_self[n]]
+                    c_ = int(pu_.argmax())
+                    if pu_[c_] > 0 and m[n, a[n], c_] < m[n, a_self[n], c_]:
+                        shS[n, c_] = max(0.0, shS[n, c_] - P["sh_counter"])
+            rf_ = SH_REFL[s]                                                   # a reflection moment met: they see it
+            for n in np.nonzero((rf_ >= 0) & ~recon)[0]:
+                c_ = int(rf_[n]); shS[n, c_] = max(0.0, shS[n, c_] - P["sh_seen"]); sh_seen[n, c_] = True; sh_rt[n, c_] = t
+            shA = np.minimum(1.0, w * shS / P["sh_full"])
         res = _uclip(res, 0, 1)
         # clash: holding a commitment that no longer fits what you want. It costs stress until it is resolved
         mis = _uclip(1 - 5 * (prof * softmax(y)[:, None, :]).sum(-1), 0, 1)
@@ -2804,10 +3029,27 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # needs: drain weekly; your niche supplies some; successful acts meet the needs
         # their ends serve; acting against a value's ends drains the needs it meets. Only the act's own ends
         # drain needs: a world that frames colors as opposed adds inner tension (peace), not deprivation (v4)
-        need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
-        room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
-        need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
-        need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
+        if NM_ON:   # P4: through each person's own table
+            need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * np.einsum("njc,nc->nj", NMP, nic)
+            room = (1 - need) if P["satiate"] else 1.0
+            need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.einsum("njc,nc->nj", NMP, np.maximum(ea, 0)), 0) * act_ * room
+            need += 0.06 * np.einsum("njc,nc->nj", NMP, np.minimum(ea0, 0)) * act_
+            # the table moves (§1): an act that worked feeds what lacked most, through its colours (one that failed, the
+            # reverse, at half); habit ties the colours used to what lacks; held goals tie theirs to their domain's needs
+            ep_ = np.maximum(ea, 0); sg_ = np.where(succ, 1.0, -0.5) * stakes * (~idle)
+            dNM = P["nm_lr_moment"] * sg_[:, None, None] * (lack - lack.mean(1, keepdims=True))[:, :, None] * ep_[:, None, :]
+            dNM += P["nm_lr_habit"] * lack[:, :, None] * (ma - 0.2)[:, None, :] * act_[:, :, None]
+            gw_ = gs * (gd >= 0)
+            if gw_.any():
+                dNM += P["nm_lr_goal"] * np.einsum("ng,ngj,ngc->njc", gw_, KPAY[np.maximum(gd, 0)], gm - 0.2)
+            NMP = NMP + dNM * (NMAP > 0)[None] + (NMAP[None] - NMP) * (np.log(2) / (52 * P["nm_back"]))
+            NMP = np.clip(NMP, NM_LO[None], NM_HI[None])
+            NMP = NMP * (NM_TOT / np.maximum(NMP.sum(1), 1e-9))[:, None, :]     # each colour's column keeps its total
+        else:
+            need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
+            room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
+            need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
+            need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
         if P["disc_win"]:   # v7 discipline: a hard thing done on purpose (the act the person meant, against the odds), most
             hw_ = tried & succ & (p_true < 0.4)          # formative in childhood as temperament is; slowly drifts back to even
             dsc[hw_] += P["disc_win"] * TST[stage[hw_]] / TST[2] * (P["disc_range"][1] - dsc[hw_])
@@ -2818,6 +3060,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             need[:, NIDX["autonomy"]] += P["aut_act"] * concord * (~idle) * np.where(concord > 0, room[:, NIDX["autonomy"]] if P["satiate"] else 1, 1)
             # competence: succeeding at what was hard for you, in any color; failing drains it a little
             need[:, NIDX["competence"]] += P["comp_act"] * np.where(succ, (0.5 + (1 - p_true)) * (room[:, NIDX["competence"]] if P["satiate"] else 1), -0.3 * appf_) * (~idle)
+        if CU_ON:   # a curious, thinking life (item 7): its own goods
+            ln_ = ma[:, 1] * (1 - sg0_) * (~idle)                        # C3: learning in Blue's ways, worked or not
+            need[:, NIDX["meaning"]] += P["cu_learn"] * ln_; need[:, NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
+            late_ = _uclip((age - 55) / 10, 0, 1) * np.maximum(sig[:, 1] - 0.3, 0)   # C2: understanding pays late
+            need[:, NIDX["competence"]] += P["cu_late"] * late_; need[:, NIDX["meaning"]] += 0.5 * P["cu_late"] * late_
+            ask_on_ = (age >= 35) & (sig[:, 1] > 0.55) & (w[:, 1] > 0.22)  # C4: the one people ask
+            asked += P["cu_ask_rate"] * np.where(ask_on_, 1 - asked, -0.1 * asked)
+            ak_ = P["cu_ask"] * asked * (age >= 50)
+            need[:, NIDX["belonging"]] += ak_; need[:, NIDX["meaning"]] += ak_
         duty_ = np.minimum(1, (held * I) @ DUTY)                      # needs of those the person answers for
         served = ((np.maximum(ea, 0) @ NMAP.T) * duty_).sum(1)
         need[:, NIDX["meaning"]] += P["duty_mean"] * served * succ * (~idle) * (room[:, NIDX["meaning"]] if P["satiate"] else 1)
@@ -2841,6 +3092,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             # ---- 3d. the Library's batch: what this week leaves in the person's history
             live_ = ~recon
             sit_last[ar[live_], s[live_]] = t
+            fs_ = sit_first[ar[live_], s[live_]] <= NEVER // 2
+            sit_first[ar[live_][fs_], s[live_][fs_]] = t
             on_ = ONCE[s] & live_
             once_done[ar[on_], ROOT[s[on_]]] = True       # a child version and its original are one event (variant_of)
             if RON:   # the act's titles and perks: becoming a nurse, a licence taken (on success; the _if_fails fields on failure)
@@ -3283,6 +3536,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     rd_ = (pr_.cumsum(1) > rng.random((len(ii_), 1))).argmax(1)
                     imp_ = e_["impact"][rd_]
                     an_ = np.array([e_["also"][r_][0] for r_ in rd_]); ar_ = np.array([e_["also"][r_][1] for r_ in rd_])
+                    thr_ = np.maximum(-np.asarray(e_["base_need"], float), 0)   # P4 §4: the needs it threatens
+                    ev_by_ = (P["ev_need_k"] or P["ev_state_k"] or P["ev_reach_k"]) and thr_.sum() > 0
+                    if ev_by_:
+                        thr_ = thr_ / thr_.sum()
+                        calm_ = _uclip(peace[ii_] + content[ii_] - 0.5, 0, 1)   # at peace and content: 1; strained: 0
+                        if P["ev_need_k"]:   # it lands harder on a need already lacking
+                            imp_ = imp_ * _uclip(1 + P["ev_need_k"] * (lack[ii_] @ thr_ - 0.3), 0.5, 2.0)
                     need[ii_] += P["read_k"] * imp_[:, None] * e_["base_need"][None] + an_
                     r0_ = res[ii_].copy() if WFX_ON and j_ in DIS_J_ else None
                     res[ii_] = _uclip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
@@ -3295,9 +3555,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     if good_:
                         mood[ii_] += 0.1 * imp_
                     else:
-                        stress[ii_] += 0.3 * imp_; mood[ii_] -= 0.1 * imp_
+                        stress[ii_] += 0.3 * imp_ * ((1 + P["ev_state_k"] * (1 - 2 * calm_)) if ev_by_ and P["ev_state_k"] else 1.0)
+                        mood[ii_] -= 0.1 * imp_
                     msg_ = np.eye(C)[e_["want"][rd_]]
                     take_in(ii_, msg_, P["read_want"] * imp_, 7)
+                    if ev_by_ and P["ev_reach_k"] and not good_:   # they reach for what their own table ties to safety
+                        tb_ = NMP[ii_] if NM_ON else np.repeat(NMAP[None], len(ii_), 0)   # (strained) or belonging (calm)
+                        rch_ = (1 - calm_)[:, None] * tb_[:, NIDX["safety"]] + calm_[:, None] * tb_[:, NIDX["belonging"]]
+                        take_in(ii_, rch_ / np.maximum(rch_.sum(1, keepdims=True), 1e-9), P["ev_reach_k"] * imp_, 7)
                     for q_, n in enumerate(ii_):
                         read_log.append((int(n), t, int(j_), int(rd_[q_])))
                         if n in events:
@@ -3330,7 +3595,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             fa = _uclip((tries - wins + blocked - P["flex_exp"][0]) / P["flex_exp"][1], 0, 1)[:, None]
             nimp += P["flex_rate"] * fa * ((1 - P["flex_depth"] * lack_raw) - nimp) + P["flex_rate"] * 0.2 * (1 - nimp)
         lack = nimp * lack_raw + P["duty_w"] * P["duty_asp"] * np.minimum(1, (held * I) @ DUTY)
-        felt = lack @ NMAP                      # how much each color's ends could meet what is lacking
+        felt = np.einsum("nj,njc->nc", lack, NMP) if NM_ON else lack @ NMAP   # how much each color's ends could meet what is lacking
         dV = P["zeta"] * (w / w.max(1, keepdims=True)) * felt * (SE - P["eps0"])   # v2 direct channel (zeta=0 in v3)
         stress += 0.02 * (nimp * lack_raw).sum(1)
 
@@ -3590,9 +3855,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         peace += (p_now - peace) / P["meta_weeks"]
         if P["adjectives"] and t % 4 == 0:   # v7 adjectives: each month, with a margin so a state does not flicker
             src_ = dict(content=content, peace=peace, mood=mood, stress=stress, wound=wound, discipline=dsc, gap=gap_r,
-                        unmet_hope=hzf * np.maximum(unmet, 0))
+                        unmet_hope=hzf * np.maximum(unmet, 0), **{"shadow_" + c_: shA[:, i_] for i_, c_ in enumerate(COLORS)})
             src_.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); src_.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
-            av_ = np.stack([np.broadcast_to(src_[a_[2]], (N,)) for a_ in ADJECTIVES], 1) * ADJ_SIDE
+            av_ = np.stack([np.broadcast_to(src_[a_[2]], (N,)) for a_ in ADJ_ALL], 1) * ADJ_SIDE
             adj_v = av_ if adj_v is None else adj_v + P["adj_smooth"] * (av_ - adj_v)    # the last few months
             old_ = adj
             adj = ((adj_v >= ADJ_ON * ADJ_SIDE) | (adj & (adj_v >= ADJ_OFF * ADJ_SIDE))) & (age >= ADJ_AGE)
@@ -3603,7 +3868,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     adj_since[n, a_] = t
                 if n in events:
                     events[n].append(dict(adj=dict(age=round(age, 2), name=ADJ_NAMES[a_], say=ADJ_SAY[a_], what=what_)))
-        dC = -P["mu"] * w * (G - (w * G).sum(1, keepdims=True))
+        dC = -MU_ * w * (G - (w * G).sum(1, keepdims=True))
         J += P["iota"] * np.maximum(delta, 0)[:, None, None] * \
             np.einsum("ni,nj->nij", ma, ma) * 4 * (1 - J) * (1 - np.eye(C))[None]
         if P["ten_bad"]:   # v6: a failed attempt to hold both loosens what had been integrated
@@ -3611,7 +3876,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # upkeep: a concentrated identity decays toward balance unless constantly fed
         conc = ((w ** 2).sum(1) - 0.2) / 0.8
-        dU = -P["upkeep"] * conc[:, None] * z
+        # shadows replace the flat upkeep: an active shadow pulls its own color back (its costs teach), the rest share it
+        if not SHON:
+            dU = -P["upkeep"] * conc[:, None] * z
+        elif P["sh_form"] == "balance":   # back toward what the person lacks, as strongly as their strongest shadow
+            dU = -P["sh_pull"] * shA.max(1)[:, None] * z
+        else:                             # "own": the shadowed color itself gives way
+            dU = -P["sh_pull"] * shA * np.maximum(z, 0)
 
         # ---- 4e. identity and the character's own death (point 11)
         if t % 52 == 0 and age >= 25 and P["attr_drift"]:   # a woman's attraction can shift a step in adult life
@@ -3682,6 +3953,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         noise = centre(rng.normal(0, P["noise"], (N, C)))
         if P["drift_k"] != 1.0:   # played lives: the game weighs the random drift
             noise = P["drift_k"] * noise
+        if CUR_ON:   # item 12: the current takes over part of the random drift
+            noise = (1 - P["cur_cut"]) * noise
         support =0.5 * (need[:, NIDX["belonging"]] + res[:, TIE])          # being cared for: belonging and ties
         if WON:   # and what the cast and the settings give in hard weeks
             support = support + np.asarray(WL.PP.support, float)
@@ -3690,13 +3963,36 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if P["tw_pull"]:   # while a window is open, the old self pulls back less
             kap_e = kap_e / (1 + P["tw_pull"] * np.minimum(B + TWo, 2.0))
         drift = plast[:, None] * noise + P["mom"] * v - kap_e[:, None] * (z - k)
+        if P["hz_self"]:   # next version: limited time felt changes who one is as it changes what one wants
+            drift = drift + P["hz_self"] * fhz[:, None] * centre(HZW[None] - w)
         stepF = plast[:, None, None] * F
         if P["tw_force"] and P["tw_sep"]:   # an open window: what happens now moves the colors more
             stepF = stepF * (1 + P["tw_force"] * np.minimum(TWo, 2.0))[:, None, None]
         if SEA_ON and sea_tr.any():   # the season's transforming chance moves the colors further
             stepF = stepF * np.where(sea_tr, P["season_amp"], 1.0)[:, None, None]
         chan[:, :5] += stepF; chan[:, 6] += drift
-        z_new = centre(z + stepF.sum(1) + drift)
+        dz_ = stepF.sum(1)
+        if DOM_ON:   # a share of what a moment in an area teaches stays in that area; offsets fade back toward the core
+            srf_ = P["dom_share"] * dz_ * (inA_ & ~idle)[:, None]
+            Dz[ar, np.maximum(area_, 0)] += srf_; dz_ = dz_ - srf_
+            hl_ = np.array([held[:, CAR] | (stage <= 2), np.ones(N, bool), np.ones(N, bool), held[:, FAI]]).T   # school is work
+            Dz *= (1 - np.log(2) / (52 * np.where(hl_, P["dom_half"], P["dom_end_half"])))[:, :, None]
+            Dz = np.clip(Dz - Dz.mean(2, keepdims=True), -P["dom_cap"], P["dom_cap"])
+        if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
+            if WON:
+                cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
+            else:   # no outer world: the niche stands for people and places (the circle's turnover is random)
+                cl_, st_ = nic, nic
+                wp_ = np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
+                tm_ = np.broadcast_to(tm_ / tm_.sum(), (N, C))
+            cm_ = P["cur_mix"]
+            cur_ = (cm_[0] * cl_ + cm_[1] * st_ + cm_[2] * tm_) / sum(cm_)
+            cur_m = cur_.copy() if cur_m is None else cur_m + (cur_ - cur_m) / (12 * P["cur_mem"])   # what has reached them lately
+            cur_ = cur_m
+            b0_, pk_, at_, wd_ = P["cur_age"]
+            cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
+        z_new = centre(z + dz_ + drift)
         v = 0.7 * v + 0.3 * (z_new - z)
         if P["tw_pen"]:    # a big life event reaches the deep core directly, in proportion to how hard it hit
             k = k + (P["tw_pen"] * big * np.minimum(np.abs(delta) / np.maximum(stakes, 1e-9), 1.0))[:, None] * (z_new - z)
@@ -3831,7 +4127,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             dz = centre(P["q_step"] * (y[n] - z[n]))
             w0 = softmax(z[n])
             z[n] += dz; k[n] += 0.5 * dz; chan[n, 7] += dz
-            B[n] += P["q_open"]; Q[n] = 0.0
+            B[n] += P["q_open"]; Q[n] = 0.0; sh_brk[n] = t
             steady[n] *= 1 - 0.3 * TON
             nic[n] += P["q_niche"] * (softmax(y[n]) - nic[n])
             force_re[n] = True                              # the commitment that fits worst comes up for decision
@@ -3871,7 +4167,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 roles=(dict(names=GR["names"], kinds=GR["kindname"], NT=NT_, has=r_has, ever=r_ever, since=r_since, end=r_end,
                             access=p_acc, level=p_lev, log=role_log, profile=r_prof, pwords=GR["pwords"], refines=GR["refines"])
                        if RON else None),
-                adjectives=dict(names=ADJ_NAMES, say=ADJ_SAY, has=adj, since=adj_since, log=adj_log))
+                adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
+                                log=adj_log),   # with shadows off, without the shadow states (never held then)
+                **(dict(asked=asked) if CU_ON else {}),
+                **(dict(current=cur_sum) if CUR_ON else {}),
+                **(dict(need_map=dict(person=NMP, shared=NMAP, needs=list(NEEDS))) if NM_ON else {}),
+                **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
+                                     shown=sh_n, log=sh_log)) if SHON else {}),
+                **(dict(areas=dict(names=AREAS, offsets=Dz, hist=D_hist,   # each area's colors are softmax(core z + offset)
+                                   colors=softmax(z[:, None, :] + Dz, -1))) if DOM_ON else {}))
 
 
 # ---------- pause points (backend plan item 2, 2026-10-08): the game's own way into the weekly loop
@@ -3903,6 +4207,15 @@ STATE = (
     "p_true", "succ", "delta", "span", "stepF", "role",
     # the player's steer (P["steer"]): the pick's odds without it, and how much it moved the drawn option's odds
     "pr0", "steer_moved",
+    # light and shadow (stage 2, item 2): each colour's shadow part, its force, the four sources (holding on, ruling, no
+    # counterweight, strain), seen, and the character's own pick before the player's ("a_self" at the choose pause and after)
+    "shS", "shA", "sh_src", "sh_seen", "SHON",
+    # a curious, thinking life (stage 2, item 7 C4): how much others come to them for answers, 0 to 1
+    "asked", "CU_ON",
+    # each person's own colour-to-need table (stage 2, P4): needs x colours, from the shared table
+    "NMP", "NM_ON",
+    # the times as a steady current (item 12): how much it has moved each life's colours so far
+    "cur_sum", "cur_m", "CUR_ON",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option
