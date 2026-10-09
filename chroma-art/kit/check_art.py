@@ -1,18 +1,23 @@
 """The art's own check (backend plan item 3: a fast check per owner). Reads only; writes nothing in the shared folder.
 
-  python3 -B /mnt/project-files/chroma-art/kit/check_art.py           # fast, a few seconds: run after every edit
-  python3 -B /mnt/project-files/chroma-art/kit/check_art.py --full    # also rebuilds the icons from the kit (Node)
+  python3 -B chroma-art/kit/check_art.py           # fast, a few seconds: run after every edit
+  python3 -B chroma-art/kit/check_art.py --full    # also rebuilds the icons from the kit (Node; needs kit/glyph)
+
+It checks the tree it sits in (a checkout, or the shared folder), or the tree CHROMA_ROOT names.
 
 Fast: every picture pictures.json names exists, has its size (880x500 events, 700x1000 tarot) and weight (120 KB or less);
 every life event the game runs (engine_pin: Earth and the three packs) has its own picture; every icon id in
-ink-icons.json is a symbol in ink-icons.svg; every moment the game runs has one icon per option; the option texts the
-icons were drawn for match the game's own copy. Option texts that differ from the game's batch are listed as notes, not
-failures: the game keeps an icon for words reworded in place (its web/src/live_icons.py, check C-G2).
+ink-icons.json is a symbol in ink-icons.svg; every moment the game runs has one icon per option and, for each icon, the
+text it was drawn for. Notes, not failures: option texts that differ from the game's batch (the game keeps an icon for
+words reworded in place, its web/src/live_icons.py, check C-G2), and a game copy of ink-option-texts.json that differs
+from this one (the Game copies this one over, then reruns live_icons.py).
 Full: also rebuilds ink-icons.svg and ink-icons.json from kit/glyph in a temporary folder and compares them with game/
 (the JSON byte for byte, the sprite symbol by symbol and mask by mask). A pass ends with the line "art check: pass".
 """
 import glob, importlib.util, json, os, re, struct, subprocess, sys, tempfile
-sys.path.insert(0, os.path.join(os.environ.get('CHROMA_ROOT', '/mnt/project-files'), 'chroma-env'))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
+sys.path.insert(0, os.path.join(os.environ.get('CHROMA_ROOT') or ROOT, 'chroma-env'))
+os.environ.setdefault('CHROMA_ROOT', ROOT)
 from paths import path
 
 ART = path('art')
@@ -76,13 +81,16 @@ for s in moments:
         if o[0] != t: notes.append(f'"{n}" option {i}: the game says "{o[0]}", the icon was drawn for "{t}"')
 game_texts = path('game_live', 'web', 'src', 'ink-option-texts.json')
 if os.path.exists(game_texts) and json.load(open(game_texts, encoding='utf-8'))['option'] != texts:
-    fail('game/ink-option-texts.json differs from the game\'s copy (chroma-game/prototype/web/src/ink-option-texts.json)')
+    notes.append('game/ink-option-texts.json differs from the game\'s copy (chroma-game/prototype/web/src/ink-option-texts.json): '
+                 'the Game copies it over and reruns live_icons.py')
 
 # full: rebuild the icons from the kit and compare
 if '--full' in sys.argv:
     with tempfile.TemporaryDirectory() as out:
-        r = subprocess.run(['node', os.path.join(ART, 'kit', 'glyph', 'build_icons.js'), out], capture_output=True, text=True)
-        if r.returncode: fail(f'build_icons.js failed: {r.stderr.strip()[-300:]}')
+        builder = os.path.join(ART, 'kit', 'glyph', 'build_icons.js')
+        r = subprocess.run(['node', builder, out], capture_output=True, text=True) if os.path.exists(builder) else None
+        if r is None: fail(f'--full needs {builder} (the icon kit), which this tree does not have')
+        elif r.returncode: fail(f'build_icons.js failed: {r.stderr.strip()[-300:]}')
         else:
             if open(os.path.join(out, 'ink-icons.json'), 'rb').read() != open(os.path.join(GAME, 'ink-icons.json'), 'rb').read():
                 fail('ink-icons.json rebuilt from kit/glyph differs from game/ink-icons.json')
