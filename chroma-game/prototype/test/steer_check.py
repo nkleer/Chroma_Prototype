@@ -17,7 +17,8 @@ players:
                their own
   random       a random option with ways, from the seed
   light:<C>    a light steer toward color C at every moment (P3): their own pick, tilted
-Settings to try go in CHROMA_GAME as JSON (for example CHROMA_GAME='{"piv": 0.1}'), which updates game.GAME.
+Settings to try go in CHROMA_GAME as JSON (for example CHROMA_GAME='{"piv": 0.1}'), or "off" for stage 1's rules off
+(game.GAME_OFF); game.py reads it when it loads.
 
 targets (all on preset 1, modern Earth; whole lives come from one shared set: let 1-6, most:<C by seed> 1-6, random
 1-2, careful 1-2):
@@ -53,8 +54,6 @@ def play(preset, seed, player, until=None):
     random.seed(seed)
     from console import Console
     import game as G
-    if os.environ.get("CHROMA_GAME"):                 # settings to try (calibration only)
-        G.GAME.update(json.loads(os.environ["CHROMA_GAME"]))
     try:
         from rarity import RARITY
     except Exception:

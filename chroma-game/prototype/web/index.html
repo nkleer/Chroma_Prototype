@@ -666,6 +666,9 @@
   .evtext { padding: 14px 18px 16px; display: grid; gap: 10px; align-content: start; }
   .evtext .scene { font: 400 var(--fs-3)/1.6 var(--serif); margin: 0; color: var(--ink); }
   .evtext .note { font: 400 var(--fs-3)/1.55 var(--serif); margin: 0; color: var(--ink2); }
+  /* F5 (item 4): the line that ties a moment back to an earlier pick; its cause on hover */
+  .evtext .note.thread { display: flex; gap: 6px; align-items: baseline; font-style: italic; color: var(--gold3); cursor: help; }
+  .evtext .note.thread svg { flex: none; align-self: center; }
   .ev .insight { font-size: var(--fs-3); color: var(--ink); background: linear-gradient(90deg, rgb(184 50 86 / 0.07), rgb(80 64 184 / 0.07)); }
   .ev .aside { margin: 0 4px; color: var(--muted); font-size: var(--fs-2); }
   .ev .voicebox { margin-top: 0; }
@@ -795,6 +798,22 @@
   .wheel .hold { fill: none; stroke: var(--gold2); stroke-width: 1.4; stroke-dasharray: 1 2.6; stroke-linecap: round; }
   .wheel .want { stroke-width: 1.3; }
   .wheel .pull line { stroke: currentColor; stroke-linecap: round; opacity: 0.9; }
+  /* item 3: the voice row on the panel, and its thin arrows on the wheel while hovered */
+  .wheel .vpull line { stroke: currentColor; stroke-width: 1.2; stroke-dasharray: 3 2; stroke-linecap: round; }
+  .wheel .vpull polygon { fill: currentColor; }
+  /* P3: the light steer (lean toward a color) beside "Let them choose"; the era's pull on an option */
+  .evf .lean { display: inline-flex; gap: 2px; align-items: center; }
+  .evf .lean small { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink2); margin-right: 4px; }
+  .evf .lean .lc { padding: 3px; min-width: 0; line-height: 0; }
+  .mk2.era.with { color: var(--peace); } .mk2.era.against { color: var(--stress); }
+  /* WL3: the world's reason on an option; P3: steers on the world's timeline, with or against the era */
+  .mk2.wcause { color: var(--ink2); cursor: help; } .mk2.wcause.easier { color: var(--peace); }
+  .wline .wst2 { fill: var(--ink2); } .wline .wst2.with { fill: var(--peace); } .wline .wst2.against { fill: var(--stress); }
+  .voicerow { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; margin: 6px 0 2px; font: 400 var(--fs-2) var(--ui); color: var(--ink2); cursor: help; }
+  .voicerow svg { align-self: center; flex: none; }
+  .voicerow .k { font-size: var(--fs-1); letter-spacing: 0.06em; text-transform: uppercase; }
+  .voicerow .nm { color: var(--ink); font-family: var(--serif); font-style: italic; }
+  .voicerow small { color: var(--ink3, var(--ink2)); }
   .wheel .pull polygon { fill: currentColor; stroke: none; }
   .paper .wheel .pull { filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.8)); }
   .spkey { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 12px; margin-top: 4px; font: 500 var(--fs-1) var(--ui); color: var(--muted); }
@@ -2152,6 +2171,9 @@ function mkTip(el) {
     case "e": return tipBox(`${ic("hourglass")} An era of ${esc(pl[0])}`, it && it.idea ? esc(it.idea) : "", [], "");
     case "O": return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
       [], hud && hud.world ? "The World panel (key g) has the public record and the history." : "");
+    case "T": return tipBox(`${pip(pl[0])} A turning point`, pl[1] === "reinvention" ? "They took the way the voice pushed for, for good." : pl[1] === "snap back" ? "They went back to their own way, for good." : "They took a new way.",
+      [["It held", pl[2] === "1" ? "yes" : "no: the old pull came back"]], "The price of being pushed against their own pull built up until it came to a head.");   // 5.6
+    case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
     case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]], "");
     case "c": {
       const kind = pl[0], ex = lettersOf(pl[1] || ""), t = L && (L.titles || []).find((x) => x.kind === kind);
@@ -2226,6 +2248,22 @@ function needsRowHTML(L) {
   const N = L.needs || {};
   if (!Object.keys(N).length) return "";
   return `<div class="needs5" aria-label="Needs">${Object.entries(N).map(([k, v]) => `<div class="nd${v < 0.3 ? " barely" : v < (L.need_thin || 0.5) ? " thin" : ""}" data-nd="${k}" tabindex="0" aria-label="${esc(NEED_SHORT[k] || k)}: ${pct(v)}, ${needWord(v)}">${ic(NEED_ICON[k] || "dot")}<span class="lv">${pct(v)}</span><small>${esc(NEED_SHORT[k] || k)}</small></div>`).join("")}</div>`;
+}
+// item 3 (chroma-ideas/voice-mechanics.md): the voice in their head, one row on the panel; its numbers on hover
+function voiceRowHTML(L) {
+  const V = L.voice_row;
+  if (!V || !V.n) return "";
+  return `<div class="voicerow" id="voiceRow" tabindex="0">${ic("voice")}<span class="k">The voice in their head</span><span class="nm">${esc(V.name)}</span>${V.trust ? `<small>${esc(V.trust)}</small>` : ""}</div>`;
+}
+function voiceRowTip(L) {
+  const V = L.voice_row, pts = (x) => `${x > 0 ? "+" : x < 0 ? "−" : ""}${Math.abs(x).toFixed(0)}`;
+  const big = (xs) => COLORS.map((c, i) => [c, xs[i]]).filter(([, x]) => Math.abs(x) >= 1).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 3);
+  const say = (xs) => big(xs).map(([c, x]) => `${CNAME[c]} ${pts(x)}`).join(" and ");
+  const you = say(V.voice), life = say(V.life);
+  const line = !V.steer ? "You have let them choose: the voice has not pushed yet." :
+    (you ? `You moved their ${you} in this life.` : "Your pushes have not moved their colors much yet.") + (life ? ` Life itself moved ${life}.` : "");
+  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []),
+    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where.");
 }
 function needTip(k, L) {
   const v = (L.needs || {})[k] ?? 0;
@@ -2357,7 +2395,7 @@ function toast(msg) {
 function lockInputs(on) { document.querySelectorAll(".tarot, .opt, #pushIt, #evLet, #goOn, .steps4 button, .ch, .tools [data-key]").forEach((b) => { b.disabled = on || b.hasAttribute("data-held") || (b.closest(".steps4") && !!(hud && (hud.cp || hud.mode !== "play"))); }); }
 
 /* ---------------- the chronicle (the story, the main text) ---------------- */
-let curYear = null, prologue = null, lastGuild = null;
+let curYear = null, prologue = null, lastGuild = null, lastBecoming = "";
 let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
@@ -2384,7 +2422,7 @@ const STATUS_ICON = { graduate: "ci-mortarboard", veteran: "ci-swords", "has kil
 const roleIconOf = (d) => d.title ? (d.kind === "status" ? STATUS_ICON[d.name] || "ci-shield" : KIND_ICON[d.kind] || "anchor") : PERK_ICON[d.kind] || "star";
 const iconFor = (it) => it.tag === "commitment" ? (KIND_ICON[it.kind] || "anchor") : it.tag === "goal" ? (GOAL_ICON[it.kind] || "moon") : it.tag === "role" ? roleIconOf(it) : (TAG_ICON[it.tag] || "dot");
 function resetChron() {
-  feedEl.innerHTML = ""; curYear = null; prologue = null; lastGuild = null; ITEMS = []; MARKS = []; yearEls.clear(); WORLD_SEEN.clear(); stick.bottom = true;
+  feedEl.innerHTML = ""; curYear = null; prologue = null; lastGuild = null; lastBecoming = ""; ITEMS = []; MARKS = []; yearEls.clear(); WORLD_SEEN.clear(); stick.bottom = true;
 }
 function foldOld() {
   const yrs = feedEl.querySelectorAll(".yr:not(.prologue)");
@@ -2392,10 +2430,13 @@ function foldOld() {
 }
 function newYear(it) {
   const sec = document.createElement("section"); sec.className = "yr"; sec.dataset.age = it.age;
-  const cs = labelColors(it.label), fresh = it.guild !== lastGuild; lastGuild = it.guild;
-  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh ? `<span>${esc(it.guild)}</span>${it.epithet ? `<span class="ep">${esc(it.epithet)}</span>` : ""}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
+  // the year's name (5.5): the guild when it is new; who they are becoming when that is new (else the guild's epithet)
+  const cs = labelColors(it.label), fresh = it.guild !== lastGuild, bnew = !!it.becoming && it.becoming !== lastBecoming;
+  lastGuild = it.guild; lastBecoming = it.becoming || "";
+  const ep = bnew ? it.becoming : fresh ? it.epithet : "";
+  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh || bnew ? `<span>${esc(it.guild)}</span>${ep ? `<span class="ep">${esc(ep)}</span>` : ""}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
   const head = sec.firstChild;
-  setTip(head, () => tipBox(`Age ${it.age} · ${esc(cap(it.stage))}`, it.guild ? `${pips(cs)} ${esc(it.guild)}${it.epithet ? ", " + esc(it.epithet) : ""}` : "Colors still forming", [],
+  setTip(head, () => tipBox(`Age ${it.age} · ${esc(cap(it.stage))}`, it.guild ? `${pips(cs)} ${esc(it.guild)}${it.becoming || it.epithet ? ", " + esc(it.becoming || it.epithet) : ""}` : "Colors still forming", [],
     bars([["Satisfaction", it.content, "var(--sat)", pct(it.content)], ["Peace", it.peace, "var(--peace)", pct(it.peace)]].concat(
       COLORS.map((c, i) => [CNAME[c], it.w[i] / 0.6, `var(--c${c})`, pct(it.w[i])]))) + `<p>${sec.classList.contains("closed") ? "Click to open the year." : "Click to fold the year."}</p>`));
   head.addEventListener("click", () => { sec.classList.toggle("closed"); sec.dataset.user = "1"; hideTip(); });
@@ -2749,6 +2790,8 @@ new ResizeObserver(() => scheduleLine()).observe(lineEl);
 /* ---------------- header and tools ---------------- */
 $("brandPips").innerHTML = COLORS.map((c) => pip(c)).join("");
 const SETTING_ICON = { earth: "globe", tribal: "flame", magic: "star", ...GI.setting, custom: "sliders" };
+// 5.5: the name is who they have settled into, from the colors of the last four years
+const NAME_NOTE = "The name comes from their colors over the last four years: a color joins above 22% and leaves below 18%.";
 const SETTING_NAME = { earth: "Modern Earth", tribal: "Tribal", magic: "A world of magic" };
 function renderWho(L) {
   if (!L) { whoEl.innerHTML = ""; return; }
@@ -2757,7 +2800,7 @@ function renderWho(L) {
     `<span class="crest">${lc.length ? pips(lc) : pip("W", "dim")}<span class="gn">${esc(L.guild || "Still forming")}</span></span>`;
   setTip(whoEl.querySelector(".crest"), () => tipBox(`${pips(lc)} ${esc(L.guild || "Still forming")}`, L.label ? esc(L.meaning || "") : "Too young for a formed identity yet.",
     L.label ? [["Colors", lc.map((c) => CNAME[c]).join(", ")]].concat(L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : []) : [],
-    L.label ? "A color joins who they are above 22% and leaves below 18%." : "An identity forms once enough has happened to them."));
+    L.label ? NAME_NOTE : "An identity forms once enough has happened to them."));
   if (L.voice) {
     const vs = COLORS.map((c, i) => [c, L.voice[i]]).sort((a, b) => b[1] - a[1]);
     document.documentElement.style.setProperty("--t1", `var(--c${vs[0][0]})`);
@@ -2857,6 +2900,13 @@ function spiderSVG(o) {
     const p0 = spAt(i, a), p1 = spAt(i, b - dir * head), tip = spAt(i, b);
     s += `<g class="pull" style="color:var(--c${c})"><line x1="${p0[0].toFixed(1)}" y1="${p0[1].toFixed(1)}" x2="${p1[0].toFixed(1)}" y2="${p1[1].toFixed(1)}" stroke-width="${sw.toFixed(1)}"/>` +
       `<polygon points="${f1(tip)} ${f1([p1[0] - uy * hw, p1[1] + ux * hw])} ${f1([p1[0] + uy * hw, p1[1] - ux * hw])}"/></g>`;
+  });
+  if (o.voice) COLORS.forEach((c, i) => {          // item 3: while the voice row is hovered, thin arrows toward where the voice pushes
+    const a = spRad(w[i]), b = spRad(clamp(w[i] + o.voice[i], 0.01, 0.95)), d = b - a;
+    if (Math.abs(d) < 1.5) return;
+    const p0 = spAt(i, a), tip = spAt(i, b), ux = Math.cos(SPA[i]), uy = Math.sin(SPA[i]), dir = Math.sign(d), p1 = spAt(i, b - dir * 3.5);
+    s += `<g class="vpull" style="color:var(--c${c})"><line x1="${p0[0].toFixed(1)}" y1="${p0[1].toFixed(1)}" x2="${p1[0].toFixed(1)}" y2="${p1[1].toFixed(1)}"/>` +
+      `<polygon points="${f1(tip)} ${f1([p1[0] - uy * 3, p1[1] + ux * 3])} ${f1([p1[0] + uy * 3, p1[1] - ux * 3])}"/></g>`;
   });
   if (o.labels !== false) COLORS.forEach((c, i) => {
     const e = spAt(i, SPR + 15), on = o.label ? lettersOf(o.label).includes(c) : w[i] > enter;
@@ -3105,12 +3155,13 @@ function renderHud(L) {
   hudEl.innerHTML = `<button class="ghost hud-close" id="hudClose" aria-label="Close status">${ic("x")}</button>
     <div class="crestbox"><div class="cpips">${lc.length ? pips(lc) : pip("W", "dim")}</div><div class="gn">${esc(L.guild || "Still forming")}</div>
       <div class="ep" id="crestMotto">${!L.label ? "colors still forming" : esc(L.meaning || "")}</div>
-      ${L.label && L.label !== L.voice_label && L.voice_guild ? `<div class="vo">still told as ${esc(L.voice_guild)}</div>` : ""}${L.season_x ? `<div class="season" id="seasonChip">${ic("gate")} ${esc(seasonWords(L.season_x))}</div>` : ""}</div>
+      ${L.label && L.becoming ? `<div class="vo">${esc(cap(L.becoming))}</div>` : ""}${L.season_x ? `<div class="season" id="seasonChip">${ic("gate")} ${esc(seasonWords(L.season_x))}</div>` : ""}</div>
     ${states ? `<div class="states">${states}</div>` : ""}
     <div class="wheelw"><svg class="wheel" id="hudWheel" viewBox="-6 -2 212 206" role="img" aria-label="Spider graph of the five colors: where they are, where they want to be, what holds them">${spiderSVG(spOf(L, { id: "hw", hits: true }))}</svg><span class="wkey" id="wKey" tabindex="0" aria-label="How to read the wheel">?</span></div>
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
     <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}"><span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
     ${needsRowHTML(L)}
+    ${voiceRowHTML(L)}
     ${g0 ? `<div class="nowgoal" data-gj="${g0.j}">${ic(GOAL_ICON[g0.kind] || "moon")}<span class="k">${esc(cap(g0.kind))}</span><span class="nm">${esc(g0.name)}</span></div>` : ""}
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
@@ -3123,13 +3174,20 @@ function renderHud(L) {
     ${L.temper ? `<div class="hsec"><h4>Temperament</h4><div class="tmpr">${TEMPER.map(([k, lb, icn, top]) => `<div class="tm" data-tm="${k}">${ic(icn)}<div><div class="bar"><b style="width:${(clamp(L.temper[k] / top) * 100).toFixed(1)}%"></b></div>${lb}</div></div>`).join("")}</div></div>` : ""}
     </div>`;
   setTip($("wKey"), () => tipBox(`${ic("wheel")} How to read the wheel`, "", SP_KEY.map(([k, w, d]) => [`<i class="spk k-${k}"></i> ${w}`, esc(d)]), "Hover a color for its numbers."));
-  if (L.label && L.meaning) setTip($("crestMotto"), () => tipBox(`${pips(lc)} ${esc(L.guild)}`, esc(L.meaning), L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : [], "A color joins who they are above 22% and leaves below 18%."));
+  if (L.label && L.meaning) setTip($("crestMotto"), () => tipBox(`${pips(lc)} ${esc(L.guild)}`, esc(L.meaning), L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : [], NAME_NOTE));
   $("hudClose").addEventListener("click", () => closeHud());
   if ($("seasonChip")) setTip($("seasonChip"), () => seasonTip(L.season_x));
   const bindHits = () => hudEl.querySelectorAll("#hudWheel .hit").forEach((h) => setTip(h, () => tipColor(L, +h.dataset.c)));
   bindHits(); bindSpKey(hudEl);
   $("openSheet").addEventListener("click", (e) => { e.stopPropagation(); openSheet(); });
   hudEl.querySelectorAll("[data-nd]").forEach((el) => setTip(el, () => needTip(el.dataset.nd, L)));
+  if ($("voiceRow")) {            // item 3: the row's numbers on hover, and the wheel's arrows toward where the voice pushes
+    const vr = $("voiceRow"), wh = $("hudWheel"), V = L.voice_row;
+    setTip(vr, () => voiceRowTip(L));
+    const show = (on) => { if (!wh || !V.steer) return; wh.innerHTML = spiderSVG(spOf(L, { id: "hw", hits: true, voice: on ? V.toward.map((x) => x * 0.15) : null })); bindHits(); };
+    vr.addEventListener("mouseenter", () => show(true)); vr.addEventListener("mouseleave", () => show(false));
+    vr.addEventListener("focus", () => show(true)); vr.addEventListener("blur", () => show(false));
+  }
   // point 2: the colors move to where they are now slowly, week by week when the weeks are known
   const fr = hudFrames.splice(0), last = hudLast; hudLast = { t: Math.round(L.age * 52), w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])) };
   if (last && !IL.on && (fr.length || last.w.some((v, i) => Math.abs(v - L.w[i]) > 0.002))) {
@@ -3337,6 +3395,8 @@ function optRow(o, i, num) {
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
+  if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
+  if (!o.own && Math.abs(o.era || 0) >= 0.3) marks.push(`<span class="mk2 era ${o.era > 0 ? "with" : "against"}">${ic("globe")}${o.era > 0 ? "with the times" : "against the times"}</span>`);   // P3
   const hp = (o.helped || []).find((h) => h.name === o.helped_row);     // a perk that sets this option apart; the strip lists all
   if (hp) marks.push(`<span class="mk2 rb up">${ic(roleIconOf(hp))}${esc(hp.pred)}</span>`);
   for (const x of (o.roles_fx || []).slice(0, 1)) marks.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
@@ -3476,6 +3536,7 @@ function renderTable(h) {
       <div class="evtext">
         ${cp.season && cp.season.this_week ? `<p class="seasonnote" id="cpSeason">${ic("gate")} ${cp.season.transform ? "A turning point of this season: this choice can change who they become." : esc(seasonWords(cp.season)) + "."}</p>` : ""}
         ${cp.scene ? `<p class="scene" data-i="cp">${rich(cp.scene)}</p>` : ""}
+        ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}
@@ -3483,13 +3544,25 @@ function renderTable(h) {
     <div class="evr" id="evOpts"><div class="ask">What will ${esc(L.name)} do? <small>${touchUI ? "tap to read · tap again to push" : "hover to read · click or press its number to push"}</small></div>${rows}
       ${touchUI ? "" : `<div class="dstrip idle" id="evStrip" aria-live="polite"><div class="dt">Hover a card to read it here: how sure ${esc(L.name)} feels, what it would meet, what may follow.</div></div>`}</div>
     <div class="evf"><button class="primary" id="evLet">${ic("crown")} Let ${esc(narrow() ? "them" : L.name)} choose</button>
+      <span class="lean" id="evLean" role="group" aria-label="Lean toward a color"><small>Lean</small>${COLORS.map((c) => `<button class="ghost lc" data-lc="${c}" aria-label="Lean toward ${CNAME[c]}">${pip(c)}</button>`).join("")}</span>
       <span class="legend"><span><b>Feels</b> how sure ${esc(L.name)} is it will work · ▲ reality kinder · ▼ harsher</span></span>
       <button class="ghost" id="evPeek">${ic("eye")} Look at the life</button></div>`;
   showEv(true); setPeek(false);
   $("evOpts").scrollTop = 0;
   if (cp.voice) setTip($("tug"), () => voiceTip([cp.voice.key, cp.voice.heart_driver, cp.voice.head_driver, cp.voice.self_control]));
+  // F5 (item 4): a moment that follows from an earlier pick says so; the hover gives the cause plainly
+  if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3
+  // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
+  tableEl.querySelectorAll("[data-lc]").forEach((b) => {
+    const c = b.dataset.lc, e = cp.era, fit = e && e.i >= 0.2 ? lettersOf(e.letters).includes(c) : false;
+    b.addEventListener("click", () => send("~" + c));
+    setTip(b, () => tipBox(`${pip(c)} Lean toward ${CNAME[c]}`, `They still choose for themselves, but lean toward ${CNAME[c]} ways.`,
+      e && e.i >= 0.2 ? [["The times", `${pips(lettersOf(e.letters))} pull ${fit ? "this way: it costs less" : "elsewhere"}`]] : [],
+      "If they would have done it anyway, it costs nothing. If it tips them off their own pick, it costs as much of a push as it changed."));
+  });
   const own = cp.options.find((o) => o.own); setTip($("evLet"), () => tipBox(`${ic("crown")} Their own choice`, own ? esc(cap(own.label)) : "", [], "They act as they lean, with no cost. Key Enter."));
   $("evPeek").addEventListener("click", () => setPeek(true));
   const strip = $("evStrip"), idleStrip = strip ? strip.innerHTML : "";
@@ -3557,7 +3630,7 @@ function renderResolution(h, reveal) {
   const cmove = `<div class="cmove" id="cmove">${COLORS.map((c, i) => { const v = dw[i], hgt = Math.abs(v) / mx * 19; return `<div class="cb"><div class="col"><b style="background:var(--c${c});${v >= 0 ? `bottom:50%;height:${hgt.toFixed(1)}px` : `top:50%;height:${hgt.toFixed(1)}px`}"></b></div>${pip(c)}</div>`; }).join("")}</div>`;
   const cl = r.closer, nowC = lettersOf(r.identity && r.identity.now);
   const toward = cl ? `<div class="toward" id="toward">${pips(nowC.length ? nowC : ["W"])}<span>${ic("push")}</span>${pips(lettersOf(cl.identity))}<div><div class="tw">${esc(cl.guild)}</div><small>${cl.distance < 0.05 ? "a step away" : "on the way"}</small></div><div class="dist"><b style="width:${(clamp(1 - cl.distance / 0.15) * 100).toFixed(0)}%"></b></div></div>` :
-    nowC.length ? `<div class="toward" id="toward">${pips(nowC)}<div><div class="tw">${esc(r.identity.guild)}</div><small>who they are now</small></div></div>` : "";
+    nowC.length ? `<div class="toward" id="toward">${pips(nowC)}<div><div class="tw">${esc(r.identity.guild)}</div><small>their colors now</small></div></div>` : "";
   const les = r.lessons || [];
   const vword = `${r.worked ? "It worked" : "It went badly"}${SURPRISE[r.surprise] ? ", " + SURPRISE[r.surprise] : ""}`;
   tableEl.innerHTML = evHead(`${ic("rune")} What came of it · Age ${Math.floor(r.age)}`, esc(cap(r.act)), colorsHTML(means, ends)) + `
@@ -3601,7 +3674,7 @@ function renderResolution(h, reveal) {
   tableEl.querySelectorAll("[data-pid]").forEach((x) => setTip(x, () => personTip(+x.dataset.pid)));
   tableEl.querySelectorAll("[data-rr]").forEach((x) => { const d = r.roles[+x.dataset.rr]; setTip(x, () => roleTip(d, findRole(d.name))); });
   setTip($("cmove"), () => tipBox(`${ic("wheel")} The colors this week`, "", [["Moved", colorMoves(r.dw)]], (r.push || []).map((p) => `${esc(cap(p.why))}: ${p.dir} ${pip(p.color)}`).join("<br>") || "Points are shares of 100."));
-  if ($("toward")) setTip($("toward"), () => cl ? tipBox(`${pips(lettersOf(cl.identity))} Moving toward ${esc(cl.guild)}`, "", [["Still to go", `${(cl.distance * 100).toFixed(1)} pts`]], "A color joins who they are above 22% and leaves below 18%.") : tipBox(`${pips(nowC)} ${esc(r.identity.guild)}`, "", [], "No identity is close to changing this week."));
+  if ($("toward")) setTip($("toward"), () => cl ? tipBox(`${pips(lettersOf(cl.identity))} Moving toward ${esc(cl.guild)}`, "", [["Still to go", `${(cl.distance * 100).toFixed(1)} pts`]], "A color joins above 22% and leaves below 18%; the name follows the colors of the last four years.") : tipBox(`${pips(nowC)} ${esc(r.identity.guild)}`, "", [], "No identity is close to changing this week."));
   tableEl.querySelectorAll(".verdict .tag").forEach((x) => setTip(x, () => tipBox(`${ic("voice")} Heart and head`, "", [], x.classList.contains("push") ? "You chose for them. If they were okay with it, it cost little; the less they wanted it, the more it cost: effort, strain and pent-up wanting." : x.classList.contains("regret") ? "The heart won against the head, and it failed. Regret lingers, and it can bring back what was let go." : "Before the choice, the heart (impulse) and the head (reflection) each had a favourite. This is which one they followed.")));
 }
 
@@ -3974,6 +4047,8 @@ function openSheet() {
 /* ---------------- the Book of Moments (points 11 and 15; Emren chose "Book and peace", 21:44): what every life met, kept in
    this browser across lives. It records; it does not rank. Rarity: the share of simulated modern Earth lives that meet a
    moment (rarity.py), until the engine and the Library tag real-life frequencies. ---------------- */
+// item 3: the sides of the five questions (engine AXES, + side then - side), as the Book's Your Voice page says them
+const VOICE_SIDE = [["others", "themselves"], ["safety", "freedom"], ["the head", "the heart"], ["what was meant to be", "their own will"], ["who they already were", "what they could make of themselves"]];
 const BOOK_KEY = "chroma.book", CAT_KEY = "chroma.bookcat", BOOK_LIVES = 80;
 const emptyBook = () => ({ v: 1, lives: {}, order: [], seen: {} });
 let book = (() => { try { const b = JSON.parse(localStorage.getItem(BOOK_KEY) || "null"); if (b && b.v === 1 && b.seen && b.lives) return b; } catch (_) {} return emptyBook(); })();
@@ -4004,6 +4079,7 @@ function bookMerge(r) {
   Object.assign(L, { name: r.name, setting: r.setting, start: r.start, age: r.age, over: !!r.over, k: [...had] });
   if (r.final !== undefined) L.final = r.final;
   if (r.reading) L.reading = r.reading.words;
+  if (r.voice) L.voice = r.voice;
   for (const id of book.order.slice(0, Math.max(0, book.order.length - BOOK_LIVES))) if (book.lives[id]) delete book.lives[id].k;   // counts stay
   storeBook();
 }
@@ -4060,6 +4136,12 @@ function openBook() {
   const lifeRows = lives.slice().reverse().slice(0, 30).map(([id, L]) => { const nw = firstHere(id).filter((k) => /^[se]\|/.test(k)).length;
     const fin = L.final != null ? (((bookCat[worldOf(L.setting)] || {}).idents || {})[L.final] || ["Still forming"])[0] : "";
     return `<div class="brow blife"><span class="bn"><b>${esc(L.name || "")}</b><span class="muted">${esc(SETTING_NAME[L.setting] || "")} · ${Math.floor(L.start || 0)} to ${Math.floor(L.age || 0)}${L.over ? "" : ", living"}${fin ? " · " + esc(fin) : ""}</span></span>${L.reading ? `<span class="rd">${esc(L.reading)}</span>` : ""}${nw ? `<span class="muted">${nw} moment${nw === 1 ? "" : "s"} first met in this life</span>` : ""}</div>`; }).join("");
+  // item 3: Your Voice, the player's pushes across lives (the ten sides of the five questions), and one line per life
+  const vl = lives.filter(([, L]) => L.voice && L.voice.n), vs = vl.reduce((t, [, L]) => { t.n += L.voice.n; t.steer += L.voice.steer; L.voice.ax.forEach((x, i) => { t.ax[i] += x; }); return t; }, { n: 0, steer: 0, ax: [0, 0, 0, 0, 0] });
+  const vi = vs.ax.reduce((b, x, i) => Math.abs(x) > Math.abs(vs.ax[b]) ? i : b, 0), vside = VOICE_SIDE[vi][vs.ax[vi] > 0 ? 0 : 1];
+  const voiceSum = !vl.length ? "" : !vs.steer ? `In ${vl.length === 1 ? "one life" : vl.length + " lives"} you have let them choose every time.` :
+    `Across ${vl.length === 1 ? "one life" : vl.length + " lives"} you pushed in ${vs.steer} of ${vs.n} moments, most often for ${vside}.`;
+  const voiceRows = vl.slice().reverse().filter(([, L]) => L.voice.line).slice(0, 12).map(([, L]) => `<div class="brow"><span class="bn">${esc(L.voice.line)}</span></div>`).join("");
   const worlds = ["earth", "tribal", "magic"].map((w) => `<span class="chip${has("w|" + w) ? " on" : " off"}">${ic(SETTING_ICON[w] || "globe")}${esc(SETTING_NAME[w] || w)}${has("w|" + w) ? ` <b>${S["w|" + w].n}</b>` : ""}</span>`).join("");
   bookEl.hidden = false;
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
@@ -4068,7 +4150,7 @@ function openBook() {
     ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
-      <section><h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
+      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
       <section><h4>Moments by part of life</h4><div class="mts">${domRows}</div><h4>Titles held</h4><div class="perks">${titleChips}</div></section>
     </div>` : `<p class="bempty">Nothing yet. Every life you play writes into this book: the moments it meets, the people it becomes, the titles it holds. Rare moments are marked with a star.</p>`}</div>`;
   bookEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox(esc(el.querySelector(".bl").textContent), "", [], esc(el.dataset.def))); });
@@ -4435,6 +4517,8 @@ function worldLine(W) {
     g += `<polyline class="wun" points="${ser.map((p) => `${X(p[0]).toFixed(1)},${(42 - p[1] / mx * 18).toFixed(1)}`).join(" ")}"/>`; }
   g += `<rect class="wlife" x="${X(0).toFixed(1)}" y="48" width="${Math.max(1, X(W.age) - X(0)).toFixed(1)}" height="6" rx="3"/>`;
   (W.history || []).filter((h) => h.big).forEach((h, i) => { g += `<circle class="wev" data-h="${(W.history || []).indexOf(h)}" cx="${X(h.age).toFixed(1)}" cy="51" r="4.5"/>`; });
+  // P3: each push or lean on the life's line, with the era's pull (light) or against it (dark)
+  (W.steers || []).forEach((x, i) => { g += `<rect class="wst2 ${x.era >= 0.3 ? "with" : x.era <= -0.3 ? "against" : "even"}${x.kind === "lean" ? " lean" : ""}" data-st="${i}" x="${(X(x.age) - 1.5).toFixed(1)}" y="56" width="3" height="${x.kind === "lean" ? 4 : 7}" rx="1"/>`; });
   for (let a = Math.ceil(lo / 10) * 10; a <= hi; a += 10) g += `<text class="wax" x="${X(a).toFixed(1)}" y="70" text-anchor="middle">${a === 0 ? "born" : a < 0 ? a : a}</text>`;
   return `<svg class="wline" viewBox="0 0 1000 76" role="img" aria-label="The world's history beside the life, by age">${g}</svg>`;
 }
@@ -4454,6 +4538,8 @@ function openWorld() {
   const rights = (W.rights || []).map((r) => `<span class="chip">${ic("ci-scales")}${esc(cap(r.word))}: <span class="w">${r.level >= 0.8 ? "secure" : r.level >= 0.5 ? "partial" : "weak"}</span></span>`).join("");
   const polls = (W.polls || []).slice(0, 6).map((p) => `<div class="mt"><span class="ml">${esc(cap(p.word))}</span><i><b style="width:${p.share}%;background:var(--gold)"></b></i><span class="mv">${p.share} in 100</span></div>`).join("");
   const figs = (W.figures || []).map((f) => `<div class="wfig${f.alive ? "" : " gone"}">${pips(lettersOf(f.letters))}<span><b>${esc(f.name)}</b> <span class="muted">${esc(f.role)}${f.alive ? "" : ", gone"}</span></span></div>`).join("");
+  // WL5: the character's own record of what the world changed of theirs, by age
+  const times = (W.times || []).slice().reverse().slice(0, 40).map((x) => `<div class="whist${x.big ? " big" : ""}" data-tm="${esc(x.cause || "")}"><span class="wa">${wAge(x.age, nm)}</span>${ic("globe")}<span>${esc(x.text)}</span></div>`).join("");
   const hist = (W.history || []).slice(0, 60).map((x, i) => `<div class="whist${x.big ? " big" : ""}"><span class="wa">${wAge(x.age, nm)}</span>${ic(x.icon)}<span>${esc(x.text)}</span></div>`).join("");
   worldEl.hidden = false;
   worldEl.innerHTML = `<div class="box paper sheet world" role="dialog" aria-label="The world">
@@ -4463,11 +4549,15 @@ function openWorld() {
       <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
+      ${times ? `<section class="wide"><h4>What the times did to ${esc(nm)}</h4><div class="whists">${times}</div></section>` : ""}
       <section class="wide"><h4>History</h4><div class="whists">${hist || `<span class="empty">Nothing yet</span>`}</div></section>
     </div></div>`;
   $("wClose").addEventListener("click", closeWorld);
   worldEl.querySelectorAll(".wer").forEach((el) => { const e = W.eras[+el.dataset.era]; setTip(el, () => tipBox(`${pips(lettersOf(e.letters))} ${esc(cap(e.name))}`, "", [["From", wAge(e.from, nm)], ["To", e.to == null ? "now" : wAge(e.to, nm)]], "An era is a stretch of years in which society rewards one way of living.")); });
   worldEl.querySelectorAll(".wev").forEach((el) => { const h = W.history[+el.dataset.h]; setTip(el, () => tipBox(`${ic(h.icon)} ${esc(h.text)}`, "", [["When", wAge(h.age, nm)]], "")); });
+  worldEl.querySelectorAll("[data-tm]").forEach((el) => { if (el.dataset.tm) setTip(el, () => tipBox(`${ic("globe")} Why`, esc(cap(el.dataset.tm)), [], "")); });
+  worldEl.querySelectorAll(".wst2").forEach((el) => { const x = W.steers[+el.dataset.st]; setTip(el, () => tipBox(`${x.kind === "lean" ? pip(x.lean) + " A lean" : ic("push") + " A push"} ${x.colors && x.colors !== "-" ? "toward " + pips(lettersOf(x.colors)) : ""}`, "",
+    [["When", wAge(x.age, nm)], ["The times", x.era >= 0.3 ? "with their pull: it cost less" : x.era <= -0.3 ? "against their pull: it cost more" : "neither with nor against"]], "")); });
 }
 
 function pageKey(k) {

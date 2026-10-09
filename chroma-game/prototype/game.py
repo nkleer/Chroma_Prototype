@@ -124,6 +124,14 @@ GAME = dict(
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
 )
 
+# stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
+# with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
+GAME_OFF = dict(piv=0.0, piv_own=0.0, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
+                era_cost=0.0, backfire=0.0, turn_max=0)
+if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
+    import json as _json
+    GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
+
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
 # rate between half and twice the typical one, moved week by week by the context around the person (family, ties,
 # money, health, the era, the world, stress, and their own recent trouble and fortune). Every other week is ordinary
