@@ -490,16 +490,16 @@ scene U: {N} has read the official guidance three times and marked every clause 
 scene B: Everything {N} has built here, the job, the flat, the plans, hangs on one stamp from a stranger behind the glass, and {N} intends to get that stamp.
 scene R: {Ns} knee will not stop bouncing. Years of living here, and one bad mood behind the glass could undo all of it.
 scene G: {N} has put down a life here: a street, a few friends, a bench in the park that feels like {Ns} own. Roots, {N} thinks, should count for something.
-- W | bring every paper in order, and answer every question exactly | v: security, conformity | grants: permanent residence | chance: 66
-- U | learn the rules until you know them better than the official | v: achievement | grants: permanent residence | mark: learned a skill | chance: 64
-- B | slip a go-between a fee to move your file to the top of the pile | v: power, security | grants: permanent residence | mark: broke the law | closed: law: bribing an official; backfire: the file is flagged and the application refused | chance: 50
-- R | argue your case at the glass, loudly, when they find a problem | closed: approval: a scene at the counter; backfire: security is called and the file goes to the bottom | v: self-direction | grants: permanent residence | chance: 38
-- G | wait your turn, and trust years of ordinary life here to make the case | v: security, tradition | grants: permanent residence | chance: 62
-- W>U | ask, formally and politely, for a senior officer to review the file | v: conformity, self-direction | grants: permanent residence | chance: 62
-- U>B | find a route in the rules that the official has missed | v: achievement, power | grants: permanent residence | chance: 55
-- B>R | get your employer to write that the firm cannot do without your work | v: power, security | grants: permanent residence | chance: 70
-- R>G | bring your neighbours and friends to vouch for you in person | act: bring the neighbours and friends to vouch in person | v: benevolence, security | grants: permanent residence | chance: 46
-- G>W | bring letters from the community centre, the club and the street | v: security, tradition | grants: permanent residence | chance: 66
+- W | bring every paper in order, and answer every question exactly | v: security, conformity | grants: permanent residence | title: permanent resident | chance: 66
+- U | learn the rules until you know them better than the official | v: achievement | grants: permanent residence | title: permanent resident | mark: learned a skill | chance: 64
+- B | slip a go-between a fee to move your file to the top of the pile | v: power, security | grants: permanent residence | title: permanent resident | mark: broke the law | title_if_fails: without papers | closed: law: bribing an official; backfire: the file is flagged and the application refused | chance: 50
+- R | argue your case at the glass, loudly, when they find a problem | closed: approval: a scene at the counter; backfire: security is called and the file goes to the bottom | v: self-direction | grants: permanent residence | title: permanent resident | chance: 38
+- G | wait your turn, and trust years of ordinary life here to make the case | v: security, tradition | grants: permanent residence | title: permanent resident | chance: 62
+- W>U | ask, formally and politely, for a senior officer to review the file | v: conformity, self-direction | grants: permanent residence | title: permanent resident | chance: 62
+- U>B | find a route in the rules that the official has missed | v: achievement, power | grants: permanent residence | title: permanent resident | chance: 55
+- B>R | get your employer to write that the firm cannot do without your work | v: power, security | grants: permanent residence | title: permanent resident | chance: 70
+- R>G | bring your neighbours and friends to vouch for you in person | act: bring the neighbours and friends to vouch in person | v: benevolence, security | grants: permanent residence | title: permanent resident | chance: 46
+- G>W | bring letters from the community centre, the club and the street | v: security, tradition | grants: permanent residence | title: permanent resident | chance: 66
 works: The stamp comes down, and a card arrives two weeks later: {N} may stay.
 works: The official closes the file with a nod, and the long years of renewals are over.
 fails: A letter asks for more documents, and the whole wait starts again.
