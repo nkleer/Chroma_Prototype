@@ -272,6 +272,19 @@ def dream_catalogue():
 DRIVER_WORD = dict(motives="what moves them", habit="habit", needs="what they lack", role="what is expected", goals="a dream or plan",
                    horizon="time feeling short", exit="what leaving would cost", values="what they believe in",
                    becoming="who they want to become", odds="the odds")
+NEED_SAY = dict(safety="safety", belonging="belonging", autonomy="room to choose", competence="a sense of skill", meaning="meaning")
+# looking back on a push (IDEAS.md, "Player intervention that helps", Emren 2026-10-09)
+HINDSIGHT = dict(
+    accepted=["*I didn't want this. But it gave me {need}, and I needed that.*",
+              "Looking back, {N} is glad of the push: it brought {need} they were missing.",
+              "*Fine. You were right this time.* It gave {N} {need} they had gone without."],
+    resented_fail=["*I knew it. I should never have listened.*",
+                   "{N} holds it against the voice that pushed them: it went badly, and it was never theirs.",
+                   "*That was not mine to do, and it failed.*"],
+    resented_empty=["*It worked. So what? It was never what I needed.*",
+                    "It worked, but it gave {N} nothing they were missing, and they resent being pushed.",
+                    "*Someone else's win, in my life.*"],
+)
 SURPRISE = {(True, "better"): "It works, better than {N} expected.", (True, "as expected"): "It works, as {N} expected.",
             (True, "worse"): "It works, though less well than {N} hoped.", (False, "better"): "It goes badly, though not as badly as {N} feared.",
             (False, "as expected"): "It goes badly, as {N} half expected.", (False, "worse"): "It goes badly, worse than {N} feared."}
@@ -1173,6 +1186,7 @@ class Story:
     def __init__(self, name, seed, place="town", setting="earth"):
         self.name = name
         self.rng = np.random.default_rng(int(seed) + 4243)
+        self.seed = int(seed)
         self.place = place
         self.setting = setting if setting in WORLD else "earth"
         self.W = WORLD[self.setting]
@@ -1670,7 +1684,8 @@ class Story:
     def read(self, r, stage):
         """An outside event read through the character's colors (Earth batch): the scene and how they take it."""
         ev = LIB_READ.get(r["name"])
-        scene = self.fill(self.pick(ev["scenes"], phase(r["age"])), phase(r["age"]), dict(_age=r["age"])) if ev and ev["scenes"] else ""
+        scene = self.fill(r["_scene"], phase(r["age"]), dict(_age=r["age"])) if r.get("_scene") else \
+            self.fill(self.pick(ev["scenes"], phase(r["age"])), phase(r["age"]), dict(_age=r["age"])) if ev and ev["scenes"] else ""
         say = self.fill(r["say"], phase(r["age"]), dict(_age=r["age"])) if r.get("say") else \
             self.fill("{N} takes it as " + r["reading"] + ".")
         return (scene + " " + mk("r", f"{r.get('reading', '')}|{float(r.get('impact', 0)):.2f}", say)).strip()
@@ -2078,6 +2093,27 @@ class Story:
 
     def aside(self, key, line):
         return mk("j", key, self.fill(line))
+
+    def needs_line(self, needs):
+        """The needs a choice's week moved, as one line (IDEAS.md, "Make needs visible"); empty when none moved."""
+        if not needs:
+            return ""
+        bits = [f"{NEED_SAY.get(x['need'], x['need'])} {x['before'] * 100:.0f}% → {x['after'] * 100:.0f}%" for x in needs[:4]]
+        return "Needs: " + ", ".join(bits) + "."
+
+    def _hrng(self):
+        """Its own random stream, so lives without pushes are told exactly as before."""
+        if getattr(self, "_hr", None) is None:
+            self._hr = np.random.default_rng(int(self.seed) + 9177)
+        return self._hr
+
+    def hindsight(self, kind, need, worked):
+        """How the character judges a push, looking back (IDEAS.md, "Player intervention that helps")."""
+        if kind == "accepted":
+            return self.fill(self._hrng().choice(HINDSIGHT["accepted"]).replace("{need}", need or "what was missing"))
+        if kind == "resented":
+            return self.fill(self._hrng().choice(HINDSIGHT["resented_fail" if not worked else "resented_empty"]))
+        return ""
 
     def resolution(self, r):
         """What came of a choice, as the terminal tells it (the browser draws the same dict as a panel)."""
