@@ -2116,11 +2116,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if k_ < lw_.shape[0] and lw_[k_] >= 0:
                 u_ = float(wco_["ul"][n, k_])
                 if u_ > 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
                 elif wco_["lo"][n, k_] and wco_["closed0"][n, k_] == 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], -1.0, "allowed")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], -1.0, "allowed")
             if k_ < nm_.shape[0] and nm_[k_] >= 0 and wco_["ua"][n, k_] >= WFX_OPT[0]:
-                add(k_, "norm", WK_.NORM_KEYS[nm_[k_]], wco_["ua"][n, k_], "frowned on")
+                add(k_, "norm", WK_.NORM_KEYS_ALL[nm_[k_]], wco_["ua"][n, k_], "frowned on")
             if wco_.get("role") is not None and wco_["role"][n, k_] >= WFX_OPT[0]:
                 add(k_, "role", "role crossing", wco_["role"][n, k_], "frowned on")
             if k_ < te_.shape[0] and te_[k_] >= 0:

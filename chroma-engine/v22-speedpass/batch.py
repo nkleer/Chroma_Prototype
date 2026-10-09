@@ -574,10 +574,10 @@ def _world_fields(L):
             nm = f"moment {L['src'][si].get('name', si)!r}, option {ki + 1}"
             if nt.get("law"):   # a leading minus closes the option the other way round (v23 W38: -conscription)
                 lv_ = str(nt["law"]).strip(); law_neg[si, ki] = lv_.startswith("-")
-                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS, nm)[0]
+                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS_ALL, nm)[0]
             if nt.get("norm"):
                 nv_ = str(nt["norm"]).strip(); norm_neg[si, ki] = nv_.startswith("-")
-                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS, nm)[0]
+                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS_ALL, nm)[0]
             if nt.get("tech"):
                 tech[si, ki] = one(nt["tech"], WK.TECH_KEYS, nm)[0]
             if nt.get("role"):   # N1b: women, men (an act the world reserves for that sex), keep or cross (the scene's role)

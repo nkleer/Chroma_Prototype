@@ -117,7 +117,7 @@ NORM_PROF_SRC = {
     "role crossing":     ("B.3 U.3 R.2 W.2", "choosing one's path over the expected role, skill over custom, living as one feels, equal rules"),
     "transition":        ("R.4 U.3 G.2 B.1", "living as one truly is, self-understanding and medicine, being true to one's nature, self-determination"),
     "mixed marriage":    ("R.3 G.3 U.3 W.1", "love across lines, family, an open mind, equal standing"),
-    # v23 (the Library's W38 held-back keys; estimates)
+    # W38b (the Library's held-back keys; estimates): read at their modern state, not modelled yet (world_keys.LAW_V23)
     "tobacco":           ("R.4 B.3 G.3", "pleasure and habit, rule over one's own body, custom and company"),
     "knives":            ("B.4 R.3 G.3", "self-defence and power, readiness for a fight, a tool of the outdoors"),
     "drink-driving":     ("R.6 B.4", "the night out and the thrill, one's own convenience first"),
@@ -2346,10 +2346,10 @@ class World:
 
     # ------------------------------------------------------------------------------------------------ what the engine reads
     def law_state(self, key):
-        return int(self.laws[LI[key]])
+        return int(self.laws[LI[key]]) if key in LI else int(LAW_MOD[key])   # W38b keys: the modern law book
 
     def norm(self, key):
-        return float(_sig(self.norm_x[NI[key]]))
+        return float(_sig(self.norm_x[NI[key]])) if key in NI else float(NORM_MOD[key])   # W38b keys: modern acceptance
 
     def tech_has(self, key):
         return key in self.tech_keys and bool(self.tech_exists[self.tech_keys.index(key)])
