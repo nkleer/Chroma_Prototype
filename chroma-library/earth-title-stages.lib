@@ -347,7 +347,7 @@ scene U: {N} has seen how the records are kept and the rota is run, and already 
 scene B: Whoever does the organising decides who plays, who goes and who waits. That is a kind of power, small as it is.
 scene R: {N} joined for the fun of it. Turning it into lists and messages feels like a small death.
 scene G: {elder} kept this group alive for twenty years and is tired now. Somebody has to take the weight, or it withers.
-- W | say yes, and take on the organising from next week | v: benevolence, conformity | grants: organising people | chance: 45
+- W | say yes, and take on the organising from next week | v: benevolence, conformity | grants: organising people | chance: 26
 - U | offer to sort out the records and the money, and nothing else | v: achievement, security | grants: bookkeeping | chance: 80
 - B | take the organising on, and fill the main jobs with your own friends | v: power | chance: 75
 - R | say no plainly: you came to take part, not to run things | v: self-direction, hedonism | chance: 82

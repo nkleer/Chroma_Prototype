@@ -29,10 +29,10 @@ scene U: {N} has read that these things hook people faster than cigarettes ever 
 scene B: The ones passing it round are the ones everyone wants to sit with at lunch. A place in this circle is worth something.
 scene R: The bell goes in four minutes, a teacher could turn the corner at any second, and {Ns} heart is going fast.
 scene G: {grandparent} smoked all their life and coughed every morning {N} can remember. The sweet cloud drifts past as if it has nothing to do with that.
-- W | take one pull, the way everyone in the circle has, and pass it on | habit | v: conformity | self_control: - | closed: approval: vaping at school; backfire: caught, and a letter home | chance: 90
+- W | take one pull, the way everyone in the circle has, and pass it on | habit | v: conformity | self_control: - | closed: approval: vaping at school; backfire: caught, and a letter home | norm: tobacco | chance: 90
 - U | try the one with something stronger in it, just to see what it does | v: self-direction, stimulation | mark: used drugs | body: light | closed: law: an illegal drug; backfire: sick and shaking in the toilets, and the school rings home | law: drugs | chance: 74
 - B | buy your own from the older kid who sells them, and make sure everyone sees | v: power, achievement | closed: law: under age to buy; backfire: confiscated, and a letter home | chance: 68
-- R | blow the biggest cloud anyone has seen, and wait for the cheer | habit | v: stimulation, hedonism | body: light | closed: approval: vaping at school; backfire: a coughing fit, and a teacher round the corner | chance: 84
+- R | blow the biggest cloud anyone has seen, and wait for the cheer | habit | v: stimulation, hedonism | body: light | closed: approval: vaping at school; backfire: a coughing fit, and a teacher round the corner | norm: tobacco | chance: 84
 - G | say no, thinking of your grandparent's cough, and stay in the circle anyway | identity | v: security, tradition | self_control: + | chance: 76
 - W>U | ask the school nurse straight out what vaping does to a body | v: self-direction | chance: 70
 - U>B | pretend to inhale, so you look like one of them without getting hooked | v: power, security | chance: 84
@@ -367,13 +367,13 @@ scene B: A taxi out here costs a fortune and takes an hour, and the car would ha
 scene R: {N} feels fine, the night is warm, and the road home is one {N} could drive with their eyes shut.
 scene G: {friend} is slurring a little and wants a lift. Outside, the lane is black between the hedges, and an owl is calling.
 - W | leave the car, phone for a taxi, and wait however long it takes | v: conformity, security | self_control: + | chance: 82
-- U | blow into the pub's breathalyser machine, and drive if it says yes | habit | v: security | self_control: - | mark: took a wild risk | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | closed: law: driving over the limit; backfire: the machine was wrong, and the police are not | chance: 76
+- U | blow into the pub's breathalyser machine, and drive if it says yes | habit | v: security | self_control: - | mark: took a wild risk | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | closed: law: driving over the limit; backfire: the machine was wrong, and the police are not | law: drink-driving | chance: 76
 - B | sleep it off on the back seat, and drive home at first light | v: security | self_control: + | chance: 76
 - R | talk the landlord into a lock-in, and worry about the car tomorrow | v: hedonism | chance: 72
 - G | ask the landlord, an old friend, for the sofa in the back room | v: security, tradition | chance: 74
 - W>U | wait on water for as long as the rule of thumb says, then drive | v: security | suspends_if_fails: driving licence | for_years: 1 | chance: 70
-- U>B | drive, with mints and a story ready in case the police stop the car | v: security, power | self_control: - | mark: broke the law | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: the story does not hold up | chance: 76
-- B>R | take the back lanes where nobody checks, and be home in twenty minutes | habit | v: hedonism, self-direction | mark: broke the law | body: heavy | death_if_fails: 0.004 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: a crash, or a ban and a record | chance: 76
+- U>B | drive, with mints and a story ready in case the police stop the car | v: security, power | self_control: - | mark: broke the law | body: heavy | death_if_fails: 0.002 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: the story does not hold up | law: drink-driving | chance: 76
+- B>R | take the back lanes where nobody checks, and be home in twenty minutes | habit | v: hedonism, self-direction | mark: broke the law | body: heavy | death_if_fails: 0.004 | suspends_if_fails: driving licence | for_years: 1 | title_if_fails: someone with a record | closed: law: drink-driving; backfire: a crash, or a ban and a record | law: drink-driving | chance: 76
 - R>G | walk your friend home along the lanes, singing, however long it takes | v: benevolence, hedonism | body: light | self_control: + | chance: 80
 - G>W | ring home for a lift, however late, the way the family always said to | v: security, tradition | chance: 78
 works: {N} wakes up at home the next morning, and the night ends there.

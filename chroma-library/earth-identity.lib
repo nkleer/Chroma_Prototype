@@ -144,7 +144,7 @@ scene G: The family has gathered round this table for every holiday {N} can reme
 - B | stay polite but distant, and keep your opinions to yourself | v: security | chance: 92
 - R | raise a glass to the two of them before anyone can make it awkward | v: benevolence, stimulation | chance: 80
 - G | sit beside your grandparent and help them come round, slowly | v: benevolence, tradition | chance: 62
-- W>B | refuse to sit at the same table, and let the family choose | identity | v: tradition, power | closed: approval: snubbing a guest at the family table; backfire: the family chooses, and not as hoped | chance: 60
+- W>B | refuse to sit at the same table, and let the family choose | identity | v: tradition, power | closed: approval: snubbing a guest at the family table; backfire: the family chooses, and not as hoped | norm: -same-sex marriage | chance: 60
 - U>R | start a quiz after dinner, so everyone has to talk and laugh together | v: hedonism, benevolence | chance: 75
 - B>G | take your parent aside: accept this, or lose your sibling for good | v: benevolence, power | chance: 58
 - R>W | call out the uncle who makes a snide remark, right there at the table | v: universalism | chance: 70
@@ -514,7 +514,7 @@ scene G: Some things take a long season to rise. {N} feels this one rising now, 
 - B | begin living as yourself in private, on your own terms, for now | v: self-direction | mark: kept it hidden | chance: 85
 - R | tell the people closest to you this week, and start living as yourself | v: self-direction, stimulation | mark: named their gender | act: tell the people closest to them this week, and start living as themselves | chance: 70
 - G | accept the feeling as simply part of who you are, and let it come in time | v: self-direction (accepting oneself) | chance: 70
-- W>B | find out the legal steps for a change of name, and get the papers ready | v: self-direction, security | closed: law: where the law allows no change of name or sex on papers; backfire: refused, and the request on record | chance: 90
+- W>B | find out the legal steps for a change of name, and get the papers ready | v: self-direction, security | closed: law: where the law allows no change of name or sex on papers; backfire: refused, and the request on record | law: gender on papers | chance: 90
 - U>R | make a careful plan for the year you will start living openly | v: self-direction | chance: 75
 - B>G | quietly find a group in the next city of people who have been through it | v: security (belonging) | chance: 65
 - R>W | tell your partner or oldest friend everything, because they deserve the truth | v: benevolence | mark: named their gender | chance: 80

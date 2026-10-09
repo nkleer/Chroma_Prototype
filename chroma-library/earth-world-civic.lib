@@ -116,8 +116,8 @@ scene R: {N} has swallowed two years of being told to tighten the belt while the
 scene G: The older hands remember the last long strike the way farmers remember a hard winter: who held together, who went back early, and who never spoke again.
 - W | vote yes, and keep a list of everyone who works through the strike | v: conformity, power | mark: made an enemy | closed: approval: keeping a list of workmates who break a strike; backfire: a formal complaint, and the list leaks to the whole floor | lever: loyalty | chance: 70
 - U | set the offer against prices and rent, and vote on what the figures show | v: self-direction, achievement | lever: voice | pushes: institution employer | chance: 90
-- B | vote no, and let the boss know you will keep working through any strike | v: achievement, power | mark: made an enemy | closed: approval: breaking ranks in a strike; backfire: frozen out by the team for years | lever: loyalty | pushes: institution employer | chance: 75
-- R | vote yes, then hold the picket line at the gate every morning, rain or shine | binds | body: light | v: stimulation, universalism | self_control: + | lever: voice | pushes: institution employer | chance: 75
+- B | vote no, and let the boss know you will keep working through any strike | v: achievement, power | mark: made an enemy | title: known as a strike-breaker | closed: approval: breaking ranks in a strike; backfire: frozen out by the team for years | lever: loyalty | pushes: institution employer | chance: 75
+- R | vote yes, then hold the picket line at the gate every morning, rain or shine | binds | body: light | v: stimulation, universalism | self_control: + | title: union member | lever: voice | pushes: institution employer | chance: 75
 - G | go with whatever your own shift decides, as you always have | habit | v: conformity, tradition | lever: loyalty | pushes: group work | chance: 75
 - W>R | help the union rep run the walkout by the book | v: universalism, power | aims: union rep | lever: voice | chance: 48
 - U>G | work out a deal that keeps every job, and put it to both sides | v: universalism, benevolence | lever: voice | pushes: institution employer | chance: 45
@@ -199,7 +199,7 @@ scene G: {Ns} family has always answered the call: a great-grandparent in unifor
 - BG | claim the hardship exemption as the one who keeps the family going | v: security, benevolence | mark: stayed home | chance: 58
 - UB | take the job abroad you were offered, and leave before the date | v: self-direction, security | mark: moved away | moves: yes | requires: passport | title: immigrant | closed: law: leaving the country to escape the call-up; backfire: stopped at the border, and charged | law: conscription | pushes: state | chance: 65
 - UR | publish why you will not serve, and refuse the call in public | identity | v: universalism, self-direction | mark: defied an authority | closed: law: refusing the call-up; backfire: tried, and jailed for some months | law: conscription | title_if_fails: someone with a record | lever: voice | pushes: state | chance: 50
-- WG | object on conscience before the board, and serve in a care home instead | identity | v: universalism, benevolence | lever: voice | chance: 52
+- WG | object on conscience before the board, and serve in a care home instead | identity | v: universalism, benevolence | title: conscientious objector | lever: voice | chance: 52
 - WR | volunteer for the toughest unit they have, and go gladly | binds | body: heavy | v: stimulation, security | title: soldier | mark: took a wild risk | lever: loyalty | chance: 65
 works: A year on, the letter is a story {N} tells at parties, and the choice has held.
 works: {N} comes out of it with a few friends for life, made in the hardest months.
