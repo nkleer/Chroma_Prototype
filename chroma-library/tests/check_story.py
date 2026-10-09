@@ -54,7 +54,8 @@ MARKS = ["hid a wrong", "owned up", "kept your word", "broke your word", "learne
          "named their gender"]
 BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
 NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
-              "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ")
+              "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ",
+              "WORLD_EVENT", "MOVEMENT_NAMES")
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
          "hospital places", "university places"]
@@ -69,7 +70,7 @@ MAGIC_WORDS = re.compile(r"\b(colou?rs?|mana|planeswalker\w*|azorius|dimir|rakdo
 SAFETY = re.compile(r"\b(rap(e|ed|es|ing|ist)|sexual\w*|sex|molest\w*|suicid\w*|kill (yourself|myself|themselves)|"
                     r"self-harm\w*|tortur\w*|gore|blood\w*|corpse\w*|mutilat\w*|abus\w*|naked|groom(ed|ing))\b", re.I)
 FILL = re.compile(r"\{([^{}]*)\}")
-UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast"}       # fills whose values start with a capital letter
+UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast", "place"}       # fills whose values start with a capital letter
 
 # kinds: "sentence" (one or more whole sentences), "clause" (the game joins it into a sentence: no end punctuation, may
 # start lower case), "phrase" (a few words used inside a line), "quote" (the character's words in curly quotes),
@@ -186,6 +187,15 @@ def rule(path):
         if path[4] == 0:
             return ((), (), "label", "narration", 16)
         return (("N", "Ns"), ("N",), "sentence", "narration", 25)
+    if top == "WORLD_EVENT":      # stage 3: the world's new event kinds (panel, story, self)
+        part = path[2]
+        if part == "panel":
+            return (("inst", "place", "movement"), (), "phrase", "narration", 12)
+        if part == "story":
+            return (("inst", "place", "movement"), (), "sentence", "narration", 25)
+        return (("N", "Ns"), ("N",), "sentence", "narration", 20)
+    if top == "MOVEMENT_NAMES":
+        return ((), (), "phrase", "narration", 6)
     raise KeyError(path)
 
 
@@ -199,7 +209,7 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
               glad="who lived, and lost, and was glad", cheer="Raise the cup.", toast="To a heart that burned.",
               voice="voice", lost="“The band”", name="the careful voice", adj="passionate", share="a third",
               start="a Free Spirit", end="an Explorer", lean="caution", who="her sister", did="left home",
-              plan="a home of their own", dream="the dream of a working life", road="the trades",
+              plan="a home of their own", dream="the dream of a working life", road="the trades", inst="the factory in Redmouth", place="Redmouth", movement="the Lantern Way",
               what="prices outran their money and the downturn put jobs at risk")
 
 fails = {}
@@ -425,6 +435,17 @@ for hz in HAZARDS:
         for c in COLORS:
             if not (isinstance(d.get(c), tuple) and len(d[c]) == 2):
                 fail("1 coverage", f"DISASTER_READ.{hz}.{wh}.{c}: wanted (label, say)")
+# stage 3: every new world event kind has its three lines, and there are names for the movement slots
+EV_KEYS = ["sold", "merged", "nationalised", "leak", "cover-up", "bad air", "bad water", "poisoned river", "drought",
+           "glorious spring", "recovery", "boom year", "good year in town", "good harvest", "festival year",
+           "movement founded", "movement grows", "claims spread", "faith tension", "movement fades"]
+WE = getattr(M, "WORLD_EVENT", {})
+need_keys("WORLD_EVENT", WE, EV_KEYS)
+for k in WE:
+    need_keys(f"WORLD_EVENT.{k}", WE[k], ["panel", "story", "self"])
+MN = getattr(M, "MOVEMENT_NAMES", [])
+if len(MN) < 12 or len(set(MN)) != len(MN):
+    fail("1 coverage", f"MOVEMENT_NAMES: wanted 12 or more distinct names, found {len(set(MN))} distinct of {len(MN)}")
 # the flood next door is earth.py's own text, so lives where the tag is missing read the same
 EARTH = os.path.join(LIB, "earth.py")
 if os.path.exists(EARTH):
