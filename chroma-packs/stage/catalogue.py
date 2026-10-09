@@ -57,7 +57,7 @@ PERKS = []
 
 # ---------------------------------------------------------------- careers: the actor's road
 TITLES += [
-  dict(name="professional actor", kind="career", sector="services", institution="employer", standing=0, ways="R B",
+  dict(name="professional actor", kind="career", sector="services", institution="employer", standing=0, sphere="arts", face="arts.B", ways="R B",
        profiles=[("R B", "Lives for the rush of a first night and the next big part, and goes after both hard."),
                  ("W G", "A company player: turns up word-perfect, serves the play and the people in it, and plays the "
                          "same theatres for years."),
@@ -75,7 +75,7 @@ TITLES += [
        needs="[acting]; [drama school diploma], [union card] or [casting directory listing] in most of the trade; "
              "age 16 or more",
        turning="The agent rings with a good part in a tour of eight months, and the day job will not hold the place."),
-  dict(name="voice actor", kind="career", sector="services", institution="media", standing=0, ways="U",
+  dict(name="voice actor", kind="career", sector="services", institution="media", standing=0, sphere="arts", face="arts.U", ways="U",
        profiles=[("U", "A craftsman of the voice: a hundred accents, perfect timing, the right breath for every line."),
                  ("R G", "Plays the dragon, the grandmother and the talking dog with the same joy, and the children "
                          "who listen know every one of them."),
@@ -91,7 +91,7 @@ TITLES += [
        needs="[accents and voices] or [acting]; [a showreel] (a voice reel) for most castings",
        turning="A games studio offers a year of steady work as a villain, and the scripts ask for things the voice "
                "may not survive."),
-  dict(name="lead actor or actress", kind="career", sector="services", institution="media", standing=2, ways="R", refines="professional actor; voice actor",
+  dict(name="lead actor or actress", kind="career", sector="services", institution="media", standing=2, sphere="arts", face="arts.R", ways="R", refines="professional actor; voice actor",
        profiles=[("R", "Carries the show on raw presence, and the audience follows the fire."),
                  ("U B", "Builds the lead with care and plans the career around it, part by part."),
                  ("W G", "Leads the company as its first servant: first to arrive, last to leave, looking after "
@@ -108,7 +108,7 @@ TITLES += [
        needs="[professional actor] or [voice actor]; [acting]; most leads come to actors with [good notices], [an "
              "agent who believes in you] or [a director who keeps casting you]",
        turning="The producers want a star for the transfer, and the lead who made the show a hit may not go with it."),
-  dict(name="director", kind="career", sector="services", institution="employer", standing=2, ways="U W",
+  dict(name="director", kind="career", sector="services", institution="employer", standing=2, sphere="arts", face="arts.U", ways="U W",
        profiles=[("U W", "Serves the text: reads it until it gives up its meaning, and runs a fair, ordered rehearsal "
                          "room."),
                  ("R", "Makes bold, raw, surprising shows that set the room alight."),
@@ -124,7 +124,7 @@ TITLES += [
        needs="[directing actors]; a first show that someone saw",
        turning="Three weeks into rehearsal the lead does not believe in the director's idea of the play, and says so "
                "in front of the company."),
-  dict(name="playwright or screenwriter", kind="career", sector="services", institution="media", standing=1, ways="U R",
+  dict(name="playwright or screenwriter", kind="career", sector="services", institution="media", standing=1, sphere="arts", face="arts.U", ways="U R",
        profiles=[("U R", "Writes what has never been written, chasing a voice and an idea until the page burns."),
                  ("W G", "Writes the stories of a place and its people, so that they see themselves on stage."),
                  ("B", "Writes to sell: the pitch, the series and the deal, and a career built script by script.")],
@@ -138,7 +138,7 @@ TITLES += [
        needs="[writing scripts] or [writing stories]; a first script someone staged",
        turning="The producers love the script and want the ending changed, the ending the whole play was written "
                "for."),
-  dict(name="producer", kind="career", sector="services", institution="employer", standing=1, ways="B",
+  dict(name="producer", kind="career", sector="services", institution="employer", standing=1, sphere="arts", face="arts.B", ways="B",
        profiles=[("B", "Raises the money, makes the deals and takes the risk, and means to win."),
                  ("W U", "Keeps the show on budget and on time, with contracts kept and everyone paid."),
                  ("R G", "Puts on the shows they love, for the people they love, and gambles the house on it.")],
@@ -156,7 +156,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- facets: the summit of a road (engine refines)
 TITLES += [
-  dict(name="artistic director", kind="career", sector="services", institution="employer", standing=2, ways="W B", refines="director",
+  dict(name="artistic director", kind="career", sector="services", institution="employer", standing=2, sphere="arts", face="arts.W", ways="W B", refines="director",
        profiles=[("W B", "Runs the theatre as an institution: the season, the board, the budget and the duty to the "
                          "public."),
                  ("G", "Keeps a theatre for its town: its old audience, its local stories and the company that grew "
@@ -177,7 +177,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- careers: side roads of the pathway
 TITLES += [
-  dict(name="stage manager", kind="career", sector="services", institution="employer", standing=0, ways="W U",
+  dict(name="stage manager", kind="career", sector="services", institution="employer", standing=0, sphere="arts", face="arts.W", ways="W U",
        profiles=[("W U", "Runs the show by the book, cue by cue, and knows where every prop and person is."),
                  ("G", "Looks after the company like a family: tea, plasters and calm on the worst nights."),
                  ("B R", "Thrives on the chaos of a fit-up and keeps a show going when everything breaks.")],
@@ -191,7 +191,7 @@ TITLES += [
        lost="the hours; a move to production management or a [producer]; 'burnout'",
        needs="[stagecraft] or [calling the show]",
        turning="The lead is not in the building at the half, and the understudy has never had a rehearsal."),
-  dict(name="casting director", kind="career", sector="services", institution="employer", standing=1, ways="W",
+  dict(name="casting director", kind="career", sector="services", institution="employer", standing=1, sphere="arts", face="arts.W", ways="W",
        profiles=[("W", "Gives every actor a fair hearing and the part to whoever is best for it."),
                  ("U B", "Knows every actor's work and every producer's need, and matches them shrewdly."),
                  ("R G", "Finds the raw talent nobody has seen: the street, the village hall, the school yard.")],
@@ -204,7 +204,7 @@ TITLES += [
        lost="the work drying up; a move to a [producer]",
        needs="[a casting eye]; [contact in the trade] helps",
        turning="The producers want a name for the lead, and the best audition all week came from an unknown."),
-  dict(name="talent agent", kind="career", sector="services", institution="employer", standing=1, ways="B",
+  dict(name="talent agent", kind="career", sector="services", institution="employer", standing=1, sphere="arts", face="arts.B", ways="B",
        profiles=[("B", "Drives a hard bargain for clients, and builds a list that makes money and names."),
                  ("W G", "Looks after a small list of actors for years, through the lean seasons too."),
                  ("U R", "Spots the strange, original talents early, and bets on them.")],
@@ -217,7 +217,7 @@ TITLES += [
        lost="the clients leaving for a bigger agency; a list that stops earning",
        needs="[striking a deal] or [selling]; [contact in the trade]",
        turning="The agency's best-paid client wants a part that one of its young clients was about to get."),
-  dict(name="drama teacher", kind="career", sector="public", institution="school", standing=0, ways="U",
+  dict(name="drama teacher", kind="career", sector="public", institution="school", standing=0, sphere="arts", face="arts.U", ways="U",
        profiles=[("U", "Teaches the craft: voice, text and movement, step by step."),
                  ("R G", "Gives shy children a voice and a stage, and builds a company of them."),
                  ("W B", "Runs the school play like a professional: discipline, results and a place at drama school for "
@@ -238,7 +238,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- community: acting as a pastime, and the extra
 TITLES += [
-  dict(name="background artist", kind="community", ways="G",
+  dict(name="background artist", kind="community", sphere="arts", face="arts.G", ways="G",
        profiles=[("G", "Turns up early for the film shot in town and loves being part of it, a face in the crowd of "
                        "the place they live."),
                  ("W B", "Takes the day rate seriously: on time, in costume and invisible, call after call."),
@@ -251,7 +251,7 @@ TITLES += [
        lost="the calls stopping; no time off the day job",
        needs="age 16 or more; a free day at short notice",
        turning="The director points at the extra by the bar and says: you, say this line."),
-  dict(name="amateur actor", kind="community", ways="R G",
+  dict(name="amateur actor", kind="community", sphere="arts", face="arts.R", ways="R G",
        profiles=[("R G", "Acts for the love of it with the same group of friends, year after year, in the village "
                          "hall."),
                  ("W", "Serves the society: learns the lines, sells the tickets and paints the set."),
@@ -267,7 +267,7 @@ TITLES += [
        lost="no time for rehearsals any more; moving away; a quarrel at the society",
        needs="age 14 or more; an evening a week, more in show week",
        turning="The society's director casts a newcomer in the part everyone thought was yours."),
-  dict(name="youth theatre member", kind="community", ways="R G",
+  dict(name="youth theatre member", kind="community", sphere="arts", face="arts.R", ways="R G",
        profiles=[("R G", "Plays for the fun of it with friends: costumes, games and the summer show."),
                  ("W", "Comes every week, learns every line and helps the younger ones."),
                  ("U B", "Works at it and wants the lead, a place at drama school and maybe more.")],
@@ -280,7 +280,7 @@ TITLES += [
        lost="growing out of it; exams; a move away",
        needs="a parent or carer who brings them, and the fees or a free place",
        turning="The summer show's lead goes to the new child, and the old hands are angry on your behalf."),
-  dict(name="community theatre director", kind="community", ways="G W",
+  dict(name="community theatre director", kind="community", sphere="arts", face="arts.W", ways="G W",
        profiles=[("G W", "Keeps the town's theatre going for everyone: the pantomime, the summer play and the people "
                          "who need it."),
                  ("R", "Puts on bold, mad shows in the church hall, and makes amateurs brave."),
