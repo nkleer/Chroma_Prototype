@@ -2018,7 +2018,7 @@ TITLES += [
        meets="need:meaning+.05 need:autonomy+.03", lasts="life",
        ages=(25, 110), share=.001,   # estimate: 'a following of your own' reaches at most about 1 life in 1,000
        say="the founder of a movement",
-       gained="founding a movement of their own in 'a following of your own'",
+       gained="founding a movement of their own and keeping a following around it",   # not quoted: the moment is post-cut, the check reads the live earth.md
        lost="never",
        needs="a new movement founded in their lifetime, by them"),
   dict(name="known as a strike-breaker", kind="status", ways="",
