@@ -142,6 +142,13 @@ INNER = {
         req="((belonging < .55) | (meaning < .55) | (age > 50)) & chance(.3)",
         more=["belonging < .4", "ago_move < 1", "elder", "hG + hW > .45"],
         less=["satisfaction > .75", "hR > .3"]),
+    # C5's rare founding (Library PR #26, earth-world-institutions.lib). "founding" (the world's movement founding event
+    # in the person's place this year, with a free movement slot) is False until C5's movement slots are built (stage 2,
+    # spheres phase 3), so the moment never comes before then. Reach: ties in about the top tenth.
+    "a following of your own": dict(
+        req="founding & (meaning < .4) & (lo_meaning >= 52) & (ties > .8) & (yrs_faith >= 10)",
+        more=["outlook > .55", "ties > .9", "hW + hU > .5"],
+        less=["harsh > .5", "ties < .85"]),
 }
 
 # echoes: anchor starts the clock (checked monthly; a mark "within the last month" means it was just made)
