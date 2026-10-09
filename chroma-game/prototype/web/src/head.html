@@ -666,6 +666,9 @@
   .evtext { padding: 14px 18px 16px; display: grid; gap: 10px; align-content: start; }
   .evtext .scene { font: 400 var(--fs-3)/1.6 var(--serif); margin: 0; color: var(--ink); }
   .evtext .note { font: 400 var(--fs-3)/1.55 var(--serif); margin: 0; color: var(--ink2); }
+  /* F5 (item 4): the line that ties a moment back to an earlier pick; its cause on hover */
+  .evtext .note.thread { display: flex; gap: 6px; align-items: baseline; font-style: italic; color: var(--gold3); cursor: help; }
+  .evtext .note.thread svg { flex: none; align-self: center; }
   .ev .insight { font-size: var(--fs-3); color: var(--ink); background: linear-gradient(90deg, rgb(184 50 86 / 0.07), rgb(80 64 184 / 0.07)); }
   .ev .aside { margin: 0 4px; color: var(--muted); font-size: var(--fs-2); }
   .ev .voicebox { margin-top: 0; }

@@ -12,12 +12,13 @@ chance of success, the surprise of the outcome, stress and pent-up pressure.
 """
 import re
 import numpy as np
+from collections import deque
 import os
 import sys
 from link import E, PIN
 import explain as X             # engine v7: the character's view before a choice, what came of it after
 import foresee as F             # engine v7: the foreseen outcome of a plan
-from story import Story, act, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
+from story import Story, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
 from worldview import WorldView, EngineWorld, from_engine, who_word, lever_info, push_words   # the outer world as the player sees it (chroma-world/)
 try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
@@ -69,6 +70,29 @@ GAME = dict(
     trust_loss=0.2,      # trust lost by a resented push at full reluctance (toward -1)
     trust_cut=0.5,       # at full trust in the act's colors, this share of a push's resentment (stress, wanting) is spared
     distrust_add=0.5,    # at full distrust, this much more resentment
+    # item 4, pivotal picks (implementation list; chroma-ideas/gameplay-feel.md §5; Emren 2026-10-08 22:58, 23:18): every
+    # moment put to the player is a turning point. Its pick teaches more the further it is from who they are; a success
+    # teaches toward the picked ways and they lead the character's own acts for a season (F2); a failure can backfire
+    # toward what they wanted. Letting them choose confirms who they are and steadies them. The weeks without the player
+    # weigh about half. All of it acts in played lives only: lives with no player never run the game.
+    piv=0.25,            # a pivotal pick's lesson: this x plasticity x the move toward the picked ways (as the engine's ev_z)
+    piv_far=1.0,         # ... x (1 + piv_far x how far the pick is from their colors now, 0 to 1): up to twice
+    piv_core=0.3,        # this share of the lesson reaches the deep core at once, so a turning point lasts
+    piv_fail=0.5,        # a failure that does not backfire (and a push they resented although it worked) teaches at this share
+    piv_steady=0.02,     # letting them choose: the deep core follows who they are now by this share (steadies, less drift)
+    backfire=0.6,        # a pushed pick that failed backfires with chance backfire x distance x stakes (at most .8), always
+                         # when they resented it (hindsight); a backfire teaches toward what they wanted, with no season lean
+    lean=0.012,          # F2: weekly pull of the picked ways on their wants, fading to nothing over lean_weeks
+    lean_weeks=26,       # six months (Lally et al. 2010: 18 to 254 days for a new habit)
+    quiet_k=0.5,         # the weeks without the player: their own lesson, random drift and outside pushes at this share
+                         # (engine P own_k, drift_k, ev_push_k, read live; the era's current stays whole, item 12)
+    plan_lean=0.5,       # 5.4: a plan they take up leans toward the picks of the last seasons by up to this share
+    pick_half=26,        # weeks for the picks' weight in that lean to halve
+    # 5.6, this life's threads first: a moment that follows from the life's own titles, commitments, plans and dreams
+    # weighs more when the game picks the moments to put to the player, more again when a pick of theirs started it (F5
+    # tells that); an everyday moment most lives meet (told_share or more of lives) with no tie to the life is told, not
+    # asked. Only this life's history counts (F1 is out)
+    tie_imp=0.3, tie_pick=0.3, told_share=0.85,
 )
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
@@ -475,6 +499,10 @@ class Game:
         self._last_line = {}            # situation -> week it was last told in the log
         self.burn_in = self.start_age > 0
         self._prev_label = ""
+        self._wring = deque(maxlen=NAME_WEEKS)   # 5.5: the colors week by week over the last four years, their sum, and the
+        self._wsum = np.zeros(C)                 # name they give (the settled core) and who they are becoming
+        self._core_label = ""
+        self._becoming_c = None; self._becoming = ""
         self._shown_label = None        # the identity last named in the yearly line
         self._named = set()             # identities whose meaning has been told once
         self._last_recon = {}           # commitment -> week it was last reconsidered at a checkpoint
@@ -487,7 +515,7 @@ class Game:
         self.t = 0
         self.loc = None
         self.history = dict(content=[], peace=[], label=[], w=[], picks=0, own=0, forced=0, rel=[], gift=[], long=[],
-                            accepted=0, resented=0,
+                            accepted=0, resented=0, name=[],
                             met=[], title_say={}, acts=[])   # met: (age, kind, name) the first time, for the life told as one paragraph
         self.resolution = None          # v7: what came of the last choice, shown until the player goes on
         self._trace = []                # point 2 (Emren 20:39): the colors week by week, for the page's slow animation
@@ -495,6 +523,19 @@ class Game:
         self._res_prev = None
         self.seen_labels = set()
         self.trust = np.zeros(C)        # the character's trust in the player, per color, -1 (resented) to 1 (trusted)
+        # item 4: pivotal picks (GAME piv...): the season leans running (target shares, strength, start week), the picks'
+        # recent ways for the plans they take up (5.4), and a random stream of the game's own (backfires)
+        self._leans = []
+        self._pick_mix = np.zeros(C); self._pick_wt = 0.0; self._pick_t = 0
+        self._prng = np.random.default_rng(int(seed) + 5151)
+        self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
+        self._threads = {}              # F5: what a pick started (("r", title), ("c", commitment), ("g", goal id)) -> its cause
+        self._last_pick = None
+        try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
+            from rarity import RARITY
+            self._sit_share = (RARITY.get("sit") or {}) if self.setting == "earth" else {}
+        except Exception:
+            self._sit_share = {}
         self._need_hint = False         # the one-time hint about needs has been given
 
     # ------------------------------------------------------------------ engine callbacks
@@ -505,6 +546,15 @@ class Game:
             nic[0] = 0.5 * nic[0] + 0.5 * self.up_mix                   # the family's surroundings
         if self.up_mix is not None and age < 15:
             y[0] += GAME["upbringing"] * E.centre(5 * (self.up_mix - E.softmax(y[0])))
+        if age >= self.start_age:       # item 4: the player is here. The weeks without them weigh less; a pick week is whole
+            P["own_k"] = P["drift_k"] = P["ev_push_k"] = GAME["quiet_k"]       # (decide sets them back to 1 for its week)
+            if getattr(self, "_leans", None):   # F2: the picked ways lead their own acts for a season, fading
+                yw = E.softmax(y[0])
+                for T, st, t0 in self._leans:
+                    f = 1 - (t - t0) / GAME["lean_weeks"]
+                    if f > 0:
+                        y[0] += GAME["lean"] * st * f * E.centre(5 * (T - yw))
+                self._leans = [x for x in self._leans if t - x[2] < GAME["lean_weeks"]]
         y[0] -= y[0].mean()
 
     # ------------------------------------------------------------------ main loop
@@ -542,12 +592,13 @@ class Game:
                 if until_age is not None and t / 52 >= until_age:
                     return "paused"
                 self._on_week(t, loc)
+                w_ = E.softmax(loc["z"][0])
+                self._name_week(w_, loc)
                 if len(self._trace) < 3000:              # E9: each week also its bands (in, fading, rising, out) and label
-                    w_ = E.softmax(loc["z"][0])          # one rule everywhere: the label is E.identity of the colors now against the
-                    lb = E.identity(w_, float(loc["M"][0]), self._prev_label) if "M" in loc else self._prev_label
-                    bd = "".join(b_[0] for b_ in X.bands(w_, lb)) if hasattr(X, "bands") else ""   # buffer carried year by year
-                    self._trace.append([int(t)] + [round(float(x), 4) for x in w_]                # (E.identity_path), as the HUD
-                                       + [round(float(x), 4) for x in E.softmax(loc["y"][0])] + [bd, lb])   # and the sheet read it
+                    lb = self._core_label                # one rule everywhere: the label is the name (5.5), the identity of the
+                    bd = "".join(b_[0] for b_ in X.bands(w_, lb)) if hasattr(X, "bands") else ""   # last four years' colors,
+                    self._trace.append([int(t)] + [round(float(x), 4) for x in w_]                # as the HUD and the sheet
+                                       + [round(float(x), 4) for x in E.softmax(loc["y"][0])] + [bd, lb])   # read it
             elif kind == "situation":
                 self._title_now(loc)
                 reply = val                             # the engine times life events itself since v6
@@ -604,6 +655,8 @@ class Game:
         if g_ is not None:
             self.history["gift"].append(g_)
         self._cp_week = dict(cp=cp, choice=choice, own=own)
+        if self.loc is not None and "P" in self.loc:   # item 4: the week of a pick counts whole (own lesson, drift, outside)
+            self.loc["P"]["own_k"] = self.loc["P"]["drift_k"] = self.loc["P"]["ev_push_k"] = 1.0
         self.pending = None
         self._last_cp = self.t
         try:
@@ -653,7 +706,12 @@ class Game:
             wait = (again // 2) * self._cp_n.get(s, 0) if life else again * (1 + self._cp_n.get(s, 0))
             if t - self._last_seen.get(s, -10 ** 6) < wait:
                 return None
-            if self._importance(loc, s, a) + (0.5 if life else 0.0) < thr:
+            tied, cause = self._thread_of(loc, s) if t / 52 >= self.start_age else (True, None)
+            if (not tied and not life and thr > 0
+                    and (self._sit_share.get(self.L["names"][s]) or 0.0) >= GAME["told_share"]):
+                return None                     # 5.6: an everyday moment with no tie to this life is told, not asked
+            if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
+                    + GAME["tie_pick"] * (cause is not None) < thr):
                 return None
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
@@ -755,6 +813,10 @@ class Game:
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
+        if not recon and t / 52 >= self.start_age:      # F5: a moment that follows from a pick of theirs says so
+            _, cause = self._thread_of(loc, s)
+            if cause is not None:
+                cp["thread"] = self._thread_line(cause, t / 52); cause["told"] = int(t)   # each thread told once in a while
         b = X.say(X.before(loc, 0, rng=self.vrng), self.name)
         cp["snap"] = X.snapshot(loc, 0, b)
         cp["view"] = self._view(loc, b, cp)
@@ -928,6 +990,105 @@ class Game:
         out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
         return out
 
+    def _pivot(self, loc, cpw, worked, hind):
+        """Item 4: the pick at a moment put to the player is a turning point (GAME piv...). It moves the colors, and part of
+        the deep core, toward the picked ways (or toward what they wanted, on a backfire) and starts the season lean (F2).
+        Changes the engine's state in place at the week's end, as the forced-pick costs do."""
+        k, own = int(cpw["choice"]), int(cpw["own"])
+        m = np.maximum(np.asarray(loc["m"][0], float), 0)
+        if m[k].sum() <= 0:                                  # doing nothing teaches nothing about their ways
+            return None
+        T = m[k] / m[k].sum()
+        w = E.softmax(loc["z"][0]); dist = float(0.5 * np.abs(T - w).sum())
+        stakes = float(loc["L"]["STAKES"][int(loc["s"][0])])
+        judged = (hind or {}).get("kind")
+        kind, share, lean = ("own", 1.0, 1.0) if k == own else ("toward", 1.0, 1.0)
+        if k != own and (not worked or judged == "resented"):
+            kind, share, lean = "half", GAME["piv_fail"], 0.5
+            if not worked and (judged == "resented" or self._prng.random() < min(0.8, GAME["backfire"] * dist * stakes)):
+                if m[own].sum() > 0:                         # it backfires: they learn toward what they wanted instead
+                    kind, share, lean, T = "backfire", 1.0, 0.0, m[own] / m[own].sum()
+        size = share * (1 + GAME["piv_far"] * dist)
+        plast = float(loc["plast"][0]) if "plast" in loc else 0.2
+        dz = GAME["piv"] * plast * size * E.centre(5 * (T - w))
+        loc["z"][0] += dz
+        if "k" in loc:
+            loc["k"][0] += GAME["piv_core"] * dz
+            if kind == "own":                                # letting them choose steadies them
+                loc["k"][0] += GAME["piv_steady"] * (loc["z"][0] - loc["k"][0])
+        if lean:
+            self._leans.append((T, lean, int(self.t)))
+            dec = 0.5 ** ((self.t - self._pick_t) / GAME["pick_half"])
+            self._pick_mix = self._pick_mix * dec + lean * T; self._pick_wt = self._pick_wt * dec + lean; self._pick_t = int(self.t)
+        self.history["pivots"].append((round(self.t / 52, 1), kind, [round(float(x), 3) for x in w],
+                                       [round(float(x), 3) for x in T], round(size, 3)))
+        return dict(kind=kind, size=round(size, 3), toward=letters(T), dist=round(dist, 3),
+                    moved=[round(float(x) * 100, 2) for x in E.softmax(loc["z"][0]) - w])
+
+    def _plan_lean(self, loc, g):
+        """Item 4, 5.4: a plan they take up leans toward the ways of their recent picks (GAME plan_lean), so a few picks can
+        shape a decade. Changes the new plan's colors in place (and the moments that offer it a step)."""
+        if g.get("kind") != "plan" or g.get("what") != "begins" or g.get("by_player") or self._pick_wt <= 0 or "gid" not in loc:
+            return
+        js = np.nonzero(loc["gid"][0] == int(g.get("id", -1)))[0]
+        if not len(js):
+            return
+        j = int(js[0])
+        wt = self._pick_wt * 0.5 ** ((self.t - self._pick_t) / GAME["pick_half"])
+        lam = GAME["plan_lean"] * min(1.0, wt)
+        if lam < 0.02:
+            return
+        mix = (1 - lam) * np.asarray(loc["gm"][0, j], float) + lam * self._pick_mix / max(self._pick_wt, 1e-9)
+        loc["gm"][0, j] = mix / mix.sum()
+        if callable(loc.get("goal_rel_S")) and "gsr" in loc:
+            loc["gsr"][0, j] = loc["goal_rel_S"](loc["gm"][0, j], int(loc["gd"][0, j]))
+        g["mix"] = loc["gm"][0, j].round(2).tolist(); g["led"] = round(lam, 2)
+
+    def _mark_threads(self, cpw, new, GR, age):
+        """F5 (item 4, gameplay-feel.md 5.3): what this week's pick started (a title or perk, a commitment, a plan or
+        dream of their own) becomes a thread; later moments that follow from it say so, the pick on hover."""
+        o = cpw["cp"]["by_idx"][cpw["choice"]]
+        if o["colors"] == "-":                           # waiting starts no thread
+            return
+        cause = dict(age=int(age), t=int(self.t), act=o["label"], moment=cpw["cp"]["title"], pushed=cpw["choice"] != cpw["own"])
+        self._last_pick = cause
+        for ev in new:
+            r, c, g = ev.get("role"), ev.get("commitment"), ev.get("goal")
+            if r and r["what"] == "gained" and GR is not None and r["name"] in GR["ID"]:
+                d = role_info(GR, GR["ID"][r["name"]])
+                self._threads[("r", d["i"])] = dict(cause, what=("they became " + d["say"]) if d["title"] else
+                                                     "now " + d["pred"].replace("is ", "they are ", 1) if d["pred"].startswith("is ") else d["pred"])
+            elif c and c["what"] == "start":
+                self._threads[("c", c["kind"])] = dict(cause, what=THREAD_COMMIT.get(c["kind"], "a commitment began"))
+            elif g and g.get("what") == "begins" and g.get("kind") in THREAD_GOAL:
+                self._threads[("g", int(g.get("id", -1)))] = dict(cause, what=THREAD_GOAL[g["kind"]])
+
+    def _thread_line(self, cause, age):
+        """F5: the story sentence that ties a moment back to the pick that started its thread, and the cause in plain words
+        for the hover. Built-in words until the Library's drop B (chroma-library/earth_play.py) brings its own."""
+        when = "this year" if age - cause["age"] < 1 else "a year ago" if age - cause["age"] < 2 else f"at {cause['age']}"
+        line = self.story.fill("This goes back to the day {N} chose " + chooses(act(plain(cause["act"]))).rstrip(".") + ".")
+        how = "you pushed it" if cause.get("pushed") else "they chose it themselves"
+        return dict(line=line, cause=f"Because {when}, at “{cause['moment']}”, they chose {chooses(act(plain(cause['act'])))} ({how}), and "
+                                     + str(cause["what"]) + ".", age=cause["age"])
+
+    def _thread_of(self, loc, s):
+        """5.6 and F5: whether moment s follows from this life's own threads (it needs a title or perk they hold, an
+        option steps a commitment they hold, or it offers a step toward a plan or dream they hold), and the pick that
+        started that thread, when one did (the latest)."""
+        L = loc["L"]; GR = L.get("ROLES") if loc.get("RON") else None
+        found = []
+        if GR is not None and "S_HOLDM" in GR and "r_has" in loc:
+            hm = np.asarray(GR["S_HOLDM"][s], bool); has = np.asarray(loc["r_has"][0], bool); n = min(len(hm), len(has))
+            found += [("r", int(i)) for i in np.nonzero(hm[:n] & has[:n])[0]]
+        com = np.asarray(L["COMMIT"][s])[np.asarray(loc["mask"][0], bool)]
+        found += [("c", KNAMES[d]) for d in sorted({int(x) for x in com if x >= 0}) if loc["held"][0, d]]
+        if "gsr" in loc and "gk" in loc and "gid" in loc:
+            found += [("g", int(loc["gid"][0, j])) for j in np.nonzero(loc["gk"][0] >= 0)[0] if loc["gsr"][0, j, s] >= 0.5]
+        causes = [self._threads[f] for f in found if f in self._threads
+                  and self.t - self._threads[f]["t"] <= THREAD_YEARS * 52 and self.t - self._threads[f].get("told", -10 ** 6) >= THREAD_AGAIN]
+        return bool(found), (max(causes, key=lambda c_: c_["t"]) if causes else None)
+
     def trust_view(self):
         """Trust per color, for the page and the status screen."""
         return {c: round(float(v), 3) for c, v in zip(COLORS, self.trust)}
@@ -1045,8 +1206,9 @@ class Game:
             return delta
         rel = f["rel"]; tr = f.get("trust", 0.0)
         f["resent"] = rs = self._resent(rel, tr)
-        # a reluctant act teaches less; trust in its colors lets more of it in (trust lowers inertia, through habit only)
-        d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel * (1 - max(tr, 0.0))
+        # item 4 (Emren 10-08 23:18): the price of a push moves from learning to cost. The act teaches in full (v22.1 cut a
+        # reluctant act's lesson to learn_keep); what it teaches about who they are is the pivotal lesson (_pivot)
+        d = delta
         loc["stress"][0] += GAME["stress"] * rs
         loc["Q"][0] += GAME["backlash"] * rs                              # wanting what they were denied builds up
         if f["closed"] and not loc["succ"][0]:
@@ -1333,6 +1495,8 @@ class Game:
                 if (r and r["what"] == "gained" and r["kind"] in starts and r["kind"] not in fold and r["name"] in GR["ID"]
                         and not ("refines" in GR and GR["refines"][GR["ID"][r["name"]]] >= 0)):
                     fold[r["kind"]] = role_info(GR, GR["ID"][r["name"]]); folded.add(id(r))
+        if cpw is not None and age >= self.start_age:
+            self._mark_threads(cpw, new, GR, age)     # F5: what the pick started, for the moments that follow from it
         for ev in sev + [ev for ev in new if "situation" not in ev]:     # the moment first, then what followed from it
             self._met(age, ev, sit)
             if "situation" in ev:
@@ -1354,6 +1518,7 @@ class Game:
                     rs["needs"] = self._needs_moved(loc, cpw["cp"]["snap"])
                     if pushed:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
+                    rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
                     rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
                                                         (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
@@ -1427,6 +1592,8 @@ class Game:
                     self.story.mark(ev["mark"]["mark"], m)
                 elif "goal" in ev:                      # v7: dreams, passions and plans
                     g = ev["goal"]
+                    if age >= self.start_age:
+                        self._plan_lean(loc, g)         # item 4, 5.4: picks lead to plans
                     gl = self.story.goal(g)
                     if gl:
                         quiet = g["what"] in ("pushed aside", "extended") or (g["kind"] == "plan" and g.get("horizon") == "week")
@@ -1589,18 +1756,21 @@ class Game:
         self.history["w"].append((t / 52, [round(float(x), 3) for x in w]))
         # the story's voice: present identity blended with a fading memory of past ones (story.py)
         self.story.update_voice(w)
-        vl = E.identity(self.story.voice, M, self._voice_label)
+        vl = self._core_label                       # 5.5: the chapter names who they have settled into, and who they are becoming
+        self._becoming_year()
         if vl != self._voice_label:                 # a new identity in the telling: a short phrase for it
             eps = EPITHETS.get(vl, [])
             self._epithet = eps[len(self._named) % len(eps)] if eps else ""
             self._named.add(vl)
-        ident = (ident_name(vl) + (f", {self._epithet}" if self._epithet else "")) if vl else ""
+        ident = (ident_name(vl) + (f", {self._becoming or self._epithet}" if self._becoming or self._epithet else "")) if vl else ""
         self._voice_label = vl
+        self.history["name"].append((t / 52, vl, self._becoming))
         self._say("", 0)
         head, _, body = self.story.chapter(t / 52, int(loc["stage"][0]), w, c, p, ident).partition("\n")
         self.log.append(head)
         self.feed.append(dict(tag="chapter", text="", age=int(round(t / 52)), stage=STAGES[int(loc["stage"][0])].replace("_", " "),
                               label=vl, guild=ident_name(vl) if vl else "", epithet=self._epithet if vl else "",
+                              becoming=self._becoming if vl else "",
                               w=[round(float(x), 3) for x in w], content=round(c, 2), peace=round(p, 2),
                               voice=[round(float(x), 3) for x in self.story.voice], weeks=self.story.last_weeks))
         if body:
@@ -1618,6 +1788,34 @@ class Game:
             self._say(f"   [now {label_name(lbl) if lbl else 'unformed'} | {cols} | voice {voice} | content {c:.2f} peace {p:.2f}"
                       + (f" | {', '.join(held)}" if held else "") + "]", 0, "ledger")
         self._temperament_news(t, loc)
+
+    def _name_week(self, w, loc):
+        """5.5 (implementation list item 4; chroma-ideas/gameplay-feel.md): the name says who they have settled into, the
+        identity of the colors held over the last four years, read week by week with the usual hold (a color joins above
+        .22 and leaves below .18). Measured on lives left alone: 3.6 name changes after 18, against 13.9 for the
+        yearly reading."""
+        if len(self._wring) == NAME_WEEKS:
+            self._wsum -= self._wring[0]
+        self._wring.append(np.asarray(w, float)); self._wsum += self._wring[-1]
+        if "M" in loc:
+            self._core_label = E.identity(self._wsum / len(self._wring), float(loc["M"][0]), self._core_label)
+
+    def _becoming_year(self):
+        """5.5: who they are becoming, once a year: the color that rose most over the last three years when it rose by
+        BECOMING or more ("growing curious"), else a color of the name that fell as much ("loosening their hold on
+        order"). Said once it has held two readings (F4), so it reads as news: about a third of adult years or less."""
+        W = self.history["w"]
+        cand = None
+        if self._core_label and len(W) > BECOMING_YEARS:
+            d = np.asarray(W[-1][1]) - np.asarray(W[-1 - BECOMING_YEARS][1])
+            up, dn = int(np.argmax(d)), int(np.argmin(d))
+            if d[up] >= BECOMING:
+                cand = ("grow", COLORS[up])
+            elif d[dn] <= -BECOMING and COLORS[dn] in self._core_label:
+                cand = ("fade", COLORS[dn])
+        shown = cand if cand is not None and cand == self._becoming_c else None
+        self._becoming_c = cand
+        self._becoming = "" if shown is None else (GROW_WORDS if shown[0] == "grow" else FADE_WORDS)[shown[1]]
 
     def _year_notes(self, t, loc):
         """Engine v6 loops, told once a year when they clearly happened: after a hard blow, support heals or its lack
@@ -1677,10 +1875,12 @@ class Game:
         thr = float(loc["q_thr"][0]) if "q_thr" in loc else float(loc["P"]["q_theta"])
         Q = float(loc["Q"][0])
         young = int(loc["stage"][0]) < 2
-        lbl = E.identity(w, float(loc["M"][0]), self._prev_label)
+        lbl = self._core_label                   # 5.5: the name, from the last four years' colors
+        now = E.identity(w, float(loc["M"][0]), self._prev_label)
         L = []
-        L.append(f"{self.name}, age {self.age():.1f}, {STAGES[int(loc['stage'][0])].replace('_', ' ')}. Identity: {label_name(lbl)}."
-                 + (f" Over recent years: {label_name(self._voice_label)}." if self._voice_label and self._voice_label != lbl else ""))
+        L.append(f"{self.name}, age {self.age():.1f}, {STAGES[int(loc['stage'][0])].replace('_', ' ')}. Identity: {label_name(lbl)}"
+                 + (f", {self._becoming}" if self._becoming else "") + "."
+                 + (f" This year alone: {label_name(now)}." if now and now != lbl else ""))
         L.append("")
         L.append("           " + "  ".join(f"{CNAME[c]:>6}" for c in COLORS))
         L.append("position   " + "  ".join(f"{v * 100:5.0f}%" for v in w) + "   where they are")
@@ -1753,12 +1953,13 @@ class Game:
         if dyn is not None:                          # the engine's own weekly feed (next hand-off), when the pin has it
             inertia = np.asarray(dyn["inertia"]); acc = np.asarray(dyn["accelerator"])
         thr = float(loc["q_thr"][0]) if "q_thr" in loc else float(loc["P"]["q_theta"])
-        lbl = E.identity(w, float(loc["M"][0]), self._prev_label)
+        lbl = self._core_label                   # 5.5: the name, from the last four years' colors
         r = lambda v: [round(float(x), 3) for x in v]
         vl = self._voice_label
         d.update(stage=STAGES[int(loc["stage"][0])].replace("_", " "),
                  label=lbl, guild=ident_name(lbl), magic=magic_name(lbl), meaning=ident_meaning(lbl),
                  voice_label=vl, voice_guild=ident_name(vl) if vl else "", epithet=self._epithet if vl else "",
+                 becoming=self._becoming if lbl else "",
                  w=r(w), demand=r(a - w), inertia=r(inertia), acc=r(acc), skill=r(loc["sig"][0]), belief=r(loc["SE"][0]),
                  lens=r(kw), voice=r(self.story.voice),
                  content=round(float(loc["content"][0]), 3), peace=round(float(loc["peace"][0]), 3),
@@ -2130,7 +2331,7 @@ class Game:
         return dict(age=round(cp["age"], 1), title=cp["title"], stakes=round(st, 2), season=self.season(),
                     stake_word="very high" if st >= 1.2 else "high" if st >= 0.95 else "moderate",
                     scene=cp.get("scene", ""), extra=cp.get("extra", ""), thought=cp.get("thought", ""), recon=cp["recon"],
-                    options=opts, voice=voice, art=dict(sit=cp["sit"], life=meta.get("life", ""), tier=meta.get("tier", ""),
+                    thread=cp.get("thread"), options=opts, voice=voice, art=dict(sit=cp["sit"], life=meta.get("life", ""), tier=meta.get("tier", ""),
                                                          tone=meta.get("tone", ""), variant_of=meta.get("variant_of", ""), recon=cp["recon"]))
 
     def season(self, loc=None):
@@ -2397,6 +2598,19 @@ LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only title
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
+# 5.5 (item 4): names from color dynamics. The name is the identity of the last NAME_WEEKS of colors; "becoming" a rise
+# (or, for a color of the name, a fall) of BECOMING over BECOMING_YEARS yearly readings, said after the name
+NAME_WEEKS = 208
+BECOMING, BECOMING_YEARS = 0.08, 3
+GROW_WORDS = dict(W="taking duty to heart", U="growing curious", B="growing ambitious", R="growing passionate",
+                  G="putting down roots")
+FADE_WORDS = dict(W="loosening their hold on order", U="losing some of their curiosity", B="letting go of some ambition",
+                  R="cooling", G="pulling up some roots")
+# F5 (item 4): a pick's thread is told on a later moment that follows from it, within THREAD_YEARS, once per THREAD_AGAIN weeks
+THREAD_YEARS, THREAD_AGAIN = 12, 156
+THREAD_COMMIT = dict(career="their working life took a new road", partner="a life together began",
+                     children="a family began", community="they joined a community", faith="a faith became theirs")
+THREAD_GOAL = dict(plan="they set out on a plan", dream="a dream took hold", passion="a passion took hold")
 WORLD_AGAIN = 104        # G2 (B package): weeks before the same world line (kind and words) is told again
 
 NEED_HINT = ("{N}'s sense of {need} is running thin. Needs fade a little every week unless something feeds them: acts that "

@@ -400,7 +400,7 @@ function toast(msg) {
 function lockInputs(on) { document.querySelectorAll(".tarot, .opt, #pushIt, #evLet, #goOn, .steps4 button, .ch, .tools [data-key]").forEach((b) => { b.disabled = on || b.hasAttribute("data-held") || (b.closest(".steps4") && !!(hud && (hud.cp || hud.mode !== "play"))); }); }
 
 /* ---------------- the chronicle (the story, the main text) ---------------- */
-let curYear = null, prologue = null, lastGuild = null;
+let curYear = null, prologue = null, lastGuild = null, lastBecoming = "";
 let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
@@ -427,7 +427,7 @@ const STATUS_ICON = { graduate: "ci-mortarboard", veteran: "ci-swords", "has kil
 const roleIconOf = (d) => d.title ? (d.kind === "status" ? STATUS_ICON[d.name] || "ci-shield" : KIND_ICON[d.kind] || "anchor") : PERK_ICON[d.kind] || "star";
 const iconFor = (it) => it.tag === "commitment" ? (KIND_ICON[it.kind] || "anchor") : it.tag === "goal" ? (GOAL_ICON[it.kind] || "moon") : it.tag === "role" ? roleIconOf(it) : (TAG_ICON[it.tag] || "dot");
 function resetChron() {
-  feedEl.innerHTML = ""; curYear = null; prologue = null; lastGuild = null; ITEMS = []; MARKS = []; yearEls.clear(); WORLD_SEEN.clear(); stick.bottom = true;
+  feedEl.innerHTML = ""; curYear = null; prologue = null; lastGuild = null; lastBecoming = ""; ITEMS = []; MARKS = []; yearEls.clear(); WORLD_SEEN.clear(); stick.bottom = true;
 }
 function foldOld() {
   const yrs = feedEl.querySelectorAll(".yr:not(.prologue)");
@@ -435,10 +435,13 @@ function foldOld() {
 }
 function newYear(it) {
   const sec = document.createElement("section"); sec.className = "yr"; sec.dataset.age = it.age;
-  const cs = labelColors(it.label), fresh = it.guild !== lastGuild; lastGuild = it.guild;
-  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh ? `<span>${esc(it.guild)}</span>${it.epithet ? `<span class="ep">${esc(it.epithet)}</span>` : ""}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
+  // the year's name (5.5): the guild when it is new; who they are becoming when that is new (else the guild's epithet)
+  const cs = labelColors(it.label), fresh = it.guild !== lastGuild, bnew = !!it.becoming && it.becoming !== lastBecoming;
+  lastGuild = it.guild; lastBecoming = it.becoming || "";
+  const ep = bnew ? it.becoming : fresh ? it.epithet : "";
+  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh || bnew ? `<span>${esc(it.guild)}</span>${ep ? `<span class="ep">${esc(ep)}</span>` : ""}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
   const head = sec.firstChild;
-  setTip(head, () => tipBox(`Age ${it.age} · ${esc(cap(it.stage))}`, it.guild ? `${pips(cs)} ${esc(it.guild)}${it.epithet ? ", " + esc(it.epithet) : ""}` : "Colors still forming", [],
+  setTip(head, () => tipBox(`Age ${it.age} · ${esc(cap(it.stage))}`, it.guild ? `${pips(cs)} ${esc(it.guild)}${it.becoming || it.epithet ? ", " + esc(it.becoming || it.epithet) : ""}` : "Colors still forming", [],
     bars([["Satisfaction", it.content, "var(--sat)", pct(it.content)], ["Peace", it.peace, "var(--peace)", pct(it.peace)]].concat(
       COLORS.map((c, i) => [CNAME[c], it.w[i] / 0.6, `var(--c${c})`, pct(it.w[i])]))) + `<p>${sec.classList.contains("closed") ? "Click to open the year." : "Click to fold the year."}</p>`));
   head.addEventListener("click", () => { sec.classList.toggle("closed"); sec.dataset.user = "1"; hideTip(); });
@@ -792,6 +795,8 @@ new ResizeObserver(() => scheduleLine()).observe(lineEl);
 /* ---------------- header and tools ---------------- */
 $("brandPips").innerHTML = COLORS.map((c) => pip(c)).join("");
 const SETTING_ICON = { earth: "globe", tribal: "flame", magic: "star", ...GI.setting, custom: "sliders" };
+// 5.5: the name is who they have settled into, from the colors of the last four years
+const NAME_NOTE = "The name comes from their colors over the last four years: a color joins above 22% and leaves below 18%.";
 const SETTING_NAME = { earth: "Modern Earth", tribal: "Tribal", magic: "A world of magic" };
 function renderWho(L) {
   if (!L) { whoEl.innerHTML = ""; return; }
@@ -800,7 +805,7 @@ function renderWho(L) {
     `<span class="crest">${lc.length ? pips(lc) : pip("W", "dim")}<span class="gn">${esc(L.guild || "Still forming")}</span></span>`;
   setTip(whoEl.querySelector(".crest"), () => tipBox(`${pips(lc)} ${esc(L.guild || "Still forming")}`, L.label ? esc(L.meaning || "") : "Too young for a formed identity yet.",
     L.label ? [["Colors", lc.map((c) => CNAME[c]).join(", ")]].concat(L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : []) : [],
-    L.label ? "A color joins who they are above 22% and leaves below 18%." : "An identity forms once enough has happened to them."));
+    L.label ? NAME_NOTE : "An identity forms once enough has happened to them."));
   if (L.voice) {
     const vs = COLORS.map((c, i) => [c, L.voice[i]]).sort((a, b) => b[1] - a[1]);
     document.documentElement.style.setProperty("--t1", `var(--c${vs[0][0]})`);
@@ -1148,7 +1153,7 @@ function renderHud(L) {
   hudEl.innerHTML = `<button class="ghost hud-close" id="hudClose" aria-label="Close status">${ic("x")}</button>
     <div class="crestbox"><div class="cpips">${lc.length ? pips(lc) : pip("W", "dim")}</div><div class="gn">${esc(L.guild || "Still forming")}</div>
       <div class="ep" id="crestMotto">${!L.label ? "colors still forming" : esc(L.meaning || "")}</div>
-      ${L.label && L.label !== L.voice_label && L.voice_guild ? `<div class="vo">still told as ${esc(L.voice_guild)}</div>` : ""}${L.season_x ? `<div class="season" id="seasonChip">${ic("gate")} ${esc(seasonWords(L.season_x))}</div>` : ""}</div>
+      ${L.label && L.becoming ? `<div class="vo">${esc(cap(L.becoming))}</div>` : ""}${L.season_x ? `<div class="season" id="seasonChip">${ic("gate")} ${esc(seasonWords(L.season_x))}</div>` : ""}</div>
     ${states ? `<div class="states">${states}</div>` : ""}
     <div class="wheelw"><svg class="wheel" id="hudWheel" viewBox="-6 -2 212 206" role="img" aria-label="Spider graph of the five colors: where they are, where they want to be, what holds them">${spiderSVG(spOf(L, { id: "hw", hits: true }))}</svg><span class="wkey" id="wKey" tabindex="0" aria-label="How to read the wheel">?</span></div>
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
@@ -1166,7 +1171,7 @@ function renderHud(L) {
     ${L.temper ? `<div class="hsec"><h4>Temperament</h4><div class="tmpr">${TEMPER.map(([k, lb, icn, top]) => `<div class="tm" data-tm="${k}">${ic(icn)}<div><div class="bar"><b style="width:${(clamp(L.temper[k] / top) * 100).toFixed(1)}%"></b></div>${lb}</div></div>`).join("")}</div></div>` : ""}
     </div>`;
   setTip($("wKey"), () => tipBox(`${ic("wheel")} How to read the wheel`, "", SP_KEY.map(([k, w, d]) => [`<i class="spk k-${k}"></i> ${w}`, esc(d)]), "Hover a color for its numbers."));
-  if (L.label && L.meaning) setTip($("crestMotto"), () => tipBox(`${pips(lc)} ${esc(L.guild)}`, esc(L.meaning), L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : [], "A color joins who they are above 22% and leaves below 18%."));
+  if (L.label && L.meaning) setTip($("crestMotto"), () => tipBox(`${pips(lc)} ${esc(L.guild)}`, esc(L.meaning), L.magic ? [["In Magic: The Gathering", esc(L.magic)]] : [], NAME_NOTE));
   $("hudClose").addEventListener("click", () => closeHud());
   if ($("seasonChip")) setTip($("seasonChip"), () => seasonTip(L.season_x));
   const bindHits = () => hudEl.querySelectorAll("#hudWheel .hit").forEach((h) => setTip(h, () => tipColor(L, +h.dataset.c)));
@@ -1519,6 +1524,7 @@ function renderTable(h) {
       <div class="evtext">
         ${cp.season && cp.season.this_week ? `<p class="seasonnote" id="cpSeason">${ic("gate")} ${cp.season.transform ? "A turning point of this season: this choice can change who they become." : esc(seasonWords(cp.season)) + "."}</p>` : ""}
         ${cp.scene ? `<p class="scene" data-i="cp">${rich(cp.scene)}</p>` : ""}
+        ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}
@@ -1531,6 +1537,8 @@ function renderTable(h) {
   showEv(true); setPeek(false);
   $("evOpts").scrollTop = 0;
   if (cp.voice) setTip($("tug"), () => voiceTip([cp.voice.key, cp.voice.heart_driver, cp.voice.head_driver, cp.voice.self_control]));
+  // F5 (item 4): a moment that follows from an earlier pick says so; the hover gives the cause plainly
+  if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
   const own = cp.options.find((o) => o.own); setTip($("evLet"), () => tipBox(`${ic("crown")} Their own choice`, own ? esc(cap(own.label)) : "", [], "They act as they lean, with no cost. Key Enter."));
@@ -1600,7 +1608,7 @@ function renderResolution(h, reveal) {
   const cmove = `<div class="cmove" id="cmove">${COLORS.map((c, i) => { const v = dw[i], hgt = Math.abs(v) / mx * 19; return `<div class="cb"><div class="col"><b style="background:var(--c${c});${v >= 0 ? `bottom:50%;height:${hgt.toFixed(1)}px` : `top:50%;height:${hgt.toFixed(1)}px`}"></b></div>${pip(c)}</div>`; }).join("")}</div>`;
   const cl = r.closer, nowC = lettersOf(r.identity && r.identity.now);
   const toward = cl ? `<div class="toward" id="toward">${pips(nowC.length ? nowC : ["W"])}<span>${ic("push")}</span>${pips(lettersOf(cl.identity))}<div><div class="tw">${esc(cl.guild)}</div><small>${cl.distance < 0.05 ? "a step away" : "on the way"}</small></div><div class="dist"><b style="width:${(clamp(1 - cl.distance / 0.15) * 100).toFixed(0)}%"></b></div></div>` :
-    nowC.length ? `<div class="toward" id="toward">${pips(nowC)}<div><div class="tw">${esc(r.identity.guild)}</div><small>who they are now</small></div></div>` : "";
+    nowC.length ? `<div class="toward" id="toward">${pips(nowC)}<div><div class="tw">${esc(r.identity.guild)}</div><small>their colors now</small></div></div>` : "";
   const les = r.lessons || [];
   const vword = `${r.worked ? "It worked" : "It went badly"}${SURPRISE[r.surprise] ? ", " + SURPRISE[r.surprise] : ""}`;
   tableEl.innerHTML = evHead(`${ic("rune")} What came of it · Age ${Math.floor(r.age)}`, esc(cap(r.act)), colorsHTML(means, ends)) + `
@@ -1644,7 +1652,7 @@ function renderResolution(h, reveal) {
   tableEl.querySelectorAll("[data-pid]").forEach((x) => setTip(x, () => personTip(+x.dataset.pid)));
   tableEl.querySelectorAll("[data-rr]").forEach((x) => { const d = r.roles[+x.dataset.rr]; setTip(x, () => roleTip(d, findRole(d.name))); });
   setTip($("cmove"), () => tipBox(`${ic("wheel")} The colors this week`, "", [["Moved", colorMoves(r.dw)]], (r.push || []).map((p) => `${esc(cap(p.why))}: ${p.dir} ${pip(p.color)}`).join("<br>") || "Points are shares of 100."));
-  if ($("toward")) setTip($("toward"), () => cl ? tipBox(`${pips(lettersOf(cl.identity))} Moving toward ${esc(cl.guild)}`, "", [["Still to go", `${(cl.distance * 100).toFixed(1)} pts`]], "A color joins who they are above 22% and leaves below 18%.") : tipBox(`${pips(nowC)} ${esc(r.identity.guild)}`, "", [], "No identity is close to changing this week."));
+  if ($("toward")) setTip($("toward"), () => cl ? tipBox(`${pips(lettersOf(cl.identity))} Moving toward ${esc(cl.guild)}`, "", [["Still to go", `${(cl.distance * 100).toFixed(1)} pts`]], "A color joins above 22% and leaves below 18%; the name follows the colors of the last four years.") : tipBox(`${pips(nowC)} ${esc(r.identity.guild)}`, "", [], "No identity is close to changing this week."));
   tableEl.querySelectorAll(".verdict .tag").forEach((x) => setTip(x, () => tipBox(`${ic("voice")} Heart and head`, "", [], x.classList.contains("push") ? "You chose for them. If they were okay with it, it cost little; the less they wanted it, the more it cost: effort, strain and pent-up wanting." : x.classList.contains("regret") ? "The heart won against the head, and it failed. Regret lingers, and it can bring back what was let go." : "Before the choice, the heart (impulse) and the head (reflection) each had a favourite. This is which one they followed.")));
 }
 

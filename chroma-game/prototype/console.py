@@ -656,6 +656,8 @@ class Console:
         L = ["", f"== CHECKPOINT · age {cp['age']:.1f} · {cp['title']} (stakes {stake}) =="]
         if cp.get("scene"):
             L.append(cp["scene"])
+        if cp.get("thread"):                     # F5: a moment that follows from an earlier pick
+            L.append(cp["thread"]["line"] + " [" + cp["thread"]["cause"] + "]")
         if cp["extra"]:
             L.append(cp["extra"])
         if cp.get("thought"):
