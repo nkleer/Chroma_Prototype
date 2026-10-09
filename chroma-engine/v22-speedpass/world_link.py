@@ -191,7 +191,7 @@ class WorldLink:
         self.push = np.asarray(L.get("W_PUSH", np.full((S, K), -1)))
         self._infer_pushes(E, L, S, K)
         self.ssm = WK.LAW_KEYS.index("same-sex marriage")
-        self.NI = {k_: i_ for i_, k_ in enumerate(WK.NORM_KEYS)}
+        self.NI = {k_: i_ for i_, k_ in enumerate(WK.NORM_KEYS_ALL)}
         # a want moment's options that meet the want (the cast member's wish): a mark of helping or coming home, a title
         # or a skill it gives, a bond it makes, or kindness among its values; one marked as a refusal never does
         REFUSE = {"refused someone in need", "turned down a chance", "made an enemy", "broke your word"}
@@ -277,17 +277,20 @@ class WorldLink:
                 self.dom_i[si, ki] = d; self.tgt_i[si, ki] = tg
         # the norm each option is judged by (its norm:, else its law:, else coming out or naming one's gender): a close
         # person's strong objection to it grows into an approval closure (spec 2 §3)
-        nk_ = np.where(self.norm >= 0, self.norm, self.law).astype(np.int64)
+        L2N = np.array([WK.NORM_KEYS_ALL.index(k_) for k_ in WK.LAW_KEYS_ALL] + [-1])   # a law key's norm (W38b keys sit after)
+        nk_ = np.where(self.norm >= 0, self.norm, L2N[self.law]).astype(np.int64)
         for si, ki in zip(*np.nonzero((MK >= 0) & (nk_ < 0))):
             m_ = MARKS[MK[si, ki]]
             if m_ in NORM_MARK:
-                nk_[si, ki] = WK.NORM_KEYS.index(NORM_MARK[m_])
-        self.nrm_i = nk_
+                nk_[si, ki] = WK.NORM_KEYS_ALL.index(NORM_MARK[m_])
+        self.nrm_i = np.where(nk_ < len(WK.NORM_KEYS), nk_, -1)   # the W38b keys: close people's objections not kept
 
     def accept(self):
         """Acceptance per norm key where each person lives and among their own people (N, n_norm), 0 to 1."""
-        nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS])
-        return _uclip(nv[None, :] + np.asarray(self.PP.approval, float), 0, 1)
+        nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS_ALL])
+        ap = np.asarray(self.PP.approval, float)
+        ap = np.pad(ap, ((0, 0), (0, len(nv) - ap.shape[1])))   # the W38b keys: no view of their own among one's people
+        return _uclip(nv[None, :] + ap, 0, 1)
 
     # ---- every week, before the engine's week
     def week(self, t, S_):
@@ -495,7 +498,7 @@ class WorldLink:
         u_law = np.zeros((N, K)); law_open = np.zeros((N, K), bool); u_app = np.zeros((N, K)); u_mea = np.zeros((N, K))
         gone = np.zeros((N, K), bool)
         if (lw >= 0).any():
-            st_ = np.array([W.law_state(k_) for k_ in WK.LAW_KEYS])[np.maximum(lw, 0)]   # 0 legal, 1 restricted, 2 banned
+            st_ = np.array([W.law_state(k_) for k_ in WK.LAW_KEYS_ALL])[np.maximum(lw, 0)]   # 0 legal, 1 restricted, 2 banned
             if self.law_neg.any():   # -key: against the law where the act is in force or allowed (evading a call-up)
                 st_ = np.where(self.law_neg[s], 2 - st_, st_)
             app_ = lw >= 0
