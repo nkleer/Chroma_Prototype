@@ -95,6 +95,7 @@ GAME = dict(
     piv_core=0.3,        # this share of the lesson reaches the deep core at once, so a turning point lasts
     piv_own=0.2,         # letting them choose teaches at this share (and leans at this share): it confirms who they are
     piv_fail=0.5,        # a failure that does not backfire (and a push they resented although it worked) teaches at this share
+    learn_full=True,     # a pushed act teaches in full (v22.1 cut a reluctant act's lesson to learn_keep; off restores it)
     piv_steady=0.02,     # letting them choose: the deep core follows who they are now by this share (steadies, less drift)
     backfire=0.6,        # a pushed pick that failed backfires with chance backfire x distance x stakes (at most .8), always
                          # when they resented it (hindsight); a backfire teaches toward what they wanted, with no season lean
@@ -126,7 +127,7 @@ GAME = dict(
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
-GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
+GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
@@ -1696,6 +1697,8 @@ class Game:
         # item 4 (Emren 10-08 23:18): the price of a push moves from learning to cost. The act teaches in full (v22.1 cut a
         # reluctant act's lesson to learn_keep); what it teaches about who they are is the pivotal lesson (_pivot)
         d = delta
+        if not GAME["learn_full"]:                       # off (GAME_OFF): v22.1's cut, trust letting more of it in
+            d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel * (1 - max(tr, 0.0))
         loc["stress"][0] += GAME["stress"] * rs
         loc["Q"][0] += GAME["backlash"] * rs                              # wanting what they were denied builds up
         if f["closed"] and not loc["succ"][0]:
