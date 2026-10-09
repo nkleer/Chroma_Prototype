@@ -6,7 +6,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   3. every name in engine.STATE is in the state at every pause once a whole week has passed at age 3 or more
      (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is);
   4. the played-life settings (own_k, drift_k, ev_push_k, era_push_k, steer) do what they say, and at 1 nothing;
-  5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives.
+  5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives;
+  6. the next update's switches that lives with no player keep off (E.UPD_OFF), switched on: run_steps() still lives
+     the lives of run(), and the switch moves something.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -198,6 +200,32 @@ if "wfx_step" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  the world in their life, Earth and packs, world on: {N} life x {Y} years, seed "
           f"{seed}; {fx} reports of {len(kinds)} kinds, {oc} option causes, {len(rd_)} disaster readings naming their hazard; "
           f"lives as run(); dis_match runs{'' if not fails else '; ' + '; '.join(fails[:3])} ({time.process_time() - t0:.0f} s)")
+# 6. switches of the next update that are off in lives with no player (E.UPD_OFF), when the engine has them: switched on,
+# a game run (run_steps) still lives exactly the lives of run(), and the switch moves something
+ON_ = [("the times as a steady current", dict(cur_on=True), lambda o: float(np.asarray(o["current"]).sum()) > 0)]
+for label, sw, moved in ON_:
+    if not set(sw) <= set(E.DEFAULT):
+        continue
+    t0 = time.process_time(); fails = []
+    for world in (False, True):
+        Pd = dict(E.DEFAULT); Pd["world"] = world; Pd.update(sw)
+        kw = dict(N=2, years=6, seed=4, lib=EARTH, P=Pd)
+        o1 = E.run(**kw); g = E.run_steps(**kw); msg = next(g)
+        while True:
+            try:
+                msg = g.send(msg[3])
+            except StopIteration as done:
+                o2 = done.value
+                break
+        d1, d2 = digest(o1), digest(o2)
+        diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+        if diff:
+            fails.append(f"world {'on' if world else 'off'}: run_steps differs in {diff[:4]}")
+        if not moved(o1):
+            fails.append(f"world {'on' if world else 'off'}: switched on, it moved nothing")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world off and on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)
