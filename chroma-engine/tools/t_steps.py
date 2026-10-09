@@ -97,6 +97,59 @@ for label, libk, world, N, Y, seed in RUNS:
           f"{full} whole weeks; outputs {len(d1)} keys, {'all equal' if not diff else 'DIFFER: ' + ' '.join(diff)}; "
           f"{len(E.STATE)} STATE names{f' and {len(E.STATE_IF)} title names' if titles else ''} {'all there' if not missing else 'MISSING: ' + str({a: sorted(b) for a, b in missing.items()})}"
           f"{'' if not order else '; ORDER: ' + order[0]} ({time.process_time() - t0:.0f} s)")
+
+# 4. the played-life settings (implementation list stage 1), when the engine has them: each does what it says
+if "own_k" in E.DEFAULT:
+    def drive(L, world, N, Y, seed, P_, at=None):
+        """run_steps with settings P_, calling at(kind, S) at each pause; the run's outputs."""
+        Pd = dict(E.DEFAULT); Pd["world"] = world; Pd.update(P_)
+        g = E.run_steps(N=N, years=Y, seed=seed, lib=L, P=Pd)
+        msg = next(g)
+        while True:
+            kind, t, S, val = msg
+            if at:
+                at(kind, S)
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                return done.value
+    for label, libk, world, N, Y, seed in RUNS[::2]:
+        t0 = time.process_time(); L = EARTH if libk == "earth" else None; fails = []
+        o0 = drive(L, world, N, Y, seed, {})
+        # (a) at their values of 1 the four weights change nothing (the engine skips them; this guards a slip)
+        o1 = drive(L, world, N, Y, seed, dict(own_k=1.0, drift_k=1.0, ev_push_k=1.0, era_push_k=1.0))
+        if digest(o0) != digest(o1):
+            fails.append("weights at 1 changed the lives")
+        # (b) at 0: no own lesson, no random drift, no outside push on the colours
+        seen = dict(noise=0.0)
+        def at0(kind, S):
+            if kind == "end":
+                seen["noise"] = max(seen["noise"], float(np.abs(S["noise"]).max()))
+        o2 = drive(L, world, N, Y, seed, dict(own_k=0.0, drift_k=0.0, ev_push_k=0.0, era_push_k=0.0), at0)
+        ch = np.asarray(o2["chan"])                    # each channel's total push, by person
+        if np.abs(ch[:, 0]).max() > 1e-12 or np.abs(ch[:, 8]).max() > 1e-12 or seen["noise"] > 0:
+            fails.append(f"at 0: lesson {np.abs(ch[:, 0]).max():.2g}, outside {np.abs(ch[:, 8]).max():.2g}, noise {seen['noise']:.2g}")
+        if np.abs(np.asarray(o0["chan"])[:, 8]).max() <= 0:
+            fails.append("no outside push in the plain run to compare")
+        # (c) the steer: set before each pick toward Blue, it raises every person's expected Blue share of the pick
+        # (an exponential tilt by the Blue share never lowers its mean), reports steer_moved, and is spent
+        st = dict(weeks=0, down=0, left=0, moved=0)
+        def atS(kind, S):
+            if kind == "situation":
+                S["P"]["steer"] = np.eye(E.C)[1]; S["P"]["steer_k"] = 2.0
+            elif kind == "choose":
+                b_ = S["m"][:, :, 1]
+                eb, eb0 = (S["pr"] * b_).sum(1), (S["pr0"] * b_).sum(1)
+                st["weeks"] += 1; st["down"] += int((eb < eb0 - 1e-9).any())
+                st["moved"] += int(np.abs(S["steer_moved"]).max() > 0)
+                st["left"] += S["P"]["steer"] is not None
+        drive(L, world, N, Y, seed, {}, atS)
+        if not st["weeks"] or st["down"] or st["left"] or not st["moved"]:
+            fails.append(f"steer: {st}")
+        bad += bool(fails)
+        print(f"{'PASS' if not fails else 'FAIL'}  played-life settings, {label}: weights at 1 the same lives; at 0 no "
+              f"lesson, drift or outside push; the steer raised Blue in {st['weeks']} picks, moved {st['moved']} weeks, "
+              f"spent each time{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)
