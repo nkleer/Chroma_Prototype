@@ -1,6 +1,7 @@
 #!/bin/bash
 # v22.2 release record (stage 1 alone; records/v22.2/scope.md): one job per machine, run from anywhere. Every result lands
-# in chroma-release/out/ with the commit below, which is what record.py counts. Scratch under /tmp.
+# in chroma-release/out/ with the record's commit (its "commit:" line, or SHA=), which is what record.py counts. Scratch
+# under /tmp.
 #   bash /mnt/project-files/chroma-release/short-v22.2/run.sh <job>
 # Jobs (about 4 cores each):
 #   same1 same2 same3 same4   the same-lives proof, one part each (S1; about 50 minutes), on the commit's engine, Library, packs
@@ -9,8 +10,9 @@
 #   rows                      every other v22_checks row of the bar (S4 to S10)
 #   b7AB b7CD                 the build of the commit, then the game's browser drivers, groups A and B or C and D (S11)
 set -u
-SHA=${SHA:-ea5aaf0bc70b0c2272e5e10761786d3cd6e39d6c}
 F=/mnt/project-files; R=$F/chroma-release; REPO=${REPO:-/tmp/v222_repo}; X=/tmp/v222_$1
+SHA=${SHA:-$(sed -n 's/^commit: *\([0-9a-f]\{40\}\) *$/\1/p' $R/records/v22.2/scope.md)}   # the record's commit line
+[ -n "$SHA" ] || { echo "no commit in records/v22.2/scope.md yet"; exit 2; }
 [ -d $REPO/.git ] || git clone -q https://github.com/nkleer/Chroma_Prototype $REPO || exit 2
 git -C $REPO cat-file -e $SHA^{commit} 2>/dev/null || git -C $REPO fetch -q origin main || exit 2
 export CHROMA_COMMIT=$SHA
