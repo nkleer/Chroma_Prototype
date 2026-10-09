@@ -791,8 +791,11 @@ FIX_OFF = dict(title_ages=False, season_share=False, ow_weeks=52, far_share=1.0,
 # interpretation and memory off (E1): the v10 weights that change lives, at 0
 V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.0, mis_mood=0.0, mis_status=0.0, scar_k=0.0,
                scar_pull=0.0)
+# the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
+# each stage adds its switches here and names them in the engine CHANGELOG
+UPD_OFF = dict(dis_match=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
-GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, "world": False}
+GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
 ACCEPT_BY_SETTING = dict(earth=0.5, tribal=0.3, magic=0.5)   # accept_trans when None (estimates)
 
@@ -1911,12 +1914,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             for e_ in lst_:     # moment met or refused once (cast_want)
                 if e_.get("n") in events and e_.get("kind") != "push" and not (e_.get("kind") == "want" and "worked" in e_):
                     events[e_["n"]].append(dict(cast=e_))
-        if P["dis_match"]:   # WL6: the hazards each disaster event fits (by name); one naming no hazard fits them all
-            hz_j_ = {j_: {h_ for h_, rx_ in WLM.HAZ_EVR.items() if re.search(rx_, EVR[j_]["name"], re.I)} for j_ in DIS_J_}
-            DIS_FOR_ = {}
-            for h_ in WLM.HAZ_EVR:
-                own_j_ = [j_ for j_ in DIS_J_ if h_ in hz_j_[j_]]; any_j_ = [j_ for j_ in DIS_J_ if not hz_j_[j_]]
-                DIS_FOR_[h_] = set(own_j_ or any_j_ or DIS_J_)
+        # WL6, for P["dis_match"] (the game may turn it on mid-run): the hazards each disaster event fits (by name); one
+        # naming no hazard fits them all
+        hz_j_ = {j_: {h_ for h_, rx_ in WLM.HAZ_EVR.items() if re.search(rx_, EVR[j_]["name"], re.I)} for j_ in DIS_J_}
+        DIS_FOR_ = {}
+        for h_ in WLM.HAZ_EVR:
+            own_j_ = [j_ for j_ in DIS_J_ if h_ in hz_j_[j_]]; any_j_ = [j_ for j_ in DIS_J_ if not hz_j_[j_]]
+            DIS_FOR_[h_] = set(own_j_ or any_j_ or DIS_J_)
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
