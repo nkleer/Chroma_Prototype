@@ -912,10 +912,13 @@ ADJECTIVES = [
 ]
 SH_STATES = ["rigid", "indecisive", "ruthless", "reckless", "stuck in their ways"]   # W U B R G
 ADJ_BASE = len(ADJECTIVES)   # the adjectives before the shadow states (the outputs with shadows off)
-ADJECTIVES += [(nm_, nm_, "shadow_" + c_, +1, 0.5, 0.35, 18, "impossible", 0.05) for nm_, c_ in zip(SH_STATES, "WUBRG")]
-ADJ_NAMES = [a_[0] for a_ in ADJECTIVES]; ADJ_ID = {nm: i for i, nm in enumerate(ADJ_NAMES)}
-ADJ_SAY = [a_[1] for a_ in ADJECTIVES]
-ADJ_WITHOUT = np.array([("law", "approval", "means", "impossible").index(a_[7]) for a_ in ADJECTIVES])
+# the five shadow states (stage 2, item 2), read like the adjectives (holds: rigid) and indexed after them: ADJ_ALL is the
+# whole table (ADJ_NAMES, ADJ_ID, ADJ_SAY follow it); ADJECTIVES stays the 21 states, never held by the shadows
+SH_ADJECTIVES = [(nm_, nm_, "shadow_" + c_, +1, 0.5, 0.35, 18, "impossible", 0.05) for nm_, c_ in zip(SH_STATES, "WUBRG")]
+ADJ_ALL = ADJECTIVES + SH_ADJECTIVES
+ADJ_NAMES = [a_[0] for a_ in ADJ_ALL]; ADJ_ID = {nm: i for i, nm in enumerate(ADJ_NAMES)}
+ADJ_SAY = [a_[1] for a_ in ADJ_ALL]
+ADJ_WITHOUT = np.array([("law", "approval", "means", "impossible").index(a_[7]) for a_ in ADJ_ALL])
 
 
 def softmax(z, axis=-1):
@@ -1091,7 +1094,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
     NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
     CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
-    NA_OUT = len(ADJECTIVES) if SHON else ADJ_BASE   # the adjectives the outputs carry
+    NA_OUT = len(ADJ_ALL) if SHON else ADJ_BASE   # the adjectives the outputs carry
     DOM_ON = bool(P["domains"]); NA_D = len(AREAS)
     Dz = np.zeros((N, NA_D, C)); D_hist = []   # v23 life domains: each area's offset on the colors (log-ratio units)
     # light and shadow: the shadow part s (shS), its force e (shA), the four sources (sh_src: holding on, ruling, no
@@ -1121,10 +1124,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     lvl = np.full(N, 0.6); mood = np.zeros(N); content = np.full(N, 0.6); peace = np.full(N, 0.6)   # meta variables
     hold = np.full((N, C), 0.2)
     gap_r = np.zeros(N); q_rel = np.zeros(N); unmet = np.zeros(N); hzf = np.zeros(N)
-    NA_ = len(ADJECTIVES); adj = np.zeros((N, NA_), bool); adj_since = np.zeros((N, NA_)); adj_log = []   # v7 adjectives
+    NA_ = len(ADJ_ALL); adj = np.zeros((N, NA_), bool); adj_since = np.zeros((N, NA_)); adj_log = []   # v7 adjectives
     adj_v = None
-    ADJ_SIDE = np.array([a_[3] for a_ in ADJECTIVES], float); ADJ_ON = np.array([a_[4] for a_ in ADJECTIVES])
-    ADJ_OFF = np.array([a_[5] for a_ in ADJECTIVES]); ADJ_AGE = np.array([a_[6] for a_ in ADJECTIVES], float)
+    ADJ_SIDE = np.array([a_[3] for a_ in ADJ_ALL], float); ADJ_ON = np.array([a_[4] for a_ in ADJ_ALL])
+    ADJ_OFF = np.array([a_[5] for a_ in ADJ_ALL]); ADJ_AGE = np.array([a_[6] for a_ in ADJ_ALL], float)
     SMID = np.asarray(P["sat_mid_stage"], float) - 0.8 + P["sat_mid"]
     smid = np.full(N, SMID[0]); hope = lvl + P["hope_young"]   # v7: what counts as enough now; what life is hoped to give
     RST = None if P["r_stage"] is None else np.asarray(P["r_stage"], float)
@@ -3830,7 +3833,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             src_ = dict(content=content, peace=peace, mood=mood, stress=stress, wound=wound, discipline=dsc, gap=gap_r,
                         unmet_hope=hzf * np.maximum(unmet, 0), **{"shadow_" + c_: shA[:, i_] for i_, c_ in enumerate(COLORS)})
             src_.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); src_.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
-            av_ = np.stack([np.broadcast_to(src_[a_[2]], (N,)) for a_ in ADJECTIVES], 1) * ADJ_SIDE
+            av_ = np.stack([np.broadcast_to(src_[a_[2]], (N,)) for a_ in ADJ_ALL], 1) * ADJ_SIDE
             adj_v = av_ if adj_v is None else adj_v + P["adj_smooth"] * (av_ - adj_v)    # the last few months
             old_ = adj
             adj = ((adj_v >= ADJ_ON * ADJ_SIDE) | (adj & (adj_v >= ADJ_OFF * ADJ_SIDE))) & (age >= ADJ_AGE)
