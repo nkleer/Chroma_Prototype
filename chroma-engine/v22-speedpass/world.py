@@ -395,6 +395,10 @@ W_DEFAULT = dict(
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
+# their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
+S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_anchor_s3", "anc_r", "coh_back", "acc_calm", "k_sh", "gov_voter",
+             "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
+             "lose_k", "grv_fade", "lead_spread_s3")
 
 # ------------------------------------------------------------------------------------------------- small helpers
 
@@ -652,6 +656,8 @@ class World:
         # ---- institutions (spec 4) and public figures (spec 5 §6)
         self._init_inst(r)
         self._init_figs(r)
+        if self._s3("hist_chance_only"):                   # LW2 2e: the first government is its party's (drawn as before)
+            self.G = self.inst_profile[self.party_ids[self.gov_party]].copy()
         # ---- society (spec 6)
         self.Q, self.open_q, self.since_break, self.gap_now = 0.0, 0, 40, 0.0
         self.Pos = self._pos()
@@ -2443,9 +2449,15 @@ class World:
             s = g.bit_generator.state
             rng.append(dict(bit_generator=s["bit_generator"], state={a: str(b) for a, b in s["state"].items()},
                             has_uint32=int(s["has_uint32"]), uinteger=str(s["uinteger"])))
-        return dict(version=1, seed=self._seed, society=int(self.society_id),
-                    cfg=_jsafe({k: v for k, v in self.cfg.items() if k != "legacy"}),
-                    params=_jsafe(self.p), perm=self.perm.tolist(), rng=rng, state=st)
+        cfg, par = {k: v for k, v in self.cfg.items() if k != "legacy"}, dict(self.p)
+        if not any(self._s3(k) for k in S3_RULES):        # stage 3 off: saved as v22.1 saved it (load restores them)
+            par = {k: v for k, v in par.items() if k not in S3_RULES + S3_PARAMS}
+            cp_ = {k: v for k, v in (cfg.get("params") or {}).items() if k not in S3_RULES + S3_PARAMS}
+            cfg = {k: v for k, v in cfg.items() if k != "params"}
+            if cp_:
+                cfg["params"] = cp_
+        return dict(version=1, seed=self._seed, society=int(self.society_id), cfg=_jsafe(cfg),
+                    params=_jsafe(par), perm=self.perm.tolist(), rng=rng, state=st)
 
     @classmethod
     def load(cls, d):
