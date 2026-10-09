@@ -4,7 +4,8 @@
 #   bash /mnt/project-files/chroma-release/short-v22.1/b7.sh <groups, e.g. A or A,B> [jobs, default 2] [build]
 # The build is the out folder of the one build command (chroma-game/tools/build.py <out>, backend plan item 5): its web/
 # is served as it is and its game's test/ drivers run. A prototype folder still works (its web/ is assembled here), and
-# with no build given, /tmp/v22p1_build/prototype or a fresh make_tree.sh layout in /tmp/b7_tree.
+# with no build given, /tmp/v22p1_build/prototype or a fresh make_tree.sh layout in /tmp/b7_tree. A folder that is given
+# but holds neither stops the run (it never falls back to another page).
 # The page is served from /tmp/b7_<groups>/serve on port 8140 with the Pyodide copy in chroma-release/tools/pyodide.
 set -u
 GROUPS_=${1:?groups}; JOBS=${2:-2}; P=${3:-/tmp/v22p1_build/prototype}
@@ -15,6 +16,7 @@ if [ -f "$P/BUILD.md" ] && [ -f "$P/web/page.html" ]; then        # an out folde
   cp -r $W $B/serve; [ -d $B/serve/pyodide ] || cp -r $R/tools/pyodide $B/serve/
 else
   if [ ! -f "$P/web/index.html" ]; then
+    [ $# -ge 3 ] && { echo "STOP: $P is neither a build (BUILD.md, web/page.html) nor a game folder with web/index.html"; exit 2; }
     rm -rf /tmp/b7_tree; mkdir -p /tmp/b7_tree; bash $F/chroma-game/staging-v22p1/make_tree.sh /tmp/b7_tree > /tmp/b7_tree.log 2>&1 || { echo "make_tree failed: see /tmp/b7_tree.log"; exit 2; }
     P=/tmp/b7_tree/prototype
   fi

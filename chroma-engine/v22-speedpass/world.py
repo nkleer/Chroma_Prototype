@@ -117,6 +117,13 @@ NORM_PROF_SRC = {
     "role crossing":     ("B.3 U.3 R.2 W.2", "choosing one's path over the expected role, skill over custom, living as one feels, equal rules"),
     "transition":        ("R.4 U.3 G.2 B.1", "living as one truly is, self-understanding and medicine, being true to one's nature, self-determination"),
     "mixed marriage":    ("R.3 G.3 U.3 W.1", "love across lines, family, an open mind, equal standing"),
+    # W38b (the Library's held-back keys; estimates): read at their modern state, not modelled yet (world_keys.LAW_V23)
+    "tobacco":           ("R.4 B.3 G.3", "pleasure and habit, rule over one's own body, custom and company"),
+    "knives":            ("B.4 R.3 G.3", "self-defence and power, readiness for a fight, a tool of the outdoors"),
+    "drink-driving":     ("R.6 B.4", "the night out and the thrill, one's own convenience first"),
+    "prescription medicines": ("B.4 U.3 R.3", "rule over one's own body, knowing better than the rules, relief now"),
+    "childminding":      ("G.5 W.3 B.2", "care among kin and neighbours, mutual help, earning on the side"),
+    "gender on papers":  ("R.4 U.3 W.3", "being recognised as one is, self-understanding, equal standing under the law"),
 }
 WELFARE_PROF_SRC = ("W.5 G.4 U.1", "care organised by the state, mutual support, planned provision")
 NORM_PROF = np.array([_mix(NORM_PROF_SRC[k][0]) for k in NORM_KEYS])
@@ -223,20 +230,25 @@ NORM_MOD = {"drugs": .30, "divorce": .85, "abortion": .65, "same-sex marriage": 
             "gambling": .60, "alcohol": .90, "sex work": .40, "euthanasia": .55, "home schooling": .45,
             "death penalty": .30, "adoption": .85, "cohabiting": .85, "tattoos": .60, "single parenthood": .70,
             "faith in public": .55, "leaving a faith": .80, "coming out": .70, "role crossing": .70, "transition": .45,
-            "mixed marriage": .90}
+            "mixed marriage": .90, "tobacco": .55, "knives": .25, "drink-driving": .08, "prescription medicines": .30,
+            "childminding": .70, "gender on papers": .45}   # v23 keys: estimates
 NORM_START = {"drugs": .12, "divorce": .45, "abortion": .35, "same-sex marriage": .08, "conscription": .70, "guns": .45,
               "gambling": .40, "alcohol": .85, "sex work": .20, "euthanasia": .30, "home schooling": .40,
               "death penalty": .65, "adoption": .80, "cohabiting": .25, "tattoos": .15, "single parenthood": .25,
               "faith in public": .80, "leaving a faith": .40, "coming out": .08, "role crossing": .35,
-              "transition": .05, "mixed marriage": .25}
+              "transition": .05, "mixed marriage": .25,
+              "tobacco": .80, "knives": .45, "drink-driving": .50, "prescription medicines": .40, "childminding": .85,
+              "gender on papers": .03}   # v23 keys: estimates
 # Law book about 80 years before the birth (0 legal, 1 restricted, 2 banned).
 LAW_START = {"drugs": 2, "divorce": 1, "abortion": 2, "same-sex marriage": 2, "conscription": 0, "guns": 1,
              "gambling": 1, "alcohol": 0, "sex work": 2, "euthanasia": 2, "home schooling": 1, "death penalty": 0,
-             "adoption": 0}
+             "adoption": 0, "tobacco": 0, "knives": 0, "drink-driving": 0, "prescription medicines": 0, "childminding": 0,
+             "gender on papers": 2}
 # The law book at the birth, typical rich (averaged over rich democracies; estimates): the state the modern norms point to.
 LAW_MOD = {"drugs": 2, "divorce": 0, "abortion": 0, "same-sex marriage": 0, "conscription": 1, "guns": 1,
            "gambling": 0, "alcohol": 0, "sex work": 1, "euthanasia": 1, "home schooling": 1, "death penalty": 2,
-           "adoption": 0}
+           "adoption": 0, "tobacco": 1, "knives": 1, "drink-driving": 2, "prescription medicines": 1, "childminding": 1,
+           "gender on papers": 1}
 NORM_RIGHT = {"role crossing": 4, "transition": 3}   # norms without a law entry whose law push is a right
 RIGHT_MOD = {"role crossing": 0.85, "transition": 0.75}
 
@@ -2334,10 +2346,10 @@ class World:
 
     # ------------------------------------------------------------------------------------------------ what the engine reads
     def law_state(self, key):
-        return int(self.laws[LI[key]])
+        return int(self.laws[LI[key]]) if key in LI else int(LAW_MOD[key])   # W38b keys: the modern law book
 
     def norm(self, key):
-        return float(_sig(self.norm_x[NI[key]]))
+        return float(_sig(self.norm_x[NI[key]])) if key in NI else float(NORM_MOD[key])   # W38b keys: modern acceptance
 
     def tech_has(self, key):
         return key in self.tech_keys and bool(self.tech_exists[self.tech_keys.index(key)])
