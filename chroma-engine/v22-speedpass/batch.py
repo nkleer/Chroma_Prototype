@@ -600,6 +600,33 @@ def _world_fields(L):
                         raise ValueError(f"{nm}: pushes {nt['pushes']!r}: a sub-kind only follows group, institution or close, "
                                          f"from its own list")
                     push_sub[(si, ki)] = sub[0].strip()
+    # the spheres (item 15; world-fields.md "New Library fields"): a moment's sphere, haunt kind and rung; an option's
+    # face (sphere and colour; a pair face keeps its sphere and both colours). Strict: an unknown value fails loudly
+    def sph_val(v, where_):
+        x = str(v).strip()
+        sp_, _, f_ = x.partition(".")
+        if sp_ not in WK.SPHERES or (f_ and not (len(f_) in (1, 2) and all(c_ in "WUBRG" for c_ in f_) and len(set(f_)) == len(f_))):
+            raise ValueError(f"{where_}: unknown sphere or face {x!r} (a sphere of {', '.join(WK.SPHERES)}, then .W .. .G or a pair)")
+        return WK.SPHERES.index(sp_), ("WUBRG".index(f_) if len(f_) == 1 else -1), f_
+    msph = np.full(S, -1); haunt = np.full(S, -1); ladder = np.full(S, -1)
+    osph = np.full((S, K), -1); ocol = np.full((S, K), -1); hpick = np.zeros(S, bool)
+    sphev = np.zeros(S, bool)   # a moment a sphere event brings (phase 3): held back until the world makes those events
+    for si, src in enumerate(L["src"][:S]):
+        nm = f"moment {src.get('name', si)!r}"
+        if src.get("sphere"):
+            msph[si] = sph_val(src["sphere"], nm)[0]
+        if src.get("haunt"):
+            haunt[si] = one(src["haunt"], WK.HAUNT_KINDS, nm)[0]
+        if src.get("ladder"):
+            ladder[si] = one(src["ladder"], WK.LADDER, nm)[0]
+        if src.get("sphere_event"):
+            sphev[si] = True
+        for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
+            if nt and nt.get("sphere") and ki < K:
+                osph[si, ki], ocol[si, ki], _ = sph_val(nt["sphere"], f"{nm}, option {ki + 1}")
+    for c_ in L.get("COND", []):   # the haunt choices: inner moments gated on the word haunts (the engine applies the pick)
+        if re.search(r"\bhaunts\b", c_.get("rtxt", "")):
+            hpick[c_["s"]] = True
     prem = np.full(S, -1)   # W38: a moment that needs a technology to make sense (earth_rules.PREMISE_TECH, by name)
     for nm_, k_ in L.get("PREMISE_TECH", {}).items():
         if k_ not in WK.TECH_KEYS:
@@ -607,6 +634,7 @@ def _world_fields(L):
         for si in range(S):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
+    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 

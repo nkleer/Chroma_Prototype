@@ -11,6 +11,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      the lives of run(), and the switch moves something.
   7. the next update's read-only world switches (the spheres' town, sph_town), switched on: the lives are those of a
      run with them off, and the world carries their state.
+  8. the spheres' phase 2 switches (haunts, hours and rungs, the mark of the work), switched on with the world: run_steps()
+     still lives the lives of run(), and the lives move.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -248,6 +250,33 @@ for label, sw, ok in RO_:
         fails.append(f"lives differ in {diff[:4]}")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 8. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work; world on only): switched on,
+# a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
+P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
+        dict(sph_haunts=True, sph_hours=True, sph_marks=True, cur_on=True), dict(cur_on=True))]
+for label, sw, base in P2_:
+    if not set(sw) <= set(E.DEFAULT):
+        continue
+    t0 = time.process_time(); fails = []
+    Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
+    kw = dict(N=2, years=8, seed=4, lib=EARTH, P=Pd)
+    o1 = E.run(**kw); g = E.run_steps(**kw); msg = next(g)
+    while True:
+        try:
+            msg = g.send(msg[3])
+        except StopIteration as done:
+            o2 = done.value
+            break
+    d1, d2 = digest(o1), digest(o2)
+    diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+    if diff:
+        fails.append(f"run_steps differs in {diff[:4]}")
+    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **base))))
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
+        fails.append("switched on, the lives are those with it off")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")

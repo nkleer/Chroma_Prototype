@@ -35,7 +35,7 @@ from library import COLORS, NEEDS, NEED_MAP_V6, ERA_KINDS
 from combos import IDEAS, ERA_COMBOS
 from world_keys import (TIME_OF_YEAR, HOLY_KEYS, WHO_SLOTS, CAST_WANTS, GROUP_KINDS, FEATURES, INST_KINDS, LAW_KEYS,
                         NORM_KEYS, LAW_STATES, TECH_KEYS, LEVERS, DOMAINS, RECORD_DOMAINS, SECTORS, RINGS)
-from world_keys import SPHERES, GROUP_SPHERE, INST_SPHERE, SECTOR_SPHERE, STATE_SPHERE
+from world_keys import SPHERES, GROUP_SPHERE, INST_SPHERE, SECTOR_SPHERE, STATE_SPHERE, HAUNT_KINDS
 
 C = 5
 SEASONS = TIME_OF_YEAR                                   # 0 winter, 1 spring, 2 summer, 3 autumn (northern)
@@ -72,8 +72,10 @@ SPH = {s_: i_ for i_, s_ in enumerate(SPHERES)}
 INST_SPH = np.array([-1 if INST_SPHERE[k_] is None else SPH[INST_SPHERE[k_]] for k_ in INST_KINDS], np.int64)
 GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPH[GROUP_SPHERE[k_]] for k_ in GROUP_KINDS], np.int64)
 SECTOR_SPH = np.array([SPH[SECTOR_SPHERE[k_]] for k_ in SECTORS], np.int64)
-STATE_PARTS = {"say": ("G", "regime", "support", "gov_party"), "law_book": ("laws",), "rights": ("rights",),
-               "purse": ("welfare", "welfare_pub"), "war": ("war", "ext_war"), "force": ()}   # force: police, army
+HAUNT_SPH = np.array([SPH[k_.split(".")[0]] for k_ in HAUNT_KINDS], np.int64)   # each haunt kind's sphere (phase 2)
+N_PLACES = 3            # named places per town and haunt kind (phase 2, N1: "a few named places per haunt kind")
+STATE_PARTS = {"say": ("G", "regime", "support", "gov_party", "Dem"), "law_book": ("laws",), "rights": ("rights",),
+               "purse": ("welfare", "welfare_pub"), "war": ("war", "ext_war", "war_with"), "force": ()}   # force: police, army
 NN, NL, NT = len(NORM_KEYS), len(LAW_KEYS), len(TECH_KEYS)
 
 # ---------------------------------------------------------------------------------------------- color-indexed tables
@@ -422,11 +424,14 @@ W_DEFAULT = dict(
     # computed or saved and the world runs as v22.2
     sph_town=False,    # phase 1c: each town's nine spheres, their sizes and five face shares, updated each quarter (read only)
     sph_par=None,      # {name: value} over sphere_data.PARAMS (tuning; None: the design values)
+    sph_haunts=False,  # phase 2, N1: named places per town and haunt kind, each with its own face mix; lives pick haunts
+    sph_hours=False,   # phase 2: hours in all nine spheres and the rungs (N2), the places part of item 12's current
+    sph_marks=False,   # phase 2: the mark of the work (reserved: waits for the Outer world's table of trades)
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
-SPH_RULES = ("sph_town", "sph_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
 S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_home", "era_home_k", "era_fade_y", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
@@ -1031,8 +1036,10 @@ class World:
         self._place_q()
         self._culture_q()
         self._society_q()
-        if self.p.get("sph_town", False):
-            self._sphere_q()
+        if self.p.get("sph_town", False) or self.p.get("sph_haunts", False) or self.p.get("sph_hours", False):
+            self._sphere_q()   # (phase 2's haunts and hours read the town spheres, so either switch computes them)
+            if self.p.get("sph_haunts", False):
+                self._sph_places_q()
         self._figures_q()
         self._history_q()
         if self.trace is not None:
@@ -2513,7 +2520,8 @@ class World:
         """Per town and sphere: the leaders' colour mix, their corruption and the bodies' age (capacity- and reach-
         weighted over the sphere's institutions in town, else the whole country's); has: whether the sphere has any."""
         nl = self.n_loc
-        A = (self.inst_sphere[:, None] == np.arange(9)[None]) * (self.inst_capacity * self.inst_reach + 1e-9)[:, None]
+        # a body with no reach beyond itself (a faith body, a party) still leads its own sphere: reach counts from .2
+        A = (self.inst_sphere[:, None] == np.arange(9)[None]) * (self.inst_capacity * np.maximum(self.inst_reach, 0.2) + 1e-9)[:, None]
         B = (np.asarray(self.inst_loc)[:, None] == np.arange(nl)[None]).astype(float)        # institution x town
         X = np.concatenate([self.inst_leader_pie, self.inst_corruption[:, None], self.inst_age[:, None],
                             np.ones((len(A), 1))], 1)                                         # what is averaged, and 1
@@ -2578,6 +2586,38 @@ class World:
         Zs = T["base"][None] * mult[None] * np.exp(lz); Zs /= Zs.sum(1, keepdims=True)
         kz = np.where(jump > 1.0001, 0.25, pr["kZ"])                              # a war or plague moves hours within a year
         self.sph_Z = Z + kz[None] * (Zs - Z)
+
+    # ------------------------------------------------------------------ the spheres of society (item 15): phase 2
+    def _sph_rng(self):
+        """The spheres' own dice stream ("sphere", after the world's other streams; world-fields.md), made the first
+        time a sphere rule draws, so every other stream draws as before and a world with the rules off saves as before."""
+        k = len(self._STREAMS)
+        if len(self.R) == k:
+            self.R.append(np.random.default_rng([self._seed + 104729, k] + ([self.society_id] if self.society_id else [])))
+        return self.R[k]
+
+    def _sph_places_q(self):
+        """N1: each town's named places, N_PLACES per haunt kind (31), each with a face mix that follows its sphere's mix
+        in town at the sphere's own speed (rho), leaning its own lasting way (hp_off, drawn once: a place is like itself,
+        never like every place of its kind). hp_nm: a name number the Library's place names are read by."""
+        T = self._sph_tables(); nl = self.n_loc; H = len(HAUNT_KINDS)
+        base = self.sph_s[:, HAUNT_SPH][:, :, None, :]                            # town x kind x 1 x 5
+        if getattr(self, "hp_off", None) is None:
+            r = self._sph_rng(); sd = float(T["pr"].get("place_sd", 0.6))
+            self.hp_off = r.normal(0, sd, (nl, H, N_PLACES, C))[..., self.perm]   # drawn in W U B R G, held in this frame
+            self.hp_nm = r.integers(0, 1000, (nl, H, N_PLACES))
+            self.hp_s = base * np.exp(self.hp_off); self.hp_s /= self.hp_s.sum(-1, keepdims=True)
+        tgt = base * np.exp(self.hp_off); tgt /= tgt.sum(-1, keepdims=True)
+        self.hp_s += T["rho"][HAUNT_SPH][None, :, None, None] * (tgt - self.hp_s)
+
+    def place_info(self, p):
+        """A named place (flat index town x kind x N_PLACES, as People.hnt holds it): its town, kind, sphere, name number,
+        five face shares (W U B R G) and leading face. Public, as the town portrait is."""
+        import sphere_data as SD
+        l, h, i = np.unravel_index(int(p), (self.n_loc, len(HAUNT_KINDS), N_PLACES))
+        f = self.hp_s[l, h, i][np.argsort(self.perm)]; c = int(np.argmax(f)); sp = SPHERES[HAUNT_SPH[h]]
+        return dict(place=int(p), town=int(l), kind=HAUNT_KINDS[h], sphere=sp, name=int(self.hp_nm[l, h, i]),
+                    faces=[round(float(x), 3) for x in f], leads=f"{sp}.{COLORS[c]}", leads_name=SD.FACE_NAMES[f"{sp}.{COLORS[c]}"])
 
     # ------------------------------------------------------------------ the spheres of society (item 15): Replace
     @property
@@ -2717,6 +2757,8 @@ class World:
             elif isinstance(v, dict) and "__ndlist__" in v:
                 v = [np.array(x) for x in v["__ndlist__"]]
             setattr(W, k, v)
+        if len(d["rng"]) > len(W.R):                       # the spheres' stream, once a sphere rule has drawn
+            W._sph_rng()
         for g, s in zip(W.R, d["rng"]):
             g.bit_generator.state = dict(bit_generator=s["bit_generator"], state={a: int(b) for a, b in s["state"].items()},
                                          has_uint32=s["has_uint32"], uinteger=int(s["uinteger"]))
