@@ -2,9 +2,11 @@
 played on the Game object with a scripted player, as the update's stage 1 checks need (Release's steered rows;
 chroma-ideas/gameplay-feel.md §5.2, voice-mechanics.md §9). Two forms:
 
-    python3 -B test/steer_check.py <target>                       one of Release's steered rows (below); its lives run on
-                                                                  every core; the last line is "STEER <target>: PASS"
-                                                                  (or MISS) under the numbers it measured
+    python3 -B test/steer_check.py <target> [<target> ...|all]    Release's steered rows (below); the lives they need run
+                                                                  once, on every core, shared between targets and kept in
+                                                                  $STEER_CACHE (default /tmp/steer_cache) by preset, seed,
+                                                                  player, stop age, settings and game.py; each target ends
+                                                                  with "STEER <target>: PASS" (or MISS) under its numbers
     python3 -B test/steer_check.py <preset 1-6> <seed> <player> <out.json>     one life, its JSON record (calibration)
 
 players:
@@ -17,13 +19,14 @@ players:
   light:<C>    a light steer toward color C at every moment (P3): their own pick, tilted
 Settings to try go in CHROMA_GAME as JSON (for example CHROMA_GAME='{"piv": 0.1}'), which updates game.GAME.
 
-targets (all on preset 1, modern Earth, seeds 1 to 3 or 1 to 6):
+targets (all on preset 1, modern Earth; whole lives come from one shared set: let 1-6, most:<C by seed> 1-6, random
+1-2, careful 1-2):
   identity      steering one color at most picks puts it in the name at 40 in most lives, for each color (most:<C>,
                 3 seeds, to 41): at least 2 of 3 for every color
   apart         the same life steered two ways (most:W, most:B) ends further apart at 60 than two different lives left
                 alone (3 seeds; half the summed color gap)
   alone_names   a life left alone changes its shown name at most 3 to 4 times after 18 (6 seeds; mean at most 4)
-  push_rare     pushed lives (most:<C>, C by seed) meet more rare moments (under 1 life in 10) than the same lives left
+  push_rare     pushed lives (most:<C>, C = WUBRG[seed % 5]) meet more rare moments (under 1 life in 10) than the same lives left
                 alone (6 seeds; summed)
   world_lines   every world line (WL1) is an effect the engine reported for the character that year (STATE wfx, kept in
                 the record of what the times did), and every year's line (WL4) falls in a year with such effects
@@ -119,14 +122,49 @@ def play(preset, seed, player, until=None):
                         pushes=pushes, vnames=vnames))
 
 
+def _key(a):
+    import hashlib
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    src = hashlib.md5(open(os.path.join(here, "game.py"), "rb").read()).hexdigest()[:12]
+    st = hashlib.md5(os.environ.get("CHROMA_GAME", "").encode()).hexdigest()[:8]
+    return f"{a[0]}_{a[1]}_{a[2].replace(':', '')}_{a[3] or 'end'}_{st}_{src}.json"
+
+
 def _job(a):
-    return play(*a)
+    d = os.environ.get("STEER_CACHE", "/tmp/steer_cache")
+    f = os.path.join(d, _key(a))
+    try:
+        return json.load(open(f))
+    except Exception:
+        pass
+    r = play(*a)
+    try:
+        os.makedirs(d, exist_ok=True)
+        json.dump(r, open(f + ".tmp", "w")); os.replace(f + ".tmp", f)
+    except Exception:
+        pass
+    return r
 
 
 def run(jobs):
+    """The lives, each once, from the cache when there; returns {job: record}."""
     from multiprocessing import Pool
-    with Pool(min(len(jobs), os.cpu_count() or 2)) as p:
-        return p.map(_job, jobs)
+    jobs = sorted(set(jobs), key=lambda a: (a[3] is not None, a))      # whole lives first: they take longest
+    with Pool(max(1, min(len(jobs), os.cpu_count() or 2))) as p:
+        return dict(zip(jobs, p.map(_job, jobs)))
+
+
+MOST = lambda s: "most:" + "WUBRG"[s % 5]
+LET = [(1, s, "let", None) for s in range(1, 7)]
+PUSHED = [(1, s, MOST(s), None) for s in range(1, 7)]
+RANDOM = [(1, s, "random", None) for s in (1, 2)]
+NEEDS = {
+    "identity": [(1, s, f"most:{c}", 41) for c in "WUBRG" for s in (1, 2, 3)],
+    "apart": [(1, s, p, 61) for s in (1, 2, 3) for p in ("most:W", "most:B")] + LET[:3],
+    "alone_names": LET, "push_rare": LET + PUSHED, "world_lines": LET[:2] + RANDOM, "voice_quiet": LET[:2],
+    "voice_careful": [(1, s, "careful", None) for s in (1, 2)],
+    "voice_trust": RANDOM + PUSHED[:2], "voice_lines": RANDOM + PUSHED[:2], "voice_year": RANDOM + PUSHED[:2],
+}
 
 
 def w_at(r, age):
@@ -158,16 +196,15 @@ def voice_texts(r):
            [s for a in r["asked"] for s in (a.get("answer"), a.get("outcome")) if s]
 
 
-def target(t):
+def target(t, R):
     ok, say = False, print
+    rs = [R[a] for a in NEEDS[t]]
     if t == "identity":
-        rs = run([(1, s, f"most:{c}", 41) for c in "WUBRG" for s in (1, 2, 3)])
         held = {c: sum(1 for r in rs if r["player"] == f"most:{c}" and c in name_at(r, 40)) for c in "WUBRG"}
         for c in "WUBRG":
             say(f"most:{c}: holds {c} in the name at 40 in {held[c]} of 3 ({', '.join(name_at(r, 40) or '-' for r in rs if r['player'] == f'most:{c}')})")
         ok = all(v >= 2 for v in held.values())
     elif t == "apart":
-        rs = run([(1, s, p, 61) for s in (1, 2, 3) for p in ("most:W", "most:B", "let")])
         by = {(r["seed"], r["player"]): w_at(r, 60) for r in rs}
         steer = [0.5 * np.abs(by[(s, "most:W")] - by[(s, "most:B")]).sum() for s in (1, 2, 3)]
         diff = [0.5 * np.abs(by[(a, "let")] - by[(b, "let")]).sum() for a, b in ((1, 2), (1, 3), (2, 3))]
@@ -175,17 +212,14 @@ def target(t):
         say(f"different lives left alone, gap at 60: {' '.join(f'{x:.3f}' for x in diff)} (mean {np.mean(diff):.3f})")
         ok = np.mean(steer) > np.mean(diff)
     elif t == "alone_names":
-        rs = run([(1, s, "let", None) for s in range(1, 7)])
         ch = [name_changes(r) for r in rs]
         say(f"shown name changes after 18, left alone: {ch} (mean {np.mean(ch):.1f})")
         ok = np.mean(ch) <= 4
     elif t == "push_rare":
-        rs = run([(1, s, p, None) for s in range(1, 7) for p in ("let", "most:" + "WUBRG"[s % 5])])
         a = [rare(r) for r in rs if r["player"] == "let"]; b = [rare(r) for r in rs if r["player"] != "let"]
         say(f"rare moments met, left alone: {a} (sum {sum(a)}); pushed: {b} (sum {sum(b)})")
         ok = sum(b) > sum(a)
     elif t == "world_lines":
-        rs = run([(1, s, p, None) for s in (1, 2) for p in ("let", "random")])
         bad, n, ny, bady = [], 0, 0, []
         for r in rs:
             yrs = {int(x["age"]) for x in r["times"]}
@@ -203,7 +237,6 @@ def target(t):
             say("  " + str(b))
         ok = n > 0 and not bad and not bady
     elif t == "voice_quiet":
-        rs = run([(1, s, "let", None) for s in (1, 2)])
         names = sorted({v[1] for r in rs for v in r["vnames"] if v[0] >= 30})
         lines = [x for r in rs for x in voice_texts(r)]
         say(f"voice names after 30: {names}; voice lines {len(lines)}")
@@ -211,7 +244,6 @@ def target(t):
             say("  " + x)
         ok = names == ["a quiet voice"] and not lines
     elif t == "voice_careful":
-        rs = run([(1, s, "careful", None) for s in (1, 2)])
         named = [v[1] for r in rs for v in r["vnames"] if v[2] >= 5]
         other = sorted({x for x in named if x not in ("the careful voice", "the timid voice")})
         sides = sorted({v.split("{voice}")[0] for k, d in __import__("earth_story").VOICE["name"].items() if k != "safety"
@@ -220,13 +252,11 @@ def target(t):
         say(f"moments with a named voice: {len(named)}; named otherwise: {other or 'none'}; lines naming another side: {len(stray)}")
         ok = bool(named) and not other and not stray
     elif t == "voice_trust":
-        rs = run([(1, s, p, None) for s in (1, 2) for p in ("random", "most:U")])
         up = [p["d"] for r in rs for p in r["pushes"] if p["ok"]]; dn = [p["d"] for r in rs for p in r["pushes"] if not p["ok"]]
         say(f"trust change in the push's colors: worked {len(up)} pushes, mean {np.mean(up) if up else 0:+.4f}; "
             f"failed {len(dn)}, mean {np.mean(dn) if dn else 0:+.4f}")
         ok = bool(up) and bool(dn) and np.mean(up) > 0 > np.mean(dn)
     elif t == "voice_lines":
-        rs = run([(1, s, p, None) for s in (1, 2) for p in ("random", "most:W")])
         lines = [x for r in rs for x in voice_texts(r)]
         long_ = [x for x in lines if len(x.split()) > 25]
         col = [x for x in lines if any(w in x for w in COLOR_WORDS)]
@@ -235,7 +265,6 @@ def target(t):
             say("  " + x)
         ok = bool(lines) and not long_ and not col
     elif t == "voice_year":
-        rs = run([(1, s, p, None) for s in (1, 2) for p in ("random", "most:R")])
         worst = 0; where = None
         for r in rs:
             per = {}
@@ -246,15 +275,19 @@ def target(t):
                 worst = max(per.values()); where = (r["seed"], r["player"], max(per, key=per.get))
         say(f"most voice lines in one year's chapter: {worst} {where or ''}")
         ok = worst <= 1
-    else:
-        sys.exit(f"unknown target {t}; targets: identity apart alone_names push_rare world_lines voice_quiet voice_careful "
-                 "voice_trust voice_lines voice_year")
     say(f"STEER {t}: {'PASS' if ok else 'MISS'}")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        target(sys.argv[1])
+    if len(sys.argv) != 5:
+        ts = list(NEEDS) if sys.argv[1:] == ["all"] else sys.argv[1:]
+        bad = [t for t in ts if t not in NEEDS]
+        if bad or not ts:
+            sys.exit(f"unknown target {' '.join(bad)}; targets: {' '.join(NEEDS)} (or all)")
+        R = run([a for t in ts for a in NEEDS[t]])
+        for t in ts:
+            print(f"== {t}")
+            target(t, R)
     else:
         preset, seed, player, out = sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4]
         rec = play(preset, seed, player)
