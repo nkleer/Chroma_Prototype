@@ -1490,8 +1490,9 @@ ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0)}
 # real shares: what befalls a life (refugee, widowed) is not a prize to make reachable.
 BUDGET = dict(career=1 / 3, summit=0.15, community=10.0, summit_floor=0.01,   # each summit in 1 life in 100 or more
               career_floor=0.015, title_floor=0.01, perk_floor=0.01,
-              rung_cap=1.0,   # the lift raises a rung's yearly rate by at most e^1 (steps keep their pace)
-              act_cap=0.7)    # and the odds of an act that gives one by at most e^.7, about double (Emren 14:41)
+              rung_cap=2.0,   # the lift raises a rung's yearly rate by at most e^2, about 7x (was e^1; Emren 10-09)
+              act_cap=1.2)    # and the odds of an act that gives one by at most e^1.2, about 3x (was e^.7, about double,
+                              # Emren 14:41; raised 10-09 so the 1-in-100 summit floor can be reached)
 # The fitted logit lift per tier, on the odds of the acts that give a pack career or summit and on their background rates,
 # per set of packs on (",".join(sorted(packs))); "split": the extra lift per summit that brings each to its share of the
 # summit budget (the square root of its real share). calib_v8/tier_fit.py writes it.

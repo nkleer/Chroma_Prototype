@@ -21,6 +21,7 @@ CAT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(batch.LIB_DIR, "earth_p
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]
 PMOM_ = json.loads(os.environ.get("PACK_MOMENTS", "{}")) or None
 KEY = ",".join(sorted(PACKS_))
+LIFT_MAX = float(os.environ.get("LIFT_MAX", 6.0))     # the highest tier lift the fit may try (8 with the 10-09 caps)
 SPLIT_CAP = float(os.environ.get("SPLIT_CAP", 3.0))   # how far one title's split may sit from its tier's lift (4.5 for
                                                       # the 1-in-100 summit floor, Emren 10-09)
 
@@ -77,7 +78,7 @@ def main():
             if t_ == "career" and not len(car) or t_ == "summit" and not len(sm):   # noise and the careers' pull on summits)
                 continue
             gap = logit(B[t_]) - logit(max(a_, 0.5 / tot))
-            lift[t_] = round(float(np.clip(lift[t_] + np.clip(0.8 * gap / 0.6, -1.2, 1.2), -4.0, 6.0)), 4)
+            lift[t_] = round(float(np.clip(lift[t_] + np.clip(0.8 * gap / 0.6, -1.2, 1.2), -4.0, LIFT_MAX)), 4)
         for t_, (ix, qq) in grp.items():   # the split, centred on the tier lift: careers even (the same multiple of their real
             if len(ix) < 2:                # share), summits at the square root of theirs (batch._targets)
                 continue
