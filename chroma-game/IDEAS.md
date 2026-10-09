@@ -2,6 +2,137 @@
 
 Open ideas for the game thread, newest first. Each says what is wrong, why it matters and what could be done.
 
+## Character, player and outer world: three forces that shape a life (Emren, 2026-10-09)
+
+**Goal.** Make choices matter and give the game more variety by letting three elements act on each other:
+
+- **The character** is where the game is played: their colors, needs, means, habits, satisfaction and peace.
+- **The player** steers: they can bend the character's course at moments, within limits.
+- **The outer world** is the largest force: setting, era, culture, the people around them and outer events.
+
+A moment is where the three meet. The world sets the situation, the character's colors make some responses easy and
+others hard, and the player decides how far to bend the response. (Emren's image: the character is a car moving
+through the world, and the player can make it drift. The image explains the idea; the game itself does not need to
+use driving words.)
+
+Most of the parts exist in the engine already. What is missing is that the player's control has only two settings:
+let the character choose, or push them to another option.
+
+### The character
+
+- Colors now: what they naturally do.
+- What holds them (deep nature 40%, habit 30%, roles 30% on the character sheet): how hard they are to change. Young
+  characters change easily; older ones slowly (the sheet's "Speed").
+- Needs: what must be fed. Satisfaction: how good life feels. Peace: how much room they have to bend before something
+  gives. Strain and pent-up wanting: pressure that can break through.
+- Skill and belief per color: how well they act in each color's ways.
+
+### The outer world
+
+- Era norms: a pull toward some colors that everyone feels.
+- How the world sets colors against each other: holding both sides at once creates inner tension.
+- Surroundings (family, place, culture): what is normal and easy where they live.
+- Outer events (war, crisis, festivals, news): moments the world brings to them.
+- Open and closed options: some opportunities close for good once passed.
+
+### The player: bending instead of pushing
+
+Replace the single push with a steer of chosen strength toward a color:
+- **A light steer** tilts the character's own pick toward that color. Cheap, usually accepted, autonomy kept.
+- **A strong steer** takes another option. It costs peace, adds strain and builds pent-up wanting.
+- **Too much** backfires: stress, failure, or a rebellion where the pent-up wanting breaks out toward the opposite
+  color.
+
+How far the player can steer safely depends on:
+- **The character:** their peace, and how strongly they hold their current colors.
+- **The world:** steering with the era's pull is cheap; steering against it is expensive.
+- **The bond with the player:** see "Trust" below.
+
+The world can also open windows. A big event in a color makes a move toward that color nearly free if the player
+times it well: during a war, a Black or White steer costs little and a Green one costs a lot.
+
+### How each pair interacts
+
+**Character and world: fit.** A Red character in a Red era is carried along; a White character in the same era works
+against it. The screen could show the world's colors over the coming years and where the character fits or clashes.
+This is also where "the same world, different people" belongs (see "Colors and needs" below): the world is the same
+for everyone, but each character's own color-to-need table decides which need an event threatens and which colors they
+reach for.
+
+**Player and character: trust per color.** The character learns the player. Steers in a color that turned out well
+(see "Hindsight" in the entry below) build trust in that color, and later steers there meet less resistance. Steers
+that hurt them build resentment, and later steers there backfire sooner. The heart and the head are already two
+voices in the inner voice; the player becomes a third one the character comes to trust or resist ("*Last time you
+were right.*"). Over a life the player gets colors of their own, from how they tend to steer; the end-of-life reading
+can say how the player's style and the character got along.
+
+**Player and world: foresight.** The player sees a little further than the character: a few half-hidden signs of what
+is coming (an era turning, a war likely, an opportunity about to close). Good play is acting early: getting into
+position before an option closes, or building up a need before a hard stretch (belonging before a long loss, safety
+before a likely crash).
+
+### Making choices matter
+
+- **Closed options stay closed.** A missed opportunity is gone, and the life remembers the paths taken. Closed
+  options and lost dreams exist in the engine; show them as paths not taken.
+- **Momentum.** Each act in a color makes the next one easier (habit, skill) and the opposite one harder, so early
+  steers shape the rest of the life.
+- **Quiet years for building.** Between moments the player could invest instead of steering: practise a color's
+  skill, raise belief, set a plan, feed a need. Slow, but with no backfire risk.
+- **People as a safety net.** With friends and family close, a backfire becomes a recovery (the engine's heal loop);
+  without them it becomes a crisis that hardens them.
+- **Lives in a line.** A grandchild inherits the world as it was left and the player's reputation with the family.
+
+### The five colors as ways of steering
+
+Steering is itself a color choice:
+
+| | Way of steering | Strong in | Weak in |
+|---|---|---|---|
+| White | steady, by the rules | duties, crises (safety) | sudden opportunities |
+| Blue | plan ahead | foresight, long plans | emotional moments (grief, love) |
+| Black | take the opening | windows, power moves | trust (it is lost fast) |
+| Red | follow the feeling | passion, belonging | peace (it adds strain) |
+| Green | go with the world | riding the era's pull | going against the era |
+
+How the player tends to steer becomes the player's own colors. A character whose colors match finds them easier to
+trust.
+
+### Color inertia and trust: two separate things
+
+They answer different questions and should stay apart:
+
+- **Color inertia: how hard is the character to change?** Their own resistance to changing color, whoever or
+  whatever pushes. Built from deep nature, habit and roles. Moved by every act, the world, age and commitments. Its
+  cost is **effort**: lower odds, strain, slower change.
+- **Trust (hindsight): how do they feel about the one who pushed?** Their relationship with the player, per color.
+  Built only from how the player's steers turned out. Its cost is **resentment**: pent-up backlash, lost autonomy, a
+  lower "their own" score.
+
+Splitting the costs keeps them clear:
+- High inertia, high trust: "I trust you, but this is hard for me." They go along willingly, and it still takes effort.
+- Low inertia, low trust: "This would be easy, but not because you say so." Cheap to do, but they resent it.
+- A world event with no player steer moves inertia only; trust does not change.
+
+They meet at one point, so nothing is counted twice:
+- **A steer they came to accept becomes their own.** It counts fully toward habit, like their own pick (today a
+  reluctant act keeps only part of its learning). So trust lowers inertia over time, but only through the existing
+  habit path.
+- **A steer they resented stays foreign.** It adds less to habit, and the pent-up wanting pulls back toward their old
+  colors, so inertia toward those colors stays or grows.
+
+Trust lowers resentment at once; once a steer is accepted, it slowly lowers inertia too.
+
+### Where to start
+
+1. Steer instead of push: a light or strong steer toward a color, with a visible limit.
+2. Trust per color, built by steers that paid off (the hindsight idea below).
+3. The world's pull over the coming years: steering with the era is cheap, against it expensive. Shown on the existing
+   life timeline.
+
+Related: "Player intervention that helps", "Colors and needs" (the living table) and "Make needs visible and learnable"
+below.
+
 ## Player intervention that helps: pushing toward what they need (Emren, 2026-10-09)
 
 **Problem.** The player should be able to help a character meet their needs, and through them raise satisfaction and
@@ -25,6 +156,8 @@ What it could do:
 - **Ties to the living table** (see "Colors and needs" below). A push that met a need through a color they did not
   trust for it shifts their own color-to-need table: the next time, that option feels less foreign and the reluctance
   is lower. Repeated good pushes become their own way; repeated bad ones make them resist the player more.
+- **Not the same as color inertia.** Hindsight builds trust in the player; inertia is the character's own resistance
+  to change. See "Color inertia and trust" in the entry above for how they differ and where they meet.
 - **Show the trade before the push.** At a choice: which lacking need the option would meet, how much that could lift
   satisfaction, against what the push will cost in peace and in "their own". After it: whether the push paid off
   ("They didn't want this, but it gave them the belonging they were missing").
