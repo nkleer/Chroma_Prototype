@@ -612,6 +612,12 @@ Clean, solid and fast, with the same lives as version 22:
   which carries `run_steps()`, `PAUSES` and `STATE` itself; link.py is the Engine's chroma-engine/notes/link-for-game.py
   and only loads and checks it, so an engine change no longer breaks the game through anchor lines. Same lives: presets
   1 to 6, seed 7, give the same record step for step as live v22.1 (test/same_life.py).
+- Stage 1 of the "v22" update (implementation list): the song (item 1), needs, hindsight and trust per color (P1, P2),
+  no color called an enemy (item 5), Out of reach folded into one row (G1), a world line not told again within two
+  years (G2), the Book's moment count in its parts (G3). engine_pin/engine.py is now the Engine's c4d13dd10d78 (PR #22):
+  its stage 1 hooks (own_k, drift_k, ev_push_k, era_push_k, steer, steer_k; STATE pr0, steer_moved, e_i, e_p) are all
+  off by default. test/same_engine.py records the engine's state step by step: lives left to choose (presets 1 to 6,
+  seed 7) match live v22.1.
 
 
 ## Needs, hindsight and trust (2026-10-09, game side; on branch claude/charming-shannon-wpmw04, not live)

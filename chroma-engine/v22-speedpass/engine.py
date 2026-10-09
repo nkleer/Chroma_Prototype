@@ -755,6 +755,14 @@ DEFAULT = dict(
     scar_pull=0.3,       # how much a scar turns a person away from options in those ways
     epi_min=0.75,        # logged lives keep an episode of any act that hit this hard (|delta|; about 1 act in 20)
     epi_recall=0.7,      # an episode comes back when its lean matches the act's and its fading strength is above this
+    # played lives (implementation list item 4 and P3, stage 1): settings the game changes week by week while the life
+    # runs (P is read live). At these values every life is as before; lives with no player never change them
+    own_k=1.0,           # the character's own weekly lesson on the colours (dI); the game: about .5 in weeks without the player
+    drift_k=1.0,         # the random drift of the colours (noise) and of the deep core (core_walk)
+    ev_push_k=1.0,       # an outside event's push on the colours: personal events and read events
+    era_push_k=1.0,      # an era's push on the colours when it begins
+    steer=None,          # the player's steer before a pick: a colour mix (C, or N x C); the engine clears it once the pick is
+    steer_k=1.0,         # drawn. It adds steer_k * (5 * m @ mix - 1) to each option's pull (1: a third of the values' pull)
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -1027,6 +1035,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         dy = P["ev_eta"] * amt[:, None] * centre(5 * (msg - softmax(y[idx])))
         y[idx] += dy; asrc[idx, src_i] += dy
         dz = P["ev_z"] * (plast[idx] * amt)[:, None] * centre(5 * (msg - softmax(z[idx])))
+        pk_ = P["era_push_k"] if src_i == 8 else P["ev_push_k"]   # played lives: the game weighs outside pushes
+        if pk_ != 1.0:
+            dz = pk_ * dz
         z[idx] += dz; chan[idx, 8] += dz
     def inst_expo():
         return 0.5 + 0.5 * held[:, CAR] + 0.3 * held[:, COM]
@@ -2427,9 +2438,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
-        pr = softmax(np.where(seen, U / tau[:, None], -np.inf))
+        pr = pr0 = softmax(np.where(seen, U / tau[:, None], -np.inf))
+        if P["steer"] is not None:   # the player's steer (P3): it bends the character's own pick, then it is spent
+            mix_ = np.asarray(P["steer"], float); mix_ = mix_ / np.maximum(mix_.sum(-1, keepdims=True), 1e-9)
+            sU_ = np.where(do_nothing, 0.0, P["steer_k"] * (5 * np.einsum("nkc,nc->nk", m, np.broadcast_to(np.atleast_2d(mix_), (N, C))) - 1))
+            pr = softmax(np.where(seen, (U + sU_) / tau[:, None], -np.inf))
+            P["steer"] = None
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
         if pausing:
+            steer_moved = pr[ar, a] - pr0[ar, a]   # how much the steer raised (or lowered) the drawn option's odds
             a = yield Pause("choose", t, locals(), a)
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
@@ -2673,6 +2690,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             typ = (ma * nic).sum(1) / (nic * nic).sum(1)
             dI *= _uclip(1 + P["unusual_k"] * (1 - typ), 0.5, 2.0)[:, None]
         dI[idle] = 0
+        if P["own_k"] != 1.0:   # played lives: the game weighs the character's own weekly lesson
+            dI = P["own_k"] * dI
         dD = np.where(pos[:, None], -ldelta[:, None] * ma, -ldelta[:, None] * defend[:, None] * ma) - P["slack"] * ma
         dD[idle] = 0
         D = np.maximum(0, D * (1 - P["D_decay"]) + dD)
@@ -3528,7 +3547,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         plast = base / (1 + settle) * (1 + B) / (1 + TON * P["steady_k"] * s_eff)   # a steady person changes more slowly
         F = np.stack([centre(dI), centre(dV), centre(dS), centre(dC), centre(dU)], 1)
         noise = centre(rng.normal(0, P["noise"], (N, C)))
-        support = 0.5 * (need[:, NIDX["belonging"]] + res[:, TIE])          # being cared for: belonging and ties
+        if P["drift_k"] != 1.0:   # played lives: the game weighs the random drift
+            noise = P["drift_k"] * noise
+        support =0.5 * (need[:, NIDX["belonging"]] + res[:, TIE])          # being cared for: belonging and ties
         if WON:   # and what the cast and the settings give in hard weeks
             support = support + np.asarray(WL.PP.support, float)
         open_ = np.minimum(wound, 2.0)
@@ -3552,7 +3573,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if SEA_ON and sea_tr.any():   # and what the person became in it settles into the deep core
             k = k + (P["season_imprint"] * sea_tr)[:, None] * (z - k)
         if P["core_walk"]:   # v6: the deep core itself drifts a little, unnoticed, so people grow apart over decades (12-year
-            k += P["core_walk"] * centre(rng.normal(0, 1, (N, C))) * (stage >= 2)[:, None]   # value stability ~.5: Leijen 2022)
+            k += P["drift_k"] * P["core_walk"] * centre(rng.normal(0, 1, (N, C))) * (stage >= 2)[:, None]   # value stability ~.5: Leijen 2022)
         ystep = P["asp_rate"] * (SP_[stage] * (1 + B) / (1 + TON * P["steady_want"] * P["steady_k"] * s_eff))[:, None, None]
         asrc[:, AS_WEEKLY] += ystep * (dAs - dAs.mean(-1, keepdims=True))
         y = centre(y + ystep[:, 0] * centre(dA))
@@ -3747,6 +3768,10 @@ STATE = (
     "lackf", "earn", "pbump", "serves", "relief", "rel", "wR", "gU_R", "gU_I", "w_hat", "a_hat", "V", "VA", "H", "hzU",
     "step", "tryf", "U_R", "U_I", "U", "read_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
     "p_true", "succ", "delta", "span", "stepF", "role",
+    # the player's steer (P["steer"]): the pick's odds without it, and how much it moved the drawn option's odds
+    "pr0", "steer_moved",
+    # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
+    "e_i", "e_p",
     # the run's logs
     "ev_log", "goal_log", "brk_log", "conv_log", "rite_log", "commit_log", "clash_log", "role_log", "adj_log",
     "mark_log", "read_log",
