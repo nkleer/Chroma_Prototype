@@ -243,8 +243,8 @@ for label, sw, ok in RO_:
         ds.append(digest(E.run(N=2, years=6, seed=4, lib=EARTH, P=Pd)))
         if on and not ok(W_):
             fails.append("switched on, the world carries no sphere state")
-    diff = sorted(x for x in set(ds[0]) | set(ds[1]) if ds[0].get(x) != ds[1].get(x))
-    if diff:
+    diff = sorted(x for x in set(ds[0]) | set(ds[1]) if ds[0].get(x) != ds[1].get(x) and x != "world")   # the world's
+    if diff:                                                                                   # own record carries its switch
         fails.append(f"lives differ in {diff[:4]}")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
