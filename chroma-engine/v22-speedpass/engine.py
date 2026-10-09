@@ -763,11 +763,17 @@ DEFAULT = dict(
     era_push_k=1.0,      # an era's push on the colours when it begins
     steer=None,          # the player's steer before a pick: a colour mix (C, or N x C); the engine clears it once the pick is
     steer_k=1.0,         # drawn. It adds steer_k * (5 * m @ mix - 1) to each option's pull (1: a third of the values' pull)
+    wfx_step=0.01,       # a world effect on a drifting quantity (money, freedom, safety) is reported once it moved this much
+    dis_match=False,     # WL6: a disaster brings the outside events of its own hazard (a fire's, not a flood's); off: any
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
 EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an illness", "an unexpected windfall or loss of money",
            "a natural disaster hits where you live", "a hard season of scarcity", "a season of plenty", "a brush with death"}
+# the channel a life event the world made likelier is reported in (wfx), by its kind (world_link.RK)
+WFX_OPT = (0.25, 0.02)   # option_causes names a closure from this many units (access x .6 per unit), odds from this added difficulty
+WFX_RISK = {"illness": "illness risk", "old_death": "death risk", "disaster": "disaster risk", "crime": "crime risk",
+            "war": "war risk", "pandemic": "illness risk", "jobloss": "job loss risk"}
 KILL_OFF = np.array([29.0, 0.0, 0.0, 55.0, 1.0, -29.0])         # how much older than the person each role is, on average
 # (a child's death reads the children's own ages instead: the years since the first was born, kid_mort and infant_mort)
 KILL_HIT = np.array([(0.1, 0.3), (0.1, 0.3), (0.1, 0.2), (0.05, 0.15), (0.4, 0.5), (0.3, 0.6)])   # belonging lost, stress, per role
@@ -1905,6 +1911,79 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             for e_ in lst_:     # moment met or refused once (cast_want)
                 if e_.get("n") in events and e_.get("kind") != "push" and not (e_.get("kind") == "want" and "worked" in e_):
                     events[e_["n"]].append(dict(cast=e_))
+        if P["dis_match"]:   # WL6: the hazards each disaster event fits (by name); one naming no hazard fits them all
+            hz_j_ = {j_: {h_ for h_, rx_ in WLM.HAZ_EVR.items() if re.search(rx_, EVR[j_]["name"], re.I)} for j_ in DIS_J_}
+            DIS_FOR_ = {}
+            for h_ in WLM.HAZ_EVR:
+                own_j_ = [j_ for j_ in DIS_J_ if h_ in hz_j_[j_]]; any_j_ = [j_ for j_ in DIS_J_ if not hz_j_[j_]]
+                DIS_FOR_[h_] = set(own_j_ or any_j_ or DIS_J_)
+    # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
+    # the world on, and read only, so every life is the same with them or without
+    WFX_ON = bool(pausing and WON)
+    wfx = [[] for _ in range(N)]                         # this week's world effects on each life (wfx_add)
+    wfx_last = {}                                         # (channel, kind) -> the value last reported, per life (N,)
+    wco_ = {}                                             # this week's option closures by cause (option_causes)
+
+    def wfx_add(n, kind, channel, size, age_, cause=None, **more):
+        """An effect of the world on life n: kind (the world's cause: prices, housing, welfare, rights, crime, war,
+        disaster, unemployment, illness, pandemic, or a world event's kind), channel (what of theirs it touched),
+        size (signed, in the channel's units), dir (up or down), cause (the world's record entry behind it, for the
+        hover; None when the record has none), age; more keys as given (moment, share, hazard)."""
+        e_ = dict(kind=kind, channel=channel, size=round(float(size), 4), dir="up" if size > 0 else "down",
+                  cause=cause if cause is not None else WL.cause(kind), age=round(float(age_), 2))
+        e_.update(more)
+        wfx[n].append(e_)
+
+    def wfx_track(channel, parts, age_, dead_):
+        """Report each part (kind -> (N,)) that moved by wfx_step or more since it was last reported; the first
+        reading only sets where it starts."""
+        for kd_, v_ in parts.items():
+            v_ = np.broadcast_to(np.asarray(v_, float), (N,))
+            old_ = wfx_last.get((channel, kd_))
+            if old_ is None:
+                wfx_last[(channel, kd_)] = v_.copy()
+                continue
+            mv_ = np.nonzero(np.abs(v_ - old_) >= P["wfx_step"])[0]
+            for n_ in mv_:
+                if not dead_[n_]:
+                    wfx_add(n_, kd_, channel, v_[n_] - old_[n_], age_)
+            old_[mv_] = v_[mv_]
+
+    def option_causes(n):
+        """The world's causes behind each option of life n's moment this week (WL3), one list per option, each cause a
+        dict: kind (law, norm, role, technology, unemployment, university places, hospital places), key (the law,
+        norm or technology), channel "option", size (law: 1 banned, .5 restricted, -1 allowed where written closed;
+        norm, role, technology: closure units; unemployment and places: difficulty added, - easier), how, cause (the
+        world's record entry, as in wfx). Empty without the world or before the first moment."""
+        if not wco_:
+            return []
+        s_ = int(wco_["s"][n]); K_ = len(L["labels"][s_]); out = [[] for _ in range(K_)]
+        WK_ = WLM.WK; lw_, nm_, te_ = WL.law[s_], WL.norm[s_], WL.tech[s_]
+        def add(k_, kind, key, size, how):
+            out[k_].append(dict(kind=kind, key=key, channel="option", size=round(float(size), 4), how=how,
+                                cause=WL.cause(kind, key=key if kind in ("law", "technology") else None)))
+        od_ = WL.odds_parts(wco_["s"])
+        for k_ in range(K_):
+            if k_ < lw_.shape[0] and lw_[k_] >= 0:
+                u_ = float(wco_["ul"][n, k_])
+                if u_ > 0:
+                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
+                elif wco_["lo"][n, k_] and wco_["closed0"][n, k_] == 0:
+                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], -1.0, "allowed")
+            if k_ < nm_.shape[0] and nm_[k_] >= 0 and wco_["ua"][n, k_] >= WFX_OPT[0]:
+                add(k_, "norm", WK_.NORM_KEYS[nm_[k_]], wco_["ua"][n, k_], "frowned on")
+            if wco_.get("role") is not None and wco_["role"][n, k_] >= WFX_OPT[0]:
+                add(k_, "role", "role crossing", wco_["role"][n, k_], "frowned on")
+            if k_ < te_.shape[0] and te_[k_] >= 0:
+                if wco_["gone"][n, k_]:
+                    add(k_, "technology", WK_.TECH_KEYS[te_[k_]], 1.0, "not there")
+                elif wco_["um"][n, k_] >= WFX_OPT[0]:
+                    add(k_, "technology", WK_.TECH_KEYS[te_[k_]], wco_["um"][n, k_], "out of reach")
+            for kd_, v_ in od_.items():
+                v_ = np.broadcast_to(v_, (N, WL.job_o.shape[1]))   # a moment-wide part (an illness's) is (N, 1)
+                if abs(v_[n, k_]) >= WFX_OPT[1]:
+                    add(k_, kd_, None, v_[n, k_], "harder" if v_[n, k_] > 0 else "easier")
+        return out
     for t in range(T):
         age = t / 52.0
         z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
@@ -1985,6 +2064,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             y0_ = y.copy(); intervention(t, P, nic, y); asrc[:, 6] += y - y0_
         if pausing:
             _ = yield Pause("week", t, locals(), None)
+            if WFX_ON:
+                wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]
         f_w = P["world_pos_k"] * (np.asarray(WL.W.Pos, float) - 0.2) if WON else P["f_world"]   # what the order rewards
         f_tot = f_w[None, :] + P["lam_local"] * (nic - 0.2) * (np.asarray(WL.PP.msg_w, float)[:, None] if WON else 1.0) \
@@ -2117,7 +2198,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if WON:   # the world: each life event's rate by season, place, medicine and war (W.rate_mult), gated as above;
                 # the world's own events, a cast member's ripe want and a death in the cast bring their moments (the
                 # cast's deaths replace the engine's draw of them, but a child's, which the engine still keeps)
-                ev_p = ev_p * WL.rate_factor(sec_w if RON else np.full(N, -1)) * mf_ * WL.channel_rates()   # and contagion, move wish
+                rf_w = WL.rate_factor(sec_w if RON else np.full(N, -1))
+                ev_p = ev_p * rf_w * mf_ * WL.channel_rates()   # and contagion, move wish
                 ev_p[:, KL_ & ~KCHILD_] = 0.0
                 frc_ = WL.fire_now.copy(); fdd_ = np.zeros_like(frc_); dfr_ = []
                 for r_ in range(5):
@@ -2153,6 +2235,18 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     if n in events:
                         events[n].append(dict(death=dict(age=round(age, 2), role=ROLES[r_], left=int(WL.PP.alive[n, r_]))))
             ev_last[had_ev, s_ev[had_ev]] = t
+            if WFX_ON:   # a life event the world brought (its event) or made likelier or rarer (its rate), when it comes
+                for n in np.nonzero(had_ev & ~dead)[0]:
+                    si_ = int(s_ev[n])
+                    if frc_[n, si_]:
+                        e_ = WL.fire_why.get(si_)
+                        if e_ is not None and not fdd_[n, si_] and WL.pending.get(int(n), (0, 0, -1))[2] != si_:
+                            wfx_add(n, e_.get("kind"), "moment", 1.0, age, moment=L["names"][si_],
+                                    cause=dict(domain=e_.get("domain"), kind=e_.get("kind"), key=e_.get("key"), age=round(age, 2)))
+                    elif WL.rk[si_] >= 0 and WLM.RK[WL.rk[si_]] != "birth" and abs(rf_w[n, si_] - 1) >= 0.1:
+                        rk_ = WLM.RK[WL.rk[si_]]; m_ = float(rf_w[n, si_])
+                        wfx_add(n, "unemployment" if rk_ == "jobloss" else rk_, WFX_RISK[rk_], m_ - 1, age,
+                                moment=L["names"][si_], share=round(max(0.0, 1 - 1 / m_), 3))
             if P["ev_gap"]:   # a child version and its original are one event: the pause covers both
                 for n in np.nonzero(had_ev & HASFAM_[s_ev])[0]:
                     ev_last[n, ROOT == ROOT[s_ev[n]]] = t
@@ -2329,6 +2423,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             # 2 x (1 - acceptance) units of approval; tech: is not offered without the technology, and closed by means as
             # far as the person's class lacks it
             ul_, lo_, ua_, um_, gone_ = WL.closures(s, partner_same if ID2 else np.zeros(N, bool), age)
+            if WFX_ON:
+                wco_.update(s=s.copy(), ul=ul_, lo=lo_, ua=ua_, um=um_, gone=gone_, closed0=closed_s.copy(),
+                            role=u_.copy() if IDC_ON else None)
             op_ = lo_ & (closed_s == 0)
             clu_ = np.where(op_, 0.0, clu_); closed_s = np.where(op_, -1, closed_s)
             for kd_, u2_ in ((0, ul_), (1, ua_), (2, um_)):
@@ -2598,6 +2695,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             mt = mt + tr_[:, MON]; tt = tt + tr_[:, TIE]; ht = ht + tr_[:, HEA]; ft = ft + tr_[:, FRE]
         if WON:   # the world: rents, prices, the welfare floor, rights (package §5, Resources)
             wm_, wf_ = WL.resources(held[:, CAR]); mt = mt + wm_; ft = ft + wf_
+            if WFX_ON:   # the money and freedom a life drifts to, by the world's cause
+                rp_ = WL.resources_parts(held[:, CAR])
+                wfx_track("money", {k_: rp_[k_] for k_ in ("housing", "prices", "welfare")}, age, dead)
+                wfx_track("freedom", {"rights": rp_["rights"]}, age, dead)
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
@@ -3136,12 +3237,29 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                            message=msg[q_].round(2).tolist() if hm[q_] else None,
                                                            took=round(float(ac[q_]), 2) if hm[q_] else None)))
         if BAT and len(EVR) and t % 4 == 0:   # outside events from the batch, each read through the person's own colors
+            dis_src_ = {}   # life -> (hazard, "home" or "near"): the world's disaster that brings its outside event (WL6)
             if WON and DIS_J_:   # a disaster's outside event comes when the world's disaster strikes one's own town or a
                 # close person's (spec 5 §2: the history dial reaches the life through it), not on its own clock
                 own_, near_ = WL.disasters()
                 hit_ = ((own_ > 0) & (rng.random(N) < 0.4 + 0.5 * own_)) | (near_ & (rng.random(N) < WLM.DIS_NEAR))
                 for j_ in DIS_J_:
                     evr_next[:, j_] = np.where(hit_ & (t >= evr_ok[:, j_]), t, T + 1)
+                if events or WFX_ON:   # the story names the hazard that struck (WL6), so its scene can fit it
+                    dis_src_ = {int(n): ((WL.dis_haz_now[n], "home") if own_[n] > 0 else (WL.dis_nhaz_now[n], "near"))
+                                for n in np.nonzero(hit_)[0] if n in events or WFX_ON}
+                if P["dis_match"]:   # WL6: only the events of the hazard that struck their own town
+                    for n in np.nonzero(hit_ & (own_ > 0))[0]:
+                        ok_ = DIS_FOR_.get(WL.dis_haz_now[n], DIS_J_)
+                        for j_ in DIS_J_:
+                            if j_ not in ok_:
+                                evr_next[n, j_] = T + 1
+                if WFX_ON:
+                    for n in np.nonzero(((own_ > 0) | near_) & ~dead)[0]:
+                        rc_ = WL.dis_rec_now[n] if own_[n] > 0 else None
+                        wfx_add(n, "disaster", "home" if own_[n] > 0 else "close person", own_[n] if own_[n] > 0 else 1.0, age,
+                                cause=None if rc_ is None else dict(domain=rc_.get("domain"), kind=rc_.get("kind"),
+                                                                    key=rc_.get("key"), age=round(age, 2)),
+                                hazard=WL.dis_haz_now[n] if own_[n] > 0 else None)
             due_ = evr_next <= t
             if due_.any():
                 ns = cond_ns(t, age, w)
@@ -3162,7 +3280,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     imp_ = e_["impact"][rd_]
                     an_ = np.array([e_["also"][r_][0] for r_ in rd_]); ar_ = np.array([e_["also"][r_][1] for r_ in rd_])
                     need[ii_] += P["read_k"] * imp_[:, None] * e_["base_need"][None] + an_
+                    r0_ = res[ii_].copy() if WFX_ON and j_ in DIS_J_ else None
                     res[ii_] = _uclip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
+                    if r0_ is not None:   # what a disaster cost them: money, time, health, ties, freedom
+                        for q_, n in enumerate(ii_):
+                            for ri_ in np.nonzero(np.abs(res[n] - r0_[q_]) >= P["wfx_step"])[0]:
+                                wfx_add(n, "disaster", RESOURCES[ri_], res[n, ri_] - r0_[q_, ri_], age, moment=e_["name"],
+                                        hazard=dis_src_.get(int(n), (None, None))[0])
                     good_ = e_["base_need"].sum() + e_["base_res"].sum() >= 0
                     if good_:
                         mood[ii_] += 0.1 * imp_
@@ -3173,12 +3297,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     for q_, n in enumerate(ii_):
                         read_log.append((int(n), t, int(j_), int(rd_[q_])))
                         if n in events:
-                            events[n].append(dict(read=dict(age=round(age, 2), name=e_["name"], reading=e_["labels"][rd_[q_]],
-                                                            say=e_["say"][rd_[q_]], impact=float(imp_[q_]))))
+                            rdd_ = dict(age=round(age, 2), name=e_["name"], reading=e_["labels"][rd_[q_]],
+                                        say=e_["say"][rd_[q_]], impact=float(imp_[q_]))
+                            if int(n) in dis_src_ and WON and j_ in DIS_J_:   # WL6: the hazard that struck, and where
+                                rdd_.update(hazard=dis_src_[int(n)][0], where=dis_src_[int(n)][1])
+                            events[n].append(dict(read=rdd_))
         # resources and commitments feed needs: safety (money, health), belonging (ties), autonomy (freedom, time)
         supply = np.stack([0.5 * res[:, MON] + 0.5 * res[:, HEA], res[:, TIE], 0.6 * res[:, FRE] + 0.4 * res[:, TIM]], 1)
         if WON:   # the world: safety from crime, war and disaster where one lives; belonging from one's settings and people
             supply[:, 0] += WL.safety(); supply[:, 1] += 0.5 * (np.asarray(WL.PP.belong, float) - WLM.BELONG_REF)
+            if WFX_ON:   # what the place gives to feeling safe, by the world's cause
+                wfx_track("safety", WL.safety_parts(), age, dead)
         need[:, :3] += P["res_need"] * (supply - 0.5)
         need += P["commit_need"] * ((held * I) @ KPAY) * ((1 - need) if P["satiate"] else 1)
         if RON:   # a title's own needs on top of its kind's, scaled the same way (statuses at full strength)
@@ -3772,6 +3901,8 @@ STATE = (
     "pr0", "steer_moved",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
+    # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option
+    "wfx", "option_causes",
     # the run's logs
     "ev_log", "goal_log", "brk_log", "conv_log", "rite_log", "commit_log", "clash_log", "role_log", "adj_log",
     "mark_log", "read_log",
