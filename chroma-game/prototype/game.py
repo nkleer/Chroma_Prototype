@@ -18,8 +18,12 @@ import sys
 from link import E, PIN
 import explain as X             # engine v7: the character's view before a choice, what came of it after
 import foresee as F             # engine v7: the foreseen outcome of a plan
-from story import Story, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
+from story import Story, LIB_READ, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
 from worldview import WorldView, EngineWorld, from_engine, who_word, lever_info, push_words   # the outer world as the player sees it (chroma-world/)
+try:
+    import earth_play as EP     # 5.6: the turning point, put to the player by the game alone (never loaded into a life)
+except ImportError:
+    EP = None
 try:
     import earth_story as ES    # the Library's words for the played game: the song, the voice, threads (chroma-library)
 except ImportError:
@@ -82,6 +86,7 @@ GAME = dict(
     piv=0.25,            # a pivotal pick's lesson: this x plasticity x the move toward the picked ways (as the engine's ev_z)
     piv_far=1.0,         # ... x (1 + piv_far x how far the pick is from their colors now, 0 to 1): up to twice
     piv_core=0.3,        # this share of the lesson reaches the deep core at once, so a turning point lasts
+    piv_own=0.3,         # letting them choose teaches at this share (and leans at this share): it confirms who they are
     piv_fail=0.5,        # a failure that does not backfire (and a push they resented although it worked) teaches at this share
     piv_steady=0.02,     # letting them choose: the deep core follows who they are now by this share (steadies, less drift)
     backfire=0.6,        # a pushed pick that failed backfires with chance backfire x distance x stakes (at most .8), always
@@ -103,6 +108,13 @@ GAME = dict(
     # what it changed: the act's reluctance x the share of its odds the steer gave it. Steering with the era's pull costs
     # less, against it more: costs x (1 - era_cost x fit), fit -1 to 1 from the era's colors and strength (era_full)
     light_k=1.0, era_cost=0.4, era_full=0.5,
+    # 5.6, the price builds to a turning point (earth_play.py, "the day it all comes to a head"): each push adds its
+    # resentment and half its reluctance to a price that halves every turn_half weeks; past turn_line, at most turn_max
+    # times a life and turn_gap weeks apart, the next moment is the turning point. The pick is a turning point turn_piv
+    # times a pick's: picking the color pushed most is the reinvention, their own lead the snap back. It holds with the
+    # option's chance (a little more for their own lead); held, the strain and pent-up wanting are let go
+    turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
+    world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
 )
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
@@ -546,6 +558,13 @@ class Game:
         self._vlast = {}                # color -> the last push mostly in that color (worked, the moment's name)
         self._w_start = None            # their colors when the player came in (what life and the voice moved since)
         self._name_mark = None          # colors and the voice's change when the name last changed (for "became")
+        self.history["times"] = []      # WL5 (item 11): what the times did to them, by age (the World panel)
+        self.history["steers"] = []     # P3: each push or lean, with the era's fit, for the World panel's timeline
+        self._wyear = {}                # WL4: this year's world effects told, (kind, channel, dir) -> size in "big" units
+        self._wfx_t = {}                # WL1: (kind, channel, dir) -> week last told
+        self._price, self._price_t = 0.0, 0   # 5.6: the price of pushes against them, and when it was last added to
+        self._turn_pick = None          # the turning point's answer, applied at the end of its week
+        self.history["turns"] = []      # (age, color, kind, held)
         self._threads = {}              # F5: what a pick started (("r", title), ("c", commitment), ("g", goal id)) -> its cause
         self._last_pick = None
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
@@ -603,7 +622,6 @@ class Game:
                     return self._on_death(t, loc)
                 if self.burn_in and t / 52 >= self.start_age:
                     self.burn_in = False
-                    self._w_start = E.softmax(loc["z"][0]).copy()
                     self._say(f"== {self.name} is {self.start_age:g} now. From here on, you are the voice in their head. ==", 0, "start")
                 if stop_t is not None and t >= stop_t:
                     return "paused"
@@ -612,6 +630,8 @@ class Game:
                 self._on_week(t, loc)
                 w_ = E.softmax(loc["z"][0])
                 self._name_week(w_, loc)
+                if self._w_start is None and t / 52 >= self.start_age:
+                    self._w_start = w_.copy()           # item 3: their colors when the player came in
                 if len(self._trace) < 3000:              # E9: each week also its bands (in, fading, rising, out) and label
                     lb = self._core_label                # one rule everywhere: the label is the name (5.5), the identity of the
                     bd = "".join(b_[0] for b_ in X.bands(w_, lb)) if hasattr(X, "bands") else ""   # last four years' colors,
@@ -657,6 +677,19 @@ class Game:
         cp = self.pending
         assert cp is not None
         a = cp["a"]
+        if cp.get("turning"):                           # 5.6: the engine's week goes on with their own pick; the answer is the game's
+            if light:
+                pick = next((o["idx"] for o in cp["options"] if o["colors"] == light), None)
+            choice = cp["own"] if pick is None else int(pick)
+            self._turn_pick = dict(cp=cp, choice=choice)
+            self.history["picks"] += 1; self.history["own" if choice == cp["own"] else "forced"] += 1
+            self.pending = None; self._last_cp = self.t
+            try:
+                self._msg = self._gen.send(a)
+            except StopIteration as e:
+                self.over = True; self.result = e.value
+                self._life_review()
+            return
         own = int(a[0])
         lt = None
         if light and pick is None and self.loc is not None:
@@ -675,6 +708,10 @@ class Game:
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(rel)
         self.history["picks"] += 1
+        if choice != own or lt:                         # P3: the World panel's timeline shows each steer against the era
+            o_ = cp["by_idx"].get(choice, {})
+            self.history["steers"].append(dict(age=round(cp["age"], 2), kind="lean" if lt else "push", colors=o_.get("colors", ""),
+                                               era=o_.get("era", 0.0), lean=(lt or {}).get("color", "")))
         g_ = self._gift_fit(cp["by_idx"].get(choice, {}))
         if g_ is not None:
             self.history["gift"].append(g_)
@@ -746,6 +783,8 @@ class Game:
         if s == self.ORD and not recon:
             return None
         gap_weeks, thr, again = FREQ[self.freq]
+        if not recon and self._turn_due(t):
+            return self._build_turning(t, loc, a)
         sea = None if recon else self.season(loc)
         if sea and sea["this_week"]:
             # Emren's point 6: a crossing is never a quiet level-up, so each of its season's moments (the crossing, the
@@ -874,9 +913,12 @@ class Game:
         elif lean is not None:
             thought = self.story.thought("Not now. Let it be.", "wait", "")
         mm = np.maximum(np.asarray(loc["m"][0], float), 0)
+        oc = loc.get("option_causes"); causes = oc(0) if callable(oc) else None
         for o in opts:                                  # P3: steering with the era's pull costs less, against it more
             fit = self._era_fit(loc, mm[o["idx"]] / mm[o["idx"]].sum()) if mm[o["idx"]].sum() > 0 else 0.0
             o["era"] = round(fit, 2); o["era_k"] = float(np.clip(1 - GAME["era_cost"] * fit, 0.5, 1.5))
+            if causes and o["idx"] < len(causes) and causes[o["idx"]]:
+                o["wcause"] = self._option_cause(causes[o["idx"]])   # WL3: the world closes it, or makes it harder or easier
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
@@ -1069,7 +1111,7 @@ class Game:
         w = E.softmax(loc["z"][0]); dist = float(0.5 * np.abs(T - w).sum())
         stakes = float(loc["L"]["STAKES"][int(loc["s"][0])])
         judged = (hind or {}).get("kind")
-        kind, share, lean = ("own", 1.0, 1.0) if k == own else ("toward", 1.0, 1.0)
+        kind, share, lean = ("own", GAME["piv_own"], GAME["piv_own"]) if k == own else ("toward", 1.0, 1.0)
         if k != own and (not worked or judged == "resented"):
             kind, share, lean = "half", GAME["piv_fail"], 0.5
             if not worked and (judged == "resented" or self._prng.random() < min(0.8, GAME["backfire"] * dist * stakes)):
@@ -1131,6 +1173,178 @@ class Game:
                 gid = int(g.get("id", -1))
                 nm = (self.story.dreams.get(gid) or {}).get("name", "") if g["kind"] != "plan" else ""
                 self._threads[("g", gid)] = dict(cause, key="plan" if g["kind"] == "plan" else "dream", goal=nm, what=THREAD_GOAL[g["kind"]])
+
+    # ------------------------------------------------------------------ 5.6: the price builds to a turning point
+    def _price_now(self):
+        return self._price * 0.5 ** ((self.t - self._price_t) / GAME["turn_half"])
+
+    def _turn_due(self, t):
+        if EP is None or self.setting != "earth" or t / 52 < max(self.start_age, 14) or len(self.history["turns"]) >= GAME["turn_max"]:
+            return False
+        last = self.history["turns"][-1]["t"] if self.history["turns"] else -10 ** 6
+        return t - last >= GAME["turn_gap"] and t - self._last_cp >= FREQ[self.freq][0] // 2 and self._price_now() >= GAME["turn_line"]
+
+    def _build_turning(self, t, loc, a):
+        """5.6: "the day it all comes to a head" (Library earth_play.py), built by the game: five one-color options, their
+        own pick the option of their lead color. The engine's moment this week goes on as their own."""
+        S = EP.SITUATIONS[0]
+        w = E.softmax(loc["z"][0]); lead = COLORS[int(np.argmax(w))]
+        opts = []
+        for i, (label, means, _e, _d, _t, x) in enumerate(S["options"]):
+            c = means[0]
+            opts.append(dict(idx=i, label=label, colors=c, felt=float(x.get("chance", 0.55)), hint="", lean=0.0, status="open",
+                             rel=0.0 if c == lead else 0.3, why="", commit=None, follows={}, kind="", act=x.get("act", label),
+                             acc="their own pick" if c == lead else "okay with it", trust=float(self.trust[COLORS.index(c)]),
+                             era=0.0))
+        own = next(o["idx"] for o in opts if o["colors"] == lead)
+        sc = dict((c_, x_) for c_, x_ in S["scenes"]["earth"])
+        cp = dict(t=t, age=t / 52, title=S["name"], extra="", stakes=float(S["stakes"]), recon=False, s=int(loc["s"][0]), sit=S["name"],
+                  scene=self.story.fill(sc.get(lead) or sc.get("", "")), thought="", moment=None, options=opts, own=own, a=a.copy(),
+                  by_idx={o["idx"]: o for o in opts}, turning=True)
+        return cp
+
+    def _turning_end(self, t, loc, tp):
+        """5.6: the turning point's pick, at the end of its week: a lesson turn_piv times a pick's toward the chosen color,
+        half of it into the deep core; held (the option's chance, more for their own lead), the strain and the pent-up
+        wanting are let go and the new way leads their acts for a year; broken, a little of it stays."""
+        cp, k = tp["cp"], tp["choice"]
+        o = cp["by_idx"][k]; c = o["colors"]; ci = COLORS.index(c)
+        w = E.softmax(loc["z"][0]); lead = cp["by_idx"][cp["own"]]["colors"]
+        d = np.asarray(self.history["voice"]["d"], float)
+        pushed = COLORS[int(np.argmax(d))] if d.max() > 0 else None
+        kind = "snap back" if c == lead else "reinvention" if c == pushed else "turn"
+        held = bool(self._prng.random() < min(0.9, o["felt"] + (0.2 if c == lead else 0.0)))
+        T = np.full(C, 0.1); T[ci] = 0.6
+        plast = float(loc["plast"][0]) if "plast" in loc else 0.2
+        dz = GAME["piv"] * GAME["turn_piv"] * plast * (1.0 if held else 0.4) * E.centre(5 * (T - w))
+        loc["z"][0] += dz
+        if "k" in loc:
+            loc["k"][0] += (0.5 if held else 0.15) * dz
+        if held:
+            loc["stress"][0] *= 0.5; loc["Q"][0] *= 0.3
+            self._leans.append((T, 1.0, int(t))); self._leans.append((T, 1.0, int(t) + GAME["lean_weeks"]))
+        self._price, self._price_t = 0.0, int(t)
+        self.history["turns"].append(dict(t=int(t), age=round(t / 52, 1), color=c, kind=kind, held=held))
+        outs = EP.SITUATIONS[0]["outcomes"][0 if held else 1]
+        line = self.story.fill("{N} decides " + chooses(act(o["act"])) + ". " + outs[len(self.history["turns"]) % len(outs)])
+        self._say(mk("T", f"{c}|{kind}|{int(held)}", line), 0, "turning", color=c, kind=kind, held=held)
+
+    # ------------------------------------------------------------------ item 11: the world in their life (WL1, WL3 to WL6)
+    @staticmethod
+    def _wband(ch, size):
+        """WL1's bands (the Library's proposal, set here): None (not told), "small" or "big"."""
+        size = abs(float(size))
+        if ch == "option":
+            return "big"
+        lo, hi = WFX_BAND.get(ch, WFX_BAND["risk"] if ch.endswith("risk") else (None, None))
+        if lo is None or size < lo:
+            return None
+        return "big" if size >= hi else "small"
+
+    @staticmethod
+    def _wcause_text(c, kind):
+        """A world effect's cause in plain words, for the hover: "the recession, since 34"."""
+        if not c:
+            return WFX_KIND.get(kind, kind)
+        ck = c.get("kind")
+        key = c.get("key")
+        nm = (f"the {key}" if key and ck == "arrives" else key) or WFX_CAUSE.get(ck) or WFX_KIND.get(ck) or WFX_KIND.get(kind, kind)
+        return str(nm) + (f", since {int(c['age'])}" if c.get("age") is not None else "")
+
+    def _world_effects(self, t, loc):
+        """WL1 and WL5 (item 11, world-in-life.md): when the engine reports that a world event changed something of theirs
+        (STATE wfx: money, freedom, safety, a risk, a close person, their town), one small line sized to the change, the
+        cause on hover; the same kind of line not again within a year. Each told effect goes into the life's record of what
+        the times did (the World panel) and the year's line (WL4)."""
+        if ES is None or "wfx" not in loc:
+            return
+        W = loc["wfx"]
+        xs = W[0] if len(W) and isinstance(W[0], (list, tuple)) else W
+        for e in xs or []:
+            ch, kind, d = e.get("channel", ""), e.get("kind", ""), e.get("dir", "up")
+            band = self._wband(ch, e.get("size", 0))
+            if band is None or ch == "moment":
+                continue
+            k = WFX_KIND_LIB.get(kind, kind)
+            line = ((ES.WORLD.get(k) or {}).get(ch) or {}).get(d, {}).get(band) or (ES.WORLD_CHANNEL.get(ch) or {}).get(d, {}).get(band)
+            if not line:
+                continue
+            key = (kind, ch, d)
+            yk = abs(float(e.get("size", 0))) / (WFX_BAND.get(ch, WFX_BAND["risk"])[1] if ch != "option" else 1.0)
+            self._wyear[key] = self._wyear.get(key, 0.0) + min(yk, 2.0)
+            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN:
+                continue
+            self._wfx_t[key] = t
+            cause = self._wcause_text(e.get("cause"), kind)
+            text = self.story.fill(line.replace("{who}", "someone close to them"))
+            self._say(mk("X", f"{k}|{ch}|{d}|{band}|{cause.replace('|', '/')}", text), 0 if band == "big" else 1, "world_fx",
+                      kind=k, channel=ch, dir=d, band=band, cause=cause)
+            self.history["times"].append(dict(age=round(t / 52, 1), text=plain(text), kind=k, channel=ch, dir=d, cause=cause, big=band == "big"))
+
+    def _times_year(self):
+        """WL4: the year's one line on how the times touched them: close (a disaster, war, their town or a close person),
+        else mixed (the two largest point opposite ways), else by the largest; what, from the two largest."""
+        y, self._wyear = self._wyear, {}
+        if ES is None or not y or self.burn_in or sum(y.values()) < 1.0:
+            return                                       # a year the times really touched them: one big change or a few small
+        items = sorted(y.items(), key=lambda kv: -kv[1])[:2]
+        good = lambda ch, d: (d == "up") == (not ch.endswith("risk"))
+        if any(ch in ("home", "close person") or k in ("disaster", "war") for (k, ch, d) in y):
+            tone = "close"
+        elif len(items) == 2 and good(*items[0][0][1:]) != good(*items[1][0][1:]):
+            tone = "mixed"
+        else:
+            (k, ch, d), _ = items[0]
+            tone = (("easier" if d == "up" else "lean") if ch in ("money", "time", "health", "ties") else
+                    ("freer" if d == "up" else "narrower") if ch in ("freedom", "option") else
+                    ("calmer" if d == "up" else "uneasy") if ch == "safety" else ("uneasy" if d == "up" else "calmer"))
+        whats = []
+        for (k, ch, d), _ in items:
+            w_ = ((ES.YEAR_WHAT.get(k) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
+            if w_ and w_ not in whats:
+                whats.append(w_.replace("{who}", "someone close to them"))
+        last = getattr(self, "_wyear_said", (None, -99))
+        if whats and tone in ES.YEAR and not (last[0] == (tone, tuple(whats)) and self.t - last[1] < 3 * 52):
+            self._wyear_said = ((tone, tuple(whats)), int(self.t))
+            self._say(self.story.fill(ES.YEAR[tone].replace("{what}", " and ".join(whats))), 0, "world_year", tone=tone)
+
+    def _disaster_read(self, r):
+        """WL6 (item 11): "a disaster in the next town" told as the disaster that happened, by the engine's hazard and
+        where tags (Library DISASTER_READ): its scene, and the same color's reading in that disaster's words."""
+        D = getattr(ES, "DISASTER_READ", None) if ES else None
+        if not D or not r.get("hazard") or r["hazard"] not in D:
+            return r
+        d = D[r["hazard"]].get(r.get("where") or "near") or D[r["hazard"]].get("near")
+        ev = LIB_READ.get(r["name"]) or {}
+        c = next((x[4] for x in ev.get("readings", ()) if x[0] == r.get("reading")), None)
+        if not d or c not in d:
+            return r
+        return dict(r, _scene=d.get("scene", ""), reading=d[c][0], say=d[c][1])
+
+    def _option_cause(self, cs):
+        """WL3: the world's biggest reason an option is closed, harder or easier (engine option_causes), as the Library's
+        note, and the cause's own name for the hover."""
+        c = max(cs, key=lambda c_: abs(float(c_.get("size", 0) or 0)))
+        how = c.get("how", "harder")
+        h = "closed" if how in ("banned", "not there", "out of reach") else "easier" if how in ("allowed", "easier") else "harder"
+        k = c.get("kind") if c.get("kind") in ("law", "norm", "technology") else "norm" if how == "frowned on" else "odds"
+        note = (getattr(ES, "OPTION_CAUSE", {}).get(k) or {}).get(h) if ES else None
+        if not note:
+            return None
+        return dict(note=note, how=h, hover=cap_first(self._wcause_text(c.get("cause"), c.get("key") or c.get("kind", ""))
+                                                       if c.get("cause") else str(c.get("key") or c.get("kind", ""))) + f" ({how})")
+
+    def world_panel(self):
+        """The player's world panel: public facts now and the history so far, by age and era (spec 1 §8); with WL5's record
+        of what the times did to them, and P3's steers against the era, for the timeline."""
+        wd = self.world_data()
+        if not wd:
+            return None
+        p = self.wv.panel(wd[0], wd[1], self.age())
+        if isinstance(p, dict):
+            p["times"] = self.history.get("times", [])[-60:]
+            p["steers"] = self.history.get("steers", [])[-200:] if GAME["world_steers"] else []
+        return p
 
     # ------------------------------------------------------------------ item 3: the voice in their head
     def _vsay(self, kind, xs):
@@ -1230,8 +1444,9 @@ class Game:
         if ES is None or mark is None or self.burn_in or v["steer"] < VOICE_MIN or not lbl:
             return
         share = voice_share(np.asarray(v["dw"], float) - mark[1], w - mark[0])
-        if share < 0.5:
-            return
+        if share < 0.5 or self.t - v.get("became_t", -10 ** 6) < 5 * 52:
+            return                                       # told when the voice did most of it, once in five years at most
+        v["became_t"] = int(self.t)
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
         tr = float(np.mean(self.trust[pushed])) if pushed else 0.0
         key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
@@ -1439,6 +1654,7 @@ class Game:
             return delta
         rel = f["rel"]; tr = f.get("trust", 0.0)
         f["resent"] = rs = self._resent(rel, tr)
+        self._price = self._price_now() + rs + 0.5 * rel; self._price_t = int(self.t)   # 5.6: the price builds
         # item 4 (Emren 10-08 23:18): the price of a push moves from learning to cost. The act teaches in full (v22.1 cut a
         # reluctant act's lesson to learn_keep); what it teaches about who they are is the pivotal lesson (_pivot)
         d = delta
@@ -1706,6 +1922,9 @@ class Game:
                                if abs(res_now[i] - self._res_prev[i]) >= 0.005})
         self._w_prev = w_now; self._res_prev = res_now
         cpw = self._cp_week; self._cp_week = None
+        tp, self._turn_pick = self._turn_pick, None
+        if tp is not None:
+            self._turning_end(t, loc, tp)
         L = self.L
         s = int(loc["s"][0]); sit = L["names"][s]
         stage = int(loc["stage"][0]); age = t / 52
@@ -1729,7 +1948,9 @@ class Game:
                         and not ("refines" in GR and GR["refines"][GR["ID"][r["name"]]] >= 0)):
                     fold[r["kind"]] = role_info(GR, GR["ID"][r["name"]]); folded.add(id(r))
         if cpw is not None and age >= self.start_age:
-            self._mark_threads(cpw, new, GR, age)     # F5: what the pick started, for the moments that follow from it
+            self._mark_threads(cpw, new, GR, age)
+        if age >= self.start_age:
+            self._world_effects(t, loc)               # WL1, WL5: what the world changed of theirs this week     # F5: what the pick started, for the moments that follow from it
         for ev in sev + [ev for ev in new if "situation" not in ev]:     # the moment first, then what followed from it
             self._met(age, ev, sit)
             if "situation" in ev:
@@ -1899,6 +2120,7 @@ class Game:
                                                        and t - self._read_told.get(r["name"], -10 ** 6) >= 5 * 52) else 2
                     if lvl <= self.detail:
                         self._last_read = t; self._read_told[r["name"]] = t
+                        r = self._disaster_read(r)      # WL6: the disaster that happened, not always a flood
                         self._say(self.story.read(r, stage), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
                                   impact=round(float(r.get("impact", 0.0)), 2))
                 if line:
@@ -2013,6 +2235,7 @@ class Game:
         if body:
             self._say(body, 0, "year")
         self._voice_chapter(t / 52)
+        self._times_year()                          # WL4: one line on how the times touched them this year
         self._year_notes(t, loc)
         if self.batch and "alive" in loc and loc.get("WL") is None:   # grandparents of grown-up grandchildren die outside
             # the Library's moments (with the outer world on, _kin_sync says it once the engine's record is overdue)
@@ -2473,10 +2696,6 @@ class Game:
         except Exception:
             return None
 
-    def world_panel(self):
-        """The player's world panel: public facts now and the history so far, by age and era (spec 1 §8)."""
-        wd = self.world_data()
-        return self.wv.panel(wd[0], wd[1], self.age()) if wd else None
 
     def goals(self, loc=None):
         """The dreams, passions and plans the character holds now; a plan comes with its foreseen outcome (foresee.py):
@@ -2553,7 +2772,7 @@ class Game:
                              heart_pick=o["idx"] == v.get("heart"), head_pick=o["idx"] == v.get("head"),
                              accept="their own pick" if o["idx"] == cp["own"] else o.get("acc") or accept_word(o["rel"]), k=int(o["idx"]),
                              trust=round(o.get("trust", 0.0), 3), resent=round(self._resent(o["rel"] * o.get("era_k", 1.0), o.get("trust", 0.0)), 3),
-                             era=o.get("era", 0.0),
+                             era=o.get("era", 0.0), wcause=o.get("wcause"),
                              needs=o.get("needs"), closed=o.get("closed"), helped=o.get("helped", []), roles_fx=o.get("roles_fx", []),
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
@@ -2879,6 +3098,32 @@ GROW_WORDS = dict(W="taking duty to heart", U="growing curious", B="growing ambi
                   G="putting down roots")
 FADE_WORDS = dict(W="loosening their hold on order", U="losing some of their curiosity", B="letting go of some ambition",
                   R="cooling", G="pulling up some roots")
+# item 11 (world-in-life.md): WL1's bands, (told from, big from) by channel (the Library's proposal); the engine's kinds as
+# the Library names them; a kind's own words for a cause with no name; weeks before the same kind of line again
+# (measured in a Modern Earth life: housing moves money by about .011 most years, a crime wave safety by .012 to .015,
+# so the everyday ripples stay quiet and a disaster or a real price shock is told)
+WFX_BAND = dict(money=(0.015, 0.03), freedom=(0.015, 0.03), time=(0.015, 0.03), health=(0.015, 0.03), ties=(0.015, 0.03),
+                safety=(0.02, 0.06), risk=(0.2, 0.5), home=(0.2, 0.5))
+WFX_BAND["close person"] = (0.2, 0.5)
+WFX_KIND_LIB = dict(crime="crime wave")
+# the world's record entries behind an effect (world_link CAUSE_REC: domain, kind), as the hover names them
+WFX_CAUSE = {"recession declared": "the recession", "recession over": "the end of the recession",
+             "world recession": "the world recession", "war comes home": "the war", "war begins": "the war",
+             "war ends": "the end of the war", "welfare raised": "higher welfare", "budget cut": "the budget cuts",
+             "government falls": "the fall of the government", "right gained": "a new right", "law changed": "a new law",
+             "regime changes": "the change of regime", "crime wave": "the crime wave in their town", "disaster": "the disaster",
+             "pandemic": "the pandemic", "price shock": "the price shock", "arrives": "new technology",
+             "spreads": "technology spreading", "era begins": "the new era"}
+WFX_KIND = dict(prices="rising prices", housing="the housing market", welfare="the welfare rules", rights="the law on rights",
+                crime="the crime wave", war="the war", disaster="the disaster", unemployment="the jobs market",
+                illness="the illness going round", pandemic="the pandemic", recession="the recession")
+WFX_AGAIN = 52
+
+
+def cap_first(s):
+    return s[:1].upper() + s[1:] if s else s
+
+
 # F5 (item 4): a pick's thread is told on a later moment that follows from it, within THREAD_YEARS, once per THREAD_AGAIN weeks
 THREAD_YEARS, THREAD_AGAIN = 12, 156
 THREAD_COMMIT = dict(career="their working life took a new road", partner="a life together began",

@@ -195,6 +195,9 @@ function mkTip(el) {
     case "e": return tipBox(`${ic("hourglass")} An era of ${esc(pl[0])}`, it && it.idea ? esc(it.idea) : "", [], "");
     case "O": return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
       [], hud && hud.world ? "The World panel (key g) has the public record and the history." : "");
+    case "T": return tipBox(`${pip(pl[0])} A turning point`, pl[1] === "reinvention" ? "They took the way the voice pushed for, for good." : pl[1] === "snap back" ? "They went back to their own way, for good." : "They took a new way.",
+      [["It held", pl[2] === "1" ? "yes" : "no: the old pull came back"]], "The price of being pushed against their own pull built up until it came to a head.");   // 5.6
+    case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
     case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]], "");
     case "c": {
       const kind = pl[0], ex = lettersOf(pl[1] || ""), t = L && (L.titles || []).find((x) => x.kind === kind);
@@ -1416,6 +1419,7 @@ function optRow(o, i, num) {
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
+  if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
   if (!o.own && Math.abs(o.era || 0) >= 0.3) marks.push(`<span class="mk2 era ${o.era > 0 ? "with" : "against"}">${ic("globe")}${o.era > 0 ? "with the times" : "against the times"}</span>`);   // P3
   const hp = (o.helped || []).find((h) => h.name === o.helped_row);     // a perk that sets this option apart; the strip lists all
   if (hp) marks.push(`<span class="mk2 rb up">${ic(roleIconOf(hp))}${esc(hp.pred)}</span>`);
@@ -1574,6 +1578,7 @@ function renderTable(h) {
   if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3
   // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
   tableEl.querySelectorAll("[data-lc]").forEach((b) => {
     const c = b.dataset.lc, e = cp.era, fit = e && e.i >= 0.2 ? lettersOf(e.letters).includes(c) : false;
@@ -2536,6 +2541,8 @@ function worldLine(W) {
     g += `<polyline class="wun" points="${ser.map((p) => `${X(p[0]).toFixed(1)},${(42 - p[1] / mx * 18).toFixed(1)}`).join(" ")}"/>`; }
   g += `<rect class="wlife" x="${X(0).toFixed(1)}" y="48" width="${Math.max(1, X(W.age) - X(0)).toFixed(1)}" height="6" rx="3"/>`;
   (W.history || []).filter((h) => h.big).forEach((h, i) => { g += `<circle class="wev" data-h="${(W.history || []).indexOf(h)}" cx="${X(h.age).toFixed(1)}" cy="51" r="4.5"/>`; });
+  // P3: each push or lean on the life's line, with the era's pull (light) or against it (dark)
+  (W.steers || []).forEach((x, i) => { g += `<rect class="wst2 ${x.era >= 0.3 ? "with" : x.era <= -0.3 ? "against" : "even"}${x.kind === "lean" ? " lean" : ""}" data-st="${i}" x="${(X(x.age) - 1.5).toFixed(1)}" y="56" width="3" height="${x.kind === "lean" ? 4 : 7}" rx="1"/>`; });
   for (let a = Math.ceil(lo / 10) * 10; a <= hi; a += 10) g += `<text class="wax" x="${X(a).toFixed(1)}" y="70" text-anchor="middle">${a === 0 ? "born" : a < 0 ? a : a}</text>`;
   return `<svg class="wline" viewBox="0 0 1000 76" role="img" aria-label="The world's history beside the life, by age">${g}</svg>`;
 }
@@ -2555,6 +2562,8 @@ function openWorld() {
   const rights = (W.rights || []).map((r) => `<span class="chip">${ic("ci-scales")}${esc(cap(r.word))}: <span class="w">${r.level >= 0.8 ? "secure" : r.level >= 0.5 ? "partial" : "weak"}</span></span>`).join("");
   const polls = (W.polls || []).slice(0, 6).map((p) => `<div class="mt"><span class="ml">${esc(cap(p.word))}</span><i><b style="width:${p.share}%;background:var(--gold)"></b></i><span class="mv">${p.share} in 100</span></div>`).join("");
   const figs = (W.figures || []).map((f) => `<div class="wfig${f.alive ? "" : " gone"}">${pips(lettersOf(f.letters))}<span><b>${esc(f.name)}</b> <span class="muted">${esc(f.role)}${f.alive ? "" : ", gone"}</span></span></div>`).join("");
+  // WL5: the character's own record of what the world changed of theirs, by age
+  const times = (W.times || []).slice().reverse().slice(0, 40).map((x) => `<div class="whist${x.big ? " big" : ""}" data-tm="${esc(x.cause || "")}"><span class="wa">${wAge(x.age, nm)}</span>${ic("globe")}<span>${esc(x.text)}</span></div>`).join("");
   const hist = (W.history || []).slice(0, 60).map((x, i) => `<div class="whist${x.big ? " big" : ""}"><span class="wa">${wAge(x.age, nm)}</span>${ic(x.icon)}<span>${esc(x.text)}</span></div>`).join("");
   worldEl.hidden = false;
   worldEl.innerHTML = `<div class="box paper sheet world" role="dialog" aria-label="The world">
@@ -2564,11 +2573,15 @@ function openWorld() {
       <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
+      ${times ? `<section class="wide"><h4>What the times did to ${esc(nm)}</h4><div class="whists">${times}</div></section>` : ""}
       <section class="wide"><h4>History</h4><div class="whists">${hist || `<span class="empty">Nothing yet</span>`}</div></section>
     </div></div>`;
   $("wClose").addEventListener("click", closeWorld);
   worldEl.querySelectorAll(".wer").forEach((el) => { const e = W.eras[+el.dataset.era]; setTip(el, () => tipBox(`${pips(lettersOf(e.letters))} ${esc(cap(e.name))}`, "", [["From", wAge(e.from, nm)], ["To", e.to == null ? "now" : wAge(e.to, nm)]], "An era is a stretch of years in which society rewards one way of living.")); });
   worldEl.querySelectorAll(".wev").forEach((el) => { const h = W.history[+el.dataset.h]; setTip(el, () => tipBox(`${ic(h.icon)} ${esc(h.text)}`, "", [["When", wAge(h.age, nm)]], "")); });
+  worldEl.querySelectorAll("[data-tm]").forEach((el) => { if (el.dataset.tm) setTip(el, () => tipBox(`${ic("globe")} Why`, esc(cap(el.dataset.tm)), [], "")); });
+  worldEl.querySelectorAll(".wst2").forEach((el) => { const x = W.steers[+el.dataset.st]; setTip(el, () => tipBox(`${x.kind === "lean" ? pip(x.lean) + " A lean" : ic("push") + " A push"} ${x.colors && x.colors !== "-" ? "toward " + pips(lettersOf(x.colors)) : ""}`, "",
+    [["When", wAge(x.age, nm)], ["The times", x.era >= 0.3 ? "with their pull: it cost less" : x.era <= -0.3 ? "against their pull: it cost more" : "neither with nor against"]], "")); });
 }
 
 function pageKey(k) {
