@@ -475,6 +475,7 @@
   .review { flex: none; max-height: 82%; overflow-y: auto; margin: 6px auto 0; width: min(100%, 760px); padding: 20px 24px; border-radius: 16px; box-sizing: border-box; display: grid; gap: 14px;
     background: linear-gradient(180deg, rgb(28 24 56 / 0.94), rgb(14 12 30 / 0.96)); box-shadow: inset 0 0 0 1px rgb(216 180 105 / 0.3), 0 20px 50px -25px #000; animation: rise 0.6s ease both; }
   .review .epi { font: italic var(--fs-4)/1.55 var(--serif); margin: 0; text-align: center; }
+  .review .lifep { font: var(--fs-3)/1.6 var(--serif); margin: 0 auto; max-width: 62ch; white-space: pre-line; }
   .gauges { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
   .gauge { display: grid; justify-items: center; gap: 4px; cursor: help; }
   .gauge svg { width: 78px; height: 78px; }
@@ -1165,6 +1166,20 @@
   .mtr .mbar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--mc); transition: width var(--t-3) var(--ease); }
   .mtr .mbar b { position: absolute; top: -3px; width: 2px; height: 12px; border-radius: 1px; background: var(--ink); opacity: 0.5; translate: -1px 0; }
   .mtr .pv { text-align: right; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .needs5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding-top: 4px; }
+  .nd { display: grid; justify-items: center; gap: 2px; cursor: help; color: var(--ink2); min-width: 0; }
+  .nd > svg.i { font-size: 15px; color: var(--peace); transition: opacity var(--t-3) var(--ease); }
+  .nd small { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .nd .lv { font-size: 10px; font-variant-numeric: tabular-nums; }
+  .nd.thin > svg.i { opacity: 0.55; }
+  .nd.barely > svg.i { color: var(--bad); animation: ndPulse 1.6s ease-in-out infinite; }
+  @keyframes ndPulse { 50% { opacity: 0.35; } }
+  @media (prefers-reduced-motion: reduce) { .nd.barely > svg.i { animation: none; } }
+  .ndmove { display: grid; gap: 3px; margin: 6px 0; cursor: help; }
+  .ndmove .r { display: flex; gap: 6px; align-items: center; font-size: 13px; }
+  .ndmove .r svg.i { color: var(--peace); }
+  .hind { margin: 6px 0; font-style: italic; cursor: help; }
+  .hind.up, .ndmove .up, .opt .os > .up { color: var(--ok); } .hind.down, .ndmove .down { color: var(--bad); }
   .means5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding-top: 2px; }
   .mean { display: grid; justify-items: center; gap: 3px; cursor: help; color: var(--ink2); min-width: 0; }
   .mean .col { position: relative; width: 9px; height: 30px; border-radius: 5px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
@@ -1535,6 +1550,16 @@
     .ogrid .opt .ometa { min-height: 16px; }
     .opt.onone { margin-top: 2px; padding-block: 3px; }
   }
+  /* G1 (B package): "Out of reach, but you could force it" folds into one row until opened; its cards are drawn only
+     when open. The row is a button (Enter or Space), with the count and the keys of the cards inside. */
+  .ev .ask.oorfold { width: 100%; border: 0; background: none; padding: 2px 0; cursor: pointer; text-align: left; color: var(--gold); }
+  .ev .ask.oorfold::after { order: 1; }
+  .ev .ask.oorfold .chev { order: 2; font-size: 11px; letter-spacing: 0; transition: transform 0.18s ease; }
+  .ev .ask.oorfold[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .ev .ask.oorfold:hover small, .ev .ask.oorfold:focus-visible small { color: var(--ink2); }
+  .ev .ask.oorfold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  .ogrid.oorg:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .ev .ask.oorfold .chev { transition: none; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTowNTlmZGNhZC1hYWEyLTRjNTEtYmNlYS02OTc3M2IxOTY1NWUAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaIsNiPuAmv6qBipQagwh/KkAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoyNGJkYTllYy1lZTgyLTQwNzItOGM5MS1kOTU5NGRkMzc3YmRscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoh8Iy414KdQ5s5+WUXircnAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggkW/qMixZiE+b7yw0fQ+Pd0Fie/Hh61MatikQFv1n2IukZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaIlKrzCy1OmFVlilbZCp6zYAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCBGSENuu5aADYwrmwvtDZteGWOiZiNKA0VPQDAiNvX1x2RuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBiGZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjA1OWZkY2FkLWFhYTItNGM1MS1iY2VhLTY5NzczYjE5NjU1ZS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjdmNjlkNWI3LTYzODMtNDVlMi04NTE1LThmYWI3NzAwNGUxOHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCCRb+oyLFmIT5vvLDR9D493QWJ78eHrUxq2KRAW/WfYi6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgghJvyRGmA0ju/326UFr+5A4agyWb7P5CjdO5dTbsE1wOiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg9dd8wD7kilKnz1xwXaDA4G69huwGMIomKh8dc2ig97h0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQMPtXBaRqv+Fydzhnh2P7CvJkHrlHjWpwY6AxO0c0FLtbmmrrI1YeA6JCQxuWsg059nbbu7lsMUU5BlJIZ8g3Qs=</c2pa:manifest></metadata>
@@ -2187,6 +2212,26 @@ function voiceTip(pl) {
 }
 function tugBar(sc, id) { return `<span class="tug"${id ? ` id="${id}"` : ""} style="--h:${((1 - sc) * 100).toFixed(0)}%"><span class="hrt">${ic("heart")}${pct(1 - sc)}</span><span class="tbar"><i></i></span><span class="hd">${pct(sc)}${ic("head")}</span></span>`; }
 const NEED_ICON = { safety: "shield", belonging: "people", autonomy: "feather", competence: "star", meaning: "compass", ...GI.need };
+// needs (IDEAS.md, "Make needs visible and learnable"): the five levels in the side panel, and what feeds each
+const NEED_SHORT = { safety: "Safety", belonging: "Belonging", autonomy: "Own choice", competence: "Skill", meaning: "Meaning" };
+const NEED_LONG = { safety: "safety", belonging: "belonging", autonomy: "room to choose", competence: "a sense of skill", meaning: "meaning" };
+const NEED_FEEDS = {
+  safety: "Acts that work, toward any color's ends (White most); money, health, a partner, a career, a safe place to live.",
+  belonging: "Acts that work toward Red and Green ends most; friends and ties, a partner, children, a community or faith.",
+  autonomy: "Acting in their own strongest colors; free time and freedom. Acting against who they are drains it a little.",
+  competence: "Succeeding at something hard for them, in any color; a career. Failing drains it a little.",
+  meaning: "Acts that work toward Blue and Black ends most; doing right by people who depend on them; children, faith, a career." };
+const needWord = (v) => v >= 0.75 ? "well met" : v >= 0.5 ? "met" : v >= 0.3 ? "thin" : "barely met";
+function needsRowHTML(L) {
+  const N = L.needs || {};
+  if (!Object.keys(N).length) return "";
+  return `<div class="needs5" aria-label="Needs">${Object.entries(N).map(([k, v]) => `<div class="nd${v < 0.3 ? " barely" : v < (L.need_thin || 0.5) ? " thin" : ""}" data-nd="${k}" tabindex="0" aria-label="${esc(NEED_SHORT[k] || k)}: ${pct(v)}, ${needWord(v)}">${ic(NEED_ICON[k] || "dot")}<span class="lv">${pct(v)}</span><small>${esc(NEED_SHORT[k] || k)}</small></div>`).join("")}</div>`;
+}
+function needTip(k, L) {
+  const v = (L.needs || {})[k] ?? 0;
+  return tipBox(`${ic(NEED_ICON[k] || "dot")} ${esc(cap(NEED_LONG[k] || k))}`, "", [["Now", `${pct(v)}, ${needWord(v)}`], ["Fed by", esc(NEED_FEEDS[k] || "")]],
+    "Every need fades a little each week unless something feeds it. A lacking need pulls satisfaction down, and meeting it lifts satisfaction most.");
+}
 const CHG = { content: [GI.meter.content || "mood", "var(--sat)", "Satisfaction"], peace: [GI.meter.peace || "leaf", "var(--peace)", "Peace"], mood: ["sun", "var(--sat)", "Mood"], stress: [GI.meter.strain || "bolt", "var(--stress)", "Strain", -1],
   outlook: ["sun", "var(--gold2)", "Outlook"], discipline: ["anchor", "var(--head)", "Self-control"], horizon: ["hourglass", "var(--arcane)", "Felt time", 0] };
 function chgInfo(what) {          // icon html, accent color, name, good direction (1 up is good, -1 down is good, 0 neutral)
@@ -2317,12 +2362,12 @@ let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
   outside: "globe", move: "route", era: "hourglass", read: "scroll", clash: "bolt", rite: "gate", turn: "compass", breakthrough: "burst",
-  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", ...GI.tag };
+  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass", ...GI.tag };
 const KIND_ICON = { career: "case", partner: "heart", children: "child", community: "people", faith: "shrine", ...GI.kind };
 const TAG_WORD = { choice: "Your moment", loss: "Loss", death: "Death", crisis: "Crisis", move: "A move", era: "The times", read: "Public life",
   clash: "Clash", rite: "A new stage", turn: "Turning point", breakthrough: "Breakthrough", healed: "Carried through", hardened: "Hardened",
   trouble: "Hard streak", fortune: "Lucky streak", temper: "Temperament", outside: "The world", commitment: "A title", moment: "A moment",
-  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", goal: "Dreams and plans", role: "Titles and perks" };
+  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks" };
 const MINOR = new Set(["ordinary", "note", "outside", "read", "era", "temper"]);
 const isMinor = (it) => MINOR.has(it.tag) || (it.tag === "role" && !it.title);      // a perk's line is a small one; a title's is not
 const MARK_PRI = { death: 9, loss: 9, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
@@ -3065,6 +3110,7 @@ function renderHud(L) {
     <div class="wheelw"><svg class="wheel" id="hudWheel" viewBox="-6 -2 212 206" role="img" aria-label="Spider graph of the five colors: where they are, where they want to be, what holds them">${spiderSVG(spOf(L, { id: "hw", hits: true }))}</svg><span class="wkey" id="wKey" tabindex="0" aria-label="How to read the wheel">?</span></div>
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
     <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}"><span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
+    ${needsRowHTML(L)}
     ${g0 ? `<div class="nowgoal" data-gj="${g0.j}">${ic(GOAL_ICON[g0.kind] || "moon")}<span class="k">${esc(cap(g0.kind))}</span><span class="nm">${esc(g0.name)}</span></div>` : ""}
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
@@ -3083,6 +3129,7 @@ function renderHud(L) {
   const bindHits = () => hudEl.querySelectorAll("#hudWheel .hit").forEach((h) => setTip(h, () => tipColor(L, +h.dataset.c)));
   bindHits(); bindSpKey(hudEl);
   $("openSheet").addEventListener("click", (e) => { e.stopPropagation(); openSheet(); });
+  hudEl.querySelectorAll("[data-nd]").forEach((el) => setTip(el, () => needTip(el.dataset.nd, L)));
   // point 2: the colors move to where they are now slowly, week by week when the weeks are known
   const fr = hudFrames.splice(0), last = hudLast; hudLast = { t: Math.round(L.age * 52), w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])) };
   if (last && !IL.on && (fr.length || last.w.some((v, i) => Math.abs(v - L.w[i]) > 0.002))) {
@@ -3223,7 +3270,7 @@ function waitingCard() {
 const ACC_CLS = { "would go with it": "a0", "okay with it": "a1", reluctant: "a2", "against it": "a3", "their own pick": "own" };
 const ACC_WORD = { "would go with it": "Would go with it", "okay with it": "Okay with it", reluctant: "Reluctant", "against it": "Against it", "their own pick": "Their own pick" };
 const ACC_HELP = { "would go with it": "What they lean to, or close to it: pushed here, it costs them nothing.", "okay with it": "Not their first wish, but they are not against it: pushed here, it costs them nothing.",
-  reluctant: "They would rather not: its colors lean against theirs, or they would rather do nothing. Weaker effort, some strain, and a wanting they swallow.", "against it": "It belongs to the colors opposed to who they are and who they want to be (as this world sees colors): half-hearted effort, strain, and pent-up wanting that can break through later.",
+  reluctant: "They would rather not: its colors lean against theirs, or they would rather do nothing. Weaker effort, some strain, and a wanting they swallow.", "against it": "It goes against who they are and who they want to be: half-hearted effort, strain, and pent-up wanting that can break through later.",
   "their own pick": "What they lean toward right now. Letting them choose costs nothing." };
 const PLATE = { W: "#a88d3c", U: "#2c69b0", B: "#4a3a5e", R: "#b44627", G: "#2d7a46" };
 const LIFE_ICON = [[/loss|grief|death/, "candle"], [/love|partner/, "heart"], [/child/, "child"], [/family|home/, "home"], [/work|money|career/, "case"],
@@ -3295,6 +3342,7 @@ function optRow(o, i, num) {
   for (const x of (o.roles_fx || []).slice(0, 1)) marks.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
   const bits = [];                                      // the small print, shown on the phone and in the strip
   if (f.needs && f.needs.length) bits.push(`<span>meets ${esc(f.needs.join(" and "))}</span>`);
+  for (const x of (f.lift || [])) bits.push(`<span class="up">${ic(NEED_ICON[x.need] || "dot")} ${esc(NEED_LONG[x.need] || x.need)} is ${esc(x.word)}: ${esc(x.lift)}</span>`);
   if (o.commit) bits.push(`<span>${ic(KIND_ICON[o.commit] || "anchor")} could start a ${esc(o.commit)}</span>`);
   if (o.needs) bits.push(`<span class="why">${ic("lock")} ${esc(o.needs.line)}</span>`);
   if (!pass) bits.push(fxHTML(f));
@@ -3319,6 +3367,8 @@ function stripHTML(o, num) {
   facts.push(`<span><b>${esc(ACC_WORD[acc])}</b>${o.status === "didn't think of it" ? " · hadn't thought of it" : ""}${acc === "against it" && o.clash && o.clash.length ? ` · ${o.clash.map((c) => CNAME[c]).join(" and ")} against who they are` : ""}</span>`);
   if (o.status === "considered" && !o.own && o.lean != null) facts.push(`<span><b>Their lean</b> ${pct(o.lean)}</span>`);
   if (f.needs && f.needs.length) facts.push(`<span><b>Meets</b> ${esc(f.needs.join(", "))}</span>`);
+  if ((f.lift || []).length) facts.push(`<span class="up"><b>Lacking</b> ${f.lift.map((x) => `${esc(NEED_LONG[x.need] || x.need)} at ${pct(x.level)}: ${esc(x.lift)} to satisfaction if it works`).join("; ")}</span>`);
+  if (!o.own && !pass && o.rel >= 0.02) facts.push(`<span${o.resent > o.rel + 0.005 ? ' class="down"' : ""}><b>If you push</b> ${o.resent < 0.05 ? "little resentment" : o.resent < 0.3 ? "some resentment" : o.resent < 0.6 ? "resentment: strain and pent-up wanting" : "strong resentment"}${Math.abs(o.trust || 0) >= 0.05 ? ` (${o.trust > 0 ? "they trust you" : "they distrust you"} in these colors)` : ""}; it counts against their own life unless it gives them something they lack</span>`);
   if (f.cost && f.cost.length) facts.push(`<span><b>Costs</b> ${f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")}${esc(x.slice(1))}`).join(" ")}</span>`);
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
   if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).concat(["strain", "doubt"]).join(", ")}</span></span>`);
@@ -3337,8 +3387,9 @@ function hhBars(o) {
 }
 function tipOption(o, name, num) {
   const f = o.follows || {}, rows = [], acc = o.own ? "their own pick" : o.accept || "okay with it";
-  const enemy = acc === "against it" && o.clash && o.clash.length ? `<br><span class="down">${o.clash.map((c) => pip(c) + " " + CNAME[c]).join(" and ")} ${o.clash.length > 1 ? "are enemies" : "is an enemy"} of who they are</span>` : "";
-  rows.push(["How they feel", `<b>${ACC_WORD[acc]}</b>` + (o.status === "didn't think of it" ? " (they hadn't thought of it)" : "") + enemy]);
+  // no colour or pair is called an enemy (implementation list item 5, chroma-philosophy/enemy-pairs.md): the option goes against who they are
+  const against = acc === "against it" && o.clash && o.clash.length ? `<br><span class="down">${o.clash.map((c) => pip(c)).join("")} This goes against who they are</span>` : "";
+  rows.push(["How they feel", `<b>${ACC_WORD[acc]}</b>` + (o.status === "didn't think of it" ? " (they hadn't thought of it)" : "") + against]);
   if (o.lever) rows.push(["A push on the world", `${ic(o.lever.icon)} ${esc(o.lever.name)}: ${esc(o.lever.what)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}`]);
   if (o.means.length) {
     rows.push(["Feels", `${fpct(o.felt)} likely to work`]);
@@ -3363,6 +3414,11 @@ function tipOption(o, name, num) {
   return tipBox(`<span class="num">${num || o.n}</span> ${esc(cap(o.label))}`, "", rows, esc(ACC_HELP[acc]));
 }
 let lastArt = null, lastCpKey = "", CPNUM = new Map();
+// G1 (B package): "Out of reach, but you could force it" folds into one row until opened; the choice is kept in this
+// browser. Folded cards are not drawn at all, so nothing hidden can be hovered, clicked or measured. openOOR(num) opens
+// the fold and focuses that card: a number key on a folded card shows it first, and the same key again pushes.
+let oorOpen = false; try { oorOpen = localStorage.getItem("chroma.oorOpen") === "1"; } catch (_) {}
+let openOOR = null;
 function evHead(kick, title, right) { return `<div class="evh"><span class="kick">${kick}</span><h2 id="evTitle">${title}</h2>${right || ""}</div>`; }
 function renderTable(h) {
   const cp = h && h.cp, L = h && h.life;
@@ -3392,13 +3448,19 @@ function renderTable(h) {
   const parts = groups.map(([st, title]) => {
     const xs = idx.filter(([o]) => o.status === st && o.means.length).sort((a, b) => a[0].n - b[0].n);
     xs.forEach(([o]) => order.push(o));
-    return [title, xs];
+    return [title, xs, st];
   });
   const passes = idx.filter(([o]) => !o.means.length);
   passes.forEach(([o]) => order.push(o));
   CPNUM = new Map(order.map((o, k) => [k + 1, o]));
   const numOf = (o) => order.indexOf(o) + 1;
-  const rows = parts.map(([title, xs]) => xs.length ? (title ? `<div class="ask sub">${title}</div>` : "") + `<div class="ogrid">${xs.map(([o, i]) => optRow(o, i, numOf(o))).join("")}</div>` : "").join("")
+  const cards = (xs) => xs.map(([o, i]) => optRow(o, i, numOf(o))).join("");
+  const oorXs = (parts.find((p) => p[2] === "out of reach") || [0, []])[1];
+  const nums = (xs) => { const a = numOf(xs[0][0]), b = numOf(xs[xs.length - 1][0]); return a === b ? `key ${a}` : `keys ${a}–${b}`; };
+  const rows = parts.map(([title, xs, st]) => !xs.length ? "" : st === "out of reach"
+      ? `<button type="button" class="ask sub oorfold" id="evOOR" aria-expanded="${oorOpen}" aria-controls="evOORg">${ic("lock")} ${title} <small>${xs.length} ${xs.length > 1 ? "options" : "option"} · ${nums(xs)}</small><span class="chev" aria-hidden="true">▸</span></button>`
+        + `<div class="ogrid oorg" id="evOORg">${oorOpen ? cards(xs) : ""}</div>`
+      : (title ? `<div class="ask sub">${title}</div>` : "") + `<div class="ogrid">${cards(xs)}</div>`).join("")
     + passes.map(([o, i]) => optRow(o, i, numOf(o))).join("");
   const pick = cp.options.filter((o) => o.heart_pick || o.head_pick || o.own);
   const cs = [...new Set([].concat(...pick.map((o) => o.ends)))].slice(0, 2);
@@ -3442,7 +3504,7 @@ function renderTable(h) {
     if (hov && hov[2].isConnected) return fill(hov[0], hov[1]);
     strip.classList.add("idle"); strip.innerHTML = idleStrip;
   };
-  tableEl.querySelectorAll(".opt").forEach((b) => {
+  const bindOpt = (b) => {
     const o = cp.options[+b.dataset.i], num = +b.dataset.num;
     const hl = (on) => hudEl.querySelectorAll(".orb").forEach((x) => x.classList.toggle("hl", on && o.ends.includes(x.dataset.c)));
     b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") { hov = [o, num, b]; hl(true); fill(o, num); } });
@@ -3459,7 +3521,22 @@ function renderTable(h) {
       b.after(d); $("pushIt").addEventListener("click", go);
       d.scrollIntoView({ block: "nearest" });
     });
-  });
+  };
+  tableEl.querySelectorAll(".opt").forEach(bindOpt);
+  const fold = $("evOOR");
+  const setOOR = (on) => {
+    const g = $("evOORg"); if (!fold || !g) return;
+    const had = g.contains(document.activeElement);
+    oorOpen = on; try { localStorage.setItem("chroma.oorOpen", on ? "1" : ""); } catch (_) {}
+    fold.setAttribute("aria-expanded", String(on));
+    if (hov && g.contains(hov[2])) hov = null;
+    g.innerHTML = on ? cards(oorXs) : "";
+    g.querySelectorAll(".opt").forEach(bindOpt);
+    if (had) fold.focus();
+    unfill();
+  };
+  openOOR = fold ? (num) => { if (!oorOpen) setOOR(true); const b = $("evOORg").querySelector(`.opt[data-num="${num}"]`); if (b) { b.focus({ preventScroll: true }); b.scrollIntoView({ block: "nearest" }); } } : null;
+  if (fold) fold.addEventListener("click", () => { setOOR(!oorOpen); if (oorOpen) { const g = $("evOORg"); if (g.lastElementChild) g.lastElementChild.scrollIntoView({ block: "nearest" }); } });
 }
 
 const SURPRISE = { better: "better than they expected", "as expected": "as they expected", worse: "worse than they feared" };
@@ -3498,6 +3575,8 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
+      ${(r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}
       ${(r.roles || []).length ? `<div class="states">${r.roles.map((x, i) => `<span class="st rl g${x.up ? 1 : 0}${x.up ? "" : " gone"}" data-rr="${i}">${ic(roleIconOf(x))}${esc(x.up && x.title ? "Now " + x.word : cap(x.word))}</span>`).join("")}</div>` : ""}
@@ -3516,6 +3595,9 @@ function renderResolution(h, reveal) {
     $("rnTxt").addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); $("rnTake").click(); } });
   }
   tableEl.querySelectorAll("[data-z]").forEach((x) => { const z = x.dataset.z.split("|"); setTip(x, () => changeTip(z[0], +z[1], +z[2])); });
+  if ($("ndmove")) setTip($("ndmove"), () => tipBox(`${ic("compass")} Needs this week`, "", (r.needs || []).map((x) => [esc(cap(NEED_LONG[x.need] || x.need)), `${pct(x.before)} → ${pct(x.after)} (${sgn(x.delta * 100)} pts)`]), "An act that works feeds the needs its ends serve, and a lacking need lifts satisfaction most. Needs also fade a little every week."));
+  if ($("hind")) setTip($("hind"), () => tipBox(`${ic("voice")} Looking back on your push`, "", [["Trust in you, these colors", `${sgn((r.hindsight.trust_before || 0) * 100)} → ${sgn((r.hindsight.trust_after || 0) * 100)}`]],
+    r.hindsight.kind === "accepted" ? "It worked and gave them something they lacked, so part of the push's cost is undone: less strain and pent-up wanting, and it counts less against their own life." : "It failed, or gave them nothing they lacked. They hold it against you, and later pushes in these colors cost more."));
   tableEl.querySelectorAll("[data-pid]").forEach((x) => setTip(x, () => personTip(+x.dataset.pid)));
   tableEl.querySelectorAll("[data-rr]").forEach((x) => { const d = r.roles[+x.dataset.rr]; setTip(x, () => roleTip(d, findRole(d.name))); });
   setTip($("cmove"), () => tipBox(`${ic("wheel")} The colors this week`, "", [["Moved", colorMoves(r.dw)]], (r.push || []).map((p) => `${esc(cap(p.why))}: ${p.dir} ${pip(p.color)}`).join("<br>") || "Points are shares of 100."));
@@ -3782,6 +3864,12 @@ function shSelect(key, focus) {
     else if (t.offsetLeft + t.offsetWidth > bar.scrollLeft + bar.clientWidth - 8) bar.scrollLeft = t.offsetLeft + t.offsetWidth - bar.clientWidth + 16;
   }
 }
+function trustHTML(L) {                 // IDEAS.md, "Player intervention that helps": trust in the player, per color
+  const T = L.trust || {}, P = L.pushes || {};
+  if (!P.forced) return "";
+  return `<h4>Trust in you</h4><div class="mts">${COLORS.map((c) => meterRow(`${pip(c)} ${CNAME[c]}`, (1 + (T[c] || 0)) / 2, sgn((T[c] || 0) * 100), `var(--c${c})`, "Built by your pushes in this color that they came to accept, lost by the ones they resented. Trust spares some of a push's resentment; distrust adds to it.")).join("")}</div>
+    <p class="shnote">You pushed ${P.forced} time${P.forced === 1 ? "" : "s"}: ${P.accepted || 0} they came to accept, ${P.resented || 0} they resented.</p>`;
+}
 function openSheet() {
   const L = hud && hud.life; if (!L || !L.w) return;
   hideTip(); closeHud();
@@ -3845,7 +3933,7 @@ function openSheet() {
         <div class="shsec sa-c">${aroundShort ? `<h4>Around them</h4><div class="sharound">${aroundShort}</div>` : ""}<h4>Closest people</h4><div class="shppl">${closest || `<span class="empty">Nobody met yet</span>`}</div><h4>Titles and statuses</h4><div class="chips">${heldChips || `<span class="empty">No titles yet</span>`}</div></div>`)}
       ${panel("colours", `<div class="shsec"><svg class="wheel big" id="shWheel" viewBox="-6 -2 212 206" aria-hidden="true"></svg>${spKeyHTML()}<h4>Who they have been</h4><div class="path">${identityPath(L) || `<span class="empty">Still forming</span>`}</div></div>
         <div class="shsec"><h4>Now, wanted and held</h4>${shNowTable(L)}<h4>What each color stands for</h4><div class="shideas">${COLORS.map((c) => `<div>${pip(c)}<span><b>${CNAME[c]}</b> ${esc(CIDEA[c])}</span></div>`).join("")}</div></div>`)}
-      ${panel("inner", `<div class="shsec"><h4>Inner life</h4><div class="mts">${inner}</div><h4>Needs met</h4><div class="mts">${needs || `<span class="empty">Not known yet</span>`}</div></div>
+      ${panel("inner", `<div class="shsec"><h4>Inner life</h4><div class="mts">${inner}</div><h4>Needs met</h4><div class="mts">${needs || `<span class="empty">Not known yet</span>`}</div>${trustHTML(L)}</div>
         <div class="shsec"><h4>States</h4>${states}</div>
         <div class="shsec"><h4>Dreams and plans</h4><div class="drms">${goals}</div></div>`)}
       ${panel("around", `<div class="shsec">${around ? `<h4>Around them</h4>${around}` : `<h4>Around them</h4><span class="empty">Nothing read yet</span>`}</div>
@@ -3947,6 +4035,9 @@ function openBook() {
   const deeds = [...new Set([...count(E_, ["d|"]), ...count(B_, ["d|"])])], titles = count(E_, ["t|"]);
   const ID_ = ((bookCat.earth || bookCat.base || {}).idents) || {}, idents = Object.entries(ID_).map(([l, v]) => [l, v[0]]);
   const met = (ks) => ks.filter(has).length;
+  // G3 (B package): one count of moments. The Book's count is the situations the story tells plus the life events, and
+  // says so, so it agrees with the situation count elsewhere (822 situations and 59 life events: 881 moments)
+  const momDef = (ks) => { const s_ = ks.filter((k) => k.startsWith("s|")).length; return `${bookDef.moments} Here: ${s_} situations and ${ks.length - s_} life events.`; };
   const stat = (n, of, label, def) => `<div class="bst" data-def="${esc(def || "")}"><b>${n}</b>${of != null ? `<span class="of">of ${of}</span>` : ""}<span class="bl">${label}</span></div>`;
   // rare moments met, rarest first
   const rare = Object.keys(S).filter((k) => /^[sed]\|/.test(k) && S[k].n).map((k) => [k, bookInfo(k)]).filter(([k, i]) => i && (k.startsWith("d|") ? STAR_DEEDS.has(k.slice(2)) : isRare(i.sh))).sort((a, b) => (a[1].sh ?? 1) - (b[1].sh ?? 1));
@@ -3974,7 +4065,7 @@ function openBook() {
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
     <div class="shh"><div class="bhd">${ic("ci-bookshelf")}<div><div class="shn">The Book of Moments</div><div class="muted">${lives.length ? `What ${lives.length === 1 ? "one life has" : lives.length + " lives have"} met, kept in this browser.` : "What your lives meet is kept here, in this browser."} It records; it does not rank.</div></div></div>
       <button class="ghost" id="bkClose" aria-label="Close">${ic("x")}</button></div>
-    ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", bookDef.moments)}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", bookDef.moments) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
+    ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
       <section><h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
@@ -4242,6 +4333,7 @@ function renderReview(h) {
   reviewEl.hidden = false;
   reviewEl.innerHTML = `<div class="mh" style="justify-content:center"><span class="kick">${ic("candle")} The end of a life</span></div>
     <p class="epi" data-i="review">${rich(r.epitaph)}</p>
+    ${r.story ? `<p class="lifep">${esc(r.story)}</p>` : ""}
     <div class="peace"><div class="kick">${ic("ci-scales")} The peace reading</div><p class="pw">${esc((r.reading || {}).words || "")}</p>${(r.long_shots || []).slice(0, 3).map((x) => `<p class="pls${x.made ? " made" : ""}">${ic("star")} ${esc(x.words)}</p>`).join("")}${(r.long_shots || []).length > 3 ? `<p class="pls muted">and ${r.long_shots.length - 3} more long shots</p>` : ""}</div>
     <div class="gauges">${gauge(r.fulfilment, "Satisfaction", "var(--sat)", "Their satisfaction, averaged over every week from 18 on.")}${gauge(r.serenity, "Peace", "var(--peace)", "Their peace, averaged over every week from 18 on.")}${gauge(r.integrity, "True to self", "var(--gold)", "1 minus the average reluctance of the choices you pushed on them. Choices left to them count as fully their own.")}${r.gifts != null ? gauge(r.gifts, "Their gifts", "var(--want)", "At each moment, their skill in the ways the chosen act used, against their best skill; averaged over every choice.") : ""}</div>
     <div class="muted center pnote">How well they lived is satisfaction and peace. How much the life was their own is being true to themselves and using their gifts. It is a reading, not a score.</div>
@@ -4447,7 +4539,11 @@ document.addEventListener("keydown", (e) => {
     const max = hud.cp.options.length;
     digitBuf += e.key; clearTimeout(digitTimer);
     // the number on the card (shown in order, without gaps) is mapped back to the engine's own option number
-    const fire = () => { const n = +digitBuf; digitBuf = ""; const o = CPNUM.size ? CPNUM.get(n) : hud.cp.options.find((x) => x.n === n); if (o) send(o.own ? "" : String(o.n)); };
+    const fire = () => {
+      const n = +digitBuf; digitBuf = ""; const o = CPNUM.size ? CPNUM.get(n) : hud.cp.options.find((x) => x.n === n);
+      if (o && o.status === "out of reach" && !oorOpen && openOOR) return openOOR(n);   // a folded card is shown first
+      if (o) send(o.own ? "" : String(o.n));
+    };
     if (max >= 10 && digitBuf === "1") digitTimer = setTimeout(fire, 450); else fire();
     return;
   }

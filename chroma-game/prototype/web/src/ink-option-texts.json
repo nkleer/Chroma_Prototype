@@ -1,5 +1,5 @@
 {
- "about": "The option texts the visuals thread drew chroma-art/game/ink-icons.json's map.option for: the Library's final staged batch of 2026-10-07 (chroma-library/staging/next3/earth.py, earth_science.py, earth_politics.py, earth_stage.py; situations and echoes, which hold the outer-world, identity, child-illness and pregnancy additions and the Packs round 5), moment by moment in the same order, the main (earth) wording. The icon is shared by the tribal and magic wordings of the same option. live_icons.py keeps an icon only where the game's batch has the same text.",
+ "about": "The option texts the visuals thread drew chroma-art/game/ink-icons.json's map.option for: the Library's final staged batch of 2026-10-07 (chroma-library/staging/next3/earth.py, earth_science.py, earth_politics.py, earth_stage.py; situations and echoes, which hold the outer-world, identity, child-illness and pregnancy additions and the Packs round 5), moment by moment in the same order, the main (earth) wording. The icon is shared by the tribal and magic wordings of the same option. live_icons.py keeps an icon only where the game's batch has the same text. 2026-10-09: three texts follow the live Library's rewording ('a strike vote at work' 5, 'a march on a working day' 5, 'a landslide on election night' 2); their icons are unchanged.",
  "option": {
   "a performance review": [
    "fill in the self-assessment honestly, weak spots included",
@@ -5719,7 +5719,7 @@
    "vote no, and let the boss know you will keep working through any strike",
    "vote yes, then hold the picket line at the gate every morning, rain or shine",
    "go with whatever your own shift decides, as you always have",
-   "stand for union rep, and run the walkout by the book",
+   "help the union rep run the walkout by the book",
    "work out a deal that keeps every job, and put it to both sides",
    "broker it quietly: a better offer, and you will sell it to the floor",
    "stand up at the meeting and demand to see the real books",
@@ -5731,7 +5731,7 @@
    "slip out at lunch, get seen by the organisers, and be back by two",
    "walk out at eleven without asking, and take the others with you",
    "stay at work with the old hands; laws like this come and go",
-   "join the group behind the march, and take a regular turn on its rota",
+   "help the organisers carry the banner at the front of the march",
    "send the march details round the whole firm on the work email list",
    "cover the empty desks, in return for a place on the course you want",
    "grab the megaphone at the rally, and make sure the cameras catch your face",
@@ -5752,7 +5752,7 @@
   "a landslide on election night": [
    "accept the result, whichever way you voted, and say so in public",
    "stay up with the numbers until dawn, working out why the country turned",
-   "join the winning party the next morning, for the doors it will open",
+   "go to the winning party's open meeting the next morning, for the doors it will open",
    "skip the results, go out dancing, and hear who won in the morning",
    "sit up with the family elders, who have seen governments come and go",
    "write to your new representative that night, setting out what the town needs",
