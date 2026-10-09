@@ -1494,6 +1494,12 @@ ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0)}
 BUDGET = dict(career=1 / 3, summit=1 / 20, community=10.0, summit_floor=0.001,   # each summit in 1 life in 1,000 or more
               rung_cap=1.0,   # the lift raises a rung's yearly rate by at most e^1 (steps keep their pace)
               act_cap=0.7)    # and the odds of an act that gives one by at most e^.7, about double (Emren 14:41)
+# The floors (item 16; Emren 10-09: "0.1% is not playable. Rare titles must be more reachable"): every summit in 1 life
+# in 100 or more (the summit budget from 1 in 20 to about 1 in 7 to hold ten to twelve of them), every career above 1 in
+# 100 (1.5%), and every other title of one's own doing and every perk in 1 life in 100 or more. Statuses keep their real
+# shares: what befalls a life (refugee, widowed) is not a prize to make reachable. Off until the v22.3 refit: they apply
+# when batch.FLOORS is True, over BUDGET (tools/tier_fit.py: FLOORS=1).
+BUDGET_FLOORS = dict(summit=0.15, summit_floor=0.01, career_floor=0.015, title_floor=0.01, perk_floor=0.01)
 # The fitted logit lift per tier, on the odds of the acts that give a pack career or summit and on their background rates,
 # per set of packs on (",".join(sorted(packs))); "split": the extra lift per summit that brings each to its share of the
 # summit budget (the square root of its real share). calib_v8/tier_fit.py writes it.
