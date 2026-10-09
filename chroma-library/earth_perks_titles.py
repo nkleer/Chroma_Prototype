@@ -2014,6 +2014,13 @@ TITLES += [
        gained="pushing at the palace gates in 'the old order falls'",
        lost="never",
        needs="the old order falling in their lifetime"),
+  dict(name="founder of a movement", kind="status", ways="",   # stage 3, C5 (stage3-rules.md section 5)
+       meets="need:meaning+.05 need:autonomy+.03", lasts="life",
+       ages=(25, 110), share=.001,   # estimate: 'a following of your own' reaches at most about 1 life in 1,000
+       say="the founder of a movement",
+       gained="founding a movement of their own in 'a following of your own'",
+       lost="never",
+       needs="a new movement founded in their lifetime, by them"),
   dict(name="known as a strike-breaker", kind="status", ways="",
        meets="need:belonging-.05 res:ties-.03", lasts=15,   # memories at work fade; 15 caps it
        ages=(18, 90), share=.02,   # estimate: about 3 lives in 10 meet a strike ballot, few keep working through it

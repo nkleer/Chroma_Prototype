@@ -28811,6 +28811,464 @@ SITUATIONS = [
     ('join the savers suing the bank for every last thing it owes', 'W.5 B.5', None, 0.5, '', {'v': 'power, security', 'lever': 'voice', 'pushes': 'institution bank', 'chance': 0.4}),
     ('sit down with a free adviser and draw up a slow plan to rebuild', 'W.5 U.5', None, 0.5, '', {'v': 'security, conformity', 'chance': 0.7}),
  ]},
+{'name': 'new owners take over the firm',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 75),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'mixed',
+ 'life': 'work, money',
+ 'horizon': 'months',
+ 'roles': 'boss, colleague, partner, friend',
+ 'at': 'employer',
+ 'worlds': {'earth': 'the firm you work for has been sold, and the new owners come in on Monday'},
+ 'timing': {'times': 'World event: institution sold, selector staff. A private firm or bank is sold at about 2 in '
+                     '100 a year, twice that when its money is short (stage3-rules section 5 C3), so a person in '
+                     'private work sees their employer change hands once or twice in a working life (estimate); '
+                     'about 6 in 10 of its staff face a real choice to stay or go (share .6, estimate)',
+            'likelier': 'a firm in money trouble; a small firm in a sector of big players; a bank after a bad year',
+            'rarer': 'public bodies, which are never sold; a family firm with heirs who want to keep it',
+            'gap_years': (5.0, 20.0)},
+ 'scenes': {'earth': [('',
+                       'The email comes at four on a Friday: the firm has been sold. On Monday there is a new name '
+                       'on the door, a new boss from the head office, and a meeting for all staff.'),
+                      ('W',
+                       '{N} always knew what the job asked. Now nobody knows: the old rules may hold or may not, and '
+                       'the new owners have not said.'),
+                      ('U',
+                       '{N} looks up the new owners that weekend: what they bought before, and what happened to the '
+                       'staff there within a year.'),
+                      ('B',
+                       'Every takeover has winners. {N} watches who the new managers smile at in the first meeting, '
+                       'and who they do not.'),
+                      ('R',
+                       'The old {boss} cleared a desk on Friday without a word to anyone. {N} is angry: nobody asked '
+                       'the people who do the work.'),
+                      ('G',
+                       '{N} has worked there for years, through three bosses and two moves. On Monday the place '
+                       'feels the same, and also not.')]},
+ 'outcomes': (['The new owners keep most of what worked, and {N} finds solid ground under the new name.',
+               'A year on, {N} is glad of the choice made in that first uneasy month.'],
+              ['The new owners bring in their own people, and {N} is left on the edge of everything.',
+               'The promises of the first meeting do not last the year, and {N} pays for having believed them.']),
+ 'options': [
+    ("stay on, learn the new owners' rules, and do the job as well as ever", 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.67}),
+    ("read up on the new owners' past deals before deciding anything", 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.65}),
+    ('get to the new managers first, and make yourself the one they rely on', 'B1', None, 0.45, '', {'v': 'power, achievement', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.67}),
+    ('hand in your notice the week the new name goes up over the door', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'lever': 'exit', 'pushes': 'institution employer', 'chance': 0.77}),
+    ('keep doing your hours, and wait to see what the year brings', 'G1', None, 0.45, '', {'v': 'security, tradition', 'lever': 'neglect', 'chance': 0.57}),
+    ('ask the new owners in writing what happens to pay, pensions and jobs', 'W.5 U.5', None, 0.5, '', {'v': 'security, conformity', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.6}),
+    ("speak for the whole team at the new owners' first staff meeting", 'W.5 R.5', None, 0.5, '', {'v': 'benevolence, universalism', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.56}),
+    ('line up another post quietly, and stay until the new plan is clear', 'U.5 G.5', None, 0.5, '', {'v': 'security, self-direction', 'chance': 0.6}),
+    ('ask for a rise as the price of staying, and mean it', 'B.5 R.5', None, 0.5, '', {'v': 'power, achievement', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.4}),
+    ('take the payout offered to anyone who leaves, and put it by', 'B.5 G.5', None, 0.5, '', {'v': 'security', 'lever': 'exit', 'pushes': 'institution employer', 'chance': 0.76}),
+ ]},
+{'name': 'folded into a bigger firm',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 75),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'work, money',
+ 'horizon': 'months',
+ 'roles': 'colleague, boss, partner, friend',
+ 'at': 'employer',
+ 'worlds': {'earth': 'the firm you work for is being folded into a bigger rival, and some jobs will go'},
+ 'timing': {'times': 'World event: institution merged, selector staff. A firm with a rival of its own sector in the '
+                     'same place is folded into the bigger one at about 1 in 100 a year; its staff move across, and '
+                     'about a quarter of them face three times the usual risk of losing the job that quarter '
+                     '(stage3-rules section 5 C3); a person meets it about once in a working life, many never '
+                     '(estimate); share .7',
+            'likelier': 'a small firm in a crowded sector; a town with two firms doing the same work; hard times',
+            'rarer': 'public bodies; a firm with no rival nearby',
+            'gap_years': (8.0, 25.0)},
+ 'scenes': {'earth': [('',
+                       'The smaller firm is being folded into the big one across town. There is a new chart on the '
+                       'wall with fewer boxes than people, and {colleague} says a quarter of the posts will go by '
+                       'spring.'),
+                      ('W',
+                       '{N} wants the cuts made fairly: by clear rules, with notice, and the same for everyone.'),
+                      ('U',
+                       '{N} lays the two charts side by side and sees which jobs the bigger firm already has twice.'),
+                      ('B',
+                       'Someone will decide who stays. {N} means to be known to that someone before the list is '
+                       'drawn up.'),
+                      ('R',
+                       "Twenty years of the old firm's name, gone in an afternoon. {N} is furious, and not good at "
+                       'hiding it.'),
+                      ('G',
+                       'The old team has eaten lunch together every day for years. {N} wonders who will still be at '
+                       'the table by summer.')]},
+ 'outcomes': (['{N} comes through the merger with a job and the trust of the people who stayed.',
+               'The new firm turns out larger, slower and safer, and {N} makes a place in it.'],
+              ["{Ns} name is on the second list, and the notice comes with a month's pay.",
+               'The old team breaks up within the year, and the new place never feels like {Ns} own.']),
+ 'options': [
+    ('apply for your post in the new structure, properly and on time', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.72}),
+    ('work out where your role stands on the new chart before anyone says', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.67}),
+    ('make sure whoever draws up the cuts knows your name and your numbers', 'B1', None, 0.45, '', {'v': 'power, achievement', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.65}),
+    ('leave before the choice is made over your head, and say why on the way out', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'lever': 'exit', 'pushes': 'institution employer', 'chance': 0.62}),
+    ('stick with the old team, whatever the new chart says', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'lever': 'loyalty', 'pushes': 'group work', 'chance': 0.57}),
+    ('throw a send-off for everyone from the old firm, the leavers first', 'R.5 G.5', None, 0.5, '', {'v': 'benevolence, hedonism', 'pushes': 'group work', 'chance': 0.8}),
+    ('volunteer for the team that maps the old jobs onto the new ones', 'U.5 B.5', None, 0.5, '', {'v': 'power, achievement', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.6}),
+    ('retrain for the work the bigger firm is short of', 'U.5 G.5', None, 0.5, '', {'v': 'security, achievement', 'mark': 'learned a skill', 'chance': 0.56}),
+    ('ask the union what the law owes the staff, and hold the firm to it', 'W.5 B.5', None, 0.5, '', {'v': 'security, universalism', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.6}),
+    ('stand up for the colleague whose post is first on the list', 'W.5 R.5', None, 0.5, '', {'v': 'benevolence, universalism', 'mark': 'helped someone in need', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.46}),
+ ]},
+{'name': 'the state takes over the failing firm',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 75),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'mixed',
+ 'life': 'work, money, state',
+ 'horizon': 'months',
+ 'roles': 'boss, colleague, partner',
+ 'at': 'employer',
+ 'worlds': {'earth': 'the firm you work for was days from closing; now the government has taken it over'},
+ 'timing': {'times': 'World event: institution nationalised, selector staff. In a deep recession about half the '
+                     'closures of big firms and banks become public bodies where the state is able to step in '
+                     '(stage3-rules section 5 C3); a person meets it at most once in a working life, and most never '
+                     '(estimate); share .7',
+            'likelier': 'a deep recession; a big employer in a small town; a strong state',
+            'rarer': 'good times; a small firm; a weak or broke state',
+            'gap_years': (20.0, 50.0)},
+ 'scenes': {'earth': [('',
+                       'For weeks the talk was of closure. Then, on a Monday, the government takes the firm over: '
+                       'the jobs stay, the bosses go, pay is frozen, and there are new forms for everything.'),
+                      ('W',
+                       'The new rules come in a thick binder. {N} reads every page: it is a public service now, and '
+                       '{N} wants to do it right.'),
+                      ('U',
+                       '{N} wants to know how a public body decides things: who sits on the board, who sets the '
+                       'budget, and how slow it will be.'),
+                      ('B',
+                       'Old managers are leaving and new posts are opening. {N} sees a ladder where others see a '
+                       'binder.'),
+                      ('R', '{N} never signed up to work for the government, and does not like being saved by it.'),
+                      ('G',
+                       'The jobs are safe. {N} goes home and tells {partner}, and the two of them sit in the kitchen '
+                       'for a while without speaking.')]},
+ 'outcomes': (['The firm settles into its new life, slower and steadier, and {N} with it.',
+               'A year on, the jobs are still there and {N} has learned how the new place works.'],
+              ['The new rules pile up faster than the work, and {N} spends the year on forms.',
+               'The rescue saves the firm but not every post, and the cuts reach {Ns} floor after all.']),
+ 'options': [
+    ('sign the new public contract and keep to its rules from the first day', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.77}),
+    ('learn how the public body works: its board, its budget, its rules', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.72}),
+    ('put yourself forward for one of the posts the old managers left', 'B1', None, 0.45, '', {'v': 'power, achievement', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.65}),
+    ('leave for a private firm rather than work for the government', 'R1', None, 0.45, '', {'v': 'self-direction', 'lever': 'exit', 'pushes': 'institution employer', 'chance': 0.7}),
+    ('stay for the steady job and the pension, and be glad of them', 'G1', None, 0.45, '', {'v': 'security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.6}),
+    ('get the redundancy terms the old firm promised in writing, just in case', 'B.5 G.5', None, 0.5, '', {'v': 'security, power', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.7}),
+    ('throw a party in the yard for the jobs that were saved', 'R.5 G.5', None, 0.5, '', {'v': 'hedonism, benevolence', 'mark': 'made a friend', 'pushes': 'group work', 'chance': 0.7}),
+    ('find out which old contracts the new body will honour, and be the one who knows', 'U.5 B.5', None, 0.5, '', {'v': 'power, achievement', 'chance': 0.6}),
+    ('speak up at the handover meeting for the service the town depends on', 'W.5 R.5', None, 0.5, '', {'v': 'universalism', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.5}),
+    ("help write the new body's working rules so they are clear and fair", 'W.5 U.5', None, 0.5, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.56}),
+ ]},
+{'name': 'the private files get out',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 75),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'work, community',
+ 'horizon': 'weeks',
+ 'roles': 'boss, colleague, friend',
+ 'at': 'employer',
+ 'worlds': {'earth': 'the private records of the place you work have leaked, and angry customers ring whoever picks '
+                     'up the phone'},
+ 'timing': {'times': 'World event: institution leak, selector staff (customers, patients and residents, selector '
+                     'place, get the world line). Firms, banks, hospitals and councils leak at about 2 in 100 a '
+                     'year, more where nearly everyone is online and the state is weak (stage3-rules section 5 C3); '
+                     'a person in such work meets one every 15 to 30 years (estimate); share .5',
+            'likelier': "a place that holds many people's records (a bank, a hospital, a council); a weak state; old "
+                        'computers',
+            'rarer': 'a small firm with few records; strong inspectors',
+            'gap_years': (5.0, 20.0)},
+ 'scenes': {'earth': [('',
+                       'The private records of the place where {N} works are all over the internet: names, '
+                       'addresses, accounts. The phones have not stopped since nine, and the bosses have sent one '
+                       'email that says nothing.'),
+                      ('W',
+                       '{N} has a procedure for most things. For this one, the procedure is to give every caller a '
+                       'number nobody answers.'),
+                      ('U',
+                       '{N} wants to know how it got out: an attack from outside, a lost laptop, or someone inside.'),
+                      ('B', 'Somebody will be blamed for this. {N} means to make sure it is someone else.'),
+                      ('R',
+                       'The callers are scared and furious, and {N} is the one who has to hear it while the bosses '
+                       'hide upstairs.'),
+                      ('G',
+                       '{N} keeps thinking of {friend}, whose name is on that list too, and of all the people in '
+                       'town who trusted the place.')]},
+ 'outcomes': (['The storm passes in a few weeks, and {N} keeps the trust of the people on the other end of the '
+               'phone.',
+               'The bosses change how the records are kept, and {Ns} part in it is noticed.'],
+              ['The bosses look for someone to blame, and {N} stands close enough to be looked at hard.',
+               'Angry callers, silent bosses: {N} ends the month worn out and caught between the two.']),
+ 'options': [
+    ("follow the bosses' script to the letter, and pass every complaint up the line", 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.67}),
+    ('trace how the records got out, and write it up for the bosses', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.65}),
+    ('keep your own part clean, and let the blame land where it falls', 'B1', None, 0.45, '', {'v': 'security, power', 'chance': 0.62}),
+    ("tell the callers the truth, whatever the bosses' script says", 'R1', None, 0.45, '', {'v': 'universalism, stimulation', 'mark': 'defied an authority', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.65}),
+    ('ring friends whose names are on the list, and help them lock their accounts', 'G1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'chance': 0.55}),
+    ('change your own passwords and bank details tonight, before anything else', 'B.5 G.5', None, 0.5, '', {'v': 'security', 'tech': 'internet', 'chance': 0.7}),
+    ('stay on the line with the frightened callers as long as they need', 'R.5 G.5', None, 0.5, '', {'v': 'benevolence', 'chance': 0.6}),
+    ('tell the reporter who rings what you saw, without giving your name', 'U.5 R.5', None, 0.5, '', {'v': 'universalism, stimulation', 'lever': 'subvert', 'pushes': 'institution employer', 'chance': 0.5}),
+    ('press the bosses to tell every customer plainly what was lost', 'W.5 B.5', None, 0.5, '', {'v': 'universalism, security', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.46}),
+    ('draw up a plain guide for callers on what to do now, and share it round', 'W.5 U.5', None, 0.5, '', {'v': 'benevolence, universalism', 'chance': 0.6}),
+ ]},
+{'name': 'the thing the bosses are hiding',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 75),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'work, conscience',
+ 'horizon': 'months',
+ 'roles': 'boss, colleague, partner, friend',
+ 'at': 'employer',
+ 'worlds': {'earth': 'you find out the place you work is hiding a wrong: safety checks never done, and the money for '
+                     'them gone elsewhere'},
+ 'timing': {'times': 'World event: institution cover-up, selector staff. Hospitals, banks, councils, police and '
+                     'faith bodies start a cover-up at about 0.5 in 100 a year, plus more where corruption runs '
+                     'high, and keep it hidden for 1 to 5 years (stage3-rules section 5 C3); only some insiders come '
+                     'to know (share .3, estimate), so a person meets it perhaps once in a working life and many '
+                     'never. A speak-up by an insider makes the scandal break that quarter',
+            'likelier': 'a place with high corruption; a body under money pressure; a job near the records, the '
+                        'accounts or the safety checks',
+            'rarer': 'a small open firm; strong inspectors and a free press',
+            'gap_years': (10.0, 30.0)},
+ 'scenes': {'earth': [('',
+                       '{N} finds it by accident, in a file that should never have been shared: the safety checks '
+                       'signed off last year were never done, and the money for them went elsewhere. The people at '
+                       'the top know, and have decided to say nothing.'),
+                      ('W',
+                       'There are rules for this, and a duty. {N} knows what a proper report would look like, and '
+                       'who it should go to.'),
+                      ('U', '{N} reads the file three times and checks the dates. This was no mistake.'),
+                      ('B',
+                       '{N} knows something the bosses would give a lot to keep quiet, and knows too what happens to '
+                       'people who make trouble.'),
+                      ('R',
+                       '{N} cannot sleep. People trust this place, and the people at the top are lying to them.'),
+                      ('G',
+                       '{N} has a family, a mortgage and friends on every floor. Speaking up could cost all of it, '
+                       'and silence costs something too.')]},
+ 'outcomes': (['The matter is settled one way or another, and {N} can live with the part {N} played.',
+               'Months later {N} still has a livelihood, and the choice made in that sleepless week holds.'],
+              ['The bosses find out who knew, and {Ns} days there turn hard.',
+               'The wrong goes on, and {N} carries the weight of it for years.']),
+ 'options': [
+    ('report it in writing to the board, and sign it with your own name', 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism, conformity', 'mark': 'defied an authority', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.57}),
+    ('copy every document quietly and keep it safe before deciding anything', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.52}),
+    ('say nothing, and let the bosses see they can rely on your silence', 'B1', None, 0.45, '', {'v': 'power, security', 'mark': 'hid a wrong', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.55}),
+    ('take what you know to a reporter, and let the whole town hear it', 'R1', None, 0.45, '', {'v': 'universalism, stimulation', 'mark': 'made an enemy', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.58}),
+    ('hand in your notice, and find work you can do with a clear conscience', 'G1', None, 0.45, '', {'v': 'security, universalism', 'lever': 'exit', 'pushes': 'institution employer', 'chance': 0.47}),
+    ('let your boss see you know, and ask for the promotion you were denied', 'B.5 R.5', None, 0.5, '', {'v': 'power', 'mark': 'hid a wrong', 'closed': 'approval: trading silence for a promotion; backfire: the bosses never trust {N} again', 'lever': 'subvert', 'pushes': 'institution employer', 'chance': 0.54}),
+    ('send the papers to the inspectors without your name on them', 'U.5 B.5', None, 0.5, '', {'v': 'universalism, security', 'lever': 'subvert', 'pushes': 'institution employer', 'chance': 0.46}),
+    ('put things right in your own corner, quietly, and keep a note of everything', 'U.5 G.5', None, 0.5, '', {'v': 'benevolence, security', 'chance': 0.6}),
+    ('talk to the others who know, and go to the bosses together', 'W.5 G.5', None, 0.5, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.56}),
+    ('raise it out loud at the next staff meeting, in front of everyone', 'W.5 R.5', None, 0.5, '', {'v': 'universalism, stimulation', 'mark': 'defied an authority', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.4}),
+ ]},
+{'name': 'a new faith comes to town',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'mixed',
+ 'life': 'faith, meaning, community',
+ 'horizon': 'months',
+ 'roles': 'friend, grandparent, parent, sibling',
+ 'at': 'faith body',
+ 'worlds': {'earth': 'a new faith has come to town: its people sing in the square, and some say wonders happen at '
+                     'its meetings'},
+ 'timing': {'times': 'World event: new movement, selector place. A new movement is founded at about 1 in 100 a year, '
+                     'more when meaning goes unmet, and grows in a few places before most fade (about 9 in 10 within '
+                     '20 years; Stark 1996; stage3-rules section 5 C5); a person sees one come to their own town '
+                     'perhaps once or twice in a life (estimate); share .3',
+            'likelier': 'uneasy times; many young people without work or purpose; a town where the old faiths have '
+                        'grown thin',
+            'rarer': 'secure and settled times; a closed regime that bans gatherings; a remote place',
+            'gap_years': (10.0, 40.0)},
+ 'scenes': {'earth': [('',
+                       'The followers of {movement} have rented the old cinema and fill it three nights a week. They '
+                       "sing in the square on market day, and people say a man's bad leg was healed at one of their "
+                       'meetings, though nobody {N} knows saw it happen.'),
+                      ('W',
+                       '{N} was raised to keep one faith, and its elders are worried. Two families on the street '
+                       'have already gone over to {movement}.'),
+                      ('U',
+                       '{N} picks up one of their leaflets and reads it twice: where does {movement} come from, and '
+                       'what does it ask of the people who join?'),
+                      ('B',
+                       'The followers of {movement} are many, hopeful and in need of a hall, printing and a great '
+                       'many chairs. {N} notices.'),
+                      ('R',
+                       '{friend} went to one meeting and came back glowing, talking fast about a new life. {N} wants '
+                       'to know what that feels like.'),
+                      ('G',
+                       '{grandparent} has seen new faiths come and go. Most of them, {grandparent} says, are gone in '
+                       'ten years, and a few stay for ever.')]},
+ 'outcomes': (['Whatever {N} makes of {movement}, {N} comes to it with open eyes and does not regret the choice.',
+               'The stir in town settles, and {N} knows where {N} stands.'],
+              ['{movement} splits the street in two, and {N} ends up on a side with fewer friends than before.',
+               'The talk of wonders turns sour, and {N} is caught up in the quarrel that follows.']),
+ 'options': [
+    ("stand with your own faith's elders, and warn the neighbours off the new movement", 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'voice', 'pushes': 'belief', 'chance': 0.65}),
+    ("study the new movement's teachings for a season, then join it on your own terms", 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, universalism', 'title': 'convert', 'pushes': 'belief', 'chance': 0.6}),
+    ('rent the new movement a hall at a good price, and sell them the chairs', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.75}),
+    ('go to one of their open nights, for the singing and the stir of it', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'chance': 0.65}),
+    ('hold to the faith you were raised in, and say so when they come knocking', 'G1', None, 0.45, '', {'identity': True, 'v': 'tradition, security', 'lever': 'loyalty', 'pushes': 'belief', 'chance': 0.6}),
+    ('join the new movement for the friends and the standing, and rise fast in it', 'B.5 R.5', None, 0.5, '', {'v': 'power, achievement', 'pushes': 'belief', 'chance': 0.5}),
+    ('let the fuss pass, and spend your weekends as you always have', 'R.5 G.5', None, 0.5, '', {'v': 'hedonism, security', 'lever': 'neglect', 'chance': 0.7}),
+    ('ask the friend who joined how it has changed their life, and really listen', 'U.5 G.5', None, 0.5, '', {'v': 'benevolence, universalism', 'chance': 0.6}),
+    ("ask the council to check the new movement's permits and its money", 'W.5 B.5', None, 0.5, '', {'v': 'security, power', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.5}),
+    ("read the new movement's teachings side by side with those of your own faith", 'W.5 U.5', None, 0.5, '', {'v': 'tradition, self-direction', 'chance': 0.7}),
+ ]},
+{'name': 'the hall on the corner is shut',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'faith, family, community',
+ 'horizon': 'months',
+ 'roles': 'sibling, parent, friend, elder',
+ 'at': 'faith body',
+ 'worlds': {'earth': 'the town is split between two faiths: a hall has been shut after weeks of protests, and the '
+                     'quarrel has reached your own family'},
+ 'timing': {'times': 'World event: faith tension, selector place. Two faiths each held by over 5 in 100, far apart '
+                     'and with low trust, fall into a tense stretch (stage3-rules section 5 C5); a person in such a '
+                     'place lives through one perhaps once in a life, in some places more often (estimate); share .4',
+            'likelier': 'a town with two large faiths far apart; low trust; hard times; a new movement growing fast',
+            'rarer': 'a town of one faith or of few believers; high trust; good times',
+            'gap_years': (10.0, 40.0)},
+ 'scenes': {'earth': [('',
+                       'The council has shut the hall on the corner after three weekends of protests outside it. The '
+                       'two faiths of the town keep to their own streets now, and {sibling}, who married into the '
+                       'other one, no longer comes to the family meal.'),
+                      ('W',
+                       '{N} grew up with one rule above the others: family comes before every quarrel. The rule is '
+                       'being tested.'),
+                      ('U', '{N} has heard two stories about why the hall was shut, and neither of them adds up.'),
+                      ('B',
+                       'People are choosing sides, and the ones who choose late will be remembered. {N} weighs which '
+                       'side the town will end up on.'),
+                      ('R',
+                       'Every weekend the protesters shout at each other across the street, and {N} is sick of it, '
+                       'or ready to join in.'),
+                      ('G',
+                       '{parent} sits by the window watching the shut hall. "It was never like this," {parent} says, '
+                       'and nobody answers.')]},
+ 'outcomes': (['In time the hall opens again, and {Ns} family sits down together, if carefully.',
+               'The worst of it passes, and {N} can live with where {N} stood.'],
+              ['The quarrel outlasts the year, and a chair at {Ns} table stays empty.',
+               'The town hardens into two halves, and {N} is trusted by neither.']),
+ 'options': [
+    ('keep the family table open to all, with one rule: no arguing at meals', 'W1', None, 0.45, '', {'v': 'tradition, benevolence', 'lever': 'loyalty', 'pushes': 'close', 'chance': 0.6}),
+    ('sit down with someone from the other faith, and hear their side out', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'mark': 'made a friend', 'pushes': 'belief', 'chance': 0.7}),
+    ('side firmly with your own faith, and let the whole street see it', 'B1', None, 0.45, '', {'identity': True, 'v': 'power, conformity', 'mark': 'made an enemy', 'lever': 'loyalty', 'pushes': 'belief', 'chance': 0.55}),
+    ('stand outside the shut hall with those who want it open again', 'R1', None, 0.45, '', {'v': 'universalism, stimulation', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.65}),
+    ('keep out of it, and wait for the town to calm down', 'G1', None, 0.45, '', {'v': 'security', 'lever': 'neglect', 'chance': 0.6}),
+    ('move the family across town, away from the trouble', 'B.5 G.5', None, 0.5, '', {'v': 'security', 'lever': 'exit', 'chance': 0.6}),
+    ('help the elders of both halls find a quiet room to talk in', 'U.5 G.5', None, 0.5, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'belief', 'chance': 0.4}),
+    ('write an open letter to the town, asking both sides to stop', 'U.5 R.5', None, 0.5, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'culture', 'chance': 0.4}),
+    ('ask the council for firm rules on protests near any hall', 'W.5 B.5', None, 0.5, '', {'v': 'security, conformity', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.5}),
+    ('invite your brother or sister back to the family meal, whatever they now believe', 'W.5 R.5', None, 0.5, '', {'v': 'benevolence', 'mend': 'sibling', 'chance': 0.5}),
+ ]},
+{'name': 'a following of your own',
+ 'stages': 'adult mature elder',
+ 'age': (25, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 0.8,
+ 'rate': 0.3,
+ 'tier': 'inner',
+ 'tone': 'mixed',
+ 'life': 'faith, meaning, community',
+ 'horizon': 'years',
+ 'roles': 'friend, partner, mentor',
+ 'at': 'faith body',
+ 'worlds': {'earth': 'people have begun to gather to hear you speak about faith and meaning, and some want you to '
+                     'lead them'},
+ 'timing': {'times': 'World event: movement founding, selector place. A new movement is founded at about 1 in 100 a '
+                     'year (stage3-rules section 5 C5), so a would-be founder is very rare: at most about 1 life in '
+                     '1,000 meets this moment (estimate), and most who do turn it down. If the founding option is '
+                     "taken, the movement's colours become the founder's own and its growth scales with their reach",
+            'gap_years': (20.0, 60.0)},
+ 'trigger': {'requires': "the world's movement founding event in the person's place this year, with a free movement "
+                         "slot; unmet meaning high (the person's meaning below 0.4 for a year or more, and the "
+                         "place's unmet meaning in its top fifth); wide reach (social reach in the top tenth: many "
+                         'ties, a public voice, or a following in town or online); a faith or spiritual life held '
+                         'for 10 years or more (a faith commitment, or a spiritual practice kept); the Engine keeps '
+                         'it to at most about 1 life in 1,000 (estimate)',
+             'likelier': 'a teacher, preacher, healer or counsellor by trade; uneasy times; a place with many '
+                         'seekers and thin old faiths; a person others already come to for advice',
+             'rarer': 'a closed regime that bans gatherings; a place where few believe; low trust; a person who '
+                      'keeps to a small circle'},
+ 'scenes': {'earth': [('',
+                       'It began with a few people asking {N} to say more. Now forty come every week to hear {N} '
+                       'speak; they have begun to call themselves by a name, and they look to {N} to say what comes '
+                       'next.'),
+                      ('W',
+                       'The group needs a rule of life, a place to meet and someone to keep it all in order. They '
+                       'want that someone to be {N}.'),
+                      ('U',
+                       '{N} has thought for years about what people need to believe. Now the thoughts have '
+                       'listeners, and {N} is not sure they should.'),
+                      ('B',
+                       'People who hang on every word are a kind of power. {N} feels it, and knows what it can do to '
+                       'a person.'),
+                      ('R',
+                       'When {N} speaks, the room catches fire. {N} has never felt so alive, or so afraid of what it '
+                       'could become.'),
+                      ('G',
+                       '{N} only ever wanted to live close to what matters. Now strangers come up the lane to sit at '
+                       '{Ns} door.')]},
+ 'outcomes': (['A year on, {N} has made a choice {N} can live with, and the people who came are better for it.',
+               'Whatever the gathering becomes, it holds together, and {Ns} name is spoken kindly.'],
+              ['The gathering slips out of {Ns} hands, and others make it into something {N} never meant.',
+               'The people who hung on {Ns} words turn away hurt, and the quarrel lasts for years.']),
+ 'options': [
+    ("turn what you have learned over to an old faith's elders, and serve inside it", 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'loyalty', 'pushes': 'belief', 'chance': 0.6}),
+    ('write it all down as a book of thoughts, and keep it a book', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'chance': 0.7}),
+    ('turn the gatherings into a paid school for a better life', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.55}),
+    ('give the following a name, take the lead, and found the new movement', 'R1', None, 0.45, '', {'identity': True, 'v': 'self-direction, stimulation', 'mark': 'took a wild risk', 'title': 'founder of a movement', 'pushes': 'belief', 'chance': 0.35}),
+    ('tell the seekers to go home to their own families, and go back to your garden', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'chance': 0.8}),
+    ('set a date to end the gatherings, and keep it, so that everyone leaves free', 'W1', 'R.7', 0.5, '', {'v': 'universalism, self-direction', 'chance': 0.6}),
+    ('turn the circle into a quiet house of retreat, open to any faith or none', 'U1', 'G.7', 0.5, '', {'v': 'universalism, benevolence', 'chance': 0.5}),
+    ('register the group as a charity with a board, and hand the leading to others', 'B1', 'W.7', 0.5, '', {'v': 'security, conformity', 'chance': 0.65}),
+    ('take to the road alone, and keep searching where no one can follow', 'R1', 'U.7', 0.5, '', {'v': 'self-direction, stimulation', 'lever': 'exit', 'chance': 0.85}),
+    ('go quiet for a year, until only your true friends still come', 'G1', 'B.7', 0.5, '', {'v': 'security, benevolence', 'chance': 0.4}),
+ ]},
 {'name': 'a parent who longs for a grandchild',
  'stages': 'young_adult adult',
  'age': (24, 45),
@@ -29572,6 +30030,1081 @@ SITUATIONS = [
     ('become a citizen, so your family back home can follow', 'B1', 'G.7', 0.5, '', {'binds': True, 'v': 'benevolence, security', 'grants': 'citizenship', 'title': 'naturalised citizen', 'chance': 0.62}),
     ('put your name on the voting register at the town hall that same afternoon', 'R1', 'W.7', 0.5, '', {'v': 'universalism, conformity', 'grants': 'citizenship', 'title': 'naturalised citizen', 'chance': 0.82}),
     ('wait a few more years, until the new country truly feels like home', 'G1', 'U.7', 0.5, '', {'v': 'self-direction, tradition', 'chance': 0.76}),
+ ]},
+{'name': 'a season of bad air',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'health, home, community',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, child, friend, neighbours',
+ 'where': 'city, industry',
+ 'worlds': {'earth': 'you live through a summer when the air over the town turns thick and brown, and the doctors '
+                     'tell people to stay indoors'},
+ 'timing': {'times': "World event: bad air, selector place. The Engine's start rate is 30 in 100 a year in cities "
+                     'and industrial places, times one plus the heat extremes (stage3-rules C4); about 3 in 10 of '
+                     'the people living there feel it enough for it to be a moment (share .3, estimate), so in such '
+                     'a place a person meets it about once in 10 years (estimate)',
+            'likelier': 'a home on a busy road or near a works, a hot still summer, weak lungs, small children or '
+                        'old parents at home',
+            'rarer': 'a home far from the main roads, a cool windy year, work that keeps one indoors',
+            'gap_years': (2.0, 6.0)},
+ 'scenes': {'earth': [('',
+                       'For weeks a brown haze has hung over {place}. The air tastes of metal, the clinic is full of '
+                       'coughing people, and the morning news gives the air a number, like a fever.'),
+                      ('W',
+                       'The council has put out its advice: windows shut, no running outside, the old and the very '
+                       'young kept in. {N} knows advice only works if everyone keeps it.'),
+                      ('U',
+                       '{N} has found the sensor readings online, street by street, and the worst of them sit right '
+                       'beside the plant on the ring road.'),
+                      ('B',
+                       'The shop on the corner sold out of masks by noon and is charging double for the last box. '
+                       '{N} notices who is doing well out of the haze.'),
+                      ('R',
+                       '{N} is sick of being told to stay in. Everyone is short-tempered, and {friend} wants to go '
+                       'out anyway.'),
+                      ('G',
+                       '{grandparent} wheezes on the stairs, and {N} thinks of the hills outside town, where the air '
+                       'is still clean.')]},
+ 'outcomes': (['The haze lifts with the first autumn rain, and the household comes through it with nothing worse '
+               'than a cough.',
+               'The fuss over the air does some good: the council moves the lorries off the school road.'],
+              ["{N} spends three weeks with a chest that will not clear, in and out of the doctor's waiting room.",
+               'Nothing changes at the plant, and next summer the haze comes back thicker.']),
+ 'options': [
+    ("keep the household to the council's advice, windows shut and outings short", 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution council', 'chance': 0.8}),
+    ('check the readings each morning and plan every outing around the cleanest hours', 'U1', None, 0.45, '', {'habit': True, 'v': 'self-direction, security', 'chance': 0.85}),
+    ('buy a good air filter early, before the price climbs, and sell on the spare', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.85}),
+    ('go out anyway and run your usual route, haze or no haze', 'R1', None, 0.45, '', {'habit': True, 'body': 'light', 'v': 'stimulation, self-direction', 'chance': 0.7}),
+    ('take the family to the relatives in the hills until the haze lifts', 'G1', None, 0.45, '', {'v': 'security, benevolence', 'lever': 'exit', 'pushes': 'place', 'chance': 0.6}),
+    ("gather the street's readings and take them to the council meeting", 'W.5 U.5', None, 0.5, '', {'v': 'universalism', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.55}),
+    ('join the march to the plant gates demanding they cut the smoke', 'W.5 R.5', None, 0.5, '', {'v': 'universalism, stimulation', 'mark': 'defied an authority', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.45}),
+    ('plant a thick hedge by the road and fill the house with air-cleaning plants', 'U.5 G.5', None, 0.5, '', {'v': 'universalism, security', 'chance': 0.65}),
+    ('take the cleaning-crew work nobody else wants this summer, at triple pay', 'B.5 R.5', None, 0.5, '', {'body': 'light', 'v': 'achievement, stimulation', 'chance': 0.75}),
+    ('wait it out indoors and use the weeks to put your own affairs in order', 'B.5 G.5', None, 0.5, '', {'v': 'security, achievement', 'lever': 'neglect', 'pushes': 'place', 'chance': 0.8}),
+ ]},
+{'name': 'the river runs foul',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'community, health, home',
+ 'horizon': 'months',
+ 'roles': 'boss, friend, colleague, neighbours, parent',
+ 'where': 'industry, mining',
+ 'at': 'council',
+ 'worlds': {'earth': 'the river through your town is fouled by the works upstream, and the town fights over who is '
+                     'to blame'},
+ 'timing': {'times': "World event: poisoned river (also bad water), selector place. The Engine's start rate in "
+                     'industrial and mining places is 2 in 100 a year for bad water and 5 in 1,000 for a poisoned '
+                     'river (stage3-rules C4); the fight over the blame reaches about 4 in 10 residents (share .4, '
+                     'estimate), so about once in a long life in such a place (estimate)',
+            'likelier': 'a home downstream of a works or a mine, weak oversight, a firm that employs much of the '
+                        'town, a family that fishes or farms by the water',
+            'rarer': 'a town with strong inspectors, a home far from the river, a firm with nothing to hide',
+            'gap_years': (5.0, 20.0)},
+ 'scenes': {'earth': [('',
+                       'The fish came up belly-first on Tuesday. By Thursday the tap water smells of chemicals, the '
+                       'council has put warning signs along the bank, and everyone in {place} has a theory about '
+                       'whose pipe it came from.'),
+                      ('W',
+                       'The works has a permit, and the permit has rules. Someone broke them, and {N} wants it named '
+                       'and put right properly.'),
+                      ('U',
+                       '{N} has seen the stain in the water below the outfall, and wants a proper sample tested '
+                       'before anyone starts shouting.'),
+                      ('B',
+                       'The works employs half the town, {boss} included. Whoever wins the fight over the blame will '
+                       'have a say over {place} for years.'),
+                      ('R', '{N} grew up swimming in that river. Somebody poisoned it, and {N} is furious.'),
+                      ('G',
+                       'The herons have gone from the bend below the bridge. {N} wonders how many years the river '
+                       'will need to heal.')]},
+ 'outcomes': (['The firm pays for the clean-up, and by the next summer children are swimming at the bend again.',
+               'The fight over the blame ends in new rules at the works, and {N} had a hand in them.'],
+              ['The firm blames a contractor, the contractor blames the rain, and nobody pays.',
+               'The quarrel splits the street between those who work at the plant and those who do not.']),
+ 'options': [
+    ("file a formal complaint and ask the council to enforce the works' permit", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.7}),
+    ('take water samples at the outfall and send them away for testing', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'mark': 'learned a skill', 'chance': 0.75}),
+    ('speak for the works at the council hearing, and keep your place on its good side', 'B1', None, 0.45, '', {'v': 'power, security', 'mark': 'made an enemy', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.75}),
+    ('stand up at the council meeting and name the firm to its face', 'R1', None, 0.45, '', {'v': 'stimulation, universalism', 'mark': 'made an enemy', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.6}),
+    ('buy water in bottles, keep everyone away from the river, and wait for it to clear', 'G1', None, 0.45, '', {'v': 'security, benevolence', 'lever': 'neglect', 'pushes': 'place', 'chance': 0.8}),
+    ("help draft the council's report on what went wrong and who must pay", 'W.5 U.5', None, 0.5, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.5}),
+    ('get the neighbours together to clear the dead fish and fence off the worst stretch', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, universalism', 'mark': 'helped someone in need', 'chance': 0.7}),
+    ("post the test results online, with the firm's name, before anyone can bury them", 'U.5 R.5', None, 0.5, '', {'v': 'self-direction, universalism', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.55}),
+    ('sign up to the group claim against the firm and push hard for a payout', 'B.5 R.5', None, 0.5, '', {'v': 'power, achievement', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.6}),
+    ('sell your plot by the river quietly, before the prices fall', 'B.5 G.5', None, 0.5, '', {'v': 'security, power', 'lever': 'exit', 'pushes': 'place', 'chance': 0.55}),
+ ]},
+{'name': 'a dry year on the land',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'work, money, home',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, friend, neighbours, boss',
+ 'where': 'farming',
+ 'worlds': {'earth': 'the rain does not come for a year, the fields crack, food costs more, and the farms around '
+                     'your town cut back'},
+ 'timing': {'times': "World event: drought, selector place. The Engine's start rate in farming and hotter places is "
+                     '8 in 100 a year, times the warming factor (stage3-rules C4); about half of the people living '
+                     'there feel it in prices or work (share .5, estimate), so in a farming place about once in 25 '
+                     'years (estimate)',
+            'likelier': 'a farming family, work on the land, a hot region, a warming climate, a household with '
+                        'little saved',
+            'rarer': 'a town job, irrigated land, savings to tide over a lean year',
+            'gap_years': (4.0, 12.0)},
+ 'scenes': {'earth': [('',
+                       'No rain since early spring. The fields around {place} are cracked and pale, the reservoir '
+                       'shows its old walls, and bread costs a little more every week. On the farms, the talk is of '
+                       'who will be laid off first.'),
+                      ('W',
+                       'There is a hosepipe ban and a rota for the reservoir. {N} knows it only works if nobody '
+                       'cheats.'),
+                      ('U',
+                       '{N} reads up on farming in dry country: mulch, drip lines, crops that need less. There must '
+                       'be a better way than waiting for rain.'),
+                      ('B',
+                       'Hay is selling at three times its price, and {N} knows a farmer up the valley who has to '
+                       'sell.'),
+                      ('R',
+                       '{N} cannot stand another month of watching an empty sky, and the farm work is drying up as '
+                       'fast as the fields.'),
+                      ('G',
+                       '{grandparent} remembers the last dry year, and says the land always comes back if it is left '
+                       'to rest.')]},
+ 'outcomes': (['The rain comes back in the autumn, and {N} has kept enough going to start again.',
+               'The dry year teaches {N} things about water and land that will matter for years.'],
+              ['Prices stay high all winter, and the household runs down what it had saved.',
+               'The farm that employs half the family lays people off before the harvest.']),
+ 'options': [
+    ('keep to the water rota, and report the neighbour who fills a pool at night', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'made an enemy', 'chance': 0.8}),
+    ('rig drip lines and mulch so the garden needs half the water', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.75}),
+    ('buy hay cheap from a farmer who has to sell, and sell it on in winter', 'B1', None, 0.45, '', {'v': 'power, achievement', 'requires': 'savings', 'without': 'means', 'chance': 0.75}),
+    ('pack a bag and go to the city for work until the rain comes back', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'mark': 'left home', 'lever': 'exit', 'pushes': 'place', 'chance': 0.65}),
+    ('help the family grow only what the dry land will carry this year', 'G1', None, 0.45, '', {'v': 'tradition, universalism', 'chance': 0.7}),
+    ('help the council share out the reservoir fairly between farms and homes', 'W.5 U.5', None, 0.5, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.5}),
+    ('take a night shift on the fire watch in the dry hills', 'W.5 R.5', None, 0.5, '', {'body': 'light', 'v': 'benevolence, security', 'chance': 0.7}),
+    ('work out which crops will still pay, and plant them before anyone else does', 'U.5 B.5', None, 0.5, '', {'v': 'achievement', 'chance': 0.55}),
+    ('haul water up to the farm by hand every morning to keep the animals alive', 'R.5 G.5', None, 0.5, '', {'body': 'heavy', 'v': 'benevolence, tradition', 'chance': 0.6}),
+    ('tighten the household belt, spend nothing, and sit the year out', 'B.5 G.5', None, 0.5, '', {'v': 'security', 'chance': 0.8}),
+ ]},
+{'name': 'a glorious spring',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'home, play, community',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, partner, friend, neighbours',
+ 'time_of_year': 'spring',
+ 'worlds': {'earth': 'after a long grey winter, a spring so lovely comes that the whole town seems to walk more '
+                     'slowly and smile more'},
+ 'timing': {'times': "World event: glorious spring, selector place. The Engine's start rate is 15 in 100 a year "
+                     'everywhere (stage3-rules C4, also a T4 good event); about 15 in 100 residents take it as a '
+                     'moment rather than just good weather (share .15, estimate), so about once in 40 years '
+                     '(estimate)',
+            'likelier': 'a long hard winter before it, a garden or a park nearby, a light heart, children or friends '
+                        'to share it with',
+            'rarer': 'a long working day indoors, illness, grief, a city with few parks',
+            'gap_years': (4.0, 10.0)},
+ 'scenes': {'earth': [('',
+                       'After a long grey winter, spring arrives all at once. Blossom is out on every street in '
+                       '{place}, the evenings are warm and long, and strangers stop each other to talk about the '
+                       'light.'),
+                      ('W',
+                       'The neighbours are talking about a clean-up of the street and a shared meal at the end of '
+                       'it. {N} likes it when everyone pitches in.'),
+                      ('U',
+                       '{N} has noticed which birds came back first and which trees flowered early this year, and '
+                       'wants to know why.'),
+                      ('B',
+                       'The cafes are full, the market is busy, and everyone is in the mood to spend. {N} sees a '
+                       'chance.'),
+                      ('R',
+                       'The sun is out and {N} cannot sit still. {friend} has already sent a message about the '
+                       'lake.'),
+                      ('G', '{N} wakes to birdsong and lets the morning come slowly, as the season seems to ask.')]},
+ 'outcomes': (['For a few weeks life feels lighter, and {N} remembers that spring for years.',
+               'Something started in the good weather keeps going long after it.'],
+              ['A late frost and a week of rain end it early, and the plans go back in the drawer.',
+               '{N} crams too much into the good weeks, and they go by in a rush.']),
+ 'options': [
+    ('organise the street clean-up and the shared meal at the end of it', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'made a friend', 'chance': 0.75}),
+    ('start a notebook of what flowers when, on long walks before work', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.85}),
+    ('set up a stall at the weekend market while people are in the mood to spend', 'B1', None, 0.45, '', {'habit': True, 'v': 'achievement, power', 'chance': 0.8}),
+    ('skip work on the first warm day and take everyone to the lake', 'R1', None, 0.45, '', {'v': 'hedonism, stimulation', 'chance': 0.85}),
+    ('dig and plant the garden, and spend the long evenings sitting in it', 'G1', None, 0.45, '', {'v': 'tradition, hedonism', 'chance': 0.8}),
+    ('sleep out under the stars with friends on the warmest night', 'R.5 G.5', None, 0.5, '', {'v': 'stimulation, hedonism', 'chance': 0.8}),
+    ('use the light evenings to finish the course you put off all winter', 'U.5 B.5', None, 0.5, '', {'v': 'achievement, self-direction', 'chance': 0.65}),
+    ('take the bike out alone and ride somewhere you have never been', 'U.5 R.5', None, 0.5, '', {'v': 'stimulation, self-direction', 'chance': 0.8}),
+    ('get the street to back a community garden, and offer to run it', 'W.5 B.5', None, 0.5, '', {'v': 'power, benevolence', 'chance': 0.55}),
+    ('plant trees along the school road with the children and the old folk of the street', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, universalism', 'chance': 0.75}),
+ ]},
+{'name': 'the town builds itself back',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'mixed',
+ 'life': 'community, home, work',
+ 'horizon': 'years',
+ 'roles': 'grandparent, parent, friend, colleague, neighbours',
+ 'worlds': {'earth': 'a year after the disaster, your town rebuilds: the school reopens, the bus comes back, one '
+                     'service at a time'},
+ 'timing': {'times': "World event: recovery, selector place, when the place's disaster level falls back "
+                     '(stage3-rules C4); services come back over 1 to 3 years, and about 4 in 10 residents take part '
+                     "in or feel the rebuilding as a moment (share .4, estimate); the person's own losses are the "
+                     "disaster's moments, not this one",
+            'likelier': 'a home or work in the worst-hit part of town, a family that stayed, a trade the rebuilding '
+                        'needs, a strong council',
+            'rarer': 'a family that moved away after the disaster, a part of town the disaster spared',
+            'gap_years': (10.0, 30.0)},
+ 'scenes': {'earth': [('',
+                       'A year on from the disaster, {place} is coming back one piece at a time. The school runs in '
+                       'portable rooms, the bus comes every other hour, and the clinic still shares a building with '
+                       'the library. Everyone is tired, and everyone is still here.'),
+                      ('W',
+                       "The council's rebuilding plan is pinned to the town hall door, with a date for every item. "
+                       '{N} wants it kept to, item by item.'),
+                      ('U',
+                       '{N} has read the plan closely and can see where the money will run short and what will be '
+                       'left out.'),
+                      ('B',
+                       'Rebuilding money is flowing in and contracts are being handed out. {N} can see who is '
+                       'getting them, and wants to be one of them.'),
+                      ('R',
+                       '{N} is tired of waiting on permits and committees. The playground is still a fenced heap of '
+                       'rubble.'),
+                      ('G',
+                       'The trees that came down are sprouting from their stumps. {N} thinks the town will heal the '
+                       'same way, slowly, from what is left.')]},
+ 'outcomes': (['Two years on, the school is back in its own building and the bus runs on time again.',
+               '{N} finds a part in the rebuilding, and {place} feels more like home than it did before.'],
+              ['The money runs short, and the clinic stays in the library for another winter.',
+               'The rebuilding drags on, and some of the families who left never come back.']),
+ 'options': [
+    ("sit on the residents' committee that checks the rebuilding against the plan", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.75}),
+    ("learn a building trade on the council's rebuilding course", 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.7}),
+    ('bid for a small rebuilding contract while the money is flowing', 'B1', None, 0.45, '', {'v': 'power, achievement', 'chance': 0.7}),
+    ('round up friends and clear the playground rubble yourselves one weekend', 'R1', None, 0.45, '', {'body': 'heavy', 'v': 'benevolence, stimulation', 'chance': 0.75}),
+    ('keep to your old shops and your old bench, so the town has its life back', 'G1', None, 0.45, '', {'v': 'tradition, security', 'mark': 'stayed home', 'lever': 'loyalty', 'pushes': 'place', 'chance': 0.8}),
+    ('throw a street party among the ruins to mark a year since the disaster', 'R.5 G.5', None, 0.5, '', {'v': 'hedonism, benevolence', 'mark': 'made a friend', 'chance': 0.75}),
+    ('find the gaps in the rebuilding grants and get your own repairs paid first', 'U.5 B.5', None, 0.5, '', {'v': 'achievement, security', 'chance': 0.7}),
+    ('help plant the banks and hillsides so the land holds better next time', 'U.5 G.5', None, 0.5, '', {'body': 'light', 'v': 'universalism', 'chance': 0.55}),
+    ('stand for the rebuilding board and make sure your side of town comes first', 'W.5 B.5', None, 0.5, '', {'v': 'power, security', 'mark': 'made an enemy', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.55}),
+    ('press the council at every meeting until the clinic has its own building again', 'W.5 R.5', None, 0.5, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.5}),
+ ]},
+{'name': 'a boom year',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (16, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'work, money',
+ 'horizon': 'months',
+ 'roles': 'parent, partner, friend, boss',
+ 'worlds': {'earth': 'you live through a boom year: jobs are easy to find, pay is rising, and offers come to people '
+                     'who never had them before'},
+ 'timing': {'times': 'World event: boom year, selector all, when the output gap stays a standard deviation above its '
+                     'long mean for four quarters (stage3-rules T4); about 2 in 10 people feel it as offers and '
+                     'rising pay (share .2, estimate), mostly people of working age, so about once or twice in a '
+                     'working life (estimate)',
+            'likelier': 'working age, a skill in demand, a growing town, a person open to moving',
+            'rarer': 'a person long retired, a declining town, a sector the boom passes by',
+            'gap_years': (6.0, 15.0)},
+ 'scenes': {'earth': [('',
+                       'Everyone seems to be hiring. Pay is rising, the shops are busy, new buildings are going up, '
+                       'and {N} has had two job offers this month without asking for either.'),
+                      ('W',
+                       '{boss} is offering a raise to everyone who stays. {N} has always believed in loyalty, and '
+                       'for once it seems to pay.'),
+                      ('U',
+                       '{N} reads the business news and wonders how long it can last. Booms end; the only question '
+                       'is when.'),
+                      ('B',
+                       'Money is moving fast, and the people who move with it are getting rich. {N} wants a share '
+                       'before it stops.'),
+                      ('R',
+                       'A firm at the other end of the country wants {N} next month, with the move paid. Why not '
+                       'just go?'),
+                      ('G',
+                       '{N} has seen good years before, and the lean ones after them. {parent} says to fill the '
+                       'cupboard while the sun shines.')]},
+ 'outcomes': (['The good year leaves {N} better off, with savings or skills that last past the boom.',
+               'The change turns out well, and {N} wonders why it took a boom to try it.'],
+              ['The boom turns sooner than anyone said, and what looked like a sure thing goes sour.',
+               '{N} stretches too far in the good months and spends the next year paying it back.']),
+ 'options': [
+    ('stay with your employer and take the raise offered for staying', 'W1', None, 0.45, '', {'v': 'security, conformity', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.8}),
+    ('take the offer that teaches you the most, even at lower pay', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.75}),
+    ('play two offers against each other until one pays far more', 'B1', None, 0.45, '', {'v': 'power, achievement', 'chance': 0.75}),
+    ('take the job at the other end of the country and move within the month', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'mark': 'moved away', 'lever': 'exit', 'pushes': 'place', 'chance': 0.7}),
+    ('put the extra pay aside for the lean years that always follow', 'G1', None, 0.45, '', {'v': 'security, tradition', 'chance': 0.75}),
+    ('quit and start your own firm while customers are easy to find', 'B.5 R.5', None, 0.5, '', {'v': 'achievement, self-direction', 'mark': 'took a wild risk', 'chance': 0.55}),
+    ('use the good year to retrain for work that will last when the boom ends', 'U.5 G.5', None, 0.5, '', {'v': 'security, self-direction', 'chance': 0.6}),
+    ('spend the extra on the long trip you always put off', 'U.5 R.5', None, 0.5, '', {'v': 'hedonism, stimulation', 'requires': 'savings', 'without': 'means', 'chance': 0.8}),
+    ('push for promotion now, while the firm needs every good person', 'W.5 B.5', None, 0.5, '', {'v': 'achievement, power', 'chance': 0.6}),
+    ('help a friend out of work get taken on at your place', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'chance': 0.65}),
+ ]},
+{'name': 'the jobs come back to town',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (16, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'work, community, home',
+ 'horizon': 'months',
+ 'roles': 'parent, sibling, friend, colleague, neighbours',
+ 'worlds': {'earth': 'work comes back to your town: the old works reopens, shops open on the high street, and people '
+                     'who left talk of coming home'},
+ 'timing': {'times': 'World event: good year in town, selector place, when local unemployment falls by a point '
+                     'within a year (stage3-rules T4); about 3 in 10 residents feel it as work coming back or people '
+                     'coming home (share .3, estimate), so a few times in a life in a town that rises and falls '
+                     '(estimate)',
+            'likelier': 'a town that went through hard years, working age, a family with people who left for work, a '
+                        'trade the new work needs',
+            'rarer': 'a town that never lost its work, a person long retired, a job outside the town',
+            'gap_years': (8.0, 20.0)},
+ 'scenes': {'earth': [('',
+                       'The old works on the edge of {place} has reopened under new owners, and they are hiring. A '
+                       'bakery has opened in the empty shop on the high street, and {sibling}, who left for work '
+                       'years ago, is talking about coming home.'),
+                      ('W', 'The new owners want a steady crew that turns up. {N} knows how to be that.'),
+                      ('U',
+                       "{N} has read the new owners' plans and can see which skills they will need in two years, not "
+                       'just now.'),
+                      ('B', 'Shops on the high street have been cheap for years. They will not be cheap for long.'),
+                      ('R', 'For once something is happening in {place}, and {N} wants to be in the middle of it.'),
+                      ('G',
+                       'The town is coming back to life the way a field comes back after a hard winter. {N} wants '
+                       'the old families to share in it.')]},
+ 'outcomes': (['Within the year {place} feels alive again, and {N} has a footing in the new work.',
+               'People who left start coming back, and the street {N} grew up on fills up again.'],
+              ['The new owners hire mostly from outside, and the old hands are left watching.',
+               'The good start stalls after a season, and the high street empties out again.']),
+ 'options': [
+    ('sign on at the reopened works and be there on time every shift', 'W1', None, 0.45, '', {'habit': True, 'v': 'security, conformity', 'chance': 0.8}),
+    ('train for the skilled work the new owners will need in two years', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.7}),
+    ('take on a cheap empty shop on the high street before the rents go up', 'B1', None, 0.45, '', {'v': 'power, achievement', 'mark': 'took a wild risk', 'requires': 'savings', 'without': 'means', 'chance': 0.75}),
+    ('open a pop-up bar in the old station and see if it takes off', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'chance': 0.65}),
+    ('ask the new owners to hire from the old families who stayed through the lean years', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.55}),
+    ('put in a word for your cousins, so the family gets the good shifts', 'B.5 G.5', None, 0.5, '', {'v': 'power, benevolence', 'chance': 0.7}),
+    ('call the ones who left and tell them to come home, there is work again', 'R.5 G.5', None, 0.5, '', {'v': 'benevolence, stimulation', 'chance': 0.7}),
+    ('pitch a new idea to the owners at their open day', 'U.5 R.5', None, 0.5, '', {'v': 'self-direction, achievement', 'chance': 0.45}),
+    ("get a seat on the works' liaison board as the town's voice", 'W.5 B.5', None, 0.5, '', {'v': 'power, conformity', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.55}),
+    ('help the council set up a jobs board so everyone hears of the openings', 'W.5 U.5', None, 0.5, '', {'v': 'universalism', 'chance': 0.7}),
+ ]},
+{'name': 'a bumper harvest',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'work, home, community',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, friend, neighbours',
+ 'time_of_year': 'autumn',
+ 'where': 'farming',
+ 'worlds': {'earth': 'the harvest is the biggest anyone can remember: the barns are full, food is cheap, and the '
+                     'town has plenty'},
+ 'timing': {'times': 'World event: good harvest, selector place, when the food price falls by the set amount '
+                     '(stage3-rules T4); written for farming places, where about 4 in 10 residents feel it as a '
+                     'moment (share .4, estimate); elsewhere it is a world line of cheap food, so a few times in a '
+                     'life on the land (estimate)',
+            'likelier': "a farming family, work on the land, a kind year after lean ones, a garden of one's own",
+            'rarer': 'a town job, a household that buys everything in shops, a farm that grows what the glut has '
+                     'made cheap',
+            'gap_years': (5.0, 15.0)},
+ 'scenes': {'earth': [('',
+                       'The weather was kind all year, and the harvest is the biggest anyone in {place} can '
+                       'remember. The barns are full, the market stalls are piled high, and fruit is going for '
+                       'almost nothing.'),
+                      ('W',
+                       'The harvest supper is on Saturday and every household brings something. {N} wants it done '
+                       'properly.'),
+                      ('U',
+                       '{N} notices that grain prices have fallen so far the farms may barely break even. Plenty has '
+                       'its own problems.'),
+                      ('B', 'Grain is cheap now, and it will not be in spring. {N} starts thinking about storage.'),
+                      ('R', 'The fields are gold, the cider is new, and the whole valley wants to celebrate.'),
+                      ('G',
+                       '{grandparent} is already setting out jars on the kitchen table. Good years are for putting '
+                       'by.')]},
+ 'outcomes': (['The household eats well all winter, and the cellar is still not empty by spring.',
+               '{N} remembers that autumn as a time when there was enough for everyone.'],
+              ['The glut drives prices so low that the farms barely cover their costs.',
+               'Half of what was put by spoils in a damp cellar before the winter is out.']),
+ 'options': [
+    ('help run the harvest supper and see that every household gets a share', 'W1', None, 0.45, '', {'v': 'tradition, benevolence', 'chance': 0.8}),
+    ("work out what a glut does to prices and plan next year's planting around it", 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.7}),
+    ('buy grain cheap now and store it to sell in the spring', 'B1', None, 0.45, '', {'v': 'power, achievement', 'requires': 'savings', 'without': 'means', 'chance': 0.8}),
+    ('dance at the harvest fair until the band packs up', 'R1', None, 0.45, '', {'v': 'hedonism, stimulation', 'chance': 0.9}),
+    ('spend the week bottling, drying and putting by for the winter', 'G1', None, 0.45, '', {'habit': True, 'v': 'tradition, security', 'chance': 0.75}),
+    ('drive a van of cheap produce to the city market and sell it fast', 'B.5 R.5', None, 0.5, '', {'v': 'achievement, stimulation', 'chance': 0.7}),
+    ("sign a contract now that fixes next year's price in your favour", 'U.5 B.5', None, 0.5, '', {'v': 'security, power', 'chance': 0.7}),
+    ('save seed from the best plants, with notes on which did well', 'U.5 G.5', None, 0.5, '', {'v': 'tradition, self-direction', 'chance': 0.7}),
+    ('give the surplus to the food bank before it spoils', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, universalism', 'mark': 'helped someone in need', 'chance': 0.8}),
+    ('lead the harvest parade through the town, banners and all', 'W.5 R.5', None, 0.5, '', {'v': 'tradition, stimulation', 'chance': 0.8}),
+ ]},
+{'name': 'a new law opens a door',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'mixed',
+ 'life': 'public life, home, community',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, partner, friend, neighbours',
+ 'worlds': {'earth': 'a law changes: something forbidden all your life is now allowed, and the people around you '
+                     'must decide what to make of it'},
+ 'timing': {'times': "World event: law changed toward permitting, or a right granted (the Engine's 'law changed' "
+                     'event with any law key), selector all (stage3-rules T4); about 1 in 10 people take it as a '
+                     'moment of their own (share .1, estimate), more where the law touches their own life; a few '
+                     'times in a life in reforming times (estimate). Written for any key, so no option carries law:',
+            'likelier': "a law that touches one's own life or a close person's, a reform wave, a family split on the "
+                        'question',
+            'rarer': "a law far from one's own life, a closed regime, a settled law book",
+            'gap_years': (5.0, 15.0)},
+ 'scenes': {'earth': [('',
+                       'The new law came in at midnight. Something forbidden for as long as {N} can remember is now '
+                       'allowed, and the morning news shows people doing it openly, smiling, some of them in tears.'),
+                      ('W',
+                       'The law has changed, and the law is the law. {parent}, who argued against it for years, says '
+                       'it still does not make it right.'),
+                      ('U',
+                       '{N} reads the new law itself, every page, to see what it truly allows and what it does not.'),
+                      ('B',
+                       'A new freedom means a new market. Somebody will do well out of it, and {N} wonders who.'),
+                      ('R', '{N} has waited years for this. At last the choice is {Ns} own.'),
+                      ('G',
+                       '{grandparent} has seen the laws swing back and forth before. Customs, {grandparent} says, '
+                       'change more slowly.')]},
+ 'outcomes': (['The change settles in faster than anyone feared, and {N} finds a way to live with it.',
+               'A year on, the quarrels over it have quietened, and {N} is glad of where they stand.'],
+              ['The family argues over it at every meal for months.',
+               'The new freedom comes wrapped in more rules than anyone expected, and the first try goes badly.']),
+ 'options': [
+    ('accept the new law, though you argued against it, and say so plainly', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'state', 'chance': 0.8}),
+    ('read the new law in full and explain it to friends who are confused', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'chance': 0.85}),
+    ('set up a small business serving what is newly allowed', 'B1', None, 0.45, '', {'v': 'achievement, power', 'mark': 'took a wild risk', 'requires': 'savings', 'without': 'means', 'chance': 0.7}),
+    ('take the new freedom in the very first week, whatever anyone says', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'chance': 0.85}),
+    ('keep to the old ways in your own house, and leave others to theirs', 'G1', None, 0.45, '', {'v': 'tradition', 'lever': 'neglect', 'pushes': 'state', 'chance': 0.7}),
+    ('wait to see who gains from it before taking any side', 'B.5 G.5', None, 0.5, '', {'v': 'security, power', 'chance': 0.7}),
+    ('hear out the elders and the young on it before making up your mind', 'U.5 G.5', None, 0.5, '', {'v': 'universalism, tradition', 'chance': 0.75}),
+    ('write openly online about what the change means for people like yourself', 'U.5 R.5', None, 0.5, '', {'act': 'write openly online about what the change means for people like them', 'v': 'self-direction, universalism', 'lever': 'voice', 'pushes': 'culture', 'chance': 0.6}),
+    ('join the campaign to hedge the new law about with rules and licences', 'W.5 B.5', None, 0.5, '', {'v': 'security, power', 'lever': 'voice', 'pushes': 'state', 'chance': 0.45}),
+    ('march in the celebration that weekend with everyone it frees', 'W.5 R.5', None, 0.5, '', {'v': 'universalism, stimulation', 'lever': 'voice', 'pushes': 'culture', 'chance': 0.8}),
+ ]},
+{'name': 'a feast in a year of trust',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'faith, home, community',
+ 'horizon': 'week',
+ 'roles': 'grandparent, parent, sibling, friend, neighbours',
+ 'holy': 'feast',
+ 'at': 'faith body',
+ 'worlds': {'earth': 'the great feast comes round in a good year, the hall is full, and people who had drifted apart '
+                     'sit at the same tables'},
+ 'timing': {'times': 'World event: festival year, selector members of the main faith, when its holy weeks fall in a '
+                     'year of high trust (stage3-rules T4); about 3 in 10 members feel it as more than the usual '
+                     'feast (share .3, estimate), a handful of times in a life of faith (estimate)',
+            'likelier': 'a family that keeps the faith, a close congregation, good times, old quarrels ready to mend',
+            'rarer': 'a member in name only, a scattered family, a year of grief or illness',
+            'gap_years': (5.0, 15.0)},
+ 'scenes': {'earth': [('',
+                       'The feast has come round again, and this year it feels different. Times are good and people '
+                       'trust each other. The hall is full, the tables run out into the street, and families who '
+                       'have not spoken in years are passing each other bread.'),
+                      ('W',
+                       'The old rites are kept properly this year, every prayer and every dish in its place. {N} '
+                       'feels part of something that will outlast everyone at the table.'),
+                      ('U',
+                       "{N} has been reading about where the feast's customs came from, and they are older than "
+                       'anyone at the table thinks.'),
+                      ('B',
+                       'Everyone who matters in {place} is at the feast. {N} knows that where a person sits tonight '
+                       'says a great deal.'),
+                      ('R', 'Music, food, and the whole street out late. {N} means to enjoy every hour of it.'),
+                      ('G',
+                       '{grandparent} sits at the head of the table, as always, with the young ones all around. {N} '
+                       'looks around and feels at home.')]},
+ 'outcomes': (['The feast leaves {N} warm for weeks, closer to family and faith than before.',
+               'Something mended at the table stays mended, and the year ahead feels steadier.'],
+              ['An old quarrel flares up across the table and spoils the evening.',
+               'The crowds, the cooking and the late nights leave {N} worn out by the end of it.']),
+ 'options': [
+    ('keep the whole fast and every rite before the feast, as the faith teaches', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'loyalty', 'pushes': 'belief', 'chance': 0.8}),
+    ('find out what each custom of the feast means, and tell the young ones', 'U1', None, 0.45, '', {'v': 'tradition, self-direction', 'chance': 0.8}),
+    ('sit with the people who matter, and make the most of the evening', 'B1', None, 0.45, '', {'v': 'power, achievement', 'mark': 'made a friend', 'chance': 0.8}),
+    ('dance in the street until dawn with everyone else', 'R1', None, 0.45, '', {'v': 'hedonism, stimulation', 'chance': 0.9}),
+    ('cook the dishes your grandmother cooked and set a place for whoever comes', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'mark': 'helped someone in need', 'chance': 0.75}),
+    ('play host to the biggest table in the street, and enjoy every bit of the attention', 'B.5 R.5', None, 0.5, '', {'v': 'hedonism, power', 'chance': 0.75}),
+    ('make it up with the cousin you fell out with years ago, there at the table', 'R.5 G.5', None, 0.5, '', {'v': 'benevolence', 'mark': 'made a friend', 'chance': 0.55}),
+    ("help keep the feast's accounts, and earn a say in how the money is spent", 'U.5 B.5', None, 0.5, '', {'v': 'power, achievement', 'lever': 'loyalty', 'pushes': 'institution faith body', 'chance': 0.8}),
+    ('bring the lonely old neighbours to the feast and make room at your table', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, tradition', 'mark': 'helped someone in need', 'chance': 0.8}),
+    ("help the elders write down the feast's old customs before they are forgotten", 'W.5 U.5', None, 0.5, '', {'v': 'tradition, universalism', 'chance': 0.8}),
+ ]},
+{'name': 'a grandparent who forgets the way home',
+ 'stages': 'young_adult adult',
+ 'age': (18, 45),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'tier': 'everyday',
+ 'tone': 'trouble',
+ 'life': 'family, health, home',
+ 'horizon': 'months',
+ 'roles': 'grandparent, parent, sibling, a doctor',
+ 'share': 0.12,
+ 'who': 'grandparent',
+ 'cast_want': 'care',
+ 'worlds': {'earth': "a grandparent's memory is failing, and someone in the family has to step in for the months "
+                     'ahead'},
+ 'timing': {'times': 'About 1 in 10 people over 65 lives with memory loss, more after 80 (estimate leaning on '
+                     "Alzheimer's Disease International); grandchildren give some of the care in perhaps 1 family in "
+                     '6 where it comes, most often when the parents work full time (estimate)',
+            'gap_years': (3.0, 10.0)},
+ 'scenes': {'earth': [('',
+                       '{grandparent} was found at the bus station at dawn, sure they were late for a job they left '
+                       'forty years ago. {parent} works long shifts, and at the family meeting everyone turns to '
+                       'look at {N}.'),
+                      ('W',
+                       '{grandparent} sat up with {N} through every childhood fever. A debt like that does not go '
+                       'away because it is inconvenient.'),
+                      ('U',
+                       '{N} has read about this illness: how fast it moves, what the first year asks of a family, '
+                       'and which days are the hard ones.'),
+                      ('B',
+                       'Someone has to carry this, and {N} has a new job, a lease and a life just starting. {N} '
+                       'means to see it done well without losing all of that.'),
+                      ('R',
+                       '{grandparent} looks at {N} across the kitchen and, for one terrible second, does not know '
+                       'who {N} is.'),
+                      ('G',
+                       '{grandparent} taught {N} to plant beans and read the weather. The old allotment is still '
+                       'there, gone wild, at the end of the lane.')]},
+ 'outcomes': (['{grandparent} settles into the new routine, and the frightening nights stop.',
+               'The months are hard, but {grandparent} has good days again, and {N} is there for most of them.'],
+              ["Within weeks the arrangement is fraying, and {N} is running on four hours' sleep.",
+               '{grandparent} goes missing again one afternoon, and the whole question opens from the start.']),
+ 'options': [
+    ('move in with them for the months it takes, and keep their days in order', 'W1', None, 0.45, 'pay:money-.03', {'v': 'benevolence, tradition', 'mark': 'helped someone in need', 'chance': 0.6}),
+    ('read up on the illness, and take them to the memory clinic yourself', 'U1', None, 0.45, '', {'v': 'benevolence, self-direction', 'chance': 0.75}),
+    ('find them a good care home, and sell their flat to pay for it', 'B1', None, 0.45, '', {'v': 'security', 'chance': 0.65}),
+    ('tell the family you have your own life to start, and leave it to them', 'R1', None, 0.45, '', {'v': 'self-direction', 'mark': 'refused someone in need', 'chance': 0.85}),
+    ('take them to the old allotment every Sunday, and work the ground beside them', 'G1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'chance': 0.8}),
+    ('draw up a fair rota with the family, take your share, and hold everyone to theirs', 'W1', 'B.7', 0.5, '', {'v': 'benevolence, power', 'chance': 0.8}),
+    ('fit door alarms and a tracker, so they can stay home and you keep working', 'U1', 'R.7', 0.5, '', {'v': 'security, self-direction', 'tech': 'phone', 'act': 'fit door alarms and a tracker, so they can stay home and the job is kept', 'chance': 0.65}),
+    ('pay a neighbour to look in on them twice a day', 'B1', 'G.7', 0.5, 'pay:money-.04', {'v': 'security', 'chance': 0.75}),
+    ('take three months off work from Monday, and care for them yourself', 'R1', 'W.7', 0.5, 'pay:money-.05', {'v': 'benevolence', 'mark': 'helped someone in need', 'act': 'take three months off work from Monday, and care for them in person', 'chance': 0.55}),
+    ('go through the old photograph albums with them every evening, and keep the memories alive', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, tradition', 'chance': 0.6}),
+ ]},
+{'name': 'a parent asks you to drop a friend',
+ 'stages': 'juvenile young_adult',
+ 'age': (16, 28),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'tier': 'everyday',
+ 'tone': 'trouble',
+ 'life': 'family, friends',
+ 'horizon': 'months',
+ 'roles': 'parent, friend, sibling',
+ 'share': 0.2,
+ 'who': 'parent',
+ 'cast_want': 'stop',
+ 'worlds': {'earth': 'a parent begs you to stop running around with a friend who keeps landing in trouble with the '
+                     'police'},
+ 'timing': {'times': 'Many parents of teenagers and young adults worry about one friend in particular, and perhaps 1 '
+                     'in 4 asks outright for the friendship to end at some point (estimate); peers are the strongest '
+                     'single predictor of youth offending (Warr 2002)',
+            'gap_years': (2.0, 6.0)},
+ 'scenes': {'earth': [('',
+                       '{friend} was stopped by the police again on Saturday night, and this time {N} was in the '
+                       'car. {parent} has waited up at the kitchen table, and says it plainly: {N} has to stop '
+                       'seeing {friend}.'),
+                      ('W',
+                       '{N} gave {parent} a promise last year to stay out of trouble. Saturday night broke it, '
+                       'whatever {friend} says about whose fault it was.'),
+                      ('U',
+                       '{N} knows more about {friend} than {parent} does: the good side, the bad side, and exactly '
+                       'where the trouble usually starts.'),
+                      ('B',
+                       '{friend} knows people, gets into places, and has never once let {N} pay for anything. Giving '
+                       'that up has a price.'),
+                      ('R',
+                       '{friend} is the most alive person {N} knows, and nobody, not even {parent}, gets to choose '
+                       '{Ns} friends.'),
+                      ('G',
+                       '{friend} and {N} have known each other since the first day of school. Their families used to '
+                       'share a garden fence.')]},
+ 'outcomes': (['The talk at the kitchen table clears the air, and the nights of waiting up are over.',
+               'Whatever {N} chose holds through the months that follow, and {parent} begins to trust it.'],
+              ['Within a month there is another late call from {friend}, and the row starts again.',
+               '{parent} and {N} stop speaking about it, and then stop speaking much at all.']),
+ 'options': [
+    ('give your word to stop seeing that friend, and keep it', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'kept your word', 'act': 'give their word to stop seeing that friend, and keep it', 'chance': 0.65}),
+    ('ask what exactly frightens them, and weigh it against what you know of your friend', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.85}),
+    ('keep the friend, and simply stop telling your parent where you go', 'B1', None, 0.45, '', {'v': 'self-direction, hedonism', 'mark': 'hid a wrong', 'chance': 0.7}),
+    ('tell them your friends are your own business, and slam the door', 'R1', None, 0.45, '', {'v': 'self-direction', 'mark': 'defied an authority', 'chance': 0.9}),
+    ('see the friend only at the old places, the park and the café', 'G1', None, 0.45, '', {'v': 'tradition, security', 'chance': 0.75}),
+    ('bring the friend home for dinner, so your parent can see who they really are', 'W1', 'G.7', 0.5, '', {'v': 'tradition, universalism', 'chance': 0.75}),
+    ('agree a clear rule with your parent: no rides in that car, home by eleven', 'U1', 'W.7', 0.5, '', {'v': 'security, benevolence', 'chance': 0.55}),
+    ('trade it: drop the friend, if your parent lends you the car at weekends', 'B1', 'U.7', 0.5, '', {'binds': True, 'v': 'power, self-direction', 'chance': 0.7}),
+    ('cut the friend off with one blunt message tonight, and block the number', 'R1', 'B.7', 0.5, '', {'v': 'security, benevolence', 'tech': 'phone', 'chance': 0.5}),
+    ('go out with the friend one last time, like the old days, then say goodbye', 'G1', 'R.7', 0.5, '', {'v': 'hedonism, benevolence', 'chance': 0.65}),
+ ]},
+{'name': "a partner's long months of treatment",
+ 'stages': 'young_adult adult mature elder',
+ 'age': (25, 90),
+ 'alpha': 'W.1 U.4 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'needs': 'partner',
+ 'tier': 'everyday',
+ 'tone': 'trouble',
+ 'life': 'family, health, love',
+ 'horizon': 'months',
+ 'roles': 'partner, boss, friend, a nurse',
+ 'share': 0.3,
+ 'who': 'partner',
+ 'cast_want': 'care',
+ 'worlds': {'earth': 'your partner faces six months of hard treatment, and the days ahead will need you'},
+ 'timing': {'times': 'About 1 adult in 3 cares for an ill partner at some point, most of them after 60 (estimate); '
+                     'serious illness with months of treatment reaches about half of all couples who grow old '
+                     'together (estimate)',
+            'gap_years': (5.0, 15.0)},
+ 'scenes': {'earth': [('',
+                       '{partner} starts treatment on Monday: six months of hospital mornings, sick afternoons and '
+                       "long nights. The nurse's leaflet lists everything {partner} will not be able to do alone, "
+                       'and the list is long.'),
+                      ('W',
+                       '{N} promised long ago to stand by {partner} through anything. Those were easy words then. '
+                       'They are not easy now.'),
+                      ('U',
+                       '{N} has the treatment plan open on the table: dates, doses, side effects, and the days when '
+                       '{partner} must not be left alone.'),
+                      ('B',
+                       'The mortgage does not stop for illness, and neither does {boss}. {N} is working out how to '
+                       'keep the job and still be there.'),
+                      ('R',
+                       '{partner} tries to make a joke about losing their hair, and {N} has to leave the room so as '
+                       'not to cry in front of them.'),
+                      ('G',
+                       '{Ns} grandparents went through something like this, and {Ns} grandmother nursed her husband '
+                       'at home to the end, the way people did.')]},
+ 'outcomes': (['The treatment ends, and {partner} rings the bell on the ward with {N} beside them.',
+               'The months are long, but the care holds, and the two of them come out of it closer.'],
+              ['Halfway through, {N} is worn so thin that the smallest thing starts a row.',
+               'The arrangement breaks down in the second month, and {partner} feels like a burden.']),
+ 'options': [
+    ('take leave from work, and be at their side for every treatment', 'W1', None, 0.45, 'pay:money-.05', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'chance': 0.6}),
+    ('learn the treatment plan inside out, and run the medicines and the diary', 'U1', None, 0.45, '', {'binds': True, 'v': 'benevolence, achievement', 'chance': 0.7}),
+    ('keep working full time, and pay a carer to cover the days', 'B1', None, 0.45, 'pay:money-.05', {'v': 'security, achievement', 'chance': 0.75}),
+    ('admit you cannot face the hospital, and leave the treatment days to their family', 'R1', None, 0.45, '', {'v': 'self-direction', 'mark': 'refused someone in need', 'chance': 0.85}),
+    ('cook their favourite meals, and sit with them through the bad evenings', 'G1', None, 0.45, '', {'v': 'benevolence', 'chance': 0.8}),
+    ('set up a written rota of friends and family for every treatment day', 'W1', 'U.7', 0.5, '', {'v': 'security, benevolence', 'chance': 0.8}),
+    ('work out shorter hours with your boss, and take the cut in pay', 'U1', 'B.7', 0.5, 'pay:money-.04', {'v': 'benevolence, security', 'chance': 0.7}),
+    ('keep your evenings out with friends, and let the nurses do the caring', 'B1', 'R.7', 0.5, '', {'v': 'hedonism, self-direction', 'mark': 'refused someone in need', 'chance': 0.65}),
+    ('drop everything and drive them to every appointment, whatever work says', 'R1', 'G.7', 0.5, '', {'v': 'benevolence', 'chance': 0.55}),
+    ('ask their brothers and sisters to share the care, as families used to', 'G1', 'W.7', 0.5, '', {'v': 'tradition', 'chance': 0.6}),
+ ]},
+{'name': 'a partner asks you to quit the dangerous work',
+ 'stages': 'young_adult adult mature',
+ 'age': (20, 60),
+ 'alpha': 'W.4 U.1 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'needs': 'partner',
+ 'tier': 'everyday',
+ 'tone': 'trouble',
+ 'life': 'family, work, love',
+ 'horizon': 'months',
+ 'roles': 'partner, boss, colleague, friend',
+ 'requires': 'kind:career',
+ 'share': 0.08,
+ 'who': 'partner',
+ 'cast_want': 'stop',
+ 'worlds': {'earth': 'after a near miss at work, your partner asks you to give up the dangerous job for good'},
+ 'timing': {'times': 'About 1 worker in 12 does a job with a high risk of serious injury: building, roofing, '
+                     'fishing, mining, forestry, long-distance driving (estimate leaning on labour statistics of '
+                     "fatal injury by trade); a near miss or a colleague's accident often brings the question home "
+                     '(estimate)',
+            'gap_years': (3.0, 10.0)},
+ 'scenes': {'earth': [('',
+                       'The scaffold gave way two metres from where {N} stood. Nobody was hurt this time, but '
+                       '{partner} heard about it on the local news before {N} could call. Tonight {partner} says it '
+                       'quietly: please find other work.'),
+                      ('W',
+                       '{N} signed up for this work knowing the rules, and keeps to every one of them. But {partner} '
+                       'did not sign up for anything.'),
+                      ('U',
+                       '{N} knows the figures for this trade better than most: the injuries a year, the commonest '
+                       'causes, and which of them a careful worker can avoid.'),
+                      ('B',
+                       'The danger money pays the mortgage. No safer job in town pays half as well, and {N} knows '
+                       'it.'),
+                      ('R',
+                       'Up there, at the top of the scaffold with the whole town below, {N} has never felt more '
+                       'alive. That is the part {partner} will never understand.'),
+                      ('G',
+                       '{Ns} grandfather did this work, and his father before him. The crew is like a second '
+                       'family.')]},
+ 'outcomes': (['The decision is made, and for the first time in months {partner} sleeps through the night.',
+               '{N} and {partner} come out of the talk with a plan both of them can live with.'],
+              ['The question hangs between them for months, and every late shift starts a fresh argument.',
+               'A colleague is hurt on the site that winter, and the whole fight opens again.']),
+ 'options': [
+    ("give a month's notice, and look for safer work", 'W1', None, 0.45, '', {'v': 'security, benevolence', 'chance': 0.65}),
+    ('study the accident report, and show them the real odds before deciding', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.85}),
+    ('stay on for the danger money, only until the mortgage is paid', 'B1', None, 0.45, '', {'v': 'power, security', 'chance': 0.7}),
+    ('tell them this work is who you are, and you are not giving it up', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'act': 'tell them this work is who they are, and they are not giving it up', 'chance': 0.8}),
+    ('take the safer ground-level work the firm offered, at lower pay', 'G1', None, 0.45, 'pay:money-.03', {'v': 'security, benevolence', 'chance': 0.7}),
+    ('promise to quit within the year, and mark the date on the calendar together', 'W1', 'R.7', 0.5, '', {'v': 'benevolence, security', 'mark': 'kept your word', 'chance': 0.75}),
+    ('retrain at night school for a trade with both feet on the ground', 'U1', 'G.7', 0.5, '', {'v': 'security, benevolence', 'mark': 'learned a skill', 'chance': 0.55}),
+    ('demand the firm fix its safety rules, or you walk out', 'B1', 'W.7', 0.5, '', {'v': 'security, power', 'lever': 'voice', 'pushes': 'institution employer', 'act': 'demand the firm fix its safety rules, or they walk out', 'chance': 0.7}),
+    ('go back up the very next morning, to prove you can still do it', 'R1', 'U.7', 0.5, '', {'v': 'stimulation, achievement', 'mark': 'took a wild risk', 'act': 'go back up the very next morning, to prove they can still do it', 'chance': 0.6}),
+    ('ask the oldest hand on the crew how they lasted forty years up there', 'G1', 'B.7', 0.5, '', {'v': 'tradition, security', 'chance': 0.7}),
+ ]},
+{'name': "a small blanket in a parent's knitting bag",
+ 'stages': 'young_adult adult',
+ 'age': (25, 45),
+ 'alpha': 'W.1 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'excludes': 'children',
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'family, children',
+ 'horizon': 'years',
+ 'roles': 'parent, partner, sibling',
+ 'share': 0.25,
+ 'who': 'parent',
+ 'cast_want': 'grandchild',
+ 'worlds': {'earth': 'you find a parent quietly knitting a baby blanket, for one day, with no hurry at all'},
+ 'timing': {'times': 'Most parents in their sixties hope for grandchildren, and many say so only by hints '
+                     '(estimate); about 1 in 5 adults in rich countries reaches 45 with no children (OECD Family '
+                     'Database, estimate)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       "Looking for scissors, {N} finds it in {parent}'s knitting bag: a small soft blanket, half "
+                       'done. {parent} blushes and says it is for one day, no hurry, and nothing more is said.'),
+                      ('W',
+                       'A family goes on through its children. {N} has always known it was expected, the way a duty '
+                       'is expected, and the blanket says it without a word.'),
+                      ('U',
+                       '{N} turns the blanket over. The stitches are months old at the start and fresh at the end: '
+                       '{parent} has been working on this for a long time.'),
+                      ('B',
+                       '{Ns} life is built just as {N} wants it: the work, the flat, the plans for the next five '
+                       'years. None of it was drawn up around a child.'),
+                      ('R',
+                       'The tiny blanket in {Ns} hands hits harder than any question at the dinner table ever did.'),
+                      ('G',
+                       '{parent} knitted one just like this for {N}, once. It is still in a drawer somewhere, soft '
+                       'with age.')]},
+ 'outcomes': (['The blanket goes back in the bag, and something between {N} and {parent} is easier for it.',
+               '{parent} hugs {N} at the door and says, just this once, that whatever comes is all right.'],
+              ['The blanket sits between them at every visit for a year, unspoken.',
+               '{parent} is hurt, and the next few phone calls are short and careful.']),
+ 'options': [
+    ('tell them you hope for children one day, and the blanket will be used', 'W1', None, 0.45, '', {'v': 'benevolence, tradition', 'act': 'tell them they hope for children one day, and the blanket will be used', 'chance': 0.65}),
+    ('ask them what a grandchild would mean to them, and listen to the answer', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'chance': 0.85}),
+    ('say plainly that children are not in your plans, and ask them to stop knitting', 'B1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.7}),
+    ('laugh, hug them, and ask for stripes on it', 'R1', None, 0.45, '', {'v': 'hedonism, benevolence', 'chance': 0.8}),
+    ('put the blanket back gently, and say a child will come if it is meant to', 'G1', None, 0.45, '', {'v': 'tradition', 'chance': 0.85}),
+    ('promise them they will be part of any family you ever raise', 'W1', 'G.7', 0.5, '', {'binds': True, 'v': 'benevolence, tradition', 'act': 'promise them they will be part of any family they ever raise', 'chance': 0.75}),
+    ('explain honestly where you stand, and what would have to change for a child', 'U1', 'W.7', 0.5, '', {'v': 'self-direction, conformity', 'act': 'explain honestly where they stand, and what would have to change for a child', 'chance': 0.55}),
+    ('suggest they finish it for the cousin who is expecting, and leave your life to you', 'B1', 'U.7', 0.5, '', {'v': 'self-direction, power', 'act': 'suggest they finish it for the cousin who is expecting, and leave their life to them', 'chance': 0.7}),
+    ('tell them sharply that your life is not a family project', 'R1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'chance': 0.6}),
+    ('take them out for the day, and show them the life you have instead', 'G1', 'R.7', 0.5, '', {'v': 'stimulation, tradition', 'chance': 0.55}),
+ ]},
+{'name': "a parent's one wish on a big birthday",
+ 'stages': 'young_adult adult',
+ 'age': (25, 45),
+ 'alpha': 'W.4 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 0.5,
+ 'excludes': 'children',
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'family, children',
+ 'horizon': 'years',
+ 'roles': 'parent, partner, sibling, the aunts and uncles',
+ 'share': 0.2,
+ 'who': 'parent',
+ 'cast_want': 'grandchild',
+ 'worlds': {'earth': "at a parent's seventieth birthday, asked for a wish, they say they would love to hold a "
+                     'grandchild one day'},
+ 'timing': {'times': "A parent's big birthday comes every ten years; perhaps 1 in 3 parents of adults with no "
+                     'children names a grandchild as their wish at some point, kindly and more than once (estimate)',
+            'gap_years': (3.0, 10.0)},
+ 'scenes': {'earth': [('',
+                       'The candles are lit and the whole table shouts for a wish. {parent} looks across at {N}, '
+                       'smiles, and says the only wish left is to hold a grandchild one day. Then, quickly: no '
+                       'pressure, none at all.'),
+                      ('W',
+                       "Every aunt and uncle at the table is watching {N}. In this family, a parent's wish on a "
+                       'birthday has always been treated as something close to sacred.'),
+                      ('U',
+                       '{N} notices the timing: the wine, the candles, all of them listening. {parent} is not a '
+                       'planner, but this was not quite an accident either.'),
+                      ('B',
+                       'A child is a twenty-year commitment of money, time and freedom. {N} will not sign up for '
+                       'that because of a birthday cake.'),
+                      ('R',
+                       '{Ns} face goes hot. It is a lovely wish and an awful moment, and {N} wants to laugh and '
+                       'leave the room at the same time.'),
+                      ('G',
+                       'Seventy years. The photographs on the wall run back four generations, and {parent} is the '
+                       'oldest one left alive.')]},
+ 'outcomes': (['The candles are blown out to cheers, and {parent} squeezes {Ns} hand under the table.',
+               'Whatever {N} said is taken kindly, and the wish is not raised again that year.'],
+              ['The table goes quiet, and the rest of the party has a strained, careful edge.',
+               '{parent} is hurt, and the aunts talk about it on the phone for weeks.']),
+ 'options': [
+    ('raise a glass and promise them the wish will come true', 'W1', None, 0.45, '', {'v': 'benevolence, tradition', 'chance': 0.6}),
+    ('take a week to think it over, then give them an honest answer', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.9}),
+    ('smile, say nothing, and change the subject to the cake', 'B1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.85}),
+    ('tell them, there and then, that it is a wish you cannot grant', 'R1', None, 0.45, '', {'v': 'self-direction', 'act': 'tell them, there and then, that it is a wish they cannot grant', 'chance': 0.6}),
+    ('hug them and say life will bring what it brings', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'chance': 0.8}),
+    ('tell them you have set a time to decide, and keep to it', 'W1', 'B.7', 0.5, '', {'v': 'security, conformity', 'chance': 0.8}),
+    ('explain calmly why you are choosing a life without children, and ask them to respect it', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, universalism', 'act': 'explain calmly why they are choosing a life without children, and ask for respect', 'chance': 0.5}),
+    ('say there may be a child in a few years, if the timing and money allow', 'B1', 'G.7', 0.5, '', {'v': 'security, tradition', 'chance': 0.55}),
+    ('tell them, moved, that you mean to start a family soon', 'R1', 'W.7', 0.5, '', {'binds': True, 'v': 'benevolence, tradition', 'act': 'tell them, moved, that they mean to start a family soon', 'chance': 0.8}),
+    ('tell them you may adopt a child one day, and ask what they think', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, universalism', 'act': 'tell them they may adopt a child one day, and ask what they think', 'chance': 0.6}),
+ ]},
+{'name': 'the congregation splits in two',
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (14, 100),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.007, 0.007, 0.007, 0.007, 0.007),
+ 'drivers': 'unrest+.3 stress+.2 community+.2',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'faith, community, family',
+ 'horizon': 'months',
+ 'roles': 'parent, grandparent, friend, sibling, a leader of the congregation',
+ 'group': 'congregation',
+ 'at': 'faith body',
+ 'worlds': {'earth': 'the congregation you belong to splits in two, and half the families start meeting in a hall '
+                     'across town'},
+ 'timing': {'times': 'Among members of a congregation only (group: congregation; the rate is the yearly rate among '
+                     'members): serious conflict is common, with about 1 congregation in 4 reporting a conflict that '
+                     'made some people leave within two years (estimate leaning on the National Congregations '
+                     'Study), and a full split into two bodies is a small part of that, set at 7 in 1,000 a year '
+                     'from 14 (about 1 lifelong member in 3 sees one, estimate). With the world on, the Engine also '
+                     'fires it for the members of that congregation (selector members) in a revival year, in the '
+                     "year a new movement is founded in the place, or when the congregation's norm has drifted far "
+                     "from its faith body's (tv above .10)",
+            'likelier': 'a revival or a new movement in the place, a leader who divides, a quarrel over teaching or '
+                        'money, a congregation drifting from its faith body, hard times',
+            'rarer': 'a small, settled congregation with a long-serving leader, secure times, a faith body that '
+                     'keeps its congregations close',
+            'gap_years': (10.0, 30.0)},
+ 'scenes': {'earth': [('',
+                       'For a year the arguments ran on after every service. Now it is done: the leader and half the '
+                       'families will meet in a rented hall across town, and the rest will keep the old building. '
+                       'Everyone wants to know where {N} will sit next week.'),
+                      ('W',
+                       'The old building has its rules, its elders and its order of service, kept the same for a '
+                       'hundred years. {N} was taught that a congregation does not walk away from its own house.'),
+                      ('U',
+                       '{N} has listened to both sides for a year, and has noticed that neither side quite says what '
+                       'the quarrel is really about.'),
+                      ('B',
+                       'The building, the funds and the board will go to one half. Whoever ends up with them will '
+                       'run things for a generation.'),
+                      ('R',
+                       "The leader's voice still moves {N} the way it did the first time. The old elders have never "
+                       'once made {N} feel anything.'),
+                      ('G',
+                       '{grandparent} was married in the old building, and so was {parent}. The families who sat in '
+                       'those rows are being torn apart.')]},
+ 'outcomes': (['A year on, {N} has a place where {N} belongs, and the worst of the bitterness has passed.',
+               'Some of the families find their way back to each other, and {N} helped make it happen.'],
+              ['Old friends cross the road rather than speak, and {N} is caught in the middle of it.',
+               'The half {N} chose falls apart within two years, and the hall stands empty.']),
+ 'options': [
+    ('stay in the old building with the elders, and keep the old order', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'loyalty', 'pushes': 'group congregation', 'chance': 0.8}),
+    ('go to both for a month, and see which keeps faith with its own teaching', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'chance': 0.7}),
+    ('side with whichever half keeps the building, the funds and the board', 'B1', None, 0.45, '', {'v': 'power, security', 'lever': 'loyalty', 'pushes': 'group congregation', 'chance': 0.75}),
+    ('follow the leader to the new hall, whatever the elders say', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'lever': 'exit', 'pushes': 'group congregation', 'chance': 0.7}),
+    ('stay with the families you grew up beside, wherever they go', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'lever': 'loyalty', 'pushes': 'group congregation', 'chance': 0.7}),
+    ('call a meeting of both halves, and ask for a fair vote on the building', 'W.5 U.5', None, 0.5, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'group congregation', 'chance': 0.45}),
+    ('stand up at the last shared service and say the split shames them all', 'W.5 R.5', None, 0.5, '', {'v': 'tradition, universalism', 'mark': 'made an enemy', 'lever': 'voice', 'pushes': 'group congregation', 'chance': 0.55}),
+    ('stop going to either, and keep your faith at home for now', 'U.5 G.5', None, 0.5, '', {'v': 'self-direction, tradition', 'lever': 'neglect', 'pushes': 'group congregation', 'chance': 0.75}),
+    ("take charge of the new hall's money and rota before anyone else does", 'B.5 R.5', None, 0.5, '', {'v': 'power, achievement', 'pushes': 'group congregation', 'chance': 0.65}),
+    ('broker a quiet deal to share the old building on alternate weeks', 'B.5 G.5', None, 0.5, '', {'v': 'security, benevolence', 'lever': 'voice', 'pushes': 'group congregation', 'chance': 0.45}),
+ ]},
+{'name': "the gang's test of loyalty",
+ 'stages': 'juvenile young_adult adult mature elder',
+ 'age': (16, 60),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.12, 0.08, 0.04, 0.02, 0.0),
+ 'drivers': 'unrest+.3 harsh+.2 prosper-.2',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'friends, crime, home',
+ 'horizon': 'week',
+ 'roles': 'friend, parent, sibling, the older members',
+ 'group': 'gang',
+ 'worlds': {'earth': 'the gang tells you to prove your loyalty: keep a locked bag for a week, and say nothing, '
+                     'whoever asks'},
+ 'timing': {'times': 'Among members of a gang only (group: gang; the rate is the yearly rate among members): studies '
+                     'of street gangs describe tests of loyalty after joining as near universal, mostly in the first '
+                     'years (Decker and Van Winkle 1996, estimate), set at 12 in 100 a year at 16 and 17, 8 in 100 '
+                     'as a young adult, fewer later as members rise or drift out (estimate)',
+            'likelier': 'a new or doubted member, a gang under pressure from the police or a rival, a member with '
+                        'ties outside the gang',
+            'rarer': 'a long-trusted member, a member near the top, a gang winding down',
+            'gap_years': (2.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{friend}, who brought {N} in, hands over a heavy sports bag with a padlock on the zip. Keep '
+                       'it for a week, ask nothing, and if anyone comes asking, {N} has never seen it. The older '
+                       'members are watching to see what {N} does.'),
+                      ('W',
+                       'Being part of something means doing what it asks. {N} gave a promise to these people, and '
+                       'the promise is being tested now.'),
+                      ('U',
+                       '{N} weighs the bag in one hand. Too heavy for clothes. Whatever is in it, the law will care '
+                       'about it more than the gang will.'),
+                      ('B',
+                       'Everyone who rose in this crew passed a test like this. {N} can see the next step up from '
+                       'here, and what it pays.'),
+                      ('R',
+                       'The thrill and the fear arrive together. {N} could say yes, or walk out the door, and both '
+                       'feel like jumping off something high.'),
+                      ('G',
+                       '{N} grew up on these streets with these people. {parent} is at home right now, cooking, with '
+                       'no idea any of this exists.')]},
+ 'outcomes': (['The week passes, and {N} comes out of it with the standing {N} wanted, inside the gang or out of it.',
+               'The choice holds, and the older members leave {N} alone after that.'],
+              ['Word gets round that {N} cannot be trusted, and the streets near home feel dangerous for months.',
+               'The police come knocking about the bag, and {parent} learns everything at once.']),
+ 'options': [
+    ('keep the bag and your silence for the week, exactly as told', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'broke the law', 'closed': 'law: hiding goods for a gang; backfire: the police search the house, and the bag is found', 'lever': 'loyalty', 'pushes': 'group gang', 'chance': 0.5}),
+    ('open the bag in secret first, to know exactly what you are risking', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.7}),
+    ('keep the bag, and ask for a cut of whatever it is worth', 'B1', None, 0.45, '', {'v': 'power', 'mark': 'broke the law', 'closed': 'law: hiding goods for a gang; backfire: the police search the house, and the bag is found', 'lever': 'loyalty', 'pushes': 'group gang', 'chance': 0.7}),
+    ('refuse to their faces, and walk out of the gang for good', 'R1', None, 0.45, '', {'v': 'self-direction', 'mark': 'made an enemy', 'lever': 'exit', 'pushes': 'group gang', 'chance': 0.55}),
+    ('tell your family everything, and let them help you get out', 'G1', None, 0.45, '', {'v': 'security, tradition', 'act': 'tell their family everything, and let them help get them out', 'lever': 'exit', 'pushes': 'group gang', 'chance': 0.45}),
+    ('hand the bag back with a joke, and keep the friends but not the gang', 'R.5 G.5', None, 0.5, '', {'v': 'hedonism, benevolence', 'lever': 'exit', 'pushes': 'group gang', 'chance': 0.6}),
+    ('tip off the police about the bag, and keep your place as their source inside', 'U.5 B.5', None, 0.5, '', {'v': 'power, security', 'mark': 'hid a wrong', 'closed': 'approval: informing on the gang; backfire: found out, and shut out by everyone on the street', 'lever': 'subvert', 'pushes': 'group gang', 'chance': 0.3}),
+    ("leave town for a cousin's place before anyone can hand you anything again", 'U.5 R.5', None, 0.5, '', {'v': 'self-direction, security', 'mark': 'moved away', 'moves': True, 'lever': 'exit', 'pushes': 'group gang', 'act': "leave town for a cousin's place before anyone can hand them anything again", 'chance': 0.5}),
+    ('keep the bag, and ask in return for a real place in the gang', 'W.5 B.5', None, 0.5, '', {'v': 'power, conformity', 'mark': 'broke the law', 'closed': 'law: hiding goods for a gang; backfire: the police search the house, and the bag is found', 'lever': 'loyalty', 'pushes': 'group gang', 'chance': 0.5}),
+    ("keep the bag this once for your friend's sake, and never again", 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, conformity', 'mark': 'broke the law', 'closed': 'law: hiding goods for a gang; backfire: the police search the house, and the bag is found', 'lever': 'loyalty', 'pushes': 'group gang', 'chance': 0.7}),
+ ]},
+{'name': 'the club reaches the final',
+ 'stages': 'child juvenile young_adult adult mature elder',
+ 'age': (8, 90),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.1, 0.1, 0.1, 0.1, 0.08, 0.06),
+ 'drivers': 'community+.2 prosper+.1',
+ 'tier': 'life event',
+ 'tone': 'joy',
+ 'life': 'friends, community, play',
+ 'horizon': 'week',
+ 'roles': 'friend, parent, child, sibling, the coach, the old members',
+ 'time_of_year': 'spring',
+ 'group': 'club',
+ 'worlds': {'earth': 'your club has made it to the final for the first time in twenty years, and the whole club is '
+                     'going'},
+ 'timing': {'times': 'Among members of a club only (group: club; the rate is the yearly rate among members): a local '
+                     'club reaches a cup or league final about 1 year in 8 to 10 (estimate: with 8 to 16 clubs in a '
+                     'competition, two reach its final each year), set at 10 in 100 a year, fewer for the oldest '
+                     'members who come less often; held to spring, when most seasons end (time_of_year)',
+            'likelier': 'a strong season, a club with many members, a young squad coming good',
+            'rarer': 'a weak season, a small club, a member who rarely comes',
+            'gap_years': (2.0, 10.0)},
+ 'scenes': {'earth': [('',
+                       'For the first time in twenty years the club has reached the final. The minibus is booked, '
+                       'the old banner is down from the loft, and on Saturday the whole club, players, families and '
+                       'old members, will be there.'),
+                      ('W',
+                       '{N} has turned up every week for years, in the rain, through the bad seasons. This is what '
+                       'all those wet evenings were for.'),
+                      ('U',
+                       '{N} has watched the other side play twice and has noticed things about them that nobody else '
+                       'at the club seems to have seen.'),
+                      ('B',
+                       'There will be a crowd, the local paper and the people who run the town. A big day is also a '
+                       'chance to be seen.'),
+                      ('R', '{N} has not slept properly all week. Saturday cannot come soon enough.'),
+                      ('G',
+                       'The old members still talk about the last final, twenty years ago, as if it were yesterday. '
+                       'Their photographs line the clubhouse wall.')]},
+ 'outcomes': (['The club wins, and the singing in the clubhouse goes on until they turn the lights off.',
+               'Win or lose, it is the day everyone talks about for years, and {N} was part of it.'],
+              ['The club loses in the last minutes, and the minibus home is very quiet.',
+               'The day is a washout of rain and nerves, and nobody quite enjoys it.']),
+ 'options': [
+    ('turn up early, kit ready, and do exactly the job you are given', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'lever': 'loyalty', 'pushes': 'group club', 'chance': 0.65}),
+    ("study the other side's last five games, and share what you find with the coach", 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.7}),
+    ('make sure you are next to the chairman in the photograph with the cup', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.9}),
+    ('lead the singing from the first whistle to the last, louder than anyone', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'chance': 0.85}),
+    ('bring the oldest members along, and sit with the ones who built the club', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'lever': 'loyalty', 'pushes': 'group club', 'chance': 0.75}),
+    ('help run the day: tickets, the minibus, the kit and the list of who is where', 'W.5 U.5', None, 0.5, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'group club', 'chance': 0.8}),
+    ('bake for the clubhouse tea after the match, win or lose', 'W.5 G.5', None, 0.5, '', {'v': 'benevolence, tradition', 'lever': 'loyalty', 'pushes': 'group club', 'chance': 0.8}),
+    ("film the whole day, and cut it into a film for the club's dinner", 'U.5 R.5', None, 0.5, '', {'v': 'self-direction, stimulation', 'mark': 'learned a skill', 'chance': 0.7}),
+    ('push to the front at the final whistle, and lift the cup first', 'B.5 R.5', None, 0.5, '', {'v': 'achievement, stimulation', 'chance': 0.5}),
+    ('find a sponsor for the new kit while the crowd is in a good mood', 'B.5 G.5', None, 0.5, '', {'v': 'achievement, tradition', 'chance': 0.6}),
  ]},
 {'name': 'a deadline at college or work',
  'stages': 'young_adult',
