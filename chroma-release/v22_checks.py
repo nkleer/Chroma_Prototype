@@ -379,6 +379,14 @@ def build_tree():
         b = os.path.basename(f)                                                # repository holds its content only): build.py, check.py,
         if os.path.isfile(f) and not os.path.exists(os.path.join(L, b)) and not (b.endswith(".lib") or re.match(r"earth.*\.py$", b)):
             shutil.copy2(f, L)                                                 # earth.md; never a content file the candidate dropped
+    if os.path.exists(os.path.join(L, "earth.py")) and os.path.exists(os.path.join(L, "render.py")):
+        # earth.md, which the title and perk checks read for situation names, comes from the candidate's own earth.py: the
+        # repository holds no earth.md, and the shared folder's is the live one, so a moment added after it went missing
+        try:                                                                   # (10-09, Library #26's 'a following of your own')
+            subprocess.run([sys.executable, "-B", "render.py", "earth.py"], cwd=L, check=True, capture_output=True, timeout=300)
+        except (subprocess.SubprocessError, OSError):
+            if os.path.exists(os.path.join(L, "earth.md")):                    # never the live one in its place: the checks that
+                os.remove(os.path.join(L, "earth.md"))                         # read it then say they could not
     cp_files(os.path.join(REAL, "chroma-library", "drafts"), os.path.join(L, "drafts"), "*.py")
     for f in ("checks_perks_titles.md", "checks_voice.md", "earth_voice.md", "perks_titles.md"):
         if os.path.exists(os.path.join(REAL, "chroma-library", "drafts", f)):
