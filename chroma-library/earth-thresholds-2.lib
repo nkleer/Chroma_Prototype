@@ -456,7 +456,7 @@ scene R: In the car park {N} rattles the box like a maraca and laughs, because t
 scene G: The body is an old house now, with a few draughts and a roof to watch. {N} means to keep it in good repair, and to go on living in it.
 - W | take every pill on the dot and tick each one off on a chart | habit | v: conformity, security | self_control: + | chance: 75
 - U | ask the doctor to review every pill, and stop the ones no longer needed | v: self-direction, security | chance: 70
-- B | order the pills cheaper online from abroad, no prescription asked | v: security, power | closed: law: unlicensed medicine; backfire: a fake batch and a night in hospital | death_if_fails: 0.001 | tech: internet | chance: 75
+- B | order the pills cheaper online from abroad, no prescription asked | v: security, power | closed: law: unlicensed medicine; backfire: a fake batch and a night in hospital | death_if_fails: 0.001 | tech: internet | law: prescription medicines | chance: 75
 - R | skip the pills that make you feel flat, and say nothing | v: hedonism, self-direction | self_control: - | closed: approval: going against the doctor's orders; backfire: a bad turn and a lecture at the surgery | mark: hid a wrong | act: skip the pills that make them feel flat, and say nothing | chance: 80
 - G | walk every morning and eat from the garden, so the box stays small | habit | v: security, universalism (nature) | body: light | self_control: + | chance: 70
 - W>G | look in on the frail neighbour every morning, and see she has taken hers | v: benevolence | mark: helped someone in need | chance: 80

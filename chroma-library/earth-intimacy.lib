@@ -343,7 +343,7 @@ scene R: {N} feels as hungry as at twenty, and the body keeps letting {N} down. 
 scene G: The old pear tree in the garden still flowers every spring, later and smaller than it used to. {N} watches it and thinks about bodies.
 - W | see the doctor, and tell them everything, however embarrassing | v: security, conformity | chance: 80
 - U | read everything about it, and work out what might help | v: self-direction | mark: learned a skill | chance: 75
-- B | order the pills online, without a prescription | v: hedonism | mark: broke the law | closed: law: prescription medicine bought without one; backfire: a bad reaction, and a frightening night in hospital | death_if_fails: 0.001 | tech: internet | chance: 75
+- B | order the pills online, without a prescription | v: hedonism | mark: broke the law | closed: law: prescription medicine bought without one; backfire: a bad reaction, and a frightening night in hospital | death_if_fails: 0.001 | tech: internet | law: prescription medicines | chance: 75
 - R | laugh about it together in bed, and keep trying | v: hedonism, benevolence | self_control: + | chance: 70
 - G | let intimacy grow slower and gentler, the way the years want it | v: security, benevolence | chance: 75
 - W>U | go to the appointment together, as a couple, and ask every question | v: benevolence, self-direction | chance: 65
