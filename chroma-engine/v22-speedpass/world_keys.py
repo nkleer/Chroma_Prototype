@@ -7,6 +7,7 @@ TIME_OF_YEAR = ["winter", "spring", "summer", "autumn"]
 HOLY_KEYS = ["feast", "fast", "pilgrimage", "mourning"]
 WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "mentor", "boss", "colleague", "partner", "ex",
              "prospect", "child", "dead", "teacher", "neighbour"]
+WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
@@ -32,8 +33,55 @@ LAW_STATES = ["legal", "restricted", "banned"]
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
 LEVERS = ["exit", "voice", "loyalty", "neglect", "subvert"]
+LEVERS += ["found", "fund", "lead", "office"]                # spheres (item 15): levers by standing (phase 4 gives them effects)
 DOMAINS = ["close", "group", "place", "institution", "state", "economy", "culture", "tech", "nature", "belief", "abroad"]
 RECORD_DOMAINS = DOMAINS + ["figure", "era"]          # the public record and history log also name these
 # titles (catalogue keywords)
 SECTORS = ["farm", "industry", "services", "knowledge", "public"]
 RINGS = ["close", "settings and place", "institutions", "state, economy and culture"]   # standing and felt reach
+# the spheres of society (item 15; world-fields.md, "The spheres of society", 10-09). Read by the sphere layer and checked
+# against chroma-ideas/spheres-data by tools/sphere_tables.py (sphere_data.py holds the tables)
+EPOCHS = ["bands", "villages", "cities", "realms", "sail", "machine", "modern", "magic"]
+SPHERES = ["rule", "gather", "arts", "faith", "care", "learn", "prod", "comm", "prot"]
+FACES = ["W", "U", "B", "R", "G"]        # a face is a sphere and a colour: "gather.R"; its name is a Library word
+PAIRS = ["WU", "UB", "BR", "RG", "GW", "WB", "UR", "BG", "RW", "GU"]   # a pair face: "prot.RW" (other letter orders read alike)
+SPHERE_FACES = [f"{s}.{c}" for s in SPHERES for c in FACES]           # 45
+SPHERE_PAIRS = [f"{s}.{p}" for s in SPHERES for p in PAIRS]           # 90
+SUBSECTORS = {"rule": ["counsel", "office", "judgment", "law", "sanction", "voice"],
+              "gather": ["house", "hall", "great", "games", "circle", "night", "talk"],
+              "arts": ["song", "stage", "screen", "tale", "page", "craft", "rite"],
+              "faith": ["congregation", "rites", "calendar", "orders", "works", "seeking", "shrines"],
+              "care": ["hearth", "birth", "healers", "physic", "houses", "rescue", "public"],
+              "learn": ["rearing", "schooling", "apprentice", "higher", "keeping", "finding"],
+              "prod": ["wild", "land", "ground", "craft", "works", "founding"],
+              "comm": ["gift", "market", "shop", "far", "credit", "office", "hire"],
+              "prot": ["watch", "host", "hire", "watchers", "walls", "rescue", "holding"]}   # 60
+HAUNT_KINDS = ["gather.house", "gather.hall", "gather.games", "gather.circle", "gather.night",
+               "arts.song", "arts.stage", "arts.tale", "arts.page", "arts.craft",
+               "faith.congregation", "faith.orders", "faith.seeking", "learn.keeping", "learn.higher",
+               "care.houses", "comm.market", "comm.shop", "comm.credit", "prod.wild", "prod.land", "prod.craft",
+               "prot.watch", "prot.host", "rule.voice", "rule.counsel",
+               "gather.great", "gather.talk", "arts.screen", "faith.shrines", "prot.rescue"]   # 31
+DRIVERS = ["insecurity", "plenty", "war", "crowding", "inequality", "schooling", "exposure", "change"]
+HAZARD_VARS = ["war_drop", "outbreak_drop", "disaster_now", "meaning_gap", "welfare", "old_share"]
+FACE_NEEDS = ["safety", "belonging", "meaning"]    # autonomy and competence come from acting as oneself, in any face
+TIME_ROWS = ["work", "learn", "haunts", "faith", "care_given", "service", "civic", "market"]
+JOIN = {"joined": 1.0, "tied": 0.5, "apart": 0.0}
+LADDER = ["newcomer", "regular", "known", "pillar", "leader"]
+SEPARATION = ["close-knit", "own", "apart"]
+CELL_AGE = ["young", "mid", "old"]
+CELL_SEX = ["f", "m", "mixed"]
+CELL_SETTING = ["camp", "rural", "town", "city", "sea"]
+EVENT_FAMILIES = ["plenty_and_want", "boom_and_bust", "the_land", "a_house_opens", "a_house_closes", "a_keeper_passes",
+                  "something_new", "strangers_come", "the_rule_opens", "the_rule_closes", "power_breaks", "war_and_peace",
+                  "sickness_and_disaster", "trust_broken", "help_ourselves", "rites_of_life", "names_rise_and_fall", "quarrels"]
+# Replace (spheres-implementation.md section 5): each group kind, institution kind and part of the state has a home sphere
+# (employer and work go by sector; the second sphere of scene, media, neighbours and household is a share, not a home)
+GROUP_SPHERE = {"household": "care", "class": "learn", "work": None, "congregation": "faith", "club": "gather",
+                "scene": "gather", "online": "gather", "neighbours": "gather", "gang": "prot", "unit": "prot",
+                "ward": "care", "movement": "rule"}
+INST_SPHERE = {"school": "learn", "university": "learn", "employer": None, "bank": "comm", "hospital": "care",
+               "police": "prot", "court": "rule", "prison": "prot", "army": "prot", "faith body": "faith", "media": "gather",
+               "party": "rule", "union": "prod", "charity": "care", "council": "rule", "ministry": "rule"}
+SECTOR_SPHERE = {"farm": "prod", "industry": "prod", "services": "comm", "knowledge": "learn", "public": "rule"}
+STATE_SPHERE = {"say": "rule", "law_book": "rule", "rights": "rule", "purse": "rule", "war": "prot", "force": "prot"}
