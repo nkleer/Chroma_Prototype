@@ -2250,6 +2250,10 @@ class People:
         b0, pk, at, wd = P["times_w"]
         tw = b0 + pk * np.exp(-((a - at) / wd) ** 2)
         self.niche = _norm((1 - tw) * msc + tw * times[None, :])
+        # item 12, the steady current's parts (read only): close people, the places they are inside, the times
+        self.cur_parts = (np.where(cw[:, None] > 1e-9, csum / np.maximum(cw, 1e-9)[:, None], self.w),
+                          np.where(self._setw[:, None] > 1e-9, self._setmix / np.maximum(self._setw, 1e-9)[:, None], self.w),
+                          np.broadcast_to(times, (N, C)))
         self._msg_raw = tot
         self.msg_w = _uclip(tot / P["msg_ref"], 0.25, 2.5)
         bs, bc = P["belong_k"]
