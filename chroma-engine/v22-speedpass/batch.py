@@ -349,6 +349,8 @@ def _packs(world, packs, pack_moments, R):
         rl = _module(os.path.join(d_, "roles.py"), f"chroma_pack_{pk}_roles")
         out["rules"].update(getattr(rl, f"ROLES_{up_}", {})); out["rules"].update(getattr(rl, "ROLES_REACH", {}))
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
+        if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
+            out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
             out["extend"].setdefault(nm_, []).append(x_)
         if os.path.exists(os.path.join(d_, "helps.py")):
@@ -606,6 +608,7 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
+FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 
@@ -645,6 +648,8 @@ def _targets(L, PK, R=None):
     3 community), BUDGET, TIER_LIFT, A_TIER (S x K: the career or summit an option's act gives, -1 for none)."""
     G = L["ROLES"]; G["TARGET"] = np.array(G["share"], float); G["TIER"] = np.zeros(G["NI"], np.int8)
     bud = dict(career=1 / 3, summit=1 / 20, community=10.0); bud.update(getattr(R, "BUDGET", {}) if R is not None else {})
+    if FLOORS and R is not None:   # item 16's floors, off until the v22.3 refit
+        bud.update(getattr(R, "BUDGET_FLOORS", {}))
     G["BUDGET"] = bud
     bad = [nm for nm in PK.get("target", {}) if nm not in G["ID"]]
     if bad:
@@ -676,6 +681,17 @@ def _targets(L, PK, R=None):
         G["TARGET"][sm] = np.maximum(sh[sm], np.minimum(ts_, TARGET_CAP))
     cm = np.nonzero(G["TIER"] == 3)[0]
     G["TARGET"][cm] = np.maximum(sh[cm], np.minimum(bud["community"] * sh[cm], TARGET_CAP))
+    floor_kinds = ("career", "community", "faith")    # titles of one's own doing; statuses keep their real shares
+    for i_ in range(G["NI"]):                          # the floors (Emren 10-09: rare titles must be more reachable)
+        if i_ >= G["NT"]:
+            fl_ = float(bud.get("perk_floor", 0.0))
+        elif G["kindname"][i_] == "career" and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("career_floor", 0.0))
+        elif G["kindname"][i_] in floor_kinds and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("title_floor", 0.0))
+        else:
+            continue
+        G["TARGET"][i_] = max(G["TARGET"][i_], fl_)
     tl_ = tier_lift(R, PK.get("names", [])) if (len(car) or len(sm)) and R is not None else {}
     G["TIER_LIFT"] = tl_
     for i_ in np.concatenate([car, sm]).astype(int):   # who enters or moves into it (entry weights) by the whole lift; a

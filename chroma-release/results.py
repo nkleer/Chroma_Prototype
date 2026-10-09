@@ -5,6 +5,11 @@ MISS), when, where its report is, and a short note. v22_checks.py writes one lin
 stand-alone scripts (check_speedpass, check_saves, check_legacy, check_pin, ...) write their own with done() as their last
 line, unless v22_checks.py ran them. record.py reads them.
 
+Each line also goes to the machine's own file, out/results.d/<machine>.jsonl (<machine> is a random id kept in the
+machine's temp folder): when several machines append to results.jsonl at the same moment over the shared folder, one
+write can replace the other (10-09: eleven lines lost), and a file only one machine writes keeps every line. read()
+takes both, drops lines that are the same, and orders them by time.
+
     from results import add
     add("saves", "PASS", report_path, note="6 presets", candidate={"game": "/tmp/build/prototype"})
     done("saves", rc, REPORT)          # a check script's last line before sys.exit(rc)
@@ -13,13 +18,31 @@ line, unless v22_checks.py ran them. record.py reads them.
         (CHROMA_COMMIT, when set, names the repository commit the files came from, as for done())
     python3 -B chroma-release/results.py latest [id prefix]                                        # the newest per check
 """
-import json, os, sys, time
+import json, os, sys, time, tempfile, secrets, glob
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "chroma-env"))
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from paths import path
 
 FILE = path("release_out", "results.jsonl")
+MINE_DIR = path("release_out", "results.d")
+
+
+def machine():
+    """This machine's id for its own results file: made once and kept in the temp folder, which each machine has alone
+    (every container's host name is "vm")."""
+    p = os.path.join(tempfile.gettempdir(), "chroma_results_machine")
+    try:
+        fd = os.open(p, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
+        os.write(fd, secrets.token_hex(6).encode()); os.close(fd)
+    except FileExistsError:
+        pass
+    for _ in range(50):
+        m = open(p).read().strip()
+        if m:
+            return m
+        time.sleep(0.01)
+    return "unknown"
 
 
 def add(check, result, report="", note="", candidate=None, run=None, secs=None, reused_from=None):
@@ -28,9 +51,11 @@ def add(check, result, report="", note="", candidate=None, run=None, secs=None, 
     for k, v in (("candidate", candidate), ("run", run), ("secs", secs), ("reused_from", reused_from)):
         if v is not None:
             row[k] = v
-    os.makedirs(os.path.dirname(FILE), exist_ok=True)
-    with open(FILE, "a") as f:
-        f.write(json.dumps(row, sort_keys=True) + "\n")
+    line = json.dumps(row, sort_keys=True) + "\n"
+    os.makedirs(MINE_DIR, exist_ok=True)
+    for fp in (FILE, os.path.join(MINE_DIR, machine() + ".jsonl")):
+        with open(fp, "a") as f:
+            f.write(line)
     return row
 
 
@@ -44,14 +69,20 @@ def done(check, rc, report="", note=""):
 
 
 def read():
-    if not os.path.exists(FILE):
-        return []
-    out = []
-    for ln in open(FILE):
-        try:
-            out.append(json.loads(ln))
-        except ValueError:
-            pass
+    """Every result line, from results.jsonl and each machine's own file, once each, oldest first."""
+    seen, out = set(), []
+    for fp in [FILE] + sorted(glob.glob(os.path.join(MINE_DIR, "*.jsonl"))):
+        if not os.path.exists(fp):
+            continue
+        for ln in open(fp):
+            ln = ln.strip()
+            if not ln or ln in seen:
+                continue
+            try:
+                out.append(json.loads(ln)); seen.add(ln)
+            except ValueError:
+                pass
+    out.sort(key=lambda r: r.get("time", ""))   # stable: lines of the same second keep their file order
     return out
 
 
