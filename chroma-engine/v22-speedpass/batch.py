@@ -44,7 +44,7 @@ ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big 
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
-harsh unrest prosper era
+harsh unrest prosper era founding (C5: a movement founding in the place, with a free slot; never true until C5 is built)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -574,10 +574,10 @@ def _world_fields(L):
             nm = f"moment {L['src'][si].get('name', si)!r}, option {ki + 1}"
             if nt.get("law"):   # a leading minus closes the option the other way round (v23 W38: -conscription)
                 lv_ = str(nt["law"]).strip(); law_neg[si, ki] = lv_.startswith("-")
-                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS, nm)[0]
+                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS_ALL, nm)[0]
             if nt.get("norm"):
                 nv_ = str(nt["norm"]).strip(); norm_neg[si, ki] = nv_.startswith("-")
-                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS, nm)[0]
+                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS_ALL, nm)[0]
             if nt.get("tech"):
                 tech[si, ki] = one(nt["tech"], WK.TECH_KEYS, nm)[0]
             if nt.get("role"):   # N1b: women, men (an act the world reserves for that sex), keep or cross (the scene's role)

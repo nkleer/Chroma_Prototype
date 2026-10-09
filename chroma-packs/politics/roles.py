@@ -74,7 +74,8 @@ ROLES_POLITICS = {
                              "(was('minister') | has('a following in the party') | has('known across the country'))",
                          rungs=["minister", "a following in the party", "known across the country"],
                          rate=0.02, weight="colors", grants=["known across the country"],   # round 4: as written, not
-                         # fitted (TARGET below), so about 1 member in 10 ever leads a party
+                         # fitted (TARGET below), so about 1 member in 10 ever leads a party; a fitted summit once
+                         # the engine's floors are on (v22.3, TARGET_POLITICS_FLOORS below)
                          lose="yrs_has('party leader') >= 2", lrate=0.15, lwhy="replaced by the party"),
     "head of government": dict(refines="party leader",
                                req="has('party leader') & has('known across the country')",
@@ -323,3 +324,8 @@ TARGET_POLITICS = {
     "former member of parliament": "community",
     "parliamentary nomination": 20,   # round 4: 15 to 20, so members reach parliament's .0018
 }
+# v22.3, item 16 (Emren 10-09: every summit in 1 life in 100 or more, careers 1.5 in 100). With the floors, four nested
+# summits can each sit at the floor, so [party leader] and [head of government] are fitted summits too. The engine adds
+# this table to TARGET_POLITICS only while its floors are on (batch.FLOORS, off until the v22.3 refit); with them off,
+# the two ride on their written step rates as in round 4 and lives are as before.
+TARGET_POLITICS_FLOORS = {"party leader": "summit", "head of government": "summit"}
