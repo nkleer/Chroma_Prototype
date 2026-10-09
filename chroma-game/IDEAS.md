@@ -2,6 +2,12 @@
 
 Open ideas for the game thread, newest first. Each says what is wrong, why it matters and what could be done.
 
+Status (2026-10-09): built on the game side (branch claude/charming-shannon-wpmw04, see the prototype README, "Needs,
+hindsight and trust"): needs visibility fixes 1, 2, 3, 5 and 6; hindsight; trust per color and its split from inertia;
+showing the trade before a push. Proposed to the engine (`proposals/engine-needs-and-steering.md`): the living
+color-to-need table, sharper rows, means that feed needs, events landing by need and state, a light steer, the
+trust-habit link. Waiting for discussion: inner support actions and the inner voice's discovery.
+
 ## The inner voice: how the character comes to know the player (Emren, 2026-10-09)
 
 **Goal.** Make the player-character relationship richer without making the character depend on the player. The
