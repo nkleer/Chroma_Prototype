@@ -466,7 +466,8 @@ class Game:
         self.result = None
         self.t = 0
         self.loc = None
-        self.history = dict(content=[], peace=[], label=[], w=[], picks=0, own=0, forced=0, rel=[], gift=[], long=[])
+        self.history = dict(content=[], peace=[], label=[], w=[], picks=0, own=0, forced=0, rel=[], gift=[], long=[],
+                            met=[], title_say={})   # met: (age, kind, name) the first time, for the life told as one paragraph
         self.resolution = None          # v7: what came of the last choice, shown until the player goes on
         self._trace = []                # point 2 (Emren 20:39): the colors week by week, for the page's slow animation
         self._w_prev = None             # colors and means at the end of last week, for what a told act moved
@@ -937,6 +938,31 @@ class Game:
         return d
 
     # ------------------------------------------------------------------ narration
+    def _met(self, age, ev, sit):
+        """What this life met, once each, with the age: moments, the world's readings, titles gained, deeds, deaths close by
+        (implementation list item 1: the end of a life told as one paragraph)."""
+        h = self.history
+        if "situation" in ev:
+            kind, name = "sit", sit
+        elif "outside" in ev:
+            kind, name = "read", ev["outside"]["name"]
+        elif "role" in ev and ev["role"]["what"] == "gained":
+            if ev["role"].get("kind") not in TITLE_KINDS:
+                return                          # skills, bonds, children and partners are not a stage of the life
+            kind, name = "role", ev["role"]["name"]
+            GR = self.L.get("ROLES")
+            if GR is not None and name in GR["ID"]:
+                h["title_say"][name] = GR["say"][GR["ID"][name]]      # 'a baker', 'out of work'
+        elif "mark" in ev:
+            kind, name = "mark", ev["mark"]["mark"]
+        elif "death" in ev:
+            h["met"].append((round(age, 1), "death", ev["death"]["role"]))    # each death counts
+            return
+        else:
+            return
+        if name != "an ordinary week" and not any(m[1] == kind and m[2] == name for m in h["met"]):
+            h["met"].append((round(age, 1), kind, name))
+
     def _say(self, line, level=0, tag="note", **meta):
         if " or " in line and self.loc is not None:     # two-word titles in their own words (N1d §3)
             line = self.gword(line)
@@ -1184,6 +1210,7 @@ class Game:
                         and not ("refines" in GR and GR["refines"][GR["ID"][r["name"]]] >= 0)):
                     fold[r["kind"]] = role_info(GR, GR["ID"][r["name"]]); folded.add(id(r))
         for ev in sev + [ev for ev in new if "situation" not in ev]:     # the moment first, then what followed from it
+            self._met(age, ev, sit)
             if "situation" in ev:
                 if m["ctx"].get("_dying") and not self.batch:   # the person in the scene is gone (the batch logs deaths itself)
                     self.story.scene(m)
@@ -2166,6 +2193,7 @@ class Game:
                            forced=h["forced"], own=h["own"], age=round(self.age(), 1), died=getattr(self, "died", None),
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
+        self.review["story"] = life_paragraph(self.story.fill("{N}"), h, self.review, self.setting)
 
 
 # the peace reading (Emren's first goal idea, 2026-10-04: satisfaction and peace while staying true to one's mindset and
@@ -2273,6 +2301,129 @@ def long_shot_words(x):
 
 def cap1(s):
     return s[:1].upper() + s[1:]
+
+
+# The end of a life told as one paragraph (implementation list item 1, Emren 10-08 21:44: "with color history throughout
+# life and the biggest, rare events-content history. like a paragraph"). The story of the colors through the years (the
+# identities held, when and why they turned), then the biggest and rarest things the life met, ending with the question
+# of the colors it lived longest. Built-in words for now; the wording is the Library's to replace.
+HELD_MIN = 3             # years an identity must hold to count as a stage of the life (shorter spells are passing moods)
+TURNS_TOLD = 3           # at most this many turns are told: the first identity, the longest-held ones, and the last
+WHY_YEARS = 2            # a turn's cause is looked for in this many years before it
+RARE_TOLD = 2            # how many of the biggest and rarest things are named
+RARE_SHARE = 0.10        # rare, as the Book says it: under 1 life in 10 meets it
+TITLE_KINDS = ("career", "community", "faith", "status")   # the titles that can turn a life or count among its rarest things
+DEATH_WORD = dict(parent="a parent", sibling="a sibling", friend="a friend", grandparent="a grandparent",
+                  partner="their partner", child="a child")
+DEATH_WEIGHT = dict(child=0, partner=1, parent=2, sibling=3, friend=4, grandparent=5)   # the nearer, the likelier the cause
+COLOR_QUESTION = {       # each color's question, from what it wants (the five wants on the spheres page, LW3)
+    "W": "Did they spare others needless harm?", "U": "Did they come to understand?", "B": "Was the life their own?",
+    "R": "Did they feel free and alive?", "G": "Did they belong?"}
+ANSWER = dict(high="It was.", mid="In part.", low="Seldom.")
+
+
+def _stages(label):
+    """The identities the life held, as (label, from age, to age), passing moods (under HELD_MIN years) left out."""
+    runs = []
+    for i, (a, l) in enumerate(label):
+        if not l:
+            continue
+        end = label[i + 1][0] if i + 1 < len(label) else a + 1
+        if runs and runs[-1][0] == l and a - runs[-1][2] <= HELD_MIN:
+            runs[-1][2] = end
+        else:
+            runs.append([l, a, end])
+    held = [r for r in runs if r[2] - r[1] >= HELD_MIN] or (sorted(runs, key=lambda r: r[1] - r[2])[:1])
+    out = []
+    for r in held:                                   # a mood between two spells of the same identity joins them
+        if out and out[-1][0] == r[0]:
+            out[-1][2] = r[2]
+        else:
+            out.append(list(r))
+    if len(out) > TURNS_TOLD + 1:                    # the first, the last, and the longest between, in order
+        keep = sorted(range(1, len(out) - 1), key=lambda i: out[i][1] - out[i][2])[:TURNS_TOLD - 1]
+        kept, out = [out[i] for i in sorted({0, len(out) - 1, *keep})], []
+        for r in kept:                               # two kept spells of one identity, with the ones between left out
+            if out and out[-1][0] == r[0]:
+                out[-1][2] = r[2]
+            else:
+                out.append(r)
+    return out
+
+
+def _why(met, at, share, say_of):
+    """What most likely turned them at age at: a death close by, a title taken up, or the rarest of the world's readings,
+    in the WHY_YEARS before it. None when nothing stands out."""
+    near = [m for m in met if at - WHY_YEARS <= m[0] <= at]
+    deaths = sorted((m for m in near if m[1] == "death"), key=lambda m: DEATH_WEIGHT.get(m[2], 9))
+    if deaths:
+        return f"the death of {DEATH_WORD.get(deaths[0][2], 'someone close')}"
+    roles = [m for m in near if m[1] == "role" and (share("role", m[2]) or 1) < 0.5]
+    if roles:
+        return _becoming(say_of(roles[-1][2]))
+    reads = sorted((m for m in near if m[1] == "read" and share("read", m[2]) is not None and share("read", m[2]) < 0.5),
+                   key=lambda m: share("read", m[2]))
+    if reads:
+        return _quoted(reads[0][2])
+    return None
+
+
+def _becoming(say):
+    """'becoming a baker', 'becoming the first in the family at university', 'being out of work', 'keeping a record'."""
+    if re.match(r"\w+ing\b", say):
+        return say
+    return ("becoming " if re.match(r"(a|an|the|one) ", say) else "being ") + say
+
+
+def _quoted(name):
+    return f"\u201c{name}\u201d"
+
+
+def _ident_a(lbl):
+    """'a Striver', but 'one of the Rooted' for the names that are not nouns."""
+    nm = ident_name(lbl)
+    nm = nm[4:] if nm.startswith("The ") else nm
+    return f"one of the {nm}" if nm.endswith("ed") or nm in ("Enduring", "Whole") else an(nm)
+
+
+def life_paragraph(name, h, review, setting):
+    """The life in one paragraph, for the end of a life (review["story"])."""
+    try:
+        from rarity import RARITY
+    except Exception:
+        RARITY = {}
+    rs = RARITY if setting == "earth" else {}
+    share = lambda kind, n_: rs.get(kind, {}).get(n_)
+    met = h.get("met", [])
+    say_of = lambda n_: h.get("title_say", {}).get(n_) or an(n_)
+    age = review.get("died", {}).get("age") if review.get("died") else review.get("age")
+    S = [f"{name} lived {int(age or 0)} years."]
+    st = _stages(h["label"])
+    if st:
+        l0 = st[0][0]
+        ep = (EPITHETS.get(l0) or [""])[0]
+        S.append(f"They began as {_ident_a(l0)}" + (f", {ep}" if ep else "") + ".")
+        for l, a, _ in st[1:]:
+            why = _why(met, a, share, say_of)
+            S.append(f"At {int(a)}" + (f", after {why}" if why else "") + f", they became {_ident_a(l)}.")
+    big = [f"becoming {x['say'] if re.match(r'(a|an|the|one) ', x['say']) else an(x['name'])} against the odds, at {int(x['age'])}"
+           for x in h.get("long", []) if x.get("made") and x.get("age") is not None]
+    rare = sorted(((share(k, n_), a, k, n_) for a, k, n_ in met if k != "death" and share(k, n_) is not None
+                   and share(k, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))
+    big += [f"{_becoming(say_of(n_)) if k == 'role' else _quoted(n_)}, at {int(a)}" for _, a, k, n_ in rare]
+    big = big[:RARE_TOLD]
+    if big:
+        S.append(("The rarest thing they lived: " if len(big) == 1 else "The rarest things they lived: ")
+                 + "; and ".join(big) + ".")
+    if st:
+        longest = max(st, key=lambda r: r[2] - r[1])[0]
+        S.append(f"Mostly, they were {_ident_a(longest)}.")
+    ws = [w for a, w in h.get("w", []) if a >= 18] or [w for _, w in h.get("w", [])]
+    if ws:
+        lead = COLORS[int(np.argmax(np.mean(np.asarray(ws, float), axis=0)))]
+        bands = (review.get("reading") or {}).get("bands") or ["mid", "mid"]
+        S.append(f"{COLOR_QUESTION[lead]} {ANSWER[bands[1] if lead == 'B' else bands[0]]}")
+    return " ".join(S)
 
 
 def peace_reading(ful, ser, integ, gifts):
