@@ -16,7 +16,10 @@ INST_KINDS = ["school", "university", "employer", "bank", "hospital", "police", 
               "media", "party", "union", "charity", "council", "ministry"]
 # options
 LAW_KEYS = ["drugs", "divorce", "abortion", "same-sex marriage", "conscription", "guns", "gambling", "alcohol", "sex work",
-            "euthanasia", "home schooling", "death penalty", "adoption"]
+            "euthanasia", "home schooling", "death penalty", "adoption",
+            "tobacco", "knives", "drink-driving", "prescription medicines", "childminding", "gender on papers"]   # v23: W38 held-back
+# v23: a key written with a leading minus closes the option the other way round (law: -conscription, evading a call-up
+# where conscription is in force; norm: -same-sex marriage, snubbing a same-sex partner where it is accepted)
 NORM_KEYS = LAW_KEYS + ["cohabiting", "tattoos", "single parenthood", "faith in public", "leaving a faith", "coming out",
                         "role crossing", "transition", "mixed marriage"]
 # "role crossing": acceptance of living across the expected role for one's sex (was "women at work"); options use role:
