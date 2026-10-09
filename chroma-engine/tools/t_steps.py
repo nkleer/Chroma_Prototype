@@ -4,7 +4,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   1. passing every value back unchanged, run_steps() returns exactly what run() returns (every output, bit for bit);
   2. the pauses come in engine.PAUSES order every week, each with its week number (before age 3 only "week");
   3. every name in engine.STATE is in the state at every pause once a whole week has passed at age 3 or more
-     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is).
+     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is);
+  4. the played-life settings (own_k, drift_k, ev_push_k, era_push_k, steer) do what they say, and at 1 nothing;
+  5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -150,6 +152,52 @@ if "own_k" in E.DEFAULT:
         print(f"{'PASS' if not fails else 'FAIL'}  played-life settings, {label}: weights at 1 the same lives; at 0 no "
               f"lesson, drift or outside push; the steer raised Blue in {st['weeks']} picks, moved {st['moved']} weeks, "
               f"spent each time{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+
+# 5. the world in their life (stage 1, WL1 to WL6), when the engine has it: in a game run (run_steps) with the world on,
+# the reports fill and have their keys, the option causes come per option, the disaster story names its hazard, and the
+# run still lives exactly the lives of run() (which keeps no reports)
+if "wfx_step" in E.DEFAULT:
+    t0 = time.process_time(); fails = []; N, Y, seed = 1, 30, 2
+    Pd = dict(E.DEFAULT); Pd["world"] = True
+    kw = dict(N=N, years=Y, seed=seed, lib=EARTH, P=Pd, log_lives=(0,))
+    o1 = E.run(**kw)
+    g = E.run_steps(**kw); msg = next(g); fx, oc, kinds = 0, 0, set()
+    KEYS = {"kind", "channel", "size", "dir", "cause", "age"}
+    while True:
+        kind, t, S, val = msg
+        if kind == "end":
+            for e in S["wfx"][0]:
+                fx += 1; kinds.add((e["kind"], e["channel"]))
+                if not KEYS <= e.keys() or e["size"] == 0 or e["dir"] != ("up" if e["size"] > 0 else "down"):
+                    fails.append(f"report {e}")
+        elif kind == "choose":
+            c_ = S["option_causes"](0)
+            if c_ and len(c_) != len(S["L"]["labels"][int(S["s"][0])]):
+                fails.append(f"option causes for {len(c_)} options at week {t}")
+            oc += sum(len(x) for x in c_)
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o2 = done.value
+            break
+    d1, d2 = digest(o1), digest(o2)
+    diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+    if diff:
+        fails.append(f"the reports changed the lives: {diff}")
+    rd_ = [e["read"] for e in o2["events"][0] if "read" in e and "hazard" in e["read"]]
+    if not fx or not oc or not rd_ or any(r["where"] not in ("home", "near") for r in rd_):
+        fails.append(f"{fx} reports, {oc} option causes, {len(rd_)} disaster readings with a hazard")
+    # WL6's switch: with it on, a disaster at home brings only the events of its hazard (or those naming none)
+    import re, world_link
+    o3 = E.run(**dict(kw, P=dict(Pd, dis_match=True)))
+    for r in (e["read"] for e in o3["events"][0] if "read" in e and e["read"].get("where") == "home"):
+        hz_ = {h_ for h_, rx_ in world_link.HAZ_EVR.items() if re.search(rx_, r["name"], re.I)}
+        if hz_ and r["hazard"] not in hz_:
+            fails.append(f"dis_match: a {r['hazard']} brought {r['name']}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the world in their life, Earth and packs, world on: {N} life x {Y} years, seed "
+          f"{seed}; {fx} reports of {len(kinds)} kinds, {oc} option causes, {len(rd_)} disaster readings naming their hazard; "
+          f"lives as run(); dis_match runs{'' if not fails else '; ' + '; '.join(fails[:3])} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)
