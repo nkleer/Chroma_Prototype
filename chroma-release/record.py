@@ -8,7 +8,8 @@ its checks, when it ran, its report, and the verdict. Rerun it whenever a check 
     python3 -B chroma-release/record.py <version>          # writes records/<version>/RECORD.md and prints the verdict
     python3 -B chroma-release/record.py <version> --new    # writes a scope.md to fill in (the bar: every quick check)
 
-scope.md holds three sections, written by people: "## Scope", "## Rulings" and "## Bar", plus two optional lines near
+scope.md holds three sections, written by people: "## Scope", "## Rulings" and "## Bar" (any other section, such as
+notes before the record or the publish, is copied into RECORD.md in its place before the bar), plus two optional lines near
 the top: "commit: <sha>" (only results of checks run on that repository commit count; repo workflow step 6: a release
 is checked from a commit of main) and "since: YYYY-MM-DD HH:MM" in UTC (only results from then on count). The bar is a
 table "| Row | Checks | What |" whose Checks cell names result ids separated by commas (v22_checks.py --list shows
@@ -110,9 +111,9 @@ def build(version):
         out += [f"Candidate: repository commit `{meta['commit']}` (only results of checks run on it count).", ""]
     if meta.get("since"):
         out += [f"Results from {meta['since']} UTC on.", ""]
-    for name in ("scope", "rulings"):
-        if sec.get(name):
-            out += [f"## {name.capitalize()}", "", sec[name], ""]
+    for name, body in sec.items():                 # every section in scope.md's order; the bar comes last, as a table
+        if name != "bar" and body:
+            out += [f"## {name[0].upper() + name[1:]}", "", body, ""]
     out += ["## The bar", "", f"**{verdict}.** {n_pass} of {len(bar)} rows pass.", "",
             "| Row | What | State | Checks (newest result, Emren's time, report) |", "|---|---|---|---|"] + rows + [""]
     open(os.path.join(d, "RECORD.md"), "w", encoding="utf-8").write("\n".join(out))
