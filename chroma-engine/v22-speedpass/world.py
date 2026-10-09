@@ -402,10 +402,15 @@ W_DEFAULT = dict(
     lose_k=5.0,        # LW2 2d: grievance built per unit of a group's loss at a breakthrough or an era's start
     grv_fade=1 / 15.0, # LW2 2d: yearly fading of a grievance
     lead_spread_s3=0.15,  # LW2 2e: spread of an institution leader's colours around the government's or society's
+    # ---- the spheres of society (item 15, v22.3 stage 2; chroma-engine/notes/spheres-plan.md). Off, nothing of them is
+    # computed or saved and the world runs as v22.2
+    sph_town=False,    # phase 1c: each town's nine spheres, their sizes and five face shares, updated each quarter (read only)
+    sph_par=None,      # {name: value} over sphere_data.PARAMS (tuning; None: the design values)
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
+SPH_RULES = ("sph_town", "sph_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
 S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_anchor_s3", "anc_r", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
@@ -1010,6 +1015,8 @@ class World:
         self._place_q()
         self._culture_q()
         self._society_q()
+        if self.p.get("sph_town", False):
+            self._sphere_q()
         self._figures_q()
         self._history_q()
         if self.trace is not None:
@@ -2410,6 +2417,151 @@ class World:
     def faith_profile(self):
         return self.FPROF
 
+    # ------------------------------------------------------------------ the spheres of society (item 15): phase 1c
+    # Each town's nine spheres: a size (its share of the town's waking hours) and five face shares (one per colour),
+    # updated each quarter after _society_q (needs and demand are fresh) and before _figures_q. Read only: nothing in a
+    # life reads it yet, and it draws no dice. Rules: chroma-world/spheres/data/dynamics.json (face_mix, size, drivers),
+    # proposal chroma-ideas/spheres-implementation.md section 3, phase 1; the tables: sphere_data.py.
+    SPH_EPOCH = {"earth": "modern", "tribal": "bands", "magic": "magic"}
+    SPH_DRV_K = None
+
+    def _sph_tables(self):
+        """The sphere tables in this world's colour frame (permuted like _tables), made once (not saved)."""
+        c_ = getattr(self, "_cache_sph", None)
+        if c_ is not None:
+            return c_
+        import sphere_data as SD
+        P_ = self.perm; pr = dict(SD.PARAMS, **(self.p.get("sph_par") or {})); ep = self.SPH_EPOCH.get(self.cfg.get("setting", "earth"), "modern")
+        M0 = np.asarray(SD.M0[ep], float)[:, P_]
+        D = np.array([SD.D[d] for d in SD.DRIVERS], float)[:, :, P_]            # 8 drivers x 9 spheres x 5 colours
+        D = D - D.mean(1, keepdims=True)                                          # each colour's mean over the spheres out
+        kd = dict(pr["k_drivers"], insecurity=pr["kQ"], plenty=pr["kO"])
+        MEET = np.asarray(SD.MEETS, float)[:, P_, :]                              # 9 x 5 x (safety, belonging, meaning)
+        sp = SD.SPHERES; ix = {s_: i_ for i_, s_ in enumerate(sp)}
+        vec = lambda d_, dflt=0.0: np.array([float(d_.get(s_, dflt)) for s_ in sp])
+        phi = np.zeros((9, 3))                                                    # under 15, 15 to 29, 65 and over
+        for k_, v_ in pr["phi"].items():
+            s_, a_ = (k_.split("<")[0], 0) if "<" in k_ else (k_[:-3], 2) if k_.endswith("65+") else (k_[:-5], 1)
+            phi[ix[s_], a_] = v_
+        alpha = np.zeros(9); alpha[ix["prod"]] = pr["alpha_prod"]
+        c_ = dict(ep=ep, M0=M0, D=D, kd=np.array([kd[d] for d in SD.DRIVERS]), MEET=MEET,
+                  MEETc=MEET - MEET.mean(1, keepdims=True), rho=vec(pr["rho"]), eps=vec(pr["eps"], 1.0),
+                  beta=vec(pr["beta"]), zeta=vec(pr["zeta"]), alpha=alpha, phi=phi,
+                  base=np.asarray(pr["base_share"][ep], float), mem=np.array([pr["drv_mem"]["war" if d == "war" else "others"]
+                                                                         for d in SD.DRIVERS]),
+                  war=(ix["prot"], ix["rule"]), plague=(ix["care"], ix["gather"]), pr=pr, n_drv=len(SD.DRIVERS))
+        self._cache_sph = c_
+        return c_
+
+
+    def _sph_town_needs(self):
+        """Each town's unmet needs (n_loc x 5), from the population groups of its place class (_society_q's
+        group_unmet), with its own crime and disasters in place of its class's mean."""
+        U = self.group_unmet; pl = self.gidx[2]; w = self.pop.reshape(-1)
+        Uc = np.stack([(w[pl == k][:, None] * U[pl == k]).sum(0) / max(w[pl == k].sum(), 1e-12) for k in range(3)])
+        PW = self._place_w(); lp = self.loc_place
+        pc, pdis = PW @ self.loc_crime, PW @ np.minimum(self.loc_disaster, 1)
+        Ut = Uc[lp].copy()
+        Ut[:, 0] += 0.4 * (self.loc_crime - pc[lp]) + 0.3 * (np.minimum(self.loc_disaster, 1) - pdis[lp])
+        return _uclip(Ut, 0, 1)
+
+    def _sph_ages(self):
+        """Each town's shares under 15, 15 to 29 and 65 and over (n_loc x 3), from its place class's groups."""
+        pop = self.pop.sum(axis=(1, 3, 4))                                        # age band x place class
+        pop = pop / np.maximum(pop.sum(0, keepdims=True), 1e-12)
+        a3 = np.stack([pop[0], pop[1] + 0.5 * pop[2], pop[6] + pop[7]], 1)        # place class x 3
+        return a3[self.loc_place]
+
+    def _sph_drivers(self):
+        """The eight drivers' levels in each town (n_loc x 8; dynamics.json drivers)."""
+        nl = self.n_loc
+        sec = self.security() - 0.4 * self.loc_crime - 0.3 * np.minimum(self.loc_disaster, 1) - 0.2 * (self.fear - self.p["fear0"])
+        y = self.gap + (self.natural - self.loc_unemp) / 10 - (self.food + self.energy) / 6
+        war = 0.5 * (self.war == 1) + 1.0 * (self.war == 2) + 0.2 * bool(np.any(self.ext_war))
+        crowd = 100 * self.loc_growth + 50 * self.mig_in
+        ineq = 5 * self.ineq
+        school = self.loc_sectors[:, SECTORS.index("knowledge")]                 # proxy until the literate share is built
+        media = self.inst_kind == INST_KINDS.index("media")
+        expo = self.watch * (float(self.inst_capacity[media].mean()) if media.any() else 0.0)
+        tv = np.asarray(self.tech_adopt_v, float); au = float(np.mean(self.automation)); tr = float(np.sum(self.ext_trade))
+        last = getattr(self, "sph_chg_last", None)
+        n_ = 0 if last is None else min(len(tv), len(last[0]))            # a new kind counts from its second quarter
+        chg = 0.0 if last is None else (float(np.maximum(tv[:n_] - last[0][:n_], 0).sum()) + (au - last[1]) + (tr - last[2]))
+        self.sph_chg_last = (tv.copy(), au, tr)
+        chg += float(getattr(self, "norm_speed", 0.0))
+        b = lambda x_: np.broadcast_to(np.asarray(x_, float), (nl,))
+        return np.stack([-b(sec), b(y), b(war), b(crowd), b(ineq), b(school), b(expo), b(chg)], 1)   # insecurity: -sec
+
+    def _sph_leaders(self):
+        """Per town and sphere: the leaders' colour mix, their corruption and the bodies' age (capacity- and reach-
+        weighted over the sphere's institutions in town, else the whole country's); has: whether the sphere has any."""
+        nl = self.n_loc
+        A = (self.inst_sphere[:, None] == np.arange(9)[None]) * (self.inst_capacity * self.inst_reach + 1e-9)[:, None]
+        B = (np.asarray(self.inst_loc)[:, None] == np.arange(nl)[None]).astype(float)        # institution x town
+        X = np.concatenate([self.inst_leader_pie, self.inst_corruption[:, None], self.inst_age[:, None],
+                            np.ones((len(A), 1))], 1)                                         # what is averaged, and 1
+        loc = np.einsum("il,ij,ik->ljk", B, A, X)                                            # town x sphere x (5 + 3)
+        nat = np.einsum("ij,ik->jk", A, X)[None]                                             # the whole country's
+        has_l = loc[..., -1] > 1e-6
+        tot = np.where(has_l[..., None], loc, nat)
+        has = tot[..., -1] > 1e-6
+        m = tot[..., :-1] / np.maximum(tot[..., -1:], 1e-12)
+        Ld = np.where(has[..., None], m[..., :C], 0.2); corr = np.where(has, m[..., C], 0.0)
+        age = np.where(has, m[..., C + 1], 50.0)
+        return Ld, corr, age, has
+
+    def _sphere_q(self):
+        T = self._sph_tables(); pr = T["pr"]; nl = self.n_loc
+        U = self._sph_town_needs(); un = U[:, [0, 1, 4]]                          # safety, belonging, meaning
+        x_lvl = self._sph_drivers(); ages = self._sph_ages()
+        tech = float(self.tech_adopt_v[self.tech_keys.index("internet")]) if "internet" in self.tech_keys else 0.0
+        auto = float(np.mean(self.automation[[SECTORS.index("farm"), SECTORS.index("industry")]]))
+        if getattr(self, "sph_s", None) is None:                                  # the first quarter: home ways, at rest
+            self.sph_s = np.tile(T["M0"], (nl, 1, 1)); self.sph_ds = np.zeros((nl, 9, C)); self.sph_H = self.sph_s.copy()
+            self.sph_Z = np.tile(T["base"], (nl, 1)); self.sph_need = un.copy(); self.sph_drv = x_lvl.copy()
+            self.sph_ref = dict(ages=ages.copy(), tech=tech, auto=auto); self.sph_rat = np.ones(9)
+        s, Z = self.sph_s, self.sph_Z
+        # needs (N): gaps from the town's slow baseline, plus the pushback of what the town's spheres leave unmet
+        e = un - self.sph_need
+        sup = np.einsum("lj,ljc,jcn->ln", Z, s, T["MEET"]); sup0 = np.einsum("lj,jcn->ln", Z, 0.2 * T["MEET"])
+        e = e + pr["kS"] * (sup0 - sup)
+        self.sph_need += pr["need_mem"] * (un - self.sph_need)
+        Nt = pr["kN"] * np.einsum("ln,jcn->ljc", e, T["MEETc"])
+        # drivers (Q, O, T): each level against the town's memory of it, by the sphere's own projected weights
+        x = _uclip(x_lvl - self.sph_drv, -1, 1)
+        self.sph_drv += T["mem"] * (x_lvl - self.sph_drv); self.sph_x = x
+        Tt = np.einsum("d,ld,djc->ljc", T["kd"], x, T["D"])
+        Kt = pr["kK"] * (np.asarray(self.loc_mix, float) - 0.2)[:, None, :]     # the culture's lean in town
+        Dm = T["M0"][None] * np.exp(Nt + Tt + Kt)
+        Dm = Dm / Dm.sum(-1, keepdims=True)
+        Ld, corr, age, has = self._sph_leaders()
+        Lg = 1 - np.exp(-s / pr["sL"])
+        ds = (T["rho"][None, :, None] * Lg * (Dm - s) + pr["mu"] * self.sph_ds
+              + pr["aH"] * np.minimum(age, 100)[..., None] / 50 * (self.sph_H - s)
+              + has[..., None] * pr["aL"] * (1 + pr["kOl"] * corr)[..., None] * (Ld - s)
+              + pr["aA"] * U[:, 2][:, None, None] * (0.2 - s))
+        s_new = np.maximum(s + ds, pr["s_min"]); s_new /= s_new.sum(-1, keepdims=True)
+        self.sph_ds = s_new - s; self.sph_s = s_new
+        self.sph_H += pr["H_mem"] * (s_new - self.sph_H)
+        # sizes: hours by epoch base, income, budget, the town's ages and technology; war and plague jump, a war's
+        # rise partly kept
+        Yr = _uclip(1 + 0.01 * self.gap - 0.01 * (self.loc_unemp - self.natural), 0.5, 2.0)
+        lz = (T["eps"][None] * np.log(Yr)[:, None] + T["beta"][None] * (self.welfare - self.p["welfare0"])
+              + (ages - self.sph_ref["ages"]) @ T["phi"].T - T["alpha"][None] * (auto - self.sph_ref["auto"])
+              + T["zeta"][None] * (tech - self.sph_ref["tech"]))
+        jump = np.ones(9); wj = pr["war_jump"]; pj = pr["plague_jump"]
+        if self.war == 2:
+            jump[T["war"][0]], jump[T["war"][1]] = wj["prot"], wj["rule"]
+        if self.pandemic == 2:
+            jump[T["plague"][0]], jump[T["plague"][1]] = pj["care"], pj["gather"]
+        if self.war == 2:
+            kept = 1 + wj["ratchet_kept"] * (jump - 1)
+            self.sph_rat = np.maximum(self.sph_rat, np.where(np.arange(9) == T["war"][0], kept, np.where(np.arange(9) == T["war"][1], kept, 1.0)))
+        mult = np.maximum(jump, self.sph_rat)
+        Zs = T["base"][None] * mult[None] * np.exp(lz); Zs /= Zs.sum(1, keepdims=True)
+        kz = np.where(jump > 1.0001, 0.25, pr["kZ"])                              # a war or plague moves hours within a year
+        self.sph_Z = Z + kz[None] * (Zs - Z)
+
     # ------------------------------------------------------------------ the spheres of society (item 15): Replace
     @property
     def inst_sphere(self):
@@ -2417,6 +2569,29 @@ class World:
         sph = INST_SPH[self.inst_kind]
         sec = np.asarray(self.inst_sector)
         return np.where(sph >= 0, sph, SECTOR_SPH[np.where(sec >= 0, sec, SECTORS.index("services"))])
+
+    @property
+    def sph_epoch(self):
+        """The spheres' epoch for this world's setting (modern days for Earth)."""
+        return self.SPH_EPOCH.get(self.cfg.get("setting", "earth"), "modern")
+
+    EV_SPHERE = {("belief", None): "faith", ("era", None): "rule", ("place", "crime wave"): "prot",
+                 ("place", None): "rule", ("nature", "pandemic"): "care", ("nature", "disaster"): "prot",
+                 ("nature", None): "comm", ("abroad", "refugees arrive"): "gather", ("abroad", "world recession"): "comm",
+                 ("abroad", None): "prot", ("state", None): "rule", ("economy", None): "comm", ("tech", None): "prod",
+                 ("figure", None): "rule", ("culture", None): "gather"}
+
+    def event_sphere(self, e):
+        """The sphere a world event belongs to (item 15, phase 1d; spheres-implementation.md section 5, "Sphere events
+        onto the world's events"): an institution's by its sphere, a law on drink in gathering, else by its domain and
+        kind. Read only: the event itself is not changed. None for a domain with no sphere."""
+        d, k = e.get("domain"), e.get("kind")
+        if d == "institution":
+            i = (e.get("value") or {}).get("inst") if isinstance(e.get("value"), dict) else None
+            return SPHERES[int(self.inst_sphere[i])] if i is not None and 0 <= i < len(self.inst_kind) else None
+        if d == "state" and k == "law changed" and e.get("key") == "alcohol":
+            return "gather"
+        return self.EV_SPHERE.get((d, k), self.EV_SPHERE.get((d, None)))
 
     def sphere_insts(self, sphere):
         """The institutions of one sphere (a name or an index), in their stored order."""
@@ -2452,7 +2627,22 @@ class World:
                     pandemic=PANDEMIC[self.pandemic], norms={k: float(v) for k, v in zip(NORM_KEYS, self.norm_pub)},
                     faiths=[round(float(v), 2) for v in self.faith_share], secular=round(float(self.secular), 2),
                     tech={k: round(float(a), 2) for k, a, e in zip(self.tech_keys, self.tech_adopt_v, self.tech_exists) if e},
-                    figures=figs, regime="democracy" if self.regime >= 6 else "autocracy" if self.regime < -5 else "mixed")
+                    figures=figs, regime="democracy" if self.regime >= 6 else "autocracy" if self.regime < -5 else "mixed",
+                    **({"spheres": self._sph_portrait()} if getattr(self, "sph_s", None) is not None else {}))
+
+    def _sph_portrait(self):
+        """The town portrait (item 15, N3), public: per town each sphere's share of the hours and its five face shares
+        (W U B R G, the canonical order), with the leading face. Never the pressures, drivers or hazards behind them."""
+        import sphere_data as SD
+        inv = np.argsort(self.perm); out = []
+        for l in range(self.n_loc):
+            sp = {}
+            for j, s_ in enumerate(SPHERES):
+                f = self.sph_s[l, j][inv]; c = int(np.argmax(f))
+                sp[s_] = dict(hours=round(float(self.sph_Z[l, j]), 3), faces=[round(float(x), 3) for x in f],
+                              leads=f"{s_}.{COLORS[c]}", leads_name=SD.FACE_NAMES[f"{s_}.{COLORS[c]}"])
+            out.append(dict(town=int(l), spheres=sp))
+        return out
 
     # ------------------------------------------------------------------------------------------------ save and load
     def save(self):
@@ -2479,6 +2669,12 @@ class World:
             rng.append(dict(bit_generator=s["bit_generator"], state={a: str(b) for a, b in s["state"].items()},
                             has_uint32=int(s["has_uint32"]), uinteger=str(s["uinteger"])))
         cfg, par = {k: v for k, v in self.cfg.items() if k != "legacy"}, dict(self.p)
+        if not any(self.p.get(k, False) for k in SPH_RULES):   # spheres off: saved as v22.2 saved it
+            par = {k: v for k, v in par.items() if k not in SPH_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in SPH_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self._s3(k) for k in S3_RULES):        # stage 3 off: saved as v22.1 saved it (load restores them)
             par = {k: v for k, v in par.items() if k not in S3_RULES + S3_PARAMS}
             cp_ = {k: v for k, v in (cfg.get("params") or {}).items() if k not in S3_RULES + S3_PARAMS}
@@ -2491,7 +2687,7 @@ class World:
     @classmethod
     def load(cls, d):
         params = dict(d["params"])
-        for k in S3_RULES:                                 # saved before stage 3: its rules stay as they were
+        for k in S3_RULES + SPH_RULES:                     # saved before stage 3 or the spheres: their rules stay off
             params.setdefault(k, False)
         W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))
         for k, v in d["state"].items():
