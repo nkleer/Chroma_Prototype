@@ -1,0 +1,604 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, title moments of sphere titles set b. Library thread,
+# 2026-10-09, "v22" update stage 4, item 15 (chroma-packs/spheres/title-gaps.md, "The 28 new titles").
+# An everyday pair per new title of titles.py (NEW_TITLES) that only its holder meets (holds:), in the style of
+# earth-titles-careers.lib and earth-spheres-first-jobs.lib: the first moment grows from the title's turning point, the
+# second is a later stretch of the same title.
+# Syntax: header of build.py. Rules: SPEC.md. Every moment carries sphere: <sphere>, every option the face it acts in
+# (a cross option X>Y the means colour's face). ladder: is the rung the title sits on in its face's ladder; haunt:
+# where the moment happens at a haunt among its regulars.
+# Evenness: every one-colour option has chance 75 and every cross option 65, so each colour's mean is the same.
+# Pairs (complementary calls; cross cycles s1 and s2 four times each, s3 and s4 three times each):
+#   café or bar owner  GB (s1) / WUR (s2)     music teacher  UW (s3) / BRG (s4)      touring musician  RB (s1) / WUG (s2)
+#   folk musician      GR (s3) / WUB (s4)     craft maker    GU (s1) / WBR (s2)      independent preacher  BR (s3) / WUG (s4)
+#   complementary therapist  BG (s1) / WUR (s2)
+# Safety: the therapist's moments never offer or reward a remedy in place of a doctor; every act there keeps the
+# sessions beside medicine. The preacher's hall names no real faith. holds: names titles not yet in
+# earth_perks_titles.py (they wait for NEW_TITLES to be merged).
+
+# ================================================================ café or bar owner (gather.G)
+
+# ---------------------------------------------------------------- everyday, calls GB (cycle s1); partner: the cold room that failed overnight
+
+== the widower at the window table
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: pillar
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 21-80
+calls: GB
+holds: café or bar owner
+tone: trouble
+life: work, community
+horizon: moment
+roles: partner
+earth: the old regular who has had the window table every morning for twenty years now sits there all day over one cup of tea, and a queue waits at the door
+times: Most owners of a café with regulars, once or twice in their years there; small cafés live on turning tables at the busy hours, and regulars who stay all day are a common worry (estimate)
+gap: 1-3
+scene: It is the lunchtime rush at {Ns} café, and a queue waits at the door. The old man at the window table has come every morning for twenty years. Since his wife died, he stays all day over one cup of tea.
+scene W: {N} opened the café so that anyone could come in and sit. A widower with nowhere else to go is exactly who it is for.
+scene U: {N} knows the numbers: the window table at lunch is a fifth of the day's takings, and it has taken one cup of tea since nine.
+scene B: The rent went up in the spring, and {partner} has been over the books twice this week. A table that earns nothing at the busiest hour hurts.
+scene R: The queue is restless, someone at the door is tutting, and {N} is sick of feeling guilty in their own café.
+scene G: {N} served the old man and his wife their anniversary cake at that table. The café is part of his week, and he is part of it.
+- W | keep the window table his, rush or no rush, and work the queue faster | v: benevolence, universalism | sphere: gather.W | chance: 75
+- U | move him to the quiet corner table, with a fresh pot on the house | v: benevolence, achievement | sphere: gather.U | chance: 75
+- B | ask him kindly to come back after two, when the lunch crowd has gone | v: security, achievement | sphere: gather.B | chance: 75
+- R | sit down with him for five minutes and let the queue wait | v: benevolence, hedonism | sphere: gather.R | chance: 75
+- G | ask the other morning regulars to take turns keeping him company | v: benevolence, tradition | sphere: gather.G | chance: 75
+- W>U | put up a sign saying tables are shared at lunch, and everyone is welcome | v: universalism, conformity | sphere: gather.W | chance: 65
+- U>B | work out a cheap lunch deal for him, so the table earns its keep | v: achievement, benevolence | sphere: gather.U | chance: 65
+- B>R | strike a deal with him: free tea for life, at the counter at lunchtimes | v: power, hedonism | sphere: gather.B | chance: 65
+- R>G | tell the queue loudly that the window table is his, and always will be | v: tradition, stimulation | sphere: gather.R | chance: 65
+- G>W | put his name on a small card on the window table, as the old cafés did | v: tradition, benevolence | sphere: gather.G | chance: 65
+works: The lunch rush is served, and the old man is still at the window when {N} locks up.
+works: Word of it gets round the street, and the café is busier than ever that month.
+fails: The old man stops coming, and {N} hears that he now sits at home all day.
+fails: Two lunch groups give up on the queue, and the week's takings come up short.
+
+# ---------------------------------------------------------------- everyday, calls WUR (cycle s2); partner: the widower at the window table
+
+== the cold room that failed overnight
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: pillar
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 21-80
+calls: WUR
+holds: café or bar owner
+tone: trouble
+life: work
+horizon: moment
+roles: partner
+earth: you open the café at six to find the cold room failed overnight, and a wedding party of sixty sits down at noon
+times: Most café and bar owners who serve food, once in their years there; cold-room failures are a common trouble of small kitchens, and food inspectors read the temperature logs (estimate)
+gap: 2-6
+scene: At six {N} opens the café and finds the cold room silent and warm: it failed in the night. A wedding party of sixty sits down at noon, and the meat, the cream and the cheese were all inside.
+scene W: The rules are plain: food that sat warm for hours goes in the bin. The couple are owed the truth either way.
+scene U: The thermometer reads eleven degrees. If the log shows when it failed, some of the food may still be safe, and some surely is not.
+scene B: Sixty covers is the best booking of the year. Throwing out the stock and refunding the deposit could sink the month.
+scene R: There are six hours. {N} could still buy everything fresh and cook the lot, with no sleep and no help.
+scene G: The couple's grandparents had their own wedding lunch here, under the old owner. The family chose the café for that.
+- W | bin everything that sat warm, and ring the couple to tell them now | v: conformity, universalism | sphere: gather.W | chance: 75
+- U | check the cold room's log and keep only what the rules say is safe | v: security, achievement | sphere: gather.U | chance: 75
+- B | serve whatever looks and smells fine, and keep the night's failure to yourself | act: serve whatever looks and smells fine, and keep the night's failure to themselves | v: security, power | closed: approval: serving food that sat warm all night; backfire: guests fall ill and the inspector reads the log | mark: hid a wrong | sphere: gather.B | chance: 75
+- R | race to the wholesale market and cook the whole menu fresh by noon | v: stimulation, achievement | sphere: gather.R | chance: 75
+- G | ring round family and regulars to cook a dish each for the party | v: benevolence, tradition | sphere: gather.G | chance: 75
+- W>B | tell the couple honestly and offer a cut price for a smaller menu | v: universalism, security | sphere: gather.W | chance: 65
+- U>R | plan a new menu from the dry stores and the bakery, and cook it fast | v: achievement, stimulation | sphere: gather.U | chance: 65
+- B>G | call in a favour from the restaurant across the square for its cold room | v: security, benevolence | sphere: gather.B | chance: 65
+- R>W | greet the couple at the door, tell them straight, and make it right | v: universalism, self-direction | sphere: gather.R | chance: 65
+- G>U | ask the old owner, who ran this kitchen for thirty years, how he once coped | v: tradition | sphere: gather.G | chance: 65
+works: The party sits down at half past twelve, and nobody at the long table guesses the morning {N} has had.
+works: The couple send a card of thanks that stays up behind the counter for years.
+fails: Lunch is late and thin, and the couple's family leave a cold review online.
+fails: The week's stock goes in the bin, and {N} and {partner} spend a hard evening over the books.
+
+# ================================================================ music teacher (arts.U)
+
+# ---------------------------------------------------------------- everyday, calls UW (cycle s3); partner: the best pupil and the band
+
+== the pupil who cannot keep the beat
+tier: everyday
+sphere: arts
+ladder: known
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 18-80
+calls: UW
+holds: music teacher
+tone: mixed
+life: work
+horizon: months
+roles: mentor
+earth: a pupil has practised every day for a year and still cannot keep the beat, and the parents ask whether another term is worth it
+times: Most music teachers, a few times over their years; some pupils find timing hard for a long while, and parents weigh the fees term by term (estimate)
+gap: 1-3
+scene: A pupil of {Ns} has practised every day for a year and still cannot keep the beat. After the lesson the parents wait in the hall and ask whether another term is worth paying for.
+scene W: {N} promised every pupil a fair chance and an honest word. The parents have paid for a year and deserve both.
+scene U: {N} has watched closely: the child hears the beat but rushes whenever a passage gets hard. That can be taught.
+scene B: The family pay on time every term. Their child is a small, steady part of what keeps {Ns} teaching going.
+scene R: The child plays with real joy when nobody is counting out loud. The counting is what kills it.
+scene G: {mentor}, who taught {N} as a child, used to say that every slow learner in the town band got there in the end.
+- W | tell the parents plainly how far the child has come, and how far is left | v: universalism, conformity | sphere: arts.W | chance: 75
+- U | teach the beat a new way: clapping, then walking, then the drum first | v: achievement, self-direction | sphere: arts.U | chance: 75
+- B | recommend double lessons for a term, at the double fee | v: achievement, power | sphere: arts.B | chance: 75
+- R | put the metronome away and let the child play along to a favourite song | v: hedonism, stimulation | sphere: arts.R | chance: 75
+- G | bring the child to the town band's rehearsal to feel the beat among other players | v: tradition, benevolence | sphere: arts.G | chance: 75
+- W>R | set a small end-of-term concert as a goal for the child to aim at | v: stimulation, conformity | sphere: arts.W | chance: 65
+- U>G | find out what the family sings at home, and teach the beat through that | v: benevolence, tradition | sphere: arts.U | chance: 65
+- B>W | offer the next term cheaper on one condition: a practice log signed every night | v: conformity, security | sphere: arts.B | chance: 65
+- R>U | play fast duets with the child, quicker each week, until the beat sticks | v: stimulation, achievement | sphere: arts.R | chance: 65
+- G>B | introduce the parents to an old pupil who struggled the same way and went far | v: tradition, achievement | sphere: arts.G | chance: 65
+works: By the spring the child keeps time well enough to play in the end-of-term concert.
+works: The parents book another term, and the child starts arriving early for lessons.
+fails: The parents stop the lessons, and the child's instrument goes up for sale.
+fails: Another term passes with no change, and {N} starts to dread the Tuesday lesson.
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s4); partner: the pupil who cannot keep the beat
+
+== the best pupil and the band
+tier: everyday
+sphere: arts
+ladder: known
+rate: 0.5
+share: .001
+stages: young_adult adult mature elder
+age: 22-80
+calls: BRG
+holds: music teacher
+tone: mixed
+life: work
+horizon: months
+roles: friend
+earth: the best pupil you have ever taught has a place at the music college, and wants to turn it down to go on the road with a band
+times: Most music teachers, once or twice; a few gifted pupils face this choice in their late teens (estimate)
+gap: 3-10
+scene: The best pupil {N} has ever taught, seventeen and gifted, has won a place at the music college. Now they want to turn it down and go on the road with a band, and their parents ask {N} to talk them out of it.
+scene W: {N} owes the pupil the truth and the parents respect. It is not {Ns} life to choose.
+scene U: Seven years of scales and theory have made this pupil ready for the college. The road could waste all of it in a year.
+scene B: A pupil at the music college is the best name a teacher can have. Parents all over town would hear of it.
+scene R: {N} remembers wanting exactly this at seventeen, saying no, and wondering ever since.
+scene G: The pupil's grandmother first brought them to {Ns} door at ten. The whole family has gathered behind the college place.
+- W | tell the parents it is the pupil's choice, and stay out of it | v: universalism, self-direction | sphere: arts.W | chance: 75
+- U | ask the college whether the place could be held for a year | v: achievement, security | sphere: arts.U | chance: 75
+- B | talk the pupil round: the college first, the band after, with the better name | v: achievement, power | sphere: arts.B | chance: 75
+- R | tell the pupil to go on the road while they are young enough to love it | v: stimulation, self-direction | sphere: arts.R | chance: 75
+- G | sit down with the whole family, the grandmother too, and talk it through | v: benevolence, tradition | sphere: arts.G | chance: 75
+- W>G | promise the family to keep teaching the pupil, whichever way they go | v: benevolence | sphere: arts.W | chance: 65
+- U>W | set out both roads on paper for the pupil: the money, the years, the odds | v: universalism, achievement | sphere: arts.U | chance: 65
+- B>U | ring an old friend at the college to have the place quietly put back a year | v: achievement, power | sphere: arts.B | chance: 65
+- R>B | go and hear the band, then tell the pupil straight whether it is good enough | v: stimulation, achievement | sphere: arts.R | chance: 65
+- G>R | play the pupil's first-ever piece together, and let them decide after | v: tradition, hedonism | sphere: arts.G | chance: 65
+works: The pupil chooses with a clear head, and sends {N} a postcard from wherever the choice leads.
+works: The parents thank {N} for the talk, and the family stay close to {N} for years.
+fails: The pupil makes the choice in a temper, and the family blame {N} for it.
+fails: The pupil stops coming to lessons, and {N} hears the news second-hand from {friend}.
+
+# ================================================================ touring musician (arts.R)
+
+# ---------------------------------------------------------------- everyday, calls RB (cycle s1); partner: the bandmate who drinks before every show
+
+== half the fee on the fourth night
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: known
+rate: 0.5
+share: .0015
+stages: young_adult adult mature
+age: 18-70
+calls: RB
+holds: touring musician
+tone: trouble
+life: work, friends
+horizon: moment
+roles: friend
+earth: on the fourth night of the tour the venue pays the band half the agreed fee, and there is not enough fuel to reach the next town
+times: Most touring musicians, now and then; small venues paying short after a thin night is a common trouble of the road (estimate)
+gap: 0.5-2
+scene: It is the fourth night of the tour, and the room was half empty. The venue's manager counts out half the agreed fee and says that is all there is. The van needs fuel to reach the next town by tomorrow.
+scene W: The fee was agreed in writing. {N} wants what is fair, no more and no less.
+scene U: {N} counted the door: ninety paid. The manager's numbers do not add up.
+scene B: Word travels between venues. A band that lets one manager pay half gets paid half everywhere.
+scene R: {N} played their heart out to the people who came, and now this. {Ns} temper is rising.
+scene G: {friend} has been in the band since school. Whatever happens tonight, the band stays together.
+- W | show the manager the written agreement and ask for the rest | v: conformity, security | sphere: arts.W | chance: 75
+- U | ask to see the door count and the bar takings before taking anything | v: achievement, security | sphere: arts.U | chance: 75
+- B | take the half, and warn the manager the band will name the venue online | v: power | sphere: arts.B | chance: 75
+- R | refuse to load the van until the full fee is on the table | v: self-direction, stimulation | sphere: arts.R | chance: 75
+- G | take what is offered and share it out evenly among the band | v: benevolence, tradition | sphere: arts.G | chance: 75
+- W>U | write down every date's fee and head count, and send it to the agent tonight | v: conformity, achievement | sphere: arts.W | chance: 65
+- U>B | work out a deal: half now, the rest from next month's bar takings | v: security, achievement | sphere: arts.U | chance: 65
+- B>R | sell every last record and shirt at the door before the room empties | v: achievement, stimulation | sphere: arts.B | chance: 65
+- R>G | get the band busking in the square at midnight for the fuel money | v: stimulation, benevolence | sphere: arts.R | chance: 65
+- G>W | ring the band that played here last month and ask what they were paid | v: universalism, tradition | sphere: arts.G | chance: 65
+works: The van reaches the next town on time, and the band laugh about the night for years.
+works: The manager finds the missing money in the bar till, and the band are booked again next year.
+fails: The band leave with half, a long night ahead, and a hole in the tour's money.
+fails: Words are said at the door, and the manager warns every venue in the region about the band.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s2); partner: half the fee on the fourth night
+
+== the bandmate who drinks before every show
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: known
+rate: 0.5
+share: .001
+stages: young_adult adult mature
+age: 18-70
+calls: WUG
+holds: touring musician
+tone: trouble
+life: work, friends
+horizon: months
+roles: friend
+earth: two weeks into the tour your oldest friend in the band is drinking before every show, and last night they lost their place halfway through the set
+times: Many touring musicians, at some point; heavy drinking is a well-known risk of life on the road (estimate)
+gap: 1-4
+scene: Two weeks into the tour, {friend}, {Ns} oldest friend in the band, is drinking before every show. Last night they lost their place halfway through the set, and the crowd noticed.
+scene W: The band agreed one rule at the start: nobody plays drunk. A rule only means something if someone holds to it.
+scene U: It started after the bad night in the third town, and it is worse every evening. Something is going on with {friend}.
+scene B: A booker from a bigger festival is coming to Saturday's show. One more bad night could cost the whole band.
+scene R: {N} is angry, and frightened for {friend}, and wants to have it out tonight.
+scene G: They have played together since they were fourteen, and the two families sit together at every home show.
+- W | hold your friend to the band's one rule: nothing to drink before a show | act: hold their friend to the band's one rule: nothing to drink before a show | v: conformity | sphere: arts.W | chance: 75
+- U | ask quietly what changed after the night in the third town | v: benevolence, universalism | sphere: arts.U | chance: 75
+- B | line up a stand-in player for Saturday, just in case | v: security, achievement | sphere: arts.B | chance: 75
+- R | have it out with them in the van, loudly, before the next show | v: self-direction, stimulation | sphere: arts.R | chance: 75
+- G | call their family and ask them to come out to the next show | v: benevolence, tradition | sphere: arts.G | chance: 75
+- W>B | ask the band to vote on cutting the tour short until your friend is well | act: ask the band to vote on cutting the tour short until their friend is well | v: conformity, security | sphere: arts.W | chance: 65
+- U>R | find a meeting for people who want to stop drinking in the next town | v: benevolence, self-direction | sphere: arts.U | chance: 65
+- B>G | pay for a quiet hotel room away from the venue bars, so they can rest | v: benevolence, security | sphere: arts.B | chance: 65
+- R>W | stop drinking yourself for the rest of the tour, and ask them to join you | act: stop drinking themselves for the rest of the tour, and ask their friend to join them | v: self-direction, conformity | self_control: + | sphere: arts.R | chance: 65
+- G>U | ring an older musician who got sober on the road and ask what helped | v: tradition, benevolence | sphere: arts.G | chance: 65
+works: {friend} plays Saturday sober, and the band are offered the bigger festival.
+works: {friend} admits it at last on the drive home, and starts to cut down.
+fails: {friend} storms off after a row in the van, and the tour ends a week early.
+fails: The drinking goes on, and the booker leaves Saturday's show halfway through.
+
+# ================================================================ folk musician (arts.G)
+
+# ---------------------------------------------------------------- everyday, calls GR (cycle s3); partner: the advert that wants the old tune
+
+== the tune nobody wrote down
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: regular
+rate: 0.5
+share: .01
+stages: young_adult adult mature elder
+age: 18-95
+calls: GR
+holds: folk musician
+tone: mixed
+life: play, community
+horizon: months
+roles: elder
+earth: at the pub session the oldest player plays a slow tune nobody else knows, and says it was their mother's and has never been written down
+times: Many folk musicians in a long-running session, once; old players carry tunes that were never written down (estimate)
+gap: 2-8
+scene: In the back room of the pub, the session's oldest player, {elder}, plays a slow tune nobody else knows. When it ends, {elder} says it was their mother's, and that it has not been played in forty years.
+scene W: {N} believes the tunes belong to everyone who plays them. This one can belong to the whole session, if it is passed on.
+scene U: {N} heard a turn in the second part that is in no tune book {N} owns. It may be older than any of them.
+scene B: A tune nobody else plays would make {N} a name at every session and festival in the region.
+scene R: The room went quiet for it, and {Ns} hands are itching to play it back at once.
+scene G: {elder} is over ninety. When the oldest players go, their tunes go with them unless someone learns them.
+- W | ask the old player to teach the tune to the whole session next week | v: universalism, tradition | sphere: arts.W | chance: 75
+- U | record it on the phone and write it out properly at home | v: achievement, universalism | tech: phone | sphere: arts.U | chance: 75
+- B | learn it first, and play it at the festival as your own find | act: learn it first, and play it at the festival as their own find | v: achievement, power | sphere: arts.B | chance: 75
+- R | pick up the tune by ear right now and play it back together | v: stimulation, hedonism | sphere: arts.R | chance: 75
+- G | visit the old player on Sundays and learn it slowly, by ear | v: tradition, benevolence | sphere: arts.G | chance: 75
+- W>R | start every session with it, week after week, until everyone has it | v: tradition, stimulation | sphere: arts.W | chance: 65
+- U>G | ask about the mother and where she learned it, and write the story down | v: tradition, universalism | sphere: arts.U | chance: 65
+- B>W | get the tune into the folk society's book, with the old player's name on it | v: achievement, universalism | sphere: arts.B | chance: 65
+- R>U | play it back wrong on purpose, so the old player has to correct it | v: stimulation, achievement | sphere: arts.R | chance: 65
+- G>B | play it at the festival and name it after the old player's mother | v: tradition, achievement | sphere: arts.G | chance: 65
+works: By the spring the whole session plays the tune, and {elder} smiles every time it starts.
+works: The tune turns up at a festival two counties away, with the mother's name still on it.
+fails: {elder} falls ill before anyone has it right, and only a scrap of the tune is left.
+fails: {N} gets the tune wrong in front of the room, and {elder} goes quiet and plays no more that night.
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s4); partner: the tune nobody wrote down
+
+== the advert that wants the old tune
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: regular
+rate: 0.5
+share: .004
+stages: juvenile young_adult adult mature elder
+age: 16-95
+calls: WUB
+holds: folk musician
+tone: mixed
+life: play, community
+horizon: months
+roles: grandparent
+earth: a man from an advertising firm wants to buy the old tune your session plays every week, and asks who owns it
+times: A few folk musicians, once; old tunes with no known writer are free for anyone to use, and firms sometimes pay players for a recording (estimate)
+gap: 3-10
+scene: A man from an advertising firm heard {Ns} session play its oldest tune. He wants it for a car advert, and offers good money to whoever owns it. Nobody does: it is older than anyone in the room.
+scene W: A tune nobody wrote belongs to everyone. {N} does not think one session should be paid for it.
+scene U: {N} knows the rules a little: a tune with no writer is free to use, but a recording of the session belongs to its players.
+scene B: The money would buy a new instrument, and the advert would put the session's name on every screen.
+scene R: The thought of the tune selling cars makes {N} want to shout before anyone else can speak.
+scene G: The tune was played at {grandparent}'s funeral and at every family wedding since.
+- W | tell the man the tune belongs to everyone, and he may use it for nothing | v: universalism | sphere: arts.W | chance: 75
+- U | look up the rules and offer a recording of the session at a fair fee | v: achievement, security | sphere: arts.U | chance: 75
+- B | ask for twice his offer, with the session's name at the end of the advert | v: power, achievement | sphere: arts.B | chance: 75
+- R | refuse outright: this tune is not for selling cars | v: self-direction | sphere: arts.R | chance: 75
+- G | ask the oldest families who play it what they want done with it | v: tradition, benevolence | sphere: arts.G | chance: 75
+- W>G | agree, if the whole fee goes to the care home where the session plays each winter | v: benevolence, universalism | sphere: arts.W | chance: 65
+- U>W | put it to a vote of the whole session, with the numbers written up | v: universalism, conformity | sphere: arts.U | chance: 65
+- B>U | offer him a better deal: a new tune written for the advert, and owned by you | act: offer him a better deal: a new tune written for the advert, and owned by them | v: achievement, power | sphere: arts.B | chance: 65
+- R>B | agree on one condition: the session records it live, loud and its own way | v: self-direction, achievement | sphere: arts.R | chance: 65
+- G>R | play the tune for the man at the next session, and let the room decide | v: tradition, stimulation | sphere: arts.G | chance: 65
+works: The session agrees in the end, and the old tune is heard in kitchens all over the country.
+works: The session keeps the tune its own, and plays it louder than ever that winter.
+fails: The session splits over the money, and two players stop coming.
+fails: The firm uses the tune anyway, played by strangers, and the session gets nothing.
+
+# ================================================================ craft maker (arts.G)
+
+# ---------------------------------------------------------------- everyday, calls GU (cycle s1); partner: the copies on the next stall
+
+== the city shop that wants it quicker
+tier: everyday
+sphere: arts
+haunt: arts.craft
+ladder: known
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 18-90
+calls: GU
+holds: craft maker
+tone: mixed
+life: work
+horizon: months
+roles: mentor, partner
+earth: a shop in the city offers to sell your bowls, if you can make them faster and cheaper with a machine for the hard part
+times: Many craft makers who sell well, once or twice; shops buy at about half the price on the tag, and some ask for quicker ways of making (estimate)
+gap: 2-6
+scene: A shop in the city wants to sell {Ns} bowls, sixty a season. The buyer says they must be quicker and cheaper: a machine for the shaping, and {Ns} hands just for the glaze.
+scene W: {N} has told every buyer at the fair that each bowl is made by hand from start to finish. That word matters.
+scene U: {N} has worked it out: a machine could shape the clay to within a millimetre, and the glaze is where the skill really lies.
+scene B: Sixty bowls a season in a city shop would pay the workshop's rent for a year and put {Ns} name in front of buyers.
+scene R: {N} took up the craft to get away from machines and orders. This feels like the job {N} left.
+scene G: {mentor} taught {N} on the old wheel in the back room. Every bowl carries something of those hours.
+- W | tell the shop the truth: made by hand from start to finish, or not at all | v: conformity, self-direction | sphere: arts.W | chance: 75
+- U | try the machine for a month and compare the bowls side by side | v: achievement, self-direction | sphere: arts.U | chance: 75
+- B | take the order and charge the shop full price for the hand finish | v: achievement, power | sphere: arts.B | chance: 75
+- R | say no on the spot, and keep making what you like | act: say no on the spot, and keep making what they like | v: self-direction, hedonism | mark: turned down a chance | sphere: arts.R | chance: 75
+- G | ask your old teacher what the craft would lose | act: ask their old teacher what the craft would lose | v: tradition | sphere: arts.G | chance: 75
+- W>U | agree, but label every bowl plainly with how it was made | v: universalism, conformity | sphere: arts.W | chance: 65
+- U>B | design a cheaper line for the shop and keep the hand-thrown work for the fair | v: achievement, security | sphere: arts.U | chance: 65
+- B>R | take the order and spend the money on a month off to make wild pieces | v: hedonism, self-direction | sphere: arts.B | chance: 65
+- R>G | make all sixty by hand in one mad season, with friends round the wheel | v: stimulation, benevolence | sphere: arts.R | chance: 65
+- G>W | find two young makers in town to share the order, and teach them as you go | act: find two young makers in town to share the order, and teach them along the way | v: tradition, benevolence | sphere: arts.G | chance: 65
+works: The bowls sell out in the city by the spring, and the shop asks for more.
+works: {N} finds a way of working that keeps the craft and pays the rent, and sleeps better for it.
+fails: The order falls through halfway, and {N} is left with a shelf of bowls nobody wants.
+fails: The season wears {N} out, and {partner} says the workshop has eaten every evening.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s2); partner: the city shop that wants it quicker
+
+== the copies on the next stall
+tier: everyday
+sphere: arts
+haunt: comm.market
+ladder: known
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 18-90
+calls: WBR
+holds: craft maker
+tone: trouble
+life: work
+horizon: moment
+roles: friend
+earth: at the craft fair the stall next to yours sells cheap factory copies of your best design
+times: Many craft makers who sell at fairs, now and then; copied designs are a common complaint of makers (estimate)
+gap: 1-4
+scene: At the summer craft fair, the stall next to {Ns} is selling copies of {Ns} best design: the same shape and pattern, made in a factory somewhere, at a third of the price.
+scene W: The fair has a rule that everything sold must be made by the seller. The stall next door is breaking it in plain sight.
+scene U: Up close the copies are rough: the glaze runs and the bases are not level. Anyone who looks can see the difference.
+scene B: Every sale next door is a sale {N} has lost. The fair's three days are a quarter of the year's takings.
+scene R: {N} wants to walk over and say exactly what {N} thinks, in front of the customers.
+scene G: The fair's makers have known each other for years. They look out for one another, and {friend} at the stall opposite is watching.
+- W | report the stall to the fair's organisers under the makers' rule | v: conformity, universalism | lever: voice | sphere: arts.W | chance: 75
+- U | set one original beside one copy, and let buyers compare them | v: achievement | sphere: arts.U | chance: 75
+- B | cut your prices for the weekend and outsell them | act: cut their prices for the weekend and outsell them | v: achievement, power | sphere: arts.B | chance: 75
+- R | march over and tell the stallholder what you think, in front of everyone | act: march over and tell the stallholder what they think, in front of everyone | v: self-direction, stimulation | mark: made an enemy | sphere: arts.R | chance: 75
+- G | ask the other makers to stand together and go to the organisers as one | v: tradition, universalism | sphere: arts.G | chance: 75
+- W>B | ask the organisers to refund your pitch fee if the stall stays | act: ask the organisers to refund their pitch fee if the stall stays | v: security, conformity | sphere: arts.W | chance: 65
+- U>R | work at the wheel all afternoon, so buyers watch the real thing being made | v: stimulation, achievement | sphere: arts.U | chance: 65
+- B>G | offer the stallholder a deal: sell your real work instead, for a share | act: offer the stallholder a deal: sell their real work instead, for a share | v: power, benevolence | sphere: arts.B | chance: 65
+- R>W | put up a big hand-painted sign: the originals are made at this stall | v: self-direction, universalism | sphere: arts.R | chance: 65
+- G>U | tell every buyer who stops where the design came from and who taught it | v: tradition | sphere: arts.G | chance: 65
+works: By Sunday the copies are gone from the next stall, and {Ns} table is busier than ever.
+works: Buyers start asking for the maker by name, and the fair gives {N} a better pitch next year.
+fails: The copies sell out, and {Ns} takings for the weekend are the worst in years.
+fails: The row with the stallholder becomes the talk of the fair, and not in {Ns} favour.
+
+# ================================================================ independent preacher (faith.B)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s3); partner: the hall that must share its mornings
+
+== the giver who wants a say
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+ladder: pillar
+at: faith body
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 21-90
+calls: BR
+holds: independent preacher
+tone: trouble
+life: faith, work
+horizon: months
+roles: friend
+earth: the biggest giver in your hall, who pays most of the rent, asks for a seat at the front and a say in next month's sermons
+times: Most preachers with a hall of their own, once or more; small independent congregations often rest on a few large givers (estimate)
+gap: 2-6
+scene: {N} preaches in an old shop turned into a hall, with sixty chairs and a lease that runs to the spring. The biggest giver, who pays most of the rent, asks for a seat at the front and a say in next month's sermons.
+scene W: {N} started the hall so that everyone in it would stand equal. A seat bought at the front goes against that.
+scene U: {N} has done the sums: without this giver, the hall can pay its rent for four months.
+scene B: The hall is {Ns} own work, built from nothing. A giver who steers the sermons steers the hall.
+scene R: Every sermon {N} has given came from the heart, unplanned. Nobody tells {N} what to preach.
+scene G: The giver's family has come every week since the first meeting, and their children were named in this hall.
+- W | thank the giver, and say that every chair in the hall is equal | v: universalism | sphere: faith.W | chance: 75
+- U | show the members the hall's accounts and ask how to share the rent | v: universalism, security | sphere: faith.U | chance: 75
+- B | give the giver a seat on the hall's committee, but keep the pulpit yours | act: give the giver a seat on the hall's committee, but keep the pulpit their own | v: power, security | sphere: faith.B | chance: 75
+- R | preach next week on giving freely, with nothing asked back | v: self-direction | sphere: faith.R | chance: 75
+- G | visit the giver's family at home and talk it over at their table | v: tradition, benevolence | sphere: faith.G | chance: 75
+- W>R | refuse the request, and tell the hall plainly why from the front | v: universalism, self-direction | lever: voice | sphere: faith.W | chance: 65
+- U>G | ask the oldest members how the halls they knew before handled this | v: tradition | sphere: faith.U | chance: 65
+- B>W | write the hall's rules down: no gift buys a seat or a sermon | v: conformity, power | sphere: faith.B | chance: 65
+- R>U | go looking for a cheaper room that same week, ready to move | v: self-direction, security | sphere: faith.R | chance: 65
+- G>B | ask the founding families to give a little more each, so no one giver holds sway | v: tradition, security | sphere: faith.G | chance: 65
+works: The hall pays its rent through the winter, and the sermons stay {Ns} own.
+works: The giver stays, and in time becomes one of the hall's steadiest members.
+fails: The giver leaves with their family, and the rent is due in six weeks.
+fails: The hall splits into two camps over it, and {friend} says half the chairs are empty now.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s4); partner: the giver who wants a say
+
+== the hall that must share its mornings
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+ladder: pillar
+at: faith body
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 21-90
+calls: WUG
+holds: independent preacher
+tone: mixed
+life: faith, community
+horizon: months
+roles: elder
+earth: the lease on your hall ends, and the only room big enough is the community centre, which another congregation already uses on the morning of worship
+times: Many independent congregations, once or more; small halls often meet in rented rooms and move when a lease ends (estimate)
+gap: 3-10
+scene: The lease on {Ns} hall ends at midsummer, and the old shop is to become flats. The only room big enough nearby is the community centre, which another congregation already uses on the morning of worship.
+scene W: {N} believes a house of worship should be open to all. Sharing a room with neighbours of another faith fits that.
+scene U: The centre is free at eleven, after the other congregation, and again at six in the evening. Either could work with planning.
+scene B: Without a door of its own, the hall loses its name on the street. People choose a hall they can find.
+scene R: {N} would rather preach in the park than wait in a corridor for a turn.
+scene G: The old shop is where the hall began. {elder} was among the first there, and leaving feels like losing a home.
+- W | agree a fair timetable with the other congregation, and keep to it | v: conformity, universalism | sphere: faith.W | chance: 75
+- U | ask the members by letter which hour suits most of them | v: universalism | sphere: faith.U | chance: 75
+- B | look for a hall of your own to buy, whatever it costs | act: look for a hall of their own to buy, whatever it costs | v: power, achievement | sphere: faith.B | chance: 75
+- R | hold the next meeting in the park, in the open air, and see who comes | v: stimulation, self-direction | sphere: faith.R | chance: 75
+- G | hold one last service in the old shop, and carry the chairs over together | v: tradition, benevolence | sphere: faith.G | chance: 75
+- W>G | invite the other congregation to a shared meal before the first week | v: benevolence, universalism | sphere: faith.W | chance: 65
+- U>W | write a plain agreement with the centre: hours, keys, and who cleans | v: conformity, security | sphere: faith.U | chance: 65
+- B>U | ask the centre for the better hour in return for paying more | v: power, security | sphere: faith.B | chance: 65
+- R>B | preach a farewell sermon in the old shop that fills it to the doors | v: stimulation, achievement | sphere: faith.R | chance: 65
+- G>R | ask the oldest member to lead the walk to the new room, singing | v: tradition, stimulation | sphere: faith.G | chance: 65
+works: The first morning at the centre is fuller than any in the old shop.
+works: The two congregations end up sharing tea between services, and the caretaker calls it the best morning of the week.
+fails: A third of the members drift away in the move and do not come back.
+fails: The hours clash within a month, and the two congregations stop speaking in the corridor.
+
+# ================================================================ complementary therapist (care.B)
+
+# ---------------------------------------------------------------- everyday, calls BG (cycle s1); partner: the rival who promises cures
+# Safety: every act sends the client towards a doctor or is plain about what the sessions are; none offers more sessions
+# in place of one.
+
+== the numbness she would not take to the doctor
+tier: everyday
+sphere: care
+ladder: regular
+rate: 0.5
+share: .004
+stages: young_adult adult mature elder
+age: 18-75
+calls: BG
+holds: complementary therapist
+tone: trouble
+life: work
+horizon: week
+roles: colleague
+earth: a regular client who comes for her back mentions a new numbness down one leg, and says she would rather keep seeing you than go to her doctor
+times: Most complementary therapists, a few times; clients sometimes bring a new symptom to a therapist first, and the training says to send them on to a doctor (estimate)
+gap: 1-3
+scene: A regular client of {Ns}, who comes for her back, mentions a new numbness down one leg. She says she trusts {N} more than her doctor, and would rather just book more sessions.
+scene W: {Ns} course was clear about this: a new numbness goes to a doctor, whatever the client would prefer.
+scene U: {N} knows what the sessions can do for a stiff back, and that numbness is something else. It needs a proper look.
+scene B: She is {Ns} best client, three sessions a month, and she has said she will go elsewhere if anyone pushes her.
+scene R: {N} feels a jolt of alarm, and wants to act today, not after another session.
+scene G: Her daughter lives two streets away. {N} has known the family since the practice opened.
+- W | stop the session and tell her this needs a doctor this week | v: benevolence, conformity | sphere: care.W | chance: 75
+- U | ask careful questions and write down what she describes, to take to her doctor | v: benevolence, universalism | sphere: care.U | chance: 75
+- B | tell her the next booking waits until she has seen a doctor | v: security, benevolence | sphere: care.B | chance: 75
+- R | ring her surgery with her, there and then, and book the appointment | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | ask whether her daughter could go with her to the doctor | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>U | give her a written note for the doctor, with the date the numbness began | v: conformity, benevolence | sphere: care.W | chance: 65
+- U>B | explain plainly what the sessions can and cannot do, and keep her trust | v: universalism, security | sphere: care.U | chance: 65
+- B>R | offer a free session once she has been to the doctor, as a nudge | v: benevolence, hedonism | sphere: care.B | chance: 65
+- R>G | walk her down to the surgery after the session, and wait with her | v: benevolence | sphere: care.R | chance: 65
+- G>W | ring her daughter, with her say-so, so the family see that she goes | v: benevolence, tradition | sphere: care.G | chance: 65
+works: She sees her doctor that week, and comes back to {N} for her back once the doctor says it is fine.
+works: She thanks {N} for being straight with her, and sends a friend to the practice.
+fails: She cancels her next sessions, and {N} never learns whether she went.
+fails: She is cross at being pushed, and {colleague} hears she has booked with someone across town.
+
+# ---------------------------------------------------------------- everyday, calls WUR (cycle s2); partner: the numbness she would not take to the doctor
+
+== the rival who promises cures
+tier: everyday
+sphere: care
+ladder: regular
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 18-75
+calls: WUR
+holds: complementary therapist
+tone: mixed
+life: work
+horizon: months
+roles: rival
+earth: a new practice down the road puts up posters saying its treatments cure illness, and your clients ask why you never promise the same
+times: Many complementary therapists, once or more; cure claims break the advertising rules of most rich countries, but they still appear (estimate)
+gap: 2-6
+scene: A new practice opens down the road, run by {rival}, with posters saying its treatments cure illness. Two of {Ns} clients ask why {N} never promises the same, and one has already booked there.
+scene W: The advertising rules say no one may claim to cure an illness without proof. {N} has always kept to them.
+scene U: {N} has read what the studies show: the sessions ease tension and help people feel cared for, and that is all they show.
+scene B: Bold promises fill appointment books, and {Ns} own book has three empty mornings this week.
+scene R: The posters make {N} angry. People who are really ill could skip the doctor because of them.
+scene G: Most of {Ns} clients have come for years and send their friends. That trust was built slowly, one honest word at a time.
+- W | report the cure claims to the body that checks advertising | v: universalism, conformity | lever: voice | sphere: care.W | chance: 75
+- U | put a plain card at the desk: what the sessions can and cannot do | v: universalism | sphere: care.U | chance: 75
+- B | compete on comfort and price, and promise nothing you cannot keep | act: compete on comfort and price, and promise nothing they cannot keep | v: achievement, security | sphere: care.B | chance: 75
+- R | go down the road and tell the rival to their face the posters are wrong | v: self-direction, universalism | mark: made an enemy | sphere: care.R | chance: 75
+- G | trust the old clients' word of mouth, and change nothing | v: tradition, security | sphere: care.G | chance: 75
+- W>B | join the therapists' register that bans cure claims, and show its badge | v: conformity, security | sphere: care.W | chance: 65
+- U>R | give a free evening talk at the library on how to judge health claims | v: universalism, stimulation | sphere: care.U | chance: 65
+- B>G | build friendly ties with the local surgery, so clients who need more go there | v: security, benevolence | sphere: care.B | chance: 65
+- R>W | tell every client who asks, straight out, that nothing here cures illness | v: universalism, self-direction | sphere: care.R | chance: 65
+- G>U | ask the older therapists in town how they kept clients through such fads | v: tradition | sphere: care.G | chance: 65
+works: Clients drift back within the year, and several say they trust {N} more for the plain words.
+works: The cure posters come down after a complaint, and {Ns} book fills again.
+fails: The month is thin, and two more regulars try the practice down the road.
+fails: {rival} spreads word that {N} is jealous, and the row goes round the town.

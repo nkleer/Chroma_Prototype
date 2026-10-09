@@ -1,0 +1,606 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, title moments of seven new sphere titles (letter d). Library
+# thread, 2026-10-09, "v22" update stage 4, item 15 (`sph_titles`; chroma-packs/spheres/title-gaps.md, "The 28 new
+# titles"). An everyday pair per title of titles.py that only its holder meets (holds:), in the style of
+# earth-titles-careers.lib and earth-spheres-first-jobs.lib: the first moment grows from the title's turning point, the
+# second is a later stretch of the same role.
+# Syntax: header of build.py. Rules: SPEC.md. Every moment carries sphere: <sphere>, every option the face it acts in
+# (a cross option X>Y the means colour's face). ladder: is the rung the title sits on in that face's ladder
+# (character.jobs, read rung by rung); haunt: where the role is done at a haunt among its regulars.
+# Evenness: every one-colour option has chance 75 and every cross option 65, so each colour's mean is the same.
+# Pairs (complementary calls; cross cycles s1 4, s2 4, s3 3, s4 3):
+#   quality inspector     WU (s1) / BRG (s2)     standards inspector    WB (s3) / URG (s4)
+#   market trader         BR (s1) / WUG (s2)     savings-circle member  UG (s3) / WBR (s4)
+#   detective             UR (s1) / WBG (s2)     private investigator   UB (s3) / WRG (s4)
+#   park ranger           RG (s1) / WUB (s2)
+# holds: names the new titles, which are not yet in earth_perks_titles.py (they wait for NEW_TITLES to be merged).
+# Safety: the detective's and the investigator's moments keep any violence off the page (thefts, a fraud, a tracing
+# request, an insurance watch); no harm to a child.
+
+# ================================================================ quality inspector (prod.U)
+
+# ---------------------------------------------------------------- everyday, calls WU (cycle s1); partner: the line's bonus and the reject bin
+
+== three cracked brackets in the sample
+tier: everyday
+sphere: prod
+ladder: regular
+at: employer
+rate: 0.5
+share: .008
+stages: juvenile young_adult adult mature elder
+age: 17-70
+calls: WU
+holds: quality inspector
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague, mentor
+earth: near the end of the night shift you find three cracked brackets in a sample of fifty, and the buyer's lorry leaves at six
+times: Most quality inspectors, a few times a year; a failed sample against a shipping deadline is the commonest hard call of the test bench (estimate)
+gap: 0.5-1
+scene: Near the end of the night shift {N} finds three cracked brackets in a sample of fifty. The whole batch is boxed for the buyer's lorry at six, and {boss} wants it on the lorry.
+scene W: The rule on the wall is plain: a failed sample holds the whole batch, whoever is waiting for it.
+scene U: The cracks all sit on the same edge. {N} suspects one worn die on press four, and could prove it within the hour.
+scene B: Holding the lorry costs the firm the buyer's late fee, and {boss} writes {Ns} review in the spring.
+scene R: It is nearly six, {N} is tired, and the whole floor is watching to see what the inspector does.
+scene G: {mentor}, the old fitter who trained {N}, always said every part leaves the gate with the town's name on it.
+- W | put a hold tag on the batch and log the failed sample | v: conformity, security | sphere: prod.W | chance: 75
+- U | measure every part from press four before anyone decides anything | v: achievement | sphere: prod.U | chance: 75
+- B | let the lorry go, and pass a quiet warning to the buyer's own checkers | v: security, power | closed: approval: shipping a batch known to fail; backfire: the buyer finds the cracks | mark: hid a wrong | sphere: prod.B | chance: 75
+- R | stop press four yourself and call the shift over to look | act: stop press four and call the shift over to look | v: self-direction, stimulation | sphere: prod.R | chance: 75
+- G | wake the old setter who knows press four, and ask what it is doing | v: tradition | sphere: prod.G | chance: 75
+- W>U | sort the whole batch part by part before six, by the written test | v: conformity, achievement | sphere: prod.W | chance: 65
+- U>B | trace the cracks to the worn die, and take the proof to the plant manager yourself | act: trace the cracks to the worn die and take the proof to the plant manager | v: achievement, power | sphere: prod.U | chance: 65
+- B>R | ship the good boxes on time, and hold back only the boxes from press four | v: achievement, security | sphere: prod.B | chance: 65
+- R>G | sort the batch with the night shift until it is done, and buy them all breakfast | v: benevolence, stimulation | sphere: prod.R | chance: 65
+- G>W | ask the old fitters to sign the hold tag with you, so the shift stands together | act: ask the old fitters to sign the hold tag with them, so the shift stands together | v: tradition, conformity | lever: voice | sphere: prod.G | chance: 65
+works: The die is changed before the day shift, and the lorry leaves at nine with every part sound.
+works: The buyer hears about the hold and asks for {N} by name on the next contract.
+fails: {boss} overrules the hold, and the lorry leaves at six with the batch on it.
+fails: The sorting takes all morning, the buyer charges the late fee, and the floor blames the inspector.
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s2); partner: three cracked brackets in the sample
+
+== the line's bonus and the reject bin
+tier: everyday
+sphere: prod
+ladder: regular
+at: employer
+rate: 0.5
+share: .006
+stages: juvenile young_adult adult mature elder
+age: 17-70
+calls: BRG
+holds: quality inspector
+tone: mixed
+life: work, friends
+horizon: months
+roles: friend, boss, colleague
+earth: the line's bonus now rises as rejects fall, and the friends you eat lunch with ask you to go easier on the parts that only just fail
+times: Many quality inspectors, once or twice in their years on the bench; bonus schemes tied to reject rates are common on production lines (estimate)
+gap: 1-3
+scene: The firm now pays the line a bonus when the reject rate falls. At lunch {friend}, who works on the line, asks {N}, half joking, to go easier on the parts that only just fail.
+scene W: The limits on the drawing are the same on a bonus week as on any other week.
+scene U: Half the borderline rejects come off one gauge, and {N} has thought for weeks that it reads a hair tight.
+scene B: A friend on the line is worth having, and the bonus scheme was never {Ns} idea.
+scene R: {N} hates being the one the canteen goes quiet for.
+scene G: {friend} has two children and a mortgage, and {N} has eaten lunch at that table for years.
+- W | keep the limits exactly as the drawing sets them, bonus or no bonus | v: conformity, universalism | sphere: prod.W | chance: 75
+- U | check the gauge against the master before judging another borderline part | v: achievement, universalism | sphere: prod.U | chance: 75
+- B | pass the near misses this month, and keep the line on your side | act: pass the near misses this month, and keep the line on their side | v: power, security | closed: approval: passing parts outside the limits; backfire: a customer sends them back | mark: gave in to pressure | sphere: prod.B | chance: 75
+- R | tell the whole canteen straight that the limits are not yours to bend | act: tell the whole canteen straight that the limits are not theirs to bend | v: self-direction | sphere: prod.R | chance: 75
+- G | sit with the line after work and show them which parts fail and why | v: benevolence, tradition | sphere: prod.G | chance: 75
+- W>B | ask the manager in writing to take borderline rejects out of the bonus count | v: conformity, power | lever: voice | sphere: prod.W | chance: 65
+- U>R | rig a quick test at the press to show the line where the parts go wrong | v: achievement, stimulation | sphere: prod.U | chance: 65
+- B>G | strike a deal to count the bonus over the whole site, not one line | v: benevolence, power | sphere: prod.B | chance: 65
+- R>W | stand up at the shift meeting and say the scheme makes cheats of honest people | v: universalism, self-direction | lever: voice | sphere: prod.R | chance: 65
+- G>U | ask the oldest setter on the line how they kept parts inside the limits before | v: tradition, achievement | sphere: prod.G | chance: 65
+works: The gauge is set right, half the borderline rejects pass fairly, and the line's bonus comes in.
+works: {friend} laughs about it by the next week, and lunch is as it always was.
+fails: The canteen stays cool to {N} for the rest of the month.
+fails: A customer sends back a crate of near misses from another shift, and every inspector's work is checked for a month.
+
+# ================================================================ standards inspector (comm.W)
+
+# ---------------------------------------------------------------- everyday, calls WB (cycle s3); partner: the cheap chargers on the Saturday stall
+
+== short weight at the corner butcher's
+tier: everyday
+sphere: comm
+ladder: known
+at: council
+rate: 0.5
+share: .0004
+stages: young_adult adult mature elder
+age: 21-70
+calls: WB
+holds: standards inspector
+tone: trouble
+life: work, community
+horizon: week
+roles: boss, colleague, parent
+earth: a test purchase shows the corner butcher's scale gives short weight, and he has carried half the street on credit through hard winters
+times: Most standards inspectors, a few times a year; short weight found on a test purchase is the oldest case of the standards office (estimate)
+gap: 0.5-1
+scene: {Ns} test purchase is plain: the corner butcher's scale gives short weight, a little on every bag. He has served the street for thirty years and carried half of it on credit through hard winters.
+scene W: The rule is the same for a chain store and a corner shop. Every buyer is owed full weight.
+scene U: The shortfall is the same on every bag. That looks like a worn spring, not a thumb.
+scene B: {boss} wants a prosecution this quarter to show the office earns its budget.
+scene R: {N} wants to walk straight in and have it out with him across the counter.
+scene G: {parent} bought meat from this man every Saturday for years.
+- W | write the notice by the book, as for any shop, and set a retest date | v: conformity, universalism | sphere: comm.W | chance: 75
+- U | have the scale tested at the office to see whether it is wear or a fix | v: universalism, achievement | sphere: comm.U | chance: 75
+- B | put the case forward for prosecution, and let the figures speak for you | act: put the case forward for prosecution, and let the figures speak for them | v: achievement, power | sphere: comm.B | chance: 75
+- R | go in at closing time and tell him to his face what the test found | v: self-direction | sphere: comm.R | chance: 75
+- G | have a word as a neighbour first, and give him a week to put it right | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>R | seal the scale on the spot in front of the queue, as the law allows | v: conformity, stimulation | sphere: comm.W | chance: 65
+- U>G | show him the test figures, and how a new spring would fix it for good | v: benevolence, universalism | sphere: comm.U | chance: 65
+- B>W | offer a formal caution if he signs and buys a new scale | v: security, conformity | sphere: comm.B | chance: 65
+- R>U | buy a bag yourself every day this week and weigh each one in the street | act: buy a bag every day this week and weigh each one in the street | v: stimulation, achievement | sphere: comm.R | chance: 65
+- G>B | ask the shopkeepers' association to get him a cheap scale from their supplier | v: tradition, power | sphere: comm.G | chance: 65
+works: The new scale is in by Friday, and the butcher pins its certificate beside the till.
+works: The office closes the case with a caution, and the street hears that its weights were checked.
+fails: The butcher takes it as an insult, and half the street stops nodding to {N}.
+fails: {boss} calls the case soft, and the next big file goes to {colleague}.
+
+# ---------------------------------------------------------------- everyday, calls URG (cycle s4); partner: short weight at the corner butcher's
+
+== the cheap chargers on the Saturday stall
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: known
+at: council
+rate: 0.5
+share: .0003
+stages: young_adult adult mature elder
+age: 21-70
+calls: URG
+holds: standards inspector
+tone: mixed
+life: work, community
+horizon: week
+roles: boss, colleague, parent
+earth: on the Saturday market a young trader sells cheap phone chargers with no safety mark, and his queue is the longest on the row
+times: Most standards inspectors, once or twice a year; unmarked electrical goods on market stalls are a steady part of the office's work (estimate)
+gap: 0.5-2
+scene: On the Saturday market {N} picks up a phone charger from the busiest stall on the row. It has no safety mark, and the young trader is selling them three for the price of one.
+scene W: Unmarked chargers start house fires. The law on them is clear, and it is the same for every stall.
+scene U: {N} could open one up at the office and see exactly what is inside.
+scene B: Seizing his stock would fill the month's report, and the market's owners would like this stall gone.
+scene R: The queue is loud and happy. Half of them would boo the inspector who empties the stall.
+scene G: The trader's mother runs the fruit stall three pitches down, and the whole row is watching.
+- W | seize the stock by the book, and hand him the written notice | v: conformity, security | sphere: comm.W | chance: 75
+- U | take three for testing, and tell him you will be back with the results | act: take three for testing, and tell him they will be back with the results | v: universalism, achievement | sphere: comm.U | chance: 75
+- B | let the market's owners know, and leave it to them to close the pitch | v: power, security | sphere: comm.B | chance: 75
+- R | stand at the stall and tell the queue what is wrong with the chargers | v: stimulation, universalism | sphere: comm.R | chance: 75
+- G | ask his mother to bring him over for a quiet word at her stall | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>G | seize the stock, then help him find a supplier with marked goods | v: conformity, benevolence | sphere: comm.W | chance: 65
+- U>W | trace where the chargers came from, and report the supplier instead of the trader | v: universalism | sphere: comm.U | chance: 65
+- B>U | let him sell out today, and use him to find the wholesaler behind it | v: power, achievement | sphere: comm.B | chance: 65
+- R>B | tell him he can hand them over now or lose his pitch for good | v: power | sphere: comm.R | chance: 65
+- G>R | gather the row's stallholders to tell him together that it ends today | v: tradition, stimulation | sphere: comm.G | chance: 65
+works: The trader hands over the box himself, and next month he is back on the row with marked stock.
+works: The test finds the chargers unsafe, and the supplier's warehouse is shut within the month.
+fails: The trader shouts that the inspector is ruining him, and the row turns its back on {N}.
+fails: He packs up and sells them online instead, and {N} never finds where they came from.
+
+# ================================================================ market trader (comm.R)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s1); partner: the summer circuit of fairs
+
+== the trader across the row at half price
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: regular
+rate: 0.5
+share: .008
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: BR
+holds: market trader
+tone: trouble
+life: work, money
+horizon: months
+roles: rival, partner, elder
+earth: a new trader sets up across the row with your stock at half your price, and your regulars hover between the two stalls
+times: Most market traders, once or twice in their years on a pitch; a newcomer who undercuts the row is a known trouble of market trading (estimate)
+gap: 1-3
+scene: A new trader has set up across the row with the same stock as {N}, every price cut in half. {Ns} regulars stand in the aisle, looking from one stall to the other.
+scene W: The market has a rule against selling below cost to drive a stall out, if anyone cared to use it.
+scene U: {N} has priced that stock for years. Half price is below what the wholesaler charges, so it cannot last.
+scene B: {N} has a van full of stock bought on credit, and the payment falls due on Monday.
+scene R: {N} feels the old itch to out-shout him, out-price him and out-last him.
+scene G: Most of the people in the aisle have bought from {N} for ten years and know {Ns} family by name.
+- W | ask the market warden whether selling below cost breaks the pitch rules | v: conformity, security | lever: voice | sphere: comm.W | chance: 75
+- U | work out his costs, and wait for him to run out of money | v: achievement, security | sphere: comm.U | chance: 75
+- B | buy his whole stock off him cheap and sell it on yourself | act: buy his whole stock off him cheap and sell it on themselves | v: power, achievement | sphere: comm.B | chance: 75
+- R | start calling out deals louder and better than he can | v: stimulation, self-direction | sphere: comm.R | chance: 75
+- G | thank your regulars by name, and add a little extra to every bag | act: thank their regulars by name, and add a little extra to every bag | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>U | post your prices beside the wholesaler's, so buyers can see where the money goes | act: post their prices beside the wholesaler's, so buyers can see where the money goes | v: universalism, achievement | sphere: comm.W | chance: 65
+- U>B | switch to the lines he does not carry, and price them high | v: achievement, power | sphere: comm.U | chance: 65
+- B>R | walk over and offer him a deal: split the row between you | act: walk over and offer him a deal to split the row between them | v: power, stimulation | sphere: comm.B | chance: 65
+- R>G | throw a Saturday street party at the stall, with music, samples and the regulars' children | v: hedonism, benevolence | sphere: comm.R | chance: 65
+- G>W | get the old stallholders to agree fair prices for the whole row together | v: tradition, universalism | sphere: comm.G | chance: 65
+works: By the end of the month the new trader is gone, and the regulars are back in front of {Ns} stall.
+works: The new trader shakes on a fair split, and both stalls have a good summer.
+fails: The takings halve for a month, and the payment on the van's stock is late.
+fails: The regulars drift across the aisle one by one, and only the oldest stay.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s2); partner: the trader across the row at half price
+
+== the summer circuit of fairs
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: regular
+rate: 0.5
+share: .005
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: WUG
+holds: market trader
+tone: mixed
+life: work, money, home
+horizon: months
+roles: rival, partner, elder
+earth: an old hand offers you a place on the summer circuit of fairs: three months on the road, double the takings, and your weekly pitch left empty
+times: About half of market traders, once; the travelling fairs and the weekly pitch pull on the same summer (estimate)
+gap: 2-6
+scene: An old hand on the row offers {N} a place on the summer circuit: a different fair town every weekend for three months, at double the takings. The weekly pitch would sit empty, and the warden gives empty pitches away.
+scene W: {N} signed the pitch agreement for the year, and the warden's rules on empty pitches are clear.
+scene U: {N} works it out on the back of an invoice: fuel, fees and nights away, against the takings.
+scene B: Double the takings would pay off the van, and the fairs lead to bigger buyers.
+scene R: The road between fair towns, a new crowd every weekend: {N} has wanted this for years.
+scene G: The regulars come every Thursday, and {partner} would be left alone with everything for the summer.
+- W | ask the warden properly for leave from the pitch for the summer | v: conformity, security | sphere: comm.W | chance: 75
+- U | do the full sums for the circuit before saying yes or no | v: achievement, security | sphere: comm.U | chance: 75
+- B | take the circuit, and rent the weekly pitch to a cousin for a share | v: power, achievement | sphere: comm.B | chance: 75
+- R | say yes, load the van and go | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 75
+- G | turn it down, and keep the Thursday regulars and the summer at home | v: tradition, benevolence | mark: stayed home | sphere: comm.G | chance: 75
+- W>B | take the circuit only on a written share of the takings | v: security, power | sphere: comm.W | chance: 65
+- U>R | try three fairs first, and decide on the rest from what they take | v: achievement, stimulation | sphere: comm.U | chance: 65
+- B>G | take the circuit as a family business, with {partner} on the stall beside you | act: take the circuit as a family business, with {partner} on the stall beside them | v: benevolence, achievement | sphere: comm.B | chance: 65
+- R>W | go on the road, and promise the regulars a Thursday stall again at summer's end | v: stimulation, benevolence | sphere: comm.R | chance: 65
+- G>U | ask the oldest traders on the row what the circuit did to them | v: tradition, achievement | sphere: comm.G | chance: 65
+works: The summer ends with the van paid off and the weekly pitch still {Ns}.
+works: {partner} says it was the right choice, and the regulars bring the stall a cake in the autumn.
+fails: The fairs are wet all summer, and the takings barely pay for the fuel.
+fails: The warden gives the empty pitch away, and {N} is back on the waiting list.
+
+# ================================================================ savings-circle member (comm.G)
+
+# ---------------------------------------------------------------- everyday, calls UG (cycle s3); partner: a newcomer asks to join the circle
+
+== the member who took the pot and stopped paying
+tier: everyday
+sphere: comm
+ladder: regular
+rate: 0.5
+share: .02
+stages: juvenile young_adult adult mature elder
+age: 16-95
+calls: UG
+holds: savings-circle member
+tone: trouble
+life: money, community
+horizon: months
+roles: neighbour, elder, friend
+earth: in your savings circle a member who took the pot early has missed two payments, and the member whose turn is last wants her out
+times: About 2 savings-circle members in 5, once in their years in a circle; a missed month after an early turn is the commonest trouble of rotating savings (estimate)
+gap: 1-4
+scene: Ten neighbours each put the same sum into the pot every month, and each month one of them takes it all. One member took the pot in the spring and has missed two payments since. The member whose turn comes last wants her out.
+scene W: The circle runs on one rule: everyone pays every month until everyone has had a turn.
+scene U: {N} has kept the book since the start, and can see exactly how short the last turns will be.
+scene B: {Ns} own turn is next month, and the shortfall would come out of it.
+scene R: {N} has half a mind to go round to her door tonight and ask what is going on.
+scene G: She has paid into this circle for twelve years, and her husband lost his job in the summer.
+- W | hold to the rule: she pays what she owes, or she leaves the circle | v: conformity, security | sphere: comm.W | chance: 75
+- U | lay the book out at the next meeting, so everyone sees the real shortfall | v: universalism, achievement | sphere: comm.U | chance: 75
+- B | ask to move your own turn to this month, before the shortfall reaches it | act: ask to move their own turn to this month, before the shortfall reaches it | v: security, power | sphere: comm.B | chance: 75
+- R | go round to her house tonight and ask her straight | v: self-direction, benevolence | sphere: comm.R | chance: 75
+- G | ask the circle to carry her for three months, as she once carried others | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>R | call a meeting this week, and settle it face to face before the next turn | v: conformity, stimulation | sphere: comm.W | chance: 65
+- U>G | work out a smaller monthly sum she could still manage, and put it to the circle | v: benevolence, universalism | sphere: comm.U | chance: 65
+- B>W | ask her to sign a note for what she owes, witnessed by two members | v: security, conformity | sphere: comm.B | chance: 65
+- R>U | cover her two payments yourself this month, and work out the rest later | act: cover her two payments this month, and work out the rest later | v: benevolence, self-direction | mark: helped someone in need | sphere: comm.R | chance: 65
+- G>B | ask her brother, who has a good job, to stand behind her payments | v: tradition, power | sphere: comm.G | chance: 65
+works: She pays what she owes by the winter, and the circle goes on as it always has.
+works: The circle agrees a smaller sum for her, and at the end of the round everyone has had a full turn.
+fails: Two members leave over it, and the circle ends the year at half its size.
+fails: The last turn comes up short, and the member at the end of the line blames {N} for the book.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s4); partner: the member who took the pot and stopped paying
+
+== a newcomer asks to join the circle
+tier: everyday
+sphere: comm
+ladder: regular
+rate: 0.5
+share: .015
+stages: juvenile young_adult adult mature elder
+age: 16-95
+calls: WBR
+holds: savings-circle member
+tone: mixed
+life: money, community
+horizon: months
+roles: neighbour, elder, friend
+earth: a woman from a new family on the street asks to join your savings circle, and the old members say only people they know get in
+times: About 1 savings-circle member in 3, once or twice; circles that run on knowing each other's families meet newcomers who want in (estimate)
+gap: 1-4
+scene: A woman from the new family at the end of the street asks {N} whether she could join the savings circle. She has a steady job and no one here to vouch for her. The old members say the circle is for people they know.
+scene W: The circle's rules say nothing about where a member comes from, only that they pay.
+scene U: {N} knows the risk sits in the first year, before a new member has paid in more than they have taken.
+scene B: A member with a steady wage makes the pot surer for everyone, {N} included.
+scene R: {N} is tired of the old members deciding everything over tea.
+scene G: The circle has held because everyone knew everyone's family, and {N} knows nothing of hers yet.
+- W | ask the circle to vote on her, by the same rule as for anyone else | v: universalism, conformity | lever: voice | sphere: comm.W | chance: 75
+- U | suggest she takes one of the last turns, so the risk to the others stays small | v: security, universalism | sphere: comm.U | chance: 75
+- B | vouch for her yourself, if she takes a later turn than yours | act: vouch for her, if she takes a later turn than theirs | v: power, security | sphere: comm.B | chance: 75
+- R | tell the old members she is joining, and that you will stand for her | act: tell the old members she is joining, and that they will stand for her | v: self-direction, benevolence | sphere: comm.R | chance: 75
+- G | invite her to tea with the old members first, so they come to know her | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>G | write the circle's rules down, so a newcomer joins on the same terms as kin | v: universalism, tradition | sphere: comm.W | chance: 65
+- U>W | find out how other circles on the estate take in newcomers, and report back | v: universalism, achievement | sphere: comm.U | chance: 65
+- B>U | start a second circle with her and the other newcomers, and keep its book yourself | act: start a second circle with her and the other newcomers, and keep its book themselves | v: power, achievement | lever: found | sphere: comm.B | chance: 65
+- R>B | dare the old members to let her in, or you take your own money out | act: dare the old members to let her in, or they take their own money out | v: power, self-direction | sphere: comm.R | chance: 65
+- G>R | bring her along to the circle's next birthday party, and let the evening decide | v: tradition, hedonism | sphere: comm.G | chance: 65
+works: She joins at the start of the next round, and by the spring she brings the cake to every meeting.
+works: The old members take to her slowly, and two more newcomers join within the year.
+fails: The old members refuse, and she joins a circle on the next street instead.
+fails: The vote splits the circle, and the meetings stay cool for months.
+
+# ================================================================ detective (prot.U)
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the life savings gone to a caller
+
+== the shed thefts and the name everyone gives
+tier: everyday
+sphere: prot
+haunt: prot.watch
+ladder: known
+at: police
+rate: 0.5
+share: .0015
+stages: young_adult adult mature
+age: 23-65
+calls: UR
+holds: detective
+tone: trouble
+life: work, community
+horizon: week
+roles: boss, colleague, neighbour
+earth: the station wants a quick charge for a run of shed break-ins, and the young man everyone names was across town on two of the nights
+times: Most detectives, once or twice a year; pressure for a quick charge on a run of small thefts is an everyday trouble of a station's crime desk (estimate)
+gap: 0.5-2
+scene: A run of shed break-ins along the allotments has the whole ward angry, and {boss} wants a charge this week. Everyone names the same young man from the flats. {Ns} notes put him across town on two of the nights.
+scene W: The evidence has to hold for anyone, whoever the street has already decided on.
+scene U: The break-ins follow the late bus, not him. {N} can see the shape of it on the map.
+scene B: A quick charge clears the figures, and {boss} chooses who sits the sergeant's board next.
+scene R: {N} wants to go out tonight and catch whoever is really doing it.
+scene G: {N} knows the young man's grandmother from the beat years, and she has been to the front desk twice.
+- W | tell {boss} the evidence does not support a charge against him | v: universalism, conformity | lever: voice | sphere: prot.W | chance: 75
+- U | pin every break-in to the map with its time, and follow the pattern | v: achievement, universalism | sphere: prot.U | chance: 75
+- B | send the file up as it is, and let the lawyers sort out the gaps | v: security, power | closed: approval: charging a suspect the notes do not support; backfire: the case falls apart in court | mark: hid a wrong | sphere: prot.B | chance: 75
+- R | sit out at the allotments on the next late-bus night and watch | v: stimulation, self-direction | sphere: prot.R | chance: 75
+- G | go to the grandmother's flat and hear what the family knows | v: tradition, benevolence | sphere: prot.G | chance: 75
+- W>U | ask the bus company for its camera footage through the proper request | v: conformity, achievement | sphere: prot.W | chance: 65
+- U>B | build the case on the real pattern quietly, and bring it to {boss} finished | v: achievement, power | sphere: prot.U | chance: 65
+- B>R | trade a favour with a dealer in second-hand tools for a name, and move fast | v: power, stimulation | sphere: prot.B | chance: 65
+- R>G | walk the allotments with the plot holders and ask who they see after dark | v: benevolence, stimulation | sphere: prot.R | chance: 65
+- G>W | ask the old beat officers whether this happened before, and how it was settled | v: tradition, conformity | sphere: prot.G | chance: 65
+works: The real thieves are caught on the next late-bus night, and the young man's name is cleared.
+works: {boss} reads the pattern on the map, and the charge is dropped before anyone is named in public.
+fails: The charge goes ahead, and months later it falls apart in court.
+fails: The break-ins stop for a month and start again, and the ward blames the station.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: the shed thefts and the name everyone gives
+
+== the life savings gone to a caller
+tier: everyday
+sphere: prot
+haunt: prot.watch
+ladder: known
+at: police
+rate: 0.5
+share: .001
+stages: young_adult adult mature
+age: 23-65
+calls: WBG
+holds: detective
+tone: trouble
+life: work, community
+horizon: months
+roles: boss, colleague, neighbour
+earth: an old woman on your patch handed her life savings to a caller posing as her bank, the trail runs abroad, and the station wants the file closed
+times: Most detectives, once or twice a year; phone fraud against older people is among the commonest crimes reported to a station (estimate)
+gap: 0.5-2
+scene: An old woman on {Ns} patch handed her life savings to a caller who said he was from her bank. The trail runs online and abroad, and {boss} wants the file closed as one that cannot be solved.
+scene W: She is owed the same effort as any victim with a lawyer and a loud voice.
+scene U: Three other old people on the same estate had calls that week. Someone has a list.
+scene B: Cases that cannot be solved drag down a detective's clear-up figures, and the figures count.
+scene R: {N} wants to ring the number back and give the caller a fright.
+scene G: Her neighbours bring her soup every evening now, and the whole estate is frightened of the phone.
+- W | keep the file open, and keep her told of every step | v: universalism, benevolence | sphere: prot.W | chance: 75
+- U | find out how the callers got the estate's names before they call again | v: achievement, security | sphere: prot.U | chance: 75
+- B | close the file as told, and spend the hours on cases that can be solved | v: achievement, security | sphere: prot.B | chance: 75
+- R | ring the number back yourself and keep the caller talking | act: ring the number back and keep the caller talking | v: stimulation | tech: phone | sphere: prot.R | chance: 75
+- G | go to the estate's community room and warn everyone in person | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>B | pass the file to the fraud unit by the book, with every page in order | v: conformity, security | sphere: prot.W | chance: 65
+- U>R | follow the money through the bank's records overnight, before it moves again | v: achievement, stimulation | sphere: prot.U | chance: 65
+- B>G | press her bank to refund her, since its own warnings failed her | v: power, benevolence | sphere: prot.B | chance: 65
+- R>W | take her story to the local paper, so no one else is caught | v: universalism, stimulation | lever: voice | sphere: prot.R | chance: 65
+- G>U | ask the neighbours who bring her soup to listen out for the next call | v: tradition, security | sphere: prot.G | chance: 65
+works: The bank refunds most of it, and she sends a tin of biscuits to the station.
+works: The callers try the estate again, and this time every door is ready for them.
+fails: The money is gone for good, and the file is closed at the end of the month.
+fails: {boss} sees the hours on the time sheet and asks what else went undone.
+
+# ================================================================ private investigator (prot.B)
+
+# ---------------------------------------------------------------- everyday, calls UB (cycle s3); partner: the claimant up the ladder
+
+== a father who wants his grown daughter found
+tier: everyday
+sphere: prot
+ladder: pillar
+at: employer
+rate: 0.5
+share: .0004
+stages: young_adult adult mature elder
+age: 21-75
+calls: UB
+holds: private investigator
+tone: trouble
+life: work, money
+horizon: week
+roles: parent, colleague
+earth: a father offers to pay well if you find his grown daughter, who moved away three years ago and has not called since
+times: Most private investigators, a few times in their working years; requests to trace an adult who left by choice are a known trouble of tracing work (estimate)
+gap: 1-3
+scene: A man in a good coat offers {N} a fat fee to find his daughter. She is twenty-six, moved away three years ago and has not called since. He will not say why.
+scene W: An adult may choose who knows where she lives. Nothing gives {N} the right to undo that.
+scene U: Finding her would take a week: old friends, a work profile online, a change of address.
+scene B: The fee would cover the office rent until spring, and he hints at more work from his firm.
+scene R: {N} does not trust the way he will not meet {Ns} eyes.
+scene G: {N} thinks of {Ns} own family, and the years {N} went without calling {parent}.
+- W | take the case only if she is asked first whether she wants to be found | v: universalism, conformity | sphere: prot.W | chance: 75
+- U | ask him the questions he is avoiding before you agree to anything | act: ask him the questions he is avoiding before they agree to anything | v: security, universalism | sphere: prot.U | chance: 75
+- B | take the fee, find the address, and ask no more questions | v: achievement, power | closed: approval: tracing an adult who chose to leave, without her say; backfire: she learns who found her | sphere: prot.B | chance: 75
+- R | turn him down flat, and show him the door | v: self-direction | mark: turned down a chance | sphere: prot.R | chance: 75
+- G | offer to carry a letter from him, if she can be found, and let her answer | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>R | tell him straight that the law protects her choice, and you will not get round it | act: tell him straight that the law protects her choice, and they will not get round it | v: universalism, self-direction | sphere: prot.W | chance: 65
+- U>G | trace her quietly through old friends, and ask them to say her father is looking | v: benevolence, achievement | sphere: prot.U | chance: 65
+- B>W | write a contract that hands nothing over without her signed consent | v: security, conformity | sphere: prot.B | chance: 65
+- R>U | watch him for a day before deciding, to see what kind of man he is | v: stimulation, security | sphere: prot.R | chance: 65
+- G>B | send him to a friend who runs a family mediation service, for a small finder's fee | v: tradition, power | sphere: prot.G | chance: 65
+works: The daughter reads her father's letter, and a month later writes back a few lines.
+works: The man thanks {N} for the honest answer, and his firm sends work in the spring.
+fails: He storms out, and a bad review of {Ns} office appears online that night.
+fails: The daughter hears that someone was asking about her, and changes her number again.
+
+# ---------------------------------------------------------------- everyday, calls WRG (cycle s4); partner: a father who wants his grown daughter found
+
+== the claimant up the ladder
+tier: everyday
+sphere: prot
+ladder: pillar
+at: employer
+rate: 0.5
+share: .0003
+stages: young_adult adult mature elder
+age: 21-75
+calls: WRG
+holds: private investigator
+tone: mixed
+life: work, money
+horizon: week
+roles: parent, colleague
+earth: an insurer pays you to watch a man who claims a bad back, and on the second day you film him up a ladder at his mother's house
+times: Most private investigators who work for insurers, a few times a year; watching claimants is a large share of the trade's paid work (estimate)
+gap: 0.5-2
+scene: An insurer pays {N} to watch a man off work with a bad back. On the second morning {N} films him up a ladder, clearing his old mother's gutters, and coming down slowly with his face screwed up.
+scene W: The insurer pays for the truth, and the truth is two things at once: he climbed, and it hurt.
+scene U: One clip proves nothing about a back. {N} would need a week to know.
+scene B: The insurer wants the clip, and the insurer is half of {Ns} work this year.
+scene R: {N} feels sick, filming a man in pain for doing his mother a kindness.
+scene G: The house is two streets from where {N} grew up, and anyone on that street could be filmed for the same.
+- W | send the whole morning's film, the climb and the pain together | v: universalism, conformity | sphere: prot.W | chance: 75
+- U | keep watching all week before reporting anything | v: achievement, universalism | sphere: prot.U | chance: 75
+- B | send the insurer the clip of the climb, and nothing else | v: achievement, power | closed: approval: a clip cut to make a case; backfire: his lawyer asks for the full film | sphere: prot.B | chance: 75
+- R | drop the case, and tell the insurer to find someone else | v: self-direction | lever: exit | sphere: prot.R | chance: 75
+- G | knock on his door, say who you are, and warn him to mind his claim | act: knock on his door, say who they are, and warn him to mind his claim | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>G | report the climb, and write in the report what it cost him | v: universalism, benevolence | sphere: prot.W | chance: 65
+- U>W | ask the insurer for his medical file before saying what the film means | v: universalism, conformity | sphere: prot.U | chance: 65
+- B>U | bill the full week, and send a careful report that would hold up anywhere | v: achievement, security | sphere: prot.B | chance: 65
+- R>B | tell the insurer you will only go on at double the rate | act: tell the insurer they will only go on at double the rate | v: power, stimulation | sphere: prot.R | chance: 65
+- G>R | take the old street's word on him over the film, and write it up that way | v: tradition, self-direction | sphere: prot.G | chance: 65
+works: The insurer settles the claim fairly, and the man is back at work by the summer.
+works: The report holds up in front of the claims panel, and the insurer sends {N} its next three cases.
+fails: The insurer drops {N} for being soft, and the office is quiet for a month.
+fails: The man's lawyer gets hold of the film, and {Ns} name is read out at the hearing.
+
+# ================================================================ park ranger (prot.G)
+
+# ---------------------------------------------------------------- everyday, calls RG (cycle s1); partner: the car park planned for the orchid meadow
+
+== a campfire on the heath in the dry week
+tier: everyday
+sphere: prot
+ladder: regular
+at: employer
+rate: 0.5
+share: .0004
+stages: young_adult adult mature
+age: 20-65
+calls: RG
+holds: park ranger
+tone: trouble
+life: work, community, nature
+horizon: moment
+roles: boss, friend
+earth: in the driest week of the summer you find a family from your village round a campfire on the heath, where every fire is banned
+times: Most park rangers, a few times every dry summer; fires lit under a ban are a ranger's commonest summer trouble (estimate)
+gap: 0.5-1
+scene: In the driest week of the summer {N} smells smoke on the heath and finds a family round a campfire, cooking on sticks. Every fire in the park is banned, and the father is someone {N} has known since school.
+scene W: The ban is posted at every gate, and it binds a village family the same as a coach of visitors.
+scene U: The wind is turning. {N} knows how fast this heath went up eleven years ago.
+scene B: A fine on a man from the village would be talked about in every pub, and {N} has to live here.
+scene R: {N} wants the fire out now, this second, whatever anyone thinks of it.
+scene G: The heath is the village's own. His grandparents and {Ns} both grazed sheep on it.
+- W | put the fire out and write the fine, as for any visitor | v: conformity, universalism | sphere: prot.W | chance: 75
+- U | show them on the map how far the last heath fire ran | v: universalism, security | sphere: prot.U | chance: 75
+- B | put it out with them, and let him owe you a quiet favour | act: put it out with them, and let him owe them a quiet favour | v: power, security | sphere: prot.B | chance: 75
+- R | kick the fire apart at once and stamp the ashes cold | v: security, stimulation | sphere: prot.R | chance: 75
+- G | help them put it out, and remind him what the heath means to both families | v: tradition | sphere: prot.G | chance: 75
+- W>U | put out the fire and log the spot, so the morning patrol checks the ground | v: conformity, security | sphere: prot.W | chance: 65
+- U>B | let him off the fine if he helps put up the ban notices in the village | v: power, security | sphere: prot.U | chance: 65
+- B>R | warn him that next time it is the fine and the papers, and move on fast | v: power, stimulation | sphere: prot.B | chance: 65
+- R>G | put the fire out with the children helping, and make a game of the bucket chain | v: benevolence, stimulation | sphere: prot.R | chance: 65
+- G>W | ask the village hall to put the ban on its notice board and in its newsletter | v: tradition, conformity | sphere: prot.G | chance: 65
+works: The fire is out in minutes, and the father helps {N} soak the ground.
+works: By the weekend every family in the village knows the ban, and the heath stays unburned all summer.
+fails: The father takes it badly, and the story in the pub is that {N} has forgotten their own village.
+fails: A week later another fire is lit on the far side of the heath, and it takes a crew all afternoon to put out.
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s2); partner: a campfire on the heath in the dry week
+
+== the car park planned for the orchid meadow
+tier: everyday
+sphere: prot
+ladder: regular
+at: employer
+rate: 0.5
+share: .0003
+stages: young_adult adult mature
+age: 20-65
+calls: WUB
+holds: park ranger
+tone: mixed
+life: work, community, nature
+horizon: months
+roles: boss, friend
+earth: the park's managers plan a car park and café on the meadow where the rare orchids grow, and the takings would pay for two more rangers
+times: About half of park rangers, once or twice; plans to earn money from a protected corner of the park come up in most parks (estimate)
+gap: 2-6
+scene: The park's managers plan a large car park and a café on the lower meadow, where the rare orchids flower each summer. The takings would pay for two more rangers, and {boss} asks {N} to sign off the survey.
+scene W: The park's own charter protects the meadow. A plan can change, but the rules should not bend quietly.
+scene U: {N} has counted the orchids on that meadow for six summers, and knows exactly which corner holds most of them.
+scene B: Two more rangers would mean {N} leads a team at last, and {boss} remembers who helped.
+scene R: {N} has half a mind to tell the planning meeting what to do with its café.
+scene G: The villagers have walked that meadow on the first Sunday of summer for as long as anyone remembers.
+- W | refuse to sign the survey unless the charter's rules are followed in full | v: conformity, universalism | sphere: prot.W | chance: 75
+- U | redraw the plan from your counts, with the car park on the corner where nothing grows | act: redraw the plan from their counts, with the car park on the corner where nothing grows | v: achievement, universalism | sphere: prot.U | chance: 75
+- B | sign off the survey, and ask to lead the two new rangers | v: power, achievement | sphere: prot.B | chance: 75
+- R | speak against the plan at the public meeting, in front of the managers | v: self-direction, universalism | lever: voice | sphere: prot.R | chance: 75
+- G | tell the village about the plan before the managers do | v: tradition, benevolence | sphere: prot.G | chance: 75
+- W>B | ask for the plan in writing, then bargain the café down to a kiosk | v: conformity, power | sphere: prot.W | chance: 65
+- U>R | lead a dawn walk for the councillors through the meadow in full flower | v: universalism, stimulation | sphere: prot.U | chance: 65
+- B>G | strike a deal: the car park goes ahead if the café pays for the meadow's care | v: power, benevolence | sphere: prot.B | chance: 65
+- R>W | start a petition at the park gate that weekend | v: universalism, stimulation | lever: voice | sphere: prot.R | chance: 65
+- G>U | ask the oldest villagers what the meadow was like before, and add it to the survey | v: tradition, universalism | sphere: prot.G | chance: 65
+works: The car park moves to the corner where nothing grows, and the orchids flower as they always have.
+works: The managers keep the meadow whole and still find the money for one more ranger.
+fails: The diggers come in the autumn, and the first Sunday walk is held beside a fence.
+fails: {boss} gives the survey to another ranger, and {N} is left out of the planning from then on.
