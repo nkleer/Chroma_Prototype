@@ -1,0 +1,1112 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, the levers, felt fairness and the forum. Library thread,
+# 2026-10-09, "v22" update stage 4, item 15 phase 4 (chroma-ideas/spheres-implementation.md, "Phase 4: your mark on the
+# town"): options drawn from the 81 lever lines (character.levers in each <sphere>.json; what each lever means at each
+# rung, dynamics.json levers), felt fairness (Tyler 1990) and the forum.
+# Every moment carries sphere:, every option its lever: and the face it acts in (sphere: gather.R; a cross option X>Y the
+# means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Rungs: moments opening from newcomer or regular offer exit, voice, loyalty, neglect, subvert and found; moments opening
+# from known, pillar or leader add lead, office and fund. A rate on a moment with ladder: is the rate among people at
+# that rung (the Engine gates the moment by the rung), and times: says so.
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# Evenness: inside each moment every one-colour option has one chance and every cross or pair option one chance
+# (everyday 75 and 65, life events 60 and 50), so each colour's sum is the same in every moment.
+# Everyday pairs (one calls two colours, its partner the other three, same stages and ages): the new keeper's rules RG
+# (s1) with the choir's auditions WUB (s2); the elders' new order of service WG (s3) with the ward one nurse short UBR
+# (s4); the library's notice UG (s1) with the market pitches WBR (s2); the share on the boat UR (s3) with the on-call
+# crew WBG (s4); six chairs at the ward forum UR (s1) with the council meeting in the morning WBG (s2); the ward sister
+# at eight WR (s3) with the desk officer UBG (s4).
+# Life events and their pair sets: the branch splits D1a, the chair of the council D1b, the society splits D2a, the
+# players' grant D2b, the free kitchen D3a, the small ward D3b, the evening classes D4a, the makers' association D4b, the
+# credit union D5a, the night desk D5b, nominations close D6a, the small claims hearing D6b, the foreman's inquiry D3a.
+# Skipped as already written: asked to lead a club or congregation ('the club or congregation asks you to lead'); a
+# congregation's leader steps down ('the leader of thirty years steps down'); a club's fee and waiting list ('the club
+# adds a waiting list'); rent for a club's room ('the café wants rent for the back room'); a cooperative's roof ('a roof
+# three households cannot pay for'); a seat on a residents' body ('a seat on the residents' committee', 'the keys to the
+# meeting hall'); the first speech at a council meeting ('the first time you speak at the meeting'); a fight over new
+# homes at a meeting ('your town faces a change you could fight'); a fine and its appeal ('a fine you think is unfair');
+# a stop and search ('more patrols and more stops'); the street's own watch ('the street starts its own watch'); a strike
+# ballot ('a strike vote at work'); a team folding ('the team is down to nine players'); a theatre closing ('the last
+# night at the little theatre'); a lean year in a life (left to prod's 'a lean year' in phase 3).
+
+# ================================================================ everyday moments
+
+# ---------------------------------------------------------------- everyday, calls RG (cycle s1); partner: the choir's new director wants auditions
+
+== the new keeper's rules
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult+
+age: 18-100
+calls: RG
+rate: .3
+share: .2
+tone: mixed
+life: friends, community, leisure
+horizon: months
+roles: keeper, regular, friend
+who: keeper
+earth: your bar has a new keeper, and the notice by the door says no more cards, food at the tables only, and last orders at eleven
+times: Among regulars of a bar or café (the third place, Oldenburg 1989), a change of keeper who brings new rules for the room comes to about 1 in 5, once or twice in a life (estimate)
+likelier: a regular of some years, a bar or café that has changed hands, a town where rents are rising
+rarer: a newcomer, a person who drinks at home, a place run by one family for generations
+gap: 5-20
+scene: The bar has a new keeper, and the notice by the door says it all: no more cards, food at the tables only, last orders at eleven. The corner where {N} and {friend} play every Thursday is now four tables for diners.
+scene W: The new keeper has every right to make rules. But nobody asked the regulars, and some of them have nowhere else to go of an evening.
+scene U: {N} wonders what the new keeper is really after: the rent, the diners' money, or a different crowd altogether.
+scene B: A bar that changes its crowd changes who meets whom. {N} can already tell which regulars the new keeper wants to keep.
+scene R: The cards were the best part of the week. {N} reads the notice twice and feels the heat rise.
+scene G: The same faces have sat in that corner for twenty years. Some of them knew the old keeper's father.
+- W | ask the new keeper to hear the regulars out on one quiet evening | v: conformity, benevolence | lever: voice | sphere: gather.W | chance: 75
+- U | work out what the keeper takes each night, and offer a plan that keeps the cards | v: universalism, achievement | lever: voice | sphere: gather.U | chance: 75
+- B | get friendly with the keeper, and have your own table kept as the one exception | act: get friendly with the keeper, and have their own table kept as the one exception | v: power, security | lever: subvert | sphere: gather.B | chance: 75
+- R | take the regulars and the cards to the bar across the square that very night | v: stimulation, self-direction | lever: exit | sphere: gather.R | chance: 75
+- G | keep coming every Thursday, order the food, and sit where the keeper puts you | act: keep coming every Thursday, order the food, and sit where the keeper puts them | v: tradition, security | lever: loyalty | sphere: gather.G | chance: 75
+- W>U | write the regulars' wishes in a short letter, and get every one of them to sign | v: conformity, universalism | lever: voice | sphere: gather.W | chance: 65
+- U>B | find out who owns the building, and take the regulars' case over the keeper's head | v: power, self-direction | mark: made an enemy | lever: subvert | sphere: gather.U | chance: 65
+- B>R | start a card night at your own kitchen table, with a little in the pot | act: start a card night at their own kitchen table, with a little in the pot | v: hedonism, power | lever: found | sphere: gather.B | chance: 65
+- R>G | throw one last loud card night for the old keeper before the rules begin | v: stimulation, tradition | lever: voice | sphere: gather.R | chance: 65
+- G>W | come in less, and when you do, sit quietly among the diners | act: come in less, and when they do, sit quietly among the diners | v: security, conformity | lever: neglect | sphere: gather.G | chance: 65
+works: The keeper gives the regulars Thursday evenings in the corner, and the cards come back out.
+works: The old crowd finds a new home for its nights, and it holds together.
+fails: The corner fills with diners, and one by one the old regulars stop coming in.
+fails: Words are said at the bar that cannot be taken back, and {N} is not welcome there any more.
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s2); partner: the new keeper's rules
+
+== the choir's new director wants auditions
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: regular
+stages: young_adult+
+age: 18-100
+calls: WUB
+rate: .3
+share: .1
+tone: mixed
+life: music, friends, community
+horizon: months
+roles: friend, keeper, regular
+who: keeper
+earth: your community choir has a new director, and from next term everyone must audition again for their place
+times: Among people who sing in a community choir or play in a local band (perhaps 1 adult in 10), a new leader who changes who may take part comes to about 1 in 4 of them, once in a life (estimate; overall about 1 in 10 lives)
+likelier: a long-standing member of a choir, band or dance group, a group that has grown ambitious, a new leader from outside
+rarer: a person who does not sing or play with others, a small group run by friends
+gap: 5-20
+scene: The community choir has a new director, young and very good, with a plan: a competition in the spring, and from next term everyone sings again for their place. The older altos look at each other. {friend} says she will not do it.
+scene W: A community choir is meant to be for anyone who comes. {N} is not sure a choir that tests its own members is still one.
+scene U: {N} has heard what the new director can do with sixty voices. The sound could become something real.
+scene B: A choir that wins competitions gets heard, booked and talked about. {N} would like a place at the front of that.
+scene R: {N} sings because it feels good on a Tuesday night. Nobody ever said anything about tests.
+scene G: Some of these singers have stood in the same row for thirty years. The choir sang at their weddings and their parents' funerals.
+- W | speak at the choir meeting for a place for anyone who turns up | v: universalism, benevolence | lever: voice | sphere: arts.W | chance: 75
+- U | audition, and spend the summer learning your part properly | act: audition, and spend the summer learning their part properly | v: achievement, self-direction | mark: learned a skill | lever: loyalty | sphere: arts.U | chance: 75
+- B | try out for the chamber choir in the city, where the best singers go | v: achievement | mark: moved away | lever: exit | sphere: arts.B | chance: 75
+- R | start a singing night in the pub's back room, for anyone who wants to sing loud | v: hedonism, stimulation | lever: found | sphere: arts.R | chance: 75
+- G | stand with the older altos, and tell the director none of you will audition | act: stand with the older altos, and tell the director none of them will audition | v: tradition, benevolence | lever: voice | sphere: arts.G | chance: 75
+- W>B | offer to run the auditions, so every singer gets the same test and a fair hearing | v: conformity, power | lever: loyalty | sphere: arts.W | chance: 65
+- U>R | learn the competition piece by ear in a week, and audition with it | v: self-direction, stimulation | lever: loyalty | sphere: arts.U | chance: 65
+- B>G | audition, then ask the director to keep the old altos on as a favour to you | act: audition, then ask the director to keep the old altos on as a favour to them | v: power, tradition | lever: subvert | sphere: arts.B | chance: 65
+- R>W | tell the director to her face that a choir is for everyone, and see who claps | v: universalism, stimulation | lever: voice | sphere: arts.R | chance: 65
+- G>U | keep coming on Tuesdays, but skip the extra rehearsals and the competition | v: tradition, security | lever: neglect | sphere: arts.G | chance: 65
+works: The director keeps an open choir beside the competition group, and the old altos stay.
+works: {N} finds a place to sing that fits, and the singing is better than it has been in years.
+fails: The choir splits down the middle, and the Tuesday nights are never the same again.
+fails: {N} loses the place in the row, and with it half the friends of a decade.
+
+# ---------------------------------------------------------------- everyday, calls WG (cycle s3); partner: the ward one nurse short every night
+
+== the elders' new order of service
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+ladder: regular
+at: faith body
+stages: young_adult+
+age: 18-100
+calls: WG
+rate: .3
+share: .15
+tone: mixed
+life: faith, community, family
+horizon: months
+roles: elder, parent, friend, regular
+who: elder
+earth: the elders of your house of worship change the weekly service: newer words, half the length, and the old songs dropped
+times: Among people who worship weekly at one house (perhaps 1 adult in 5), elders changing the order of service against the wishes of some of the faithful comes to about 3 in 4 of them over a life (estimate; Chaves 2004 on congregations changing their worship); overall about 1 in 7 lives
+likelier: a member of many years, a congregation losing its young, new elders or a new leader
+rarer: a person who does not worship, a congregation that never changes its rite
+gap: 8-25
+scene: The elders have changed the weekly service: newer words, half the length, and songs on a screen instead of the old ones. They say it is to bring the young back. The bench where {Ns} family has sat for three generations is half empty already.
+scene W: The elders were chosen to decide such things. Still, nobody asked the congregation, and {N} feels the change ought to have been put to them.
+scene U: {N} wants to set the old words and the new ones side by side and see what each one says before deciding anything.
+scene B: Every house of worship in town is losing people. The one that finds the young families first will be the one left standing.
+scene R: {N} misses the old songs in the chest, not the head. The new ones on the screen feel like music in a shop.
+scene G: The old songs were sung at {Ns} grandparents' funerals. To drop them feels like dropping the people who sang them.
+- W | write to the elders, and ask that the change be put to the whole congregation | v: conformity, universalism | lever: voice | pushes: group congregation | sphere: faith.W | chance: 75
+- U | sit with the new words for a whole season before you judge them | act: sit with the new words for a whole season before they judge them | v: self-direction, universalism | lever: loyalty | sphere: faith.U | chance: 75
+- B | move to the house of worship across town that is still full | v: security, achievement | lever: exit | sphere: faith.B | chance: 75
+- R | start singing the old songs with friends in a kitchen on rest day evenings | v: hedonism, tradition | lever: found | sphere: faith.R | chance: 75
+- G | come only on the holy days, when the old songs are still sung | v: tradition | lever: neglect | sphere: faith.G | chance: 75
+- W>R | stand up at the congregation's meeting and ask why nobody was asked | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: group congregation | sphere: faith.W | chance: 65
+- U>G | find the old song books, copy them, and give one to every family who asks | v: tradition, benevolence | lever: loyalty | sphere: faith.U | chance: 65
+- B>W | quietly offer the elder who chose the songs your help, for one old song | act: quietly offer the elder who chose the songs their help, for one old song | v: power, conformity | lever: subvert | sphere: faith.B | chance: 65
+- R>U | ask the young ones what they make of the new service, and tell the elders straight | v: self-direction, benevolence | lever: voice | sphere: faith.R | chance: 65
+- G>B | give your tithe to the old house in your family's village instead | act: give their tithe to the old house in their family's village instead | v: tradition, security | lever: exit | sphere: faith.G | chance: 65
+works: The elders agree to one old song every week, and the half-empty bench fills again.
+works: {N} finds a way to keep the old songs alive that the whole family can share.
+fails: The congregation splits into those who stay and those who go, and {Ns} family is on both sides.
+fails: Nothing changes, and {N} sits through the new service every week feeling like a guest.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: the elders' new order of service
+
+== the ward one nurse short every night
+tier: everyday
+sphere: care
+haunt: care.houses
+ladder: regular
+at: hospital
+stages: young_adult+
+age: 18-100
+calls: UBR
+rate: .3
+share: .1
+tone: trouble
+life: work, health, money
+horizon: months
+roles: colleague, boss, friend
+who: colleague
+earth: on your hospital ward the night shift is down to one nurse and you, the pay is frozen again, and the agency down the road pays a third more
+times: Among nurses, care assistants and ward volunteers (perhaps 1 adult in 15 works or helps on a ward at some time), a lean year of short shifts and frozen pay comes to most of them at least once (estimate; short staffing and its costs, Aiken et al. 2002); overall about 1 in 10 lives
+likelier: a care assistant, nurse or porter, a public hospital in a lean budget year, a ward far from the city
+rarer: a person who never works in care, a well-funded hospital, a year of new hiring
+gap: 3-12
+scene: The night shift on {Ns} ward is down to one nurse and {N}, for twenty-eight beds. The pay is frozen for the second year, and the agency down the road pays a third more for the same hours. {colleague} hands in her notice on Monday.
+scene W: Every patient on the ward deserves the same care at three in the morning as at noon. With two pairs of hands, that is no longer true.
+scene U: {N} keeps a note of the falls, the late medicines and the call bells left ringing. The figures tell a plain story.
+scene B: The agency pays more and lets its nurses choose their shifts. Staying out of loyalty is a choice {N} can no longer quite afford.
+scene R: When the call bell goes, {N} runs. Night after night of it, and the running is wearing thin.
+scene G: Some of the old patients have been on this ward before, and they ask for {N} by name.
+- W | ask the union to put the night rota before the hospital board | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.W | chance: 75
+- U | write down every fall and late medicine for a month, and send the list up | v: universalism, achievement | lever: voice | pushes: institution hospital | sphere: care.U | chance: 75
+- B | sign with the agency, and come back to the same ward at agency rates | v: achievement, power | lever: exit | sphere: care.B | chance: 75
+- R | take the extra night shifts while they last, and run between the bells | v: stimulation, benevolence | lever: loyalty | sphere: care.R | chance: 75
+- G | stay on for the patients who ask for you by name | act: stay on for the patients who ask for them by name | v: benevolence, tradition | lever: loyalty | sphere: care.G | chance: 75
+- W>G | start a carers' circle so the night staff can cover each other's sick days | v: benevolence, universalism | lever: found | sphere: care.W | chance: 65
+- U>W | work out a fairer rota from the figures, and pin it up for the whole ward | v: universalism, achievement | lever: voice | sphere: care.U | chance: 65
+- B>U | do your hours and no more, and keep your strength for the agency shifts | act: do their hours and no more, and keep their strength for the agency shifts | v: security, achievement | lever: neglect | sphere: care.B | chance: 65
+- R>B | swap shifts with the agency nurse off the books, for cash in hand | v: stimulation, power | mark: broke the law | lever: subvert | sphere: care.R | chance: 65
+- G>R | leave the ward with the rest of the night staff, all on the same day | v: benevolence, self-direction | lever: exit | pushes: institution hospital | sphere: care.G | chance: 65
+works: The board takes on two night nurses, and the bells are answered again.
+works: {N} finds a way through the lean year that keeps both the patients and {Ns} own health.
+fails: {N} is worn to the bone by spring, and the ward is no better staffed for it.
+fails: The ward closes six beds, and the patients who would have filled them go elsewhere or nowhere.
+
+# ---------------------------------------------------------------- everyday, calls UG (cycle s1); partner: the warden redraws the market pitches
+
+== the notice on the library desk
+tier: everyday
+sphere: learn
+haunt: learn.keeping
+ladder: newcomer
+at: council
+stages: young_adult+
+age: 18-100
+calls: UG
+rate: .3
+share: .15
+tone: mixed
+life: learning, community, neighbours
+horizon: months
+roles: neighbour, friend, keeper
+who: keeper
+earth: you have only just joined the branch library, and a notice says it will close in the spring unless volunteers run it
+times: Many towns have cut library hours or handed branches to volunteers in lean budget years (estimate); being a new user of a branch when it faces closure comes to about 1 in 7 lives, once (estimate)
+likelier: a person new to town, a parent of young children, a person out of work, a town in a lean budget year
+rarer: a person who never uses a library, a city with a well-funded library service
+gap: 10-30
+scene: {N} only joined the branch library this winter, and already knows the librarian's name. Now there is a notice on the desk: the council is cutting its hours, and unless volunteers run it from the spring, the branch closes for good.
+scene W: A library lends to anyone who walks in, whatever they can pay. {N} has needed that more than once this year.
+scene U: For {N} the library is the one quiet room in town with all the answers in it.
+scene B: If volunteers run it, they will decide what it becomes. Someone new could have a say from the very start.
+scene R: {N} has been coming for two months. It seems unfair to lose it just as it had become a second home.
+scene G: The old regulars say their grandparents learned to read in this room.
+- W | put your name down for a Saturday on the volunteers' desk | act: put their name down for a Saturday on the volunteers' desk | v: benevolence, conformity | mark: helped someone in need | lever: loyalty | pushes: institution council | sphere: learn.W | chance: 75
+- U | read the council's figures, and show the meeting what the branch really costs | v: universalism, achievement | lever: voice | pushes: institution council | sphere: learn.U | chance: 75
+- B | join the big library in the city, and borrow there on the way to work | v: security, achievement | lever: exit | sphere: learn.B | chance: 75
+- R | sign the petition on the desk, and bring ten more names by Friday | v: stimulation, universalism | lever: voice | pushes: institution council | sphere: learn.R | chance: 75
+- G | leave the fight to the old regulars, and keep your head down as the new one | act: leave the fight to the old regulars, and keep their head down as the new one | v: conformity, security | lever: neglect | sphere: learn.G | chance: 75
+- W>U | help the librarian write down what the volunteers will need to know before she goes | v: benevolence, universalism | lever: loyalty | sphere: learn.W | chance: 65
+- U>B | borrow the old local records on a friend's card, so they are not sent away | v: self-direction, power | lever: subvert | sphere: learn.U | chance: 65
+- B>R | get the café next door to take a shelf of the books, and run it yourself | act: get the café next door to take a shelf of the books, and run it themselves | v: achievement, stimulation | lever: found | sphere: learn.B | chance: 65
+- R>G | knock on doors along your street, and ask who learned to read in that room | act: knock on doors along their street, and ask who learned to read in that room | v: stimulation, tradition | lever: voice | sphere: learn.R | chance: 65
+- G>W | start a reading circle in your front room for the old regulars, should the branch go | act: start a reading circle in their front room for the old regulars, should the branch go | v: tradition, benevolence | lever: found | sphere: learn.G | chance: 65
+works: Enough volunteers come forward, and the branch stays open on four days a week.
+works: {N} finds friends among the regulars, and a place in the town that did not exist a season ago.
+fails: The branch closes in the spring, and the building is boarded up by the summer.
+fails: The volunteers quarrel over who runs what, and {N}, the newest of them, takes the blame.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s2); partner: the notice on the library desk
+
+== the warden redraws the market pitches
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: regular
+at: council
+stages: young_adult+
+age: 18-100
+calls: WBR
+rate: .3
+share: .1
+tone: trouble
+life: work, money, family
+horizon: months
+roles: parent, sibling, rival, keeper
+who: keeper
+earth: the market warden redraws the pitches by lot, and your family's corner pitch of twenty years goes to a stranger with a van
+times: Among people who work a market stall (perhaps 1 adult in 15 at some time), a warden redrawing or repricing the pitches comes to about 1 in 3 of them (estimate); overall about 1 in 20 lives
+likelier: a family stall of long standing, a market run by the council, a market with a waiting list for pitches
+rarer: a person who never works a stall, a market owned by its own traders
+gap: 5-20
+scene: The market warden has redrawn the pitches by lot, to be fair to the newcomers, he says. The corner pitch {Ns} family has worked for twenty years goes to a stranger with a van, and {N} is moved to the windy end by the bins.
+scene W: A draw is fair on paper. But twenty years of turning up at five in the morning ought to count for something.
+scene U: {N} works out what the corner was worth in a week's takings, and what the windy end will be worth.
+scene B: The warden has friends. {N} knows two stallholders who kept their pitches and were never in the draw.
+scene R: {N} wants to walk up to the van, stand on the corner and dare the stranger to unload.
+scene G: The regulars have bought their bread from that corner since {N} was a child. They will look for it there.
+- W | accept the draw, and wish the newcomer well on the corner | v: conformity, universalism | lever: loyalty | sphere: comm.W | chance: 75
+- U | write to the council with the takings, and ask for the draw to be done again | v: universalism, achievement | lever: voice | pushes: institution council | sphere: comm.U | chance: 75
+- B | find out which of the warden's friends kept their pitches, and use it quietly | v: power | lever: subvert | sphere: comm.B | chance: 75
+- R | pack up and take the stall to the Saturday market in the next town | v: stimulation, self-direction | lever: exit | sphere: comm.R | chance: 75
+- G | keep the family stall at the windy end, and send word to every regular | v: tradition, security | lever: loyalty | sphere: comm.G | chance: 75
+- W>B | ask the council for a rule that counts years at the market in the next draw | v: conformity, power | lever: voice | pushes: institution council | sphere: comm.W | chance: 65
+- U>R | turn the windy end into a hot food stall for the cold mornings | v: achievement, stimulation | lever: found | sphere: comm.U | chance: 65
+- B>G | offer the stranger a fair price for the corner pitch, off the books | v: power, tradition | lever: subvert | sphere: comm.B | chance: 65
+- R>W | tell the warden at the traders' meeting, in front of everyone, that the draw was rigged | v: self-direction, universalism | lever: voice | sphere: comm.R | chance: 65
+- G>U | leave the stall to a cousin on market days, and look for steadier work | v: security | lever: neglect | sphere: comm.G | chance: 65
+works: The regulars follow the stall to its new place, and the takings hold.
+works: The next draw counts years at the market, and the family gets its corner back.
+fails: The windy end is half the trade, and by winter the family is talking about giving the stall up.
+fails: The quarrel with the warden goes on for a year, and {N} is on the wrong end of every ruling.
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s3); partner: the on-call crew is two short
+
+== the new owner ends the share
+tier: everyday
+sphere: prod
+haunt: prod.wild
+ladder: regular
+at: employer
+stages: young_adult adult mature
+age: 18-64
+calls: UR
+rate: .3
+share: .05
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, boss, parent
+who: boss
+earth: the boat's new owner ends the old share of the catch and puts the crew on a day wage, take it or leave it
+times: Fishing crews in many places are still paid by a share of the catch (the lay); among crew, an owner moving them to wages comes to about 1 in 3 over a working life (estimate; Acheson 1981 on fishing crews), and like the share changing on any crew paid by the result, it reaches about 1 in 20 lives
+likelier: a fishing, farm or harvest crew paid by shares, a boat sold out of the family, a run of lean seasons
+rarer: a wage earner in a firm, a crew of cousins who own their boat
+gap: 5-20
+scene: The boat has a new owner, and on the quay he tells the crew: no more shares of the catch, a day wage from now on, take it or leave it. A good season's share paid twice that. {colleague} has already walked off down the harbour.
+scene W: The old share was the same rule for everyone aboard, skipper included. A wage makes the crew hired hands.
+scene U: {N} works it through: a wage is safe in a lean year, the share wins in a good one. Which kind of year is coming?
+scene B: A wage is a wage. And a hand who backs the new owner now may be the mate by next season.
+scene R: {N} did not go to sea to be paid by the hour. The share was the gamble, and the gamble was the point.
+scene G: {Ns} father fished on the share, and his father before him. It is how the harbour has always worked.
+- W | ask the owner to set the wage beside the share in front of the crew | v: universalism, conformity | lever: voice | sphere: prod.W | chance: 75
+- U | take the wage for one season, and note what the share would have paid | v: security, achievement | lever: loyalty | sphere: prod.U | chance: 75
+- B | work only for the wage, and save your effort for a boat of your own | act: work only for the wage, and save their effort for a boat of their own | v: achievement, security | lever: neglect | sphere: prod.B | chance: 75
+- R | walk off with the others, and sign on with a boat that still pays shares | v: self-direction, stimulation | lever: exit | sphere: prod.R | chance: 75
+- G | stay with the crew of cousins, whatever they decide on the quay | v: tradition, conformity | lever: loyalty | sphere: prod.G | chance: 75
+- W>R | call every crew in the harbour to the quay to talk about the new wages | v: universalism, stimulation | lever: voice | pushes: group work | sphere: prod.W | chance: 65
+- U>G | club together with three of the crew for a small boat on the old share | v: self-direction, tradition | mark: took a wild risk | lever: found | sphere: prod.U | chance: 65
+- B>W | land a box of fish on the side each trip, to make up the share | v: power, security | mark: broke the law | lever: subvert | sphere: prod.B | chance: 65
+- R>U | argue it out with the owner on the deck, figures in hand, until he gives ground | v: self-direction, achievement | lever: voice | pushes: institution employer | sphere: prod.R | chance: 65
+- G>B | put your savings behind the old skipper's family to buy back a share in the boat | act: put their savings behind the old skipper's family to buy back a share in the boat | v: tradition, security | lever: fund | sphere: prod.G | chance: 65
+works: The owner keeps a share for the good seasons on top of the wage, and the crew stays.
+works: {N} comes out of it with a fairer deal, on this boat or another.
+fails: The good season comes, the wage stays the same, and {N} watches the owner take the difference.
+fails: The crew scatters along the harbour, and {N} is left without a berth for the spring.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s4); partner: the new owner ends the share
+
+== the on-call crew is two short
+tier: everyday
+sphere: prot
+haunt: prot.rescue
+ladder: regular
+at: council
+stages: young_adult adult mature
+age: 18-64
+calls: WBG
+rate: .3
+share: .05
+tone: trouble
+life: community, work, family
+horizon: months
+roles: sibling, friend, neighbour, colleague
+who: colleague
+earth: the village fire station's on-call crew is two short, and the service says the engine will go to the town unless the rota is filled by spring
+times: Most fire stations in country districts run on on-call crews who carry pagers and work other jobs (estimate); among them, a station under threat for want of crew comes to about 1 in 3 over their years of service; overall about 1 in 40 lives (estimate)
+likelier: an on-call firefighter or rescue volunteer, a small village, young people moving to the towns
+rarer: a city dweller, a person with no time to spare, a station with full crews
+gap: 4-15
+scene: The village fire station's on-call crew is two short. The service has written: fill the rota by spring, or the engine goes to the town twenty minutes away. {N} has carried a pager for three years, and the nights are already long.
+scene W: Every house in the village is owed the same few minutes when the bell goes. Twenty minutes away is not the same.
+scene U: {N} knows the call times by heart. Twenty more minutes is the difference between a kitchen fire and a house gone.
+scene B: The service pays for the hours on call. More nights on the rota would mean more money, if {N} can bear it.
+scene R: When the pager goes, {N} is out of the door before thinking. That is the whole job, and it is a good one.
+scene G: Everyone on the crew is someone's cousin. They have never let the village down.
+- W | take two extra nights on the rota until the spring | v: benevolence, conformity | lever: loyalty | sphere: prot.W | chance: 75
+- U | write to the service with the call times, and what twenty minutes would mean | v: universalism, security | lever: voice | pushes: institution council | sphere: prot.U | chance: 75
+- B | hand in the pager, and take the weekend work in town that pays | v: achievement, security | lever: exit | sphere: prot.B | chance: 75
+- R | stand up at the village meeting and ask who will carry the next pager | v: stimulation, benevolence | lever: voice | sphere: prot.R | chance: 75
+- G | keep the pager, but switch it off on the nights the baby is ill | v: security, benevolence | lever: neglect | sphere: prot.G | chance: 75
+- W>G | start a first-aid group of neighbours who can help until the engine comes | v: benevolence, universalism | mark: helped someone in need | lever: found | sphere: prot.W | chance: 65
+- U>W | work out a split rota two half-crews could cover, and put it to the service | v: universalism, achievement | lever: voice | sphere: prot.U | chance: 65
+- B>U | put your name on nights you cannot cover, so the station stays open on paper | act: put their name on nights they cannot cover, so the station stays open on paper | v: security, power | mark: hid a wrong | lever: subvert | sphere: prot.B | chance: 65
+- R>B | run the drill night as a show for the village, and sign recruits on the spot | v: stimulation, achievement | lever: loyalty | sphere: prot.R | chance: 65
+- G>R | bring your cousin, just turned eighteen, to the next drill night | act: bring their cousin, just turned eighteen, to the next drill night | v: tradition, benevolence | lever: loyalty | sphere: prot.G | chance: 65
+works: Two new names go on the rota by spring, and the engine stays in the village.
+works: The village learns what its crew does, and nobody takes the pager for granted again.
+fails: The rota stays short, and the engine goes to the town in the summer.
+fails: {N} carries the extra nights alone until something at home or at work gives way.
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the council meets in the morning now
+
+== six chairs at the ward forum
+tier: everyday
+sphere: rule
+haunt: rule.counsel
+ladder: regular
+at: council
+stages: young_adult+
+age: 18-100
+calls: UR
+rate: .3
+share: .1
+tone: mixed
+life: public life, community, neighbours
+horizon: moment
+roles: neighbour, friend
+who: neighbour
+earth: the ward forum in the school hall is down to six people, and the council says it will stop holding it unless more come
+times: Few people ever attend a local forum or ward meeting (Verba, Schlozman and Brady 1995; perhaps 1 in 10 in a year at most); a regular among them sitting through a forum that is dying for want of people comes to about 1 in 10 lives (estimate)
+likelier: a person who has spoken up before, a long-time resident, a retired person, a ward with one plain grievance
+rarer: a newcomer to town, a person who works evenings, a big city with no ward forums
+gap: 5-20
+scene: The ward forum meets in the school hall each quarter, and tonight there are six people on the plastic chairs. The councillor says the council will stop holding it unless more come. Then she asks if anyone has anything to raise. Nobody moves.
+scene W: The forum is the one place where anyone in the ward can put a question to the council. {N} thinks someone ought to keep it alive.
+scene U: {N} has three questions on a card about the bus times and the empty shops, and wonders whether anyone will write the answers down.
+scene B: Six people in a room with a councillor is a rare chance. Whoever speaks tonight will be remembered.
+scene R: The silence in the hall is unbearable. {N} wants to break it, about anything at all.
+scene G: {N} remembers this hall full for these meetings when {Ns} parents came. Now it is chairs and a tea urn.
+- W | ask the councillor to hold the next forum on a Saturday, so working people can come | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.W | chance: 75
+- U | put your three questions, and ask for written answers by the next forum | act: put their three questions, and ask for written answers by the next forum | v: universalism, achievement | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | stay behind afterwards, and get the councillor's ear for your own street | act: stay behind afterwards, and get the councillor's ear for their own street | v: power, achievement | lever: subvert | sphere: rule.B | chance: 75
+- R | break the silence, and say what everyone on the bus is saying about the cuts | v: stimulation, self-direction | lever: voice | pushes: institution council | sphere: rule.R | chance: 75
+- G | say nothing tonight, and tell the neighbours what you heard on the way home | act: say nothing tonight, and tell the neighbours what they heard on the way home | v: conformity, tradition | lever: neglect | sphere: rule.G | chance: 75
+- W>U | offer to take the minutes, and put a copy through every door in the ward | v: conformity, benevolence | lever: loyalty | sphere: rule.W | chance: 65
+- U>B | start a residents' group to bring a crowd to the next forum | v: power, universalism | mark: made a friend | lever: found | pushes: group neighbours | sphere: rule.U | chance: 65
+- B>R | bring your whole stairwell next time, with one loud demand between you | act: bring their whole stairwell next time, with one loud demand between them | v: power, stimulation | lever: voice | sphere: rule.B | chance: 65
+- R>G | tell the councillor the forum is a waste of everyone's evening, and walk out | v: self-direction | lever: exit | sphere: rule.R | chance: 65
+- G>W | go to every forum from now on, even with six chairs, because someone should | v: tradition, conformity | lever: loyalty | sphere: rule.G | chance: 65
+works: The next forum has thirty people in it, and the councillor brings written answers.
+works: {N} is heard, and the bus times are on the council's list by the spring.
+fails: The forum is stopped in the new year, and the ward's questions go nowhere.
+fails: {N} speaks into the silence, and the councillor thanks {N} and moves on to the date of the next meeting.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: six chairs at the ward forum
+
+== the council meets in the morning now
+tier: everyday
+sphere: rule
+haunt: rule.counsel
+ladder: known
+at: council
+stages: young_adult+
+age: 18-100
+calls: WBG
+rate: .3
+share: .05
+tone: trouble
+life: public life, community, work
+horizon: months
+roles: neighbour, friend, keeper
+who: neighbour
+earth: the council moves its public meetings to ten on weekday mornings, and the gallery is empty except for the retired and one reporter
+times: Councils set their own meeting times, and moves to daytime meetings that working people cannot attend are a common complaint (estimate); among people whose word counts locally (perhaps 1 adult in 10), meeting such a change is about 1 in 2; overall about 1 in 20 lives (estimate)
+likelier: a person the street turns to, a member of a residents' group, a council trying to save money
+rarer: a person who never follows the council, a council that already meets in the evening
+gap: 8-25
+scene: The council now holds its public meetings at ten on weekday mornings, to save on staff. Since then the public gallery holds a few retired people and one reporter. The vote on the leisure centre is next month, and {N} works until six.
+scene W: Holding public business when the public is at work is within the rules and against their spirit. {N} wants it put right by the same rules.
+scene U: {N} counts it up: since the change, eleven decisions, and four members of the public in the gallery for all of them.
+scene B: An empty gallery suits the members who already have the votes. {N} knows which of them asked for the change.
+scene R: It is a trick to shut people out, and {N} is tired of being polite about tricks.
+scene G: The council always met in the evening, after the shops shut. That was the town's way, so anyone could come.
+- W | petition the council, by its own standing orders, to go back to evening meetings | v: conformity, universalism | lever: voice | pushes: institution council | sphere: rule.W | chance: 75
+- U | count every decision since the change and who saw it, and publish the list | v: universalism, achievement | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | get yourself a co-opted seat on the council's review panel, and push from inside | act: get themselves a co-opted seat on the council's review panel, and push from inside | v: power, achievement | lever: office | pushes: institution council | sphere: rule.B | chance: 75
+- R | take a morning off, fill the gallery with neighbours, and heckle the first vote | v: stimulation, self-direction | lever: voice | sphere: rule.R | chance: 75
+- G | hold the old evening meeting anyway in the pub's back room, and invite the councillors | v: tradition, benevolence | lever: found | sphere: rule.G | chance: 75
+- W>B | take the chair of the residents' association, and win it a set time to speak | v: power, conformity | lever: lead | sphere: rule.W | chance: 65
+- U>R | film the morning meetings, and post them online each evening for the town | v: universalism, stimulation | lever: voice | tech: internet | sphere: rule.U | chance: 65
+- B>G | have a quiet word with the member for the old ward, who owes you a favour | act: have a quiet word with the member for the old ward, who owes them a favour | v: power, tradition | lever: subvert | sphere: rule.B | chance: 65
+- R>W | stand for the council yourself next May, on one promise: evening meetings | act: stand for the council themselves next May, on one promise: evening meetings | v: self-direction, universalism | lever: office | sphere: rule.R | chance: 65
+- G>U | stop following the council, and leave the gallery to the retired | v: security | lever: neglect | sphere: rule.G | chance: 65
+works: The council agrees to hold its big votes in the evening, and the gallery is full for the leisure centre.
+works: {N} becomes the person the town asks about the council, and the meetings are watched again.
+fails: The mornings stay, the leisure centre vote goes through unseen, and the town hears about it afterwards.
+fails: {N} is called a troublemaker in the chamber, and the members close ranks.
+
+# ---------------------------------------------------------------- everyday, calls WR (cycle s3); partner: the desk officer who will not take the report
+
+== the ward sister sends you home at eight
+tier: everyday
+sphere: care
+haunt: care.houses
+ladder: newcomer
+at: hospital
+stages: young_adult+
+age: 18-100
+calls: WR
+rate: .3
+share: .2
+tone: trouble
+life: family, health
+horizon: week
+roles: parent, partner, sibling
+who: parent
+earth: the ward sister sends you home at eight on the dot, then lets another family stay past ten, and will not say why
+times: Visiting a parent or partner on a hospital ward comes to most adults; feeling treated unfairly by the staff there, by a rule applied to one family and not another, comes to about 1 in 5 lives (estimate; Tyler 1990 and Tyler and Huo 2002 on how being treated the same, heard and given reasons shapes whether people accept a decision)
+likelier: a parent or partner on a ward for more than a few days, a busy ward, a visitor who comes alone
+rarer: a family that never has anyone in hospital, a small ward with open visiting
+gap: 5-20
+scene: {parent} has been on the ward a week, frightened at night. At eight the ward sister tells {N} that visiting is over, no exceptions. On the way out {N} sees the family in the next bay still there, laughing with the night staff. The sister will not say why.
+scene W: A rule that holds for one family and not the next is not a rule. {N} only asks to be treated the same as everyone else.
+scene U: There may be a reason {N} cannot see, a dying patient or a special case. {N} would accept it, if only someone would say.
+scene B: The other family knows the staff. {N} sees how that works, and how it might be made to work for {parent} too.
+scene R: {N} is angry enough to march back up the corridor and sit down by the bed.
+scene G: {N} sat with {Ns} grandmother through every night of her last illness. Leaving {parent} alone feels wrong in the bones.
+- W | ask the sister, calmly, why the rule holds for you and not the next bay | act: ask the sister, calmly, why the rule holds for them and not the next bay | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.W | chance: 75
+- U | ask to see the ward's visiting rules in writing, and what counts as an exception | v: universalism, self-direction | lever: voice | sphere: care.U | chance: 75
+- B | make friends with the night staff, and stay late the way the other family does | v: power, benevolence | lever: subvert | sphere: care.B | chance: 75
+- R | walk back to the bed, sit down, and let them try to move you | act: walk back to the bed, sit down, and let them try to move them | v: self-direction, benevolence | mark: defied an authority | lever: voice | sphere: care.R | chance: 75
+- G | go home as you are told, and be back the minute the doors open | act: go home as they are told, and be back the minute the doors open | v: conformity, tradition | lever: loyalty | sphere: care.G | chance: 75
+- W>R | write a formal complaint that night, and send a copy to the head of nursing | v: universalism, self-direction | lever: voice | pushes: institution hospital | sphere: care.W | chance: 65
+- U>G | ring the ward each night at ten, and ask the night nurse how your parent is | act: ring the ward each night at ten, and ask the night nurse how their parent is | v: benevolence, security | lever: loyalty | sphere: care.U | chance: 65
+- B>W | ask the consultant to name you as carer, so the rule bends for you too | act: ask the consultant to name them as carer, so the rule bends for them too | v: power, benevolence | lever: subvert | sphere: care.B | chance: 65
+- R>U | tell the sister to her face that she plays favourites, in front of the whole bay | v: self-direction, stimulation | mark: made an enemy | lever: voice | sphere: care.R | chance: 65
+- G>B | ask for your parent to be moved to the small hospital nearer home | act: ask for their parent to be moved to the small hospital nearer home | v: security, tradition | lever: exit | sphere: care.G | chance: 65
+works: The sister explains: the family in the next bay is saying goodbye. After that she lets {N} stay too, on the bad nights.
+works: The ward's rule is written up and kept the same for every family, and {N} is the one who asked for it.
+fails: {N} is marked down as difficult, and every visit after that is watched.
+fails: {N} goes home at eight every night, and learns not to expect fairness on that ward.
+
+# ---------------------------------------------------------------- everyday, calls UBG (cycle s4); partner: the ward sister sends you home at eight
+
+== the desk officer who will not take the report
+tier: everyday
+sphere: prot
+haunt: prot.watch
+ladder: newcomer
+at: police
+stages: young_adult+
+age: 18-100
+calls: UBG
+rate: .3
+share: .2
+tone: trouble
+life: work, money, law
+horizon: week
+roles: neighbour, friend, colleague
+who: neighbour
+earth: your van is broken into for the second time, and the officer at the front desk says it is not worth a report, while the man before you got an hour
+times: Reporting a theft or break-in comes to most adults at some time; feeling brushed off at the counter, while another caller is taken seriously, comes to about 1 in 5 lives (estimate; Tyler 1990 and Skogan 2006 on how a single unfair contact with the police lowers trust more than a fair one raises it)
+likelier: a person who works with tools or stock, a district with many thefts, a station short of staff
+rarer: a person who never has anything stolen, a village where the officer knows every family
+gap: 3-15
+scene: {Ns} van was broken into again last night and the tools taken. At the station the desk officer barely looks up, says it is not worth a report, and slides over a leaflet. The man before {N}, in a good suit, got an hour and a cup of tea.
+scene W: The watch is meant to treat every caller the same. {N} has just watched it not do that.
+scene U: {N} wants to know how the desk decides what is worth a report, and what happens to the ones it turns away.
+scene B: The man in the suit knew someone. {N} wonders who a person has to know.
+scene R: {N} is ready to raise a voice in the waiting room until someone comes out from the back.
+scene G: The old beat officer knew every family and would have come round himself. {N} misses him.
+- W | ask, politely and firmly, for the report to be taken and a crime number given | v: conformity, universalism | lever: voice | pushes: institution police | sphere: prot.W | chance: 75
+- U | write down the time, the officer's number and what was said, and ask for the policy | v: universalism, self-direction | lever: voice | pushes: institution police | sphere: prot.U | chance: 75
+- B | ring the councillor who owes your family a favour, and let them make the call | act: ring the councillor who owes their family a favour, and let them make the call | v: power, security | lever: subvert | sphere: prot.B | chance: 75
+- R | refuse to leave the counter until the sergeant comes out | v: self-direction, stimulation | lever: voice | sphere: prot.R | chance: 75
+- G | go round the street yourself, and ask who saw anything last night | act: go round the street themselves, and ask who saw anything last night | v: tradition, security | lever: exit | sphere: prot.G | chance: 75
+- W>G | start a street message group, so neighbours report every break-in together | v: benevolence, security | mark: made a friend | lever: found | pushes: group neighbours | sphere: prot.W | chance: 65
+- U>W | send your notes in a written complaint to the board that oversees the station | act: send their notes in a written complaint to the board that oversees the station | v: universalism, conformity | lever: voice | pushes: institution police | sphere: prot.U | chance: 65
+- B>U | pay a private firm to fit a camera to the van, and forget the watch | v: security, achievement | lever: exit | sphere: prot.B | chance: 65
+- R>B | tell the officer you know someone at the paper who would like this story | act: tell the officer they know someone at the paper who would like this story | v: power, stimulation | lever: voice | sphere: prot.R | chance: 65
+- G>R | never call the watch again, and tell the young ones at home why | v: tradition, self-direction | lever: neglect | sphere: prot.G | chance: 65
+works: A sergeant comes out, takes the report properly and apologises; the tools turn up in a raid a month later.
+works: The street starts reporting together, and an officer begins walking the road again.
+fails: The report is taken and nothing ever comes of it, and {N} stops expecting anything from the watch.
+fails: {N} is warned for causing a scene, and leaves with neither a report nor any respect for the station.
+
+# ================================================================ life events
+
+# ---------------------------------------------------------------- life event: the ward branch splits (pairs D1a)
+
+== the branch splits over the candidate
+tier: life event
+sphere: rule
+haunt: rule.voice
+ladder: regular
+at: party
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 .004 .004 .004 .002
+drivers: unrest+.3 community+.2
+times: Party members are a small share of voters (about 1 in 20 in many democracies; van Biezen, Mair and Poguntke 2012) and the ones who speak up at branch meetings fewer still; a local branch splitting over who should stand comes to about 1 in 4 of them; overall about 1 in 50 lives (estimate), set at 4 in 1,000 a year from 18 to 64
+likelier: a party member who goes to meetings, a ward with a close vote, a long-serving member near the end of her time
+rarer: a person in no party, a ward the same party always wins easily
+gap: 5-20
+tone: trouble
+life: public life, friends, community
+horizon: months
+roles: friend, rival, elder, neighbour
+who: rival
+earth: the ward branch of your party splits in two over who should stand next May, and both sides want you at their meeting
+scene: The ward branch of the party has met above the bakery for years. Now it has split over who should stand next May: the long-serving member, or the young organiser who filled the room last winter. Both sides have rung {N} this week.
+scene W: The branch has rules for choosing a candidate. {N} wants them followed, whoever wins.
+scene U: {N} has heard both of them speak. One knows the ward's history; the other knows its numbers.
+scene B: Whichever side wins will remember who came over early. {N} can feel the weight of the choice.
+scene R: {N} joined to change things, not to sit through a feud over chairs.
+scene G: The long-serving member has knocked on these doors for thirty years. {Ns} parents voted for her every time.
+- W | insist the branch choose by its own rules, with a secret ballot | v: conformity, universalism | lever: voice | pushes: institution party | sphere: rule.W | chance: 60
+- U | ask both of them to set out their plans for the ward at one meeting | v: universalism, self-direction | lever: voice | pushes: institution party | sphere: rule.U | chance: 60
+- B | count the votes each side has, and join the winner before the meeting | v: power, security | lever: subvert | sphere: rule.B | chance: 60
+- R | walk out of the branch, and put your effort into a street campaign instead | act: walk out of the branch, and put their effort into a street campaign instead | v: self-direction, stimulation | lever: exit | sphere: rule.R | chance: 60
+- G | stand by the long-serving member, as your family always has | act: stand by the long-serving member, as their family always has | v: tradition, conformity | mark: kept your word | lever: loyalty | sphere: rule.G | chance: 60
+- WU | draw up a fair way to choose, and get both sides to sign it first | v: universalism, conformity | lever: voice | sphere: rule.WU | chance: 50
+- WR | tell the whole meeting that the feud is losing them the ward | v: universalism, self-direction | lever: voice | pushes: institution party | sphere: rule.RW | chance: 50
+- UG | keep going to every meeting, and hear the old members out before you vote | act: keep going to every meeting, and hear the old members out before they vote | v: tradition, universalism | lever: loyalty | sphere: rule.GU | chance: 50
+- BR | start a new ward list with the young organiser, outside the party altogether | v: power, stimulation | mark: took a wild risk | lever: found | sphere: rule.BR | chance: 50
+- BG | stop going to branch meetings until it is settled, and let others decide | v: security | lever: neglect | sphere: rule.BG | chance: 50
+works: The branch chooses by ballot, the loser shakes hands, and the ward is held in May.
+works: {N} comes out of the split trusted by both sides, which few others do.
+fails: The branch splits for good, two candidates stand, and a third party takes the ward.
+fails: {N} is blamed by both sides, and the room above the bakery goes quiet when {N} walks in.
+
+# ---------------------------------------------------------------- life event: the chair of the council steps down (pairs D1b)
+
+== the chair of the council steps down
+tier: life event
+sphere: rule
+haunt: rule.counsel
+ladder: pillar
+at: council
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .02 .03 .02
+drivers: unrest+.2 community+.2
+times: Among people who hold a council seat (perhaps 1 adult in 500), a chair or leader stepping down mid-term and the members turning to them comes to about 1 in 3 over their years in office (estimate), set at 2 to 3 in 100 a year among them
+likelier: a member of many years, a member trusted across sides, a council in a hard budget year
+rarer: a new member, a member known for one faction only
+gap: 6-20
+tone: mixed
+life: public life, work, community
+horizon: years
+roles: colleague, rival, friend, partner
+who: colleague
+earth: the chair of the council steps down halfway through her term, and the members say you are the one name both sides can live with
+scene: The chair of the council has stepped down halfway through her term, worn out. On Monday the members choose a new one, and {N}, ten years on the council, is the one name both sides can live with. The budget comes first.
+scene W: To take the chair is to give up a side. {N} would have to run every meeting for the whole chamber, friends and rivals alike.
+scene U: {N} has read every budget for ten years and knows where the holes are. The chair is where that knowledge could finally count.
+scene B: The chair sets the agenda, and the agenda decides most things. {N} has waited a long time for this.
+scene R: {N} has always been the one who stands up out of turn. A chair has to sit still and keep order.
+scene G: The member for the old ward expected it to be his turn. His family has sat in this chamber for three generations.
+- W | take the chair, and run every meeting by the standing orders, your own side included | act: take the chair, and run every meeting by the standing orders, their own side included | v: conformity, universalism | lever: lead | pushes: institution council | sphere: rule.W | chance: 60
+- U | take the chair on one condition: every report and vote open for anyone to read | v: universalism, self-direction | lever: office | pushes: institution council | sphere: rule.U | chance: 60
+- B | let your name go forward only once you have the votes for your own budget | act: let their name go forward only once they have the votes for their own budget | v: power, achievement | lever: lead | sphere: rule.B | chance: 60
+- R | turn the chair down, and keep the seat where you can still speak out of turn | act: turn the chair down, and keep the seat where they can still speak out of turn | v: self-direction, stimulation | lever: voice | sphere: rule.R | chance: 60
+- G | put forward the member for the old ward, and serve loyally under him | v: tradition, conformity | lever: loyalty | sphere: rule.G | chance: 60
+- RG | give up the seat at the next election, and go back to your own street | act: give up the seat at the next election, and go back to their own street | v: self-direction, tradition | lever: exit | sphere: rule.RG | chance: 50
+- UB | back a young member for the chair, and pay for her campaign at the next election | v: power, universalism | lever: fund | sphere: rule.UB | chance: 50
+- UR | open the meetings to the public on evenings, with three minutes for anyone who asks | v: universalism, self-direction | lever: office | pushes: institution council | sphere: rule.UR | chance: 50
+- WB | take the chair, and strike a budget deal with the other side in the first week | v: power, conformity | lever: lead | sphere: rule.WB | chance: 50
+- WG | start a free legal advice fund at the town hall, in the old chair's name | v: benevolence, tradition | lever: fund | sphere: rule.GW | chance: 50
+works: The members choose {N}, and the first budget passes with votes from both sides.
+works: Whatever {N} chooses, the chamber works better for it, and the town notices.
+fails: The chair turns into a war of attrition, and {N} spends two years refereeing a feud.
+fails: The vote goes the other way after a deal in the corridor, and {N} is left on the back bench.
+
+# ---------------------------------------------------------------- life event: the society splits (pairs D2a)
+
+== the society splits over the open nights
+tier: life event
+sphere: gather
+haunt: gather.hall
+ladder: leader
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .02 .02 .02
+drivers: community+.2 money-.2
+times: Among people who chair a club, lodge or society (perhaps 1 adult in 30 at some time), a split between old members and new ones over who may come comes to about 1 in 3 over their years in the chair (estimate; Putnam 2000 on clubs that age with their members), set at 2 in 100 a year among them
+likelier: a society whose members are ageing, a town with many newcomers, a hall that needs costly repairs
+rarer: a young society, a club with a long waiting list, a hall owned outright with money in the bank
+gap: 6-20
+tone: mixed
+life: community, friends, money
+horizon: years
+roles: friend, rival, elder, regular
+who: regular
+earth: the society you chair is splitting: the old members want it kept as it was, the young ones want open nights, and the roof needs paying for
+scene: {N} has chaired the society for six years. Now it is splitting: the old members want the hall kept for members as it always was, the young ones want open nights for anyone, and the roof needs mending before winter. The annual meeting is in a fortnight.
+scene W: A society is its members, all of them. {N} wants whatever happens to be decided by them, in the open.
+scene U: {N} has the figures: members falling every year, a roof that costs more than a year's dues. The numbers say something must change.
+scene B: Whoever wins the annual meeting will run the hall for a decade. {N} would like that to still be {N}.
+scene R: The young ones' open night last month was the best evening the hall has had in years. {N} wants more of it.
+scene G: The old members' grandparents built this society. Their names are on the boards in the hall.
+- W | put both plans to the annual meeting, and abide by the members' vote | v: conformity, universalism | lever: lead | pushes: group club | sphere: gather.W | chance: 60
+- U | run the open nights for one season as a trial, and show the meeting the figures | v: achievement, universalism | lever: lead | sphere: gather.U | chance: 60
+- B | pay for the roof yourself, on the understanding that the open nights go ahead | act: pay for the roof themselves, on the understanding that the open nights go ahead | v: power, achievement | lever: fund | sphere: gather.B | chance: 60
+- R | throw the next open night before the vote, and let the hall decide for itself | v: stimulation, hedonism | lever: lead | sphere: gather.R | chance: 60
+- G | stand by the old members who built the society, and keep the hall as it was | v: tradition, security | mark: kept your word | lever: loyalty | pushes: group club | sphere: gather.G | chance: 60
+- WU | write a new rule book with a members' night and an open night each week | v: universalism, conformity | lever: lead | sphere: gather.WU | chance: 50
+- WG | hold a supper for both sides at the hall, and ask them to stay one society | v: benevolence, tradition | lever: loyalty | sphere: gather.GW | chance: 50
+- UR | step down as chair, and help the young ones start a society of their own | v: self-direction, benevolence | lever: found | sphere: gather.UR | chance: 50
+- BR | get the hall licensed for late open nights, through a friend on the licensing board | v: power, hedonism | lever: office | sphere: gather.BR | chance: 50
+- BG | let the treasurer quietly bury the young ones' plan in the accounts | v: power, tradition | mark: hid a wrong | lever: subvert | sphere: gather.BG | chance: 50
+works: The society holds together with two kinds of night, and the roof is mended by the first frost.
+works: The hall fills again, and {N} hands on a living society instead of a dying one.
+fails: Half the members walk out, and the society that is left cannot pay for the roof.
+fails: The annual meeting turns bitter, and {N} loses the chair to the side {N} did not choose.
+
+# ---------------------------------------------------------------- life event: the players' grant is cut (pairs D2b)
+
+== the players' grant is cut
+tier: life event
+sphere: arts
+haunt: arts.stage
+ladder: pillar
+at: council
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .015 .015 .01
+drivers: money-.3 harsh+.2
+times: Among people who direct or run an amateur or small company (perhaps 1 adult in 100), a council grant cut that threatens the season comes to about 1 in 3 over their years at the head of it (estimate; such grants are among the first cut in lean budget years), set at 1 to 2 in 100 a year among them
+likelier: a company in a council-owned theatre, a lean budget year, a town with few other patrons
+rarer: a company that pays its own way, a city with many funders
+gap: 6-20
+tone: trouble
+life: interests, community, money
+horizon: years
+roles: friend, mentor, colleague, patron
+who: patron
+earth: the council cuts the grant that keeps the community players in their theatre, and the company you have directed for years looks to you
+scene: {N} has directed the community players in the old theatre on the square for fifteen years. This week the council cut the grant that pays for the lights and the heating. Without it the spring season is gone, and the company's young ones are already talking about the city.
+scene W: The players have always been for the whole town: a place on stage for anyone who turns up to the reading. {N} wants that to survive.
+scene U: {N} knows which plays fill the seats and which ones empty them. A season could be built to pay, if it had to be.
+scene B: Fifteen years have made {Ns} name in this town. A name like that can open doors, or a purse.
+scene R: {N} is furious. The council spends more on its own dinners, and someone ought to say so on a stage.
+scene G: The players were founded by the old families of the square, and their children still paint the sets.
+- W | hold the company together, unpaid, and stage the spring season in the school hall | v: benevolence, conformity | mark: kept your word | lever: loyalty | sphere: arts.W | chance: 60
+- U | rebuild the season around the plays that sell, and show the council the takings | v: achievement, universalism | lever: lead | sphere: arts.U | chance: 60
+- B | take your best players to the big company in the city, under your own name | act: take their best players to the big company in the city, under their own name | v: achievement, power | mark: moved away | lever: exit | sphere: arts.B | chance: 60
+- R | stage a satire of the council's cuts on the theatre steps, and invite the press | v: stimulation, self-direction | mark: defied an authority | lever: voice | sphere: arts.R | chance: 60
+- G | keep teaching the old plays to the young ones, whatever stage you end up on | act: keep teaching the old plays to the young ones, whatever stage they end up on | v: tradition, benevolence | lever: loyalty | sphere: arts.G | chance: 60
+- WB | take a seat on the town's arts board, and argue for the theatre's grant there | v: power, universalism | lever: office | pushes: institution council | sphere: arts.WB | chance: 50
+- WR | lead the whole company, in costume, to the council's next meeting | v: universalism, stimulation | lever: voice | pushes: institution council | sphere: arts.RW | chance: 50
+- UB | start a theatre school in the old hall, and let its fees pay for the stage | v: achievement, self-direction | lever: found | sphere: arts.UB | chance: 50
+- UG | pay for one young player's place each year, in the founders' name | v: tradition, benevolence | lever: fund | sphere: arts.GU | chance: 50
+- RG | make the young ones the company's board, and stage whatever they choose | v: self-direction, tradition | lever: lead | sphere: arts.RG | chance: 50
+works: The spring season goes ahead, and the town turns out for it as it never did when it was paid for.
+works: The players find a way to stand on their own, and {Ns} name is on the new posters.
+fails: The theatre goes dark for the spring, and some of the players never come back.
+fails: {N} fights the council for a year, and wins back half a grant and a lasting enemy in the chamber.
+
+# ---------------------------------------------------------------- life event: the free kitchen is running out (pairs D3a)
+
+== the kitchen in the back hall is running out
+tier: life event
+sphere: faith
+haunt: faith.congregation
+ladder: leader
+at: faith body
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .02 .02 .02
+drivers: money-.3 harsh+.3
+times: Most congregations run some work of mercy, a meal, a food store or a shelter (Chaves 2004); among those who lead a congregation (perhaps 1 adult in 200), its free kitchen or food store running out of money comes to about 1 in 3 over their years as leader (estimate), set at 2 in 100 a year among them
+likelier: a congregation in a poor district, a lean year, an ageing band of volunteers
+rarer: a rich congregation, a town where the council feeds the hungry
+gap: 6-20
+tone: trouble
+life: faith, community, money
+horizon: years
+roles: elder, friend, neighbour, patron
+who: patron
+earth: the free kitchen your congregation runs in its back hall has three months of money left, and as its leader the choice is yours
+scene: For twenty years the congregation has fed anyone who comes to the back hall on Fridays. Now the money will last three months, the volunteers are old, and the queue is longer than ever. As the congregation's leader, {N} must say at the next gathering what happens.
+scene W: Feeding whoever comes is the plainest duty there is. {N} cannot stand up at the gathering and say it ends.
+scene U: {N} wants to know who comes now, and why there are more of them, before deciding what the kitchen should be.
+scene B: A kitchen with a name over the door draws gifts. A kitchen run on goodwill alone is running out.
+scene R: {N} thinks of the faces in the queue last Friday, and the answer seems obvious: more nights, not fewer.
+scene G: The kitchen was started by the old families' mothers, who cooked what their own mothers cooked.
+- W | tell the congregation plainly what it costs, and ask every household for a share | v: benevolence, conformity | lever: lead | pushes: group congregation | sphere: faith.W | chance: 60
+- U | join the kitchen to the town's food bank, so it runs on their stores | v: universalism, security | lever: lead | sphere: faith.U | chance: 60
+- B | give a large gift of your own, and name the kitchen for your family | act: give a large gift of their own, and name the kitchen for their family | v: power, benevolence | lever: fund | sphere: faith.B | chance: 60
+- R | preach on it at the gathering, so that nobody leaves without giving | v: stimulation, benevolence | lever: voice | pushes: group congregation | sphere: faith.R | chance: 60
+- G | ask the old families who started it to come back and cook as their mothers did | v: tradition, benevolence | lever: loyalty | sphere: faith.G | chance: 60
+- WU | stand for the council in May, with the kitchen's grant as your one promise | act: stand for the council in May, with the kitchen's grant as their one promise | v: universalism, power | lever: office | pushes: institution council | sphere: faith.WU | chance: 50
+- WR | open the kitchen on more nights, and trust the help to come | v: benevolence, stimulation | mark: helped someone in need | lever: lead | sphere: faith.RW | chance: 50
+- UB | set up a trust for the kitchen, with its own board and its own books | v: achievement, security | lever: found | sphere: faith.UB | chance: 50
+- RG | hand the kitchen to the young ones, and let them run it their own way | v: self-direction, tradition | lever: lead | sphere: faith.RG | chance: 50
+- BG | ask the councillor who worships with you for a ward grant, as a favour | act: ask the councillor who worships with them for a ward grant, as a favour | v: power, tradition | lever: subvert | sphere: faith.BG | chance: 50
+works: The kitchen stays open on Fridays, and the queue is fed as it always was.
+works: The kitchen finds a new footing that will outlast {N}, and the congregation is proud of it.
+fails: The kitchen closes in the summer, and {N} hears the queue moved to the station steps.
+fails: The money comes, but the quarrel over who runs the kitchen splits the gathering.
+
+# ---------------------------------------------------------------- life event: the small ward's last winter (pairs D3b)
+
+== the small ward's last winter
+tier: life event
+sphere: care
+haunt: care.houses
+ladder: known
+at: hospital
+stages: young_adult adult mature
+age: 25-70
+per_year: 0 0 .01 .015 .01 0
+drivers: money-.3 harsh+.2
+times: Among nurses and carers trusted on their ward (perhaps 1 adult in 30), a small ward or unit closing to save money comes to about 1 in 3 over a working life (estimate; small rehabilitation and cottage wards are often the first cut), set at 1 to 2 in 100 a year among them
+likelier: a nurse of long standing, a small or country hospital, a lean health budget
+rarer: a person outside care work, a large well-funded hospital
+gap: 5-20
+tone: trouble
+life: work, health, community
+horizon: years
+roles: colleague, boss, friend, patron
+who: colleague
+earth: the hospital's small ward where old patients get back on their feet is to close in the spring, and the families want you to lead the fight
+scene: The small ward where old patients get back on their feet is to close in the spring, to save money. {N} has nursed there for twelve years. The families have started a fund, and they want {N} at the head of it.
+scene W: Every old patient who leaves this ward walking is one who did not go straight into a home. {N} wants that for all of them.
+scene U: {N} has the figures: falls, readmissions, the weeks each patient stays. They make the board's sums look wrong.
+scene B: The private clinic across town is hiring, and it pays better. {N} would be a catch for them.
+scene R: {N} could start shouting about this tomorrow, and plenty of the families would shout too.
+scene G: Half the patients are the parents of people {N} went to school with. They are not strangers.
+- W | stand up at the board's hearing, and tell what the ward does for every patient | v: universalism, benevolence | lever: voice | pushes: institution hospital | sphere: care.W | chance: 60
+- U | take the ward sister's post when she retires, and run the ward by the figures | v: achievement, universalism | lever: lead | sphere: care.U | chance: 60
+- B | make a named gift to the families' fund, and sit on its committee | v: power, benevolence | lever: fund | sphere: care.B | chance: 60
+- R | work every extra hour the ward needs to get through its last winter | v: benevolence, stimulation | lever: loyalty | sphere: care.R | chance: 60
+- G | promise the families you will visit their old ones at home, ward or no ward | act: promise the families they will visit their old ones at home, ward or no ward | v: benevolence, tradition | mark: kept your word | lever: loyalty | sphere: care.G | chance: 60
+- WB | stand for the staff seat on the hospital board, and argue for the ward there | v: power, universalism | lever: office | pushes: institution hospital | sphere: care.WB | chance: 50
+- WG | take on the families' fund, and run it as the ward's own league of friends | v: benevolence, conformity | lever: lead | sphere: care.GW | chance: 50
+- UR | take a post at the private clinic across town, where the old patients will go | v: achievement, self-direction | lever: exit | sphere: care.UR | chance: 50
+- UG | start a carers' circle where families learn the daily exercises from each other | v: benevolence, universalism | lever: found | sphere: care.GU | chance: 50
+- BR | go on the evening news with what closing the ward will cost the town | v: power, stimulation | lever: voice | sphere: care.BR | chance: 50
+works: The board gives the ward another three years, and the families' fund pays for its new beds.
+works: The ward closes, but what it did goes on in the town, and {N} is the one people send for.
+fails: The ward closes in the spring, and the first winter after it the hospital's corridors fill with trolleys.
+fails: {N} is warned for speaking to the press, and the fight costs {N} the post {N} wanted.
+
+# ---------------------------------------------------------------- life event: the evening classes end (pairs D4a)
+
+== the college ends its evening classes
+tier: life event
+sphere: learn
+haunt: learn.higher
+ladder: pillar
+at: university
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .015 .015 .01
+drivers: money-.3
+times: Among people who teach in a college or university (perhaps 1 adult in 60), the classes they teach being closed for want of money comes to about 1 in 3 over a career (estimate; adult and evening classes are often cut first), set at 1 to 2 in 100 a year among them
+likelier: a teacher of adult or evening classes, a college in a lean year, a town far from the city
+rarer: a teacher of a popular day course, a well-endowed college
+gap: 6-20
+tone: trouble
+life: learning, work, community
+horizon: years
+roles: colleague, boss, mentor, friend
+who: colleague
+earth: the college is ending the evening classes you have taught for years, and your students ask what happens now
+scene: For eleven years {N} has taught the evening class at the college: tired people after work, learning what they missed at school. The college says evening classes do not pay and will end in June. Twelve students sign a card asking {N} what happens now.
+scene W: The evening class is the one door left open for people the day school failed. {N} cannot stand to see it shut.
+scene U: Some of {Ns} best students came to the subject at forty. The college is losing more than it saves.
+scene B: A course that ends a certificate can be sold. One that ends in a love of learning is harder to price.
+scene R: {N} would teach the class on the pavement if it came to that.
+scene G: {N} learned at an evening class too, from an old teacher who taught it until the week he died.
+- W | speak for the evening classes at the college council, and ask for one more year | v: universalism, benevolence | lever: voice | pushes: institution university | sphere: learn.W | chance: 60
+- U | start an evening school of your own in the library, run on small fees | act: start an evening school of their own in the library, run on small fees | v: self-direction, universalism | mark: took a wild risk | lever: found | sphere: learn.U | chance: 60
+- B | offer to run the evening programme, and make it pay with a certificate employers want | v: achievement, power | lever: lead | sphere: learn.B | chance: 60
+- R | teach the class anyway, in the back room of the pub, for nothing | v: stimulation, benevolence | lever: loyalty | sphere: learn.R | chance: 60
+- G | keep teaching the day classes, and let the evening ones end quietly | v: security, conformity | lever: neglect | sphere: learn.G | chance: 60
+- WU | set up a bursary in your name so poor students can take the course elsewhere | act: set up a bursary in their name so poor students can take the course elsewhere | v: benevolence, universalism | lever: fund | sphere: learn.WU | chance: 50
+- WB | stand for the college council, and vote for the evening classes from inside | v: power, universalism | lever: office | pushes: institution university | sphere: learn.WB | chance: 50
+- UR | leave the college for the adult school in the city that still teaches at night | v: self-direction, achievement | mark: moved away | lever: exit | sphere: learn.UR | chance: 50
+- RG | get the old students to teach the new ones, one evening a week, unpaid | v: benevolence, tradition | lever: lead | sphere: learn.RG | chance: 50
+- BG | ask the college's richest old pupil to pay for the classes for three years | v: power, tradition | lever: fund | sphere: learn.BG | chance: 50
+works: The evening classes go on, in the college or out of it, and the twelve come back in the autumn.
+works: One of {Ns} old students takes over the class, and teaches it the way {N} did.
+fails: The classes end in June, and most of the students do not find their way to another.
+fails: {N} fights the closure and loses, and the college remembers who fought.
+
+# ---------------------------------------------------------------- life event: the warden of the makers' association retires (pairs D4b)
+
+== the warden of the makers' association retires
+tier: life event
+sphere: prod
+haunt: prod.craft
+ladder: pillar
+stages: adult mature elder
+age: 35-100
+per_year: 0 0 0 .01 .02 .015
+drivers: community+.2
+times: Among master makers in a trade with its own association, board or association (perhaps 1 adult in 100), being asked to take the post that judges apprentices and keeps the standard comes to about 1 in 4 (estimate; Sennett 2008 on how crafts keep their standards), set at 1 to 2 in 100 a year among them
+likelier: a master of long standing, a trade with a test for apprentices, a small town association
+rarer: a maker who works alone, a trade with no shared standard
+gap: 8-25
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, mentor, rival, friend
+who: rival
+earth: the old warden of the makers' association retires, and the masters want you to judge the apprentices' final pieces and keep the standard
+scene: The old warden of the makers' association has retired after twenty years of judging apprentices' final pieces. The masters want {N} to take it on. The trouble is known to all: half the association passes its own nephews, and the other half wants the test scrapped.
+scene W: A test is only worth something if it is the same for everyone. {N} has seen good apprentices fail and nephews pass.
+scene U: Nobody has ever written down what makes a piece pass. It lives in the old warden's head, and he has gone.
+scene B: The warden decides who gets to call themselves a master. That is a great deal of power in a small trade.
+scene R: {N} would rather be at the bench making things than in a back room judging other people's.
+scene G: The old warden taught {N}, and his teacher taught him. The standard is a thing passed hand to hand.
+- W | take the post, and judge every piece by the same rule, nephews included | v: conformity, universalism | mark: made an enemy | lever: lead | pushes: group work | sphere: prod.W | chance: 60
+- U | take the post, and write the standard down so anyone can see what passes | v: universalism, achievement | lever: office | sphere: prod.U | chance: 60
+- B | put your savings behind your best apprentice's workshop, and let others judge | act: put their savings behind their best apprentice's workshop, and let others judge | v: achievement, power | lever: fund | sphere: prod.B | chance: 60
+- R | turn the post down, and keep making what moves you at your own bench | act: turn the post down, and keep making what moves them at their own bench | v: self-direction, stimulation | lever: exit | sphere: prod.R | chance: 60
+- G | take the post as the old warden held it, and keep the test he set | v: tradition, conformity | lever: lead | sphere: prod.G | chance: 60
+- WR | tell the association's meeting plainly which nephews passed who should not have | v: universalism, self-direction | lever: voice | sphere: prod.RW | chance: 50
+- WG | set up a yearly prize for the best apprentice piece, judged without names | v: benevolence, tradition | lever: fund | sphere: prod.GW | chance: 50
+- UB | open a workshop of your own that trains apprentices outside the association | act: open a workshop of their own that trains apprentices outside the association | v: self-direction, achievement | lever: found | sphere: prod.UB | chance: 50
+- UG | stand for the town's trade board, and win the association's test a place in its rules | v: tradition, universalism | lever: office | pushes: institution council | sphere: prod.GU | chance: 50
+- BR | take the post, and let the masters know their nephews pass if they back you | act: take the post, and let the masters know their nephews pass if they back them | v: power | mark: hid a wrong | lever: subvert | sphere: prod.BR | chance: 50
+works: The association's test means something again, and the first apprentice {N} passes is one nobody else would have.
+works: The standard is kept, and the young makers of the town know where they stand.
+fails: The masters close ranks, and {N} spends years judging pieces under a cloud of quarrels.
+fails: The test is scrapped by a vote, and the association becomes a dinner club.
+
+# ---------------------------------------------------------------- life event: the credit union's bad year (pairs D5a)
+
+== the queue at the credit union
+tier: life event
+sphere: comm
+haunt: comm.credit
+ladder: pillar
+at: bank
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .01 .015 .01
+drivers: money-.3 unrest+.2
+times: Among people trusted to sit on the board of a credit union, savings circle or co-op bank (perhaps 1 adult in 100), a bad loan and a rush of members taking their savings out comes to about 1 in 5 (estimate; runs on small lenders follow a loss made public, Diamond and Dybvig 1983), set at 1 in 100 a year among them
+likelier: a long-serving board member, a small lender in a lean year, a town where word travels fast
+rarer: a large bank, a lender with savings guaranteed by law
+gap: 8-25
+tone: trouble
+life: money, community, work
+horizon: months
+roles: neighbour, friend, colleague, patron
+who: neighbour
+earth: the credit union you help run has lost money on a bad loan, members are queueing to take their savings out, and the board looks to you
+scene: The town's credit union has lost money on one large loan gone bad, and members are queueing to take their savings out. {N} has sat on its board for years, and the others want {N} to take the chair and face the queue.
+scene W: The members trusted the board with their savings. They are owed the truth, and the same answer each.
+scene U: {N} has been through the books. The loss is real but not fatal, if the members stay.
+scene B: Whoever stands in front of that queue will be remembered for it, one way or the other.
+scene R: {N} feels the old pull: walk out to the queue and turn it round with a few words.
+scene G: The credit union was started by the street's grandparents, a few coins a week each. It is the street's own.
+- W | take the chair, and tell the queue the plain truth about the loss | v: conformity, universalism | lever: lead | pushes: institution bank | sphere: comm.W | chance: 60
+- U | open the books to every member, line by line, at a meeting tomorrow night | v: universalism, security | mark: owned up | lever: lead | sphere: comm.U | chance: 60
+- B | move your own savings out quietly, ahead of the rest of the queue | act: move their own savings out quietly, ahead of the rest of the queue | v: security, power | mark: hid a wrong | lever: exit | sphere: comm.B | chance: 60
+- R | keep your own savings in, and tell the queue so, loudly | act: keep their own savings in, and tell the queue so, loudly | v: stimulation, benevolence | lever: loyalty | sphere: comm.R | chance: 60
+- G | put your family's savings in to cover the loss, as your parents would have | act: put their family's savings in to cover the loss, as their parents would have | v: tradition, benevolence | lever: fund | sphere: comm.G | chance: 60
+- WG | ask the members to stay a year, and give them a vote on every large loan | v: conformity, tradition | lever: lead | sphere: comm.GW | chance: 50
+- WR | tell the whole market on Saturday that you are staying in, and why | act: tell the whole market on Saturday that they are staying in, and why | v: benevolence, stimulation | lever: loyalty | sphere: comm.RW | chance: 50
+- UB | get the council to stand behind the savings, through your seat on its finance committee | act: get the council to stand behind the savings, through their seat on its finance committee | v: power, security | lever: office | pushes: institution council | sphere: comm.UB | chance: 50
+- UR | close the credit union in good order, and pay every member what is left | v: universalism, self-direction | lever: exit | sphere: comm.UR | chance: 50
+- BG | ask the town's biggest trader to lend the credit union the money at a fair rate | v: power, tradition | lever: fund | sphere: comm.BG | chance: 50
+works: The queue thins by the afternoon, and a year later the credit union is lending again.
+works: The members keep their savings, and the street remembers who stood in front of the queue.
+fails: The run does not stop, and the credit union closes owing its members a third of their savings.
+fails: {N} keeps it open, and spends years being blamed for the loan {N} voted against.
+
+# ---------------------------------------------------------------- life event: the night desk closes (pairs D5b)
+
+== the night desk at the station closes
+tier: life event
+sphere: prot
+haunt: prot.watch
+ladder: pillar
+at: police
+stages: adult mature elder
+age: 30-100
+per_year: 0 0 0 .015 .015 .01
+drivers: unrest+.3 money-.2
+times: Many towns have seen their police station's front desk close at night or for good to save money (estimate); among people who lead a neighbours' watch or sit on a police and community panel (perhaps 1 adult in 100), facing such a closure comes to about 1 in 4 (estimate), set at 1 to 2 in 100 a year among them
+likelier: a leader of a watch group, a small town, a district with rising break-ins
+rarer: a city centre with a station open all hours, a person with no part in the street's watch
+gap: 8-25
+tone: trouble
+life: community, neighbours, law
+horizon: months
+roles: neighbour, friend, colleague
+who: neighbour
+earth: the police station's front desk will close at night, and the neighbours' watch you lead must decide what to do
+scene: From next month the police station's front desk closes at night; after dark the nearest counter is in the city. {N} has led the neighbours' watch for years. At the panel meeting the officers look tired, the neighbours look frightened, and both look at {N}.
+scene W: The old people on the estate deserve the same help at night as anyone in the city. {N} wants every street covered the same.
+scene U: {N} has a map of every call from the last year. The night calls cluster in three streets.
+scene B: A town without a night desk is a market for private guards. {N} knows who would pay.
+scene R: {N} would walk the high street every night alone if it came to that.
+scene G: {N} thinks first of the old neighbours on the street, the ones who live alone and keep the phone by the bed.
+- W | lead the watch rota on the dark nights yourself, the same streets for every house | act: lead the watch rota on the dark nights themselves, the same streets for every house | v: universalism, conformity | lever: lead | sphere: prot.W | chance: 60
+- U | take last year's calls to the panel, and show where the nights are worst | v: universalism, security | lever: voice | pushes: institution police | sphere: prot.U | chance: 60
+- B | pay for a night guard on the main street, and let the shops pay you back | act: pay for a night guard on the main street, and let the shops pay them back | v: power, security | lever: fund | sphere: prot.B | chance: 60
+- R | walk the high street yourself on the first dark night, phone in hand | act: walk the high street themselves on the first dark night, phone in hand | v: stimulation, benevolence | lever: loyalty | sphere: prot.R | chance: 60
+- G | set up a phone tree, so every neighbour who lives alone has someone to ring | v: benevolence, tradition | mark: helped someone in need | lever: found | pushes: group neighbours | sphere: prot.G | chance: 60
+- WU | stand for the council's seat on the police board, and fight the closing there | v: universalism, power | lever: office | pushes: institution police | sphere: prot.WU | chance: 50
+- WB | get the shops to pay into a watch fund for lamps on the dark lanes | v: security, power | lever: fund | sphere: prot.WB | chance: 50
+- UG | train the watch to spot trouble early and report it clearly | v: security, tradition | lever: lead | sphere: prot.GU | chance: 50
+- BR | let the watch check strangers on the estate, and look away when they go too far | v: power, security | mark: hid a wrong | lever: subvert | sphere: prot.BR | chance: 50
+- RG | step down, and let the young ones lead the watch their own way | v: self-direction, tradition | lever: exit | sphere: prot.RG | chance: 50
+works: The town gets through the first winter without the night desk, and the panel wins it back two nights a week.
+works: The watch grows stronger than it has ever been, and the old neighbours sleep better for it.
+fails: The break-ins rise through the winter, and the watch gets the blame the station should have had.
+fails: The watch splits over how far it should go, and {N} loses friends on both sides.
+
+# ---------------------------------------------------------------- life event: nominations close on Friday (pairs D6a)
+
+== nominations close on Friday
+tier: life event
+sphere: rule
+haunt: rule.voice
+ladder: known
+at: council
+stages: young_adult adult mature elder
+age: 21-100
+per_year: 0 0 .005 .01 .01 .005
+drivers: community+.2 unrest+.2
+times: Few people are ever asked to stand for a local seat (perhaps 1 in 20 adults, fewer stand; Verba, Schlozman and Brady 1995); among those whose word counts in their ward (perhaps 1 adult in 10), a by-election with neighbours at the door asking them to stand comes to about 1 in 8 (estimate), set at 1 in 100 a year among them
+likelier: a person the street turns to, a member of a residents' group, a ward whose councillor has left
+rarer: a newcomer, a person who has never spoken at a meeting
+gap: 8-25
+tone: mixed
+life: public life, community, neighbours
+horizon: months
+roles: neighbour, friend, partner, rival
+who: neighbour
+earth: your ward's councillor has moved away, nominations for the seat close on Friday, and three neighbours are at your door with a form
+scene: The ward's councillor has moved away. Nominations for the by-election close on Friday at noon. So far only one name is in, from a man nobody on the estate has met. Three neighbours are at {Ns} door with a form, their signatures already on it.
+scene W: Someone has to answer for the ward. {N} believes in doing a thing properly or not at all.
+scene U: {N} knows the estate's troubles better than anyone, down to the numbers. Whether that makes a councillor is another question.
+scene B: A seat on the council is a lever on everything: the repairs, the bus, the school. {N} has wanted one for years.
+scene R: {Ns} heart is going. The form is right there, and Friday is three days away.
+scene G: The estate has always had one of its own on the council. The man nobody has met is not one of its own.
+- W | stand for the seat, and promise a weekly surgery in the ward for anyone | v: benevolence, conformity | lever: office | pushes: institution council | sphere: rule.W | chance: 60
+- U | ask both candidates to a meeting on the estate, and question them in public | v: universalism, self-direction | lever: voice | sphere: rule.U | chance: 60
+- B | stand, but only once a party has promised its backing and its money | v: power, achievement | lever: office | sphere: rule.B | chance: 60
+- R | sign the form there on the doorstep, before you have time to think | act: sign the form there on the doorstep, before they have time to think | v: stimulation, self-direction | mark: took a wild risk | lever: office | sphere: rule.R | chance: 60
+- G | say no, and leave the seat to whoever wants it | v: security, conformity | mark: turned down a chance | lever: neglect | sphere: rule.G | chance: 60
+- WB | back the neighbour who would do it best, and raise the money for her leaflets | v: benevolence, power | lever: fund | sphere: rule.WB | chance: 50
+- WR | knock on every door on the estate, and get people out to vote, whoever stands | v: universalism, stimulation | lever: voice | sphere: rule.RW | chance: 50
+- UR | stand as an independent, with no party, on one promise for the estate | v: self-direction, universalism | lever: office | sphere: rule.UR | chance: 50
+- UG | ask the old families on the estate who they would trust, and stand behind that person | v: tradition, universalism | lever: loyalty | sphere: rule.GU | chance: 50
+- BG | sign the stranger's form in return for his promise on the estate's repairs | v: power, security | lever: subvert | sphere: rule.BG | chance: 50
+works: The estate turns out as it has not for years, and its candidate takes the seat.
+works: Whoever wins, the estate has a voice in the chamber now, and {N} is part of it.
+fails: The stranger wins on a low turnout, and the estate's repairs slide down the list again.
+fails: {N} stands and loses badly, and the campaign leaves {N} tired and out of pocket.
+
+# ---------------------------------------------------------------- life event: lost fairly at the small claims hearing (pairs D6b)
+
+== lost fairly at the small claims hearing
+tier: life event
+sphere: rule
+at: court
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 .004 .006 .005 .003
+drivers: money+.2 trouble+.2
+times: Bringing or defending a small claim is uncommon but not rare (about 1 adult in 15 over a life; estimate); losing one after a hearing that was plainly fair comes to about 1 in 30 lives (estimate). Tyler 1990 and Tyler and Huo 2002: people who lose after a fair hearing (heard, treated with respect, given reasons) accept the ruling and keep faith in the court far more than those who win or lose after an unfair one
+likelier: a homeowner, a person who hires builders or sells goods, a person who has been let down by a trader
+rarer: a person who never signs contracts, a person who settles every quarrel out of court
+gap: 5-20
+tone: mixed
+life: law, money, home
+horizon: months
+roles: partner, friend, parent
+who: partner
+earth: you lose your claim against the builder at the small claims hearing, though the clerk and the judge heard every word you had to say
+scene: {N} sued the builder who left the kitchen half done. The clerk explained every step, and the judge let {N} speak for as long as it took and read every photograph. Then she ruled for the builder: the contract {N} signed had allowed the delay.
+scene W: It was done properly: both sides heard, the reasons given. {N} lost fairly, and that is a strange thing to feel.
+scene U: {N} goes over the judge's reasons at home, and has to admit the contract says what she said it says.
+scene B: The builder's man knew the forms better. Next time {N} will read what is signed, and bring someone who knows.
+scene R: {N} is still angry at the builder, and the judge's kind manner almost makes it worse.
+scene G: {Ns} parent always said courts were for people with money. Today that was not quite true, and {N} is not sure what to make of it.
+- W | accept the ruling, pay the costs, and thank the clerk on the way out | v: conformity, universalism | lever: loyalty | pushes: institution court | sphere: rule.W | chance: 60
+- U | read the judgment through at home, and accept it once you see the reasons | act: read the judgment through at home, and accept it once they see the reasons | v: universalism, self-direction | mark: learned a skill | lever: loyalty | sphere: rule.U | chance: 60
+- B | find a lawyer who can find an opening, and appeal on a point of law | v: power, achievement | lever: voice | pushes: institution court | sphere: rule.B | chance: 60
+- R | write a hard review of the builder online, ruling or no ruling | v: self-direction, stimulation | mark: made an enemy | lever: voice | tech: internet | sphere: rule.R | chance: 60
+- G | settle it the old way, and ask the builder's family to make it right | v: tradition, security | lever: exit | sphere: rule.G | chance: 60
+- WU | write to the advice office, so other buyers know about that kind of contract | v: universalism, benevolence | lever: voice | sphere: rule.WU | chance: 50
+- WG | pay up, and tell the street that the court was fair, whatever they say | v: conformity, tradition | mark: owned up | lever: loyalty | pushes: institution court | sphere: rule.GW | chance: 50
+- UB | ask the clerk how an appeal works, and file the form on the last day allowed | v: achievement, self-direction | lever: voice | sphere: rule.UB | chance: 50
+- BR | hold back the last payment you still owe the builder, ruling or no ruling | act: hold back the last payment they still owe the builder, ruling or no ruling | v: power, self-direction | mark: broke the law | lever: subvert | sphere: rule.BR | chance: 50
+- RG | leave the costs letter unopened on the side for a month, and hope it goes away | v: hedonism, security | lever: neglect | sphere: rule.RG | chance: 50
+works: {N} pays, reads every contract twice from then on, and finds the court a place {N} would trust again.
+works: The builder, shamed by the hearing more than the ruling, comes back and finishes the kitchen.
+fails: {N} fights on, loses again, and the costs double.
+fails: The loss sours {N} on the law for years, fair hearing or not.
+
+# ---------------------------------------------------------------- life event: the foreman's inquiry (pairs D3a)
+
+== the foreman's inquiry into the jammed press
+tier: life event
+sphere: prod
+at: employer
+stages: young_adult adult mature
+age: 18-67
+per_year: 0 0 .004 .004 .003 0
+drivers: harsh+.2 money-.1
+times: Among people who work with machines (perhaps 1 adult in 4 at some time), an accident on the shift and an inquiry that finds part of the fault with them comes to about 1 in 15 (estimate); overall about 1 in 60 lives. Tyler 1990: when a boss hears everyone and gives reasons, a ruling against a worker is far more often accepted, and the rule kept afterwards
+likelier: a machine operator or line hand, a works with old machines, a shift where checks are often skipped
+rarer: an office worker, a works with a strong safety record
+gap: 5-20
+tone: trouble
+life: work, health
+horizon: months
+roles: colleague, boss, parent, friend
+who: boss
+earth: after the press jams and a workmate's hand is cut, the foreman's inquiry hears everyone fairly and finds that you skipped the guard check; a warning goes on your file
+scene: When the press jammed and {colleague} cut a hand, the foreman held an inquiry. He heard everyone, {N} included, as long as they needed, and read the logbook aloud. His finding: {N} skipped the guard check that morning. A written warning goes on {Ns} file.
+scene W: It was a fair hearing, and the log does not lie. {N} skipped the check because everyone did, and that is no excuse.
+scene U: {N} goes back over the morning. The check was skipped, but the guard had been loose for weeks, and the log says that too.
+scene B: A warning on file means no foreman's post for three years. {N} wonders who else could share the blame.
+scene R: {N} feels sick about the hand, and furious at being the only name in the report.
+scene G: {Ns} father worked that floor for thirty years and never had a mark against him.
+- W | sign the warning, and do the guard check every morning from now on | v: conformity, security | lever: loyalty | pushes: institution employer | sphere: prod.W | chance: 60
+- U | accept the finding, and ask that the loose guard go in the report as well | v: universalism, security | lever: voice | pushes: institution employer | sphere: prod.U | chance: 60
+- B | let it be known on the floor that half the shift skipped the check too | v: power, security | mark: made an enemy | lever: subvert | sphere: prod.B | chance: 60
+- R | walk off the floor that day, and look for work at the other plant | v: self-direction, stimulation | lever: exit | sphere: prod.R | chance: 60
+- G | go to see your workmate at home with your family, and say it was your fault | act: go to see their workmate at home with their family, and say it was their fault | v: tradition, benevolence | mark: owned up | lever: loyalty | sphere: prod.G | chance: 60
+- WU | propose a signed check sheet for every press, every morning | v: conformity, universalism | lever: voice | sphere: prod.WU | chance: 50
+- WR | tell the whole shift at break that the foreman was fair, and the check matters | v: universalism, benevolence | lever: loyalty | sphere: prod.RW | chance: 50
+- UB | ask the union rep to get the warning cut to a year, on your clean record | act: ask the union rep to get the warning cut to a year, on their clean record | v: achievement, security | lever: voice | pushes: institution union | sphere: prod.UB | chance: 50
+- RG | go through the motions from now on, and do only what the foreman sees | v: security, hedonism | lever: neglect | sphere: prod.RG | chance: 50
+- BG | offer to train the new starters in the checks, if the warning comes off sooner | v: achievement, tradition | lever: voice | sphere: prod.BG | chance: 50
+works: {N} takes the warning, keeps the check, and in three years is the one the new starters ask.
+works: The inquiry's fairness sticks: the whole floor does the checks now, and nobody else is hurt.
+fails: The warning follows {N} for years, and the post {N} wanted goes to someone else.
+fails: The floor takes sides over the report, and {N} works the next year among people who will not speak.

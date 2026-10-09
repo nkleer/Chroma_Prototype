@@ -9,7 +9,7 @@
 5 style       straight double quotes, curly apostrophes and double spaces are refused; lines end a sentence, names do not
 6 safety      nothing sexual, no self-harm, no harm to a child
 7 setting     the timeless setting (patterns from check_setting.py when given)
-8 faces       in the earth-spheres-*.lib moments every option has a sphere: face, and the faces are even by colour
+8 faces       in the earth-spheres-*.lib moments (also read by 4 and 6, comments aside) every option has a sphere: face, and the faces are even by colour
               (each option counts 1, split over its face's letters; the totals within 1%)
 Exits 1 on any problem.
 """
@@ -224,6 +224,11 @@ face_w = {c: 0.0 for c in COLORS}
 n_opt = 0
 for f in sorted(glob.glob(os.path.join(os.path.dirname(PATH), "earth-spheres-*.lib"))):
     for i, ln in enumerate(open(f, encoding="utf-8"), 1):
+        if not ln.startswith("#"):
+            for m in list(COLOR_WORDS.finditer(ln)) + list(MAGIC_WORDS.finditer(ln)):
+                fail("4 color words", f"\"{m.group(0)}\": {os.path.basename(f)}:{i}")
+            for m in SAFETY.finditer(ln):
+                fail("6 safety", f"\"{m.group(0)}\": {os.path.basename(f)}:{i}")
         if not ln.startswith("- "):
             continue
         n_opt += 1
