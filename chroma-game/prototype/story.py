@@ -1684,7 +1684,8 @@ class Story:
     def read(self, r, stage):
         """An outside event read through the character's colors (Earth batch): the scene and how they take it."""
         ev = LIB_READ.get(r["name"])
-        scene = self.fill(self.pick(ev["scenes"], phase(r["age"])), phase(r["age"]), dict(_age=r["age"])) if ev and ev["scenes"] else ""
+        scene = self.fill(r["_scene"], phase(r["age"]), dict(_age=r["age"])) if r.get("_scene") else \
+            self.fill(self.pick(ev["scenes"], phase(r["age"])), phase(r["age"]), dict(_age=r["age"])) if ev and ev["scenes"] else ""
         say = self.fill(r["say"], phase(r["age"]), dict(_age=r["age"])) if r.get("say") else \
             self.fill("{N} takes it as " + r["reading"] + ".")
         return (scene + " " + mk("r", f"{r.get('reading', '')}|{float(r.get('impact', 0)):.2f}", say)).strip()
