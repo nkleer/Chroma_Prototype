@@ -2,7 +2,7 @@
 
     python3 -B tests/check_spheres.py [path/to/earth_spheres.py] [--setting path/to/check_setting.py]
 
-1 coverage    every sphere, face (45), pair (90), modern event (175), cascade (13), cast (45), haunt kind (31), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
+1 coverage    every sphere, face (45), pair (90), modern event (175), cascade (13), cast (45), haunt kind (31), shadow (45), grey side (9), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
 2 length      names 6 words at most (event names 10), rungs 7, roles 12 (cast roles 14), lines, readings and hover lines 35
 3 duplicates  no line or reading said twice; no two faces of one sphere share a name
 4 color words no color named, no Magic term, no combination name in brackets
@@ -49,6 +49,7 @@ spec.loader.exec_module(M)
 SP, FA, PL, RU, PS, PA, EV, CA, CC = (getattr(M, n, {}) for n in ("SPHERE", "FACE", "PLACE", "RUNG", "PLACE_SHORT", "PAIR",
                                                                   "EVENT", "CAST", "CASCADE"))
 HA = getattr(M, "HAUNT", {})
+SH, GR, DP = (getattr(M, n, {}) for n in ("SHADOW", "GREY", "DEEP"))
 HAUNT_KINDS = ["gather.house", "gather.hall", "gather.games", "gather.circle", "gather.night", "arts.song", "arts.stage",
                "arts.tale", "arts.page", "arts.craft", "faith.congregation", "faith.orders", "faith.seeking",
                "learn.keeping", "learn.higher", "care.houses", "comm.market", "comm.shop", "comm.credit", "prod.wild",
@@ -150,6 +151,17 @@ for k, c in CC.items():
         ALL.append((f"CASCADE.{k}.{i}.t", st["t"], "line", 40))
         if st["me"]:
             ALL.append((f"CASCADE.{k}.{i}.me", st["me"], "line", 40))
+for k in FA:
+    if k not in SH:
+        fail("1 coverage", f"SHADOW.{k}: no shadow line")
+for s in SPHERES:
+    if s not in GR:
+        fail("1 coverage", f"GREY.{s}: no words")
+ALL += [(f"SHADOW.{k}", t, "line", 35) for k, t in SH.items()]
+for k, g in GR.items():
+    ALL += [(f"GREY.{k}.name", g["name"], "name", 6)] + [(f"GREY.{k}.{f}", g[f], "line", 35) for f in ("line", "grows", "shrinks")]
+for k, g in DP.items():
+    ALL += [(f"DEEP.{k}.name", g["name"], "name", 4)] + [(f"DEEP.{k}.{f}", g[f], "line", 25) for f in ("hover", "begins", "ends")]
 if set(HA) != set(HAUNT_KINDS):
     fail("1 coverage", f"HAUNT: missing {sorted(set(HAUNT_KINDS) - set(HA))}, extra {sorted(set(HA) - set(HAUNT_KINDS))}")
 hnames = {}
