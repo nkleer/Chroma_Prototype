@@ -349,6 +349,8 @@ def _packs(world, packs, pack_moments, R):
         rl = _module(os.path.join(d_, "roles.py"), f"chroma_pack_{pk}_roles")
         out["rules"].update(getattr(rl, f"ROLES_{up_}", {})); out["rules"].update(getattr(rl, "ROLES_REACH", {}))
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
+        if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
+            out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
             out["extend"].setdefault(nm_, []).append(x_)
         if os.path.exists(os.path.join(d_, "helps.py")):
