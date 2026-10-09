@@ -73,8 +73,8 @@ ROLES_POLITICS = {
                          req="has('member of parliament') & (yrs_has('member of parliament') >= 4) & "
                              "(was('minister') | has('a following in the party') | has('known across the country'))",
                          rungs=["minister", "a following in the party", "known across the country"],
-                         rate=0.02, weight="colors", grants=["known across the country"],   # round 4: as written, not
-                         # fitted (TARGET below), so about 1 member in 10 ever leads a party
+                         rate=0.02, weight="colors", grants=["known across the country"],   # round 4: about 1 member
+                         # in 10 ever leads a party; fitted as a summit since v22.3 (TARGET below)
                          lose="yrs_has('party leader') >= 2", lrate=0.15, lwhy="replaced by the party"),
     "head of government": dict(refines="party leader",
                                req="has('party leader') & has('known across the country')",
@@ -304,11 +304,14 @@ TARGET_POLITICS = {
     "campaign organiser": "career", "constituency caseworker": "career", "political adviser": "career",
     "party official": "career", "lobbyist": "career", "policy analyst": "career", "speechwriter": "career",
     "pollster": "career",
-    # round 4 (engine fit 14:44): the seat and office are summits; [party leader] and [head of government] ride on them
-    # at their written step rates (not fitted), since four nested titles cannot each sit at the .001 summit floor while
-    # parliament's own target is .0018 (Emren 14:41: "Keep odds higher than real, but not super unrealistically")
+    # round 4 (engine fit 14:44): the seat and office are summits; [party leader] and [head of government] rode on them
+    # at their written step rates (not fitted), since four nested titles could not each sit at the .001 summit floor
+    # while parliament's own target was .0018 (Emren 14:41: "Keep odds higher than real, but not super unrealistically").
+    # v22.3: Emren's floors of 10-09 (each summit .01) fit them too, below.
     "member of parliament": "summit", "minister": "summit",
     "mayor": "summit",
+    # Emren 10-09 (every summit in 1 life in 100 or more): [party leader] and [head of government] are fitted summits too
+    "party leader": "summit", "head of government": "summit",
     "campaign volunteer": "community", "polling-station volunteer": "community",
     # Round 5, 2026-10-07: [local party officer] at 5x its real share (.05), not the community 10x (.1). Only party
     # members can take the post (after= party member), and members are about .057 of lives in play, so .1 cannot be
