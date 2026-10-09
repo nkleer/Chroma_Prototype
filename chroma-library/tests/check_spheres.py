@@ -2,7 +2,7 @@
 
     python3 -B tests/check_spheres.py [path/to/earth_spheres.py] [--setting path/to/check_setting.py]
 
-1 coverage    every sphere, face (45), pair (90), modern event (175), cascade (13), cast (45), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
+1 coverage    every sphere, face (45), pair (90), modern event (175), cascade (13), cast (45), haunt kind (31), place (60 x 5 readings), rung (9 x 5) and hover line the data names is here
 2 length      names 6 words at most (event names 10), rungs 7, roles 12 (cast roles 14), lines, readings and hover lines 35
 3 duplicates  no line or reading said twice; no two faces of one sphere share a name
 4 color words no color named, no Magic term, no combination name in brackets
@@ -46,6 +46,12 @@ M = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(M)
 SP, FA, PL, RU, PS, PA, EV, CA, CC = (getattr(M, n, {}) for n in ("SPHERE", "FACE", "PLACE", "RUNG", "PLACE_SHORT", "PAIR",
                                                                   "EVENT", "CAST", "CASCADE"))
+HA = getattr(M, "HAUNT", {})
+HAUNT_KINDS = ["gather.house", "gather.hall", "gather.games", "gather.circle", "gather.night", "arts.song", "arts.stage",
+               "arts.tale", "arts.page", "arts.craft", "faith.congregation", "faith.orders", "faith.seeking",
+               "learn.keeping", "learn.higher", "care.houses", "comm.market", "comm.shop", "comm.credit", "prod.wild",
+               "prod.land", "prod.craft", "prot.watch", "prot.host", "rule.voice", "rule.counsel", "gather.great",
+               "gather.talk", "arts.screen", "faith.shrines", "prot.rescue"]   # build.py HAUNT_KINDS
 WHEEL = "WU UB BR RG GW WB UR BG RW GU".split()
 
 # ------------------------------------------------------------------------------------------------- 1 coverage
@@ -142,6 +148,21 @@ for k, c in CC.items():
         ALL.append((f"CASCADE.{k}.{i}.t", st["t"], "line", 40))
         if st["me"]:
             ALL.append((f"CASCADE.{k}.{i}.me", st["me"], "line", 40))
+if set(HA) != set(HAUNT_KINDS):
+    fail("1 coverage", f"HAUNT: missing {sorted(set(HAUNT_KINDS) - set(HA))}, extra {sorted(set(HA) - set(HAUNT_KINDS))}")
+hnames = {}
+for k, h in HA.items():
+    for n in h.get("names", []):
+        if n in hnames:
+            fail("3 duplicates", f"HAUNT.{k}: the name {n} is also {hnames[n]}'s")
+        hnames[n] = k
+        ALL.append((f"HAUNT.{k}.names", n, "name", 4))
+    ALL += [(f"HAUNT.{k}.{f}", h[f], "name", 6) for f in ("keeper", "regular", "patron")]
+    for f in ("go_between", "newcomer", "known"):
+        for i, t in enumerate(h[f]):
+            ALL.append((f"HAUNT.{k}.{f}.{i}", t, "line", 30))
+            if "{N}" not in t or set(re.findall(r"\{(\w+)\}", t)) - {"N", "keeper", "regular"}:
+                fail("1 coverage", f"HAUNT.{k}.{f}.{i}: wants {{N}} and no slot but keeper and regular: {t}")
 for s, rs in RU.items():
     ALL += [(f"RUNG.{s}.{i}", t, "name", 7) for i, t in enumerate(rs)]
 for (k, e), t in PS.items():
@@ -198,7 +219,7 @@ if SETTING and os.path.exists(SETTING):
 
 NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
+print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
     extra_ = f", {setting_note}" if nm == "7 setting" else ""
