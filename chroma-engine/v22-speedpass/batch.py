@@ -673,6 +673,17 @@ def _targets(L, PK, R=None):
         G["TARGET"][sm] = np.maximum(sh[sm], np.minimum(ts_, TARGET_CAP))
     cm = np.nonzero(G["TIER"] == 3)[0]
     G["TARGET"][cm] = np.maximum(sh[cm], np.minimum(bud["community"] * sh[cm], TARGET_CAP))
+    floor_kinds = ("career", "community", "faith")    # titles of one's own doing; statuses keep their real shares
+    for i_ in range(G["NI"]):                          # the floors (Emren 10-09: rare titles must be more reachable)
+        if i_ >= G["NT"]:
+            fl_ = float(bud.get("perk_floor", 0.0))
+        elif G["kindname"][i_] == "career" and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("career_floor", 0.0))
+        elif G["kindname"][i_] in floor_kinds and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("title_floor", 0.0))
+        else:
+            continue
+        G["TARGET"][i_] = max(G["TARGET"][i_], fl_)
     tl_ = tier_lift(R, PK.get("names", [])) if (len(car) or len(sm)) and R is not None else {}
     G["TIER_LIFT"] = tl_
     for i_ in np.concatenate([car, sm]).astype(int):   # who enters or moves into it (entry weights) by the whole lift; a
