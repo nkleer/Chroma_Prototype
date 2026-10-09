@@ -612,3 +612,46 @@ Clean, solid and fast, with the same lives as version 22:
   which carries `run_steps()`, `PAUSES` and `STATE` itself; link.py is the Engine's chroma-engine/notes/link-for-game.py
   and only loads and checks it, so an engine change no longer breaks the game through anchor lines. Same lives: presets
   1 to 6, seed 7, give the same record step for step as live v22.1 (test/same_life.py).
+- Stage 1 of the "v22" update (implementation list): the song (item 1), needs, hindsight and trust per color (P1, P2),
+  no color called an enemy (item 5), Out of reach folded into one row (G1), a world line not told again within two
+  years (G2), the Book's moment count in its parts (G3). engine_pin/engine.py is now the Engine's c4d13dd10d78 (PR #22):
+  its stage 1 hooks (own_k, drift_k, ev_push_k, era_push_k, steer, steer_k; STATE pr0, steer_moved, e_i, e_p) are all
+  off by default. test/same_engine.py records the engine's state step by step: lives left to choose (presets 1 to 6,
+  seed 7) match live v22.1.
+- Stage 1, played lives (v22.2): pivotal picks (item 4: a pick teaches more the farther it is from who they are, a
+  season's lean, quiet weeks at half, picks leading to plans, names from four years of colors and "becoming", threads
+  first with the thread line), the voice in their head (item 3, Library VOICE lines, the Book's voice page), the light
+  steer and the era's pull (P3: the lean buttons beside "Let them choose", "with/against the times" on options), the
+  world in their life (item 11: WL1 lines, WL3 notes on options, WL4 year lines, WL5 in the World panel, WL6 disaster
+  readings by hazard), the song in the Library's words with the voice's last sentence and the last talk, and the
+  rarity rebuild of 2026-10-08 (rarity.json). Settings in GAME; GAME_OFF (CHROMA_GAME=off) switches them all off, and
+  then played lives match live v22.1 step for step (presets 1 to 6, seed 7, own and push; push preset 6 differs by G1's
+  fold). Saves are version 2; an older save replays under the new rules with a note. The turning point and the World
+  panel's steers are built but off (turn_max 0, world_steers False) until v22.3. Checks: test/steer_check.py (Release's
+  ten steered rows; how to drive a life: test/STEERED.md) and test/play_check.js (the page).
+
+
+## Needs, hindsight and trust (2026-10-09, game side; on branch claude/charming-shannon-wpmw04, not live)
+
+From chroma-game/IDEAS.md (Emren 2026-10-09: "start with game-side"; support actions and the inner voice wait for
+discussion; engine-only parts are in chroma-game/proposals/engine-needs-and-steering.md). No engine file changed.
+
+- **Needs visible.** The side panel shows the five needs under the means (icons dim when thin, pulse when barely met;
+  hover for what feeds each). An option row names a lacking need it would feed ("safety is thin: a big lift"), and its
+  reading says how much that could lift satisfaction (`follows["lift"]`, from the engine's own refill rule).
+  "What came of it" lists every need the choice's week moved by a point or more (`resolution["needs"]`). The first
+  time a need runs thin (age 6 or later), the story explains the rule once (feed tag `hint`). The terminal status (s)
+  has a needs line; terminal option rows name lacking needs.
+- **Hindsight.** After a push they were at least a little reluctant about (`hind_rel`), the character judges it
+  (`resolution["hindsight"]`): accepted when it worked and its ends fed a need they lacked (by the engine's refill rule, as
+  the option's "lift" showed it; part of its stress, pent-up wanting, lost autonomy and its count against "their own"
+  is undone, up to `hind_max`); resented when it failed, or worked but fed nothing they lacked (a failure adds pent-up
+  wanting). "Okay with it" pushes cost nothing in the engine, so they are not judged. Measured (world "questions",
+  adults, 4 lives each): pushing reluctant options toward a lacking need, 5 of 12 accepted; pushing reluctant options
+  at random, 10 of 85; most resentment comes from pushes that failed. A line tells it ("*Fine. You were right this time.*").
+- **Trust per color** (`Game.trust`, -1 to 1). Accepted pushes raise it along the act's colors, resented ones lower it.
+  It is kept apart from inertia: trust changes only resentment (the stress and pent-up wanting of a push: `trust_cut`,
+  `distrust_add`), never the effort (lower odds). They meet in one place: trust lets more of a reluctant act's learning
+  in. The character sheet's Inner life tab shows trust when the player has pushed; status (s) has a trust line; the
+  review counts pushes accepted and resented. With no pushes, a life is exactly as before.
+- Settings: GAME in game.py (`need_thin`, `hind_*`, `resent_more`, `trust_*`, `distrust_add`).

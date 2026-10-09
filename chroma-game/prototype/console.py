@@ -9,7 +9,7 @@ import random
 import time
 import numpy as np
 from game import Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
-from story import SETTINGS, WORLD, plain
+from story import SETTINGS, WORLD, plain, NEED_SAY
 
 CHUNK = 104           # weeks simulated per call before handing back to the screen
 # a random name for the character: from their birth sex's list or either (chroma-identity/for-the-game.md §4); a start
@@ -135,6 +135,11 @@ def letters_to_spec(txt):
     return " ".join(f"{c}1" for c in dict.fromkeys(cols))
 
 
+# saves (the setup and the player's lines, replayed): version 2 from v22.2, whose played lives follow stage 1's rules.
+# An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
+SAVE_VERSION = 2
+OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
+
 class Console:
     def __init__(self):
         self.g = None
@@ -181,7 +186,7 @@ class Console:
         if self.g is None or self.mode not in ("play", "over"):
             return ""
         g = self.g
-        return json.dumps(dict(game="chroma", version=1, saved=time.strftime("%Y-%m-%d %H:%M"), name=g.name, age=round(g.age(), 1),
+        return json.dumps(dict(game="chroma", version=SAVE_VERSION, saved=time.strftime("%Y-%m-%d %H:%M"), name=g.name, age=round(g.age(), 1),
                                identity=g.hud().get("guild", ""), setup={k: v for k, v in self.custom.items()},
                                inputs=list(self.inputs)), separators=(",", ":"))
 
@@ -219,7 +224,8 @@ class Console:
         if self.mode != "play":                  # the life could not begin (an earlier world missing here)
             return out, False
         self.inputs = []
-        self.replay = dict(lines=[str(x) for x in d["inputs"]], i=0, n=len(d["inputs"]), name=d.get("name", ""), age=d.get("age"))
+        self.replay = dict(lines=[str(x) for x in d["inputs"]], i=0, n=len(d["inputs"]), name=d.get("name", ""), age=d.get("age"),
+                           old=int(d.get("version", 1) or 1) < SAVE_VERSION)
         self._stop_next()                        # paused while the years before the start were lived
         return out, True
 
@@ -229,7 +235,7 @@ class Console:
         if r["i"] >= r["n"]:
             self.replay = None
             self.loaded = dict(name=self.g.name, age=round(self.g.age(), 1))
-            self.note = f"{self.g.name} is back, at {self.g.age():.0f}"
+            self.note = f"{self.g.name} is back, at {self.g.age():.0f}" + (OLD_SAVE if r.get("old") else "")
             return "", False
         line = r["lines"][r["i"]]; r["i"] += 1
         if line.startswith("@stop"):
@@ -467,6 +473,10 @@ class Console:
                 g.decide(None)
                 self.job = dict(kind="run", until_cp=True)
                 return "", True
+            if len(k) == 2 and k[0] == "~" and k[1].upper() in "WUBRG":   # P3: a light steer toward a color
+                g.decide(None, light=k[1].upper())
+                self.job = dict(kind="run", until_cp=True)
+                return "", True
             if k.isdigit() and int(k) in self.numbering:
                 g.decide(self.numbering[int(k)])
                 self.job = dict(kind="run", until_cp=True)
@@ -656,6 +666,8 @@ class Console:
         L = ["", f"== CHECKPOINT · age {cp['age']:.1f} · {cp['title']} (stakes {stake}) =="]
         if cp.get("scene"):
             L.append(cp["scene"])
+        if cp.get("thread"):                     # F5: a moment that follows from an earlier pick
+            L.append(cp["thread"]["line"] + " [" + cp["thread"]["cause"] + "]")
         if cp["extra"]:
             L.append(cp["extra"])
         if cp.get("thought"):
@@ -691,6 +703,10 @@ class Console:
                 bits.append(f"could start a {o['commit']}")
             if o.get("needs"):                  # titles and perks: what it needs, what helps, what it gives or takes
                 bits.append(o["needs"]["line"])
+            for x in o["follows"].get("lift", []):   # a lacking need it would feed if it works
+                bits.append(f"meets {NEED_SAY[x['need']]} ({x['word']}, {x['level'] * 100:.0f}%): {x['lift']} to satisfaction")
+            if o["idx"] != own and o.get("trust", 0.0) and abs(o["trust"]) >= 0.05:
+                bits.append(("trusts you" if o["trust"] > 0 else "distrusts you") + " in these colors")
             L.append("     " + "; ".join(bits))
             for fx in o.get("roles_fx", []):
                 L.append("     " + fx["line"])
@@ -738,11 +754,12 @@ class Console:
 
     def _review(self):
         r = self.g.review
-        L = ["", r["epitaph"], "", "== LIFE REVIEW ==",
+        L = ["", r["epitaph"], "", *([r["story"], ""] if r.get("story") else []), "== LIFE REVIEW ==",
              f"Fulfilment (satisfaction through adulthood): {r['fulfilment']:.2f}",
              f"Serenity (peace through adulthood):         {r['serenity']:.2f}",
              f"Integrity (lived by their own wants):       {r['integrity']:.2f}",
-             f"Checkpoints: {r['own']} left to them, {r['forced']} pushed by you",
+             f"Checkpoints: {r['own']} left to them, {r['forced']} pushed by you"
+             + (f" ({r.get('accepted', 0)} they came to accept, {r.get('resented', 0)} they resented)" if r["forced"] else ""),
              f"Ended as: {r['final']}",
              f"Identities lived ({r['paths']}): " + " > ".join(r["path"]),
              "", "Press Enter for a new life."]
