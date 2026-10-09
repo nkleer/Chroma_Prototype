@@ -39,7 +39,9 @@ SONG = {
                short="Of roots and of returning I sing, and of {N}, {ep}, whose place held them only {age} years")),
     # a life of four identities or more takes the opening of the old book of changes. Fills {N} {ep} {age} {n}
     "open_many": "My mind is bent to tell of bodies changed into new forms: of {N}, {ep}, who in {age} years was {n} people, and every one of them themselves",
-    "numbers": ["no one", "one", "two", "three", "four", "five", "six"],
+    # the song says every count in words: numbers[n] for 0 to 20; above 20 the game says "many"
+    "numbers": ["no one", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
+                "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"],
 
     # the first stanza: an identity that began in childhood (before 18), or later. Fills {adjs}; {nth}
     "first_child": "As a child they were {adjs}, and the seed of who they would be was already in them.",
@@ -87,24 +89,45 @@ SONG = {
         small="Slowly, as stone is worn by water, they were changed."),
 
     # the color that rose most and the one that fell most between two stanzas, as whole clauses joined by "; ".
-    # "first" the first time the song says it of that color, "again" after.
+    # "first" the first time the song says it of that color; "again" is a list, and the k-th time after the first
+    # takes again[(k - 1) % len(again)], so no clause repeats word for word until all of them are used.
     "rise": dict(
         W=dict(first="a sense of duty rose in them as a lamp is lit in a window at dusk",
-               again="duty rose in them again, as the lamp is lit once more"),
+               again=["duty rose in them again, as the lamp is lit once more",
+                      "once more the old sense of duty came back to them, steady as a hearth",
+                      "duty returned to them, as the bell calls the town each morning"]),
         U=dict(first="curiosity rose in them as a river cuts its way down to the sea",
-               again="curiosity woke again, as a river finds its old bed"),
+               again=["curiosity woke again, as a river finds its old bed",
+                      "once more the questions came, as spring water finds its way",
+                      "their curiosity returned, quick as a stream after rain"]),
         B=dict(first="ambition rose in them as a hawk climbs on the warm wind",
-               again="ambition climbed again, as the hawk returns to the wind"),
+               again=["ambition climbed again, as the hawk returns to the wind",
+                      "once more they wanted more, as the hawk wants the height",
+                      "their ambition rose again, patient as a hunter at dawn"]),
         R=dict(first="passion rose in them as fire runs through summer grass",
-               again="the fire in them caught again, as it always would"),
+               again=["the fire in them caught again, as it always would",
+                      "once more passion blazed up in them, like dry wood in a sudden wind",
+                      "their passion flared again, bright as sparks flying up"]),
         G=dict(first="they put down roots as an oak sends its roots into the dark earth",
-               again="they put down roots again, deeper than before")),
+               again=["they put down roots again, deeper than before",
+                      "once more they sank roots, as ivy finds the old wall",
+                      "their roots went down again, quiet and sure as winter grass"])),
     "fall": dict(
-        W=dict(first="the old duties slipped from their shoulders like a cloak", again="duty slipped from them once more"),
-        U=dict(first="their questions fell quiet, like birds at evening", again="their questions fell quiet again"),
-        B=dict(first="their hunger for more was laid down like a sword", again="they set their hunger down once more"),
-        R=dict(first="the fire in them sank to embers", again="the fire sank low again"),
-        G=dict(first="their roots let go of the old ground", again="their roots let go once more")),
+        W=dict(first="the old duties slipped from their shoulders like a cloak",
+               again=["duty slipped from them once more", "again they shrugged off what was owed",
+                      "the weight of duty eased from them again"]),
+        U=dict(first="their questions fell quiet, like birds at evening",
+               again=["their questions fell quiet again", "once more they stopped asking why",
+                      "their curiosity slept again, like a field under snow"]),
+        B=dict(first="their hunger for more was laid down like a sword",
+               again=["they set their hunger down once more", "again they wanted less, and let it go",
+                      "their ambition was put away again, like a blade in its sheath"]),
+        R=dict(first="the fire in them sank to embers",
+               again=["the fire sank low again", "once more their passion cooled to ash",
+                      "the flame in them dimmed again, as a hearth at midnight"]),
+        G=dict(first="their roots let go of the old ground",
+               again=["their roots let go once more", "again they pulled up from the ground they knew",
+                      "once more they loosened their hold on the place"])),
 
     # after a stanza whose identity they had held before (not after a harbour)
     "home": "So they came home to an old self, as the wanderer comes home.",
@@ -130,12 +153,12 @@ SONG = {
     "deeds_won": dict(often="And {gods} favoured them more often than not.",            # 65% of those acts or more worked
                       half="Half the time they won, and half the time they rose again.",   # 40% or more
                       seldom="Often they failed, and every time they got up and went on."),
-    # the player's pushes: "And {n} times {hand} was on them, and it pushed them toward {noun}" and one ending, by the
+    # the player's pushes: "And {n} times {hand} was on them, and it pushed them toward their {noun}" and one ending, by the
     # share of the life that stayed their own (integrity): willing .9 or more, bore .75 or more, else against
-    "deeds_pushed": "And {n} times {hand} was on them, and it pushed them toward {noun}",
+    "deeds_pushed": "And {n} times {hand} was on them, and it pushed them toward their {noun}",
     "deeds_pushed_end": dict(willing=", and they went willingly.", bore=", and they bore it.",
                              against=", against their own heart."),
-    "deeds_once": "Once {hand} was on them, and it pushed them toward {noun}",         # when {n} is 1
+    "deeds_once": "Once {hand} was on them, and it pushed them toward their {noun}",         # when {n} is 1
     "deeds_free": "No god bent their will: every road they walked, they chose.",
 
     # the shape of their contentment over the adult decades. Fills {hi} {lo} ("in their 30s", "in their youth")
@@ -197,8 +220,12 @@ SONG_WORLD = {
             W=dict(first="like a fire banked at night and woken at dawn", again="like the fire again, banked and woken"),
             B=dict(first="like a stone turned over and over in the hand", again="like the stone again, turned and turned in the hand")),
         "rise": dict(W=dict(first="a sense of duty rose in them as the fire is fed when the night comes down",
-                            again="duty rose in them again, as the fire is fed once more")),
-        "fall": dict(B=dict(first="their hunger for more was laid down like a spear", again="they set their hunger down once more")),
+                            again=["duty rose in them again, as the fire is fed once more",
+                                   "once more the old sense of duty came back to them, steady as the band's fire",
+                                   "duty returned to them, as the drum calls the band at dawn"])),
+        "fall": dict(B=dict(first="their hunger for more was laid down like a spear",
+                            again=["they set their hunger down once more", "again they wanted less, and let it go",
+                                   "their ambition was put away again, like a spear laid by the fire"])),
         "cause_death": dict(parent="when a parent walked out to the place of the dead",
                             grandparent="when the old ones of the band were given back to the earth"),
     },
@@ -239,7 +266,9 @@ MARK_SAY = {
 # ============================================================================================= the last conversation
 # Told after the song. The game picks: "intro"; "gave" from the color with the highest trust (above .2), "cost" from
 # the one with the lowest (below -.2), either left out when no color passes; "glad" from the trust over all the pushes
-# (glad above .2, sorry below -.2, else torn). Variants: gave "own" when that color is the character's lead, else
+# (glad above .2, sorry below -.2, else torn): the trust per color weighted by how many of the player's pushes went
+# toward each color (a push counts for the colors of the act pushed), or the plain mean of the five when no push has a
+# color. Variants: gave "own" when that color is the character's lead, else
 # "other"; cost "enemy" when it is opposed to the lead (two steps round the wheel), else "other"; glad [0] when the
 # voice did less than a third of their color change, [1] when a third or more. A life with no push hears "none"; one
 # with fewer than five pushes hears "few". {voice} is VOICE["noun"] for the world.
