@@ -37,15 +37,25 @@ except ImportError:
 from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
+from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
 CAR, PAR, KID, COM, FAI = (KN.index(k_) for k_ in ("career", "partner", "children", "community", "faith"))
 MON, TIM, HEA = (RESOURCES.index(r_) for r_ in ("money", "time", "health"))
 ENGINE_ROLES = ["parent", "sibling", "friend", "grandparent", "partner"]   # the engine's ROLES: the columns of alive
-ROLE = list(WHO_SLOTS) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"]
+_NW = WHO_SLOTS.index("keeper") if "keeper" in WHO_SLOTS else len(WHO_SLOTS)   # slots appended later go after the own
+ROLE = list(WHO_SLOTS[:_NW]) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"] + list(WHO_SLOTS[_NW:])
 R = {r_: i_ for i_, r_ in enumerate(ROLE)}
 BIT = {r_: 1 << i_ for i_, r_ in enumerate(ROLE)}
+GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPHERES.index(GROUP_SPHERE[k_]) for k_ in GROUP_KINDS])
+SECTOR_SPH = np.array([SPHERES.index(SECTOR_SPHERE[k_]) for k_ in SECTORS])   # spheres (item 15): world.py's maps
+# each setting kind's subsector (its place, sphere_data.PLACE_BY_EPOCH); work by its employer's sector (item 15, phase 1d)
+SET_SUB = {"household": "care.hearth", "class": "learn.schooling", "congregation": "faith.congregation",
+           "club": "gather.circle", "scene": "gather.night", "online": "gather.talk", "neighbours": "gather.house",
+           "gang": "prot.hire", "unit": "prot.host", "ward": "care.houses", "movement": "rule.voice"}
+WORK_SUB = {"farm": "prod.land", "industry": "prod.works", "services": "comm.shop", "knowledge": "learn.finding",
+            "public": "rule.office"}
 G = {g_: i_ for i_, g_ in enumerate(GROUP_KINDS)}
 NG = len(GROUP_KINDS)
 WI = {w_: i_ for i_, w_ in enumerate(CAST_WANTS)}
@@ -1190,6 +1200,43 @@ class People:
                 self.events.append(dict(n=int(n_), t=int(t), kind="split", group=GROUP_KINDS[int(self.skind[n_, j_])],
                                         j=int(j_), left=[int(x_) for x_ in self.uid[n_, go]]))
 
+    @property
+    def set_sphere(self):
+        """Each setting's sphere (N x M, index into SPHERES; -1 an empty slot): a work setting by its employer's
+        sector (none known: commerce). Read only (item 15, Replace)."""
+        g = self.skind.astype(np.int64); sph = GROUP_SPH[np.maximum(g, 0)]
+        serv = SECTORS.index("services"); isec = self.inst_sector
+        if isec is not None and len(isec):
+            isec = np.asarray(isec, np.int64); sec = isec[np.clip(self.sref, 0, len(isec) - 1)]
+            wsec = np.where((self.sref >= 0) & (sec >= 0), sec, serv)
+        else:
+            wsec = np.full(g.shape, serv)
+        return np.where(g < 0, -1, np.where(sph >= 0, sph, SECTOR_SPH[wsec]))
+
+    def setting_places(self, n):
+        """Life n's settings as places (item 15, phase 1d; read only, no dice): slot, kind, sphere, subsector, the
+        place's name in the world's epoch, and the nearest face (the colour the setting's ways lean to most, with its
+        name). A class at a university is learn.higher."""
+        import sphere_data as SD
+        ep = getattr(self.W, "sph_epoch", "modern"); ss = self.set_sphere[n]; out = []
+        isec = self.inst_sector; ikind = self.inst_kind
+        for j in np.nonzero(self.skind[n] >= 0)[0]:
+            kind = GROUP_KINDS[int(self.skind[n, j])]; ref = int(self.sref[n, j])
+            if kind == "work":
+                sec = int(isec[ref]) if isec is not None and 0 <= ref < len(isec) and isec[ref] >= 0 else SECTORS.index("services")
+                sub = WORK_SUB[SECTORS[sec]]
+            elif kind == "class" and 0 <= ref < len(ikind) and ikind[ref] == INST_KINDS.index("university"):
+                sub = "learn.higher"
+            else:
+                sub = SET_SUB[kind]
+            sph = SPHERES[int(ss[j])]
+            if not sub.startswith(sph + "."):        # the subsector follows the sphere the layer reads
+                sub = sph + "." + SD.SUBSECTORS[sph][0]
+            c = int(np.argmax(self.snorm[n, j])); fk = f"{sph}.{COLORS[c]}"
+            out.append(dict(slot=int(j), kind=kind, sphere=sph, subsector=sub,
+                            place=SD.PLACE_BY_EPOCH.get(sub, {}).get(ep), face=fk, face_name=SD.FACE_NAMES[fk]))
+        return out
+
     def _outputs_settings(self):
         """Cached monthly: the settings' part of the niche, of belonging and of the community driver."""
         act = self.skind >= 0; g = np.maximum(self.skind, 0); a = self._age()
@@ -2250,6 +2297,10 @@ class People:
         b0, pk, at, wd = P["times_w"]
         tw = b0 + pk * np.exp(-((a - at) / wd) ** 2)
         self.niche = _norm((1 - tw) * msc + tw * times[None, :])
+        # item 12, the steady current's parts (read only): close people, the places they are inside, the times
+        self.cur_parts = (np.where(cw[:, None] > 1e-9, csum / np.maximum(cw, 1e-9)[:, None], self.w),
+                          np.where(self._setw[:, None] > 1e-9, self._setmix / np.maximum(self._setw, 1e-9)[:, None], self.w),
+                          np.broadcast_to(times, (N, C)))
         self._msg_raw = tot
         self.msg_w = _uclip(tot / P["msg_ref"], 0.25, 2.5)
         bs, bc = P["belong_k"]
@@ -2323,6 +2374,9 @@ class People:
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
         lv = LEVERS[lev]; ring = int(RING_OF[dom]); reach = float(self.dreach[n, dom])   # the domain's own reach
+        if lv not in P["backfire"]:   # the spheres' levers (found, fund, lead, office) act from phase 4 (item 15)
+            return dict(kind="push", n=int(n), t=int(t), lever=lv, domain=DOMAINS[dom], target=None, size="none",
+                        backfire=False)
         size = base * reach * q
         bfp = P["backfire"][lv]
         if lv == "voice":

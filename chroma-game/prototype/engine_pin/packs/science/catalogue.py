@@ -30,7 +30,7 @@ PERKS = []
 
 # ---------------------------------------------------------------- careers: the research pathway
 TITLES += [
-  dict(name="research assistant", kind="career", sector="knowledge", institution="university", standing=0, ways="W U",
+  dict(name="research assistant", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.U", ways="W U",
        profiles=[("W U", "Delivers each assigned task to the standard the project needs, and learns why it matters."),
                  ("B", "Treats the post as a stepping stone and collects the skills and names that lead somewhere."),
                  ("R", "Throws themself into whatever the lab is chasing, hoping one question will catch fire.")],
@@ -43,7 +43,7 @@ TITLES += [
        lost="the contract ending ('the contract runs out'); a step up to [research scientist]; a move into another "
             "field",
        needs="[graduate] in most settings, or years of [lab work] or [working with data]; a supervised appointment"),
-  dict(name="research scientist", kind="career", sector="knowledge", institution="university", standing=0, ways="U",
+  dict(name="research scientist", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.U", ways="U",
        profiles=[("U", "Wants to understand, and refines the explanation until it survives every comparison."),
                  ("W U", "Builds evidence that other people can rely on when they have to decide."),
                  ("R G", "Investigates a place, a living thing or a tradition through years of close involvement.")],
@@ -56,7 +56,7 @@ TITLES += [
        lost="'leaving research for another life'; a step up; a contract that is not renewed and no other post",
        needs="usually [doctoral graduate]; sustained responsibility for questions and evidence, not a degree alone",
        turning="A careful result says the opposite of what the scientist hoped, and the grant report is due."),
-  dict(name="research project lead", kind="career", sector="knowledge", institution="university", standing=1, ways="W B",
+  dict(name="research project lead", kind="career", sector="knowledge", institution="university", standing=1, sphere="learn", face="learn.B", ways="W B",
        profiles=[("W B", "Negotiates people, money and time for work that is valuable but easy to neglect."),
                  ("U R", "Tries unconventional designs and tests them carefully before anyone else dares."),
                  ("G", "Keeps the work, the people and the records whole through the project's seasons.")],
@@ -68,7 +68,7 @@ TITLES += [
        lost="the end of the project with no next one; a step up to [research group leader]; 'the work you would rather be "
             "doing' chosen over managing",
        needs="[research grant] or an assigned project; [a research project under way]"),
-  dict(name="research group leader", kind="career", sector="knowledge", institution="university", standing=1, ways="W U B",
+  dict(name="research group leader", kind="career", sector="knowledge", institution="university", standing=1, sphere="learn", face="learn.U", ways="W U B",
        profiles=[("W U B", "Builds a capable research group through standards, expertise and negotiation."),
                  ("W R G", "Shapes questions together with the people and places the research serves."),
                  ("B R", "Runs an independent agenda and strikes unconventional partnerships to keep it going.")],
@@ -79,7 +79,7 @@ TITLES += [
               "institutional appointment or an equivalent responsibility",
        lost="the money running out with no new grant; stepping back to specialist work; retirement",
        needs="[research grant]; [published research] or [name in the field]; an institution that appoints them"),
-  dict(name="research facility lead", kind="career", sector="knowledge", institution="university", standing=2, ways="W G",
+  dict(name="research facility lead", kind="career", sector="knowledge", institution="university", standing=2, sphere="learn", ways="W G",
        profiles=[("W G", "Keeps long-lived instruments and records running as a service to everyone who relies on them."),
                  ("B G", "Protects irreplaceable equipment and know-how, and keeps a specialist practice independent."),
                  ("U", "Keeps the machines at the edge of what they can measure, and teaches others how.")],
@@ -91,7 +91,7 @@ TITLES += [
               "[instrument troubleshooting]",
        lost="the facility closing or merged; a move to a larger one; retirement",
        needs="[instrument troubleshooting] and years on the machines; the institution's appointment"),
-  dict(name="independent investigator", kind="career", sector="knowledge", institution="charity", standing=1, ways="U B",
+  dict(name="independent investigator", kind="career", sector="knowledge", institution="charity", standing=1, sphere="learn", face="learn.B", ways="U B",
        profiles=[("U B", "Builds a scarce speciality and uses it to win the freedom to choose their own questions."),
                  ("R", "Follows a question they care about wherever it goes, on their own terms."),
                  ("B R G", "Sustains years of independent inquiry around a place or a system that matters to them.")],
@@ -108,7 +108,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- careers: side roads of the research pathway
 TITLES += [
-  dict(name="research software engineer", kind="career", sector="knowledge", institution="university", standing=0, ways="U",
+  dict(name="research software engineer", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.U", ways="U",
        profiles=[("U", "Builds reliable tools, because good questions die on bad software."),
                  ("U R", "Loves making things that work, and invents the tool nobody asked for yet."),
                  ("B", "Makes sure the tool everyone depends on is theirs, and keeps it the best there is.")],
@@ -119,7 +119,7 @@ TITLES += [
               "a [data analyst] near a lab",
        lost="the project's money ending; a move back to industry",
        needs="[writing code]; a sustained appointment or an equivalent commitment"),
-  dict(name="research data steward", kind="career", sector="knowledge", institution="university", standing=0, ways="W G",
+  dict(name="research data steward", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.W", ways="W G",
        profiles=[("W G", "Keeps evidence documented and usable for people who are not born yet."),
                  ("G", "Knows the history of every column, the way a farmer knows each field."),
                  ("B", "Knows that whoever keeps good data shapes the conversation, and guards access well.")],
@@ -130,7 +130,7 @@ TITLES += [
               "as an [archivist] or a [data analyst]",
        lost="the post cut; a step up; a move into another field",
        needs="[working with data] or [archive research]"),
-  dict(name="evidence synthesis specialist", kind="career", sector="knowledge", institution="university", standing=0, ways="W U",
+  dict(name="evidence synthesis specialist", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.U", ways="W U",
        profiles=[("W U", "Compares the evidence in the open, so that shared decisions can rest on it."),
                  ("W R", "Feels bound to settle questions that matter, and works through the evidence with urgency."),
                  ("U B G", "Builds patient, durable methods and a long expertise few others have.")],
@@ -140,7 +140,7 @@ TITLES += [
        gained="years as a [research scientist] or [research assistant] with [evidence synthesis]",
        lost="the post ending; a move into policy or teaching",
        needs="[evidence synthesis]; [graduate]"),
-  dict(name="science communication specialist", kind="career", sector="knowledge", institution="media", standing=0, ways="R",
+  dict(name="science communication specialist", kind="career", sector="knowledge", institution="media", standing=0, sphere="learn", face="learn.R", ways="R",
        profiles=[("R", "Shares the thrill of finding things out with anyone who will listen."),
                  ("W", "Gives the public accurate evidence and honest doubt, because people have a right to both."),
                  ("B", "Builds an audience and uses it to get science heard where decisions are made.")],
@@ -150,7 +150,7 @@ TITLES += [
        gained="'leaving research for another life' with [explaining science]; a [journalist] who turns to science",
        lost="the post or the programme ending; a return to research",
        needs="[explaining science] or [public speaking]; sustained responsibility for accurate communication"),
-  dict(name="participatory research coordinator", kind="career", sector="knowledge", institution="charity", standing=0, ways="G W",
+  dict(name="participatory research coordinator", kind="career", sector="knowledge", institution="charity", standing=0, sphere="learn", face="learn.G", ways="G W",
        profiles=[("G W", "Grows questions together with a community over many years."),
                  ("R G", "Works alongside people out of love for the place and its life."),
                  ("U W", "Designs the work so that every volunteer's contribution counts as evidence.")],
@@ -166,7 +166,7 @@ TITLES += [
 # ---------------------------------------------------------------- community: research as a pastime
 # If the same work becomes the person's job, the career title takes over (Emren's document: never count it twice).
 TITLES += [
-  dict(name="citizen scientist", kind="community", ways="U R",
+  dict(name="citizen scientist", kind="community", sphere="learn", face="learn.U", ways="U R",
        profiles=[("U R", "Counts, measures and uploads, because finding things out is a thrill."),
                  ("G", "Watches one patch of the world closely through the seasons."),
                  ("W", "Adds to a shared record, because many careful hands make it reliable.")],
@@ -177,7 +177,7 @@ TITLES += [
        gained="'volunteers wanted to count what lives here' or 'a project online asks for a thousand pairs of eyes'",
        lost="the season ending and not coming back; no time any more",
        needs="nothing but time and attention; some projects ask for training"),
-  dict(name="community observer", kind="community", ways="G W",
+  dict(name="community observer", kind="community", sphere="learn", face="learn.G", ways="G W",
        profiles=[("G W", "Keeps the long record of one place, the way someone always has."),
                  ("B", "Gathers local evidence to give the neighbourhood a say against those who decide."),
                  ("R", "Is out at dawn every week because they love the river.")],
@@ -189,7 +189,7 @@ TITLES += [
               "Sunday'",
        lost="moving away; the body no longer up to the walk",
        needs="a place visited again and again"),
-  dict(name="volunteer research organiser", kind="community", ways="W B",
+  dict(name="volunteer research organiser", kind="community", sphere="learn", face="learn.W", ways="W B",
        profiles=[("W B", "Organises volunteers and money so that the project outlasts its founders."),
                  ("U R", "Gets people excited about a question and designs a way they can help answer it."),
                  ("G", "Holds a circle of volunteers together the way a family holds together.")],
@@ -203,7 +203,7 @@ TITLES += [
 
 # ---------------------------------------------------------------- facets: appointments, colorless (engine refines)
 TITLES += [
-  dict(name="postdoctoral researcher", kind="career", sector="knowledge", institution="university", standing=0, ways="", refines="research scientist",
+  dict(name="postdoctoral researcher", kind="career", sector="knowledge", institution="university", standing=0, sphere="learn", face="learn.U", ways="", refines="research scientist",
        meets="need:autonomy-.03 res:money-.02 need:safety-.04", lasts=5,
        ages=(25, 45), share=.006,   # estimate: about half of science doctorates hold at least one fixed-term
                                     # postdoctoral post
@@ -211,7 +211,7 @@ TITLES += [
        gained="the first years as a [research scientist] after [doctoral graduate], on fixed-term contracts",
        lost="a permanent post, a fellowship, or 'leaving research for another life'; it fades after five years",
        needs="[doctoral graduate]; a facet held on top of [research scientist], never in its place"),
-  dict(name="professor", kind="career", sector="knowledge", institution="university", standing=2, ways="", refines="research scientist; research group leader",
+  dict(name="professor", kind="career", sector="knowledge", institution="university", standing=2, sphere="learn", face="learn.U", ways="", refines="research scientist; research group leader",
        meets="need:safety+.04 need:competence+.03 res:time-.04",
        ages=(32, 80), share=.002,   # estimate: the UK has about 25,000 professors and the US about 180,000 full
                                     # professors at a time
