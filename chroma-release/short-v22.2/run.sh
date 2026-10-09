@@ -29,7 +29,8 @@ case "$1" in
   steer_identity|steer_apart) $CHK --only $1 ;;
   steer_rest) $CHK --only $STEER_REST ;;
   rows) $CHK --only $ROWS ;;
-  b7AB|b7CD) rm -rf $X; $CHK --only build --keep --work $X || exit 1
+  b7AB|b7CD) rm -rf $X; $CHK --only build --no-reuse --keep --work $X || exit 1   # a reused build leaves no build folder
+     [ -f $X/w/build/BUILD.md ] || { echo "STOP: no build in $X/w/build"; exit 1; }
      g=${1#b7}; bash $R/short-v22.1/b7.sh ${g:0:1},${g:1:1} 2 $X/w/build ;;
   *) sed -n 2,10p "$0"; exit 2 ;;
 esac

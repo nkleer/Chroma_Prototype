@@ -21,6 +21,9 @@ CAT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(batch.LIB_DIR, "earth_p
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]
 PMOM_ = json.loads(os.environ.get("PACK_MOMENTS", "{}")) or None
 KEY = ",".join(sorted(PACKS_))
+batch.FLOORS = os.environ.get("FLOORS") == "1"   # item 16's floors (off until the v22.3 refit)
+SPLIT_CAP = float(os.environ.get("SPLIT_CAP", 3.0))   # how far one title's split may sit from its tier's lift (4.5 for
+                                                      # the 1-in-100 summit floor, Emren 10-09)
 
 
 def _load(lift):
@@ -88,7 +91,7 @@ def main():
             base = (sum(w * c for w, (c, _) in zip(wts, hs)) + 0.5 * qq) / sum(w * e for w, (_, e) in zip(wts, hs))
             want = np.log(qq / base); want -= (qq * want).sum()
             d = np.array([lift["split"].get(G["names"][i], 0.0) for i in ix])
-            d = d + 0.7 * (want - d); d = np.clip(d - (qq * d).sum(), -3.0, 3.0)
+            d = d + 0.7 * (want - d); d = np.clip(d - (qq * d).sum(), -SPLIT_CAP, SPLIT_CAP)
             lift["split"].update({G["names"][i]: round(float(x), 4) for i, x in zip(ix, d)})
     print(f"\n{'summit':34s} {'real':>8s} {'split target':>12s} {'held':>7s} {'lives':>5s} {'split lift':>10s}")
     for k_, i in enumerate(sm):

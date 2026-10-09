@@ -128,6 +128,13 @@ NORM_PROF_SRC = {
     "role crossing":     ("B.3 U.3 R.2 W.2", "choosing one's path over the expected role, skill over custom, living as one feels, equal rules"),
     "transition":        ("R.4 U.3 G.2 B.1", "living as one truly is, self-understanding and medicine, being true to one's nature, self-determination"),
     "mixed marriage":    ("R.3 G.3 U.3 W.1", "love across lines, family, an open mind, equal standing"),
+    # W38b (the Library's held-back keys; estimates): read at their modern state, not modelled yet (world_keys.LAW_V23)
+    "tobacco":           ("R.4 B.3 G.3", "pleasure and habit, rule over one's own body, custom and company"),
+    "knives":            ("B.4 R.3 G.3", "self-defence and power, readiness for a fight, a tool of the outdoors"),
+    "drink-driving":     ("R.6 B.4", "the night out and the thrill, one's own convenience first"),
+    "prescription medicines": ("B.4 U.3 R.3", "rule over one's own body, knowing better than the rules, relief now"),
+    "childminding":      ("G.5 W.3 B.2", "care among kin and neighbours, mutual help, earning on the side"),
+    "gender on papers":  ("R.4 U.3 W.3", "being recognised as one is, self-understanding, equal standing under the law"),
 }
 WELFARE_PROF_SRC = ("W.5 G.4 U.1", "care organised by the state, mutual support, planned provision")
 NORM_PROF = np.array([_mix(NORM_PROF_SRC[k][0]) for k in NORM_KEYS])
@@ -234,20 +241,25 @@ NORM_MOD = {"drugs": .30, "divorce": .85, "abortion": .65, "same-sex marriage": 
             "gambling": .60, "alcohol": .90, "sex work": .40, "euthanasia": .55, "home schooling": .45,
             "death penalty": .30, "adoption": .85, "cohabiting": .85, "tattoos": .60, "single parenthood": .70,
             "faith in public": .55, "leaving a faith": .80, "coming out": .70, "role crossing": .70, "transition": .45,
-            "mixed marriage": .90}
+            "mixed marriage": .90, "tobacco": .55, "knives": .25, "drink-driving": .08, "prescription medicines": .30,
+            "childminding": .70, "gender on papers": .45}   # v23 keys: estimates
 NORM_START = {"drugs": .12, "divorce": .45, "abortion": .35, "same-sex marriage": .08, "conscription": .70, "guns": .45,
               "gambling": .40, "alcohol": .85, "sex work": .20, "euthanasia": .30, "home schooling": .40,
               "death penalty": .65, "adoption": .80, "cohabiting": .25, "tattoos": .15, "single parenthood": .25,
               "faith in public": .80, "leaving a faith": .40, "coming out": .08, "role crossing": .35,
-              "transition": .05, "mixed marriage": .25}
+              "transition": .05, "mixed marriage": .25,
+              "tobacco": .80, "knives": .45, "drink-driving": .50, "prescription medicines": .40, "childminding": .85,
+              "gender on papers": .03}   # v23 keys: estimates
 # Law book about 80 years before the birth (0 legal, 1 restricted, 2 banned).
 LAW_START = {"drugs": 2, "divorce": 1, "abortion": 2, "same-sex marriage": 2, "conscription": 0, "guns": 1,
              "gambling": 1, "alcohol": 0, "sex work": 2, "euthanasia": 2, "home schooling": 1, "death penalty": 0,
-             "adoption": 0}
+             "adoption": 0, "tobacco": 0, "knives": 0, "drink-driving": 0, "prescription medicines": 0, "childminding": 0,
+             "gender on papers": 2}
 # The law book at the birth, typical rich (averaged over rich democracies; estimates): the state the modern norms point to.
 LAW_MOD = {"drugs": 2, "divorce": 0, "abortion": 0, "same-sex marriage": 0, "conscription": 1, "guns": 1,
            "gambling": 0, "alcohol": 0, "sex work": 1, "euthanasia": 1, "home schooling": 1, "death penalty": 2,
-           "adoption": 0}
+           "adoption": 0, "tobacco": 1, "knives": 1, "drink-driving": 2, "prescription medicines": 1, "childminding": 1,
+           "gender on papers": 1}
 NORM_RIGHT = {"role crossing": 4, "transition": 3}   # norms without a law entry whose law push is a right
 RIGHT_MOD = {"role crossing": 0.85, "transition": 0.75}
 
@@ -382,24 +394,28 @@ W_DEFAULT = dict(
     switch_p=0.002,    # yearly chance of changing faith
     # ---- stage 3 of the v22 update (chroma-world/model/stage3-rules.md §2, §3, §8). Each switch is a rule; off, the
     # world runs exactly as v22.1 (engine UPD_OFF; a world saved before stage 3 loads with them off). Off by default:
-    # stage 1 goes live alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
+    # stage 1 goes live alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3). Values: the
+    # refit of 10-09 (Emren chose "Settle" 20:32 UTC), fitted on 8 worlds x 300 years and checked on 24 (stage3-rules.md §7)
     cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
     cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
-    coh_inst=0.10,     # LW1 1b: the young take in what schools, universities and media stand for (I -> K)
-    coh_scene=0.06,    # LW1 1c: the mobilised groups' want (and a revival's faith) reaches the young (G -> K)
-    coh_adult=0.20,    # LW1 1d: generations past 25 move with the times at this share of the young's pace (Danigelis 2007)
-    coh_anchor_s3=0.05,   # LW1 1e: the pull back to the starting values, loosened to about a third
-    anc_r=0.003,       # LW1 1e: the deep culture itself moves toward the society's values (a time constant of ~300 y)
-    coh_back=0.5,      # LW1 1f: groups left behind brake the culture's change of the last decade (Norris and Inglehart 2019)
+    coh_inst=0.0023,   # LW1 1b: the young take in what schools, universities and media stand for (I -> K)
+    coh_scene=0.032,   # LW1 1c: the mobilised groups' want (and a revival's faith) reaches the young (G -> K)
+    coh_adult=0.27,    # LW1 1d: generations past 25 move with the times at this share of the young's pace (Danigelis 2007)
+    coh_home=0.59,     # LW1 1e (reworked): the young's pull toward the starting values moved by the era
+    era_home_k=0.34,   # LW1 1e: how far an era moves that target (times its intensity and colours, era_p - .2)
+    era_fade_y=4.7,    # LW1 1e: an era's hold on the young fades with its age (years, e-folding)
+    coh_back=0.059,    # LW1 1f: groups left behind brake the culture's change of the last decade (Norris and Inglehart 2019)
     acc_calm=1.61,     # LW1 1g: the shake index acc in a calm year (median of calm years, tools/world_alone.py, 10-09)
-    k_sh=2.0,          # LW1 1g: m_sh = clip(1 + k_sh (acc - acc_calm), 1, 3): about 1 decade in 7 shaken
-    gov_voter=0.30,    # LW2 2a: a new government moves this far from its party's colours toward what voters want
-    lead_k=0.15,       # LW2 2a: the head of government's own touch
+    k_sh=3.43,         # LW1 1g: m_sh = clip(1 + k_sh (acc - acc_calm), 1, 3): about 1 decade in 5 shaken
+    gov_voter=0.14,    # LW2 2a: a new government moves this far from its party's colours toward what voters want
+    lead_k=0.26,       # LW2 2a: the head of government's own touch
     party_k=0.01,      # LW2 2a': quarterly pull of a party toward its voters (Adams, Clark, Ezrow and Glasgow 2004)
-    loser_k=0.03,      # LW2 2a': ... and of a party that lost office toward the median, for four quarters
-    q_theta_s3=0.11, q_k_s3=1.6, q_hab_s3=0.75, era_on_s3=0.012, era_off_s3=0.007,   # LW2 2c: pressure, habit, eras (refit)
-    coh_gain=1.0,      # LW1: the era's and the times' security pull on the young (coh_era, coh_sec), refit with the rest
-    lose_k=5.0,        # LW2 2d: grievance built per unit of a group's loss at a breakthrough or an era's start
+    loser_k=0.058,     # LW2 2a': ... and of a party that lost office toward the median, for four quarters
+    q_theta_s3=0.11, q_k_s3=0.43, q_hab_s3=0.48, era_on_s3=0.0042, era_off_s3=0.0015,   # LW2 2c: pressure, habit, eras (refit)
+    q_tol_s3=0.0116, q_decay_s3=0.0070,   # LW2 2c: the gap people live with and the fading of pressure (refit)
+    th_dem_s3=0.33,    # LW2 2b: the public leans against whoever governs (th_dem), refit with 2a's governments
+    coh_gain=2.91,     # LW1: the era's and the times' security pull on the young (coh_era, coh_sec), refit with the rest
+    lose_k=18.2,       # LW2 2d: grievance built per unit of a group's loss at a breakthrough or an era's start
     grv_fade=1 / 15.0, # LW2 2d: yearly fading of a grievance
     lead_spread_s3=0.15,  # LW2 2e: spread of an institution leader's colours around the government's or society's
     # ---- the spheres of society (item 15, v22.3 stage 2; chroma-engine/notes/spheres-plan.md). Off, nothing of them is
@@ -412,9 +428,9 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
-S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_anchor_s3", "anc_r", "coh_back", "acc_calm", "k_sh", "gov_voter",
+S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_home", "era_home_k", "era_fade_y", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
-             "lose_k", "grv_fade", "lead_spread_s3")
+             "lose_k", "grv_fade", "lead_spread_s3", "q_tol_s3", "q_decay_s3", "th_dem_s3")
 
 # ------------------------------------------------------------------------------------------------- small helpers
 
@@ -1542,7 +1558,7 @@ class World:
         p, r = self.p, self.R[7]
         nz = r.normal(size=NN)
         # norms: logit S-curves toward a target set by the modern baseline, the value climate, the era and the law
-        fitV = (self.V - (self._anchor0() if self._s3("cult_anchor") else self.V_anchor)) @ self.NPROF.T   # 1e
+        fitV = (self.V - self.V_anchor) @ self.NPROF.T
         fitE = self.era_i * ((self.era_p - 0.2) @ self.NPROF.T) if self.era_key is not None else 0.0
         lawsign = np.zeros(NN); lawsign[:NL] = 1.0 - self.laws
         for kk, ri in NORM_RIGHT.items():
@@ -1636,8 +1652,9 @@ class World:
         D0 = (wv[:, None] * want).sum(0) / wv.sum()
         Dq0 = (wq[:, None] * want).sum(0) / wq.sum()
         self.D0 = D0                                       # demand before the thermostat (hidden; tests)
-        self.Dem = _norm(D0 - p["th_dem"] * (self.G - D0))
-        self.Dem_q = _norm(Dq0 - p["th_dem"] * (self.G - Dq0) + getattr(self, "dem_push", np.zeros(C)))
+        th_ = p["th_dem_s3" if self._s3("hist_party_gov") else "th_dem"]   # LW2 2b: the thermostat, refit with 2a
+        self.Dem = _norm(D0 - th_ * (self.G - D0))
+        self.Dem_q = _norm(Dq0 - th_ * (self.G - Dq0) + getattr(self, "dem_push", np.zeros(C)))
         self.dem_push = getattr(self, "dem_push", np.zeros(C)) * 0.8
         self.polar = float((size * _tv(want, D0)).sum() / size.sum())
         um = (size[:, None] * U).sum(0) / size.sum()
@@ -1659,8 +1676,9 @@ class World:
             self.mandate_q -= 1
         self.gap_now = gap
         hp_ = self._s3("hist_pressure")
-        exc = max(gap - p["q_tol"] - p["q_hab_s3" if hp_ else "q_hab"] * (p["mixed_hab"] if mixed else 1.0) * self.gap_slow, 0)
-        self.Q = self.Q * (1 - p["q_decay"]) + self.pace * p["q_k_s3" if hp_ else "q_k"] * exc * max(acc, 0.2)
+        exc = max(gap - p["q_tol_s3" if hp_ else "q_tol"]
+                  - p["q_hab_s3" if hp_ else "q_hab"] * (p["mixed_hab"] if mixed else 1.0) * self.gap_slow, 0)
+        self.Q = self.Q * (1 - p["q_decay_s3" if hp_ else "q_decay"]) + self.pace * p["q_k_s3" if hp_ else "q_k"] * exc * max(acc, 0.2)
         self._s3_society(U, want, size, wv, wq, D0, acc)
         age_i = float(np.minimum(self.inst_age, 120) @ self.inst_reach) / (float(self.inst_reach.sum()) + 1e-9) / 60
         rigid = float((self.law_since > 20).sum()) / NL
@@ -1752,12 +1770,6 @@ class World:
         self.break_t = self.t
 
     # ---- stage 3 of the v22 update (chroma-world/model/stage3-rules.md §2 and §3)
-    def _anchor0(self):
-        """The starting value climate, which the norms keep reading when the anchor itself moves (LW1 1e)."""
-        if getattr(self, "V_anchor0", None) is None:
-            self.V_anchor0 = np.asarray(self.V_anchor, float).copy()
-        return self.V_anchor0
-
     def _m_sh(self):
         """LW1 1g: how shaken the last year was, 1 (calm) to 3, from the year's mean of the accelerators."""
         p = self.p
@@ -2116,9 +2128,17 @@ class World:
         nz = self._cn(r)
         sec = self.security()
         self.sec_hist = getattr(self, "sec_hist", []) + [round(sec, 4)]
-        ca_ = p["coh_anchor_s3"] if self._s3("cult_anchor") else p["coh_anchor"]     # LW1 1e
+        ca_ = p["coh_anchor"]
         base = _norm((1 - ca_) * self.Vc + ca_ * self.V_anchor)
         era = self.era_i * (self.era_p - 0.2) if self.era_key is not None else np.zeros(C)
+        if self._s3("cult_anchor"):                        # LW1 1e as reworked (Emren 10-09): the young are drawn toward
+            if getattr(self, "V_start", None) is None:     # the society's starting values moved by the era, whose hold
+                self.V_start = np.asarray(self.Vc, float).copy()   # fades with its age: a bounded target, never a push
+            if self.era_key is not None:                            # that lasts (which ran away)
+                era = era * np.exp(-(self.t - self.era_since) / (52.0 * p["era_fade_y"]))
+            tgt_ = np.maximum(self.V_start + p["era_home_k"] * era, 0.005)
+            base = _norm((1 - p["coh_home"]) * self.Vc + p["coh_home"] * tgt_ / tgt_.sum())
+            era = np.zeros(C)
         open_ = 1.5 if self.open_q > 0 else 1.0
         m_ = self._m_sh() if self._s3("cult_shake") else 1.0                          # LW1 1g: shaken times move faster
         if self._s3("cult_no_dice"):                                                  # LW1 1h: no dice in the culture
@@ -2147,9 +2167,6 @@ class World:
             if len(bs):
                 self.coh[bs] += p["coh_adult"] / 11 * m_ * (imp - self.coh[bs])
                 self.coh[bs] /= self.coh[bs].sum(1, keepdims=True)
-        if self._s3("cult_anchor"):                        # LW1 1e: the deep culture itself moves over centuries
-            self._anchor0()
-            self.V_anchor = _norm(self.V_anchor + p["anc_r"] * (self.Vc - self.V_anchor))
 
     def security(self):
         """How secure the times are for the young (0..1): work, war, pandemic, prices, welfare (estimate)."""
@@ -2352,10 +2369,10 @@ class World:
 
     # ------------------------------------------------------------------------------------------------ what the engine reads
     def law_state(self, key):
-        return int(self.laws[LI[key]])
+        return int(self.laws[LI[key]]) if key in LI else int(LAW_MOD[key])   # W38b keys: the modern law book
 
     def norm(self, key):
-        return float(_sig(self.norm_x[NI[key]]))
+        return float(_sig(self.norm_x[NI[key]])) if key in NI else float(NORM_MOD[key])   # W38b keys: modern acceptance
 
     def tech_has(self, key):
         return key in self.tech_keys and bool(self.tech_exists[self.tech_keys.index(key)])

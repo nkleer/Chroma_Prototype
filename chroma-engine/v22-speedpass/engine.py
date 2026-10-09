@@ -1775,6 +1775,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
     HAD_IDX = {}
+    NO_FOUND = np.zeros(N, bool)   # C5 founding (earth_rules INNER "a following of your own"): built with C5
     def cond_ns(t, age, w):
         """The engine's condition vocabulary (batch.COND_VOCAB): one value per person."""
         def ys(x):
@@ -1797,7 +1798,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   fails13=fails13, hedon_n=hedon_n, bodyhab_n=bodyhab_n, n_moves=n_moves, heavy_risk=heavy_risk, bind_m=bind_m,
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
-                  harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t])
+                  harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
+                  founding=NO_FOUND)   # C5: a movement founding in the person's place, with a free slot (not built yet)
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):
@@ -2131,11 +2133,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if k_ < lw_.shape[0] and lw_[k_] >= 0:
                 u_ = float(wco_["ul"][n, k_])
                 if u_ > 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], u_, "banned" if u_ >= 1 else "restricted")
                 elif wco_["lo"][n, k_] and wco_["closed0"][n, k_] == 0:
-                    add(k_, "law", WK_.LAW_KEYS[lw_[k_]], -1.0, "allowed")
+                    add(k_, "law", WK_.LAW_KEYS_ALL[lw_[k_]], -1.0, "allowed")
             if k_ < nm_.shape[0] and nm_[k_] >= 0 and wco_["ua"][n, k_] >= WFX_OPT[0]:
-                add(k_, "norm", WK_.NORM_KEYS[nm_[k_]], wco_["ua"][n, k_], "frowned on")
+                add(k_, "norm", WK_.NORM_KEYS_ALL[nm_[k_]], wco_["ua"][n, k_], "frowned on")
             if wco_.get("role") is not None and wco_["role"][n, k_] >= WFX_OPT[0]:
                 add(k_, "role", "role crossing", wco_["role"][n, k_], "frowned on")
             if k_ < te_.shape[0] and te_[k_] >= 0:
