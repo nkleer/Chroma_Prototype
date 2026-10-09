@@ -10,6 +10,7 @@ line, unless v22_checks.py ran them. record.py reads them.
     done("saves", rc, REPORT)          # a check script's last line before sys.exit(rc)
 
     python3 -B chroma-release/results.py add <check id> <PASS|FAIL|RAN|MISS> <report path> [note]   # from a shell script
+        (CHROMA_COMMIT, when set, names the repository commit the files came from, as for done())
     python3 -B chroma-release/results.py latest [id prefix]                                        # the newest per check
 """
 import json, os, sys, time
@@ -65,7 +66,8 @@ def latest(prefix=""):
 
 if __name__ == "__main__":
     if len(sys.argv) >= 5 and sys.argv[1] == "add":
-        add(sys.argv[2], sys.argv[3], sys.argv[4], " ".join(sys.argv[5:]))
+        add(sys.argv[2], sys.argv[3], sys.argv[4], " ".join(sys.argv[5:]),
+            candidate={"commit": os.environ["CHROMA_COMMIT"]} if os.environ.get("CHROMA_COMMIT") else None)
     elif len(sys.argv) >= 2 and sys.argv[1] == "latest":
         for k, r in sorted(latest(sys.argv[2] if len(sys.argv) > 2 else "").items()):
             print(f"{r['result']:5s} {k:22s} {r['time']} UTC  {r.get('note', '')[:80]}  {r.get('report', '')}")
