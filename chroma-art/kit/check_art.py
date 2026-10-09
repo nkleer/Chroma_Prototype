@@ -12,7 +12,8 @@ text it was drawn for. Notes, not failures: option texts that differ from the ga
 words reworded in place, its web/src/live_icons.py, check C-G2), and a game copy of ink-option-texts.json that differs
 from this one (the Game copies this one over, then reruns live_icons.py).
 Full: also rebuilds ink-icons.svg and ink-icons.json from kit/glyph in a temporary folder and compares them with game/
-(the JSON byte for byte, the sprite symbol by symbol and mask by mask). A pass ends with the line "art check: pass".
+(the JSON byte for byte, the sprite symbol by symbol and mask by mask). In the shared folder, between a merge and the
+next publish, the kit may be ahead of the live game/: additions only are a note. A pass ends with "art check: pass".
 """
 import glob, importlib.util, json, os, re, struct, subprocess, sys, tempfile
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
@@ -94,12 +95,23 @@ if '--full' in sys.argv:
         if r is None: fail(f'--full needs {builder} (the icon kit), which this tree does not have')
         elif r.returncode: fail(f'build_icons.js failed: {r.stderr.strip()[-300:]}')
         else:
-            if open(os.path.join(out, 'ink-icons.json'), 'rb').read() != open(os.path.join(GAME, 'ink-icons.json'), 'rb').read():
-                fail('ink-icons.json rebuilt from kit/glyph differs from game/ink-icons.json')
+            new = json.load(open(os.path.join(out, 'ink-icons.json'), encoding='utf-8'))
+            same_json = open(os.path.join(out, 'ink-icons.json'), 'rb').read() == open(os.path.join(GAME, 'ink-icons.json'), 'rb').read()
             # the live sprite also carries a provenance <metadata> block the build does not write, so compare the drawings
             drawn = lambda s: (re.findall(r'<symbol id="[^"]+".*?</symbol>', s, re.S), re.findall(r'<mask id="[^"]+".*?</mask>', s, re.S))
-            if drawn(open(os.path.join(out, 'ink-icons.svg'), encoding='utf-8').read()) != drawn(svg):
-                fail('ink-icons.svg rebuilt from kit/glyph draws different symbols or masks than game/ink-icons.svg')
+            (ns, nm), (gs, gm) = drawn(open(os.path.join(out, 'ink-icons.svg'), encoding='utf-8').read()), drawn(svg)
+            if not (same_json and (ns, nm) == (gs, gm)):
+                # In the shared folder the kit is main while game/ is the live version, so between a merge and the next
+                # publish the kit may only add to game/: new glyphs after the old ones, new masks, new map groups or keys.
+                ahead = (ns[:len(gs)] == gs and set(gm) <= set(nm)
+                         and all(new['map'].get(g, {}).get(k) == v for g, kv in ink['map'].items() for k, v in kv.items())
+                         and all(new['icons'].get(k) == v for k, v in ink['icons'].items())
+                         and all(new.get(k) == ink.get(k) for k in ('credit', 'fallback_order')))
+                if ahead:
+                    notes.append(f'the kit adds {len(ns) - len(gs)} glyphs and map groups {sorted(set(new["map"]) - set(ink["map"])) or "none"} '
+                                 'to game/: merged work waiting for the publish (in a checkout of main the two match)')
+                else:
+                    fail('the icons rebuilt from kit/glyph differ from game/ink-icons.json and ink-icons.svg, not only by additions')
 
 print(f'pictures: {len(pics["situation"])} situations, {len(pics["domain"])} domains, {len(pics["tier"])} tiers, '
       f'{len(pics["tarot"])} tarot cards; {len(events)} life events in the game, {len(nopic)} without a picture')
