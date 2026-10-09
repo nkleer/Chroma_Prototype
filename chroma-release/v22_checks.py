@@ -80,8 +80,9 @@ CHECKS = [
      "--scratch {W}/saves", "re:^Old saves: PASS", (), "lives saved on live v22 load into the same life, for a build whose played "
      "lives must not change (with --game only)"),
     ("saves_note", "v22.2 S10", "Release", "quick", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
-     "--play-on --scratch {W}/saves_note", "re:^Old saves: PASS", (), "lives saved on live v22.1 load into the build with a note and "
-     "play on without error (Emren's card \"Replay with a note\", 10-09 19:40 UTC; with --game only)"),
+     "--play-on --note 'saved in an earlier version' --scratch {W}/saves_note", "re:^Old saves: PASS", (), "lives saved on live v22.1 "
+     "load into the build with the game's old-save note (console.OLD_SAVE) and play on without error (Emren's card \"Replay with a "
+     "note\", 10-09 19:40 UTC; with --game only)"),
     ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
      "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
     ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
