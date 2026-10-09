@@ -46,7 +46,7 @@ from paths import NAMES, P  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
-LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py"]          # plus earth_<pack>.py per pack
+LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py"]   # plus earth_<pack>.py per pack
 PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
 
 
