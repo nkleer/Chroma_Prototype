@@ -33,7 +33,9 @@ targets (all on preset 1, modern Earth; whole lives come from one shared set: le
   voice_quiet   always letting them choose: "a quiet voice" and no voice lines
   voice_careful always the careful pick: the voice named for safety ("the careful voice", or "the timid voice" when
                 they doubt it) at every moment once it has a name, and no voice line naming another side
-  voice_trust   trust in a push's colors rises on average when steered picks work and falls when they fail
+  voice_trust   trust in a push's colors does better after steered picks that work than after ones that fail, and falls
+                after failures (P2 as built: a push that worked but fed no need they lacked while reluctant is resented;
+                read agreed 2026-10-09)
   voice_lines   every voice line (story lines, answers, outcomes) at most 25 words, with no color named
   voice_year    each year's chapter keeps at most one voice line
 """
@@ -255,7 +257,7 @@ def target(t, R):
         up = [p["d"] for r in rs for p in r["pushes"] if p["ok"]]; dn = [p["d"] for r in rs for p in r["pushes"] if not p["ok"]]
         say(f"trust change in the push's colors: worked {len(up)} pushes, mean {np.mean(up) if up else 0:+.4f}; "
             f"failed {len(dn)}, mean {np.mean(dn) if dn else 0:+.4f}")
-        ok = bool(up) and bool(dn) and np.mean(up) > 0 > np.mean(dn)
+        ok = bool(up) and bool(dn) and np.mean(up) > np.mean(dn) and np.mean(dn) < 0
     elif t == "voice_lines":
         lines = [x for r in rs for x in voice_texts(r)]
         long_ = [x for x in lines if len(x.split()) > 25]
