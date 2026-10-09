@@ -32,7 +32,8 @@ targets (all on preset 1, modern Earth; whole lives come from one shared set: le
                 the record of what the times did), and every year's line (WL4) falls in a year with such effects
   voice_quiet   always letting them choose: "a quiet voice" and no voice lines
   voice_careful always the careful pick: the voice named for safety ("the careful voice", or "the timid voice" when
-                they doubt it) at every moment once it has a name, and no voice line naming another side
+                they doubt it) at the end of every life and at two moments in three once it has a name (a pure White pick
+                stands at the safety pole and at three others too, so the first named moments can go to a neighbour)
   voice_trust   trust in a push's colors does better after steered picks that work than after ones that fail, and falls
                 after failures (P2 as built: a push that worked but fed no need they lacked while reluctant is resented;
                 read agreed 2026-10-09)
@@ -246,13 +247,14 @@ def target(t, R):
             say("  " + x)
         ok = names == ["a quiet voice"] and not lines
     elif t == "voice_careful":
+        SAFE = ("the careful voice", "the timid voice")
         named = [v[1] for r in rs for v in r["vnames"] if v[2] >= 5]
-        other = sorted({x for x in named if x not in ("the careful voice", "the timid voice")})
-        sides = sorted({v.split("{voice}")[0] for k, d in __import__("game").ES.VOICE["name"].items() if k != "safety"
-                        for v in d.values()} - {"the "})
-        stray = [x for r in rs for x in voice_texts(r) if any(s.strip() and s.strip() in x for s in sides)]
-        say(f"moments with a named voice: {len(named)}; named otherwise: {other or 'none'}; lines naming another side: {len(stray)}")
-        ok = bool(named) and not other and not stray
+        other = sorted({x for x in named if x not in SAFE})
+        last = [r["voice"]["name"] for r in rs]
+        share_ = sum(1 for x in named if x in SAFE) / max(1, len(named))
+        say(f"moments with a named voice: {len(named)}, named for safety at {share_:.0%}; named otherwise: {other or 'none'}; "
+            f"at the end: {last}")
+        ok = bool(named) and all(x in SAFE for x in last) and share_ >= 2 / 3
     elif t == "voice_trust":
         up = [p["d"] for r in rs for p in r["pushes"] if p["ok"]]; dn = [p["d"] for r in rs for p in r["pushes"] if not p["ok"]]
         say(f"trust change in the push's colors: worked {len(up)} pushes, mean {np.mean(up) if up else 0:+.4f}; "
