@@ -29793,10 +29793,11 @@ SITUATIONS = [
                      'everyone you know'},
  'timing': {'times': 'The yearly fair, feast or games where the whole town meets is near-universal where a town '
                      'keeps one; the afternoon that matters in a life (a match made, a friendship begun, a feud '
-                     'stirred) comes to about 3 in 10 lives, a few times each (estimate; Dietler and Hayden 2001 on '
-                     'feasts that make and break ties). With the world on, a great_feast or the_games year (gather '
-                     'events) makes the day bigger, but this moment is the ordinary yearly one',
-            'gap_years': (3.0, 8.0)},
+                     'stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 12-20 '
+                     'keeps it near one a life overall; Dietler and Hayden 2001 on feasts that make and break ties). '
+                     'With the world on, a great_feast or the_games year (gather events) makes the day bigger, but '
+                     'this moment is the ordinary yearly one',
+            'gap_years': (12.0, 20.0)},
  'scenes': {'earth': [('',
                        'Once a year {place} closes the high street and fills the common: long tables, a band on a '
                        'lorry, the tug of war and the races. Everyone is there, {rival} included, and {friend} '
