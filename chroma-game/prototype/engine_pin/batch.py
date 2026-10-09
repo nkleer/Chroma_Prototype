@@ -44,7 +44,8 @@ ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big 
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
-harsh unrest prosper era
+harsh unrest prosper era founding (C5: a movement founding in the place, with a free slot; never true until C5 is built)
+haunts (the spheres' haunts, phase 2: never true until they are built)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -349,6 +350,8 @@ def _packs(world, packs, pack_moments, R):
         rl = _module(os.path.join(d_, "roles.py"), f"chroma_pack_{pk}_roles")
         out["rules"].update(getattr(rl, f"ROLES_{up_}", {})); out["rules"].update(getattr(rl, "ROLES_REACH", {}))
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
+        if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
+            out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
             out["extend"].setdefault(nm_, []).append(x_)
         if os.path.exists(os.path.join(d_, "helps.py")):
@@ -393,6 +396,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
     sits += PK["sits"]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
+    if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
+        sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -574,10 +579,10 @@ def _world_fields(L):
             nm = f"moment {L['src'][si].get('name', si)!r}, option {ki + 1}"
             if nt.get("law"):   # a leading minus closes the option the other way round (v23 W38: -conscription)
                 lv_ = str(nt["law"]).strip(); law_neg[si, ki] = lv_.startswith("-")
-                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS, nm)[0]
+                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS_ALL, nm)[0]
             if nt.get("norm"):
                 nv_ = str(nt["norm"]).strip(); norm_neg[si, ki] = nv_.startswith("-")
-                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS, nm)[0]
+                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS_ALL, nm)[0]
             if nt.get("tech"):
                 tech[si, ki] = one(nt["tech"], WK.TECH_KEYS, nm)[0]
             if nt.get("role"):   # N1b: women, men (an act the world reserves for that sex), keep or cross (the scene's role)
@@ -606,6 +611,8 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
+SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 
@@ -645,6 +652,8 @@ def _targets(L, PK, R=None):
     3 community), BUDGET, TIER_LIFT, A_TIER (S x K: the career or summit an option's act gives, -1 for none)."""
     G = L["ROLES"]; G["TARGET"] = np.array(G["share"], float); G["TIER"] = np.zeros(G["NI"], np.int8)
     bud = dict(career=1 / 3, summit=1 / 20, community=10.0); bud.update(getattr(R, "BUDGET", {}) if R is not None else {})
+    if FLOORS and R is not None:   # item 16's floors, off until the v22.3 refit
+        bud.update(getattr(R, "BUDGET_FLOORS", {}))
     G["BUDGET"] = bud
     bad = [nm for nm in PK.get("target", {}) if nm not in G["ID"]]
     if bad:
@@ -676,6 +685,17 @@ def _targets(L, PK, R=None):
         G["TARGET"][sm] = np.maximum(sh[sm], np.minimum(ts_, TARGET_CAP))
     cm = np.nonzero(G["TIER"] == 3)[0]
     G["TARGET"][cm] = np.maximum(sh[cm], np.minimum(bud["community"] * sh[cm], TARGET_CAP))
+    floor_kinds = ("career", "community", "faith")    # titles of one's own doing; statuses keep their real shares
+    for i_ in range(G["NI"]):                          # the floors (Emren 10-09: rare titles must be more reachable)
+        if i_ >= G["NT"]:
+            fl_ = float(bud.get("perk_floor", 0.0))
+        elif G["kindname"][i_] == "career" and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("career_floor", 0.0))
+        elif G["kindname"][i_] in floor_kinds and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("title_floor", 0.0))
+        else:
+            continue
+        G["TARGET"][i_] = max(G["TARGET"][i_], fl_)
     tl_ = tier_lift(R, PK.get("names", [])) if (len(car) or len(sm)) and R is not None else {}
     G["TIER_LIFT"] = tl_
     for i_ in np.concatenate([car, sm]).astype(int):   # who enters or moves into it (entry weights) by the whole lift; a

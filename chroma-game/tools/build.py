@@ -45,7 +45,8 @@ sys.path.insert(0, ENV)
 from paths import NAMES, P  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
+ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py",
+       "sphere_data.py"]   # the spheres' tables; world.py imports it only with sph_town on (Engine PR #52)
 LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py"]   # plus earth_<pack>.py per pack
 PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
 
@@ -157,7 +158,7 @@ def main():
     s = open(wp).read()
     m = re.search(r"const SOURCES = (\[[^\]]*\]);", s)
     src = json.loads(m.group(1))
-    want = [f"engine_pin/{f}" for f in WLD] + [f"engine_pin/packs/{p}/{f}" for p in PK for f in PACK_FILES] + [f"engine_pin/earth_{p}.py" for p in PK]
+    want = [f"engine_pin/{f}" for f in WLD + ["sphere_data.py"]] + [f"engine_pin/packs/{p}/{f}" for p in PK for f in PACK_FILES] + [f"engine_pin/earth_{p}.py" for p in PK]
     add = [f for f in want if f not in src]
     if add:
         i = src.index("engine_pin/foresee.py")
