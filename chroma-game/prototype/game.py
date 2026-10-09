@@ -54,6 +54,21 @@ GAME = dict(
     backfire_stress=0.3, # forcing an out-of-reach option and failing: extra stress
     backfire_money=0.05, # ... and a loss of money
     upbringing=0.006,    # weekly pull of the family's values on a child's want, until 15
+    # hindsight and trust (IDEAS.md, "Player intervention that helps", Emren 2026-10-09): after a push, the character
+    # judges it. A push that worked and fed a need they lacked is partly accepted: some of its stress, pent-up wanting,
+    # lost autonomy and its count against "their own" are undone (never all of it, or pushing would be free). A push
+    # that failed, or worked but fed nothing they lacked while they were reluctant, is resented. Either way the
+    # character's trust in the player moves, per color, along the colors of the act.
+    need_thin=0.5,       # a need below this is lacking (the sheet's "thin"); a first one brings a one-time hint
+    hind_max=0.6,        # the most of a push's costs hindsight can undo
+    hind_full=0.012,     # an act's lift to needs they lacked (shares of one) for the full hind_max: about a point
+    hind_min=0.004,      # less lift than this to needs they lacked is nothing
+    hind_rel=0.1,        # a push they were this reluctant about or more is judged afterwards; below it, they didn't mind
+    resent_more=0.3,     # a resented push that failed: this much more pent-up wanting, x its resentment
+    trust_gain=0.25,     # trust gained by a fully accepted push, along the act's colors (toward 1)
+    trust_loss=0.2,      # trust lost by a resented push at full reluctance (toward -1)
+    trust_cut=0.5,       # at full trust in the act's colors, this share of a push's resentment (stress, wanting) is spared
+    distrust_add=0.5,    # at full distrust, this much more resentment
 )
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
@@ -177,6 +192,11 @@ STATE_NAME = dict(content="Satisfaction", peace="Peace", stress="Strain", mood="
 # Library's (chroma-library/earth_perks_titles.py; the draft is copied into engine_pin/ until it leaves drafts); the engine
 # gives and takes them (chroma-engine/roles-handoff.md). The game shows them: in the HUD, on the options (what an act
 # needs, which perks help it, what it can give or take) and in the story when one is gained or lost.
+def need_level_word(v):
+    """A need's level in the character sheet's words."""
+    return "well met" if v >= 0.75 else "met" if v >= 0.5 else "thin" if v >= 0.3 else "barely met"
+
+
 NEED_WORD = dict(safety="safety", belonging="belonging", autonomy="room to choose", competence="a sense of skill", meaning="meaning")
 SUS_T = -10 ** 7 // 2             # the engine's p_sus holds NEVER (-10**7) when a perk is not suspended
 RUSTY = 0.3                       # a skill or credential no longer held still shows, faded, while its level is above this
@@ -466,12 +486,15 @@ class Game:
         self.result = None
         self.t = 0
         self.loc = None
-        self.history = dict(content=[], peace=[], label=[], w=[], picks=0, own=0, forced=0, rel=[], gift=[], long=[])
+        self.history = dict(content=[], peace=[], label=[], w=[], picks=0, own=0, forced=0, rel=[], gift=[], long=[],
+                            accepted=0, resented=0)
         self.resolution = None          # v7: what came of the last choice, shown until the player goes on
         self._trace = []                # point 2 (Emren 20:39): the colors week by week, for the page's slow animation
         self._w_prev = None             # colors and means at the end of last week, for what a told act moved
         self._res_prev = None
         self.seen_labels = set()
+        self.trust = np.zeros(C)        # the character's trust in the player, per color, -1 (resented) to 1 (trusted)
+        self._need_hint = False         # the one-time hint about needs has been given
 
     # ------------------------------------------------------------------ engine callbacks
     def _intervene(self, t, P, nic, y):
@@ -570,7 +593,8 @@ class Game:
             self.history["own"] += 1
         else:
             o = cp["by_idx"][pick]             # by the engine's option number: options closed to this person leave gaps in the list
-            self._force = dict(rel=o["rel"], closed=o["status"] == "out of reach", idx=pick, acc=o.get("acc") or accept_word(o["rel"]))
+            self._force = dict(rel=o["rel"], closed=o["status"] == "out of reach", idx=pick, acc=o.get("acc") or accept_word(o["rel"]),
+                               trust=o.get("trust", 0.0))
             a = a.copy(); a[0] = pick
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(o["rel"])
@@ -703,7 +727,7 @@ class Game:
                              felt=ph, true=pt, hint=hint(pt - ph) if not dn[k] else "",
                              lean=float(pr[k]) if np.isfinite(pr[k]) else 0.0,
                              rel=rel, status=status, why=why, gap=Ubest - float(U[k]), span=Ubest - u_dn, clash=clash, true0=pt0,
-                             acc="their own pick" if k == own else accept_word(rel),
+                             acc="their own pick" if k == own else accept_word(rel), trust=self._trust_on(loc, k),
                              commit=KNAMES[commit] if commit >= 0 and not loc["held"][0, commit] else None,
                              follows=self._follows(loc, s, k, ph, commit, recon)))
         title = L["names"][s]
@@ -847,6 +871,66 @@ class Game:
         res["say"] = self.story.resolution(res)
         return clean(res)
 
+    def _needs_moved(self, loc, snap):
+        """Every need that moved this week, from just before the choice to the end of the week (IDEAS.md, "Make needs
+        visible", fix 2), with its level in the sheet's words."""
+        if "need" not in loc or snap.get("need") is None:
+            return []
+        before = np.asarray(snap["need"], float); after = np.asarray(loc["need"][0], float)
+        out = []
+        for j, nm in enumerate(E.NEEDS):
+            d = float(after[j] - before[j])
+            if abs(d) < 0.01:                            # a point or more, so the shown percentages differ
+                continue
+            out.append(dict(need=nm, before=round(float(before[j]), 3), after=round(float(after[j]), 3), delta=round(d, 3),
+                            lacking=bool(before[j] < GAME["need_thin"]), word=need_level_word(float(after[j]))))
+        return sorted(out, key=lambda x: -abs(x["delta"]))
+
+    def _hindsight(self, loc, cpw, worked, needs):
+        """The character judges the push just made (IDEAS.md, "Player intervention that helps"), if they were at least
+        reluctant about it ("okay with it" costs nothing, so there is nothing to look back on). Accepted: it worked and
+        fed a need they lacked; part of its costs is undone and trust grows along the act's colors. Resented: it failed,
+        or it worked but fed nothing they lacked while they were reluctant; trust falls, and a failure adds wanting.
+        Otherwise it passes without a judgment. Changes the engine's state in place, as the forced-pick costs do."""
+        f = self._force or {}
+        rel = float(f.get("rel", 0.0)); rs = float(f.get("resent", rel))
+        prof = self._profile(loc, cpw["choice"])
+        # what the act gave to needs they lacked: its ends' share of the engine's refill, read at the moment (follows
+        # "lift"); one act lifts a need by about a point, which the week's drain and other events can hide in the totals
+        lift = (cpw["cp"]["by_idx"].get(cpw["choice"], {}).get("follows") or {}).get("lift") or []
+        gain = sum(x["gain"] for x in lift)
+        fed = lift[0] if lift else None
+        out = dict(kind="none", share=0.0, need=fed["need"] if fed else None, trust_before=round(self._trust_on(loc, cpw["choice"]), 3))
+        if rel < GAME["hind_rel"]:                          # they were fine with it: nothing to look back on
+            pass
+        elif worked and gain >= GAME["hind_min"]:
+            share = GAME["hind_max"] * min(1.0, gain / GAME["hind_full"])
+            loc["stress"][0] = max(0.0, float(loc["stress"][0]) - share * GAME["stress"] * rs)
+            loc["Q"][0] = max(0.0, float(loc["Q"][0]) - share * GAME["backlash"] * rs)
+            aut = E.NEEDS.index("autonomy")
+            lost = next((-x["delta"] for x in needs if x["need"] == "autonomy" and x["delta"] < 0), 0.0)
+            if lost > 0:
+                loc["need"][0, aut] += share * lost
+            if self.history["rel"]:
+                self.history["rel"][-1] *= 1 - share           # a push they came to own counts less against "their own"
+            self.trust += GAME["trust_gain"] * share / GAME["hind_max"] * prof * (1 - self.trust)
+            self.history["accepted"] += 1
+            out.update(kind="accepted", share=round(share, 3))
+        elif rel >= 0.3 and (not worked or gain < GAME["hind_min"]):
+            if not worked:
+                loc["Q"][0] += GAME["resent_more"] * GAME["backlash"] * rs
+            self.trust -= GAME["trust_loss"] * rel * prof * (1 + self.trust)
+            self.history["resented"] += 1
+            out.update(kind="resented", share=round(rel, 3))
+        self.trust = np.clip(self.trust, -1.0, 1.0)
+        out["trust_after"] = round(self._trust_on(loc, cpw["choice"]), 3)
+        out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
+        return out
+
+    def trust_view(self):
+        """Trust per color, for the page and the status screen."""
+        return {c: round(float(v), 3) for c, v in zip(COLORS, self.trust)}
+
     def _tries(self, name):
         """Which try at this title this is: 1 + the misses at it since they last made it."""
         n = 1
@@ -911,7 +995,39 @@ class Game:
         if commit >= 0 and not loc["held"][0, commit] and not recon:
             cp = felt * float(loc["P"]["commit_p"][commit])
         return dict(cost=moves(L["PAY"][s, k]), win=moves(L["WIN"][s, k]), lose=moves(L["LOSE"][s, k]),
-                    needs=needs, commit_p=cp)
+                    needs=needs, commit_p=cp, lift=[] if recon else self._lift(loc, s, nv))
+
+    def _lift(self, loc, s, nv):
+        """Which lacking needs an option's ends would feed if it works, and how much that matters (IDEAS.md, "Make needs
+        visible"): the engine's own refill rule (0.12 x stakes x ends' share x room left), read against how low the need
+        is now. Needs met is the biggest driver of satisfaction, most of all a need that was lacking."""
+        if "need" not in loc:
+            return []
+        need = loc["need"][0]; st = max(float(loc["L"]["STAKES"][s]), 0.9)
+        out = []
+        for j in np.argsort(-nv):
+            lv = float(need[j])
+            if nv[j] <= 0.05 or lv >= GAME["need_thin"]:
+                continue
+            gain = 0.12 * st * float(nv[j]) * (1 - lv)
+            out.append(dict(need=E.NEEDS[j], level=round(lv, 3), gain=round(gain, 3), word=need_level_word(lv),
+                            lift="a big lift" if lv < 0.3 else "a lift"))
+        return out[:2]
+
+    def _profile(self, loc, k):
+        """An act's colors for trust: its ways and its ends, half and half, as shares of one."""
+        p = 0.5 * np.maximum(loc["m"][0, k], 0) + 0.5 * np.maximum(loc["e0"][0, k] if "e0" in loc else loc["e"][0, k], 0)
+        return p / p.sum() if p.sum() > 0 else np.full(C, 1 / C)
+
+    def _trust_on(self, loc, k):
+        """The character's trust in the player along an act's colors, -1 to 1."""
+        return float(self._profile(loc, k) @ self.trust)
+
+    @staticmethod
+    def _resent(rel, trust):
+        """How much of a push's reluctance becomes resentment (stress and pent-up wanting): trust in the act's colors spares
+        some of it, distrust adds to it. The effort (lower odds) is the character's own inertia and stays as it is."""
+        return rel * (1 - GAME["trust_cut"] * max(trust, 0.0) + GAME["distrust_add"] * max(-trust, 0.0))
 
     def _on_odds(self, loc, p_true):
         f = self._force
@@ -926,10 +1042,12 @@ class Game:
         f = self._force
         if f is None:
             return delta
-        rel = f["rel"]
-        d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel     # a reluctant act teaches less
-        loc["stress"][0] += GAME["stress"] * rel
-        loc["Q"][0] += GAME["backlash"] * rel                             # wanting what they were denied builds up
+        rel = f["rel"]; tr = f.get("trust", 0.0)
+        f["resent"] = rs = self._resent(rel, tr)
+        # a reluctant act teaches less; trust in its colors lets more of it in (trust lowers inertia, through habit only)
+        d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel * (1 - max(tr, 0.0))
+        loc["stress"][0] += GAME["stress"] * rs
+        loc["Q"][0] += GAME["backlash"] * rs                              # wanting what they were denied builds up
         if f["closed"] and not loc["succ"][0]:
             loc["stress"][0] += GAME["backfire_stress"]
             loc["res"][0, 0] = max(0.0, loc["res"][0, 0] - GAME["backfire_money"])
@@ -948,6 +1066,12 @@ class Game:
     def _on_week(self, t, loc):
         if t % 52 == 0 and t >= 3 * 52:
             self._yearly(t, loc)
+        if not self._need_hint and not self.burn_in and "need" in loc and t / 52 >= max(self.start_age, 6):
+            j = int(np.argmin(loc["need"][0]))
+            if float(loc["need"][0, j]) < GAME["need_thin"]:   # IDEAS.md, "Make needs visible", fix 5: the rule, once
+                self._need_hint = True
+                self._say(NEED_HINT.format(need=NEED_WORD[E.NEEDS[j]], N=self.name), 0, "hint", need=E.NEEDS[j],
+                          need_level=round(float(loc["need"][0, j]), 3))
 
     def conditions(self, loc):
         """The context the engine times life events by (v6 drivers, about -1..1; trouble and fortune 0..2)."""
@@ -1199,6 +1323,11 @@ class Game:
                         line += "\n" + self.story.rebound(bool(ev["success"]), float(loc["span"][0])); rb = bool(ev["success"])
                     self.resolution = self._resolution(loc, cpw, ev, line, o, pushed, f.get("rel", 0.0) if pushed else 0.0, moved)
                     rs = self.resolution
+                    rs["needs"] = self._needs_moved(loc, cpw["cp"]["snap"])
+                    if pushed:
+                        rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
+                    rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
+                                                        (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
                               colors=o["colors"], act=o["label"], rebound=rb, felt=round(o["felt"], 2), real=round(o["true"], 2),
                               rel=round(o["rel"], 2) if pushed else 0.0, delta=round(float(ev.get("delta", 0.0)), 2),
@@ -1544,6 +1673,12 @@ class Game:
             L.append(f"temperament  reactivity {float(loc['react'][0]) * 50:.0f}%   steadiness {float(loc['steady'][0]) * 100:.0f}%   "
                      f"baseline mood {float(loc['base_mood'][0]) * 100:.0f}%   outlook {float(loc['outlook'][0]) * 100:.0f}%")
         L.append("resources    " + "  ".join(f"{RNAMES[i]} {loc['res'][0, i] * 100:.0f}%" for i in range(5)))
+        if "need" in loc:
+            L.append("needs        " + "  ".join(f"{NEED_WORD[n]} {float(v) * 100:.0f}% ({need_level_word(float(v))})"
+                                                for n, v in zip(E.NEEDS, loc["need"][0])))
+        if self.history["forced"]:
+            L.append("trust in you " + "  ".join(f"{CNAME[c]} {v * 100:+.0f}" for c, v in zip(COLORS, self.trust))
+                     + f"   (pushes accepted {self.history['accepted']}, resented {self.history['resented']})")
         held = [k for k in range(len(KNAMES)) if loc["held"][0, k]]
         R = self.roles(loc)
         if held:
@@ -1611,6 +1746,9 @@ class Game:
         if "react" in loc:
             d["temper"] = {k: round(float(loc[k][0]), 2) for k in ("react", "steady", "base_mood", "outlook")}
         d["needs"] = {n: round(float(v), 3) for n, v in zip(E.NEEDS, loc["need"][0])} if "need" in loc else {}
+        d["need_thin"] = GAME["need_thin"]
+        d["trust"] = self.trust_view(); d["pushes"] = dict(forced=self.history["forced"], accepted=self.history["accepted"],
+                                                           resented=self.history["resented"])
         d["inner"] = {k: round(float(np.ravel(loc[v])[0]), 3) for k, v in (("self_control", "dsc"), ("mood", "mood"), ("wound", "wound"),
                                                                           ("gap", "gap_r"), ("horizon", "hzf"), ("formed", "M"))
                       if v in loc}
@@ -1940,6 +2078,7 @@ class Game:
                              reality=o.get("reality"), heart=o.get("heart"), head=o.get("head"), drivers=o.get("drivers"),
                              heart_pick=o["idx"] == v.get("heart"), head_pick=o["idx"] == v.get("head"),
                              accept="their own pick" if o["idx"] == cp["own"] else o.get("acc") or accept_word(o["rel"]), k=int(o["idx"]),
+                             trust=round(o.get("trust", 0.0), 3), resent=round(self._resent(o["rel"], o.get("trust", 0.0)), 3),
                              needs=o.get("needs"), closed=o.get("closed"), helped=o.get("helped", []), roles_fx=o.get("roles_fx", []),
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
@@ -2163,7 +2302,8 @@ class Game:
         self.review = dict(epitaph=self.story.epitaph(w), fulfilment=ful, serenity=ser, integrity=integ, gifts=gifts,
                            final=label_name(labels[-1] if labels else ""), final_label=labels[-1] if labels else "",
                            path=[ident_name(l) for l in path if l], path_labels=[l for l in path if l], paths=len({l for l in labels if l}),
-                           forced=h["forced"], own=h["own"], age=round(self.age(), 1), died=getattr(self, "died", None),
+                           forced=h["forced"], own=h["own"], accepted=h["accepted"], resented=h["resented"], trust=self.trust_view(),
+                           age=round(self.age(), 1), died=getattr(self, "died", None),
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
 
@@ -2224,6 +2364,10 @@ LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only title
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
+
+NEED_HINT = ("{N}'s sense of {need} is running thin. Needs fade a little every week unless something feeds them: acts that "
+             "work, the people and roles in their life, money, health and free time. A need that is lacking pulls satisfaction "
+             "down, and meeting it lifts satisfaction most. Options show which needs they would meet.")
 
 PEACE_WORDS = {
     ("high", "high"): "At peace: a good life, and their own.",

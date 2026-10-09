@@ -255,6 +255,26 @@ function voiceTip(pl) {
 }
 function tugBar(sc, id) { return `<span class="tug"${id ? ` id="${id}"` : ""} style="--h:${((1 - sc) * 100).toFixed(0)}%"><span class="hrt">${ic("heart")}${pct(1 - sc)}</span><span class="tbar"><i></i></span><span class="hd">${pct(sc)}${ic("head")}</span></span>`; }
 const NEED_ICON = { safety: "shield", belonging: "people", autonomy: "feather", competence: "star", meaning: "compass", ...GI.need };
+// needs (IDEAS.md, "Make needs visible and learnable"): the five levels in the side panel, and what feeds each
+const NEED_SHORT = { safety: "Safety", belonging: "Belonging", autonomy: "Own choice", competence: "Skill", meaning: "Meaning" };
+const NEED_LONG = { safety: "safety", belonging: "belonging", autonomy: "room to choose", competence: "a sense of skill", meaning: "meaning" };
+const NEED_FEEDS = {
+  safety: "Acts that work, toward any color's ends (White most); money, health, a partner, a career, a safe place to live.",
+  belonging: "Acts that work toward Red and Green ends most; friends and ties, a partner, children, a community or faith.",
+  autonomy: "Acting in their own strongest colors; free time and freedom. Acting against who they are drains it a little.",
+  competence: "Succeeding at something hard for them, in any color; a career. Failing drains it a little.",
+  meaning: "Acts that work toward Blue and Black ends most; doing right by people who depend on them; children, faith, a career." };
+const needWord = (v) => v >= 0.75 ? "well met" : v >= 0.5 ? "met" : v >= 0.3 ? "thin" : "barely met";
+function needsRowHTML(L) {
+  const N = L.needs || {};
+  if (!Object.keys(N).length) return "";
+  return `<div class="needs5" aria-label="Needs">${Object.entries(N).map(([k, v]) => `<div class="nd${v < 0.3 ? " barely" : v < (L.need_thin || 0.5) ? " thin" : ""}" data-nd="${k}" tabindex="0" aria-label="${esc(NEED_SHORT[k] || k)}: ${pct(v)}, ${needWord(v)}">${ic(NEED_ICON[k] || "dot")}<span class="lv">${pct(v)}</span><small>${esc(NEED_SHORT[k] || k)}</small></div>`).join("")}</div>`;
+}
+function needTip(k, L) {
+  const v = (L.needs || {})[k] ?? 0;
+  return tipBox(`${ic(NEED_ICON[k] || "dot")} ${esc(cap(NEED_LONG[k] || k))}`, "", [["Now", `${pct(v)}, ${needWord(v)}`], ["Fed by", esc(NEED_FEEDS[k] || "")]],
+    "Every need fades a little each week unless something feeds it. A lacking need pulls satisfaction down, and meeting it lifts satisfaction most.");
+}
 const CHG = { content: [GI.meter.content || "mood", "var(--sat)", "Satisfaction"], peace: [GI.meter.peace || "leaf", "var(--peace)", "Peace"], mood: ["sun", "var(--sat)", "Mood"], stress: [GI.meter.strain || "bolt", "var(--stress)", "Strain", -1],
   outlook: ["sun", "var(--gold2)", "Outlook"], discipline: ["anchor", "var(--head)", "Self-control"], horizon: ["hourglass", "var(--arcane)", "Felt time", 0] };
 function chgInfo(what) {          // icon html, accent color, name, good direction (1 up is good, -1 down is good, 0 neutral)
@@ -385,12 +405,12 @@ let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
   outside: "globe", move: "route", era: "hourglass", read: "scroll", clash: "bolt", rite: "gate", turn: "compass", breakthrough: "burst",
-  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", ...GI.tag };
+  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass", ...GI.tag };
 const KIND_ICON = { career: "case", partner: "heart", children: "child", community: "people", faith: "shrine", ...GI.kind };
 const TAG_WORD = { choice: "Your moment", loss: "Loss", death: "Death", crisis: "Crisis", move: "A move", era: "The times", read: "Public life",
   clash: "Clash", rite: "A new stage", turn: "Turning point", breakthrough: "Breakthrough", healed: "Carried through", hardened: "Hardened",
   trouble: "Hard streak", fortune: "Lucky streak", temper: "Temperament", outside: "The world", commitment: "A title", moment: "A moment",
-  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", goal: "Dreams and plans", role: "Titles and perks" };
+  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks" };
 const MINOR = new Set(["ordinary", "note", "outside", "read", "era", "temper"]);
 const isMinor = (it) => MINOR.has(it.tag) || (it.tag === "role" && !it.title);      // a perk's line is a small one; a title's is not
 const MARK_PRI = { death: 9, loss: 9, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
@@ -1133,6 +1153,7 @@ function renderHud(L) {
     <div class="wheelw"><svg class="wheel" id="hudWheel" viewBox="-6 -2 212 206" role="img" aria-label="Spider graph of the five colors: where they are, where they want to be, what holds them">${spiderSVG(spOf(L, { id: "hw", hits: true }))}</svg><span class="wkey" id="wKey" tabindex="0" aria-label="How to read the wheel">?</span></div>
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
     <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}"><span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
+    ${needsRowHTML(L)}
     ${g0 ? `<div class="nowgoal" data-gj="${g0.j}">${ic(GOAL_ICON[g0.kind] || "moon")}<span class="k">${esc(cap(g0.kind))}</span><span class="nm">${esc(g0.name)}</span></div>` : ""}
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
@@ -1151,6 +1172,7 @@ function renderHud(L) {
   const bindHits = () => hudEl.querySelectorAll("#hudWheel .hit").forEach((h) => setTip(h, () => tipColor(L, +h.dataset.c)));
   bindHits(); bindSpKey(hudEl);
   $("openSheet").addEventListener("click", (e) => { e.stopPropagation(); openSheet(); });
+  hudEl.querySelectorAll("[data-nd]").forEach((el) => setTip(el, () => needTip(el.dataset.nd, L)));
   // point 2: the colors move to where they are now slowly, week by week when the weeks are known
   const fr = hudFrames.splice(0), last = hudLast; hudLast = { t: Math.round(L.age * 52), w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])) };
   if (last && !IL.on && (fr.length || last.w.some((v, i) => Math.abs(v - L.w[i]) > 0.002))) {
@@ -1363,6 +1385,7 @@ function optRow(o, i, num) {
   for (const x of (o.roles_fx || []).slice(0, 1)) marks.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
   const bits = [];                                      // the small print, shown on the phone and in the strip
   if (f.needs && f.needs.length) bits.push(`<span>meets ${esc(f.needs.join(" and "))}</span>`);
+  for (const x of (f.lift || [])) bits.push(`<span class="up">${ic(NEED_ICON[x.need] || "dot")} ${esc(NEED_LONG[x.need] || x.need)} is ${esc(x.word)}: ${esc(x.lift)}</span>`);
   if (o.commit) bits.push(`<span>${ic(KIND_ICON[o.commit] || "anchor")} could start a ${esc(o.commit)}</span>`);
   if (o.needs) bits.push(`<span class="why">${ic("lock")} ${esc(o.needs.line)}</span>`);
   if (!pass) bits.push(fxHTML(f));
@@ -1387,6 +1410,8 @@ function stripHTML(o, num) {
   facts.push(`<span><b>${esc(ACC_WORD[acc])}</b>${o.status === "didn't think of it" ? " · hadn't thought of it" : ""}${acc === "against it" && o.clash && o.clash.length ? ` · ${o.clash.map((c) => CNAME[c]).join(" and ")} against who they are` : ""}</span>`);
   if (o.status === "considered" && !o.own && o.lean != null) facts.push(`<span><b>Their lean</b> ${pct(o.lean)}</span>`);
   if (f.needs && f.needs.length) facts.push(`<span><b>Meets</b> ${esc(f.needs.join(", "))}</span>`);
+  if ((f.lift || []).length) facts.push(`<span class="up"><b>Lacking</b> ${f.lift.map((x) => `${esc(NEED_LONG[x.need] || x.need)} at ${pct(x.level)}: ${esc(x.lift)} to satisfaction if it works`).join("; ")}</span>`);
+  if (!o.own && !pass && o.rel >= 0.02) facts.push(`<span${o.resent > o.rel + 0.005 ? ' class="down"' : ""}><b>If you push</b> ${o.resent < 0.05 ? "little resentment" : o.resent < 0.3 ? "some resentment" : o.resent < 0.6 ? "resentment: strain and pent-up wanting" : "strong resentment"}${Math.abs(o.trust || 0) >= 0.05 ? ` (${o.trust > 0 ? "they trust you" : "they distrust you"} in these colors)` : ""}; it counts against their own life unless it gives them something they lack</span>`);
   if (f.cost && f.cost.length) facts.push(`<span><b>Costs</b> ${f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")}${esc(x.slice(1))}`).join(" ")}</span>`);
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
   if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).concat(["strain", "doubt"]).join(", ")}</span></span>`);
@@ -1566,6 +1591,8 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
+      ${(r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}
       ${(r.roles || []).length ? `<div class="states">${r.roles.map((x, i) => `<span class="st rl g${x.up ? 1 : 0}${x.up ? "" : " gone"}" data-rr="${i}">${ic(roleIconOf(x))}${esc(x.up && x.title ? "Now " + x.word : cap(x.word))}</span>`).join("")}</div>` : ""}
@@ -1584,6 +1611,9 @@ function renderResolution(h, reveal) {
     $("rnTxt").addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); $("rnTake").click(); } });
   }
   tableEl.querySelectorAll("[data-z]").forEach((x) => { const z = x.dataset.z.split("|"); setTip(x, () => changeTip(z[0], +z[1], +z[2])); });
+  if ($("ndmove")) setTip($("ndmove"), () => tipBox(`${ic("compass")} Needs this week`, "", (r.needs || []).map((x) => [esc(cap(NEED_LONG[x.need] || x.need)), `${pct(x.before)} → ${pct(x.after)} (${sgn(x.delta * 100)} pts)`]), "An act that works feeds the needs its ends serve, and a lacking need lifts satisfaction most. Needs also fade a little every week."));
+  if ($("hind")) setTip($("hind"), () => tipBox(`${ic("voice")} Looking back on your push`, "", [["Trust in you, these colors", `${sgn((r.hindsight.trust_before || 0) * 100)} → ${sgn((r.hindsight.trust_after || 0) * 100)}`]],
+    r.hindsight.kind === "accepted" ? "It worked and gave them something they lacked, so part of the push's cost is undone: less strain and pent-up wanting, and it counts less against their own life." : "It failed, or gave them nothing they lacked. They hold it against you, and later pushes in these colors cost more."));
   tableEl.querySelectorAll("[data-pid]").forEach((x) => setTip(x, () => personTip(+x.dataset.pid)));
   tableEl.querySelectorAll("[data-rr]").forEach((x) => { const d = r.roles[+x.dataset.rr]; setTip(x, () => roleTip(d, findRole(d.name))); });
   setTip($("cmove"), () => tipBox(`${ic("wheel")} The colors this week`, "", [["Moved", colorMoves(r.dw)]], (r.push || []).map((p) => `${esc(cap(p.why))}: ${p.dir} ${pip(p.color)}`).join("<br>") || "Points are shares of 100."));
@@ -1850,6 +1880,12 @@ function shSelect(key, focus) {
     else if (t.offsetLeft + t.offsetWidth > bar.scrollLeft + bar.clientWidth - 8) bar.scrollLeft = t.offsetLeft + t.offsetWidth - bar.clientWidth + 16;
   }
 }
+function trustHTML(L) {                 // IDEAS.md, "Player intervention that helps": trust in the player, per color
+  const T = L.trust || {}, P = L.pushes || {};
+  if (!P.forced) return "";
+  return `<h4>Trust in you</h4><div class="mts">${COLORS.map((c) => meterRow(`${pip(c)} ${CNAME[c]}`, (1 + (T[c] || 0)) / 2, sgn((T[c] || 0) * 100), `var(--c${c})`, "Built by your pushes in this color that they came to accept, lost by the ones they resented. Trust spares some of a push's resentment; distrust adds to it.")).join("")}</div>
+    <p class="shnote">You pushed ${P.forced} time${P.forced === 1 ? "" : "s"}: ${P.accepted || 0} they came to accept, ${P.resented || 0} they resented.</p>`;
+}
 function openSheet() {
   const L = hud && hud.life; if (!L || !L.w) return;
   hideTip(); closeHud();
@@ -1913,7 +1949,7 @@ function openSheet() {
         <div class="shsec sa-c">${aroundShort ? `<h4>Around them</h4><div class="sharound">${aroundShort}</div>` : ""}<h4>Closest people</h4><div class="shppl">${closest || `<span class="empty">Nobody met yet</span>`}</div><h4>Titles and statuses</h4><div class="chips">${heldChips || `<span class="empty">No titles yet</span>`}</div></div>`)}
       ${panel("colours", `<div class="shsec"><svg class="wheel big" id="shWheel" viewBox="-6 -2 212 206" aria-hidden="true"></svg>${spKeyHTML()}<h4>Who they have been</h4><div class="path">${identityPath(L) || `<span class="empty">Still forming</span>`}</div></div>
         <div class="shsec"><h4>Now, wanted and held</h4>${shNowTable(L)}<h4>What each color stands for</h4><div class="shideas">${COLORS.map((c) => `<div>${pip(c)}<span><b>${CNAME[c]}</b> ${esc(CIDEA[c])}</span></div>`).join("")}</div></div>`)}
-      ${panel("inner", `<div class="shsec"><h4>Inner life</h4><div class="mts">${inner}</div><h4>Needs met</h4><div class="mts">${needs || `<span class="empty">Not known yet</span>`}</div></div>
+      ${panel("inner", `<div class="shsec"><h4>Inner life</h4><div class="mts">${inner}</div><h4>Needs met</h4><div class="mts">${needs || `<span class="empty">Not known yet</span>`}</div>${trustHTML(L)}</div>
         <div class="shsec"><h4>States</h4>${states}</div>
         <div class="shsec"><h4>Dreams and plans</h4><div class="drms">${goals}</div></div>`)}
       ${panel("around", `<div class="shsec">${around ? `<h4>Around them</h4>${around}` : `<h4>Around them</h4><span class="empty">Nothing read yet</span>`}</div>

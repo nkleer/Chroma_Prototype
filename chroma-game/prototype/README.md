@@ -612,3 +612,29 @@ Clean, solid and fast, with the same lives as version 22:
   which carries `run_steps()`, `PAUSES` and `STATE` itself; link.py is the Engine's chroma-engine/notes/link-for-game.py
   and only loads and checks it, so an engine change no longer breaks the game through anchor lines. Same lives: presets
   1 to 6, seed 7, give the same record step for step as live v22.1 (test/same_life.py).
+
+
+## Needs, hindsight and trust (2026-10-09, game side; on branch claude/charming-shannon-wpmw04, not live)
+
+From chroma-game/IDEAS.md (Emren 2026-10-09: "start with game-side"; support actions and the inner voice wait for
+discussion; engine-only parts are in chroma-game/proposals/engine-needs-and-steering.md). No engine file changed.
+
+- **Needs visible.** The side panel shows the five needs under the means (icons dim when thin, pulse when barely met;
+  hover for what feeds each). An option row names a lacking need it would feed ("safety is thin: a big lift"), and its
+  reading says how much that could lift satisfaction (`follows["lift"]`, from the engine's own refill rule).
+  "What came of it" lists every need the choice's week moved by a point or more (`resolution["needs"]`). The first
+  time a need runs thin (age 6 or later), the story explains the rule once (feed tag `hint`). The terminal status (s)
+  has a needs line; terminal option rows name lacking needs.
+- **Hindsight.** After a push they were at least a little reluctant about (`hind_rel`), the character judges it
+  (`resolution["hindsight"]`): accepted when it worked and its ends fed a need they lacked (by the engine's refill rule, as
+  the option's "lift" showed it; part of its stress, pent-up wanting, lost autonomy and its count against "their own"
+  is undone, up to `hind_max`); resented when it failed, or worked but fed nothing they lacked (a failure adds pent-up
+  wanting). "Okay with it" pushes cost nothing in the engine, so they are not judged. Measured (world "questions",
+  adults, 4 lives each): pushing reluctant options toward a lacking need, 5 of 12 accepted; pushing reluctant options
+  at random, 10 of 85; most resentment comes from pushes that failed. A line tells it ("*Fine. You were right this time.*").
+- **Trust per color** (`Game.trust`, -1 to 1). Accepted pushes raise it along the act's colors, resented ones lower it.
+  It is kept apart from inertia: trust changes only resentment (the stress and pent-up wanting of a push: `trust_cut`,
+  `distrust_add`), never the effort (lower odds). They meet in one place: trust lets more of a reluctant act's learning
+  in. The character sheet's Inner life tab shows trust when the player has pushed; status (s) has a trust line; the
+  review counts pushes accepted and resented. With no pushes, a life is exactly as before.
+- Settings: GAME in game.py (`need_thin`, `hind_*`, `resent_more`, `trust_*`, `distrust_add`).
