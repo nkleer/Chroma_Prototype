@@ -17,7 +17,7 @@ import sys
 from link import E, PIN
 import explain as X             # engine v7: the character's view before a choice, what came of it after
 import foresee as F             # engine v7: the foreseen outcome of a plan
-from story import Story, act, plain, ADJ, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
+from story import Story, act, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
 from worldview import WorldView, EngineWorld, from_engine, who_word, lever_info, push_words   # the outer world as the player sees it (chroma-world/)
 try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
@@ -2316,39 +2316,6 @@ TITLE_KINDS = ("career", "community", "faith", "status")   # the titles that can
 DEATH_WORD = dict(parent="a parent", sibling="a sibling", friend="a friend", grandparent="a grandparent",
                   partner="their partner", child="a child")
 DEATH_WEIGHT = dict(child=0, partner=1, parent=2, sibling=3, friend=4, grandparent=5)   # the nearer, the likelier the cause
-COLOR_QUESTION = {       # each color's question, from what it wants (the five wants on the spheres page, LW3)
-    "W": "Did they spare others needless harm?", "U": "Did they come to understand?", "B": "Was the life their own?",
-    "R": "Did they feel free and alive?", "G": "Did they belong?"}
-ANSWER = dict(high="It was.", mid="In part.", low="Seldom.")
-
-
-def _stages(label):
-    """The identities the life held, as (label, from age, to age), passing moods (under HELD_MIN years) left out."""
-    runs = []
-    for i, (a, l) in enumerate(label):
-        if not l:
-            continue
-        end = label[i + 1][0] if i + 1 < len(label) else a + 1
-        if runs and runs[-1][0] == l and a - runs[-1][2] <= HELD_MIN:
-            runs[-1][2] = end
-        else:
-            runs.append([l, a, end])
-    held = [r for r in runs if r[2] - r[1] >= HELD_MIN] or (sorted(runs, key=lambda r: r[1] - r[2])[:1])
-    out = []
-    for r in held:                                   # a mood between two spells of the same identity joins them
-        if out and out[-1][0] == r[0]:
-            out[-1][2] = r[2]
-        else:
-            out.append(list(r))
-    if len(out) > TURNS_TOLD + 1:                    # the first, the last, and the longest between, in order
-        keep = sorted(range(1, len(out) - 1), key=lambda i: out[i][1] - out[i][2])[:TURNS_TOLD - 1]
-        kept, out = [out[i] for i in sorted({0, len(out) - 1, *keep})], []
-        for r in kept:                               # two kept spells of one identity, with the ones between left out
-            if out and out[-1][0] == r[0]:
-                out[-1][2] = r[2]
-            else:
-                out.append(r)
-    return out
 
 
 def _why(met, at, share, say_of):
@@ -2356,7 +2323,7 @@ def _why(met, at, share, say_of):
     in the WHY_YEARS before it. None when nothing stands out."""
     near = [m for m in met if at - WHY_YEARS <= m[0] <= at]
     deaths = sorted((m for m in near if m[1] == "death"), key=lambda m: DEATH_WEIGHT.get(m[2], 9))
-    if deaths:
+    if deaths and deaths[0][2] != "grandparent":
         return f"the death of {DEATH_WORD.get(deaths[0][2], 'someone close')}"
     roles = [m for m in near if m[1] == "role" and (share("role", m[2]) or 1) < 0.5]
     if roles:
@@ -2365,6 +2332,8 @@ def _why(met, at, share, say_of):
                    key=lambda m: share("read", m[2]))
     if reads:
         return _quoted(reads[0][2])
+    if deaths:                                       # a grandparent's death is common: it counts when nothing else does
+        return f"the death of {DEATH_WORD['grandparent']}"
     return None
 
 
@@ -2386,8 +2355,131 @@ def _ident_a(lbl):
     return f"one of the {nm}" if nm.endswith("ed") or nm in ("Enduring", "Whole") else an(nm)
 
 
+def _episodes(label):
+    """The life's identities as episodes (Emren 10-09: flow, zigzags, identities held side by side): each is
+    [kind, labels, from age, to age], kind "steady" (one identity held HELD_MIN years or more) or "swing" (two identities
+    taking turns, three changes or more within one stretch). Shorter spells between are passing moods, left out."""
+    runs = []
+    for i, (a, l) in enumerate(label):
+        if not l:
+            continue
+        end = label[i + 1][0] if i + 1 < len(label) else a + 1
+        if runs and runs[-1][0] == l:
+            runs[-1][2] = end
+        else:
+            runs.append([l, a, end])
+    eps, i = [], 0
+    while i < len(runs):
+        pair, j = {runs[i][0]}, i
+        while j + 1 < len(runs) and len(pair | {runs[j + 1][0]}) <= 2:
+            j += 1; pair.add(runs[j][0])
+        if j - i >= 3 and len(pair) == 2 and runs[j][2] - runs[i][1] >= 2 * HELD_MIN:
+            order = list(dict.fromkeys(r[0] for r in runs[i:j + 1]))
+            eps.append(["swing", order, runs[i][1], runs[j][2]]); i = j + 1
+        elif runs[i][2] - runs[i][1] >= HELD_MIN:
+            eps.append(["steady", [runs[i][0]], runs[i][1], runs[i][2]]); i += 1
+        else:
+            i += 1
+    out = []
+    for e in eps:                                    # the same identity again after a passing mood: one episode
+        if out and out[-1][0] == e[0] == "steady" and out[-1][1] == e[1]:
+            out[-1][3] = e[3]
+        else:
+            out.append(e)
+    return out or ([["steady", [runs[-1][0]], runs[-1][1], runs[-1][2]]] if runs else [])
+
+
+def _adjs(cols):
+    """'curious and ambitious' for UB; colors as the story's adjectives."""
+    a_ = [ADJ[c] for c in COLORS if c in cols]
+    return a_[0] if len(a_) == 1 else ", ".join(a_[:-1]) + " and " + a_[-1] if a_ else "unsettled"
+
+
+def _nouns(cols):
+    n_ = [NOUN[c] for c in COLORS if c in cols]
+    return n_[0] if len(n_) == 1 else ", ".join(n_[:-1]) + " and " + n_[-1]
+
+
+def _when(a):
+    a = int(a)
+    return ("in childhood" if a < 10 else "in their teens" if a < 20 else f"in their {a // 10 * 10}s" if a < 90
+            else "at the very end")
+
+
+def _drift(ws, a0, a1, b0, b1):
+    """What moved between two stretches of the life: the color that rose most and the one that fell most."""
+    pick = lambda x, y: [w for a, w in ws if x <= a < y]
+    p, q = pick(a0, a1), pick(b0, b1)
+    if not p or not q:
+        return None, None
+    d = np.mean(np.asarray(q, float), axis=0) - np.mean(np.asarray(p, float), axis=0)
+    up, dn = int(np.argmax(d)), int(np.argmin(d))
+    return (COLORS[up] if d[up] > 0.02 else None), (COLORS[dn] if d[dn] < -0.02 else None)
+
+
+def _move(up, dn, k):
+    """A drift in words, in one of a few shapes."""
+    if up and dn:
+        return [f"their {NOUN[up]} grew as their {NOUN[dn]} faded", f"{NOUN[up]} crowded out {NOUN[dn]}",
+                f"they grew more {ADJ[up]} and less {ADJ[dn]}"][k % 3]
+    if up:
+        return [f"their {NOUN[up]} grew", f"they grew more {ADJ[up]}"][k % 2]
+    if dn:
+        return [f"their {NOUN[dn]} faded", f"they grew less {ADJ[dn]}"][k % 2]
+    return ""
+
+
+def _thing(k, n_, say_of, i):
+    """A rare thing the life met, told in passing: 'against the odds they became an actor', or a moment few lives hold."""
+    if k == "long":
+        return f"against the odds they became {n_}"
+    if k == "role":
+        say = say_of(n_)
+        return (f"they became {say}" if re.match(r"(a|an|the|one) ", say) else
+                f"they took to {say}" if re.match(r"\w+ing\b", say) else f"they found themselves {say}")
+    if k == "mark":
+        return f"they {n_}"
+    return [f"came a moment few people live: {_quoted(n_)}", f"something few lives hold: {_quoted(n_)}",
+            f"a moment that stayed with them, {_quoted(n_)}"][i % 3]
+
+
+def _closing(h, review):
+    """The life's satisfaction and peace over the years, said once at the end (Emren 10-09: close on the character's
+    history overall)."""
+    c = dict(h.get("content", [])); p = dict(h.get("peace", []))
+    if len(c) < 4:
+        return ""
+    def by_decade(d_):
+        dec = {}
+        for a, v in d_.items():
+            if a >= 20:                              # adult decades: the teens are hard in almost every life
+                dec.setdefault(int(a) // 10 * 10, []).append(v)
+        return {k: float(np.mean(v)) for k, v in dec.items() if len(v) >= 3}
+    S = []
+    dc, dp = by_decade(c), by_decade(p)
+    if len(dc) >= 2:
+        best, worst = max(dc, key=dc.get), min(dc, key=dc.get)
+        if dc[best] - dc[worst] >= 0.08:
+            S.append(f"They were most content {_when(best)} and least {_when(worst)}")
+        else:
+            S.append("Their contentment ran level through the decades, never far from where it began")
+    if len(dp) >= 2:
+        calm, storm = max(dp, key=dp.get), min(dp, key=dp.get)
+        if dp[calm] - dp[storm] < 0.08:
+            S[-1] += "; their peace held steady."
+        elif S and calm == max(dc, key=dc.get):
+            S[-1] += f"; {_when(calm)[3:] if _when(calm).startswith('in ') else _when(calm)} were also their most peaceful years."
+        else:
+            S[-1] += f"; peace was deepest {_when(calm)}, thinnest {_when(storm)}."
+    f = review.get("forced", 0); integ = review.get("integrity", 1.0)
+    S.append("Every choice in it was their own." if not f else "Most of it was of their own choosing." if integ >= 0.9
+             else "Much of it was steered from outside, and they felt it.")
+    return " ".join(S)
+
+
 def life_paragraph(name, h, review, setting):
-    """The life in one paragraph, for the end of a life (review["story"])."""
+    """The life in one paragraph, for the end of a life (review["story"]): its colors as a story with their turns,
+    swings and drifts, the rarest things it met woven in where they fell, and a closing line on how the years went."""
     try:
         from rarity import RARITY
     except Exception:
@@ -2396,34 +2488,72 @@ def life_paragraph(name, h, review, setting):
     share = lambda kind, n_: rs.get(kind, {}).get(n_)
     met = h.get("met", [])
     say_of = lambda n_: h.get("title_say", {}).get(n_) or an(n_)
-    age = review.get("died", {}).get("age") if review.get("died") else review.get("age")
+    ws = h.get("w", [])
+    age = review["died"]["age"] if review.get("died") else review.get("age")
+    eps = _episodes(h["label"])
+    rare = [(0.0, x["age"], "long", x["say"] if re.match(r"(a|an|the|one) ", x["say"]) else an(x["name"]))
+            for x in h.get("long", []) if x.get("made") and x.get("age") is not None]
+    rare += sorted(((share(k, n_), a, k, n_) for a, k, n_ in met if k != "death" and share(k, n_)   # 0: never met in the
+                    and share(k, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))                       # table's lives, unmeasured
+    rare = sorted(rare[:RARE_TOLD], key=lambda r: r[1])
+    def home(r):                                      # the episode a rare thing is told in: the last one begun by then
+        return max([j for j, e in enumerate(eps) if e[2] <= r[1]] or [0])
+    longest = max(range(len(eps)), key=lambda i: eps[i][3] - eps[i][2]) if eps else -1
+    k = len(met) + int(age or 0)                      # varies the shapes from life to life, the same on every replay
     S = [f"{name} lived {int(age or 0)} years."]
-    st = _stages(h["label"])
-    if st:
-        l0 = st[0][0]
-        ep = (EPITHETS.get(l0) or [""])[0]
-        S.append(f"They began as {_ident_a(l0)}" + (f", {ep}" if ep else "") + ".")
-        for l, a, _ in st[1:]:
-            why = _why(met, a, share, say_of)
-            S.append(f"At {int(a)}" + (f", after {why}" if why else "") + f", they became {_ident_a(l)}.")
-    big = [f"becoming {x['say'] if re.match(r'(a|an|the|one) ', x['say']) else an(x['name'])} against the odds, at {int(x['age'])}"
-           for x in h.get("long", []) if x.get("made") and x.get("age") is not None]
-    rare = sorted(((share(k, n_), a, k, n_) for a, k, n_ in met if k != "death" and share(k, n_) is not None
-                   and share(k, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))
-    big += [f"{_becoming(say_of(n_)) if k == 'role' else _quoted(n_)}, at {int(a)}" for _, a, k, n_ in rare]
-    big = big[:RARE_TOLD]
-    if big:
-        S.append(("The rarest thing they lived: " if len(big) == 1 else "The rarest things they lived: ")
-                 + "; and ".join(big) + ".")
-    if st:
-        longest = max(st, key=lambda r: r[2] - r[1])[0]
-        S.append(f"Mostly, they were {_ident_a(longest)}.")
-    ws = [w for a, w in h.get("w", []) if a >= 18] or [w for _, w in h.get("w", [])]
-    if ws:
-        lead = COLORS[int(np.argmax(np.mean(np.asarray(ws, float), axis=0)))]
-        bands = (review.get("reading") or {}).get("bands") or ["mid", "mid"]
-        S.append(f"{COLOR_QUESTION[lead]} {ANSWER[bands[1] if lead == 'B' else bands[0]]}")
-    return " ".join(S)
+    used = set()
+    def pick(opts):                                   # a shape not used yet in this life, where one is left
+        fresh = [o for o in opts if o.split(" ")[0] + o.split(" ")[-1] not in used] or opts
+        o = fresh[k % len(fresh)]; used.add(o.split(" ")[0] + o.split(" ")[-1])
+        return o
+    for i, (kind, ls, a0, a1) in enumerate(eps):
+        a0i, dur = int(a0), int(round(a1 - a0)); k += 1
+        whole = i == 0 and a1 - a0 >= 0.6 * (age or 1)
+        bare = whole or i == 0 or dur >= 20            # no 'all along' where the stretch is the life, or most of it
+        if kind == "swing":
+            both, flick = set(ls[0]) & set(ls[1]), set(ls[0]) ^ set(ls[1])
+            inner = (f"{_adjs(both)}{'' if bare else ' all along'}, while their {_nouns(flick)} came and went" if both else
+                     f"{_adjs(ls[0])} one year, {_adjs(ls[1])} the next")
+            if whole:
+                s_ = f"All their life they were {inner}; they never quite settled."
+            elif i == 0:
+                s_ = f"{'As a child' if a0 < 12 else 'Young'}, they were {inner}."
+            else:
+                why = _why(met, a0, share, say_of)
+                s_ = (f"{'After ' + why + ', from' if why else 'From'} {a0i} on they never fully settled: they were {inner}."
+                      if dur >= 20 else
+                      f"{'After ' + why if why else _when(a0).capitalize()}, {dur} unsettled years followed: they were "
+                      f"{inner}.")
+        elif i == 0:
+            s_ = (f"They grew up {_adjs(ls[0])}." if a0 < 18 else f"By {a0i} they were {_adjs(ls[0])}.")
+        else:
+            why = _why(met, a0, share, say_of)
+            pk, pls, pa0, pa1 = eps[i - 1]
+            mv = _move(*_drift(ws, pa0, pa1, a0, a1), k)
+            back = any(ls[0] in e[1] for e in eps[:i])
+            if pk == "swing" and ls[0] in pls:
+                s_ = f"At {a0i} the tug of war was over: they were {_adjs(ls[0])} at last."
+            elif why:
+                s_ = f"At {a0i}, {why} changed them" + (f": {mv}." if mv else ".")
+            elif back:
+                s_ = pick([f"{_when(a0).capitalize()} they came back to who they had once been, {_adjs(ls[0])}.",
+                           f"{_when(a0).capitalize()} they were {_adjs(ls[0])} again.",
+                           f"Old ways returned {_when(a0)}: {_adjs(ls[0])}, as before."])
+            elif mv:
+                s_ = pick([f"{_when(a0).capitalize()}, {mv}.", f"Over the years {mv}.",
+                           f"{_when(a0).capitalize()} the balance shifted: {mv}.", f"Little by little, {mv}.",
+                           f"With no single cause {_when(a0)}, {mv}."])
+            else:
+                s_ = f"{_when(a0).capitalize()} they settled, {_adjs(ls[0])}."
+        if i == longest and kind == "steady" and dur >= 10:
+            s_ += f" For {dur} years they were {_ident_a(ls[0])}" + (", the longest they were anyone." if len(eps) > 2 else ".")
+        for j, r in enumerate(r_ for r_ in rare if home(r_) == i):
+            s_ += f" {'At' if j == 0 else 'And at'} {int(r[1])}, {_thing(r[2], r[3], say_of, k + j)}."
+        S.append(s_)
+    if not eps:
+        S += [f"At {int(r[1])}, {_thing(r[2], r[3], say_of, k + j)}." for j, r in enumerate(rare)]
+    S.append(_closing(h, review))
+    return " ".join(x for x in S if x)
 
 
 def peace_reading(ful, ser, integ, gifts):
