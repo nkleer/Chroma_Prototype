@@ -1,7 +1,7 @@
 3db9554eefdfc157b3e1848902e69f92  batch.py
 757721ec4414965232f272d129713c58  combos.py
 75f5b4f7b3bcf2cc4a78c34dad12e052  earth_rules.py
-ed587f1263ed09aa91016c2b735fb523  engine.py
+22f793b28ffc412e82b61549ac823c56  engine.py
 49969b48747af07c480eff5054c22063  explain.py
 bff61663a683c064a68f1903543ec8dd  foresee.py
 57df38d107a1c657403bb3ff83775629  library.py
@@ -10,5 +10,5 @@ e943e67e779f03070a7ba8f522cf95d6  life.py
 c562a0142558b5c29386a5991c7ef8f8  schwartz.py
 3f2f013f95ab13530509ec6258ac1207  world.py
 844aabf833fe418a24a649de8eed6086  world_keys.py
-b3c78b72067fa0290eb7b4b07a8fdd24  world_link.py
-88fd81d924a02144ca243e68786bc3d4  world_people.py
+697929dee1d28fd6a6cee59c4e4a6a0b  world_link.py
+048c5b118931b02c8d4a3fb271c8dc87  world_people.py
