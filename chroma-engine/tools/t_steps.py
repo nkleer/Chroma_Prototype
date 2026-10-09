@@ -9,6 +9,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives;
   6. the next update's switches that lives with no player keep off (E.UPD_OFF), switched on: run_steps() still lives
      the lives of run(), and the switch moves something.
+  7. the next update's read-only world switches (the spheres' town, sph_town), switched on: the lives are those of a
+     run with them off, and the world carries their state.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -22,6 +24,7 @@ import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live e
 ENG = _engine.ENGINE
 import numpy as np
 import engine as E, batch
+import world as _wm
 batch.LIB_DIR = _engine.LIBRARY; batch.PACK_DIR = _engine.PACKS
 
 
@@ -225,6 +228,26 @@ for label, sw, moved in ON_:
             fails.append(f"world {'on' if world else 'off'}: switched on, it moved nothing")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world off and on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 7. read-only world switches of the next update (the spheres of society, item 15, phase 1c): with the world on, a run with
+# the switch on lives exactly the lives of a run with it off, and the world it ran in carries the new state
+RO_ = [("the spheres of society, the town (sph_town)", "sph_town",
+        lambda W: getattr(W, "sph_s", None) is not None and np.allclose(W.sph_s.sum(-1), 1) and np.allclose(W.sph_Z.sum(-1), 1))]
+for label, sw, ok in RO_:
+    if sw not in E.DEFAULT or sw not in getattr(_wm, "SPH_RULES", ()):
+        continue
+    t0 = time.process_time(); fails = []; ds = []
+    for on in (False, True):
+        W_ = _wm.World(4, cfg=dict(params={sw: on})); W_.burn_in(20)
+        Pd = dict(E.DEFAULT); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on
+        ds.append(digest(E.run(N=2, years=6, seed=4, lib=EARTH, P=Pd)))
+        if on and not ok(W_):
+            fails.append("switched on, the world carries no sphere state")
+    diff = sorted(x for x in set(ds[0]) | set(ds[1]) if ds[0].get(x) != ds[1].get(x) and x != "world")   # the world's
+    if diff:                                                                                   # own record carries its switch
+        fails.append(f"lives differ in {diff[:4]}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")

@@ -1,34 +1,47 @@
 """Manifest of the files a version of the game is built from, with an MD5 for each.
 
-   python3 -B check_live.py write <out.txt> [--version v22]   record the manifest (default: the live version)
-   python3 -B check_live.py check [<manifest>] [--version v22] compare the folder now against a recorded manifest
+   python3 -B check_live.py write <out.txt> [--version v22.1]   record the manifest (default: the live version)
+   python3 -B check_live.py check [<manifest>] [--version v22.1] compare the folder now against a recorded manifest
                                                                 (default: the live version's manifest, paths.py live_manifest)
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.1  live since 2026-10-08 13:10 UTC: game_live (chroma-game/prototype), engine_live; live-v22.1-manifest.txt
-   v22    the rollback: game_v22 (chroma-game/prototype-v22), engine_v22; live-v22-manifest.txt, recorded while v22 sat in
-          chroma-game/prototype, so its game paths are read as prototype-v22
-The Library, packs, pictures, rarity table and build helpers are the same files in both.
+   v22.2  live since 2026-10-09 21:39 UTC (release/v22.2): game_live (chroma-game/prototype), engine_live,
+          game_tools (the build it was published with); live-v22.2-manifest.txt
+   v22.1  the rollback: game_v22_1 (chroma-game/prototype-v22.1), engine_v22_1 (in _archive/2026-10-09/live-v22.1/);
+          live-v22.1-manifest.txt, recorded while v22.1 was live, so its game and engine paths are read at those folders
+   v22    the older rollback: game_v22 (chroma-game/prototype-v22), engine_v22; live-v22-manifest.txt, read the same way
+The Library's compiled files, the packs and the pictures are shared; each version lists the ones it was built from.
+So a rollback's check shows a shared file as changed once a later version changed it (v22.1 and v22: three
+chroma-art/game ink files since v22.2); release/<version> holds that version's exact files.
+A manifest is written from the shared folder only after its files match the release branch (CONTRIBUTING.md).
 
-Every recorded file is checked at the path it was recorded under; the folders paths.py names decide only which files
+An .svg is recorded and compared without the C2PA stamp the shared folder adds to it. Every recorded file is checked
+at the path it was recorded under; the folders paths.py names decide only which files
 are listed as new. Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
 """
-import hashlib, os, sys
+import hashlib, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from paths import ROOT, NAMES  # noqa: E402
 
-LIVE = "v22.1"
+LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
+          "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
+OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
+LIVE = "v22.2"
+# game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
+# moved: recorded path prefix -> the paths.py name of the folder it is read from now
 VERSIONS = {
-    "v22.1": dict(game="game_live", engine="engine_live", manifest="live_manifest"),
-    "v22": dict(game="game_v22", engine="engine_v22", manifest="live_manifest_v22", old_game="chroma-game/prototype"),
+    "v22.2": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                  files=[], lib=LIB_PY + ["earth_play.py", "earth_story.py"]),
+    "v22.1": dict(game="game_v22_1", engine="engine_v22_1", manifest="live_manifest_v22_1", trees=[],
+                  files=["rarity_v22_1"] + OLD_HELPERS, lib=LIB_PY,
+                  moved={"chroma-game/prototype": "game_v22_1", "chroma-engine/v22-speedpass": "engine_v22_1"}),
+    "v22": dict(game="game_v22", engine="engine_v22", manifest="live_manifest_v22", trees=[],
+                files=["rarity_v22_1"] + OLD_HELPERS, lib=LIB_PY, moved={"chroma-game/prototype": "game_v22"}),
 }
 SHARED_TREES = ["art_game"]                                      # pictures.json, pics/, ink icons
 PACKS = ["core", "politics", "science", "stage"]                 # under packs_live
-FILES = ["rarity_live", "build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
-          "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 
 
 def rel(name, *parts):
@@ -37,19 +50,20 @@ def rel(name, *parts):
 
 def listing(version):
     v = VERSIONS[version]
-    trees = [rel(v["game"]), rel(v["engine"])] + [rel(t) for t in SHARED_TREES] + [rel("packs_live", p) for p in PACKS]
+    trees = ([rel(v["game"]), rel(v["engine"])] + [rel(t) for t in SHARED_TREES + v["trees"]]
+             + [rel("packs_live", p) for p in PACKS])
     out = []
     for t in trees:
         for dp, dn, fn in os.walk(os.path.join(ROOT, t)):
             dn[:] = sorted(d for d in dn if d != "__pycache__")
             out += [os.path.join(dp, f) for f in sorted(fn)]
     d = os.path.join(ROOT, rel("library_live"))
-    out += [os.path.join(d, f) for f in LIB_PY]
+    out += [os.path.join(d, f) for f in v["lib"]]
     out += sorted(os.path.join(d, f) for f in os.listdir(d) if f.endswith(".lib"))
-    for f in FILES:
+    for f in v["files"]:
         name, _, rest = f.partition("/")
         out.append(os.path.join(ROOT, rel(name, rest) if rest else rel(name)))
-    return out
+    return list(dict.fromkeys(out))
 
 
 def md5(p):
@@ -60,8 +74,34 @@ def md5(p):
     return h.hexdigest()
 
 
+# The shared folder stamps every .svg written to it with a C2PA provenance block (a new one each time, within seconds):
+# an xmlns:c2pa attribute and a <metadata><c2pa:manifest>...</c2pa:manifest></metadata> block. It is not content, so
+# an .svg is recorded and compared without it (Visuals found this on 10-09).
+C2PA = re.compile(rb"<metadata><c2pa:manifest>.*?</c2pa:manifest></metadata>", re.S)
+
+
+def plain(data):
+    return C2PA.sub(b"", data, count=1).replace(b' xmlns:c2pa="http://c2pa.org/manifest"', b"", 1)
+
+
+def hashes(p):
+    """The md5s a recorded file may match: its bytes, and for an .svg also its bytes without the C2PA stamp."""
+    h = md5(p)
+    if not p.endswith(".svg"):
+        return {h}
+    with open(p, "rb") as f:
+        return {h, hashlib.md5(plain(f.read())).hexdigest()}
+
+
+def record_md5(p):
+    if not p.endswith(".svg"):
+        return md5(p)
+    with open(p, "rb") as f:
+        return hashlib.md5(plain(f.read())).hexdigest()
+
+
 def write(dst, version):
-    rows = [f"{md5(p)}  {os.path.getsize(p):>9}  {os.path.relpath(p, ROOT)}" for p in listing(version)]
+    rows = [f"{record_md5(p)}  {os.path.getsize(p):>9}  {os.path.relpath(p, ROOT)}" for p in listing(version)]
     open(dst, "w").write("\n".join(rows) + "\n")
     print(version + ":", len(rows), "files,", round(sum(int(r.split()[1]) for r in rows) / 1e6, 1), "MB ->", dst)
     return 0
@@ -69,18 +109,19 @@ def write(dst, version):
 
 def check(src, version):
     v = VERSIONS[version]
-    game = rel(v["game"])
     want = {}
     for line in open(src):
         h, s, p = line.split(None, 2)
         p = p.strip()
-        if v.get("old_game") and p.startswith(v["old_game"] + "/"):
-            p = game + p[len(v["old_game"]):]
+        for old, name in v.get("moved", {}).items():
+            if p.startswith(old + "/"):
+                p = rel(name) + p[len(old):]
+                break
         want[p] = h
     # every recorded file is checked where it was recorded, even when paths.py's names no longer reach it (rarity_live
     # moved 10-08); the names only decide which files count as new
     have = [p for p in want if os.path.isfile(os.path.join(ROOT, p))]
-    changed = [p for p in have if md5(os.path.join(ROOT, p)) != want[p]]
+    changed = [p for p in have if want[p] not in hashes(os.path.join(ROOT, p))]
     missing = [p for p in want if p not in have]
     now = dict.fromkeys(os.path.relpath(p, ROOT) for p in listing(version))
     added = [p for p in now if p not in want]
@@ -100,5 +141,6 @@ if __name__ == "__main__":
         sys.exit(write(args[1], ver or LIVE))
     src = args[1] if len(args) > 1 else None
     if ver is None:
-        ver = "v22" if src and os.path.basename(src) == "live-v22-manifest.txt" else LIVE
+        m = re.fullmatch(r"live-(v[0-9.]+)-manifest\.txt", os.path.basename(src or ""))
+        ver = m.group(1) if m and m.group(1) in VERSIONS else LIVE   # a version's manifest names its version
     sys.exit(check(src or os.path.join(ROOT, rel(VERSIONS[ver]["manifest"])), ver))
