@@ -32,7 +32,7 @@ NAMES = {
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),
     "library_live":   ("chroma-library", "the live Library: earth*.py, dreams.py and the .lib sources at its top level"),
     "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage"),
-    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the live game's rarity.py came from (the same bytes as chroma-engine/prototype/calib_v8/rarity.json, where v22.1 was published from)"),
+    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the game's rarity.py is built from; on main the 10-08 rebuild for v22.2 (65485c21b94f, PR #30). Live v22.1 was built from 9756b7c91eab, which stays in the shared folder's copy until the next publish, at chroma-engine/prototype/calib_v8/rarity.json and on release/v22.1"),
     "art_game":       ("chroma-art/game", "the pictures the page uses (pictures.json names them, pics/ holds them)"),
     "art":            ("chroma-art", "the visuals folder: kit/ drawing code, data/ scene texts, notes/"),
     "art_old_icons":  ("chroma-art/old", "the retired game-icons.net set (CC BY 3.0); the icon builder and review pages read it"),
