@@ -37,6 +37,7 @@ except ImportError:
 from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
+from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
@@ -46,6 +47,8 @@ ENGINE_ROLES = ["parent", "sibling", "friend", "grandparent", "partner"]   # the
 ROLE = list(WHO_SLOTS) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"]
 R = {r_: i_ for i_, r_ in enumerate(ROLE)}
 BIT = {r_: 1 << i_ for i_, r_ in enumerate(ROLE)}
+GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPHERES.index(GROUP_SPHERE[k_]) for k_ in GROUP_KINDS])
+SECTOR_SPH = np.array([SPHERES.index(SECTOR_SPHERE[k_]) for k_ in SECTORS])   # spheres (item 15): world.py's maps
 G = {g_: i_ for i_, g_ in enumerate(GROUP_KINDS)}
 NG = len(GROUP_KINDS)
 WI = {w_: i_ for i_, w_ in enumerate(CAST_WANTS)}
@@ -1189,6 +1192,19 @@ class People:
             if self.watch[n_]:
                 self.events.append(dict(n=int(n_), t=int(t), kind="split", group=GROUP_KINDS[int(self.skind[n_, j_])],
                                         j=int(j_), left=[int(x_) for x_ in self.uid[n_, go]]))
+
+    @property
+    def set_sphere(self):
+        """Each setting's sphere (N x M, index into SPHERES; -1 an empty slot): a work setting by its employer's
+        sector (none known: commerce). Read only (item 15, Replace)."""
+        g = self.skind.astype(np.int64); sph = GROUP_SPH[np.maximum(g, 0)]
+        serv = SECTORS.index("services"); isec = self.inst_sector
+        if isec is not None and len(isec):
+            isec = np.asarray(isec, np.int64); sec = isec[np.clip(self.sref, 0, len(isec) - 1)]
+            wsec = np.where((self.sref >= 0) & (sec >= 0), sec, serv)
+        else:
+            wsec = np.full(g.shape, serv)
+        return np.where(g < 0, -1, np.where(sph >= 0, sph, SECTOR_SPH[wsec]))
 
     def _outputs_settings(self):
         """Cached monthly: the settings' part of the niche, of belonging and of the community driver."""

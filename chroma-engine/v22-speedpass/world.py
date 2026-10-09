@@ -35,6 +35,7 @@ from library import COLORS, NEEDS, NEED_MAP_V6, ERA_KINDS
 from combos import IDEAS, ERA_COMBOS
 from world_keys import (TIME_OF_YEAR, HOLY_KEYS, WHO_SLOTS, CAST_WANTS, GROUP_KINDS, FEATURES, INST_KINDS, LAW_KEYS,
                         NORM_KEYS, LAW_STATES, TECH_KEYS, LEVERS, DOMAINS, RECORD_DOMAINS, SECTORS, RINGS)
+from world_keys import SPHERES, GROUP_SPHERE, INST_SPHERE, SECTOR_SPHERE, STATE_SPHERE
 
 C = 5
 SEASONS = TIME_OF_YEAR                                   # 0 winter, 1 spring, 2 summer, 3 autumn (northern)
@@ -63,6 +64,16 @@ VALUES = ["self-direction", "stimulation", "hedonism", "achievement", "power",
           "security", "conformity", "tradition", "benevolence", "universalism"]          # schwartz.VALUES
 NI = {k: i for i, k in enumerate(NORM_KEYS)}
 LI = {k: i for i, k in enumerate(LAW_KEYS)}
+
+# The spheres of society (item 15), Replace: every group kind, institution kind and part of the state has a home sphere
+# (world_keys). The arrays stay where they are, with the same values, update order and draws; World.inst_sphere,
+# World.sphere_insts, World.state_parts and People.set_sphere read them by sphere. -1: by the employer's sector.
+SPH = {s_: i_ for i_, s_ in enumerate(SPHERES)}
+INST_SPH = np.array([-1 if INST_SPHERE[k_] is None else SPH[INST_SPHERE[k_]] for k_ in INST_KINDS], np.int64)
+GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPH[GROUP_SPHERE[k_]] for k_ in GROUP_KINDS], np.int64)
+SECTOR_SPH = np.array([SPH[SECTOR_SPHERE[k_]] for k_ in SECTORS], np.int64)
+STATE_PARTS = {"say": ("G", "regime", "support", "gov_party"), "law_book": ("laws",), "rights": ("rights",),
+               "purse": ("welfare", "welfare_pub"), "war": ("war", "ext_war"), "force": ()}   # force: police, army
 NN, NL, NT = len(NORM_KEYS), len(LAW_KEYS), len(TECH_KEYS)
 
 # ---------------------------------------------------------------------------------------------- color-indexed tables
@@ -2398,6 +2409,24 @@ class World:
     @property
     def faith_profile(self):
         return self.FPROF
+
+    # ------------------------------------------------------------------ the spheres of society (item 15): Replace
+    @property
+    def inst_sphere(self):
+        """Each institution's sphere (index into SPHERES); an employer by its sector (no sector: commerce)."""
+        sph = INST_SPH[self.inst_kind]
+        sec = np.asarray(self.inst_sector)
+        return np.where(sph >= 0, sph, SECTOR_SPH[np.where(sec >= 0, sec, SECTORS.index("services"))])
+
+    def sphere_insts(self, sphere):
+        """The institutions of one sphere (a name or an index), in their stored order."""
+        return np.nonzero(self.inst_sphere == (SPH[sphere] if isinstance(sphere, str) else int(sphere)))[0]
+
+    def state_parts(self, sphere=None):
+        """The state by part ({part: {field: value}}), all parts or one sphere's; the force is that sphere's police
+        and army, read with sphere_insts."""
+        return {k_: {f_: getattr(self, f_) for f_ in STATE_PARTS[k_]} for k_, s_ in STATE_SPHERE.items()
+                if sphere is None or s_ == sphere}
 
     # the arrays world-build.md names, as views of the state
     def snapshot(self):

@@ -1,10 +1,10 @@
 """Spheres of society (item 15), phase 1a: copy the design data the engine needs into v22-speedpass/sphere_data.py.
 
-The engine never reads chroma-ideas/ at run time; this script makes a plain Python copy of the tables, and --check
+The engine never reads the design folders at run time; this script makes a plain Python copy of the tables, and --check
 compares an existing copy with the files (and recomputes the colour-even rows of spheres-implementation.md section 6
 that the copy carries).
     python3 -B chroma-engine/tools/sphere_tables.py SPHERES_DATA_DIR [--check]
-SPHERES_DATA_DIR is the folder chroma-ideas/spheres-data (the nine sphere files, plan.json, epochs.json, dynamics.json).
+SPHERES_DATA_DIR is the master copy chroma-world/spheres/data (the nine sphere files, plan.json, epochs.json, dynamics.json).
 Writes (or checks) sphere_data.py beside engine.py in the tree this script sits in."""
 import sys, os, json, pprint
 import numpy as np
@@ -68,7 +68,7 @@ def audit(T):
 
 
 def render(T, src):
-    head = ('"""Spheres of society (item 15): the design tables the engine reads, copied from chroma-ideas/spheres-data/ by\n'
+    head = ('"""Spheres of society (item 15): the design tables the engine reads, copied from chroma-world/spheres/data/ by\n'
             'tools/sphere_tables.py. Do not edit by hand: change the data and copy again (--check compares).\n'
             'Order of spheres: ' + " ".join(T["SPHERES"]) + '; colours W U B R G."""\n')
     body = "".join(f"{k} = {pprint.pformat(v, width=118, sort_dicts=False)}\n" for k, v in T.items())

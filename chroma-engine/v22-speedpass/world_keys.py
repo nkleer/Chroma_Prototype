@@ -75,4 +75,4 @@ INST_SPHERE = {"school": "learn", "university": "learn", "employer": None, "bank
                "police": "prot", "court": "rule", "prison": "prot", "army": "prot", "faith body": "faith", "media": "gather",
                "party": "rule", "union": "prod", "charity": "care", "council": "rule", "ministry": "rule"}
 SECTOR_SPHERE = {"farm": "prod", "industry": "prod", "services": "comm", "knowledge": "learn", "public": "rule"}
-STATE_SPHERE = {"say": "rule", "laws": "rule", "rights": "rule", "purse": "rule", "war": "prot", "force": "prot"}
+STATE_SPHERE = {"say": "rule", "law_book": "rule", "rights": "rule", "purse": "rule", "war": "prot", "force": "prot"}
