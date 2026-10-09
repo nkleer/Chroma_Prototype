@@ -50,6 +50,20 @@ Possible directions:
 1. Sharper rows: for example, a clear safety lead for White and Black, a clear meaning lead for White and Blue.
 2. A personal layer: let the character's own colors change how much an end satisfies them.
 3. Let means count: have means meet some needs too.
+4. A living table (Emren, 2026-10-09): instead of one fixed color-to-need table, each character carries their own
+   copy that starts from the shared one and changes over the life. Its numbers could be moved by:
+   - **Moments:** what came of an act. When a Green act brought real safety, Green counts a little more for safety
+     for this person from then on; when it let them down, a little less.
+   - **Decisions:** the choices they make and keep making, including forced picks they came to accept or resent.
+   - **Habits:** ways of acting used often feel more and more like the way to meet a need ("work is how I feel safe").
+   - **Dreams, passions and plans:** what they hope for ties a need to a color (a dream of a big family makes Green
+     and Red count more for belonging and meaning).
+   - **The outer world:** setting, era, culture and the people around them. A world in war or crisis, a faith, a
+     community or a time of plenty changes which colors seem to bring safety, belonging or meaning.
+   Things to settle: how fast the numbers drift and how far from the shared table they may go; whether each color's
+   total stays at 0.6 or can grow or shrink; whether drift fades back over time; and how the game shows it (a line in
+   "What came of it", the character sheet, the end-of-life review). It would also make the personal layer in 2 a
+   natural part of the engine rather than a fixed rule.
 
 Related: "Make needs visible and learnable" below.
 
