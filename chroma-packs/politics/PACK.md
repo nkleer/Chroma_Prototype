@@ -58,7 +58,7 @@ parser, including the trap where `&` binds tighter than a comparison). The check
 | go-live | 10-06 19:37 (16:37 UTC) | live with Science and Stage and Screen |
 | 5 | 10-07 | the release checklist rows below |
 | v22 | 10-07, about 19:10 | parliament and minister possible in every game (Emren 16:41, 16:55): no birth draw on 'leaflets to deliver before Saturday' and 'poll workers wanted for election day' (rate .03 to .006), 'the ward needs a candidate' (rate .05 to .15; holds party member, local party officer, campaign organiser, union rep) and 'a paid job on the campaign' (rate .01 to .03, party members too); 'a seat falls vacant' half as often again; [council candidate] in time .025 to .01. Hand-off: ../PARLIAMENT-V22.md |
-| v22.3 | 10-09 | [party leader] and [head of government] become fitted summits in TARGET_POLITICS, under Emren's floors of 10-09 (every summit in 1 life in 100 or more, careers 1.5 in 100; the Engine's earth_rules.BUDGET). Their written step rates are unchanged |
+| v22.3 | 10-09 | [party leader] and [head of government] become fitted summits under Emren's floors of 10-09 (every summit in 1 life in 100 or more, careers 1.5 in 100). They sit in their own table, TARGET_POLITICS_FLOORS, which the engine reads only while its floors are on (batch.FLOORS, off until the v22.3 refit), so with the floors off lives are as before. Their written step rates are unchanged |
 
 Round 5, per checklist row (each change carries a "Round 5, 2026-10-07" comment where it is made):
 
