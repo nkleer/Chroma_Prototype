@@ -87,10 +87,13 @@ GAME = dict(
     # teaches toward the picked ways and they lead the character's own acts for a season (F2); a failure can backfire
     # toward what they wanted. Letting them choose confirms who they are and steadies them. The weeks without the player
     # weigh about half. All of it acts in played lives only: lives with no player never run the game.
-    piv=0.25,            # a pivotal pick's lesson: this x plasticity x the move toward the picked ways (as the engine's ev_z)
+    # calibrated 2026-10-09 on steered lives (preset 1, seeds 1-6; let, most:U, most:W): piv .25 put a steered color at
+    # .60 at 40; .15 with piv_own .3 holds it in the name at 40 in 6 of 6 but lets left-alone lives settle into one color,
+    # piv_own .1 keeps them varied but their name changes 4.5 times after 18: piv_own .2 between
+    piv=0.15,            # a pivotal pick's lesson: this x plasticity x the move toward the picked ways (as the engine's ev_z)
     piv_far=1.0,         # ... x (1 + piv_far x how far the pick is from their colors now, 0 to 1): up to twice
     piv_core=0.3,        # this share of the lesson reaches the deep core at once, so a turning point lasts
-    piv_own=0.3,         # letting them choose teaches at this share (and leans at this share): it confirms who they are
+    piv_own=0.2,         # letting them choose teaches at this share (and leans at this share): it confirms who they are
     piv_fail=0.5,        # a failure that does not backfire (and a push they resented although it worked) teaches at this share
     piv_steady=0.02,     # letting them choose: the deep core follows who they are now by this share (steadies, less drift)
     backfire=0.6,        # a pushed pick that failed backfires with chance backfire x distance x stakes (at most .8), always
