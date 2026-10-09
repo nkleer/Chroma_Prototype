@@ -20,3 +20,9 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   their long shots, the peace reading and the lead color.
   Built by game.py's `life_paragraph()` (review["story"]); app.js shows it, head.html styles it (`.review .lifep`, stanzas
   kept). The words are built in for now; the Library's wording replaces them.
+- 10-09 (implementation list v22, stage 1): the song's words are now the Library's (chroma-library/earth_story.py `SONG`,
+  with `SONG_WORLD` for the tribal and magic worlds and `MARK_SAY` for the deeds), key for key; game.py keeps its own words
+  as a fallback when the pin lacks the file. After the song comes the last conversation with the voice (`LAST_TALK`): what
+  it gave and what it cost, by the character's trust in the player per color, and whether they were glad of it. It has no
+  place of its own on the page yet, so it is the song's last stanza and also `review["last_talk"]`. earth_story.py and
+  earth_play.py are pinned in engine_pin/ and listed in the worker's sources; earth_play.py is only pinned, never loaded.

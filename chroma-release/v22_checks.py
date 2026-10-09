@@ -226,8 +226,10 @@ STEERED = [
     ("push_rare", "push_rare", "pushed lives meet more rare moments than the same lives left alone"),
     ("world_lines", "world_lines", "every world line names a change the engine made to the character that year (wfx)"),
     ("voice_quiet", "voice_quiet", "always letting them choose: \"a quiet voice\" and no voice lines"),
-    ("voice_careful", "voice_careful", "always the careful pick: \"the careful voice\" and only careful lines"),
-    ("voice_trust", "voice_trust", "trust per colour rises when steered picks work and falls when they fail"),
+    ("voice_careful", "voice_careful", "always the careful pick: named \"the careful voice\" at the end and in two moments in three once "
+     "named (a pure White pick sits at several poles, so an early name can go to a neighbour); no other side's voice lines"),
+    ("voice_trust", "voice_trust", "trust per colour after steered picks: the mean change after ones that worked is above the mean after "
+     "ones that failed, which is below 0 (P2: a push that worked but fed no need they lacked is still resented)"),
     ("voice_lines", "voice_lines", "every voice line first person or plain narration, at most 25 words, no colour named"),
     ("voice_year", "voice_year", "the chapter keeps at most one voice line a year"),
 ]
@@ -400,8 +402,9 @@ def build_tree():
         shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
                         os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
-    os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
-    cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
+    art = fromcand("chroma-art/game/pictures.json")            # the candidate's own pictures when it holds them (a release
+    os.symlink(os.path.join(art, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # ships its commit's art), read only
+    cp_files(os.path.join(fromcand("chroma-art/kit/check_art.py"), "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
     R = os.path.join(T, "chroma-release")
     for pat in ("*.py", "*.js"):
         cp_files(os.path.join(fromcand("chroma-release"), "chroma-release"), R, pat)
