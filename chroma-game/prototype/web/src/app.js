@@ -270,6 +270,22 @@ function needsRowHTML(L) {
   if (!Object.keys(N).length) return "";
   return `<div class="needs5" aria-label="Needs">${Object.entries(N).map(([k, v]) => `<div class="nd${v < 0.3 ? " barely" : v < (L.need_thin || 0.5) ? " thin" : ""}" data-nd="${k}" tabindex="0" aria-label="${esc(NEED_SHORT[k] || k)}: ${pct(v)}, ${needWord(v)}">${ic(NEED_ICON[k] || "dot")}<span class="lv">${pct(v)}</span><small>${esc(NEED_SHORT[k] || k)}</small></div>`).join("")}</div>`;
 }
+// item 3 (chroma-ideas/voice-mechanics.md): the voice in their head, one row on the panel; its numbers on hover
+function voiceRowHTML(L) {
+  const V = L.voice_row;
+  if (!V || !V.n) return "";
+  return `<div class="voicerow" id="voiceRow" tabindex="0">${ic("voice")}<span class="k">The voice in their head</span><span class="nm">${esc(V.name)}</span>${V.trust ? `<small>${esc(V.trust)}</small>` : ""}</div>`;
+}
+function voiceRowTip(L) {
+  const V = L.voice_row, pts = (x) => `${x > 0 ? "+" : x < 0 ? "−" : ""}${Math.abs(x).toFixed(0)}`;
+  const big = (xs) => COLORS.map((c, i) => [c, xs[i]]).filter(([, x]) => Math.abs(x) >= 1).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 3);
+  const say = (xs) => big(xs).map(([c, x]) => `${CNAME[c]} ${pts(x)}`).join(" and ");
+  const you = say(V.voice), life = say(V.life);
+  const line = !V.steer ? "You have let them choose: the voice has not pushed yet." :
+    (you ? `You moved their ${you} in this life.` : "Your pushes have not moved their colors much yet.") + (life ? ` Life itself moved ${life}.` : "");
+  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []),
+    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where.");
+}
 function needTip(k, L) {
   const v = (L.needs || {})[k] ?? 0;
   return tipBox(`${ic(NEED_ICON[k] || "dot")} ${esc(cap(NEED_LONG[k] || k))}`, "", [["Now", `${pct(v)}, ${needWord(v)}`], ["Fed by", esc(NEED_FEEDS[k] || "")]],
@@ -906,6 +922,13 @@ function spiderSVG(o) {
     s += `<g class="pull" style="color:var(--c${c})"><line x1="${p0[0].toFixed(1)}" y1="${p0[1].toFixed(1)}" x2="${p1[0].toFixed(1)}" y2="${p1[1].toFixed(1)}" stroke-width="${sw.toFixed(1)}"/>` +
       `<polygon points="${f1(tip)} ${f1([p1[0] - uy * hw, p1[1] + ux * hw])} ${f1([p1[0] + uy * hw, p1[1] - ux * hw])}"/></g>`;
   });
+  if (o.voice) COLORS.forEach((c, i) => {          // item 3: while the voice row is hovered, thin arrows toward where the voice pushes
+    const a = spRad(w[i]), b = spRad(clamp(w[i] + o.voice[i], 0.01, 0.95)), d = b - a;
+    if (Math.abs(d) < 1.5) return;
+    const p0 = spAt(i, a), tip = spAt(i, b), ux = Math.cos(SPA[i]), uy = Math.sin(SPA[i]), dir = Math.sign(d), p1 = spAt(i, b - dir * 3.5);
+    s += `<g class="vpull" style="color:var(--c${c})"><line x1="${p0[0].toFixed(1)}" y1="${p0[1].toFixed(1)}" x2="${p1[0].toFixed(1)}" y2="${p1[1].toFixed(1)}"/>` +
+      `<polygon points="${f1(tip)} ${f1([p1[0] - uy * 3, p1[1] + ux * 3])} ${f1([p1[0] + uy * 3, p1[1] - ux * 3])}"/></g>`;
+  });
   if (o.labels !== false) COLORS.forEach((c, i) => {
     const e = spAt(i, SPR + 15), on = o.label ? lettersOf(o.label).includes(c) : w[i] > enter;
     const bd = o.bands ? o.bands[i] : "";
@@ -1159,6 +1182,7 @@ function renderHud(L) {
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
     <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}"><span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
     ${needsRowHTML(L)}
+    ${voiceRowHTML(L)}
     ${g0 ? `<div class="nowgoal" data-gj="${g0.j}">${ic(GOAL_ICON[g0.kind] || "moon")}<span class="k">${esc(cap(g0.kind))}</span><span class="nm">${esc(g0.name)}</span></div>` : ""}
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
@@ -1178,6 +1202,13 @@ function renderHud(L) {
   bindHits(); bindSpKey(hudEl);
   $("openSheet").addEventListener("click", (e) => { e.stopPropagation(); openSheet(); });
   hudEl.querySelectorAll("[data-nd]").forEach((el) => setTip(el, () => needTip(el.dataset.nd, L)));
+  if ($("voiceRow")) {            // item 3: the row's numbers on hover, and the wheel's arrows toward where the voice pushes
+    const vr = $("voiceRow"), wh = $("hudWheel"), V = L.voice_row;
+    setTip(vr, () => voiceRowTip(L));
+    const show = (on) => { if (!wh || !V.steer) return; wh.innerHTML = spiderSVG(spOf(L, { id: "hw", hits: true, voice: on ? V.toward.map((x) => x * 0.15) : null })); bindHits(); };
+    vr.addEventListener("mouseenter", () => show(true)); vr.addEventListener("mouseleave", () => show(false));
+    vr.addEventListener("focus", () => show(true)); vr.addEventListener("blur", () => show(false));
+  }
   // point 2: the colors move to where they are now slowly, week by week when the weeks are known
   const fr = hudFrames.splice(0), last = hudLast; hudLast = { t: Math.round(L.age * 52), w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])) };
   if (last && !IL.on && (fr.length || last.w.some((v, i) => Math.abs(v - L.w[i]) > 0.002))) {
@@ -1385,6 +1416,7 @@ function optRow(o, i, num) {
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
+  if (!o.own && Math.abs(o.era || 0) >= 0.3) marks.push(`<span class="mk2 era ${o.era > 0 ? "with" : "against"}">${ic("globe")}${o.era > 0 ? "with the times" : "against the times"}</span>`);   // P3
   const hp = (o.helped || []).find((h) => h.name === o.helped_row);     // a perk that sets this option apart; the strip lists all
   if (hp) marks.push(`<span class="mk2 rb up">${ic(roleIconOf(hp))}${esc(hp.pred)}</span>`);
   for (const x of (o.roles_fx || []).slice(0, 1)) marks.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
@@ -1532,6 +1564,7 @@ function renderTable(h) {
     <div class="evr" id="evOpts"><div class="ask">What will ${esc(L.name)} do? <small>${touchUI ? "tap to read · tap again to push" : "hover to read · click or press its number to push"}</small></div>${rows}
       ${touchUI ? "" : `<div class="dstrip idle" id="evStrip" aria-live="polite"><div class="dt">Hover a card to read it here: how sure ${esc(L.name)} feels, what it would meet, what may follow.</div></div>`}</div>
     <div class="evf"><button class="primary" id="evLet">${ic("crown")} Let ${esc(narrow() ? "them" : L.name)} choose</button>
+      <span class="lean" id="evLean" role="group" aria-label="Lean toward a color"><small>Lean</small>${COLORS.map((c) => `<button class="ghost lc" data-lc="${c}" aria-label="Lean toward ${CNAME[c]}">${pip(c)}</button>`).join("")}</span>
       <span class="legend"><span><b>Feels</b> how sure ${esc(L.name)} is it will work · ▲ reality kinder · ▼ harsher</span></span>
       <button class="ghost" id="evPeek">${ic("eye")} Look at the life</button></div>`;
   showEv(true); setPeek(false);
@@ -1541,6 +1574,14 @@ function renderTable(h) {
   if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
+  tableEl.querySelectorAll("[data-lc]").forEach((b) => {
+    const c = b.dataset.lc, e = cp.era, fit = e && e.i >= 0.2 ? lettersOf(e.letters).includes(c) : false;
+    b.addEventListener("click", () => send("~" + c));
+    setTip(b, () => tipBox(`${pip(c)} Lean toward ${CNAME[c]}`, `They still choose for themselves, but lean toward ${CNAME[c]} ways.`,
+      e && e.i >= 0.2 ? [["The times", `${pips(lettersOf(e.letters))} pull ${fit ? "this way: it costs less" : "elsewhere"}`]] : [],
+      "If they would have done it anyway, it costs nothing. If it tips them off their own pick, it costs as much of a push as it changed."));
+  });
   const own = cp.options.find((o) => o.own); setTip($("evLet"), () => tipBox(`${ic("crown")} Their own choice`, own ? esc(cap(own.label)) : "", [], "They act as they lean, with no cost. Key Enter."));
   $("evPeek").addEventListener("click", () => setPeek(true));
   const strip = $("evStrip"), idleStrip = strip ? strip.innerHTML : "";
@@ -2025,6 +2066,8 @@ function openSheet() {
 /* ---------------- the Book of Moments (points 11 and 15; Emren chose "Book and peace", 21:44): what every life met, kept in
    this browser across lives. It records; it does not rank. Rarity: the share of simulated modern Earth lives that meet a
    moment (rarity.py), until the engine and the Library tag real-life frequencies. ---------------- */
+// item 3: the sides of the five questions (engine AXES, + side then - side), as the Book's Your Voice page says them
+const VOICE_SIDE = [["others", "themselves"], ["safety", "freedom"], ["the head", "the heart"], ["what was meant to be", "their own will"], ["who they already were", "what they could make of themselves"]];
 const BOOK_KEY = "chroma.book", CAT_KEY = "chroma.bookcat", BOOK_LIVES = 80;
 const emptyBook = () => ({ v: 1, lives: {}, order: [], seen: {} });
 let book = (() => { try { const b = JSON.parse(localStorage.getItem(BOOK_KEY) || "null"); if (b && b.v === 1 && b.seen && b.lives) return b; } catch (_) {} return emptyBook(); })();
@@ -2055,6 +2098,7 @@ function bookMerge(r) {
   Object.assign(L, { name: r.name, setting: r.setting, start: r.start, age: r.age, over: !!r.over, k: [...had] });
   if (r.final !== undefined) L.final = r.final;
   if (r.reading) L.reading = r.reading.words;
+  if (r.voice) L.voice = r.voice;
   for (const id of book.order.slice(0, Math.max(0, book.order.length - BOOK_LIVES))) if (book.lives[id]) delete book.lives[id].k;   // counts stay
   storeBook();
 }
@@ -2111,6 +2155,12 @@ function openBook() {
   const lifeRows = lives.slice().reverse().slice(0, 30).map(([id, L]) => { const nw = firstHere(id).filter((k) => /^[se]\|/.test(k)).length;
     const fin = L.final != null ? (((bookCat[worldOf(L.setting)] || {}).idents || {})[L.final] || ["Still forming"])[0] : "";
     return `<div class="brow blife"><span class="bn"><b>${esc(L.name || "")}</b><span class="muted">${esc(SETTING_NAME[L.setting] || "")} · ${Math.floor(L.start || 0)} to ${Math.floor(L.age || 0)}${L.over ? "" : ", living"}${fin ? " · " + esc(fin) : ""}</span></span>${L.reading ? `<span class="rd">${esc(L.reading)}</span>` : ""}${nw ? `<span class="muted">${nw} moment${nw === 1 ? "" : "s"} first met in this life</span>` : ""}</div>`; }).join("");
+  // item 3: Your Voice, the player's pushes across lives (the ten sides of the five questions), and one line per life
+  const vl = lives.filter(([, L]) => L.voice && L.voice.n), vs = vl.reduce((t, [, L]) => { t.n += L.voice.n; t.steer += L.voice.steer; L.voice.ax.forEach((x, i) => { t.ax[i] += x; }); return t; }, { n: 0, steer: 0, ax: [0, 0, 0, 0, 0] });
+  const vi = vs.ax.reduce((b, x, i) => Math.abs(x) > Math.abs(vs.ax[b]) ? i : b, 0), vside = VOICE_SIDE[vi][vs.ax[vi] > 0 ? 0 : 1];
+  const voiceSum = !vl.length ? "" : !vs.steer ? `In ${vl.length === 1 ? "one life" : vl.length + " lives"} you have let them choose every time.` :
+    `Across ${vl.length === 1 ? "one life" : vl.length + " lives"} you pushed in ${vs.steer} of ${vs.n} moments, most often for ${vside}.`;
+  const voiceRows = vl.slice().reverse().filter(([, L]) => L.voice.line).slice(0, 12).map(([, L]) => `<div class="brow"><span class="bn">${esc(L.voice.line)}</span></div>`).join("");
   const worlds = ["earth", "tribal", "magic"].map((w) => `<span class="chip${has("w|" + w) ? " on" : " off"}">${ic(SETTING_ICON[w] || "globe")}${esc(SETTING_NAME[w] || w)}${has("w|" + w) ? ` <b>${S["w|" + w].n}</b>` : ""}</span>`).join("");
   bookEl.hidden = false;
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
@@ -2119,7 +2169,7 @@ function openBook() {
     ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
-      <section><h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
+      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
       <section><h4>Moments by part of life</h4><div class="mts">${domRows}</div><h4>Titles held</h4><div class="perks">${titleChips}</div></section>
     </div>` : `<p class="bempty">Nothing yet. Every life you play writes into this book: the moments it meets, the people it becomes, the titles it holds. Rare moments are marked with a star.</p>`}</div>`;
   bookEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox(esc(el.querySelector(".bl").textContent), "", [], esc(el.dataset.def))); });

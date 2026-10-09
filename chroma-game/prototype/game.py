@@ -21,6 +21,10 @@ import foresee as F             # engine v7: the foreseen outcome of a plan
 from story import Story, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
 from worldview import WorldView, EngineWorld, from_engine, who_word, lever_info, push_words   # the outer world as the player sees it (chroma-world/)
 try:
+    import earth_story as ES    # the Library's words for the played game: the song, the voice, threads (chroma-library)
+except ImportError:
+    ES = None
+try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
 except ImportError:
     RT = None
@@ -93,6 +97,12 @@ GAME = dict(
     # tells that); an everyday moment most lives meet (told_share or more of lives) with no tie to the life is told, not
     # asked. Only this life's history counts (F1 is out)
     tie_imp=0.3, tie_pick=0.3, told_share=0.85,
+    # P3, three forces (IDEAS.md; engine-needs-and-steering.md section 5): besides letting them choose and pushing an
+    # option (the strong steer), a light steer tilts their own pick toward a color (the engine's steer: + light_k x
+    # (5 x the option's ways in that color - 1) to each option's pull, 1 = a third of the values' pull). It costs only
+    # what it changed: the act's reluctance x the share of its odds the steer gave it. Steering with the era's pull costs
+    # less, against it more: costs x (1 - era_cost x fit), fit -1 to 1 from the era's colors and strength (era_full)
+    light_k=1.0, era_cost=0.4, era_full=0.5,
 )
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
@@ -529,6 +539,13 @@ class Game:
         self._pick_mix = np.zeros(C); self._pick_wt = 0.0; self._pick_t = 0
         self._prng = np.random.default_rng(int(seed) + 5151)
         self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
+        self.history["voice"] = voice_empty()   # item 3: the voice in their head (chroma-ideas/voice-mechanics.md)
+        self._voice_said = {}           # item 3: how often each kind of voice line was told (the second variant after the first)
+        self._trust_side = np.zeros(C, int)     # trust per color past .5 (1) or -.5 (-1), for the turn lines
+        self._vyear = dict(steer=0, won=0, turn=None)   # this year's pushes, the ones that worked, a trust turn
+        self._vlast = {}                # color -> the last push mostly in that color (worked, the moment's name)
+        self._w_start = None            # their colors when the player came in (what life and the voice moved since)
+        self._name_mark = None          # colors and the voice's change when the name last changed (for "became")
         self._threads = {}              # F5: what a pick started (("r", title), ("c", commitment), ("g", goal id)) -> its cause
         self._last_pick = None
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
@@ -586,6 +603,7 @@ class Game:
                     return self._on_death(t, loc)
                 if self.burn_in and t / 52 >= self.start_age:
                     self.burn_in = False
+                    self._w_start = E.softmax(loc["z"][0]).copy()
                     self._say(f"== {self.name} is {self.start_age:g} now. From here on, you are the voice in their head. ==", 0, "start")
                 if stop_t is not None and t >= stop_t:
                     return "paused"
@@ -633,23 +651,29 @@ class Game:
                 self._life_review()
                 return "over"
 
-    def decide(self, pick=None):
-        """Answer the pending checkpoint: an option index, or None to let the character choose."""
+    def decide(self, pick=None, light=None):
+        """Answer the pending checkpoint: an option index, or None to let the character choose; light, a color letter, tilts
+        their own pick toward that color instead (P3)."""
         cp = self.pending
         assert cp is not None
         a = cp["a"]
         own = int(a[0])
+        lt = None
+        if light and pick is None and self.loc is not None:
+            pick, lt = self._light_steer(self.loc, cp, light)
+            self.history["light"] = self.history.get("light", 0) + 1
         if pick is None or pick == own:
             self._force = None
             choice = own
             self.history["own"] += 1
         else:
             o = cp["by_idx"][pick]             # by the engine's option number: options closed to this person leave gaps in the list
-            self._force = dict(rel=o["rel"], closed=o["status"] == "out of reach", idx=pick, acc=o.get("acc") or accept_word(o["rel"]),
-                               trust=o.get("trust", 0.0))
+            rel = o["rel"] * (lt["share"] if lt else 1.0) * o.get("era_k", 1.0)   # P3: a light steer costs what it changed; the era
+            self._force = dict(rel=rel, closed=o["status"] == "out of reach", idx=pick, acc=o.get("acc") or accept_word(o["rel"]),
+                               trust=o.get("trust", 0.0), light=lt)
             a = a.copy(); a[0] = pick
             choice = pick
-            self.history["forced"] += 1; self.history["rel"].append(o["rel"])
+            self.history["forced"] += 1; self.history["rel"].append(rel)
         self.history["picks"] += 1
         g_ = self._gift_fit(cp["by_idx"].get(choice, {}))
         if g_ is not None:
@@ -664,6 +688,45 @@ class Game:
         except StopIteration as e:                      # the life ends in the very week of the choice
             self.over = True; self.result = e.value
             self._life_review()
+
+    def _light_steer(self, loc, cp, c):
+        """P3: a light steer toward color c. Their own pick is drawn again with the steer added to each option's pull, as
+        the engine's P["steer"] does before the draw (same formula; the moment is put to the player after the engine's
+        draw, so the game draws it here). Returns the option and dict(color, share): the share of the drawn act's odds
+        that the steer gave it, which is the share of a push's cost it carries."""
+        P = loc["P"]; U = np.asarray(loc["U"][0], float); dn = np.asarray(loc["do_nothing"][0], bool)
+        seen = np.asarray(loc["seen"][0], bool) & np.asarray(loc["mask"][0], bool)
+        tau = float(P["tau0"] * (1 + 0.5 * float(loc["stress"][0])))
+        m = np.asarray(loc["m"][0], float); mix = np.zeros(C); mix[COLORS.index(c)] = 1.0
+        sU = np.where(dn, 0.0, GAME["light_k"] * (5 * (m @ mix) - 1))
+        lg0 = np.where(seen, U / tau, -np.inf); lg1 = np.where(seen, (U + sU) / tau, -np.inf)
+        p0 = np.exp(lg0 - lg0.max()); p0 /= p0.sum(); p1 = np.exp(lg1 - lg1.max()); p1 /= p1.sum()
+        k = int((p1.cumsum() > self._prng.random()).argmax())
+        if k not in cp["by_idx"]:
+            return None, None
+        share = float(np.clip(1 - p0[k] / max(p1[k], 1e-12), 0.0, 1.0))
+        return k, dict(color=c, share=round(share, 3), moved=round(float(p1[k] - p0[k]), 3))
+
+    def _era_fit(self, loc, T):
+        """P3: how much an act's ways go with the era's pull (1) or against it (-1); 0 in quiet times. From the engine's
+        STATE e_i (the era's strength) and e_p (its colors)."""
+        if "e_p" not in loc or "e_i" not in loc:
+            return 0.0
+        ep = np.asarray(loc["e_p"], float).reshape(-1, C)[0] if np.size(loc["e_p"]) >= C else None
+        ei = float(np.asarray(loc["e_i"], float).ravel()[0])
+        if ep is None or ei <= 0:
+            return 0.0
+        a, b = np.asarray(T, float) - 0.2, ep - 0.2
+        na, nb = np.linalg.norm(a), np.linalg.norm(b)
+        return 0.0 if na < 1e-9 or nb < 1e-9 else float(np.dot(a, b) / (na * nb) * min(1.0, ei / GAME["era_full"]))
+
+    def era_view(self, loc=None):
+        """P3: the era's pull for the page: its colors as letters and shares, its strength 0 to 1."""
+        loc = self.loc if loc is None else loc
+        if loc is None or "e_p" not in loc or "e_i" not in loc or np.size(loc["e_p"]) < C:
+            return None
+        ep = np.asarray(loc["e_p"], float).reshape(-1, C)[0]; ei = float(np.asarray(loc["e_i"], float).ravel()[0])
+        return dict(p=[round(float(x), 3) for x in ep], i=round(min(1.0, ei / GAME["era_full"]), 3), letters=letters(ep))
 
     # ------------------------------------------------------------------ checkpoints
     def _importance(self, loc, s, a):
@@ -810,6 +873,10 @@ class Game:
             thought = self.story.reason(lean["colors"].replace("+", "")) + " " + self.story.confidence(lean["felt"])
         elif lean is not None:
             thought = self.story.thought("Not now. Let it be.", "wait", "")
+        mm = np.maximum(np.asarray(loc["m"][0], float), 0)
+        for o in opts:                                  # P3: steering with the era's pull costs less, against it more
+            fit = self._era_fit(loc, mm[o["idx"]] / mm[o["idx"]].sum()) if mm[o["idx"]].sum() > 0 else 0.0
+            o["era"] = round(fit, 2); o["era_k"] = float(np.clip(1 - GAME["era_cost"] * fit, 0.5, 1.5))
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
@@ -1054,23 +1121,189 @@ class Game:
         self._last_pick = cause
         for ev in new:
             r, c, g = ev.get("role"), ev.get("commitment"), ev.get("goal")
-            if r and r["what"] == "gained" and GR is not None and r["name"] in GR["ID"]:
+            if r and r["what"] == "gained" and GR is not None and r["name"] in GR["ID"] and GR["ID"][r["name"]] < GR["NT"]:
                 d = role_info(GR, GR["ID"][r["name"]])
-                self._threads[("r", d["i"])] = dict(cause, what=("they became " + d["say"]) if d["title"] else
-                                                     "now " + d["pred"].replace("is ", "they are ", 1) if d["pred"].startswith("is ") else d["pred"])
+                self._threads[("r", d["i"])] = dict(cause, key="title", title=d["say"], what="they became " + d["say"])
             elif c and c["what"] == "start":
-                self._threads[("c", c["kind"])] = dict(cause, what=THREAD_COMMIT.get(c["kind"], "a commitment began"))
+                self._threads[("c", c["kind"])] = dict(cause, key="commitment", kind=c["kind"],
+                                                       what=THREAD_COMMIT.get(c["kind"], "a commitment began"))
             elif g and g.get("what") == "begins" and g.get("kind") in THREAD_GOAL:
-                self._threads[("g", int(g.get("id", -1)))] = dict(cause, what=THREAD_GOAL[g["kind"]])
+                gid = int(g.get("id", -1))
+                nm = (self.story.dreams.get(gid) or {}).get("name", "") if g["kind"] != "plan" else ""
+                self._threads[("g", gid)] = dict(cause, key="plan" if g["kind"] == "plan" else "dream", goal=nm, what=THREAD_GOAL[g["kind"]])
+
+    # ------------------------------------------------------------------ item 3: the voice in their head
+    def _vsay(self, kind, xs):
+        """A Library voice line pair: the first variant the first time this kind is told, the second after."""
+        n = self._voice_said.get(kind, 0); self._voice_said[kind] = n + 1
+        return xs[min(n, len(xs) - 1)] if isinstance(xs, list) else xs
+
+    def _vfill(self, text, **kw):
+        noun = ES.VOICE["noun"].get(self.setting, "voice") if ES else "voice"
+        text = text.replace("{voice}", noun).replace("{name}", kw.pop("name", "") or self.voice_name())
+        for k, v in kw.items():
+            text = text.replace("{" + k + "}", str(v))
+        return self.story.fill(text)
+
+    def voice_name(self):
+        """The voice's name in this life (voice-mechanics.md section 5): the strongest of the ten sides it pushed toward,
+        trusted or doubted by the character's trust in that side's colors; "a voice" before VOICE_MIN pushes, "a quiet
+        voice" when the player mostly lets them be."""
+        if ES is None:
+            return "the voice"
+        v = self.history["voice"]; V = ES.VOICE
+        noun = V["noun"].get(self.setting, "voice")
+        if v["steer"] < VOICE_MIN:
+            quiet = v["n"] >= 10 and v["steer"] / v["n"] < 0.2
+            return (V["quiet"] if quiet else V["none"]).replace("{voice}", noun)
+        ax = np.asarray(v["ax"], float); i = int(np.argmax(np.abs(ax))); sg = 1 if ax[i] > 0 else -1
+        side = VOICE_SIDES[i][1 if sg > 0 else 2]
+        cols = [c for c in range(C) if VOICE_AX[i, c] * sg > 0]
+        tr = float(np.mean(self.trust[cols])) if cols else 0.0
+        return V["name"][side]["doubted" if tr < 0 else "trusted"].replace("{voice}", noun)
+
+    def voice_view(self, loc=None):
+        """The panel row "The voice in their head": its name, the character's trust in words, and on hover what the voice
+        moved in this life against what life itself moved, per color, in points."""
+        v = self.history["voice"]; loc = self.loc if loc is None else loc
+        d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
+        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        word = "" if not v["steer"] else "they trust it" if tr >= 0.25 else "they doubt it" if tr <= -0.25 else "they are unsure of it"
+        total = (E.softmax(loc["z"][0]) - np.asarray(self._w_start, float)) if loc is not None and self._w_start is not None else np.zeros(C)
+        vdw = np.asarray(v["dw"], float)
+        return dict(name=self.voice_name(), trust=word, steer=v["steer"], n=v["n"], share=round(voice_share(vdw, total), 3),
+                    voice=[round(float(x) * 100, 1) for x in vdw], life=[round(float(x) * 100, 1) for x in total - vdw],
+                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)])
+
+    def _voice_pick(self, loc, cpw, worked, pushed, rel, moved, rs):
+        """Item 3 at each decided moment: the record (the steer: the picked act's colors minus what they would have done),
+        what the push moved, and the character's answer to the voice and its outcome (Library VOICE lines). Returns
+        (answer, outcome) for a push, else None."""
+        v = self.history["voice"]; v["n"] += 1
+        if not pushed or ES is None:
+            return None
+        m = np.maximum(np.asarray(loc["m"][0], float), 0)
+        cv = lambda k: m[k] / m[k].sum() if m[k].sum() > 0 else np.full(C, 0.2)
+        k, own = int(cpw["choice"]), int(cpw["own"])
+        diff = cv(k) - cv(own)
+        v["steer"] += 1; v["rel"] = round(v["rel"] + rel, 3)
+        v["d"] = [round(x + float(y), 4) for x, y in zip(v["d"], diff)]
+        v["ax"] = [round(x + float(y), 4) for x, y in zip(v["ax"], VOICE_AX @ diff)]
+        dw = np.asarray(moved.get("dw") or np.zeros(C), float) / 100 + np.asarray((rs.get("pivot") or {}).get("moved") or np.zeros(C), float) / 100
+        v["dw"] = [round(x + float(y), 4) for x, y in zip(v["dw"], dw)]
+        self._vyear["steer"] += 1; self._vyear["won"] += int(worked)
+        V = ES.VOICE; c = COLORS[int(np.argmax(cv(k)))]
+        lead = int(np.argmax(E.softmax(loc["z"][0]))); ci = COLORS.index(c)
+        rel_ = "same" if c in (self._core_label or COLORS[lead]) else "ally" if (ci - lead) % C in (1, C - 1) else "enemy"
+        tr = float(self.trust[ci]); tw = "trust" if tr >= 0.25 else "doubt" if tr <= -0.25 else "unsure"
+        last = self._vlast.get(c)
+        if (last is not None and self.t - last["t"] <= VOICE_RECALL and not self._vlast.get("_mem")):
+            # the voice pushed this way not long ago: they remember how it went (not twice running)
+            key = "worked" if last["worked"] else "failed" if last.get("moment") else "failed_plain"
+            ans = self._vfill(self._vsay("memory_" + key, V["memory"][key]), lost="“" + str(last.get("moment", "")) + "”")
+        else:
+            ans = self._vfill(V["answer"][c][rel_][tw][1 if rel >= 0.5 else 0])
+        self._vlast["_mem"] = last is not None and self.t - last["t"] <= VOICE_RECALL and not self._vlast.get("_mem")
+        self._vlast[c] = dict(worked=worked, moment=cpw["cp"]["title"], t=int(self.t))
+        out = ""
+        if rel >= GAME["hind_rel"]:                      # they resisted: was the voice right?
+            out = self._vfill(V["outcome"]["right" if worked else "wrong"][1 if rel >= 0.5 else 0])
+        rs["voice"] = dict(answer=ans, outcome=out, name=self.voice_name())
+        return "“" + ans + "”", out
+
+    def _voice_trust_turn(self):
+        """Item 3: trust in a color crossing .5 or -.5 is told once, as the relationship turns."""
+        if ES is None or self.burn_in:
+            return
+        for i, c in enumerate(COLORS):
+            st = 1 if self.trust[i] >= 0.5 else -1 if self.trust[i] <= -0.5 else 0
+            if st and st != self._trust_side[i]:
+                d = "up" if st > 0 else "down"
+                self._say(self._vfill(self._vsay("turn", ES.VOICE["trust_turn"][c][d])), 0, "voice", turn=d, color=c)
+                self._vyear["turn"] = d
+            self._trust_side[i] = st
+
+    def _voice_became(self, lbl):
+        """Item 3: a new name that the voice's pushes did most of is told as partly not their own doing."""
+        v = self.history["voice"]; w = np.asarray(self._wring[-1], float)
+        mark, self._name_mark = self._name_mark, (w.copy(), np.asarray(v["dw"], float).copy())
+        if ES is None or mark is None or self.burn_in or v["steer"] < VOICE_MIN or not lbl:
+            return
+        share = voice_share(np.asarray(v["dw"], float) - mark[1], w - mark[0])
+        if share < 0.5:
+            return
+        d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
+        tr = float(np.mean(self.trust[pushed])) if pushed else 0.0
+        key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
+        self._say(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), 0, "voice", became=lbl, share=round(share, 2))
+
+    def _voice_chapter(self, age):
+        """Item 3: at most one voice line in a year's chapter, and only in years with something to say: the first year of
+        the voice, trust turning, the voice winning most arguments, or a long quiet."""
+        y, self._vyear = self._vyear, dict(steer=0, won=0, turn=None)
+        v = self.history["voice"]
+        if ES is None or self.burn_in or not v["n"]:
+            return
+        V = ES.VOICE["chapter"]; kind = None
+        if y["turn"]:
+            kind = "trust_up" if y["turn"] == "up" else "trust_down"
+        elif y["steer"] and v["steer"] == y["steer"]:
+            kind = "first"
+        elif y["steer"] >= 3 and y["won"] * 2 > y["steer"]:
+            kind = "won"
+        elif not y["steer"] and v["steer"] and age - v.get("last_age", age) >= 3 and age - v.get("quiet_age", -99) >= 10:
+            kind = "quiet"; v["quiet_age"] = age
+        if y["steer"]:
+            v["last_age"] = age
+        if kind:
+            self._say(self._vfill(self._vsay("ch_" + kind, V[kind])), 0, "voice", chapter=kind)
+
+    def voice_review(self, h):
+        """Item 3 at the end of a life: the voice's last sentence for the song (VOICE end) and the Book's line for this
+        life (VOICE book)."""
+        v = h["voice"]
+        if ES is None:
+            return {}
+        V = ES.VOICE; vw = self.voice_view()
+        share = vw["share"]; sw = next((w_ for b_, w_ in V["share"] if share < b_), V["share"][-1][1])
+        d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
+        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        key = "quiet" if v["steer"] < VOICE_MIN else "trusted" if tr > 0.2 else "doubted" if tr < -0.2 else "mixed"
+        lead = COLORS[int(np.argmax(np.asarray(h["w"][-1][1], float)))] if h["w"] else "W"
+        end = self._vfill(V["end"][key], adj=ADJ[lead], share=sw)
+        names = [l_ for a_, l_, *_ in h.get("name", []) if l_]
+        start = next((l_ for a_, l_, *_ in h.get("name", []) if a_ >= self.start_age and l_), names[0] if names else "")
+        book = self._vfill(V["book"]["steered" if v["steer"] else "free"], start=art(ident_name(start)) if start else "still forming",
+                           end=art(ident_name(names[-1])) if names else "still forming",
+                           lean=V["lean"][COLORS[int(np.argmax(d))]] if v["steer"] else "")
+        return dict(name=vw["name"], trust=vw["trust"], share=share, end=end, book=book, steer=v["steer"], n=v["n"],
+                    voice=vw["voice"], life=vw["life"])
 
     def _thread_line(self, cause, age):
         """F5: the story sentence that ties a moment back to the pick that started its thread, and the cause in plain words
         for the hover. Built-in words until the Library's drop B (chroma-library/earth_play.py) brings its own."""
         when = "this year" if age - cause["age"] < 1 else "a year ago" if age - cause["age"] < 2 else f"at {cause['age']}"
-        line = self.story.fill("This goes back to the day {N} chose " + chooses(act(plain(cause["act"]))).rstrip(".") + ".")
+        did = chooses(act(plain(cause["act"]))).rstrip(".")
         how = "you pushed it" if cause.get("pushed") else "they chose it themselves"
-        return dict(line=line, cause=f"Because {when}, at “{cause['moment']}”, they chose {chooses(act(plain(cause['act'])))} ({how}), and "
-                                     + str(cause["what"]) + ".", age=cause["age"])
+        why = f"It goes back to {when}, at “{cause['moment']}”, when they chose {did} ({how}), and {cause['what']}."
+        T = getattr(ES, "THREAD", None); H = getattr(ES, "THREAD_HOVER", None)
+        line = hover = ""
+        if T and H:                                      # the Library's sentence by what the thread is, its hover first
+            k = cause.get("key")
+            who = next((self.story.say(p) for p in self.story.alive("partner")), "their partner") if cause.get("kind") == "partner" else ""
+            fills = dict(title=art(cause.get("title", "")), who=who, plan=cause.get("goal") or "their plan",
+                         dream=cause.get("goal") or "their dream", age=cause["age"])
+            if k == "title":
+                line, hover = T["title"]["held"], H["title"]["held"]
+            elif k == "commitment" and cause.get("kind") in T["commitment"]:
+                line, hover = T["commitment"][cause["kind"]], H["commitment"][cause["kind"]]
+            elif k in ("plan", "dream"):
+                line, hover = T[k], H[k]
+            for f_, v_ in fills.items():
+                line, hover = line.replace("{" + f_ + "}", str(v_)), hover.replace("{" + f_ + "}", str(v_))
+        if not line:
+            line = "This goes back to the day {N} chose " + did + "."
+        return dict(line=self.story.fill(line), cause=(self.story.fill(hover) + " " if hover else "") + why, age=cause["age"])
 
     def _thread_of(self, loc, s):
         """5.6 and F5: whether moment s follows from this life's own threads (it needs a title or perk they hold, an
@@ -1518,7 +1751,11 @@ class Game:
                     rs["needs"] = self._needs_moved(loc, cpw["cp"]["snap"])
                     if pushed:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
+                        self._voice_trust_turn()
                     rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
+                    vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
+                    if vo:                              # item 3: their answer to the voice, and whether it was right
+                        line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
                                                         (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
@@ -1775,6 +2012,7 @@ class Game:
                               voice=[round(float(x), 3) for x in self.story.voice], weeks=self.story.last_weeks))
         if body:
             self._say(body, 0, "year")
+        self._voice_chapter(t / 52)
         self._year_notes(t, loc)
         if self.batch and "alive" in loc and loc.get("WL") is None:   # grandparents of grown-up grandchildren die outside
             # the Library's moments (with the outer world on, _kin_sync says it once the engine's record is overdue)
@@ -1798,7 +2036,10 @@ class Game:
             self._wsum -= self._wring[0]
         self._wring.append(np.asarray(w, float)); self._wsum += self._wring[-1]
         if "M" in loc:
+            was = self._core_label
             self._core_label = E.identity(self._wsum / len(self._wring), float(loc["M"][0]), self._core_label)
+            if self._core_label != was:
+                self._voice_became(self._core_label)
 
     def _becoming_year(self):
         """5.5: who they are becoming, once a year: the color that rose most over the last three years when it rose by
@@ -1959,7 +2200,7 @@ class Game:
         d.update(stage=STAGES[int(loc["stage"][0])].replace("_", " "),
                  label=lbl, guild=ident_name(lbl), magic=magic_name(lbl), meaning=ident_meaning(lbl),
                  voice_label=vl, voice_guild=ident_name(vl) if vl else "", epithet=self._epithet if vl else "",
-                 becoming=self._becoming if lbl else "",
+                 becoming=self._becoming if lbl else "", voice_row=self.voice_view(loc),
                  w=r(w), demand=r(a - w), inertia=r(inertia), acc=r(acc), skill=r(loc["sig"][0]), belief=r(loc["SE"][0]),
                  lens=r(kw), voice=r(self.story.voice),
                  content=round(float(loc["content"][0]), 3), peace=round(float(loc["peace"][0]), 3),
@@ -2311,7 +2552,8 @@ class Game:
                              reality=o.get("reality"), heart=o.get("heart"), head=o.get("head"), drivers=o.get("drivers"),
                              heart_pick=o["idx"] == v.get("heart"), head_pick=o["idx"] == v.get("head"),
                              accept="their own pick" if o["idx"] == cp["own"] else o.get("acc") or accept_word(o["rel"]), k=int(o["idx"]),
-                             trust=round(o.get("trust", 0.0), 3), resent=round(self._resent(o["rel"], o.get("trust", 0.0)), 3),
+                             trust=round(o.get("trust", 0.0), 3), resent=round(self._resent(o["rel"] * o.get("era_k", 1.0), o.get("trust", 0.0)), 3),
+                             era=o.get("era", 0.0),
                              needs=o.get("needs"), closed=o.get("closed"), helped=o.get("helped", []), roles_fx=o.get("roles_fx", []),
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
@@ -2331,7 +2573,7 @@ class Game:
         return dict(age=round(cp["age"], 1), title=cp["title"], stakes=round(st, 2), season=self.season(),
                     stake_word="very high" if st >= 1.2 else "high" if st >= 0.95 else "moderate",
                     scene=cp.get("scene", ""), extra=cp.get("extra", ""), thought=cp.get("thought", ""), recon=cp["recon"],
-                    thread=cp.get("thread"), options=opts, voice=voice, art=dict(sit=cp["sit"], life=meta.get("life", ""), tier=meta.get("tier", ""),
+                    thread=cp.get("thread"), era=self.era_view(), options=opts, voice=voice, art=dict(sit=cp["sit"], life=meta.get("life", ""), tier=meta.get("tier", ""),
                                                          tone=meta.get("tone", ""), variant_of=meta.get("variant_of", ""), recon=cp["recon"]))
 
     def season(self, loc=None):
@@ -2516,6 +2758,9 @@ class Game:
         if self.over and getattr(self, "review", None):
             r = self.review
             d.update(final=r["final_label"], reading=r["reading"])
+        v = self.history["voice"]                    # item 3: the Book's Your Voice page adds the lives up
+        d["voice"] = dict(n=v["n"], steer=v["steer"], ax=v["ax"], line=(getattr(self, "review", None) or {}).get("voice", {}).get("book", "")
+                          if self.over else "")
         return d
 
     def _life_review(self):
@@ -2540,6 +2785,7 @@ class Game:
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
         self.review["story"] = life_paragraph(self.story.fill("{N}"), h, self.review, self.setting)
+        self.review["voice"] = self.voice_review(h)          # item 3: the voice's last sentence and the Book's line
 
 
 # the peace reading (Emren's first goal idea, 2026-10-04: satisfaction and peace while staying true to one's mindset and
@@ -2598,6 +2844,33 @@ LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only title
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
+# item 3, the voice in their head (chroma-ideas/voice-mechanics.md): its record per life (n moments decided, steer the
+# pushes, d the summed colors pushed (picked minus their own), ax the same on the five questions, rel summed reluctance,
+# dw what the pushes moved), and the ten sides of the five questions that name it (engine AXES: + side, - side)
+VOICE_SIDES = [("group vs individual", "people", "themselves"), ("security vs freedom", "safety", "freedom"),
+               ("head vs heart", "head", "heart"), ("destiny vs free will", "meant", "will"), ("nature vs nurture", "already", "make")]
+VOICE_AX = np.array([E.AXES[a] for a, _, _ in VOICE_SIDES], float)
+VOICE_MIN = 5            # pushes before the voice has a name of its own
+VOICE_RECALL = 104       # weeks: a push the same way within two years is remembered in the answer
+
+
+def art(say):
+    """A title or name with its article: 'a judge', 'the first in the family at university', 'an Explorer'."""
+    if say.startswith(("The ", "A ", "An ")):        # mid-sentence: "became the Guardian"
+        return say[0].lower() + say[1:]
+    return say if not say or re.match(r"(a|an|the|one) ", say) else an(say)
+
+
+def voice_empty():
+    return dict(n=0, steer=0, d=[0.0] * C, ax=[0.0] * len(VOICE_SIDES), rel=0.0, dw=[0.0] * C)
+
+
+def voice_share(vdw, total):
+    """How much of a change of colors was the voice's doing: its pushes' part along the change, 0 to 1."""
+    tt = float(np.dot(total, total))
+    return float(np.clip(np.dot(vdw, total) / tt, 0.0, 1.0)) if tt > 1e-6 else 0.0
+
+
 # 5.5 (item 4): names from color dynamics. The name is the identity of the last NAME_WEEKS of colors; "becoming" a rise
 # (or, for a color of the name, a fall) of BECOMING over BECOMING_YEARS yearly readings, said after the name
 NAME_WEEKS = 208

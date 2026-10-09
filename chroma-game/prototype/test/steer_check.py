@@ -7,6 +7,7 @@ player:
   most:<C>     always pushes the open option with the most of color C in its ways (W U B R G); their own pick when it is
                already that option
   random       a random option with ways, from the seed
+  light:<C>    a light steer toward color C at every moment (P3): their own pick, tilted
 The record: yearly colors and identity (history w, label; the name the player sees: name, becoming), the moments put to
 the player (age, situation, own or pushed, the option's colors, success, rarity share), the pivots, the pushes accepted
 and resented, trust per color, and the steps' count.
@@ -45,6 +46,12 @@ while True:
     m = np.maximum(np.asarray(loc["m"][0], float), 0)
     opts = [o for o in cp["options"] if o["colors"] != "-" and m[o["idx"]].sum() > 0]
     pick = None
+    if player.startswith("light:"):
+        k0 = int(cp["own"]); g.decide(None, light=player[6:])
+        f = g._force or {}
+        asked.append(dict(age=round(cp["age"], 2), sit=cp["sit"], share=share(cp["sit"]), own=not f, light=(f.get("light") or {}).get("share"),
+                          colors=cp["by_idx"][f.get("idx", k0)]["colors"]))
+        continue
     if player.startswith("most:") and opts:
         ci = CI[player[5:]]
         best = max(opts, key=lambda o: (m[o["idx"], ci] / m[o["idx"]].sum(), o["idx"] == cp["own"]))
@@ -60,6 +67,8 @@ h = g.history
 rec = dict(preset=preset, seed=seed, player=player, age=round(g.age(), 2), game=os.environ.get("CHROMA_GAME", ""),
            w=h["w"], label=h["label"], name=h.get("name", []), asked=asked, pivots=h.get("pivots", []),
            forced=h["forced"], own=h["own"], accepted=h.get("accepted", 0), resented=h.get("resented", 0),
-           trust=g.trust_view() if hasattr(g, "trust_view") else None)
+           trust=g.trust_view() if hasattr(g, "trust_view") else None,
+           voice=g.voice_view() if hasattr(g, "voice_view") else None, light=h.get("light", 0),
+           review_voice=(getattr(g, "review", None) or {}).get("voice"))
 json.dump(G.clean(rec), open(out, "w"))
 print(preset, seed, player, "age", rec["age"], "asked", len(asked), "pushed", rec["forced"])

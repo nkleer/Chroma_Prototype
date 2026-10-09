@@ -467,6 +467,10 @@ class Console:
                 g.decide(None)
                 self.job = dict(kind="run", until_cp=True)
                 return "", True
+            if len(k) == 2 and k[0] == "~" and k[1].upper() in "WUBRG":   # P3: a light steer toward a color
+                g.decide(None, light=k[1].upper())
+                self.job = dict(kind="run", until_cp=True)
+                return "", True
             if k.isdigit() and int(k) in self.numbering:
                 g.decide(self.numbering[int(k)])
                 self.job = dict(kind="run", until_cp=True)
