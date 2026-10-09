@@ -21,6 +21,7 @@ CAT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(batch.LIB_DIR, "earth_p
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]
 PMOM_ = json.loads(os.environ.get("PACK_MOMENTS", "{}")) or None
 KEY = ",".join(sorted(PACKS_))
+batch.FLOORS = os.environ.get("FLOORS") == "1"   # item 16's floors (off until the v22.3 refit)
 SPLIT_CAP = float(os.environ.get("SPLIT_CAP", 3.0))   # how far one title's split may sit from its tier's lift (4.5 for
                                                       # the 1-in-100 summit floor, Emren 10-09)
 
