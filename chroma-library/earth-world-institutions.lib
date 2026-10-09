@@ -1,0 +1,335 @@
+# Chroma library, modern Earth: what the world's institution events and new faith movements bring into a life (Library
+# thread, 2026-10-09, "v22" update stage 3, items C3 and C5). Design: chroma-world/model/stage3-rules.md section 5,
+# "C3 Institution events" and "C5 New faith movements". Fields: build.py (WORLD_SIT, WORLD_OPT).
+#
+# Every moment here is one a world event brings: per_year is all 0 (they exist only with the world on), there are no
+# drivers, and the Engine fires each on its event for the people its selector names (staff, place). The '# world:'
+# line above each names the event key, the selector and the share of selected people who get the moment (estimate).
+#
+# Layout:
+#   C3, five life events, selector staff, at: employer (one moment each for sold, merged, nationalised, leak, cover-up;
+#       a leak or cover-up can strike a bank, hospital or council too, so the story says "the place where {N} works"):
+#       pairs D1a, D2b, D3a, D4a, D4b
+#   C5, two life events, selector place, at: faith body: a new movement comes (pairs D5b) and faith tension told
+#       through a split family, a protest and a shut hall (pairs D6a); one inner moment, the rare founding (five
+#       one-colour options and cycle s3), gated by requires:
+#
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances (or plus its cross
+# option's chance, in the inner moment) is the same sum, so every colour has the same mean chance in each moment and
+# so in every stage. The identity flag sits once on each colour across the file (W cover-up, U and G new movement,
+# B faith tension, R the founding); no other flags.
+#
+# {movement} is the game's invented name of the movement (C5 only). Miracle claims are told as what people say.
+# A cover-up's subject is money and safety checks; never harm to children or sexual violence.
+
+# ---------------------------------------------------------------- C3 sold (pairs D1a)
+
+# world: institution sold, selector staff, share .6
+== new owners take over the firm
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+at: employer
+per_year: 0 0 0 0 0 0
+times: World event: institution sold, selector staff. A private firm or bank is sold at about 2 in 100 a year, twice that when its money is short (stage3-rules section 5 C3), so a person in private work sees their employer change hands once or twice in a working life (estimate); about 6 in 10 of its staff face a real choice to stay or go (share .6, estimate)
+likelier: a firm in money trouble; a small firm in a sector of big players; a bank after a bad year
+rarer: public bodies, which are never sold; a family firm with heirs who want to keep it
+gap: 5-20
+tone: mixed
+life: work, money
+horizon: months
+roles: boss, colleague, partner, friend
+earth: the firm you work for has been sold, and the new owners come in on Monday
+scene: The email comes at four on a Friday: the firm has been sold. On Monday there is a new name on the door, a new boss from the head office, and a meeting for all staff.
+scene W: {N} always knew what the job asked. Now nobody knows: the old rules may hold or may not, and the new owners have not said.
+scene U: {N} looks up the new owners that weekend: what they bought before, and what happened to the staff there within a year.
+scene B: Every takeover has winners. {N} watches who the new managers smile at in the first meeting, and who they do not.
+scene R: The old {boss} cleared a desk on Friday without a word to anyone. {N} is angry: nobody asked the people who do the work.
+scene G: {N} has worked there for years, through three bosses and two moves. On Monday the place feels the same, and also not.
+- W | stay on, learn the new owners' rules, and do the job as well as ever | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 67
+- U | read up on the new owners' past deals before deciding anything | v: self-direction, security | chance: 65
+- B | get to the new managers first, and make yourself the one they rely on | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 67
+- R | hand in your notice the week the new name goes up over the door | v: self-direction, stimulation | lever: exit | pushes: institution employer | chance: 77
+- G | keep doing your hours, and wait to see what the year brings | v: security, tradition | lever: neglect | chance: 57
+- WU | ask the new owners in writing what happens to pay, pensions and jobs | v: security, conformity | lever: voice | pushes: institution employer | chance: 60
+- WR | speak for the whole team at the new owners' first staff meeting | v: benevolence, universalism | lever: voice | pushes: institution employer | chance: 56
+- UG | line up another post quietly, and stay until the new plan is clear | v: security, self-direction | chance: 60
+- BR | ask for a rise as the price of staying, and mean it | v: power, achievement | lever: voice | pushes: institution employer | chance: 40
+- BG | take the payout offered to anyone who leaves, and put it by | v: security | lever: exit | pushes: institution employer | chance: 76
+works: The new owners keep most of what worked, and {N} finds solid ground under the new name.
+works: A year on, {N} is glad of the choice made in that first uneasy month.
+fails: The new owners bring in their own people, and {N} is left on the edge of everything.
+fails: The promises of the first meeting do not last the year, and {N} pays for having believed them.
+
+# ---------------------------------------------------------------- C3 merged (pairs D2b)
+
+# world: institution merged, selector staff, share .7
+== folded into a bigger firm
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+at: employer
+per_year: 0 0 0 0 0 0
+times: World event: institution merged, selector staff. A firm with a rival of its own sector in the same place is folded into the bigger one at about 1 in 100 a year; its staff move across, and about a quarter of them face three times the usual risk of losing the job that quarter (stage3-rules section 5 C3); a person meets it about once in a working life, many never (estimate); share .7
+likelier: a small firm in a crowded sector; a town with two firms doing the same work; hard times
+rarer: public bodies; a firm with no rival nearby
+gap: 8-25
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, boss, partner, friend
+earth: the firm you work for is being folded into a bigger rival, and some jobs will go
+scene: The smaller firm is being folded into the big one across town. There is a new chart on the wall with fewer boxes than people, and {colleague} says a quarter of the posts will go by spring.
+scene W: {N} wants the cuts made fairly: by clear rules, with notice, and the same for everyone.
+scene U: {N} lays the two charts side by side and sees which jobs the bigger firm already has twice.
+scene B: Someone will decide who stays. {N} means to be known to that someone before the list is drawn up.
+scene R: Twenty years of the old firm's name, gone in an afternoon. {N} is furious, and not good at hiding it.
+scene G: The old team has eaten lunch together every day for years. {N} wonders who will still be at the table by summer.
+- W | apply for your post in the new structure, properly and on time | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 72
+- U | work out where your role stands on the new chart before anyone says | v: self-direction, achievement | chance: 67
+- B | make sure whoever draws up the cuts knows your name and your numbers | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 65
+- R | leave before the choice is made over your head, and say why on the way out | v: self-direction, stimulation | lever: exit | pushes: institution employer | chance: 62
+- G | stick with the old team, whatever the new chart says | v: benevolence, tradition | lever: loyalty | pushes: group work | chance: 57
+- RG | throw a send-off for everyone from the old firm, the leavers first | v: benevolence, hedonism | pushes: group work | chance: 80
+- UB | volunteer for the team that maps the old jobs onto the new ones | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 60
+- UG | retrain for the work the bigger firm is short of | v: security, achievement | mark: learned a skill | chance: 56
+- WB | ask the union what the law owes the staff, and hold the firm to it | v: security, universalism | lever: voice | pushes: institution employer | chance: 60
+- WR | stand up for the colleague whose post is first on the list | v: benevolence, universalism | mark: helped someone in need | lever: voice | pushes: institution employer | chance: 46
+works: {N} comes through the merger with a job and the trust of the people who stayed.
+works: The new firm turns out larger, slower and safer, and {N} makes a place in it.
+fails: {Ns} name is on the second list, and the notice comes with a month's pay.
+fails: The old team breaks up within the year, and the new place never feels like {Ns} own.
+
+# ---------------------------------------------------------------- C3 nationalised (pairs D3a)
+
+# world: institution nationalised, selector staff, share .7
+== the state takes over the failing firm
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+at: employer
+per_year: 0 0 0 0 0 0
+times: World event: institution nationalised, selector staff. In a deep recession about half the closures of big firms and banks become public bodies where the state is able to step in (stage3-rules section 5 C3); a person meets it at most once in a working life, and most never (estimate); share .7
+likelier: a deep recession; a big employer in a small town; a strong state
+rarer: good times; a small firm; a weak or broke state
+gap: 20-50
+tone: mixed
+life: work, money, state
+horizon: months
+roles: boss, colleague, partner
+earth: the firm you work for was days from closing; now the government has taken it over
+scene: For weeks the talk was of closure. Then, on a Monday, the government takes the firm over: the jobs stay, the bosses go, pay is frozen, and there are new forms for everything.
+scene W: The new rules come in a thick binder. {N} reads every page: it is a public service now, and {N} wants to do it right.
+scene U: {N} wants to know how a public body decides things: who sits on the board, who sets the budget, and how slow it will be.
+scene B: Old managers are leaving and new posts are opening. {N} sees a ladder where others see a binder.
+scene R: {N} never signed up to work for the government, and does not like being saved by it.
+scene G: The jobs are safe. {N} goes home and tells {partner}, and the two of them sit in the kitchen for a while without speaking.
+- W | sign the new public contract and keep to its rules from the first day | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 77
+- U | learn how the public body works: its board, its budget, its rules | v: self-direction, achievement | mark: learned a skill | chance: 72
+- B | put yourself forward for one of the posts the old managers left | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 65
+- R | leave for a private firm rather than work for the government | v: self-direction | lever: exit | pushes: institution employer | chance: 70
+- G | stay for the steady job and the pension, and be glad of them | v: security | lever: loyalty | pushes: institution employer | chance: 60
+- BG | get the redundancy terms the old firm promised in writing, just in case | v: security, power | lever: voice | pushes: institution employer | chance: 70
+- RG | throw a party in the yard for the jobs that were saved | v: hedonism, benevolence | mark: made a friend | pushes: group work | chance: 70
+- UB | find out which old contracts the new body will honour, and be the one who knows | v: power, achievement | chance: 60
+- WR | speak up at the handover meeting for the service the town depends on | v: universalism | lever: voice | pushes: institution employer | chance: 50
+- WU | help write the new body's working rules so they are clear and fair | v: universalism, conformity | lever: voice | pushes: institution employer | chance: 56
+works: The firm settles into its new life, slower and steadier, and {N} with it.
+works: A year on, the jobs are still there and {N} has learned how the new place works.
+fails: The new rules pile up faster than the work, and {N} spends the year on forms.
+fails: The rescue saves the firm but not every post, and the cuts reach {Ns} floor after all.
+
+# ---------------------------------------------------------------- C3 leak (pairs D4a)
+
+# world: institution leak, selector staff, share .5
+== the private files get out
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+at: employer
+per_year: 0 0 0 0 0 0
+times: World event: institution leak, selector staff (customers, patients and residents, selector place, get the world line). Firms, banks, hospitals and councils leak at about 2 in 100 a year, more where nearly everyone is online and the state is weak (stage3-rules section 5 C3); a person in such work meets one every 15 to 30 years (estimate); share .5
+likelier: a place that holds many people's records (a bank, a hospital, a council); a weak state; old computers
+rarer: a small firm with few records; strong inspectors
+gap: 5-20
+tone: trouble
+life: work, community
+horizon: weeks
+roles: boss, colleague, friend
+earth: the private records of the place you work have leaked, and angry customers ring whoever picks up the phone
+scene: The private records of the place where {N} works are all over the internet: names, addresses, accounts. The phones have not stopped since nine, and the bosses have sent one email that says nothing.
+scene W: {N} has a procedure for most things. For this one, the procedure is to give every caller a number nobody answers.
+scene U: {N} wants to know how it got out: an attack from outside, a lost laptop, or someone inside.
+scene B: Somebody will be blamed for this. {N} means to make sure it is someone else.
+scene R: The callers are scared and furious, and {N} is the one who has to hear it while the bosses hide upstairs.
+scene G: {N} keeps thinking of {friend}, whose name is on that list too, and of all the people in town who trusted the place.
+- W | follow the bosses' script to the letter, and pass every complaint up the line | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 67
+- U | trace how the records got out, and write it up for the bosses | v: self-direction, achievement | chance: 65
+- B | keep your own part clean, and let the blame land where it falls | v: security, power | chance: 62
+- R | tell the callers the truth, whatever the bosses' script says | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 65
+- G | ring friends whose names are on the list, and help them lock their accounts | v: benevolence | mark: helped someone in need | chance: 55
+- BG | change your own passwords and bank details tonight, before anything else | v: security | tech: internet | chance: 70
+- RG | stay on the line with the frightened callers as long as they need | v: benevolence | chance: 60
+- UR | tell the reporter who rings what you saw, without giving your name | v: universalism, stimulation | lever: subvert | pushes: institution employer | chance: 50
+- WB | press the bosses to tell every customer plainly what was lost | v: universalism, security | lever: voice | pushes: institution employer | chance: 46
+- WU | draw up a plain guide for callers on what to do now, and share it round | v: benevolence, universalism | chance: 60
+works: The storm passes in a few weeks, and {N} keeps the trust of the people on the other end of the phone.
+works: The bosses change how the records are kept, and {Ns} part in it is noticed.
+fails: The bosses look for someone to blame, and {N} stands close enough to be looked at hard.
+fails: Angry callers, silent bosses: {N} ends the month worn out and caught between the two.
+
+# ---------------------------------------------------------------- C3 cover-up (pairs D4b)
+
+# world: institution cover-up, selector staff, share .3
+== the thing the bosses are hiding
+tier: life event
+stages: young_adult adult mature elder
+age: 18-75
+at: employer
+per_year: 0 0 0 0 0 0
+times: World event: institution cover-up, selector staff. Hospitals, banks, councils, police and faith bodies start a cover-up at about 0.5 in 100 a year, plus more where corruption runs high, and keep it hidden for 1 to 5 years (stage3-rules section 5 C3); only some insiders come to know (share .3, estimate), so a person meets it perhaps once in a working life and many never. A speak-up by an insider makes the scandal break that quarter
+likelier: a place with high corruption; a body under money pressure; a job near the records, the accounts or the safety checks
+rarer: a small open firm; strong inspectors and a free press
+gap: 10-30
+tone: trouble
+life: work, conscience
+horizon: months
+roles: boss, colleague, partner, friend
+earth: you find out the place you work is hiding a wrong: safety checks never done, and the money for them gone elsewhere
+scene: {N} finds it by accident, in a file that should never have been shared: the safety checks signed off last year were never done, and the money for them went elsewhere. The people at the top know, and have decided to say nothing.
+scene W: There are rules for this, and a duty. {N} knows what a proper report would look like, and who it should go to.
+scene U: {N} reads the file three times and checks the dates. This was no mistake.
+scene B: {N} knows something the bosses would give a lot to keep quiet, and knows too what happens to people who make trouble.
+scene R: {N} cannot sleep. People trust this place, and the people at the top are lying to them.
+scene G: {N} has a family, a mortgage and friends on every floor. Speaking up could cost all of it, and silence costs something too.
+- W | report it in writing to the board, and sign it with your own name | identity | v: universalism, conformity | mark: defied an authority | lever: voice | pushes: institution employer | chance: 57
+- U | copy every document quietly and keep it safe before deciding anything | v: security, self-direction | chance: 52
+- B | say nothing, and let the bosses see they can rely on your silence | v: power, security | mark: hid a wrong | lever: loyalty | pushes: institution employer | chance: 55
+- R | take what you know to a reporter, and let the whole town hear it | v: universalism, stimulation | mark: made an enemy | lever: voice | pushes: institution employer | chance: 58
+- G | hand in your notice, and find work you can do with a clear conscience | v: security, universalism | lever: exit | pushes: institution employer | chance: 47
+- BR | let your boss see you know, and ask for the promotion you were denied | v: power | mark: hid a wrong | closed: approval: trading silence for a promotion; backfire: the bosses never trust {N} again | lever: subvert | pushes: institution employer | chance: 54
+- UB | send the papers to the inspectors without your name on them | v: universalism, security | lever: subvert | pushes: institution employer | chance: 46
+- UG | put things right in your own corner, quietly, and keep a note of everything | v: benevolence, security | chance: 60
+- WG | talk to the others who know, and go to the bosses together | v: universalism, benevolence | lever: voice | pushes: institution employer | chance: 56
+- WR | raise it out loud at the next staff meeting, in front of everyone | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 40
+works: The matter is settled one way or another, and {N} can live with the part {N} played.
+works: Months later {N} still has a livelihood, and the choice made in that sleepless week holds.
+fails: The bosses find out who knew, and {Ns} days there turn hard.
+fails: The wrong goes on, and {N} carries the weight of it for years.
+
+# ---------------------------------------------------------------- C5 a new movement comes (pairs D5b)
+
+# world: new movement, selector place, share .3
+== a new faith comes to town
+tier: life event
+stages: juvenile+
+age: 14-100
+at: faith body
+per_year: 0 0 0 0 0 0
+times: World event: new movement, selector place. A new movement is founded at about 1 in 100 a year, more when meaning goes unmet, and grows in a few places before most fade (about 9 in 10 within 20 years; Stark 1996; stage3-rules section 5 C5); a person sees one come to their own town perhaps once or twice in a life (estimate); share .3
+likelier: uneasy times; many young people without work or purpose; a town where the old faiths have grown thin
+rarer: secure and settled times; a closed regime that bans gatherings; a remote place
+gap: 10-40
+tone: mixed
+life: faith, meaning, community
+horizon: months
+roles: friend, grandparent, parent, sibling
+earth: a new faith has come to town: its people sing in the square, and some say wonders happen at its meetings
+scene: The followers of {movement} have rented the old cinema and fill it three nights a week. They sing in the square on market day, and people say a man's bad leg was healed at one of their meetings, though nobody {N} knows saw it happen.
+scene W: {N} was raised to keep one faith, and its elders are worried. Two families on the street have already gone over to {movement}.
+scene U: {N} picks up one of their leaflets and reads it twice: where does {movement} come from, and what does it ask of the people who join?
+scene B: The followers of {movement} are many, hopeful and in need of a hall, printing and a great many chairs. {N} notices.
+scene R: {friend} went to one meeting and came back glowing, talking fast about a new life. {N} wants to know what that feels like.
+scene G: {grandparent} has seen new faiths come and go. Most of them, {grandparent} says, are gone in ten years, and a few stay for ever.
+- W | stand with your own faith's elders, and warn the neighbours off the new movement | v: tradition, conformity | lever: voice | pushes: belief | chance: 65
+- U | study the new movement's teachings for a season, then join it on your own terms | identity | v: self-direction, universalism | title: convert | pushes: belief | chance: 60
+- B | rent the new movement a hall at a good price, and sell them the chairs | v: achievement, power | chance: 75
+- R | go to one of their open nights, for the singing and the stir of it | v: stimulation, hedonism | chance: 65
+- G | hold to the faith you were raised in, and say so when they come knocking | identity | v: tradition, security | lever: loyalty | pushes: belief | chance: 60
+- BR | join the new movement for the friends and the standing, and rise fast in it | v: power, achievement | pushes: belief | chance: 50
+- RG | let the fuss pass, and spend your weekends as you always have | v: hedonism, security | lever: neglect | chance: 70
+- UG | ask the friend who joined how it has changed their life, and really listen | v: benevolence, universalism | chance: 60
+- WB | ask the council to check the new movement's permits and its money | v: security, power | lever: voice | pushes: institution council | chance: 50
+- WU | read the new movement's teachings side by side with those of your own faith | v: tradition, self-direction | chance: 70
+works: Whatever {N} makes of {movement}, {N} comes to it with open eyes and does not regret the choice.
+works: The stir in town settles, and {N} knows where {N} stands.
+fails: {movement} splits the street in two, and {N} ends up on a side with fewer friends than before.
+fails: The talk of wonders turns sour, and {N} is caught up in the quarrel that follows.
+
+# ---------------------------------------------------------------- C5 faith tension (pairs D6a)
+
+# world: faith tension, selector place, share .4
+== the hall on the corner is shut
+tier: life event
+stages: juvenile+
+age: 14-100
+at: faith body
+per_year: 0 0 0 0 0 0
+times: World event: faith tension, selector place. Two faiths each held by over 5 in 100, far apart and with low trust, fall into a tense stretch (stage3-rules section 5 C5); a person in such a place lives through one perhaps once in a life, in some places more often (estimate); share .4
+likelier: a town with two large faiths far apart; low trust; hard times; a new movement growing fast
+rarer: a town of one faith or of few believers; high trust; good times
+gap: 10-40
+tone: trouble
+life: faith, family, community
+horizon: months
+roles: sibling, parent, friend, elder
+earth: the town is split between two faiths: a hall has been shut after weeks of protests, and the quarrel has reached your own family
+scene: The council has shut the hall on the corner after three weekends of protests outside it. The two faiths of the town keep to their own streets now, and {sibling}, who married into the other one, no longer comes to the family meal.
+scene W: {N} grew up with one rule above the others: family comes before every quarrel. The rule is being tested.
+scene U: {N} has heard two stories about why the hall was shut, and neither of them adds up.
+scene B: People are choosing sides, and the ones who choose late will be remembered. {N} weighs which side the town will end up on.
+scene R: Every weekend the protesters shout at each other across the street, and {N} is sick of it, or ready to join in.
+scene G: {parent} sits by the window watching the shut hall. "It was never like this," {parent} says, and nobody answers.
+- W | keep the family table open to all, with one rule: no arguing at meals | v: tradition, benevolence | lever: loyalty | pushes: close | chance: 60
+- U | sit down with someone from the other faith, and hear their side out | v: universalism, self-direction | mark: made a friend | pushes: belief | chance: 70
+- B | side firmly with your own faith, and let the whole street see it | identity | v: power, conformity | mark: made an enemy | lever: loyalty | pushes: belief | chance: 55
+- R | stand outside the shut hall with those who want it open again | v: universalism, stimulation | lever: voice | pushes: institution council | chance: 65
+- G | keep out of it, and wait for the town to calm down | v: security | lever: neglect | chance: 60
+- BG | move the family across town, away from the trouble | v: security | lever: exit | chance: 60
+- UG | help the elders of both halls find a quiet room to talk in | v: universalism, benevolence | lever: voice | pushes: belief | chance: 40
+- UR | write an open letter to the town, asking both sides to stop | v: universalism, self-direction | lever: voice | pushes: culture | chance: 40
+- WB | ask the council for firm rules on protests near any hall | v: security, conformity | lever: voice | pushes: institution council | chance: 50
+- WR | invite your brother or sister back to the family meal, whatever they now believe | v: benevolence | mend: sibling | chance: 50
+works: In time the hall opens again, and {Ns} family sits down together, if carefully.
+works: The worst of it passes, and {N} can live with where {N} stood.
+fails: The quarrel outlasts the year, and a chair at {Ns} table stays empty.
+fails: The town hardens into two halves, and {N} is trusted by neither.
+
+# ---------------------------------------------------------------- C5 the rare founding (inner, cycle s3)
+
+# world: movement founding, selector place, share: only the rare person who meets requires: (at most about 1 life in 1,000)
+== a following of your own
+tier: inner
+stages: adult mature elder
+age: 25-100
+at: faith body
+requires: the world's movement founding event in the person's place this year, with a free movement slot; unmet meaning high (the person's meaning below 0.4 for a year or more, and the place's unmet meaning in its top fifth); wide reach (social reach in the top tenth: many ties, a public voice, or a following in town or online); a faith or spiritual life held for 10 years or more (a faith commitment, or a spiritual practice kept); the Engine keeps it to at most about 1 life in 1,000 (estimate)
+likelier: a teacher, preacher, healer or counsellor by trade; uneasy times; a place with many seekers and thin old faiths; a person others already come to for advice
+rarer: a closed regime that bans gatherings; a place where few believe; low trust; a person who keeps to a small circle
+times: World event: movement founding, selector place. A new movement is founded at about 1 in 100 a year (stage3-rules section 5 C5), so a would-be founder is very rare: at most about 1 life in 1,000 meets this moment (estimate), and most who do turn it down. If the founding option is taken, the movement's colours become the founder's own and its growth scales with their reach
+gap: 20-60
+tone: mixed
+life: faith, meaning, community
+horizon: years
+roles: friend, partner, mentor
+earth: people have begun to gather to hear you speak about faith and meaning, and some want you to lead them
+scene: It began with a few people asking {N} to say more. Now forty come every week to hear {N} speak; they have begun to call themselves by a name, and they look to {N} to say what comes next.
+scene W: The group needs a rule of life, a place to meet and someone to keep it all in order. They want that someone to be {N}.
+scene U: {N} has thought for years about what people need to believe. Now the thoughts have listeners, and {N} is not sure they should.
+scene B: People who hang on every word are a kind of power. {N} feels it, and knows what it can do to a person.
+scene R: When {N} speaks, the room catches fire. {N} has never felt so alive, or so afraid of what it could become.
+scene G: {N} only ever wanted to live close to what matters. Now strangers come up the lane to sit at {Ns} door.
+- W | turn what you have learned over to an old faith's elders, and serve inside it | v: tradition, conformity | lever: loyalty | pushes: belief | chance: 60
+- U | write it all down as a book of thoughts, and keep it a book | v: self-direction, universalism | chance: 70
+- B | turn the gatherings into a paid school for a better life | v: achievement, power | chance: 55
+- R | give the following a name, take the lead, and found the new movement | identity | v: self-direction, stimulation | mark: took a wild risk | title: founder of a movement | pushes: belief | chance: 35
+- G | tell the seekers to go home to their own families, and go back to your garden | v: tradition, benevolence | chance: 80
+- W>R | set a date to end the gatherings, and keep it, so that everyone leaves free | v: universalism, self-direction | chance: 60
+- U>G | turn the circle into a quiet house of retreat, open to any faith or none | v: universalism, benevolence | chance: 50
+- B>W | register the group as a charity with a board, and hand the leading to others | v: security, conformity | chance: 65
+- R>U | take to the road alone, and keep searching where no one can follow | v: self-direction, stimulation | lever: exit | chance: 85
+- G>B | go quiet for a year, until only your true friends still come | v: security, benevolence | chance: 40
+works: A year on, {N} has made a choice {N} can live with, and the people who came are better for it.
+works: Whatever the gathering becomes, it holds together, and {Ns} name is spoken kindly.
+fails: The gathering slips out of {Ns} hands, and others make it into something {N} never meant.
+fails: The people who hung on {Ns} words turn away hurt, and the quarrel lasts for years.
