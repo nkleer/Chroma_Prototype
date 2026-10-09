@@ -1506,7 +1506,7 @@ class People:
         else:
             hrs[:, 2] = hh * (a >= 4); mix[:, 2] = tm[:, S_("gather")]; rs[:, 2] = S_("gather")
         fa_, fm_ = set_mix("congregation")
-        hrs[:, 3] = T["faith"][g] * np.where(fa_, 3.0, 0.25); mix[:, 3] = np.where(fa_[:, None], fm_, tm[:, S_("faith")]); rs[:, 3] = S_("faith")
+        hrs[:, 3] = T["faith"][g] * np.where(fa_, 1.6, 0.25)   # the row is the mean: members about 1.6 times it (most belong); mix[:, 3] = np.where(fa_[:, None], fm_, tm[:, S_("faith")]); rs[:, 3] = S_("faith")
         isch = (self.rmask & BIT["child"]) != 0
         small = (isch & self.used & self.lv & ((t - self.born) < 6 * 52)).any(1)
         hrs[:, 4] = T["care_given"][g] * np.where(small, 2.5, 1.0); mix[:, 4] = tm[:, S_("care")]; rs[:, 4] = S_("care")
