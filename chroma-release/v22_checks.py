@@ -227,7 +227,8 @@ STEERED = [
     ("world_lines", "world_lines", "every world line names a change the engine made to the character that year (wfx)"),
     ("voice_quiet", "voice_quiet", "always letting them choose: \"a quiet voice\" and no voice lines"),
     ("voice_careful", "voice_careful", "always the careful pick: \"the careful voice\" and only careful lines"),
-    ("voice_trust", "voice_trust", "trust per colour rises when steered picks work and falls when they fail"),
+    ("voice_trust", "voice_trust", "trust per colour after steered picks: the mean change after ones that worked is above the mean after "
+     "ones that failed, which is below 0 (P2: a push that worked but fed no need they lacked is still resented)"),
     ("voice_lines", "voice_lines", "every voice line first person or plain narration, at most 25 words, no colour named"),
     ("voice_year", "voice_year", "the chapter keeps at most one voice line a year"),
 ]
