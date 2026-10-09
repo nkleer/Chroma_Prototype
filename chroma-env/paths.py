@@ -26,13 +26,14 @@ ROOT = os.environ.get("CHROMA_ROOT") or os.path.dirname(os.path.dirname(os.path.
 
 # name: (path under ROOT, what it is)
 NAMES = {
-    # the live version (v22.1, published 10-08 13:10 UTC, artifact version 1791464842-7382)
-    "engine_live":    ("chroma-engine/v22-speedpass", "the live v22.1 engine: the Engine's speed pass, same lives as v22 (MD5SUMS inside); the Engine changes this line if it freezes it elsewhere"),
-    "live_manifest":  ("chroma-env/live-v22.1-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
+    # the live version (v22.2, published 10-09 21:39 UTC from release/v22.2 = main dc707f5, artifact version 1791581971-b095)
+    "engine_live":    ("chroma-engine/v22-speedpass", "the live v22.2 engine (engine.py 60c3e3276e04, release/v22.2); the v22.1 engine is engine_v22_1"),
+    "live_manifest":  ("chroma-env/live-v22.2-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),
     "library_live":   ("chroma-library", "the live Library: earth*.py, dreams.py and the .lib sources at its top level"),
     "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage"),
-    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the game's rarity.py is built from; on main the 10-08 rebuild for v22.2 (65485c21b94f, PR #30). Live v22.1 was built from 9756b7c91eab, which stays in the shared folder's copy until the next publish, at chroma-engine/prototype/calib_v8/rarity.json and on release/v22.1"),
+    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the game's rarity.py is built from: live v22.2's, the 10-08 rebuild (65485c21b94f)"),
+    "rarity_v22_1":   ("chroma-engine/prototype/calib_v8/rarity.json", "the rarity table of v22.1 and v22 (9756b7c91eab), where their manifests record it"),
     "art_game":       ("chroma-art/game", "the pictures the page uses (pictures.json names them, pics/ holds them)"),
     "art":            ("chroma-art", "the visuals folder: kit/ drawing code, data/ scene texts, notes/"),
     "art_old_icons":  ("chroma-art/old", "the retired game-icons.net set (CC BY 3.0); the icon builder and review pages read it"),
@@ -43,7 +44,10 @@ NAMES = {
     "release":        ("chroma-release", "release records and check scripts (v22_checks.py runs every owner's checks)"),
     "release_out":    ("chroma-release/out", "check outputs, one folder or file per run"),
     # earlier versions kept as records
-    "game_v22":       ("chroma-game/prototype-v22", "the v22 game, the only rollback (index.html 3114caa7f358)"),
+    "game_v22_1":     ("chroma-game/prototype-v22.1", "the v22.1 game, the rollback (index.html 48e756b328ff)"),
+    "engine_v22_1":   ("_archive/2026-10-09/live-v22.1/chroma-engine/v22-speedpass", "the v22.1 engine (engine.py e89422bfc424), moved out when v22.2 went live"),
+    "live_manifest_v22_1": ("chroma-env/live-v22.1-manifest.txt", "MD5 of the v22.1 files (game and engine paths recorded where they were live; check_live.py reads them at game_v22_1 and engine_v22_1)"),
+    "game_v22":       ("chroma-game/prototype-v22", "the v22 game, the older rollback (index.html 3114caa7f358)"),
     "engine_v22":     ("chroma-engine/archive/live-v22", "the v22 engine, frozen at its go-live (MD5SUMS inside)"),
     "live_manifest_v22": ("chroma-env/live-v22-manifest.txt", "MD5 of the v22 files (paths recorded as chroma-game/prototype; check_live.py reads them as prototype-v22)"),
     "game_v21":       ("_archive/2026-10-08/chroma-game/prototype-v21", "the v21 game, archived 10-08 13:15 UTC (check_identity reads its engine_pin/)"),

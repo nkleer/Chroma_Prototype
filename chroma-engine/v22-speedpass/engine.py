@@ -733,6 +733,7 @@ DEFAULT = dict(
     # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
     cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
     cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
+    sph_town=False,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -897,7 +898,9 @@ UPD_OFF = dict(dis_match=False,
                # stage 3, LW1 and LW2 (stage3-rules.md §8)
                cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
-               hist_chance_only=False)
+               hist_chance_only=False,
+               # stage 2 of v22.3, the spheres of society (item 15)
+               sph_town=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1796,7 +1799,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
                   harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
-                  founding=NO_FOUND)   # C5: a movement founding in the person's place, with a free slot (not built yet)
+                  founding=NO_FOUND,   # C5: a movement founding in the person's place, with a free slot (not built yet)
+                  haunts=NO_FOUND)     # spheres phase 2: haunts built (the haunt choices); not yet
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):

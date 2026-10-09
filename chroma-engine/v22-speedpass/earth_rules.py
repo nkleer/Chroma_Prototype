@@ -145,6 +145,11 @@ INNER = {
     # C5's rare founding (Library PR #26, earth-world-institutions.lib). "founding" (the world's movement founding event
     # in the person's place this year, with a free movement slot) is False until C5's movement slots are built (stage 2,
     # spheres phase 3), so the moment never comes before then. Reach: ties in about the top tenth.
+    # The spheres' haunt choices (item 15, N1; Library #49, earth-spheres-gathering.lib), once at each new life stage
+    # with 4 or more free hours a week. "haunts" is False until phase 2's haunts are built, so they never come before.
+    **{nm_: dict(req="haunts & (time > .2)", more=["belonging < .5", "ties < .4"], less=["time < .3", "health < .3"])
+       for nm_ in ("where the evenings go at fifteen", "where the evenings go at twenty", "where the evenings go at thirty",
+                   "where the days go at sixty-five")},
     "a following of your own": dict(
         req="founding & (meaning < .4) & (lo_meaning >= 52) & (ties > .8) & (yrs_faith >= 10)",
         more=["outlook > .55", "ties > .9", "hW + hU > .5"],

@@ -45,6 +45,7 @@ ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
 harsh unrest prosper era founding (C5: a movement founding in the place, with a free slot; never true until C5 is built)
+haunts (the spheres' haunts, phase 2: never true until they are built)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -395,6 +396,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
     sits += PK["sits"]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
+    if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
+        sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -608,6 +611,7 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
+SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
