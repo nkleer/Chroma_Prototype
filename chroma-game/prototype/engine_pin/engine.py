@@ -678,6 +678,11 @@ DEFAULT = dict(
     world=False,         # the outer world (world.py, world_people.py through world_link.py): a living society around the lives
     world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy; burn_years), world_seed (else the run's)
     world_seed=None, world_obj=None, people_obj=None,   # a World or People already made (the game's saved world), else new
+    # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
+    # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
+    # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
+    cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
+    cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -793,7 +798,11 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
                scar_pull=0.0)
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
-UPD_OFF = dict(dis_match=False)
+UPD_OFF = dict(dis_match=False,
+               # stage 3, LW1 and LW2 (stage3-rules.md §8)
+               cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
+               cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
+               hist_chance_only=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
