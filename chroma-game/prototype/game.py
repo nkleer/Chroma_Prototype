@@ -32,6 +32,10 @@ try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
 except ImportError:
     RT = None
+try:
+    import earth_story as ES    # the Library's words for the end of a life: the song, the marks, the last conversation
+except Exception:
+    ES = None
 
 C = E.C
 COLORS = E.COLORS
@@ -1384,7 +1388,7 @@ class Game:
         tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
         word = "" if not v["steer"] else "they trust it" if tr >= 0.25 else "they doubt it" if tr <= -0.25 else "they are unsure of it"
         total = (E.softmax(loc["z"][0]) - np.asarray(self._w_start, float)) if loc is not None and self._w_start is not None else np.zeros(C)
-        vdw = np.asarray(v["dw"], float)
+        vdw = self._vdw()
         return dict(name=self.voice_name(), trust=word, steer=v["steer"], n=v["n"], share=round(voice_share(vdw, total), 3),
                     voice=[round(float(x) * 100, 1) for x in vdw], life=[round(float(x) * 100, 1) for x in total - vdw],
                     toward=[round(float(x), 3) for x in d / max(v["steer"], 1)])
@@ -1404,7 +1408,7 @@ class Game:
         v["d"] = [round(x + float(y), 4) for x, y in zip(v["d"], diff)]
         v["ax"] = [round(x + float(y), 4) for x, y in zip(v["ax"], VOICE_AX @ diff)]
         dw = np.asarray(moved.get("dw") or np.zeros(C), float) / 100 + np.asarray((rs.get("pivot") or {}).get("moved") or np.zeros(C), float) / 100
-        v["dw"] = [round(x + float(y), 4) for x, y in zip(v["dw"], dw)]
+        v["dw"] = [round(float(x) + float(y), 4) for x, y in zip(self._vdw(), dw)]; v["dw_t"] = int(self.t)
         self._vyear["steer"] += 1; self._vyear["won"] += int(worked)
         V = ES.VOICE; c = COLORS[int(np.argmax(cv(k)))]
         lead = int(np.argmax(E.softmax(loc["z"][0]))); ci = COLORS.index(c)
@@ -1437,13 +1441,19 @@ class Game:
                 self._vyear["turn"] = d
             self._trust_side[i] = st
 
+    def _vdw(self):
+        """What the voice's pushes still hold of their colors now, per color: each push's move, fading as life pulls
+        them back (VOICE_HALF)."""
+        v = self.history["voice"]
+        return np.asarray(v["dw"], float) * VOICE_FADE ** (self.t - v.get("dw_t", self.t))
+
     def _voice_became(self, lbl):
         """Item 3: a new name that the voice's pushes did most of is told as partly not their own doing."""
         v = self.history["voice"]; w = np.asarray(self._wring[-1], float)
-        mark, self._name_mark = self._name_mark, (w.copy(), np.asarray(v["dw"], float).copy())
+        mark, self._name_mark = self._name_mark, (w.copy(), self._vdw().copy(), int(self.t))
         if ES is None or mark is None or self.burn_in or v["steer"] < VOICE_MIN or not lbl:
             return
-        share = voice_share(np.asarray(v["dw"], float) - mark[1], w - mark[0])
+        share = voice_share(self._vdw() - mark[1] * VOICE_FADE ** (self.t - mark[2]), w - mark[0])
         if share < 0.5 or self.t - v.get("became_t", -10 ** 6) < 5 * 52:
             return                                       # told when the voice did most of it, once in five years at most
         v["became_t"] = int(self.t)
@@ -3005,6 +3015,15 @@ class Game:
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
         self.review["story"] = life_paragraph(self.story.fill("{N}"), h, self.review, self.setting)
         self.review["voice"] = self.voice_review(h)          # item 3: the voice's last sentence and the Book's line
+        vr = self.review["voice"] or {}
+        if vr.get("end"):                                    # the voice's last sentence closes the song, before the last talk
+            self.review["story"] += "\n\n" + vr["end"]
+        # the last conversation with the voice (earth_story.py LAST_TALK) has no place of its own on the page yet: its own
+        # field, and the song's last stanza after a blank line
+        h.setdefault("voice", voice_empty())["share"] = vr.get("share", 0.0)
+        self.review["last_talk"] = last_talk(self.story.fill("{N}"), self.story.fill("{Ns}"), h, self.review, self.setting)
+        if self.review["last_talk"]:
+            self.review["story"] += "\n\n" + self.review["last_talk"]
 
 
 # the peace reading (Emren's first goal idea, 2026-10-04: satisfaction and peace while staying true to one's mindset and
@@ -3070,6 +3089,8 @@ VOICE_SIDES = [("group vs individual", "people", "themselves"), ("security vs fr
                ("head vs heart", "head", "heart"), ("destiny vs free will", "meant", "will"), ("nature vs nurture", "already", "make")]
 VOICE_AX = np.array([E.AXES[a] for a, _, _ in VOICE_SIDES], float)
 VOICE_MIN = 5            # pushes before the voice has a name of its own
+VOICE_HALF = 156         # weeks for a push's move to count half in what the voice did (life pulls them back)
+VOICE_FADE = 0.5 ** (1 / VOICE_HALF)
 VOICE_RECALL = 104       # weeks: a push the same way within two years is remembered in the answer
 
 
@@ -3369,83 +3390,179 @@ def _closing(h, review):
 # preferences, moments and choices of the player, connected to the five color stat map"). Every choice of words below is
 # read from the life: the colors it led with, the colors that rose, fell or flickered, the shape of its contentment, the
 # ways it acted at the player's moments and how they turned out, the player's pushes, its losses and long shots.
-EPIC_EPITHET = dict(W="steadfast", U="many-minded", B="far-reaching", R="fire-hearted", G="deep-rooted")
-EPIC_OPEN = dict(        # the lead color's opening, after the old songs; a life of many changes takes Ovid's
-    W="Sing, Muse, of {N}, {ep}, who kept faith with others for {age} years",
-    U="Tell me, Muse, of {N}, {ep}, the one of many turns, who wandered {age} years and wondered at all of it",
-    B="Of ambition and its price I sing, and of {N}, {ep}, who made their own way for {age} years",
-    R="Sing, goddess, of the fire of {N}, {ep}, who burned bright for {age} years",
-    G="Of roots and of returning I sing, and of {N}, {ep}, who belonged to their place for {age} years")
-EPIC_OVID = "My mind is bent to tell of bodies changed into new forms: of {N}, {ep}, who in {age} years was {n} people, and all of them themselves"
-EPIC_RISE = dict(W="as a lamp is lit in a window at dusk", U="as a river cuts its way down to the sea",
-                 B="as a hawk climbs on the warm wind", R="as fire runs through summer grass",
-                 G="as an oak sends its roots down into the dark earth")
-EPIC_FALL = dict(W="the old duties slipped from their shoulders like a cloak", U="their questions fell quiet, like birds at evening",
-                 B="their hunger for more was laid down like a sword", R="the fire in them sank to embers",
-                 G="their roots let go of the old ground")
-EPIC_FLICKER = dict(     # a swing, by the color that came and went
-    W="like a lamp lit and put out and lit again", U="like a question asked, set aside and asked again",
-    B="like a coin turned over and over in the hand", R="like a flame in a gusting wind",
-    G="like the tide that leaves the shore and always comes back")
-EPIC_DEATH = dict(parent="a parent went down to the house of the dead", sibling="a sibling went down into the dark",
-                  friend="a friend was taken from them", grandparent="the old ones of the house were laid in the earth",
-                  partner="the one they loved went down into the dark before them", child="a child of theirs was taken")
-EPIC_HALL = dict(earth="where the cups are filled and the night is long", tribal="around the fire, when the elders sing",
-                 magic="in the halls, when the bards take up the lyre")
-EPIC_TOAST = dict(W="To a life that kept faith with others.", U="To a mind that never stopped asking.",
-                  B="To one who made their own way.", R="To a heart that burned.", G="To one who belonged.")
-EPIC_GLAD = {("high", "high"): "who lived, and lost, and was glad", ("high", "mid"): "who lived well, and mostly as themselves",
+# The words are the Library's (earth_story.py SONG, SONG_WORLD and MARK_SAY, pinned in engine_pin/), key for key with
+# the game's own below, which stay for a pin without them. Keys, fills and selectors: chroma-library/INTERFACE.md.
+SONG_OWN = {
+    "epithet": dict(W="steadfast", U="many-minded", B="far-reaching", R="fire-hearted", G="deep-rooted"),
+    "open": dict(        # the lead color's opening, after the old songs; a life of many changes takes Ovid's
+        W=dict(full="Sing, Muse, of {N}, {ep}, who kept faith with others for {age} years"),
+        U=dict(full="Tell me, Muse, of {N}, {ep}, the one of many turns, who wandered {age} years and wondered at all of it"),
+        B=dict(full="Of ambition and its price I sing, and of {N}, {ep}, who made their own way for {age} years"),
+        R=dict(full="Sing, goddess, of the fire of {N}, {ep}, who burned bright for {age} years"),
+        G=dict(full="Of roots and of returning I sing, and of {N}, {ep}, who belonged to their place for {age} years")),
+    "open_many": "My mind is bent to tell of bodies changed into new forms: of {N}, {ep}, who in {age} years was {n} people, and all of them themselves",
+    "numbers": ["no one", "one", "two", "three", "four", "five", "six"],
+    "first_child": "As a child they were {adjs}, and the seed of who they would be was already in them.",
+    "first_later": "By their {nth} year they were {adjs}.",
+    "unsettled": "unsettled",
+    "swing": "they turned {img}, {span}: {winds}.",
+    "span_all": "all their days",
+    "span_years": "for {n} years",
+    "winds_both": "{adjs} always, while their {nouns} came and went",
+    "winds_apart": "now {a}, now {b}",
+    "flicker": dict(     # a swing, by the color that came and went
+        W=dict(first="like a lamp lit and put out and lit again"), U=dict(first="like a question asked, set aside and asked again"),
+        B=dict(first="like a coin turned over and over in the hand"), R=dict(first="like a flame in a gusting wind"),
+        G=dict(first="like the tide that leaves the shore and always comes back")),
+    "harbour": "At {age} the winds fell still, and they came to harbour, {adjs} at last.",
+    "turn": dict(death=dict(big="And {cause}, and {gods} remade them.", small="And {cause}, and they were not the same after."),
+                 title=dict(big="Then, {cause}, a great change came over them.", small="Then, {cause}, they were changed a little."),
+                 event=dict(big="Then, {cause}, the world shook them into a new shape.", small="Then, {cause}, something shifted in them.")),
+    "cause_death": dict(parent="when a parent went down to the house of the dead", sibling="when a sibling went down into the dark",
+                        friend="when a friend was taken from them", grandparent="when the old ones of the house were laid in the earth",
+                        partner="when the one they loved went down into the dark before them", child="when a child of theirs was taken",
+                        other="when someone dear went down into the dark"),
+    "cause_moment": "in the year of {moment}",
+    "cause_title": "upon {becoming}",
+    "drift": dict(big="And with the years a great change came over them, as changes come in the old tales.",
+                  mid="{Decade} the old shape loosened, and a new one grew.",
+                  small="Slowly, as stone is worn by water, they were changed."),
+    "rise": dict(W=dict(first="a sense of duty rose in them as a lamp is lit in a window at dusk", again="a sense of duty rose in them again"),
+                 U=dict(first="curiosity rose in them as a river cuts its way down to the sea", again="curiosity rose in them again"),
+                 B=dict(first="ambition rose in them as a hawk climbs on the warm wind", again="ambition rose in them again"),
+                 R=dict(first="passion rose in them as fire runs through summer grass", again="passion rose in them again"),
+                 G=dict(first="rootedness rose in them as an oak sends its roots down into the dark earth", again="rootedness rose in them again")),
+    "fall": dict(W=dict(first="the old duties slipped from their shoulders like a cloak", again="their sense of duty faded once more"),
+                 U=dict(first="their questions fell quiet, like birds at evening", again="their curiosity faded once more"),
+                 B=dict(first="their hunger for more was laid down like a sword", again="their ambition faded once more"),
+                 R=dict(first="the fire in them sank to embers", again="their passion faded once more"),
+                 G=dict(first="their roots let go of the old ground", again="their rootedness faded once more")),
+    "home": "So they came home to an old self, as the wanderer comes home.",
+    "longest": "For {n} years they were {ident}, and that was the longest of their shapes.",
+    "rare_long": "Against the odds, as the bards love best, at {age} they became {title}.",
+    "rare_became": "This too the song keeps, for few are given it: at {age} they became {title}.",
+    "rare_took": "This too the song keeps, for few are given it: at {age} they took to {doing}.",
+    "rare_mark": "And the song does not hide it: at {age} they {deed}.",
+    "rare_moment": dict(W="And this the song keeps for the ones who come after: {moment}, in their {nth} year.",
+                        U="And a thing few ever see, they saw, at {age}: {moment}.",
+                        B="And at {age} came a day that few are dealt, and they played it: {moment}.",
+                        R="And at {age} came a day few ever live, and they lived it whole: {moment}.",
+                        G="And at {age}, a day the whole place remembered: {moment}."),
+    "deeds_reach": dict(own="When the moment came, they reached most often for their {noun}.",
+                        other="When the moment came, they reached most often for their {noun}, though it was not the color they wore longest."),
+    "deeds_won": dict(often="And {gods} favoured them more often than not.", half="Half the time they won, and half the time they rose again.",
+                      seldom="Often they failed, and every time they got up and went on."),
+    "deeds_pushed": "And {n} times {hand} was on them, and it pushed them toward {noun}",
+    "deeds_pushed_end": dict(willing=", and they went willingly.", bore=", and they bore it.", against=", against their own heart."),
+    "deeds_once": "Once {hand} was on them, and it pushed them toward {noun}",
+    "deeds_free": "No god bent their will: every road they walked, they chose.",
+    "shape": dict(       # the shape of their contentment over the adult years
+        rise="Their life climbed like a road into the hills: the hardest years were the first, the best came late.",
+        fall="Their life was a river that widened and slowed: the bright years came early, and later the waters ran quieter.",
+        valley="They went down into the valley {lo} and climbed out of it again, into the high ground {hi}.",
+        fallen="They stood on the heights {hi}, went down into the valley {lo}, and climbed out of it again.",
+        summit="Their life rose to a summit {hi} and came gently down from it.",
+        level="Their years ran even, like a long plain under a steady sky."),
+    "decade_youth": "in their youth",
+    "decade": "in their {d}s",
+    "peace": "Their deepest peace was {decade}, still as water at evening.",
+    "buried": "They buried {n} of their own, and carried each of them.",
+    "reached": dict(never="And {n} times they reached for what lay beyond them, and never once took hold of it, and reached anyway.",
+                    once="And {n} times they reached for what lay beyond them, and once took hold of it.",
+                    more="And {n} times they reached for what lay beyond them, and {made} times took hold of it."),
+    "death_early": "At {age} they went down into the dark, {how}, and the song does not grieve it less.",
+    "death_old": "Full of years at {age}, they went down into the dark, and the dark was kind.",
+    "close": "So it is sung now, {hall}: the song of {N}, {glad}. {cheer} {toast}",
+    "cheer": "Raise the cup.",
+    "hall": "where the cups are filled and the night is long",
+    "gods": "the gods",
+    "hand": "the gods' hand",
+    "glad": {("high", "high"): "who lived, and lost, and was glad", ("high", "mid"): "who lived well, and mostly as themselves",
              ("high", "low"): "who was glad, though the gods chose much of it", ("mid", "high"): "who went their own way at an ordinary price",
              ("mid", "mid"): "who took the good with the bad, as mortals must", ("mid", "low"): "who bore what was laid on them, and went on",
              ("low", "high"): "who paid dearly to stay themselves, and paid it", ("low", "mid"): "who walked a hard road, and did not stop",
-             ("low", "low"): "who suffered much, and still was there to tell of it"}
-EPIC_SHAPE = dict(       # the shape of their contentment over the adult years
-    rise="Their life climbed like a road into the hills: the hardest years were the first, the best came late",
-    fall="Their life was a river that widened and slowed: the bright years came early, and later the waters ran quieter",
-    valley="They went down into the valley {lo} and climbed out of it again, into the high ground {hi}",
-    fallen="They stood on the heights {hi}, went down into the valley {lo}, and climbed out of it again",
-    summit="Their life rose to a summit {hi} and came gently down from it",
-    level="Their years ran even, like a long plain under a steady sky")
+             ("low", "low"): "who suffered much, and still was there to tell of it"},
+    "toast": dict(W=dict(glad="To a life that kept faith with others."), U=dict(glad="To a mind that never stopped asking."),
+                  B=dict(glad="To one who made their own way."), R=dict(glad="To a heart that burned."), G=dict(glad="To one who belonged.")),
+}
+for _c in COLORS:        # the game's own words have one opening, image and toast per color: the variants share them
+    SONG_OWN["open"][_c]["short"] = SONG_OWN["open"][_c]["full"]
+    SONG_OWN["flicker"][_c]["again"] = SONG_OWN["flicker"][_c]["first"] + ", once more"
+    SONG_OWN["toast"][_c]["hard"] = SONG_OWN["toast"][_c]["glad"]
+SONG_OWN_WORLD = dict(tribal=dict(hall="around the fire, when the elders sing"),
+                      magic=dict(hall="in the halls, when the bards take up the lyre"))
 EPIC_TOLD = 6            # stanzas of change at most, after the invocation
+OPEN_FULL = 60           # the opening for a full life from this age, the short one before it
+TALK_PUSHES = 5          # pushes before the last conversation is told in full ("few" below it, "none" with none)
+TALK_TRUST = 0.2         # trust in a color that counts in the last conversation, either way
+TALK_SHARE = 1 / 3       # the voice's share of their color change from which "glad" takes its second line
 
 
-def _epic_cause(met, at, share, say_of):
+def _merged(a, b):
+    """a with b's keys over it, one key, color or band at a time (SONG_WORLD changes single words, not whole tables)."""
+    out = dict(a)
+    for k, v in b.items():
+        out[k] = _merged(a[k], v) if isinstance(v, dict) and isinstance(a.get(k), dict) else v
+    return out
+
+
+def song_words(setting):
+    """The song's words for a world: the Library's, with that world's own over them, or the game's own without the pin."""
+    if getattr(ES, "SONG", None):
+        return _merged(ES.SONG, getattr(ES, "SONG_WORLD", {}).get(setting, {}))
+    return _merged(SONG_OWN, SONG_OWN_WORLD.get(setting, {}))
+
+
+def _cap(s):
+    return s[:1].upper() + s[1:]
+
+
+def _num(n, W):
+    """'three', and digits past the song's last number word."""
+    return W["numbers"][n] if 0 <= n < len(W["numbers"]) else str(n)
+
+
+def _song_colors(h):
+    """The life's colors, most held over the years first (the mean of its weekly colors), and those means."""
+    ws = h.get("w", [])
+    allw = np.mean(np.asarray([w for _, w in ws], float), axis=0) if ws else np.full(5, 0.2)
+    return [COLORS[i] for i in np.argsort(-allw)], allw
+
+
+def _epic_cause(met, at, share, say_of, W):
     """What turned them, in the song's words, and what kind of cause it was."""
     near = [m for m in met if at - WHY_YEARS <= m[0] <= at]
     deaths = sorted((m for m in near if m[1] == "death"), key=lambda m: DEATH_WEIGHT.get(m[2], 9))
     if deaths and deaths[0][2] != "grandparent":
-        return "when " + EPIC_DEATH.get(deaths[0][2], "someone dear went down into the dark"), "death"
+        return W["cause_death"].get(deaths[0][2], W["cause_death"]["other"]), "death"
     why = _why(met, at, share, say_of)
     if why is None:
         return None, None
     if why.startswith("the death of"):
-        return "when " + EPIC_DEATH["grandparent"], "death"
-    return (f"in the year of {why}", "event") if why.startswith("“") else (f"upon {why}", "title")
+        return W["cause_death"]["grandparent"], "death"
+    return ((W["cause_moment"].format(moment=why), "event") if why.startswith("“") else
+            (W["cause_title"].format(becoming=why), "title"))
 
 
 def _nth(n):
     return f"{n}{'th' if 10 <= n % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')}"
 
 
-def _decade(a):
-    return "in their youth" if a < 20 else f"in their {a // 10 * 10}s"
+def _decade(a, W):
+    return W["decade_youth"] if a < 20 else W["decade"].format(d=a // 10 * 10)
 
 
-def _epic_thing(k, n_, say_of, at, lead):
+def _epic_thing(k, n_, say_of, at, lead, W):
     """A rare thing the life met, as the song keeps it; the framing follows the life's lead color."""
     if k == "long":
-        return f"Against the odds, as the bards love best, at {at} they became {n_}."
+        return W["rare_long"].format(age=at, title=n_)
     if k == "role":
         say = say_of(n_)
-        what = ("they became " + say) if re.match(r"(a|an|the|one) ", say) else "they took to " + _becoming(say)
-        return f"This too the song keeps, for few are given it: at {at} {what}."
+        return (W["rare_became"].format(age=at, title=say) if re.match(r"(a|an|the|one) ", say) else
+                W["rare_took"].format(age=at, doing=_becoming(say)))
     if k == "mark":
-        return f"And the song does not hide it: at {at} they {n_}."
-    return dict(W=f"And this the song keeps for the ones who come after: {_quoted(n_)}, in their {_nth(at)} year.",
-                U=f"And a thing few ever see, they saw, at {at}: {_quoted(n_)}.",
-                B=f"And at {at} came a day that few are dealt, and they played it: {_quoted(n_)}.",
-                R=f"And at {at} came a day few ever live, and they lived it whole: {_quoted(n_)}.",
-                G=f"And at {at}, a day the whole place remembered: {_quoted(n_)}.")[lead]
+        return W["rare_mark"].format(age=at, deed=getattr(ES, "MARK_SAY", {}).get(n_, n_))
+    return W["rare_moment"][lead].format(moment=_quoted(n_), age=at, nth=_nth(at))
 
 
 def _ways(acts):
@@ -3458,7 +3575,7 @@ def _ways(acts):
     return v
 
 
-def _deeds(acts, lead_w, review):
+def _deeds(acts, lead_w, review, W):
     """The stanza of deeds: how they acted when it mattered, how it went, and where the gods' hand (the player) pushed."""
     if len(acts) < 3:
         return ""
@@ -3467,26 +3584,22 @@ def _deeds(acts, lead_w, review):
     if v.sum() == 0:
         return ""
     top = COLORS[int(np.argmax(v))]
-    S = [f"When the moment came, they reached most often for their {NOUN[top]}"
-         + ("." if top == lead_w else f", though it was not the color they wore longest.")]
+    S = [W["deeds_reach"]["own" if top == lead_w else "other"].format(noun=NOUN[top])]
     won = sum(a[2] for a in acts) / len(acts)
-    S.append("And the gods favoured them more often than not." if won >= 0.65 else
-             "Half the time they won, and half the time they rose again." if won >= 0.4 else
-             "Often they failed, and every time they got up and went on.")
+    S.append(W["deeds_won"]["often" if won >= 0.65 else "half" if won >= 0.4 else "seldom"].format(gods=W["gods"]))
     if pushed:
         pv = _ways(pushed)
         pt = COLORS[int(np.argmax(pv))] if pv.sum() else None
         integ = review.get("integrity", 1.0)
         if pt:
-            S.append(f"{len(pushed)} times the gods' hand was on them, and it pushed them toward {NOUN[pt]}"
-                     + (", and they went willingly." if integ >= 0.9 else
-                        ", and they bore it." if integ >= 0.75 else ", against their own heart."))
+            S.append((W["deeds_once"] if len(pushed) == 1 else W["deeds_pushed"]).format(n=_num(len(pushed), W), hand=W["hand"], noun=NOUN[pt])
+                     + W["deeds_pushed_end"]["willing" if integ >= 0.9 else "bore" if integ >= 0.75 else "against"])
     else:
-        S.append("No god bent their will: every road they walked, they chose.")
+        S.append(W["deeds_free"])
     return " ".join(S)
 
 
-def _shape(c):
+def _shape(c, W):
     """The shape of contentment over the adult decades: rise, fall, valley, summit or level, with where."""
     dec = {}
     for a, v in c:
@@ -3505,7 +3618,7 @@ def _shape(c):
         kind = "summit"
     else:
         kind = "rise" if hi > lo else "fall"
-    return EPIC_SHAPE[kind].format(hi=_decade(hi), lo=_decade(lo)) + "."
+    return W["shape"][kind].format(hi=_decade(hi, W), lo=_decade(lo, W))
 
 
 def life_paragraph(name, h, review, setting):
@@ -3514,6 +3627,8 @@ def life_paragraph(name, h, review, setting):
         from rarity import RARITY
     except Exception:
         RARITY = {}
+    W = song_words(setting)
+    adjs = lambda cols: _adjs(cols) if cols else W["unsettled"]
     rs = RARITY if setting == "earth" else {}
     share = lambda kind, n_: rs.get(kind, {}).get(n_)
     met = h.get("met", [])
@@ -3532,68 +3647,61 @@ def life_paragraph(name, h, review, setting):
                     and share(kk, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))
     rare = sorted(rare[:RARE_TOLD], key=lambda r: r[1])
     home = lambda r: max([j for j, e in enumerate(eps) if e[2] <= r[1]] or [0])
-    allw = np.mean(np.asarray([w for _, w in ws], float), axis=0) if ws else np.full(5, 0.2)
-    order = [COLORS[i] for i in np.argsort(-allw)]
+    order, allw = _song_colors(h)
     lead = order[0]
-    ep = f"{EPIC_EPITHET[order[0]]} and {EPIC_EPITHET[order[1]]}"
-    # the invocation: a life of many shapes takes Ovid's opening, a steadier one its lead color's
-    V = [(EPIC_OVID.format(N=name, ep=ep, age=age, n=["no one", "one", "two", "three", "four", "five", "six"][min(n_shapes, 6)])
-          if n_shapes >= 4 else EPIC_OPEN[lead].format(N=name, ep=ep, age=age)) + "."]
+    ep = f"{W['epithet'][order[0]]} and {W['epithet'][order[1]]}"
+    # the invocation: a life of many shapes takes Ovid's opening, a steadier one its lead color's, full or cut short
+    V = [(W["open_many"].format(N=name, ep=ep, age=age, n=_num(n_shapes, W)) if n_shapes >= 4 else
+          W["open"][lead]["full" if age >= OPEN_FULL else "short"].format(N=name, ep=ep, age=age)) + "."]
     used = set()
     for i, (kind, ls, a0, a1) in enumerate(eps):
         a0i, dur = int(a0), int(round(a1 - a0))
         if kind == "swing":
             both, flick = set(ls[0]) & set(ls[1]), set(ls[0]) ^ set(ls[1])
             fc = max(flick, key=lambda c: allw[COLORS.index(c)]) if flick else lead
-            img = EPIC_FLICKER[fc] + (", once more" if fc in used else "")   # the same color flickering again
+            img = W["flicker"][fc]["again" if fc in used else "first"]   # the same color flickering again
             used.add(fc)
-            winds = (f"{_adjs(both)} always, while their {_nouns(flick)} came and went" if both else
-                     f"now {_adjs(ls[0])}, now {_adjs(ls[1])}")
-            cause, ck = _epic_cause(met, a0, share, say_of) if i else (None, None)
-            span = "all their days" if i == 0 and a1 - a0 >= 0.6 * max(age, 1) else f"for {dur} years"
-            s_ = f"{(cause[0].upper() + cause[1:] + ', ') if cause else ''}{'they' if cause else 'They'} turned {img}, {span}: {winds}."
+            winds = (W["winds_both"].format(adjs=adjs(both), nouns=_nouns(flick)) if both else
+                     W["winds_apart"].format(a=adjs(ls[0]), b=adjs(ls[1])))
+            cause, ck = _epic_cause(met, a0, share, say_of, W) if i else (None, None)
+            span = W["span_all"] if i == 0 and a1 - a0 >= 0.6 * max(age, 1) else W["span_years"].format(n=_num(dur, W))
+            s_ = W["swing"].format(img=img, span=span, winds=winds)
+            s_ = _cap(cause) + ", " + s_ if cause else _cap(s_)
         elif i == 0:
-            s_ = (f"As a child they were {_adjs(ls[0])}, and the seed of who they would be was already in them."
-                  if a0 < 18 else f"By their {_nth(a0i)} year they were {_adjs(ls[0])}.")
+            s_ = (W["first_child"] if a0 < 18 else W["first_later"]).format(adjs=adjs(ls[0]), nth=_nth(a0i))
         else:
             pk, pls, pa0, pa1 = eps[i - 1]
             up, dn = _drift(ws, pa0, pa1, a0, a1)
             pick_ = lambda x, y: [w for a, w in ws if x <= a < y]
             p_, q_ = pick_(pa0, pa1), pick_(a0, a1)
             size = float(np.abs(np.mean(q_, axis=0) - np.mean(p_, axis=0)).sum()) if p_ and q_ else 0.0
-            cause, ck = _epic_cause(met, a0, share, say_of)
+            cause, ck = _epic_cause(met, a0, share, say_of, W)
             harbour = pk == "swing" and ls[0] in pls
             if harbour:                                  # the swing's end: the harbour says it, no drift after it
-                head = f"At {a0i} the winds fell still, and they came to harbour, {_adjs(ls[0])} at last."
+                head = W["harbour"].format(age=a0i, adjs=adjs(ls[0]))
                 up = dn = None
             elif cause:                                  # the cause's kind and the change's size choose the words
-                big = size >= 0.25
-                head = {"death": f"And {cause}, and {'the gods remade them' if big else 'they were not the same after'}.",
-                        "title": f"Then, {cause}, {'a great change came over them' if big else 'they were changed a little'}.",
-                        "event": f"Then, {cause}, {'the world shook them into a new shape' if big else 'something shifted in them'}."}[ck]
+                head = W["turn"][ck]["big" if size >= 0.25 else "small"].format(cause=cause, gods=W["gods"])
             else:
-                head = ("And with the years a great change came over them, as changes come in the old tales." if size >= 0.25 else
-                        f"{_decade(a0i).capitalize()} the old shape loosened, and a new one grew." if size >= 0.12 else
-                        "Slowly, as stone is worn by water, they were changed.")
-            parts = ([EPIC_RISE[up].replace("as ", f"{NOUN[up].capitalize()} rose in them as ", 1)] if up and up not in used else
-                     [f"{NOUN[up].capitalize()} rose in them again"] if up else []) + \
-                    ([EPIC_FALL[dn]] if dn and "f" + dn not in used else [f"their {NOUN[dn]} faded once more"] if dn else [])
+                head = W["drift"]["big" if size >= 0.25 else "mid" if size >= 0.12 else "small"].format(Decade=_cap(_decade(a0i, W)))
+            parts = ([W["rise"][up]["again" if up in used else "first"]] if up else []) + \
+                    ([W["fall"][dn]["again" if "f" + dn in used else "first"]] if dn else [])
             used |= {up} if up else set(); used |= {"f" + dn} if dn else set()
-            s_ = head + (" " + "; ".join(parts) + "." if parts else "")
+            s_ = head + (" " + _cap("; ".join(parts)) + "." if parts else "")
             if any(ls[0] in e[1] for e in eps[:i - 1]) and not harbour:
-                s_ += " So they came home to an old self, as the wanderer comes home."
+                s_ += " " + W["home"]
         if kind == "steady" and dur >= 10 and i == max(range(len(eps)), key=lambda j: eps[j][3] - eps[j][2]):
-            s_ += f" For {dur} years they were {_ident_a(ls[0])}, and that was the longest of their shapes."
+            s_ += " " + W["longest"].format(n=_num(dur, W), ident=_ident_a(ls[0]))
         for r in (r_ for r_ in rare if home(r_) == i):
-            s_ += " " + _epic_thing(r[2], r[3], say_of, int(r[1]), lead)
+            s_ += " " + _epic_thing(r[2], r[3], say_of, int(r[1]), lead, W)
         V.append(s_)
     # their deeds at the player's moments, and the gods' hand
-    d_ = _deeds(h.get("acts", []), lead, review)
+    d_ = _deeds(h.get("acts", []), lead, review, W)
     if d_:
         V.append(d_)
     # the ups and downs, losses and long shots, and the end
     T = []
-    sh = _shape(h.get("content", []))
+    sh = _shape(h.get("content", []), W)
     if sh:
         T.append(sh)
     dp = {}
@@ -3602,25 +3710,51 @@ def life_paragraph(name, h, review, setting):
             dp.setdefault(int(a) // 10 * 10, []).append(v)
     dp = {d: float(np.mean(v)) for d, v in dp.items() if len(v) >= 3}
     if dp:
-        T.append(f"Their deepest peace was {_decade(max(dp, key=dp.get))}, still as water at evening.")
+        T.append(W["peace"].format(decade=_decade(max(dp, key=dp.get), W)))
     lost = sum(1 for m in met if m[1] == "death" and m[2] != "grandparent")
     if lost >= 3:
-        T.append(f"They buried {lost} of their own, and carried each of them.")
+        T.append(W["buried"].format(n=_num(lost, W)))
     tried = [x for x in h.get("long", [])]
     if len(tried) >= 2:
         made = sum(1 for x in tried if x["made"])
-        T.append(f"{len(tried)} times they reached for what lay beyond them, and " +
-                 ("never once took hold of it, and reached anyway." if made == 0 else
-                  "once took hold of it." if made == 1 else f"{made} times took hold of it."))
+        T.append(W["reached"]["never" if made == 0 else "once" if made == 1 else "more"].format(n=_num(len(tried), W), made=_num(made, W)))
     if died and died.get("cause") not in (None, "old age"):
-        T.append(f"At {int(died['age'])} they went down into the dark, {died['how']}, and the song does not grieve it less.")
+        T.append(W["death_early"].format(age=int(died["age"]), how=died["how"]))
     else:
-        T.append(f"Full of years at {age}, they went down into the dark, and the dark was kind.")
+        T.append(W["death_old"].format(age=age))
     V.append(" ".join(T))
+    # the close: gladness by the peace reading's bands, the toast by the lead color and how well they lived
     bands = tuple((review.get("reading") or {}).get("bands") or ("mid", "mid"))
-    V.append(f"So it is sung now, {EPIC_HALL.get(setting, EPIC_HALL['earth'])}: the song of {name}, "
-             f"{EPIC_GLAD.get(bands, EPIC_GLAD[('mid', 'mid')])}. Raise the cup. {EPIC_TOAST[lead]}")
+    V.append(W["close"].format(hall=W["hall"], N=name, glad=W["glad"].get(bands, W["glad"][("mid", "mid")]), cheer=W["cheer"],
+                               toast=W["toast"][lead]["hard" if bands[0] == "low" else "glad"]))
     return "\n\n".join(V)
+
+
+def last_talk(name, name_s, h, review, setting):
+    """The last conversation with the voice, told after the song (earth_story.py LAST_TALK): what it gave and what it cost,
+    by the character's trust in the player per color, and whether they were glad of it, by their trust along the colors
+    the player pushed and the voice's share of their color change. Empty without the Library's words."""
+    LT = getattr(ES, "LAST_TALK", None)
+    if not LT:
+        return ""
+    noun = (getattr(ES, "VOICE", {}).get("noun") or {})
+    fill = dict(N=name, Ns=name_s, voice=noun.get(setting) or noun.get("earth") or "voice")
+    n = h.get("forced", 0)
+    if n < TALK_PUSHES:
+        return LT["none" if not n else "few"].format(**fill)
+    tr = np.asarray([(review.get("trust") or {}).get(c, 0.0) for c in COLORS], float)
+    lead = _song_colors(h)[0][0]
+    S = [LT["intro"]]
+    hi, lo = COLORS[int(np.argmax(tr))], COLORS[int(np.argmin(tr))]
+    if tr.max() > TALK_TRUST:                          # what it gave: the color they came to trust most
+        S.append(LT["gave"][hi]["own" if hi == lead else "other"])
+    if tr.min() < -TALK_TRUST:                         # what it cost: the one they resented most, opposed to the lead or not
+        S.append(LT["cost"][lo]["enemy" if (COLORS.index(lo) - COLORS.index(lead)) % 5 in (2, 3) else "other"])
+    pv = _ways([a for a in h.get("acts", []) if a[3]])   # trust over all pushes: along the colors the player pushed
+    over = float(pv @ tr / pv.sum()) if pv.sum() else float(tr.mean())
+    glad = "glad" if over > TALK_TRUST else "sorry" if over < -TALK_TRUST else "torn"
+    S.append(LT["glad"][glad][int(h.get("voice", {}).get("share", 0.0) >= TALK_SHARE)])
+    return " ".join(S).format(**fill)
 
 
 def peace_reading(ful, ser, integ, gifts):
