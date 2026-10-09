@@ -1,0 +1,366 @@
+# Chroma library, modern Earth: PAIR MOMENTS, the pull (inner moments, all stages). Ten moments, one per colour pair:
+# the five enemy pairs (W-R, W-B, U-R, U-G, B-G) and the five ally pairs (W-U, U-B, B-R, R-G, G-W). Each puts the
+# pair's question (the "pull" column of pair-moments.md) to the character as a real choice in an ordinary modern life.
+# Source: Library thread, 2026-10-09, implementation list v22 item 6, pair-moments.md (chroma-ideas/pair-moments.md).
+# Gate (for the Engine): both colours of the pair above .22 in the identity, and one of them up .04 or more over the
+# last two years; at most once every five years for the same pair; ages 14-110.
+# Options: five one-colour options plus one full cross cycle that holds a cross between the two pair colours (the
+# attempt to hold both). Chance scheme, symmetric under rotating the colours: the two pair colours' one-colour options
+# 60, the other three one-colour options 70; the pair cross 55, the other four crosses 64. Each colour is the means
+# colour of exactly two pair crosses (W>R, B>W, U>R, U>G, G>B, W>U, B>U, R>B, R>G, G>W), so every colour's mean chance
+# is equal. Cycles: s1 three times, s2 once, s3 four times, s4 twice (the closest to even that two-each allows).
+# Syntax: header of build.py.
+
+# ---------------------------------------------------------------- enemy pairs
+
+== the timesheet a friend asks to fix
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: work, friends
+horizon: week
+roles: friend, boss
+earth: a friend left work early for a good reason and asks you to sign them out at the usual time
+requires: W and R both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: juvenile and young adult years (values still settling); a job, team or school with strict written rules and a close friend inside it; a life event within the year that pushed rules or freedom; much White and Red in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); no close friend at work or school; steadiness above 1
+times: Perhaps 1 life in 8 meets it, most often between 15 and 40 (estimate)
+gap: 5-15
+scene: {friend} left the shift an hour early to fetch a sick child, and now asks {N} to sign them out at the usual time. The rule is plain. So is the reason.
+scene W: {N} has signed the sheet honestly for years, and {friend} is not asking for much. Both facts sit in {Ns} hand with the pen.
+scene U: {N} weighs it up. The rule exists for a reason, and so does a sick child. Which reason should win here, and why?
+scene B: Rules belong to the people who write them. Still, {N} knows whose name goes on the sheet if anyone ever checks.
+scene R: Everything in {N} says help them, now, no questions. And a small stubborn voice says a signature should mean what it says.
+scene G: Some rules hold a place together the way roots hold a bank. Some days a friend just needs a hand. {N} feels both.
+- W | sign the true time, and help them ask the manager for the hour back | v: conformity, benevolence | chance: 60
+- U | look up the leave policy and find the line that already covers a sick child | v: self-direction, benevolence | chance: 70
+- B | sign it for them, and remember that they owe you one now | act: sign it for them, and remember that the friend owes them one now | v: power | mark: hid a wrong | chance: 70
+- R | sign the usual time without a second thought, because a sick child comes first | v: benevolence | mark: hid a wrong | chance: 60
+- G | say gently that you will not sign, and offer to cover their next shift instead | v: benevolence, tradition | mark: helped someone in need | chance: 70
+- W>R | take it to the manager yourself and argue openly for an exception | v: benevolence, self-direction | mark: helped someone in need | chance: 55
+- U>G | quietly arrange a shift swap that makes the hours come out true | v: benevolence, security | chance: 64
+- B>W | trade your signature for their promise to make the hour up by Friday | v: power, conformity | chance: 64
+- R>U | say straight out how torn you feel, and talk it through together until it is clear | v: self-direction | chance: 64
+- G>B | stay out of it, and say you never saw when they left | v: security | mark: hid a wrong | chance: 64
+works: The hour is settled in a way {N} can live with, and {friend} knows who stood by them.
+works: {N} finds that the rule and the friendship both survive the week.
+fails: The manager finds the sheet does not match the door log, and {N} has some explaining to do.
+fails: {friend} hears only the part {N} did not do, and the friendship cools.
+
+== double pay to break the team's line
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: work, friends
+horizon: months
+roles: boss, colleague
+earth: your team agreed to refuse extra shifts until a new hire comes, and the boss offers you the extra shifts at double pay
+requires: W and B both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: young adult and adult years; money worries (debt, rent, a family to keep); a workplace or school group that acts together; much White and Black in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); working alone or for oneself; no money pressure at all
+times: Perhaps 1 life in 8 meets it, most often between 18 and 55 (estimate)
+gap: 5-15
+scene: The team agreed: no extra shifts until a new hire comes. Now {boss} takes {N} aside and offers the shifts at double pay, just for {N}, and nobody need know.
+scene W: {N} shook hands on that agreement with everyone in the room. The offer feels like a coin pressed into a closed fist.
+scene U: {N} runs the sums twice: what double pay buys this month, and what a new hire would be worth to everyone for years.
+scene B: Double pay, and a boss who now sees {N} as the one who can be counted on. The team, though, will remember too.
+scene R: {N} feels the heat rise. The money would be lovely, and the sneaking around of it makes {N} want to shout.
+scene G: The team has always stood together, like trees that keep each other up in a storm. {N} feels the wind of the offer all the same.
+- W | turn the boss down, and tell the team about the offer as well | v: conformity, universalism | mark: turned down a chance | chance: 60
+- U | weigh what the extra money buys against what the team's plan could win | v: self-direction | chance: 70
+- B | take the double pay, because the rent will not wait for a hiring plan | v: power, achievement | mark: broke your word | chance: 60
+- R | laugh off the offer to the boss's face, and go straight to tell the others | v: stimulation, benevolence | chance: 70
+- G | do what the team always does, and wait to see who else bends first | v: tradition, security | chance: 70
+- B>W | take the shifts only if the boss signs the new hire this month | v: power, benevolence | chance: 55
+- W>R | write the team a fair rule for extra shifts, and let each choose freely by it | v: universalism, self-direction | chance: 64
+- U>G | find out how other teams in the building settled the same quarrel | v: self-direction, tradition | chance: 64
+- R>U | ask the boss straight out why the offer is a secret, and listen closely | v: self-direction | chance: 64
+- G>B | say nothing either way, and let the offer go by on its own | v: security | chance: 64
+works: The team holds, or bends in the open, and {N} comes out of it trusted on both sides.
+works: The new hire comes in the end, and {N} has a fair share of the credit.
+fails: The secret gets out, and the team looks at {N} differently for months.
+fails: {boss} takes the refusal personally, and the good shifts start going elsewhere.
+
+== a spare seat leaving in the morning
+tier: inner
+stages: all
+age: 14-110
+tone: joy
+life: friends, travel
+horizon: week
+roles: friend
+earth: a friend has a spare seat on a trip that leaves at dawn, and you have an hour to say yes or no
+requires: U and R both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: juvenile and young adult years; few fixed duties (no young child, no shift work); a lively circle of friends; much Blue and Red in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); caring for someone every day; poor health or little money for travel
+times: Perhaps 1 life in 6 meets it, most often between 15 and 35 (estimate)
+gap: 5-15
+scene: Someone has dropped out of the trip. {friend} rings to say the seat is {Ns} if they want it, but the car leaves at six. {N} has an hour to answer and a week of plans to unpick.
+scene U: {N} reaches for a pen before {friend} has finished: dates, costs, what gets missed. Yet the hour is already ticking away.
+scene R: {Ns} heart says yes before {Ns} head has even heard the question. Somewhere behind it, a quieter voice asks about the details.
+scene W: {N} thinks of everyone counting on them this week, and of the open road, and cannot tell yet which one weighs more.
+scene B: A free seat, new faces, a chance to be seen somewhere new. And a week of {Ns} own careful plans thrown to the wind.
+scene G: The week ahead was laid out like a path through a garden. Now a gate has swung open onto somewhere wild.
+- U | get the plan, the costs and the return day, then decide if it adds up | v: self-direction, security | chance: 60
+- R | say yes before the call ends, and pack tonight | v: stimulation | mark: took a wild risk | chance: 60
+- W | check who is counting on you this week, and go only if nobody is let down | act: check who is counting on them this week, and go only if nobody is let down | v: conformity, benevolence | chance: 70
+- B | ask who else is going, and go only if the trip is worth something to you | act: ask who else is going, and go only if the trip is worth something to them | v: achievement, power | chance: 70
+- G | let it pass, because the week already planned has its own good things in it | v: tradition, security | mark: turned down a chance | chance: 70
+- U>R | spend twenty minutes on the timetable and the money, then say yes and go | v: stimulation, self-direction | chance: 55
+- W>B | ask properly for the days off, so the trip costs nothing later | v: security, achievement | chance: 64
+- B>G | bargain down your share of the fuel, then go wherever the group wants | v: power, conformity | chance: 64
+- R>W | say yes, then stay up half the night covering every job you leave behind | v: benevolence, conformity | chance: 64
+- G>U | sleep on it, and see at five which choice still feels true | v: self-direction | chance: 64
+works: The week turns out well either way, and {N} knows why they chose as they did.
+works: {N} comes home with a story to tell and nothing left undone.
+fails: The choice is made in a rush, and {N} spends the week wishing for the other one.
+fails: Something left behind goes wrong while {N} is away, and someone is cross about it.
+
+== the club's old paper booking book
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: community, pastimes
+horizon: months
+roles: elder, friend
+earth: your club runs on an old paper book that keeps losing pages, and you could set up something better in a weekend
+requires: U and G both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: a long membership in a club, team or place of worship; mixed ages in the group; skills with tools or computers; much Blue and Green in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); no club or group membership; a group that is new and has no old habits yet
+times: Perhaps 1 life in 8 meets it, at any age (estimate)
+gap: 5-15
+scene: The club still runs on a paper booking book that is always missing a page. {N} could set up something better in a weekend, and the old members love that book.
+scene U: {N} can see exactly how to fix it, step by step. {N} can also see {elder} smoothing the cover of the book like a pet.
+scene G: The book has been on that desk longer than {N} has been a member. It is a nuisance, and it is also part of the place.
+scene W: {N} wants the club to run fairly and well. That might mean a new system, or it might mean respecting what the members chose long ago.
+scene B: Whoever fixes the bookings will run the club in all but name. {N} notices that, and notices how much the old guard would mind.
+scene R: {N} has lost a booking to that book twice this month and wants to bin it tonight. And yet the members' faces, when it goes.
+- U | build the new booking system over a weekend and show it at the next meeting | v: achievement, self-direction | chance: 60
+- G | leave the book alone, because it works well enough and the members love it | v: tradition | chance: 60
+- W | put it to the meeting and let the members vote | v: conformity, universalism | chance: 70
+- B | build it and run it yourself, so the club comes to need you | act: build it and run it themselves, so the club comes to need them | v: power | chance: 70
+- R | start using the new way tomorrow, and let the others catch up | v: stimulation, self-direction | chance: 70
+- U>G | study how the old members use the book, and design the new way around their habits | v: tradition, achievement | chance: 55
+- W>R | ask the committee for a trial month that anyone can join or skip | v: self-direction, conformity | chance: 64
+- B>W | offer to pay for the new system yourself if the club makes it the rule | v: power, conformity | chance: 64
+- R>U | take the desk on the busiest night, and see the problem for yourself | v: stimulation, self-direction | chance: 64
+- G>B | wait until the book falls apart, then offer your system when they need it | v: power, security | chance: 64
+works: The bookings stop going missing, and the old members still get their say.
+works: {N} finds a way that the club can live with, and is thanked for it at the bar.
+fails: The change splits the club, and {elder} stops coming on Tuesdays.
+fails: Nothing changes, and the next missing page costs {N} a booking.
+
+== the captaincy a season early
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: club, sport, friends
+horizon: months
+roles: friend, mentor
+earth: the team's captain steps down next season, and one word from you to the coach could take the role ahead of those who have waited longer
+requires: B and G both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: a long membership of a team, club, choir or crew where roles pass by seniority; a strong season or a good record; a coach or leader who listens; much Black and Green in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); no team or club; a group that picks its leaders by open vote
+times: Perhaps 1 life in 8 meets it, at any age from the teens on (estimate)
+gap: 5-15
+scene: {friend} steps down as captain next season, and the role always passes to whoever has waited longest. A word from {N} to {mentor} now could take it a season early, ahead of two others.
+scene B: {N} knows they would lead better than either of the two in line. The only thing standing in the way is the waiting.
+scene G: Everyone here waited their turn, and {N} was taught to wait too. Still, the role hangs before {N} like ripe fruit just out of reach.
+scene W: {N} wants the team led well, and wants the waiting order respected. This time the two point in different directions.
+scene U: {N} lays it out: what the role needs, the two ahead of them, and what one season of waiting really costs.
+scene R: {N} wants it, plainly and hotly, and cannot stand pretending otherwise. And part of {N} likes the two ahead of them very much.
+- B | go to the coach this week and make the case that you should have it now | v: achievement, power | chance: 60
+- G | wait your turn, because your season will come the way theirs did | v: tradition, conformity | chance: 60
+- W | ask that the captain be chosen by a fair vote of the whole team | v: universalism, conformity | chance: 70
+- U | spend the season learning the role properly, whoever gets it | v: achievement, self-direction | mark: learned a skill | chance: 70
+- R | tell the two others straight out that you want the role as well | v: self-direction | chance: 70
+- G>B | stay close to the captain, and let their blessing carry the role your way | v: power, tradition | chance: 55
+- W>R | ask the coach for a written rule on choosing captains, so nobody waits in the dark | v: universalism, self-direction | chance: 64
+- U>G | find out how the role has passed before, and fit your plan to that | v: tradition, security | chance: 64
+- B>W | put your name forward, and promise the others a real share in running things | v: power, benevolence | chance: 64
+- R>U | ask the captain after practice what the role is really like | v: self-direction | chance: 64
+works: The role goes where it should, and {N} keeps the respect of the whole team.
+works: {N} comes out of the season stronger and better placed, whoever wears the armband.
+fails: The others hear of {Ns} move before it is made, and the changing room goes quiet around {N}.
+fails: {N} holds back, and the role goes to a newcomer the coach likes better.
+
+# ---------------------------------------------------------------- ally pairs
+
+== the family meal done the old way
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: family, home
+horizon: months
+roles: grandparent, parent, sibling
+earth: the family always eats the yearly meal at your grandparent's house the same way, and this year it is wearing them out
+requires: W and U both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: a living grandparent or older parent who hosts; a large family that meets every year; a new household of one's own; much White and Blue in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); a small or scattered family; no yearly gathering
+times: Perhaps 1 life in 8 meets it, at any age (estimate)
+gap: 5-15
+scene: Every year the whole family eats at {grandparent}'s, with the same dishes in the same order. This year {grandparent} is tired, and {N} can see a better way to do it, if anyone would allow it.
+scene W: The meal is how this family keeps faith with itself. {N} would not change a plate of it, and yet {grandparent} looks so tired.
+scene U: {N} can already see the better version: shared cooking, a rota, half the washing up. Yet the old way means something {N} cannot quite measure.
+scene B: {N} could take the whole thing over and do it properly, on {Ns} own terms. The old way would not survive it, and {N} half minds.
+scene R: {N} loves the noise of it all. {N} also wants to throw open the windows and cook something nobody has tasted before.
+scene G: The meal has come round every year like the seasons. {N} wonders whether a season can change and still be the same one.
+- W | keep it as it always was, and do the heavy cooking yourself this year | v: tradition, benevolence | chance: 60
+- U | draw up a better plan with shared dishes, a rota and a smaller table | v: achievement, self-direction | chance: 60
+- B | offer to host it at your place, and run it your way | v: power | chance: 70
+- R | throw out the old menu and cook something bold that everyone will remember | v: stimulation, hedonism | chance: 70
+- G | leave it to the eldest to decide, and go along with what they choose | v: tradition, conformity | chance: 70
+- W>U | ask the family to agree together on one change, and keep the rest as it was | v: tradition, self-direction | chance: 55
+- U>B | work out which plan leaves the least work on your plate, and argue for it | v: hedonism, self-direction | chance: 64
+- B>R | slip in one surprise dish without telling anyone, just for the fun of it | v: stimulation, hedonism | chance: 64
+- R>G | turn up early and cook beside the eldest, the way you did as a child | v: tradition, benevolence | chance: 64
+- G>W | keep the old house and the old dishes, and ask everyone to bring one each | v: tradition, conformity | chance: 64
+works: The meal goes ahead, warmer than in years, and {grandparent} gets to sit down for once.
+works: The family finds a way that keeps the heart of it and lightens the load.
+fails: Someone takes the change as an insult, and the table is stiff all evening.
+fails: Nothing changes, and {grandparent} is worn out for a week afterwards.
+
+== two evening classes and time for one
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: school, work
+horizon: months
+roles: boss, friend
+earth: you have time for one evening class: the one you love for its own sake, or the one that would count at work or school
+requires: U and B both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: juvenile and young adult years; a job or school that rewards certificates; a long-held interest with no use at work; much Blue and Black in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); no free evenings (young children, shift work); retirement with time for both
+times: Perhaps 1 life in 8 meets it, at any age from the teens on (estimate)
+gap: 5-15
+scene: There is room for one evening class this term. One is the old history course {N} has wanted for years, just for the joy of it. The other is a certificate that would count at work.
+scene U: {N} has wanted the history course for years. {N} also knows exactly what the certificate would open, and hates having to rank them.
+scene B: The certificate is the smart move, and {N} knows it. Still, the history course keeps calling, for no reason that pays.
+scene W: {N} asks which class a sensible person would take, and hears two different answers in {Ns} own voice.
+scene R: One class makes {Ns} heart jump. The other makes {Ns} future look safer. {N} wants the jump, and wants the safety too.
+scene G: {N} wonders which kind of knowing really belongs to them: the kind that grows slowly for its own sake, or the kind that gets on.
+- U | take the class you love, purely to know more | v: self-direction | mark: learned a skill | chance: 60
+- B | take the certificate, because knowledge that pays is knowledge that counts | v: achievement, power | chance: 60
+- W | take whichever class the family would call the responsible choice | v: conformity | chance: 70
+- R | sign up for the one that makes your heart jump, and sort out the rest later | v: stimulation, hedonism | chance: 70
+- G | skip both, and learn from the old hands around you, the way people always have | act: skip both, and learn from the old hands around them, the way people always have | v: tradition | chance: 70
+- B>U | take the certificate, and talk the boss into paying for the history class too | v: power, self-direction | chance: 55
+- W>G | join the local history society instead, and help keep its records | v: tradition, benevolence | chance: 64
+- U>W | study the certificate properly, so you can teach it to others afterwards | v: universalism, achievement | chance: 64
+- R>B | throw yourself at the certificate and pass it in half the term | v: achievement, stimulation | chance: 64
+- G>R | sit in on one night of each, and follow whichever pull feels truest | v: self-direction | chance: 64
+works: The term goes well, and {N} finds the class worth every tired evening.
+works: {N} learns something that stays, and it turns out to matter in more ways than one.
+fails: The class is not what {N} hoped, and the evenings drag.
+fails: {N} spends the term wondering about the other class, and gets less from either.
+
+== money that arrives all at once
+tier: inner
+stages: all
+age: 14-110
+tone: joy
+life: money, friends
+horizon: months
+roles: friend, parent
+earth: a sum you did not expect lands all at once, and a friend is already planning a weekend away
+requires: B and R both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: juvenile and young adult years; a savings goal (a deposit, a course, a car); friends who spend freely; much Black and Red in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); deep debt, where the money is spoken for; great wealth, where the sum makes no difference
+times: Perhaps 1 life in 6 meets it, at any age (estimate)
+gap: 5-15
+scene: Money {N} did not expect lands all at once: a refund, a gift, a small win. {friend} is already planning a weekend away, and the savings jar sits on the shelf.
+scene B: {N} can see exactly where it should go: toward the thing {N} is building. And {friend}'s weekend sounds wonderful.
+scene R: {N} can already taste the weekend. A sensible voice at the back of {Ns} head keeps saying the word later.
+scene W: {N} thinks first of what is owed and who needs it. Then {friend} rings again, laughing, and {N} wants to laugh too.
+scene U: {N} opens a spreadsheet in {Ns} head: saved, it grows; spent, it is a memory. Both columns look good.
+scene G: Good luck comes and goes like rain. {N} wonders whether to store it up or let it soak in where it falls.
+- B | put every bit of it toward the thing you are building | v: achievement, security | chance: 60
+- R | spend it on the weekend away, and enjoy every minute | v: hedonism, stimulation | chance: 60
+- W | pay back what you owe first, then think about the rest | v: conformity, security | mark: kept your word | chance: 70
+- U | make a plan for every part of it before spending anything | v: self-direction, security | chance: 70
+- G | give a share to the household, and let the rest wait | v: benevolence, tradition | chance: 70
+- R>B | go on the weekend, and use it to meet people who could help your plans | v: hedonism, achievement | chance: 55
+- W>G | put it into the family's shared pot for the next lean month | v: security, benevolence | chance: 64
+- U>W | find out who on the street needs it more, and quietly help | v: universalism, benevolence | mark: helped someone in need | chance: 64
+- B>U | spend it on a course or a tool that will earn its cost back twice | v: achievement, self-direction | chance: 64
+- G>R | wake up on the day, and do whatever your gut says | v: hedonism, self-direction | chance: 64
+works: The money goes somewhere {N} is glad of a year later.
+works: {N} gets both a good memory and a little left over.
+fails: The money is gone within the month, and {N} cannot quite say where.
+fails: {N} holds on so tightly that the chance for something good slips past.
+
+== the yearly trip with the whole group
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: friends, travel
+horizon: months
+roles: friend
+earth: your group goes to the same place every summer and has booked your place, but this year you want to go your own way
+requires: R and G both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: juvenile and young adult years; a close group of long-standing friends or a close family; a recent taste of travelling alone; much Red and Green in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); no close group; little money or time for travel
+times: Perhaps 1 life in 8 meets it, most often between 15 and 40 (estimate)
+gap: 5-15
+scene: The whole group goes to the same lake every summer, and {friend} has booked {Ns} place already. This year {N} wants to go somewhere alone, and nobody in the group has ever said no.
+scene R: {N} wants the open road and nobody's plans but {Ns} own. And {N} can already picture the empty place by the fire at the lake.
+scene G: The lake is where this group has always belonged together. {N} loves it, and something in {N} wants new ground too.
+scene W: {N} said yes to the lake last year, without thinking. Now {N} wonders whether that was a promise, and whether it can bend.
+scene U: {N} works out what a solo trip could teach them, and what a year away from the lake might cost the friendships.
+scene B: {N} wants this summer for {Ns} own ends. The group will take it personally, and {N} weighs whether that matters.
+- R | tell the group you are going your own way this year, and go | v: self-direction, stimulation | chance: 60
+- G | go with the group to the lake, as you always do | v: tradition, conformity | chance: 60
+- W | keep your word to the group this year, and tell them early about next year | v: conformity | chance: 70
+- U | work out whether you could do both, and draw up the dates | v: self-direction | chance: 70
+- B | go on your own, and get your deposit back from the group first | v: self-direction, power | chance: 70
+- R>G | talk the whole group into somewhere new this year, and go together | v: stimulation, benevolence | chance: 55
+- W>U | ask the group to agree a fair way to choose the place each year | v: universalism, self-direction | chance: 64
+- U>B | plan a solo trip so cheap and clever that you lose nothing by it | v: achievement, self-direction | chance: 64
+- B>R | book your own trip for the same week, and tell them at the last minute | v: self-direction | mark: broke your word | chance: 64
+- G>W | go with the group, and take on looking after the camp for everyone | v: benevolence, tradition | chance: 64
+works: {N} has the summer they needed, and the group is still there when they come back.
+works: The friendships come out of it looser in a good way, with room for everyone.
+fails: The group goes on without {N}, and the jokes from the lake are ones {N} was not there for.
+fails: {N} goes along and spends the week wishing they were somewhere else.
+
+== a front garden left to grow
+tier: inner
+stages: all
+age: 14-110
+tone: mixed
+life: home, neighbours
+horizon: months
+roles: a neighbour
+earth: the street's rules say front gardens are kept trim, and yours has gone half wild with bees and birds
+requires: G and W both above .22, one of them up .04 or more over the last two years; at most once every five years for this pair
+likelier: a home with a garden or shared green space; a street or block with a residents' committee; mature and elder years; much Green and White in the color history
+rarer: one of the two colours clearly ahead of the other (by .15 or more); a flat with no outdoor space; a street with no rules or committee
+times: Perhaps 1 life in 10 meets it, most often from the thirties on (estimate)
+gap: 5-15
+scene: The residents' rules say front gardens are kept trim. {Ns} has gone half wild, full of bees and birds, and a neighbour has just slipped the rules through the door with a polite note.
+scene G: {N} loves the hum of it on a warm morning. And {N} knows the street is a kind of garden too, one that grows on its rules.
+scene W: Rules are what let a street live together, and {N} has always kept them. Yet the wild patch feels like something owed to the bees.
+scene U: {N} reads the note twice and starts weighing it: what the rule is for, and what the wild garden does better.
+scene B: It is {Ns} garden, bought and paid for. Still, {N} has to live beside these people for years, and they know it.
+scene R: The note makes {Ns} cheeks burn. {N} wants to march next door, and also wants, somewhere underneath, to keep the peace.
+- G | leave it wild, because the bees were here before the rules | v: universalism | chance: 60
+- W | cut it back to the rule, neatly, this weekend | v: conformity | chance: 60
+- U | read up on the bees and birds, and write the committee a careful letter | v: universalism, self-direction | chance: 70
+- B | ignore the note, because your garden is nobody else's business | v: self-direction, power | chance: 70
+- R | knock on the neighbour's door today and have it out face to face | v: stimulation, self-direction | chance: 70
+- G>W | trim a neat strip along the path, and let the rest grow as it wants | v: universalism, conformity | chance: 55
+- W>U | ask the committee to change the rule so wild gardens are allowed | v: universalism, conformity | chance: 64
+- U>B | find the gap in the wording that lets the garden stay as it is | v: self-direction, power | chance: 64
+- B>R | offer the neighbour a favour in trade, and keep the garden free | v: power, self-direction | chance: 64
+- R>G | throw a garden party for the street, and let them see the bees for themselves | v: stimulation, benevolence | mark: made a friend | chance: 64
+works: The garden stays, in some shape, and the street is on better terms than before.
+works: {N} and the neighbour find a middle that both can live with.
+fails: The note becomes a letter from the committee, and then a second one.
+fails: {N} gives way, and the bees are gone by midsummer.
