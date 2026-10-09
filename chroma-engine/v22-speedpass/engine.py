@@ -787,6 +787,15 @@ DEFAULT = dict(
     dom_half=3.0,       # years for an area's offset to fade halfway back to the core
     dom_end_half=1.0,   # ... while that part of life is not held (no work, no faith)
     dom_cap=0.6,        # largest offset per color, in log-ratio units (about +-.1 on a share near .2)
+    # a curious, thinking life rewarded (item 7, chroma-ideas/curious-life.md C2 to C4), behind curious=False:
+    curious=False,
+    cu_keep=0.7,         # C2: from cu_age, skill in Blue's ways fades this much more slowly (knowledge keeps into the 60s)
+    cu_age=40.0,
+    cu_late=0.004,       # C2: from 55, skill in Blue's ways above a beginner's meets competence (and half as much meaning) weekly
+    cu_learn=0.03,       # C3: an act in Blue's ways that teaches something new meets meaning (and half as much autonomy),
+                         # whether it works or not, by how much there was still to learn
+    cu_ask_rate=0.01,    # C4 "the one people ask": grows weekly from 35 while Blue skill is high and Blue held, fades slowly
+    cu_ask=0.004,        # C4: from 50 it meets belonging and meaning weekly, by how much they are asked
     thr_vec=None,        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
                          # (anxiety-based minus growth values, AXSEC_SW), not on Magic's security axis, which counted Blue as
                          # fully security. None: Magic's axis (v10-v22); or a 5-vector
@@ -853,7 +862,7 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
 UPD_OFF = dict(dis_match=False, drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
-               hz_self=0.0, hz_want=0.03, domains=False)
+               hz_self=0.0, hz_want=0.03, domains=False, curious=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1067,6 +1076,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
     SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
+    CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
     NA_OUT = len(ADJECTIVES) if SHON else ADJ_BASE   # the adjectives the outputs carry
     DOM_ON = bool(P["domains"]); NA_D = len(AREAS)
     Dz = np.zeros((N, NA_D, C)); D_hist = []   # v23 life domains: each area's offset on the colors (log-ratio units)
@@ -2739,7 +2749,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
-        sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
+        if CU_ON:   # C2: understanding keeps into later life (Blue skill fades more slowly from cu_age); C3 reads its growth
+            sg0_ = sig[:, 1].copy()
+            sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma) * np.where((np.arange(C) == 1)[None] & (age >= P["cu_age"]),
+                                                                       1 - P["cu_keep"], 1.0)
+        else:
+            sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -2986,6 +3001,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             need[:, NIDX["autonomy"]] += P["aut_act"] * concord * (~idle) * np.where(concord > 0, room[:, NIDX["autonomy"]] if P["satiate"] else 1, 1)
             # competence: succeeding at what was hard for you, in any color; failing drains it a little
             need[:, NIDX["competence"]] += P["comp_act"] * np.where(succ, (0.5 + (1 - p_true)) * (room[:, NIDX["competence"]] if P["satiate"] else 1), -0.3 * appf_) * (~idle)
+        if CU_ON:   # a curious, thinking life (item 7): its own goods
+            ln_ = ma[:, 1] * (1 - sg0_) * (~idle)                        # C3: learning in Blue's ways, worked or not
+            need[:, NIDX["meaning"]] += P["cu_learn"] * ln_; need[:, NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
+            late_ = _uclip((age - 55) / 10, 0, 1) * np.maximum(sig[:, 1] - 0.3, 0)   # C2: understanding pays late
+            need[:, NIDX["competence"]] += P["cu_late"] * late_; need[:, NIDX["meaning"]] += 0.5 * P["cu_late"] * late_
+            ask_on_ = (age >= 35) & (sig[:, 1] > 0.55) & (w[:, 1] > 0.22)  # C4: the one people ask
+            asked += P["cu_ask_rate"] * np.where(ask_on_, 1 - asked, -0.1 * asked)
+            ak_ = P["cu_ask"] * asked * (age >= 50)
+            need[:, NIDX["belonging"]] += ak_; need[:, NIDX["meaning"]] += ak_
         duty_ = np.minimum(1, (held * I) @ DUTY)                      # needs of those the person answers for
         served = ((np.maximum(ea, 0) @ NMAP.T) * duty_).sum(1)
         need[:, NIDX["meaning"]] += P["duty_mean"] * served * succ * (~idle) * (room[:, NIDX["meaning"]] if P["satiate"] else 1)
@@ -4058,6 +4082,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                        if RON else None),
                 adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
+                **(dict(asked=asked) if CU_ON else {}),
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
                 **(dict(areas=dict(names=AREAS, offsets=Dz, hist=D_hist,   # each area's colors are softmax(core z + offset)
@@ -4096,6 +4121,8 @@ STATE = (
     # light and shadow (stage 2, item 2): each colour's shadow part, its force, the four sources (holding on, ruling, no
     # counterweight, strain), seen, and the character's own pick before the player's ("a_self" at the choose pause and after)
     "shS", "shA", "sh_src", "sh_seen", "SHON",
+    # a curious, thinking life (stage 2, item 7 C4): how much others come to them for answers, 0 to 1
+    "asked", "CU_ON",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option
