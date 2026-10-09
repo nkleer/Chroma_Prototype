@@ -1,0 +1,68 @@
+<title>Chroma Icons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* Layout: a specimen sheet. Each glyph large, with its small sizes and today's icon beside it; then the glyphs in a mock of the event window. */
+:root {
+  --bg: #e7e4dc; --panel: #f4f1ea; --ink: #1e1a15; --muted: #675e52; --gold: #84661f; --line: #cdc4b3; --parch: #ecdfbf; --parchInk: #21170e;
+  --display: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body: "Spectral", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #13151a; --panel: #1b1e25; --ink: #ebe3d1; --muted: #a1988a; --gold: #d0ae5f; --line: #2d3139; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #13151a; --panel: #1b1e25; --ink: #ebe3d1; --muted: #a1988a; --gold: #d0ae5f; --line: #2d3139; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 64px; display: grid; gap: 36px; }
+header { display: grid; gap: 10px; max-width: 68ch; }
+.eyebrow { font-family: var(--display); font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 52px); line-height: 1.05; margin: 0; text-wrap: balance; }
+header p, .note { margin: 0; color: var(--muted); max-width: 68ch; }
+section { display: grid; gap: 12px; min-width: 0; }
+.wrap > * { min-width: 0; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 26px; margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.cards.five { grid-template-columns: repeat(auto-fill, minmax(206px, 1fr)); }
+.card { margin: 0; display: grid; grid-template-columns: 72px 1fr; gap: 14px; align-items: center; padding: 12px; background: var(--panel); border: 1px solid var(--line); min-width: 0; }
+.big { width: 72px; height: 72px; display: grid; place-items: center; }
+.big .g { width: 60px; height: 60px; }
+figcaption { display: grid; gap: 3px; min-width: 0; }
+figcaption b { font-family: var(--display); font-weight: 400; font-size: 20px; line-height: 1.15; }
+.mean { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.sizes, .now { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+.now { font-size: 12px; color: var(--muted); gap: 6px; letter-spacing: .04em; }
+svg.g { fill: currentColor; flex: none; display: block; }
+.s28 { width: 28px; height: 28px; } .s21 { width: 21px; height: 21px; } .s18 { width: 18px; height: 18px; } .s13 { width: 13px; height: 13px; }
+.gi { opacity: .75; }
+.mock { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; background: var(--parch); color: var(--parchInk); padding: 18px; border: 1px solid var(--line); }
+.rows { display: grid; gap: 8px; }
+.opt { display: flex; gap: 12px; align-items: center; font-size: 15px; line-height: 1.35; padding: 6px 8px; border-bottom: 1px solid rgb(33 23 14 / .15); }
+.plate { width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 6px; background: var(--pc); color: #21170e; box-shadow: inset 0 0 0 1px rgb(33 23 14 / .35); }
+.feed { display: grid; grid-template-columns: 22px 1fr; gap: 8px 10px; align-items: center; align-content: start; font-size: 14px; }
+.bub { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 0 1px rgb(33 23 14 / .45); }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--display); font-size: 17px; }
+.toc a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; } .toc a:hover { border-bottom-color: var(--gold); }
+.moments { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 16px; }
+.moment { background: var(--parch); color: var(--parchInk); padding: 14px 16px 10px; border: 1px solid var(--line); display: grid; gap: 6px; min-width: 0; }
+.moment h3 { font-family: var(--display); font-weight: 400; font-size: 21px; margin: 0; }
+.ot { flex: 1; min-width: 0; } .was { opacity: .45; display: flex; }
+.picker { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; font-family: var(--display); font-size: 17px; }
+.picker select { width: 100%; font: 15px var(--body); color: var(--ink); background: var(--panel); border: 1px solid var(--line); padding: 6px 8px; max-width: 100%; min-width: 0; flex: 1 1 260px; }
+.picker button { font: 15px var(--body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+#moment { max-width: 760px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+.tile { margin: 0; display: grid; justify-items: center; gap: 4px; padding: 10px 4px 8px; background: var(--panel); border: 1px solid var(--line); text-align: center; min-width: 0; }
+.tile figcaption { font-size: 13px; line-height: 1.25; display: grid; gap: 1px; } .tile small { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.s36 { width: 36px; height: 36px; }
+@media (max-width: 640px) { .mock { grid-template-columns: 1fr; } }
+</style>
+%SPRITE%
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Chroma · icons</div>
+    <h1>Our own icons, drawn for Chroma</h1>
+    <p>The whole set: %N% glyphs in one style, solid ink shapes cut like a woodcut to match the engraved pictures. Every place the game shows an icon is listed below, with the glyph large, at the game's sizes (28, 18 and 13 px), and beside the game-icons picture it replaced. Every option in the live batch has an icon of its own too.</p>
+    <nav class="toc"><a href="#the-five-colours">Colours</a><a href="#the-four-meters">Meters</a><a href="#life-domains">Domains</a><a href="#the-life-story">Life story</a><a href="#means-needs-and-goals">Means and needs</a><a href="#people-and-worlds">People and worlds</a><a href="#what-a-life-remembers">Acts</a><a href="#options">Every option</a><a href="#option-glyphs">Option glyphs</a></nav>
+  </header>
+  %BODY%
+</div>
