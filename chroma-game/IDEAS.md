@@ -2,6 +2,57 @@
 
 Open ideas for the game thread, newest first. Each says what is wrong, why it matters and what could be done.
 
+## Colors and needs: a shallow, weak, uniform link (Emren, 2026-10-09)
+
+**Problem.** The link between a color's means and ends and the five needs is shallow, weak per act and not very
+different from color to color, so which color the player picks hardly changes which need fills. Engine and Library
+change (their owners decide); the game would show the result.
+
+How it works now:
+- Only an act's **ends** feed needs, and only three of them: safety, belonging and meaning, through one fixed matrix
+  (`engine_pin/library.py`, `NEED_MAP_V6`). **Means** feed no need directly; they count only for autonomy (whether the
+  act fits the character's own colors) and for odds and access.
+- Autonomy and competence are colorless: autonomy comes from acting as oneself, competence from succeeding at
+  something hard.
+
+| | White | Blue | Black | Red | Green |
+|---|---|---|---|---|---|
+| Safety | 0.25 | 0.20 | 0.20 | 0.15 | 0.20 |
+| Belonging | 0.15 | 0.10 | 0.15 | 0.30 | 0.30 |
+| Meaning | 0.20 | 0.30 | 0.25 | 0.15 | 0.10 |
+
+Every column adds up to 0.6, by design (version 5 had made Black and Blue too strong).
+
+Strength:
+- One successful act with pure Red ends adds about 3 points of belonging, less the fuller the need already is
+  (`engine.py`, the need update). Safety moves 1.5 to 2.5 points, whatever the color.
+- The colorless parts are bigger per act: up to 8 points of autonomy, up to about 7 of competence.
+- Needs drain 0.5 points a week, and the surroundings refill about 0.35 of that.
+- Ongoing sources dominate over time: commitments (career, partner, children, community, faith; `library.py`
+  COMMITMENTS) and resources (money, health, ties, freedom, time) feed needs every week while held.
+- A failed act meets nothing and drains only competence. Acting against a color's ends drains its needs at half rate.
+
+Depth: one linear layer, the same for every person, age, culture and setting (`world.py` reuses the matrix). A
+White-leaning and a Red-leaning character get the same belonging from a Red act. Age changes only how much each need
+counts toward satisfaction. Needs do steer choices: lacking needs make the character want the colors that meet them,
+and options that would fill a lacking need get a heart pull.
+
+Diversity:
+- Safety is nearly flat (0.15 to 0.25).
+- Belonging splits into Red and Green (0.30) against the rest (0.10 to 0.15).
+- Meaning leans Blue (0.30) and is weakest for Green (0.10), an odd fit for Green's "place in the whole".
+- No color is the only way to any need; the biggest gap on one need is 0.2.
+
+Effect on the player: success, fit with who they are and what they hold long-term matter far more than the color
+picked. The "meets X and Y" on options reflects small differences, so it feels weak.
+
+Possible directions:
+1. Sharper rows: for example, a clear safety lead for White and Black, a clear meaning lead for White and Blue.
+2. A personal layer: let the character's own colors change how much an end satisfies them.
+3. Let means count: have means meet some needs too.
+
+Related: "Make needs visible and learnable" below.
+
 ## Make needs visible and learnable (Emren, 2026-10-09: "we need to do something about that")
 
 **Problem.** New players cannot see how acts in moments change the character's needs (safety, belonging, autonomy,
