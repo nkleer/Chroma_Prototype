@@ -60,6 +60,14 @@ Possible directions:
      and Red count more for belonging and meaning).
    - **The outer world:** setting, era, culture and the people around them. A world in war or crisis, a faith, a
      community or a time of plenty changes which colors seem to bring safety, belonging or meaning.
+   **The same world, different people** (Emren, 2026-10-09). An outer event should not land the same on everyone. When
+   a war breaks out, one character finds a gun and stocks up on pasta (safety through Black and White ways), another
+   cries and looks for touch and a hug (belonging through Red and Green ways). The difference comes from each
+   character's own color-to-need table: which need the event threatens most for them, and which colors they reach for
+   to meet it. The event in turn moves that table (whatever got them through the war counts more afterwards).
+   **Where they stand matters too.** How content and at peace the character is when the event hits should shape the
+   response: someone settled may take it calmly or reach out to others, while someone already strained or unhappy may
+   panic, freeze or harden. So the reaction depends on both the personal table and the state they are in at that moment.
    Things to settle: how fast the numbers drift and how far from the shared table they may go; whether each color's
    total stays at 0.6 or can grow or shrink; whether drift fades back over time; and how the game shows it (a line in
    "What came of it", the character sheet, the end-of-life review). It would also make the personal layer in 2 a
