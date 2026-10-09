@@ -2341,6 +2341,11 @@ def _becoming(say):
     """'becoming a baker', 'becoming the first in the family at university', 'being out of work', 'keeping a record'."""
     if re.match(r"\w+ing\b", say):
         return say
+    v = re.match(r"(works|directs|runs|leads|keeps|teaches|sits|holds) ", say)    # 'works the polling station'
+    if v:
+        w = v.group(1)[:-1]
+        w = {"teache": "teach", "run": "runn", "sit": "sitt"}.get(w, w)
+        return w + "ing" + say[len(v.group(1)):]
     return ("becoming " if re.match(r"(a|an|the|one) ", say) else "being ") + say
 
 
@@ -2477,9 +2482,63 @@ def _closing(h, review):
     return " ".join(S)
 
 
+# The life as a bard's song (Emren 10-09: "more poetic and epic, like Homer or Ovid's Metamorphoses ... as if the
+# character lived a legendary life, with ups and downs, everything unique and welcome ... a song now in an ancient Greek
+# tavern, sung by bards"). Epithets from the colors they lived by, turns told as metamorphoses, swings as a ship between
+# two winds, the rare things as what the song remembers, the player's pushes as the gods' hand.
+EPIC_EPITHET = dict(W="steadfast", U="many-minded", B="far-reaching", R="fire-hearted", G="deep-rooted")
+EPIC_RISE = dict(W="as a lamp is lit in a window at dusk", U="as a river cuts its way down to the sea",
+                 B="as a hawk climbs on the warm wind", R="as fire runs through summer grass",
+                 G="as an oak sends its roots down into the dark earth")
+EPIC_FALL = dict(W="the old duties slipped from their shoulders like a cloak", U="their questions fell quiet, like birds at evening",
+                 B="their hunger for more was laid down like a sword", R="the fire in them sank to embers",
+                 G="their roots let go of the old ground")
+EPIC_DEATH = dict(parent="a parent went down to the house of the dead", sibling="a sibling went down into the dark",
+                  friend="a friend was taken from them", grandparent="the old ones of the house were laid in the earth",
+                  partner="the one they loved went down into the dark before them", child="a child of theirs was taken")
+EPIC_TOLD = 6            # stanzas of change at most, after the invocation
+SWING_IMG = ["like a ship between two winds they turned and turned again",
+             "as the tide comes in and goes out, so they went back and forth",
+             "like a traveller at a fork in the road, they took one way and then the other",
+             "as the moon waxes and wanes, so they changed and changed back"]
+EPIC_HALL = dict(earth="where the cups are filled and the night is long", tribal="around the fire, when the elders sing",
+                 magic="in the halls, when the bards take up the lyre")
+
+
+def _epic_cause(met, at, share, say_of):
+    """What turned them, in the song's words."""
+    near = [m for m in met if at - WHY_YEARS <= m[0] <= at]
+    deaths = sorted((m for m in near if m[1] == "death"), key=lambda m: DEATH_WEIGHT.get(m[2], 9))
+    if deaths and deaths[0][2] != "grandparent":
+        return "when " + EPIC_DEATH.get(deaths[0][2], "someone dear went down into the dark")
+    why = _why(met, at, share, say_of)
+    if why is None:
+        return None
+    if why.startswith("the death of"):
+        return "when " + EPIC_DEATH["grandparent"]
+    return f"in the year of {why}" if why.startswith("\u201c") else f"upon {why}"
+
+
+def _nth(n):
+    return f"{n}{'th' if 10 <= n % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')}"
+
+
+def _epic_thing(k, n_, say_of, i, at):
+    """A rare thing the life met, as the song keeps it."""
+    if k == "long":
+        return f"Against the odds, as the bards love best, at {at} they became {n_}."
+    if k == "role":
+        say = say_of(n_)
+        return f"This too the song keeps, for few are given it: at {at} {'they took to ' + _becoming(say) if not re.match(r'(a|an|the|one) ', say) else 'they became ' + say}."
+    if k == "mark":
+        return f"And the song does not hide it: at {at} they {n_}."
+    return [f"And this the song remembers, for few mortals are granted it: {_quoted(n_)}, in their {_nth(at)} year.",
+            f"Few lives hold such a day, and theirs did, at {at}: {_quoted(n_)}.",
+            f"Of all their days the bards keep this one, from their {_nth(at)} year: {_quoted(n_)}."][i % 3]
+
+
 def life_paragraph(name, h, review, setting):
-    """The life in one paragraph, for the end of a life (review["story"]): its colors as a story with their turns,
-    swings and drifts, the rarest things it met woven in where they fell, and a closing line on how the years went."""
+    """The life as a bard's song, for the end of a life (review["story"]): stanzas parted by blank lines."""
     try:
         from rarity import RARITY
     except Exception:
@@ -2489,71 +2548,96 @@ def life_paragraph(name, h, review, setting):
     met = h.get("met", [])
     say_of = lambda n_: h.get("title_say", {}).get(n_) or an(n_)
     ws = h.get("w", [])
-    age = review["died"]["age"] if review.get("died") else review.get("age")
+    died = review.get("died")
+    age = int((died or {}).get("age") or review.get("age") or 0)
     eps = _episodes(h["label"])
+    if len(eps) > EPIC_TOLD:                          # a long song tires: the first, the last, and the longest between
+        keep = sorted(range(1, len(eps) - 1), key=lambda i: eps[i][2] - eps[i][3])[:EPIC_TOLD - 2]
+        eps = [eps[i] for i in sorted({0, len(eps) - 1, *keep})]
+    used = set()
+    def pick(opts, i_):                               # an image not yet used in this song, where one is left
+        fresh = [o for o in opts if o not in used] or opts
+        o = fresh[i_ % len(fresh)]; used.add(o)
+        return o
+    k = len(met) + age                                # varies the song from life to life, the same on every replay
     rare = [(0.0, x["age"], "long", x["say"] if re.match(r"(a|an|the|one) ", x["say"]) else an(x["name"]))
             for x in h.get("long", []) if x.get("made") and x.get("age") is not None]
-    rare += sorted(((share(k, n_), a, k, n_) for a, k, n_ in met if k != "death" and share(k, n_)   # 0: never met in the
-                    and share(k, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))                       # table's lives, unmeasured
+    rare += sorted(((share(kk, n_), a, kk, n_) for a, kk, n_ in met if kk != "death" and share(kk, n_)
+                    and share(kk, n_) < RARE_SHARE), key=lambda r: (r[0], r[1]))
     rare = sorted(rare[:RARE_TOLD], key=lambda r: r[1])
-    def home(r):                                      # the episode a rare thing is told in: the last one begun by then
-        return max([j for j, e in enumerate(eps) if e[2] <= r[1]] or [0])
-    longest = max(range(len(eps)), key=lambda i: eps[i][3] - eps[i][2]) if eps else -1
-    k = len(met) + int(age or 0)                      # varies the shapes from life to life, the same on every replay
-    S = [f"{name} lived {int(age or 0)} years."]
-    used = set()
-    def pick(opts):                                   # a shape not used yet in this life, where one is left
-        fresh = [o for o in opts if o.split(" ")[0] + o.split(" ")[-1] not in used] or opts
-        o = fresh[k % len(fresh)]; used.add(o.split(" ")[0] + o.split(" ")[-1])
-        return o
+    home = lambda r: max([j for j, e in enumerate(eps) if e[2] <= r[1]] or [0])
+    # the invocation: the two colors they lived by longest, as epithets
+    allw = np.mean(np.asarray([w for _, w in ws], float), axis=0) if ws else np.full(5, 0.2)
+    lead = [COLORS[i] for i in np.argsort(-allw)[:2]]
+    V = [f"Sing, Muse, of {name}, {EPIC_EPITHET[lead[0]]} and {EPIC_EPITHET[lead[1]]}, who walked the earth {age} years "
+         f"and was changed, and changed again, and was {name} to the end."]
     for i, (kind, ls, a0, a1) in enumerate(eps):
         a0i, dur = int(a0), int(round(a1 - a0)); k += 1
-        whole = i == 0 and a1 - a0 >= 0.6 * (age or 1)
-        bare = whole or i == 0 or dur >= 20            # no 'all along' where the stretch is the life, or most of it
         if kind == "swing":
             both, flick = set(ls[0]) & set(ls[1]), set(ls[0]) ^ set(ls[1])
-            inner = (f"{_adjs(both)}{'' if bare else ' all along'}, while their {_nouns(flick)} came and went" if both else
-                     f"{_adjs(ls[0])} one year, {_adjs(ls[1])} the next")
-            if whole:
-                s_ = f"All their life they were {inner}; they never quite settled."
-            elif i == 0:
-                s_ = f"{'As a child' if a0 < 12 else 'Young'}, they were {inner}."
-            else:
-                why = _why(met, a0, share, say_of)
-                s_ = (f"{'After ' + why + ', from' if why else 'From'} {a0i} on they never fully settled: they were {inner}."
-                      if dur >= 20 else
-                      f"{'After ' + why if why else _when(a0).capitalize()}, {dur} unsettled years followed: they were "
-                      f"{inner}.")
+            winds = (f"{_adjs(both)} always, while their {_nouns(flick)} came and went" if both else
+                     f"now {_adjs(ls[0])}, now {_adjs(ls[1])}")
+            cause = _epic_cause(met, a0, share, say_of) if i else None
+            span = "all their days" if i == 0 and a1 - a0 >= 0.6 * max(age, 1) else f"for {dur} years"
+            img = pick(SWING_IMG, k + i)
+            s_ = f"{(cause[0].upper() + cause[1:] + ', ') if cause else ''}{img if cause else img[0].upper() + img[1:]} {span}: {winds}."
         elif i == 0:
-            s_ = (f"They grew up {_adjs(ls[0])}." if a0 < 18 else f"By {a0i} they were {_adjs(ls[0])}.")
+            s_ = (f"As a child they were {_adjs(ls[0])}, and the seed of who they would be was already in them."
+                  if a0 < 18 else f"By their {_nth(a0i)} year they were {_adjs(ls[0])}.")
         else:
-            why = _why(met, a0, share, say_of)
             pk, pls, pa0, pa1 = eps[i - 1]
-            mv = _move(*_drift(ws, pa0, pa1, a0, a1), k)
-            back = any(ls[0] in e[1] for e in eps[:i])
-            if pk == "swing" and ls[0] in pls:
-                s_ = f"At {a0i} the tug of war was over: they were {_adjs(ls[0])} at last."
-            elif why:
-                s_ = f"At {a0i}, {why} changed them" + (f": {mv}." if mv else ".")
-            elif back:
-                s_ = pick([f"{_when(a0).capitalize()} they came back to who they had once been, {_adjs(ls[0])}.",
-                           f"{_when(a0).capitalize()} they were {_adjs(ls[0])} again.",
-                           f"Old ways returned {_when(a0)}: {_adjs(ls[0])}, as before."])
-            elif mv:
-                s_ = pick([f"{_when(a0).capitalize()}, {mv}.", f"Over the years {mv}.",
-                           f"{_when(a0).capitalize()} the balance shifted: {mv}.", f"Little by little, {mv}.",
-                           f"With no single cause {_when(a0)}, {mv}."])
-            else:
-                s_ = f"{_when(a0).capitalize()} they settled, {_adjs(ls[0])}."
-        if i == longest and kind == "steady" and dur >= 10:
-            s_ += f" For {dur} years they were {_ident_a(ls[0])}" + (", the longest they were anyone." if len(eps) > 2 else ".")
+            up, dn = _drift(ws, pa0, pa1, a0, a1)
+            cause = _epic_cause(met, a0, share, say_of)
+            head = (pick([f"Then, {cause}, a change came over them.", f"But {cause}, and they were not the same after.",
+                          f"And {cause}, and the gods remade them."], k) if cause and cause.startswith("when ") else
+                    pick([f"Then, {cause}, a change came over them.", f"{cause[0].upper() + cause[1:]}, the gods remade them."], k)
+                    if cause else
+                    pick(["And with the years a change came over them, as changes come in the old tales.",
+                          f"{'In their youth' if a0i < 20 else f'In their {a0i // 10 * 10}s'} the old shape loosened, and a new one grew.",
+                          "Slowly, as stone is worn by water, they were changed.",
+                          "Then, as the seasons turn, they turned."], k))
+            harbour = pk == "swing" and ls[0] in pls
+            if harbour:                                  # the swing's end: the harbour says it, no drift after it
+                head = f"At {a0i} the winds fell still, and they came to harbour, {_adjs(ls[0])} at last."
+                up = dn = None
+            parts = ([EPIC_RISE[up].replace("as ", f"{NOUN[up].capitalize()} rose in them as ", 1)] if up else []) + \
+                    ([EPIC_FALL[dn]] if dn else [])
+            s_ = head + (" " + "; ".join(parts) + "." if parts else "")
+            if any(ls[0] in e[1] for e in eps[:i - 1]) and not harbour:
+                s_ += " So they came home to an old self, as the wanderer comes home."
+        if kind == "steady" and dur >= 10 and i == max(range(len(eps)), key=lambda j: eps[j][3] - eps[j][2]):
+            s_ += f" For {dur} years they were {_ident_a(ls[0])}, and that was the longest of their shapes."
         for j, r in enumerate(r_ for r_ in rare if home(r_) == i):
-            s_ += f" {'At' if j == 0 else 'And at'} {int(r[1])}, {_thing(r[2], r[3], say_of, k + j)}."
-        S.append(s_)
-    if not eps:
-        S += [f"At {int(r[1])}, {_thing(r[2], r[3], say_of, k + j)}." for j, r in enumerate(rare)]
-    S.append(_closing(h, review))
-    return " ".join(x for x in S if x)
+            s_ += f" {_epic_thing(r[2], r[3], say_of, k + j, int(r[1]))}"
+        V.append(s_)
+    # the ups and downs, the gods' hand, the end
+    c, p = dict(h.get("content", [])), dict(h.get("peace", []))
+    dec = lambda d_: {x: float(np.mean(v)) for x, v in
+                      ((x, [v for a, v in d_.items() if a >= 20 and int(a) // 10 * 10 == x]) for x in range(20, 100, 10)) if len(v) >= 3}
+    dc, dp = dec(c), dec(p)
+    T = []
+    if len(dc) >= 2:
+        best, worst = max(dc, key=dc.get), min(dc, key=dc.get)
+        T.append(f"Bitter were their {worst}s, and sweet their {best}s" if best != worst else "Their years ran even")
+        if dp:
+            calm = max(dp, key=dp.get)
+            T[-1] += (", and in those sweet years they knew a peace like still water." if calm == best else
+                      f"; yet in those bitter {calm}s they knew a peace like still water." if calm == worst else
+                      f", and in their {calm}s they knew a peace like still water.")
+        else:
+            T[-1] += "."
+    f = review.get("forced", 0); integ = review.get("integrity", 1.0)
+    T.append("No god bent their will: every road they walked, they chose." if not f else
+             "Now and then the gods laid a hand upon their path, and they bore it, and went on as themselves." if integ >= 0.9
+             else "Often the gods turned their path against their heart, and still they walked it, and made it theirs.")
+    if died and died.get("cause") not in (None, "old age"):
+        T.append(f"At {int(died['age'])} they went down into the dark, {died['how']}, and the song does not grieve it less.")
+    else:
+        T.append(f"Full of years at {age}, they went down into the dark, and the dark was kind.")
+    V.append(" ".join(T))
+    V.append(f"So it is sung now, {EPIC_HALL.get(setting, EPIC_HALL['earth'])}: the song of {name}, who lived, and lost, "
+             f"and was glad. Raise the cup. There was only ever one of them.")
+    return "\n\n".join(V)
 
 
 def peace_reading(ful, ser, integ, gifts):
