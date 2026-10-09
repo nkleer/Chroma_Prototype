@@ -1,4 +1,5 @@
-"""Checks for the played game's story words (earth_story.py): the song, the last conversation and the voice.
+"""Checks for the played game's story words (earth_story.py): the song, the last conversation, the voice, the thread,
+the world in their life and the disaster readings.
 
     python3 -B check_story.py [path/to/earth_story.py] [--setting path/to/check_setting.py]
 
@@ -8,12 +9,15 @@ What is checked:
   1. coverage: every key the game reads is there, with all five colors where a key goes by color, the same sub-keys
      for every color, the nine peace bands, all 24 history marks, two lines where a key has a light and a heavy (or a
      first and a later) form, and no keys the game does not read; SONG_WORLD only overrides keys SONG has, with the
-     same shape;
+     same shape; the thread covers all 24 marks; the world lines use only the kinds and channels the Engine reports,
+     with both bands, and every one has its clause for the year's line; every channel has a fallback line; each
+     hazard has a scene and five readings, near and at home, and the flood next door is earth.py's own text;
   2. fills: a line uses only the fills the game gives its key, and the ones it must use; a world's line uses the same
      fills as the line it replaces; no lower-case fill starts a sentence; filling every fill with sample words leaves no
      placeholder behind;
-  3. length: at most 25 words for the voice's and the last conversation's lines (voice-mechanics.md section 9), 32 for
-     a line of the song, a fill counting as one word;
+  3. length: at most 25 words for the voice's and the last conversation's lines (voice-mechanics.md section 9) and for
+     the thread, world and disaster lines, 32 for a line of the song, 40 for a disaster scene, 16 for a reading's label,
+     12 for a clause of the year's line and 8 for an option note, a fill counting as one word;
   4. duplicates: no line appears twice;
   5. color words: no white, blue, black, red or green (or their forms) and no Magic terms;
   6. person: the character's own words (answers, memories, the last conversation's quotes) never use {N}; narration
@@ -49,6 +53,13 @@ MARKS = ["hid a wrong", "owned up", "kept your word", "broke your word", "learne
          "came home", "came out", "kept it hidden", "used drugs", "broke the law", "hurt someone badly", "took a life",
          "named their gender"]
 BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
+NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
+              "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ")
+# the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
+KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
+         "hospital places", "university places"]
+CHANNELS = ["money", "freedom", "safety", "job loss risk", "disaster risk", "crime risk", "option", "close person"]
+HAZARDS = ["flood", "fire", "quake", "storm", "heat"]
 SIDES = ["people", "themselves", "safety", "freedom", "head", "heart", "make", "already", "will", "meant"]
 
 COLOR_WORDS = re.compile(r"\b(white[s]?|whiter|whitest|blue[s]?|bluer|bluest|black[s]?|blacker|blackest|blackened|"
@@ -149,6 +160,32 @@ def rule(path):
                 "share": ((), (), "phrase", "narration", 25),
                 "book": (("N", "start", "end", "lean"), ("N", "start", "end"), "sentence", "narration", 25),
                 "lean": ((), (), "phrase", "narration", 25)}[k]
+    if top == "THREAD":
+        req = {"mark": ("N",), "title": ("title",), "commitment": ("who",) if path[-1] == "partner" else (),
+               "plan": ("N",), "dream": ("N",), "road": ("N", "age"), "person": ("who",)}[k]
+        return (("N", "Ns", "age", "title", "who"), req, "sentence", "narration", 25)
+    if top == "THREAD_HOVER":
+        req = {"mark": ("N", "did", "age"), "title": ("N", "title"), "commitment": ("Ns",), "plan": ("Ns", "plan"),
+               "dream": ("Ns", "dream"), "road": ("N", "road", "age"), "person": ("who",)}[k]
+        return (("N", "Ns", "age", "did", "title", "who", "plan", "dream", "road"), req, "sentence", "narration", 25)
+    if top == "THREAD_DID":
+        return ((), (), "phrase", "narration", 25)
+    if top in ("WORLD", "WORLD_CHANNEL"):
+        ch = path[2] if top == "WORLD" else path[1]
+        return (("N", "Ns", "who"), ("who",) if ch == "close person" else (), "sentence", "narration", 25)
+    if top == "YEAR":
+        return (("N", "what"), ("N", "what"), "sentence", "narration", 25)
+    if top in ("YEAR_WHAT", "YEAR_WHAT_CHANNEL"):
+        ch = path[2] if top == "YEAR_WHAT" else path[1]
+        return (("who",), ("who",) if ch == "close person" else (), "clause", "narration", 12)
+    if top == "OPTION_CAUSE":
+        return ((), (), "note", "narration", 8)
+    if top == "DISASTER_READ":
+        if path[3] == "scene":
+            return (("N", "Ns"), (), "sentence", "narration", 40)
+        if path[4] == 0:
+            return ((), (), "label", "narration", 16)
+        return (("N", "Ns"), ("N",), "sentence", "narration", 25)
     raise KeyError(path)
 
 
@@ -161,13 +198,22 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
               decade="in their 60s", made="two", how="in a fall from a roof", hall="where the cups are filled",
               glad="who lived, and lost, and was glad", cheer="Raise the cup.", toast="To a heart that burned.",
               voice="voice", lost="“The band”", name="the careful voice", adj="passionate", share="a third",
-              start="a Free Spirit", end="an Explorer", lean="caution")
+              start="a Free Spirit", end="an Explorer", lean="caution", who="her sister", did="left home",
+              plan="a home of their own", dream="the dream of a working life", road="the trades",
+              what="prices outran their money and the downturn put jobs at risk")
 
 fails = {}
 
 
 def fail(check, msg):
     fails.setdefault(check, []).append(msg)
+
+
+def load_as(path, name):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def load(path):
@@ -199,13 +245,16 @@ def where(path):
 
 
 M = load(PATH)
-for name in ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE"):
+for name in NAMES_READ:
     if not hasattr(M, name):
         fail("1 coverage", f"{name} is missing")
-extra = [n for n in dir(M) if n.isupper() and n not in ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE")]
+extra = [n for n in dir(M) if n.isupper() and n not in NAMES_READ]
 if extra:
     fail("1 coverage", f"names the game does not read: {extra}")
 S, SW, MS, LT, V = M.SONG, M.SONG_WORLD, M.MARK_SAY, M.LAST_TALK, M.VOICE
+TH, TH_H, TH_D = M.THREAD, M.THREAD_HOVER, M.THREAD_DID
+WO, WO_C, YR, YW, YW_C, OC, DR = M.WORLD, M.WORLD_CHANNEL, M.YEAR, M.YEAR_WHAT, M.YEAR_WHAT_CHANNEL, M.OPTION_CAUSE, \
+    M.DISASTER_READ
 
 
 # ---------------------------------------------------------------------------------------------------- 1 coverage
@@ -329,9 +378,80 @@ if not (all(isinstance(a, float) and isinstance(b, str) for a, b in sh) and [a f
 need_keys("VOICE.book", V["book"], ["steered", "free"])
 need_keys("VOICE.lean", V["lean"], list(COLORS))
 
+need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person"])
+need_keys("THREAD.mark", TH["mark"], MARKS)
+need_keys("THREAD.title", TH["title"], ["held", "lost"])
+need_keys("THREAD.commitment", TH["commitment"], ["career", "community", "faith", "partner", "children"])
+need_keys("THREAD_HOVER", TH_H, ["mark", "title", "commitment", "plan", "dream", "road", "person"])
+need_keys("THREAD_HOVER.title", TH_H["title"], ["held", "lost"])
+need_keys("THREAD_HOVER.commitment", TH_H["commitment"], ["career", "community", "faith", "partner", "children"])
+need_keys("THREAD_DID", TH_D, MARKS)
+for k, d in WO.items():
+    if k not in KINDS:
+        fail("1 coverage", f"WORLD.{k}: not a kind the Engine reports")
+    for ch, dd in d.items():
+        if ch not in CHANNELS:
+            fail("1 coverage", f"WORLD.{k}.{ch}: not a channel the Engine reports")
+        for dr, b in dd.items():
+            if dr not in ("up", "down"):
+                fail("1 coverage", f"WORLD.{k}.{ch}.{dr}: dir is up or down")
+            need_keys(f"WORLD.{k}.{ch}.{dr}", b, ["small", "big"])
+            if not (isinstance(YW.get(k, {}).get(ch), dict) and dr in YW[k][ch]):
+                fail("1 coverage", f"YEAR_WHAT.{k}.{ch}.{dr}: missing (WORLD has a line for it)")
+missing_kinds = [k for k in KINDS if k not in WO]
+if missing_kinds:
+    fail("1 coverage", f"WORLD: no lines for the kinds {missing_kinds}")
+for k, d in YW.items():
+    for ch, dd in d.items():
+        for dr in dd:
+            if not (k in WO and ch in WO[k] and dr in WO[k][ch]):
+                fail("1 coverage", f"YEAR_WHAT.{k}.{ch}.{dr}: WORLD has no line for it")
+need_keys("WORLD_CHANNEL", WO_C, CHANNELS)
+need_keys("YEAR_WHAT_CHANNEL", YW_C, CHANNELS)
+for ch in CHANNELS:
+    need_keys(f"WORLD_CHANNEL.{ch}", WO_C.get(ch, {}), ["up", "down"])
+    need_keys(f"YEAR_WHAT_CHANNEL.{ch}", YW_C.get(ch, {}), ["up", "down"])
+    for dr in ("up", "down"):
+        need_keys(f"WORLD_CHANNEL.{ch}.{dr}", WO_C.get(ch, {}).get(dr, {}), ["small", "big"])
+need_keys("YEAR", YR, ["lean", "easier", "uneasy", "calmer", "freer", "narrower", "close", "mixed"])
+need_keys("OPTION_CAUSE", OC, ["law", "norm", "technology", "odds"])
+for k in OC:
+    need_keys(f"OPTION_CAUSE.{k}", OC[k], ["closed", "harder", "easier"])
+need_keys("DISASTER_READ", DR, HAZARDS)
+for hz in HAZARDS:
+    need_keys(f"DISASTER_READ.{hz}", DR.get(hz, {}), ["near", "home"])
+    for wh, d in DR.get(hz, {}).items():
+        need_keys(f"DISASTER_READ.{hz}.{wh}", d, ["scene"] + list(COLORS))
+        for c in COLORS:
+            if not (isinstance(d.get(c), tuple) and len(d[c]) == 2):
+                fail("1 coverage", f"DISASTER_READ.{hz}.{wh}.{c}: wanted (label, say)")
+# the flood next door is earth.py's own text, so lives where the tag is missing read the same
+EARTH = os.path.join(LIB, "earth.py")
+if os.path.exists(EARTH):
+    E_ = load_as(EARTH, "earth_checked")
+    ev = [e for e in getattr(E_, "EVENTS_READ", []) if e.get("name") == "a disaster in the next town"]
+    if not ev:
+        fail("1 coverage", "earth.py has no 'a disaster in the next town' to match")
+    else:
+        e = ev[0]
+        sc = e.get("scenes", {}).get("earth", [])
+        sc0 = sc[0][1] if sc and isinstance(sc[0], tuple) else (sc[0] if sc else None)
+        if sc0 is not None and sc0 != DR["flood"]["near"]["scene"]:
+            fail("1 coverage", "DISASTER_READ.flood.near.scene differs from earth.py's scene")
+        live = {}
+        for r in e.get("readings", []):   # (label, tag, impact, also, color, say)
+            if isinstance(r, tuple) and len(r) >= 6:
+                live[r[4]] = (r[0], r[5])
+        for c in COLORS:
+            if c in live and live[c] != DR["flood"]["near"][c]:
+                fail("1 coverage", f"DISASTER_READ.flood.near.{c} differs from earth.py's reading")
+        flood_checked = bool(live) and sc0 is not None
+else:
+    flood_checked = False
+
 # -------------------------------------------------------------------------------------------- lines, checks 2 to 9
 ALL = []
-for name in ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE"):
+for name in NAMES_READ:
     obj = getattr(M, name)
     if name == "SONG" or name == "SONG_WORLD":
         obj = {k: ({"|".join(b): t for b, t in v.items()} if k == "glad" else v) for k, v in obj.items()} \
@@ -360,6 +480,8 @@ for path, text in ALL:
         for m in re.finditer(r"(?:^|[.?!]”? )\{([^{}]*)\}", text):
             if m.group(1) not in UPPER_FILLS:
                 fail("2 fills", f"{{{m.group(1)}}} starts a sentence but its value is lower case: {at}")
+    if path[0] in ("DISASTER_READ", "WORLD", "WORLD_CHANNEL") and kind == "sentence" and not ({"N", "Ns"} & set(fills)):
+        fail("2 fills", f"the line does not name the character ({{N}} or {{Ns}}): {at}")
     filled = FILL.sub(lambda m: SAMPLE.get(m.group(1), "{" + m.group(1) + "}"), text)
     if FILL.search(filled) or "{" in filled or "}" in filled:
         fail("2 fills", f"a placeholder is left after filling: {at}: {filled}")
@@ -409,6 +531,10 @@ for path, text in ALL:
         fail("7 style", f"the last conversation's words are not in curly quotes: {at}")
     if kind in ("sentence", "quote", "own") and not re.search(r"([.?!]|[.?!]”|\{toast\})$", text):
         fail("7 style", f"does not end a sentence: {at}: {text}")
+    if kind == "label" and re.search(r"[.!:;,]$", text):
+        fail("7 style", f"a reading's label ends in punctuation other than a question mark: {at}: {text}")
+    if kind == "note" and (re.search(r"[.?!:;,]$", text) or not text[:1].isupper()):
+        fail("7 style", f"an option note starts upper case and has no end punctuation: {at}: {text}")
     if kind in ("clause", "phrase") and re.search(r"[.?!:;,]$", text):
         fail("7 style", f"a clause or phrase the game joins ends in punctuation: {at}: {text}")
     if kind == "tail" and not (text.startswith(", ") and text.endswith(".")):
@@ -445,10 +571,13 @@ else:
 NAMES = ["1 coverage", "2 fills", "3 length", "4 duplicates", "5 color words", "6 person", "7 style", "8 safety",
          "9 setting"]
 print(f"# check_story: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: song {sum(1 for p, _ in ALL if p[0] in ('SONG', 'SONG_WORLD', 'MARK_SAY'))}, "
-      f"last conversation {sum(1 for p, _ in ALL if p[0] == 'LAST_TALK')}, voice {sum(1 for p, _ in ALL if p[0] == 'VOICE')}"
-      f" ({n_answer} answers)")
-print(f"longest: song {longest['song'][0]} words ({longest['song'][1]}), voice and last conversation "
+cnt = lambda *ns: sum(1 for p, _ in ALL if p[0] in ns)
+print(f"{len(ALL)} lines: song {cnt('SONG', 'SONG_WORLD', 'MARK_SAY')}, last conversation {cnt('LAST_TALK')}, "
+      f"voice {cnt('VOICE')} ({n_answer} answers), thread {cnt('THREAD', 'THREAD_HOVER', 'THREAD_DID')}, "
+      f"world {cnt('WORLD', 'WORLD_CHANNEL')}, year {cnt('YEAR', 'YEAR_WHAT', 'YEAR_WHAT_CHANNEL')}, "
+      f"option notes {cnt('OPTION_CAUSE')}, disaster readings {cnt('DISASTER_READ')}")
+print("the flood next door matches earth.py: " + ("checked" if flood_checked else "not checked (no earth.py beside it)"))
+print(f"longest: song {longest['song'][0]} words ({longest['song'][1]}), the other lines "
       f"{longest['voice'][0]} words ({longest['voice'][1]})\n")
 for nm in NAMES:
     if nm == "9 setting" and not (SETTING and os.path.exists(SETTING)):

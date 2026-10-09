@@ -10,6 +10,9 @@
 #               they were glad; read from trust per color and the pushes they accepted or resented.
 # VOICE         the voice in the story (item 3): its name, the character's answers by color distance and trust, the
 #               outcome, trust turning, identity change, chapter, end and Book lines.
+# THREAD        the sentence that ties a moment to its cause in this life, and its hover (F5, item 4).
+# WORLD         what a world event did to them (WL1), the year's line (YEAR, WL4), the option notes (OPTION_CAUSE, WL3)
+#               and the disaster readings by hazard (DISASTER_READ, WL6), item 11.
 #
 # Every choice of words is read from the life (Emren 10-09: "not random, related to outcomes, preferences, moments and
 # choices of the player"); none is drawn by chance or taken in turn. INTERFACE.md names each selector.
@@ -400,4 +403,337 @@ VOICE = {
     "book": dict(steered="{N}: {start}, steered toward {lean}; became {end}.",
                  free="{N}: {start}, left to choose; became {end}."),
     "lean": dict(W="duty", U="thought", B="ambition", R="feeling", G="patience"),
+}
+
+# ============================================================================================ the thread (F5, item 4)
+# When a moment comes because of something earlier in this life, the moment's text carries one sentence tying back to
+# it, and hovering it shows the cause. Only this life's own history is used. THREAD[cause] is the sentence, by the
+# kind of cause; THREAD_HOVER[cause] is the hover. Fills {N} {Ns} {age} (the age it happened) and the cause's own:
+# {did} (THREAD_DID[mark]), {title}, {plan}, {dream}, {road}, {who} (the person, as the game names them: "her sister").
+THREAD = {
+    "mark": {
+        "hid a wrong": "Somewhere behind this is the wrong {N} once kept hidden.",
+        "owned up": "This goes back to the day {N} owned up.",
+        "kept your word": "This goes back to a promise {N} kept.",
+        "broke your word": "This goes back to a promise {N} broke.",
+        "learned a skill": "This comes from the skill {N} took the trouble to learn.",
+        "took a wild risk": "This comes from a wild risk {N} once took.",
+        "left home": "This goes back to the day {N} left home.",
+        "stayed home": "This goes back to the time {N} chose to stay.",
+        "moved away": "This comes from the move that took {N} far from where they started.",
+        "turned down a chance": "This goes back to the chance {N} once turned down.",
+        "helped someone in need": "This goes back to the time {N} helped someone who needed it.",
+        "refused someone in need": "This goes back to the time {N} turned someone away.",
+        "made an enemy": "This comes from an enemy {N} made along the way.",
+        "made a friend": "This comes through a friend {N} made along the way.",
+        "defied an authority": "This goes back to the day {N} stood up to the people in charge.",
+        "gave in to pressure": "This goes back to the time {N} gave in.",
+        "came home": "This goes back to the day {N} came home.",
+        "came out": "This goes back to the day {N} told people who they love.",
+        "kept it hidden": "This comes from what {N} has kept hidden.",
+        "used drugs": "This goes back to the time {N} turned to drugs.",
+        "broke the law": "This goes back to the time {N} broke the law.",
+        "hurt someone badly": "This goes back to the person {N} hurt.",
+        "took a life": "This goes back to the life {N} took.",
+        "named their gender": "This goes back to the day {N} named who they are."},
+    "title": dict(held="This comes with being {title}.",
+                  lost="This goes back to the day {N} stopped being {title}."),
+    "commitment": dict(career="This comes with the work {N} chose.",
+                       community="This comes through the people {N} threw in their lot with.",
+                       faith="This comes with the faith {N} keeps.",
+                       partner="This comes with the life {N} shares with {who}.",
+                       children="This comes with being a parent."),
+    "plan": "This belongs to the plan {N} set out on.",
+    "dream": "This touches the dream {N} has carried for years.",
+    "road": "This is the next step on the road {N} took at {age}.",
+    "person": "This comes through {who}.",
+}
+THREAD_HOVER = {
+    "mark": "Because {N} {did} at {age}.",
+    "title": dict(held="Because {N} is {title}.", lost="Because {N} stopped being {title} at {age}."),
+    "commitment": dict(career="Because of {Ns} work.", community="Because of {Ns} community.",
+                       faith="Because of {Ns} faith.", partner="Because of {Ns} life with {who}.",
+                       children="Because of {Ns} children."),
+    "plan": "Because of {Ns} plan: {plan}.",
+    "dream": "Because of {Ns} dream: {dream}.",
+    "road": "Because {N} took the road of {road} at {age}.",
+    "person": "Because of {who}.",
+}
+# each mark as the hover says it, after "{N}" and before "at {age}"
+THREAD_DID = {
+    "hid a wrong": "hid a wrong", "owned up": "owned up to a wrong", "kept your word": "kept their word",
+    "broke your word": "broke their word", "learned a skill": "learned a skill", "took a wild risk": "took a wild risk",
+    "left home": "left home", "stayed home": "stayed home", "moved away": "moved away",
+    "turned down a chance": "turned down a chance", "helped someone in need": "helped someone in need",
+    "refused someone in need": "turned away someone in need", "made an enemy": "made an enemy",
+    "made a friend": "made a friend", "defied an authority": "defied an authority",
+    "gave in to pressure": "gave in to pressure", "came home": "came home", "came out": "came out",
+    "kept it hidden": "kept who they are hidden", "used drugs": "used drugs", "broke the law": "broke the law",
+    "hurt someone badly": "hurt someone badly", "took a life": "took a life", "named their gender": "named their gender",
+}
+
+# ================================================================================= the world in their life (item 11)
+# WL1: one small line when a world event changed something of theirs, from the engine's report (STATE "wfx": kind,
+# channel, size, dir, cause, age). WORLD[kind][channel][dir][band]; when a kind has no line for that channel, the game
+# uses WORLD_CHANNEL[channel][dir][band]. The cause (the world record's own name) goes on the hover, not in the line.
+# band "big" when |size| is .03 or more for money and freedom, .5 or more for a risk (its multiple minus 1) or a close
+# person, and for an option closed or opened outright; else "small". Below .01 (money, freedom) or .2 (a risk) the
+# game tells nothing (Library proposal; the Game sets the floor). Fills {N} {Ns}, and {who} for a close person.
+WORLD = {
+    "recession": {
+        "job loss risk": dict(
+            up=dict(small="Since the downturn, {N} hears more talk of cuts at work.",
+                    big="With the crisis, jobs are going all around {N}, and their own no longer feels safe."),
+            down=dict(small="The downturn is easing, and the talk of cuts at {Ns} work dies down.",
+                      big="The crisis is over, and {N} stops waiting for bad news at work."))},
+    "unemployment": {
+        "job loss risk": dict(
+            up=dict(small="Work is getting harder to find, and {N} holds on to the job they have.",
+                    big="So many people {N} knows are out of work that {N} keeps their head down to keep their own job."),
+            down=dict(small="There is more work about, and {N} worries less about losing theirs.",
+                      big="Work is easy to find again, and the fear of losing it lifts from {N}."))},
+    "prices": {
+        "money": dict(
+            down=dict(small="Prices keep creeping up, and with no wage to keep pace, {Ns} money buys a little less each month.",
+                      big="Prices are climbing fast, and with no wage rising to meet them, {N} has to count every coin."),
+            up=dict(small="Prices settle, and {Ns} money stretches a little further.",
+                    big="Prices have steadied at last, and {N} can stop counting every coin."))},
+    "housing": {
+        "money": dict(
+            down=dict(small="Rents creep up, and the rent takes a little more of what {N} has.",
+                      big="Rents have shot up, and keeping a roof overhead now takes much of what {N} has."),
+            up=dict(small="Rents ease a little, and {N} keeps a little more each month.",
+                    big="Rents have come down, and {N} has room to breathe each month."))},
+    "welfare": {
+        "money": dict(
+            up=dict(small="The support for people out of work goes up a little, and {N} has a little more to get by on.",
+                    big="The support for people out of work is raised, and {N} can cover the basics again."),
+            down=dict(small="The support for people out of work is trimmed, and {N} has a little less to get by on.",
+                      big="The support for people out of work is cut hard, and {N} has to choose which bills to pay."))},
+    "rights": {
+        "freedom": dict(
+            up=dict(small="The rules loosen a little, and {N} feels a little freer to live as they like.",
+                    big="New rights come in, and {N} can live more openly than before."),
+            down=dict(small="The rules tighten a little, and {N} feels watched.",
+                      big="Rights are taken back, and {N} has to live more carefully now."))},
+    "crime wave": {
+        "crime risk": dict(
+            up=dict(small="There has been a run of break-ins nearby, and {N} checks the locks twice.",
+                    big="Crime is up all over town, and {N} no longer walks home alone after dark."),
+            down=dict(small="Things are quieter on the streets, and {N} worries less on the way home.",
+                      big="The streets are safe again, and {N} walks home at night without thinking about it.")),
+        "safety": dict(
+            down=dict(small="The crime nearby leaves {N} a little on edge.",
+                      big="After the crimes nearby, {N} does not feel safe at home."),
+            up=dict(small="With crime falling, {N} rests a little easier.",
+                    big="With the streets safe again, {N} sleeps soundly."))},
+    "disaster": {
+        "disaster risk": dict(
+            up=dict(small="After the last disaster, {N} keeps an eye on the weather.",
+                    big="Disasters are coming more often now, and {N} keeps a bag packed by the door."),
+            down=dict(small="The new defences are holding, and {N} worries a little less about the next disaster.",
+                      big="Disasters have grown rare again, and {N} stops listening for the warnings.")),
+        "safety": dict(
+            down=dict(small="The disaster has left {N} jumpy.", big="The disaster has left {N} afraid in their own home."),
+            up=dict(small="The town is mending, and {N} feels a little steadier.",
+                    big="The town has come back from the disaster, and so has {N}.")),
+        "close person": dict(
+            down=dict(small="The disaster has hit {who}, and {N} does what they can.",
+                      big="The disaster has hit {who} hard, and {N} can think of little else."))},
+    "war": {
+        "safety": dict(
+            down=dict(small="The war abroad feels closer every week, and {N} follows the news anxiously.",
+                      big="The war has come close to home, and {N} lives with the fear of it."),
+            up=dict(small="The war is winding down, and {N} breathes out.",
+                    big="Peace at last, and {N} lets themselves plan again.")),
+        "close person": dict(
+            down=dict(small="The war has taken {who} far away, and {N} waits for news.",
+                      big="The war has reached {who}, and {N} can think of little else."))},
+    "law": {
+        "option": dict(
+            down=dict(small="A new law makes a road {N} might have taken harder.",
+                      big="A new law closes a door {N} had been counting on."),
+            up=dict(small="A new law makes a road easier for {N}.",
+                    big="A new law means {N} can do what was closed to them before.")),
+        "freedom": dict(
+            up=dict(small="A new law gives {N} a little more room.", big="A new law lets {N} live more freely than before."),
+            down=dict(small="A new law hems {N} in a little.", big="A new law hems {N} in, and {N} feels it every day."))},
+    "hospital places": {
+        "option": dict(
+            down=dict(small="The hospitals are stretched, and {N} would wait longer to be seen.",
+                      big="There are too few hospital beds, and {N} cannot count on care if it is needed."),
+            up=dict(small="A new ward opens, and getting care is a little easier for {N}.",
+                    big="Care is easy to get again, and {N} can stop worrying about being seen."))},
+    "university places": {
+        "option": dict(
+            down=dict(small="University places are scarce, and the way into study narrows for {N}.",
+                      big="With so few university places, the door to study is all but closed to {N}."),
+            up=dict(small="There are more university places now, and study is within {Ns} reach.",
+                    big="The universities have opened their doors wide, and study is there for {N} if they want it."))},
+}
+WORLD_CHANNEL = {
+    "money": dict(down=dict(small="The times take a little out of {Ns} pocket.", big="The times hit {Ns} pocket hard."),
+                  up=dict(small="The times put a little more in {Ns} pocket.", big="The times are good to {Ns} pocket.")),
+    "freedom": dict(down=dict(small="The times close in a little on how {N} can live.",
+                              big="The times close in on how {N} can live."),
+                    up=dict(small="The times give {N} a little more room to live as they like.",
+                            big="The times open up, and {N} has room to live as they like.")),
+    "safety": dict(down=dict(small="The times leave {N} a little uneasy.", big="The times leave {N} afraid."),
+                   up=dict(small="The times feel a little safer to {N}.",
+                           big="The times feel safe again, and {N} lets their guard down.")),
+    "job loss risk": dict(up=dict(small="Work feels a little less certain for {N}.", big="{Ns} work no longer feels safe."),
+                          down=dict(small="Work feels a little more certain for {N}.",
+                                    big="{N} stops worrying about losing their work.")),
+    "disaster risk": dict(up=dict(small="The next disaster feels a little closer to {N}.",
+                                  big="{N} has stopped asking whether the next disaster will come, only when."),
+                          down=dict(small="{N} worries a little less about the next disaster.",
+                                    big="{N} stops worrying about the next disaster.")),
+    "crime risk": dict(up=dict(small="{N} is a little more careful on the streets.",
+                               big="{N} no longer feels safe on the streets."),
+                       down=dict(small="{N} is a little less careful on the streets.",
+                                 big="{N} walks the streets without a second thought.")),
+    "option": dict(down=dict(small="A road {N} might have taken gets harder.", big="A door {N} was counting on closes."),
+                   up=dict(small="A road gets easier for {N}.", big="A door {N} had given up on opens.")),
+    "close person": dict(down=dict(small="The times are hard on {who}, and {N} feels it too.",
+                                   big="The times hit {who} hard, and {N} carries it with them."),
+                         up=dict(small="The times are kind to {who}, and {N} is glad.",
+                                 big="The times are good to {who}, and some of it reaches {N}.")),
+}
+
+# WL4: the year's chapter, one line on how the times touched them that year (not the headlines), from that year's
+# reports. The tone: "close" when a disaster, a war or a close person's report is among them; else "mixed" when the two
+# largest point opposite ways; else by the largest: money (lean or easier), freedom or an option (narrower or freer),
+# a risk (uneasy or calmer). {what} is one or two YEAR_WHAT clauses (the two largest), joined by " and ". Fills {N}.
+YEAR = {
+    "lean": "A lean year for {N}: {what}.",
+    "easier": "An easier year for {N}: {what}.",
+    "uneasy": "An uneasy year for {N}: {what}.",
+    "calmer": "A calmer year for {N}: {what}.",
+    "freer": "A freer year for {N}: {what}.",
+    "narrower": "A narrower year for {N}: {what}.",
+    "close": "The times came close to {N} this year: {what}.",
+    "mixed": "The times gave and took from {N} this year: {what}.",
+}
+# YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}
+YEAR_WHAT = {
+    "recession": {"job loss risk": dict(up="the downturn put jobs at risk", down="the downturn eased")},
+    "unemployment": {"job loss risk": dict(up="work grew scarce", down="work was easier to find")},
+    "prices": {"money": dict(down="prices outran their money", up="prices settled")},
+    "housing": {"money": dict(down="rents went up", up="rents came down")},
+    "welfare": {"money": dict(up="the support for those out of work went up",
+                              down="the support for those out of work was cut")},
+    "rights": {"freedom": dict(up="new rights came in", down="rights were taken back")},
+    "crime wave": {"crime risk": dict(up="crime rose nearby", down="the streets grew quieter"),
+                   "safety": dict(down="crime nearby left them on edge", up="the streets felt safe again")},
+    "disaster": {"disaster risk": dict(up="disasters came more often", down="disasters grew rarer"),
+                 "safety": dict(down="a disaster shook them", up="the town mended after the disaster"),
+                 "close person": dict(down="a disaster hit {who}")},
+    "war": {"safety": dict(down="the war came closer", up="the war wound down"),
+            "close person": dict(down="the war reached {who}")},
+    "law": {"option": dict(down="a new law closed a door", up="a new law opened a door"),
+            "freedom": dict(up="a new law gave them more room", down="a new law hemmed them in")},
+    "hospital places": {"option": dict(down="care was harder to get", up="care was easier to get")},
+    "university places": {"option": dict(down="places to study grew scarce", up="places to study opened up")},
+}
+YEAR_WHAT_CHANNEL = {
+    "money": dict(down="money was tighter", up="money went further"),
+    "freedom": dict(down="life narrowed", up="life opened up"),
+    "safety": dict(down="the times felt dangerous", up="the times felt safer"),
+    "job loss risk": dict(up="work felt less certain", down="work felt more certain"),
+    "disaster risk": dict(up="the next disaster felt closer", down="the next disaster felt further off"),
+    "crime risk": dict(up="the streets felt less safe", down="the streets felt safer"),
+    "option": dict(down="a door closed", up="a door opened"),
+    "close person": dict(down="the times were hard on {who}", up="the times were kind to {who}"),
+}
+
+# WL3: the note on an option the world makes closed, harder or easier, from option_causes(n) (kind: law, norm,
+# technology, odds); the cause's own name goes on the hover. Short phrases, no fills.
+OPTION_CAUSE = {
+    "law": dict(closed="Not allowed by law here", harder="The law makes this harder", easier="The law allows this now"),
+    "norm": dict(closed="Not done around here", harder="Frowned on these days", easier="More accepted these days"),
+    "technology": dict(closed="Not possible yet", harder="Hard to manage with what there is",
+                       easier="Easier with the new tools"),
+    "odds": dict(closed="No way in right now", harder="Harder than usual right now", easier="Easier than usual right now"),
+}
+
+# WL6: the outside event "a disaster in the next town" told as the disaster that happened. The Engine tags the event's
+# story entry with hazard (flood, fire, quake, storm, heat) and where ("home": their own town; "near": a close person's
+# or the next town). DISASTER_READ[hazard][where] gives the scene and each color's reading as (label, say), in place of
+# earth.py's (flood, near is earth.py's own text). The readings' impact and needs stay earth.py's, so lives are unchanged.
+DISASTER_READ = {
+    "flood": {
+        "near": dict(
+            scene="The river burst its banks in the night. Ten miles away a whole town is under muddy water, and {Ns} phone is full of messages from people who live there.",
+            W=("organise: collect, sort, send, help", "{N} helps at the collection point in the school hall all week."),
+            U=("why there, why now, and what would have stopped it?", "{N} studies the flood maps and writes to the council about the defences."),
+            B=("it could have been here; make sure your own are protected first", "{N} packs an emergency bag that afternoon and checks the family is covered."),
+            R=("get over there and start bailing", "{N} gets a lift over with a load of buckets and works until dark."),
+            G=("the river takes back what was its own", "{N} stands on the bridge and watches the muddy water for a long time.")),
+        "home": dict(
+            scene="The river came up in the night. By morning {Ns} street is under water to the doorsteps, and the whole town is wading through the mud.",
+            W=("organise: sandbags, rotas, and a list of who needs checking on", "{N} knocks on every door in the street to check on the old and the alone."),
+            U=("why here, why now, and what would have held it back?", "{N} studies the flood maps and goes to the council meeting with questions about the defences."),
+            B=("look after your own first: the house, the papers, the insurance", "{N} moves everything of value upstairs and is first in line with the insurance claim."),
+            R=("wade in and start bailing", "{N} is out in the water with a bucket before anyone has said what to do."),
+            G=("the water comes and the water goes", "{N} watches the water from the upstairs window, and starts again when it goes down."))},
+    "fire": {
+        "near": dict(
+            scene="A wildfire swept through the hills behind the next town in the night. Whole streets there are ash, and {Ns} phone is full of messages from people who live there.",
+            W=("organise: gather what they need and get it there", "{N} sorts clothes and food for the families who lost their homes, all week."),
+            U=("why there, and what would have stopped it spreading?", "{N} reads everything about the fire's path and writes to the council about clearing the hills."),
+            B=("it could have been here; make your own place safe first", "{N} clears the dry brush round the house that weekend and checks the family is covered."),
+            R=("get over there and help, whatever it takes", "{N} drives over with water and blankets and works at the shelter until dark."),
+            G=("fire has always been part of the land", "{N} stands at the edge of the burned hills and watches the smoke for a long time.")),
+        "home": dict(
+            scene="The fire came over the ridge in the night. {Ns} street was spared by a change of wind, but the edge of town is charred and the air still smells of smoke.",
+            W=("organise: shelter, food, and a list of who has nowhere to go", "{N} opens the house to a family who lost theirs and helps run the shelter."),
+            U=("why here, and what would have kept it out?", "{N} goes to the meeting about the fire breaks with a list of questions."),
+            B=("secure your own first: the house, the papers, the claim", "{N} packs the papers in a fireproof box and is first in line with the insurance claim."),
+            R=("go and help, now", "{N} is out on the ridge with a hose and a shovel before anyone asks."),
+            G=("the land burns and the land comes back", "{N} walks the burned edge of town, and weeks later is the first to notice the new shoots."))},
+    "quake": {
+        "near": dict(
+            scene="The ground shook in the night. In the next town buildings came down, and {Ns} phone is full of messages from people who live there.",
+            W=("organise: blankets, food, and a place to sleep", "{N} sorts blankets and food at the collection point all week."),
+            U=("why there, and how would better building have saved it?", "{N} reads up on how houses are built to stand a quake, and writes to the council."),
+            B=("it could have been here; make your own house safe first", "{N} bolts the shelves to the walls that afternoon and checks the family is covered."),
+            R=("get over there and dig", "{N} goes over with a shovel and helps clear the rubble until dark."),
+            G=("the ground moves, as it always has", "{N} sits on the back step that evening and feels how still the ground is now.")),
+        "home": dict(
+            scene="The ground shook in the night. {Ns} house stood, with cracks up the walls, but down the street a building came down, and the whole town is out in the cold.",
+            W=("organise: food, shelter, and checks on every neighbour", "{N} helps set up the shelter in the sports hall and keeps the list of who is safe."),
+            U=("what held, what fell, and why?", "{N} goes from house to house noting which walls held, and takes the notes to the council."),
+            B=("secure your own first: the walls, the cracks, the claim", "{N} has the walls checked before anyone else's and is first in line with the claim."),
+            R=("dig, now, with your hands if you must", "{N} is out at the fallen building with the neighbours, clearing it until the rescuers arrive."),
+            G=("the earth moves, and people go on", "{N} sleeps in the garden for a week, and then moves back in."))},
+    "storm": {
+        "near": dict(
+            scene="A storm tore along the coast in the night. In the next town roofs are gone and trees lie across the roads, and {Ns} phone is full of messages from people who live there.",
+            W=("organise: tarps, food, and hands to help", "{N} loads a van with tarps and food for the next town and drives it over."),
+            U=("why there, and what would have stood up to it?", "{N} reads up on the storm and writes to the council about the sea wall."),
+            B=("it could have been here; tie down your own place first", "{N} ties down everything loose at home that afternoon and checks the family is covered."),
+            R=("get over there and clear the roads", "{N} goes over with a saw and helps clear the fallen trees until dark."),
+            G=("the sea and the wind were here first", "{N} walks the shore the next morning and watches the grey water for a long time.")),
+        "home": dict(
+            scene="The storm hit in the night. By morning the roofs on {Ns} street are open to the sky, and trees lie across the roads.",
+            W=("organise: tarps, ladders, and the worst roofs first", "{N} gets the neighbours together to cover the worst roofs first."),
+            U=("what gave way, and why?", "{N} goes over every broken roof on the street and works out what failed."),
+            B=("secure your own first: the roof, the papers, the claim", "{N} gets the roof fixed before the builders are booked out and files the claim that day."),
+            R=("up the ladder, now", "{N} is on the neighbours' roofs with a hammer before the wind has dropped."),
+            G=("the wind takes what it takes", "{N} sweeps up the leaves and the broken tiles, and lets the rest be."))},
+    "heat": {
+        "near": dict(
+            scene="A heatwave has gripped the region for weeks. In the next town the water has run out and the old are being taken to hospital, and {Ns} phone is full of messages from people who live there.",
+            W=("organise: water, fans, and visits to the old", "{N} drives water over to the next town and checks on the old people there."),
+            U=("why so hot, and what would keep a town cool?", "{N} reads up on the heat and writes to the council about shade and water."),
+            B=("it could be here next; make sure your own are cared for first", "{N} stocks up on water that afternoon and makes sure the family is managing."),
+            R=("get over there and help", "{N} spends the weekend carrying water to people in the next town."),
+            G=("the land has dry years, and wet ones", "{N} sits in the shade through the worst of the afternoons and waits for the weather to turn.")),
+        "home": dict(
+            scene="The heat has not broken for weeks. The town's water is rationed, the streets are empty by noon, and {N} lies awake every night in the stifling dark.",
+            W=("organise: water rounds and checks on the old", "{N} takes water round to the old and the alone on the street every evening."),
+            U=("what keeps a house cool, and why did no one plan for this?", "{N} works out how to keep the house cool and shares it with the neighbours."),
+            B=("look after your own first: water, shade, a cool room", "{N} gets the family into the coolest room and keeps the water for them."),
+            R=("out and help, heat or no heat", "{N} spends the hottest days carrying water to anyone who needs it."),
+            G=("the heat will pass, as it always does", "{N} keeps still through the worst of the afternoons, and waits for the rain."))},
 }
