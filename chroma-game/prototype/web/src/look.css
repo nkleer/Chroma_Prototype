@@ -238,6 +238,36 @@
   @keyframes lkfadeout { to { opacity: 0; } }
   @media (max-width: 640px) { .lk-pl { padding: 18px 16px 16px; } .lk-pl h3 { font-size: 21px; } .lk-pl .rn { font-size: 26px; } .lk-pc.plate { width: 66px; } }
 
+  /* reading the panel at a glance (look.js): trend marks, danger glow, the wheel a year ago, sparklines, the key */
+  .hud .mtr { grid-template-columns: 16px 66px minmax(0, 1fr) 46px; }
+  .mtr[data-lk-tr] .pv::after, .nd[data-lk-tr] .lv::after { content: "▲"; margin-left: 2px; font-size: 8px; vertical-align: 1px; color: var(--muted); }
+  .mtr[data-lk-tr="down"] .pv::after, .nd[data-lk-tr="down"] .lv::after { content: "▼"; }
+  .mean[data-lk-tr]::after { content: "▲"; position: absolute; top: -1px; left: calc(50% + 7px); font-size: 8px; line-height: 1; color: var(--muted); pointer-events: none; }
+  .mean[data-lk-tr="down"]::after { content: "▼"; }
+  [data-lk-good="1"] .pv::after, [data-lk-good="1"] .lv::after, .mean[data-lk-good="1"]::after { color: var(--ok); }
+  [data-lk-good="-1"] .pv::after, [data-lk-good="-1"] .lv::after, .mean[data-lk-good="-1"]::after { color: var(--bad); }
+  [data-lk-good="0"] .pv::after, [data-lk-good="0"] .lv::after { color: var(--gold); }
+  .mtr[data-lk-warn] .mbar i { box-shadow: 0 0 6px 1px var(--lk-wc); }
+  .mtr[data-lk-warn] .pv { color: var(--lk-wc); }
+  .mean[data-lk-warn] .col { box-shadow: 0 0 0 1px var(--lk-wc), 0 0 8px 1px var(--lk-wc); }
+  [data-lk-warn="low"], [data-lk-warn="high"] { --lk-wc: var(--bad); }
+  [data-lk-warn="near"] { --lk-wc: var(--gold); }
+  html[data-motion="full"] .mtr[data-lk-warn] .mbar i, html[data-motion="full"] .mean[data-lk-warn] .col { animation: lkwarn 2.4s ease-in-out infinite; }
+  @keyframes lkwarn { 50% { filter: brightness(1.35); } }
+  .wheel .lk-mem { fill: none; stroke: rgb(var(--hl) / 0.55); stroke-width: 1; stroke-dasharray: 1.2 2.4; stroke-linecap: round; }
+  .paper .wheel .lk-mem { stroke: rgb(42 33 22 / 0.5); }
+  .k-mem { border-top: 1.5px dotted var(--muted); }
+  .hud .crestbox { position: relative; }
+  .hud .crestbox .lk-key { top: auto; bottom: 0; right: 2px; }
+  .lk-sw { display: inline-block; font-size: 10px; margin-right: 3px; } .lk-sw.up { color: var(--ok); } .lk-sw.down { color: var(--bad); }
+  .lk-sw.glow { width: 18px; height: 5px; border-radius: 3px; background: var(--bad); box-shadow: 0 0 6px 1px var(--bad); vertical-align: middle; }
+  .lk-spark { margin-top: 6px; display: grid; gap: 2px; }
+  .lk-spark svg { width: 100%; max-width: 220px; height: 34px; display: block; }
+  .lk-spark path { fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; }
+  .lk-spark circle { fill: var(--gold); }
+  .lk-spark .ago { stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 2 2; }
+  .lk-spark span { font-size: var(--fs-1); color: var(--muted); }
+
   /* the start spread: when the name would sit below the fold, the reading docks at the foot of the window (look.js) */
   .spread #reading.lk-dock { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30;
     width: min(980px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto; margin: 0; box-shadow: 0 0 0 1px #6b5226, 0 0 0 3px rgb(216 180 105 / 0.3), 0 24px 60px -10px #000; }
