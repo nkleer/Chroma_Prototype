@@ -211,6 +211,20 @@ if LN:
             ALL.append((f"LINE.{k}.{f}", t, "line", 22))
             if "{N}" not in t or set(re.findall(r"{(\w+)}", t)) - {"N", "Ns"}:
                 fail("1 coverage", f"LINE.{k}.{f}: needs {{N}} and no other slot but {{Ns}}: {t}")
+RD, TK = getattr(M, "READ", {}), getattr(M, "TALK", {})   # S3 their places' eyes (social-mechanics.md S3)
+if RD or TK:
+    want_ = {f"{a_}.{b_}" for a_ in COLORS for b_ in COLORS}
+    if set(RD) != want_:
+        fail("1 coverage", f"READ: missing {sorted(want_ - set(RD))}, extra {sorted(set(RD) - want_)}")
+    for k, d in RD.items():
+        ALL += [(f"READ.{k}.{f}", d.get(f, ""), "clause", 12) for f in ("gift", "danger")]
+    if sorted(TK) != ["bent", "good", "warn"] or any(len(v) < 2 for v in TK.values()):
+        fail("1 coverage", f"TALK: wanted good, bent and warn with two lines or more each, got {sorted(TK)}")
+    for k, v in TK.items():
+        for i, t in enumerate(v):
+            ALL.append((f"TALK.{k}.{i}", t, "line", 20))
+            if set(re.findall(r"{(\w+)}", t)) != {"go", "place", "read"}:
+                fail("1 coverage", f"TALK.{k}.{i}: needs {{go}}, {{place}} and {{read}} and no other slot: {t}")
 
 seen = {}
 for at, text, kind, limit in ALL:
@@ -284,7 +298,7 @@ if n_opt and max(face_w.values()) - min(face_w.values()) > .01 * n_opt / 5:
     fail("8 faces", f"faces uneven by colour over {n_opt} options: {face_w}")
 NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting", "8 faces"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders, {len(FR)} fairness, {len(LN)} lines; data {data_note}\n")
+print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders, {len(FR)} fairness, {len(LN)} lines, {len(RD)} readings; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
     extra_ = f", {setting_note}" if nm == "7 setting" else (f", {n_opt} options: " + " ".join(f"{c} {v:.0f}" for c, v in face_w.items()) if nm == "8 faces" else "")
