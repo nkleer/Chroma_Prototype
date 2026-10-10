@@ -267,12 +267,47 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             self.want_s.setdefault(WK.CAST_WANTS[int(self.want[si])], []).append(int(si))
         self.pending = {}                 # n -> (cast id, want key, moment) offered this week
+        # S7 lead_ways: a post's moments (cast_want lead_*), fired with no holder (cid -1): a crisis or fall moment's way
+        # (lead_way:), each option's way, fall and hand answers (lead:, fall:, hand:), and the engine's office titles
+        self.lw = bool(getattr(PP, "lw", False))
+        if self.lw:
+            self.lway = np.asarray(L.get("W_LEAD_WAY", np.full(S, -1)))
+            self.olead = np.asarray(L.get("W_LEAD", np.full((S, K), -1)))
+            self.ofall = np.asarray(L.get("W_FALL", np.full((S, K), -1)))
+            self.ohand = np.asarray(L.get("W_HAND", np.full((S, K), -1)))
+            PP.lw_keys = {k_ for k_ in self.want_s if k_.startswith("lead_")}
+            rid_ = dict((L.get("ROLES") or {}).get("ID") or {})
+            self.lw_tid = np.array([rid_.get(nm_, -1) for nm_ in PP.lw_tnames], np.int64)   # -1: not in the catalogue
+            self.lw_fire = {}             # n -> the post whose moment was offered this week
         # far_ties (item 18): a far moment's touch (touch:), and its options that take the tie in (mark: took them in)
         self.touch = np.asarray(L.get("W_TOUCH", np.full(S, -1)))
         self.took = np.zeros((S, K), bool)
         for si in np.nonzero(self.want >= 0)[0]:
             for ki, nt in enumerate(L["notes"][si][:K]):
                 self.took[si, ki] = str((nt or {}).get("mark") or "").strip() == "took them in"
+        # S3, S4 (sph_eyes, sph_odd): what their places see, the life-event moments' picks (stand-in for the pivotal picks)
+        # and any act with a lever; an option's caught: and odd: tags (world_keys.CAUGHT_TAGS, ODD_TAGS)
+        self.eyes_life = np.array([str(L["src"][si].get("tier", "")) == "life event" for si in range(S)], bool)
+        self.caught = np.asarray(L.get("W_CAUGHT", np.full((S, K), -1))); self.odd = np.asarray(L.get("W_ODD", np.full((S, K), -1)))
+        # S5, sacred lines: the moments of a life's own (cast_want: sacred, tragic, amends; no cast member holds them),
+        # their line kinds, offer kind and round, and their options' tags (line:, tragic:, heal:)
+        self.sac_on = bool(getattr(PP, "sac_on", False))
+        self.sac_m = np.asarray(L.get("W_SACRED", np.full((S, 2), -1))).reshape(S, 2)
+        self.sac_off = np.asarray(L.get("W_OFFER", np.full(S, -1))); self.sac_rnd = np.asarray(L.get("W_ROUND", np.full(S, -1)))
+        self.sac_line = np.asarray(L.get("W_LINE", np.full((S, K), -1))); self.sac_trag = np.asarray(L.get("W_TRAGIC", np.full((S, K), -1)))
+        self.sac_heal = np.asarray(L.get("W_HEAL", np.full((S, K), -1)))
+        self.sac_pend = {}                # n -> the offer or amends (People.sac_q item) the week's pending moment answers
+        # seen_done (S6): the path each option is on (the title it gives, else the title it aims at), and the People's
+        # count of the paths seen walked, in the engine's title indices
+        self.seen_on = bool(getattr(PP, "seen_on", False))
+        if self.seen_on:
+            NT_ = int(GR_.get("NT", 0)) if GR_ else 0
+            PP.seen_setup(GR_ if NT_ else None)
+            aim_ = np.asarray(GR_.get("A_AIM", np.full((S, K), -1))) if NT_ else np.full((S, K), -1)
+            ok_ = NT_ and AT_.shape == (S, K) and aim_.shape == (S, K)
+            self.sd_tk = np.where(AT_ >= 0, AT_, np.where((aim_ >= 0) & (aim_ < NT_), aim_, -1)) if ok_ else np.full((S, K), -1)
+            self.sd_stat = np.zeros((2, PM.C))   # the felt-odds lift on offered options by their colour way: sum, weight
+            self.sd_n = np.zeros(4)              # offered options; those on a path; the path part's sum; the whole lift's
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -458,6 +493,12 @@ class WorldLink:
                         hit_ &= self._members(si, int((e.get("value") or {}).get("faith", -1)))
                     self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
+        if self.sac_on and W.p.get("c3_inst"):   # S5: a C3 offer (sold, merged, a leak, a cover-up) reaches its staff
+            for e in new:
+                k_ = f"institution.{e.get('kind')}"
+                if e.get("domain") == "institution" and k_ in self._sac_keys():
+                    stf_ = np.nonzero(self._staff(int((e.get("value") or {}).get("inst", -1))))[0]
+                    PP.sac_offer(stf_, k_, PP.t, reach=PP.sac_par["c3_reach"])
         if W.p.get("c3_inst"):
             self._c3_merged(new)
         if self.c2 and self.c2_split >= 0 and t % 4 == 0:
@@ -471,6 +512,39 @@ class WorldLink:
             if ss_ and n_ not in self.pending:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
+        if getattr(PP, "eyes_on", False):   # S3, S4: a caught-between (a go-between of either place first in who:) or an
+            for n_, cid_, key_ in PP.eyes_due(PP.t):   # odd-one-out moment (no holder) waiting, as a want's moment comes
+                ss_ = self.want_s.get(key_)
+                if ss_ and key_ == "odd":   # S4: a moment of the odd place's sphere (its sphere: line), else a place-neutral one
+                    sp_ = PP.eyes_sphere(n_)
+                    ss_ = [s_ for s_ in ss_ if sp_ >= 0 and self.msph[s_] == sp_] or [s_ for s_ in ss_ if self.msph[s_] < 0]
+                if ss_ and n_ not in self.pending:
+                    si_ = ss_[int(PP._eyes_rng.integers(len(ss_)))]
+                    self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
+        if self.lw:   # S7: a post's moment (taking it, a crisis of its way, its fall, the turn to routine, handing it on)
+            self.lw_fire = {}
+            for n_, key_, pid_, way_ in PP.lead_due(PP.t):
+                if n_ in self.pending:
+                    continue
+                ss_ = self.want_s.get(key_) or []
+                if key_ in ("lead_crisis", "lead_fall"):   # the moments of the post's own way, when the Library has them
+                    ss_ = [si for si in ss_ if self.lway[si] == way_] or ss_
+                if ss_:
+                    si_ = ss_[int(PP._lw_rng.integers(len(ss_)))]
+                    self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True; self.lw_fire[n_] = pid_
+        if self.sac_on:   # S5: an offer on a held line, a tragic trade-off or amends brings its moment (no holder: cid -1)
+            self.sac_pend = {}
+            for n_, it_ in PP.sac_due(PP.t):
+                if n_ in self.pending:
+                    continue
+                si_ = self._sac_pick(n_, it_)
+                if si_ is None:   # no moment for this line: decided off-screen by the character's own odds
+                    if it_["kind"] != "amends" and PP.sac_par["quiet"]:
+                        PP.sac_quiet(n_, it_, PP.t)
+                    elif it_ in PP.sac_q.get(n_, []):
+                        PP.sac_q[n_].remove(it_)
+                    continue
+                self.pending[n_] = (-1, it_["kind"], si_); self.fire_now[n_, si_] = True; self.sac_pend[n_] = it_
         return self.week_events
 
     def _members(self, si, ref=None):
@@ -507,6 +581,100 @@ class WorldLink:
                 self.fire_now[hit_, self.c2_split] = True
                 self.fire_why[self.c2_split] = dict(domain="group", kind="congregation drifts", key="congregation",
                                                     value=None, t=int(W.t))
+
+    def _sac_keys(self):
+        import sphere_data as SD_
+        return SD_.OFFER["events"]
+
+    def _sac_pick(self, n, it):
+        """S5: the moment for an offer, tragic trade-off or amends waiting for life n: of its kind (cast_want), for the
+        line it touches (sacred:; a tragic one for both, either order), then the offer's kind (offer:) and round
+        (round:), each dropped in turn when none fits; None when no moment is for that line. A tragic offer with no
+        moment for the pair comes as a plain offer on its first line."""
+        PP = self.PP
+        kinds = [int(PP.sac_line[n, j]) for j in it["slots"]]
+        ss = self.want_s.get(it["kind"]) or []
+        if it["kind"] == "tragic":
+            c_ = [si for si in ss if set(self.sac_m[si].tolist()) == set(kinds)]
+            if c_:
+                si = c_[int(PP._sac_rng.integers(len(c_)))]
+                m0_ = int(self.sac_m[si, 0])
+                it["ab"] = [j for j in it["slots"] if int(PP.sac_line[n, j]) == m0_] + \
+                           [j for j in it["slots"] if int(PP.sac_line[n, j]) != m0_]
+                return si
+            it.update(kind="sacred", slots=it["slots"][:1], round=0, size=1.0, tragic_none=True)
+            kinds = kinds[:1]; ss = self.want_s.get("sacred") or []
+        c_ = [si for si in ss if self.sac_m[si, 0] in (-1, kinds[0]) and self.sac_m[si, 1] < 0]
+        if not c_:
+            PP._sac_count("no moment")
+            return None
+        if it["kind"] == "sacred":
+            import sphere_data as SD_
+            ok_ = WK.OFFER_KINDS.index(SD_.OFFER["events"][it["key"]]["kind"])
+            for f_ in (lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_off[si] == ok_ and self.sac_rnd[si] == it["round"],
+                       lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_off[si] == ok_,
+                       lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_rnd[si] in (-1, it["round"]),
+                       lambda si: self.sac_m[si, 0] == kinds[0]):
+                d_ = [si for si in c_ if f_(si)]
+                if d_:
+                    c_ = d_
+                    break
+        else:
+            d_ = [si for si in c_ if self.sac_m[si, 0] == kinds[0]]
+            c_ = d_ or c_
+        return c_[int(PP._sac_rng.integers(len(c_)))]
+
+    def sacred_info(self, n, si):
+        """S5: for a sacred, tragic or amends moment brought this week, the line or lines (kind and colour), the offer (the
+        Outer world's words: the {offer} slot; its kind and gesture), the round, its size and the refusal odds
+        (People.sac_info); None for any other moment."""
+        it_ = self.sac_pend.get(int(n)); pv_ = self.pending.get(int(n))
+        if it_ is None or pv_ is None or pv_[2] != int(si):
+            return None
+        return self.PP.sac_info(int(n), it_)
+
+    def sacred_tilt(self, s, pr, mask=None):
+        """S5: the character's own pick at an offer on a held line: the options that cross it (line: cross) share 1 - the
+        refusal odds, all others (holding, untagged, doing nothing) the rest; at a tragic trade-off a, b and torn share
+        sacred_par tragic_w (untagged options keep their own odds). Within a group, by the character's own odds; a group
+        none of whose options they noticed (all at 0) still gets its share, evenly over its options the moment offers
+        (mask): saying no, or giving in, needs no noticing. pr (N, K) is changed in place for those lives."""
+        PP = self.PP
+        for n_, it_ in self.sac_pend.items():
+            si = self.pending.get(n_, (0, 0, -1))[2]
+            if si != int(s[n_]):
+                continue
+            p_ = pr[n_]; mk_ = np.ones(len(p_), bool) if mask is None else np.asarray(mask[n_], bool)
+
+            def share(g_):   # the group's own odds, or evenly over its options when none was noticed
+                return p_ * g_ / p_[g_].sum() if p_[g_].sum() > 0 else g_ / g_.sum()
+            if it_["kind"] == "sacred":
+                x_ = (self.sac_line[si] == 1) & mk_
+                h_ = ~x_ & mk_
+                if x_.any() and h_.any():
+                    q_ = PP.sac_odds(it_)
+                    pr[n_] = (1 - q_) * share(x_) + q_ * share(h_)
+                    PP._sac_count("tilted")
+            elif it_["kind"] == "tragic":
+                tg_ = self.sac_trag[si]; tw_ = PP.sac_par["tragic_w"]
+                grp_ = [((tg_ == g_) & mk_, tw_[g_]) for g_ in range(3)]
+                tot_ = sum(w_ for m_, w_ in grp_ if m_.any()); ptag_ = p_[(tg_ >= 0) & mk_].sum()
+                ut_ = (tg_ < 0) & mk_
+                ptag_ = ptag_ if ptag_ > 0 or ut_.any() and p_[ut_].sum() > 0 else 1.0
+                if tot_ > 0:
+                    q_ = np.where(ut_, p_, 0.0)
+                    for m_, w_ in grp_:
+                        if m_.any():
+                            q_ = q_ + ptag_ * (w_ / tot_) * share(m_)
+                    pr[n_] = q_ / q_.sum()
+                    PP._sac_count("tilted")
+        return pr
+
+    def sacred_act(self, live, ma, cost):
+        """S5, after the act and its costs: acts that cost something real count toward a line in their colour and heal a
+        wound in it (People.sac_act). Returns the healing events."""
+        idx = np.nonzero(live)[0]
+        return self.PP.sac_act(idx, ma[idx], np.asarray(cost)[idx]) if len(idx) else []
 
     def _staff(self, i):
         """The lives whose own work setting is institution i (N,)."""
@@ -619,6 +787,22 @@ class WorldLink:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
+        if pv_[1] in ("caught", "odd"):   # S3, S4: the option's tag decides (none, or doing nothing: kept apart, held on)
+            tg_ = (self.caught if pv_[1] == "caught" else self.odd)[s_n, a_n] if a_n < self.caught.shape[1] else -1
+            return self.PP.eyes_resolve(int(n), pv_[1], int(tg_), succ=bool(succ_n), idle=bool(idle_n))
+        if self.lw and pv_[1].startswith("lead_"):   # S7: the post's moment answered (no holder)
+            pid_ = self.lw_fire.get(int(n))
+            if pid_ is None:
+                return None
+            return self.PP.lead_resolve(int(n), pid_, pv_[1], self.olead[s_n, a_n], self.ofall[s_n, a_n], self.ohand[s_n, a_n],
+                                        bool(succ_n), bool(idle_n))
+        if pv_[1] in WK.OWN_WANTS:   # S5: an offer, a tragic trade-off or amends (no cast member holds it)
+            it_ = self.sac_pend.get(int(n))
+            if it_ is None:
+                return None
+            tab_ = {"sacred": self.sac_line, "tragic": self.sac_trag, "amends": self.sac_heal}[it_["kind"]]
+            tg_ = -1 if idle_n else int(tab_[s_n, a_n])
+            return self.PP.sac_resolve(int(n), it_, tg_, bool(idle_n), None)
         ev_ = self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
         if pv_[1].startswith("far_") and self.took[s_n, a_n] and not idle_n and succ_n:   # F4: the tie comes to stay
             self.PP.take_in(int(n), pv_[0])
@@ -646,6 +830,76 @@ class WorldLink:
         if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("far_"):
             return None
         return self.PP.far_info(int(n), pv_[0])
+
+    def eyes_info(self, n, si):
+        """S3, S4: for a caught-between or odd-one-out moment offered this week, its slots ({place_a}, {place_b} and the
+        opposed pair; or {place}) as People.eyes_moment gives them; None otherwise."""
+        pv_ = self.pending.get(int(n))
+        if pv_ is None or pv_[2] != int(si) or pv_[1] not in ("caught", "odd"):
+            return None
+        return self.PP.eyes_moment(int(n))
+
+    def eyes_pull(self, s):
+        """(N, K) log odds (S4, sph_odd): on an odd-one-out moment an unplayed life holds on more, and blends in less, the
+        stronger its own lead colour and the higher its rung at the place (People.odd_hold_x). 0 elsewhere."""
+        PP = self.PP
+        od = self.odd[s]
+        if not getattr(PP, "odd_on", False) or not (od >= 0).any():
+            return 0.0
+        u = np.zeros(od.shape)
+        for n_, pv_ in self.pending.items():
+            if pv_[1] == "odd" and pv_[2] == s[n_]:
+                x_ = PP.odd_hold_x(n_)
+                u[n_] = np.where(od[n_] == WK.ODD_TAGS.index("hold"), x_, np.where(od[n_] == WK.ODD_TAGS.index("blend"), -x_, 0.0))
+        return u
+
+    def lead_info(self, n, si=None):
+        """S7: life n's posts (People.lead_info: kind, sphere, the led place, way, legitimacy, start, end and its reason,
+        falls); with si, only the post whose moment si is this week (its {place}), else None."""
+        if not self.lw:
+            return None
+        info = self.PP.lead_info(int(n))
+        if si is None:
+            return info
+        pv_ = self.pending.get(int(n))
+        if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("lead_"):
+            return None
+        pid_ = self.lw_fire.get(int(n))
+        return next((dict(p_, moment=pv_[1]) for p_ in info if p_["id"] == pid_), None)
+
+    def seen_felt(self, p_hat, s, m, opt, offered):
+        """seen_done (S6): felt odds with what each life has seen walked (never the real odds): the option's path (its
+        title, People.sd_lt) plus its colour way (its ways x People.sd_lc), on every option but doing nothing (opt),
+        kept within .01 and .99 (odds already beyond them stay as they were). offered: the options open to them this week, for the colour-even check (sd_stat)."""
+        PP = self.PP; tk = self.sd_tk[s]
+        lt = np.take_along_axis(PP.sd_lt, np.maximum(tk, 0), 1) * (tk >= 0) if PP.sd_nt else np.zeros(tk.shape)
+        lf = lt + np.einsum("nkc,nc->nk", m, PP.sd_lc)
+        of_ = offered & opt
+        self.sd_stat[0] += np.einsum("nk,nkc->c", lf * of_, m); self.sd_stat[1] += np.einsum("nk,nkc->c", of_.astype(float), m)
+        self.sd_n += (of_.sum(), (of_ & (tk >= 0)).sum(), (lt * of_).sum(), (lf * of_).sum())
+        return np.where(opt, _uclip(p_hat + lf, np.minimum(p_hat, 0.01), np.maximum(p_hat, 0.99)), p_hat)
+
+    def seen_info(self, n, si):
+        """seen_done, for the game's option row: per option of moment si, the strongest model on its path (People.
+        seen_model) or, on no path, on its leading colour way (People.seen_way): kind (the Library's earth_spheres.SEEN
+        word: seen, wrong, far, none), who (the model's cast id; absent for none), path or way, exposure, failures seen,
+        lift; None for an option with no ways (doing nothing)."""
+        if not self.seen_on:
+            return None
+        si = int(si); nk = len(self.L["labels"][si]); tk = self.sd_tk[si][:nk]; M_ = np.asarray(self.L["M"][si])[:nk]
+        return [self.PP.seen_model(int(n), int(x_)) if x_ >= 0 else
+                self.PP.seen_way(int(n), int(np.argmax(M_[k_]))) if M_[k_].sum() > 0 else None
+                for k_, x_ in enumerate(tk.tolist())]
+
+    def seen_report(self):
+        """seen_done's numbers for the refit: the mean felt-odds lift on offered options per colour way (each option
+        weighted by its ways), and the share of offered options on a path with their mean path lift."""
+        if not self.seen_on:
+            return None
+        n_ = self.sd_n
+        return dict(lift_by_colour=(self.sd_stat[0] / np.maximum(self.sd_stat[1], 1e-9)).round(4).tolist(),
+                    offered=int(n_[0]), on_path=int(n_[1]), path_lift=round(float(n_[2] / max(n_[1], 1)), 4),
+                    mean_lift=round(float(n_[3] / max(n_[0], 1)), 4))
 
     def era(self):
         W = self.W
@@ -768,6 +1022,10 @@ class WorldLink:
                 else:
                     ad_ = np.array([W.tech_adopt(key, cls=int(c_)) for c_ in range(3)])[_uclip(PP.cls, 0, 2)]
                     u_mea = np.maximum(u_mea, np.where(te == k_, 1 - ad_[:, None], 0.0))
+        if getattr(PP, "eyes_on", False) and (self.caught[s] == WK.CAUGHT_TAGS.index("bridge")).any():
+            for n_, pv_ in self.pending.items():   # S3: a bridge is offered only to one known or more in both places' spheres
+                if pv_[1] == "caught" and pv_[2] == s[n_] and not PP.eyes_bridge_ok(n_):
+                    gone[n_] |= self.caught[s[n_]] == WK.CAUGHT_TAGS.index("bridge")
         return u_law, law_open, u_app, u_mea, gone
 
     def _c2_accept(self, s, acc_):
@@ -875,6 +1133,12 @@ class WorldLink:
             if self.ill_s[s].any():
                 f_ = local("hospital", cap) / CAP_REF
                 out["hospital places"] = self.ill_s[s][:, None] * _uclip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
+        if jo.any() and getattr(PP, "eyes_on", False):   # S3: a name opens or closes doors through a place's go-betweens:
+            # finding work is easier by door x the mean name at their places with a go-between (or where they are one)
+            gb_ = (PP._eyes_gobs(np.arange(N)) >= 0) | PP.eyes_gob
+            hv_ = gb_ & (PP.eyes_key >= 0)
+            dr_ = (PP.eyes_rep * hv_).sum(1) / np.maximum(hv_.sum(1), 1)
+            out["go-betweens"] = jo * (-PP.eyes_par["door"] * dr_)[:, None]
         return out
 
     # ---- other societies (spec 5 §5; Emren 10:30 "Yes, fully")
@@ -1026,6 +1290,10 @@ class WorldLink:
                              target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
                              sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])
         res = out.get("results", []) if isinstance(out, dict) else []
+        if getattr(self.PP, "eyes_on", False):   # S3: their places read the life-event moments' picks and the lever acts
+            se_ = self.eyes_life[si_] | (self.lev_i[si_, ai_] >= 0)
+            if se_.any():
+                self.PP.eyes_see(idx[se_], ma[idx[se_]], succ[idx[se_]].astype(float), "act")
         hp_ = self.hpick[si_] & (succ[idx] > 0) & (self.osph[si_, ai_] >= 0) & (self.ocol[si_, ai_] >= 0)
         if hp_.any() and getattr(self.PP, "sph_h", False):   # the haunt choice (N1): the option's face picks the place
             for n_, s2_, a2_ in zip(idx[hp_], si_[hp_], ai_[hp_]):
@@ -1058,7 +1326,7 @@ class WorldLink:
         if not sl_:
             return None
         pv_ = self.pending.get(int(n))
-        first_ = pv_[0] if pv_ is not None and pv_[2] == si else None
+        first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own, or a post's moment with no holder, -1: none)
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}
@@ -1070,13 +1338,16 @@ class WorldLink:
         snap = self.W.snapshot()
         snap["gov"]["leader_self"] = self.self_head is not None and int(self.self_head) in [int(i) for i in log_lives]
         others = {int(k_): W_.save() for k_, W_ in (getattr(PP, "_Ws", None) or {}).items() if W_ is not self.W}
-        return dict(t0=self.t0, record=list(self.W.record), log=self.log, hist=self.hist, snapshot=snap,
-                    save=self.W.save(), saves_other=others, people={int(i): PP.save(int(i)) for i in log_lives},
-                    cast={int(i): PP.cast_view(int(i)) for i in log_lives},
-                    place={int(i): PP.place_view(int(i)) for i in log_lives},
-                    settings={int(i): PP.settings_view(int(i)) for i in log_lives},
-                    reach={int(i): PP.reach_view(int(i)) for i in log_lives},
-                    figures={int(i): PP.figure_view(int(i)) for i in log_lives})   # public figures as the life reads them
+        out = dict(t0=self.t0, record=list(self.W.record), log=self.log, hist=self.hist, snapshot=snap,
+                   save=self.W.save(), saves_other=others, people={int(i): PP.save(int(i)) for i in log_lives},
+                   cast={int(i): PP.cast_view(int(i)) for i in log_lives},
+                   place={int(i): PP.place_view(int(i)) for i in log_lives},
+                   settings={int(i): PP.settings_view(int(i)) for i in log_lives},
+                   reach={int(i): PP.reach_view(int(i)) for i in log_lives},
+                   figures={int(i): PP.figure_view(int(i)) for i in log_lives})   # public figures as the life reads them
+        if self.seen_on:   # seen_done (only when on): the refit's numbers, and each logged life's ten most seen paths
+            out["seen"] = dict(self.seen_report(), paths={int(i): PP.seen_paths(int(i), top=10) for i in log_lives})
+        return out
 
     def save(self, n):
         return dict(world=self.W.save(), people=self.PP.save(n))
