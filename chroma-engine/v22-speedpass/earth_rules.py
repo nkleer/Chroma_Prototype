@@ -1514,10 +1514,27 @@ TIER_LIFT = {
 ROLES.update(ROLES_ACTS_ONLY)
 ROLES_OPTIONAL = set(ROLES_V2) | set(ROLES_P2) | set(ROLES_ACTS_ONLY)   # chroma-packs/core/longshot.py: only with packs on
 ROLES = {k_: v_ for k_, v_ in ROLES.items() if v_ is not None and k_ == k_.strip()}
-# Item 15, the sphere titles (sph_titles; chroma-packs/spheres/title-rules.py, the packs thread 10-09, copied as written):
-# the rules for the 28 face titles of the Library's catalogue (title-gaps.md). With sph_titles off the engine reads
-# none of them and lives are as before; on, each title is gained only as its rule says. Careers' rates come from the
-# refit's ROLE_NORM; community and faith rates are the packs' unfitted 400-life estimates.
+# v22.4, three green entry careers (chroma-packs/notes/v22.4-green-entries-for-library.md; the Library's catalogue
+# entries) and two roads that name them. Read only with the switch green_jobs on (batch._roles compiles them beside the
+# rules, as the sphere titles): off, a catalogue with the three titles gives them no rule of their own and every other
+# title its rule above, as the v22.3 engine does. Each entry: (the titles it needs in the catalogue, the rule); a road
+# for a sphere title (park ranger) stands in for its SPH_TITLE_ROLES rule
+ROLES_WHEN = {
+    # plain first jobs like [shop assistant], drawn by share and fit
+    "gardener or groundskeeper": (["gardener or groundskeeper"], dict()),
+    "farm hand": (["farm hand"], dict()),
+    "animal care worker": (["animal care worker"],
+                           dict(req="has('handling animals') | was('animal-shelter campaigner') | (age >= 18)")),
+    # a farm hand of five years with savings can take on a farm (the packs' proposal)
+    "farmer": (["farm hand"], dict(req="has('plot of land') | has('family business') | "
+                                       "((yrs_has('farm hand') >= 5) & has('savings'))")),
+    # three years on the grounds is a road to the ranger's post too
+    "park ranger": (["gardener or groundskeeper"],
+                    dict(after=["forester", "gardener or groundskeeper"],
+                         req="(age >= 20) & (age <= 60) & (health > .5) & (was('scout or guide') | "
+                             "was('search-and-rescue volunteer') | has('knowing the woods') | was('forester') | "
+                             "(yrs_has('gardener or groundskeeper') >= 3))", entry=True)),
+}
 SPH_TITLE_ROLES = {
     # rule
     "lay judge": dict(req="(age >= 25) & (age <= 70) & ~has('someone with a record') & "
