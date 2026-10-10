@@ -35,7 +35,7 @@ def build(src):
     MEETS = [[[plan["meets"][s][c][n] for n in FACE_NEEDS] for c in COLS] for s in SPHERES]
     FACE_NAMES = {f"{s}.{c}": plan["face_names"][s][c] for s in SPHERES for c in COLS}
     PARAMS = {x["key"]: x["value"] for x in dyn["params"] if isinstance(x["value"], (int, float, dict, list))}
-    SUB, PLACE, EVENTS = {}, {}, []
+    SUB, PLACE, EVENTS, EV = {}, {}, [], []
     for s in SPHERES:
         f = rd(f"{s}.json")
         SUB[s] = [x["key"] for x in f["subsectors"]]
@@ -43,6 +43,14 @@ def build(src):
             PLACE[f"{s}.{x['key']}"] = {e: x["place_by_epoch"][e] for e in EPOCHS if e in x.get("place_by_epoch", {})}
         for e in f["events"]:
             EVENTS.append((e["key"], s, e["family"], not no_dice(e.get("chance"))))
+            # phase 3: the whole event as the engine runs it (rows on a sphere's faces; other rows' targets kept for later)
+            EV.append(dict(key=e["key"], sphere=s, family=e["family"], dice=bool(e.get("dice", not no_dice(e.get("chance")))),
+                           epochs=list(e.get("epochs", [])), hazard={k: float(v) for k, v in e.get("hazard", {}).items()},
+                           chains=[[c["key"], c.get("lag", "years")] for c in e.get("chains_to", [])],
+                           rows=[dict(target=r["target"], scope=r.get("scope", "local"), tau=float(r.get("tau", 4)),
+                                      faces=[int(r["faces"][c]) for c in COLS] if r.get("faces") else None,
+                                      state={k: int(v) for k, v in r.get("state", {}).items()})
+                                 for r in e["effects"]]))
     # phase 2: what each face teaches (its colour mix), and the time budget by life stage and epoch group (hours a week)
     TEACH = [[[float(rd(f"{s}.json")["faces"][c]["teaches"].get(k, 0.0)) for k in COLS] for c in COLS] for s in SPHERES]
     tb = dyn["exposure"]["time_budget"]; rows = [r["row"] for r in tb["rows"]]
@@ -60,10 +68,16 @@ def build(src):
     # how common each haunt kind is (dynamics.json haunt_shares): the modern share of adults for whom it is a regular
     # place, read as a prior on the haunt picks (relative weights times fit)
     HAUNT_SHARES = {k: float(v) for k, v in dyn["haunt_shares"]["shares"].items()}
+    # phase 3: the year's rhythm (N7; hours and event hazards by season, each row averaging 1), how separate the spheres
+    # are in each epoch (N6; effects spill to joined spheres at J x (1 - separation)), the pair faces' rule
+    sz = dyn["seasons"]; SEASONS = dict(order=list(sz["order"]), hours={s: [float(x) for x in sz["hours"][s]] for s in SPHERES},
+                                         hazards={s: [float(x) for x in sz["hazards"][s]] for s in SPHERES})
+    SEPARATION = {x["key"]: float(x["separation"]) for x in ep["ladder"]}
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
-                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES)
+                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV,
+                SEASONS=SEASONS, SEPARATION=SEPARATION)
 
 
 def audit(T):
@@ -90,6 +104,16 @@ def audit(T):
     hs = T["HAUNT_SHARES"]
     if len(hs) != 31 or min(hs.values()) <= 0 or max(hs.values()) > 1:
         bad.append(f"haunt shares: {len(hs)} kinds, {min(hs.values())} to {max(hs.values())}")
+    for kind in ("hours", "hazards"):
+        m = np.array([T["SEASONS"][kind][s] for s in SPHERES])
+        if np.abs(m.mean(1) - 1).max() > 0.02:
+            bad.append(f"seasons {kind}: a sphere's year averages {m.mean(1).round(3).tolist()}")
+    if set(T["SEPARATION"]) != set(EPOCHS):
+        bad.append(f"separation: epochs {sorted(T['SEPARATION'])}")
+    ek = {e["key"] for e in T["EV"]}
+    miss = sorted({c[0] for e in T["EV"] for c in e["chains"]} - ek)
+    if miss:
+        bad.append(f"chains to unknown events: {miss[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")

@@ -1489,7 +1489,8 @@ class People:
         if sph is None:
             return
         town = sph[self.loc]                                                      # N x 9 x 5
-        tm = np.einsum("njf,jfc->njc", town, self._teach)                         # each town sphere's teaching mix
+        ph_ = getattr(W, "sph_ph", None) if W.p.get("sph_pairs", False) else None
+        tm = W.sph_teach_mix((town, None if ph_ is None else ph_[self.loc]), self._teach)   # each town sphere's teaching mix
         has = lambda k_: (self.skind == G[k_])
         def set_mix(k_):
             h_ = has(k_); any_ = h_.any(1); j_ = h_.argmax(1)
@@ -1521,6 +1522,8 @@ class People:
         rr_ = np.floor(self.rung[:, S_("rule")])
         hrs[:, 6] = T["civic"][g] * np.where(rr_ >= 4, 6.0, np.where(rr_ >= 3, 3.0, 1.0)); mix[:, 6] = tm[:, S_("rule")]; rs[:, 6] = S_("rule")
         hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
+        if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
+            hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
         self.hrs = hrs
         wt = hrs * self._depth[None] * (1 + 0.25 * np.floor(np.take_along_axis(self.rung, rs, 1)))
         tot = wt.sum(1)
