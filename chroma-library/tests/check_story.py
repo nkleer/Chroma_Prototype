@@ -55,7 +55,7 @@ MARKS = ["hid a wrong", "owned up", "kept your word", "broke your word", "learne
 BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
 NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
               "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ",
-              "WORLD_EVENT", "MOVEMENT_NAMES")
+              "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE")
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
          "hospital places", "university places", "pandemic"]   # pandemic: WL2 (Engine #62), on the ties channel
@@ -154,6 +154,7 @@ def rule(path):
                 "outcome": (("N",), (), "sentence", "narration", 25),
                 "trust_turn": (("N",), ("N",), "sentence", "narration", 25),
                 "became": (("N", "ident"), ("N", "ident"), "sentence", "narration", 25),
+                "became_head": ((), (), "phrase", "narration", 10),
                 "chapter": (("N", "Ns", "name"), ("name",) if p2 in ("won", "trust_up", "trust_down") else (),
                             "sentence", "narration", 25),
                 "end": (("N", "Ns", "name", "adj", "share"),
@@ -177,6 +178,12 @@ def rule(path):
         return (("N", "Ns", "who"), ("who",) if ch == "close person" else (), "sentence", "narration", 25)
     if top == "YEAR":
         return (("N", "what"), ("N", "what"), "sentence", "narration", 25)
+    if top == "YEAR_LEAD":      # item 6: the times as a clause in the year's lead
+        return (("what",), ("what",), "clause", "narration", 8)
+    if top == "RECALL_IN":      # item 6: a memory inside its moment
+        return (("N", "when", "what"), ("N", "when", "what"), "clause", "narration", 25)
+    if top == "TEMPER_CAUSE":   # item 6: temperament with its event
+        return (("N", "m", "event"), ("N", "m", "event"), "sentence", "narration", 20)
     if top in ("YEAR_WHAT", "YEAR_WHAT_CHANNEL"):
         ch = path[2] if top == "YEAR_WHAT" else path[1]
         return (("who",), ("who",) if ch == "close person" else (), "clause", "narration", 12)
@@ -211,7 +218,9 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
               voice="voice", lost="“The band”", name="the careful voice", adj="passionate", share="a third",
               start="a Free Spirit", end="an Explorer", lean="caution", who="her sister", did="left home",
               plan="a home of their own", dream="the dream of a working life", road="the trades", inst="the factory in Redmouth", place="Redmouth", movement="the Lantern Way",
-              what="prices outran their money and the downturn put jobs at risk")
+              what="prices outran their money and the downturn put jobs at risk",
+              when="at 17", event="the divorce", m="steadier")
+SAMPLE_AT = {"RECALL_IN": dict(what="leave home early")}
 
 fails = {}
 
@@ -362,7 +371,7 @@ for k, v in LT["glad"].items():
         fail("1 coverage", f"LAST_TALK.glad.{k}: wanted 2 lines (under a third, a third or more)")
 
 need_keys("VOICE", V, ["noun", "name", "none", "quiet", "answer", "memory", "outcome", "trust_turn", "became", "chapter",
-                       "end", "share", "book", "lean", "own"])
+                       "end", "share", "book", "lean", "own", "became_head"])
 need_keys("VOICE.noun", V["noun"], ["earth", "tribal", "magic"])
 need_keys("VOICE.name", V["name"], SIDES)
 for k in SIDES:
@@ -381,6 +390,7 @@ need_keys("VOICE.memory", V["memory"], ["worked", "failed", "failed_plain"])
 need_keys("VOICE.outcome", V["outcome"], ["right", "wrong"])
 per_color("VOICE.trust_turn", V["trust_turn"], ["up", "down"], 2)
 need_keys("VOICE.became", V["became"], ["trusted", "unsure", "doubted"])
+need_keys("VOICE.became_head", V["became_head"], ["trusted", "unsure", "doubted"])
 need_keys("VOICE.chapter", V["chapter"], ["first", "won", "trust_up", "trust_down", "quiet"])
 for k in ("memory", "outcome", "chapter"):
     for kk, v in V[k].items():
@@ -431,6 +441,13 @@ for ch in CHANNELS:
     for dr in ("up", "down"):
         need_keys(f"WORLD_CHANNEL.{ch}.{dr}", WO_C.get(ch, {}).get(dr, {}), ["small", "big"])
 need_keys("YEAR", YR, ["lean", "easier", "uneasy", "calmer", "freer", "narrower", "close", "mixed"])
+need_keys("YEAR_LEAD", M.YEAR_LEAD, ["lean", "easier", "uneasy", "calmer", "freer", "narrower", "close", "mixed"])
+need_keys("RECALL_IN", M.RECALL_IN, ["scar", "good", "bad"])
+for k_, v_ in M.RECALL_IN.items():
+    if not (isinstance(v_, list) and len(v_) >= 2):
+        fail("1 coverage", f"RECALL_IN.{k_}: wanted a list of 2 lines or more")
+if not (isinstance(M.TEMPER_CAUSE, list) and len(M.TEMPER_CAUSE) >= 2):
+    fail("1 coverage", "TEMPER_CAUSE: wanted a list of 2 lines or more")
 need_keys("OPTION_CAUSE", OC, ["law", "norm", "technology", "odds"])
 for k in OC:
     need_keys(f"OPTION_CAUSE.{k}", OC[k], ["closed", "harder", "easier"])
@@ -510,7 +527,8 @@ for path, text in ALL:
                 fail("2 fills", f"{{{m.group(1)}}} starts a sentence but its value is lower case: {at}")
     if path[0] in ("DISASTER_READ", "WORLD", "WORLD_CHANNEL") and kind == "sentence" and not ({"N", "Ns"} & set(fills)):
         fail("2 fills", f"the line does not name the character ({{N}} or {{Ns}}): {at}")
-    filled = FILL.sub(lambda m: SAMPLE.get(m.group(1), "{" + m.group(1) + "}"), text)
+    sample = {**SAMPLE, **SAMPLE_AT.get(path[0], {})}
+    filled = FILL.sub(lambda m: sample.get(m.group(1), "{" + m.group(1) + "}"), text)
     if FILL.search(filled) or "{" in filled or "}" in filled:
         fail("2 fills", f"a placeholder is left after filling: {at}: {filled}")
     if path[0] == "SONG_WORLD":
