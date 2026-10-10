@@ -770,6 +770,9 @@ DEFAULT = dict(
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
+    birth_age=False,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
+                         # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
+    birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -927,6 +930,20 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
                scar_pull=0.0)
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
+# births by the parent's age (birth_age): births a year per 1,000 women and per 1,000 men at each age (US NCHS natality,
+# mothers 2019 and fathers' age-specific rates), read as a share of the peak; own births only
+FERT_F = ((15, 0.0), (17, 17), (22, 66), (27, 93), (32, 98), (37, 52), (42, 12), (47, 1), (51, 0.0))
+FERT_M = ((15, 0.0), (17, 8), (22, 60), (27, 95), (32, 100), (37, 60), (42, 25), (47, 9), (52, 3), (57, 1), (62, 0.0))
+BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the moments of a life's own births
+BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
+
+
+def fert(age, table):
+    """A year's chance of a birth at this age as a share of the peak age's (FERT_F, FERT_M)."""
+    xs, ys = zip(*table)
+    return np.interp(age, xs, ys) / max(ys)
+
+
 UPD_OFF = dict(dis_match=False,
                # stage 2 (who they become): enemy pairs, shadows, threat axis and aging pull, life areas, a curious life,
                # each person's need table and events by need and state
@@ -944,6 +961,8 @@ UPD_OFF = dict(dis_match=False,
                sph_shadow=False, sph_deep=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
+               # late births: a life's own births by real fertility for its age and sex
+               birth_age=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -2358,6 +2377,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world as WMOD_
         WK_RIGHTS_W = WMOD_.RIGHTS.index("women")
     DB_ON = SV_ON
+    BA_ON = bool(P.get("birth_age")) and BAT   # late births: own births by real fertility for age and sex
+    if BA_ON:
+        BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
+        # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
+        ag_w = [np.arange(int(L["AGE"][s_, 0]), int(L["AGE"][s_, 1]) + 1) for s_ in np.nonzero(BIRTH_S)[0]]
+        BA_NF = np.array([max(fert(a_, FERT_F).mean(), 1e-6) for a_ in ag_w])
+        BA_NM = np.array([max(fert(a_, FERT_M).mean(), 1e-6) for a_ in ag_w])
+        # a choice that starts a child of one's own (not adopting, fostering or taking a child in)
+        BIRTH_O = np.zeros(L["COMMIT"].shape, bool)
+        for s_ in range(L["S"]):
+            if L["TIER"][s_] != 1:
+                for a_ in range(len(L["labels"][s_])):
+                    BIRTH_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
+        ba_rng = np.random.default_rng([int(seed), 83])
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
@@ -2627,6 +2660,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
             if BAT:
                 ev_p = ev_p * cond_fac             # the engine's likelier / rarer reading of a life event (1 when it has none)
+            if BA_ON:   # late births: a life's own births by its age and sex
+                ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
+                                                            fert(age, FERT_M) / BA_NM[None])
             if BAT:   # deaths come at the rate of the age of those still alive (engine-owned; the Library's window still gates)
                 qd_ = np.repeat(np.minimum(1, P["mort"][0] * np.exp(P["mort"][1] * (age + KILL_OFF[KILLS[KL_]])))[None], N, 0)
                 if KCH_.any():   # R15: the children's own ages (the first child's years, less a little for the younger ones)
@@ -2650,6 +2686,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p = ev_p * rf_w * mf_ * WL.channel_rates()   # and contagion, move wish
                 ev_p[:, KL_ & ~KCHILD_] = 0.0
                 frc_ = WL.fire_now.copy(); fdd_ = np.zeros_like(frc_); dfr_ = []
+                if BA_ON and frc_[:, BIRTH_S].any():   # a birth the world brings comes by the same age and sex
+                    frc_[:, BIRTH_S] &= (ba_rng.random(N) < np.where(female, fert(age, FERT_F), fert(age, FERT_M)))[:, None]
                 for r_ in range(5):
                     for n in np.nonzero(dth_[:, r_])[0]:
                         ks_ = np.nonzero((KILLS == r_) & avail[n])[0]
@@ -3110,6 +3148,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         res += act_ * (L["PAY"][s, a] + np.where(succ[:, None], L["WIN"][s, a], L["LOSE"][s, a]))
         ck = L["COMMIT"][s, a]
         cp_ = CP[np.maximum(ck, 0)]
+        if BA_ON:   # late births: a choice to have a child of one's own starts one as fertility at that age allows
+            cp_ = np.where(BIRTH_O[s, a], cp_ * np.where(female, fert(age, FERT_F), fert(age, FERT_M)), cp_)
         if BAT:   # a batch life event that starts a commitment is the match itself (falling in love, a child is born)
             cp_ = np.where((L["TIER"][s] == 1) & ((ck == CAR) | (ck == PAR) | (ck == KID) | (ck == COM)), 1.0, cp_)
         fi = np.nonzero((ck >= 0) & succ & ~idle & ~recon & (rng.random(N) < cp_))[0]
