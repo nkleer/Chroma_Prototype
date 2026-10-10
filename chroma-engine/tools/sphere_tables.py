@@ -125,6 +125,11 @@ def build(src):
                 low=float(ff["effects"]["low"]), high=float(ff["effects"]["high"]),
                 low_mult={k: float(v) for k, v in ff["effects"]["low_mult"].items()},
                 high_mult={k: float(v) for k, v in ff["effects"]["high_mult"].items()})
+    fv = ff.get("five_parts")   # S1, fairness read five ways (fair_read): the parts each state and each event reads, as
+    if fv:                      # colour letters (W rules, U reasons, B due, R respect, G goodwill); an event's tags, each
+        col = {k: v["colour"] for k, v in fv["parts"].items()}   # [part, +1 fair / -1 unfair side], on its own sphere
+        FAIR["parts"] = {f"{sp}.{k}": "".join(col[p] for p in ps) for sp, d in fv["state_parts"].items() for k, ps in d.items()}
+        FAIR["events"] = {k: [[col[x["part"]], 1 if x["side"] == "fair" else -1] for x in v] for k, v in fv["events"].items()}
     # phase 5 (Outer world's answers, chroma-world/spheres/phase5-answers.md): N5's shadow shares and their effects
     # (shadow_state), and the deep state of a life (deep_state: the care load, service, debts, holdings)
     shs = dyn["shadow_state"]
@@ -208,6 +213,10 @@ def audit(T):
     ob_ = [(sp, k) for sp, d in T["LEVER_OFFICE"].items() for k, v in d.items()
            if ("event" in v and v["event"] not in ek) or ("state" in v and v["state"] not in st_)]
     fb_ = [k for d in T["FAIR"]["states"].values() for k in d["fair"] + d["against"] if k not in st_]
+    evk_ = {f"{e['sphere']}.{e['key']}" for e in T["EV"]}
+    bad += [f"fair_read: event {k} not among the events" for k in T["FAIR"].get("events", {}) if k not in evk_]
+    bad += [f"fair_read: state {k} has no parts" for d in T["FAIR"]["states"].values() for k in d["fair"] + d["against"]
+            if T["FAIR"].get("parts") is not None and k not in T["FAIR"]["parts"]]
     if ob_ or fb_ or set(T["LEVER_OFFICE"]) != set(SPHERES):
         bad.append(f"levers: office {ob_[:3]}, fairness states unknown {fb_[:3]}")
     sh_ = T["SHADOW"]["share"]
