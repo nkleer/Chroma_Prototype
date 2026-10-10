@@ -1,0 +1,468 @@
+# Chroma content pack, Art and Writing: LONG SHOTS and the ANTI-STORY (moments 40 to 47 of art/MOMENTS-BRIEF.md, Part
+# 6; Pathways and packs thread, 2026-10-10, for v22.4, held in its PR until v22.3 is live). In the shape of
+# ../stage/stage-longshots.lib. A long shot is a bold try at the next rung, or a skip of at most one rung by someone with
+# years on the rung below (Emren 10-06 09:18: "Big titles ... needs consecutive steps"); nobody goes from no history in
+# the field to a career or a summit. Ladders as roles.py gives them (rungs=): [street artist] and [illustrator for hire]
+# from [life-drawing regular] (or [art school student]); [painter or sculptor] from [street artist], [illustrator for
+# hire], or a [life-drawing regular] with years; [art teacher] from [painter or sculptor], [illustrator for hire],
+# [teacher] or a [life-drawing regular]; [gallery owner] from [painter or sculptor], [art teacher] or [illustrator for
+# hire] with years; [master craftsperson] from [craft maker]; the base [novelist] from [open-mic poet]; the summits are
+# facets on the career held: [renowned artist] on the four visual careers, [celebrated author] on [novelist]. Who meets
+# each moment: `holds:` and `tenure:` here (years on the rung), made exact by LIFE_ART_LONGSHOTS in engine-conditions.py;
+# the echoes anchor on the perk and on these six moments (LONGSHOTS_ART, ECHO_ART_LONGSHOTS). Syntax: header of
+# chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and art/MOMENTS-BRIEF.md (pack rules,
+# content limits, worlds).
+#
+# Six life events, each even on its own: five one-colour long shots at one written chance of 2 or 3 (the long odds come
+# from the step itself; the one `lacking:` is the pack's loan rule on a gallery lease taken on savings, LS5), each with
+# `grants_if_fails: a long shot that missed` (core/longshot.py), plus the triad half the brief names (D3a D3b D4a D4b
+# D5a D5b), all five at one chance of 82 to 85: the honest ways to weigh it, a smaller step, or walking away, so the
+# long shot and the slow road stand side by side. Where a moment
+# offers different titles to different holders, a single that would be a try at the title already held, or a facet
+# with no career under it, carries `requires: <the rung it is for> | without: impossible` (as the stage pack's 'filmed
+# by chance in the street' and 'the night both covers are off'): it is never offered to anyone it does not fit, so
+# every single a person sees is a rung they could take. The summit facets follow the pack rule: `title: renowned
+# artist; painter or sculptor` (facet first) where the moment reaches the regular of five years as well as the painter.
+# Two echoes anchored on the perk, `once: yes`, five one-colour options plus a full cross cycle: the second try
+# (`title: {missed}`, the rung missed, at 4 against the first try's 2 or 3) and making peace with it (a class taught, the
+# story told, a life class joined for the joy of it, a circle kept).
+#
+# Content: nothing graphic; every long shot is for someone of 16 or more; life drawing is a quiet, professional room and
+# no model appears in any scene here; children appear only in safe, supervised settings (the band's young ones shown
+# the marks by the person, a story told at the hearth). No real person, gallery, museum, prize, publisher, school, brand, country or year is named: "the great
+# summer show", "the academy in the capital", "a big publisher". The cost of failing is the attempt itself: a fee, a
+# season, a little pride; never cruel, never death. Value tags read one of the option's own colours (the round 5 rule
+# of the stage pack): White's by-the-book singles lead with conformity, Blue's with achievement and conformity, Black's
+# with power, Red's with stimulation or hedonism, Green's of home and kin with tradition and benevolence or
+# universalism.
+
+# ================================================================ long shots (life events)
+
+# ---------------------------------------------------------------- LS1. the sketch that went round the world (triads D3a)
+# A quick sketch of the market in the rain goes round the world overnight, for someone with two years or more of drawing
+# behind them: a [life-drawing regular], a [street artist] or an [illustrator for hire] (`tenure: 2-99`; LIFE gate: not
+# a painter yet). Luck opens the next rung, or the one-rung skip roles.py allows, at 3 in every colour: [street artist]
+# (W, the council's wall) and [illustrator for hire] (U, the publisher) for the life-drawing regular only (`requires:
+# life-drawing regular | without: impossible`, so a street artist or an illustrator is never offered a try at the title
+# held), and [painter or sculptor] (B the dealer, R the canvases as big as a wall, G the market's own people) for all
+# three: the next rung for the street artist and the illustrator, the one-rung skip for the regular with years
+# (painter or sculptor's rungs= in roles.py). The triads at 84: a year of study first, a fair licence, the original
+# given back, coffee with the gallery, a drawing a day while the world is watching.
+
+== the sketch that went round the world
+tier: life event
+stages: juvenile young_adult adult mature
+age: 16-80
+holds: life-drawing regular | street artist | illustrator for hire
+tenure: 2-99
+per_year: 0 .005 .01 .01 .005 0
+drivers: era+.3 fortune+.3
+times: per life-drawing regular, street artist or illustrator with two years or more of drawing behind them, a year: about 1 in 100 has a drawing shared far beyond their own circle (estimate); pictures are shared online by the million every day, and only a handful a year turn into a first show, a book or a wall (estimate); about 15 lives in 1,000 draw at a weekly class and about 1 in 1,000 earn a living from painting (catalogue shares)
+likelier: work people stop for, a year when pictures travel fast online, a friend who shares it well, years of drawing behind it
+rarer: work never shown outside the class or the sketchbook, a quiet year online, no time to answer the messages
+gap: 6-15
+domain: career.5
+tone: joy
+life: work, making, money
+horizon: week
+roles: friend, colleague, mentor, rival, a dealer
+earth: a sketch posted on a quiet evening is shared round the world overnight, and the messages start: a gallery, a publisher, the town council, a dealer
+tribal: a trader carries a drawing on a scraped hide from the river crossing to every band in the valley, and the elders of far camps send for the hand that made it
+magic: a sketch left on a tavern table is copied by the printers and pinned up in every city of the realm, and letters come under strange seals
+scene: On a wet Tuesday {N} drew the market from a café window in twenty minutes: the stalls packing up, a woman holding an umbrella over the fruit, the lights coming on. {N} posted it before bed. By Thursday it has been seen by eleven million people, and the messages will not stop: a gallery in the capital, a publisher of picture books, the town council, a dealer, and every friend {N} has asking if it is true.
+scene W: {N} answers nobody for a day and makes a list instead: who wrote, what each one offers, which offers are real. The council's letter is the only one on headed paper, and it has a plan attached.
+scene U: {N} looks at the sketch for an hour, trying to see what eleven million people saw. It is something in the line, quick and sure, that {N} has chased for years and caught only once.
+scene B: Attention like this lasts about a fortnight. {N} sorts the messages into the ones with money behind them and the ones with names, and starts with the names.
+scene R: {N} reads the messages on the bus to work, laughing out loud. Years of drawing for nobody in particular, and now the whole world wants to see the next one, and {N} wants to make it today.
+scene G: The stallholders have all seen it. The woman with the umbrella is the fruit seller, and she has printed it out and taped it to her till; the whole market is prouder of it than {N} is.
+scene tribal: {N} drew the gathering at the river crossing on a scraped hide, quick and sure, and a trader carried it off to barter. Now runners come from far camps: their elders have seen the hide, and want the hand that made it to paint their shelter walls, mark their drums, or paint a wall of the great cave.
+scene magic: {N} sketched the market in the rain on the back of a bill in a tavern and left it there. The printers copied it, and now it is pinned up in every city of the realm; letters come under strange seals: a picture dealer, the printers' guild, the city's council, a lord's steward.
+- W | answer the council by return, and paint the sketch as a mural to their plan | title: street artist | requires: life-drawing regular | without: impossible | grants_if_fails: a long shot that missed | self_control: + | v: conformity, security | tribal: answer the far elders' runner, and paint the drawing on their shelter wall exactly as they ask | magic: answer the city council's seal, and paint the sketch on the guildhall wall to their plan | chance: 3
+- U | work the sketch's quick line into a style, and send a publisher twenty drawings in it | title: illustrator for hire | requires: life-drawing regular | without: impossible | grants_if_fails: a long shot that missed | habit | mark: learned a skill | v: achievement, conformity | tribal: work the drawing's quick line into a pattern, and offer to mark the far camps' drums with it | magic: work the sketch's quick line into a hand, and send the printers twenty plates in it | chance: 3
+- B | sign with the dealer who wrote first, and hold out for a solo show | title: painter or sculptor | grants_if_fails: a long shot that missed | binds | v: power, achievement | tribal: let the trader who carried the hide speak for the hand, and hold out for a wall of the great cave | magic: sign with the picture dealer who wrote first, and hold out for a hall of the work alone | chance: 3
+- R | leave the day job, and paint the sketch as big as a wall, twenty times over | title: painter or sculptor | grants_if_fails: a long shot that missed | mark: took a wild risk | identity | v: stimulation, hedonism | tribal: leave the hunt to the others, and paint the drawing huge on every rock at the painting place | magic: leave the shop to the apprentice, and paint the sketch on canvases as tall as a door | chance: 3
+- G | paint the market's own people one by one, and show them in the town hall | title: painter or sculptor | grants_if_fails: a long shot that missed | door | mark: made a friend | v: tradition, benevolence | tribal: paint the people of the crossing one by one, and show them at the home fire | magic: paint the market's stallholders one by one, and hang them in the ward's hall | chance: 3
+- WUR | ask the class's old tutor to go through everything, and study for a year first | aims: painter or sculptor | self_control: + | v: achievement, conformity | tribal: ask the old painter of the rock to look at everything, and learn for a winter first | magic: ask the old master of the evening hall to look at everything, and study a year first | chance: 84
+- WUB | license the sketch to a magazine for a fair fee, with a proper contract | grants: royalties | binds | v: security, achievement | tribal: let a far band copy the drawing on their drums, for a share of every trade | magic: let the printers sell the sketch for a fair share, under a sealed contract | chance: 84
+- WRG | turn the offers down, and give the original to the woman with the umbrella | mark: turned down a chance | v: benevolence, universalism | tribal: send the runners home, and give the hide to the woman it shows | magic: send the letters back, and give the sketch to the fruit seller it shows | chance: 84
+- UBG | have coffee with the gallery that wrote, and mostly listen | grants: contact in the trade | door | v: achievement, benevolence | tribal: sit with the far trader at the crossing, and mostly listen | magic: take supper with the picture dealer who wrote, and mostly listen | chance: 84
+- BRG | post a new drawing every day while the world is still watching | grants: following online | habit | v: stimulation, power | tribal: draw a new hide every day while the traders are still asking | magic: leave a new sketch in a tavern every day while the printers are still copying | chance: 84
+works: Within a month there is a contract on the kitchen table, a start date and a wall, a book or a show with {Ns} name on it, and the friends from the old class throw a party.
+works: Whatever {N} chose, the sketch turns out to be the start of something rather than the whole of it.
+fails: The messages stop after nine days, another picture takes the world's attention, and {N} goes back to work on the Monday with a story nobody there quite believes.
+fails: The meetings go well and nothing comes of them; the last one ends with "lovely, not quite ready", and {N} draws the market again that night, out of pure stubbornness.
+
+# ---------------------------------------------------------------- LS2. the open submission to the great summer show (triads D3b)
+# The great summer show at the academy in the capital takes work from anyone who pays the fee: thousands of entries,
+# a wall for about one in ten, and most years the critics pick out one unknown. It comes to a [painter or sculptor] or a
+# [life-drawing regular] of five years (`tenure: 5-99`; LIFE gate: not renowned yet). The long shot is the summit, at 2
+# in every colour: `title: renowned artist; painter or sculptor` on all five (the pack rule, facet first), which is the
+# facet on the career for the painter and the one-rung skip for the regular of five years (facet and career together,
+# as the stage pack's lead from the open queue), so every single fits everyone who meets the moment. per_year: the
+# brief's young_adult .01 is set to 0, since the moment lists adult mature elder (coordinator, 10-10). The triads at 82:
+# a day spent looking at what was hung, a stall at the fair in the park, the local society's own summer show, a summer
+# painting outdoors with the old crowd, every smaller open show in the region.
+
+== the open submission to the great summer show
+tier: life event
+stages: adult mature elder
+age: 25-100
+holds: painter or sculptor | life-drawing regular
+tenure: 5-99
+per_year: 0 0 0 .02 .02 .02
+drivers: fortune+.3
+times: per painter, sculptor or life-drawing regular of five years or more, a year: about 1 in 60 sends work to a great open-submission summer show (estimate); the biggest such show in one capital receives about 15,000 entries a year and hangs about 1,200 (the show's own figures, approximate), and only a very few unknown entrants a decade go on to a national name (estimate); about 1 life in 10,000 becomes a renowned artist (catalogue share)
+likelier: years of finished work, a canvas that stops people, a summer with money for the fee, a selector who likes the kind of thing
+rarer: no finished work this year, the fee, a summer of family duties
+gap: 4-10
+domain: career.5
+tone: mixed
+life: work, making, meaning
+horizon: months
+roles: friend, partner, mentor, rival, colleague
+earth: the forms for the great summer show at the academy in the capital, open to anyone who pays the fee, and a closing date on Friday
+tribal: every band brings its best painted hides to the great gathering, the elders hang one in ten on the cliff below the painted cave, and most summers one hide by an unknown hand is carried up into the cave to stay
+magic: the academy of arts throws its great hall open to any painter who pays the fee, and most years the court buys one canvas by a name nobody knew
+scene: Every summer the academy in the capital hangs the great summer show, and anyone may send two works and a fee. Fifteen thousand works come in each spring; about one in ten is hung, frame to frame up to the ceiling; and most years the critics single out one name nobody knew, whose work the national gallery buys before the show closes. The forms are on {Ns} kitchen table, the closing date is Friday, and the canvases stand against the wall.
+scene W: {N} reads the rules twice: the sizes, the framing, the label on the back, the fee paid by Friday. If there is a fair way through fifteen thousand, it is to send exactly what was asked, finished properly.
+scene U: {N} has read that the selectors give each work about four seconds. Four seconds is enough for one idea, if it is the right idea, made as well as it can be made.
+scene B: The selectors are painters and academicians with names, and every one of them has friends. {N} has worked out which openings they go to, and who at those openings owes {N} a drink.
+scene R: There is one canvas in the corner that nobody has understood yet, too big for the car and too strange for the living room. {N} has never wanted anything as much as to see it on that wall.
+scene G: {N} has painted the old neighbour across the road all winter, by her window, in her own chair. She asks every week whether it will go to the capital, and {N} has not had the heart to tell her how few do.
+scene tribal: Every summer the bands bring their best painted hides to the great gathering, and the elders hang one in ten on the cliff below the painted cave; most summers one hide by an unknown hand is carried up into the cave itself, to stay. {N} has five winters of painting behind, and a hide rolled up by the door.
+scene magic: Every summer the academy of arts throws open its great hall to any painter of the realm who pays the fee; the canvases hang frame to frame, and most years the court buys one by a name nobody knew. {N} has the form, the coin and years of painting behind.
+- W | send the two best canvases, framed to the rules, the fee paid on time | title: renowned artist; painter or sculptor | grants_if_fails: a long shot that missed | self_control: + | v: conformity, security | tribal: bring the two best hides to the gathering on the right night, laced as the elders ask | magic: send the two best canvases, framed to the academy's rules, the fee paid on the day | chance: 2
+- U | paint one new canvas for it, a year's study of one idea, and send only that | title: renowned artist; painter or sculptor | grants_if_fails: a long shot that missed | self_control: + | mark: learned a skill | v: achievement, conformity | tribal: paint one new hide for it, a whole winter's study of one beast, and bring only that | magic: paint one new canvas for it, a year's study of one idea, and send that alone | chance: 2
+- B | get a selector to look at the work beforehand, through a friend of a friend | title: renowned artist; painter or sculptor | grants_if_fails: a long shot that missed | door | v: power, achievement | tribal: get one of the choosing elders to see the hide beforehand, through a cousin's hearth | magic: have an academician see the canvas beforehand, through a patron's steward | chance: 2
+- R | send the strangest canvas in the room, the one nobody has understood yet | title: renowned artist; painter or sculptor | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, hedonism | tribal: bring the great strange hide that nobody at the painting place has understood | magic: send the huge strange canvas that the evening hall laughed at | chance: 2
+- G | send the winter's portrait of the old neighbour, painted in her own chair | title: renowned artist; painter or sculptor | grants_if_fails: a long shot that missed | habit | v: tradition, benevolence | tribal: bring the hide painted with the old woman of the next hearth, by her own fire | magic: send the portrait of the old widow across the lane, painted in her own chair | chance: 2
+- WUG | go on the opening day, and spend the whole day looking at what was hung | mark: learned a skill | v: universalism, conformity | tribal: climb to the cliff on the gathering's first day, and look at every hide that was hung | magic: go to the great hall on the opening day, and look at every canvas that was hung | chance: 82
+- WBR | take a stall at the summer art fair in the park instead, and sell what sells | grants: selling | v: power, stimulation | tribal: spread the hides at the gathering's trading ground instead, and trade what people want | magic: take a stall at the midsummer fair on the square instead, and sell what sells | chance: 82
+- WBG | hang the work in the local art society's summer show, and help hang everyone else's | grants: good name in town | mark: made a friend | v: benevolence, security | tribal: paint the shelter hides of your own band this summer, and help paint everyone else's | magic: hang the work in the ward's own summer show, and help hang everyone else's | chance: 82
+- URG | send nothing this year, and paint outdoors all summer with the old crowd from the class | grants: a circle of artists | habit | v: universalism, stimulation | tribal: bring nothing to the cliff this year, and paint the rocks all summer with the ones who paint beside you | magic: send nothing this year, and paint in the fields all summer with the old crowd from the evening hall | chance: 82
+- UBR | enter every smaller open show in the region this year, and note what each one hangs | aims: renowned artist | door | v: achievement, stimulation | tribal: bring hides to every smaller gathering this summer, and watch what each one hangs | magic: send work to every town's open show this year, and note what each one hangs | chance: 82
+works: A letter in a stiff envelope comes in late spring: the work is hung, a critic stops in front of it on the first morning, and by the end of the summer the national gallery has bought it and {Ns} name is in every paper.
+works: Whatever {N} chose, the summer is a good one for the work, and the next canvas is better than the last.
+fails: The letter is short and printed: the selectors thank {N} and regret. {N} collects the canvas from a warehouse stacked with thousands of others, and drives it home in the rain.
+fails: The work is hung, high in a corner above a door; nobody buys it, a stranger writes one kind sentence about it in the visitors' book, and {N} copies the sentence into the back of a sketchbook.
+
+# ---------------------------------------------------------------- LS3. the manuscript in the pile on the floor (triads D4a)
+# The manuscripts nobody asked for, stacked on the floor of a big publisher's office and read by a junior on Friday
+# afternoons. It comes to an [open-mic poet] with two years of nights behind them or a [novelist] of three years (LIFE
+# gate; `tenure: 2-99` here). The long shots, at 2, are the next rung for each and never a try at the title held: the
+# base [novelist] for the poet (W by the guidelines, R the wild first draft, G the town's own stories; `requires:
+# open-mic poet | without: impossible`) and the summit facet [celebrated author] for the novelist (U the chapter
+# rewritten a ninth time, B the reader of the pile found; `requires: novelist | without: impossible`). The poets, far
+# more of them, see three singles and the novelists two; every colour still has its answer in the triads. The triads
+# at 84: a writers' group, the agents by their rules, a small run from the town's own press, a chapter read aloud at
+# the poetry night, the first chapter put online for free.
+
+== the manuscript in the pile on the floor
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+holds: open-mic poet | novelist
+tenure: 2-99
+per_year: 0 0 .01 .01 .01 .01
+times: per open-mic poet of two years or novelist of three, a year: about 1 in 100 sends a finished manuscript unasked to a big publisher (estimate); the big houses that still read unasked work receive thousands of manuscripts a year and take one or two at most, most years none (estimate); about 5 lives in 10,000 live as novelists and about 1 in 10,000 become celebrated authors (catalogue shares)
+likelier: a finished manuscript in a drawer, years of writing behind it, a publisher that still reads the pile, a friend who says send it
+rarer: no finished book, a house that reads only through agents, a busy year at work or at home
+gap: 4-10
+domain: career.5
+tone: mixed
+life: work, making, meaning
+horizon: months
+roles: friend, partner, mentor, rival, a publisher's reader
+earth: a finished manuscript, and the pile of unasked-for manuscripts on the floor of a big publisher's office, read by a junior on Fridays
+tribal: a long telling worked over many winters, and the keeper of tellings at the great gathering, who hears one new telling a night and forgets most by morning
+magic: a finished manuscript wrapped in oilcloth, and the heap of unasked-for manuscripts on the floor of the great printing house, read by an apprentice on market days
+scene: In the corner of a big publisher's office the manuscripts nobody asked for stand in stacks on the floor, a few thousand a year. On Friday afternoons a junior reader takes the top of the pile home in a bag, and once every few years one of them goes upstairs. {N} has a finished manuscript in a drawer: years of work, and a one-page letter rewritten twenty times.
+scene W: The publisher's page says how: the first three chapters, double-spaced, a synopsis of one page, no telephone calls. {N} has printed the page and pinned it above the desk.
+scene U: {N} knows the book is nearly right. There is a chapter in the middle that sags, and a reader on a tired Friday afternoon will feel it at the same page {N} does.
+scene B: Someone reads that pile, and that someone has a name, a lunch hour and a favourite café. Finding out who is the first job, and the second is being remembered.
+scene R: The book came out in a rush, most of it in one cold month, and {N} is half afraid of it. Sending it now, before the nerve goes, feels like jumping into the sea in winter.
+scene G: The book is full of the town: the regulars at the poetry night, the old men at the bowls club, {Ns} own grandmother's sayings. {N} asked each of them before writing a word, and every one of them said yes.
+scene tribal: At the great gathering the keeper of tellings hears the new long tellings brought to the fire, one a night, and most are forgotten by morning; once in many summers one is taken up and told at every fire in the valley. {N} has a long telling ready, worked over many winters.
+scene magic: In the back room of the great printing house the unasked-for manuscripts lie in heaps on the floor, and an apprentice reads from the top of them on market days; once in some years one goes upstairs to the master printer. {N} has a finished manuscript wrapped in oilcloth, and a letter rewritten twenty times.
+- W | send it exactly as the publisher's page asks: three chapters, one page of synopsis, nothing more | title: novelist | requires: open-mic poet | without: impossible | grants_if_fails: a long shot that missed | door | v: conformity | tribal: bring the telling to the keeper on the right night, every part in the old order | magic: send the printers three quires and a letter, exactly as their notice asks | chance: 2
+- U | rewrite the sagging chapter a ninth time, then send the whole book | title: celebrated author | requires: novelist | without: impossible | grants_if_fails: a long shot that missed | self_control: + | mark: learned a skill | v: achievement, conformity | tribal: work the slack part of the telling over a ninth winter, then bring the whole of it | magic: rewrite the sagging chapter a ninth time, then send the whole book to the master printer | chance: 2
+- B | find out who reads the pile on Fridays, and make sure this one reaches them | title: celebrated author | requires: novelist | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: find out which of the keeper's helpers chooses the tellings, and sit by them at the fire | magic: learn which apprentice reads the heap on market days, and see that this one reaches them | chance: 2
+- R | send the wild first draft tonight, before the nerve goes | title: novelist | requires: open-mic poet | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | habit | v: stimulation, hedonism | tribal: stand up at the fire tonight and give the whole new telling, before the nerve goes | magic: send the wild first draft by tonight's coach, before the nerve goes | chance: 2
+- G | send the book of the town's own stories, with the blessing of everyone in it | title: novelist | requires: open-mic poet | without: impossible | grants_if_fails: a long shot that missed | identity | v: tradition, benevolence | tribal: bring the telling of your own band's people, with the blessing of everyone in it | magic: send the book of the ward's own tales, with the blessing of everyone in it | chance: 2
+- WUR | join a writers' group at the library, and swap chapters every fortnight for a year | grants: writing stories | habit | v: self-direction, conformity | tribal: sit with the other makers of tellings, and trade parts every moon for a year | magic: join the scriveners' circle at the tavern, and swap chapters every fortnight for a year | chance: 84
+- WUB | send it to twenty literary agents instead, one a week, each by their own rules | grants: contact in the trade | self_control: + | v: security, achievement | tribal: take the telling to the go-betweens of twenty bands, one each moon, as each one asks | magic: send it to twenty booksellers' agents, one a week, each by their own rules | chance: 84
+- WBG | print a small run with the town's own press, and launch it at the library | grants: book in print | binds | v: tradition, security | tribal: tell it at every hearth of your own band through one winter, until the children know it | magic: have a small run printed by the ward's own press, and launch it at the guildhall | chance: 84
+- URG | read the best chapter aloud at the poetry night, and see if the room goes quiet | grants: public speaking | v: stimulation, universalism | tribal: tell the best part at the band's fire on the long night, and see if the fire goes quiet | magic: read the best chapter at the poets' night in the tavern, and see if the room goes quiet | chance: 84
+- BRG | put the first chapter online for free, and let readers ask for the rest | grants: following online | door | v: stimulation, power | tribal: tell the first part at every trading place, and let the listeners ask for the rest | magic: have the first chapter cried in the market for free, and let the listeners ask for the rest | chance: 84
+works: Seven months later the telephone rings on a Friday evening: the junior reader took it home, read it in one night and carried it upstairs, and a year after that the book is in shop windows with {Ns} name on the cover.
+works: Whatever {N} chose, the book goes out into the world in some form, and {N} starts the next one the same week.
+fails: The manuscript comes back after eight months with a printed slip, a coffee ring on the first page, and nobody's name at the bottom.
+fails: There is no answer at all; {N} stops watching for the post in the spring, and by the summer is writing something new.
+
+# ---------------------------------------------------------------- LS4. the late starter at the easel (triads D4b)
+# The late starter: the job ended or the children grown, and a [life-drawing regular] of two years or more, 58 or over
+# (`tenure: 2-99`; LIFE gate: never a painter before), who wants the work in earnest at last. The long shots, at 3, are
+# the two next rungs roles.py gives the regular, both open to everyone who meets the moment: [painter or sculptor] (U a
+# series followed to the end, B the galleries, R the spare room made a studio) and [art teacher] (W the college's
+# Tuesday class when its tutor retires, G the village hall's own class), the brief's "the college asks them to teach
+# the class". The triads at 82: a sculpture course, a show of the whole class in the café, the open show for artists
+# over sixty, a few small pictures at the winter fair, or letting it rest with the best twenty kept.
+
+== the late starter at the easel
+tier: life event
+stages: mature elder
+age: 58-100
+holds: life-drawing regular
+tenure: 2-99
+per_year: 0 0 0 0 .02 .03
+drivers: fortune+.2
+times: per life-drawing regular of 58 or more with two years at the class, a year: about 1 in 40 decides at last to try to make art a second career, to sell, show or teach (estimate); adult-education art classes are taught by working artists, and a first show or a teaching post after sixty is rare but not unknown (estimate); about 15 lives in 1,000 draw at a weekly class, about 1 in 1,000 earn a living from painting and about 3 in 1,000 teach art (catalogue shares)
+likelier: the job ended or a pension begun, children grown, years at the class, a room to spare, a partner who says go on then
+rarer: money owed, a family that needs the time, poor eyes or hands, a town with no college
+gap: 5-15
+domain: career.5
+tone: mixed
+life: work, making, meaning
+horizon: months
+roles: partner, child, friend, mentor, colleague
+earth: the job ended, the children grown, years of Tuesday nights at the life class, and a notice on the college board: the tutor is retiring
+tribal: too old for the long hunts, after years at the painting place, with the old painter of the great cave failing and the young ones needing someone to show them the marks
+magic: the shop handed to the eldest, years of sketching at the academy's evening hall, and a notice on its door: the drawing master is retiring
+scene: The job ended last spring with a cake and a card, the children have homes of their own, and {N} has drawn at the college's Tuesday class for years, most weeks the oldest in the room. In the spare room the canvases lean three deep against the wall. On the board in the college corridor this week: the Tuesday tutor is retiring after twenty years and the college needs someone; underneath, a café on the high street wants local work for its walls, and an open show for artists over sixty is taking entries.
+scene W: In all those years of Tuesdays {N} has missed four. Somebody has to keep the class going, and {N} knows exactly how it runs: the easels out by seven, a break on the hour, the kettle on at half past eight.
+scene U: {N} has drawn hands for two years, only hands, and has filled nine sketchbooks with them. There is something there, if there were time at last to follow it to the end.
+scene B: {N} spent a working life in sales, and knows the canvases in the spare room are worth something to somebody. Nobody has ever been asked to pay for one.
+scene R: Forty years of doing what was sensible, and {N} is done with it. The spare room smells of turpentine already, and the next canvas wants to be enormous.
+scene G: The village hall has had no art class since the old tutor died, and half the street has asked {N} to start one. Most of them want to paint the hills they have looked at all their lives.
+scene tribal: Too old now for the long hunts, {N} sits at the painting place with the others most days, as for years past. The old painter of the great cave is failing, the young ones need someone to show them the marks, and the traders want hides from a steady hand.
+scene magic: The shop has gone to the eldest, and {N}, who has sketched at the academy's evening hall for years, reads the notices on its door: the drawing master is retiring, a tavern on the square wants pictures for its walls, and the academy holds an open show for grey-haired painters.
+- W | offer to take over the Tuesday class, with a plan for every week of the year | title: art teacher | grants_if_fails: a long shot that missed | binds | v: conformity, benevolence | tribal: offer to show the young ones the marks when the old painter cannot, every day without fail | magic: offer to take the evening hall when the drawing master retires, with a plan for every week | chance: 3
+- U | paint twenty canvases of hands, and offer the series to the college gallery | title: painter or sculptor | grants_if_fails: a long shot that missed | habit | mark: learned a skill | v: achievement, conformity | tribal: paint only hands on the rock for a whole winter, and offer them for the cave | magic: paint twenty canvases of hands, and offer the series to the academy's small gallery | chance: 3
+- B | price the spare room's canvases properly, and take them round every gallery in town | title: painter or sculptor | grants_if_fails: a long shot that missed | door | v: power, achievement | tribal: carry your best hides to every trader at the gathering, and ask a fair price for each | magic: price the canvases properly, and carry them to every picture dealer on the square | chance: 3
+- R | turn the spare room into a studio, and paint the way the young never dared | title: painter or sculptor | grants_if_fails: a long shot that missed | mark: took a wild risk | identity | v: stimulation, hedonism | tribal: take a rock of your own at the painting place, and paint the way the young never dared | magic: turn the spare room into a studio, and paint as the young never dared | chance: 3
+- G | start the village hall's own class, and teach it the way the old tutor did | title: art teacher | grants_if_fails: a long shot that missed | self_control: + | v: tradition, benevolence | tribal: gather the children of your own hearths, and show them the marks the old way | magic: start the ward's own drawing class in its hall, and teach it as the old master did | chance: 3
+- WUG | join the college's sculpture course, the oldest in the room by forty years | grants: sculpting | self_control: + | v: self-direction, conformity | tribal: learn to carve from the young carver, the oldest at the work by forty winters | magic: join the academy's sculpture course, the oldest in the room by forty years | chance: 82
+- WRG | hang the whole Tuesday class's work in the café, every hand side by side | grants: a circle of artists | mark: made a friend | v: benevolence, universalism | tribal: paint one rock with everyone from the painting place, every hand side by side | magic: hang the whole evening hall's work in the tavern, every hand side by side | chance: 82
+- WBR | enter the open show for over-sixties, and go to the opening in a good coat | aims: painter or sculptor | identity | v: achievement, stimulation | tribal: bring a hide to the elders' showing of the old ones' work, and stand by it all night | magic: send a canvas to the academy's show for grey heads, and go to the opening in a good coat | chance: 82
+- UBR | sell a few small pictures at the winter fair, and watch what people pick up | grants: selling | door | v: power, stimulation | tribal: trade a few small painted bowls at the winter gathering, and watch what people reach for | magic: sell a few small panels at the winter fair on the square, and watch what people pick up | chance: 82
+- UBG | keep the best twenty canvases, give the rest to the family, and paint on | mark: turned down a chance | habit | v: tradition, universalism | tribal: keep the best hides, give the rest to the families of the band, and paint on | magic: keep the best twenty canvases, give the rest to the family, and paint on in peace | chance: 82
+works: By the autumn {N} has a key to a room, a list of names or a show on a wall, and stands in front of it on the first night trying not to look as pleased as {N} is.
+works: Whatever {N} chose, the late start is a real one, and the years that follow have paint in them.
+fails: The college gives the class to a young graduate and the galleries are kind and full; {N} goes back to the Tuesday easel as before, and draws better than ever, out of something close to defiance.
+fails: The answers are polite letters that praise the nerve in one sentence and give the chance to someone with thirty years in the trade; {N} pins the kindest of them above the easel.
+
+# ---------------------------------------------------------------- LS5. the other side of the easel (triads D5a)
+# A [painter or sculptor], an [illustrator for hire] or an [art teacher] of three years or more is asked to sit on the
+# art school's panel for its portfolio days, and for a week sees the choosing from the other side (the stage pack's
+# 'the other side of the table', in paint). LIFE gate: not a gallery owner yet. The long shots, at 3, are each a next
+# rung in roles.py and never the title held: [gallery owner] for all three (B on savings, `requires: savings | without:
+# means | lacking: .5`, a loan for anyone without; G with the town's makers); [art teacher] for the painter (W,
+# `requires: painter or sculptor`) and for the illustrator (R, `requires: illustrator for hire`); and [illustrator for
+# hire] for the art teacher (U, `requires: art teacher`), each of those three `without: impossible`. Everyone who meets
+# the moment sees three long shots, each a rung they could take, and the five triads. per_year: the brief's
+# young_adult .01 is set to 0, since the moment lists adult mature elder (coordinator, 10-10). The triads at 85: a
+# fairer way to judge a folder, the turned-away hopefuls helped, a seat kept on the panel, the boldest hopeful taken on
+# for the summer, three hundred faces drawn from memory.
+
+== the other side of the easel
+tier: life event
+stages: adult mature elder
+age: 25-90
+holds: painter or sculptor | illustrator for hire | art teacher
+tenure: 3-99
+per_year: 0 0 0 .01 .01 .005
+times: per painter, illustrator or art teacher of three years or more, a year: about 1 in 100 is asked to sit on an art school's panel for a week of portfolio interviews (estimate); art schools ask working artists and teachers to help choose each year's intake, and a panellist who opens a gallery, wins a teaching post or a first book from that week is rare (estimate); about 3 lives in 10,000 run a gallery and about 3 in 1,000 teach art (catalogue shares)
+likelier: a name at the school, years of reliable work, a busy year of applications, a good eye
+rarer: a school far away, a week that cannot be spared, little money behind any plan
+gap: 5-12
+domain: career.5
+tone: mixed
+life: work, making, money
+horizon: week
+roles: colleague, boss, mentor, friend, a dealer
+earth: a week on the art school's panel for its portfolio days: three hundred hopefuls, each with a folder and twenty minutes
+tribal: a place beside the elders while the young ones of every band bring their first painted hides to be judged for the cave
+magic: a seat on the academy's bench for its entrance week: three hundred hopefuls, each with a folio and an hour of fear
+scene: The art school asks {N} to sit on its panel for the portfolio days: a week in spring, a long table, three hundred young hopefuls, each with a folder and twenty minutes. {N} sat on the other side of that table once. Beside {N} sit the head of the foundation year, the art director of a picture-book publisher looking for new hands, and a dealer who comes every year to see who is coming up.
+scene W: {N} reads the school's marking guide twice and keeps to it all week, the same questions for every hopeful. By Wednesday the head of the foundation year is asking {N} to settle the scores.
+scene U: By the third day {N} can see in the first drawing what a hopeful will be in five years. The art director at the end of the table has noticed that {N} is usually right.
+scene B: The dealer takes a name or two each year, and the ones taken are the ones who get shown. {N} watches the dealer's pen more than the folders.
+scene R: Half the hopefuls are terrified and one or two are on fire, and {N} wants to leap the table and tell them all to keep going. Teaching was never part of any plan.
+scene G: Many of the hopefuls come from towns like {Ns} own, with folders full of their own streets. {N} thinks of the empty shops on the high street at home, and all the makers there with nowhere to show.
+scene tribal: The old painter of the great cave asks {N} to sit beside the elders while the young ones of every band bring their first painted hides to be judged; a trader from the coast sits there too, looking for hands whose work he can carry.
+scene magic: The academy of arts asks {N} to sit on its bench for the entrance week: three hundred hopefuls, each with a folio and an hour of fear. Beside {N} sit the master of the first year, a printer's master of plates looking for illuminators, and a picture dealer from the square.
+- W | ask the head of the foundation year for a teaching post, starting in the autumn | title: art teacher | requires: painter or sculptor | without: impossible | grants_if_fails: a long shot that missed | door | v: conformity, security | tribal: ask the old painter to let you teach the young ones the marks, from the next moon | magic: ask the master of the first year for a post as drawing master, from the autumn | chance: 3
+- U | show the art director a folder of new drawings, and ask for a first book | title: illustrator for hire | requires: art teacher | without: impossible | grants_if_fails: a long shot that missed | identity | mark: learned a skill | v: achievement, conformity | tribal: show the coast trader a bowl of your own patterns, and ask to mark the drums he carries | magic: show the master of plates a folio of new drawings, and ask for a first book to illuminate | chance: 3
+- B | put your savings into a lease, and open a gallery under your own name | title: gallery owner | requires: savings | without: means | lacking: .5 | grants_if_fails: a long shot that missed | identity | v: power, achievement | tribal: put your winter stores behind the best young hands, and carry their hides to the gathering under your own sign | magic: put your savings into a hall on the square, and open it under your own name | chance: 3
+- R | ask to teach the boldest of the hopefuls, and stay with them all three years | title: art teacher | requires: illustrator for hire | without: impossible | grants_if_fails: a long shot that missed | binds | v: stimulation, universalism | tribal: ask to teach the boldest of the young hands, and stay with them for three winters | magic: ask to teach the boldest of the hopefuls at the academy, and stay with them all three years | chance: 3
+- G | gather the town's makers into a shared shop on the high street, and keep its books | title: gallery owner | grants_if_fails: a long shot that missed | binds | mark: made a friend | v: tradition, benevolence | tribal: gather the carvers and painters of your own band into one trading place at the gathering | magic: gather the ward's makers into a shared hall by the market, and keep its books | chance: 3
+- WUR | write the school a fairer way to judge a folder, and offer it for next year | door | v: self-direction, conformity | tribal: show the elders a fairer way to judge a young hand, for the next gathering | magic: write the academy a fairer way to judge a folio, and offer it for next year | chance: 85
+- WRG | stay late with the hopefuls turned away, and tell each one what to try next | self_control: + | mark: helped someone in need | v: benevolence, universalism | tribal: sit late with the young ones turned away, and tell each one what to try next | magic: stay late with the hopefuls turned away, and tell each what to try next | chance: 85
+- WBG | keep a seat on the panel every year, and the best names in a notebook | grants: contact in the trade | habit | v: security, tradition | tribal: keep a place beside the elders at every judging, and the best young hands in mind | magic: keep a seat on the academy's bench every year, and the best names in a book | chance: 85
+- UBR | take the boldest hopeful on as a summer assistant, before the dealer does | grants: teaching | binds | v: power, stimulation | tribal: take the boldest young hand to paint beside you for a summer, before the trader does | magic: take the boldest hopeful on as a summer apprentice, before the dealer does | chance: 85
+- UBG | go home and draw the week's three hundred faces from memory | self_control: + | mark: learned a skill | v: self-direction, universalism | tribal: go home and paint the faces of all the young hands from memory | magic: go home and draw the week's three hundred faces from memory, by candle | chance: 85
+works: A month later the call comes, and it is the one {N} asked for; by the autumn there is a new key on {Ns} ring and a new name on a door.
+works: Whatever {N} chose, the week on the far side of the table changes how {N} looks at every drawing after it.
+fails: The week ends with thanks and a small cheque; the post goes to someone the school already knew, and {N} goes back to work knowing exactly what happens in the first minute with a folder.
+fails: The plan is good and the money is not there; the empty shop on the high street becomes a phone repair stall, and {N} walks past it most mornings without minding much.
+
+# ---------------------------------------------------------------- LS6. the judge stops at your table at the craft fair (triads D5b)
+# At the great craft fair on the showground the judge of the fair's top award, who also chooses work for the craft
+# council's touring show and for a museum's collection, stops at a table and turns a bowl over in her hands. It comes to
+# a [craft maker] of three years or a [master craftsperson] of five (LIFE gate; `tenure: 3-99` here). The long shots, at
+# 3, are the next rung for each and never the title held: [master craftsperson] for the craft maker (W the guild's
+# masterpiece, B the price held, G the clay and the teacher named; `requires: craft maker | without: impossible`) and
+# the summit facet [renowned artist] for the master craftsperson (U the ten years of firing notes, R the bowl thrown
+# there and then; `requires: master craftsperson | without: impossible`). The craft makers, far more of them, see three
+# singles and the masters two; every colour keeps its answer in the triads. per_year: the brief's young_adult .01 is
+# set to 0, since the moment lists adult mature elder (coordinator, 10-10). The triads at 84: an apprentice from the
+# town, a fair trade price for a season's work, a bigger stall next year, an evening at the makers' camp, the judge's
+# words chalked on the board.
+
+== the judge stops at your table at the craft fair
+tier: life event
+stages: adult mature elder
+age: 25-100
+holds: craft maker | master craftsperson
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .02
+drivers: community+.2
+times: per craft maker of three years or master craftsperson of five, a year: about 1 in 50 has a judge, a curator or a buyer of note stop at their table at a big fair (estimate); a big craft fair hands out one or two top awards among several hundred makers, and very few makers a year are chosen for a national collection or a touring show (estimate); about 8 lives in 10,000 become master craftspeople and about 1 in 10,000 renowned artists (catalogue shares)
+likelier: a town that keeps its makers, a big fair within a day's drive, years of work at the same table, a piece that stops people
+rarer: a year with no money for the stall, poor health, a fair cancelled by the weather
+gap: 4-10
+domain: career.5
+tone: joy
+life: work, making, community
+horizon: moment
+roles: friend, partner, colleague, rival, a judge
+earth: the great craft fair on the showground, and the judge of the top award stopping at the table to turn a bowl over in her hands
+tribal: the master carvers of every band laying out their work by the river at the gathering, and the eldest of them stopping at the hide to lift a carved bowl
+magic: the midsummer fair of the craft guilds in the cloth hall, and the guild's grand warden stopping at the table to turn a bowl in her hands
+scene: Once a year the makers of half the country set up their tables on the showground for the great craft fair: potters, weavers, woodworkers, silversmiths. On the Saturday morning the judge of the fair's top award walks the rows, and this year she stops at {Ns} table, picks up a bowl, turns it over to look at the foot, and does not put it down. The next three tables go quiet. Everyone knows she also chooses work for the national touring show of crafts, and for a museum's collection.
+scene W: {N} has made to the guild's standard for years, every joint and every glaze checked twice. If the judge is looking for a fault, she will not find one.
+scene U: The glaze on that bowl took ten years of firing notes to get right, and {N} knows every one of its variables. Nobody else at the fair could make it twice.
+scene B: A judge's stop is worth more than a week of sales, if it is used. {N} notices the photographer from the craft magazine drifting over, and straightens the price cards.
+scene R: {Ns} hands are still grey with clay from the demonstration wheel at the end of the row. {N} wants to throw another bowl right now, while she is watching.
+scene G: The clay is dug from the riverbank below {Ns} grandmother's old farm every autumn, and the shape is the one {Ns} teacher taught. {N} would like the judge to know that more than anything.
+scene tribal: At the great gathering the master carvers of every band lay out their work on hides by the river, and the eldest of them walks the rows choosing what will go to the far peoples in trade. This summer the eldest stops at {Ns} hide, lifts a carved bowl and turns it in the light.
+scene magic: At the midsummer fair of the craft guilds the makers of the realm set out their wares in the cloth hall, and the guild's grand warden walks the aisles choosing work for the court and the guild's masterworks. This year the warden stops at {Ns} table, and turns a bowl in her hands.
+- W | put the piece forward for the guild's masterpiece, every rule of the guild met | title: master craftsperson | requires: craft maker | without: impossible | grants_if_fails: a long shot that missed | identity | v: conformity, tradition | tribal: ask the eldest carver to judge the bowl by the old marks, every one of them met | magic: put the bowl forward for the guild's masterwork, every one of the warden's rules met | chance: 3
+- U | show the judge the ten years of firing notes behind the glaze | title: renowned artist | requires: master craftsperson | without: impossible | grants_if_fails: a long shot that missed | identity | mark: learned a skill | v: achievement, conformity | tribal: show the eldest how the bowl's colour was found, winter after winter | magic: show the warden the ten years of kiln books behind the glaze | chance: 3
+- B | name a price three times higher, hold to it, and mention the waiting list | title: master craftsperson | requires: craft maker | without: impossible | grants_if_fails: a long shot that missed | self_control: + | v: power, achievement | tribal: ask three times the usual trade for the bowl, hold to it, and speak of the bands already waiting | magic: name a price three times higher, hold to it, and mention the noble houses waiting | chance: 3
+- R | throw a new bowl at the demonstration wheel, there and then, while the judge watches | title: renowned artist | requires: master craftsperson | without: impossible | grants_if_fails: a long shot that missed | door | mark: took a wild risk | v: stimulation, hedonism | tribal: carve a new bowl there on the riverbank, while the eldest watches | magic: throw a new bowl on the fair's wheel, there and then, while the warden watches | chance: 3
+- G | tell the judge where the clay is dug, and who taught the making | title: master craftsperson | requires: craft maker | without: impossible | grants_if_fails: a long shot that missed | identity | v: tradition, benevolence | tribal: tell the eldest which riverbank gave the wood, and which old carver taught the making | magic: tell the warden where the clay is dug, and which old master taught the making | chance: 3
+- WUG | take a young maker from the town as an apprentice for a year | grants: teaching | binds | v: benevolence, tradition | tribal: take a young one of the band to sit at your side for a winter, learning the knife | magic: take a young maker of the ward as an apprentice, with the guild's papers | chance: 84
+- WUB | agree a fair trade price with the fair's gallery for a dozen pieces every season | grants: contact in the trade | habit | v: security, achievement | tribal: agree with a coast trader on a dozen bowls each summer, at a fair trade | magic: agree a price with a hall on the square for a dozen pieces every season | chance: 84
+- WBR | book a bigger stall for next year, in the front row by the gate | grants: selling | door | v: achievement, stimulation | tribal: claim a bigger hide by the river crossing for next summer's gathering | magic: book a larger table for next year, in the front row of the cloth hall | chance: 84
+- URG | spend the evening at the makers' camp, swapping glazes and stories | grants: a circle of artists | door | v: stimulation, universalism | tribal: spend the night at the carvers' fire, trading tricks of the knife and stories | magic: spend the evening in the makers' tavern, swapping glazes and stories | chance: 84
+- BRG | chalk the judge's words on the stall's board, and raise the prices by Sunday | identity | v: power, stimulation | tribal: tell everyone at the river what the eldest said, and ask more for every bowl by nightfall | magic: chalk the warden's words on the stall's board, and raise the prices by the last bell | chance: 84
+works: A letter comes before the winter, and by the spring a piece from {Ns} table is where {N} hoped it would be, with {Ns} mark on its foot and a waiting list behind it.
+works: Whatever {N} chose, the fair is a good one, and the van goes home lighter than it came.
+fails: The judge puts the bowl down with a small nod and walks on; the award goes to a weaver three rows over, and {N} sells the bowl that afternoon to a woman who never heard of the judge.
+fails: Nothing comes of it but a photograph in the craft magazine with {Ns} name spelled wrong, which {N} cuts out and keeps anyway.
+
+# ================================================================ the anti-story (echoes on the perk)
+# Both are anchored on [a long shot that missed] gained in one of the six moments above, within the month, and on the
+# engine's clock of the last real long-shot miss (ECHO_ART_LONGSHOTS in engine-conditions.py: the perk, had() on
+# LONGSHOTS_ART, ago_fail_long); once in a life; even on their own: even alpha, five one-colour options plus one full
+# cross cycle.
+
+# ---------------------------------------------------------------- the second try (cross cycle s2)
+# Years later the same kind of door opens again, and the try is at the same rung: `title: {missed}`, the title of the
+# long shot that missed (the engine remembers it), at 4 against the first try's 2 or 3, a little likelier for the
+# commitment, and still a long shot, so each single keeps `grants_if_fails: a long shot that missed`. Each colour makes
+# the second try its own way: every rule met (W), another year and the work rebuilt (U), put forward by someone who
+# matters (B), a year staked on the boldest work yet (R), the people who stood by it behind it (G). The cross cycle at
+# 78: a ledger of open calls, a new material, the town's own open show, the piece made again before the old class, a
+# season back where the first work came from.
+
+== the same canvas, years later
+tier: echo
+rate: 0.1
+once: yes
+stages: young_adult adult mature elder
+age: 18-100
+times: per person who missed an art, craft or writing long shot: about 1 in 8 meet the same kind of door again years later (estimate); many painters, makers and writers say they were taken on a later try, after rejections, and few long shots land on the first one (estimate)
+tone: mixed
+life: work, making, meaning
+horizon: months
+roles: friend, partner, mentor, rival
+earth: years after the long shot that missed, the same kind of door opens again: the summer show's forms, a publisher's window for new writing, a post advertised, the fair's judge named for the coming summer
+tribal: winters after the attempt that failed, the elders again ask for hides for the cave, carvings for the far trade and new tellings for the fire
+magic: years after the attempt that failed, the same kind of notice goes up on the academy's door, in the same clerk's hand
+after: a long shot missed in one of the moments of art-longshots.lib ('the sketch that went round the world', 'the open submission to the great summer show', 'the manuscript in the pile on the floor', 'the late starter at the easel', 'the other side of the easel', 'the judge stops at your table at the craft fair'), holding [a long shot that missed], within the month of the miss; now 18 or more, not a [renowned artist] or a [celebrated author]; the try is for the same title again ({missed})
+delay: 3-15
+likelier: drawing, painting, making or writing kept up since; much Red and Black in the colour history; time to spare
+rarer: stress above 1.5; little money; poor health
+scene: Years after the long shot that missed, the same kind of door opens again: the summer show's forms in the post, a publisher opening its doors to new writing for a month, a post advertised, the judge for the coming fair named in the paper. {N} reads it twice, standing very still, and then goes to look at the work from that time, still leaning against the wall of the spare room.
+scene W: Last time {N} did what was asked, and it was not enough. This time {N} knows exactly what is asked, and has had years to get every part of it right.
+scene U: {N} has gone over that attempt more often than anyone would guess, and knows now what was missing from the work, and why it showed.
+scene B: The people who decide are older now, and one or two of them know {Ns} name. The odds are still long, but they are not the same odds.
+scene R: The old hunger comes back all at once, as sharp as the first time. {N} is older, and has long since stopped caring who thinks it foolish.
+scene G: {friend} kept the cutting from that time in a drawer, and has said for years that one try is not a life. The people at home would turn out for it, whatever came of it.
+scene tribal: Winters after the attempt that failed, the elders again send word round the bands: hides for the cave, carvings for the far trade, new tellings for the long nights. {N} hears it at the edge of the firelight, and the old wanting stirs.
+scene magic: Years after the attempt that failed, the same kind of notice goes up on the academy's door, in the same clerk's careful hand. {N} reads it twice on the way to market, and does not go to market.
+- W | try the same door again, the work finished and every rule met this time | title: {missed} | grants_if_fails: a long shot that missed | identity | v: conformity, security | tribal: go back to the same fire, the work finished and every old mark met | magic: go back to the same door, the work finished and every rule of the house met | chance: 4
+- U | give it one more full year, then try again with the work rebuilt | title: {missed} | grants_if_fails: a long shot that missed | binds | mark: learned a skill | v: achievement, conformity | tribal: give it one more full winter, then go back with the work remade | magic: give it one more full year, then go back with the work remade | chance: 4
+- B | try again only when someone who matters will put the work forward | title: {missed} | grants_if_fails: a long shot that missed | self_control: + | v: power, achievement | tribal: go back only when an elder who owes your hearth a gift will name the work | magic: go back only when a patron of standing will put the work forward | chance: 4
+- R | try again older, staking a whole year on the boldest work yet | title: {missed} | grants_if_fails: a long shot that missed | binds | mark: took a wild risk | v: stimulation, hedonism | tribal: walk back into the firelight older, a whole winter staked on the boldest work yet | magic: walk back into the hall older, a whole year staked on the boldest work yet | chance: 4
+- G | try again with everyone who stood by the first time behind the work | title: {missed} | grants_if_fails: a long shot that missed | identity | mark: made a friend | v: tradition, benevolence | tribal: go back with your own band behind the work this time, every hearth of it | magic: go back with your own ward behind the work this time, every lane of it | chance: 4
+- W>B | keep a ledger of every open call for a year, and enter only the best three | habit | v: achievement | tribal: keep count of every gathering's call for a year, and answer only the best three | magic: keep a ledger of every notice for a year, and answer only the best three | chance: 78
+- U>R | try a new material for a year, only to see what it does | door | v: stimulation | tribal: carve in a new stone for a year, only to see what it does | magic: try a new medium for a year, only to see what it does | chance: 78
+- B>G | use the name the first try made to start the town's own open show | grants: good name in town | habit | v: achievement, universalism | tribal: use the name the first try made to start a showing for the band's own young hands | magic: use the name the first try made to start the ward's own open show | chance: 78
+- R>W | make the piece again from scratch before the old class, every step shown | self_control: + | v: stimulation, security | tribal: paint the work again at the painting place before the others, every step shown | magic: make the piece again before the evening hall, every step shown | chance: 78
+- G>U | go back to where the first work came from, and study it for a season | self_control: + | v: tradition, universalism | tribal: go back to the place the first work came from, and watch it for a season | magic: go back to the place the first work came from, and study it for a season | chance: 78
+works: This time the answer is yes; {N} reads it standing at the kitchen window, reads it again, and walks twice round the block before telling anyone.
+works: Whatever {N} chose, the second time feels different: steadier, and entirely {Ns} own.
+fails: It is the same kind of no as last time, nearly to the word, and {N} finds that it stings less, and is glad to have gone back at all.
+fails: The work gets further than before, and one person who matters says one true thing about it; {N} goes home the long way, in no hurry at all.
+
+# ---------------------------------------------------------------- making peace with it (cross cycle s3)
+# What the attempt gave, years on: a class kept for years (W, [pupils who remember you]), the choosing taught from the
+# inside (U), the story told well (B), a weekly life class for the joy of it (R, `title: life-drawing regular`, an
+# entry rung open to anyone and the start of the road back), a circle of the old class and the new (G, [a circle of
+# artists]). The cross cycle at 78: a fair list at the open-mic night, the lesson written down for the class, a small
+# prize for the town's young artists, the attempt itself painted, the old work given to the town hall. Here the
+# anti-story pays off: the peace reading and the Book of Moments can name the long shot.
+
+== the long shot becomes a class to teach
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult adult mature elder
+age: 25-100
+times: per person who missed an art, craft or writing long shot: about 1 in 10 come to teach or tell it years later, in a class, a workshop or a circle (estimate); most people who teach drawing or writing to adult beginners once tried for something bigger themselves (estimate)
+tone: joy
+life: meaning, friends, making
+horizon: years
+roles: friend, partner, colleague, mentor
+earth: years after the long shot that missed, the library asks for a Saturday class for adult beginners, and the story comes into the room with the teacher
+tribal: winters after the attempt that failed, the young ones of the band ask to learn the marks, and the telling of the attempt comes with them
+magic: years after the attempt that failed, the ward's guildhall asks for a class for grown beginners on rest days, and the tale of it comes with the teacher
+after: a long shot missed in one of the moments of art-longshots.lib (as for 'the same canvas, years later'), holding [a long shot that missed]; now 25 or more, not a [renowned artist] or a [celebrated author]
+delay: 5-30
+likelier: years gone by since the attempt; teaching, a class or a circle kept up; much White and Green in the colour history
+rarer: stress above 1.5; poor health
+scene: Years after the long shot that missed, the library asks {N} to run a class for adult beginners on Saturday mornings, ten weeks, drawing or writing, whichever {N} likes. On the first morning, before anyone has picked up a pencil, a woman of sixty asks whether {N} ever tried to make it big. The room goes quiet to hear the answer.
+scene W: {N} tells it straight: what was asked, what {N} sent, and the letter that said no. Then the register is taken and the class starts on time, because that is how a class should run.
+scene U: Over the years {N} has understood that attempt better than at the time: what the people choosing were looking for, and what {N} had not yet learned. That is worth teaching, more than any technique.
+scene B: It has become a good story, and {N} knows how to tell it: the long odds, the nerve, the near thing at the end. A class remembers a teacher with a story.
+scene R: The ache has mostly gone, and what is left is the memory of the nerve it took. {N} would like every beginner in the room to feel that once.
+scene G: The attempt is part of {Ns} life now, like the old house and the long friendships. What matters this morning is the man at the back who has never drawn a line and whose hands are shaking.
+scene tribal: One winter the young ones of the band ask {N} to show them the marks at the painting place, and one of them asks whether it is true that {N} once took a hide to the elders and was turned away. The young ones go quiet to hear the telling.
+scene magic: The ward's guildhall asks {N} to teach grown beginners on rest days, and on the first morning an old weaver asks whether {N} once tried for the academy's great hall. The class goes quiet to hear the tale.
+- W | run the beginners' class every Saturday for years, and never miss a week | grants: pupils who remember you | habit | mark: kept your word | v: benevolence, conformity | tribal: show the young ones the marks at the painting place every rest day, for years | magic: teach the guildhall's beginners every rest day for years, and never miss one | chance: 78
+- U | teach the class how the choosing really works, from inside a long shot | grants: teaching | door | v: achievement, conformity | tribal: teach the young ones how the elders really choose, from inside a long try | magic: teach the beginners how the academy really chooses, from inside a long shot | chance: 78
+- B | tell the long shot's story at every talk and opening, a little better each time | grants: public speaking | habit | v: achievement, hedonism | tribal: tell the long try at every gathering's fire, a little better each summer | magic: tell the tale at every opening and supper, a little better each time | chance: 78
+- R | go back to a weekly life class, and draw for the joy of it | title: life-drawing regular | habit | v: hedonism, stimulation | tribal: go back to the painting place with the others, and paint for the joy of it | magic: go back to the evening hall with a sketchbook, and draw for the joy of it | chance: 78
+- G | gather the old class and the new into one circle that meets in the kitchen | grants: a circle of artists | door | habit | mark: made a friend | v: benevolence, universalism | tribal: gather the old painters and the young into one circle at the painting place | magic: gather the old circle and the new beginners round one long kitchen table | chance: 78
+- W>R | keep a fair list at the library's open-mic night, so every newcomer gets a turn | identity | door | v: universalism, stimulation | tribal: keep the order fair at the long night's fire, so every young speaker gets a turn | magic: keep a fair list at the poets' night in the tavern, so every newcomer reads | chance: 78
+- U>G | write down what the attempt taught, and leave it in the class's library | identity | mark: learned a skill | v: universalism, tradition | tribal: put what the long try taught into a telling, and leave it with the band | magic: write out what the attempt taught, and leave the pages in the guildhall's library | chance: 78
+- B>W | set up a small yearly prize for the town's young artists, in your name | grants: good name in town | identity | v: power | tribal: give a fine hide each summer to the young painter of the band who paints best | magic: found a small yearly purse for the ward's young painters, in your own name | chance: 78
+- R>U | paint the long shot itself, the day and the nerves, until it is right | self_control: + | v: stimulation | tribal: paint the long try itself on the rock, the day and the fear, until it is right | magic: paint the attempt itself, the day and the nerves, until it is right | chance: 78
+- G>B | give the work from that day to the town hall, to hang where people pass | mark: helped someone in need | v: benevolence, universalism | tribal: give the work from that summer to the band's great cave, where every hearth passes | magic: give the work from that day to the ward's hall, to hang where everyone passes | chance: 78
+works: The class fills up for a second term and a third, and years later strangers stop {N} in the street to say they still draw, or write, because of a Saturday morning at the library.
+works: Whatever {N} chose, the old attempt has found its place in the life, and {N} no longer flinches when it comes up.
+fails: The class shrinks to three by the fifth week, and {N} teaches those three as well as {N} has ever done anything.
+fails: Someone asks whether it was worth it, an answer comes out sharper than {N} meant, and {N} thinks about it on the bus home for a week.

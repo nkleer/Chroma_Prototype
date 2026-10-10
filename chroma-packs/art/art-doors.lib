@@ -1,0 +1,280 @@
+# Chroma content pack, Art and Writing: visual art and writing (modern Earth first, with the tribal and magic worlds).
+# PART 1 of the pack's moments: DOORS AND ECHOES (moments 1 to 6 of MOMENTS-BRIEF.md): two everyday door pairs and two
+# echoes. Pair A, for children and teenagers, gives the base skills the taste rung needs ([drawing and painting],
+# [sculpting], [writing poems], [writing stories]); no child holds a title, so its doors are skills and aims. Pair B, for
+# teenagers and adults, takes the taste rung's two titles by the act ([life-drawing regular], [open-mic poet]). The two
+# echoes bring a life back to the same rung from its own history: the old sketchbook, and the poems never shown.
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md, chroma-library/notes/library-spec.md and
+# art/MOMENTS-BRIEF.md (pack rules, calibration lessons, part 1). Names in title:, grants: and aims: come from
+# art/catalogue.py, core/*.py and the base catalogue; world lines follow art/worlds.py. Everyday pairs split the calls
+# 2 and 3 and share stages, ages, share, share_group, rate and gap, each half holding the five one-colour options and the
+# pair's cross cycle; echoes are even on their own (five one-colour options and one cross cycle), once in a life, with
+# their engine conditions in art/engine-conditions.py (ECHO_ART), which their after:, likelier: and rarer: lines say in
+# words.
+# Chances: every option carries chance:. Each pair gives every means colour the same total over its twenty options
+# (mean 70), and each echo gives every means colour the same total over its ten (mean 75), so every stage is even on
+# its own. Inside a moment every colour that tries for the same title gets the same chance (65 to become a regular of
+# the class or the poetry night; 70 in the echoes, for someone who drew or wrote before). Each colour has surer acts
+# and harder ones; the hardest here are a school prize, a poster competition, a display the teacher chooses and a poem
+# read aloud in assembly. Flags are even: every means colour carries habit 2, door 1, identity 1, binds 1 and
+# self_control + 1 over the file.
+# Content limits: children meet these doors only at school, with the art or literature teacher in the room, or with
+# the elders and the drawing master in the other worlds. Life drawing is a quiet, professional room with a paid adult
+# model, and nothing in the text dwells on the model. No real person, school, college, gallery, prize, publisher,
+# brand, language, country or year is named. No wrongs in this part: the doors are open to anyone, and the pack's
+# wrongs sit in its later parts (the forgery, the friend's secret, the idea taken, the client's files), so closed acts
+# stay even here, at none.
+
+# ---------------------------------------------------------------- pair A, open to any child or teenager (no holds): calls WU (cycle s1) / calls BRG (cycle s1)
+
+== the art room at lunchtime
+tier: everyday
+share: .4
+share_group: art_youth_doors
+rate: 0.03
+times: per child or teenager a year: about 1 in 5 schools keep an art room open at lunch or after school, and about 15 lives in 100 keep drawing or painting past school (catalogue share; estimate)
+gap: 2-4
+stages: child juvenile
+age: 10-18
+calls: WU
+tone: joy
+life: school, play, making
+horizon: week
+roles: friend, the art teacher, a parent or carer
+earth: the art teacher leaves the art room open at lunch, with paper, paint, clay and the radio on
+tribal: at midday the one who teaches the children the marks lays out ochre and charcoal at the flat rock
+magic: the drawing master leaves the schoolroom's paint cupboard open through the noon hour
+scene: At lunchtime the art room door is propped open. The art teacher eats a sandwich at the desk with the radio on low, and there is paper, paint and a bag of clay for anyone who wants them, as long as the brushes are washed before the bell.
+scene W: A sign on the door gives the rules: aprons on, no food near the paint, brushes washed and back in the jar before the bell. {N} likes a room where everyone knows what to do.
+scene U: On the art teacher's desk lies a book of drawings with every line explained: how the bones of a hand sit, where the shadow falls on a face. {N} wants to know how it is done.
+scene B: The best work from the lunchtime room goes up in the main corridor, where every visitor to the school sees it, with a name card underneath. {N} has noticed whose names are there.
+scene R: The radio is on, the paint is out, and nobody is marking anything. For a whole hour {N} could paint anything at all.
+scene G: {friend} is already at the clay table, rolling coils for a pot, and the window looks out over the playing field and the trees. It is the quietest, warmest room in the school.
+scene tribal: At midday, while the hunters sleep in the shade, the woman who teaches the children the marks lays out ochre, charcoal and a grinding stone at the flat rock. Any child may come and paint, if they sweep the rock clean after.
+scene magic: Through the noon hour the drawing master leaves the paint cupboard unlocked and sits reading by the window. There is paper, chalk, a lump of modelling clay and a jar of good paint, and the rule is that everything goes back where it was.
+- W | help paint the backdrop for the school play, as the art teacher asked | v: conformity, benevolence | tribal: help paint the hides for the midsummer telling, as the woman who teaches the marks asked | magic: help paint the scenery for the feast-day masque, as the drawing master asked | chance: 85
+- U | copy the drawings in the art teacher's book, line by line, to see how they work | v: self-direction, achievement | grants: drawing and painting | habit | tribal: copy the old marks on the rock, line by line, to learn how they were made | magic: copy the drawings in the master's pattern book, line by line, to see how they work | chance: 90
+- B | paint something big and bold for the corridor display, with your name card on it | v: achievement, power | identity | tribal: paint the biggest bison on the flat rock, where the hunters pass on their way out | magic: paint something bold for the schoolroom wall, where the visiting parents will see it, with your name beneath | chance: 45
+- R | paint whatever comes into your head for the whole hour, radio up | v: stimulation, hedonism | grants: drawing and painting | habit | tribal: paint whatever comes into your head on the rock until the shade moves | magic: paint whatever comes into your head for the whole noon hour | chance: 80
+- G | build a coil pot at the clay table, the old way, slowly | v: tradition | grants: sculpting | self_control: + | mark: learned a skill | tribal: shape a bowl from the river clay, coil by coil, the way the grandmothers do | magic: build a coil pot from the modelling clay, the old way, slowly | chance: 55
+- W>U | ask the art teacher for a place in the older pupils' drawing club | v: conformity, achievement | grants: drawing and painting | aims: life-drawing regular | habit | mark: learned a skill | tribal: ask for a place among the older children who draw the animals on the rock | magic: ask the drawing master for a place at the older pupils' drawing evenings | chance: 75
+- U>B | enter the school's poster competition with a design worked out in pencil first | v: achievement | tribal: work out a pattern in the dust first, then offer it for the band's new drum | magic: enter the school's broadsheet competition with a design worked out in chalk first | chance: 30
+- B>R | stay out in the playground: lunch is for football, not more school | v: hedonism, self-direction | tribal: stay down at the river: midday is for swimming, not more learning | magic: stay out in the yard: the noon hour is for games, not more lessons | chance: 95
+- R>G | paint the trees outside the window, fast, before the light changes | v: stimulation, universalism | tribal: paint the river birds on the rock, fast, before they fly | magic: paint the elms outside the window, fast, before the light changes | chance: 80
+- G>W | stay behind to help the art teacher wash the brushes and wipe the tables | v: benevolence, conformity | tribal: stay behind to help sweep the flat rock and grind the ochre for tomorrow | magic: stay behind to help the drawing master wash the brushes and stopper the paint pots | chance: 85
+works: {N} comes back the next day, and the next, with paint under {Ns} fingernails and something to show for it.
+works: By the end of the season {N} has a pile of work to show, and the one who teaches knows {Ns} name.
+fails: It is too crowded and too loud, and {N} drifts off and does not come back.
+fails: What {N} makes comes out nothing like it looked in {Ns} head, and is thrown away before anyone sees it.
+
+== a poem for the school magazine
+tier: everyday
+share: .4
+share_group: art_youth_doors
+rate: 0.03
+times: per child or teenager a year: about 1 in 4 are asked for a poem or a story for a school magazine or competition; about 3 lives in 100 keep writing poems past school (catalogue share; estimate)
+gap: 2-4
+stages: child juvenile
+age: 10-18
+calls: BRG
+tone: mixed
+life: school, writing, friends
+horizon: week
+roles: friend, the literature teacher, a grandparent
+earth: the literature teacher wants poems for the school magazine, and the best one wins a small prize
+tribal: the elders want new verses from the children for the midsummer gathering
+magic: the schoolmaster wants verses from the pupils for the school's year-end broadsheet
+scene: The literature teacher pins a notice by the classroom door: poems wanted for the school magazine, any subject, any length, by Friday week. The best one goes on the front page and wins a small prize, and the magazine goes home to every family in the school.
+scene W: The notice gives the rules: one poem each, written in class or at home, handed in on time with a name on it. {N} likes knowing exactly what is asked.
+scene U: Last week the literature teacher read the class a poem that rhymed without seeming to, and {N} has been trying to work out how it was done ever since.
+scene B: Last year's front-page poem was by a girl in the year above, and the teachers still mention it. Whoever wins this one will be known for it.
+scene R: There is something {N} has never said to anyone, and it has been sitting in {Ns} chest for months. A poem might be the only way to say it.
+scene G: {grandparent} used to recite long poems by heart at family gatherings, the old ones about the hills and the harvest. {N} has always loved the sound of them.
+scene tribal: At the new moon the elders call the children together: at the midsummer gathering the children will speak verses of their own, and the best will be kept and said again. The old ones will be listening.
+scene magic: The schoolmaster announces that the year-end broadsheet will print verses from the pupils, and the best will be read before the parents on prize day. Paper and ink are to be had from his desk.
+- W | write the poem in the form the teacher set, and enter it for the magazine's prize | v: conformity | grants: writing poems | tribal: make the verse in the old measure the elders taught, and offer it for the gathering's honour | magic: write the verse in the form the schoolmaster set, and enter it for the prize | chance: 30
+- U | count the syllables and redraft the poem until every word is right | v: achievement, self-direction | grants: writing poems | self_control: + | mark: learned a skill | tribal: say the verse over and over on the walk to the river, until every word sits right | magic: count the syllables and redraft the verse until every word is right | chance: 85
+- B | offer to run the magazine's poetry page, and choose which poems go in | v: power, achievement | binds | tribal: ask the elders for the say in which children's verses are spoken at the gathering | magic: offer to edit the broadsheet's verse column, and choose which verses go in | chance: 45
+- R | ask to read your poem aloud in assembly, though your hands are shaking | v: stimulation, self-direction | grants: writing poems | aims: open-mic poet | identity | mark: took a wild risk | tribal: stand up at the fire and speak your verse to the whole band, though your voice shakes | magic: ask to read your verse aloud before the whole school, though your hands are shaking | chance: 45
+- G | write about the street, the farm or the grandparent you know best | v: tradition, benevolence | grants: writing poems | tribal: make a verse about the old camp by the river, and the grandmother who knows every song | magic: write about the lane, the farm or the grandparent you know best | chance: 80
+- W>U | ask the literature teacher for a book of poems, to learn how they are made | v: conformity, self-direction | door | tribal: ask the old teller to say the oldest verses again, to learn how they are made | magic: ask the schoolmaster for a book of verse, to learn how it is made | chance: 90
+- U>B | write a clever story instead, with an ending the whole class will talk about | v: achievement, self-direction | grants: writing stories | tribal: make up a telling instead, with an ending the children will talk about for days | magic: write a clever tale instead, with an ending the whole schoolroom will talk about | chance: 75
+- B>R | say poems are for other people, and keep the evenings for games | v: hedonism, self-direction | tribal: say verses are for other children, and keep the evenings for games by the river | magic: say verse is for other pupils, and keep the evenings for games in the yard | chance: 95
+- R>G | write a poem for a friend's birthday instead, and give it in a card | v: benevolence, stimulation | mark: made a friend | tribal: make a verse for your hearth-friend's naming day instead, and say it to them alone | magic: write a verse for a friend's name-day instead, and give it on a folded paper | chance: 75
+- G>W | write the verse for the old caretaker's leaving card, for the whole school | v: benevolence, tradition | tribal: make a verse for the old hunter who can hunt no longer, for the whole band to say | magic: write the verse for the old porter's leaving gift, for the whole school | chance: 60
+works: The poem is chosen, and people {N} barely knows say a line of it back days later.
+works: {N} finds that words can be pushed and turned like clay, and keeps on making them long after.
+fails: The day comes and goes, and {N} has nothing but crossings-out and half a line.
+fails: The poems are chosen, and {Ns} is not among them.
+
+# ---------------------------------------------------------------- pair B, open to teenagers and adults (no holds): calls BR (cycle s2) / calls WUG (cycle s2)
+# The doors take the taste rung's titles at 65 in every colour (a regular of a weekly class or a monthly night for a year
+# or more, for someone who tries); the other acts are the brief's: the materials bought for home, the cheaper rate, the
+# night only listened to, the night helped along, and the polite no.
+
+== the evening class at the college
+tier: everyday
+share: .06
+share_group: art_adult_doors
+rate: 0.02
+times: per adult a year: about 1 in 30 see an evening art class they could join; about 15 lives in 1,000 draw at a weekly class for a year or more (catalogue share; estimate)
+gap: 3-8
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: BR
+tone: joy
+life: leisure, making, community
+horizon: months
+roles: friend, colleague, partner, the class tutor
+earth: the college's prospectus: life drawing, Tuesday evenings, ten weeks, all levels
+tribal: the band's painters climb to the painting place in the evenings, and anyone may sit and draw with them
+magic: the academy's evening hall opens its drawing class to townsfolk: ten evenings, a small fee, all levels
+scene: The college's evening prospectus comes through the door with the free paper: life drawing, Tuesday evenings, seven till nine, ten weeks, all levels welcome, materials provided the first night. A paid model holds each pose while the room draws in silence, and a tutor goes round the easels.
+scene W: The course has a clear shape: a register, a tutor, short poses in the first weeks and longer ones by the end. {N} likes the idea of a class that builds week by week, and of keeping to it.
+scene U: {N} has always drawn heads and hands badly and wondered why. Ten weeks with a tutor who explains how the weight falls and where the light sits would answer that.
+scene B: The tutor shows at a gallery in town and knows the people who buy. Drawing well enough to sell would be something, and every artist {N} has read about drew from life.
+scene R: {N} used to draw all the time, at the back of every lesson, and stopped somewhere along the way without ever deciding to. The page in the prospectus makes {Ns} hand itch.
+scene G: The college is the old building by the river where {parent} once went to evening classes too. The drawing room has tall windows, and people of every age go there, year after year.
+scene tribal: When the hunters come back in the evening, the band's painters climb to the painting place with charcoal and ochre and draw the animals, and each other, on the smooth rock. Anyone may sit with them who brings a lamp and keeps quiet.
+scene magic: A notice at the academy gate: this season the evening hall's drawing class is open to townsfolk, ten evenings, a small fee, a master going round the easels. The candles are lit at the seventh bell, and the sitter is paid by the night.
+- W | enrol for all ten weeks, pay in full, and never miss a Tuesday | v: conformity, security | title: life-drawing regular | habit | self_control: + | tribal: ask the painters' leave, and climb to the painting place every evening without fail | magic: enrol for all ten evenings, pay the fee in full, and never miss one | chance: 65
+- U | buy the materials and a book on drawing the figure, and work at home | v: self-direction, achievement | grants: drawing and painting | tribal: gather charcoal and a smooth hide, and practise the figure alone by your own fire | magic: buy chalk, paper and a book on drawing the figure, and work at home by candlelight | chance: 65
+- B | enrol, set up at the front, and make sure the tutor sees your best work | v: achievement, power | title: life-drawing regular | habit | tribal: sit at the painting place where the best painter can see your marks | magic: enrol, take the easel nearest the master, and make sure the master sees your best work | chance: 65
+- R | turn up on the first Tuesday without booking, and draw as fast as the poses change | v: stimulation, hedonism | title: life-drawing regular | tribal: climb up that very evening unasked, and draw as fast as the light allows | magic: turn up on the first evening without enrolling, and draw as fast as the poses change | chance: 65
+- G | draw the people at the bus stop and in the café, as you always have | v: tradition, universalism | habit | tribal: draw the band at their work by the shelters, as you always have | magic: draw the people in the market and at the well, as you always have | chance: 70
+- W>B | ask for the cheaper rate, with every form filled in properly | v: security, power | aims: life-drawing regular | tribal: offer the painters a share of your ochre for a place, by the old custom | magic: ask for the reduced fee, with every paper sealed properly | chance: 75
+- U>R | go to the one-night taster first, and find out whether it suits | v: self-direction, stimulation | tribal: sit at the edge of the painting place for one evening, and find out whether it suits | magic: go to the academy's open evening first, and find out whether it suits | chance: 70
+- B>G | say no: the overtime on Tuesdays pays for the family's holiday | v: security, benevolence | self_control: + | mark: turned down a chance | tribal: say no: the evenings are for setting snares, and the children need the meat | magic: say no: the evening work at the shop pays for the family's winter | chance: 85
+- R>W | talk three friends from work into joining, so the class has enough to run | v: benevolence, stimulation | binds | tribal: rouse three friends to climb up together, so the painters make room for newcomers | magic: talk three friends from the shop into enrolling, so the class has enough to run | chance: 65
+- G>U | enrol with an old school friend, and learn it side by side | v: benevolence, self-direction | title: life-drawing regular | binds | tribal: climb up with your oldest friend, and learn the marks side by side | magic: enrol with a friend from the old schoolroom, and learn it side by side | chance: 65
+works: Within a month {N} has a folder of drawings, a regular seat, and people who nod hello every week.
+works: Somewhere around the sixth week the lines start to do what {N} means them to.
+fails: Too few sign up, the class is cancelled, and {N} never quite gets round to finding another.
+fails: {N} goes twice, finds every drawing worse than the last, and stops going.
+
+== the poetry night at the back of the pub
+tier: everyday
+share: .06
+share_group: art_adult_doors
+rate: 0.02
+times: per adult a year: about 1 in 30 come across a poetry or spoken-word night they could read at; about 1 life in 100 reads at one again and again (catalogue share; estimate)
+gap: 3-8
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: WUG
+tone: joy
+life: leisure, writing, community
+horizon: months
+roles: friend, neighbour, the host, a regular
+earth: a chalkboard by the bar: open mic, poets welcome, first Thursday
+tribal: on the long nights anyone may stand at the band's fire and speak verses
+magic: the tavern on the square holds a poets' night on the first of the month, and anyone may read
+scene: A chalkboard by the bar of the pub on the corner: open mic, poets welcome, first Thursday of the month, back room, sign up by eight. Through the doorway there are thirty chairs, a microphone on a stand, and a woman reading from a notebook while the whole room listens.
+scene W: The rules are chalked up under the date: five minutes each, names on the list by eight, no talking during a reading, applause for everyone. {N} likes that it is fair, and that everyone gets a turn.
+scene U: {N} stands in the doorway and listens to how the readers do it: where they pause, how they hold a line back for the end. There is a craft to it, and {N} wants to learn it.
+scene B: The host runs the town's writing festival, and a small press sells pamphlets from a table by the door. People who read well here get asked to read elsewhere.
+scene R: A young man is reading about his father, and his voice cracks, and the room goes completely still. {N} has notebooks full of things like that at home.
+scene G: Half the room are regulars who have come every month for years, and the landlady knows them all by name. The poems are about the town, the river, the old mill, and people {N} has known all {Ns} life.
+scene tribal: On the long nights, when the meat is eaten, the band sits close round the fire and anyone may stand and speak verses: about the hunt, the dead, the river in flood. The old ones nod when a verse is good, and say it back.
+scene magic: On the first of the month the tavern on the square clears its back room for the poets' night. A bell marks each reader's time, the landlord keeps the list, and the academy's students sit at the back with their own pages.
+- W | sign the list by eight, keep to the five minutes, and come back every month | v: conformity, tradition | title: open-mic poet | identity | tribal: wait your turn at the fire, speak no longer than the others, and stand again every long night | magic: put your name on the landlord's list, keep to the bell, and come back every month | chance: 65
+- U | go and listen only, month after month, and learn how the readers hold the room | v: self-direction | door | tribal: sit and listen only, night after night, and learn how the old ones hold the fire | magic: sit at the back and listen, month after month, and learn how the readers hold the tavern | chance: 80
+- B | read the strongest poem you have, then ask the host about the town's festival | v: achievement, power | title: open-mic poet | door | tribal: speak your strongest verse, then ask the old ones about speaking at the great gathering | magic: read your strongest verse, then ask the landlord about reading at the academy's festival | chance: 65
+- R | put your name down on the spot, and read the poem folded in your pocket | v: stimulation | title: open-mic poet | tribal: stand up at once and speak the verse carried in your head all winter | magic: put your name down on the spot, and read the verse folded in your pocket | chance: 65
+- G | say no: the poems are for the kitchen table, not a microphone | v: tradition, security | tribal: say no: your verses are for your own hearth, not the whole band | magic: say no: your verses are for the family's table, not a tavern | chance: 80
+- W>B | offer to keep the list and ring the bell for the host, and meet every reader | v: conformity, power | aims: open-mic poet | binds | tribal: offer to tend the fire on the long nights, and come to know every speaker | magic: offer to keep the landlord's list and ring the bell, and come to know every reader | chance: 75
+- U>R | rewrite one poem for the ear, then read it on the night | v: self-direction, stimulation | title: open-mic poet | tribal: shape one verse for the ear on the long walks, then speak it at the fire | magic: rewrite one verse for the ear, then read it at the tavern | chance: 65
+- B>G | talk the landlord into a ticketed night of the town's old stories and songs | v: tradition, achievement | tribal: talk the elders into a night at the fire for the oldest songs, with a share of the meat for the speakers | magic: talk the landlord into a paying night of the quarter's old tales and songs | chance: 65
+- R>W | read the poem of a friend who is too shy to stand up and read it | v: benevolence, stimulation | mark: helped someone in need | tribal: speak the verse of a friend who is too shy to stand at the fire | magic: read the verse of a friend who is too shy to stand up and read it | chance: 85
+- G>U | join the library's poetry workshop, with the old regulars who have gone for years | v: tradition, self-direction | grants: writing poems | door | tribal: sit with the old makers of verses at their own fire, where they have sat for years | magic: join the circle of old verse-makers who meet at the guild hall, as they have for years | chance: 65
+works: {Ns} name goes on the list, and by the third month the regulars save {N} a seat.
+works: The room goes quiet in the right place, and afterwards a stranger asks to hear it again.
+fails: On the night {N} sits through every reader and leaves without once standing up.
+fails: {N} reads too fast, loses a line in the middle, and goes home certain never to go back.
+
+# ---------------------------------------------------------------- echoes: the old sketchbook (cycle s3), the poems never shown (cycle s4)
+# Each is even on its own (five one-colour options and one full cross cycle), once in a life, at rate .05; its engine
+# condition is in engine-conditions.py (ECHO_ART), and its after:, likelier: and rarer: lines say the same in words. The
+# doors take [life-drawing regular] or [open-mic poet] at 70 for someone who drew or wrote before, in three colours each.
+
+== the sketchbook in the attic
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult adult mature elder
+age: 30-95
+times: per adult who drew as a child, once: about 1 in 10 come back to drawing after twenty years or more (estimate)
+tone: joy
+life: making, memory, home
+horizon: months
+roles: parent, child, friend, the class tutor
+earth: clearing a cupboard or a parent's attic, the old sketchbook from school
+tribal: clearing an old shelter, the painted hide from childhood, its marks still bright
+magic: clearing a parent's attic, the old sketchbook from the drawing master's schoolroom
+after: moment 'the urge to make something' or 'inspiration strikes' in someone who can draw ([drawing and painting]), 30 or more, who draws neither at a class nor for a living (no [life-drawing regular], [painter or sculptor], [street artist] or [illustrator for hire])
+delay: 0-1
+likelier: much Red and Blue in the colour history; time to spare; retired
+rarer: stress above 1.5; more than one child at home; little money
+scene: The urge to make something has been nagging at {N} for weeks. Then, clearing a cupboard, or the attic of the old family house, {N} finds the sketchbook from school: a horse, a hand drawn over and over, a portrait of {grandparent}, all in soft pencil gone silver with the years.
+scene W: Every page is dated in the corner, in a careful hand. {N} remembers the rule of drawing something every single day, and how long it was kept.
+scene U: Some of the drawings are better than {N} remembered and some are worse, and {N} can see exactly why. The hand drawn twenty times on one page gets closer to right on the last one.
+scene B: {N} looks at the best drawing for a long time. It is good, really good, and nobody has seen it in thirty years. {N} wonders what it might have led to.
+scene R: {N} sits on the floor in the dust and turns every page, and it all comes back at once: the hours that vanished, the smell of the pencils, not caring about anything else.
+scene G: There is a drawing of the garden as it was, the old apple tree, the shed that came down long ago. {N} turns the pages slowly, as if they were letters from someone dear.
+scene tribal: Clearing an old shelter before the move to the winter camp, {N} finds a painted hide rolled up in the roof poles: a running deer, a child's hand, marks made long ago at the flat rock, still bright with ochre.
+scene magic: Clearing the attic of the old family house, {N} finds a sketchbook from the drawing master's schoolroom, its corners nibbled by mice: a horse, a hand drawn over and over, a portrait of {grandparent}, the chalk gone soft with age.
+- W | sign up for the Tuesday class at the college, and keep every Tuesday free for it | v: conformity | title: life-drawing regular | tribal: ask the painters for a place at the painting place, and climb up every evening | magic: enrol in the academy's evening class, and keep every one of its evenings free | chance: 70
+- U | finish the half-done drawings in it, properly, one each evening | v: achievement, self-direction | grants: drawing and painting | habit | mark: learned a skill | tribal: finish the half-made marks on the hide, properly, one each evening | magic: finish the half-done drawings in the book, properly, one each evening | chance: 75
+- B | show the best drawings to a framer, and ask what new ones would sell for | v: achievement, power | aims: painter or sculptor | tribal: show the hide to a trader at the gathering, and ask what new marks like these would fetch | magic: show the best drawings to a picture dealer, and ask what new ones would fetch | chance: 80
+- R | go to a drop-in life class that same week, and draw fast until it comes back | v: stimulation, hedonism | title: life-drawing regular | door | tribal: climb to the painting place that same evening, and draw fast until it comes back | magic: go to the academy's evening hall that same week, and draw fast until it comes back | chance: 70
+- G | put it back in the box: it belongs to the child who drew it | v: tradition, security | mark: turned down a chance | tribal: roll the hide up again and leave it in the roof: it belongs to the child who painted it | magic: put it back in the chest: it belongs to the child who drew it | chance: 90
+- W>R | book a week's painting course by the sea, and keep the promise made at fifteen | v: stimulation, hedonism | mark: kept your word | tribal: walk to the painted cliffs by the sea for a moon, and keep the promise made as a child | magic: take a season's lodging at the painters' colony on the coast, and keep the promise made at fifteen | chance: 80
+- U>G | pass it to a child in the family, with notes on how each drawing works | v: benevolence, tradition | tribal: give the hide to a child of your hearth, and show how each mark was made | magic: pass the book to a child in the family, with notes on how each drawing works | chance: 75
+- B>W | join the town's art society for its weekly drawing night, and stand for its committee | v: power, conformity | title: life-drawing regular | habit | tribal: join the painters at the painting place, and ask for a say in which walls are painted | magic: join the painters' society for its weekly drawing night, and stand for its council | chance: 70
+- R>U | draw every day for a month, fast and badly, to find out what is left | v: stimulation, self-direction | habit | self_control: + | tribal: make marks every day for a moon, fast and rough, to find out what is left | magic: draw every day for a month, fast and rough, to find out what is left | chance: 80
+- G>B | draw the old street from memory, and sell prints to the neighbours who lived there | v: tradition, achievement | tribal: paint the old camp from memory on hides, and trade them to the families who lived there | magic: draw the old lane from memory, and sell prints to the neighbours who lived there | chance: 60
+works: Within a few months {N} is drawing again, badly and then better, and wonders where the years went.
+works: The old drawings are taken out, shown and talked about, and at last they have somewhere to go.
+fails: The sketchbook goes back in the box, the box goes back in the attic, and life fills up again.
+fails: {N} tries, and every line comes out stiff and strange, and the pencils go back in the drawer.
+
+== the poems you never showed anyone
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult adult mature elder
+age: 25-100
+times: per adult who wrote poems, once: about 1 in 10 return to writing after a loss or in retirement (estimate)
+tone: mixed
+life: writing, grief, meaning
+horizon: months
+roles: partner, child, friend, the host of the poetry night
+earth: after a loss or a retirement, the notebook of poems in a drawer, never shown to anyone
+tribal: after a loss or the end of the hunting years, the verses made alone and never spoken at the fire
+magic: after a loss or the end of working days, the bundle of verses tied with string in a drawer
+after: moment 'the first months of retirement', 'your partner dies' or 'the notebooks come together' in someone who writes ([writing poems] or [writing stories]), 25 or more, who neither reads at a poetry night nor writes books (no [open-mic poet], no [novelist])
+delay: 0-1
+likelier: much Red and White in the colour history; time to spare
+rarer: stress above 1.8; poor health
+scene: After the loss, or the last day at work, the days are suddenly wide and quiet. At the back of a drawer {N} finds the notebook: thirty years of poems, written late at night, on trains and in waiting rooms, and never shown to a single person.
+scene W: {N} wrote them the way some people keep a diary, faithfully, one a week for years, and then stopped. It seems a kind of duty to see them through to something.
+scene U: Reading them now, {N} can see what each one was trying to do, where it fell short, and how it could be mended. The old ones read like drafts of something not yet written.
+scene B: A few of them are good, better than some {N} has seen in print. It is strange to have kept them hidden for so long, out of nothing but fear.
+scene R: {N} reads the first one and has to sit down on the floor. Every feeling of thirty years is in there, as raw as the day it was written.
+scene G: The poems follow the years like rings in a tree: the first flat, the children small, the garden, the long illness, the seasons going round. They belong to the family as much as to {N}.
+scene tribal: In the quiet after a loss, or when the hunt goes on without {N}, the old verses come back: made alone on long walks, never once spoken at the fire. {N} still knows every one of them.
+scene magic: After a loss, or the last day in the counting house, {N} finds the bundle of verses tied with string at the back of a drawer: thirty years of them, written by candlelight and on the road, and never read by anyone.
+- W | read one at the library's poetry evening, and go back every month after | v: conformity, tradition | title: open-mic poet | tribal: speak one at the fire on the next long night, and stand again every long night after | magic: read one at the poets' night in the tavern, and go back every month after | chance: 70
+- U | type them up, sort them, and redraft the best twenty into a collection | v: achievement, self-direction | aims: novelist | identity | tribal: shape the best of them into one long telling, verse by verse, until it holds together | magic: copy them out fair, sort them, and redraft the best twenty into a book | chance: 70
+- B | read the best of them at the poetry night in town, and make the room remember | v: achievement, power | title: open-mic poet | mark: took a wild risk | tribal: speak the best of them at the fire of the great gathering, and make every band remember it | magic: read the best of them at the tavern's poets' night, and make the room remember it | chance: 70
+- R | burn them in the garden, a page at a time | v: stimulation, self-direction | tribal: give them to the fire one by one, and never say them again | magic: burn them in the grate, a page at a time | chance: 90
+- G | give the notebook to the one in the family who will keep it safe | v: benevolence, tradition | tribal: teach the verses to the child of your hearth who will keep them | magic: give the bundle to the one in the family who will keep it safe | chance: 80
+- W>G | read one of them aloud at the funeral or the family's next gathering | v: tradition, benevolence | tribal: speak one of them at the mourning fire, or the next time the family gathers | magic: read one of them aloud at the burial or the family's next gathering | chance: 80
+- U>W | join the writing group at the community centre, and help edit its yearly booklet | v: self-direction, benevolence | grants: writing poems | binds | tribal: join the old ones who keep the verses, and help choose which are spoken at the gathering | magic: join the verse circle at the chapter house, and help edit its yearly broadsheet | chance: 80
+- B>U | pay a published poet to read them and tell the plain truth about them | v: achievement, self-direction | tribal: give a good hide to the maker of verses every band repeats, for the plain truth about them | magic: pay a poet of the academy to read them and tell the plain truth about them | chance: 80
+- R>B | post the rawest one online under your own name, for anyone to read | v: stimulation, achievement | tribal: speak the rawest one at another band's fire, where nobody knows the speaker | magic: pin the rawest one to the tavern door under your own name, for anyone to read | chance: 60
+- G>R | read them at the care home's afternoons, where the old ones gather, every month | v: benevolence, stimulation | title: open-mic poet | habit | identity | tribal: speak them to the old ones by the sheltered fire, where they sit through the cold days | magic: read them on the almshouse's feast afternoons, where the old ones gather, every month | chance: 70
+works: The poems leave the drawer at last, and {N} finds out what they were for.
+works: Someone hears one and says that is exactly how it was.
+fails: The poems go back where they were kept, and stay there.
+fails: {N} starts, finds the old feelings too near, and has to stop.
