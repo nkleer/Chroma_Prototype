@@ -194,6 +194,55 @@ if FP or FR:
     for nm_, tab_ in (("FAIR_PART", FP), ("FAIR", FR)):
         for k, d in tab_.items():
             ALL += [(f"{nm_}.{k}.{f}", d.get(f, ""), "clause", 16) for f in ("unfair", "fair")]
+LN = getattr(M, "LINE", {})   # S5 sacred lines (social-mechanics.md S5)
+KINDS = ["promise", "truth", "own_say", "loved", "home"]
+if LN:
+    if sorted(LN) != sorted(KINDS):
+        fail("1 coverage", f"LINE: kinds {sorted(LN)}, wanted {KINDS}")
+    for k, d in LN.items():
+        ALL.append((f"LINE.{k}.name", d.get("name", ""), "name", 6))
+        wn_ = d.get("will_not", [])
+        if len(wn_) != 3:
+            fail("1 coverage", f"LINE.{k}.will_not: {len(wn_)} lines, wanted 3")
+        ALL += [(f"LINE.{k}.will_not.{i}", t, "clause", 10) for i, t in enumerate(wn_)]
+        ALL.append((f"LINE.{k}.peace", d.get("peace", ""), "clause", 8))
+        for f in ("formed", "held", "crossed", "healed"):
+            t = d.get(f, "")
+            ALL.append((f"LINE.{k}.{f}", t, "line", 22))
+            if "{N}" not in t or set(re.findall(r"{(\w+)}", t)) - {"N", "Ns"}:
+                fail("1 coverage", f"LINE.{k}.{f}: needs {{N}} and no other slot but {{Ns}}: {t}")
+RD, TK = getattr(M, "READ", {}), getattr(M, "TALK", {})   # S3 their places' eyes (social-mechanics.md S3)
+if RD or TK:
+    want_ = {f"{a_}.{b_}" for a_ in COLORS for b_ in COLORS}
+    if set(RD) != want_:
+        fail("1 coverage", f"READ: missing {sorted(want_ - set(RD))}, extra {sorted(set(RD) - want_)}")
+    for k, d in RD.items():
+        ALL += [(f"READ.{k}.{f}", d.get(f, ""), "clause", 12) for f in ("gift", "danger")]
+    if sorted(TK) != ["bent", "good", "warn"] or any(len(v) < 2 for v in TK.values()):
+        fail("1 coverage", f"TALK: wanted good, bent and warn with two lines or more each, got {sorted(TK)}")
+    for k, v in TK.items():
+        for i, t in enumerate(v):
+            ALL.append((f"TALK.{k}.{i}", t, "line", 20))
+            if set(re.findall(r"{(\w+)}", t)) != {"go", "place", "read"}:
+                fail("1 coverage", f"TALK.{k}.{i}: needs {{go}}, {{place}} and {{read}} and no other slot: {t}")
+PN = getattr(M, "PLACE_NAME", [])   # S3: the word for their name at a place
+if PN:
+    mins_ = [m_ for m_, _ in PN]
+    if mins_ != sorted(mins_, reverse=True) or len(set(mins_)) != len(mins_) or mins_[-1] != -1 or mins_[0] > 1:
+        fail("1 coverage", f"PLACE_NAME: rep_min must fall strictly from at most 1 down to -1, got {mins_}")
+    ALL += [(f"PLACE_NAME.{i}", w_, "clause", 4) for i, (_, w_) in enumerate(PN)]
+SN = getattr(M, "SEEN", {})   # S6 seen it done (social-mechanics.md S6)
+if SN:
+    if sorted(SN) != ["dream", "far", "none", "seen", "wrong"] or any(len(v) < 2 for v in SN.values()):
+        fail("1 coverage", f"SEEN: wanted seen, none, wrong, far and dream with two lines or more each, got {sorted(SN)}")
+    for k, v in SN.items():
+        for i, t in enumerate(v):
+            ALL.append((f"SEEN.{k}.{i}", t, "line", 14))
+            sl_ = set(re.findall(r"{(\w+)}", t))
+            if "N" not in sl_ and "Ns" not in sl_ or sl_ - {"N", "Ns", "who"} or ("who" in sl_) == (k == "none"):
+                fail("1 coverage", f"SEEN.{k}.{i}: needs {{N}} or {{Ns}}, {{who}} except in none, no other slot: {t}")
+            if t.startswith("{who}"):
+                fail("5 style", f"SEEN.{k}.{i}: opens with {{who}}, which starts lower case: {t}")
 
 seen = {}
 for at, text, kind, limit in ALL:
@@ -267,7 +316,7 @@ if n_opt and max(face_w.values()) - min(face_w.values()) > .01 * n_opt / 5:
     fail("8 faces", f"faces uneven by colour over {n_opt} options: {face_w}")
 NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting", "8 faces"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders, {len(FR)} fairness; data {data_note}\n")
+print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders, {len(FR)} fairness, {len(LN)} lines, {len(RD)} readings, {len(SN)} seen kinds; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
     extra_ = f", {setting_note}" if nm == "7 setting" else (f", {n_opt} options: " + " ".join(f"{c} {v:.0f}" for c, v in face_w.items()) if nm == "8 faces" else "")
