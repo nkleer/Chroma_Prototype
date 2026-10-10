@@ -1,26 +1,31 @@
 """Manifest of the files a version of the game is built from, with an MD5 for each.
 
-   python3 -B check_live.py write <out.txt> [--version v22.1]   record the manifest (default: the live version)
-   python3 -B check_live.py check [<manifest>] [--version v22.1] compare the folder now against a recorded manifest
+   python3 -B check_live.py write <out.txt> [--version v22.2]   record the manifest (default: the live version)
+   python3 -B check_live.py check [<manifest>] [--version v22.2] compare the folder now against a recorded manifest
                                                                 (default: the live version's manifest, paths.py live_manifest)
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.2  live since 2026-10-09 21:39 UTC (release/v22.2): game_live (chroma-game/prototype), engine_live,
-          game_tools (the build it was published with); live-v22.2-manifest.txt
-   v22.1  the rollback: game_v22_1 (chroma-game/prototype-v22.1), engine_v22_1 (in _archive/2026-10-09/live-v22.1/);
+   v22.2.1 live since 2026-10-10 14:03 UTC (release/v22.2.1): game_live (chroma-game/prototype), engine_live,
+          game_tools (the build it was published with); live-v22.2.1-manifest.txt. A page and pictures update: the
+          engine and the Library are v22.2's
+   v22.2  the rollback, in the same folders: v22.2.1 changed six of its files (web/index.html, web/src/build.py and
+          CHANGES.md, test/drive_v14.js, tools/webdir.py, pictures.json), so its check shows those six as changed;
+          live-v22.2-manifest.txt
+   v22.1  the older rollback: game_v22_1 (chroma-game/prototype-v22.1), engine_v22_1 (in _archive/2026-10-09/live-v22.1/);
           live-v22.1-manifest.txt, recorded while v22.1 was live, so its game and engine paths are read at those folders
-   v22    the older rollback: game_v22 (chroma-game/prototype-v22), engine_v22; live-v22-manifest.txt, read the same way
+   v22    the oldest rollback: game_v22 (chroma-game/prototype-v22), engine_v22; live-v22-manifest.txt, read the same way
 The Library's compiled files, the packs and the pictures are shared; each version lists the ones it was built from.
-So a rollback's check shows a shared file as changed once a later version changed it (v22.1 and v22: three
-chroma-art/game ink files since v22.2); release/<version> holds that version's exact files.
+So a rollback's check shows a shared file as changed once a later version changed it, or missing once it dropped it
+(v22.1 and v22: three chroma-art/game ink files changed and ink-icons-handoff.md dropped since v22.2, and pictures.json
+changed since v22.2.1); release/<version> holds that version's exact files.
 A manifest is written from the shared folder only after its files match the release branch (CONTRIBUTING.md).
 
-An .svg is recorded and compared without the C2PA stamp the shared folder adds to it. Every recorded file is checked
-at the path it was recorded under; the folders paths.py names decide only which files
-are listed as new. Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
+An .svg or .webp is recorded and compared without the C2PA stamp the shared folder adds to it. Every recorded file is
+checked at the path it was recorded under; the folders paths.py names decide only which files are listed as new.
+Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
 """
-import hashlib, os, re, sys
+import hashlib, os, re, struct, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from paths import ROOT, NAMES  # noqa: E402
@@ -28,12 +33,15 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v22.2"
+LIVE = "v22.2.1"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
+LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
 VERSIONS = {
-    "v22.2": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
-                  files=[], lib=LIB_PY + ["earth_play.py", "earth_story.py"]),
+    "v22.2.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                    files=[], lib=LIB_V22_2),
+    "v22.2": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_2", trees=["game_tools"],
+                  files=[], lib=LIB_V22_2),
     "v22.1": dict(game="game_v22_1", engine="engine_v22_1", manifest="live_manifest_v22_1", trees=[],
                   files=["rarity_v22_1"] + OLD_HELPERS, lib=LIB_PY,
                   moved={"chroma-game/prototype": "game_v22_1", "chroma-engine/v22-speedpass": "engine_v22_1"}),
@@ -74,34 +82,54 @@ def md5(p):
     return h.hexdigest()
 
 
-# The shared folder stamps every .svg written to it with a C2PA provenance block (a new one each time, within seconds):
-# an xmlns:c2pa attribute and a <metadata><c2pa:manifest>...</c2pa:manifest></metadata> block. It is not content, so
-# an .svg is recorded and compared without it (Visuals found this on 10-09).
+# The shared folder stamps a new .svg or .webp written to it with a C2PA provenance block (a new one each time, within
+# seconds). In an .svg: an xmlns:c2pa attribute and a <metadata><c2pa:manifest>...</c2pa:manifest></metadata> block
+# (Visuals found this on 10-09). In a .webp: a "C2PA" chunk after the picture, with the RIFF size grown to hold it (the
+# v22.2.1 portraits, 10-10). It is not content, so these files are recorded and compared without it.
 C2PA = re.compile(rb"<metadata><c2pa:manifest>.*?</c2pa:manifest></metadata>", re.S)
+STAMPED = (".svg", ".webp")
 
 
-def plain(data):
+def plain_webp(data):
+    if data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+        return data
+    out, i = [], 12
+    while i + 8 <= len(data):
+        size = struct.unpack("<I", data[i + 4:i + 8])[0]
+        end = i + 8 + size + (size & 1)                          # chunks are padded to an even length
+        if data[i:i + 4] != b"C2PA":
+            out.append(data[i:end])
+        i = end
+    body = b"WEBP" + b"".join(out)
+    return b"RIFF" + struct.pack("<I", len(body)) + body
+
+
+def plain(p, data):
+    if p.endswith(".webp"):
+        return plain_webp(data)
     return C2PA.sub(b"", data, count=1).replace(b' xmlns:c2pa="http://c2pa.org/manifest"', b"", 1)
 
 
 def hashes(p):
-    """The md5s a recorded file may match: its bytes, and for an .svg also its bytes without the C2PA stamp."""
+    """The md5s a recorded file may match: its bytes, and for an .svg or .webp also its bytes without the C2PA stamp."""
     h = md5(p)
-    if not p.endswith(".svg"):
+    if not p.endswith(STAMPED):
         return {h}
     with open(p, "rb") as f:
-        return {h, hashlib.md5(plain(f.read())).hexdigest()}
+        return {h, hashlib.md5(plain(p, f.read())).hexdigest()}
 
 
-def record_md5(p):
-    if not p.endswith(".svg"):
-        return md5(p)
+def record(p):
+    """A row's md5 and size: of the file's bytes, and for an .svg or .webp of its bytes without the C2PA stamp."""
+    if not p.endswith(STAMPED):
+        return md5(p), os.path.getsize(p)
     with open(p, "rb") as f:
-        return hashlib.md5(plain(f.read())).hexdigest()
+        data = plain(p, f.read())
+    return hashlib.md5(data).hexdigest(), len(data)
 
 
 def write(dst, version):
-    rows = [f"{record_md5(p)}  {os.path.getsize(p):>9}  {os.path.relpath(p, ROOT)}" for p in listing(version)]
+    rows = ["{}  {:>9}  {}".format(*record(p), os.path.relpath(p, ROOT)) for p in listing(version)]
     open(dst, "w").write("\n".join(rows) + "\n")
     print(version + ":", len(rows), "files,", round(sum(int(r.split()[1]) for r in rows) / 1e6, 1), "MB ->", dst)
     return 0
