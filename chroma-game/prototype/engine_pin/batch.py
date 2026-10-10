@@ -610,7 +610,9 @@ def _world_fields(L):
         return WK.SPHERES.index(sp_), ("WUBRG".index(f_) if len(f_) == 1 else -1), f_
     msph = np.full(S, -1); haunt = np.full(S, -1); ladder = np.full(S, -1)
     osph = np.full((S, K), -1); ocol = np.full((S, K), -1); hpick = np.zeros(S, bool)
-    sphev = np.zeros(S, bool)   # a moment a sphere event brings (phase 3): held back until the world makes those events
+    sphev = np.full(S, -1)      # a moment a sphere event brings (phase 3): the event's index in sphere_data.EV
+    import sphere_data as SD_
+    ev_key = {e_["key"]: i_ for i_, e_ in enumerate(SD_.EV)}
     for si, src in enumerate(L["src"][:S]):
         nm = f"moment {src.get('name', si)!r}"
         if src.get("sphere"):
@@ -620,7 +622,10 @@ def _world_fields(L):
         if src.get("ladder"):
             ladder[si] = one(src["ladder"], WK.LADDER, nm)[0]
         if src.get("sphere_event"):
-            sphev[si] = True
+            k_ = str(src["sphere_event"]).strip()
+            if k_ not in ev_key:
+                raise ValueError(f"{nm}: unknown sphere_event {k_!r} (an event key of the nine sphere files)")
+            sphev[si] = ev_key[k_]
         for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
             if nt and nt.get("sphere") and ki < K:
                 osph[si, ki], ocol[si, ki], _ = sph_val(nt["sphere"], f"{nm}, option {ki + 1}")
