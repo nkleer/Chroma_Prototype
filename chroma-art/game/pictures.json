@@ -491,7 +491,33 @@
   "called as a witness against someone you know": "pics/called-as-a-witness-against-someone-you-know.webp",
   "the clerk who wants something for the licence": "pics/the-clerk-who-wants-something-for-the-licence.webp",
   "the trial of a friend": "pics/the-trial-of-a-friend.webp",
-  "the crowd at the town hall steps": "pics/the-crowd-at-the-town-hall-steps.webp"
+  "the crowd at the town hall steps": "pics/the-crowd-at-the-town-hall-steps.webp",
+  "a dealer asks for a painting in a dead master's hand": "pics/a-dealer-asks-for-a-painting-in-a-dead-master-s-hand.webp",
+  "a friend's secret would make the book": "pics/a-friend-s-secret-would-make-the-book.webp",
+  "the idea in someone else's sketchbook": "pics/the-idea-in-someone-else-s-sketchbook.webp",
+  "an advert wants your style": "pics/an-advert-wants-your-style.webp",
+  "hands that will not hold the brush": "pics/hands-that-will-not-hold-the-brush.webp",
+  "the sketch that went round the world": "pics/the-sketch-that-went-round-the-world.webp",
+  "the open submission to the great summer show": "pics/the-open-submission-to-the-great-summer-show.webp",
+  "the manuscript in the pile on the floor": "pics/the-manuscript-in-the-pile-on-the-floor.webp",
+  "the late starter at the easel": "pics/the-late-starter-at-the-easel.webp",
+  "the other side of the easel": "pics/the-other-side-of-the-easel.webp",
+  "the judge stops at your table at the craft fair": "pics/the-judge-stops-at-your-table-at-the-craft-fair.webp",
+  "art school applications": "pics/art-school-applications.webp",
+  "the degree show": "pics/the-degree-show.webp",
+  "a wall that needs a mural": "pics/a-wall-that-needs-a-mural.webp",
+  "the first commission": "pics/the-first-commission.webp",
+  "the first show": "pics/the-first-show.webp",
+  "the school needs an art teacher": "pics/the-school-needs-an-art-teacher.webp",
+  "an empty shop on the corner": "pics/an-empty-shop-on-the-corner.webp",
+  "the guild judges your masterpiece": "pics/the-guild-judges-your-masterpiece.webp",
+  "a publisher reads the manuscript": "pics/a-publisher-reads-the-manuscript.webp",
+  "a work in the national collection": "pics/a-work-in-the-national-collection.webp",
+  "a national prize for writing": "pics/a-national-prize-for-writing.webp",
+  "the painted cave at the winter camp": "pics/the-painted-cave-at-the-winter-camp.webp",
+  "the carver's mask for the dead": "pics/the-carver-s-mask-for-the-dead.webp",
+  "the queen's portrait sitting": "pics/the-queen-s-portrait-sitting.webp",
+  "the illuminated book for the cathedral": "pics/the-illuminated-book-for-the-cathedral.webp"
  },
  "domain": {
   "work": "pics/domain-work.webp",
@@ -543,5 +569,38 @@
  "texture": {
   "unwritten_future": "pics/unwritten-fabric.webp"
  },
- "texture_about": "unwritten_future: 1800x240 transparent WebP, tiles left to right; shown at about 1200x160 at the top of the screen."
+ "texture_about": "unwritten_future: 1800x240 transparent WebP, tiles left to right; shown at about 1200x160 at the top of the screen.",
+ "portrait_about": "The character's own card (the ink look, chroma-look/): by lead colour (W U B R G) and age (child under 13, youth to 25, adult to 59, elder), 420x600, 7:10, the same place for a colour at every age; drawn by chroma-art/kit/scenes_portrait.js (render_portrait.js).",
+ "portrait": {
+  "W": {
+   "child": "pics/portrait-w-child.webp",
+   "youth": "pics/portrait-w-youth.webp",
+   "adult": "pics/portrait-w-adult.webp",
+   "elder": "pics/portrait-w-elder.webp"
+  },
+  "U": {
+   "child": "pics/portrait-u-child.webp",
+   "youth": "pics/portrait-u-youth.webp",
+   "adult": "pics/portrait-u-adult.webp",
+   "elder": "pics/portrait-u-elder.webp"
+  },
+  "B": {
+   "child": "pics/portrait-b-child.webp",
+   "youth": "pics/portrait-b-youth.webp",
+   "adult": "pics/portrait-b-adult.webp",
+   "elder": "pics/portrait-b-elder.webp"
+  },
+  "R": {
+   "child": "pics/portrait-r-child.webp",
+   "youth": "pics/portrait-r-youth.webp",
+   "adult": "pics/portrait-r-adult.webp",
+   "elder": "pics/portrait-r-elder.webp"
+  },
+  "G": {
+   "child": "pics/portrait-g-child.webp",
+   "youth": "pics/portrait-g-youth.webp",
+   "adult": "pics/portrait-g-adult.webp",
+   "elder": "pics/portrait-g-elder.webp"
+  }
+ }
 }

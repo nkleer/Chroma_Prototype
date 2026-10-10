@@ -159,6 +159,7 @@ def main():
     m = re.search(r"const SOURCES = (\[[^\]]*\]);", s)
     src = json.loads(m.group(1))
     want = [f"engine_pin/{f}" for f in WLD] + [f"engine_pin/packs/{p}/{f}" for p in PK for f in PACK_FILES] + [f"engine_pin/earth_{p}.py" for p in PK]
+    want += ["engine_pin/earth_spheres.py"]          # the Library's sphere words ("Their places", lever words), read by game.py
     add = [f for f in want if f not in src]
     if add:
         i = src.index("engine_pin/foresee.py")
