@@ -754,6 +754,8 @@ DEFAULT = dict(
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
+    fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
+                         # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -963,7 +965,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -4374,6 +4376,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             hl_ = np.array([held[:, CAR] | (stage <= 2), np.ones(N, bool), np.ones(N, bool), held[:, FAI]]).T   # school is work
             Dz *= (1 - np.log(2) / (52 * np.where(hl_, P["dom_half"], P["dom_end_half"])))[:, :, None]
             Dz = np.clip(Dz - Dz.mean(2, keepdims=True), -P["dom_cap"], P["dom_cap"])
+        if WON and t % 4 == 0:   # S2 (read only, for the game): the colour shares of what surrounds them, once a month
+            around = WL.PP.around()
         if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
             if WON:
                 cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
