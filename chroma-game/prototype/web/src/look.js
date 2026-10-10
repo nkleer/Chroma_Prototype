@@ -80,16 +80,25 @@ function lightsHTML(list) {
     const a = { flame: 0.55 + 0.35 * l.a, win: 0.34 + 0.3 * l.a, beam: 0.2 + 0.2 * l.a, bulb: 0.42 + 0.32 * l.a, glow: 0.18 + 0.24 * l.a }[cls];
     const t = { flame: 1.3 + (n % 4) * 0.37, bulb: 1.5 + (n % 7) * 0.31, win: 9 + (n % 6) * 2.3, beam: 5.5 + (n % 3) * 1.4, glow: 4.5 + (n % 5) * 1.2 }[cls];
     const rgb = rgbOf(l.c);
-    return `<i class="${cls}" style="--x:${l.x};--y:${l.y};--d:${Math.max(0.012, l.d).toFixed(3)};--a:${a.toFixed(2)};--t:${t.toFixed(2)}s;--dl:${(-((n * 0.61) % 4)).toFixed(2)}s${rgb ? `;--lc:${rgb}` : ""}"></i>`;
+    return `<i class="${cls}" style="--a:${a.toFixed(2)};--t:${t.toFixed(2)}s;--dl:${(-((n * 0.61) % 4)).toFixed(2)}s${rgb ? `;--lc:${rgb}` : ""}"></i>`;
   }).join("");
 }
-// the lights box covers the picture's own box; its lights are placed where object-fit: cover puts the picture
+// the lights box covers the picture's own box; each light sits where object-fit: cover puts the picture, cut to the
+// picture's edge (its glow drawn at its own centre inside the cut), so no light reaches past the picture
 function fitLights(box) {
   const img = box._img; if (!img || !box.isConnected) { if (ro) ro.unobserve(box); return; }
   const W = box.clientWidth, H = box.clientHeight; if (!W || !H) return;
   const ar = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : box._ar;
-  const dw = W / H > ar ? W : H * ar, dh = W / H > ar ? W / ar : H;
-  box.style.cssText = `--ox:${((W - dw) / 2).toFixed(1)}px;--oy:${((H - dh) / 2).toFixed(1)}px;--dw:${dw.toFixed(1)}px;--dh:${dh.toFixed(1)}px`;
+  const dw = W / H > ar ? W : H * ar, dh = W / H > ar ? W / ar : H, ox = (W - dw) / 2, oy = (H - dh) / 2, px = (v) => v.toFixed(1) + "px";
+  [...box.children].forEach((e, n) => {
+    const l = box._ls[n]; if (!l) return;
+    const cx = ox + l.x * dw, cy = oy + l.y * dh, r = Math.max(0.012, l.d) * dw / 2;
+    const x0 = Math.max(0, cx - r), y0 = Math.max(0, cy - r), x1 = Math.min(W, cx + r), y1 = Math.min(H, cy + r);
+    if (x1 - x0 < 2 || y1 - y0 < 2) { e.hidden = true; return; }
+    e.hidden = false;
+    e.style.left = px(x0); e.style.top = px(y0); e.style.width = px(x1 - x0); e.style.height = px(y1 - y0);
+    e.style.setProperty("--r", px(r)); e.style.setProperty("--cx", px(cx - x0)); e.style.setProperty("--cy", px(cy - y0));
+  });
 }
 const ro = typeof ResizeObserver === "function" ? new ResizeObserver((es) => es.forEach((e) => safe(() => fitLights(e.target)))) : null;
 const LIVE = ".evart img, .ilpic img, .tarot .tp img";
@@ -105,7 +114,7 @@ function living(img) {
   const list = lightsOf(img.getAttribute("src"));
   if (!list || !list.length) return;
   const box = document.createElement("span"); box.className = "lk-lights"; box.setAttribute("aria-hidden", "true");
-  box._img = img; box._ar = host.closest(".tarot") ? 0.7 : 1.76;
+  box._img = img; box._ls = list; box._ar = host.closest(".tarot") ? 0.7 : 1.76;
   box.innerHTML = lightsHTML(list);
   img.after(box); img._lights = box;
   fitLights(box); if (ro) ro.observe(box);

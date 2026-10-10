@@ -26,3 +26,14 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   it gave and what it cost, by the character's trust in the player per color, and whether they were glad of it. It has no
   place of its own on the page yet, so it is the song's last stanza and also `review["last_talk"]`. earth_story.py and
   earth_play.py are pinned in engine_pin/ and listed in the worker's sources; earth_play.py is only pinned, never loaded.
+- 10-10 (thread "Visual improvement", Emren 10-10 07:30 UTC "Implement all six"): the ink look, a layer that changes no
+  lives. `look.css` and `look.js` come after app.js in the built page (build.py); look.js wraps spiderSVG, drawLine,
+  animSpider, renderHud, renderTable, renderResolution, addFeed, renderReview, renderTools and openSheet, runs each
+  original first and its own part inside `safe()`. The frame is drawn in the pictures' engraving style (paper grain,
+  double-ruled cards with ink roundels, hatched meters, wheel and river ribbons, stamped labels); pictures print in and
+  their lights flicker (chroma-art/game/lights.json); an outcome turns over and its ink flies into the wheel, which then
+  counts to its new values with the change beside each color and meter; the character has a tarot portrait by lead color
+  and age (pictures.json `portrait`, 20 new pictures) in the crest, the sheet, the plates and the end; chapter plates
+  mark the start, a first identity, a long shot made, a title and the end. For choosing: the gem shows the odds (high,
+  middle, low), a storm corner marks a card against the grain, and a lean wheel shows where the hovered card would pull
+  the colors. Table menu: Look (ink, classic) and Motion (full, calm, off). Tools in chroma-look/tools.

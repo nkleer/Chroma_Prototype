@@ -1,12 +1,12 @@
 // Renders the portrait cards ("their own tarot card"): one setting per lead colour x four ages.
 // node render_portraits.js [name ...]      names like portrait-w-child; none = all 20
-// env: OUT (default: this folder), DPR (default 3), FULL=1 also writes the whole 880x500 stage to OUT/full/ for checking,
+// env: KIT (the drawing kit, default /mnt/project-files/chroma-art/kit, read only), OUT (default: this folder), DPR (default 3), FULL=1 also writes the whole 880x500 stage to OUT/full/ for checking,
 //      SHEET=0 skips the contact sheet.
 // Card art is the portrait window x 293..587, y 40..460 of the 880x500 stage (render_card.js), saved at 420x600:
 // <name>.webp (kept under 45 KB with the webp target-size trick) and a PNG preview in OUT/png/ for the contact sheet.
 const fs = require('fs'), path = require('path'); const { execSync } = require('child_process');
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
-const { painter } = require('/mnt/project-files/chroma-art/kit/engrave');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require('/opt/node22/lib/node_modules/playwright'); } })();
+const { painter } = require(path.join(process.env.KIT || '/mnt/project-files/chroma-art/kit', 'engrave'));
 const { SCENES, ORDER } = require(path.join(__dirname, 'scenes_portrait'));
 const OUT = process.env.OUT || __dirname; const PNG = path.join(OUT, 'png'), FULL = path.join(OUT, 'full');
 fs.mkdirSync(PNG, { recursive: true }); if (process.env.FULL) fs.mkdirSync(FULL, { recursive: true });

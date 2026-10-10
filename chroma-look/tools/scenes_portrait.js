@@ -3,7 +3,8 @@
 // so the card visibly ages. Portrait art: painted on the usual 880x500 stage, the card keeps only the window
 // x 293..587, y 40..460 (render_portraits.js cuts it), but the whole stage is painted so the edges are never blank.
 // The main character is drawn gender-neutral (hair 'short', wear 'none' or 'coat'), an ink silhouette with a paper rim.
-const KIT = '/mnt/project-files/chroma-art/kit/';
+// the drawing kit is only in the shared folder (read only); KIT names another copy
+const KIT = (process.env.KIT || '/mnt/project-files/chroma-art/kit').replace(/\/?$/, '/');
 const { W, H, rng, r1 } = require(KIT + 'engrave');
 const K = require(KIT + 'props');
 const Q = require(KIT + 'props2');

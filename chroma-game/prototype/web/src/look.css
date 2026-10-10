@@ -111,10 +111,10 @@
   .ilpic .lk-lights { animation: fadein 1.4s ease both, drift 26s linear both; opacity: 1; }
   .ilpic img.gone + .lk-lights { animation: fadeout 1.4s ease both, drift 26s linear both; }
   @keyframes lklit { to { opacity: 1; } }
-  .lk-lights i { --lc: 255 204 136; position: absolute; left: calc(var(--ox) + var(--x) * var(--dw)); top: calc(var(--oy) + var(--y) * var(--dh));
-    width: calc(var(--d) * var(--dw)); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; mix-blend-mode: screen;
-    background: radial-gradient(closest-side, rgb(var(--lc) / var(--a)), rgb(var(--lc) / calc(var(--a) * 0.42)) 45%, transparent); }
-  .lk-lights i.win { border-radius: 34%; }
+  /* placed by fitLights: the box is the light cut to the picture's edge, the glow drawn at the light's own centre */
+  .lk-lights i { --lc: 255 204 136; position: absolute; left: 0; top: 0; width: 0; height: 0; mix-blend-mode: screen;
+    background: radial-gradient(circle var(--r, 0px) at var(--cx, 0px) var(--cy, 0px), rgb(var(--lc) / var(--a)), rgb(var(--lc) / calc(var(--a) * 0.42)) 45%, transparent); }
+  .lk-lights i.win { background: radial-gradient(circle var(--r, 0px) at var(--cx, 0px) var(--cy, 0px), rgb(var(--lc) / var(--a)), rgb(var(--lc) / calc(var(--a) * 0.5)) 55%, transparent); }
   .lk-lights i.beam { opacity: 0.8; }
   :where(html[data-motion="full"]) .lk-lights i.flame { animation: lkflicker var(--t) steps(1, end) var(--dl) infinite; }
   :where(html[data-motion="full"]) .lk-lights i.bulb { animation: lkshimmer var(--t) ease-in-out var(--dl) infinite alternate; }

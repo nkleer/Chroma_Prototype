@@ -1,6 +1,8 @@
-// Tour of the live look: start spread, first screen, a moment, an outcome. Usage: node tour.js URL OUTDIR WIDTH HEIGHT
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
-const T = '/home/user/Chroma_Prototype/chroma-game/prototype/test/';
+// Screenshots of a build in the ink look: the start spread, the first screen, a moment, an outcome (with page errors).
+// node tour.js URL OUTDIR [WIDTH] [HEIGHT]   (URL of a served build, e.g. chroma-game/prototype/test/serve.py)
+const path = require('path');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require('/opt/node22/lib/node_modules/playwright'); } })();
+const T = path.join(__dirname, '..', '..', 'chroma-game', 'prototype', 'test') + '/';
 const { startLife, idleOf, nextOf } = require(T + 'start.js');
 const [url, out, W, H] = [process.argv[2], process.argv[3], +(process.argv[4] || 1280), +(process.argv[5] || 860)];
 (async () => {
