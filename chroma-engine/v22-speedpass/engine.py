@@ -393,6 +393,12 @@ DEFAULT = dict(
     # v4 pent-up demand (Emren's vectors, 2026-10-04): wanting that is blocked builds pressure; inertia holds it
     # back until it crystallises into a breakthrough (Baumeister 1994, "the crystallization of discontent")
     skill_gain=0.02, skill_fade=0.005,    # skillset: weekly gain with practice, fading without (v3 had 0.0005: everyone became skilled at everything)
+    # v22.3 (Emren 10-10: choices must lead somewhere; steer_check found white and blue acts failing two to four times as
+    # often as the others, the least offered colors staying the least practised): what one holds is practice too. Each
+    # week the commitments held (their profiles, weighted by investment, at most one act's worth in all) count as
+    # role_practice of a week's act in their ways, and draw the people around one toward them at role_niche of the
+    # niche's own pace (colleagues, a congregation, a household). 0 and 0: v22.1's lives
+    role_practice=0.5, role_niche=0.5,
     # the outside world (v4): personal events and eras. Acceptance of a message is
     # tanh(acc0 + acc_fit*fit with mindset + acc_disc*discontent + acc_open*openness + acc_conf*group lean (social sources)
     #      - acc_hold*holding what it would take); negative acceptance is pushing back (reactance)
@@ -2487,6 +2493,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
         sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
+        if P["role_practice"] or P["role_niche"]:   # v22.3: the ways of what one holds, at most one act's worth a week
+            rw_ = np.einsum("nk,nkc->nc", held * I, prof); rs_ = rw_.sum(1, keepdims=True)
+            rw_ = rw_ / np.maximum(rs_, 1.0) * ~dead[:, None]
+            sig += P["role_practice"] * P["skill_gain"] * rw_ * (1 - sig)
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -3561,6 +3571,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         stress = _uclip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -fdelta), 0, 3)
         B *= decay_B; TWo *= decay_B
         nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * (P["world_profile"] - nic) + P["era_niche"] * e_i * (e_p - nic)
+        if P["role_niche"]:   # v22.3: the people of one's commitments, in their ways
+            rsum_ = rw_.sum(1, keepdims=True)
+            nic += P["role_niche"] * P["nu_niche"] * rsum_ * (rw_ / np.maximum(rsum_, 1e-9) - nic)
         if P["turnover"]:   # v6: the people around you change: new colleagues, friends, neighbours bring their own ways
             new_ = rng.random(N) < 1 / (52 * P["turn_years"])
             moved = new_.astype(float)
