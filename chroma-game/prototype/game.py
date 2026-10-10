@@ -990,6 +990,17 @@ class Game:
         # the scene, and what the character thinks about the act they lean toward
         m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s))
         self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
+        self._social_slots(m, loc, s)                   # v22.4: the places, post or price the moment is about
+        if m["ctx"].get("_social"):                     # and its options' own slots, as its scene fills them
+            for o in opts:
+                o["label"] = self.story.slots_in(o["label"], m)
+        try:
+            sr = self._seen_rows(loc, s)                # S6: "seen it done" on the option row
+        except Exception:
+            sr = None
+        for o in opts if sr else ():
+            if o["idx"] in sr and o["colors"] != "-":   # never on doing nothing
+                o["seen"] = sr[o["idx"]]
         lean = next((o for o in opts if o["idx"] == own), None)
         thought = ""
         if lean is not None and lean["colors"] != "-":
@@ -1580,6 +1591,284 @@ class Game:
         who = self._cast_who(int(cid)) if slot and cid is not None else None
         if who is not None and "_p_" + slot not in m["ctx"]:
             m["ctx"][slot] = who[1]
+
+    # ------------------------------------------------------------------ v22.4's social mechanics (S1, S3 to S7): display only
+    def _pron(self):
+        """The character's object and possessive pronoun, by the gender they live as (N1d): her, him or them."""
+        try:
+            g = self.gender_view()["self"] if self.loc is not None else None
+        except Exception:
+            g = None
+        return {"f": ("her", "her"), "m": ("him", "his")}.get(g, ("them", "their"))
+
+    def _place_word(self, p):
+        """A place of theirs by its plain name: a haunt by the Library's name for it ("the Curtain Call"), a setting's
+        place by its own ("the house of worship"); "" for none."""
+        if not isinstance(p, dict) or ESP is None:
+            return ""
+        if isinstance(p.get("place"), str):
+            return p["place"]
+        k = p.get("kind")
+        if k is None:
+            return ""
+        ns = (ESP.HAUNT.get(k) or {}).get("names") or [(ESP.PLACE.get(k) or {}).get("name", "")]
+        return str(ns[int(p.get("name", 0)) % len(ns)]) if ns and ns[0] else ""
+
+    def _name_word(self, rep):
+        """S3: their name at a place in the Library's words (earth_spheres.PLACE_NAME), from the engine's rep (-1 to 1)."""
+        pn = getattr(ESP, "PLACE_NAME", None) or [(-1, "known")]
+        return next((w for r, w in pn if float(rep) >= r), pn[-1][1])
+
+    def _read_clause(self, face, act, side):
+        """S3: how a place read an act (earth_spheres.READ "face.act", gift or danger): a clause after "thinks you"."""
+        if not face or not act or side not in ("gift", "danger"):
+            return ""
+        return (getattr(ESP, "READ", {}).get(f"{face}.{act}") or {}).get(side, "")
+
+    def _fair_lines(self, PP):
+        """S1 (fair_read): per sphere that reads fair or unfair to them, the line for its hover in "their places": "Feels
+        unfair to her: the council decided behind closed doors and gave no reason." Unfair names the part that pulls it
+        down most, fair the part that holds it up most. None while the switch is off."""
+        fi = PP.fair_info(0) if hasattr(PP, "fair_info") and ESP is not None else None
+        if not fi:
+            return None
+        obj = self._pron()[0]; out = {}
+        FP, FS = getattr(ESP, "FAIR_PART", {}), getattr(ESP, "FAIR", {})
+        for sp, d in fi.items():
+            f_, parts = float(d.get("fair", 0.5)), d.get("parts") or {}
+            if f_ < FAIR_SIDE[0]:
+                side, part = "unfair", d.get("weakest") or (min(parts, key=parts.get) if parts else None)
+            elif f_ > FAIR_SIDE[1]:
+                side, part = "fair", max(parts, key=parts.get) if parts else None
+            else:
+                continue
+            w = (FS.get(f"{sp}.{part}") or FP.get(part) or {}).get(side)
+            if w:
+                out[sp] = dict(side=side, part=(FP.get(part) or {}).get("name", part), line=f"Feels {side} to {obj}: {w}.")
+        return out or None
+
+    def _eyes_word(self, e):
+        """S3, S4: one place's eyes on them, for its hover: their name there, its last word on what they did (the
+        reading as a clause), a go-between there, and with sph_odd whether they are the odd one out, blended in or held on."""
+        d = dict(rep=round(float(e.get("rep", 0.0)), 2), name_word=self._name_word(e.get("rep", 0.0)),
+                 read=self._read_clause(e.get("face"), e.get("act"), e.get("side")), go=bool(e.get("go_between")))
+        if "odd" in e:
+            d.update(odd=bool(e["odd"]), blended=bool(e.get("blended")), held=bool(e.get("held")))
+        return d
+
+    def _social_places(self, WL, hi, P):
+        """v22.4 on "their places", each part only while its engine switch is on (nothing is added while off): S1's
+        fairness line per sphere, S3's name and last word at each haunt and the places their settings meet (with S4's odd
+        one out), and S7's posts they lead now."""
+        PP = WL.PP
+        try:
+            fl = self._fair_lines(PP)
+            if fl:
+                P["fair"] = fl
+        except Exception:
+            pass
+        if getattr(PP, "eyes_on", False):
+            try:
+                ei = PP.eyes_info(0) or []
+            except Exception:
+                ei = []
+            byid, sets = {}, []
+            for e_ in ei:
+                pl = e_.get("place") or {}
+                if int(pl.get("slot", 0)) >= 3:
+                    sp = pl.get("sphere")
+                    sets.append(dict(self._eyes_word(e_), name=self._place_word(pl), sphere=sp,
+                                     sphere_name=(ESP.SPHERE.get(sp) or {}).get("name", sp), setting=pl.get("kind", ""),
+                                     lead=str(pl.get("face") or e_.get("face") or "")[-1:], lead_name=pl.get("face_name", "")))
+                else:
+                    byid[int(pl.get("place", -1))] = self._eyes_word(e_)
+            for h, h0 in zip(P["haunts"], hi["haunts"]):
+                d_ = byid.get(int(h0.get("place", -2)))
+                if d_:
+                    h.update(d_)
+            if sets:
+                P["settings"] = [x for x in sets if x["name"]]
+        try:
+            posts = self._posts_view(WL)
+        except Exception:
+            posts = None
+        if posts:
+            P["posts"] = posts
+
+    def _post_place(self, p):
+        """S7: the plain name of what a post leads, the lead moments' {place}, in the Library's words (earth_spheres): a
+        title's place (LEAD_PLACE), the setting led (SETTING_PLACE), a named place by its name, else the sphere's
+        (SPHERE_PLACE)."""
+        pl = p.get("place") or {}
+        LP, SP = lead_words("LEAD_PLACE"), lead_words("SETTING_PLACE")
+        if pl.get("title") in LP:
+            return LP[pl["title"]]
+        pk = str(p.get("post_kind") or "")
+        st = pl.get("setting") or (pk[len("setting_"):] if pk.startswith("setting_") else None)
+        if st in SP:   # "setting_member_led" is a post kind, no setting: on to the place or the sphere
+            return SP[st]
+        nm = self._place_word(pl) if pl.get("kind") else ""
+        return nm or lead_words("SPHERE_PLACE").get(p.get("sphere") or pl.get("sphere")) or "the place"
+
+    def _posts_view(self, WL):
+        """S7 (lead_ways): the posts they lead now, for "their places": what they lead, their way (the Library's words, the
+        game's colour), how accepted they are, since when, terms and falls. None while the switch is off, nothing is led
+        or the Library has no words for the ways yet."""
+        LW, LL = lead_words("LEAD_WAY"), lead_words("LEAD_LEGIT")
+        if not getattr(WL, "lw", False) or not LW or not LL:
+            return None
+        out = []
+        for p_ in WL.lead_info(0) or []:
+            if p_.get("end") is not None:
+                continue
+            w_ = p_.get("way")
+            lg = float(p_.get("legit", 0.5)); title = (p_.get("place") or {}).get("title")
+            sp = p_.get("sphere")
+            out.append(dict(name=self._post_place(p_), title=self.gword(title) if title else "", kind=p_.get("kind"),
+                            sphere=sp, sphere_name=(ESP.SPHERE.get(sp) or {}).get("name", sp) if ESP is not None else sp,
+                            way=LW.get(w_, str(w_ or "")), colour=LEAD_COLOUR.get(w_, p_.get("colour") or ""),
+                            legit=round(lg, 2), legit_word=next((w for v, w in LL if lg >= v), LL[-1][1]),
+                            since=round(float(p_.get("start") or 0.0), 1), terms=int(p_.get("terms") or 0),
+                            falls=len(p_.get("falls") or ())))
+        return out or None
+
+    def _lines_view(self):
+        """S5 (sacred): the lines they will not cross, for the sheet: its kind, the Library's name for it, one "will not"
+        clause, its colour, the age it formed and how it stands (whole, held, crossed or healed). None while off."""
+        WL = self.loc.get("WL") if isinstance(self.loc, dict) else None
+        PP = getattr(WL, "PP", None)
+        if PP is None or not getattr(PP, "sac_on", False) or ESP is None or not hasattr(ESP, "LINE"):
+            return None
+        import world_keys as WK_
+        out = []
+        for j in range(PP.sac_line.shape[1]):
+            k = int(PP.sac_line[0, j])
+            if k < 0:
+                continue
+            kind = WK_.SACRED_KINDS[k]; LN = ESP.LINE.get(kind) or {}
+            wn = LN.get("will_not") or [""]
+            held, crossed = int(PP.sac_held[0, j]), int(PP.sac_crossed[0, j])
+            state = ("healed" if int(PP.sac_wound[0, j]) < -10 ** 6 else "crossed") if crossed else "held" if held else "whole"
+            out.append(dict(kind=kind, name=LN.get("name", kind), will_not=wn[(self.seed + k) % len(wn)], colour=COLORS[k],
+                            formed=round((int(PP.sac_t[0, j]) - WL.t0) / 52, 1), state=state, held=held, crossed=crossed))
+        return out or None
+
+    def _lines_closing(self):
+        """S5: the closing paragraph's line per sacred line tested in the life (LINE held, crossed or healed)."""
+        try:
+            lines = self._lines_view() or []
+        except Exception:
+            return ""
+        out = [self.story.fill((ESP.LINE.get(x["kind"]) or {}).get(x["state"], "")) for x in lines if x["state"] != "whole"]
+        return " ".join(x_ for x_ in out if x_)
+
+    def _talk_told(self, t, loc, c):
+        """S3: a go-between brings a place's reading back ("Cato says the Curtain Call thinks you kept to the rules"), at
+        most once in TALK_AGAIN weeks at the normal level and once in TALK_QUIET in the detailed story."""
+        if self.burn_in or ESP is None or not hasattr(ESP, "TALK"):
+            return
+        told = self.__dict__.setdefault("_talk_t", [-10 ** 6, None])
+        kind = c.get("talk") if c.get("talk") in ESP.TALK else "good"
+        pl = self._place_word(c.get("place"))
+        gap = t - told[0]
+        if (pl, kind) == told[1] and kind == "good":
+            gap /= 3                                    # the same good word from the same place: once in three times as long
+        lvl = 1 if gap >= TALK_AGAIN else 2 if gap >= TALK_QUIET else 9
+        if lvl > self.detail:
+            return
+        read = self._read_clause(c.get("face"), c.get("act"), c.get("told") or c.get("side"))
+        who = self._cast_who(int(c.get("go", -1))) if read and pl else None
+        if who is None:
+            return
+        tpl = ESP.TALK[kind]
+        text = tpl[int(t) % len(tpl)].replace("{go}", who[1]).replace("{place}", pl).replace("{read}", read)
+        told[0], told[1] = t, (pl, kind)
+        self._say(mk("N", f"{kind}|{pl}", cap_first(text)), lvl, "talk", kind=kind, place=pl)
+
+    def _line_told(self, t, c):
+        """S5: the year a sacred line forms, the Library's line for it (LINE formed)."""
+        if c.get("what") != "line" or ESP is None or not hasattr(ESP, "LINE"):
+            return
+        LN = ESP.LINE.get(c.get("line")) or {}
+        if LN.get("formed"):
+            self._say(mk("S", f"{c.get('line')}|{c.get('colour', '')}", self.story.fill(LN["formed"])), int(self.burn_in),
+                      "line", kind=c.get("line"))
+
+    def _seen_who(self, d, WL):
+        """S6: the model as the option row names them ("her aunt Mira"), a public figure by name; None if unknown."""
+        if d.get("figure") is not None and WL is not None:
+            from worldview import FIG_SOC
+            return self.wv.fig(int(d["figure"]) + FIG_SOC * EngineWorld.soc(WL))
+        if d.get("who") is None:
+            return None
+        who = self._cast_who(int(d["who"]))
+        if who is None:
+            return None
+        w_, nm = who
+        if w_.startswith("their "):
+            return self._pron()[1] + w_[len("their"):]
+        return nm
+
+    def _seen_rows(self, loc, s):
+        """S6 (seen_done): per option of moment s, the row "Mira has seen it done: her aunt Ines" (SEEN_ROW says which
+        options carry one): kind, the short word and the Library's sentence (earth_spheres.SEEN). None while off."""
+        WL = loc.get("WL")
+        if not getattr(WL, "seen_on", False) or ESP is None or not hasattr(ESP, "SEEN"):
+            return None
+        info = WL.seen_info(0, s) or []
+        out = {}
+        for k, d in enumerate(info):
+            if not d or d.get("kind") not in SEEN_ROW["path" if d.get("path") is not None else "way"]:
+                continue
+            kind = d["kind"]
+            who = self._seen_who(d, WL) if kind != "none" else ""
+            if who is None:
+                continue
+            tpl = ESP.SEEN.get(kind) or []
+            if not tpl:
+                continue
+            text = self.story.fill(tpl[(self.seed + s + k) % len(tpl)].replace("{who}", who))
+            out[k] = dict(kind=kind, word=SEEN_MARK.get(kind, kind), text=text)
+        return out or None
+
+    def _seen_dream_told(self, t, d):
+        """S6: a dream seeded from someone they watched (8 to 20): the Library's SEEN dream line."""
+        if ESP is None or not hasattr(ESP, "SEEN") or not ESP.SEEN.get("dream"):
+            return
+        who = self._seen_who(d, self.loc.get("WL") if isinstance(self.loc, dict) else None)
+        if who is None:
+            return
+        tpl = ESP.SEEN["dream"]
+        self._say(self.story.fill(tpl[int(t) % len(tpl)].replace("{who}", who)), 1 + int(self.burn_in), "seen", kind="dream",
+                  path=d.get("path", ""))
+
+    def _social_slots(self, m, loc, s, ev=None):
+        """v22.4's moments name what they are about (the Library's #103, #106, #107): a caught-between moment its two
+        places ({place_a}, {place_b}), an odd-one-out its place and a lead moment the post's ({place}), a sacred offer its
+        price ({offer}; there {place} stays the town). From the logged moment's own word, or at a checkpoint from the
+        engine's on the moment waiting (eyes_info, lead_info, sacred_info; read only)."""
+        if m is None:
+            return
+        cw = str(self.L["src"][s].get("cast_want") or "")
+        if cw not in ("caught", "odd", "sacred", "tragic", "amends") and not cw.startswith("lead_"):
+            return
+        WL = loc.get("WL"); ctx = m["ctx"]; ctx["_social"] = True
+        try:
+            if cw in ("caught", "odd"):
+                ei = ev.get("eyes") if ev is not None else WL.eyes_info(0, s) if hasattr(WL, "eyes_info") else None
+                for k_ in ("place_a", "place_b", "place"):
+                    if ei and ei.get(k_) and k_ not in ctx:
+                        ctx[k_] = self._place_word(ei[k_])
+            elif cw.startswith("lead_"):
+                li = ev.get("lead") if ev is not None else WL.lead_info(0, s) if getattr(WL, "lw", False) else None
+                if li and "place" not in ctx:
+                    ctx["place"] = self._post_place(li)
+            else:
+                si = ev.get("sacred") if ev is not None else WL.sacred_info(0, s) if hasattr(WL, "sacred_info") else None
+                if si and si.get("offer") and "offer" not in ctx:
+                    ctx["offer"] = si["offer"]
+        except Exception:
+            pass
 
     def _want_why_rows(self, circle):
         """F5 on the circle's hover: a want that came of a far event carries its cause; a far want gets its own words."""
@@ -2350,6 +2639,7 @@ class Game:
             m = cpw["cp"]["moment"] if cpw is not None else self.story.moment(t, sit, stage, age, kind, kills)
             if cpw is None and sev:
                 self._far_moment(m, loc, s, sev[0])     # far_ties: the far moment's tie, town and event (Library slots)
+                self._social_slots(m, loc, s, sev[0])   # v22.4: the places, post or price the moment is about
         GR = L.get("ROLES") if loc.get("RON") else None
         fold, folded = {}, set()      # a title that came with a commitment started this week is told in the commitment's line
         gained_now = set()            # titles gained this week: a facet that came with one (newlywed) shows on the HUD only
@@ -2548,6 +2838,12 @@ class Game:
                     self._lever_told(t, loc, ev["sphere_lever"])
                 elif "cast" in ev and ev["cast"].get("kind") in ("far", "taken in", "want"):
                     self._far_told(t, loc, ev["cast"])  # far_ties: a close tie's news, a tie taken in, a want's cause
+                elif "cast" in ev and ev["cast"].get("kind") == "talk":
+                    self._talk_told(t, loc, ev["cast"])  # S3: a go-between brings a place's word on them
+                elif "cast" in ev and ev["cast"].get("kind") == "sacred":
+                    self._line_told(t, ev["cast"])      # S5: a sacred line forms
+                elif isinstance(ev.get("seen"), dict) and ev["seen"].get("kind") == "dream":
+                    self._seen_dream_told(t, ev["seen"])   # S6: a dream seeded from someone they watched
                 if line:
                     self._say(line, 0, tag, **meta)
                     if self.ledger:
@@ -2933,6 +3229,12 @@ class Game:
         pv = self.places_view()
         if pv:
             d["places"] = pv
+        try:
+            ln = self._lines_view()                     # S5: the lines they will not cross, while sacred is on
+        except Exception:
+            ln = None
+        if ln:
+            d["lines"] = ln
         wd = self.world_data()
         if wd:                                          # the outer world: the named cast by layer, and reach by standing
             d["circle"] = self.wv.circle(wd[2], self.t, self.cast_names(wd[2])); d["reach"] = self.wv.reach(wd[3])
@@ -3183,7 +3485,12 @@ class Game:
                                 lead_name=nm(ESP.FACE, v["leads"])) for s_, v in sp.items()), key=lambda x: -x["hours"])
         except Exception:
             town = []
-        return dict(haunts=haunts, rungs=rungs, town=town)
+        P = dict(haunts=haunts, rungs=rungs, town=town)
+        try:
+            self._social_places(WL, hi, P)              # v22.4 (S1, S3, S4, S7): only while their switches are on
+        except Exception:
+            pass
+        return P
 
     def world_data(self):
         """What the outer world shows now (world-hooks-for-engine.md), or None while the engine has no world."""
@@ -3275,6 +3582,8 @@ class Game:
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
+            if o.get("seen"):                           # S6, only while seen_done is on
+                opts[-1]["seen"] = o["seen"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
@@ -3510,6 +3819,9 @@ class Game:
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
         self.review["story"] = life_paragraph(self.story.fill("{N}"), h, self.review, self.setting)
+        cl = self._lines_closing()                           # S5: how their sacred lines stood at the end
+        if cl:
+            self.review["story"] += "\n\n" + cl
         self.review["voice"] = self.voice_review(h)          # item 3: the voice's last sentence and the Book's line
         vr = self.review["voice"] or {}
         if vr.get("end"):                                    # the voice's last sentence closes the song, before the last talk
@@ -3685,6 +3997,27 @@ FAR_SAY = dict(
               far_mixed="to talk over news from their town, good and hard"),
 )
 FAR_AGAIN = 26           # weeks before the same tie's far news is told again at the normal level
+
+# v22.4's social mechanics on the page (chroma-ideas/social-mechanics.md S1, S3 to S7; the Engine's fields in
+# chroma-engine/notes/v22.4-fields/, the Library's words in earth_spheres.py). FAIR_SIDE: a sphere's felt fairness under the
+# first reads unfair on its hover (.5 is even), over the second fair (the engine's own line for loyalty and voice); between,
+# no line. TALK_AGAIN: weeks between two go-betweens' words at the normal level (a life hears one for most acts, about ten
+# a year; the same good word from the same place waits three times as long); TALK_QUIET: the same for the detailed story.
+# LEAD_COLOUR: the colour of each way to lead, W U B R G (the ways' words, legitimacy words and the places a post leads
+# are the Library's: earth_spheres LEAD_WAY, LEAD_LEGIT, LEAD_PLACE, SETTING_PLACE, SPHERE_PLACE). SEEN_ROW: S6's row
+# shows on an option on a path (a title it gives or aims at) for every word, on one in a colour way only when they saw
+# that way go wrong (nearly every life has seen each way done, the Engine's own finding); SEEN_MARK: the row's short word
+# (the page marks none only on the hover)
+FAIR_SIDE = (0.5, 0.65)
+TALK_AGAIN, TALK_QUIET = 52, 8
+LEAD_COLOUR = dict(rules="W", knowing="U", favours="B", inspiring="R", custom="G")
+SEEN_ROW = dict(path=("seen", "none", "wrong", "far"), way=("wrong",))
+SEEN_MARK = dict(seen="seen it done", wrong="saw it go wrong", far="seen it, far off", none="never seen it done")
+
+
+def lead_words(name):
+    """S7: one of the Library's tables for ways to lead (earth_spheres), empty in a pin from before it had them."""
+    return getattr(ESP, name, None) or {}
 
 
 def cap_first(s):
