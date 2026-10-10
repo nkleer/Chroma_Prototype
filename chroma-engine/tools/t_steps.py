@@ -245,7 +245,7 @@ for label, sw, ok in RO_:
     t0 = time.process_time(); fails = []; ds = []
     for on in (False, True):
         W_ = _wm.World(4, cfg=dict(params={sw: on})); W_.burn_in(20)
-        Pd = dict(E.DEFAULT); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on
+        Pd = dict(E.DEFAULT, **E.UPD_OFF); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on   # the rest off, as written
         ds.append(digest(E.run(N=2, years=6, seed=4, lib=EARTH, P=Pd)))
         if on and not ok(W_):
             fails.append("switched on, the world carries no sphere state")
@@ -286,6 +286,19 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
+        dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("ways to lead and the leader's time in post (lead_ways; with the levers and the events)",
+        dict(lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40, 10),
+       # (10 lives: with v22.3's DEFAULT the row's two lives hold no post in 80 years, so lead_ways had nothing to move)
+       ("sacred lines (sacred; with the events and C3; lines quick to form, offers to all they fit, decided off-screen)",
+        dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
+             sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("seen it done (seen_done; with the haunts)",
+        dict(seen_done=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
@@ -297,15 +310,21 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(c2_groups=True, c3_inst=True, c5_faith=True), dict(c3_inst=True, c5_faith=True), 40),
        ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
        ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
-       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30),
+       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 60),
        ("the K2 and K6 rule fixes, moves near and far and season steps at their shares (move_near, season_excl)",
-        dict(move_near=True, season_excl=True), {}, 30)]
-for label, sw, base, yrs in P2_:
+        dict(move_near=True, season_excl=True), {}, 30),
+       ("what one holds is practice too (role_practice)", dict(role_practice=True), {}, 30),
+       ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
+       ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
+       ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30),
+       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
+for row_ in P2_:
+    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
-    kw = dict(N=2, years=yrs, seed=4, lib=EARTH, P=Pd)
+    kw = dict(N=n_, years=yrs, seed=4, lib=EARTH, P=Pd)
     o1 = E.run(**kw); g = E.run_steps(**kw); msg = next(g)
     while True:
         try:
@@ -317,7 +336,8 @@ for label, sw, base, yrs in P2_:
     diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
     if diff:
         fails.append(f"run_steps differs in {diff[:4]}")
-    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **base))))
+    off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
+    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
     if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
         fails.append("switched on, the lives are those with it off")
     bad += bool(fails)

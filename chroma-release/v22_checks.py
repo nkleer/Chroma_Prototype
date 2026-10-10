@@ -102,13 +102,14 @@ CHECKS = [
      "cp earth.py {W}/earth.py.live && python3 -B build.py earth | tail -3 && cmp earth.py {W}/earth.py.live && echo REBUILT-SAME",
      "re:^REBUILT-SAME", (), "earth.py rebuilds byte for byte from its .lib sources"),
     ("build_packs", "C-L1", "Library", "quick", 1, "chroma-library",
-     "for p in science politics stage; do rm -rf {W}/b_$p; mkdir -p {W}/b_$p; cp ../chroma-packs/$p/$p-*.lib build.py earth_voice.py {W}/b_$p/; "
+     "for p in science politics stage art; do if [ ! -d ../chroma-packs/$p ]; then echo \"$p: not in this commit\"; continue; fi; rm -rf {W}/b_$p; mkdir -p {W}/b_$p; cp ../chroma-packs/$p/$p-*.lib build.py earth_voice.py {W}/b_$p/; "
      "(cd {W}/b_$p && python3 -B build.py $p | tail -2) && cmp {W}/b_$p/$p.py earth_$p.py && echo \"$p REBUILT-SAME\" || exit 1; done",
      "re:stage REBUILT-SAME", (), "each pack's compiled earth_<pack>.py rebuilds byte for byte from chroma-packs/<pack>/*.lib"),
     ("balance", "C-L1", "Library", "quick", 1, "chroma-library", "python3 -B check.py earth.py && cat checks_earth.md", "same", (),
      "balance per stage, drivers and echoes, chance per color, Schwartz agreement"),
     ("setting", "C-L2", "Library", "quick", 1, "chroma-library",
-     "python3 -B drafts/check_setting.py && python3 -B drafts/check_setting.py ../chroma-packs/science ../chroma-packs/politics ../chroma-packs/stage",
+     "python3 -B drafts/check_setting.py && python3 -B drafts/check_setting.py ../chroma-packs/science ../chroma-packs/politics ../chroma-packs/stage"
+     " $(ls -d ../chroma-packs/art 2>/dev/null)",
      "re:^setting: no year", (), "timeless modern setting in every player string (Library parts, dreams, voice, catalogue, packs)"),
     ("voice", "C-L3", "Library", "quick", 1, "chroma-library", "python3 -B drafts/check_voice.py earth_voice.py", "rc", (),
      "the inner voice and lessons"),
@@ -124,13 +125,13 @@ CHECKS = [
      "same", (), "reach and repeats against each moment's gap, 400 lives"),
     # ---- Packs
     ("pack_check", "C-P1", "Packs", "quick", 1, "chroma-packs/tools",
-     "for p in science politics stage; do python3 -B check_pack.py $p || exit 1; done", "rc", (),
+     "for p in science politics stage art; do if [ ! -d ../$p ]; then echo \"$p: not in this commit\"; continue; fi; python3 -B check_pack.py $p || exit 1; done", "rc", (),
      "catalogue fields, color balance, references, names"),
     ("pack_stats", "C-P2", "Packs", "quick", 1, "chroma-packs",
-     "for p in science politics stage; do echo \"== $p\"; python3 -B tools/lib_stats.py $p/*.lib || exit 1; done", "same", (),
+     "for p in science politics stage art; do if [ ! -d $p ]; then echo \"$p: not in this commit\"; continue; fi; echo \"== $p\"; python3 -B tools/lib_stats.py $p/*.lib || exit 1; done", "same", (),
      "chance per means color per stage; tags"),
     ("pack_balance", "C-P4", "Packs", "quick", 1, "chroma-library",
-     "for p in science politics stage; do python3 -B check.py earth_$p.py && cat checks_earth_$p.md || exit 1; done", "same", (),
+     "for p in science politics stage art; do if [ ! -f earth_$p.py ]; then echo \"$p: not in this commit\"; continue; fi; python3 -B check.py earth_$p.py && cat checks_earth_$p.md || exit 1; done", "same", (),
      "the Library's balance check on each compiled pack"),
     # ---- Engine (the C-X2 share of the v22 record, calib_v10/cx2/jobs.txt, plus the rows that ran elsewhere)
     ("score21", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS=" + PACKS3 + " python3 -B calib_v8/score_packs.py '{{}}' 600 21",
@@ -246,6 +247,44 @@ for sid, target, what in STEERED:
     CHECKS.append((sid, "steered", "Game", "full", 4, "chroma-game/prototype", f"STEER_CACHE={{W}}/steer_cache python3 -B {STEER} {target}",
                    f"re:^STEER {target}: PASS", (), what))
 
+# v22.4's refit targets (records/v22.4/scope.md rows G6 to G11, G12's own_even and G19), each the owner's own tool judging
+# its own target on the commit (the tool switches its mechanic on where DEFAULT has it off). --only @v22.4 runs them all.
+# A row that reads another's stats file waits on it. On a commit without the tool the row fails: they are v22.4's rows.
+FAIR = "python3 -B chroma-engine/tools/fair_check.py {} 300 7 --years 80 --stats {{W}}/fair_300_7.json"
+EYES = "python3 -B chroma-engine/tools/eyes_check.py {} 300 7 --stats {{W}}/eyes_300_7.json"
+V224 = [
+    ("s1_parts", "G6", 1, FAIR.format("all") + "; " + FAIR.format("s1_parts"), "re:^PASS s1_parts", (),
+     "S1: every sphere carries all five parts (300 lives x 80 years, seed 7, world and fair_read on; its first run makes "
+     "the stats the other two read)"),
+    ("s1_counts", "G6", 1, FAIR.format("s1_counts"), "re:^PASS s1_counts", ("s1_parts",), "S1: the five parts' event counts within 1.5x"),
+    ("s1_fair", "G6", 1, FAIR.format("s1_fair"), "re:^PASS s1_fair", ("s1_parts",), "S1: mean fair per lead colour within .03"),
+    ("s3_rep", "G7", 1, EYES.format("s3_rep"), "re:^PASS s3_rep", (),
+     "S3: mean rep change per lead colour within .03 (300 lives, seed 7; makes the stats the S3 and S4 rows read)"),
+    ("s3_caught", "G7", 1, EYES.format("s3_caught"), "re:^PASS s3_caught", ("s3_rep",), "S3: caught-between moments per enemy pair within 1.5x"),
+    ("s4_odd", "G8", 1, EYES.format("s4_odd"), "re:^PASS s4_odd", ("s3_rep",), "S4: odd-one-out life-years per lead colour within 1.2x"),
+    ("s4_convert", "G8", 1, EYES.format("s4_convert"), "re:^PASS s4_convert", ("s3_rep",), "S4: conversions per lead colour within 1.5x"),
+    ("s5_lines", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py lines", "re:^s5_lines: ok", (),
+     "S5: sacred lines per colour against its share of lead years within 1.5x (seeds 31 to 34 x 300 x 80 years)"),
+    ("s5_money", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py money", "re:^s5_money: ok", (),
+     "S5: money lost per lead colour within 1.2x"),
+    ("s6_felt", "G10", 1, "python3 -B chroma-engine/tools/seen_check.py 60 7 80", "re:^S6_FELT OK", (),
+     "S6: mean felt-odds lift per colour way within .01 (60 lives x 80 years, seed 7)"),
+    ("s7_lead", "G11", 1, "python3 -B chroma-engine/tools/lead_check.py --lives 300 --years 80 --seeds 41,42", "re:^ALL PASS", (),
+     "S7: falls per way per 10 post-years within 1.5x (20 falls a way at least); years in post per lead colour within 1.2x"),
+    ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
+     "python3 -B chroma-engine/tools/choice_check.py run 120 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
+     "python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz",
+     "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
+     "below unsteered; perks at 50 (90th percentile) <= 27 (480 lives, 80 a group; about 90 minutes on 4 cores)"),
+]
+for cid, row, cores, cmd, rule, after, what in V224:
+    CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))
+CHECKS.append(("own_even", "G12", "Game", "full", 4, "chroma-game/prototype",
+               "STEER_CACHE={W}/steer_cache CHROMA_GAME='{{\"own_ix\": true}}' python3 -B " + STEER + " own_even",
+               "re:^STEER own_even: PASS", (), "S2: years until a way becomes theirs in light-steered lives (12 seeds, to 40) "
+               "within 1.2x across colours (the Game's #142; its switch own_ix on)"))
+V224_IDS = [c[0] for c in V224] + ["own_even"]
+
 # Backend plan item 3: each owner's fast check, about 2 minutes on 4 cores, run after every edit (--level fast). These are
 # the release thread's proposals from the quick level's times (out/v22checks_20261008-122526); each owner confirms or
 # names its own, and changes its own line here.
@@ -262,9 +301,9 @@ TSTEPS = "chroma-engine/tools/t_steps.py"
 # Files a check reads through a shell tool (cp, cmp, cat), which the proof recorder cannot see (paths in the work tree)
 EXTRA = {
     "build_earth": ["chroma-library/earth.py"],
-    "build_packs": ["chroma-packs/science/*.lib", "chroma-packs/politics/*.lib", "chroma-packs/stage/*.lib", "chroma-library/build.py",
-                    "chroma-library/earth_voice.py", "chroma-library/earth_science.py", "chroma-library/earth_politics.py",
-                    "chroma-library/earth_stage.py"],
+    "build_packs": ["chroma-packs/science/*.lib", "chroma-packs/politics/*.lib", "chroma-packs/stage/*.lib", "chroma-packs/art/*.lib",
+                    "chroma-library/build.py", "chroma-library/earth_voice.py", "chroma-library/earth_science.py",
+                    "chroma-library/earth_politics.py", "chroma-library/earth_stage.py", "chroma-library/earth_art.py"],
     "rarity": [NAMES["rarity_live"][0]],
     "rarity1000": [NAMES["rarity_live"][0]],
 }
@@ -413,8 +452,10 @@ def build_tree():
             shutil.copytree(sd, os.path.join(L, "sources"), ignore=SKIPF); break
     K = os.path.join(T, "chroma-packs")
     cp_files(src["packs"], K)
-    for d in ("core", "politics", "science", "stage", "tools"):                # tools/ (the Packs' checks) from the shared folder if the
-        sd = os.path.join(src["packs"], d)                                     # candidate lacks it
+    for d in ("core", "politics", "science", "stage", "art", "tools"):         # tools/ (the Packs' checks) from the shared folder if the
+        sd = os.path.join(src["packs"], d)                                     # candidate lacks it; art only where the candidate has it
+        if d == "art" and not os.path.isdir(sd):
+            continue
         shutil.copytree(sd if os.path.isdir(sd) else os.path.join(REAL, LIVE["packs"], d), os.path.join(K, d), ignore=SKIPF)
     shutil.copytree(src["game"], os.path.join(T, "chroma-game", "prototype"), ignore=SKIPF)
     v21 = os.path.join(REAL, GAME_V21, "engine_pin")                          # check_identity's go-live rules
@@ -643,7 +684,9 @@ def main():
     def ids(spec):   # check ids, or @owner for every check of that owner (@engine, @library, @packs, @game, @release)
         out = set()
         for x in (y.strip() for y in spec.split(",")):
-            if x.startswith("@"):
+            if x == "@v22.4":
+                out |= set(V224_IDS)
+            elif x.startswith("@"):
                 out |= {c[0] for c in CHECKS if c[2].lower() == x[1:].lower() or c[1] == x[1:].lower()
                         or (a.level == "fast" and FAST_OWNER.get(c[0], "").lower() == x[1:].lower())}
             elif x:

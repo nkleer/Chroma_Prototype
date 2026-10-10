@@ -470,7 +470,12 @@ DEFAULT = dict(
     flex=True, flex_rate=1 / 104, flex_depth=0.7, flex_exp=(150, 350),   # v6: accepting limits; chronically unmet needs matter
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
-    sat_need=5.0, sat_mid=0.8, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
+    sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
+    green_jobs=False,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
+                         # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
+    acc_redraw=False,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
+                         # route refuses (acc_first, acc_move) re-draws among the other titles whose rules hold, by the same
+                         # weights, so the life goes to its next-best fit, not to no title (off: the career starts untitled)
     occ_keep=0.6, occ_back=3.0,   # a new job after one ended within occ_back years returns to the last line of work with this
                          # chance (the packs, 01:40: a scientist who changed jobs stopped being a scientist). Job changes
                          # are about twice as common as changes of occupation (Kambourov & Manovskii 2008)
@@ -525,12 +530,12 @@ DEFAULT = dict(
     eps0=0.45,
     chi=0.03, xi=0.01,
     framing="mild",     # v6 default (Emren 22:46): mild tension on Magic's five questions. Name in FRAMINGS or a 5x5 matrix: how the world reads color relations
-    ten_good=0.05, ten_bad=0.2, ten_split=0.5,   # v6: acts joining opposed colors pay off in meaning when they work, in stress
+    ten_good=0.05, ten_bad=0.05, ten_split=0.5,   # v6: acts joining opposed colors pay off in meaning when they work, in stress
                                                 # and lost integration when they fail. Enemy pairs (item 5, Emren 10-07 12:42
                                                 # UTC): a fair bet, ten_bad = ten_good (.05), from the stage 2 refit
     mu=0.3,          # strength of framing tension/synergy (v3: 0.1 was too weak once upkeep and needs balance people)
-    drift_frames=None,   # enemy pairs (item 5): the framing's weekly drift (mu) and its cut on ends sought through opposed
-    ends_frames=None,    # means only in these worlds (Magic's pie taken literally; ("pie", "axes") from the stage 2 refit); the
+    drift_frames=('pie', 'axes'),   # enemy pairs (item 5): the framing's weekly drift (mu) and its cut on ends sought through opposed
+    ends_frames=('pie', 'axes'),    # means only in these worlds (Magic's pie taken literally; ("pie", "axes") from the stage 2 refit); the
                          # default world keeps its tension as felt calm and the bet, and every pair is an ordinary way to live
                          # (chroma-philosophy/enemy-pairs.md). None: every world (v6-v22.1)
     iota=0.1,        # integration learning
@@ -538,10 +543,12 @@ DEFAULT = dict(
     # Shadows (Emren 2026-10-07 12:18 UTC, chroma-philosophy/shadows.md), in place of upkeep: a colour that rules a life
     # shows its own weakness, as Magic's writing names it, and the costs it brings pull the person back toward what they
     # lack through the loops the engine has (a failure teaches what the moment called for: fail_fit)
-    shadows=False,             # item 2, on from the stage 2 refit
+    shadows=True,             # item 2, on from the stage 2 refit
     # light and shadow (chroma-ideas/shadows-mechanics.md, 10-08): each colour has a shadow part s (0 to 1), which grows
     # toward a target from four sources: holding on while life asks to move, ruling the life, no enemy colour to argue,
     # strain. Its force e = min(1, w x s / sh_full) drives the effects; a state word shows from 18 (on .5, off .35)
+    sh_world=False,             # shadows with the outer world on too (v22.3 refit: False, with the world on they blurred
+                               # identities, one colour at 40 in .10 of lives against .25; back with its own fit)
     sh_age=13.0,               # a shadow part can grow from this age
     sh_src=(0.5, 0.5, 0.4, 0.4),   # how far each source alone moves the target: holding on, ruling, no counterweight, strain
     sh_grow=6.0, sh_fade=12.0,  # months for the shadow part to move most of the way to its target, growing and fading
@@ -623,11 +630,11 @@ DEFAULT = dict(
     child_gap=3.0,       # C-X5: years between one child and the next (the usual birth spacing)
     child_mort=5e-5,     # C-X5: the children's Gompertz level (mort[0] for everyone else)
     season_share=True,   # a threshold step's moment comes to the share of lives its times: gives (Library next3 §4)
-    season_excl=False,   # K6 (v22.3, off): a step plays at most one moment, each at its own times: share (their sum, at
+    season_excl=True,   # K6 (v22.3, off): a step plays at most one moment, each at its own times: share (their sum, at
                          # most 1, is the step's share; the person's colours tilt which), not one draw per moment;
                          # "1 homeowner in 20" reads as 1 in 20, and a times: line with words only reads by season_words
     season_words=(("nearly every", 0.9), ("rare", 0.05), ("most", 0.7), ("many", 0.5), ("some", 0.25)),   # refit values
-    move_near=False,     # K2 (v22.3, off): a moves: moment goes to a new town only when it says so (moves: far, or its name
+    move_near=True,     # K2 (v22.3, off): a moves: moment goes to a new town only when it says so (moves: far, or its name
     fam_far=0.3,         # names a new town; moves: near never; else fam_far of the time: leaving home, a smaller home), and a
                          # move within the town keeps half the circle (fam_far a refit value; newcomer .97 of lives vs .60)
     ow_weeks=26,         # weeks without work after losing a job before 'out of work' (52 at go-live: .07 of lives against .15)
@@ -738,31 +745,47 @@ DEFAULT = dict(
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
     # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
-    cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
-    cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
-    sph_town=False,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
-    sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
-    sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
-    sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
-    sph_events=False,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
-    sph_seasons=False,   # phase 3, N7: the year's rhythm on the spheres' event hazards and hours (world switch)
-    sph_joins=False,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
-    sph_pairs=False,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
-    sph_links=False,     # phase 3: the links between spheres and their colour readings, with sph_events (world switch)
-    sph_memory=False,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
-    pair_calm=False,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
-    sph_cascades=False,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
-    sph_levers=False,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
-    sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
-    sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
-    sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
-    sph_titles=False,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
+    cult_schools=True, cult_scenes=True, cult_adults=True, cult_anchor=True, cult_pushback=True, cult_shake=True,
+    cult_no_dice=True, hist_party_gov=True, hist_pressure=True, hist_grievance=True, hist_chance_only=True,
+    sph_town=True,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
+    sph_haunts=True,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
+    sph_hours=True,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
+    sph_marks=True,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    sph_events=True,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
+    sph_seasons=True,   # phase 3, N7: the year's rhythm on the spheres' event hazards and hours (world switch)
+    sph_joins=True,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
+    sph_pairs=True,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
+    sph_links=True,     # phase 3: the links between spheres and their colour readings, with sph_events (world switch)
+    sph_memory=True,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
+    pair_calm=True,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
+    sph_cascades=True,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
+    sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
+    sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
+    sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
+    sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    sph_titles=True,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
                          # the engine reads none of those rules
-    far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
+    far_ties=True,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
     fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
                          # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
+    sph_eyes=False,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
+                         # talk through go-betweens, caught between two places (world switch; needs sph_haunts)
+    sph_odd=False,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
+                         # needs sph_eyes)
+    eyes_par=None,       # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
+    lead_ways=False,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
+                         # legitimacy and end, in place of phase 4's fixed leader's tenure; with sph_levers (world switch;
+                         # lead_par: its tuning, world_people.LEAD_DEFAULT; None: start values)
+    lead_par=None,
+    sacred=False,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
+                         # spheres' and C3's offers on them bring a moment the character refuses at .9 (world switch; with
+    sacred_par=None,     # sph_events); sacred_par: its tuning (world_people.SAC_DEFAULT; None: start values)
+    seen_done=False,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
+                         # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
+                         # (world_people.SEEN_DEFAULT; None: start values)
+    seen_par=None,
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -779,17 +802,40 @@ DEFAULT = dict(
                   estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35,
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
-    inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
-    c2_groups=False,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
+    inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
+    c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
-    c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
-    c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
-    c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
-    wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
-    birth_age=False,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
+    c3_inst=True,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
+    c4_nature=True,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
+    c5_faith=True,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
+    wl2=True,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
+    birth_age=True,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
-    near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
+    role_practice=False,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
+                         # choices must increase chances to become researcher"; tools/choice_check.py). On v22.2's rules white and
+                         # blue acts fail two to four times as often as the others (true odds .81 and .74 against .90 to .95):
+                         # practice comes only from the week's one act, and the colors least acted stay least practised, so a
+                         # life that keeps choosing white or blue barely becomes it and loses contentment (.60 to .45). On, each
+                         # week the commitments held (profiles weighted by investment, at most one act's worth in all) count as
+                         # role_skill of an act's practice in their ways, and draw the niche toward them at role_niche of its pace
+    role_skill=0.5, role_niche=0.5,   # role_practice: a held role's weekly practice and its pull on the people around
+    read_skill=0.0,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
+                         # to master) fills this share of what the person still misreads of its call and the world's push
+                         # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
+                         # white and blue, so lives that act in those ways run overconfident and each failure pushes them
+                         # away (choice_check, 10-10). 0: off, as before
+    lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
+                         # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
+                         # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
+                         # lowest, so lives that keep choosing them are held back (choice_check, 10-10). 0: off, as before
+    app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
+                         # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
+                         # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
+                         # 1.4x and their gains at .6x and are taught out of their own colours (choice_check 10-10: net identity
+                         # move per act in the steered colour -.012 white, -.007 blue, +.010 red at equal win rates). Feelings
+                         # (fdelta: mood, stress, wounds) keep the tilt. False: as before
+    near_gate=True,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
@@ -845,13 +891,13 @@ DEFAULT = dict(
     # take on (Lazarus 1984; prevention vs promotion focus, Higgins 1997; anxiety-based vs growth values, Schwartz 2012).
     # It comes from where the deep core sits on the security-vs-freedom axis, from recent hard events, and from reactivity.
     thr0=0.0,            # logit of threat focus for an even person with no history
-    domains=False,      # life areas (A7, item 4), on from the stage 2 refit: a small offset on the colors per area (work, home, friends, faith); identity reads the core
+    domains=True,      # life areas (A7, item 4), on from the stage 2 refit: a small offset on the colors per area (work, home, friends, faith); identity reads the core
     dom_share=0.3,      # the share of what a moment in an area teaches that stays in that area (the rest reaches the core)
     dom_half=3.0,       # years for an area's offset to fade halfway back to the core
     dom_end_half=1.0,   # ... while that part of life is not held (no work, no faith)
     dom_cap=0.6,        # largest offset per color, in log-ratio units (about +-.1 on a share near .2)
     # a curious, thinking life rewarded (item 7, chroma-ideas/curious-life.md C2 to C4), behind curious=False:
-    curious=False,
+    curious=True,
     cu_keep=0.7,         # C2: from cu_age, skill in Blue's ways fades this much more slowly (knowledge keeps into the 60s)
     cu_age=40.0,
     cu_late=0.004,       # C2: from 55, skill in Blue's ways above a beginner's meets competence (and half as much meaning) weekly
@@ -861,16 +907,16 @@ DEFAULT = dict(
     cu_ask=0.004,        # C4: from 50 it meets belonging and meaning weekly, by how much they are asked
     # each person's own colour-to-need table (P4; the Game's engine-needs-and-steering.md §1 and §4), behind nm_on=False:
     # NMP starts as the shared table and moves with what feeds them, within a band, each colour's column kept at its total
-    nm_on=False,
+    nm_on=True,
     nm_lr_moment=0.01,   # an act that worked feeds what was lacking: its colours' cells for the needs that lacked most grow
     nm_lr_habit=0.0005,  # the colours one keeps using while a need lacks are slowly tied to it
     nm_lr_goal=0.0005,   # a held dream, passion or plan ties its colours to its domain's needs, by its strength
     nm_band=(0.5, 2.0),  # each cell stays within this band of the shared value
     nm_back=10.0,        # years for the table to drift halfway back to the shared one, unless kept up
-    ev_need_k=0.0,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
-    ev_state_k=0.0,      # at peace and content, a bad event adds less stress; strained, more
-    ev_reach_k=0.0,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
-    thr_vec=None,        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
+    ev_need_k=0.5,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
+    ev_state_k=0.3,      # at peace and content, a bad event adds less stress; strained, more
+    ev_reach_k=0.1,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
+    thr_vec='schwartz',        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
                          # (anxiety-based minus growth values, AXSEC_SW), not on Magic's security axis, which counted Blue as
                          # fully security. None: Magic's axis (v10-v22); or a 5-vector
     thr_axis=1.0,        # weight of the deep core's position on the security-vs-freedom axis (W U security, B R freedom)
@@ -911,13 +957,22 @@ DEFAULT = dict(
     # the colours of the world around them (people and groups, the places they are inside, the times) push a little, and
     # the push takes over part of the random drift, so lives change for reasons. Target: about 10% (8 to 12) of colour
     # movement, drift's share down by as much, 50-year stability toward .15 to .45
-    cur_on=False,
-    cur_k=0.35,          # the monthly push at full exposure (log-ratio units x plasticity): about 10% of colour movement, world on
-    cur_off=0.55,        # with the world off (tribal and magic settings), its size against cur_k (the niche and the era): about 9%
+    cur_on=True,
+    cur_k=0.01,          # the monthly push at full exposure, world on (v22.3 refit: .35 -> .01; at .35, .2 or .1 it pulled whole worlds
+                         # to one colour, Green leading half the lives; held near zero until its own fit)
+    cur_off=19.25,       # with the world off (tribal and magic settings), its size against cur_k: .19 a month, as fitted (.35 x .55)
     cur_mix=(0.5, 0.25, 0.25),   # the current's parts: close people, the places they are inside, the times (era and climate)
     cur_age=(0.3, 1.0, 20.0, 7.0),   # exposure by age: base + peak x exp(-((age - at) / width)^2); most at 15 to 25, never zero
     cur_mem=1.0,         # years over which what reaches them adds up (a new circle or job takes a while to tell)
     cur_cut=0.55,        # the share of the random weekly noise the current takes over (stability rows stay in their ranges)
+    # with the world on, the current pushes by how a life's people and places differ from its society's and town's own
+    # mix (chroma-engine/notes/current-green-pull/): a world's own lean (Modern Earth starts Green-first, and the burn-in
+    # and like-matched parents add to it) is the ground they stand on, not a pull on everyone. Off: cur_k as above
+    cur_rel=True,
+    cur_rel_k=0.42,      # its monthly push at full exposure, world on (.35 x 1.2: about 9% of colour movement)
+    cur_bal=0.5,         # its pull toward balance (log shares), so identities at 40 stay as with the current off
+    cur_era=0.5,         # how much of the era the times' part carries (Emren 10-10 15:07 UTC, "Era at half"); the era
+                         # also moves lives through era_push_k and the niche, and the culture through each generation's people
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -965,7 +1020,7 @@ UPD_OFF = dict(dis_match=False,
                # each person's need table and events by need and state
                drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
                hz_self=0.0, hz_want=0.03, domains=False, curious=False, nm_on=False, ev_need_k=0.0, ev_state_k=0.0,
-               ev_reach_k=0.0, cur_on=False,
+               ev_reach_k=0.0, cur_on=False, cur_rel=False,
                # stage 3, LW1 and LW2 (stage3-rules.md §8)
                cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
@@ -974,15 +1029,22 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False,
+               sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
+               # what one holds is practice too
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False,
+               # v22.4: a refused first job or job move re-draws to the next-best fit
+               acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
-               move_near=False, season_excl=False)
+               move_near=False, season_excl=False,
+    # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
+    sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1199,7 +1261,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
     CUR_ON = bool(P["cur_on"]); cur_sum = np.zeros(N); cur_m = None   # item 12: the steady current, and how much it moved each life
-    SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
+    SHON = bool(P["shadows"]) and (bool(P["sh_world"]) or not bool(P["world"])); SHG_ = np.asarray(P["sh_gain"], float)
     NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
     NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
     CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
@@ -1266,6 +1328,25 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if pk_ != 1.0:
             dz = pk_ * dz
         z[idx] += dz; chan[idx, 8] += dz
+    def sac_fx(n, ev_):
+        """S5 (chroma-ideas/social-mechanics.md): what an offer, tragic trade-off or amends does in the engine. Held: the
+        money and ties not had. Crossed: a moral injury (stress), a seed in the line colour's shadow part (with shadows)
+        and a turning point's lesson toward the act's ways (the game's item 4 pick at its full "toward" kind: piv x
+        plasticity x (1 + piv_far x distance), piv_core of it to the deep core). Healed: stress eased."""
+        sp_ = WL.PP.sac_par
+        res[n, MON] -= ev_.get("money", 0.0); res[n, TIE] -= ev_.get("ties", 0.0)
+        if ev_.get("crossed"):
+            stress[n] += ev_["wound"]
+            if SHON:
+                for c_ in ev_["colours"]:
+                    shS[n, c_] = min(1.0, shS[n, c_] + ev_["seed"])
+            T_ = np.maximum(ma[n], 0)
+            if T_.sum() > 0 and sp_["piv"] and not ev_.get("quiet"):
+                T_ = T_ / T_.sum(); w_ = softmax(z[n]); d_ = 0.5 * np.abs(T_ - w_).sum()
+                dz_ = sp_["piv"] * plast[n] * (1 + sp_["piv_far"] * d_) * centre(5 * (T_ - w_))
+                z[n] += dz_; k[n] += sp_["piv_core"] * dz_; chan[n, 7] += dz_
+        if ev_.get("healed") or ev_.get("what") == "healed":
+            stress[n] = max(0.0, stress[n] - ev_.get("heal", sp_["heal"]))
     def inst_expo():
         return 0.5 + 0.5 * held[:, CAR] + 0.3 * held[:, COM]
     def era_expo(kind):
@@ -1499,7 +1580,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 left_given[n] = why == "left" and faith_given[n]; faith_drifted[n] = bool(drift_now[n])   # how the last one ended
                 faith_given[n] = False                          # a faith taken up again is one's own
             commit_log.append((int(n), t, int(kk), why, prof[n, kk].round(2).tolist(), round(float(I[n, kk]), 2)))
-            if n in events:
+            if EYES_ON_ and WL is not None and kk in (CAR, PAR, FAI) and why in ("left", "broke up"):   # S3: their places
+                WL.PP.eyes_see([n], prof[n, kk][None], [0.5], {CAR: "left job", PAR: "left partner", FAI: "left faith"}[kk])   # read
+            if n in events:                                                  # the leaving by what was walked away from
                 events[n].append(dict(commitment=dict(age=round(t / 52, 2), kind=KNAMES[kk], what=why,
                                                       profile=prof[n, kk].round(2).tolist(), strength=round(float(I[n, kk]), 2))))
                 if kk == FAI and why == "left" and drift_now[n]:
@@ -1533,7 +1616,28 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_keys as WK_
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
-    REG_ = REG_ & ~FARS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # lead_ways (S7): a post's moment (cast_want: lead_*) comes only with the post (taking it, a crisis, its fall, the
+    # turn to routine, handing it on), never by the everyday draw of life events
+    LEADS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        LEADS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("lead_")])
+    LEADS_ON_ = bool(LEADS_.any())
+    # S5, sacred lines: an offer, tragic trade-off or amends moment (cast_want: sacred, tragic, amends) comes only when the
+    # life's own line brings it (WorldLink), never by the everyday draw or a yearly rate; the switch turns the lines on
+    SACS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        SACS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in WK_.OWN_WANTS])
+    SACS_ON_ = bool(SACS_.any())
+    SAC_ON_ = False                                       # (set with the world: its People has the lines)
+    REG_ = REG_ & ~FARS_ & ~LEADS_ & ~SACS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # S3, S4 (sph_eyes, sph_odd): a caught-between or odd-one-out moment (cast_want: caught, odd) comes only when the place
+    # reading brings it, never by the everyday draw
+    EYEW_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        EYEW_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in ("caught", "odd")])
+    EYEW_ON_ = bool(EYEW_.any())
+    if EYEW_ON_:
+        REG_ = REG_ & ~EYEW_   # (nor by the stages' fill or the routine's, as far moments)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -1631,8 +1735,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
+        if P.get("green_jobs") and GR.get("rule_when"):   # v22.4: the green entry jobs' rules and roads (ROLES_WHEN)
+            GR = dict(GR, rule=[GR["rule_when"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
-            GR = dict(GR, rule=[GR["rule_sph"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
+            sr_ = {**GR["rule_sph"], **(GR.get("rule_sph_when") or {})} if P.get("green_jobs") else GR["rule_sph"]
+            GR = dict(GR, rule=[sr_.get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
         r_has = np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
         r_since = np.full((N, NI_), NEVER); r_end = np.full((N, NI_), NEVER)
         p_acc = np.zeros((N, NP_), bool); p_lev = np.zeros((N, NP_)); p_sus = np.full((N, NP_), NEVER)   # access, skill, suspended until
@@ -1705,10 +1812,16 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if n in events:
             events[n].append(dict(role=dict(age=round(t / 52, 2), name=GR["names"][i], kind=GR["kindname"][i], what=what, how=how)))
     WL = None                                             # the outer world's link (set below when the world is on)
+    EYES_LOSE_SKIP = {"replaced", "time passed", "outgrew it", "retired", "slipped away", "found work", "it ended",
+                      "gave it up"}   # S3:
+    # titles that end as the time or a commitment's end runs, or given up (the leaving itself is read, by end())
     def r_lose(n, i, why, succ=-1):
         if not r_has[n, i] and not (i >= NT_ and p_acc[n, i - NT_]):
             return
         r_has[n, i] = False; r_end[n, i] = t
+        if (EYES_ON_ and WL is not None and i < NT_ and why not in EYES_LOSE_SKIP and not why.startswith("the ")
+                and not why.startswith("became ") and why not in WHY):   # S3: a title lost in its own way (taken away, given
+            WL.PP.eyes_see([n], PW_[i, r_prof[n, i]][None], [0.5], "title lost")   # up, its rule): read as walked away from
         if i < NT_:   # its facets go with it (no longer a newlywed once no longer married), unless they sit on another title
             for f_ in np.nonzero(REFM_[:, i] & r_has[n])[0]:   # held, or on the one that follows it (living together, married)
                 if not (REFM_[f_] & r_has[n, :NT_]).any() and not (succ >= 0 and REFM_[f_, succ]):
@@ -1763,6 +1876,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r_note(n, i, "gained", how)
         if WL is not None:   # the world: a migrant's, refugee's or citizen's title moves the life between societies
             WL.on_title(int(n), GR["names"][i])
+            if EYES_ON_ and (i < NT_ or GR["names"][i] == "someone with a record") and how != "arrested":
+                # S3: their places see a title won (its profile's colours, else the act's), or a record (a crime found out:
+                # the act's colours where an act gave it, else their own; a killing found out is read where it is caught)
+                rec_ = GR["names"][i] == "someone with a record"
+                src_ = mix if mix is not None else (PW_[i, r_prof[n, i]] if i < NT_ and not rec_ else w[n])
+                src_ = src_ if np.sum(src_) > 0 else w[n]
+                WL.PP.eyes_see([n], np.asarray(src_, float)[None], [0.0 if rec_ else 1.0], "crime" if rec_ else "title")
         if i < NT_ and f_pend:                               # facets an act gave while waiting for this title come with it
             for e_ in [e_ for e_ in f_pend if e_[0] == n and REFM_[e_[1], i]]:
                 f_pend.remove(e_); r_gain(n, e_[1], e_[2], e_[3])
@@ -1862,9 +1982,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     return
                 w2_ = wt_[rest_]
                 pick_ = ok_[rest_[int(rng.choice(len(rest_), p=w2_ / w2_.sum()))]]
-        ac_ = GR["rule"][pick_].get("acc_move" if move else "acc_first", 1.0)   # a route that overfills a title (Library next3
-        if ac_ < 1 and ent_rng.random() >= ac_:                                # §3): the job comes without that title
-            return
+        else:
+            f_ = None
+        acc_k_ = "acc_move" if move else "acc_first"
+        ac_ = GR["rule"][pick_].get(acc_k_, 1.0)   # a route that overfills a title (Library next3
+        if ac_ < 1 and ent_rng.random() >= ac_:    # §3): the job comes without that title
+            if not P["acc_redraw"]:
+                return
+            out_ = {pick_}   # acc_redraw (v22.4): the next-best fit among the rest, each with its own acceptance
+            while True:
+                rest_ = [j_ for j_, i_ in enumerate(ok_) if i_ not in out_ and (f_ is None or f_[j_] >= 1.0)]
+                if not rest_:
+                    return
+                w2_ = wt_[rest_]
+                pick_ = ok_[rest_[int(ent_rng.choice(len(rest_), p=w2_ / w2_.sum()))]]
+                ac_ = GR["rule"][pick_].get(acc_k_, 1.0)
+                if not (ac_ < 1 and ent_rng.random() >= ac_):
+                    break
+                out_.add(pick_)
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
     HAD_IDX = {}
@@ -2154,21 +2289,32 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
     MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
+    EYES_ON_ = bool(P.get("sph_eyes")) and WON         # S3: their places read their acts (world on only)
+    ODD_ON_ = EYES_ON_ and bool(P.get("sph_odd"))      # S4: the odd one out at a place
     SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
     DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
+    LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
+    SEEN_ON = False
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
+        LW_ON = bool(getattr(WL, "lw", False)) and RON
+        if LW_ON:
+            LW_T_ = WL.lw_tid
         nic = np.array(WL.PP.niche, float); circle = nic.copy()
+        SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
+        if SEEN_ON:
+            SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
         if getattr(WL.PP, "family_mix", None) is not None:
             fam = np.array(WL.PP.family_mix, float)
         older_sib = np.asarray(WL.PP.older_sib, int).copy(); younger_sib = np.asarray(WL.PP.younger_sib, int).copy()
         alive[:, :5] = WL.PP.alive
         era_at.clear()                                     # the world's own eras replace the engine's drawn history
         W_WHO_ = L.get("W_WHO", [[] for _ in range(L["S"])])
+        SAC_ON_ = bool(getattr(WL.PP, "sac_on", False))   # S5: the world's switch (P["sacred"], or a World made with it)
         if RON:
             W_SEC_ = np.asarray(GR.get("sector", np.full(NT_, -1)))[:NT_]; W_STD_ = np.asarray(GR.get("standing", np.full(NT_, -1)))[:NT_]
             W_GOV_ = [RID[x_] for x_ in ("minister", "head of government") if x_ in RID]; W_HOG_ = RID.get("head of government", -1)
@@ -2415,6 +2561,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         WK_RIGHTS_W = WMOD_.RIGHTS.index("women")
     DB_ON = SV_ON
     BA_ON = bool(P.get("birth_age")) and BAT   # late births: own births by real fertility for age and sex
+    RP_ON = bool(P.get("role_practice"))        # what one holds is practice too
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -2530,7 +2677,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
                             domain_standing=dst_w if RON and len(W_SDI_) else None,
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
-                            head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None))
+                            head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,
+                            lead_has=(np.where(LW_T_ >= 0, r_has[:, np.maximum(LW_T_, 0)], False) if LW_ON else None)))
+            if LW_ON and WL.PP.lw_lost:   # S7: an office the post's end took (a fall, a term, a hand-over, a move)
+                for n_, i_, why_ in WL.PP.lw_lost:
+                    if LW_T_[i_] >= 0:
+                        r_lose(n_, int(LW_T_[i_]), "the post " + why_)
+                WL.PP.lw_lost = []
             for n_ in np.nonzero(WL.office_lost)[0]:   # W40: the government fell, and their office with it
                 for i_ in W_GOV_:
                     r_lose(n_, i_, "the government fell")
@@ -2660,12 +2813,18 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
             avail = L["STG"][:, stage].T & gate
         aff = np.exp(2.0 * (nic @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)
+        if SACS_ON_:   # S5: a sacred line's moments come only with an offer (or a wound) of the life's own
+            aff[:, SACS_] = 0.0
         if BAT:
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
             mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
         if FARS_ON_:   # far_ties: a far moment comes only with a tie's call (forced), never by the everyday draw
             aff[:, FARS_] = 0.0
+        if EYEW_ON_:   # S3, S4: a caught-between or odd-one-out moment comes only by the place reading
+            aff[:, EYEW_] = 0.0
+        if LEADS_ON_:   # lead_ways (S7): a post's moment comes only with the post (forced), never by the everyday draw
+            aff[:, LEADS_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
@@ -2737,6 +2896,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 frc_ &= avail; fdd_ &= avail
             if FARS_ON_:
                 ev_p[:, FARS_] = 0.0
+            if EYEW_ON_:
+                ev_p[:, EYEW_] = 0.0
+            if LEADS_ON_:
+                ev_p[:, LEADS_] = 0.0
+            if SACS_ON_:
+                ev_p[:, SACS_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3026,6 +3191,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # how the world around them pushes, so felt odds spread like the true ones (the rest stays a misread)
         read_ = P["read_moment"][0] + P["read_moment"][1] * M / (M + P["M0"])
         mom_ = np.einsum("nkc,nc->nk", m, f_tot) + P["fit"] * np.einsum("nkc,nc->nk", m, alpha - alpha.mean(1, keepdims=True))
+        readk_ = read_[:, None]   # per option; read_skill: expertise reads the moment, skill in its ways fills part of the rest
+        if P["read_skill"]:
+            readk_ = readk_ + P["read_skill"] * _uclip(np.einsum("nkc,nc->nk", m, sig - 0.3) / 0.7, 0, 1) * (1 - readk_)
         # v10 interpretation: threat focus follows where the deep core sits on security vs freedom, hard times and reactivity
         thr += (1 / (1 + np.exp(-(P["thr0"] + P["thr_axis"] * 5 * (softmax(k) @ AXSEC) + P["thr_hist"] * (wound + 0.5 * trouble)
                                   + P["thr_react"] * (react - 1)))) - thr) / (52 * P["thr_lag"])
@@ -3036,9 +3204,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mis_ = mis_ / (1 + P["mis_expert"] * np.minimum(np.einsum("nkc,nc->nk", m, xp_), 3))
         else:
             mis_ = 0.0
-        p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + read_[:, None] * mom_ - diff)
+        p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + readk_ * mom_ - diff)
                                         + TON * P["o_bias"] * (outlook - P["o_ref"])[:, None] + pbump + mis_, earn)))   # outlook: optimism or pessimism
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
+        if SEEN_ON:   # S6: a path or colour way seen walked feels more possible, one seen failing less (felt odds only)
+            p_hat = WL.seen_felt(p_hat, s, m, ~do_nothing, mask)
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
         serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
@@ -3086,6 +3256,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if P.get("sph_fair"):   # spheres phase 4: felt fairness tilts exit, neglect and subvert against voice and loyalty
                 fU_ = WL.fair_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # log odds x the choice's tau
                 U_R = U_R + fU_; U_I = U_I + fU_
+            if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
+                oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + oU_; U_I = U_I + oU_
         if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
             shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
@@ -3099,6 +3272,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sU_ = np.where(do_nothing, 0.0, P["steer_k"] * (5 * np.einsum("nkc,nc->nk", m, np.broadcast_to(np.atleast_2d(mix_), (N, C))) - 1))
             pr = softmax(np.where(seen, (U + sU_) / tau[:, None], -np.inf))
             P["steer"] = None
+        if SAC_ON_ and WL.sac_pend:   # S5: at an offer on a held line the character's own pick holds it at .9 (and more
+            pr = WL.sacred_tilt(s, pr.copy(), mask)   # for a bigger offer, .7 with a gesture); at a tragic one, a, b or torn
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
         if SHON:   # U indecisive: while they weigh it, the chance passes (the act becomes doing nothing, where there is one)
             lap_ = (rng.random(N) < P["sh_lapse"] * shA[:, 1]) & ~do_nothing[ar, a] & do_nothing.any(1)
@@ -3169,7 +3344,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             delta = yield Pause("learn", t, locals(), delta)
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
-        ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
+        if P["app_vigil"] and P["app_k"]:   # app_vigil: threat focus learns more from gains and losses alike (vigilance), so
+            ldelta = delta * (1 + P["app_learn"] * (appf_ - 1))   # the colours that bring it (W U, AXSEC) do not teach a life out of themselves
+        else:
+            ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
@@ -3179,6 +3357,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                                        1 - P["cu_keep"], 1.0)
         else:
             sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
+        if RP_ON:   # role_practice: the ways of what one holds, at most one act's worth a week
+            rw_ = np.einsum("nk,nkc->nc", held * I, prof); rs_ = rw_.sum(1, keepdims=True)
+            rw_ = rw_ / np.maximum(rs_, 1.0) * ~dead[:, None]
+            sig += P["role_skill"] * P["skill_gain"] * rw_ * (1 - sig)
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -3325,6 +3507,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if SHAR_ON and getattr(WL.PP, "sh_around", None) is not None:   # phase 5: the shadow around them (N5)
                 sa_ = _uclip((np.asarray(WL.PP.sh_around, float)[:, np.argsort(WL.W.perm)] - 0.1) / 0.4, 0, 1)
                 tgt_ = 1 - (1 - tgt_) * (1 - P["sh_around"] * sa_)
+            if LW_ON:   # S7: years leading one way add to that colour's shadow part (People.lead_sh, 0 .. lead_par sh)
+                tgt_ = 1 - (1 - tgt_) * (1 - np.asarray(WL.PP.lead_sh, float)[:, np.argsort(WL.W.perm)])
             sup_ = np.clip(0.5 * (need[:, NIDX["belonging"]] + res[:, TIE]), 0, 1)
             integ_ = np.where(ENEMY_B[None], J, 0.0).max(2)                    # an enemy pair held well
             tgt_ = tgt_ * (1 - P["sh_care"] * sup_)[:, None] * (1 - P["sh_integ"] * integ_) * (age >= P["sh_age"])
@@ -3417,7 +3601,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- 4. learning channels
         pos = delta > 0
-        kap = ma * w ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
+        lens_ = w if not P["lens_want"] else (1 - P["lens_want"]) * w + P["lens_want"] * softmax(y)   # lens_want: and who one is becoming
+        kap = ma * lens_ ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
         defend = P["defend_k"] * (ma * w).sum(1) / w.max(1) * (M / (M + P["M0"]))   # experienced people discount failures in what they hold
         # v6 (Library notes A5): a failure sends the person toward what the situation called for, the colors whose
         # argument it proved right, not evenly toward everything else they hold
@@ -3560,6 +3745,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         caught_ = bool(rid.random() < P["kill_caught"])
                         if "has taken a life" in GR["ID"]:
                             r_gain(n, GR["ID"]["has taken a life"], "took a life")
+                        if caught_ and EYES_ON_:   # S3: a crime found out, read by their places in the act's colours
+                            WL.PP.eyes_see([n], ma[n][None], [0.0], "crime")
                         if caught_:
                             if "someone with a record" in GR["ID"]:
                                 r_gain(n, GR["ID"]["someone with a record"], "arrested")
@@ -3678,8 +3865,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             db_log(n_, kind="holding gained", holding=H_KIND[2], why="founded")
                 for n in list(WL.pending):
                     ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
+                    if SAC_ON_ and isinstance(ev_, dict) and ev_.get("kind") == "sacred":
+                        sac_fx(n, ev_)
+                        if n in events:
+                            events[n].append(dict(sacred=ev_))
+                        continue
                     if ev_ is not None and n in events:
                         events[n].append(dict(cast_want=ev_))
+                if SAC_ON_:   # S5: offers decided off-screen this week (no moment for them)
+                    for ev_ in WL.PP.sac_take():
+                        n_ = int(ev_["n"])
+                        if not dead[n_]:
+                            sac_fx(n_, ev_)
+                        if n_ in events:
+                            events[n_].append(dict(sacred=ev_))
                 world_cast(WL.drain())   # the act's own cast events (the world's events came at the week's start)
             # tags: habit pulls harder, a door opens the niche, identity teaches more, binds holds and costs autonomy
             tg_ = L["TAG"][s, a] & (~idle & live_)[:, None]
@@ -3707,6 +3906,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 need[app_, NIDX["belonging"]] -= 0.1 * bk_; res[app_, TIE] -= 0.08 * bk_; stress[app_] += 0.15 * bk_
                 res[mea_, MON] -= 0.1; stress[mea_] += 0.15
             res[:, HEA] -= P["body_hurt"] * L["BODY"][s, a] * (~succ & ~idle & live_)
+            if SAC_ON_:   # S5: the acts that cost something real (money, ties or stress from the act itself, over
+                # sacred_par's thresholds) count toward a line in their colour's ways, and heal a wound in it (People.sac_act)
+                sp_ = WL.PP.sac_par
+                rd_ = L["PAY"][s, a] + np.where(succ[:, None], L["WIN"][s, a], L["LOSE"][s, a])
+                dm_, dt_, ds_ = rd_[:, MON].copy(), rd_[:, TIE].copy(), np.zeros(N)
+                if closed_s is not None:   # a closed option's backfire, as above
+                    ck2_ = closed_s[ar, a]; b2_ = (ck2_ >= 0) & ~succ
+                    bk2_ = np.minimum(clu_[ar, a], 1.0) if CLU_ON else 1.0
+                    dm_ -= 0.05 * (b2_ & (ck2_ == 0)) + 0.1 * (b2_ & (ck2_ == 2))
+                    dt_ -= 0.1 * (b2_ & (ck2_ == 0)) + 0.08 * bk2_ * (b2_ & (ck2_ == 1))
+                    ds_ += 0.3 * (b2_ & (ck2_ == 0)) + 0.15 * bk2_ * (b2_ & (ck2_ == 1)) + 0.15 * (b2_ & (ck2_ == 2))
+                cost_ = (dm_ <= -sp_["cost_money"]) | (dt_ <= -sp_["cost_ties"]) | (ds_ >= sp_["cost_stress"])
+                lv2_ = ~idle & live_ & ~dead
+                for nm_, m_ in (("money", dm_ <= -sp_["cost_money"]), ("ties", dt_ <= -sp_["cost_ties"]),
+                                ("stress", ds_ >= sp_["cost_stress"])):
+                    WL.PP._sac_count(f"cost {nm_}", m_ & lv2_)   # (for the checks)
+                for ev_ in WL.sacred_act(lv2_, ma, cost_):
+                    sac_fx(int(ev_["n"]), ev_)
+                    if int(ev_["n"]) in events:
+                        events[int(ev_["n"])].append(dict(sacred=ev_))
             res = _uclip(res, 0, 1)
             # after a lost job, most people find work again within a year or two (quietly, when the batch has no event for it)
             rj_ = np.nonzero(REJOB_ON & ~held[:, CAR] & ~retired & (end_t[:, CAR] > NEVER // 2) & (age < P["retire_age"] - 1)
@@ -4184,8 +4403,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 fitd = KPAY @ (NMAP @ g_); dw[:NK] *= fitd / fitd.mean()        # what the dream is about follows what its ways serve
                 if st >= 2:
                     dw[:NK] *= ~held[n]
+                if SEEN_ON and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: from 8 to 20 a dream is about a path they have seen
+                    dw[:NK] *= 1 + SD_DREAM_ * WL.PP.seen_dom(n)    # more often (the sparks' rate as it was)
                 dom = int(rng.choice(NK + 1, p=dw / dw.sum())); dom = dom if dom < NK else -1
                 new_goal(n, 0, g_, dom, sc, trig=tr, s0=0.2 + 0.4 * adm)
+                if SEEN_ON and n in events and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: a dream seeded from a seen path
+                    sd_ = WL.PP.seen_dream(n, dom)                                    # and its model (the Library's "dream")
+                    if sd_:
+                        events[n].append(dict(seen=dict(sd_, age=round(age, 2))))
             # fading: an unfed dream fades (fast in childhood); a passion only when unpractised for a year; a plan that
             # does not fit who one is loses its pull (self-concordance: Sheldon & Elliot 1999)
             fd_ = np.exp(-np.log(2) / (52 * np.asarray(P["d_half"], float)[stage]))[:, None]
@@ -4428,12 +4653,28 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             cur_m = cur_.copy() if cur_m is None else cur_m + (cur_ - cur_m) / (12 * P["cur_mem"])   # what has reached them lately
             cur_ = cur_m
             b0_, pk_, at_, wd_ = P["cur_age"]
-            cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            if WON and P["cur_rel"]:   # against the society (people), the town's average places, the times with cur_era of the era
+                V_ = np.asarray(WL.W.V, float)[None, :]
+                pr_ = WL.PP.places_ref if getattr(WL.PP, "places_ref", None) is not None else V_
+                ref_ = (cm_[0] * V_ + cm_[1] * pr_ + cm_[2] * (P["cur_era"] * V_ + (1 - P["cur_era"]) * tm_)) / sum(cm_)
+                lr_ = np.log(np.maximum(cur_m, 1e-4)) - np.log(ref_) - P["cur_bal"] * np.log(np.maximum(w, 1e-4))
+                cdz_ = (P["cur_rel_k"] * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(lr_)
+            else:
+                cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            if P["era_push_k"] != 1.0:   # played lives: the game weighs the times' push as it weighs an era's
+                cdz_ = P["era_push_k"] * cdz_
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
+        if ODD_ON_ and t % 4 == 0:   # S4: blending in at a place steps the colours toward it (booked with the current)
+            edw_ = WL.PP.eyes_dw
+            if edw_.any():
+                edz_ = centre(5 * edw_); WL.PP.eyes_dw = np.zeros_like(edw_)
+                dz_ = dz_ + edz_; chan[:, 8] += edz_
         if MK_ON and t % 4 == 0:   # spheres phase 2: the mark of the work, a year's step once it is drawn (booked with the current)
             mdw_ = WL.PP.mark_dw
             if mdw_.any():
                 mdz_ = centre(5 * mdw_); WL.PP.mark_dw = np.zeros_like(mdw_)
+                if P["era_push_k"] != 1.0:   # played lives: weighed as the other outside pushes
+                    mdz_ = P["era_push_k"] * mdz_
                 dz_ = dz_ + mdz_; chan[:, 8] += mdz_
             hu_ = WL.PP.mark_hurt & ~dead
             if hu_.any():   # a serious injury at work
@@ -4460,6 +4701,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         stress = _uclip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -fdelta), 0, 3)
         B *= decay_B; TWo *= decay_B
         nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * (P["world_profile"] - nic) + P["era_niche"] * e_i * (e_p - nic)
+        if RP_ON and P["role_niche"]:   # role_practice: the people of one's commitments, in their ways
+            rsum_ = rw_.sum(1, keepdims=True)
+            nic += P["role_niche"] * P["nu_niche"] * rsum_ * (rw_ / np.maximum(rsum_, 1e-9) - nic)
         if P["turnover"]:   # v6: the people around you change: new colleagues, friends, neighbours bring their own ways
             new_ = rng.random(N) < 1 / (52 * P["turn_years"])
             moved = new_.astype(float)
@@ -4478,10 +4722,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                if WON and EYES_ON_ and EYEW_[s[i]]:   # S3, S4: the places of a caught-between or odd-one-out moment
+                    ei_ = WL.eyes_info(i, int(s[i]))
+                    if ei_:
+                        more_["eyes"] = ei_
+                if WON and LEADS_ON_ and LEADS_[s[i]] and getattr(WL, "lw", False):   # S7: the post the moment is about
+                    li_ = WL.lead_info(i, int(s[i]))                                     # (its {place}, way, legitimacy)
+                    if li_:
+                        more_["lead"] = li_
+                if SAC_ON_ and SACS_[s[i]]:   # S5: the line, the offer ({offer}), its round, size and refusal odds
+                    si_ = WL.sacred_info(i, int(s[i]))
+                    if si_:
+                        more_["sacred"] = si_
                 if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:
                         more_["far"] = fi_
+                if SEEN_ON:   # S6: per option, the Library's word and the strongest model on its path, else its way
+                    sn_ = WL.seen_info(i, int(s[i]))
+                    if sn_:
+                        more_["seen"] = sn_
                 if WON:   # the world on the options (hooks §2.6, §2.8): each option's lever and where it lands; a move names towns
                     lv_ = WL.option_levers(int(s[i]))
                     if lv_:
@@ -4656,7 +4916,7 @@ STATE = (
     # this week's moment: situation, options, what pulls, the choice, the odds, the outcome, what it teaches
     "s", "s_ev", "rk", "recon", "m", "e", "e0", "diff", "mask", "closed_s", "stakes", "alpha", "do_nothing", "lack",
     "lackf", "earn", "pbump", "serves", "relief", "rel", "wR", "gU_R", "gU_I", "w_hat", "a_hat", "V", "VA", "H", "hzU",
-    "step", "tryf", "U_R", "U_I", "U", "read_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
+    "step", "tryf", "U_R", "U_I", "U", "read_", "readk_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
     "p_true", "succ", "delta", "span", "stepF", "role",
     # the player's steer (P["steer"]): the pick's odds without it, and how much it moved the drawn option's odds
     "pr0", "steer_moved",
