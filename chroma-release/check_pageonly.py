@@ -16,7 +16,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(HERE), "chroma-env"))
 from paths import path   # noqa: E402
 
 ALLOWED = ("chroma-game/prototype/web/src/", "chroma-game/prototype/web/index.html", "chroma-game/tools/webdir.py",
-           "chroma-art/game/", "chroma-art/kit/", "chroma-look/")
+           "chroma-art/game/", "chroma-art/kit/", "chroma-look/",
+           "chroma-game/prototype/test/drive_")   # the browser drivers (node; the build and its lives never read them)
 KEPT = ("chroma-game/prototype/web/src/app.js",)   # the save format; the old-saves ruling holds while it does not change
 ap = argparse.ArgumentParser()
 ap.add_argument("--repo", required=True); ap.add_argument("--base", required=True); ap.add_argument("--commit", required=True)
@@ -29,7 +30,7 @@ base, cand = git("rev-parse", a.base).strip(), git("rev-parse", a.commit).strip(
 lines.append(f"v22.2.1 V1 page only, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC: candidate {cand[:12]} against base {base[:12]}")
 changed = [f for f in git("diff", "--name-only", base, cand).split("\n") if f]
 outside = [f for f in changed if not f.startswith(ALLOWED)]
-lines.append(f"{'ok  ' if not outside else 'MISS'} {len(changed)} files changed, {len(outside)} outside the page, the art and the look tools"
+lines.append(f"{'ok  ' if not outside else 'MISS'} {len(changed)} files changed, {len(outside)} outside the page, the art, the look tools and the browser drivers"
              + (": " + ", ".join(outside[:20]) if outside else ""))
 ok &= not outside
 kept = [f for f in changed if f in KEPT]
