@@ -35,7 +35,7 @@ earth: a fine arrives for parking in a bay whose new sign is half hidden behind 
 times: Most adults get a parking, transport or council fine at some point; one that feels unfair enough to weigh fighting it comes to about 3 in 10 lives, a few times each (estimate)
 likelier: a car owner, a town that has just changed its parking or bin rules, a busy street
 rarer: no car, a village with no wardens, a person who never questions a letter from the council
-gap: 10-20
+gap: 20-30
 scene: A letter from the council: a fine for parking in a bay {N} has used for years. The sign is new, and half hidden behind a hedge. Paying is quick. Appealing means a form, photographs and a hearing on a weekday.
 scene W: {N} broke a rule, fair or not. The real question is whether the rule was put up fairly.
 scene U: By the look of the cars, forty people have been fined on that bay this month. The council must know.
