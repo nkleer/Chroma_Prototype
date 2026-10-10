@@ -1107,7 +1107,7 @@ class WorldLink:
         if not sl_:
             return None
         pv_ = self.pending.get(int(n))
-        first_ = pv_[0] if pv_ is not None and pv_[2] == si else None
+        first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own: none)
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}

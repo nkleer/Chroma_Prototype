@@ -3121,14 +3121,14 @@ class People:
         cw = self.eyes_stats["caught_why"]; cw[why] = cw.get(why, 0) + 1
 
     def eyes_due(self, t=None):
-        """S3, S4: the moments waiting this week, [(life, cast id or None, "caught" or "odd")]: a caught-between moment
-        with a go-between of either place in its first who: slot (place a's, else b's; None when neither has one), an
-        odd-one-out moment with no holder. One whose places changed, or that waited past wait weeks unmet, is dropped."""
+        """S3, S4: the moments waiting this week, [(life, cast id or -1, "caught" or "odd")]: a caught-between moment
+        with a go-between of either place in its first who: slot (place a's, else b's; -1 when neither has one), an
+        odd-one-out moment with no holder (-1). One whose places changed, or that waited past wait weeks unmet, is dropped."""
         t = self.t if t is None else t; out = []
         for n, it in list(self.eyes_q.items()):
             if self.dead[n] or t - it["t"] > self.eyes_par["wait"] or any(self.eyes_key[n, q_] != k_ for q_, k_ in zip(it["slots"], it["keys"])):
                 del self.eyes_q[n]; continue
-            cid = None
+            cid = -1
             if it["key"] == "caught":
                 gb = self._eyes_gobs(np.array([n]))[0]
                 for q_ in it["slots"]:
