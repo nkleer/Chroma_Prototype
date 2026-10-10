@@ -143,8 +143,8 @@ INNER = {
         more=["belonging < .4", "ago_move < 1", "elder", "hG + hW > .45"],
         less=["satisfaction > .75", "hR > .3"]),
     # C5's rare founding (Library PR #26, earth-world-institutions.lib). "founding" (the world's movement founding event
-    # in the person's place this year, with a free movement slot) is False until C5's movement slots are built (stage 2,
-    # spheres phase 3), so the moment never comes before then. Reach: ties in about the top tenth.
+    # in the person's place this year, with a free movement slot) is False unless C5's movement slots are on (c5_faith,
+    # world.py), so the moment never comes without them. Reach: ties in about the top tenth.
     # The spheres' haunt choices (item 15, N1; Library #49, earth-spheres-gathering.lib), once at each new life stage
     # with 4 or more free hours a week. "haunts" is False until phase 2's haunts are built, so they never come before.
     **{nm_: dict(req="haunts & (time > .2)", more=["belonging < .5", "ties < .4"], less=["time < .3", "health < .3"])

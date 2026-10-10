@@ -44,7 +44,7 @@ ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big 
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
-harsh unrest prosper era founding (C5: a movement founding in the place, with a free slot; never true until C5 is built)
+harsh unrest prosper era founding (C5: a movement founded in the person's town within the year; true only with c5_faith on)
 haunts (the spheres' haunts, phase 2: never true until they are built)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)

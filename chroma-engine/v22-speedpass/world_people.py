@@ -1063,7 +1063,10 @@ class People:
         if not self.n_faith:
             return -1
         fp = _norm(np.asarray(self.W.faith_profile, float))
-        return int(np.argmax(fp @ self.w[n]))
+        sc = fp @ self.w[n]
+        if len(sc) > 3 and hasattr(self.W, "faith_open"):   # C5: a movement slot only while it lives and holds join_share
+            sc = np.where(self.W.faith_open(), sc, -np.inf)
+        return int(np.argmax(sc))
 
     def _members(self, n, j, t, leader=False, quiet=False):
         """New cast members for settings (n, j), vectorised: ages, pies near the setting's norms, roles by kind.
