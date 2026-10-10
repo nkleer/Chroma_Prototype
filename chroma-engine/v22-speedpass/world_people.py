@@ -429,6 +429,7 @@ class People:
         if wp_.get("sph_deep", False):   # phase 5, service as a chapter: comrades met in a unit fade at half speed
             self.comrade = np.zeros((N, K), bool)
             self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
+            self.care_buy = np.zeros(N, bool)    # a carer with money buys help (the engine sets it each month)
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
@@ -1556,6 +1557,8 @@ class People:
         hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
         if W.p.get("sph_deep", False):   # phase 5: the care load (who carries whom) adds care hours and costs work hours
             self.care_load = self._care_load(t)
+            if getattr(self, "care_buy", None) is not None:   # bought help: care hours x .7 (phase5c-answers.md)
+                self.care_load = self.care_load * np.where(self.care_buy, getattr(self, "care_buy_x", 0.7), 1.0)
             hrs[:, 4] += self.care_load; hrs[:, 0] = np.maximum(0.0, hrs[:, 0] - 0.1 * self.care_load)   # 1 work hour per 10
         if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
             hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
@@ -3671,7 +3674,8 @@ class People:
             out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),   # shadow around them, the comrades
                                    sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]],
                                    comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
-                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]))
+                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]),
+                                   care_buy=None if getattr(self, "care_buy", None) is None else bool(self.care_buy[n]))
         if self.far_on:   # far_ties (only when on): the town events read, and each slot's last far event and stay
             ks_ = np.nonzero(self.far_t[n] != NEVER)[0]
             out["far"] = dict(i=int(self._far_i), k=[int(k_) for k_ in ks_], ev=[int(x_) for x_ in self.far_ev[n, ks_]],
@@ -3748,6 +3752,8 @@ class People:
                     pp.comrade[n, s5_["comrade"]] = True
                 if s5_.get("roots") is not None and getattr(pp, "roots", None) is not None:
                     pp.roots[n] = bool(s5_["roots"])
+                if s5_.get("care_buy") is not None and getattr(pp, "care_buy", None) is not None:
+                    pp.care_buy[n] = bool(s5_["care_buy"])
         if pp.far_on:
             for n, d in enumerate(saved):
                 f_ = d.get("far")
