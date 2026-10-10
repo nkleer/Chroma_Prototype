@@ -136,6 +136,8 @@
   @keyframes lkdeal { from { opacity: 0; transform: translate(-10px, 8px) rotate(-1.2deg); } }
 
   /* ---------- the lean wheel on the moment's picture: their colors now, and where the card under the mouse pulls ---------- */
+  /* the picture keeps its own layers, so the lean wheel never rises over the moment's sticky title (phone) */
+  :where(html[data-look="ink"]) .evart { isolation: isolate; }
   .lk-lean { position: absolute; left: 9px; bottom: 9px; z-index: 2; width: 84px; height: 84px; border-radius: 50%; cursor: help;
     background: radial-gradient(closest-side, rgb(250 244 228 / 0.95) 82%, rgb(250 244 228 / 0.78));
     box-shadow: 0 0 0 1px rgb(36 28 19 / 0.62), 0 0 0 3px rgb(250 244 228 / 0.85), 0 0 0 4px rgb(36 28 19 / 0.3), 0 6px 14px -6px rgb(0 0 0 / 0.6);
