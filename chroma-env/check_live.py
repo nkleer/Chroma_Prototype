@@ -6,9 +6,11 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.2.1 live since 2026-10-10 14:03 UTC (release/v22.2.1): game_live (chroma-game/prototype), engine_live,
-          game_tools (the build it was published with); live-v22.2.1-manifest.txt. A page and pictures update: the
-          engine and the Library are v22.2's
+   v22.3  live since 2026-10-10 19:52 UTC (release/v22.3 = 1f63d7e, artifact version 1791661954-7698): game_live,
+          engine_live, game_tools; live-v22.3-manifest.txt. Stage 2 (spheres, the refit), the Library's new moments
+          and earth_spheres.py, the engine's sphere_data.py and sphere_ev_base.py, and 273 new pictures
+   v22.2.1 the rollback, in the same folders: v22.3 changed most of its game, engine and Library files, so its check
+          shows them as changed; live-v22.2.1-manifest.txt (release/v22.2.1 holds them)
    v22.2  the rollback, in the same folders: v22.2.1 changed six of its files (web/index.html, web/src/build.py and
           CHANGES.md, test/drive_v14.js, tools/webdir.py, pictures.json), so its check shows those six as changed;
           live-v22.2-manifest.txt
@@ -33,12 +35,15 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v22.2.1"
+LIVE = "v22.3"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
+LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
 VERSIONS = {
-    "v22.2.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v22.3": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                  files=[], lib=LIB_V22_3),
+    "v22.2.1": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_2_1", trees=["game_tools"],
                     files=[], lib=LIB_V22_2),
     "v22.2": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_2", trees=["game_tools"],
                   files=[], lib=LIB_V22_2),
