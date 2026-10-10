@@ -445,6 +445,9 @@ W_DEFAULT = dict(
     sph_levers=False,  # phase 4: the nine levers on a place or a town's sphere, by reach and rung (dynamics.json levers;
                        # Outer world's answers in chroma-world/spheres/phase4-answers.md)
     sph_fair=False,    # phase 4: felt fairness per life and sphere (dynamics.json felt_fairness), read by the options
+    sph_shadow=False,  # phase 5, N5: each face's shadow share per town and sphere (event rows' shadow turns, subvert,
+                       # the fairness gap), the spheres' grey shares, and the shadow around a life (notes/spheres-phase5-asks.md)
+    sph_deep=False,    # phase 5: the deep state of a life (the care load first; service, debts, holdings to come)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -459,7 +462,7 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
@@ -3024,6 +3027,8 @@ class World:
         self.sph_ds = s_new - s; self.sph_s = s_new
         if self.p.get("sph_levers", False) and getattr(self, "sph_fund", None):          # a patron's pull on the sphere
             self._sph_fund_q(place=False)
+        if self.p.get("sph_shadow", False):
+            self._sph_shadow_q()
         self.sph_H += pr["H_mem"] * (s_new - self.sph_H)
         if self.p.get("sph_pairs", False):
             self._sph_pairs_q(T, s_new)
@@ -3112,6 +3117,9 @@ class World:
         if lever == "voice":
             on_place(0.03 * size, ma)
         elif lever == "subvert":
+            if self.p.get("sph_shadow", False):                                   # N5: feeds its shadow side
+                sh_ = self._sph_sh(); c_ = int(np.argmax(ma))
+                sh_[loc, j, c_] = min(1.0, sh_[loc, j, c_] + self._sh_par()["subvert"] * size)
             if rng.random() < 0.4:                                               # backfires 4 in 10
                 on_place(0.02 * size, away); return "backfired"
             on_place(0.03 * size, ma)
@@ -3157,6 +3165,35 @@ class World:
         else:
             return "none"
         return "moved"
+
+    def _sh_par(self):
+        """N5's numbers (dynamics.json shadow_state.share: start, relax, event_row, subvert, fairness_gap, comm_grey)."""
+        import sphere_data as SD
+        return SD.SHADOW["share"]
+
+    def _sph_sh(self):
+        """N5's shadow shares (town x sphere x colour, 0..1; made at the start value the first time they are needed)."""
+        if getattr(self, "sph_sh", None) is None:
+            self.sph_sh = np.full((self.n_loc, 9, C), self._sh_par()["start"])
+        return self.sph_sh
+
+    def _sph_shadow_q(self):
+        """Phase 5, N5 (sph_shadow), each quarter: every shadow share relaxes .02 of the gap toward .1 and moves .01 x
+        (.5 - the town's felt-fairness target in that sphere): a sphere that fails people grows its shadow, fair
+        enforcement and trust shrink it; comm's also move .01 x (comm.grey - .5) (shadow_state.share)."""
+        sh = self._sph_sh(); pr = self._sh_par()
+        d = pr["relax"] * (pr["start"] - sh) + pr["fairness_gap"] * (0.5 - self.sph_fair_target())[..., None]
+        E = self._sph_ev_tables()
+        if getattr(self, "sph_st", None) is not None and "comm.grey" in E["own"]:
+            k_ = E["own"].index("comm.grey")
+            g_ = np.clip(self.sph_st[:, k_] + self.sph_st_soc[k_] - 0.5, 0, 1)
+            d[:, SPH["comm"]] += pr["comm_grey"] * (g_ - 0.5)[:, None]
+        self.sph_sh = np.clip(sh + d, 0, 1)
+
+    def sph_grey(self):
+        """N5's grey share of each town's spheres (town x sphere): the face-weighted shadow share, no dice."""
+        sh = self._sph_sh() if self.p.get("sph_shadow", False) else np.full((self.n_loc, 9, C), self._sh_par()["start"])
+        return (self.sph_s * sh).sum(-1)
 
     def sph_fair_target(self):
         """Phase 4 (sph_fair): where each town's felt fairness in each sphere settles (n_loc x 9), before a life's own acts
@@ -3267,10 +3304,15 @@ class World:
                 if f.any() or st:
                     rows.append((i, SPH[r["target"]], f, r["scope"] == "big", r["tau"], st))
         big = np.array([any(r["scope"] == "big" for r in e["rows"]) for e in EV])
+        shrows = [(i, SPH[r["target"]], np.array([float(c_ in r["shadow"]) for c_ in COLORS])[self.perm], r["scope"] == "big")
+                  for i, e in enumerate(EV) for r in e["rows"] if r.get("shadow") and r["target"] in SPH]   # N5's turns
+        shsph = np.zeros((n, 9))
+        for i_, j_, _, _ in shrows:
+            shsph[i_, j_] = 1.0
         chains = [(i, key[k], *self.SPH_LAG.get(lag, self.SPH_LAG["years"])) for i, e in enumerate(EV)
                   for k, lag in e["chains"] if k in key]
         c_ = dict(n=n, key=key, names=[e["key"] for e in EV], base=base, cols=cols, Hm=Hm, unread=unread, dice=np.array([e["dice"] for e in EV]), big=big,
-                  rows=rows, chains=chains, sig=(float(pr.get("sig_local", 0.2)), float(pr.get("sig_big", 0.4))),
+                  rows=rows, chains=chains, shrows=shrows, shsph=shsph / np.maximum(shsph.sum(1, keepdims=True), 1), sig=(float(pr.get("sig_local", 0.2)), float(pr.get("sig_big", 0.4))),
                   sph=np.array([SPH[e["sphere"]] for e in EV], np.int64), fired=fired, own=own,
                   wsi=[ci[s_] for s_ in SD.STATE_WORLD], osi=[ci[s_] for s_ in own], sr=dict(SD.STATE_RULE),
                   fam={(e["sphere"], e["family"]): [j for j, x in enumerate(EV) if (x["sphere"], x["family"]) == (e["sphere"], e["family"])]
@@ -3411,6 +3453,8 @@ class World:
             p = p * self._sph_tables()["seas_z"][E["sph"], WEEK_SEASON[(self.t + 7) % 52]][None]
         if self.p.get("sph_memory", False) or self.p.get("pair_calm", False) or self.p.get("sph_cascades", False):
             p = p * self._sph_p3_factor(E, q, w_)
+        if self.p.get("sph_shadow", False) and getattr(self, "sph_sh", None) is not None:   # N5: a grey sphere's shadow events
+            p = p * np.exp(self.sph_grey() @ E["shsph"].T - self._sh_par()["start"] * (E["shsph"].sum(1) > 0)[None])
         self._cache_evh = np.exp(xv @ E["Hm"].T)                                         # for where a big event's local
         on = E["base"] > 0                                                               # rows act (not saved)
         if on.any():
@@ -3675,6 +3719,12 @@ class World:
                     self.sph_st[towns, s_] = np.clip(self.sph_st[towns, s_] + sr["step"] * u_, 0, 1)
         if add:
             self.sph_ev_rows = np.vstack([self.sph_ev_rows, np.array(add)])
+        if self.p.get("sph_shadow", False):   # N5: the row's shadow colours turn toward their shadow side there
+            sh_ = self._sph_sh(); k_ = self._sh_par()["event_row"]
+            for (ei, j, v, bg) in E["shrows"]:
+                if ei == i:
+                    tw_ = every if (bg and not local) else loc_t
+                    sh_[tw_, j] = np.minimum(1.0, sh_[tw_, j] + k_ * v)
         for (a, b, lo, hi) in E["chains"]:
             if a == i:
                 self.sph_ev_win[every, b, 0] = q + lo; self.sph_ev_win[every, b, 1] = q + hi

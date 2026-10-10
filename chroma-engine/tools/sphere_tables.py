@@ -49,7 +49,8 @@ def build(src):
                            chains=[[c["key"], c.get("lag", "years")] for c in e.get("chains_to", [])],
                            rows=[dict(target=r["target"], scope=r.get("scope", "local"), tau=float(r.get("tau", 4)),
                                       faces=[int(r["faces"][c]) for c in COLS] if r.get("faces") else None,
-                                      state={k: int(v) for k, v in r.get("state", {}).items()})
+                                      state={k: int(v) for k, v in r.get("state", {}).items()},
+                                      **({"shadow": [c for c in COLS if c in r["shadow"]]} if r.get("shadow") else {}))
                                  for r in e["effects"]]))
     # phase 2: what each face teaches (its colour mix), and the time budget by life stage and epoch group (hours a week)
     TEACH = [[[float(rd(f"{s}.json")["faces"][c]["teaches"].get(k, 0.0)) for k in COLS] for c in COLS] for s in SPHERES]
@@ -124,6 +125,16 @@ def build(src):
                 low=float(ff["effects"]["low"]), high=float(ff["effects"]["high"]),
                 low_mult={k: float(v) for k, v in ff["effects"]["low_mult"].items()},
                 high_mult={k: float(v) for k, v in ff["effects"]["high_mult"].items()})
+    # phase 5 (Outer world's answers, chroma-world/spheres/phase5-answers.md): N5's shadow shares and their effects
+    # (shadow_state), and the deep state of a life (deep_state: the care load, service, debts, holdings)
+    shs = dyn["shadow_state"]
+    SHADOW = dict(share={k: float(v) for k, v in shs["share"].items()}, gate=float(shs["library_gate"]["threshold"]))
+    ds = dyn["deep_state"]; cl = ds["care_load"]   # (the frail factor, role, public care, stress and work are in its prose)
+    DEEP = dict(care_hours={k: float(v) for k, v in cl["hours_week"].items()}, care_frail=0.2, care_frail_x=1.5,
+                care_role=0.5, care_public=0.5, care_stress=0.02, care_work=0.1,
+                record_weight={k: float(v) for k, v in ds["service"]["record_weight"].items()},
+                service=ds["service"], debts=dict(ledger=int(ds["debts"]["ledger"]), holders=ds["debts"]["holders"]),
+                holdings=dict(max=int(ds["holdings"]["max"]), kinds=ds["holdings"]["kinds"]))
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -131,7 +142,7 @@ def build(src):
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
-                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR)
+                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP)
 
 
 def audit(T):
@@ -190,6 +201,9 @@ def audit(T):
     fb_ = [k for d in T["FAIR"]["states"].values() for k in d["fair"] + d["against"] if k not in st_]
     if ob_ or fb_ or set(T["LEVER_OFFICE"]) != set(SPHERES):
         bad.append(f"levers: office {ob_[:3]}, fairness states unknown {fb_[:3]}")
+    sh_ = T["SHADOW"]["share"]
+    if not (0 <= sh_["start"] <= 1 and 0 < sh_["relax"] < 1) or set(T["DEEP"]["care_hours"]) != {"partner", "parent", "parent_in_law", "grandparent"}:
+        bad.append("phase 5: shadow share or care hours malformed")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
