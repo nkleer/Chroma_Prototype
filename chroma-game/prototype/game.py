@@ -149,6 +149,12 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
+# checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
+# shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
+ENGINE_SET = {}
+if os.environ.get("CHROMA_ENGINE"):
+    import json as _json
+    ENGINE_SET = _json.loads(os.environ["CHROMA_ENGINE"])
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
 # rate between half and twice the typical one, moved week by week by the context around the person (family, ties,
@@ -253,7 +259,19 @@ ADJ_LOOK = {"happy": ("ci-sun", 1), "unhappy": ("ci-raincloud", -1), "calm": ("c
             "unfulfilled": ("ci-moon", -1), "lonely": ("ci-person", -1), "adrift": ("ci-compass", -1), "insecure": ("ci-shield", -1),
             "wealthy": ("ci-domain-money", 1), "poor": ("ci-wallet", -1), "stretched": ("ci-clock", -1), "hemmed in": ("ci-padlock", -1),
             "well connected": ("ci-handshake", 1), "disciplined": ("ci-anchor", 1), "impulsive": ("ci-dice", -1),
-            "searching": ("ci-signpost", 0), "settled": ("ci-roots", 1)}
+            "searching": ("ci-signpost", 0), "settled": ("ci-roots", 1),
+            # light and shadow (item 2): the five shadow states, with the visuals thread's glyphs (ink-icons.json "shadow")
+            "rigid": ("ci-shadow-rigid", -1), "indecisive": ("ci-shadow-indecisive", -1), "ruthless": ("ci-shadow-ruthless", -1),
+            "reckless": ("ci-shadow-reckless", -1), "stuck in their ways": ("ci-shadow-stuck", -1)}
+# Light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md §6), the game's words for it. Only shown while the
+# engine's shadows switch is on (loc["SHON"]); nothing here is read back by the engine. The engine's four sources, in its
+# order (sh_src[..., 0..3]): holding on, ruling, no counterweight, strain. Holding on is told in the colour's own words
+SH_HOLD = dict(W="holding on to the old rules", U="holding on to the old answers", B="holding on to the old ambitions",
+               R="holding on to the old thrills", G="holding on to the old ways")
+SH_FRAC = ((0.15, "a little"), (0.29, "a quarter"), (0.42, "a third"), (0.58, "half"), (0.71, "two thirds"),
+           (0.87, "three quarters"), (9, "nearly all"))   # how much of a colour is in shadow, in words
+SH_SHOW = 0.05                    # a shadow part under this is not drawn or told
+SH_SRC_SHOW = 0.3                 # a source under this (0 to 1) is not named
 ADJ_READS = dict(content="satisfaction", peace="peace", stress="strain", mood="recent ups and downs", wound="grief and harm",
                  unmet_hope="hopes not met", belonging="belonging", meaning="a sense of meaning", safety="feeling safe",
                  money="money", time="time to spare", freedom="freedom", ties="people to lean on", discipline="self-control",
@@ -511,8 +529,9 @@ class Game:
                     P["world_cfg"]["legacy"] = earlier_data["people"]
             elif earlier:
                 raise ValueError("the earlier world this life begins in is not in this browser")
+        P.update(ENGINE_SET)                             # checks only (CHROMA_ENGINE); empty in every played life
         self.sex = P["sex"] if P["sex"] != "intersex" else None
-        self._named_seen = False                         # 'named their gender' already offered a new name
+        self._named_seen = False                        # 'named their gender' already offered a new name
         self._death_on = False
         self.P = P
         self.setup = dict(setting=setting, world=world, society=society, wealth=wealth, faith=faith, upbringing=upbringing, start_age=start_age)
@@ -1872,6 +1891,52 @@ class Game:
             return {}
         return {c: float(X[0, i]) for i, c in enumerate(E.CTX)}
 
+    def shadow_view(self, loc=None):
+        """Light and shadow (stage 2, item 2) as the page shows it: per colour its shadow part (the share of the colour in
+        shadow, 0 to 1), its force, whether the state shows (the engine's adjective, on above .5 and off below .35), whether
+        the person has seen it, the line ("Red 40%, a quarter of it in shadow: reckless at times") and the sources in
+        words. None while the engine's shadows switch is off. Reads only; nothing is drawn at random or written back."""
+        loc = self.loc if loc is None else loc
+        if loc is None or not loc.get("SHON") or "shS" not in loc:
+            return None
+        w = E.softmax(loc["z"][0]); s = np.asarray(loc["shS"][0]); e = np.asarray(loc["shA"][0])
+        src = np.asarray(loc["sh_src"][0]); seen = np.asarray(loc["sh_seen"][0]); sk = np.asarray(loc["P"]["sh_src"], float)
+        adj = np.asarray(loc["adj"][0]) if "adj" in loc else None
+        cols = []
+        for i, c in enumerate(COLORS):
+            st = E.SH_STATES[i]; ai = E.ADJ_ID.get(st, -1)
+            on = bool(adj is not None and 0 <= ai < len(adj) and adj[ai])
+            frac = next(wd for top, wd in SH_FRAC if s[i] < top)
+            how = st if on else f"{st} at times" if e[i] >= 0.2 else "hardly felt"
+            en = [COLORS[j] for j in np.nonzero(E.ENEMY[i])[0]]
+            words = (SH_HOLD[c], f"their {NOUN[c]} rules the rest", f"no {' or '.join(CNAME[x] for x in en)} to argue with",
+                     "strain pressing on it")
+            order = sorted((j for j in range(4) if src[i, j] >= SH_SRC_SHOW), key=lambda j: -sk[j] * src[i, j])
+            cols.append(dict(c=c, state=st, part=round(float(s[i]), 3), force=round(float(e[i]), 3), on=on, seen=bool(seen[i]),
+                             show=bool(s[i] >= SH_SHOW),
+                             line=f"{CNAME[c]} {round(float(w[i]) * 100)}%, {frac} of it in shadow: {how}" if s[i] >= SH_SHOW else "",
+                             src=[words[j] for j in order], src_v=[round(float(x), 3) for x in src[i]]))
+        return dict(cols=cols, on=float(E.ADJ_ALL[E.ADJ_ID[E.SH_STATES[0]]][4]), off=float(E.ADJ_ALL[E.ADJ_ID[E.SH_STATES[0]]][5]))
+
+    def shadow_pull(self, loc, k):
+        """Item 2, the option card's mark: the colour whose shadow drives the heart's pick k, once the person has seen that
+        shadow (seen[c]), else None. The shadow drives it when, without the shadow's overuse bonus (P sh_over x the option's
+        colours x the force, the engine's own term on U_I), the heart would pick another option."""
+        if k is None or k < 0 or not loc.get("SHON") or "shA" not in loc or "U_I" not in loc:
+            return None
+        e = np.asarray(loc["shA"][0]); m = np.asarray(loc["m"][0])
+        ok = np.asarray(loc["seen"][0]) & ~np.asarray(loc["do_nothing"][0])
+        if not ok[k]:
+            return None
+        shU = float(loc["P"]["sh_over"]) * (m @ e)
+        alt = int(np.argmax(np.where(ok, np.asarray(loc["U_I"][0]) - shU, -np.inf)))
+        if alt == k or shU[k] <= shU[alt]:
+            return None
+        c = int(np.argmax(m[k] * e))
+        if m[k, c] * e[c] <= 0 or not bool(loc["sh_seen"][0][c]):
+            return None
+        return dict(c=COLORS[c], state=E.SH_STATES[c], icon=ADJ_LOOK.get(E.SH_STATES[c], ("dot", 0))[0])
+
     def states(self, loc=None):
         """The character's states now: the engine's adjectives (engine.ADJECTIVES, point 3), else the game's own reading."""
         loc = self.loc if loc is None else loc
@@ -1879,17 +1944,25 @@ class Game:
             return []
         if "adj" in loc:
             t = float(loc.get("t", self.t))
-            out = []
+            out, sh = [], []
             av = loc.get("adj_v")
+            ADJ_T = getattr(E, "ADJ_ALL", E.ADJECTIVES)     # the 21 states, then the shadow states (held only with shadows on)
+            SV = self.shadow_view(loc) or {}
             for i in np.nonzero(np.asarray(loc["adj"][0]))[0]:
                 nm = E.ADJ_NAMES[i]; icon, good = ADJ_LOOK.get(nm, ("dot", 0))
-                _, _, var, side, on, off, from_age, _, share = E.ADJECTIVES[i]
-                out.append(dict(word=E.ADJ_SAY[i], name=nm, icon=icon, good=good, var=var, reads=ADJ_READS.get(var, var),
-                                years=round(max(0.0, t - float(loc["adj_since"][0, i])) / 52, 1),
-                                side=int(side), on=float(on), off=float(off), from_age=float(from_age), share=float(share),
-                                scale=ADJ_SCALE.get(var, "pts"),
-                                value=round(float(av[0, i]) * side, 4) if av is not None else None))
-            return sorted(out, key=lambda d: -d["good"])[:6]
+                _, _, var, side, on, off, from_age, _, share = ADJ_T[i]
+                d = dict(word=E.ADJ_SAY[i], name=nm, icon=icon, good=good, var=var, reads=ADJ_READS.get(var, var),
+                         years=round(max(0.0, t - float(loc["adj_since"][0, i])) / 52, 1),
+                         side=int(side), on=float(on), off=float(off), from_age=float(from_age), share=float(share),
+                         scale=ADJ_SCALE.get(var, "pts"),
+                         value=round(float(av[0, i]) * side, 4) if av is not None else None)
+                if i >= len(E.ADJECTIVES):                  # a shadow state: its colour's line and sources for the hover
+                    c_ = var[-1]; d.update(reads=f"the pull of the shadow on {CNAME.get(c_, c_)}", scale="of100",
+                                           shadow=next((x for x in SV.get("cols", ()) if x["c"] == c_), None))
+                    sh.append(d)
+                else:
+                    out.append(d)
+            return sorted(out, key=lambda d: -d["good"])[:6] + sh    # a shadow state always shows, beside the others
         thr = float(loc["q_thr"][0]) if "q_thr" in loc else float(loc["P"]["q_theta"])
         X = self.conditions(loc)
         v = dict(content=float(loc["content"][0]), peace=float(loc["peace"][0]), stress=float(loc["stress"][0]),
@@ -2596,6 +2669,9 @@ class Game:
                  around={CTX_WORDS[k]: round(float(v), 2) for k, v in self.conditions(loc).items() if abs(v) >= 0.05},
                  around_words={CTX_WORDS[k]: around_word(CTX_WORDS[k], float(v)) for k, v in self.conditions(loc).items() if abs(v) >= 0.05},
                  states=self.states(loc))
+        shv = self.shadow_view(loc)
+        if shv is not None:                          # item 2: light and shadow, only with the engine's shadows switch on
+            d["shadow"] = shv
         if dyn is not None:
             d["dyn"] = dict(openness=dyn["openness"], window=bool(dyn["window"]), near=dyn["near"], bands=dyn["bands"],
                             parts={k: r(v) for k, v in dyn["inertia_parts"].items()}, readiness=dyn["readiness"])
@@ -2979,6 +3055,11 @@ class Game:
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
+        sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
+        if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
+            for o in opts:
+                if o["heart_pick"]:
+                    o["shadow"] = sp
         # a perk that helps most of this moment's options says little on each row: the row names one that helps only a few
         cnt = {}
         for o in opts:
