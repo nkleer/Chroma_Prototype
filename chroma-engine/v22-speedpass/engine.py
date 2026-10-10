@@ -623,6 +623,13 @@ DEFAULT = dict(
     child_gap=3.0,       # C-X5: years between one child and the next (the usual birth spacing)
     child_mort=5e-5,     # C-X5: the children's Gompertz level (mort[0] for everyone else)
     season_share=True,   # a threshold step's moment comes to the share of lives its times: gives (Library next3 §4)
+    season_excl=False,   # K6 (v22.3, off): a step plays at most one moment, each at its own times: share (their sum, at
+                         # most 1, is the step's share; the person's colours tilt which), not one draw per moment;
+                         # "1 homeowner in 20" reads as 1 in 20, and a times: line with words only reads by season_words
+    season_words=(("nearly every", 0.9), ("rare", 0.05), ("most", 0.7), ("many", 0.5), ("some", 0.25)),   # refit values
+    move_near=False,     # K2 (v22.3, off): a moves: moment goes to a new town only when it says so (moves: far, or its name
+    fam_far=0.3,         # names a new town; moves: near never; else fam_far of the time: leaving home, a smaller home), and a
+                         # move within the town keeps half the circle (fam_far a refit value; newcomer .97 of lives vs .60)
     ow_weeks=26,         # weeks without work after losing a job before 'out of work' (52 at go-live: .07 of lives against .15)
     intersex_p=0.0005,   # born intersex (about 1 in 2,000; ISNA), raised as a girl or a boy half and half
     female_p=0.488,      # female at birth (about 105 boys per 100 girls; UN WPP)
@@ -969,7 +976,9 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c3_inst=False, c4_nature=False, c5_faith=False)
+               c3_inst=False, c4_nature=False, c5_faith=False,
+               # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
+               move_near=False, season_excl=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1985,6 +1994,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             tm_ = str((x_.get("timing") or {}).get("times") or x_.get("times") or "").lower()
             m_ = re.search(r"\b1 in (\d+)", tm_)
             TH_P[si_] = 1.0 / float(m_.group(1)) if m_ else 0.5 if "half" in tm_ else 1.0
+            if P["season_excl"]:   # K6: "1 homeowner in 20" counts too, and the words alone give a share
+                m_ = re.search(r"\b1 (?:[a-z-]+ ){0,3}in (\d+)", tm_)
+                h_ = [(m2_.start(), v_) for k_, v_ in P["season_words"] for m2_ in [re.search(r"\b" + k_, tm_)] if m2_]
+                w_ = min(h_)[1] if h_ else 1.0   # the first such word in the line
+                TH_P[si_] = 1.0 / float(m_.group(1)) if m_ else 0.5 if "half" in tm_ else w_
     SEA_ON = bool(P["season"]) and bool((TH_K >= 0).any())
     TH_ANY = TH_K >= 0; TH_TITLE = {int(k_ - NS) for k_ in TH_K[TH_K >= NS]}
     sea_k = np.full(N, -1); sea_t0 = np.zeros(N, int); sea_done = np.zeros((N, 4), bool); sea_log = []   # steps 1-3, transform
@@ -1992,6 +2006,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     sea_rng = np.random.default_rng([int(seed), 79])       # season_share's draws, on their own stream
     ent_rng = np.random.default_rng([int(seed), 80])       # a first job's or a job move's title acceptance (acc_first, acc_move)
     far_rng = np.random.default_rng([int(seed), 81])       # whether one's own move is to a new town (far_share, E6)
+    fam_rng = np.random.default_rng([int(seed), 84])       # whether the family's move is to a new town (move_near, K2)
+    def _mv_far(x_):   # K2: moves: far / near from the Library; moves: yes is far when the moment names a new town
+        v_ = str(x_.get("moves")).strip().lower()
+        return 1.0 if v_ == "far" else 0.0 if v_ == "near" else 1.0 if "new town" in str(x_.get("name", "")) else P["fam_far"]
+    MVF_ = np.array([_mv_far(x_) for x_ in L.get("src", [])] + [P["fam_far"]] * (L["S"] - len(L.get("src", []))))
     RETIRES_ = np.array([bool(x_.get("retires")) for x_ in L.get("src", [])] + [False] * (L["S"] - len(L.get("src", []))))
     ELD_ = STAGE_NAMES.index("elder")
     # retirement is the crossing into later life (the Library, 22:30): when the batch's elder season has a moment that
@@ -2841,7 +2860,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         c_ = cr_
                     elif held[n, CAR]:
                         end([n], [CAR], "retired", t); ret_pend[n] = -1
-                if len(c_) and P["season_share"]:   # each step moment comes to its share of lives (Library next3 §4): a
+                if len(c_) and P["season_excl"]:    # K6: one draw for the step; each moment at its own share, tilted by
+                    tl_ = np.exp(2.0 * (nic[n] @ L["ALPHA"][c_].T))   # the person's colours (share-weighted mean tilt 1)
+                    pp_ = TH_P[c_] * tl_ * TH_P[c_].sum() / max((TH_P[c_] * tl_).sum(), 1e-12)
+                    pp_ = pp_ / max(1.0, pp_.sum()); k_ = int(np.searchsorted(np.cumsum(pp_), sea_rng.random(), side="right"))
+                    c_ = c_[k_:k_ + 1]                # past the sum: the step passes as an ordinary week
+                elif len(c_) and P["season_share"]:   # each step moment comes to its share of lives (Library next3 §4): a
                     c_ = c_[sea_rng.random(len(c_)) < TH_P[c_]]   # step none of whose moments comes passes as an ordinary week
                 if len(c_):
                     wt_ = np.exp(2.0 * (nic[n] @ L["ALPHA"][c_].T)) * RATE[c_]
@@ -3617,12 +3641,21 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             mv_own_ = (((mk_ == MIDX["moved away"]) | A_MOVE[s, a]) & succ & ~idle & live_)   # their own move
             if P["far_share"] < 1 and mv_own_.any():   # E6: only some of one's own moves are to a new town (newcomer .93 vs .60)
                 mv_own_ &= far_rng.random(N) < P["far_share"]
-            mv_far = (L["MOVES"][s] & live_) | mv_own_   # a new town (newcomer); the family's move always is one
+            mv_fam_ = L["MOVES"][s] & live_
+            if P["move_near"] and mv_fam_.any():   # K2: the family's move is to a new town fam_far of the time
+                mv_fam_ &= fam_rng.random(N) < MVF_[s]
+            mv_far = mv_fam_ | mv_own_   # a new town (newcomer); without move_near the family's move always is one
             mvk = mvk | (A_MOVE[s, a] & succ & ~idle & live_)
             if mvk.any():
                 ii_ = np.nonzero(mvk)[0]
-                circle[ii_] = random_messages(rng, len(ii_)); nic[ii_] = 0.5 * nic[ii_] + 0.5 * circle[ii_]
-                res[ii_, TIE] = np.maximum(0, res[ii_, TIE] - 0.2)
+                if P["move_near"]:   # K2: a move within the town keeps half the circle (new neighbours, the same friends)
+                    kp_ = np.where(mv_far[ii_], 0.0, 0.5)[:, None]
+                    circle[ii_] = kp_ * circle[ii_] + (1 - kp_) * random_messages(rng, len(ii_))
+                    nic[ii_] = (0.5 + 0.5 * kp_) * nic[ii_] + (0.5 - 0.5 * kp_) * circle[ii_]
+                    res[ii_, TIE] = np.maximum(0, res[ii_, TIE] - np.where(mv_far[ii_], 0.2, 0.1))
+                else:
+                    circle[ii_] = random_messages(rng, len(ii_)); nic[ii_] = 0.5 * nic[ii_] + 0.5 * circle[ii_]
+                    res[ii_, TIE] = np.maximum(0, res[ii_, TIE] - 0.2)
                 ago["move"][ii_] = t; n_moves[ii_] += 1
                 if WON:   # the world: a new place (a far move: another locality; leaving or coming home: nearby)
                     for n in ii_:
