@@ -270,8 +270,11 @@ V224 = [
      "S5: money lost per lead colour within 1.2x"),
     ("s6_felt", "G10", 1, "python3 -B chroma-engine/tools/seen_check.py 60 7 80", "re:^S6_FELT OK", (),
      "S6: mean felt-odds lift per colour way within .01 (60 lives x 80 years, seed 7)"),
-    ("s7_lead", "G11", 1, "python3 -B chroma-engine/tools/lead_check.py --lives 300 --years 80 --seeds 41,42", "re:^ALL PASS", (),
-     "S7: falls per way per 10 post-years within 1.5x (20 falls a way at least); years in post per lead colour within 1.2x"),
+    ("s7_lead", "G11", 4, "python3 -B chroma-engine/tools/lead_check.py --lives 300 --years 80 --seeds 41,42,43,44,45,46,47,48,49,50,51,52 "
+     "--jobs 4", "re:^ALL PASS", (),
+     "S7: falls per way per 10 post-years within 1.5x (20 falls a way at least); years in post per lead colour within 1.2x "
+     "(12 seeds x 300 lives, where colour-blind lives pass 1.2x 9 times in 10: shuffle 90th percentile 1.16; scope.md, "
+     "Small counts)"),
     ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 120 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz",
