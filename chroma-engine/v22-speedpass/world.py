@@ -451,6 +451,9 @@ W_DEFAULT = dict(
     far_ties=False,    # item 18: a town's events touch the named people living there; a close tie in another town calls
                        # (chroma-ideas/far-off-events.md; sides in sphere_data.FAR); with sph_events
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
+    lead_ways=False,   # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a modelled post per leading role (start,
+                       # way, legitimacy, end) in place of phase 4's fixed leader's tenure; with sph_levers (and sph_eyes)
+    lead_par=None,     # lead_ways tuning: {name: value} over world_people.LEAD_DEFAULT (None: the start values)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -465,7 +468,7 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "lead_ways", "lead_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
@@ -3095,11 +3098,12 @@ class World:
         self.hp_off[l, h, i] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
         self.hp_s[l, h, i] = new
 
-    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget"):
+    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None):
         """Phase 4 (sph_levers): a life's lever lands on its place (a flat place id, World.place_info) or, with place -1,
         on its town's sphere j (the caller passes the smaller size there). ma: the act's colours in this world's frame;
-        size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. Returns what moved (a
-        word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
+        size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. span: a fund act's
+        quarters when the caller knows them (lead_ways: what is left of a leader's post), else FUND_SPAN by rung. Returns
+        what moved (a word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
         if size <= 0 or getattr(self, "sph_s", None) is None:
             return "none"
         loc = int(loc); j = int(j); q = int(self.t // 13); ma = np.asarray(ma, float)
@@ -3156,7 +3160,7 @@ class World:
                 self._sph_place_set(loc, h2, i2, new)
             self.sph_s[loc, j] = self._sph_nudge(town, new, 1.0 / (nP + 1))
         elif lever == "fund":
-            span = FUND_SPAN[min(int(rung), 4)]
+            span = FUND_SPAN[min(int(rung), 4)] if span is None else int(span)
             if span <= 0:
                 return "none"
             if not hasattr(self, "sph_fund") or self.sph_fund is None:

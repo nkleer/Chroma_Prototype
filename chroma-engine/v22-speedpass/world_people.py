@@ -38,6 +38,7 @@ from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
 from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_ROWS, LADDER, TOUCHES
+from world_keys import LEAD_WAYS
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
@@ -217,7 +218,8 @@ INST_OF = dict(work="employer", unit="army", ward="hospital", **{"class": "schoo
 COMM_W = np.array([dict(household=0.2, work=0.3, congregation=1.0, club=1.0, scene=0.8, online=0.4, neighbours=0.5,
                         gang=0.6, unit=0.8, ward=0.3, movement=1.0, **{"class": 0.3})[g_] for g_ in GROUP_KINDS])
 WANT_RATE = np.array([dict(money=2.0, care=2.0, successor=0.5, grandchild=0.7, love=1.0, rival=1.0, forgiveness=0.5,
-                           home=0.7, stop=1.5, secret=1.0, far_hard=26.0, far_good=26.0, far_mixed=26.0)[w_]
+                           home=0.7, stop=1.5, secret=1.0, far_hard=26.0, far_good=26.0, far_mixed=26.0,
+                           lead_take=26.0, lead_crisis=26.0, lead_fall=26.0, lead_routine=26.0, lead_hand=26.0)[w_]
                       for w_ in CAST_WANTS])   # ripening a year (a far tie's call: within weeks)
 # resolving a want: (closeness, trust) if accepted, (closeness, trust) if refused, mark if accepted, mark if refused
 # (marks are words of engine.py's MARK_BASE)
@@ -244,6 +246,46 @@ FAR_DEFAULT = dict(hard=1.0, good=1.0, call_hard=0.75, call_good=0.5, call_mixed
                    lapse=8, cause=104)
 FAR_WHO = ("any", "in_work", "out_of_work", "owner", "renter", "poor", "comfortable", "young", "old", "ill", "parent")
 FAR_OFF = 10 ** 9   # far_in: not taken in
+# lead_ways (S7 "Ways to lead", chroma-ideas/social-mechanics.md, with "The leader's time in post" and "The falls in
+# numbers"): start values for v22.3's one refit, estimates where the spec gives none. The time in post itself (term,
+# renewal, consecutive terms, yearly end chance, age out, by post kind and epoch) and the fast-change line are the Outer
+# world's (dynamics.json lead_posts, sphere_data.LEAD_POSTS). take: a quarter's chance that a pillar (rank .85 or more) of
+# a setting with a leader takes the lead; take_age: from this age; rival: a quarter's chance that the setting's most
+# standing member challenges (a rival of higher rung takes over); fall: legitimacy under this is a fall; rules .. favours,
+# inspiring: the falls in numbers (the spec's; custom's is lead_posts.fast_change.loss_q); fair_line: the led's felt
+# fairness under this is a fairness scandal; frail: health under this ends a post; sh, sh_years: the shadow target one
+# way held sh_years adds to its colour (item 2, with shadows); fight: a fall fought and won leaves legitimacy here; again:
+# weeks after standing down before the take chance doubles there; wait: weeks a post's moment waits to come; routine:
+# yearly fades in a row after which the inspiring leader's turn to routine is offered in place of the crisis; ruler_end:
+# the yearly end chance of a national office where there are no elections (held at the ruler's pleasure)
+LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, rules=0.3, knowing=0.3, favours=0.4, inspiring=0.05,
+                    fair_line=0.35, frail=0.35, sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+# the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
+# reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
+# sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
+# life is in one; else the town sphere's faces)
+LEAD_TITLES = {"head of government": ("national", "rule", None), "minister": ("national", "rule", None),
+               "party leader": ("national", "rule", None), "member of parliament": ("national", "rule", None),
+               "mayor": ("office_local", "rule", None), "local councillor": ("office_seat", "rule", None),
+               "lay judge": ("office_judge", "rule", None), "research group leader": ("office_head", "learn", None),
+               "community centre manager": ("office_head", "gather", None), "artistic director": ("office_head", "arts", None),
+               "shift manager": ("setting_work", "comm", "work"), "head chef": ("setting_work", "comm", "work"),
+               "founder of a firm": ("setting_work", "prod", "work"), "union rep": ("setting_member_led", "prod", "work"),
+               "shop owner": ("place_owned", "comm", None), "café or bar owner": ("place_owned", "gather", None),
+               "community theatre director": ("place_chosen", "arts", None),
+               "deacon or elder": ("setting_congregation", "faith", "congregation"),
+               "team captain": ("setting_member_led", "gather", "club"),
+               "community-garden coordinator": ("setting_member_led", "prod", "club"),
+               "parent-association organiser": ("setting_member_led", "learn", "club"),
+               "book-club organiser": ("setting_member_led", "arts", "club"),
+               "board-game club organiser": ("setting_member_led", "gather", "club"),
+               "neighbourhood-watch coordinator": ("setting_member_led", "prot", "club"),
+               "festival organiser": ("setting_member_led", "gather", "club"),
+               "volunteer research organiser": ("setting_member_led", "learn", "club"),
+               "disability-rights organiser": ("setting_member_led", "rule", "movement"),
+               "campaign organiser": ("setting_member_led", "rule", "movement"),
+               "founder of a movement": ("setting_member_led", "rule", "movement")}
+LEAD_KINDS = ("work", "congregation", "club", "gang", "unit", "movement")   # settings a life can come to lead
 
 
 def _isin_small(a, vals):
@@ -433,6 +475,9 @@ class People:
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
+        self.lw = bool(wp_.get("lead_ways", False)) and self.sph_lv   # S7: ways to lead, with phase 4's levers
+        if self.lw:
+            self._lead_init()
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -1671,6 +1716,8 @@ class People:
         self.title_st = None if ts_ is None else np.asarray(ts_, float)
         ds_ = S.get("domain_standing")   # (N, len(DOMAINS)) 0-3: a title's standing in its own domain
         self.dom_st = None if ds_ is None else np.asarray(ds_, float)
+        if getattr(self, "lw", False) and S.get("lead_has") is not None:   # S7: the leading titles held (LEAD_TITLES)
+            self.lw_has = np.asarray(S["lead_has"], bool).reshape(N, -1)
         kc_ = S.get("children")          # the engine's living children (its alive[:, 5]; or S["alive"] with 6 columns)
         if kc_ is None and S.get("alive") is not None and np.ndim(S["alive"]) == 2 and np.shape(S["alive"])[1] > 5:
             kc_ = np.asarray(S["alive"])[:, 5]
@@ -1767,6 +1814,8 @@ class People:
         self._cleanup(t)
         self._alive_counts(np.arange(self.N))
         self._approval(t)   # felt acceptance per norm key: once a quarter (views move slowly)
+        if self.lw:          # S7: the posts' quarter (after the settings' leaders are replaced)
+            self._lead_q(t)
 
     # ------------------------------------------------------------------ ties: contact and closeness (spec 2 §3)
     def _tie_target(self, n2=None, k2=None):
@@ -2405,6 +2454,8 @@ class People:
             mem = np.nonzero(B[n_, :, j_] > 0)[0]
             if len(mem):
                 k_ = int(mem[np.argmax(self.stand[n_, mem] + 0.1 * rng.random(len(mem)))])
+                if self.lw and self._lead_vacant(n_, j_, k_, t):   # S7: the character stands higher and takes the lead
+                    continue
                 self.slead[n_, j_] = k_
                 lr = K_LEAD[int(self.skind[n_, j_])]
                 self.rmask[n_, k_] |= BIT[lr]
@@ -3052,7 +3103,17 @@ class People:
         if place < 0:
             ss_ = self.set_sphere[n]
             size *= 0.5 if ((self.skind[n] == G["work"]) & (ss_ == j)).any() else 0.25
-        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office])
+        span = None
+        if self.lw:   # S7: a leader's act in the sphere they lead: the lead lever's size x (.5 + legitimacy), a fund act
+            p_ = self._lead_post(n, j)   # lasts what is left of the post (not phase 4's fixed 80 quarters), and the act
+            if p_ is not None:            # counts for the way's falls (a failed one, a favour, a success)
+                if lv == "lead":
+                    size *= 0.5 + p_["legit"]
+                if rg >= 4:
+                    span = self._lead_left(p_, t)
+                self._lead_act(p_, lv, q, t)
+        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
+                           span=span)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
                     rung=LADDER[min(max(rg, 0), 4)], moved=what)
 
@@ -3066,7 +3127,7 @@ class People:
             return
         self._p4_yr = a; W = self.W; N = self.N
         live = ~self.dead
-        if self.sph_lv and hasattr(self, "rung"):
+        if self.sph_lv and hasattr(self, "rung") and not self.lw:   # (lead_ways: the posts join it, each quarter)
             pl = np.zeros((self.n_loc, 9, C + 1))
             n_, j_ = np.nonzero((np.floor(self.rung) >= 4) & live[:, None])
             np.add.at(pl, (self.loc[n_], j_), np.concatenate([self.w[n_], np.ones((len(n_), 1))], 1))
@@ -3176,6 +3237,447 @@ class People:
         if d == "belief":
             return f"faith:{int(self.pfaith[n])}" if self.pfaith[n] >= 0 else "secular"
         return dict(economy="inequality", tech="invent", nature="warming", abroad="relation:0").get(d, d)
+
+    # ------------------------------------------------------------------ S7, ways to lead (lead_ways)
+    # chroma-ideas/social-mechanics.md S7, "The leader's time in post" first: a post per leading role a life holds (it
+    # leads one of its settings, kind "setting", or one held at a named place, "place", or holds an office title,
+    # LEAD_TITLES, kind "office"). Each post keeps its start, its way (rules W, knowing best U, favours owed B, inspiring R, custom G)
+    # and its legitimacy (the fit of the way's colour to the led place's faces through the place reading, scaled 0..1,
+    # less the falls' steps). Its time in post is the Outer world's (dynamics.json lead_posts, by post kind and epoch: a
+    # term renewed with chance min(.95, renew x (.5 + legitimacy)) up to max_terms, a yearly end chance, an age out;
+    # health under .35 ends it; national offices keep the world's own elections). It also ends at a move, when a rival
+    # of higher rung takes over, or by a fall (legitimacy under .2), each told as an event and, where the Library has
+    # them, a moment (cast_want lead_take, lead_crisis, lead_fall, lead_routine, lead_hand; fired with no holder, cid -1).
+    def _lead_init(self):
+        import sphere_data as SD
+        wp_ = getattr(self.W, "p", None) or {}
+        self.lw_par = {**LEAD_DEFAULT, **dict(wp_.get("lead_par") or {})}
+        tb = SD.PLACE_READING
+        T = np.array([[float(tb[COLORS[f_]][COLORS[c_]]) for c_ in range(C)] for f_ in range(C)])   # face x act colour
+        self._lw_T = T[self.perm][:, self.perm]          # in this world's frame
+        LP = SD.LEAD_POSTS
+        self._lw_kinds = LP["kinds"]
+        self._lw_hk = {h_: k_ for k_, v_ in LP["kinds"].items() for h_ in v_["haunts"]}   # a place's post kind by haunt kind
+        self._lw_gk = {g_: k_ for k_, v_ in LP["kinds"].items() for g_ in v_["groups"]}   # a setting's by group kind
+        self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES]); self._lw_floss = float(LP["fast_loss"])
+        self._lw_hist = []        # the town spheres' face mixes the last five quarters (custom's fast change: 4 quarters)
+        self._lw_need = float(SD.DEEP["money"]["need_line"])   # favours: money under the need line
+        self.lw_posts = []        # the posts held now: dicts (see _lead_new)
+        self.lw_ended = []        # the posts that ended, oldest first
+        self.lw_due = []          # [life, moment key, post id, week queued]: a post's moment waiting to come
+        self.lw_lost = []         # [life, office index, why]: an office title the engine takes away (a fall, a term)
+        self.lw_keys = set()      # the lead moment keys the batch has (WorldLink sets it); none: no moment is waited for
+        self.lw_tnames = list(LEAD_TITLES)
+        self.lw_has = np.zeros((self.N, len(LEAD_TITLES)), bool)    # the leading titles held (the engine's, each week)
+        self.lead_sh = np.zeros((self.N, C))                       # the shadow target years in one way add (with shadows)
+        self._lw_next = 0; self._lw_q = -1; self._lw_back = {}
+        self._lw_rng = np.random.default_rng([self.seed, 97, self.run_seed])   # the posts' own dice
+
+    def _lead_cell(self, pk):
+        """The time in post of post kind pk in this world's epoch (form, term_q, renew, max_terms, end_y, age_out), None
+        where the kind has no post then. A national office keeps the world's own elections (no term, no end chance of
+        S7's); where there are none, it is held at the ruler's pleasure (end_y .1)."""
+        if pk == "national":
+            el_ = float(getattr(self.W, "regime", 0.0)) >= 0
+            return dict(form="chosen" if el_ else "appointed", term_q=None, renew=None, max_terms=None,
+                        end_y=0.0 if el_ else self.lw_par["ruler_end"], age_out=None)
+        return self._lw_kinds[pk]["by"].get(getattr(self.W, "sph_epoch", "modern"))
+
+    def _lead_kind(self, n, kind, slot, place):
+        """The post kind (lead_posts) of a setting led (by the haunt kind of its place, else its group kind) or an office."""
+        if kind == "office":
+            return LEAD_TITLES[self.lw_tnames[slot]][0]
+        if kind == "place":
+            return self._lw_hk.get(HAUNT_KINDS[(int(place) // self.W.hp_s.shape[2]) % len(HAUNT_KINDS)])
+        return self._lw_gk.get(GROUP_KINDS[int(self.skind[n, slot])])
+
+    def _lead_left(self, p, t):
+        """Quarters left in post (phase 4's fund span for a leader): the term's rest, else the next vote for a national
+        office, else the expected time to its yearly end chance; never past the age out; at least 1."""
+        c_ = self._lead_cell(p["pk"]) or {}
+        if c_.get("term_q"):
+            q_ = c_["term_q"] - (t - p["term_t0"]) // 13
+        elif p["pk"] == "national" and float(getattr(self.W, "regime", 0.0)) >= 0:
+            q_ = int(getattr(self.W, "next_vote", 16))
+        else:
+            q_ = 4.0 / c_["end_y"] if c_.get("end_y") else 80
+        if c_.get("age_out"):
+            q_ = min(q_, 4 * (c_["age_out"] - self._age(t)))
+        return max(1, int(q_))
+
+    def _lead_renew(self, p, t):
+        """A term's end: handed over after max_terms in a row, else renewed with chance min(.95, renew x (.5 +
+        legitimacy)), else it ends."""
+        c_ = self._lead_cell(p["pk"]) or {}
+        p["terms"] += 1
+        if c_.get("max_terms") and p["terms"] >= c_["max_terms"]:
+            self._lead_end(p, t, "term limit")
+        elif self._lw_rng.random() < min(0.95, float(c_.get("renew") or 0.0) * (0.5 + p["legit"])):
+            p["term_t0"] = int(t)
+            self._lead_ev(p, t, "renewed", terms=p["terms"])
+        else:
+            self._lead_end(p, t, "term")
+
+    def _lead_faces(self, p):
+        """The led place's faces (this world's frame): the named place, the setting's ways, or the town's sphere."""
+        W = self.W; n = p["n"]
+        if p["kind"] == "office" and p.get("gslot", -1) >= 0:   # a leading title over a setting the life is still in
+            g_ = p["gslot"]
+            if self.skind[n, g_] >= 0 and int(self.sjoin[n, g_]) == p["gjoin"]:
+                if p["place"] >= 0 and getattr(W, "hp_s", None) is not None and int(self.shnt[n, g_]) == p["place"]:
+                    return np.asarray(W.hp_s.reshape(-1, C)[p["place"]], float)
+                return np.asarray(self.snorm[n, g_], float)
+        if p["kind"] == "place" and getattr(W, "hp_s", None) is not None:
+            return np.asarray(W.hp_s.reshape(-1, C)[p["place"]], float)
+        if p["kind"] in ("place", "setting"):
+            return np.asarray(self.snorm[n, p["slot"]], float)
+        if getattr(W, "sph_s", None) is not None:
+            return np.asarray(W.sph_s[p["loc"], p["sphere"]], float)
+        return np.full(C, 1.0 / C)
+
+    def _lead_fit(self, p):
+        """The fit of the post's way to the led place: the place's reading of the way's colour (own +1, ally +.4,
+        enemy -.4, dynamics.json place_reading), from -.4..1 to 0..1."""
+        r = float(self._lead_faces(p) @ self._lw_T[:, int(self.iperm[p["way"]])])
+        return (r + 0.4) / 1.4
+
+    def _lead_legit(self, p):
+        p["legit"] = float(min(max(self._lead_fit(p) + p["dent"], 0.0), 1.0))
+        return p["legit"]
+
+    def _lead_post(self, n, j):
+        """Life n's post in sphere j (the most legitimate, when several), else None."""
+        best = None
+        for p in self.lw_posts:
+            if p["n"] == n and p["sphere"] == j and (best is None or p["legit"] > best["legit"]):
+                best = p
+        return best
+
+    def _lead_ev(self, p, t, state, **kw):
+        if self.watch[p["n"]]:
+            self.events.append(dict(n=int(p["n"]), t=int(t), kind="lead", state=state, post=p["kind"],
+                                    sphere=SPHERES[p["sphere"]], way=LEAD_WAYS[p["way"]], legit=round(p["legit"], 3), **kw))
+
+    def _lead_queue(self, p, key, t):
+        """A post's moment waits to come (only when the batch has moments of that key)."""
+        if key in self.lw_keys and not any(d_[2] == p["id"] and d_[1] == key for d_ in self.lw_due):
+            self.lw_due.append([int(p["n"]), key, int(p["id"]), int(t)])
+            return True
+        return False
+
+    def _lead_new(self, n, kind, j, slot, place, t):
+        """A post begins: the character picks the way of its lead colour (a lead_take moment can change it)."""
+        pk = self._lead_kind(n, kind, slot, place)
+        if pk is None or self._lead_cell(pk) is None:   # no such post in this epoch
+            return None
+        c = int(self.perm[int(np.argmax(self.w[n]))])
+        p = dict(id=self._lw_next, n=int(n), kind=kind, pk=pk, terms=0, sphere=int(j), slot=int(slot), place=int(place), loc=int(self.loc[n]),
+                 t0=int(t), term_t0=int(t), way=c, col=c, way_t=int(t), succ_t=int(t), fade_t=int(t), fades=0, dent=0.0,
+                 legit=0.0, join=int(self.sjoin[n, slot]) if kind != "office" else -1, fair_lo=False, money_yr=-1,
+                 falls=[], end_t=None, why=None)
+        self._lw_next += 1
+        self._lead_legit(p)
+        self.lw_posts.append(p)
+        self._lead_ev(p, t, "took", title=self.lw_tnames[slot] if kind == "office" else None)
+        self._lead_queue(p, "lead_take", t)
+        return p
+
+    def _lead_end(self, p, t, why):
+        """A post ends: a setting's lead goes to its most standing member; an office S7 ended (a fall, a term, a
+        hand-over, a move...) is taken from the engine's titles, and a favours leader's other posts lose what the office
+        paid for."""
+        if p not in self.lw_posts:
+            return
+        self.lw_posts.remove(p)
+        p["end_t"] = int(t); p["why"] = why
+        self.lw_ended.append(p)
+        self.lw_due = [d_ for d_ in self.lw_due if d_[2] != p["id"]]
+        n = p["n"]
+        if p["kind"] != "office" and self.slead[n, p["slot"]] == -2 and why != "rival":
+            self.slead[n, p["slot"]] = -1   # handed to the most standing member (no dice), else left for the members' turn
+            if self.skind[n, p["slot"]] >= 0:
+                mem = np.nonzero((self._bits()[n, :, p["slot"]] > 0) & self.lv[n])[0]
+                if len(mem):
+                    k = int(mem[np.argmax(self.stand[n, mem])])
+                    self.slead[n, p["slot"]] = k; self.rmask[n, k] |= LEAD_BIT[int(self.skind[n, p["slot"]])]
+        if p["kind"] == "office":
+            if why not in ("died", "office ended"):   # S7 ended it: the engine takes the title (a fall, a term, a move)
+                self.lw_lost.append([int(n), int(p["slot"]), why])
+            if why != "died":   # favours owed: the office that paid them has ended
+                for q_ in [q_ for q_ in self.lw_posts if q_["n"] == n and q_["way"] == 2]:
+                    self._lead_step(q_, t, "favours", self.lw_par["favours"], why="the office ended")
+        self._lead_ev(p, t, "ended", why=why, years=round((t - p["t0"]) / 52.0, 2))
+
+    def _lead_step(self, p, t, key, size, why=None):
+        """A fall's step in legitimacy (the falls in numbers); the crisis of the way waits to come (lead_crisis), or the
+        turn to routine for a fading inspiring leader; under the fall line, the fall."""
+        if p not in self.lw_posts:
+            return
+        p["dent"] -= size; p["falls"].append([int(t), int(p["way"]), key])
+        self._lead_legit(p)
+        self._lead_ev(p, t, "step", key=key, why=why, size=size)
+        if p["legit"] < self.lw_par["fall"]:
+            self._lead_fall(p, t)
+        elif key == "inspiring" and p["fades"] >= self.lw_par["routine"] and "lead_routine" in self.lw_keys:
+            self._lead_queue(p, "lead_routine", t)
+        else:
+            self._lead_queue(p, "lead_crisis", t)
+
+    def _lead_fall(self, p, t):
+        """Legitimacy under the fall line: the fall moment (go, fight, again), else the post ends."""
+        if any(d_[2] == p["id"] and d_[1] == "lead_fall" for d_ in self.lw_due):
+            return
+        self.lw_due = [d_ for d_ in self.lw_due if d_[2] != p["id"]]   # the fall comes before any crisis
+        self._lead_ev(p, t, "falling")
+        if not self._lead_queue(p, "lead_fall", t):
+            self._lead_end(p, t, "fell")
+
+    def _lead_act(self, p, lv, q, t):
+        """A leader's lever act in the sphere they lead (phase 4's levers): a success keeps an inspiring leader's spark
+        (no fade for a year); a visible failure is knowing best's mistake; a favour (subvert) touching the leader is a
+        rules leader's scandal."""
+        if q >= 0.5:
+            p["succ_t"] = int(t); p["fades"] = 0
+        if p["way"] == 1 and q < 0.5:
+            self._lead_step(p, t, "knowing", self.lw_par["knowing"], why="a failed lead act")
+        elif p["way"] == 0 and lv == "subvert":
+            self._lead_step(p, t, "rules", self.lw_par["rules"], why="a favour")
+
+    def _lead_vacant(self, n, j, k, t):
+        """A setting's leader left or died (the members' most standing one, k, would follow): with lead_ways the
+        character takes the lead instead when the setting's kind can be led (LEAD_KINDS), they are of age, and they
+        stand higher: their rung in the setting's sphere (a regular 1, a known face 2, a pillar 3) above k's (1 +
+        standing). True when they took it."""
+        if (GROUP_KINDS[int(self.skind[n, j])] not in LEAD_KINDS or self.dead[n] or self._age(t) < self.lw_par["take_age"]
+                or not hasattr(self, "rung")):
+            return False
+        sj = int(self.set_sphere[n, j])
+        if sj < 0 or int(np.floor(self.rung[n, sj])) <= 1 + int(self.stand[n, k]):
+            return False
+        pl_ = int(self.shnt[n, j]) if getattr(self.W, "hp_s", None) is not None else -1
+        if self._lead_new(int(n), "place" if pl_ >= 0 else "setting", sj, int(j), pl_, t) is None:
+            return False
+        self.slead[n, j] = -2
+        return True
+
+    def _lead_q(self, t):
+        """Each quarter: posts end (death, the office or setting gone, a move, frailty, the age out, the yearly end
+        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest and the falls of each way,
+        new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
+        post x (.5 + legitimacy)) and the shadow target."""
+        if self._lw_q == t:
+            return
+        self._lw_q = t; W = self.W; par = self.lw_par; a = self._age(t)
+        if getattr(W, "sph_s", None) is not None:
+            self._lw_hist = (self._lw_hist + [np.array(W.sph_s, float)])[-5:]
+        # 1. ends
+        for p in list(self.lw_posts):
+            n = p["n"]; why = None; c_ = self._lead_cell(p["pk"])
+            if self.dead[n]:
+                why = "died"
+            elif p["kind"] == "office" and not self.lw_has[n, p["slot"]]:
+                why = "office ended"
+            elif p["kind"] != "office" and (self.skind[n, p["slot"]] < 0 or int(self.sjoin[n, p["slot"]]) != p["join"]):
+                why = "left"
+            elif int(self.loc[n]) != p["loc"]:
+                why = "moved"
+            elif c_ is None:
+                why = "no such post"
+            elif float(self.res[n, HEA]) < par["frail"]:
+                why = "frail"
+            elif c_.get("age_out") and a >= c_["age_out"]:
+                why = "retired"
+            elif c_.get("end_y") and self._lw_rng.random() < 1 - (1 - c_["end_y"]) ** 0.25:
+                why = "stepped down"
+            if why:
+                self._lead_end(p, t, why)
+        # 2. a rival of higher rung: the setting's most standing member (rung 1 + standing) above 4 x legitimacy
+        B = None
+        for p in [p_ for p_ in self.lw_posts if p_["kind"] != "office"]:
+            if self._lw_rng.random() >= par["rival"]:
+                continue
+            B = self._bits() if B is None else B
+            n = p["n"]; mem = np.nonzero((B[n, :, p["slot"]] > 0) & self.lv[n])[0]
+            if not len(mem):
+                continue
+            k = int(mem[np.argmax(self.stand[n, mem])])
+            if 1 + int(self.stand[n, k]) > 4 * p["legit"]:
+                self._lead_end(p, t, "rival")
+                self.slead[n, p["slot"]] = k
+                self.rmask[n, k] |= LEAD_BIT[int(self.skind[n, p["slot"]])]
+        # 3. legitimacy and the falls of each way
+        fair_ = W.sph_fair_target() if self.lw_posts else None
+        tv_ = (0.5 * np.abs(self._lw_hist[-1] - self._lw_hist[0]).sum(-1)) if len(self._lw_hist) == 5 else None
+        for p in list(self.lw_posts):
+            if p not in self.lw_posts:
+                continue
+            n = p["n"]; l_, j_ = p["loc"], p["sphere"]
+            self._lead_legit(p)
+            if p["way"] == 0:   # rules: a fairness scandal among the led (their felt fairness falls under the line)
+                lo_ = bool(fair_[l_, j_] < par["fair_line"])
+                if lo_ and not p["fair_lo"]:
+                    self._lead_step(p, t, "rules", par["rules"], why="a fairness scandal")
+                p["fair_lo"] = lo_
+            elif p["way"] == 2:   # favours: once a year, money under the need line
+                if int(a) != p["money_yr"]:
+                    p["money_yr"] = int(a)
+                    if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
+                        self._lead_step(p, t, "favours", par["favours"], why="money under need")
+            elif p["way"] == 3:   # inspiring: a year without a new success fades the spark
+                if t - p["succ_t"] >= 52 and t - p["fade_t"] >= 52:
+                    p["fade_t"] = int(t); p["fades"] += 1
+                    self._lead_step(p, t, "inspiring", par["inspiring"], why="no new success")
+            elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
+                if tv_[l_, j_] > self._lw_fast[j_]:
+                    self._lead_step(p, t, "custom", self._lw_floss, why="fast change")
+        # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
+        for p in list(self.lw_posts):
+            c_ = self._lead_cell(p["pk"]) or {}
+            if p in self.lw_posts and c_.get("term_q") and t - p["term_t0"] >= 13 * c_["term_q"]:
+                if not any(d_[2] == p["id"] and d_[1] in ("lead_hand", "lead_fall") for d_ in self.lw_due):
+                    if not self._lead_queue(p, "lead_hand", t):
+                        self._lead_renew(p, t)
+        # 5. new posts: a pillar of a setting with a leader takes the lead (when they stand at least as high as its
+        # leader: rung 3 against the leader's 1 + standing), and every office title held is a post
+        if a >= par["take_age"]:
+            held = {(p["n"], p["kind"] == "office", p["slot"]) for p in self.lw_posts}
+            kinds = np.array([G[k_] for k_ in LEAD_KINDS])
+            cand = (~self.dead[:, None] & np.isin(self.skind, kinds) & (self.srank >= 0.85) & (self.slead != -2))
+            nn, jj = np.nonzero(cand)
+            u = self._lw_rng.random(len(nn))
+            for n, j_, u_ in zip(nn, jj, u):
+                n, j_ = int(n), int(j_)
+                if (n, False, j_) in held:
+                    continue
+                k = int(self.slead[n, j_])
+                if k >= 0 and 1 + int(self.stand[n, k]) > 3:
+                    continue
+                if u_ >= par["take"] * (2.0 if self._lw_back.get((n, j_), NEVER) <= t else 1.0):
+                    continue
+                pl_ = int(self.shnt[n, j_]) if getattr(self, "shnt", None) is not None and getattr(W, "hp_s", None) is not None else -1
+                p = self._lead_new(n, "place" if pl_ >= 0 else "setting", int(self.set_sphere[n, j_]), j_, pl_, t)
+                if p is None:
+                    continue
+                if k >= 0:   # the leader they replace is a member again (unless they lead another of the life's settings)
+                    others = (self.slead[n] == k); others[j_] = False
+                    if not others.any():
+                        self.rmask[n, k] &= ~LEAD_BIT[int(self.skind[n, j_])]
+                self.slead[n, j_] = -2
+        for n, i_ in zip(*np.nonzero(self.lw_has & ~self.dead[:, None])):
+            if (int(n), True, int(i_)) not in {(p["n"], p["kind"] == "office", p["slot"]) for p in self.lw_posts}:
+                pk_, sp_, gk_ = LEAD_TITLES[self.lw_tnames[i_]]
+                gs_ = np.nonzero(self.skind[n] == G[gk_])[0] if gk_ else []   # the setting it leads, when the life is in one
+                j_ = SPHERES.index(sp_); pl_ = -1
+                if len(gs_):
+                    gs_ = int(gs_[0]); j_ = int(self.set_sphere[n, gs_])
+                    if getattr(self, "shnt", None) is not None and getattr(W, "hp_s", None) is not None:
+                        pl_ = int(self.shnt[n, gs_])
+                p = self._lead_new(int(n), "office", j_, int(i_), pl_, t)
+                if p is not None:
+                    p["gslot"] = gs_ if gk_ and isinstance(gs_, int) else -1
+                    p["gjoin"] = int(self.sjoin[n, p["gslot"]]) if p["gslot"] >= 0 else -1
+        # 6. the leaders' mix of each town sphere (the lead lever's size x (.5 + legitimacy)), and the shadow target
+        pl = np.zeros((self.n_loc, 9, C + 1))
+        self.lead_sh = np.zeros((self.N, C))
+        for p in self.lw_posts:
+            if self.dead[p["n"]]:
+                continue
+            wt_ = 0.5 + p["legit"]
+            pl[p["loc"], p["sphere"], :C] += wt_ * self.w[p["n"]]; pl[p["loc"], p["sphere"], C] += wt_
+            c_ = int(self.iperm[p["way"]])
+            self.lead_sh[p["n"], c_] = max(self.lead_sh[p["n"], c_],
+                                           par["sh"] * min((t - p["way_t"]) / 52.0 / par["sh_years"], 1.0))
+        W.sph_plead = pl if pl[..., C].any() else None
+
+    def lead_due(self, t=None):
+        """The posts' moments waiting this week [(life, key, post id)]; those waited for too long lapse (a fall's: the
+        post ends, "fell"; a hand-over's: it ends at its term)."""
+        t = self.t if t is None else t
+        out = []
+        for d_ in list(self.lw_due):
+            n, key, pid, t0_ = d_
+            p = next((p_ for p_ in self.lw_posts if p_["id"] == pid), None)
+            if p is None or self.dead[n]:
+                self.lw_due.remove(d_); continue
+            if t - t0_ > self.lw_par["wait"]:
+                self.lw_due.remove(d_)
+                if key == "lead_fall":
+                    self._lead_end(p, t, "fell")
+                elif key == "lead_hand":   # unanswered: they stay on, as the term's renewal decides
+                    self._lead_renew(p, t)
+                continue
+            out.append((int(n), key, int(pid), p["way"]))
+        return out
+
+    def lead_resolve(self, n, pid, key, way, fall, hand, succ, idle, t=None):
+        """The post's moment came and the character acted: way (an option's lead:, -1 none), fall (go 0, fight 1,
+        again 2), hand (chosen 0, open 1, stay 2). take: the post takes the option's way; crisis: an option of the post's
+        way holds it, another way shifts the post to it; routine: a rules option moves the inspiring post to rules;
+        fall: go ends it, fight keeps it when the act works (legitimacy back to .3) and ends it when not, again stands
+        down (the take chance there doubles after a year); hand: chosen or open hands it on, stay leaves it to the
+        term's renewal (lead_posts: renew x (.5 + legitimacy), max_terms).
+        Returns the event."""
+        t = self.t if t is None else t
+        p = next((p_ for p_ in self.lw_posts if p_["id"] == int(pid)), None)
+        self.lw_due = [d_ for d_ in self.lw_due if not (d_[2] == int(pid) and d_[1] == key)]
+        if p is None:
+            return None
+        way = -1 if idle else int(way); fall = -1 if idle else int(fall); hand = -1 if idle else int(hand)
+        ans = None
+        def set_way(c_):
+            if c_ != p["way"]:
+                p["way"] = int(c_); p["way_t"] = int(t); p["succ_t"] = int(t); p["fade_t"] = int(t); p["fades"] = 0
+                p["fair_lo"] = False
+                self._lead_legit(p)
+        if key in ("lead_take", "lead_crisis") and way >= 0:
+            ans = "held" if way == p["way"] else "shifted"
+            set_way(way)
+        elif key == "lead_routine":
+            ans = "routine" if way == 0 else "kept"
+            if way == 0:
+                set_way(0)
+        elif key == "lead_fall":
+            if fall == 1 and succ:
+                ans = "fought"; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
+            elif fall == 2:
+                ans = "stood down"; self._lw_back[(int(n), int(p["slot"]))] = int(t) + int(self.lw_par["again"])
+                self._lead_end(p, t, "stood down")
+            else:
+                ans = "fell"; self._lead_end(p, t, "fell")
+        elif key == "lead_hand":
+            if hand in (0, 1):
+                ans = "handed on"; self._lead_end(p, t, "handed on")
+            else:   # stay (or no answer): the term's renewal decides (renewed, a term limit or the term's end)
+                ans = "stayed"; self._lead_renew(p, t)
+        ev = dict(n=int(n), t=int(t), kind="lead", state="answered", key=key, answer=ans, post=p["kind"],
+                  sphere=SPHERES[p["sphere"]], way=LEAD_WAYS[p["way"]], legit=round(p["legit"], 3), worked=bool(succ))
+        if self.watch[n]:
+            self.events.append(ev)
+        return ev
+
+    def lead_info(self, n):
+        """Life n's posts for the game: each with its kind, sphere, the led place (its name in the world's epoch, or the
+        setting kind or the office), the way (rules .. custom), legitimacy, start and end (age), the end's reason and
+        its falls; the posts held now first, then the ended ones."""
+        out = []
+        for p in [p_ for p_ in self.lw_posts if p_["n"] == n] + [p_ for p_ in self.lw_ended if p_["n"] == n]:
+            if p["place"] >= 0 and getattr(self.W, "place_info", None) is not None:   # a named place: its name and kind
+                where = dict(self.W.place_info(int(p["place"])))
+            else:
+                where = {}
+            if p["kind"] == "office":
+                where["title"] = self.lw_tnames[p["slot"]]
+            sl_ = p["slot"] if p["kind"] != "office" else p.get("gslot", -1)
+            if sl_ >= 0 and self.skind[n, sl_] >= 0:
+                where["setting"] = GROUP_KINDS[int(self.skind[n, sl_])]
+            if not where:
+                where["sphere"] = SPHERES[p["sphere"]]   # the town's sphere
+            out.append(dict(id=p["id"], kind=p["kind"], sphere=SPHERES[p["sphere"]], place=where, way=LEAD_WAYS[p["way"]],
+                            colour=COLORS[p["col"]], legit=round(p["legit"], 3), start=round((p["t0"] - self.t0) / 52.0, 2),
+                            end=None if p["end_t"] is None else round((p["end_t"] - self.t0) / 52.0, 2), why=p["why"],
+                            post_kind=p["pk"], terms=p["terms"],
+                            falls=[dict(age=round((f_[0] - self.t0) / 52.0, 2), way=LEAD_WAYS[f_[1]], key=f_[2]) for f_ in p["falls"]]))
+        return out
 
     # ------------------------------------------------------------------ who: slots (world-fields.md)
     def fill(self, n, slots, at=None, t=None):
@@ -3683,6 +4185,13 @@ class People:
                               sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
                               inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
                               rng=self._far_rng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
+            out["lead"] = dict(posts=[dict(p_) for p_ in self.lw_posts if p_["n"] == n],   # (plain numbers already)
+                               ended=[dict(p_) for p_ in self.lw_ended if p_["n"] == n],
+                               due=[list(d_) for d_ in self.lw_due if d_[0] == n], q=int(self._lw_q),
+                               back=[[int(k_[1]), int(v_)] for k_, v_ in self._lw_back.items() if k_[0] == n],
+                               has=[bool(x_) for x_ in self.lw_has[n]],
+                               rng=self._lw_rng.bit_generator.state if self.N == 1 else None)
         return out
 
     @classmethod
@@ -3764,5 +4273,19 @@ class People:
                         pp.far_sd[n, ks_] = f_["sd"]; pp.far_in[n, ks_] = f_["inn"]; pp.far_from[n, ks_] = f_["frm"]
                     if f_.get("rng") is not None and pp.N == 1:
                         pp._far_rng.bit_generator.state = f_["rng"]
+        if getattr(pp, "lw", False):
+            for n, d in enumerate(saved):
+                l_ = d.get("lead")
+                if l_:
+                    ids_ = {}   # each life's posts take new ids (lives saved apart may share them)
+                    for p_ in l_["posts"] + l_["ended"]:
+                        ids_[p_["id"]] = pp._lw_next
+                        p_ = dict(p_, n=n, id=pp._lw_next); pp._lw_next += 1
+                        (pp.lw_posts if p_.get("end_t") is None else pp.lw_ended).append(p_)
+                    pp.lw_due += [[n, d_[1], ids_.get(d_[2], -1), d_[3]] for d_ in l_["due"]]
+                    pp._lw_q = int(l_["q"]); pp.lw_has[n] = l_["has"]
+                    pp._lw_back.update({(n, int(k_)): int(v_) for k_, v_ in l_["back"]})
+                    if l_.get("rng") is not None and pp.N == 1:
+                        pp._lw_rng.bit_generator.state = l_["rng"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp

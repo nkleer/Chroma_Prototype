@@ -248,6 +248,18 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             self.want_s.setdefault(WK.CAST_WANTS[int(self.want[si])], []).append(int(si))
         self.pending = {}                 # n -> (cast id, want key, moment) offered this week
+        # S7 lead_ways: a post's moments (cast_want lead_*), fired with no holder (cid -1): a crisis or fall moment's way
+        # (lead_way:), each option's way, fall and hand answers (lead:, fall:, hand:), and the engine's office titles
+        self.lw = bool(getattr(PP, "lw", False))
+        if self.lw:
+            self.lway = np.asarray(L.get("W_LEAD_WAY", np.full(S, -1)))
+            self.olead = np.asarray(L.get("W_LEAD", np.full((S, K), -1)))
+            self.ofall = np.asarray(L.get("W_FALL", np.full((S, K), -1)))
+            self.ohand = np.asarray(L.get("W_HAND", np.full((S, K), -1)))
+            PP.lw_keys = {k_ for k_ in self.want_s if k_.startswith("lead_")}
+            rid_ = dict((L.get("ROLES") or {}).get("ID") or {})
+            self.lw_tid = np.array([rid_.get(nm_, -1) for nm_ in PP.lw_tnames], np.int64)   # -1: not in the catalogue
+            self.lw_fire = {}             # n -> the post whose moment was offered this week
         # far_ties (item 18): a far moment's touch (touch:), and its options that take the tie in (mark: took them in)
         self.touch = np.asarray(L.get("W_TOUCH", np.full(S, -1)))
         self.took = np.zeros((S, K), bool)
@@ -446,6 +458,17 @@ class WorldLink:
             if ss_ and n_ not in self.pending:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
+        if self.lw:   # S7: a post's moment (taking it, a crisis of its way, its fall, the turn to routine, handing it on)
+            self.lw_fire = {}
+            for n_, key_, pid_, way_ in PP.lead_due(PP.t):
+                if n_ in self.pending:
+                    continue
+                ss_ = self.want_s.get(key_) or []
+                if key_ in ("lead_crisis", "lead_fall"):   # the moments of the post's own way, when the Library has them
+                    ss_ = [si for si in ss_ if self.lway[si] == way_] or ss_
+                if ss_:
+                    si_ = ss_[int(PP._lw_rng.integers(len(ss_)))]
+                    self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True; self.lw_fire[n_] = pid_
         return self.week_events
 
     def _staff(self, i):
@@ -559,6 +582,12 @@ class WorldLink:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
+        if self.lw and pv_[1].startswith("lead_"):   # S7: the post's moment answered (no holder)
+            pid_ = self.lw_fire.get(int(n))
+            if pid_ is None:
+                return None
+            return self.PP.lead_resolve(int(n), pid_, pv_[1], self.olead[s_n, a_n], self.ofall[s_n, a_n], self.ohand[s_n, a_n],
+                                        bool(succ_n), bool(idle_n))
         ev_ = self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
         if pv_[1].startswith("far_") and self.took[s_n, a_n] and not idle_n and succ_n:   # F4: the tie comes to stay
             self.PP.take_in(int(n), pv_[0])
@@ -586,6 +615,20 @@ class WorldLink:
         if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("far_"):
             return None
         return self.PP.far_info(int(n), pv_[0])
+
+    def lead_info(self, n, si=None):
+        """S7: life n's posts (People.lead_info: kind, sphere, the led place, way, legitimacy, start, end and its reason,
+        falls); with si, only the post whose moment si is this week (its {place}), else None."""
+        if not self.lw:
+            return None
+        info = self.PP.lead_info(int(n))
+        if si is None:
+            return info
+        pv_ = self.pending.get(int(n))
+        if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("lead_"):
+            return None
+        pid_ = self.lw_fire.get(int(n))
+        return next((dict(p_, moment=pv_[1]) for p_ in info if p_["id"] == pid_), None)
 
     def era(self):
         W = self.W
@@ -970,7 +1013,7 @@ class WorldLink:
         if not sl_:
             return None
         pv_ = self.pending.get(int(n))
-        first_ = pv_[0] if pv_ is not None and pv_[2] == si else None
+        first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a post's moment: no holder, -1)
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}
