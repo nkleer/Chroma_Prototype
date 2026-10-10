@@ -737,6 +737,7 @@ DEFAULT = dict(
     sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
     sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
     sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    sph_events=False,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
@@ -904,7 +905,7 @@ UPD_OFF = dict(dis_match=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
                hist_chance_only=False,
                # stage 2 of v22.3, the spheres of society (item 15)
-               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False,
+               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py

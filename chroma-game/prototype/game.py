@@ -123,12 +123,13 @@ GAME = dict(
     # option's chance (a little more for their own lead); held, the strain and pent-up wanting are let go
     turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
+    fig_own=True,        # K12 (v22.3): no public figure shares the character's first name
 )
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -442,7 +443,7 @@ class Game:
         self.name = name
         self.setting = setting if setting in SETTINGS else "earth"
         self.story = Story(name, seed, place, self.setting)   # the built-in narration (story.py)
-        self.wv = WorldView(int(seed), self.setting, name)     # the outer world's panel, circle, reach and story lines
+        self.wv = WorldView(int(seed), self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
         self.story.seen_as = lambda: self.gender_view()["seen_word"][2:] if self.loc is not None else "child"   # {seen_as} (N1d §3)
         self._epithet = ""
         self.ledger = False             # also show the numbers under the story (key l)
@@ -1307,7 +1308,7 @@ class Game:
             return                                       # a year the times really touched them: one big change or a few small
         items = sorted(y.items(), key=lambda kv: -kv[1])[:2]
         good = lambda ch, d: (d == "up") == (not ch.endswith("risk"))
-        if any(ch in ("home", "close person") or k in ("disaster", "war") for (k, ch, d) in y):
+        if any(ch in ("home", "close person") or WFX_KIND_LIB.get(k, k) in ("disaster", "war") for (k, ch, d) in y):
             tone = "close"
         elif len(items) == 2 and good(*items[0][0][1:]) != good(*items[1][0][1:]):
             tone = "mixed"
@@ -1318,7 +1319,7 @@ class Game:
                     ("calmer" if d == "up" else "uneasy") if ch == "safety" else ("uneasy" if d == "up" else "calmer"))
         whats = []
         for (k, ch, d), _ in items:
-            w_ = ((ES.YEAR_WHAT.get(k) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
+            w_ = ((ES.YEAR_WHAT.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
             if w_ and w_ not in whats:
                 whats.append(w_.replace("{who}", "someone close to them"))
         last = getattr(self, "_wyear_said", (None, -99))
@@ -3157,7 +3158,7 @@ FADE_WORDS = dict(W="loosening their hold on order", U="losing some of their cur
 WFX_BAND = dict(money=(0.015, 0.03), freedom=(0.015, 0.03), time=(0.015, 0.03), health=(0.015, 0.03), ties=(0.015, 0.03),
                 safety=(0.02, 0.06), risk=(0.2, 0.5), home=(0.2, 0.5))
 WFX_BAND["close person"] = (0.2, 0.5)
-WFX_KIND_LIB = dict(crime="crime wave")
+WFX_KIND_LIB = dict(crime="crime wave", prices_work="prices", rec_hours="recession", disaster_time="disaster")   # WL2 (PR #62): its kinds told as the Library's
 # the world's record entries behind an effect (world_link CAUSE_REC: domain, kind), as the hover names them
 WFX_CAUSE = {"recession declared": "the recession", "recession over": "the end of the recession",
              "world recession": "the world recession", "war comes home": "the war", "war begins": "the war",
@@ -3168,7 +3169,9 @@ WFX_CAUSE = {"recession declared": "the recession", "recession over": "the end o
              "spreads": "technology spreading", "era begins": "the new era"}
 WFX_KIND = dict(prices="rising prices", housing="the housing market", welfare="the welfare rules", rights="the law on rights",
                 crime="the crime wave", war="the war", disaster="the disaster", unemployment="the jobs market",
-                illness="the illness going round", pandemic="the pandemic", recession="the recession")
+                illness="the illness going round", pandemic="the pandemic", recession="the recession",
+                prices_work="prices eating into wages", rec_hours="the recession's shorter hours",
+                disaster_time="the disaster in their town")
 WFX_AGAIN = 52
 
 
