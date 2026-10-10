@@ -13,11 +13,17 @@ const dir = process.argv[2] || '.';  // node test/drive_season.js <shots dir>: a
   await page.waitForSelector('.tarot', { timeout: 90000 }); await page.waitForTimeout(800);
   await page.click('.tarot[data-k="3"]');
   await page.waitForSelector('#txt'); await page.fill('#txt', 'Noor'); await page.click('#go');
-  const t0 = Date.now(); let n = 0, step = 0, turn = 0, chip = 0;
+  const t0 = Date.now(); let n = 0, step = 0, turn = 0, chip = 0, tip = 0, lives = 1;
   while (Date.now() - t0 < 600000 && (step < 1 || turn < 1)) {
     await page.waitForFunction(() => hud && !busy && !choosing && !document.getElementById('evwrap').classList.contains('leaving'), null, { timeout: 360000 });   // a 20-year past with the world can pass 2 minutes on a loaded machine
     const st = await page.evaluate(() => ({ mode: hud.mode, cp: hud.cp ? (hud.cp.season || null) : undefined, res: !!hud.res, age: hud.life && hud.life.age }));
-    if (st.mode === 'over') break;
+    if (st.mode === 'over') {   // a life can pass without a turning point (v22.3 record): start another
+      if (turn || lives >= 3) break;
+      await page.waitForSelector('#again', { timeout: 60000 }); await page.click('#again');
+      await page.waitForSelector('.tarot', { timeout: 90000 }); await page.waitForTimeout(800); await page.click('.tarot[data-k="3"]');
+      await page.waitForSelector('#txt'); await page.fill('#txt', 'Noor'); await page.click('#go'); lives++;
+      await page.waitForFunction(() => hud && hud.mode === 'play', null, { timeout: 600000 }); continue;
+    }
     if (st.mode !== 'play') { await page.waitForTimeout(300); continue; }
     n++;
     if (st.cp && st.cp.this_week) {
@@ -25,15 +31,18 @@ const dir = process.argv[2] || '.';  // node test/drive_season.js <shots dir>: a
       const seen = await page.evaluate(() => ({ note: (document.getElementById('cpSeason') || {}).textContent || '', chip: (document.getElementById('seasonChip') || {}).textContent || '' }));
       console.log('age', st.age, 'step', st.cp.step, 'transform', st.cp.transform, '| note:', seen.note.trim(), '| chip:', seen.chip.trim());
       if (seen.chip) chip++;
+      if (seen.chip && !tip) {   // #seasonChip is there only while its moment is open
+        tip++; await page.hover('#seasonChip', { force: true }).catch(() => {}); await page.waitForTimeout(500); await shot('s3-season-tip');
+      }
       if (st.cp.transform && !turn) { turn++; await shot('s2-turning-point'); }
       else if (!step) { step++; await shot('s1-season-moment'); }
     }
     await page.evaluate((s) => send(s.cp !== undefined || s.res ? '' : 'd'), st);
     await page.waitForTimeout(100);
   }
-  if (chip) { await page.evaluate(() => { const e = document.querySelector('.evwrap'); if (e) e.click(); }); await page.waitForTimeout(400); await page.hover('#seasonChip', { force: true }); await page.waitForTimeout(500); await shot('s3-season-tip'); }
   await page.setViewportSize({ width: 400, height: 860 }); await page.waitForTimeout(400); await shot('s4-phone');
   console.log('scrollWidth', await page.evaluate(() => document.documentElement.scrollWidth));
+  console.log('lives', lives, 'chips', chip, 'turning points', turn);
   console.log('steps', n, 'secs', Math.round((Date.now() - t0) / 1000));
   console.log(logs.join('\n') || 'no page errors');
   await browser.close();

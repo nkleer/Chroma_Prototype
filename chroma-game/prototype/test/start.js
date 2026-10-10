@@ -48,7 +48,7 @@ module.exports.nextOf = (page, idle) => async () => {
 // Before touching the sheet, the line or the transport: an outcome is closed with Go on, and a moment is set aside with
 // "Look at the life" (the event window is modal since version 14; nextOf comes back to the moment).
 module.exports.settleOf = (page, idle) => async () => {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 6; i++) {
     const s = await page.evaluate(() => { const w = document.getElementById('evwrap');
       return { ev: !w.hidden && !w.classList.contains('peek'), res: !!document.querySelector('#goOn'), cp: !!document.querySelector('#evPeek') }; });
     if (!s.ev) return;
