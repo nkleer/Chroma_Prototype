@@ -144,6 +144,21 @@ def build(src):
                    sides=[dict(touch=x["touch"], sign=x["sign"], who=list(x["who"]), share=float(x["share"]), line=x["line"])
                           for x in v["sides"]])
            for k, v in rd("far_sides.json")["events"].items()}
+    # S3's and S7's reading (dynamics.json place_reading): a place reads an act's colours with its faces, per (face, act
+    # colour) own +1, ally +.4, enemy -.4 (lead_ways reads a leader's way with it: legitimacy)
+    pr_ = dyn["place_reading"]
+    PLACE_READING = {f: {c: float(pr_["table"][f][c]) for c in COLS} for f in COLS}
+    # S7's time in post (dynamics.json lead_posts, Outer world 10-10): per post kind (places by haunt kind, settings by
+    # group kind, offices) and epoch, the form, term, renewal, consecutive terms, yearly end chance and age out (None: no
+    # such post then); the fast-change line per sphere for the custom way, and its loss a quarter; implied mean years
+    lp_ = dyn["lead_posts"]
+    cell_ = lambda c: None if c is None else {k: c[k] for k in ("form", "term_q", "renew", "max_terms", "end_y", "age_out")}
+    LEAD_POSTS = dict(kinds={k: dict(haunts=list(v.get("haunts", [])), groups=list(v.get("groups", [])),
+                                     by={e: cell_(v["by"].get(e)) for e in EPOCHS},
+                                     implied_mean_years=dict(v.get("implied_mean_years") or {}))
+                             for k, v in lp_["kinds"].items()},
+                      fast_line={sp: float(lp_["fast_change"]["line"][sp]) for sp in SPHERES},
+                      fast_loss=float(lp_["fast_change"]["loss_q"]))
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -151,7 +166,8 @@ def build(src):
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
-                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR)
+                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
+                PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS)
 
 
 def audit(T):
@@ -219,6 +235,16 @@ def audit(T):
         or not 0 < x["share"] <= 1 for x in v["sides"])]
     if fk_:
         bad.append(f"far sides: unknown events or malformed sides {fk_[:5]}")
+    rt_ = np.array([[T["PLACE_READING"][f][c] for c in COLS] for f in COLS])
+    if (np.abs(rt_ - rt_.T).max() > 0 or np.abs(np.diag(rt_) - 1).max() > 0
+            or any(sorted(np.round(r_, 3).tolist()) != [-0.4, -0.4, 0.4, 0.4, 1.0] for r_ in rt_)):
+        bad.append("place reading: not symmetric, or a colour without own 1, two allies .4 and two enemies -.4")
+    lk_ = T["LEAD_POSTS"]["kinds"]
+    hk_ = [h for v in lk_.values() for h in v["haunts"]]
+    if (len(hk_) != 31 or len(set(hk_)) != 31 or set(T["LEAD_POSTS"]["fast_line"]) != set(SPHERES)
+            or any(set(v["by"]) != set(EPOCHS) for v in lk_.values())
+            or any(c is not None and (c["end_y"] is None or not 0 <= c["end_y"] <= 1) for v in lk_.values() for c in v["by"].values())):
+        bad.append("lead posts: haunt kinds not each mapped once, an epoch or a sphere's line missing, or an end chance malformed")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
