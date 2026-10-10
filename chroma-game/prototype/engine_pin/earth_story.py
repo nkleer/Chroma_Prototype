@@ -599,6 +599,12 @@ WORLD = {
                       big="With so few university places, the door to study is all but closed to {N}."),
             up=dict(small="There are more university places now, and study is within {Ns} reach.",
                     big="The universities have opened their doors wide, and study is there for {N} if they want it."))},
+    "pandemic": {   # WL2 (Engine #62): a sickness going round keeps people apart; told on the ties channel
+        "ties": dict(
+            down=dict(small="With the sickness going round, {N} sees friends less and keeps close to home.",
+                      big="The sickness has shut everyone indoors, and {N} has not sat with a friend in months."),
+            up=dict(small="The sickness is ebbing, and {N} starts seeing friends again.",
+                    big="The sickness is over at last, and {N} is back among the people they missed."))},
 }
 WORLD_CHANNEL = {
     "money": dict(down=dict(small="The times take a little out of {Ns} pocket.", big="The times hit {Ns} pocket hard."),
@@ -627,6 +633,10 @@ WORLD_CHANNEL = {
                                    big="The times hit {who} hard, and {N} carries it with them."),
                          up=dict(small="The times are kind to {who}, and {N} is glad.",
                                  big="The times are good to {who}, and some of it reaches {N}.")),
+    "ties": dict(down=dict(small="The times keep {N} a little further from the people they know.",
+                           big="The times cut {N} off from the people they know."),
+                 up=dict(small="The times bring {N} a little closer to the people they know.",
+                         big="The times bring {N} back among friends.")),
 }
 
 # WL4: the year's chapter, one line on how the times touched them that year (not the headlines), from that year's
@@ -663,6 +673,7 @@ YEAR_WHAT = {
             "freedom": dict(up="a new law gave them more room", down="a new law hemmed them in")},
     "hospital places": {"option": dict(down="care was harder to get", up="care was easier to get")},
     "university places": {"option": dict(down="places to study grew scarce", up="places to study opened up")},
+    "pandemic": {"ties": dict(down="the sickness kept them from their friends", up="friends met again after the sickness")},
 }
 YEAR_WHAT_CHANNEL = {
     "money": dict(down="money was tighter", up="money went further"),
@@ -673,6 +684,7 @@ YEAR_WHAT_CHANNEL = {
     "crime risk": dict(up="the streets felt less safe", down="the streets felt safer"),
     "option": dict(down="a door closed", up="a door opened"),
     "close person": dict(down="the times were hard on {who}", up="the times were kind to {who}"),
+    "ties": dict(down="they saw less of the people they know", up="they saw more of the people they know"),
 }
 
 # WL3: the note on an option the world makes closed, harder or easier, from option_causes(n) (kind: law, norm,
