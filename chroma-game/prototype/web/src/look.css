@@ -260,7 +260,7 @@
   .hud .crestbox { position: relative; }
   .hud .crestbox .lk-key { top: auto; bottom: 0; right: 2px; }
   .lk-sw { display: inline-block; font-size: 10px; margin-right: 3px; } .lk-sw.up { color: var(--ok); } .lk-sw.down { color: var(--bad); }
-  .lk-sw.glow { width: 18px; height: 5px; border-radius: 3px; background: var(--bad); box-shadow: 0 0 6px 1px var(--bad); vertical-align: middle; }
+  .lk-sw.glow { display: inline-block !important; min-width: 18px; width: 18px; height: 5px; padding: 0; border-radius: 3px; background: var(--bad); box-shadow: 0 0 6px 1px var(--bad); vertical-align: middle; }
   .lk-spark { margin-top: 6px; display: grid; gap: 2px; }
   .lk-spark svg { width: 100%; max-width: 220px; height: 34px; display: block; }
   .lk-spark path { fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; }
@@ -268,11 +268,94 @@
   .lk-spark .ago { stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 2 2; }
   .lk-spark span { font-size: var(--fs-1); color: var(--muted); }
 
+  /* a card under the mouse: what it would spend (−), win (+) or risk if it fails (−?) on the panel's means; needs it meets */
+  .lk-pvb { position: absolute; top: -4px; left: calc(50% - 15px); min-width: 12px; padding: 0 3px; border-radius: 7px; font: 700 9px/12px var(--ui); text-align: center; pointer-events: none;
+    color: #fff; background: var(--gold); box-shadow: 0 1px 3px rgb(0 0 0 / 0.35); }
+  .lk-pvb.win { background: var(--ok); } .lk-pvb.risk { background: transparent; color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); }
+  .nd { position: relative; } .nd .lk-pvb { left: calc(50% + 6px); top: -2px; }
+  .mean.lk-pv .col, .nd.lk-pv > svg.i { filter: drop-shadow(0 0 4px rgb(216 180 105 / 0.9)); }
+  .lk-pvb.lk-key-pv { position: static; display: inline-block; margin-right: 3px; }
+  html[data-motion="full"] .lk-pvb { animation: lkfadein 0.18s ease-out; }
+
   /* the start spread: when the name would sit below the fold, the reading docks at the foot of the window (look.js) */
   .spread #reading.lk-dock { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30;
     width: min(980px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto; margin: 0; box-shadow: 0 0 0 1px #6b5226, 0 0 0 3px rgb(216 180 105 / 0.3), 0 24px 60px -10px #000; }
   html[data-motion="full"] .spread #reading.lk-dock.lk-dockin { animation: lkdock 0.28s ease-out; }
   @keyframes lkdock { from { transform: translate(-50%, 24px); opacity: 0; } }
+
+  /* ---------- honours and weight (Emren 10-10 11:24 UTC): struck seals for rare and hard-won honours, a heavier frame for
+     a week that changed them, mourning and turning points in the story; both looks; still under calm, bare under off ---------- */
+  .lk-seal { position: relative; display: inline-grid; place-items: center; flex: none; width: 76px; height: 76px; color: #4a340a; filter: drop-shadow(0 2px 3px rgb(60 40 8 / 0.35)); }
+  .lk-seal > svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lk-seal .e { fill: #b88a2e; } .lk-seal .f { fill: #e7c56f; } .lk-seal .r { fill: none; stroke: #7d5c19; stroke-width: 1.1; }
+  .lk-seal > svg.i { position: relative; width: 46%; height: 46%; }
+  .lk-seal.xs { width: 15px; height: 15px; filter: none; vertical-align: -3px; } .lk-seal.xs .r { display: none; }
+  /* the gilt plate: a gold frame, the seal struck into the paper, one sheen across it (full motion) */
+  .lk-pl.hon { box-shadow: inset 0 0 0 1px #6b4f10, inset 0 0 0 4px #e3c77e, inset 0 0 0 5px #8c6919, inset 0 0 0 9px #f3e9d0, inset 0 0 0 10px rgb(140 105 25 / 0.45),
+    inset 0 0 60px rgb(190 140 50 / 0.22), 0 0 50px -6px rgb(216 180 105 / 0.55), 0 30px 70px -20px #000; overflow: hidden; }
+  .lk-pl.hon .kick { color: #8c6919; }
+  .lk-pl.hon h3 { color: #2a1d06; }
+  .lk-plate.in .lk-pl.hon > .lk-seal { animation: lkstrike 0.7s 0.45s cubic-bezier(.3, 1.5, .5, 1) both; }
+  .lk-plate.calm.in .lk-pl.hon > .lk-seal { animation: lkfadein 0.45s 0.2s ease both; }
+  .lk-pl.hon::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 246 214 / 0.75) 48%, transparent 60%); background-size: 260% 100%; }
+  .lk-plate.in:not(.calm) .lk-pl.hon::after { animation: lksheen 1.5s 1.05s ease-out both; }
+  @keyframes lkstrike { from { opacity: 0; transform: scale(1.9) rotate(-14deg); } 60% { opacity: 1; transform: scale(0.94) rotate(2deg); } to { transform: none; } }
+  @keyframes lksheen { from { opacity: 1; background-position: 120% 0; } to { opacity: 1; background-position: -40% 0; } }
+
+  /* the outcome: an honour's chip is gilt, with its rarity; a hard-to-bear status is quiet ink */
+  .ev .st.rl.lk-hon { color: #3b2a0b; background: linear-gradient(180deg, #f8e7b4, #e2c06f); box-shadow: inset 0 0 0 1px #9c7426, 0 1px 2px rgb(60 40 8 / 0.25);
+    position: relative; overflow: hidden; }
+  .ev .st.rl.lk-hon.t3 { box-shadow: inset 0 0 0 1px #7d5c19, 0 0 0 2px rgb(216 180 105 / 0.45), 0 0 14px rgb(216 180 105 / 0.6); }
+  .ev .st.rl.lk-hon .lk-rar { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; color: #7d5c19; margin-left: 2px; padding-left: 6px; border-left: 1px solid rgb(125 92 25 / 0.4); }
+  .ev .st.rl.lk-hon::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 250 230 / 0.9) 50%, transparent 70%); background-size: 300% 100%; }
+  :where(html[data-motion="full"]) .ev.lk-rev .st.rl.lk-hon::after { animation: lksheen 1.1s 1.5s ease-out both; }
+  .ev .st.rl.lk-sombre, .ev .st.rl.lk-sombre.g1 { color: #3d3327; background: rgb(31 26 20 / 0.06); box-shadow: inset 0 0 0 1px rgb(31 26 20 / 0.32); }
+  .ev .tag.lk-impact { color: #f3e9d0; background: #2a2018; box-shadow: inset 0 0 0 1px #000, 0 1px 3px rgb(0 0 0 / 0.3); }
+  .ev .tag.lk-impact svg.i { color: #e7c56f; }
+  .ev .tag.lk-impact .pip, .ev .tag.lk-impact [class*="pip"] { margin: 0 1px 0 4px; }
+  /* a week that changed them: a heavier ink frame; an honour: a gilt one; very high stakes: an ember edge */
+  .ev.lk-heavy { outline: 2px solid rgb(31 26 20 / 0.62); outline-offset: -7px;
+    box-shadow: 0 0 0 1px #24190b, 0 0 0 5px rgb(31 26 20 / 0.72), 0 0 0 6px #000, 0 40px 90px -30px #000, inset 0 0 70px rgb(31 26 20 / 0.13); }
+  .ev.lk-honour { outline: 1.5px solid #a07a2a; outline-offset: -7px;
+    box-shadow: 0 0 0 1px #6b4f10, 0 0 0 4px #d8b469, 0 0 0 5px #4a360b, 0 0 34px 2px rgb(216 180 105 / 0.42), 0 40px 90px -30px #000, inset 0 0 70px rgb(216 180 105 / 0.2); }
+  .ev.lk-stakes3 { box-shadow: 0 0 0 1px #5a431c, 0 0 0 4px rgb(216 160 90 / 0.5), 0 0 0 5px #24190b, 0 40px 90px -30px #000, inset 0 0 50px rgb(190 70 30 / 0.16); }
+  :where(html[data-motion="full"]) .ev.lk-stakes3 { animation: pop 0.3s cubic-bezier(.2, .8, .3, 1) both, lkember 3.2s 0.4s ease-in-out infinite alternate; }
+  @keyframes lkember { to { box-shadow: 0 0 0 1px #5a431c, 0 0 0 4px rgb(226 140 70 / 0.6), 0 0 0 5px #24190b, 0 40px 90px -30px #000, inset 0 0 64px rgb(200 80 30 / 0.24); } }
+  :where(html:not([data-motion="off"])) .ev.lk-shock .cmove { animation: lkthump 0.7s 1.25s cubic-bezier(.3, 1.6, .5, 1) both; }
+  :where(html:not([data-motion="off"])) .ev.lk-shock .lk-impact { animation: lkstamp 0.45s 1.1s cubic-bezier(.3, 1.6, .5, 1) both; }
+  @keyframes lkthump { 40% { transform: scale(1.12); filter: drop-shadow(0 0 6px rgb(31 26 20 / 0.45)); } }
+  /* a rare moment says so beside its age */
+  .evh .kick .lk-rarek { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px 1px 6px; border-radius: 999px; letter-spacing: 0.1em;
+    color: #3b2a0b; background: linear-gradient(180deg, #f8e7b4, #e2c06f); box-shadow: inset 0 0 0 1px #9c7426; cursor: help; }
+
+  /* the story: a loss carries a mourning rule, a turning point an ink roundel, a commitment begun a gilt rule */
+  .en.lk-grave { padding-left: 8px; border-left: 2px solid rgb(40 30 46 / 0.75);
+    background: linear-gradient(90deg, rgb(40 30 46 / 0.07), transparent 70%); }
+  .en.lk-grave .gut { left: -34px; box-shadow: 0 0 0 1px rgb(40 30 46 / 0.55); }
+  .en.lk-big .gut { box-shadow: 0 0 0 1px rgb(140 105 25 / 0.55), 0 0 0 3px rgb(216 180 105 / 0.18); background: radial-gradient(circle, rgb(216 180 105 / 0.42), rgb(216 180 105 / 0.08) 70%); color: #6b4f10; }
+  .en.lk-big { font-weight: 500; }
+  .en.lk-mile { padding-left: 8px; border-left: 2px solid rgb(140 105 25 / 0.55); }
+  .en.lk-mile .gut { left: -34px; }
+  .en .lk-mk, .en .lk-rarem { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; padding: 0 7px 0 3px; border-radius: 999px; vertical-align: 1px;
+    font: 600 var(--fs-1)/1.6 var(--ui); letter-spacing: 0.04em; color: #3b2a0b; background: linear-gradient(180deg, #f8e7b4, #e6c97c); box-shadow: inset 0 0 0 1px #b08a3a; cursor: help; }
+  .en .lk-rarem { padding-left: 6px; } .en .lk-rarem svg.i { width: 11px; height: 11px; color: #8c6919; }
+  .en.role.lk-hon.minor { opacity: 1; }
+  /* a fresh loss tolls once: the stage darkens at its edges and clears (full motion) */
+  .stage.lk-toll { animation: lktoll 2.6s ease-in-out both; }
+  @keyframes lktoll { 35% { box-shadow: inset 0 0 120px rgb(20 14 28 / 0.42); } }
+
+  /* the panel: a new title or perk shines once; a rare title keeps a small star */
+  .hud .lk-new { box-shadow: 0 0 0 1px rgb(216 180 105 / 0.8), 0 0 14px rgb(216 180 105 / 0.45); border-radius: 8px; }
+  .hud .perk.lk-new { border-radius: 999px; }
+  :where(html:not([data-motion="off"])) .hud .lk-new { animation: lkshine 5.2s var(--lk-sd, 0ms) ease-out both; }
+  @keyframes lkshine { 0% { box-shadow: 0 0 0 1px rgb(216 180 105 / 0), 0 0 0 rgb(216 180 105 / 0); } 8% { box-shadow: 0 0 0 1px rgb(244 223 166 / 1), 0 0 22px rgb(216 180 105 / 0.85); }
+    70% { box-shadow: 0 0 0 1px rgb(216 180 105 / 0.6), 0 0 10px rgb(216 180 105 / 0.3); } 100% { box-shadow: 0 0 0 1px rgb(216 180 105 / 0), 0 0 0 rgb(216 180 105 / 0); } }
+  .hud .lk-hstar { display: inline-grid; margin-left: 4px; vertical-align: -1px; color: var(--gold2, #f4dfa6); }
+  .hud .lk-hstar svg.i { width: 11px; height: 11px; }
+  #tip .lk-tiprar { margin-top: 6px; color: var(--gold, #d8b469); }
+  #tip .lk-tiprar svg.i { width: 11px; height: 11px; vertical-align: -1px; }
 
   /* Motion off: nothing moves, as with the system's reduced-motion setting (head.html) */
   html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; }

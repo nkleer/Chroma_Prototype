@@ -38,6 +38,9 @@ from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
 from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_ROWS, LADDER, TOUCHES
+from world_keys import CAUGHT_TAGS as WK_CAUGHT, ODD_TAGS as WK_ODD
+from world_keys import LEAD_WAYS
+from world_keys import OWN_WANTS, SACRED_KINDS, OFFER_KINDS, OFFER_ROUNDS, HEAL_TAGS
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
@@ -73,7 +76,8 @@ WORK_SUB = {"farm": "prod.land", "industry": "prod.works", "services": "comm.sho
 G = {g_: i_ for i_, g_ in enumerate(GROUP_KINDS)}
 NG = len(GROUP_KINDS)
 WI = {w_: i_ for i_, w_ in enumerate(CAST_WANTS)}
-NW = len(CAST_WANTS)
+NW = min([CAST_WANTS.index(w_) for w_ in OWN_WANTS if w_ in CAST_WANTS] + [len(CAST_WANTS)])   # the cast's wants (the
+# life's own, S5's, go last and never arise in the cast)
 LI = {l_: i_ for i_, l_ in enumerate(LEVERS)}
 DI = {d_: i_ for i_, d_ in enumerate(DOMAINS)}
 NNORM = len(NORM_KEYS)
@@ -110,7 +114,7 @@ PP_DEFAULT = dict(
     soc_set=0.75,         # ... and (sociability / its geometric mean)^soc_set on the contact in shared settings
                          # (like the engine's turn_spread; gives the share of adults with no close friend)
     alloc_pow=2.5,       # deliberate contact goes to the closest first (x closeness^pow): the layers emerge from it
-    dist_far=0.3,        # share of a deliberate contact that reaches someone in another locality without remote tools;
+    dist_far=0.4,        # share of a deliberate contact that reaches someone in another locality without remote tools;
                          # W.comm (phones, video calls) adds up to 0.5 (spec 3 §2.6, spec 5)
     cap_like=0.5,        # ease: closeness's ceiling is 1 - cap_like x (1 - likeness); alike people keep ties for less
     mingle=(0.35, 1.3),  # within a setting people seek out the alike: attention a + b x likeness^2 ...
@@ -217,8 +221,12 @@ INST_OF = dict(work="employer", unit="army", ward="hospital", **{"class": "schoo
 COMM_W = np.array([dict(household=0.2, work=0.3, congregation=1.0, club=1.0, scene=0.8, online=0.4, neighbours=0.5,
                         gang=0.6, unit=0.8, ward=0.3, movement=1.0, **{"class": 0.3})[g_] for g_ in GROUP_KINDS])
 WANT_RATE = np.array([dict(money=2.0, care=2.0, successor=0.5, grandchild=0.7, love=1.0, rival=1.0, forgiveness=0.5,
-                           home=0.7, stop=1.5, secret=1.0, far_hard=26.0, far_good=26.0, far_mixed=26.0)[w_]
-                      for w_ in CAST_WANTS])   # ripening a year (a far tie's call: within weeks)
+                           home=0.7, stop=1.5, secret=1.0, far_hard=26.0, far_good=26.0, far_mixed=26.0,
+                           caught=0.0, odd=0.0, sacred=0.0, tragic=0.0, amends=0.0,
+                           lead_take=26.0, lead_crisis=26.0, lead_fall=26.0, lead_routine=26.0, lead_hand=26.0).get(w_, 0.0)
+                      for w_ in CAST_WANTS])   # ripening a year (a far tie's call: within weeks; S3, S4's never ripen)
+NW_ARISE = WI.get("caught", NW)   # S3, S4: the wants from "caught" on never arise as a cast member's wish (the place
+                                  # reading fires them, sph_eyes and sph_odd; S5's come with a line, S7's lead_* with a post)
 # resolving a want: (closeness, trust) if accepted, (closeness, trust) if refused, mark if accepted, mark if refused
 # (marks are words of engine.py's MARK_BASE)
 WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "refused someone in need"),
@@ -233,7 +241,8 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                secret=((0.10, 0.10), (-0.05, -0.05), "kept your word", None),
                far_hard=((0.10, 0.10), (-0.10, -0.10), "helped someone in need", "refused someone in need"),
                far_good=((0.05, 0.05), (-0.05, -0.05), None, None),
-               far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None))
+               far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None),
+               caught=((0.0, 0.0), (0.0, 0.0), None, None), odd=((0.0, 0.0), (0.0, 0.0), None, None))
 FAIR_PART_NAMES = ["rules", "reasons", "due", "respect", "goodwill"]   # S1: the parts of fairness, W U B R G (Library)
 FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
 # far_ties (item 18, chroma-ideas/far-off-events.md): start values, estimates refit in v22.3's one refit. hard, good: the
@@ -243,8 +252,115 @@ FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
 # carries the event that started it
 FAR_DEFAULT = dict(hard=1.0, good=1.0, call_hard=0.75, call_good=0.5, call_mixed=0.75, take=(0.3, 0.3, 0.1), stay=52,
                    lapse=8, cause=104)
+# sacred lines (S5, chroma-ideas/social-mechanics.md): start values, estimates refit in v22.3's one refit
+SAC_DEFAULT = dict(
+    lead=5.0,          # years a colour has led the life's colours (the engine's w) before a line can form in it
+    paid=2,            # ... and acts in its ways that cost something real (engine.py, the act's own steps: money at or
+    cost_money=0.1,    # below -.1, a tenth of the money scale (an option's own price, the means backfire); ties at or below
+    cost_ties=0.1,     # -.1 (the law backfire); stress of .3 or more (the law backfire): the price of an act the law or
+    cost_stress=0.3,   # the world closed, or of one that costs real money), counted from age 12
+    age=16.0,          # lines form from this age (and offers reach them)
+    lines=2,           # at most two lines a life
+    reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
+                       # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
+    c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
+    refuse=0.9, gesture=0.7, doubling=0.05, cap=0.98,   # the character's own pick holds at .9 (.7 when the offer carries
+                       # a symbolic gesture), + .05 per doubling of the offer's size, at most .98 (Ginges et al. 2007)
+    size_max=4.0,      # a refused offer comes back doubled (round raised), up to four times the first (.98 there)
+    raised=(4, 12),    # weeks after a first refusal before the raised offer comes
+    lapse=8,           # weeks an offer or amends waits for its moment
+    quiet=True,        # an offer with no moment for it (or whose moment never came) is decided off-screen by the same odds
+    hold=dict(money=(0.05, 0.0), post=(0.03, 0.03), favour=(0.0, 0.05)),   # holding: the money and ties not had, by the
+                       # offer's kind (a post: its pay and standing), x its size
+    wound=0.5,         # crossing: stress, a moral injury (Litz et al. 2009), as a widowing's
+    seed=0.15,         # ... a seed in the line colour's shadow part (with shadows; a reflection moment takes off as much)
+    piv=0.15, piv_far=1.0, piv_core=0.3,   # ... and a turning point's lesson (the game's item 4, its full "toward" kind)
+    heal=0.25,         # healing (amends or reflection): stress eased
+    amends=(26, 104),  # an amends moment comes this many weeks after the wound, again a year after one left for later,
+    amends_again=52, amends_max=3,   # at most three
+    tragic=0.1,        # the share of lives with two lines that may meet a tragic trade-off (once): at most 1 life in 10
+    tragic_w=(0.45, 0.45, 0.1),   # the character's own pick at one: a, b, torn
+)
+SAC_WHO = ("any", "in_work", "out_of_work", "owner", "renter", "poor", "comfortable", "young", "old", "ill", "parent")
 FAR_WHO = ("any", "in_work", "out_of_work", "owner", "renter", "poor", "comfortable", "young", "old", "ill", "parent")
 FAR_OFF = 10 ** 9   # far_in: not taken in
+# S3 "Their places' eyes" and S4 "The odd one out" (chroma-ideas/social-mechanics.md; the reading itself, its outcome step,
+# half-life, rung speeds, talk weight and caught gap are dynamics.json place_reading, copied as sphere_data.PLACE_READ).
+# Start values here are the Engine's estimates where the spec names no number, all for v22.4's refit: act_w, the share
+# of a place's reading one act adds to the name there (rep -1..1); step, how far a caught-between pick moves a name (the
+# outcome's size); fair, felt fairness lost in the sphere of the side not taken; back, the drift of stepping back; strain,
+# belonging a kept-apart pair costs while both places last; door, the job-finding difficulty a name moves through a
+# place's go-betweens (DIFF units, x the mean name); cool, weeks between two caught-between moments; wait, weeks a
+# moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
+# buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
+# odd_*: S4's share (.15), visibility x1.5, pressure x1.3, contrast .05 x the rung factor, blend step .02, years held (3),
+# the place's lean by rung a year (regular .005, known .02, leader .04; pillar between), the regulars' .002 a year,
+# hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to holding on
+EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
+                    buf_haunt=0.2, buf_half=26.0, odd_share=0.15, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
+                    odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
+                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
+EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
+EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts read as walking away from their colours
+# lead_ways (S7 "Ways to lead", chroma-ideas/social-mechanics.md, with "The leader's time in post" and "The falls in
+# numbers"): start values for v22.3's one refit, estimates where the spec gives none. The time in post itself (term,
+# renewal, consecutive terms, yearly end chance, age out, by post kind and epoch) and the fast-change line are the Outer
+# world's (dynamics.json lead_posts, sphere_data.LEAD_POSTS). take: a quarter's chance that a pillar (rank .85 or more) of
+# a setting with a leader takes the lead; take_age: from this age; rival: a quarter's chance that the setting's most
+# standing member challenges (a rival of higher rung takes over); fall: legitimacy under this is a fall; rules .. favours,
+# inspiring: the falls in numbers (the spec's; custom's is lead_posts.fast_change.loss_q); fair_line: the led's felt
+# fairness under this is a fairness scandal; frail: health under this ends a post; sh, sh_years: the shadow target one
+# way held sh_years adds to its colour (item 2, with shadows); fight: a fall fought and won leaves legitimacy here; again:
+# weeks after standing down before the take chance doubles there; wait: weeks a post's moment waits to come; routine:
+# yearly fades in a row after which the inspiring leader's turn to routine is offered in place of the crisis; ruler_end:
+# the yearly end chance of a national office where there are no elections (held at the ruler's pleasure)
+LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, rules=0.3, knowing=0.3, favours=0.4, inspiring=0.05,
+                    fair_line=0.35, frail=0.35, sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+# the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
+# reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
+# sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
+# life is in one; else the town sphere's faces)
+LEAD_TITLES = {"head of government": ("national", "rule", None), "minister": ("national", "rule", None),
+               "party leader": ("national", "rule", None), "member of parliament": ("national", "rule", None),
+               "mayor": ("office_local", "rule", None), "local councillor": ("office_seat", "rule", None),
+               "lay judge": ("office_judge", "rule", None), "research group leader": ("office_head", "learn", None),
+               "community centre manager": ("office_head", "gather", None), "artistic director": ("office_head", "arts", None),
+               "shift manager": ("setting_work", "comm", "work"), "head chef": ("setting_work", "comm", "work"),
+               "founder of a firm": ("setting_work", "prod", "work"), "union rep": ("setting_member_led", "prod", "work"),
+               "shop owner": ("place_owned", "comm", None), "café or bar owner": ("place_owned", "gather", None),
+               "community theatre director": ("place_chosen", "arts", None),
+               "deacon or elder": ("setting_congregation", "faith", "congregation"),
+               "team captain": ("setting_member_led", "gather", "club"),
+               "community-garden coordinator": ("setting_member_led", "prod", "club"),
+               "parent-association organiser": ("setting_member_led", "learn", "club"),
+               "book-club organiser": ("setting_member_led", "arts", "club"),
+               "board-game club organiser": ("setting_member_led", "gather", "club"),
+               "neighbourhood-watch coordinator": ("setting_member_led", "prot", "club"),
+               "festival organiser": ("setting_member_led", "gather", "club"),
+               "volunteer research organiser": ("setting_member_led", "learn", "club"),
+               "disability-rights organiser": ("setting_member_led", "rule", "movement"),
+               "campaign organiser": ("setting_member_led", "rule", "movement"),
+               "founder of a movement": ("setting_member_led", "rule", "movement")}
+LEAD_KINDS = ("work", "congregation", "club", "gang", "unit", "movement")   # settings a life can come to lead
+# seen_done (S6, chroma-ideas/social-mechanics.md "Seen it done"): start values, estimates refit in v22.3's joint refit
+# (the Outer world files none in dynamics.json). close, regular, figure: an exposure's weight by who walked the path
+# (close people, layers 1 and 2; regulars at the life's haunts; public figures); win, fail: a success seen counts +win,
+# a failure seen -fail; far: x for a model far above (far_rungs or more rungs higher, or far_years or more older);
+# lift: felt odds per unit of exposure, up to cap units; fail_lift: felt odds lost per failure seen, up to fail_cap
+# (the Engine's cap, so a long life of losses seen cannot take the felt odds to nothing); dream: at dream_ages a new
+# dream's domain leans by 1 + dream x the share of cap its best seen path has reached; from_age: the age from which a
+# life takes in what it sees; mix: a regular of another class counts through a gather haunt only, by mix x the town's
+# gather.mixing (up to 1: the middle of the scale lets them in fully)
+SEEN_DEFAULT = dict(close=1.0, regular=0.3, figure=0.05, win=1.0, fail=0.5, far=0.3, far_rungs=3, far_years=25,
+                    lift=0.03, cap=3.0, fail_lift=0.02, fail_cap=3.0, dream=1.0, dream_ages=(8, 20), from_age=4, mix=2.0)
+SEEN_WORDS = ("seen", "wrong", "far", "none", "dream")   # the Library's words (earth_spheres.SEEN): the strongest model
+# on an option's path or way succeeded (seen), was seen failing (wrong), counts as far above (far); nobody (none); a dream
+# seeded from a seen path (dream, an event at the dream's birth)
+SEEN_KINDS = ("career", "partner", "children")   # the paths a cast member walks: work (sector, standing), partner, children
+# the public figures' roles (world.FIG_ROLES) and the catalogue title each walks, where the catalogue has it
+SEEN_FIG = {"head of government": "head of government", "opposition leader": "party leader",
+            "star": "lead actor or actress", "athlete": "professional athlete", "preacher": "ordained religious minister",
+            "scientist": "research scientist", "magnate": "founder of a firm", "activist": "activist in a cause"}
 
 
 def _isin_small(a, vals):
@@ -434,6 +550,20 @@ class People:
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
+        # S3 and S4 (chroma-ideas/social-mechanics.md): off, nothing of them exists (S5 asks getattr(PP, "eyes_on", False))
+        self.eyes_on = bool(wp_.get("sph_eyes", False))
+        self.odd_on = self.eyes_on and bool(wp_.get("sph_odd", False))
+        if self.eyes_on:
+            self._eyes_init(wp_)
+        self.lw = bool(wp_.get("lead_ways", False)) and self.sph_lv   # S7: ways to lead, with phase 4's levers
+        if self.lw:
+            self._lead_init()
+        self.sac_on = bool(wp_.get("sacred", False))
+        if self.sac_on:   # S5, sacred lines: what a life will not sell, and the offers made for it (off: nothing of it exists)
+            self._sac_init(run_seed)
+        self.seen_on = bool(wp_.get("seen_done", False))
+        if self.seen_on:   # seen_done (S6): the paths and colour ways each life has seen walked; felt odds and dreams read it
+            self._seen_init()
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -1326,6 +1456,7 @@ class People:
         self.hrs = np.zeros((N, len(TIME_ROWS)))     # hours a week by row (TIME_ROWS), this month
         self.hpick = -1                              # the year of age of the last yearly pick
         self.places_mix = None                       # the places part of item 12's current (sph_hours)
+        self.places_ref = None                       # and the town's average for the same hours (cur_rel)
         self._hrng = np.random.default_rng([self.seed, 47, self.run_seed])   # haunt picks draw only here
         T = np.asarray(SD.TEACH, float)              # sphere x face x colour (W U B R G), into this world's frame
         self._teach = T[:, pm][:, :, pm]
@@ -1571,8 +1702,21 @@ class People:
             rsh = np.take_along_axis(W._sph_sh()[self.loc], rs[:, :, None], 1)  # N x 8 x 5
             self.sh_around = (hrs[..., None] * rsh).sum(1) / np.maximum(hrs.sum(1), 1e-9)[:, None]
         wt = hrs * self._depth[None] * (1 + 0.25 * np.floor(np.take_along_axis(self.rung, rs, 1)))
+        if getattr(self, "odd_on", False):   # S4: an odd-one-out place's pull on their colours x odd_press (its row's weight;
+            ms_, mh_ = self._odd_press()      # among the haunts, its share of the row)
+            for r_, k_ in ((0, "work"), (3, "congregation"), (5, "unit")):
+                h_ = has(k_)
+                wt[:, r_] *= np.where(h_.any(1), ms_[np.arange(N), h_.argmax(1)], 1.0)
+            if self.sph_h:
+                hq_ = ok_ * mh_
+                hmq_ = np.einsum("nqf,nqfc->nqc", W.hp_s.reshape(-1, C)[np.maximum(self.hnt, 0)], self._teach[hs_])
+                mix[:, 2] = np.where((nk_ > 0)[:, None], (hmq_ * hq_[..., None]).sum(1) / np.maximum(hq_.sum(1), 1e-9)[:, None], mix[:, 2])
+                wt[:, 2] *= np.where(nk_ > 0, hq_.sum(1) / np.maximum(nk_, 1), 1.0)
         tot = wt.sum(1)
         self.places_mix = np.where(tot[:, None] > 1e-9, (wt[..., None] * mix).sum(1) / np.maximum(tot, 1e-9)[:, None], self.w)
+        # the same hours in the town's own place of each row's sphere: what the current's places part is read against (cur_rel)
+        rm_ = np.take_along_axis(tm, rs[:, :, None], 1)
+        self.places_ref = np.where(tot[:, None] > 1e-9, (wt[..., None] * rm_).sum(1) / np.maximum(tot, 1e-9)[:, None], 0.2)
         yr = int(a)
         if yr != getattr(self, "_rung_yr", -1):   # the rungs, once a year
             self._rung_yr = yr
@@ -1586,14 +1730,21 @@ class People:
                     ok_ = self.hnt[:, q_] >= 0
                     np.add.at(pres, (ar_[ok_], hs_[ok_, q_]), (hrs[:, 2] / np.maximum(nk_, 1))[ok_])
             here = pres >= 2.0
-            self.ryrs = np.where(here, self.ryrs + 1, self.ryrs * 0.8)
+            if getattr(self, "eyes_on", False):   # S3: a good name at their places speeds the climb, a bad one slows it; S4: x1.5 both ways
+                mu_up, mu_dn = self._eyes_rung_mult()
+                self.ryrs = np.where(here, self.ryrs + mu_up, self.ryrs * 0.8)
+            else:
+                self.ryrs = np.where(here, self.ryrs + 1, self.ryrs * 0.8)
             tg = np.where(self.ryrs >= 5, 2, np.where(self.ryrs >= 1, 1, 0)).astype(float)   # years make a regular, then a known face
             ss = self.set_sphere; act = self.skind >= 0
             for j_ in range(self.M):   # standing earned in a setting: a pillar there (rank .85 or more), its leader a leader
                 sj = ss[:, j_]; ok_ = act[:, j_] & (sj >= 0)
                 ii_ = np.nonzero(ok_)[0]
                 tg[ii_, sj[ii_]] = np.maximum(tg[ii_, sj[ii_]], np.where(self.slead[ii_, j_] == -2, 4, np.where(self.srank[ii_, j_] >= 0.85, 3, 0)))
-            self.rung = np.where(tg >= self.rung, np.minimum(tg, self.rung + 1), np.maximum(tg, self.rung - 1))
+            if getattr(self, "eyes_on", False):
+                self.rung = np.where(tg >= self.rung, np.minimum(tg, self.rung + mu_up), np.maximum(tg, self.rung - mu_dn))
+            else:
+                self.rung = np.where(tg >= self.rung, np.minimum(tg, self.rung + 1), np.maximum(tg, self.rung - 1))
 
     def _care_load(self, t):
         """Phase 5 (sph_deep), "who carries whom": hours a week of care each life gives (N; deep_state.care_load). A close
@@ -1662,6 +1813,8 @@ class People:
         act = self.skind >= 0; g = np.maximum(self.skind, 0); a = self._age()
         agew = np.where((g == G["class"]) & (12 <= a < 19), 1.5, 1.0)
         sw = self.sts * (0.5 + self.scoh) * agew * act
+        if getattr(self, "odd_on", False):   # S4: an odd-one-out place's pull on their colours x odd_press
+            sw = sw * self._odd_press()[0]
         self._setw = sw.sum(1); self._setmix = (sw[..., None] * self.snorm).sum(1)
         fitj = _uclip(likeness(self.snorm, self.w[:, None, :]), 0, 1)
         accj = 0.5 * fitj + 0.5 * self.srank
@@ -1692,6 +1845,8 @@ class People:
         self.title_st = None if ts_ is None else np.asarray(ts_, float)
         ds_ = S.get("domain_standing")   # (N, len(DOMAINS)) 0-3: a title's standing in its own domain
         self.dom_st = None if ds_ is None else np.asarray(ds_, float)
+        if getattr(self, "lw", False) and S.get("lead_has") is not None:   # S7: the leading titles held (LEAD_TITLES)
+            self.lw_has = np.asarray(S["lead_has"], bool).reshape(N, -1)
         kc_ = S.get("children")          # the engine's living children (its alive[:, 5]; or S["alive"] with 6 columns)
         if kc_ is None and S.get("alive") is not None and np.ndim(S["alive"]) == 2 and np.shape(S["alive"])[1] > 5:
             kc_ = np.asarray(S["alive"])[:, 5]
@@ -1726,6 +1881,8 @@ class People:
             self._far_week(t)
         if getattr(self, "fr_read", False):
             self._fair_week(t)
+        if self.sac_on:
+            self._sac_week(t)
         self._wants_week(t)
         self._outputs(t)
 
@@ -1747,8 +1904,12 @@ class People:
         self._lifecourse(t)
         if self.far_on:
             self._far_month(t)
+        if self.sac_on:
+            self._sac_month(t)
         if self._xsoc:
             self._lang_step(t)
+        if getattr(self, "eyes_on", False):   # S3, S4: the places read again, names fade, the caught-between and odd-one-out moments wait
+            self._eyes_month(t)
         if self.sph_h and getattr(self.W, "hp_s", None) is not None:
             self._haunts_month(t)
         if self.sph_hr:
@@ -1790,6 +1951,10 @@ class People:
         self._cleanup(t)
         self._alive_counts(np.arange(self.N))
         self._approval(t)   # felt acceptance per norm key: once a quarter (views move slowly)
+        if self.lw:          # S7: the posts' quarter (after the settings' leaders are replaced)
+            self._lead_q(t)
+        if self.seen_on:    # seen_done (S6): what the cast and the figures were seen to do this quarter
+            self._seen_q(t)
 
     # ------------------------------------------------------------------ ties: contact and closeness (spec 2 §3)
     def _tie_target(self, n2=None, k2=None):
@@ -2428,6 +2593,8 @@ class People:
             mem = np.nonzero(B[n_, :, j_] > 0)[0]
             if len(mem):
                 k_ = int(mem[np.argmax(self.stand[n_, mem] + 0.1 * rng.random(len(mem)))])
+                if self.lw and self._lead_vacant(n_, j_, k_, t):   # S7: the character stands higher and takes the lead
+                    continue
                 self.slead[n_, j_] = k_
                 lr = K_LEAD[int(self.skind[n_, j_])]
                 self.rmask[n_, k_] |= BIT[lr]
@@ -2527,7 +2694,7 @@ class People:
         age = (t - self.born[nn, kk]) / 52.0; c = self.c[nn, kk]; rm = self.rmask[nn, kk]
         has = lambda r_: (rm & BIT[r_]) != 0
         par = has("parent"); gp = has("grandparent")
-        H = np.zeros((len(nn), NW))
+        H = np.zeros((len(nn), NW_ARISE))
         held = self.held
         hk = lambda i_: held[nn, i_] if held.shape[1] > i_ else np.zeros(len(nn), bool)
         H[:, WI["money"]] = 0.12 * c * (c >= L2) * (((~self.emp[nn, kk]) & (age >= 18) & (age < 65)) | (self.money[nn, kk] < 0.2))
@@ -2545,7 +2712,7 @@ class People:
         H[:, WI["home"]] = 0.15 * (par | gp) * ~self._here(nn, kk) * (a >= 18)
         H[:, WI["stop"]] = 0.25 * self.risky[nn] * (c >= L1)
         H[:, WI["secret"]] = 0.03 * (self.trust[nn, kk] >= 0.75) * (c >= L1) * ~has("partner")
-        tot = H @ np.ones(NW)
+        tot = H @ np.ones(NW_ARISE)
         occ = rng.random(len(nn)) < 1 - np.exp(-0.25 * tot)
         if not occ.any():
             return
@@ -2855,7 +3022,1161 @@ class People:
                                         cid=int(self.uid[n_, k_])))
             self.far_in[n_, k_] = FAR_OFF
 
+    # ------------------------------------------------------------------ sacred lines (S5): what a life will not sell
+    def _sac_init(self, run_seed):
+        """S5, sacred lines (chroma-ideas/social-mechanics.md): each life's lines (up to two, by kind: promise, truth,
+        own_say, loved, home, the five colours in the Canon's order), the record that forms them (how long the lead
+        colour has led, the acts in each colour's ways that cost something real), the offers waiting for their moment,
+        the wounds of crossing, and its own random stream. The offers come from sphere_data.OFFER (the Outer world's
+        tags on sphere and C3 events)."""
+        import sphere_data as SD
+        N = self.N
+        self.sac_par = {**SAC_DEFAULT, **dict((getattr(self.W, "p", None) or {}).get("sacred_par") or {})}
+        self.sac_line = np.full((N, 2), -1, np.int64)     # each line's kind (index into SACRED_KINDS), -1 none
+        self.sac_t = np.full((N, 2), NEVER, np.int64)     # the week it formed
+        self.sac_wound = np.full((N, 2), NEVER, np.int64)  # the week it was crossed and not yet healed (NEVER: whole)
+        self.sac_held = np.zeros((N, 2), np.int64); self.sac_crossed = np.zeros((N, 2), np.int64)   # times held, crossed
+        self.sac_paid = np.zeros((N, C), np.int64)        # acts in each colour's ways that cost something real
+        self.sac_lead = np.full(N, -1, np.int64); self.sac_lead_t = np.full(N, NEVER, np.int64)   # the lead colour, since
+        self.sac_lead_y = np.zeros((N, C))                # years each colour has led (the colour-even audit)
+        self.sac_lost = np.zeros((N, 2))                  # money and ties not had by holding (the audit)
+        self.sac_tragic = np.full(N, -1, np.int8)         # -1 not drawn, 0 no, 1 may meet a tragic trade-off, 2 met it
+        self.sac_q = {}                                   # n -> offers and amends waiting for their moment (dicts)
+        self.sac_ref = {}                                 # (n, offer key) -> times refused (the next one is raised)
+        self.sac_am = {}                                  # (n, line slot) -> amends moments offered since its wound
+        self.sac_fxq = []                                 # offers decided off-screen, for the engine (sac_take)
+        self._sac_rng = np.random.default_rng([self.seed, 93, self.run_seed])
+        self._sac_i = len(getattr(self.W, "sph_ev_log", ()))   # the world's town events already read
+        self._sac_lm = -1                                 # the month last counted
+        self.sac_n = {}                                   # counts for the checks (not saved)
+        self.sac_col = self.iperm.copy()                  # each kind's colour in this life's frame (W U B R G relabelled)
+        self._sac_ev = {}                                 # sphere_data.EV index -> offer key
+        ek = {f"{e['sphere']}.{e['key']}": i for i, e in enumerate(SD.EV)}
+        for k, v in SD.OFFER["events"].items():
+            bad = [x for x in v["lines"] if x not in SACRED_KINDS]
+            if bad or v["kind"] not in OFFER_KINDS or not (v["who"] in SAC_WHO or v["who"].startswith("sector:")):
+                raise ValueError(f"offer {k}: unknown line kinds {bad}, kind {v['kind']!r} or who {v['who']!r}")
+            if k in ek:
+                self._sac_ev[ek[k]] = k
+
+    def _sac_count(self, key, m=1):
+        self.sac_n[key] = self.sac_n.get(key, 0) + int(np.sum(m))
+
+    def _sac_fit(self, ns, who, t):
+        """The lives ns an offer is made to by its who: word (far_sides.json's words, read for the character)."""
+        a = self._age(t); held = self.held; res = self.res
+        emp = held[ns, CAR] if held.shape[1] > CAR else np.zeros(len(ns), bool)
+        own = self.own_home[ns] | (self.cls[ns] >= 2)
+        if who == "any":
+            return np.ones(len(ns), bool) & (a >= 16)
+        if who.startswith("sector:"):
+            return emp & (self.psector[ns] == SECTORS.index(who[7:]))
+        m = dict(in_work=emp, out_of_work=~emp & (18 <= a < 65), owner=own, renter=~own, poor=res[ns, MON] < 0.15,
+                 comfortable=res[ns, MON] >= 0.4, young=np.full(len(ns), a < 30), old=np.full(len(ns), a >= 65),
+                 ill=res[ns, HEA] < 0.5, parent=held[ns, KID] if held.shape[1] > KID else np.zeros(len(ns), bool))[who]
+        return np.asarray(m, bool) & (a >= 16)
+
+    def sac_offer(self, ns, key, t=None, reach=None):
+        """An offer (sphere_data.OFFER[key]) made in town to the lives ns: those it fits (who:), whose line it touches,
+        each with chance reach, wait for its moment (lapse weeks). Two held lines touched at once make a tragic
+        trade-off for a life drawn to meet one (at most one, in at most sacred_par tragic of lives); else the first
+        line of the offer's that they hold."""
+        import sphere_data as SD
+        t = self.t if t is None else t; sp = self.sac_par
+        o = SD.OFFER["events"][key]; kinds = [SACRED_KINDS.index(x) for x in o["lines"]]
+        ns = np.asarray(ns, np.int64)
+        if not len(ns) or self._age(t) < sp["age"]:
+            return
+        ns = ns[~self.dead[ns] & (self.sac_line[ns] >= 0).any(1)]
+        if not len(ns):
+            return
+        ns = ns[self._sac_fit(ns, o["who"], t)]
+        tch = (self.sac_line[ns][:, :, None] == np.asarray(kinds)[None, None, :]).any(2)   # n x 2: the line is touched
+        ns, tch = ns[tch.any(1)], tch[tch.any(1)]
+        r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
+        for n_, tc_ in zip(ns[r_], tch[r_]):
+            n_ = int(n_); q_ = self.sac_q.setdefault(n_, [])
+            if any(x_.get("key") == key for x_ in q_):
+                continue
+            if tc_.all() and self.sac_tragic[n_] == 1:
+                q_.append(dict(kind="tragic", key=key, slots=[0, 1], due=int(t), until=int(t) + int(sp["lapse"])))
+                self._sac_count("tragic offered")
+                continue
+            sl_ = [j_ for j_ in range(2) if tc_[j_]]
+            sl_.sort(key=lambda j_: kinds.index(int(self.sac_line[n_, j_])))   # the offer's own first line
+            nr_ = self.sac_ref.get((n_, key), 0)
+            q_.append(dict(kind="sacred", key=key, slots=[sl_[0]], due=int(t), until=int(t) + int(sp["lapse"]),
+                           round=1 if nr_ else 0, size=float(min(sp["size_max"], 2.0 ** nr_))))
+            self._sac_count("offered")
+
+    def _sac_week(self, t):
+        """The town events of the week that carry an offer (sphere_data.OFFER) reach the people living in that town (a
+        whole-society event, everyone); C3's institution events come through WorldLink (to the staff). Offers and
+        amends past their time lapse."""
+        log = getattr(self.W, "sph_ev_log", None)
+        if log is not None and len(log) > self._sac_i:
+            rows = np.asarray(log[self._sac_i:]).tolist(); self._sac_i = len(log)
+            for _, i_, l_ in rows:
+                k_ = self._sac_ev.get(int(i_))
+                if k_ is None:
+                    continue
+                here = ~self.dead & ((self.loc == l_) if l_ >= 0 else True)
+                if self._xsoc:   # a life abroad does not hear its home town's offers
+                    here &= self.soc == self.soc_home
+                self.sac_offer(np.nonzero(here)[0], k_, t)
+        for n_ in list(self.sac_q):
+            keep_ = [x_ for x_ in self.sac_q[n_] if x_["until"] >= t and not self.dead[n_]]
+            gone_ = [x_ for x_ in self.sac_q[n_] if x_ not in keep_]
+            if keep_:
+                self.sac_q[n_] = keep_
+            else:
+                del self.sac_q[n_]
+            for x_ in gone_:   # an offer whose moment never came is decided off-screen, by the character's own odds
+                self._sac_count("lapsed")
+                if x_["kind"] != "amends" and not self.dead[n_] and self.sac_par["quiet"]:
+                    self.sac_quiet(n_, x_, t)
+
+    def sac_quiet(self, n, item, t=None):
+        """An offer or tragic trade-off with no moment for it (none in the Library for that line, or its moment never
+        came within lapse weeks): the character decides it off-screen by their own odds (sac_odds; at a tragic one
+        tragic_w), with every effect but the turning point's lesson (there is no act to learn from). The engine applies
+        it with the week's act (sac_take)."""
+        t = self.t if t is None else t
+        if item["kind"] == "tragic":
+            tw_ = np.asarray(self.sac_par["tragic_w"], float)
+            tag_ = int(np.searchsorted(np.cumsum(tw_ / tw_.sum()), self._sac_rng.random(), side="right"))
+            tag_ = min(tag_, 2)
+        else:
+            tag_ = 1 if self._sac_rng.random() >= self.sac_odds(item) else 0
+        q_ = self.sac_q.setdefault(n, [])
+        if item not in q_:
+            q_.append(item)
+        ev = self.sac_resolve(n, item, tag_, False, None, t)
+        ev["quiet"] = True
+        self.sac_fxq.append(ev)
+        self._sac_count("quiet")
+        return ev
+
+    def sac_take(self):
+        """The off-screen offers decided since the last call (events for engine.py's sac_fx), each handed over once."""
+        out, self.sac_fxq = self.sac_fxq, []
+        return out
+
+    def _sac_month(self, t):
+        """The lead colour and how long it has led; a line forms where the lead has held lead years and paid acts."""
+        if self._sac_lm == t:
+            return
+        dt_ = 0.0 if self._sac_lm < 0 else (t - self._sac_lm) / 52.0
+        self._sac_lm = t
+        ld = np.argmax(self.w, 1)
+        self.sac_lead_y[np.arange(self.N), self.sac_lead] += dt_ * (self.sac_lead >= 0) * ~self.dead
+        ch = ld != self.sac_lead
+        self.sac_lead_t = np.where(ch, t, self.sac_lead_t); self.sac_lead = ld
+        self._sac_form(np.nonzero(~self.dead)[0], t)
+
+    def _sac_form(self, ns, t):
+        """S5: a line forms in the lead colour once it has led sacred_par lead years and the life has paid a real cost
+        paid times for acts in its ways (sacred_par age and over, at most lines). Its form is the colour's kind."""
+        sp = self.sac_par
+        if self._age(t) < sp["age"] or not len(ns):
+            return
+        ld = self.sac_lead[ns]; kd = self.perm[np.maximum(ld, 0)]   # the lead colour's kind (canonical colour)
+        ok = ((ld >= 0) & (t - self.sac_lead_t[ns] >= 52 * sp["lead"]) & (self.sac_paid[ns, np.maximum(ld, 0)] >= sp["paid"])
+              & ((self.sac_line[ns] >= 0).sum(1) < sp["lines"]) & ~(self.sac_line[ns] == kd[:, None]).any(1))
+        for n_, k_ in zip(ns[ok], kd[ok]):
+            j_ = int(np.argmax(self.sac_line[n_] < 0))
+            self.sac_line[n_, j_] = k_; self.sac_t[n_, j_] = t
+            self._sac_count(f"line {SACRED_KINDS[k_]}")
+            if j_ == 1 and self.sac_tragic[n_] < 0:   # the second line: may this life meet a tragic trade-off (1 in 10)
+                self.sac_tragic[n_] = int(self._sac_rng.random() < sp["tragic"])
+            if self.watch[n_]:
+                self.events.append(dict(n=int(n_), t=int(t), kind="sacred", what="line", line=SACRED_KINDS[k_],
+                                        colour=COLORS[int(self.sac_col[k_])]))
+
+    def sac_act(self, idx, ma, cost, t=None):
+        """The week's acts (engine.py, after their costs): an act in a colour's ways (its mix's lead) that cost something
+        real counts toward a line in that colour (from age 12), and heals a wound of that colour's line crossed before
+        it (an act of amends in the line's ways: a real cost paid for it again)."""
+        t = self.t if t is None else t
+        idx = np.asarray(idx, np.int64); cost = np.asarray(cost, bool)
+        if not len(idx) or self._age(t) < 12:
+            return []
+        c_ = np.argmax(np.asarray(ma), 1)
+        n2, c2 = idx[cost], c_[cost]
+        np.add.at(self.sac_paid, (n2, c2), 1)
+        out = []
+        for n_, cc_ in zip(n2, c2):
+            for j_ in range(2):
+                k_ = int(self.sac_line[n_, j_])
+                if k_ >= 0 and self.sac_col[k_] == cc_ and NEVER < self.sac_wound[n_, j_] < t:
+                    out.append(self._sac_heal(int(n_), j_, t, "amends in its ways"))
+        self._sac_form(np.unique(n2), t)
+        return out
+
+    def _sac_heal(self, n, j, t, how):
+        self.sac_wound[n, j] = NEVER
+        q_ = self.sac_q.get(n)
+        if q_:   # its amends moment is no longer waiting
+            self.sac_q[n] = [x_ for x_ in q_ if not (x_["kind"] == "amends" and x_["slots"] == [j])]
+        self._sac_count("healed")
+        ev = dict(n=int(n), t=int(t), kind="sacred", what="healed", how=how, line=SACRED_KINDS[int(self.sac_line[n, j])],
+                  colour=COLORS[int(self.sac_col[int(self.sac_line[n, j])])], heal=float(self.sac_par["heal"]))
+        return ev   # (the engine reports it: engine.py sac_fx)
+
+    def sac_due(self, t=None):
+        """[(n, item)]: the first offer or amends of each life waiting for its moment and due by now."""
+        t = self.t if t is None else t
+        out = []
+        for n_, q_ in self.sac_q.items():
+            for x_ in q_:
+                if x_["due"] <= t <= x_["until"] and not self.dead[n_]:
+                    out.append((int(n_), x_)); break
+        return out
+
+    def sac_odds(self, item):
+        """The character's own pick at an offer: holds with this chance (the refusal odds)."""
+        sp = self.sac_par
+        if item.get("kind") != "sacred":
+            return None
+        import sphere_data as SD
+        g_ = SD.OFFER["events"][item["key"]]["gesture"]
+        return float(min(sp["cap"], (sp["gesture"] if g_ else sp["refuse"]) + sp["doubling"] * np.log2(max(item["size"], 1.0))))
+
+    def sac_info(self, n, item):
+        """What the game names in a sacred, tragic or amends moment: the line or lines (kind and colour), the offer
+        (the Outer world's words, its kind and gesture), the round, its size and the refusal odds."""
+        import sphere_data as SD
+        lines = [dict(line=SACRED_KINDS[int(self.sac_line[n, j])], colour=COLORS[int(self.sac_col[int(self.sac_line[n, j])])],
+                      since=int(self.sac_t[n, j]), wounded=bool(self.sac_wound[n, j] > NEVER)) for j in item["slots"]]
+        out = dict(kind=item["kind"], lines=lines)
+        if item.get("key"):
+            o = SD.OFFER["events"][item["key"]]
+            out.update(offer=o["offer"], offer_key=item["key"], offer_kind=o["kind"], gesture=bool(o["gesture"]))
+        if item["kind"] == "sacred":
+            out.update(round=OFFER_ROUNDS[int(item["round"])], size=float(item["size"]), refuse=self.sac_odds(item))
+        return out
+
+    def sac_resolve(self, n, item, tag, idle, ma, t=None):
+        """The moment that answered an offer, a tragic trade-off or amends: tag is the picked option's line: (0 hold,
+        1 cross), tragic: (0 a, 1 b, 2 torn) or heal: (0 amends, 1 reflect, 2 not_yet), -1 untagged (an untagged
+        option or doing nothing holds a line, is torn at a trade-off, and heals nothing). Returns the event the engine
+        applies: held lines' costs (money, ties not had), crossed lines' wounds (stress, a shadow seed, a turning point)."""
+        t = self.t if t is None else t; sp = self.sac_par
+        q_ = self.sac_q.get(n, [])
+        if item in q_:
+            q_.remove(item)
+            if not q_:
+                self.sac_q.pop(n, None)
+        ev = dict(n=int(n), t=int(t), kind="sacred", moment=item["kind"], key=item.get("key"), held=[], crossed=[],
+                  money=0.0, ties=0.0, wound=0.0, seed=0.0, colours=[], healed=[])
+        if item["kind"] == "amends":
+            j = item["slots"][0]
+            if tag in (0, 1) and self.sac_wound[n, j] > NEVER:
+                h_ = self._sac_heal(n, j, t, HEAL_TAGS[tag])
+                ev["healed"].append(h_["colour"]); ev["heal"] = h_["heal"]
+            elif self.sac_wound[n, j] > NEVER:   # left for later: another amends moment a year on (at most amends_max)
+                self._sac_amends(n, j, t, again=True)
+            ev["what"] = "healed" if ev["healed"] else "not yet"
+            return ev
+        import sphere_data as SD
+        o = SD.OFFER["events"][item["key"]]
+        if item["kind"] == "tragic":
+            a_, b_ = self._sac_tragic_order(n, item)
+            hold, cross, f_ = ({0: ([a_], [b_], 1.0), 1: ([b_], [a_], 1.0)}.get(tag, ([], [a_, b_], 0.5)))
+            self.sac_tragic[n] = 2
+        else:
+            hold, cross, f_ = ([], item["slots"], 1.0) if tag == 1 and not idle else (item["slots"], [], 1.0)
+        for j in hold:
+            dm_, dt_ = sp["hold"][o["kind"]]; sz_ = float(item.get("size", 1.0))
+            ev["money"] += dm_ * sz_; ev["ties"] += dt_ * sz_
+            self.sac_lost[n] += (dm_ * sz_, dt_ * sz_); self.sac_held[n, j] += 1
+            col_ = int(self.sac_col[int(self.sac_line[n, j])]); ev["held"].append(COLORS[col_])
+            if item["kind"] == "sacred":
+                self.sac_ref[(n, item["key"])] = self.sac_ref.get((n, item["key"]), 0) + 1
+                if self.sac_ref[(n, item["key"])] == 1:   # the raised offer comes after a first refusal
+                    lo_, hi_ = sp["raised"]
+                    d_ = int(t) + int(self._sac_rng.integers(lo_, hi_ + 1))
+                    self.sac_q.setdefault(n, []).append(dict(kind="sacred", key=item["key"], slots=list(item["slots"]),
+                                                             due=d_, until=d_ + int(sp["lapse"]), round=1,
+                                                             size=float(min(sp["size_max"], 2.0 * item["size"]))))
+            if getattr(self, "eyes_on", False):   # S3 (their places' eyes): holding the line moves their name
+                oh_ = np.zeros(C); oh_[col_] = 1.0
+                self.eyes_see(np.array([n]), oh_[None], np.array([1.0]), "sacred")
+            self._sac_count("held")
+        for j in cross:
+            col_ = int(self.sac_col[int(self.sac_line[n, j])])
+            self.sac_crossed[n, j] += 1; self.sac_wound[n, j] = t
+            ev["crossed"].append(COLORS[col_]); ev["colours"].append(col_)
+            ev["wound"] += sp["wound"] * f_; ev["seed"] = sp["seed"] * f_
+            self._sac_amends(n, j, t)
+            self._sac_count("crossed")
+        ev["what"] = "tragic" if item["kind"] == "tragic" else "crossed" if cross else "held"
+        ev["round"] = OFFER_ROUNDS[int(item.get("round", 0))]
+        return ev   # (the engine applies and reports it: engine.py sac_fx)
+
+    def _sac_tragic_order(self, n, item):
+        """A tragic moment's a and b: the slots of its sacred: kinds in the moment's order (set by WorldLink)."""
+        ab = item.get("ab") or item["slots"]
+        return int(ab[0]), int(ab[1])
+
+    def _sac_amends(self, n, j, t, again=False):
+        """After a wound (or an amends moment left for later), amends wait their weeks: a reflection or an act of amends."""
+        sp = self.sac_par
+        nt_ = (self.sac_am.get((n, j), 0) if again else 0) + 1
+        if nt_ > sp["amends_max"]:
+            return
+        self.sac_am[(n, j)] = nt_
+        lo_, hi_ = sp["amends"]
+        d_ = int(t) + (int(sp["amends_again"]) if again else int(self._sac_rng.integers(lo_, hi_ + 1)))
+        self.sac_q.setdefault(n, []).append(dict(kind="amends", key=None, slots=[j], due=d_, until=d_ + int(sp["lapse"])))
+
+    # ------------------------------------------------------------------ seen_done (S6): paths and ways seen walked
+    # (chroma-ideas/social-mechanics.md, S6 "Seen it done"; Bandura 1977, 1997; Bell, Chetty et al. 2019; Chetty et al.
+    # 2022; Lockwood and Kunda 1997). What a cast member carries here: a job or not (emp) in a sector, a standing 0-3
+    # (stand), a partner (mpart) and children (nkids), their colours as the character reads them (read). Each walks one
+    # catalogue title at work: the career of their sector at their standing (a pack ladder's rung where it has one),
+    # drawn by the title's share with a fixed hash of who they are (no random draw); partner and children are one
+    # ladder each, every title of the kind (not a facet, open by 30), so a married parent shows the whole way. Seen holding a path counts as a success once, at the weight they
+    # were seen with (more if they come closer); gaining it again (work found, a standing gained, a partner, a child)
+    # is a success; losing it (work lost before 64, a standing lost, a partnership ended) a failure. The public figures
+    # walk the title of their role (SEEN_FIG): rising into the role is a success, a scandal or a fall a failure.
+    def _seen_init(self):
+        N, K = self.N, self.K
+        self.sd_par = {**SEEN_DEFAULT, **dict((getattr(self.W, "p", None) or {}).get("seen_par") or {})}
+        self.sd_ec = np.zeros((N, C)); self.sd_fc = np.zeros((N, C))   # exposure and failures seen per colour way
+        self.sd_ctop = np.full((N, C), -1, np.int32); self.sd_ctopw = np.zeros((N, C))   # ... its strongest model (cast
+        self.sd_ctopk = np.zeros((N, C), np.int8)                                          # id), weight, SEEN_WORDS index
+        self._sd_uid = np.full((N, K), -1, np.int32)      # last quarter's cast, to read what changed since
+        self._sd_emp = np.zeros((N, K), bool); self._sd_mp = np.zeros((N, K), bool)
+        self._sd_nk = np.zeros((N, K), np.int8); self._sd_st = np.zeros((N, K), np.int8)
+        self._sd_t = np.full((N, K, 3), -1, np.int32)    # the title each walks at work; 1 on partner and children
+        self._sd_w = np.zeros((N, K, 3), np.float32)     # the weight each model's path was credited at
+        self._sd_wc = np.zeros((N, K), np.float32)       # ... and their colour way
+        self._sd_figs = set()                             # public figures seen in their role (credited once)
+        self._sd_li = len(getattr(self.W, "log", ()))    # the world's log entries already read (scandals, falls)
+        self._sd_saved = None                             # a load's per-life records, applied when the titles come
+        self.seen_setup(None)
+
+    def seen_setup(self, cat):
+        """seen_done: the title catalogue the paths are counted in (the link passes the engine's L["ROLES"]: names,
+        kindname, sector, standing, share, refines, ages; None: none yet). Arrays per life and title index:
+        sd_e exposure (successes x weight - failures x fail x weight), sd_f failures seen (weighted), sd_top the
+        strongest model's cast id (-1 none; a public figure f as -(f + 2)), sd_topw its weight and sd_topk its word
+        (SEEN_WORDS: 0 seen, 1 wrong, 2 far)."""
+        N = self.N; NT = int(cat["NT"]) if cat is not None else 0
+        self.sd_names = list(cat["names"])[:NT] if NT else []; self.sd_nt = NT
+        kn = list(cat["kindname"][:NT]) if NT else []
+        self.sd_kind = np.array([KN.index(k_) if k_ in KN else -1 for k_ in kn], np.int64)   # the commitment each title is in
+        self.sd_e = np.zeros((N, NT), np.float32); self.sd_f = np.zeros((N, NT), np.float32)
+        self.sd_top = np.full((N, NT), -1, np.int32); self.sd_topw = np.zeros((N, NT), np.float32)
+        self.sd_topk = np.zeros((N, NT), np.int8)   # the strongest model's word: 0 seen, 1 wrong, 2 far (SEEN_WORDS)
+        self._sd_pool = {}; self._sd_pk = {1: (np.zeros(0, np.int64), np.zeros(0)), 2: (np.zeros(0, np.int64), np.zeros(0))}
+        self._sd_fig = {}
+        if NT:
+            sec = np.asarray(cat["sector"])[:NT]; std = np.asarray(cat["standing"])[:NT]
+            sh = np.maximum(np.asarray(cat["share"], float)[:NT], 1e-4)
+            ref = np.asarray(cat["refines"])[:NT]; ages = np.asarray(cat["ages"], float)[:NT]
+            car = np.array([k_ == "career" for k_ in kn])
+
+            def pool(ids):
+                ids = np.asarray(ids, np.int64)
+                cw = np.cumsum(sh[ids]); return ids, cw / cw[-1] if len(ids) else cw
+            for s_ in range(len(SECTORS)):   # work: the careers of the sector at the cast member's standing
+                for st_ in range(4):
+                    cs_ = car & (sec == s_)
+                    c_ = np.nonzero(cs_ & ((std == st_) if st_ >= 1 else (std <= 0)))[0]
+                    if not len(c_) and st_ >= 1:
+                        c_ = np.nonzero(cs_ & (std >= 1))[0]
+                    if not len(c_):
+                        c_ = np.nonzero(cs_)[0]
+                    self._sd_pool[s_ * 4 + st_] = pool(c_)
+            for q_ in (1, 2):   # partner and children: one ladder each, the kind's own titles (not a facet, open by 30)
+                c_ = np.nonzero(np.array([k_ == SEEN_KINDS[q_] for k_ in kn]) & (ref < 0) & (ages[:, 0] <= 30))[0]
+                self._sd_pk[q_] = pool(c_)
+            ix = {x_: i_ for i_, x_ in enumerate(self.sd_names)}
+            self._sd_fig = {r_: ix[x_] for r_, x_ in SEEN_FIG.items() if x_ in ix}
+        if self._sd_saved:
+            ix = {x_: i_ for i_, x_ in enumerate(self.sd_names)}
+            for n_, d_ in self._sd_saved.items():
+                for x_, v_ in d_.items():
+                    if x_ in ix:
+                        self.sd_e[n_, ix[x_]], self.sd_f[n_, ix[x_]], self.sd_top[n_, ix[x_]], self.sd_topw[n_, ix[x_]] = v_[:4]
+                        self.sd_topk[n_, ix[x_]] = v_[4] if len(v_) > 4 else 0
+            self._sd_saved = None
+        sn, sk = np.nonzero(self._sd_uid >= 0)   # (after a load) the paths the cast walked when last read
+        self._sd_t[sn, sk] = self._sd_titles(sn, sk)
+        self._sd_lift()
+
+    def _sd_hash(self, n, k, salt):
+        """A fixed number in [0, 1) for cast member (n, k) and a salt: their name index, hashed (no random draw)."""
+        x = (self.nm[n, k].astype(np.int64) * 2654435761 + salt * 40503 + 977) % 4294967296
+        return x / 4294967296.0
+
+    def _sd_titles(self, n, k):
+        """The title cast members (n, k) walk at work by sector and standing (len x 3, -1 none), and 1 on the partner
+        and children ladders (whether they walk each now is read from emp, mpart and nkids)."""
+        out = np.full((len(n), 3), -1, np.int32)
+        if not self.sd_nt or not len(n):
+            return out
+        sec = self.sector[n, k].astype(np.int64); st = np.clip(self.stand[n, k].astype(np.int64), 0, 3)
+        pl = np.where(sec >= 0, sec * 4 + st, -1); u = self._sd_hash(n, k, 1)
+        for p_ in np.unique(pl[pl >= 0]).tolist():
+            ids, cw = self._sd_pool.get(p_, (np.zeros(0, np.int64), None))
+            if len(ids):
+                m_ = pl == p_
+                out[m_, 0] = ids[np.minimum(np.searchsorted(cw, u[m_], side="right"), len(ids) - 1)]
+        for q_ in (1, 2):   # partner and children: one ladder each (every title of the kind, _sd_pk), marked 1
+            out[:, q_] = 1 if len(self._sd_pk[q_][0]) else -1
+        return out
+
+    def _sd_rung(self):
+        """Each life's own rung, the highest of its spheres' (N2; 0 without the haunts' rungs)."""
+        rg = getattr(self, "rung", None)
+        return np.floor(rg.max(1)) if rg is not None else np.zeros(self.N)
+
+    def _seen_w(self, t, live):
+        """The weight each cast member's walk is seen with (N x K): close people (layers 1 and 2) 1; regulars at the
+        life's haunts .3, one of another class only through a gather haunt (the places that mix walks of life), by the
+        town's gather.mixing; x .3 for a model far above (3 or more rungs: their standing 0-3 reads as regular to leader,
+        a haunt's keeper as leader; or 25 or more years older). Also returns that far mask (N x K)."""
+        p = self.sd_par; N, K = self.N, self.K
+        close = live & (self.c >= self.P["layer_c"][1])
+        reg = live & ~close & ((self.rmask & BIT["regular"]) != 0)
+        w = close * np.float32(p["close"])
+        if reg.any():
+            other = self.mcls != self.cls[:, None]
+            at_g = np.zeros((N, K), bool)
+            hp = getattr(self.W, "hp_s", None); sh = getattr(self, "shnt", None)
+            if hp is not None and sh is not None:
+                H = len(HAUNT_KINDS); P_ = hp.shape[2]
+                gj = (sh >= 0) & (HAUNT_SPH[np.maximum(sh, 0) // P_ % H] == SPHERES.index("gather"))
+                for j_ in np.nonzero(gj.any(0))[0]:
+                    at_g |= gj[:, j_][:, None] & (((self.mset >> self.mset.dtype.type(j_)) & 1) > 0)
+            try:
+                mx = np.asarray(self.W.sph_state("gather.mixing"), float)[np.minimum(self.loc, self.n_loc - 1)]
+            except Exception:
+                mx = np.full(N, 0.5)
+            mw = np.minimum(1.0, p["mix"] * mx)[:, None]
+            w = w + reg * np.float32(p["regular"]) * np.where(other, np.where(at_g, mw, 0.0), 1.0)
+        mr = 1 + np.clip(self.stand.astype(np.int64), 0, 3)
+        mr = np.where((self.rmask & BIT["keeper"]) != 0, 4, mr)
+        far = (mr - self._sd_rung()[:, None] >= p["far_rungs"]) | (self._mage(t) - self._age(t) >= p["far_years"])
+        return (w * np.where(far, p["far"], 1.0)).astype(np.float32), far
+
+    def _sd_add(self, nn, ti, x, f=None, who=None, ww=None, far=None):
+        """Credit x (and failures f) to lives nn on titles ti; who, ww, far: the model's id, weight and whether they
+        count as far above, for the strongest model on each path (sd_top, sd_topw, sd_topk: SEEN_WORDS' index). A
+        success makes them the strongest when they weigh more (or already are): seen, or far; a failure seen when they
+        weigh as much or more (or already are): wrong."""
+        ok = ti >= 0
+        nn, ti, x = nn[ok], ti[ok], x[ok]
+        if not len(nn):
+            return
+        np.add.at(self.sd_e, (nn, ti), x)
+        if f is not None:
+            np.add.at(self.sd_f, (nn, ti), f[ok])
+        if who is not None:
+            who, ww = who[ok], ww[ok]
+            fr = np.zeros(len(nn), bool) if far is None else np.broadcast_to(far, ok.shape)[ok]
+            key = nn.astype(np.int64) * max(self.sd_nt, 1) + ti
+            o_ = np.lexsort((-ww, key)); ks_ = key[o_]
+            first = o_[np.r_[True, ks_[1:] != ks_[:-1]]]
+            n1, t1 = nn[first], ti[first]; tw_ = self.sd_topw[n1, t1]; same_ = self.sd_top[n1, t1] == who[first]
+            b_ = (ww[first] >= tw_) | same_ if f is not None else (ww[first] > tw_) | same_
+            n1, t1, i1 = n1[b_], t1[b_], first[b_]
+            self.sd_top[n1, t1] = who[i1]; self.sd_topw[n1, t1] = np.maximum(ww[i1], np.where(same_[b_], tw_[b_], 0))
+            self.sd_topk[n1, t1] = 1 if f is not None else np.where(fr[i1], 2, 0)
+
+    def _seen_q(self, t):
+        """seen_done, each quarter: what the cast was seen doing since the last (successes and failures on each path,
+        and on the colour ways as the character reads each model), the public figures, then the felt-odds lifts."""
+        p = self.sd_par; N, K = self.N, self.K
+        live = self.used & self.lv & ~self.dead[:, None]
+        same = live & (self.uid == self._sd_uid)
+        tnew = np.full((N, K, 3), -1, np.int32)
+        ln, lk = np.nonzero(live)
+        tnew[ln, lk] = self._sd_titles(ln, lk)
+        if self._age(t) >= p["from_age"]:
+            w, far = self._seen_w(t, live)
+            fresh = live & ~same                              # a new face in the slot: nothing of theirs credited yet
+            self._sd_w[fresh] = 0.0; self._sd_wc[fresh] = 0.0
+            emp_ok = (self._mage(t) < 64)
+            hold = np.stack([self.emp, self.mpart, self.nkids > 0], -1) & live[..., None]
+            gain = np.stack([same & self.emp & (~self._sd_emp | (self.stand > self._sd_st)),
+                             same & self.mpart & ~self._sd_mp, same & (self.nkids > self._sd_nk)], -1)
+            lose = np.stack([same & self._sd_emp & ((~self.emp & emp_ok) | (self.stand < self._sd_st)),
+                             same & ~self.mpart & self._sd_mp, np.zeros((N, K), bool)], -1)
+            wq = w[..., None]
+            pos = np.where(gain, wq, np.where(hold & (wq > self._sd_w), wq - self._sd_w, 0.0)) * (wq > 0)
+            neg = np.where(lose, wq, 0.0)
+            self._sd_w = np.where(hold | gain, np.maximum(self._sd_w, wq), self._sd_w).astype(np.float32)
+            for q_ in range(3):
+                ids_ = [None] if q_ == 0 else self._sd_pk[q_][0].tolist()   # work: their own title; else the kind's ladder
+                nn, kk = np.nonzero(pos[..., q_] > 0)
+                for i_ in ids_ if len(nn) else ():
+                    ti_ = tnew[nn, kk, q_] if i_ is None else np.where(tnew[nn, kk, q_] >= 0, i_, -1)
+                    self._sd_add(nn, ti_, p["win"] * pos[nn, kk, q_], who=self.uid[nn, kk], ww=w[nn, kk], far=far[nn, kk])
+                nn, kk = np.nonzero(neg[..., q_] > 0)
+                for i_ in ids_ if len(nn) else ():   # a failure, on the path as they walked it before
+                    ti_ = self._sd_t[nn, kk, q_] if i_ is None else np.where(self._sd_t[nn, kk, q_] >= 0, i_, -1)
+                    self._sd_add(nn, ti_, -p["fail"] * neg[nn, kk, q_], f=neg[nn, kk, q_], who=self.uid[nn, kk],
+                                 ww=w[nn, kk])
+            ha, ga = hold.any(-1), gain.any(-1)
+            cw_ = np.where(ga, w, np.where(ha & (w > self._sd_wc), w - self._sd_wc, 0.0))
+            cn_ = np.where(lose.any(-1), w, 0.0)
+            self._sd_wc = np.where(ha | ga, np.maximum(self._sd_wc, w), self._sd_wc).astype(np.float32)
+            if cw_.any() or cn_.any():
+                rd = self.read.astype(float)
+                self.sd_ec += np.einsum("nk,nkc->nc", p["win"] * cw_ - p["fail"] * cn_, rd)
+                self.sd_fc += np.einsum("nk,nkc->nc", cn_, rd)
+                # the strongest model in each colour way: the most weight x their share of it, as for the paths
+                for v_, fl_ in ((cw_, False), (cn_, True)):
+                    if not v_.any():
+                        continue
+                    x_ = np.where(v_ > 0, w, 0.0)[..., None] * rd; kb_ = x_.argmax(1); xb_ = np.take_along_axis(x_, kb_[:, None], 1)[:, 0]
+                    ub_ = self.uid[np.arange(N)[:, None], kb_]; same_ = self.sd_ctop == ub_
+                    b_ = (xb_ > 0) & (((xb_ >= self.sd_ctopw) if fl_ else (xb_ > self.sd_ctopw)) | same_)
+                    self.sd_ctop = np.where(b_, ub_, self.sd_ctop)
+                    self.sd_ctopw = np.where(b_, np.maximum(xb_, np.where(same_, self.sd_ctopw, 0)), self.sd_ctopw)
+                    fb_ = far[np.arange(N)[:, None], kb_]
+                    self.sd_ctopk = np.where(b_, 1 if fl_ else np.where(fb_, 2, 0), self.sd_ctopk).astype(np.int8)
+            self._seen_figs(t)
+        self._sd_uid = np.where(live, self.uid, -1).astype(np.int32)
+        self._sd_emp = self.emp.copy(); self._sd_mp = self.mpart.copy(); self._sd_nk = self.nkids.copy()
+        self._sd_st = self.stand.copy(); self._sd_t = tnew
+        self._sd_lift()
+
+    def _seen_figs(self, t):
+        """seen_done: the public figures, seen by every life at .05 (x .3 when far above: always a leader's rung, or 25
+        or more years older): a figure seen in their role a success, once; a scandal or a fall a failure."""
+        W = self.W; p = self.sd_par
+        log = getattr(W, "log", None)
+        try:
+            role = np.asarray(W.fig_role, np.int64); pie = np.asarray(W.fig_pie, float).reshape(-1, C)
+            act = np.asarray(W.fig_alive, bool) & np.asarray(getattr(W, "fig_active", W.fig_alive), bool)
+            born = np.asarray(W.fig_born, float)
+        except AttributeError:
+            return
+        names = getattr(sys.modules.get(type(W).__module__), "FIG_ROLES", None)
+        ev = [(f_, 1) for f_ in np.nonzero(act)[0].tolist() if f_ not in self._sd_figs]
+        self._sd_figs.update(f_ for f_, _ in ev)
+        if log is not None:
+            if len(log) < self._sd_li:   # another society's world (a move abroad): its log from here on
+                self._sd_li = len(log)
+            for e_ in log[self._sd_li:]:
+                if e_.get("domain") == "figure" and e_.get("kind") in ("scandal", "falls"):
+                    f_ = int((e_.get("value") or {}).get("fig", -1))
+                    if 0 <= f_ < len(role):
+                        ev.append((f_, -1))
+            self._sd_li = len(log)
+        if not ev:
+            return
+        ln = np.nonzero(~self.dead)[0]
+        if not len(ln):
+            return
+        rg = self._sd_rung()[ln]; a = self._age(t)
+        for f_, sg_ in ev:
+            nm_ = names[int(role[f_])] if names is not None and 0 <= role[f_] < len(names) else None
+            ti = self._sd_fig.get(nm_, -1)
+            far = (4 - rg >= p["far_rungs"]) | ((t - born[f_]) / 52.0 - a >= p["far_years"])
+            wv = p["figure"] * np.where(far, p["far"], 1.0)
+            x_ = np.sin((f_ + 1) * 12.9898 + np.arange(C)[None] * 78.233 + ln[:, None] * 0.618034 + self.run_seed * 0.414214) * 43758.5453
+            sl_ = _norm((x_ - np.floor(x_) + 0.2)[:, self.perm])   # the character's reading, as figure_view reads it
+            rd = _norm(0.5 * pie[f_][None] + 0.3 * self.lens[ln] + 0.2 * sl_)
+            if sg_ > 0:
+                self.sd_ec[ln] += p["win"] * wv[:, None] * rd
+                if ti >= 0:
+                    self._sd_add(ln, np.full(len(ln), ti), p["win"] * wv, who=np.full(len(ln), -(f_ + 2), np.int32), ww=wv,
+                                 far=far)
+            else:
+                self.sd_ec[ln] -= p["fail"] * wv[:, None] * rd; self.sd_fc[ln] += wv[:, None] * rd
+                if ti >= 0:
+                    self._sd_add(ln, np.full(len(ln), ti), -p["fail"] * wv, f=wv, who=np.full(len(ln), -(f_ + 2), np.int32),
+                                 ww=wv)
+
+    def _sd_lift(self):
+        """The felt-odds lifts the engine adds (seen_done): per life and title sd_lt, per life and colour way sd_lc:
+        lift x min(exposure, cap) (none below 0) - fail_lift x min(failures seen, fail_cap)."""
+        p = self.sd_par
+        self.sd_lt = (p["lift"] * np.clip(self.sd_e, 0, p["cap"]) - p["fail_lift"] * np.minimum(self.sd_f, p["fail_cap"])).astype(np.float32)
+        self.sd_lc = p["lift"] * np.clip(self.sd_ec, 0, p["cap"]) - p["fail_lift"] * np.minimum(self.sd_fc, p["fail_cap"])
+
+    def seen_dom(self, n):
+        """seen_done: per commitment (career, partner, children, community, faith) the share of cap its best seen path
+        has reached (0..1), for a new dream's domain (engine, 4d)."""
+        out = np.zeros(len(KN))
+        if self.seen_on and self.sd_nt:
+            e_ = np.clip(self.sd_e[n], 0, self.sd_par["cap"]) / self.sd_par["cap"]
+            for d_ in range(len(KN)):
+                m_ = self.sd_kind == d_
+                if m_.any():
+                    out[d_] = float(e_[m_].max())
+        return out
+
+    def _sd_word(self, n, top, k, e, f):
+        """The Library's word (SEEN_WORDS) and the model for one path or way: none when nothing was seen on it."""
+        if top == -1 or (e <= 0 and f <= 0):
+            return dict(kind="none")
+        d_ = dict(kind=SEEN_WORDS[int(k)])
+        if top >= 0:
+            k_ = self._slot(n, top)
+            d_.update(who=int(top), role=self._rname(n, k_) if k_ >= 0 else None)
+        else:
+            d_.update(figure=-int(top) - 2)
+        return d_
+
+    def seen_model(self, n, ti):
+        """seen_done, for the game's option row ("She has seen it done: her aunt Mira" / "No one she knows has done
+        this"; the Library's earth_spheres.SEEN words): title ti's path, kind (SEEN_WORDS: seen, the strongest model on
+        it succeeded; wrong, they were seen failing; far, they count x .3, far above or 25 years older; none, nothing
+        seen on it), who (that model's cast id; a public figure gives figure, their id, instead), their role if still
+        in the cast, the exposure, failures seen and the felt-odds lift. None for no title."""
+        ti = int(ti)
+        if not self.seen_on or ti < 0 or ti >= self.sd_nt:
+            return None
+        e_, f_ = float(self.sd_e[n, ti]), float(self.sd_f[n, ti])
+        return dict(self._sd_word(n, int(self.sd_top[n, ti]), self.sd_topk[n, ti], e_, f_), path=self.sd_names[ti],
+                    exposure=round(e_, 2), failures=round(f_, 2), lift=round(float(self.sd_lt[n, ti]), 3))
+
+    def seen_way(self, n, c):
+        """seen_done: the same for colour way c (an option on no path, by its leading way): kind, who, way (the colour
+        key), exposure, failures seen and the felt-odds lift on that way."""
+        if not self.seen_on:
+            return None
+        c = int(c); e_, f_ = float(self.sd_ec[n, c]), float(self.sd_fc[n, c])
+        return dict(self._sd_word(n, int(self.sd_ctop[n, c]), self.sd_ctopk[n, c], e_, f_), way=COLORS[c],
+                    exposure=round(e_, 2), failures=round(f_, 2), lift=round(float(self.sd_lc[n, c]), 3))
+
+    def seen_paths(self, n, top=None):
+        """seen_done, for other parts (A15's dream moments): life n's seen paths, most seen first, each as seen_model
+        gives it plus domain (the commitment the title is in, None for a status). The arrays behind it: sd_e, sd_f,
+        sd_top, sd_topw, sd_topk (N x titles, the engine's title indices); sd_ec, sd_fc, sd_ctop, sd_ctopw, sd_ctopk
+        (N x colours); sd_lt, sd_lc the felt-odds lifts; seen_dom(n) the share per commitment."""
+        if not self.seen_on:
+            return []
+        ix = np.nonzero((self.sd_e[n] != 0) | (self.sd_f[n] > 0))[0]
+        ix = ix[np.argsort(-self.sd_e[n, ix], kind="stable")][:top]
+        out = []
+        for ti in ix.tolist():
+            d_ = self.seen_model(n, ti)
+            d_["domain"] = KN[int(self.sd_kind[ti])] if self.sd_kind[ti] >= 0 else None
+            out.append(d_)
+        return out
+
+    def seen_dream(self, n, dom):
+        """seen_done: for a new dream about commitment dom (engine 4d), the seen path it was seeded from: the best seen
+        title of that commitment and its strongest model, as an event dict (kind "dream", who, path); None if none."""
+        if not self.seen_on or not self.sd_nt or dom < 0:
+            return None
+        m_ = np.nonzero((self.sd_kind == int(dom)) & (self.sd_e[n] > 0))[0]
+        if not len(m_):
+            return None
+        ti = int(m_[np.argmax(self.sd_e[n, m_])]); tp = int(self.sd_top[n, ti])
+        if tp == -1:
+            return None
+        d_ = self._sd_word(n, tp, 0, 1.0, 0.0)
+        d_["kind"] = "dream"; d_["path"] = self.sd_names[ti]
+        return d_
+
     # ------------------------------------------------------------------ approval, standing, reach (spec 2 §3, spec 7)
+    # ------------------------------------------------------------------ S3 their places' eyes, S4 the odd one out
+    def _eyes_init(self, wp_):
+        """S3 (sph_eyes; chroma-ideas/social-mechanics.md, "Their places' eyes"): each life's places are slots, its three
+        haunts first (aligned with People.hnt), then its settings (aligned with the setting slots) of kind work,
+        congregation or unit that no haunt holds. Per slot: the place's key (a haunt's flat place id; a setting's join week
+        x 16 + kind), the life's name there (rep, -1..1), the week it became theirs and whether they are a go-between
+        there (a bridge that worked); a slot whose place changes starts again at 0. S4 (sph_odd) adds per slot: the odd
+        one out now, years held in a row, the life stage its moment last came in, blended in. Moments are picked from
+        its own random stream only."""
+        import sphere_data as SD
+        N, Q = self.N, 3 + self.M
+        R = SD.PLACE_READ
+        self.eyes_par = {**EYES_DEFAULT, **dict(wp_.get("eyes_par") or {})}
+        self._eyes_R = R
+        self._eyes_tab = np.asarray(R["table"], float)[self.perm][:, self.perm]   # place face x act colour, this frame
+        self.eyes_key = np.full((N, Q), -1, np.int64)
+        self.eyes_rep = np.zeros((N, Q)); self.eyes_t0 = np.zeros((N, Q), np.int64); self.eyes_gob = np.zeros((N, Q), bool)
+        self.eyes_lr = np.zeros((N, Q)); self.eyes_la = np.full((N, Q), -1, np.int64)   # the last reading there, its act's lead
+        self.eyes_dip = np.zeros(N)          # belonging a place given up still costs (S3's buffer), fading
+        self.eyes_bel = np.zeros(N)          # belonging lost this month to S3 and S4 (the dip, kept-apart strain, contrast)
+        self.eyes_apart = []                 # [life, slot a, slot b, key a, key b]: two places kept apart (S3)
+        self.eyes_q = {}                     # life -> the caught-between or odd-one-out moment waiting for them
+        self.eyes_off = {}                   # life -> the last one offered (for the game's slots, after it is met)
+        self.eyes_last = np.full(N, NEVER, np.int64)   # the week of the last caught-between moment met
+        self._eyes_rng = np.random.default_rng([self.seed, 91, self.run_seed])
+        self._eyes_fc = np.full((N, Q, C), 1.0 / C); self._eyes_sp = np.full((N, Q), -1, np.int64)
+        self._eyes_m = None; self._eyes_qt = None; self._eyes_yr = -1
+        lg_ = getattr(self.W, "sph_ev_log", None); self._eyes_ev_i = 0 if lg_ is None else len(lg_)   # town events read
+        ask = np.zeros((len(SD.EV), C))      # each sphere event's ask: its own sphere's row faces (W U B R G, signed)
+        for i_, e_ in enumerate(SD.EV):
+            for r_ in e_["rows"]:
+                if r_["target"] == e_["sphere"] and r_["faces"]:
+                    ask[i_] += r_["faces"]
+        ask /= np.maximum(np.abs(ask).sum(1, keepdims=True), 1e-9)
+        self._eyes_opp = (ask @ np.asarray(R["table"], float) @ ask.T) <= self.eyes_par["ev_opp"]   # asks read opposed
+        self._eyes_evsph = np.array([SPHERES.index(e_["sphere"]) for e_ in SD.EV], np.int64)
+        self._eyes_stages = list(SD.TIME_AGES)
+        z = lambda: np.zeros(C)              # the checks' counts by lead colour (W U B R G), not saved
+        self.eyes_stats = dict(drep=z(), nrep=z(), acts={}, talk=0, caught={}, caught_why={}, caught_tag={},
+                               life_years=z(), odd_years=z(), odd_fired=z(), blend=z(), hold=z(), leave=z(), held=z(),
+                               gaps=np.zeros(16, np.int64))   # the widest gap between two places' readings of an act, by .1
+        if self.odd_on:
+            self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
+            self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
+            self.odd_held = np.zeros((N, Q), bool)
+            self.eyes_dw = np.zeros((N, C))  # blending in: the colours' step for the engine to apply (pie units, then cleared)
+
+    def _eyes_places(self):
+        """S3: (key, faces, sphere) of every life's place slots (N, 3 + M): the haunts, then the settings of kind work,
+        congregation or unit not held at a haunt (key -1: no place). Faces in this world's frame: a haunt's World.hp_s, a
+        setting's ways (snorm)."""
+        W = self.W; N, Q = self.N, 3 + self.M
+        key = np.full((N, Q), -1, np.int64); fc = np.full((N, Q, C), 1.0 / C); sp = np.full((N, Q), -1, np.int64)
+        hp = getattr(W, "hp_s", None)
+        if self.sph_h and hp is not None:
+            h = self.hnt; ok = h >= 0
+            key[:, :3] = np.where(ok, h, -1)
+            fc[:, :3] = np.where(ok[..., None], hp.reshape(-1, C)[np.maximum(h, 0)], 1.0 / C)
+            sp[:, :3] = np.where(ok, HAUNT_SPH[(np.maximum(h, 0) // hp.shape[2]) % len(HAUNT_KINDS)], -1)
+        sk = self.skind.astype(np.int64); ok = _isin_small(sk, EYES_G)
+        if self.sph_h:
+            ok &= self.shnt < 0
+        key[:, 3:] = np.where(ok, self.sjoin * 16 + sk, -1)
+        fc[:, 3:] = np.where(ok[..., None], self.snorm, 1.0 / C)
+        sp[:, 3:] = np.where(ok, self.set_sphere, -1)
+        return key, fc, sp
+
+    def _eyes_sync(self, t):
+        """S3: the places read again. A haunt that moved slot keeps its name; a place given up is left: S3's buffer (its
+        exit cost, KT's, a haunt's a club's, x its share of their places, as belonging lost and fading) and S4's
+        hardening (a misfit leaving a haunt: its leading face + odd_harden); its slot starts again."""
+        key, fc, sp = self._eyes_places()
+        self._eyes_fc, self._eyes_sp = fc, sp
+        old = self.eyes_key
+        if (key == old).all():
+            return
+        N, Q = self.N, 3 + self.M
+        eq = (key[:, :3, None] == old[:, None, :3]) & (key[:, :3, None] >= 0)
+        hk = eq.any(2); src = np.where(hk, eq.argmax(2), np.arange(3)[None, :])
+        keep = np.zeros((N, Q), bool); keep[:, :3] = hk; keep[:, 3:] = (key[:, 3:] == old[:, 3:]) & (key[:, 3:] >= 0)
+        stay = np.concatenate([((old[:, :3, None] == key[:, None, :3]) & (old[:, :3, None] >= 0)).any(2), keep[:, 3:]], 1)
+        gone = (old >= 0) & ~stay
+        if gone.any():
+            self._eyes_left(gone, old, t)
+        st = [self.eyes_rep, self.eyes_t0, self.eyes_gob, self.eyes_lr, self.eyes_la]
+        if self.odd_on:
+            st += [self.odd_now, self.odd_y, self.odd_stage, self.odd_blend, self.odd_held]
+        ar = np.arange(N)[:, None]
+        for a_ in st:
+            a_[:, :3] = a_[ar, src]
+        new = ~keep
+        self.eyes_rep[new] = 0.0; self.eyes_t0[new] = t; self.eyes_gob[new] = False; self.eyes_lr[new] = 0.0; self.eyes_la[new] = -1
+        if self.odd_on:
+            self.odd_now[new] = False; self.odd_y[new] = 0; self.odd_stage[new] = -1; self.odd_blend[new] = False
+            self.odd_held[new] = False
+        self.eyes_key = key
+
+    def _eyes_left(self, gone, old, t):
+        P_ = self.eyes_par; W = self.W
+        nv = (old >= 0).sum(1)
+        for n, q in zip(*np.nonzero(gone & ~self.dead[:, None])):
+            xc = P_["buf_haunt"] if q < 3 else float(K_XC[int(old[n, q]) % 16])
+            self.eyes_dip[n] += xc / max(int(nv[n]), 1)
+            if self.odd_on and q < 3 and self.odd_now[n, q] and getattr(W, "hp_s", None) is not None:
+                l, h, i = (int(x_) for x_ in np.unravel_index(int(old[n, q]), W.hp_s.shape[:3]))
+                hp = W.hp_s[l, h, i]
+                W._sph_place_set(l, h, i, W._sph_nudge(hp, np.eye(C)[int(np.argmax(hp))], P_["odd_harden"]))
+
+    def _eyes_gobs(self, idx):
+        """S3: the go-between at each of lives idx's place slots (cast slot, -1 none): the living leader of the setting
+        that is the place, or of a setting held at the haunt (the go-betweens of _haunts_month, N4)."""
+        E = len(idx); out = np.full((E, 3 + self.M), -1, np.int64)
+        ld = self.slead[idx]
+        ld = np.where((ld >= 0) & self.lv[idx[:, None], np.maximum(ld, 0)], ld, -1)
+        out[:, 3:] = np.where(self.eyes_key[idx, 3:] >= 0, ld, -1)
+        if self.sph_h:
+            hn = self.hnt[idx]; sh = self.shnt[idx]
+            m = (sh[:, None, :] == hn[:, :, None]) & (hn[:, :, None] >= 0) & (ld[:, None, :] >= 0)
+            out[:, :3] = np.where(m.any(2), ld[np.arange(E)[:, None], m.argmax(2)], -1)
+        return out
+
+    def _eyes_lead(self, n, q):
+        """The leading face of life n's place slot q, as an index of W U B R G."""
+        return int(self.perm[int(np.argmax(self._eyes_fc[n, q]))])
+
+    def eyes_see(self, idx, ma, q, kind="act"):
+        """S3 (sph_eyes): lives idx did an act with colours ma (E, C), success q (E,: 1 it worked, 0 it failed, .5
+        neither, as a leaving); kind a short word ("act", "title", "title lost", "left job", "left partner", "left
+        faith", "crime", or a caller's own, as S5's). Each of their places reads it by its faces (sphere_data.PLACE_READ:
+        own colour 1, ally .4, enemy -.4, by face share and act share; + .3 on success, - .3 on failure; a leaving or a
+        title lost reads the colours walked away from, negated) and their name there moves act_w x the reading (x1.5
+        where they are the odd one out, S4). Each go-between at one of their places carries it to their other places at
+        .5 (PLACE_READ talk), read by the go-between's own colours (one story line, kind "talk"). Two places reading it
+        more than .6 apart (caught_gap) wait to catch them between (a cast_want: caught moment). Returns the gaps found,
+        [(life, slot a, slot b, gap)]. Off (eyes_on False), nothing."""
+        if not self.eyes_on:
+            return []
+        idx = np.atleast_1d(np.asarray(idx, np.int64)); E = len(idx)
+        if not E:
+            return []
+        ma = _norm(np.asarray(ma, float).reshape(E, C)); q = np.broadcast_to(np.asarray(q, float), (E,)).astype(float)
+        lv_ = ~self.dead[idx]
+        idx, ma, q = idx[lv_], ma[lv_], q[lv_]; E = len(idx)
+        if not E:
+            return []
+        t = self.t; P_ = self.eyes_par; R = self._eyes_R
+        self._eyes_sync(t)
+        sg = -1.0 if kind in EYES_LEAVE else 1.0
+        out = np.where(q > 0.5, R["success"], np.where(q < 0.5, R["failure"], 0.0))
+        tm = ma @ self._eyes_tab.T                                # (E, C): how each face reads the act's colours
+        ok = self.eyes_key[idx] >= 0
+        r = sg * np.einsum("eqf,ef->eq", self._eyes_fc[idx], tm) + out[:, None]
+        vis = np.where(self.odd_now[idx], P_["odd_vis"], 1.0) if self.odd_on else 1.0
+        d = P_["act_w"] * r * ok * vis
+        gb = self._eyes_gobs(idx); hg = (gb >= 0) & ok
+        rg = np.zeros(gb.shape)
+        if hg.any():   # talk: each go-between's own reading, to the life's other places at half weight
+            pg = self.pie[idx[:, None], np.maximum(gb, 0)].astype(float)
+            rg = np.where(hg, sg * np.einsum("eqf,ef->eq", pg, tm) + out[:, None], 0.0)
+            d = d + P_["act_w"] * R["talk"] * (rg.sum(1, keepdims=True) - rg) * ok * vis
+        old = self.eyes_rep[idx]
+        new = _uclip(old + d, R["rep_range"][0], R["rep_range"][1])
+        self.eyes_rep[idx] = new
+        self.eyes_lr[idx] = np.where(ok, r, self.eyes_lr[idx])
+        self.eyes_la[idx] = np.where(ok, self.perm[np.argmax(ma, 1)][:, None], self.eyes_la[idx])
+        st = self.eyes_stats; lc = self.perm[np.argmax(self.w[idx], 1)]
+        np.add.at(st["drep"], lc, ((new - old) * ok).sum(1)); np.add.at(st["nrep"], lc, ok.sum(1))
+        st["acts"][kind] = st["acts"].get(kind, 0) + E
+        # the lines the game writes (Library: earth_spheres.READ["X.Y"], X the reading place's leading face, Y the act's
+        # leading colour, its gift clause for a reading above 0, its danger clause below; earth_spheres.TALK good, bent,
+        # warn): one "eyes_read" event per act with every place's reading, one "talk" event for the strongest go-between
+        ac = [COLORS[int(self.perm[int(np.argmax(ma[e_]))])] for e_ in range(E)]
+        side = lambda v_: "gift" if v_ > 0 else "danger" if v_ < 0 else None
+        for e_ in range(E):
+            n_ = int(idx[e_])
+            if not self.watch[n_] or not ok[e_].any():
+                continue
+            self.events.append(dict(n=n_, t=int(t), kind="eyes_read", about=kind, act=ac[e_], worked=float(q[e_]),
+                                    reads=[dict(place=self._eyes_desc(n_, int(x_)), face=COLORS[self._eyes_lead(n_, int(x_))],
+                                                side=side(r[e_, x_]), reading=round(float(r[e_, x_]), 3),
+                                                rep=round(float(new[e_, x_]), 3)) for x_ in np.nonzero(ok[e_])[0]]))
+        for e_ in np.nonzero(hg.any(1) & (ok.sum(1) >= 2))[0]:   # the story line: the strongest go-between's word
+            n_ = int(idx[e_]); st["talk"] += 1
+            if not self.watch[n_]:
+                continue
+            qf = int(np.argmax(np.where(hg[e_], np.abs(rg[e_]), -1.0)))
+            r0, r1 = float(r[e_, qf]), float(rg[e_, qf])   # the place's reading, and the go-between's own as they carry it
+            talk = "bent" if r0 * r1 < 0 else "good" if r0 > 0 else "warn"
+            self.events.append(dict(n=n_, t=int(t), kind="talk", about=kind, go=int(self.uid[n_, gb[e_, qf]]),
+                                    place=self._eyes_desc(n_, qf), face=COLORS[self._eyes_lead(n_, qf)], act=ac[e_],
+                                    side=side(r0), told=side(r1), talk=talk,
+                                    to=[self._eyes_desc(n_, int(x_)) for x_ in np.nonzero(ok[e_])[0] if x_ != qf]))
+        gaps = []
+        for e_ in np.nonzero(ok.sum(1) >= 2)[0]:   # caught between: two places that read it far apart
+            qs = np.nonzero(ok[e_])[0]; rr = r[e_, qs]
+            hi_, lo_ = int(qs[np.argmax(rr)]), int(qs[np.argmin(rr)])
+            gp_ = float(rr.max() - rr.min())
+            self.eyes_stats["gaps"][min(int(gp_ * 10), 15)] += 1
+            if gp_ > R["caught_gap"]:
+                gaps.append((int(idx[e_]), hi_, lo_, gp_))
+                self._eyes_queue_caught(int(idx[e_]), hi_, lo_, "act", t)
+        return gaps
+
+    def _eyes_queue_caught(self, n, qa, qb, why, t):
+        """S3: a caught-between moment waits for life n (one at a time, cool weeks after the last met): place a is the one
+        led by the first colour of the pair in W U B R G order (WB, WR, UR, UG, BG for the enemy pairs)."""
+        if n in self.eyes_q or t - self.eyes_last[n] < self.eyes_par["cool"] or qa == qb:
+            return
+        la, lb = self._eyes_lead(n, qa), self._eyes_lead(n, qb)
+        if lb < la:
+            qa, qb, la, lb = qb, qa, lb, la
+        self.eyes_q[n] = dict(key="caught", slots=[int(qa), int(qb)], keys=[int(self.eyes_key[n, qa]), int(self.eyes_key[n, qb])],
+                              t=int(t), why=why, pair=COLORS[la] + COLORS[lb])
+        cw = self.eyes_stats["caught_why"]; cw[why] = cw.get(why, 0) + 1
+
+    def eyes_due(self, t=None):
+        """S3, S4: the moments waiting this week, [(life, cast id or -1, "caught" or "odd")]: a caught-between moment
+        with a go-between of either place in its first who: slot (place a's, else b's; -1 when neither has one), an
+        odd-one-out moment with no holder (-1). One whose places changed, or that waited past wait weeks unmet, is dropped."""
+        t = self.t if t is None else t; out = []
+        for n, it in list(self.eyes_q.items()):
+            if self.dead[n] or t - it["t"] > self.eyes_par["wait"] or any(self.eyes_key[n, q_] != k_ for q_, k_ in zip(it["slots"], it["keys"])):
+                del self.eyes_q[n]; continue
+            cid = -1
+            if it["key"] == "caught":
+                gb = self._eyes_gobs(np.array([n]))[0]
+                for q_ in it["slots"]:
+                    if gb[q_] >= 0:
+                        cid = int(self.uid[n, gb[q_]]); break
+            self.eyes_off[n] = it
+            out.append((int(n), cid, it["key"]))
+        return out
+
+    def eyes_sphere(self, n):
+        """S4: the sphere (index into SPHERES) of the place of life n's odd-one-out moment offered this week: a haunt's
+        kind's, a setting's (set_sphere: a congregation faith, a unit prot, work its employer's sector; a setting held at a
+        haunt is the haunt's); -1 none."""
+        it = self.eyes_off.get(n)
+        if it is None or it["key"] != "odd":
+            return -1
+        return int(self._eyes_sp[n, it["slots"][0]])
+
+    def eyes_bridge_ok(self, n):
+        """S3: the waiting caught-between moment's bridge is open: the life's rung is known or higher in both places'
+        spheres (sph_hours' rungs; without them never)."""
+        it = self.eyes_q.get(n)
+        if it is None or it["key"] != "caught" or getattr(self, "rung", None) is None or not self.sph_hr:
+            return False
+        return all(self._eyes_sp[n, q_] >= 0 and np.floor(self.rung[n, self._eyes_sp[n, q_]]) >= 2 for q_ in it["slots"])
+
+    def odd_hold_x(self, n):
+        """S4: the log-odds an unplayed life adds to holding on (and takes off blending in) at the place of its waiting
+        odd-one-out moment: hold_k x ((lead share - .2) / .2 in 0..1 + rung there / 4 - 1)."""
+        it = self.eyes_q.get(n)
+        if it is None or it["key"] != "odd":
+            return 0.0
+        q_ = it["slots"][0]; sp_ = self._eyes_sp[n, q_]
+        rg = float(np.floor(self.rung[n, sp_])) if getattr(self, "rung", None) is not None and sp_ >= 0 else 0.0
+        return self.eyes_par["hold_k"] * (float(np.clip((self.w[n].max() - 0.2) / 0.2, 0, 1)) + rg / 4 - 1)
+
+    def eyes_resolve(self, n, key, code, succ=True, idle=False):
+        """S3, S4: the waiting moment was met with an option tagged code (world_keys.CAUGHT_TAGS or ODD_TAGS; -1 none or
+        doing nothing: kept apart, held on). Caught: side_a / side_b, that place's name + step, the other's - step, and felt
+        fairness in the other's sphere - fair (sph_fair); bridge (only open at known or higher in both), worked: both +
+        step and a go-between at both, failed: both - step; apart: nothing now, strain on belonging while both last;
+        back: both - back. Odd: blend, their colours step odd_blend toward the place (eyes_dw) and its strain ends; hold,
+        their ways kept; leave, they leave the place as leaving is built (a haunt dropped and its setting left; a setting
+        left). Returns the event."""
+        it = self.eyes_q.get(n)
+        if it is None or it["key"] != key:
+            return None
+        del self.eyes_q[n]
+        if any(self.eyes_key[n, q_] != k_ for q_, k_ in zip(it["slots"], it["keys"])):
+            return None
+        t = self.t; P_ = self.eyes_par; R = self._eyes_R; st = self.eyes_stats
+        if key == "caught":
+            tag = WK_CAUGHT[code] if 0 <= code < len(WK_CAUGHT) and not idle else "apart"
+            a, b = it["slots"]
+            if tag == "bridge" and not all(self._eyes_sp[n, q_] >= 0 and getattr(self, "rung", None) is not None
+                                           and np.floor(self.rung[n, self._eyes_sp[n, q_]]) >= 2 for q_ in (a, b)):
+                tag = "apart"
+            rp = self.eyes_rep; s_ = P_["step"]
+            if tag in ("side_a", "side_b"):
+                w_, l_ = (a, b) if tag == "side_a" else (b, a)
+                rp[n, w_] += s_; rp[n, l_] -= s_
+                if getattr(self, "fair", None) is not None and self.sph_fr and self._eyes_sp[n, l_] >= 0:
+                    j_ = self._eyes_sp[n, l_]; self.fair[n, j_] = max(0.0, self.fair[n, j_] - P_["fair"])
+            elif tag == "bridge":
+                rp[n, [a, b]] += s_ if succ else -s_
+                if succ:
+                    self.eyes_gob[n, [a, b]] = True
+            elif tag == "apart":
+                self.eyes_apart.append([int(n), int(a), int(b), int(it["keys"][0]), int(it["keys"][1])])
+            elif tag == "back":
+                rp[n, [a, b]] -= P_["back"]
+            rp[n] = _uclip(rp[n], R["rep_range"][0], R["rep_range"][1])
+            self.eyes_last[n] = t
+            st["caught"][it["pair"]] = st["caught"].get(it["pair"], 0) + 1
+            st["caught_tag"][tag] = st["caught_tag"].get(tag, 0) + 1
+            ev = dict(n=int(n), t=int(t), kind="caught", tag=tag, worked=bool(succ), pair=it["pair"], why=it["why"],
+                      place_a=self._eyes_desc(n, a), place_b=self._eyes_desc(n, b))
+        else:
+            tag = WK_ODD[code] if 0 <= code < len(WK_ODD) and not idle else "hold"
+            q_ = it["slots"][0]; lc = int(self.perm[int(np.argmax(self.w[n]))])
+            desc = self._eyes_desc(n, q_)
+            if tag == "blend":
+                dd = self._eyes_fc[n, q_] - self.w[n]; tv = 0.5 * np.abs(dd).sum()
+                self.eyes_dw[n] += dd * min(1.0, P_["odd_blend"] / max(tv, 1e-9))
+                self.odd_blend[n, q_] = True; st["blend"][lc] += 1
+            elif tag == "leave":
+                self._eyes_exit(n, q_, t); st["leave"][lc] += 1
+            else:
+                st["hold"][lc] += 1
+            ev = dict(n=int(n), t=int(t), kind="odd", tag=tag, place=desc)
+        if self.watch[n]:
+            self.events.append(ev)
+        return ev
+
+    def _eyes_exit(self, n, q, t):
+        """S4's leave: a haunt is dropped (and a setting held there left), a setting is left (as leaving is built: the life
+        course may find another of its kind)."""
+        if q < 3:
+            p_ = int(self.hnt[n, q]); self.hnt[n, q] = -1
+            for j_ in np.nonzero(self.shnt[n] == p_)[0]:
+                self._leave(int(n), int(j_), t, "left")
+        else:
+            self._leave(int(n), int(q - 3), t, "left")
+
+    def _eyes_desc(self, n, q):
+        """Life n's place slot q for the game: a haunt as World.place_info gives it, a setting as setting_places does."""
+        if self.eyes_key[n, q] < 0:
+            return None
+        if q < 3:
+            return dict(self.W.place_info(int(self.eyes_key[n, q])), slot=int(q))
+        for d_ in self.setting_places(n):
+            if d_["slot"] == q - 3:
+                return dict(d_, slot=int(q), setting=int(q - 3))
+        return None
+
+    def eyes_moment(self, n):
+        """S3, S4: the slots of life n's caught-between moment ({place_a}, {place_b}, and the opposed pair, place a led by
+        its first colour) or odd-one-out moment ({place}), as the game names them; None without one."""
+        it = self.eyes_off.get(n)
+        if it is None:
+            return None
+        if it["key"] == "caught":
+            return dict(key="caught", pair=it["pair"], why=it["why"], place_a=self._eyes_desc(n, it["slots"][0]),
+                        place_b=self._eyes_desc(n, it["slots"][1]))
+        return dict(key="odd", place=self._eyes_desc(n, it["slots"][0]))
+
+    def eyes_info(self, n):
+        """S3, S4 for the game's "your places": each place with its leading face (a colour letter), the life's name there
+        (rep -1..1, a word: "liked" at .25 or more, "talked about" at -.25 or less), the last act it read (act: its
+        leading colour; side: "gift" or "danger", the sign of the reading: earth_spheres.READ["face.act"]), whether they
+        are a go-between there, and (S4) the odd one out there, blended in, held on three years."""
+        if not self.eyes_on:
+            return []
+        out = []
+        for q_ in np.nonzero(self.eyes_key[n] >= 0)[0]:
+            r_ = float(self.eyes_rep[n, q_])
+            lr_ = float(self.eyes_lr[n, q_]); la_ = int(self.eyes_la[n, q_])
+            d_ = dict(place=self._eyes_desc(n, int(q_)), face=COLORS[self._eyes_lead(n, int(q_))], rep=round(r_, 3),
+                      word="liked" if r_ >= 0.25 else "talked about" if r_ <= -0.25 else None, go_between=bool(self.eyes_gob[n, q_]),
+                      act=COLORS[la_] if la_ >= 0 else None, side="gift" if lr_ > 0 and la_ >= 0 else "danger" if lr_ < 0 else None)
+            if self.odd_on:
+                d_.update(odd=bool(self.odd_now[n, q_]), blended=bool(self.odd_blend[n, q_]), held=bool(self.odd_held[n, q_]))
+            out.append(d_)
+        return out
+
+    def _eyes_rungs(self):
+        """(N, 3 + M) the life's rung (0 newcomer .. 4 leader) in each place slot's sphere (0 without rungs)."""
+        sp = self._eyes_sp
+        if getattr(self, "rung", None) is None:
+            return np.zeros(sp.shape, np.int64)
+        return _uclip(np.floor(np.take_along_axis(self.rung, np.maximum(sp, 0), 1)), 0, 4).astype(np.int64)
+
+    def _eyes_rung_mult(self):
+        """(N, 9) twice: how fast the rungs climb (up) and fall (down) in each sphere: a good name at their places there
+        (their mean) x rung_good, a bad one x rung_bad (S3); x odd_vis both ways where they are the odd one out (S4)."""
+        R = self._eyes_R; N = self.N; ok = self.eyes_key >= 0; sp = np.where(ok, self._eyes_sp, -1)
+        up = np.ones((N, 9)); dn = np.ones((N, 9))
+        for j_ in range(9):
+            m_ = sp == j_
+            c_ = m_.sum(1)
+            mr = (self.eyes_rep * m_).sum(1) / np.maximum(c_, 1)
+            up[:, j_] = np.where(c_ > 0, np.where(mr > 0, R["rung_good"], np.where(mr < 0, R["rung_bad"], 1.0)), 1.0)
+            if self.odd_on:
+                od = (m_ & self.odd_now).any(1)
+                up[:, j_] *= np.where(od, self.eyes_par["odd_vis"], 1.0); dn[:, j_] *= np.where(od, self.eyes_par["odd_vis"], 1.0)
+        return up, dn
+
+    def _odd_press(self):
+        """S4: x odd_press on the pull of each place where the life is the odd one out and has not blended in: (N, M) for
+        the settings (one held at such a haunt too), (N, 3) for the haunts."""
+        P_ = self.eyes_par; on = self.odd_now & ~self.odd_blend
+        mh = np.where(on[:, :3], P_["odd_press"], 1.0); ms = np.where(on[:, 3:], P_["odd_press"], 1.0)
+        if self.sph_h:
+            hit = (self.shnt[:, :, None] == self.hnt[:, None, :]) & (self.shnt[:, :, None] >= 0) & on[:, None, :3]
+            ms = np.where(hit.any(2), P_["odd_press"], ms)
+        return ms, mh
+
+    def _eyes_month(self, t):
+        """Monthly (S3, S4): the places read again; names fade (half in PLACE_READ half_life years), and a left place's
+        cost to belonging (half in buf_half weeks); kept-apart pairs strain belonging while both last; each quarter, two
+        of their places in whose spheres the town's events of the season ask opposite things (their asks read through the
+        place reading at ev_opp or below) wait to catch them between; once a year of age, S4's odd one out."""
+        self._eyes_sync(t)
+        P_ = self.eyes_par; R = self._eyes_R
+        dm = 4 if self._eyes_m is None else t - self._eyes_m; self._eyes_m = t
+        self.eyes_rep *= 0.5 ** (dm / (52.0 * R["half_life"]))
+        self.eyes_dip *= 0.5 ** (dm / P_["buf_half"])
+        strain = np.zeros(self.N); keep = []
+        for r_ in self.eyes_apart:
+            n, a, b, ka, kb = r_
+            if self.eyes_key[n, a] == ka and self.eyes_key[n, b] == kb and not self.dead[n]:
+                keep.append(r_); strain[n] += P_["strain"]
+        self.eyes_apart = keep
+        if self._eyes_qt is None or t - self._eyes_qt >= 13:
+            self._eyes_qt = t; self._eyes_season(t)
+        con = np.zeros(self.N)
+        if self.odd_on:
+            if int(self._age(t)) != self._eyes_yr:
+                self._eyes_yr = int(self._age(t)); self._odd_year(t)
+            on = self.odd_now & ~self.odd_blend
+            if on.any():
+                con = P_["odd_contrast"] * (np.asarray(P_["odd_rung"])[self._eyes_rungs()] * on).sum(1)
+        self.eyes_bel = self.eyes_dip + strain + con
+
+    def _eyes_season(self, t):
+        lg = getattr(self.W, "sph_ev_log", None)
+        if lg is None or not len(lg):
+            return
+        rows = lg[self._eyes_ev_i:]; self._eyes_ev_i = len(lg)
+        rows = rows[rows[:, 0] > t - 13]
+        if len(rows) < 2:
+            return
+        ok = self.eyes_key >= 0
+        for n in np.nonzero(~self.dead & (ok.sum(1) >= 2))[0]:
+            if n in self.eyes_q or t - self.eyes_last[n] < self.eyes_par["cool"]:
+                continue
+            ev = np.unique(rows[(rows[:, 2] == self.loc[n]) | (rows[:, 2] < 0), 1])
+            hit = []
+            for e_ in ev:
+                qs = np.nonzero(ok[n] & (self._eyes_sp[n] == self._eyes_evsph[e_]))[0]
+                if len(qs):
+                    hit.append((int(e_), int(qs[0])))
+            done = False
+            for i_ in range(len(hit)):
+                for j_ in range(i_ + 1, len(hit)):
+                    if hit[i_][1] != hit[j_][1] and self._eyes_opp[hit[i_][0], hit[j_][0]]:
+                        self._eyes_queue_caught(int(n), hit[i_][1], hit[j_][1], "events", t); done = True; break
+                if done:
+                    break
+
+    def _odd_year(self, t):
+        """Yearly (S4, sph_odd): the odd one out at a place, a year or more there with their lead colour under odd_share of
+        its faces; its moment waits once a life stage per place (never after blending in there). Held odd_hold years in a
+        row (odd, not blended), the place leans toward their colour by their rung there a year (odd_lean: a haunt's faces,
+        through World's place setter; a setting's ways), and its regulars' colours odd_regular a year toward theirs."""
+        P_ = self.eyes_par; W = self.W; live = ~self.dead; N = self.N
+        lead = np.argmax(self.w, 1)
+        share = np.take_along_axis(self._eyes_fc, lead[:, None, None], 2)[..., 0]
+        odd = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52) & (share < P_["odd_share"])
+        self.odd_now = odd
+        self.odd_y = np.where(odd & ~self.odd_blend, self.odd_y + 1, 0)
+        st = self.eyes_stats; lc = self.perm[lead]
+        np.add.at(st["life_years"], lc[live], 1); np.add.at(st["odd_years"], lc[live & odd.any(1)], 1)
+        sg = self._eyes_stages.index(self._tstage(self._age(t))) if self._tstage(self._age(t)) in self._eyes_stages else -2
+        cand = odd & ~self.odd_blend & (self.odd_stage != sg)
+        for n in np.nonzero(cand.any(1))[0]:
+            if n in self.eyes_q:
+                continue
+            q_ = int(np.argmax(cand[n])); self.odd_stage[n, q_] = sg
+            self.eyes_q[n] = dict(key="odd", slots=[q_], keys=[int(self.eyes_key[n, q_])], t=int(t), why="odd")
+            st["odd_fired"][lc[n]] += 1
+        held = odd & ~self.odd_blend & (self.odd_y >= P_["odd_hold"])
+        self.odd_held = held
+        if not held.any():
+            return
+        rg = self._eyes_rungs()
+        for n, q_ in zip(*np.nonzero(held)):
+            k_ = float(P_["odd_lean"][rg[n, q_]]); e_ = np.eye(C)[lead[n]]; st["held"][lc[n]] += 1
+            if q_ < 3:
+                p_ = int(self.eyes_key[n, q_])
+                if k_ > 0 and getattr(W, "hp_s", None) is not None:
+                    l, h, i = (int(x_) for x_ in np.unravel_index(p_, W.hp_s.shape[:3]))
+                    W._sph_place_set(l, h, i, W._sph_nudge(W.hp_s[l, h, i], e_, k_))
+                js = np.nonzero(self.shnt[n] == p_)[0]
+            else:
+                js = [q_ - 3]
+                if k_ > 0:
+                    self.snorm[n, q_ - 3] = _norm(self.snorm[n, q_ - 3] + k_ * (e_ - self.snorm[n, q_ - 3])).astype(np.float32)
+            for j_ in js:
+                mem = np.nonzero(self.used[n] & self.lv[n] & ((self.mset[n] & self._bit(int(j_))) > 0))[0]
+                if len(mem):
+                    self.pie[n, mem] = _norm(self.pie[n, mem] + P_["odd_regular"] * (self.w[n] - self.pie[n, mem])).astype(np.float32)
+                    self._psq[n, mem] = _csum(self.pie[n, mem] ** 2)
+
     def _norm_hist(self, t):
         v = np.zeros(NNORM)
         for i_, k_ in enumerate(NORM_KEYS):
@@ -2978,6 +4299,8 @@ class People:
         self.msg_w = _uclip(tot / P["msg_ref"], 0.25, 2.5)
         bs, bc = P["belong_k"]
         self.belong = 1 - np.exp(-(bs * self._belong_set + bc * c2.sum(1)))
+        if getattr(self, "eyes_on", False):   # S3's buffer and kept-apart strain, S4's contrast (eyes_bel, monthly)
+            self.belong = np.maximum(self.belong - self.eyes_bel, 0.0)
         self.help = 1 - np.exp(-(c * self._cav).sum(1) / P["help_H"])
         hard = _uclip(self.stress - 0.5, 0, 1)
         self.support = _uclip(P["sup_k"] * (self.help - P["help_ref"]) * (1 + hard), -0.3, 0.3)
@@ -3077,7 +4400,17 @@ class People:
         if place < 0:
             ss_ = self.set_sphere[n]
             size *= 0.5 if ((self.skind[n] == G["work"]) & (ss_ == j)).any() else 0.25
-        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office])
+        span = None
+        if self.lw:   # S7: a leader's act in the sphere they lead: the lead lever's size x (.5 + legitimacy), a fund act
+            p_ = self._lead_post(n, j)   # lasts what is left of the post (not phase 4's fixed 80 quarters), and the act
+            if p_ is not None:            # counts for the way's falls (a failed one, a favour, a success)
+                if lv == "lead":
+                    size *= 0.5 + p_["legit"]
+                if rg >= 4:
+                    span = self._lead_left(p_, t)
+                self._lead_act(p_, lv, q, t)
+        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
+                           span=span)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
                     rung=LADDER[min(max(rg, 0), 4)], moved=what)
 
@@ -3091,7 +4424,7 @@ class People:
             return
         self._p4_yr = a; W = self.W; N = self.N
         live = ~self.dead
-        if self.sph_lv and hasattr(self, "rung"):
+        if self.sph_lv and hasattr(self, "rung") and not self.lw:   # (lead_ways: the posts join it, each quarter)
             pl = np.zeros((self.n_loc, 9, C + 1))
             n_, j_ = np.nonzero((np.floor(self.rung) >= 4) & live[:, None])
             np.add.at(pl, (self.loc[n_], j_), np.concatenate([self.w[n_], np.ones((len(n_), 1))], 1))
@@ -3247,6 +4580,446 @@ class People:
         if d == "belief":
             return f"faith:{int(self.pfaith[n])}" if self.pfaith[n] >= 0 else "secular"
         return dict(economy="inequality", tech="invent", nature="warming", abroad="relation:0").get(d, d)
+
+    # ------------------------------------------------------------------ S7, ways to lead (lead_ways)
+    # chroma-ideas/social-mechanics.md S7, "The leader's time in post" first: a post per leading role a life holds (it
+    # leads one of its settings, kind "setting", or one held at a named place, "place", or holds an office title,
+    # LEAD_TITLES, kind "office"). Each post keeps its start, its way (rules W, knowing best U, favours owed B, inspiring R, custom G)
+    # and its legitimacy (the fit of the way's colour to the led place's faces through the place reading, scaled 0..1,
+    # less the falls' steps). Its time in post is the Outer world's (dynamics.json lead_posts, by post kind and epoch: a
+    # term renewed with chance min(.95, renew x (.5 + legitimacy)) up to max_terms, a yearly end chance, an age out;
+    # health under .35 ends it; national offices keep the world's own elections). It also ends at a move, when a rival
+    # of higher rung takes over, or by a fall (legitimacy under .2), each told as an event and, where the Library has
+    # them, a moment (cast_want lead_take, lead_crisis, lead_fall, lead_routine, lead_hand; fired with no holder, cid -1).
+    def _lead_init(self):
+        import sphere_data as SD
+        wp_ = getattr(self.W, "p", None) or {}
+        self.lw_par = {**LEAD_DEFAULT, **dict(wp_.get("lead_par") or {})}
+        tb = SD.PLACE_READING
+        T = np.array([[float(tb[COLORS[f_]][COLORS[c_]]) for c_ in range(C)] for f_ in range(C)])   # face x act colour
+        self._lw_T = T[self.perm][:, self.perm]          # in this world's frame
+        LP = SD.LEAD_POSTS
+        self._lw_kinds = LP["kinds"]
+        self._lw_hk = {h_: k_ for k_, v_ in LP["kinds"].items() for h_ in v_["haunts"]}   # a place's post kind by haunt kind
+        self._lw_gk = {g_: k_ for k_, v_ in LP["kinds"].items() for g_ in v_["groups"]}   # a setting's by group kind
+        self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES]); self._lw_floss = float(LP["fast_loss"])
+        self._lw_hist = []        # the town spheres' face mixes the last five quarters (custom's fast change: 4 quarters)
+        self._lw_need = float(SD.DEEP["money"]["need_line"])   # favours: money under the need line
+        self.lw_posts = []        # the posts held now: dicts (see _lead_new)
+        self.lw_ended = []        # the posts that ended, oldest first
+        self.lw_due = []          # [life, moment key, post id, week queued]: a post's moment waiting to come
+        self.lw_lost = []         # [life, office index, why]: an office title the engine takes away (a fall, a term)
+        self.lw_keys = set()      # the lead moment keys the batch has (WorldLink sets it); none: no moment is waited for
+        self.lw_tnames = list(LEAD_TITLES)
+        self.lw_has = np.zeros((self.N, len(LEAD_TITLES)), bool)    # the leading titles held (the engine's, each week)
+        self.lead_sh = np.zeros((self.N, C))                       # the shadow target years in one way add (with shadows)
+        self._lw_next = 0; self._lw_q = -1; self._lw_back = {}
+        self._lw_rng = np.random.default_rng([self.seed, 97, self.run_seed])   # the posts' own dice
+
+    def _lead_cell(self, pk):
+        """The time in post of post kind pk in this world's epoch (form, term_q, renew, max_terms, end_y, age_out), None
+        where the kind has no post then. A national office keeps the world's own elections (no term, no end chance of
+        S7's); where there are none, it is held at the ruler's pleasure (end_y .1)."""
+        if pk == "national":
+            el_ = float(getattr(self.W, "regime", 0.0)) >= 0
+            return dict(form="chosen" if el_ else "appointed", term_q=None, renew=None, max_terms=None,
+                        end_y=0.0 if el_ else self.lw_par["ruler_end"], age_out=None)
+        return self._lw_kinds[pk]["by"].get(getattr(self.W, "sph_epoch", "modern"))
+
+    def _lead_kind(self, n, kind, slot, place):
+        """The post kind (lead_posts) of a setting led (by the haunt kind of its place, else its group kind) or an office."""
+        if kind == "office":
+            return LEAD_TITLES[self.lw_tnames[slot]][0]
+        if kind == "place":
+            return self._lw_hk.get(HAUNT_KINDS[(int(place) // self.W.hp_s.shape[2]) % len(HAUNT_KINDS)])
+        return self._lw_gk.get(GROUP_KINDS[int(self.skind[n, slot])])
+
+    def _lead_left(self, p, t):
+        """Quarters left in post (phase 4's fund span for a leader): the term's rest, else the next vote for a national
+        office, else the expected time to its yearly end chance; never past the age out; at least 1."""
+        c_ = self._lead_cell(p["pk"]) or {}
+        if c_.get("term_q"):
+            q_ = c_["term_q"] - (t - p["term_t0"]) // 13
+        elif p["pk"] == "national" and float(getattr(self.W, "regime", 0.0)) >= 0:
+            q_ = int(getattr(self.W, "next_vote", 16))
+        else:
+            q_ = 4.0 / c_["end_y"] if c_.get("end_y") else 80
+        if c_.get("age_out"):
+            q_ = min(q_, 4 * (c_["age_out"] - self._age(t)))
+        return max(1, int(q_))
+
+    def _lead_renew(self, p, t):
+        """A term's end: handed over after max_terms in a row, else renewed with chance min(.95, renew x (.5 +
+        legitimacy)), else it ends."""
+        c_ = self._lead_cell(p["pk"]) or {}
+        p["terms"] += 1
+        if c_.get("max_terms") and p["terms"] >= c_["max_terms"]:
+            self._lead_end(p, t, "term limit")
+        elif self._lw_rng.random() < min(0.95, float(c_.get("renew") or 0.0) * (0.5 + p["legit"])):
+            p["term_t0"] = int(t)
+            self._lead_ev(p, t, "renewed", terms=p["terms"])
+        else:
+            self._lead_end(p, t, "term")
+
+    def _lead_faces(self, p):
+        """The led place's faces (this world's frame): the named place, the setting's ways, or the town's sphere."""
+        W = self.W; n = p["n"]
+        if p["kind"] == "office" and p.get("gslot", -1) >= 0:   # a leading title over a setting the life is still in
+            g_ = p["gslot"]
+            if self.skind[n, g_] >= 0 and int(self.sjoin[n, g_]) == p["gjoin"]:
+                if p["place"] >= 0 and getattr(W, "hp_s", None) is not None and int(self.shnt[n, g_]) == p["place"]:
+                    return np.asarray(W.hp_s.reshape(-1, C)[p["place"]], float)
+                return np.asarray(self.snorm[n, g_], float)
+        if p["kind"] == "place" and getattr(W, "hp_s", None) is not None:
+            return np.asarray(W.hp_s.reshape(-1, C)[p["place"]], float)
+        if p["kind"] in ("place", "setting"):
+            return np.asarray(self.snorm[n, p["slot"]], float)
+        if getattr(W, "sph_s", None) is not None:
+            return np.asarray(W.sph_s[p["loc"], p["sphere"]], float)
+        return np.full(C, 1.0 / C)
+
+    def _lead_fit(self, p):
+        """The fit of the post's way to the led place: the place's reading of the way's colour (own +1, ally +.4,
+        enemy -.4, dynamics.json place_reading), from -.4..1 to 0..1."""
+        r = float(self._lead_faces(p) @ self._lw_T[:, int(self.iperm[p["way"]])])
+        return (r + 0.4) / 1.4
+
+    def _lead_legit(self, p):
+        p["legit"] = float(min(max(self._lead_fit(p) + p["dent"], 0.0), 1.0))
+        return p["legit"]
+
+    def _lead_post(self, n, j):
+        """Life n's post in sphere j (the most legitimate, when several), else None."""
+        best = None
+        for p in self.lw_posts:
+            if p["n"] == n and p["sphere"] == j and (best is None or p["legit"] > best["legit"]):
+                best = p
+        return best
+
+    def _lead_ev(self, p, t, state, **kw):
+        if self.watch[p["n"]]:
+            self.events.append(dict(n=int(p["n"]), t=int(t), kind="lead", state=state, post=p["kind"],
+                                    sphere=SPHERES[p["sphere"]], way=LEAD_WAYS[p["way"]], legit=round(p["legit"], 3), **kw))
+
+    def _lead_queue(self, p, key, t):
+        """A post's moment waits to come (only when the batch has moments of that key)."""
+        if key in self.lw_keys and not any(d_[2] == p["id"] and d_[1] == key for d_ in self.lw_due):
+            self.lw_due.append([int(p["n"]), key, int(p["id"]), int(t)])
+            return True
+        return False
+
+    def _lead_new(self, n, kind, j, slot, place, t, gslot=-1):
+        """A post begins: the character picks the way of its lead colour (a lead_take moment can change it). gslot: the
+        setting a leading title leads (-1 none)."""
+        pk = self._lead_kind(n, kind, slot, place)
+        if pk is None or self._lead_cell(pk) is None:   # no such post in this epoch
+            return None
+        c = int(self.perm[int(np.argmax(self.w[n]))])
+        p = dict(id=self._lw_next, n=int(n), kind=kind, pk=pk, terms=0, sphere=int(j), slot=int(slot), place=int(place),
+                 loc=int(self.loc[n]), t0=int(t), term_t0=int(t), way=c, col=c, way_t=int(t), succ_t=int(t), fade_t=int(t),
+                 fades=0, dent=0.0, legit=0.0, join=int(self.sjoin[n, slot]) if kind != "office" else -1, fair_lo=False,
+                 money_yr=-1, falls=[], end_t=None, why=None, gslot=int(gslot),
+                 gjoin=int(self.sjoin[n, gslot]) if gslot >= 0 else -1)
+        self._lw_next += 1
+        self._lead_legit(p)
+        self.lw_posts.append(p)
+        self._lead_ev(p, t, "took", title=self.lw_tnames[slot] if kind == "office" else None)
+        self._lead_queue(p, "lead_take", t)
+        return p
+
+    def _lead_end(self, p, t, why):
+        """A post ends: a setting's lead goes to its most standing member; an office S7 ended (a fall, a term, a
+        hand-over, a move...) is taken from the engine's titles, and a favours leader's other posts lose what the office
+        paid for."""
+        if p not in self.lw_posts:
+            return
+        self.lw_posts.remove(p)
+        p["end_t"] = int(t); p["why"] = why
+        self.lw_ended.append(p)
+        self.lw_due = [d_ for d_ in self.lw_due if d_[2] != p["id"]]
+        n = p["n"]
+        if p["kind"] != "office" and self.slead[n, p["slot"]] == -2 and why != "rival":
+            self.slead[n, p["slot"]] = -1   # handed to the most standing member (no dice), else left for the members' turn
+            if self.skind[n, p["slot"]] >= 0:
+                mem = np.nonzero((self._bits()[n, :, p["slot"]] > 0) & self.lv[n])[0]
+                if len(mem):
+                    k = int(mem[np.argmax(self.stand[n, mem])])
+                    self.slead[n, p["slot"]] = k; self.rmask[n, k] |= LEAD_BIT[int(self.skind[n, p["slot"]])]
+        if p["kind"] == "office":
+            if why not in ("died", "office ended"):   # S7 ended it: the engine takes the title (a fall, a term, a move)
+                self.lw_lost.append([int(n), int(p["slot"]), why])
+            if why != "died":   # favours owed: the office that paid them has ended
+                for q_ in [q_ for q_ in self.lw_posts if q_["n"] == n and q_["way"] == 2]:
+                    self._lead_step(q_, t, "favours", self.lw_par["favours"], why="the office ended")
+        self._lead_ev(p, t, "ended", why=why, years=round((t - p["t0"]) / 52.0, 2))
+
+    def _lead_step(self, p, t, key, size, why=None):
+        """A fall's step in legitimacy (the falls in numbers); the crisis of the way waits to come (lead_crisis), or the
+        turn to routine for a fading inspiring leader; under the fall line, the fall."""
+        if p not in self.lw_posts:
+            return
+        p["dent"] -= size; p["falls"].append([int(t), int(p["way"]), key])
+        self._lead_legit(p)
+        self._lead_ev(p, t, "step", key=key, why=why, size=size)
+        if p["legit"] < self.lw_par["fall"]:
+            self._lead_fall(p, t)
+        elif key == "inspiring" and p["fades"] >= self.lw_par["routine"] and "lead_routine" in self.lw_keys:
+            self._lead_queue(p, "lead_routine", t)
+        else:
+            self._lead_queue(p, "lead_crisis", t)
+
+    def _lead_fall(self, p, t):
+        """Legitimacy under the fall line: the fall moment (go, fight, again), else the post ends."""
+        if any(d_[2] == p["id"] and d_[1] == "lead_fall" for d_ in self.lw_due):
+            return
+        self.lw_due = [d_ for d_ in self.lw_due if d_[2] != p["id"]]   # the fall comes before any crisis
+        self._lead_ev(p, t, "falling")
+        if not self._lead_queue(p, "lead_fall", t):
+            self._lead_end(p, t, "fell")
+
+    def _lead_act(self, p, lv, q, t):
+        """A leader's lever act in the sphere they lead (phase 4's levers): a success keeps an inspiring leader's spark
+        (no fade for a year); a visible failure is knowing best's mistake; a favour (subvert) touching the leader is a
+        rules leader's scandal."""
+        if q >= 0.5:
+            p["succ_t"] = int(t); p["fades"] = 0
+        if p["way"] == 1 and q < 0.5:
+            self._lead_step(p, t, "knowing", self.lw_par["knowing"], why="a failed lead act")
+        elif p["way"] == 0 and lv == "subvert":
+            self._lead_step(p, t, "rules", self.lw_par["rules"], why="a favour")
+
+    def _lead_vacant(self, n, j, k, t):
+        """A setting's leader left or died (the members' most standing one, k, would follow): with lead_ways the
+        character takes the lead instead when the setting's kind can be led (LEAD_KINDS), they are of age, and they
+        stand higher: their rung in the setting's sphere (a regular 1, a known face 2, a pillar 3) above k's (1 +
+        standing). True when they took it."""
+        if (GROUP_KINDS[int(self.skind[n, j])] not in LEAD_KINDS or self.dead[n] or self._age(t) < self.lw_par["take_age"]
+                or not hasattr(self, "rung")):
+            return False
+        sj = int(self.set_sphere[n, j])
+        if sj < 0 or int(np.floor(self.rung[n, sj])) <= 1 + int(self.stand[n, k]):
+            return False
+        pl_ = int(self.shnt[n, j]) if getattr(self.W, "hp_s", None) is not None else -1
+        if self._lead_new(int(n), "place" if pl_ >= 0 else "setting", sj, int(j), pl_, t) is None:
+            return False
+        self.slead[n, j] = -2
+        return True
+
+    def _lead_q(self, t):
+        """Each quarter: posts end (death, the office or setting gone, a move, frailty, the age out, the yearly end
+        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest and the falls of each way,
+        new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
+        post x (.5 + legitimacy)) and the shadow target."""
+        if self._lw_q == t:
+            return
+        self._lw_q = t; W = self.W; par = self.lw_par; a = self._age(t)
+        if getattr(W, "sph_s", None) is not None:
+            self._lw_hist = (self._lw_hist + [np.array(W.sph_s, float)])[-5:]
+        # 1. ends
+        for p in list(self.lw_posts):
+            n = p["n"]; why = None; c_ = self._lead_cell(p["pk"])
+            if self.dead[n]:
+                why = "died"
+            elif p["kind"] == "office" and not self.lw_has[n, p["slot"]]:
+                why = "office ended"
+            elif p["kind"] != "office" and (self.skind[n, p["slot"]] < 0 or int(self.sjoin[n, p["slot"]]) != p["join"]):
+                why = "left"
+            elif int(self.loc[n]) != p["loc"]:
+                why = "moved"
+            elif c_ is None:
+                why = "no such post"
+            elif float(self.res[n, HEA]) < par["frail"]:
+                why = "frail"
+            elif c_.get("age_out") and a >= c_["age_out"]:
+                why = "retired"
+            elif c_.get("end_y") and self._lw_rng.random() < 1 - (1 - c_["end_y"]) ** 0.25:
+                why = "stepped down"
+            if why:
+                self._lead_end(p, t, why)
+        # 2. a rival of higher rung: the setting's most standing member (rung 1 + standing) above 4 x legitimacy
+        B = None
+        for p in [p_ for p_ in self.lw_posts if p_["kind"] != "office"]:
+            if self._lw_rng.random() >= par["rival"]:
+                continue
+            B = self._bits() if B is None else B
+            n = p["n"]; mem = np.nonzero((B[n, :, p["slot"]] > 0) & self.lv[n])[0]
+            if not len(mem):
+                continue
+            k = int(mem[np.argmax(self.stand[n, mem])])
+            if 1 + int(self.stand[n, k]) > 4 * p["legit"]:
+                self._lead_end(p, t, "rival")
+                self.slead[n, p["slot"]] = k
+                self.rmask[n, k] |= LEAD_BIT[int(self.skind[n, p["slot"]])]
+        # 3. legitimacy and the falls of each way
+        fair_ = W.sph_fair_target() if self.lw_posts else None
+        tv_ = (0.5 * np.abs(self._lw_hist[-1] - self._lw_hist[0]).sum(-1)) if len(self._lw_hist) == 5 else None
+        for p in list(self.lw_posts):
+            if p not in self.lw_posts:
+                continue
+            n = p["n"]; l_, j_ = p["loc"], p["sphere"]
+            self._lead_legit(p)
+            if p["way"] == 0:   # rules: a fairness scandal among the led (their felt fairness falls under the line)
+                lo_ = bool(fair_[l_, j_] < par["fair_line"])
+                if lo_ and not p["fair_lo"]:
+                    self._lead_step(p, t, "rules", par["rules"], why="a fairness scandal")
+                p["fair_lo"] = lo_
+            elif p["way"] == 2:   # favours: once a year, money under the need line
+                if int(a) != p["money_yr"]:
+                    p["money_yr"] = int(a)
+                    if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
+                        self._lead_step(p, t, "favours", par["favours"], why="money under need")
+            elif p["way"] == 3:   # inspiring: a year without a new success fades the spark
+                if t - p["succ_t"] >= 52 and t - p["fade_t"] >= 52:
+                    p["fade_t"] = int(t); p["fades"] += 1
+                    self._lead_step(p, t, "inspiring", par["inspiring"], why="no new success")
+            elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
+                if tv_[l_, j_] > self._lw_fast[j_]:
+                    self._lead_step(p, t, "custom", self._lw_floss, why="fast change")
+        # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
+        for p in list(self.lw_posts):
+            c_ = self._lead_cell(p["pk"]) or {}
+            if p in self.lw_posts and c_.get("term_q") and t - p["term_t0"] >= 13 * c_["term_q"]:
+                if not any(d_[2] == p["id"] and d_[1] in ("lead_hand", "lead_fall") for d_ in self.lw_due):
+                    if not self._lead_queue(p, "lead_hand", t):
+                        self._lead_renew(p, t)
+        # 5. new posts: a pillar of a setting with a leader takes the lead (when they stand at least as high as its
+        # leader: rung 3 against the leader's 1 + standing), and every office title held is a post
+        if a >= par["take_age"]:
+            held = {(p["n"], p["kind"] == "office", p["slot"]) for p in self.lw_posts}
+            kinds = np.array([G[k_] for k_ in LEAD_KINDS])
+            cand = (~self.dead[:, None] & np.isin(self.skind, kinds) & (self.srank >= 0.85) & (self.slead != -2))
+            nn, jj = np.nonzero(cand)
+            u = self._lw_rng.random(len(nn))
+            for n, j_, u_ in zip(nn, jj, u):
+                n, j_ = int(n), int(j_)
+                if (n, False, j_) in held:
+                    continue
+                k = int(self.slead[n, j_])
+                if k >= 0 and 1 + int(self.stand[n, k]) > 3:
+                    continue
+                if u_ >= par["take"] * (2.0 if self._lw_back.get((n, j_), NEVER) <= t else 1.0):
+                    continue
+                pl_ = int(self.shnt[n, j_]) if getattr(self, "shnt", None) is not None and getattr(W, "hp_s", None) is not None else -1
+                p = self._lead_new(n, "place" if pl_ >= 0 else "setting", int(self.set_sphere[n, j_]), j_, pl_, t)
+                if p is None:
+                    continue
+                if k >= 0:   # the leader they replace is a member again (unless they lead another of the life's settings)
+                    others = (self.slead[n] == k); others[j_] = False
+                    if not others.any():
+                        self.rmask[n, k] &= ~LEAD_BIT[int(self.skind[n, j_])]
+                self.slead[n, j_] = -2
+        for n, i_ in zip(*np.nonzero(self.lw_has & ~self.dead[:, None])):
+            if (int(n), True, int(i_)) not in {(p["n"], p["kind"] == "office", p["slot"]) for p in self.lw_posts}:
+                pk_, sp_, gk_ = LEAD_TITLES[self.lw_tnames[i_]]
+                gs_ = np.nonzero(self.skind[n] == G[gk_])[0] if gk_ else []   # the setting it leads, when the life is in one
+                j_ = SPHERES.index(sp_); pl_ = -1
+                if len(gs_):
+                    gs_ = int(gs_[0]); j_ = int(self.set_sphere[n, gs_])
+                    if getattr(self, "shnt", None) is not None and getattr(W, "hp_s", None) is not None:
+                        pl_ = int(self.shnt[n, gs_])
+                self._lead_new(int(n), "office", j_, int(i_), pl_, t, gslot=gs_ if isinstance(gs_, int) else -1)
+        # 6. the leaders' mix of each town sphere (the lead lever's size x (.5 + legitimacy)), and the shadow target
+        pl = np.zeros((self.n_loc, 9, C + 1))
+        self.lead_sh = np.zeros((self.N, C))
+        for p in self.lw_posts:
+            if self.dead[p["n"]]:
+                continue
+            wt_ = 0.5 + p["legit"]
+            pl[p["loc"], p["sphere"], :C] += wt_ * self.w[p["n"]]; pl[p["loc"], p["sphere"], C] += wt_
+            c_ = int(self.iperm[p["way"]])
+            self.lead_sh[p["n"], c_] = max(self.lead_sh[p["n"], c_],
+                                           par["sh"] * min((t - p["way_t"]) / 52.0 / par["sh_years"], 1.0))
+        W.sph_plead = pl if pl[..., C].any() else None
+
+    def lead_due(self, t=None):
+        """The posts' moments waiting this week [(life, key, post id)]; those waited for too long lapse (a fall's: the
+        post ends, "fell"; a hand-over's: it ends at its term)."""
+        t = self.t if t is None else t
+        out = []
+        for d_ in list(self.lw_due):
+            n, key, pid, t0_ = d_
+            p = next((p_ for p_ in self.lw_posts if p_["id"] == pid), None)
+            if p is None or self.dead[n]:
+                self.lw_due.remove(d_); continue
+            if t - t0_ > self.lw_par["wait"]:
+                self.lw_due.remove(d_)
+                if key == "lead_fall":
+                    self._lead_end(p, t, "fell")
+                elif key == "lead_hand":   # unanswered: they stay on, as the term's renewal decides
+                    self._lead_renew(p, t)
+                continue
+            out.append((int(n), key, int(pid), p["way"]))
+        return out
+
+    def lead_resolve(self, n, pid, key, way, fall, hand, succ, idle, t=None):
+        """The post's moment came and the character acted: way (an option's lead:, -1 none), fall (go 0, fight 1,
+        again 2), hand (chosen 0, open 1, stay 2). take: the post takes the option's way; crisis: an option of the post's
+        way holds it, another way shifts the post to it; routine: a rules option moves the inspiring post to rules;
+        fall: go ends it, fight keeps it when the act works (legitimacy back to .3) and ends it when not, again stands
+        down (the take chance there doubles after a year); hand: chosen or open hands it on, stay leaves it to the
+        term's renewal (lead_posts: renew x (.5 + legitimacy), max_terms).
+        Returns the event."""
+        t = self.t if t is None else t
+        p = next((p_ for p_ in self.lw_posts if p_["id"] == int(pid)), None)
+        self.lw_due = [d_ for d_ in self.lw_due if not (d_[2] == int(pid) and d_[1] == key)]
+        if p is None:
+            return None
+        way = -1 if idle else int(way); fall = -1 if idle else int(fall); hand = -1 if idle else int(hand)
+        ans = None
+        def set_way(c_):
+            if c_ != p["way"]:
+                p["way"] = int(c_); p["way_t"] = int(t); p["succ_t"] = int(t); p["fade_t"] = int(t); p["fades"] = 0
+                p["fair_lo"] = False
+                self._lead_legit(p)
+        if key in ("lead_take", "lead_crisis") and way >= 0:
+            ans = "held" if way == p["way"] else "shifted"
+            set_way(way)
+        elif key == "lead_routine":
+            ans = "routine" if way == 0 else "kept"
+            if way == 0:
+                set_way(0)
+        elif key == "lead_fall":
+            if fall == 1 and succ:
+                ans = "fought"; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
+            elif fall == 2:
+                ans = "stood down"; self._lw_back[(int(n), int(p["slot"]))] = int(t) + int(self.lw_par["again"])
+                self._lead_end(p, t, "stood down")
+            else:
+                ans = "fell"; self._lead_end(p, t, "fell")
+        elif key == "lead_hand":
+            if hand in (0, 1):
+                ans = "handed on"; self._lead_end(p, t, "handed on")
+            else:   # stay (or no answer): the term's renewal decides (renewed, a term limit or the term's end)
+                ans = "stayed"; self._lead_renew(p, t)
+        ev = dict(n=int(n), t=int(t), kind="lead", state="answered", key=key, answer=ans, post=p["kind"],
+                  sphere=SPHERES[p["sphere"]], way=LEAD_WAYS[p["way"]], legit=round(p["legit"], 3), worked=bool(succ))
+        if self.watch[n]:
+            self.events.append(ev)
+        return ev
+
+    def lead_info(self, n):
+        """Life n's posts for the game: each with its kind, sphere, the led place (its name in the world's epoch, or the
+        setting kind or the office), the way (rules .. custom), legitimacy, start and end (age), the end's reason and
+        its falls; the posts held now first, then the ended ones."""
+        out = []
+        for p in [p_ for p_ in self.lw_posts if p_["n"] == n] + [p_ for p_ in self.lw_ended if p_["n"] == n]:
+            if p["place"] >= 0 and getattr(self.W, "place_info", None) is not None:   # a named place: its name and kind
+                where = dict(self.W.place_info(int(p["place"])))
+            else:
+                where = {}
+            if p["kind"] == "office":
+                where["title"] = self.lw_tnames[p["slot"]]
+            sl_ = p["slot"] if p["kind"] != "office" else p.get("gslot", -1)
+            if sl_ >= 0 and self.skind[n, sl_] >= 0:
+                where["setting"] = GROUP_KINDS[int(self.skind[n, sl_])]
+            if not where:
+                where["sphere"] = SPHERES[p["sphere"]]   # the town's sphere
+            out.append(dict(id=p["id"], kind=p["kind"], sphere=SPHERES[p["sphere"]], place=where, way=LEAD_WAYS[p["way"]],
+                            colour=COLORS[p["col"]], legit=round(p["legit"], 3), start=round((p["t0"] - self.t0) / 52.0, 2),
+                            end=None if p["end_t"] is None else round((p["end_t"] - self.t0) / 52.0, 2), why=p["why"],
+                            post_kind=p["pk"], terms=p["terms"],
+                            falls=[dict(age=round((f_[0] - self.t0) / 52.0, 2), way=LEAD_WAYS[f_[1]], key=f_[2]) for f_ in p["falls"]]))
+        return out
 
     # ------------------------------------------------------------------ who: slots (world-fields.md)
     def fill(self, n, slots, at=None, t=None):
@@ -3640,10 +5413,13 @@ class People:
         kind = kk[l] if kk is not None else np.asarray(self._wf("loc_kind", np.zeros(self.n_loc)))[l]
         feat = np.asarray(self._wf("loc_feat", np.zeros((self.n_loc, len(FEATURES)), bool)), bool)
         fl = [FEATURES[i_] for i_ in np.nonzero(feat[l])[0]] if feat.shape[1] == len(FEATURES) else []
-        return dict(loc=l, nb=int(self.nb[n]), kind=kind.item() if hasattr(kind, "item") else kind, features=fl,
-                    cls=int(self.cls[n]), own_home=bool(self.own_home[n]), moves=int(self.n_moves[n]),
-                    society=int(self.soc[n]), home_society=int(self.soc_home[n]), status=STATUS[int(self.stat[n])],
-                    lang=round(float(self.lang[n]), 2))
+        pv = dict(loc=l, nb=int(self.nb[n]), kind=kind.item() if hasattr(kind, "item") else kind, features=fl,
+                  cls=int(self.cls[n]), own_home=bool(self.own_home[n]), moves=int(self.n_moves[n]),
+                  society=int(self.soc[n]), home_society=int(self.soc_home[n]), status=STATUS[int(self.stat[n])],
+                  lang=round(float(self.lang[n]), 2))
+        if getattr(self, "eyes_on", False):   # S3, S4 (only when on): "your places", their faces and the life's name there
+            pv["places"] = self.eyes_info(n)
+        return pv
 
     def figure_view(self, n, W=None):
         """The public figures in role (World W, default the People's): id, role (index; role_name when the world
@@ -3756,6 +5532,48 @@ class People:
                               sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
                               inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
                               rng=self._far_rng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "eyes_on", False):   # S3, S4 (only when on): the places, the names there, the moments waiting, kept-apart pairs
+            ev_ = dict(key=[int(x_) for x_ in self.eyes_key[n]], rep=[float(x_) for x_ in self.eyes_rep[n]],
+                       t0=[int(x_) for x_ in self.eyes_t0[n]], gob=[bool(x_) for x_ in self.eyes_gob[n]],
+                       lr=[float(x_) for x_ in self.eyes_lr[n]], la=[int(x_) for x_ in self.eyes_la[n]],
+                       dip=float(self.eyes_dip[n]), bel=float(self.eyes_bel[n]), last=int(self.eyes_last[n]),
+                       apart=[r_[1:] for r_ in self.eyes_apart if r_[0] == n], q=self.eyes_q.get(n),
+                       m=self._eyes_m, qt=self._eyes_qt, yr=int(self._eyes_yr), ev_i=int(self._eyes_ev_i),
+                       rng=self._eyes_rng.bit_generator.state if self.N == 1 else None)
+            if self.odd_on:
+                ev_.update(odd_now=[bool(x_) for x_ in self.odd_now[n]], odd_y=[int(x_) for x_ in self.odd_y[n]],
+                           odd_stage=[int(x_) for x_ in self.odd_stage[n]], odd_blend=[bool(x_) for x_ in self.odd_blend[n]],
+                           odd_held=[bool(x_) for x_ in self.odd_held[n]], dw=[float(x_) for x_ in self.eyes_dw[n]])
+            out["eyes"] = ev_
+        if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
+            out["lead"] = dict(posts=[dict(p_) for p_ in self.lw_posts if p_["n"] == n],   # (plain numbers already)
+                               ended=[dict(p_) for p_ in self.lw_ended if p_["n"] == n],
+                               due=[list(d_) for d_ in self.lw_due if d_[0] == n], q=int(self._lw_q),
+                               back=[[int(k_[1]), int(v_)] for k_, v_ in self._lw_back.items() if k_[0] == n],
+                               has=[bool(x_) for x_ in self.lw_has[n]],
+                               rng=self._lw_rng.bit_generator.state if self.N == 1 else None)
+        if self.sac_on:   # S5 (only when on): the lines, the record that forms them, offers and amends waiting, wounds
+            out["sacred"] = dict(i=int(self._sac_i), lm=int(self._sac_lm), line=self.sac_line[n].tolist(),
+                                 t=self.sac_t[n].tolist(), wound=self.sac_wound[n].tolist(), held=self.sac_held[n].tolist(),
+                                 crossed=self.sac_crossed[n].tolist(), paid=self.sac_paid[n].tolist(),
+                                 lead=int(self.sac_lead[n]), lead_t=int(self.sac_lead_t[n]),
+                                 lead_y=[float(x_) for x_ in self.sac_lead_y[n]], lost=[float(x_) for x_ in self.sac_lost[n]],
+                                 tragic=int(self.sac_tragic[n]), q=[dict(x_) for x_ in self.sac_q.get(n, [])],
+                                 ref=[[k_, v_] for (n_, k_), v_ in self.sac_ref.items() if n_ == n],
+                                 am=[[j_, v_] for (n_, j_), v_ in self.sac_am.items() if n_ == n],
+                                 lines=[SACRED_KINDS[int(k_)] for k_ in self.sac_line[n] if k_ >= 0],   # (for the sheet)
+                                 rng=self._sac_rng.bit_generator.state if self.N == 1 else None)
+        if self.seen_on:   # seen_done (only when on): the paths seen, by title name; the colour ways; what each slot was
+            ti_ = np.nonzero((self.sd_e[n] != 0) | (self.sd_f[n] > 0) | (self.sd_top[n] != -1))[0]   # credited at
+            ks_ = np.nonzero(self.used[n] & ((self._sd_w[n] > 0).any(1) | (self._sd_wc[n] > 0)))[0]
+            out["seen"] = dict(e={self.sd_names[i_]: [float(self.sd_e[n, i_]), float(self.sd_f[n, i_]), int(self.sd_top[n, i_]),
+                                                      float(self.sd_topw[n, i_]), int(self.sd_topk[n, i_])] for i_ in ti_.tolist()},
+                               ec=[float(x_) for x_ in self.sd_ec[n]], fc=[float(x_) for x_ in self.sd_fc[n]],
+                               ctop=[int(x_) for x_ in self.sd_ctop[n]], ctopw=[float(x_) for x_ in self.sd_ctopw[n]],
+                               ctopk=[int(x_) for x_ in self.sd_ctopk[n]],
+                               figs=sorted(int(f_) for f_ in self._sd_figs), li=int(self._sd_li), k=[int(k_) for k_ in ks_],
+                               w=[[float(y_) for y_ in self._sd_w[n, k_]] for k_ in ks_.tolist()],
+                               wc=[float(self._sd_wc[n, k_]) for k_ in ks_.tolist()])
         return out
 
     @classmethod
@@ -3839,5 +5657,65 @@ class People:
                         pp.far_sd[n, ks_] = f_["sd"]; pp.far_in[n, ks_] = f_["inn"]; pp.far_from[n, ks_] = f_["frm"]
                     if f_.get("rng") is not None and pp.N == 1:
                         pp._far_rng.bit_generator.state = f_["rng"]
+        if pp.eyes_on:
+            for n, d in enumerate(saved):
+                e_ = d.get("eyes")
+                if not e_:
+                    continue
+                pp.eyes_key[n] = e_["key"]; pp.eyes_rep[n] = e_["rep"]; pp.eyes_t0[n] = e_["t0"]; pp.eyes_gob[n] = e_["gob"]
+                pp.eyes_lr[n] = e_["lr"]; pp.eyes_la[n] = e_["la"]
+                pp.eyes_dip[n] = e_["dip"]; pp.eyes_bel[n] = e_["bel"]; pp.eyes_last[n] = e_["last"]
+                pp.eyes_apart += [[n] + list(r_) for r_ in e_["apart"]]
+                if e_.get("q"):
+                    pp.eyes_q[n] = dict(e_["q"])
+                pp._eyes_m = e_["m"]; pp._eyes_qt = e_["qt"]; pp._eyes_yr = int(e_["yr"]); pp._eyes_ev_i = int(e_["ev_i"])
+                if pp.N == 1 and e_.get("rng") is not None:
+                    pp._eyes_rng.bit_generator.state = e_["rng"]
+                if pp.odd_on and "odd_now" in e_:
+                    pp.odd_now[n] = e_["odd_now"]; pp.odd_y[n] = e_["odd_y"]; pp.odd_stage[n] = e_["odd_stage"]
+                    pp.odd_blend[n] = e_["odd_blend"]; pp.odd_held[n] = e_["odd_held"]; pp.eyes_dw[n] = e_["dw"]
+        if getattr(pp, "lw", False):
+            for n, d in enumerate(saved):
+                l_ = d.get("lead")
+                if l_:
+                    ids_ = {}   # each life's posts take new ids (lives saved apart may share them)
+                    for p_ in l_["posts"] + l_["ended"]:
+                        ids_[p_["id"]] = pp._lw_next
+                        p_ = dict(p_, n=n, id=pp._lw_next); pp._lw_next += 1
+                        (pp.lw_posts if p_.get("end_t") is None else pp.lw_ended).append(p_)
+                    pp.lw_due += [[n, d_[1], ids_.get(d_[2], -1), d_[3]] for d_ in l_["due"]]
+                    pp._lw_q = int(l_["q"]); pp.lw_has[n] = l_["has"]
+                    pp._lw_back.update({(n, int(k_)): int(v_) for k_, v_ in l_["back"]})
+                    if l_.get("rng") is not None and pp.N == 1:
+                        pp._lw_rng.bit_generator.state = l_["rng"]
+        if pp.sac_on:
+            for n, d in enumerate(saved):
+                s_ = d.get("sacred")
+                if s_:
+                    pp._sac_i = int(s_["i"]); pp._sac_lm = int(s_["lm"])
+                    pp.sac_line[n] = s_["line"]; pp.sac_t[n] = s_["t"]; pp.sac_wound[n] = s_["wound"]
+                    pp.sac_held[n] = s_["held"]; pp.sac_crossed[n] = s_["crossed"]; pp.sac_paid[n] = s_["paid"]
+                    pp.sac_lead[n] = s_["lead"]; pp.sac_lead_t[n] = s_["lead_t"]; pp.sac_lead_y[n] = s_["lead_y"]
+                    pp.sac_lost[n] = s_["lost"]; pp.sac_tragic[n] = s_["tragic"]
+                    if s_["q"]:
+                        pp.sac_q[n] = [dict(x_) for x_ in s_["q"]]
+                    pp.sac_ref.update({(n, k_): int(v_) for k_, v_ in s_["ref"]})
+                    pp.sac_am.update({(n, int(j_)): int(v_) for j_, v_ in s_["am"]})
+                    if s_.get("rng") is not None and pp.N == 1:
+                        pp._sac_rng.bit_generator.state = s_["rng"]
+        if pp.seen_on:   # seen_done: the cast as loaded is the cast last read (no change is seen at the next quarter)
+            lv_ = pp.used & pp.lv
+            pp._sd_uid = np.where(lv_, pp.uid, -1).astype(np.int32)
+            pp._sd_emp = pp.emp.copy(); pp._sd_mp = pp.mpart.copy(); pp._sd_nk = pp.nkids.copy(); pp._sd_st = pp.stand.copy()
+            pp._sd_saved = {}
+            for n, d in enumerate(saved):
+                s_ = d.get("seen")
+                if s_:
+                    pp._sd_saved[n] = s_["e"]; pp.sd_ec[n] = s_["ec"]; pp.sd_fc[n] = s_["fc"]
+                    pp.sd_ctop[n] = s_["ctop"]; pp.sd_ctopw[n] = s_["ctopw"]; pp.sd_ctopk[n] = s_["ctopk"]
+                    pp._sd_figs.update(s_["figs"]); pp._sd_li = int(s_["li"])
+                    ks_ = np.asarray(s_["k"], np.int64)
+                    if len(ks_):
+                        pp._sd_w[n, ks_] = s_["w"]; pp._sd_wc[n, ks_] = s_["wc"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp

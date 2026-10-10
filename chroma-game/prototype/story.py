@@ -1420,8 +1420,8 @@ class Story:
                 return self.name
             if k == "Ns":
                 return self.name + "'s"
-            if k == "place":
-                return self.place
+            if k == "place":                     # the town, or the place a moment is about (v22.4's caught, odd, lead)
+                return str(ctx["place"]) if "place" in ctx else self.place
             if k == "seen_as":                   # N1d: girl or boy, young woman or young man, woman or man, as their world sees them
                 f_ = getattr(self, "seen_as", None)
                 return f_() if callable(f_) else "person"
@@ -1437,6 +1437,27 @@ class Story:
         out = re.sub(r"\{(\w+)\}('s)?", one, text)
         # a {title} inside a filled-in act (an option's label in "{N} chooses {c}") is the held title too
         return cap(out.replace("{title}", getattr(self, "title_now", None) or "their role"))
+
+    def fill_label(self, text, m):
+        """An option's label with its role slots filled from the moment's own people (the scene's {friend} is the
+        option's {friend}), as plain words for the page's buttons and the "chooses" line."""
+        ctx, stage = m["ctx"], m["stage"]
+        def one(mm):
+            k = mm.group(1)
+            if k == "N":
+                out = self.name
+            elif k == "Ns":
+                out = self.name + "'s"
+            elif k == "place":
+                out = self.place
+            elif k == "title":
+                out = getattr(self, "title_now", None) or "their role"
+            else:
+                out = plain(self.role(k, stage, ctx))
+                if mm.group(2):
+                    out = re.sub(r"^someone called ", "", out)
+            return out + (mm.group(2) or "")
+        return re.sub(r"\{(\w+)\}('s)?", one, text)
 
     def thought(self, text, kind="", tag=None):
         """An italic thought; its color is the variant's (the voice's, or the act's for a reason)."""
@@ -1525,9 +1546,19 @@ class Story:
             if p["role"] in LEFT_BEHIND:
                 self.far(p)
 
+    def slots_in(self, text, m):
+        """v22.4's moments (game.py _social_slots marks them): the slots in an option's label or act ({friend}, {place_a},
+        {offer}...) as the moment's scene fills them, in plain words and lower case as written."""
+        if not text or "{" not in text or not m:
+            return text
+        out = plain(self.fill(text, m["stage"], m["ctx"]))
+        return out[:1].lower() + out[1:] if text[:1].islower() else out
+
     def act_in(self, m, label):
         """An option label as the character's act in this moment ('reshape it ...' names what is reshaped)."""
         a = act(label)
+        if m and m["ctx"].get("_social"):
+            a = self.slots_in(a, m)
         ref = m["ctx"].get("kindref") if m else None
         if ref:
             a = "walk away from " + ref if a == "walk away" else re.sub(r"\bit\b", ref, a)
@@ -1571,6 +1602,8 @@ class Story:
 
     def outcome(self, m, ev, chosen_label, pushed, rel, closed, colors=""):
         """A checkpoint resolved: what they did, how it went, and how they read it."""
+        if m and "{" in chosen_label:                  # the option's role slots, as the player saw them
+            chosen_label = self.fill_label(chosen_label, m)
         a = self.act_in(m, chosen_label)
         if not pushed:
             first = self.fill(self.pick(["{N} chooses {c}.", "So {N} chooses {c}.", "In the end, {N} chooses {c}."]),

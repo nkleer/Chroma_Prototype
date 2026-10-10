@@ -407,6 +407,10 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
+    for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
+                     (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+        if not on_:
+            sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -533,7 +537,8 @@ TOY_INFER = {"health": "winter", "loss": "winter", "love": "summer", "travel": "
 
 def _world_fields(L):
     """The outer world's Library fields (chroma-engine/world-fields.md): moment fields time_of_year, holy, who,
-    cast_want, group, where, at; option fields law, norm, tech, lever, pushes. Parsed into arrays the engine reads when
+    cast_want, group, where, at; option fields law, norm, tech, lever, pushes (and S3's caught:, S4's odd:, into W_CAUGHT
+    and W_ODD, index into world_keys.CAUGHT_TAGS and ODD_TAGS, -1 none). Parsed into arrays the engine reads when
     the world is on; with none of them written, every array is empty and nothing changes. A value outside its list
     stops the load, naming the moment, the option and the value (these fields are new, so the check is strict)."""
     import world_keys as WK
@@ -552,6 +557,7 @@ def _world_fields(L):
     toy = np.zeros((S, 4)); toy_set = np.zeros(S, bool); holy = np.full(S, -1); want = np.full(S, -1); grp = np.full(S, -1)
     at = np.full(S, -1); where = np.zeros((S, len(WK.FEATURES)), bool); who = [[] for _ in range(S)]
     touch = np.full(S, -1)   # far_ties (item 18): what the far event touched (work, money, home, health, safety, standing)
+    lway = np.full(S, -1)    # lead_ways (S7, chroma-ideas/social-mechanics.md): a crisis or fall moment's way (lead_way:)
     for si, src in enumerate(L["src"][:S]):
         nm = f"moment {src.get('name', si)!r}"
         if src.get("time_of_year"):
@@ -568,6 +574,8 @@ def _world_fields(L):
             want[si] = one(L["CAST_WANT"][src.get("variant_of") or src.get("name")], WK.CAST_WANTS, nm)[0]
         if src.get("touch"):
             touch[si] = one(src["touch"], WK.TOUCHES, nm)[0]
+        if src.get("lead_way"):   # lead_ways (S7): the way a crisis or fall moment belongs to (rules .. custom)
+            lway[si] = one(src["lead_way"], WK.LEAD_WAYS, nm)[0]
         if src.get("group"):
             grp[si] = one(src["group"], WK.GROUP_KINDS, nm)[0]
         if src.get("at"):
@@ -584,6 +592,8 @@ def _world_fields(L):
     law = np.full((S, K), -1); norm = np.full((S, K), -1); tech = np.full((S, K), -1); lever = np.full((S, K), -1)
     law_neg = np.zeros((S, K), bool); norm_neg = np.zeros((S, K), bool)   # a leading minus: the other way round
     push = np.full((S, K), -1); push_sub = {}; role = np.full((S, K), -1)
+    caught = np.full((S, K), -1); odd = np.full((S, K), -1)   # S3, S4: an option's caught: and odd: (world_keys' tags)
+    olead = np.full((S, K), -1); ofall = np.full((S, K), -1); ohand = np.full((S, K), -1)   # lead_ways (S7): lead:, fall:, hand:
     for si in range(S):
         for ki, nt in enumerate(L["notes"][si]):
             if not nt:
@@ -603,6 +613,16 @@ def _world_fields(L):
                     raise ValueError(f"{nm}: role: and norm: role crossing together (approval would close it twice; keep role:)")
             if nt.get("lever"):
                 lever[si, ki] = one(nt["lever"], WK.LEVERS, nm)[0]
+            if nt.get("caught") and ki < K:   # S3: side_a, side_b, bridge, apart or back (chroma-ideas/social-mechanics.md)
+                caught[si, ki] = one(nt["caught"], WK.CAUGHT_TAGS, nm)[0]
+            if nt.get("odd") and ki < K:      # S4: blend, hold or leave
+                odd[si, ki] = one(nt["odd"], WK.ODD_TAGS, nm)[0]
+            if nt.get("lead"):   # lead_ways (S7): the way an option leads by (the post takes it, or keeps it)
+                olead[si, ki] = one(nt["lead"], WK.LEAD_WAYS, nm)[0]
+            if nt.get("fall"):   # lead_ways: a fall moment's answer (go, fight, again)
+                ofall[si, ki] = one(nt["fall"], WK.FALL_KEYS, nm)[0]
+            if nt.get("hand"):   # lead_ways: a hand-over moment's answer (chosen, open, stay)
+                ohand[si, ki] = one(nt["hand"], WK.HAND_KEYS, nm)[0]
             if nt.get("pushes"):
                 d_, *sub = str(nt["pushes"]).split(None, 1)
                 push[si, ki] = one(d_, WK.DOMAINS, nm)[0]
@@ -651,14 +671,46 @@ def _world_fields(L):
         for si in range(S):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
+    # sacred lines (S5, chroma-ideas/social-mechanics.md; the Library's fields of 10-10): a moment's line kind or kinds
+    # (sacred: promise, or two joined by + on a tragic moment), the kind of offer (offer: money, post, favour) and its
+    # round (round: first, raised); an option's line: hold or cross, tragic: a, b or torn, heal: amends, reflect or not_yet
+    sac = np.full((S, 2), -1); offer = np.full(S, -1); rnd = np.full(S, -1)
+    oline = np.full((S, K), -1); otrag = np.full((S, K), -1); oheal = np.full((S, K), -1)
+    for si, src in enumerate(L["src"][:S]):
+        nm = f"moment {src.get('name', si)!r}"
+        if src.get("sacred"):
+            ks_ = [x.strip() for x in str(src["sacred"]).split("+") if x.strip()]
+            if not 1 <= len(ks_) <= 2:
+                raise ValueError(f"{nm}: sacred: one line kind, or two joined by + ({src['sacred']!r})")
+            for j_, x in enumerate(ks_):
+                sac[si, j_] = one(x, WK.SACRED_KINDS, nm)[0]
+        if src.get("offer"):
+            offer[si] = one(src["offer"], WK.OFFER_KINDS, nm)[0]
+        if src.get("round"):
+            rnd[si] = one(src["round"], WK.OFFER_ROUNDS, nm)[0]
+        for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
+            if not nt or ki >= K:
+                continue
+            if nt.get("line"):
+                oline[si, ki] = one(nt["line"], WK.LINE_TAGS, f"{nm}, option {ki + 1}")[0]
+            if nt.get("tragic"):
+                otrag[si, ki] = one(nt["tragic"], WK.TRAGIC_TAGS, f"{nm}, option {ki + 1}")[0]
+            if nt.get("heal"):
+                oheal[si, ki] = one(nt["heal"], WK.HEAL_TAGS, f"{nm}, option {ki + 1}")[0]
+    L.update(W_SACRED=sac, W_OFFER=offer, W_ROUND=rnd, W_LINE=oline, W_TRAGIC=otrag, W_HEAL=oheal)
     L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
-             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
+             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
+             W_CAUGHT=caught, W_ODD=odd)
+    L.update(W_LEAD_WAY=lway, W_LEAD=olead, W_FALL=ofall, W_HAND=ohand)   # lead_ways (S7)
 
 
-FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
-SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
-FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
+FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
+EYES_MOMENTS = False    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
+SACRED_MOMENTS = False  # v22.4, S5: moments with cast_want: sacred, tragic or amends
+LEAD_MOMENTS = False    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 

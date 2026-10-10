@@ -7,7 +7,8 @@
 #   rows       pin, build, art and the game's fast rows on the commit (V2, V6; a few minutes)
 #   pageonly   the commit against release/v22.2: only page and art files change, worker.js and py/ equal (V1; two builds)
 #   page       a fresh build served locally: the fit probes at 1280x800, 1024x700 and the geometric one, the phone probe
-#              against the release/v22.2 build at 390x844, and the tours at desktop and phone size (V3, V4; about 30 min)
+#              against the release/v22.2 build at 390x844 (options per moment, check_phonefit.py), and the tours at
+#              desktop and phone size (V3, V4; about 30 min)
 #   b7AB b7CD  the build of the commit, then the game's browser drivers, groups A and B or C and D (V5; one at a time
 #              per machine, both serve on port 8140)
 #   artlook    PR #98's art check (portraits, lights) from ART_REF on the commit's tree (V6, row art_look; seconds)
@@ -44,11 +45,9 @@ case "$1" in
      done
      mkdir -p $X/shots/fit_phone $X/shots/fit_phone_base
      o=$(probe fit_phone probe_fit_cx3.js $U 390 844); ob=$(probe fit_phone_base probe_fit_cx3.js $UB 390 844)
-     n() { sed -n "s/^covered: \([0-9]*\) moments.*blocked click point: \([0-9]*\);.*/\1 \2/p" $1; }
-     read c b <<< "$(n $o)"; read cb bb <<< "$(n $ob)"
-     if [ -n "$c" ] && [ -n "$cb" ] && [ $c -le $cb ] && [ $b -le $bb ] && ! grep -q pageerror $o; then r=PASS; else r=FAIL; fi
-     echo "phone 390x844: candidate covered $c blocked $b; release/v22.2 covered $cb blocked $bb (report $ob): $r" >> $o
-     add fit_phone $r $o "390x844: covered $c, blocked $b; v22.2 build $cb, $bb"
+     v=$(python3 -B $R/check_phonefit.py $o $ob) && r=PASS || r=FAIL   # options per moment: the two lives differ in length
+     echo "$v (base report $ob)" >> $o
+     add fit_phone $r $o "${v#phone 390x844 by options: }"
      for spec in "tour_desktop 1280 860" "tour_phone 390 844"; do
        set -- $spec; mkdir -p $X/shots/$1; o=$O/${1}_$STAMP.txt
        (cd $L && timeout 1800 node tour.js $U $X/shots/$1 $2 $3) > $o 2>&1; e=$?; echo "exit $e" >> $o
