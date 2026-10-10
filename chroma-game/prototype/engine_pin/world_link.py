@@ -248,6 +248,12 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             self.want_s.setdefault(WK.CAST_WANTS[int(self.want[si])], []).append(int(si))
         self.pending = {}                 # n -> (cast id, want key, moment) offered this week
+        # far_ties (item 18): a far moment's touch (touch:), and its options that take the tie in (mark: took them in)
+        self.touch = np.asarray(L.get("W_TOUCH", np.full(S, -1)))
+        self.took = np.zeros((S, K), bool)
+        for si in np.nonzero(self.want >= 0)[0]:
+            for ki, nt in enumerate(L["notes"][si][:K]):
+                self.took[si, ki] = str((nt or {}).get("mark") or "").strip() == "took them in"
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -435,6 +441,8 @@ class WorldLink:
         self.pending = {}
         for n_, cid_, key_ in PP.want_due(PP.t):
             ss_ = self.want_s.get(key_)
+            if ss_ and key_.startswith("far_"):
+                ss_ = self._far_pick(n_, cid_, ss_)
             if ss_ and n_ not in self.pending:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
@@ -551,7 +559,33 @@ class WorldLink:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
-        return self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
+        ev_ = self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
+        if pv_[1].startswith("far_") and self.took[s_n, a_n] and not idle_n and succ_n:   # F4: the tie comes to stay
+            self.PP.take_in(int(n), pv_[0])
+        return ev_
+
+    def _far_pick(self, n, cid, ss):
+        """far_ties: the far moments that fit the call: by what the event touched (touch:) and by the tie's relation
+        (the moment's first who: slot), each dropped in turn when none fits."""
+        PP = self.PP
+        tch = set((PP.far_info(n, cid) or {}).get("touch") or ())
+        k_ = PP._slot(n, cid)
+        rel = set(PP.far_rel(n, k_)) if k_ >= 0 else set()
+        who_ = self.L.get("W_WHO", [[]] * self.S)
+        t_ok = lambda si: self.touch[si] < 0 or WK.TOUCHES[int(self.touch[si])] in tch
+        r_ok = lambda si: bool(who_[si]) and who_[si][0] in rel
+        for f_ in (lambda si: t_ok(si) and r_ok(si), t_ok, r_ok):
+            c_ = [si for si in ss if f_(si)]
+            if c_:
+                return c_
+        return ss
+
+    def far_info(self, n, si):
+        """far_ties: for a far moment offered this week, the tie's town and what happened there (People.far_info)."""
+        pv_ = self.pending.get(int(n))
+        if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("far_"):
+            return None
+        return self.PP.far_info(int(n), pv_[0])
 
     def era(self):
         W = self.W
