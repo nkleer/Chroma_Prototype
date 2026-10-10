@@ -229,6 +229,7 @@ class WorldLink:
         self.norm_neg = np.asarray(L.get("W_NORM_NEG", np.zeros((S, K), bool)))   # goes against the law or norm in force
         self.push = np.asarray(L.get("W_PUSH", np.full((S, K), -1)))
         self._infer_pushes(E, L, S, K)
+        self._lever_spheres(S, K)
         self.ssm = WK.LAW_KEYS.index("same-sex marriage")
         self.NI = {k_: i_ for i_, k_ in enumerate(WK.NORM_KEYS_ALL)}
         # a want moment's options that meet the want (the cast member's wish): a mark of helping or coming home, a title
@@ -323,6 +324,53 @@ class WorldLink:
             if m_ in NORM_MARK:
                 nk_[si, ki] = WK.NORM_KEYS_ALL.index(NORM_MARK[m_])
         self.nrm_i = np.where(nk_ < len(WK.NORM_KEYS), nk_, -1)   # the W38b keys: close people's objections not kept
+
+    def _lever_spheres(self, S, K):
+        """Spheres phase 4 (sph_levers, sph_fair): the sphere each lever option lands in (S, K; -1 none) and an office act's
+        kind (0 ban, 1 licence, 2 budget). The sphere: the moment's at: (an institution kind's sphere), else the option's
+        push target where it names a group or institution kind, else the option's own sphere face, the moment's sphere,
+        its haunt kind's or its sphere event's (Outer world's phase 4 answers, item 1). Office: against a law (-key) a
+        ban, for a law a licence, else a budget."""
+        import sphere_data as SD_
+        at = np.asarray(self.L.get("W_AT", np.full(S, -1)))[:S] if hasattr(self, "L") else np.full(S, -1)
+        self.lsph = np.full((S, K), -1, np.int64)
+        ev_sph = np.array([WK.SPHERES.index(e_["sphere"]) for e_ in SD_.EV], np.int64)
+        for si, ki in zip(*np.nonzero(self.lev_i >= 0)):
+            j = -1
+            if at[si] >= 0:
+                j = int(WM.INST_SPH[int(at[si])])
+            tg = self.tgt_i[si, ki]
+            if j < 0 and isinstance(tg, str):
+                if tg in WK.INST_KINDS:
+                    j = int(WM.INST_SPH[WK.INST_KINDS.index(tg)])
+                elif tg in WK.GROUP_KINDS:
+                    j = int(WM.GROUP_SPH[WK.GROUP_KINDS.index(tg)])
+            for j2 in (self.osph[si, ki], self.msph[si], WM.HAUNT_SPH[self.haunt[si]] if self.haunt[si] >= 0 else -1,
+                       ev_sph[self.sphev[si]] if self.sphev[si] >= 0 else -1):
+                if j < 0:
+                    j = int(j2)
+            self.lsph[si, ki] = j
+        self.loff = np.where(self.law_neg, 0, np.where(self.law >= 0, 1, 2)).astype(np.int64)
+
+    def fair_pull(self, s):
+        """(N, K) utility from felt fairness (sph_fair): in a sphere a life feels treats it unfairly (under .35) exit,
+        neglect and subvert there x 1.5 and voice and loyalty x .7 as odds; over .65 the reverse (dynamics.json
+        felt_fairness)."""
+        fr = getattr(self.PP, "fair", None)
+        js = self.lsph[s]; lv = self.lev_i[s]
+        if fr is None or not (js >= 0).any():
+            return 0.0
+        import sphere_data as SD_
+        Fd = SD_.FAIR; lo_, hi_ = np.zeros(len(WK.LEVERS)), np.zeros(len(WK.LEVERS))
+        for k_, v_ in Fd["low_mult"].items():
+            lo_[WK.LEVERS.index(k_)] = np.log(v_)
+        for k_, v_ in Fd["high_mult"].items():
+            hi_[WK.LEVERS.index(k_)] = np.log(v_)
+        on = (js >= 0) & (lv >= 0)
+        f = np.take_along_axis(np.asarray(fr, float), np.maximum(js, 0).astype(np.intp), 1)
+        lvi = np.maximum(lv, 0)
+        u = np.where(f < Fd["low"], lo_[lvi], np.where(f > Fd["high"], hi_[lvi], 0.0))
+        return np.where(on, u, 0.0)
 
     def accept(self):
         """Acceptance per norm key where each person lives and among their own people (N, n_norm), 0 to 1."""
@@ -853,7 +901,8 @@ class WorldLink:
             return []
         si_, ai_ = s[idx], a[idx]
         out = self.PP.on_act(idx, ma[idx], succ[idx].astype(float), lever=self.lev_i[si_, ai_], pushes=self.dom_i[si_, ai_],
-                             target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t)
+                             target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
+                             sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])
         res = out.get("results", []) if isinstance(out, dict) else []
         hp_ = self.hpick[si_] & (succ[idx] > 0) & (self.osph[si_, ai_] >= 0) & (self.ocol[si_, ai_] >= 0)
         if hp_.any() and getattr(self.PP, "sph_h", False):   # the haunt choice (N1): the option's face picks the place

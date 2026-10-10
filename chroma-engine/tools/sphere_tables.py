@@ -112,6 +112,18 @@ def build(src):
     PAIR_QUARRELS = {p: [bare(k) for k in v] for p, v in er["pair_quarrels"]["pairs"].items()}
     CASCADES = [dict(id=c["id"], epochs=list(c["epochs"]), steps=[[bare(st["event"]) if st.get("event") else None, st["lag"]]
                                                                 for st in c["steps"]]) for c in lk["colour"]["cascades"]]
+    # phase 4 (Outer world's answers, chroma-world/spheres/phase4-answers.md): what an office act fires or moves in each
+    # sphere (levers.office.events; event keys bare), and felt fairness (felt_fairness: each sphere's fair and against
+    # states, as "sphere.key", and the option multipliers under low and over high)
+    oe = dyn["levers"]["office"]["events"]
+    LEVER_OFFICE = {sp: {k: ({"event": bare(v["event"])} if "event" in v else {"state": v["state"], "by": float(v["by"])})
+                         for k, v in oe[sp].items()} for sp in SPHERES}
+    ff = dyn["felt_fairness"]
+    FAIR = dict(states={sp: dict(fair=[f"{sp}.{k}" for k in ff["states"][sp]["fair"]],
+                                 against=[f"{sp}.{k}" for k in ff["states"][sp]["against"]]) for sp in SPHERES},
+                low=float(ff["effects"]["low"]), high=float(ff["effects"]["high"]),
+                low_mult={k: float(v) for k, v in ff["effects"]["low_mult"].items()},
+                high_mult={k: float(v) for k, v in ff["effects"]["high_mult"].items()})
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -119,7 +131,7 @@ def build(src):
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
-                CASCADES=CASCADES)
+                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR)
 
 
 def audit(T):
@@ -173,6 +185,11 @@ def audit(T):
     ck_ = sorted({st[0] for c in T["CASCADES"] for st in c["steps"] if st[0]} - ek)
     if len(T["MEMORIES"]) != 4 or mk_ or qk_ or ck_ or len(T["PAIR_QUARRELS"]) != 10 or len(T["CASCADES"]) != 14:
         bad.append(f"memories, quarrels, cascades: unknown events {(mk_ + qk_ + ck_)[:5]}")
+    ob_ = [(sp, k) for sp, d in T["LEVER_OFFICE"].items() for k, v in d.items()
+           if ("event" in v and v["event"] not in ek) or ("state" in v and v["state"] not in st_)]
+    fb_ = [k for d in T["FAIR"]["states"].values() for k in d["fair"] + d["against"] if k not in st_]
+    if ob_ or fb_ or set(T["LEVER_OFFICE"]) != set(SPHERES):
+        bad.append(f"levers: office {ob_[:3]}, fairness states unknown {fb_[:3]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")

@@ -81,6 +81,7 @@ GATES = ["open", "invitation", "test", "birth", "admission"]
 RING_OF = np.array([0 if d_ == "close" else 1 if d_ in ("group", "place") else 2 if d_ == "institution" else 3
                     for d_ in DOMAINS])
 REACH = np.array([[3, 1, 0, 0], [3, 2, 1, 0], [3, 2, 2, 1], [3, 2, 3, 2]], float)   # spec 7 §2: standing level x ring
+RUNG_MULT = np.array([0.125, 0.5, 1.0, 1.5, 2.0])   # spheres phase 4: a lever's pull by rung, newcomer .. leader (N2)
 NEVER = -10 ** 7
 STATUS = ["citizen", "migrant", "resident"]   # a life's status in the society it lives in (spec 5 §5)
 # display priority when someone holds several roles toward the character
@@ -409,6 +410,12 @@ class People:
         self.sph_mk = bool(wp_.get("sph_marks", False))
         if self.sph_h or self.sph_hr or self.sph_mk:
             self._sph_init()
+        # phase 4: the levers on places and town spheres, and felt fairness per sphere (each off: nothing of it exists)
+        self.sph_lv = bool(wp_.get("sph_levers", False)); self.sph_fr = bool(wp_.get("sph_fair", False))
+        if self.sph_lv or self.sph_fr:
+            self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
+            self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
+            self._p4_yr = -1
 
     # ------------------------------------------------------------------ the world, read through world-build.md's names
     def _world_static(self):
@@ -1650,6 +1657,8 @@ class People:
             self._sph_hours(t)
         if self.sph_mk:
             self._marks_year(t)
+        if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):
+            self._sph_year4(t)
         B = self._bits()
         if self._last_set is None or t - self._last_set >= 8:   # the settings' slow drift: every second month
             self._settings_month(t, S, B, 1.0 if self._last_set is None else (t - self._last_set) / 4.0)
@@ -2652,7 +2661,7 @@ class People:
 
     # ------------------------------------------------------------------ acts, levers and pushes (spec 2 §3, spec 7 §3)
     def on_act(self, idx, ma, succ, visibility=None, lever=None, pushes=None, base=None, target=None, norm=None,
-               var=None, t=None):
+               var=None, t=None, sphere=None, office=None):
         """The character's act this week (vectorised over idx): the close circle judges it (overlap of the act's mix
         with their pies), rank in groups moves, and acts with a lever push (size = base x reach x how well it went;
         a failed push can backfire). Returns dict(approval=(n,), results=[push results])."""
@@ -2706,7 +2715,68 @@ class People:
         for e_ in np.nonzero((lev >= 0) & (dom >= 0) & ~self.dead[idx])[0]:
             res.append(self._push(int(idx[e_]), ma[e_], float(q[e_]), int(lev[e_]), int(dom[e_]), float(bas[e_]),
                                   tg[e_], None if var is None else (var[e_] if isinstance(var, (list, tuple, np.ndarray)) else var), t))
+        # 4. spheres phase 4: the lever on the person's place or town sphere (sph_levers), the act kept for felt fairness
+        if (getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False)) and sphere is not None:
+            js = np.broadcast_to(np.asarray(sphere, np.int64), (E,))
+            ok_ = np.broadcast_to(np.asarray(2 if office is None else office, np.int64), (E,))
+            for e_ in np.nonzero((lev >= 0) & (js >= 0) & ~self.dead[idx])[0]:
+                r_ = self._sph_lever(int(idx[e_]), int(js[e_]), int(lev[e_]), ma[e_], float(q[e_]), int(ok_[e_]), int(dom[e_]), t)
+                if r_ is not None:
+                    res.append(r_)
         return dict(approval=appr, results=res)
+
+    def _sph_lever(self, n, j, lev, ma, q, office, dom, t):
+        """Phase 4: life n's lever lev in sphere j (Outer world's phase 4 answers). size = the reach for the act's ring
+        (dreach, 0 to 3) / 3 x the rung's multiplier (newcomer .125 .. leader 2) x how well it went. It lands on their
+        haunt in that sphere; else, working in that sphere (no named work place), on the town sphere at half the size;
+        else on the town sphere at a quarter. A voice or loyalty act is kept for felt fairness (+1 went well, -1 not)."""
+        lv = LEVERS[lev]
+        if self.sph_fr and lv in ("voice", "loyalty"):
+            self.fair_log.append([int(t), int(n), int(j), 1 if q >= 0.5 else -1])
+        if not self.sph_lv:
+            return None
+        W = self.W
+        rg = int(np.floor(self.rung[n, j])) if hasattr(self, "rung") else 0
+        place = -1
+        if getattr(self, "sph_h", False) and getattr(W, "hp_s", None) is not None:
+            P_ = W.hp_s.shape[2]
+            for p_ in self.hnt[n]:
+                if p_ >= 0 and HAUNT_SPH[(p_ // P_) % len(HAUNT_KINDS)] == j:
+                    place = int(p_); break
+        # the reach: on their own place, the settings' ring (a place is a setting's ring, 1); on the town's sphere, the
+        # ring of the act's own domain (an institution's, without one)
+        reach = float(self.dreach[n, DI["group"] if place >= 0 else (dom if dom >= 0 else DI["institution"])])
+        size = reach / 3.0 * float(RUNG_MULT[min(max(rg, 0), 4)]) * q
+        if place < 0:
+            ss_ = self.set_sphere[n]
+            size *= 0.5 if ((self.skind[n] == G["work"]) & (ss_ == j)).any() else 0.25
+        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office])
+        return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
+                    rung=LADDER[min(max(rg, 0), 4)], moved=what)
+
+    def _sph_year4(self, t):
+        """Yearly (phase 4): the lives leading a sphere in their town (rung leader) join its leaders' mix (sph_levers;
+        World.sph_plead, town x sphere x (colour sums, count)); each life's felt fairness moves .1 of the way toward
+        its town's target (World.sph_fair_target) + .1 per voice or loyalty act there in the last 3 years that went
+        well, - .1 per one that did not, + .05 x rung (sph_fair)."""
+        a = int(self._age(t))
+        if a == self._p4_yr:
+            return
+        self._p4_yr = a; W = self.W; N = self.N
+        live = ~self.dead
+        if self.sph_lv and hasattr(self, "rung"):
+            pl = np.zeros((self.n_loc, 9, C + 1))
+            n_, j_ = np.nonzero((np.floor(self.rung) >= 4) & live[:, None])
+            np.add.at(pl, (self.loc[n_], j_), np.concatenate([self.w[n_], np.ones((len(n_), 1))], 1))
+            W.sph_plead = pl if len(n_) else None
+        if self.sph_fr and getattr(W, "sph_s", None) is not None:
+            self.fair_log = [r_ for r_ in self.fair_log if t - r_[0] <= 3 * 52]
+            acts = np.zeros((N, 9))
+            for _, n_, j_, v_ in self.fair_log:
+                acts[n_, j_] += v_
+            rg = np.floor(self.rung) if hasattr(self, "rung") else 0.0
+            tgt = _uclip(W.sph_fair_target()[self.loc] + 0.1 * acts + 0.05 * rg, 0, 1)
+            self.fair = np.where(live[:, None], self.fair + 0.1 * (tgt - self.fair), self.fair)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
@@ -3283,6 +3353,9 @@ class People:
                                   rung=[float(x_) for x_ in self.rung[n]], ryrs=[float(x_) for x_ in self.ryrs[n]],
                                   hpick=int(self.hpick), rung_yr=int(getattr(self, "_rung_yr", -1)),
                                   hrng=self._hrng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):   # phase 4 (only when on)
+            out["spheres4"] = dict(fair=[float(x_) for x_ in self.fair[n]], p4_yr=int(self._p4_yr),
+                                   fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
         return out
 
     @classmethod
@@ -3331,5 +3404,11 @@ class People:
                     pp.hpick = int(sp_["hpick"]); pp._rung_yr = int(sp_["rung_yr"])
                     if len(saved) == 1 and sp_.get("hrng"):
                         pp._hrng.bit_generator.state = sp_["hrng"]
+        if getattr(pp, "sph_lv", False) or getattr(pp, "sph_fr", False):
+            for n, d in enumerate(saved):
+                s4_ = d.get("spheres4")
+                if s4_:
+                    pp.fair[n] = s4_["fair"]; pp._p4_yr = int(s4_["p4_yr"])
+                    pp.fair_log += [[t_, n, j_, v_] for t_, j_, v_ in s4_["fair_log"]]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp

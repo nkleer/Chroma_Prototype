@@ -75,6 +75,9 @@ SECTOR_SPH = np.array([SPH[SECTOR_SPHERE[k_]] for k_ in SECTORS], np.int64)
 HAUNT_SPH = np.array([SPH[k_.split(".")[0]] for k_ in HAUNT_KINDS], np.int64)   # each haunt kind's sphere (phase 2)
 SPH_PAIRS = ["WU", "UB", "BR", "RG", "GW", "WB", "UR", "BG", "RW", "GU"]   # the ten pair faces of each sphere (phase 3)
 N_PLACES = 3            # named places per town and haunt kind (phase 2, N1: "a few named places per haunt kind")
+LEAD_W = 0.25           # phase 4: a life leading a sphere in town weighs a quarter of the town's bodies in its leaders' mix
+K_PAT = 0.005           # phase 4: a patron's pull a quarter, x size (dynamics.json levers.fund, kPat)
+FUND_SPAN = [0, 4, 16, 40, 80]   # quarters a fund act's pull lasts by rung (levers.fund.span; a leader's tenure: 20 years)
 STATE_PARTS = {"say": ("G", "regime", "support", "gov_party", "Dem"), "law_book": ("laws",), "rights": ("rights",),
                "purse": ("welfare", "welfare_pub"), "war": ("war", "ext_war", "war_with"), "force": ()}   # force: police, army
 NN, NL, NT = len(NORM_KEYS), len(LAW_KEYS), len(TECH_KEYS)
@@ -439,6 +442,9 @@ W_DEFAULT = dict(
     pair_calm=False,   # phase 3: a held pair face calms its pair's quarrel events in its sphere, a broken one makes them
                        # flare (events_run.pair_quarrels); with sph_pairs
     sph_cascades=False,  # phase 3: the 14 cascades (links.json colour.cascades): a running cascade raises its next step
+    sph_levers=False,  # phase 4: the nine levers on a place or a town's sphere, by reach and rung (dynamics.json levers;
+                       # Outer world's answers in chroma-world/spheres/phase4-answers.md)
+    sph_fair=False,    # phase 4: felt fairness per life and sphere (dynamics.json felt_fairness), read by the options
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -452,7 +458,8 @@ W_DEFAULT = dict(
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
-             "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
+             "sph_levers", "sph_fair")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
@@ -3003,6 +3010,11 @@ class World:
         Dm = T["M0"][None] * np.exp(Nt + Tt + Kt + Xt)
         Dm = Dm / Dm.sum(-1, keepdims=True)
         Ld, corr, age, has = self._sph_leaders()
+        if self.p.get("sph_levers", False) and getattr(self, "sph_plead", None) is not None:   # lead: the lives leading
+            pn = self.sph_plead[..., C]                                                       # a sphere in town join its
+            Ld = np.where(pn[..., None] > 0, (Ld * has[..., None] + LEAD_W * self.sph_plead[..., :C])   # leaders' mix
+                          / np.maximum(has[..., None] + LEAD_W * pn[..., None], 1e-9), Ld)
+            has = has | (pn > 0)
         Lg = 1 - np.exp(-s / pr["sL"])
         ds = (T["rho"][None, :, None] * Lg * (Dm - s) + pr["mu"] * self.sph_ds
               + pr["aH"] * np.minimum(age, 100)[..., None] / 50 * (self.sph_H - s)
@@ -3010,6 +3022,8 @@ class World:
               + pr["aA"] * U[:, 2][:, None, None] * (0.2 - s))
         s_new = np.maximum(s + ds, pr["s_min"]); s_new /= s_new.sum(-1, keepdims=True)
         self.sph_ds = s_new - s; self.sph_s = s_new
+        if self.p.get("sph_levers", False) and getattr(self, "sph_fund", None):          # a patron's pull on the sphere
+            self._sph_fund_q(place=False)
         self.sph_H += pr["H_mem"] * (s_new - self.sph_H)
         if self.p.get("sph_pairs", False):
             self._sph_pairs_q(T, s_new)
@@ -3053,7 +3067,152 @@ class World:
             self.hp_nm = r.integers(0, 1000, (nl, H, N_PLACES))
             self.hp_s = base * np.exp(self.hp_off); self.hp_s /= self.hp_s.sum(-1, keepdims=True)
         tgt = base * np.exp(self.hp_off); tgt /= tgt.sum(-1, keepdims=True)
-        self.hp_s += T["rho"][HAUNT_SPH][None, :, None, None] * (tgt - self.hp_s)
+        rho = T["rho"][HAUNT_SPH][None, :, None, None]
+        if self.p.get("sph_levers", False) and getattr(self, "hp_hold", None) is not None:   # loyalty slows a place
+            q = int(self.t // 13)
+            rho = rho * np.where(self.hp_hold[..., 0] >= q, self.hp_hold[..., 1], 1.0)[..., None]
+        self.hp_s += rho * (tgt - self.hp_s)
+        if self.p.get("sph_levers", False) and getattr(self, "sph_fund", None):          # a patron's pull on a place
+            self._sph_fund_q(place=True)
+
+    # ------------------------------------------------------------------ the spheres of society (item 15): phase 4
+    def _sph_nudge(self, mix, toward, k):
+        """A face mix moved k of the way toward toward (0..1 shares), kept over the floor and summing to 1."""
+        m = np.maximum(mix + k * (toward - mix), 0.005)
+        return m / m.sum()
+
+    def _sph_place_set(self, l, h, i, new):
+        """A place's face mix set to new, its lasting lean (hp_off) moved with it, so the change stays."""
+        old = self.hp_s[l, h, i]
+        self.hp_off[l, h, i] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
+        self.hp_s[l, h, i] = new
+
+    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget"):
+        """Phase 4 (sph_levers): a life's lever lands on its place (a flat place id, World.place_info) or, with place -1,
+        on its town's sphere j (the caller passes the smaller size there). ma: the act's colours in this world's frame;
+        size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. Returns what moved (a
+        word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
+        if size <= 0 or getattr(self, "sph_s", None) is None:
+            return "none"
+        loc = int(loc); j = int(j); q = int(self.t // 13); ma = np.asarray(ma, float)
+        hp_ok = place >= 0 and getattr(self, "hp_s", None) is not None
+        if hp_ok:
+            l, h, i = (int(x) for x in np.unravel_index(int(place), self.hp_s.shape[:3]))
+        nP = int((HAUNT_SPH == j).sum()) * N_PLACES                            # places of the sphere in town
+        town = self.sph_s[loc, j]
+        def on_place(k_, toward):
+            if hp_ok:
+                new = self._sph_nudge(self.hp_s[l, h, i], toward, k_)
+                d_ = new - self.hp_s[l, h, i]; self._sph_place_set(l, h, i, new)
+                self.sph_s[loc, j] = self._sph_nudge(town, town + d_, 1.0 / max(nP, 1))
+            else:
+                self.sph_s[loc, j] = self._sph_nudge(town, toward, k_)
+        away = np.maximum(2 * (self.hp_s[l, h, i] if hp_ok else town) - ma, 0.0)
+        away = away / max(away.sum(), 1e-9)
+        if lever == "voice":
+            on_place(0.03 * size, ma)
+        elif lever == "subvert":
+            if rng.random() < 0.4:                                               # backfires 4 in 10
+                on_place(0.02 * size, away); return "backfired"
+            on_place(0.03 * size, ma)
+        elif lever == "neglect":
+            on_place(0.02 * size, town)
+        elif lever == "exit":
+            on_place(0.01 * size, away)
+            if rung >= 2 and hp_ok:                                               # a known face's leaving is felt
+                lead_ = np.eye(C)[int(np.argmax(self.hp_s[l, h, i]))]
+                self._sph_place_set(l, h, i, self._sph_nudge(self.hp_s[l, h, i], self.hp_s[l, h, i] - 0.02 * lead_ + 0.02 * town, 1.0))
+        elif lever == "loyalty":
+            if hp_ok:
+                if getattr(self, "hp_hold", None) is None:
+                    self.hp_hold = np.zeros(self.hp_s.shape[:3] + (2,)); self.hp_hold[..., 0] = -1
+                self.hp_hold[l, h, i] = [q + 4, max(0.0, 1 - 0.1 * size)]
+            else:
+                return "none"
+        elif lever == "found":
+            top = np.argsort(-ma)[:2]
+            face = np.zeros(C); face[top[0]] = 1.0
+            if ma[top[1]] >= 0.26:                                                # a pair face: two colours of .26 or more
+                face[top] = 0.5
+            new = _norm(0.75 * face + 0.25 * town)
+            hs_ = np.nonzero(HAUNT_SPH == j)[0]
+            if getattr(self, "hp_s", None) is not None and len(hs_):
+                if hp_ok and HAUNT_SPH[h] == j:
+                    hs_ = np.array([h])
+                cand = self.hp_s[loc, hs_].reshape(-1, C)                         # the place furthest from the founder
+                k_ = int(np.argmax(np.abs(cand - new).sum(1)))
+                h2, i2 = int(hs_[k_ // N_PLACES]), k_ % N_PLACES
+                self._sph_place_set(loc, h2, i2, new)
+            self.sph_s[loc, j] = self._sph_nudge(town, new, 1.0 / (nP + 1))
+        elif lever == "fund":
+            span = FUND_SPAN[min(int(rung), 4)]
+            if span <= 0:
+                return "none"
+            if not hasattr(self, "sph_fund") or self.sph_fund is None:
+                self.sph_fund = []
+            onp = hp_ok and rung < 3                                              # a pillar's endowment: the town sphere
+            self.sph_fund.append([loc, j, int(place) if onp else -1, [float(x) for x in ma], float(size), q + span])
+        elif lever == "office":
+            return self._sph_office(loc, j, office, size, rng)
+        else:
+            return "none"
+        return "moved"
+
+    def sph_fair_target(self):
+        """Phase 4 (sph_fair): where each town's felt fairness in each sphere settles (n_loc x 9), before a life's own acts
+        and rung: .5 + .3 x (the sphere's fair-hearing states - .5) - .3 x (its against states - .5); a sphere with no
+        against state of its own reads rule.favour at .15 (dynamics.json felt_fairness; Tyler 1990). States are the town's
+        plus the society's (own) or the world's (the 16 world states); without the sphere events, own states read .5."""
+        import sphere_data as SD
+        E = self._sph_ev_tables(); nl = self.n_loc
+        st = getattr(self, "sph_st", None)
+        own = _uclip(st + self.sph_st_soc[None] - 0.5, 0, 1) if st is not None else np.full((nl, len(E["own"])), 0.5)
+        ws = self._sph_world_states(E)
+        def val(k):
+            if k in E["own"]:
+                return own[:, E["own"].index(k)]
+            return ws[:, list(SD.STATE_WORLD).index(k)]
+        out = np.full((nl, len(SPHERES)), 0.5)
+        for j, sp in enumerate(SPHERES):
+            d = SD.FAIR["states"].get(sp, {})
+            fr = [val(k) for k in d.get("fair", [])]
+            ag = d.get("against") or []
+            if fr:
+                out[:, j] += 0.3 * (np.mean(fr, 0) - 0.5)
+            out[:, j] -= (0.3 if ag else 0.15) * (np.mean([val(k) for k in (ag or ["rule.favour"])], 0) - 0.5)
+        return out
+
+    def _sph_fund_q(self, place):
+        """The patrons' pulls this quarter (kPat .005 x size toward their colours), on places or on town spheres; a pull
+        ends after its span."""
+        q = int(self.t // 13)
+        self.sph_fund = [f for f in self.sph_fund if f[5] >= q]
+        for loc, j, p_, ma, size, _ in self.sph_fund:
+            if place and p_ >= 0 and getattr(self, "hp_s", None) is not None:
+                l, h, i = np.unravel_index(int(p_), self.hp_s.shape[:3])
+                self._sph_place_set(l, h, i, self._sph_nudge(self.hp_s[l, h, i], np.asarray(ma), K_PAT * size))
+            elif not place and p_ < 0:
+                self.sph_s[loc, j] = self._sph_nudge(self.sph_s[loc, j], np.asarray(ma), K_PAT * size)
+
+    def _sph_office(self, loc, j, kind, size, rng):
+        """An office act on sphere j (kind ban, licence or budget; levers.office.events): with chance min(1, size) it
+        fires that sphere's event for it in the town (its own rows; next quarter), or, where the sphere has none, moves
+        the state by by x .05 x size."""
+        import sphere_data as SD
+        ent = SD.LEVER_OFFICE.get(SPHERES[j], {}).get(kind)
+        if ent is None or rng.random() >= min(1.0, size):
+            return "none"
+        if "event" in ent:
+            if not self.p.get("sph_events", False):
+                return "none"
+            self.fire_sphere_event(ent["event"], loc, big=False)
+            return "fired " + ent["event"]
+        E = self._sph_ev_tables()
+        if ent["state"] in E["own"] and getattr(self, "sph_st", None) is not None:
+            k_ = E["own"].index(ent["state"])
+            self.sph_st[loc, k_] = min(1.0, max(0.0, self.sph_st[loc, k_] + ent["by"] * 0.05 * size))
+            return "moved " + ent["state"]
+        return "none"
 
     # ------------------------------------------------------------------ the spheres of society (item 15): phase 3
     SPH_LAG = {"quarters": (1, 4), "a year": (3, 6), "years": (4, 20)}   # a chain's window, in quarters after its event
@@ -3135,7 +3294,8 @@ class World:
              "care.skill": b(self.medical), "prod.hands": 0.5 + (self.natural - np.asarray(self.loc_unemp, float)) / 20,
              "prod.stores": b(0.5 - self.food / 10), "faith.devotion": b(self.spiritual), "faith.fervour": b(0.5 + 0.3 * rv)}
         j_ = E["own"].index("rule.pressure")
-        own = self.sph_st[:, j_] + self.sph_st_soc[j_] - 0.5
+        own = (self.sph_st[:, j_] + self.sph_st_soc[j_] - 0.5 if getattr(self, "sph_st", None) is not None
+               else np.full(nl, 0.5))                                     # (phase 4's felt fairness reads without events)
         out = [own if (k == "rule.pressure" and v[k] is None) else v[k] for k in SD.STATE_WORLD]
         return _uclip(np.stack(out, 1), 0, 1)
 
