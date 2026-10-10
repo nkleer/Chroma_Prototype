@@ -68,10 +68,16 @@ def build(src):
     # how common each haunt kind is (dynamics.json haunt_shares): the modern share of adults for whom it is a regular
     # place, read as a prior on the haunt picks (relative weights times fit)
     HAUNT_SHARES = {k: float(v) for k, v in dyn["haunt_shares"]["shares"].items()}
+    # phase 3: the year's rhythm (N7; hours and event hazards by season, each row averaging 1), how separate the spheres
+    # are in each epoch (N6; effects spill to joined spheres at J x (1 - separation)), the pair faces' rule
+    sz = dyn["seasons"]; SEASONS = dict(order=list(sz["order"]), hours={s: [float(x) for x in sz["hours"][s]] for s in SPHERES},
+                                         hazards={s: [float(x) for x in sz["hazards"][s]] for s in SPHERES})
+    SEPARATION = {x["key"]: float(x["separation"]) for x in ep["ladder"]}
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
-                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV)
+                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV,
+                SEASONS=SEASONS, SEPARATION=SEPARATION)
 
 
 def audit(T):
@@ -98,6 +104,12 @@ def audit(T):
     hs = T["HAUNT_SHARES"]
     if len(hs) != 31 or min(hs.values()) <= 0 or max(hs.values()) > 1:
         bad.append(f"haunt shares: {len(hs)} kinds, {min(hs.values())} to {max(hs.values())}")
+    for kind in ("hours", "hazards"):
+        m = np.array([T["SEASONS"][kind][s] for s in SPHERES])
+        if np.abs(m.mean(1) - 1).max() > 0.02:
+            bad.append(f"seasons {kind}: a sphere's year averages {m.mean(1).round(3).tolist()}")
+    if set(T["SEPARATION"]) != set(EPOCHS):
+        bad.append(f"separation: epochs {sorted(T['SEPARATION'])}")
     ek = {e["key"] for e in T["EV"]}
     miss = sorted({c[0] for e in T["EV"] for c in e["chains"]} - ek)
     if miss:
