@@ -912,6 +912,21 @@ function spiderSVG(o) {
   let fan = "";
   COLORS.forEach((_, i) => { const a = P[i], b = P[(i + 1) % 5]; fan += `<path d="M${SPX} ${SPY}L${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}Z" fill="url(#${id}g${i})"/>`; });
   s += `<g class="fan">${fan}</g>`;
+  if (o.shadow) {   // item 2, light and shadow: the end of a colour's point, as far in as its shadow part, cut off and inked
+    let sh = "";    // with the visuals thread's hatch mask (ci-hatch; crosshatch while the state shows). The cap is the
+    o.shadow.forEach((x, i) => {   // polygon's tip cut square to the axis at (1 - s) of the point's length: a quarter in
+      if (!x || x[0] < 0.05) return;   // shadow inks the outer quarter of the point (by length, so a small one still reads)
+      const r1 = spRad(w[i]), r0 = r1 * (1 - x[0]);
+      if (r1 - r0 < 0.6) return;
+      const ux = Math.cos(SPA[i]), uy = Math.sin(SPA[i]), cut = (j) => {   // where the edge toward neighbour j crosses r0
+        const b = P[j], pb = (b[0] - SPX) * ux + (b[1] - SPY) * uy, f = clamp((r1 - r0) / Math.max(r1 - pb, 1e-6));
+        return [P[i][0] + (b[0] - P[i][0]) * f, P[i][1] + (b[1] - P[i][1]) * f];
+      };
+      const pts = `${f1(cut((i + 4) % 5))} ${f1(P[i])} ${f1(cut((i + 1) % 5))}`;
+      sh += `<polygon class="shcap" points="${pts}"/><polygon class="shink" points="${pts}" mask="url(#${x[1] ? "ci-crosshatch" : "ci-hatch"})"/>`;
+    });
+    if (sh) s += `<g class="shd">${sh}</g>`;
+  }
   if (o.window) s += `<circle class="win" cx="${SPX}" cy="${SPY}" r="${(SPR + 2).toFixed(1)}"/>`;
   if (o.hold) s += `<polygon class="hold" points="${spPts(o.hold)}"/>`;
   if (o.want) s += `<polygon class="want" points="${spPts(o.want)}"/>`;
@@ -944,7 +959,8 @@ function spiderSVG(o) {
   return s;
 }
 const spOf = (L, extra) => ({ w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])), hold: L.inertia.map((v) => v + 0.2), acc: L.acc,
-  rule: (hud && hud.life && hud.life.ident_rule) || [0.22, 0.18], label: L.label, bands: L.dyn ? L.dyn.bands : null, window: !!(L.dyn && L.dyn.window), ...(extra || {}) });
+  rule: (hud && hud.life && hud.life.ident_rule) || [0.22, 0.18], label: L.label, bands: L.dyn ? L.dyn.bands : null, window: !!(L.dyn && L.dyn.window),
+  shadow: L.shadow ? L.shadow.cols.map((x) => x.show ? [x.part, x.on] : null) : null, ...(extra || {}) });
 // the key under the graph; each word's hover is its exact definition
 const SP_KEY = [["pos", "Now", "Their five colors now, as shares of 100."],
   ["want", "Wants", "Where their wanting points: the colors they would move to if nothing held them back."],
@@ -1020,6 +1036,26 @@ function stateTip(x) {
   if (D.from_age) rows.push(["From age", String(Math.round(D.from_age))]);
   return tipBox(`${ic(x.icon)} ${esc(cap(x.word || D.say))}`, esc(stateDef(x)), rows, "");
 }
+// item 2, light and shadow (only with the engine's shadows switch on, hud.life.shadow): a colour's line ("Red 40%, a
+// quarter of it in shadow: reckless at times"), where the shadow comes from, and whether they have seen it in themselves
+function shadowRows(L, i) {
+  const x = L.shadow && L.shadow.cols[i];
+  if (!x || !x.show) return [];
+  return [[`${ic(GI.shadow && GI.shadow[SH_GI[x.state]] || "dot")} Shadow`, `<b>${esc(x.line)}</b>`]].concat(x.src.length ? [["From", esc(x.src.join("; "))]] : [],
+    x.seen ? [["Seen", "they have seen it in themselves"]] : []);
+}
+const SH_GI = { rigid: "rigid", indecisive: "indecisive", ruthless: "ruthless", reckless: "reckless", "stuck in their ways": "stuck" };   // ink-icons.json "shadow"
+function shadowTip(x) {      // a shadow state's hover: its colour's line, its sources, and when it shows and goes
+  const S = x.shadow || {}, on = (hud && hud.life && hud.life.shadow) || { on: 0.5, off: 0.35 };
+  const rows = [];
+  if (x.value != null) rows.push(["Pull now", `${Math.round(x.value * 100)} of 100`]);
+  if (S.src && S.src.length) rows.push(["From", esc(S.src.join("; "))]);
+  if (x.years != null) rows.push(["For", yrsWord(x.years)]);
+  rows.push(["Seen", S.seen ? "they have seen it in themselves" : "not yet: they do not see it in themselves"]);
+  return tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, S.line ? esc(S.line) : "", rows,
+    `A color that rules a life casts a shadow. This shows when the shadow's pull passes ${Math.round(on.on * 100)} of 100 over the last three months, and goes below ${Math.round(on.off * 100)}.`);
+}
+const stTip = (x) => x.shadow !== undefined ? shadowTip(x) : stateTip(x);
 const BAND_WORD = { in: "part of who they are", fading: "fading: at or under 22%, held by the edge", rising: "rising: above 18%, not yet part of them", out: "not part of who they are" };
 function tipColor(L, i) {
   const c = COLORS[i], w = L.w[i], inId = lettersOf(L.label).includes(c), [enter, leave] = L.ident_rule || [0.22, 0.18];
@@ -1031,7 +1067,7 @@ function tipColor(L, i) {
     ["Skill in its ways", pct(L.skill[i])],
     ["Belief they can act so", pct(L.belief[i])],
     ["Notices first", pct(L.lens[i])],
-    ["The story's voice", pct(L.voice[i])]].concat(L.dyn ? [["Place", BAND_WORD[L.dyn.bands[i]] || ""]] : []),
+    ["The story's voice", pct(L.voice[i])]].concat(L.dyn ? [["Place", BAND_WORD[L.dyn.bands[i]] || ""]] : [], shadowRows(L, i)),
     L.label ? (inId ? `${CNAME[c]} is part of who they are; it leaves below ${Math.round(leave * 100)}%.` : `${CNAME[c]} is not part of who they are; it joins above ${Math.round(enter * 100)}%.`) : "");
 }
 const RINGS = [
@@ -1168,7 +1204,7 @@ function renderHud(L) {
   const reach = L.reach ? L.reach.map((r) => `<div class="mt" data-reach="${r.ring}"><span class="ml">${ic(r.icon)} ${esc(r.word)}</span><i><b style="width:${(clamp(r.felt) * 100).toFixed(0)}%;background:var(--arcane)"></b></i><span class="mv">${esc(r.level_word)}</span></div>`).join("") : "";
   const AW = L.around_words || {};
   const around = Object.entries(L.around || {}).map(([k, v]) => { const g = good(k, v); return `<span class="chip ${g > 0 ? "up" : g < 0 ? "down" : ""}" data-a="${esc(k)}">${ic(g > 0 ? "sun" : g < 0 ? "rain" : "compass")}${esc(cap(k))}: <span class="w">${esc(AW[k] || (v > 0 ? "up" : "down"))}</span> <span class="pc">(${aroundPct(v)})</span></span>`; }).join("");
-  const states = (L.states || []).map((x, i) => `<span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
+  const states = (L.states || []).map((x, i) => `<span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
   const statuses = (L.statuses || []).map((d, i) => `<span class="perk stat" data-rs="${i}">${ic(roleIconOf(d))}${esc(cap(shortSay(d.say)))}</span>`).join("");
   const pk = L.perks || [], cut = !perksOpen && pk.length > PERK_SHOW + 2 ? PERK_SHOW : pk.length;
   const perks = pk.slice(0, cut).map((d, i) => `<span class="perk${d.state && d.state !== "held" ? " " + d.state : ""}" data-perk="${i}" style="--pc:${d.ways ? `var(--c${d.ways[0]})` : "var(--gold)"}">${ic(roleIconOf(d))}${esc(cap(d.name))}</span>`).join("")
@@ -1236,7 +1272,7 @@ function renderHud(L) {
     "How far their acts can move it: the close circle always answers; the town a little; institutions and the state only through office, fame, wealth or invention.")); });
   hudEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
-  hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stateTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
+  hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });
@@ -1415,6 +1451,7 @@ function optRow(o, i, num) {
   if (o.own) marks.push(`<span class="mk2 own">${ic("crown")}their own pick</span>`);
   if (o.heart_pick) marks.push(`<span class="mk2 heart">${ic("heart")}heart</span>`);
   if (o.head_pick) marks.push(`<span class="mk2 head">${ic("head")}head</span>`);
+  if (o.shadow) marks.push(`<span class="mk2 shd" data-shd="${esc(o.shadow.state)}" data-shi="${esc(o.shadow.icon)}">${ic(o.shadow.icon)}their shadow pulls here</span>`);   // item 2, once seen
   if (!o.own && (acc === "reluctant" || acc === "against it")) marks.push(`<span class="mk2 rel">${acc === "against it" ? "against it" : "would rather not"}</span>`);
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
@@ -1578,6 +1615,8 @@ function renderTable(h) {
   if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  tableEl.querySelectorAll("[data-shd]").forEach((el) => setTip(el, () => tipBox(`${ic(el.dataset.shi)} Their shadow pulls here`, "",
+    [], `The heart picks this partly from the pull of the ${esc(el.dataset.shd)} side in ${esc(L.name)}: without that pull, the heart would pick another. ${esc(L.name)} has seen this in themselves before.`)));   // item 2
   tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3
   // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
   tableEl.querySelectorAll("[data-lc]").forEach((b) => {
@@ -1999,8 +2038,8 @@ function openSheet() {
   const temperWords = L.temper ? TEMPER.map(([k, , , top, def]) => shTrait(TEMPER_NAME[k], L.temper[k] / top, temperWord(k, L.temper[k]), "var(--arcane)", def)).join("") : "";
   const temperNums = L.temper ? TEMPER.map(([k, , , top, def]) => meterRow(TEMPER_NAME[k], L.temper[k] / top, pct(L.temper[k] / top), "var(--gold)", `${def} Now ${temperWord(k, L.temper[k])}: ${L.temper[k].toFixed(2)} on a scale of 0 to ${top}.`)).join("") : "";
   const needWords = Object.entries(N).map(([k, v]) => shTrait(cap(k), v, shNeedWord(v), "var(--peace)", SH_NEED_DEF[k] || "")).join("");
-  const states = (L.states || []).map((x, i) => `<div class="sdef"><span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span><span>${esc(stateDef(x))}${x.value != null ? ` Now ${esc(stateScale(x.var, x.scale, x.value))}.` : ""}</span></div>`).join("") || `<span class="empty">No marked state now</span>`;
-  const stateChips = (L.states || []).map((x, i) => `<span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
+  const states = (L.states || []).map((x, i) => `<div class="sdef"><span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span><span>${esc(stateDef(x))}${x.value != null ? ` Now ${esc(stateScale(x.var, x.scale, x.value))}.` : ""}</span></div>`).join("") || `<span class="empty">No marked state now</span>`;
+  const stateChips = (L.states || []).map((x, i) => `<span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
   const around = Object.entries(L.around || {}).map(([k, v]) => `<div class="sdef"><span class="chip" data-a="${esc(k)}">${esc(cap(k))}: <span class="w">${esc((L.around_words || {})[k] || "")} (${aroundPct(v)})</span></span><span>${esc(AROUND_DEF[k] || "")}</span></div>`).join("");
   const aroundShort = SH_AROUND_SHORT.filter(([k]) => (L.around || {})[k] != null).map(([k, w]) => `<div class="r" data-a="${esc(k)}"><span>${w}</span><b>${esc((L.around_words || {})[k] || "")}</b></div>`).join("");
   const titles = (L.titles || []).map((t) => `<div class="sdef"><span class="chip">${ic(KIND_ICON[t.kind])}${esc(cap(t.kind))}</span><span>${(t.named || []).map((x) => esc(cap(shortSay(x.say))) + (x.facets || []).map((f) => ", " + esc(shortSay(f.say))).join("")).join("; ") || ""} · ${yrsWord(t.years)} · invested ${investWord(t.invested)} · expects ${pips(lettersOf(t.expects))}${t.clash ? ` · ${ic("bolt")} in a clash` : ""}</span></div>`).join("") || `<span class="empty">No titles yet</span>`;
@@ -2045,7 +2084,7 @@ function openSheet() {
   sheetEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox((el.querySelector("th, .ml") || el).textContent, "", [], esc(el.dataset.def))); });
   sheetEl.querySelectorAll(".drm[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   sheetEl.querySelectorAll("[data-ci]").forEach((el) => setTip(el, () => tipColor(L, +el.dataset.ci)));
-  sheetEl.querySelectorAll("[data-st]").forEach((el) => { const x = (L.states || [])[+el.dataset.st]; if (x && x.reads) setTip(el, () => stateTip(x)); });
+  sheetEl.querySelectorAll("[data-st]").forEach((el) => { const x = (L.states || [])[+el.dataset.st]; if (x && x.reads) setTip(el, () => stTip(x)); });
   sheetEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   sheetEl.querySelectorAll("[data-pid]").forEach((el) => setTip(el, () => personTip(+el.dataset.pid)));
   sheetEl.querySelectorAll("[data-rs]").forEach((el) => { const d = (L.statuses || [])[+el.dataset.rs]; if (d) setTip(el, () => roleTip(d)); });
