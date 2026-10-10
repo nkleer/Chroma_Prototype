@@ -450,7 +450,7 @@ renderReview = function (h) {
 const _renderTools = renderTools;
 renderTools = function (h) { _renderTools(h); safe(addRows); };
 const ROWS = { motion: ["burst", "Motion", () => MOTION_WORD[motion], "How much moves: full (pictures breathe, ink flies, pages turn), calm (changes still count up, nothing loops) or off."],
-  look: ["mask", "Look", () => LOOK_WORD[look], "Ink (the engraved look) or classic (the look of version 22)."] };
+  look: ["mask", "Look", () => LOOK_WORD[look], "Ink (the engraved look) or classic (the drawing of version 22). The helpers for choosing and the changes beside the wheel and meters stay in both."] };
 function addRows() {
   const pop = $("tPop"); if (!pop || pop.querySelector("[data-lk]")) return;
   const at = pop.querySelector('[data-page="i"]'); if (!at) return;
