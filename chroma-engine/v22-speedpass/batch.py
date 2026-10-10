@@ -557,6 +557,7 @@ def _world_fields(L):
     toy = np.zeros((S, 4)); toy_set = np.zeros(S, bool); holy = np.full(S, -1); want = np.full(S, -1); grp = np.full(S, -1)
     at = np.full(S, -1); where = np.zeros((S, len(WK.FEATURES)), bool); who = [[] for _ in range(S)]
     touch = np.full(S, -1)   # far_ties (item 18): what the far event touched (work, money, home, health, safety, standing)
+    lway = np.full(S, -1)    # lead_ways (S7, chroma-ideas/social-mechanics.md): a crisis or fall moment's way (lead_way:)
     for si, src in enumerate(L["src"][:S]):
         nm = f"moment {src.get('name', si)!r}"
         if src.get("time_of_year"):
@@ -573,6 +574,8 @@ def _world_fields(L):
             want[si] = one(L["CAST_WANT"][src.get("variant_of") or src.get("name")], WK.CAST_WANTS, nm)[0]
         if src.get("touch"):
             touch[si] = one(src["touch"], WK.TOUCHES, nm)[0]
+        if src.get("lead_way"):   # lead_ways (S7): the way a crisis or fall moment belongs to (rules .. custom)
+            lway[si] = one(src["lead_way"], WK.LEAD_WAYS, nm)[0]
         if src.get("group"):
             grp[si] = one(src["group"], WK.GROUP_KINDS, nm)[0]
         if src.get("at"):
@@ -590,6 +593,7 @@ def _world_fields(L):
     law_neg = np.zeros((S, K), bool); norm_neg = np.zeros((S, K), bool)   # a leading minus: the other way round
     push = np.full((S, K), -1); push_sub = {}; role = np.full((S, K), -1)
     caught = np.full((S, K), -1); odd = np.full((S, K), -1)   # S3, S4: an option's caught: and odd: (world_keys' tags)
+    olead = np.full((S, K), -1); ofall = np.full((S, K), -1); ohand = np.full((S, K), -1)   # lead_ways (S7): lead:, fall:, hand:
     for si in range(S):
         for ki, nt in enumerate(L["notes"][si]):
             if not nt:
@@ -613,6 +617,12 @@ def _world_fields(L):
                 caught[si, ki] = one(nt["caught"], WK.CAUGHT_TAGS, nm)[0]
             if nt.get("odd") and ki < K:      # S4: blend, hold or leave
                 odd[si, ki] = one(nt["odd"], WK.ODD_TAGS, nm)[0]
+            if nt.get("lead"):   # lead_ways (S7): the way an option leads by (the post takes it, or keeps it)
+                olead[si, ki] = one(nt["lead"], WK.LEAD_WAYS, nm)[0]
+            if nt.get("fall"):   # lead_ways: a fall moment's answer (go, fight, again)
+                ofall[si, ki] = one(nt["fall"], WK.FALL_KEYS, nm)[0]
+            if nt.get("hand"):   # lead_ways: a hand-over moment's answer (chosen, open, stay)
+                ohand[si, ki] = one(nt["hand"], WK.HAND_KEYS, nm)[0]
             if nt.get("pushes"):
                 d_, *sub = str(nt["pushes"]).split(None, 1)
                 push[si, ki] = one(d_, WK.DOMAINS, nm)[0]
@@ -665,6 +675,7 @@ def _world_fields(L):
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
              W_CAUGHT=caught, W_ODD=odd)
+    L.update(W_LEAD_WAY=lway, W_LEAD=olead, W_FALL=ofall, W_HAND=ohand)   # lead_ways (S7)
 
 
 FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit

@@ -16,6 +16,11 @@ CAUGHT_TAGS = ["side_a", "side_b", "bridge", "apart", "back"]   # S3: an option'
                                                                 # them, keep them apart, step back)
 ODD_TAGS = ["blend", "hold", "leave"]                           # S4: an option's odd: (blend in, hold on, leave)
 TOUCHES = ["work", "money", "home", "health", "safety", "standing"]   # far_ties: what a far event touched (touch:)
+CAST_WANTS += ["lead_take", "lead_crisis", "lead_fall", "lead_routine", "lead_hand"]   # lead_ways (S7): a post's moments,
+#   fired with no holder (cid -1): taking the post, a crisis of its way, its fall, the turn to routine, handing it on
+LEAD_WAYS = ["rules", "knowing", "favours", "inspiring", "custom"]   # lead_ways (S7): the five ways, W U B R G (lead_way:, lead:)
+FALL_KEYS = ["go", "fight", "again"]     # lead_ways: a fall moment's options (fall:): the post ends, kept at a cost, stand again later
+HAND_KEYS = ["chosen", "open", "stay"]   # lead_ways: a hand-over moment's options (hand:): a chosen successor, an open contest, stay on
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
 FEATURES = ["city", "town", "village", "remote", "capital", "suburb", "university", "port", "coast", "industry", "mining",
