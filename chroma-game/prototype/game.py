@@ -86,6 +86,12 @@ GAME = dict(
     trust_loss=0.2,      # trust lost by a resented push at full reluctance (toward -1)
     trust_cut=0.5,       # at full trust in the act's colors, this share of a push's resentment (stress, wanting) is spared
     distrust_add=0.5,    # at full distrust, this much more resentment
+    # clarity item 7, "trust that moves" (chroma-hud/gameplay-check/findings.md §1; chroma-ideas/voice-mechanics.md §2;
+    # Emren 10-10 10:25 UTC "apply all of them"; v22.4, off until its refit): every push is judged by its outcome, not only
+    # the reluctant ones. A push that hindsight leaves unjudged still moves trust along the act's colors: + (judge_a +
+    # judge_b x reluctance) x (1 - trust) when it worked, - the same x (1 + trust) when it failed (voice-mechanics.md's
+    # .02 + .08 x reluctance, doubled for trust's -1 to 1 scale). Accepted and resented pushes keep their own steps.
+    trust_judge=False, judge_a=0.04, judge_b=0.16,
     # item 4, pivotal picks (implementation list; chroma-ideas/gameplay-feel.md §5; Emren 2026-10-08 22:58, 23:18): every
     # moment put to the player is a turning point. Its pick teaches more the further it is from who they are; a success
     # teaches toward the picked ways and they lead the character's own acts for a season (F2); a failure can backfire
@@ -145,7 +151,7 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -1169,6 +1175,10 @@ class Game:
             self.trust -= GAME["trust_loss"] * rel * prof * (1 + self.trust)
             self.history["resented"] += 1
             out.update(kind="resented", share=round(rel, 3))
+        if out["kind"] == "none" and GAME["trust_judge"]:   # item 7: an unjudged push still moves trust by how it went
+            st = (GAME["judge_a"] + GAME["judge_b"] * rel) * prof
+            self.trust += st * (1 - self.trust) if worked else -st * (1 + self.trust)
+            out["judged"] = "worked" if worked else "failed"
         self.trust = np.clip(self.trust, -1.0, 1.0)
         out["trust_after"] = round(self._trust_on(loc, cpw["choice"]), 3)
         out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
@@ -1453,12 +1463,20 @@ class Game:
         tr = float(np.mean(self.trust[cols])) if cols else 0.0
         return V["name"][side]["doubted" if tr < 0 else "trusted"].replace("{voice}", noun)
 
+    def _voice_trust(self, d):
+        """The character's trust in the voice as one number: over the colors it pushed toward, an even mean; with item 7 on
+        (GAME trust_judge), weighted by how much it pushed toward each, so the colors it pushed most decide the word."""
+        pushed = d > 0
+        if GAME["trust_judge"]:
+            return float(d[pushed] @ self.trust[pushed] / d[pushed].sum())
+        return float(np.mean(self.trust[pushed]))
+
     def voice_view(self, loc=None):
         """The panel row "The voice in their head": its name, the character's trust in words, and on hover what the voice
         moved in this life against what life itself moved, per color, in points."""
         v = self.history["voice"]; loc = self.loc if loc is None else loc
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        tr = self._voice_trust(d) if pushed and v["steer"] else 0.0
         word = "" if not v["steer"] else "they trust it" if tr >= 0.25 else "they doubt it" if tr <= -0.25 else "they are unsure of it"
         total = (E.softmax(loc["z"][0]) - np.asarray(self._w_start, float)) if loc is not None and self._w_start is not None else np.zeros(C)
         vdw = self._vdw()
@@ -1545,7 +1563,7 @@ class Game:
             return                                       # told when the voice did most of it, once in five years at most
         v["became_t"] = int(self.t)
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed else 0.0
+        tr = self._voice_trust(d) if pushed else 0.0
         key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
         self._vline(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), became=lbl, share=round(share, 2))
 
@@ -1579,7 +1597,7 @@ class Game:
         V = ES.VOICE; vw = self.voice_view()
         share = vw["share"]; sw = next((w_ for b_, w_ in V["share"] if share < b_), V["share"][-1][1])
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        tr = self._voice_trust(d) if pushed and v["steer"] else 0.0
         key = "quiet" if v["steer"] < VOICE_MIN else "trusted" if tr > 0.2 else "doubted" if tr < -0.2 else "mixed"
         lead = COLORS[int(np.argmax(np.asarray(h["w"][-1][1], float)))] if h["w"] else "W"
         end = self._vfill(V["end"][key], adj=ADJ[lead], share=sw)
