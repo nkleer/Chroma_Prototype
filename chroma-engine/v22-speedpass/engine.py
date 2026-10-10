@@ -921,6 +921,14 @@ DEFAULT = dict(
     cur_age=(0.3, 1.0, 20.0, 7.0),   # exposure by age: base + peak x exp(-((age - at) / width)^2); most at 15 to 25, never zero
     cur_mem=1.0,         # years over which what reaches them adds up (a new circle or job takes a while to tell)
     cur_cut=0.55,        # the share of the random weekly noise the current takes over (stability rows stay in their ranges)
+    # with the world on, the current pushes by how a life's people and places differ from its society's and town's own
+    # mix (chroma-engine/notes/current-green-pull/): a world's own lean (Modern Earth starts Green-first, and the burn-in
+    # and like-matched parents add to it) is the ground they stand on, not a pull on everyone. Off: cur_k as above
+    cur_rel=True,
+    cur_rel_k=0.42,      # its monthly push at full exposure, world on (.35 x 1.2: about 9% of colour movement)
+    cur_bal=0.5,         # its pull toward balance (log shares), so identities at 40 stay as with the current off
+    cur_era=0.5,         # how much of the era the times' part carries (Emren 10-10 15:07 UTC, "Era at half"); the era
+                         # also moves lives through era_push_k and the niche, and the culture through each generation's people
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -968,7 +976,7 @@ UPD_OFF = dict(dis_match=False,
                # each person's need table and events by need and state
                drift_frames=None, ends_frames=None, ten_bad=0.2, shadows=False, thr_vec=None,
                hz_self=0.0, hz_want=0.03, domains=False, curious=False, nm_on=False, ev_need_k=0.0, ev_state_k=0.0,
-               ev_reach_k=0.0, cur_on=False,
+               ev_reach_k=0.0, cur_on=False, cur_rel=False,
                # stage 3, LW1 and LW2 (stage3-rules.md §8)
                cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
@@ -4433,7 +4441,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             cur_m = cur_.copy() if cur_m is None else cur_m + (cur_ - cur_m) / (12 * P["cur_mem"])   # what has reached them lately
             cur_ = cur_m
             b0_, pk_, at_, wd_ = P["cur_age"]
-            cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            if WON and P["cur_rel"]:   # against the society (people), the town's average places, the times with cur_era of the era
+                V_ = np.asarray(WL.W.V, float)[None, :]
+                pr_ = WL.PP.places_ref if getattr(WL.PP, "places_ref", None) is not None else V_
+                ref_ = (cm_[0] * V_ + cm_[1] * pr_ + cm_[2] * (P["cur_era"] * V_ + (1 - P["cur_era"]) * tm_)) / sum(cm_)
+                lr_ = np.log(np.maximum(cur_m, 1e-4)) - np.log(ref_) - P["cur_bal"] * np.log(np.maximum(w, 1e-4))
+                cdz_ = (P["cur_rel_k"] * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(lr_)
+            else:
+                cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
             if P["era_push_k"] != 1.0:   # played lives: the game weighs the times' push as it weighs an era's
                 cdz_ = P["era_push_k"] * cdz_
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
