@@ -795,6 +795,12 @@ DEFAULT = dict(
                          # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
                          # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
                          # lowest, so lives that keep choosing them are held back (steer_check, 10-10). 0: off, as before
+    app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
+                         # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
+                         # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
+                         # 1.4x and their gains at .6x and are taught out of their own colours (steer_check 10-10: net identity
+                         # move per act in the steered colour -.012 white, -.007 blue, +.010 red at equal win rates). Feelings
+                         # (fdelta: mood, stress, wounds) keep the tilt. False: as before
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -986,7 +992,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0, lens_want=0.0,
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -3164,7 +3170,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             delta = yield Pause("learn", t, locals(), delta)
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
-        ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
+        if P["app_vigil"] and P["app_k"]:   # app_vigil: threat focus learns more from gains and losses alike (vigilance), so
+            ldelta = delta * (1 + P["app_learn"] * (appf_ - 1))   # the colours that bring it (W U, AXSEC) do not teach a life out of themselves
+        else:
+            ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways

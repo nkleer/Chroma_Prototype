@@ -295,7 +295,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30),
        ("what one holds is practice too (role_practice)", dict(role_practice=True), {}, 30),
        ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
-       ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30)]
+       ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
+       ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
