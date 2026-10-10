@@ -476,6 +476,8 @@ SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
              "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read",
              "sacred", "sacred_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+# v22.4's world switches (S5 sacred lines): saved only when on, so a save with them off, spheres on, is v22.3's
+V224_RULES = ("sacred", "sacred_par")
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
@@ -3953,6 +3955,12 @@ class World:
             par = {k: v for k, v in par.items() if k not in SPH_RULES}
             if "params" in cfg:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in SPH_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
+        if not any(self.p.get(k) for k in V224_RULES):     # v22.4's switches off: saved as v22.3 saved it
+            par = {k: v for k, v in par.items() if k not in V224_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
