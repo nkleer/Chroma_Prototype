@@ -435,12 +435,28 @@ W_DEFAULT = dict(
     sph_pairs=False,   # phase 3: the ten pair faces per town sphere (dynamics.json pair_faces), a layer over two faces
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
+    # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
+    # them is drawn, computed or saved and the world runs as before
+    c4_nature=False,   # C4: nature's own year (bad air, bad water, a poisoned river, drought, a glorious spring, recovery)
+    c_par=None,        # {name: value} over C_DEFAULT (tuning; None: the start values)
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+C_RULES = ("c4_nature", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+# the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
+C_DEFAULT = dict(
+    air=0.30, air_heat=0.5,          # C4 bad air: cities and industrial places; heat extremes against the birth's raise it
+    water=0.02, river=0.005,         # C4 bad water and a poisoned river: industrial and mining places
+    drought=0.08,                    # C4 drought: farming and hotter places, times drought extremes against the birth's
+    spring=0.15,                     # C4 a glorious spring: everywhere, drawn in spring
+    air_ill=1.2, water_ill=1.1, river_ill=1.15,   # C4 illness rate in the place, for a quarter (a river: two)
+    water_serv=0.05, drought_serv=0.03,           # C4 the place's services lost
+    drought_food=0.5, drought_fhaz=2.0,           # C4 a drought lifts food prices and doubles the food shock's chance
+    rec_cost=0.03,                   # C4 recovery: the council's capacity spent rebuilding
+)
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
 S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_home", "era_home_k", "era_fade_y", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
@@ -1105,7 +1121,8 @@ class World:
         if x[0] < eh:
             self.energy += p["e_size"][0] + (p["e_size"][1] - p["e_size"][0]) * x[1]
             self._event("nature", "price shock", "energy", round(float(self.energy), 1), big=self.energy > 5)
-        if x[2] < p["f_haz"] * (0.5 + 0.5 * self.extremes[4] / 2.8):
+        fh_ = self._c_par("drought_fhaz") if p.get("c4_nature") and getattr(self, "c4_dry", 0) > 0 else 1.0   # C4
+        if x[2] < p["f_haz"] * (0.5 + 0.5 * self.extremes[4] / 2.8) * fh_:
             self.food += p["f_size"][0] + (p["f_size"][1] - p["f_size"][0]) * x[3]
             self._event("nature", "price shock", "food", round(float(self.food), 1), big=False)
         # pandemic: none, rising, peak, waning (about 2% a year for a severe one; Marani et al. 2021)
@@ -1125,6 +1142,84 @@ class World:
         scar = (max(self.energy, 0) + max(self.food, 0)) / 6.0
         lh = np.log(np.maximum((self.loc_hazards * np.array(p["dis_base"]) * self.extremes).sum(1), 1e-4) / self.haz_ref)
         self.harsh_loc = _uclip(0.5 * lh, -1, 1.5) + 0.5 * np.minimum(self.loc_disaster, 1) + np.minimum(scar, 1.5)
+        if p.get("c4_nature"):
+            self._c4_nature_q(int(q_season))
+
+    # ------------------------------------------------------------------ the C hooks (item 10), built by the Outer world
+    # stage3-rules.md section 5. Each is off unless its switch is on; off, it draws nothing and adds nothing to the save.
+    def _c_par(self, k):
+        return (self.p.get("c_par") or {}).get(k, C_DEFAULT[k])
+
+    def _c_rng(self, k):
+        """A fresh generator for this quarter's draws of C hook k: keyed on the seed, the hook and the week, so it keeps
+        no state to save and moves no other stream (the hooks' events are chance, so their dice stay: LW2 2e)."""
+        return np.random.default_rng([self._seed + 104729, 7000 + int(k), int(self.t)] + ([self.society_id] if self.society_id else []))
+
+    def _c4_nature_q(self, q_season):
+        """C4, nature's own year: per place each quarter, a season of bad air (cities, industry), bad water or a poisoned
+        river (industry, mining), a dry year (farming and hotter places, drawn in summer), a glorious spring (everywhere,
+        drawn in spring) and the recovery after a disaster. Rates are yearly, at the birth's climate, times the pace."""
+        nl, t, c = self.n_loc, int(self.t), self._c_par
+        if getattr(self, "c4_ill", None) is None:          # made on the first quarter the hook runs, so a world with it off
+            self.c4_ill = np.ones(nl)                      # saves nothing of it
+            self.c4_ill_to = np.zeros(nl, np.int64)
+            self.c4_air_t = np.full(nl, -9999, np.int64)
+            self.c4_dis = self.loc_disaster >= 1
+            self.c4_dry = 0
+        self.c4_dry = max(int(self.c4_dry) - 1, 0)
+        x = self._c_rng(4).random((nl, 5))
+        ft = lambda f: self.loc_feat[:, FEATURES.index(f)]
+        ref = self._extremes(self._warming_now())          # the birth's extremes: the start rates hold there
+        hz = self.loc_hazards[:, HAZARDS.index("heat")]
+        hot = hz > hz.mean()
+        pace = self.pace
+
+        def ill(l, k, weeks):
+            on = self.c4_ill_to[l] > t
+            self.c4_ill[l] = max(self.c4_ill[l], k) if on else k
+            self.c4_ill_to[l] = max(self.c4_ill_to[l], t + weeks)
+
+        heat = 1 + c("air_heat") * (self.extremes[4] / ref[4] - 1)
+        air = (ft("city") | ft("industry")) & (t - self.c4_air_t >= 52) & (x[:, 0] < c("air") / 4 * max(heat, 0) * pace)
+        for l in np.nonzero(air)[0]:
+            self.c4_air_t[l] = t
+            ill(l, c("air_ill"), 13)
+            self._event("nature", "bad air", None, dict(loc=int(l)), big=False)
+        dirty = ft("industry") | ft("mining")
+        for l in np.nonzero(dirty)[0]:
+            if x[l, 1] < c("river") / 4 * pace:
+                kind, k_, w_ = "poisoned river", c("river_ill"), 26
+            elif x[l, 1] < (c("river") + c("water")) / 4 * pace:
+                kind, k_, w_ = "bad water", c("water_ill"), 13
+            else:
+                continue
+            self.loc_services[l] = np.maximum(self.loc_services[l] - c("water_serv"), 0.05)   # each class's
+            ill(l, k_, w_)
+            self._event("nature", kind, None, dict(loc=int(l)), big=False)
+        if q_season == 2:                                  # the dry year shows in summer
+            dry = (ft("farming") | hot) & (x[:, 2] < c("drought") * self.extremes[1] / ref[1] * pace)
+            if dry.any():
+                share = float(self.loc_pop_share[dry].sum())
+                self.food += self.p["f_size"][0] * c("drought_food") * min(1.0, 3 * share)
+                self.c4_dry = 2                            # the food shock's chance doubles for this quarter and the next
+            for l in np.nonzero(dry)[0]:
+                self.loc_services[l] = np.maximum(self.loc_services[l] - c("drought_serv"), 0.05)
+                self._event("nature", "drought", None, dict(loc=int(l), farming=bool(ft("farming")[l])), big=False)
+        if q_season == 1:                                  # a glorious spring
+            for l in np.nonzero(x[:, 3] < c("spring") * pace)[0]:
+                self._event("nature", "glorious spring", None, dict(loc=int(l), farming=bool(ft("farming")[l])), big=False)
+        hit = self.loc_disaster >= 1                       # a disaster's active years end: the town builds itself back
+        for l in np.nonzero(self.c4_dis & ~hit)[0]:
+            cn = (self.inst_kind == INST_KINDS.index("council")) & (self.inst_loc == l)
+            self.inst_capacity[cn] = np.maximum(self.inst_capacity[cn] - c("rec_cost"), 0.05)
+            self._event("nature", "recovery", None, dict(loc=int(l)), big=False)
+        self.c4_dis = hit
+
+    def c4_illness(self):
+        """C4: each place's multiplier on illness (bad air, bad water, a poisoned river), or None with the hook off."""
+        if getattr(self, "c4_ill", None) is None:
+            return None
+        return np.where(self.c4_ill_to > self.t, self.c4_ill, 1.0)
 
     def _strike(self):
         """Disasters drawn for this week strike: the locality's recovery, its services, the record, disaster_now."""
@@ -3059,6 +3154,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in SPH_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
+            par = {k: v for k, v in par.items() if k not in C_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in C_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self._s3(k) for k in S3_RULES):        # stage 3 off: saved as v22.1 saved it (load restores them)
             par = {k: v for k, v in par.items() if k not in S3_RULES + S3_PARAMS}
             cp_ = {k: v for k, v in (cfg.get("params") or {}).items() if k not in S3_RULES + S3_PARAMS}
@@ -3073,6 +3174,8 @@ class World:
         params = dict(d["params"])
         for k in S3_RULES + SPH_RULES:                     # saved before stage 3 or the spheres: their rules stay off
             params.setdefault(k, False)
+        for k in C_RULES:                                  # saved before the C hooks: they stay off
+            params.setdefault(k, None if k == "c_par" else False)
         W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))
         for k, v in d["state"].items():
             if isinstance(v, dict) and "__nd__" in v:
