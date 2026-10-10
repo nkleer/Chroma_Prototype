@@ -254,6 +254,17 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             for ki, nt in enumerate(L["notes"][si][:K]):
                 self.took[si, ki] = str((nt or {}).get("mark") or "").strip() == "took them in"
+        # seen_done (S6): the path each option is on (the title it gives, else the title it aims at), and the People's
+        # count of the paths seen walked, in the engine's title indices
+        self.seen_on = bool(getattr(PP, "seen_on", False))
+        if self.seen_on:
+            NT_ = int(GR_.get("NT", 0)) if GR_ else 0
+            PP.seen_setup(GR_ if NT_ else None)
+            aim_ = np.asarray(GR_.get("A_AIM", np.full((S, K), -1))) if NT_ else np.full((S, K), -1)
+            ok_ = NT_ and AT_.shape == (S, K) and aim_.shape == (S, K)
+            self.sd_tk = np.where(AT_ >= 0, AT_, np.where((aim_ >= 0) & (aim_ < NT_), aim_, -1)) if ok_ else np.full((S, K), -1)
+            self.sd_stat = np.zeros((2, PM.C))   # the felt-odds lift on offered options by their colour way: sum, weight
+            self.sd_n = np.zeros(4)              # offered options; those on a path; the path part's sum; the whole lift's
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -586,6 +597,40 @@ class WorldLink:
         if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("far_"):
             return None
         return self.PP.far_info(int(n), pv_[0])
+
+    def seen_felt(self, p_hat, s, m, opt, offered):
+        """seen_done (S6): felt odds with what each life has seen walked (never the real odds): the option's path (its
+        title, People.sd_lt) plus its colour way (its ways x People.sd_lc), on every option but doing nothing (opt),
+        kept within .01 and .99. offered: the options open to them this week, for the colour-even check (sd_stat)."""
+        PP = self.PP; tk = self.sd_tk[s]
+        lt = np.take_along_axis(PP.sd_lt, np.maximum(tk, 0), 1) * (tk >= 0) if PP.sd_nt else np.zeros(tk.shape)
+        lf = lt + np.einsum("nkc,nc->nk", m, PP.sd_lc)
+        of_ = offered & opt
+        self.sd_stat[0] += np.einsum("nk,nkc->c", lf * of_, m); self.sd_stat[1] += np.einsum("nk,nkc->c", of_.astype(float), m)
+        self.sd_n += (of_.sum(), (of_ & (tk >= 0)).sum(), (lt * of_).sum(), (lf * of_).sum())
+        return np.where(opt, _uclip(p_hat + lf, 0.01, 0.99), p_hat)
+
+    def seen_info(self, n, si):
+        """seen_done, for the game's option row: per option of moment si, the strongest model on its path (People.
+        seen_model) or, on no path, on its leading colour way (People.seen_way): kind (the Library's earth_spheres.SEEN
+        word: seen, wrong, far, none), who (the model's cast id; absent for none), path or way, exposure, failures seen,
+        lift; None for an option with no ways (doing nothing)."""
+        if not self.seen_on:
+            return None
+        si = int(si); nk = len(self.L["labels"][si]); tk = self.sd_tk[si][:nk]; M_ = np.asarray(self.L["M"][si])[:nk]
+        return [self.PP.seen_model(int(n), int(x_)) if x_ >= 0 else
+                self.PP.seen_way(int(n), int(np.argmax(M_[k_]))) if M_[k_].sum() > 0 else None
+                for k_, x_ in enumerate(tk.tolist())]
+
+    def seen_report(self):
+        """seen_done's numbers for the refit: the mean felt-odds lift on offered options per colour way (each option
+        weighted by its ways), and the share of offered options on a path with their mean path lift."""
+        if not self.seen_on:
+            return None
+        n_ = self.sd_n
+        return dict(lift_by_colour=(self.sd_stat[0] / np.maximum(self.sd_stat[1], 1e-9)).round(4).tolist(),
+                    offered=int(n_[0]), on_path=int(n_[1]), path_lift=round(float(n_[2] / max(n_[1], 1)), 4),
+                    mean_lift=round(float(n_[3] / max(n_[0], 1)), 4))
 
     def era(self):
         W = self.W
@@ -982,13 +1027,16 @@ class WorldLink:
         snap = self.W.snapshot()
         snap["gov"]["leader_self"] = self.self_head is not None and int(self.self_head) in [int(i) for i in log_lives]
         others = {int(k_): W_.save() for k_, W_ in (getattr(PP, "_Ws", None) or {}).items() if W_ is not self.W}
-        return dict(t0=self.t0, record=list(self.W.record), log=self.log, hist=self.hist, snapshot=snap,
-                    save=self.W.save(), saves_other=others, people={int(i): PP.save(int(i)) for i in log_lives},
-                    cast={int(i): PP.cast_view(int(i)) for i in log_lives},
-                    place={int(i): PP.place_view(int(i)) for i in log_lives},
-                    settings={int(i): PP.settings_view(int(i)) for i in log_lives},
-                    reach={int(i): PP.reach_view(int(i)) for i in log_lives},
-                    figures={int(i): PP.figure_view(int(i)) for i in log_lives})   # public figures as the life reads them
+        out = dict(t0=self.t0, record=list(self.W.record), log=self.log, hist=self.hist, snapshot=snap,
+                   save=self.W.save(), saves_other=others, people={int(i): PP.save(int(i)) for i in log_lives},
+                   cast={int(i): PP.cast_view(int(i)) for i in log_lives},
+                   place={int(i): PP.place_view(int(i)) for i in log_lives},
+                   settings={int(i): PP.settings_view(int(i)) for i in log_lives},
+                   reach={int(i): PP.reach_view(int(i)) for i in log_lives},
+                   figures={int(i): PP.figure_view(int(i)) for i in log_lives})   # public figures as the life reads them
+        if self.seen_on:   # seen_done (only when on): the refit's numbers, and each logged life's ten most seen paths
+            out["seen"] = dict(self.seen_report(), paths={int(i): PP.seen_paths(int(i), top=10) for i in log_lives})
+        return out
 
     def save(self, n):
         return dict(world=self.W.save(), people=self.PP.save(n))

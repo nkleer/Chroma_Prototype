@@ -754,6 +754,10 @@ DEFAULT = dict(
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
+    seen_done=False,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
+                         # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
+                         # (world_people.SEEN_DEFAULT; None: start values)
+    seen_par=None,
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -963,7 +967,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, seen_done=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -2135,10 +2139,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
+    SEEN_ON = False
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
         nic = np.array(WL.PP.niche, float); circle = nic.copy()
+        SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
+        if SEEN_ON:
+            SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
         if getattr(WL.PP, "family_mix", None) is not None:
             fam = np.array(WL.PP.family_mix, float)
         older_sib = np.asarray(WL.PP.older_sib, int).copy(); younger_sib = np.asarray(WL.PP.younger_sib, int).copy()
@@ -3008,6 +3016,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + read_[:, None] * mom_ - diff)
                                         + TON * P["o_bias"] * (outlook - P["o_ref"])[:, None] + pbump + mis_, earn)))   # outlook: optimism or pessimism
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
+        if SEEN_ON:   # S6: a path or colour way seen walked feels more possible, one seen failing less (felt odds only)
+            p_hat = WL.seen_felt(p_hat, s, m, ~do_nothing, mask)
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
         serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
@@ -4144,8 +4154,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 fitd = KPAY @ (NMAP @ g_); dw[:NK] *= fitd / fitd.mean()        # what the dream is about follows what its ways serve
                 if st >= 2:
                     dw[:NK] *= ~held[n]
+                if SEEN_ON and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: from 8 to 20 a dream is about a path they have seen
+                    dw[:NK] *= 1 + SD_DREAM_ * WL.PP.seen_dom(n)    # more often (the sparks' rate as it was)
                 dom = int(rng.choice(NK + 1, p=dw / dw.sum())); dom = dom if dom < NK else -1
                 new_goal(n, 0, g_, dom, sc, trig=tr, s0=0.2 + 0.4 * adm)
+                if SEEN_ON and n in events and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: a dream seeded from a seen path
+                    sd_ = WL.PP.seen_dream(n, dom)                                    # and its model (the Library's "dream")
+                    if sd_:
+                        events[n].append(dict(seen=dict(sd_, age=round(age, 2))))
             # fading: an unfed dream fades (fast in childhood); a passion only when unpractised for a year; a plan that
             # does not fit who one is loses its pull (self-concordance: Sheldon & Elliot 1999)
             fd_ = np.exp(-np.log(2) / (52 * np.asarray(P["d_half"], float)[stage]))[:, None]
@@ -4440,6 +4456,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:
                         more_["far"] = fi_
+                if SEEN_ON:   # S6: per option, the strongest model on its path ("she has seen it done"), None off a path
+                    sn_ = WL.seen_info(i, int(s[i]))
+                    if sn_:
+                        more_["seen"] = sn_
                 if WON:   # the world on the options (hooks §2.6, §2.8): each option's lever and where it lands; a move names towns
                     lv_ = WL.option_levers(int(s[i]))
                     if lv_:

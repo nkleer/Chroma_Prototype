@@ -244,6 +244,25 @@ FAR_DEFAULT = dict(hard=1.0, good=1.0, call_hard=0.75, call_good=0.5, call_mixed
                    lapse=8, cause=104)
 FAR_WHO = ("any", "in_work", "out_of_work", "owner", "renter", "poor", "comfortable", "young", "old", "ill", "parent")
 FAR_OFF = 10 ** 9   # far_in: not taken in
+# seen_done (S6, chroma-ideas/social-mechanics.md "Seen it done"): start values, estimates refit in v22.3's joint refit
+# (the Outer world files none in dynamics.json). close, regular, figure: an exposure's weight by who walked the path
+# (close people, layers 1 and 2; regulars at the life's haunts; public figures); win, fail: a success seen counts +win,
+# a failure seen -fail; far: x for a model far above (far_rungs or more rungs higher, or far_years or more older);
+# lift: felt odds per unit of exposure, up to cap units; fail_lift: felt odds lost per failure seen, up to fail_cap
+# (the Engine's cap, so a long life of losses seen cannot take the felt odds to nothing); dream: at dream_ages a new
+# dream's domain leans by 1 + dream x the share of cap its best seen path has reached; from_age: the age from which a
+# life takes in what it sees; mix: a regular of another class counts through a gather haunt only, by mix x the town's
+# gather.mixing (up to 1: the middle of the scale lets them in fully)
+SEEN_DEFAULT = dict(close=1.0, regular=0.3, figure=0.05, win=1.0, fail=0.5, far=0.3, far_rungs=3, far_years=25,
+                    lift=0.03, cap=3.0, fail_lift=0.02, fail_cap=3.0, dream=1.0, dream_ages=(8, 20), from_age=4, mix=2.0)
+SEEN_WORDS = ("seen", "wrong", "far", "none", "dream")   # the Library's words (earth_spheres.SEEN): the strongest model
+# on an option's path or way succeeded (seen), was seen failing (wrong), counts as far above (far); nobody (none); a dream
+# seeded from a seen path (dream, an event at the dream's birth)
+SEEN_KINDS = ("career", "partner", "children")   # the paths a cast member walks: work (sector, standing), partner, children
+# the public figures' roles (world.FIG_ROLES) and the catalogue title each walks, where the catalogue has it
+SEEN_FIG = {"head of government": "head of government", "opposition leader": "party leader",
+            "star": "lead actor or actress", "athlete": "professional athlete", "preacher": "ordained religious minister",
+            "scientist": "research scientist", "magnate": "founder of a firm", "activist": "activist in a cause"}
 
 
 def _isin_small(a, vals):
@@ -433,6 +452,9 @@ class People:
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
+        self.seen_on = bool(wp_.get("seen_done", False))
+        if self.seen_on:   # seen_done (S6): the paths and colour ways each life has seen walked; felt odds and dreams read it
+            self._seen_init()
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -1767,6 +1789,8 @@ class People:
         self._cleanup(t)
         self._alive_counts(np.arange(self.N))
         self._approval(t)   # felt acceptance per norm key: once a quarter (views move slowly)
+        if self.seen_on:    # seen_done (S6): what the cast and the figures were seen to do this quarter
+            self._seen_q(t)
 
     # ------------------------------------------------------------------ ties: contact and closeness (spec 2 §3)
     def _tie_target(self, n2=None, k2=None):
@@ -2830,6 +2854,354 @@ class People:
                                         cid=int(self.uid[n_, k_])))
             self.far_in[n_, k_] = FAR_OFF
 
+    # ------------------------------------------------------------------ seen_done (S6): paths and ways seen walked
+    # (chroma-ideas/social-mechanics.md, S6 "Seen it done"; Bandura 1977, 1997; Bell, Chetty et al. 2019; Chetty et al.
+    # 2022; Lockwood and Kunda 1997). What a cast member carries here: a job or not (emp) in a sector, a standing 0-3
+    # (stand), a partner (mpart) and children (nkids), their colours as the character reads them (read). Each walks one
+    # catalogue title at work: the career of their sector at their standing (a pack ladder's rung where it has one),
+    # drawn by the title's share with a fixed hash of who they are (no random draw); partner and children are one
+    # ladder each, every title of the kind (not a facet, open by 30), so a married parent shows the whole way. Seen holding a path counts as a success once, at the weight they
+    # were seen with (more if they come closer); gaining it again (work found, a standing gained, a partner, a child)
+    # is a success; losing it (work lost before 64, a standing lost, a partnership ended) a failure. The public figures
+    # walk the title of their role (SEEN_FIG): rising into the role is a success, a scandal or a fall a failure.
+    def _seen_init(self):
+        N, K = self.N, self.K
+        self.sd_par = {**SEEN_DEFAULT, **dict((getattr(self.W, "p", None) or {}).get("seen_par") or {})}
+        self.sd_ec = np.zeros((N, C)); self.sd_fc = np.zeros((N, C))   # exposure and failures seen per colour way
+        self.sd_ctop = np.full((N, C), -1, np.int32); self.sd_ctopw = np.zeros((N, C))   # ... its strongest model (cast
+        self.sd_ctopk = np.zeros((N, C), np.int8)                                          # id), weight, SEEN_WORDS index
+        self._sd_uid = np.full((N, K), -1, np.int32)      # last quarter's cast, to read what changed since
+        self._sd_emp = np.zeros((N, K), bool); self._sd_mp = np.zeros((N, K), bool)
+        self._sd_nk = np.zeros((N, K), np.int8); self._sd_st = np.zeros((N, K), np.int8)
+        self._sd_t = np.full((N, K, 3), -1, np.int32)    # the title each walks at work; 1 on partner and children
+        self._sd_w = np.zeros((N, K, 3), np.float32)     # the weight each model's path was credited at
+        self._sd_wc = np.zeros((N, K), np.float32)       # ... and their colour way
+        self._sd_figs = set()                             # public figures seen in their role (credited once)
+        self._sd_li = len(getattr(self.W, "log", ()))    # the world's log entries already read (scandals, falls)
+        self._sd_saved = None                             # a load's per-life records, applied when the titles come
+        self.seen_setup(None)
+
+    def seen_setup(self, cat):
+        """seen_done: the title catalogue the paths are counted in (the link passes the engine's L["ROLES"]: names,
+        kindname, sector, standing, share, refines, ages; None: none yet). Arrays per life and title index:
+        sd_e exposure (successes x weight - failures x fail x weight), sd_f failures seen (weighted), sd_top the
+        strongest model's cast id (-1 none; a public figure f as -(f + 2)), sd_topw its weight and sd_topk its word
+        (SEEN_WORDS: 0 seen, 1 wrong, 2 far)."""
+        N = self.N; NT = int(cat["NT"]) if cat is not None else 0
+        self.sd_names = list(cat["names"])[:NT] if NT else []; self.sd_nt = NT
+        kn = list(cat["kindname"][:NT]) if NT else []
+        self.sd_kind = np.array([KN.index(k_) if k_ in KN else -1 for k_ in kn], np.int64)   # the commitment each title is in
+        self.sd_e = np.zeros((N, NT), np.float32); self.sd_f = np.zeros((N, NT), np.float32)
+        self.sd_top = np.full((N, NT), -1, np.int32); self.sd_topw = np.zeros((N, NT), np.float32)
+        self.sd_topk = np.zeros((N, NT), np.int8)   # the strongest model's word: 0 seen, 1 wrong, 2 far (SEEN_WORDS)
+        self._sd_pool = {}; self._sd_pk = {1: (np.zeros(0, np.int64), np.zeros(0)), 2: (np.zeros(0, np.int64), np.zeros(0))}
+        self._sd_fig = {}
+        if NT:
+            sec = np.asarray(cat["sector"])[:NT]; std = np.asarray(cat["standing"])[:NT]
+            sh = np.maximum(np.asarray(cat["share"], float)[:NT], 1e-4)
+            ref = np.asarray(cat["refines"])[:NT]; ages = np.asarray(cat["ages"], float)[:NT]
+            car = np.array([k_ == "career" for k_ in kn])
+
+            def pool(ids):
+                ids = np.asarray(ids, np.int64)
+                cw = np.cumsum(sh[ids]); return ids, cw / cw[-1] if len(ids) else cw
+            for s_ in range(len(SECTORS)):   # work: the careers of the sector at the cast member's standing
+                for st_ in range(4):
+                    cs_ = car & (sec == s_)
+                    c_ = np.nonzero(cs_ & ((std == st_) if st_ >= 1 else (std <= 0)))[0]
+                    if not len(c_) and st_ >= 1:
+                        c_ = np.nonzero(cs_ & (std >= 1))[0]
+                    if not len(c_):
+                        c_ = np.nonzero(cs_)[0]
+                    self._sd_pool[s_ * 4 + st_] = pool(c_)
+            for q_ in (1, 2):   # partner and children: one ladder each, the kind's own titles (not a facet, open by 30)
+                c_ = np.nonzero(np.array([k_ == SEEN_KINDS[q_] for k_ in kn]) & (ref < 0) & (ages[:, 0] <= 30))[0]
+                self._sd_pk[q_] = pool(c_)
+            ix = {x_: i_ for i_, x_ in enumerate(self.sd_names)}
+            self._sd_fig = {r_: ix[x_] for r_, x_ in SEEN_FIG.items() if x_ in ix}
+        if self._sd_saved:
+            ix = {x_: i_ for i_, x_ in enumerate(self.sd_names)}
+            for n_, d_ in self._sd_saved.items():
+                for x_, v_ in d_.items():
+                    if x_ in ix:
+                        self.sd_e[n_, ix[x_]], self.sd_f[n_, ix[x_]], self.sd_top[n_, ix[x_]], self.sd_topw[n_, ix[x_]] = v_[:4]
+                        self.sd_topk[n_, ix[x_]] = v_[4] if len(v_) > 4 else 0
+            self._sd_saved = None
+        sn, sk = np.nonzero(self._sd_uid >= 0)   # (after a load) the paths the cast walked when last read
+        self._sd_t[sn, sk] = self._sd_titles(sn, sk)
+        self._sd_lift()
+
+    def _sd_hash(self, n, k, salt):
+        """A fixed number in [0, 1) for cast member (n, k) and a salt: their name index, hashed (no random draw)."""
+        x = (self.nm[n, k].astype(np.int64) * 2654435761 + salt * 40503 + 977) % 4294967296
+        return x / 4294967296.0
+
+    def _sd_titles(self, n, k):
+        """The title cast members (n, k) walk at work by sector and standing (len x 3, -1 none), and 1 on the partner
+        and children ladders (whether they walk each now is read from emp, mpart and nkids)."""
+        out = np.full((len(n), 3), -1, np.int32)
+        if not self.sd_nt or not len(n):
+            return out
+        sec = self.sector[n, k].astype(np.int64); st = np.clip(self.stand[n, k].astype(np.int64), 0, 3)
+        pl = np.where(sec >= 0, sec * 4 + st, -1); u = self._sd_hash(n, k, 1)
+        for p_ in np.unique(pl[pl >= 0]).tolist():
+            ids, cw = self._sd_pool.get(p_, (np.zeros(0, np.int64), None))
+            if len(ids):
+                m_ = pl == p_
+                out[m_, 0] = ids[np.minimum(np.searchsorted(cw, u[m_], side="right"), len(ids) - 1)]
+        for q_ in (1, 2):   # partner and children: one ladder each (every title of the kind, _sd_pk), marked 1
+            out[:, q_] = 1 if len(self._sd_pk[q_][0]) else -1
+        return out
+
+    def _sd_rung(self):
+        """Each life's own rung, the highest of its spheres' (N2; 0 without the haunts' rungs)."""
+        rg = getattr(self, "rung", None)
+        return np.floor(rg.max(1)) if rg is not None else np.zeros(self.N)
+
+    def _seen_w(self, t, live):
+        """The weight each cast member's walk is seen with (N x K): close people (layers 1 and 2) 1; regulars at the
+        life's haunts .3, one of another class only through a gather haunt (the places that mix walks of life), by the
+        town's gather.mixing; x .3 for a model far above (3 or more rungs: their standing 0-3 reads as regular to leader,
+        a haunt's keeper as leader; or 25 or more years older). Also returns that far mask (N x K)."""
+        p = self.sd_par; N, K = self.N, self.K
+        close = live & (self.c >= self.P["layer_c"][1])
+        reg = live & ~close & ((self.rmask & BIT["regular"]) != 0)
+        w = close * np.float32(p["close"])
+        if reg.any():
+            other = self.mcls != self.cls[:, None]
+            at_g = np.zeros((N, K), bool)
+            hp = getattr(self.W, "hp_s", None); sh = getattr(self, "shnt", None)
+            if hp is not None and sh is not None:
+                H = len(HAUNT_KINDS); P_ = hp.shape[2]
+                gj = (sh >= 0) & (HAUNT_SPH[np.maximum(sh, 0) // P_ % H] == SPHERES.index("gather"))
+                for j_ in np.nonzero(gj.any(0))[0]:
+                    at_g |= gj[:, j_][:, None] & (((self.mset >> self.mset.dtype.type(j_)) & 1) > 0)
+            try:
+                mx = np.asarray(self.W.sph_state("gather.mixing"), float)[np.minimum(self.loc, self.n_loc - 1)]
+            except Exception:
+                mx = np.full(N, 0.5)
+            mw = np.minimum(1.0, p["mix"] * mx)[:, None]
+            w = w + reg * np.float32(p["regular"]) * np.where(other, np.where(at_g, mw, 0.0), 1.0)
+        mr = 1 + np.clip(self.stand.astype(np.int64), 0, 3)
+        mr = np.where((self.rmask & BIT["keeper"]) != 0, 4, mr)
+        far = (mr - self._sd_rung()[:, None] >= p["far_rungs"]) | (self._mage(t) - self._age(t) >= p["far_years"])
+        return (w * np.where(far, p["far"], 1.0)).astype(np.float32), far
+
+    def _sd_add(self, nn, ti, x, f=None, who=None, ww=None, far=None):
+        """Credit x (and failures f) to lives nn on titles ti; who, ww, far: the model's id, weight and whether they
+        count as far above, for the strongest model on each path (sd_top, sd_topw, sd_topk: SEEN_WORDS' index). A
+        success makes them the strongest when they weigh more (or already are): seen, or far; a failure seen when they
+        weigh as much or more (or already are): wrong."""
+        ok = ti >= 0
+        nn, ti, x = nn[ok], ti[ok], x[ok]
+        if not len(nn):
+            return
+        np.add.at(self.sd_e, (nn, ti), x)
+        if f is not None:
+            np.add.at(self.sd_f, (nn, ti), f[ok])
+        if who is not None:
+            who, ww = who[ok], ww[ok]
+            fr = np.zeros(len(nn), bool) if far is None else np.broadcast_to(far, ok.shape)[ok]
+            key = nn.astype(np.int64) * max(self.sd_nt, 1) + ti
+            o_ = np.lexsort((-ww, key)); ks_ = key[o_]
+            first = o_[np.r_[True, ks_[1:] != ks_[:-1]]]
+            n1, t1 = nn[first], ti[first]; tw_ = self.sd_topw[n1, t1]; same_ = self.sd_top[n1, t1] == who[first]
+            b_ = (ww[first] >= tw_) | same_ if f is not None else (ww[first] > tw_) | same_
+            n1, t1, i1 = n1[b_], t1[b_], first[b_]
+            self.sd_top[n1, t1] = who[i1]; self.sd_topw[n1, t1] = np.maximum(ww[i1], np.where(same_[b_], tw_[b_], 0))
+            self.sd_topk[n1, t1] = 1 if f is not None else np.where(fr[i1], 2, 0)
+
+    def _seen_q(self, t):
+        """seen_done, each quarter: what the cast was seen doing since the last (successes and failures on each path,
+        and on the colour ways as the character reads each model), the public figures, then the felt-odds lifts."""
+        p = self.sd_par; N, K = self.N, self.K
+        live = self.used & self.lv & ~self.dead[:, None]
+        same = live & (self.uid == self._sd_uid)
+        tnew = np.full((N, K, 3), -1, np.int32)
+        ln, lk = np.nonzero(live)
+        tnew[ln, lk] = self._sd_titles(ln, lk)
+        if self._age(t) >= p["from_age"]:
+            w, far = self._seen_w(t, live)
+            fresh = live & ~same                              # a new face in the slot: nothing of theirs credited yet
+            self._sd_w[fresh] = 0.0; self._sd_wc[fresh] = 0.0
+            emp_ok = (self._mage(t) < 64)
+            hold = np.stack([self.emp, self.mpart, self.nkids > 0], -1) & live[..., None]
+            gain = np.stack([same & self.emp & (~self._sd_emp | (self.stand > self._sd_st)),
+                             same & self.mpart & ~self._sd_mp, same & (self.nkids > self._sd_nk)], -1)
+            lose = np.stack([same & self._sd_emp & ((~self.emp & emp_ok) | (self.stand < self._sd_st)),
+                             same & ~self.mpart & self._sd_mp, np.zeros((N, K), bool)], -1)
+            wq = w[..., None]
+            pos = np.where(gain, wq, np.where(hold & (wq > self._sd_w), wq - self._sd_w, 0.0)) * (wq > 0)
+            neg = np.where(lose, wq, 0.0)
+            self._sd_w = np.where(hold | gain, np.maximum(self._sd_w, wq), self._sd_w).astype(np.float32)
+            for q_ in range(3):
+                ids_ = [None] if q_ == 0 else self._sd_pk[q_][0].tolist()   # work: their own title; else the kind's ladder
+                nn, kk = np.nonzero(pos[..., q_] > 0)
+                for i_ in ids_ if len(nn) else ():
+                    ti_ = tnew[nn, kk, q_] if i_ is None else np.where(tnew[nn, kk, q_] >= 0, i_, -1)
+                    self._sd_add(nn, ti_, p["win"] * pos[nn, kk, q_], who=self.uid[nn, kk], ww=w[nn, kk], far=far[nn, kk])
+                nn, kk = np.nonzero(neg[..., q_] > 0)
+                for i_ in ids_ if len(nn) else ():   # a failure, on the path as they walked it before
+                    ti_ = self._sd_t[nn, kk, q_] if i_ is None else np.where(self._sd_t[nn, kk, q_] >= 0, i_, -1)
+                    self._sd_add(nn, ti_, -p["fail"] * neg[nn, kk, q_], f=neg[nn, kk, q_], who=self.uid[nn, kk],
+                                 ww=w[nn, kk])
+            ha, ga = hold.any(-1), gain.any(-1)
+            cw_ = np.where(ga, w, np.where(ha & (w > self._sd_wc), w - self._sd_wc, 0.0))
+            cn_ = np.where(lose.any(-1), w, 0.0)
+            self._sd_wc = np.where(ha | ga, np.maximum(self._sd_wc, w), self._sd_wc).astype(np.float32)
+            if cw_.any() or cn_.any():
+                rd = self.read.astype(float)
+                self.sd_ec += np.einsum("nk,nkc->nc", p["win"] * cw_ - p["fail"] * cn_, rd)
+                self.sd_fc += np.einsum("nk,nkc->nc", cn_, rd)
+                # the strongest model in each colour way: the most weight x their share of it, as for the paths
+                for v_, fl_ in ((cw_, False), (cn_, True)):
+                    if not v_.any():
+                        continue
+                    x_ = np.where(v_ > 0, w, 0.0)[..., None] * rd; kb_ = x_.argmax(1); xb_ = np.take_along_axis(x_, kb_[:, None], 1)[:, 0]
+                    ub_ = self.uid[np.arange(N)[:, None], kb_]; same_ = self.sd_ctop == ub_
+                    b_ = (xb_ > 0) & (((xb_ >= self.sd_ctopw) if fl_ else (xb_ > self.sd_ctopw)) | same_)
+                    self.sd_ctop = np.where(b_, ub_, self.sd_ctop)
+                    self.sd_ctopw = np.where(b_, np.maximum(xb_, np.where(same_, self.sd_ctopw, 0)), self.sd_ctopw)
+                    fb_ = far[np.arange(N)[:, None], kb_]
+                    self.sd_ctopk = np.where(b_, 1 if fl_ else np.where(fb_, 2, 0), self.sd_ctopk).astype(np.int8)
+            self._seen_figs(t)
+        self._sd_uid = np.where(live, self.uid, -1).astype(np.int32)
+        self._sd_emp = self.emp.copy(); self._sd_mp = self.mpart.copy(); self._sd_nk = self.nkids.copy()
+        self._sd_st = self.stand.copy(); self._sd_t = tnew
+        self._sd_lift()
+
+    def _seen_figs(self, t):
+        """seen_done: the public figures, seen by every life at .05 (x .3 when far above: always a leader's rung, or 25
+        or more years older): a figure seen in their role a success, once; a scandal or a fall a failure."""
+        W = self.W; p = self.sd_par
+        log = getattr(W, "log", None)
+        try:
+            role = np.asarray(W.fig_role, np.int64); pie = np.asarray(W.fig_pie, float).reshape(-1, C)
+            act = np.asarray(W.fig_alive, bool) & np.asarray(getattr(W, "fig_active", W.fig_alive), bool)
+            born = np.asarray(W.fig_born, float)
+        except AttributeError:
+            return
+        names = getattr(sys.modules.get(type(W).__module__), "FIG_ROLES", None)
+        ev = [(f_, 1) for f_ in np.nonzero(act)[0].tolist() if f_ not in self._sd_figs]
+        self._sd_figs.update(f_ for f_, _ in ev)
+        if log is not None:
+            if len(log) < self._sd_li:   # another society's world (a move abroad): its log from here on
+                self._sd_li = len(log)
+            for e_ in log[self._sd_li:]:
+                if e_.get("domain") == "figure" and e_.get("kind") in ("scandal", "falls"):
+                    f_ = int((e_.get("value") or {}).get("fig", -1))
+                    if 0 <= f_ < len(role):
+                        ev.append((f_, -1))
+            self._sd_li = len(log)
+        if not ev:
+            return
+        ln = np.nonzero(~self.dead)[0]
+        if not len(ln):
+            return
+        rg = self._sd_rung()[ln]; a = self._age(t)
+        for f_, sg_ in ev:
+            nm_ = names[int(role[f_])] if names is not None and 0 <= role[f_] < len(names) else None
+            ti = self._sd_fig.get(nm_, -1)
+            far = (4 - rg >= p["far_rungs"]) | ((t - born[f_]) / 52.0 - a >= p["far_years"])
+            wv = p["figure"] * np.where(far, p["far"], 1.0)
+            x_ = np.sin((f_ + 1) * 12.9898 + np.arange(C)[None] * 78.233 + ln[:, None] * 0.618034 + self.run_seed * 0.414214) * 43758.5453
+            sl_ = _norm((x_ - np.floor(x_) + 0.2)[:, self.perm])   # the character's reading, as figure_view reads it
+            rd = _norm(0.5 * pie[f_][None] + 0.3 * self.lens[ln] + 0.2 * sl_)
+            if sg_ > 0:
+                self.sd_ec[ln] += p["win"] * wv[:, None] * rd
+                if ti >= 0:
+                    self._sd_add(ln, np.full(len(ln), ti), p["win"] * wv, who=np.full(len(ln), -(f_ + 2), np.int32), ww=wv,
+                                 far=far)
+            else:
+                self.sd_ec[ln] -= p["fail"] * wv[:, None] * rd; self.sd_fc[ln] += wv[:, None] * rd
+                if ti >= 0:
+                    self._sd_add(ln, np.full(len(ln), ti), -p["fail"] * wv, f=wv, who=np.full(len(ln), -(f_ + 2), np.int32),
+                                 ww=wv)
+
+    def _sd_lift(self):
+        """The felt-odds lifts the engine adds (seen_done): per life and title sd_lt, per life and colour way sd_lc:
+        lift x min(exposure, cap) (none below 0) - fail_lift x min(failures seen, fail_cap)."""
+        p = self.sd_par
+        self.sd_lt = (p["lift"] * np.clip(self.sd_e, 0, p["cap"]) - p["fail_lift"] * np.minimum(self.sd_f, p["fail_cap"])).astype(np.float32)
+        self.sd_lc = p["lift"] * np.clip(self.sd_ec, 0, p["cap"]) - p["fail_lift"] * np.minimum(self.sd_fc, p["fail_cap"])
+
+    def seen_dom(self, n):
+        """seen_done: per commitment (career, partner, children, community, faith) the share of cap its best seen path
+        has reached (0..1), for a new dream's domain (engine, 4d)."""
+        out = np.zeros(len(KN))
+        if self.seen_on and self.sd_nt:
+            e_ = np.clip(self.sd_e[n], 0, self.sd_par["cap"]) / self.sd_par["cap"]
+            for d_ in range(len(KN)):
+                m_ = self.sd_kind == d_
+                if m_.any():
+                    out[d_] = float(e_[m_].max())
+        return out
+
+    def _sd_word(self, n, top, k, e, f):
+        """The Library's word (SEEN_WORDS) and the model for one path or way: none when nothing was seen on it."""
+        if top == -1 or (e <= 0 and f <= 0):
+            return dict(kind="none")
+        d_ = dict(kind=SEEN_WORDS[int(k)])
+        if top >= 0:
+            k_ = self._slot(n, top)
+            d_.update(who=int(top), role=self._rname(n, k_) if k_ >= 0 else None)
+        else:
+            d_.update(figure=-int(top) - 2)
+        return d_
+
+    def seen_model(self, n, ti):
+        """seen_done, for the game's option row ("She has seen it done: her aunt Mira" / "No one she knows has done
+        this"; the Library's earth_spheres.SEEN words): title ti's path, kind (SEEN_WORDS: seen, the strongest model on
+        it succeeded; wrong, they were seen failing; far, they count x .3, far above or 25 years older; none, nothing
+        seen on it), who (that model's cast id; a public figure gives figure, their id, instead), their role if still
+        in the cast, the exposure, failures seen and the felt-odds lift. None for no title."""
+        ti = int(ti)
+        if not self.seen_on or ti < 0 or ti >= self.sd_nt:
+            return None
+        e_, f_ = float(self.sd_e[n, ti]), float(self.sd_f[n, ti])
+        return dict(self._sd_word(n, int(self.sd_top[n, ti]), self.sd_topk[n, ti], e_, f_), path=self.sd_names[ti],
+                    exposure=round(e_, 2), failures=round(f_, 2), lift=round(float(self.sd_lt[n, ti]), 3))
+
+    def seen_way(self, n, c):
+        """seen_done: the same for colour way c (an option on no path, by its leading way): kind, who, way (the colour
+        key), exposure, failures seen and the felt-odds lift on that way."""
+        if not self.seen_on:
+            return None
+        c = int(c); e_, f_ = float(self.sd_ec[n, c]), float(self.sd_fc[n, c])
+        return dict(self._sd_word(n, int(self.sd_ctop[n, c]), self.sd_ctopk[n, c], e_, f_), way=COLORS[c],
+                    exposure=round(e_, 2), failures=round(f_, 2), lift=round(float(self.sd_lc[n, c]), 3))
+
+    def seen_paths(self, n, top=None):
+        """seen_done, for other parts (A15's dream moments): life n's seen paths, most seen first, each as seen_model
+        gives it plus domain (the commitment the title is in, None for a status). The arrays behind it: sd_e, sd_f,
+        sd_top, sd_topw, sd_topk (N x titles, the engine's title indices); sd_ec, sd_fc, sd_ctop, sd_ctopw, sd_ctopk
+        (N x colours); sd_lt, sd_lc the felt-odds lifts; seen_dom(n) the share per commitment."""
+        if not self.seen_on:
+            return []
+        ix = np.nonzero((self.sd_e[n] != 0) | (self.sd_f[n] > 0))[0]
+        ix = ix[np.argsort(-self.sd_e[n, ix], kind="stable")][:top]
+        out = []
+        for ti in ix.tolist():
+            d_ = self.seen_model(n, ti)
+            d_["domain"] = KN[int(self.sd_kind[ti])] if self.sd_kind[ti] >= 0 else None
+            out.append(d_)
+        return out
+
+    def seen_dream(self, n, dom):
+        """seen_done: for a new dream about commitment dom (engine 4d), the seen path it was seeded from: the best seen
+        title of that commitment and its strongest model, as an event dict (kind "dream", who, path); None if none."""
+        if not self.seen_on or not self.sd_nt or dom < 0:
+            return None
+        m_ = np.nonzero((self.sd_kind == int(dom)) & (self.sd_e[n] > 0))[0]
+        if not len(m_):
+            return None
+        ti = int(m_[np.argmax(self.sd_e[n, m_])]); tp = int(self.sd_top[n, ti])
+        if tp == -1:
+            return None
+        d_ = self._sd_word(n, tp, 0, 1.0, 0.0)
+        d_["kind"] = "dream"; d_["path"] = self.sd_names[ti]
+        return d_
+
     # ------------------------------------------------------------------ approval, standing, reach (spec 2 §3, spec 7)
     def _norm_hist(self, t):
         v = np.zeros(NNORM)
@@ -3683,6 +4055,17 @@ class People:
                               sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
                               inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
                               rng=self._far_rng.bit_generator.state if self.N == 1 else None)
+        if self.seen_on:   # seen_done (only when on): the paths seen, by title name; the colour ways; what each slot was
+            ti_ = np.nonzero((self.sd_e[n] != 0) | (self.sd_f[n] > 0) | (self.sd_top[n] != -1))[0]   # credited at
+            ks_ = np.nonzero(self.used[n] & ((self._sd_w[n] > 0).any(1) | (self._sd_wc[n] > 0)))[0]
+            out["seen"] = dict(e={self.sd_names[i_]: [float(self.sd_e[n, i_]), float(self.sd_f[n, i_]), int(self.sd_top[n, i_]),
+                                                      float(self.sd_topw[n, i_]), int(self.sd_topk[n, i_])] for i_ in ti_.tolist()},
+                               ec=[float(x_) for x_ in self.sd_ec[n]], fc=[float(x_) for x_ in self.sd_fc[n]],
+                               ctop=[int(x_) for x_ in self.sd_ctop[n]], ctopw=[float(x_) for x_ in self.sd_ctopw[n]],
+                               ctopk=[int(x_) for x_ in self.sd_ctopk[n]],
+                               figs=sorted(int(f_) for f_ in self._sd_figs), li=int(self._sd_li), k=[int(k_) for k_ in ks_],
+                               w=[[float(y_) for y_ in self._sd_w[n, k_]] for k_ in ks_.tolist()],
+                               wc=[float(self._sd_wc[n, k_]) for k_ in ks_.tolist()])
         return out
 
     @classmethod
@@ -3764,5 +4147,19 @@ class People:
                         pp.far_sd[n, ks_] = f_["sd"]; pp.far_in[n, ks_] = f_["inn"]; pp.far_from[n, ks_] = f_["frm"]
                     if f_.get("rng") is not None and pp.N == 1:
                         pp._far_rng.bit_generator.state = f_["rng"]
+        if pp.seen_on:   # seen_done: the cast as loaded is the cast last read (no change is seen at the next quarter)
+            lv_ = pp.used & pp.lv
+            pp._sd_uid = np.where(lv_, pp.uid, -1).astype(np.int32)
+            pp._sd_emp = pp.emp.copy(); pp._sd_mp = pp.mpart.copy(); pp._sd_nk = pp.nkids.copy(); pp._sd_st = pp.stand.copy()
+            pp._sd_saved = {}
+            for n, d in enumerate(saved):
+                s_ = d.get("seen")
+                if s_:
+                    pp._sd_saved[n] = s_["e"]; pp.sd_ec[n] = s_["ec"]; pp.sd_fc[n] = s_["fc"]
+                    pp.sd_ctop[n] = s_["ctop"]; pp.sd_ctopw[n] = s_["ctopw"]; pp.sd_ctopk[n] = s_["ctopk"]
+                    pp._sd_figs.update(s_["figs"]); pp._sd_li = int(s_["li"])
+                    ks_ = np.asarray(s_["k"], np.int64)
+                    if len(ks_):
+                        pp._sd_w[n, ks_] = s_["w"]; pp._sd_wc[n, ks_] = s_["wc"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
