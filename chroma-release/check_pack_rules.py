@@ -6,6 +6,7 @@ A gate missing from PACK_RULES means that moment runs without its gate (ROUND5-H
 re-paste, the new long-shot life events run without their gates"). Read only.
 
     python3 -B chroma-release/check_pack_rules.py [--proto DIR] [--batch DIR] [--packs science,politics,stage]
+(the default adds art where the tree has chroma-packs/art: Packs #154, v22.4)
 
 Exit code 0 when every key is present."""
 import sys, os, argparse, importlib.util
@@ -17,7 +18,7 @@ from paths import P, path, ROOT   # backend plan item 6: every folder is named o
 ap = argparse.ArgumentParser()
 ap.add_argument("--proto", default=P["engine_live"])   # the engine to check (v22_checks.py lays a candidate there)
 ap.add_argument("--batch", default=P["library_live"])
-ap.add_argument("--packs", default="science,politics,stage")
+ap.add_argument("--packs", default="science,politics,stage" + (",art" if os.path.isdir(path("packs_live", "art")) else ""))
 a = ap.parse_args()
 
 

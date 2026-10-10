@@ -1,0 +1,341 @@
+# Chroma content pack, Art and Writing: visual art and writing (modern Earth first, with the tribal and magic worlds).
+# PART 3 of the pack's moments: SIDE ROADS AND THE TASTE RUNG (moments 15 to 22 of MOMENTS-BRIEF.md), an everyday pair
+# per title that only its holder meets (holds:): the open-mic poet (the taste rung of the writing road), the art teacher
+# (White's road), the gallery owner (Black's road), and the craft maker and master craftsperson (Green's road).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md and notes/library-spec.md. Brief:
+# chroma-packs/art/MOMENTS-BRIEF.md (part 3). Titles and perks: chroma-packs/art/catalogue.py, chroma-packs/core/*.py and
+# the base catalogue (chroma-library/earth_perks_titles.py: novelist, craft maker, public speaking, following online,
+# organising people, contact in the trade, striking a deal, selling); the form of each title and perk in the tribal and
+# magic worlds: the table in MOMENTS-BRIEF.md ("Forms in the other worlds").
+# Holder pairs take no new title (calibration lesson 2): where a pair points at the next rung, the option carries aims:
+# instead, grants: names a perk plainly earned by the act, and drops: stays on the one act that truly ends a role (the
+# art teacher who leaves). Pair halves share stages, ages, holds:, rate and gap (community titles rate .2, careers .5,
+# gap 1-3, no share: line: the holds: gate does the drawing); calls split the colours 2 and 3, and both halves use the
+# cycle named on the pair's header line. Every moment has earth:, tribal: and magic: lines and an untagged tribal and
+# magic scene; an option whose act reads differently in a world carries its own tribal: or magic: wording; works and
+# fails lines are written to read in every world. No real person, gallery, museum, prize, publisher, school, brand,
+# country or year is named. The art teacher's pupils appear only at school, in class, at a club or with their parents,
+# and no option touches a child's safety. Wrongs are plain, two closed acts per means colour over the file, never forced.
+# Brief changes: the brief's "share .005" on 'a machine-made copy in the shop window' is the craft maker's catalogue
+# share; it is written into that moment's times: line, not as a share: line, so the pair's halves stay alike (holder
+# pairs carry no share:, as stage-roads.lib).
+
+# ---------------------------------------------------------------- open-mic poet: calls BG / calls WUR (cycle s1)
+
+== the poem that silenced the room
+tier: everyday
+rate: 0.2
+gap: 1-3
+times: per open-mic poet a year: about 1 in 10 read a poem that stops the room dead (estimate); about 1 life in 100 reads at a poetry night again and again (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: BG
+holds: open-mic poet
+tone: joy
+life: community, meaning
+horizon: moment
+roles: friend, colleague
+earth: the poetry night at the back of the pub: a new poem read, and the room goes so quiet the glasses stop clinking
+tribal: new verses spoken at the band's fire, and the whole band goes still, down to the last child
+magic: a new poem read at the poets' night in the tavern, and the whole taproom falls silent
+scene: Third on the chalkboard list at the back of the pub, {N} reads the new poem, the one written at the kitchen table at two in the morning. When the last line ends there is no applause at first, only a silence so deep that the ice can be heard settling in a glass. Then the room breaks.
+scene W: The night has its customs: three minutes each, the host's little bell, names on the chalkboard in order. {N} kept to every one of them, and the silence came anyway.
+scene U: {N} knows which line did it: the turn in the eleventh line, redrafted fourteen times on the bus. It is good to know, for certain, that a thing works.
+scene B: At the back, a woman who edits a small poetry magazine has written something down. {N} notices, and notices who else noticed.
+scene R: {Ns} hands are still shaking on the way back to the table. The poem said the thing that could not be said any other way, and the whole room heard it.
+scene G: The poem was about the street {N} grew up on, and half the room grew up there too. An old man by the bar is wiping his eyes with the back of his hand.
+scene tribal: At the band's fire, {N} speaks the new verses about the winter the river froze. When they end no one speaks; even the children are still, and the old ones look into the flames.
+scene magic: At the poets' night in the back room of the tavern, {N} reads the new poem. The taproom goes so still that the landlord stops drawing ale halfway through a pour.
+- W | offer to keep the list and the bell for the host, every month from now on | v: conformity, benevolence | grants: a circle of artists | tribal: offer to keep the order of the speakers at every fire from now on | magic: offer to keep the readers' list for the landlord at every poets' night from now on | chance: 85
+- U | ask the quietest listener afterwards which line did it, and note it down | v: achievement | grants: writing poems | tribal: ask the oldest listener afterwards which words did it, and keep them close | magic: ask the quietest listener afterwards which line did it, and note it in your book | chance: 80
+- B | send the editor at the back a new poem every month until one is taken | v: power, achievement | habit | aims: novelist | tribal: send new verses with the next band's teller to every gathering, until some are carried | magic: send the broadsheet printer from the taproom a new poem every month until one is printed | chance: 50
+- R | read it again straight away when they shout for more, louder this time | v: stimulation, hedonism | tribal: speak the verses again when they call for more, louder, on your feet | magic: read it again when the taproom calls for more, standing on the bench | chance: 75
+- G | copy the poem out by hand for the old man by the bar | v: benevolence, tradition | mark: made a friend | tribal: teach the verses to the old one by the fire, so they stay with the band | magic: copy the poem out by hand for the old drover by the hearth | chance: 95
+- W>U | join the host's monthly workshop, and bring a new draft to every session | v: achievement, conformity | habit | grants: writing poems | tribal: sit with the old teller at every new moon, and bring new verses each time | magic: join the poets' circle that meets above the tavern each month, with a new draft every time | chance: 70
+- U>B | start shaping a first collection around this poem, to send to publishers | v: achievement, power | binds | self_control: + | aims: novelist | tribal: start shaping a long telling around these verses, to speak at the great gathering | magic: start shaping a first book of poems around this one, to send to the printers | chance: 65
+- B>R | talk your way onto the bill at the big slam in the city next week | v: stimulation, achievement | tribal: ask to speak at the great gathering's fire, before every band, at the next moon | magic: talk your way onto the bill at the great poets' contest in the capital | chance: 55
+- R>G | stay at the bar with the other poets till closing, swapping notebooks | v: hedonism, benevolence | habit | grants: a circle of artists | tribal: stay by the embers with the other speakers of verses till the stars turn | magic: stay in the taproom with the other poets till the last bell, swapping books | chance: 90
+- G>W | gather the regulars' own poems about the town into a booklet for the library | v: tradition, universalism | tribal: gather the band's old verses about the land, and teach them to the young ones at the fire | magic: gather the quarter's own poems into a little booklet for the temple library | chance: 75
+works: The poem is asked for again and again, and {N} goes home with new friends and the names of people who want more.
+works: For a week the poem goes round, passed from hand to hand and said aloud, and {N} keeps writing.
+fails: The next poem {N} reads falls flat, and the night's spell does not come back.
+fails: The silence turns out to have been one good night, and the notebook stays shut for a month.
+
+== a heckler at the front table
+tier: everyday
+rate: 0.2
+gap: 1-3
+times: per open-mic poet a year: about 1 in 3 read through a heckler or a loud table at the front (estimate); about 1 life in 100 reads at a poetry night again and again (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: WUR
+holds: open-mic poet
+tone: trouble
+life: community, meaning
+horizon: moment
+roles: friend, colleague
+earth: the poetry night: a man at the front table, three pints in, talks through the poem and shouts that it does not even rhyme
+tribal: at the band's fire, a young hunter back from the chase laughs over the verses and calls them babble
+magic: at the tavern's poets' night, a drover deep in his cups bangs his tankard on the front bench and jeers at the poem
+scene: Halfway through {Ns} poem, the man at the front table, three pints in, starts talking to his friends over it. Then he turns round and calls out, loud enough for the whole room, that it does not even rhyme. Someone laughs. The next line is the hardest one in the poem.
+scene W: The night has one rule, chalked on the board by the door: listen to the poet. Everyone in the room knows it, including him.
+scene U: {N} has seen good poets lose a room this way, and has thought about what the best of them do. The next five seconds are a problem to be solved.
+scene B: Every eye in the room has turned, and for a moment {N} has more of the room than any poet all night. The question is what to do with it.
+scene R: The blood comes up hot in {Ns} face. The poem is about something real, and he is laughing at it.
+scene G: There is one at every night, sooner or later. The regulars have their way with them, and the poem will still be there when he has gone.
+scene tribal: At the band's fire, as {N} speaks the new verses, a young hunter back from the chase laughs over them and calls them babble. A few of his friends laugh too, and the old ones frown.
+scene magic: At the poets' night in the tavern, a drover deep in his cups bangs his tankard on the front bench and jeers that the poem would not sell a lame horse. The taproom turns to look.
+- W | stop the poem there, and leave him to the host and the night's rule | v: conformity, security | self_control: - | tribal: stop the verses there, and leave him to the elder who keeps the order of the fire | magic: stop the poem there, and leave him to the landlord and the house rule | chance: 85
+- U | answer him with a rhyme made up on the spot, and carry on | v: achievement, stimulation | identity | grants: public speaking | tribal: answer him with a verse made on the spot, and carry on | magic: answer him with a couplet made on the spot, and carry on | chance: 45
+- B | turn on him, and play the rest of the set to the room at his expense | v: power, achievement | mark: made an enemy | tribal: turn on him, and keep the band laughing at the hunter for the rest of the night | magic: turn on him, and play the rest of the night to the taproom at his cost | chance: 75
+- R | step down off the stage, and read the rest of the poem straight to his face | v: stimulation, self-direction | self_control: + | body: light | tribal: walk round the fire, and speak the rest of the verses straight into his face | magic: step down off the bench, and read the rest straight into his face | chance: 60
+- G | let him talk, finish softly for those leaning in, and write him into a poem later | v: universalism, benevolence | aims: novelist | tribal: let him laugh, finish softly for those leaning in, and make a verse of him later | magic: let him jeer, finish softly for those leaning in, and write him into a poem later | chance: 75
+- W>U | sign up for a course in reading aloud, and practise every week | v: achievement, conformity | door | grants: public speaking | tribal: ask the old teller to teach you to hold the fire, and practise every night | magic: take lessons in declaiming from the old herald, and practise every week | chance: 80
+- U>B | post the clip of his heckle online, cut to your best comeback | v: power, achievement | mark: made an enemy | closed: approval: a stranger filmed and posted without his say; backfire: the clip spreads with the night's name on it, and the host asks the poet to stay away for a while | grants: following online | tribal: make a mocking verse of the hunter, sharp as a flint, and teach it to the young ones | magic: write a broadsheet ballad of the drover's jeer and your answer, and sell it in the square | chance: 40
+- B>R | buy him a drink at the break, and have him cheering by the end | v: hedonism, power | tribal: give him a share of your meat at the break, and have him cheering by the end | magic: stand him an ale at the break, and have him cheering by the end | chance: 80
+- R>G | invite him up to read something of his own, if he thinks he can do better | v: stimulation, benevolence | mark: made a friend | tribal: invite him into the firelight to speak a verse of his own | magic: invite him up onto the bench to read something of his own | chance: 60
+- G>W | let the regulars hush him, the way the room has always done | v: tradition, conformity | tribal: let the old ones hush him, as the band has always done | magic: let the regulars hush him, the way the taproom always has | chance: 65
+works: By the last line the room is back on {Ns} side, and {N} is asked to read again next time.
+works: The heckler goes quiet, and the poem ends to warmer applause than it would have had.
+fails: The poem is lost under the noise, and {N} sits down before the end.
+fails: The night turns sour, and {N} does not go back for a month.
+
+# ---------------------------------------------------------------- art teacher: calls WG / calls UBR (cycle s2)
+
+== the child who draws all through maths
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per art teacher a year: most have a pupil or two who draw through other lessons, and about 1 in 4 are brought one by a colleague (estimate); about 3 lives in 1,000 teach art (catalogue share; about 1 secondary teacher in 25 teaches art and design, the UK and US teaching workforce counts)
+stages: young_adult adult mature elder
+age: 22-80
+calls: WG
+holds: art teacher
+tone: joy
+life: work, meaning
+horizon: months
+roles: colleague, boss
+earth: the maths teacher brings a pupil's exercise book to the art room: every page of sums has drawings in the margins, and they are good
+tribal: the keeper of the herd count brings a flat stone: the girl meant to cut a mark for each beast has drawn every beast instead, alive
+magic: the reckoning master brings the drawing master a pupil's slate: the sums are wrong, and the margins are full of horses
+scene: At break, {colleague}, who teaches maths, drops an exercise book on {Ns} desk in the art room. A boy of twelve has failed every test this term, and every page of sums is crowded with drawings: hands, bicycles, a horse, the maths teacher's own face, all of them good.
+scene W: A boy who draws through maths is breaking a rule, and {colleague} is right to be cross. {N} also made a promise to every child in the school: that drawing can be learned, properly, by anyone who wants it.
+scene U: {N} turns the pages slowly. The perspective is wrong in an interesting way; nobody taught him this, he has worked it out alone.
+scene B: Work like this could win the schools' competition in the spring, and the art department's budget follows its prizes.
+scene R: The horse on page nine is so alive that {N} laughs out loud. This is the thing itself, the thing that cannot be taught.
+scene G: Every few years one comes along. They need less pushing than room, and time, and someone who notices.
+scene tribal: The keeper of the herd count brings {N} a flat stone from the children's lesson. A girl of the river hearth was meant to cut one mark for each beast in the herd; instead she has drawn every beast, and they are alive.
+scene magic: The reckoning master puts a pupil's slate on {Ns} table in the academy's drawing hall. The sums are wrong from top to bottom, and the margins are full of horses that look ready to run.
+- W | agree a rule with him and his maths teacher: sums first, then the margins are his | v: conformity, benevolence | self_control: + | tribal: agree a rule with her and the keeper: the count first, then the beasts are hers | magic: agree a rule with the pupil and the reckoning master: sums first, then the margins | chance: 80
+- U | show him how the geometry from maths would fix his perspective | v: achievement, self-direction | tribal: show her how the count of the marks can set the beasts in their right places | magic: show the pupil how the reckoning of angles would set the horses true | chance: 70
+- B | enter his best drawings in the schools' competition, with his parents' leave | v: power, achievement | tribal: carry her stone to the gathering, with her mother's leave, for the traders to see | magic: send the best slate to the academy's prize day, with the parents' leave | chance: 35
+- R | give him a good sketchbook, and tell him to draw in maths if he must | v: stimulation, self-direction | mark: defied an authority | closed: approval: a pupil told he may draw in another teacher's lesson; backfire: the maths teacher goes to the head, and the art teacher is warned | tribal: give her a smooth stone of her own, and tell her to draw at the count if she must | magic: give the pupil a sketchbook, and tell them to draw in reckoning if they must | chance: 85
+- G | talk with his parents at parents' evening about what he loves | v: benevolence, tradition | grants: pupils who remember you | tribal: sit with her mother at the hearth, and talk of what the girl loves | magic: talk with the pupil's parents on visiting day about what the child loves | chance: 80
+- W>B | put him forward for the gifted pupils' Saturday art course, forms and all | v: achievement, conformity | tribal: put her forward to the painter of the great cave, with the elders' word | magic: put the pupil forward for the academy's scholars' bench, with every form signed | chance: 55
+- U>R | set him a project: a comic of the maths lesson, drawn properly, frame by frame | v: self-direction, stimulation | tribal: set her a task: the whole hunt drawn on one hide, beast by beast | magic: set the pupil a task: the whole reckoning lesson drawn as a picture-story | chance: 75
+- B>G | talk the empty shop on the high street into a week's show of the children's work | v: achievement, benevolence | aims: gallery owner | tribal: talk the traders into laying out the children's stones at the great gathering | magic: talk the owner of the empty hall on the square into a week's show of the pupils' drawings | chance: 60
+- R>W | stand up for him at the staff meeting when detentions for doodling come up | v: universalism, stimulation | tribal: speak up for her at the elders' fire when the keeper wants her kept from the stones | magic: speak up for the pupil at the masters' table when punishments for idle drawing come up | chance: 55
+- G>U | let him draw at the lunchtime art club, and just watch how he works | v: universalism, self-direction | habit | grants: pupils who remember you | tribal: let her draw with the other children at the painting place, and watch how she sees | magic: let the pupil draw in the drawing hall at midday with the others, and watch how the hand moves | chance: 75
+works: The child draws in the right places now, and the sums creep up with it.
+works: Years later the child, grown, still draws, and remembers who noticed.
+fails: The child goes quiet and stops drawing anywhere, even in art.
+fails: {colleague} complains to {boss}, and {N} is told to keep out of other subjects.
+
+== the art room budget is cut
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per art teacher a year: about 1 in 8 see the art room's budget cut (estimate); about 3 lives in 1,000 teach art (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 22-80
+calls: UBR
+holds: art teacher
+tone: trouble
+life: work
+horizon: months
+roles: boss, colleague
+earth: the head's plan for next year: the art room's budget is halved, and the cracked kiln will not be mended
+tribal: the elders say the ochre and the fat for paint must go to the hides this winter
+magic: the academy's bursar halves the drawing master's purse for pigment and paper
+scene: {boss}, the head, says it kindly and plainly across the desk: next year the art budget is halved. Paper, paint and clay for six hundred children on half of not much, and the kiln that cracked in the spring will not be mended.
+scene W: {N} has kept the art room's accounts to the penny for nine years and handed them in on time every term. The cut is already in the minutes, signed off by the governors.
+scene U: On the back of the letter {N} is already working it out: what paper costs, what clay costs, what can be made from nothing at all.
+scene B: The sports hall got a new floor this year. {N} knows which governors decide, and what they like to see in the school's brochure.
+scene R: Halved. After the year the children turned the whole hall into a forest. It lands like a slap.
+scene G: Artists have always worked with what was at hand: earth, charcoal, the backs of old posters. The children will make things either way.
+scene tribal: At the winter council the elders speak: the ochre and the fat are needed for the hides, and the children's painting must wait for spring. {N}, who teaches the children the marks and the patterns, sits with the empty paint shells.
+scene magic: The academy's bursar sends a sealed note: from the new term the drawing master's purse for pigment and paper is halved. {N} reads it twice in the cold drawing hall.
+- W | report the cut to the schools inspectors as a breach of the curriculum | v: conformity, universalism | mark: defied an authority | closed: approval: going over the head's head to the inspectors; backfire: nothing changes, and the head stops trusting the art room | tribal: take the matter to the elders of the other bands at the gathering, as custom allows | magic: write to the academy's visitors that the charter's drawing hours are broken | chance: 40
+- U | plan a year of art from found things: cardboard, charcoal, river clay, old magazines | v: achievement, self-direction | tribal: plan a winter of marks from what the land gives: charcoal, chalk, clay from the river | magic: plan a year of drawing from scraps: charcoal, chalk, river clay, old broadsheets | chance: 80
+- B | take the design job a friend has offered, and leave at the end of term | v: power, achievement | self_control: - | drops: art teacher | tribal: go to paint shields for the chief's kin, and leave the children's marks to others | magic: take the post a printer has offered, and leave the academy at the term's end | chance: 90
+- R | paint the school hall with the children in the last week, with whatever paint is left | v: stimulation, benevolence | body: light | grants: a mural the town loves | tribal: paint the shelter wall with the children before the ochre goes, every hand on it | magic: paint the academy's hall with the pupils in the last week, with every pot that is left | chance: 55
+- G | bring in wood, wool and clay from home and the allotment, as makers always have | v: tradition, benevolence | tribal: gather berries, chalk and soot with the children, as the old ones did | magic: bring in wool, wood and clay from home and the town's gardens, as makers always have | chance: 80
+- W>B | set up a parents' committee for the art room, with a treasurer and minutes | v: conformity, power | grants: organising people | tribal: gather the mothers into a council for the children's paints, each with her task | magic: found a friends-of-the-drawing-hall society, with a treasurer and a seal | chance: 70
+- U>R | write the children a project they run themselves: a gallery of junk sculpture | v: self-direction, achievement | tribal: set the children a game: beasts made from bones, twigs and stones, each one their own | magic: set the pupils a task they run themselves: a gallery of scrap sculpture | chance: 75
+- B>G | get the builders' merchant in town to give the paint, for a thank-you on the wall | v: achievement, benevolence | mark: made a friend | tribal: trade a carved horn to the next band for ochre for the children | magic: get the paint-seller on the square to give the pigment, for his name on the wall | chance: 70
+- R>W | walk into the governors' meeting unannounced, arms full of the children's work | v: universalism, stimulation | tribal: walk into the elders' council unbidden, arms full of the children's painted stones | magic: walk into the council's sitting unbidden, arms full of the pupils' drawings | chance: 45
+- G>U | ask the town's retired art teachers how they got through the lean years | v: tradition, achievement | door | tribal: ask the oldest painter how the children were taught in the hungry winters | magic: ask the town's old drawing masters how they managed in the lean years | chance: 70
+works: Somehow the art room keeps going, and the children's work fills the corridors by summer.
+works: The fight brings new help, from parents, a giver or an old hand, and next year looks less bare.
+fails: The cut goes through as written, and the kiln stays cold all year.
+fails: {N} wins a little back, and makes up the rest from {Ns} own stores all year.
+
+# ---------------------------------------------------------------- gallery owner: calls WB / calls URG (cycle s3)
+
+== an artist leaves for a bigger gallery
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per gallery owner a year: about 1 in 6 lose an artist they launched to a bigger gallery (estimate); about 3 lives in 10,000 run a gallery (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 25-90
+calls: WB
+holds: gallery owner
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, rival
+earth: the painter the gallery gave a first show six years ago is leaving for a big gallery in the capital, with eleven paintings still in the storeroom
+tribal: the carver whose pieces the trader has carried to every great gathering will go now with a richer band's trader
+magic: the painter the hall on the square made is leaving for a grand house in the capital, with eleven canvases still in the store
+scene: {colleague}, the painter {N} gave a first show six years ago, comes in on a Monday morning with flowers and bad news: a big gallery in the capital has offered to represent the work. Eleven paintings are still in {Ns} storeroom on consignment, and three collectors are waiting on the next show.
+scene W: The contract says three months' notice, and the consignment terms are written down. {N} wrote them to protect both sides, and they will.
+scene U: {N} wonders what the big gallery saw, what it will charge, and what this gallery could learn from either.
+scene B: Six years of building that name, wall by wall and buyer by buyer, and {rival} in the capital will now sell it. {N} has not finished with this yet.
+scene R: It stings more than {N} would ever say aloud. It feels like being left.
+scene G: Galleries like this one are where artists start, and starting is what they are for. It has happened before, and it will happen again.
+scene tribal: {colleague}, the carver whose pieces {N} has carried to every great gathering for six summers, comes to {Ns} fire with a gift and bad news: a trader from a richer band will carry the carvings now. Eleven pieces still sit in {Ns} shelter.
+scene magic: {colleague}, the painter {N} first hung in the hall on the square, comes with flowers and bad news: a grand house in the capital has offered to take the work. Eleven canvases are still in {Ns} store.
+- W | hold to the contract: three months' notice, and the consignment settled to the penny | v: conformity, security | tribal: hold to the old terms: a season's notice, and every piece returned or traded as agreed | magic: hold to the contract: a quarter's notice, and the consignment settled to the last coin | chance: 90
+- U | ask the big gallery's director to lunch, and learn how they price and pick | v: achievement, self-direction | door | grants: contact in the trade | tribal: sit with the rich band's trader at the gathering, and learn what he asks and why | magic: dine with the grand house's keeper, and learn how the capital prices and picks | chance: 70
+- B | make sure every story about the move says where the artist was found | v: power, achievement | identity | grants: a name in the art world | tribal: make sure every band hears whose trading first carried the carver's name | magic: make sure every salon hears which hall on the square found the painter | chance: 70
+- R | tell the artist exactly how it feels, then take them out for a drink anyway | v: hedonism, benevolence | tribal: tell the carver straight how it feels, then share the night's meat anyway | magic: tell the painter straight how it feels, then stand them a supper anyway | chance: 85
+- G | throw the artist a farewell night in the gallery, and let them go with thanks | v: benevolence, tradition | mark: made a friend | tribal: hold a farewell fire for the carver, and let them go with thanks | magic: hold a farewell evening in the hall, and let the painter go with thanks | chance: 85
+- W>R | release the artist from the notice in writing, so they can go at once | v: universalism, self-direction | tribal: release the carver from the season's terms before the elders, so they can go at once | magic: release the painter from the notice under seal, so they can go at once | chance: 90
+- U>G | write the gallery's history of its first artists, with this one's first show at its heart | v: tradition, achievement | self_control: + | tribal: teach the young ones the story of the trading, with the carver's first pieces at its heart | magic: write the chronicle of the hall's first painters, with this one's first showing at its heart | chance: 75
+- B>W | keep the unsold paintings back until the notice is served to the day | v: power, security | closed: approval: an artist's own work held back as leverage; backfire: the new gallery's lawyer writes, and the story goes round the trade | tribal: keep the carvings in your shelter until the season's terms are kept to the day | magic: keep the unsold canvases back until the quarter's notice is served to the day | chance: 75
+- R>U | drive to the capital that night to see the big gallery for yourself | v: stimulation, self-direction | door | tribal: walk through the night to the rich band's camp to see the trader for yourself | magic: take the night coach to the capital to see the grand house for yourself | chance: 85
+- G>B | let the town's old collectors know over dinner that the artist left for money | v: power, tradition | self_control: - | mark: made an enemy | closed: approval: an old friend run down behind their back; backfire: it gets back to the artist, and the trade hears it too | tribal: let the old families know at their hearths that the carver left for richer gifts | magic: let the quarter's old patrons know at supper that the painter left for gold | chance: 60
+works: The parting is clean, and the artist's name keeps pointing back to where it started.
+works: A new maker turns up within the month, and the empty place fills again.
+fails: The best spot stands empty for a season, and the trade falls with it.
+fails: Word goes round the trade that {N} handled it badly.
+
+== a buyer wants a discount behind the artist's back
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per gallery owner a year: several times a year a buyer asks for a discount, and about 1 in 5 owners are asked to keep one from the artist (estimate); about 3 lives in 10,000 run a gallery (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 25-90
+calls: URG
+holds: gallery owner
+tone: mixed
+life: work, money
+horizon: week
+roles: colleague
+earth: a collector will buy the largest painting in the show today, at a third off, if the artist is never told
+tribal: a far band's trader will take the great carving today if the small one goes with it, and the carver is never told
+magic: a lord's steward will buy the great canvas today at a third off, if the painter never hears of it
+scene: The collector has been round the show three times. In front of the largest painting he lowers his voice: he will buy it today if {N} takes a third off. The artist need never know; the gallery can take its cut, and the price on the paperwork can say whatever {N} likes.
+scene W: The artist's contract sets the price and the split, and both are in {Ns} own handwriting. A discount is the artist's to give.
+scene U: {N} reads the collector: a careful man who wants to feel clever more than he wants the money. There is a price at which both can be true.
+scene B: A third off is still a sale, the biggest of the season, and the gallery's rent is due on Friday.
+scene R: The cheek of it. {N} feels the answer rising before the man has finished talking.
+scene G: The painting took {colleague} a whole winter. It will find its wall, and its person, in its own time.
+scene tribal: At the great gathering a trader from a far band turns the great carving in his hands. He will take it today, he says, if {N} puts the small one in with it, and the carver back at the camp need never know.
+scene magic: A lord's steward stands before the great canvas in the hall on the square. His master will buy it today, he murmurs, at a third off, if the painter never hears of it.
+- W | tell him plainly the gallery never discounts behind an artist's back | v: conformity, universalism | identity | tribal: tell him plainly that no trade is made behind a carver's back | magic: tell him plainly the hall never sells cheap behind a painter's back | chance: 75
+- U | agree, and enter the sale at a price the artist will never think to question | v: achievement, power | mark: hid a wrong | self_control: - | closed: approval: the artist's share cut in secret; backfire: the artist sees the real price in the collector's sale catalogue, and leaves with the rest of the work | tribal: agree, and tell the carver the trader drove a harder bargain than he did | magic: agree, and enter the sale in the ledger at a price the painter will never query | chance: 85
+- B | hold the price: he wants it, and he will be back by Friday | v: power, achievement | self_control: + | grants: striking a deal | tribal: hold to the price: he wants it, and he will be back before the gathering ends | magic: hold the price: his master wants it, and the steward will be back by the week's end | chance: 65
+- R | tell him what the offer says about him, and show him the door | v: stimulation, self-direction | identity | tribal: tell him what the offer says about him, and turn your back | magic: tell him what the offer says about his master, and show him the door | chance: 90
+- G | let the painting wait on the wall for a buyer who will pay what it asks | v: universalism, tradition | self_control: + | tribal: keep the carving by the fire for a trader who will give what it is worth | magic: let the canvas hang for a buyer who will pay what it asks | chance: 50
+- W>R | ring the artist from the back office, and let them decide, here and now | v: universalism, self-direction | mark: kept your word | tribal: send a runner to the carver's camp, and let the carver decide | magic: send a boy running to the painter's lodging, and let the painter decide | chance: 75
+- U>G | show him the sketchbooks and the valley it was painted in, till the price makes sense | v: universalism, achievement | grants: works in collectors' hands | tribal: tell him of the tree the carving came from and the winters it took | magic: show him the painter's sketches and the valley it was painted in, till the price makes sense | chance: 60
+- B>W | say yes, and pay the artist their full share out of your own cut | v: benevolence, power | self_control: + | grants: works in collectors' hands | tribal: say yes, and give the carver a full share out of your own | magic: say yes, and pay the painter a full share from your own cut | chance: 90
+- R>U | take the buyer to the artist's studio that afternoon, and let them talk | v: stimulation, universalism | tribal: walk the trader to the carver's fire that day, and let them talk | magic: walk the steward to the painter's garret that afternoon, and let them talk | chance: 60
+- G>B | offer him a smaller work at its price, and let him grow into a collector | v: achievement, tradition | tribal: offer him a small carving at its worth, and let him come back each summer | magic: offer the steward a smaller canvas at its price, and let his master grow into a patron | chance: 45
+works: The work goes to a good home, and the artist knows exactly how and for how much.
+works: The collector comes back for more, and {N} keeps both the buyer and the artist.
+fails: The buyer walks away, and the work is still unsold when the season ends.
+fails: The artist hears how the sale was handled, and the next show goes elsewhere.
+
+# ---------------------------------------------------------------- craft maker and master craftsperson: calls UR / calls WBG (cycle s4)
+
+== an apprentice asks to learn the craft
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per craft maker or master a year: about 1 in 8 are asked by someone young to teach them the craft (estimate); about 5 lives in 1,000 make and sell crafts, and about 8 in 10,000 become master craftspeople (catalogue shares; estimate)
+stages: young_adult adult mature elder
+age: 18-100
+calls: UR
+holds: master craftsperson | craft maker
+tone: joy
+life: work, meaning
+horizon: years
+roles: colleague, mentor
+earth: a young woman of nineteen at the workshop door asks to learn the craft; she cannot pay, and she says she will sweep the floors
+tribal: a youth from another hearth has sat at the edge of the carving place every day for a moon, and now asks to learn
+magic: a lad of the town asks to be bound apprentice, though the guild's rolls say the workshop already has its share
+scene: A young woman of nineteen has stood outside the workshop window on and off for a week. Today she comes in, holding a small wooden spoon she carved herself with a kitchen knife, and asks {N} to teach her the craft. She cannot pay. She will sweep the floors.
+scene W: The guild has rules for this: written terms, four years, a test piece at the end, and a master who has earned the right to teach. {N} has lived by them.
+scene U: {N} turns the spoon over. The grain is cut the wrong way and the bowl is lopsided, but she has understood something about the wood that took {N} years.
+scene B: The waiting list is eleven months long. Another pair of hands, even untrained ones, would mean more pieces out of the door.
+scene R: {N} remembers standing at a door just like this one, at about her age, burning to start.
+scene G: {mentor} took {N} in like this, long ago, from nothing. Crafts live by being handed on, or they do not live at all.
+scene tribal: A youth from another hearth has come to the edge of the carving place every day for a moon, watching {Ns} hands. Today the youth sets down a small bird cut from bone with a flint, and asks to learn.
+scene magic: A lad of the town stands in the workshop with his cap in his hands and a crooked little box he made himself. He asks to be bound apprentice, though the guild's rolls say {Ns} workshop already has its share.
+- W | take her on with written terms: hours, safety, tools back where they hang | v: conformity, security | binds | tribal: take the youth on before the elders, with the old terms said aloud | magic: take the lad on with indentures signed before the guild's clerk | chance: 85
+- U | set her a test piece first: one joint, cut true, before saying yes | v: achievement | tribal: set the youth a test first: one bird, cut true, before saying yes | magic: set the lad a test piece first: one joint, cut true, before saying yes | chance: 70
+- B | say yes, if she works the first year for nothing | v: power, achievement | closed: law: a year's work with no wage; backfire: she leaves after six months, and the town hears how she was used | tribal: say yes, if the youth hunts for your hearth all winter in return | magic: say yes, if the lad works the first year for bread and a bench | chance: 90
+- R | hand her a chisel there and then, and start her on a real piece | v: stimulation, benevolence | body: light | tribal: hand the youth a flint there and then, and start on a real piece | magic: hand the lad a chisel there and then, and start him on a real piece | chance: 70
+- G | let her sweep and watch for a season, as you once did for your own master | v: tradition, benevolence | self_control: + | tribal: let the youth sit and watch for a season, as you once did | magic: let the lad sweep and watch for a season, as you once did for your master | chance: 60
+- W>G | go the guild's way: your own masterpiece judged first, then four years of hers | v: tradition, conformity | self_control: + | grants: a maker's hallmark | aims: master craftsperson | tribal: go the old way: earn the band's sign beside your own first, then teach the youth four winters | magic: go the guild's way: your own masterpiece passed first, then the lad's four years | chance: 35
+- U>W | write down every step of the craft for her, the first manual the workshop has had | v: achievement, conformity | tribal: make a cord of knotted marks for each step of the craft, for the youth to follow | magic: write down every step of the craft for the lad, the workshop's first book of practice | chance: 70
+- B>U | take her on, and have her teach you the design software she learned at college | v: achievement, self-direction | door | mark: learned a skill | act: take her on, and have her teach them the design software she learned at college | tribal: take the youth on, and learn the other hearth's way of cutting bone in return | magic: take the lad on, and learn the new joint his father's shop uses in return | chance: 85
+- R>B | take her on, and enter the big craft fair together this autumn under your name | v: stimulation, achievement | binds | aims: master craftsperson | tribal: take the youth on, and carry your pieces together to the great gathering this summer | magic: take the lad on, and take a stall together at the great autumn fair | chance: 55
+- G>R | teach her the old way, by eye and hand, and skip the guild's papers | v: tradition, self-direction | binds | grants: pupils who remember you | closed: approval: an apprentice taught without the guild's papers; backfire: the guild hears, and her years do not count toward a mark of her own | tribal: teach the youth by eye and hand, and never ask the elders' leave | magic: teach the lad by eye and hand, and never enter him on the guild's rolls | chance: 70
+works: Years on, the apprentice's work is hard to tell from {Ns} own.
+works: The workshop is busier and louder, and {N} learns nearly as much as {N} teaches.
+fails: The apprentice drifts away within the year, and the bench stands empty again.
+fails: The arrangement sours, and word of it gets round.
+
+== a machine-made copy in the shop window
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per craft maker or master a year: about 1 in 20 find a design of their own copied for sale by a firm (estimate); about 5 lives in 1,000 make and sell crafts (catalogue share of the craft maker; estimate)
+stages: young_adult adult mature elder
+age: 18-100
+calls: WBG
+holds: master craftsperson | craft maker
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague
+earth: in a homeware shop on the high street, a machine-made copy of the maker's best-known bowl, at a tenth of the price
+tribal: a trader at the gathering offers carvings cut in the maker's own pattern by careless hands, for a tenth of the gifts
+magic: in a shop on the square, a stack of mould-pressed copies of the maker's best jug, at a tenth of the price
+scene: On the way to the post office, {N} stops dead in front of the homeware shop on the high street. In the window, stacked twelve high, is {Ns} best-known bowl: the same shape, the same glaze, pressed by a machine somewhere far away, at a tenth of the price. A little card says handmade style.
+scene W: Somewhere there must be a rule against this. {N} has paid the guild's fees for twenty years for exactly this kind of day.
+scene U: {N} looks closely through the glass. The foot ring is wrong, the glaze is sprayed, and the rim is too even. A machine copied a photograph, not the bowl.
+scene B: A tenth of the price, and a window on the high street. The firm has found buyers {N} never reached, and that is worth knowing.
+scene R: {Ns} hands are fists before {N} knows it. Twenty years of work, stacked twelve high under a card that says handmade style.
+scene G: Makers have been copied for as long as there have been makers. The real thing is still the real thing, and the people who hold one know it.
+scene tribal: At the great gathering a trader from downriver has a whole hide spread with carvings cut in {Ns} own pattern by careless hands, and he is letting them go for a tenth of the gifts {Ns} carvings fetch.
+scene magic: In the window of a shop on the square, {N} sees a stack of jugs pressed in a mould from {Ns} own best design, sold at a tenth of the price under a card that says in the old style.
+- W | ask the guild to name the shop at its meeting, and call for a boycott | v: conformity, security | mark: made an enemy | closed: approval: a firm named as copyists before any finding; backfire: the firm's lawyer writes to the guild, and the guild withdraws the notice with an apology | tribal: ask the elders to name the trader at the gathering's fire, and turn every band from him | magic: ask the guild to cry the shop as a copier at its hall, and bar its trade | chance: 60
+- U | study the copy, and change the design so no mould could ever take it | v: achievement, self-direction | mark: learned a skill | tribal: study the copies, and change your pattern so no careless hand can follow it | magic: study the copy, and change the design so no mould can ever take it | chance: 75
+- B | have a lawyer write to the firm over the design, and ask for a licence fee | v: power, achievement | tribal: go to the trader's elders, and ask a share of every carving cut in your pattern | magic: have a notary write to the shop's master over the design, and ask a fee | chance: 40
+- R | buy one, and break it on the pavement in front of the shop | v: stimulation, self-direction | mark: broke the law | self_control: - | closed: law: a scene in the street and broken pottery on the pavement; backfire: a police officer takes a name, and the photograph is in the local paper | tribal: snatch up one of the copies, and smash it on a rock before the trader | magic: buy one, and smash it on the cobbles before the shop door | chance: 90
+- G | let it be: whoever holds the real thing knows the difference | v: universalism, tradition | tribal: let it be: whoever holds a real carving knows the difference | magic: let it be: whoever holds the real jug knows the difference | chance: 60
+- W>G | apply for the guild's hallmark, so every real piece carries the maker's mark | v: tradition, conformity | grants: a maker's hallmark | aims: master craftsperson | tribal: ask the elders' leave to cut the band's sign beside your own on every real piece | magic: send your best piece to the guild for its mark, so every true jug carries it | chance: 35
+- U>W | label every piece with its making: the clay, the firing, the hours, the maker | v: universalism, achievement | habit | tribal: cut into every piece the marks of its making: the wood, the moons it took, the hand | magic: tag every piece with its making: the clay, the firing, the hours, the maker | chance: 75
+- B>U | sell the firm the design for a fee, and put it toward a bigger kiln | v: achievement, power | binds | grants: selling | tribal: trade the pattern to the trader for a good stone axe, and keep cutting | magic: sell the shop the design for silver, and put it toward a bigger kiln | chance: 70
+- R>B | set up a stall outside the shop with the real ones, and sell all afternoon | v: stimulation, achievement | self_control: + | grants: selling | tribal: spread your own carvings on a hide beside the trader's, and trade all day | magic: set up a stall outside the shop with the true jugs, and cry them all afternoon | chance: 50
+- G>R | make the next batch freer and wilder, every piece different from the last | v: self-direction, universalism | identity | tribal: cut the next carvings freer and wilder, every one different | magic: throw the next batch freer and wilder, every jug unlike the last | chance: 70
+works: The real work holds its own, and the people who want it find their way to {N}.
+works: The copies fade within the season, and {Ns} name stands a little taller for the fight.
+fails: The copies sell by the dozen, and {Ns} own orders thin that year.
+fails: Nothing {N} does touches the copier, and the copies stay on sale all year.

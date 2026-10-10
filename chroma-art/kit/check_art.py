@@ -6,7 +6,7 @@
 It checks the tree it sits in (a checkout, or the shared folder), or the tree CHROMA_ROOT names.
 
 Fast: every picture pictures.json names exists, has its size (880x500 events, 700x1000 tarot) and weight (120 KB or less);
-every life event the game runs (engine_pin: Earth and the three packs) has its own picture; every icon id in
+every life event the game runs (engine_pin: Earth and the packs) has its own picture; every icon id in
 ink-icons.json is a symbol in ink-icons.svg; every moment the game runs has one icon per option and, for each icon, the
 text it was drawn for. Notes, not failures: option texts that differ from the game's batch (the game keeps an icon for
 words reworded in place, its web/src/live_icons.py, check C-G2), and a game copy of ink-option-texts.json that differs
@@ -53,12 +53,12 @@ if any(pics.get('missing', {}).values()): fail(f'pictures.json lists missing key
 unnamed = [os.path.basename(f) for f in glob.glob(os.path.join(GAME, 'pics', '*')) if os.path.normpath(f) not in named]
 if unnamed: notes.append(f'{len(unnamed)} files in game/pics are not named in pictures.json: {", ".join(sorted(unnamed)[:5])}')
 
-# the game's batch (its pinned Library copy): Earth and the three packs, situations and echoes
+# the game's batch (its pinned Library copy): Earth and the packs (earth_<pack>.py where pinned), situations and echoes
 def load(p, n):
     s = importlib.util.spec_from_file_location(n, p); m = importlib.util.module_from_spec(s); s.loader.exec_module(m); return m
 pin = path('game_live', 'engine_pin')
 mods = [load(os.path.join(pin, 'earth.py'), 'art_earth')] + [load(os.path.join(pin, f'earth_{k}.py'), f'art_{k}')
-        for k in ('science', 'politics', 'stage') if os.path.exists(os.path.join(pin, f'earth_{k}.py'))]
+        for k in ('science', 'politics', 'stage', 'art') if os.path.exists(os.path.join(pin, f'earth_{k}.py'))]
 moments = [s for m in mods for s in list(m.SITUATIONS) + list(getattr(m, 'ECHOES', []))]
 events = [s for m in mods for s in m.SITUATIONS if s.get('tier') == 'life event']
 nopic = [s['name'] for s in events if s['name'] not in pics['situation'] and s.get('variant_of') not in pics['situation']]
