@@ -791,6 +791,10 @@ DEFAULT = dict(
                          # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
                          # white and blue, so lives that act in those ways run overconfident and each failure pushes them
                          # away (steer_check, 10-10). 0: off, as before
+    lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
+                         # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
+                         # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
+                         # lowest, so lives that keep choosing them are held back (steer_check, 10-10). 0: off, as before
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -982,7 +986,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0,
+               role_practice=False, read_skill=0.0, lens_want=0.0,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -3412,7 +3416,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- 4. learning channels
         pos = delta > 0
-        kap = ma * w ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
+        lens_ = w if not P["lens_want"] else (1 - P["lens_want"]) * w + P["lens_want"] * softmax(y)   # lens_want: and who one is becoming
+        kap = ma * lens_ ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
         defend = P["defend_k"] * (ma * w).sum(1) / w.max(1) * (M / (M + P["M0"]))   # experienced people discount failures in what they hold
         # v6 (Library notes A5): a failure sends the person toward what the situation called for, the colors whose
         # argument it proved right, not evenly toward everything else they hold
