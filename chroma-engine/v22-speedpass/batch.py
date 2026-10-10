@@ -32,6 +32,8 @@ KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
 PACKS = ["science", "politics", "stage"]   # the ONE GO-LIVE (Emren 10-06 01:32), engine three-pack fit
+if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
+    PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
 # the names a condition may use (one value per person, or a world scalar); see run() "batch conditions"
 COND_VOCAB = """age age_mod decade_edge round_birthday stage child juvenile young_adult adult mature elder
