@@ -1,0 +1,790 @@
+# Chroma library, modern Earth: CAUGHT BETWEEN (S3 "Their places' eyes", v22.3, cast_want: caught).
+# Two of the character's places read the same act differently; a friend who goes to both brings it up.
+# 20 moments, 10 pairs (WB WR UR UG BG and their partners). Slots {place_a} (led by the pair's first colour), {place_b}.
+# Every option carries caught: side_a | side_b | bridge | apart | back. The Engine gates bridge on known in both places.
+# Per way, its one-letter option plus its cross (first letter) = 140. Spec chroma-ideas/social-mechanics.md S3.
+
+
+# Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES, set 1 (S3 "Their places' eyes", v22.3, DRAFT, cast_want: caught).
+# Enemy pair WB: {place_a} is a duty-and-rules place (a congregation's committee, a union, a residents' council, the
+# volunteer watch), {place_b} an ambition-and-advantage place (a business club, a traders' association, an ambitious
+# firm's team, a networking circle). The Engine fills both names; every option's caught: is side_a, side_b, bridge,
+# apart or back. Syntax: header of build.py. Each colour's one-colour chance plus its cross chance sums to 140.
+#   pair 1  one act read two ways             1a WB (s1) / 1b URG (s2)
+#   pair 2  two places ask opposite things     2a WB (s3) / 2b URG (s4)
+
+# ---------------------------------------------------------------- pair 1: one act read two ways
+
+== the step one place cheers and the other frowns on
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WB
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, keeper
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a step you took lately: one cheers it as bold, the other frowns on it as selfish
+times: People whose circles judge the same act differently tend to decide later and take part less in both (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: Word of the step {N} took this spring has gone round. At {place_b} people shake {Ns} hand and call it bold; at {place_a} the greetings have gone cool, and someone has said {N} put themselves first. Now both want {N} to answer for it, and a friend who goes to both passes on what each side is saying.
+scene W: The people at {place_a} have stood by {N} for years. Fairness says they are owed an honest account, face to face.
+scene U: Both places are reading one step by different rules. {N} wants to understand each reading before saying a word.
+scene B: The doors are opening at {place_b} now. A cool welcome at {place_a} is a price, and {N} can weigh a price.
+scene R: {N} is proud of the step and stung by the coolness. Being judged for it makes {Ns} face burn.
+scene G: Both places are part of who {N} is. Neither tie should be cut over one season of talk.
+- W | stand with {place_a}: give a full, honest account there, and make amends | caught: side_a | v: conformity, benevolence | mark: owned up | chance: 80
+- U | stand with {place_b}, and set out plainly why the step made sense | caught: side_b | v: self-direction, achievement | chance: 60
+- B | bring {place_a} and {place_b} to one table, and show each what it gains | caught: bridge | v: power, achievement | chance: 55
+- R | enjoy the praise at {place_b}, and never mention the step at {place_a} | caught: apart | v: hedonism, stimulation | chance: 80
+- G | stay home among family for a season, and let the talk die down | caught: back | v: tradition, security | chance: 85
+- W>U | ask both places for a fair hearing, so each learns the other's reasons | caught: bridge | v: universalism, benevolence | chance: 60
+- U>B | plan what to say at each place, so neither costs the other anything | caught: apart | v: achievement, security | chance: 80
+- B>R | stop going to either for a season; no place gets to judge the step | caught: back | v: self-direction, hedonism | chance: 85
+- R>G | go to {place_a} tonight, admit the coolness hurt, and ask to be let back in | caught: side_a | v: benevolence, tradition | chance: 60
+- G>W | stand by {place_b}, who backed the step, as loyal people do | caught: side_b | v: benevolence, conformity | chance: 55
+works: The talk settles, and one of the two places greets {N} more warmly than before.
+works: By the end of the season both places have heard {Ns} side, and the step is old news at each.
+fails: One of the places cools for good, and {N} feels it every time the door opens there.
+fails: Both places go a little cool, and the story comes back to {N} told wrong.
+
+== the choice one place honours and the other resents
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: URG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, colleague
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a choice you made: one honours it as the decent thing, the other resents what it cost
+times: Different circles judge one act by different standards, and a person between them is pulled both ways (Graham, Haidt and Nosek 2009; role strain: Goode 1960)
+gap: 3-8
+scene: The choice {N} made last month has reached both places. At {place_a} people say {N} did the decent thing, and they are proud of it; at {place_b} it is called naive and costly, and one or two have stopped returning calls. Each place now wants {N} to answer for it: one wants {N} to own it out loud, the other wants to hear it will not happen again.
+scene W: {N} did what was right and would do it again. The only question is how to stand by it without wrecking things at {place_b}.
+scene U: {N} sees two honest readings of one act: one counts what was owed, the other counts what it cost. Both have a point.
+scene B: The praise at {place_a} does not open many doors. The doors at {place_b} do, and they are closing a little.
+scene R: {N} is fed up with being judged. It felt right at the time, and it still does.
+scene G: {N} was brought up to do things this way. That is not something to apologise for, to anyone.
+- W | stand with {place_b}: keep to its rules from here on, as a member should | caught: side_b | v: conformity, security | chance: 60
+- U | lay out the facts at both places, so each sees why the other reads it so | caught: bridge | v: universalism, self-direction | chance: 55
+- B | let {place_a} honour it, and tell {place_b} it was a one-off | caught: apart | v: power, security | chance: 78
+- R | stay away from both for a while, sick of being judged | caught: back | v: self-direction, stimulation | chance: 88
+- G | stand with {place_a}, among the people who taught this way of doing things | caught: side_a | v: tradition, benevolence | chance: 85
+- W>B | keep a firm rule: neither place's business is discussed at the other | caught: apart | v: security, conformity | chance: 80
+- U>R | plan a season off from both, and use it to think freely | caught: back | v: self-direction | chance: 85
+- B>G | use the praise at {place_a} to win a firmer place there, and let {place_b} go | caught: side_a | v: achievement, tradition | chance: 62
+- R>W | go to {place_b} tonight, admit what it cost them, and offer to make it right | caught: side_b | v: benevolence, conformity | mark: owned up | chance: 52
+- G>U | invite an old friend from each place home, and let them talk it through slowly | caught: bridge | v: tradition, universalism | chance: 55
+works: One place takes {N} closer than ever, and the other comes round in its own time.
+works: The two readings meet halfway, and people at both places start to ask {N} what the other side thinks.
+fails: The calls from one place stop for good, and {N} misses more than expected.
+fails: Neither place is quite satisfied, and {N} is talked about at both for the rest of the year.
+
+# ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
+
+== a call to stand up, a call to keep the peace
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WB
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, neighbour
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a cause: one wants you to stand up and be counted, the other wants you to keep the peace
+times: When a person's circles disagree on a cause, they are slower to make up their mind and likelier to stay out of it (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: It is a hard season in the neighbourhood. At {place_a} they are asking everyone to stand up and be counted: sign the letter, speak at the meeting, be seen. At {place_b} the word is the opposite: keep out of it, it is bad for business, and some members sit on the other side. A friend who goes to both warns {N} that both places will notice which way {N} goes.
+scene W: When a cause is just, standing up is owed. But {N} has made promises at {place_b} too.
+scene U: {N} wants to know the cause well before signing anything: what it asks, who it hurts, what it could change.
+scene B: Standing up costs something at {place_b}, where the deals are made. Staying quiet costs something at {place_a}. {N} counts both.
+scene R: Part of {N} wants to be at the front with a sign today, and let {place_b} think what it likes.
+scene G: {N} has known people in both places for years. One season's quarrel should not break what took years to grow.
+- W | call a fair meeting where both places put their case, and chair it | caught: bridge | v: universalism, conformity | chance: 55
+- U | back the cause quietly in writing at {place_a}, and say nothing at {place_b} | caught: apart | v: self-direction, security | chance: 80
+- B | sit this season out at both, and keep every door open | caught: back | v: power, security | chance: 82
+- R | stand with {place_a} at the front, and say out loud why | caught: side_a | v: stimulation, universalism | chance: 88
+- G | stand with {place_b} and keep the peace, for the sake of old friends there | caught: side_b | v: tradition, benevolence | chance: 62
+- W>R | decline both politely, as any member may, and keep the season free | caught: back | v: self-direction, conformity | chance: 85
+- U>G | study the cause, then stand with {place_a} for what it would keep alive | caught: side_a | v: universalism, tradition | chance: 60
+- B>W | stand with {place_b}, and get its promise to help the cause another way | caught: side_b | v: power, universalism | chance: 58
+- R>U | take a friend from each place out tonight, and argue it through till they understand | caught: bridge | v: stimulation, universalism | chance: 52
+- G>B | keep the two in separate corners of life, as always, and lose neither | caught: apart | v: security, tradition | chance: 78
+works: The season turns, and one place remembers warmly where {N} stood when it counted.
+works: A few people from both places end up talking for the first time, and {N} is the one they thank.
+fails: One place takes it badly, and {N} is left off the next round of invitations there.
+fails: Both places sense {N} held back, and each trusts {N} a little less.
+
+== two places want the same evenings
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: URG
+rate: 1
+tone: mixed
+life: community, work
+horizon: months
+roles: regular, go-between, keeper
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over your evenings: one has a big push on, the other is counting on your loyalty this season
+times: Two roles that claim the same hours are a common strain, met by choosing one, keeping them apart or stepping back from both (role strain: Goode 1960)
+gap: 3-8
+scene: Both places want the same few months of {Ns} evenings. At {place_b} there is a big push on, and those who put in the hours now will be remembered when the rewards are shared. At {place_a} they are short of hands this season and are counting on {N}, who has always pulled their weight. Neither knows yet that the other has asked.
+scene W: {N} said yes to {place_a} long ago, and a promise does not lapse because something brighter comes along.
+scene U: There are only so many evenings. {N} lays out the weeks and asks what each place really needs, and when.
+scene B: The push at {place_b} could make {Ns} name. The work at {place_a} will still be there next year.
+scene R: {N} can feel the buzz of the push and the weight of the need, and wants to answer both at once.
+scene G: The people at {place_a} have been {Ns} people for a long time. That counts for something, whatever {place_b} offers.
+- W | keep strict hours: fixed nights for each place, and no talk of one at the other | caught: apart | v: conformity, security | chance: 76
+- U | say no to both this season; spread this thin, nothing would be done well | caught: back | v: self-direction, security | chance: 80
+- B | stand with {place_a}: a name for reliability there pays off in the long run | caught: side_a | v: achievement, power | chance: 82
+- R | throw in with the push at {place_b}; that is where the life is this season | caught: side_b | v: stimulation, hedonism | chance: 60
+- G | bring people from {place_b} to lend a hand at {place_a}, as neighbours once did | caught: bridge | v: tradition, benevolence | chance: 50
+- W>G | keep the old promise to {place_a}, and stay with the people counting on it | caught: side_a | v: conformity, tradition | mark: kept your word | chance: 64
+- U>W | weigh it up, and give the season to {place_b}, where the work helps more people | caught: side_b | v: universalism, achievement | chance: 60
+- B>U | broker a deal: {place_b} lends hands to {place_a}, and each learns how the other works | caught: bridge | v: power, universalism | chance: 58
+- R>B | say yes to both on the spot, and let each think it comes first | caught: apart | v: stimulation, achievement | chance: 80
+- G>R | let the season pass at home with family, free of both | caught: back | v: tradition, self-direction | chance: 90
+works: One place gets the best of {N} this season, and says so warmly at the end of it.
+works: The two places find they can share {N} after all, and {N} becomes the one who links them.
+fails: The place that lost out says nothing, but the welcome there is cooler for a long while.
+fails: Stretched between the two, {N} lets both down a little, and both notice.
+
+# Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES, part 2 of the S3 set "Their places' eyes" (v22.3, DRAFT).
+# Enemy pair WR: {place_a} is the duty-and-order place (a congregation, the council's volunteers, a disciplined sports
+# club, the watch), {place_b} the feeling-and-freedom place (a band, a late-night crowd, a protest group, a dance hall,
+# an artists' squat). The Engine fills both names; cast_want: caught; every option carries caught: (side_a, side_b,
+# bridge, apart, back). Design: chroma-ideas/social-mechanics.md S3. Syntax: header of build.py.
+#   pair 1  one act read two ways          1a WR (s1) / 1b UBG (s2)
+#   pair 2  two places ask opposite things 2a WR (s3) / 2b UBG (s4)
+
+# ---------------------------------------------------------------- pair 1: one act read two ways
+
+== cheered at one place, frowned on at the other
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, keeper, go-between
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over the step you took lately: one cheers it, the other frowns, and both want you to answer for it
+times: People whose circles disagree about them tend to hold back, take part less and decide later (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: Word of the step {N} took lately has gone round both places. At {place_b} people clap {N} on the back and call it the bravest thing in years; at {place_a} the talk stops when {N} walks in, and someone says it is not how things are done. A friend who goes to both says each one is waiting to hear {N} answer for it.
+scene W: {N} made the choice in good faith, and owes both places one straight account of it, not two stories.
+scene U: The act is the same in both places, so the difference must lie in the places. {N} wants to know what each is really reacting to.
+scene B: Both names count for something. {N} weighs which one is worth more to keep, and what losing the other would cost.
+scene R: The cheers at {place_b} felt wonderful, and the cold looks at {place_a} sting more than {N} expected.
+scene G: {N} has belonged to {place_a} a long time, and {place_b} feels like home in another way. Neither is easy to give up.
+- W | keep away from both for a season, so neither place splits over it | caught: back | v: conformity, benevolence | chance: 80
+- U | stand with {place_a}: hear their reasons out, and grant where they are right | caught: side_a | v: self-direction, universalism | chance: 85
+- B | stand with {place_b}, where the step has made a name worth keeping | caught: side_b | v: achievement, power | chance: 60
+- R | bring two old hands from {place_a} along to {place_b} one night, to see why | caught: bridge | v: stimulation, benevolence | chance: 50
+- G | keep each place as it always was, and never bring one up at the other | caught: apart | v: tradition, security | chance: 75
+- W>U | stand with {place_b} on principle, and give {place_a} a full, fair account of why | caught: side_b | v: universalism, self-direction | chance: 60
+- U>B | work out who counts at each place, and broker a sit-down that saves everyone's face | caught: bridge | v: achievement, power | chance: 55
+- B>R | keep each place in the dark about the other, and enjoy the cheers while they last | caught: apart | v: hedonism, security | chance: 80
+- R>G | drop both on a whim, and spend the season's evenings back with the family | caught: back | v: tradition, benevolence | chance: 90
+- G>W | stand with {place_a}, the older tie, and own that the step let it down | caught: side_a | v: tradition, conformity | mark: owned up | chance: 65
+works: Within a season the talk dies down, and one of the places is warmer to {N} than before.
+works: Someone at the other place says, unasked, that they have come to see the step differently.
+fails: One place cools for good: the greetings there grow shorter, and the invitations stop.
+fails: Both places feel let down, and for a while {N} is half a stranger in each.
+
+== praised at one place, scorned by the other crowd
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UBG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: keeper, regular, friend
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a choice you made: one praises it as a credit to them all, the other calls it playing safe
+times: Holding several roles whose people expect different things is common and wearing, and people ease it by choosing, keeping roles apart or stepping back (role strain: Goode 1960)
+gap: 3-8
+scene: The choice {N} made lately has earned a warm word at {place_a}: someone there calls it a credit to them all, and the older members nod at {N} in a new way. At {place_b} it went down badly; people say {N} played it safe, sided with the careful and the stiff, and let the crowd down. A friend who goes to both says both places now want to hear {N} say where they stand.
+scene W: {N} did what seemed right, and wants neither praise at one place nor blame at the other, only a fair hearing.
+scene U: {N} can follow both readings, and suspects each place is answering a different question from the one {N} faced.
+scene B: Praise from {place_a} is useful; scorn at {place_b} is costly. {N} sees the trade plainly.
+scene R: It hurts to be looked at sideways by the people {N} feels most alive with.
+scene G: {place_a} has stood by {N} for years, and the new warmth there feels like being taken in at last. The coldness at {place_b} feels like a door closing.
+- W | stand with {place_a}, which judged the choice by the rule, and say so plainly | caught: side_a | v: conformity, security | chance: 80
+- U | stand with {place_b}: grant the point they make, and change course where they are right | caught: side_b | v: self-direction, universalism | chance: 65
+- B | host one night for both crowds, and be the one who brought them together | caught: bridge | v: achievement, power | chance: 55
+- R | laugh it off at {place_b}, and never mention it at {place_a} | caught: apart | v: hedonism, stimulation | chance: 85
+- G | step back from both, and wait for the old rhythm of things to return | caught: back | v: tradition, security | chance: 78
+- W>B | call a fair sit-down between the two places, on terms that protect {Ns} own standing | caught: bridge | v: security, power | chance: 60
+- U>R | plan the weeks so the two crowds never meet, and keep the nights at {place_b} free | caught: apart | v: hedonism, self-direction | chance: 75
+- B>G | stop going to both for a season, and put the hours into home and kin | caught: back | v: security, tradition | chance: 85
+- R>W | stand with {place_a} at once, and tell {place_b} to its face the choice was right | caught: side_a | v: conformity, stimulation | chance: 55
+- G>U | stay loyal to the friends at {place_b}, and ask them what they saw | caught: side_b | v: benevolence, self-direction | chance: 62
+works: Each place hears {N} out, and in time both accept the choice was made in good faith.
+works: One place warms to {N} more than ever, and the other quietly lets the matter drop.
+fails: {place_b} cools: the calls stop, and {N} hears about the good nights only afterwards.
+fails: Both places feel {N} chose the other, and the welcome in each turns merely polite.
+
+# ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
+
+== one place calls for calm, the other for a stand
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: keeper, regular, neighbour
+who: go-between
+cast_want: caught
+earth: two of your places ask opposite things this season: one wants you to stand up and be counted, the other to keep the peace
+times: People caught between circles that disagree on a public dispute often stay out of it, though they also come to understand the other side better (cross-pressures: Mutz 2002)
+gap: 3-8
+scene: A dispute has stirred up the neighbourhood this season, and both of {Ns} places have taken a side. {place_b} is getting ready to make itself heard and wants {N} out front with them on the night. At {place_a} the word is to keep calm and stay out of it, and the people there are counting on {N} to be seen keeping the peace.
+scene W: Order matters, and so does a wrong put right. {N} feels both pulls as a duty.
+scene U: {N} wants to know what the stand is really for, and what keeping calm would really achieve.
+scene B: Whoever ends up on the winning side will remember who stood with them. {N} weighs the odds.
+scene R: {N} can already feel the night at {place_b}: the noise, the heat, the sense of being part of something.
+scene G: {place_a} has kept the peace here for generations. That still counts for something.
+- W | stand with {place_b}, because a wrong left unanswered is still a wrong | caught: side_b | v: universalism, benevolence | chance: 65
+- U | draft a joint statement both places could sign, and carry it between them | caught: bridge | v: universalism, self-direction | chance: 55
+- B | tell each place privately what it wants to hear, and keep them from comparing notes | caught: apart | v: security, power | chance: 82
+- R | skip the night and the meetings alike, and go off somewhere free for a while | caught: back | v: hedonism, self-direction | chance: 80
+- G | stand with {place_a}, which has kept the peace here longer than anyone | caught: side_a | v: tradition, security | chance: 80
+- W>R | keep firm, separate rules: free nights at {place_b}, calm at {place_a}, and no crossover | caught: apart | v: conformity, self-direction | chance: 75
+- U>G | think it through slowly at home, and let the season pass with the family | caught: back | v: tradition, security | chance: 85
+- B>W | stand with {place_a}, and take a visible role keeping order on the night | caught: side_a | v: power, conformity | chance: 58
+- R>U | throw in with {place_b}, and stay up nights getting the facts straight for them | caught: side_b | v: stimulation, self-direction | chance: 60
+- G>B | bring the elders of both places to one table, and come away the one they trust | caught: bridge | v: tradition, power | chance: 60
+works: The night passes without trouble, and one place thanks {N} openly for the part they played.
+works: The two places find a little common ground, and both mention {N} when they tell the story.
+fails: The place {N} did not stand with takes it hard, and the welcome there cools for a long while.
+fails: Neither place is satisfied, and both quietly stop asking {N} for anything.
+
+== two places claim the same evenings
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UBG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: keeper, regular, friend
+who: go-between
+cast_want: caught
+earth: two of your places want the same evenings this season: one counts on your time for its rota, the other on your loyalty for its big run of nights
+times: Clashing claims on time from different groups are among the commonest strains of adult life, and people meet them by bargaining, choosing or cutting back (role strain: Goode 1960)
+gap: 3-8
+scene: It is the busy season at both of {Ns} places at once. {place_a} has drawn up its rota and counts on {N} for three evenings a week until it ends. {place_b} has its own big run of nights coming, the ones everyone will talk about for a year, and the regulars take it for granted that {N} will be there. There are not enough evenings for both.
+scene W: {N} gave {place_a} a word when the rota went round. A promise is a promise, but so is friendship.
+scene U: {N} counts the evenings and the weeks. There may be a way to fit both in, or there may not.
+scene B: {N} asks which place will matter more in a year, and which favour is likelier to be repaid.
+scene R: The run at {place_b} is the kind of thing that happens once. {N} aches to be there every night.
+scene G: {place_a} has asked the same of every member for as long as anyone remembers. That is how it holds together.
+- W | sit both sides down, agree a fair split of the evenings, and keep to it | caught: bridge | v: conformity, benevolence | chance: 50
+- U | plan the weeks to the hour, and keep each place's calendar out of the other's sight | caught: apart | v: self-direction, achievement | chance: 78
+- B | skip both for the season, and put the evenings into a side business | caught: back | v: achievement, power | chance: 85
+- R | stand with {place_a}, because the thought of letting those people down is unbearable | caught: side_a | v: benevolence | chance: 80
+- G | stand with {place_b}, where the old friends are, and be there every night | caught: side_b | v: benevolence, tradition | chance: 68
+- W>G | step back from both, and keep the season's evenings for the family, as promised long ago | caught: back | v: tradition, conformity | mark: kept your word | chance: 90
+- U>W | stand with {place_a}, once the numbers show the rota falls apart otherwise | caught: side_a | v: security, conformity | chance: 62
+- B>U | stand with {place_b}, and get backstage to learn how such nights are run | caught: side_b | v: achievement, self-direction | chance: 55
+- R>B | throw one big night for both crowds on the spot, and be the toast of it | caught: bridge | v: stimulation, power | chance: 60
+- G>R | keep the old habits at {place_a} and the free nights at {place_b} in separate weeks | caught: apart | v: tradition, hedonism | chance: 72
+works: Both places get enough of {N} to be content, and someone at each says they could not have managed without them.
+works: One place warms to {N} for the season, and the other lets it go without a grudge.
+fails: The place that went short remembers, and asks less of {N} the next time round.
+fails: Both places feel shortchanged, and {N} ends the season tired and a little alone.
+
+# Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES, part 3 (S3 Their places' eyes, v22.3, cast_want: caught DRAFT).
+# Enemy pair UR: {place_a} is a reasons-and-study place (a reading circle, an evening class, a lab or design office, a
+# debating society, a library group); {place_b} a feeling-and-freedom place (a band, a late-night crowd, a protest
+# group, a dance hall, a street football side). The Engine fills both names and the go-between (who: go-between).
+#   pair 1 (one act read two ways)          1a UR, cross s1: a bold step, cheered at {place_b}, doubted at {place_a}
+#                                           1b WBG, cross s2: a careful choice, praised at {place_a}, scorned at {place_b}
+#   pair 2 (opposite asks in one season)    2a UR, cross s3: {place_a} wants the evenings for work, {place_b} for its big nights
+#                                           2b WBG, cross s4: {place_b} wants a public stand, {place_a} asks for calm
+# Every option carries caught: side_a | side_b | bridge | apart | back; per lead letter, the one-letter option plus its own cross sum to chance 140.
+
+# ---------------------------------------------------------------- pair 1: one act read two ways
+
+== a bold step cheered at one place, doubted at another
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, friend
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a bold step you took lately: one cheers your nerve, the other asks whether you thought it through
+times: People whose circles judge the same act differently tend to hold back and feel torn, and groups do judge one act by different standards (cross-pressures: Lazarsfeld 1944, Mutz 2002; Graham, Haidt and Nosek 2009)
+gap: 3-8
+scene: Word of the step {N} took lately has got around. At {place_b} they clap {N} on the back for it: it took nerve, and it came from the heart. At {place_a} the talk is quieter and cooler, about haste and things not weighed. A friend who goes to both says each place is waiting to hear {N} answer for it.
+scene W: {N} owes each place an honest hearing, and owes neither a fight on the other's ground.
+scene U: Both readings make some sense, and {N} wants to understand why one step looks so different from each side.
+scene B: Cheered in one place and doubted in the other is a position too, and {N} weighs which good name is worth more.
+scene R: {N} did it because it felt right, and the cool looks at {place_a} sting more than they should.
+scene G: These are both {Ns} people now, and a home with two rooms does not wall one of them off.
+- W | keep a firm rule: what is said at each place stays at that place | caught: apart | v: conformity, security | chance: 80
+- U | stay away from both for a few weeks, and think the step through again | caught: back | v: self-direction | chance: 85
+- B | side with {place_a}, call it a lesson learned, and keep the name that opens doors | caught: side_a | v: achievement, power | chance: 85
+- R | stand up at {place_b} and say it again, louder, whatever {place_a} thinks | caught: side_b | v: stimulation, self-direction | mark: made an enemy | chance: 62
+- G | invite the oldest hands of both places to one table, like neighbours of old | caught: bridge | v: tradition, benevolence | mark: made a friend | chance: 50
+- W>U | own up at {place_a} that the step was rushed, and ask help thinking it through | caught: side_a | v: conformity, self-direction | mark: owned up | chance: 60
+- U>B | side with {place_b}: make the case for the step, and take the credit there | caught: side_b | v: achievement, self-direction | chance: 55
+- B>R | call in favours to get both places into one room, and let them mix | caught: bridge | v: power, stimulation | chance: 55
+- R>G | give heart and soul to each place on its own night, never bringing one along | caught: apart | v: stimulation, benevolence | chance: 78
+- G>W | let the season pass quietly, trusting both places to settle as they always do | caught: back | v: tradition, security | chance: 90
+works: {place_b} keeps a warm spot for {N}, and at {place_a} the doubt fades into a shrug by spring.
+works: In the end both places hear the whole story, and {N} is welcome in each, a little more known than before.
+fails: {place_a} goes cool, and the seat {N} had there is quietly given to someone else.
+fails: Both places feel {N} held something back, and the welcome in each runs thinner for a season.
+
+== a careful choice praised at one place, scorned at another
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, friend
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over a careful choice you made lately: one calls it sound, the other calls it cold, even a letdown
+times: Belonging to circles that cross makes a person both torn and a natural go-between, and people meet clashing demands by choosing, keeping roles apart or stepping back (cross-pressures: Lazarsfeld 1944, Mutz 2002; role strain: Goode 1960)
+gap: 3-8
+scene: The choice {N} made lately was the careful one, and {place_a} approves: weighed, reasoned, sound. At {place_b} it reads otherwise, as playing it safe and letting the others down when it counted. A friend who goes to both carries the talk both ways and says both places want to hear {N} answer for it.
+scene W: Somebody has been treated unfairly in all this talk, and {N} will not add to it by taking cheap sides.
+scene U: {N} can set out every reason for the choice, and still wonders whether the reasons are the whole story.
+scene B: {N} made the choice for good reasons of their own, and neither place gets to decide what it was worth.
+scene R: The word letdown hurts, because the people at {place_b} are the ones {N} feels most alive with.
+scene G: {N} has belonged to both places for a while now, and old ties do not have to break over one choice.
+- W | stay away from both for a month, rather than sit as judge between friends | caught: back | v: conformity, benevolence | chance: 85
+- U | stand with {place_a}, and set out the reasons for the choice plainly | caught: side_a | v: self-direction, universalism | chance: 82
+- B | side with {place_b}: its crowd is bigger, and its good word travels further | caught: side_b | v: power, achievement | chance: 62
+- R | bring friends from {place_b} along to {place_a} one evening, and let them meet face to face | caught: bridge | v: stimulation, benevolence | chance: 50
+- G | keep each place in its own part of the week, the way it has always been | caught: apart | v: tradition, security | chance: 82
+- W>B | side with {place_b}: make a proper apology there, and earn back a good name | caught: side_b | v: conformity, achievement | mark: owned up | chance: 55
+- U>R | plan an open evening for both places, where everyone can say how it felt | caught: bridge | v: universalism, self-direction | chance: 58
+- B>G | play it carefully: give each place the version it likes, and keep both seats | caught: apart | v: security, tradition | chance: 78
+- R>W | take a break from both, before tempers say things nobody can take back | caught: back | v: benevolence, security | chance: 90
+- G>U | stand with {place_a} quietly and patiently, and let time show the choice was sound | caught: side_a | v: tradition, universalism | chance: 58
+works: {place_a} counts {N} among its steadiest, and by summer {place_b} has stopped teasing and started asking why.
+works: The two places end up hearing each other out, and {N} is the one both now trust to carry word.
+fails: {place_b} closes ranks, and its next nights go ahead without {N}.
+fails: Both places sense {N} saying different things to each, and the welcome cools on both sides.
+
+# ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
+
+== the season of hard work and the season of big nights
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UR
+rate: 1
+tone: mixed
+life: friends, community
+horizon: months
+roles: regular, go-between, colleague
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over one season: one wants your evenings for its hardest stretch of work, the other for its biggest nights
+times: People pulled between clashing groups often take part less and put off deciding, and handle the strain by choosing one, splitting their time or stepping back (cross-pressures: Lazarsfeld 1944, Mutz 2002; role strain: Goode 1960)
+gap: 3-8
+scene: The same season, two calls on the same evenings. {place_a} has its hardest stretch of the year ahead and is counting on {N} every week, prepared and present. {place_b} has its run of big nights, the ones people talk about for years, and wants {N} there for every one. A friend who goes to both hears both sides grumble and asks {N} which it is going to be.
+scene W: {N} gave their word to {place_a} before the season began, and a promise does not bend for a good night out.
+scene U: {N} counts the weeks and the hours, sure there is a sensible way to fit both if it is planned well.
+scene B: One place will remember who carried the work, the other who showed up on the big nights, and {N} weighs which memory pays.
+scene R: Nights like the ones at {place_b} do not come twice, and {N} can already feel them slipping past.
+scene G: Seasons like this come and go; what lasts is the people {N} goes home to at the end of them.
+- W | keep the promise made to {place_a}, and give it every evening this season | caught: side_a | v: conformity, achievement | mark: kept your word | chance: 85
+- U | side with {place_b}, having reckoned that the work can wait and these nights cannot | caught: side_b | v: self-direction, stimulation | chance: 60
+- B | get both places into one room for a night, as the one who made it happen | caught: bridge | v: power, achievement | chance: 52
+- R | go wherever the heart pulls each evening, and never speak of one place at the other | caught: apart | v: stimulation, hedonism | chance: 72
+- G | step back from both and spend the season at home among family | caught: back | v: tradition, benevolence | chance: 86
+- W>R | get both places to agree a fair split of evenings, and keep free nights free | caught: bridge | v: universalism, hedonism | chance: 55
+- U>G | plan the weeks so each place gets its nights, and neither hears about the other | caught: apart | v: security, tradition | chance: 80
+- B>W | plead a full diary to both for a month, and spare everyone the quarrel | caught: back | v: security, conformity | chance: 88
+- R>U | throw everything into the push at {place_a} this season, heart and soul | caught: side_a | v: achievement, stimulation | chance: 68
+- G>B | stand by {place_b} out of loyalty, and become a face it cannot do without | caught: side_b | v: tradition, achievement | chance: 54
+works: One place gets the season it hoped for from {N}, and the other, a little to its own surprise, understands.
+works: By the season's end both places count on {N}, and nobody remembers which evenings went where.
+fails: {place_b} stops saving {N} a place, and the big nights go on without them.
+fails: Both places feel short-changed, and {N} ends the season tired and only half welcome in each.
+
+== the call to stand up and the call to keep calm
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, neighbour
+who: go-between
+cast_want: caught
+earth: two of your places pull apart in one season: one wants you to stand up and be counted, the other asks you to keep the peace
+times: When a person's circles disagree, many go quiet and take part less, though they also come to see the other side's reasons more clearly (cross-pressures: Lazarsfeld 1944, Mutz 2002)
+gap: 3-8
+scene: Something has stirred {place_b} to anger, an unfairness close to its heart, and it wants every one of its people to stand up and be counted, loudly and in public. At {place_a} the word is the opposite: wait for the facts, keep its name out of it, say nothing in heat. {N} belongs to both, and both have noticed. A friend who goes to both says the next few weeks will show where {N} stands.
+scene W: If a wrong is being done, someone has to say so, but {N} also knows that a fair hearing comes before a verdict.
+scene U: {N} wants the facts first: who did what, and whether the anger at {place_b} has the whole picture.
+scene B: A public stand makes a name and makes enemies, and {N} weighs which of those this season can afford.
+scene R: The anger at {place_b} is {Ns} anger too, and keeping calm feels like swallowing something hot.
+scene G: Quarrels like this blow through every few years, and the places people love are still standing afterwards.
+- W | stand up with {place_b} in public, because the wrong done to them is a real wrong | caught: side_b | v: universalism, benevolence | mark: made an enemy | chance: 58
+- U | bring the facts to both places, and arrange a meeting where each hears the other | caught: bridge | v: universalism, self-direction | chance: 55
+- B | keep both: turn up quietly for {place_b}, and stay out of it at {place_a} | caught: apart | v: security, power | chance: 80
+- R | walk away from both for a while: the fighting has taken the joy out of each | caught: back | v: hedonism, self-direction | chance: 80
+- G | keep the peace with {place_a}: hot words fade, and the places people love remain | caught: side_a | v: tradition, security | chance: 85
+- W>G | keep to proper form: speak up only at {place_b}, and never carry it into {place_a} | caught: apart | v: conformity, tradition | chance: 82
+- U>W | hold back from both until the facts are in, so nobody is wronged in haste | caught: back | v: universalism, security | chance: 85
+- B>U | side with {place_a}, and use its standing to get the matter properly looked into | caught: side_a | v: power, universalism | chance: 60
+- R>B | stand with {place_b} out front, where everyone can see {N} took a stand | caught: side_b | v: self-direction, stimulation | chance: 60
+- G>R | gather both places around one long table, so the anger can be spoken face to face | caught: bridge | v: tradition, benevolence | mark: made a friend | chance: 55
+works: The season's anger cools, and the place {N} stood by remembers it, warmly, for a long time.
+works: A bridge holds: the two places end the season on speaking terms, and {N} is trusted in both.
+fails: The place {N} did not stand with cools for good, and the old greetings there turn polite and short.
+fails: Both places read {N} as half-hearted, and neither saves a seat for them in the weeks that follow.
+
+# Chroma library, modern Earth: CAUGHT BETWEEN, part 4 of 5 (S3, their places' eyes, v22.3, DRAFT cast_want: caught).
+# Enemy pair UG: {place_a} is a place led by reasons and change (a research group, a planning office, an evening class,
+# a reformers' society, a tech workshop), {place_b} one led by roots and tradition (the old congregation, a village
+# hall, a family trade, an allotment society, the elders' table). The Engine fills both with the places' plain names.
+# Every option carries caught: side_a | side_b | bridge | apart | back (table4.txt). Chances: per letter, single-letter plus
+# its cross (first letter) = 140; bridge 35-60, apart 70-90, back 75-95. Syntax: header of build.py.
+#   pair 1  one act read two ways             1a UG (s1) / 1b WBR (s2)
+#   pair 2  two places ask opposite things    2a UG (s3) / 2b WBR (s4)
+
+# ---------------------------------------------------------------- pair 1: one act read two ways
+
+== cheered at one place, cold at the other
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, elder, friend
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over the step you took lately: one calls it sensible and brave, the other calls it a break with how things are done
+times: People whose circles judge them differently feel the strain and often hold back from taking part (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: At {place_a} they cannot stop talking about the step {N} took: it was overdue, they say, and well thought out. At {place_b} the talk stops when {N} comes in, and an old hand asks, not unkindly, whether {N} has forgotten where they come from. Both rooms expect {N} back next week. Both are waiting to see which way {N} leans.
+scene W: Each place has a fair claim on {N}, and each deserves the same honest account of what was done and why.
+scene U: {N} can follow both readings: one sees the reasons, the other sees what the step leaves behind. Neither is simply wrong.
+scene B: One place hands out praise and doors; the other hands out frowns. {N} can count which is worth more.
+scene R: The cheering felt wonderful and the silence stung. {N} would rather feel that warmth than tiptoe around the chill.
+scene G: {place_b} knew {N} before any of this. Old ties are not dropped over one season's talk.
+- W | ask both places to hear the whole story, fairly, at one open evening | caught: bridge | v: universalism, conformity | chance: 55
+- U | talk the reasons through at {place_a}, and leave the subject at the door of {place_b} | caught: apart | v: self-direction, security | chance: 80
+- B | lie low at both for a few weeks, until the talk moves on to someone else | caught: back | v: security | chance: 85
+- R | stand with {place_a} openly, glad of the people who cheered | caught: side_a | v: stimulation, self-direction | chance: 85
+- G | stand with {place_b}: grant the old hands their doubts and keep to their ways | caught: side_b | v: tradition, conformity | chance: 65
+- W>U | take a fair pause from both until each has had time to learn the facts | caught: back | v: universalism, self-direction | chance: 85
+- U>B | stand with {place_a}, where sound reasons are rewarded and doors open | caught: side_a | v: achievement, self-direction | chance: 60
+- B>R | strike a quiet bargain at {place_b}: a nod to their ways for their old warmth | caught: side_b | v: hedonism, power | chance: 55
+- R>G | bring friends from {place_a} along to the next gathering at {place_b}, on impulse | caught: bridge | v: benevolence, stimulation | mark: made a friend | chance: 55
+- G>W | keep each place's business its own, as old courtesy says, to spare both a quarrel | caught: apart | v: tradition, benevolence | chance: 75
+works: The talk settles, and one of the places that doubted {N} begins to ask, with real interest, how it all went.
+works: A season later {N} is welcome in both rooms, and people in each now ask {N} what the other is thinking.
+fails: {place_b} grows cool, and {N} notices invitations there arriving later, and then not at all.
+fails: Both places feel let down by how {N} handled it, and {N} spends the evenings at home for a while.
+
+== both places want an answer for the step
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: go-between, regular, elder
+who: go-between
+cast_want: caught
+earth: the step you took lately is still talked about, and now both of your places want you to answer for it: one wants you to speak up for it, the other wants you to take it back
+times: People caught between two roles usually cope by choosing one, keeping the two apart or stepping back from both (role strain: Goode 1960)
+gap: 3-8
+scene: A friend who goes to both brings the word to each side. {place_a} would like {N} to stand up at its next meeting and explain the choice {N} made, as an example for others. {place_b} would like {N} to say, plainly and in front of the old faces, that it was a mistake. Neither request is unkind. They cannot both be granted.
+scene W: Both places asked fairly and in good faith. {N} owes each a straight answer, whatever the cost.
+scene U: {N} wants time to think it through: what was really decided, and what each place is actually asking for.
+scene B: Whichever room {N} answers first, {N} is choosing whose good opinion counts. Better to choose with care.
+scene R: Being asked to perform the choice, or to disown it, makes {N} want to say something sharp to both.
+scene G: Home is the place that knew {N} first. That has to mean something when the old faces ask.
+- W | give each place an honest answer to its own question, and carry nothing between them | caught: apart | v: conformity, security | mark: kept your word | chance: 80
+- U | step back from both for a season, and think the step through before answering anyone | caught: back | v: self-direction | chance: 85
+- B | stand with {place_a}, where the step has made a name worth keeping | caught: side_a | v: achievement, power | chance: 90
+- R | stand with {place_b} on impulse, and say sorry for the hurt, not the choice | caught: side_b | v: benevolence, stimulation | mark: owned up | chance: 65
+- G | ask the eldest at {place_b} to sit down with the people of {place_a}, over tea | caught: bridge | v: tradition, benevolence | chance: 50
+- W>B | answer {place_a} formally, by its rules, and take the place it holds open | caught: side_a | v: achievement, conformity | chance: 60
+- U>R | think it through, then stand with {place_b}, where it simply feels right to be | caught: side_b | v: self-direction, hedonism | chance: 55
+- B>G | call in favours on both sides to set up one shared evening that suits everyone | caught: bridge | v: power, benevolence | chance: 50
+- R>W | tell each place warmly what it needs to hear, so no one there gets hurt | caught: apart | v: benevolence | chance: 75
+- G>U | go back to the family for a while, and let time show what the step meant | caught: back | v: tradition, self-direction | chance: 90
+works: The answer lands well, and the place that asked for it draws {N} closer than before.
+works: The two places find, through {N}, that they were less far apart than the talk made out, and {N} is trusted in both.
+fails: The other place takes the answer as a slight, and {N} is quietly left off its lists for the season.
+fails: Neither place is satisfied, and both start to speak of {N} as someone who cannot be pinned down.
+
+# ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
+
+== one place wants a stand, the other wants peace
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UG
+rate: 1
+tone: mixed
+life: community, place
+horizon: months
+roles: keeper, regular, neighbour
+who: go-between
+cast_want: caught
+earth: in the same season one of your places wants you to stand up and be counted for a change, and the other asks you to keep the peace and leave things be
+times: People whose networks disagree on a public question tend to decide later and take part less, though they understand the other side better (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: {place_a} has drawn up a plan to change how something in the neighbourhood is done, and it wants names on it, {Ns} among the first. At {place_b} the same plan is spoken of as a slight on everything the old families built, and {N} is asked, kindly but firmly, to keep out of it. The open meeting is in a month. Everyone will see where {N} sits.
+scene W: A person with ties on both sides has a duty not to tear the neighbourhood in two, whatever they privately think.
+scene U: {N} has read the plan and it is sound, mostly. The parts that worry {place_b} could be fixed.
+scene B: Whoever wins this, the winners will remember who stood with them. {N} would like to be on the winning side.
+scene R: {N} is tired of being careful. Someone should just stand up and say what everyone is thinking, on both sides.
+scene G: The old families have kept this place what it is. Change will come, but not like this, not at their expense.
+- W | step back from both until the meeting is done, as fairness to each side requires | caught: back | v: conformity, universalism | chance: 80
+- U | stand with {place_a} and be counted, with the figures to show why | caught: side_a | v: self-direction, universalism | chance: 85
+- B | stand with {place_b}, where the long memories and the real sway sit | caught: side_b | v: power, security | chance: 60
+- R | stand up at the open meeting and speak for both sides, from the heart, unplanned | caught: bridge | v: stimulation, benevolence | chance: 50
+- G | keep {place_b} out of {place_a}'s business, as the old families always have | caught: apart | v: tradition, security | chance: 75
+- W>R | honour the call for peace from {place_b} as a duty, and win back easy evenings | caught: side_b | v: conformity, hedonism | mark: kept your word | chance: 60
+- U>G | draft a version of the plan that keeps what {place_b} holds dear, and show both | caught: bridge | v: universalism, tradition | chance: 55
+- B>W | back the plan quietly and keep the peace loudly: each place hears only its part | caught: apart | v: security, conformity | chance: 80
+- R>U | drop both for a few weeks on a whim, and go see how others did it | caught: back | v: stimulation, self-direction | chance: 90
+- G>B | stand with {place_a}, and use every old family tie to win the vote | caught: side_a | v: tradition, power | mark: made an enemy | chance: 65
+works: The meeting goes {Ns} way, and the place {N} stood with treats {N} as one of its own.
+works: The plan is changed enough that both places can live with it, and people on both sides credit {N} for it.
+fails: The place {N} did not stand with closes ranks, and greetings there turn short and formal.
+fails: The meeting turns bitter, and both places blame {N} for not doing more to stop it.
+
+== one place wants the evenings, the other the loyalty
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: keeper, colleague, elder
+who: go-between
+cast_want: caught
+earth: in the same season one of your places wants your evenings for something new, and the other wants your loyalty for something it has always done
+times: Belonging to several groups protects well-being, but each one asks for time, and the asks often fall in the same weeks (role strain: Goode 1960; Thoits 1983)
+gap: 3-8
+scene: {place_a} is starting something new this season and has asked {N} to give it two evenings a week until it is done. {place_b} has its busiest season of the year in the same weeks, and the old hands simply expect {N} to be there, as {N} always has been. Nobody has said anything sharp yet. The calendar has only so many evenings.
+scene W: {N} made promises to both, in different words. Breaking either one is breaking a promise.
+scene U: {N} sees what the new project could become, and also what {place_b} would lose without its regulars in its busiest weeks.
+scene B: The new project could make {Ns} name. The old season will happen whether {N} turns up or not.
+scene R: {N} wants the buzz of the new thing and the warmth of the old crowd, and resents having to pick.
+scene G: {place_b} has always counted on its own. Loyalty that only shows up when convenient is not loyalty.
+- W | keep the commitment made to {place_a} first, and tell {place_b} plainly and in person | caught: side_a | v: conformity, achievement | mark: kept your word | chance: 85
+- U | weigh it up and give the season to {place_b}: the project can wait, the season cannot | caught: side_b | v: self-direction, tradition | chance: 65
+- B | pitch the project to {place_b} as a way to raise its name, and run it there | caught: bridge | v: achievement, power | chance: 55
+- R | go wherever the mood leads each night, and never mention one place at the other | caught: apart | v: hedonism, stimulation | chance: 70
+- G | stay home with the family this season, and let both places manage | caught: back | v: tradition, security | chance: 80
+- W>G | propose a fair rota of alternate weeks, carrying each place's news to the other | caught: bridge | v: universalism, tradition | chance: 55
+- U>W | plan every week so each place gets its fair share and never hears of the other | caught: apart | v: security, universalism | chance: 75
+- B>U | drop both this season, and spend the evenings on a course that pays | caught: back | v: achievement, self-direction | mark: turned down a chance | chance: 85
+- R>B | throw every evening into the project at {place_a}, and make a name with it | caught: side_a | v: stimulation, achievement | chance: 70
+- G>R | give the season to {place_b}, for the joy of the long tables and the old songs | caught: side_b | v: tradition, hedonism | chance: 60
+works: The season ends well where {N} gave the time, and the people there say they could not have done it without {N}.
+works: Both places come through the season, and the old hands at {place_b} even drop by to see what {place_a} has built.
+fails: The place that went without {N} manages, but someone there says {N} has changed, and it gets around.
+fails: Stretched between the two, {N} lets both down in small ways, and by the end neither place quite counts on {N}.
+
+# Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES (S3 Their places' eyes, v22.3; agent 5, enemy pair BG).
+# Two of the character's places pull opposite ways. The Engine fills {place_a} with the B-led place (ambition and
+# advantage: a business club, a fast-growing firm, a traders' association, a developers' circle) and {place_b} with the
+# G-led place (roots and tradition: the old congregation, a village hall, a family trade, an allotment society, the
+# elders' table, a nature group). cast_want: caught; every option carries caught: side_a | side_b | bridge | apart | back.
+#   pair 1 one act read two ways          1a BG (s1) / 1b WUR (s2)
+#   pair 2 opposite asks in one season    2a BG (s3) / 2b WUR (s4)
+# Chances: each colour's one-colour option plus its cross option (first letter) sum to 140 in every moment.
+
+# ---------------------------------------------------------------- pair 1: one act read two ways
+
+== toasted at one place, frowned on at the other
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: BG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, friend
+who: go-between
+cast_want: caught
+earth: two of your places pull apart over something you did lately: one toasts it, the other frowns, and both want you to answer for it
+times: People whose circles judge the same act differently feel pulled both ways and tend to put off taking a side (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: Word of what {N} did lately has got round. At {place_a} people clap {N} on the shoulder and call it the bold step they always knew was coming. At {place_b} the greetings are a shade cooler, and someone says quietly that it is not how things are done there. Now both want {N} to speak to it, {place_a} at its next gathering and {place_b} face to face.
+scene W: {N} wants to be fair to both: each place deserves an honest account, and the ways {place_b} keeps were there long before {N}.
+scene U: Two places are reading one act by two yardsticks. {N} wants to understand both before saying a word.
+scene B: The praise at {place_a} is worth something real: contacts, doors, a name. The chill at {place_b} costs less, for now.
+scene R: {N} took the step because it felt right, and it stings that anyone wants it explained.
+scene G: {place_b} has known {N} the longest. Its frown lands harder than any toast.
+- W | stand with {place_b}, own that the step strayed from its ways, and keep them from now | caught: side_b | v: conformity, tradition | mark: owned up | chance: 60
+- U | ask both places to sit down together and hear the reasons behind the step | caught: bridge | v: universalism, self-direction | chance: 50
+- B | enjoy the toasts at {place_a}, and say nothing of them at {place_b} | caught: apart | v: achievement, security | chance: 80
+- R | leave both to their talk, and spend a few weeks somewhere that feels lighter | caught: back | v: hedonism, self-direction | chance: 85
+- G | stand with {place_a}, loyal to the friends there who backed the step from the start | caught: side_a | v: benevolence, security | chance: 80
+- W>U | make it a firm rule to carry no talk between the two while thinking it through | caught: apart | v: conformity, self-direction | chance: 80
+- U>B | step back from both for a season, and plan the next move while the talk cools | caught: back | v: achievement, self-direction | chance: 90
+- B>R | stand with {place_a}, and use the backing there to go further, free of old frowns | caught: side_a | v: stimulation, achievement | chance: 60
+- R>G | stand with {place_b}: go there that very evening and say, from the heart, it is home | caught: side_b | v: tradition, benevolence | chance: 55
+- G>W | bring the two together patiently, the old way, so neither place feels wronged | caught: bridge | v: tradition, benevolence | chance: 60
+works: {place_b} softens in time, and {place_a} says it thinks all the more of {N} for how it was handled.
+works: The talk dies down, and by the next season both places greet {N} warmly again.
+fails: One of the two places cools on {N}, and the welcome there is never quite the same.
+fails: Both places feel let down, and {N} goes to each a little less often.
+
+== the story of the step, bent in the telling
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WUR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, friend
+who: go-between
+cast_want: caught
+earth: the story of something you did has travelled between two of your places and bent on the way, and each now wants to know where you stand
+times: Talk carries an act from one circle to the next and changes it in the telling, and people caught between circles that disagree feel the strain of both roles (role strain: Goode 1960; cross-pressures: Mutz 2002)
+gap: 3-8
+scene: The tale of what {N} did has travelled between {place_a} and {place_b}, and bent on the way. At {place_b} they hear that {N} is being held up at {place_a} as proof that the old ways hold people back. At {place_a} they hear that {place_b} is making {N} pay for it. Each place now wants to hear from {N} where {N} stands.
+scene W: It is not fair to anyone: neither place has the true story, and both deserve it.
+scene U: {N} can trace how the tale bent at each telling, and wants it put straight before anyone decides anything.
+scene B: Whichever telling wins will decide what {Ns} name is worth, at both places.
+scene R: It makes {N} furious to hear the step turned into a weapon by people who were not even there.
+scene G: Talk like this has split places before. {N} knows the hurt outlasts the quarrel.
+- W | call both places to one meeting and give everyone the same honest account | caught: bridge | v: conformity, universalism | chance: 55
+- U | keep the two separate on purpose, and tell each only what bears on it | caught: apart | v: self-direction, security | chance: 80
+- B | stay away from both until it is clear which way the talk will settle | caught: back | v: security, power | chance: 90
+- R | stand with {place_a} openly, where the step was cheered, and let the frowns fall | caught: side_a | v: self-direction, stimulation | chance: 80
+- G | stand with {place_b}, the place that has known you longest, and let the rest go | caught: side_b | v: tradition, security | act: stand with {place_b}, the place that has known them longest, and let the rest go | chance: 65
+- W>B | excuse yourself from both for the season, on the rule that private choices stay private | caught: back | v: security, conformity | act: excuse themself from both for the season, on the rule that private choices stay private | chance: 85
+- U>R | stand with {place_a}, and lay out calmly why the step freed you to live your way | caught: side_a | v: self-direction | act: stand with {place_a}, and lay out calmly why the step freed them to live their way | chance: 60
+- B>G | stand with {place_b}, and back its next appeal to win your welcome back | caught: side_b | v: security, tradition | act: stand with {place_b}, and back its next appeal to win their welcome back | chance: 50
+- R>W | bring people from both to the same table that night, and have it out honestly | caught: bridge | v: benevolence, universalism | chance: 60
+- G>U | keep each place out of the other's business, and wait quietly to see what it meant | caught: apart | v: tradition, self-direction | chance: 75
+works: The true story gets out at last, and someone at each place tells {N} they are glad to have heard it.
+works: The tale stops bending, and {N} ends up the one both places ask when they want to know what the other thinks.
+fails: The bent version sticks at one place, and {N} feels it in every greeting there.
+fails: Both places decide {N} has not been straight with them, and the talk turns colder on each side.
+
+# ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
+
+== one place wants a name on the list, the other wants quiet
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: BG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, neighbour
+who: go-between
+cast_want: caught
+earth: in the same season one of your places wants you to stand up and be counted for a change in the neighbourhood, and another asks you to keep out of it and keep the peace
+times: People asked by two of their circles to act in opposite ways tend to delay, waver and take part less (cross-pressures: Lazarsfeld 1944; Mutz 2002)
+gap: 3-8
+scene: This season {place_a} is pushing hard for a change in the neighbourhood, and it wants {Ns} name on the list of supporters, said out loud. At {place_b} most people are quietly against the change, and they ask only one thing of {N}: keep out of it, and keep the peace. Both requests come in the same week, and both are put kindly.
+scene W: Two fair claims pull at {N}: a cause that wants honest support, and a place that asks for peace.
+scene U: {N} wants to know what the change would actually do before signing anything, or refusing to.
+scene B: The list at {place_a} will be read by people who matter. A name on it, or missing from it, will be remembered.
+scene R: {N} can feel which way the heart leans, and hates being asked to hush it.
+scene G: The neighbourhood has seen changes come and go. {place_b} has outlasted them all.
+- W | honour each place's rules within its own walls, and carry nothing between them | caught: apart | v: conformity, security | chance: 80
+- U | step back from both until the facts of the change are clear | caught: back | v: self-direction, security | chance: 85
+- B | stand with {place_a}, and put your name high on the list, where the right people look | caught: side_a | v: achievement, power | act: stand with {place_a}, and put their name high on the list, where the right people look | chance: 85
+- R | stand with {place_b} on gut feeling, and say so with feeling | caught: side_b | v: benevolence, self-direction | chance: 65
+- G | bring the oldest hands of both places together for a quiet talk, the old way | caught: bridge | v: tradition, benevolence | chance: 50
+- W>R | stand with {place_a} and sign, since everyone has the right to speak up | caught: side_a | v: universalism, self-direction | chance: 60
+- U>G | stand with {place_b}, after looking hard at what the change would cost the neighbourhood | caught: side_b | v: tradition, universalism | chance: 55
+- B>W | broker a deal: a gentler plan from one side, quiet acceptance from the other | caught: bridge | v: power, universalism | chance: 55
+- R>U | throw yourself into hearing out both sides, and keep what each says to yourself | caught: apart | v: stimulation, self-direction | act: throw themself into hearing out both sides, and keep what each says to themself | chance: 75
+- G>B | wait it out, let the season pass, and keep your standing in both intact | caught: back | v: security, tradition | act: wait it out, let the season pass, and keep their standing in both intact | chance: 90
+works: The season passes, and both places say afterwards that {N} handled it with grace.
+works: The two places find a way to live with the outcome, and each counts {N} as one of its own.
+fails: One place takes {Ns} answer as a slight, and asks less of {N} from then on.
+fails: Both places feel {N} let them down, and the welcome cools on each side.
+
+== one place wants the hours, the other the old ties
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WUR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, go-between, colleague
+who: go-between
+cast_want: caught
+earth: in the same season one of your places wants your evenings for a big push, and another is counting on your loyalty in a hard stretch of its own
+times: Juggling the demands of several groups at once is an ordinary strain, and people handle it by choosing one, keeping them apart or stepping back (role strain: Goode 1960)
+gap: 3-8
+scene: {place_a} is in the busiest stretch of its year, and it wants {N} there most evenings: the push could make a real difference for everyone in at the start. {place_b} has a hard season of its own, short of hands and long on old commitments, and it is counting on {N} the way it always has. There are not enough evenings for both.
+scene W: {N} gave {place_b} a promise long ago, and gave {place_a} one more lately. Both are owed.
+scene U: {N} counts the evenings, the hours and the tasks, and looks for a plan that wastes none of them.
+scene B: The push at {place_a} could change where {N} stands a year from now. {place_b} will still be there afterwards.
+scene R: {N} is torn between the buzz of the push and the warmth of the old crowd, and wants both tonight.
+scene G: {place_b} has carried {N} through hard seasons before. Now it is the one in need.
+- W | tell both places honestly you cannot do either justice this season, and step back | caught: back | v: conformity, universalism | act: tell both places honestly they cannot do either justice this season, and step back | chance: 85
+- U | stand with {place_a} this season, after weighing what each evening there would build | caught: side_a | v: achievement, self-direction | chance: 80
+- B | stand with {place_b}, where being the one who came through will count for years | caught: side_b | v: security, achievement | chance: 60
+- R | throw one big evening that brings both crowds together, and see what sparks | caught: bridge | v: stimulation, benevolence | chance: 50
+- G | keep the old place and the new in separate corners of life, as always | caught: apart | v: tradition, security | chance: 70
+- W>G | stand with {place_b}, and keep the promise made there long before the other | caught: side_b | v: tradition, conformity | mark: kept your word | chance: 55
+- U>W | draw up a fair rota between the two places, and get both to agree to it | caught: bridge | v: universalism, conformity | chance: 60
+- B>U | split the evenings shrewdly, learn what each can teach, and keep the two diaries apart | caught: apart | v: achievement, self-direction | chance: 80
+- R>B | drop both on a whim for a few weeks, and take the evenings for yourself | caught: back | v: hedonism, self-direction | act: drop both on a whim for a few weeks, and take the evenings for themself | chance: 90
+- G>R | stand with {place_a} this season, giving it the steady loyalty that makes the push a joy | caught: side_a | v: benevolence, stimulation | chance: 70
+works: The season ends well, and the place that got {Ns} evenings says it will not forget it.
+works: Both places come through the stretch, and each is glad, in the end, of what {N} could give.
+fails: The place that was left short cools on {N}, and says so to anyone who asks.
+fails: Spread thin, {N} disappoints both, and is asked to less at each.

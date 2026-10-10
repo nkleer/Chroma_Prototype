@@ -1270,6 +1270,1066 @@ SITUATIONS = [
     ('take it on with fire, and make it the heart of the neighbourhood', 'R1', 'W.7', 0.5, 'commit:career', {'v': 'benevolence, stimulation', 'chance': 0.75}),
     ('work there for a season first, learning the trade from the inside', 'G1', 'U.7', 0.5, 'commit:career', {'v': 'self-direction', 'mark': 'learned a skill', 'chance': 0.72}),
  ]},
+{'name': 'the step one place cheers and the other frowns on',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, keeper',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a step you took lately: one cheers it as bold, the other '
+                     'frowns on it as selfish'},
+ 'timing': {'times': 'People whose circles judge the same act differently tend to decide later and take part less in '
+                     'both (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Word of the step {N} took this spring has gone round. At {place_b} people shake {Ns} hand '
+                       'and call it bold; at {place_a} the greetings have gone cool, and someone has said {N} put '
+                       'themselves first. Now both want {N} to answer for it, and a friend who goes to both passes '
+                       'on what each side is saying.'),
+                      ('W',
+                       'The people at {place_a} have stood by {N} for years. Fairness says they are owed an honest '
+                       'account, face to face.'),
+                      ('U',
+                       'Both places are reading one step by different rules. {N} wants to understand each reading '
+                       'before saying a word.'),
+                      ('B',
+                       'The doors are opening at {place_b} now. A cool welcome at {place_a} is a price, and {N} can '
+                       'weigh a price.'),
+                      ('R',
+                       '{N} is proud of the step and stung by the coolness. Being judged for it makes {Ns} face '
+                       'burn.'),
+                      ('G',
+                       'Both places are part of who {N} is. Neither tie should be cut over one season of talk.')]},
+ 'outcomes': (['The talk settles, and one of the two places greets {N} more warmly than before.',
+               'By the end of the season both places have heard {Ns} side, and the step is old news at each.'],
+              ['One of the places cools for good, and {N} feels it every time the door opens there.',
+               'Both places go a little cool, and the story comes back to {N} told wrong.']),
+ 'options': [
+    ('stand with {place_a}: give a full, honest account there, and make amends', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, benevolence', 'mark': 'owned up', 'chance': 0.8}),
+    ('stand with {place_b}, and set out plainly why the step made sense', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, achievement', 'chance': 0.6}),
+    ('bring {place_a} and {place_b} to one table, and show each what it gains', 'B1', None, 0.45, '', {'caught': 'bridge', 'v': 'power, achievement', 'chance': 0.55}),
+    ('enjoy the praise at {place_b}, and never mention the step at {place_a}', 'R1', None, 0.45, '', {'caught': 'apart', 'v': 'hedonism, stimulation', 'chance': 0.8}),
+    ('stay home among family for a season, and let the talk die down', 'G1', None, 0.45, '', {'caught': 'back', 'v': 'tradition, security', 'chance': 0.85}),
+    ("ask both places for a fair hearing, so each learns the other's reasons", 'W1', 'U.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, benevolence', 'chance': 0.6}),
+    ('plan what to say at each place, so neither costs the other anything', 'U1', 'B.7', 0.5, '', {'caught': 'apart', 'v': 'achievement, security', 'chance': 0.8}),
+    ('stop going to either for a season; no place gets to judge the step', 'B1', 'R.7', 0.5, '', {'caught': 'back', 'v': 'self-direction, hedonism', 'chance': 0.85}),
+    ('go to {place_a} tonight, admit the coolness hurt, and ask to be let back in', 'R1', 'G.7', 0.5, '', {'caught': 'side_a', 'v': 'benevolence, tradition', 'chance': 0.6}),
+    ('stand by {place_b}, who backed the step, as loyal people do', 'G1', 'W.7', 0.5, '', {'caught': 'side_b', 'v': 'benevolence, conformity', 'chance': 0.55}),
+ ]},
+{'name': 'the choice one place honours and the other resents',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, colleague',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a choice you made: one honours it as the decent thing, the '
+                     'other resents what it cost'},
+ 'timing': {'times': 'Different circles judge one act by different standards, and a person between them is pulled '
+                     'both ways (Graham, Haidt and Nosek 2009; role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The choice {N} made last month has reached both places. At {place_a} people say {N} did the '
+                       'decent thing, and they are proud of it; at {place_b} it is called naive and costly, and one '
+                       'or two have stopped returning calls. Each place now wants {N} to answer for it: one wants '
+                       '{N} to own it out loud, the other wants to hear it will not happen again.'),
+                      ('W',
+                       '{N} did what was right and would do it again. The only question is how to stand by it '
+                       'without wrecking things at {place_b}.'),
+                      ('U',
+                       '{N} sees two honest readings of one act: one counts what was owed, the other counts what it '
+                       'cost. Both have a point.'),
+                      ('B',
+                       'The praise at {place_a} does not open many doors. The doors at {place_b} do, and they are '
+                       'closing a little.'),
+                      ('R', '{N} is fed up with being judged. It felt right at the time, and it still does.'),
+                      ('G',
+                       '{N} was brought up to do things this way. That is not something to apologise for, to '
+                       'anyone.')]},
+ 'outcomes': (['One place takes {N} closer than ever, and the other comes round in its own time.',
+               'The two readings meet halfway, and people at both places start to ask {N} what the other side '
+               'thinks.'],
+              ['The calls from one place stop for good, and {N} misses more than expected.',
+               'Neither place is quite satisfied, and {N} is talked about at both for the rest of the year.']),
+ 'options': [
+    ('stand with {place_b}: keep to its rules from here on, as a member should', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'conformity, security', 'chance': 0.6}),
+    ('lay out the facts at both places, so each sees why the other reads it so', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.55}),
+    ('let {place_a} honour it, and tell {place_b} it was a one-off', 'B1', None, 0.45, '', {'caught': 'apart', 'v': 'power, security', 'chance': 0.78}),
+    ('stay away from both for a while, sick of being judged', 'R1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction, stimulation', 'chance': 0.88}),
+    ('stand with {place_a}, among the people who taught this way of doing things', 'G1', None, 0.45, '', {'caught': 'side_a', 'v': 'tradition, benevolence', 'chance': 0.85}),
+    ("keep a firm rule: neither place's business is discussed at the other", 'W1', 'B.7', 0.5, '', {'caught': 'apart', 'v': 'security, conformity', 'chance': 0.8}),
+    ('plan a season off from both, and use it to think freely', 'U1', 'R.7', 0.5, '', {'caught': 'back', 'v': 'self-direction', 'chance': 0.85}),
+    ('use the praise at {place_a} to win a firmer place there, and let {place_b} go', 'B1', 'G.7', 0.5, '', {'caught': 'side_a', 'v': 'achievement, tradition', 'chance': 0.62}),
+    ('go to {place_b} tonight, admit what it cost them, and offer to make it right', 'R1', 'W.7', 0.5, '', {'caught': 'side_b', 'v': 'benevolence, conformity', 'mark': 'owned up', 'chance': 0.52}),
+    ('invite an old friend from each place home, and let them talk it through slowly', 'G1', 'U.7', 0.5, '', {'caught': 'bridge', 'v': 'tradition, universalism', 'chance': 0.55}),
+ ]},
+{'name': 'a call to stand up, a call to keep the peace',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, neighbour',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a cause: one wants you to stand up and be counted, the '
+                     'other wants you to keep the peace'},
+ 'timing': {'times': "When a person's circles disagree on a cause, they are slower to make up their mind and "
+                     'likelier to stay out of it (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'It is a hard season in the neighbourhood. At {place_a} they are asking everyone to stand up '
+                       'and be counted: sign the letter, speak at the meeting, be seen. At {place_b} the word is the '
+                       'opposite: keep out of it, it is bad for business, and some members sit on the other side. A '
+                       'friend who goes to both warns {N} that both places will notice which way {N} goes.'),
+                      ('W', 'When a cause is just, standing up is owed. But {N} has made promises at {place_b} too.'),
+                      ('U',
+                       '{N} wants to know the cause well before signing anything: what it asks, who it hurts, what '
+                       'it could change.'),
+                      ('B',
+                       'Standing up costs something at {place_b}, where the deals are made. Staying quiet costs '
+                       'something at {place_a}. {N} counts both.'),
+                      ('R',
+                       'Part of {N} wants to be at the front with a sign today, and let {place_b} think what it '
+                       'likes.'),
+                      ('G',
+                       "{N} has known people in both places for years. One season's quarrel should not break what "
+                       'took years to grow.')]},
+ 'outcomes': (['The season turns, and one place remembers warmly where {N} stood when it counted.',
+               'A few people from both places end up talking for the first time, and {N} is the one they thank.'],
+              ['One place takes it badly, and {N} is left off the next round of invitations there.',
+               'Both places sense {N} held back, and each trusts {N} a little less.']),
+ 'options': [
+    ('call a fair meeting where both places put their case, and chair it', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, conformity', 'chance': 0.55}),
+    ('back the cause quietly in writing at {place_a}, and say nothing at {place_b}', 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, security', 'chance': 0.8}),
+    ('sit this season out at both, and keep every door open', 'B1', None, 0.45, '', {'caught': 'back', 'v': 'power, security', 'chance': 0.82}),
+    ('stand with {place_a} at the front, and say out loud why', 'R1', None, 0.45, '', {'caught': 'side_a', 'v': 'stimulation, universalism', 'chance': 0.88}),
+    ('stand with {place_b} and keep the peace, for the sake of old friends there', 'G1', None, 0.45, '', {'caught': 'side_b', 'v': 'tradition, benevolence', 'chance': 0.62}),
+    ('decline both politely, as any member may, and keep the season free', 'W1', 'R.7', 0.5, '', {'caught': 'back', 'v': 'self-direction, conformity', 'chance': 0.85}),
+    ('study the cause, then stand with {place_a} for what it would keep alive', 'U1', 'G.7', 0.5, '', {'caught': 'side_a', 'v': 'universalism, tradition', 'chance': 0.6}),
+    ('stand with {place_b}, and get its promise to help the cause another way', 'B1', 'W.7', 0.5, '', {'caught': 'side_b', 'v': 'power, universalism', 'chance': 0.58}),
+    ('take a friend from each place out tonight, and argue it through till they understand', 'R1', 'U.7', 0.5, '', {'caught': 'bridge', 'v': 'stimulation, universalism', 'chance': 0.52}),
+    ('keep the two in separate corners of life, as always, and lose neither', 'G1', 'B.7', 0.5, '', {'caught': 'apart', 'v': 'security, tradition', 'chance': 0.78}),
+ ]},
+{'name': 'two places want the same evenings',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, work',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, keeper',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over your evenings: one has a big push on, the other is counting '
+                     'on your loyalty this season'},
+ 'timing': {'times': 'Two roles that claim the same hours are a common strain, met by choosing one, keeping them '
+                     'apart or stepping back from both (role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Both places want the same few months of {Ns} evenings. At {place_b} there is a big push on, '
+                       'and those who put in the hours now will be remembered when the rewards are shared. At '
+                       '{place_a} they are short of hands this season and are counting on {N}, who has always pulled '
+                       'their weight. Neither knows yet that the other has asked.'),
+                      ('W',
+                       '{N} said yes to {place_a} long ago, and a promise does not lapse because something brighter '
+                       'comes along.'),
+                      ('U',
+                       'There are only so many evenings. {N} lays out the weeks and asks what each place really '
+                       'needs, and when.'),
+                      ('B',
+                       'The push at {place_b} could make {Ns} name. The work at {place_a} will still be there next '
+                       'year.'),
+                      ('R',
+                       '{N} can feel the buzz of the push and the weight of the need, and wants to answer both at '
+                       'once.'),
+                      ('G',
+                       'The people at {place_a} have been {Ns} people for a long time. That counts for something, '
+                       'whatever {place_b} offers.')]},
+ 'outcomes': (['One place gets the best of {N} this season, and says so warmly at the end of it.',
+               'The two places find they can share {N} after all, and {N} becomes the one who links them.'],
+              ['The place that lost out says nothing, but the welcome there is cooler for a long while.',
+               'Stretched between the two, {N} lets both down a little, and both notice.']),
+ 'options': [
+    ('keep strict hours: fixed nights for each place, and no talk of one at the other', 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'chance': 0.76}),
+    ('say no to both this season; spread this thin, nothing would be done well', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction, security', 'chance': 0.8}),
+    ('stand with {place_a}: a name for reliability there pays off in the long run', 'B1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, power', 'chance': 0.82}),
+    ('throw in with the push at {place_b}; that is where the life is this season', 'R1', None, 0.45, '', {'caught': 'side_b', 'v': 'stimulation, hedonism', 'chance': 0.6}),
+    ('bring people from {place_b} to lend a hand at {place_a}, as neighbours once did', 'G1', None, 0.45, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'chance': 0.5}),
+    ('keep the old promise to {place_a}, and stay with the people counting on it', 'W1', 'G.7', 0.5, '', {'caught': 'side_a', 'v': 'conformity, tradition', 'mark': 'kept your word', 'chance': 0.64}),
+    ('weigh it up, and give the season to {place_b}, where the work helps more people', 'U1', 'W.7', 0.5, '', {'caught': 'side_b', 'v': 'universalism, achievement', 'chance': 0.6}),
+    ('broker a deal: {place_b} lends hands to {place_a}, and each learns how the other works', 'B1', 'U.7', 0.5, '', {'caught': 'bridge', 'v': 'power, universalism', 'chance': 0.58}),
+    ('say yes to both on the spot, and let each think it comes first', 'R1', 'B.7', 0.5, '', {'caught': 'apart', 'v': 'stimulation, achievement', 'chance': 0.8}),
+    ('let the season pass at home with family, free of both', 'G1', 'R.7', 0.5, '', {'caught': 'back', 'v': 'tradition, self-direction', 'chance': 0.9}),
+ ]},
+{'name': 'cheered at one place, frowned on at the other',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, keeper, go-between',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over the step you took lately: one cheers it, the other frowns, '
+                     'and both want you to answer for it'},
+ 'timing': {'times': 'People whose circles disagree about them tend to hold back, take part less and decide later '
+                     '(cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Word of the step {N} took lately has gone round both places. At {place_b} people clap {N} on '
+                       'the back and call it the bravest thing in years; at {place_a} the talk stops when {N} walks '
+                       'in, and someone says it is not how things are done. A friend who goes to both says each one '
+                       'is waiting to hear {N} answer for it.'),
+                      ('W',
+                       '{N} made the choice in good faith, and owes both places one straight account of it, not two '
+                       'stories.'),
+                      ('U',
+                       'The act is the same in both places, so the difference must lie in the places. {N} wants to '
+                       'know what each is really reacting to.'),
+                      ('B',
+                       'Both names count for something. {N} weighs which one is worth more to keep, and what losing '
+                       'the other would cost.'),
+                      ('R',
+                       'The cheers at {place_b} felt wonderful, and the cold looks at {place_a} sting more than {N} '
+                       'expected.'),
+                      ('G',
+                       '{N} has belonged to {place_a} a long time, and {place_b} feels like home in another way. '
+                       'Neither is easy to give up.')]},
+ 'outcomes': (['Within a season the talk dies down, and one of the places is warmer to {N} than before.',
+               'Someone at the other place says, unasked, that they have come to see the step differently.'],
+              ['One place cools for good: the greetings there grow shorter, and the invitations stop.',
+               'Both places feel let down, and for a while {N} is half a stranger in each.']),
+ 'options': [
+    ('keep away from both for a season, so neither place splits over it', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, benevolence', 'chance': 0.8}),
+    ('stand with {place_a}: hear their reasons out, and grant where they are right', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'self-direction, universalism', 'chance': 0.85}),
+    ('stand with {place_b}, where the step has made a name worth keeping', 'B1', None, 0.45, '', {'caught': 'side_b', 'v': 'achievement, power', 'chance': 0.6}),
+    ('bring two old hands from {place_a} along to {place_b} one night, to see why', 'R1', None, 0.45, '', {'caught': 'bridge', 'v': 'stimulation, benevolence', 'chance': 0.5}),
+    ('keep each place as it always was, and never bring one up at the other', 'G1', None, 0.45, '', {'caught': 'apart', 'v': 'tradition, security', 'chance': 0.75}),
+    ('stand with {place_b} on principle, and give {place_a} a full, fair account of why', 'W1', 'U.7', 0.5, '', {'caught': 'side_b', 'v': 'universalism, self-direction', 'chance': 0.6}),
+    ("work out who counts at each place, and broker a sit-down that saves everyone's face", 'U1', 'B.7', 0.5, '', {'caught': 'bridge', 'v': 'achievement, power', 'chance': 0.55}),
+    ('keep each place in the dark about the other, and enjoy the cheers while they last', 'B1', 'R.7', 0.5, '', {'caught': 'apart', 'v': 'hedonism, security', 'chance': 0.8}),
+    ("drop both on a whim, and spend the season's evenings back with the family", 'R1', 'G.7', 0.5, '', {'caught': 'back', 'v': 'tradition, benevolence', 'chance': 0.9}),
+    ('stand with {place_a}, the older tie, and own that the step let it down', 'G1', 'W.7', 0.5, '', {'caught': 'side_a', 'v': 'tradition, conformity', 'mark': 'owned up', 'chance': 0.65}),
+ ]},
+{'name': 'praised at one place, scorned by the other crowd',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a choice you made: one praises it as a credit to them all, '
+                     'the other calls it playing safe'},
+ 'timing': {'times': 'Holding several roles whose people expect different things is common and wearing, and people '
+                     'ease it by choosing, keeping roles apart or stepping back (role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The choice {N} made lately has earned a warm word at {place_a}: someone there calls it a '
+                       'credit to them all, and the older members nod at {N} in a new way. At {place_b} it went down '
+                       'badly; people say {N} played it safe, sided with the careful and the stiff, and let the '
+                       'crowd down. A friend who goes to both says both places now want to hear {N} say where they '
+                       'stand.'),
+                      ('W',
+                       '{N} did what seemed right, and wants neither praise at one place nor blame at the other, '
+                       'only a fair hearing.'),
+                      ('U',
+                       '{N} can follow both readings, and suspects each place is answering a different question from '
+                       'the one {N} faced.'),
+                      ('B',
+                       'Praise from {place_a} is useful; scorn at {place_b} is costly. {N} sees the trade plainly.'),
+                      ('R', 'It hurts to be looked at sideways by the people {N} feels most alive with.'),
+                      ('G',
+                       '{place_a} has stood by {N} for years, and the new warmth there feels like being taken in at '
+                       'last. The coldness at {place_b} feels like a door closing.')]},
+ 'outcomes': (['Each place hears {N} out, and in time both accept the choice was made in good faith.',
+               'One place warms to {N} more than ever, and the other quietly lets the matter drop.'],
+              ['{place_b} cools: the calls stop, and {N} hears about the good nights only afterwards.',
+               'Both places feel {N} chose the other, and the welcome in each turns merely polite.']),
+ 'options': [
+    ('stand with {place_a}, which judged the choice by the rule, and say so plainly', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, security', 'chance': 0.8}),
+    ('stand with {place_b}: grant the point they make, and change course where they are right', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, universalism', 'chance': 0.65}),
+    ('host one night for both crowds, and be the one who brought them together', 'B1', None, 0.45, '', {'caught': 'bridge', 'v': 'achievement, power', 'chance': 0.55}),
+    ('laugh it off at {place_b}, and never mention it at {place_a}', 'R1', None, 0.45, '', {'caught': 'apart', 'v': 'hedonism, stimulation', 'chance': 0.85}),
+    ('step back from both, and wait for the old rhythm of things to return', 'G1', None, 0.45, '', {'caught': 'back', 'v': 'tradition, security', 'chance': 0.78}),
+    ('call a fair sit-down between the two places, on terms that protect {Ns} own standing', 'W1', 'B.7', 0.5, '', {'caught': 'bridge', 'v': 'security, power', 'chance': 0.6}),
+    ('plan the weeks so the two crowds never meet, and keep the nights at {place_b} free', 'U1', 'R.7', 0.5, '', {'caught': 'apart', 'v': 'hedonism, self-direction', 'chance': 0.75}),
+    ('stop going to both for a season, and put the hours into home and kin', 'B1', 'G.7', 0.5, '', {'caught': 'back', 'v': 'security, tradition', 'chance': 0.85}),
+    ('stand with {place_a} at once, and tell {place_b} to its face the choice was right', 'R1', 'W.7', 0.5, '', {'caught': 'side_a', 'v': 'conformity, stimulation', 'chance': 0.55}),
+    ('stay loyal to the friends at {place_b}, and ask them what they saw', 'G1', 'U.7', 0.5, '', {'caught': 'side_b', 'v': 'benevolence, self-direction', 'chance': 0.62}),
+ ]},
+{'name': 'one place calls for calm, the other for a stand',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, neighbour',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places ask opposite things this season: one wants you to stand up and be counted, '
+                     'the other to keep the peace'},
+ 'timing': {'times': 'People caught between circles that disagree on a public dispute often stay out of it, though '
+                     'they also come to understand the other side better (cross-pressures: Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A dispute has stirred up the neighbourhood this season, and both of {Ns} places have taken a '
+                       'side. {place_b} is getting ready to make itself heard and wants {N} out front with them on '
+                       'the night. At {place_a} the word is to keep calm and stay out of it, and the people there '
+                       'are counting on {N} to be seen keeping the peace.'),
+                      ('W', 'Order matters, and so does a wrong put right. {N} feels both pulls as a duty.'),
+                      ('U',
+                       '{N} wants to know what the stand is really for, and what keeping calm would really achieve.'),
+                      ('B',
+                       'Whoever ends up on the winning side will remember who stood with them. {N} weighs the odds.'),
+                      ('R',
+                       '{N} can already feel the night at {place_b}: the noise, the heat, the sense of being part of '
+                       'something.'),
+                      ('G', '{place_a} has kept the peace here for generations. That still counts for something.')]},
+ 'outcomes': (['The night passes without trouble, and one place thanks {N} openly for the part they played.',
+               'The two places find a little common ground, and both mention {N} when they tell the story.'],
+              ['The place {N} did not stand with takes it hard, and the welcome there cools for a long while.',
+               'Neither place is satisfied, and both quietly stop asking {N} for anything.']),
+ 'options': [
+    ('stand with {place_b}, because a wrong left unanswered is still a wrong', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'universalism, benevolence', 'chance': 0.65}),
+    ('draft a joint statement both places could sign, and carry it between them', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.55}),
+    ('tell each place privately what it wants to hear, and keep them from comparing notes', 'B1', None, 0.45, '', {'caught': 'apart', 'v': 'security, power', 'chance': 0.82}),
+    ('skip the night and the meetings alike, and go off somewhere free for a while', 'R1', None, 0.45, '', {'caught': 'back', 'v': 'hedonism, self-direction', 'chance': 0.8}),
+    ('stand with {place_a}, which has kept the peace here longer than anyone', 'G1', None, 0.45, '', {'caught': 'side_a', 'v': 'tradition, security', 'chance': 0.8}),
+    ('keep firm, separate rules: free nights at {place_b}, calm at {place_a}, and no crossover', 'W1', 'R.7', 0.5, '', {'caught': 'apart', 'v': 'conformity, self-direction', 'chance': 0.75}),
+    ('think it through slowly at home, and let the season pass with the family', 'U1', 'G.7', 0.5, '', {'caught': 'back', 'v': 'tradition, security', 'chance': 0.85}),
+    ('stand with {place_a}, and take a visible role keeping order on the night', 'B1', 'W.7', 0.5, '', {'caught': 'side_a', 'v': 'power, conformity', 'chance': 0.58}),
+    ('throw in with {place_b}, and stay up nights getting the facts straight for them', 'R1', 'U.7', 0.5, '', {'caught': 'side_b', 'v': 'stimulation, self-direction', 'chance': 0.6}),
+    ('bring the elders of both places to one table, and come away the one they trust', 'G1', 'B.7', 0.5, '', {'caught': 'bridge', 'v': 'tradition, power', 'chance': 0.6}),
+ ]},
+{'name': 'two places claim the same evenings',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places want the same evenings this season: one counts on your time for its rota, '
+                     'the other on your loyalty for its big run of nights'},
+ 'timing': {'times': 'Clashing claims on time from different groups are among the commonest strains of adult life, '
+                     'and people meet them by bargaining, choosing or cutting back (role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'It is the busy season at both of {Ns} places at once. {place_a} has drawn up its rota and '
+                       'counts on {N} for three evenings a week until it ends. {place_b} has its own big run of '
+                       'nights coming, the ones everyone will talk about for a year, and the regulars take it for '
+                       'granted that {N} will be there. There are not enough evenings for both.'),
+                      ('W',
+                       '{N} gave {place_a} a word when the rota went round. A promise is a promise, but so is '
+                       'friendship.'),
+                      ('U',
+                       '{N} counts the evenings and the weeks. There may be a way to fit both in, or there may not.'),
+                      ('B',
+                       '{N} asks which place will matter more in a year, and which favour is likelier to be repaid.'),
+                      ('R',
+                       'The run at {place_b} is the kind of thing that happens once. {N} aches to be there every '
+                       'night.'),
+                      ('G',
+                       '{place_a} has asked the same of every member for as long as anyone remembers. That is how it '
+                       'holds together.')]},
+ 'outcomes': (['Both places get enough of {N} to be content, and someone at each says they could not have managed '
+               'without them.',
+               'One place warms to {N} for the season, and the other lets it go without a grudge.'],
+              ['The place that went short remembers, and asks less of {N} the next time round.',
+               'Both places feel shortchanged, and {N} ends the season tired and a little alone.']),
+ 'options': [
+    ('sit both sides down, agree a fair split of the evenings, and keep to it', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'conformity, benevolence', 'chance': 0.5}),
+    ("plan the weeks to the hour, and keep each place's calendar out of the other's sight", 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, achievement', 'chance': 0.78}),
+    ('skip both for the season, and put the evenings into a side business', 'B1', None, 0.45, '', {'caught': 'back', 'v': 'achievement, power', 'chance': 0.85}),
+    ('stand with {place_a}, because the thought of letting those people down is unbearable', 'R1', None, 0.45, '', {'caught': 'side_a', 'v': 'benevolence', 'chance': 0.8}),
+    ('stand with {place_b}, where the old friends are, and be there every night', 'G1', None, 0.45, '', {'caught': 'side_b', 'v': 'benevolence, tradition', 'chance': 0.68}),
+    ("step back from both, and keep the season's evenings for the family, as promised long ago", 'W1', 'G.7', 0.5, '', {'caught': 'back', 'v': 'tradition, conformity', 'mark': 'kept your word', 'chance': 0.9}),
+    ('stand with {place_a}, once the numbers show the rota falls apart otherwise', 'U1', 'W.7', 0.5, '', {'caught': 'side_a', 'v': 'security, conformity', 'chance': 0.62}),
+    ('stand with {place_b}, and get backstage to learn how such nights are run', 'B1', 'U.7', 0.5, '', {'caught': 'side_b', 'v': 'achievement, self-direction', 'chance': 0.55}),
+    ('throw one big night for both crowds on the spot, and be the toast of it', 'R1', 'B.7', 0.5, '', {'caught': 'bridge', 'v': 'stimulation, power', 'chance': 0.6}),
+    ('keep the old habits at {place_a} and the free nights at {place_b} in separate weeks', 'G1', 'R.7', 0.5, '', {'caught': 'apart', 'v': 'tradition, hedonism', 'chance': 0.72}),
+ ]},
+{'name': 'a bold step cheered at one place, doubted at another',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a bold step you took lately: one cheers your nerve, the '
+                     'other asks whether you thought it through'},
+ 'timing': {'times': 'People whose circles judge the same act differently tend to hold back and feel torn, and '
+                     'groups do judge one act by different standards (cross-pressures: Lazarsfeld 1944, Mutz 2002; '
+                     'Graham, Haidt and Nosek 2009)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Word of the step {N} took lately has got around. At {place_b} they clap {N} on the back for '
+                       'it: it took nerve, and it came from the heart. At {place_a} the talk is quieter and cooler, '
+                       'about haste and things not weighed. A friend who goes to both says each place is waiting to '
+                       'hear {N} answer for it.'),
+                      ('W', "{N} owes each place an honest hearing, and owes neither a fight on the other's ground."),
+                      ('U',
+                       'Both readings make some sense, and {N} wants to understand why one step looks so different '
+                       'from each side.'),
+                      ('B',
+                       'Cheered in one place and doubted in the other is a position too, and {N} weighs which good '
+                       'name is worth more.'),
+                      ('R',
+                       '{N} did it because it felt right, and the cool looks at {place_a} sting more than they '
+                       'should.'),
+                      ('G',
+                       'These are both {Ns} people now, and a home with two rooms does not wall one of them off.')]},
+ 'outcomes': (['{place_b} keeps a warm spot for {N}, and at {place_a} the doubt fades into a shrug by spring.',
+               'In the end both places hear the whole story, and {N} is welcome in each, a little more known than '
+               'before.'],
+              ['{place_a} goes cool, and the seat {N} had there is quietly given to someone else.',
+               'Both places feel {N} held something back, and the welcome in each runs thinner for a season.']),
+ 'options': [
+    ('keep a firm rule: what is said at each place stays at that place', 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'chance': 0.8}),
+    ('stay away from both for a few weeks, and think the step through again', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction', 'chance': 0.85}),
+    ('side with {place_a}, call it a lesson learned, and keep the name that opens doors', 'B1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, power', 'chance': 0.85}),
+    ('stand up at {place_b} and say it again, louder, whatever {place_a} thinks', 'R1', None, 0.45, '', {'caught': 'side_b', 'v': 'stimulation, self-direction', 'mark': 'made an enemy', 'chance': 0.62}),
+    ('invite the oldest hands of both places to one table, like neighbours of old', 'G1', None, 0.45, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'mark': 'made a friend', 'chance': 0.5}),
+    ('own up at {place_a} that the step was rushed, and ask help thinking it through', 'W1', 'U.7', 0.5, '', {'caught': 'side_a', 'v': 'conformity, self-direction', 'mark': 'owned up', 'chance': 0.6}),
+    ('side with {place_b}: make the case for the step, and take the credit there', 'U1', 'B.7', 0.5, '', {'caught': 'side_b', 'v': 'achievement, self-direction', 'chance': 0.55}),
+    ('call in favours to get both places into one room, and let them mix', 'B1', 'R.7', 0.5, '', {'caught': 'bridge', 'v': 'power, stimulation', 'chance': 0.55}),
+    ('give heart and soul to each place on its own night, never bringing one along', 'R1', 'G.7', 0.5, '', {'caught': 'apart', 'v': 'stimulation, benevolence', 'chance': 0.78}),
+    ('let the season pass quietly, trusting both places to settle as they always do', 'G1', 'W.7', 0.5, '', {'caught': 'back', 'v': 'tradition, security', 'chance': 0.9}),
+ ]},
+{'name': 'a careful choice praised at one place, scorned at another',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over a careful choice you made lately: one calls it sound, the '
+                     'other calls it cold, even a letdown'},
+ 'timing': {'times': 'Belonging to circles that cross makes a person both torn and a natural go-between, and people '
+                     'meet clashing demands by choosing, keeping roles apart or stepping back (cross-pressures: '
+                     'Lazarsfeld 1944, Mutz 2002; role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The choice {N} made lately was the careful one, and {place_a} approves: weighed, reasoned, '
+                       'sound. At {place_b} it reads otherwise, as playing it safe and letting the others down when '
+                       'it counted. A friend who goes to both carries the talk both ways and says both places want '
+                       'to hear {N} answer for it.'),
+                      ('W',
+                       'Somebody has been treated unfairly in all this talk, and {N} will not add to it by taking '
+                       'cheap sides.'),
+                      ('U',
+                       '{N} can set out every reason for the choice, and still wonders whether the reasons are the '
+                       'whole story.'),
+                      ('B',
+                       '{N} made the choice for good reasons of their own, and neither place gets to decide what it '
+                       'was worth.'),
+                      ('R',
+                       'The word letdown hurts, because the people at {place_b} are the ones {N} feels most alive '
+                       'with.'),
+                      ('G',
+                       '{N} has belonged to both places for a while now, and old ties do not have to break over one '
+                       'choice.')]},
+ 'outcomes': (['{place_a} counts {N} among its steadiest, and by summer {place_b} has stopped teasing and started '
+               'asking why.',
+               'The two places end up hearing each other out, and {N} is the one both now trust to carry word.'],
+              ['{place_b} closes ranks, and its next nights go ahead without {N}.',
+               'Both places sense {N} saying different things to each, and the welcome cools on both sides.']),
+ 'options': [
+    ('stay away from both for a month, rather than sit as judge between friends', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, benevolence', 'chance': 0.85}),
+    ('stand with {place_a}, and set out the reasons for the choice plainly', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'self-direction, universalism', 'chance': 0.82}),
+    ('side with {place_b}: its crowd is bigger, and its good word travels further', 'B1', None, 0.45, '', {'caught': 'side_b', 'v': 'power, achievement', 'chance': 0.62}),
+    ('bring friends from {place_b} along to {place_a} one evening, and let them meet face to face', 'R1', None, 0.45, '', {'caught': 'bridge', 'v': 'stimulation, benevolence', 'chance': 0.5}),
+    ('keep each place in its own part of the week, the way it has always been', 'G1', None, 0.45, '', {'caught': 'apart', 'v': 'tradition, security', 'chance': 0.82}),
+    ('side with {place_b}: make a proper apology there, and earn back a good name', 'W1', 'B.7', 0.5, '', {'caught': 'side_b', 'v': 'conformity, achievement', 'mark': 'owned up', 'chance': 0.55}),
+    ('plan an open evening for both places, where everyone can say how it felt', 'U1', 'R.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.58}),
+    ('play it carefully: give each place the version it likes, and keep both seats', 'B1', 'G.7', 0.5, '', {'caught': 'apart', 'v': 'security, tradition', 'chance': 0.78}),
+    ('take a break from both, before tempers say things nobody can take back', 'R1', 'W.7', 0.5, '', {'caught': 'back', 'v': 'benevolence, security', 'chance': 0.9}),
+    ('stand with {place_a} quietly and patiently, and let time show the choice was sound', 'G1', 'U.7', 0.5, '', {'caught': 'side_a', 'v': 'tradition, universalism', 'chance': 0.58}),
+ ]},
+{'name': 'the season of hard work and the season of big nights',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'friends, community',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, colleague',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over one season: one wants your evenings for its hardest stretch '
+                     'of work, the other for its biggest nights'},
+ 'timing': {'times': 'People pulled between clashing groups often take part less and put off deciding, and handle '
+                     'the strain by choosing one, splitting their time or stepping back (cross-pressures: Lazarsfeld '
+                     '1944, Mutz 2002; role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The same season, two calls on the same evenings. {place_a} has its hardest stretch of the '
+                       'year ahead and is counting on {N} every week, prepared and present. {place_b} has its run of '
+                       'big nights, the ones people talk about for years, and wants {N} there for every one. A '
+                       'friend who goes to both hears both sides grumble and asks {N} which it is going to be.'),
+                      ('W',
+                       '{N} gave their word to {place_a} before the season began, and a promise does not bend for a '
+                       'good night out.'),
+                      ('U',
+                       '{N} counts the weeks and the hours, sure there is a sensible way to fit both if it is '
+                       'planned well.'),
+                      ('B',
+                       'One place will remember who carried the work, the other who showed up on the big nights, and '
+                       '{N} weighs which memory pays.'),
+                      ('R',
+                       'Nights like the ones at {place_b} do not come twice, and {N} can already feel them slipping '
+                       'past.'),
+                      ('G',
+                       'Seasons like this come and go; what lasts is the people {N} goes home to at the end of '
+                       'them.')]},
+ 'outcomes': (['One place gets the season it hoped for from {N}, and the other, a little to its own surprise, '
+               'understands.',
+               "By the season's end both places count on {N}, and nobody remembers which evenings went where."],
+              ['{place_b} stops saving {N} a place, and the big nights go on without them.',
+               'Both places feel short-changed, and {N} ends the season tired and only half welcome in each.']),
+ 'options': [
+    ('keep the promise made to {place_a}, and give it every evening this season', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, achievement', 'mark': 'kept your word', 'chance': 0.85}),
+    ('side with {place_b}, having reckoned that the work can wait and these nights cannot', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, stimulation', 'chance': 0.6}),
+    ('get both places into one room for a night, as the one who made it happen', 'B1', None, 0.45, '', {'caught': 'bridge', 'v': 'power, achievement', 'chance': 0.52}),
+    ('go wherever the heart pulls each evening, and never speak of one place at the other', 'R1', None, 0.45, '', {'caught': 'apart', 'v': 'stimulation, hedonism', 'chance': 0.72}),
+    ('step back from both and spend the season at home among family', 'G1', None, 0.45, '', {'caught': 'back', 'v': 'tradition, benevolence', 'chance': 0.86}),
+    ('get both places to agree a fair split of evenings, and keep free nights free', 'W1', 'R.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, hedonism', 'chance': 0.55}),
+    ('plan the weeks so each place gets its nights, and neither hears about the other', 'U1', 'G.7', 0.5, '', {'caught': 'apart', 'v': 'security, tradition', 'chance': 0.8}),
+    ('plead a full diary to both for a month, and spare everyone the quarrel', 'B1', 'W.7', 0.5, '', {'caught': 'back', 'v': 'security, conformity', 'chance': 0.88}),
+    ('throw everything into the push at {place_a} this season, heart and soul', 'R1', 'U.7', 0.5, '', {'caught': 'side_a', 'v': 'achievement, stimulation', 'chance': 0.68}),
+    ('stand by {place_b} out of loyalty, and become a face it cannot do without', 'G1', 'B.7', 0.5, '', {'caught': 'side_b', 'v': 'tradition, achievement', 'chance': 0.54}),
+ ]},
+{'name': 'the call to stand up and the call to keep calm',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, neighbour',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart in one season: one wants you to stand up and be counted, the '
+                     'other asks you to keep the peace'},
+ 'timing': {'times': "When a person's circles disagree, many go quiet and take part less, though they also come to "
+                     "see the other side's reasons more clearly (cross-pressures: Lazarsfeld 1944, Mutz 2002)",
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Something has stirred {place_b} to anger, an unfairness close to its heart, and it wants '
+                       'every one of its people to stand up and be counted, loudly and in public. At {place_a} the '
+                       'word is the opposite: wait for the facts, keep its name out of it, say nothing in heat. {N} '
+                       'belongs to both, and both have noticed. A friend who goes to both says the next few weeks '
+                       'will show where {N} stands.'),
+                      ('W',
+                       'If a wrong is being done, someone has to say so, but {N} also knows that a fair hearing '
+                       'comes before a verdict.'),
+                      ('U',
+                       '{N} wants the facts first: who did what, and whether the anger at {place_b} has the whole '
+                       'picture.'),
+                      ('B',
+                       'A public stand makes a name and makes enemies, and {N} weighs which of those this season can '
+                       'afford.'),
+                      ('R',
+                       'The anger at {place_b} is {Ns} anger too, and keeping calm feels like swallowing something '
+                       'hot.'),
+                      ('G',
+                       'Quarrels like this blow through every few years, and the places people love are still '
+                       'standing afterwards.')]},
+ 'outcomes': (["The season's anger cools, and the place {N} stood by remembers it, warmly, for a long time.",
+               'A bridge holds: the two places end the season on speaking terms, and {N} is trusted in both.'],
+              ['The place {N} did not stand with cools for good, and the old greetings there turn polite and short.',
+               'Both places read {N} as half-hearted, and neither saves a seat for them in the weeks that follow.']),
+ 'options': [
+    ('stand up with {place_b} in public, because the wrong done to them is a real wrong', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'universalism, benevolence', 'mark': 'made an enemy', 'chance': 0.58}),
+    ('bring the facts to both places, and arrange a meeting where each hears the other', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.55}),
+    ('keep both: turn up quietly for {place_b}, and stay out of it at {place_a}', 'B1', None, 0.45, '', {'caught': 'apart', 'v': 'security, power', 'chance': 0.8}),
+    ('walk away from both for a while: the fighting has taken the joy out of each', 'R1', None, 0.45, '', {'caught': 'back', 'v': 'hedonism, self-direction', 'chance': 0.8}),
+    ('keep the peace with {place_a}: hot words fade, and the places people love remain', 'G1', None, 0.45, '', {'caught': 'side_a', 'v': 'tradition, security', 'chance': 0.85}),
+    ('keep to proper form: speak up only at {place_b}, and never carry it into {place_a}', 'W1', 'G.7', 0.5, '', {'caught': 'apart', 'v': 'conformity, tradition', 'chance': 0.82}),
+    ('hold back from both until the facts are in, so nobody is wronged in haste', 'U1', 'W.7', 0.5, '', {'caught': 'back', 'v': 'universalism, security', 'chance': 0.85}),
+    ('side with {place_a}, and use its standing to get the matter properly looked into', 'B1', 'U.7', 0.5, '', {'caught': 'side_a', 'v': 'power, universalism', 'chance': 0.6}),
+    ('stand with {place_b} out front, where everyone can see {N} took a stand', 'R1', 'B.7', 0.5, '', {'caught': 'side_b', 'v': 'self-direction, stimulation', 'chance': 0.6}),
+    ('gather both places around one long table, so the anger can be spoken face to face', 'G1', 'R.7', 0.5, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'mark': 'made a friend', 'chance': 0.55}),
+ ]},
+{'name': 'cheered at one place, cold at the other',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, elder, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over the step you took lately: one calls it sensible and brave, '
+                     'the other calls it a break with how things are done'},
+ 'timing': {'times': 'People whose circles judge them differently feel the strain and often hold back from taking '
+                     'part (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'At {place_a} they cannot stop talking about the step {N} took: it was overdue, they say, and '
+                       'well thought out. At {place_b} the talk stops when {N} comes in, and an old hand asks, not '
+                       'unkindly, whether {N} has forgotten where they come from. Both rooms expect {N} back next '
+                       'week. Both are waiting to see which way {N} leans.'),
+                      ('W',
+                       'Each place has a fair claim on {N}, and each deserves the same honest account of what was '
+                       'done and why.'),
+                      ('U',
+                       '{N} can follow both readings: one sees the reasons, the other sees what the step leaves '
+                       'behind. Neither is simply wrong.'),
+                      ('B',
+                       'One place hands out praise and doors; the other hands out frowns. {N} can count which is '
+                       'worth more.'),
+                      ('R',
+                       'The cheering felt wonderful and the silence stung. {N} would rather feel that warmth than '
+                       'tiptoe around the chill.'),
+                      ('G',
+                       "{place_b} knew {N} before any of this. Old ties are not dropped over one season's talk.")]},
+ 'outcomes': (['The talk settles, and one of the places that doubted {N} begins to ask, with real interest, how it '
+               'all went.',
+               'A season later {N} is welcome in both rooms, and people in each now ask {N} what the other is '
+               'thinking.'],
+              ['{place_b} grows cool, and {N} notices invitations there arriving later, and then not at all.',
+               'Both places feel let down by how {N} handled it, and {N} spends the evenings at home for a while.']),
+ 'options': [
+    ('ask both places to hear the whole story, fairly, at one open evening', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, conformity', 'chance': 0.55}),
+    ('talk the reasons through at {place_a}, and leave the subject at the door of {place_b}', 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, security', 'chance': 0.8}),
+    ('lie low at both for a few weeks, until the talk moves on to someone else', 'B1', None, 0.45, '', {'caught': 'back', 'v': 'security', 'chance': 0.85}),
+    ('stand with {place_a} openly, glad of the people who cheered', 'R1', None, 0.45, '', {'caught': 'side_a', 'v': 'stimulation, self-direction', 'chance': 0.85}),
+    ('stand with {place_b}: grant the old hands their doubts and keep to their ways', 'G1', None, 0.45, '', {'caught': 'side_b', 'v': 'tradition, conformity', 'chance': 0.65}),
+    ('take a fair pause from both until each has had time to learn the facts', 'W1', 'U.7', 0.5, '', {'caught': 'back', 'v': 'universalism, self-direction', 'chance': 0.85}),
+    ('stand with {place_a}, where sound reasons are rewarded and doors open', 'U1', 'B.7', 0.5, '', {'caught': 'side_a', 'v': 'achievement, self-direction', 'chance': 0.6}),
+    ('strike a quiet bargain at {place_b}: a nod to their ways for their old warmth', 'B1', 'R.7', 0.5, '', {'caught': 'side_b', 'v': 'hedonism, power', 'chance': 0.55}),
+    ('bring friends from {place_a} along to the next gathering at {place_b}, on impulse', 'R1', 'G.7', 0.5, '', {'caught': 'bridge', 'v': 'benevolence, stimulation', 'mark': 'made a friend', 'chance': 0.55}),
+    ("keep each place's business its own, as old courtesy says, to spare both a quarrel", 'G1', 'W.7', 0.5, '', {'caught': 'apart', 'v': 'tradition, benevolence', 'chance': 0.75}),
+ ]},
+{'name': 'both places want an answer for the step',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'go-between, regular, elder',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'the step you took lately is still talked about, and now both of your places want you to answer '
+                     'for it: one wants you to speak up for it, the other wants you to take it back'},
+ 'timing': {'times': 'People caught between two roles usually cope by choosing one, keeping the two apart or '
+                     'stepping back from both (role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A friend who goes to both brings the word to each side. {place_a} would like {N} to stand up '
+                       'at its next meeting and explain the choice {N} made, as an example for others. {place_b} '
+                       'would like {N} to say, plainly and in front of the old faces, that it was a mistake. Neither '
+                       'request is unkind. They cannot both be granted.'),
+                      ('W',
+                       'Both places asked fairly and in good faith. {N} owes each a straight answer, whatever the '
+                       'cost.'),
+                      ('U',
+                       '{N} wants time to think it through: what was really decided, and what each place is actually '
+                       'asking for.'),
+                      ('B',
+                       'Whichever room {N} answers first, {N} is choosing whose good opinion counts. Better to '
+                       'choose with care.'),
+                      ('R',
+                       'Being asked to perform the choice, or to disown it, makes {N} want to say something sharp to '
+                       'both.'),
+                      ('G',
+                       'Home is the place that knew {N} first. That has to mean something when the old faces ask.')]},
+ 'outcomes': (['The answer lands well, and the place that asked for it draws {N} closer than before.',
+               'The two places find, through {N}, that they were less far apart than the talk made out, and {N} is '
+               'trusted in both.'],
+              ['The other place takes the answer as a slight, and {N} is quietly left off its lists for the season.',
+               'Neither place is satisfied, and both start to speak of {N} as someone who cannot be pinned down.']),
+ 'options': [
+    ('give each place an honest answer to its own question, and carry nothing between them', 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'mark': 'kept your word', 'chance': 0.8}),
+    ('step back from both for a season, and think the step through before answering anyone', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction', 'chance': 0.85}),
+    ('stand with {place_a}, where the step has made a name worth keeping', 'B1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, power', 'chance': 0.9}),
+    ('stand with {place_b} on impulse, and say sorry for the hurt, not the choice', 'R1', None, 0.45, '', {'caught': 'side_b', 'v': 'benevolence, stimulation', 'mark': 'owned up', 'chance': 0.65}),
+    ('ask the eldest at {place_b} to sit down with the people of {place_a}, over tea', 'G1', None, 0.45, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'chance': 0.5}),
+    ('answer {place_a} formally, by its rules, and take the place it holds open', 'W1', 'B.7', 0.5, '', {'caught': 'side_a', 'v': 'achievement, conformity', 'chance': 0.6}),
+    ('think it through, then stand with {place_b}, where it simply feels right to be', 'U1', 'R.7', 0.5, '', {'caught': 'side_b', 'v': 'self-direction, hedonism', 'chance': 0.55}),
+    ('call in favours on both sides to set up one shared evening that suits everyone', 'B1', 'G.7', 0.5, '', {'caught': 'bridge', 'v': 'power, benevolence', 'chance': 0.5}),
+    ('tell each place warmly what it needs to hear, so no one there gets hurt', 'R1', 'W.7', 0.5, '', {'caught': 'apart', 'v': 'benevolence', 'chance': 0.75}),
+    ('go back to the family for a while, and let time show what the step meant', 'G1', 'U.7', 0.5, '', {'caught': 'back', 'v': 'tradition, self-direction', 'chance': 0.9}),
+ ]},
+{'name': 'one place wants a stand, the other wants peace',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, place',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, neighbour',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'in the same season one of your places wants you to stand up and be counted for a change, and '
+                     'the other asks you to keep the peace and leave things be'},
+ 'timing': {'times': 'People whose networks disagree on a public question tend to decide later and take part less, '
+                     'though they understand the other side better (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{place_a} has drawn up a plan to change how something in the neighbourhood is done, and it '
+                       'wants names on it, {Ns} among the first. At {place_b} the same plan is spoken of as a slight '
+                       'on everything the old families built, and {N} is asked, kindly but firmly, to keep out of '
+                       'it. The open meeting is in a month. Everyone will see where {N} sits.'),
+                      ('W',
+                       'A person with ties on both sides has a duty not to tear the neighbourhood in two, whatever '
+                       'they privately think.'),
+                      ('U',
+                       '{N} has read the plan and it is sound, mostly. The parts that worry {place_b} could be '
+                       'fixed.'),
+                      ('B',
+                       'Whoever wins this, the winners will remember who stood with them. {N} would like to be on '
+                       'the winning side.'),
+                      ('R',
+                       '{N} is tired of being careful. Someone should just stand up and say what everyone is '
+                       'thinking, on both sides.'),
+                      ('G',
+                       'The old families have kept this place what it is. Change will come, but not like this, not '
+                       'at their expense.')]},
+ 'outcomes': (['The meeting goes {Ns} way, and the place {N} stood with treats {N} as one of its own.',
+               'The plan is changed enough that both places can live with it, and people on both sides credit {N} '
+               'for it.'],
+              ['The place {N} did not stand with closes ranks, and greetings there turn short and formal.',
+               'The meeting turns bitter, and both places blame {N} for not doing more to stop it.']),
+ 'options': [
+    ('step back from both until the meeting is done, as fairness to each side requires', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, universalism', 'chance': 0.8}),
+    ('stand with {place_a} and be counted, with the figures to show why', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'self-direction, universalism', 'chance': 0.85}),
+    ('stand with {place_b}, where the long memories and the real sway sit', 'B1', None, 0.45, '', {'caught': 'side_b', 'v': 'power, security', 'chance': 0.6}),
+    ('stand up at the open meeting and speak for both sides, from the heart, unplanned', 'R1', None, 0.45, '', {'caught': 'bridge', 'v': 'stimulation, benevolence', 'chance': 0.5}),
+    ("keep {place_b} out of {place_a}'s business, as the old families always have", 'G1', None, 0.45, '', {'caught': 'apart', 'v': 'tradition, security', 'chance': 0.75}),
+    ('honour the call for peace from {place_b} as a duty, and win back easy evenings', 'W1', 'R.7', 0.5, '', {'caught': 'side_b', 'v': 'conformity, hedonism', 'mark': 'kept your word', 'chance': 0.6}),
+    ('draft a version of the plan that keeps what {place_b} holds dear, and show both', 'U1', 'G.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, tradition', 'chance': 0.55}),
+    ('back the plan quietly and keep the peace loudly: each place hears only its part', 'B1', 'W.7', 0.5, '', {'caught': 'apart', 'v': 'security, conformity', 'chance': 0.8}),
+    ('drop both for a few weeks on a whim, and go see how others did it', 'R1', 'U.7', 0.5, '', {'caught': 'back', 'v': 'stimulation, self-direction', 'chance': 0.9}),
+    ('stand with {place_a}, and use every old family tie to win the vote', 'G1', 'B.7', 0.5, '', {'caught': 'side_a', 'v': 'tradition, power', 'mark': 'made an enemy', 'chance': 0.65}),
+ ]},
+{'name': 'one place wants the evenings, the other the loyalty',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'keeper, colleague, elder',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'in the same season one of your places wants your evenings for something new, and the other '
+                     'wants your loyalty for something it has always done'},
+ 'timing': {'times': 'Belonging to several groups protects well-being, but each one asks for time, and the asks '
+                     'often fall in the same weeks (role strain: Goode 1960; Thoits 1983)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{place_a} is starting something new this season and has asked {N} to give it two evenings a '
+                       'week until it is done. {place_b} has its busiest season of the year in the same weeks, and '
+                       'the old hands simply expect {N} to be there, as {N} always has been. Nobody has said '
+                       'anything sharp yet. The calendar has only so many evenings.'),
+                      ('W',
+                       '{N} made promises to both, in different words. Breaking either one is breaking a promise.'),
+                      ('U',
+                       '{N} sees what the new project could become, and also what {place_b} would lose without its '
+                       'regulars in its busiest weeks.'),
+                      ('B',
+                       'The new project could make {Ns} name. The old season will happen whether {N} turns up or '
+                       'not.'),
+                      ('R',
+                       '{N} wants the buzz of the new thing and the warmth of the old crowd, and resents having to '
+                       'pick.'),
+                      ('G',
+                       '{place_b} has always counted on its own. Loyalty that only shows up when convenient is not '
+                       'loyalty.')]},
+ 'outcomes': (['The season ends well where {N} gave the time, and the people there say they could not have done it '
+               'without {N}.',
+               'Both places come through the season, and the old hands at {place_b} even drop by to see what '
+               '{place_a} has built.'],
+              ['The place that went without {N} manages, but someone there says {N} has changed, and it gets around.',
+               'Stretched between the two, {N} lets both down in small ways, and by the end neither place quite '
+               'counts on {N}.']),
+ 'options': [
+    ('keep the commitment made to {place_a} first, and tell {place_b} plainly and in person', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, achievement', 'mark': 'kept your word', 'chance': 0.85}),
+    ('weigh it up and give the season to {place_b}: the project can wait, the season cannot', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, tradition', 'chance': 0.65}),
+    ('pitch the project to {place_b} as a way to raise its name, and run it there', 'B1', None, 0.45, '', {'caught': 'bridge', 'v': 'achievement, power', 'chance': 0.55}),
+    ('go wherever the mood leads each night, and never mention one place at the other', 'R1', None, 0.45, '', {'caught': 'apart', 'v': 'hedonism, stimulation', 'chance': 0.7}),
+    ('stay home with the family this season, and let both places manage', 'G1', None, 0.45, '', {'caught': 'back', 'v': 'tradition, security', 'chance': 0.8}),
+    ("propose a fair rota of alternate weeks, carrying each place's news to the other", 'W1', 'G.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, tradition', 'chance': 0.55}),
+    ('plan every week so each place gets its fair share and never hears of the other', 'U1', 'W.7', 0.5, '', {'caught': 'apart', 'v': 'security, universalism', 'chance': 0.75}),
+    ('drop both this season, and spend the evenings on a course that pays', 'B1', 'U.7', 0.5, '', {'caught': 'back', 'v': 'achievement, self-direction', 'mark': 'turned down a chance', 'chance': 0.85}),
+    ('throw every evening into the project at {place_a}, and make a name with it', 'R1', 'B.7', 0.5, '', {'caught': 'side_a', 'v': 'stimulation, achievement', 'chance': 0.7}),
+    ('give the season to {place_b}, for the joy of the long tables and the old songs', 'G1', 'R.7', 0.5, '', {'caught': 'side_b', 'v': 'tradition, hedonism', 'chance': 0.6}),
+ ]},
+{'name': 'toasted at one place, frowned on at the other',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'two of your places pull apart over something you did lately: one toasts it, the other frowns, '
+                     'and both want you to answer for it'},
+ 'timing': {'times': 'People whose circles judge the same act differently feel pulled both ways and tend to put off '
+                     'taking a side (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'Word of what {N} did lately has got round. At {place_a} people clap {N} on the shoulder and '
+                       'call it the bold step they always knew was coming. At {place_b} the greetings are a shade '
+                       'cooler, and someone says quietly that it is not how things are done there. Now both want {N} '
+                       'to speak to it, {place_a} at its next gathering and {place_b} face to face.'),
+                      ('W',
+                       '{N} wants to be fair to both: each place deserves an honest account, and the ways {place_b} '
+                       'keeps were there long before {N}.'),
+                      ('U',
+                       'Two places are reading one act by two yardsticks. {N} wants to understand both before saying '
+                       'a word.'),
+                      ('B',
+                       'The praise at {place_a} is worth something real: contacts, doors, a name. The chill at '
+                       '{place_b} costs less, for now.'),
+                      ('R', '{N} took the step because it felt right, and it stings that anyone wants it explained.'),
+                      ('G', '{place_b} has known {N} the longest. Its frown lands harder than any toast.')]},
+ 'outcomes': (['{place_b} softens in time, and {place_a} says it thinks all the more of {N} for how it was handled.',
+               'The talk dies down, and by the next season both places greet {N} warmly again.'],
+              ['One of the two places cools on {N}, and the welcome there is never quite the same.',
+               'Both places feel let down, and {N} goes to each a little less often.']),
+ 'options': [
+    ('stand with {place_b}, own that the step strayed from its ways, and keep them from now', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'conformity, tradition', 'mark': 'owned up', 'chance': 0.6}),
+    ('ask both places to sit down together and hear the reasons behind the step', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.5}),
+    ('enjoy the toasts at {place_a}, and say nothing of them at {place_b}', 'B1', None, 0.45, '', {'caught': 'apart', 'v': 'achievement, security', 'chance': 0.8}),
+    ('leave both to their talk, and spend a few weeks somewhere that feels lighter', 'R1', None, 0.45, '', {'caught': 'back', 'v': 'hedonism, self-direction', 'chance': 0.85}),
+    ('stand with {place_a}, loyal to the friends there who backed the step from the start', 'G1', None, 0.45, '', {'caught': 'side_a', 'v': 'benevolence, security', 'chance': 0.8}),
+    ('make it a firm rule to carry no talk between the two while thinking it through', 'W1', 'U.7', 0.5, '', {'caught': 'apart', 'v': 'conformity, self-direction', 'chance': 0.8}),
+    ('step back from both for a season, and plan the next move while the talk cools', 'U1', 'B.7', 0.5, '', {'caught': 'back', 'v': 'achievement, self-direction', 'chance': 0.9}),
+    ('stand with {place_a}, and use the backing there to go further, free of old frowns', 'B1', 'R.7', 0.5, '', {'caught': 'side_a', 'v': 'stimulation, achievement', 'chance': 0.6}),
+    ('stand with {place_b}: go there that very evening and say, from the heart, it is home', 'R1', 'G.7', 0.5, '', {'caught': 'side_b', 'v': 'tradition, benevolence', 'chance': 0.55}),
+    ('bring the two together patiently, the old way, so neither place feels wronged', 'G1', 'W.7', 0.5, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'chance': 0.6}),
+ ]},
+{'name': 'the story of the step, bent in the telling',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, friend',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'the story of something you did has travelled between two of your places and bent on the way, '
+                     'and each now wants to know where you stand'},
+ 'timing': {'times': 'Talk carries an act from one circle to the next and changes it in the telling, and people '
+                     'caught between circles that disagree feel the strain of both roles (role strain: Goode 1960; '
+                     'cross-pressures: Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The tale of what {N} did has travelled between {place_a} and {place_b}, and bent on the way. '
+                       'At {place_b} they hear that {N} is being held up at {place_a} as proof that the old ways '
+                       'hold people back. At {place_a} they hear that {place_b} is making {N} pay for it. Each place '
+                       'now wants to hear from {N} where {N} stands.'),
+                      ('W', 'It is not fair to anyone: neither place has the true story, and both deserve it.'),
+                      ('U',
+                       '{N} can trace how the tale bent at each telling, and wants it put straight before anyone '
+                       'decides anything.'),
+                      ('B', 'Whichever telling wins will decide what {Ns} name is worth, at both places.'),
+                      ('R',
+                       'It makes {N} furious to hear the step turned into a weapon by people who were not even '
+                       'there.'),
+                      ('G', 'Talk like this has split places before. {N} knows the hurt outlasts the quarrel.')]},
+ 'outcomes': (['The true story gets out at last, and someone at each place tells {N} they are glad to have heard it.',
+               'The tale stops bending, and {N} ends up the one both places ask when they want to know what the '
+               'other thinks.'],
+              ['The bent version sticks at one place, and {N} feels it in every greeting there.',
+               'Both places decide {N} has not been straight with them, and the talk turns colder on each side.']),
+ 'options': [
+    ('call both places to one meeting and give everyone the same honest account', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'conformity, universalism', 'chance': 0.55}),
+    ('keep the two separate on purpose, and tell each only what bears on it', 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, security', 'chance': 0.8}),
+    ('stay away from both until it is clear which way the talk will settle', 'B1', None, 0.45, '', {'caught': 'back', 'v': 'security, power', 'chance': 0.9}),
+    ('stand with {place_a} openly, where the step was cheered, and let the frowns fall', 'R1', None, 0.45, '', {'caught': 'side_a', 'v': 'self-direction, stimulation', 'chance': 0.8}),
+    ('stand with {place_b}, the place that has known you longest, and let the rest go', 'G1', None, 0.45, '', {'caught': 'side_b', 'v': 'tradition, security', 'act': 'stand with {place_b}, the place that has known them longest, and let the rest go', 'chance': 0.65}),
+    ('excuse yourself from both for the season, on the rule that private choices stay private', 'W1', 'B.7', 0.5, '', {'caught': 'back', 'v': 'security, conformity', 'act': 'excuse themself from both for the season, on the rule that private choices stay private', 'chance': 0.85}),
+    ('stand with {place_a}, and lay out calmly why the step freed you to live your way', 'U1', 'R.7', 0.5, '', {'caught': 'side_a', 'v': 'self-direction', 'act': 'stand with {place_a}, and lay out calmly why the step freed them to live their way', 'chance': 0.6}),
+    ('stand with {place_b}, and back its next appeal to win your welcome back', 'B1', 'G.7', 0.5, '', {'caught': 'side_b', 'v': 'security, tradition', 'act': 'stand with {place_b}, and back its next appeal to win their welcome back', 'chance': 0.5}),
+    ('bring people from both to the same table that night, and have it out honestly', 'R1', 'W.7', 0.5, '', {'caught': 'bridge', 'v': 'benevolence, universalism', 'chance': 0.6}),
+    ("keep each place out of the other's business, and wait quietly to see what it meant", 'G1', 'U.7', 0.5, '', {'caught': 'apart', 'v': 'tradition, self-direction', 'chance': 0.75}),
+ ]},
+{'name': 'one place wants a name on the list, the other wants quiet',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, neighbour',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'in the same season one of your places wants you to stand up and be counted for a change in the '
+                     'neighbourhood, and another asks you to keep out of it and keep the peace'},
+ 'timing': {'times': 'People asked by two of their circles to act in opposite ways tend to delay, waver and take '
+                     'part less (cross-pressures: Lazarsfeld 1944; Mutz 2002)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'This season {place_a} is pushing hard for a change in the neighbourhood, and it wants {Ns} '
+                       'name on the list of supporters, said out loud. At {place_b} most people are quietly against '
+                       'the change, and they ask only one thing of {N}: keep out of it, and keep the peace. Both '
+                       'requests come in the same week, and both are put kindly.'),
+                      ('W',
+                       'Two fair claims pull at {N}: a cause that wants honest support, and a place that asks for '
+                       'peace.'),
+                      ('U',
+                       '{N} wants to know what the change would actually do before signing anything, or refusing '
+                       'to.'),
+                      ('B',
+                       'The list at {place_a} will be read by people who matter. A name on it, or missing from it, '
+                       'will be remembered.'),
+                      ('R', '{N} can feel which way the heart leans, and hates being asked to hush it.'),
+                      ('G', 'The neighbourhood has seen changes come and go. {place_b} has outlasted them all.')]},
+ 'outcomes': (['The season passes, and both places say afterwards that {N} handled it with grace.',
+               'The two places find a way to live with the outcome, and each counts {N} as one of its own.'],
+              ['One place takes {Ns} answer as a slight, and asks less of {N} from then on.',
+               'Both places feel {N} let them down, and the welcome cools on each side.']),
+ 'options': [
+    ("honour each place's rules within its own walls, and carry nothing between them", 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'chance': 0.8}),
+    ('step back from both until the facts of the change are clear', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction, security', 'chance': 0.85}),
+    ('stand with {place_a}, and put your name high on the list, where the right people look', 'B1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, power', 'act': 'stand with {place_a}, and put their name high on the list, where the right people look', 'chance': 0.85}),
+    ('stand with {place_b} on gut feeling, and say so with feeling', 'R1', None, 0.45, '', {'caught': 'side_b', 'v': 'benevolence, self-direction', 'chance': 0.65}),
+    ('bring the oldest hands of both places together for a quiet talk, the old way', 'G1', None, 0.45, '', {'caught': 'bridge', 'v': 'tradition, benevolence', 'chance': 0.5}),
+    ('stand with {place_a} and sign, since everyone has the right to speak up', 'W1', 'R.7', 0.5, '', {'caught': 'side_a', 'v': 'universalism, self-direction', 'chance': 0.6}),
+    ('stand with {place_b}, after looking hard at what the change would cost the neighbourhood', 'U1', 'G.7', 0.5, '', {'caught': 'side_b', 'v': 'tradition, universalism', 'chance': 0.55}),
+    ('broker a deal: a gentler plan from one side, quiet acceptance from the other', 'B1', 'W.7', 0.5, '', {'caught': 'bridge', 'v': 'power, universalism', 'chance': 0.55}),
+    ('throw yourself into hearing out both sides, and keep what each says to yourself', 'R1', 'U.7', 0.5, '', {'caught': 'apart', 'v': 'stimulation, self-direction', 'act': 'throw themself into hearing out both sides, and keep what each says to themself', 'chance': 0.75}),
+    ('wait it out, let the season pass, and keep your standing in both intact', 'G1', 'B.7', 0.5, '', {'caught': 'back', 'v': 'security, tradition', 'act': 'wait it out, let the season pass, and keep their standing in both intact', 'chance': 0.9}),
+ ]},
+{'name': 'one place wants the hours, the other the old ties',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, go-between, colleague',
+ 'who': 'go-between',
+ 'cast_want': 'caught',
+ 'worlds': {'earth': 'in the same season one of your places wants your evenings for a big push, and another is '
+                     'counting on your loyalty in a hard stretch of its own'},
+ 'timing': {'times': 'Juggling the demands of several groups at once is an ordinary strain, and people handle it by '
+                     'choosing one, keeping them apart or stepping back (role strain: Goode 1960)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{place_a} is in the busiest stretch of its year, and it wants {N} there most evenings: the '
+                       'push could make a real difference for everyone in at the start. {place_b} has a hard season '
+                       'of its own, short of hands and long on old commitments, and it is counting on {N} the way it '
+                       'always has. There are not enough evenings for both.'),
+                      ('W',
+                       '{N} gave {place_b} a promise long ago, and gave {place_a} one more lately. Both are owed.'),
+                      ('U',
+                       '{N} counts the evenings, the hours and the tasks, and looks for a plan that wastes none of '
+                       'them.'),
+                      ('B',
+                       'The push at {place_a} could change where {N} stands a year from now. {place_b} will still be '
+                       'there afterwards.'),
+                      ('R',
+                       '{N} is torn between the buzz of the push and the warmth of the old crowd, and wants both '
+                       'tonight.'),
+                      ('G', '{place_b} has carried {N} through hard seasons before. Now it is the one in need.')]},
+ 'outcomes': (['The season ends well, and the place that got {Ns} evenings says it will not forget it.',
+               'Both places come through the stretch, and each is glad, in the end, of what {N} could give.'],
+              ['The place that was left short cools on {N}, and says so to anyone who asks.',
+               'Spread thin, {N} disappoints both, and is asked to less at each.']),
+ 'options': [
+    ('tell both places honestly you cannot do either justice this season, and step back', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, universalism', 'act': 'tell both places honestly they cannot do either justice this season, and step back', 'chance': 0.85}),
+    ('stand with {place_a} this season, after weighing what each evening there would build', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, self-direction', 'chance': 0.8}),
+    ('stand with {place_b}, where being the one who came through will count for years', 'B1', None, 0.45, '', {'caught': 'side_b', 'v': 'security, achievement', 'chance': 0.6}),
+    ('throw one big evening that brings both crowds together, and see what sparks', 'R1', None, 0.45, '', {'caught': 'bridge', 'v': 'stimulation, benevolence', 'chance': 0.5}),
+    ('keep the old place and the new in separate corners of life, as always', 'G1', None, 0.45, '', {'caught': 'apart', 'v': 'tradition, security', 'chance': 0.7}),
+    ('stand with {place_b}, and keep the promise made there long before the other', 'W1', 'G.7', 0.5, '', {'caught': 'side_b', 'v': 'tradition, conformity', 'mark': 'kept your word', 'chance': 0.55}),
+    ('draw up a fair rota between the two places, and get both to agree to it', 'U1', 'W.7', 0.5, '', {'caught': 'bridge', 'v': 'universalism, conformity', 'chance': 0.6}),
+    ('split the evenings shrewdly, learn what each can teach, and keep the two diaries apart', 'B1', 'U.7', 0.5, '', {'caught': 'apart', 'v': 'achievement, self-direction', 'chance': 0.8}),
+    ('drop both on a whim for a few weeks, and take the evenings for yourself', 'R1', 'B.7', 0.5, '', {'caught': 'back', 'v': 'hedonism, self-direction', 'act': 'drop both on a whim for a few weeks, and take the evenings for themself', 'chance': 0.9}),
+    ('stand with {place_a} this season, giving it the steady loyalty that makes the push a joy', 'G1', 'R.7', 0.5, '', {'caught': 'side_a', 'v': 'benevolence, stimulation', 'chance': 0.7}),
+ ]},
 {'name': 'your child falls seriously ill',
  'stages': 'young_adult adult mature elder',
  'age': (17, 100),
@@ -17384,6 +18444,895 @@ SITUATIONS = [
     ('take the money, and give two years to rebuilding schools where the need is greatest', 'W.25 U.25 R.25 G.25', None, 0.5, '', {'door': True, 'v': 'universalism, benevolence', 'mark': 'moved away', 'chance': 0.75}),
     ('buy a run-down farm with the money, and fight to make the land pay', 'W.25 B.25 R.25 G.25', None, 0.5, '', {'binds': True, 'v': 'achievement, tradition', 'body': 'heavy', 'grants': 'plot of land', 'chance': 0.4}),
     ('sell up, cut every tie, and sail a small boat around the world', 'U.25 B.25 R.25 G.25', None, 0.5, '', {'v': 'self-direction, stimulation', 'mark': 'left home', 'chance': 0.5}),
+ ]},
+{'name': 'the new face whose ways stand out on the crew',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.1 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, safety',
+ 'horizon': 'months',
+ 'roles': 'regular, keeper, colleague',
+ 'cast_want': 'odd',
+ 'sphere': 'prot',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: on the crew you joined, your ways stand out, and '
+                     'the others have started to notice'},
+ 'timing': {'times': 'Someone whose kind makes up less than about one in seven of a group is watched more closely '
+                     'and pressed harder to fit in (tokens: Kanter 1977)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A year into {place}, {N} is still the new face, and still the only one there who goes about '
+                       'things this way. At drills {Ns} habits draw looks, and over tea someone does an impression '
+                       'of {N} that gets a big laugh. Afterwards one of the regulars says quietly that the crew '
+                       'works best when everyone works the same way. Nobody is cruel about it, but everyone is '
+                       'watching what {N} does next.'),
+                      ('W',
+                       'A crew that keeps people safe has to move as one, and {N} owes it that, but also owes it '
+                       'honesty about what works.'),
+                      ('U',
+                       '{N} can see why the crew does things its way, and also where {Ns} own way might be better; '
+                       'the question is which reasons hold up.'),
+                      ('B',
+                       'A newcomer who is laughed at gets the dull shifts and no say. {N} weighs what standing out '
+                       'costs now, and what it might buy later.'),
+                      ('R',
+                       'The laugh stung more than {N} lets on. Pretending to be someone else at every drill would '
+                       'sting more.'),
+                      ('G',
+                       '{N} learned these ways from people at home who did this work for years. They are not just '
+                       'habits; they are where {N} comes from.')]},
+ 'outcomes': (['The choice sits right with {N}, and within a season the people around {N} greet {N} as one of their '
+               'own.',
+               'One of the regulars, who never quite fit in either, confides something to {N} that the rest of the '
+               'crew has never heard.'],
+              ['At the next drill {N} fumbles in front of everyone, and the story goes round {place} for weeks.',
+               "The jokes stop, but so do the invitations, and {N} is left out of the crew's evenings."]),
+ 'options': [
+    ("learn the crew's drill to the letter: a team that saves lives moves as one", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, security', 'chance': 0.8}),
+    ('keep your own method, and write down why it is quicker, for anyone who asks', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, achievement', 'act': 'keep their own method, and write down why it is quicker, for anyone who asks', 'chance': 0.6}),
+    ('move to a crew where your ways count for something and you can rise', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, power', 'act': 'move to a crew where their ways count for something and they can rise', 'chance': 0.75}),
+    ('laugh at the impression with them, and throw yourself into their way of doing it', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'hedonism, stimulation', 'mark': 'made a friend', 'act': "laugh at the impression with them, and throw themselves into the crew's way of doing it", 'chance': 0.7}),
+    ('keep to the ways the old hands back home taught, quietly, drill after drill', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'chance': 0.55}),
+    ('ask the keeper for a fair trial of both methods at the next drill', 'W1', 'U.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'chance': 0.6}),
+    ('work out which crew nearby would value your training most, and transfer there', 'U1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'work out which crew nearby would value their training most, and transfer there', 'chance': 0.8}),
+    ("play it the crew's way for a season, to earn the freedom to differ later", 'B1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'power, self-direction', 'chance': 0.65}),
+    ('stand up at the next meeting and say, warmly, where your ways come from', 'R1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, stimulation', 'act': 'stand up at the next meeting and say, warmly, where their ways come from', 'chance': 0.7}),
+    ('go back to serve on the crew in your home town, where people need you', 'G1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, benevolence', 'act': 'go back to serve on the crew in their home town, where people need them', 'chance': 0.85}),
+ ]},
+{'name': "a newcomer's slip at the big practice",
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.4 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, safety',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, colleague',
+ 'cast_want': 'odd',
+ 'sphere': 'prot',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: in front of the whole crew, doing it your own way '
+                     'went wrong'},
+ 'timing': {'times': "A token's mistakes are noticed far more than anyone else's, and people who do not fit a place "
+                     'are more likely to leave it (Kanter 1977; misfit and leaving: Kristof-Brown et al. 2005)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'At the big practice at {place}, {N} does a task the way {N} always has, not the way the '
+                       'others do it, and it goes wrong in front of everyone. It is a small slip, quickly put right, '
+                       "but it is the newcomer's slip, and it is the one the whole room remembers. That evening "
+                       'someone pins a cartoon of it to the board. The keeper says the crew can still use {N}, if '
+                       '{N} does it their way from now on.'),
+                      ('W',
+                       '{N} let the team down in front of everyone and owes them better; the question is whether '
+                       'that means their way or a fair look at both.'),
+                      ('U',
+                       '{N} goes over it again and again: was it the method or the hurry? One slip proves little '
+                       'either way.'),
+                      ('B',
+                       "A newcomer's mistake is remembered longer than any veteran's. {N} works out what that "
+                       'cartoon will cost in shifts and chances.'),
+                      ('R',
+                       'The cartoon burns. {N} wants to tear it down, or laugh at it, or walk out, all at once.'),
+                      ('G',
+                       '{N} was taught this by people at home who never slipped. The shame sits heavy, and so does '
+                       'the pull of the old ways.')]},
+ 'outcomes': (['Months later the cartoon is gone from the board, and a regular asks {N} to show the new ones how it '
+               'is done.',
+               'Someone from {place} admits to {N}, in private, that they made the very same slip once and never '
+               'told a soul.'],
+              ['The slip becomes a story told at every gathering at {place}, and {N} hears it again and again.',
+               'A second small mistake follows the first, and the keeper stops giving {N} the jobs that matter.']),
+ 'options': [
+    ('own up to the slip, then show the crew your method done right, step by step', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'conformity, self-direction', 'mark': 'owned up', 'act': 'own up to the slip, then show the crew their method done right, step by step', 'chance': 0.6}),
+    ('judge the fit wrong, and join a crew that trains the way you do', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, security', 'act': 'judge the fit wrong, and join a crew that trains the way they do', 'chance': 0.78}),
+    ('take up their way at once: the newcomer who fits in gets on', 'B1', None, 0.45, '', {'odd': 'blend', 'v': 'achievement, conformity', 'chance': 0.8}),
+    ('laugh at the cartoon, sign it, and carry on doing it your way', 'R1', None, 0.45, '', {'odd': 'hold', 'v': 'stimulation, self-direction', 'act': 'laugh at the cartoon, sign it, and carry on doing it their own way', 'chance': 0.65}),
+    ('go back to the crew at home, among people who know your ways', 'G1', None, 0.45, '', {'odd': 'leave', 'v': 'tradition, security', 'act': 'go back to the crew at home, among people who know their ways', 'chance': 0.72}),
+    ('hand in notice properly, and take a post where your record is not a joke', 'W1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'power, conformity', 'act': 'hand in notice properly, and take a post where their record is not a joke', 'chance': 0.8}),
+    ('study their method until it comes naturally, so drills feel easy again', 'U1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'self-direction, hedonism', 'chance': 0.62}),
+    ('find the one regular who backs your way, and build a small circle around it', 'B1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'power, benevolence', 'act': 'find the one regular who backs their way, and build a small circle around it', 'chance': 0.6}),
+    ('walk out that night, saying a crew that mocks its own is not fit to serve', 'R1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'universalism, stimulation', 'mark': 'made an enemy', 'chance': 0.75}),
+    ('learn their way patiently, as an apprentice would, to understand why it works here', 'G1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'tradition, self-direction', 'chance': 0.68}),
+ ]},
+{'name': 'the running joke about how the new hand works',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, community',
+ 'horizon': 'months',
+ 'roles': 'colleague, regular, keeper',
+ 'cast_want': 'odd',
+ 'sphere': 'prod',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: at the workplace you joined a year ago, the way you '
+                     'work has become the running joke'},
+ 'timing': {'times': 'People who do not fit a workplace are less satisfied and more likely to leave, so places grow '
+                     'more alike over time (misfit and leaving: Kristof-Brown et al. 2005)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A year into {place}, {N} still works in a way nobody else there does: a different order, a '
+                       'different pace, care over different things. It has become the running joke. Each morning '
+                       'someone asks, to laughter, whether {N} will be doing it the strange way again today. The '
+                       'work gets done, and done well, but {N} is plainly the odd one out.'),
+                      ('W',
+                       '{N} wants to pull fair weight with the others, and wonders whether doing it differently is '
+                       'fair to them, or simply right.'),
+                      ('U',
+                       '{N} has thought hard about this way of working and knows why it suits; whether the others '
+                       'ever will is another question.'),
+                      ('B',
+                       'The joke is costing {N} standing, and standing is what gets the better jobs and the raise. '
+                       'Something has to give.'),
+                      ('R',
+                       '{N} is worn out by the joke and the morning question. Some days it is easy to laugh along; '
+                       'some days it is not.'),
+                      ('G',
+                       '{N} learned this work from family, the way it was always done there, and the old ways feel '
+                       'like home in the hands.')]},
+ 'outcomes': (['One day a regular tries {Ns} way on a rush job, and by the next season half of {place} works like '
+               'that.',
+               'The joke wears out, and a quiet old hand tells {N} something about {place} that the newer ones never '
+               'hear.'],
+              ['The joke hardens into a nickname, and {N} is the last one picked for the good jobs at {place}.',
+               'A rushed job goes wrong at {Ns} bench in front of everyone, and nobody lets {N} forget it.']),
+ 'options': [
+    ('leave with a fair handover, rather than split the team over how the work is done', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'chance': 0.74}),
+    ('learn their way properly, since it may teach something your own way lacks', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, achievement', 'act': "learn the place's way properly, since it may teach something their own way lacks", 'chance': 0.82}),
+    ('keep your way, and let the numbers show it is the better one', 'B1', None, 0.45, '', {'odd': 'hold', 'v': 'achievement, power', 'act': 'keep their own way, and let the numbers show it is the better one', 'chance': 0.62}),
+    ('tell them where to put the joke, and walk out to find work elsewhere', 'R1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'mark': 'made an enemy', 'chance': 0.8}),
+    ('take on the ways of the house, as a new hand always has in any trade', 'G1', None, 0.45, '', {'odd': 'blend', 'v': 'tradition, conformity', 'chance': 0.72}),
+    ('follow the house rules to the letter, and let the joke die so mornings feel easy', 'W1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, hedonism', 'chance': 0.66}),
+    ('keep your way, and show the old hands it grew from the same old craft', 'U1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, self-direction', 'act': 'keep their own way, and show the old hands it grew from the same old craft', 'chance': 0.58}),
+    ('bargain a good reference out of the boss, then join a place that treats newcomers fairly', 'B1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'power, universalism', 'chance': 0.78}),
+    ('throw yourself into the house way for a month, to learn it from the inside', 'R1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'stimulation, self-direction', 'act': 'throw themselves into the house way for a month, to learn it from the inside', 'chance': 0.6}),
+    ('keep quietly to your way, and wait for the season it proves its worth', 'G1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, achievement', 'act': 'keep quietly to their own way, and wait for the season it proves its worth', 'chance': 0.68}),
+ ]},
+{'name': "an old hand's quiet word to fit in",
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, community',
+ 'horizon': 'months',
+ 'roles': 'regular, keeper, colleague',
+ 'cast_want': 'odd',
+ 'sphere': 'prod',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: an old hand at your workplace takes you aside and '
+                     'kindly tells you to work the way everyone does'},
+ 'timing': {'times': 'Newcomers who stand out are pressed hardest to fit in, while those who fit in first later earn '
+                     'room to differ (Kanter 1977; idiosyncrasy credit: Hollander 1958)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'After a long shift at {place}, one of the old hands takes {N} aside. It is kindly meant: {N} '
+                       'works well, but differently, and the difference is starting to rub people the wrong way. Do '
+                       'it the way the rest do for a year or two, the old hand says, and then nobody will mind what '
+                       '{N} does. {N} walks home turning it over.'),
+                      ('W',
+                       'The advice is fair and kindly given. {N} owes the old hand a real answer, and owes the place '
+                       'some give.'),
+                      ('U',
+                       'There is sense in it: earn standing first, then change things. But {N} wonders what a year '
+                       'or two of the wrong way would teach.'),
+                      ('B',
+                       'A year of fitting in for a lifetime of say: as deals go, {N} can see its worth, and its '
+                       'price.'),
+                      ('R',
+                       '{N} feels the warmth of the advice and the cage in it at once. Being someone else for two '
+                       'years sounds very long.'),
+                      ('G',
+                       'The old hand is right that every place has its ways. {N} has ways too, and they came from '
+                       'somewhere.')]},
+ 'outcomes': (['The old hand becomes {Ns} quiet ally at {place}, and the grumbling stops.',
+               'A year on, the boss asks {N} to show the others the very trick everyone had laughed at.'],
+              ['Word gets round that {N} was spoken to, and the regulars at {place} grow cooler for it.',
+               '{N} tries to split the difference and pleases nobody, and the old hand stops offering advice.']),
+ 'options': [
+    ('thank the old hand, and do it the house way, as you would ask of anyone', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'act': 'thank the old hand, and do it the house way, as they would ask of anyone', 'chance': 0.78}),
+    ('keep your own way, and ask the old hand what exactly rubs, and why', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their own way, and ask the old hand what exactly rubs, and why', 'chance': 0.64}),
+    ('take the hint as a sign, and find a workplace that pays for how you work', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, power', 'act': 'take the hint as a sign, and find a workplace that pays for how they work', 'chance': 0.76}),
+    ('hug the old hand, and decide on the spot to try it their way', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'benevolence, stimulation', 'mark': 'made a friend', 'chance': 0.7}),
+    ('keep to the ways your family taught you, politely, and let the years do the rest', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'act': 'keep to the ways their family taught them, politely, and let the years do the rest', 'chance': 0.58}),
+    ('ask the keeper, fairly, to make room at {place} for the way you were taught', 'W1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, tradition', 'act': 'ask the keeper, fairly, to make room at {place} for the way they were taught', 'chance': 0.62}),
+    ("plan a clean exit, so the team is not split over one person's ways", 'U1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'benevolence, security', 'chance': 0.76}),
+    ('fit in for now, and use the years to master everything {place} knows', 'B1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, self-direction', 'chance': 0.64}),
+    ('keep your way with flair, and make it the thing people come to you for', 'R1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'stimulation, achievement', 'act': 'keep their own way with flair, and make it the thing people come to them for', 'chance': 0.7}),
+    ('go back to work beside your own people, where your hands feel free again', 'G1', 'R.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, hedonism', 'act': 'go back to work beside their own people, where their hands feel free again', 'chance': 0.82}),
+ ]},
+{'name': 'a quiet word over tea after the service',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.4 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, elder, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'faith',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: a regular at your congregation takes you aside to '
+                     'say your ways stand out'},
+ 'timing': {'times': 'Someone whose kind make up fewer than about one in seven of a group is watched more closely '
+                     'and pressed harder to fit in (tokens: Kanter 1977)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A year on at {place}, {N} still does things a little differently: stands when others sit, '
+                       'speaks when others keep quiet, keeps a small habit of their own through the prayers. Over '
+                       'tea after the service, one of the regulars draws {N} aside, kindly enough. People have '
+                       'noticed, she says, and newcomers who settle in tend to follow the way things are done here. '
+                       'She means it as help.'),
+                      ('W',
+                       'A congregation holds together on shared practice. {N} feels the duty in that, and the duty '
+                       'to what {N} was taught is right.'),
+                      ('U',
+                       'Before taking on a custom or dropping one, {N} wants to know why it is done that way here.'),
+                      ('B',
+                       '{N} weighs it plainly: what standing here is worth, what fitting in would buy, and what it '
+                       'would cost.'),
+                      ('R',
+                       'The word stings. {N} came because something here moved them, not to be told how to stand.'),
+                      ('G',
+                       '{N} misses the place of worship back home, where every gesture was simply what everyone '
+                       'did.')]},
+ 'outcomes': (['The regular who spoke up becomes a friend, and one evening confides a doubt she has told no one else '
+               'at {place}.',
+               'Long after, a few people at {place} are seen doing things {Ns} way, quietly at first.'],
+              ['Someone mimics {Ns} habit at the next gathering, and the laughter carries across the hall.',
+               'The invitations to the meals after the service stop coming, and nobody at {place} says why.']),
+ 'options': [
+    ('keep to the practice you once promised to keep, and tell her why', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition, conformity', 'mark': 'kept your word', 'act': 'keep to the practice they once promised to keep, and tell her why', 'chance': 0.6}),
+    ('think it over for a month, then move to a congregation nearer your own understanding', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction', 'act': 'think it over for a month, then move to a congregation nearer their own understanding', 'chance': 0.75}),
+    ('follow the customs here; the friendships and the good word of the regulars are worth it', 'B1', None, 0.45, '', {'odd': 'blend', 'v': 'security, achievement', 'chance': 0.8}),
+    ('keep praying the way that moves you, whoever is watching', 'R1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, stimulation', 'act': 'keep praying the way that moves them, whoever is watching', 'chance': 0.55}),
+    ('go back to worshipping with your own people, where the ways are yours', 'G1', None, 0.45, '', {'odd': 'leave', 'v': 'tradition, security', 'act': 'go back to worshipping with their own people, where the ways are theirs', 'chance': 0.72}),
+    ('give the keeper fair notice, and seek a congregation where questions are welcome', 'W1', 'U.7', 0.5, '', {'odd': 'leave', 'v': 'universalism, self-direction', 'chance': 0.8}),
+    ('learn the customs here properly, until the regulars come to count on you', 'U1', 'B.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, conformity', 'act': 'learn the customs here properly, until the regulars come to count on them', 'chance': 0.65}),
+    ('make yourself useful at every gathering, and worship however feels right', 'B1', 'R.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, power', 'act': 'make themselves useful at every gathering, and worship however feels right', 'chance': 0.6}),
+    ('walk out that same evening, back to the congregation of your childhood', 'R1', 'G.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, self-direction', 'act': 'walk out that same evening, back to the congregation of their childhood', 'chance': 0.85}),
+    ('take it patiently, follow the customs, and grow into one of the regulars', 'G1', 'W.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, tradition', 'mark': 'made a friend', 'chance': 0.68}),
+ ]},
+{'name': "a newcomer's slip on the big day of the year",
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.1 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'elder, regular, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'faith',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': "you are the odd one out at a place you go: on your congregation's big day of the year you do "
+                     'your part your own way, and everyone sees'},
+ 'timing': {'times': 'A newcomer who is one of very few of their kind has their slips noticed far more than anyone '
+                     "else's (tokens: Kanter 1977)",
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'On the big day of the year at {place}, {N} is given a small part: a reading, a dish to carry '
+                       'in, a place in the procession. {N} does it the way that feels right, and it is not the way '
+                       'it is done here. The hall goes quiet for a moment, then someone laughs. Afterwards {elder} '
+                       'says it will be forgotten, as long as next year it is done properly.'),
+                      ('W', '{N} hates to have spoiled a day that matters to everyone, and wants to put it right.'),
+                      ('U',
+                       '{N} keeps going over it: what the custom actually is, where it comes from, and why it '
+                       'matters so much here.'),
+                      ('B',
+                       'One laugh in a full hall can cost a newcomer a year of standing. {N} counts the damage.'),
+                      ('R',
+                       'The heat of it is still in {Ns} face. {N} wants either to laugh along or never to come '
+                       'back.'),
+                      ('G',
+                       'Every house of worship keeps its own old ways, and {N} feels the pull of the ones from '
+                       'home.')]},
+ 'outcomes': (['{elder} takes {N} under a wing, and one evening tells {N} something about {place} that few people '
+               'know.',
+               'By the next big day, people at {place} ask how it is done where {N} comes from, and some try it.'],
+              ['The laugh in the hall becomes the story people at {place} tell about {N} for years.',
+               'A cold politeness settles in, and {N} is never quite asked to help again.']),
+ 'options': [
+    ('tell {elder} honestly these ways are not yours, and step away on good terms', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, universalism', 'act': 'tell {elder} honestly these ways are not theirs, and step away on good terms', 'chance': 0.78}),
+    ('ask {elder} to teach you the custom and its reasons, then do it their way', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'act': 'ask {elder} to teach them the custom and its reasons, then do it that way', 'chance': 0.7}),
+    ('laugh it off in front of everyone, and keep doing it your own way', 'B1', None, 0.45, '', {'odd': 'hold', 'v': 'power, self-direction', 'act': 'laugh it off in front of everyone, and keep doing it their own way', 'chance': 0.58}),
+    ('walk out of the hall then and there, and do not come back', 'R1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'chance': 0.8}),
+    ('accept that every house has its ways, and quietly take on theirs', 'G1', None, 0.45, '', {'odd': 'blend', 'v': 'tradition, conformity', 'chance': 0.75}),
+    ('learn the order of the day by heart, and ask for a bigger part next year', 'W1', 'B.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, conformity', 'chance': 0.62}),
+    ('work out a version of your own way that fits inside the custom, and keep it', 'U1', 'R.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, stimulation', 'act': 'work out a version of their own way that fits inside the custom, and keep it', 'chance': 0.7}),
+    ('use the contacts made here to find a congregation of people like you', 'B1', 'G.7', 0.5, '', {'odd': 'leave', 'v': 'security, tradition', 'act': 'use the contacts made here to find a congregation of people like them', 'chance': 0.82}),
+    ('go straight to the ones who laughed, laugh with them, and join in their way', 'R1', 'W.7', 0.5, '', {'odd': 'blend', 'v': 'benevolence, conformity', 'mark': 'made a friend', 'chance': 0.6}),
+    ('keep the custom of your own people, and in time tell them where it comes from', 'G1', 'U.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, universalism', 'act': 'keep the custom of their own people, and in time tell the others where it comes from', 'chance': 0.65}),
+ ]},
+{'name': "a laugh in class at the newcomer's way",
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'friends, community',
+ 'horizon': 'months',
+ 'roles': 'colleague, friend, regular',
+ 'cast_want': 'odd',
+ 'sphere': 'learn',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: in a class you joined, your way of working gets a '
+                     'laugh from the rest of the room'},
+ 'timing': {'times': 'People who do not fit the place where they learn or work are less content there and more '
+                     'likely to leave (misfit and leaving: Kristof-Brown et al. 2005)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'A year into {place}, {N} still works in a way nobody else there does: other notes, other '
+                       'questions, another pace. Today the teacher reads out {Ns} answer with a raised eyebrow, and '
+                       'the room laughs. It is not cruel, quite. At the break someone leans over and says it would '
+                       'be easier just to do it like everyone else.'),
+                      ('W',
+                       '{N} wonders whether it is fair to the class to keep doing it differently, and whether the '
+                       'teacher was fair either.'),
+                      ('U',
+                       '{N} knows the method works, at least for {N}. The question is whether it is worth defending '
+                       'here.'),
+                      ('B',
+                       'The marks are what count. If their way scores better, {N} will take it; if not, let them '
+                       'laugh.'),
+                      ('R', 'The laugh burns. Half of {N} wants to stand up and say something sharp.'),
+                      ('G', '{N} learned this way from the people at home, and it never seemed strange there.')]},
+ 'outcomes': (['Before the year is out, two of the others ask {N} to show them how {N} goes about it.',
+               'The one who leaned over at the break becomes a friend, and later admits to feeling out of place at '
+               '{place} too.'],
+              ['The joke sticks, and for weeks the room laughs whenever {N} raises a hand.',
+               '{Ns} next piece of work goes badly in front of everyone, and nobody at {place} forgets it.']),
+ 'options': [
+    ('do the work the way the class is taught, as the course asks', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, security', 'chance': 0.82}),
+    ('keep your own method, and let the results speak for it', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, achievement', 'act': 'keep their own method, and let the results speak for it', 'chance': 0.68}),
+    ('drop the class for one that suits you better and wastes less time', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'drop the class for one that suits them better and wastes less time', 'chance': 0.74}),
+    ('laugh along with them, and throw yourself into doing it their way', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'hedonism, stimulation', 'mark': 'made a friend', 'act': "laugh along with them, and throw themselves into doing it the class's way", 'chance': 0.62}),
+    ('keep the way learned at home, quietly, and let them get used to it', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'chance': 0.64}),
+    ('ask the teacher, fairly and openly, to let each student work in their own way', 'W1', 'R.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'chance': 0.58}),
+    ('plan a move to a class nearer home, among people who learn as you do', 'U1', 'G.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, security', 'act': 'plan a move to a class nearer home, among people who learn as they do', 'chance': 0.72}),
+    ("take up the class's way, and become the one who runs its study group", 'B1', 'W.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, benevolence', 'chance': 0.66}),
+    ('answer back on the spot, and show the room why the method works', 'R1', 'U.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, stimulation', 'chance': 0.78}),
+    ('ask the family to help find a better course, and leave for it', 'G1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'achievement, tradition', 'chance': 0.76}),
+ ]},
+{'name': 'the study group wants it done their way',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'friends, community',
+ 'horizon': 'months',
+ 'roles': 'colleague, friend, regular',
+ 'cast_want': 'odd',
+ 'sphere': 'learn',
+ 'ladder': 'newcomer',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: your study group asks you to stop doing things your '
+                     'own way on a shared piece of work'},
+ 'timing': {'times': 'A newcomer has little room to differ; it is standing earned by fitting in first that lets '
+                     'people go their own way later (idiosyncrasy credit: Hollander 1958)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'At {place} the class is split into small groups for a shared piece of work, and {N} is the '
+                       'only one in the group who goes about things differently. After two meetings a classmate says '
+                       "it straight: the group has a way, and the newcomer's habits are slowing everyone down. The "
+                       'others nod. They would like {N} to go along with it, just this once.'),
+                      ('W',
+                       'A shared piece of work is a shared duty. {N} feels bound to the group, and also bound to do '
+                       'it right.'),
+                      ('U',
+                       "{N} can see the flaw in the group's way, and wonders whether pointing it out will help or "
+                       'only hurt.'),
+                      ('B',
+                       'This mark counts for {N} too. The question is which way gets it, and who gets the credit.'),
+                      ('R', 'Being told to go along by people {N} barely knows makes {N} want to dig in.'),
+                      ('G',
+                       '{N} misses learning among people who already knew {N}, where none of this had to be said.')]},
+ 'outcomes': (['The teacher singles out the part done {Ns} way, and the next term others at {place} try it.',
+               'One of the group stays behind to tell {N} that she has never felt she fits at {place} either.'],
+              ["The group's mark is poor, and everyone at {place} knows whose way they blame.",
+               'The others start meeting without {N}, and {N} finds out only by chance.']),
+ 'options': [
+    ('do your share to the standard you believe is right, and tell the group plainly', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'universalism, achievement', 'act': 'do their share to the standard they believe is right, and tell the group plainly', 'chance': 0.66}),
+    ('weigh the course honestly, and leave it for one taught the way you learn', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction', 'act': 'weigh the course honestly, and leave it for one taught the way they learn', 'chance': 0.7}),
+    ("go along with the group's way; a good mark and good contacts beat being right", 'B1', None, 0.45, '', {'odd': 'blend', 'v': 'achievement, security', 'chance': 0.76}),
+    ('refuse, there and then, to work in a way that feels wrong', 'R1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, stimulation', 'chance': 0.6}),
+    ('leave the course, and go back to learning among your own people', 'G1', None, 0.45, '', {'odd': 'leave', 'v': 'tradition, security', 'act': 'leave the course, and go back to learning among their own people', 'chance': 0.78}),
+    ('finish your share as promised, then leave the course for one among your own people', 'W1', 'G.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, conformity', 'mark': 'kept your word', 'act': 'finish their share as promised, then leave the course for one among their own people', 'chance': 0.74}),
+    ("learn the group's way properly, and make it run better for all of them", 'U1', 'W.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.7}),
+    ('strike a deal: do your part your own way, and let the result decide', 'B1', 'U.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, achievement', 'act': 'strike a deal: do their part their own way, and let the result decide', 'chance': 0.64}),
+    ('walk out of the group and the course, and put the time into your own plans', 'R1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'self-direction, achievement', 'act': 'walk out of the group and the course, and put the time into their own plans', 'chance': 0.8}),
+    ("let the group's way be, and simply enjoy learning in company", 'G1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'hedonism, benevolence', 'mark': 'made a friend', 'chance': 0.62}),
+ ]},
+{'name': 'asked to stop standing out now you are one of them',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.1 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, keeper, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'gather',
+ 'ladder': 'known',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: after years there people know you well, and now an '
+                     'old hand asks you to stop doing things your own way'},
+ 'timing': {'times': 'Someone whose kind is rare in a group stays more visible than the rest even after years '
+                     '(Kanter 1977), though the standing they have earned there buys them room to differ '
+                     '(idiosyncrasy credit; Hollander 1958).',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{N} has been part of {place} for years now, and people know {Ns} name, {Ns} usual seat and '
+                       "{Ns} odd ways of doing things, which are still nobody else's. Tonight one of the old hands "
+                       'takes {N} aside, kindly enough: {N} is one of them now, so why keep standing out? Across the '
+                       'room, a couple of newer faces have started doing things {Ns} way.'),
+                      ('W',
+                       'Belonging to a group means something is owed to it. {N} wonders whether standing apart is '
+                       'still fair to the people who made room.'),
+                      ('U',
+                       '{N} weighs it: the old hand has a point, but {Ns} ways have their reasons, and the newer '
+                       'faces seem to have noticed them.'),
+                      ('B',
+                       'Standing is worth something here. {N} thinks about what fitting in would buy, and what being '
+                       'different already earns.'),
+                      ('R', 'Being asked to tone it down stings. {N} did not come here to be anyone but {N}.'),
+                      ('G',
+                       'This place has its own long ways, and {N} knows what it is to belong; but {N} came from '
+                       'people with ways of their own.')]},
+ 'outcomes': (['A year on, half the room at {place} does things the way {N} did, and nobody quite remembers where it '
+               'came from.',
+               'The old hand who spoke up that night comes to {N} later with something they have told no one else at '
+               '{place}.'],
+              ['Word goes round {place} that {N} thinks they are better than the rest, and the old crowd stays cool '
+               'for months.',
+               'It gets talked about behind {Ns} back, and the warm nights at {place} are never quite as warm '
+               'again.']),
+ 'options': [
+    ('leave {place} with thanks, so your ways stop dividing the old crowd from the new', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'leave {place} with thanks, so their ways stop dividing the old crowd from the new', 'chance': 0.75}),
+    ('learn why they do things as they do, and take up what holds up', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'chance': 0.8}),
+    ('keep your own ways, since they are what people at {place} come to you for', 'B1', None, 0.45, '', {'odd': 'hold', 'v': 'power, achievement', 'act': 'keep their own ways, since they are what people at {place} come to them for', 'chance': 0.6}),
+    ('walk out of {place} for good, sooner than shrink to fit', 'R1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'chance': 0.72}),
+    ('settle into the ways of {place}, whose people have become your people too', 'G1', None, 0.45, '', {'odd': 'blend', 'v': 'tradition, conformity', 'act': 'settle into the ways of {place}, whose people have become their people too', 'chance': 0.78}),
+    ('go by the rules of {place} for a full season, to learn what they are for', 'W1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, self-direction', 'chance': 0.65}),
+    ('keep your own ways, and show the regulars why they work better for you', 'U1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'achievement, self-direction', 'act': 'keep their own ways, and show the regulars why they work better', 'chance': 0.6}),
+    ('leave {place} and start a gathering of your own with the friends who follow', 'B1', 'R.7', 0.5, '', {'odd': 'leave', 'v': 'self-direction, power', 'act': 'leave {place} and start a gathering of their own with the friends who follow', 'chance': 0.8}),
+    ('throw yourself into the ways of {place} heart and soul, because these people are yours', 'R1', 'G.7', 0.5, '', {'odd': 'blend', 'v': 'benevolence, tradition', 'mark': 'made a friend', 'act': 'throw themselves into the ways of {place} heart and soul, because these people are theirs', 'chance': 0.68}),
+    ("keep the ways you were raised with, and ask that {place} make room for everyone's", 'G1', 'W.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, universalism', 'act': "keep the ways they were raised with, and ask that {place} make room for everyone's", 'chance': 0.62}),
+ ]},
+{'name': 'the old joke about your ways, told to the new ones',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.4 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, friend, keeper',
+ 'cast_want': 'odd',
+ 'sphere': 'gather',
+ 'ladder': 'known',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: you have been a known face there for years, and the '
+                     'old joke about your ways is being told to the newcomers'},
+ 'timing': {'times': 'The rare member of a group is the one its jokes and stories single out, even long after they '
+                     'are accepted (tokens; Kanter 1977), and a misfit that lingers makes people more likely to '
+                     'leave (Kristof-Brown et al. 2005).',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'At {place}, where {N} has been a known face for years, there is an old joke about how {N} '
+                       'does things, and tonight it gets told again to a table of newcomers. Everyone laughs, {N} '
+                       'included, mostly. Afterwards one regular says quietly that the joke would die if {N} just '
+                       'did things like everyone else, and another says, just as quietly, that they wish they had '
+                       '{Ns} nerve.'),
+                      ('W',
+                       'A joke told to newcomers sets how they will treat {N}. {N} thinks about what is fair to '
+                       'everyone at that table.'),
+                      ('U',
+                       '{N} notices what the joke is really about: not {N}, but the place deciding what normal looks '
+                       'like.'),
+                      ('B',
+                       'Being the punchline costs standing, however fondly it is told. {N} counts what it is doing '
+                       'to {Ns} name.'),
+                      ('R',
+                       'The laughter is warm and it still stings. {N} is half ready to laugh louder, half ready to '
+                       'walk out.'),
+                      ('G',
+                       'Every place has its stories, and {N} is in this one for good now. {N} is not sure whose '
+                       'story it is.')]},
+ 'outcomes': (['The newcomers end up asking {N} about the habit, and within a year a few of them do it too.',
+               'The regular who laughed loudest that night comes to {N} later with a worry they could not share with '
+               'anyone else at {place}.'],
+              ['The joke outlives the evening and becomes how every new face at {place} sees {N}.',
+               'Something {N} says that night lands badly, and the room goes quiet in a way nobody forgets.']),
+ 'options': [
+    ('drop the habit the joke is about, for the sake of peace at {place}', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.7}),
+    ('keep your ways, and explain to the newcomers why you do it like that', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their ways, and explain to the newcomers why they do it like that', 'chance': 0.62}),
+    ('stop going to {place}, and spend your evenings where you are taken seriously', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'power, self-direction', 'act': 'stop going to {place}, and spend their evenings where they are taken seriously', 'chance': 0.76}),
+    ('laugh along, join in, and let yourself become one of the crowd', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'hedonism, benevolence', 'act': 'laugh along, join in, and become one of the crowd', 'chance': 0.66}),
+    ('keep doing things the way your own people taught you, without a word', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'act': 'keep doing things the way their own people taught them, without a word', 'chance': 0.58}),
+    ('ask the keeper of {place} for a fair rule: no more jokes at your expense', 'W1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'security, power', 'act': 'ask the keeper of {place} for a fair rule: no more jokes at their expense', 'chance': 0.7}),
+    ('look into other places like {place}, find one that suits you, and go', 'U1', 'R.7', 0.5, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'act': 'look into other places like {place}, find one that suits them, and go', 'chance': 0.78}),
+    ('give up the odd habit in return for a proper seat among the regulars', 'B1', 'G.7', 0.5, '', {'odd': 'blend', 'v': 'security, conformity', 'chance': 0.64}),
+    ('stand up there and then and say the joke is unfair to anyone different', 'R1', 'W.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'chance': 0.74}),
+    ('go back to your own people, and take time to understand why {place} never fit', 'G1', 'U.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, self-direction', 'act': 'go back to their own people, and take time to understand why {place} never fit', 'chance': 0.82}),
+ ]},
+{'name': 'the other traders ask you to do business their way',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, money',
+ 'horizon': 'months',
+ 'roles': 'colleague, keeper, regular',
+ 'cast_want': 'odd',
+ 'sphere': 'comm',
+ 'ladder': 'known',
+ 'worlds': {'earth': 'you are the odd one out at a place you do business: after years there you are well known, and '
+                     'the other traders now ask you to fall in line with how it has always been done'},
+ 'timing': {'times': 'A trader whose ways are rare at a market is watched more closely than the rest (Kanter 1977), '
+                     'and years of standing give them more room to differ than a newcomer has (idiosyncrasy credit; '
+                     'Hollander 1958).',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{N} has worked and traded at {place} for years and is well known there, but {Ns} way of '
+                       "doing business is still nobody else's: the prices, the hours, the way {N} talks with "
+                       'customers. Now the other traders, through the oldest of them, ask {N} to fall in line with '
+                       'how {place} has always done things. Some of {Ns} customers come precisely because {N} is '
+                       'different.'),
+                      ('W',
+                       'The place runs on shared ways, and {N} has done well by them. Is it fair to keep trading by '
+                       '{Ns} own rules?'),
+                      ('U',
+                       '{N} has the figures in mind: what {Ns} way brings in, what the common way would, and why the '
+                       'others want it.'),
+                      ('B',
+                       'Being different is part of what sells. {N} asks plainly what falling in line would cost, and '
+                       'what refusing would.'),
+                      ('R', '{N} has never liked being told how to do things, and does not much like it now.'),
+                      ('G',
+                       'The old ways of the place have kept it going a long time. {N} has old ways too, brought from '
+                       'home.')]},
+ 'outcomes': (['A year on, two other traders at {place} are quietly doing business the way {N} does.',
+               'The oldest trader comes to {N} privately with a trouble the others must not hear about, as if {N} '
+               'were the safe one to tell.'],
+              ['Customers drift, the takings drop, and everyone at {place} can see it.',
+               'The other traders close ranks, and for a season {N} is left out of everything that gets passed '
+               'around at {place}.']),
+ 'options': [
+    ('keep your ways, since you gave your customers your word on them', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'benevolence', 'mark': 'kept your word', 'act': 'keep their ways, since they gave their customers their word on them', 'chance': 0.64}),
+    ('weigh the figures, then move your trade to somewhere it suits better', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'weigh the figures, then move their trade to somewhere it suits better', 'chance': 0.8}),
+    ('fall in line, because the goodwill of the other traders is worth more than your edge', 'B1', None, 0.45, '', {'odd': 'blend', 'v': 'security, achievement', 'act': 'fall in line, because the goodwill of the other traders is worth more than their edge', 'chance': 0.78}),
+    ('keep trading your own way, and tell them so to their faces', 'R1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, stimulation', 'act': 'keep trading their own way, and tell the others so to their faces', 'chance': 0.68}),
+    ('take your trade back to the neighbourhood you come from, among your own', 'G1', None, 0.45, '', {'odd': 'leave', 'v': 'tradition, security', 'act': 'take their trade back to the neighbourhood they come from, among their own', 'chance': 0.74}),
+    ('give the others fair notice, settle every debt, and leave {place} to trade freely', 'W1', 'R.7', 0.5, '', {'odd': 'leave', 'v': 'self-direction, benevolence', 'chance': 0.76}),
+    ('study how {place} has always traded, and take up the parts that keep it whole', 'U1', 'G.7', 0.5, '', {'odd': 'blend', 'v': 'tradition, self-direction', 'chance': 0.6}),
+    ('keep your ways, and offer the others a deal so the whole place gains by them', 'B1', 'W.7', 0.5, '', {'odd': 'hold', 'v': 'achievement, universalism', 'act': 'keep their ways, and offer the others a deal so the whole place gains by them', 'chance': 0.62}),
+    ('leave {place} on the spot, and go and see how traders do it elsewhere', 'R1', 'U.7', 0.5, '', {'odd': 'leave', 'v': 'stimulation, self-direction', 'chance': 0.72}),
+    ('settle in with the old traders, and let their long standing carry your trade too', 'G1', 'B.7', 0.5, '', {'odd': 'blend', 'v': 'security, power', 'act': 'settle in with the old traders, and let their long standing carry their trade too', 'chance': 0.66}),
+ ]},
+{'name': 'a fellow trader confides they envy your ways',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, money',
+ 'horizon': 'months',
+ 'roles': 'colleague, friend, keeper',
+ 'cast_want': 'odd',
+ 'sphere': 'comm',
+ 'ladder': 'known',
+ 'worlds': {'earth': 'you are the odd one out at a place you do business: a fellow trader confides that they envy '
+                     'your ways, and the rest of the place notices'},
+ 'timing': {'times': 'The outsider in a group is often the one the others confide in (Simmel 1908, the stranger), '
+                     'and a known face who keeps to a minority way can slowly move the rest (Moscovici 1980).',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{N} has been a known face at {place} for years, still doing business in {Ns} own way while '
+                       'the rest keep to the common one. One evening, packing up, a long-time trader confides that '
+                       'they envy it: they would do the same if they dared, but the others would never let it go. '
+                       'The next morning the old guard make it clear they have seen the two of them talking, and '
+                       'they do not like where it leads.'),
+                      ('W',
+                       'A confidence is a trust. {N} also feels the weight of what {Ns} example is doing to the '
+                       'peace of the place.'),
+                      ('U',
+                       '{N} sees the pattern: more of them want change than will say so, and someone has to go '
+                       'first.'),
+                      ('B',
+                       'An ally among the traders is worth having; enemies among the old guard are not. {N} reckons '
+                       'up both sides.'),
+                      ('R', 'The confession lights something in {N}. Why should anyone hide how they want to work?'),
+                      ('G',
+                       '{N} was raised to keep faith with those who keep faith in return. The question is which '
+                       'people those are now.')]},
+ 'outcomes': (['Before long the trader who confided is doing business {Ns} way too, and others at {place} begin to '
+               'follow.',
+               'Whatever comes of it, the trader who confided becomes a true friend, and keeps every confidence {N} '
+               'gives back.'],
+              ['The old guard make an example of {N}, and the whole place watches {Ns} customers being steered away.',
+               'The confidence gets out, the trader denies everything, and {N} is the one left looking foolish.']),
+ 'options': [
+    ('leave {place} quietly, so your friend is not blamed for siding with you', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'leave {place} quietly, so their friend is not blamed for siding with them', 'chance': 0.78}),
+    ('take up the common way for now, and work to change it from the inside', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, self-direction', 'chance': 0.72}),
+    ('keep trading your own way, since it is what brings your customers in', 'B1', None, 0.45, '', {'odd': 'hold', 'v': 'achievement, power', 'act': 'keep trading their own way, since it is what brings their customers in', 'chance': 0.6}),
+    ('pack up for good, sooner than spend your days being watched', 'R1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'act': 'pack up for good, sooner than spend their days being watched', 'chance': 0.76}),
+    ('make your peace with the old guard, and trade as {place} always has', 'G1', None, 0.45, '', {'odd': 'blend', 'v': 'tradition, conformity', 'act': 'make their peace with the old guard, and trade as {place} always has', 'chance': 0.82}),
+    ('promise the old guard you will keep to the common way, and keep the promise', 'W1', 'G.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, tradition', 'mark': 'kept your word', 'act': 'promise the old guard to keep to the common way, and keep the promise', 'chance': 0.62}),
+    ('keep your ways, and put the case to the whole place for letting everyone choose', 'U1', 'W.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'act': 'keep their ways, and put the case to the whole place for letting everyone choose', 'chance': 0.68}),
+    ('sell your spot at {place} well, and set up where your trade can grow', 'B1', 'U.7', 0.5, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'sell their spot at {place} well, and set up where their trade can grow', 'chance': 0.8}),
+    ('throw yourself into the common way, and outdo every one of them at it', 'R1', 'B.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, stimulation', 'act': 'throw themselves into the common way, and outdo every one of them at it', 'chance': 0.64}),
+    ('keep the ways you brought from home, and tell your friend to follow their heart', 'G1', 'R.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, self-direction', 'act': 'keep the ways they brought from home, and tell their friend to follow their heart', 'chance': 0.58}),
+ ]},
+{'name': 'the one who does it differently',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'regular, keeper, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'arts',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: your way of making things there stands out, and a '
+                     'regular asks you to fit in'},
+ 'timing': {'times': 'Groups that make things together settle into one house style within a few seasons, and the one '
+                     'who does it differently is watched far more closely than the rest (tokens: Kanter 1977)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'After a year and more at {place}, {N} still does things {Ns} own way, and everyone can tell. '
+                       'At the last session a joke about it got the biggest laugh of the night. Afterwards one of '
+                       'the regulars takes {N} aside, kindly enough: the group works because everyone pulls the same '
+                       'way, and it would be easier for all if {N} did too.'),
+                      ('W',
+                       '{N} knows a group only holds together when people give a little. The question is whether '
+                       'this is the thing to give.'),
+                      ('U',
+                       '{N} has reasons for doing it this way, good ones, and wonders whether anyone at {place} has '
+                       'ever asked for them.'),
+                      ('B',
+                       '{N} weighs it up: what {place} gives, what fitting in would cost, and what else is on offer '
+                       'elsewhere.'),
+                      ('R',
+                       'The laugh still stings. {N} came here to make something that feels true, not something like '
+                       "everyone else's."),
+                      ('G',
+                       '{N} learned it this way from {Ns} own people. Dropping it now would feel like letting them '
+                       'down.')]},
+ 'outcomes': (['Months on, {place} has quietly taken up something of {Ns} way, and the regulars say the work is '
+               'better for it.',
+               'Over tea one evening {friend} admits to having done it differently once too, and tells {N} why they '
+               'stopped.'],
+              ['The joke sticks, and for weeks every small slip of {Ns} gets a knowing look across the room.',
+               'At the next showing {N} comes in wrong in front of everyone, and the silence afterwards is worse '
+               'than the laugh.']),
+ 'options': [
+    ("take on the group's way of doing it, because the group comes first", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.8}),
+    ('keep your own way, and explain at the next session why it works', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their own way, and explain at the next session why it works', 'chance': 0.6}),
+    ('leave {place} for a group where your way is worth something', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'leave {place} for a group where their way is worth something', 'chance': 0.75}),
+    ('throw yourself into their way for a season, just to feel what it is like', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'stimulation', 'act': "throw themselves into the group's way for a season, just to feel what it is like", 'chance': 0.7}),
+    ('quietly keep doing it the way you were taught, and say nothing', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'act': 'quietly keep doing it the way they were taught, and say nothing', 'chance': 0.62}),
+    ('ask the one in charge for a fair hearing, and show your way on its merits', 'W1', 'U.7', 0.5, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'act': 'ask the one in charge for a fair hearing, and show their way on its merits', 'chance': 0.6}),
+    ('work out what {place} really gives you, and take your talent where it counts more', 'U1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'achievement', 'act': 'work out what {place} really gives them, and take their talent where it counts more', 'mark': 'turned down a chance', 'chance': 0.8}),
+    ('do it their way, in return for one piece done entirely yours', 'B1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'power, stimulation', 'act': "do it the group's way, in return for one piece done entirely their own", 'chance': 0.65}),
+    ('say out loud, with feeling, that this way is where you come from, and keep it', 'R1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'stimulation, tradition', 'act': 'say out loud, with feeling, that this way is where they come from, and keep it', 'chance': 0.7}),
+    ('leave {place} for your old group, where your own people still do it your way', 'G1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, benevolence', 'act': 'leave {place} for their old group, where their own people still do it their way', 'chance': 0.78}),
+ ]},
+{'name': 'asked to do it the house way for the big night',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'community, friends',
+ 'horizon': 'months',
+ 'roles': 'keeper, regular, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'arts',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: before its big night, you are told to do it the '
+                     'house way like everyone else'},
+ 'timing': {'times': 'The one who stands out in a group is watched hardest on its big occasions, and people who do '
+                     'not fit a place are less content there and likelier to leave it (misfit and leaving: '
+                     'Kristof-Brown et al. 2005)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       'The big night at {place} is a few weeks off, and {N} is still the only one there who does '
+                       'things {Ns} own way. The one who runs {place} says it plainly, not unkindly: for this one, '
+                       'everyone does it the house way, no exceptions. A couple of the regulars look relieved. '
+                       '{friend} catches {Ns} eye and shrugs.'),
+                      ('W',
+                       '{N} understands that a show needs everyone together. But a rule made to keep one person in '
+                       'line does not feel quite fair either.'),
+                      ('U',
+                       '{N} wonders what the house way actually achieves, and whether anyone has ever tried it '
+                       'against anything else.'),
+                      ('B',
+                       'A big night means people watching who matter. {N} thinks about which way gets noticed, and '
+                       'by whom.'),
+                      ('R', 'Being told to hold back makes {N} want to do the exact opposite, and loudly.'),
+                      ('G',
+                       '{N} thinks of the people {N} first learned from, who would never have changed a thing for a '
+                       'crowd.')]},
+ 'outcomes': (['After the big night the one who runs {place} admits the house way was only ever habit, and asks {N} '
+               'what else could change.',
+               '{friend} tells {N} quietly that they have always felt the odd one out at {place} too, and never said '
+               'so.'],
+              ['On the night {N} is the one who stands out, and not in the good way: the laughter from the back row '
+               'carries.',
+               'The regulars close ranks, and for a while {N} is left out of the plans and the evenings after.']),
+ 'options': [
+    ('keep your own way, and ask openly that the rule be put to the whole group', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'act': 'keep their own way, and ask openly that the rule be put to the whole group', 'chance': 0.65}),
+    ('decide {place} will never try anything new, and find a group that does', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'chance': 0.8}),
+    ('do it the house way, and make sure the right people see you do it best', 'B1', None, 0.45, '', {'odd': 'blend', 'v': 'achievement, power', 'act': 'do it the house way, and make sure the right people see them do it best', 'chance': 0.72}),
+    ('do it your own way on the night, whatever the rule says', 'R1', None, 0.45, '', {'odd': 'hold', 'v': 'stimulation, self-direction', 'act': 'do it their own way on the night, whatever the rule says', 'chance': 0.58}),
+    ('leave {place} and go back to the people who taught you', 'G1', None, 0.45, '', {'odd': 'leave', 'v': 'tradition', 'act': 'leave {place} and go back to the people who taught them', 'chance': 0.74}),
+    ('see the show through as promised, then leave {place} for work that pays you back', 'W1', 'B.7', 0.5, '', {'odd': 'leave', 'v': 'achievement, conformity', 'act': 'see the show through as promised, then leave {place} for work that pays them back', 'mark': 'kept your word', 'chance': 0.75}),
+    ('learn the house way properly, to find the feeling the others get from it', 'U1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'self-direction, stimulation', 'chance': 0.6}),
+    ('keep your own way, and win the regulars round one at a time', 'B1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'power, benevolence', 'act': 'keep their own way, and win the regulars round one at a time', 'chance': 0.68}),
+    ('walk out of {place} on the spot, and say a rule like that is not fair', 'R1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'universalism, stimulation', 'mark': 'made an enemy', 'chance': 0.82}),
+    ('go along with the house way patiently, and learn what the old hands know', 'G1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'tradition, self-direction', 'chance': 0.66}),
+ ]},
+{'name': 'a joke at handover',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.1 U.1 B.4 R.1 G.4',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, community',
+ 'horizon': 'months',
+ 'roles': 'colleague, keeper, friend',
+ 'cast_want': 'odd',
+ 'sphere': 'care',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: your way of looking after people stands out on the '
+                     'team, and a joke at handover makes it plain'},
+ 'timing': {'times': 'People whose ways do not fit their team are less satisfied at work and likelier to leave it, '
+                     'and care teams are no exception (misfit and leaving: Kristof-Brown et al. 2005)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{N} has been at {place} for more than a year and still looks after people {Ns} own way: how '
+                       '{N} talks to them, what {N} lets slide, what {N} will not. The others have noticed. This '
+                       'week {colleague} made a joke of it at handover, and the whole room laughed. Nobody meant '
+                       'harm, but nobody missed the point either.'),
+                      ('W',
+                       '{N} wants to do right by the people in {Ns} care, and by the team as well, and today those '
+                       'two pull in different directions.'),
+                      ('U',
+                       '{N} has thought hard about why {N} does it this way, and wonders whether the others ever '
+                       'have.'),
+                      ('B',
+                       '{N} knows how a place like {place} works: the ones who fit get the good shifts, and the rest '
+                       'get remembered when it counts.'),
+                      ('R',
+                       'The laugh at handover still burns. {N} cares too much about the people here to do it by '
+                       'rote.'),
+                      ('G',
+                       '{N} was raised to look after people a certain way, the way {Ns} own family always has.')]},
+ 'outcomes': (['The people in {Ns} care start asking for {N} by name, and before long others at {place} are doing it '
+               '{Ns} way.',
+               'Late one night {colleague} confides that they have never liked the house routine either, and asks '
+               '{N} how to do it differently.'],
+              ['A small slip of {Ns} gets passed round at the next handover, and by the end of the week everyone at '
+               '{place} has heard it.',
+               'The team goes quiet when {N} comes in, and the good shifts start going to someone else.']),
+ 'options': [
+    ('hand over properly, then leave {place} for a team whose care you can stand behind', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'hand over properly, then leave {place} for a team whose care they can stand behind', 'chance': 0.76}),
+    ('study how {place} does things, and take on whatever has good reasons behind it', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'chance': 0.78}),
+    ('keep your own way, since it gets the results the managers notice', 'B1', None, 0.45, '', {'odd': 'hold', 'v': 'achievement', 'act': 'keep their own way, since it gets the results the managers notice', 'chance': 0.66}),
+    ('quit {place} and its people after one bad shift too many', 'R1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, benevolence', 'chance': 0.8}),
+    ("settle into the team's ways, the way you would in any family you join", 'G1', None, 0.45, '', {'odd': 'blend', 'v': 'tradition, conformity', 'act': "settle into the team's ways, the way one would in any family one joins", 'chance': 0.7}),
+    ("follow the team's routine to the letter, so there is room to be warm within it", 'W1', 'R.7', 0.5, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.64}),
+    ('keep your way, and write down why it suits the people here in the long run', 'U1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, benevolence', 'act': 'keep their way, and write down why it suits the people here in the long run', 'chance': 0.62}),
+    ('take a post at a better-run place, and tell the manager exactly why', 'B1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'achievement, universalism', 'chance': 0.74}),
+    ('throw yourself into learning their way, shift after shift, to find what it knows', 'R1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'stimulation, self-direction', 'act': "throw themselves into learning the team's way, shift after shift, to find what it knows", 'chance': 0.6}),
+    ('keep your way patiently, until you have standing nobody can question', 'G1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, achievement', 'act': 'keep their way patiently, until they have standing nobody can question', 'chance': 0.7}),
+ ]},
+{'name': 'a quiet word in the corridor',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 85),
+ 'alpha': 'W.4 U.4 B.1 R.4 G.1',
+ 'stakes': 0.5,
+ 'rate': 1.0,
+ 'tier': 'everyday',
+ 'tone': 'mixed',
+ 'life': 'work, community',
+ 'horizon': 'months',
+ 'roles': 'keeper, colleague, regular',
+ 'cast_want': 'odd',
+ 'sphere': 'care',
+ 'worlds': {'earth': 'you are the odd one out at a place you go: the one who runs it takes you aside and asks you to '
+                     "do it the team's way"},
+ 'timing': {'times': 'Standing in a team buys room to differ, up to a point, before the one who differs is asked to '
+                     'fall in line (idiosyncrasy credit: Hollander 1958)',
+            'gap_years': (3.0, 8.0)},
+ 'scenes': {'earth': [('',
+                       '{N} has been at {place} a good while now and has never quite done things the way the rest '
+                       'do. Today {boss} catches {N} in the corridor for a quiet word: there have been comments, and '
+                       'the team works best when it works as one. {boss} is not angry, only tired of the comments, '
+                       'and wants it settled by the end of the month.'),
+                      ('W',
+                       '{N} believes in a team that keeps to one standard. {N} also believes {Ns} own way is the '
+                       'fairer one to the people in its care.'),
+                      ('U', '{N} would change gladly if someone could show why. Nobody has.'),
+                      ('B',
+                       '{N} weighs it: {boss} writes the references, and a good reference is worth more than being '
+                       'right.'),
+                      ('R', '{N} feels the heat rise. Being managed like this makes {N} want to walk straight out.'),
+                      ('G',
+                       '{N} thinks of the old hand who first taught {N}, who never once did it by the book and was '
+                       'loved for it.')]},
+ 'outcomes': (['A few months on, {boss} asks {N} to show the newer ones how {N} does it.',
+               'One of the families at {place} tells {N}, quietly, that {Ns} way is the reason their mother has '
+               'settled there.'],
+              ['Word of the quiet word gets round, and for a while {N} is the one people talk about in the break '
+               'room.',
+               '{N} misses a step in the routine in front of the whole shift, and it is the only thing anyone '
+               'remembers that week.']),
+ 'options': [
+    ("agree to the team's standard, for the sake of the people in its care", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.75}),
+    ('ask for the reasons in writing, and keep your way until you get them', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'ask for the reasons in writing, and keep their way until they get them', 'chance': 0.64}),
+    ('leave {place} before the month is out, with a good reference in hand', 'B1', None, 0.45, '', {'odd': 'leave', 'v': 'security, achievement', 'chance': 0.78}),
+    ('say yes on the spot, and throw your heart into doing it their way', 'R1', None, 0.45, '', {'odd': 'blend', 'v': 'benevolence, stimulation', 'act': "say yes on the spot, and throw their heart into doing it the team's way", 'chance': 0.68}),
+    ('nod politely, and go on quietly doing it the way you were taught', 'G1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition', 'act': 'nod politely, and go on quietly doing it the way they were taught', 'chance': 0.6}),
+    ('keep the old way you were taught, and ask the team to make it a rule', 'W1', 'G.7', 0.5, '', {'odd': 'hold', 'v': 'tradition, conformity', 'act': 'keep the old way they were taught, and ask the team to make it a rule', 'chance': 0.65}),
+    ('write a careful account of what is wrong at {place}, hand it in, and leave', 'U1', 'W.7', 0.5, '', {'odd': 'leave', 'v': 'universalism, self-direction', 'chance': 0.76}),
+    ('go along with it, and get {place} to pay for the training that comes with it', 'B1', 'U.7', 0.5, '', {'odd': 'blend', 'v': 'achievement, self-direction', 'chance': 0.62}),
+    ('tell the boss straight that you do it your way or not at all', 'R1', 'B.7', 0.5, '', {'odd': 'hold', 'v': 'self-direction, power', 'act': 'tell the boss straight that they do it their way or not at all', 'mark': 'made an enemy', 'chance': 0.72}),
+    ('leave {place} and go back to looking after your own people, the way that feels right', 'G1', 'R.7', 0.5, '', {'odd': 'leave', 'v': 'tradition, benevolence', 'act': 'leave {place} and go back to looking after their own people, the way that feels right', 'chance': 0.8}),
  ]},
 {'name': 'a gang on the late bus',
  'stages': 'juvenile young_adult adult mature elder',
