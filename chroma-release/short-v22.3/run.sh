@@ -40,7 +40,8 @@ ACROSS=titles,reach,identity,identity_full,ages,world
 ENGB=score21,score23,tier,roles,repeat,felt_gap,plan_felt,foresee_off,foresee_on,pie_packs,pie_nopacks,pie_won,speed
 GAME=peace_bands,acceptance,longshot_check,event_rate,season_rate,roles2,roles_g,book_check,next2_check,season_ages,kin,abroad
 LOOKBASE=${LOOKBASE:-release/v22.2.1}   # the published visual update; before it is pushed: LOOKBASE=visual/v22.2.1
-LOOK="chroma-game/prototype/web/src/look.css chroma-game/prototype/web/src/look.js chroma-game/prototype/web/src/build.py
+LOOK="chroma-game/prototype/web/src/look.css chroma-game/prototype/web/src/look.js chroma-game/prototype/web/src/clarity.css
+ chroma-game/prototype/web/src/clarity.js chroma-game/prototype/web/src/build.py
  chroma-game/tools/webdir.py chroma-art/game/lights.json chroma-art/game/pics/portrait-* chroma-look/tools"
 HAND="look_same fit_1280 fit_1024 fit_geo fit_phone tour_desktop tour_phone"   # rows outside v22_checks
 look() { git -C $REPO fetch -q origin "+refs/heads/$LOOKBASE:refs/remotes/origin/$LOOKBASE" || return 2

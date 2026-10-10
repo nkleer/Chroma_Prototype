@@ -33,3 +33,10 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   The five shadow states sit beside the other states in the crest and the sheet, hatched, with their `ci-shadow-*` glyphs
   and a hover with the sources, whether they have seen it, and the on/off rule. Once seen, the heart's pick the shadow
   drives carries "their shadow pulls here". The words come from game.py (`shadow_view`, `shadow_pull`); display only.
+- 10-10 (engine PRs #84 and #95, behind sph_levers and far_ties, both off): a lever act on the town's spheres is a story
+  line of its own (tag `lever`, mark `L`: where it landed, what came of it, their standing there) and a dot on the World
+  panel's line by what came of it, with the acts listed under "What they did in town" (panel `levers`). A close tie's news
+  from their town is a line (tag `far`, mark `F`: what it meant for the tie), as is a tie taken into the household and how
+  their stay ends; a want that came of such news shows why on the circle's hover (`want_why`). The acts and the news are
+  game.py's words (`SPH_LEVER`, `FAR_SAY`) until the Library has its own; places, rungs and the events an office sets off
+  are the Library's (earth_spheres.py). Nothing shows with the switches off.
