@@ -744,6 +744,7 @@ DEFAULT = dict(
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
+    c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
@@ -918,7 +919,7 @@ UPD_OFF = dict(dis_match=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c3_inst=False, c4_nature=False)
+               c3_inst=False, c4_nature=False, c5_faith=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1793,7 +1794,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
     HAD_IDX = {}
-    NO_FOUND = np.zeros(N, bool)   # C5 founding (earth_rules INNER "a following of your own"): built with C5
+    NO_FOUND = np.zeros(N, bool)   # C5 founding (earth_rules INNER "a following of your own"): open only with c5_faith
     def cond_ns(t, age, w):
         """The engine's condition vocabulary (batch.COND_VOCAB): one value per person."""
         def ys(x):
@@ -1817,7 +1818,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   n_dream=(gk == 0).sum(1), n_passion=(gk == 1).sum(1), n_plan=(gk == 2).sum(1),
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
                   harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
-                  founding=NO_FOUND,   # C5: a movement founding in the person's place, with a free slot (not built yet)
+                  founding=(WL.W.c5_founding(WL.PP.loc) if WL is not None and P.get("c5_faith") else NO_FOUND),   # C5: a
+                  # movement founded in the person's town within the year (the founding took a free slot)
                   haunts=np.full(N, bool(P.get("sph_haunts")) and WON))   # spheres phase 2: haunts built (the haunt choices)
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})

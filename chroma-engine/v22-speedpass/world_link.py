@@ -49,6 +49,8 @@ WORLD_MOMENTS = [
     ("nature", "drought", None, "a dry year on the land", 0.5, "place"),
     ("nature", "glorious spring", None, "a glorious spring", 0.15, "place"),
     ("nature", "recovery", None, "the town builds itself back", 0.4, "place"),
+    ("belief", "new movement", None, "a new faith comes to town", 0.3, "place"),
+    ("belief", "faith tension", None, "the hall on the corner is shut", 0.4, "place"),
 ]
 CRIME_W = re.compile(r"\b(robbed|burgl|mugg|attacked|break-in|broken into|stolen|pickpocket)", re.I)
 DISASTER_W = re.compile(r"\b(flood|fire|storm|earthquake|quake|drought|heatwave|hurricane|landslide)\b", re.I)
@@ -71,7 +73,8 @@ NORM_MARK = {"came out": "coming out", "named their gender": "transition"}   # t
 PUSH_COMMIT = {"career": ("institution", "employer"), "community": ("group", None), "faith": ("belief", None),
                "partner": ("close", "partner"), "children": ("close", "child")}
 LOCAL_SEEN = ("disaster", "crime wave", "local election",   # local public events a person living there lives through
-              "bad air", "bad water", "poisoned river", "drought", "glorious spring", "recovery")   # (C4's with its hook on)
+              "bad air", "bad water", "poisoned river", "drought", "glorious spring", "recovery",   # (C4's with its hook on)
+              "new movement", "faith tension")                                                       # (C5's)
 # the typical world after the 80-year burn-in (seeds 1-6 or 1-8, modern Earth): every channel below is neutral there
 CLIM_REF = 0.51     # acceptance of coming out (.70) x the sexuality right (.73)
 U_REF = 6.5         # local unemployment, percent

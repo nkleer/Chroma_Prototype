@@ -439,6 +439,7 @@ W_DEFAULT = dict(
     # them is drawn, computed or saved and the world runs as before
     c3_inst=False,     # C3: institution events (sold, merged, nationalised, a leak, a cover-up)
     c4_nature=False,   # C4: nature's own year (bad air, bad water, a poisoned river, drought, a glorious spring, recovery)
+    c5_faith=False,    # C5: three new faith movement slots on the faith axis (founding, growth, fading, claims, tension)
     c_par=None,        # {name: value} over C_DEFAULT (tuning; None: the start values)
 )
 # the switches above (stage3-rules.md §8)
@@ -446,7 +447,7 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
-C_RULES = ("c3_inst", "c4_nature", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
     sold=0.02, sold_poor=2.0, sold_pull=0.3,   # C3 sold: private firms and banks, twice as often with finances under .3;
@@ -466,7 +467,21 @@ C_DEFAULT = dict(
     water_serv=0.05, drought_serv=0.03,           # C4 the place's services lost
     drought_food=0.5, drought_fhaz=2.0,           # C4 a drought lifts food prices and doubles the food shock's chance
     rec_cost=0.03,                   # C4 recovery: the council's capacity spent rebuilding
+    found=0.01, found_mean=3.0, found_speed=2.0,  # C5 founding, per society a year: 1% x (1 + 3 x unmet meaning above its
+                                     # mean) x (1 + 2 x norm_speed), with a free slot
+    succeed=0.1, ceil_lo=0.02, ceil_hi=0.08,      # C5 about 1 in 10 grows to 2 to 8% of the people (Stark 1996)
+    fail_lo=0.002, fail_hi=0.008, fade_y0=5.0, fade_y1=15.0, fade=0.25,   # C5 the rest peak under 1% and fade from 5 to
+                                     # 15 years on, a quarter of their members a year
+    grow=0.35, seed_share=0.0005,    # C5 logistic growth a year toward the ceiling, from the founding's first members
+    free_share=0.001, free_y=5.0, fail_y=20.0,    # C5 a slot frees under .1% after 5 years, or a failed movement at 20
+    join_share=0.01,                 # C5 the cast take up a movement as their faith only once it holds 1% of the people
+    claims=0.5,                      # C5 claims spread: a year's chance while a movement grows
+    tension_share=0.05, tension_tv=0.25, tension_trust=0.41, tension_p=0.5,   # C5 faith tension: two faiths over 5%, far
+                                     # apart, trust under .41 (the lowest tenth of years in a typical world); a tense year
+                                     # shows in a town with this chance
+    found_open=52,                   # C5 the founding gate stays open this many weeks in the founding's town
 )
+NM = 3   # C5: the faith axis's movement slots (faith index NF + k), only with c5_faith on
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
 S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_home", "era_home_k", "era_fade_y", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
@@ -554,6 +569,8 @@ class World:
         self.WPROF = WELFARE_PROF[P]
         self.GMIX = {g: m[P] for g, m in GUILD_MIX.items()}
         self.FPROF = FAITH_PROF[:, P]
+        if self.p.get("c5_faith"):                         # C5: the slots' colours (even until a movement is founded)
+            self.FPROF = np.vstack([self.FPROF, getattr(self, "c5_prof", np.full((NM, C), 0.2))])
         self.ROUT, self.OLIG = ROUTINE[P], OLIGARCHY[P]
         pre = self.cfg["preset"]
         if isinstance(pre, (list, tuple, np.ndarray)):       # a value climate in the canonical frame (spawn_neighbour)
@@ -702,7 +719,7 @@ class World:
         self.spiritual, self.conspiracy = 0.15, 0.10
         # ---- belief
         self.cosmology = COSMOLOGY.get(cfg["setting"], "believed")
-        self.holy_shift = np.zeros(NF)
+        self.holy_shift = np.zeros(self._nf())
         # ---- state
         self.regime = p["regime0"] if cfg["preset"] in ("typical rich", "even") else float(cfg.get("regime", p["regime0"]))
         self._regime_derived()
@@ -771,7 +788,13 @@ class World:
             for pl in range(3):
                 pop[a, :, pl, :, 0] = (1 - mig) * age[a] * place[pl] * cls[pl][:, None] * fn[None, :]
                 pop[a, :, pl, :, 1] = mig * mig_age[a] * place[pl] * np.array([.45, .45, .10])[:, None] * mig_f[None, :]
+        if self.p.get("c5_faith"):                         # C5: the movement slots, empty at the start
+            pop = np.concatenate([pop, np.zeros((8, 3, 3, NM, 2))], axis=3)
         return pop / pop.sum()
+
+    def _nf(self):
+        """The faiths on the faith axis: NF, and C5's NM movement slots when it is on."""
+        return NF + (NM if self.p.get("c5_faith") else 0)
 
     def _regime_derived(self):
         demo = _cl((self.regime + 10) / 20, 0, 1)
@@ -927,7 +950,7 @@ class World:
             party = (self.gov_party if role == 0 else self.opp_party) if party is None else party
             inst = int(self.party_ids[party]); base = self.inst_profile[inst]
         elif rn == "preacher":
-            inst = int(np.nonzero(self.inst_faith == int(np.argmax(self.faith_share)))[0][0]); base = self.FPROF[self.inst_faith[inst]]
+            inst = int(np.nonzero(self.inst_faith == int(np.argmax(self.faith_share[:NF])))[0][0]); base = self.FPROF[self.inst_faith[inst]]
         elif rn == "scientist":
             inst = int(np.nonzero(self.inst_kind == INST_KINDS.index("university"))[0][0]); base = self.inst_profile[inst]
         elif rn == "magnate":
@@ -1084,6 +1107,8 @@ class World:
     def _year(self):
         self._tech_y()
         self._belief_y()
+        if self.p.get("c5_faith"):
+            self._c5_y()
         self._generations_y()
         self._pop_y()
 
@@ -1224,6 +1249,154 @@ class World:
             self.inst_capacity[cn] = np.maximum(self.inst_capacity[cn] - c("rec_cost"), 0.05)
             self._event("nature", "recovery", None, dict(loc=int(l)), big=False)
         self.c4_dis = hit
+
+    def _c5_state(self):
+        """C5's own state, made the first year the hook runs (a world with it off saves none of it)."""
+        if getattr(self, "c5_prof", None) is None:
+            self.c5_prof = np.full((NM, C), 0.2)            # each slot's colours, fixed for the movement's life
+            self.c5_on = np.zeros(NM, bool)                 # a living movement holds the slot
+            self.c5_born = np.zeros(NM, np.int64)           # the founding week
+            self.c5_ceil = np.zeros(NM)                     # the share its growth heads for
+            self.c5_fade = np.zeros(NM)                     # years from the founding until a failing one fades (0: it lasts)
+            self.c5_parent = np.full(NM, -1, np.int64)      # the tradition it came from (-1: spiritual but secular)
+            self.c5_loc = np.full(NM, -1, np.int64)         # the town it was founded in
+            self.c5_fig = np.full(NM, -1, np.int64)         # its founder, a public figure
+            self.c5_reach = np.ones(NM)                     # its growth scale (a founder's reach, c5_found_by)
+            self.c5_tense = np.zeros((NF + NM, NF + NM), bool)   # pairs of faiths in a tense stretch
+            self.c5_found_t, self.c5_found_l = -9999, -1    # the last founding: week and town (the founding gate)
+
+    def faith_open(self, min_share=None):
+        """Faiths a person can take up: the traditions, and C5's living movements holding min_share of the people
+        (default join_share)."""
+        nf = self._nf()
+        ok = np.arange(nf) < NF
+        if nf > NF and getattr(self, "c5_on", None) is not None:
+            ms = self._c_par("join_share") if min_share is None else min_share
+            ok[NF:] = self.c5_on & (np.asarray(self.faith_share)[NF:] >= ms)
+        return ok
+
+    def living_faiths(self):
+        """C5's movement slots as the Faith sphere's "living faiths" (read only): each living movement's slot, faith
+        index, share of the people, colours (W U B R G), founding week and town, parent tradition and founder."""
+        if getattr(self, "c5_prof", None) is None:
+            return []
+        inv = np.argsort(self.perm)
+        return [dict(slot=int(k), faith=NF + int(k), share=round(float(self.faith_share[NF + k]), 4),
+                     colours=[round(float(v), 3) for v in self.c5_prof[k][inv]], born=int(self.c5_born[k]),
+                     town=int(self.c5_loc[k]), parent=int(self.c5_parent[k]), founder=int(self.c5_fig[k]),
+                     lasting=bool(self.c5_fade[k] == 0))
+                for k in np.nonzero(self.c5_on)[0]]
+
+    def c5_founding(self, loc):
+        """C5's founding gate per person (earth_rules INNER "a following of your own"): a movement founded in the
+        person's town within found_open weeks (the founding took a free slot)."""
+        loc = np.asarray(loc)
+        if getattr(self, "c5_prof", None) is None or self.t - int(self.c5_found_t) >= self._c_par("found_open"):
+            return np.zeros(loc.shape, bool)
+        return loc == int(self.c5_found_l)
+
+    def c5_found_by(self, pie, reach=1.0):
+        """C5: the person founds the movement founded in their town (the option of "a following of your own"): its
+        colours become the founder's own and its growth scales with their reach (1 typical). For the Engine to call."""
+        if getattr(self, "c5_prof", None) is None or self.t - int(self.c5_found_t) >= self._c_par("found_open"):
+            return -1
+        k = int(np.argmax(np.where(self.c5_on, self.c5_born, -1)))
+        self.c5_prof[k] = _norm(np.asarray(pie, float)); self.c5_reach[k] = float(max(reach, 0.1))
+        self.FPROF[NF + k] = self.c5_prof[k]
+        return k
+
+    def _c5_move(self, src, dst, amount):
+        """Move a share of all the people from faith column src to dst (0 secular, 1.. faiths), group by group in
+        proportion to src's own groups; returns the share moved."""
+        m = self.pop[..., src, :]
+        tot = float(m.sum())
+        a = min(float(amount), tot)
+        if a <= 0:
+            return 0.0
+        mv = m * (a / tot)
+        self.pop[..., src, :] -= mv; self.pop[..., dst, :] += mv
+        return a
+
+    def _c5_y(self):
+        """C5, new faith movements (stage3-rules.md section 5): founding, growth, fading, claims and tension, once a
+        year after the belief year. Invented movements only; conflict is told indirectly."""
+        self._c5_state()
+        c, t = self._c_par, int(self.t)
+        x = self._c_rng(5).random(16 + 2 * (NF + NM) ** 2)   # 0-7 founding, 8.. claims, 16.. tension
+        fs = self.pop.sum((0, 1, 2, 4))                     # 0 secular, 1.. faiths
+        # founding
+        U = getattr(self, "group_unmet", None)
+        free = np.nonzero(~self.c5_on)[0]
+        if U is not None and len(free):
+            exc = max(float(self.unmet_mean[4] - self.need_base[4]), 0.0)
+            pf = c("found") * (1 + c("found_mean") * exc) * (1 + c("found_speed") * float(getattr(self, "norm_speed", 0.0))) * self.pace
+            if x[0] < pf:
+                k = int(free[0])
+                par = int(np.argmax(fs[1:])) if fs[1:].max() >= fs[0] else -1
+                pp = self.FPROF[par] if par >= 0 else self.V
+                size = self.pop.reshape(-1) * self.gadult
+                want = _norm(self.gmix + self.p["zeta"] * (U @ self.NEEDM))
+                wm = size * U[:, 4] ** 3
+                prof = _norm(0.5 * (wm[:, None] * want).sum(0) / max(wm.sum(), 1e-12) + 0.5 * pp)
+                ok = x[2] < c("succeed")
+                l = int(min(np.searchsorted(np.cumsum(self.loc_pop_share) / self.loc_pop_share.sum(), x[1]), self.n_loc - 1))
+                self.c5_prof[k], self.c5_on[k], self.c5_born[k] = prof, True, t
+                self.c5_ceil[k] = (c("ceil_lo") + (c("ceil_hi") - c("ceil_lo")) * x[3]) if ok else (c("fail_lo") + (c("fail_hi") - c("fail_lo")) * x[3])
+                self.c5_fade[k] = 0.0 if ok else c("fade_y0") + (c("fade_y1") - c("fade_y0")) * x[4]
+                self.c5_parent[k], self.c5_loc[k], self.c5_reach[k] = par, l, 1.0
+                self.c5_found_t, self.c5_found_l = t, l
+                self.FPROF[NF + k] = prof
+                self._c5_move(par + 1, NF + 1 + k, 0.5 * c("seed_share"))
+                self._c5_move(0, NF + 1 + k, 0.5 * c("seed_share"))
+                # its founder, a public figure outside the roles (no seat to fill; the figure lives on in the record)
+                fid = len(self.F_role)
+                self.F_role.append(FIG_ROLES.index("preacher")); self.F_pie.append(_norm(prof * np.exp(0.25 * self._cn(self._c_rng(6)))).tolist())
+                self.F_standing.append(float(0.1 + 0.1 * x[5])); self.F_alive.append(True); self.F_party.append(-1)
+                self.F_born.append(int(t - (30 + 20 * x[6]) * 52)); self.F_female.append(bool(x[7] < 0.5)); self.F_mom.append(0.05)
+                self.F_active.append(True); self.F_inst.append(-1)
+                self.c5_fig[k] = fid
+                self._event("belief", "new movement", None, dict(slot=k, loc=l, parent=par, fig=fid), big=False)
+                self.fire_sphere_event("new_teaching", l)  # its sphere event (world-fired: faith.new_teaching)
+        # growth, fading, claims, freeing
+        fs = self.pop.sum((0, 1, 2, 4))
+        for k in np.nonzero(self.c5_on)[0]:
+            col, par = NF + 1 + int(k), int(self.c5_parent[k]) + 1
+            s_ = float(fs[col]); age = (t - int(self.c5_born[k])) / 52.0
+            failing = self.c5_fade[k] > 0
+            if failing and age >= self.c5_fade[k]:
+                ds = -c("fade") * s_
+            else:
+                ds = c("grow") * self.c5_reach[k] * s_ * (1 - s_ / self.c5_ceil[k]) * self.pace
+            if ds > 0:
+                got = self._c5_move(par, col, 0.5 * ds) if par > 0 else 0.0
+                self._c5_move(0, col, ds - got)
+                if x[8 + k] < c("claims") and age > 0 and s_ < 0.9 * self.c5_ceil[k]:   # while it still grows
+                    self._event("belief", "claims spread", None, dict(slot=int(k), loc=int(self.c5_loc[k])), big=False)
+            elif ds < 0:
+                self._c5_move(col, par, -0.5 * ds); self._c5_move(col, 0, -0.5 * ds)
+            s_ = float(self.pop[..., col, :].sum())
+            if (s_ < c("free_share") and age >= c("free_y")) or (failing and age >= c("fail_y")):
+                self._c5_move(col, par, 0.5 * s_); self._c5_move(col, 0, s_)
+                self.pop[..., col, :] = 0.0
+                self._event("belief", "movement fades", None, dict(slot=int(k), years=round(age, 1)), big=False)
+                self.c5_on[k] = False; self.c5_prof[k] = 0.2; self.FPROF[NF + k] = 0.2
+                self.c5_tense[NF + k, :] = False; self.c5_tense[:, NF + k] = False
+        self.faith_share = self.pop.sum((0, 1, 2, 4))[1:].copy()
+        # tension between two faiths: both over 5%, far apart, trust low; told indirectly, in a town
+        sh = self.faith_share
+        alive = self.faith_open(0.0)
+        big_ = alive & (sh > c("tension_share"))
+        cum = np.cumsum(self.loc_pop_share) / self.loc_pop_share.sum()
+        nn = (NF + NM) ** 2
+        for i in range(NF + NM):
+            for j in range(i + 1, NF + NM):
+                xr, xl = x[16 + i * (NF + NM) + j], x[16 + nn + i * (NF + NM) + j]
+                on = bool(big_[i] and big_[j] and _tv(self.FPROF[i], self.FPROF[j]) > c("tension_tv") and self.trust < c("tension_trust"))
+                start = on and not self.c5_tense[i, j]
+                self.c5_tense[i, j] = on
+                if start or (on and xr < c("tension_p")):
+                    l = int(min(np.searchsorted(cum, xl), self.n_loc - 1))
+                    self._event("belief", "faith tension", None, dict(faiths=[i, j], loc=l, start=start), big=False)
 
     # C3's sphere events (spheres-phase3-answers.md section 1; the relay of 10-10 01:00 UTC): a closure averted by the
     # state is the sphere's closure, a leak its exposure; sold and merged are words only. Ordinary closures and scandals
@@ -1963,7 +2136,10 @@ class World:
         self.last_break = BREAKTHROUGHS[kind]
         self.n_break = getattr(self, "n_break", 0) + 1
         if kind == 2:                                        # revival: belief and norms first (spec 6 §5)
-            f = int(np.argmax(self.FPROF @ ((U[:, 4] * size)[:, None] * want).sum(0)))   # the faith that fits the unmet
+            fit_ = self.FPROF @ ((U[:, 4] * size)[:, None] * want).sum(0)
+            if len(fit_) > NF:                             # C5: only a living movement can be revived
+                fit_[NF:] = np.where(self.faith_open(0.0)[NF:], fit_[NF:], -np.inf)
+            f = int(np.argmax(fit_))                       # the faith that fits the unmet
             self.revival = (f, 8)
             self.norm_x += 0.6 * ((self.FPROF[f] - 0.2) @ self.NPROF.T) * 5
             self.G = _norm(self.G + step * (T - self.G))
@@ -2368,7 +2544,7 @@ class World:
         self.switched = float(p["leave_p"] * (1 - 0.6 * insecure) + p["switch_p"])
         self.spiritual = _cl(self.spiritual + 0.05 * (0.1 + 0.3 * self.secular - self.spiritual), 0, 1)
         self.conspiracy = _cl(self.conspiracy + 0.1 * (0.08 + 0.3 * (0.45 - self.trust) + 0.2 * self.fear - self.conspiracy), 0, 1)
-        self.holy_shift = (self.holy_shift + np.array(HOLY_LUNAR)) % 52
+        self.holy_shift = (self.holy_shift + np.array(HOLY_LUNAR + [0.0] * (self._nf() - NF))) % 52
 
     def _generations_y(self):
         """Each generation's mix is set while it is 15 to 25 (spec 1 §4): from the society's values, the era and how
@@ -2464,7 +2640,7 @@ class World:
         tot = pop.sum()
         newm = self.mig_in * tot
         ma = np.array([0, .4, .45, .1, .05, 0, 0, 0]); mc = np.array([.45, .45, .10]); mp = np.array([.7, .25, .05])
-        mf = np.array([.25, .30, .15, .30])
+        mf = np.array([.25, .30, .15, .30] + [0.0] * (self._nf() - NF))   # C5: no migrant arrives in a movement
         pop[..., 1] += newm * ma[:, None, None, None] * mc[None, :, None, None] * mp[None, None, :, None] * mf[None, None, None, :]
         pop[..., 1] *= 1 - p["mig_out"]
         # class mobility (small, downward in recessions)
@@ -3332,6 +3508,8 @@ class World:
         for g, s in zip(W.R, d["rng"]):
             g.bit_generator.state = dict(bit_generator=s["bit_generator"], state={a: int(b) for a, b in s["state"].items()},
                                          has_uint32=s["has_uint32"], uinteger=int(s["uinteger"]))
+        if getattr(W, "c5_prof", None) is not None:      # C5: the movements' colours (FPROF is rebuilt, not saved)
+            W.FPROF[NF:] = W.c5_prof
         if "clim_t0" not in d["state"] and W.t > 0:        # saved before the climate anchor was kept: freeze it
             W.clim_t0 = int(W.t0)
         return W
