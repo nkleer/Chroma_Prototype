@@ -121,7 +121,8 @@ def play(preset, seed, player, until=None):
                         trust=g.trust_view() if hasattr(g, "trust_view") else None,
                         voice=g.voice_view() if hasattr(g, "voice_view") else None, light=h.get("light", 0),
                         review_voice=(getattr(g, "review", None) or {}).get("voice"), feed=feed, times=h.get("times", []),
-                        pushes=pushes, vnames=vnames))
+                        pushes=pushes, vnames=vnames, own_ix=h.get("own_ix", []),
+                        ix=[round(float(x), 3) for x in getattr(g, "ix", [])]))
 
 
 def _key(a):
