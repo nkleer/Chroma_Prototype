@@ -173,6 +173,16 @@ def build(src):
                              for k, v in lp_["kinds"].items()},
                       fast_line={sp: float(lp_["fast_change"]["line"][sp]) for sp in SPHERES},
                       fast_loss=float(lp_["fast_change"]["loss_q"]))
+    # sacred lines (S5, chroma-ideas/social-mechanics.md): the offers a sphere event or a C3 institution event makes to
+    # the people of its town (dynamics.json offers): what is offered, the line kinds it touches (one or two), whether it
+    # carries a symbolic gesture, whom in town it is made to (far_sides.json's who words), and its kind (money, a post or a
+    # favour: the moment's offer: field matches it). Keys are "sphere.key", or
+    # "institution.<kind>" for C3's world events (sold, merged, leak, cover-up)
+    of_ = dyn["offers"]
+    OFFER = dict(kinds={k: v["colour"] for k, v in of_["line_kinds"].items()},
+                 events={k: dict(offer=v["offer"], lines=list(v["lines"]), gesture=bool(v["gesture"]), who=v["who"],
+                                 kind=v.get("kind", "money"))
+                         for k, v in of_["events"].items()})
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -181,7 +191,7 @@ def build(src):
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
                 CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
-                PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS)
+                PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER)
 
 
 def audit(T):
@@ -267,6 +277,11 @@ def audit(T):
             or any(set(v["by"]) != set(EPOCHS) for v in lk_.values())
             or any(c is not None and (c["end_y"] is None or not 0 <= c["end_y"] <= 1) for v in lk_.values() for c in v["by"].values())):
         bad.append("lead posts: haunt kinds not each mapped once, an epoch or a sphere's line missing, or an end chance malformed")
+    ok_ = T["OFFER"]["kinds"]
+    ob2_ = [k for k, v in T["OFFER"]["events"].items() if (k not in evk_ and not k.startswith("institution."))
+            or not 1 <= len(v["lines"]) <= 2 or not set(v["lines"]) <= set(ok_) or v["kind"] not in ("money", "post", "favour")]
+    if ob2_ or sorted(ok_.values()) != sorted(COLS):
+        bad.append(f"offers: unknown events or line kinds {ob2_[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
