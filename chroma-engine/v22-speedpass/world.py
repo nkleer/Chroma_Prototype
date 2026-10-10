@@ -2859,13 +2859,14 @@ class World:
         self.sph_st_m += E["sr"]["mem"] * (lv - self.sph_st_m)
         return _uclip(X, -1, 1)
 
-    def fire_sphere_event(self, key, loc=-1):
+    def fire_sphere_event(self, key, loc=-1, big=True):
         """A world rule fires sphere event key (bare, or "sphere.key") at the next quarter, in town loc (-1: where its
-        hazard is highest; a big event acts for the whole society). Nothing while sph_events is off."""
+        hazard is highest; a big event acts for the whole society). big=False with a town keeps the event in that town,
+        as for a world event that was not big. Nothing while sph_events is off."""
         if self.p.get("sph_events", False):
             if not hasattr(self, "sph_wq") or self.sph_wq is None:
                 self.sph_wq = []
-            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None, True])
+            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None, bool(big)])
 
     def _sph_wf_key(self, domain, kind, key, value):
         """The sphere event a world event fires (dynamics.json events_run world_fired; one key, one event), or None."""
