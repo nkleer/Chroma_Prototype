@@ -9,7 +9,7 @@ Pictures come from the art folder that chroma-env/paths.py names art_game, in th
 overrides it; CHROMA_ART_GAME names the folder outright, as build.py does).
 Was chroma-hud/sync21.py (v21 to v22.1); tools/build.py runs it as one step of the build.
 """
-import filecmp, glob, json, os, shutil, subprocess, sys
+import filecmp, glob, json, os, re, shutil, subprocess, sys
 
 TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
 ENV = next(d for d in (os.path.join(os.environ.get("CHROMA_ROOT") or TREE, "chroma-env"), "/mnt/project-files/chroma-env")
@@ -33,6 +33,27 @@ for f in ["link.py", "story.py", "worldview.py", "game.py", "console.py", "routi
 for f in glob.glob(G + "engine_pin/**/*.py", recursive=True):   # engine_pin/*.py and engine_pin/packs/<pack>/*.py
     d = W + "py/engine_pin/" + os.path.relpath(f, G + "engine_pin")
     os.makedirs(os.path.dirname(d), exist_ok=True); shutil.copy(f, d)
+# the worker's SOURCES packed into py/code-<n>.json ({path: text}, at most PART bytes of source each, the biggest file alone
+# if larger), and the count written into the web folder's worker.js (CODE_PARTS): one published version holds at most 511
+# files, so the code goes as a few files instead of one per source. py/<file> stays for reading and local checks.
+PART = 6_000_000
+wjs = open(W + "worker.js", encoding="utf-8").read()
+srcs = json.loads(re.search(r"const SOURCES = (\[[^\]]*\]);", wjs).group(1))
+for old in glob.glob(W + "py/code-*.json"):
+    os.remove(old)
+parts, cur, size = [], {}, 0
+for f in srcs:
+    t = open(W + "py/" + f, encoding="utf-8").read()
+    if cur and size + len(t) > PART:
+        parts.append(cur); cur, size = {}, 0
+    cur[f] = t; size += len(t)
+if cur:
+    parts.append(cur)
+for n, part in enumerate(parts, 1):
+    open(W + f"py/code-{n}.json", "w", encoding="utf-8").write(json.dumps(part, ensure_ascii=False, separators=(",", ":")))
+assert wjs.count("const CODE_PARTS = 0;") == 1, "worker.js: no CODE_PARTS line"
+open(W + "worker.js", "w", encoding="utf-8").write(wjs.replace("const CODE_PARTS = 0;", f"const CODE_PARTS = {len(parts)};"))
+print("code parts:", len(parts), "for", len(srcs), "sources")
 head = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}</style></head><body>'
 open(W + "page.html", "w", encoding="utf-8").write(head + s + "</body></html>")
 # the pictures the page names (pictures.json: scenes, domains, tiers, tarot, the unwritten fabric, the portrait cards of the
