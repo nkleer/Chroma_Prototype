@@ -2190,6 +2190,10 @@ function mkTip(el) {
     case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
     case "L": return tipBox(`${ic(LEVER_ICON[pl[0]] || "push")} Their act in town`, "", [["Where", esc(pl[1])], ["What came of it", esc(pl[2])]].concat(pl[3] ? [["Their standing there", esc(pl[3])]] : []),
       "What they do moves the places and the town around them a little, more as their standing there grows. The World panel (key g) keeps each act.");   // spheres phase 4
+    case "N": return tipBox(`${ic("voice")} Word from one of their places`, "", [["Heard at", esc(pl[1] || "")]],
+      pl[0] === "bent" ? "The story changed on its way to them, as stories do." : pl[0] === "warn" ? "A friendly warning: their name there is at stake." : "What one of their places thinks of them travels to the others, through the people who go to both.");   // S3
+    case "S": { const ln = ((L && L.lines) || []).find((x) => x.kind === pl[0]);
+      return tipBox(`${pip(pl[1])} ${ic("lock")} ${esc(ln ? ln.name : "A line they will not cross")}`, ln ? `Will not ${esc(ln.will_not)}` : "", [], "Twice it cost them dearly, and they held. An offer that touches it now weighs more than its price."); }   // S5
     case "F": return tipBox(`${ic(FAR_ICON[pl[0]] || "ci-letter")} News through a tie`, "", pl[2] ? [[`For ${esc(pl[1])}`, esc(pl[2])]] : [],
       "Something happened in the town where someone close to them lives, and it reached them.");   // far ties
     case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]], "");
@@ -3186,26 +3190,48 @@ function seasonTip(x) { return tipBox(`${ic("gate")} ${esc(seasonWords(x))}`, SE
 // item 15 "your places": the haunts they go to, their standing in each sphere, and their town's spheres (game.places_view)
 const SPH_ICON = { rule: "sign", gather: "people", arts: "feather", faith: "candle", care: "heart", learn: "book", prod: "case", comm: "coin", prot: "shield" };
 const FACE_ORDER = ["W", "U", "B", "R", "G"];
+// v22.4: S4's mark on a place where their ways are rare (held on there for years, the odd one out now, or blended in)
+const oddMark = (h) => h.held ? ` ${ic("anchor")}` : h.odd ? ` ${ic("star")}` : h.blended ? ` ${ic("mask")}` : "";
 function placesHTML(L) {
   const P = L.places; if (!P) return "";
-  const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}</span>`).join("");
+  const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}${oddMark(h)}</span>`).join("")
+    + (P.settings || []).map((x, i) => `<span class="perk" data-pls="${i}" style="--pc:var(--c${x.lead || "W"})">${ic(SPH_ICON[x.sphere] || "people")}${esc(cap(x.name))} ${ic("people")}${oddMark(x)}</span>`).join("");   // S3: where their settings meet
+  const ps = (P.posts || []).map((x, i) => `<span class="chip" data-plp="${i}">${ic("crown")}${esc(cap(x.title || x.name))} ${pip(x.colour)}</span>`).join("");   // S7: what they lead
   const up = (P.rungs || []).filter((r) => r.rung > 0);
   const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
   const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}</span>`).join("");
   if (!hs && !rs && !tw) return "";
   return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
-    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+}
+// v22.4 on a place's hover: S1 how the sphere's decisions feel to them, S3 their name there and its last word on them, S4 the odd one out
+const fairRows = (P, sp) => { const f = (P.fair || {})[sp]; return f ? [["Fairness", `<span class="${f.side === "fair" ? "up" : "down"}">${esc(f.line)}</span>`]] : []; };
+const ODD_ROW = { held: ["Held on", "their ways are rare here, and years of holding to them have started to move the place"],
+  odd: ["The odd one out", "their ways are rare here: they are noticed more, and pressed to blend in"], blended: ["Blended in", "they took on this place's ways"] };
+function eyesRows(h) {
+  if (h.name_word == null) return [];
+  const rows = [["Their name here", esc(cap(h.name_word))]];
+  if (h.read) rows.push(["Last word on them", `“Thinks you ${esc(h.read)}”`]);
+  if (h.go) rows.push(["A go-between", "someone here carries word to their other places"]);
+  const o = h.held ? ODD_ROW.held : h.odd ? ODD_ROW.odd : h.blended ? ODD_ROW.blended : null;
+  if (o) rows.push([o[0], esc(o[1])]);
+  return rows;
 }
 function bindPlaces(L) {
   const P = L.places; if (!P) return;
   const faces = (fs) => FACE_ORDER.map((c, i) => [c, fs[i]]).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, v]) => `${pip(c)} ${pct(v)}`).join(" ");
   hudEl.querySelectorAll("[data-pl]").forEach((el) => { const h = P.haunts[+el.dataset.pl]; setTip(el, () => tipBox(`${ic(SPH_ICON[h.sphere] || "home")} ${esc(cap(h.name))}`, esc(h.lead_line),
-    [["A place of", esc(cap(h.kind))], ["Sphere", esc(h.sphere_name)], ["Its way", `${pip(h.lead)} ${esc(h.lead_name)}`], ["Who sets the tone", faces(h.faces)]].concat(h.keeper ? [["Kept by", esc(h.keeper)]] : []),
+    [["A place of", esc(cap(h.kind))], ["Sphere", esc(h.sphere_name)], ["Its way", `${pip(h.lead)} ${esc(h.lead_name)}`], ["Who sets the tone", faces(h.faces)]].concat(h.keeper ? [["Kept by", esc(h.keeper)]] : [], eyesRows(h), fairRows(P, h.sphere)),
     h.setting ? "One of their own circles meets here." : "A place they go to; the regulars there know their face.")); });
+  hudEl.querySelectorAll("[data-pls]").forEach((el) => { const x = P.settings[+el.dataset.pls]; setTip(el, () => tipBox(`${ic(SPH_ICON[x.sphere] || "people")} ${esc(cap(x.name))}`, x.setting ? `Where their ${esc(x.setting)} meets` : "",
+    [["Sphere", esc(x.sphere_name)]].concat(x.lead_name ? [["Its way", `${pip(x.lead)} ${esc(x.lead_name)}`]] : [], eyesRows(x), fairRows(P, x.sphere)), "One of their own circles meets here.")); });
+  hudEl.querySelectorAll("[data-plp]").forEach((el) => { const x = P.posts[+el.dataset.plp]; setTip(el, () => tipBox(`${ic("crown")} Leads ${esc(x.name)}`, x.title ? esc(cap(x.title)) : esc(x.sphere_name || ""),
+    [["Their way", `${pip(x.colour)} ${esc(x.way)}`], ["Held", esc(cap(x.legit_word))], ["For", yrsWord(Math.max(0, L.age - x.since))]].concat(x.terms ? [["Terms served", String(x.terms)]] : [], x.falls ? [["Shaken", `${x.falls} time${x.falls > 1 ? "s" : ""}`]] : []),
+    "How they lead wins some followers and loses others, and each way falls its own way.")); });
   hudEl.querySelectorAll("[data-plr]").forEach((el) => { const r = P.rungs.find((x) => x.sphere === el.dataset.plr); setTip(el, () => tipBox(`${ic(SPH_ICON[r.sphere] || "home")} ${esc(r.sphere_name)}`, esc(r.question),
-    [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]], "Standing rises with years of showing up and with what they do there.")); });
+    [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]].concat(fairRows(P, r.sphere)), "Standing rises with years of showing up and with what they do there.")); });
   hudEl.querySelectorAll("[data-plt]").forEach((el) => { const t = P.town.find((x) => x.sphere === el.dataset.plt); setTip(el, () => tipBox(`${ic(SPH_ICON[t.sphere] || "home")} ${esc(t.sphere_name)}`, "",
-    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]], "How their town spends its days, and the way each part of life is done there.")); });
+    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]].concat(fairRows(P, t.sphere)), "How their town spends its days, and the way each part of life is done there.")); });
 }
 
 function renderHud(L) {
@@ -3484,6 +3510,7 @@ function optRow(o, i, num) {
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
   if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
+  if (o.seen && o.seen.kind !== "none") marks.push(`<span class="mk2 seen" data-sn="${esc(o.seen.text)}" style="cursor:help;color:var(${o.seen.kind === "wrong" ? "--stress" : o.seen.kind === "seen" ? "--peace" : "--ink2"})">${ic("eye")}${esc(o.seen.word)}</span>`);   // S6
   if (!o.own && Math.abs(o.era || 0) >= 0.3) marks.push(`<span class="mk2 era ${o.era > 0 ? "with" : "against"}">${ic("globe")}${o.era > 0 ? "with the times" : "against the times"}</span>`);   // P3
   const hp = (o.helped || []).find((h) => h.name === o.helped_row);     // a perk that sets this option apart; the strip lists all
   if (hp) marks.push(`<span class="mk2 rb up">${ic(roleIconOf(hp))}${esc(hp.pred)}</span>`);
@@ -3521,6 +3548,7 @@ function stripHTML(o, num) {
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
   if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).concat(["strain", "doubt"]).join(", ")}</span></span>`);
   if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (about ${pct(f.commit_p)})` : ""}</span>`);
+  if (o.seen) facts.push(`<span><b>Seen it done</b> ${esc(o.seen.text)}</span>`);   // S6
   if (o.lever) facts.push(`<span class="lever"><b>A push on the world</b> ${ic(o.lever.icon)}${esc(o.lever.what || o.lever.name)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}</span>`);
   if (o.status === "out of reach") facts.push(`<span class="down"><b>Out of reach</b> ${esc(o.why)}; can be forced, at higher risk</span>`);
   if (o.needs) facts.push(`<span><b>Needs</b> ${esc(o.needs.line)}${o.closed ? `; without it ${CLOSED_WORD[o.closed] || "the world"} stands in the way` : ""}</span>`);
@@ -3548,6 +3576,7 @@ function tipOption(o, name, num) {
     rows.push(["Colors", colorsHTML(o.means, o.ends) + " " + actColors(o.means, o.ends).map((c) => CNAME[c]).join(" and ")]);
   }
   if (o.status === "considered" && !o.own) rows.push(["Their lean", `${pct(o.lean)} likely to pick it themselves`]);
+  if (o.seen) rows.push(["Seen it done", esc(o.seen.text)]);   // S6
   if (o.status === "out of reach") rows.push(["Out of reach", `${esc(o.why)}; can be forced, at higher risk`]);
   if (f.needs && f.needs.length) rows.push(["Meets", esc(f.needs.join(", "))]);
   if (f.cost && f.cost.length) rows.push(["Costs", f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")} ${esc(x.slice(1))}`).join(" ")]);
@@ -3645,6 +3674,7 @@ function renderTable(h) {
   tableEl.querySelectorAll("[data-shd]").forEach((el) => setTip(el, () => tipBox(`${ic(el.dataset.shi)} Their shadow pulls here`, "",
     [], `The heart picks this partly from the pull of the ${esc(el.dataset.shd)} side in ${esc(L.name)}: without that pull, the heart would pick another. ${esc(L.name)} has seen this in themselves before.`)));   // item 2
   tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3
+  tableEl.querySelectorAll("[data-sn]").forEach((el) => setTip(el, () => tipBox(`${ic("eye")} ${esc(cap(el.textContent))}`, esc(el.dataset.sn), [], "What they have watched the people they know try makes a path feel open, or closed.")));   // S6
   // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
   tableEl.querySelectorAll("[data-lc]").forEach((b) => {
     const c = b.dataset.lc, e = cp.era, fit = e && e.i >= 0.2 ? lettersOf(e.letters).includes(c) : false;
@@ -4074,6 +4104,9 @@ function openSheet() {
   const heldChips = (L.titles || []).map((t, i) => { const n = (t.named || [])[0]; return `<span class="chip shtl" data-ti="${i}">${ic(KIND_ICON[t.kind] || "anchor")}${esc(n ? cap(shortSay(n.say)) : cap(t.kind))}</span>`; })
     .concat((L.statuses || []).map((d, i) => `<span class="chip shtl stat" data-rs="${i}">${ic(roleIconOf(d))}${esc(cap(shortSay(d.say)))}</span>`)).join("");
   const goals = (L.goals || []).map((g) => goalRow(g)).join("") || `<span class="empty">No dreams yet</span>`;
+  // S5: the lines they will not cross, one "will not" each; the hover says what it is, when it formed and how it stands
+  const LINE_STATE = { whole: "Not yet tested.", held: "Tested, and held.", crossed: "Crossed once, and it still weighs on them.", healed: "Crossed once, and since made right." };
+  const lines = (L.lines || []).map((x) => `<div class="sdef" data-def="${esc(`${x.name}, since they were ${Math.floor(x.formed)}. ${LINE_STATE[x.state] || ""}`)}"><span class="chip ml">${pip(x.colour)}Will not</span><span>${esc(x.will_not)}</span></div>`).join("");
   // N1d: who they are, one line each, each shown only from the week the story found it; the hover says the sentence
   const who = (L.who || []).map(([k, v, def]) => `<div class="sdef whoy" data-def="${esc(def || "")}"><span class="chip ml">${esc(k)}</span><span>${esc(cap(v))}</span></div>`).join("");
   const people = (L.cast || []).slice().sort((a, b) => (b.alive - a.alive) || (b.seen - a.seen)).map((p) => `<tr data-pid="${p.id}"><td><span class="av${p.alive ? "" : " gone"}" style="--ac:${GROUP_COL[ROLE_GROUP[baseRole(p.role)] || "other"]}">${esc(p.name[0])}</span></td><td>${esc(p.name)}</td><td>${esc(cap(p.role))}</td><td>${p.met != null ? "met at " + Math.floor(p.met) : ""}</td><td>${p.alive ? "" : "gone"}</td></tr>`).join("");
@@ -4091,7 +4124,7 @@ function openSheet() {
       <button class="ghost" id="shClose" aria-label="Close">${ic("x")}</button></div>
     <div class="shtabs" role="tablist" aria-label="Character sheet">${SH_TABS.map(([k, w, icn]) => `<button class="shtab" role="tab" id="shTab-${k}" data-tab="${k}" aria-controls="shPanel-${k}" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}">${ic(icn)}<span>${w}</span></button>`).join("")}<span class="shhint" aria-hidden="true">${touchUI ? "Tap" : "Hover"} a row for what it means</span></div>
     <div class="shpanels">
-      ${panel("portrait", `<div class="shsec sa-b"><h4>Portrait</h4><p class="shport">${shPortrait(L)}</p>${temperWords ? `<h4>Temperament</h4><div class="shtraits">${temperWords}</div>` : ""}${needWords ? `<h4>Needs met</h4><div class="shtraits">${needWords}</div>` : ""}</div>
+      ${panel("portrait", `<div class="shsec sa-b"><h4>Portrait</h4><p class="shport">${shPortrait(L)}</p>${lines ? `<h4>Lines they will not cross</h4>${lines}` : ""}${temperWords ? `<h4>Temperament</h4><div class="shtraits">${temperWords}</div>` : ""}${needWords ? `<h4>Needs met</h4><div class="shtraits">${needWords}</div>` : ""}</div>
         <div class="shsec sa-a"><h4>Colors now and wanted</h4>${shColourBars(L)}<h4>The life in color</h4>${shRiver(L)}${stateChips ? `<h4>Right now</h4><div class="states shstates">${stateChips}</div>` : ""}</div>
         <div class="shsec sa-c">${aroundShort ? `<h4>Around them</h4><div class="sharound">${aroundShort}</div>` : ""}<h4>Closest people</h4><div class="shppl">${closest || `<span class="empty">Nobody met yet</span>`}</div><h4>Titles and statuses</h4><div class="chips">${heldChips || `<span class="empty">No titles yet</span>`}</div></div>`)}
       ${panel("colours", `<div class="shsec"><svg class="wheel big" id="shWheel" viewBox="-6 -2 212 206" aria-hidden="true"></svg>${spKeyHTML()}<h4>Who they have been</h4><div class="path">${identityPath(L) || `<span class="empty">Still forming</span>`}</div></div>
