@@ -1,0 +1,213 @@
+# Chroma content pack Art and Writing: WORLD-ONLY moments (moments 48 to 51 of MOMENTS-BRIEF.md, Part 7): two that belong
+# to the tribal world and two that belong to the magic world (art/worlds.py, WORLD_ONLY_ART). Syntax: header of
+# chroma-library/build.py. Rules: library-spec.md and the brief's pack rules. Names in title:, grants:, drops:,
+# requires:, holds: and aims: come from art/catalogue.py, core/reach.py and the base catalogue. Each moment carries
+# `only:` and that world's line alone; its labels and scenes are written for that world (scene tribal ..., scene magic
+# ...), so the game tells them only there. Gates: LIFE_ART in engine-conditions.py (the years on the rung below).
+# Each life event is even on its own (one mean chance for every means color): alpha even, stakes 1.0, the five one-color
+# options plus the combination set named in its header comment. Each world's two moments use both halves of one
+# combination line (tribal: D6 triads, a and b; magic: D1 pairs, a and b), so the pack stays color-even in every world.
+# Steps carry their real chances, the same for every color that tries for the same thing inside a moment (the court
+# painter and the cave painter at 8, the master carver at 35, the illuminator at 40); the earned-odds lifts (helps.py)
+# come on top in the engine. Where a step is for one rung only (the cave wall for the cave painter, the master's mark
+# for the craft maker), its five singles carry `requires: <rung> | without: impossible`, so everyone else meets the five
+# triads alone, which are even on their own (each color three times).
+# The tribal world has no magic (library-spec.md): the elders, the dead chief and the old herds are how the band tells
+# its own life, and nothing here says a spirit acts. In the magic world every supernatural way is one choice among
+# ordinary ones and has a price: no act rests on the person's own gift (the catalogue has no name for one); the magic
+# comes from someone else (an enchanter's varnish, a wizard's gold), which anyone in the magic world can buy, and the
+# Order's disapproval is a `closed: approval:` line with a backfire. The magic acts carry no magic: field, as in
+# stage-worlds.lib, so they stay one option among the moment's ordinary layout.
+# per_year is the yearly rate per eligible person (whoever passes the moment's gate); every figure is an estimate. The
+# brief's per_year lines name a young-adult rate for moments whose stages are adult mature elder; build.py refuses a
+# rate outside the stages, so that figure is 0 here (coordinator's correction, 10-10), the other figures as written.
+# No real person, gallery, museum, prize, publisher, school, brand, country or year is named.
+
+# ================================================================ tribal world
+
+# ---------------------------------------------------------------- 48. the painted cave at the winter camp (triads D6a)
+# The tribal crossing to the summit: the band's great cave wall for the midwinter gathering. Each one-color way of
+# painting it is a try for [renowned artist] (the painter whose cave every band visits) at its real chance, 8, for the
+# cave painter alone ([painter or sculptor]: the facet sits on the career). The triads, open to every painter the gate
+# lets in (shelter-wall painters, those who draw on the rock, the great cave's apprentices), are the honest other ways:
+# share the wall, flatter the chief, make room for an apprentice, refuse the elders' subject (a closed: approval line),
+# or set out the wall for the apprentices. All singles at 8 and all triads at 70, so every color's mean is 39.
+
+== the painted cave at the winter camp
+tier: life event
+only: tribal
+stages: adult mature elder
+age: 22-95
+holds: painter or sculptor | street artist | life-drawing regular | art school student
+per_year: 0 0 0 .02 .02 .01
+drivers: community+.2 harsh+.1
+times: per painter of the band in the tribal world (the cave painter or carver of two winters, the painter of shelter walls of two, one who draws on the rock of three, or the great cave's apprentice) a year: about 1 in 50, when the band winters at the great cave and the elders choose who paints it (estimate); the great painted caves were painted and repainted over many generations
+likelier: a winter at the great cave, a good autumn hunt to honour, an old cave painter who can no longer climb
+rarer: a hard winter in the open, a band with a famous cave painter in his prime, a quarrel with the elders
+gap: 5-10
+tone: joy
+life: work, community, meaning
+horizon: months
+roles: elder, rival, mentor, friend
+tribal: the elders choose who paints the great cave wall for the midwinter gathering, and what
+scene tribal: The band has come back to the great cave for the winter, and the elders want a new wall for the midwinter gathering, when every band in the valley comes to see the painted beasts. They have chosen the subject already: the chief's great hunt of the autumn, the bison falling at the river. They have not yet said who will paint it, and they are looking at {N}.
+scene tribal W: The wall belongs to the band, and the elders have spoken. {N} thinks of every beast in its right place, and of the old rules for which way the herds must run.
+scene tribal U: The damp creeps down the great wall every winter and the old ochre runs. {N} has been grinding earths by the river all autumn, looking for one that holds.
+scene tribal B: Every band in the valley will stand before this wall at midwinter. Whoever paints it will be spoken of at every fire for a generation, and {rival} knows it as well as {N} does.
+scene tribal R: {N} can already see the herd pouring across the rock in the torchlight, the bison's breath, the hunters running. The hands itch for the charcoal.
+scene tribal G: The oldest walls of the cave were painted by the first painters, so long ago that nobody remembers their names. {N} wonders what the new wall owes to the old.
+- W | paint the great wall exactly as the elders ask, every beast in its place | title: renowned artist | requires: painter or sculptor | without: impossible | v: conformity, tradition | chance: 8
+- U | grind a new ochre that holds in the damp, and paint the wall with it | title: renowned artist | requires: painter or sculptor | without: impossible | mark: learned a skill | v: achievement, self-direction | chance: 8
+- B | paint the wall so every band in the valley learns the painter's name | title: renowned artist | requires: painter or sculptor | without: impossible | aims: renowned artist | v: power, achievement | chance: 8
+- R | paint for three nights without sleep, by torchlight, as the beasts come | title: renowned artist | requires: painter or sculptor | without: impossible | mark: took a wild risk | body: light | v: stimulation, hedonism | chance: 8
+- G | paint the chief's hunt among the old herds, so the new wall speaks with the old | title: renowned artist | requires: painter or sculptor | without: impossible | v: tradition, universalism | chance: 8
+- WUR | paint it with the other painters of the band, each beast by a different hand | mark: made a friend | door | v: universalism, stimulation | chance: 70
+- WBR | paint the chief at the head of the hunt, larger than life, as the chief wants | self_control: - | v: power, conformity | chance: 70
+- WBG | ask the elders to give a place at the wall to the apprentice who has waited | mark: helped someone in need | v: benevolence, security | chance: 70
+- URG | paint the old herds of the first painters, not the hunt the elders chose | mark: defied an authority | closed: approval: painting against the elders' word; backfire: the elders have the wall rubbed out, and the next wall goes to another painter | v: self-direction, tradition | chance: 70
+- UBG | mark the whole wall out in charcoal, and let the apprentices fill it in | grants: pupils who remember you | binds | self_control: + | v: achievement, tradition | chance: 70
+works: By midwinter the wall is finished, and the bands that come for the gathering stand before it a long time in the torchlight.
+works: Whatever {N} chose, the wall is painted, and the band walks past it every morning a little prouder.
+fails: The damp gets into the rock before the gathering, and half the beasts run and fade.
+fails: The elders give the wall to {rival}, and {N} carries torches for the painting instead.
+
+# ---------------------------------------------------------------- 49. the carver's mask for the dead (triads D6b)
+# The tribal crossing to [master craftsperson] (the master carver whose work is traded far): a mask for the dead chief's
+# mourning. Each one-color way of carving it is the master's step at its real chance, 35, with [a maker's hallmark] (the
+# band's sign cut beside one's own), for the craft maker of four winters alone (the gate in LIFE_ART). The triads, open
+# to the master carvers and the cave carvers too, carve it with the old carvers, keep a second mask for the band, teach
+# the young carvers on it ([pupils who remember you]), carve the chief as the chief truly was (a closed: approval line),
+# or carve it fierce from the chief's own bear. All singles at 35 and all triads at 70, so every color's mean is 52.5.
+
+== the carver's mask for the dead
+tier: life event
+only: tribal
+stages: adult mature elder
+age: 25-100
+holds: master craftsperson | craft maker | painter or sculptor
+per_year: 0 0 0 .02 .02 .02
+drivers: harsh+.2
+times: per carver of the band in the tribal world (a craft maker of four winters, a master carver or a cave carver) a year: about 1 in 50, when a chief or an elder of standing dies and the band wants a mask for the mourning (estimate); masks and carved grave goods for the honoured dead are among the oldest carved things people have left
+likelier: an old chief in a hard winter, a band that keeps the mourning masks, a carver the chief's kin trust
+rarer: a young chief in good health, a band whose old carver is still strong, a carver new to the band
+gap: 5-15
+tone: mixed
+life: work, community, faith
+horizon: months
+roles: elder, mentor, friend, rival
+tribal: the old chief has died, and the band needs a mask for the mourning
+scene tribal: The old chief died in the first snow, and the band will mourn until the new moon. The chief's kin come to {N} with a block of the old pine from beside the chief's hearth: a mask is needed, for the chief's eldest to wear at the burying and then to lay with the chief in the ground.
+scene tribal W: There are old measures for a mourning mask: so wide between the eyes, so long from brow to chin, the band's marks on the cheeks. {N} knows them all, and means to keep every one.
+scene tribal U: {N} remembers the chief's face better than most: the crooked nose from a fall, the way one eye half closed when he laughed. A mask can hold a face, if it is cut truly enough.
+scene tribal B: Every band in the valley will come to the burying. The mask will be seen by all of them, and so will the hand that cut it.
+scene tribal R: {N} sat at the chief's fire as a child. The grief is still new, and it wants to come out through the knife.
+scene tribal G: The pine by the chief's hearth was old when the chief was young. {N} runs a hand over the block and thinks of all the chiefs it has seen.
+- W | carve the mask by the old measures, every line as the elders remember it | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | v: conformity, tradition | chance: 35
+- U | carve the chief's face true, from memory and from the kin's telling | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | mark: learned a skill | v: achievement, self-direction | chance: 35
+- B | carve it so finely that every band at the burying asks whose hand it was | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | aims: master craftsperson | v: power, achievement | chance: 35
+- R | carve through the nights of mourning, with the grief in every cut | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | habit | self_control: + | v: stimulation, benevolence | chance: 35
+- G | carve it from the old pine by the chief's hearth, as the chief would have wished | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | identity | v: tradition, benevolence | chance: 35
+- WUG | carve it with the oldest carvers, as the band's mask and no one hand's | mark: made a friend | v: tradition, conformity | chance: 70
+- WUB | carve a second mask for the band to keep, so the chief's face is not lost | binds | v: security, achievement | chance: 70
+- WRG | carve it with the young carvers beside, each cutting one line of it | grants: pupils who remember you | door | v: benevolence, tradition | chance: 70
+- UBR | carve the chief as the chief truly was, scars and temper and all | mark: defied an authority | closed: approval: an unkind likeness of the dead chief; backfire: the chief's kin refuse the mask, and the band talks of it all winter | identity | v: self-direction, stimulation | chance: 70
+- BRG | carve it fierce in a single night, from the skull of the bear the chief killed | body: light | self_control: - | v: stimulation, tradition | chance: 70
+works: At the burying the chief's eldest wears the mask, and the whole band falls silent when the face comes into the firelight.
+works: Whatever {N} chose, the mask goes into the ground with the chief, and the band speaks of it at every mourning after.
+fails: The wood splits along a hidden fault on the last night, and the mask is finished in haste by another hand.
+fails: The chief's kin look at the mask for a long time and say nothing, and another carver's mask goes into the ground.
+
+# ================================================================ magic world
+# ---------------------------------------------------------------- 50. the queen's portrait sitting (pairs D1a)
+# The magic crossing to the summit: the court wants a portrait, and whoever paints it well may be named court painter
+# ([renowned artist], the facet on the painter's or the illuminator's career). Four singles try for it plainly at its
+# real chance, 8; Black's buys an enchanter's varnish that makes the portrait smile (someone else's magic, never the
+# painter's own gift), at 18, with the Order's disapproval on a closed: approval line and its backfire (the portrait
+# shows the truth). The pairs are the court's other honest roads: a field for the family, a quick flattering likeness at
+# double the fee, quiet sittings in the garden, a promise kept at home, the last court painter's notes. They form a ring
+# (each color in two), so their chances are solved around the singles until every color's mean is 39.
+
+== the queen's portrait sitting
+tier: life event
+only: magic
+stages: adult mature elder
+age: 25-95
+holds: painter or sculptor | illustrator for hire
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+drivers: fortune+.2 prosper+.1
+times: per guild painter or illuminator of three years or more in the magic world a year: about 1 in 60 is asked to sit with a member of the royal house for a portrait (estimate); court painters were few, one or two in a generation, and many painters were tried before one was kept
+likelier: a name at court and in the salons, a portrait of a noble that was talked about, an old court painter retiring
+rarer: a painter far from the capital, a court in mourning, a painter whose work the Order has frowned on
+gap: 8-15
+tone: joy
+life: work, publiclife, money
+horizon: months
+roles: boss, rival, mentor, partner
+magic: the court wants a portrait of the queen, and the chamberlain has sent for the painter
+scene magic: The chamberlain's letter comes under the royal seal: the queen will sit for a portrait in the long gallery, six mornings in the spring, and the court will judge it at midsummer. Whoever paints her well, the gossip says, may be the next court painter. In the lanes behind the academy an enchanter sells a varnish that makes a portrait smile at whoever looks at it, for a price, and without the Order's leave.
+scene magic W: The court has its rules for a royal likeness: the robes of state, the crown on the left, the hand on the orb. {N} has read them all and means to keep them.
+scene magic U: The queen's face has been painted a hundred times, always the same way. {N} wants to see what is really there, and twenty mornings would be better than six.
+scene magic B: Court painter: a salary for life, rooms in the palace, the whole realm's commissions. {rival} has been asked to sit with the queen's sister, and {N} has heard about the enchanter's varnish.
+scene magic R: Every portrait of her in the long gallery is cold and stiff. {N} has seen her laugh at the summer fair, once, and wants to paint that.
+scene magic G: The queen grew up in the river country, far from the capital. {N} wonders whether anyone has ever painted her among the fields and the people she came from.
+- W | paint her in the robes and the pose the court herald sets, by every rule | title: renowned artist | v: conformity, tradition | chance: 8
+- U | study her face through twenty sittings, and paint what is truly there | title: renowned artist | aims: renowned artist | self_control: + | v: achievement, self-direction | chance: 8
+- B | buy an enchanter's varnish that makes the portrait smile at whoever looks | title: renowned artist | mark: hid a wrong | closed: approval: an enchanter's varnish used without the Order's leave; backfire: on the day of the unveiling the varnish shows the truth, the smile turns to a sneer, and the painter is sent from court | habit | v: power, achievement | chance: 18
+- R | paint her with all the fire the court keeps hidden, and let it shock them | title: renowned artist | mark: took a wild risk | v: stimulation, self-direction | chance: 8
+- G | paint her among the fields and the people of the river country she came from | title: renowned artist | v: tradition, benevolence | chance: 8
+- BG | ask for a field by the river for the family, in place of the fee | grants: plot of land | door | self_control: + | v: security, tradition | chance: 60
+- BR | paint her quickly, as she wishes to be seen, and charge the court double | grants: savings | v: power, stimulation | chance: 60
+- UG | ask to paint her at ease in her garden, over many quiet sittings | habit | v: universalism, achievement | chance: 80
+- WR | turn the court down, to keep the promise to paint the town hall first | mark: kept your word | identity | v: conformity, self-direction | chance: 80
+- WU | ask the last court painter's widow for his notes on painting the queen | v: achievement, conformity | chance: 60
+works: At midsummer the court gathers in the long gallery, and the queen looks at the portrait a long time before she smiles.
+works: Whatever {N} chose, the spring at court is remembered well, and the name is spoken in the salons for years.
+fails: The court chooses {rival}'s portrait, and {N} is thanked, paid and shown the door.
+fails: The sittings are cut to three, the queen is tired and cross, and the portrait hangs in a corridor nobody uses.
+
+# ---------------------------------------------------------------- 51. the illuminated book for the cathedral (pairs D1b)
+# A magic door: a year's work on a great book for the Order's cathedral. Each one-color way of illuminating it makes the
+# academy student or the evening sketcher an illuminator for hire ([illustrator for hire]) at its real chance for a first
+# commission, 40, and teaches [illustration] (to an illuminator already, the skill alone). The pairs, at 70, are the
+# year's other roads: the printers' share ([royalties]), a year of pages kept ([a body of work]), a wizard's gold that
+# shines in the dark nave (someone else's magic, on a closed: approval line with its backfire), a fee per page and two
+# helpers, the town's own people in the margins. All singles at 40 and all pairs at 70, so every color's mean is 55.
+
+== the illuminated book for the cathedral
+tier: life event
+only: magic
+stages: adult mature elder
+age: 20-90
+holds: illustrator for hire | art school student | life-drawing regular
+per_year: 0 0 0 .02 .01 .01
+drivers: prosper+.2 era+.1
+times: per illuminator, academy student or sketcher of two years in the magic world a year: about 1 in 60 is offered a share of the work on a great book for a cathedral or a noble house (estimate); a great illuminated book took one hand or a small workshop a year or more
+likelier: a new cathedral or a rich chapter, a hand the academy's masters have praised, a printer in the town
+rarer: lean years, a chapter that sends its books to the capital, a sketcher no one has seen draw
+gap: 5-10
+tone: joy
+life: work, faith, money
+horizon: years
+roles: boss, mentor, colleague, friend
+magic: the Order's chapter wants a great book illuminated for the cathedral, a year's work
+scene magic: The Order's chapter has commissioned a great book for the cathedral's high altar: two hundred pages of the old hymns, every capital gilded, every border painted. The chapter's clerk lays the first quire on the table before {N}, with a purse for the pigments and a year to do it in. In the lanes behind the cathedral a wizard sells gold that shines by itself in the dark, without the Order's blessing.
+scene magic W: The chapter keeps a pattern book of every border and capital ever used in its books. {N} turns the pages slowly; a year of work, done right, page by page.
+scene magic U: The gold in the old books has cracked in the cathedral's cold. {N} wants to know why, and how to lay it so it never will.
+scene magic B: A great book for the cathedral is the kind of work that makes a name in the city, and the printers in the square copy anything that sells.
+scene magic R: Two hundred empty margins, and a whole year. {N} can already see the beasts climbing the borders and the saints laughing in the capitals.
+scene magic G: The herbs and birds of the valley fill the old books {N} saw as a child in the village chapel. {N} would like the new book to belong to the same country.
+- W | illuminate every page to the chapter's pattern book, letter by letter | title: illustrator for hire | grants: illustration | self_control: + | v: conformity, tradition | chance: 40
+- U | find a way of laying gold that will not crack in the cold of the nave | title: illustrator for hire | grants: illustration | mark: learned a skill | v: achievement, self-direction | chance: 40
+- B | take the commission at the highest fee the chapter will pay | title: illustrator for hire | grants: illustration | aims: illustrator for hire | v: power, achievement | chance: 40
+- R | fill the margins with wild beasts and laughing saints, and dare the chapter | title: illustrator for hire | grants: illustration | mark: took a wild risk | v: stimulation, hedonism | chance: 40
+- G | paint the herbs and birds of the valley into every border, as the old books did | title: illustrator for hire | grants: illustration | v: tradition, universalism | chance: 40
+- RG | paint the town's own people and beasts into the margins, for them to find | grants: good name in town | v: benevolence, stimulation | chance: 70
+- UB | sell the printers the right to copy the pages, for a share of every copy | grants: royalties | door | v: achievement, power | chance: 70
+- UR | buy a wizard's gold that shines by itself in the dark nave, and gild every capital | mark: took a wild risk | closed: approval: unblessed wizard's gold in the Order's book; backfire: the gold turns to lead on the feast day, and the chapter takes the book from the illuminator | self_control: - | binds | v: stimulation, achievement | chance: 70
+- WB | agree a fee for every page with the chapter, and hire two helpers | grants: organising people | v: security, power | chance: 70
+- WG | work the whole year at the chapter's side, and keep every page and sketch | grants: a body of work | habit | binds | v: conformity, tradition | chance: 70
+works: On the feast day the book is carried up the nave, and the gold catches the candlelight on every page.
+works: Whatever {N} chose, the year's work is done, and the chapter's clerk asks whether {N} would take the next book.
+fails: The pigments run short in the winter and the chapter will not pay for more, and the book is finished by another hand.
+fails: The chapter's new prior dislikes the borders, and the book goes into the library unshown.

@@ -46,7 +46,7 @@ def load(path, name):
     return m
 
 
-FILES = [f for f in ("earth", "earth_science", "earth_politics", "earth_stage") if os.path.exists(os.path.join(a.batch, f + ".py"))]
+FILES = [f for f in ("earth", "earth_science", "earth_politics", "earth_stage", "earth_art") if os.path.exists(os.path.join(a.batch, f + ".py"))]
 MODS = {f: load(os.path.join(a.batch, f + ".py"), "chk_" + f) for f in FILES}
 say(f"Content check, {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}: {a.batch} ({', '.join(FILES)}), {a.dreams}, {a.ink}")
 

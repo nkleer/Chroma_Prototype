@@ -1,0 +1,344 @@
+# Chroma content pack, Art and Writing: visual art and writing (modern Earth first, with the tribal and magic worlds).
+# PART 2 of the pack's moments: THE RED ROAD'S RUNGS (moments 7 to 14 of MOMENTS-BRIEF.md), an everyday pair per title
+# that only its holder meets (holds:): the life-drawing regular (the taste rung), the street artist and the illustrator
+# for hire (the practice rung) and the painter or sculptor (the profession).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and art/MOMENTS-BRIEF.md
+# (part 2). Names in grants:, drops:, holds:, requires: and aims: come from art/catalogue.py and the base catalogue
+# (chroma-library/earth_perks_titles.py); world lines follow the forms table in art/MOMENTS-BRIEF.md. Pair halves share
+# stages, ages, holds:, rate and gap; calls split the colors 2 and 3, and both halves use the cycle named on the pair's
+# header line.
+# No option here takes a new title (holder pairs come back many times): the next rung is an aims:, grants: gives only a
+# perk plainly earned, and drops: stays on the one act that truly ends a career (the steady job in place of the studio).
+# The summit is only aimed at ([renowned artist], the facet the street artist and the painter reach for).
+# Wrongs are pickable, two per means color, each with a closed: line and a real backfire: a complaint made before anyone
+# knows why the model missed, a rent strike, a traced photograph, a master's composition passed off as new, a drawing
+# already sold to one client sold again, a client's files held back, a wall painted again without leave, a sit-in at
+# the client's office, a wall painted by the street without leave, a room shared against the lease.
+# Life drawing is a quiet, professional room: the model is a paid adult, absent here or named only as someone booked,
+# paid and asked, and no text looks at a model as anything else. No real person, gallery, council, magazine, publisher,
+# association or school is named. Every moment has earth:, tribal: and magic: lines and an untagged tribal and magic
+# scene; an option whose act reads differently in a world carries its own tribal: or magic: wording; the works and fails
+# lines read in every world.
+# Rates (brief, Part 2, and calibration lesson 2): the community rung .2, the careers .5, gap 1-3 on every pair. No
+# share: line, as in stage-rungs.lib: the holds: gate does the drawing (the brief's "share .015" on moment 8 is left out,
+# so the two halves of the pair stay alike).
+
+# ---------------------------------------------------------------- life-drawing regular: calls UG / calls WBR (cycle s3)
+
+== the model does not turn up
+tier: everyday
+rate: 0.2
+gap: 1-3
+times: per life-drawing regular a year: about 1 in 3 meet an evening when the booked model is ill or does not come (estimate); about 15 lives in 1,000 draw at a weekly class for a year or more (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: UG
+holds: life-drawing regular
+tone: mixed
+life: making, friends
+horizon: moment
+roles: mentor, colleague
+earth: the Tuesday life class at the college: easels in a ring, the heater on, and the booked model's phone going to voicemail
+tribal: the painting place under the overhang: ochre ground, torches lit, and the one who was to stand for the drawing not come
+magic: the academy's evening hall: lamps trimmed, boards set out, and word that the hired sitter cannot come
+scene: Seven o'clock on Tuesday at the college. Twelve easels stand in a ring round an empty dais with a chair and a heater on it, and {mentor}, the tutor, is ringing the booked model for the third time. Nobody answers, and the class has paid for two hours.
+scene W: The class runs on a few quiet rules: the tutor sets the poses, nobody talks over the work, everyone gets their two hours. {N} paid for a model booked through the college, and the college has let the class down.
+scene U: An empty dais is a problem to solve. {N} remembers that the old academies drew plaster casts, skeletons and one another when a sitter failed, and wonders which would teach the most in two hours.
+scene B: Two hours paid for and nothing on the dais. {N} works out what can still be got out of the evening, and who in the room might be worth knowing better.
+scene R: {N} came straight from work with the whole day still buzzing, wanting to draw something, anything, fast. The empty chair is almost funny.
+scene G: The radiator ticks, rain runs down the tall windows, and the old plaster casts stand in the corner as they have for fifty years. There is plenty in the room to draw, if anyone looks.
+scene tribal: Under the overhang the ochre is ground and the torches are lit, but the young hunter who was to stand with his spear for the drawing has not come down from the camp. The others look at the bare rock, and then at each other.
+scene magic: In the academy's evening hall the lamps are trimmed and the drawing boards set out, but a boy brings word that the hired sitter is ill and will not come tonight. The drawing master looks at the clock and sighs.
+- W | write to the college that this model should not be booked again | v: conformity, security | mark: made an enemy | closed: approval: a complaint made before anyone knows why the model missed; backfire: the model was in hospital, and the class turns cold on whoever complained | tribal: tell the oldest painter that the one who failed to come should never stand for the drawing again | magic: write to the academy's steward that this sitter should not be hired again | chance: 75
+- U | draw the plaster casts in the corner, slowly, the way the old academies taught | habit | v: achievement, conformity | mark: learned a skill | grants: drawing and painting | tribal: draw the old carved horse on the ledge, slowly, the way the old painters did | magic: draw the academy's plaster casts, slowly, as the old masters were taught | chance: 75
+- B | spend the two hours on your own portfolio, and show it to the tutor after | v: achievement, power | aims: painter or sculptor | tribal: spend the night on your own marks, and show them to the oldest painter after | magic: spend the evening on your own portfolio, and show it to the drawing master after | chance: 80
+- R | pin a huge sheet to the wall, and draw the whole room, big and fast | v: stimulation, hedonism | aims: street artist | body: light | tribal: take a burnt stick, and draw the whole painting place on the rock, big and fast | magic: pin a great sheet to the wall, and draw the whole hall, big and fast | chance: 85
+- G | draw the empty chair, the heater and the rain on the windows | v: universalism, tradition | tribal: draw the bare rock, the torches and the rain beyond the overhang | magic: draw the empty chair, the lamps and the rain on the leaded panes | chance: 85
+- W>R | set up a rota so everyone sits five minutes in their coat, and draw fast | v: conformity, stimulation | tribal: set a turn for each to stand a short while in their furs, and draw fast | magic: set a rota so each sits a few minutes in their cloak, and draw fast | chance: 80
+- U>G | pair everyone up to draw each other, and learn the class's faces properly | v: benevolence, achievement | mark: made a friend | tribal: pair the painters off to draw one another, and learn each face properly | magic: pair the sketchers off to draw one another, and learn each face properly | chance: 75
+- B>W | press the college for a free session next term, for the whole class | v: power | tribal: press the elders for another night at the rock, for everyone who came | magic: press the academy's steward for a free evening next term, for the whole hall | chance: 70
+- R>U | draw the tutor pacing about on the phone, to learn how a body moves | habit | v: stimulation | tribal: draw the oldest painter pacing under the overhang, to learn how a body moves | magic: draw the drawing master pacing by the door, to learn how a body moves | chance: 75
+- G>B | take the class to the pub after, and plan a group show together | door | v: achievement | grants: a circle of artists | tribal: take the painters to the fire after, and plan to show your marks at the gathering together | magic: take the sketchers to the tavern after, and plan a showing of the hall's work together | chance: 75
+works: The two hours are not wasted, and {N} goes home with something worth keeping.
+works: By the end of the night the others feel more like friends than strangers.
+fails: The evening drags, and half the group leaves early.
+fails: Nobody can agree what to do, and the night ends early in a bad mood.
+
+== someone wants to buy the sketch off the easel
+tier: everyday
+rate: 0.2
+gap: 1-3
+times: per life-drawing regular a year: about 1 in 10 are asked whether a drawing from the class is for sale; most class drawings are never sold, and a first sale is a small thing people remember (estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: WBR
+holds: life-drawing regular
+tone: joy
+life: making, money
+horizon: moment
+roles: mentor, colleague
+earth: the end of the life class: someone waiting for the tutor stops at your charcoal drawing and asks what you want for it
+tribal: a trader resting at the camp sees the hide you drew on and holds out a flint blade for it
+magic: a merchant's wife fetching her son from the evening hall asks the price of your sketch
+scene: Nine o'clock, the end of the Tuesday class. The model has been paid and gone home, the easels are being folded, and a man who has come to collect {mentor}, the tutor, stops in front of {Ns} charcoal drawing of the seated pose and asks, quite seriously, what {N} wants for it.
+scene W: The model agreed to sit for a class, and the college has rules about the work made in it. {N} is not sure the drawing is {Ns} alone to sell, and would like to do this properly.
+scene U: It is a two-hour drawing, and {N} can see every place where it went wrong: the foreshortened arm, the hand that never came right. A buyer would not see those, but {N} does.
+scene B: Nobody has ever offered {N} money for a drawing before. The first price sets the next one, and {N} knows it.
+scene R: {N} is still buzzing from two hours of drawing, and a stranger wants the thing {N} just made. The urge is to hand it straight over.
+scene G: The drawing is one of hundreds in the stack at home, one Tuesday out of years of Tuesdays. Somebody wanting it is a surprise, like finding something growing that nobody planted.
+scene tribal: As the painters wash the ochre from their hands, a trader from the coast, resting at the camp, stops at the hide on which {N} drew the young hunter standing, and holds out a fine blade of flint for it.
+scene magic: As the evening hall empties, a merchant's wife who has come to fetch her son stops at {Ns} board and asks, in front of the drawing master, what the sketch would cost.
+- W | ask the tutor what the class's rules say about selling, and go by them | v: conformity | tribal: ask the oldest painter whether marks made at the painting place may be traded, and go by it | magic: ask the drawing master what the academy's rules say about selling, and go by them | chance: 80
+- U | say it is not finished, and offer a better one worked up from it next week | identity | v: achievement, conformity | tribal: say it is not finished, and offer a better hide worked up from it by the next moon | chance: 70
+- B | name a price twice what you first thought of, and offer to draw to order | v: power, achievement | aims: illustrator for hire | tribal: ask for two blades, not one, and offer to mark anything else the trader wants | magic: name a price twice what you first thought of, and offer to draw to order | chance: 60
+- R | sell it for whatever is in their pocket, and buy the class a round | v: hedonism, benevolence | grants: a circle of artists | tribal: trade it for whatever the trader carries, and share it out among the painters | magic: sell it for whatever is in her purse, and buy the hall a round | chance: 90
+- G | let them have it for whatever they think it is worth | v: universalism, benevolence | tribal: let the trader give whatever he thinks it is worth | magic: let her have it for whatever she thinks it is worth | chance: 90
+- W>R | sell it at a fair price, and spend it on a day off to paint | v: conformity, stimulation | tribal: trade it at a fair price, and spend what it fetches on a day away from the hunt to paint | chance: 80
+- U>G | ask the buyer what they see in it, and listen properly before deciding | v: universalism, benevolence | mark: made a friend | tribal: ask the trader what he sees in it, and listen properly before deciding | magic: ask her what she sees in it, and listen properly before deciding | chance: 80
+- B>W | sell it, and strike a deal that a share goes to the model | v: benevolence | tribal: trade it, and make sure the young hunter who stood for it gets a share | magic: sell it, and settle that a share goes to the sitter | chance: 80
+- R>U | keep it, and draw the buyer on the spot instead, just for the practice | v: stimulation | tribal: keep the hide, and draw the trader on the spot instead, just for the practice | magic: keep it, and sketch her on the spot instead, just for the practice | chance: 80
+- G>B | keep it for the stack at home, and invite them to the summer show instead | v: achievement | aims: painter or sculptor | tribal: keep it, and tell the trader to look for your hides at the summer gathering | magic: keep it, and invite her to the hall's summer showing instead | chance: 70
+works: The drawing goes to someone who wanted it, and {N} walks home lighter.
+works: Word goes round, and soon two more people ask to see {Ns} drawings.
+fails: The buyer loses interest, and the drawing goes back in the stack.
+fails: It goes for less than it was worth, and {N} feels foolish all the way home.
+
+# ---------------------------------------------------------------- street artist: calls RG / calls WUB (cycle s4)
+
+== the wall is painted over by the council
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per street artist a year: about 1 in 3 see a wall of theirs painted over, cleaned off or knocked down; councils clean thousands of walls a year, and work painted without leave rarely lasts (estimate); about 5 lives in 10,000 are paid to paint walls (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: RG
+holds: street artist
+tone: trouble
+life: work, community
+horizon: week
+roles: friend, boss
+earth: a council van by the railway bridge on Monday: by noon the mural you painted there is under flat grey paint
+tribal: the elders have had the shelter wall you painted scraped bare for the new season's marks
+magic: the wardens of the quarter have had your wall by the fish market limewashed over
+scene: On Monday morning a council van parks by the railway bridge, and by noon the mural {N} spent three weekends on, the kingfisher, the old mill and the names of the streets, is under a coat of flat grey paint. {friend} sends a photo with no words.
+scene W: {N} never had a permit for that wall, only a nod from the shops beside it. The council kept its own rules, and {N} knows it, though it still stings.
+scene U: There is a process for this: a public art scheme, a form, a panel that meets every quarter. {N} looks it up that evening and reads it twice.
+scene B: The photo of the mural was shared two thousand times; a photo of the grey wall could be shared more. {N} sees that the story is worth more than the paint ever was.
+scene R: Three weekends of work, gone in a morning under the roller of a man who never looked at it. {N} wants to go back tonight with every can in the van.
+scene G: People loved that wall: the old man from the corner shop stood in front of it every morning with his paper. Walls come and go, and a street remembers what it loved.
+scene tribal: The elders have had the young ones scrape the shelter wall bare, ready for the new season's marks, and the herd of running deer {N} painted there last winter is gone. Nobody asked {N}.
+scene magic: The wardens of the quarter have had {Ns} wall by the fish market limewashed over by order of the guild council: the ship, the gulls and the old fishwives' faces, all gone under one flat coat.
+- W | go to the next council meeting, and ask for a legal wall for the town's painters | identity | v: universalism, conformity | tribal: speak at the elders' fire, and ask for one wall where any painter may paint | magic: go before the council of the quarter, and ask for a lawful wall for the city's painters | chance: 40
+- U | paint the lost mural again on canvas, from the photographs, to keep it | v: achievement, security | aims: painter or sculptor | tribal: paint the lost herd again on a hide, from memory, to keep it | magic: paint the lost wall again on a panel, from the sketches, to keep it | chance: 80
+- B | post the before and after online, and let the outcry make your name | v: power, achievement | grants: following online | tribal: tell the story at every fire until the bands come asking for your marks | magic: give the story to the broadsheet criers, and let the outcry make your name | chance: 60
+- R | go back tonight, and paint it again, bigger, without leave | v: stimulation | mark: defied an authority | closed: law: a wall painted without leave; backfire: the council fines the painter, and the police keep the name on file | tribal: go back by night, and paint the herd again, bigger, without the elders' leave | magic: go back by night, and paint it again, bigger, without the wardens' leave | chance: 70
+- G | let it go, and look for a wall the street itself wants painted | v: tradition, universalism | tribal: let it go, and look for a wall the band itself wants painted | magic: let it go, and look for a wall the quarter itself wants painted | chance: 85
+- W>G | collect the neighbours' names on a letter asking the council to bring it back | v: universalism, conformity | grants: a mural the town loves | tribal: gather the hearths that loved the herd, and ask the elders together to let it be painted back | magic: collect the neighbours' marks on a petition asking the council of the quarter to bring it back | chance: 40
+- U>W | write a proper proposal for the scheme, with drawings, costs and upkeep | v: achievement, conformity | tribal: work out for the elders where, with what and how the wall will be kept, and ask their leave | magic: write a proper proposal for the guild council, with drawings, costs and upkeep | chance: 40
+- B>U | use the fuss to meet the council's arts officer, and learn how walls are commissioned | door | v: achievement, power | mark: learned a skill | tribal: use the talk at the fires to sit with the elders, and learn how the walls are given out | magic: use the fuss to win an hour with the clerk of works, and learn how walls are commissioned | chance: 70
+- R>B | stand by the grey wall with a placard, and make sure the papers come | identity | v: stimulation, power | mark: made an enemy | tribal: stand by the bare wall, and shout the story to every band that passes | magic: stand by the limewashed wall with a placard, and make sure the criers come | chance: 55
+- G>R | get the street out one Sunday to paint a new wall together, without asking anyone | v: benevolence, stimulation | grants: a mural the town loves | mark: defied an authority | closed: law: a wall painted without leave; backfire: the council fines the residents who held the brushes | tribal: get the whole band out one morning to paint a new wall together, without the elders | magic: get the street out one feast day to paint a new wall together, without asking the wardens | chance: 40
+works: Before the year is out, the street has a painted wall again.
+works: People stop {N} in the street to talk about the wall, and the next paid work comes from one of them.
+fails: The wall stays bare, and {N} walks the long way round to avoid it.
+fails: The fuss dies down in a week, and nobody remembers the old wall but {N}.
+
+== a shopkeeper wants the shutters painted
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per street artist a year: about 1 in 2 are asked by a shop, a cafe or a garage to paint its shutters or its front; painted shutters are among the commonest paid work for wall painters (estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: WUB
+holds: street artist
+tone: joy
+life: work, money
+horizon: week
+roles: boss
+earth: the bakery on the high street wants its three roller shutters painted before the summer fair, and asks what you would charge
+tribal: the old tanner's family want the hides of their shelter painted before the gathering, and offer a haunch of meat
+magic: the spice merchant on the square wants his sign and shutters painted before the midsummer fair
+scene: {boss}, who runs the bakery on the high street, has seen the walls {N} paints. The shop has three roller shutters, and {boss} wants them painted before the summer fair, something people will stop for when the shop is shut, and asks over the counter what {N} would charge.
+scene W: A real job, for a real shop, with a date on it. {N} wants to quote fairly, put it in writing and paint exactly what is agreed.
+scene U: Shutters are a strange surface: ridged steel that rolls up into a box. The design has to work rolled half up, in the rain and under a streetlight, and {N} is already sketching how.
+scene B: A painted shutter on the high street is an advert every evening and all day on Sundays. If it is good, every shop on the street will want one, and the price {N} names now will be the price for all of them.
+scene R: Three shutters, a whole street to look at them, and a client who says to go wild. {N} can already see it.
+scene G: The bakery has been on the high street for three generations, and {N} bought bread there as a child. Whatever goes on the shutters should belong to the street.
+scene tribal: The family of the old tanner, at the far end of the camp, want the hides of their shelter painted before the gathering, so every visiting band can see whose hearth it is, and they offer a haunch of meat for the work.
+scene magic: The spice merchant on the square wants his sign and his shutters painted before the midsummer fair, something to stop the crowds, and asks {N} across the counter what it would cost.
+- W | write a fair quote and a simple contract, and paint exactly what is agreed | v: conformity, security | mark: kept your word | tribal: agree before the elders what you will paint and what meat is fair, and keep to it | magic: set down a fair price and a contract before a notary, and paint exactly what is agreed | chance: 85
+- U | design it to work open, half open and shut, and test it on paper first | v: achievement, conformity | tribal: design it to read from the fire, the path and across the river, and try it on bark first | chance: 75
+- B | quote high, sign it big, and leave a card in every shop on the street | identity | v: power, achievement | aims: renowned artist | tribal: ask for the hide as well as the meat, and set your own sign beside the marks | magic: quote high, sign it big, and leave a card in every shop on the square | chance: 75
+- R | say yes on the spot, and paint all three in one night | binds | v: stimulation, hedonism | body: light | tribal: say yes at once, and paint all the hides in one night by the fire | magic: say yes on the spot, and paint it all in one night by lamplight | chance: 75
+- G | paint the bakery's own story: the first baker, the old ovens, the street | v: tradition, benevolence | grants: a mural the town loves | tribal: paint the tanner's own story: the first hunt, the old hearth, the river | magic: paint the shop's own story: the first spice ship, the old warehouse, the square | chance: 40
+- W>G | ask the shops on either side for their blessing first, so the street is happy | v: conformity, universalism | tribal: ask the hearths on either side for their leave first, so the camp is at peace with it | magic: ask the shops on either side for their leave first, so the square is happy | chance: 80
+- U>W | use a paint that lasts ten years outdoors, and leave the baker a care sheet | v: security, achievement | tribal: grind the ochre with fat so it lasts through the rains, and show the family how to keep it | magic: use an oil that lasts ten winters outdoors, and show the merchant how to keep it | chance: 75
+- B>U | do it at cost, in return for the back wall to try new methods on | self_control: + | v: achievement, self-direction | tribal: ask less meat, in return for a bare hide to try new marks on | chance: 70
+- R>B | paint one giant face across all three shutters, to get the whole town talking | v: stimulation, power | grants: a name in the art world | tribal: paint one giant face across all the hides, to get every band at the gathering talking | magic: paint one giant face across sign and shutters, to get the whole city talking | chance: 40
+- G>R | let the regulars each add a brushstroke, so the street feels it is theirs | v: benevolence, stimulation | mark: made a friend | tribal: let every hearth add a handprint, so the band feels it is theirs | magic: let the regulars each add a brushstroke, so the square feels it is theirs | chance: 80
+works: The work is finished in time, and people stop in the street to look at it.
+works: Within the month two more people ask {N} to paint for them, and pay without haggling.
+fails: The client does not like it, and pays half with a sour face.
+fails: Rain and a slow week ruin the timing, and the day comes and goes before it is done.
+
+# ---------------------------------------------------------------- illustrator for hire: calls UB / calls WRG (cycle s1)
+
+== the brief changes at midnight
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per illustrator for hire a year: most meet a late change to a brief several times a year; surveys of freelance illustrators put changes after sign-off and unpaid extra rounds among their commonest complaints (estimate); about 3 lives in 1,000 illustrate for hire (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: UB
+holds: illustrator for hire
+tone: mixed
+life: work
+horizon: moment
+roles: boss, partner
+earth: an email at five to midnight from the art director: the client has changed the brief, and the cover is still due at nine
+tribal: the hunter who asked for a stag on his drum comes back at moonrise wanting a bear, for the dance at dawn
+magic: a runner at midnight: the scholar wants beasts round the map, not flowers, and the binder comes at dawn
+scene: At five to midnight the email comes from {boss}, the art director: the client has seen the book cover {N} finished on Friday and changed the brief. The fox is now to be a hare, the autumn wood a winter one, and the deadline is still nine in the morning.
+scene W: {N} agreed to the brief in writing, and the contract allows two rounds of changes. This would be the third, and {N} is not sure whether saying so is fair or petty.
+scene U: A hare is not a fox with long ears: it sits differently, runs differently, holds its head another way. {N} opens the folder of reference and starts to work out how to do it properly in nine hours.
+scene B: A third round of changes is extra work, and the contract prices extra work at the day rate, if {N} says so now. This client is also the biggest {N} has ever had.
+scene R: {N} reads the email twice, swears at the screen and nearly replies in capitals. Then, annoyingly, {N} starts to see the hare.
+scene G: {partner} is asleep upstairs, and the house is quiet. Clients change their minds the way the weather does, and the work will come right or it will not.
+scene tribal: At moonrise the hunter who asked {N} to mark his great drum with a running stag comes back to the fire: a dream told him it must be a bear, and the drum is to sound for the first time at the dance at dawn.
+scene magic: At midnight a runner knocks with a note: the scholar who ordered the map of the northern roads wants beasts round its border, not flowers, and the binder comes for it at dawn.
+- W | do the third round without a word, to keep the client happy | self_control: - | v: conformity | mark: gave in to pressure | tribal: mark the bear without a word, to keep the hunter happy | magic: paint the beasts without a word, to keep the scholar happy | chance: 85
+- U | trace a hare from a photograph online, and paint over it to save hours | v: achievement, security | mark: hid a wrong | closed: law: a photograph traced without the photographer's leave; backfire: the photographer sees the cover in a shop and sends a bill | tribal: copy the bear from another marker's shield, line for line, and say nothing | magic: copy the beasts from another illuminator's bestiary, line for line, and say nothing | chance: 80
+- B | say yes, and send an invoice for the extra round at the day rate | v: power, achievement | tribal: say yes, and ask for a second haunch of meat for the second drawing | magic: say yes, and send a bill for the extra work at the day rate | chance: 70
+- R | stay up and redraw the whole thing from scratch, on coffee and fury | self_control: + | v: stimulation | tribal: stay up by the fire and mark the whole drum again, on fury and moonlight | magic: stay up and paint the whole border again, on strong tea and fury | chance: 70
+- G | reply that it will be done when it is done, and go to bed | self_control: - | v: tradition | tribal: tell him the bear will come when it comes, and go to sleep | magic: send word that it will be done when it is done, and go to bed | chance: 50
+- W>U | ask the art director for the client's exact words before touching a line | v: conformity, achievement | tribal: ask the hunter to tell the dream again, word for word, before marking anything | magic: ask the runner for the scholar's exact words before touching a line | chance: 80
+- U>B | redo only the hare, and rework the rest cleverly so it takes three hours | v: achievement, power | grants: illustration | tribal: change only the beast, and turn the stag's antlers into the bear's fur, so it takes half the night | magic: change only the beasts, and turn the flowers' stems into their tails, so it takes three hours | chance: 70
+- B>R | drop in a hare you drew for another client, and hope nobody notices | self_control: - | v: hedonism, power | mark: hid a wrong | closed: approval: work already sold to another client used again; backfire: the first client sees it on the shelves and stops sending work | tribal: mark the drum with the bear you made for another hunter's shield, and hope nobody notices | magic: copy in beasts already sold to another patron, and hope nobody notices | chance: 85
+- R>G | ring the art director now, and talk it through honestly, person to person | v: benevolence, stimulation | mark: made a friend | tribal: go to the hunter's fire now, and talk it through, one person to another | magic: go to the scholar's door now, and talk it through, one person to another | chance: 60
+- G>W | paint it by hand, the old way, and keep to the deadline all the same | identity | v: tradition, conformity | aims: painter or sculptor | tribal: mark it with the old patterns, as the old markers did, and have it ready by dawn | magic: paint it by hand in the old manner, and have it ready by dawn | chance: 65
+works: The work is ready in time, and the one who asked for it says it is better than the first.
+works: The next time there is work to give, it comes to {N} first, and for more.
+fails: It is not ready in time, and the next work goes to someone else.
+fails: It is ready in time but rushed, and {N} cannot look at it without wincing.
+
+== the client who will not pay
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per illustrator for hire a year: about 1 in 3 have an invoice paid very late or not at all; surveys of freelance illustrators and writers put late payment near the top of their troubles (estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: WRG
+holds: illustrator for hire
+tone: trouble
+life: work, money
+horizon: months
+roles: boss
+earth: ninety days and three reminders: a magazine has printed your drawings in two issues and paid for neither
+tribal: the hunter whose shield you marked has carried it to two hunts, and the meat he promised has not come
+magic: the printer on the bridge has sold your woodcuts all season and paid nothing for them
+scene: The invoice is ninety days old. The magazine has run {Ns} drawings in two issues, the editor, {boss}, has stopped answering emails, and the rent is due on Friday.
+scene W: The terms were in writing: payment in thirty days. There is a proper way to chase a debt, letter by letter, and {N} means to follow it to the end.
+scene U: {N} reads up on the small claims process, the magazine's filed accounts, and what a licence to print the same drawings elsewhere would be worth.
+scene B: The magazine still needs the files for next month's cover from {N}, and {N} knows exactly how much it needs them.
+scene R: {N} is furious. The drawings are good, they are in print, the people who sold them have the money, and {N} wants to go round there right now.
+scene G: Most illustrators {N} knows have a story like this one. The work is out in the world either way, and there will be other clients.
+scene tribal: The hunter whose shield {N} marked with a running wolf has carried it to two hunts and boasted of it at the fire, but the meat he promised has never come to {Ns} hearth.
+scene magic: The printer on the bridge has sold {Ns} woodcuts of the city gates all season, and every time {N} calls for the money the apprentice says the master is out.
+- W | send a formal letter before action, then take it to the small claims court | v: conformity, security | tribal: bring the matter before the elders at the next full moon | magic: put the matter before the guild's court of claims | chance: 65
+- U | license the same drawings to another publisher, as the contract allows | binds | v: achievement, security | grants: royalties | tribal: mark the same wolf on another hunter's shield, for a share of every kill | magic: sell the right to print the same woodcuts to another printer, as the agreement allows | chance: 50
+- B | keep the files for the next cover until the old invoices are paid | v: power | mark: broke your word | closed: approval: work held back against an agreed contract; backfire: the magazine tells the trade, and other art directors stop calling | tribal: keep the second shield he ordered until the meat comes | magic: keep the blocks for the next broadsheet until the old debt is paid | chance: 70
+- R | turn up at their office, and refuse to leave without a cheque | body: light | v: stimulation, power | mark: defied an authority | closed: law: refusing to leave a private office; backfire: security walks the illustrator out, and the magazine bans the name | tribal: go to his hearth, and sit there until the meat comes | magic: go to the printer's shop, and refuse to leave without the money | chance: 50
+- G | write it off, and work only for clients who pay on time from now on | v: tradition | tribal: let it go, and mark only for those who bring the meat first from now on | magic: write it off, and work only for those who pay on time from now on | chance: 90
+- W>U | join the illustrators' association, and learn its ways of chasing a debt | door | v: security, conformity | tribal: ask the old markers how they make sure the meat comes, and do as they do | magic: join the illuminators' guild, and learn from its clerk how a debt is chased | chance: 65
+- U>B | add the late fees the law allows, and send a final demand with the total | v: achievement, power | tribal: claim the extra meat the old custom gives for a late debt, before the elders | magic: add the late fees the guild allows, and send a final demand with the total | chance: 60
+- B>R | post the whole story online, name the magazine, and warn every illustrator you know | v: power, stimulation | mark: made an enemy | tribal: tell the whole story at every fire, and warn every marker in the band | magic: tell the whole story in every tavern, and warn every illuminator in the city | chance: 75
+- R>G | ring the editor, say how much it hurts, and ask as one person to another | v: benevolence, stimulation | tribal: go to the hunter, tell him how it hurts, and ask as one hearth to another | magic: go to the printer, tell him how it hurts, and ask as one neighbour to another | chance: 55
+- G>W | pitch a picture book of the woods where you grew up, for children | v: tradition, benevolence | grants: a publishing contract | tribal: make a long telling in marks of the woods where you grew up, for the children's fire | magic: offer a printer a picture book of the woods where you grew up, for children | chance: 15
+works: The money comes in the end, and {N} pays what is owed at home with a week to spare.
+works: Something better comes out of the fight, and {N} is glad of it a year later.
+fails: Nothing is ever paid, and it is a lean month.
+fails: The quarrel spreads, and some of the work that used to come {Ns} way stops coming.
+
+# ---------------------------------------------------------------- painter or sculptor: calls WR / calls UBG (cycle s2)
+
+== the studio rent goes up
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per painter or sculptor a year: about 1 in 5 face a steep rent rise or the loss of a studio; studio providers in most big cities report long waiting lists and rents rising faster than artists' incomes (estimate); about 1 life in 1,000 earns a real part of a living from painting or sculpture (catalogue share; estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: WR
+holds: painter or sculptor
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague
+earth: a letter from the landlord of the old printworks: the studio rent goes up by half from next quarter
+tribal: the elders want the dry cave where you carve, to store the meat for the winter
+magic: the guild's steward raises the rent of the painting rooms under the roof by half at midsummer
+scene: The letter from the landlord of the old printworks is short and polite. From the first of next quarter the rent on {Ns} studio, a cold room with a north light and a sink, goes up by half. Twelve artists rent rooms in the building, and {colleague} is already standing in the corridor holding the same letter.
+scene W: {N} has paid on the first of every month for six years and kept the room as the lease asks. The rise is legal, but it is not fair, and twelve tenants together are not nothing.
+scene U: {N} works the numbers: last year's sales, the hours at the day job, the rent as a share of everything. Then the other numbers: what a shed would cost, what sharing would cost, what giving it up would cost.
+scene B: Everyone knows the printworks is being sold for flats. {N} wonders who is buying, and what a building full of artists might be worth to them in a brochure.
+scene R: The room is where the work happens. {Ns} hands want to be in it every evening, and the letter makes {N} want to throw something through a window.
+scene G: The light through that north window, the paint stains on the floor from three tenants before, the sound of the trains going by. {N} has grown into this room.
+scene tribal: The elders want the dry cave where {N} has carved through three winters, to store the meat for the long cold. There is a damp overhang by the river, and an old cave a half day's walk up the valley.
+scene magic: The guild's steward pins a notice to the stair: from midsummer the rent of the painting rooms under the guildhall roof goes up by half, and the rooms will go to whoever pays it.
+- W | gather the tenants, and hold back the rise together until the landlord talks | v: universalism, conformity | mark: defied an authority | closed: law: rent held back against the lease; backfire: the landlord serves notice on the tenants who signed first | tribal: gather the carvers and painters, and refuse the elders together until they talk | magic: gather the tenants, and refuse the rise together until the steward talks | chance: 40
+- U | work out exactly what you can afford, and find a smaller room that fits | self_control: + | v: security, achievement | tribal: weigh up every shelter in reach, and move to the one that keeps the work dry | chance: 70
+- B | offer the landlord a painting a year in place of the rise | binds | v: power, achievement | tribal: offer the elders a carving for each gathering, if the cave stays yours | magic: offer the steward a painting for the guildhall each year in place of the rise | chance: 50
+- R | pack the van tonight, and paint out of doors all summer, wherever you like | door | v: stimulation, hedonism | tribal: walk out tonight, and carve under the open sky all summer, wherever you like | magic: pack a cart tonight, and paint out of doors all summer, wherever you like | chance: 85
+- G | move everything home, and work at the kitchen table for now | self_control: + | v: tradition | tribal: carry your tools to your own hearth, and carve there for now | chance: 85
+- W>B | sign the new lease, and take extra shifts at the day job to pay for it | binds | v: security | tribal: give up the cave, and hunt twice as often to trade for a better shelter | magic: sign the new lease, and take extra work at the inn to pay for it | chance: 75
+- U>R | build a shed in the garden, insulate it, and make it a studio | v: achievement, security | grants: studio of one's own | requires: savings | without: means | lacking: .5 | tribal: dig a dry hollow into the bank, roof it with hides, and make it your own | magic: build a workshop in the yard, and make it a painting room of your own | chance: 60
+- B>G | find the buyer of the building, and pitch a floor kept for its artists | v: power | tribal: go to the chief, and win a place in the new cave for all the carvers | magic: find the guild's new master, and win a floor kept for its painters | chance: 35
+- R>W | give up the studio on the spot, and take the steady job you were offered | self_control: - | v: security, stimulation | drops: painter or sculptor | tribal: give up the carving on the spot, and go back to the hunt for good | magic: give up the rooms on the spot, and take the clerk's post you were offered | chance: 90
+- G>U | share the room with two friends and learn from them, though the lease says one | binds | v: benevolence, achievement | grants: a circle of artists | mark: made a friend | closed: approval: a room shared against the lease; backfire: the landlord finds out and ends the lease early | tribal: share a hearth with two other carvers and learn from them, though the elders gave it to you alone | magic: share the room with two other painters and learn from them, though the guild lets it to one | chance: 75
+works: {N} keeps working through the change, and the work does not suffer for it.
+works: The new arrangement turns out better than the old one, and {N} wonders why it took a push.
+fails: The work stops for months while {N} sorts out somewhere to do it.
+fails: Money runs short, and a stack of unfinished work goes into storage.
+
+== a month when nothing works
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per painter or sculptor a year: about 1 in 2 meet a month or more when the work will not come; most artists' working lives run in such fits and starts (estimate)
+stages: young_adult adult mature elder
+age: 16-100
+calls: UBG
+holds: painter or sculptor
+tone: trouble
+life: work, inner
+horizon: months
+roles: mentor
+earth: four weeks in the studio and every canvas scraped back, with the show at the gallery in two months
+tribal: a whole moon of carving, and every antler cracks or comes out dead, with the gathering two moons off
+magic: a month at the easel under the guild roof, and every panel wiped back, with the merchant's order due at the fair
+scene: Four weeks in the studio and nothing has worked. Every canvas has been scraped back or turned to the wall, the clay heads have slumped, and the show at the gallery in town opens in two months. {mentor} rings to ask how it is going, and {N} lets it ring.
+scene W: {N} keeps the hours anyway, nine to five, because keeping them is the only thing that has ever carried {N} through a bad patch.
+scene U: Something has gone wrong in the method, and {N} goes back over it: the ground, the palette, the size, the light. A problem has a cause, and a cause can be found.
+scene B: The gallery has a list of collectors waiting for this show. {N} could give them more of what sold last time, and few of them would know the difference.
+scene R: {N} has stopped sleeping well, and the studio smells of turps and failure. The urge is to throw the whole lot out and start again with a bucket and a broom.
+scene G: Everyone {N} admires talked about the fallow months, when nothing grows above ground and the roots go deeper. {N} would like to believe it.
+scene tribal: For a whole moon {Ns} carving has gone wrong: the antler cracks, the stone splits, the horses come out stiff and dead. The gathering, where the traders come, is two moons away.
+scene magic: For a month {Ns} panels under the guild roof have come to nothing, each wiped back to the ground by evening, and the merchant who ordered three for his hall expects them at the autumn fair.
+- W | keep the hours anyway: at the easel nine to five, every day, until it turns | habit | self_control: + | v: conformity, security | tribal: keep at the carving from first light to dusk, every day, until it turns | magic: keep the guild's hours at the easel, every day, until it turns | chance: 70
+- U | copy an old master's composition closely, and say nothing about where it came from | self_control: - | v: achievement, security | mark: hid a wrong | closed: approval: a composition lifted from an old painting and shown as new; backfire: a critic names the source in the review | tribal: carve the horse exactly as it stands on the old cave wall, and say it came to you | magic: copy an old master's design closely, and say nothing of where it came from | chance: 70
+- B | paint more of what sold last time, and keep the collectors happy | habit | v: achievement, power | tribal: carve more of the horses that traded well last summer, and keep the traders happy | magic: paint more of what sold last season, and keep the merchant happy | chance: 80
+- R | throw out every failed canvas, and start again in an empty room | v: stimulation | tribal: throw every failed piece in the river, and start again with nothing | magic: scrape every failed panel bare, and start again in an empty room | chance: 70
+- G | stop for a month, walk every day, and wait for the work to come back | habit | v: universalism, tradition | tribal: stop for a moon, walk the valley every day, and wait for the carving to come back | magic: stop for a month, walk the hills every day, and wait for the work to come back | chance: 70
+- W>B | ring the gallery now, own up, and ask to move the show back | v: security, conformity | mark: owned up | tribal: tell the traders now that the carvings will not be ready, and ask them to come at the next gathering | magic: go to the merchant now, own up, and ask for the panels by the spring | chance: 50
+- U>R | try a material you have never touched, and push it as far as it goes | door | v: stimulation | aims: renowned artist | tribal: try a stone you have never carved, and push it as far as it goes | magic: try a pigment you have never touched, and push it as far as it goes | chance: 60
+- B>G | gather ten years of work, catalogue it, and offer the gallery all of it | v: achievement | grants: a body of work | tribal: lay out every carving of ten winters, and offer the traders all of it | magic: gather ten years of panels, list them, and offer the guild a showing of all of it | chance: 60
+- R>W | open the studio to the public for a weekend, failures and all | v: stimulation, universalism | grants: a name in the art world | tribal: show the cracked carvings to the whole band at the fire, failures and all | magic: open the rooms to the city for a feast day, failures and all | chance: 40
+- G>U | go back to the place where you first painted, and paint it again, slowly | v: tradition | mark: came home | tribal: go back to the cave where you first carved, and carve there again, slowly | magic: go back to the village where you first painted, and paint it again, slowly | chance: 75
+works: The work comes back, slowly at first, and then all at once.
+works: Something new comes out of the bad month, and it is the best thing {N} has made in years.
+fails: Nothing comes right in time, and the work that goes out is not {Ns} best.
+fails: The bad month becomes a bad season, and {N} starts to wonder about giving up.
