@@ -427,11 +427,13 @@ W_DEFAULT = dict(
     sph_haunts=False,  # phase 2, N1: named places per town and haunt kind, each with its own face mix; lives pick haunts
     sph_hours=False,   # phase 2: hours in all nine spheres and the rungs (N2), the places part of item 12's current
     sph_marks=False,   # phase 2: the mark of the work (reserved: waits for the Outer world's table of trades)
+    sph_events=False,  # phase 3: the 195 sphere events (hazards, effect rows on the faces, chains); rates from the data
+    sph_ev_base=None,  # phase 3 tuning and checks: one quarterly base chance for every event, in place of the data's
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
-SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 # their parameters; a world with every rule off saves without these keys, exactly as v22.1 saved it
 S3_PARAMS = ("coh_inst", "coh_scene", "coh_adult", "coh_home", "era_home_k", "era_fade_y", "coh_back", "acc_calm", "k_sh", "gov_voter",
              "lead_k", "party_k", "loser_k", "q_theta_s3", "q_k_s3", "q_hab_s3", "era_on_s3", "era_off_s3", "coh_gain",
@@ -1036,7 +1038,8 @@ class World:
         self._place_q()
         self._culture_q()
         self._society_q()
-        if self.p.get("sph_town", False) or self.p.get("sph_haunts", False) or self.p.get("sph_hours", False):
+        if (self.p.get("sph_town", False) or self.p.get("sph_haunts", False) or self.p.get("sph_hours", False)
+                or self.p.get("sph_events", False)):
             self._sphere_q()   # (phase 2's haunts and hours read the town spheres, so either switch computes them)
             if self.p.get("sph_haunts", False):
                 self._sph_places_q()
@@ -2557,7 +2560,8 @@ class World:
         self.sph_drv += T["mem"] * (x_lvl - self.sph_drv); self.sph_x = x
         Tt = np.einsum("d,ld,djc->ljc", T["kd"], x, T["D"])
         Kt = pr["kK"] * (np.asarray(self.loc_mix, float) - 0.2)[:, None, :]     # the culture's lean in town
-        Dm = T["M0"][None] * np.exp(Nt + Tt + Kt)
+        Xt = self._sph_events_q(e) if self.p.get("sph_events", False) else 0.0   # phase 3: the events' fading shifts
+        Dm = T["M0"][None] * np.exp(Nt + Tt + Kt + Xt)
         Dm = Dm / Dm.sum(-1, keepdims=True)
         Ld, corr, age, has = self._sph_leaders()
         Lg = 1 - np.exp(-s / pr["sL"])
@@ -2609,6 +2613,106 @@ class World:
             self.hp_s = base * np.exp(self.hp_off); self.hp_s /= self.hp_s.sum(-1, keepdims=True)
         tgt = base * np.exp(self.hp_off); tgt /= tgt.sum(-1, keepdims=True)
         self.hp_s += T["rho"][HAUNT_SPH][None, :, None, None] * (tgt - self.hp_s)
+
+    # ------------------------------------------------------------------ the spheres of society (item 15): phase 3
+    SPH_LAG = {"quarters": (1, 4), "a year": (3, 6), "years": (4, 20)}   # a chain's window, in quarters after its event
+
+    def _sph_ev_tables(self):
+        """The sphere events as arrays (made once, not saved): every event of sphere_data.EV, in its order (the Library's
+        sphere_event: names an index here); its base chance a quarter (0 outside this world's epoch; the data's
+        ev_base, or sph_ev_base for every event); hazard weights over a vocabulary of readers; the effect rows on a
+        sphere's faces (in this world's colour frame); the chains."""
+        c_ = getattr(self, "_cache_sphev", None)
+        if c_ is not None:
+            return c_
+        import sphere_data as SD
+        T = self._sph_tables(); pr = T["pr"]; ep = T["ep"]; EV = SD.EV; n = len(EV)
+        key = {e["key"]: i for i, e in enumerate(EV)}
+        b_ = self.p.get("sph_ev_base")
+        tab = pr.get("ev_base") if isinstance(pr.get("ev_base"), dict) else {}
+        base = np.array([(float(b_) if b_ is not None else float(tab.get(e["key"], tab.get(e["family"], 0.0))))
+                         * (ep in e["epochs"]) for e in EV])
+        vocab = sorted({k for e in EV for k in e["hazard"]})
+        Hm = np.zeros((n, len(vocab)))
+        for i, e in enumerate(EV):
+            for k, v in e["hazard"].items():
+                Hm[i, vocab.index(k)] = v
+        rows = [(i, SPH[r["target"]], np.asarray(r["faces"], float)[self.perm], r["scope"] == "big", r["tau"])
+                for i, e in enumerate(EV) for r in e["rows"] if r["target"] in SPH and r["faces"] is not None]
+        big = np.array([any(r["scope"] == "big" for r in e["rows"]) for e in EV])
+        chains = [(i, key[k], *self.SPH_LAG.get(lag, self.SPH_LAG["years"])) for i, e in enumerate(EV)
+                  for k, lag in e["chains"] if k in key]
+        c_ = dict(n=n, key=key, base=base, vocab=vocab, Hm=Hm, dice=np.array([e["dice"] for e in EV]), big=big,
+                  rows=rows, chains=chains, sig=(float(pr.get("sig_local", 0.2)), float(pr.get("sig_big", 0.4))))
+        self._cache_sphev = c_
+        return c_
+
+    def _sph_hazard_x(self, vocab, e_need):
+        """Each town's reading of every hazard key (n_loc x len(vocab)), clipped to -1..1: the drivers against the town's
+        memory (as T), the hazard variables (drivers.vocabulary), the spheres' states (0 until their dynamics are set,
+        notes/spheres-phase3-asks.md item 2)."""
+        import sphere_data as SD
+        nl = self.n_loc; X = np.zeros((nl, len(vocab)))
+        wl = (0.5 if self.war == 1 else 1.0 if self.war == 2 else 0.0) + 0.2 * float(np.any(np.asarray(self.ext_war) > 0))
+        hist = getattr(self, "sph_war4", None)
+        hist = np.full(4, wl) if hist is None else np.append(hist[1:], wl)
+        self.sph_war4 = hist
+        read = {d: self.sph_x[:, i] for i, d in enumerate(SD.DRIVERS)}
+        read.update(war_drop=np.full(nl, max(0.0, hist[0] - wl)), disaster_now=np.minimum(np.asarray(self.loc_disaster, float), 1),
+                    meaning_gap=e_need[:, 2], welfare=np.full(nl, float(self.welfare) - float(self.p["welfare0"])))
+        for j, k in enumerate(vocab):
+            if k in read:
+                X[:, j] = read[k]
+        return _uclip(X, -1, 1)
+
+    def _sph_events_q(self, e_need):
+        """Phase 3 (sph_events): this quarter's sphere events and the fading demand shifts of all that fired
+        (dynamics.json face_mix "Events (X)": sig x faces x exp(-quarters / tau)). Each event's chance a quarter is its
+        base x exp(hazard . readings) x 3 inside a chain's window; a big event is one draw for the society, acting in
+        every town. Dice only for events with dice (a hashed draw by world seed and quarter, so no stream moves); the
+        rest fire when their summed chance reaches 1 (item 14: the same start, the same history). Returns X
+        (n_loc x 9 x 5)."""
+        E = self._sph_ev_tables(); nl = self.n_loc; n = E["n"]; q = int(self.t // 13)
+        if getattr(self, "sph_ev_last", None) is None:
+            self.sph_ev_last = np.full((nl, n), -10 ** 6, np.int64)   # the week each event last fired in each town
+            self.sph_ev_acc = np.zeros((nl, n)); self.sph_ev_win = np.zeros((nl, n, 2), np.int64)
+            self.sph_ev_rows = np.zeros((0, 4 + C))                     # town, sphere, start quarter, tau, then sig x faces
+            self.sph_ev_log = np.zeros((0, 3), np.int64)                # week, event, town (-1: the whole society)
+        on = E["base"] > 0
+        if on.any():
+            xv = self._sph_hazard_x(E["vocab"], e_need)
+            p = E["base"][None] * np.exp(xv @ E["Hm"].T)
+            w_ = self.sph_ev_win; p = p * np.where((w_[..., 0] <= q) & (q <= w_[..., 1]), 3.0, 1.0)
+            p = np.where(E["big"][None], p.mean(0, keepdims=True), p)                       # one chance for the society
+            r = np.random.default_rng([self._seed + 7919, q]).random((nl, n))
+            r[:, E["big"]] = r[:1, E["big"]]
+            self.sph_ev_acc += np.where(E["dice"][None], 0.0, p)
+            fire = on[None] & np.where(E["dice"][None], r < p, self.sph_ev_acc >= 1.0)
+            self.sph_ev_acc -= np.where(fire & ~E["dice"][None], 1.0, 0.0)
+            fire[1:, E["big"]] = False                                                       # a big event fires once
+            for l, i in zip(*np.nonzero(fire)):
+                self._sph_fire(int(l), int(i), q, E)
+        # the fading shifts of every row still acting
+        R_ = self.sph_ev_rows; X = np.zeros((nl, 9, C))
+        if len(R_):
+            age = q - R_[:, 2]; k = np.exp(-age / R_[:, 3])
+            keep = k >= 0.01; R_ = self.sph_ev_rows = R_[keep]; k = k[keep]
+            np.add.at(X, (R_[:, 0].astype(np.intp), R_[:, 1].astype(np.intp)), R_[:, 4:] * k[:, None])
+        return X
+
+    def _sph_fire(self, l, i, q, E):
+        """Event i fires in town l (a big event: everywhere): its rows start acting, its chains open their windows, the
+        log and the last-fired table take it."""
+        towns = np.arange(self.n_loc) if E["big"][i] else np.array([l])
+        add = [np.concatenate([[t_, j, q, tau], (E["sig"][1] if bg else E["sig"][0]) * f])
+               for (ei, j, f, bg, tau) in E["rows"] if ei == i for t_ in towns]
+        if add:
+            self.sph_ev_rows = np.vstack([self.sph_ev_rows, np.array(add)])
+        for (a, b, lo, hi) in E["chains"]:
+            if a == i:
+                self.sph_ev_win[towns, b, 0] = q + lo; self.sph_ev_win[towns, b, 1] = q + hi
+        self.sph_ev_last[towns, i] = int(self.t)
+        self.sph_ev_log = np.vstack([self.sph_ev_log, [[int(self.t), i, -1 if E["big"][i] else l]]])
 
     def place_info(self, p):
         """A named place (flat index town x kind x N_PLACES, as People.hnt holds it): its town, kind, sphere, name number,

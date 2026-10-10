@@ -14,7 +14,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   8. the spheres' phase 2 switches (haunts, hours and rungs, the mark of the work), switched on with the world: run_steps()
      still lives the lives of run(), and the lives move.
   9. WL2's small effects (wl2: prices for workers, a recession's hours, a disaster's cost, a pandemic year), likewise,
-     over lives long enough to hold a job.
+     over lives long enough to hold a job; and the sphere events (sph_events, at a test base chance), over phase 2.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -257,9 +257,12 @@ for label, sw, ok in RO_:
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
         dict(sph_haunts=True, sph_hours=True, sph_marks=True, cur_on=True), dict(cur_on=True), 8),
-       ("WL2, the small effects of the world (wl2)", dict(wl2=True), {}, 24)]
+       ("WL2, the small effects of the world (wl2)", dict(wl2=True), {}, 24),
+       ("the sphere events (sph_events, every event at a test base of .01 a quarter)",
+        dict(sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_haunts=True, sph_hours=True, cur_on=True), 8)]
 for label, sw, base, yrs in P2_:
-    if not set(sw) <= set(E.DEFAULT):
+    if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
