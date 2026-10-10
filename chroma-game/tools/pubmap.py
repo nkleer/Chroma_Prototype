@@ -30,7 +30,13 @@ if part in ("all", "code"):
             m["py/" + f] = {"from": W + "py/" + f, "contentType": "text/plain"}
 if part in ("all", "pics"):
     page = open(W + "index.html", encoding="utf-8").read()
+    pp = re.search(r"const PIC_PACKS = (\{.*?\});", page)
+    in_pack = json.loads(pp.group(1)) if pp else {}   # pictures that go in pics/pack-<n>.json (webdir.py), not as files
     for u in sorted(set(re.findall(r'pics/[A-Za-z0-9_.-]+\.webp', page))) + [f"pics/tarot-{i}.webp" for i in range(1, 8)]:
-        if u not in have and u not in m and os.path.exists(W + u):
+        if u not in have and u not in m and u not in in_pack and os.path.exists(W + u):
             m[u] = W + u
+    for n in sorted(set(in_pack.values())):
+        u = f"pics/pack-{n}.json"
+        assert os.path.exists(W + u), u
+        m[u] = {"from": W + u, "contentType": "application/json"}
 print(json.dumps(m)); print(len(m), "files", file=sys.stderr)

@@ -1422,8 +1422,8 @@ addEventListener("resize", () => { if (!evWrap.hidden && evWrap.classList.contai
 // while a moment is set aside to look at the life, it waits as a card at the foot of the story (the Back button)
 function waitingCard() {
   const cp = hud && hud.cp; if (!cp) { evBack.innerHTML = `${ic("flag")} Back to the moment`; return; }
-  const src = picFor(cp.art);
-  evBack.innerHTML = `${src ? `<img src="${esc(src)}" alt="" decoding="async" onerror="this.remove()">` : `<span class="wg">${ic("flag")}</span>`}<span class="wt"><small>A moment is waiting</small><b>${esc(cap(cp.title))}</b></span><span class="wgo">${ic("flag")} Open the moment</span>`;
+  const pic = picImg(cp.art);
+  evBack.innerHTML = `${pic || `<span class="wg">${ic("flag")}</span>`}<span class="wt"><small>A moment is waiting</small><b>${esc(cap(cp.title))}</b></span><span class="wgo">${ic("flag")} Open the moment</span>`;
 }
 const ACC_CLS = { "would go with it": "a0", "okay with it": "a1", reluctant: "a2", "against it": "a3", "their own pick": "own" };
 const ACC_WORD = { "would go with it": "Would go with it", "okay with it": "Okay with it", reluctant: "Reluctant", "against it": "Against it", "their own pick": "Their own pick" };
@@ -1457,15 +1457,41 @@ const PICS = __PICS__;
 // the engravings are of the modern Earth (v22 patch, Emren 10-07 21:44 UTC); Earth lives read the pictures as before
 const WORLD_CARD = { tribal: "5", magic: "6" };
 const worldCard = (L) => { const k = WORLD_CARD[L && L.setting]; return k ? (PICS.tarot && PICS.tarot[k]) || "" : null; };
+function picBase(a) {
+  const d = String(a.life || "").split(",").map((x) => x.trim()).find((x) => PICS.domain[x]);
+  return (d && PICS.domain[d]) || PICS.tier[a.tier] || "";
+}
 function picFor(a) {
   if (!a) return "";
   const w = worldCard(hud && hud.life); if (w != null) return w;
-  const d = String(a.life || "").split(",").map((x) => x.trim()).find((x) => PICS.domain[x]);
-  return PICS.situation[a.sit] || PICS.situation[a.variant_of] || (d && PICS.domain[d]) || PICS.tier[a.tier] || "";
+  return PICS.situation[a.sit] || PICS.situation[a.variant_of] || picBase(a);
+}
+// PIC_PACKS: picture -> pack. The rarer moments' pictures travel together in pics/pack-<n>.json (picture -> base64; made by
+// web/src/build.py and tools/webdir.py) so one published version stays under the artifact's 511 files. A packed picture
+// shows its part-of-life picture until its pack has loaded, then swaps in (data-pic keeps its name for the lights).
+const PIC_PACKS = __PIC_PACKS__;
+const PACKED = new Map(), PACKING = new Map();
+function unpack(n) {
+  if (PACKING.has(n)) return;
+  PACKING.set(n, fetch(`pics/pack-${n}.json`).then((r) => (r.ok ? r.json() : null)).then((pk) => {
+    if (!pk) return;
+    for (const u in pk) PACKED.set(u, "data:image/webp;base64," + pk[u]);
+    document.querySelectorAll("img[data-want]").forEach((img) => {
+      const b = PACKED.get(img.dataset.want); if (!b) return;
+      const im = img.cloneNode(); im.src = b; im.dataset.pic = img.dataset.want; im.removeAttribute("data-want"); img.replaceWith(im);
+    });
+  }).catch(() => {}));
+}
+function picImg(a) {
+  const u = picFor(a); if (!u) return "";
+  const k = PIC_PACKS[u], img = (src, at) => `<img src="${esc(src)}"${at} alt="" decoding="async" onerror="this.remove()">`;
+  if (!k) return img(u, "");
+  if (PACKED.has(u)) return img(PACKED.get(u), ` data-pic="${esc(u)}"`);
+  unpack(k);
+  return img(picBase(a) || PICS.tier.everyday || "", ` data-want="${esc(u)}"`);
 }
 function evArt(cs, icon, extra = "", a = null) {
-  const src = picFor(a);
-  return `<div class="evart" style="--art:${artBG(cs)}"><span class="stars"></span><span class="glyph">${ic(icon)}</span>${src ? `<img src="${esc(src)}" alt="" decoding="async" onerror="this.remove()">` : ""}${extra}</div>`;
+  return `<div class="evart" style="--art:${artBG(cs)}"><span class="stars"></span><span class="glyph">${ic(icon)}</span>${picImg(a)}${extra}</div>`;
 }
 function plate(ends) {
   if (!ends.length) return "#8a8174";
