@@ -15,8 +15,9 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Branches
 
-- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`): the commit that version was published from. Never
-  committed to again and never deleted. The session's git proxy refuses tag pushes, so these branches stand in for tags.
+- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`, `release/v22.2.1`): the commit that version was
+  published from. Never committed to again and never deleted. The session's git proxy refuses tag pushes, so these
+  branches stand in for tags.
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every
   change and for the next release.
 - A work branch per change, named after the owner's folder: `engine/<topic>`, `game/<topic>`, `library/<topic>`,
@@ -90,7 +91,8 @@ because those change only at a publish.
 
 ## Publishing a version
 
-1. Release runs the checks on a commit of `main` and records it in `chroma-release/records/<version>/scope.md`.
+1. Release runs the checks on a commit of `main` (or, for a fix to the live version, of a branch made from its release
+   branch, as `visual/v22.2.1` was) and records it in `chroma-release/records/<version>/scope.md`.
 2. On the coordinator's word and Emren's own "publish", the game publishes the page built from that commit with
    `chroma-game/tools/build.py`.
 3. Release pushes that commit as `release/<version>`. From a checkout of that branch, the game writes every live path
