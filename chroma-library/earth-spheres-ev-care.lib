@@ -1,0 +1,764 @@
+# Chroma library, modern Earth: what the care sphere's events bring into a life (Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3: a moment for each modern event that touches the character). Design:
+# chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data: chroma-ideas/spheres-data/care.json
+# (events[].on_character and wording.modern). Fields: build.py (WORLD_SIT, WORLD_OPT, the spheres' fields).
+#
+# Every moment here is one a sphere event brings: per_year is all 0 (they exist only with the spheres' events on, switch
+# sph_events), there are no drivers, and the Engine fires each on its event for the people its selector names. The
+# '# world:' line above each names the event key, the selector and the share of selected people who get the moment
+# (estimate). Each carries sphere: care and sphere_event: <key>; every option carries the face it acts in (one-colour
+# option X: care.X; pair option: the pair face in wheel order, so "- WR" takes care.RW).
+#
+# Care's modern events with an on_character line are 19. Three are left out because a moment in earth.py already is
+# the same thing: plague_wave and quarantine (the world's pandemic, which closes the town: the read event 'a pandemic
+# and a lockdown' in earth-events.lib), and remedy_works (the life event 'a cure is found at last' in
+# earth-world-eras.lib, which the Engine fires when medical capability passes a disease). neglect_scandal is kept: the
+# world's C3 cover-up has a moment only for the staff who know ('the thing the bosses are hiding'); this one is for the
+# families of the residents when the scandal breaks.
+#
+# Layout: seventeen moments, each a life event with even alpha, the five one-colour options plus one half of a pair set.
+# Twelve use both halves of D1 to D6 once (every pair 6 times), four use both halves of D1 and D2 again, and the
+# seventeenth uses D3b, so the pairs of D3b (BR UG UR WB WG) appear 9 times and the rest 8.
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
+# colour has the same mean chance in each moment and so in every stage. No flags.
+# Tone from the event: good = joy, bad = trouble, mixed = mixed (seven joy, four trouble, six mixed).
+# Illness is told plainly and kindly; nothing graphic; no harm to a child (a hard birth ends with mother and baby safe).
+# Syntax: header of build.py.
+#
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
+
+# ---------------------------------------------------------------- neighbours_rush (good; pairs D1a)
+
+# world: sphere event neighbours_rush, selector place, share .4
+== the street pulls together after the storm
+tier: life event
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: neighbours_rush (sphere care). It follows the town's flood, fire or storm (prot.disaster_strikes) where help from the council is slow or far; about 4 in 10 residents are drawn into the helping (share .4, estimate), so once or twice in a life in a place that floods or storms (estimate)
+likelier: a street where people know each other, old neighbours who live alone, a car or a generator, help from the council far away
+rarer: a block where nobody knows anyone, a part of town the storm spared
+tone: joy
+life: community, home
+horizon: week
+roles: elder, friend, neighbours
+who: neighbour
+sphere: care
+sphere_event: neighbours_rush
+share: 0.2
+once: yes
+earth: the storm cuts the power, and the street checks on the old, shares a generator and drives the sick to the clinic
+scene: The storm takes the power out across {place} at dusk, and the phones go soon after. {elder}, two doors down, lives alone with a breathing machine that needs to be plugged in. Up and down the street, torches are coming on.
+scene W: Someone has to know who on the street is old, alone or ill, and make sure no door is missed. {N} reaches for a pen.
+scene U: {N} works out what is needed first: power for the breathing machine, a road to the clinic, and who has a full tank.
+scene B: {N} has the only generator on the street and a full can of fuel. Tonight that makes {N} the most useful person for a mile.
+scene R: {N} is already pulling on boots, torch in hand, before anyone has asked.
+scene G: The old ones remember the last big storm, when the whole street ate together for a week. {N} puts the big pot on the gas.
+- W | go door to door with a list, and tick off every house that answers | v: benevolence, conformity | mark: helped someone in need | sphere: care.W | chance: 72
+- U | find out who needs power for a machine, and plan whose turn the generator is | v: benevolence, achievement | sphere: care.U | chance: 75
+- B | run your generator for the old neighbour, and ask the street to chip in for fuel | v: benevolence, power | sphere: care.B | chance: 77
+- R | drive the old neighbour to the clinic before the low road floods | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | cook for the whole street on the gas ring, and keep the kettle going all night | v: benevolence, tradition | mark: made a friend | sphere: care.G | chance: 75
+- BG | open your house as the warm room for anyone without heat tonight | v: benevolence, security | sphere: care.BG | chance: 66
+- BR | run a cable from your generator to three houses, though it is not allowed | v: benevolence, stimulation | lever: subvert | sphere: care.BR | chance: 60
+- UG | check each old neighbour's pills, and make sure nobody runs out before the roads open | v: benevolence, security | sphere: care.GU | chance: 64
+- WR | join the crew clearing the fallen tree from the road to the clinic | v: benevolence, universalism | sphere: care.RW | chance: 70
+- WU | pin a list on the noticeboard of who needs what and who can give it | v: benevolence, universalism | sphere: care.WU | chance: 66
+works: By morning every door on the street has been knocked on, and nobody spent the night alone.
+works: Years later the street still waves to each other, because of that night.
+fails: The night is long and cold, and {N} ends it soaked, worn out and unsure the help went where it was needed most.
+fails: Two neighbours fall out over the generator, and the street remembers that more than the rest.
+
+# ---------------------------------------------------------------- cure_fails (bad; pairs D1b)
+
+# world: sphere event cure_fails, selector place, share .05
+== a medicine in the cupboard is withdrawn
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: cure_fails (sphere care). A widely used medicine is withdrawn for a harm found late a few times in a long life (estimate); it reaches the person through a parent who took it, about 1 in 20 people where it was prescribed widely (share .05, estimate)
+likelier: a parent with a long illness, a new medicine given widely and fast, a place with weak checks before a medicine is sold
+rarer: careful prescribing, strong licensing and long trials
+tone: trouble
+life: health, family
+horizon: months
+roles: parent, sibling
+who: parent
+sphere: care
+sphere_event: cure_fails
+share: 0.03
+once: yes
+earth: a new pill a parent of yours has taken for a year is linked to heart attacks and withdrawn
+scene: The news says the new pill for sore joints, approved in a hurry, is being withdrawn: it has been linked to heart attacks. {parent} has taken one every morning for a year, and rings {N} that evening, frightened.
+scene W: Someone signed that pill off without enough checks. {N} wants to know who, and wants it set down properly.
+scene U: {N} looks up the study that sank the pill: how many took it, how many were harmed, and what the risk is for {parent} now.
+scene B: There will be a claim, and lawyers are already advertising for it. {N} means to see {parent} counted and paid.
+scene R: {parent} trusted that doctor completely. {N} is shaking with anger.
+scene G: {N} thinks there must be gentler ways to live with sore joints, and that {parent} needs company more than another new pill.
+- W | write a formal complaint to the health board, with the dates and the prescription | v: conformity, universalism | lever: voice | pushes: institution hospital | sphere: care.W | chance: 73
+- U | book your parent a heart check, and go through the study with the doctor | v: security, self-direction | sphere: care.U | chance: 71
+- B | sign your parent up to the group claim against the pill's maker | v: power, security | lever: voice | pushes: economy | sphere: care.B | chance: 69
+- R | go to the surgery and tell the doctor who prescribed it exactly what you think | v: stimulation, universalism | mark: made an enemy | lever: voice | pushes: institution hospital | sphere: care.R | chance: 76
+- G | spend the next weeks at your parent's side, and keep the house calm | v: benevolence, tradition | sphere: care.G | chance: 72
+- RG | take your parent off the new pills and onto walks, rest and good food | v: benevolence, hedonism | lever: exit | sphere: care.RG | chance: 60
+- UB | find a specialist of your own choosing for a second opinion | v: self-direction, security | lever: exit | sphere: care.UB | chance: 70
+- UR | get the other patients talking online, and push the maker for the full data | v: universalism, self-direction | lever: voice | pushes: economy | sphere: care.UR | chance: 54
+- WB | press the health board to pay for heart checks for everyone who took it | v: universalism, power | lever: voice | pushes: institution hospital | sphere: care.WB | chance: 58
+- WG | start a support group for the families of people who took the pill | v: benevolence, universalism | lever: found | sphere: care.GW | chance: 62
+works: {parent}'s heart check comes back clear, and the worry in the house finally lifts.
+works: The maker settles, the rules for new medicines tighten, and {N} had a small hand in it.
+fails: The complaint goes into a long queue and comes back months later with a form letter.
+fails: {parent} stops trusting any doctor at all, and the next real illness is left too long.
+
+# ---------------------------------------------------------------- remedy_feared (mixed; pairs D2a)
+
+# world: sphere event remedy_feared, selector place, share .3
+== the new vaccine splits the dinner table
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 8-25
+times: World event: remedy_feared (sphere care). A new vaccine meets a rumour that spreads faster than the facts a few times in a life (estimate); the quarrel reaches about 3 in 10 people in the place through family or friends (share .3, estimate)
+likelier: a family with members on both sides, distrust of officials, a rumour a famous name repeats, an old or frail relative
+rarer: a family that trusts its doctor, a quiet year with nothing new offered
+tone: mixed
+life: family, health
+horizon: months
+roles: sibling, parent
+who: sibling
+sphere: care
+sphere_event: remedy_feared
+share: 0.15
+once: yes
+earth: a rumour about the new vaccine spreads faster than the virus, and a family dinner ends in silence
+scene: The new vaccine is offered to everyone, and a rumour about it is spreading faster than the illness. At Sunday dinner {sibling} says nobody in the family should touch it, and the table goes silent.
+scene W: The health board has asked everyone to take it, so that the old and the sick are kept safe. {N} thinks that is what a neighbour does.
+scene U: {N} has read the rumour and the studies side by side, and only one of them shows its numbers.
+scene B: Nobody is going to tell {N} what goes into {Ns} own body, not the board and not {sibling}. {N} will weigh it alone.
+scene R: {N} can feel the argument coming like a storm, and is half ready to start it.
+scene G: The family has eaten together every Sunday for twenty years. {N} cares more about that table than about who is right.
+- W | book the vaccine for yourself, and help the old neighbours book theirs | v: universalism, conformity | tech: modern medicine | sphere: care.W | chance: 75
+- U | send your sibling the study, with the numbers marked, and ask them to read it | v: universalism, self-direction | sphere: care.U | chance: 52
+- B | ask your own doctor about your own case, and decide in your own time | v: self-direction | sphere: care.B | chance: 66
+- R | tell your sibling across the table that the rumour is dangerous nonsense | v: stimulation, universalism | mark: made an enemy | sphere: care.R | chance: 59
+- G | change the subject, pass the potatoes, and keep the family at one table | v: tradition, benevolence | sphere: care.G | chance: 80
+- BG | wait and see how it goes for others before deciding anything | v: security | sphere: care.BG | chance: 70
+- BR | refuse it out loud, and say your body is your own business | v: self-direction | mark: defied an authority | sphere: care.BR | chance: 66
+- UR | take it on the first day, and tell everyone honestly how it went | v: stimulation, universalism | sphere: care.UR | chance: 84
+- WG | ask the family doctor round to answer everyone's questions over tea | v: benevolence, universalism | sphere: care.GW | chance: 38
+- WU | volunteer at the vaccine clinic, checking names and answering questions | v: universalism, conformity | sphere: care.WU | chance: 80
+works: The argument cools, and by summer the family is back at one table, whatever each one chose.
+works: {N} makes the choice with a clear head, and keeps the respect of the people who chose otherwise.
+fails: {sibling} stops coming on Sundays, and the empty chair stays empty all year.
+fails: Whatever {N} decides, half the family takes it as an insult, and says so for months.
+
+# ---------------------------------------------------------------- birth_safer (good; pairs D2b)
+
+# world: sphere event birth_safer, selector place, share .1
+== a new birth centre in town
+tier: life event
+stages: young_adult adult mature
+age: 18-65
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: birth_safer (sphere care). A town gains a new maternity unit or birth centre perhaps once in a generation (estimate); it reaches the person when a brother or sister is expecting as it opens, about 1 in 10 residents (share .1, estimate)
+likelier: a young family, a sibling expecting, a growing town
+rarer: nobody in the family expecting, a remote place the new unit does not reach
+tone: joy
+life: family, health
+horizon: months
+roles: sibling, parent, partner
+who: sibling
+at: hospital
+sphere: care
+sphere_event: birth_safer
+share: 0.05
+once: yes
+earth: the new maternity unit opens with a midwife-led birth centre beside it, just as your brother's or sister's baby is due
+scene: The new maternity unit has opened in {place}, with a birth centre run by midwives beside it. {sibling} and their partner are expecting their first baby next month, and the whole family has an opinion on where it should be born.
+scene W: There are leaflets for both, with checklists and visiting hours. {N} wants {sibling} to have the safest care going, and every box ticked.
+scene U: {N} looks up the figures for both: how often mothers are moved across for help, and how far the theatre is from the birth rooms.
+scene B: It is {sibling}'s baby and {sibling}'s choice, and {N} means to make sure the family respects it.
+scene R: {N} has already offered to be the one who drives them in, at any hour, in any weather.
+scene G: Every baby in the family for three generations was born with the same old midwife. {N} wonders what the new place will feel like.
+- W | go with your sibling to the open evening, and ask about every safety check | v: security, benevolence | sphere: care.W | chance: 80
+- U | read the figures for both places, and lay them out plainly for the family | v: self-direction, benevolence | sphere: care.U | chance: 76
+- B | tell the family the choice belongs to the parents, and make them stop arguing | v: self-direction | sphere: care.B | chance: 74
+- R | promise to be on call day and night for the dash to the hospital | v: benevolence, stimulation | mark: kept your word | sphere: care.R | chance: 82
+- G | cook and freeze meals for the weeks after the birth | v: benevolence, tradition | sphere: care.G | chance: 81
+- RG | learn the breathing and the back rubs, in case you are the one beside them | v: benevolence | mark: learned a skill | sphere: care.RG | chance: 76
+- UB | help them write a birth plan of their own, with every choice spelled out | v: self-direction, security | sphere: care.UB | chance: 86
+- UG | sit in on a midwives' class and learn what the first weeks really need | v: benevolence, self-direction | sphere: care.GU | chance: 76
+- WB | give to the new unit's appeal, and see the family's name on the donors' board | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 80
+- WR | sign up as a volunteer driver, taking families to the birth centre at night | v: benevolence, universalism | sphere: care.RW | chance: 74
+works: The baby arrives at the new centre on a calm night, and the new family is home within two days.
+works: The new place does its work well, and {N} becomes the relative every new parent in the family calls first.
+fails: The family argument outlasts the birth, and {sibling} remembers who said what.
+fails: The birth goes well, but {Ns} help is barely needed, and {N} feels oddly left out.
+
+# ---------------------------------------------------------------- hard_birth (mixed; pairs D3a)
+
+# world: sphere event hard_birth, selector members (the household where the birth is), share .5
+== the labour that stalls in the night
+tier: life event
+stages: young_adult adult mature
+age: 18-60
+per_year: 0 0 0 0 0 0
+gap: 2-10
+times: World event: hard_birth (sphere care). A long or stalled labour that needs the surgical team comes in perhaps 1 birth in 8 in a modern hospital (estimate); the moment goes to the partner who waits through it (share .5 of the household, estimate). With a modern team close by, mother and baby come through
+likelier: a first baby, a long way to the hospital, a baby lying the wrong way
+rarer: a second or later birth, a hospital close by with skilled hands
+tone: mixed
+life: family, health, children
+horizon: moment
+roles: partner, parent
+who: partner
+at: hospital
+sphere: care
+sphere_event: hard_birth
+share: 0.25
+once: yes
+earth: your partner's labour stalls in the night, the midwife calls the surgical team, and within the hour mother and baby are safe
+scene: Eighteen hours in, {partner}'s labour has stalled. The midwife presses the call button, the room fills with calm people in scrubs, and there will be an operation within the hour. {N} is handed a gown and told to wait.
+scene W: The team has a procedure for this, and they follow it step by step. {N} holds on to that.
+scene U: {N} asks the midwife exactly what is happening and what happens next, and listens to every word.
+scene B: {N} wants the senior doctor, not the junior one, and wants to be in that room.
+scene R: Every part of {N} wants to do something, anything, and there is nothing to do but wait.
+scene G: {N} holds {partner}'s hand and keeps breathing slowly with them, as if the two of them could slow the clock.
+- W | do exactly as the staff ask, and keep out of their way | v: conformity, security | sphere: care.W | chance: 81
+- U | ask the midwife to explain each step, and pass it on plainly to the family | v: security, benevolence | sphere: care.U | chance: 76
+- B | ask for the senior surgeon by name, and ask to be beside your partner in theatre | v: power, security | sphere: care.B | chance: 75
+- R | talk and joke with your partner all the way to theatre, to keep the fear away | v: benevolence, stimulation | sphere: care.R | chance: 82
+- G | hold your partner's hand and breathe with them, slow and steady | v: benevolence, tradition | sphere: care.G | chance: 76
+- BG | tell both families plainly what is happening, and ask them to wait at home | v: security, benevolence | sphere: care.BG | chance: 80
+- RG | rub your partner's back through each wave of pain until the team arrives | v: benevolence | sphere: care.RG | chance: 76
+- UB | read the consent form line by line, and ask what each risk really means | v: self-direction, security | sphere: care.UB | chance: 78
+- WR | run for the midwife the moment the monitor changes | v: benevolence, security | sphere: care.RW | chance: 68
+- WU | write down every time and every word the doctors say, for later | v: security, conformity | sphere: care.WU | chance: 78
+works: Within the hour {partner} and the baby are safe, and {N} is holding someone very small and very loud.
+works: The night is long and frightening, and by dawn the three of them are together and well.
+fails: {partner} and the baby come through well, but {N} cannot shake the fear of that night for months.
+fails: Everyone is safe, yet {N} keeps going over every minute of it, wishing they had done more.
+
+# ---------------------------------------------------------------- good_death (good; pairs D3b)
+
+# world: sphere event good_death, selector place, share .05
+== the hospice nurse comes every morning
+tier: life event
+stages: adult mature elder
+age: 30-90
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: good_death (sphere care). Where a hospice service reaches the town, it touches those with a parent in their last months, about 1 in 20 adults there (share .05, estimate); in rich countries many who die of a long illness now have some hospice care at the end (estimate). The parent's death itself is the moment 'a parent dies'
+likelier: a parent with a long illness, a hospice service nearby, a family that lives close
+rarer: a sudden death, no hospice within reach, a family scattered far
+tone: joy
+life: family, death
+horizon: months
+roles: parent, sibling, partner
+who: parent
+sphere: care
+sphere_event: good_death
+share: 0.03
+once: yes
+earth: the hospice nurse comes every day, and your parent dies at home, in their own bed, without pain
+scene: The treatments have stopped, and the hospice nurse comes to {parent}'s house every morning now. There is no pain, the bed is by the window, and the days that are left are quiet ones.
+scene W: The nurse has drawn up a rota for the family, and {N} means to keep to it, so {parent} is never left alone.
+scene U: {N} asks the nurse plainly what the last days will look like, and is glad of a plain answer.
+scene B: {parent} has always run their own life. {N} means to see that they choose how the end goes too.
+scene R: {N} wants to fill every day with something {parent} loves: the old songs, the dog, the view from the hill.
+scene G: The family sits with {parent} the way {parent} once sat with their own parents: no fuss, just there.
+- W | keep the family rota, so someone is with your parent day and night | v: benevolence, conformity | lever: loyalty | sphere: care.W | chance: 81
+- U | ask the nurse plainly what the last days will bring, and tell the family | v: benevolence, security | sphere: care.U | chance: 82
+- B | help your parent write down their own wishes for the end, and see them kept | v: self-direction, benevolence | sphere: care.B | chance: 77
+- R | bring in the old friends, the music and the stories for one last good evening | v: hedonism, benevolence | sphere: care.R | chance: 78
+- G | sit by the bed in the evenings and simply hold their hand | v: benevolence, tradition | sphere: care.G | chance: 83
+- BR | pour your parent the glass of whisky they ask for, whatever the leaflet says | v: hedonism, self-direction | sphere: care.BR | chance: 86
+- UG | learn from the nurse how to ease a dry mouth and turn the pillows yourself | v: benevolence | mark: learned a skill | sphere: care.GU | chance: 78
+- UR | set up a video call, so the cousins far away can say goodbye | v: benevolence, stimulation | tech: video calls | sphere: care.UR | chance: 80
+- WB | give to the hospice that cares for your parent, and join its circle of friends | v: benevolence, universalism | lever: fund | sphere: care.WB | chance: 82
+- WG | share the nights with your siblings, so that no one wears out | v: benevolence | lever: loyalty | sphere: care.GW | chance: 78
+works: {parent} dies at home in their own bed, without pain, with family in the room.
+works: The grief, when it comes, is heavy but clean, and {N} is glad of every evening spent.
+fails: The last weeks are peaceful, but {N} spends too many of them on the phone and the forms, and regrets it.
+fails: An old quarrel between the siblings flares by the bedside, and lingers past the funeral.
+
+# ---------------------------------------------------------------- house_of_care_opens (good; pairs D4a)
+
+# world: sphere event house_of_care_opens, selector place, share .4
+== a clinic opens on the corner
+tier: life event
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: house_of_care_opens (sphere care). A new clinic or health centre opens in a neighbourhood perhaps once in twenty years (estimate); about 4 in 10 residents notice it in their own lives, as patients or as staff (share .4, estimate)
+likelier: a neighbourhood that has gone without, a council or charity with funds, a sickness just past
+rarer: a place already well served, a remote village
+tone: joy
+life: health, community, work
+horizon: months
+roles: parent, friend
+at: hospital
+sphere: care
+sphere_event: house_of_care_opens
+share: 0.2
+once: yes
+earth: a clinic opens in your neighbourhood: a doctor, two nurses, and evening hours that fit working people
+scene: A clinic has opened on the corner where the old bank used to be: a doctor, two nurses and evening hours that fit working people. There is a notice in the window asking for volunteers and a part-time receptionist.
+scene W: At last, care that anyone on the street can walk into, waiting their turn like everyone else.
+scene U: {N} has put off a check-up for two years. Now there is no excuse, and {N} is curious what it will find.
+scene B: A new clinic needs staff, and the part-time post would fit around {Ns} other work very neatly.
+scene R: {N} walks in on the opening day just to see it, and ends up helping carry in the chairs.
+scene G: {parent} has never trusted the big hospital across town. A clinic two streets away, with a nurse who knows the family, might be different.
+- W | register the whole family at the clinic, and book everyone's check-ups | v: security, benevolence | sphere: care.W | chance: 81
+- U | book the blood tests you have put off for two years | v: security | sphere: care.U | chance: 89
+- B | apply for the part-time post on the desk, on hours that suit you | v: achievement, security | sphere: care.B | chance: 75
+- R | volunteer on the opening day, and stay on for the evening rush | v: benevolence, stimulation | mark: made a friend | sphere: care.R | chance: 85
+- G | take your parent along, and introduce them to the nurse yourself | v: benevolence, tradition | sphere: care.G | chance: 78
+- BG | tell your parent plainly that the cough needs looking at, and walk them in | v: benevolence | sphere: care.BG | chance: 82
+- RG | join the clinic's walking group on Saturday mornings | v: hedonism, security | sphere: care.RG | chance: 78
+- UR | offer to set up the clinic's online booking yourself, over a weekend | v: achievement, stimulation | tech: internet | sphere: care.UR | chance: 68
+- WB | give to the appeal for the clinic's new wing, and see your name on the board | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 84
+- WU | join the patients' group that checks the clinic keeps its promises | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 70
+works: The clinic becomes part of the street, and {N} and the family are known there by name.
+works: A check-up there catches something small before it grows, and the whole family is grateful.
+fails: Within a year the evening hours are cut, and the waiting room is as full as the old one.
+fails: {N} means to go and never quite does, and the leaflet sits on the fridge all winter.
+
+# ---------------------------------------------------------------- water_clean (good; pairs D4b)
+
+# world: sphere event water_clean, selector place, share .5
+== the tap water is safe again
+tier: life event
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: water_clean (sphere care). A town rebuilds its waterworks after a fouling or a long run of warnings perhaps once in a long life (estimate); about half of residents feel it in daily life (share .5, estimate)
+likelier: a town that had a water scandal or boil-water warnings, a family with small children or someone frail
+rarer: a town whose water was always clean, a home on its own well
+tone: joy
+life: home, health, community
+horizon: months
+roles: parent, friend, neighbours
+at: council
+sphere: care
+sphere_event: water_clean
+share: 0.25
+once: yes
+earth: the water plant is rebuilt after the scandal, and for the first time in years people drink from the tap
+scene: The new water plant is open, the boil-water notices are coming down, and the council says the tap is safe. In {Ns} kitchen there are still three crates of bottled water by the door.
+scene W: The council did it properly in the end: tested, signed off, published. {N} trusts a job done by the rules.
+scene U: {N} wants to see the test results before anyone in the house drinks a glass.
+scene B: {N} has spent a small fortune on bottled water. Now that money is {Ns} own again.
+scene R: {N} fills a pint glass straight from the tap and drinks it down in one go.
+scene G: {N} remembers drinking from the tap at {parent}'s house as a child. Something has come back.
+- W | follow the council's notice to the letter: flush the pipes and change the filters | v: conformity, security | sphere: care.W | chance: 87
+- U | send a sample from your own tap away for testing before trusting it | v: security, self-direction | sphere: care.U | chance: 86
+- B | cancel the bottled water, and put what you save toward something of your own | v: security, achievement | sphere: care.B | chance: 88
+- R | fill a glass from the tap the first morning and drink it down | v: hedonism, stimulation | sphere: care.R | chance: 86
+- G | take a jug of the new water to the old neighbour who still distrusts it | v: benevolence, tradition | sphere: care.G | chance: 85
+- BR | hold a party in the yard to mark the end of the bottles | v: hedonism | mark: made a friend | sphere: care.BR | chance: 82
+- UB | read the council's report, and find out who will be paying for the works | v: self-direction, power | sphere: care.UB | chance: 78
+- UG | start a vegetable plot again, now the water is safe to use on it | v: tradition, self-direction | sphere: care.GU | chance: 86
+- WG | help the council tell the housebound, door by door, that the water is safe | v: benevolence, universalism | sphere: care.GW | chance: 80
+- WR | volunteer to hand out safe water in the last week of the works | v: benevolence, universalism | sphere: care.RW | chance: 82
+works: Within a month the whole house drinks from the tap without thinking, and the bottles are gone.
+works: The summer fevers that came every year do not come, and the doctor's waiting room is quieter.
+fails: A cloudy glass in the second week sends half the street back to bottles, though the tests are clean.
+fails: The water rates go up to pay for the works, and the grumbling outlasts the gratitude.
+
+# ---------------------------------------------------------------- old_ways_fade (mixed; pairs D5a)
+
+# world: sphere event old_ways_fade, selector place, share .1
+== a grandparent's remedy no one else knows
+tier: life event
+stages: juvenile+
+age: 14-80
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: old_ways_fade (sphere care). Where pharmacies and doctors have taken the old healers' place, a family remedy that only one old person remembers comes up once in a while (estimate); about 1 in 10 people in such a place meet it in their own family (share .1, estimate)
+likelier: a grandparent who grew up in the country, a family with a long memory, young people who have moved away
+rarer: a family with no old ones left, a family that wrote its remedies down
+tone: mixed
+life: family, health
+horizon: years
+roles: grandparent, parent
+who: grandparent
+sphere: care
+sphere_event: old_ways_fade
+share: 0.05
+once: yes
+earth: a grandparent's cough remedy works better than anything from the pharmacy, and no one else remembers how to make it
+scene: {grandparent} makes a tea for coughs out of honey, thyme and something from the garden, and it works better than anything from the pharmacy. Nobody else in the family knows what goes in it, and {grandparent} is getting frail.
+scene W: Something that works should be written down properly, so the whole family can use it.
+scene U: {N} wonders what in that tea actually works, and whether anyone has ever tested it.
+scene B: People pay good money for remedies at the market. {N} wonders, half joking, what this one might be worth.
+scene R: {N} wants to make a batch tonight, just to see if {N} can get it right.
+scene G: The recipe came from {grandparent}'s own mother, and hers before that. If it goes, something goes with it.
+- W | write the recipe down exactly, with every amount, and share it with the family | v: tradition, benevolence | sphere: care.W | chance: 77
+- U | ask the pharmacist what in the tea might really work, and why | v: self-direction | sphere: care.U | chance: 78
+- B | ask your grandparent to teach you alone, and keep the recipe as your own | v: power, security | sphere: care.B | chance: 75
+- R | brew it with your grandparent tonight, guessing the amounts and laughing at the mistakes | v: stimulation, benevolence | sphere: care.R | chance: 73
+- G | spend the autumn afternoons at your grandparent's side, learning it the old way | v: tradition, benevolence | mark: learned a skill | sphere: care.G | chance: 75
+- BG | let it go: the pharmacy has good remedies now, and times change | v: security | lever: neglect | sphere: care.BG | chance: 84
+- UB | find out which of the herbs are safe and which are not, before anyone drinks it | v: security, self-direction | sphere: care.UB | chance: 70
+- UR | film your grandparent making it, and post it online for anyone to try | v: stimulation, universalism | tech: internet | sphere: care.UR | chance: 78
+- WG | gather the cousins for a Sunday when your grandparent teaches all of you | v: tradition, benevolence | sphere: care.GW | chance: 70
+- WR | make a big pot when colds go round, and carry cups door to door | v: benevolence | sphere: care.RW | chance: 80
+works: The recipe outlives {grandparent}, and every winter someone in the family makes it the old way.
+works: {N} has a notebook in {grandparent}'s own words, and it means more than the tea.
+fails: {N} keeps meaning to ask, and then it is too late, and nobody can quite get the taste right.
+fails: The recipe is written down, but without {grandparent}'s hands it never tastes the same.
+
+# ---------------------------------------------------------------- sick_club (good; pairs D5b)
+
+# world: sphere event sick_club, selector place, share .2
+== a mutual aid fund on the street
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: sick_club (sphere care). Neighbours set up a mutual aid group with a shared fund where public care is thin or slow, perhaps once in a long life in a given place (estimate); about 1 in 5 residents are asked to join (share .2, estimate)
+likelier: a close street, a recent hard winter or sickness, thin public care, neighbours with the same work and the same risks
+rarer: a place with generous public sick pay, a street where nobody knows anyone
+tone: joy
+life: community, health, money
+horizon: years
+roles: friend, elder
+group: neighbours
+sphere: care
+sphere_event: sick_club
+share: 0.1
+once: yes
+earth: neighbours start a mutual aid group: a shared fund, a list of who can drive, and meals for whoever is ill
+scene: {friend} has called a meeting in the community hall: a mutual aid group for the street, with a shared fund, a list of who can drive people to the hospital, and meals for whoever is ill. There is a sign-up sheet by the door.
+scene W: Everyone pays in the same small sum, and everyone is covered the same. {N} likes the fairness of it.
+scene U: {N} wants to know how the fund will be kept, who signs off a payment, and what happens if three people fall ill at once.
+scene B: A fund like this needs a treasurer, and the treasurer will know everyone's business. {N} is tempted.
+scene R: {N} is first in the queue for the drivers' list, keys already in hand.
+scene G: {elder} remembers a club like this, where a few coins a week kept the doctor paid. It feels like an old thing coming home.
+- W | sign up, pay your share every month, and never miss a payment | v: conformity, benevolence | lever: loyalty | pushes: group neighbours | sphere: care.W | chance: 77
+- U | offer to keep the fund's books, and post them every month for all to see | v: universalism, achievement | sphere: care.U | chance: 81
+- B | stand for treasurer, and run the fund the way you think best | v: power, achievement | lever: lead | pushes: group neighbours | sphere: care.B | chance: 72
+- R | put your name first on the drivers' list, for any hour of the night | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | cook the first week's meals for whoever on the street is ill | v: benevolence, tradition | sphere: care.G | chance: 80
+- BR | pay in when it suits, and help out your own way when the mood takes | v: self-direction, hedonism | lever: neglect | pushes: group neighbours | sphere: care.BR | chance: 82
+- RG | take a first aid course, so you know what to do when someone falls | v: benevolence, achievement | mark: learned a skill | sphere: care.RG | chance: 74
+- UG | list everyone's needs and skills, and match the one to the other | v: benevolence, achievement | sphere: care.GU | chance: 72
+- WB | put in a larger sum to start the fund, and take a seat on its committee | v: benevolence, power | lever: fund | pushes: group neighbours | sphere: care.WB | chance: 80
+- WU | write the group's rules, so everyone knows who pays and who gets help | v: conformity, universalism | lever: found | pushes: group neighbours | sphere: care.WU | chance: 72
+works: When {N} is laid up that winter, the meals arrive and the fund covers the lost week's pay.
+works: Years on, the group still meets, and {N} knows half the street by name because of it.
+fails: An argument over who deserved a payment splits the group within a year.
+fails: The fund runs dry in its first bad winter, and the meals stop coming.
+
+# ---------------------------------------------------------------- old_age_kept (good; pairs D6a)
+
+# world: sphere event old_age_kept, selector place, share .15
+== a carer lets a parent stay at home
+tier: life event
+stages: adult mature elder
+age: 30-85
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: old_age_kept (sphere care). Where pensions and home care reach the old, most of them stay in their own homes to the end (estimate); a parent's visiting care and pension coming through touches about 15 in 100 adults with an old parent in such a place (share .15, estimate)
+likelier: a parent past eighty, a decent pension, a council that pays for home care, family nearby
+rarer: no living parent, a place with thin home care
+tone: joy
+life: family, home
+horizon: years
+roles: parent, sibling, child
+who: parent
+sphere: care
+sphere_event: old_age_kept
+share: 0.08
+once: yes
+earth: your parent's pension and a visiting carer let them stay in their own flat, near the grandchildren, with their own key
+scene: The council has approved a carer for {parent}: an hour every morning and half an hour each evening. With the pension, it means {parent} can stay in their own flat near the grandchildren, with their own key, and {N} gets {Ns} evenings back.
+scene W: The care plan is written and signed, with the hours and the tasks set out. {N} wants it kept exactly.
+scene U: {N} reads the care plan closely, to see what it covers and where the gaps are.
+scene B: {N} has three evenings a week back, and means to spend them on {Ns} own work at last.
+scene R: {N} wants to meet this carer face to face before trusting them with {parent}.
+scene G: {parent} is staying where they have lived for forty years, among their own things and their own neighbours. That matters more than anything.
+- W | go through the care plan with the carer, and keep the rota on the fridge | v: security, conformity | sphere: care.W | chance: 83
+- U | keep a notebook of your parent's good days and bad days, and spot what changes | v: benevolence, self-direction | sphere: care.U | chance: 83
+- B | take your evenings back, and put them into your own work at last | v: achievement, self-direction | sphere: care.B | chance: 83
+- R | drop in unannounced now and then, with cake, to see how things really are | v: benevolence, stimulation | sphere: care.R | chance: 85
+- G | bring the grandchildren round every Sunday, the way it has always been | v: tradition, benevolence | sphere: care.G | chance: 84
+- BG | tell your parent plainly that this help is how they keep their own front door | v: benevolence, security | sphere: care.BG | chance: 80
+- UG | rearrange the flat with your parent, so everything they need is within reach | v: benevolence | sphere: care.GU | chance: 84
+- UR | fit a call button and a door camera, and teach your parent to use them | v: security, stimulation | tech: phone | sphere: care.UR | chance: 82
+- WB | pay more into a pension of your own, now you see what one buys | v: security | lever: fund | pushes: economy | sphere: care.WB | chance: 86
+- WR | sign up as a volunteer driver for the old people on your street | v: benevolence | sphere: care.RW | chance: 80
+works: {parent} keeps their own key and their own front door for years, and the Sundays go on.
+works: With the evenings back, {N} finishes something that had waited a decade.
+fails: The carer keeps changing, and {parent} has to explain everything to a new stranger every month.
+fails: {N} worries anyway, and the free evenings fill up with phone calls to check.
+
+# ---------------------------------------------------------------- care_for_all (mixed; pairs D6b)
+
+# world: sphere event care_for_all, selector all, share .3
+== care becomes free at the point of need
+tier: life event
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+gap: 30-80
+times: World event: care_for_all (sphere care). A state makes care free to all perhaps once in its modern history, after a war, a plague or a long campaign (estimate); about 3 in 10 people feel it in their own family in the first years, through an operation, a birth or a wait (share .3, estimate)
+likelier: a family with someone ill or old, a low income, a long fight for it
+rarer: a family with good private cover, someone young and well
+tone: mixed
+life: health, money, family
+horizon: years
+roles: parent, sibling
+who: parent
+sphere: care
+sphere_event: care_for_all
+share: 0.15
+once: yes
+earth: care becomes free at the point of need: your parent gets an operation the family could never have paid for, and your own wait grows longer
+scene: Care is now free at the point of need. {parent} has the hip operation the family could never have paid for, and nobody gets a bill. {Ns} own appointment for a bad knee has slipped from six weeks to five months.
+scene W: Everyone is treated the same, by need and not by money. {N} thinks the long queue is a fair price for that.
+scene U: {N} looks up how the waits are decided, and which cases the figures say go first.
+scene B: There are still private clinics for those who pay, and {N} could jump the queue for the knee.
+scene R: {N} is so happy for {parent} that the five months barely sting.
+scene G: For the first time in three generations, nobody in the family has had to sell anything to see a doctor.
+- W | take your place in the queue for the knee, as everyone must | v: universalism, conformity | lever: loyalty | pushes: state | sphere: care.W | chance: 79
+- U | ask the doctor how your case is scored, and what would move it up the list | v: self-direction, achievement | lever: voice | sphere: care.U | chance: 75
+- B | pay a private clinic to fix the knee next month | v: self-direction, security | lever: exit | pushes: institution hospital | sphere: care.B | chance: 74
+- R | drive your parent to every appointment, and make the recovery a party | v: benevolence, hedonism | sphere: care.R | chance: 83
+- G | nurse your parent at home through the weeks after the operation | v: benevolence, tradition | sphere: care.G | chance: 75
+- BR | ignore the knee, and keep playing on it, waiting list or not | v: hedonism, stimulation | sphere: care.BR | chance: 58
+- RG | strengthen the knee yourself with swimming and long walks while you wait | v: self-direction, security | sphere: care.RG | chance: 64
+- UB | find out which hospital in the region has the shortest list, and go there | v: self-direction | lever: exit | pushes: institution hospital | sphere: care.UB | chance: 82
+- WG | help at the hospital's friends' group, so the queue moves for others | v: benevolence, universalism | sphere: care.GW | chance: 74
+- WU | write to the health board with the figures on the waits, and ask for more staff | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 56
+works: {parent} walks without pain by the summer, and {Ns} own turn comes sooner than feared.
+works: The family's savings stay where they are, and {N} sees what that means for years to come.
+fails: {Ns} wait stretches past a year, and the knee gets worse in the meantime.
+fails: The waits grow every year, and the pride in the new system turns to grumbling in the queue.
+
+# ---------------------------------------------------------------- fees_rise (bad; pairs D1a)
+
+# world: sphere event fees_rise, selector place, share .1
+== the treatment the insurance will not cover
+tier: life event
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: fees_rise (sphere care). Where public care is thin and costs rise, a medical bill a family cannot pay is common; perhaps 1 in 10 residents meets one through a partner's illness in the years the fees climb (share .1, estimate)
+likelier: thin public care, a low income, no insurance or poor cover, a long illness in the family
+rarer: care free at the point of need, good cover, savings
+tone: trouble
+life: money, health, family
+horizon: months
+roles: partner, friend, parent
+who: partner
+sphere: care
+sphere_event: fees_rise
+share: 0.05
+once: yes
+earth: the insurance will not cover the treatment, and the family starts a fundraiser and talks of selling the car
+scene: The letter is two lines long: the insurance will not cover {partner}'s treatment, and the bill would take a year of both their wages. At the kitchen table {friend} is already talking about a fundraiser, and someone has mentioned selling the car.
+scene W: There is a hardship fund at the hospital, with forms and rules. {N} means to find it and fill it in properly.
+scene U: {N} reads the policy line by line. Somewhere in forty pages there may be a clause the insurer missed.
+scene B: Everything has a price, and every price can be bargained. {N} means to talk the bill down.
+scene R: {N} wants to ring the insurer and shout until someone with a name picks up.
+scene G: The family has always looked after its own. {N} thinks of the cousins, the aunts, and the old car on the drive.
+- W | apply to the hospital's hardship fund, with every form filled in properly | v: security, conformity | sphere: care.W | chance: 55
+- U | read the policy clause by clause, and appeal on the line they missed | v: self-direction, security | lever: voice | pushes: economy | sphere: care.U | chance: 63
+- B | ring the billing office and bargain the price down, line by line | v: power, security | sphere: care.B | chance: 54
+- R | call the insurer every day until a manager agrees to look again | v: self-direction, stimulation | lever: voice | pushes: economy | sphere: care.R | chance: 52
+- G | ask the family to share the cost, and sell the car if you must | v: benevolence, tradition | sphere: care.G | chance: 56
+- BG | tell your partner plainly what you can and cannot afford, and choose together | v: benevolence, security | sphere: care.BG | chance: 60
+- BR | find a clinic abroad that does it for a third of the price, and go | v: self-direction, stimulation | mark: took a wild risk | lever: exit | sphere: care.BR | chance: 52
+- UG | find the doctor in town who treats people for nothing on Thursdays | v: security, benevolence | sphere: care.GU | chance: 48
+- WR | start a fundraiser and tell your partner's story to everyone you know | v: benevolence, achievement | tech: internet | sphere: care.RW | chance: 64
+- WU | join the patients' campaign pressing for the treatment to be covered | v: universalism, conformity | lever: voice | pushes: state | sphere: care.WU | chance: 46
+works: The appeal comes back in their favour, and {partner} starts the treatment next month.
+works: Between the family and the fundraiser the bill is paid, and nobody had to sell the house.
+fails: The car goes, then the savings, and the bill is still not paid by spring.
+fails: The appeal is refused, and the treatment waits while the forms go back and forth.
+
+# ---------------------------------------------------------------- hands_short (bad; pairs D1b)
+
+# world: sphere event hands_short, selector place, share .1
+== the care home where nobody knows the names
+tier: life event
+stages: adult mature elder
+age: 30-90
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: hands_short (sphere care). Where carers are too few, staff in care homes change every few months; it reaches about 1 in 10 adults in the place through a parent in care whose care starts to fall to them (share .1, estimate)
+likelier: an ageing town, low pay for carers, a parent in a care home
+rarer: a town with enough carers, no parent in care
+tone: trouble
+life: family, work
+horizon: months
+roles: parent, sibling, boss
+who: parent
+sphere: care
+sphere_event: hands_short
+share: 0.05
+once: yes
+earth: the staff at your parent's care home change every few months, and the agency nurses do not know the residents' names
+scene: At {parent}'s care home the staff change every few months now. Today's agency nurse does not know {parent}'s name, or that the tea must be cool, or that the radio should be on. The manager says they are short again, and asks if family can help.
+scene W: The home has standards on paper, and they are not being met. {N} wants them met.
+scene U: {N} counts the faces on the rota board: eleven new names since spring.
+scene B: {N} could cut back at work to fill the gap, or pay a carer of {Ns} own choosing to sit with {parent}.
+scene R: {N} wants to roll up {Ns} sleeves and do the evening round personally.
+scene G: In the end it falls to family, as it always has. {N} wonders how many hours {N} can give.
+- W | put it in writing to the manager and the inspectors that the standards are not met | v: conformity, security | lever: voice | pushes: institution hospital | sphere: care.W | chance: 65
+- U | pin a page on your parent's needs by the bed, for every new face | v: benevolence, achievement | sphere: care.U | chance: 77
+- B | hire a carer of your own choosing to sit with your parent three afternoons a week | v: security, power | sphere: care.B | chance: 76
+- R | come in every evening after work, and do your parent's bedtime round yourself | v: benevolence, stimulation | lever: loyalty | sphere: care.R | chance: 69
+- G | cut your hours at work, and take on your parent's care at home | v: benevolence, tradition | lever: exit | pushes: institution hospital | sphere: care.G | chance: 56
+- RG | take your parent out into the garden on every visit, whatever the rota says | v: benevolence, hedonism | sphere: care.RG | chance: 76
+- UB | compare the staffing at every care home nearby, and move your parent to the best | v: security, self-direction | lever: exit | pushes: institution hospital | sphere: care.UB | chance: 60
+- UR | take a weekend course in the basics, and apply for the well-paid post at the home | v: achievement, stimulation | mark: learned a skill | sphere: care.UR | chance: 56
+- WB | join the home's board of friends, and raise money to pay the carers better | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 58
+- WG | set up a rota with your siblings, so that one of you visits every day | v: benevolence | lever: loyalty | sphere: care.GW | chance: 82
+works: Within a few weeks the new faces know {parent}'s name, and the tea arrives cool.
+works: The home gets its staff back, and {N} can visit as family again, not as a spare carer.
+fails: The rota keeps changing, and {N} ends up doing half a carer's job on top of {Ns} own.
+fails: {boss} grows short-tempered about the hours, and {N} has to choose between them and {parent}.
+
+# ---------------------------------------------------------------- war_wounded (mixed; pairs D2a)
+
+# world: sphere event war_wounded, selector place, share .05
+== a brother or sister home from the war, changed
+tier: life event
+stages: juvenile+
+age: 14-90
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: war_wounded (sphere care). After a war abroad the wounded come home over months and years; where the town sent many, about 1 in 20 residents has a brother or sister among them (share .05, estimate)
+likelier: a town that sends many to the forces, a sibling in uniform, a long war
+rarer: a family with no one in the forces, long peace
+tone: mixed
+life: family, health
+horizon: years
+roles: sibling, friend, parent
+who: sibling
+sphere: care
+sphere_event: war_wounded
+share: 0.03
+once: yes
+earth: your brother or sister comes home from the war with injuries the eye cannot see, and the clinic opens a team just for veterans
+scene: {sibling} has come home from the war with no wound anyone can see. But {sibling} sleeps in the day, starts at loud noises and has stopped seeing old friends. The clinic has opened a team just for veterans, and a letter has come.
+scene W: There is a team for this now, with a referral and a plan. {N} wants {sibling} on it.
+scene U: {N} reads up on what war does to the mind, and finds that it has a name and a treatment.
+scene B: {sibling} will not be pushed. {N} knows the only way is to let {sibling} choose.
+scene R: {N} wants to pull {sibling} out of that shut room and back into life.
+scene G: {N} remembers {sibling} before: the jokes at the table, the long walks. Time and family might bring that back.
+- W | book your sibling into the veterans' team, and go with them to the first session | v: benevolence, security | sphere: care.W | chance: 68
+- U | learn all you can about what your sibling is living through, and how it is treated | v: benevolence, self-direction | mark: learned a skill | sphere: care.U | chance: 72
+- B | tell your sibling the choice is theirs, and leave the clinic's letter on the table | v: self-direction, benevolence | sphere: care.B | chance: 74
+- R | turn up every Saturday and get your sibling out of the house, whatever it takes | v: benevolence, stimulation | sphere: care.R | chance: 69
+- G | let your sibling move back in with the family for a quiet season | v: benevolence, tradition | sphere: care.G | chance: 69
+- BG | tell your sibling plainly that they are not well, and that it is no shame | v: benevolence | sphere: care.BG | chance: 58
+- BR | take your sibling on long rides and loud nights out, the way you used to | v: hedonism, stimulation | sphere: care.BR | chance: 66
+- UR | go along with your sibling to the new therapy the clinic is trying out | v: stimulation, benevolence | tech: modern medicine | sphere: care.UR | chance: 68
+- WG | ask the old friends to visit in turn, so your sibling is never alone long | v: benevolence | sphere: care.GW | chance: 76
+- WU | press the clinic for a proper plan in writing, with dates | v: security, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 60
+works: Slowly, over a year, {sibling} starts to sleep at night and laugh at the table again.
+works: {sibling} sticks with the veterans' team, and one day thanks {N} for that first lift to the clinic.
+fails: {sibling} pulls away from everyone, {N} included, and the letters from the clinic pile up unopened.
+fails: The help {N} pushes for comes slowly, and the strain of waiting falls on the whole family.
+
+# ---------------------------------------------------------------- healer_famed (mixed; pairs D2b)
+
+# world: sphere event healer_famed, selector place, share .05
+== the famous surgeon's two-year list
+tier: life event
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: healer_famed (sphere care). A healer whose new operation makes the news comes a few times in a life (estimate); about 1 in 20 people have a parent whose illness it might help (share .05, estimate)
+likelier: a parent with a rare or stubborn illness, money to travel, a famous hospital within reach
+rarer: a family in good health, a remote place
+tone: mixed
+life: health, family
+horizon: years
+roles: parent, sibling
+who: parent
+sphere: care
+sphere_event: healer_famed
+share: 0.03
+once: yes
+earth: a surgeon on the evening news pioneers a new operation for an illness your parent has, and the waiting list runs two years
+scene: A surgeon on the evening news has pioneered an operation for the very illness {parent} has lived with for ten years. The hospital is three hundred miles away, the fee is high, and the waiting list runs two years.
+scene W: There will be a list and a fair order, and {parent} should be on it like anyone else.
+scene U: {N} finds the surgeon's published results that night: how many cases, how many better, and how many not.
+scene B: {N} wonders whom the surgeon listens to, and whether a well-written letter or a private fee might shorten two years.
+scene R: {N} wants to drive {parent} there tomorrow and knock on the door.
+scene G: {parent} is seventy and settled. {N} wonders if a long journey and a new operation is what {parent} really wants.
+- W | ask your parent's doctor for a referral, and get them on the list properly | v: conformity, benevolence | sphere: care.W | chance: 66
+- U | read the surgeon's results with your parent, and weigh the odds together | v: self-direction, benevolence | sphere: care.U | chance: 67
+- B | write to the surgeon yourself, and offer to pay privately to come sooner | v: power, security | lever: subvert | pushes: institution hospital | sphere: care.B | chance: 72
+- R | drive your parent to the surgeon's open day, and make sure you are both heard | v: stimulation, benevolence | sphere: care.R | chance: 55
+- G | ask your parent what they want, and respect it if the answer is to stay home | v: benevolence, tradition | sphere: care.G | chance: 65
+- RG | help your parent get as fit as they can for the operation while you wait | v: benevolence | sphere: care.RG | chance: 70
+- UB | find a surgeon the famous one trained, nearer home and with a shorter list | v: self-direction | lever: exit | sphere: care.UB | chance: 66
+- UG | ask the doctors what helps in the meantime, and try it patiently at home | v: benevolence, security | sphere: care.GU | chance: 58
+- WB | start a fund in your parent's name to bring the operation to the local hospital | v: benevolence, power | lever: found | pushes: institution hospital | sphere: care.WB | chance: 48
+- WR | volunteer as a driver for patients making the long trip to that hospital | v: benevolence, universalism | sphere: care.RW | chance: 78
+works: The operation, when it comes, gives {parent} back much of what the illness took.
+works: Whether or not {parent} has the operation, the family chooses together and is at peace with it.
+fails: Two years pass on the list, and the surgeon moves abroad before {parent}'s turn comes.
+fails: The journey and the fees drain the savings, and the result is smaller than the news promised.
+
+# ---------------------------------------------------------------- neglect_scandal (bad; pairs D3b)
+
+# world: sphere event neglect_scandal, selector place, share .05
+== the care home on the evening news
+tier: life event
+stages: adult mature elder
+age: 25-90
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: neglect_scandal (sphere care). It answers the world's institution scandal in a house of care, often a C3 cover-up breaking (stage3-rules section 5 C3; the staff's own moment is 'the thing the bosses are hiding'); it reaches those with a parent in that house, about 1 in 20 residents of the place (share .05, estimate)
+likelier: a parent in a care home, a home with thin funds and weak inspection
+rarer: no parent in care, a home with strong inspectors
+tone: trouble
+life: family, community
+horizon: months
+roles: parent, sibling
+who: parent
+sphere: care
+sphere_event: neglect_scandal
+share: 0.03
+once: yes
+earth: hidden camera footage from your parent's care home is on every screen; the owners resign, and the inspectors return
+scene: The care home where {parent} lives is on the evening news: hidden camera footage of call bells left ringing, meals left out of reach, and records filled in for checks never made. The owners have resigned, and the inspectors are back.
+scene W: There are laws for homes like this, and inspectors who were meant to enforce them. {N} wants every broken rule named.
+scene U: {N} goes through {parent}'s own care records page by page, checking them against what {parent} remembers.
+scene B: The owners will want this settled quietly and fast. {N} knows that gives the families some weight.
+scene R: {N} watched the footage once, and drove straight there.
+scene G: {N} thinks only of {parent}, and of getting them home where family can look after them.
+- W | make a formal complaint to the inspectors, and give your evidence to the inquiry | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.W | chance: 70
+- U | check your parent's care records line by line, and report every false entry | v: universalism, self-direction | lever: voice | pushes: institution hospital | sphere: care.U | chance: 74
+- B | join the families' claim against the owners, and hold out for a proper settlement | v: power, security | lever: voice | pushes: institution hospital | sphere: care.B | chance: 65
+- R | drive there tonight, and demand to see your parent's room with your own eyes | v: benevolence, stimulation | sphere: care.R | chance: 72
+- G | take your parent home to live with the family, and care for them yourselves | v: benevolence, tradition | lever: exit | pushes: institution hospital | sphere: care.G | chance: 67
+- BR | turn up at a different hour every day, unannounced, and see for yourself | v: security, stimulation | sphere: care.BR | chance: 80
+- UG | ask your parent gently what their days there were really like, and write it down | v: benevolence, universalism | sphere: care.GU | chance: 76
+- UR | stand up at the public meeting and read out the false entries you found | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution hospital | sphere: care.UR | chance: 56
+- WB | find the best-run home in the region, and pay the fee to move your parent there | v: security, power | lever: exit | pushes: institution hospital | sphere: care.WB | chance: 70
+- WG | join the families' group that sits in on the new inspections | v: universalism, benevolence | lever: voice | pushes: institution hospital | sphere: care.GW | chance: 70
+works: The inquiry hears the families, and the home reopens under new hands and stricter checks.
+works: {parent} is safe and settled, and {N} knows exactly who looks after them now.
+fails: The inquiry drags on for years, and the owners open a new home under a new name.
+fails: The move is hard on {parent}, and {N} wonders for a long time whether it was the kindest choice.

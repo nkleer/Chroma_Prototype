@@ -1,0 +1,184 @@
+# Chroma Library, modern Earth: insight moments, where a long curiosity pays off (next version, after v22).
+# Library thread, 2026-10-09. Design: chroma-ideas/curious-life.md, item C5 ("Rare moments where long curiosity pays
+# off: it finally makes sense, a discovery, the problem nobody else could solve"). They are the pay-off of "a curiosity
+# that will not let go" in earth-inner.lib. Rare by design; spread over life: one young, two adult, two late.
+# The options are what the character does with the insight, one fair way per colour: share it (W), keep it a while to
+# savour and perfect (U), use it to get ahead (B), act on it boldly (R), let it settle and grow (G).
+# Chances: every one-colour option 65, every cross option 60, so the part is colour-even on its own. Cross cycles:
+# s1, s2, s3, s4, then s1 again. Values: self-direction for the learning acts, universalism where the act is
+# understanding for its own sake. No colour is named in player text.
+
+== the night it all clicks
+tier: inner
+stages: juvenile, young_adult
+age: 14-30
+tone: joy
+life: school, study
+horizon: week
+roles: mentor, friend
+earth: after years of not quite getting it, a hard subject suddenly falls into place, all at once
+requires: U above .25 held for four years or more, or a mark 'learned a skill' with four years in the same subject; at most once every six years; rare (about 1 life in 15)
+likelier: a subject studied long and stubbornly; a patient teacher or mentor; much Blue in the color history; a secure home with time to study
+rarer: stress above 1.5; school left early; a life with no quiet hours
+times: Rare, about 1 life in 15, in the school and student years (estimate)
+gap: 6-20
+scene: {N} has been stuck on it for years: the maths, the chords, the grammar that never sat right. Tonight, halfway through an ordinary page, it all falls into place at once, and {N} sits very still so as not to lose it.
+scene W: All those dull evenings of doing it properly, step by step, were not wasted after all. They were the steps.
+scene U: {N} can see the whole of it now, every piece where it belongs, and the parts that were never explained explain themselves.
+scene B: Everyone else in the class still finds this hard. {N} does not, not any more, and {N} knows exactly what that is worth.
+scene R: {Ns} heart is racing. {N} wants to shout, to run, to try the hardest thing in the book right now.
+scene G: It came the way spring comes, slowly and then all at once. {N} wants to sit in it a while before doing anything.
+- W | show the others who are still stuck, step by step, the way it finally made sense | v: benevolence, universalism | chance: 65
+- U | keep it to yourself tonight, and go back over every page just to enjoy it | v: universalism, self-direction | chance: 65
+- B | use it to jump ahead: sign up for the top set and the hardest exam | v: achievement, self-direction | chance: 65
+- R | stay up all night and attempt the hardest problems in the book | v: stimulation, self-direction | chance: 65
+- G | close the book, sleep on it, and let it settle before going further | v: self-direction, security | chance: 65
+- W>U | ask {mentor} for the proper next course, and follow it from the beginning | v: self-direction, conformity | mark: learned a skill | chance: 60
+- U>B | work out exactly which doors this opens, and plan how to walk through them | v: achievement, self-direction | chance: 60
+- B>R | tutor others for money, and spend it on a weekend away | v: achievement, hedonism | chance: 60
+- R>G | run and tell {mentor} at once, who always said it would come | v: benevolence, stimulation | chance: 60
+- G>W | quietly help a younger pupil over the same wall, the way {mentor} did | v: benevolence, tradition | chance: 60
+works: {N} carries the feeling for weeks, and the next hard thing looks less like a wall.
+works: {mentor} notices the change within days, and starts giving {N} the harder work.
+fails: By morning half of it has slipped away, and {N} has to win it back slowly.
+fails: {N} rushes ahead on the strength of it, and hits the next wall hard.
+
+== the fault nobody else could find
+tier: inner
+stages: adult, mature
+age: 26-65
+tone: joy
+life: work
+horizon: week
+roles: boss, colleague
+earth: a fault at work has beaten everyone for weeks, and in the middle of the night you see what it is
+requires: U above .25 held for eight years or more, or a mark 'learned a skill' with ten years in the same field; at most once every six years; rare (about 1 life in 15)
+likelier: a technical trade or a job with machines, systems or numbers; years in the same field; much Blue in the color history
+rarer: a job changed every year or two; stress above 1.5; work with no problems to solve
+times: Rare, about 1 life in 15, in the working years (estimate)
+gap: 6-20
+scene: For six weeks the line at work has stopped every afternoon, and three outside experts have given up. At two in the morning, half asleep, {N} sees it: the cause is something so small nobody thought to look.
+scene W: {N} has always checked things in the proper order, every time. That habit is the only reason the answer was there to see.
+scene U: It fits. Every odd detail of the last six weeks fits, and {N} lies awake turning it over just for the pleasure of it.
+scene B: The experts were paid a fortune and went home. {N} is about to be the one who fixed it.
+scene R: {N} is out of bed and half dressed before thinking about it. The answer will not wait till morning.
+scene G: {N} has listened to that line for years, the way a farmer listens to the weather. It finally told {N} what was wrong.
+- W | write it up plainly for the whole team, so nobody is stuck on it again | v: universalism, benevolence | chance: 65
+- U | test it quietly on your own first, for the sheer pleasure of being sure | v: universalism, self-direction | chance: 65
+- B | take it to {boss} yourself, and make sure your name is on the fix | v: achievement, power | chance: 65
+- R | go in at dawn, open the thing up, and fix it before anyone arrives | v: stimulation, self-direction | chance: 65
+- G | sleep on it, and check it against the long years of experience in the morning | v: self-direction, security | chance: 65
+- W>B | report it through the proper channels, and ask for the promotion it deserves | v: achievement, conformity | chance: 60
+- U>R | treat it as a game, and go looking for the next puzzle nobody can crack | v: stimulation, self-direction | chance: 60
+- B>G | use the credit to protect the team's jobs when the next cuts come | v: benevolence, power | chance: 60
+- R>W | tell {colleague} the moment they arrive, and fix it together, loudly | v: benevolence, stimulation | chance: 60
+- G>U | keep a notebook of how the answer came, and read it back each year | v: self-direction | mark: learned a skill | chance: 60
+works: The line runs clean by Monday, and people start bringing {N} the problems nobody else can crack.
+works: {boss} asks how {N} saw it, and listens to the whole answer.
+fails: Nobody quite believes it at first, and by the time they do the credit has gone elsewhere.
+fails: It fixes most of the fault but not all of it, and the last part takes another month.
+
+== a pattern in years of notes
+tier: inner
+stages: adult, mature
+age: 30-70
+tone: joy
+life: leisure, nature
+horizon: months
+roles: friend
+earth: laying out years of patient notes side by side, you see a pattern in them that nobody has written about
+requires: U above .25 held for eight years or more, or a mark 'learned a skill' with ten years in the same field or pastime; at most once every six years; rare (about 1 life in 15)
+likelier: a long hobby of watching, counting or recording; notes kept for many years; much Blue or Green in the color history
+rarer: a life that moves often; no pastime kept for long; stress above 1.5
+times: Rare, about 1 life in 15, in adult and middle life (estimate)
+gap: 6-20
+scene: For eleven years {N} has noted the birds at the feeder every morning, for no reason anyone else could see. Tonight, laying the years side by side, {N} sees a pattern in them that nobody has written about.
+scene W: {N} kept the notes because a thing worth doing is worth doing properly, every day, without fail. Now the days add up to something.
+scene U: There it is, plain once seen: the first arrivals come a little earlier each spring. {N} checks it five times and it holds.
+scene B: Eleven years nobody else bothered with, and now {N} holds something no one else has. That is worth something.
+scene R: {N} laughs out loud, alone at the kitchen table, and wants to wake the whole street.
+scene G: The birds were telling it all along, a little each year. {N} only had to keep listening long enough.
+- W | send the notes to the society that keeps the records, so anyone can use them | v: universalism, benevolence | chance: 65
+- U | keep the pattern to yourself a while, and go back through every page to savour it | v: universalism, self-direction | chance: 65
+- B | write it up under your own name, and pitch it to people who could fund more | v: achievement, power | chance: 65
+- R | post it online tonight, rough as it is, and see who answers | v: stimulation, self-direction | chance: 65
+- G | keep watching another year, and let the pattern prove itself in its own time | v: universalism, security | chance: 65
+- W>R | give a talk at the library, and enjoy every question from the floor | v: stimulation, universalism | chance: 60
+- U>G | teach {friend} the method, so the watching goes on for years to come | v: benevolence, tradition | chance: 60
+- B>W | use your new standing to get the feeding ground protected by the council | v: universalism, power | chance: 60
+- R>U | buy a better lens on the spot, and start noting three new things at once | v: stimulation, self-direction | mark: learned a skill | chance: 60
+- G>B | keep the notebooks safe, and let the years make them worth more | v: security, achievement | chance: 60
+works: A researcher writes back within the month, and {Ns} eleven years of mornings turn out to matter.
+works: {friend} starts keeping notes too, and the two of them compare pages every Sunday.
+fails: Someone has found it already, and {N} learns it from a footnote.
+fails: The pattern fades in the next year's notes, and {N} cannot tell whether it was ever there.
+
+== a creature in none of the books
+tier: inner
+stages: mature, elder
+age: 45-95
+tone: joy
+life: leisure, nature
+horizon: months
+roles: friend
+earth: on a shore you have walked for twenty years, you find a small creature that is in none of your books
+requires: U above .25 held for eight years or more, or a mark 'learned a skill' with ten years in the same field or pastime; at most once every six years; rare (about 1 life in 15)
+likelier: a long habit of walking, collecting or looking closely at one place; retirement with free days; much Blue or Green in the color history
+rarer: poor health or mobility; a life spent indoors; a recent move
+times: Rare, about 1 life in 15, in middle and later life (estimate)
+gap: 6-20
+scene: {N} has walked the same stretch of shore with a hand lens for twenty years. Today, in a rock pool at low tide, there is a small creature that is in none of {Ns} books.
+scene W: {N} knows how these things should be done: careful notes, the exact place, the proper people told. {Ns} hands are steady.
+scene U: {N} goes through every book twice in {Ns} head, then once more. It is not there. It is new, at least to this shore.
+scene B: Finds like this get names, and names last. {N} would very much like {Ns} own to be the one that lasts.
+scene R: {N} is on {Ns} knees in the cold water and does not care. Something new, here, today.
+scene G: Twenty years of patience, and the shore has shown {N} one more of its secrets. {N} feels oddly honoured.
+- W | report it to the museum properly, with notes, a photo and the exact place | v: universalism, conformity | chance: 65
+- U | sit by the pool for hours, watching it, and keep the find to yourself for now | v: universalism, self-direction | chance: 65
+- B | find out who would pay to study it, and put your own name to the find | v: achievement, power | chance: 65
+- R | wade out at every low tide that week, in any weather, to look for more | v: stimulation | chance: 65
+- G | leave it where it lives, and come back each week to see how it fares | v: universalism, tradition | chance: 65
+- W>G | ask the council to protect the shore, so whatever lives there stays | v: universalism, security | chance: 60
+- U>W | write a plain guide to the shore's small creatures for the village school | v: benevolence, universalism | chance: 60
+- B>U | trade years of notes for a place on a proper survey team | v: achievement, self-direction | mark: learned a skill | chance: 60
+- R>B | ring the local paper today, and tell the story in your own words | v: self-direction, achievement | chance: 60
+- G>R | take {friend} down to the pool at dawn, and share the wonder of it quietly | v: hedonism, benevolence | chance: 60
+works: The museum writes back with real excitement, and the find is recorded with {Ns} name beside it.
+works: {N} goes back to the shore every week after that, and sees it with new eyes.
+fails: It turns out to be known after all, from far away, and only new to this shore.
+fails: The next storm reworks the pools, and {N} never finds another.
+
+== an answer sixty years late
+tier: inner
+stages: elder
+age: 60-110
+tone: joy
+life: nature, family, memory
+horizon: week
+roles: friend
+earth: a question you asked as a small child, and nobody could answer, is answered at last
+requires: U above .25 held for eight years or more, or a mark 'learned a skill' with ten years in the same field; and a curiosity that would not let go met before the age of 15; at most once every six years; rare (about 1 life in 15)
+likelier: a childhood in one place; a life of reading; free time in old age; much Blue in the color history
+rarer: memory failing; stress above 1.5; a life cut off from books and news
+times: Rare, about 1 life in 15, in old age (estimate)
+gap: 6-20
+scene: At seven, {N} asked where the swallows go in winter, and nobody knew. Today a record of a bird ringed in this very village shows the whole road, over sea and desert, and back to the same barn.
+scene W: {N} was told at seven that some things are not for children to know. It turns out somebody did the patient work of finding out.
+scene U: Sixty years, and the question is closed. {N} reads the record three times, slowly, and feels it click shut like a well-made box.
+scene B: {N} always meant to find out for {Ns} own satisfaction. Somebody got there first, but {N} is the one who knows what it means here.
+scene R: {N} feels seven again, all at once, wanting to run out to the barn and shout the news to the birds.
+scene G: The same birds, the same barn, the same road through the sky, year after year since before {N} was born. {N} sits with that for a long while.
+- W | tell the story at the village hall, so the children grow up knowing | v: benevolence, universalism | chance: 65
+- U | read everything there is on it, slowly, for the pure joy of a question closed | v: universalism, self-direction | mark: learned a skill | chance: 65
+- B | write a small book on the village swallows, and sell it in the shop | v: achievement, self-direction | chance: 65
+- R | go and see the barn the bird came back to, today, whatever it takes | v: stimulation, hedonism | chance: 65
+- G | sit by the barn at dusk all summer, watching them come and go | v: universalism, tradition | chance: 65
+- W>U | join the bird ringing group, and learn to do the work properly | v: self-direction, conformity | chance: 60
+- U>B | turn the records into a map nobody else has, and sell the prints | v: achievement, self-direction | chance: 60
+- B>R | spend some savings on a trip to see where the swallows winter | v: stimulation, hedonism | chance: 60
+- R>G | ring the old friends from school, every one, and tell them the answer | v: benevolence, stimulation | chance: 60
+- G>W | ask the farmer to keep the barn open for the birds, as it always was | v: universalism, tradition | chance: 60
+works: {N} feels seven years old for an afternoon, and it is a very good afternoon.
+works: The answer brings new questions, and {N} finds that is the best part.
+fails: Nobody else is quite as moved as {N}, and for a while the joy is a lonely one.
+fails: The records stop halfway, and the last stretch of the road stays a mystery.

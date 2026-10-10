@@ -779,6 +779,46 @@ works: The choice opens doors {N} did not know were there, and the first months 
 fails: The choice goes wrong in the first months, and {N} wonders, on bad nights, about the other road.
 fails: The paperwork drags on for months, and {N} spends the summer stuck between two lives.
 
+# ---------------------------------------------------------------- soldier by call-up, the end of the term (tenure 1-2): inner, even (cycle s1)
+# The "v22" update, A16 (Library, 2026-10-09): [national service done]. Gate for the Engine (earth_rules.py, by name):
+# only a [soldier] whose service began with one of the serving options of 'the call to serve'.
+
+== the last parade of national service
+tier: inner
+at: army
+stages: young_adult adult
+age: 19-32
+holds: soldier
+tenure: 1-2
+once: yes
+tone: joy
+life: work, home
+horizon: week
+roles: colleague, parent, friend, the other conscripts
+requires: holds [soldier] for a year or more, and the service began with a serving option of 'the call to serve' (gated by name in earth_rules.py); once a life
+earth: the last parade of your national service: the kit handed in, the papers signed, and the gate open
+times: Every conscript who serves a full term, once, at the end of it; terms run from about nine months to two years where service is compulsory (estimate)
+scene: The kit is folded on the bed for the last time and the discharge papers wait on the office desk. Outside the gate, {parent} has been parked since seven.
+scene W: {N} served the term the law asked, every day of it. There is a quiet pride in handing back the kit clean and complete.
+scene U: {N} counts what the year taught: a map, a radio, a first-aid kit, and how people behave when they are tired and cold.
+scene B: The sergeant has hinted that a good conscript could sign on as a regular, with a stripe and better pay from the first month.
+scene R: {N} has been counting down the days on the locker door, and today the count reaches zero.
+scene G: The section has been a family for a year. Tomorrow they scatter back to a dozen towns, and {N} is not sure how to say goodbye.
+- W | march the last parade, hand in the kit, and go home proud | v: conformity, tradition | drops: soldier | title: national service done | chance: 85
+- U | ask for a reference listing every course you passed, then go home | v: achievement, self-direction | drops: soldier | title: national service done | chance: 85
+- B | sign on as a regular, for the stripe and the better pay | binds | v: achievement, power | chance: 85
+- R | throw your cap over the gate and head straight out with the others | v: hedonism, stimulation | drops: soldier | title: national service done | act: throw the cap over the gate and head straight out with the others | chance: 85
+- G | go back to the town and the work you left, and pick up where you were | v: tradition, security | drops: soldier | title: national service done | mark: came home | chance: 85
+- W>U | write down what the term taught, for the next intake, before you go | v: benevolence, achievement | act: write down what the term taught, for the next intake, before leaving | drops: soldier | title: national service done | chance: 80
+- U>B | sign on for two more years, to learn a trade the army pays for | v: achievement, security | chance: 80
+- B>R | take the leaving pay, and spend it on a trip with the section | v: hedonism | drops: soldier | title: national service done | chance: 80
+- R>G | walk home the long way, through the hills, before facing anyone | v: self-direction | drops: soldier | title: national service done | chance: 80
+- G>W | promise the section a reunion every year, and keep it | v: benevolence, tradition | drops: soldier | title: national service done | mark: kept your word | chance: 80
+works: {N} walks out of the gate a different person from the one who walked in, and knows it.
+works: The year settles into a story {N} tells, and a few friends who stay for life.
+fails: The papers are lost in the office, and {N} spends another fortnight in a barrack room waiting for them.
+fails: Home feels smaller than it did, and for a while {N} does not quite fit back in.
+
 # ---------------------------------------------------------------- soldier, senior (tenure 8-60): calls WR (cycle s4)
 
 == a section of nineteen-year-olds

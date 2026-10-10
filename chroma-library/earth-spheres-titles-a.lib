@@ -1,0 +1,607 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, title moments of sphere titles set a. Library thread,
+# 2026-10-09, "v22" update stage 4, item 15 (chroma-packs/spheres/title-gaps.md, "The 28 new titles").
+# An everyday pair per new title of titles.py (lay judge, paralegal, lawyer, mediator, community centre manager,
+# events promoter, DJ) that only its holder meets (holds:), in the style of earth-titles-careers.lib: the first moment
+# grows from the title's turning point, the second is a later stretch of the same post.
+# Syntax: header of build.py. Rules: SPEC.md. Every moment carries sphere: <sphere>, every option the face it acts in
+# (a cross option X>Y the means colour's face). ladder: is the rung the title sits on in its face's ladder
+# (character.jobs, read rung by rung); haunt: where the post is done at a haunt among its regulars.
+# Evenness: every one-colour option has chance 75 and every cross option 65, so each colour's mean is the same.
+# Pairs (complementary calls; cross cycles s1 x4, s2 x4, s3 x3, s4 x3):
+#   lay judge  WU (s1) / BRG (s2)     paralegal  UB (s3) / WRG (s4)     lawyer  UR (s1) / WBG (s2)
+#   mediator   GW (s3) / UBR (s4)     community centre manager  WR (s1) / UBG (s2)
+#   events promoter  BG (s3) / WUR (s4)     DJ  BR (s1) / WUG (s2)
+# holds: names the new titles, which are not yet in earth_perks_titles.py (they wait for NEW_TITLES to be merged).
+# Nightlife moments (events promoter, DJ) start at 18, young_adult.
+
+# ================================================================ lay judge (rule.W)
+
+# ---------------------------------------------------------------- everyday, calls WU (cycle s1); partner: a known name on the morning list
+
+== the fine she could not pay
+tier: everyday
+sphere: rule
+ladder: pillar
+at: court
+rate: 0.5
+share: .0025
+stages: young_adult adult mature elder
+age: 25-75
+calls: WU
+holds: lay judge
+tone: trouble
+life: work, community
+horizon: moment
+roles: colleague
+earth: on the bench as a lay judge, a young mother stands before you for a fine she could not pay, and the list is long
+times: Most lay judges, a few times a year; unpaid fines are among the commonest cases before a lay bench (estimate)
+gap: 0.5-1
+scene: {N} sits in the middle of three lay judges. A young mother stands before the bench for a fine she could not pay, now doubled. {colleague} glances at the clock: twelve cases to go before lunch.
+scene W: {N} swore to hear every case to the end, the small ones too. The rule sets the penalty, and it also lets the bench ask why.
+scene U: {N} reads the file again: the first fine was for a bus ticket, and every letter went to an old address.
+scene B: The chair of the bench retires this year, and the court will remember who kept the list moving.
+scene R: Her hands are shaking on the rail. {N} wants to stop the whole thing and just talk to her like a person.
+scene G: {N} knows her street, and how a debt like this grows in a family that never had one before.
+- W | ask her plainly why the fine went unpaid, and hear the whole answer | v: universalism, benevolence | sphere: rule.W | chance: 75
+- U | point out to the bench that the letters went to the wrong address | v: universalism, achievement | sphere: rule.U | chance: 75
+- B | agree the usual order quickly, and keep the list and the chair happy | v: conformity, security | sphere: rule.B | chance: 75
+- R | say out loud that doubling a bus fine helps no one | v: self-direction, universalism | lever: voice | sphere: rule.R | chance: 75
+- G | ask whether her family could help her pay it in small weekly sums | v: benevolence, tradition | sphere: rule.G | chance: 75
+- W>U | follow the guidance to the letter and work out what she can truly afford | v: conformity, universalism | sphere: rule.W | chance: 65
+- U>B | find the rule that lets the court cancel the extra, and cite it | v: achievement, power | sphere: rule.U | chance: 65
+- B>R | win the chair round over the papers before the bench votes | v: power, benevolence | sphere: rule.B | chance: 65
+- R>G | catch her after court and give her the number of the free advice desk | v: benevolence, stimulation | sphere: rule.R | chance: 65
+- G>W | follow the bench's old custom: adjourn a week so she can bring help | v: tradition, universalism | sphere: rule.G | chance: 65
+works: The bench cancels the extra and sets a small weekly sum, and the woman breathes out at the rail.
+works: Weeks later the court office tells {N} that the fine has been paid in full.
+fails: The bench is split, the doubled fine stands, and she leaves without looking up.
+fails: {colleague} tells the chair that {N} held up the list, and the next rota puts {N} on the quiet days.
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s2); partner: the fine she could not pay
+
+== a known name on the morning list
+tier: everyday
+sphere: rule
+ladder: pillar
+at: court
+rate: 0.5
+share: .002
+stages: young_adult adult mature elder
+age: 25-75
+calls: BRG
+holds: lay judge
+tone: trouble
+life: work, community
+horizon: week
+roles: colleague
+earth: the son of a well-known local man is before your bench for drink-driving, and the chair of the bench plays golf with his father
+times: Most lay judges in a small town, once or twice in their years on the bench; in a small place the bench often knows the families before it (estimate)
+gap: 1-3
+scene: The next case is a drink-driving charge, and the name is one the whole town knows: the son of the man who owns the builders' yard. Over coffee, the chair of the bench mentioned playing golf with his father.
+scene W: The oath was to hold the strong to the same rule as the weak. Last month this bench banned a delivery driver for the same thing.
+scene U: {N} checks the reading in the file: just over the limit, and the machine was due for its yearly test that week.
+scene B: The father sponsors half the clubs in town, and a lay judge who crosses him may find a few doors closed.
+scene R: {N} feels the heat rise: the young man is grinning at his friends in the public seats.
+scene G: The family have run that yard for three generations, and the grandfather taught half the town to drive, {N} included.
+- W | give him exactly the ban the delivery driver got last month | v: universalism, conformity | sphere: rule.W | chance: 75
+- U | ask the prosecution for the machine's test record before deciding anything | v: universalism, achievement | sphere: rule.U | chance: 75
+- B | let the chair lead, and stay on good terms with the family | v: security, power | sphere: rule.B | chance: 75
+- R | tell the chair, there and then, to step aside from this case | v: self-direction, universalism | lever: voice | sphere: rule.R | chance: 75
+- G | stand down from the case yourself, since you know the family | act: stand down from the case, since they know the family | v: tradition, conformity | lever: exit | sphere: rule.G | chance: 75
+- W>B | ask the court's legal adviser, on the record, whether the chair should sit | v: conformity, power | sphere: rule.W | chance: 65
+- U>R | lay the two cases side by side and read the dates aloud in court | v: universalism, stimulation | sphere: rule.U | chance: 65
+- B>G | settle it quietly among the three of you in the back room | act: settle it quietly among the three of them in the back room | v: security, tradition | sphere: rule.B | chance: 65
+- R>W | report the chair's golf remark to the bench's training officer | v: universalism | lever: voice | sphere: rule.R | chance: 65
+- G>U | ask the longest-serving lay judges how the bench handled a case like this before | v: tradition, universalism | sphere: rule.G | chance: 65
+works: The young man gets the same ban as the delivery driver, and the town hears about it by evening.
+works: Another bench takes the case, and no one can say afterwards that it was settled over golf.
+fails: The case is put off twice, and by the summer the young man is driving again.
+fails: The father stops nodding to {N} in the street, and a club drops {Ns} name from its dinner list.
+
+# ================================================================ paralegal (rule.U)
+
+# ---------------------------------------------------------------- everyday, calls UB (cycle s3); partner: the shoebox at the advice evening
+
+== the appeal form on the paralegal's desk
+tier: everyday
+sphere: rule
+ladder: regular
+at: employer
+rate: 0.5
+share: .005
+stages: young_adult adult mature elder
+age: 18-70
+calls: UB
+holds: paralegal
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague
+earth: a family's appeal against eviction must be in by tomorrow, the lawyer who should sign it is away, and the form is on your desk
+times: Most paralegals, about once a year; a missed signature before a filing deadline is a routine trouble of a busy legal office (estimate)
+gap: 0.8-1
+scene: A family's appeal against eviction must reach the tribunal by four tomorrow. The lawyer who should sign it is away and not answering. The finished form is on {Ns} desk.
+scene W: A paralegal may not sign for a lawyer. The rule is there to protect clients like this one.
+scene U: {N} knows that tribunal's rules better than most of the firm, and there may be a way to ask for more time that nobody uses.
+scene B: {boss} has said that a paralegal who saves a case gets noticed when the training places are handed out.
+scene R: The family's eldest daughter has rung twice this morning, and {N} can still hear her voice.
+scene G: {N} grew up four streets from that family's flat, and the whole block is watching how this goes.
+- W | ring every partner in the firm until one agrees to sign today | v: conformity, benevolence | sphere: rule.W | chance: 75
+- U | file the tribunal's little-known request for extra time | v: achievement | sphere: rule.U | chance: 75
+- B | take it to the office head, making sure they know who did the work | v: achievement, power | sphere: rule.B | chance: 75
+- R | drive the form to the tribunal yourself and ask the desk to hold it | act: drive the form to the tribunal and ask the desk to hold it | v: stimulation, benevolence | sphere: rule.R | chance: 75
+- G | ask the family's own advice centre whether one of its lawyers can sign | v: benevolence, tradition | sphere: rule.G | chance: 75
+- W>R | stay on the phone to the tribunal until a clerk agrees to hold the case | v: conformity, stimulation | sphere: rule.W | chance: 65
+- U>G | write the family a plain letter on what happens if the form is late | v: benevolence, universalism | sphere: rule.U | chance: 65
+- B>W | get the senior partner to sign it, and note that it was their choice | v: security, conformity | sphere: rule.B | chance: 65
+- R>U | read the tribunal rules through the night for any way to file it unsigned | v: stimulation, achievement | sphere: rule.R | chance: 65
+- G>B | ask the old partner who knew the family's late father to sign it as a favour | v: tradition, power | sphere: rule.G | chance: 65
+works: The appeal reaches the tribunal with an hour to spare, and the family stay in the flat for now.
+works: {boss} hears how the deadline was saved and puts {Ns} name down for the next training place.
+fails: The form arrives a day late, and the tribunal will not hear the appeal.
+fails: The tribunal writes to the firm about how the form was filed, and {boss} blames {N}.
+
+# ---------------------------------------------------------------- everyday, calls WRG (cycle s4); partner: the appeal form on the paralegal's desk
+
+== the shoebox at the advice evening
+tier: everyday
+sphere: rule
+ladder: regular
+at: employer
+rate: 0.5
+share: .004
+stages: young_adult adult mature elder
+age: 18-70
+calls: WRG
+holds: paralegal
+tone: mixed
+life: work, community
+horizon: months
+roles: boss, grandparent
+earth: every week an old man brings a shoebox of unopened letters to the free advice evening you staff, and the firm allows twenty minutes a client
+times: Most paralegals who staff an advice desk, for some months of their years there; the same few clients come back week after week (estimate)
+gap: 1-3
+scene: On the firm's free advice evening {N} sees a client every twenty minutes. Every week the same old man comes with a shoebox of letters about his pension, most of them never opened.
+scene W: The twenty minutes are the rule so that everyone in the queue is seen. Tonight the queue is out of the door.
+scene U: Somewhere in that box is the letter that explains the whole thing, and {N} has not had the time to find it.
+scene B: The firm runs the evening for its good name, and {boss} counts clients seen, not problems solved.
+scene R: The man says sorry every week for being a nuisance, and every week it gets harder to send him home.
+scene G: He reminds {N} of {grandparent}, who also kept every letter in a box and opened none of them.
+- W | keep to his twenty minutes, and book him in again for next week | v: conformity, universalism | sphere: rule.W | chance: 75
+- U | take the box home for a night and sort the letters by date | v: achievement, benevolence | sphere: rule.U | chance: 75
+- B | refer him to a paid service, so the evening moves faster | v: achievement, security | sphere: rule.B | chance: 75
+- R | stay past closing and go through the whole box with him tonight | v: benevolence, stimulation | sphere: rule.R | chance: 75
+- G | ask whether a son or daughter could come along with him next time | v: benevolence, tradition | sphere: rule.G | chance: 75
+- W>G | ask the firm to give him a regular slot of his own each month | v: benevolence, conformity | sphere: rule.W | chance: 65
+- U>W | write him a one-page list of what to bring and in what order | v: universalism | sphere: rule.U | chance: 65
+- B>U | tell the office head the case could bring a paying claim, and ask for hours | v: power, achievement | sphere: rule.B | chance: 65
+- R>B | ring the pension office from the desk and refuse to hang up until someone helps | v: stimulation, power | sphere: rule.R | chance: 65
+- G>R | walk him to the bus with his box and promise to see it through | v: benevolence, tradition | sphere: rule.G | chance: 65
+works: In the box is the letter that explains everything, and his pension is put right by the spring.
+works: The old man brings {N} a cake to the next advice evening, and the whole queue claps.
+fails: The box goes back and forth for months, and nothing in it is ever settled.
+fails: {boss} sees the hours on the sheet and tells {N} the advice evening is not a charity.
+
+# ================================================================ lawyer (rule.U)
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the partnership and the legal aid day
+
+== the copy in the client's own file
+tier: everyday
+sphere: rule
+haunt: rule.counsel
+ladder: known
+at: court
+rate: 0.5
+share: .005
+stages: young_adult adult mature elder
+age: 23-80
+calls: UR
+holds: lawyer
+tone: trouble
+life: work
+horizon: week
+roles: boss, mentor
+earth: the firm's best client swears a contract was lost years ago, and in the client's own old file is a copy that would sink their case
+times: Most lawyers who argue cases, once or a few times in a career; a client's own papers that hurt their case are a classic test of a lawyer's duty to the court (estimate)
+gap: 2-6
+scene: The firm's best client swears in writing that the contract was lost years ago. In the client's own old file, in {Ns} desk drawer, is a copy that would sink their case. The hearing is on Monday.
+scene W: A lawyer may fight hard for a client but may never let the court be misled. {N} took an oath on that.
+scene U: {N} reads the copy twice: one clause in small print decides the whole dispute.
+scene B: The client brings the firm more work than anyone, and {boss} has made it plain who keeps the partners paid.
+scene R: The other side is a small family firm, and {N} can picture their faces on Monday if the copy stays in the drawer.
+scene G: {mentor}, who trained {N}, used to say that a lawyer has only one thing to sell, and that is a good name.
+- W | tell the client the copy must go to the other side before Monday | v: universalism, conformity | sphere: rule.W | chance: 75
+- U | read the clause closely and build the best honest case that survives it | v: achievement | sphere: rule.U | chance: 75
+- B | say nothing unless the court asks, and let the client carry the risk | v: power, security | closed: approval: keeping back a document the court should see; backfire: the copy turns up and the court asks who knew | mark: hid a wrong | sphere: rule.B | chance: 75
+- R | ring the client tonight and tell them straight that a lie will lose | v: self-direction, universalism | sphere: rule.R | chance: 75
+- G | ask your old trainer over supper what they would have done | act: ask their old trainer over supper what they would have done | v: tradition | sphere: rule.G | chance: 75
+- W>U | write the client a careful letter setting out their duty to the court | v: conformity, universalism | sphere: rule.W | chance: 65
+- U>B | advise the client to settle now, before the copy can hurt them | v: security, achievement | sphere: rule.U | chance: 65
+- B>R | threaten to drop the client unless they agree to come clean | v: power, self-direction | sphere: rule.B | chance: 65
+- R>G | give up the case rather than stand up in court for a lie | v: self-direction, tradition | lever: exit | sphere: rule.R | chance: 65
+- G>W | hand the copy to the senior partner and let the firm decide as a firm | v: tradition, conformity | sphere: rule.G | chance: 65
+works: The client agrees to settle, grumbling, and the firm's name stays clean.
+works: The judge never learns how close it came, and {mentor} sends {N} a short note: well done.
+fails: The client moves all their work to another firm, and {boss} asks {N} to explain why.
+fails: The copy turns up at the hearing anyway, and the judge's questions land on {N}.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: the copy in the client's own file
+
+== the partnership and the legal aid day
+tier: everyday
+sphere: rule
+haunt: rule.counsel
+ladder: known
+at: court
+rate: 0.5
+share: .003
+stages: young_adult adult mature elder
+age: 23-80
+calls: WBG
+holds: lawyer
+tone: mixed
+life: work, community
+horizon: years
+roles: boss, colleague
+earth: the firm offers you a partnership, on condition that you give up the low-paid legal aid cases you have taken for years
+times: Some lawyers, once in a career; legal aid work pays far below private rates, and firms weigh it against their profits (estimate)
+gap: 3-10
+scene: The partners offer {N} a share in the firm at last. There is one condition: {N} must give up the legal aid cases, which pay a third of the going rate and fill a day a week.
+scene W: Everyone has the right to a lawyer, and on legal aid day {N} is often the only one who will take the case.
+scene U: {N} has run the numbers twice: the legal aid day loses the firm money, but it is where {N} learned most of what {N} knows.
+scene B: A partnership means a share of the profits, a name on the door and a say in who is hired.
+scene R: The partners talk about the legal aid clients as if they were a bad smell, and it makes {N} want to walk out.
+scene G: Half the town's families have come through {Ns} door on legal aid day, and now they send their children too.
+- W | keep the legal aid day, and turn the partnership down | v: universalism, benevolence | mark: turned down a chance | sphere: rule.W | chance: 75
+- U | show the partners how many paying clients the legal aid day brings in | v: achievement | sphere: rule.U | chance: 75
+- B | take the partnership and hand the legal aid list to a junior | v: power, achievement | sphere: rule.B | chance: 75
+- R | tell the partners what you think of the condition, and leave for a smaller firm | act: tell the partners what they think of the condition, and leave for a smaller firm | v: self-direction | lever: exit | sphere: rule.R | chance: 75
+- G | ask the families who rely on you, and only then decide | act: ask the families who rely on them, and only then decide | v: tradition, benevolence | sphere: rule.G | chance: 75
+- W>B | accept, and write the legal aid day into the partnership terms | v: power, universalism | sphere: rule.W | chance: 65
+- U>R | set up an evening clinic of your own outside the firm | act: set up an evening clinic of their own outside the firm | v: self-direction, achievement | lever: found | sphere: rule.U | chance: 65
+- B>G | take the share, and quietly keep a few old families on as private favours | v: power, benevolence | sphere: rule.B | chance: 65
+- R>W | raise the condition at the partners' meeting in front of everyone | v: universalism | lever: voice | sphere: rule.R | chance: 65
+- G>U | ask the retired founder of the firm what the legal aid day was for | v: tradition | sphere: rule.G | chance: 65
+works: The partners give way, and {Ns} name goes on the door with the legal aid day still in the diary.
+works: Years later, a family {N} helped on legal aid sends their eldest to {N} to train.
+fails: The partnership goes to {colleague}, and {N} stays where {N} was for another five years.
+fails: The legal aid list goes to a junior who cannot keep up, and the families stop coming.
+
+# ================================================================ mediator (rule.G)
+
+# ---------------------------------------------------------------- everyday, calls GW (cycle s3); partner: the agreement the firm already wrote
+
+== two old friends split the building firm
+tier: everyday
+sphere: rule
+ladder: pillar
+rate: 0.5
+share: .0004
+stages: young_adult adult mature elder
+age: 25-80
+calls: GW
+holds: mediator
+tone: mixed
+life: work
+horizon: moment
+roles: colleague
+earth: two partners, friends since school, are splitting up their building firm, and each wants the van, the name and the customers
+times: Most mediators of business disputes, a few times a year; small partnerships often end in a quarrel over the shared assets (estimate)
+gap: 0.5-1
+scene: Two partners sit at {Ns} table to split up the building firm they started together. Each wants the van, the firm's name and the customers. Their wives and brothers are waiting in the corridor.
+scene W: {N} promised both men the same hearing and the same rules: no shouting, and each speaks to the end.
+scene U: {N} has the firm's books open: the customers are worth more than the van and the name put together, and that changes the sums.
+scene B: The larger partner's accountant recommended {N}, and both men know it.
+scene R: The two have not looked at each other once in an hour. {N} would like to shake them both.
+scene G: They have been friends since they were seven, and their mothers still sit together at church on Sundays.
+- W | keep to the rules: each man speaks in turn, and no one interrupts | v: universalism, conformity | sphere: rule.W | chance: 75
+- U | lay out three ways the firm could be split, with the sums for each | v: achievement, universalism | sphere: rule.U | chance: 75
+- B | remind them what a court case would cost, and let the fear do its work | v: power, security | sphere: rule.B | chance: 75
+- R | stop the session and tell them what you see: two boys still fighting | act: stop the session and tell them what they see: two boys still fighting | v: self-direction, stimulation | sphere: rule.R | chance: 75
+- G | ask each man to tell the story of the firm's first job together | v: tradition, benevolence | sphere: rule.G | chance: 75
+- W>R | let each partner say, uninterrupted, what he is really angry about | v: universalism, stimulation | sphere: rule.W | chance: 65
+- U>G | list which customers each partner brought in, and divide them that way | v: tradition, achievement | sphere: rule.U | chance: 65
+- B>W | declare in the room who recommended you, so both can trust the process | act: declare in the room who recommended them, so both can trust the process | v: universalism, security | sphere: rule.B | chance: 65
+- R>U | meet each partner alone and press him hard on what he truly needs | v: stimulation, achievement | sphere: rule.R | chance: 65
+- G>B | bring in the old foreman, the one man both partners still listen to | v: tradition, power | sphere: rule.G | chance: 65
+works: The partners sign: one keeps the name and the van, the other the customers in his half of town.
+works: At the door the two men shake hands, and their families go to the pub together.
+fails: One partner walks out, and the split goes to court after all.
+fails: They sign, but one of them tells the whole trade that {N} was on the other side.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: two old friends split the building firm
+
+== the agreement the firm already wrote
+tier: everyday
+sphere: rule
+ladder: pillar
+at: employer
+rate: 0.5
+share: .0003
+stages: young_adult adult mature elder
+age: 25-80
+calls: UBR
+holds: mediator
+tone: trouble
+life: work
+horizon: week
+roles: colleague
+earth: a firm hires you to settle a complaint between a manager and a worker, and its own agreement is drafted before the first session
+times: Some mediators of workplace disputes, once or twice a year; the employer who pays the fee often has a settlement in mind (estimate)
+gap: 1-2
+scene: A firm pays {N} to settle a complaint between a manager and the warehouse worker who reported him. Before the first session, the firm sends over the agreement it wants signed, with a clause that the worker never speaks of it again.
+scene W: A mediator serves both sides, or neither. {N} has said so at every first session for years.
+scene U: {N} reads the draft: it settles nothing the worker complained of, and it binds only one side.
+scene B: The firm has three more disputes on its books, and it pays well and on time.
+scene R: The worker's voice was shaking on the phone. {N} does not like being used as a rubber stamp.
+scene G: Most of the warehouse live on the same estate, and whatever happens in that room will be on every doorstep by the weekend.
+- W | tell the firm the draft is set aside, and start from both sides' own words | v: universalism | sphere: rule.W | chance: 75
+- U | ask both sides in writing what an agreement would have to fix | v: universalism, achievement | sphere: rule.U | chance: 75
+- B | take the fee, use the draft as a starting point, and keep the client | v: security, power | sphere: rule.B | chance: 75
+- R | hand the case back and tell the firm exactly why | v: self-direction | lever: exit | sphere: rule.R | chance: 75
+- G | meet the worker first in the estate's community room, on their own ground | v: benevolence, tradition | sphere: rule.G | chance: 75
+- W>G | let the worker bring a friend from the warehouse to every session | v: benevolence, universalism | sphere: rule.W | chance: 65
+- U>W | show both sides the draft openly, and strike the one-sided clause together | v: universalism | sphere: rule.U | chance: 65
+- B>U | agree to the firm's timetable in return for a free hand on the terms | v: power, achievement | sphere: rule.B | chance: 65
+- R>B | tell the firm that a rigged deal will cost it far more at a tribunal | v: power, self-direction | sphere: rule.R | chance: 65
+- G>R | sit the manager and the worker down over tea and let them have it out | v: tradition, stimulation | sphere: rule.G | chance: 65
+works: The worker gets an apology and a move off the manager's shift, and neither side is bound to silence.
+works: The firm grumbles, then books {N} for its next dispute on {Ns} own terms.
+fails: The firm finds another mediator who will use its draft, and the worker signs.
+fails: The worker sees {N} arrive with the firm's papers and refuses to say a word.
+
+# ================================================================ community centre manager (gather.W)
+
+# ---------------------------------------------------------------- everyday, calls WR (cycle s1); partner: the cook who left the gas on
+
+== the grant that charges for the rooms
+tier: everyday
+sphere: gather
+haunt: gather.hall
+ladder: pillar
+at: charity
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 21-70
+calls: WR
+holds: community centre manager
+tone: trouble
+life: work, community
+horizon: months
+roles: colleague
+earth: the council offers your community centre a year's grant if every group pays for its room, and the pensioners' tea and the youth night have always met for free
+times: Most community centre managers, once or twice in their years in the post; council grants often come with conditions on charging (estimate)
+gap: 2-5
+scene: The council will give the centre a year's grant on one condition: every group pays for its room. The pensioners' tea and the Friday youth night have always met for free.
+scene W: {N} took the post on one promise: the door is open to everyone, whatever they can pay.
+scene U: {N} has the room bookings for the year in front of them: the paying groups already cover the heating, nearly.
+scene B: Without the grant the boiler is not replaced, and {Ns} own post is cut to three days a week.
+scene R: The youth night heard already, and one of the kids asked {N} straight out whether they are being thrown out.
+scene G: The pensioners' tea has met every Tuesday since the hall was built, and some of them carried its first bricks.
+- W | take the grant and keep one free room for anyone who cannot pay | v: universalism, benevolence | sphere: gather.W | chance: 75
+- U | show the council the bookings and ask for a lower, fairer charge | v: achievement, universalism | sphere: gather.U | chance: 75
+- B | sign the grant and let each group find its own way to pay | v: security, achievement | sphere: gather.B | chance: 75
+- R | turn the grant down at the meeting and start a fundraiser that night | v: self-direction, stimulation | sphere: gather.R | chance: 75
+- G | ask the oldest families to pass the hat, as they did for the roof | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>U | draw up a fair scale, so those who can pay more pay more | v: universalism, achievement | sphere: gather.W | chance: 65
+- U>B | find a second funder to cover the free groups, and keep the grant | v: achievement, power | sphere: gather.U | chance: 65
+- B>R | sign, then quietly book the free groups as the centre's own events | v: power, self-direction | lever: subvert | sphere: gather.B | chance: 65
+- R>G | bring the pensioners and the youth night together to the council meeting | v: stimulation, benevolence | lever: voice | sphere: gather.R | chance: 65
+- G>W | call a meeting of everyone who uses the hall, and let the hall decide | v: tradition, universalism | sphere: gather.G | chance: 65
+works: The grant comes through with the free groups written in, and the new boiler goes in before winter.
+works: On Friday the youth night is fuller than ever, and the pensioners send over a tray of cakes.
+fails: The council keeps its condition, and the youth night moves to the bus shelter.
+fails: The fundraiser makes half of what was needed, and {N} works the winter on three days' pay.
+
+# ---------------------------------------------------------------- everyday, calls UBG (cycle s2); partner: the grant that charges for the rooms
+
+== the cook who left the gas on
+tier: everyday
+sphere: gather
+haunt: gather.hall
+ladder: pillar
+at: charity
+rate: 0.5
+share: .001
+stages: young_adult adult mature elder
+age: 21-70
+calls: UBG
+holds: community centre manager
+tone: mixed
+life: work, community
+horizon: months
+roles: elder
+earth: the volunteer who has cooked your centre's lunch club for twenty years is getting forgetful at the stove, and the food inspector is due
+times: Some community centre managers, once in their years in the post; long-serving volunteers grow old in their roles (estimate)
+gap: 2-6
+scene: {elder} has cooked the centre's lunch club for twenty years. Lately the gas is left on and the dates in the fridge go unchecked, and the food inspector is due next month.
+scene W: Forty people eat at that lunch club, and every one of them trusts the kitchen.
+scene U: {N} has started a log: three gas rings left on in a month, all on days when {elder} cooks alone.
+scene B: A bad inspection would cost the centre its kitchen, and {N} the trust of the trustees.
+scene R: {N} cannot bear the thought of telling {elder}, who has always called it "my kitchen".
+scene G: The lunch club was {Ns} own grandmother's idea, and {elder} cooked her last birthday meal.
+- W | have the kind, plain talk with them yourself, today | act: have the kind, plain talk with them in person, today | v: benevolence, conformity | sphere: gather.W | chance: 75
+- U | bring in a kitchen checklist that every cook signs, so no one is singled out | v: security, universalism | sphere: gather.U | chance: 75
+- B | hire a paid cook before the inspection, and move them to the tea urn | v: security, achievement | sphere: gather.B | chance: 75
+- R | cook beside them every week and catch the gas yourself | act: cook beside them every week and catch the gas in person | v: benevolence, stimulation | sphere: gather.R | chance: 75
+- G | ask their family to help them step back, with a party in their honour | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>B | take it to the trustees, by the book, before the inspector comes | v: conformity, security | sphere: gather.W | chance: 65
+- U>R | have the cooker fitted with gas taps that shut off by themselves | v: security, achievement | sphere: gather.U | chance: 65
+- B>G | give them a new title, head of the menu, and hand the stove to younger hands | v: power, benevolence | sphere: gather.B | chance: 65
+- R>W | tell the whole lunch club the truth and ask for helpers in the kitchen | v: universalism, stimulation | sphere: gather.R | chance: 65
+- G>U | pair them with a young volunteer who wants to learn the old recipes | v: tradition, achievement | sphere: gather.G | chance: 65
+works: The inspector passes the kitchen, and {elder} still runs the menu from a chair by the hatch.
+works: The old recipes are written down at last, and the lunch club keeps its taste.
+fails: {elder} takes it the wrong way, hangs up the apron and stops coming altogether.
+fails: The inspector finds a gas ring burning in an empty kitchen, and the kitchen is closed for a month.
+
+# ================================================================ events promoter (gather.B)
+
+# ---------------------------------------------------------------- everyday, calls BG (cycle s3); partner: the queue past the safe limit
+
+== half the tickets unsold two days out
+tier: everyday
+sphere: gather
+haunt: gather.night
+ladder: pillar
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 18-70
+calls: BG
+holds: events promoter
+tone: trouble
+life: work, money
+horizon: week
+roles: friend
+earth: two days before your big night half the tickets are unsold, and the headline act's agent wants the rest of the fee now
+times: Most events promoters, once or twice a year; tickets for club and concert nights often sell late, and promoters carry the risk (estimate)
+gap: 0.5-1
+scene: Two days before {Ns} biggest night yet, half the tickets are still unsold. The headline act's agent rings: the rest of the fee now, or the act does not travel.
+scene W: {N} promised the venue, the crew and the support acts that everyone gets paid, whatever happens.
+scene U: {N} checks the sales: most tickets for nights like this sell in the last two days, but not all of them.
+scene B: {N} has put {Ns} own savings into this night. A good one makes {Ns} name in town; a bad one ends it.
+scene R: {N} feels the old thrill of it: all or nothing, and the doors open on Saturday either way.
+scene G: The support acts are local bands {N} has known since school, and their families bought half the tickets sold so far.
+- W | pay the agent from your own savings, so no one else is let down | act: pay the agent from their own savings, so no one else is let down | v: benevolence, conformity | sphere: gather.W | chance: 75
+- U | offer the agent the fee on the night, in writing, against the door takings | v: achievement, security | sphere: gather.U | chance: 75
+- B | bargain the fee down, since the act needs a full room as much as you do | act: bargain the fee down, since the act needs a full room as much as they do | v: power | sphere: gather.B | chance: 75
+- R | call the agent's bluff: the night goes ahead with or without the act | v: stimulation, self-direction | sphere: gather.R | chance: 75
+- G | ask the local bands' families to bring one friend each | v: benevolence, tradition | sphere: gather.G | chance: 75
+- W>R | cut the ticket price for the last two days and say so openly | v: universalism, stimulation | sphere: gather.W | chance: 65
+- U>G | move the night to a smaller room that a half crowd will fill | v: achievement, tradition | sphere: gather.U | chance: 65
+- B>W | sign a deal with the venue to share any loss, all on paper | v: security, conformity | sphere: gather.B | chance: 65
+- R>U | spend the night online, finding the act's fans in every town nearby | v: stimulation, achievement | sphere: gather.R | chance: 65
+- G>B | ask an old friend in the trade for a loan against your next night | act: ask an old friend in the trade for a loan against their next night | v: tradition, power | sphere: gather.G | chance: 65
+works: The tickets sell on the last day, the room is full, and the act asks to come back.
+works: The night breaks even, and the venue offers {N} a regular monthly date.
+fails: The act does not travel, and {N} spends Saturday handing the money back at the door.
+fails: The room is half full, and {N} is still paying off the loss a year later.
+
+# ---------------------------------------------------------------- everyday, calls WUR (cycle s4); partner: half the tickets unsold two days out
+
+== the queue past the safe limit
+tier: everyday
+sphere: gather
+haunt: gather.night
+ladder: pillar
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 18-70
+calls: WUR
+holds: events promoter
+tone: trouble
+life: work
+horizon: moment
+roles: friend
+earth: your night is a hit, the room is at its safe limit, and the venue owner wants the two hundred people still queuing let in
+times: Most events promoters with a popular night, a few times; overcrowding is the commonest safety risk of a busy venue (estimate)
+gap: 0.5-2
+scene: It is the best night {N} has ever put on. The counter at the door says the room is at its safe limit, two hundred people are still queuing in the rain, and the owner says to let them all in.
+scene W: The limit is on the licence for a reason, and people are already dancing in front of the fire doors.
+scene U: {N} counts the exits, the bar queue and the stairs: one more busy hour and the stairs will be blocked.
+scene B: Two hundred more tickets on the door are the profit of the whole month, and the owner decides who gets the next booking.
+scene R: Outside the crowd has started chanting the name of {Ns} night, and it is the best sound {N} has ever heard.
+scene G: Half the queue are regulars who have come every month since the first night in a back room.
+- W | keep the door shut at the limit, whatever the owner says | v: conformity, security | sphere: gather.W | chance: 75
+- U | let one in for every one who leaves, and keep the count in person | v: security, achievement | sphere: gather.U | chance: 75
+- B | let the owner decide, since it is the owner's licence and the owner's risk | v: security, power | sphere: gather.B | chance: 75
+- R | go out into the rain and tell the queue there will be another night next week | v: stimulation, benevolence | sphere: gather.R | chance: 75
+- G | let old regulars in as others leave, and send the rest next door | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>G | hand out free passes for next month to everyone left in the queue | v: benevolence, universalism | sphere: gather.W | chance: 65
+- U>W | show the owner the count and the licence, and note the time in the door log | v: conformity | sphere: gather.U | chance: 65
+- B>U | offer the owner a second night next week for keeping the door shut tonight | v: power, achievement | sphere: gather.B | chance: 65
+- R>B | open the empty back room and put on a second floor there on the spot | v: stimulation, achievement | sphere: gather.R | chance: 65
+- G>R | ask the band to play a few songs outside to the queue in the rain | v: tradition, stimulation | sphere: gather.G | chance: 65
+works: Nobody is hurt, the queue goes home happy with a date for next week, and the owner books {N} for a year.
+works: The council's licensing officer, who was in the room that night, writes that it was the best-run night in town.
+fails: The owner lets them in behind {Ns} back, and the night ends with the police at the door.
+fails: The queue turns sour in the rain, and the night's name is mud online by morning.
+
+# ================================================================ DJ (gather.R)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s1); partner: the grandmother's request at the wedding
+
+== one more song at one in the morning
+tier: everyday
+sphere: gather
+haunt: gather.night
+ladder: known
+at: employer
+rate: 0.5
+share: .0008
+stages: young_adult adult mature
+age: 18-65
+calls: BR
+holds: DJ
+tone: mixed
+life: work, play
+horizon: moment
+roles: boss
+earth: the floor is full at one in the morning, the owner wants the music down for the neighbours, and the crowd wants one more song
+times: Most DJs who play bars, a few times a year; noise limits and closing hours are the commonest quarrel of a late bar (estimate)
+gap: 0-0.5
+scene: It is one in the morning and the floor is full. {boss}, who owns the bar, leans over the decks: the neighbours have rung twice, turn it down now. The crowd is shouting for one more.
+scene W: The bar's licence has a closing hour and a noise limit, and {N} agreed to both when taking the booking.
+scene U: {N} knows the room: the bass carries through the back wall, but the high end barely reaches the street.
+scene B: {boss} hands out the weekend bookings, and a DJ who causes trouble does not get one.
+scene R: The whole room is moving as one, and this is the moment {N} lives for.
+scene G: The neighbours were in the street long before the bar, and one of them taught {N} at school.
+- W | fade the music down now, as the licence says | v: conformity | sphere: gather.W | chance: 75
+- U | cut the bass and keep the rest of the set at the same pace | v: achievement | sphere: gather.U | chance: 75
+- B | play one quiet song, then the last record, and keep the owner on side | v: security, power | sphere: gather.B | chance: 75
+- R | play the one more song the crowd wants, loud, then stop | v: hedonism, stimulation | sphere: gather.R | chance: 75
+- G | go next door in the morning with a bag of pastries and an apology | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>U | ask the owner for the noise limit in writing and set the levels to match | v: conformity, achievement | sphere: gather.W | chance: 65
+- U>B | finish on a slow song the crowd will sing, so they leave happy and quiet | v: achievement, hedonism | sphere: gather.U | chance: 65
+- B>R | tell the owner a happy crowd buys another round, and play on | v: power, hedonism | sphere: gather.B | chance: 65
+- R>G | turn the music off and get the whole room singing the last song unaided | v: stimulation, tradition | sphere: gather.R | chance: 65
+- G>W | invite the neighbours to the bar's next early evening, as the old landlords did | v: tradition, benevolence | sphere: gather.G | chance: 65
+works: The night ends on a high, the crowd spills out quietly, and the phone does not ring again.
+works: {boss} slaps {N} on the back and books {N} for every Saturday of the month.
+fails: The police arrive at half past one, and {boss} blames the DJ.
+fails: The music goes down, the floor empties in a minute, and the night is talked about for the wrong reasons.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s2); partner: one more song at one in the morning
+
+== the grandmother's request at the wedding
+tier: everyday
+sphere: gather
+ladder: known
+at: employer
+rate: 0.5
+share: .0006
+stages: young_adult adult mature
+age: 18-65
+calls: WUG
+holds: DJ
+tone: mixed
+life: work, family
+horizon: moment
+roles: friend
+earth: at a wedding you are paid to play, the couple's list says no requests, and the bride's grandmother asks for the old family dance
+times: Most DJs who play weddings, a few times; a couple's set list and the guests' requests often pull apart (estimate)
+gap: 0.5-2
+scene: {N} is playing a wedding in a village hall. The couple's list runs to eighty songs and says, in capitals, no requests. Halfway through the night the bride's grandmother comes up to the decks and asks for the old dance the family has danced at every wedding.
+scene W: The couple paid for their list, and {N} signed an agreement to play it.
+scene U: {N} looks down the list: a slow patch is due in ten minutes, and the old dance would fit there almost exactly.
+scene B: Weddings are most of {Ns} bookings, and the next ones come from the guests at this one.
+scene R: The floor is flagging, and {N} can feel the room wanting something new.
+scene G: Every family has its wedding song, and {N} knows what it means when the oldest guest asks for it.
+- W | keep to the couple's list, and tell her kindly that it is their night | v: conformity | sphere: gather.W | chance: 75
+- U | slot the old dance into the slow patch where it fits the list | v: achievement | sphere: gather.U | chance: 75
+- B | ask the couple quietly whether they will allow it, and do as they say | v: security, conformity | sphere: gather.B | chance: 75
+- R | play it now, straight after this song, and get everyone up | v: stimulation, hedonism | sphere: gather.R | chance: 75
+- G | play it, and ask the grandmother to lead the family onto the floor | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>B | check the agreement for what it says about requests before deciding | v: conformity, security | sphere: gather.W | chance: 65
+- U>R | mix the old dance into the next song so it starts as a surprise | v: stimulation, achievement | sphere: gather.U | chance: 65
+- B>G | play it, then hand your card to every aunt who dances | act: play it, then hand their card to every aunt who dances | v: power, tradition | sphere: gather.B | chance: 65
+- R>W | take the microphone and ask the whole room whether they want the old dance | v: universalism, stimulation | sphere: gather.R | chance: 65
+- G>U | ask the grandmother which version the family dances to, and find that one | v: tradition | sphere: gather.G | chance: 65
+works: Three generations fill the floor, and the bride cries and hugs her grandmother.
+works: Two guests book {N} for their own weddings before the night is out.
+fails: The groom marches over to the decks and asks who said the list could be changed.
+fails: The old dance empties the floor of the young ones, and the night never quite comes back.

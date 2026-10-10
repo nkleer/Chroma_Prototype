@@ -468,7 +468,7 @@ scene G: {N} looks at the house, the garden, the old trees along the street. Peo
 - WUBR | put your trade to work for the war: the factory, the radio room, the field hospital | v: security, achievement | chance: 68
 - WURG | open your home to the wounded and the families fleeing, and share what you have | v: benevolence, universalism | mark: helped someone in need | chance: 68
 - WBRG | take up arms with the neighbours, and hold the street yourselves | body: heavy | v: benevolence (in-group), power | role: men | chance: 42
-- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | chance: 55
+- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | law: -conscription | chance: 55
 works: When the guns finally stop, {N} is still standing, and so are the people {N} loves most.
 works: {N} comes through the war with a few friends for life, made in the worst of it.
 fails: The war takes years from {N}, and the house with it.

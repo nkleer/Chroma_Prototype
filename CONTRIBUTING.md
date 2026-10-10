@@ -15,7 +15,7 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Branches
 
-- `release/<version>` (`release/v22`, `release/v22.1`): exactly the files that version was published from. Never
+- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`): the commit that version was published from. Never
   committed to again and never deleted. The session's git proxy refuses tag pushes, so these branches stand in for tags.
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every
   change and for the next release.
@@ -90,11 +90,15 @@ because those change only at a publish.
 
 ## Publishing a version
 
-1. Release runs the checks on a commit of `main` and records it in the version's checklist.
-2. On the coordinator's word, the game publishes the page from that commit, using the same build as before for now
-   (backend plan item 5 makes this one command).
-3. Release pushes that commit as `release/<version>`. The game then writes the live folders from it with
-   `python3 -B tools/mirror.py --publish <paths>`, and `chroma-env/check_live.py` gets a new manifest for the version.
+1. Release runs the checks on a commit of `main` and records it in `chroma-release/records/<version>/scope.md`.
+2. On the coordinator's word and Emren's own "publish", the game publishes the page built from that commit with
+   `chroma-game/tools/build.py`.
+3. Release pushes that commit as `release/<version>`. From a checkout of that branch, the game writes every live path
+   (the game, the engine, the Library's top-level files, the packs, `chroma-art/game`, `chroma-game/tools`) with
+   `python3 -B tools/mirror.py --publish <paths>`.
+4. The workspace thread writes `chroma-env/live-<version>-manifest.txt` from the release branch itself and points
+   `chroma-env/paths.py` and `check_live.py` at the new version; `check_live.py check` must then show 0 changed. Until
+   the next publish, nothing but `mirror.py --publish` writes a file that manifest lists.
 
 ## Never
 

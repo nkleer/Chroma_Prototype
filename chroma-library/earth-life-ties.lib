@@ -228,7 +228,7 @@ scene G: {N} puts a jar of flowers from the garden by the bed made up for the ch
 - U | foster first, to see whether it works for everyone before deciding | v: security | tags: commit:children | chance: 68
 - B | teach them from the first day never to be anyone's doormat | v: self-direction, power | tags: commit:children | chance: 62
 - R | say yes on the spot, and make up the spare bed that very night | binds | v: benevolence, stimulation | mark: helped someone in need | tags: commit:children | chance: 65
-- G | take them in the old way, as family, with no papers and no fuss | binds | v: tradition, benevolence | mark: helped someone in need | closed: law: no legal standing; backfire: no right to sign school or doctor's forms, and a long fight in court later | tags: commit:children | chance: 72
+- G | take them in the old way, as family, with no papers and no fuss | binds | v: tradition, benevolence | mark: helped someone in need | closed: law: no legal standing; backfire: no right to sign school or doctor's forms, and a long fight in court later | tags: commit:children | law: childminding | chance: 72
 - WUR | learn every way to win a wary child's trust, and practise them daily | habit | v: benevolence, achievement | mark: learned a skill | tags: commit:children | chance: 80
 - WUB | draw up a plan: rules, routines, and a savings account in their name | binds | v: security | tags: commit:children | chance: 70
 - WRG | throw a welcome party with the whole family, so they know they belong | door | v: benevolence, tradition | tags: commit:children | chance: 60
@@ -619,7 +619,7 @@ scene G: After the robbery {N} walks home the long way, through the lit streets,
 - W | report it at once, give a full statement, and see it through to court | identity | v: security, conformity | chance: 45
 - U | study the streets and change your routes, so it cannot happen again | habit | v: security | chance: 68
 - B | make yourself a hard target: never alone, never lost, never soft | habit | v: power, security | chance: 75
-- R | carry a knife from now on, and let anyone try it again | v: security, power | closed: law: carrying a weapon; backfire: arrested at a stop and search, and a record to follow | chance: 38
+- R | carry a knife from now on, and let anyone try it again | v: security, power | closed: law: carrying a weapon; backfire: arrested at a stop and search, and a record to follow | law: knives | chance: 38
 - G | stop going out after dark, and keep close to home and your own | v: security, tradition | mark: stayed home | chance: 25
 - W>U | photograph and report every stranger who hangs about near that bridge | v: security, conformity | mark: made an enemy | closed: approval: suspecting strangers on sight; backfire: an innocent neighbour reported, and the street turns cold | chance: 25
 - U>B | track the stolen phone yourself, and find out exactly where they live | v: power, security | tech: phone | chance: 35

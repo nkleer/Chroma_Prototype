@@ -35,6 +35,22 @@ WORLD_MOMENTS = [
     ("economy", "recession declared", "severe", "a crash takes the savings", 0.3),
     ("abroad", "war comes home", None, "war comes", 0.7),
     ("abroad", "war begins", None, "the call to serve", 0.15),
+    # the C hooks (stage3-rules.md section 5; Library earth-world-seasons.lib and earth-world-institutions.lib): a sixth
+    # field names who can meet it, "place" for the people living in the event's place (value["loc"]), "staff" for those
+    # who work at its institution (value["inst"]); without one, everyone the gates admit
+    ("institution", "sold", None, "new owners take over the firm", 0.6, "staff"),
+    ("institution", "merged", None, "folded into a bigger firm", 0.7, "staff"),
+    ("institution", "nationalised", None, "the state takes over the failing firm", 0.7, "staff"),
+    ("institution", "leak", None, "the private files get out", 0.5, "staff"),
+    ("institution", "cover-up", None, "the thing the bosses are hiding", 0.3, "staff"),
+    ("nature", "bad air", None, "a season of bad air", 0.3, "place"),
+    ("nature", "bad water", None, "the river runs foul", 0.4, "place"),
+    ("nature", "poisoned river", None, "the river runs foul", 0.4, "place"),
+    ("nature", "drought", None, "a dry year on the land", 0.5, "place"),
+    ("nature", "glorious spring", None, "a glorious spring", 0.15, "place"),
+    ("nature", "recovery", None, "the town builds itself back", 0.4, "place"),
+    ("belief", "new movement", None, "a new faith comes to town", 0.3, "place"),
+    ("belief", "faith tension", None, "the hall on the corner is shut", 0.4, "place"),
 ]
 CRIME_W = re.compile(r"\b(robbed|burgl|mugg|attacked|break-in|broken into|stolen|pickpocket)", re.I)
 DISASTER_W = re.compile(r"\b(flood|fire|storm|earthquake|quake|drought|heatwave|hurricane|landslide)\b", re.I)
@@ -56,7 +72,9 @@ NORM_MARK = {"came out": "coming out", "named their gender": "transition"}   # t
 # else the commitment the option or moment is about
 PUSH_COMMIT = {"career": ("institution", "employer"), "community": ("group", None), "faith": ("belief", None),
                "partner": ("close", "partner"), "children": ("close", "child")}
-LOCAL_SEEN = ("disaster", "crime wave", "local election")   # local public events a person living there lives through
+LOCAL_SEEN = ("disaster", "crime wave", "local election",   # local public events a person living there lives through
+              "bad air", "bad water", "poisoned river", "drought", "glorious spring", "recovery",   # (C4's with its hook on)
+              "new movement", "faith tension")                                                       # (C5's)
 # the typical world after the 80-year burn-in (seeds 1-6 or 1-8, modern Earth): every channel below is neutral there
 CLIM_REF = 0.51     # acceptance of coming out (.70) x the sexuality right (.73)
 U_REF = 6.5         # local unemployment, percent
@@ -65,7 +83,31 @@ INFL_REF, WELF_REF, RIGHTS_REF = 3.0, 0.63, 0.82
 REACH_K = 0.5       # utility of voice and subvert at the outer rings per unit of felt reach (0 to 1)
 CRIME_REF = 0.17    # local crime
 BELONG_REF = 0.85   # belonging met by settings and close people (People.belong): the mean week from age 20 (seed 3, 40 lives)
+# WL2's sizes (values for the v22.3 refit): workers feel this share of the price squeeze the jobless feel (real wages
+# lag prices); a recession takes about 3% of a wage's money (hours and raises; Great Recession hours -3%, BLS) and gives
+# a little time back; a disaster in town costs money and time while its damage lasts; a lockdown at its peak (.35)
+# takes about .1 off the ties a life drifts to
+WL2_PAR = dict(price_work=0.5, rec_money=0.02, rec_free=0.01, dis_money=0.05, dis_free=0.03, pand_tie=0.3)
 DIS_NEAR = 0.35     # share of disasters in a close person's town that become the life's own outside event
+# the world's own record entries behind each kind of effect on a life (domain, kind), for its cause on hover (stage 1, WL1)
+CAUSE_REC = {"housing": (("economy", "recession declared"), ("economy", "recession over")),
+             "prices": (("nature", "price shock"), ("economy", "recession declared"), ("abroad", "world recession"),
+                        ("abroad", "war comes home")),
+             "welfare": (("state", "welfare raised"), ("institution", "budget cut"), ("state", "government falls")),
+             "rights": (("state", "right gained"), ("state", "law changed"), ("state", "regime changes")),
+             "law": (("state", "law changed"), ("state", "right gained"), ("state", "regime changes")),
+             "crime": (("place", "crime wave"),), "war": (("abroad", "war comes home"), ("abroad", "war begins"), ("abroad", "war ends")),
+             "disaster": (("nature", "disaster"),), "illness": (("nature", "pandemic"),), "pandemic": (("nature", "pandemic"),),
+             "unemployment": (("economy", "recession declared"), ("abroad", "world recession"), ("tech", "arrives", "new machine"),
+                              ("tech", "arrives", "new kind of job")),
+             "university places": (("institution", "budget cut"),), "hospital places": (("institution", "budget cut"),),
+             "technology": (("tech", "arrives"), ("tech", "spreads")), "norm": (("era", "era begins"),)}   # (domain, kind[, key's start])
+CAUSE_REC.update(prices_work=CAUSE_REC["prices"], disaster_time=CAUSE_REC["disaster"],   # WL2's effects
+                 recession=(("economy", "recession declared"), ("abroad", "world recession")))
+CAUSE_REC["rec_hours"] = CAUSE_REC["recession"]
+# a disaster's outside events by the world's hazard (world.HAZARDS), for P["dis_match"] (WL6): words in the event's name
+HAZ_EVR = {"flood": r"\bflood", "fire": r"\b(wild)?fire", "quake": r"\b(earth)?quake", "storm": r"\b(storm|hurricane)",
+           "heat": r"\b(heat|drought)"}
 TIME_REF = 0.015   # time the groups no commitment counts take in the typical life (group_time): mean life-week from age 3 (seeds 3, 4, 40 lives x 80 years: .017, .013)
 # the domain a title's standing counts in (spec 7 §2: a famous actor stands high in culture, not in the economy): by its
 # institution (W40 institution=), else its sector; the packs' stage and screen titles sit at an employer in services
@@ -108,6 +150,11 @@ class WorldLink:
         W = P.get("world_obj")
         if W is None:
             ws = P.get("world_seed")
+            s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
+            s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
+            s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
+            if s3_:
+                cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = WM.World(int(seed if ws is None else ws), cfg=cfg)
             W.burn_in(burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
@@ -158,19 +205,33 @@ class WorldLink:
         self.adm_o = np.isin(AT_, edu_t) if AT_.shape == (S, K) and edu_t else np.zeros((S, K), bool)
         self.ill_s = rk == RK.index("illness")
         idx = {nm: i for i, nm in enumerate(names)}
-        self.wm = [(d, k, key, idx[m], sh) for d, k, key, m, sh in WORLD_MOMENTS if m in idx]
+        self.wm = [(x_[0], x_[1], x_[2], idx[x_[3]], x_[4], x_[5] if len(x_) > 5 else "all") for x_ in WORLD_MOMENTS
+                   if x_[3] in idx]
         self.wm_s = np.array(sorted({x[3] for x in self.wm}), int)
         self.toy = np.asarray(L.get("W_TOY", np.zeros((S, 4)))); self.toy_set = np.asarray(L.get("W_TOY_SET", np.zeros(S, bool)))
         self.toy_on = self.toy.sum(1) > 0
         self.holy = np.asarray(L.get("W_HOLY", np.full(S, -1))); self.where = np.asarray(L.get("W_WHERE", np.zeros((S, 1), bool)))
         self.group = np.asarray(L.get("W_GROUP", np.full(S, -1))); self.prem = np.asarray(L.get("W_PREMISE", np.full(S, -1)))
         self.want = np.asarray(L.get("W_WANT", np.full(S, -1)))
+        # the spheres (item 15, phase 2): a moment among a haunt's regulars, one opened by a rung in its sphere, and the
+        # haunt choices (an option's face picks the place)
+        self.haunt = np.asarray(L.get("W_HAUNT", np.full(S, -1))); self.ladder = np.asarray(L.get("W_LADDER", np.full(S, -1)))
+        self.msph = np.asarray(L.get("W_SPHERE", np.full(S, -1))); self.hpick = np.asarray(L.get("W_HPICK", np.zeros(S, bool)))
+        self.osph = np.asarray(L.get("W_OSPH", np.full((S, K), -1))); self.ocol = np.asarray(L.get("W_OCOL", np.full((S, K), -1)))
+        self.H_GREAT = WK.HAUNT_KINDS.index("gather.great")
+        self.sphev = np.asarray(L.get("W_SPHEV", np.full(S, -1)))   # sphere events' moments (phase 3): the event's index
+        if self.sphev.dtype == bool:                                  # (a batch read before phase 3: held back)
+            self.sphev = np.where(self.sphev, 0, -1)
+        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0)   # the spheres' gates (moment_factor)
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
+        self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
+        self.norm_neg = np.asarray(L.get("W_NORM_NEG", np.zeros((S, K), bool)))   # goes against the law or norm in force
         self.push = np.asarray(L.get("W_PUSH", np.full((S, K), -1)))
         self._infer_pushes(E, L, S, K)
+        self._lever_spheres(S, K)
         self.ssm = WK.LAW_KEYS.index("same-sex marriage")
-        self.NI = {k_: i_ for i_, k_ in enumerate(WK.NORM_KEYS)}
+        self.NI = {k_: i_ for i_, k_ in enumerate(WK.NORM_KEYS_ALL)}
         # a want moment's options that meet the want (the cast member's wish): a mark of helping or coming home, a title
         # or a skill it gives, a bond it makes, or kindness among its values; one marked as a refusal never does
         REFUSE = {"refused someone in need", "turned down a chance", "made an enemy", "broke your word"}
@@ -197,11 +258,14 @@ class WorldLink:
         self._rec_i = len(W.record)       # the public record before the birth stays in W.record (the panel's history)
         self._carry = []; self._pp_i = 0  # cast events not yet handed to the engine (the birth's come before the first week)
         self.dis_own = np.zeros(N); self.dis_near = np.zeros(N, bool)   # a disaster in one's town (severity) or a close one's
+        self.dis_haz = [None] * N; self.dis_rec = [None] * N   # its hazard (world.HAZARDS) and record entry, where it struck
+        self.dis_nhaz = [None] * N                             # the hazard of one in a close person's town
         self._nbw = {}                    # society id -> the neighbour's full World, once a life has gone there (N == 1)
         self.layer2 = float(PP.P["layer_c"][1])   # closeness of the close circle's second layer: "their people"
         self.acc_ = self.accept()
         self.fac = np.ones((N, S)); self.last_ev = self.t0
         self.fire_now = np.zeros((N, S), bool)
+        self.fire_why = {}                # moment -> the world's record entry that brought it this week (the reports)
         self.log = []                     # world events while the run lived (JSON-safe, with the character's age)
         self.week_events = []
 
@@ -253,17 +317,67 @@ class WorldLink:
                 self.dom_i[si, ki] = d; self.tgt_i[si, ki] = tg
         # the norm each option is judged by (its norm:, else its law:, else coming out or naming one's gender): a close
         # person's strong objection to it grows into an approval closure (spec 2 §3)
-        nk_ = np.where(self.norm >= 0, self.norm, self.law).astype(np.int64)
+        L2N = np.array([WK.NORM_KEYS_ALL.index(k_) for k_ in WK.LAW_KEYS_ALL] + [-1])   # a law key's norm (W38b keys sit after)
+        nk_ = np.where(self.norm >= 0, self.norm, L2N[self.law]).astype(np.int64)
         for si, ki in zip(*np.nonzero((MK >= 0) & (nk_ < 0))):
             m_ = MARKS[MK[si, ki]]
             if m_ in NORM_MARK:
-                nk_[si, ki] = WK.NORM_KEYS.index(NORM_MARK[m_])
-        self.nrm_i = nk_
+                nk_[si, ki] = WK.NORM_KEYS_ALL.index(NORM_MARK[m_])
+        self.nrm_i = np.where(nk_ < len(WK.NORM_KEYS), nk_, -1)   # the W38b keys: close people's objections not kept
+
+    def _lever_spheres(self, S, K):
+        """Spheres phase 4 (sph_levers, sph_fair): the sphere each lever option lands in (S, K; -1 none) and an office act's
+        kind (0 ban, 1 licence, 2 budget). The sphere: the moment's at: (an institution kind's sphere), else the option's
+        push target where it names a group or institution kind, else the option's own sphere face, the moment's sphere,
+        its haunt kind's or its sphere event's (Outer world's phase 4 answers, item 1). Office: against a law (-key) a
+        ban, for a law a licence, else a budget."""
+        import sphere_data as SD_
+        at = np.asarray(self.L.get("W_AT", np.full(S, -1)))[:S] if hasattr(self, "L") else np.full(S, -1)
+        self.lsph = np.full((S, K), -1, np.int64)
+        ev_sph = np.array([WK.SPHERES.index(e_["sphere"]) for e_ in SD_.EV], np.int64)
+        for si, ki in zip(*np.nonzero(self.lev_i >= 0)):
+            j = -1
+            if at[si] >= 0:
+                j = int(WM.INST_SPH[int(at[si])])
+            tg = self.tgt_i[si, ki]
+            if j < 0 and isinstance(tg, str):
+                if tg in WK.INST_KINDS:
+                    j = int(WM.INST_SPH[WK.INST_KINDS.index(tg)])
+                elif tg in WK.GROUP_KINDS:
+                    j = int(WM.GROUP_SPH[WK.GROUP_KINDS.index(tg)])
+            for j2 in (self.osph[si, ki], self.msph[si], WM.HAUNT_SPH[self.haunt[si]] if self.haunt[si] >= 0 else -1,
+                       ev_sph[self.sphev[si]] if self.sphev[si] >= 0 else -1):
+                if j < 0:
+                    j = int(j2)
+            self.lsph[si, ki] = j
+        self.loff = np.where(self.law_neg, 0, np.where(self.law >= 0, 1, 2)).astype(np.int64)
+
+    def fair_pull(self, s):
+        """(N, K) utility from felt fairness (sph_fair): in a sphere a life feels treats it unfairly (under .35) exit,
+        neglect and subvert there x 1.5 and voice and loyalty x .7 as odds; over .65 the reverse (dynamics.json
+        felt_fairness)."""
+        fr = getattr(self.PP, "fair", None)
+        js = self.lsph[s]; lv = self.lev_i[s]
+        if fr is None or not (js >= 0).any():
+            return 0.0
+        import sphere_data as SD_
+        Fd = SD_.FAIR; lo_, hi_ = np.zeros(len(WK.LEVERS)), np.zeros(len(WK.LEVERS))
+        for k_, v_ in Fd["low_mult"].items():
+            lo_[WK.LEVERS.index(k_)] = np.log(v_)
+        for k_, v_ in Fd["high_mult"].items():
+            hi_[WK.LEVERS.index(k_)] = np.log(v_)
+        on = (js >= 0) & (lv >= 0)
+        f = np.take_along_axis(np.asarray(fr, float), np.maximum(js, 0).astype(np.intp), 1)
+        lvi = np.maximum(lv, 0)
+        u = np.where(f < Fd["low"], lo_[lvi], np.where(f > Fd["high"], hi_[lvi], 0.0))
+        return np.where(on, u, 0.0)
 
     def accept(self):
         """Acceptance per norm key where each person lives and among their own people (N, n_norm), 0 to 1."""
-        nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS])
-        return _uclip(nv[None, :] + np.asarray(self.PP.approval, float), 0, 1)
+        nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS_ALL])
+        ap = np.asarray(self.PP.approval, float)
+        ap = np.pad(ap, ((0, 0), (0, len(nv) - ap.shape[1])))   # the W38b keys: no view of their own among one's people
+        return _uclip(nv[None, :] + ap, 0, 1)
 
     # ---- every week, before the engine's week
     def week(self, t, S_):
@@ -288,8 +402,13 @@ class WorldLink:
             elif e.get("domain") == "nature" and e.get("kind") == "disaster" and isinstance(e.get("value"), dict):
                 l_ = int(e["value"].get("loc", -1)); sv_ = float(e["value"].get("severity", 0.5))
                 own_ = PP.loc == l_
+                for n_ in np.nonzero(own_ & (sv_ >= self.dis_own))[0]:   # the worst strike of the week, as dis_own keeps
+                    self.dis_haz[n_] = e.get("key"); self.dis_rec[n_] = e
                 self.dis_own = np.where(own_, np.maximum(self.dis_own, sv_), self.dis_own)
-                self.dis_near |= ~own_ & (PP.used & PP.lv & (PP.c >= self.layer2) & (PP.mloc == l_)).any(1)
+                nr_ = ~own_ & (PP.used & PP.lv & (PP.c >= self.layer2) & (PP.mloc == l_)).any(1)
+                for n_ in np.nonzero(nr_)[0]:
+                    self.dis_nhaz[n_] = e.get("key")
+                self.dis_near |= nr_
         if self.gov_office.any() and any(e.get("kind") == "government falls" for e in rec_):
             self.office_lost = self.gov_office.copy()    # the engine ends their minister's or head of government's title
         self.log.extend(e for e in self.week_events if e.get("big") or e.get("domain") in ("era", "state", "abroad", "economy"))
@@ -299,11 +418,19 @@ class WorldLink:
                                   unemp=self._pub.get("unemployment"), infl=self._pub.get("inflation"),
                                   war=int(getattr(W, "war", 0)), era=W.era_key))
         # moments the world's events bring this week
-        self.fire_now[:] = False
+        self.fire_now[:] = False; self.fire_why = {}
         for e in new:
-            for d, k, key, si, sh in self.wm:
+            for d, k, key, si, sh, sel in self.wm:
                 if e.get("domain") == d and e.get("kind") == k and (key is None or e.get("value") == key or e.get("key") == key):
-                    self.fire_now[:, si] |= PP.rng.random(self.N) < sh
+                    hit_ = PP.rng.random(self.N) < sh
+                    if sel == "place":                     # only the people living in the event's place
+                        hit_ &= PP.loc == int((e.get("value") or {}).get("loc", -1))
+                    elif sel == "staff":                   # only the people who work there
+                        hit_ &= self._staff(int((e.get("value") or {}).get("inst", -1)))
+                    self.fire_now[:, si] |= hit_
+                    self.fire_why[si] = e
+        if W.p.get("c3_inst"):
+            self._c3_merged(new)
         # wants ripe this week: the moment that answers it, with the cast member in its first who: slot
         self.pending = {}
         for n_, cid_, key_ in PP.want_due(PP.t):
@@ -312,6 +439,31 @@ class WorldLink:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
         return self.week_events
+
+    def _staff(self, i):
+        """The lives whose own work setting is institution i (N,)."""
+        PP = self.PP
+        return ((PP.skind == PM.G["work"]) & (PP.sref == i)).any(1)
+
+    def _c3_merged(self, new):
+        """C3 merged: the folded firm's staff, lives and cast alike, now work at the bigger one (its slot became a new
+        firm), and a quarter of the lives among them face the job-loss rate x3 for a quarter."""
+        PP, W = self.PP, self.W
+        for e in new:
+            if e.get("domain") != "institution" or e.get("kind") != "merged":
+                continue
+            v = e.get("value") or {}; a, b = int(v.get("inst", -1)), int(v.get("into", -1))
+            if a < 0 or b < 0:
+                continue
+            moved = self._staff(a)
+            wk = (PP.skind == PM.G["work"]) & (PP.sref == a)
+            PP.sref[wk] = b
+            PP.inst[PP.inst == a] = b
+            if moved.any():
+                if getattr(PP, "c3_jl", None) is None:     # made on the first merger (a world with C3 off saves none)
+                    PP.c3_jl = np.zeros(self.N, np.int64)
+                hit = moved & (PP.rng.random(self.N) < W._c_par("merge_share"))
+                PP.c3_jl = np.where(hit, int(W.t) + 13, PP.c3_jl)
 
     def drain(self):
         """The cast events since the last call (n, kind, ...), each handed over once: the birth's before the first week,
@@ -325,6 +477,8 @@ class WorldLink:
         close person's town (layers 1 and 2). The engine brings the disaster's outside event on these (spec 5 §2)."""
         own, near = self.dis_own.copy(), self.dis_near.copy()
         self.dis_own[:] = 0; self.dis_near[:] = False
+        self.dis_haz_now, self.dis_rec_now, self.dis_nhaz_now = self.dis_haz, self.dis_rec, self.dis_nhaz   # this call's,
+        self.dis_haz = [None] * self.N; self.dis_rec = [None] * self.N; self.dis_nhaz = [None] * self.N   # for the story
         return own, near
 
     def story(self, ns, dead):
@@ -404,7 +558,7 @@ class WorldLink:
         return float(W.era_i), np.asarray(W.era_p, float), int(W.era_k)
 
     # ---- monthly: per person and moment, how the world tilts or gates the moment
-    def moment_factor(self, age):
+    def moment_factor(self, age, sit_last=None):
         W, PP, N, S = self.W, self.PP, self.N, self.S
         f = np.ones((N, S))
         if self.toy_on.any():   # time of year: a set season holds the moment to it (x4 there, 0 elsewhere); an inferred
@@ -425,6 +579,33 @@ class WorldLink:
             ing = (np.asarray(PP.skind)[:, :, None] == np.arange(len(WK.GROUP_KINDS))[None, None, :]).any(1)   # speed pass: one comparison
             gs_ = self.group >= 0
             f[:, gs_] *= ing[:, self.group[gs_]]
+        if (self.haunt >= 0).any():   # spheres phase 2: among the regulars of a haunt of that kind (the great gathering:
+            hn_ = getattr(PP, "hnt", None)                       # the whole town's); no haunts built, never
+            hs_ = np.nonzero(self.haunt >= 0)[0]
+            if hn_ is None or getattr(W, "hp_s", None) is None:
+                f[:, hs_] = 0.0
+            else:
+                P_ = W.hp_s.shape[2]; hk_ = np.where(hn_ >= 0, (hn_ // P_) % len(WK.HAUNT_KINDS), -1)   # N x 3
+                ok_ = (hk_[:, :, None] == self.haunt[hs_][None, None, :]).any(1) | (self.haunt[hs_] == self.H_GREAT)[None, :]
+                f[:, hs_] *= ok_
+        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year, and
+            se_ = np.nonzero(self.sphev >= 0)[0]                  # once for each time it fired (not met since it fired)
+            last_ = getattr(W, "sph_ev_last", None)
+            if not W.p.get("sph_events") or last_ is None:
+                f[:, se_] = 0.0
+            else:
+                lf_ = last_[np.asarray(PP.loc)][:, self.sphev[se_]]
+                f[:, se_] *= (int(W.t) - lf_) <= 52
+                if sit_last is not None:
+                    f[:, se_] *= sit_last[:, se_] < lf_
+        if (self.ladder >= 0).any():   # a rung in the moment's sphere (no sphere: any) at least the one it names
+            rg_ = getattr(PP, "rung", None)
+            ls_ = np.nonzero(self.ladder >= 0)[0]
+            if rg_ is None or not getattr(PP, "sph_hr", False):
+                f[:, ls_] = 0.0
+            else:
+                rgm_ = np.where((self.msph[ls_] >= 0)[None, :], rg_[:, np.maximum(self.msph[ls_], 0)], rg_.max(1)[:, None])
+                f[:, ls_] *= np.floor(rgm_) >= self.ladder[ls_][None, :]
         if (self.prem >= 0).any():   # a moment that needs a technology the world has not got
             th_ = {}   # speed pass: each technology asked once a week
             for si in np.nonzero(self.prem >= 0)[0]:
@@ -449,7 +630,12 @@ class WorldLink:
             elif nm_ == "jobloss":
                 v_ = np.asarray(v_, float)[_uclip(held_title_sector, 0, len(v_) - 1)][:, None]
                 v_ = np.where((held_title_sector >= 0)[:, None], v_, float(np.mean(W.rate_mult("jobloss"))))
+                if getattr(PP, "c3_jl", None) is not None:   # C3: a merger's quarter of risk
+                    v_ = v_ * np.where(PP.c3_jl > W.t, W._c_par("merge_jl"), 1.0)[:, None]
             r[:, m_] *= v_
+        ci_ = W.c4_illness() if W.p.get("c4_nature") else None   # C4: bad air or water in the person's place
+        if ci_ is not None and self.ill_s.any():
+            r[:, self.ill_s] *= ci_[PP.loc][:, None]
         r[:, self.wm_s] = 0.0          # these come on the world's events instead
         return r
 
@@ -463,7 +649,9 @@ class WorldLink:
         u_law = np.zeros((N, K)); law_open = np.zeros((N, K), bool); u_app = np.zeros((N, K)); u_mea = np.zeros((N, K))
         gone = np.zeros((N, K), bool)
         if (lw >= 0).any():
-            st_ = np.array([W.law_state(k_) for k_ in WK.LAW_KEYS])[np.maximum(lw, 0)]   # 0 legal, 1 restricted, 2 banned
+            st_ = np.array([W.law_state(k_) for k_ in WK.LAW_KEYS_ALL])[np.maximum(lw, 0)]   # 0 legal, 1 restricted, 2 banned
+            if self.law_neg.any():   # -key: against the law where the act is in force or allowed (evading a call-up)
+                st_ = np.where(self.law_neg[s], 2 - st_, st_)
             app_ = lw >= 0
             app_ &= (lw != self.ssm) | partner_same[:, None]      # same-sex marriage's law binds a same-sex couple only
             u_law = np.where(app_, np.where(st_ == 2, 1.0, np.where(st_ == 1, 0.5, 0.0)), 0.0)
@@ -471,6 +659,8 @@ class WorldLink:
         if (nm >= 0).any():
             acc_ = self.acc_                                        # N, n_norm: society's norm with the close circle's view
             a_ = np.take_along_axis(acc_, np.maximum(nm, 0), 1)
+            if self.norm_neg.any():   # -key: frowned on where the norm is accepted (snubbing a same-sex partner)
+                a_ = np.where(self.norm_neg[s], 1 - a_, a_)
             u_app = np.where(nm >= 0, 2.0 * (1 - a_), 0.0)
         if (te >= 0).any():
             for k_ in np.unique(te[te >= 0]):
@@ -532,12 +722,19 @@ class WorldLink:
         odds ratio): finding a job by the local unemployment (matching elasticity .5), a place in education by the
         local university's capacity and its openness to the person's class, an illness's acts by the hospitals'
         capacity there. 0 at the burn-in's typical world."""
+        d = np.zeros((self.N, self.job_o.shape[1]))
+        for v_ in self.odds_parts(s).values():
+            d += v_
+        return d
+
+    def odds_parts(self, s):
+        """odds() by cause, {"unemployment", "university places", "hospital places": (N, K)}, only those that apply."""
         W, PP = self.W, self.PP; N = self.N
-        d = np.zeros((N, self.job_o.shape[1]))
+        out = {}
         jo, ao = self.job_o[s], self.adm_o[s]
         if jo.any():
             ul = np.asarray(getattr(W, "loc_unemp", np.full(PP.n_loc, U_REF)), float)[PP.loc]
-            d += jo * _uclip(0.5 * np.log(np.maximum(ul, 0.5) / U_REF) / 3.0, -0.15, 0.25)[:, None]
+            out["unemployment"] = jo * _uclip(0.5 * np.log(np.maximum(ul, 0.5) / U_REF) / 3.0, -0.15, 0.25)[:, None]
         if ao.any() or self.ill_s[s].any():
             cap = np.asarray(W.inst_capacity, float); kd = np.asarray(W.inst_kind); il = np.asarray(W.inst_loc)
             def local(kind, v):   # the mean over that kind's institutions in each person's town, else the country's
@@ -552,11 +749,11 @@ class WorldLink:
                 uni = kd == WK.INST_KINDS.index("university")
                 op_ = oc[uni].mean(0) if uni.any() else np.full(N, OPEN_REF)
                 f_ = local("university", cap) / CAP_REF * op_ / OPEN_REF
-                d += ao * _uclip(-np.log(np.maximum(f_, 0.1)) / 3.0, -0.15, 0.2)[:, None]
+                out["university places"] = ao * _uclip(-np.log(np.maximum(f_, 0.1)) / 3.0, -0.15, 0.2)[:, None]
             if self.ill_s[s].any():
                 f_ = local("hospital", cap) / CAP_REF
-                d += self.ill_s[s][:, None] * _uclip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
-        return d
+                out["hospital places"] = self.ill_s[s][:, None] * _uclip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
+        return out
 
     # ---- other societies (spec 5 §5; Emren 10:30 "Yes, fully")
     def on_title(self, n, name):
@@ -633,21 +830,67 @@ class WorldLink:
 
     def safety(self):
         """What the place adds to the safety need's supply (N,): crime there, a war, a disaster's aftermath."""
+        p = self.safety_parts()
+        return p["crime"] + p["war"] + p["disaster"]
+
+    def safety_parts(self):
+        """safety() by cause, {"crime", "war", "disaster": (N,)}."""
         W, PP = self.W, self.PP
         cr = np.asarray(W.loc_crime, float)[PP.loc]; ds = np.minimum(np.asarray(W.loc_disaster, float)[PP.loc], 1)
-        return -0.5 * (cr - CRIME_REF) - 0.15 * float(getattr(W, "war", 0) > 0) - 0.15 * ds
+        return {"crime": -0.5 * (cr - CRIME_REF), "war": -(0.15 * float(getattr(W, "war", 0) > 0)) + np.zeros(self.N),
+                "disaster": -(0.15 * ds)}
 
     def resources(self, employed):
         """What the world adds to the targets the engine's resources drift to (money, freedom), (N,) each: rent where
         housing is dear for those without a home of their own, prices eating a fixed income, the welfare floor for those
         out of work, the rights there are. 0 at the burn-in's typical world."""
+        p = self.resources_parts(employed)
+        return p["housing"] + p["prices"] + p["welfare"], p["rights"]
+
+    def resources_parts(self, employed):
+        """resources() by cause: money from "housing" (rent), "prices" and "welfare" (the floor), freedom from
+        "rights", each (N,)."""
         W, PP = self.W, self.PP
         rent = -0.05 * float(_uclip(W.housing, -1, 1)) * ~np.asarray(PP.own_home, bool)
         inf_ = self._pub.get("inflation"); inf_ = INFL_REF if inf_ is None else float(inf_)
         price = -0.004 * _uclip(inf_ - INFL_REF, -5, 15) * ~np.asarray(employed, bool)
         floor = 0.15 * (float(W.welfare) - WELF_REF) * ~np.asarray(employed, bool)
         free = np.full(self.N, 0.2 * (float(np.mean(W.rights)) - RIGHTS_REF))
-        return rent + price + floor, free
+        return {"housing": rent, "prices": price, "welfare": floor, "rights": free}
+
+    def wl2_parts(self, employed):
+        """WL2 (world-in-life.md), the small effects the world was missing, added to the targets the resources drift to,
+        each (N,) and 0 in a calm world: money from "prices_work" (prices eat a wage too, as wages lag), "recession"
+        (fewer hours and no raise for those who keep their job, twice in a severe one) and "disaster" (a disaster in
+        their own town costs money); freedom from "rec_hours" (the hours cut give a little time back) and
+        "disaster_time" (time spent clearing up); ties from "pandemic" (a lockdown cuts time with people)."""
+        W, PP, k = self.W, self.PP, WL2_PAR
+        emp = np.asarray(employed, bool)
+        inf_ = self._pub.get("inflation"); inf_ = INFL_REF if inf_ is None else float(inf_)
+        rec = float(getattr(W, "phase", 0) == 1) * (2.0 if getattr(W, "severity", 0) == 2 else 1.0)
+        ds = np.minimum(np.asarray(W.loc_disaster, float)[PP.loc], 1)
+        lock = float(getattr(W, "lockdown", 0.0))
+        return {"prices_work": -k["price_work"] * 0.004 * _uclip(inf_ - INFL_REF, -5, 15) * emp,
+                "recession": -k["rec_money"] * rec * emp, "rec_hours": k["rec_free"] * rec * emp,
+                "disaster": -k["dis_money"] * ds, "disaster_time": -k["dis_free"] * ds,
+                "pandemic": -k["pand_tie"] * lock + np.zeros(self.N)}
+
+    def cause(self, kind, years=5, key=None):
+        """The world behind an effect of `kind` (CAUSE_REC), for the game's hover: the latest public record entry of
+        that kind in the last `years` years (domain, kind, key, the character's age then), else None; with key, only
+        an entry about that key (a law's own change)."""
+        want = CAUSE_REC.get(kind, ())
+        if not want:
+            return None
+        lim = int(self.W.t) - 52 * years
+        for e in reversed(self.W.record):
+            if int(e.get("t", 0)) < lim:
+                break
+            if any(e.get("domain") == w_[0] and e.get("kind") == w_[1] and (len(w_) < 3 or str(e.get("key") or "").startswith(w_[2]))
+                   for w_ in want) and (key is None or e.get("key") == key):
+                return dict(domain=e.get("domain"), kind=e.get("kind"), key=e.get("key"),
+                            age=round((int(e["t"]) - self.t0) / 52, 2))
+        return None
 
     # ---- after the act
     def on_act(self, live, s, a, ma, succ, L, marks_defied=None):
@@ -658,8 +901,13 @@ class WorldLink:
             return []
         si_, ai_ = s[idx], a[idx]
         out = self.PP.on_act(idx, ma[idx], succ[idx].astype(float), lever=self.lev_i[si_, ai_], pushes=self.dom_i[si_, ai_],
-                             target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t)
+                             target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
+                             sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])
         res = out.get("results", []) if isinstance(out, dict) else []
+        hp_ = self.hpick[si_] & (succ[idx] > 0) & (self.osph[si_, ai_] >= 0) & (self.ocol[si_, ai_] >= 0)
+        if hp_.any() and getattr(self.PP, "sph_h", False):   # the haunt choice (N1): the option's face picks the place
+            for n_, s2_, a2_ in zip(idx[hp_], si_[hp_], ai_[hp_]):
+                self.PP.pick_haunt(int(n_), int(self.osph[s2_, a2_]), int(self.ocol[s2_, a2_]))
         mn_ = self.gov_office[idx] & self.office_s[si_] & (succ[idx] > 0)
         if mn_.any():   # W40: a minister's success in office passes the law the norms already point to (it lands, or
             ld_ = self.law_due()   # not, at the world's next quarter; the record shows it as the character's if it does)

@@ -1,0 +1,385 @@
+# Chroma Library, modern Earth: pair moments, the meeting (inner). Library thread, 2026-10-09, implementation list
+# v22 item 6, pair-moments.md (chroma-ideas, section 1 "the meeting" and section 2's table).
+# A meeting moment comes to a person who has held two colours together for a while: the pair's shared idea shows up
+# as a concrete chance, in an ordinary modern life, to live it. Ten moments, one per pair: the five enemy pairs
+# (W-R, W-B, U-R, U-G, B-G) and the five ally pairs (W-U, U-B, B-R, R-G, G-W). No guild or colour is named in player
+# text; the idea shows through the situation.
+# Gate (for the Engine): both colours of the pair above .22 in the identity, held together for two years or more; at
+# most once every five years for the same pair; ages 16 to 110.
+# Layout: five one-colour options and one full cross cycle that holds a cross between the pair's two colours. That
+# cross is the meeting (living the shared idea), written as the boldest, fullest option, and carries the identity
+# flag. Directions: every colour is the means colour of a meeting cross exactly twice (W>B W>G, U>G U>W, B>U B>R,
+# R>U R>W, G>B G>R), so the identity flags are even. A regular orientation of the ten pairs cannot use each cycle
+# two or three times, so the cycles here run s1 x1, s2 x2, s3 x3, s4 x4 (the even means count came first).
+# Chances: all five one-colour options 65; the meeting cross 50; the other four crosses 62. One mark per means colour,
+# each on a meeting cross. No other flags.
+
+# ---------------------------------------------------------------- W and R (enemy): heroism, stepping in
+
+== a gang on the late bus
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: community, conflict
+horizon: moment
+roles: a stranger
+earth: on a late bus, a gang starts on a lone young man while everyone else looks at their phones
+requires: W and R both above .22 for two years or more; at most once every five years for this pair
+likelier: W and R both still rising; city life and late journeys home; juvenile and young adult years; a past 'helped someone in need'
+rarer: a quiet country life with no night travel; body below .4; a 'made an enemy' within the year
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: On the late bus, three lads corner a young man, knock his bag to the floor and laugh. Everyone else stares at their phones. {N} has seen this kind of thing before and done nothing.
+scene W: Nobody should be treated like this, and nobody is doing anything about it. {N} feels the old rule rise up: someone has to.
+scene U: {N} counts the stops, the lads, the distance to the driver, and knows exactly how long the next minute will be.
+scene B: {N} weighs it up: three of them, one of {N}, and no one here owes the young man a thing. And yet.
+scene R: {Ns} heart is already pounding. The young man looks up, straight at {N}, and something hot rises in {Ns} chest.
+scene G: Packs pick on the stray; it has always been so. But {N} has never been able to watch it and stay still.
+- W | press the alarm and get the driver to stop the bus until it ends | v: security, conformity | chance: 65
+- U | note the stop, the time and the faces, and report it all in the morning | v: security | chance: 65
+- B | catch the eye of the biggest man aboard and get him to deal with it | v: power | chance: 65
+- R | mock the lads out loud until the whole bus is laughing at them | v: stimulation | chance: 65
+- G | move to the seat beside the young man and simply stay there, saying nothing | v: benevolence | chance: 65
+- W>B | speak like someone in charge, as if the bus were yours to run | act: speak like someone in charge, as if the bus were theirs to run | v: power | chance: 62
+- U>R | think up a distraction so the young man can slip off at the stop | v: self-direction, benevolence | chance: 62
+- B>G | offer the loudest one a few coins to leave the young man be and get off | v: security | chance: 62
+- R>W | stand up, step between them and the young man, and tell them it stops now | identity | v: benevolence, universalism | mark: helped someone in need | chance: 50
+- G>U | watch calmly until you see which one leads, then speak to him alone | v: self-direction | chance: 62
+works: The lads mutter, and get off at the next stop. The young man picks up his bag and breathes out.
+works: Somebody else stands up too, then another, and the bus is not silent any more.
+fails: The lads turn on {N} instead, and the ride home is long and ugly.
+fails: {N} waits one stop too long, and the young man is gone before anything is done.
+
+# ---------------------------------------------------------------- W and B (enemy): duty and patronage
+
+== the family purse
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: family, money
+horizon: months
+roles: elder, sibling
+earth: the family asks you to take over the shared savings and the old web of favours, and with them the say over who gets helped
+requires: W and B both above .22 for two years or more; at most once every five years for this pair
+likelier: W and B both still rising; a large or close family; adult and mature years; money above the family's average
+rarer: no living family nearby; juvenile years; a 'broke your word' to family within five years
+times: Among people who have held both for years, about one in six meets it in a decade (estimate)
+gap: 5-15
+scene: {elder} is stepping back, and the family wants {N} to look after the shared savings and the old web of favours. Whoever holds it decides who gets helped, and who owes whom.
+scene W: {N} has always been the one who remembers birthdays and debts alike. Now the family is asking {N} to carry all of it.
+scene U: {N} has seen the old notebook of who lent what to whom. It is a mess, and a puzzle, and an offer.
+scene B: Money, standing and every cousin's gratitude, all in one pair of hands. {N} feels the weight of it, and likes it.
+scene R: {N} loves these people, loudly and sometimes badly. Holding their purse would mean holding them, every one.
+scene G: It was {Ns} grandmother's before {elder}. Now the family looks round the table, and the eyes settle on {N}.
+- W | accept, and keep the books open for any of the family to read | v: conformity, benevolence | chance: 65
+- U | study the accounts and draw up a plan, then decide | v: security, self-direction | chance: 65
+- B | take it, and use the favours owed to raise your own standing | v: power, achievement | chance: 65
+- R | say no: you want a life of your own, not the family's purse | v: self-direction | chance: 65
+- G | ask {elder} to keep going a while longer, and help them as before | v: tradition | chance: 65
+- W>B | take it on, set firm rules, and let all know who looks after them now | identity | v: power, benevolence | chance: 50
+- U>R | learn how the money works, then use it to free a cousin to chase a dream | v: self-direction, benevolence | chance: 62
+- B>G | put the savings into a house the whole family can keep for generations | v: tradition, security | chance: 62
+- R>W | spend it at once on whoever is struggling most this month | v: benevolence | chance: 62
+- G>U | keep the old ways of the fund, and teach the young ones how it works | v: tradition | chance: 62
+works: The family settles around {N}, and the calls for help start coming to {Ns} door.
+works: A year on, nobody is in debt, and everyone knows whose door to knock on.
+fails: Old grudges about who got what come up again, and some of them land on {N}.
+fails: {N} makes a promise to one cousin that another takes as a slight.
+
+# ---------------------------------------------------------------- U and R (enemy): invention driven by passion
+
+== a contraption in the shed
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: joy
+life: leisure, learning, community
+horizon: week
+roles: friend
+earth: a half-built machine of your own design, a makers' fair in three weeks, and an idea that will not let you sleep
+requires: U and R both above .22 for two years or more; at most once every five years for this pair
+likelier: U and R both still rising; a shed, garage or workshop; juvenile and young adult years; a past 'learned a skill'
+rarer: no space of one's own; long working hours; elder years
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: A half-built machine sits in the shed, and {N} has stopped sleeping properly because of it. The town's makers' fair is in three weeks, and the thing might just work.
+scene W: {N} has the fair's entry form on the fridge, filled in neatly. The machine itself is far less tidy.
+scene U: {N} has the whole design in their head, every gear of it. Only the last part still refuses to make sense.
+scene B: If this works, nobody else has one. {N} turns that thought over and over in the dark.
+scene R: {N} keeps going out to the shed at midnight just to touch it. It is the most alive {N} has felt in years.
+scene G: It started as a way to mend an old pump. Now it has grown into something else, the way a seed does.
+- W | ask the fair's organisers for their rules, and build exactly to them | v: conformity | chance: 65
+- U | draw every part out on paper first, then build | v: self-direction | chance: 65
+- B | keep it hidden until you can protect the idea and sell it | v: power, achievement | chance: 65
+- R | drag it out to the street tonight and see what it does | v: stimulation | chance: 65
+- G | show it to the old repairman down the road, and listen to him | v: tradition | chance: 65
+- W>R | book the test ground properly, so the wild version can run in public | v: stimulation, conformity | chance: 62
+- U>G | redesign it to run on scraps and rain, gentle on the land | v: universalism | chance: 62
+- B>W | find a backer, and promise the town a share of what it earns | v: achievement, benevolence | chance: 62
+- R>U | throw every night at it: build it bold, break it, and rebuild until it works | identity | v: stimulation, achievement | chance: 50
+- G>B | let it rest a season, until the moment is ripe to sell it | v: achievement | chance: 62
+works: On the day, the machine coughs, shudders and works, and a small crowd claps.
+works: It is not finished yet, but {N} has never felt so awake.
+fails: Something burns out the night before the fair, and the stall stays empty.
+fails: The idea works on paper and nowhere else, and {N} is left with a shed full of parts.
+
+# ---------------------------------------------------------------- U and G (enemy): adaptation, growing with nature
+
+== the plot in a dry summer
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: nature, leisure
+horizon: months
+roles: a neighbour
+earth: the vegetable plot you have kept for years is wilting in a long dry summer, and the old ways are not enough
+requires: U and G both above .22 for two years or more; at most once every five years for this pair
+likelier: U and G both still rising; a garden or allotment kept for years; mature and elder years; a rural or suburban home
+rarer: no garden; a flat in a city centre; juvenile years
+times: Among people who have held both for years, about one in six meets it in a decade (estimate)
+gap: 5-15
+scene: The summer has been dry for weeks, and the plot {N} has kept for years is wilting. The old ways of watering are not working this time.
+scene W: The site has its watering hours, and {N} keeps them. The plants do not seem to know the rules.
+scene U: {N} pushes a finger into the soil: dust two inches down. Something about the way this plot holds water is wrong.
+scene B: {N} has put years into this plot, and the best crop in the row is about to go. That is not acceptable.
+scene R: {N} stands in the heat, furious at the sky, at the dust, at the beans that will not hold on.
+scene G: The land is telling {N} something. The oldest plants on the plot are surviving; the newest are not.
+- W | keep to the site's rules, and water only at the set hours | v: conformity | chance: 65
+- U | fit a meter to the tap and measure where every drop goes | v: achievement | chance: 65
+- B | buy in whatever water and feed it takes to save your best crop | v: achievement, power | chance: 65
+- R | dig the whole thing over and plant something new on a whim | v: stimulation | chance: 65
+- G | accept the dry year: let the plot rest and wait for rain | v: tradition | chance: 65
+- W>R | organise an evening watering party on the site, with food after | v: stimulation, benevolence | chance: 62
+- U>G | study the soil and the plants, then change the whole plot to live with the dry | identity | v: universalism, self-direction | mark: learned a skill | chance: 50
+- B>W | strike a deal for water from the farm next door, for every plot | v: benevolence | chance: 62
+- R>U | try anything: mulch, buried bottles, shade cloth, and see what holds | v: stimulation, self-direction | chance: 62
+- G>B | let the weak plants go, and save the water for the ones that pay | v: achievement | chance: 62
+works: By late summer the plot is greener than its neighbours, and people come to ask how.
+works: Not everything lives, but what does is stronger, and {N} knows why.
+fails: The heat wins, and the plot is brown by the end of the month.
+fails: {N} spends a summer on it, and the rain comes the week after it is too late.
+
+# ---------------------------------------------------------------- B and G (enemy): the cycle, nothing wasted
+
+== the skip outside the old shop
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: joy
+life: community, work, money
+horizon: week
+roles: a neighbour
+earth: the old hardware shop on the corner is closing, and everything that did not sell is going into a skip
+requires: B and G both above .22 for two years or more; at most once every five years for this pair
+likelier: B and G both still rising; a town with a high street; a garage or yard to store things; money below average
+rarer: a new-build estate; long working hours; a recent move
+times: Among people who have held both for years, about one in six meets it in a decade (estimate)
+gap: 5-15
+scene: The hardware shop on the corner is closing for good, and the owner is filling a skip with everything that did not sell. Timber, tools, tins of nails, all going to waste.
+scene W: {N} has bought screws here for years. It feels wrong to watch the place thrown out like rubbish.
+scene U: {N} looks into the skip and starts to sort it in their head: mendable, useful, valuable, truly done.
+scene B: Half of that is worth money to somebody. {N} can see the price of it from across the road.
+scene R: A whole shop's worth of things, free, right there. {Ns} hands are already itching to grab something.
+scene G: The shop had its life, and now it is ending. {N} watches, and wonders what could grow out of what is left.
+- W | check the owner is happy, and take only what they offer | v: conformity | chance: 65
+- U | list what is in there, and what each thing is worth, before touching it | v: achievement | chance: 65
+- B | haggle for the best pieces, and sell them on for a profit | v: power, achievement | chance: 65
+- R | climb into the skip and pull out whatever catches your eye | v: stimulation, hedonism | chance: 65
+- G | sit with the old owner and hear the shop's story while they clear it | v: benevolence, tradition | chance: 65
+- W>R | ask properly, then give the tools to the youth club for their projects | v: benevolence | chance: 62
+- U>G | sort what can be mended from what can feed the garden, and waste none | v: universalism | chance: 62
+- B>W | buy the whole lot for a fair price, and sell it on cheap to the neighbours | v: benevolence, achievement | chance: 62
+- R>U | grab a few odd pieces and start making something tonight, just to see | v: stimulation, self-direction | chance: 62
+- G>B | take it all, sort it slowly, and grow a new trade from what others threw away | identity | v: achievement, universalism | chance: 50
+works: By the end of the week the skip is empty, and nothing in it went to waste.
+works: The owner shakes {Ns} hand, glad that the shop's last things have somewhere to go.
+fails: The skip is taken away before {N} can do anything, and it all goes to the tip.
+fails: {N} ends up with a garage full of junk and no idea what to do with it.
+
+# ---------------------------------------------------------------- W and U (ally): fair rules, made with care
+
+== the block's first set of rules
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: home, community
+horizon: months
+roles: a neighbour
+earth: the residents' meeting in your block has collapsed into shouting again, and someone asks you to write some proper rules
+requires: W and U both above .22 for two years or more; at most once every five years for this pair
+likelier: W and U both still rising; a flat in a shared block; young adult and adult years; a past 'kept your word'
+rarer: a detached house; a recent move; juvenile years
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: The residents' meeting has fallen apart into shouting again, about parking, noise and the bins. Afterwards a neighbour asks {N}, the calm one, to write some proper rules.
+scene W: {N} has watched this go round for a year. Nobody knows what anyone owes anyone, and that is the whole problem.
+scene U: {N} already has half a system in their head: who parks where, which hours are quiet, how a complaint is heard.
+scene B: Whoever writes the rules decides how the block runs. {N} notices that nobody else has thought of it.
+scene R: {N} is sick of the shouting, sick of the notes on the doors. Something has to change, and soon.
+scene G: People lived side by side in this building long before the arguments started. {N} wonders what was lost.
+- W | offer to chair the next meeting, and keep order in it | v: conformity | chance: 65
+- U | draw a plan of the car park and count the spaces properly | v: achievement | chance: 65
+- B | make sure your own parking space is written into whatever comes | v: power | chance: 65
+- R | tell them all what you think of the bickering, then walk out | v: self-direction | chance: 65
+- G | keep out of it, and stay on good terms with everyone | v: security | chance: 65
+- W>G | set a monthly neighbours' evening, so people get to know each other first | v: benevolence, tradition | chance: 62
+- U>W | study how other blocks do it, then draft fair rules and put them to a vote | identity | v: universalism, conformity | chance: 50
+- B>U | volunteer, and quietly learn every neighbour's grievance and want | v: self-direction, power | chance: 62
+- R>B | lose your temper at the next meeting and take charge by force of will | v: power | chance: 62
+- G>R | let people sort it out among themselves, as neighbours always have | v: self-direction, tradition | chance: 62
+works: The rules pass with a show of hands, and the notes on the doors stop.
+works: It takes three meetings, but by the end people are nodding instead of shouting.
+fails: The loudest neighbour tears the plan apart, and the meeting ends worse than before.
+fails: Half the block ignores whatever is agreed, and {N} is blamed for trying.
+
+# ---------------------------------------------------------------- U and B (ally): knowledge kept close
+
+== a pattern nobody else has seen
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague
+earth: going through the figures at work, you spot a change coming that nobody has announced yet
+requires: U and B both above .22 for two years or more; at most once every five years for this pair
+likelier: U and B both still rising; office or data work; young adult and adult years; competence above .5
+rarer: no paid work; a very small firm; elder years
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: Going through the figures late one evening, {N} spots something nobody else has. The firm is about to put its weight behind one small team, and nobody has said a word yet.
+scene W: {N} feels the pull of duty: people should hear about changes that touch them. But nobody has asked.
+scene U: The numbers line up too neatly to be chance. {N} checks again, and again, and the pattern holds.
+scene B: Knowing first is worth more than anything else in this building. {N} sits very still at the desk.
+scene R: {N} wants to stand up and tell the whole floor. The secret fizzes like a shaken bottle.
+scene G: Change is coming to the firm like weather. {N} can feel which way the wind will blow.
+- W | ask {boss} plainly whether it is true, for everyone's sake | v: conformity, security | chance: 65
+- U | build a full model of the figures, just to know if you are right | v: self-direction | chance: 65
+- B | hint to {boss} that you know, and see what that buys | v: power | chance: 65
+- R | tell {colleague} at once, because it is too big to hold | v: benevolence | chance: 65
+- G | leave it: change comes, and the work will still be there | v: tradition, security | chance: 65
+- W>G | gather your team for a quiet talk, so nobody faces it alone | v: benevolence | chance: 62
+- U>W | check your reading twice, then take it to {boss} through the proper channel | v: conformity | chance: 62
+- B>U | keep it to yourself, and quietly master everything that team will need | identity | v: achievement, self-direction | chance: 50
+- R>B | march in to {boss} tomorrow and ask for a place on that team | v: achievement | chance: 62
+- G>R | say nothing, let it fall where it falls, and trust your feet to land | v: self-direction | chance: 62
+works: When the news finally comes, {N} is ready for it, and others are not.
+works: {N} understands the firm better than ever, and keeps it quietly to themselves.
+fails: {N} read it wrong, and the change never comes the way the figures said.
+fails: Somebody notices that {N} knew early, and the trust in the office cools.
+
+# ---------------------------------------------------------------- B and R (ally): life as a feast and a show
+
+== a bonus and a birthday
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: joy
+life: leisure, friends, money
+horizon: week
+roles: friend
+earth: a bigger bonus than you expected lands a week before your birthday, and your friends want a party to remember
+requires: B and R both above .22 for two years or more; at most once every five years for this pair
+likelier: B and R both still rising; a wide circle of friends; young adult and adult years; money above average
+rarer: debts; a new baby at home; elder years
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: A bonus has landed, bigger than expected, and {Ns} birthday is next week. {friend} grins: this is the year to throw the party everyone will talk about.
+scene W: {N} thinks first of the bills, the savings, the sensible things. And then of how long it has been since a real celebration.
+scene U: {N} could do the sums on this money for weeks. {friend} is already making a list of songs.
+scene B: {N} earned this, every bit of it. Why should anyone else decide how it is enjoyed?
+scene R: The music is already playing in {Ns} head. A night like that only comes along now and then.
+scene G: {N} thinks of the people who have stood by them for years, and how rarely they are all in one room.
+- W | put most of it aside for the bills, and keep the party small | v: security | chance: 65
+- U | price every option first, then decide what to do with it | v: self-direction | chance: 65
+- B | keep the money, and let someone else throw the party | v: power, hedonism | chance: 65
+- R | go out tonight, call everyone, and see where the night ends | v: hedonism, stimulation | chance: 65
+- G | spend a quiet day outdoors with the few people who matter most | v: tradition, benevolence | chance: 65
+- W>U | plan it all carefully, on a budget, and learn to cook for forty | v: achievement | chance: 62
+- U>B | invest the bonus, and let the returns pay for next year's party | v: achievement, power | chance: 62
+- B>R | hire the hall, the band and the best food, and be the star of the night | identity | v: hedonism, stimulation | mark: took a wild risk | chance: 50
+- R>G | gather everyone round a fire in the woods, and dance till dawn | v: hedonism, benevolence | chance: 62
+- G>W | cook a long meal at home, and invite the neighbours too | v: tradition, benevolence | chance: 62
+works: People talk about the night for years, and {N} remembers every minute of it.
+works: For one evening {N} is at the centre of everything, and it feels exactly right.
+fails: The bill is far bigger than the bonus, and the morning after is grim.
+fails: Half the guests never come, and the hall feels empty and expensive.
+
+# ---------------------------------------------------------------- R and G (ally): primal freedom
+
+== a summer under canvas
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: joy
+life: work, nature, travel
+horizon: months
+roles: friend
+earth: an old friend offers you a summer of hard outdoor work in the hills, sleeping under canvas, far from timetables
+requires: R and G both above .22 for two years or more; at most once every five years for this pair
+likelier: R and G both still rising; juvenile and young adult years; body above .6; no children at home
+rarer: a new job or a mortgage within the year; children at home; body below .4
+times: Among people who have held both for years, about one in six meets it in a decade (estimate)
+gap: 5-15
+scene: {friend} calls: they need one more pair of hands for a summer of rough work in the hills, sleeping under canvas, far from timetables and screens. {N} would have to drop everything here.
+scene W: {N} has commitments here, and people who count on them. Still, the hills have been calling for a long time.
+scene U: {N} wants to know everything first: the work, the weather, the pay. And under the questions, a quieter want.
+scene B: {N} has spent years building a life in town. Leaving it, even for a summer, would cost something.
+scene R: {N} is half packed before {friend} has finished the sentence. Wind, sweat, open sky: yes.
+scene G: Something in {N} has been restless in the town for years. The hills sound like a place they already know.
+- W | stay, and keep the promises you have already made here | v: conformity, security | chance: 65
+- U | ask {friend} for every detail of the work first, then decide | v: security, self-direction | chance: 65
+- B | name your price: go only if the pay is worth leaving for | v: power, achievement | chance: 65
+- R | say yes on the phone, pack tonight, and sort the rest later | v: stimulation, self-direction | chance: 65
+- G | walk alone in the hills nearby, and let your gut decide | v: self-direction | chance: 65
+- W>G | go, and keep the camp's shared chores fair, so the crew holds together | v: benevolence, conformity | chance: 62
+- U>W | read up on the work first, so you can keep the crew safe up there | v: security, benevolence | chance: 62
+- B>U | go, and learn the trade well enough to run your own crew one day | v: achievement, self-direction | chance: 62
+- R>B | go, outwork everyone, and come back with the most money | v: achievement, power | chance: 62
+- G>R | go: sleep under the sky, live by the weather and your own strength | identity | v: stimulation, self-direction | mark: left home | chance: 50
+works: {N} comes back sunburnt, strong and quiet, with the hills still in them.
+works: The work is hard and the nights are cold, and {N} has rarely been so happy.
+fails: Things fall apart at home while {N} is away, and it takes months to put them right.
+fails: The weather turns, the work dries up, and the summer ends early and sour.
+
+# ---------------------------------------------------------------- G and W (ally): harmony, growing together
+
+== the empty lot on the street
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: joy
+life: community, nature, home
+horizon: months
+roles: a neighbour
+earth: the empty lot at the end of your street has been weeds and broken glass for years, and the neighbours are standing looking at it
+requires: G and W both above .22 for two years or more; at most once every five years for this pair
+likelier: G and W both still rising; a settled street; adult, mature and elder years; a past 'made a friend' among neighbours
+rarer: a recent move; long working hours; juvenile years
+times: Among people who have held both for years, about one in five meets it in a decade (estimate)
+gap: 5-15
+scene: The empty lot at the end of the street has been weeds and broken glass for years. This spring a few neighbours stand looking at it, and one says: someone should do something with it.
+scene W: {N} knows most of these people by name and few of them by more. That has always seemed a shame.
+scene U: {N} is already picturing it: beds along the sunny side, a path, a tap by the gate.
+scene B: An empty lot on a good street. {N} wonders who owns it, and what it is worth.
+scene R: {N} wants to start right now, with bare hands and a bin bag, before anyone talks it to death.
+scene G: Things want to grow there. {N} can see it in the weeds already pushing up through the cracks.
+- W | ask the council who is responsible, and wait for their answer | v: conformity | chance: 65
+- U | look up how other streets have done it, and what worked | v: self-direction | chance: 65
+- B | offer to rent the lot for yourself | v: power | chance: 65
+- R | go down tonight with a bin bag and start clearing the glass | v: benevolence, stimulation | chance: 65
+- G | plant one tree there quietly, and see who comes to water it | v: tradition, universalism | chance: 65
+- W>G | gather the street, agree who does what, and turn it into a shared garden | identity | v: benevolence, universalism | mark: made a friend | chance: 50
+- U>W | draw a plan for the lot, fair to every house, and take it to the council | v: universalism | chance: 62
+- B>U | find out who owns the lot, and what it might be worth | v: power, self-direction | chance: 62
+- R>B | clear it yourself this weekend, and claim the best corner as your own | v: power, stimulation | chance: 62
+- G>R | scatter wildflower seed over it and let it grow as wild as it likes | v: universalism | chance: 62
+works: By summer there are beans on the fence and children on the path, and half the street knows each other.
+works: The first evening of work ends with tea on the kerb and plans for the next.
+fails: The owner turns up with a fence and a lock, and the lot goes back to weeds.
+fails: The first keen weeks pass, and soon only {N} is left watering.

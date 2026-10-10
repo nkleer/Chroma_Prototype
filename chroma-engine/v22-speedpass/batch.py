@@ -44,7 +44,8 @@ ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big 
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
-harsh unrest prosper era
+harsh unrest prosper era founding (C5: a movement founded in the person's town within the year; true only with c5_faith on)
+haunts (the spheres' haunts, phase 2: never true until they are built)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -349,6 +350,8 @@ def _packs(world, packs, pack_moments, R):
         rl = _module(os.path.join(d_, "roles.py"), f"chroma_pack_{pk}_roles")
         out["rules"].update(getattr(rl, f"ROLES_{up_}", {})); out["rules"].update(getattr(rl, "ROLES_REACH", {}))
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
+        if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
+            out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
             out["extend"].setdefault(nm_, []).append(x_)
         if os.path.exists(os.path.join(d_, "helps.py")):
@@ -393,6 +396,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
     sits += PK["sits"]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
+    if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
+        sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -565,16 +570,19 @@ def _world_fields(L):
             seen += [x for x in vals(src.get("roles", "")) if x in WK.WHO_SLOTS]
             who[si] = list(dict.fromkeys(seen))
     law = np.full((S, K), -1); norm = np.full((S, K), -1); tech = np.full((S, K), -1); lever = np.full((S, K), -1)
+    law_neg = np.zeros((S, K), bool); norm_neg = np.zeros((S, K), bool)   # a leading minus: the other way round
     push = np.full((S, K), -1); push_sub = {}; role = np.full((S, K), -1)
     for si in range(S):
         for ki, nt in enumerate(L["notes"][si]):
             if not nt:
                 continue
             nm = f"moment {L['src'][si].get('name', si)!r}, option {ki + 1}"
-            if nt.get("law"):
-                law[si, ki] = one(nt["law"], WK.LAW_KEYS, nm)[0]
+            if nt.get("law"):   # a leading minus closes the option the other way round (v23 W38: -conscription)
+                lv_ = str(nt["law"]).strip(); law_neg[si, ki] = lv_.startswith("-")
+                law[si, ki] = one(lv_.lstrip("- "), WK.LAW_KEYS_ALL, nm)[0]
             if nt.get("norm"):
-                norm[si, ki] = one(nt["norm"], WK.NORM_KEYS, nm)[0]
+                nv_ = str(nt["norm"]).strip(); norm_neg[si, ki] = nv_.startswith("-")
+                norm[si, ki] = one(nv_.lstrip("- "), WK.NORM_KEYS_ALL, nm)[0]
             if nt.get("tech"):
                 tech[si, ki] = one(nt["tech"], WK.TECH_KEYS, nm)[0]
             if nt.get("role"):   # N1b: women, men (an act the world reserves for that sex), keep or cross (the scene's role)
@@ -592,6 +600,38 @@ def _world_fields(L):
                         raise ValueError(f"{nm}: pushes {nt['pushes']!r}: a sub-kind only follows group, institution or close, "
                                          f"from its own list")
                     push_sub[(si, ki)] = sub[0].strip()
+    # the spheres (item 15; world-fields.md "New Library fields"): a moment's sphere, haunt kind and rung; an option's
+    # face (sphere and colour; a pair face keeps its sphere and both colours). Strict: an unknown value fails loudly
+    def sph_val(v, where_):
+        x = str(v).strip()
+        sp_, _, f_ = x.partition(".")
+        if sp_ not in WK.SPHERES or (f_ and not (len(f_) in (1, 2) and all(c_ in "WUBRG" for c_ in f_) and len(set(f_)) == len(f_))):
+            raise ValueError(f"{where_}: unknown sphere or face {x!r} (a sphere of {', '.join(WK.SPHERES)}, then .W .. .G or a pair)")
+        return WK.SPHERES.index(sp_), ("WUBRG".index(f_) if len(f_) == 1 else -1), f_
+    msph = np.full(S, -1); haunt = np.full(S, -1); ladder = np.full(S, -1)
+    osph = np.full((S, K), -1); ocol = np.full((S, K), -1); hpick = np.zeros(S, bool)
+    sphev = np.full(S, -1)      # a moment a sphere event brings (phase 3): the event's index in sphere_data.EV
+    import sphere_data as SD_
+    ev_key = {e_["key"]: i_ for i_, e_ in enumerate(SD_.EV)}
+    for si, src in enumerate(L["src"][:S]):
+        nm = f"moment {src.get('name', si)!r}"
+        if src.get("sphere"):
+            msph[si] = sph_val(src["sphere"], nm)[0]
+        if src.get("haunt"):
+            haunt[si] = one(src["haunt"], WK.HAUNT_KINDS, nm)[0]
+        if src.get("ladder"):
+            ladder[si] = one(src["ladder"], WK.LADDER, nm)[0]
+        if src.get("sphere_event"):
+            k_ = str(src["sphere_event"]).strip()
+            if k_ not in ev_key:
+                raise ValueError(f"{nm}: unknown sphere_event {k_!r} (an event key of the nine sphere files)")
+            sphev[si] = ev_key[k_]
+        for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
+            if nt and nt.get("sphere") and ki < K:
+                osph[si, ki], ocol[si, ki], _ = sph_val(nt["sphere"], f"{nm}, option {ki + 1}")
+    for c_ in L.get("COND", []):   # the haunt choices: inner moments gated on the word haunts (the engine applies the pick)
+        if re.search(r"\bhaunts\b", c_.get("rtxt", "")):
+            hpick[c_["s"]] = True
     prem = np.full(S, -1)   # W38: a moment that needs a technology to make sense (earth_rules.PREMISE_TECH, by name)
     for nm_, k_ in L.get("PREMISE_TECH", {}).items():
         if k_ not in WK.TECH_KEYS:
@@ -599,10 +639,13 @@ def _world_fields(L):
         for si in range(S):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
+    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
-             W_LAW=law, W_NORM=norm, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
+             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
+SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 
@@ -642,6 +685,8 @@ def _targets(L, PK, R=None):
     3 community), BUDGET, TIER_LIFT, A_TIER (S x K: the career or summit an option's act gives, -1 for none)."""
     G = L["ROLES"]; G["TARGET"] = np.array(G["share"], float); G["TIER"] = np.zeros(G["NI"], np.int8)
     bud = dict(career=1 / 3, summit=1 / 20, community=10.0); bud.update(getattr(R, "BUDGET", {}) if R is not None else {})
+    if FLOORS and R is not None:   # item 16's floors, off until the v22.3 refit
+        bud.update(getattr(R, "BUDGET_FLOORS", {}))
     G["BUDGET"] = bud
     bad = [nm for nm in PK.get("target", {}) if nm not in G["ID"]]
     if bad:
@@ -673,6 +718,17 @@ def _targets(L, PK, R=None):
         G["TARGET"][sm] = np.maximum(sh[sm], np.minimum(ts_, TARGET_CAP))
     cm = np.nonzero(G["TIER"] == 3)[0]
     G["TARGET"][cm] = np.maximum(sh[cm], np.minimum(bud["community"] * sh[cm], TARGET_CAP))
+    floor_kinds = ("career", "community", "faith")    # titles of one's own doing; statuses keep their real shares
+    for i_ in range(G["NI"]):                          # the floors (Emren 10-09: rare titles must be more reachable)
+        if i_ >= G["NT"]:
+            fl_ = float(bud.get("perk_floor", 0.0))
+        elif G["kindname"][i_] == "career" and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("career_floor", 0.0))
+        elif G["kindname"][i_] in floor_kinds and G["TIER"][i_] != 2:
+            fl_ = float(bud.get("title_floor", 0.0))
+        else:
+            continue
+        G["TARGET"][i_] = max(G["TARGET"][i_], fl_)
     tl_ = tier_lift(R, PK.get("names", [])) if (len(car) or len(sm)) and R is not None else {}
     G["TIER_LIFT"] = tl_
     for i_ in np.concatenate([car, sm]).astype(int):   # who enters or moves into it (entry weights) by the whole lift; a

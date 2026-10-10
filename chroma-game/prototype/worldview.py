@@ -268,25 +268,28 @@ def key_words(key, table=None):
 class WorldView:
     """Turns the engine's world data (see world-hooks-for-engine.md) into the panel, story lines, circle and reach."""
 
-    def __init__(self, seed, setting, name, born_t=0, words=None):
+    def __init__(self, seed, setting, name, born_t=0, words=None, fig_own=False):
         self.seed, self.setting, self.name, self.born_t = seed, setting, name, born_t
+        self.fig_own = fig_own                       # K12: skip a figure's seeded name that shares the character's first name
         self.words = words or {}                     # optional key -> words tables (laws, norms, rights, tech, disasters)
         self.figures = {}
 
     def fig(self, fid):
         """A public figure's name. The engine numbers figures 0, 1, 2... as they appear; each takes its seeded name unless
-        an earlier figure has it, then the next seeded draw, so no two figures share a name whatever order they are asked in."""
+        an earlier figure has it (or, with fig_own, it shares the character's first name), then the next seeded draw, so no
+        two figures share a name whatever order they are asked in."""
         fid = int(fid)
         if fid < 0:
             return person_name(self.seed, f"fig{fid}", True, self.setting)
         soc, fid = divmod(fid, FIG_SOC)                 # a neighbour society's figures (W35-3) have names of their own
         names = self.__dict__.setdefault("_fig_names" + (str(soc) if soc else ""), [])
         used = self.__dict__.setdefault("_fig_used", set())
+        own = str(self.name or "").split()[:1] if self.fig_own else []
         while len(names) <= fid:
             j, k = len(names), 0
             tag = f"fig{j}" if not soc else f"fig{soc}.{j}"
             nm = person_name(self.seed, tag, True, self.setting)
-            while nm in used and k < 50:
+            while (nm in used or nm.split()[0] in own) and k < 50:
                 k += 1; nm = person_name(self.seed, f"{tag}-{k}", True, self.setting)
             used.add(nm); names.append(nm)
         return names[fid]

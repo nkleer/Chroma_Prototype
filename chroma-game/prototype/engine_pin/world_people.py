@@ -37,15 +37,39 @@ except ImportError:
 from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
+from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_ROWS, LADDER
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
 CAR, PAR, KID, COM, FAI = (KN.index(k_) for k_ in ("career", "partner", "children", "community", "faith"))
 MON, TIM, HEA = (RESOURCES.index(r_) for r_ in ("money", "time", "health"))
 ENGINE_ROLES = ["parent", "sibling", "friend", "grandparent", "partner"]   # the engine's ROLES: the columns of alive
-ROLE = list(WHO_SLOTS) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"]
+_NW = WHO_SLOTS.index("keeper") if "keeper" in WHO_SLOTS else len(WHO_SLOTS)   # slots appended later go after the own
+ROLE = list(WHO_SLOTS[:_NW]) + ["kin", "grandchild", "inlaw", "classmate", "member", "acquaintance"] + list(WHO_SLOTS[_NW:])
 R = {r_: i_ for i_, r_ in enumerate(ROLE)}
 BIT = {r_: 1 << i_ for i_, r_ in enumerate(ROLE)}
+GROUP_SPH = np.array([-1 if GROUP_SPHERE[k_] is None else SPHERES.index(GROUP_SPHERE[k_]) for k_ in GROUP_KINDS])
+SECTOR_SPH = np.array([SPHERES.index(SECTOR_SPHERE[k_]) for k_ in SECTORS])   # spheres (item 15): world.py's maps
+# each setting kind's subsector (its place, sphere_data.PLACE_BY_EPOCH); work by its employer's sector (item 15, phase 1d)
+SET_SUB = {"household": "care.hearth", "class": "learn.schooling", "congregation": "faith.congregation",
+           "club": "gather.circle", "scene": "gather.night", "online": "gather.talk", "neighbours": "gather.house",
+           "gang": "prot.hire", "unit": "prot.host", "ward": "care.houses", "movement": "rule.voice"}
+# phase 2 (N1, N2): the haunt kinds' spheres; which kinds a club or a scene setting is held at; the youngest age for
+# each kind (others from 4; the yearly great gathering is the whole town's, never picked); what a kind costs (0 to 1)
+HAUNT_SPH = np.array([SPHERES.index(k_.split(".")[0]) for k_ in HAUNT_KINDS], np.int64)
+SCENE_HAUNTS = {"gather.night", "arts.stage", "arts.song"}
+SET_HAUNTS = {"club": [i_ for i_, k_ in enumerate(HAUNT_KINDS) if k_ not in SCENE_HAUNTS and k_.split(".")[0] in ("gather", "arts", "learn", "prod", "prot", "care", "rule") and k_ not in ("gather.great", "learn.higher")],
+              "scene": [i_ for i_, k_ in enumerate(HAUNT_KINDS) if k_ in SCENE_HAUNTS],
+              "congregation": [i_ for i_, k_ in enumerate(HAUNT_KINDS) if k_.startswith("faith.")]}
+HAUNT_AGE = np.array([dict(**{"gather.house": 16, "gather.night": 16, "gather.great": 999, "comm.credit": 18, "rule.voice": 16,
+                              "rule.counsel": 30, "prot.watch": 18, "prot.host": 18, "prot.rescue": 18, "care.houses": 14,
+                              "learn.higher": 18, "faith.orders": 18, "comm.shop": 12, "comm.market": 8}).get(k_, 4)
+                      for k_ in HAUNT_KINDS], float)
+HAUNT_COST = np.array([dict(**{"gather.house": .5, "gather.night": .6, "gather.hall": .4, "arts.stage": .4, "arts.screen": .3,
+                               "comm.shop": .3, "comm.credit": .3, "gather.games": .2, "arts.craft": .2}).get(k_, 0.0)
+                       for k_ in HAUNT_KINDS], float)
+WORK_SUB = {"farm": "prod.land", "industry": "prod.works", "services": "comm.shop", "knowledge": "learn.finding",
+            "public": "rule.office"}
 G = {g_: i_ for i_, g_ in enumerate(GROUP_KINDS)}
 NG = len(GROUP_KINDS)
 WI = {w_: i_ for i_, w_ in enumerate(CAST_WANTS)}
@@ -57,6 +81,7 @@ GATES = ["open", "invitation", "test", "birth", "admission"]
 RING_OF = np.array([0 if d_ == "close" else 1 if d_ in ("group", "place") else 2 if d_ == "institution" else 3
                     for d_ in DOMAINS])
 REACH = np.array([[3, 1, 0, 0], [3, 2, 1, 0], [3, 2, 2, 1], [3, 2, 3, 2]], float)   # spec 7 §2: standing level x ring
+RUNG_MULT = np.array([0.125, 0.5, 1.0, 1.5, 2.0])   # spheres phase 4: a lever's pull by rung, newcomer .. leader (N2)
 NEVER = -10 ** 7
 STATUS = ["citizen", "migrant", "resident"]   # a life's status in the society it lives in (spec 5 §5)
 # display priority when someone holds several roles toward the character
@@ -379,6 +404,21 @@ class People:
         self._smem = {}      # (life, society id): (language, status) kept for a return
         self._Ws = {}        # N == 1: the Worlds left behind, by society id
         self._world_static()
+        # the spheres of society, phase 2 (item 15): the world's switches decide; off, none of this exists
+        wp_ = getattr(W, "p", None) or {}
+        self.sph_h = bool(wp_.get("sph_haunts", False)); self.sph_hr = bool(wp_.get("sph_hours", False))
+        self.sph_mk = bool(wp_.get("sph_marks", False))
+        if self.sph_h or self.sph_hr or self.sph_mk:
+            self._sph_init()
+        # phase 4: the levers on places and town spheres, and felt fairness per sphere (each off: nothing of it exists)
+        self.sph_lv = bool(wp_.get("sph_levers", False)); self.sph_fr = bool(wp_.get("sph_fair", False))
+        if wp_.get("sph_deep", False):   # phase 5, service as a chapter: comrades met in a unit fade at half speed
+            self.comrade = np.zeros((N, K), bool)
+            self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
+        if self.sph_lv or self.sph_fr:
+            self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
+            self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
+            self._p4_yr = -1
 
     # ------------------------------------------------------------------ the world, read through world-build.md's names
     def _world_static(self):
@@ -589,6 +629,8 @@ class People:
         c0 = _uclip(sl(c0), 0, 1); self.c[n, slot] = c0; self.cmax[n, slot] = c0
         self.trust[n, slot] = sl(trust0); self.last[n, slot] = t
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
+        if getattr(self, "comrade", None) is not None:
+            self.comrade[n, slot] = False
         self.brk[n, slot] = NEVER; self.mood[n, slot] = 0.6; self.want[n, slot] = -1; self.wripe[n, slot] = 0
         self.wstate[n, slot] = 0; self.wknown[n, slot] = False; self.wdue[n, slot] = NEVER; self.inci[n, slot] = False
         self.inst[n, slot] = sl(F.get("inst", -1))
@@ -886,6 +928,8 @@ class People:
         self.sform[n, j] = t if kind in ("household", "class") else t - int(52 * rng.exponential(12))
         self.sjoin[n, j] = t; self.sref[n, j] = ref; self.slead[n, j] = -1; self.sncast[n, j] = 0
         self.mset[n] &= ~self._bit(j)
+        if self.sph_h:
+            self.shnt[n, j] = -1
         return j
 
     def _inst_pick(self, n, ikind, sector=-1):
@@ -940,8 +984,18 @@ class People:
         elif kind == "congregation" and self.n_faith:
             fp = _norm(np.asarray(W.faith_profile, float))
             anch = np.where((refs >= 0)[:, None], fp[_uclip(refs, 0, len(fp) - 1)], lm)
+            fp_ = getattr(self, "_force_place", None) if self.sph_h else None
+            if fp_ is not None and fp_[0] in ns:   # the player's pick of a faith's place: the congregation meets there
+                self.shnt[ns[ns == fp_[0]], js[ns == fp_[0]]] = fp_[1]
         elif kind == "movement" and cause is not None:
             anch = np.tile(_norm(np.asarray(cause, float)), (E, 1))
+        elif self.sph_h and kind in ("club", "scene"):
+            # spheres phase 2 (N1): the setting meets at a named place, one of their haunts (or the town's best fitting
+            # place of such a kind, which becomes one), in place of the best of three random ways; the player's pick first
+            fp_ = getattr(self, "_force_place", None)
+            pl_ = np.array([fp_[1] if fp_ is not None and fp_[0] == n_ else self._haunt_for(int(n_), kind) for n_ in ns], np.int64)
+            self.shnt[ns, js] = pl_
+            anch = np.where((pl_ >= 0)[:, None], W.hp_s.reshape(-1, C)[np.maximum(pl_, 0)], lm)
         elif kind in ("club", "scene", "online", "gang", "movement"):
             # people choose the group that fits them (children: the parents choose): the best of three nearby ways
             base = lm if kind in ("club", "gang") else np.full((E, C), 1.0 / C)
@@ -1021,7 +1075,10 @@ class People:
         if not self.n_faith:
             return -1
         fp = _norm(np.asarray(self.W.faith_profile, float))
-        return int(np.argmax(fp @ self.w[n]))
+        sc = fp @ self.w[n]
+        if len(sc) > 3 and hasattr(self.W, "faith_open"):   # C5: a movement slot only while it lives and holds join_share
+            sc = np.where(self.W.faith_open(), sc, -np.inf)
+        return int(np.argmax(sc))
 
     def _members(self, n, j, t, leader=False, quiet=False):
         """New cast members for settings (n, j), vectorised: ages, pies near the setting's norms, roles by kind.
@@ -1073,6 +1130,8 @@ class People:
         bit = self._bit(j)
         self.mset[n] &= ~bit
         self.skind[n, j] = -1; self.sts[n, j] = 0; self.slead[n, j] = -1; self.sncast[n, j] = 0
+        if self.sph_h:
+            self.shnt[n, j] = -1
         if self.hhj[n] == j:
             self.hhj[n] = -1
         if self.watch[n]:
@@ -1190,6 +1249,370 @@ class People:
                 self.events.append(dict(n=int(n_), t=int(t), kind="split", group=GROUP_KINDS[int(self.skind[n_, j_])],
                                         j=int(j_), left=[int(x_) for x_ in self.uid[n_, go]]))
 
+    @property
+    def set_sphere(self):
+        """Each setting's sphere (N x M, index into SPHERES; -1 an empty slot): a work setting by its employer's
+        sector (none known: commerce). Read only (item 15, Replace)."""
+        g = self.skind.astype(np.int64); sph = GROUP_SPH[np.maximum(g, 0)]
+        serv = SECTORS.index("services"); isec = self.inst_sector
+        if isec is not None and len(isec):
+            isec = np.asarray(isec, np.int64); sec = isec[np.clip(self.sref, 0, len(isec) - 1)]
+            wsec = np.where((self.sref >= 0) & (sec >= 0), sec, serv)
+        else:
+            wsec = np.full(g.shape, serv)
+        out = np.where(g < 0, -1, np.where(sph >= 0, sph, SECTOR_SPH[wsec]))
+        if self.sph_h and getattr(self.W, "hp_s", None) is not None:   # phase 2: a setting at a place is in that place's sphere
+            P_ = self.W.hp_s.shape[2]
+            out = np.where(self.shnt >= 0, HAUNT_SPH[(np.maximum(self.shnt, 0) // P_) % len(HAUNT_KINDS)], out)
+        return out
+
+    def setting_places(self, n):
+        """Life n's settings as places (item 15, phase 1d; read only, no dice): slot, kind, sphere, subsector, the
+        place's name in the world's epoch, and the nearest face (the colour the setting's ways lean to most, with its
+        name). A class at a university is learn.higher."""
+        import sphere_data as SD
+        ep = getattr(self.W, "sph_epoch", "modern"); ss = self.set_sphere[n]; out = []
+        isec = self.inst_sector; ikind = self.inst_kind
+        for j in np.nonzero(self.skind[n] >= 0)[0]:
+            kind = GROUP_KINDS[int(self.skind[n, j])]; ref = int(self.sref[n, j])
+            if kind == "work":
+                sec = int(isec[ref]) if isec is not None and 0 <= ref < len(isec) and isec[ref] >= 0 else SECTORS.index("services")
+                sub = WORK_SUB[SECTORS[sec]]
+            elif kind == "class" and 0 <= ref < len(ikind) and ikind[ref] == INST_KINDS.index("university"):
+                sub = "learn.higher"
+            else:
+                sub = SET_SUB[kind]
+            sph = SPHERES[int(ss[j])]
+            if not sub.startswith(sph + "."):        # the subsector follows the sphere the layer reads
+                sub = sph + "." + SD.SUBSECTORS[sph][0]
+            c = int(np.argmax(self.snorm[n, j])); fk = f"{sph}.{COLORS[c]}"
+            out.append(dict(slot=int(j), kind=kind, sphere=sph, subsector=sub,
+                            place=SD.PLACE_BY_EPOCH.get(sub, {}).get(ep), face=fk, face_name=SD.FACE_NAMES[fk]))
+        return out
+
+    # ------------------------------------------------------------------ the spheres of society (item 15): phase 2
+    def _sph_init(self):
+        import sphere_data as SD
+        N, M = self.N, self.M; pm = self.perm
+        self.hnt = np.full((N, 3), -1, np.int64)     # N1: each life's haunts, flat place ids (World.place_info), best first
+        self.shnt = np.full((N, M), -1, np.int64)    # the place a club, scene or congregation setting is held at
+        self.rung = np.zeros((N, 9))                 # N2: standing in each sphere, 0 newcomer .. 4 leader (LADDER)
+        self.ryrs = np.zeros((N, 9))                 # years present in each sphere's places
+        self.hrs = np.zeros((N, len(TIME_ROWS)))     # hours a week by row (TIME_ROWS), this month
+        self.hpick = -1                              # the year of age of the last yearly pick
+        self.places_mix = None                       # the places part of item 12's current (sph_hours)
+        self._hrng = np.random.default_rng([self.seed, 47, self.run_seed])   # haunt picks draw only here
+        T = np.asarray(SD.TEACH, float)              # sphere x face x colour (W U B R G), into this world's frame
+        self._teach = T[:, pm][:, :, pm]
+        ep = getattr(self.W, "sph_epoch", "modern")
+        self._tgrp = SD.TIME_GROUPS.index({"bands": "early", "villages": "early", "machine": "machine", "modern": "modern"}.get(ep, "middle"))
+        self._time = SD.TIME; self._tages = SD.TIME_AGES; self._depth = np.array([SD.DEPTH[r_] for r_ in TIME_ROWS])
+        self.mark = np.zeros((N, C))                 # the mark of the work drawn in so far (pie units, this world's frame)
+        self.mark_dw = np.zeros((N, C))              # this year's step of it, for the engine to apply (then cleared)
+        self._mark_yr = -1
+        self._mark_tau = float(SD.MARK_TAU)
+        hs_ = np.array([SD.HAUNT_SHARES[k_] for k_ in HAUNT_KINDS])   # how common each haunt kind is (modern shares)
+        self._hprior = np.log(hs_ / hs_.mean())
+        self._mark_pull = {k_: np.asarray(v_["pull"], float)[pm] for k_, v_ in SD.MARKS.items()}
+        mz_ = {d_: (np.mean([v_[d_] for v_ in SD.MARKS.values()]), np.std([v_[d_] for v_ in SD.MARKS.values()]))
+               for d_ in ("say", "skill")}
+        self._mark_dim = {k_: (v_["danger"], v_["wear"], (v_["say"] - mz_["say"][0]) / mz_["say"][1],
+                               (v_["skill"] - mz_["skill"][0]) / mz_["skill"][1]) for k_, v_ in SD.MARKS.items()}
+        self.mark_wear = np.zeros(N)                 # years the body has aged beyond its own in hard work (.15 x wear a year)
+        self.mark_hurt = np.zeros(N, bool)           # a serious injury at work this year, for the engine (then cleared)
+        self.mark_die = np.zeros(N, bool)            # a death at work this year, for the engine (then cleared)
+        self.mark_z = np.zeros((N, 2))               # the trade's say and skill (centred over the 60), while in it
+
+    def _marks_year(self, t):
+        """sph_marks, once a year: a worker's colours are drawn toward their trade's mark (marks.json, at its colour
+        reading) with a drawing-in time of MARK_TAU years; the trade is the work setting's subsector (the employer's
+        sector, as setting_places reads it). The step goes to the engine as mark_dw (pie units)."""
+        a = self._age(t); yr = int(a)
+        if yr == self._mark_yr:
+            return
+        self._mark_yr = yr
+        wk = (self.skind == G["work"]); has = wk.any(1) & ~self.dead
+        isec = self.inst_sector; serv = SECTORS.index("services")
+        tgt = np.zeros((self.N, C)); dw_ = np.zeros((self.N, 2)); self.mark_z = np.zeros((self.N, 2))
+        for n_ in np.nonzero(has)[0]:
+            ref = int(self.sref[n_, int(np.argmax(wk[n_]))])
+            sec = int(isec[ref]) if isec is not None and 0 <= ref < len(isec) and isec[ref] >= 0 else serv
+            sub_ = WORK_SUB[SECTORS[sec]]
+            tgt[n_] = self._mark_pull[sub_]
+            dg_, wr_, sz_, kz_ = self._mark_dim[sub_]
+            dw_[n_] = dg_, wr_; self.mark_z[n_] = sz_, kz_
+        step = np.where(has[:, None], (tgt - self.mark) / self._mark_tau, 0.0)
+        self.mark += step; self.mark_dw = self.mark_dw + step
+        # the body (marks.json size.body): a serious injury at .03 x danger a work-year, a death at .0005 x danger; the
+        # body ages .15 x wear years a year worked (the haunt stream draws, so every other stream draws as before)
+        u_ = self._hrng.random((self.N, 2))
+        self.mark_hurt |= has & (u_[:, 0] < 0.03 * dw_[:, 0])
+        self.mark_die |= has & (u_[:, 1] < 0.0005 * dw_[:, 0])
+        self.mark_wear += 0.15 * dw_[:, 1] * has
+
+    def _tstage(self, a):
+        for st_, (lo_, hi_) in self._tages.items():
+            if lo_ <= a < hi_ + 1:
+                return st_
+        return "old"
+
+    def _haunt_hours(self, a):
+        """Each life's free hours a week for haunts (the stage's mean, by sociability) and how many haunts that holds."""
+        h = self._time[self._tstage(a)]["haunts"][self._tgrp] * np.sqrt(np.maximum(self.sociab, 0.05))
+        n = np.where(h < 4, 1, np.where(h <= 10, 2, 3)) * (a >= 4)
+        return h, n
+
+    def _haunt_util(self, ns, a, kinds=None):
+        """Utility of each place in each life's town (len(ns) x 31 kinds x N_PLACES): how common the kind is (the log of
+        its share, HAUNT_SHARES), fit of the place's ways with the
+        life's (a child's: the family's), money against what the kind costs, the age a kind asks, and a faith's places
+        for those who keep one; plus a Gumbel draw from the haunt stream (who goes where is partly chance)."""
+        W = self.W; hp = W.hp_s[self.loc[ns]]                                     # n x 31 x P x 5
+        who = self.w[ns] if a >= 10 else self.family_mix[ns]
+        fit_ = likeness(hp, who[:, None, None, :])
+        mon = self.res[ns, MON] if self.res.shape[1] > MON else np.full(len(ns), 0.5)
+        u = 12.0 * fit_ - 1.5 * HAUNT_COST[None, :, None] * (1 - mon)[:, None, None] + self._hprior[None, :, None]
+        ok = (HAUNT_AGE <= a)[None, :]
+        fk = np.array([k_.startswith("faith.") and k_ != "faith.seeking" for k_ in HAUNT_KINDS])
+        ok = ok & ~(fk[None, :] & (self.pfaith[ns] < 0)[:, None])
+        if kinds is not None:
+            ok = ok & np.isin(np.arange(len(HAUNT_KINDS)), kinds)[None, :]
+        u = u + self._hrng.gumbel(0, 1, u.shape)
+        return np.where(ok[:, :, None], u, -np.inf)
+
+    def _haunts_year(self, t, ns=None):
+        """N1: once a year (and on a move) each life picks its haunts by fit: one under 4 haunt hours a week, two at 4
+        to 10, three above; a place they already go to, and one a setting of theirs meets at, is kept more often.
+        A setting whose place is no longer theirs is left ("stopped going")."""
+        a = self._age(t); live = ~self.dead
+        ns = np.nonzero(live)[0] if ns is None else np.asarray(ns, np.int64)
+        if not len(ns):
+            return
+        _, nh = self._haunt_hours(a); nh = nh[ns]
+        u = self._haunt_util(ns, a)                                              # n x 31 x P
+        H, P_ = u.shape[1], u.shape[2]
+        base = self.loc[ns][:, None] * (H * P_)
+        flat = u.reshape(len(ns), -1)
+        held = self.hnt[ns]; linked = self.shnt[ns]
+        for q_ in range(3):   # a haunt kept is easier to keep; one a setting meets at, easier still
+            ok_ = (held[:, q_] >= 0) & (held[:, q_] // (H * P_) == self.loc[ns])
+            ii_ = np.nonzero(ok_)[0]
+            flat[ii_, held[ii_, q_] - base[ii_, 0]] += 1.0
+        for j_ in range(self.M):
+            ok_ = (linked[:, j_] >= 0) & (linked[:, j_] // (H * P_) == self.loc[ns])
+            ii_ = np.nonzero(ok_)[0]
+            flat[ii_, linked[ii_, j_] - base[ii_, 0]] += 2.0
+        u = flat.reshape(u.shape)
+        bp = u.argmax(2); bu = np.take_along_axis(u, bp[..., None], 2)[..., 0]  # each kind's best place
+        order = np.argsort(-bu, 1, kind="stable")[:, :3]
+        new = np.full((len(ns), 3), -1, np.int64)
+        for q_ in range(3):
+            k_ = order[:, q_]; ok_ = (q_ < nh) & np.isfinite(bu[np.arange(len(ns)), k_])
+            new[ok_, q_] = base[ok_, 0] + k_[ok_] * P_ + bp[np.arange(len(ns)), k_][ok_]
+        self.hnt[ns] = new
+        for i_, n_ in enumerate(ns):   # settings held at a place that is no longer theirs
+            for j_ in np.nonzero(self.shnt[n_] >= 0)[0]:
+                if self.shnt[n_, j_] not in new[i_]:
+                    self._leave(int(n_), int(j_), t, "stopped going")
+
+    def _haunt_for(self, n, kind):
+        """The place a new setting of this kind is held at: the life's best haunt of a fitting kind that no setting of
+        theirs meets at yet, else the town's best fitting place of such a kind, which becomes a haunt. -1: none."""
+        H = len(HAUNT_KINDS); P_ = self.W.hp_s.shape[2]; a = self._age()
+        ks = SET_HAUNTS.get(kind)
+        if not ks:
+            return -1
+        for p_ in self.hnt[n]:
+            if p_ >= 0 and (p_ // P_) % H in ks and p_ not in self.shnt[n] and p_ // (H * P_) == self.loc[n]:
+                return int(p_)
+        u = self._haunt_util(np.array([n]), a, kinds=ks)[0]
+        if not np.isfinite(u).any():
+            return -1
+        k_, i_ = np.unravel_index(int(np.argmax(u)), u.shape)
+        p_ = int(self.loc[n] * H * P_ + k_ * P_ + i_)
+        self._haunt_add(n, p_)
+        return p_
+
+    def _haunt_add(self, n, p_, first=False):
+        """Place p_ becomes one of life n's haunts: first (the player's pick) or in a free slot, else in the last one."""
+        h_ = [x_ for x_ in self.hnt[n] if x_ >= 0 and x_ != p_]
+        h_ = [p_] + h_ if first else h_ + [p_]
+        if len(h_) > 3:
+            h_ = h_[:2] + [p_] if not first else h_[:3]
+        self.hnt[n] = (h_ + [-1, -1, -1])[:3]
+
+    def pick_haunt(self, n, sphere, colour, t=None):
+        """The player's (or the life's own) haunt choice (N1; the haunt choice moments): the town's place in that sphere
+        whose ways lean most to that face becomes their first haunt, and they go: a setting meets there (a congregation
+        for a faith's place, a scene or a club for the rest). colour: W U B R G (the face's letter); returns the place."""
+        t = self.t if t is None else t; n = int(n)
+        if not self.sph_h:
+            return -1
+        H = len(HAUNT_KINDS); P_ = self.W.hp_s.shape[2]; a = self._age(t)
+        j = SPHERES.index(sphere) if isinstance(sphere, str) else int(sphere)
+        c = int(self.iperm[COLORS.index(colour) if isinstance(colour, str) else int(colour)])
+        ks = [k_ for k_ in range(H) if HAUNT_SPH[k_] == j and HAUNT_AGE[k_] <= a]
+        if not ks:
+            return -1
+        hp = self.W.hp_s[self.loc[n]][ks]                                         # kinds x P x 5
+        k_, i_ = np.unravel_index(int(np.argmax(hp[..., c])), hp.shape[:2])
+        p_ = int(self.loc[n] * H * P_ + ks[k_] * P_ + i_)
+        self._haunt_add(n, p_, first=True)
+        if p_ not in self.shnt[n]:
+            kn_ = HAUNT_KINDS[ks[k_]]
+            kind = "congregation" if kn_.startswith("faith.") else "scene" if kn_ in SCENE_HAUNTS else "club"
+            if kind == "congregation" and self.pfaith[n] < 0:
+                self.pfaith[n] = self._faith_for(n)
+            self._force_place = (n, p_)
+            try:
+                self.join(n, kind, t)
+            finally:
+                self._force_place = None
+        return p_
+
+    def _haunts_month(self, t):
+        """Monthly: a setting held at a place takes the place's ways as its anchor (the town's spheres reach the life
+        through its haunts); the setting's leader is the keeper, its members regulars, and keepers and leaders of any
+        setting can be go-betweens (N4)."""
+        on = self.shnt >= 0
+        if on.any():
+            n_, j_ = np.nonzero(on)
+            H = len(HAUNT_KINDS); P_ = self.W.hp_s.shape[2]
+            p_ = self.shnt[n_, j_]
+            self.sanch[n_, j_] = self.W.hp_s.reshape(-1, C)[p_]
+            ld_ = self.slead[n_, j_]; ok_ = ld_ >= 0
+            self.rmask[n_[ok_], ld_[ok_]] |= BIT["keeper"] | BIT["go-between"]
+            B = self._bits()
+            mem = (B[n_, :, j_] > 0)                                              # rows x K
+            rr, kk = np.nonzero(mem)
+            self.rmask[n_[rr], kk] |= BIT["regular"]
+        ld = self.slead >= 0
+        if ld.any():
+            n_, j_ = np.nonzero(ld)
+            self.rmask[n_, self.slead[n_, j_]] |= BIT["go-between"]
+
+    def _sph_hours(self, t):
+        """Monthly (sph_hours): hours a week in each of the eight rows (dynamics.json exposure, this epoch's column, by
+        the life's settings), the places part of item 12's current (each row's mix x hours x depth x (1 + .25 x rung))
+        and, yearly, the rungs (N2): years present in a sphere's places make a regular (1) and a known face (5); rank .85
+        or more in a setting there makes a pillar, leading one a leader; absence fades a rung a step a year."""
+        W = self.W; N = self.N; a = self._age(t); T = self._time[self._tstage(a)]; g = self._tgrp
+        sph = getattr(W, "sph_s", None)
+        if sph is None:
+            return
+        town = sph[self.loc]                                                      # N x 9 x 5
+        ph_ = getattr(W, "sph_ph", None) if W.p.get("sph_pairs", False) else None
+        tm = W.sph_teach_mix((town, None if ph_ is None else ph_[self.loc]), self._teach)   # each town sphere's teaching mix
+        has = lambda k_: (self.skind == G[k_])
+        def set_mix(k_):
+            h_ = has(k_); any_ = h_.any(1); j_ = h_.argmax(1)
+            return any_, self.snorm[np.arange(N), j_].astype(float)
+        S_ = SPHERES.index
+        hrs = np.zeros((N, 8)); mix = np.zeros((N, 8, C)); rs = np.zeros((N, 8), np.int64)
+        wk_, wm_ = set_mix("work"); ws_ = self.set_sphere[np.arange(N), has("work").argmax(1)]
+        hrs[:, 0] = T["work"][g] * wk_; mix[:, 0] = np.where(wk_[:, None], wm_, tm[:, S_("comm")]); rs[:, 0] = np.where(wk_, ws_, S_("comm"))
+        cl_, cm_ = set_mix("class")
+        hrs[:, 1] = np.where(cl_, max(T["learn"][g], 12.0 if a >= 5 else 0.0), T["learn"][g] * (a >= 18))
+        mix[:, 1] = np.where(cl_[:, None], cm_, tm[:, S_("learn")]); rs[:, 1] = S_("learn")
+        hh, _ = self._haunt_hours(a)
+        if self.sph_h:
+            ok_ = self.hnt >= 0; nk_ = ok_.sum(1)
+            hs_ = HAUNT_SPH[(np.maximum(self.hnt, 0) // W.hp_s.shape[2]) % len(HAUNT_KINDS)]   # N x 3
+            hm_ = np.einsum("nqf,nqfc->nqc", W.hp_s.reshape(-1, C)[np.maximum(self.hnt, 0)], self._teach[hs_])
+            hm_ = (hm_ * ok_[..., None]).sum(1) / np.maximum(nk_, 1)[:, None]
+            hsph = hs_[:, 0]
+            hrs[:, 2] = hh * (nk_ > 0); mix[:, 2] = np.where((nk_ > 0)[:, None], hm_, tm[:, S_("gather")]); rs[:, 2] = hsph
+        else:
+            hrs[:, 2] = hh * (a >= 4); mix[:, 2] = tm[:, S_("gather")]; rs[:, 2] = S_("gather")
+        fa_, fm_ = set_mix("congregation")
+        hrs[:, 3] = T["faith"][g] * np.where(fa_, 1.6, 0.25)   # the row is the mean: members about 1.6 times it (most belong); mix[:, 3] = np.where(fa_[:, None], fm_, tm[:, S_("faith")]); rs[:, 3] = S_("faith")
+        isch = (self.rmask & BIT["child"]) != 0
+        small = (isch & self.used & self.lv & ((t - self.born) < 6 * 52)).any(1)
+        hrs[:, 4] = T["care_given"][g] * np.where(small, 2.5, 1.0); mix[:, 4] = tm[:, S_("care")]; rs[:, 4] = S_("care")
+        un_, um_ = set_mix("unit")
+        hrs[:, 5] = np.where(un_, 40.0, T["service"][g]); mix[:, 5] = np.where(un_[:, None], um_, tm[:, S_("prot")]); rs[:, 5] = S_("prot")
+        rr_ = np.floor(self.rung[:, S_("rule")])
+        hrs[:, 6] = T["civic"][g] * np.where(rr_ >= 4, 6.0, np.where(rr_ >= 3, 3.0, 1.0)); mix[:, 6] = tm[:, S_("rule")]; rs[:, 6] = S_("rule")
+        hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
+        if W.p.get("sph_deep", False):   # phase 5: the care load (who carries whom) adds care hours and costs work hours
+            self.care_load = self._care_load(t)
+            hrs[:, 4] += self.care_load; hrs[:, 0] = np.maximum(0.0, hrs[:, 0] - 0.1 * self.care_load)   # 1 work hour per 10
+        if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
+            hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
+        self.hrs = hrs
+        if W.p.get("sph_shadow", False):   # N5: the shadow around them, the hours-weighted shadow share of their rows' spheres
+            rsh = np.take_along_axis(W._sph_sh()[self.loc], rs[:, :, None], 1)  # N x 8 x 5
+            self.sh_around = (hrs[..., None] * rsh).sum(1) / np.maximum(hrs.sum(1), 1e-9)[:, None]
+        wt = hrs * self._depth[None] * (1 + 0.25 * np.floor(np.take_along_axis(self.rung, rs, 1)))
+        tot = wt.sum(1)
+        self.places_mix = np.where(tot[:, None] > 1e-9, (wt[..., None] * mix).sum(1) / np.maximum(tot, 1e-9)[:, None], self.w)
+        yr = int(a)
+        if yr != getattr(self, "_rung_yr", -1):   # the rungs, once a year
+            self._rung_yr = yr
+            # present where a community meets them: the work, the class, each haunt, the congregation, the unit (not the
+            # shops, the town's council or the care given at home, which make no one known)
+            pres = np.zeros((N, 9)); ar_ = np.arange(N)
+            np.add.at(pres, (ar_, rs[:, 0]), hrs[:, 0]); np.add.at(pres, (ar_, rs[:, 1]), hrs[:, 1] * cl_)
+            np.add.at(pres, (ar_, rs[:, 3]), hrs[:, 3] * fa_); np.add.at(pres, (ar_, rs[:, 5]), hrs[:, 5] * un_)
+            if self.sph_h:
+                for q_ in range(3):
+                    ok_ = self.hnt[:, q_] >= 0
+                    np.add.at(pres, (ar_[ok_], hs_[ok_, q_]), (hrs[:, 2] / np.maximum(nk_, 1))[ok_])
+            here = pres >= 2.0
+            self.ryrs = np.where(here, self.ryrs + 1, self.ryrs * 0.8)
+            tg = np.where(self.ryrs >= 5, 2, np.where(self.ryrs >= 1, 1, 0)).astype(float)   # years make a regular, then a known face
+            ss = self.set_sphere; act = self.skind >= 0
+            for j_ in range(self.M):   # standing earned in a setting: a pillar there (rank .85 or more), its leader a leader
+                sj = ss[:, j_]; ok_ = act[:, j_] & (sj >= 0)
+                ii_ = np.nonzero(ok_)[0]
+                tg[ii_, sj[ii_]] = np.maximum(tg[ii_, sj[ii_]], np.where(self.slead[ii_, j_] == -2, 4, np.where(self.srank[ii_, j_] >= 0.85, 3, 0)))
+            self.rung = np.where(tg >= self.rung, np.minimum(tg, self.rung + 1), np.maximum(tg, self.rung - 1))
+
+    def _care_load(self, t):
+        """Phase 5 (sph_deep), "who carries whom": hours a week of care each life gives (N; deep_state.care_load). A close
+        partner, parent, parent-in-law or grandparent (closeness layer 2 or nearer) in poor health (under .35) or 82 or
+        older needs care: partner 20, parent 12, parent-in-law 8, grandparent 4 hours, x 1.5 under health .2. A partner's
+        lands on the life; a parent's or grandparent's is shared with the close siblings still living, and a
+        parent-in-law's with the partner, each weighted 1 + .5 x the world's role strictness (1 - acceptance of role
+        crossing) toward the expected carer (a daughter; a daughter-in-law); x (1 - .5 x the town's care.reach). At
+        most 60. Not yet: money buying hours."""
+        import sphere_data as SD
+        D = SD.DEEP; H = D["care_hours"]
+        L2 = self.P["layer_c"][1]; rm = self.rmask
+        live = self.used & self.lv & (self.c >= L2)
+        has = lambda r_: (rm & BIT[r_]) != 0
+        age = (t - self.born) / 52.0; mine = (t - self.t0) / 52.0
+        need = live & ((self.health < 0.35) | (age >= 82))
+        fx = np.where(self.health < D["care_frail"], D["care_frail_x"], 1.0)
+        rs = 1.0 - float(self.W.norm("role crossing"))
+        wt = lambda fem_: 1.0 + D["care_role"] * rs * fem_                      # toward the expected carer
+        own = wt(self.female.astype(float))
+        sib = (live & has("sibling")) * wt(self.fem.astype(float))
+        share = own / (own + sib.sum(1))                                         # of a parent's or grandparent's care
+        pil = need & has("inlaw") & (age >= mine + 15)                          # the partner's parents
+        ps_ = (self.used & self.lv & has("partner"))
+        p_fem = (ps_ & self.fem).any(1).astype(float)
+        share_il = np.where(ps_.any(1), own / (own + wt(p_fem)), 1.0)
+        h = ((need & has("partner")) * H["partner"] * fx).sum(1) \
+            + ((need & has("parent")) * H["parent"] * fx).sum(1) * share \
+            + ((need & has("grandparent")) * H["grandparent"] * fx).sum(1) * share \
+            + (pil * H["parent_in_law"] * fx).sum(1) * share_il
+        W = self.W; E = W._sph_ev_tables()
+        st = getattr(W, "sph_st", None)
+        if st is not None and "care.reach" in E["own"]:
+            k_ = E["own"].index("care.reach"); rch = np.clip(st[:, k_] + W.sph_st_soc[k_] - 0.5, 0, 1)[self.loc]
+        else:
+            rch = np.full(self.N, 0.5)
+        return np.where(self.dead, 0.0, np.minimum(60.0, h * (1 - D["care_public"] * rch)))
+
+    def haunts_info(self, n):
+        """Life n's haunts (N1), best first, as World.place_info gives them, each with whether a setting of theirs meets
+        there, and their rung in each sphere (N2): {sphere: rung word}. For the game's "your places"."""
+        if not self.sph_h:
+            return dict(haunts=[], rungs={})
+        out = [dict(self.W.place_info(int(p_)), setting=bool(p_ in self.shnt[n])) for p_ in self.hnt[n] if p_ >= 0]
+        return dict(haunts=out, rungs={s_: LADDER[int(self.rung[n, j_])] for j_, s_ in enumerate(SPHERES)})
+
     def _outputs_settings(self):
         """Cached monthly: the settings' part of the niche, of belonging and of the community driver."""
         act = self.skind >= 0; g = np.maximum(self.skind, 0); a = self._age()
@@ -1264,10 +1687,31 @@ class People:
         self._last_m = t; self.t = t
         if self._last_w != t:
             self._read_S(t, S)
+        if self.sph_h:   # spheres phase 2: a life that has moved picks its haunts in the new town
+            H_ = len(HAUNT_KINDS) * self.W.hp_s.shape[2] if getattr(self.W, "hp_s", None) is not None else 0
+            if H_:
+                mv_ = np.nonzero(~self.dead & (self.hnt[:, 0] >= 0) & (self.hnt[:, 0] // H_ != self.loc))[0]
+                if len(mv_) or self.hpick < 0 or int(self._age(t)) != self.hpick:
+                    if self.hpick < 0 or int(self._age(t)) != self.hpick:
+                        self.hpick = int(self._age(t)); self._haunts_year(t)
+                    else:
+                        self._haunts_year(t, mv_)
         self._lifecourse(t)
         if self._xsoc:
             self._lang_step(t)
+        if self.sph_h and getattr(self.W, "hp_s", None) is not None:
+            self._haunts_month(t)
+        if self.sph_hr:
+            self._sph_hours(t)
+        if self.sph_mk:
+            self._marks_year(t)
+        if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):
+            self._sph_year4(t)
         B = self._bits()
+        if getattr(self, "comrade", None) is not None:   # phase 5: whoever shares a unit with them is a comrade from now on
+            un_ = (self.skind == G["unit"])
+            if un_.any():
+                self.comrade |= (B * un_[:, None, :]).any(2)
         if self._last_set is None or t - self._last_set >= 8:   # the settings' slow drift: every second month
             self._settings_month(t, S, B, 1.0 if self._last_set is None else (t - self._last_set) / 4.0)
             self._last_set = t
@@ -1340,6 +1784,8 @@ class People:
         r_up, r_dk, r_dn = self._r_w if dt_w == 1 else [np.float32(1 - np.exp(-dt_w / 52.0 / P[k_]))
                                                          for k_ in ("tau_up", "tau_dn_kin", "tau_dn")]
         rdn = self._crdn if dt_w == 1 else np.where(self._ckin, r_dk, r_dn)
+        if dt_w != 1 and getattr(self, "comrade", None) is not None:
+            rdn = np.where(self._ccom, rdn * np.float32(0.5), rdn)
         rr = np.where(e > c, r_up, rdn)
         c2 = np.where(ok, c + (e - c) * rr, c).astype(np.float32)
         np.put(self.c, fi, c2)
@@ -1487,6 +1933,9 @@ class People:
         self._crm = tk(self.rmask)
         self._ckin = (self._crm & KINMASK) != 0
         self._crdn = np.where(self._ckin, self._r_w[1], self._r_w[2])   # the weekly fading rate (kin fade slower)
+        if getattr(self, "comrade", None) is not None:   # phase 5: comrades from a unit fade at half speed
+            self._ccom = tk(self.comrade)
+            self._crdn = np.where(self._ccom, self._crdn * np.float32(0.5), self._crdn)
         self._cuid = tk(self.uid)
         self._cpie = np.take(self.pie.reshape(-1, C), fi, axis=0).astype(np.float64)   # float64: exact weekly sums
         self._cpage = (self.t - tk(self.born)) / 52.0
@@ -2250,6 +2699,11 @@ class People:
         b0, pk, at, wd = P["times_w"]
         tw = b0 + pk * np.exp(-((a - at) / wd) ** 2)
         self.niche = _norm((1 - tw) * msc + tw * times[None, :])
+        # item 12, the steady current's parts (read only): close people, the places they are inside, the times
+        pl_ = (self.places_mix if self.sph_hr and getattr(self, "places_mix", None) is not None else   # phase 2: the
+               np.where(self._setw[:, None] > 1e-9, self._setmix / np.maximum(self._setw, 1e-9)[:, None], self.w))   # hours
+        self.cur_parts = (np.where(cw[:, None] > 1e-9, csum / np.maximum(cw, 1e-9)[:, None], self.w), pl_,
+                          np.broadcast_to(times, (N, C)))
         self._msg_raw = tot
         self.msg_w = _uclip(tot / P["msg_ref"], 0.25, 2.5)
         bs, bc = P["belong_k"]
@@ -2264,7 +2718,7 @@ class People:
 
     # ------------------------------------------------------------------ acts, levers and pushes (spec 2 §3, spec 7 §3)
     def on_act(self, idx, ma, succ, visibility=None, lever=None, pushes=None, base=None, target=None, norm=None,
-               var=None, t=None):
+               var=None, t=None, sphere=None, office=None):
         """The character's act this week (vectorised over idx): the close circle judges it (overlap of the act's mix
         with their pies), rank in groups moves, and acts with a lever push (size = base x reach x how well it went;
         a failed push can backfire). Returns dict(approval=(n,), results=[push results])."""
@@ -2318,11 +2772,75 @@ class People:
         for e_ in np.nonzero((lev >= 0) & (dom >= 0) & ~self.dead[idx])[0]:
             res.append(self._push(int(idx[e_]), ma[e_], float(q[e_]), int(lev[e_]), int(dom[e_]), float(bas[e_]),
                                   tg[e_], None if var is None else (var[e_] if isinstance(var, (list, tuple, np.ndarray)) else var), t))
+        # 4. spheres phase 4: the lever on the person's place or town sphere (sph_levers), the act kept for felt fairness
+        if (getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False)) and sphere is not None:
+            js = np.broadcast_to(np.asarray(sphere, np.int64), (E,))
+            ok_ = np.broadcast_to(np.asarray(2 if office is None else office, np.int64), (E,))
+            for e_ in np.nonzero((lev >= 0) & (js >= 0) & ~self.dead[idx])[0]:
+                r_ = self._sph_lever(int(idx[e_]), int(js[e_]), int(lev[e_]), ma[e_], float(q[e_]), int(ok_[e_]), int(dom[e_]), t)
+                if r_ is not None:
+                    res.append(r_)
         return dict(approval=appr, results=res)
+
+    def _sph_lever(self, n, j, lev, ma, q, office, dom, t):
+        """Phase 4: life n's lever lev in sphere j (Outer world's phase 4 answers). size = the reach for the act's ring
+        (dreach, 0 to 3) / 3 x the rung's multiplier (newcomer .125 .. leader 2) x how well it went. It lands on their
+        haunt in that sphere; else, working in that sphere (no named work place), on the town sphere at half the size;
+        else on the town sphere at a quarter. A voice or loyalty act is kept for felt fairness (+1 went well, -1 not)."""
+        lv = LEVERS[lev]
+        if self.sph_fr and lv in ("voice", "loyalty"):
+            self.fair_log.append([int(t), int(n), int(j), 1 if q >= 0.5 else -1])
+        if not self.sph_lv:
+            return None
+        W = self.W
+        rg = int(np.floor(self.rung[n, j])) if hasattr(self, "rung") else 0
+        place = -1
+        if getattr(self, "sph_h", False) and getattr(W, "hp_s", None) is not None:
+            P_ = W.hp_s.shape[2]
+            for p_ in self.hnt[n]:
+                if p_ >= 0 and HAUNT_SPH[(p_ // P_) % len(HAUNT_KINDS)] == j:
+                    place = int(p_); break
+        # the reach: on their own place, the settings' ring (a place is a setting's ring, 1); on the town's sphere, the
+        # ring of the act's own domain (an institution's, without one)
+        reach = float(self.dreach[n, DI["group"] if place >= 0 else (dom if dom >= 0 else DI["institution"])])
+        size = reach / 3.0 * float(RUNG_MULT[min(max(rg, 0), 4)]) * q
+        if place < 0:
+            ss_ = self.set_sphere[n]
+            size *= 0.5 if ((self.skind[n] == G["work"]) & (ss_ == j)).any() else 0.25
+        what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office])
+        return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
+                    rung=LADDER[min(max(rg, 0), 4)], moved=what)
+
+    def _sph_year4(self, t):
+        """Yearly (phase 4): the lives leading a sphere in their town (rung leader) join its leaders' mix (sph_levers;
+        World.sph_plead, town x sphere x (colour sums, count)); each life's felt fairness moves .1 of the way toward
+        its town's target (World.sph_fair_target) + .1 per voice or loyalty act there in the last 3 years that went
+        well, - .1 per one that did not, + .05 x rung (sph_fair)."""
+        a = int(self._age(t))
+        if a == self._p4_yr:
+            return
+        self._p4_yr = a; W = self.W; N = self.N
+        live = ~self.dead
+        if self.sph_lv and hasattr(self, "rung"):
+            pl = np.zeros((self.n_loc, 9, C + 1))
+            n_, j_ = np.nonzero((np.floor(self.rung) >= 4) & live[:, None])
+            np.add.at(pl, (self.loc[n_], j_), np.concatenate([self.w[n_], np.ones((len(n_), 1))], 1))
+            W.sph_plead = pl if len(n_) else None
+        if self.sph_fr and getattr(W, "sph_s", None) is not None:
+            self.fair_log = [r_ for r_ in self.fair_log if t - r_[0] <= 3 * 52]
+            acts = np.zeros((N, 9))
+            for _, n_, j_, v_ in self.fair_log:
+                acts[n_, j_] += v_
+            rg = np.floor(self.rung) if hasattr(self, "rung") else 0.0
+            tgt = _uclip(W.sph_fair_target()[self.loc] + 0.1 * acts + 0.05 * rg, 0, 1)
+            self.fair = np.where(live[:, None], self.fair + 0.1 * (tgt - self.fair), self.fair)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
         lv = LEVERS[lev]; ring = int(RING_OF[dom]); reach = float(self.dreach[n, dom])   # the domain's own reach
+        if lv not in P["backfire"]:   # the spheres' levers (found, fund, lead, office) act from phase 4 (item 15)
+            return dict(kind="push", n=int(n), t=int(t), lever=lv, domain=DOMAINS[dom], target=None, size="none",
+                        backfire=False)
         size = base * reach * q
         bfp = P["backfire"][lv]
         if lv == "voice":
@@ -2490,7 +3008,17 @@ class People:
         un = float(self._unemp("unemp"))
         ul = np.asarray(self._unemp("unemp_loc", np.full(self.n_loc, un)), float)[self.loc]
         r = r * (1 + 1.5 * pc) * _uclip(1 + 3 * (ul - un), 0.7, 1.5)
-        return np.full(self.N, r / 52.0) if np.ndim(r) == 0 else r / 52.0
+        r = np.full(self.N, r / 52.0) if np.ndim(r) == 0 else r / 52.0
+        if getattr(self, "roots", None) is not None:   # phase 5: roots, the move wish x .5 while a holding is held
+            r = r * np.where(self.roots, 0.5, 1.0)
+        return r
+
+    def kin_let_down(self, n, by, t):
+        """Phase 5, a kin debt broken: trust falls by `by` with the closest living parent or sibling, who remembers."""
+        u = self.used[n] & self.lv[n] & ((self.rmask[n] & (BIT["parent"] | BIT["sibling"])) != 0)
+        if u.any():
+            k = int(np.argmax(np.where(u, self.c[n], -1)))
+            self.trust[n, k] = max(0.0, float(self.trust[n, k]) - by)
 
     def move(self, n, loc=None, why=None, t=None, local=None):
         """The household moves: to loc (another locality), or within the locality (a new neighbourhood). Distant
@@ -2886,6 +3414,22 @@ class People:
                    nh=[[float(x_) for x_ in v_] for v_ in self.nh])
         if self.N == 1:
             out["rng"] = self.rng.bit_generator.state
+        if self.sph_h or self.sph_hr or self.sph_mk:   # spheres phase 2 (only when on: off, a life saves as v22.2 saved it)
+            out["spheres"] = dict(mark=[float(x_) for x_ in self.mark[n]], mark_yr=int(self._mark_yr),
+                                  mark_wear=float(self.mark_wear[n]), mark_z=[float(x_) for x_ in self.mark_z[n]], hnt=[int(x_) for x_ in self.hnt[n]], shnt=[int(x_) for x_ in self.shnt[n]],
+                                  rung=[float(x_) for x_ in self.rung[n]], ryrs=[float(x_) for x_ in self.ryrs[n]],
+                                  hpick=int(self.hpick), rung_yr=int(getattr(self, "_rung_yr", -1)),
+                                  hrng=self._hrng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):   # phase 4 (only when on)
+            out["spheres4"] = dict(fair=[float(x_) for x_ in self.fair[n]], p4_yr=int(self._p4_yr),
+                                   fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
+        ca_, sa_ = getattr(self, "care_load", None), getattr(self, "sh_around", None)
+        cm_ = getattr(self, "comrade", None)
+        if ca_ is not None or sa_ is not None or cm_ is not None:   # phase 5 (only once on): this month's care load and
+            out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),   # shadow around them, the comrades
+                                   sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]],
+                                   comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
+                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]))
         return out
 
     @classmethod
@@ -2924,5 +3468,36 @@ class People:
         pp._xsoc = bool((pp.soc != pp.soc_home).any() or ((pp.msoc != pp.soc[:, None]) & pp.used).any())
         if len(saved) == 1 and "rng" in d0:
             pp.rng.bit_generator.state = d0["rng"]
+        if pp.sph_h or pp.sph_hr or pp.sph_mk:
+            for n, d in enumerate(saved):
+                sp_ = d.get("spheres")
+                if sp_:
+                    pp.mark[n] = sp_.get("mark", [0.0] * C); pp._mark_yr = int(sp_.get("mark_yr", -1))
+                    pp.mark_wear[n] = sp_.get("mark_wear", 0.0); pp.mark_z[n] = sp_.get("mark_z", [0.0, 0.0])
+                    pp.hnt[n] = sp_["hnt"]; pp.shnt[n] = sp_["shnt"]; pp.rung[n] = sp_["rung"]; pp.ryrs[n] = sp_["ryrs"]
+                    pp.hpick = int(sp_["hpick"]); pp._rung_yr = int(sp_["rung_yr"])
+                    if len(saved) == 1 and sp_.get("hrng"):
+                        pp._hrng.bit_generator.state = sp_["hrng"]
+        if getattr(pp, "sph_lv", False) or getattr(pp, "sph_fr", False):
+            for n, d in enumerate(saved):
+                s4_ = d.get("spheres4")
+                if s4_:
+                    pp.fair[n] = s4_["fair"]; pp._p4_yr = int(s4_["p4_yr"])
+                    pp.fair_log += [[t_, n, j_, v_] for t_, j_, v_ in s4_["fair_log"]]
+        if any(d.get("spheres5") for d in saved):
+            for n, d in enumerate(saved):
+                s5_ = d.get("spheres5") or {}
+                if s5_.get("care_load") is not None:
+                    if getattr(pp, "care_load", None) is None:
+                        pp.care_load = np.zeros(pp.N)
+                    pp.care_load[n] = s5_["care_load"]
+                if s5_.get("sh_around") is not None:
+                    if getattr(pp, "sh_around", None) is None:
+                        pp.sh_around = np.zeros((pp.N, C))
+                    pp.sh_around[n] = s5_["sh_around"]
+                if s5_.get("comrade") is not None and getattr(pp, "comrade", None) is not None:
+                    pp.comrade[n, s5_["comrade"]] = True
+                if s5_.get("roots") is not None and getattr(pp, "roots", None) is not None:
+                    pp.roots[n] = bool(s5_["roots"])
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp

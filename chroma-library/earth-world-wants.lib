@@ -1,0 +1,380 @@
+# Chroma library, modern Earth: CLOSE PEOPLE'S WANTS AND THE GROUPS THAT GATE MOMENTS. Library thread, 2026-10-09,
+# "v22" update stage 3, items C1 and C2 (chroma-world/model/stage3-rules.md section 5).
+# C1: six everyday moments that answer a close person's want (cast_want:, the holder in the first who: slot), two more
+# each for care, stop and grandchild beside the one each in earth-world-people.lib, so each want has three. Every one
+# offers a yes, a no and a middle way. Which options meet the want follows the Engine's own reading (world_link.py: a
+# mark of helping or coming home, a title, a grant, binds, or benevolence among the values; a refusal mark never does),
+# noted above each moment as "meets:". Three everyday pairs (two colors called / the other three, matching gates);
+# cycles s2 2, s4 2, s1 1, s3 1.
+# C2: three group moments as life events (group: gates them to members, and per_year is the yearly rate among members,
+# so the gate does not thin it out): a congregation splits (D1a pairs), the gang's test (D1b), the club's final (D2a).
+# Chances: each moment is even on its own (everyday: one-color chance plus its cross option's chance is 140 for every
+# color; life events: one-color chance plus half its two pair options' chances is the same for every color).
+# Syntax: header of build.py.
+
+# ================================================================ C1: close people's wants
+
+# ---------------------------------------------------------------- pair 1: care, calls WB (cycle s2) / stop, calls URG (cycle s4)
+
+# meets: W, U, G, W>B, R>W, G>U (yes or a middle way that gives care); not: B, U>R, B>G (care handed to others), R (no)
+== a grandparent who forgets the way home
+tier: everyday
+stages: young_adult adult
+age: 18-45
+calls: WB
+rate: .5
+tone: trouble
+life: family, health, home
+horizon: months
+roles: grandparent, parent, sibling, a doctor
+who: grandparent
+cast_want: care
+earth: a grandparent's memory is failing, and someone in the family has to step in for the months ahead
+times: About 1 in 10 people over 65 lives with memory loss, more after 80 (estimate leaning on Alzheimer's Disease International); grandchildren give some of the care in perhaps 1 family in 6 where it comes, most often when the parents work full time (estimate)
+gap: 3-10
+share: .12
+scene: {grandparent} was found at the bus station at dawn, sure they were late for a job they left forty years ago. {parent} works long shifts, and at the family meeting everyone turns to look at {N}.
+scene W: {grandparent} sat up with {N} through every childhood fever. A debt like that does not go away because it is inconvenient.
+scene U: {N} has read about this illness: how fast it moves, what the first year asks of a family, and which days are the hard ones.
+scene B: Someone has to carry this, and {N} has a new job, a lease and a life just starting. {N} means to see it done well without losing all of that.
+scene R: {grandparent} looks at {N} across the kitchen and, for one terrible second, does not know who {N} is.
+scene G: {grandparent} taught {N} to plant beans and read the weather. The old allotment is still there, gone wild, at the end of the lane.
+- W | move in with them for the months it takes, and keep their days in order | v: benevolence, tradition | mark: helped someone in need | tags: pay:money-.03 | chance: 60
+- U | read up on the illness, and take them to the memory clinic yourself | v: benevolence, self-direction | chance: 75
+- B | find them a good care home, and sell their flat to pay for it | v: security | chance: 65
+- R | tell the family you have your own life to start, and leave it to them | v: self-direction | mark: refused someone in need | chance: 85
+- G | take them to the old allotment every Sunday, and work the ground beside them | binds | v: benevolence, tradition | chance: 80
+- W>B | draw up a fair rota with the family, take your share, and hold everyone to theirs | v: benevolence, power | chance: 80
+- U>R | fit door alarms and a tracker, so they can stay home and you keep working | v: security, self-direction | tech: phone | act: fit door alarms and a tracker, so they can stay home and the job is kept | chance: 65
+- B>G | pay a neighbour to look in on them twice a day | v: security | tags: pay:money-.04 | chance: 75
+- R>W | take three months off work from Monday, and care for them yourself | v: benevolence | mark: helped someone in need | tags: pay:money-.05 | act: take three months off work from Monday, and care for them in person | chance: 55
+- G>U | go through the old photograph albums with them every evening, and keep the memories alive | v: benevolence, tradition | chance: 60
+works: {grandparent} settles into the new routine, and the frightening nights stop.
+works: The months are hard, but {grandparent} has good days again, and {N} is there for most of them.
+fails: Within weeks the arrangement is fraying, and {N} is running on four hours' sleep.
+fails: {grandparent} goes missing again one afternoon, and the whole question opens from the start.
+
+# meets: W, U>W, B>U, R>B, G>R (the friend dropped, or kept only on the parent's terms); not: U, G, W>G (a middle way of
+# their own), B, R (no)
+== a parent asks you to drop a friend
+tier: everyday
+stages: juvenile young_adult
+age: 16-28
+calls: URG
+rate: .5
+tone: trouble
+life: family, friends
+horizon: months
+roles: parent, friend, sibling
+who: parent
+cast_want: stop
+earth: a parent begs you to stop running around with a friend who keeps landing in trouble with the police
+times: Many parents of teenagers and young adults worry about one friend in particular, and perhaps 1 in 4 asks outright for the friendship to end at some point (estimate); peers are the strongest single predictor of youth offending (Warr 2002)
+gap: 2-6
+share: .2
+scene: {friend} was stopped by the police again on Saturday night, and this time {N} was in the car. {parent} has waited up at the kitchen table, and says it plainly: {N} has to stop seeing {friend}.
+scene W: {N} gave {parent} a promise last year to stay out of trouble. Saturday night broke it, whatever {friend} says about whose fault it was.
+scene U: {N} knows more about {friend} than {parent} does: the good side, the bad side, and exactly where the trouble usually starts.
+scene B: {friend} knows people, gets into places, and has never once let {N} pay for anything. Giving that up has a price.
+scene R: {friend} is the most alive person {N} knows, and nobody, not even {parent}, gets to choose {Ns} friends.
+scene G: {friend} and {N} have known each other since the first day of school. Their families used to share a garden fence.
+- W | give your word to stop seeing that friend, and keep it | v: benevolence, conformity | mark: kept your word | act: give their word to stop seeing that friend, and keep it | chance: 65
+- U | ask what exactly frightens them, and weigh it against what you know of your friend | v: self-direction | chance: 85
+- B | keep the friend, and simply stop telling your parent where you go | v: self-direction, hedonism | mark: hid a wrong | chance: 70
+- R | tell them your friends are your own business, and slam the door | v: self-direction | mark: defied an authority | chance: 90
+- G | see the friend only at the old places, the park and the café | v: tradition, security | chance: 75
+- W>G | bring the friend home for dinner, so your parent can see who they really are | v: tradition, universalism | chance: 75
+- U>W | agree a clear rule with your parent: no rides in that car, home by eleven | v: security, benevolence | chance: 55
+- B>U | trade it: drop the friend, if your parent lends you the car at weekends | binds | v: power, self-direction | chance: 70
+- R>B | cut the friend off with one blunt message tonight, and block the number | v: security, benevolence | tech: phone | chance: 50
+- G>R | go out with the friend one last time, like the old days, then say goodbye | v: hedonism, benevolence | chance: 65
+works: The talk at the kitchen table clears the air, and the nights of waiting up are over.
+works: Whatever {N} chose holds through the months that follow, and {parent} begins to trust it.
+fails: Within a month there is another late call from {friend}, and the row starts again.
+fails: {parent} and {N} stop speaking about it, and then stop speaking much at all.
+
+# ---------------------------------------------------------------- pair 2: care, calls UB (cycle s1) / stop, calls WRG (cycle s3); both need a partner
+
+# meets: W, U, G, W>U, U>B, R>G; not: B, G>W (care handed to others), B>R, R (no)
+== a partner's long months of treatment
+tier: everyday
+stages: young_adult adult mature elder
+age: 25-90
+calls: UB
+needs: partner
+rate: .5
+tone: trouble
+life: family, health, love
+horizon: months
+roles: partner, boss, friend, a nurse
+who: partner
+cast_want: care
+earth: your partner faces six months of hard treatment, and the days ahead will need you
+times: About 1 adult in 3 cares for an ill partner at some point, most of them after 60 (estimate); serious illness with months of treatment reaches about half of all couples who grow old together (estimate)
+gap: 5-15
+share: .3
+scene: {partner} starts treatment on Monday: six months of hospital mornings, sick afternoons and long nights. The nurse's leaflet lists everything {partner} will not be able to do alone, and the list is long.
+scene W: {N} promised long ago to stand by {partner} through anything. Those were easy words then. They are not easy now.
+scene U: {N} has the treatment plan open on the table: dates, doses, side effects, and the days when {partner} must not be left alone.
+scene B: The mortgage does not stop for illness, and neither does {boss}. {N} is working out how to keep the job and still be there.
+scene R: {partner} tries to make a joke about losing their hair, and {N} has to leave the room so as not to cry in front of them.
+scene G: {Ns} grandparents went through something like this, and {Ns} grandmother nursed her husband at home to the end, the way people did.
+- W | take leave from work, and be at their side for every treatment | v: benevolence, conformity | mark: helped someone in need | tags: pay:money-.05 | chance: 60
+- U | learn the treatment plan inside out, and run the medicines and the diary | binds | v: benevolence, achievement | chance: 70
+- B | keep working full time, and pay a carer to cover the days | v: security, achievement | tags: pay:money-.05 | chance: 75
+- R | admit you cannot face the hospital, and leave the treatment days to their family | v: self-direction | mark: refused someone in need | chance: 85
+- G | cook their favourite meals, and sit with them through the bad evenings | v: benevolence | chance: 80
+- W>U | set up a written rota of friends and family for every treatment day | v: security, benevolence | chance: 80
+- U>B | work out shorter hours with your boss, and take the cut in pay | v: benevolence, security | tags: pay:money-.04 | chance: 70
+- B>R | keep your evenings out with friends, and let the nurses do the caring | v: hedonism, self-direction | mark: refused someone in need | chance: 65
+- R>G | drop everything and drive them to every appointment, whatever work says | v: benevolence | chance: 55
+- G>W | ask their brothers and sisters to share the care, as families used to | v: tradition | chance: 60
+works: The treatment ends, and {partner} rings the bell on the ward with {N} beside them.
+works: The months are long, but the care holds, and the two of them come out of it closer.
+fails: Halfway through, {N} is worn so thin that the smallest thing starts a row.
+fails: The arrangement breaks down in the second month, and {partner} feels like a burden.
+
+# meets: W, G, W>R, U>G (the dangerous work given up, now or by a date); not: U, B, B>W, G>B (a middle way that keeps
+# the work), R, R>U (no)
+== a partner asks you to quit the dangerous work
+tier: everyday
+stages: young_adult adult mature
+age: 20-60
+calls: WRG
+needs: partner
+holds: kind:career
+rate: .5
+tone: trouble
+life: family, work, love
+horizon: months
+roles: partner, boss, colleague, friend
+who: partner
+cast_want: stop
+earth: after a near miss at work, your partner asks you to give up the dangerous job for good
+times: About 1 worker in 12 does a job with a high risk of serious injury: building, roofing, fishing, mining, forestry, long-distance driving (estimate leaning on labour statistics of fatal injury by trade); a near miss or a colleague's accident often brings the question home (estimate)
+gap: 3-10
+share: .08
+scene: The scaffold gave way two metres from where {N} stood. Nobody was hurt this time, but {partner} heard about it on the local news before {N} could call. Tonight {partner} says it quietly: please find other work.
+scene W: {N} signed up for this work knowing the rules, and keeps to every one of them. But {partner} did not sign up for anything.
+scene U: {N} knows the figures for this trade better than most: the injuries a year, the commonest causes, and which of them a careful worker can avoid.
+scene B: The danger money pays the mortgage. No safer job in town pays half as well, and {N} knows it.
+scene R: Up there, at the top of the scaffold with the whole town below, {N} has never felt more alive. That is the part {partner} will never understand.
+scene G: {Ns} grandfather did this work, and his father before him. The crew is like a second family.
+- W | give a month's notice, and look for safer work | v: security, benevolence | chance: 65
+- U | study the accident report, and show them the real odds before deciding | v: self-direction, security | chance: 85
+- B | stay on for the danger money, only until the mortgage is paid | v: power, security | chance: 70
+- R | tell them this work is who you are, and you are not giving it up | v: self-direction, stimulation | act: tell them this work is who they are, and they are not giving it up | chance: 80
+- G | take the safer ground-level work the firm offered, at lower pay | v: security, benevolence | tags: pay:money-.03 | chance: 70
+- W>R | promise to quit within the year, and mark the date on the calendar together | v: benevolence, security | mark: kept your word | chance: 75
+- U>G | retrain at night school for a trade with both feet on the ground | v: security, benevolence | mark: learned a skill | chance: 55
+- B>W | demand the firm fix its safety rules, or you walk out | v: security, power | lever: voice | pushes: institution employer | act: demand the firm fix its safety rules, or they walk out | chance: 70
+- R>U | go back up the very next morning, to prove you can still do it | v: stimulation, achievement | mark: took a wild risk | act: go back up the very next morning, to prove they can still do it | chance: 60
+- G>B | ask the oldest hand on the crew how they lasted forty years up there | v: tradition, security | chance: 70
+works: The decision is made, and for the first time in months {partner} sleeps through the night.
+works: {N} and {partner} come out of the talk with a plan both of them can live with.
+fails: The question hangs between them for months, and every late shift starts a fresh argument.
+fails: A colleague is hurt on the site that winter, and the whole fight opens again.
+
+# ---------------------------------------------------------------- pair 3: grandchild, calls BG (cycle s4) / calls WUR (cycle s2); both exclude children
+
+# meets: W, R, W>G (a child hoped for and welcomed); not: U, U>W, G, G>R (a middle way), B, B>U, R>B (no)
+== a small blanket in a parent's knitting bag
+tier: everyday
+stages: young_adult adult
+age: 25-45
+calls: BG
+excludes: children
+rate: .5
+tone: mixed
+life: family, children
+horizon: years
+roles: parent, partner, sibling
+who: parent
+cast_want: grandchild
+earth: you find a parent quietly knitting a baby blanket, for one day, with no hurry at all
+times: Most parents in their sixties hope for grandchildren, and many say so only by hints (estimate); about 1 in 5 adults in rich countries reaches 45 with no children (OECD Family Database, estimate)
+gap: 3-8
+share: .25
+scene: Looking for scissors, {N} finds it in {parent}'s knitting bag: a small soft blanket, half done. {parent} blushes and says it is for one day, no hurry, and nothing more is said.
+scene W: A family goes on through its children. {N} has always known it was expected, the way a duty is expected, and the blanket says it without a word.
+scene U: {N} turns the blanket over. The stitches are months old at the start and fresh at the end: {parent} has been working on this for a long time.
+scene B: {Ns} life is built just as {N} wants it: the work, the flat, the plans for the next five years. None of it was drawn up around a child.
+scene R: The tiny blanket in {Ns} hands hits harder than any question at the dinner table ever did.
+scene G: {parent} knitted one just like this for {N}, once. It is still in a drawer somewhere, soft with age.
+- W | tell them you hope for children one day, and the blanket will be used | v: benevolence, tradition | act: tell them they hope for children one day, and the blanket will be used | chance: 65
+- U | ask them what a grandchild would mean to them, and listen to the answer | v: self-direction, universalism | chance: 85
+- B | say plainly that children are not in your plans, and ask them to stop knitting | v: self-direction | chance: 70
+- R | laugh, hug them, and ask for stripes on it | v: hedonism, benevolence | chance: 80
+- G | put the blanket back gently, and say a child will come if it is meant to | v: tradition | chance: 85
+- W>G | promise them they will be part of any family you ever raise | binds | v: benevolence, tradition | act: promise them they will be part of any family they ever raise | chance: 75
+- U>W | explain honestly where you stand, and what would have to change for a child | v: self-direction, conformity | act: explain honestly where they stand, and what would have to change for a child | chance: 55
+- B>U | suggest they finish it for the cousin who is expecting, and leave your life to you | v: self-direction, power | act: suggest they finish it for the cousin who is expecting, and leave their life to them | chance: 70
+- R>B | tell them sharply that your life is not a family project | v: self-direction, power | chance: 60
+- G>R | take them out for the day, and show them the life you have instead | v: stimulation, tradition | chance: 55
+works: The blanket goes back in the bag, and something between {N} and {parent} is easier for it.
+works: {parent} hugs {N} at the door and says, just this once, that whatever comes is all right.
+fails: The blanket sits between them at every visit for a year, unspoken.
+fails: {parent} is hurt, and the next few phone calls are short and careful.
+
+# meets: W, G, R>W, G>U (a child hoped for, or another way to a family); not: U, W>B, B, B>G (a middle way), R, U>R (no)
+== a parent's one wish on a big birthday
+tier: everyday
+stages: young_adult adult
+age: 25-45
+calls: WUR
+excludes: children
+rate: .5
+tone: mixed
+life: family, children
+horizon: years
+roles: parent, partner, sibling, the aunts and uncles
+who: parent
+cast_want: grandchild
+earth: at a parent's seventieth birthday, asked for a wish, they say they would love to hold a grandchild one day
+times: A parent's big birthday comes every ten years; perhaps 1 in 3 parents of adults with no children names a grandchild as their wish at some point, kindly and more than once (estimate)
+gap: 3-10
+share: .2
+scene: The candles are lit and the whole table shouts for a wish. {parent} looks across at {N}, smiles, and says the only wish left is to hold a grandchild one day. Then, quickly: no pressure, none at all.
+scene W: Every aunt and uncle at the table is watching {N}. In this family, a parent's wish on a birthday has always been treated as something close to sacred.
+scene U: {N} notices the timing: the wine, the candles, all of them listening. {parent} is not a planner, but this was not quite an accident either.
+scene B: A child is a twenty-year commitment of money, time and freedom. {N} will not sign up for that because of a birthday cake.
+scene R: {Ns} face goes hot. It is a lovely wish and an awful moment, and {N} wants to laugh and leave the room at the same time.
+scene G: Seventy years. The photographs on the wall run back four generations, and {parent} is the oldest one left alive.
+- W | raise a glass and promise them the wish will come true | v: benevolence, tradition | chance: 60
+- U | take a week to think it over, then give them an honest answer | v: self-direction | chance: 90
+- B | smile, say nothing, and change the subject to the cake | v: security, conformity | chance: 85
+- R | tell them, there and then, that it is a wish you cannot grant | v: self-direction | act: tell them, there and then, that it is a wish they cannot grant | chance: 60
+- G | hug them and say life will bring what it brings | v: tradition, benevolence | chance: 80
+- W>B | tell them you have set a time to decide, and keep to it | v: security, conformity | chance: 80
+- U>R | explain calmly why you are choosing a life without children, and ask them to respect it | v: self-direction, universalism | act: explain calmly why they are choosing a life without children, and ask for respect | chance: 50
+- B>G | say there may be a child in a few years, if the timing and money allow | v: security, tradition | chance: 55
+- R>W | tell them, moved, that you mean to start a family soon | binds | v: benevolence, tradition | act: tell them, moved, that they mean to start a family soon | chance: 80
+- G>U | tell them you may adopt a child one day, and ask what they think | v: benevolence, universalism | act: tell them they may adopt a child one day, and ask what they think | chance: 60
+works: The candles are blown out to cheers, and {parent} squeezes {Ns} hand under the table.
+works: Whatever {N} said is taken kindly, and the wish is not raised again that year.
+fails: The table goes quiet, and the rest of the party has a strained, careful edge.
+fails: {parent} is hurt, and the aunts talk about it on the phone for weeks.
+
+# ================================================================ C2: groups that gate moments (life events, rates among members)
+
+# ---------------------------------------------------------------- life event: a congregation splits (pairs D1a)
+
+# world: revival, selector members, share .5
+# world: movement founded, selector members, share .5
+# world: congregation drift above .10 from its faith body, selector members, share .3
+== the congregation splits in two
+tier: life event
+group: congregation
+at: faith body
+stages: juvenile+
+age: 14-100
+per_year: 0 .007 .007 .007 .007 .007
+drivers: unrest+.3 stress+.2 community+.2
+gap: 10-30
+times: Among members of a congregation only (group: congregation; the rate is the yearly rate among members): serious conflict is common, with about 1 congregation in 4 reporting a conflict that made some people leave within two years (estimate leaning on the National Congregations Study), and a full split into two bodies is a small part of that, set at 7 in 1,000 a year from 14 (about 1 lifelong member in 3 sees one, estimate). With the world on, the Engine also fires it for the members of that congregation (selector members) in a revival year, in the year a new movement is founded in the place, or when the congregation's norm has drifted far from its faith body's (tv above .10)
+likelier: a revival or a new movement in the place, a leader who divides, a quarrel over teaching or money, a congregation drifting from its faith body, hard times
+rarer: a small, settled congregation with a long-serving leader, secure times, a faith body that keeps its congregations close
+tone: trouble
+life: faith, community, family
+horizon: months
+roles: parent, grandparent, friend, sibling, a leader of the congregation
+earth: the congregation you belong to splits in two, and half the families start meeting in a hall across town
+scene: For a year the arguments ran on after every service. Now it is done: the leader and half the families will meet in a rented hall across town, and the rest will keep the old building. Everyone wants to know where {N} will sit next week.
+scene W: The old building has its rules, its elders and its order of service, kept the same for a hundred years. {N} was taught that a congregation does not walk away from its own house.
+scene U: {N} has listened to both sides for a year, and has noticed that neither side quite says what the quarrel is really about.
+scene B: The building, the funds and the board will go to one half. Whoever ends up with them will run things for a generation.
+scene R: The leader's voice still moves {N} the way it did the first time. The old elders have never once made {N} feel anything.
+scene G: {grandparent} was married in the old building, and so was {parent}. The families who sat in those rows are being torn apart.
+- W | stay in the old building with the elders, and keep the old order | v: tradition, conformity | lever: loyalty | pushes: group congregation | chance: 80
+- U | go to both for a month, and see which keeps faith with its own teaching | v: self-direction, universalism | chance: 70
+- B | side with whichever half keeps the building, the funds and the board | v: power, security | lever: loyalty | pushes: group congregation | chance: 75
+- R | follow the leader to the new hall, whatever the elders say | v: stimulation, self-direction | lever: exit | pushes: group congregation | chance: 70
+- G | stay with the families you grew up beside, wherever they go | v: tradition, benevolence | lever: loyalty | pushes: group congregation | chance: 70
+- WU | call a meeting of both halves, and ask for a fair vote on the building | v: universalism, conformity | lever: voice | pushes: group congregation | chance: 45
+- WR | stand up at the last shared service and say the split shames them all | v: tradition, universalism | mark: made an enemy | lever: voice | pushes: group congregation | chance: 55
+- UG | stop going to either, and keep your faith at home for now | v: self-direction, tradition | lever: neglect | pushes: group congregation | chance: 75
+- BR | take charge of the new hall's money and rota before anyone else does | v: power, achievement | pushes: group congregation | chance: 65
+- BG | broker a quiet deal to share the old building on alternate weeks | v: security, benevolence | lever: voice | pushes: group congregation | chance: 45
+works: A year on, {N} has a place where {N} belongs, and the worst of the bitterness has passed.
+works: Some of the families find their way back to each other, and {N} helped make it happen.
+fails: Old friends cross the road rather than speak, and {N} is caught in the middle of it.
+fails: The half {N} chose falls apart within two years, and the hall stands empty.
+
+# ---------------------------------------------------------------- life event: the gang's test (pairs D1b)
+
+== the gang's test of loyalty
+tier: life event
+group: gang
+stages: juvenile+
+age: 16-60
+per_year: 0 .12 .08 .04 .02 0
+drivers: unrest+.3 harsh+.2 prosper-.2
+gap: 2-8
+times: Among members of a gang only (group: gang; the rate is the yearly rate among members): studies of street gangs describe tests of loyalty after joining as near universal, mostly in the first years (Decker and Van Winkle 1996, estimate), set at 12 in 100 a year at 16 and 17, 8 in 100 as a young adult, fewer later as members rise or drift out (estimate)
+likelier: a new or doubted member, a gang under pressure from the police or a rival, a member with ties outside the gang
+rarer: a long-trusted member, a member near the top, a gang winding down
+tone: trouble
+life: friends, crime, home
+horizon: week
+roles: friend, parent, sibling, the older members
+earth: the gang tells you to prove your loyalty: keep a locked bag for a week, and say nothing, whoever asks
+scene: {friend}, who brought {N} in, hands over a heavy sports bag with a padlock on the zip. Keep it for a week, ask nothing, and if anyone comes asking, {N} has never seen it. The older members are watching to see what {N} does.
+scene W: Being part of something means doing what it asks. {N} gave a promise to these people, and the promise is being tested now.
+scene U: {N} weighs the bag in one hand. Too heavy for clothes. Whatever is in it, the law will care about it more than the gang will.
+scene B: Everyone who rose in this crew passed a test like this. {N} can see the next step up from here, and what it pays.
+scene R: The thrill and the fear arrive together. {N} could say yes, or walk out the door, and both feel like jumping off something high.
+scene G: {N} grew up on these streets with these people. {parent} is at home right now, cooking, with no idea any of this exists.
+- W | keep the bag and your silence for the week, exactly as told | v: conformity, security | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 50
+- U | open the bag in secret first, to know exactly what you are risking | v: self-direction, security | chance: 70
+- B | keep the bag, and ask for a cut of whatever it is worth | v: power | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 70
+- R | refuse to their faces, and walk out of the gang for good | v: self-direction | mark: made an enemy | lever: exit | pushes: group gang | chance: 55
+- G | tell your family everything, and let them help you get out | v: security, tradition | act: tell their family everything, and let them help get them out | lever: exit | pushes: group gang | chance: 45
+- RG | hand the bag back with a joke, and keep the friends but not the gang | v: hedonism, benevolence | lever: exit | pushes: group gang | chance: 60
+- UB | tip off the police about the bag, and keep your place as their source inside | v: power, security | mark: hid a wrong | closed: approval: informing on the gang; backfire: found out, and shut out by everyone on the street | lever: subvert | pushes: group gang | chance: 30
+- UR | leave town for a cousin's place before anyone can hand you anything again | v: self-direction, security | mark: moved away | moves: yes | lever: exit | pushes: group gang | act: leave town for a cousin's place before anyone can hand them anything again | chance: 50
+- WB | keep the bag, and ask in return for a real place in the gang | v: power, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 50
+- WG | keep the bag this once for your friend's sake, and never again | v: benevolence, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 70
+works: The week passes, and {N} comes out of it with the standing {N} wanted, inside the gang or out of it.
+works: The choice holds, and the older members leave {N} alone after that.
+fails: Word gets round that {N} cannot be trusted, and the streets near home feel dangerous for months.
+fails: The police come knocking about the bag, and {parent} learns everything at once.
+
+# ---------------------------------------------------------------- life event: the club's final (pairs D2a)
+
+== the club reaches the final
+tier: life event
+group: club
+time_of_year: spring
+stages: all
+age: 8-90
+per_year: .1 .1 .1 .1 .08 .06
+drivers: community+.2 prosper+.1
+gap: 2-10
+times: Among members of a club only (group: club; the rate is the yearly rate among members): a local club reaches a cup or league final about 1 year in 8 to 10 (estimate: with 8 to 16 clubs in a competition, two reach its final each year), set at 10 in 100 a year, fewer for the oldest members who come less often; held to spring, when most seasons end (time_of_year)
+likelier: a strong season, a club with many members, a young squad coming good
+rarer: a weak season, a small club, a member who rarely comes
+tone: joy
+life: friends, community, play
+horizon: week
+roles: friend, parent, child, sibling, the coach, the old members
+earth: your club has made it to the final for the first time in twenty years, and the whole club is going
+scene: For the first time in twenty years the club has reached the final. The minibus is booked, the old banner is down from the loft, and on Saturday the whole club, players, families and old members, will be there.
+scene W: {N} has turned up every week for years, in the rain, through the bad seasons. This is what all those wet evenings were for.
+scene U: {N} has watched the other side play twice and has noticed things about them that nobody else at the club seems to have seen.
+scene B: There will be a crowd, the local paper and the people who run the town. A big day is also a chance to be seen.
+scene R: {N} has not slept properly all week. Saturday cannot come soon enough.
+scene G: The old members still talk about the last final, twenty years ago, as if it were yesterday. Their photographs line the clubhouse wall.
+- W | turn up early, kit ready, and do exactly the job you are given | v: conformity, achievement | lever: loyalty | pushes: group club | chance: 65
+- U | study the other side's last five games, and share what you find with the coach | v: achievement, self-direction | chance: 70
+- B | make sure you are next to the chairman in the photograph with the cup | v: achievement, power | chance: 90
+- R | lead the singing from the first whistle to the last, louder than anyone | v: stimulation, hedonism | chance: 85
+- G | bring the oldest members along, and sit with the ones who built the club | v: tradition, benevolence | lever: loyalty | pushes: group club | chance: 75
+- WU | help run the day: tickets, the minibus, the kit and the list of who is where | v: conformity, security | lever: loyalty | pushes: group club | chance: 80
+- WG | bake for the clubhouse tea after the match, win or lose | v: benevolence, tradition | lever: loyalty | pushes: group club | chance: 80
+- UR | film the whole day, and cut it into a film for the club's dinner | v: self-direction, stimulation | mark: learned a skill | chance: 70
+- BR | push to the front at the final whistle, and lift the cup first | v: achievement, stimulation | chance: 50
+- BG | find a sponsor for the new kit while the crowd is in a good mood | v: achievement, tradition | chance: 60
+works: The club wins, and the singing in the clubhouse goes on until they turn the lights off.
+works: Win or lose, it is the day everyone talks about for years, and {N} was part of it.
+fails: The club loses in the last minutes, and the minibus home is very quiet.
+fails: The day is a washout of rain and nerves, and nobody quite enjoys it.

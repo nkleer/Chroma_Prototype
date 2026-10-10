@@ -76,8 +76,13 @@ CHECKS = [
      "rc", (), "the live files are unchanged (live runs only; manifest from paths.py)"),
     ("speedpass", "v22.1 E", "Release", "quick", 4, ".", "python3 -B chroma-release/check_speedpass.py --new {ENGINE} --base {LIVEENGINE} --base-game {LIVEGAME} "
      "--scratch {W}/speedpass", "re:^Speed pass: PASS", (), "the build lives the same lives as live v22: engine runs and whole game lives (with --engine or --game)"),
-    ("saves", "v22.1 B3", "Release", "quick", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
-     "--scratch {W}/saves", "re:^Old saves: PASS", (), "lives saved on live v22 load into the same life (with --game only)"),
+    ("saves", "v22.1 B3", "Release", "full", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
+     "--scratch {W}/saves", "re:^Old saves: PASS", (), "lives saved on live v22 load into the same life, for a build whose played "
+     "lives must not change (with --game only)"),
+    ("saves_note", "v22.2 S10", "Release", "quick", 4, ".", "python3 -B chroma-release/check_saves.py --new-game {GAME} --base-game {LIVEGAME} "
+     "--play-on --note 'saved in an earlier version' --scratch {W}/saves_note", "re:^Old saves: PASS", (), "lives saved on live v22.1 "
+     "load into the build with the game's old-save note (console.OLD_SAVE) and play on without error (Emren's card \"Replay with a "
+     "note\", 10-09 19:40 UTC; with --game only)"),
     ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
      "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
     ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
@@ -208,6 +213,30 @@ QUICK_G1 = {"fuzz", "saveload", "saveload_world", "end_at_choice", "markers", "i
 for gid, cmd in G1:
     CHECKS.append((gid, "C-G1", "Game", "quick" if gid in QUICK_G1 else "full", 1, "chroma-game/prototype", "python3 -B " + cmd, "rc", (),
                    "the game's own Python check " + cmd.split()[0]))
+# The steered checks of the update's stage 1 (implementation-list.md, Build plan; gameplay-feel.md 5.2; voice-mechanics.md
+# section 9): played lives from the game's scripted players, test/steer_check.py <target>, whose last line is
+# "STEER <target>: PASS" (or MISS) under the numbers it measured. They wait (are left out) until the game holds the driver.
+# --only @steered runs them all. The driver uses every core and keeps the lives it played in $STEER_CACHE, so the rows run
+# one at a time (4 cores each) and share one cache in the run's work folder: targets that share lives (the "let" seeds)
+# play them once. Split over machines as the Game suggests: steer_identity; steer_apart; the other eight together.
+STEERED = [
+    ("steer_identity", "identity", "steering one colour at most picks puts it in the identity at 40 in most lives (each colour)"),
+    ("steer_apart", "apart", "the same life steered two ways ends further apart than two different lives left alone"),
+    ("alone_names", "alone_names", "a life left alone changes its identity name at most 3 to 4 times after 18"),
+    ("push_rare", "push_rare", "pushed lives meet more rare moments than the same lives left alone"),
+    ("world_lines", "world_lines", "every world line names a change the engine made to the character that year (wfx)"),
+    ("voice_quiet", "voice_quiet", "always letting them choose: \"a quiet voice\" and no voice lines"),
+    ("voice_careful", "voice_careful", "always the careful pick: named \"the careful voice\" at the end and in two moments in three once "
+     "named (a pure White pick sits at several poles, so an early name can go to a neighbour); no other side's voice lines"),
+    ("voice_trust", "voice_trust", "trust per colour after steered picks: the mean change after ones that worked is above the mean after "
+     "ones that failed, which is below 0 (P2: a push that worked but fed no need they lacked is still resented)"),
+    ("voice_lines", "voice_lines", "every voice line first person or plain narration, at most 25 words, no colour named"),
+    ("voice_year", "voice_year", "the chapter keeps at most one voice line a year"),
+]
+STEER = "test/steer_check.py"
+for sid, target, what in STEERED:
+    CHECKS.append((sid, "steered", "Game", "full", 4, "chroma-game/prototype", f"STEER_CACHE={{W}}/steer_cache python3 -B {STEER} {target}",
+                   f"re:^STEER {target}: PASS", (), what))
 
 # Backend plan item 3: each owner's fast check, about 2 minutes on 4 cores, run after every edit (--level fast). These are
 # the release thread's proposals from the quick level's times (out/v22checks_20261008-122526); each owner confirms or
@@ -230,6 +259,10 @@ EXTRA = {
                     "chroma-library/earth_stage.py"],
     "rarity": [NAMES["rarity_live"][0]],
 }
+# A steered row whose lives are already in the run's cache reads only the driver and the cache, so its proof names the
+# game and its pinned engine too: a later run reuses its pass only when they are unchanged.
+for sid, _, _ in STEERED:
+    EXTRA[sid] = ["chroma-game/prototype/*.py", "chroma-game/prototype/engine_pin/*.py", "chroma-game/prototype/" + STEER]
 
 ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
 ap.add_argument("--level", default="quick", choices=("fast", "quick", "full"))
@@ -346,6 +379,14 @@ def build_tree():
         b = os.path.basename(f)                                                # repository holds its content only): build.py, check.py,
         if os.path.isfile(f) and not os.path.exists(os.path.join(L, b)) and not (b.endswith(".lib") or re.match(r"earth.*\.py$", b)):
             shutil.copy2(f, L)                                                 # earth.md; never a content file the candidate dropped
+    if os.path.exists(os.path.join(L, "earth.py")) and os.path.exists(os.path.join(L, "render.py")):
+        # earth.md, which the title and perk checks read for situation names, comes from the candidate's own earth.py: the
+        # repository holds no earth.md, and the shared folder's is the live one, so a moment added after it went missing
+        try:                                                                   # (10-09, Library #26's 'a following of your own')
+            subprocess.run([sys.executable, "-B", "render.py", "earth.py"], cwd=L, check=True, capture_output=True, timeout=300)
+        except (subprocess.SubprocessError, OSError):
+            if os.path.exists(os.path.join(L, "earth.md")):                    # never the live one in its place: the checks that
+                os.remove(os.path.join(L, "earth.md"))                         # read it then say they could not
     cp_files(os.path.join(REAL, "chroma-library", "drafts"), os.path.join(L, "drafts"), "*.py")
     for f in ("checks_perks_titles.md", "checks_voice.md", "earth_voice.md", "perks_titles.md"):
         if os.path.exists(os.path.join(REAL, "chroma-library", "drafts", f)):
@@ -373,8 +414,9 @@ def build_tree():
         shutil.copytree(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game", "tools"),      # command (item 5)
                         os.path.join(T, "chroma-game", "tools"), ignore=SKIPF)
     os.makedirs(os.path.join(T, "chroma-art"))
-    os.symlink(os.path.join(REAL, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # pictures, read only
-    cp_files(os.path.join(REAL, "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
+    art = fromcand("chroma-art/game/pictures.json")            # the candidate's own pictures when it holds them (a release
+    os.symlink(os.path.join(art, "chroma-art", "game"), os.path.join(T, "chroma-art", "game"))   # ships its commit's art), read only
+    cp_files(os.path.join(fromcand("chroma-art/kit/check_art.py"), "chroma-art", "kit"), os.path.join(T, "chroma-art", "kit"), "check_art.py")
     R = os.path.join(T, "chroma-release")
     for pat in ("*.py", "*.js"):
         cp_files(os.path.join(fromcand("chroma-release"), "chroma-release"), R, pat)
@@ -588,7 +630,7 @@ def main():
         out = set()
         for x in (y.strip() for y in spec.split(",")):
             if x.startswith("@"):
-                out |= {c[0] for c in CHECKS if c[2].lower() == x[1:].lower()
+                out |= {c[0] for c in CHECKS if c[2].lower() == x[1:].lower() or c[1] == x[1:].lower()
                         or (a.level == "fast" and FAST_OWNER.get(c[0], "").lower() == x[1:].lower())}
             elif x:
                 out.add(x)
@@ -599,7 +641,7 @@ def main():
     if not steps and "t_steps" in FAST_OWNER:          # an engine from before item 2: the one-seed C-E14 stands in
         FAST_OWNER["identity1"] = FAST_OWNER.pop("t_steps")
     only = ids(a.only); skip = ids(a.skip)
-    todo = []
+    todo, waiting = [], []
     for c in CHECKS:
         cid, row, owner, level, cores, cwd, cmd, rule, after, what = c
         if only and cid not in only:
@@ -610,16 +652,20 @@ def main():
             continue
         if cid == "live" and not is_live:
             continue
-        if (cid == "speedpass" and a.engine is None and a.game is None) or (cid == "saves" and a.game is None) \
+        if (cid == "speedpass" and a.engine is None and a.game is None) or (cid in ("saves", "saves_note") and a.game is None) \
                 or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))) \
                 or (cid == "t_steps" and not steps):
             continue
+        if row == "steered" and not os.path.exists(os.path.join(src["game"], STEER)):
+            waiting.append(cid); continue
         todo.append(c)
     say = open(os.path.join(RUN, "run.txt"), "w")
 
     def log(s):
         print(s, flush=True); say.write(s + "\n"); say.flush()
     log(f"v22 checks, {stamp} UTC, level {a.level}, {len(todo)} checks, up to {a.cores} cores; run folder {RUN}")
+    if waiting:
+        log(f"  left out, waiting for the game's {STEER}: {', '.join(waiting)}")
     for k in LIVE:
         log(f"  {k:6s} {src[k]}" + ("" if getattr(a, k) is None else "   (candidate)"))
     if a.ref:

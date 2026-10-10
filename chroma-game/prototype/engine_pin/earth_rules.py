@@ -142,6 +142,18 @@ INNER = {
         req="((belonging < .55) | (meaning < .55) | (age > 50)) & chance(.3)",
         more=["belonging < .4", "ago_move < 1", "elder", "hG + hW > .45"],
         less=["satisfaction > .75", "hR > .3"]),
+    # C5's rare founding (Library PR #26, earth-world-institutions.lib). "founding" (the world's movement founding event
+    # in the person's place this year, with a free movement slot) is False unless C5's movement slots are on (c5_faith,
+    # world.py), so the moment never comes without them. Reach: ties in about the top tenth.
+    # The spheres' haunt choices (item 15, N1; Library #49, earth-spheres-gathering.lib), once at each new life stage
+    # with 4 or more free hours a week. "haunts" is False until phase 2's haunts are built, so they never come before.
+    **{nm_: dict(req="haunts & (time > .2)", more=["belonging < .5", "ties < .4"], less=["time < .3", "health < .3"])
+       for nm_ in ("where the evenings go at fifteen", "where the evenings go at twenty", "where the evenings go at thirty",
+                   "where the days go at sixty-five")},
+    "a following of your own": dict(
+        req="founding & (meaning < .4) & (lo_meaning >= 52) & (ties > .8) & (yrs_faith >= 10)",
+        more=["outlook > .55", "ties > .9", "hW + hU > .5"],
+        less=["harsh > .5", "ties < .85"]),
 }
 
 # echoes: anchor starts the clock (checked monthly; a mark "within the last month" means it was just made)
@@ -1487,6 +1499,12 @@ ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0)}
 BUDGET = dict(career=1 / 3, summit=1 / 20, community=10.0, summit_floor=0.001,   # each summit in 1 life in 1,000 or more
               rung_cap=1.0,   # the lift raises a rung's yearly rate by at most e^1 (steps keep their pace)
               act_cap=0.7)    # and the odds of an act that gives one by at most e^.7, about double (Emren 14:41)
+# The floors (item 16; Emren 10-09: "0.1% is not playable. Rare titles must be more reachable"): every summit in 1 life
+# in 100 or more (the summit budget from 1 in 20 to about 1 in 7 to hold ten to twelve of them), every career above 1 in
+# 100 (1.5%), and every other title of one's own doing and every perk in 1 life in 100 or more. Statuses keep their real
+# shares: what befalls a life (refugee, widowed) is not a prize to make reachable. Off until the v22.3 refit: they apply
+# when batch.FLOORS is True, over BUDGET (tools/tier_fit.py: FLOORS=1).
+BUDGET_FLOORS = dict(summit=0.15, summit_floor=0.01, career_floor=0.015, title_floor=0.01, perk_floor=0.01)
 # The fitted logit lift per tier, on the odds of the acts that give a pack career or summit and on their background rates,
 # per set of packs on (",".join(sorted(packs))); "split": the extra lift per summit that brings each to its share of the
 # summit budget (the square root of its real share). calib_v8/tier_fit.py writes it.
@@ -2864,3 +2882,50 @@ CAST_WANT = {
     "the owner wants to retire": "successor", "you are offered the top job": "successor",
     "a friend comes out to you": "secret",
 }
+
+# stage 2 of the next update (the Library's notes/for-the-engine-stage2.md, 10-09): gates for the new inner moments.
+# Pair moments (chroma-ideas/pair-moments.md): the pull, the meeting and the missing half, one each per pair of colours
+PAIR_MOMENTS = {   # pair: (the pull, the meeting, the missing half)
+    "WR": ("the timesheet a friend asks to fix", "a gang on the late bus", "the third missed session"),
+    "WB": ("double pay to break the team's line", "the family purse", "the fortnight away"),
+    "UR": ("a spare seat leaving in the morning", "a contraption in the shed", "answer by midnight"),
+    "UG": ("the club's old paper booking book", "the plot in a dry summer", "the knee that never healed"),
+    "BG": ("the captaincy a season early", "the skip outside the old shop", "the cottage and the offer"),
+    "WU": ("the family meal done the old way", "the block's first set of rules", "the sums that never added up"),
+    "UB": ("two evening classes and time for one", "a pattern nobody else has seen", "last year's answers"),
+    "BR": ("money that arrives all at once", "a bonus and a birthday", "an unexpected sum"),
+    "RG": ("the yearly trip with the whole group", "a summer under canvas", "the old crowd's night"),
+    "GW": ("a front garden left to grow", "the empty lot on the street", "the wild corner"),
+}
+for (c1_, c2_), (pull_, meet_, miss_) in PAIR_MOMENTS.items():
+    INNER[pull_] = dict(   # both in the identity, one of them rising over the last two years
+        req=f"({c1_} > .22) & ({c2_} > .22) & ((rise('{c1_}') >= .04) | (rise('{c2_}') >= .04)) & ~had([{pull_!r}], 5)",
+        more=[], less=[])
+    INNER[meet_] = dict(   # the pair held together in the identity for two years or more
+        req=f"({c1_} > .22) & ({c2_} > .22) & (pair_yrs('{c1_}', '{c2_}', .22) >= 2) & ~had([{meet_!r}], 5)",
+        more=[], less=[])
+    INNER[miss_] = dict(   # one high, its partner nearly gone (with item 2's "no counterweight")
+        req=f"((({c1_} > .35) & ({c2_} < .10)) | (({c2_} > .35) & ({c1_} < .10))) & ~had([{miss_!r}], 4)",
+        more=[], less=[])
+# shadow reflections (chroma-ideas/shadows-mechanics.md §5, "seeing it"): two per shadow; the engine lowers the shadow
+# part and marks it seen when one is met (engine.SH_REFL, from the moment's holds:)
+SHADOW_SEEN = {"W": ("rigid", "the old words at the new desk", "the anniversary film at the club"),
+               "U": ("indecisive", "we stopped asking you", "five notebooks, one list"),
+               "B": ("ruthless", "learned from the best", "the birthday toast"),
+               "R": ("reckless", "the video from the weekend", "your words in a young mouth"),
+               "G": ("stuck in their ways", "the same cottage, nine years running", "in my day, played back")}
+for c_, (st_, *nms_) in SHADOW_SEEN.items():
+    for nm_ in nms_:   # the state held six months or more; at most once every three years for this shadow
+        INNER[nm_] = dict(req=f"adj({st_!r}) & (yrs_adj({st_!r}) >= .5) & (sh_ago('{c_}') >= 3)", more=[], less=[])
+# insight moments (chroma-ideas/curious-life.md C5): a long curiosity pays off; rare (about 1 life in 15, chance fitted)
+INSIGHT = ["the night it all clicks", "the fault nobody else could find", "a pattern in years of notes",
+           "a creature in none of the books", "an answer sixty years late"]
+INSIGHT_CHANCE = 0.02   # weekly chance once the gate holds (to fit to about 1 life in 15 for the five together)
+for nm_, yrs_, span_, extra_ in ((INSIGHT[0], 4, 4, ""), (INSIGHT[1], 8, 10, ""), (INSIGHT[2], 8, 10, ""),
+                                 (INSIGHT[3], 8, 10, ""),
+                                 (INSIGHT[4], 8, 10, " & (first_age(['a curiosity that will not let go']) < 15)")):
+    INNER[nm_] = dict(req=f"((above_yrs('U', .25) >= {yrs_}) | (mk_span('learned a skill') >= {span_})){extra_}"
+                          f" & ~had({INSIGHT!r}, 6) & chance({INSIGHT_CHANCE})", more=["hU > .3"], less=[])
+# A16: the end of a national service term (earth-title-stages-own.lib): a soldier for a year or more, called up
+INNER["the last parade of national service"] = dict(req="(yrs_has('soldier') >= 1) & had(['the call to serve'], 3)",
+                                                    more=[], less=[])

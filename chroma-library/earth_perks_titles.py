@@ -96,35 +96,35 @@ PERKS = []
 
 # ---------- career: one at a time; the shares add up to about two of these kinds of work per life
 TITLES += [
-  dict(name="shop assistant", kind="career", sector="services", ways="G R",
+  dict(name="shop assistant", kind="career", sector="services", sphere="comm", face="comm.R", ways="G R",
        meets="need:belonging+.05 res:money+.05 res:time-.1 need:autonomy-.05",
        ages=(14, 80), share=.45,   # estimate: retail is the commonest first job in rich countries
        say="a shop assistant",
        gained="'a Saturday job at the corner shop', 'your first real job', or 'a new job at last' behind a till",
        lost="better pay elsewhere, the shop closing, 'losing your job'",
        needs="age 14 or more for Saturday work"),
-  dict(name="waiter or bartender", kind="career", sector="services", ways="R B",
+  dict(name="waiter or bartender", kind="career", sector="services", sphere="gather", face="gather.R", ways="R B",
        meets="need:belonging+.05 res:money+.05 res:time-.1 res:health-.03",
        ages=(16, 65), share=.3,   # estimate: hospitality is the other great first job
        say="a waiter",
        gained="'your first real job' in a busy café, a friend who knows the manager, tips from the first night",
        lost="a better job, the place closing, a manager's bad week; 'running on empty' after too many late shifts",
        needs="age 16 or more; 18 to serve drink in most places"),
-  dict(name="care worker", kind="career", sector="public", role="women", ways="G W",   # role=women: nursing assistants 86.9, home health aides 86.1, personal care aides 79.8 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="care worker", kind="career", sector="public", role="women", sphere="care", face="care.W", ways="G W",   # role=women: nursing assistants 86.9, home health aides 86.1, personal care aides 79.8 in 100 women (US BLS CPS 2025, table 11)
        meets="need:meaning+.1 need:belonging+.05 res:money+.02 res:time-.1 res:health-.05",
        ages=(17, 75), share=.08,   # estimate: social care employs about 1 worker in 20 in the UK, with high turnover
        say="a care worker",
        gained="a short course and 'a new job at last' in a care home or on a round of home visits",
        lost="'burnout', low pay, a better offer",
        needs="a background check"),
-  dict(name="office clerk", kind="career", sector="services", role="women", ways="W U",   # role=women: office clerks, general 80.5 in 100 women; the whole office and administrative support group 70.5 (US BLS CPS 2025, table 11)
+  dict(name="office clerk", kind="career", sector="services", role="women", sphere="comm", face="comm.U", ways="W U",   # role=women: office clerks, general 80.5 in 100 women; the whole office and administrative support group 70.5 (US BLS CPS 2025, table 11)
        meets="need:safety+.05 res:money+.05 res:time-.1 need:autonomy-.03",
        ages=(16, 75), share=.3,   # estimate: clerical and admin work is one of the largest job groups
        say="an office worker",
        gained="'a job interview', then 'your first full-time job': a desk, a login and a lanyard",
        lost="'new technology changes your job', 'a wave of layoffs at work', a move up",
        needs="[school-leaving certificate] in most offices"),
-  dict(name="nurse", kind="career", sector="public", role="women", ways="W G",   # role=women: registered nurses 87.3, nurse practitioners 90.5 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="nurse", kind="career", sector="public", role="women", sphere="care", face="care.W", ways="W G",   # role=women: registered nurses 87.3, nurse practitioners 90.5 in 100 women (US BLS CPS 2025, table 11)
        meets="need:meaning+.1 need:belonging+.05 res:money+.05 res:time-.1 res:health-.05",
        ages=(20, 67), share=.03,   # US: over 3 million registered nurses in a workforce near 160 million (BLS);
                                    # .03 counts those who leave nursing
@@ -132,7 +132,7 @@ TITLES += [
        gained="a nursing degree and the registration exam, then 'a new job at last' on a ward",
        lost="retirement, 'burnout', or being struck off (the skill stays)",
        needs="[professional registration]; 'learned a skill' several times"),
-  dict(name="teacher", kind="career", sector="public", role="women", ways="W U",   # role=women: preschool and kindergarten 97.1, elementary and middle 79.2, special education 84.7, secondary 56.5 in 100 women: about 78 over the four (US BLS CPS 2025, table 11); OECD about 7 in 10 across levels
+  dict(name="teacher", kind="career", sector="public", role="women", sphere="learn", face="learn.W", ways="W U",   # role=women: preschool and kindergarten 97.1, elementary and middle 79.2, special education 84.7, secondary 56.5 in 100 women: about 78 over the four (US BLS CPS 2025, table 11); OECD about 7 in 10 across levels
        profiles=[("W U", "Teaches the syllabus well, keeps good order, and knows every child's progress."),   # Stage pack ask
                  ("R G", "Runs the school play and the trips, and the children remember them for life."),   # (P13, 2026-10-07)
                  ("B", "Wants results, the inspection and the head's job.")],
@@ -142,35 +142,35 @@ TITLES += [
        gained="a degree and a teaching qualification, then a first class of thirty on a Monday in September",
        lost="retirement, 'burnout', a move into another line of work",
        needs="[graduate]; [professional registration]"),
-  dict(name="electrician", kind="career", sector="industry", role="men", ways="U",   # role=men: electricians 3.5 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="electrician", kind="career", sector="industry", role="men", sphere="prod", face="prod.U", ways="U",   # role=men: electricians 3.5 in 100 women (US BLS CPS 2025, table 11)
        meets="need:competence+.1 need:safety+.03 res:money+.08 res:time-.08",
        ages=(16, 70), share=.015,   # estimate: about 1 worker in 100 is an electrician
        say="an electrician",
        gained="an apprenticeship, then 'earning a qualification' and a trade ticket",
        lost="retirement, an injury, a slump in building work",
        needs="[apprentice] first; [trade ticket]; 'learned a skill' several times"),
-  dict(name="shop owner", kind="career", sector="services", ways="B G",
+  dict(name="shop owner", kind="career", sector="services", sphere="comm", face="comm.G", ways="B G",
        meets="need:autonomy+.1 need:belonging+.05 need:safety-.05 res:money+.05 res:time-.15",
        ages=(18, 80), share=.04,   # estimate
        say="a shopkeeper",
        gained="'a chance to start a business of your own': savings or a loan, and a lease signed on a high street",
        lost="'financial ruin', 'a recession', selling up, handing the keys to a child",
        needs="[savings] or a loan; often a [family business]"),
-  dict(name="soldier", kind="career", sector="public", role="men", ways="W R",   # role=men: women about 18 in 100 of US active-duty forces (Department of Defense Demographics Profile 2023) and about 12 in 100 across NATO armed forces (NATO 2019); the CPS counts civilians only
+  dict(name="soldier", kind="career", sector="public", role="men", sphere="prot", face="prot.R", ways="W R",   # role=men: women about 18 in 100 of US active-duty forces (Department of Defense Demographics Profile 2023) and about 12 in 100 across NATO armed forces (NATO 2019); the CPS counts civilians only
        meets="need:belonging+.1 need:meaning+.05 res:money+.03 res:freedom-.15 res:health-.05",
        ages=(16, 55), share=.05,   # about 6 to 7 US adults in 100 are veterans (VA); fewer in most rich countries
        say="a soldier",
        gained="signing up after school, then basic training; in some lives 'war comes'",
        lost="the end of a term of service, an injury, discharge",
        needs="age 16 to 18 or more, fitness, no serious record"),
-  dict(name="farmer", kind="career", sector="farm", ways="G B",
+  dict(name="farmer", kind="career", sector="farm", sphere="prod", face="prod.G", ways="G B",
        meets="need:autonomy+.08 need:meaning+.05 res:money+.02 res:time-.15 res:health+.02",
        ages=(14, 85), share=.015,   # farming is 1 to 2 jobs in 100 in most rich countries (OECD)
        say="a farmer",
        gained="growing up on a farm and staying, or 'a chance to change everything' and a field bought at auction",
        lost="a run of bad years, selling up, handing on to a child",
        needs="[plot of land], usually a family farm"),
-  dict(name="software developer", kind="career", sector="knowledge", role="men", ways="U R",   # role=men: software developers 20.3 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="software developer", kind="career", sector="knowledge", role="men", sphere="prod", face="prod.U", ways="U R",   # role=men: software developers 20.3 in 100 women (US BLS CPS 2025, table 11)
        meets="need:competence+.1 need:autonomy+.05 res:money+.1 res:time-.08 res:health-.03",
        ages=(16, 70), share=.03,   # estimate: software work is 2 to 3 jobs in 100
        say="a software developer",
@@ -184,7 +184,7 @@ TITLES += [
        gained="'a promotion is open' after a year of turning up: the keys, the rota and the blame",
        lost="a move up or out, 'a wave of layoffs at work', asking to step back",
        needs="[reliable record]; a year or more in the job"),
-  dict(name="police officer", kind="career", sector="public", role="men", ways="W B",   # role=men: police officers 16.4 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="police officer", kind="career", sector="public", role="men", sphere="prot", face="prot.W", ways="W B",   # role=men: police officers 16.4 in 100 women (US BLS CPS 2025, table 11)
        meets="need:meaning+.05 need:safety+.03 res:money+.05 res:time-.12 res:health-.05 res:ties-.03",
        ages=(18, 60), share=.01,   # estimate: police are about 1 worker in 200
        say="a police officer",
@@ -198,49 +198,49 @@ TITLES += [
        gained="starting as a kitchen porter, or 'learning to cook for yourself' taken much further",
        lost="burns and long nights, a kitchen that closes, opening a place of one's own",
        needs="[cooking for a crowd] helps"),
-  dict(name="delivery driver", kind="career", sector="services", role="men", ways="R B",   # role=men: couriers and messengers 28.7 in 100 women (US BLS CPS 2025, table 11); driver/sales workers and truck drivers about 7 in 100 (US BLS CPS, recent years)
+  dict(name="delivery driver", kind="career", sector="services", role="men", sphere="prod", face="prod.B", ways="R B",   # role=men: couriers and messengers 28.7 in 100 women (US BLS CPS 2025, table 11); driver/sales workers and truck drivers about 7 in 100 (US BLS CPS, recent years)
        meets="need:autonomy+.05 need:belonging-.03 res:money+.05 res:time-.12 res:health-.03",
        ages=(18, 78), share=.06,   # estimate
        say="a delivery driver",
        gained="an app or a depot that needs drivers this week",
        lost="losing the licence, the van breaking down, a better job",
        needs="[driving licence]"),
-  dict(name="builder", kind="career", sector="industry", role="men", ways="U R",   # role=men: construction laborers 4.7, carpenters 3.1 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="builder", kind="career", sector="industry", role="men", sphere="prod", face="prod.R", ways="U R",   # role=men: construction laborers 4.7, carpenters 3.1 in 100 women (US BLS CPS 2025, table 11)
        meets="need:competence+.08 res:money+.05 res:time-.1 res:health-.05",
        ages=(16, 67), share=.06,   # estimate: construction is 6 to 7 jobs in 100 in rich countries
        say="a builder",
        gained="labouring for a cousin's firm, an apprenticeship, word of mouth",
        lost="a bad back, a building slump, retirement",
        needs="fitness; [building trade] for the skilled end"),
-  dict(name="factory worker", kind="career", sector="industry", ways="W U",
+  dict(name="factory worker", kind="career", sector="industry", sphere="prod", face="prod.W", ways="W U",
        meets="need:safety+.03 need:belonging+.05 need:autonomy-.05 res:money+.05 res:time-.12 res:health-.03",
        ages=(16, 67), share=.12,   # estimate: manufacturing is about 1 job in 10 in rich countries
        say="a factory worker",
        gained="an agency placement turned into a contract; a shift pattern pinned to the board",
        lost="'a wave of layoffs at work', a plant that moves abroad, an injury",
        needs="age 16 or more"),
-  dict(name="salesperson", kind="career", sector="services", ways="B",
+  dict(name="salesperson", kind="career", sector="services", sphere="comm", face="comm.B", ways="B",
        meets="need:competence+.05 need:autonomy+.03 need:safety-.05 res:money+.05 res:time-.1",
        ages=(17, 80), share=.08,   # estimate
        say="a salesperson",
        gained="'a job interview' where hunger counts for more than a degree, and a target for the first month",
        lost="a bad quarter, a better offer, 'burnout'",
        needs="[selling] helps"),
-  dict(name="accountant", kind="career", sector="knowledge", ways="U B",
+  dict(name="accountant", kind="career", sector="knowledge", sphere="comm", face="comm.U", ways="U B",
        meets="need:competence+.08 need:safety+.05 res:money+.08 res:time-.1",
        ages=(21, 80), share=.02,   # estimate: accountants and auditors are about 1 worker in 100
        say="an accountant",
        gained="a trainee post and years of evening exams, then 'earning a qualification'",
        lost="retirement, 'new technology changes your job', a move into running a firm",
        needs="[bookkeeping]; often [graduate]"),
-  dict(name="estate agent", kind="career", sector="services", ways="B R",
+  dict(name="estate agent", kind="career", sector="services", sphere="comm", face="comm.B", ways="B R",
        meets="need:competence+.03 need:autonomy+.03 need:safety-.05 res:money+.08 res:time-.12",
        ages=(18, 80), share=.01,   # estimate
        say="an estate agent",
        gained="'a job interview' at a high-street agency, and a car and a phone on the first day",
        lost="'a recession', a slow market, weekend viewings that wear them out",
        needs="[driving licence]; [selling] helps"),
-  dict(name="founder of a firm", kind="career", sector="services", ways="U B R",
+  dict(name="founder of a firm", kind="career", sector="services", sphere="prod", face="prod.B", ways="U B R",
        meets="need:autonomy+.1 need:competence+.05 need:safety-.08 res:money+.05 res:time-.15 res:health-.03",
        ages=(18, 80), share=.03,   # estimate: someone who starts a firm that takes on staff; a few people in 100
        say="the founder of a firm",
@@ -255,7 +255,7 @@ TITLES += [
        gained="years as a [cook], then 'a promotion is open' when the old head chef walks out",
        lost="a kitchen that closes, 'burnout', a row with the owner",
        needs="[cook] for years"),
-  dict(name="apprentice", kind="career", sector="industry", ways="U G",
+  dict(name="apprentice", kind="career", sector="industry", sphere="prod", face="prod.G", ways="U G",
        meets="need:competence+.08 need:belonging+.05 need:autonomy-.05 res:money-.03 res:time-.1",
        ages=(15, 30), share=.12,   # estimate: about 1 young person in 10 in the UK; over half in Germany or Switzerland
        say="an apprentice",
@@ -369,35 +369,35 @@ TITLES += [
 
 # ---------- community: one at a time ([team captain] follows [on the team])
 TITLES += [
-  dict(name="on the team", kind="community", ways="R G",
+  dict(name="on the team", kind="community", sphere="gather", face="gather.R", ways="R G",
        meets="need:belonging+.08 need:competence+.03 res:health+.05 res:time-.08",
        ages=(7, 60), share=.5,   # estimate: about half of young people play on an organised team at some point
        say="on the team",
        gained="'tryouts for the team', 'sports day', 'a band or a sport that takes over your life'",
        lost="being dropped, an injury, leaving school, growing out of it",
        needs="turning up on Saturday mornings"),
-  dict(name="scout or guide", kind="community", ways="W G",
+  dict(name="scout or guide", kind="community", sphere="learn", face="learn.G", ways="W G",
        meets="need:belonging+.08 need:competence+.03 res:time-.05",
        ages=(6, 18), share=.2,   # estimate
        say="a scout",
        gained="a friend brings them along to the hall on a Tuesday; 'summer camp'",
        lost="growing out of it, 'the family moves to a new town'",
        needs="age 6 or more"),
-  dict(name="prefect", kind="community", ways="W U",
+  dict(name="prefect", kind="community", sphere="learn", face="learn.W", ways="W U",
        meets="need:competence+.03 need:belonging+.03 need:meaning+.03 res:time-.03",
        ages=(10, 18), share=.1,   # estimate
        say="a prefect",
        gained="'a teacher offers you a role of responsibility', 'you are picked for something special'",
        lost="leaving school, or losing the badge for breaking the rules",
        needs="[teachers' favourite]"),
-  dict(name="team captain", kind="community", ways="R B",
+  dict(name="team captain", kind="community", sphere="gather", face="gather.R", ways="R B",
        meets="need:belonging+.08 need:competence+.05 need:meaning+.03 res:health+.05 res:time-.1",
        ages=(10, 50), share=.12,   # estimate
        say="the captain",
        gained="picked by the coach or voted in by the team after 'tryouts for the team'",
        lost="a loss of form or nerve, a new captain, leaving the team",
        needs="[on the team]"),
-  dict(name="neighbourhood volunteer", kind="community", ways="G W",
+  dict(name="neighbourhood volunteer", kind="community", sphere="gather", face="gather.G", ways="G W",
        meets="need:belonging+.08 need:meaning+.05 res:ties+.05 res:time-.05",
        ages=(12, 100), share=.35,   # about 1 adult in 4 in England volunteers formally at least once a year
                                     # (Community Life Survey); estimate for holding it as a role
@@ -405,14 +405,14 @@ TITLES += [
        gained="'a volunteer drive in your neighbourhood', 'a young neighbour needs help'",
        lost="a busier job, a move, a falling-out with the organisers",
        needs="nothing but a free Saturday"),
-  dict(name="union rep", kind="community", ways="W R",
+  dict(name="union rep", kind="community", sphere="prod", face="prod.W", ways="W R",
        meets="need:meaning+.05 need:belonging+.05 need:safety-.02 res:time-.05",
        ages=(20, 67), share=.03,   # estimate
        say="the union rep",
        gained="elected by workmates after 'a wave of layoffs at work', or 'they ask you to lead because you stood up once'",
        lost="losing the vote, leaving the job, being eased out",
        needs="a job with a union; 'defied an authority' helps"),
-  dict(name="local councillor", kind="community", ways="W B",
+  dict(name="local councillor", kind="community", sphere="rule", ways="W B",
        profiles=[("W B", "Serves the town through its rules and knows how the council's power works."),
                  ("R G", "Fights for the street they grew up on, loud and stubborn."),   # third and second: packs
                  ("U B", "Reads every planning paper and catches what the officers missed.")],   # thread 22:20, Library
@@ -422,21 +422,21 @@ TITLES += [
        gained="a campaign on doorsteps and a vote; 'your town faces a change you could fight'",
        lost="losing the next election, a scandal, standing down",
        needs="[good name in town]; age 18 or more"),
-  dict(name="youth coach", kind="community", ways="R U",
+  dict(name="youth coach", kind="community", sphere="learn", face="learn.R", ways="R U",
        meets="need:meaning+.05 need:belonging+.05 res:time-.08",
        ages=(18, 80), share=.06,   # estimate
        say="a coach",
        gained="the old coach quits and a parent on the touchline is asked to take over",
        lost="their own children growing out of the team, 'burnout'",
        needs="[on the team] once; a [coaching badge] in most clubs"),
-  dict(name="residents' committee member", kind="community", ways="B G",
+  dict(name="residents' committee member", kind="community", sphere="rule", face="rule.G", ways="B G",
        meets="need:belonging+.05 need:safety+.03 need:autonomy+.02 res:time-.05",
        ages=(25, 100), share=.05,   # estimate
        say="on the residents' committee",
        gained="'a seat on the residents' committee', often after 'break-ins on the street'",
        lost="moving away, a row at the meeting, standing down",
        needs="[homeowner] or a long tenancy"),
-  dict(name="club treasurer", kind="community", ways="U B",
+  dict(name="club treasurer", kind="community", sphere="gather", face="gather.B", ways="U B",
        meets="need:competence+.05 need:belonging+.05 res:ties+.03 res:time-.05",
        ages=(18, 90), share=.05,   # estimate: sports clubs, choirs, allotment societies and the like
        say="the club treasurer",
@@ -463,7 +463,7 @@ TITLES += [
 
 # ---------- faith: a religion, an ideology or a cause, held one at a time
 TITLES += [
-  dict(name="regular worshipper", kind="faith", ways="W G",
+  dict(name="regular worshipper", kind="faith", sphere="faith", face="faith.W", ways="W G",
        meets="need:meaning+.08 need:belonging+.08 res:ties+.05 res:time-.03",
        ages=(5, 110), share=.3,    # estimate: about 3 Americans in 10 attend weekly (Gallup), under 1 Briton in 10;
                                    # more hold a stretch of it over a life
@@ -471,7 +471,7 @@ TITLES += [
        gained="raised in it from 'starting school', or 'welcomed into a community' later in life",
        lost="drifting away, 'a scandal in the congregation', a move",
        needs="a faith held"),
-  dict(name="believer on the big days", kind="faith", ways="U B G",
+  dict(name="believer on the big days", kind="faith", sphere="faith", face="faith.G", ways="U B G",
        meets="need:belonging+.05 need:meaning+.03 res:ties+.03",
        ages=(5, 110), share=.4,   # estimate: in most rich countries more people are raised in a faith and keep its
                                   # feasts, weddings and funerals than attend services (engine 10:15 asked for them)
@@ -479,21 +479,21 @@ TITLES += [
        gained="raised in a faith at home, then drifting from the services in the teenage years while keeping the feasts",
        lost="finding a real faith ([regular worshipper], [convert]) or letting the last customs go",
        needs="raised in a faith"),
-  dict(name="deacon or elder", kind="faith", ways="W B",
+  dict(name="deacon or elder", kind="faith", sphere="faith", face="faith.W", ways="W B",
        meets="need:meaning+.1 need:belonging+.08 res:ties+.05 res:time-.08",
        ages=(30, 100), share=.03,   # estimate
        say="an elder of the congregation",
        gained="'the club or congregation asks you to lead'",
        lost="stepping down, a split in the congregation, 'a scandal in the congregation'",
        needs="[regular worshipper] for years; [known face at worship]"),
-  dict(name="activist in a cause", kind="faith", ways="R G",
+  dict(name="activist in a cause", kind="faith", sphere="rule", face="rule.R", ways="R G",
        meets="need:meaning+.1 need:belonging+.05 need:safety-.03 res:time-.08 res:freedom-.02",
        ages=(14, 100), share=.1,   # estimate
        say="an activist",
        gained="'a protest in your city', 'a sense of injustice', 'a protest to save the local hospital'",
        lost="'a cause you fought for wins', 'burnout', a job that takes every evening",
        needs="a cause that matters to them"),
-  dict(name="party member", kind="faith", ways="B U",
+  dict(name="party member", kind="faith", sphere="rule", face="rule.B", ways="B U",
        profiles=[("B U", "Joins for influence and a clear idea of how the country should run."),
                  ("W G", "Belongs to the party as to a family and a duty."),   # packs thread 22:20 (Politics pack)
                  ("R", "Joins for the fire of the cause.")],
@@ -503,7 +503,7 @@ TITLES += [
        gained="'a bitter election', or a friend's invitation to a branch meeting above a pub",
        lost="a quarrel with the leadership, letting the membership lapse",
        needs="age 14 to 16 or more"),
-  dict(name="convert", kind="faith", ways="U B",
+  dict(name="convert", kind="faith", sphere="faith", face="faith.B", ways="U B",
        meets="need:meaning+.1 need:belonging+.05 res:ties-.03",
        ages=(14, 110), share=.08,   # about a third of US adults have changed religion, most of them to none (Pew 2015);
                                    # estimate for joining a new faith
@@ -511,7 +511,7 @@ TITLES += [
        gained="a long search, a partner's faith, 'welcomed into a community'",
        lost="leaving again",
        needs="a faith they were not raised in"),
-  dict(name="seeker", kind="faith", ways="G U",
+  dict(name="seeker", kind="faith", sphere="faith", face="faith.U", ways="G U",
        meets="need:meaning+.08 need:autonomy+.03 res:time-.03",
        ages=(15, 110), share=.1,   # estimate
        say="a seeker",
@@ -681,7 +681,7 @@ TITLES += [
 # ---------- volume 2, career (T2-001 to T2-045): one at a time, like the careers above
 TITLES += [
   # T2-001
-  dict(name="laboratory technician", kind="career", sector="knowledge", ways="W U",
+  dict(name="laboratory technician", kind="career", sector="knowledge", sphere="care", face="care.U", ways="W U",
        profiles=[("W U", "Keeps results dependable through careful routine."),
                  ("R G", "Learns the living material by daily contact and follows practical curiosity.")],
        meets="need:competence+.08 res:money+.05 res:time-.1 need:autonomy-.03",
@@ -697,7 +697,7 @@ TITLES += [
        turning="At closing time, the technician notices that one culture smells different. Tomorrow's run now depends "
                "on whether they speak up."),
   # T2-002
-  dict(name="paramedic", kind="career", sector="public", ways="R W",
+  dict(name="paramedic", kind="career", sector="public", sphere="care", face="care.R", ways="R W",
        profiles=[("R W", "Acts decisively because somebody needs help now."),
                  ("U", "Finds purpose in practiced assessment and continually improving judgment.")],
        meets="need:meaning+.1 need:belonging+.05 res:money+.05 res:time-.12 res:health-.03",
@@ -710,7 +710,7 @@ TITLES += [
        needs="[professional registration]; a degree in paramedic science; fitness checks and a [driving licence] for "
              "emergency driving"),
   # T2-003
-  dict(name="physician", kind="career", sector="public", ways="W U",
+  dict(name="physician", kind="career", sector="public", sphere="care", face="care.U", ways="W U",
        profiles=[("W U", "Treats sound judgment and accountable care as obligations."),
                  ("B", "Helps people regain control over decisions affecting their lives."),
                  ("G", "Serves one community for decades and comes to know its families across generations.")],
@@ -725,7 +725,7 @@ TITLES += [
             "stays)",
        needs="[graduate] in medicine; [professional registration]; years of supervised training"),
   # T2-004
-  dict(name="psychotherapist", kind="career", sector="knowledge", ways="U G",
+  dict(name="psychotherapist", kind="career", sector="knowledge", sphere="care", face="care.U", ways="U G",
        profiles=[("U G", "Learns how a person's history and present circumstances fit together."),
                  ("R", "Makes space for difficult feelings to be expressed honestly."),
                  ("W", "Keeps firm ethical boundaries so clients can rely on the frame of the work.")],   # third: Library
@@ -738,7 +738,7 @@ TITLES += [
        needs=("[graduate]; a recognised psychotherapy training and supervision; [therapy accreditation], or "
               "registration where the country requires it")),
   # T2-005
-  dict(name="pharmacist", kind="career", sector="services", ways="W U",
+  dict(name="pharmacist", kind="career", sector="services", sphere="care", face="care.U", ways="W U",
        profiles=[("W U", "Keeps an everyday system of medicine use trustworthy."),
                  ("B G", "Builds a durable local practice that supports community continuity and personal "
                          "independence."),
@@ -752,7 +752,7 @@ TITLES += [
        lost="retirement, the pharmacy closing, leaving practice",
        needs="[graduate] in pharmacy; [professional registration]"),
   # T2-006
-  dict(name="veterinarian", kind="career", sector="services", ways="U G",
+  dict(name="veterinarian", kind="career", sector="services", sphere="care", face="care.U", ways="U G",
        profiles=[("U G", "Learns the needs of animals within the systems they live in."),
                  ("B R", "Builds an independent practice around a deeply felt commitment to animals.")],
        meets="need:meaning+.1 res:money+.08 res:time-.12 res:health-.03",
@@ -763,7 +763,7 @@ TITLES += [
        lost="a move into another role, retirement, closing or selling the practice",
        needs="[graduate] in veterinary medicine; [professional registration]"),
   # T2-007
-  dict(name="midwife", kind="career", sector="public", role="women", ways="G W",   # role=women: too few for the CPS; Britain's midwife register has fewer than 1 man in 100, US certified nurse-midwives about 98 in 100 women (NMC; ACNM)
+  dict(name="midwife", kind="career", sector="public", role="women", sphere="care", face="care.G", ways="G W",   # role=women: too few for the CPS; Britain's midwife register has fewer than 1 man in 100, US certified nurse-midwives about 98 in 100 women (NMC; ACNM)
        profiles=[("G W", "Supports a major life transition through continuity and accountable care."),
                  ("U", "Studies and refines a skilled practice while listening to each person's circumstances.")],
        meets="need:meaning+.12 need:belonging+.05 res:money+.05 res:time-.12 res:health-.03",
@@ -774,7 +774,7 @@ TITLES += [
        lost="retirement, a move into other work, losing registration",
        needs="[professional registration]; a midwifery qualification"),
   # T2-008
-  dict(name="firefighter", kind="career", sector="public", role="men", ways="W R",   # role=men: firefighters 5.1 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="firefighter", kind="career", sector="public", role="men", sphere="prot", face="prot.R", ways="W R",   # role=men: firefighters 5.1 in 100 women (US BLS CPS 2025, table 11)
        profiles=[("W R", "Joins collective discipline to decisive action."),
                  ("G", "Protects a familiar place and the lives already rooted there.")],
        meets="need:belonging+.1 need:meaning+.08 res:money+.05 res:time-.1 res:health-.05",
@@ -785,7 +785,7 @@ TITLES += [
        lost="retirement, an injury or 'a serious accident or illness', leaving the service",
        needs="age 18 or more; [keeping fit]; not [someone with a record] for most services; a [driving licence] helps"),
   # T2-009
-  dict(name="emergency dispatcher", kind="career", sector="public", ways="W U",
+  dict(name="emergency dispatcher", kind="career", sector="public", sphere="prot", face="prot.U", ways="W U",
        profiles=[("W U", "Maintains clear, dependable coordination under pressure."),
                  ("R", "Brings immediate human presence to someone having a terrible day."),
                  ("G", "Feels bound to the district whose calls they take and knows its roads and people by name.")],
@@ -815,7 +815,7 @@ TITLES += [
        needs="[second language] at a professional level; a translation qualification, or sworn status for official "
              "papers"),
   # T2-011
-  dict(name="journalist", kind="career", sector="knowledge", ways="U R",
+  dict(name="journalist", kind="career", sector="knowledge", sphere="gather", face="gather.U", ways="U R",
        profiles=[("U R", "Follows questions and gives discoveries a compelling voice."),
                  ("W", "Reports unglamorous public facts because accountability depends on them."),
                  ("B", "Cultivates sources and exclusives to build a name and influence of their own.")],
@@ -829,7 +829,7 @@ TITLES += [
        needs=("[reporting] and press access, such as a [press card]; [finding things out] helps; a subject specialism "
               "for some beats")),
   # T2-012
-  dict(name="book editor", kind="career", sector="knowledge", ways="W U",
+  dict(name="book editor", kind="career", sector="knowledge", sphere="arts", face="arts.U", ways="W U",
        profiles=[("W U", "Helps a work become clear, coherent and dependable."),
                  ("B R", "Champions distinctive voices that might otherwise be made harmless."),
                  ("G", "Nurtures writers across many books and keeps a publishing list's character alive.")],
@@ -842,7 +842,7 @@ TITLES += [
        needs="[graduate], usually; [editing] and a real list to work on",
        turning="The cleanest sentence in the manuscript is also the one that sounds least like its author."),
   # T2-013
-  dict(name="archivist", kind="career", sector="public", ways="G U",
+  dict(name="archivist", kind="career", sector="public", sphere="learn", face="learn.U", ways="G U",
        profiles=[("G U", "Preserves records so future people can understand the past."),
                  ("B", "Protects access to evidence that lets ordinary people challenge powerful accounts."),
                  ("W", "Keeps records complete and in order because institutions answer for their actions through "
@@ -855,7 +855,7 @@ TITLES += [
        needs=("[graduate]; archival training or proven competence in [archive research]; authorised access to the "
               "records")),
   # T2-014
-  dict(name="museum curator", kind="career", sector="public", ways="G U",
+  dict(name="museum curator", kind="career", sector="public", sphere="learn", face="learn.U", ways="G U",
        profiles=[("G U", "Connects objects, histories and their living contexts."),
                  ("R", "Builds exhibitions that make visitors feel something unexpected."),
                  ("B", "Builds the standing of a collection, and their own, through acquisitions and patrons.")],
@@ -868,7 +868,7 @@ TITLES += [
        lost="a contract ending, a move to another institution, retirement",
        needs="[graduate], often a postgraduate degree; appointment to the role"),
   # T2-015
-  dict(name="archaeologist", kind="career", sector="knowledge", ways="U G",
+  dict(name="archaeologist", kind="career", sector="knowledge", sphere="learn", face="learn.U", ways="U G",
        profiles=[("U G", "Builds careful explanations from material traces."),
                  ("B G", "Works to keep a community's heritage from being defined entirely by outsiders."),
                  ("R", "Is drawn by the excitement of the dig and the moment something emerges from the ground.")],
@@ -917,7 +917,7 @@ TITLES += [
        lost="closing a practice, a move into another career, 'a recession' drying up commissions, retirement",
        needs="[graduate] in architecture; [professional registration]"),
   # T2-019
-  dict(name="civil engineer", kind="career", sector="knowledge", role="men", ways="W U",   # role=men: civil engineers 21.8 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="civil engineer", kind="career", sector="knowledge", role="men", sphere="prod", face="prod.U", ways="W U",   # role=men: civil engineers 21.8 in 100 women (US BLS CPS 2025, table 11)
        profiles=[("W U", "Builds infrastructure whose reliability matters to strangers."),
                  ("B G", "Keeps existing systems useful while negotiating resources and practical control."),
                  ("R", "Enjoys life on site, where problems need solving today and the result is visible.")],
@@ -930,7 +930,7 @@ TITLES += [
        lost="retirement, 'a recession', a move into another field",
        needs="[graduate] in engineering; [chartered status] to sign off major work"),
   # T2-020
-  dict(name="data analyst", kind="career", sector="knowledge", ways="U",
+  dict(name="data analyst", kind="career", sector="knowledge", sphere="comm", face="comm.U", ways="U",
        profiles=[("U", "Finds patterns and tests whether they mean anything."),
                  ("R W", "Makes evidence understandable so people can challenge an unfair decision."),
                  ("B", "Uses analysis to give their team leverage in budgets and decisions.")],   # third: Library
@@ -942,7 +942,7 @@ TITLES += [
        lost="'new technology changes your job', 'a wave of layoffs at work', another occupation",
        needs="[graduate] or [writing code]; [finding things out] helps; legitimate access to the records"),
   # T2-021
-  dict(name="cybersecurity analyst", kind="career", sector="knowledge", role="men", ways="U B",   # role=men: information security analysts 15.9 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="cybersecurity analyst", kind="career", sector="knowledge", role="men", sphere="prot", face="prot.U", ways="U B",   # role=men: information security analysts 15.9 in 100 women (US BLS CPS 2025, table 11)
        profiles=[("U B", "Anticipates weaknesses to preserve control of information."),
                  ("W G", "Protects a community's dependable digital services and accumulated work."),
                  ("R", "Enjoys the live contest of an incident and the hunt for what got in.")],   # third: Library
@@ -954,7 +954,7 @@ TITLES += [
        lost="another post, 'burnout', retirement",
        needs="[writing code]; security certifications; explicit authorisation for every test"),
   # T2-022
-  dict(name="machinist", kind="career", sector="industry", role="men", ways="U W",   # role=men: machinists about 5 in 100 women (US BLS CPS table 11, recent years)
+  dict(name="machinist", kind="career", sector="industry", role="men", sphere="prod", face="prod.U", ways="U W",   # role=men: machinists about 5 in 100 women (US BLS CPS table 11, recent years)
        profiles=[("U W", "Produces precise parts through practiced control and checking."),
                  ("R", "Finds creative satisfaction in skilled material work and responsive problem-solving."),
                  ("G", "Belongs to a workshop tradition and passes its practice on to apprentices.")],
@@ -968,7 +968,7 @@ TITLES += [
        lost="a plant closure or 'a wave of layoffs at work', an injury, retirement",
        needs="machine training ([machining]) and workshop safety; usually [apprentice] first"),
   # T2-023
-  dict(name="welder", kind="career", sector="industry", role="men", ways="R W",   # role=men: welding, soldering and brazing workers about 5 in 100 women (US BLS CPS table 11, recent years)
+  dict(name="welder", kind="career", sector="industry", role="men", sphere="prod", face="prod.R", ways="R W",   # role=men: welding, soldering and brazing workers about 5 in 100 women (US BLS CPS table 11, recent years)
        profiles=[("R W", "Joins practical discipline with concentrated physical skill."),
                  ("U", "Enjoys mastering how settings and materials produce different results."),
                  ("B", "Takes certified skills to well-paid contract work wherever the jobs are.")],   # third: Library
@@ -980,7 +980,7 @@ TITLES += [
        lost="a move into another trade, an injury, retirement",
        needs="a [welding certificate] for the job; 'learned a skill' several times"),
   # T2-024
-  dict(name="plumber", kind="career", sector="industry", role="men", ways="U B",   # role=men: plumbers, pipefitters and steamfitters 3.1 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="plumber", kind="career", sector="industry", role="men", sphere="prod", face="prod.B", ways="U B",   # role=men: plumbers, pipefitters and steamfitters 3.1 in 100 women (US BLS CPS 2025, table 11)
        profiles=[("U B", "Uses diagnosis and a valued trade to build independence."),
                  ("G W", "Keeps households and familiar buildings functioning over years."),
                  ("R", "Enjoys a day of different jobs and the quick fix that sends them on to the next.")],
@@ -992,7 +992,7 @@ TITLES += [
        lost="an injury, selling the business, retirement",
        needs="[trade ticket] or [building trade]; [gas safety registration] for boiler work"),
   # T2-025
-  dict(name="carpenter", kind="career", sector="industry", role="men", ways="U G",   # role=men: carpenters 3.1 in 100 women (US BLS CPS 2025, table 11)
+  dict(name="carpenter", kind="career", sector="industry", role="men", sphere="prod", face="prod.G", ways="U G",   # role=men: carpenters 3.1 in 100 women (US BLS CPS 2025, table 11)
        profiles=[("U G", "Understands material and adapts a design to its properties."),
                  ("B", "Builds a livelihood where skill gives control over clients and working terms.")],
        meets="need:competence+.08 res:money+.05 res:time-.1 need:safety-.03",
@@ -1003,7 +1003,7 @@ TITLES += [
        lost="retirement, an injury, work drying up in 'a recession'",
        needs="[building trade] or [trade ticket]; [tools of one's own]"),
   # T2-026
-  dict(name="baker", kind="career", sector="industry", ways="G W",
+  dict(name="baker", kind="career", sector="industry", sphere="prod", face="prod.G", ways="G W",
        profiles=[("G W", "Keeps a dependable food tradition alive through daily practice."),
                  ("U R", "Tests unusual combinations and learns from each batch."),
                  ("B", "Runs the bake as a small business of their own and sets its terms.")],   # third: Library
@@ -1080,7 +1080,7 @@ TITLES += [
             "certificate",
        needs="a commercial or [airline pilot licence] and a first-class medical; not [someone with a record]"),
   # T2-032
-  dict(name="merchant seafarer", kind="career", sector="services", role="men", ways="R G",   # role=men: women are about 1.3 in 100 of the world's seafarers (BIMCO and ICS Seafarer Workforce Report 2021; ILO)
+  dict(name="merchant seafarer", kind="career", sector="services", role="men", sphere="prod", face="prod.R", ways="R G",   # role=men: women are about 1.3 in 100 of the world's seafarers (BIMCO and ICS Seafarer Workforce Report 2021; ILO)
        profiles=[("R G", "Finds a life in movement, physical work and a shipboard community."),
                  ("W B", "Uses demanding service and clear responsibilities to build an independent livelihood.")],
        meets="need:belonging+.05 res:money+.08 res:ties-.1 res:time-.1 res:freedom-.05",
@@ -1092,7 +1092,7 @@ TITLES += [
        needs="[seafarer's papers]: maritime safety training, a seafarer medical and identity papers",
        turning="A message from home arrives during a watch. They can reply, but they cannot be there."),
   # T2-033
-  dict(name="commercial fisher", kind="career", sector="farm", role="men", ways="G B",   # role=men: US fishing and hunting workers too few in the CPS to show; women about 1 in 7 of the world's primary fisheries and fish-farming workforce and far fewer on boats at sea (FAO SOFIA 2022; ILO Work in Fishing)
+  dict(name="commercial fisher", kind="career", sector="farm", role="men", sphere="prod", face="prod.G", ways="G B",   # role=men: US fishing and hunting workers too few in the CPS to show; women about 1 in 7 of the world's primary fisheries and fish-farming workforce and far fewer on boats at sea (FAO SOFIA 2022; ILO Work in Fishing)
        profiles=[("G B", "Builds a livelihood through a place's waters, seasons and difficult resource choices."),
                  ("U", "Studies patterns and revises practice rather than relying only on inherited habits.")],
        meets="need:autonomy+.08 res:money+.05 need:safety-.05 res:time-.12 res:health-.03",
@@ -1103,7 +1103,7 @@ TITLES += [
        lost="quotas or a closed fishery, selling the boat, an injury, retirement",
        needs="sea safety training ([sea survival certificate]), a berth on a vessel and a [fishing licence]"),
   # T2-034
-  dict(name="forester", kind="career", sector="farm", ways="G U",
+  dict(name="forester", kind="career", sector="farm", sphere="prod", face="prod.G", ways="G U",
        profiles=[("G U", "Understands growth and manages decisions across long time horizons."),
                  ("W B", "Negotiates obligations and resources to keep land management viable and accountable.")],
        meets="need:meaning+.08 res:money+.05 res:time-.1 need:autonomy-.02",
@@ -1114,7 +1114,7 @@ TITLES += [
        lost="retirement, a change of management, a move into another field",
        needs="[graduate] or the [apprentice] route; real authority over the woodland"),
   # T2-035
-  dict(name="professional beekeeper", kind="career", sector="farm", ways="G U",
+  dict(name="professional beekeeper", kind="career", sector="farm", sphere="prod", face="prod.G", ways="G U",
        profiles=[("G U", "Learns colony behaviour and seasonal relationships through observation."),
                  ("B R", "Turns a consuming fascination into a business of their own."),
                  ("W", "Keeps careful records and follows the health rules that protect neighbouring apiaries.")],
@@ -1129,7 +1129,7 @@ TITLES += [
        needs="years of [beekeeping]; land where [hives of one's own] may stand; hive registration and health rules",
        turning="The calendar says one thing; the colonies suggest another. Experience and plans must meet."),
   # T2-036
-  dict(name="funeral director", kind="career", sector="services", ways="W G",
+  dict(name="funeral director", kind="career", sector="services", sphere="faith", face="faith.G", ways="W G",
        profiles=[("W G", "Supports continuity and shared rituals after a death."),
                  ("U R", "Helps families create an unfamiliar but meaningful form of farewell."),
                  ("B", "Keeps a family firm independent and viable beside the large chains.")],   # third: Library
@@ -1141,7 +1141,7 @@ TITLES += [
        needs="funeral service training; tact, a [strong stomach] and practical competence",
        turning="The family cannot agree on a single religious tradition, but everyone remembers the same song."),
   # T2-037
-  dict(name="civil celebrant", kind="career", sector="services", ways="R W",
+  dict(name="civil celebrant", kind="career", sector="services", sphere="arts", face="arts.W", ways="R W",
        profiles=[("R W", "Gives public form to personally meaningful promises and farewells."),
                  ("U", "Carefully designs language and structure to fit each occasion."),
                  ("G", "Marks the weddings, namings and funerals of one town's families across the years.")],
@@ -1156,7 +1156,7 @@ TITLES += [
        needs=("[public speaking]; celebrant training in [leading a ceremony], and [celebrant authorisation] for "
               "marriages")),
   # T2-038
-  dict(name="tattoo artist", kind="career", sector="services", ways="R B",
+  dict(name="tattoo artist", kind="career", sector="services", sphere="arts", face="arts.B", ways="R B",
        profiles=[("R B", "Builds a distinctive practice around expression and bodily self-authorship."),
                  ("W U", "Finds creative purpose in precise craft, careful preparation and accountable client care."),
                  ("G", "Keeps a craft lineage alive and serves the same regulars over many years.")],
@@ -1170,7 +1170,7 @@ TITLES += [
        turning="A client brings a sketch that is awkwardly drawn and deeply important. The artist must improve the "
                "design without replacing its meaning."),
   # T2-039
-  dict(name="sound engineer", kind="career", sector="knowledge", ways="U R",
+  dict(name="sound engineer", kind="career", sector="knowledge", sphere="arts", face="arts.U", ways="U R",
        profiles=[("U R", "Solves technical problems in pursuit of an expressive result."),
                  ("W G", "Keeps a venue or musical tradition sounding dependable across generations of performers."),
                  ("B", "Builds a studio and a client list that let them choose their own projects.")],
@@ -1217,7 +1217,7 @@ TITLES += [
             "thirties",
        needs="[on the team] for years; ability and [keeping fit], eligibility for the sport and a paid contract"),
   # T2-043
-  dict(name="novelist", kind="career", sector="knowledge", ways="R",
+  dict(name="novelist", kind="career", sector="knowledge", sphere="arts", face="arts.R", ways="R",
        profiles=[("R", "Gives felt experience an invented form other people can inhabit."),
                  ("U", "Builds stories through structure, constraints and patient revision."),
                  ("W", "Organises the work around an obligation to tell a neglected community's story faithfully.")],
@@ -1444,7 +1444,7 @@ TITLES += [
 
   # ---------- community: up to three at once ([club member] stays the generic adult club)
   # T2-059
-  dict(name="choir member", kind="community", ways="W G",
+  dict(name="choir member", kind="community", sphere="arts", face="arts.W", ways="W G",
        profiles=[("W G", "Sustains a shared musical practice through belonging and preparation."),
                  ("B", "Develops a chosen public voice and a place beyond their usual social role.")],
        meets="need:belonging+.08 need:meaning+.03 res:time-.05",
@@ -1468,7 +1468,7 @@ TITLES += [
        lost="handing over at the yearly meeting, a move, the landowner withdrawing permission for the site",
        needs="a mandate from the members and access to the garden; [growing food] helps"),
   # T2-061
-  dict(name="repair-cafe volunteer", kind="community", ways="U W",
+  dict(name="repair-cafe volunteer", kind="community", sphere="learn", face="learn.R", ways="U W",
        profiles=[("U W", "Makes practical knowledge useful to others through reliable help."),
                  ("R G", "Enjoys the encounter with a stubborn object and the person who brought it.")],
        meets="need:meaning+.05 res:ties+.05 res:time-.05",
@@ -1479,7 +1479,7 @@ TITLES += [
        lost="stepping back, the venue closing, a move",
        needs="[fixing things], [sewing and mending] or another repair skill, and the agreed limits of the group"),
   # T2-062
-  dict(name="amateur astronomer in a club", kind="community", ways="U",
+  dict(name="amateur astronomer in a club", kind="community", sphere="learn", face="learn.U", ways="U",
        profiles=[("U", "Shares careful observation and persistent questions."),
                  ("R G", "Joins because looking at the night sky feels astonishing and grounding.")],
        meets="need:meaning+.05 need:belonging+.03 need:competence+.03 res:time-.05 res:money-.02",
@@ -1490,7 +1490,7 @@ TITLES += [
        lost="leaving, a move, the club winding down",
        needs="membership and access to observing sessions; a [good telescope] helps but is not required"),
   # T2-063
-  dict(name="historical reenactment member", kind="community", ways="G W",
+  dict(name="historical reenactment member", kind="community", sphere="arts", face="arts.G", ways="G W",
        profiles=[("G W", "Keeps a shared practice alive through craft and group responsibilities."),
                  ("B R", "Uses performance to try an expressive identity far from everyday work.")],
        meets="need:belonging+.08 need:autonomy+.03 res:money-.03 res:time-.05",
@@ -1515,7 +1515,7 @@ TITLES += [
        needs="the approval of the station and its production training; [public speaking] helps",
        turning="A neighbour with no broadcasting experience tells a story nobody else in town has covered."),
   # T2-065
-  dict(name="community-mediation volunteer", kind="community", ways="W U",
+  dict(name="community-mediation volunteer", kind="community", sphere="rule", face="rule.G", ways="W U",
        profiles=[("W U", "Helps people understand a dispute and find an accountable process."),
                  ("G", "Protects the possibility of living alongside each other after the dispute.")],
        meets="need:meaning+.05 need:competence+.03 res:time-.05 res:health-.02",
@@ -1526,7 +1526,7 @@ TITLES += [
        needs=("mediation training ([mediation accreditation]), impartiality and a recognised service; [calming people "
               "down]")),
   # T2-066
-  dict(name="search-and-rescue volunteer", kind="community", ways="W R",
+  dict(name="search-and-rescue volunteer", kind="community", sphere="care", face="care.R", ways="W R",
        profiles=[("W R", "Accepts preparation and teamwork for moments requiring decisive help."),
                  ("U", "Finds commitment in mastering a demanding coordinated practice."),
                  ("B G", "Tests their own endurance against terrain and weather they know closely.")],   # third: Library
@@ -1539,7 +1539,7 @@ TITLES += [
        needs=("team-specific skills ([navigation], [emergency care]) and authorisation; [first-aid certificate]; good "
               "health")),
   # T2-067
-  dict(name="lifeboat volunteer", kind="community", ways="W G",
+  dict(name="lifeboat volunteer", kind="community", sphere="care", face="care.R", ways="W G",
        profiles=[("W G", "Protects a coastal community through dependable service."),
                  ("B R", "Chooses a demanding practical commitment that gives life personal direction.")],
        meets="need:meaning+.08 need:belonging+.05 need:safety-.02 res:time-.08",
@@ -1551,7 +1551,7 @@ TITLES += [
        needs=("selection, sea training ([boat handling], [sea survival certificate]) and operational authorisation; "
               "[swimming]; living near the station")),
   # T2-068
-  dict(name="school-governance board member", kind="community", ways="W U",
+  dict(name="school-governance board member", kind="community", sphere="learn", face="learn.W", ways="W U",
        profiles=[("W U", "Reviews decisions and responsibilities affecting a school community."),
                  ("B G", "Protects a school's local continuity while negotiating resources.")],
        meets="need:meaning+.05 res:ties+.03 res:time-.05",
@@ -1574,7 +1574,7 @@ TITLES += [
        lost="handing over, the children changing schools or growing up, the group ending",
        needs="a child at the school and a recognised role in the group; not a governance mandate"),
   # T2-070
-  dict(name="housing-cooperative member", kind="community", ways="G W",
+  dict(name="housing-cooperative member", kind="community", sphere="comm", face="comm.G", ways="G W",
        profiles=[("G W", "Shares responsibility for a place to live over the long term."),
                  ("U B", "Uses collective ownership or governance to gain practical control through informed "
                          "decisions.")],
@@ -1588,7 +1588,7 @@ TITLES += [
        needs="actual membership and whatever housing and financial conditions the cooperative sets",
        turning="The roof needs money now; three households cannot afford the proposed contribution."),
   # T2-071
-  dict(name="sports referee", kind="community", ways="W",
+  dict(name="sports referee", kind="community", sphere="gather", face="gather.W", ways="W",
        profiles=[("W", "Keeps a contest workable through consistent judgment."),
                  ("R", "Loves the live pace and the challenge of responding clearly in the moment.")],
        meets="need:competence+.05 need:belonging-.02 res:ties+.03 res:time-.05",
@@ -1599,7 +1599,7 @@ TITLES += [
        lost="stopping appointments, the badge lapsing, interests changing; the knees go",
        needs="[referee's badge] and the approval of the competition"),
   # T2-072
-  dict(name="festival organiser", kind="community", ways="R U",
+  dict(name="festival organiser", kind="community", sphere="gather", face="gather.G", ways="R U",
        profiles=[("R U", "Invents an occasion that brings different experiences together."),
                  ("W B", "Makes a public celebration feasible through agreements, budgets and clear "
                          "responsibilities.")],
@@ -1611,7 +1611,7 @@ TITLES += [
        lost="handing over, cancellation, 'burnout'",
        needs="an actual mandate and the event permissions the council requires"),
   # T2-073
-  dict(name="amateur band member", kind="community", ways="R",
+  dict(name="amateur band member", kind="community", sphere="arts", face="arts.R", ways="R",
        profiles=[("R", "Shares direct expression and the pleasure of making music together."),
                  ("U", "Builds music through arrangements, constraints and systematic rehearsal.")],
        meets="need:belonging+.05 need:autonomy+.05 res:time-.05 res:money-.02",
@@ -1622,7 +1622,7 @@ TITLES += [
        lost="leaving, the band splitting, a move",
        needs="[musical instrument] or [singing], and a willing group"),
   # T2-074
-  dict(name="book-club organiser", kind="community", ways="U G",
+  dict(name="book-club organiser", kind="community", sphere="gather", face="gather.U", ways="U G",
        profiles=[("U G", "Helps people understand books in the context of their lives."),
                  ("B", "Creates a space for independent judgment beyond established cultural gatekeepers."),
                  ("R", "Picks books that spark strong feelings and lively argument.")],   # third: Library
@@ -1633,7 +1633,7 @@ TITLES += [
        lost="handing over, the group ending, a move",
        needs="willing readers and a recurring organising role"),
   # T2-075
-  dict(name="community-kitchen volunteer", kind="community", ways="W G",
+  dict(name="community-kitchen volunteer", kind="community", sphere="gather", face="gather.W", ways="W G",
        profiles=[("W G", "Makes nourishment a reliable shared practice."),
                  ("B R", "Builds a practical space where people can contribute and eat on their own terms.")],
        meets="need:meaning+.08 need:belonging+.05 res:time-.05 res:health-.02",
@@ -1644,7 +1644,7 @@ TITLES += [
        lost="stepping back, the service closing, another commitment taking priority",
        needs="an induction, food-safety training ([food hygiene certificate]) and agreed duties"),
   # T2-076
-  dict(name="neighbourhood-watch coordinator", kind="community", ways="W U",
+  dict(name="neighbourhood-watch coordinator", kind="community", sphere="prot", face="prot.G", ways="W U",
        profiles=[("W U", "Organises clear, proportionate information-sharing and reporting."),
                  ("G", "Cares about familiar neighbours and everyday continuity.")],
        meets="need:safety+.03 res:ties+.03 res:time-.03",
@@ -1666,7 +1666,7 @@ TITLES += [
        turning="A conversation about an ordinary television programme matters because almost every other "
                "conversation has been about the person's case."),
   # T2-078
-  dict(name="board-game club organiser", kind="community", ways="U R",
+  dict(name="board-game club organiser", kind="community", sphere="gather", face="gather.U", ways="U R",
        profiles=[("U R", "Designs a varied shared experience through rules, discovery and play."),
                  ("W", "Makes the club dependable and welcoming through fair practical arrangements.")],
        meets="need:belonging+.05 need:meaning+.03 res:time-.05 res:money-.02",
@@ -1680,7 +1680,7 @@ TITLES += [
 
   # ---------- faith and causes: one at a time; paid ministry stays here
   # T2-079
-  dict(name="ordained religious minister", kind="faith", ways="W G",
+  dict(name="ordained religious minister", kind="faith", sphere="faith", face="faith.W", ways="W G",
        profiles=[("W G", "Sustains shared ritual and care within a continuing tradition."),
                  ("U", "Treats interpretation and difficult questions as a lifelong responsibility."),
                  ("R", "Leads worship and pastoral care through felt conviction and personal presence.")],
@@ -1694,7 +1694,7 @@ TITLES += [
        needs="[regular worshipper] or [convert] for years; [scripture]; the recognition and requirements of the "
              "tradition, often with [graduate]"),
   # T2-080
-  dict(name="member of a monastic community", kind="faith", ways="W G",
+  dict(name="member of a monastic community", kind="faith", sphere="faith", face="faith.U", ways="W G",
        profiles=[("W G", "Orders daily life around shared spiritual practice and continuity."),
                  ("B", "Freely chooses a demanding life that rejects a socially expected route to status or "
                        "consumption.")],
@@ -1708,7 +1708,7 @@ TITLES += [
        turning="The quiet life still contains washing up, disagreement and a person whose habits are difficult to "
                "bear."),
   # T2-081
-  dict(name="lay religious teacher", kind="faith", ways="W U",
+  dict(name="lay religious teacher", kind="faith", sphere="faith", face="faith.U", ways="W U",
        profiles=[("W U", "Helps others understand a tradition with care and consistency."),
                  ("R", "Teaches through stories, feeling and vivid connection to ordinary life."),
                  ("G", "Passes the tradition on as it was handed down, within the shared life of the community.")],
@@ -1722,7 +1722,7 @@ TITLES += [
        needs="[regular worshipper] for some years; [scripture] or [teaching]; recognition by the community; distinct "
              "from [teacher]"),
   # T2-082
-  dict(name="congregation musician", kind="faith", ways="R W",
+  dict(name="congregation musician", kind="faith", sphere="faith", face="faith.R", ways="R W",
        profiles=[("R W", "Gives shared belief an expressive public form."),
                  ("U", "Develops the musical structure and technique that let others participate.")],
        meets="need:meaning+.08 need:belonging+.05 res:time-.05",
@@ -1734,7 +1734,7 @@ TITLES += [
        turning="A familiar song no longer fits the occasion. Changing it may feel like care to some and loss to "
                "others."),
   # T2-083
-  dict(name="interfaith-dialogue participant", kind="faith", ways="W U",
+  dict(name="interfaith-dialogue participant", kind="faith", sphere="faith", face="faith.U", ways="W U",
        profiles=[("W U", "Builds careful understanding across differences without demanding agreement."),
                  ("R G", "Values the lived encounter, hospitality and unfamiliar practices of other communities.")],
        meets="need:meaning+.05 need:safety-.02 res:ties+.05 res:time-.03",
@@ -1863,7 +1863,7 @@ TITLES += [
   # T2-095
   dict(name="naturalised citizen", kind="status", ways="",
        meets="", lasts="life",   # legal access is applied once, by [citizenship]
-       ages=(5, 110), share=.06,   # as [citizenship]: the two come together
+       ages=(5, 110), share=.08,   # as [citizenship]: the two come together (next version: .06 to .08, change-later.md)
        say="a naturalised citizen",
        gained="years of residence, a test on the history and laws, and an oath at a ceremony; [citizenship] comes with "
               "it",
@@ -1916,6 +1916,585 @@ TITLES += [
        gained="a flood, a fire, a storm or 'war comes' leaves the home unsafe or unusable: 'losing the home'",
        lost="a safe return, a settled new home, another stable arrangement; the event stays in their history",
        needs="a real displacement, not only living near 'a disaster in the next town'"),
+]
+
+
+# =============================== TITLES, volume 3: the "v22" update, A16 (Library, 2026-10-09) ===============================
+# The titles held back in the release batch for want of a decided mechanic (change-later.md, "From the release batch"),
+# taken in on Emren's "Implement A16" (10-08 23:44 UTC), and three more first jobs so the first career spreads over
+# more entry titles (change-later.md; care worker is there already). Shares are estimates for the titles check (C-L4).
+TITLES += [
+  dict(name="warehouse worker", kind="career", sector="services", sphere="prod", face="prod.R", ways="B R",
+       profiles=[("B R", "Works fast for the bonus and the overtime, and takes the shifts others turn down."),
+                 ("W U", "Keeps the line moving: learns the scanner, the system and the safety rules, every shift.")],
+       meets="res:money+.03 res:health-.03 res:time-.08 need:autonomy-.03",
+       ages=(16, 70), share=.06,   # estimate: warehouse and storage workers are about 1 US worker in 80 (BLS), with
+                                   # high turnover, so many more hold the job for a while, often as a first job
+       say="a warehouse worker",
+       gained="'your first real job' through an agency, 'a new job at last' on the night shift at a distribution centre",
+       lost="the contract ending, an injury, a better job",
+       needs="a safety induction; a forklift ticket helps"),
+  dict(name="receptionist", kind="career", sector="services", ways="W U",
+       profiles=[("W U", "Keeps the front desk in order and knows where everything and everyone is."),
+                 ("G", "The warm first face people see, who remembers their names.")],
+       meets="res:money+.02 need:belonging+.02 res:time-.08",
+       ages=(16, 75), share=.05,   # estimate: receptionists are about 1 US worker in 150 (BLS), with high turnover
+       say="a receptionist",
+       gained="'a job interview' for the front desk of a clinic, an office or a hotel, often as 'your first full-time job'",
+       lost="another job, the desk replaced by a screen, retirement",
+       needs="a tidy manner and a little computer skill"),
+  dict(name="security guard", kind="career", sector="services", sphere="prot", face="prot.W", ways="W",
+       profiles=[("W", "Keeps order at the door and by the book."),
+                 ("U", "Watches the screens through the night and notices what others miss.")],
+       meets="res:money+.02 need:safety-.02 res:time-.1 res:health-.02",
+       ages=(18, 75), share=.05,   # estimate: security guards are about 1 US worker in 150 (BLS), many of them for a
+                                   # few years, often as a first or a second job
+       say="a security guard",
+       gained="'a new job at last' with a security firm, after a short licence course",
+       lost="the contract moving to another firm, nights wearing them down, another job",
+       needs="a clean record in most places, and the guard's licence"),
+  dict(name="union member", kind="community", sphere="prod", face="prod.W", ways="W R",
+       profiles=[("W R", "Keeps faith with the people they work beside, and stands with them when it counts."),
+                 ("U B", "Knows the agreement line by line, and makes it pay for the members.")],
+       meets="need:belonging+.03 need:safety+.02 res:money-.01",
+       ages=(16, 90), share=.25,   # about 1 worker in 6 across the OECD belongs to a union (OECD 2019), more in the
+                                   # public sector and in the past; estimate for ever holding a card
+       say="a union member",
+       gained="joining at work, or holding the line in 'a strike vote at work'",
+       lost="leaving the job or the union, letting the card lapse",
+       needs="a job with a union"),
+  dict(name="street preacher", kind="faith", sphere="faith", face="faith.R", ways="W R",
+       meets="need:meaning+.08 need:belonging-.02 res:time-.05",
+       ages=(14, 100), share=.005,   # estimate: a few in a thousand ever preach in the open street
+       say="a street preacher",
+       gained="taking a box to the corner of the square in 'a revival fills the square'",
+       lost="the fire going out, a congregation of their own, the police moving them on for good",
+       needs="a faith held hard enough to say it out loud to strangers"),
+  dict(name="conscientious objector", kind="status", ways="",
+       meets="need:meaning+.03 need:belonging-.03", lasts="life",
+       ages=(18, 110), share=.003,   # estimate: only where service is compulsory, and few of those called object
+       say="a conscientious objector",
+       gained="objecting on conscience before the board in 'the call to serve', and serving in a care home instead",
+       lost="never; it stays on the record",
+       needs="a call-up, and a board that accepts the objection"),
+  dict(name="national service done", kind="status", ways="",
+       meets="need:competence+.02 res:ties+.02", lasts="life",
+       ages=(19, 110), share=.02,   # estimate: about 3 in 1,000 young adults a year are called in this setting, most
+                                    # serve a term
+       say="someone who did their national service",
+       gained="the end of the term served after 'the call to serve'",
+       lost="never",
+       needs="[soldier] held through a term that began with 'the call to serve'"),
+  dict(name="permanent resident", kind="status", ways="",
+       meets="need:safety+.03", lasts="life",
+       ages=(5, 110), share=.08,   # as [permanent residence], the perk that carries the access: the two come together
+       say="a permanent resident",
+       gained="'residence papers at the government office'",
+       lost="[naturalised citizen] takes its place in how people name them; the perk stays",
+       needs="[immigrant] or [refugee], years of legal residence"),
+  dict(name="without papers", kind="status", ways="",
+       meets="need:safety-.08 res:freedom-.08 res:money-.03", lasts=5,   # until papers come or they leave; 5 caps it
+       ages=(5, 110), share=.01,   # estimate: undocumented people are a few residents in 100 in the US and fewer in
+                                   # most of Europe
+       say="living without papers",
+       gained="a refused residence application in 'residence papers at the government office', and staying anyway",
+       lost="papers granted at last, leaving the country, being sent back",
+       needs="[immigrant] or [refugee]"),
+  dict(name="served the old regime", kind="status", ways="",
+       meets="need:safety-.03 need:belonging-.03", lasts="life",
+       ages=(16, 110), share=.002,   # estimate: 'the old order falls' reaches about 2 lives in 100
+       say="someone who served the old regime",
+       gained="standing with the last of the old guard in 'the old order falls'",
+       lost="never; the new order remembers",
+       needs="the old order falling in their lifetime"),
+  dict(name="veteran of a revolution", kind="status", ways="",
+       meets="need:meaning+.03 need:belonging+.02", lasts="life",
+       ages=(16, 110), share=.003,   # estimate: 'the old order falls' reaches about 2 lives in 100
+       say="a veteran of the revolution",
+       gained="pushing at the palace gates in 'the old order falls'",
+       lost="never",
+       needs="the old order falling in their lifetime"),
+  dict(name="founder of a movement", kind="status", ways="",   # stage 3, C5 (stage3-rules.md section 5)
+       meets="need:meaning+.05 need:autonomy+.03", lasts="life",
+       ages=(25, 110), share=.001,   # estimate: 'a following of your own' reaches at most about 1 life in 1,000
+       say="the founder of a movement",
+       gained="founding a movement of their own and keeping a following around it",   # not quoted: the moment is post-cut, the check reads the live earth.md
+       lost="never",
+       needs="a new movement founded in their lifetime, by them"),
+  dict(name="known as a strike-breaker", kind="status", ways="",
+       meets="need:belonging-.05 res:ties-.03", lasts=15,   # memories at work fade; 15 caps it
+       ages=(18, 90), share=.02,   # estimate: about 3 lives in 10 meet a strike ballot, few keep working through it
+       say="known as a strike-breaker",
+       gained="voting no and working through the strike in 'a strike vote at work'",
+       lost="a new workplace, the years",
+       needs="a job with a union and a strike"),
+]
+
+# ---------- career, the spheres' first jobs (item 15, stage 4; Library thread, 2026-10-09): one per sphere, each with
+# sphere= and face= beside sector= (chroma-engine/notes/world-fields.md). Three more first jobs are existing titles
+# tagged in place: waiter or bartender (gather.R), care worker (care.W), apprentice (prod.G).
+TITLES += [
+  dict(name="court clerk", kind="career", sector="public", sphere="rule", face="rule.W", ways="W U",
+       meets="need:meaning+.05 need:safety+.05 res:money+.03 res:time-.1 need:autonomy-.03",
+       ages=(18, 70), share=.006,   # estimate: court and tribunal staff are about 1 worker in 400 in a rich country;
+                                    # many start young behind the bench and move on, so more hold it than hold it now
+       say="a court clerk",
+       gained="'a job interview' at the town's court after school or college, often as 'your first full-time job': a "
+              "desk below the bench, the day's list and the files",
+       lost="'a promotion is open' in the court office, a move into law, 'new technology changes your job', retirement",
+       needs="[school-leaving certificate]; age 18 or more; a background check",
+       turning="On a busy list day a claim from a man with no lawyer is missing a page, and the bench will strike it "
+               "out at eleven. The clerk knows where the page went."),
+  dict(name="session player", kind="career", sector="services", sphere="arts", face="arts.U", ways="U R",
+       meets="need:competence+.08 need:autonomy+.05 need:safety-.05 res:money+.02 res:time-.1",
+       ages=(16, 80), share=.003,   # estimate: a few people in 1,000 ever play for hire on other people's recordings
+                                    # and shows, most for a few years beside other work
+       say="a session player",
+       gained="years of practice ('learned a skill'), then a studio short of a player the night before, and a name "
+              "passed from one band to the next",
+       lost="the calls drying up, a band of their own, 'new technology changes your job', a steadier job",
+       needs="[musical instrument] played well, by ear and from the page",
+       turning="Three hours are booked and the producer wants the part exactly as written. On the second take the "
+               "player hears a better line in it."),
+  dict(name="alms visitor", kind="career", sector="services", sphere="faith", face="faith.W", ways="W G",
+       meets="need:meaning+.1 need:belonging+.05 res:money+.01 res:time-.08 res:ties+.03",
+       ages=(16, 85), share=.004,   # estimate: a congregation's paid visitor for its alms fund, a few hours a week;
+                                    # far more people visit unpaid ([neighbourhood volunteer], [deacon or elder])
+       say="an alms visitor",
+       gained="a few paid hours a week from the congregation's alms fund, after years of helping at the hall: a list of "
+              "names, a bus pass and the week's bags of shopping",
+       lost="the fund running dry, a full-time job elsewhere, the list handed on to a younger visitor",
+       needs="[regular worshipper] or years of helping at the hall; a background check",
+       turning="An old man on the visiting list has stopped opening his door, and the fund drops anyone not seen this "
+               "month. The form is due on Friday."),
+  # the sphere's job is "tutor for hire"; the modern name and the cast's role (spheres-data learn.json, learn.B) is
+  # the private tutor
+  dict(name="private tutor", kind="career", sector="knowledge", sphere="learn", face="learn.B", ways="B U R",
+       meets="need:autonomy+.05 need:competence+.05 res:money+.03 res:time-.05",
+       ages=(16, 80), share=.06,   # estimate: many students tutor younger pupils for pay for a while, and private
+                                   # tuition is common in most rich countries; few make a living of it
+       say="a private tutor",
+       gained="a card on the library noticeboard or a word from a neighbour, and a first pupil at a kitchen table, "
+              "often while still a student",
+       lost="a full-time job, the exam season ending, the families finding a cheaper tutor online",
+       needs="good marks in the subject; [school-leaving certificate] helps",
+       turning="A parent paying double asks the tutor to write the coursework their child is meant to write. The rent "
+               "is due on Friday."),
+  dict(name="market porter", kind="career", sector="services", sphere="comm", face="comm.W", ways="W B G",
+       meets="need:belonging+.05 need:competence+.03 res:money+.03 res:time-.1 res:health-.05",
+       ages=(16, 65), share=.01,   # estimate: wholesale and street markets take on porters, loaders and stall hands,
+                                   # a first job for some young people in market towns and cities
+       say="a market porter",
+       gained="turning up at the wholesale market before dawn and being picked for a barrow, or a cousin already on "
+              "the stalls who puts in a word; often 'your first real job'",
+       lost="a bad back, the market moving out of town, a stall of their own",
+       needs="age 16 or more; fitness; a start at four in the morning",
+       turning="Wheeling a crate to a stall, the porter sees that the trader's scale has been set light. Both the "
+               "trader and the buyer tip the porter every week."),
+  dict(name="door staff", kind="career", sector="services", sphere="prot", face="prot.B", ways="B R",
+       meets="need:competence+.03 need:safety-.03 res:money+.05 res:time-.1 res:health-.05",
+       ages=(18, 60), share=.016,   # estimate: door and event security take on a few young adults in 100 for a while,
+                                    # most of them men, many for a year or two beside study or a day job
+       say="one of the door staff",
+       gained="a short licence course and a first Friday on the door of a bar or club, often through a friend already "
+              "on the door",
+       lost="the licence lapsing, the venue closing, the nights wearing them down, a move to guarding by day "
+            "([security guard])",
+       needs="age 18 or more; the door licence; a clean record in most places",
+       turning="Near closing a young customer is too drunk to stand, and the friends who came with them have gone. "
+               "The rule is to put them outside the door."),
+]
+
+# ---------- the spheres' titles at two ranks (item 15, stage 4; Library thread, 2026-10-09): the 28 gaps of
+# chroma-packs/spheres/title-gaps.md, with Packs' faces, ranks, kinds, sectors, ways, ages and shares. Given only with
+# the Engine's sph_titles on (off until the refit).
+TITLES += [
+  dict(name="lay judge", kind="community", sphere="rule", face="rule.W", ways="W U",
+       meets="need:meaning+.08 need:competence+.03 res:ties+.03 res:time-.08",
+       ages=(25, 75), share=.003,   # estimate: lay judges and lay magistrates sit in several legal systems, about 1
+                                    # adult in 3,000 at a time, in terms of some years; a few in 1,000 ever sit
+       say="a lay judge",
+       gained="an application and an interview after years as a [court clerk] or a [community-mediation volunteer], "
+              "or a name put forward by people who know them ([good name in town]); training, then a first sitting "
+              "beside two others on the bench, unpaid",
+       lost="the term ending, the age limit, a move ('moved away'), a conflict of interest, a record of their own",
+       needs="age 25 or more; years at the court, a mediation service, or [good name in town]; not "
+             "[someone with a record]",
+       turning="A young mother stands before the bench for a fine she could not pay, now doubled. The two others on "
+               "the bench want to get through the list by lunch."),
+  dict(name="paralegal", kind="career", sector="knowledge", sphere="rule", face="rule.U", ways="U W",
+       meets="need:competence+.05 need:safety+.03 res:money+.04 res:time-.1 need:autonomy-.03",
+       ages=(18, 70), share=.006,   # estimate: the US counts about 350,000 paralegals and legal assistants (BLS);
+                                    # many hold the post for a few years on the way into law or out of it
+       say="a paralegal",
+       gained="'a job interview' at a law firm or an advice centre after school or college, often as 'your first "
+              "full-time job': the files, the forms and the deadlines",
+       lost="the exams and a move up to [lawyer], 'new technology changes your job', 'a wave of layoffs at work'",
+       needs="[school-leaving certificate]; a short legal course in many places",
+       turning="A family's appeal against eviction must reach the tribunal by four tomorrow, and the lawyer who should "
+               "sign it is away. The finished form is on the paralegal's desk."),
+  dict(name="lawyer", kind="career", sector="knowledge", sphere="rule", face="rule.U", ways="U B",
+       profiles=[("U B", "Knows the law to the letter and uses every rule in it for the client."),
+                 ("R", "Fights in court for the clients nobody else will take, and says what they think of the "
+                       "rules.")],
+       meets="need:competence+.08 need:autonomy+.03 res:money+.1 res:time-.15 res:health-.03",
+       ages=(23, 80), share=.006,   # estimate: the US counts about 800,000 lawyers in a workforce near 160 million
+                                    # (BLS); long careers and few leavers keep the lifetime share near the share at work
+       say="a lawyer",
+       gained="a law degree ([graduate]), the professional exams and a training post ([professional registration]); "
+              "or years as a [paralegal], evening study and the same exams",
+       lost="retirement, being struck off (the knowledge stays), a move onto the bench or into a firm's own office, "
+            "'burnout'",
+       needs="[graduate] and [professional registration]; or years as a [paralegal] and the exams",
+       turning="The firm's best client swears a contract was lost years ago. In the client's own old file is a copy "
+               "that would sink their case."),
+  dict(name="mediator", kind="career", sector="services", sphere="rule", face="rule.G", ways="G W",
+       meets="need:meaning+.08 need:competence+.05 need:safety-.03 res:money+.03 res:time-.08",
+       ages=(25, 80), share=.0005,   # estimate: paid mediators of family, workplace and business disputes are a few
+                                     # workers in 10,000; most come to it late, from law, care work or volunteering
+       say="a mediator",
+       gained="years as a [community-mediation volunteer], or a career in law or care and the course for "
+              "[mediation accreditation]; then a first paid case from a court's list or a family service",
+       lost="the cases drying up, a service's contract going elsewhere, retirement",
+       needs="[mediation accreditation]; [settling disputes] helps; age 25 or more",
+       turning="Two partners, friends since school, are splitting up their building firm, and each wants the van, the "
+               "name and the customers. Their families are waiting outside the room."),
+  dict(name="community centre manager", kind="career", sector="public", sphere="gather", face="gather.W", ways="W G",
+       profiles=[("W G", "Keeps the doors open to everyone, the rota fair and the lunch club fed."),
+                 ("U B", "Keeps the centre alive on grants won, a careful budget and the right friends at the "
+                         "council.")],
+       meets="need:meaning+.1 need:belonging+.05 res:money+.03 res:time-.1 res:health-.03",
+       ages=(21, 70), share=.002,   # estimate: a town of 50,000 has a handful of community centres with one paid
+                                    # manager each; few hold the post, and many hold it for years
+       say="the community centre's manager",
+       gained="years on the rota as a [community-kitchen volunteer] or a [neighbourhood volunteer], or the books as a "
+              "[club treasurer], then 'a job interview' when the old manager retires",
+       lost="the council's grant cut, the building sold, 'burnout', retirement",
+       needs="years volunteering in the neighbourhood; [organising people] or [bookkeeping] helps; a background check",
+       turning="The council offers a year's grant if every group pays for its room. The pensioners' tea and the youth "
+               "night have always met for free."),
+  dict(name="events promoter", kind="career", sector="services", sphere="gather", face="gather.B", ways="B R",
+       meets="need:autonomy+.05 need:competence+.03 need:safety-.05 res:money+.03 res:time-.12 res:health-.03",
+       ages=(18, 70), share=.002,   # estimate: the US counts about 140,000 meeting and event planners (BLS); with
+                                    # club and concert promoters, many promoting for a few years beside another job
+       say="an events promoter",
+       gained="years behind the bar as a [waiter or bartender], the books as a [club treasurer] or a committee as a "
+              "[festival organiser], then a first night of their own in a rented room, sold through friends",
+       lost="a night that loses money, the venue closing, 'burnout', a steadier job",
+       needs="age 18 or more; contacts ([name on the local scene] or [contact in the trade]); money up front "
+             "([savings])",
+       turning="Two days before the big night half the tickets are unsold, and the headline act's agent wants the rest "
+               "of the fee now."),
+  dict(name="DJ", kind="career", sector="services", sphere="gather", face="gather.R", ways="R B",
+       profiles=[("R B", "Reads the room, keeps the floor moving until the lights come up, and makes the name fill "
+                         "it."),
+                 ("G", "Plays the town's weddings, birthdays and yearly dances, and knows which old song brings the "
+                       "grandparents up.")],
+       meets="need:autonomy+.05 need:belonging+.05 need:safety-.05 res:money+.02 res:time-.1 res:health-.05",
+       ages=(16, 65), share=.001,   # estimate: about 1 person in 1,000 ever plays records for pay, most for a few
+                                    # years beside other work; at 16 the paid nights are birthdays and school dances
+       say="a DJ",
+       gained="records collected for years, borrowed decks and an early slot on a quiet night, often after nights as "
+              "a [waiter or bartender] or years as an [amateur band member]; [sound mixing] helps",
+       lost="the bookings drying up, the late nights wearing them down, the club closing, a day job",
+       needs="[sound mixing] or a good ear, a collection and the gear (often [savings]); age 18 or more for bars and "
+             "clubs",
+       turning="The floor is full at one in the morning, and the owner wants the music down for the neighbours. The "
+               "crowd wants one more song."),
+  dict(name="café or bar owner", kind="career", sector="services", sphere="gather", face="gather.G", ways="G B",
+       profiles=[("G B", "Keeps the corner place where the same faces meet every morning, and makes it pay."),
+                 ("W", "Runs a room where no one is turned away: the cheap soup, the lonely regular never rushed.")],
+       meets="need:belonging+.08 need:autonomy+.08 res:money+.02 res:time-.12 res:health-.03",
+       ages=(21, 80), share=.004,   # estimate: owners and keepers of small cafés, bars and pubs; most such places are
+                                    # small firms, and many change hands within a few years, so more hold it than now
+       say="a café owner",
+       gained="years behind someone else's counter as a [waiter or bartender] or [cook], or a [shop owner] who turns "
+              "the front of the shop into tables; [savings] or the [family business] pay for the lease, and a sign "
+              "goes up with their name on it",
+       lost="the rent rising past the takings, a buyer for the lease, 'burnout', the street changing round it, "
+            "retirement",
+       needs="[waiter or bartender], [cook] or [shop owner] first; [savings] or [family business]; age 21 or more; "
+             "[food hygiene certificate], and [drinks licence] for a bar",
+       turning="The old regular who has had the window table every morning for twenty years now sits there all day "
+               "over one cup of tea, and a queue is waiting at the door."),
+  dict(name="music teacher", kind="career", sector="knowledge", sphere="arts", face="arts.U", ways="U W",
+       profiles=[("U W", "Teaches scales, reading and patience, and writes down every pupil's progress."),
+                 ("R G", "Teaches by ear and by playing along, the old tunes first, and the pupils play in the town "
+                         "band.")],
+       meets="need:competence+.08 need:meaning+.05 res:money+.02 res:time-.08",
+       ages=(18, 80), share=.002,   # estimate from US BLS counts of musicians and of arts teachers, with the turnover of
+                                    # part-time teaching; many teach beside playing, in schools or at home
+       say="a music teacher",
+       gained="a [session player] or [amateur band member] who takes a first pupil for a little money, then a card in "
+              "the library window and a waiting list; some through a music college and a post in a school",
+       lost="the pupils moving on, a full-time school post, stiffening hands, retirement",
+       needs="[musical instrument] played well; [teaching] helps; [cleared to work with children] for children's "
+             "lessons",
+       turning="A pupil who has practised every day for a year still cannot keep the beat, and the parents ask "
+               "whether another term is worth it."),
+  dict(name="touring musician", kind="career", sector="services", sphere="arts", face="arts.R", ways="R B",
+       profiles=[("R B", "Lives for the night's show and the next town, and fights for a bigger stage."),
+                 ("U B", "Tunes the set night by night, reads every contract, and knows each venue's sound.")],
+       meets="need:autonomy+.08 need:competence+.05 res:money-.02 res:time-.12 res:health-.05 res:ties-.05",
+       ages=(17, 70), share=.002,   # estimate from US BLS counts of musicians and singers; most who tour do it for a
+                                    # few years in their twenties, often for little money
+       say="a touring musician",
+       gained="an [amateur band member] whose band gets its first run of dates out of town, or a [session player] "
+              "hired for a singer's tour; a van, a borrowed amplifier and a list of venues",
+       lost="the band splitting, the money running out, a child at home, the body tiring of the road, a steady job",
+       needs="[musical instrument] or [singing] good enough for a paying crowd; age 17 or more, and 18 for the bars "
+             "on most tours",
+       turning="On the fourth night of the tour the venue pays half the agreed fee, and the band needs fuel to reach "
+               "the next town."),
+  dict(name="folk musician", kind="community", sphere="arts", face="arts.G", ways="G R",
+       profiles=[("G R", "Plays the old tunes with friends in the corner of the pub until late."),
+                 ("W", "Plays at every wedding, wake and benefit night the town holds, for the town.")],
+       meets="need:belonging+.08 need:meaning+.05 res:ties+.03 res:time-.05",
+       ages=(12, 95), share=.02,   # estimate: folk sessions, dance bands and singing circles meet in most towns; a
+                                   # couple of people in 100 play in one for some years
+       say="a folk musician",
+       gained="sitting in at a session in the back room of a pub or at a festival, learning the tunes by ear from "
+              "older players, and being asked back",
+       lost="moving away, the session ending when its oldest players die, other music, stiffening hands",
+       needs="none; [musical instrument] or [singing]",
+       turning="The session's oldest player plays a slow tune nobody else knows, and says it was their mother's and "
+               "has never been written down."),
+  dict(name="craft maker", kind="career", sector="industry", sphere="arts", face="arts.G", ways="G U",
+       profiles=[("G U", "Makes things the old way, by hand, and learns the material for a lifetime."),
+                 ("B R", "Sells hard at fairs and markets, and makes a name with bold work.")],
+       meets="need:competence+.08 need:autonomy+.08 res:money-.02 res:time-.08",
+       ages=(18, 90), share=.005,   # estimate: potters, weavers, woodworkers, jewellers and other makers who earn part
+                                    # of a living from what they make; most beside another job
+       say="a craft maker",
+       gained="a folk musician, an [apprentice] or [carpenter] who starts selling what they make at fairs and markets, "
+              "or a [workshop] at home and a first table at the craft fair",
+       lost="the stall not paying, cheap copies, hands or eyes failing, a steady job",
+       needs="a craft learned by hand ('learned a skill'); [workshop] or [tools of one's own]",
+       turning="A shop in the city offers to sell the maker's bowls, if they can be made faster and cheaper with a "
+               "machine for the hard part."),
+  dict(name="independent preacher", kind="faith", sphere="faith", face="faith.B", ways="B R",
+       profiles=[("B R", "Builds a hall of their own by force of voice, and the followers choose to come."),
+                 ("U W", "Preaches careful readings of the texts, and keeps the hall's books open to every member.")],
+       meets="need:meaning+.1 need:autonomy+.08 res:money-.02 res:time-.1 res:ties+.03",
+       ages=(21, 90), share=.002,   # estimate: preachers who lead a congregation of their own outside any wider body; a
+                                    # few in 1,000 believers, most for small gatherings in hired rooms
+       say="a preacher with a hall of their own",
+       gained="a [convert], [regular worshipper] or [street preacher] whose small following hires a room on the day "
+              "of worship, then a lease on an old shop or hall with their name on the board",
+       lost="the following drifting away, a split in the hall, the lease lost, the hall handed to a successor, a "
+            "scandal",
+       needs="[convert], [regular worshipper] or [street preacher] first; age 21 or more; [public speaking] and "
+             "[scripture] help",
+       turning="The hall's biggest giver, who pays most of the rent, asks for a seat at the front and a say in next "
+               "month's sermons."),
+  dict(name="complementary therapist", kind="career", sector="services", sphere="care", face="care.B", ways="B G",
+       profiles=[("B G", "Runs a small practice of their own: a calm room and hands-on care that clients choose for "
+                         "themselves."),
+                 ("U", "Keeps careful notes, says plainly what the sessions can and cannot do, and sends clients on "
+                       "to a doctor.")],
+       meets="need:autonomy+.08 need:meaning+.05 res:money+.01 res:time-.08",
+       ages=(18, 75), share=.005,   # estimate from US BLS counts of massage therapists, with others in massage,
+                                    # reflexology and aromatherapy; many work part time and for a few years
+       say="a complementary therapist",
+       gained="a short course in massage or another hands-on therapy, a folding table and a room rented by the hour, "
+              "then clients who come back",
+       lost="too few clients, the room's rent, hands or back wearing out, a move into nursing or physiotherapy",
+       needs="none; a short course, and insurance to practise",
+       turning="A regular client with back pain mentions a new numbness down one leg, and says she would rather keep "
+               "seeing the therapist than go to her doctor."),
+  dict(name="physiotherapist", kind="career", sector="knowledge", sphere="care", face="care.B", ways="B U",
+       profiles=[("B U", "Builds a name and a list of patients who ask for them, and backs every plan with measured "
+                         "progress."),
+                 ("R W", "Gets people moving again fast, cheers them through every exercise, and gives every patient "
+                         "on the ward the same."),
+                 ("G", "Lets the body mend at its own pace, with patient exercises done at home among family.")],
+       meets="need:competence+.08 need:meaning+.05 res:money+.05 res:time-.1",
+       ages=(22, 70), share=.002,   # estimate: physical therapists are about 1 worker in 600 in the US (BLS), most
+                                    # of them for a whole career, with some leaving for other health work
+       say="a physiotherapist",
+       gained="a physiotherapy degree ([graduate]) and the [professional registration], then 'a job interview' and "
+              "'your first full-time job' on a hospital's wards; later, often, a practice of their own",
+       lost="retirement, a bad back of their own, 'burnout', or being struck off (the skill stays)",
+       needs="[graduate] in physiotherapy and [professional registration]",
+       turning="A semi-professional player asks the physiotherapist to sign him fit for the cup final. His knee is "
+               "two weeks from ready."),
+  dict(name="hospice volunteer", kind="community", sphere="care", face="care.G", ways="G W",
+       profiles=[("G W", "Sits with the dying and their families, and keeps the rota so no one is left alone."),
+                 ("R", "Brings music, news and laughter onto the ward, and keeps birthdays for those who will not "
+                       "see another.")],
+       meets="need:meaning+.1 need:belonging+.05 res:time-.05 res:ties+.03",
+       ages=(16, 90), share=.02,   # estimate: hospices lean on volunteers, often several for each paid post, and many
+                                   # serve for a few years, often after a death in their own family
+       say="a hospice volunteer",
+       gained="a training evening at the local hospice, often after losing someone there or through a friend on the "
+              "rota; then a shift a week at the tea trolley or the bedside",
+       lost="stepping back after a hard year, a move, 'burnout', age",
+       needs="none; the hospice's short training and a background check; age 16 or more",
+       turning="A dying man asks the volunteer to write a letter to the daughter he has not spoken to in twenty "
+               "years. Volunteers are told to keep out of family matters."),
+  dict(name="teaching assistant", kind="career", sector="public", sphere="learn", face="learn.W", ways="W G",
+       profiles=[("W G", "Makes sure the slowest reader and the child at the back get the same help as the rest."),
+                 ("B", "Takes the post as the first step to a teacher's job, and studies for it at night.")],
+       meets="need:meaning+.08 need:belonging+.05 res:money+.02 res:time-.08",
+       ages=(17, 70), share=.03,   # estimate: the US counts about 1.3 million teaching assistants (BLS); many parents
+                                   # take the post while their own children are at school, and turnover is high
+       say="a teaching assistant",
+       gained="'a job interview' at a local school, often after years of helping in class as a parent; the checks, "
+              "a lanyard and a reading group of six",
+       lost="the school's budget cut, teacher training ([teacher]), 'a new job at last' with better pay",
+       needs="[cleared to work with children]; age 17 or more",
+       turning="A quiet girl in the reading group copies every word from her neighbour's book. The assistant begins "
+               "to think she cannot see the board."),
+  dict(name="consultant", kind="career", sector="knowledge", sphere="learn", face="learn.B", ways="B U",
+       profiles=[("B U", "Sells expert advice by the day, and guards the know-how that sets the price."),
+                 ("W", "Writes the standards and checks a whole trade then keeps, and signs only what is true.")],
+       meets="need:competence+.05 need:autonomy+.05 res:money+.1 res:time-.12",
+       ages=(23, 75), share=.01,   # estimate: management analysts and other advisers are about 1 worker in 160 in the
+                                   # US (BLS); many hold the title for some years mid-career
+       say="a consultant",
+       gained="years as a [private tutor], [teacher], [accountant] or [data analyst], then a firm that sells advice "
+              "by the day, or a first client of one's own",
+       lost="the contracts drying up, a post on a client's own staff, retirement",
+       needs="[graduate]; years of trusted know-how in one field",
+       turning="A client pays for a review of its offices and has already decided to close half of them. It wants "
+               "the report to say so."),
+  dict(name="mechanic", kind="career", sector="industry", sphere="learn", face="learn.R", ways="R U",
+       profiles=[("R U", "Learns each engine by taking it apart, and finds the fault by feel and by testing."),
+                 ("B", "Runs a garage of their own, prices the job, and builds a name across town.")],
+       meets="need:competence+.08 need:autonomy+.03 res:money+.05 res:time-.1 res:health-.03",
+       ages=(16, 75), share=.01,   # estimate: automotive technicians are about 1 worker in 200 in the US (BLS); many
+                                   # start young in a garage and move to other trades later
+       say="a mechanic",
+       gained="an [apprentice]'s years in a garage, Saturdays as a [repair-cafe volunteer], or [car mechanics] "
+              "learned at home; then 'your first full-time job' under a car",
+       lost="a bad back, the garage closing, 'new technology changes your job' as the engines change, retirement",
+       needs="[car mechanics] or an apprenticeship; age 16 or more",
+       turning="An old customer's car fails on its brakes. She cannot pay for the work this month and asks the "
+               "mechanic to pass it anyway."),
+  dict(name="community language teacher", kind="community", sphere="learn", face="learn.G", ways="G U",
+       profiles=[("G U", "Keeps the home tongue alive through the old songs and stories, and the careful grammar "
+                         "behind them."),
+                 ("W R", "Opens the class to every child who comes, and keeps it loud with games and songs.")],
+       meets="need:belonging+.08 need:meaning+.08 res:time-.05 res:ties+.05",
+       ages=(15, 90), share=.005,   # estimate: weekend and evening schools of a home tongue are common wherever
+                                    # families have moved from elsewhere; a few in each such community teach
+       say="a teacher of the home tongue",
+       gained="a few children of family friends at a kitchen table, then a borrowed classroom or hall on rest days, "
+              "often while still at school or college",
+       lost="the families moving away, the children growing up, the hall lost, age",
+       needs="[second language] spoken well, often from home",
+       turning="In front of the class, a grandmother says the textbook's word for bread is wrong. In her village it "
+               "was another word."),
+  dict(name="outdoor instructor", kind="career", sector="services", sphere="learn", face="learn.G", ways="G R",
+       profiles=[("G R", "Teaches the woods, the hills and the river by doing, and loves a wild day out."),
+                 ("U", "Reads the weather, the map and the water, and teaches the method of coming home safe.")],
+       meets="need:competence+.05 need:autonomy+.05 res:health+.05 res:money+.02 res:time-.1",
+       ages=(18, 65), share=.002,   # estimate: outdoor centres hire a few instructors each, many for a few seasons
+                                    # in their twenties before a steadier job
+       say="an outdoor instructor",
+       gained="years as a [scout or guide], a [youth coach] or a [search-and-rescue volunteer], or [knowing the "
+              "woods] from childhood; then the instructor's tickets and a first season at an outdoor centre",
+       lost="a bad knee, the season ending, the centre closing, a steadier job in town",
+       needs="[knowing the woods] or years out of doors; [cleared to work with children]; first aid and the "
+             "centre's own tickets; age 18 or more",
+       turning="The river is rising on the morning a school group comes for its canoe day. The teacher says the "
+               "coach is booked and the children have waited all term."),
+  dict(name="quality inspector", kind="career", sector="industry", sphere="prod", face="prod.U", ways="U W",
+       profiles=[("U W", "Measures every sample to the drawing, and finds the fault before the customer does."),
+                 ("R B", "Works the line at speed, knows which faults matter, and keeps the shift's output moving.")],
+       meets="need:competence+.05 need:safety+.03 res:money+.03 res:time-.1 need:belonging-.02",
+       ages=(17, 70), share=.01,   # estimate (Packs): US BLS counts about half a million inspectors, testers and
+                                   # samplers; many move to the post from the line for a few years
+       say="a quality inspector",
+       gained="a move off the line after years as [factory worker], or 'a job interview' for the test bench at the end "
+              "of the line: a gauge, a drawing and the right to stop a batch",
+       lost="'new technology changes your job' when cameras check the parts, a move up to engineer, 'a wave of layoffs "
+            "at work'",
+       needs="[factory worker] first, or [school-leaving certificate]; a short course in measuring and sampling",
+       turning="Near the end of the night shift the inspector finds three cracked brackets in a sample of fifty. The "
+               "lorry for the buyer leaves at six."),
+  dict(name="standards inspector", kind="career", sector="public", sphere="comm", face="comm.W", ways="W U",
+       profiles=[("W U", "Checks weights, labels and safety marks the same way for every seller, and writes it all "
+                         "down."),
+                 ("G", "Knows every trader on the round by name, and keeps the market fair by knowing them.")],
+       meets="need:meaning+.05 need:safety+.05 res:money+.05 res:time-.08 res:ties-.03",
+       ages=(21, 70), share=.0005,   # estimate (Packs): the council's standards office is a few people in a town;
+                                     # most of them came from a shop, a market or an office desk
+       say="a standards inspector",
+       gained="'a job interview' at the council's standards office after years as [market porter], [office clerk] or "
+              "[shop assistant], then a course in weights, labels and food safety",
+       lost="the office cut back in a lean budget, a move up to run the office, retirement",
+       needs="[market porter], [office clerk] or [shop assistant] first; [school-leaving certificate]; the inspector's "
+             "course and warrant card",
+       turning="A test purchase shows the corner butcher's scale gives short weight on every bag. He has served the "
+               "street for thirty years and carried half of it on credit through hard winters."),
+  dict(name="market trader", kind="career", sector="services", sphere="comm", face="comm.R", ways="R B",
+       profiles=[("R B", "Sings the prices, haggles on the spot, and takes the van wherever the crowd is."),
+                 ("U G", "Knows the margin on every line and the regulars who buy them, week after week.")],
+       meets="need:autonomy+.08 need:belonging+.03 need:safety-.05 res:money+.03 res:time-.12 res:health-.03",
+       ages=(16, 85), share=.01,   # estimate (Packs): street and market traders are a few workers in 1,000, many for a
+                                   # few seasons beside other work
+       say="a market trader",
+       gained="a pitch of their own after years behind someone else's counter as [shop assistant], [salesperson] or "
+              "[market porter]: a permit, a van of stock and the first Saturday",
+       lost="a wet summer too many, the pitch fee rising, a shop of their own, a bad back",
+       needs="[shop assistant], [salesperson] or [market porter] first; a pitch and a trading permit; stock bought on "
+             "[savings] or credit; [selling] helps",
+       turning="A new trader sets up across the row with the same stock at half the price. The van is full of stock "
+               "bought on credit, and the payment falls due on Monday."),
+  dict(name="savings-circle member", kind="community", sphere="comm", face="comm.G", ways="G W",
+       profiles=[("G W", "Pays in every month, carries a neighbour through a hard one, and trusts the turn to come."),
+                 ("U B R", "Keeps the circle's book to the last coin, and bids for the early pot to stake a venture.")],
+       meets="need:belonging+.05 need:safety+.03 res:ties+.03 res:time-.02",
+       ages=(16, 95), share=.05,   # estimate (Packs): rotating savings circles are common in many communities, and in
+                                   # some neighbourhoods most households belong to one at some time
+       say="a member of a savings circle",
+       gained="neighbours, workmates or kin who each put the same sum into a pot every month and take it in turn ask "
+              "them to join, often after 'your first full-time job'",
+       lost="the circle ending its round, a move away, a falling-out over a missed month",
+       needs="a steady sum to put in each month, and someone in the circle to vouch for them",
+       turning="A member who took the pot early has missed two months, and the member whose turn is last wants her "
+               "out."),
+  dict(name="detective", kind="career", sector="public", sphere="prot", face="prot.U", ways="U W",
+       profiles=[("U W", "Reads the pattern in the reports, follows the evidence, and frees the wrong suspect."),
+                 ("B", "Works for the clear-up figures and the next rank, and trades favours for a name.")],
+       meets="need:competence+.08 need:meaning+.05 res:money+.05 res:time-.12 res:health-.03",
+       ages=(23, 65), share=.002,   # estimate (Packs): about 1 police officer in 5 moves to detective work
+       say="a detective",
+       gained="years on the beat as [police officer], then the detective's exam and a desk on the station's crime "
+              "team; 'a promotion is open'",
+       lost="a move back to uniform, 'burnout', retirement, a complaint upheld",
+       needs="[police officer] for some years; the detective's course and exam; not [someone with a record]",
+       turning="The station wants a quick charge for a run of shed break-ins, and the young man everyone names was "
+               "across town on two of the nights."),
+  dict(name="private investigator", kind="career", sector="services", sphere="prot", face="prot.B", ways="B U",
+       profiles=[("B U", "Takes the cases that pay, names the fee, and brings back facts that hold up."),
+                 ("W R G", "Takes on the families no one else listened to, and keeps at it for them.")],
+       meets="need:autonomy+.08 need:competence+.05 need:safety-.05 res:money+.03 res:time-.1",
+       ages=(21, 75), share=.0005,   # estimate (Packs): US BLS counts about 35,000 private detectives and
+                                     # investigators; many work for insurers and lawyers for a few years
+       say="a private investigator",
+       gained="a small office of their own or a place at an agency, after years as [police officer], [security "
+              "guard], [door staff] or [journalist]; the first client from a lawyer or an insurer",
+       lost="the work drying up, the licence lapsing, a steady job with an insurer, retirement",
+       needs="[police officer], [security guard], [door staff] or [journalist] first in most cases; the investigator's "
+             "licence where the law asks for one; not [someone with a record]; [finding things out] helps",
+       turning="A father offers a fat fee to find his grown daughter, who moved away three years ago and has not "
+               "called since. He will not say why."),
+  dict(name="park ranger", kind="career", sector="public", sphere="prot", face="prot.G", ways="G W",
+       profiles=[("G W", "Knows every path and every family at the park's edge, and keeps the land for all of them."),
+                 ("R", "Goes out alone in any weather, and is first up the hill when someone is lost.")],
+       meets="need:meaning+.08 need:autonomy+.05 res:health+.03 res:money+.02 res:time-.1 res:ties-.02",
+       ages=(20, 65), share=.0005,   # estimate (Packs): a few thousand ranger posts in a large country, held for
+                                     # long stretches
+       say="a park ranger",
+       gained="'a job interview' with the park's managers after years as [forester], [scout or guide] or "
+              "[search-and-rescue volunteer], then a countryside course and a season on trial",
+       lost="the post cut in a lean budget, a bad knee, retirement",
+       needs="[forester], [scout or guide] or [search-and-rescue volunteer] first, or [knowing the woods]; a countryside "
+             "course; [driving licence]",
+       turning="In the driest week of the summer a family from the village has a campfire on the heath, where every "
+               "fire is banned. The father is someone the ranger has known since school."),
 ]
 
 # =============================== PERKS ===============================
@@ -2140,7 +2719,7 @@ PERKS += [
        lost="an accident, a ban, a partner's worry",
        needs="a basic training course"),
   dict(name="citizenship", kind="credential", ways="W B", odds=0, skill_half=None, retires=None,
-       ages=(5, 110), share=.06,   # estimate: naturalised citizens of a new country, a few people in 100
+       ages=(5, 110), share=.08,   # about 14 in 100 people are foreign-born and about 6 in 10 of them naturalise (OECD), so about 8 in 100 (2026-10-07; was .06)
        say="has citizenship",
        gained="years of residence, a test on the history and laws, an oath at a ceremony with a small flag",
        lost="almost never",

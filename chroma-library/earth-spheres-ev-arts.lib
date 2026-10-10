@@ -1,0 +1,842 @@
+# Chroma library, modern Earth: the arts sphere's events as they touch a life (Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 3). Design: chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/arts.json (events with on_character and the modern epoch; each scene is built on the event's
+# wording.modern and on_character). Face words: chroma-library/earth_spheres.py. Fields: build.py (the spheres' fields of
+# world-fields.md, 2026-10-09).
+#
+# Every moment here is an event moment: a life event the Engine fires on its sphere event (sphere_event: <key>) for the
+# people its selector names (place, members or all); per_year is all 0 and there are no drivers. The '# world:' line
+# above each moment gives the event key, the selector and the share of selected people who meet the moment (estimate).
+# Nineteen moments, one per arts event (all nineteen have on_character and a modern wording; none is answered by
+# earth.py or the ready files). Tone follows the event's tone (good = joy, bad = trouble, mixed = mixed): 7 joy,
+# 6 trouble, 6 mixed.
+#
+# Options: sphere: on each is the face the act is in (one-colour X: arts.X; a pair: its pair face in wheel order, so
+# WR is arts.RW, WG arts.GW, UG arts.GU). Levers (lever:) where the act plainly is one, from character.levers.
+# 'every song in your pocket' is the art and the makers' living under a new medium; 'everyone is suddenly on the new
+# medium' (earth-world-eras.lib) is how people talk and are seen, and stays separate.
+#
+# Layout: each a life event with the five one-colour options and one pair set. The 19 use all twelve halves of D1 to D6,
+# seven of them twice (D1a, D1b, D2a, D3a, D3b, D6a, D6b), each chosen to hold the event's own pair faces where it has
+# them. Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so
+# every colour has the same mean chance in each moment and in every stage. No flags.
+#
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
+
+# ---------------------------------------------------------------- new_sound (pairs D3b)
+
+# world: sphere event new_sound, selector place, share .3
+== a sound with no name yet
+tier: life event
+sphere: arts
+sphere_event: new_sound
+share: 0.15
+once: yes
+haunt: arts.song
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+gap: 8-25
+times: World event: new_sound (sphere arts). Selector place: a new sound takes hold in a quarter with many young people, cheap rooms, newcomers mixing and a few venues willing to take a chance; about 3 in 10 of the people living near it are drawn in, or kept awake by it (share .3, estimate), once or twice in a life (estimate)
+likelier: youth, a cheap quarter with empty warehouses, newcomers mixing, a person who goes out to hear music
+rarer: a settled quiet town, older age, long working hours
+tone: joy
+life: friends, interests, community
+horizon: months
+roles: friend
+earth: a few clubs in the old warehouse quarter play a sound nobody has a name for yet, and the queue goes round the block
+scene: A few clubs in the old warehouse quarter play a sound nobody has a name for yet. The queue goes round the block every Friday, and {friend} says it is the only place worth being.
+scene W: Hundreds of strangers sing the same lines back at the band, as one voice. To {N} it sounds almost like a hymn.
+scene U: Nobody can say how the sound is made: the beat is wrong and somehow right. {N} wants to know how it works.
+scene B: The queue goes round the block and the clubs are tiny. Whoever opens a bigger room first will do well.
+scene R: The bass comes up through the floor and {N} feels it in the chest. This is the sound {N} has been waiting for.
+scene G: To {N} it sounds like noise, and the old songs had words a whole wedding could sing. Still, the young ones on the street talk of nothing else.
+- W | help the club run a safe door, so every newcomer gets in and gets home | v: benevolence, universalism | sphere: arts.W | chance: 69
+- U | learn how the sound is made, and try it on a borrowed machine at home | v: self-direction, stimulation | mark: learned a skill | sphere: arts.U | chance: 71
+- B | book the bands into a bigger room, and take a share of the door | v: achievement, power | sphere: arts.B | chance: 69
+- R | queue round the block every Friday and dance until the lights come on | v: hedonism, stimulation | sphere: arts.R | chance: 75
+- G | keep to the old tunes night at the local, and let the young have their noise | v: tradition, security | lever: loyalty | pushes: place | sphere: arts.G | chance: 74
+- BR | put on a night of your own in an empty warehouse, and fill it | v: achievement, hedonism | lever: found | pushes: place | sphere: arts.BR | chance: 42
+- UG | mix a song your grandmother sang into the new sound | v: tradition, self-direction | sphere: arts.GU | chance: 50
+- UR | form a band with friends, and play the new sound your own way | v: self-direction, stimulation | lever: found | pushes: group scene | sphere: arts.UR | chance: 48
+- WB | lend the band your van and your savings for their first record | v: benevolence, achievement | lever: fund | pushes: group scene | sphere: arts.WB | chance: 60
+- WG | ask the neighbours who complain about the noise to come along one night | v: benevolence, universalism | sphere: arts.GW | chance: 42
+works: The sound becomes {Ns} sound, and the friends from that queue are friends for life.
+works: Years later, a few bars of it on the radio and {N} is back on that dance floor.
+fails: The clubs are shut by spring after complaints, and the scene moves on without {N}.
+fails: {N} is out every night for a year, and the work and the sleep pay for it.
+
+# ---------------------------------------------------------------- scene_sells (pairs D1b)
+
+# world: sphere event scene_sells, selector members, share .5
+== the first club is a chain bar now
+tier: life event
+sphere: arts
+sphere_event: scene_sells
+share: 0.25
+once: yes
+haunt: arts.song
+ladder: regular
+stages: young_adult adult mature elder
+age: 22-85
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: scene_sells (sphere arts). Selector members: a scene outgrows its first rooms and the media and the labels take it up; about half of its old crowd feel it as a turn in their own life, a deal, a loss or both (share .5, estimate), once or twice in a life (estimate)
+likelier: years in a scene, a scene that has grown famous, a friend in one of its bands
+rarer: a person who never belonged to a scene, a small town far from the labels
+tone: mixed
+life: friends, interests, money
+horizon: years
+roles: friend, colleague
+earth: the sound of your youth is in every advert now, the first club is a chain bar, and the old crowd have moved on
+scene: The sound {N} danced to at twenty is in every advert now. The first club is a chain bar, {friend} has signed with a big label, and an agency has rung to ask {N} to help sell the old days.
+scene W: The scene had one rule: everyone in, nobody above the crowd. {N} watches the old friends sort themselves into the signed and the rest.
+scene U: {N} can hear exactly what the label changed: the rough edges sanded off, the strange bit cut. It works, and that is the sad part.
+scene B: The money has arrived, and it will not stay long. {N} knows which old names the agencies will pay for.
+scene R: The adverts, the chain bar, the shiny new versions. {N} feels as if someone has stolen a summer and sold it back.
+scene G: {N} still has the first flyers in a box and the old songs in the head. They belong to the people who were there.
+- W | turn the agency down, and ask the old crowd not to sell the old days either | v: universalism, conformity | sphere: arts.W | chance: 70
+- U | write down how the scene really began, before the adverts rewrite it | v: universalism, self-direction | sphere: arts.U | chance: 73
+- B | take the agency's fee and help them sell the old days, on your terms | v: achievement, power | sphere: arts.B | chance: 75
+- R | throw a party with the rough old records, the way they used to sound | v: hedonism, stimulation | sphere: arts.R | chance: 74
+- G | keep the first flyers and the old songs for the people who were there | v: tradition, security | lever: loyalty | sphere: arts.G | chance: 69
+- RG | find the cellar where the next sound is starting, and dance there instead | v: stimulation, hedonism | lever: exit | pushes: group scene | sphere: arts.RG | chance: 54
+- UB | study what the label changed, and sell your own old tracks the same way | v: achievement, power | sphere: arts.UB | chance: 56
+- UR | remix the old songs rougher than ever, and post them for free | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 56
+- WB | ask your signed friend to put the unsigned bands on the bill | v: benevolence, power | sphere: arts.WB | chance: 52
+- WG | gather the old crowd for a reunion night, signed and unsigned alike | v: benevolence, tradition | sphere: arts.GW | chance: 66
+works: {N} comes out of it with a fair share, of money or of memory, and the friends that mattered.
+works: Years later the old crowd meet again, and the songs sound like theirs once more.
+fails: The friends who signed and the friends who did not stop speaking, and {N} is caught between.
+fails: {N} hears the sound of {Ns} youth selling soap, and cannot hear it any other way again.
+
+# ---------------------------------------------------------------- work_banned (pairs D4b)
+
+# world: sphere event work_banned, selector place, share .4
+== the film they pulled from the cinemas
+tier: life event
+sphere: arts
+sphere_event: work_banned
+share: 0.2
+once: yes
+haunt: arts.screen
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: work_banned (sphere arts). Selector place: a censor or a campaign pulls a work in a time of low speech rights, war, a strict faith law or a satire that hit home; about 4 in 10 of the people living there feel the loss of a work they love, or a choice about seeing it (share .4, estimate), a few times in a life (estimate)
+likelier: weak speech rights, a strict faith law, a person who loves films
+rarer: a free country in calm years, a person who never goes to the cinema
+tone: trouble
+life: friends, community, law
+horizon: months
+roles: friend, parent
+earth: a film you love is pulled from the cinemas after a campaign against it, and copies spread from phone to phone
+scene: A film {N} loves has been pulled from the cinemas after a campaign against it. Within days copies are spreading from phone to phone, and {friend} has one, and a room to watch it in.
+scene W: The law now says the film may not be shown. {N} thinks a law is a law, and also that this one may be wrong.
+scene U: {N} has read what the campaign says the film shows. Most of it is not in the film at all.
+scene B: Banned things sell. {N} knows that a copy of the film is worth more this week than last.
+scene R: Nobody tells {N} what to watch. The ban only makes {N} want to see it more.
+scene G: {parent} says some things are better not shown, and the old family friends agree. {N} is not so sure.
+- W | keep the ban, and write to the board to ask why it was made | v: conformity, universalism | lever: voice | pushes: state | sphere: arts.W | chance: 66
+- U | set the campaign's claims beside what the film really shows | v: universalism, self-direction | sphere: arts.U | chance: 67
+- B | sell copies of the film from your phone, at a price | v: achievement, power | mark: broke the law | lever: subvert | sphere: arts.B | chance: 79
+- R | watch it with your friend in the back room, and talk about it all night | v: stimulation, hedonism | mark: defied an authority | lever: subvert | sphere: arts.R | chance: 76
+- G | let the film go, and keep the peace with your family | v: tradition, conformity | sphere: arts.G | chance: 66
+- BR | project the film on a wall in the square one night, and slip away | v: stimulation, self-direction | mark: defied an authority | lever: subvert | pushes: state | sphere: arts.BR | chance: 38
+- UB | find out who paid for the campaign, and what they wanted from it | v: power, security | sphere: arts.UB | chance: 56
+- UG | keep a copy hidden safely, for the day the ban is lifted | v: tradition, security | mark: broke the law | sphere: arts.GU | chance: 62
+- WG | talk the film through with your family at the kitchen table, in your own words | v: benevolence, tradition | sphere: arts.GW | chance: 58
+- WR | sign the open letter against the ban, with your name in full | v: universalism, self-direction | lever: voice | pushes: state | sphere: arts.RW | chance: 62
+works: The ban is lifted within a year, and {N} sees the film again on a big screen with a full house.
+works: {N} keeps faith with the film and with the people who matter, and comes through without trouble.
+fails: The police knock on a door in {Ns} street over a copy of the film, and everyone grows careful.
+fails: The arguments over the film split {Ns} family, and nobody mentions it at dinner for a year.
+
+# ---------------------------------------------------------------- last_teller (pairs D1a)
+
+# world: sphere event last_teller, selector members, share .5
+== the last voice that knew the old songs
+tier: life event
+sphere: arts
+sphere_event: last_teller
+share: 0.25
+once: yes
+haunt: arts.tale
+who: elder
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 20-50
+times: World event: last_teller (sphere arts). Selector members: the elder who knew a family's or a people's old tellings dies with few pupils; about half of the kin and neighbours who heard them face the question of what to keep (share .5, estimate), once in a life for most who meet it (estimate)
+likelier: a family or a people with its own songs or tongue, a thin tradition, an elder who sang
+rarer: a family whose old songs died out long ago, a person far from kin
+tone: trouble
+life: family, loss, community
+horizon: years
+roles: elder, parent
+earth: your great-aunt, the last who sang the old songs in the old tongue, has died, and the recordings were on a lost phone
+scene: {Ns} great-aunt, the last in the family who sang the old songs in the old tongue, has died. Someone once recorded her singing, but the recordings were on a phone that was lost years ago.
+scene W: At the funeral the family stands in silence where the old mourning song should be. Nobody knows the words.
+scene U: {N} remembers fragments: a tune, a refrain, two lines of a verse. With care, some of it could be pieced together.
+scene B: A university once offered to pay her to record the songs. {N} wonders if they kept anything.
+scene R: {N} keeps hearing her voice at the kitchen table, loud and off-key and wonderful. The silence is hard to bear.
+scene G: Those songs came down through ten generations, and they stopped with her. {N} feels the weight of that.
+- W | gather the family to sing together at the funeral, whatever anyone remembers | v: tradition, benevolence | sphere: arts.W | chance: 65
+- U | piece the songs together from fragments, old letters and notebooks | v: self-direction, universalism | sphere: arts.U | chance: 62
+- B | ask the university for any recording they made, and offer to pay for a copy | v: achievement, security | sphere: arts.B | chance: 52
+- R | sing the one verse you know at the wake, loud and off-key, the way she did | v: stimulation, benevolence | sphere: arts.R | chance: 65
+- G | ask the oldest neighbours who heard her to teach you what they can | v: tradition | mark: learned a skill | lever: loyalty | sphere: arts.G | chance: 48
+- BG | let the songs go, and keep her in the stories the family still tells | v: security, tradition | lever: neglect | sphere: arts.BG | chance: 80
+- BR | make a song of your own about her, and play it wherever they will have you | v: self-direction, achievement | sphere: arts.BR | chance: 52
+- UG | write down every line anyone remembers, with the tunes, for the children | v: tradition, universalism | sphere: arts.GU | chance: 60
+- WR | start a yearly night in her name where anyone may sing what they remember | v: tradition, benevolence | lever: found | sphere: arts.RW | chance: 54
+- WU | take up the old tongue properly, with lessons, so the songs can be sung again | v: tradition, self-direction | mark: learned a skill | sphere: arts.WU | chance: 52
+works: Enough of the songs come back, pieced together, that the children learn three of them by heart.
+works: {N} grieves her properly, and carries one song of hers for the rest of {Ns} life.
+fails: Nothing more is found, and the songs are gone beyond recall.
+fails: The family argues over what she really sang, and the quarrel outlives the grief.
+
+# ---------------------------------------------------------------- old_songs_return (pairs D2b)
+
+# world: sphere event old_songs_return, selector place, share .3
+== the folk festival in the field
+tier: life event
+sphere: arts
+sphere_event: old_songs_return
+share: 0.15
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: old_songs_return (sphere arts). Selector place: a people feeling uprooted or newly proud takes up its thin old songs again, and a folk festival fills a field; about 3 in 10 of the people living there go and are drawn in (share .3, estimate), once or twice in a life (estimate)
+likelier: a family with its own songs, a grandparent who still sings, a time of pride or uprooting
+rarer: a family with no old songs, a person who dislikes crowds
+tone: joy
+life: family, community, interests
+horizon: week
+roles: grandparent, friend
+earth: a folk festival fills a field for a weekend, and teenagers learn the old dances from grandparents in the queue
+scene: A folk festival fills a field outside {place} for a weekend. Teenagers learn the old dances from grandparents in the queue for food, and the small stage asks anyone who knows an old song to come up.
+scene W: The last night ends with one song the whole field sings together. {N} wants to know the words by then.
+scene U: Half the tunes have five versions, and the old players argue over which is true. {N} wants to hear them all.
+scene B: The craft stalls sell out by noon. {N} sees that the old songs have become something people pay for.
+scene R: The fiddles start up and the plank floor shakes. {N} cannot keep still.
+scene G: {grandparent} used to sing one of these songs at the kitchen table. Hearing it here, with a thousand people, {N} has to sit down.
+- W | learn the closing song's words, and sing it with the whole field on the last night | v: tradition, conformity | sphere: arts.W | chance: 80
+- U | go round the old players with a notebook, and write down every version of a tune | v: universalism, self-direction | mark: learned a skill | sphere: arts.U | chance: 67
+- B | sell the family's old craft at a stall, and come home with an order book | v: achievement | sphere: arts.B | chance: 76
+- R | dance every set until the band packs up | v: hedonism, stimulation | sphere: arts.R | chance: 69
+- G | go up on the small stage and sing the song you learned at home | v: tradition, achievement | sphere: arts.G | chance: 61
+- RG | learn the old dance from a grandmother in the food queue, and teach your friends | v: tradition, hedonism | mark: made a friend | sphere: arts.RG | chance: 78
+- UB | ask the organisers how the festival pays, and what it would take to run one | v: achievement, self-direction | sphere: arts.UB | chance: 66
+- UG | record the oldest singers on your phone, with their names and their stories | v: tradition, universalism | tech: phone | sphere: arts.GU | chance: 74
+- WB | pay for a coach so the care home's old folk can come for a day | v: benevolence | lever: fund | sphere: arts.WB | chance: 56
+- WR | join the procession with the town's banner and the drums | v: tradition, stimulation | sphere: arts.RW | chance: 58
+works: {N} comes home with a song, a dance and a reason to go back next year.
+works: The old songs are sung at the next family gathering, and the young ones know the words.
+fails: It rains for three days, and {N} goes home soaked and sore with little to show for it.
+fails: The old players quarrel about who sings it right, and the young ones drift back to their phones.
+
+# ---------------------------------------------------------------- work_of_the_day (pairs D4a)
+
+# world: sphere event work_of_the_day, selector all, share .4
+== the series with the ending nobody agrees on
+tier: life event
+sphere: arts
+sphere_event: work_of_the_day
+share: 0.2
+once: yes
+haunt: arts.screen
+stages: juvenile young_adult adult mature elder
+age: 13-95
+per_year: 0 0 0 0 0 0
+gap: 3-10
+times: World event: work_of_the_day (sphere arts). Selector all: a series or a show reaches nearly everyone while its question is ripe in the culture; about 4 in 10 people argue about it with someone close and feel a view of theirs shift or harden (share .4, estimate), a few times in a life (estimate)
+likelier: a series everyone watches, a question splitting the country, a family that argues at dinner
+rarer: a person who watches nothing, a remote place
+tone: mixed
+life: friends, family, work
+horizon: months
+roles: friend, parent
+earth: everyone is watching the same series, and at work, at dinner and online the argument about its ending will not stop
+scene: Everyone is watching the same series. At work, at dinner and online the argument about its ending will not stop, and {friend} wants to know which side {N} is on.
+scene W: The ending asks what people owe each other. {N} keeps thinking about it on the way home.
+scene U: {N} has watched the last episode twice. The clues were there all along, if anyone had looked.
+scene B: Everyone has an opinion and nobody is listening. {N} notices whose opinion gets repeated.
+scene R: {N} shouted at the screen in the last ten minutes, and is still angry about it.
+scene G: {parent} says it was rubbish and the old shows were better. {N} is not sure the old shows asked anything at all.
+- W | say what you think at dinner, and listen to every side of the table | v: universalism, benevolence | sphere: arts.W | chance: 75
+- U | write a long post showing how the clues pointed to the ending all along | v: self-direction, achievement | tech: internet | sphere: arts.U | chance: 74
+- B | keep your view to yourself, and agree with whoever matters in the room | v: security, conformity | sphere: arts.B | chance: 75
+- R | argue it out with your friend until one of you storms off | v: stimulation, self-direction | sphere: arts.R | chance: 74
+- G | turn it off and watch the old shows with your family instead | v: tradition, security | sphere: arts.G | chance: 66
+- BG | say plainly it was only a story, and change the subject to the weekend | v: security, hedonism | sphere: arts.BG | chance: 66
+- RG | hold a watch party for the last episode, with food and the whole street | v: hedonism, benevolence | sphere: arts.RG | chance: 66
+- UR | make a short video of your own ending, and see who shares it | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 50
+- WB | get a speaker to the community centre to talk about the question it asks | v: universalism, achievement | sphere: arts.WB | chance: 48
+- WU | start a reading group on the book the series came from | v: universalism, self-direction | lever: found | sphere: arts.WU | chance: 66
+works: The argument changes {Ns} mind about something, and {N} is glad it did.
+works: {N} and {friend} end up laughing about it, and watch the next series together.
+fails: A joke about the ending goes down badly, and it is a chilly month at home.
+fails: {N} digs in, and an old view hardens into something harder to shift.
+
+# ---------------------------------------------------------------- patron_builds (pairs D6a)
+
+# world: sphere event patron_builds, selector place, share .25
+== the arts centre in the old station
+tier: life event
+sphere: arts
+sphere_event: patron_builds
+share: 0.13
+once: yes
+haunt: arts.stage
+who: patron
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: patron_builds (sphere arts). Selector place: a new fortune pays for a stage or an arts centre in a boom, with a thin public purse; about 1 in 4 of the people living there find a job, a seat or an audition in it (share .25, estimate), once or twice in a life (estimate)
+likelier: a boom town, a rich family seeking standing, a person who sings, acts or builds sets
+rarer: a poor town with no rich families, a person who never goes out
+tone: joy
+life: work, interests, community
+horizon: years
+roles: friend, patron
+earth: a new fortune pays for an arts centre in the old station, and the founder's name is on everything
+scene: A new fortune has paid for an arts centre in the old station. The founder's name is on the doors, the seats and the cups, and the centre is hiring backstage, selling cheap seats and holding open auditions.
+scene W: The centre wants a town choir for its opening night. {N} likes the thought of the whole town singing in one hall.
+scene U: The centre has a proper rehearsal room and a piano that is in tune. {N} would give a lot for an hour in it each week.
+scene B: The founder means to be remembered, and needs people who can make that happen. {N} sees a job with a future.
+scene R: Open auditions on Saturday, for anyone at all. {N} has been waiting for a stage like this.
+scene G: The old station was where {Ns} family waved off the trains. {N} wonders if the new place will remember that.
+- W | join the town choir for the opening night, and learn your part by heart | v: conformity, benevolence | sphere: arts.W | chance: 69
+- U | ask for an hour a week in the rehearsal room, and use every minute | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 71
+- B | apply for the job running the founder's programme | v: achievement, power | sphere: arts.B | chance: 58
+- R | go to the open auditions on Saturday and give it everything | v: stimulation, achievement | sphere: arts.R | chance: 67
+- G | ask the centre to hang the old station photos in the foyer | v: tradition | lever: voice | pushes: place | sphere: arts.G | chance: 55
+- BG | take a job backstage shifting sets, and keep your eyes open | v: security, achievement | sphere: arts.BG | chance: 78
+- UG | offer to make a show of the old station's history from the families' stories | v: tradition, self-direction | sphere: arts.GU | chance: 48
+- UR | pitch the centre a strange new show nobody has seen before | v: self-direction, stimulation | sphere: arts.UR | chance: 46
+- WB | sit on the centre's board, and see that the cheap seats stay cheap | v: power, universalism | lever: lead | pushes: place | sphere: arts.WB | chance: 42
+- WR | start a youth theatre in the centre that anyone can join for free | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | chance: 56
+works: The centre becomes part of {Ns} week, and some of {Ns} best nights are there.
+works: A door opens at the centre, and {N} walks through it into work or a part.
+fails: The founder loses interest after three years, and the centre fills with weddings and conferences.
+fails: {N} is turned down, and watches the opening night from the cheap seats with a sour heart.
+
+# ---------------------------------------------------------------- stages_go_dark (pairs D5a)
+
+# world: sphere event stages_go_dark, selector members, share .5
+== the venues close and the band plays kitchens
+tier: life event
+sphere: arts
+sphere_event: stages_go_dark
+share: 0.25
+once: yes
+haunt: arts.song
+stages: young_adult adult mature
+age: 18-75
+per_year: 0 0 0 0 0 0
+gap: 8-25
+times: World event: stages_go_dark (sphere arts). Selector members: a slump closes the theatres and venues as wages and patrons' money fall; about half of the players and backstage hands who worked there feel their own work dry up (share .5, estimate), once or twice in a working life (estimate)
+likelier: a slump, a person who plays, acts or works backstage for money, a town with few venues
+rarer: a person with a steady day job, a boom year
+tone: trouble
+life: work, money, friends
+horizon: months
+roles: friend, colleague
+earth: the slump closes two theatres and the music venue, and your band plays kitchen parties instead
+scene: The slump has closed two theatres and the music venue in {place}. The bookings have dried up, and {Ns} band is down to kitchen parties, for a plate of food and whatever goes in the hat.
+scene W: The council is paying a few idle players to give free concerts in the square. {N} could put in for it.
+scene U: Practice still matters, slump or not. {N} has more hours than ever, and nowhere to play.
+scene B: {N} has rent to pay. A song is worth what someone will pay for it, and this month nobody can.
+scene R: Kitchens, cellars, back gardens: {N} will play anywhere there is a crowd. The best nights of the year pay nothing at all.
+scene G: The old songs come back at the kitchen parties, ones nobody played at the venue. The grandparents sing along.
+- W | put in for the council's free concerts in the square | v: benevolence, security | sphere: arts.W | chance: 75
+- U | use the empty months to practise the hard pieces you never had time for | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 79
+- B | take a day job, and play only when the pay is decent | v: security, achievement | sphere: arts.B | chance: 73
+- R | play every kitchen party going, for food and the hat | v: hedonism, stimulation | sphere: arts.R | chance: 84
+- G | learn the old songs the grandparents ask for, and play them at every party | v: tradition, benevolence | mark: learned a skill | sphere: arts.G | chance: 67
+- BG | sell the spare gear to get through the winter, and keep the one guitar | v: security | sphere: arts.BG | chance: 66
+- UB | teach lessons by video to pupils far away who can still pay | v: achievement, self-direction | tech: video calls | sphere: arts.UB | chance: 60
+- UR | record an album in the kitchen on a laptop, rough and live | v: self-direction, stimulation | tech: computer | sphere: arts.UR | chance: 54
+- WG | play a free afternoon at the care home and the food bank each week | v: benevolence | mark: helped someone in need | sphere: arts.GW | chance: 72
+- WR | gather the out-of-work players into one big band for a free night in the square | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | chance: 50
+works: The venue reopens when the slump lifts, and the band plays its first night back to a full room.
+works: The kitchen parties turn out to be the best playing {N} ever did, and they leave a lasting crowd.
+fails: The band splits over money in the second winter, and {N} stops playing for years.
+fails: {N} sells the gear one piece at a time, and the music goes quiet.
+
+# ---------------------------------------------------------------- new_medium (pairs D2a)
+
+# world: sphere event new_medium, selector place, share .3
+== every song in your pocket
+tier: life event
+sphere: arts
+sphere_event: new_medium
+share: 0.15
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 13-90
+per_year: 0 0 0 0 0 0
+gap: 15-30
+times: World event: new_medium (sphere arts). Selector place: a new way to carry works, such as recording, broadcast or networks, reaches the town; about 3 in 10 of the people living there feel it as a door opened or a living lost, most of all those who make art for pay (share .3, estimate), once or twice in a life (estimate). Not 'everyone is suddenly on the new medium' (earth-world-eras), which is how people talk and are seen: this one is the art and the makers' living
+likelier: a person who plays, sings or makes for pay, young people around, a cheap device
+rarer: a remote place without networks, a household that keeps to the old ways
+tone: mixed
+life: work, interests, friends
+horizon: years
+roles: friend, grandparent
+earth: every song ever recorded is now on the phone in your pocket, and the local cover band loses its weekly night at the hall
+scene: Every song ever recorded is now on the phone in {Ns} pocket. The cover band that played the community hall every Thursday for years has lost its night, and {friend} has made a song at home that strangers far away are listening to.
+scene W: The town used to sing the same songs at the same parties. Now every house plays its own, and {N} misses the singing together.
+scene U: Every recording of every master, free, at any hour. {N} could learn anything now.
+scene B: The few names at the top are making a fortune, and everyone else almost nothing. {N} means to be one of the few.
+scene R: {N} can make a song tonight and have it out in the world by morning. Nobody needs to give permission.
+scene G: {grandparent} learned every tune by ear from a neighbour. {N} wonders who will learn that way now.
+- W | start a singing night at the hall, where the whole room sings the same songs | v: tradition, benevolence | lever: found | pushes: place | sphere: arts.W | chance: 63
+- U | study the old masters' recordings one by one, and learn what they did | v: self-direction | mark: learned a skill | sphere: arts.U | chance: 66
+- B | build a following online, one song a week, and charge for the live shows | v: achievement, power | tech: internet | sphere: arts.B | chance: 65
+- R | make a song tonight and put it out by morning | v: self-direction, stimulation | tech: internet | sphere: arts.R | chance: 75
+- G | learn a tune by ear from an old player, the way it was always done | v: tradition | mark: learned a skill | sphere: arts.G | chance: 53
+- BG | take the playing to weddings and parties, where people still pay for a band | v: security, achievement | sphere: arts.BG | chance: 76
+- BR | team up with your friend and push the song until it goes everywhere | v: achievement, stimulation | sphere: arts.BR | chance: 38
+- UR | build a new sound from samples of a hundred old records | v: self-direction, stimulation | tech: computer | sphere: arts.UR | chance: 56
+- WG | keep the cover band going once a month, for those who still come | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: arts.GW | chance: 62
+- WU | teach the neighbours' children to play, so they make music as well as hear it | v: universalism, benevolence | sphere: arts.WU | chance: 56
+works: The new way opens a door, and {N} reaches people {N} never could have reached before.
+works: {N} finds a way to keep the music in the room, among people, whatever the phone can do.
+fails: The work {N} counted on dries up, and the songs in the pocket do not pay the rent.
+fails: {N} listens to everything and plays nothing, and the old instrument gathers dust.
+
+# ---------------------------------------------------------------- songs_of_war (pairs D3a)
+
+# world: sphere event songs_of_war, selector all, share .5
+== the song about the empty chair
+tier: life event
+sphere: arts
+sphere_event: songs_of_war
+share: 0.25
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 15-50
+times: World event: songs_of_war (sphere arts). Selector all: a war begins, and later drags on or ends with many dead; about half of the people feel its songs as their own, first the one they marched to or waved someone off with, then the one that makes them cry (share .5, estimate), once or twice in a life for most who live through a war (estimate)
+likelier: a war, a soldier in the family, a town that sends many
+rarer: a place far from the war, a time of peace
+tone: mixed
+life: community, family, loss
+horizon: years
+roles: friend
+earth: the anthem is on every screen when the war begins, and a year on the song everyone shares is about an empty chair at the table
+scene: When the war began the anthem was on every screen, and {N} sang it at the station when {friend} left with the others. A year on, the song everyone shares is about an empty chair at the table, and it is sung at every gathering.
+scene W: At the memorial the whole square sings the new song, low and slow. {N} cannot get through the second verse.
+scene U: {N} notices how the songs have changed: from drums and flags to a single voice and a guitar.
+scene B: The singer of the anthem's new version is on every chat show. {N} wonders what the war songs are earning.
+scene R: The anthem made {N} want to march, and the new song makes {N} want to scream. Both are true.
+scene G: The empty-chair song is an old tune with new words. {Ns} grandmother sang the old words in another war.
+- W | stand for the anthem at the match, and sing every word | v: conformity, tradition | sphere: arts.W | chance: 67
+- U | ask why the songs changed, and write about what each one left out | v: universalism, self-direction | sphere: arts.U | chance: 61
+- B | sing the war songs at the camps and the town halls, and make your name | v: achievement, power | sphere: arts.B | chance: 53
+- R | stop standing for the anthem, and say out loud why | v: self-direction | mark: defied an authority | lever: voice | pushes: state | sphere: arts.R | chance: 64
+- G | teach the children the old tune with the old words, as your grandmother did | v: tradition | sphere: arts.G | chance: 59
+- BG | sing the empty-chair song at a neighbour's wake, plainly, as it is | v: benevolence | sphere: arts.BG | chance: 72
+- RG | play the old dance tunes at the homecoming, so people can dance again | v: hedonism, benevolence | sphere: arts.RG | chance: 62
+- UB | notice which songs the news plays and which it never does | v: security, universalism | sphere: arts.UB | chance: 74
+- WR | lead the choir in the empty-chair song at the memorial in the square | v: tradition, benevolence | sphere: arts.RW | chance: 62
+- WU | collect the soldiers' own songs and letters for the town's memorial book | v: universalism, tradition | sphere: arts.WU | chance: 56
+works: The songs carry {N} through the war years, and one of them stays with {N} for life.
+works: The town grieves together, and {N} is part of the singing that helps it.
+fails: The anthem becomes a test of loyalty, and {N} is marked down for how it was or was not sung.
+fails: {N} cannot hear the empty-chair song without breaking down, and it is everywhere for a year.
+
+# ---------------------------------------------------------------- mocking_song (pairs D6b)
+
+# world: sphere event mocking_song, selector all, share .4
+== the sketch about the minister
+tier: life event
+sphere: arts
+sphere_event: mocking_song
+share: 0.2
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 3-15
+times: World event: mocking_song (sphere arts). Selector all: a gifted mocker hits a leader's misstep or scandal while there is some licence to speak; about 4 in 10 people hum it or quote it and wonder whether to join in out loud (share .4, estimate), a few times in a life (estimate)
+likelier: some freedom of speech, a scandal at the top, a person who follows the news
+rarer: a strict state with no licence to mock, a person who ignores politics
+tone: mixed
+life: community, friends, work
+horizon: week
+roles: friend
+earth: a comedian's sketch about a minister goes everywhere online, and the minister's apology makes it worse
+scene: A comedian's sketch about a minister has gone everywhere online, and the minister's apology has made it worse. Everyone is quoting the best line, and nobody is quite sure who is listening.
+scene W: The minister did wrong, but the sketch mocks how he talks, not what he did. {N} thinks that is not quite fair.
+scene U: {N} has worked out why the sketch works: every line is something the minister actually said.
+scene B: The comedian has gone from small rooms to sold-out halls in a week. {N} notes how fast a name can be made.
+scene R: {N} laughed until it hurt, and has already sent it to everyone. Let them feel it at the top.
+scene G: {N} grew up in the minister's home town. The sketch mocks the voice of everyone {N} grew up with.
+- W | say at the table that the sketch should mock what he did, not how he talks | v: universalism, benevolence | sphere: arts.W | chance: 73
+- U | look up the minister's real words, and share them beside the sketch | v: universalism, self-direction | tech: internet | sphere: arts.U | chance: 73
+- B | keep quiet about it, since you cannot know who is listening | v: security | sphere: arts.B | chance: 77
+- R | sing the best line out loud in the canteen, and get the room going | v: stimulation, hedonism | sphere: arts.R | chance: 75
+- G | stand up for the home town's way of talking, and leave the minister to his own | v: tradition, security | sphere: arts.G | chance: 58
+- BR | write your own sketch about the local council, and do it at the open mic | v: stimulation, achievement | lever: voice | pushes: place | sphere: arts.BR | chance: 38
+- RG | sing it with the crowd at the match, a whole stand at once | v: hedonism, stimulation | sphere: arts.RG | chance: 76
+- UB | watch who laughs and who does not, and remember it | v: power, security | sphere: arts.UB | chance: 72
+- WG | keep the sketch away from the family dinner, where half the table voted for him | v: benevolence, tradition | sphere: arts.GW | chance: 72
+- WU | write to the paper asking for an inquiry into what the minister did | v: universalism | lever: voice | pushes: state | sphere: arts.WU | chance: 46
+works: The laughter does its work, and something at the top changes for the better.
+works: {N} enjoys the joke, keeps the friends, and is not caught up in what follows.
+fails: A line {N} shared is quoted back at {N} by someone who did not find it funny.
+fails: Next week a sketch mocks {Ns} own town, and it is not so funny from the inside.
+
+# ---------------------------------------------------------------- local_fame (pairs D1b)
+
+# world: sphere event local_fame, selector members, share .5
+== a classmate's song is everywhere
+tier: life event
+sphere: arts
+sphere_event: local_fame
+share: 0.25
+once: yes
+stages: juvenile young_adult adult
+age: 14-45
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: local_fame (sphere arts). Selector members: a maker from here wins a name, lifted by a scene, a patron or a new medium; about half of the people who knew them at school or in their crowd feel it as a spark, a pang or a door (share .5, estimate), once or twice in a life (estimate)
+likelier: a town with a scene, a person who also plays or sings, school years shared
+rarer: a person with no tie to the town's makers
+tone: joy
+life: friends, interests, work
+horizon: months
+roles: friend
+earth: a classmate's song goes everywhere online, and suddenly old schoolmates are posting photos with them
+scene: A song by an old classmate, who sat two rows behind {N} at school, has gone everywhere online. Suddenly old schoolmates are posting photos with them, and a message from the classmate sits unread on {Ns} phone.
+scene W: The whole town is proud. {N} thinks the classmate should be welcomed home properly, by everyone.
+scene U: {N} plays the song twenty times. It is simple and very well made, and {N} wants to know how.
+scene B: The message asks if {N} still has the old band's van. A famous friend can open doors.
+scene R: {N} played in a band with the classmate at fifteen. That could have been {N} up there, and still could be.
+scene G: The song is about the old high street and the river. {N} hears the town in every line.
+- W | send a warm message saying the whole town is proud, and mean it | v: benevolence, universalism | sphere: arts.W | chance: 81
+- U | learn the song note for note, and work out why it works | v: self-direction | mark: learned a skill | sphere: arts.U | chance: 78
+- B | answer the message, and offer to help run the tour | v: achievement, power | sphere: arts.B | chance: 74
+- R | pick up the old guitar again, and play your own songs at the open mic | v: stimulation, self-direction | sphere: arts.R | chance: 66
+- G | play the song at the family's Sunday dinner, and tell everyone where it comes from | v: tradition, benevolence | sphere: arts.G | chance: 68
+- RG | go to the classmate's first big gig and dance at the front | v: hedonism | mark: made a friend | sphere: arts.RG | chance: 78
+- UB | ask the classmate how they got the song heard, and do the same | v: achievement, self-direction | sphere: arts.UB | chance: 54
+- UR | write a song of your own about the town, and post it the same night | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 44
+- WB | put up the money for a homecoming gig, and give the takings to the school | v: benevolence, power | lever: fund | sphere: arts.WB | chance: 52
+- WG | ask the classmate to come back and sing at the summer fair | v: tradition, benevolence | sphere: arts.GW | chance: 40
+works: The classmate's luck rubs off a little, and {N} gets a door or a dream out of it.
+works: {N} is glad for the classmate, and the old friendship comes back.
+fails: Envy sours it, and {N} cannot listen to the radio for a month.
+fails: The classmate never answers, and {N} feels a fool for asking.
+
+# ---------------------------------------------------------------- star_falls (pairs D3b)
+
+# world: sphere event star_falls, selector all, share .3
+== the director everyone admired
+tier: life event
+sphere: arts
+sphere_event: star_falls
+share: 0.15
+once: yes
+haunt: arts.screen
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: star_falls (sphere arts). Selector all: a celebrated maker is caught in a scandal, a debt or a feud while reach and outrage are high; about 3 in 10 people lose a hero of theirs and choose what to do with the work (share .3, estimate), a few times in a life (estimate)
+likelier: a person who loves a maker's work, high outrage in the news, a fan club or a scene
+rarer: a person with no heroes, a person who seldom follows the news
+tone: trouble
+life: interests, friends, community
+horizon: months
+roles: friend
+earth: a celebrated director's bullying of the cast comes out, and some fans throw out the films while others will not hear a word
+scene: A celebrated director's bullying of the cast has come out: the shouting, the threats, the actors who quit. {N} has loved the films for years, and {friend} has already thrown out the box set.
+scene W: {N} thinks of the actors who kept quiet for years. Whatever the films were, they were not worth that.
+scene U: {N} wants to read every account before deciding anything. Some say one thing, some another.
+scene B: The director's name sold the films. Without it, {N} wonders what the films are worth now.
+scene R: {N} feels sick and furious at once, and a little foolish for every time {N} defended him.
+scene G: {N} watched the films with the family every winter, and they are part of those winters.
+- W | stand with the actors who spoke, and say so where people can hear | v: universalism, benevolence | lever: voice | sphere: arts.W | chance: 64
+- U | read every account in full before judging | v: universalism, self-direction | sphere: arts.U | chance: 78
+- B | sell your signed posters while they still fetch a price | v: achievement, security | sphere: arts.B | chance: 71
+- R | throw out the box set in a rage, and tell everyone why | v: self-direction, stimulation | lever: exit | sphere: arts.R | chance: 88
+- G | keep watching the films quietly with the family, as you always have | v: tradition, security | lever: loyalty | sphere: arts.G | chance: 71
+- BR | defend the director loudly online, and take the abuse that follows | v: self-direction, stimulation | mark: made an enemy | sphere: arts.BR | chance: 44
+- UG | keep the films, and learn what the actors themselves put into them | v: universalism, tradition | sphere: arts.GU | chance: 64
+- UR | make a short film of your own about a set where nobody shouts | v: self-direction, stimulation | sphere: arts.UR | chance: 44
+- WB | give to the fund the actors have set up for others in the same trade | v: benevolence | lever: fund | sphere: arts.WB | chance: 78
+- WG | talk it through with your friend, and agree to differ without falling out | v: benevolence | sphere: arts.GW | chance: 58
+works: {N} finds a way to keep what was good in the films without excusing the man.
+works: The actors who spoke up are heard, and {N} is glad to have stood where {N} stood.
+fails: The quarrel over the director spills into {Ns} friendships, and one does not survive it.
+fails: {N} cannot watch any film now without wondering what went on behind it.
+
+# ---------------------------------------------------------------- house_closes (pairs D1a)
+
+# world: sphere event house_closes, selector members, share .6
+== the last night at the little theatre
+tier: life event
+sphere: arts
+sphere_event: house_closes
+share: 0.31
+once: yes
+haunt: arts.stage
+ladder: regular
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: house_closes (sphere arts). Selector members: an old theatre closes as rents rise, the audience ages, a patron withdraws or a new medium takes the crowd; about 6 in 10 of its regulars and staff feel it as their own loss (share .6, estimate), once or twice in a life (estimate)
+likelier: years as a regular or a volunteer, rising rents in the town centre, an ageing audience
+rarer: a person who never went, a city with many stages
+tone: trouble
+life: community, friends, loss
+horizon: months
+roles: friend, mentor, regular
+earth: the little theatre on the main street is closing for flats, and the final show sells out in an hour
+scene: The little theatre on the main street is closing to make way for flats. The final show sold out in an hour, the posters for the last season are still up, and there is talk of a campaign to save it.
+scene W: The theatre did the classics every spring, with cheap seats for the schools. {N} saw a first play there at eight.
+scene U: {mentor} taught {N} to act on that stage. {N} wonders where the next pupils will learn.
+scene B: Flats on the main street will sell well. {N} knows the developer, and knows the plans might still change.
+scene R: {N} played a first part on those boards to a half-empty house, and it was the best night of {Ns} life.
+scene G: Three generations of {Ns} family have sat in the same row for the winter play. It will not be the same anywhere else.
+- W | sell programmes at the final show, so the last night runs as it should | v: tradition, conformity | lever: loyalty | pushes: place | sphere: arts.W | chance: 75
+- U | find out what saving the building would truly cost, and show the town | v: self-direction, security | sphere: arts.U | chance: 66
+- B | ask the developer to keep a small stage on the ground floor of the flats | v: power, achievement | lever: voice | pushes: place | sphere: arts.B | chance: 60
+- R | stage one last wild show of your own on the night after the final one | v: stimulation, hedonism | sphere: arts.R | chance: 71
+- G | sit in the family's row at the final show, and take home the seat plate | v: tradition | sphere: arts.G | chance: 57
+- BG | say goodbye on the last night, and take the family to the new place in town | v: security, benevolence | lever: exit | sphere: arts.BG | chance: 62
+- BR | start a company of your own in a room above a shop with the old cast | v: self-direction, achievement | lever: found | pushes: group scene | sphere: arts.BR | chance: 52
+- UG | gather the theatre's programmes and photos for the town archive | v: tradition, universalism | sphere: arts.GU | chance: 58
+- WR | lead a march down the main street to save the theatre | v: universalism, stimulation | lever: voice | pushes: place | sphere: arts.RW | chance: 40
+- WU | raise a petition, and put a costed plan for a trust to the council | v: universalism, security | lever: voice | pushes: institution council | sphere: arts.WU | chance: 44
+works: The campaign wins a reprieve, and the theatre opens again under a trust run by its regulars.
+works: The last night is one {N} never forgets, and the old company meets somewhere new.
+fails: The theatre is gone by summer, and the street goes quiet at night.
+fails: The fight to save it splits the regulars, and the last night is spoiled by bitterness.
+
+# ---------------------------------------------------------------- far_market (pairs D2a)
+
+# world: sphere event far_market, selector members, share .5
+== the village pottery sells far away
+tier: life event
+sphere: arts
+sphere_event: far_market
+share: 0.25
+once: yes
+haunt: arts.craft
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: far_market (sphere arts). Selector members: buyers and visitors from afar find a craft while its living tradition is still strong; about half of the families in the craft feel the pull between the old patterns and what sells (share .5, estimate), once or twice in a life (estimate)
+likelier: a family craft, a village with a living tradition, a new road, visitors or a shop online
+rarer: a person with no tie to a craft, a town of factories
+tone: mixed
+life: work, family, money
+horizon: years
+roles: grandparent, parent
+earth: visitors buy the village pottery online and in the square, and young potters come back from the city
+scene: Visitors are buying the village pottery online and in the square, and the family kiln has more orders than it can fire. Young potters are coming back from the city, and a dealer wants a thousand of one bright new design.
+scene W: The makers' co-op sets one fair price for everyone. {N} thinks it is the only way the boom will not split the village.
+scene U: The old patterns have rules: every line means something. {N} sees the dealer's design breaking every one.
+scene B: A thousand pieces at the dealer's price would pay off the family's debts. {N} can do the sums.
+scene R: The orders, the new faces, the music from the workshops at night. The village has woken up, and {N} with it.
+scene G: {grandparent} learned the patterns from their own mother at the same wheel. {N} wonders what they would make of a thousand of one design.
+- W | ask the village to register the old patterns, so no factory can copy them | v: security, tradition | lever: voice | pushes: place | sphere: arts.W | chance: 61
+- U | let no piece leave the kiln until it is right, orders or not | v: achievement, self-direction | sphere: arts.U | chance: 67
+- B | take the dealer's order for a thousand, and hire help to fill it | v: achievement, power | sphere: arts.B | chance: 60
+- R | throw the workshop open to the visitors, with music and the wheel going | v: stimulation, hedonism | sphere: arts.R | chance: 75
+- G | keep making the old patterns only, whatever the dealer offers | v: tradition | mark: turned down a chance | lever: loyalty | sphere: arts.G | chance: 59
+- BG | make the dealer's design on weekdays and the old patterns at the weekend | v: security, tradition | sphere: arts.BG | chance: 70
+- BR | open your own shop online, with your own name and your own designs | v: self-direction, achievement | tech: internet | lever: found | sphere: arts.BR | chance: 50
+- UR | invent a new glaze that keeps the old lines and catches a visitor's eye | v: self-direction, stimulation | sphere: arts.UR | chance: 40
+- WG | help the co-op set fair prices, so every family's kiln gets orders | v: universalism, benevolence | lever: lead | sphere: arts.GW | chance: 52
+- WU | start classes in the old craft for the young who have come home | v: tradition, benevolence | lever: found | sphere: arts.WU | chance: 66
+works: The craft pays and stays itself, and {N} has a living from the family wheel.
+works: The young potters stay, and the village is full of work and noise again.
+fails: The dealer moves on to the next village, and the family is left with a kiln full of unsold pieces.
+fails: The old patterns fade under the new design, and the elders say the craft has been sold.
+
+# ---------------------------------------------------------------- school_of_arts (pairs D3a)
+
+# world: sphere event school_of_arts, selector place, share .2
+== a free music school with instruments to borrow
+tier: life event
+sphere: arts
+sphere_event: school_of_arts
+share: 0.1
+once: yes
+haunt: arts.song
+stages: juvenile young_adult adult mature elder
+age: 12-85
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: school_of_arts (sphere arts). Selector place: a patron or the public purse opens a school of an art as schooling spreads; about 2 in 10 of the people living there meet it as a door: a place, a pupil in the family or a job teaching (share .2, estimate), once or twice in a life (estimate)
+likelier: a child in the family, a person who once played, a town with a community centre
+rarer: a person with no free evenings, a town with no makers to teach
+tone: joy
+life: interests, family, work
+horizon: years
+roles: friend, mentor
+earth: a free music school opens in the community centre, with instruments to borrow
+scene: A free music school has opened in the community centre, with instruments to borrow and teachers four evenings a week. There are places for beginners of any age, and a notice asks for anyone who can help teach.
+scene W: The school has a choir open to anyone, and a concert planned for the spring. {N} likes the idea of the whole town singing.
+scene U: A real teacher, a real instrument and a lesson every week. {N} has wanted this for years.
+scene B: The school will need someone to run it, and there is talk of a paid post. {N} has run things before.
+scene R: There is a drum kit in the back room that anyone can play. {N} is already there.
+scene G: {N} has the old fiddle {Ns} grandfather played, and nobody left in the family who can teach it.
+- W | join the open choir, and sing in the spring concert | v: conformity, benevolence | sphere: arts.W | chance: 70
+- U | borrow an instrument and take a lesson every week for a year | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 73
+- B | apply for the paid post running the school | v: achievement, power | sphere: arts.B | chance: 65
+- R | play the drum kit in the back room every night it is open | v: hedonism, stimulation | sphere: arts.R | chance: 69
+- G | bring your grandfather's fiddle, and find a teacher who knows the old tunes | v: tradition | mark: learned a skill | sphere: arts.G | chance: 62
+- BG | help mend the borrowed instruments on Saturdays, and learn the trade | v: security, benevolence | mark: learned a skill | sphere: arts.BG | chance: 74
+- RG | start a band with the other beginners in your class | v: hedonism, self-direction | lever: found | sphere: arts.RG | chance: 60
+- UB | audition for the school's top group, and the scholarship that comes with it | v: achievement | sphere: arts.UB | chance: 54
+- WR | play with the school's band at the street party in summer | v: stimulation, benevolence | sphere: arts.RW | chance: 60
+- WU | help teach the beginners' class one evening a week | v: benevolence, universalism | sphere: arts.WU | chance: 58
+works: {N} plays at the spring concert, and the hall claps.
+works: The school becomes part of {Ns} week for years, and the music stays in {Ns} hands.
+fails: The lessons fall away after the first winter, and the instrument goes back to its shelf.
+fails: The funding ends after two years, and the school closes before {N} has really begun.
+
+# ---------------------------------------------------------------- images_condemned (pairs D6b)
+
+# world: sphere event images_condemned, selector all, share .4
+== the archive wiped clean
+tier: life event
+sphere: arts
+sphere_event: images_condemned
+share: 0.2
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 13-95
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: images_condemned (sphere arts). Selector all: a strict reform, a new rule or a conqueror condemns images, songs or dances as wrong or dangerous; about 4 in 10 people lose a song, a picture or a dance they kept, or keep it only in secret (share .4, estimate), once in a life where it happens at all (estimate)
+likelier: a new strict government, a family with its own songs or pictures, a time of upheaval
+rarer: a free country in calm years
+tone: trouble
+life: family, community, law
+horizon: years
+roles: grandparent, friend
+earth: the new government bans the old songs and wipes the archive's recordings, and copies survive on a few phones
+scene: The new government has banned the old songs and wiped the archive's recordings. Copies survive on a few phones, and {N} has one of them: {grandparent} singing at a wedding long ago.
+scene W: The new rules are posted in every school and office. {N} was raised to respect the law, and this law asks {N} to forget.
+scene U: The archive held the only recordings of half the old dances. Someone needs to keep a list of what is gone.
+scene B: People are already offering money for the copies. {N} knows what is on that phone is worth something.
+scene R: They can ban the songs, but they cannot stop people singing. {N} wants to sing one in the street.
+scene G: The songs were how the family remembered its dead. Now they will be sung only in whispers at home.
+- W | hand the phone in, as the new rules say, and keep the peace | v: conformity, security | mark: gave in to pressure | sphere: arts.W | chance: 75
+- U | make a quiet list of every song and dance the archive held | v: universalism, tradition | sphere: arts.U | chance: 66
+- B | copy the recording, and pass it only to people who can repay the favour | v: power, security | mark: broke the law | lever: subvert | sphere: arts.B | chance: 58
+- R | sing one of the old songs in the street on the day of the ban | v: self-direction, stimulation | mark: defied an authority | lever: voice | pushes: state | sphere: arts.R | chance: 56
+- G | sing the old songs to the children at home, behind closed curtains | v: tradition | mark: broke the law | lever: subvert | sphere: arts.G | chance: 63
+- BR | play the banned songs at an underground night, for a paying crowd | v: hedonism, achievement | mark: broke the law | lever: subvert | sphere: arts.BR | chance: 60
+- RG | dance the old dances at a family wedding, whoever is watching | v: tradition, stimulation | mark: defied an authority | sphere: arts.RG | chance: 68
+- UB | hide copies in a dozen places nobody would think to look | v: security, self-direction | mark: broke the law | sphere: arts.UB | chance: 64
+- WG | teach the old songs to the neighbours' children along with your own | v: tradition, benevolence | mark: broke the law | sphere: arts.GW | chance: 46
+- WU | send a copy to a library abroad that keeps what others destroy | v: universalism | mark: broke the law | sphere: arts.WU | chance: 44
+works: The ban falls in time, and the copy on {Ns} phone helps bring the old songs back.
+works: {N} keeps the songs alive at home, and the children grow up knowing them.
+fails: A neighbour reports the singing, and {N} spends a frightening night answering questions.
+fails: The phone is taken, and the copy with it, and the songs are gone from the family.
+
+# ---------------------------------------------------------------- home_tongue_written (pairs D5b)
+
+# world: sphere event home_tongue_written, selector place, share .3
+== a novel in the home tongue
+tier: life event
+sphere: arts
+sphere_event: home_tongue_written
+share: 0.15
+once: yes
+haunt: arts.page
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: home_tongue_written (sphere arts). Selector place: a story in the tongue people speak at home, not the learned or ruling one, wins readers; about 3 in 10 of the people living there read it, quote it or are moved to write (share .3, estimate), once or twice in a life (estimate)
+likelier: a family that speaks a home tongue, grandparents punished for speaking it, a young reader
+rarer: a family that speaks only the ruling tongue, a person who seldom reads
+tone: joy
+life: family, interests, community
+horizon: months
+roles: grandparent, friend
+earth: a novel in the tongue your grandparents were punished for speaking at school becomes a hit, and teenagers quote it to each other online
+scene: A novel in the tongue {Ns} grandparents were punished for speaking at school has become a hit. Teenagers quote it to each other online, and {grandparent} has asked {N} to read it aloud at the table.
+scene W: The council is printing its notices in the home tongue for the first time. {N} reads one twice, just to see it.
+scene U: {N} speaks the home tongue but has never read it. The spelling is strange and the grammar is beautiful.
+scene B: The bookshop cannot keep the novel in stock. {N} wonders how many more books like it the town would buy.
+scene R: The novel swears, laughs and shouts in the words {N} grew up with. It reads like a voice in the kitchen.
+scene G: {grandparent} cried at the first chapter. It is the first time they have seen their own words in print.
+- W | ask the school to teach the home tongue to every child who wants it | v: universalism, tradition | lever: voice | pushes: institution school | sphere: arts.W | chance: 64
+- U | learn to read and write the home tongue properly, grammar and all | v: self-direction, tradition | mark: learned a skill | sphere: arts.U | chance: 65
+- B | keep to the ruling tongue at work and in letters, where it still counts for more | v: security, achievement | sphere: arts.B | chance: 80
+- R | quote the best lines loudly, online and in the street | v: stimulation, hedonism | sphere: arts.R | chance: 88
+- G | read the novel aloud at the family table, a chapter every evening | v: tradition, benevolence | sphere: arts.G | chance: 70
+- BR | write a story of your own in the home tongue, and send it to a publisher | v: self-direction, achievement | sphere: arts.BR | chance: 34
+- RG | turn a chapter into a play for the street party, in the home tongue | v: hedonism, tradition | sphere: arts.RG | chance: 56
+- UG | write down the old sayings your grandparents use, before they are lost | v: tradition, universalism | sphere: arts.GU | chance: 70
+- WB | pay for copies of the novel for the town library and the care home | v: benevolence | lever: fund | sphere: arts.WB | chance: 72
+- WU | start a reading group in the home tongue at the library | v: universalism, tradition | lever: found | sphere: arts.WU | chance: 66
+works: The home tongue comes back into {Ns} life, at the table and on the page.
+works: {N} finds a voice in the words {N} grew up with, and others hear it.
+fails: The fashion passes, and the novel ends up on the charity shop shelf.
+fails: A teacher marks {Ns} work down for using the home tongue, and {N} learns to keep it at home again.
+
+# ---------------------------------------------------------------- benefit_night (pairs D6a)
+
+# world: sphere event benefit_night, selector place, share .4
+== the band comes home after the flood
+tier: life event
+sphere: arts
+sphere_event: benefit_night
+share: 0.2
+once: yes
+haunt: arts.song
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: benefit_night (sphere arts). Selector place: a fire, a flood or a wreck leaves families in need in a town with stages and names that draw a crowd; about 4 in 10 of the people living there give, play, help or are given to (share .4, estimate), once or twice in a life (estimate)
+likelier: a disaster in the town, a famous name from here, a person who plays or helps
+rarer: a town no disaster has touched, a person far from home
+tone: joy
+life: community, friends, family
+horizon: week
+roles: friend
+earth: after the flood, a famous band from the town comes home for a free concert, and the donations rebuild the youth club
+scene: After the flood, the town's most famous band has come home for a free concert in the park. The buckets go round between songs, the money will rebuild the youth club, and {N} has been asked to help.
+scene W: The concert will end with one song for the families who lost their homes. {N} wants the whole park to sing it.
+scene U: The money will come in a rush, and it needs counting and tracking. {N} is good with figures.
+scene B: Everyone in town will see who gives and who helps. {N} knows a night like this is remembered for years.
+scene R: A free gig, a crowd of thousands, and a reason to be there. {N} means to make the buckets overflow.
+scene G: The neighbours down the street lost everything in the flood. {N} thinks of them first.
+- W | lead the closing song for the families who lost their homes | v: benevolence, tradition | sphere: arts.W | chance: 71
+- U | keep the books for the night, so every gift is counted and seen | v: security, universalism | sphere: arts.U | chance: 75
+- B | have your business named on the poster, in return for a big gift | v: power, benevolence | lever: fund | sphere: arts.B | chance: 68
+- R | warm up the crowd before the band, and get the buckets filled | v: stimulation, benevolence | sphere: arts.R | chance: 68
+- G | bring food to the neighbours who lost everything, and take them to the front | v: benevolence | mark: helped someone in need | sphere: arts.G | chance: 64
+- BG | sell tea and cakes at the gate, and hand over all the takings | v: benevolence, security | sphere: arts.BG | chance: 72
+- UG | record the night, and the stories of the flooded families, for the town | v: tradition, universalism | sphere: arts.GU | chance: 52
+- UR | build a stage from salvaged doors and pallets in two days | v: self-direction, stimulation | mark: learned a skill | sphere: arts.UR | chance: 50
+- WB | match every bucket's takings from your own savings, and say so on the night | v: benevolence, power | lever: fund | sphere: arts.WB | chance: 44
+- WR | rally the crowd to sign up for the rebuilding, then and there | v: benevolence, universalism | sphere: arts.RW | chance: 66
+works: The youth club is rebuilt by spring, and the night is talked about for years.
+works: {N} is thanked by people {N} barely knew, and favours from that night come back for years.
+fails: The night is a great success, but the money is slow to arrive and the arguments over it are bitter.
+fails: It pours with rain, half the crowd go home, and the buckets come back half empty.

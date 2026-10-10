@@ -9,12 +9,15 @@ scratch folder first and run with -B, so nothing is written in the shared folder
 
     python3 -B chroma-release/check_speedpass.py --new DIR [--base DIR] [--lib DIR] [--packs DIR] [--seeds 5,21,57]
         [--lives 40] [--years 80] [--worlds off,on,seed] [--timing 100] [--jobs 4] [--Pnew JSON] [--Pbase JSON]
-        [--game DIR] [--base-game DIR] [--games 1,2,3,4,5,6] [--gseed 7]
+        [--new-lib DIR] [--new-packs DIR] [--game DIR] [--base-game DIR] [--games 1,2,3,4,5,6] [--gseed 7]
 
   --new     the speed-pass engine folder.
   --worlds  off and on: the Earth batch with the live packs, outer world off or on (the live game plays Earth with it on);
             seed: the engine's own seed library, as v22's tribal and magic lives play.
   --Pnew    switch overrides for the new engine as JSON (for example the v23 switch set off), applied after DEFAULT.
+  --new-lib, --new-packs  the Library and packs the new engine runs on, when a candidate brings its own (default --lib
+            and --packs, which the base engine always runs on): then a Library or packs change that moves the lives
+            shows too.
   --timing  lives in the separate timing runs (one per engine and world setting, seed 5, same years); 0 skips them.
   --games   presets the game plays (1 to 6, default all; "" skips): a copy of the live game (chroma-game/prototype) runs
             each preset's whole life through its own console, as the page does, once with engine_pin's engine files from
@@ -102,6 +105,8 @@ ap.add_argument("--new", required=True)
 ap.add_argument("--base", default=P["engine_live"])
 ap.add_argument("--lib", default=P["library_live"])
 ap.add_argument("--packs", default=P["packs_live"])
+ap.add_argument("--new-lib", default=None, help="the Library the new engine runs on (default --lib): a candidate's own")
+ap.add_argument("--new-packs", default=None, help="the packs the new engine runs on (default --packs)")
 ap.add_argument("--seeds", default="5,21,57")
 ap.add_argument("--lives", type=int, default=40)
 ap.add_argument("--years", type=int, default=80)
@@ -158,7 +163,9 @@ if games:
 say(f"Speed pass check, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC")
 say(f"  base {a.base} (engine.py {md5(os.path.join(copies['base'], 'engine.py'))}, {len(os.listdir(copies['base']))} files)")
 say(f"  new  {a.new} (engine.py {md5(os.path.join(copies['new'], 'engine.py'))}, {len(os.listdir(copies['new']))} files)")
-say(f"  Library {a.lib}, packs {a.packs}; {a.lives} lives x {a.years} years, seeds {a.seeds}, worlds {a.worlds}; "
+NLIB, NPACKS = a.new_lib or a.lib, a.new_packs or a.packs
+say(f"  Library {a.lib}, packs {a.packs}" + (f"; new on Library {NLIB}, packs {NPACKS}" if (NLIB, NPACKS) != (a.lib, a.packs) else "")
+    + f"; {a.lives} lives x {a.years} years, seeds {a.seeds}, worlds {a.worlds}; "
     f"P new {a.Pnew}, P base {a.Pbase}")
 for x in gnotes:
     say(x)
@@ -184,8 +191,8 @@ while todo or running:
         if w == "game":
             cmd = [sys.executable, "-B", os.path.abspath(__file__), "--gworker", gcopies[tag], sd, a.gseed, P, out]; cwd = gcopies[tag]
         else:
-            cmd = [sys.executable, "-B", os.path.abspath(__file__), "--worker", copies[tag], os.path.abspath(a.lib),
-                   os.path.abspath(a.packs), sd, w, str(N), str(a.years), P, out]; cwd = work
+            cmd = [sys.executable, "-B", os.path.abspath(__file__), "--worker", copies[tag], os.path.abspath(NLIB if tag == "new" else a.lib),
+                   os.path.abspath(NPACKS if tag == "new" else a.packs), sd, w, str(N), str(a.years), P, out]; cwd = work
         p = subprocess.Popen(cmd, env=env, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         running.append((p, lab, tag, out))
     time.sleep(2)
@@ -279,5 +286,5 @@ tb = sum(v[0] for v in cpu.values()); tn = sum(v[1] for v in cpu.values())
 say(f"All runs: base {tb:.0f} s, new {tn:.0f} s CPU: {tb / max(tn, 1e-9):.2f}x faster overall")
 say("Speed pass: " + ("PASS (identical lives)" if ok else "FAIL"))
 say(f"report: {REPORT}; scratch {work}")
-import results; results.done('speedpass', 0 if ok else 1, REPORT)   # backend plan item 4: the result in out/results.jsonl
+import results; results.done('speedpass' + ('_' + a.tag if a.tag else ''), 0 if ok else 1, REPORT)   # backend plan item 4: the result in out/results.jsonl
 sys.exit(0 if ok else 1)

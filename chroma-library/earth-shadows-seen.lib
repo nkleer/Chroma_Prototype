@@ -1,0 +1,383 @@
+# Chroma Library, modern Earth: reflection moments, the character seeing their own shadow (next version, after v22).
+# Library thread, 2026-10-09. Design: chroma-ideas/shadows-mechanics.md, sections 5 and 7 ("Seeing it: a reflection
+# moment ('I sounded like my father') lowers s[c] by .15 and sets seen[c]"). These follow the 20 shadow moments in
+# drafts/next4/earth-shadows.lib and copy its scheme.
+# The Engine does the lowering: when one of these moments is met, the shadow part s[c] of the colour in shadow falls by
+# .15 and seen[c] is set, whatever the option. The options are only how the character takes what they saw.
+# Each moment needs its state (holds:, compiled to the engine's requires). Two per shadow: one for young adult and
+# adult life (18-50), one for later life (40-110). Every moment has the five one-colour options and one cross cycle;
+# s1 and s2 are used three times each, s3 and s4 twice each.
+# Chances, as in earth-shadows.lib: the shadow's own act 40 (pushing the thought away, or doubling down), a neighbour's
+# 62, an opposite's 66; cross options by their means colour (own 52, neighbour 58, opposite 62). Neighbours on the
+# wheel: W: U and G; U: W and B; B: U and R; R: B and G; G: R and W. Every colour holds each role equally often.
+# No colour and no shadow word is named in player text; no option is called wrong.
+
+# ---------------------------------------------------------------- rigid (White)
+
+== the old words at the new desk
+tier: inner
+holds: rigid
+stages: young_adult, adult, mature
+age: 18-50
+tone: mixed
+life: work, family
+horizon: week
+roles: parent, colleague
+earth: you hear your parent's exact words come out of your own mouth, at a new starter who made a small slip
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: someone younger working under them; a parent who ruled by rules; a first post in charge of others; much White in the color history with little Red or Black beside it
+rarer: working alone; a workplace with no one junior; a parent who was easy-going
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {N} is telling the new starter off for a small slip, in front of everyone. Halfway through, {N} hears the exact words {parent} used at the kitchen table, the words {N} hated at fourteen.
+scene W: {N} only wanted the job done properly. But the voice that came out was not fair, it was hard, and {N} knows the difference.
+scene U: {N} replays the sentence on the way home, word for word, and cannot find where good sense ended and the old voice began.
+scene B: {N} has always been proud of being nobody's copy. Yet there it was, {parent}, word for word, in {Ns} own mouth.
+scene R: {Ns} face burns all afternoon. {N} wants to run back and take every word of it back.
+scene G: Some things are handed down without anyone meaning to hand them down. {N} hears the old voice and feels the whole family behind it.
+- W | tell yourself standards are standards, and the starter will be grateful one day | v: conformity, security | chance: 40
+- U | write down what {parent} used to say, and what you would rather say instead | v: self-direction | chance: 62
+- B | decide to be nobody's echo, and work out a way of leading that is your own | v: self-direction, power | chance: 66
+- R | find the starter before the end of the day and say sorry, plainly | v: benevolence | mark: owned up | chance: 66
+- G | ring {parent}, and ask who used to speak to them that way | v: tradition, benevolence | chance: 62
+- W>U | keep the rule, but write down the reason for it, so nobody needs a telling-off | v: conformity, self-direction | chance: 52
+- U>B | study how the best managers correct people, and get better at it than anyone | v: achievement, self-direction | chance: 58
+- B>R | claim the half day you are owed, and spend it on something that makes you laugh | v: hedonism, self-direction | act: claim the half day they are owed, and spend it on something that makes them laugh | chance: 62
+- R>G | own it at lunch, laughing, so the whole team can breathe again | v: benevolence, stimulation | chance: 62
+- G>W | let the hard words go, and keep only the one rule that truly protects people | v: security, benevolence | chance: 58
+works: The starter relaxes around {N} within a week, and the work gets better, not worse.
+works: The old voice comes again now and then, and {N} catches it before it finishes the sentence.
+fails: The starter asks to move to another team, and {N} never quite learns why.
+fails: {N} tells it as a funny story, and the old voice goes on speaking anyway.
+
+== the anniversary film at the club
+tier: inner
+holds: rigid
+stages: adult, mature, elder
+age: 40-110
+tone: mixed
+life: friends, leisure
+horizon: months
+roles: friend
+earth: at your club's anniversary dinner, a film of the old years shows you frowning at a notice in every clip
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: long years running a club, a choir, a congregation or a committee; a reputation as the one who keeps order; much White in the color history
+rarer: no club or group held for years; someone else in charge
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: At the club's anniversary dinner, someone plays a film of the old years. In clip after clip {N} is frowning and pointing at a notice, while everyone around {N} is laughing. The room laughs fondly. {N} does not.
+scene W: {N} kept that club going for twenty years by keeping its rules. On the screen, it looks less like keeping and more like guarding.
+scene U: {N} counts, without meaning to: eleven clips, and not one where {N} is smiling.
+scene B: {N} always thought of it as running the place. On the screen it looks as if nobody else was ever allowed to.
+scene R: {N} wants to laugh along and cannot. Something hot and sad sits in {Ns} throat.
+scene G: {N} sees in the frown the one {N} grew up under, and the one before that. It has come a long way down the years.
+- W | tell yourself someone had to keep order, and the laughter shows it worked | v: conformity, security | chance: 40
+- U | ask {friend} afterwards, honestly, what it was like working beside you | v: self-direction, benevolence | act: ask {friend} afterwards, honestly, what it was like working beside them | chance: 62
+- B | hand the chair to someone younger, and keep only the parts you enjoy | v: self-direction, hedonism | chance: 66
+- R | stand up, laugh at the frowning face out loud, and promise the room a sillier year | v: stimulation, benevolence | chance: 66
+- G | let the club's ways change with the people who are in it now | v: universalism, benevolence | chance: 62
+- W>R | write one new rule: every meeting ends with something fun | v: conformity, hedonism | chance: 52
+- U>G | read the club's old minutes, and see how often it changed before your time | v: tradition, self-direction | chance: 58
+- B>W | use your standing to change the rules so newcomers get a real say | v: power, universalism | chance: 62
+- R>U | ring the members who left, and ask them straight out why they went | v: self-direction, stimulation | chance: 62
+- G>B | step back quietly, and keep one small corner of the club as your own | v: security, self-direction | chance: 58
+works: At the next meeting {N} lets a rule slide, and nobody notices anything but the warmth.
+works: {friend} says, kindly, that it was about time, and the two of them laugh about the frown for years.
+fails: {N} changes nothing, and fewer people come to the next anniversary.
+fails: {N} tries to loosen up, and the club does not quite believe it.
+
+# ---------------------------------------------------------------- indecisive (Blue)
+
+== we stopped asking you
+tier: inner
+holds: indecisive
+stages: young_adult, adult, mature
+age: 18-50
+tone: trouble
+life: friends, leisure
+horizon: week
+roles: friend
+earth: your friends planned the weekend away without you, because last time you took three weeks to answer
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a close group of friends who plan things together; a habit of answering late; much Blue in the color history with little Red or Green beside it
+rarer: few friends; living far from the group; a partner who answers for both
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {N} finds out the weekend away was planned without {N}. {friend} says it plainly, not unkindly: last time they waited three weeks for an answer, so this time they stopped asking.
+scene W: {N} meant to be careful with everyone's plans. Instead, everyone's plans waited on {N}.
+scene U: {N} was only making sure. Weighing it properly seemed the considerate thing. It never felt like saying no.
+scene B: {N} hates being left out of anything. And {N} is the one who handed the choice to someone else, week after week.
+scene R: It stings like a slap. {N} would have said yes, in the end.
+scene G: {N} has always waited for things to ripen. It turns out the others got tired of waiting.
+- U | explain to {friend} why each of those choices needed thinking over | v: self-direction, security | chance: 40
+- W | promise {friend} an answer within a day from now on, and keep to it | v: conformity, benevolence | chance: 62
+- B | choose the next trip yourself, book it, and invite them along | v: self-direction, power | chance: 62
+- R | ask to come along anyway, and say yes before {friend} finishes the sentence | v: stimulation, benevolence | chance: 66
+- G | take the hint, and say yes to the next small thing without weighing it | v: benevolence, security | chance: 66
+- W>B | set a firm rule of your own: two days to decide anything, then stand by it | v: self-direction, conformity | chance: 58
+- U>R | flip a coin for the next small choice, and go wherever it lands | v: stimulation, self-direction | chance: 52
+- B>G | offer to organise the next weekend for everyone, somewhere you all know | v: benevolence, achievement | chance: 58
+- R>W | tell {friend} straight that it hurt, and that they were fair to stop asking | v: benevolence, universalism | chance: 62
+- G>U | watch how {friend} decides things so easily, and learn from it slowly | v: self-direction, tradition | chance: 62
+works: Next time {friend} asks, {N} says yes on the spot, and has a better time than any plan could have promised.
+works: The invitations come back, slowly, and {N} answers them by return.
+fails: {N} starts a list of reasons, and the next plan is made without {N} too.
+fails: {N} says yes too fast to the wrong thing, and misses the old caution.
+
+== five notebooks, one list
+tier: inner
+holds: indecisive
+stages: adult, mature, elder
+age: 40-110
+tone: mixed
+life: dreams, home
+horizon: months
+roles: friend
+earth: clearing a drawer, you find five notebooks from five times of life, each with the same list of reasons to go and to stay
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a long-held wish to move, retrain or travel; a habit of writing lists; much Blue in the color history
+rarer: a life already full of moves; no papers kept
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: Clearing a drawer, {N} finds five notebooks from five different times of life. Each holds the same list: reasons to go, reasons to stay. The handwriting changes. The list does not.
+scene W: {N} always wanted to choose properly, with nothing left out. Five times, nothing was chosen at all.
+scene U: {N} reads the lists as if they were someone else's work, and sees at once what that person never saw: there was never going to be enough to go on.
+scene B: Every one of those years, someone else took the chance {N} was weighing. {N} can name some of them.
+scene R: Thirty years of wanting to go, all on paper. {Ns} hands are shaking a little.
+scene G: The seasons turned five times while the list sat in the drawer. {N} feels the weight of all that waiting.
+- U | start a sixth list, more careful than the others, to see what was missed | v: self-direction | chance: 40
+- W | show the notebooks to {friend}, and ask to be held to a decision by spring | v: conformity, security | chance: 62
+- B | pick the one wish still worth having, and pay for it this month | v: self-direction, hedonism | chance: 62
+- R | tear out the pages, book a short trip somewhere new, and go next week | v: stimulation | mark: took a wild risk | chance: 66
+- G | keep the notebooks as a record of who you were, and make peace with staying | v: tradition, security | mark: stayed home | chance: 66
+- W>G | promise to visit the one place that is on every list, before the year is out | v: tradition, self-direction | chance: 58
+- U>W | write down what the lists taught you, for a younger friend facing the same choice | v: universalism, benevolence | act: write down what the lists taught them, for a younger friend facing the same choice | chance: 52
+- B>U | sign up for the course weighed in the third notebook, and pay up front | v: achievement, self-direction | mark: learned a skill | chance: 58
+- R>B | sell something kept just in case, and spend the money on going | v: self-direction, stimulation | chance: 62
+- G>R | sit by the river with the notebooks, and see what you feel without thinking | v: hedonism, self-direction | chance: 62
+works: {N} chooses something, small but real, and the drawer stays shut after that.
+works: {N} goes, or stays, and for once it feels like a choice.
+fails: The notebooks go back in the drawer, and a sixth one joins them a year or two later.
+fails: {N} rushes into the first thing on the list, and it is not the thing {N} wanted.
+
+# ---------------------------------------------------------------- ruthless (Black)
+
+== learned from the best
+tier: inner
+holds: ruthless
+stages: young_adult, adult, mature
+age: 18-50
+tone: trouble
+life: work
+horizon: week
+roles: colleague
+earth: a younger colleague you trained takes the account you wanted, using exactly the trick you taught them
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a sales or deal-making job; someone younger trained by them; much Black in the color history with little White or Green beside it
+rarer: working alone; a team that shares credit by habit
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {colleague}, whom {N} trained, takes the account {N} wanted by going round {N} to the client the night before. {colleague} grins. It is exactly what {N} taught them. "I learned from the best."
+scene W: {N} feels the unfairness of it like a blow. Then, slowly, {N} remembers all the times it was done the other way round.
+scene U: {N} can trace every move back to a lesson {N} gave. It is like reading {Ns} own handwriting in someone else's hand.
+scene B: Part of {N} is proud. The rest of {N} is seeing, for the first time, how it looks from the other side of the table.
+scene R: {N} wants to shout. Instead {N} stands very still, because {N} would have done the same, and said the same.
+scene G: What one plants comes up. {N} always knew that about gardens, and is only now seeing it about people.
+- B | shrug it off: that is the game, and next time you will play it better | v: power, achievement | chance: 40
+- W | tell {colleague} you have both played it unfairly, and agree on rules for the team | v: universalism, conformity | act: tell {colleague} they have both played it unfairly, and agree on rules for the team | chance: 66
+- U | go back through the deals you won, and see who paid for each one | v: self-direction, universalism | chance: 62
+- R | laugh, take {colleague} out for a drink, and say what it felt like | v: benevolence, hedonism | chance: 62
+- G | hand the next client back to the colleague you once took them from | v: benevolence, universalism | chance: 66
+- W>R | propose that the team shares every bonus, then celebrate the next win together | v: universalism, hedonism | chance: 62
+- U>G | work out a way of training newcomers that builds trust, not tricks | v: benevolence, self-direction | chance: 58
+- B>W | use your seniority to set an honest rule on clients, and keep it first yourself | v: power, conformity | chance: 52
+- R>U | ask {colleague} straight out which of your habits they picked up, and listen | v: self-direction, stimulation | chance: 58
+- G>B | step back from the chase for a season, and let your work stand on its own | v: security, self-direction | chance: 62
+works: {N} and {colleague} end up the strongest pair in the office, and both of them play straighter.
+works: Clients start asking for {N} by name, for reasons {N} is quietly prouder of.
+fails: {N} learns nothing from it, and the next young hire learns everything.
+fails: The tricks stop, but the trust does not come back, and {colleague} moves to a rival firm.
+
+== the birthday toast
+tier: inner
+holds: ruthless
+stages: adult, mature, elder
+age: 40-110
+tone: trouble
+life: family, money
+horizon: months
+roles: sibling
+earth: at your birthday dinner, your sibling raises a glass and says you always got what you wanted, and never gave anything back
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a sibling who gave things up over the years; money or a house gained at family cost; much Black in the color history
+rarer: no siblings; a family that never gathers
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: At {Ns} birthday dinner, {sibling} stands to give a toast, a glass too many in. "{N} always got what {N} wanted," {sibling} says, smiling. "I am still waiting to get something back." Nobody laughs.
+scene W: {N} paid for the dinner, as {N} pays for most things. It never struck {N} that paying is not the same as giving.
+scene U: {N} starts, without meaning to, a list of what {sibling} lent, gave or gave up over the years. It is a long list.
+scene B: {N} always believed people get what they fight for. Looking round the table, {N} sees who was never allowed to fight.
+scene R: {N} wants to snap back, and the words die. {Ns} face is hot and {Ns} hands are cold.
+scene G: Old debts have a way of rising at family tables. {N} feels this one come up through the floor.
+- B | raise your glass, make a joke of it, and move the evening on | v: power, security | chance: 40
+- W | ask {sibling} for a proper talk, and repay what is owed, in full | v: universalism, conformity | mark: owned up | chance: 66
+- U | sit with {sibling} the next day and go through it, honestly, year by year | v: self-direction, benevolence | mark: owned up | chance: 62
+- R | stand up there and then, and tell {sibling} they have a point | v: benevolence, stimulation | chance: 62
+- G | let the words stand, and spend the next year simply being around more | v: benevolence, tradition | chance: 66
+- W>U | write {sibling} a letter that names every debt, and learn what each one cost them | v: universalism, self-direction | chance: 62
+- U>B | work out what {sibling} most needs now, and use your weight to get it for them | v: benevolence, power | chance: 58
+- B>R | take {sibling} on the trip they always wanted, and pay for every part of it | v: benevolence, hedonism | chance: 52
+- R>G | turn up at {sibling}'s door with food every Sunday, unasked | v: benevolence, tradition | chance: 58
+- G>W | quietly change the will so it is fair to everyone who gave | v: universalism, benevolence | chance: 62
+works: {sibling} rings the next week, and for the first time in years they talk about nothing in particular.
+works: The debt is never quite settled, but it stops being the only thing between them.
+fails: {sibling} apologises for the toast, and nothing more is ever said about it.
+fails: {N} tries to put it right with money, and {sibling} sends the money back.
+
+# ---------------------------------------------------------------- reckless (Red)
+
+== the video from the weekend
+tier: inner
+holds: reckless
+stages: young_adult, adult, mature
+age: 18-50
+tone: trouble
+life: friends, health
+horizon: week
+roles: friend
+earth: a friend shows you a video from the weekend, and you barely recognise the person shouting in it
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: big nights out; friends who film everything; much Red in the color history with little White or Blue beside it
+rarer: a quiet social life; friends who keep their phones away
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {friend} shows {N} a video from the weekend. On the small screen {N} is shouting at a doorman, then telling {friend} to get lost. {N} remembers almost none of it, and {friend} is not smiling.
+scene W: {N} would never let anyone talk to a friend like that. Watching it is like watching a stranger break a promise.
+scene U: {N} watches it twice, looking for the moment it turned. There is no such moment. It was heading there all along.
+scene B: {N} likes to think nobody tells {N} what to do. On the screen, something else is plainly in charge.
+scene R: {N} always says that is just how {N} is: all in. The face on the screen does not look free. It looks lost.
+scene G: {N} sees an uncle in the face on the screen, the one the family never talked about.
+- R | laugh it off: everyone was wild that night, and life is short | v: hedonism, stimulation | chance: 40
+- W | apologise to {friend} properly, and promise to stay sober next time out | v: conformity, benevolence | mark: owned up | chance: 66
+- U | count how many weekends ended like this, and what each one cost | v: self-direction, security | chance: 66
+- B | decide that from now on your nights run on your terms, not the drink's | v: self-direction, power | chance: 62
+- G | spend the next few weekends at home, cooking for friends, and see how it feels | v: benevolence, hedonism | chance: 62
+- W>G | ask {friend} to keep you to quieter nights, the way old friends do | v: benevolence, tradition | act: ask {friend} to keep them to quieter nights, the way old friends do | chance: 62
+- U>W | read up on what drink does to judgement, and set fair limits for the group | v: self-direction, universalism | chance: 62
+- B>U | delete the video, and learn the signs that a night is about to turn | v: self-direction, security | chance: 58
+- R>B | pour the same fire into training for something hard, and win it | v: achievement, stimulation | chance: 52
+- G>R | go camping with {friend}, far from any bar, and be wild the old way | v: stimulation, benevolence | chance: 58
+works: A month later {friend} watches the video again with {N}, and this time they both laugh.
+works: The weekends get quieter and, to {Ns} surprise, better.
+fails: The video goes round the group, and {N} spends the next night out proving it was a joke.
+fails: {friend} accepts the apology, and stops inviting {N} anyway.
+
+== your words in a young mouth
+tier: inner
+holds: reckless
+stages: adult, mature, elder
+age: 40-110
+tone: trouble
+life: friends, family
+horizon: months
+roles: friend
+earth: your friend's eldest has walked out of a good job on a whim, quoting your favourite saying back to you
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: young people in the family or among friends' children who look up to them; a reputation for big leaps; much Red in the color history
+rarer: no young people nearby; a life kept private
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {friend}'s eldest has walked out of a good job after one row and run up a debt doing it. They tell {N}, proudly, that they only did what {N} always preached. {friend} just looks at {N}.
+scene W: {N} said it so often it became a kind of rule. {N} never thought anyone was keeping it.
+scene U: {N} hears the words come back, stripped of everything {N} knew and never said. A saying is not a plan.
+scene B: {N} always paid for {Ns} own leaps and never asked anyone to follow. Someone followed anyway.
+scene R: {N} meant it as freedom. In the young face it looks like a fire with nobody minding it.
+scene G: Sayings travel down the years like seeds. This one has landed somewhere {N} did not expect.
+- R | say you are proud of them, and that the rest will sort itself out | v: stimulation, self-direction | chance: 40
+- W | sit them down and tell them the whole story, the costs as well as the leaps | v: benevolence, universalism | chance: 66
+- U | help them work out what the leap really cost, and what can still be saved | v: benevolence, security | chance: 66
+- B | find them a way back into the trade through people you know | v: benevolence, power | mark: helped someone in need | chance: 62
+- G | apologise to {friend}, and stay close to the young one through the hard months | v: benevolence | mark: owned up | chance: 62
+- W>B | own your part to {friend}, and help the young one win the job back | v: benevolence, achievement | chance: 62
+- U>R | teach them to plan a leap properly, so the next one lands | v: self-direction, stimulation | chance: 62
+- B>G | pay off part of the debt, on condition they go home for a while | v: benevolence, security | chance: 58
+- R>W | say out loud, in front of them both, that the old saying was only half true | v: benevolence, universalism | chance: 52
+- G>U | take them walking for a week, and let them think it through slowly | v: benevolence, self-direction | chance: 58
+works: The young one finds their feet again, and {friend} forgives {N} by the summer.
+works: {N} starts telling the whole story, costs and all, and finds it is a better one.
+fails: The young one takes {Ns} words as a blessing, and the next leap goes worse.
+fails: {friend} keeps {N} at a distance from the family for a long while.
+
+# ---------------------------------------------------------------- stuck in their ways (Green)
+
+== the same cottage, nine years running
+tier: inner
+holds: stuck in their ways
+stages: young_adult, adult, mature
+age: 18-50
+tone: mixed
+life: friends, leisure
+horizon: months
+roles: friend
+earth: your friend found somewhere new for your yearly week away, then booked the same old cottage, because you always say no
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a yearly trip, a standing table, a fixed routine shared with a friend; much Green in the color history with little Blue or Black beside it
+rarer: a life that moves often; friends who never plan things together
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: {N} and {friend} have taken the same walking week at the same cottage for nine years. This year {friend} found somewhere new, then booked the cottage anyway. "There was no point asking," {friend} says. "The answer is always no."
+scene W: {N} thought of the cottage as a promise kept every year. It never crossed {Ns} mind that only one of them still wanted it.
+scene U: {N} tries to remember the last time {N} said yes to something new, and cannot find one in years.
+scene B: {N} always thought of {N} as someone who chooses. But {friend} had stopped bringing choices at all.
+scene R: {N} feels a flare of hurt, and under it something worse: {friend} has a point.
+scene G: The cottage, the walk, the pub on the last night. {N} loves every part of it, and never noticed {friend} going quiet.
+- G | tell {friend} the cottage is a tradition, and traditions are worth keeping | v: tradition | chance: 40
+- W | cancel the cottage, and let {friend} choose next year, as is only fair | v: universalism, benevolence | chance: 62
+- U | look properly at the place {friend} found, and ask what drew them to it | v: self-direction, benevolence | chance: 66
+- B | make a deal with yourself: one new thing every season, starting now | v: self-direction, achievement | chance: 66
+- R | book the new place tonight, on the spot, before the doubts set in | v: stimulation | chance: 62
+- W>U | promise {friend} to try their place next year, and read up on it before going | v: self-direction, benevolence | chance: 58
+- U>B | work out what each of you wants from a week away, and plan for both | v: achievement, benevolence | chance: 62
+- B>R | pay for a week somewhere wild and new, as a surprise for {friend} | v: stimulation, benevolence | chance: 62
+- R>G | go to the cottage, but stop somewhere new on the way, on a whim | v: stimulation, tradition | chance: 58
+- G>W | keep the cottage, but give {friend} every other year to choose | v: tradition, universalism | chance: 52
+works: The new place is strange for two days, then wonderful, and {friend} talks about it for months.
+works: {N} starts saying yes a little more often, and is surprised how much {N} likes it.
+fails: {N} goes along, and spends the week missing the cottage out loud.
+fails: {friend} takes the new trip with someone else, and the old week is never quite the same.
+
+== in my day, played back
+tier: inner
+holds: stuck in their ways
+stages: adult, mature, elder
+age: 40-110
+tone: mixed
+life: home, community
+horizon: months
+roles: friend
+earth: a young volunteer records your memories of the town, and played back, every answer is about how much better it used to be
+requires: holds the state (force above .5) for six months or more; at most once every three years for this shadow
+likelier: a long life in one town; a local history group or library project; much Green in the color history
+rarer: a newcomer to the town; a life spent moving
+times: Some people who stay in the state, about one in four of them over three years (estimate)
+gap: 3-10
+scene: A young volunteer records {N} for the town's memory project. Played back at the library, every answer starts with "in my day" and ends with "not any more". The volunteer thanks {N} politely, and looks tired.
+scene W: {N} meant to set the record straight for those who come after. On the recording it sounds more like a list of complaints.
+scene U: {N} listens closely and hears the same three stories told five ways, and not one question asked back.
+scene B: {N} wanted the young to know what {N} had built. What comes out sounds like someone who thinks nothing since was worth building.
+scene R: {N} hears {Ns} own voice, sour and slow, and wants to snatch the recording back.
+scene G: {N} had thought of it as remembering. Hearing it, {N} wonders whether it was really grieving everything that changed.
+- G | let it stand: it was better then, and someone ought to say so | v: tradition | chance: 40
+- W | ask to record it again, fairly, with the good that came since | v: universalism, conformity | chance: 62
+- U | ask the volunteer what the town is like for them, and listen to every word | v: universalism, self-direction | chance: 66
+- B | offer to teach your old trade, on your own terms, to people starting out | v: achievement, power | chance: 66
+- R | laugh at the old grump on the recording, and tell a story with no complaints | v: hedonism, benevolence | chance: 62
+- W>B | join the project's committee, and steer it toward the living town | v: power, universalism | chance: 58
+- U>R | learn the new thing in town most grumbled about, and try it once | v: self-direction, stimulation | mark: learned a skill | chance: 62
+- B>G | pay for the volunteer's next project, on the past and the present together | v: benevolence, tradition | chance: 62
+- R>W | tell the library meeting, out loud, that the town deserved a fairer hearing | v: universalism, benevolence | chance: 58
+- G>U | walk the old streets with the volunteer, and ask what each new place is for | v: universalism, tradition | chance: 52
+works: The second recording is played at the library too, and people stop {N} in the street to talk about it.
+works: {N} finds that the town, for all its changes, still has room for {N} in it.
+fails: {N} agrees to try again, and the second recording sounds just like the first.
+fails: The volunteer moves on, and {N} goes back to talking mostly to the radio.

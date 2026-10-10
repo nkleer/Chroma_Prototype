@@ -1,0 +1,371 @@
+# Chroma Library, modern Earth: PAIR MOMENTS, the missing half (inner moments, one per colour pair, ten in all).
+# Library thread, 2026-10-09, implementation list v22 item 6, pair-moments.md (kind 3, "the missing half"); it is the
+# same idea as the "no counterweight" shadow source in shadows-mechanics.md section 3.
+# What the part is: when one colour of a pair rules and its partner is nearly gone, the missing colour's argument comes
+# back, uninvited, through a concrete situation in an ordinary modern life. Either colour can be the high one: the
+# untagged scene is neutral, and the variants of the two pair colours carry the direction (scene W of the W-R moment is
+# the W-high side meeting what R would say; scene R is the R-high side meeting what W would say). The other three
+# variants stay neutral.
+# Gate rule (the Engine's requires): one colour of the pair above .35 and the other below .10; at most once every four
+# years for this pair; ages 16-110.
+# Layout: the five one-colour options and one full cross cycle that holds a cross between the two pair colours (the
+# bridge). Across the ten moments every colour is the means colour of a bridge exactly twice.
+# Chance scheme: the two pair colours' one-colour options 58, the other three 68; the bridge cross 55, the other four
+# crosses 62. So every colour's one-colour mean is 64 and every means colour's cross mean is 60.6. No option is wrong.
+# Bridges: W-R R>W (s2), W-B B>W (s3), U-R R>U (s3), U-G U>G (s3), B-G G>B (s3), W-U W>U (s1), U-B U>B (s1),
+# B-R B>R (s1), R-G G>R (s4), G-W W>G (s4). Cycles: s1 3, s2 1, s3 4, s4 2 (no assignment with each colour twice as a
+# bridge's means can use every cycle 2 or 3 times; the spread is always 1, 2, 3, 4).
+
+# ---------------------------------------------------------------- enemy pairs
+
+== the third missed session
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: friends, community
+horizon: week
+roles: friend
+earth: you help run a club with one firm rule, and a friend you love has just broken it
+requires: one of W and R above .35 and the other below .10; at most once every four years for this pair
+likelier: a role that keeps a shared rule (a club, a rota, a committee, a team); much White and almost no Red in the color history, or the reverse; a close friend inside the same group
+rarer: no group with written rules; close ties with someone who holds the missing colour; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: {N} helps run the Thursday club, which has one firm rule: miss three sessions without a word, and the place goes to the next on the waiting list. {friend} has just missed a third, after a hard month nobody knew about.
+scene W: {N} wrote that rule and has kept it to the letter for years. Now it points at {friend}, and for once it feels less like fairness than like a door shut on someone {N} loves.
+scene U: {N} weighs it up. The rule is there for good reasons, and so is {Ns} feeling for {friend}, and neither side will simply win the argument.
+scene B: {N} sees what rides on this: {Ns} say in the club, a friendship, and how everyone will read whatever {N} does next.
+scene R: {N} never cared for the rule and wants {friend} straight back in. But the people on the waiting list kept their side of it, and they ask, quietly, why a friend should count for more.
+scene G: {N} thinks of how the club has always worked, and of {friend}, who has been part of it for years. Both belong here.
+- W | apply the rule as written, and tell them face to face before anyone else does | v: conformity, universalism | chance: 58
+- U | ask the others to set down when an exception is fair, then follow that | v: universalism, self-direction | chance: 68
+- B | offer to run the next three sessions yourself if the others let them back | v: power, benevolence | chance: 68
+- R | let them back in today, and answer to the others for it | v: benevolence, self-direction | mark: defied an authority | chance: 58
+- G | let the place go, and stay at their side while they come back the long way | v: tradition, benevolence | mark: made a friend | chance: 68
+- W>B | follow the club's appeal rules to the letter, and win the vote that saves the place | v: power, conformity | chance: 62
+- U>R | find out what happened to them this month, then speak up with the whole story | v: benevolence, self-direction | chance: 62
+- B>G | use your standing to have the rule set aside, so the regulars stay together | v: power, tradition | chance: 62
+- R>W | stand up at the meeting and argue, with feeling, for a fair second chance for anyone | v: universalism | chance: 55
+- G>U | wait a week before deciding, and see what you think once it settles | v: self-direction | chance: 62
+works: {friend} is back by the next Thursday, and the club comes out of it with a rule everyone can live with.
+works: Whatever {N} decides, {friend} understands why, and the friendship holds.
+fails: {friend} stops coming altogether, and {N} hears about it from someone else.
+fails: The club splits over it, and half of them stop speaking to {N}.
+
+== the fortnight away
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: family, home
+horizon: week
+roles: sibling
+earth: you have a fortnight away booked at last, and the family needs someone to look after a sick relative the same two weeks
+requires: one of W and B above .35 and the other below .10; at most once every four years for this pair
+likelier: an ageing or ailing relative; the person is the one who usually steps in, or the one who never does; much White and almost no Black in the color history, or the reverse
+rarer: no close family; a family with money for paid care; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: {N} has a fortnight away booked, the first in years, a chance that is {Ns} alone. Then {sibling} rings: an ailing relative needs someone with them for those same two weeks, and everyone else has a reason they cannot.
+scene W: {N} has always been the one who steps in, and the yes is already halfway out. Under it, a smaller voice asks when {Ns} own life gets a turn.
+scene U: {N} lists what each choice would cost, and who else could cover. The list does not decide anything on its own.
+scene B: {N} has always guarded their own plans, and means to go. But {sibling} sounds worn out, and {N} wonders, for once, what they owe the family that stood by them.
+scene R: {N} feels pulled two ways at once, towards the trip and towards the relative, and both pulls are strong.
+scene G: {N} thinks of how the family has always managed these things, and of what the relative would want.
+- W | cancel the trip and take the fortnight of care without complaint | v: benevolence, conformity | chance: 58
+- U | draw up a rota so the fortnight is split between everyone who can help | v: universalism | chance: 68
+- B | keep the trip, and tell them plainly they must find someone else | v: self-direction, power | mark: refused someone in need | chance: 58
+- R | go round to the relative tonight, and sort the trip out later | v: benevolence | chance: 68
+- G | ask the relative what they want, and let that decide it | v: benevolence, tradition | chance: 68
+- W>R | agree to the care, if the others cover two days a week for your own rest | act: agree to the care, if the others cover two days a week for their own rest | v: self-direction, conformity | chance: 62
+- U>G | look into the relative's illness, and set up their home so they manage on their own | v: benevolence, achievement | chance: 62
+- B>W | pay for a carer for the fortnight out of your own savings | v: benevolence, security | chance: 55
+- R>U | ring round everyone tonight, loudly, until there is a plan | v: achievement | chance: 62
+- G>B | go, and trust the family to cope as it always has | v: self-direction, tradition | chance: 62
+works: The fortnight is covered, and {N} comes out of it neither bitter nor ashamed.
+works: {sibling} thanks {N} in a way {N} has not heard before.
+fails: Whatever {N} chose, {N} spends the fortnight wishing it had been the other.
+fails: An old quarrel in the family opens up again over who did what.
+
+== answer by midnight
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: friends, work
+horizon: moment
+roles: friend
+earth: a friend offers you a month away on something new, and you have until midnight to answer
+requires: one of U and R above .35 and the other below .10; at most once every four years for this pair
+likelier: few ties that hold the person in place; a friend who starts things; much Blue and almost no Red in the color history, or the reverse
+rarer: young children at home; poor health; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: {friend} rings with an offer: a month away, helping set up something new in a town far off, leaving at dawn. They need an answer by midnight, and there is no time to find out much more.
+scene W: {N} thinks first of what is already promised for this month, and who would be let down.
+scene U: {N} wants a week to look into it: the costs, the people, what could go wrong. There is no week, and something whispers that some doors close while a person is still reading the sign.
+scene B: {N} weighs what a month away could lead to, and what it might cost {N} here.
+scene R: {N} wants to pack this minute. Yet a few things {friend} said do not quite fit together, and a small, steady voice asks what exactly {N} would be walking into.
+scene G: {N} looks round at the familiar room and wonders whether this is a door meant for them.
+- W | keep the promises you already made this month, and say no for now | v: conformity | mark: kept your word | chance: 68
+- U | ask three sharp questions, and decide only on the answers | v: self-direction, security | chance: 58
+- B | say yes only if the pay and the way home are agreed in writing | v: power, security | chance: 68
+- R | say yes on the spot and start packing | v: stimulation | mark: took a wild risk | chance: 58
+- G | sleep on it, and go with what your gut says at dawn | v: none clear | chance: 68
+- W>R | ask your household for their blessing first, then go with a clear conscience | v: conformity, stimulation | chance: 62
+- U>G | check what you would miss here, and go only if home will hold meanwhile | v: security, tradition | chance: 62
+- B>W | say yes, and bargain for cover so nobody here is left short | v: power, benevolence | chance: 62
+- R>U | say yes now, and find out the rest by being there | v: stimulation, self-direction | chance: 55
+- G>B | let this one pass, and wait for a better chance of your own | v: security, achievement | chance: 62
+works: The choice sits well with {N}, and a month later it still does.
+works: {N} learns something about themselves from the way the decision was made.
+fails: {N} spends weeks wondering about the road not taken.
+fails: The choice turns out badly, and {N} has to explain it to people who saw it coming.
+
+== the knee that never healed
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: health, home
+horizon: months
+roles: friend
+earth: an old knee injury flares up, and you must choose between an operation that might fix it and learning to live with it
+requires: one of U and G above .35 and the other below .10; at most once every four years for this pair
+likelier: an old injury or a body that has worked hard; middle and later years; much Blue and almost no Green in the color history, or the reverse
+rarer: good health; a job that needs no standing or walking; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: {Ns} old knee injury has flared up again. A specialist says an operation could fix it, with months of rehabilitation and no promise; plenty of people simply live with knees like this.
+scene W: {N} wants to do the sensible, proper thing, and is not sure which of the two that is.
+scene U: {N} has read everything about the operation and wants it fixed properly. Then {friend}, who has the same knee, shrugs and says some things are lived with, not solved, and {N} cannot quite dismiss it.
+scene B: {N} thinks about what the knee is costing and what each choice would cost in turn.
+scene R: {N} hates being slowed down and wants it over with, one way or another.
+scene G: {N} has always taken the body as it comes. But the stairs are harder each month, and a thought keeps returning: what if this could simply be put right?
+- W | do exactly what your own doctor advises, no more and no less | v: conformity, security | chance: 68
+- U | book the operation, and track every week of the recovery | v: achievement, self-direction | tech: modern medicine | chance: 58
+- B | push for the best surgeon around, whatever strings it takes | v: power, achievement | chance: 68
+- R | ignore it and keep doing everything you love until it stops you | act: ignore it and keep doing everything they love until it stops them | body: light | v: hedonism, stimulation | chance: 68
+- G | live with it: slower on the stairs, a stick on bad days, no fuss | v: tradition, security | chance: 58
+- W>R | keep a strict routine of rest and care, so you can dance again by summer | act: keep a strict routine of rest and care, so they can dance again by summer | v: hedonism, conformity | chance: 62
+- U>G | learn the exercises that help the knee heal by itself, and do them daily | v: self-direction, security | mark: learned a skill | chance: 55
+- B>W | use your savings to get it fixed fast, so nobody has to carry you | act: use their savings to get it fixed fast, so nobody has to carry them | v: security, benevolence | chance: 62
+- R>U | try every treatment going, one after another, and see which works | v: stimulation, self-direction | chance: 62
+- G>B | wait it out, and keep the money and the months for something you want more | v: security, self-direction | chance: 62
+works: Months later {N} takes the stairs without thinking about it.
+works: The knee is what it is, and {N} has made a kind of peace with it.
+fails: The knee gets worse, and {N} wonders whether the other road would have been better.
+fails: The months go on pain and waiting, and {Ns} temper goes with them.
+
+== the cottage and the offer
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: family, home, money
+horizon: months
+roles: sibling
+earth: you and your sibling inherit an old family cottage, and a buyer makes a strong offer for it
+requires: one of B and G above .35 and the other below .10; at most once every four years for this pair
+likelier: a family with some property or old roots in one place; the death of an older relative within the year; much Black and almost no Green in the color history, or the reverse
+rarer: no family property; a family scattered long ago; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in fifteen, at most once every four years (estimate)
+gap: 4-12
+scene: An old family cottage has passed to {N} and {sibling} together. A buyer has made a strong offer, and the cottage has been in the family for generations.
+scene W: {N} wants whatever happens to be fair to {sibling} and true to the relative who left it.
+scene U: {N} wants the facts first: what it is worth, what it needs, what each choice would mean in ten years.
+scene B: {N} has done the sums: sell, split it, and the money opens doors. But standing in the cottage kitchen among the old jars, {N} feels something the sums leave out.
+scene R: {N} walks through the rooms and feels everything at once: the summers, the people, the chance.
+scene G: {N} had assumed the cottage would just stay, as it always has. Then {sibling} shows the offer, and {N} wonders, for once, what {N} could make of {Ns} own share.
+- W | split everything fairly with {sibling} first, then decide together | v: universalism, conformity | chance: 68
+- U | have the cottage valued properly, and lay out every option on paper | v: self-direction, security | chance: 68
+- B | accept the offer, and use your share to set yourself up | v: achievement, power | chance: 58
+- R | tell {sibling} straight out how you feel, before any numbers are said | act: tell {sibling} straight out how they feel, before any numbers are said | v: self-direction | chance: 68
+- G | keep it as it is, and go there in summer as the family always has | v: tradition | chance: 58
+- W>R | agree a fair share with {sibling}, then spend yours on something you have long wanted | act: agree a fair share with {sibling}, then spend theirs on something they have long wanted | v: hedonism, universalism | chance: 62
+- U>G | restore the cottage room by room, keeping the old things that matter | v: tradition, achievement | chance: 62
+- B>W | bargain the buyer up, then share the gain evenly with the whole family | v: power, universalism | chance: 62
+- R>U | spend a weekend there alone, and see what it tells you | act: spend a weekend there alone, and see what it tells them | v: self-direction, stimulation | chance: 62
+- G>B | hold on to it for years, and let its value grow while it waits | v: security, achievement | chance: 55
+works: {N} and {sibling} settle it without a quarrel, and both feel it was done right.
+works: Whatever happens to the cottage, {N} knows what it meant and keeps that.
+fails: The cottage comes between {N} and {sibling} for a long while.
+fails: {N} makes the choice and regrets it within the year.
+
+# ---------------------------------------------------------------- ally pairs
+
+== the sums that never added up
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: community, friends, money
+horizon: months
+roles: friend
+earth: you keep the accounts for a group, and find the agreed way of splitting costs has been unfair for years
+requires: one of W and U above .35 and the other below .10; at most once every four years for this pair
+likelier: a group with shared money (a club, a household, a family pot, a residents' group); much White and almost no Blue in the color history, or the reverse
+rarer: no shared money; someone else keeps the books; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: {N} keeps the accounts for a group. Going through the figures, {N} finds the agreed way of splitting costs has been quietly unfair for years, and putting it right means going against what everyone agreed.
+scene W: To {N}, agreed is agreed. But the figures are plain, and a question {N} rarely asks comes back: why keep a rule that is known to be wrong?
+scene U: {N} could fix the method tonight. Then {N} thinks of {friend} and the others, who agreed the old way together, and wonders whether a better answer counts if nobody else chose it.
+scene B: {N} notices who has been paying too much and who too little, and where {N} stands in it.
+scene R: {N} feels the unfairness like a stone in a shoe and wants it out.
+scene G: {N} wonders how the old way came about, and who set it up, and why.
+- W | keep the agreed method until the group chooses to change it | v: conformity, security | chance: 58
+- U | switch to the correct method now, and explain the figures afterwards | v: self-direction, achievement | closed: approval: changing the books without a vote; backfire: accused of meddling with the accounts | chance: 58
+- B | correct your own share first, quietly, then raise the rest | v: power, security | chance: 68
+- R | tell everyone at once, plainly, that it has been unfair for years | v: universalism, stimulation | chance: 68
+- G | ask the longest-standing members why it was set up that way before touching it | v: tradition | chance: 68
+- W>U | put the better method to a proper vote, with the figures for all to see | v: universalism, self-direction | chance: 55
+- U>B | use the figures to win yourself a seat where the money is decided | v: power, achievement | chance: 62
+- B>R | pay back whoever lost out from your own pocket, and enjoy their surprise | v: hedonism, benevolence | chance: 62
+- R>G | throw a supper, set things right over food, and keep the group together | v: benevolence, tradition | chance: 62
+- G>W | let the yearly meeting take it up, as it takes up everything | v: tradition, conformity | chance: 62
+works: The group settles on a fairer way, and {N} is thanked for finding it.
+works: Nobody is happy about the old mistake, but nobody blames {N} for it.
+fails: {friend} takes it as an accusation, and the group splits into sides.
+fails: The change goes through badly, and {N} is left doing the accounts alone.
+
+== last year's answers
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: trouble
+life: school, work
+horizon: week
+roles: friend
+earth: you are studying for a test you chose to take, and a friend offers you last year's marked answers
+requires: one of U and B above .35 and the other below .10; at most once every four years for this pair
+likelier: a course, a training or a licence under way; a field where a certificate opens doors; much Blue and almost no Black in the color history, or the reverse
+rarer: no study under way; later years; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in twelve, at most once every four years (estimate)
+gap: 4-12
+scene: {N} is working towards a certificate on a course of {Ns} own choosing. {friend} offers last year's marked answers, and word is the test has hardly changed.
+scene W: {N} knows exactly what the course rules say about this.
+scene U: {N} came to learn the thing, not to pass a test. But {friend} says everyone else has the answers, and that the job goes to whoever holds the paper, and {N} cannot quite argue.
+scene B: {N} sees an easy pass and time saved for what pays. Yet a quiet question keeps coming back: when the work needs what the paper claims, what then?
+scene R: {N} feels the itch of the shortcut and the sting of being offered it.
+scene G: {N} thinks of the people who did the course the long way before them.
+- W | tell the course leader the answers are going round | v: conformity, universalism | closed: approval: telling on friends; backfire: shunned by the rest of the course | chance: 68
+- U | turn down the answers, and study until you truly understand it | v: self-direction, achievement | mark: learned a skill | chance: 58
+- B | use the answers, pass, and spend the time saved on what pays | v: achievement, power | closed: approval: cheating on a test; backfire: found out, and the certificate taken back | chance: 58
+- R | laugh, hand the answers back, and take the test on nerve | v: stimulation | chance: 68
+- G | take the test as you are, and let the result show where you stand | v: tradition | chance: 68
+- W>U | ask the course leader for extra sessions so everyone can learn it properly | v: universalism, self-direction | chance: 62
+- U>B | work out what the test really rewards, and study only that | v: achievement | chance: 55
+- B>R | charge the others on the course for coaching, and spend the earnings on fun | v: hedonism, power | chance: 62
+- R>G | pull a study group together, and get through it side by side | v: benevolence | chance: 62
+- G>W | do it the slow way the old hands did, and keep the course's good name | v: tradition, conformity | chance: 62
+works: {N} passes, and knows what the pass is worth.
+works: The test goes well enough, and {N} is glad of how it was done.
+fails: {N} fails the test, and has to wait months to sit it again.
+fails: Word gets round about the answers, and {N} is caught up in it.
+
+== an unexpected sum
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: money, friends
+horizon: week
+roles: friend
+earth: a modest sum lands in your account, and a friend has a plan for spending it
+requires: one of B and R above .35 and the other below .10; at most once every four years for this pair
+likelier: a bonus, a refund, a small gift or a win; a friend who likes a good time; much Black and almost no Red in the color history, or the reverse
+rarer: debts that swallow any windfall; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: A modest sum lands in {Ns} account: a bonus, a refund, a small gift. {friend} has a plan for a week of sun and music; the same money would make a real start on something of {Ns} own.
+scene W: {N} thinks first of what is owed, and to whom.
+scene U: {N} wants to work out properly what the money could become.
+scene B: {N} already knows where it is going: into the plan, every bit of it. Then {friend} asks when {N} last enjoyed anything, and {N} cannot remember.
+scene R: {N} is half packed already. Then the same thought keeps coming back: in a month the money will be gone, and nothing of {Ns} own will be any further on.
+scene G: {N} looks at the sum and thinks of the lean years that come to everyone.
+- W | pay off what you owe first, then decide | v: security, conformity | chance: 68
+- U | sit down and work out what each choice would mean in five years | v: self-direction, security | chance: 68
+- B | use it as the first stake in something of your own | v: self-direction, achievement | chance: 58
+- R | say yes to {friend}, and spend it on the week, gladly | v: hedonism, stimulation | chance: 58
+- G | put it aside for a rainy day, and carry on as before | v: security, tradition | chance: 68
+- W>U | spend it on the course you promised yourself, and keep to the schedule | v: achievement, conformity | chance: 62
+- U>B | compare every option carefully, and put it where it earns most | v: security, achievement | chance: 62
+- B>R | bargain the trip down hard, and go with money still in hand | v: hedonism, power | chance: 55
+- R>G | take your closest people away for a long weekend together | v: benevolence, hedonism | chance: 62
+- G>W | put it in the family pot, as the older ones always did | v: tradition, benevolence | chance: 62
+works: The money does what {N} meant it to, and {N} has no regrets.
+works: {N} looks back on the choice with a smile months later.
+fails: The money goes, and {N} is not sure where.
+fails: {friend} is hurt by {Ns} choice, and says so.
+
+== the old crowd's night
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: friends, leisure
+horizon: months
+roles: friend
+earth: your oldest friends meet every week on the same night, and you have found something new of your own on that night
+requires: one of R and G above .35 and the other below .10; at most once every four years for this pair
+likelier: a long-standing circle of friends; a new pastime or group taken up within the year; much Red and almost no Green in the color history, or the reverse
+rarer: no circle of old friends; a recent move; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in ten, at most once every four years (estimate)
+gap: 4-12
+scene: For years {N} and the old crowd have met on the same night every week. Now {N} has found something new, with new people, and it falls on that same night.
+scene W: {N} wants to be fair to the old crowd and to the new people both.
+scene U: {N} wonders what each of the two nights gives, and which matters more.
+scene B: {N} thinks about where each road leads, and which people could help {N} get somewhere.
+scene R: The new thing makes {N} feel alive, and {N} means to go. But {friend} says, without bitterness, that the old crowd will not wait for ever, and {N} feels the ground shift.
+scene G: {N} has never missed the old night and never meant to. But the new thing tugs, and a voice asks when {N} last did anything only for themselves.
+- W | tell the old crowd honestly, and agree a fair split of the weeks | v: conformity, benevolence | chance: 68
+- U | try both for a month, then compare how each one leaves you | act: try both for a month, then compare how each one leaves them | v: self-direction | chance: 68
+- B | go where the people are who can do the most for you | act: go where the people are who can do the most for them | v: power, achievement | chance: 68
+- R | go to the new thing every week, and let the old crowd think what they like | v: stimulation, self-direction | chance: 58
+- G | keep the old night as it has always been, and let the new thing go | v: tradition, benevolence | chance: 58
+- W>G | turn up to the old night without fail, so the crowd never falls apart | v: tradition, conformity | mark: kept your word | chance: 62
+- U>W | suggest a new night that suits everyone, and work out the dates | v: universalism | chance: 62
+- B>U | ask the best of the new people to teach you, in return for a favour | act: ask the best of the new people to teach them, in return for a favour | v: achievement, self-direction | mark: learned a skill | chance: 62
+- R>B | make the new thing your own, and lead it rather than follow | v: power, self-direction | chance: 62
+- G>R | keep the old night, and let the new thing grow slowly, one night a month | v: tradition, stimulation | chance: 55
+works: {N} finds a way to keep both, and is the richer for it.
+works: The choice settles, and {N} is glad of where {N} spends that night.
+fails: The old crowd drifts off without {N}, and it hurts more than expected.
+fails: The new thing fades, and {N} wonders what it was all for.
+
+== the wild corner
+tier: inner
+stages: juvenile+
+age: 16-110
+tone: mixed
+life: community, home
+horizon: months
+roles: friend
+earth: the allotment committee has new rules against wild patches, and a friend's plot has a tangled corner full of life
+requires: one of G and W above .35 and the other below .10; at most once every four years for this pair
+likelier: a garden, allotment or shared green space; a place on a committee; much Green and almost no White in the color history, or the reverse
+rarer: no shared ground; city flat living; a long hold of both colours earlier in life
+times: Only lives with one of the two far ahead of the other meet it, perhaps one life in twelve, at most once every four years (estimate)
+gap: 4-12
+scene: {N} sits on the allotment committee, which has just agreed new rules: plots kept tidy, no wild patches. {friend} has a tangled corner full of frogs and bees, and the first inspection falls to {N}.
+scene W: {N} helped write the rules, and they are good rules. But kneeling by the corner, watching the bees work, {N} wonders whether some things grow best where no rule reaches.
+scene U: {N} wants to know what actually lives in the corner, and what harm it really does.
+scene B: {N} thinks about the committee, {friend}, and where {N} would stand after either choice.
+scene R: {N} feels the rule rub, and also feels for the neighbours who voted for it.
+scene G: {N} loves the wild corner. Yet the plots beside it are full of its weeds, the rule was voted fairly, and {N} wonders whether letting things be is quite enough here.
+- W | inspect fairly, and give {friend} a month to tidy it like everyone else | v: conformity, universalism | chance: 58
+- U | count what lives in the corner, and bring the figures to the committee | v: self-direction, universalism | chance: 68
+- B | trade {friend} a pass on the corner for help on your own plot | v: power | chance: 68
+- R | tell the committee straight out the rule is daft, and walk out | v: self-direction | closed: approval: walking out on the committee; backfire: voted off it | chance: 68
+- G | leave the corner be, and let the inspection note what it notes | v: universalism, tradition | closed: approval: passing over a duty the committee set; backfire: taken off the inspections | chance: 58
+- W>G | propose a rule that every plot keeps one small wild corner | v: universalism, conformity | chance: 55
+- U>W | draft a fairer version of the rule that both sides can accept | v: universalism | chance: 62
+- B>U | talk the committee into a year's trial, and keep the records yourself | v: achievement, power | chance: 62
+- R>B | speak up hard for {friend}'s right to run their own plot their own way | v: self-direction | chance: 62
+- G>R | let {friend} keep it wild, and join them there to watch the frogs at dusk | v: hedonism, universalism | mark: made a friend | chance: 62
+works: The allotments find a way to keep both their tidy rows and their bees.
+works: {friend} and {N} come out of it still on good terms, which matters most.
+fails: The committee splits over a corner of brambles, and meetings turn sour.
+fails: {friend} gives up the plot, and the corner is cleared by someone else.

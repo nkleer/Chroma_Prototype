@@ -1,0 +1,880 @@
+# Chroma library, modern Earth: what the Protection sphere's events bring into a life (Library thread, 2026-10-09,
+# "v22" update stage 4, item 15 phase 3: a moment for each sphere event that touches the character). Design:
+# chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data chroma-ideas/spheres-data/prot.json (each
+# event's trigger, on_character and wording.modern; the faces and pairs). Fields: build.py (WORLD_SIT, WORLD_OPT and the
+# spheres' fields, world-fields.md 2026-10-09).
+#
+# Every moment here is an event moment: a life event with per_year all 0 (it exists only with the world and the
+# sph_events switch on), no drivers, sphere: prot and sphere_event: <key>. The Engine fires each on its event for the
+# people its selector names; the '# world:' line above each names the event key, the selector and the share of selected
+# people who get the moment (estimate). Every option carries sphere: the face it acts in (prot.X for a one-colour option,
+# the pair face in wheel order for a pair option).
+#
+# Which events: every prot event whose epochs include modern and that has on_character, 21 in all, less one the world
+# already brings: call_up (fired with the world's 'war begins') is 'the call to serve' (earth-world-civic.lib), so it is
+# skipped. crime_wave, disaster_strikes and peace_made also ride on world events (section 5), but earth.py has no moment
+# for them as a town's event: 'robbed or attacked in the street' is one's own robbery, 'a disaster in the next town' is a
+# read event of a town nearby, 'the town builds itself back' is the recovery, and no moment marks a war's end; so they
+# are written here. 20 moments.
+#
+# Layout: each is a life event with five one-colour options and one half of a pair set; the twelve halves D1a to D6b
+# are each used once or twice (both halves of every D), picked so the set holds the pair the event's data names where
+# it can (raid_foiled UB, watch_founded WU, heavy_hand and brave_stand RW, veterans_home and civil_war BG ...).
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
+# colour has the same mean chance in each moment and so in every stage. No flags.
+#
+# Safety: war, crime and disaster are told indirectly and never graphically; no option kills or uses a weapon on anyone;
+# no child is harmed (the moments open at 14); nothing sexual. No real place, war, force, brand or year.
+#
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
+
+# ---------------------------------------------------------------- raid_foiled (pairs D1b)
+
+# world: sphere event raid_foiled, selector place, share .05
+== the van that keeps circling
+tier: life event
+stages: juvenile+
+age: 14-90
+sphere: prot
+sphere_event: raid_foiled
+share: 0.03
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: raid_foiled (sphere prot). The lookouts see them coming: a planned theft or robbery in the place is noticed and reported in time; about 1 in 20 people there are the ones who notice or pass on the warning (share .05, estimate); most people meet it once in a life or never (estimate)
+likelier: a street where people know each other's cars, a shop or depot that handles cash, a watch or a guard that answers calls
+rarer: a busy anonymous centre, a street where nobody reports anything
+gap: 10-30
+tone: joy
+life: work, community
+horizon: week
+roles: colleague, boss, neighbours, friend
+earth: for three days running the same van has circled the depot at closing time, slowing by the gate
+scene: For three evenings running the same van has crept past the depot at closing time, slowing by the gate just as the takings go out. Nobody else seems to have noticed.
+scene W: There is a number to ring for exactly this. {N} has never rung it, and feels foolish even thinking of it.
+scene U: {N} has started writing down the times: ten past six, twelve past, eight past. The van comes when the cash bags leave, every time.
+scene B: Whoever stops a robbery before it happens is owed something. {N} wonders who would be grateful enough to say so.
+scene R: {Ns} pulse jumps every time the van turns the corner. Part of {N} wants to walk straight up and knock on the window.
+scene G: {N} knows every car on this street and whose it is. This one belongs to nobody here.
+- W | ring the police and report the van, its plate and the times | v: security, conformity | lever: voice | pushes: institution police | sphere: prot.W | chance: 75
+- U | keep a log of the van's times for a week before saying anything | v: self-direction, security | sphere: prot.U | chance: 68
+- B | take what you saw to the depot's owner, and make sure they know who spotted it | v: achievement, power | sphere: prot.B | chance: 75
+- R | walk over and ask the driver straight out what they are waiting for | v: stimulation, self-direction | mark: took a wild risk | sphere: prot.R | chance: 66
+- G | tell the neighbours and the other shops on the street to keep an eye out | v: benevolence, security | sphere: prot.G | chance: 70
+- RG | stay late with two neighbours and stand by the gate when the bags go out | v: benevolence, stimulation | lever: loyalty | sphere: prot.RG | chance: 70
+- UB | have a quiet word with the guard firm that collects the takings | v: security, achievement | sphere: prot.UB | chance: 66
+- UR | photograph the van's plate as it passes, and send it in that night | v: stimulation, security | tech: phone | sphere: prot.UR | chance: 74
+- WB | ask the manager to change the collection time and the route, and log it | v: security, conformity | sphere: prot.WB | chance: 60
+- WG | ring the police, then knock on every door on the street that evening | v: benevolence, conformity | sphere: prot.GW | chance: 66
+works: The van stops coming. Weeks later {N} hears the police found its plates on a car in another town.
+works: Nothing happens, which is the whole point, and the owner shakes {Ns} hand at the door.
+fails: Nobody takes {N} seriously, and the van goes on circling as if nothing had been said.
+fails: The van turns out to be a lost delivery driver three days in a row, and {N} hears about it for months.
+
+# ---------------------------------------------------------------- siege (pairs D3b)
+
+# world: sphere event siege, selector place, share .8
+== the city is surrounded
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: siege
+share: 0.41
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: siege (sphere prot). A town cut off by a hostile force for weeks or months comes only with a war and is very rare in a stable state; inside it almost everyone lives through it as a moment of their own (share .8, estimate); far fewer than 1 in 100 lives in modern Earth meet one (estimate)
+likelier: a war on the border, a town with walls of river or hills that can be closed, thin stores
+rarer: a stable state at peace, a town with open roads in every direction
+gap: 20-60
+tone: trouble
+life: home, community
+horizon: months
+roles: parent, sibling, neighbours, friend
+earth: the city is surrounded: power and water fail by turns, the shops are bare, and neighbours cook together in the stairwell
+scene: The roads out of {place} have been closed for five weeks. The power comes on for two hours a day, the water for one, and the whole stairwell cooks on a single gas ring on the landing.
+scene W: The council has drawn up a ration list, a name and a share for every flat. {N} thinks it only works if everyone keeps to it.
+scene U: {N} has worked out how long the stores in the building will last at this rate: nineteen days, perhaps twenty-two.
+scene B: A tin of milk powder now buys a week of someone's labour. {N} knows who on the landing still has a full cupboard.
+scene R: Sitting in the dark and waiting is the hardest part. {N} would rather be out doing anything at all.
+scene G: {Ns} family has lived in this building for three generations. Whatever happens, they go through it together, here.
+- W | put your stores on the ration list and take only your share | v: universalism, conformity | mark: kept your word | lever: loyalty | pushes: place | sphere: prot.W | chance: 68
+- U | rig a rain catcher and a filter on the roof for the whole building | v: self-direction, benevolence | mark: learned a skill | sphere: prot.U | chance: 65
+- B | trade the spare batteries you put by for food and favours | v: power, security | sphere: prot.B | chance: 78
+- R | join the crews that carry water to the defenders at the edge of town | v: stimulation, benevolence | mark: took a wild risk | lever: loyalty | sphere: prot.R | chance: 73
+- G | keep the family in the flat, and share only with the neighbours you know | v: security, tradition | sphere: prot.G | chance: 62
+- BR | make the night runs for supplies through the back streets, for a share | v: stimulation, power | mark: took a wild risk | sphere: prot.BR | chance: 50
+- UG | plant beans and herbs in every window box and in the courtyard | v: security, self-direction | sphere: prot.GU | chance: 66
+- UR | patch up the old generator so the stairwell has light at night | v: achievement, benevolence | sphere: prot.UR | chance: 64
+- WB | get the council to pay the building's volunteers in food, and keep the books | v: security, achievement | pushes: place | sphere: prot.WB | chance: 54
+- WG | cook for the whole stairwell every night from what everyone brings | v: benevolence, tradition | mark: helped someone in need | sphere: prot.GW | chance: 70
+works: The roads open in the spring, and the stairwell that cooked together stays friends for good.
+works: {N} comes through it thinner and steadier, and so do the people {N} kept close.
+fails: The weeks drag into months, and {N} learns what hunger does to a temper.
+fails: A quarrel over food splits the landing, and some doors stay shut long after the roads open.
+
+# ---------------------------------------------------------------- peace_made (pairs D2b)
+
+# world: sphere event peace_made, selector all, share .3
+== the ceasefire holds
+tier: life event
+stages: juvenile+
+age: 14-100
+sphere: prot
+sphere_event: peace_made
+share: 0.15
+once: yes
+who: sibling
+per_year: 0 0 0 0 0 0
+times: World event: peace_made (sphere prot), with the world's 'war ends'. It comes only after a war; in a country that was at war nearly everyone feels the peace, and about 3 in 10 meet it as a moment of their own: someone close home, the border open, prices easing (share .3, estimate)
+likelier: someone close who served, a border town, a long war
+rarer: a war fought far away by a professional army
+gap: 15-60
+tone: joy
+life: home, community
+horizon: months
+roles: sibling, parent, friend, neighbours
+earth: the ceasefire holds, the treaty is signed, and the reservists start coming home
+scene: The ceasefire held, and this morning the treaty was signed. The trains are full of reservists coming home, the border crossing opens on Monday, and {sibling} has sent a message: the evening train.
+scene W: A treaty is a promise kept on both sides. {N} reads its terms in full and hopes both sides mean them.
+scene U: {N} wonders what the peace will change: the prices, the jobs, the border, and who will take the credit.
+scene B: When the border opens, trade opens with it. {N} is already thinking about what could cross it.
+scene R: {N} wants to be on the platform when the train comes in, and to cheer until {Ns} voice goes.
+scene G: There will be a full table again at last, with every chair taken.
+- W | go to the service for the ones who did not come back | v: tradition, conformity | lever: loyalty | sphere: prot.W | chance: 79
+- U | read the treaty through and work out what it means for the town | v: self-direction, universalism | mark: learned a skill | sphere: prot.U | chance: 76
+- B | be first across the reopened border with goods the other side has gone without | v: achievement, power | mark: took a wild risk | sphere: prot.B | chance: 75
+- R | meet the evening train with a crowd of friends and a great deal of noise | v: hedonism, stimulation | sphere: prot.R | chance: 80
+- G | cook the homecoming meal and set every place at the table | v: tradition, benevolence | sphere: prot.G | chance: 74
+- RG | throw a street party for everyone who came home, and their families | v: hedonism, benevolence | mark: made a friend | sphere: prot.RG | chance: 66
+- UB | find the returning reservists work, for a fee from the firms that hire them | v: achievement, power | sphere: prot.UB | chance: 62
+- UG | give the one who came home time and quiet, and listen when they want to talk | v: benevolence | sphere: prot.GU | chance: 66
+- WB | help run the council's desk that finds each returning reservist a post | v: security, achievement | pushes: place | sphere: prot.WB | chance: 68
+- WR | speak at the town meeting for keeping the peace when the hard voices start | v: universalism, benevolence | lever: voice | pushes: state | sphere: prot.RW | chance: 54
+works: {sibling} steps off the train, thinner and grinning, and the evening is one {N} keeps for life.
+works: Prices ease by summer, the border stays open, and the town breathes out.
+fails: The peace holds, but the one who came home is quieter than before, and the house feels it.
+fails: The celebrations sour into an argument over who won what, and {N} goes home early.
+
+# ---------------------------------------------------------------- veterans_home (pairs D1a)
+
+# world: sphere event veterans_home, selector place, share .15
+== home from service for good
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: veterans_home
+share: 0.08
+once: yes
+who: friend
+per_year: 0 0 0 0 0 0
+times: World event: veterans_home (sphere prot). When a war ends after many served, the fighters come home; about 15 in 100 people in the place have a friend or a sibling among them and meet it as a moment (share .15, estimate); a person meets it once in a life or never (estimate)
+likelier: a long war, a town that sent many, a friend or sibling who served
+rarer: a short war, a professional army drawn from far away
+gap: 15-60
+tone: mixed
+life: ties, home
+horizon: years
+roles: friend, sibling, parent
+earth: a close friend is home from service for good: a study grant, a long wait at the clinic, and long silences
+scene: {friend} is home from service for good, with a study grant, a clinic appointment four months away, and a way of going quiet in the middle of a sentence.
+scene W: {friend} served because the country asked. {N} thinks the least the town owes is a proper welcome and a fair way back.
+scene U: {N} has read about what long service does to sleep and temper, and watches {friend} more closely than {friend} would like.
+scene B: The grant is good money if it is used well. {N} wonders whether {friend} knows what it can buy.
+scene R: {N} wants the old {friend} back: the laughing one, the one who started things. Maybe one good night out will do it.
+scene G: {friend} has a seat at {Ns} table whenever they want it, for as long as they want it.
+- W | go with them to the veterans' office and sort out every form they are owed | v: benevolence, conformity | sphere: prot.W | chance: 69
+- U | find out which courses the study grant pays for, and help them choose | v: benevolence, self-direction | sphere: prot.U | chance: 66
+- B | get them taken on at a guard firm where a soldier's skills pay well | v: achievement, security | sphere: prot.B | chance: 74
+- R | take them out to the old places with the old crowd, just like before | v: hedonism, stimulation | sphere: prot.R | chance: 73
+- G | keep a place at the table for them every Sunday, and ask nothing | v: benevolence, tradition | sphere: prot.G | chance: 72
+- BG | help them put the grant into a small trade of their own near home | v: security, achievement | sphere: prot.BG | chance: 56
+- BR | go into business with them: a removals van, two strong backs and no boss | v: self-direction, achievement | sphere: prot.BR | chance: 60
+- UG | walk the hills with them on Saturdays, and let them talk or not | v: benevolence | sphere: prot.GU | chance: 64
+- WR | stand up for them at the clinic until they are seen sooner | v: benevolence, universalism | lever: voice | pushes: institution hospital | sphere: prot.RW | chance: 58
+- WU | join the veterans' group at the hall and help run its evenings | v: benevolence, conformity | lever: loyalty | sphere: prot.WU | chance: 68
+works: Slowly {friend} comes back into the world, and {N} is one of the reasons why.
+works: A year on, {friend} is studying, laughing again, and teasing {N} about all the fuss.
+fails: {friend} drifts from the old crowd, and from {N} too, and nothing seems to reach them.
+fails: Whatever {N} tries that year is the wrong thing, and the friendship goes quiet for a long time.
+
+# ---------------------------------------------------------------- safe_passage (pairs D4b)
+
+# world: sphere event safe_passage, selector place, share .2
+== a night guard for the main street
+tier: life event
+stages: juvenile+
+age: 16-90
+sphere: prot
+sphere_event: safe_passage
+share: 0.1
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: safe_passage (sphere prot). The road is made safe: the traders of a street or a quarter pay together for a guard; about 1 in 5 people in the place work or live on the guarded street and meet it as a moment (share .2, estimate)
+likelier: a winter of break-ins, a high street of small shops, traders who already meet
+rarer: a street of chain stores with their own guards, a quarter with no shops
+gap: 10-30
+tone: joy
+life: work, community, money
+horizon: months
+roles: neighbours, boss, colleague, friend
+earth: after a winter of break-ins, the shopkeepers on the main street agree to share the cost of a night guard
+scene: After a winter of break-ins, the shopkeepers on the main street meet in the back of the bakery and agree to share the cost of a night guard. They need someone to run it, everyone to pay in, and someone to walk it.
+scene W: A guard for the street should be a guard for every shop, whether it paid the most or the least. {N} says so.
+scene U: {N} has the dates and times of every break-in this winter, and a fair idea which hours the guard should walk.
+scene B: A night guard is a wage. A firm of guards is a living. {N} has been thinking about that for a while.
+scene R: {N} would walk the street at night for nothing, just for the feel of it, and is half tempted to say so.
+scene G: These are {Ns} neighbours. If the street is to be kept, it should be kept by people who live on it.
+- W | draw up one fair rule for what each shop pays and what the guard covers | v: universalism, conformity | sphere: prot.W | chance: 72
+- U | map the winter's break-ins and plan the guard's rounds from them | v: self-direction, achievement | mark: learned a skill | sphere: prot.U | chance: 70
+- B | bid for the job at a proper price, and run it as a business | v: achievement, power | lever: found | sphere: prot.B | chance: 76
+- R | take the night shift yourself and walk the street until dawn | v: stimulation, benevolence | lever: loyalty | sphere: prot.R | chance: 77
+- G | pay your share and keep a light on in your window at night | v: security, benevolence | lever: fund | sphere: prot.G | chance: 69
+- BR | start a small guard crew of your own with two friends and a van | v: achievement, stimulation | lever: found | sphere: prot.BR | chance: 56
+- UB | get a cheaper rate from the big guard firm by sharing it with the next street | v: achievement, security | sphere: prot.UB | chance: 64
+- UG | set up a phone tree between the guard and the flats above the shops | v: security, benevolence | tech: phone | sphere: prot.GU | chance: 68
+- WG | collect the money door to door and keep the book of who has paid | v: conformity, benevolence | lever: lead | sphere: prot.GW | chance: 66
+- WR | speak up for the corner shop that cannot pay, and cover its share | v: benevolence, universalism | lever: voice | sphere: prot.RW | chance: 62
+works: The break-ins stop, and by summer two empty shops on the street have opened again.
+works: The street feels like a street again at night, and {N} had a hand in it.
+fails: Half the shops stop paying by the second month, and the guard goes with the money.
+fails: The guard keeps the main street safe, and the break-ins simply move round the corner.
+
+# ---------------------------------------------------------------- new_arms (pairs D5a)
+
+# world: sphere event new_arms, selector staff, share .5
+== the new radios and phone maps
+tier: life event
+stages: young_adult adult mature
+age: 18-67
+sphere: prot
+sphere_event: new_arms
+share: 0.25
+once: yes
+at: police
+per_year: 0 0 0 0 0 0
+times: World event: new_arms (sphere prot). New kit and new drill reach the watch and the volunteer crews; about half of the staff of a police station or a rescue crew meet the change as a moment of their own (share .5, estimate); a long career sees two or three such changes (estimate)
+likelier: a station with new money, a young force, a town where volunteer crews work beside the police
+rarer: a poor force that keeps the old kit, a desk post far from the patrols
+gap: 8-20
+tone: mixed
+life: work
+horizon: months
+roles: colleague, boss, mentor
+earth: cheap radios and phone maps reach every patrol and volunteer crew, and the old ways of working are worth less overnight
+scene: The new radios and phone maps came into the station on Monday. Every patrol now sees every other on one screen, and the sergeant says the old ways of working are finished.
+scene W: The new kit comes with a new drill, and the drill will be the same for everyone. {N} likes that.
+scene U: {N} has already found three things the maps get wrong, and two things they could do that nobody has tried.
+scene B: The officers who master the new kit first will be the ones who are promoted. {N} means to be one of them.
+scene R: {N} made a name by knowing the streets by heart and getting there first. Now a screen does it.
+scene G: The old hands knew every alley and every family. {N} wonders whether a map can know a street like that.
+- W | do the training course properly and pass the new drill first time | v: conformity, achievement | mark: learned a skill | lever: loyalty | pushes: institution police | sphere: prot.W | chance: 59
+- U | test the maps on your own beat and write up where they go wrong | v: self-direction, achievement | lever: voice | pushes: institution police | sphere: prot.U | chance: 66
+- B | ask for the new specialist post, and the pay that comes with it | v: achievement, power | sphere: prot.B | chance: 64
+- R | keep your own way of working, and trust your feet over the screen | v: self-direction, stimulation | lever: neglect | sphere: prot.R | chance: 64
+- G | teach the volunteer crews in your patch to use the new kit | v: benevolence | sphere: prot.G | chance: 59
+- BG | train the neighbours' watch on the radios, for a modest fee | v: achievement, benevolence | sphere: prot.BG | chance: 64
+- UB | sell the station a better way to use the maps, and take the credit | v: achievement, power | sphere: prot.UB | chance: 60
+- UR | build a faster call-out plan with the new kit, and try it on the night shift | v: stimulation, achievement | sphere: prot.UR | chance: 60
+- WG | pair each new recruit with an old hand who knows the streets | v: tradition, benevolence | lever: lead | sphere: prot.GW | chance: 70
+- WR | take the first night out with the new kit, and show the doubters it works | v: stimulation, conformity | sphere: prot.RW | chance: 64
+works: Within a season {N} is the one the others ask about the new kit.
+works: The new kit and the old knowledge turn out to need each other, and {N} has both.
+fails: The new system drops out on the busiest night of the year, and {N} takes the blame.
+fails: {N} falls behind the younger ones on the screens, and is quietly moved to a desk.
+
+# ---------------------------------------------------------------- watch_founded (pairs D6b)
+
+# world: sphere event watch_founded, selector place, share .3
+== officers on foot on the estate
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: watch_founded
+share: 0.15
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: watch_founded (sphere prot). A watch is raised: the council pays for local officers on foot; about 3 in 10 people on the estates they walk meet them as a moment of their own (share .3, estimate)
+likelier: an estate with thefts and fights, a council with money, trust in the rule
+rarer: a quiet suburb, a place that distrusts the police
+gap: 10-30
+tone: joy
+life: community, work
+horizon: months
+roles: neighbours, friend, parent
+earth: the council pays for a team of local officers who walk the estate on foot and learn everyone's name
+scene: The council has paid for a team of local officers to walk the estate on foot. On the first morning one of them stops at {Ns} door, says her name, and asks what the street worries about most.
+scene W: {N} has waited years for someone in uniform to treat the estate the same as the smart side of town.
+scene U: {N} could tell her exactly which corners and which hours, if she really wants to know.
+scene B: The council is hiring for the team as well. {N} notices the pay, the training and the pension.
+scene R: {N} has never trusted a uniform, and is not sure about starting now.
+scene G: The officer grew up two streets away. {N} remembers her mother.
+- W | apply to join the new team, and take the oath | v: universalism, conformity | lever: loyalty | pushes: institution police | sphere: prot.W | chance: 68
+- U | tell the officer which corners, which hours, and which doors to knock on | v: universalism, security | lever: voice | sphere: prot.U | chance: 69
+- B | ask the council what the posts pay, and apply for the best of them | v: achievement, security | sphere: prot.B | chance: 73
+- R | keep your distance, and wait to see if they last the year | v: self-direction | lever: neglect | sphere: prot.R | chance: 70
+- G | ask the officer in for tea and introduce her to the neighbours | v: benevolence, tradition | sphere: prot.G | chance: 66
+- BR | join the team as the one who goes in first, for the overtime | v: stimulation, achievement | sphere: prot.BR | chance: 58
+- RG | bring the young ones from the flats to meet them over a football game | v: benevolence, hedonism | mark: made a friend | sphere: prot.RG | chance: 70
+- UB | offer to sit on the panel that checks how the team is doing | v: power, universalism | lever: voice | pushes: institution police | sphere: prot.UB | chance: 64
+- WG | sign up for the residents' group that meets the team every month | v: benevolence, conformity | lever: loyalty | pushes: group neighbours | sphere: prot.GW | chance: 66
+- WU | help the team write down the estate's worries, block by block | v: universalism, security | sphere: prot.WU | chance: 66
+works: Within a year the officers know every family, and {N} knows them.
+works: The estate feels safer at night, and {Ns} street is talked about for the right reasons.
+fails: The money runs out after eighteen months, and the officers go back to their cars.
+fails: The team is moved to another estate just as people were starting to trust them.
+
+# ---------------------------------------------------------------- crime_wave (pairs D1b)
+
+# world: sphere event crime_wave, selector place, share .4
+== break-ins on your side of town
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: crime_wave
+share: 0.2
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: crime_wave (sphere prot), with the world's place event 'crime wave'. Break-ins and thefts jump in part of a town; about 4 in 10 people living there meet it as a moment (share .4, estimate); one's own robbery is 'robbed or attacked in the street', not this
+likelier: scarce work, a widening gap between rich and poor, neighbours who no longer know each other, a thin watch
+rarer: a close street, a well-staffed watch, good times
+gap: 8-25
+tone: trouble
+life: home, community
+horizon: months
+roles: neighbours, partner, parent, friend
+earth: break-ins jump on your side of town, and the neighbours' group chat fills with camera clips and rumours
+scene: Three houses on {Ns} street have been broken into this month. The neighbours' group chat is full of doorbell camera clips of hooded figures, and of rumours about who it must be.
+scene W: The police say they are stretched thin. {N} thinks a stretched police is still the police, and still owes every street the same.
+scene U: {N} scrolls through the clips and notices something: every break-in came between two and four on a weekday afternoon.
+scene B: Two guard firms have already put leaflets through the door. Fear sells, and {N} can see who is buying.
+scene R: {N} is tired of being afraid in {Ns} own home. Someone should do something, and soon.
+scene G: Half the street has decided it is the new family at the end. {N} is not so sure.
+- W | report everything to the police, and press them to send a patrol | v: security, conformity | lever: voice | pushes: institution police | sphere: prot.W | chance: 72
+- U | work out the pattern in the break-ins and post it for the street | v: self-direction, benevolence | sphere: prot.U | chance: 70
+- B | pay for a proper alarm, and start looking at houses in a safer part of town | v: security | lever: exit | sphere: prot.B | chance: 70
+- R | stay up at the window at night, ready to shout the street awake | v: stimulation, security | sphere: prot.R | chance: 66
+- G | knock on the older neighbours' doors each evening, and check they are locked up | v: benevolence, security | sphere: prot.G | chance: 66
+- RG | walk the older neighbours home after dark until it all settles | v: benevolence | mark: helped someone in need | sphere: prot.RG | chance: 74
+- UB | hire a guard firm together with three other houses, and share the cost | v: security, achievement | sphere: prot.UB | chance: 66
+- UR | put up a camera of your own, and send the clips straight to the police | v: security, stimulation | tech: phone | sphere: prot.UR | chance: 62
+- WB | press the council in writing for street lights and a patrol | v: security, conformity | lever: voice | pushes: place | sphere: prot.WB | chance: 62
+- WG | speak up for the new family when the street's chat blames them | v: universalism, benevolence | lever: voice | sphere: prot.GW | chance: 62
+works: The pattern {N} helped to spot leads to an arrest, and the street sleeps again.
+works: The break-ins stop by spring, and the street knows itself better than before.
+fails: {Ns} own back door is forced one afternoon, and the house never quite feels the same.
+fails: The fear outlasts the break-ins, and the street stays locked and wary for a year.
+
+# ---------------------------------------------------------------- racket (pairs D6a)
+
+# world: sphere event racket, selector place, share .1
+== a crew collecting from the late shops
+tier: life event
+stages: juvenile+
+age: 16-90
+sphere: prot
+sphere_event: racket
+share: 0.05
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: racket (sphere prot). A racket takes the street: a crew demands a weekly sum from the late-night shops; about 1 in 10 people in the place run, work in or live above such a shop and meet it as a moment (share .1, estimate)
+likelier: a thin or distrusted watch, a trade without a licence, a street of small late shops
+rarer: a well-kept watch, a street of chain stores, a close community that refuses together
+gap: 10-30
+tone: trouble
+life: work, money, community
+horizon: months
+roles: boss, colleague, friend, neighbours
+earth: a crew starts collecting from the late-night shops: those who pay are left alone, the others get visits
+scene: Two men from a crew came into the corner shop where {N} works late, and told {boss} what the street pays each week. The shops that pay are left alone. The launderette that refused had its window smashed on Tuesday.
+scene W: Paying is wrong, and everyone knows it. {N} thinks if every shop refused together, the crew could not visit them all.
+scene U: {N} noticed the men's car, the times they come, and the shop they always go into afterwards.
+scene B: Paying is a price like any other, {boss} says, and cheaper than a window. {N} is not sure that is all it is.
+scene R: {N} served those two with a smile, and has been shaking with anger ever since.
+scene G: {boss} has kept this shop for twenty years and fed half the street on credit. {N} will not see it wrecked.
+- W | go to the police with what you saw, and give a statement | v: security, conformity | lever: voice | pushes: institution police | sphere: prot.W | chance: 63
+- U | write down their car, their times and their faces, and keep it somewhere safe | v: security, self-direction | sphere: prot.U | chance: 65
+- B | tell your boss to pay for now, and keep your own head down | v: security | lever: subvert | pushes: place | sphere: prot.B | chance: 65
+- R | tell them, in front of the whole street, that this shop does not pay | v: self-direction, stimulation | mark: made an enemy | sphere: prot.R | chance: 62
+- G | ask the other shopkeepers round to a meeting in the back room | v: benevolence, security | sphere: prot.G | chance: 65
+- BG | move the takings out each evening, and close the shop an hour earlier | v: security, tradition | sphere: prot.BG | chance: 60
+- UG | get the neighbours to fit a camera that covers every door on the parade | v: security, benevolence | sphere: prot.GU | chance: 58
+- UR | film them on your phone next time, and send it to the local paper | v: stimulation, universalism | mark: took a wild risk | tech: phone | lever: voice | sphere: prot.UR | chance: 60
+- WB | get the shops to hire one licensed guard together, on the books | v: security, conformity | sphere: prot.WB | chance: 58
+- WR | walk with all the shopkeepers to the station together, and report it as one | v: universalism, benevolence | lever: voice | pushes: institution police | sphere: prot.RW | chance: 64
+works: With every shop refusing together, the crew moves on, and the parade stays open late.
+works: The police take it seriously this time, and by summer the visits have stopped.
+fails: The visits go on, and the street learns to pay and look down.
+fails: The shop's window goes in one night, and {boss} pays from then on.
+
+# ---------------------------------------------------------------- heavy_hand (pairs D3a)
+
+# world: sphere event heavy_hand, selector place, share .2
+== the camp in the square is cleared
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: heavy_hand
+share: 0.1
+once: yes
+who: friend
+per_year: 0 0 0 0 0 0
+times: World event: heavy_hand (sphere prot). The guard turns on the crowd: police clear a protest by force; about 2 in 10 people in the place know someone who was there, or were there, and meet it as a moment (share .2, estimate)
+likelier: high unrest, narrow rights, a council that fears the crowd, a friend who protests
+rarer: an open regime with wide rights, a calm town
+gap: 10-30
+tone: trouble
+life: community, public life, ties
+horizon: months
+roles: friend, parent, colleague
+earth: the police clear the protest camp at dawn, the videos spread before breakfast, and your friend is among those arrested
+scene: At dawn the police cleared the protest camp in the square. By breakfast the videos are everywhere, and {friend}, who slept there last night, has been arrested.
+scene W: The law allows a protest. It also allows the police to clear one. {N} wants to know which law was kept this morning.
+scene U: {N} watches every video twice, frame by frame, to see what really happened first.
+scene B: Today's protesters may be tomorrow's council. {N} notices which way the town's mood is turning.
+scene R: {N} saw {friend} being led away in one of the videos, and is already lacing up {Ns} boots.
+scene G: {friend} has been arrested. {N} cares about only one thing now: getting {friend} home.
+- W | go to the station and ask, properly, what your friend is charged with | v: conformity, benevolence | pushes: institution police | sphere: prot.W | chance: 76
+- U | gather the videos and the witnesses, and set out what happened in order | v: universalism, self-direction | lever: voice | sphere: prot.U | chance: 73
+- B | stay well out of it, since a name on a list does nobody any good | v: security | lever: neglect | sphere: prot.B | chance: 71
+- R | join the march back to the square that same afternoon | v: stimulation, universalism | mark: defied an authority | lever: voice | pushes: state | sphere: prot.R | chance: 74
+- G | find your friend a lawyer, and be waiting at the door when they come out | v: benevolence | sphere: prot.G | chance: 68
+- BG | keep your head down at work, and send your friend's family money for the fines | v: security, benevolence | sphere: prot.BG | chance: 66
+- RG | take food and blankets to the friends who are still in the square | v: benevolence, stimulation | mark: helped someone in need | sphere: prot.RG | chance: 66
+- UB | quietly pass the videos to a journalist who knows what to do with them | v: universalism, power | lever: subvert | pushes: institution police | sphere: prot.UB | chance: 60
+- WR | stand at the front of the crowd outside the station and demand the arrests be explained | v: universalism, self-direction | lever: voice | pushes: institution police | sphere: prot.RW | chance: 54
+- WU | lodge a formal complaint with the board that oversees the police | v: universalism, conformity | lever: voice | pushes: institution police | sphere: prot.WU | chance: 62
+works: {friend} is released by evening, and the complaint {N} backed leads to a hearing.
+works: The town turns against the way the camp was cleared, and the next protest goes ahead in peace.
+fails: {friend} is charged, and {N} spends months of evenings on the case.
+fails: The videos fade from the news within a week, and nothing changes.
+
+# ---------------------------------------------------------------- crackdown (pairs D2a)
+
+# world: sphere event crackdown, selector place, share .3
+== more patrols and more stops
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: crackdown
+share: 0.15
+once: yes
+who: sibling
+per_year: 0 0 0 0 0 0
+times: World event: crackdown (sphere prot). After a crime wave or a frightening case the rule wants to be seen acting: fixed sentences, more patrols, more stops; about 3 in 10 people in the place feel it as a moment of their own (share .3, estimate)
+likelier: a recent crime wave, an election, a poor quarter, young people in the family
+rarer: a quiet suburb, a town with low crime and high trust
+gap: 10-30
+tone: mixed
+life: community, home, ties
+horizon: months
+roles: sibling, parent, friend, neighbours
+earth: fixed sentences, more patrols and more stops: the headlines calm, the prison fills, and whole streets learn to look down
+scene: Since the new rules came in there are patrols on every corner and stops on every walk home. The papers say the streets are safer. {sibling} has been stopped and searched three times this month, and a cousin got two years for a small theft.
+scene W: Rules applied the same to everyone are fair. {N} is not sure these are being applied the same to everyone.
+scene U: {N} looks up the numbers: arrests up a third, and the crimes people actually fear barely changed.
+scene B: Fear is good for some businesses. {N} notices who in town is doing well out of all this.
+scene R: Being stopped on {Ns} own street for nothing makes {N} burn.
+scene G: The old people on the street feel safer at last. The young ones feel watched. {N} loves them both.
+- W | carry your papers, answer every stop politely, and keep a note of each one | v: conformity, security | sphere: prot.W | chance: 67
+- U | collect the street's stories of the stops and send them to the council | v: universalism, self-direction | lever: voice | pushes: place | sphere: prot.U | chance: 63
+- B | take the new job at the prison while it is hiring | v: security, achievement | sphere: prot.B | chance: 63
+- R | refuse to answer a stop you know is for nothing, and say why | v: self-direction | mark: defied an authority | lever: voice | pushes: institution police | sphere: prot.R | chance: 64
+- G | keep the young ones in the family close, and off the corners after dark | v: security, benevolence | sphere: prot.G | chance: 63
+- BG | visit the cousin inside every month, and keep the family's place for them | v: benevolence, tradition | sphere: prot.BG | chance: 68
+- BR | find your cousin the best lawyer in town, and pay whatever it takes | v: benevolence, power | sphere: prot.BR | chance: 58
+- UR | set up a map online of every stop on the street, and share it | v: universalism, stimulation | tech: internet | lever: voice | sphere: prot.UR | chance: 66
+- WG | ask the beat officer to the residents' meeting, so both sides can talk | v: benevolence, universalism | lever: voice | pushes: institution police | sphere: prot.GW | chance: 58
+- WU | write to your representative with the numbers, asking for the rules to be reviewed | v: universalism, conformity | lever: voice | pushes: state | sphere: prot.WU | chance: 60
+works: The streets do grow quieter, and {Ns} family comes through the year without trouble.
+works: The numbers {N} gathered are read out at the council, and the stops are cut back.
+fails: {sibling} is picked up for nothing much, and the record follows them.
+fails: The street learns to look down and walk fast, and so does {N}.
+
+# ---------------------------------------------------------------- neighbours_watch (pairs D2a)
+
+# world: sphere event neighbours_watch, selector place, share .3
+== the street starts its own watch
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: neighbours_watch
+share: 0.15
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: neighbours_watch (sphere prot). Neighbours keep their own watch: a street starts a rota and a phone tree; about 3 in 10 people on such streets take a part in it or are asked to (share .3, estimate)
+likelier: rising fear where neighbours still know each other, a slow or thin public watch
+rarer: a street of strangers who never meet, a well-patrolled centre
+gap: 10-30
+tone: joy
+life: community, home
+horizon: months
+roles: neighbours, friend, elder
+earth: your street starts a watch group and a phone tree, and people learn each other's names
+scene: After the third burglary the street meets in the community room and starts a watch: a rota of evenings, a phone tree, and a list of every house and who lives there. There is a space on the rota with {Ns} name pencilled in.
+scene W: A rota works if everyone takes a turn by the same rule, the big houses and the flats alike. {N} means to see that it does.
+scene U: {N} offers to draw the map: which houses, which lanes, and which hours are the quiet ones.
+scene B: A watch needs radios, signs and a little money. {N} knows a few people who would pay to be seen helping.
+scene R: An evening walking the street with a torch and a neighbour sounds like more fun than {N} would admit.
+scene G: {N} has lived here for years and knows perhaps four names. That could change.
+- W | take your evening on the rota every week, without fail | v: conformity, benevolence | mark: kept your word | lever: loyalty | pushes: group neighbours | sphere: prot.W | chance: 74
+- U | draw up the map and the phone tree for the whole street | v: self-direction, benevolence | sphere: prot.U | chance: 73
+- B | get the local businesses to pay for the signs and the radios | v: achievement, power | lever: fund | sphere: prot.B | chance: 71
+- R | walk the late round on the worst nights, torch in hand | v: stimulation, benevolence | lever: loyalty | sphere: prot.R | chance: 77
+- G | knock on every door on the street and learn every name | v: benevolence, tradition | mark: made a friend | sphere: prot.G | chance: 71
+- BG | look after the old couple at the end who cannot take a turn | v: benevolence, security | mark: helped someone in need | sphere: prot.BG | chance: 80
+- BR | become the one the rota calls when something needs doing fast | v: stimulation, achievement | sphere: prot.BR | chance: 66
+- UR | fit cheap motion lights along the back lane, and test them yourself | v: stimulation, security | mark: learned a skill | sphere: prot.UR | chance: 68
+- WG | lead the rota, and keep the list of who walks when | v: conformity, benevolence | lever: lead | pushes: group neighbours | sphere: prot.GW | chance: 66
+- WU | keep a log of every call and pass it to the beat officer each month | v: security, conformity | sphere: prot.WU | chance: 74
+works: The burglaries fall away, and {N} knows forty names on the street by winter.
+works: The watch grows into a summer barbecue, a babysitting circle and a few real friends.
+fails: The rota thins out by the second winter, and {N} is one of the last three walking it.
+fails: The watch starts eyeing every stranger, and {N} does not like what it is turning into.
+
+# ---------------------------------------------------------------- walls_and_lamps (pairs D4a)
+
+# world: sphere event walls_and_lamps, selector place, share .3
+== lights and cameras on the estate
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: walls_and_lamps
+share: 0.15
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: walls_and_lamps (sphere prot). Walls and lamps: the council puts up lights, locks or cameras across a quarter; about 3 in 10 people living there meet it as a moment of their own (share .3, estimate)
+likelier: high crime or fear, a council with money for works
+rarer: a poor council, a quarter that already has them
+gap: 10-30
+tone: mixed
+life: home, community
+horizon: months
+roles: neighbours, friend
+earth: new street lights and cameras go up on the estate: night crime falls, and some feel safer while some feel watched
+scene: Over a month the council puts up new street lights and cameras across the estate, one on the pole outside {Ns} window. Night crime falls. Some neighbours sleep better. Others say they feel watched in their own homes.
+scene W: The cameras watch everyone the same. {N} thinks that is either the whole point or the whole problem.
+scene U: {N} wants to know who sees the footage, how long it is kept, and what it is used for.
+scene B: The firm that won the contract is doing very well out of it. {N} wonders how that came about.
+scene R: There is a camera pointing straight at {Ns} front door. {N} hates it on sight.
+scene G: The old woman downstairs can walk to the shop after dark for the first time in years.
+- W | thank the council for the lights at the residents' meeting | v: conformity, security | lever: loyalty | pushes: place | sphere: prot.W | chance: 76
+- U | ask the council in writing who sees the footage, and for how long | v: self-direction, universalism | lever: voice | pushes: place | sphere: prot.U | chance: 70
+- B | fit a good lock and a light of your own, and leave the cameras to others | v: security | sphere: prot.B | chance: 86
+- R | hang a sheet over the camera that looks into your window | v: self-direction | mark: defied an authority | lever: subvert | sphere: prot.R | chance: 70
+- G | walk the old woman downstairs to the shop now that the street is lit | v: benevolence | mark: helped someone in need | sphere: prot.G | chance: 78
+- BG | strike a deal with the council: lights on the lane, no cameras on the doors | v: security, power | sphere: prot.BG | chance: 50
+- RG | throw an evening party in the newly lit courtyard for the whole block | v: hedonism, benevolence | mark: made a friend | sphere: prot.RG | chance: 70
+- UR | test whether the cameras really see the back lane, and post what you find | v: stimulation, universalism | sphere: prot.UR | chance: 66
+- WB | get a seat on the panel the council sets up to oversee the cameras | v: power, universalism | lever: voice | pushes: place | sphere: prot.WB | chance: 54
+- WU | read the rules on the cameras and explain them to the neighbours | v: universalism, conformity | sphere: prot.WU | chance: 70
+works: The lights stay, the worst cameras are turned away from the doors, and the estate is calmer.
+works: {N} walks home late without looking over a shoulder, and so does the old woman downstairs.
+fails: The cameras multiply, and {N} feels watched every time the front door opens.
+fails: The lights fail within a year, the money for repairs is gone, and the dark comes back.
+
+# ---------------------------------------------------------------- prison_reform (pairs D5b)
+
+# world: sphere event prison_reform, selector place, share .05
+== a college inside the prison
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: prison_reform
+share: 0.03
+once: yes
+who: sibling
+per_year: 0 0 0 0 0 0
+times: World event: prison_reform (sphere prot). A new way to punish: the prison opens a college and a workshop; about 1 in 20 people in the place have someone close inside and meet it as a moment (share .05, estimate)
+likelier: a sibling, parent or friend serving a term, crowded cells, a reforming council
+rarer: no one close inside, a fearful time after a crime wave
+gap: 10-30
+tone: joy
+life: ties, home
+horizon: years
+roles: sibling, parent, friend
+earth: the prison where someone close to you is held opens a college and a workshop, and their letter sounds hopeful
+scene: {sibling} has been inside for two years. This month the prison opened a college and a workshop, and the letter from {sibling} is the first in months that sounds hopeful: a joinery course, and a chance of early release under watch.
+scene W: {sibling} did wrong and is paying for it. {N} thinks a fair sentence should also be a way back.
+scene U: {N} looks up the numbers: those who take the courses come back far less often.
+scene B: A joiner with a trade can earn. {N} starts thinking about who would hire {sibling}.
+scene R: {N} has not visited in a year. The letter makes {N} want to get on the bus tomorrow.
+scene G: {sibling} will need somewhere to come home to. {N} has a spare room.
+- W | write to the governor in support of your sibling's place on the course | v: benevolence, conformity | pushes: institution prison | sphere: prot.W | chance: 79
+- U | find out what the course leads to, and which trades take people with records | v: benevolence, self-direction | sphere: prot.U | chance: 77
+- B | put money by each month, so your sibling has a start when they come out | v: security, benevolence | sphere: prot.B | chance: 76
+- R | get on the bus to the prison this weekend, the first time in a year | v: benevolence, stimulation | sphere: prot.R | chance: 76
+- G | clear the spare room for the day they come home | v: benevolence, tradition | sphere: prot.G | chance: 72
+- BR | offer them a start in your own work when they are out, at a fair wage | v: benevolence, achievement | sphere: prot.BR | chance: 62
+- RG | gather the whole family to visit together, the first time in years | v: benevolence, tradition | sphere: prot.RG | chance: 66
+- UG | send them books and plans for the joinery course every month | v: benevolence, self-direction | sphere: prot.GU | chance: 70
+- WB | talk to the probation officer about the terms of an early release | v: security, conformity | sphere: prot.WB | chance: 66
+- WU | volunteer to teach an evening class at the prison college | v: universalism, benevolence | mark: helped someone in need | sphere: prot.WU | chance: 56
+works: {sibling} comes home early, with a trade and a quieter way of talking, and stays out.
+works: The visits change something between them, and {N} sees a way back for {sibling}.
+fails: The course is cut in the next budget, and the letters from {sibling} go quiet again.
+fails: {sibling} comes out and slips back into the old crowd within the year.
+
+# ---------------------------------------------------------------- civil_war (pairs D1a)
+
+# world: sphere event civil_war, selector all, share .6
+== the army splits
+tier: life event
+stages: young_adult+
+age: 18-95
+sphere: prot
+sphere_event: civil_war
+share: 0.31
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: civil_war (sphere prot). The realm splits in arms: armed factions take ground and the guard divides; very rare in a stable state, and when it comes about 6 in 10 people meet it as a moment of their own (share .6, estimate); far fewer than 1 in 100 lives in modern Earth (estimate)
+likelier: a deadlock or a failed rising, armed factions, a divided army, civil command already slipping
+rarer: a stable state with trusted institutions, a growing economy
+gap: 20-60
+tone: trouble
+life: community, home, ties
+horizon: years
+roles: neighbours, parent, friend, partner
+earth: militias seize the north and the army splits, and on the news is a checkpoint you drove through last spring
+scene: Militias have taken the north, and the army has split down the middle. On the evening news is a checkpoint {N} drove through last spring. Across the landing, the neighbours' family is on the other side.
+scene W: {N} swore once to serve the country, not a side. Now each side says it is the country.
+scene U: {N} follows three news services from each side and the foreign ones, and believes about a tenth of each.
+scene B: Whoever holds the roads will want to deal. {N} thinks about what the household has that either side needs.
+scene R: The town's young people are choosing banners, and {Ns} friends want {N} with them.
+scene G: Whatever the banners say, the family across the landing has shared {Ns} table for years.
+- W | refuse to take a side, and say so to anyone who asks | v: universalism, security | lever: voice | pushes: state | sphere: prot.W | chance: 67
+- U | keep the roads out mapped and the papers ready, in case you must go | v: security, self-direction | sphere: prot.U | chance: 60
+- B | deal with whichever side holds the street this week | v: security, power | lever: subvert | sphere: prot.B | chance: 65
+- R | sign up with the side your friends have joined | v: stimulation, security | mark: took a wild risk | lever: loyalty | sphere: prot.R | chance: 71
+- G | hide the family across the landing when the other side comes asking | v: benevolence | mark: helped someone in need | sphere: prot.G | chance: 57
+- BG | keep your head down, stock the cupboards, and bring your own through it | v: security, tradition | sphere: prot.BG | chance: 68
+- BR | run goods across the lines for whoever pays, while the roads are open | v: power, stimulation | mark: took a wild risk | sphere: prot.BR | chance: 54
+- UG | take the family to the grandparents' village in the hills, away from the lines | v: security, tradition | mark: left home | lever: exit | sphere: prot.GU | chance: 70
+- WR | stand up at the town meeting against neighbours turning on neighbours | v: universalism, benevolence | lever: voice | pushes: place | sphere: prot.RW | chance: 56
+- WU | volunteer with the relief agency that takes food across both lines | v: universalism, benevolence | sphere: prot.WU | chance: 62
+works: The fighting never reaches {Ns} street, and the family across the landing is still there when it ends.
+works: {N} comes through the split years with the people {N} loves, and with a clear conscience.
+fails: The lines move through the town, and {N} loses a home and a year to it.
+fails: {N} chose, or would not choose, and some old friends never forgive it.
+
+# ---------------------------------------------------------------- files_opened (pairs D3a)
+
+# world: sphere event files_opened, selector all, share .2
+== your name in the leaked files
+tier: life event
+stages: juvenile+
+age: 16-95
+sphere: prot
+sphere_event: files_opened
+share: 0.1
+once: yes
+who: friend
+per_year: 0 0 0 0 0 0
+times: World event: files_opened (sphere prot). The watchers' files are opened by a leak or a new law; about 2 in 10 people find themselves or someone close in them and meet it as a moment (share .2, estimate)
+likelier: a past of protest or organising, a rule that watched its people, a leak or a reform
+rarer: a quiet life far from any cause, an open rule that kept no such files
+gap: 15-40
+tone: mixed
+life: public life, ties
+horizon: months
+roles: friend, colleague, partner
+earth: a leak shows the city tracked protesters' phones for years, and your name is in the files
+scene: A leak shows the city tracked the phones of protesters for years. {N} looks through the published lists and finds {Ns} own name, from one march long ago, and beside it the name of the one who passed it on: {friend}.
+scene W: There are laws about this, and they were broken. {N} wants every one of them answered for.
+scene U: {N} reads the whole file, line by line: the dates, the places, the notes in the margin.
+scene B: Everyone in the files has something to trade now: a story, a claim, a name. {N} weighs what {Ns} own is worth.
+scene R: {N} reads {friend}'s name twice and has to put the phone down.
+scene G: {friend} has been at every birthday for fifteen years. {N} wants to hear it from {friend} directly.
+- W | join the legal claim against the city for the tracking | v: universalism, conformity | lever: voice | pushes: institution council | sphere: prot.W | chance: 73
+- U | ask for your full file, and read every page of it | v: self-direction | sphere: prot.U | chance: 72
+- B | sell your story to the paper that is running the leak | v: achievement, power | sphere: prot.B | chance: 69
+- R | go round to your friend's house tonight and have it out | v: self-direction, stimulation | sphere: prot.R | chance: 73
+- G | ask your friend over, and hear them out before judging | v: benevolence, tradition | sphere: prot.G | chance: 65
+- BG | change phones, change habits, and say nothing to anyone | v: security | sphere: prot.BG | chance: 72
+- RG | laugh about the file over a long night with the friends from the march | v: hedonism, benevolence | sphere: prot.RG | chance: 66
+- UB | find out who else your friend reported on, and keep it to yourself for now | v: power, security | sphere: prot.UB | chance: 58
+- WR | stand up at the public hearing and read out what the file said | v: universalism, self-direction | lever: voice | pushes: state | sphere: prot.RW | chance: 56
+- WU | help the group going through the files to warn everyone named in them | v: universalism, benevolence | sphere: prot.WU | chance: 66
+works: {friend} tells the whole story, and the friendship comes through the hard talk, changed but alive.
+works: The leak brings in a new law on what the city may watch, and {N} played a small part in it.
+fails: The friendship ends that night, and neither of them ever quite explains.
+fails: {N} stops trusting the phone, the street and most people for a long time.
+
+# ---------------------------------------------------------------- feud (pairs D4a)
+
+# world: sphere event feud, selector place, share .1
+== a feud spills into the street
+tier: life event
+stages: juvenile+
+age: 14-90
+sphere: prot
+sphere_event: feud
+share: 0.05
+once: yes
+who: sibling
+per_year: 0 0 0 0 0 0
+times: World event: feud (sphere prot). A feud flares between two crews or two families sharing the same ground; about 1 in 10 people in the place have kin on one side and meet it as a moment (share .1, estimate)
+likelier: an insult gone unanswered, a weak or distrusted watch, crews or families on the same ground, a sibling who runs with a crew
+rarer: a close and mixed community, a trusted beat officer or youth worker
+gap: 10-30
+tone: trouble
+life: ties, community
+horizon: months
+roles: sibling, parent, elder, friend
+earth: a row between two crews online spills into the street, and your family is on one side of it
+scene: A row between two crews online has spilled into the street. {sibling} runs with one of them, and the other lives on the next estate. Each side waits for the other's next move, and {Ns} family is a side whether it likes it or not.
+scene W: Someone has to stop this before it gets worse. {N} thinks it should be the law or the elders, not the next hothead.
+scene U: {N} has traced the whole quarrel back to one post, one insult, three months ago.
+scene B: {N} knows someone on the other side who might take a deal: an apology, a price, and an end.
+scene R: They insulted {Ns} family. Every part of {N} wants to answer it.
+scene G: {elder} remembers when the two families were friends. This is new, and it is not who they are.
+- W | ask the beat officer to talk to both sides before something happens | v: security, conformity | lever: voice | pushes: institution police | sphere: prot.W | chance: 63
+- U | find the post that started it, and show both sides what was really said | v: universalism, self-direction | sphere: prot.U | chance: 63
+- B | broker a quiet deal with the one you know on the other side | v: security, power | sphere: prot.B | chance: 67
+- R | answer the insult online, loudly, in front of everyone | v: stimulation, self-direction | mark: made an enemy | sphere: prot.R | chance: 64
+- G | keep your sibling home and away from the other estate until it cools | v: benevolence, security | sphere: prot.G | chance: 65
+- BG | get your sibling a job well away from the crew, and keep them close | v: benevolence, security | sphere: prot.BG | chance: 56
+- RG | stand by your sibling every day, and refuse to join in anything | v: benevolence, tradition | sphere: prot.RG | chance: 62
+- UR | post how it really started, and dare both sides to read it | v: stimulation, universalism | lever: voice | sphere: prot.UR | chance: 58
+- WB | get the elders of both families round one table, with tea and a deal | v: tradition, security | sphere: prot.WB | chance: 58
+- WU | take it to the youth worker who knows both crews, and help them settle it | v: universalism, benevolence | sphere: prot.WU | chance: 64
+works: The quarrel burns out over the summer, and nobody on either side gets hurt.
+works: The two families sit down together at last, and {sibling} drifts away from the crew.
+fails: The quarrel drags on for a year, and {N} cannot walk to the next estate.
+fails: {sibling} is arrested after a scuffle, and the family blames {N} for not stopping it.
+
+# ---------------------------------------------------------------- brave_stand (pairs D5a)
+
+# world: sphere event brave_stand, selector place, share .03
+== trouble on the late bus
+tier: life event
+stages: juvenile+
+age: 14-90
+sphere: prot
+sphere_event: brave_stand
+share: 0.02
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: brave_stand (sphere prot). Someone stands their ground when a sudden danger comes; about 3 in 100 people in the place are close by when it happens and meet it as a moment (share .03, estimate); most people meet such a moment once in a life or never (estimate)
+likelier: late travel in a city, a job on the buses, the doors or the night shift
+rarer: a quiet life near home, a small village
+gap: 10-40
+tone: joy
+life: community
+horizon: moment
+roles: friend, neighbours
+earth: on the late bus a man starts shouting and shoving at the driver's door, and someone has to do something
+scene: On the late bus home a man starts shouting at the driver, then shoving at the little door of her cab. She holds it shut with one hand. There are twelve passengers, and every one of them is looking at the floor.
+scene W: There is a right thing to do here, and everyone on the bus knows it. {N} waits to see if anyone does it.
+scene U: {N} notes the stop, the time, the man's coat, and where the alarm button is.
+scene B: {N} is big enough to matter here, and knows it. The only question is whether it is {Ns} business.
+scene R: {Ns} heart is going like a drum, and {Ns} legs are already moving.
+scene G: The old man beside {N} is shaking. These are {Ns} people tonight, whoever they are.
+- W | press the alarm, ring the police, and tell the man they are on the way | v: security, conformity | sphere: prot.W | chance: 76
+- U | ring the police quietly, and give them the stop and a description | v: security | sphere: prot.U | chance: 69
+- B | step up beside the driver and talk the man down, calm and firm | v: power, benevolence | mark: took a wild risk | sphere: prot.B | chance: 68
+- R | stand up and tell him, loudly, to sit down | v: stimulation, benevolence | mark: took a wild risk | sphere: prot.R | chance: 74
+- G | move the old man and the others to the back, away from the trouble | v: benevolence, security | mark: helped someone in need | sphere: prot.G | chance: 69
+- BG | keep your seat by the door, and quietly shield the passengers behind it | v: security, benevolence | sphere: prot.BG | chance: 64
+- UB | ask the man what he wants, and get him off at the next stop | v: power, security | sphere: prot.UB | chance: 60
+- UR | film it on your phone and call out that the police can already see it | v: stimulation, security | tech: phone | sphere: prot.UR | chance: 62
+- WG | get the passengers on their feet together behind the driver | v: benevolence, universalism | sphere: prot.GW | chance: 58
+- WR | stand between the man and the driver's door until the police come | v: benevolence, universalism | mark: took a wild risk | sphere: prot.RW | chance: 50
+works: The man gets off at the next stop, the bus cheers, and the driver thanks {N} at the depot.
+works: The local paper runs a picture of the bus, and {Ns} friends will not stop talking about it.
+fails: It is over in a minute, and {N} goes home shaking, wishing for a braver minute.
+fails: The man gets away, the police take statements, and {N} replays it for weeks.
+
+# ---------------------------------------------------------------- disaster_strikes (pairs D3b)
+
+# world: sphere event disaster_strikes, selector place, share .6
+== the quake on the old side of town
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: disaster_strikes
+share: 0.31
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: disaster_strikes (sphere prot), with the world's nature event 'disaster' (its hazard reads disaster_now). A quake, fire, flood or storm strikes the town; about 6 in 10 people there meet it as a moment of their own (share .6, estimate); a person in a risky place meets one or two in a life (estimate); a town nearby is the read event 'a disaster in the next town', and the rebuilding is 'the town builds itself back'
+likelier: low, crowded or old ground, a quake or storm country, old buildings
+rarer: high firm ground, new buildings, a sheltered inland place
+gap: 10-40
+tone: trouble
+life: home, community
+horizon: months
+roles: parent, neighbours, friend, partner
+earth: the quake brings down three blocks on the old side of town; rescue crews dig through the night, and a school gym becomes a shelter
+scene: The quake came at night and brought down three blocks on the old side of {place}. {Ns} building stands, cracked from top to bottom. Rescue crews work by floodlight, and the school gym is filling with camp beds.
+scene W: The crews need order more than heroes: names on a list, a rota, a place for everything. {N} can do that.
+scene U: {N} looks at the crack in the wall and the map of the fallen blocks, and starts working out where help is needed most.
+scene B: Builders, rooms and tarpaulins will be worth a fortune within a day. {N} knows it, and does not like knowing it.
+scene R: The crews are calling for hands at the rubble. {N} is already pulling on boots.
+scene G: {N} has to find {Ns} own first: {parent}, the neighbours, the old couple from the ground floor.
+- W | sign on at the shelter, and take a shift keeping the list of names | v: benevolence, conformity | lever: loyalty | sphere: prot.W | chance: 70
+- U | help the crews work out which blocks to search first | v: benevolence, self-direction | sphere: prot.U | chance: 74
+- B | let your spare room to a family who lost their home, at a fair rent | v: security, benevolence | sphere: prot.B | chance: 71
+- R | go to the rubble and carry whatever the crews hand you | v: stimulation, benevolence | mark: helped someone in need | act: go to the rubble and carry whatever the crews hand them | sphere: prot.R | chance: 73
+- G | find every neighbour from your building and get them to the shelter | v: benevolence, tradition | mark: helped someone in need | sphere: prot.G | chance: 70
+- BR | drive your van between the shelter and the rubble, day and night | v: stimulation, achievement | sphere: prot.BR | chance: 64
+- UG | lead the neighbours to the park on the high, firm ground, and keep them there | v: security, benevolence | sphere: prot.GU | chance: 62
+- UR | rig lights and a charging point for the shelter from a car battery | v: stimulation, achievement | mark: learned a skill | sphere: prot.UR | chance: 58
+- WB | run the donations desk at the gym, and keep a strict record of it | v: security, conformity | sphere: prot.WB | chance: 62
+- WG | take in the family from the top floor until they have somewhere to go | v: benevolence, tradition | mark: helped someone in need | sphere: prot.GW | chance: 66
+works: The building is shored up by winter, and the neighbours who worked the shelter stay close for years.
+works: {N} is one of the hands that got the old side of town through the worst week.
+fails: The building is condemned, and {N} spends the winter on a camp bed in the gym.
+fails: {N} works until there is nothing left, and the tiredness lasts long after the crews go home.
+
+# ---------------------------------------------------------------- barrier_fails (pairs D4b)
+
+# world: sphere event barrier_fails, selector place, share .5
+== the flood wall gives way
+tier: life event
+stages: juvenile+
+age: 14-95
+sphere: prot
+sphere_event: barrier_fails
+share: 0.25
+once: yes
+per_year: 0 0 0 0 0 0
+times: World event: barrier_fails (sphere prot). A storm or flood meets old works and thin upkeep, and a flood wall or dyke fails; about half the people of the place meet it as a moment of their own (share .5, estimate); a person on low ground by a river or the sea meets it once in a life or never (estimate)
+likelier: low ground by a river or the coast, old works, thin upkeep, a long storm
+rarer: high ground, new works, a well-kept wall
+gap: 15-40
+tone: trouble
+life: home, community, money
+horizon: months
+roles: neighbours, parent, partner, friend
+earth: the flood wall fails on the east side after three days of storm, water fills the ground floors, and boats come down the high street
+scene: After three days of storm the flood wall on the east side gives way in the night. By morning the water is at the windowsills of the ground floors, boats are coming down the high street, and the town is already arguing over who should have mended the wall.
+scene W: The town turned out in the night to sandbag the breach, every household sending a hand. {N} was one, or should have been.
+scene U: The warnings about the wall were written years ago. {N} has read them, and is angry at how long they sat in a drawer.
+scene B: The repairs will cost a fortune, and somebody will win that contract. {N} is already asking who.
+scene R: There are still people on the upper floors, waving from the windows, and the lifeboat crew needs rowers.
+scene G: The water is in the house {Ns} grandparents built. {N} will not let the river have it.
+- W | turn out with the dyke watch and fill sandbags at the breach | v: conformity, benevolence | lever: loyalty | sphere: prot.W | chance: 64
+- U | take the old warnings to the council and ask why they were ignored | v: universalism, self-direction | lever: voice | pushes: place | sphere: prot.U | chance: 68
+- B | get the insurance claim in first, with photographs of every room | v: security, achievement | sphere: prot.B | chance: 66
+- R | row out with the lifeboat crew to the people on the upper floors | v: stimulation, benevolence | mark: helped someone in need | sphere: prot.R | chance: 69
+- G | carry everything you can up to the top floor, and stay with the house | v: tradition, security | mark: stayed home | sphere: prot.G | chance: 61
+- BR | hire out your boat and your back to the shops that need clearing | v: achievement, stimulation | sphere: prot.BR | chance: 66
+- UB | join the committee that decides who pays for the new wall | v: power, security | lever: voice | pushes: place | sphere: prot.UB | chance: 62
+- UG | dig out the old drainage ditch again with the neighbours who remember it | v: tradition, security | sphere: prot.GU | chance: 62
+- WG | open your upper floor to the neighbours whose homes are under water | v: benevolence, universalism | mark: helped someone in need | sphere: prot.GW | chance: 76
+- WR | wade from door to door, checking every ground floor flat is empty | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.RW | chance: 56
+works: The water goes down within a week, and the town builds a higher wall with {Ns} name on the petition for it.
+works: Everyone on {Ns} street gets out dry, and they never forget who carried what.
+fails: The ground floor is ruined, and the quarrel over who pays for the new wall drags on for years.
+fails: The insurance does not pay, and {N} spends a cold year drying out the house.
