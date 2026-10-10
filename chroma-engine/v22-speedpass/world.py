@@ -3208,6 +3208,10 @@ class World:
             self.sph_fund.append([loc, j, int(place) if onp else -1, [float(x) for x in ma], float(size), q + span])
         elif lever == "office":
             return self._sph_office(loc, j, office, size, rng)
+        elif lever == "lead":   # a leading post's act: open from "known" (one place) up; its colours pull the place like a
+            if rung < 2:        # strong voice (v22.3; S7's posts and tenure take over in v22.4)
+                return "none"
+            on_place(0.05 * size, ma)
         else:
             return "none"
         return "moved"
