@@ -4,10 +4,10 @@
 # past-tense phrase for what happened; cast_want: far_hard / far_good / far_mixed and touch: pick the moment for the
 # event's side and what it touched (chroma-ideas/far-off-events.md F2 to F5; sides from chroma-world/spheres/data/
 # far_sides.json). Emren 2026-10-10 06:55 UTC: far-off events are multi-sided, good and mixed as well as hard, balanced
-# within realism. So 12 hard, 12 good, 4 mixed here. "took them in" (F4) brings the tie into the home for about a year;
+# within realism. So 12 hard, 12 good, 12 mixed here (every touch has a mixed pair). "took them in" (F4) brings the tie into the home for about a year;
 # "moved away | moves: yes" (F3) takes up an offer in the tie's town. Held back while far_ties is off; no share:, gap 3-8.
 # Syntax: header of build.py. Rules: library-spec.md. Everyday pairs: one calls two colors, its partner the other three,
-# with matching stages, age, tone, cast_want, touch and who:; each cross cycle s1 to s4 seven times over the 28 moments.
+# with matching stages, age, tone, cast_want, touch and who:; each cross cycle s1 to s4 nine times over the 36 moments.
 #   pair 1  work, hard, sibling      1a BR / 1b WUG        pair 8  health, good, sibling     8a UG / 8b WBR
 #   pair 2  work, good, friend       2a WU / 2b BRG        pair 9  safety, hard, sibling     9a WR / 9b UBG
 #   pair 3  money, hard, parent      3a UB / 3b WRG        pair 10 safety, good, child      10a BG / 10b WUR
@@ -15,6 +15,8 @@
 #   pair 5  home, hard, parent       5a WG / 5b UBR        pair 12 standing, good, child    12a UB / 12b WRG
 #   pair 6  home, good, friend       6a UR / 6b WBG        pair 13 work, mixed, sibling     13a BG / 13b WUR
 #   pair 7  health, hard, parent     7a WB / 7b URG        pair 14 home, mixed, parent      14a UG / 14b WBR
+#   pair 15 money, mixed, friend    15a WB / 15b URG       pair 17 safety, mixed, parent    17a WU / 17b BRG
+#   pair 16 health, mixed, child    16a UR / 16b WBG       pair 18 standing, mixed, sibling 18a RG / 18b WUB
 
 # ---------------------------------------------------------------- pair 1: work, hard, sibling
 
@@ -1079,3 +1081,307 @@ works: The builders finish near the date, and {parent} moves back into a house w
 works: The long months pass more easily than feared, and the new kitchen becomes the heart of every visit.
 fails: The work drags on past the cold months, and {parent} grows thin and short of patience.
 fails: The money runs out before the end, and the last rooms stay half done.
+
+# ---------------------------------------------------------------- pair 15: money, mixed, friend; calls WB (s1) / URG (s2)
+
+== a friend offered a fortune for the family shop
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-75
+calls: WB
+rate: 1
+tone: mixed
+life: friends, money, work
+horizon: months
+roles: friend, their family, old customers
+who: friend
+cast_want: far_mixed
+touch: money
+earth: a friend in another town calls: a buyer has offered far more than the family shop is worth, enough to clear every debt, but the shop would close for good
+times: When a town changes, small family businesses are often bought out by larger ones, and many owners say the money was welcome and the loss of the name hard (estimate)
+gap: 3-8
+scene: {friend} calls from {their_town} with an offer on the kitchen table. Since {far_event}, a buyer wants the family shop, and the price is more than {friend} could earn there in ten years: every debt cleared, savings for once. But the name above the door would come down, the shop that three generations kept would close, and {friend} has until the end of the month to sign.
+scene W: A fair price is no sin, but {N} thinks of the two people who work the counter, and what is owed to them.
+scene U: {N} wants to see the offer itself, the figures and the small print, before anyone feels anything about it.
+scene B: An offer that high means the buyer needs it badly. {N} smells room to ask for more.
+scene R: {N} hears how tired {friend} is of the long hours, and how afraid of the empty days.
+scene G: Three generations behind one counter. {N} knows some things, once sold, cannot be bought back.
+- W | tell them to ask that the staff are kept on, as part of any deal | v: benevolence, universalism | chance: 64
+- U | ask for the offer in writing, and go through every line with them | v: self-direction, security | chance: 84
+- B | tell them to hold out for more, since the buyer clearly wants it | v: power, achievement | chance: 55
+- R | tell them to sign, take the money and finally see something of the world | v: hedonism, stimulation | chance: 80
+- G | tell them to turn it down, because some things are not for sale | v: tradition | chance: 60
+- W>U | ask the trade office what shops like it have fetched, so the price is fair | v: universalism, security | chance: 76
+- U>B | work out what the money would earn over the years against what the shop clears | v: security, achievement | chance: 56
+- B>R | tell them to take the money and open the shop they always dreamed of | v: achievement, stimulation | chance: 85
+- R>G | go there for the last day of trading and throw a party for the whole street | v: benevolence, stimulation | chance: 60
+- G>W | tell them to gather the family and decide it together, as the old ones would | v: tradition, conformity | chance: 80
+works: {friend} makes the choice with clear eyes, and sounds lighter on every call after.
+works: The deal goes through on fair terms, and the old customers send {friend} off with a fine farewell.
+fails: {friend} signs in a rush and spends the first months mourning the shop more than enjoying the money.
+fails: The buyer walks away while {friend} hesitates, and the old debts are still there.
+
+== a friend whose side trade took off as the hours were cut
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-75
+calls: URG
+rate: 1
+tone: mixed
+life: friends, money, work
+horizon: months
+roles: friend, partner, customers
+who: friend
+cast_want: far_mixed
+touch: money
+earth: a friend in another town calls: their day job was cut to three days a week, but the small trade they ran on weekends has suddenly taken off
+times: When a town changes, many people lose hours at their main job while a side trade or second income grows, and most find the mix brings more money some months and less certainty every month (estimate)
+gap: 3-8
+scene: {friend} calls from {their_town} late on a Sunday, flour or sawdust still on their hands. Since {far_event}, the day job has been cut to three days a week, and the little trade {friend} has run from the kitchen at weekends has, strangely, taken off: orders every day, more money some weeks than the old wage. Other weeks bring almost nothing, and {friend} has not had a day off in a month.
+scene W: Half a job is still a job, and {N} thinks the trade should be put on a proper footing before it grows.
+scene U: {N} wants the numbers, week by week, to see which of the two really keeps {friend} afloat.
+scene B: A trade that grows this fast in a bad year could be worth far more than the job that is shrinking.
+scene R: {N} can hear the thrill in {friend}, and the exhaustion right under it.
+scene G: {N} remembers {friend} learning that trade at a grandmother's elbow, long before it ever paid.
+- W | tell them to keep the three days of the day job, whatever the trade brings | v: security, conformity | chance: 70
+- U | sit down with them and work out which of the two really pays | v: self-direction, security | chance: 82
+- B | tell them to drop the day job and put everything into the trade | v: achievement, self-direction | chance: 58
+- R | go there for a weekend and work beside them, orders and all | v: stimulation, benevolence | chance: 84
+- G | tell them to keep it small and homely, the way it was always done | v: tradition | chance: 66
+- W>B | help them register the trade properly, so it can grow without trouble | v: conformity, achievement | chance: 70
+- U>R | plan out a week with one free day in it, and make them keep it | v: hedonism, self-direction | chance: 58
+- B>G | lend them the money for better tools, so the trade stays in their hands | v: benevolence, security | tags: pay:money-.02 | chance: 82
+- R>W | tell everyone in reach about the trade and send them all the custom possible | v: benevolence, universalism | chance: 56
+- G>U | ask old hands in the same trade how they kept going through lean years | v: tradition, self-direction | chance: 74
+works: The trade finds its feet, and {friend} begins to talk of it as the real work.
+works: The good weeks and the lean ones even out, and {friend} takes a day off at last.
+fails: The orders dry up just as the day job cuts another day, and {friend} goes quiet.
+fails: {friend} runs both at once until something gives, and the calls get short and sharp.
+
+# ---------------------------------------------------------------- pair 16: health, mixed, grown child; calls UR (s3) / WBG (s4)
+
+== a grown child with a name for it at last
+tier: everyday
+stages: mature elder
+age: 45-95
+calls: UR
+rate: 1
+tone: mixed
+life: family, health
+horizon: months
+roles: child, partner, grandchildren
+who: child
+cast_want: far_mixed
+touch: health
+earth: a grown child in another town calls: they were finally sent for tests, and the years of tiredness have a name, a lasting condition that can be managed but not cured
+times: Many adults live for years with symptoms that go unexplained, and when care improves nearby a diagnosis often brings relief and worry together (estimate)
+gap: 3-8
+scene: {child} calls from {their_town} the evening after the results. Since {far_event}, {child} was finally sent for the tests behind years of tiredness and aching. Now there is a name for it: a lasting condition, the kind that is managed with care and medicine for the rest of a life, not cured. {child} sounds relieved and frightened in the same breath, and asks whether anyone else in the family ever had it.
+scene W: {N} thinks a parent's place is beside the child now, keeping them to the doctor's plan.
+scene U: {N} wants to know everything: what the condition does, how it is treated, what the years ahead look like.
+scene B: Now that it has a name, it can be fought properly, and {N} wants {child} seen by the best there is.
+scene R: {N} hears the small voice behind the brave one, and wants to hold {child} the way it used to be possible.
+scene G: Some things run in families like the shape of a nose. {N} begins to remember an uncle who tired easily.
+- W | tell them to keep to the doctor's plan exactly, and promise to check in weekly | habit | v: conformity, benevolence | chance: 70
+- U | read up on the condition with them, and write down every question for the doctor | v: self-direction, security | chance: 86
+- B | tell them to ask for the best specialist, and not to wait their turn | v: achievement, security | chance: 60
+- R | take the next train there and be with them at the first appointment | v: benevolence, stimulation | chance: 82
+- G | tell them who in the family had something like it, and how they lived with it | v: tradition, benevolence | chance: 68
+- W>R | go to the next appointment with them, and keep a cheerful face throughout | v: benevolence, conformity | chance: 70
+- U>G | trace the family health back, and write it down for the grandchildren | v: tradition, security | chance: 54
+- B>W | tell them to tell their work at once, and claim every right they are owed | v: power, security | chance: 80
+- R>U | call them every night that week until every fear has been said aloud | v: benevolence, self-direction | chance: 58
+- G>B | ask the family to share the cost of the treatment, so their savings stay whole | v: security, tradition | tags: pay:money-.02 | chance: 72
+works: The treatment settles in, and {child} begins to have more good days than bad.
+works: Knowing the name of it helps, and {child} talks about it more easily on every call.
+fails: The first months of treatment are hard, and {child} goes quiet and short on the phone.
+fails: {child} feels pushed rather than held, and keeps the next results to themselves for a while.
+
+== a grown child mended, but told to give up the old work
+tier: everyday
+stages: mature elder
+age: 45-95
+calls: WBG
+rate: 1
+tone: mixed
+life: family, health, work
+horizon: months
+roles: child, partner, grandchildren
+who: child
+cast_want: far_mixed
+touch: health
+earth: a grown child in another town calls: the bad back that has plagued them for years was finally put right, but the doctor says the old heavy work is over for good
+times: When better care comes within reach, many people with long-standing injuries are treated at last, and a good share are told to change their work afterwards (estimate)
+gap: 3-8
+scene: {child} calls from {their_town}, walking as they talk, which {N} has not heard in years. Since {far_event}, the back that has bent {child} double for so long has been seen to and put right, and the pain is nearly gone. But the doctor was plain: no more lifting, no more of the heavy work {child} has done since leaving school. {child} is glad to be upright and has no idea what to do on Monday.
+scene W: The doctor knows best, and {N} thinks the limits must be kept, however much {child} chafes at them.
+scene U: {N} wants to know what the body can still do, and what work could fit around it.
+scene B: The old job wore the back out. Someone owes {child} for that, and the next work should pay better.
+scene R: {child} can walk without pain. {N} wants to celebrate that first and worry about Monday later.
+scene G: {N} thinks of {child} as a small one, running everywhere, and is simply glad to have that back.
+- W | tell them the doctor is right, and to keep strictly to the limits | v: conformity, security | chance: 76
+- U | help them list what their skills could still do, without the lifting | v: self-direction, achievement | chance: 80
+- B | tell them to claim what the old work owes for the injury, every bit | v: power, security | chance: 62
+- R | tell them to celebrate walking again, and take the trip they always put off | v: hedonism, stimulation | chance: 84
+- G | ask them home for a year, to rest and get their strength back | act: ask the grown child home for a year, to rest and get strong again | v: tradition, benevolence | mark: took them in | chance: 72
+- W>G | gather the family to see them through the change, each doing a share | v: benevolence, conformity | chance: 64
+- U>W | look up the retraining the rules allow, and help them apply for it | v: security, self-direction | chance: 60
+- B>U | ask old contacts which trades pay well and spare the back | v: achievement, self-direction | chance: 78
+- R>B | tell them to start a small business of their own now, while the nerve is there | v: stimulation, achievement | chance: 56
+- G>R | walk the hills near the old family home together, their first long walk in years | v: tradition, stimulation | chance: 68
+works: {child} finds new work that suits the mended back, and sounds younger on every call.
+works: The change is hard for a season, then {child} starts to talk of it as a second chance.
+fails: {child} goes back to lifting too soon, and the old pain starts to creep in again.
+fails: The weeks without work weigh on {child}, and the calls turn flat and short.
+
+# ---------------------------------------------------------------- pair 17: safety, mixed, parent; calls WU (s2) / BRG (s1)
+
+== a parent glad of the safer streets and tired of the rules
+tier: everyday
+stages: young_adult adult mature
+age: 25-75
+calls: WU
+rate: 1
+tone: mixed
+life: family, safety, place
+horizon: months
+roles: parent, sibling, neighbours
+who: parent
+cast_want: far_mixed
+touch: safety
+earth: a parent in another town calls: the streets there are safer than in years, but the new rules and patrols make the old place feel like a cage
+times: When a town clamps down after a bad spell, most residents say they feel safer, and many, older people among them, also say they feel watched and hemmed in (estimate)
+gap: 3-8
+scene: {parent} calls from {their_town} after the evening news. Since {far_event}, the streets there are quieter than they have been in years: lit corners, patrols on foot, new rules about where people may gather and how late. {parent} walks back from the shops without a glance over one shoulder now, and in the same breath grumbles that the old evening walk feels like crossing someone else's yard.
+scene W: Rules that keep a street safe are worth keeping. Still, {N} thinks a town should not make its own people feel like suspects.
+scene U: {N} wants to know what the rules actually say, how long they are meant to last, and whether the quiet comes from them at all.
+scene B: Whoever sits close to the people running the patrols will have an easy time of it. {N} wonders whether {parent} knows anyone.
+scene R: {N} hears the relief and the restlessness tangled together, and wants to walk those streets with {parent} tonight.
+scene G: The town has come through hard years before and found its old ways again. {N} hopes it will do so once more.
+- W | tell them to keep to the new rules, since they are what keeps the street safe | v: security, conformity | chance: 72
+- U | ask what the rules really are, and help them plan walks that fit inside them | v: self-direction, security | chance: 80
+- B | tell them to get to know the patrol chief, so they are waved through | v: power, security | chance: 62
+- R | tell them to walk wherever they like, and let the patrols ask | v: self-direction, stimulation | chance: 58
+- G | tell them the town has seen hard years before and will settle again | v: tradition, security | chance: 76
+- W>B | tell them to join the residents' group that meets the patrols, and win a say | v: power, conformity | chance: 68
+- U>R | find the clubs and classes still open after dark, and sign them up for one | v: stimulation, benevolence | chance: 60
+- B>G | pay for a taxi home from their old friends' houses on dark nights | v: benevolence, tradition | tags: pay:money-.02 | chance: 78
+- R>W | go there and walk the old evening route with them, keeping to the rules | v: benevolence, conformity | chance: 82
+- G>U | ask the oldest neighbours how the town came through its last hard spell | v: tradition, self-direction | chance: 64
+works: {parent} finds a way to enjoy the quiet streets, and the grumbling turns fond.
+works: The rules ease as the town calms, and {parent} takes the long evening walk again.
+fails: {parent} stays in more and more, safe and bored behind the curtains.
+fails: The rules grow tighter, and every call ends with a new complaint about them.
+
+== a parent stopped by the new patrols on their own street
+tier: everyday
+stages: young_adult adult mature
+age: 25-75
+calls: BRG
+rate: 1
+tone: mixed
+life: family, safety, community
+horizon: months
+roles: parent, neighbours, sibling
+who: parent
+cast_want: far_mixed
+touch: safety
+earth: a parent in another town calls: the town is far safer since the clampdown, but last night a patrol stopped them on their own street like a stranger
+times: Where towns bring in patrols or checks, crime often falls, and a share of ordinary residents are stopped or questioned at some point, which many resent even when they back the patrols (estimate)
+gap: 3-8
+scene: {parent} calls from {their_town}, laughing about it at first and then not. Since {far_event}, the town is safer than it has been in years, and {parent} says so gladly: no broken glass in the bus shelter, no hurrying home. But last night, on the way back from a neighbour's, a patrol stopped {parent}, asked for a name and an address, and walked {parent} to the door like someone who did not belong there.
+scene W: The patrols have a job to do, and a fair town asks the same of everyone. But a fair town also says sorry when it gets it wrong.
+scene U: {N} wants the details: who stopped them, what was asked, and what the patrols are actually allowed to do.
+scene B: {parent} has lived on that street for decades. Someone in charge ought to know that, and treat {parent} accordingly.
+scene R: The thought of {parent} marched home like a suspect makes {Ns} face go hot.
+scene G: A street is made by the people who live on it. {N} thinks the neighbours, not strangers, should be the ones keeping watch.
+- W | help them write calmly and fairly to the town office about what happened | v: universalism, conformity | chance: 70
+- U | ask exactly what happened, and look up what the patrols may and may not ask | v: self-direction, security | chance: 84
+- B | tell them to make a fuss with the people in charge until someone says sorry | v: power, achievement | chance: 56
+- R | catch the next train there and walk them home yourself the next night | act: catch the next train there and walk them home in person the next night | v: benevolence, stimulation | chance: 80
+- G | tell them to let it go, since the quiet streets are worth one bad night | v: security, tradition | chance: 72
+- W>U | ask the patrol office in writing for the rules they work by, and read them together | v: universalism, self-direction | chance: 70
+- U>B | find out who runs the patrols, and get a word with the right person | v: power, security | chance: 56
+- B>R | pay for a weekend away somewhere they can stroll at night without a care | v: hedonism, benevolence | tags: pay:money-.02 | chance: 84
+- R>G | ring their old friends that night and ask them to walk {parent} home each week | act: ring the old friends that night and ask them to walk {parent} home each week | v: benevolence, tradition | chance: 60
+- G>W | tell them to join the street's own watch, so neighbours keep the street | v: tradition, conformity | chance: 68
+works: Someone in charge apologises, and {parent} walks the street with the old confidence.
+works: The patrols learn the faces on the street, and {parent} starts to nod to them.
+fails: {parent} stops visiting the neighbours after dark, safe and a little smaller.
+fails: The stop is never explained, and it sours every call about the town.
+
+# ---------------------------------------------------------------- pair 18: standing, mixed, sibling; calls RG (s4) / WUB (s3)
+
+== a brother or sister thanked by half the town and shunned by the rest
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-80
+calls: RG
+rate: 1
+tone: mixed
+life: family, friends, community
+horizon: months
+roles: sibling, old friends, neighbours
+who: sibling
+cast_want: far_mixed
+touch: standing
+earth: a brother or sister in another town calls: they spoke up when it mattered there, and now half the town thanks them while old friends will not look at them
+times: People who take a public side in a town matter often gain respect from some neighbours and lose the warmth of others, and many say the lost friendships hurt most (estimate)
+gap: 3-8
+scene: {sibling} calls from {their_town} sounding wound up and worn out at once. Since {far_event}, {sibling} is a name people there know: the one who spoke up at the hall meeting, whose face was in the local paper, who is stopped in the shops and thanked. But some of the oldest friends now cross the street, and last week no one asked {sibling} to the card night that has run for twenty years.
+scene W: {sibling} said what needed saying. {N} thinks that should be stood by, and the friends treated fairly all the same.
+scene U: {N} wants to understand why each old friend turned away, because the reasons are rarely the same.
+scene B: A known name in a small town is worth a great deal. {N} thinks {sibling} should not waste it on sulking.
+scene R: {N} feels the pride and the hurt all at once, and wants to ring every one of those friends and shout at them.
+scene G: Old friends are old roots. {N} knows that a town forgives slowly, but it does forgive.
+- W | tell them to stand by what they said, and be civil to everyone | v: conformity, universalism | chance: 66
+- U | help them work out, friend by friend, why each one turned away | v: self-direction, benevolence | chance: 78
+- B | tell them to use the new name, since a known face opens doors | v: achievement, power | chance: 64
+- R | tell them to turn up at the card night anyway and laugh it off | v: stimulation, hedonism | chance: 70
+- G | tell them to go to the oldest friend first, with something homemade | v: tradition, benevolence | chance: 82
+- W>G | ask the family to stand beside them at the next town gathering | v: tradition, conformity | chance: 74
+- U>W | suggest an open evening where everyone on both sides can have their say | v: universalism, self-direction | chance: 62
+- B>U | tell them to listen quietly to who says what, before choosing new friends | v: power, self-direction | chance: 76
+- R>B | tell them to throw a party for the whole street and make the new name count | v: achievement, stimulation | chance: 70
+- G>R | go there and spend an evening at the old haunts together, like when you were young | act: go there and spend an evening at the old haunts together, like when they were young | v: tradition, stimulation | chance: 58
+works: One old friend comes round, then another, and {sibling} wears the new name more easily.
+works: The fuss dies down, and {sibling} keeps the respect and most of the friends.
+fails: The card night goes on without {sibling}, and the thanks of strangers feel thin.
+fails: {sibling} grows prickly with everyone, {N} included, and the calls get shorter.
+
+== a brother or sister asked to stand for the town board
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-80
+calls: WUB
+rate: 1
+tone: mixed
+life: family, community, work
+horizon: months
+roles: sibling, partner, neighbours
+who: sibling
+cast_want: far_mixed
+touch: standing
+earth: a brother or sister in another town calls: since the change there people look up to them, and they have been asked to stand for the town board, at the cost of a quiet life
+times: In small towns, people who come to the fore in a local fight are often asked to take a seat on a board or council, and many turn it down for the time and the strain it brings (estimate)
+gap: 3-8
+scene: {sibling} calls from {their_town} with news that sounds half like a prize and half like a summons. Since {far_event}, people there have started to look to {sibling}: neighbours ask for advice, the local paper wants a word, and now the town board has asked {sibling} to stand for a seat. It would mean evenings away from home, a name on every complaint and the end of a quiet life, and {sibling} wants to hear what {N} thinks before saying yes or no.
+scene W: When a town asks someone to serve, {N} thinks that is not a thing to wave away lightly.
+scene U: {N} wants to know what the seat really involves: the hours, the meetings, the people already on the board.
+scene B: A seat on the board is real say over a whole town. {N} is proud, and a little envious.
+scene R: {N} can hear that {sibling} is thrilled and frightened in equal measure, and wants to say whatever {sibling} needs to hear.
+scene G: The family has never had anyone on the board. {N} wonders what it would do to the household, and to the old friendships.
+- W | tell them it is a duty, and if the town asks they should serve | v: conformity, universalism | chance: 68
+- U | help them weigh the hours, the pay and what it costs the household | v: self-direction, security | chance: 82
+- B | tell them to take it, because a seat on the board beats a quiet life | v: power, achievement | chance: 70
+- R | tell them to say no tonight if their gut says no | v: self-direction, hedonism | chance: 76
+- G | tell them to ask their own household first, and abide by what it says | v: tradition, benevolence | chance: 74
+- W>R | go there for the first meeting and sit in the front row | v: benevolence, stimulation | chance: 72
+- U>G | help them learn what the old families of the town want from the board | v: tradition, self-direction | chance: 58
+- B>W | tell them to stand only if the board agrees to their terms for the town | v: power, universalism | chance: 70
+- R>U | call them back every night that week to talk it through until they know | v: benevolence, self-direction | chance: 64
+- G>B | tell them to take the seat and use it to keep the family business safe | v: security, power | chance: 66
+works: Whatever {sibling} decides, it sits right, and the town respects the answer.
+works: {sibling} takes the seat and finds the work hard but worth it, and calls {N} after every meeting.
+fails: The seat eats every evening, and {sibling} sounds tired and harried on every call.
+fails: {sibling} turns it down and spends months wondering, a little sourly, what might have been.
