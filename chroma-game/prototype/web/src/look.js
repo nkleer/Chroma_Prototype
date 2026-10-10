@@ -17,7 +17,8 @@
    6 the life river as it was, lit like the fog: its glow breathes, light drifts and gleams along it, and its colors
      flow into their new place when the life moves on (Emren 10-10 09:01 UTC)
    and for play: odds read by colour at a glance, a storm corner on cards they would rather not do, and a small lean wheel
-   on the moment's picture that shows which way the card under the mouse would pull them. */
+   on the moment's picture that shows which way the card under the mouse would pull them. The status panel reads at a
+   glance: trends, danger glow, the wheel a year ago, sparklines in its hovers and a key (Emren 10-10 10:53 UTC). */
 (() => {
 const LK_LIGHTS = __LIGHTS__;
 const LK_PORT = PICS.portrait || null;
@@ -366,7 +367,8 @@ const _renderHud = renderHud;
 renderHud = function (L) {
   // an outcome about to turn over: hold the wheel and the meters until its ink lands (set before the wheel starts moving)
   safe(() => { const w = $("hudWheel"); if (!busy && choosing && flyer && moving() && !holdUntil && w && w.offsetParent !== null) holdUntil = now() + Math.max(0, 600 - (now() - choosing.t)) + 1250; });
-  _renderHud(L); safe(() => afterHud(L));
+  safe(() => { memW = yearAgo(L); });
+  _renderHud(L); safe(() => afterHud(L)); safe(() => hudMarks(L));
 };
 
 // a moment: odds by colour, the storm corner, and the lean wheel on the picture
@@ -526,6 +528,124 @@ function dockReading() {
   screenEl.style.paddingBottom = rd.getBoundingClientRect().height + 24 + "px";   // the cards and the foot can still scroll clear of it
   if (!touchUI && $("txt")) $("txt").focus({ preventScroll: true });
 }
+
+/* ---------------- reading the panel at a glance (Emren 10-10 10:53 UTC: "apply everything to improve visual quality") ----
+   The status panel says which way things are going and what is in danger, without opening a hover:
+   - a ▲ or ▼ beside a meter, a mean or a need that moved 4 points or more since a year ago (green when that is good for
+     them, red when it is not, gold for wanting, which is neither);
+   - a red glow on a meter or mean in a danger zone (satisfaction or peace under 20%, strain over 80%, a mean under 15%),
+     a gold one on wanting close to breaking through;
+   - on the wheel, a dotted outline of their colors a year ago (from the river), so the direction they moved shows;
+   - in the hover of a meter, mean or need, a line of its last years and where it stood a year ago;
+   - a "?" on the crest with every mark and symbol of the panel in one key.
+   The history is kept here, per life, from the panel's own numbers (the river gives the wheel and the two moods back to
+   birth); nothing is sent to the engine. Every look and motion setting; calm and off keep the glow still. */
+const TREND_MIN = 4, KEEP_YRS = 15;
+const MEANS_K = ["money", "time", "health", "ties", "freedom"];
+let hist = [], histKey = "", memW = null;
+function panelNow(L) {
+  const v = { content: clamp(L.content), peace: clamp(L.peace), stress: clamp(L.stress / 1.5), want: clamp(L.want / Math.max(L.want_thr, 1e-9)) };
+  for (const k of MEANS_K) if (L.res && L.res[k] != null) v["r." + k] = clamp(L.res[k]);
+  for (const [k, x] of Object.entries(L.needs || {})) v["n." + k] = clamp(x);
+  return v;
+}
+function record(L) {
+  const key = lifeKey(L), last = hist[hist.length - 1];
+  if (key !== histKey || (last && L.age < last.a - 0.01)) { hist = []; histKey = key; }
+  if (hud && hud.replay) return;
+  const l2 = hist[hist.length - 1];
+  if (l2 && L.age - l2.a < 1 / 12) { l2.v = panelNow(L); return; }   // one sample a month; the newest month keeps its last word
+  hist.push({ a: L.age, v: panelNow(L) });
+  while (hist.length && hist[0].a < L.age - KEEP_YRS) hist.shift();
+}
+// the value of a panel number a year ago: our own samples first, the river for the two moods (it goes back to birth)
+function agoOf(k, L) {
+  let best = null;
+  for (const s of hist) if (s.a <= L.age - 1 && s.v[k] != null) best = s.v[k];
+  if (best == null && (k === "content" || k === "peace")) {
+    const col = k === "content" ? 6 : 7;
+    for (const r of L.river || []) if (r[0] <= L.age - 1 && r.length > col) best = r[col];
+  }
+  return best;
+}
+function seriesOf(k, L) {
+  const pts = hist.filter((s) => s.v[k] != null).map((s) => [s.a, s.v[k]]);
+  if (pts.length < 6 && (k === "content" || k === "peace")) {
+    const col = k === "content" ? 6 : 7;
+    return (L.river || []).filter((r) => r[0] >= L.age - KEEP_YRS && r.length > col).map((r) => [r[0], r[col]]).concat([[L.age, panelNow(L)[k]]]);
+  }
+  return pts;
+}
+function yearAgo(L) {
+  if (!L || !L.river || L.age < 1.5) return null;
+  let row = null;
+  for (const r of L.river) if (r[0] <= L.age - 1) row = r;
+  return row ? row.slice(1, 6) : null;
+}
+const GOOD_OF = (k) => k === "stress" ? -1 : k === "want" ? 0 : 1;
+const warnOf = (k, v) => k === "stress" ? (v >= 0.8 ? "high" : "") : k === "want" ? (v >= 0.9 ? "near" : "") : k === "content" || k === "peace" ? (v <= 0.2 ? "low" : "") : k.startsWith("r.") ? (v <= 0.15 ? "low" : "") : "";
+function hudMarks(L) {
+  if (!L || !L.w) return;
+  record(L);
+  const cur = panelNow(L);
+  const mark = (el, k) => {
+    if (!el) return;
+    const ago = agoOf(k, L), d = ago == null ? 0 : Math.round(cur[k] * 100) - Math.round(ago * 100);
+    if (Math.abs(d) >= TREND_MIN) { el.dataset.lkTr = d > 0 ? "up" : "down"; el.dataset.lkGood = String(Math.sign(d) * GOOD_OF(k.replace(/^[rn]\./, "")) || 0); }
+    else { delete el.dataset.lkTr; delete el.dataset.lkGood; }
+    const w = warnOf(k, cur[k]); if (w) el.dataset.lkWarn = w; else delete el.dataset.lkWarn;
+  };
+  hudEl.querySelectorAll(".mtr[data-ring]").forEach((el) => mark(el, el.dataset.ring));
+  hudEl.querySelectorAll(".mean[data-r]").forEach((el) => mark(el, "r." + el.dataset.r));
+  hudEl.querySelectorAll(".nd[data-nd]").forEach((el) => mark(el, "n." + el.dataset.nd));
+  const crest = hudEl.querySelector(".crestbox");
+  if (crest && !$("lkKey")) {
+    crest.insertAdjacentHTML("beforeend", `<span class="wkey lk-key" id="lkKey" tabindex="0" aria-label="What the marks on this panel mean">?</span>`);
+    setTip($("lkKey"), () => panelKey(L));
+  }
+}
+const KEY_SW = { up: `<b class="lk-sw up">▲</b>`, down: `<b class="lk-sw down">▼</b>` };
+function panelKey(L) {
+  const rows = [[`${KEY_SW.up}${KEY_SW.down}`, "Up or down 4 points or more since a year ago: green when that is good for them, red when it is not."],
+    [`<b class="lk-sw glow"></b>`, "A danger zone: satisfaction or peace under 20%, strain over 80%, a mean under 15%. Gold on wanting: close to breaking through."],
+    [`<i class="spk k-mem"></i>`, "On the wheel: their colors a year ago, so you can see which way they moved."]];
+  rows.push([`<span class="lk-sw down">${ic(NEED_ICON.safety || "shield")}</span>`, "A need under 30% pulses."]);
+  return tipBox(`${ic("ci-crystal-ball")} Reading this panel`, "", rows, "Hover any meter, mean or need for its numbers and a line of its last years.");
+}
+// the hover of a meter, mean or need: its last years as a line, and where it stood a year ago
+function sparkHTML(k, L) {
+  const S = seriesOf(k, L); if (S.length < 3) return "";
+  const a0 = S[0][0], a1 = Math.max(S[S.length - 1][0], a0 + 0.5), W = 180, H = 34;
+  let lo = Math.min(...S.map((s) => s[1])), hi = Math.max(...S.map((s) => s[1]));       // its own range, at least 20 points tall
+  const mid = (lo + hi) / 2, half = Math.max(0.1, (hi - lo) / 2 + 0.04); lo = Math.max(0, mid - half); hi = Math.min(1, lo + 2 * half); lo = Math.max(0, hi - 2 * half);
+  const x = (a) => ((a - a0) / (a1 - a0) * (W - 4) + 2).toFixed(1), y = (v) => (H - 3 - clamp((v - lo) / (hi - lo)) * (H - 6)).toFixed(1);
+  const d = S.map(([a, v], i) => `${i ? "L" : "M"}${x(a)} ${y(v)}`).join("");
+  const ago = agoOf(k, L), nowv = panelNow(L)[k];
+  const ref = ago != null ? `<line class="ago" x1="2" x2="${W - 2}" y1="${y(ago)}" y2="${y(ago)}"/>` : "";
+  const yrs = Math.max(1, Math.round(a1 - a0));
+  const diff = ago != null ? Math.round(nowv * 100) - Math.round(ago * 100) : null, gd = diff ? Math.sign(diff) * GOOD_OF(k.replace(/^[rn]\./, "")) : 0;
+  return `<div class="lk-spark"><svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${ref}<path d="${d}"/><circle cx="${x(S[S.length - 1][0])}" cy="${y(nowv)}" r="2.4"/></svg>
+    <span>the last ${yrs} year${yrs > 1 ? "s" : ""}${ago != null ? ` · a year ago ${Math.round(ago * 100)}%${diff ? ` <b class="${gd > 0 ? "up" : gd < 0 ? "down" : ""}">${diff > 0 ? "+" : "−"}${Math.abs(diff)}</b>` : ", the same"}` : ""}</span></div>`;
+}
+const _showTip = showTip;
+showTip = function (el) {
+  _showTip(el);
+  safe(() => {
+    const L = hud && hud.life; if (!L || !el || !el.closest || tipOwner !== el || !el.closest("#hud")) return;
+    const k = el.matches(".mtr[data-ring]") ? el.dataset.ring : el.matches(".mean[data-r]") ? "r." + el.dataset.r : el.matches(".nd[data-nd]") ? "n." + el.dataset.nd : "";
+    const sp = k && sparkHTML(k, L); if (!sp) return;
+    tipEl.insertAdjacentHTML("beforeend", sp); placeTip(el.getBoundingClientRect(), false);
+  });
+};
+// the wheel's memory: the outline of a year ago, under where they are now
+const _spiderSVG = spiderSVG;
+spiderSVG = function (o) {
+  const s = _spiderSVG(o);
+  if (!o || o.id !== "hw" || !memW) return s;
+  const at = s.indexOf('<polygon class="pos"');
+  return at < 0 ? s : s.slice(0, at) + `<polygon class="lk-mem" points="${spPts(memW)}"/>` + s.slice(at);
+};
+SP_KEY.push(["mem", "A year ago", "The faint dotted outline: their five colors a year ago, so you can see which way they have moved since."]);
 
 /* ---------------- the two settings, in the Table menu after Interlude ---------------- */
 const _renderTools = renderTools;

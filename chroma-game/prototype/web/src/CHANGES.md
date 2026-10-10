@@ -44,3 +44,10 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   click no longer begins, and once a card is clicked the mouse crossing the others no longer changes the reading. When
   the name would sit below the fold (a short window, a phone), the reading docks at the foot of the window. Enter or
   Begin starts the life. In look.js (wraps renderScreen) and look.css; app.js unchanged.
+- 10-10 (thread "Visual improvement", Emren 10-10 10:53 UTC "apply everything to improve visual quality"): the status
+  panel reads at a glance. A ▲ or ▼ beside a meter, a mean or a need that moved 4 points or more since a year ago (green
+  when good for them, red when not, gold on wanting); a red glow on a meter or mean in a danger zone (satisfaction or
+  peace under 20%, strain over 80%, a mean under 15%), gold on wanting close to breaking through; a dotted outline of
+  their colors a year ago on the wheel (from the river; "A year ago" in the wheel's key); a line of the last years and
+  the value a year ago in the hover of every meter, mean and need; a "?" on the crest with the key to these marks.
+  look.js keeps a monthly history per life from the panel's own numbers; it wraps showTip and spiderSVG. app.js unchanged.
