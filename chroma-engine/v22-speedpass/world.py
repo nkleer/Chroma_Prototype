@@ -433,6 +433,8 @@ W_DEFAULT = dict(
     sph_seasons=False, # phase 3, N7: the year's rhythm (dynamics.json seasons) on each sphere's event hazards and hours
     sph_joins=False,   # phase 3, N6: an event's shift spills to joined spheres at J x (1 - separation) (epochs.json)
     sph_pairs=False,   # phase 3: the ten pair faces per town sphere (dynamics.json pair_faces), a layer over two faces
+    sph_links=False,   # phase 3: the 72 sphere-to-sphere links (links.json, through their via states) and their colour
+                       # readings (colour.by_colour); with sph_events (the states are the events')
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -446,7 +448,7 @@ W_DEFAULT = dict(
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
-             "sph_joins", "sph_pairs", "inst_even")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_joins", "sph_pairs", "inst_even", "sph_links")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
@@ -2992,6 +2994,8 @@ class World:
         Xt = self._sph_events_q(e) if self.p.get("sph_events", False) else 0.0   # phase 3: the events' fading shifts
         if self.p.get("sph_joins", False) and self.p.get("sph_events", False):   # N6: a shift spills to joined spheres
             Xt = Xt + np.einsum("jk,ljc->lkc", T["Jsp"], Xt)
+        if self.p.get("sph_links", False) and self.p.get("sph_events", False):   # the links between spheres
+            Xt = Xt + self._sph_links_q()
         Dm = T["M0"][None] * np.exp(Nt + Tt + Kt + Xt)
         Dm = Dm / Dm.sum(-1, keepdims=True)
         Ld, corr, age, has = self._sph_leaders()
@@ -3276,6 +3280,52 @@ class World:
             keep = k >= 0.01; R_ = self.sph_ev_rows = R_[keep]; k = k[keep]
             np.add.at(X, (R_[:, 0].astype(np.intp), R_[:, 1].astype(np.intp)), R_[:, 4:] * k[:, None])
         return X
+
+    SPH_LINK_LAG = {"weeks": 1, "months": 1, "quarters": 2, "years": 8, "decades": 40}   # a link's lag, in quarters
+
+    def _sph_link_tables(self):
+        """The 72 sphere-to-sphere links as arrays (made once, not saved): A (link x the 74 states) averages each link's
+        from-states, signed; B (link x own state) is each to-state's step per unit, signed, x strength / 3 (to-states
+        that are world.py variables are left alone: words only, as the events' domain rows); rate, 1 / the lag in
+        quarters; F (link x sphere x face), the colour readings: + feeds, - starves on the link's low side, x strength / 3,
+        in this world's colour frame."""
+        c_ = getattr(self, "_cache_sphlk", None)
+        if c_ is not None:
+            return c_
+        import sphere_data as SD
+        E = self._sph_ev_tables(); si = {k: j for j, k in enumerate(SD.STATES)}; oi = {k: j for j, k in enumerate(E["own"])}
+        nL = len(SD.LINKS); A = np.zeros((nL, len(SD.STATES))); B = np.zeros((nL, len(E["own"]))); F = np.zeros((nL, 9, C))
+        lid = {l["id"]: j for j, l in enumerate(SD.LINKS)}
+        for j, l in enumerate(SD.LINKS):
+            for k, sg in l["src"]:
+                A[j, si[k]] += sg / len(l["src"])
+            for k, sg in l["dst"]:
+                if k in oi:
+                    B[j, oi[k]] += sg * l["strength"] / 3
+        for r in SD.LINK_COLOUR:
+            f = np.array([(c in r["feeds"]) - (c in r["starves"]) for c in COLORS], float)[self.perm]
+            F[lid[r["link"]], SPH[r["faces_in"]]] += (1 if r["side"] == "low" else -1) * r["strength"] / 3 * f
+        rate = np.array([1.0 / self.SPH_LINK_LAG.get(l["lag"], 8) for l in SD.LINKS])
+        c_ = self._cache_sphlk = dict(A=A, B=B, F=F, rate=rate, osi=[si[k] for k in E["own"]], wsi=[si[k] for k in SD.STATE_WORLD])
+        return c_
+
+    def _sph_links_q(self):
+        """Phase 3 (sph_links): each link's input is the mean of its from-states' levels minus .5 (signed, "(down)"
+        turned), lagged (it moves 1 / lag of the way a quarter, from 0); each to-state of the sphere's own steps
+        link_k x strength / 3 x the lagged input a quarter (link_k .01: the links' loop gain, .0138 at most, stays under
+        the states' relax of .02); the colour readings shift demand by link_c x strength / 3 x the lagged input, the low
+        side feeding the row's feeds and starving its starves (the high side the other way round). Returns the X shift
+        (n_loc x 9 x 5)."""
+        E = self._sph_ev_tables(); Lk = self._sph_link_tables(); pr = self._sph_tables()["pr"]; nl = self.n_loc
+        lv = np.zeros((nl, Lk["A"].shape[1]))
+        lv[:, Lk["osi"]] = _uclip(self.sph_st + self.sph_st_soc[None] - 0.5, 0, 1)
+        lv[:, Lk["wsi"]] = self._sph_world_states(E)
+        x = (lv - 0.5) @ Lk["A"].T
+        if getattr(self, "sph_lk", None) is None:
+            self.sph_lk = np.zeros_like(x)
+        self.sph_lk += Lk["rate"][None] * (x - self.sph_lk)
+        self.sph_st += float(pr.get("link_k", 0.01)) * (self.sph_lk @ Lk["B"])
+        return -float(pr.get("link_c", 0.3)) * np.einsum("ln,njc->ljc", self.sph_lk, Lk["F"])
 
     def _sph_pairs_q(self, T, s):
         """Phase 3 (sph_pairs): the ten pair faces of each town sphere (dynamics.json pair_faces). A pair's strength pi

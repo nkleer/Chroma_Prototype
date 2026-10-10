@@ -7,7 +7,7 @@ that the copy carries).
 SPHERES_DATA_DIR is the master copy chroma-world/spheres/data (the nine sphere files, plan.json, epochs.json, dynamics.json,
 marks.json; dynamics.json also gives haunt_shares).
 Writes (or checks) sphere_data.py beside engine.py in the tree this script sits in."""
-import sys, os, json, pprint
+import sys, os, re, json, pprint
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -86,12 +86,27 @@ def build(src):
     STATES = sorted({f"{r['target']}.{k}" for e in EV for r in e["rows"] if r["target"] in SPHERES for k in r["state"]})
     STATE_WORLD = sorted(er["states"]["world_vars"])
     STATE_RULE = dict(start=0.5, step=0.05, relax=0.02, mem=0.01)
+    # phase 3 (sph_links): the 72 sphere-to-sphere links of links.json, each through its via states ("a, b -> c; d
+    # (down)": the from-sphere's states feed the to-sphere's, "(down)" turning that name's sign), with its lag and
+    # strength; and the colour readings of those links (colour.by_colour): the faces of faces_in that the link's low side
+    # feeds and starves (a row's "side": "high" reads the other way; the opposite side swaps them)
+    lk = rd("links.json")
+    def via(txt, s):
+        return [[f"{s}.{re.sub(r'[(].*?[)]', '', x).strip()}", -1 if "(down)" in x else 1] for x in re.split("[,;]", txt) if x.strip()]
+    LINKS = [dict(id=l["id"], frm=l["from"], to=l["to"], lag=l["lag"], strength=int(l["strength"]), sign=l["sign"],
+                  src=via(l["via"].split("->", 1)[0], l["from"]), dst=via(l["via"].split("->", 1)[1], l["to"]))
+             for l in lk["links"] if l["kind"] == "sphere-sphere"]
+    ids = {l["id"] for l in LINKS}
+    LINK_COLOUR = [dict(link=r["link_id"], faces_in=r["faces_in"], strength=int(r["strength"]), side=r.get("side", "low"),
+                        feeds=sorted(r["feeds"]), starves=sorted(r["starves"]))
+                   for r in lk["colour"]["by_colour"] if r["link_id"] in ids]
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
                 MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV,
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
-                HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"])
+                HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
+                LINKS=LINKS, LINK_COLOUR=LINK_COLOUR)
 
 
 def audit(T):
@@ -132,6 +147,14 @@ def audit(T):
     miss = sorted({c[0] for e in T["EV"] for c in e["chains"]} - ek)
     if miss:
         bad.append(f"chains to unknown events: {miss[:5]}")
+    st_ = set(T["STATES"])
+    lb = [l["id"] for l in T["LINKS"] if not all(k in st_ for k, _ in l["src"] + l["dst"]) or not l["src"] or not l["dst"]]
+    if len(T["LINKS"]) != 72 or lb:
+        bad.append(f"links: {len(T['LINKS'])} sphere to sphere, via states unknown in {lb[:5]}")
+    cb = [r["link"] for r in T["LINK_COLOUR"] if r["faces_in"] not in SPHERES or r["side"] not in ("low", "high")
+          or not set(r["feeds"] + r["starves"]) <= set(COLS)]
+    if cb:
+        bad.append(f"colour readings: {cb[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
