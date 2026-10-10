@@ -4974,6 +4974,8 @@ class People:
         t = self.t if t is None else t
         out = []
         for d_ in list(self.lw_due):
+            if d_ not in self.lw_due:   # taken out with its post (an earlier lapse ended or renewed the same post)
+                continue
             n, key, pid, t0_ = d_
             p = next((p_ for p_ in self.lw_posts if p_["id"] == pid), None)
             if p is None or self.dead[n]:
