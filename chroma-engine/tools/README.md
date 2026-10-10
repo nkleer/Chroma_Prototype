@@ -37,6 +37,7 @@ the Library and the output folder changed: they all `import _engine`.
 | child_deaths.py | C-X5 | a child's death and illness among parents |
 | world_check.py, people_check.py, world_starts.py, lives_in_worlds.py | C-E16 (check_world.py) | the outer world |
 | colour_count.py | DECISIONS.md CHECK | how many colours adults hold, by age |
+| lead_check.py | v22.4 G11 (s7_falls, s7_post) | S7 ways to lead: falls per way per 10 post-years within 1.5x; mean years in post per lead colour within 1.2x (`--on` switches lead_ways on for a commit before the v22.4 refit) |
 
 The calibration folders these scripts came from (their outputs and the one-off fitting scripts) are kept unchanged in
 the shared folder: in `chroma-engine/prototype/` until Release's checks run from here, then under
