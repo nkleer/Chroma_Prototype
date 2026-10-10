@@ -273,6 +273,14 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             for ki, nt in enumerate(L["notes"][si][:K]):
                 self.took[si, ki] = str((nt or {}).get("mark") or "").strip() == "took them in"
+        # S5, sacred lines: the moments of a life's own (cast_want: sacred, tragic, amends; no cast member holds them),
+        # their line kinds, offer kind and round, and their options' tags (line:, tragic:, heal:)
+        self.sac_on = bool(getattr(PP, "sac_on", False))
+        self.sac_m = np.asarray(L.get("W_SACRED", np.full((S, 2), -1))).reshape(S, 2)
+        self.sac_off = np.asarray(L.get("W_OFFER", np.full(S, -1))); self.sac_rnd = np.asarray(L.get("W_ROUND", np.full(S, -1)))
+        self.sac_line = np.asarray(L.get("W_LINE", np.full((S, K), -1))); self.sac_trag = np.asarray(L.get("W_TRAGIC", np.full((S, K), -1)))
+        self.sac_heal = np.asarray(L.get("W_HEAL", np.full((S, K), -1)))
+        self.sac_pend = {}                # n -> the offer or amends (People.sac_q item) the week's pending moment answers
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -458,6 +466,12 @@ class WorldLink:
                         hit_ &= self._members(si, int((e.get("value") or {}).get("faith", -1)))
                     self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
+        if self.sac_on and W.p.get("c3_inst"):   # S5: a C3 offer (sold, merged, a leak, a cover-up) reaches its staff
+            for e in new:
+                k_ = f"institution.{e.get('kind')}"
+                if e.get("domain") == "institution" and k_ in self._sac_keys():
+                    stf_ = np.nonzero(self._staff(int((e.get("value") or {}).get("inst", -1))))[0]
+                    PP.sac_offer(stf_, k_, PP.t, reach=PP.sac_par["c3_reach"])
         if W.p.get("c3_inst"):
             self._c3_merged(new)
         if self.c2 and self.c2_split >= 0 and t % 4 == 0:
@@ -471,6 +485,19 @@ class WorldLink:
             if ss_ and n_ not in self.pending:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
+        if self.sac_on:   # S5: an offer on a held line, a tragic trade-off or amends brings its moment (no holder: cid -1)
+            self.sac_pend = {}
+            for n_, it_ in PP.sac_due(PP.t):
+                if n_ in self.pending:
+                    continue
+                si_ = self._sac_pick(n_, it_)
+                if si_ is None:   # no moment for this line: decided off-screen by the character's own odds
+                    if it_["kind"] != "amends" and PP.sac_par["quiet"]:
+                        PP.sac_quiet(n_, it_, PP.t)
+                    elif it_ in PP.sac_q.get(n_, []):
+                        PP.sac_q[n_].remove(it_)
+                    continue
+                self.pending[n_] = (-1, it_["kind"], si_); self.fire_now[n_, si_] = True; self.sac_pend[n_] = it_
         return self.week_events
 
     def _members(self, si, ref=None):
@@ -507,6 +534,100 @@ class WorldLink:
                 self.fire_now[hit_, self.c2_split] = True
                 self.fire_why[self.c2_split] = dict(domain="group", kind="congregation drifts", key="congregation",
                                                     value=None, t=int(W.t))
+
+    def _sac_keys(self):
+        import sphere_data as SD_
+        return SD_.OFFER["events"]
+
+    def _sac_pick(self, n, it):
+        """S5: the moment for an offer, tragic trade-off or amends waiting for life n: of its kind (cast_want), for the
+        line it touches (sacred:; a tragic one for both, either order), then the offer's kind (offer:) and round
+        (round:), each dropped in turn when none fits; None when no moment is for that line. A tragic offer with no
+        moment for the pair comes as a plain offer on its first line."""
+        PP = self.PP
+        kinds = [int(PP.sac_line[n, j]) for j in it["slots"]]
+        ss = self.want_s.get(it["kind"]) or []
+        if it["kind"] == "tragic":
+            c_ = [si for si in ss if set(self.sac_m[si].tolist()) == set(kinds)]
+            if c_:
+                si = c_[int(PP._sac_rng.integers(len(c_)))]
+                m0_ = int(self.sac_m[si, 0])
+                it["ab"] = [j for j in it["slots"] if int(PP.sac_line[n, j]) == m0_] + \
+                           [j for j in it["slots"] if int(PP.sac_line[n, j]) != m0_]
+                return si
+            it.update(kind="sacred", slots=it["slots"][:1], round=0, size=1.0, tragic_none=True)
+            kinds = kinds[:1]; ss = self.want_s.get("sacred") or []
+        c_ = [si for si in ss if self.sac_m[si, 0] in (-1, kinds[0]) and self.sac_m[si, 1] < 0]
+        if not c_:
+            PP._sac_count("no moment")
+            return None
+        if it["kind"] == "sacred":
+            import sphere_data as SD_
+            ok_ = WK.OFFER_KINDS.index(SD_.OFFER["events"][it["key"]]["kind"])
+            for f_ in (lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_off[si] == ok_ and self.sac_rnd[si] == it["round"],
+                       lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_off[si] == ok_,
+                       lambda si: self.sac_m[si, 0] == kinds[0] and self.sac_rnd[si] in (-1, it["round"]),
+                       lambda si: self.sac_m[si, 0] == kinds[0]):
+                d_ = [si for si in c_ if f_(si)]
+                if d_:
+                    c_ = d_
+                    break
+        else:
+            d_ = [si for si in c_ if self.sac_m[si, 0] == kinds[0]]
+            c_ = d_ or c_
+        return c_[int(PP._sac_rng.integers(len(c_)))]
+
+    def sacred_info(self, n, si):
+        """S5: for a sacred, tragic or amends moment brought this week, the line or lines (kind and colour), the offer (the
+        Outer world's words: the {offer} slot; its kind and gesture), the round, its size and the refusal odds
+        (People.sac_info); None for any other moment."""
+        it_ = self.sac_pend.get(int(n)); pv_ = self.pending.get(int(n))
+        if it_ is None or pv_ is None or pv_[2] != int(si):
+            return None
+        return self.PP.sac_info(int(n), it_)
+
+    def sacred_tilt(self, s, pr, mask=None):
+        """S5: the character's own pick at an offer on a held line: the options that cross it (line: cross) share 1 - the
+        refusal odds, all others (holding, untagged, doing nothing) the rest; at a tragic trade-off a, b and torn share
+        sacred_par tragic_w (untagged options keep their own odds). Within a group, by the character's own odds; a group
+        none of whose options they noticed (all at 0) still gets its share, evenly over its options the moment offers
+        (mask): saying no, or giving in, needs no noticing. pr (N, K) is changed in place for those lives."""
+        PP = self.PP
+        for n_, it_ in self.sac_pend.items():
+            si = self.pending.get(n_, (0, 0, -1))[2]
+            if si != int(s[n_]):
+                continue
+            p_ = pr[n_]; mk_ = np.ones(len(p_), bool) if mask is None else np.asarray(mask[n_], bool)
+
+            def share(g_):   # the group's own odds, or evenly over its options when none was noticed
+                return p_ * g_ / p_[g_].sum() if p_[g_].sum() > 0 else g_ / g_.sum()
+            if it_["kind"] == "sacred":
+                x_ = (self.sac_line[si] == 1) & mk_
+                h_ = ~x_ & mk_
+                if x_.any() and h_.any():
+                    q_ = PP.sac_odds(it_)
+                    pr[n_] = (1 - q_) * share(x_) + q_ * share(h_)
+                    PP._sac_count("tilted")
+            elif it_["kind"] == "tragic":
+                tg_ = self.sac_trag[si]; tw_ = PP.sac_par["tragic_w"]
+                grp_ = [((tg_ == g_) & mk_, tw_[g_]) for g_ in range(3)]
+                tot_ = sum(w_ for m_, w_ in grp_ if m_.any()); ptag_ = p_[(tg_ >= 0) & mk_].sum()
+                ut_ = (tg_ < 0) & mk_
+                ptag_ = ptag_ if ptag_ > 0 or ut_.any() and p_[ut_].sum() > 0 else 1.0
+                if tot_ > 0:
+                    q_ = np.where(ut_, p_, 0.0)
+                    for m_, w_ in grp_:
+                        if m_.any():
+                            q_ = q_ + ptag_ * (w_ / tot_) * share(m_)
+                    pr[n_] = q_ / q_.sum()
+                    PP._sac_count("tilted")
+        return pr
+
+    def sacred_act(self, live, ma, cost):
+        """S5, after the act and its costs: acts that cost something real count toward a line in their colour and heal a
+        wound in it (People.sac_act). Returns the healing events."""
+        idx = np.nonzero(live)[0]
+        return self.PP.sac_act(idx, ma[idx], np.asarray(cost)[idx]) if len(idx) else []
 
     def _staff(self, i):
         """The lives whose own work setting is institution i (N,)."""
@@ -619,6 +740,13 @@ class WorldLink:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
+        if pv_[1] in WK.OWN_WANTS:   # S5: an offer, a tragic trade-off or amends (no cast member holds it)
+            it_ = self.sac_pend.get(int(n))
+            if it_ is None:
+                return None
+            tab_ = {"sacred": self.sac_line, "tragic": self.sac_trag, "amends": self.sac_heal}[it_["kind"]]
+            tg_ = -1 if idle_n else int(tab_[s_n, a_n])
+            return self.PP.sac_resolve(int(n), it_, tg_, bool(idle_n), None)
         ev_ = self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
         if pv_[1].startswith("far_") and self.took[s_n, a_n] and not idle_n and succ_n:   # F4: the tie comes to stay
             self.PP.take_in(int(n), pv_[0])
@@ -1058,7 +1186,7 @@ class WorldLink:
         if not sl_:
             return None
         pv_ = self.pending.get(int(n))
-        first_ = pv_[0] if pv_ is not None and pv_[2] == si else None
+        first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own: none)
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}

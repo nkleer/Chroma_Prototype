@@ -655,6 +655,33 @@ def _world_fields(L):
         for si in range(S):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
+    # sacred lines (S5, chroma-ideas/social-mechanics.md; the Library's fields of 10-10): a moment's line kind or kinds
+    # (sacred: promise, or two joined by + on a tragic moment), the kind of offer (offer: money, post, favour) and its
+    # round (round: first, raised); an option's line: hold or cross, tragic: a, b or torn, heal: amends, reflect or not_yet
+    sac = np.full((S, 2), -1); offer = np.full(S, -1); rnd = np.full(S, -1)
+    oline = np.full((S, K), -1); otrag = np.full((S, K), -1); oheal = np.full((S, K), -1)
+    for si, src in enumerate(L["src"][:S]):
+        nm = f"moment {src.get('name', si)!r}"
+        if src.get("sacred"):
+            ks_ = [x.strip() for x in str(src["sacred"]).split("+") if x.strip()]
+            if not 1 <= len(ks_) <= 2:
+                raise ValueError(f"{nm}: sacred: one line kind, or two joined by + ({src['sacred']!r})")
+            for j_, x in enumerate(ks_):
+                sac[si, j_] = one(x, WK.SACRED_KINDS, nm)[0]
+        if src.get("offer"):
+            offer[si] = one(src["offer"], WK.OFFER_KINDS, nm)[0]
+        if src.get("round"):
+            rnd[si] = one(src["round"], WK.OFFER_ROUNDS, nm)[0]
+        for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
+            if not nt or ki >= K:
+                continue
+            if nt.get("line"):
+                oline[si, ki] = one(nt["line"], WK.LINE_TAGS, f"{nm}, option {ki + 1}")[0]
+            if nt.get("tragic"):
+                otrag[si, ki] = one(nt["tragic"], WK.TRAGIC_TAGS, f"{nm}, option {ki + 1}")[0]
+            if nt.get("heal"):
+                oheal[si, ki] = one(nt["heal"], WK.HEAL_TAGS, f"{nm}, option {ki + 1}")[0]
+    L.update(W_SACRED=sac, W_OFFER=offer, W_ROUND=rnd, W_LINE=oline, W_TRAGIC=otrag, W_HEAL=oheal)
     L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)

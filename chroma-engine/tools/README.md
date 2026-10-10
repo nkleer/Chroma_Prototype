@@ -37,6 +37,7 @@ the Library and the output folder changed: they all `import _engine`.
 | child_deaths.py | C-X5 | a child's death and illness among parents |
 | world_check.py, people_check.py, world_starts.py, lives_in_worlds.py | C-E16 (check_world.py) | the outer world |
 | colour_count.py | DECISIONS.md CHECK | how many colours adults hold, by age |
+| sacred_check.py | v22.4 G9 (s5_lines, s5_money) | S5 sacred lines' refit targets: lines per colour in proportion to its leading years; money lost per lead colour within 1.2x (`lines`, `money` or `all`; 4 x 300 lives x 80 years) |
 
 The calibration folders these scripts came from (their outputs and the one-off fitting scripts) are kept unchanged in
 the shared folder: in `chroma-engine/prototype/` until Release's checks run from here, then under

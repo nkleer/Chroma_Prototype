@@ -453,6 +453,9 @@ W_DEFAULT = dict(
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
     fair_read=False,   # S1, fairness read five ways: each life reads its spheres' fairness through its colours' parts, and
                        # a tagged sphere event moves it (chroma-ideas/social-mechanics.md S1); with sph_fair
+    sacred=False,      # S5, sacred lines (chroma-ideas/social-mechanics.md): a life grows up to two lines it will not sell;
+                       # sphere and C3 events offer a price for them (sphere_data.OFFER); with sph_events (and c3_inst)
+    sacred_par=None,   # sacred tuning: {name: value} over world_people.SAC_DEFAULT (None: the start values)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -471,7 +474,10 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read",
+             "sacred", "sacred_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+# v22.4's world switches (S5 sacred lines): saved only when on, so a save with them off, spheres on, is v22.3's
+V224_RULES = ("sacred", "sacred_par")
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
@@ -3951,6 +3957,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in SPH_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in V224_RULES):     # v22.4's switches off: saved as v22.3 saved it
+            par = {k: v for k, v in par.items() if k not in V224_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
             par = {k: v for k, v in par.items() if k not in C_RULES}
             if "params" in cfg:
@@ -3969,7 +3981,7 @@ class World:
     @classmethod
     def load(cls, d):
         params = dict(d["params"])
-        for k in S3_RULES + SPH_RULES:                     # saved before stage 3 or the spheres: their rules stay off
+        for k in S3_RULES + SPH_RULES + V224_RULES:        # saved before stage 3, the spheres or v22.4: their rules stay off
             params.setdefault(k, False)
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)
