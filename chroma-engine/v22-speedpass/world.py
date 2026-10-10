@@ -465,6 +465,9 @@ W_DEFAULT = dict(
     sacred=False,      # S5, sacred lines (chroma-ideas/social-mechanics.md): a life grows up to two lines it will not sell;
                        # sphere and C3 events offer a price for them (sphere_data.OFFER); with sph_events (and c3_inst)
     sacred_par=None,   # sacred tuning: {name: value} over world_people.SAC_DEFAULT (None: the start values)
+    seen_done=False,   # S6 "Seen it done" (chroma-ideas/social-mechanics.md): the paths and colour ways each life has
+                       # seen close people, regulars and public figures walk bend its felt odds and its dreams
+    seen_par=None,     # seen_done tuning: {name: value} over world_people.SEEN_DEFAULT (None: the start values)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -485,11 +488,12 @@ SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
              "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read",
              "sph_eyes", "sph_odd", "eyes_par", "lead_ways", "lead_par",
-             "sacred", "sacred_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
-# v22.4's world switches (S3 their places' eyes, S4 the odd one out, S5 sacred lines, S7 ways to lead): saved only when
-# on, so a save with them off, spheres on, is v22.3's
+             "sacred", "sacred_par", "seen_done", "seen_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+# v22.4's world switches (S3 their places' eyes, S4 the odd one out, S5 sacred lines, S6 seen it done, S7 ways to lead):
+# saved only when on, so a save with them off, spheres on, is v22.3's
 V224_RULES = ("sph_eyes", "sph_odd", "eyes_par")
 V224_RULES += ("sacred", "sacred_par")   # S5 sacred lines
+V224_RULES += ("seen_done", "seen_par")   # S6 seen it done
 V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
@@ -4005,6 +4009,8 @@ class World:
             params.setdefault(k, None if k == "c_par" else False)
         for k in V224_RULES:                               # saved before v22.4 (or with its switches off): they stay off
             params.setdefault(k, None if k.endswith("_par") else False)
+        for k in V224_RULES:                               # saved before v22.4 (or with its switches off): they stay off
+            params.setdefault(k, False)
         W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))
         for k, v in d["state"].items():
             if isinstance(v, dict) and "__nd__" in v:

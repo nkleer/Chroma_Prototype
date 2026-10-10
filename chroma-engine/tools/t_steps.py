@@ -296,6 +296,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
              sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("seen it done (seen_done; with the haunts)",
+        dict(seen_done=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
