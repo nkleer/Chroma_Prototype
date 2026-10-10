@@ -1,0 +1,40 @@
+officials who trust you              bond       hazard       0.010   0.012    70   1.27
+a campaign war chest                 asset      hazard       0.010   0.015    58   0.13
+a list of supporters                 asset      hazard       0.010   0.013    66   1.70
+acting                               skill      hazard       0.240   0.240    25   1.15
+screen acting                        skill      hazard       0.030   0.033    55   4.40
+improvisation                        skill      hazard       0.040   0.030    40   0.19
+stage combat                         skill      hazard       0.020   0.015    36   2.17
+accents and voices                   skill      hazard       0.030   0.023    50   0.16
+learning lines                       skill      hazard       0.100   0.095    50   0.62
+auditioning                          skill      hazard       0.065   0.067    32   1.08
+telling a story aloud                skill      hazard       0.060   0.068    59   2.09
+directing actors                     skill      hazard       0.040   0.047    50   0.51
+a casting eye                        skill      hazard       0.010   0.018    56   0.82
+writing scripts                      skill      hazard       0.020   0.032    45   0.03
+calling the show                     skill      hazard       0.010   0.023    45   0.14
+union card                           credential hazard       0.050   0.057    51   0.44
+drama school diploma                 credential hazard       0.015   0.018    53   0.03
+child performance licence            credential hazard       0.045   0.050    12   3.15
+casting directory listing            credential hazard       0.057   0.043    58   0.18
+a fringe slot                        credential hazard       0.030   0.025    56   1.75
+a lead role to remember              standing   hazard       0.160   0.173    42   0.01
+good notices                         standing   hazard       0.027   0.035    55   2.96
+a known face                         standing   hazard       0.020   0.005    55 300.00
+an award for acting                  standing   hazard       0.020   0.030    61   2.14
+a cult following                     standing   hazard       0.010   0.003    54 300.00
+an agent who believes in you         bond       hazard       0.030   0.028    52   1.13
+a director who keeps casting you     bond       hazard       0.010   0.013    53  24.66
+a company that feels like family     bond       hazard       0.080   0.080    55   0.12
+a year group from drama school       bond       hazard       0.015   0.017    31   3.30
+a producer who backs you             bond       hazard       0.010   0.020    58   5.84
+a showreel                           asset      hazard       0.017   0.022    51  27.29
+repeat fees                          asset      hazard       0.010   0.008    53 212.17
+a company of your own                asset      hazard       0.020   0.023    60   3.00
+
+titles per life: mean 23.4, 10% 17, 90% 29; perks per life: mean 29.0, 10% 21, 90% 38
+catalogue expects: titles 21.5, perks 27.4
+
+commitment endings per life: {'career|left': 0.41, 'career|lost job': 2.52, 'career|retired': 1.22, 'children|left': 0.03, 'children|outgrew it': 0.02, 'community|left': 1.27, 'community|outgrew it': 0.37, 'faith|left': 0.27, 'partner|broke up': 1.83, 'partner|left': 0.39, 'partner|widowed': 0.52}
+acceptance by route: {"ROLE_ACC_MOVE": {"office clerk": 0.997, "nurse": 0.564, "shop owner": 0.243, "soldier": 0.431, "farmer": 0.682, "software developer": 0.775, "police officer": 0.745, "delivery driver": 0.754, "accountant": 0.722, "estate agent": 0.425, "founder of a firm": 0.249, "apprentice": 0.547, "laboratory technician": 0.172, "paramedic": 0.82, "physician": 0.217, "pharmacist": 0.301, "veterinarian": 0.856, "firefighter": 0.82, "translator": 0.177, "journalist": 0.314, "archivist": 0.742, "archaeologist": 0.693, "land surveyor": 0.517, "urban planner": 0.185, "architect": 0.115, "civil engineer": 0.839, "sanitation worker": 0.594, "postal worker": 0.569, "train driver": 0.653, "merchant seafarer": 0.903, "commercial fisher": 0.254, "forester": 0.392, "funeral director": 0.414, "civil celebrant": 0.517, "tattoo artist": 0.343, "sound engineer": 0.237, "stage technician": 0.02, "professional athlete": 0.373}, "ROLE_ACC_FIRST": {"shop assistant": 0.429, "waiter or bartender": 0.557, "care worker": 0.595, "nurse": 0.857, "cook": 0.358, "factory worker": 0.535, "salesperson": 0.405, "believer on the big days": 0.905, "convert": 0.065, "seeker": 0.169, "physician": 0.851, "pharmacist": 0.947, "veterinarian": 0.931, "architect": 0.654, "cleaner": 0.427}}
+exit 0

@@ -1,0 +1,40 @@
+  research group leader             0.00200       0.0150  0.0100     6     -3.114
+  research facility lead            0.00050       0.0100  0.0033     2     -3.572
+  independent investigator          0.00050       0.0100  0.0167    10     -5.498
+  professor                         0.00200       0.0150  0.0067     4     +0.648
+  member of parliament              0.00010       0.0100  0.0083     5     +4.781
+  minister                          0.00003       0.0100  0.0033     2     +6.000
+  party leader                      0.00001       0.0100  0.0033     2     +6.000
+  head of government                0.00000       0.0100  0.0017     1     +6.000
+  mayor                             0.00200       0.0100  0.0300    18     -6.000
+  lead actor or actress             0.00100       0.0200  0.0133     8     -5.586
+  director                          0.00100       0.0200  0.0083     5     +0.087
+  artistic director                 0.00010       0.0100  0.0050     3     +6.000
+
+career                                 real    held  x real split lift
+  research assistant                0.02000  0.1450     7.2     -3.453
+  research scientist                0.01200  0.0800     6.7     -4.097
+  research project lead             0.00500  0.0200     4.0     -1.633
+  research software engineer        0.00200  0.0100     5.0     +4.268
+  research data steward             0.00100  0.0217    21.7     +3.258
+  evidence synthesis specialist     0.00050  0.0183    36.7     -0.370
+  science communication specialist  0.00100  0.0183    18.3     +1.420
+  participatory research coordinat  0.00050  0.0083    16.7     +6.000
+  postdoctoral researcher           0.00600  0.0200     3.3     +5.909
+  campaign organiser                0.00200  0.0233    11.7     -2.566
+  constituency caseworker           0.00100  0.0183    18.3     -3.027
+  political adviser                 0.00300  0.0167     5.6     -1.167
+  party official                    0.00050  0.0150    30.0     -1.519
+  lobbyist                          0.00200  0.0100     5.0     -2.278
+  policy analyst                    0.00200  0.0067     3.3     +0.935
+  speechwriter                      0.00020  0.0133    66.7     +6.000
+  pollster                          0.00050  0.0067    13.3     +6.000
+  professional actor                0.00400  0.0317     7.9     -2.945
+  voice actor                       0.00050  0.0150    30.0     +5.493
+  playwright or screenwriter        0.00080  0.0100    12.5     +0.343
+  producer                          0.00080  0.0183    22.9     +2.143
+  stage manager                     0.00100  0.0267    26.7     -1.184
+  casting director                  0.00020  0.0183    91.7     +5.744
+  talent agent                      0.00040  0.0133    33.3     +5.799
+  drama teacher                     0.00200  0.0217    10.8     -2.295
+TIER_LIFT written for politics,science,stage
