@@ -1400,14 +1400,15 @@ class World:
 
     # C3's sphere events (spheres-phase3-answers.md section 1; the relay of 10-10 01:00 UTC): a closure averted by the
     # state is the sphere's closure, a leak its exposure; sold and merged are words only. Ordinary closures and scandals
-    # are mapped in _sph_wf_key, so only these new events call fire_sphere_event
+    # are mapped in _sph_wf_key, so only these new events call fire_sphere_event. big as for the world event: a town
+    # body's leak stays in its town, a national one's acts for the whole society (fire-big, Engine #78)
     C3_SPH = {"nationalised": {"prod": "works_close", "comm": "lender_fails"},
               "leak": {"rule": "favour_exposed", "care": "neglect_scandal", "faith": "scandal"}}
 
-    def _c3_sph(self, i, kind):
+    def _c3_sph(self, i, kind, big):
         key = self.C3_SPH.get(kind, {}).get(SPHERES[int(self.inst_sphere[i])])
         if key is not None:
-            self.fire_sphere_event(key, int(self.inst_loc[i]))
+            self.fire_sphere_event(key, int(self.inst_loc[i]), big=big)
 
     def _c3_state(self):
         """C3's own state, made the first quarter the hook runs (a world with it off saves none of it)."""
@@ -1431,7 +1432,7 @@ class World:
             self.inst_pubemp[i] = self.inst_kind[i] == K_["employer"]
             self.inst_finances[i] = 0.5
             self._inst_event(i, "nationalised", big=True)
-            self._c3_sph(i, "nationalised")
+            self._c3_sph(i, "nationalised", big=True)
         return close & ~nat
 
     def _c3_inst_q(self, close):
@@ -1484,8 +1485,9 @@ class World:
         for i in np.nonzero(leak)[0]:
             self.inst_legitimacy[i] = max(self.inst_legitimacy[i] - c("leak_legit"), 0.02)
             self.trust = max(self.trust - c("leak_trust"), 0.02)
-            self._inst_event(i, "leak", big=bool(self.inst_level[i] == 2))
-            self._c3_sph(i, "leak")
+            big = bool(self.inst_level[i] == 2)
+            self._inst_event(i, "leak", big=big)
+            self._c3_sph(i, "leak", big=big)
         # a cover-up: money, safety checks, records or negligence (never harm to children or sexual violence); hidden,
         # it is not on the record; its staff know
         cv_k = np.isin(k, [K_[k_] for k_ in ("hospital", "bank", "council", "police", "faith body")])
@@ -3157,13 +3159,14 @@ class World:
         self.sph_st_m += E["sr"]["mem"] * (lv - self.sph_st_m)
         return _uclip(X, -1, 1)
 
-    def fire_sphere_event(self, key, loc=-1):
+    def fire_sphere_event(self, key, loc=-1, big=True):
         """A world rule fires sphere event key (bare, or "sphere.key") at the next quarter, in town loc (-1: where its
-        hazard is highest; a big event acts for the whole society). Nothing while sph_events is off."""
+        hazard is highest; a big event acts for the whole society). big=False with a town keeps the event in that town,
+        as for a world event that was not big. Nothing while sph_events is off."""
         if self.p.get("sph_events", False):
             if not hasattr(self, "sph_wq") or self.sph_wq is None:
                 self.sph_wq = []
-            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None, True])
+            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None, bool(big)])
 
     def _sph_wf_key(self, domain, kind, key, value):
         """The sphere event a world event fires (dynamics.json events_run world_fired; one key, one event), or None."""
