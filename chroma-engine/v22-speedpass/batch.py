@@ -407,8 +407,6 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
-    if not LEAD_MOMENTS:   # lead_ways' moments (cast_want: lead_take, lead_crisis, lead_fall, lead_routine, lead_hand)
-        sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("lead_")]   # wait for v22.3's refit (S7)
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -670,7 +668,6 @@ def _world_fields(L):
 
 
 FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
-LEAD_MOMENTS = False  # S7: moments with cast_want: lead_* (lead_ways) join the batch at v22.3's refit
 SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
