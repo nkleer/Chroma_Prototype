@@ -601,14 +601,14 @@ class WorldLink:
     def seen_felt(self, p_hat, s, m, opt, offered):
         """seen_done (S6): felt odds with what each life has seen walked (never the real odds): the option's path (its
         title, People.sd_lt) plus its colour way (its ways x People.sd_lc), on every option but doing nothing (opt),
-        kept within .01 and .99. offered: the options open to them this week, for the colour-even check (sd_stat)."""
+        kept within .01 and .99 (odds already beyond them stay as they were). offered: the options open to them this week, for the colour-even check (sd_stat)."""
         PP = self.PP; tk = self.sd_tk[s]
         lt = np.take_along_axis(PP.sd_lt, np.maximum(tk, 0), 1) * (tk >= 0) if PP.sd_nt else np.zeros(tk.shape)
         lf = lt + np.einsum("nkc,nc->nk", m, PP.sd_lc)
         of_ = offered & opt
         self.sd_stat[0] += np.einsum("nk,nkc->c", lf * of_, m); self.sd_stat[1] += np.einsum("nk,nkc->c", of_.astype(float), m)
         self.sd_n += (of_.sum(), (of_ & (tk >= 0)).sum(), (lt * of_).sum(), (lf * of_).sum())
-        return np.where(opt, _uclip(p_hat + lf, 0.01, 0.99), p_hat)
+        return np.where(opt, _uclip(p_hat + lf, np.minimum(p_hat, 0.01), np.maximum(p_hat, 0.99)), p_hat)
 
     def seen_info(self, n, si):
         """seen_done, for the game's option row: per option of moment si, the strongest model on its path (People.

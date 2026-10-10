@@ -4456,7 +4456,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:
                         more_["far"] = fi_
-                if SEEN_ON:   # S6: per option, the strongest model on its path ("she has seen it done"), None off a path
+                if SEEN_ON:   # S6: per option, the Library's word and the strongest model on its path, else its way
                     sn_ = WL.seen_info(i, int(s[i]))
                     if sn_:
                         more_["seen"] = sn_
