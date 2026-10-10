@@ -587,6 +587,7 @@ class Game:
         self._named = set()             # identities whose meaning has been told once
         self._last_recon = {}           # commitment -> week it was last reconsidered at a checkpoint
         self._temper_told = None        # temperament when the log last mentioned it
+        self._sh_told = {}              # item 2: each shadow state as the yearly chapter last told it (on or off)
         self.pending = None             # a checkpoint waiting for the player
         self._force = None              # this week's forced pick: dict(rel, closed, idx)
         self._cp_week = None            # the checkpoint being resolved this week, for its outcome line
@@ -2216,6 +2217,10 @@ class Game:
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
                         line += "\n" + self.story.rebound(bool(ev["success"]), float(loc["span"][0])); rb = bool(ev["success"])
+                    if not ev["success"] and loc.get("SHON"):      # item 2: an act their shadow made fail is named
+                        sl = self._shadow_fail(new, t)
+                        if sl:
+                            line += "\n" + sl
                     self.resolution = self._resolution(loc, cpw, ev, line, o, pushed, f.get("rel", 0.0) if pushed else 0.0, moved)
                     self.history["acts"].append((round(age, 1), o["colors"], bool(ev["success"]), bool(pushed)))   # the song's deeds
                     rs = self.resolution
@@ -2458,6 +2463,33 @@ class Game:
                     f"{letters(b['want'])}.")
         return None
 
+    def _shadow_fail(self, new, t):
+        """Item 2: "<State>: <clause>." for an act that failed because of the shadow (the engine's "shadow" event this week),
+        in the Library's words (earth_story.SHADOW_FAIL); "" without them."""
+        sh = next((e["shadow"] for e in new if "shadow" in e), None)
+        W = getattr(ES, "SHADOW_FAIL", None) if ES is not None else None
+        if sh is None or not W or not W.get(sh["state"]):
+            return ""
+        pool = W[sh["state"]]
+        return self.story.fill(f"{sh['state'][:1].upper()}{sh['state'][1:]}: {pool[int(t) % len(pool)]}.")
+
+    def _shadow_year(self, t, loc):
+        """Item 2: the yearly chapter's line when a shadow state comes on (grow) or goes off (fade), in the Library's words
+        (earth_story.SHADOW_YEAR). Only with the engine's shadows switch on; the first year sets what is known."""
+        W = getattr(ES, "SHADOW_YEAR", None) if ES is not None else None
+        if not loc.get("SHON") or "adj" not in loc or not W:
+            return
+        adj = np.asarray(loc["adj"][0])
+        for st in E.SH_STATES:
+            i = E.ADJ_ID.get(st, -1)
+            on = bool(0 <= i < len(adj) and adj[i])
+            was = self._sh_told.get(st)
+            self._sh_told[st] = on
+            if was is None or was == on or self.burn_in or not W.get(st):
+                continue
+            pool = W[st]["grow" if on else "fade"]
+            self._say(self.story.fill(pool[(int(t) // 52) % len(pool)]), 1, "shadow", state=st, on=on)
+
     def _yearly(self, t, loc):
         if GAME["own_ix"] and not self.burn_in:
             self._own_year()
@@ -2469,6 +2501,7 @@ class Game:
         self.history["w"].append((t / 52, [round(float(x), 3) for x in w]))
         # the story's voice: present identity blended with a fading memory of past ones (story.py)
         self.story.update_voice(w)
+        self._shadow_year(t, loc)
         vl = self._core_label                       # 5.5: the chapter names who they have settled into, and who they are becoming
         self._becoming_year()
         if vl != self._voice_label:                 # a new identity in the telling: a short phrase for it

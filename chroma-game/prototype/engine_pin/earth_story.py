@@ -409,6 +409,10 @@ VOICE = {
     "became": dict(trusted="{N} became {ident}, and knows it was not all their own doing.",
                    unsure="{N} became {ident}, half by choice and half at the voice's insistence.",
                    doubted="{N} became {ident}, pushed there more than walked."),
+    # item 6 "every line has a cause" (v22.4, the Game's switch lines_tied): the same, as a short phrase after the new
+    # name on the year header. Lower case, no end stop
+    "became_head": dict(trusted="not all their own doing", unsure="half by choice, half at the voice's insistence",
+                        doubted="pushed there more than walked"),
 
     # the yearly chapter, at most one voice line a year. Fills {name} (the voice's name in this life)
     "chapter": dict(
@@ -699,6 +703,82 @@ YEAR = {
     "narrower": "A narrower year for {N}: {what}.",
     "close": "The times came close to {N} this year: {what}.",
     "mixed": "The times gave and took from {N} this year: {what}.",
+}
+# item 6 "every line has a cause" (v22.4, the Game's switch lines_tied): the times as one clause in the year's lead, by
+# the same tones as YEAR. The game adds the semicolon before and the full stop after. Fills {what} (as YEAR)
+YEAR_LEAD = {
+    "lean": "lean times: {what}",
+    "easier": "easier times: {what}",
+    "uneasy": "uneasy times: {what}",
+    "calmer": "calmer times: {what}",
+    "freer": "freer times: {what}",
+    "narrower": "narrower times: {what}",
+    "close": "the times came close: {what}",
+    "mixed": "the times gave and took: {what}",
+}
+# item 6: a memory told inside the moment that brought it back (the game's RECALL_LINES stay as the fallback). scar: it
+# went badly and left a wound; good: it worked; bad: it did not. Clauses, no end stop. Fills {when} ("as a child", "at
+# 17"), {what} (a bare verb phrase after "chose to") and {N}
+RECALL_IN = {
+    "scar": ["it opens an old wound: {when}, {N} chose to {what}, and it went badly",
+             "{N} has been here before: {when}, they chose to {what}, and it still stings",
+             "it comes too close to an old hurt: {when}, {N} chose to {what}, and it went wrong"],
+    "good": ["it brings back a good memory: {when}, {N} chose to {what}, and it worked",
+             "{N} has done this before: {when}, they chose to {what}, and it went well",
+             "it feels familiar: {when}, {N} chose to {what}, and it paid off"],
+    "bad": ["{N} remembers: {when}, they chose to {what}, and it did not work",
+            "it has been tried before: {when}, {N} chose to {what}, and it went wrong",
+            "an old attempt comes to mind: {when}, {N} chose to {what}, and it came to nothing"],
+}
+# item 6: the temperament line names the event that moved it most. Fills {N}, {m} (what they have become, as today's
+# line) and {event} (a lower-case noun phrase with its article: "the divorce", "losing their mother"). With no event the
+# game keeps today's line
+TEMPER_CAUSE = ["Since {event}, {N} has become {m}.", "People who know {N} say {event} made them {m}.",
+                "After {event}, {N} slowly became {m}."]
+# light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md section 6), the Game's outcome naming and chapter
+# line. Keys are the engine's five shadow states. Shown only with the engine's shadows switch on.
+# SHADOW_FAIL[state]: when an act fails because of the shadow, the game prints "<State word>: <clause>." on its own line
+# under the outcome. Lower case, no end stop. Fills {N} only
+SHADOW_FAIL = {
+    "rigid": ["the rule held, and the person it was for did not",
+              "{N} kept to the letter of it, and lost the point of it",
+              "there was no give in it, and something gave way instead"],
+    "indecisive": ["{N} weighed it one more time, and the chance went by",
+                   "every side was seen, and none was chosen in time",
+                   "the answer came, but the moment had already passed"],
+    "ruthless": ["{N} took what was there, and the people went with it",
+                 "the deal was won, and the trust behind it was lost",
+                 "it worked on paper, and cost them someone who mattered"],
+    "reckless": ["{N} went all in, and this time the bill came at once",
+                 "the cost was plain to see, and {N} paid it in full",
+                 "it went one step too far, and something broke that will not mend quickly"],
+    "stuck in their ways": ["{N} did it the old way, and the old way no longer fit",
+                            "what always worked did not work this time",
+                            "the change came anyway, and {N} was not ready for it"],
+}
+# SHADOW_YEAR[state][grow|fade]: the yearly chapter's one line when the state comes on (grow) or goes off (fade). Whole
+# sentences. Fills {N} only
+SHADOW_YEAR = {
+    "rigid": dict(grow=["This was the year the rules became a wall.",
+                        "{N} held everything tighter this year, and the people near them felt it."],
+                  fade=["This was the year {N} let a rule bend, and nothing fell.",
+                        "Something loosened in {N} this year; a small mistake was allowed to stay small."]),
+    "indecisive": dict(grow=["This was the year {N} kept waiting for one more answer.",
+                             "Doubt took up more room this year, and choices waited until they made themselves."],
+                       fade=["This was the year {N} chose before they were sure, and it was all right.",
+                             "{N} stopped asking for one more night this year, and decided."]),
+    "ruthless": dict(grow=["This was the year people became tools to {N}.",
+                           "{N} won more this year, and kept fewer friends."],
+                     fade=["This was the year {N} gave something back without asking what it bought.",
+                           "{N} let someone else win this year, and found they could bear it."]),
+    "reckless": dict(grow=["This was the year {N} stopped counting the cost.",
+                           "Every risk looked like a door this year, and {N} went through most of them."],
+                     fade=["This was the year {N} stopped to count the cost first.",
+                           "{N} walked away from a risk this year, and did not feel smaller for it."]),
+    "stuck in their ways": dict(grow=["This was the year {N} stopped letting anything change.",
+                                      "The old ways closed around {N} this year like a coat buttoned to the neck."],
+                                fade=["This was the year {N} tried something new, and kept it.",
+                                      "{N} let one old habit go this year, and the house did not fall."]),
 }
 # YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}
 YEAR_WHAT = {
