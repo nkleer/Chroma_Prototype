@@ -170,6 +170,42 @@ TITLES += [
        gained="growing up on a farm and staying, or 'a chance to change everything' and a field bought at auction",
        lost="a run of bad years, selling up, handing on to a child",
        needs="[plot of land], usually a family farm"),
+  # v22.4: three green everyday entry jobs (Packs, chroma-packs/notes/v22.4-green-entries-for-library.md): green-led lives
+  # had no first job of their own and mostly landed on [shop assistant]. No role= yet: grounds work is mostly men in the
+  # sources Packs recalls, but that figure is unchecked; farm work and animal care are mixed.
+  dict(name="gardener or groundskeeper", kind="career", sector="services", sphere="prod", face="prod.G", ways="G U",
+       profiles=[("G U", "Knows what each bed and tree needs and works with the seasons, not against them."),
+                 ("W", "Keeps the park, the school field and the churchyard tidy and safe for everyone.")],
+       meets="need:autonomy+.05 need:meaning+.05 res:health+.03 res:money+.02 res:time-.08",
+       ages=(16, 75), share=.03,   # estimate: grounds and garden work is about 1 job in 100 at any time (US BLS grounds
+                                   # maintenance workers, about 1.2 million), with many short seasons
+       say="a gardener",
+       gained="a summer on the council's parks crew, a landscaper who needs a pair of hands, a school's or a big "
+              "house's grounds; [growing food] or [knowing the woods] help",
+       lost="the season ending, a bad back, the contract going to a cheaper firm, a steadier job",
+       needs="age 16 or more"),
+  dict(name="farm hand", kind="career", sector="farm", sphere="prod", face="prod.G", ways="G R",
+       profiles=[("G R", "Out in all weathers with the stock and the machines, and would not swap it for a desk."),
+                 ("B", "Takes the long hours and the cash in hand while saving for something of their own.")],
+       meets="need:autonomy+.03 need:belonging+.03 res:health+.02 res:money+.02 res:time-.12",
+       ages=(14, 70), share=.03,   # estimate: farm work is 1 to 2 jobs in 100 in rich countries (OECD), and many more
+                                   # lives do a season or two of it (harvest, lambing, a neighbour's farm)
+       say="a farm hand",
+       gained="growing up near farms, a harvest job at sixteen, a neighbour short-handed at lambing; [handling "
+              "animals] and a [driving licence] help",
+       lost="the season ending, the farm selling up or mechanising, an injury, a move to town",
+       needs="age 14 or more for holiday work"),
+  dict(name="animal care worker", kind="career", sector="services", sphere="care", face="care.G", ways="G W",
+       profiles=[("G W", "Feeds, cleans and settles the animals no one else wants, and keeps going on hard days."),
+                 ("U", "Learns each animal's signs and the vet's methods, and is the one who spots trouble first.")],
+       meets="need:meaning+.08 need:belonging+.03 res:money+.01 res:time-.08 res:health-.02",
+       ages=(16, 70), share=.02,   # estimate: kennels, catteries, shelters, stables and a vet's assistants (US BLS
+                                   # animal caretakers and veterinary assistants, about 0.4 million together)
+       say="an animal care worker",
+       gained="[handling animals], weekends at the shelter as an [animal-shelter campaigner], a kennel or a stable "
+              "that needs someone, a vet's practice taking on an assistant",
+       lost="low pay, the shelter's funding ending, a bite or a bad back, a move into nursing or a vet's training",
+       needs="age 16 or more; [handling animals] or real time with animals helps a lot"),
   dict(name="software developer", kind="career", sector="knowledge", role="men", sphere="prod", face="prod.U", ways="U R",   # role=men: software developers 20.3 in 100 women (US BLS CPS 2025, table 11)
        meets="need:competence+.1 need:autonomy+.05 res:money+.1 res:time-.08 res:health-.03",
        ages=(16, 70), share=.03,   # estimate: software work is 2 to 3 jobs in 100
