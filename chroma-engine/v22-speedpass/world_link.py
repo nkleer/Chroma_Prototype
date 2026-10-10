@@ -35,6 +35,14 @@ WORLD_MOMENTS = [
     ("economy", "recession declared", "severe", "a crash takes the savings", 0.3),
     ("abroad", "war comes home", None, "war comes", 0.7),
     ("abroad", "war begins", None, "the call to serve", 0.15),
+    # the C hooks (stage3-rules.md section 5; Library earth-world-seasons.lib): a sixth field names who can meet it,
+    # "place" for the people living in the event's place (value["loc"]); without one, everyone the gates admit
+    ("nature", "bad air", None, "a season of bad air", 0.3, "place"),
+    ("nature", "bad water", None, "the river runs foul", 0.4, "place"),
+    ("nature", "poisoned river", None, "the river runs foul", 0.4, "place"),
+    ("nature", "drought", None, "a dry year on the land", 0.5, "place"),
+    ("nature", "glorious spring", None, "a glorious spring", 0.15, "place"),
+    ("nature", "recovery", None, "the town builds itself back", 0.4, "place"),
 ]
 CRIME_W = re.compile(r"\b(robbed|burgl|mugg|attacked|break-in|broken into|stolen|pickpocket)", re.I)
 DISASTER_W = re.compile(r"\b(flood|fire|storm|earthquake|quake|drought|heatwave|hurricane|landslide)\b", re.I)
@@ -56,7 +64,8 @@ NORM_MARK = {"came out": "coming out", "named their gender": "transition"}   # t
 # else the commitment the option or moment is about
 PUSH_COMMIT = {"career": ("institution", "employer"), "community": ("group", None), "faith": ("belief", None),
                "partner": ("close", "partner"), "children": ("close", "child")}
-LOCAL_SEEN = ("disaster", "crime wave", "local election")   # local public events a person living there lives through
+LOCAL_SEEN = ("disaster", "crime wave", "local election",   # local public events a person living there lives through
+              "bad air", "bad water", "poisoned river", "drought", "glorious spring", "recovery")   # (C4's with its hook on)
 # the typical world after the 80-year burn-in (seeds 1-6 or 1-8, modern Earth): every channel below is neutral there
 CLIM_REF = 0.51     # acceptance of coming out (.70) x the sexuality right (.73)
 U_REF = 6.5         # local unemployment, percent
@@ -134,6 +143,7 @@ class WorldLink:
             ws = P.get("world_seed")
             s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
             s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
+            s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = WM.World(int(seed if ws is None else ws), cfg=cfg)
@@ -186,7 +196,8 @@ class WorldLink:
         self.adm_o = np.isin(AT_, edu_t) if AT_.shape == (S, K) and edu_t else np.zeros((S, K), bool)
         self.ill_s = rk == RK.index("illness")
         idx = {nm: i for i, nm in enumerate(names)}
-        self.wm = [(d, k, key, idx[m], sh) for d, k, key, m, sh in WORLD_MOMENTS if m in idx]
+        self.wm = [(x_[0], x_[1], x_[2], idx[x_[3]], x_[4], x_[5] if len(x_) > 5 else "all") for x_ in WORLD_MOMENTS
+                   if x_[3] in idx]
         self.wm_s = np.array(sorted({x[3] for x in self.wm}), int)
         self.toy = np.asarray(L.get("W_TOY", np.zeros((S, 4)))); self.toy_set = np.asarray(L.get("W_TOY_SET", np.zeros(S, bool)))
         self.toy_on = self.toy.sum(1) > 0
@@ -352,9 +363,12 @@ class WorldLink:
         # moments the world's events bring this week
         self.fire_now[:] = False; self.fire_why = {}
         for e in new:
-            for d, k, key, si, sh in self.wm:
+            for d, k, key, si, sh, sel in self.wm:
                 if e.get("domain") == d and e.get("kind") == k and (key is None or e.get("value") == key or e.get("key") == key):
-                    self.fire_now[:, si] |= PP.rng.random(self.N) < sh
+                    hit_ = PP.rng.random(self.N) < sh
+                    if sel == "place":                     # only the people living in the event's place
+                        hit_ &= PP.loc == int((e.get("value") or {}).get("loc", -1))
+                    self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
         # wants ripe this week: the moment that answers it, with the cast member in its first who: slot
         self.pending = {}
@@ -531,6 +545,9 @@ class WorldLink:
                 v_ = np.asarray(v_, float)[_uclip(held_title_sector, 0, len(v_) - 1)][:, None]
                 v_ = np.where((held_title_sector >= 0)[:, None], v_, float(np.mean(W.rate_mult("jobloss"))))
             r[:, m_] *= v_
+        ci_ = W.c4_illness() if W.p.get("c4_nature") else None   # C4: bad air or water in the person's place
+        if ci_ is not None and self.ill_s.any():
+            r[:, self.ill_s] *= ci_[PP.loc][:, None]
         r[:, self.wm_s] = 0.0          # these come on the world's events instead
         return r
 
