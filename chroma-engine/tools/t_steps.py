@@ -245,7 +245,7 @@ for label, sw, ok in RO_:
     t0 = time.process_time(); fails = []; ds = []
     for on in (False, True):
         W_ = _wm.World(4, cfg=dict(params={sw: on})); W_.burn_in(20)
-        Pd = dict(E.DEFAULT); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on
+        Pd = dict(E.DEFAULT, **E.UPD_OFF); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on   # the rest off, as written
         ds.append(digest(E.run(N=2, years=6, seed=4, lib=EARTH, P=Pd)))
         if on and not ok(W_):
             fails.append("switched on, the world carries no sphere state")
@@ -317,7 +317,8 @@ for label, sw, base, yrs in P2_:
     diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
     if diff:
         fails.append(f"run_steps differs in {diff[:4]}")
-    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **base))))
+    off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
+    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
     if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
         fails.append("switched on, the lives are those with it off")
     bad += bool(fails)
