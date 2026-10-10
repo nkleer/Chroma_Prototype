@@ -144,9 +144,11 @@ GAME = dict(
     # not asked to lead as many acts as a common one; acts with even ways, doing nothing, lead none); reluctance in a way is
     # x (1 - own_rel x ix); the peace reading counts a push as their own by its way's ix; at own_theirs the season lean
     # toward it no longer ends. A strong push at reluctance over own_react_rel while ix is under .25 bounces back with
-    # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does
+    # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does. A light steer that leaves
+    # them on the pick they would have made, an act their steered way leads, is the voice and they agreeing: that way
+    # moves own_lived x a light push of the act's share in it (without it a way they already live by stalls short of theirs)
     own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
-    own_use=0.4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
+    own_use=0.4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1, own_lived=0.5,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
@@ -797,6 +799,8 @@ class Game:
         if g_ is not None:
             self.history["gift"].append(g_)
         self._cp_week = dict(cp=cp, choice=choice, own=own)
+        if GAME["own_ix"] and lt and choice == own:     # S2: the light steer kept their own pick
+            self._cp_week["lean"] = lt["color"]
         if self.loc is not None and "P" in self.loc:   # item 4: the week of a pick counts whole (own lesson, drift, outside)
             self.loc["P"]["own_k"] = self.loc["P"]["drift_k"] = self.loc["P"]["ev_push_k"] = 1.0
         self.pending = None
@@ -1795,6 +1799,20 @@ class Game:
                 self.history["own_ix"].append((age, COLORS[c], s1))
         return dict(kind="step", ix=[round(float(x), 3) for x in self.ix])
 
+    def _own_lived(self, loc, cpw):
+        """S2: a light steer toward a color that left them on their own pick, an act that color leads: the way moves
+        own_lived x a light push of the act's share in it (own_k x share x own_light x T x S; no hindsight, nothing was
+        pushed). Returns what moved, for the resolution, or None."""
+        c = COLORS.index(cpw["lean"]); w = self._ways(loc, int(cpw["own"]))
+        if int(np.argmax(w)) != c or w.max() - w.min() <= 1e-9:
+            return None
+        before = float(self.ix[c]); age = round(self.t / 52, 1)
+        T = max(0.0, 0.5 + float(self.trust[c])); S = 0.5 + GAME["own_sup"] * float(self._around(loc)[c])
+        self.ix[c] = min(1.0, before + GAME["own_k"] * GAME["own_lived"] * float(w[c]) * GAME["own_light"] * T * S)
+        if self._own_step(before) != self._own_step(float(self.ix[c])):
+            self.history["own_ix"].append((age, COLORS[c], self._own_step(float(self.ix[c]))))
+        return dict(kind="step", ix=[round(float(x), 3) for x in self.ix])
+
     def _own_year(self):
         """S2, once a year: a way that led fewer of the year's acts than own_use times its own expected share fades by up
         to own_fade (a way the year never offered does not fade)."""
@@ -2238,6 +2256,8 @@ class Game:
                     vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
                     if pushed and GAME["own_ix"]:       # S2: how far the pushed ways have become theirs
                         rs["own"] = self._own_push(loc, cpw, rs.get("hindsight"))
+                    elif GAME["own_ix"] and cpw.get("lean"):     # S2: a light steer that kept their own pick
+                        rs["own"] = self._own_lived(loc, cpw)
                     if vo:                              # item 3: their answer to the voice, and whether it was right
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
