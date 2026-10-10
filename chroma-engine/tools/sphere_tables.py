@@ -149,6 +149,15 @@ def build(src):
                    sides=[dict(touch=x["touch"], sign=x["sign"], who=list(x["who"]), share=float(x["share"]), line=x["line"])
                           for x in v["sides"]])
            for k, v in rd("far_sides.json")["events"].items()}
+    # S3 "Their places' eyes" and S4 "The odd one out" (chroma-ideas/social-mechanics.md; dynamics.json place_reading): how a
+    # place reads an act by its faces (place face x act colour, W U B R G), the outcome's step, the name's range and
+    # half-life, the rung speed a good or bad name gives, the go-betweens' talk weight and the caught-between gap
+    pr_ = dyn["place_reading"]
+    PLACE_READ = dict(table=[[float(pr_["table"][f][c]) for c in COLS] for f in COLS],
+                      success=float(pr_["outcome"]["success"]), failure=float(pr_["outcome"]["failure"]),
+                      rep_range=[float(x) for x in pr_["rep"]["range"]], half_life=float(pr_["rep"]["half_life_years"]),
+                      rung_good=float(pr_["rung_speed"]["good"]), rung_bad=float(pr_["rung_speed"]["bad"]),
+                      talk=float(pr_["talk"]["go_between_weight"]), caught_gap=float(pr_["caught_gap"]))
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -156,7 +165,8 @@ def build(src):
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
-                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR)
+                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
+                PLACE_READ=PLACE_READ)
 
 
 def audit(T):
@@ -228,6 +238,10 @@ def audit(T):
         or not 0 < x["share"] <= 1 for x in v["sides"])]
     if fk_:
         bad.append(f"far sides: unknown events or malformed sides {fk_[:5]}")
+    rt_ = np.asarray(T["PLACE_READ"]["table"])   # the place reading: each face reads its own colour 1, two allies and
+    rs_ = np.sort(rt_, 1)                         # two enemies the same (so every colour is read alike)
+    if not (np.allclose(np.diag(rt_), 1) and np.allclose(rs_, rs_[0]) and np.allclose(rt_, rt_.T)):
+        bad.append("place reading: the table is not colour-even")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
