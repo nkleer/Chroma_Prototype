@@ -146,11 +146,13 @@ def build(src):
            for k, v in rd("far_sides.json")["events"].items()}
     # sacred lines (S5, chroma-ideas/social-mechanics.md): the offers a sphere event or a C3 institution event makes to
     # the people of its town (dynamics.json offers): what is offered, the line kinds it touches (one or two), whether it
-    # carries a symbolic gesture, and whom in town it is made to (far_sides.json's who words). Keys are "sphere.key", or
+    # carries a symbolic gesture, whom in town it is made to (far_sides.json's who words), and its kind (money, a post or a
+    # favour: the moment's offer: field matches it). Keys are "sphere.key", or
     # "institution.<kind>" for C3's world events (sold, merged, leak, cover-up)
     of_ = dyn["offers"]
     OFFER = dict(kinds={k: v["colour"] for k, v in of_["line_kinds"].items()},
-                 events={k: dict(offer=v["offer"], lines=list(v["lines"]), gesture=bool(v["gesture"]), who=v["who"])
+                 events={k: dict(offer=v["offer"], lines=list(v["lines"]), gesture=bool(v["gesture"]), who=v["who"],
+                                 kind=v.get("kind", "money"))
                          for k, v in of_["events"].items()})
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
@@ -230,7 +232,7 @@ def audit(T):
         bad.append(f"far sides: unknown events or malformed sides {fk_[:5]}")
     ok_ = T["OFFER"]["kinds"]
     ob2_ = [k for k, v in T["OFFER"]["events"].items() if (k not in evk_ and not k.startswith("institution."))
-            or not 1 <= len(v["lines"]) <= 2 or not set(v["lines"]) <= set(ok_)]
+            or not 1 <= len(v["lines"]) <= 2 or not set(v["lines"]) <= set(ok_) or v["kind"] not in ("money", "post", "favour")]
     if ob2_ or sorted(ok_.values()) != sorted(COLS):
         bad.append(f"offers: unknown events or line kinds {ob2_[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
