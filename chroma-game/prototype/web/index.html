@@ -4934,13 +4934,22 @@ try {
   .hud .crestbox { position: relative; }
   .hud .crestbox .lk-key { top: auto; bottom: 0; right: 2px; }
   .lk-sw { display: inline-block; font-size: 10px; margin-right: 3px; } .lk-sw.up { color: var(--ok); } .lk-sw.down { color: var(--bad); }
-  .lk-sw.glow { width: 18px; height: 5px; border-radius: 3px; background: var(--bad); box-shadow: 0 0 6px 1px var(--bad); vertical-align: middle; }
+  .lk-sw.glow { display: inline-block !important; min-width: 18px; width: 18px; height: 5px; padding: 0; border-radius: 3px; background: var(--bad); box-shadow: 0 0 6px 1px var(--bad); vertical-align: middle; }
   .lk-spark { margin-top: 6px; display: grid; gap: 2px; }
   .lk-spark svg { width: 100%; max-width: 220px; height: 34px; display: block; }
   .lk-spark path { fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; }
   .lk-spark circle { fill: var(--gold); }
   .lk-spark .ago { stroke: var(--muted); stroke-width: 0.8; stroke-dasharray: 2 2; }
   .lk-spark span { font-size: var(--fs-1); color: var(--muted); }
+
+  /* a card under the mouse: what it would spend (−), win (+) or risk if it fails (−?) on the panel's means; needs it meets */
+  .lk-pvb { position: absolute; top: -4px; left: calc(50% - 15px); min-width: 12px; padding: 0 3px; border-radius: 7px; font: 700 9px/12px var(--ui); text-align: center; pointer-events: none;
+    color: #fff; background: var(--gold); box-shadow: 0 1px 3px rgb(0 0 0 / 0.35); }
+  .lk-pvb.win { background: var(--ok); } .lk-pvb.risk { background: transparent; color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); }
+  .nd { position: relative; } .nd .lk-pvb { left: calc(50% + 6px); top: -2px; }
+  .mean.lk-pv .col, .nd.lk-pv > svg.i { filter: drop-shadow(0 0 4px rgb(216 180 105 / 0.9)); }
+  .lk-pvb.lk-key-pv { position: static; display: inline-block; margin-right: 3px; }
+  html[data-motion="full"] .lk-pvb { animation: lkfadein 0.18s ease-out; }
 
   /* the start spread: when the name would sit below the fold, the reading docks at the foot of the window (look.js) */
   .spread #reading.lk-dock { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30;
@@ -5338,7 +5347,7 @@ function tagOptions() {
     if (!o.own && o.accept === "against it") b.classList.add("lk-against");
     if (o.heart_pick) b.classList.add("lk-heart");
     if (o.head_pick) b.classList.add("lk-head");
-    const show = (on) => leanShow(on ? o : null);
+    const show = (on) => { leanShow(on ? o : null); safe(() => hudPreview(on ? o : null)); };
     b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") show(true); });
     b.addEventListener("pointerleave", () => show(false));
     b.addEventListener("focus", () => show(true)); b.addEventListener("blur", () => show(false));
@@ -5396,6 +5405,7 @@ const _renderResolution = renderResolution;
 renderResolution = function (h, reveal) {
   const fr = reveal && flyer ? flyer.getBoundingClientRect() : null, key = h && h.res ? "res|" + h.res.age + "|" + h.res.title : "";
   _renderResolution(h, reveal);
+  safe(() => hudPreview(null));
   safe(() => {
     if (!h || !h.res || tableEl._lkRes === key) return;
     tableEl._lkRes = key;
@@ -5566,6 +5576,7 @@ function panelKey(L) {
     [`<b class="lk-sw glow"></b>`, "A danger zone: satisfaction or peace under 20%, strain over 80%, a mean under 15%. Gold on wanting: close to breaking through."],
     [`<i class="spk k-mem"></i>`, "On the wheel: their colors a year ago, so you can see which way they moved."]];
   rows.push([`<span class="lk-sw down">${ic(NEED_ICON.safety || "shield")}</span>`, "A need under 30% pulses."]);
+  rows.push([`<b class="lk-pvb spend lk-key-pv">−</b><b class="lk-pvb win lk-key-pv">+</b>`, "While a card is under the mouse: what it would spend (−), win (+) or put at risk if it fails (−?) among the means, and the needs it meets (+)."]);
   return tipBox(`${ic("ci-crystal-ball")} Reading this panel`, "", rows, "Hover any meter, mean or need for its numbers and a line of its last years.");
 }
 // the hover of a meter, mean or need: its last years as a line, and where it stood a year ago
@@ -5594,6 +5605,28 @@ showTip = function (el) {
   });
 };
 // the wheel's memory: the outline of a year ago, under where they are now
+// a card under the mouse marks on the panel what it would spend, win or risk (its means) and the needs it meets
+const NEED_OF = (w) => { w = String(w || "").toLowerCase(); return Object.keys(NEED_SHORT).find((k) => k === w || NEED_SHORT[k].toLowerCase() === w || (NEED_LONG[k] || "") === w) || ""; };
+function hudPreview(o) {
+  hudEl.querySelectorAll(".lk-pvb").forEach((x) => x.remove());
+  hudEl.querySelectorAll(".lk-pv").forEach((x) => x.classList.remove("lk-pv"));
+  if (!o) return;
+  const f = o.follows || {}, by = {};
+  const put = (k, s) => { (by[k] = by[k] || new Set()).add(s); };
+  for (const x of f.cost || []) put(x.slice(1), "spend");
+  for (const x of f.win || []) put(x.slice(1), x[0] === "+" ? "win" : "spend");
+  for (const x of f.lose || []) put(x.slice(1), "risk");
+  for (const [k, s] of Object.entries(by)) {
+    const el = hudEl.querySelector(`.mean[data-r="${k}"]`); if (!el) continue;
+    const word = s.has("spend") ? "−" : s.has("win") && s.has("risk") ? "±" : s.has("win") ? "+" : "−?";
+    const cls = s.has("spend") ? "spend" : s.has("win") ? "win" : "risk";
+    el.classList.add("lk-pv"); el.insertAdjacentHTML("beforeend", `<b class="lk-pvb ${cls}">${word}</b>`);
+  }
+  for (const w of f.needs || []) {
+    const k = NEED_OF(w), el = k && hudEl.querySelector(`.nd[data-nd="${k}"]`); if (!el) continue;
+    el.classList.add("lk-pv"); el.insertAdjacentHTML("beforeend", `<b class="lk-pvb win">+</b>`);
+  }
+}
 const _spiderSVG = spiderSVG;
 spiderSVG = function (o) {
   const s = _spiderSVG(o);

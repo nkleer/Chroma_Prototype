@@ -51,6 +51,8 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   their colors a year ago on the wheel (from the river; "A year ago" in the wheel's key); a line of the last years and
   the value a year ago in the hover of every meter, mean and need; a "?" on the crest with the key to these marks.
   look.js keeps a monthly history per life from the panel's own numbers; it wraps showTip and spiderSVG. app.js unchanged.
+  A card under the mouse marks on the panel what it would spend (−), win (+) or put at risk if it fails (−?) among the
+  means, and the needs it meets (+); the marks leave with the mouse and at the outcome.
 - 10-10 (thread "HUD and story flow check", Emren 10-10 10:25 UTC "apply all of them"): the clarity layer, in both looks,
   after look.js (`clarity.css`, `clarity.js`; app.js unchanged, no life changes). Why each part, measured over 17 played
   lives: chroma-hud/gameplay-check/findings.md in the shared folder.
