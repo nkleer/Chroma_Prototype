@@ -2270,8 +2270,12 @@ function voiceRowTip(L) {
   const you = say(V.voice), life = say(V.life);
   const line = !V.steer ? "You have let them choose: the voice has not pushed yet." :
     (you ? `You moved their ${you} in this life.` : "Your pushes have not moved their colors much yet.") + (life ? ` Life itself moved ${life}.` : "");
-  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []),
-    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where.");
+  // S2: each way the voice pushed toward, how far it has become theirs, in the character's words (Library VOICE.own)
+  const OWN_STEP = { asked: "only because the voice asks", ought: "they feel they ought to", sees: "they see why it matters", theirs: "it is theirs now" };
+  const own = (V.own || []).map((o) => [`${pip(o.color)} ${CNAME[o.color]}`, esc(o.line || OWN_STEP[o.step] || "")]);
+  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []).concat(own),
+    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where." +
+    (own.length ? " The ways it pushes become theirs with light steers, their trust in you and people around them who live that way." : ""));
 }
 function needTip(k, L) {
   const v = (L.needs || {})[k] ?? 0;

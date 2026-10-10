@@ -128,12 +128,24 @@ GAME = dict(
     turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
     fig_own=True,        # K12 (v22.3): no public figure shares the character's first name
+    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC; v22.4 by the "Split" card 09:55, off until its refit): per color, how far a way
+    # the voice pushes toward has become theirs (ix, 0 to 1; steps at .25 "ought to", .5 sees the point, .8 theirs). Each
+    # push toward a color adds own_k x push x A x T x S x H: A the steer (light own_light, strong own_strong), T .5 + their
+    # trust in that color, S .5 + own_sup x that color's share around them (their haunts' faces and close people, the
+    # engine's "around"; an even surround without it), H own_acc when they accepted it, own_res (a step back at half size)
+    # when they resented it. A way led by fewer than own_use acts in a year fades by up to own_fade; reluctance in a way is
+    # x (1 - own_rel x ix); the peace reading counts a push as their own by its way's ix; at own_theirs the season lean
+    # toward it no longer ends. A strong push at reluctance over own_react_rel while ix is under .25 bounces back with
+    # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does
+    own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
+    own_use=4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
 )
+OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -591,6 +603,13 @@ class Game:
         self._pick_mix = np.zeros(C); self._pick_wt = 0.0; self._pick_t = 0
         self._prng = np.random.default_rng(int(seed) + 5151)
         self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
+        # S2 (GAME own_...): how far each way the voice pushes toward has become theirs, the acts of this year by the color
+        # leading their ways (for the fade), the season leans that no longer end (color -> (target, strength)), a random
+        # stream of its own (reactance), and each step crossed (age, color, step) and bounce back (age, color, "back")
+        self.ix = np.zeros(C); self._ix_use = np.zeros(C); self._own_leans = {}
+        self._ixrng = np.random.default_rng(int(seed) + 6262)
+        if GAME["own_ix"]:
+            self.history["own_ix"] = []; self.history["rel_way"] = []
         self.history["voice"] = voice_empty()   # item 3: the voice in their head (chroma-ideas/voice-mechanics.md)
         self._voice_said = {}           # item 3: how often each kind of voice line was told (the second variant after the first)
         self._trust_side = np.zeros(C, int)     # trust per color past .5 (1) or -.5 (-1), for the turn lines
@@ -631,7 +650,17 @@ class Game:
                     f = 1 - (t - t0) / GAME["lean_weeks"]
                     if f > 0:
                         y[0] += GAME["lean"] * st * f * E.centre(5 * (T - yw))
+                    elif GAME["own_ix"] and st > 0 and getattr(self, "ix", None) is not None and self.ix[int(np.argmax(T))] >= GAME["own_theirs"]:
+                        self._own_leans[int(np.argmax(T))] = (T, st)       # S2: the way is theirs, so its lean stays
                 self._leans = [x for x in self._leans if t - x[2] < GAME["lean_weeks"]]
+            if getattr(self, "_own_leans", None):
+                yw = E.softmax(y[0])
+                for c in list(self._own_leans):
+                    if self.ix[c] < GAME["own_theirs"]:
+                        del self._own_leans[c]
+                    else:
+                        T, st = self._own_leans[c]
+                        y[0] += GAME["lean"] * st * E.centre(5 * (T - yw))
         y[0] -= y[0].mean()
 
     # ------------------------------------------------------------------ main loop
@@ -748,6 +777,8 @@ class Game:
             a = a.copy(); a[0] = pick
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(rel)
+            if GAME["own_ix"]:
+                self.history["rel_way"].append([round(float(x), 3) for x in self._ways(self.loc, pick)] if self.loc is not None else None)
         self.history["picks"] += 1
         if choice != own or lt:                         # P3: the World panel's timeline shows each steer against the era
             o_ = cp["by_idx"].get(choice, {})
@@ -915,7 +946,7 @@ class Game:
                 lack = [RNAMES[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
                 why = "lacks " + ", ".join(lack) if (lack and not open_r[k]) else "not on offer around them"
             clash = [] if dn[k] else clash_with(self._colors(loc, k), self._prev_label)
-            rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash))
+            rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash)) * self._own_k(loc, k)
             pt = self._true_odds(loc, k); pt0 = pt
             if k != own:
                 lg = np.log(pt / (1 - pt)) - GAME["effort"] * rel - (GAME["out_of_reach"] if status == "out of reach" else 0)
@@ -997,6 +1028,9 @@ class Game:
             acc = e.get("accept")
             if acc and o["idx"] != cp["own"]:          # the engine's word and the cost of forcing it
                 o["acc"] = ACC_FROM_ENGINE.get(acc["level"], acc["level"]); o["rel"] = float(acc["reluctance"])
+                kx = self._own_k(loc, o["idx"])
+                if kx < 1.0:                            # S2: a way that has become theirs costs less to be pushed into
+                    o["rel"] *= kx; o["acc"] = accept_word(o["rel"])
                 o["acc_clash"] = float(acc["clash"])
                 if o["acc"] not in ("reluctant", "against it"):
                     o["clash"] = []
@@ -1430,7 +1464,7 @@ class Game:
         vdw = self._vdw()
         return dict(name=self.voice_name(), trust=word, steer=v["steer"], n=v["n"], share=round(voice_share(vdw, total), 3),
                     voice=[round(float(x) * 100, 1) for x in vdw], life=[round(float(x) * 100, 1) for x in total - vdw],
-                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)])
+                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)], **({"own": self.own_view()} if GAME["own_ix"] else {}))
 
     def _voice_pick(self, loc, cpw, worked, pushed, rel, moved, rs):
         """Item 3 at each decided moment: the record (the steer: the picked act's colors minus what they would have done),
@@ -1686,6 +1720,81 @@ class Game:
             out.append(dict(need=E.NEEDS[j], level=round(lv, 3), gain=round(gain, 3), word=need_level_word(lv),
                             lift="a big lift" if lv < 0.3 else "a lift"))
         return out[:2]
+
+    @staticmethod
+    def _ways(loc, k):
+        """An act's ways as shares of one (even when it has none)."""
+        m = np.maximum(np.asarray(loc["m"][0, k], float), 0)
+        return m / m.sum() if m.sum() > 0 else np.full(C, 1 / C)
+
+    # ------------------------------------------------------------------ S2: making it their own (GAME own_...)
+    def _own_k(self, loc, k):
+        """S2: what is left of a push's reluctance in act k's ways, 1 - own_rel x how far they have become theirs."""
+        if not GAME["own_ix"] or not self.ix.any() or np.maximum(np.asarray(loc["m"][0, k], float), 0).sum() <= 0:
+            return 1.0
+        return 1.0 - GAME["own_rel"] * float(self._ways(loc, k) @ self.ix)
+
+    @staticmethod
+    def _around(loc):
+        """S2: the colors around them as shares of one (the engine's "around": their haunts' faces and close people);
+        even without it."""
+        a = loc.get("around") if loc is not None else None
+        a = np.maximum(np.asarray(a, float).reshape(-1)[:C], 0) if a is not None else np.zeros(C)
+        return a / a.sum() if a.sum() > 0 else np.full(C, 1 / C)
+
+    def _own_step(self, x):
+        return next(k for lo, k in OWN_STEPS if x >= lo)
+
+    def _own_push(self, loc, cpw, hind):
+        """S2: a push toward ways the character would not have taken moves how far each has become theirs:
+        own_k x push x A x T x S x H per color (GAME own_...). A hard push at high reluctance into a way not yet
+        "ought to" can bounce back instead. Returns what moved, for the resolution, or None."""
+        k, own = int(cpw["choice"]), int(cpw["own"])
+        push = np.maximum(self._ways(loc, k) - self._ways(loc, own), 0)
+        if push.sum() <= 0:
+            return None
+        f = self._force or {}
+        before = self.ix.copy(); age = round(self.t / 52, 1)
+        way = float(push @ before) / float(push.sum())
+        if not f.get("light") and f.get("rel", 0.0) > GAME["own_react_rel"] and way < 0.25 and self._ixrng.random() < GAME["own_react"]:
+            self.ix = np.clip(self.ix - GAME["own_react_back"] * push / push.max(), 0.0, 1.0)     # reactance: it bounces back
+            loc["Q"][0] += GAME["backlash"] * float(f.get("resent", f.get("rel", 0.0)))
+            for c in np.nonzero(self.ix < before)[0]:
+                self.history["own_ix"].append((age, COLORS[c], "back"))
+            return dict(kind="back", ix=[round(float(x), 3) for x in self.ix])
+        A = GAME["own_light"] if f.get("light") else GAME["own_strong"]
+        T = np.maximum(0.0, 0.5 + self.trust)
+        S = 0.5 + GAME["own_sup"] * self._around(loc)
+        judged = (hind or {}).get("kind")
+        H = GAME["own_acc"] if judged == "accepted" else GAME["own_res"] if judged == "resented" else 1.0
+        self.ix = np.clip(self.ix + GAME["own_k"] * push * A * T * S * H, 0.0, 1.0)
+        for c in range(C):
+            s0, s1 = self._own_step(before[c]), self._own_step(self.ix[c])
+            if s0 != s1:
+                self.history["own_ix"].append((age, COLORS[c], s1))
+        return dict(kind="step", ix=[round(float(x), 3) for x in self.ix])
+
+    def _own_year(self):
+        """S2, once a year: a way led by fewer than own_use of the year's acts fades by up to own_fade."""
+        self.ix = np.maximum(0.0, self.ix - GAME["own_fade"] * np.clip(1 - self._ix_use / GAME["own_use"], 0.0, 1.0))
+        self._ix_use[:] = 0
+
+    def own_view(self):
+        """S2, the Voice row's hover: each way the voice pushed toward (or that has a step), how far it has become theirs,
+        in the Library's words for that way (VOICE["own"]: trusted or doubted by their trust in that color)."""
+        if not GAME["own_ix"]:
+            return []
+        d = np.asarray(self.history["voice"]["d"], float)
+        V = (ES.VOICE.get("own") if ES is not None else None) or {}
+        out = []
+        for i, c in enumerate(COLORS):
+            if d[i] <= 0 and self.ix[i] <= 0.005:
+                continue
+            step = self._own_step(float(self.ix[i]))
+            lines = (V.get(c) or {}).get(step) or []
+            line = self._vfill(lines[0 if self.trust[i] >= 0 else 1]) if lines else ""
+            out.append(dict(color=c, ix=round(float(self.ix[i]), 3), step=step, line=line))
+        return out
 
     def _profile(self, loc, k):
         """An act's colors for trust: its ways and its ends, half and half, as shares of one."""
@@ -2031,6 +2140,10 @@ class Game:
             wd = float(loc["wound"][0])
             if wd > self._yr["wound"]:
                 self._yr.update(wound=wd, support=float(loc["support"][0]))
+        if GAME["own_ix"] and not self.burn_in and "a" in loc:   # S2: the color leading this week's act, for the yearly fade
+            m_ = np.maximum(np.asarray(loc["m"][0, int(loc["a"][0])], float), 0)
+            if m_.sum() > 0:
+                self._ix_use[int(np.argmax(m_))] += 1
         evs = loc["events"][0]
         new = evs[self._ev_i:]; self._ev_i = len(evs)
         w_now = E.softmax(loc["z"][0]); res_now = loc["res"][0].copy()
@@ -2094,6 +2207,8 @@ class Game:
                         self._voice_trust_turn()
                     rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
                     vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
+                    if pushed and GAME["own_ix"]:       # S2: how far the pushed ways have become theirs
+                        rs["own"] = self._own_push(loc, cpw, rs.get("hindsight"))
                     if vo:                              # item 3: their answer to the voice, and whether it was right
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
@@ -2326,6 +2441,8 @@ class Game:
         return None
 
     def _yearly(self, t, loc):
+        if GAME["own_ix"] and not self.burn_in:
+            self._own_year()
         w = E.softmax(loc["z"][0]); M = float(loc["M"][0])
         lbl = E.identity(w, M, self._prev_label); self._prev_label = lbl
         self.seen_labels.add(lbl)
@@ -3154,6 +3271,9 @@ class Game:
         ful = float(np.mean(adult)) if adult else 0.0
         ser = float(np.mean(adultp)) if adultp else 0.0
         integ = 1 - float(np.sum(h["rel"])) / max(h["picks"], 1) if h["picks"] else 1.0
+        if GAME["own_ix"] and h["picks"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
+            integ = 1 - sum(r * (1 - (float(np.asarray(wy) @ self.ix) if wy is not None else 0.0))   # counts as their own by it
+                            for r, wy in zip(h["rel"], h["rel_way"])) / h["picks"]
         o = self.result
         w = o["w"][0] if o is not None else E.softmax(self.loc["z"][0])
         labels = [l for _, l in h["label"]]
