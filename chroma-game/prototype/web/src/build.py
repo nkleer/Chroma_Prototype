@@ -15,6 +15,12 @@ gi = json.loads(part("ink-icons.json", art))
 if os.path.exists(os.path.join(here, "option-icons-live.json")):
     gi["map"]["option"] = json.loads(part("option-icons-live.json"))
 pics = json.loads(part("pictures.json", art))
+# pics-left-out.json: moment pictures this page leaves out so one published version stays within the artifact's file limit
+# (511 files); those moments fall back to their part-of-life picture, as pictures.json's fallback_order says
+lo = os.path.join(here, "pics-left-out.json")
+out_sits = set(json.loads(part("pics-left-out.json"))["situation"]) if os.path.exists(lo) else set()
+gone = {pics["situation"][k].split("/")[-1][:-5] for k in out_sits if k in pics["situation"]}
+pics["situation"] = {k: v for k, v in pics["situation"].items() if k not in out_sits}
 app = part("app.js").replace("__GI_DATA__", json.dumps(dict(map=gi["map"], credit=gi["credit"]), separators=(",", ":")))
 app = app.replace("__PICS__", json.dumps({k: pics[k] for k in ("situation", "domain", "tier", "tarot", "texture", "portrait") if k in pics}, separators=(",", ":")))
 # lights.json: picture -> [[x, y, size, kind, strength, colour], ...] (fractions of the picture, colour "#rrggbb" or "");
@@ -25,7 +31,7 @@ def pack(ls):
 lp = os.path.join(art, "lights.json")
 # only the pictures this build has (a release branch can carry fewer pictures than lights.json knows)
 lights = {k: pack(v) for k, v in json.loads(part("lights.json", art)).items()
-          if v and os.path.exists(os.path.join(art, "pics", k + ".webp"))} if os.path.exists(lp) else {}
+          if v and k not in gone and os.path.exists(os.path.join(art, "pics", k + ".webp"))} if os.path.exists(lp) else {}
 look = part("look.js").replace("__LIGHTS__", json.dumps(lights, separators=(",", ":")))
 out = part("head.html") + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look + "\n" + part("clarity.css") + "\n" + part("clarity.js")
 open(os.path.join(here, "..", "index.html"), "w", encoding="utf-8").write(out)

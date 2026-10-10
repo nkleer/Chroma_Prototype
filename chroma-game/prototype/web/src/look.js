@@ -18,7 +18,9 @@
      flow into their new place when the life moves on (Emren 10-10 09:01 UTC)
    and for play: odds read by colour at a glance, a storm corner on cards they would rather not do, and a small lean wheel
    on the moment's picture that shows which way the card under the mouse would pull them. The status panel reads at a
-   glance: trends, danger glow, the wheel a year ago, sparklines in its hovers and a key (Emren 10-10 10:53 UTC). */
+   glance: trends, danger glow, the wheel a year ago, sparklines in its hovers and a key (Emren 10-10 10:53 UTC). Honours
+   and big moments are scaled by rarity and impact: gilt seal plates, struck chips, a heavier frame, weight in the story
+   (Emren 10-10 11:24 UTC). */
 (() => {
 const LK_LIGHTS = __LIGHTS__;
 const LK_PORT = PICS.portrait || null;
@@ -223,7 +225,7 @@ const plateSeen = new Set();
 let lifeN = 0;                       // one more at every birth in the story, so two lives of the same name are two lives
 function lifeKey(L) { return L ? lifeN + "|" + (L.name || "") + "|" + (L.setting || "") : ""; }
 function plate(p) {
-  if (!moving()) return;
+  if (!p || !moving()) return;
   const L = hud && hud.life;
   if (lifeKey(L) !== plateLife) { plateLife = lifeKey(L); plateNo = 0; plateSeen.clear(); }
   if (plateSeen.has(p.key) || plateQ.length >= 2) return;
@@ -233,10 +235,10 @@ function plate(p) {
 function nextPlate() {
   const p = plateQ.shift(); if (!p) { plateBusy = false; return; }
   plateNo++;
-  const L = hud && hud.life, por = p.portrait !== false && ink() ? portraitOf(L) : null;
+  const L = hud && hud.life, por = !p.seal && p.portrait !== false && ink() ? portraitOf(L) : null;
   plateEl.innerHTML = `<div class="lk-veil"></div><div class="lk-pl paper${p.kind ? " " + p.kind : ""}" style="${p.colors && p.colors.length ? `--k1:${INK[p.colors[0]]};--k2:${INK[p.colors[1] || p.colors[0]]}` : ""}">
     <div class="rn">${p.numeral || ROMAN(plateNo)}</div>${ORN}
-    ${por ? portraitHTML(por, "plate") : ""}
+    ${p.seal ? sealHTML(p.seal) : por ? portraitHTML(por, "plate") : ""}
     ${p.kick ? `<div class="kick">${esc(p.kick)}</div>` : ""}<h3>${p.pips && p.pips.length ? pips(p.pips) + " " : ""}${esc(p.title)}</h3>
     ${p.sub ? `<p>${esc(p.sub)}</p>` : ""}${ORN}</div>`;
   safe(() => lightPortraits(plateEl));
@@ -368,7 +370,7 @@ renderHud = function (L) {
   // an outcome about to turn over: hold the wheel and the meters until its ink lands (set before the wheel starts moving)
   safe(() => { const w = $("hudWheel"); if (!busy && choosing && flyer && moving() && !holdUntil && w && w.offsetParent !== null) holdUntil = now() + Math.max(0, 600 - (now() - choosing.t)) + 1250; });
   safe(() => { memW = yearAgo(L); });
-  _renderHud(L); safe(() => afterHud(L)); safe(() => hudMarks(L));
+  _renderHud(L); safe(() => afterHud(L)); safe(() => hudMarks(L)); safe(() => honourHud(L));
 };
 
 // a moment: odds by colour, the storm corner, and the lean wheel on the picture
@@ -433,7 +435,7 @@ function inkMoment(h) {
   setTip($("lkLean"), () => tipBox(`${ic("wheel")} Which way it pulls`, "", [], `${esc(L.name)}'s five colors now, in ink. Hover a card: the arrows show the colors it would pull them toward, solid for what it is for, thin for how it is done.`));
 }
 const _renderTable = renderTable;
-renderTable = function (h) { _renderTable(h); safe(() => inkMoment(h)); };
+renderTable = function (h) { _renderTable(h); safe(() => inkMoment(h)); safe(() => weighMoment(h)); };
 
 // the outcome: the ink runs, the chips stamp in, a long shot made or a title won is a chapter
 const _renderResolution = renderResolution;
@@ -450,10 +452,17 @@ renderResolution = function (h, reveal) {
       const dw = moved && now() - moved.t < 1500 ? moved.dw : r.dw;
       if (fr && dw) { holdUntil = now() + 1250; arm(holdUntil); setTimeout(() => safe(() => inkDrops(fr, dw)), 430); }
     }
+    safe(() => honourOutcome(r, reveal));
     if (hud && hud.replay) return;
-    if (r.long_shot && r.long_shot.made) plate({ key: "ls|" + key, kind: "ls", kick: "Against the odds", title: cap(r.act), sub: `A long shot, made: ${odds100(r.long_shot.odds)}.`, colors: splitColors(r.colors).ends });
-    for (const x of (r.roles || []).filter((x) => x.up && x.title).slice(0, 1))
-      plate({ key: "ti|" + key + x.word, kind: "ti", kick: "A new title", title: cap(x.word), sub: cap(r.act), colors: splitColors(r.colors).ends });
+    // a long shot made, or a title earned that is not an everyday one, is a chapter; a rare one is a gilt plate with its
+    // seal. A long shot that brings the title is one plate, not two.
+    const best = (r.roles || []).map((x) => ({ x, hn: honour(x) })).filter((o) => o.x.title && o.hn.t >= 2).sort((a, b) => b.hn.t - a.hn.t)[0];
+    const ends = splitColors(r.colors).ends, ls = r.long_shot && r.long_shot.made;
+    if (ls) plate({ key: "ls|" + key, kind: "ls hon", seal: best ? roleIconOf(best.x) : "star", kick: "Against the odds", title: cap(best ? best.x.word : r.act),
+      sub: `A long shot, made: ${odds100(r.long_shot.odds)}.${best && best.hn.sh != null ? " " + cap(rarityWord(best.hn.sh)) + "." : ""}`, colors: ends, hold: 3600 });
+    else if (best) plate(best.hn.t >= 3
+      ? { key: "ti|" + key + best.x.word, kind: "ti hon", seal: roleIconOf(best.x), kick: "A rare title", title: cap(best.x.word), sub: `${cap(rarityWord(best.hn.sh))}.`, colors: ends, hold: 3600 }
+      : { key: "ti|" + key + best.x.word, kind: "ti", kick: "A new title", title: cap(best.x.word), sub: cap(r.act), colors: ends });
   });
 };
 
@@ -463,6 +472,7 @@ addFeed = function (items) {
   _addFeed(items);
   safe(() => {
     if (items && items.some((it) => it.tag === "birth")) lifeN++;
+    safe(() => weighFeed(items || [], !!hud && !hud.replay && hud.job !== "past" && !hud.loaded && (items || []).length <= 24));
     if (!items || !items.length || !hud || hud.replay || hud.job === "past" || hud.loaded) return;
     if (moving() && items.length <= 24) {
       let k = 0;
@@ -670,6 +680,135 @@ spiderSVG = function (o) {
   return at < 0 ? s : s.slice(0, at) + `<polygon class="lk-mem" points="${spPts(memW)}"/>` + s.slice(at);
 };
 SP_KEY.push(["mem", "A year ago", "The faint dotted outline: their five colors a year ago, so you can see which way they have moved since."]);
+
+/* ---------------- honours and weight (Emren 10-10 11:24 UTC: "you can visually show big impact events or hard-earned
+   perks/titles in better, professional way") ----------------
+   Scaled by how rare and how hard-won, from what the page already has. A title's rarity is the Book's: the share of
+   simulated modern Earth lives that ever hold it (rarity.py). A perk is hard-won when an act earned it. An event weighs by
+   what it is (a loss, a breakthrough) and by how far it moved their colors.
+   - a rare title (fewer than 1 life in 10), or a long shot made, is a gilt plate with a struck seal; an earned title that
+     is not an everyday one keeps its plate; an everyday title or a status they did not earn has none
+   - at the outcome, an honour's chip is struck like a medal with its rarity beside it; a week that moved their colors
+     more than most says so, and its card is framed heavier; a very high stakes moment has an ember edge
+   - in the story, a loss carries a mourning rule, a turning point an ink roundel, an earned honour a small seal, and a
+     moment fewer than 1 life in 10 meets a star; the moment itself says it is rare
+   - in the panel, a new honour shines once, and a rare title keeps a small star
+   Statuses that are hard to bear (divorced, widowed, out of work) are never celebrated. Every mark works in both looks;
+   calm motion keeps them still, and off shows them without any movement. */
+const SOMBRE = new Set(["widowed", "divorced", "homeless", "out of work", "someone with a record", "ex-prisoner", "refugee", "asylum applicant",
+  "bankruptcy or insolvency in their history", "on probation or community supervision", "living in residential care", "displaced by a disaster",
+  "has killed in war", "carer for a parent"]);
+const EARNED_ST = new Set(["graduate", "doctoral graduate", "homeowner", "naturalised citizen", "cancer survivor", "in recovery", "veteran", "retiree",
+  "first-generation university student"]);
+const HEAVY = 5;                                     // points of 100 one color moves at an outcome; about 1 outcome in 8 moves more
+const BIG_TAGS = new Set(["breakthrough", "turn", "clash", "crisis", "healed", "hardened"]);
+// 3 rare title, 2 earned (an uncommon title, or a perk an act earned), 1 everyday, 0 nothing to honour, -1 hard to bear
+function honour(x) {
+  if (!x || x.up === false || x.what === "lost") return { t: 0, sh: null };
+  if (x.kind === "status") { if (SOMBRE.has(x.name)) return { t: -1, sh: null }; if (!EARNED_ST.has(x.name)) return { t: 0, sh: null }; }
+  if (x.title) {
+    const i = bookInfo("t|" + x.name), sh = i && i.sh != null ? i.sh : null;
+    return { t: isRare(sh) ? 3 : sh != null && sh >= 0.3 ? 1 : 2, sh };
+  }
+  return { t: /^through /.test(x.how || "") ? 2 : x.kind === "credential" || x.kind === "standing" ? 1 : 0, sh: null };
+}
+const livesN = () => ((bookCat.earth || {}).lives || 0);
+const oneIn = (sh) => sh === 0 ? `none in ${livesN().toLocaleString()}` : `1 in ${Math.round(1 / sh)}`;
+const rarityWord = (sh) => sh == null ? "" : sh === 0 ? `not one of ${livesN().toLocaleString()} simulated lives held it` : `only about 1 life in ${Math.round(1 / sh)} ever holds it`;
+const RAR_FOOT = "Rarity is the share of simulated modern Earth lives, birth to 80, that ever meet it.";
+// the seal: a scalloped medallion, struck in gilt, the honour's own sign in the middle
+const SEAL_EDGE = (() => { let d = ""; for (let k = 0; k < 48; k++) { const a = (k / 48) * Math.PI * 2, rr = k % 2 ? 27.2 : 30; d += (k ? "L" : "M") + (32 + rr * Math.cos(a)).toFixed(2) + " " + (32 + rr * Math.sin(a)).toFixed(2); } return d + "Z"; })();
+const sealHTML = (icon, cls = "") => `<span class="lk-seal ${cls}" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="e" d="${SEAL_EDGE}"/><circle class="f" cx="32" cy="32" r="23.5"/><circle class="r" cx="32" cy="32" r="20.5"/></svg>${ic(icon)}</span>`;
+const addTip = (el, more) => { const f = tips.get(el); if (f) setTip(el, () => f() + more()); };
+const maxMove = (dw) => dw && dw.length ? Math.max(...dw.map(Math.abs)) : 0;
+
+// the outcome: honours struck, a heavy week framed and named, without changing a word of what app.js wrote
+function honourOutcome(r, reveal) {
+  const ev = tableEl;
+  ev.querySelectorAll(".st.rl[data-rr]").forEach((el) => {
+    const x = (r.roles || [])[+el.dataset.rr], hn = honour(x); if (!x) return;
+    if (hn.t < 0) { el.classList.add("lk-sombre"); return; }
+    if (hn.t < 2) return;
+    el.classList.add("lk-hon", "t" + hn.t);
+    el.insertAdjacentHTML("beforeend", `<small class="lk-rar">${hn.sh != null ? (hn.t >= 3 ? "★ " : "") + esc(oneIn(hn.sh)) : "hard-won"}</small>`);
+    addTip(el, () => `<p class="lk-tiprar">${hn.sh != null ? `${ic("star")} ${esc(cap(rarityWord(hn.sh)))}. ${RAR_FOOT}` : `${ic("star")} Hard-won: an act of theirs earned it, not the years.`}</p>`);
+  });
+  const mx = maxMove(r.dw);
+  ev.classList.remove("lk-stakes3");
+  ev.classList.toggle("lk-heavy", mx >= HEAVY);
+  ev.classList.toggle("lk-honour", !!(r.long_shot && r.long_shot.made) || (r.roles || []).some((x) => honour(x).t >= 3));
+  if (mx >= HEAVY) {
+    const row = ev.querySelector(".evtext .verdict.vbig"); if (!row || row.querySelector(".lk-impact")) return;
+    const big = COLORS.map((c, i) => [c, r.dw[i]]).filter(([, v]) => Math.abs(v) >= 1.5).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 2);
+    row.insertAdjacentHTML("afterend", `<div class="verdict"><span class="tag lk-impact">${ic("burst")}It changed them: ${big.map(([c, v]) => `${pip(c)}${v > 0 ? "+" : "−"}${Math.round(Math.abs(v))}`).join(" ")}</span></div>`);
+    setTip(ev.querySelector(".lk-impact"), () => tipBox(`${ic("burst")} A week that changed them`, "", [["Moved", colorMoves(r.dw)]],
+      `One of their colors moved ${Math.round(mx)} points of 100 this week; most outcomes move each color by less than ${HEAVY}.`));
+    if (reveal && moving()) { ev.classList.remove("lk-shock"); void ev.offsetWidth; ev.classList.add("lk-shock"); setTimeout(() => ev.classList.remove("lk-shock"), 1600); }
+  }
+}
+
+// the moment: a rare one says so beside its age, and a very high stakes moment has an ember edge
+function weighMoment(h) {
+  const cp = h && h.cp; if (!cp) return;
+  tableEl.classList.remove("lk-heavy", "lk-honour");
+  tableEl.classList.toggle("lk-stakes3", cp.stake_word === "very high");
+  const kick = tableEl.querySelector(".evh .kick"); if (!kick || kick.querySelector(".lk-rarek")) return;
+  const i = bookInfo("s|" + cp.title); if (!i || !isRare(i.sh)) return;
+  kick.insertAdjacentHTML("beforeend", ` <span class="lk-rarek">${ic("star")}rare · ${esc(oneIn(i.sh))}</span>`);
+  setTip(kick.querySelector(".lk-rarek"), () => tipBox(`${ic("star")} A rare moment`, "", [["Lives that meet it", i.sh === 0 ? `none of ${livesN().toLocaleString()}` : `about ${oneIn(i.sh)}`]], RAR_FOOT + " It is kept in your Book once met."));
+}
+
+// the story: weight by what it is and how far it moved them; a fresh loss tolls once on the stage
+function weighFeed(items, live) {
+  let toll = false;
+  for (const it of items) {
+    const el = it && document.getElementById("it" + it._i); if (!el || el._lkw) continue; el._lkw = 1;
+    if (it.tag === "death" || it.tag === "loss") { el.classList.add("lk-grave"); toll = true; }
+    else if (BIG_TAGS.has(it.tag) || (it.tag !== "choice" && maxMove(it.dw) >= 3)) el.classList.add("lk-big");
+    else if (it.tag === "commitment" && it.what === "start") el.classList.add("lk-mile");
+    if (it.tag === "role") {
+      const hn = honour(it);
+      if (hn.t < 0) el.classList.add("lk-sombre");
+      else if (hn.t >= 2) {
+        el.classList.add("lk-hon", "t" + hn.t);
+        el.insertAdjacentHTML("beforeend", `<span class="lk-mk" data-lkmk="${it._i}">${sealHTML(roleIconOf(it), "xs")}${hn.sh != null ? esc(oneIn(hn.sh)) : "hard-won"}</span>`);
+        setTip(el.querySelector(".lk-mk"), () => tipBox(`${ic(roleIconOf(it))} ${hn.t >= 3 ? "A rare title" : it.title ? "An earned title" : "A hard-won perk"}`, "", [],
+          hn.sh != null ? `${esc(cap(rarityWord(hn.sh)))}. ${RAR_FOOT}` : "An act of theirs earned it, not the years."));
+      }
+    }
+    const si = it.sit && it.tag !== "role" ? bookInfo("s|" + it.sit) : null;
+    if (si && isRare(si.sh) && !el.querySelector(".lk-rarem")) {
+      el.insertAdjacentHTML("beforeend", `<span class="lk-rarem">${ic("star")}${esc(oneIn(si.sh))}</span>`);
+      setTip(el.querySelector(".lk-rarem"), () => tipBox(`${ic("star")} A rare moment`, esc(cap(it.sit)), [["Lives that meet it", si.sh === 0 ? `none of ${livesN().toLocaleString()}` : `about ${oneIn(si.sh)}`]], RAR_FOOT));
+    }
+  }
+  if (toll && live && lively()) { stageEl.classList.remove("lk-toll"); void stageEl.offsetWidth; stageEl.classList.add("lk-toll"); setTimeout(() => stageEl.classList.remove("lk-toll"), 2600); }
+}
+
+// the panel: a new title or perk shines once (a few seconds, carried across the panel's redraws), a rare title keeps a star
+const SHINE_MS = 5200, shine = new Map();
+let heldKey = "", held = null;
+function honourHud(L) {
+  const k = lifeKey(L), all = [].concat(...(L.titles || []).map((t) => t.named || []), L.perks || [], L.statuses || []).filter(Boolean);
+  if (heldKey !== k) shine.clear();
+  else if (held && hud && !hud.replay && !hud.loaded) for (const d of all) if (!held.has(d.name) && !(d.years >= 1) && honour({ ...d, up: true }).t >= 1) shine.set(d.name, now());
+  held = new Set(all.map((d) => d.name)); heldKey = k;
+  const mark = (el, d) => {
+    if (!el || !d) return;
+    const hn = honour({ ...d, up: true });
+    if (d.title && hn.t >= 3 && !el.querySelector(".lk-hstar")) {
+      (el.querySelector(".tn") || el).insertAdjacentHTML("beforeend", `<i class="lk-hstar">${ic("star")}</i>`);
+      addTip(el, () => `<p class="lk-tiprar">${ic("star")} ${esc(cap(rarityWord(hn.sh)))}. ${RAR_FOOT}</p>`);
+    }
+    const t0 = shine.get(d.name); if (t0 == null) return;
+    const age = now() - t0;
+    if (age >= SHINE_MS) { shine.delete(d.name); return; }
+    el.classList.add("lk-new", "t" + Math.max(1, hn.t)); el.style.setProperty("--lk-sd", -Math.round(age) + "ms");
+  };
+  hudEl.querySelectorAll(".trow[data-sock]").forEach((el) => { const t = (L.titles || []).find((x) => x.kind === el.dataset.sock); mark(el, t && (t.named || [])[0]); });
+  hudEl.querySelectorAll(".perk[data-perk]").forEach((el) => mark(el, (L.perks || [])[+el.dataset.perk]));
+  hudEl.querySelectorAll(".perk.stat[data-rs]").forEach((el) => mark(el, (L.statuses || [])[+el.dataset.rs]));
+}
 
 /* ---------------- the two settings, in the Table menu after Interlude ---------------- */
 const _renderTools = renderTools;
