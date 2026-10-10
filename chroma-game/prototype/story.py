@@ -1417,8 +1417,8 @@ class Story:
                 return self.name
             if k == "Ns":
                 return self.name + "'s"
-            if k == "place":
-                return self.place
+            if k == "place":                     # the town, or the place a moment is about (v22.4's caught, odd, lead)
+                return str(ctx["place"]) if "place" in ctx else self.place
             if k == "seen_as":                   # N1d: girl or boy, young woman or young man, woman or man, as their world sees them
                 f_ = getattr(self, "seen_as", None)
                 return f_() if callable(f_) else "person"
@@ -1522,9 +1522,19 @@ class Story:
             if p["role"] in LEFT_BEHIND:
                 self.far(p)
 
+    def slots_in(self, text, m):
+        """v22.4's moments (game.py _social_slots marks them): the slots in an option's label or act ({friend}, {place_a},
+        {offer}...) as the moment's scene fills them, in plain words and lower case as written."""
+        if not text or "{" not in text or not m:
+            return text
+        out = plain(self.fill(text, m["stage"], m["ctx"]))
+        return out[:1].lower() + out[1:] if text[:1].islower() else out
+
     def act_in(self, m, label):
         """An option label as the character's act in this moment ('reshape it ...' names what is reshaped)."""
         a = act(label)
+        if m and m["ctx"].get("_social"):
+            a = self.slots_in(a, m)
         ref = m["ctx"].get("kindref") if m else None
         if ref:
             a = "walk away from " + ref if a == "walk away" else re.sub(r"\bit\b", ref, a)
