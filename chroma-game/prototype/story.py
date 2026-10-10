@@ -1435,6 +1435,27 @@ class Story:
         # a {title} inside a filled-in act (an option's label in "{N} chooses {c}") is the held title too
         return cap(out.replace("{title}", getattr(self, "title_now", None) or "their role"))
 
+    def fill_label(self, text, m):
+        """An option's label with its role slots filled from the moment's own people (the scene's {friend} is the
+        option's {friend}), as plain words for the page's buttons and the "chooses" line."""
+        ctx, stage = m["ctx"], m["stage"]
+        def one(mm):
+            k = mm.group(1)
+            if k == "N":
+                out = self.name
+            elif k == "Ns":
+                out = self.name + "'s"
+            elif k == "place":
+                out = self.place
+            elif k == "title":
+                out = getattr(self, "title_now", None) or "their role"
+            else:
+                out = plain(self.role(k, stage, ctx))
+                if mm.group(2):
+                    out = re.sub(r"^someone called ", "", out)
+            return out + (mm.group(2) or "")
+        return re.sub(r"\{(\w+)\}('s)?", one, text)
+
     def thought(self, text, kind="", tag=None):
         """An italic thought; its color is the variant's (the voice's, or the act's for a reason)."""
         return mk("t", f"{self.last_tag if tag is None else tag}|{kind}", f"*{text}*")
@@ -1568,6 +1589,8 @@ class Story:
 
     def outcome(self, m, ev, chosen_label, pushed, rel, closed, colors=""):
         """A checkpoint resolved: what they did, how it went, and how they read it."""
+        if m and "{" in chosen_label:                  # the option's role slots, as the player saw them
+            chosen_label = self.fill_label(chosen_label, m)
         a = self.act_in(m, chosen_label)
         if not pushed:
             first = self.fill(self.pick(["{N} chooses {c}.", "So {N} chooses {c}.", "In the end, {N} chooses {c}."]),
