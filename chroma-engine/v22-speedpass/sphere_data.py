@@ -6269,4 +6269,10 @@ DEEP = {'care_hours': {'partner': 20.0, 'parent': 12.0, 'parent_in_law': 8.0, 'g
                               'daughters': "a daughter's share x the world's women's right (rights['women']), so the "
                                            "world's own rights decide it, not the epoch alone"}},
  'money': {'need_line': 0.15,
-           'term_months': {'tab': 1.0, 'kin': 12.0, 'circle': 10.0, 'bank': 60.0, 'lender': 6.0, 'home_loan': 300.0}}}
+           'term_months': {'tab': 1.0,
+                           'kin': 12.0,
+                           'circle': 10.0,
+                           'bank': 60.0,
+                           'lender': 6.0,
+                           'home_loan': 300.0,
+                           'land_shop_firm_loan': 120.0}}}
