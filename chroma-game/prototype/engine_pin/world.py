@@ -448,6 +448,9 @@ W_DEFAULT = dict(
     sph_shadow=False,  # phase 5, N5: each face's shadow share per town and sphere (event rows' shadow turns, subvert,
                        # the fairness gap), the spheres' grey shares, and the shadow around a life (notes/spheres-phase5-asks.md)
     sph_deep=False,    # phase 5: the deep state of a life (the care load first; service, debts, holdings to come)
+    far_ties=False,    # item 18: a town's events touch the named people living there; a close tie in another town calls
+                       # (chroma-ideas/far-off-events.md; sides in sphere_data.FAR); with sph_events
+    far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -462,7 +465,7 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair", "sph_shadow", "sph_deep")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
