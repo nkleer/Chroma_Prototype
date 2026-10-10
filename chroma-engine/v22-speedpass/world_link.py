@@ -52,6 +52,18 @@ WORLD_MOMENTS = [
     ("belief", "new movement", None, "a new faith comes to town", 0.3, "place"),
     ("belief", "faith tension", None, "the hall on the corner is shut", 0.4, "place"),
 ]
+# C2 (c2_groups; stage3-rules.md section 5, Library earth-world-civic.lib and earth-world-wants.lib): group moments the
+# world brings, for the members only. "place_group": the members of that group kind living in the event's place;
+# "faith_group": the members of a congregation of the reviving faith. The strike vote then comes only on a strike (no
+# everyday draw); the split keeps its own yearly rate among members and comes on these too (C2_KEEP). Shares are start
+# values for the refit
+C2_MOMENTS = [
+    ("institution", "strike", "union", "a strike vote at work", 0.5, "place_group"),
+    ("belief", "revival", None, "the congregation splits in two", 0.1, "faith_group"),
+    ("belief", "new movement", None, "the congregation splits in two", 0.2, "place_group"),
+]
+C2_KEEP = {"the congregation splits in two"}
+C2_DEFAULT = dict(drift_tv=0.10, drift_share=0.5, group_half=0.5)   # a congregation drifted this far from its faith body
 CRIME_W = re.compile(r"\b(robbed|burgl|mugg|attacked|break-in|broken into|stolen|pickpocket)", re.I)
 DISASTER_W = re.compile(r"\b(flood|fire|storm|earthquake|quake|drought|heatwave|hurricane|landslide)\b", re.I)
 PANDEMIC_W = re.compile(r"\b(pandemic|epidemic|outbreak|lockdown)\b", re.I)
@@ -205,9 +217,16 @@ class WorldLink:
         self.adm_o = np.isin(AT_, edu_t) if AT_.shape == (S, K) and edu_t else np.zeros((S, K), bool)
         self.ill_s = rk == RK.index("illness")
         idx = {nm: i for i, nm in enumerate(names)}
-        self.wm = [(x_[0], x_[1], x_[2], idx[x_[3]], x_[4], x_[5] if len(x_) > 5 else "all") for x_ in WORLD_MOMENTS
-                   if x_[3] in idx]
-        self.wm_s = np.array(sorted({x[3] for x in self.wm}), int)
+        self.c2 = bool(W.p.get("c2_groups"))
+        self.wm = [(x_[0], x_[1], x_[2], idx[x_[3]], x_[4], x_[5] if len(x_) > 5 else "all")
+                   for x_ in WORLD_MOMENTS + (C2_MOMENTS if self.c2 else []) if x_[3] in idx]
+        keep_ = {idx[k_] for k_ in C2_KEEP if k_ in idx} if self.c2 else set()
+        self.wm_s = np.array(sorted({x[3] for x in self.wm} - keep_), int)
+        if self.c2:   # C2: the moments only the world brings to a group (no everyday draw), the split, the drift read
+            self.c2_only = np.array(sorted({idx[x_[3]] for x_ in C2_MOMENTS if x_[3] in idx and x_[3] not in C2_KEEP}), int)
+            self.c2_split = idx.get("the congregation splits in two", -1)
+            self.c2_par = dict(C2_DEFAULT, **(W.p.get("c2_par") or {}))
+            self.c2_drift = None   # whose congregation is over the drift line (None: not read yet; the first read only sets it)
         self.toy = np.asarray(L.get("W_TOY", np.zeros((S, 4)))); self.toy_set = np.asarray(L.get("W_TOY_SET", np.zeros(S, bool)))
         self.toy_on = self.toy.sum(1) > 0
         self.holy = np.asarray(L.get("W_HOLY", np.full(S, -1))); self.where = np.asarray(L.get("W_WHERE", np.zeros((S, 1), bool)))
@@ -444,10 +463,16 @@ class WorldLink:
                         hit_ &= PP.loc == int((e.get("value") or {}).get("loc", -1))
                     elif sel == "staff":                   # only the people who work there
                         hit_ &= self._staff(int((e.get("value") or {}).get("inst", -1)))
+                    elif sel == "place_group":             # C2: the members of the moment's group kind in that place
+                        hit_ &= (PP.loc == int((e.get("value") or {}).get("loc", -1))) & self._members(si)
+                    elif sel == "faith_group":             # C2: the members of a congregation of the reviving faith
+                        hit_ &= self._members(si, int((e.get("value") or {}).get("faith", -1)))
                     self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
         if W.p.get("c3_inst"):
             self._c3_merged(new)
+        if self.c2 and self.c2_split >= 0 and t % 4 == 0:
+            self._c2_drift_q()
         # wants ripe this week: the moment that answers it, with the cast member in its first who: slot
         self.pending = {}
         for n_, cid_, key_ in PP.want_due(PP.t):
@@ -458,6 +483,41 @@ class WorldLink:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
         return self.week_events
+
+    def _members(self, si, ref=None):
+        """C2: the lives in a setting of moment si's group kind (and, given ref, one tied to that faith or body) (N,)."""
+        PP = self.PP; m_ = PP.skind == int(self.group[si])
+        if ref is not None:
+            m_ &= PP.sref == ref
+        return m_.any(1)
+
+    def _c2_cong(self):
+        """C2: each life's main congregation (N,; -1 none): its setting of that kind with the most time."""
+        PP = self.PP; cg_ = PP.skind == PM.G["congregation"]
+        j_ = np.argmax(np.where(cg_, PP.sts + 1.0, 0.0), 1)
+        return np.where(cg_.any(1), j_, -1)
+
+    def _c2_drift_q(self):
+        """C2: a congregation whose ways have drifted far from its faith body's (total variation above drift_tv) splits:
+        when a life's congregation first crosses it, the split comes to them with drift_share (once a crossing)."""
+        PP, W = self.PP, self.W
+        j_ = self._c2_cong(); has = j_ >= 0
+        if not has.any() or not getattr(PP, "n_faith", 0):
+            self.c2_drift = np.zeros(self.N, bool)
+            return
+        fp = np.asarray(W.faith_profile, float); fp = fp / np.maximum(fp.sum(1, keepdims=True), 1e-12)
+        n_ = np.nonzero(has)[0]; jj = j_[n_]
+        rf = np.clip(PP.sref[n_, jj], 0, len(fp) - 1)
+        tv = 0.5 * np.abs(PP.snorm[n_, jj] - fp[rf]).sum(1)
+        over = np.zeros(self.N, bool); over[n_] = tv > self.c2_par["drift_tv"]
+        new_ = over & ~self.c2_drift if self.c2_drift is not None else np.zeros(self.N, bool)
+        self.c2_drift = over
+        if new_.any():
+            hit_ = new_ & (PP.rng.random(self.N) < self.c2_par["drift_share"])
+            if hit_.any():
+                self.fire_now[hit_, self.c2_split] = True
+                self.fire_why[self.c2_split] = dict(domain="group", kind="congregation drifts", key="congregation",
+                                                    value=None, t=int(W.t))
 
     def _staff(self, i):
         """The lives whose own work setting is institution i (N,)."""
@@ -654,6 +714,8 @@ class WorldLink:
             need = self.where.any(1)
             ok = (feat.astype(np.float32) @ self.where.T.astype(np.float32)) > 0                             # N, S
             f *= np.where(need[None], ok, 1.0)
+        if self.c2 and len(self.c2_only):   # C2: these come only on the world's events
+            f[:, self.c2_only] = 0.0
         if (self.group >= 0).any():   # a setting of that kind the person is in
             ing = (np.asarray(PP.skind)[:, :, None] == np.arange(len(WK.GROUP_KINDS))[None, None, :]).any(1)   # speed pass: one comparison
             gs_ = self.group >= 0
@@ -737,6 +799,8 @@ class WorldLink:
             law_open = app_ & (st_ == 0)
         if (nm >= 0).any():
             acc_ = self.acc_                                        # N, n_norm: society's norm with the close circle's view
+            if self.c2 and (self.group[s] >= 0).any():   # C2: in a group's moment, half society's norm, half the group's
+                acc_ = self._c2_accept(s, acc_)
             a_ = np.take_along_axis(acc_, np.maximum(nm, 0), 1)
             if self.norm_neg.any():   # -key: frowned on where the norm is accepted (snubbing a same-sex partner)
                 a_ = np.where(self.norm_neg[s], 1 - a_, a_)
@@ -750,6 +814,30 @@ class WorldLink:
                     ad_ = np.array([W.tech_adopt(key, cls=int(c_)) for c_ in range(3)])[_uclip(PP.cls, 0, 2)]
                     u_mea = np.maximum(u_mea, np.where(te == k_, 1 - ad_[:, None], 0.0))
         return u_law, law_open, u_app, u_mea, gone
+
+    def _c2_accept(self, s, acc_):
+        """C2: acceptance per norm key for lives whose moment s has a group: (1 - group_half) x the society's norm +
+        group_half x that group's view (its members' acceptance, as the local norm reads it: the norms now less 1.2 x the
+        members' strictness), less a close person's objection; the rest keep acc_ (society with the close circle)."""
+        PP, W = self.PP, self.W
+        g_ = self.group[s]; rows = np.nonzero(g_ >= 0)[0]
+        m_ = PP.skind[rows] == g_[rows][:, None]
+        rows = rows[m_.any(1)]
+        if not len(rows):
+            return acc_
+        m_ = PP.skind[rows] == g_[rows][:, None]
+        j_ = np.argmax(np.where(m_, PP.sts[rows] + 1.0, 0.0), 1)
+        nv = np.array([float(W.norm(k_)) for k_ in WK.NORM_KEYS_ALL])
+        if not PP.nh:
+            return acc_
+        now = PM._logit(np.asarray(PP.nh[-1], float))
+        grp = PM._sig(now[None, :] - 1.2 * PP.sstrict[rows, j_][:, None])
+        grp = np.concatenate([grp, np.tile(nv[grp.shape[1]:], (len(rows), 1))], 1)
+        ob = np.pad(np.asarray(PP.objk, float)[rows], ((0, 0), (0, len(nv) - PP.objk.shape[1])))
+        h = self.c2_par["group_half"]
+        out = acc_.copy()
+        out[rows] = _uclip((1 - h) * nv[None, :] + h * grp - ob, 0, 1)
+        return out
 
     # ---- the person's role and acceptance with the world on (N1b, outer world round 3)
     def role_norms(self):
