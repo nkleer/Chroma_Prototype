@@ -1557,6 +1557,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     AQ_ON = BAT and bool(P["adjectives"]) and bool(L.get("ADJ_ANY"))   # v7: acts or situations require an adjective
     role_log = []
     LONG_ = -1; missed_t = np.full(N, -1)                    # the long-shot perk; the last title each life missed on a long shot
+    C5F_ = -1                                                # C5: the title that founds a movement ("founder of a movement")
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
@@ -1598,6 +1599,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         KIND_NAMES_ = list(KNAMES) + ["status"]; KINDN_ = np.array(GR["kindname"][:NT_])   # batch.TITLE_KINDS
         EARN_ON = "A_EARN" in GR and bool((GR["HELP_N"] > 0).any() or (L.get("WINDOW_REF", np.zeros(1)) > 0).any())
         RID = GR["ID"]; LONG_ = RID.get("a long shot that missed", -1)
+        C5F_ = RID.get("founder of a movement", -1) if P.get("c5_faith") else -1
         LONGF_ = np.zeros((L["S"], L["K"]), bool)            # options whose failure grants the long-shot perk (grants_if_fails:)
         for (si_, ki_), fx_ in GR["A_FX"].items():
             LONGF_[si_, ki_] = LONG_ >= 0 and any(op_ == "grants" and j_ == LONG_ for op_, j_, _ in fx_["fail"])
@@ -3143,6 +3145,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             continue                           # [a long shot that missed]: only after a real long shot, below
                         for j_ in fx_targets(n, int(s[n]), j0_):
                             r_act(n, op_, j_, yrs_, "through " + L["labels"][s[n]][a[n]], ma[n])
+                if C5F_ >= 0 and WL is not None:   # C5: "a following of your own" taken and working founds the movement in
+                    # their town: its colours become the founder's own, its growth scales with their reach (ties .8 is 1)
+                    for n in np.nonzero((GR["A_TITLE"][s, a] == C5F_) & succ & ~idle & live_)[0]:
+                        WL.W.c5_found_by(np.asarray(w[n], float)[WL.W.perm], reach=float(res[n, TIE]) / 0.8)
                 at_l = missed_at(GR["A_TITLE"][s, a], s, a)    # a failed try for a title at true odds under long_shot: a long shot
                 for n in np.nonzero(long_miss)[0]:              # that missed, whatever the option names (election night with no
                     if at_l[n] >= 0:                          # nomination, the part of a lifetime for an unknown); packs 08:02
