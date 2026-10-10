@@ -315,7 +315,8 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # yearly fades in a row after which the inspiring leader's turn to routine is offered in place of the crisis; ruler_end:
 # the yearly end chance of a national office where there are no elections (held at the ruler's pleasure)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, rules=0.3, knowing=0.3, favours=0.4, inspiring=0.05,
-                    fair_line=0.35, frail=0.35, sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+                    fair_line=0.35, frail=0.35, sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1,
+                    crisis=0.25, step=None)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4311,7 +4312,7 @@ class People:
 
     # ------------------------------------------------------------------ acts, levers and pushes (spec 2 §3, spec 7 §3)
     def on_act(self, idx, ma, succ, visibility=None, lever=None, pushes=None, base=None, target=None, norm=None,
-               var=None, t=None, sphere=None, office=None, msphere=None):
+               var=None, t=None, sphere=None, office=None):
         """The character's act this week (vectorised over idx): the close circle judges it (overlap of the act's mix
         with their pies), rank in groups moves, and acts with a lever push (size = base x reach x how well it went;
         a failed push can backfire). Returns dict(approval=(n,), results=[push results])."""
@@ -4373,15 +4374,6 @@ class People:
                 r_ = self._sph_lever(int(idx[e_]), int(js[e_]), int(lev[e_]), ma[e_], float(q[e_]), int(ok_[e_]), int(dom[e_]), t)
                 if r_ is not None:
                     res.append(r_)
-        # 5. S7: every act a leader makes in a moment of the sphere they lead counts for the way, as a lever act there
-        # does (_sph_lever): msphere, the moment's sphere (-1 none)
-        if getattr(self, "lw", False) and msphere is not None and self.lw_posts:
-            ms_ = np.broadcast_to(np.asarray(msphere, np.int64), (E,))
-            ls_ = np.broadcast_to(np.asarray(-1 if sphere is None else sphere, np.int64), (E,))
-            for e_ in np.nonzero((ms_ >= 0) & ~((lev >= 0) & (ls_ == ms_)) & ~self.dead[idx])[0]:
-                p_ = self._lead_post(int(idx[e_]), int(ms_[e_]))
-                if p_ is not None:
-                    self._lead_act(p_, None, float(q[e_]), t)
         return dict(approval=appr, results=res)
 
     def _sph_lever(self, n, j, lev, ma, q, office, dom, t):
@@ -4614,7 +4606,7 @@ class People:
         self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES]); self._lw_floss = float(LP["fast_loss"])
         self._lw_hist = []        # the town spheres' face mixes the last five quarters (custom's fast change: 4 quarters)
         self._lw_need = float(SD.DEEP["money"]["need_line"])   # favours: money under the need line
-        self._lw_ev_i = len(getattr(self.W, "sph_ev_log", ()))   # rules: the sphere events read so far (World.sph_ev_log)
+        self._lw_ev_i = len(getattr(self.W, "sph_ev_log", ()))   # the crises: the sphere events read so far
         self.lw_posts = []        # the posts held now: dicts (see _lead_new)
         self.lw_ended = []        # the posts that ended, oldest first
         self.lw_due = []          # [life, moment key, post id, week queued]: a post's moment waiting to come
@@ -4763,17 +4755,17 @@ class People:
                     self._lead_step(q_, t, "favours", self.lw_par["favours"], why="the office ended")
         self._lead_ev(p, t, "ended", why=why, years=round((t - p["t0"]) / 52.0, 2))
 
-    def _lead_unfair(self):
-        """The sphere events fired since the last quarter that the led read as unfair (an unfair side of S1's tags,
-        World.fair_tags), counted once an event per (town, sphere); town -1: an event of the whole society."""
+    def _lead_crises(self):
+        """The crises since the last quarter: the sphere events fired (World.sph_ev_log), counted per (town, the event's
+        sphere); town -1: an event of the whole society, a crisis in every town."""
         log = getattr(self.W, "sph_ev_log", None); out = {}
         if log is None or len(log) <= self._lw_ev_i:
             return out
         rows = np.asarray(log[self._lw_ev_i:]).tolist(); self._lw_ev_i = len(log)
-        tags = self.W.fair_tags()["events"]
+        sph = self.W._sph_ev_tables()["sph"]
         for _, i_, l_ in rows:
-            for j_ in {int(j_) for j_, _, sd_ in tags.get(int(i_)) or () if sd_ < 0}:
-                out[(int(l_), j_)] = out.get((int(l_), j_), 0) + 1
+            k_ = (int(l_), int(sph[int(i_)]))
+            out[k_] = out.get(k_, 0) + 1
         return out
 
     def _lead_step(self, p, t, key, size, why=None):
@@ -4781,6 +4773,8 @@ class People:
         turn to routine for a fading inspiring leader; under the fall line, the fall."""
         if p not in self.lw_posts:
             return
+        if self.lw_par.get("step") is not None:
+            size = self.lw_par["step"]
         p["dent"] -= size; p["falls"].append([int(t), int(p["way"]), key])
         self._lead_legit(p)
         self._lead_ev(p, t, "step", key=key, why=why, size=size)
@@ -4876,20 +4870,33 @@ class People:
         # 3. legitimacy and the falls of each way
         fair_ = W.sph_fair_target() if self.lw_posts else None
         tv_ = (0.5 * np.abs(self._lw_hist[-1] - self._lw_hist[0]).sum(-1)) if len(self._lw_hist) == 5 else None
-        unf_ = self._lead_unfair()
+        cr_ = self._lead_crises()
         for p in list(self.lw_posts):
             if p not in self.lw_posts:
                 continue
             n = p["n"]; l_, j_ = p["loc"], p["sphere"]
             self._lead_legit(p)
-            if p["way"] == 0:   # rules: a fairness scandal among the led: an event in the sphere led that they read as
-                # unfair (S1's tags; the town's own or the society's), or their felt fairness falling under the line
+            # the quarter's crises: each sphere event in the sphere led (the town's own, or the whole society's) tests the
+            # way at one even chance, crisis: a rules leader fails it rule-bound, a knowing leader is shown wrong, an
+            # inspiring leader carries it otherwise (a new success); a favour called in cannot be paid with money under need
+            for _ in range(cr_.get((l_, j_), 0) + cr_.get((-1, j_), 0)):
+                w_ = p["way"]
+                if p not in self.lw_posts:
+                    break
+                if w_ in (0, 1) and self._lw_rng.random() < par["crisis"]:
+                    self._lead_step(p, t, LEAD_WAYS[w_], par[LEAD_WAYS[w_]],
+                                    why="rule-bound in a crisis" if w_ == 0 else "shown wrong in a crisis")
+                elif w_ == 3 and self._lw_rng.random() >= par["crisis"]:
+                    p["succ_t"] = int(t); p["fades"] = 0
+                elif w_ == 2 and float(self.res[n, MON]) < self._lw_need:
+                    self._lead_step(p, t, "favours", par["favours"], why="a favour called in, money under need")
+            if p not in self.lw_posts:
+                continue
+            if p["way"] == 0:   # rules: a fairness scandal among the led (their felt fairness falls under the line)
                 lo_ = bool(fair_[l_, j_] < par["fair_line"])
                 if lo_ and not p["fair_lo"]:
                     self._lead_step(p, t, "rules", par["rules"], why="a fairness scandal")
                 p["fair_lo"] = lo_
-                for _ in range(unf_.get((l_, j_), 0) + unf_.get((-1, j_), 0)):
-                    self._lead_step(p, t, "rules", par["rules"], why="an unfair event")
             elif p["way"] == 2:   # favours: once a year, money under the need line
                 if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
