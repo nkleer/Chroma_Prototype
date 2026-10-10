@@ -8,7 +8,9 @@
 #   pageonly   the commit against release/v22.2: only page and art files change, worker.js and py/ equal (V1; two builds)
 #   page       a fresh build served locally: the fit probes at 1280x800, 1024x700 and the geometric one, the phone probe
 #              against the release/v22.2 build at 390x844, and the tours at desktop and phone size (V3, V4; about 30 min)
-#   b7AB b7CD  the build of the commit, then the game's browser drivers, groups A and B or C and D (V5)
+#   b7AB b7CD  the build of the commit, then the game's browser drivers, groups A and B or C and D (V5; one at a time
+#              per machine, both serve on port 8140)
+#   artlook    PR #98's art check (portraits, lights) from ART_REF on the commit's tree (V6, row art_look; seconds)
 set -u
 F=/mnt/project-files; R=${R:-$F/chroma-release}; REPO=${REPO:-/tmp/v2221_repo}; X=/tmp/v2221_$1; BASE=${BASE:-release/v22.2}
 SHA=${SHA:-$(sed -n 's/^commit: *\([0-9a-f]\{40\}\) *$/\1/p' $F/chroma-release/records/v22.2.1/scope.md)}   # the record's commit line
@@ -54,5 +56,10 @@ case "$1" in
      done
      pkill -f "serve.py 815[12]"; grep -h "" $O/*_$STAMP.txt | grep -E "^N7|^phone|^no page errors|pageerror|^exit" ;;
   b7AB|b7CD) build $SHA $X; g=${1#b7}; bash $R/short-v22.1/b7.sh ${g:0:1},${g:1:1} 2 $X/w/build ;;
-  *) sed -n 2,13p "$0"; exit 2 ;;
+  artlook) A=${ART_REF:-origin/claude/project-thread-fidk7k}; AS=$(git -C $REPO rev-parse $A) || exit 2   # PR #98's branch
+     rm -rf $X; mkdir -p $X; git -C $REPO archive $SHA chroma-art chroma-env chroma-game/prototype/engine_pin chroma-game/prototype/web/src chroma-look | tar -x -C $X
+     git -C $REPO show $AS:chroma-art/kit/check_art.py > $X/chroma-art/kit/check_art.py; o=$O/art_look_$(date -u +%Y%m%d-%H%M%S).txt
+     { echo "v22.2.1 V6 art_look: chroma-art/kit/check_art.py of $A ($AS) on the tree of $SHA"; (cd $X && CHROMA_ROOT=$X python3 -B chroma-art/kit/check_art.py 2>&1); } > $o
+     cat $o; if grep -q "^art check: pass" $o; then add art_look PASS $o "check_art.py of $A on the commit's tree"; else add art_look FAIL $o "check_art.py of $A on the commit's tree"; fi ;;
+  *) sed -n 2,16p "$0"; exit 2 ;;
 esac
