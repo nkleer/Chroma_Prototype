@@ -3195,6 +3195,18 @@ class World:
         sh = self._sph_sh() if self.p.get("sph_shadow", False) else np.full((self.n_loc, 9, C), self._sh_par()["start"])
         return (self.sph_s * sh).sum(-1)
 
+    def sph_state(self, key):
+        """One sphere state for each town (n_loc,): the town's plus the society's for its own states, the world's for the
+        16 world states; .5 where the sphere events are off (phase 5's debts read comm.credit and prot.order)."""
+        import sphere_data as SD
+        E = self._sph_ev_tables(); st = getattr(self, "sph_st", None)
+        if key in E["own"]:
+            if st is None:
+                return np.full(self.n_loc, 0.5)
+            k = E["own"].index(key)
+            return _uclip(st[:, k] + self.sph_st_soc[k] - 0.5, 0, 1)
+        return self._sph_world_states(E)[:, list(SD.STATE_WORLD).index(key)]
+
     def sph_fair_target(self):
         """Phase 4 (sph_fair): where each town's felt fairness in each sphere settles (n_loc x 9), before a life's own acts
         and rung: .5 + .3 x (the sphere's fair-hearing states - .5) - .3 x (its against states - .5); a sphere with no

@@ -167,7 +167,8 @@ if "own_k" in E.DEFAULT:
 # the reports fill and have their keys, the option causes come per option, the disaster story names its hazard, and the
 # run still lives exactly the lives of run() (which keeps no reports)
 if "wfx_step" in E.DEFAULT:
-    t0 = time.process_time(); fails = []; N, Y, seed = 1, 30, 2
+    # seed 3: since the Library's sphere moments (PR #49), seed 2's life meets no disaster in its 30 years
+    t0 = time.process_time(); fails = []; N, Y, seed = 1, 30, 3
     Pd = dict(E.DEFAULT); Pd["world"] = True
     kw = dict(N=N, years=Y, seed=seed, lib=EARTH, P=Pd, log_lives=(0,))
     o1 = E.run(**kw)
@@ -279,7 +280,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the levers on places and town spheres, and felt fairness (sph_levers, sph_fair; with the events)",
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
-       ("the shadow side and the care load (sph_shadow, sph_deep; with the events and the shadows)",
+       ("the shadow side, the care load, service, debts and holdings (sph_shadow, sph_deep; with the events and the shadows)",
         dict(sph_shadow=True, sph_deep=True, shadows=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(shadows=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),

@@ -6193,10 +6193,10 @@ FAIR = {'states': {'rule': {'fair': ['rule.fair_hearing'], 'against': ['rule.fav
  'high_mult': {'exit': 0.7, 'neglect': 0.7, 'subvert': 0.7, 'voice': 1.5, 'loyalty': 1.5}}
 SHADOW = {'share': {'start': 0.1,
            'relax': 0.02,
-           'event_row': 0.1,
+           'event_row': 0.02,
            'subvert': 0.02,
            'fairness_gap': 0.01,
-           'comm_grey': 0.01,
+           'comm_grey': 0.005,
            'min': 0.0,
            'max': 1.0},
  'gate': 0.25}
@@ -6257,4 +6257,16 @@ DEEP = {'care_hours': {'partner': 20.0, 'parent': 12.0, 'parent_in_law': 8.0, 'g
                                  'note': "no rent: worth about a quarter of a year's income"},
                         'land_boat_herd': {'value_years': 3, 'yield': 0.04},
                         'workshop_shop': {'value_years': 2, 'yield': 0.08},
-                        'firm': {'value_years': 5, 'yield': 0.1, 'from': 'sail'}}}}
+                        'firm': {'value_years': 5, 'yield': 0.1, 'from': 'sail'}},
+              'inheritance': {'bands': 'no holdings: tools and goods are shared or go with the dead',
+                              'villages': 'split among the children (partible), held through the lineage',
+                              'cities': 'split among the children; the house to the eldest',
+                              'realms': 'land to the eldest (primogeniture), goods split',
+                              'sail': 'land to the eldest, money split',
+                              'machine': 'by will, mostly split equally',
+                              'modern': 'the partner first, then split equally among the children',
+                              'magic': 'as realms or sail, by its base',
+                              'daughters': "a daughter's share x the world's women's right (rights['women']), so the "
+                                           "world's own rights decide it, not the epoch alone"}},
+ 'money': {'need_line': 0.15,
+           'term_months': {'tab': 1.0, 'kin': 12.0, 'circle': 10.0, 'bank': 60.0, 'lender': 6.0, 'home_loan': 300.0}}}

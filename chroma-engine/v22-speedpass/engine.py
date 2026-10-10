@@ -748,9 +748,17 @@ DEFAULT = dict(
     sph_levers=False,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
-    sph_deep=False,      # phase 5: the deep state of a life, the care load first (world switch; with sph_hours)
+    sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
+    # phase 5, debts and holdings (deep_state.money_map): the Engine's defaults where the answers leave a number open.
+    # bank_line: a bank lends where comm.credit + bank_cls x (class - 1) is this or more; max_share: no new loan past this
+    # share of income in payments; sale: a hard-year sale fetches this part of the value; estate: the chance a family
+    # leaves a home (and one more holding) is a + b x its class; lender: the threat's stress, a + b x (1 - prot.order);
+    # kin_wait, tab_wait: years before kin lend again or the tab reopens after a broken debt; ill_line: health under it is
+    # an illness (a hard year)
+    deep_par=dict(bank_line=0.4, bank_cls=0.15, max_share=0.6, sale=0.5, estate_home=(0.3, 0.25),
+                  estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35),
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
@@ -2122,6 +2130,200 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         for h_ in WLM.HAZ_EVR:
             own_j_ = [j_ for j_ in DIS_J_ if h_ in hz_j_[j_]]; any_j_ = [j_ for j_ in DIS_J_ if not hz_j_[j_]]
             DIS_FOR_[h_] = set(own_j_ or any_j_ or DIS_J_)
+    SV_ON = bool(P.get("sph_deep")) and WON and RON  # spheres phase 5: service as a chapter (deep_state.service)
+    if SV_ON:
+        import sphere_data as SD_, world_keys as WK_
+        SVC_T = np.array([RID[x_] for x_ in ("soldier", "police officer") if x_ in RID], int)   # the host, the guard
+        PROT_N = {"soldier", "police officer", "firefighter", "security guard"}
+        def t_sph_(i_):   # a title's sphere: by name for the force, else its institution's, else its sector's
+            if GR["names"][i_] in PROT_N:
+                return "prot"
+            in_ = int(GR["institution"][i_]) if "institution" in GR else -1
+            if in_ >= 0 and WK_.INST_SPHERE[WK_.INST_KINDS[in_]]:
+                return WK_.INST_SPHERE[WK_.INST_KINDS[in_]]
+            se_ = int(GR["sector"][i_]) if "sector" in GR else -1
+            return WK_.SECTOR_SPHERE[WK_.SECTORS[se_]] if se_ >= 0 else None
+        PR_T = np.array([t_sph_(i_) in ("prot", "rule") for i_ in range(NT_)] + [False], bool)   # (-1: no title)
+        SVS_ = SD_.DEEP["service"]; HV_ = SVS_["after_guard_or_host"]["hiring"]
+        RW_ = float(SD_.DEEP["record_weight"].get(getattr(WL.W, "sph_epoch", "modern"), 1.0))
+        # hiring odds as the options' difficulty (DIFF units: odds x exp(-3 x d))
+        SV_D = (-np.log(1 + HV_["prot"]) / 3, -np.log(1 + HV_["other"]) / 3, -np.log(1 - 0.5 * RW_) / 3)
+        # debts and holdings (deep_state.debts, holdings, money_map): a ledger of up to four debts and two holdings per
+        # life, on the engine's money: a year's income is mt, a month's mt / 12 (spheres-phase5b-asks.md)
+        DBT_ = SD_.DEEP["debts"]["holders"]; MM_ = SD_.DEEP["money"]; HKS_ = SD_.DEEP["holdings"]["kinds"]; DP_ = P["deep_par"]
+        D_KIND = ["tab", "kin", "circle", "bank", "lender", "home_loan"]
+        D_RATE = np.array([float(DBT_[k_]["rate"]) for k_ in D_KIND[:5]] + [0.04])
+        D_SIZE = np.array([float(DBT_[k_]["size_months"]) for k_ in D_KIND[:5]] + [0.0])
+        D_TERM = np.array([float(MM_["term_months"][k_]) for k_ in D_KIND])
+        ep_ = getattr(WL.W, "sph_epoch", "modern")
+        EPI_ = SD_.EPOCHS.index("sail" if ep_ == "magic" else ep_)   # magic: as sail, its base
+        D_FROM = np.array([SD_.EPOCHS.index(DBT_[k_]["from"]) for k_ in D_KIND[:5]] + [SD_.EPOCHS.index("sail")])
+        D_LEND = EPI_ >= D_FROM                              # which holders lend in this world's epoch
+        H_KIND = ["home", "land_boat_herd", "workshop_shop", "firm"]
+        H_VAL = np.array([float(HKS_[k_]["value_years"]) for k_ in H_KIND])
+        H_YV = H_VAL * np.array([float(HKS_[k_]["yield"]) for k_ in H_KIND])   # a year's yield in years of income
+        H_OK = EPI_ >= np.array([1, 1, 1, SD_.EPOCHS.index(HKS_["firm"].get("from", "sail"))])   # bands: no holdings
+        NL_ = float(MM_["need_line"]); YR_ = 52; ER_ = ep_ if ep_ != "magic" else "sail"
+        DL_ = int(SD_.DEEP["debts"]["ledger"])
+        dk = np.full((N, DL_), -1); dsz = np.zeros((N, DL_)); dbal = np.zeros((N, DL_)); dpaid = np.zeros((N, DL_), int)
+        dterm = np.ones((N, DL_)); drate = np.zeros((N, DL_)); dhold = np.full((N, DL_), -1)   # the holding a loan bought
+        hk = np.full((N, int(SD_.DEEP["holdings"]["max"])), -1)
+        tab_shut = np.full(N, NEVER); kin_shut = np.full(N, NEVER); circ_out = np.zeros(N, bool); brec = np.full(N, NEVER)
+        d_inc = np.full(N, float(P["money_base"]))           # a year's income, mt before holdings and payments
+        car_prev = np.zeros(N, bool); hea_prev = np.ones(N); rec_prev = [False]
+        d_arm = np.ones(N, bool)   # a fall under the need line borrows once; again after climbing back or a new blow
+        db_rng = np.random.default_rng([int(seed), 82])     # the debts' and holdings' draws, on their own stream
+        DB_D = -np.log(1 - 0.05) / 3                         # a bank's record: hiring odds x .95 for 7 years
+
+        def db_log(n, **kw):
+            if n in events:
+                events[n].append(dict(deep_state=dict(kw, age=round(t / 52, 2))))
+
+        def db_clear(n, i):
+            dk[n, i] = -1; dsz[n, i] = dbal[n, i] = 0.0; dpaid[n, i] = 0; dterm[n, i] = 1.0; drate[n, i] = 0.0; dhold[n, i] = -1
+
+        def db_add(n, kind, size, term, rate, hold=-1):
+            i = int(np.argmax(dk[n] < 0))
+            dk[n, i] = kind; dsz[n, i] = dbal[n, i] = size; dpaid[n, i] = 0; dterm[n, i] = term; drate[n, i] = rate
+            dhold[n, i] = hold
+            db_log(n, kind="debt taken", holder=D_KIND[kind], months=round(float(size), 2))
+
+        def db_share(n):   # the part of income the payments take
+            a_ = dk[n] >= 0
+            return float((dsz[n] / dterm[n] + drate[n] * dbal[n] / 12)[a_].sum())
+
+        def bank_ok(n):    # a bank lends: the world's epoch, the town's credit and the person's class, no record
+            if not D_LEND[3] or (brec[n] > NEVER and t - brec[n] < 7 * YR_):
+                return False
+            cr_ = float(WL.W.sph_state("comm.credit")[WL.PP.loc[n]])
+            return cr_ + DP_["bank_cls"] * (int(WL.PP.cls[n]) - 1) >= DP_["bank_line"]
+
+        def db_break(n, i):   # a debt that cannot be paid breaks (deep_state.debts.broken), by holder
+            k_ = int(dk[n, i]); h_ = int(dhold[n, i])
+            if k_ == 1:
+                WL.PP.kin_let_down(n, DP_["kin_trust"], t); kin_shut[n] = t + DP_["kin_wait"] * YR_
+            elif k_ == 0:
+                tab_shut[n] = t + DP_["tab_wait"] * YR_
+            elif k_ == 2:
+                circ_out[n] = True
+            elif k_ in (3, 5):
+                brec[n] = t
+            elif k_ == 4:   # the debt is sold on and pressed: a threat, read by the town's order (never graphic)
+                od_ = float(WL.W.sph_state("prot.order")[WL.PP.loc[n]])
+                stress[n] += DP_["lender"][0] + DP_["lender"][1] * (1 - od_)
+            db_log(n, kind="debt broken", holder=D_KIND[k_])
+            db_clear(n, i)
+            if h_ >= 0 and hk[n, h_] >= 0:   # the holding the loan bought goes with it
+                db_log(n, kind="holding lost", holding=H_KIND[int(hk[n, h_])], why="debt")
+                hk[n, h_] = -1
+
+        def db_month():
+            """Each month (adults): a hard year makes the nearest debt due, payments run down the balances, a debt that
+            ends unpaid breaks, a life under the need line borrows; once a year, a holding may be bought."""
+            m1_ = np.maximum(d_inc, 0.02) / 12               # a month's income on the money level
+            car_ = held[:, CAR].copy(); hea_ = res[:, HEA].copy(); rec_ = getattr(WL.W, "phase", 0) == 1
+            hard_ = ~dead & ((car_prev & ~car_ & (age < 60)) | (rec_ and not rec_prev[0])
+                             | ((hea_ < DP_["ill_line"]) & (hea_prev >= DP_["ill_line"])))
+            car_prev[:] = car_; hea_prev[:] = hea_; rec_prev[0] = rec_
+            d_arm[:] |= (res[:, MON] >= NL_) | hard_
+            for n in np.nonzero(hard_)[0]:
+                if res[n, MON] < NL_ and (hk[n] >= 0).any():   # a sale in a hard year: a holding other than the home first
+                    j_ = int(np.argmax(np.where(hk[n] >= 0, np.where(hk[n] == 0, 1, 2), 0)))
+                    res[n, MON] = min(1.0, res[n, MON] + DP_["sale"] * H_VAL[hk[n, j_]] * 12 * m1_[n])
+                    for i_ in np.nonzero(dhold[n] == j_)[0]:
+                        res[n, MON] = max(0.0, res[n, MON] - dbal[n, i_] * m1_[n]); db_clear(n, i_)
+                    db_log(n, kind="holding lost", holding=H_KIND[int(hk[n, j_])], why="sold"); hk[n, j_] = -1
+                rows_ = np.nonzero((dk[n] >= 0) & (dk[n] != 5))[0]   # the nearest due debt is due now (a home loan runs on)
+                if len(rows_):
+                    i_ = int(rows_[np.argmin((dterm[n] - dpaid[n])[rows_])])
+                    if res[n, MON] < NL_:
+                        db_break(n, i_)
+                    else:
+                        res[n, MON] -= dbal[n, i_] * m1_[n]; db_log(n, kind="debt paid early", holder=D_KIND[int(dk[n, i_])])
+                        db_clear(n, i_)
+            act_ = (dk >= 0) & ~dead[:, None]
+            dpaid[act_] += 1; dbal[act_] = np.maximum(0.0, dbal[act_] - (dsz / dterm)[act_])
+            for n, i_ in zip(*np.nonzero(act_ & (dpaid >= dterm))):
+                if res[n, MON] < 0.1:
+                    db_break(n, i_)
+                else:
+                    db_clear(n, i_)
+            for n in np.nonzero(~dead & d_arm & (res[:, MON] < NL_) & (dk < 0).any(1))[0]:   # borrowing, in the lending order
+                gap_ = (NL_ - res[n, MON]) / m1_[n]
+                run_ = set(int(x_) for x_ in dk[n] if x_ >= 0)
+                al_ = WL.PP.alive[n]
+                if gap_ < 0.5 and D_LEND[0] and tab_shut[n] <= t and 0 not in run_:
+                    k_ = 0
+                elif D_LEND[1] and kin_shut[n] <= t and 1 not in run_ and al_[0] + al_[1] > 0:
+                    k_ = 1
+                elif D_LEND[2] and not circ_out[n] and 2 not in run_:
+                    k_ = 2
+                elif 3 not in run_ and bank_ok(n):
+                    k_ = 3
+                elif D_LEND[4] and 4 not in run_:
+                    k_ = 4
+                else:
+                    continue
+                db_add(n, k_, D_SIZE[k_], D_TERM[k_], D_RATE[k_]); d_arm[n] = False
+                res[n, MON] = min(1.0, res[n, MON] + D_SIZE[k_] * m1_[n])
+            if t % YR_ == 0 and 25 <= age <= 65 and H_OK[0]:   # buying: a home first, then land, a shop or a firm
+                for n in np.nonzero(~dead & (db_rng.random(N) < 0.1) & (hk < 0).any(1))[0]:
+                    j_ = int(np.argmax(hk[n] < 0)); free_ = (dk[n] < 0).any()
+                    if not (hk[n] == 0).any():
+                        if res[n, MON] >= 0.5 and free_ and bank_ok(n):
+                            loan_ = max(0.0, H_VAL[0] * 12 - 0.1 / m1_[n])
+                            if db_share(n) + loan_ / D_TERM[5] + D_RATE[5] * loan_ / 12 > DP_["max_share"]:
+                                continue
+                            res[n, MON] -= 0.1; hk[n, j_] = 0; db_add(n, 5, loan_, D_TERM[5], D_RATE[5], hold=j_)
+                        elif res[n, MON] >= 0.7:
+                            res[n, MON] = max(0.1, res[n, MON] - 12 * m1_[n]); hk[n, j_] = 0
+                        else:
+                            continue
+                        db_log(n, kind="holding gained", holding="home", why="bought")
+                    elif res[n, MON] >= 0.7:
+                        ks_ = [k_ for k_ in (1, 2, 3) if H_OK[k_]]
+                        k_ = ks_[int(db_rng.integers(len(ks_)))]
+                        loan_ = (H_VAL[k_] - 1) * 12   # a bank covers the part above one year of income
+                        if bank_ok(n) and free_:
+                            if db_share(n) + loan_ / D_TERM[5] + D_RATE[3] * loan_ / 12 > DP_["max_share"]:
+                                continue
+                            db_add(n, 3, loan_, D_TERM[5], D_RATE[3], hold=j_)
+                        elif loan_ > 0:
+                            continue           # no bank: savings alone do not reach it
+                        res[n, MON] = max(0.1, res[n, MON] - 12 * m1_[n]); hk[n, j_] = k_
+                        db_log(n, kind="holding gained", holding=H_KIND[k_], why="bought")
+            WL.PP.roots[:] = (hk >= 0).any(1)                # roots: the move wish x .5 while one is held
+
+        def db_inherit(n):
+            """The last living parent dies: what the family held passes by the epoch's rule (deep_state.holdings.
+            inheritance), the life's share 1 / (1 + siblings), a daughter's share x rights['women']."""
+            cl_ = int(WL.PP.cls_home[n]); nsib_ = int(WL.PP.older_sib[n] + WL.PP.younger_sib[n])
+            eld_ = int(WL.PP.older_sib[n]) == 0
+            sh_ = 1.0 / (1 + nsib_)
+            if female[n]:
+                sh_ *= float(np.asarray(WL.W.rights)[WK_RIGHTS_W])
+            est_ = []
+            if db_rng.random() < DP_["estate_home"][0] + DP_["estate_home"][1] * cl_:
+                est_.append(0)
+            if db_rng.random() < DP_["estate_more"][0] + DP_["estate_more"][1] * cl_:
+                ks_ = [k_ for k_ in (1, 2, 3) if H_OK[k_] and (k_ < 3 or cl_ == 2)]
+                est_.append(ks_[int(db_rng.integers(len(ks_)))])
+            m_ = max(float(d_inc[n]), 0.02)
+            for k_ in est_:
+                s_ = sh_
+                if (k_ == 1 and ER_ in ("realms", "sail")) or (k_ == 0 and ER_ == "cities"):   # to the eldest
+                    s_ = (1.0 if eld_ else 0.0) * (float(np.asarray(WL.W.rights)[WK_RIGHTS_W]) if female[n] else 1.0)
+                if s_ <= 0:
+                    continue
+                if s_ >= 0.5 and (hk[n] < 0).any() and not (hk[n] == k_).any():
+                    hk[n, int(np.argmax(hk[n] < 0))] = k_
+                    db_log(n, kind="holding gained", holding=H_KIND[k_], why="inherited")
+                else:   # a share in money: s x value years of income
+                    res[n, MON] = min(1.0, res[n, MON] + s_ * H_VAL[k_] * m_)
+                    db_log(n, kind="inheritance", holding=H_KIND[k_], share=round(s_, 2))
+        import world as WMOD_
+        WK_RIGHTS_W = WMOD_.RIGHTS.index("women")
+    DB_ON = SV_ON
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
@@ -2647,6 +2849,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 clu_ = np.maximum(clu_, u2_)
             mask = mask & ~gone_
             diff = diff + WL.odds(s)   # finding work by local unemployment, education by places, treatment by hospitals
+            if SV_ON:   # phase 5, service as a chapter: 5 years after the guard or the host, hiring is easier in prot and
+                # rule work and a little harder elsewhere; 10 years after prison, harder by the record's weight (Pager 2003)
+                jo_ = WL.job_o[s]
+                if jo_.any():
+                    se_ = r_end[:, SVC_T].max(1) if len(SVC_T) else np.full(N, NEVER)
+                    vet_ = (se_ > NEVER) & (t - se_ < 52 * SVS_["after_guard_or_host"]["years"])
+                    if len(SVC_T):
+                        vet_ &= ~r_has[:, SVC_T].any(1)
+                    rec_ = (pris_out > NEVER) & (pris_out <= t) & (t - pris_out < 52 * SVS_["after_prison"]["years"])
+                    pr_ = PR_T[np.where(GR["A_TITLE"][s] >= 0, GR["A_TITLE"][s], NT_)]
+                    diff = diff + jo_ * (vet_[:, None] * np.where(pr_, SV_D[0], SV_D[1]) + rec_[:, None] * SV_D[2])
+                    br_ = (brec > NEVER) & (t - brec < 7 * YR_)   # a bank's record: hiring a little harder
+                    diff = diff + jo_ * (br_[:, None] * DB_D)
         if BAT and CLU_ON:
             diff = diff + P["closed_diff"] * clu_
         elif BAT:   # closed by law, approval or means: still pickable, but harder
@@ -2954,7 +3169,21 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     wfx_track("money", {k_: w2_[k_] for k_ in ("prices_work", "recession", "disaster")}, age, dead)
                     wfx_track("freedom", {k_: w2_[k_] for k_ in ("rec_hours", "disaster_time")}, age, dead)
                     wfx_track("ties", {"pandemic": w2_["pandemic"]}, age, dead)
+        if DB_ON:   # phase 5: holdings yield, a home saves the rent, debts' payments take their share of income
+            d_inc[:] = np.maximum(mt, 0.02)
+            hm_ = (hk == 0).any(1)
+            # a home of their own: no world rent term (the world charges it to lives without their own household) and .05
+            rent_ = -0.05 * float(_uclip(WL.W.housing, -1, 1)) * ~np.asarray(WL.PP.own_home, bool)
+            mt = mt - rent_ * hm_ + 0.05 * hm_ + np.where(hk >= 0, H_YV[np.maximum(hk, 0)], 0.0).sum(1) * d_inc
+            ds_ = np.where(dk >= 0, dsz / dterm + drate * dbal / 12, 0.0).sum(1)
+            mt = mt * (1 - np.minimum(ds_, 0.9))
+            pd_ = (WL.deaths()[:, 0] > 0) & (np.asarray(WL.PP.alive)[:, 0] == 0) & ~dead
+            if H_OK[0] and age >= 16 and pd_.any():
+                for n in np.nonzero(pd_)[0]:
+                    db_inherit(n)
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
+        if DB_ON and t % 4 == 0 and age >= 18:
+            db_month()
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
         if SHON:   # shadows: rigid and ruthless lose people, reckless burns bridges and the body pays, rigid strains on duty

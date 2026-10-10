@@ -134,7 +134,10 @@ def build(src):
                 care_role=0.5, care_public=0.5, care_stress=0.02, care_work=0.1,
                 record_weight={k: float(v) for k, v in ds["service"]["record_weight"].items()},
                 service=ds["service"], debts=dict(ledger=int(ds["debts"]["ledger"]), holders=ds["debts"]["holders"]),
-                holdings=dict(max=int(ds["holdings"]["max"]), kinds=ds["holdings"]["kinds"]))
+                holdings=dict(max=int(ds["holdings"]["max"]), kinds=ds["holdings"]["kinds"],
+                              inheritance=ds["holdings"]["inheritance"]),
+                money=dict(need_line=float(ds["money_map"]["need_line"]),
+                           term_months={k: float(v) for k, v in ds["money_map"]["term_months"].items()}))
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
