@@ -58,9 +58,13 @@ const dir = process.argv[6]; const preset = process.argv[7] || '3';
     await page.screenshot({ path: `${dir}/${tag}-7plan1.png` });
     await page.click('.plan .ch[data-v="2"]'); await idle();
     await page.screenshot({ path: `${dir}/${tag}-8plan2.png` });
-    const free = await page.$(".plan .ch:not([disabled])"); if (free) await free.click(); await idle();
+    const free = await page.$(".plan .ch:not([disabled])");
+    if (free) await free.click();
+    else if (await page.$('#planCols')) { await page.click('.plan .cbtn'); await page.click('#planCols'); logs.push('plan: a pursuit (every kind held)'); }
+    await idle();
     await page.screenshot({ path: `${dir}/${tag}-9plan3.png` });
-    await page.click('#planOk'); await idle();
+    if (await page.$('#planOk')) await page.click('#planOk'); else { logs.push('plan: no Make the plan button'); if (await page.$('#planX')) await page.click('#planX'); }
+    await idle();
     await page.waitForTimeout(500);
   } else logs.push('no addPlan button');
   if (phone) { const hc = await page.$('#hudClose'); if (hc) await hc.click().catch(() => {}); await page.waitForTimeout(300); if (await page.$('#tHud')) { await page.click('#tHud'); await page.waitForTimeout(400); } }
