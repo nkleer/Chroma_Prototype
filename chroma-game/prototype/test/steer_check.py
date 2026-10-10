@@ -40,6 +40,10 @@ targets (all on preset 1, modern Earth; whole lives come from one shared set: le
                 read agreed 2026-10-09)
   voice_lines   every voice line (story lines, answers, outcomes) at most 25 words, with no color named
   voice_year    each year's chapter keeps at most one voice line
+  own_even      S2 (needs own_ix on, CHROMA_GAME='{"own_ix": true}' before the v22.4 refit): a light steer toward one color
+                at every moment (light:<C>, 12 seeds, to 41) makes that way "theirs" in about the same years for every
+                color: the mean age at the step (preset 1 starts at birth; a life that has not reached it by 40 counts 40),
+                highest color over lowest at most 1.2
 """
 import sys, os, json, random
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -167,6 +171,7 @@ NEEDS = {
     "alone_names": LET, "push_rare": LET + PUSHED, "world_lines": LET[:2] + RANDOM, "voice_quiet": LET[:2],
     "voice_careful": [(1, s, "careful", None) for s in (1, 2)],
     "voice_trust": RANDOM + PUSHED[:2], "voice_lines": RANDOM + PUSHED[:2], "voice_year": RANDOM + PUSHED[:2],
+    "own_even": [(1, s, f"light:{c}", 41) for c in "WUBRG" for s in range(1, 13)],
 }
 
 
@@ -279,6 +284,20 @@ def target(t, R):
                 worst = max(per.values()); where = (r["seed"], r["player"], max(per, key=per.get))
         say(f"most voice lines in one year's chapter: {worst} {where or ''}")
         ok = worst <= 1
+    elif t == "own_even":
+        if not any(r["own_ix"] or any(r["ix"]) for r in rs):
+            say("no way moved toward theirs: own_ix is off (run with CHROMA_GAME='{\"own_ix\": true}')")
+        else:
+            yrs = {}
+            for c in "WUBRG":
+                th = [next((a for a, c_, k in r["own_ix"] if c_ == c and k == "theirs"), None) for r in rs if r["player"] == f"light:{c}"]
+                yrs[c] = [40.0 if a is None else a for a in th]
+                say(f"light:{c}: theirs at {np.mean(yrs[c]):.1f} on average (median {np.median(yrs[c]):.1f}; reached by 40 in "
+                    f"{sum(a is not None for a in th)} of {len(th)}: {' '.join('-' if a is None else f'{a:.1f}' for a in th)})")
+            m = {c: float(np.mean(v)) for c, v in yrs.items()}
+            hi, lo = max(m, key=m.get), min(m, key=m.get)
+            say(f"years to theirs, highest over lowest: {m[hi] / m[lo]:.2f} ({hi} {m[hi]:.1f} to {lo} {m[lo]:.1f}; target at most 1.2)")
+            ok = m[hi] / m[lo] <= 1.2
     say(f"STEER {t}: {'PASS' if ok else 'MISS'}")
 
 

@@ -139,12 +139,14 @@ GAME = dict(
     # push toward a color adds own_k x push x A x T x S x H: A the steer (light own_light, strong own_strong), T .5 + their
     # trust in that color, S .5 + own_sup x that color's share around them (their haunts' faces and close people, the
     # engine's "around"; an even surround without it), H own_acc when they accepted it, own_res (a step back at half size)
-    # when they resented it. A way led by fewer than own_use acts in a year fades by up to own_fade; reluctance in a way is
+    # when they resented it. A way fades by up to own_fade a year when it led fewer of the year's acts than own_use times
+    # its own expected share (the share of the year's open options that way leads: a way the moments rarely offer is
+    # not asked to lead as many acts as a common one; acts with even ways, doing nothing, lead none); reluctance in a way is
     # x (1 - own_rel x ix); the peace reading counts a push as their own by its way's ix; at own_theirs the season lean
     # toward it no longer ends. A strong push at reluctance over own_react_rel while ix is under .25 bounces back with
     # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does
     own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
-    own_use=4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
+    own_use=0.4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
@@ -610,9 +612,10 @@ class Game:
         self._prng = np.random.default_rng(int(seed) + 5151)
         self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
         # S2 (GAME own_...): how far each way the voice pushes toward has become theirs, the acts of this year by the color
-        # leading their ways (for the fade), the season leans that no longer end (color -> (target, strength)), a random
-        # stream of its own (reactance), and each step crossed (age, color, step) and bounce back (age, color, "back")
-        self.ix = np.zeros(C); self._ix_use = np.zeros(C); self._own_leans = {}
+        # leading their ways and the acts each color was expected to lead (for the fade), the season leans that no longer
+        # end (color -> (target, strength)), a random stream of its own (reactance), and each step crossed (age, color,
+        # step) and bounce back (age, color, "back")
+        self.ix = np.zeros(C); self._ix_use = np.zeros(C); self._ix_exp = np.zeros(C); self._own_leans = {}
         self._ixrng = np.random.default_rng(int(seed) + 6262)
         if GAME["own_ix"]:
             self.history["own_ix"] = []; self.history["rel_way"] = []
@@ -1793,9 +1796,12 @@ class Game:
         return dict(kind="step", ix=[round(float(x), 3) for x in self.ix])
 
     def _own_year(self):
-        """S2, once a year: a way led by fewer than own_use of the year's acts fades by up to own_fade."""
-        self.ix = np.maximum(0.0, self.ix - GAME["own_fade"] * np.clip(1 - self._ix_use / GAME["own_use"], 0.0, 1.0))
-        self._ix_use[:] = 0
+        """S2, once a year: a way that led fewer of the year's acts than own_use times its own expected share fades by up
+        to own_fade (a way the year never offered does not fade)."""
+        need = GAME["own_use"] * self._ix_exp
+        short = np.where(need > 0, np.clip(1 - self._ix_use / np.maximum(need, 1e-9), 0.0, 1.0), 0.0)
+        self.ix = np.maximum(0.0, self.ix - GAME["own_fade"] * short)
+        self._ix_use[:] = 0; self._ix_exp[:] = 0
 
     def own_view(self):
         """S2, the Voice row's hover: each way the voice pushed toward (or that has a step), how far it has become theirs,
@@ -2158,10 +2164,15 @@ class Game:
             wd = float(loc["wound"][0])
             if wd > self._yr["wound"]:
                 self._yr.update(wound=wd, support=float(loc["support"][0]))
-        if GAME["own_ix"] and not self.burn_in and "a" in loc:   # S2: the color leading this week's act, for the yearly fade
-            m_ = np.maximum(np.asarray(loc["m"][0, int(loc["a"][0])], float), 0)
-            if m_.sum() > 0:
-                self._ix_use[int(np.argmax(m_))] += 1
+        if GAME["own_ix"] and not self.burn_in and "a" in loc:   # S2: the color leading this week's act, and each color's
+            m_ = np.maximum(np.asarray(loc["m"][0], float), 0)     # share of the week's open options, for the yearly fade
+            led = (m_.max(1) - m_.min(1) > 1e-9) & ~np.asarray(loc["do_nothing"][0], bool)    # even ways lead no color
+            lead = np.argmax(m_, 1); a_ = int(loc["a"][0])
+            if led[a_]:
+                self._ix_use[lead[a_]] += 1
+            o_ = led & np.asarray(loc["open_"][0], bool)
+            if o_.any():
+                self._ix_exp += np.bincount(lead[o_], minlength=C) / o_.sum()
         evs = loc["events"][0]
         new = evs[self._ev_i:]; self._ev_i = len(evs)
         w_now = E.softmax(loc["z"][0]); res_now = loc["res"][0].copy()
