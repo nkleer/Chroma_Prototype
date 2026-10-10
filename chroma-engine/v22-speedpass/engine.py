@@ -754,6 +754,9 @@ DEFAULT = dict(
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
+    sacred=False,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
+                         # spheres' and C3's offers on them bring a moment the character refuses at .9 (world switch; with
+    sacred_par=None,     # sph_events); sacred_par: its tuning (world_people.SAC_DEFAULT; None: start values)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -963,7 +966,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, sacred=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -1253,6 +1256,25 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if pk_ != 1.0:
             dz = pk_ * dz
         z[idx] += dz; chan[idx, 8] += dz
+    def sac_fx(n, ev_):
+        """S5 (chroma-ideas/social-mechanics.md): what an offer, tragic trade-off or amends does in the engine. Held: the
+        money and ties not had. Crossed: a moral injury (stress), a seed in the line colour's shadow part (with shadows)
+        and a turning point's lesson toward the act's ways (the game's item 4 pick at its full "toward" kind: piv x
+        plasticity x (1 + piv_far x distance), piv_core of it to the deep core). Healed: stress eased."""
+        sp_ = WL.PP.sac_par
+        res[n, MON] -= ev_.get("money", 0.0); res[n, TIE] -= ev_.get("ties", 0.0)
+        if ev_.get("crossed"):
+            stress[n] += ev_["wound"]
+            if SHON:
+                for c_ in ev_["colours"]:
+                    shS[n, c_] = min(1.0, shS[n, c_] + ev_["seed"])
+            T_ = np.maximum(ma[n], 0)
+            if T_.sum() > 0 and sp_["piv"] and not ev_.get("quiet"):
+                T_ = T_ / T_.sum(); w_ = softmax(z[n]); d_ = 0.5 * np.abs(T_ - w_).sum()
+                dz_ = sp_["piv"] * plast[n] * (1 + sp_["piv_far"] * d_) * centre(5 * (T_ - w_))
+                z[n] += dz_; k[n] += sp_["piv_core"] * dz_; chan[n, 7] += dz_
+        if ev_.get("healed") or ev_.get("what") == "healed":
+            stress[n] = max(0.0, stress[n] - ev_.get("heal", sp_["heal"]))
     def inst_expo():
         return 0.5 + 0.5 * held[:, CAR] + 0.3 * held[:, COM]
     def era_expo(kind):
@@ -1520,6 +1542,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_keys as WK_
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
+    # S5, sacred lines: an offer, tragic trade-off or amends moment (cast_want: sacred, tragic, amends) comes only when the
+    # life's own line brings it (WorldLink), never by the everyday draw or a yearly rate; the switch turns the lines on
+    SACS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        import world_keys as WK_
+        SACS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in WK_.OWN_WANTS])
+    SACS_ON_ = bool(SACS_.any())
+    SAC_ON_ = False                                       # (set with the world: its People has the lines)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2145,6 +2175,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         alive[:, :5] = WL.PP.alive
         era_at.clear()                                     # the world's own eras replace the engine's drawn history
         W_WHO_ = L.get("W_WHO", [[] for _ in range(L["S"])])
+        SAC_ON_ = bool(getattr(WL.PP, "sac_on", False))   # S5: the world's switch (P["sacred"], or a World made with it)
         if RON:
             W_SEC_ = np.asarray(GR.get("sector", np.full(NT_, -1)))[:NT_]; W_STD_ = np.asarray(GR.get("standing", np.full(NT_, -1)))[:NT_]
             W_GOV_ = [RID[x_] for x_ in ("minister", "head of government") if x_ in RID]; W_HOG_ = RID.get("head of government", -1)
@@ -2636,6 +2667,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
             avail = L["STG"][:, stage].T & gate
         aff = np.exp(2.0 * (nic @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)
+        if SACS_ON_:   # S5: a sacred line's moments come only with an offer (or a wound) of the life's own
+            aff[:, SACS_] = 0.0
         if BAT:
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
@@ -2711,6 +2744,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 frc_ &= avail; fdd_ &= avail
             if FARS_ON_:
                 ev_p[:, FARS_] = 0.0
+            if SACS_ON_:
+                ev_p[:, SACS_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3068,6 +3103,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sU_ = np.where(do_nothing, 0.0, P["steer_k"] * (5 * np.einsum("nkc,nc->nk", m, np.broadcast_to(np.atleast_2d(mix_), (N, C))) - 1))
             pr = softmax(np.where(seen, (U + sU_) / tau[:, None], -np.inf))
             P["steer"] = None
+        if SAC_ON_ and WL.sac_pend:   # S5: at an offer on a held line the character's own pick holds it at .9 (and more
+            pr = WL.sacred_tilt(s, pr.copy())   # for a bigger offer, .7 with a gesture); at a tragic one, a, b or torn
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
         if SHON:   # U indecisive: while they weigh it, the chance passes (the act becomes doing nothing, where there is one)
             lap_ = (rng.random(N) < P["sh_lapse"] * shA[:, 1]) & ~do_nothing[ar, a] & do_nothing.any(1)
@@ -3638,8 +3675,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             db_log(n_, kind="holding gained", holding=H_KIND[2], why="founded")
                 for n in list(WL.pending):
                     ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
+                    if SAC_ON_ and isinstance(ev_, dict) and ev_.get("kind") == "sacred":
+                        sac_fx(n, ev_)
+                        if n in events:
+                            events[n].append(dict(sacred=ev_))
+                        continue
                     if ev_ is not None and n in events:
                         events[n].append(dict(cast_want=ev_))
+                if SAC_ON_:   # S5: offers decided off-screen this week (no moment for them)
+                    for ev_ in WL.PP.sac_take():
+                        n_ = int(ev_["n"])
+                        if not dead[n_]:
+                            sac_fx(n_, ev_)
+                        if n_ in events:
+                            events[n_].append(dict(sacred=ev_))
                 world_cast(WL.drain())   # the act's own cast events (the world's events came at the week's start)
             # tags: habit pulls harder, a door opens the niche, identity teaches more, binds holds and costs autonomy
             tg_ = L["TAG"][s, a] & (~idle & live_)[:, None]
@@ -3667,6 +3716,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 need[app_, NIDX["belonging"]] -= 0.1 * bk_; res[app_, TIE] -= 0.08 * bk_; stress[app_] += 0.15 * bk_
                 res[mea_, MON] -= 0.1; stress[mea_] += 0.15
             res[:, HEA] -= P["body_hurt"] * L["BODY"][s, a] * (~succ & ~idle & live_)
+            if SAC_ON_:   # S5: the acts that cost something real (money, ties or stress from the act itself, over
+                # sacred_par's thresholds) count toward a line in their colour's ways, and heal a wound in it (People.sac_act)
+                sp_ = WL.PP.sac_par
+                rd_ = L["PAY"][s, a] + np.where(succ[:, None], L["WIN"][s, a], L["LOSE"][s, a])
+                dm_, dt_, ds_ = rd_[:, MON].copy(), rd_[:, TIE].copy(), np.zeros(N)
+                if closed_s is not None:   # a closed option's backfire, as above
+                    ck2_ = closed_s[ar, a]; b2_ = (ck2_ >= 0) & ~succ
+                    bk2_ = np.minimum(clu_[ar, a], 1.0) if CLU_ON else 1.0
+                    dm_ -= 0.05 * (b2_ & (ck2_ == 0)) + 0.1 * (b2_ & (ck2_ == 2))
+                    dt_ -= 0.1 * (b2_ & (ck2_ == 0)) + 0.08 * bk2_ * (b2_ & (ck2_ == 1))
+                    ds_ += 0.3 * (b2_ & (ck2_ == 0)) + 0.15 * bk2_ * (b2_ & (ck2_ == 1)) + 0.15 * (b2_ & (ck2_ == 2))
+                cost_ = (dm_ <= -sp_["cost_money"]) | (dt_ <= -sp_["cost_ties"]) | (ds_ >= sp_["cost_stress"])
+                lv2_ = ~idle & live_ & ~dead
+                for nm_, m_ in (("money", dm_ <= -sp_["cost_money"]), ("ties", dt_ <= -sp_["cost_ties"]),
+                                ("stress", ds_ >= sp_["cost_stress"])):
+                    WL.PP._sac_count(f"cost {nm_}", m_ & lv2_)   # (for the checks)
+                for ev_ in WL.sacred_act(lv2_, ma, cost_):
+                    sac_fx(int(ev_["n"]), ev_)
+                    if int(ev_["n"]) in events:
+                        events[int(ev_["n"])].append(dict(sacred=ev_))
             res = _uclip(res, 0, 1)
             # after a lost job, most people find work again within a year or two (quietly, when the batch has no event for it)
             rj_ = np.nonzero(REJOB_ON & ~held[:, CAR] & ~retired & (end_t[:, CAR] > NEVER // 2) & (age < P["retire_age"] - 1)
@@ -4436,6 +4505,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                if SAC_ON_ and SACS_[s[i]]:   # S5: the line, the offer ({offer}), its round, size and refusal odds
+                    si_ = WL.sacred_info(i, int(s[i]))
+                    if si_:
+                        more_["sacred"] = si_
                 if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:

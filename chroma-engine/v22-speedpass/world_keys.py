@@ -10,6 +10,18 @@ WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "me
 WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
 CAST_WANTS += ["far_hard", "far_good", "far_mixed"]   # far_ties (item 18): a tie in another town touched by an event there
+# sacred lines (S5, chroma-ideas/social-mechanics.md): moments the life's own state brings, with no cast member holding
+# the want (cid -1): an offer on a held line, a tragic trade-off between two held lines, amends after crossing one. They
+# go last: the cast's wants are the ones before them (world_people.NW)
+CAST_WANTS += ["sacred", "tragic", "amends"]
+OWN_WANTS = ["sacred", "tragic", "amends"]
+SACRED_KINDS = ["promise", "truth", "own_say", "loved", "home"]   # a line's kind (sacred:), W U B R G in the Canon's order
+OFFER_KINDS = ["money", "post", "favour"]                          # what an offer gives (offer:; dynamics.json offers kind)
+OFFER_ROUNDS = ["first", "raised"]                                 # the first offer, or the raised one after a refusal (round:)
+LINE_TAGS = ["hold", "cross"]          # an offer moment's option (line:): holds the line or crosses it
+TRAGIC_TAGS = ["a", "b", "torn"]       # a tragic moment's option (tragic:): holds the first line and crosses the second (a),
+                                       # the reverse (b), or gives a little of both (torn)
+HEAL_TAGS = ["amends", "reflect", "not_yet"]   # an amends moment's option (heal:): amends and reflect heal the wound
 TOUCHES = ["work", "money", "home", "health", "safety", "standing"]   # far_ties: what a far event touched (touch:)
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
