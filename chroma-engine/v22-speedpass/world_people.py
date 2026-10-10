@@ -37,7 +37,7 @@ except ImportError:
 from library import COLORS, COMMITMENTS, RESOURCES
 from world_keys import (WHO_SLOTS, CAST_WANTS, GROUP_KINDS, LEVERS, DOMAINS, RINGS, NORM_KEYS, INST_KINDS, SECTORS,
                         FEATURES)
-from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_ROWS, LADDER
+from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_ROWS, LADDER, TOUCHES
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
@@ -217,7 +217,8 @@ INST_OF = dict(work="employer", unit="army", ward="hospital", **{"class": "schoo
 COMM_W = np.array([dict(household=0.2, work=0.3, congregation=1.0, club=1.0, scene=0.8, online=0.4, neighbours=0.5,
                         gang=0.6, unit=0.8, ward=0.3, movement=1.0, **{"class": 0.3})[g_] for g_ in GROUP_KINDS])
 WANT_RATE = np.array([dict(money=2.0, care=2.0, successor=0.5, grandchild=0.7, love=1.0, rival=1.0, forgiveness=0.5,
-                           home=0.7, stop=1.5, secret=1.0)[w_] for w_ in CAST_WANTS])   # ripening a year
+                           home=0.7, stop=1.5, secret=1.0, far_hard=26.0, far_good=26.0, far_mixed=26.0)[w_]
+                      for w_ in CAST_WANTS])   # ripening a year (a far tie's call: within weeks)
 # resolving a want: (closeness, trust) if accepted, (closeness, trust) if refused, mark if accepted, mark if refused
 # (marks are words of engine.py's MARK_BASE)
 WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "refused someone in need"),
@@ -229,7 +230,20 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                forgiveness=((0.25, 0.20), (-0.05, 0.0), "made a friend", None),
                home=((0.15, 0.10), (-0.10, -0.05), "stayed home", "moved away"),
                stop=((0.10, 0.10), (-0.15, -0.10), "kept your word", None),
-               secret=((0.10, 0.10), (-0.05, -0.05), "kept your word", None))
+               secret=((0.10, 0.10), (-0.05, -0.05), "kept your word", None),
+               far_hard=((0.10, 0.10), (-0.10, -0.10), "helped someone in need", "refused someone in need"),
+               far_good=((0.05, 0.05), (-0.05, -0.05), None, None),
+               far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None))
+FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
+# far_ties (item 18, chroma-ideas/far-off-events.md): start values, estimates refit in v22.3's one refit. hard, good: the
+# sides' shares x these; call_*: the chance a touched tie among the ~15 closest, living in another town, calls; take:
+# the share of the cast's random job loss, rehire and illness the towns' events take over (jobloss, rehire, illness);
+# stay: weeks a tie taken in lives in the household; lapse: weeks an unanswered call waits; cause: weeks a later want
+# carries the event that started it
+FAR_DEFAULT = dict(hard=1.0, good=1.0, call_hard=0.75, call_good=0.5, call_mixed=0.75, take=(0.3, 0.3, 0.1), stay=52,
+                   lapse=8, cause=104)
+FAR_WHO = ("any", "in_work", "out_of_work", "owner", "renter", "poor", "comfortable", "young", "old", "ill", "parent")
+FAR_OFF = 10 ** 9   # far_in: not taken in
 
 
 def _isin_small(a, vals):
@@ -415,6 +429,10 @@ class People:
         if wp_.get("sph_deep", False):   # phase 5, service as a chapter: comrades met in a unit fade at half speed
             self.comrade = np.zeros((N, K), bool)
             self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
+            self.care_buy = np.zeros(N, bool)    # a carer with money buys help (the engine sets it each month)
+        self.far_on = bool(wp_.get("far_ties", False))
+        if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
+            self._far_init(run_seed)
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -631,6 +649,9 @@ class People:
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
         if getattr(self, "comrade", None) is not None:
             self.comrade[n, slot] = False
+        if self.far_on:
+            self.far_ev[n, slot] = -1; self.far_t[n, slot] = NEVER; self.far_sg[n, slot] = 0; self.far_sd[n, slot] = -1
+            self.far_in[n, slot] = FAR_OFF; self.far_from[n, slot] = -1
         self.brk[n, slot] = NEVER; self.mood[n, slot] = 0.6; self.want[n, slot] = -1; self.wripe[n, slot] = 0
         self.wstate[n, slot] = 0; self.wknown[n, slot] = False; self.wdue[n, slot] = NEVER; self.inci[n, slot] = False
         self.inst[n, slot] = sl(F.get("inst", -1))
@@ -1536,6 +1557,8 @@ class People:
         hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
         if W.p.get("sph_deep", False):   # phase 5: the care load (who carries whom) adds care hours and costs work hours
             self.care_load = self._care_load(t)
+            if getattr(self, "care_buy", None) is not None:   # bought help: care hours x .7 (phase5c-answers.md)
+                self.care_load = self.care_load * np.where(self.care_buy, getattr(self, "care_buy_x", 0.7), 1.0)
             hrs[:, 4] += self.care_load; hrs[:, 0] = np.maximum(0.0, hrs[:, 0] - 0.1 * self.care_load)   # 1 work hour per 10
         if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
             hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
@@ -1678,6 +1701,8 @@ class People:
             mv = np.nonzero(~self.dead & (self.rng.random(self.N) < self.move_wish(t)))[0]
             for n_ in mv:
                 self.move(int(n_), t=t)
+        if self.far_on:
+            self._far_week(t)
         self._wants_week(t)
         self._outputs(t)
 
@@ -1697,6 +1722,8 @@ class People:
                     else:
                         self._haunts_year(t, mv_)
         self._lifecourse(t)
+        if self.far_on:
+            self._far_month(t)
         if self._xsoc:
             self._lang_step(t)
         if self.sph_h and getattr(self.W, "hp_s", None) is not None:
@@ -2242,8 +2269,9 @@ class People:
         # health: the age curve, serious illness (season, pandemic and medicine through W.rate_mult)
         hb = _uclip(f32(1) - f32(0.012) * np.maximum(age - 35, f32(0)), f32(0.2), f32(1))
         x_ = np.maximum(age - 30, f32(0))
-        ill = live & (U[0] < (f32(P["ill_p"][0]) + f32(P["ill_p"][1] / 10) * x_ * np.sqrt(x_)) * f32(dy)
-                      * self._rate_at("illness", self.mloc))
+        tk_ = self.far_par["take"] if self.far_on else None   # far_ties: the towns' events take over a share
+        ill = live & (U[0] < (f32(P["ill_p"][0]) + f32(P["ill_p"][1] / 10) * x_ * np.sqrt(x_))
+                      * f32(dy if tk_ is None else dy * (1 - tk_[2])) * self._rate_at("illness", self.mloc))
         h = self.health
         self.health = _uclip(h + f32(1 - 0.85 ** nq) * (hb - h) - f32(0.35) * ill, f32(0.02), f32(1))   # (the dead's drift is unread)
         # jobs: loss by the economy and sector, finding work by unemployment, retirement
@@ -2251,11 +2279,12 @@ class People:
         sec = self.sector
         jl = np.take(jm.astype(f32), _ix(sec), mode="clip") if jm.ndim == 1 and len(jm) > 1 else f32(jm)
         emp = self.emp
-        lose = live & emp & (U[1] < f32(P["jobloss"] * dy) * jl)
+        lose = live & emp & (U[1] < f32(P["jobloss"] * dy if tk_ is None else P["jobloss"] * dy * (1 - tk_[0])) * jl)
         un = float(self._unemp("unemp")); nat = float(self._unemp("natural"))
         wa = (age >= 18) & (age < 64) & (sec >= 0)
         find = live & ~emp & wa & (U[2] < np.where(age < 19, f32(1 - 0.5 ** nq),
-                                                   f32(min(1.0, P["rehire"] * _uclip(1 - 4 * (un - nat), 0.3, 1.5) * dy))))
+                                                   f32(min(1.0, P["rehire"] * _uclip(1 - 4 * (un - nat), 0.3, 1.5) * dy
+                                                           * (1 if tk_ is None else 1 - tk_[1])))))
         emp2 = ((emp & ~lose) | find) & (age < 65)
         self.emp = emp2
         tm = (np.take(np.array([0.3, 0.5, 0.75], f32), _ix(self.mcls), mode="clip") + f32(0.12) * emp2
@@ -2506,7 +2535,7 @@ class People:
         for n_, k_, w_ in zip(n2, k2, key):
             if self.watch[n_]:
                 self.events.append(dict(n=int(n_), t=int(t), kind="want", state="begins", key=CAST_WANTS[int(w_)],
-                                        cid=int(self.uid[n_, k_]), known=False))
+                                        cid=int(self.uid[n_, k_]), known=False, **self._far_cause(n_, k_, t)))
 
     def _wants_week(self, t):
         """Wants ripen; ripe ones fall due; wants that no longer hold are met or lapse (unanswered: after two years)."""
@@ -2524,12 +2553,16 @@ class People:
             self.wstate[n_, k_] = 2; self.wdue[n_, k_] = t; self.wknown[n_, k_] = True
             if self.watch[n_]:
                 self.events.append(dict(n=int(n_), t=int(t), kind="want", state="due", key=CAST_WANTS[int(self.want[n_, k_])],
-                                        cid=int(self.uid[n_, k_]), known=True))
+                                        cid=int(self.uid[n_, k_]), known=True, **self._far_cause(n_, k_, t)))
         d = st == 2
         hk = self.held[nn, KID] if self.held.shape[1] > KID else np.zeros(len(nn), bool)
         met = ((wk == WI["grandchild"]) & hk) | ((wk == WI["home"]) & self._here(nn, kk))
         lapse = ((wk == WI["love"]) & ((self.pslot[nn] >= 0) | self.mpart[nn, kk])) | (d & ((t - self.wdue[nn, kk]) > 104))
         lapse |= ~self.lv[nn, kk]
+        if self.far_on:   # far_ties: an unanswered call lapses within weeks; work an event found meets a wish for money
+            lapse |= FARW[np.maximum(wk, 0)] & d & ((t - self.wdue[nn, kk]) > self.far_par["lapse"])
+            met |= ((wk == WI["money"]) & self.emp[nn, kk] & ((t - self.far_t[nn, kk]) <= 26)
+                    & ((self.far_sg[nn, kk] & 1) > 0)) & ~lapse
         for n_, k_, m_, d_ in zip(nn[met | lapse], kk[met | lapse], met[met | lapse], d[met | lapse]):
             if not m_ and d_:
                 self.trust[n_, k_] = max(0.0, float(self.trust[n_, k_]) - 0.05)
@@ -2584,6 +2617,218 @@ class People:
         if self.watch[n]:
             self.events.append(ev)
         return ev
+
+    # ------------------------------------------------------------------ far_ties (item 18): the towns' events and the ties
+    def _far_init(self, run_seed):
+        """far_ties (chroma-ideas/far-off-events.md): the sides of each town event (sphere_data.FAR, Outer world's
+        far_sides.json), the per-slot record of the last event that touched a cast member, and its own random stream."""
+        import sphere_data as SD
+        N, K = self.N, self.K
+        self.far_par = {**FAR_DEFAULT, **dict((getattr(self.W, "p", None) or {}).get("far_par") or {})}
+        self.far_ev = np.full((N, K), -1, np.int16)      # the last event that touched them (index into sphere_data.EV)
+        self.far_t = np.full((N, K), NEVER, np.int64)    # its week
+        self.far_sg = np.zeros((N, K), np.int8)          # its sides that touched them: 1 good, 2 hard, 3 both (mixed)
+        self.far_sd = np.full((N, K, 2), -1, np.int16)   # the good and the hard side (index into _far_sides)
+        self.far_in = np.full((N, K), FAR_OFF, np.int64)  # taken in (F4): the week their year in the household ends
+        self.far_from = np.full((N, K), -1, np.int64)    # ... and the town they came from
+        self._far_rng = np.random.default_rng([self.seed, 84, self.run_seed])
+        self._far_i = len(getattr(self.W, "sph_ev_log", ()))   # the world's town events already read
+        self.far_n = {}                                   # counts for the checks (not saved)
+        ek = {f"{e['sphere']}.{e['key']}": i for i, e in enumerate(SD.EV)}
+        self._far_sides = []; self._far_tab = {}
+        for k, v in SD.FAR.items():
+            if k not in ek:
+                continue
+            ids = []
+            for x in v["sides"]:
+                bad = [w_ for w_ in x["who"] if w_ not in FAR_WHO and not (w_.startswith("sector:") and w_[7:] in SECTORS)]
+                if bad or x["touch"] not in TOUCHES:
+                    raise ValueError(f"far side of {k}: unknown who {bad} or touch {x['touch']!r}")
+                ids.append(len(self._far_sides))
+                self._far_sides.append(dict(x, event=k, far_event=v["far_event"]))
+            self._far_tab[ek[k]] = ids
+
+    def _far_count(self, key, m=1):
+        self.far_n[key] = self.far_n.get(key, 0) + int(np.sum(m))
+
+    def _far_fit(self, nn, kk, who, age):
+        """The cast members (nn, kk) a side reaches: every word of its who list fits their own state (16 and over)."""
+        m = age >= 16
+        own = self.fbiz[nn, kk] | (self.mcls[nn, kk] >= 2)
+        for w_ in who:
+            if w_ == "in_work":
+                m = m & self.emp[nn, kk]
+            elif w_ == "out_of_work":
+                m = m & ~self.emp[nn, kk] & (age >= 18) & (age < 65)
+            elif w_.startswith("sector:"):
+                m = m & self.emp[nn, kk] & (self.sector[nn, kk] == SECTORS.index(w_[7:]))
+            elif w_ == "owner":
+                m = m & own
+            elif w_ == "renter":
+                m = m & ~own
+            elif w_ == "poor":
+                m = m & (self.money[nn, kk] < 0.15)
+            elif w_ == "comfortable":
+                m = m & (self.money[nn, kk] >= 0.4)
+            elif w_ == "young":
+                m = m & (age < 30)
+            elif w_ == "old":
+                m = m & (age >= 65)
+            elif w_ == "ill":
+                m = m & (self.health[nn, kk] < 0.5)
+            elif w_ == "parent":
+                m = m & (self.nkids[nn, kk] >= 1)
+        return m
+
+    def _far_touch(self, nn, kk, x, good, age):
+        """A side's touch on the cast members it reached (far_sides.json touch_effects): work found or lost, money,
+        home, health, safety (mood) and standing, up or down."""
+        tch = x["touch"]; sg = 1.0 if good else -1.0
+        self._far_count(f"{tch} {'good' if good else 'hard'}", len(nn))
+        if tch == "work":
+            e_ = self.emp[nn, kk]
+            if good:
+                wa = ~e_ & (age >= 18) & (age < 65)
+                a_, b_ = nn[wa], kk[wa]
+                sec_ = [w_[7:] for w_ in x["who"] if w_.startswith("sector:")]
+                s0_ = SECTORS.index(sec_[0]) if sec_ else SECTORS.index("services")
+                self.sector[a_, b_] = np.where(self.sector[a_, b_] < 0, s0_, self.sector[a_, b_])
+                self.emp[a_, b_] = True
+                self._far_count("found work", wa)
+                self.money[nn[e_], kk[e_]] = np.minimum(self.money[nn[e_], kk[e_]] + 0.05, 1)   # better work
+            else:
+                self.emp[nn[e_], kk[e_]] = False
+                self._far_count("lost work", e_)
+        elif tch == "money":
+            self.money[nn, kk] = np.clip(self.money[nn, kk] + 0.15 * sg, 0.02, 1)
+        elif tch == "home":
+            self.mood[nn, kk] = np.clip(self.mood[nn, kk] + 0.1 * sg, 0, 1)
+            if not good:
+                self.money[nn, kk] = np.clip(self.money[nn, kk] - 0.1, 0.02, 1)
+        elif tch == "health":
+            self.health[nn, kk] = np.clip(self.health[nn, kk] + 0.15 * sg, 0.02, 1)
+        elif tch == "safety":
+            self.mood[nn, kk] = np.clip(self.mood[nn, kk] + 0.1 * sg, 0, 1)
+        elif tch == "standing":
+            self.stand[nn, kk] = np.clip(self.stand[nn, kk].astype(np.int64) + int(sg), 0, 3)
+            self.mood[nn, kk] = np.clip(self.mood[nn, kk] + 0.05 * sg, 0, 1)
+
+    def _far_week(self, t):
+        """F1 and F2: each town event fired since last week (local ones only; the whole society's reach everyone the
+        same way) touches the cast members living in that town by its sides; a touched tie among the ~15 closest living
+        in another town calls (a far want, due within weeks, in the want's first who: slot)."""
+        log = getattr(self.W, "sph_ev_log", None)
+        if log is None or len(log) <= self._far_i:
+            return
+        rows = np.asarray(log[self._far_i:]).tolist(); self._far_i = len(log)
+        fp = self.far_par; L2, L3 = self.P["layer_c"][1], self.P["layer_c"][2]; rng = self._far_rng
+        live = self.used & self.lv & ~self.dead[:, None]
+        if self._xsoc:
+            live &= self.msoc == self.soc.astype(self.msoc.dtype)[:, None]
+        for _, i_, l_ in rows:
+            ids = self._far_tab.get(int(i_))
+            if l_ < 0 or not ids:
+                continue
+            nn, kk = np.nonzero(live & (self.mloc == l_))
+            if not len(nn):
+                continue
+            age = (t - self.born[nn, kk]) / 52.0
+            hit = np.zeros((len(nn), 2), bool); sd = np.full((len(nn), 2), -1)
+            for j in ids:
+                x = self._far_sides[j]; g = x["sign"] == "good"
+                h = self._far_fit(nn, kk, x["who"], age) & (rng.random(len(nn)) < x["share"] * fp["good" if g else "hard"])
+                if h.any():
+                    self._far_touch(nn[h], kk[h], x, g, age[h])
+                    hit[h, 1 - g] = True; sd[h, 1 - g] = j
+            a_ = hit.any(1)
+            if not a_.any():
+                continue
+            n2, k2, h2, s2, ag2 = nn[a_], kk[a_], hit[a_], sd[a_], age[a_]
+            self.far_ev[n2, k2] = i_; self.far_t[n2, k2] = t
+            self.far_sg[n2, k2] = h2[:, 0] + 2 * h2[:, 1]; self.far_sd[n2, k2] = s2
+            away = self.mloc[n2, k2] != self.loc[n2]
+            mixed = h2.all(1)
+            key = np.where(mixed, WI["far_mixed"], np.where(h2[:, 1], WI["far_hard"], WI["far_good"]))
+            pc = np.where(mixed, fp["call_mixed"], np.where(h2[:, 1], fp["call_hard"], fp["call_good"]))
+            call = (away & (self.c[n2, k2] >= L2) & (self.want[n2, k2] < 0) & (ag2 >= 16) & (rng.random(len(n2)) < pc)
+                    & (self._age(t) >= 14))   # (as every want: from the character's 14th year)
+            for n_, k_, w_ in zip(n2[call], k2[call], key[call]):
+                self.want[n_, k_] = w_; self.wripe[n_, k_] = 0; self.wstate[n_, k_] = 1; self.wknown[n_, k_] = False
+                self._far_count(f"call {CAST_WANTS[int(w_)]}")
+                if self.watch[n_]:
+                    self.events.append(dict(n=int(n_), t=int(t), kind="want", state="begins", key=CAST_WANTS[int(w_)],
+                                            cid=int(self.uid[n_, k_]), known=False, **self._far_cause(n_, k_, t)))
+            for j_ in np.nonzero(self.watch[n2] & (self.c[n2, k2] >= L3))[0]:   # a close tie's news reaches the story
+                n_, k_ = int(n2[j_]), int(k2[j_])
+                self.events.append(dict(n=n_, t=int(t), kind="far", cid=int(self.uid[n_, k_]), here=not bool(away[j_]),
+                                        **self._far_cause(n_, k_, t)))
+
+    def _far_cause(self, n, k, t):
+        """F5: the event that touched cast member (n, k) within far_par cause weeks, for a want or a story line: {} if
+        none (and always with far_ties off)."""
+        if not self.far_on or t - int(self.far_t[n, k]) > self.far_par["cause"]:
+            return {}
+        sg = int(self.far_sg[n, k]); sides = [self._far_sides[j] for j in self.far_sd[n, k] if j >= 0]
+        return dict(cause=dict(event=sides[0]["event"], far_event=sides[0]["far_event"], town=int(self.mloc[n, k])
+                               if self.far_in[n, k] == FAR_OFF else int(self.far_from[n, k]),
+                               sign="mixed" if sg == 3 else "good" if sg == 1 else "hard", week=int(self.far_t[n, k]),
+                               touch=[x["touch"] for x in sides], line=[x["line"] for x in sides]))
+
+    def far_info(self, n, cid, t=None):
+        """What the game names in a far moment: the tie's town (their_town), the event (far_event), what happened to
+        them (line) and the touch; None if the cast member has no far event on record."""
+        k = self._slot(n, cid)
+        if k < 0 or not self.far_on:
+            return None
+        c_ = self._far_cause(n, k, self.t if t is None else t).get("cause")
+        if c_ is None:
+            return None
+        return dict(c_, their_town=self._loc_info(c_["town"]))
+
+    def far_rel(self, n, k):
+        """The who: slots cast member k of life n fits by their relation (far_ties picks the moment by its first)."""
+        rm = int(self.rmask[n, k])
+        out = [s_ for s_ in WHO_SLOTS if s_ in BIT and s_ != "friend" and (rm & BIT[s_])]
+        if (rm & BIT["friend"]) and not (rm & KINMASK):
+            out.append("friend")
+        if self.pslot[n] == k:
+            out.append("partner")
+        return out
+
+    def take_in(self, n, cid, t=None):
+        """F4, "took them in": the tie moves into the character's town and household for far_par stay weeks; then they
+        stay in town or go back, even odds."""
+        t = self.t if t is None else t
+        k = self._slot(n, cid)
+        if k < 0 or not self.far_on or self.far_in[n, k] != FAR_OFF:
+            return None
+        self.far_from[n, k] = self.mloc[n, k]; self.far_in[n, k] = t + int(self.far_par["stay"])
+        self.mloc[n, k] = self.loc[n]; self.msoc[n, k] = self.soc[n]
+        if self.hhj[n] >= 0:
+            self.mset[n, k] |= self._bit(int(self.hhj[n]))
+        self._far_count("taken in")
+        ev = dict(n=int(n), t=int(t), kind="taken in", cid=int(cid), until=int(self.far_in[n, k]))
+        if self.watch[n]:
+            self.events.append(ev)
+        return ev
+
+    def _far_month(self, t):
+        """F4: a year in the household over, a tie taken in finds a place in town or goes back home."""
+        nn, kk = np.nonzero(self.far_in <= t)
+        for n_, k_ in zip(nn, kk):
+            if self.hhj[n_] >= 0:
+                self.mset[n_, k_] &= ~self._bit(int(self.hhj[n_]))
+            back = self._far_rng.random() < 0.5 and self.far_from[n_, k_] >= 0
+            if back and self.used[n_, k_] and self.lv[n_, k_]:
+                self.mloc[n_, k_] = self.far_from[n_, k_]
+                for j_ in range(self.M):
+                    if np.isin(self.skind[n_, j_], LOCAL_KINDS):
+                        self.mset[n_, k_] &= ~self._bit(j_)
+            self._far_count("went back" if back else "stayed in town")
+            if self.watch[n_] and self.used[n_, k_] and self.lv[n_, k_]:
+                self.events.append(dict(n=int(n_), t=int(t), kind="taken in", state="went back" if back else "stayed",
+                                        cid=int(self.uid[n_, k_])))
+            self.far_in[n_, k_] = FAR_OFF
 
     # ------------------------------------------------------------------ approval, standing, reach (spec 2 §3, spec 7)
     def _norm_hist(self, t):
@@ -3429,7 +3674,15 @@ class People:
             out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),   # shadow around them, the comrades
                                    sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]],
                                    comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
-                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]))
+                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]),
+                                   care_buy=None if getattr(self, "care_buy", None) is None else bool(self.care_buy[n]))
+        if self.far_on:   # far_ties (only when on): the town events read, and each slot's last far event and stay
+            ks_ = np.nonzero(self.far_t[n] != NEVER)[0]
+            out["far"] = dict(i=int(self._far_i), k=[int(k_) for k_ in ks_], ev=[int(x_) for x_ in self.far_ev[n, ks_]],
+                              t=[int(x_) for x_ in self.far_t[n, ks_]], sg=[int(x_) for x_ in self.far_sg[n, ks_]],
+                              sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
+                              inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
+                              rng=self._far_rng.bit_generator.state if self.N == 1 else None)
         return out
 
     @classmethod
@@ -3499,5 +3752,17 @@ class People:
                     pp.comrade[n, s5_["comrade"]] = True
                 if s5_.get("roots") is not None and getattr(pp, "roots", None) is not None:
                     pp.roots[n] = bool(s5_["roots"])
+                if s5_.get("care_buy") is not None and getattr(pp, "care_buy", None) is not None:
+                    pp.care_buy[n] = bool(s5_["care_buy"])
+        if pp.far_on:
+            for n, d in enumerate(saved):
+                f_ = d.get("far")
+                if f_:
+                    pp._far_i = int(f_["i"]); ks_ = np.asarray(f_["k"], np.int64)
+                    if len(ks_):
+                        pp.far_ev[n, ks_] = f_["ev"]; pp.far_t[n, ks_] = f_["t"]; pp.far_sg[n, ks_] = f_["sg"]
+                        pp.far_sd[n, ks_] = f_["sd"]; pp.far_in[n, ks_] = f_["inn"]; pp.far_from[n, ks_] = f_["frm"]
+                    if f_.get("rng") is not None and pp.N == 1:
+                        pp._far_rng.bit_generator.state = f_["rng"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
