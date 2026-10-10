@@ -737,6 +737,11 @@ DEFAULT = dict(
     sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
     sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
     sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    sph_events=False,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
+    sph_seasons=False,   # phase 3, N7: the year's rhythm on the spheres' event hazards and hours (world switch)
+    sph_joins=False,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
+    sph_pairs=False,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
+    inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
@@ -906,7 +911,8 @@ UPD_OFF = dict(dis_match=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
                hist_chance_only=False,
                # stage 2 of v22.3, the spheres of society (item 15)
-               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False,
+               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
+               sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
