@@ -831,9 +831,10 @@ def rules_check():
     check_b("no color-pair rule (A, ALLY, ENEMY, AXES, FRAMINGS, framing, FR)", not bad and "framing" not in src.lower(),
             "none" if not bad else ", ".join(bad), "none")
     imps = re.findall(r"^\s*(?:from|import)\s+([\w.]+)", src, re.M)
-    check_b("imports: numpy, the standard library (sys), library, world_keys only (never engine.py or world.py)",
-            set(imps) <= {"numpy", "sys", "library", "world_keys"}, ", ".join(sorted(set(imps))),
-            "numpy, sys, library, world_keys")
+    top = {i_.split(".")[0] for i_ in imps}   # numpy's own submodules count as numpy; sphere_data is a copy of design tables
+    check_b("imports: numpy, the standard library (sys), library, world_keys, sphere_data only (never engine.py or world.py)",
+            top <= {"numpy", "sys", "library", "world_keys", "sphere_data"}, ", ".join(sorted(set(imps))),
+            "numpy, sys, library, world_keys, sphere_data")
     import ast
     tree = ast.parse(src); docs = set()
     for nd in ast.walk(tree):
@@ -1006,7 +1007,7 @@ def children_check():
     for t in range(t0 + 1, t0 + 26 * 52):
         W.tick(t); PP.tick(t, D.S(PP, t - t0)); D.act(PP, t)
     liv = lambda: int((PP.used[0] & PP.lv[0] & ((PP.rmask[0] & BIT["child"]) != 0)).sum())
-    c0 = max(1, liv())
+    l0 = liv(); c0 = max(1, l0)   # with no child yet at 26, the count's first child is born in the first week
     plan = {0: c0, 40: c0 + 1, 90: c0 + 2, 140: "kill"}
     cnt = float(c0); trace = []; born = 0
     for wk in range(200):
@@ -1024,7 +1025,7 @@ def children_check():
     say(f"  one life from 26, the engine's count {c0} -> {c0 + 1} -> {c0 + 2}, then a child's death (kill) and {c0 + 1}: "
         f"(engine, cast) {steps}; 'born' cast events {born}")
     check_b("each child the engine adds joins the cast with a 'born' event; a death keeps them in step (no replacement)",
-            all(a_ == b_ for a_, b_ in trace[1:]) and born == 2 and trace[-1] == (c0 + 1, c0 + 1),
+            all(a_ == b_ for a_, b_ in trace[1:]) and born == 2 + (c0 - l0) and trace[-1] == (c0 + 1, c0 + 1),
             f"{steps}, {born} born events", "the cast's living children = the engine's count")
 
 
