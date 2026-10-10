@@ -470,7 +470,7 @@ DEFAULT = dict(
     flex=True, flex_rate=1 / 104, flex_depth=0.7, flex_exp=(150, 350),   # v6: accepting limits; chronically unmet needs matter
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
-    sat_need=5.0, sat_mid=0.8, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
+    sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
     occ_keep=0.6, occ_back=3.0,   # a new job after one ended within occ_back years returns to the last line of work with this
                          # chance (the packs, 01:40: a scientist who changed jobs stopped being a scientist). Job changes
                          # are about twice as common as changes of occupation (Kambourov & Manovskii 2008)
@@ -525,12 +525,12 @@ DEFAULT = dict(
     eps0=0.45,
     chi=0.03, xi=0.01,
     framing="mild",     # v6 default (Emren 22:46): mild tension on Magic's five questions. Name in FRAMINGS or a 5x5 matrix: how the world reads color relations
-    ten_good=0.05, ten_bad=0.2, ten_split=0.5,   # v6: acts joining opposed colors pay off in meaning when they work, in stress
+    ten_good=0.05, ten_bad=0.05, ten_split=0.5,   # v6: acts joining opposed colors pay off in meaning when they work, in stress
                                                 # and lost integration when they fail. Enemy pairs (item 5, Emren 10-07 12:42
                                                 # UTC): a fair bet, ten_bad = ten_good (.05), from the stage 2 refit
     mu=0.3,          # strength of framing tension/synergy (v3: 0.1 was too weak once upkeep and needs balance people)
-    drift_frames=None,   # enemy pairs (item 5): the framing's weekly drift (mu) and its cut on ends sought through opposed
-    ends_frames=None,    # means only in these worlds (Magic's pie taken literally; ("pie", "axes") from the stage 2 refit); the
+    drift_frames=('pie', 'axes'),   # enemy pairs (item 5): the framing's weekly drift (mu) and its cut on ends sought through opposed
+    ends_frames=('pie', 'axes'),    # means only in these worlds (Magic's pie taken literally; ("pie", "axes") from the stage 2 refit); the
                          # default world keeps its tension as felt calm and the bet, and every pair is an ordinary way to live
                          # (chroma-philosophy/enemy-pairs.md). None: every world (v6-v22.1)
     iota=0.1,        # integration learning
@@ -538,10 +538,12 @@ DEFAULT = dict(
     # Shadows (Emren 2026-10-07 12:18 UTC, chroma-philosophy/shadows.md), in place of upkeep: a colour that rules a life
     # shows its own weakness, as Magic's writing names it, and the costs it brings pull the person back toward what they
     # lack through the loops the engine has (a failure teaches what the moment called for: fail_fit)
-    shadows=False,             # item 2, on from the stage 2 refit
+    shadows=True,             # item 2, on from the stage 2 refit
     # light and shadow (chroma-ideas/shadows-mechanics.md, 10-08): each colour has a shadow part s (0 to 1), which grows
     # toward a target from four sources: holding on while life asks to move, ruling the life, no enemy colour to argue,
     # strain. Its force e = min(1, w x s / sh_full) drives the effects; a state word shows from 18 (on .5, off .35)
+    sh_world=False,             # shadows with the outer world on too (v22.3 refit: False, with the world on they blurred
+                               # identities, one colour at 40 in .10 of lives against .25; back with its own fit)
     sh_age=13.0,               # a shadow part can grow from this age
     sh_src=(0.5, 0.5, 0.4, 0.4),   # how far each source alone moves the target: holding on, ruling, no counterweight, strain
     sh_grow=6.0, sh_fade=12.0,  # months for the shadow part to move most of the way to its target, growing and fading
@@ -623,11 +625,11 @@ DEFAULT = dict(
     child_gap=3.0,       # C-X5: years between one child and the next (the usual birth spacing)
     child_mort=5e-5,     # C-X5: the children's Gompertz level (mort[0] for everyone else)
     season_share=True,   # a threshold step's moment comes to the share of lives its times: gives (Library next3 §4)
-    season_excl=False,   # K6 (v22.3, off): a step plays at most one moment, each at its own times: share (their sum, at
+    season_excl=True,   # K6 (v22.3, off): a step plays at most one moment, each at its own times: share (their sum, at
                          # most 1, is the step's share; the person's colours tilt which), not one draw per moment;
                          # "1 homeowner in 20" reads as 1 in 20, and a times: line with words only reads by season_words
     season_words=(("nearly every", 0.9), ("rare", 0.05), ("most", 0.7), ("many", 0.5), ("some", 0.25)),   # refit values
-    move_near=False,     # K2 (v22.3, off): a moves: moment goes to a new town only when it says so (moves: far, or its name
+    move_near=True,     # K2 (v22.3, off): a moves: moment goes to a new town only when it says so (moves: far, or its name
     fam_far=0.3,         # names a new town; moves: near never; else fam_far of the time: leaving home, a smaller home), and a
                          # move within the town keeps half the circle (fam_far a refit value; newcomer .97 of lives vs .60)
     ow_weeks=26,         # weeks without work after losing a job before 'out of work' (52 at go-live: .07 of lives against .15)
@@ -738,27 +740,27 @@ DEFAULT = dict(
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
     # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
-    cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
-    cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
-    sph_town=False,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
-    sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
-    sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
-    sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
-    sph_events=False,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
-    sph_seasons=False,   # phase 3, N7: the year's rhythm on the spheres' event hazards and hours (world switch)
-    sph_joins=False,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
-    sph_pairs=False,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
-    sph_links=False,     # phase 3: the links between spheres and their colour readings, with sph_events (world switch)
-    sph_memory=False,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
-    pair_calm=False,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
-    sph_cascades=False,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
-    sph_levers=False,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
-    sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
-    sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
-    sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
-    sph_titles=False,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
+    cult_schools=True, cult_scenes=True, cult_adults=True, cult_anchor=True, cult_pushback=True, cult_shake=True,
+    cult_no_dice=True, hist_party_gov=True, hist_pressure=True, hist_grievance=True, hist_chance_only=True,
+    sph_town=True,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
+    sph_haunts=True,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
+    sph_hours=True,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
+    sph_marks=True,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    sph_events=True,    # phase 3: the sphere events (world.py _sph_events_q), and the Library's sphere_event: moments
+    sph_seasons=True,   # phase 3, N7: the year's rhythm on the spheres' event hazards and hours (world switch)
+    sph_joins=True,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
+    sph_pairs=True,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
+    sph_links=True,     # phase 3: the links between spheres and their colour readings, with sph_events (world switch)
+    sph_memory=True,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
+    pair_calm=True,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
+    sph_cascades=True,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
+    sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
+    sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
+    sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
+    sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    sph_titles=True,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
                          # the engine reads none of those rules
-    far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
+    far_ties=True,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
     fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
@@ -779,17 +781,17 @@ DEFAULT = dict(
                   estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35,
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
-    inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
-    c2_groups=False,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
+    inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
+    c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
-    c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
-    c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
-    c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
-    wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
-    birth_age=False,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
+    c3_inst=True,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
+    c4_nature=True,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
+    c5_faith=True,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
+    wl2=True,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
+    birth_age=True,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
-    near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
+    near_gate=True,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
@@ -845,13 +847,13 @@ DEFAULT = dict(
     # take on (Lazarus 1984; prevention vs promotion focus, Higgins 1997; anxiety-based vs growth values, Schwartz 2012).
     # It comes from where the deep core sits on the security-vs-freedom axis, from recent hard events, and from reactivity.
     thr0=0.0,            # logit of threat focus for an even person with no history
-    domains=False,      # life areas (A7, item 4), on from the stage 2 refit: a small offset on the colors per area (work, home, friends, faith); identity reads the core
+    domains=True,      # life areas (A7, item 4), on from the stage 2 refit: a small offset on the colors per area (work, home, friends, faith); identity reads the core
     dom_share=0.3,      # the share of what a moment in an area teaches that stays in that area (the rest reaches the core)
     dom_half=3.0,       # years for an area's offset to fade halfway back to the core
     dom_end_half=1.0,   # ... while that part of life is not held (no work, no faith)
     dom_cap=0.6,        # largest offset per color, in log-ratio units (about +-.1 on a share near .2)
     # a curious, thinking life rewarded (item 7, chroma-ideas/curious-life.md C2 to C4), behind curious=False:
-    curious=False,
+    curious=True,
     cu_keep=0.7,         # C2: from cu_age, skill in Blue's ways fades this much more slowly (knowledge keeps into the 60s)
     cu_age=40.0,
     cu_late=0.004,       # C2: from 55, skill in Blue's ways above a beginner's meets competence (and half as much meaning) weekly
@@ -861,16 +863,16 @@ DEFAULT = dict(
     cu_ask=0.004,        # C4: from 50 it meets belonging and meaning weekly, by how much they are asked
     # each person's own colour-to-need table (P4; the Game's engine-needs-and-steering.md §1 and §4), behind nm_on=False:
     # NMP starts as the shared table and moves with what feeds them, within a band, each colour's column kept at its total
-    nm_on=False,
+    nm_on=True,
     nm_lr_moment=0.01,   # an act that worked feeds what was lacking: its colours' cells for the needs that lacked most grow
     nm_lr_habit=0.0005,  # the colours one keeps using while a need lacks are slowly tied to it
     nm_lr_goal=0.0005,   # a held dream, passion or plan ties its colours to its domain's needs, by its strength
     nm_band=(0.5, 2.0),  # each cell stays within this band of the shared value
     nm_back=10.0,        # years for the table to drift halfway back to the shared one, unless kept up
-    ev_need_k=0.0,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
-    ev_state_k=0.0,      # at peace and content, a bad event adds less stress; strained, more
-    ev_reach_k=0.0,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
-    thr_vec=None,        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
+    ev_need_k=0.5,       # an outside event lands harder on a need already lacking (0: as before; P4 §4)
+    ev_state_k=0.3,      # at peace and content, a bad event adds less stress; strained, more
+    ev_reach_k=0.1,      # and the person reaches for the colours their own table ties to safety (strained) or belonging (calm)
+    thr_vec='schwartz',        # item 7 C1 ("schwartz" from the stage 2 refit; blue-satisfaction.md): the threat focus reads the deep core on the Schwartz map
                          # (anxiety-based minus growth values, AXSEC_SW), not on Magic's security axis, which counted Blue as
                          # fully security. None: Magic's axis (v10-v22); or a 5-vector
     thr_axis=1.0,        # weight of the deep core's position on the security-vs-freedom axis (W U security, B R freedom)
@@ -911,9 +913,10 @@ DEFAULT = dict(
     # the colours of the world around them (people and groups, the places they are inside, the times) push a little, and
     # the push takes over part of the random drift, so lives change for reasons. Target: about 10% (8 to 12) of colour
     # movement, drift's share down by as much, 50-year stability toward .15 to .45
-    cur_on=False,
-    cur_k=0.35,          # the monthly push at full exposure (log-ratio units x plasticity): about 10% of colour movement, world on
-    cur_off=0.55,        # with the world off (tribal and magic settings), its size against cur_k (the niche and the era): about 9%
+    cur_on=True,
+    cur_k=0.01,          # the monthly push at full exposure, world on (v22.3 refit: .35 -> .01; at .35, .2 or .1 it pulled whole worlds
+                         # to one colour, Green leading half the lives; held near zero until its own fit)
+    cur_off=19.25,       # with the world off (tribal and magic settings), its size against cur_k: .19 a month, as fitted (.35 x .55)
     cur_mix=(0.5, 0.25, 0.25),   # the current's parts: close people, the places they are inside, the times (era and climate)
     cur_age=(0.3, 1.0, 20.0, 7.0),   # exposure by age: base + peak x exp(-((age - at) / width)^2); most at 15 to 25, never zero
     cur_mem=1.0,         # years over which what reaches them adds up (a new circle or job takes a while to tell)
@@ -982,7 +985,9 @@ UPD_OFF = dict(dis_match=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
-               move_near=False, season_excl=False)
+               move_near=False, season_excl=False,
+    # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
+    sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1199,7 +1204,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
     CUR_ON = bool(P["cur_on"]); cur_sum = np.zeros(N); cur_m = None   # item 12: the steady current, and how much it moved each life
-    SHON = bool(P["shadows"]); SHG_ = np.asarray(P["sh_gain"], float)
+    SHON = bool(P["shadows"]) and (bool(P["sh_world"]) or not bool(P["world"])); SHG_ = np.asarray(P["sh_gain"], float)
     NM_ON = bool(P["nm_on"])   # P4: each person's own colour-to-need table (needs x colours), from the shared one
     NMP = np.repeat(NMAP[None], N, 0); NM_TOT = NMAP.sum(0); NM_LO = P["nm_band"][0] * NMAP; NM_HI = P["nm_band"][1] * NMAP
     CU_ON = bool(P["curious"]); asked = np.zeros(N)   # item 7: how much others come to them for answers (C4)
@@ -4429,11 +4434,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             cur_ = cur_m
             b0_, pk_, at_, wd_ = P["cur_age"]
             cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
+            if P["era_push_k"] != 1.0:   # played lives: the game weighs the times' push as it weighs an era's
+                cdz_ = P["era_push_k"] * cdz_
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
         if MK_ON and t % 4 == 0:   # spheres phase 2: the mark of the work, a year's step once it is drawn (booked with the current)
             mdw_ = WL.PP.mark_dw
             if mdw_.any():
                 mdz_ = centre(5 * mdw_); WL.PP.mark_dw = np.zeros_like(mdw_)
+                if P["era_push_k"] != 1.0:   # played lives: weighed as the other outside pushes
+                    mdz_ = P["era_push_k"] * mdz_
                 dz_ = dz_ + mdz_; chan[:, 8] += mdz_
             hu_ = WL.PP.mark_hurt & ~dead
             if hu_.any():   # a serious injury at work

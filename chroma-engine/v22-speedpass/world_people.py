@@ -110,7 +110,7 @@ PP_DEFAULT = dict(
     soc_set=0.75,         # ... and (sociability / its geometric mean)^soc_set on the contact in shared settings
                          # (like the engine's turn_spread; gives the share of adults with no close friend)
     alloc_pow=2.5,       # deliberate contact goes to the closest first (x closeness^pow): the layers emerge from it
-    dist_far=0.3,        # share of a deliberate contact that reaches someone in another locality without remote tools;
+    dist_far=0.4,        # share of a deliberate contact that reaches someone in another locality without remote tools;
                          # W.comm (phones, video calls) adds up to 0.5 (spec 3 §2.6, spec 5)
     cap_like=0.5,        # ease: closeness's ceiling is 1 - cap_like x (1 - likeness); alike people keep ties for less
     mingle=(0.35, 1.3),  # within a setting people seek out the alike: attention a + b x likeness^2 ...
