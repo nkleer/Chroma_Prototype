@@ -544,7 +544,7 @@
   "unwritten_future": "pics/unwritten-fabric.webp"
  },
  "texture_about": "unwritten_future: 1800x240 transparent WebP, tiles left to right; shown at about 1200x160 at the top of the screen.",
- "portrait_about": "The character's own card (the ink look, chroma-look/): by lead colour (W U B R G) and age (child under 13, youth to 25, adult to 59, elder), 420x600, 7:10, the same place for a colour at every age; drawn by chroma-look/tools/scenes_portrait.js.",
+ "portrait_about": "The character's own card (the ink look, chroma-look/): by lead colour (W U B R G) and age (child under 13, youth to 25, adult to 59, elder), 420x600, 7:10, the same place for a colour at every age; drawn by chroma-art/kit/scenes_portrait.js (render_portrait.js).",
  "portrait": {
   "W": {
    "child": "pics/portrait-w-child.webp",
