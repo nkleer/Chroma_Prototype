@@ -744,6 +744,8 @@ DEFAULT = dict(
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
+    near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
+                         # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -913,7 +915,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False,
                # item 11, the world in their life: WL2's small effects
-               wl2=False,
+               wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c4_nature=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -2453,6 +2455,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     near = L["STG"][:, np.minimum(stage[rowz] + 1, NS - 1)].T | L["STG"][:, np.maximum(stage[rowz] - 1, 0)].T
                     near &= ~L["STG"][:, stage[rowz]].T          # the stage's own moments are counted already
                     add_ = np.exp(2.0 * (nic[rowz] @ L["ALPHA"].T)) * (near & gate[rowz] & REG_[None]) * RATE[None] * cond_fac[rowz]
+                    if WON:   # the world's gates hold here too: the spheres' (haunt, rung, sphere event) always, the rest
+                        add_ = add_ * np.where(WL.new_gates[None] | P["near_gate"], mf_[rowz], 1.0)   # with near_gate
                     aff_d[rowz] += add_ * gapw_[rowz] if GAPXON_ else add_
                     near_e = np.zeros_like(aff_d); near_e[rowz] = add_   # open before their pauses (gap_keep)
             # never a life event as an ordinary week: if every everyday moment is resting, the least rested of the open

@@ -265,9 +265,12 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the year's rhythm and the joins (sph_seasons, sph_joins; the events at the test base)",
         dict(sph_seasons=True, sph_joins=True, sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True), 8),
+       ("the sphere events at their fitted rates, the 74 states and the world-fired events (sph_events)",
+        dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
        ("the pair faces (sph_pairs)", dict(sph_pairs=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
+       ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):

@@ -45,8 +45,7 @@ sys.path.insert(0, ENV)
 from paths import NAMES, P  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py",
-       "sphere_data.py"]   # the spheres' tables; world.py imports it only with sph_town on (Engine PR #52)
+ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
 LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py"]   # plus earth_<pack>.py per pack
 PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
 
@@ -100,6 +99,7 @@ def main():
     if not PK:
         stop("the engine's batch.PACKS is empty")
     WLD = sorted(f for f in os.listdir(EN) if re.fullmatch(r"world(_\w+)?\.py", f) and not re.match(r"world_(stats|check|test)", f))
+    WLD += sorted(f for f in os.listdir(EN) if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases (sphere_data.py, PR #52; sphere_ev_base.py, phase 3c)
     pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(os.listdir(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
@@ -158,7 +158,7 @@ def main():
     s = open(wp).read()
     m = re.search(r"const SOURCES = (\[[^\]]*\]);", s)
     src = json.loads(m.group(1))
-    want = [f"engine_pin/{f}" for f in WLD + ["sphere_data.py"]] + [f"engine_pin/packs/{p}/{f}" for p in PK for f in PACK_FILES] + [f"engine_pin/earth_{p}.py" for p in PK]
+    want = [f"engine_pin/{f}" for f in WLD] + [f"engine_pin/packs/{p}/{f}" for p in PK for f in PACK_FILES] + [f"engine_pin/earth_{p}.py" for p in PK]
     add = [f for f in want if f not in src]
     if add:
         i = src.index("engine_pin/foresee.py")

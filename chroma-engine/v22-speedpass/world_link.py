@@ -213,6 +213,7 @@ class WorldLink:
         self.sphev = np.asarray(L.get("W_SPHEV", np.full(S, -1)))   # sphere events' moments (phase 3): the event's index
         if self.sphev.dtype == bool:                                  # (a batch read before phase 3: held back)
             self.sphev = np.where(self.sphev, 0, -1)
+        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0)   # the spheres' gates (moment_factor)
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
         self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
