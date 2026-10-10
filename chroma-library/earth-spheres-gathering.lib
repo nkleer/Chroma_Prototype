@@ -33,10 +33,10 @@ horizon: week
 roles: friend, rival, prospect, neighbour, keeper, regular
 who: friend, rival, prospect
 earth: once a year the whole town turns out on the common: long tables, a band, the games, and everyone you know
-times: The yearly fair, feast or games where the whole town meets is near-universal where a town keeps one; the afternoon that matters in a life (a match made, a friendship begun, a feud stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 12-20 keeps it near one a life overall; Dietler and Hayden 2001 on feasts that make and break ties). With the world on, a great_feast or the_games year (gather events) makes the day bigger, but this moment is the ordinary yearly one
+times: The yearly fair, feast or games where the whole town meets is near-universal where a town keeps one; the afternoon that matters in a life (a match made, a friendship begun, a feud stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 15-25 keeps it near one a life overall; Dietler and Hayden 2001 on feasts that make and break ties). With the world on, a great_feast or the_games year (gather events) makes the day bigger, but this moment is the ordinary yearly one
 likelier: a small or settled town, a family with deep roots there, a good summer, a person with a rival or a sweetheart in town
 rarer: a big city of strangers, a newcomer in the first year, a year of mourning or illness, a town where the gathering has lapsed
-gap: 12-20
+gap: 15-25
 scene: Once a year {place} closes the high street and fills the common: long tables, a band on a lorry, the tug of war and the races. Everyone is there, {rival} included, and {friend} nudges {N}: {prospect} keeps looking over from the next table.
 scene W: The stewards are short of hands for the gate and the tables, and someone has to make sure the old folk from the care home get seats in the shade.
 scene U: {N} watches who sits with whom. In one afternoon on the common the whole town can be read: who has made up, who has fallen out, who is new.

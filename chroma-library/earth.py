@@ -29793,11 +29793,11 @@ SITUATIONS = [
                      'everyone you know'},
  'timing': {'times': 'The yearly fair, feast or games where the whole town meets is near-universal where a town '
                      'keeps one; the afternoon that matters in a life (a match made, a friendship begun, a feud '
-                     'stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 12-20 '
+                     'stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 15-25 '
                      'keeps it near one a life overall; Dietler and Hayden 2001 on feasts that make and break ties). '
                      'With the world on, a great_feast or the_games year (gather events) makes the day bigger, but '
                      'this moment is the ordinary yearly one',
-            'gap_years': (12.0, 20.0)},
+            'gap_years': (15.0, 25.0)},
  'scenes': {'earth': [('',
                        'Once a year {place} closes the high street and fills the common: long tables, a band on a '
                        'lorry, the tug of war and the races. Everyone is there, {rival} included, and {friend} '
@@ -32683,7 +32683,7 @@ SITUATIONS = [
                      'tonight it is your turn'},
  'timing': {'times': "Families often keep watch by a relative's hospital bed, taking the nights in turn; sitting "
                      'through a night in the chair comes to about 3 in 10 adults, once or a few times (estimate)',
-            'gap_years': (3.0, 10.0)},
+            'gap_years': (8.0, 20.0)},
  'scenes': {'earth': [('',
                        '{elder} is in hospital after a fall, and the family has agreed that nobody should be alone '
                        'at night. Tonight it is {Ns} turn: a hard chair, the hum of the machines, and a nurse who '
@@ -36445,7 +36445,7 @@ SITUATIONS = [
                      'is easier than fighting'},
  'timing': {'times': 'Most adults get a parking, transport or council fine at some point; one that feels unfair '
                      'enough to weigh fighting it comes to about 3 in 10 lives, a few times each (estimate)',
-            'gap_years': (3.0, 10.0)},
+            'gap_years': (10.0, 20.0)},
  'scenes': {'earth': [('',
                        'A letter from the council: a fine for parking in a bay {N} has used for years. The sign is '
                        'new, and half hidden behind a hedge. Paying is quick. Appealing means a form, photographs '
