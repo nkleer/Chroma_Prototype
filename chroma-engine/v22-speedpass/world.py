@@ -435,6 +435,10 @@ W_DEFAULT = dict(
     sph_pairs=False,   # phase 3: the ten pair faces per town sphere (dynamics.json pair_faces), a layer over two faces
     sph_links=False,   # phase 3: the 72 sphere-to-sphere links (links.json, through their via states) and their colour
                        # readings (colour.by_colour); with sph_events (the states are the events')
+    sph_memory=False,  # phase 3: the four memories that make history (credit, plague, land, command; events_run.memories)
+    pair_calm=False,   # phase 3: a held pair face calms its pair's quarrel events in its sphere, a broken one makes them
+                       # flare (events_run.pair_quarrels); with sph_pairs
+    sph_cascades=False,  # phase 3: the 14 cascades (links.json colour.cascades): a running cascade raises its next step
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -448,7 +452,7 @@ W_DEFAULT = dict(
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
-             "sph_joins", "sph_pairs", "inst_even", "sph_links")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
@@ -3245,6 +3249,8 @@ class World:
         w_ = self.sph_ev_win; p = p * np.where((w_[..., 0] <= q) & (q <= w_[..., 1]), 3.0, 1.0)
         if self.p.get("sph_seasons", False):   # N7: the season in the middle of the coming quarter
             p = p * self._sph_tables()["seas_z"][E["sph"], WEEK_SEASON[(self.t + 7) % 52]][None]
+        if self.p.get("sph_memory", False) or self.p.get("pair_calm", False) or self.p.get("sph_cascades", False):
+            p = p * self._sph_p3_factor(E, q, w_)
         self._cache_evh = np.exp(xv @ E["Hm"].T)                                         # for where a big event's local
         on = E["base"] > 0                                                               # rows act (not saved)
         if on.any():
@@ -3272,6 +3278,8 @@ class World:
                 self._sph_fire(l, i, q, E, here=here_, local=here_ and not (bg_[0] if bg_ else True))   # a town's own news
 
         self.sph_wq = []; self.sph_reg_seen = float(self.regime)
+        if self.p.get("sph_memory", False):
+            self.sph_mem = np.maximum(self._sph_mem() - self._sph_p3_tables()["fade"], 0.0)
         self.sph_st += sr["relax"] * (sr["start"] - self.sph_st); self.sph_st_soc += sr["relax"] * (sr["start"] - self.sph_st_soc)
         # the fading shifts of every row still acting
         R_ = self.sph_ev_rows; X = np.zeros((nl, 9, C))
@@ -3324,8 +3332,112 @@ class World:
         if getattr(self, "sph_lk", None) is None:
             self.sph_lk = np.zeros_like(x)
         self.sph_lk += Lk["rate"][None] * (x - self.sph_lk)
-        self.sph_st += float(pr.get("link_k", 0.01)) * (self.sph_lk @ Lk["B"])
+        self.sph_st = np.clip(self.sph_st + float(pr.get("link_k", 0.01)) * (self.sph_lk @ Lk["B"]), 0, 1)   # as events do
         return -float(pr.get("link_c", 0.3)) * np.einsum("ln,njc->ljc", self.sph_lk, Lk["F"])
+
+    CAS_LAG = {"quarters": (1, 4), "a year or two": (4, 8), "years": (4, 20), "decades": (20, 60)}   # a cascade step's
+    # window after the step before, in quarters ("a year or two": about 6 quarters, Outer world's answer 5)
+
+    def _sph_p3_tables(self):
+        """The memories, the pairs' quarrels and the cascades as arrays (made once, not saved): MF (event x memory) what
+        each firing adds, MR (memory x event) each memory's pull on each hazard, fade; PQ (pair x event) the quarrel
+        events of each pair (a pair face calms its own sphere's: every event is its own sphere's); the cascades with
+        their steps as event indices (a step whose event cannot happen in this world's epoch passes time, as a step with
+        no event does)."""
+        c_ = getattr(self, "_cache_sphp3", None)
+        if c_ is not None:
+            return c_
+        import sphere_data as SD
+        E = self._sph_ev_tables(); n = E["n"]; key = E["key"]; ep = self._sph_tables()["ep"]
+        mems = list(SD.MEMORIES); MF = np.zeros((n, len(mems))); MR = np.zeros((len(mems), n))
+        for m_, nm in enumerate(mems):
+            for k, a in SD.MEMORIES[nm]["feeds"].items():
+                MF[key[k], m_] += a
+            for k, a in SD.MEMORIES[nm]["raises"].items():
+                MR[m_, key[k]] += a
+        PQ = np.zeros((len(SPH_PAIRS), n), bool)
+        for j, pr_ in enumerate(SPH_PAIRS):
+            for k in SD.PAIR_QUARRELS.get(pr_, []):
+                PQ[j, key[k]] = True
+        runs = (E["base"] > 0) | E["fired"]
+        cas = []
+        for c in SD.CASCADES:
+            if ep not in c["epochs"]:
+                continue
+            st = [(key[k] if k is not None and runs[key[k]] else -1, lag) for k, lag in c["steps"]]
+            if st and st[0][0] >= 0:
+                cas.append(st)
+        c_ = self._cache_sphp3 = dict(MF=MF, MR=MR, fade=float(SD.MEM_FADE), PQ=PQ, cas=cas,
+                                      cas_first={st[0][0]: k for k, st in enumerate(cas)})
+        return c_
+
+    def _sph_mem(self):
+        if getattr(self, "sph_mem", None) is None:
+            self.sph_mem = np.zeros((self.n_loc, self._sph_p3_tables()["MF"].shape[1]))
+        return self.sph_mem
+
+    def _sph_p3_factor(self, E, q, w_):
+        """This quarter's hazard factor per town and event (n_loc x n) from the memories (sph_memory: exp(memory . size)),
+        the pair faces' calm (pair_calm: while a pair face holds over .1, x (1 - 2 x held), at least .5, on its sphere's
+        quarrel events; a pair face that broke, x 1.5 for 8 quarters) and the running cascades (sph_cascades: x 3 on the
+        next step's event inside its window, not on top of a chain's own x 3)."""
+        P3 = self._sph_p3_tables(); nl = self.n_loc; f = np.ones((nl, E["n"]))
+        if self.p.get("sph_memory", False):
+            f = f * np.exp(self._sph_mem() @ P3["MR"])
+        if self.p.get("pair_calm", False) and self.p.get("sph_pairs", False) and getattr(self, "sph_ph", None) is not None:
+            h = self.sph_ph[:, E["sph"], :]                                        # town x event x pair: its sphere's
+            calm = np.where(h > 0.1, np.maximum(1 - 2 * h, 0.5), 1.0)
+            brk = getattr(self, "sph_pbrk", None)
+            if brk is not None:
+                calm = calm * np.where(brk[:, E["sph"], :] >= q, 1.5, 1.0)
+            f = f * np.prod(np.where(P3["PQ"].T[None], calm, 1.0), axis=2)
+        if self.p.get("sph_cascades", False) and getattr(self, "sph_cas", None):
+            inch = (w_[..., 0] <= q) & (q <= w_[..., 1])                          # already x 3 by a chain
+            for c, loc, k, lo, hi in self.sph_cas:
+                i = P3["cas"][c][k][0]
+                if lo <= q <= hi:
+                    rows = slice(None) if loc < 0 else loc
+                    f[rows, i] = np.where(inch[rows, i], f[rows, i], f[rows, i] * 3.0)
+            self.sph_cas = [x for x in self.sph_cas if q <= x[4]]                  # a window passed: it ends
+        return f
+
+    def _sph_p3_fired(self, l, i, q, E, loc):
+        """Event i fired (in town loc; -1 the whole society): it feeds or drains the memories (sph_memory; a society's
+        event in every town), moves on the cascades waiting for it, and starts the cascade it begins (sph_cascades; one
+        of each per town or society at a time)."""
+        P3 = self._sph_p3_tables()
+        if self.p.get("sph_memory", False) and P3["MF"][i].any():
+            m = self._sph_mem(); rows = slice(None) if loc < 0 else loc
+            m[rows] = np.clip(m[rows] + P3["MF"][i], 0, 1)
+        if self.p.get("sph_cascades", False):
+            cas = getattr(self, "sph_cas", None) or []
+            out = []
+            for c, lc, k, lo, hi in cas:
+                st = P3["cas"][c]
+                if st[k][0] == i and lo <= q <= hi and (lc < 0 or loc < 0 or lc == loc):
+                    nxt = self._sph_cas_next(st, k + 1, q)
+                    if nxt is not None:
+                        out.append([c, lc, *nxt])
+                else:
+                    out.append([c, lc, k, lo, hi])
+            c0 = P3["cas_first"].get(i)
+            if c0 is not None and not any(x[0] == c0 and x[1] == loc for x in out):
+                nxt = self._sph_cas_next(P3["cas"][c0], 1, q)
+                if nxt is not None:
+                    out.append([c0, int(loc), *nxt])
+            self.sph_cas = out
+
+    def _sph_cas_next(self, st, k, q):
+        """The cascade's next step with an event from step k, and its window [lo, hi] in quarters (a step with no event,
+        or one that cannot happen here, passes its own lag), or None at the end."""
+        lo, hi = q, q
+        while k < len(st):
+            a, b = self.CAS_LAG.get(st[k][1], self.CAS_LAG["years"])
+            lo, hi = lo + a, hi + b
+            if st[k][0] >= 0:
+                return [k, lo, hi]
+            k += 1
+        return None
 
     def _sph_pairs_q(self, T, s):
         """Phase 3 (sph_pairs): the ten pair faces of each town sphere (dynamics.json pair_faces). A pair's strength pi
@@ -3349,6 +3461,12 @@ class World:
         cond = (self.sph_pq >= pr["pair_quarters"]) | lead
         pi = np.clip(np.where(cond, self.sph_pi + pr["pair_rise"], self.sph_pi - pr["pair_decay"]), 0, 1)
         self.sph_pi = np.where(lead, np.maximum(pi, 0.5), pi)
+        if self.p.get("pair_calm", False):   # a pair face that held .5 or more and fell under .2 broke (8 quarters' flare)
+            if getattr(self, "sph_ppk", None) is None:
+                self.sph_ppk = np.zeros_like(self.sph_pi); self.sph_pbrk = np.full(self.sph_pi.shape, -1, np.int64)
+            broke = (self.sph_pi < 0.2) & (self.sph_ppk >= 0.5)
+            self.sph_pbrk = np.where(broke, int(self.t // 13) + 8, self.sph_pbrk)
+            self.sph_ppk = np.where(self.sph_pi < 0.2, 0.0, np.maximum(self.sph_ppk, self.sph_pi))
         h = self.sph_pi * np.minimum(s1, s2)
         take = np.einsum("ljp,pc->ljc", h, T["pairA"])                            # what each face gives to its pairs
         f = np.minimum(1.0, s / np.maximum(take, 1e-12))                          # never more than the face holds
@@ -3372,6 +3490,8 @@ class World:
         last-fired table take it. here: a world-fired event with a town of its own (its local rows act there); local: the
         world's event was not big (every row acts in that town only, and only that town's moments open)."""
         nl = self.n_loc; sr = E["sr"]
+        if self.p.get("sph_memory", False) or self.p.get("sph_cascades", False):
+            self._sph_p3_fired(l, i, q, E, l if (local or not E["big"][i]) else -1)
         if local:                 # a world event that stays in its town (a local body's closure or scandal, a town's
             loc_t = every = np.array([l])                     # crime wave): every row acts there, as a local row
         elif E["big"][i]:

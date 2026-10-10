@@ -742,6 +742,9 @@ DEFAULT = dict(
     sph_joins=False,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
     sph_pairs=False,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
     sph_links=False,     # phase 3: the links between spheres and their colour readings, with sph_events (world switch)
+    sph_memory=False,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
+    pair_calm=False,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
+    sph_cascades=False,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
@@ -917,6 +920,7 @@ UPD_OFF = dict(dis_match=False,
                # stage 2 of v22.3, the spheres of society (item 15)
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
+               sph_memory=False, pair_calm=False, sph_cascades=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)

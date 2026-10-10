@@ -100,13 +100,26 @@ def build(src):
     LINK_COLOUR = [dict(link=r["link_id"], faces_in=r["faces_in"], strength=int(r["strength"]), side=r.get("side", "low"),
                         feeds=sorted(r["feeds"]), starves=sorted(r["starves"]))
                    for r in lk["colour"]["by_colour"] if r["link_id"] in ids]
+    # phase 3 (Outer world's answers, chroma-world/spheres/phase3-rest-answers.md): the four memories (events_run.memories:
+    # each memory's feeding events and amounts, the events it raises or lowers and by how much, its fade a quarter),
+    # each pair's quarrel events (events_run.pair_quarrels, bare keys; a pair face calms its own sphere's), and the 14
+    # cascades (colour.cascades: each step's event, bare, or None, and its lag after the step before)
+    bare = lambda k: k.split(".")[-1]
+    mm = er["memories"]
+    MEMORIES = {m: dict(sphere=v["sphere"], feeds={bare(k): float(a) for k, a in v["feeds"].items()},
+                        raises={bare(k): float(a) for k, a in v["raises"].items()}) for m, v in mm["memories"].items()}
+    MEM_FADE = float(mm["fade"])
+    PAIR_QUARRELS = {p: [bare(k) for k in v] for p, v in er["pair_quarrels"]["pairs"].items()}
+    CASCADES = [dict(id=c["id"], epochs=list(c["epochs"]), steps=[[bare(st["event"]) if st.get("event") else None, st["lag"]]
+                                                                for st in c["steps"]]) for c in lk["colour"]["cascades"]]
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
                 MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV,
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
-                LINKS=LINKS, LINK_COLOUR=LINK_COLOUR)
+                LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
+                CASCADES=CASCADES)
 
 
 def audit(T):
@@ -155,6 +168,11 @@ def audit(T):
           or not set(r["feeds"] + r["starves"]) <= set(COLS)]
     if cb:
         bad.append(f"colour readings: {cb[:5]}")
+    mk_ = sorted({k for m in T["MEMORIES"].values() for k in list(m["feeds"]) + list(m["raises"])} - ek)
+    qk_ = sorted({k for v in T["PAIR_QUARRELS"].values() for k in v} - ek)
+    ck_ = sorted({st[0] for c in T["CASCADES"] for st in c["steps"] if st[0]} - ek)
+    if len(T["MEMORIES"]) != 4 or mk_ or qk_ or ck_ or len(T["PAIR_QUARRELS"]) != 10 or len(T["CASCADES"]) != 14:
+        bad.append(f"memories, quarrels, cascades: unknown events {(mk_ + qk_ + ck_)[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
