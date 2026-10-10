@@ -286,6 +286,18 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
+        dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("ways to lead and the leader's time in post (lead_ways; with the levers and the events)",
+        dict(lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40),
+       ("sacred lines (sacred; with the events and C3; lines quick to form, offers to all they fit, decided off-screen)",
+        dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
+             sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("seen it done (seen_done; with the haunts)",
+        dict(seen_done=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
@@ -299,7 +311,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
        ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 60),
        ("the K2 and K6 rule fixes, moves near and far and season steps at their shares (move_near, season_excl)",
-        dict(move_near=True, season_excl=True), {}, 30)]
+        dict(move_near=True, season_excl=True), {}, 30),
+       ("what one holds is practice too (role_practice)", dict(role_practice=True), {}, 30),
+       ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
+       ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
+       ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
