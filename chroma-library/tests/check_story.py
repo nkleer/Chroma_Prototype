@@ -160,7 +160,8 @@ def rule(path):
                         ("N",) if p2 == "quiet" else ("Ns", "name", "adj"), "sentence", "narration", 25),
                 "share": ((), (), "phrase", "narration", 25),
                 "book": (("N", "start", "end", "lean"), ("N", "start", "end"), "sentence", "narration", 25),
-                "lean": ((), (), "phrase", "narration", 25)}[k]
+                "lean": ((), (), "phrase", "narration", 25),
+                "own": (("N", "Ns", "voice"), ("Ns",) if tuple(path[2:5]) == ("G", "theirs", 1) else ("N",), "sentence", "narration", 25)}[k]
     if top == "THREAD":
         req = {"mark": ("N",), "title": ("title",), "commitment": ("who",) if path[-1] == "partner" else (),
                "plan": ("N",), "dream": ("N",), "road": ("N", "age"), "person": ("who",)}[k]
@@ -361,7 +362,7 @@ for k, v in LT["glad"].items():
         fail("1 coverage", f"LAST_TALK.glad.{k}: wanted 2 lines (under a third, a third or more)")
 
 need_keys("VOICE", V, ["noun", "name", "none", "quiet", "answer", "memory", "outcome", "trust_turn", "became", "chapter",
-                       "end", "share", "book", "lean"])
+                       "end", "share", "book", "lean", "own"])
 need_keys("VOICE.noun", V["noun"], ["earth", "tribal", "magic"])
 need_keys("VOICE.name", V["name"], SIDES)
 for k in SIDES:
@@ -392,6 +393,7 @@ if not (all(isinstance(a, float) and isinstance(b, str) for a, b in sh) and [a f
     fail("1 coverage", "VOICE.share: wanted (below, words) pairs in rising order, the last above 1")
 need_keys("VOICE.book", V["book"], ["steered", "free"])
 need_keys("VOICE.lean", V["lean"], list(COLORS))
+per_color("VOICE.own", V["own"], ["asked", "ought", "sees", "theirs"], 2)   # S2: two lines, trusted and doubted
 
 need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person"])
 need_keys("THREAD.mark", TH["mark"], MARKS)
