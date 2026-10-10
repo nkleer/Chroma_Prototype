@@ -74,3 +74,17 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
      folded cards; the open or shut state is remembered in this browser.
   9. Needs, + and −: a need's hover lists what lifts it and what pulls it down for this character now (means, titles,
      statuses, family care, acts, the weekly fade).
+- 10-10 (thread "Visual improvement", Emren 10-10 11:24 UTC "visually show big impact events or hard-earned perks/titles in
+  better, professional way"): honours and weight, in look.js and look.css, scaled by rarity and impact from data the page
+  already has. A title fewer than 1 life in 10 ever holds (the Book's rarity) is a gilt plate with a struck seal and its
+  rarity; a long shot made is one too, naming the title it brought. An earned title that is not an everyday one keeps its
+  "A new title" plate; an everyday title (3 lives in 10 or more) and a status they did not earn get none, and a status
+  that is hard to bear (divorced, widowed, out of work) is never celebrated. At the outcome an honour's chip is gilt with
+  its rarity or "hard-won" (a perk an act earned), and its hover says what the rarity means. An outcome that moved one
+  color 5 points or more says "It changed them" with the colors and gets a heavier frame; a rare title gets a gilt one; a
+  very high stakes moment an ember edge. A moment fewer than 1 life in 10 meets says so beside its age. In the story, a
+  loss carries a mourning rule (and a fresh one darkens the stage edge once, full motion), a breakthrough, turn, clash or
+  crisis, or a told moment that moved a color 3 points, an ink roundel, a commitment begun a gilt rule, an earned honour a
+  small seal with its rarity, a rare moment a star. In the panel a new title or perk shines for a few seconds and a rare
+  title keeps a star. Calm keeps them still; off shows them without movement. Perks have no rarity in the Book catalogue
+  yet; giving them one is for v22.4 (game.py `book_catalog` would list them).
