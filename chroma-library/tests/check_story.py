@@ -58,8 +58,8 @@ NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", 
               "WORLD_EVENT", "MOVEMENT_NAMES")
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
-         "hospital places", "university places"]
-CHANNELS = ["money", "freedom", "safety", "job loss risk", "disaster risk", "crime risk", "option", "close person"]
+         "hospital places", "university places", "pandemic"]   # pandemic: WL2 (Engine #62), on the ties channel
+CHANNELS = ["money", "freedom", "safety", "job loss risk", "disaster risk", "crime risk", "option", "close person", "ties"]
 HAZARDS = ["flood", "fire", "quake", "storm", "heat"]
 SIDES = ["people", "themselves", "safety", "freedom", "head", "heart", "make", "already", "will", "meant"]
 
