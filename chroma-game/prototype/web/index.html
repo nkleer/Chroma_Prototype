@@ -250,6 +250,8 @@
   .mk-m, .mk-d, .mk-s, .mk-k, .mk-f, .mk-x, .mk-e, .mk-r, .mk-c, .mk-b, .mk-h, .mk-q, .mk-T, .mk-R, .mk-B, .mk-C {
     color: var(--arcane); text-decoration: underline dotted rgb(179 162 247 / 0.45); text-underline-offset: 4px; }
   .mk-m { color: #d8cdf7; }
+  .mk.chip > .pip { font-size: 0.8em; margin-right: 0.3em; vertical-align: 0.05em; }   /* item 6: the color a reading or news pulled */
+  .yh .gd .vh { display: inline-flex; align-items: center; gap: 3px; } .yh .gd .vh .i { width: 0.95em; height: 0.95em; flex: none; }
   .lead .mk-m { color: inherit; }
   .mk .mk-p { text-decoration: none; }
 
@@ -2042,7 +2044,9 @@ function rich(s) {
     let c = "";
     if (k === "a" || k === "w") c = lettersOf(pl.split(">")[0])[0] || "";
     else if (k === "v") c = pl; else if (k === "t") c = pl.split("|")[0]; else if (k === "o") c = (pl.split("|")[2] || "")[0] || "";
-    out += `<span class="mk mk-${esc(k)}${c && COLORS.includes(c) ? " c-" + c : ""}" data-mk="${esc(k)}" data-pl="${esc(pl)}">`; depth++;
+    // item 6 (the game's lines_tied): a reading, and news that carried a message, show the color they pulled as a chip
+    const chip = (k === "r" && COLORS.includes(pl.split("|")[2])) ? pl.split("|")[2] : (k === "x" && pl.split("|")[2] === "1" && COLORS.includes(pl.split("|")[1])) ? pl.split("|")[1] : "";
+    out += `<span class="mk mk-${esc(k)}${c && COLORS.includes(c) ? " c-" + c : ""}${chip ? " chip" : ""}" data-mk="${esc(k)}" data-pl="${esc(pl)}">${chip ? pip(chip) : ""}`; depth++;
   }
   out += esc(s.slice(last));
   while (depth-- > 0) out += "</span>";
@@ -2177,12 +2181,15 @@ function mkTip(el) {
         `<p>${era ? "An era rewards some ways of living for years. Taking to it pulls their wanting toward its colors; resisting it pushes away." : `The event carried a message${COLORS.includes(pl[1]) ? ` (${CNAME[pl[1]]})` : ""}. Taking it in pulls their wanting that way; pushing back moves them away from it.`}</p>`);
     }
     case "e": return tipBox(`${ic("hourglass")} An era of ${esc(pl[0])}`, it && it.idea ? esc(it.idea) : "", [], "");
-    case "O": return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
+    case "O": if (pl[0] === "memory" && pl[2] === "0") return tipBox(`${ic(pl[1] || "ci-diary")} A memory`, "", [],   // item 6: inside its moment
+        "This moment brought an old one back: the same kind of moment again, or an act that leans the same way. Each old moment comes back in the story once.");
+      return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
       [], hud && hud.world ? "The World panel (key g) has the public record and the history." : "");
     case "T": return tipBox(`${pip(pl[0])} A turning point`, pl[1] === "reinvention" ? "They took the way the voice pushed for, for good." : pl[1] === "snap back" ? "They went back to their own way, for good." : "They took a new way.",
       [["It held", pl[2] === "1" ? "yes" : "no: the old pull came back"]], "The price of being pushed against their own pull built up until it came to a head.");   // 5.6
     case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
-    case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]], "");
+    case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]].concat(
+      COLORS.includes(pl[2]) ? [["Pulls them toward", `${pip(pl[2])} ${CNAME[pl[2]]}`]] : []), COLORS.includes(pl[2]) ? "How they read it pulls their wanting toward its color." : "");
     case "c": {
       const kind = pl[0], ex = lettersOf(pl[1] || ""), t = L && (L.titles || []).find((x) => x.kind === kind);
       const rows = [];
@@ -2446,11 +2453,14 @@ function newYear(it) {
   const cs = labelColors(it.label), fresh = it.guild !== lastGuild, bnew = !!it.becoming && it.becoming !== lastBecoming;
   lastGuild = it.guild; lastBecoming = it.becoming || "";
   const ep = bnew ? it.becoming : fresh ? it.epithet : "";
-  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh || bnew ? `<span>${esc(it.guild)}</span>${ep ? `<span class="ep">${esc(ep)}</span>` : ""}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
+  // item 6 (the game's lines_tied): the voice did most of the new name, said beside it
+  const vh = it.voice_head ? `<span class="ep vh">${ic("voice")}${esc(it.voice_head)}</span>` : "";
+  sec.innerHTML = `<div class="yh"><span class="ag"><small>AGE</small>${it.age}</span>${cs.length ? `<span class="gd">${pips(cs)}${fresh || bnew || vh ? `<span>${esc(it.guild)}</span>${ep ? `<span class="ep">${esc(ep)}</span>` : ""}${vh}` : ""}</span>` : ""}<span class="rule"></span><span class="icons"></span><span class="mood"><b style="height:${(3 + 11 * clamp(it.content)).toFixed(1)}px;background:var(--sat)"></b><b style="height:${(3 + 11 * clamp(it.peace)).toFixed(1)}px;background:var(--peace)"></b></span></div><p class="lead" hidden></p><div class="ents"></div>`;
   const head = sec.firstChild;
   setTip(head, () => tipBox(`Age ${it.age} · ${esc(cap(it.stage))}`, it.guild ? `${pips(cs)} ${esc(it.guild)}${it.becoming || it.epithet ? ", " + esc(it.becoming || it.epithet) : ""}` : "Colors still forming", [],
     bars([["Satisfaction", it.content, "var(--sat)", pct(it.content)], ["Peace", it.peace, "var(--peace)", pct(it.peace)]].concat(
-      COLORS.map((c, i) => [CNAME[c], it.w[i] / 0.6, `var(--c${c})`, pct(it.w[i])]))) + `<p>${sec.classList.contains("closed") ? "Click to open the year." : "Click to fold the year."}</p>`));
+      COLORS.map((c, i) => [CNAME[c], it.w[i] / 0.6, `var(--c${c})`, pct(it.w[i])]))) + (it.voice_head ? `<p>${ic("voice")} The voice's pushes did most of this change: ${esc(it.voice_head)}.</p>` : "") +
+      `<p>${sec.classList.contains("closed") ? "Click to open the year." : "Click to fold the year."}</p>`));
   head.addEventListener("click", () => { sec.classList.toggle("closed"); sec.dataset.user = "1"; hideTip(); });
   sec._ents = sec.querySelector(".ents"); sec._icons = sec.querySelector(".icons"); sec._lead = sec.querySelector(".lead"); sec._seen = new Set();
   feedEl.appendChild(sec); yearEls.set(it.age, sec);

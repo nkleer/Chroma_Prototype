@@ -878,6 +878,9 @@ TOOK = (["It stays with {N}, and leaves them thinking more about {value}.", "Som
          "{N} can't shake it off. It is all about {value}, and it gets under their skin."],
         ["{N} wants none of it.", "{N} pushes back against it.", "{N} sets their face against it.",
          "{N} shrugs it off, a little too firmly.", "It only makes {N} more sure of their own ways."])
+# item 6 (the game's lines_tied): the mark on an outside event that moved them little (|took| .45 or less), so every
+# outside event shows the color it carried
+TOOK_SMALL = dict(up="A little of it stays with {N}.", flat="It barely touches {N}.", down="{N} keeps it at arm's length.")
 
 ERA_KIND = dict(policy="New laws and new leaders arrive.", institutions="The great institutions change their ways.",
                 cosmology="A new way of seeing the world spreads.")
@@ -1681,14 +1684,16 @@ class Story:
                 self.marks[mk] = p
                 return
 
-    def read(self, r, stage):
-        """An outside event read through the character's colors (Earth batch): the scene and how they take it."""
+    def read(self, r, stage, color=""):
+        """An outside event read through the character's colors (Earth batch): the scene and how they take it. color: the
+        color the reading pulls their wanting toward, shown as its chip (the game's lines_tied, item 6)."""
         ev = LIB_READ.get(r["name"])
         scene = self.fill(r["_scene"], phase(r["age"]), dict(_age=r["age"])) if r.get("_scene") else \
             self.fill(self.pick(ev["scenes"], phase(r["age"])), phase(r["age"]), dict(_age=r["age"])) if ev and ev["scenes"] else ""
         say = self.fill(r["say"], phase(r["age"]), dict(_age=r["age"])) if r.get("say") else \
             self.fill("{N} takes it as " + r["reading"] + ".")
-        return (scene + " " + mk("r", f"{r.get('reading', '')}|{float(r.get('impact', 0)):.2f}", say)).strip()
+        return (scene + " " + mk("r", f"{r.get('reading', '')}|{float(r.get('impact', 0)):.2f}" + (f"|{color}" if color else ""),
+                                 say)).strip()
 
     def tally(self, v):
         """An everyday week that was not told still counts toward the year's picture of how the weeks were spent."""
@@ -1735,8 +1740,9 @@ class Story:
         return self.fill("An ordinary week: {N} chooses to {a}.", ctx=dict(a=mk("a", COLORS[k] if 0 <= k < 5 else "", act(ev["choice"]))))
 
     # ---------------------------------------------------------------- the world and the life's turns
-    def outside(self, o, stage, detail):
-        """An outside event, or None when it is not worth telling at this level of detail."""
+    def outside(self, o, stage, detail, tied=False):
+        """An outside event, or None when it is not worth telling at this level of detail. tied (the game's lines_tied, item
+        6): an event that carried a message always shows its color, with a small mark when it moved them little."""
         name = o["name"]; took = o.get("took")
         moved = took is not None and abs(took) > 0.45
         stage = phase(o["age"])
@@ -1765,13 +1771,18 @@ class Story:
             bs = self.W["brushes"]
             ctx["brush"] = bs[int(self.rng.integers(len(bs)))]; ctx["brush_cap"] = cap(ctx["brush"])
         line = self.fill(self.pick(OUTSIDE.get(name, [("", name + ".")]), stage), stage, ctx)
+        chip = "|1" if tied else ""                     # item 6: the page shows the color as a chip
         if moved and o.get("message"):
             v = np.asarray(o["message"], float)
             c = COLORS[int(np.argmax(v))]
             if took > 0:
-                line += " " + mk("x", f"{took:+.2f}|{c}", self.fill(self.pick(TOOK[0]), ctx=dict(value=(VALUE, VALUE2)[int(self.rng.integers(2))][c])))
+                line += " " + mk("x", f"{took:+.2f}|{c}{chip}", self.fill(self.pick(TOOK[0]), ctx=dict(value=(VALUE, VALUE2)[int(self.rng.integers(2))][c])))
             else:
-                line += " " + mk("x", f"{took:+.2f}|{c}", self.fill(self.pick(TOOK[1])))
+                line += " " + mk("x", f"{took:+.2f}|{c}{chip}", self.fill(self.pick(TOOK[1])))
+        elif tied and took is not None and o.get("message"):
+            c = COLORS[int(np.argmax(np.asarray(o["message"], float)))]
+            say = TOOK_SMALL["up" if took > 0.15 else "down" if took < -0.15 else "flat"]
+            line += " " + mk("x", f"{took:+.2f}|{c}{chip}", self.fill(say))
         return line
 
     def era(self, e):
@@ -2150,13 +2161,18 @@ class Story:
         return "\n".join(L)
 
     # ---------------------------------------------------------------- the yearly chapter
-    def chapter(self, age, stage, w, content, peace, ident=""):
-        """The head of a new year: how life feels, what drives them, and where the ordinary weeks went."""
+    def chapter(self, age, stage, w, content, peace, ident="", times=None):
+        """The head of a new year: how life feels, what drives them, and where the ordinary weeks went. times: (marker
+        payload, clause), how the times touched them as one clause of the mood's sentence (the game's lines_tied, item 6)."""
         w = np.asarray(w, float)
         stage = phase(age)
         band = ("h" if content >= 0.62 else "l" if content <= 0.30 else "m") + ("h" if peace >= 0.67 else "l" if peace <= 0.47 else "m")
         band = band if band in MOOD else "mm"
         L = [mk("m", f"{content:.2f}|{peace:.2f}", self.fill(self.pick(MOOD[band], stage), stage))]
+        if times:                                    # item 6: "...; lean times: prices outran their money."
+            mood = L[0][:-len("⟦/⟧")]
+            L[0] = (mood[:-1] + "⟦/⟧; " + mk("X", times[0], times[1]) + "." if mood.endswith(".") else
+                    L[0] + " " + mk("X", times[0], cap(times[1])) + ".")
         if self._last_c is not None and abs(content - self._last_c) > 0.15 and band != "mm":
             L.append(mk("d", f"{content - self._last_c:+.2f}", "Better than last year." if content > self._last_c else "Worse than last year."))
         self._last_c = content

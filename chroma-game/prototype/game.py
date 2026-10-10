@@ -92,6 +92,13 @@ GAME = dict(
     # judge_b x reluctance) x (1 - trust) when it worked, - the same x (1 + trust) when it failed (voice-mechanics.md's
     # .02 + .08 x reluctance, doubled for trust's -1 to 1 scale). Accepted and resented pushes keep their own steps.
     trust_judge=False, judge_a=0.04, judge_b=0.16,
+    # clarity item 6, "every line has a cause" (findings.md §1 and §3; Emren 10-10 10:25 UTC "apply all of them"; v22.4,
+    # off until its refit): no story-only lines between moments. A memory is told inside the moment that brought it back
+    # (Library RECALL_IN), or not at all; the times are one clause in the year's lead (YEAR_LEAD); a new name the voice did
+    # most of is said on the year header (VOICE became_head); the temperament line names the told event whose week moved
+    # it most (TEMPER_CAUSE); readings and outside events always show the color they pulled. Words only: the life is the
+    # same either way. Each part keeps today's line while the pinned earth_story.py lacks its words
+    lines_tied=False,
     # item 4, pivotal picks (implementation list; chroma-ideas/gameplay-feel.md §5; Emren 2026-10-08 22:58, 23:18): every
     # moment put to the player is a turning point. Its pick teaches more the further it is from who they are; a success
     # teaches toward the picked ways and they lead the character's own acts for a season (F2); a failure can backfire
@@ -151,7 +158,7 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -624,6 +631,11 @@ class Game:
         self._vlast = {}                # color -> the last push mostly in that color (worked, the moment's name)
         self._w_start = None            # their colors when the player came in (what life and the voice moved since)
         self._name_mark = None          # colors and the voice's change when the name last changed (for "became")
+        # item 6 (GAME lines_tied): the memory this week's moment brought back, waiting for that moment's line; the new name
+        # and its phrase for the next year header; this week's told event, temperament at the end of last week, and the
+        # told events since temperament was last told (its move that week, the event's name)
+        self._recall_now = None; self._became_head = None
+        self._week_ev = None; self._temper_prev = None; self._temper_evs = []
         self.history["times"] = []      # WL5 (item 11): what the times did to them, by age (the World panel)
         self.history["steers"] = []     # P3: each push or lean, with the era's fit, for the World panel's timeline
         self._wyear = {}                # WL4: this year's world effects told, (kind, channel, dir) -> size in "big" units
@@ -1369,7 +1381,8 @@ class Game:
 
     def _times_year(self):
         """WL4: the year's one line on how the times touched them: close (a disaster, war, their town or a close person),
-        else mixed (the two largest point opposite ways), else by the largest; what, from the two largest."""
+        else mixed (the two largest point opposite ways), else by the largest; what, from the two largest. With item 6 on
+        (GAME lines_tied) it is not said: it returns (marker payload, clause) for the year's lead (story.chapter)."""
         y, self._wyear = self._wyear, {}
         if ES is None or not y or self.burn_in or sum(y.values()) < 1.0:
             return                                       # a year the times really touched them: one big change or a few small
@@ -1392,6 +1405,10 @@ class Game:
         last = getattr(self, "_wyear_said", (None, -99))
         if whats and tone in ES.YEAR and not (last[0] == (tone, tuple(whats)) and self.t - last[1] < 3 * 52):
             self._wyear_said = ((tone, tuple(whats)), int(self.t))
+            lead = getattr(ES, "YEAR_LEAD", None) if GAME["lines_tied"] else None
+            if lead and tone in lead:                    # item 6: one clause in the year's lead, its hover the largest
+                (k, ch, d), _ = items[0]
+                return f"{WFX_KIND_LIB.get(k, k)}|{ch}|{d}|year|", lead[tone].replace("{what}", " and ".join(whats))
             self._say(self.story.fill(ES.YEAR[tone].replace("{what}", " and ".join(whats))), 0, "world_year", tone=tone)
 
     def _disaster_read(self, r):
@@ -1406,6 +1423,17 @@ class Game:
         if not d or c not in d:
             return r
         return dict(r, _scene=d.get("scene", ""), reading=d[c][0], say=d[c][1])
+
+    def _read_color(self, r):
+        """Item 6: the color a reading pulls their wanting toward (the engine takes in its want, engine.py's read events),
+        from the batch's outside events by name and reading; "" when the library has none."""
+        M = self.__dict__.setdefault("_read_want", {})
+        if not M:
+            for e in self.L.get("EVR") or []:
+                for lab, w_ in zip(e["labels"], e["want"]):
+                    M.setdefault((e["name"], lab), COLORS[int(w_)])
+            M.setdefault(None, "")
+        return M.get((r.get("name"), r.get("reading", "")), "")
 
     def _option_cause(self, cs):
         """WL3: the world's biggest reason an option is closed, harder or easier (engine option_causes), as the Library's
@@ -1565,6 +1593,10 @@ class Game:
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
         tr = self._voice_trust(d) if pushed else 0.0
         key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
+        head = ES.VOICE.get("became_head") if GAME["lines_tied"] else None
+        if head:                                         # item 6: said beside the new name on the next year header
+            self._became_head = (lbl, head[key])
+            return
         self._vline(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), became=lbl, share=round(share, 2))
 
     def _voice_chapter(self, age):
@@ -2121,9 +2153,12 @@ class Game:
     def _recall(self, t, sev):
         """Engine v10's memory (E1, interpretation-memory.md): an act that hit hard can come back when the same moment
         returns or an act leans the same way, about 2.7 times a year. The story tells one now and then: no two within
-        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong."""
+        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong.
+        With item 6 on (GAME lines_tied) it waits for this week's moment and is told inside its line (_recall_in)."""
+        self._recall_now = None
         if t - self._recall_t < 52 * RECALL_GAP:
             return
+        tied = GAME["lines_tied"] and getattr(ES, "RECALL_IN", None)
         for ev in sev:
             rc = ev.get("recall")
             if not rc:
@@ -2131,15 +2166,57 @@ class Game:
             key = (rc.get("age"), rc.get("choice"))
             if key in self._recalled or (not rc.get("scar") and float(rc.get("strength", 0)) < RECALL_MIN):
                 continue
-            self._recall_t = t; self._recalled.add(key)
             a = int(rc.get("age", 0)); what = act(str(rc.get("choice", "")))
             when = "as a child" if a < 12 else f"at {a}"
             kind = "scar" if rc.get("scar") else "good" if rc.get("success") else "bad"
+            if tied:
+                self._recall_now = dict(key=key, a=a, what=what, when=when, kind=kind)
+                return
+            self._recall_t = t; self._recalled.add(key)
             pool = RECALL_LINES[kind]
             line = pool[(int(t) * 7 + a) % len(pool)].format(when=when, When=when[:1].upper() + when[1:], what=what)
             icon = "ci-heartbreak" if kind == "scar" else "ci-diary"
             self._say(mk("O", f"memory|{icon}|1", self.story.fill(line)), 0 if not self.burn_in else 1, "memory", icon=icon)
             return
+
+    def _recall_in(self, t, line, lvl):
+        """Item 6: the memory this week's moment brought back, as one more sentence of that moment's line (Library
+        RECALL_IN) when the line is told at this level of detail. Only a told memory counts for the gap and the once-each
+        rule, so one that came with an untold week can come back with a told one."""
+        rc = self._recall_now
+        if rc is None or not line or lvl > self.detail:
+            return line
+        self._recall_now = None
+        self._recall_t = t; self._recalled.add(rc["key"])
+        pool = ES.RECALL_IN[rc["kind"]]
+        cl = pool[(int(t) * 7 + rc["a"]) % len(pool)].replace("{when}", rc["when"]).replace("{what}", rc["what"])
+        icon = "ci-heartbreak" if rc["kind"] == "scar" else "ci-diary"
+        return line + " " + mk("O", f"memory|{icon}|0", self.story.fill(cap_first(cl) + "."))
+
+    def _tied_ev(self, name, lvl):
+        """Item 6: this week's first told event, by name, for the temperament line (_temper_week)."""
+        if GAME["lines_tied"] and name and lvl <= self.detail and self._week_ev is None:
+            self._week_ev = name
+
+    def _ev_name(self, ev):
+        """Item 6: a death or a commitment's change as a noun phrase for TEMPER_CAUSE ("losing a parent", "the breakup")."""
+        if "death" in ev:
+            r = ev["death"]["role"]
+            return "losing their partner" if r == "partner" else "losing " + an(r)
+        if "commitment" in ev:
+            c = ev["commitment"]
+            return (TIED_COMMIT.get(c["what"]) or {}).get(c["kind"]) or TIED_COMMIT_ANY.get(c["what"], "").replace("{kind}", c["kind"])
+        return None
+
+    def _temper_week(self, loc):
+        """Item 6: how far temperament moved this week, kept with the week's told event, if any."""
+        ev, self._week_ev = self._week_ev, None
+        if "react" not in loc:
+            return
+        now = np.array([float(loc[k][0]) for k, *_ in self.TEMPER])
+        prev, self._temper_prev = self._temper_prev, now
+        if ev is not None and prev is not None:
+            self._temper_evs.append((now - prev, ev))
 
     def _family_faith(self, loc):
         """The engine gives an inherited faith a random profile; a chosen family faith replaces it."""
@@ -2213,6 +2290,8 @@ class Game:
                     f = self._force or {}
                     line = self.story.outcome(m, ev, L["labels"][s][cpw["choice"]], pushed, f.get("rel", 0.0) if pushed else 0.0,
                                               bool(f.get("closed")) if pushed else False, o["colors"])
+                    line = self._recall_in(t, line, 0)              # item 6: the memory it brought back, inside it
+                    self._tied_ev("“" + cpw["cp"]["title"] + "”", 0)
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
                         line += "\n" + self.story.rebound(bool(ev["success"]), float(loc["span"][0])); rb = bool(ev["success"])
@@ -2240,24 +2319,24 @@ class Game:
                     if self.ledger:
                         self._say(self._outcome_line(ev, cpw, loc), 0, "ledger")
                 elif s == self.ORD:
-                    line = self.story.ordinary(ev, L["labels"][s].index(ev["choice"]))
+                    line = self._recall_in(t, self.story.ordinary(ev, L["labels"][s].index(ev["choice"])), 2)
                     self._say(line, 2, "ordinary", colors=self._colors(loc, int(loc["a"][0])))
                 elif sit in ("bereavement", "crisis or disaster") or kills:
-                    col = self._colors(loc, int(loc["a"][0]))
-                    self._say(self.story.told_moment(m, ev, col), 0, "loss" if (kills or sit == "bereavement") else "crisis",
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 0)
+                    self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 0), 0, "loss" if (kills or sit == "bereavement") else "crisis",
                               sit=sit, ok=bool(ev["success"]), colors=col, delta=round(float(ev.get("delta", 0.0)), 2),
                               gate=ev.get("gate", ""), **moved)
                     if self.ledger:
                         self._say(self._choice_line(ev), 0, "ledger")
                 elif self.detail >= 2:
-                    col = self._colors(loc, int(loc["a"][0]))
-                    self._say(self.story.told_moment(m, ev, col), 2, "moment", sit=sit, ok=bool(ev["success"]),
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 2)
+                    self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 2), 2, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                 elif (float(loc["L"]["STAKES"][s]) >= 1.0 and t - self._last_line.get(s, -10 ** 6) >= TOLD_GAP.get(sit, 104)
                       and not self.burn_in):
                     self._last_line[s] = t
-                    col = self._colors(loc, int(loc["a"][0]))
-                    self._say(self.story.told_moment(m, ev, col), 1, "moment", sit=sit, ok=bool(ev["success"]),
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 1)
+                    self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 1), 1, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                     if self.ledger:
                         self._say(self._choice_line(ev), 1, "ledger")
@@ -2267,7 +2346,7 @@ class Game:
                 line = None; tag = "note"; meta = {}
                 if "outside" in ev:
                     o = ev["outside"]
-                    line = self.story.outside(o, stage, 0 if self.burn_in else self.detail)   # the past is told briefly
+                    line = self.story.outside(o, stage, 0 if self.burn_in else self.detail, GAME["lines_tied"])   # the past is told briefly
                     tag = "move" if o["name"] == "moving somewhere new" else "outside"
                     meta = dict(source=o.get("source", ""), sit=o["name"],
                                 took=round(float(o["took"]), 2) if o.get("took") is not None else None,
@@ -2372,11 +2451,14 @@ class Game:
                                                        and t - self._read_told.get(r["name"], -10 ** 6) >= 5 * 52) else 2
                     if lvl <= self.detail:
                         self._last_read = t; self._read_told[r["name"]] = t
+                        c_ = self._read_color(r) if GAME["lines_tied"] else ""   # item 6: the color it pulls toward
                         r = self._disaster_read(r)      # WL6: the disaster that happened, not always a flood
-                        self._say(self.story.read(r, stage), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
-                                  impact=round(float(r.get("impact", 0.0)), 2))
+                        self._say(self.story.read(r, stage, c_), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
+                                  impact=round(float(r.get("impact", 0.0)), 2), **({"color": c_} if c_ else {}))
                 if line:
                     self._say(line, 0, tag, **meta)
+                    if GAME["lines_tied"] and tag in ("death", "commitment"):
+                        self._tied_ev(self._ev_name(ev), 0)
                     if self.ledger:
                         old = self._event_line(ev)
                         if old:
@@ -2387,6 +2469,8 @@ class Game:
         if self.batch and "alive" in loc and loc["alive"].shape[1] > 5 and self.story.alive("child"):   # R15: a later child is one more in the family
             for _ in range(int(loc["alive"][0, 5]) - len(self.story.alive("child"))):
                 self._say(self.story.later_child(), 0 if not self.burn_in else 1, "kin")
+        if GAME["lines_tied"]:
+            self._temper_week(loc)
         self._force = None
 
     def _choice_line(self, ev):
@@ -2478,18 +2562,26 @@ class Game:
         ident = (ident_name(vl) + (f", {self._becoming or self._epithet}" if self._becoming or self._epithet else "")) if vl else ""
         self._voice_label = vl
         self.history["name"].append((t / 52, vl, self._becoming))
+        # item 6 (GAME lines_tied): the times as a clause of the year's lead, and a new name the voice did most of on its header
+        tied_times = GAME["lines_tied"] and getattr(ES, "YEAR_LEAD", None)
+        times = self._times_year() if tied_times else None
+        bh, self._became_head = self._became_head, None
+        vh = bh[1] if bh is not None and vl and bh[0] == vl else ""
         self._say("", 0)
-        head, _, body = self.story.chapter(t / 52, int(loc["stage"][0]), w, c, p, ident).partition("\n")
+        head, _, body = self.story.chapter(t / 52, int(loc["stage"][0]), w, c, p, ident + (f" · {vh}" if vh else ""),
+                                           times).partition("\n")
         self.log.append(head)
         self.feed.append(dict(tag="chapter", text="", age=int(round(t / 52)), stage=STAGES[int(loc["stage"][0])].replace("_", " "),
                               label=vl, guild=ident_name(vl) if vl else "", epithet=self._epithet if vl else "",
                               becoming=self._becoming if vl else "",
                               w=[round(float(x), 3) for x in w], content=round(c, 2), peace=round(p, 2),
-                              voice=[round(float(x), 3) for x in self.story.voice], weeks=self.story.last_weeks))
+                              voice=[round(float(x), 3) for x in self.story.voice], weeks=self.story.last_weeks,
+                              **({"voice_head": vh} if vh else {})))
         if body:
             self._say(body, 0, "year")
         self._voice_chapter(t / 52)
-        self._times_year()                          # WL4: one line on how the times touched them this year
+        if not tied_times:
+            self._times_year()                      # WL4: one line on how the times touched them this year
         self._year_notes(t, loc)
         if self.batch and "alive" in loc and loc.get("WL") is None:   # grandparents of grown-up grandchildren die outside
             # the Library's moments (with the outer world on, _kin_sync says it once the engine's record is overdue)
@@ -2566,15 +2658,31 @@ class Game:
             return
         now = {k: float(loc[k][0]) for k, *_ in self.TEMPER}
         if self._temper_told is None:
-            self._temper_told = now
+            self._temper_told = now; self._temper_evs = []
             return
-        moved = []; keys = []
-        for k, step, up, down in self.TEMPER:
+        moved = []; keys = []; sg = np.zeros(len(self.TEMPER))
+        for i, (k, step, up, down) in enumerate(self.TEMPER):
             d = now[k] - self._temper_told[k]
             if abs(d) >= step:
                 moved.append(up if d > 0 else down); keys.append(f"{k}{d:+.2f}"); self._temper_told[k] = now[k]
+                sg[i] = np.sign(d) / step
         if moved:
-            self._say(self.story.temperament(moved, keys), 0, "temper", temper={k: round(v, 2) for k, v in now.items()})
+            line = self._temper_cause(moved, keys, sg) if GAME["lines_tied"] else None
+            self._say(line or self.story.temperament(moved, keys), 0, "temper", temper={k: round(v, 2) for k, v in now.items()})
+
+    def _temper_cause(self, moved, keys, sg):
+        """Item 6: the temperament line naming the told event of the stretch whose week moved it most the way it went
+        (Library TEMPER_CAUSE), or None (today's line) when no told event moved it that way."""
+        evs, self._temper_evs = self._temper_evs, []
+        T = getattr(ES, "TEMPER_CAUSE", None)
+        if not T or not evs:
+            return None
+        sc = [float(d @ sg) for d, _ in evs]
+        j = int(np.argmax(sc))
+        if sc[j] <= 0:
+            return None
+        return self.story.fill(self.story.pick(T).replace("{event}", evs[j][1]),
+                               ctx=dict(m=mk("T", ",".join(keys), ", and ".join(moved))))
 
     # ------------------------------------------------------------------ status
     def status(self):
@@ -3340,6 +3448,14 @@ RECALL_LINES = dict(
          "{{N}} has been here before: {when}, they chose to {what}, and it went wrong."])
 RECALL_GAP = 3           # years between two told memories (scars apart); the engine recalls about 2.7 a year
 RECALL_MIN = 0.9         # how strong a memory must come back to be told (the engine's floor is epi_recall .7)
+# item 6: a commitment's change as the event the temperament line names (TEMPER_CAUSE {event}), by what and kind, else by
+# what alone ({kind} filled); "inherited" names nothing
+TIED_COMMIT = dict(start=dict(partner="settling down with someone", career="starting out in their work",
+                              community="joining their community", faith="taking up their faith", children="becoming a parent"),
+                   left=dict(partner="the breakup", career="walking away from their work",
+                             community="leaving their community", faith="leaving their faith"))
+TIED_COMMIT_ANY = {"left": "walking away from their {kind}", "lost job": "losing their job", "retired": "retiring",
+                   "widowed": "losing their partner"}
 WORLD_ON = True          # the engine's outer world in Earth lives, where the pin has it (False: the world of v21)
 # the engine's own names for the identity values in the week's state, where they differ from for-the-engine.md §6:
 # key -> (local name, column or None)
