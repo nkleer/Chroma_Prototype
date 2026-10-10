@@ -1,6 +1,6 @@
 # Chroma library, modern Earth: THE ODD ONE OUT (S4, v22.3, cast_want: odd).
 # The character's own ways are rare at a place (under about one in seven). No who: line; the Engine fires these at the
-# place's sphere with no tie. 16 moments, 8 pairs over 8 spheres. Slot {place}.
+# place's sphere with no tie. 18 moments: 8 pairs over 8 spheres, and one place-neutral pair (no sphere:). Slot {place}.
 # Every option carries odd: blend | hold | leave. Per way, its one-letter option plus its cross = 140.
 # Spec chroma-ideas/social-mechanics.md S4.
 
@@ -642,3 +642,80 @@ works: A few months on, {boss} asks {N} to show the newer ones how {N} does it.
 works: One of the families at {place} tells {N}, quietly, that {Ns} way is the reason their mother has settled there.
 fails: Word of the quiet word gets round, and for a while {N} is the one people talk about in the break room.
 fails: {N} misses a step in the routine in front of the whole shift, and it is the only thing anyone remembers that week.
+
+# ---------------------------------------------------------------- pair 9: any place, newcomer (place-neutral)
+# For a place whose sphere has no pair above (rule) and for settings with no sphere of their own (a crew of friends,
+# an online group, the street). No sphere: line and no word that names a kind of place: {place} carries it.
+#   9a UG (s1) / 9b WBR (s3)
+
+== the place's ways, and yours
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: UG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, friend
+ladder: newcomer
+cast_want: odd
+earth: you are the odd one out at a place you go: a year in, your ways still stand out, and people have started to say so
+times: Someone whose kind makes up less than about one in seven of a group is watched more closely and pressed harder to fit in (tokens: Kanter 1977)
+gap: 3-8
+scene: A year on at {place}, {N} still goes about things differently from everyone else there. People are friendly enough, but the jokes have started, and this week someone asked, half laughing, whether {N} ever means to fit in. The question hangs in the air longer than the laugh.
+scene W: {N} feels the pull of belonging properly, with everyone keeping to the same ways. {N} also feels the pull of what {N} was taught is right.
+scene U: {N} wants to know why things are done this way here before deciding whether {Ns} own way is any better.
+scene B: Standing out has a price. {N} works out what fitting in would buy, and what it would cost.
+scene R: The joke stung more than {N} let on. Pretending to be someone else would sting more.
+scene G: {Ns} ways came from home and from the people who raised {N}. They are not habits to drop for strangers.
+- W | learn how things are done here, and do them that way, properly | odd: blend | v: conformity, security | chance: 80
+- U | keep your own way, and explain it plainly to anyone who asks | odd: hold | v: self-direction | act: keep their own way, and explain it plainly to anyone who asks | chance: 60
+- B | fit in for now, and save your own way for when it counts | odd: blend | v: power, security | act: fit in for now, and save their own way for when it counts | chance: 75
+- R | laugh along at yourself, then carry on exactly as you were | odd: hold | v: stimulation, self-direction | act: laugh along at themselves, then carry on exactly as they were | chance: 55
+- G | go back to the people you came from, where your ways are ordinary | odd: leave | v: tradition, security | act: go back to the people they came from, where their ways are ordinary | chance: 72
+- W>U | ask openly why things are done this way, and offer your way fairly beside it | odd: hold | v: universalism, self-direction | act: ask openly why things are done this way, and offer their way fairly beside it | chance: 60
+- U>B | find out where your way would be valued, and take it there | odd: leave | v: achievement, self-direction | act: find out where their way would be valued, and take it there | chance: 80
+- B>R | keep your way, and let the jokes bounce off you | odd: hold | v: power, stimulation | act: keep their way, and let the jokes bounce off them | chance: 65
+- R>G | leave {place} for somewhere with people of your own kind | odd: leave | v: tradition, stimulation | act: leave {place} for somewhere with people of their own kind | chance: 85
+- G>W | take it slowly, and grow into the ways here one season at a time | odd: blend | v: conformity, tradition | mark: made a friend | chance: 68
+works: Before long the jokes turn fond, and the regulars at {place} start saving {N} a seat.
+works: Someone else at {place} who never quite fit in either seeks {N} out, and a friendship begins.
+fails: The jokes stop, but so do the invitations, and {N} drifts to the edge of {place}.
+fails: {N} tries too hard, gets it wrong in front of everyone, and the story goes round {place} for weeks.
+
+== asked to do it the way it is done here
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-85
+calls: WBR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, keeper, friend
+ladder: newcomer
+cast_want: odd
+earth: you are the odd one out at a place you go: someone there asks you, kindly but plainly, to do things the way they are done here
+times: Standing in a group buys room to differ, up to a point, before the one who differs is asked to fall in line (idiosyncrasy credit: Hollander 1958)
+gap: 3-8
+scene: {N} has been part of {place} long enough to know everyone, and long enough for everyone to know that {N} does things differently. Today one of the regulars takes {N} aside. There have been remarks, she says, and it would be easier for everyone if {N} did things the way they are done here. She is not unkind about it. She would just like an answer.
+scene W: {N} believes a group holds together on shared ways, and also that {Ns} own way is the fairer one.
+scene U: {N} would change gladly if someone could say why. So far nobody has.
+scene B: {N} weighs it coolly: a good name here is worth something, and so is being the one who does it differently.
+scene R: {N} feels the heat rise. Being managed like this makes {N} want to walk out.
+scene G: {N} thinks of the people back home who did it this way for years, and were loved for it.
+- W | keep to the way you were taught, and say plainly why it matters to you | odd: hold | v: tradition, conformity | act: keep to the way they were taught, and say plainly why it matters to them | chance: 62
+- U | watch the regulars for a month, then take on the parts that make sense | odd: blend | v: self-direction, conformity | chance: 70
+- B | do it their way where it is seen, and your way where it is not | odd: blend | v: power, security | act: do it their way where it is seen, and their own way where it is not | chance: 72
+- R | tell her, cheerfully, that this is just how you are | odd: hold | v: self-direction, stimulation | act: tell her, cheerfully, that this is just how they are | chance: 50
+- G | stay, and let time make you one of them | odd: blend | v: tradition, conformity | act: stay, and let time make them one of the regulars | chance: 65
+- W>R | give fair notice, and go where your way is welcome | odd: leave | v: universalism, self-direction | act: give fair notice, and go where their way is welcome | chance: 78
+- U>G | keep your way, and quietly show what it is good for | odd: hold | v: self-direction, tradition | act: keep their way, and quietly show what it is good for | chance: 70
+- B>W | take the job nobody else at {place} wants, until your way is part of it | odd: hold | v: power, benevolence | act: take the job nobody else at {place} wants, until their way is part of it | chance: 68
+- R>U | walk away and try somewhere new, to see where you fit | odd: leave | v: stimulation, self-direction | act: walk away and try somewhere new, to see where they fit | chance: 90
+- G>B | go back to your own people, and take what you learned here with you | odd: leave | v: tradition, security | act: go back to their own people, and take what they learned here with them | chance: 75
+works: Months later, the regular who spoke up asks {N} to show a newcomer how {N} does it.
+works: A few people at {place} start doing things {Ns} way, quietly at first.
+fails: Word of the talk gets round, and for a while {N} is the one everyone at {place} discusses.
+fails: The next time {N} does it differently, nobody says a word, and nobody needs to.
