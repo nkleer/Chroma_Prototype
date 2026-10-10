@@ -35,14 +35,15 @@ for f in glob.glob(G + "engine_pin/**/*.py", recursive=True):   # engine_pin/*.p
     os.makedirs(os.path.dirname(d), exist_ok=True); shutil.copy(f, d)
 head = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0}</style></head><body>'
 open(W + "page.html", "w", encoding="utf-8").write(head + s + "</body></html>")
-# the pictures the page names (pictures.json: scenes, domains, tiers, tarot, the unwritten fabric), copied next to the page
+# the pictures the page names (pictures.json: scenes, domains, tiers, tarot, the unwritten fabric, the portrait cards of the
+# ink look), copied next to the page
 def _urls(x):
     if isinstance(x, dict): return [u for v in x.values() for u in _urls(v)]
     if isinstance(x, list): return [u for v in x for u in _urls(v)]
     return [x] if isinstance(x, str) and x.endswith(".webp") else []
 pj = json.load(open(os.path.join(ART, "pictures.json"), encoding="utf-8"))
 got = 0
-for u in sorted(set(_urls({k: pj.get(k) for k in ("situation", "domain", "tier", "tarot", "texture")}))):
+for u in sorted(set(_urls({k: pj.get(k) for k in ("situation", "domain", "tier", "tarot", "texture", "portrait")}))):
     src_, dst_ = os.path.join(ART, u), W + u
     if os.path.exists(src_) and not (os.path.exists(dst_) and filecmp.cmp(src_, dst_, shallow=False)):
         os.makedirs(os.path.dirname(dst_), exist_ok=True); shutil.copy(src_, dst_); got += 1

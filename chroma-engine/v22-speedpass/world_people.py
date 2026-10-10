@@ -110,7 +110,7 @@ PP_DEFAULT = dict(
     soc_set=0.75,         # ... and (sociability / its geometric mean)^soc_set on the contact in shared settings
                          # (like the engine's turn_spread; gives the share of adults with no close friend)
     alloc_pow=2.5,       # deliberate contact goes to the closest first (x closeness^pow): the layers emerge from it
-    dist_far=0.3,        # share of a deliberate contact that reaches someone in another locality without remote tools;
+    dist_far=0.4,        # share of a deliberate contact that reaches someone in another locality without remote tools;
                          # W.comm (phones, video calls) adds up to 0.5 (spec 3 §2.6, spec 5)
     cap_like=0.5,        # ease: closeness's ceiling is 1 - cap_like x (1 - likeness); alike people keep ties for less
     mingle=(0.35, 1.3),  # within a setting people seek out the alike: attention a + b x likeness^2 ...
@@ -234,6 +234,7 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                far_hard=((0.10, 0.10), (-0.10, -0.10), "helped someone in need", "refused someone in need"),
                far_good=((0.05, 0.05), (-0.05, -0.05), None, None),
                far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None))
+FAIR_PART_NAMES = ["rules", "reasons", "due", "respect", "goodwill"]   # S1: the parts of fairness, W U B R G (Library)
 FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
 # far_ties (item 18, chroma-ideas/far-off-events.md): start values, estimates refit in v22.3's one refit. hard, good: the
 # sides' shares x these; call_*: the chance a touched tie among the ~15 closest, living in another town, calls; take:
@@ -437,6 +438,9 @@ class People:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
             self._p4_yr = -1
+        self.fr_read = bool(wp_.get("fair_read", False)) and self.sph_fr
+        if self.fr_read:   # S1: fairness read five ways (the town events already fired are not read)
+            self._fr_i = len(getattr(W, "sph_ev_log", ()))
 
     # ------------------------------------------------------------------ the world, read through world-build.md's names
     def _world_static(self):
@@ -1636,6 +1640,23 @@ class People:
         out = [dict(self.W.place_info(int(p_)), setting=bool(p_ in self.shnt[n])) for p_ in self.hnt[n] if p_ >= 0]
         return dict(haunts=out, rungs={s_: LADDER[int(self.rung[n, j_])] for j_, s_ in enumerate(SPHERES)})
 
+    def around(self):
+        """S2 (read only, for the game's "making it their own"): the colour shares of what surrounds each life (N x C,
+        each row summing to 1): half the faces of their haunts (best first, weighted 3, 2, 1, as World.place_info gives
+        them), half their close circle's colours (the steady current's close part); without haunts, the circle alone."""
+        cl = np.asarray(self.cur_parts[0], float) if getattr(self, "cur_parts", None) is not None else np.full((self.N, C), 1.0 / C)
+        hp = getattr(self.W, "hp_s", None)
+        if not self.sph_h or hp is None:
+            return _norm(cl)
+        hf = np.zeros((self.N, C)); hw = np.zeros(self.N); ip = np.argsort(self.W.perm)
+        for k_, wk_ in enumerate((3.0, 2.0, 1.0)[:self.hnt.shape[1]]):
+            on = self.hnt[:, k_] >= 0
+            if on.any():
+                l_, h_, i_ = np.unravel_index(self.hnt[on, k_], hp.shape[:3])
+                hf[on] += wk_ * np.asarray(hp[l_, h_, i_], float)[:, ip]; hw[on] += wk_
+        hf = np.where(hw[:, None] > 0, hf / np.maximum(hw, 1e-9)[:, None], cl)
+        return _norm(0.5 * _norm(hf) + 0.5 * cl)
+
     def _outputs_settings(self):
         """Cached monthly: the settings' part of the niche, of belonging and of the community driver."""
         act = self.skind >= 0; g = np.maximum(self.skind, 0); a = self._age()
@@ -1703,6 +1724,8 @@ class People:
                 self.move(int(n_), t=t)
         if self.far_on:
             self._far_week(t)
+        if getattr(self, "fr_read", False):
+            self._fair_week(t)
         self._wants_week(t)
         self._outputs(t)
 
@@ -3079,8 +3102,54 @@ class People:
             for _, n_, j_, v_ in self.fair_log:
                 acts[n_, j_] += v_
             rg = np.floor(self.rung) if hasattr(self, "rung") else 0.0
-            tgt = _uclip(W.sph_fair_target()[self.loc] + 0.1 * acts + 0.05 * rg, 0, 1)
+            if getattr(self, "fr_read", False):   # S1: each part of fairness read at the weight the life's colours give it
+                base = 0.5 + np.einsum("nc,njc->nj", self._fair_w(), W.sph_fair_parts()[self.loc])
+            else:
+                base = W.sph_fair_target()[self.loc]
+            tgt = _uclip(base + 0.1 * acts + 0.05 * rg, 0, 1)
             self.fair = np.where(live[:, None], self.fair + 0.1 * (tgt - self.fair), self.fair)
+
+    def _fair_w(self):
+        """S1 (fair_read): how much each life looks for each part of fairness (N x 5, W U B R G): its colours squared,
+        shared to 1, so an even life weighs each part .2 and a strong colour's part leads."""
+        c2 = np.asarray(self.w, float) ** 2
+        return c2 / np.maximum(c2.sum(1, keepdims=True), 1e-12)
+
+    def fair_info(self, n):
+        """S1 (fair_read; read only, for the hover): per sphere, the life's felt fairness and the part of fairness that
+        weighs on it most (the Library's names: rules, reasons, due, respect, goodwill; None when no part reads under
+        .5), with each part's weighted step."""
+        if not getattr(self, "fr_read", False):
+            return {}
+        W = self.W; R = W.sph_fair_parts()[self.loc[n]]; w = self._fair_w()[n]
+        out = {}
+        for j, sp in enumerate(SPHERES):
+            x = w * R[j]; k = int(np.argmin(x))
+            out[sp] = dict(fair=round(float(self.fair[n, j]), 3), weakest=FAIR_PART_NAMES[k] if x[k] < 0 else None,
+                           parts={FAIR_PART_NAMES[c]: round(float(x[c]), 4) for c in range(5)})
+        return out
+
+    def _fair_week(self, t):
+        """S1 (fair_read): each tagged sphere event fired since last week (World.fair_tags) moves felt fairness in the
+        sphere it touches, for the lives of its town (the whole society's: everyone), by .05 x the weight of its parts
+        (their mean), up on its fair side and down on its unfair one."""
+        log = getattr(self.W, "sph_ev_log", None)
+        if log is None or len(log) <= self._fr_i:
+            return
+        rows = np.asarray(log[self._fr_i:]).tolist(); self._fr_i = len(log)
+        tags = self.W.fair_tags()["events"]; live = ~self.dead; wn = None
+        for _, i_, l_ in rows:
+            mv = tags.get(int(i_))
+            if not mv:
+                continue
+            nn = np.nonzero(live & ((self.loc == l_) if l_ >= 0 else True))[0]
+            if not len(nn):
+                continue
+            if wn is None:
+                wn = self._fair_w()
+            for j, ps, sd in mv:
+                ix = ["WUBRG".index(p_) for p_ in ps]
+                self.fair[nn, j] = _uclip(self.fair[nn, j] + 0.05 * sd * wn[nn][:, ix].mean(1), 0, 1)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
@@ -3670,6 +3739,8 @@ class People:
         if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):   # phase 4 (only when on)
             out["spheres4"] = dict(fair=[float(x_) for x_ in self.fair[n]], p4_yr=int(self._p4_yr),
                                    fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
+            if getattr(self, "fr_read", False):   # S1 (only when on): the town events read
+                out["spheres4"]["fr_i"] = int(self._fr_i)
         ca_, sa_ = getattr(self, "care_load", None), getattr(self, "sh_around", None)
         cm_ = getattr(self, "comrade", None)
         if ca_ is not None or sa_ is not None or cm_ is not None:   # phase 5 (only once on): this month's care load and
@@ -3739,6 +3810,8 @@ class People:
                 if s4_:
                     pp.fair[n] = s4_["fair"]; pp._p4_yr = int(s4_["p4_yr"])
                     pp.fair_log += [[t_, n, j_, v_] for t_, j_, v_ in s4_["fair_log"]]
+                    if getattr(pp, "fr_read", False) and "fr_i" in s4_:
+                        pp._fr_i = int(s4_["fr_i"])
         if any(d.get("spheres5") for d in saved):
             for n, d in enumerate(saved):
                 s5_ = d.get("spheres5") or {}

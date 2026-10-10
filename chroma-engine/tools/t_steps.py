@@ -245,7 +245,7 @@ for label, sw, ok in RO_:
     t0 = time.process_time(); fails = []; ds = []
     for on in (False, True):
         W_ = _wm.World(4, cfg=dict(params={sw: on})); W_.burn_in(20)
-        Pd = dict(E.DEFAULT); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on
+        Pd = dict(E.DEFAULT, **E.UPD_OFF); Pd["world"] = True; Pd["world_obj"] = W_; Pd[sw] = on   # the rest off, as written
         ds.append(digest(E.run(N=2, years=6, seed=4, lib=EARTH, P=Pd)))
         if on and not ok(W_):
             fails.append("switched on, the world carries no sphere state")
@@ -287,12 +287,19 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
+       ("fairness read five ways (fair_read; with felt fairness and the events)",
+        dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
+       ("C2 rest, the groups' own view and their world moments (c2_groups; with C3 and C5)",
+        dict(c2_groups=True, c3_inst=True, c5_faith=True), dict(c3_inst=True, c5_faith=True), 40),
        ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
        ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
-       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30),
+       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 60),
+       ("the K2 and K6 rule fixes, moves near and far and season steps at their shares (move_near, season_excl)",
+        dict(move_near=True, season_excl=True), {}, 30),
        ("what one holds is practice too (role_practice)", dict(role_practice=True), {}, 30),
        ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
        ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
@@ -314,7 +321,8 @@ for label, sw, base, yrs in P2_:
     diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
     if diff:
         fails.append(f"run_steps differs in {diff[:4]}")
-    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **base))))
+    off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
+    d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
     if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
         fails.append("switched on, the lives are those with it off")
     bad += bool(fails)
