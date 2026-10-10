@@ -1693,34 +1693,38 @@ class Game:
             P["posts"] = posts
 
     def _post_place(self, p):
-        """S7: the plain name of what a post leads, the lead moments' {place}: a title's place (LEAD_PLACE), the setting
-        led, a named place by its name, else the sphere's."""
+        """S7: the plain name of what a post leads, the lead moments' {place}, in the Library's words (earth_spheres): a
+        title's place (LEAD_PLACE), the setting led (SETTING_PLACE), a named place by its name, else the sphere's
+        (SPHERE_PLACE)."""
         pl = p.get("place") or {}
-        if pl.get("title"):
-            return LEAD_PLACE.get(pl["title"], "the " + str(pl["title"]).split(" ")[0])
+        LP, SP = lead_words("LEAD_PLACE"), lead_words("SETTING_PLACE")
+        if pl.get("title") in LP:
+            return LP[pl["title"]]
         pk = str(p.get("post_kind") or "")
         st = pl.get("setting") or (pk[len("setting_"):] if pk.startswith("setting_") else None)
-        if st:
-            return SETTING_PLACE.get(st, "the " + str(st).replace("_", " "))
+        if st in SP:   # "setting_member_led" is a post kind, no setting: on to the place or the sphere
+            return SP[st]
         nm = self._place_word(pl) if pl.get("kind") else ""
-        return nm or SPHERE_PLACE.get(p.get("sphere") or pl.get("sphere"), "the place")
+        return nm or lead_words("SPHERE_PLACE").get(p.get("sphere") or pl.get("sphere")) or "the place"
 
     def _posts_view(self, WL):
-        """S7 (lead_ways): the posts they lead now, for "their places": what they lead, their way (the game's words and its
-        colour), how accepted they are, since when, terms and falls. None while the switch is off or nothing is led."""
-        if not getattr(WL, "lw", False):
+        """S7 (lead_ways): the posts they lead now, for "their places": what they lead, their way (the Library's words, the
+        game's colour), how accepted they are, since when, terms and falls. None while the switch is off, nothing is led
+        or the Library has no words for the ways yet."""
+        LW, LL = lead_words("LEAD_WAY"), lead_words("LEAD_LEGIT")
+        if not getattr(WL, "lw", False) or not LW or not LL:
             return None
         out = []
         for p_ in WL.lead_info(0) or []:
             if p_.get("end") is not None:
                 continue
-            way = LEAD_WAY.get(p_.get("way"), (str(p_.get("way") or ""), p_.get("colour") or ""))
+            w_ = p_.get("way")
             lg = float(p_.get("legit", 0.5)); title = (p_.get("place") or {}).get("title")
             sp = p_.get("sphere")
             out.append(dict(name=self._post_place(p_), title=self.gword(title) if title else "", kind=p_.get("kind"),
                             sphere=sp, sphere_name=(ESP.SPHERE.get(sp) or {}).get("name", sp) if ESP is not None else sp,
-                            way=way[0], colour=way[1], legit=round(lg, 2),
-                            legit_word=next((w for v, w in LEAD_LEGIT if lg >= v), LEAD_LEGIT[-1][1]),
+                            way=LW.get(w_, str(w_ or "")), colour=LEAD_COLOUR.get(w_, p_.get("colour") or ""),
+                            legit=round(lg, 2), legit_word=next((w for v, w in LL if lg >= v), LL[-1][1]),
                             since=round(float(p_.get("start") or 0.0), 1), terms=int(p_.get("terms") or 0),
                             falls=len(p_.get("falls") or ())))
         return out or None
@@ -3996,36 +4000,21 @@ FAR_AGAIN = 26           # weeks before the same tie's far news is told again at
 # first reads unfair on its hover (.5 is even), over the second fair (the engine's own line for loyalty and voice); between,
 # no line. TALK_AGAIN: weeks between two go-betweens' words at the normal level (a life hears one for most acts, about ten
 # a year; the same good word from the same place waits three times as long); TALK_QUIET: the same for the detailed story.
-# LEAD_WAY: the five ways to lead in the game's words (the Library has moments for them, no table of names yet), W U B R
-# G; LEAD_LEGIT: legitimacy in words, best first (under .2 a post falls). LEAD_PLACE: the plain name of what a leading
-# title leads (world_people.LEAD_TITLES), the moments' {place}; SETTING_PLACE the same for a setting they lead;
-# SPHERE_PLACE the last resort, by sphere. SEEN_ROW: S6's row shows on an option on a path (a title it gives or aims at)
-# for every word, on one in a colour way only when they saw that way go wrong (nearly every life has seen each way done,
-# the Engine's own finding); SEEN_MARK: the row's short word (the page marks none only on the hover)
+# LEAD_COLOUR: the colour of each way to lead, W U B R G (the ways' words, legitimacy words and the places a post leads
+# are the Library's: earth_spheres LEAD_WAY, LEAD_LEGIT, LEAD_PLACE, SETTING_PLACE, SPHERE_PLACE). SEEN_ROW: S6's row
+# shows on an option on a path (a title it gives or aims at) for every word, on one in a colour way only when they saw
+# that way go wrong (nearly every life has seen each way done, the Engine's own finding); SEEN_MARK: the row's short word
+# (the page marks none only on the hover)
 FAIR_SIDE = (0.5, 0.65)
 TALK_AGAIN, TALK_QUIET = 52, 8
-LEAD_WAY = dict(rules=("by fair rules", "W"), knowing=("by knowing best", "U"), favours=("by favours owed", "B"),
-                inspiring=("by inspiring them", "R"), custom=("as one of them, keeping to custom", "G"))
-LEAD_LEGIT = [(0.7, "firmly accepted"), (0.45, "accepted"), (0.2, "doubted"), (0.0, "losing their hold")]
-LEAD_PLACE = {"head of government": "the government", "minister": "the ministry", "party leader": "the party",
-              "member of parliament": "the seat in parliament", "mayor": "the town hall", "local councillor": "the council",
-              "lay judge": "the bench", "research group leader": "the research group",
-              "community centre manager": "the community centre", "artistic director": "the company",
-              "shift manager": "the shift", "head chef": "the kitchen", "founder of a firm": "the firm",
-              "union rep": "the union branch", "shop owner": "the shop", "café or bar owner": "the café",
-              "community theatre director": "the community theatre", "deacon or elder": "the congregation",
-              "team captain": "the team", "community-garden coordinator": "the community garden",
-              "parent-association organiser": "the parents' association", "book-club organiser": "the book club",
-              "board-game club organiser": "the games club", "neighbourhood-watch coordinator": "the neighbourhood watch",
-              "festival organiser": "the festival", "volunteer research organiser": "the volunteer research group",
-              "disability-rights organiser": "the rights group", "campaign organiser": "the campaign",
-              "founder of a movement": "the movement"}
-SETTING_PLACE = dict(work="the workplace", congregation="the congregation", club="the club", gang="the crew",
-                     unit="the unit", movement="the movement", **{"class": "the class", "member_led": "the group"})
-SPHERE_PLACE = dict(rule="the council", gather="the hall", arts="the company", faith="the congregation", care="the clinic",
-                    learn="the school", prod="the works", comm="the business", prot="the station")
+LEAD_COLOUR = dict(rules="W", knowing="U", favours="B", inspiring="R", custom="G")
 SEEN_ROW = dict(path=("seen", "none", "wrong", "far"), way=("wrong",))
 SEEN_MARK = dict(seen="seen it done", wrong="saw it go wrong", far="seen it, far off", none="never seen it done")
+
+
+def lead_words(name):
+    """S7: one of the Library's tables for ways to lead (earth_spheres), empty in a pin from before it had them."""
+    return getattr(ESP, name, None) or {}
 
 
 def cap_first(s):
