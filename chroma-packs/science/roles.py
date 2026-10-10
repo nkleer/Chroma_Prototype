@@ -160,7 +160,7 @@ ROLES_SCIENCE = {
                             lose="~has('a research project under way')", lrate=1.0, lwhy="the study over"),
     "field permit": dict(req="has('fieldwork')", rate=0.5,   # 10-09 floors (Emren: rare titles reachable): fieldwork alone, no project asked
                          lose="yrs_has('field permit') >= 1", lrate=1.0, lwhy="the season over"),
-    "instrument time": dict(req="has('institutional affiliation') & has('a research project under way') & has('lab work')",
+    "instrument time": dict(req="has('lab work') & (has('institutional affiliation') | has('a research project under way'))",   # 10-09 floors, last six (Emren: proceed): either, not both
                             rate=0.4, lose="yrs_has('instrument time') >= 1", lrate=0.8, lwhy="the booking over"),
     "a research project under way": dict(req="has('research grant') | has('research project lead') | "
                                              "has('independent investigator') | has('volunteer research organiser')",

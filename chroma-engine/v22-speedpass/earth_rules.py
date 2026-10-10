@@ -870,7 +870,8 @@ ROLES_V2 = {
     # ---------------- careers (T2-001 to T2-045)
     # health and emergency services
     "laboratory technician": dict(req="has('school-leaving certificate')"),
-    "paramedic": dict(req="has('professional registration') & has('driving licence') & (health > .5)",
+    "paramedic": dict(req="(has('professional registration') | (has('first-aid certificate') & (age >= 20))) & "
+                          "has('driving licence') & (health > .5)",   # 10-09 floors, last six (Emren: proceed): also first aid at 20, no degree
                       lose="health < .4", lrate=0.3),
     "physician": dict(req="has('graduate') & has('professional registration') & (age >= 24)",
                       lose="~has('professional registration') & (age < 70)", lrate=1.0),
@@ -922,13 +923,15 @@ ROLES_V2 = {
     "merchant seafarer": dict(req="(age >= 16) & (age <= 45) & (health > .6)"),
     "commercial fisher": dict(req="(age >= 16) & (health > .5) & (has('family business') | (age <= 35))"),
     "forester": dict(req="has('graduate') | was('apprentice')"),
-    "professional beekeeper": dict(req="(age >= 20) & ((mkn('learned a skill') >= 2) | has('beekeeping'))", after=["farmer"],
+    "professional beekeeper": dict(req="(age >= 20) & ((mkn('learned a skill') >= 2) | has('beekeeping'))",   # 10-09 floors, last six (Emren: proceed): not only
+                                   # from a farmer (after= let only farmers grow into it; it stays an entry title)
                                    rate=0.015,   # 10-09 floors (Emren: rare titles reachable): 2 skills or beekeeping, .003 to .015
                                    entry=True),
     # ceremonies, craft and performance
     "funeral director": dict(req="(age >= 20) & (has('family business') | (mkn('helped someone in need') >= 2) | "
                                  "was('care worker'))"),   # 10-09 floors (Emren: rare titles reachable): a care worker's road
-    "civil celebrant": dict(req="(age >= 25) & has('public speaking')"),
+    "civil celebrant": dict(req="(age >= 25) & (has('public speaking') | has('leading a ceremony') | was('teacher') | "
+                                "was('funeral director'))"),   # 10-09 floors, last six (Emren: proceed): also from a ceremony, a teacher or a funeral director
     "tattoo artist": dict(req="(age >= 18) & has('drawing and painting')"),
     "sound engineer": dict(req="has('musical instrument') | (mkn('learned a skill') >= 2)"),
     "stage technician": dict(req="(age >= 17) & (has('fixing things') | (mkn('learned a skill') >= 2))"),
@@ -1597,7 +1600,7 @@ ROLE_NORM = {
     'party member': 0.01, 'passport': 0.513, 'patron': 0.093, 'people from home': 0.291, 'period kit': 9.314,
     'permanent residence': 0.008, 'pharmacist': 24.999, 'physician': 6.975, 'place by the sea': 3.237,
     'plot of land': 101.472, 'plumber': 0.147, 'police officer': 0.341, 'polling-station volunteer': 0.006,
-    'postal worker': 0.019, 'prefect': 0.938, "premises of one's own": 0.635, 'press card': 22.941,
+    'postal worker': 0.05, 'prefect': 0.938, "premises of one's own": 0.635, 'press card': 22.941,
     'prison visitor': 0.425, 'professional athlete': 11.255, 'professional beekeeper': 300.0,
     'professional conservator': 3.924, 'professional registration': 0.125, 'project triage': 0.689,
     'psychotherapist': 0.33, 'public speaking': 0.126, 'published research': 0.005,

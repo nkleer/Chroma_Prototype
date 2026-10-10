@@ -132,8 +132,8 @@ ROLES_STAGE = {
     "drama school student": dict(req="(age >= 17) & (age <= 30) & has('acting') & (was('youth theatre member') | "
                                      "has('a lead role to remember') | was('amateur actor'))",
                                  rate=0.003, weight="colors"),
-    "understudy": dict(req="has('professional actor') & has('learning lines') & ~has('lead actor or actress')",
-                       rate=0.05, weight="colors"),
+    "understudy": dict(req="(has('professional actor') | has('drama school student')) & ~has('lead actor or actress')",
+                       rate=0.08, weight="colors"),   # 10-09 floors, last six (Emren: proceed): drama students too, no learning lines asked, .05 to .08
     # skills: learned on the job (rates per year while the job is held)
     "acting": dict(req="has('youth theatre member') | has('amateur actor') | has('drama school student') | "
                        "has('professional actor') | has('drama teacher') | has('background artist')",
