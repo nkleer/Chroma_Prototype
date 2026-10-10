@@ -451,6 +451,8 @@ W_DEFAULT = dict(
     far_ties=False,    # item 18: a town's events touch the named people living there; a close tie in another town calls
                        # (chroma-ideas/far-off-events.md; sides in sphere_data.FAR); with sph_events
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
+    fair_read=False,   # S1, fairness read five ways: each life reads its spheres' fairness through its colours' parts, and
+                       # a tagged sphere event moves it (chroma-ideas/social-mechanics.md S1); with sph_fair
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -459,14 +461,55 @@ W_DEFAULT = dict(
     c4_nature=False,   # C4: nature's own year (bad air, bad water, a poisoned river, drought, a glorious spring, recovery)
     c5_faith=False,    # C5: three new faith movement slots on the faith axis (founding, growth, fading, claims, tension)
     c_par=None,        # {name: value} over C_DEFAULT (tuning; None: the start values)
+    c2_groups=False,   # C2 rest (Engine): a group moment's options judged half by society's norm, half by the group's;
+                       # the strike vote on the world's strike, the congregation's split on a revival, a new movement or
+                       # a drift from its faith body (world_link.C2_MOMENTS); c2_par: its tuning (world_link.C2_DEFAULT)
+    c2_par=None,
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
-C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+# S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
+# the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
+# social-mechanics.md S1) until the Outer world's tags (sphere_data.FAIR["parts"]) take their place
+FAIR_PARTS_PROV = {"rule.fair_hearing": "WR", "rule.favour": "W", "gather.mixing": "G", "arts.makers": "B",
+                   "arts.licence": "R", "faith.trust": "G", "faith.doubt_free": "U", "care.reach": "B", "care.trust": "G",
+                   "learn.openness": "U", "prod.terms": "B", "prod.holding": "B", "comm.openness": "U", "comm.trust": "G",
+                   "comm.concentration": "WB", "prot.trust": "G", "prot.harshness": "R"}
+_FAIR_TAGS = None
+
+
+def fair_tags():
+    """S1 (fair_read): {"parts": {state: parts}, "events": {event index: [(sphere index, parts, side +1 fair / -1
+    unfair)]}}: the Outer world's tags (sphere_data.FAIR "parts" and "events", from dynamics.json felt_fairness.five_parts;
+    each of an event's tags moves its own sphere). Without them, the provisional parts, and each event reads the
+    fairness states its rows move (a fair state up or an against state down is the fair side), on the sphere moved."""
+    global _FAIR_TAGS
+    if _FAIR_TAGS is None:
+        import sphere_data as SD
+        parts = dict(SD.FAIR.get("parts") or FAIR_PARTS_PROV)
+        evs = {}; given = SD.FAIR.get("events")
+        for i, e in enumerate(SD.EV):
+            if given is not None:
+                g = given.get(f"{e['sphere']}.{e['key']}")
+                if g:
+                    evs[i] = [(SPH[e["sphere"]], str(p_), int(sd_)) for p_, sd_ in g]
+                continue
+            for r in e.get("rows", []):
+                sp = r.get("target")
+                if sp not in SPH:
+                    continue
+                d = SD.FAIR["states"].get(sp, {})
+                for k, v in (r.get("state") or {}).items():
+                    key = f"{sp}.{k}"; sd = 1 if key in d.get("fair", []) else -1 if key in (d.get("against") or []) else 0
+                    if sd and v:
+                        evs.setdefault(i, []).append((SPH[sp], parts.get(key, "WUBRG"), sd * (1 if v > 0 else -1)))
+        _FAIR_TAGS = dict(parts=parts, events=evs)
+    return _FAIR_TAGS
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
     sold=0.02, sold_poor=2.0, sold_pull=0.3,   # C3 sold: private firms and banks, twice as often with finances under .3;
@@ -3232,6 +3275,46 @@ class World:
             if fr:
                 out[:, j] += 0.3 * (np.mean(fr, 0) - 0.5)
             out[:, j] -= (0.3 if ag else 0.15) * (np.mean([val(k) for k in (ag or ["rule.favour"])], 0) - 0.5)
+        return out
+
+    def _sph_fair_terms(self, sp):
+        """S1 (fair_read): the terms of sphere sp's fairness target as (key, coefficient, the towns' values), the same
+        terms sph_fair_target adds: + .3 over its fair states, - .3 over its against states (none: rule.favour at .15)."""
+        import sphere_data as SD
+        E = self._sph_ev_tables(); nl = self.n_loc
+        st = getattr(self, "sph_st", None)
+        own = _uclip(st + self.sph_st_soc[None] - 0.5, 0, 1) if st is not None else np.full((nl, len(E["own"])), 0.5)
+        ws = self._sph_world_states(E)
+        def val(k):
+            if k in E["own"]:
+                return own[:, E["own"].index(k)]
+            return ws[:, list(SD.STATE_WORLD).index(k)]
+        d = SD.FAIR["states"].get(sp, {})
+        fr = list(d.get("fair", [])); ag = list(d.get("against") or [])
+        out = [(k, 0.3 / len(fr), val(k)) for k in fr]
+        out += [(k, -(0.3 if ag else 0.15) / max(len(ag), 1), val(k)) for k in (ag or ["rule.favour"])]
+        return out
+
+    def fair_tags(self):
+        """S1 (fair_read): the parts each fairness state and each sphere event reads (module fair_tags)."""
+        return fair_tags()
+
+    def sph_fair_parts(self):
+        """S1 (fair_read): how each of the five parts of fairness (W the same rules for all, U the truth and the reasons,
+        B their due, R respect and a say, G people who mean well by us) reads each town's sphere (n_loc x 9 x 5), as a
+        step from .5. A state's term is split evenly among its parts (fair_parts); a part with states reads them at
+        the number of parts present, and a part with none reads the sphere's whole step, so that the parts at .2 each
+        (an even person) give exactly sph_fair_target's step."""
+        tags = fair_tags()
+        out = np.zeros((self.n_loc, len(SPHERES), 5))
+        for j, sp in enumerate(SPHERES):
+            e = np.zeros((self.n_loc, 5)); has = np.zeros(5, bool)
+            for k, c, v in self._sph_fair_terms(sp):
+                ps = tags["parts"].get(k) or "WUBRG"
+                for p in ps:
+                    e[:, "WUBRG".index(p)] += c / len(ps) * (v - 0.5); has["WUBRG".index(p)] = True
+            D = e.sum(1)
+            out[:, j] = np.where(has[None], has.sum() * e, D[:, None])
         return out
 
     def _sph_fund_q(self, place):
