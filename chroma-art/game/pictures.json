@@ -543,5 +543,38 @@
  "texture": {
   "unwritten_future": "pics/unwritten-fabric.webp"
  },
- "texture_about": "unwritten_future: 1800x240 transparent WebP, tiles left to right; shown at about 1200x160 at the top of the screen."
+ "texture_about": "unwritten_future: 1800x240 transparent WebP, tiles left to right; shown at about 1200x160 at the top of the screen.",
+ "portrait_about": "The character's own card (the ink look, chroma-look/): by lead colour (W U B R G) and age (child under 13, youth to 25, adult to 59, elder), 420x600, 7:10, the same place for a colour at every age; drawn by chroma-look/tools/scenes_portrait.js.",
+ "portrait": {
+  "W": {
+   "child": "pics/portrait-w-child.webp",
+   "youth": "pics/portrait-w-youth.webp",
+   "adult": "pics/portrait-w-adult.webp",
+   "elder": "pics/portrait-w-elder.webp"
+  },
+  "U": {
+   "child": "pics/portrait-u-child.webp",
+   "youth": "pics/portrait-u-youth.webp",
+   "adult": "pics/portrait-u-adult.webp",
+   "elder": "pics/portrait-u-elder.webp"
+  },
+  "B": {
+   "child": "pics/portrait-b-child.webp",
+   "youth": "pics/portrait-b-youth.webp",
+   "adult": "pics/portrait-b-adult.webp",
+   "elder": "pics/portrait-b-elder.webp"
+  },
+  "R": {
+   "child": "pics/portrait-r-child.webp",
+   "youth": "pics/portrait-r-youth.webp",
+   "adult": "pics/portrait-r-adult.webp",
+   "elder": "pics/portrait-r-elder.webp"
+  },
+  "G": {
+   "child": "pics/portrait-g-child.webp",
+   "youth": "pics/portrait-g-youth.webp",
+   "adult": "pics/portrait-g-adult.webp",
+   "elder": "pics/portrait-g-elder.webp"
+  }
+ }
 }
