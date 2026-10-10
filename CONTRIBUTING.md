@@ -15,7 +15,7 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Branches
 
-- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`, `release/v22.2.1`): the commit that version was
+- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`, `release/v22.2.1`, `release/v22.3`): the commit that version was
   published from. Never committed to again and never deleted. The session's git proxy refuses tag pushes, so these
   branches stand in for tags.
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every

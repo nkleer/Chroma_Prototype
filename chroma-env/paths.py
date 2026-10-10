@@ -26,9 +26,9 @@ ROOT = os.environ.get("CHROMA_ROOT") or os.path.dirname(os.path.dirname(os.path.
 
 # name: (path under ROOT, what it is)
 NAMES = {
-    # the live version (v22.2.1, published 10-10 14:03 UTC from release/v22.2.1 = 20e7d56, artifact version 1791640980-ccaa)
-    "engine_live":    ("chroma-engine/v22-speedpass", "the live engine, unchanged since v22.2 (engine.py 60c3e3276e04, release/v22.2); the v22.1 engine is engine_v22_1"),
-    "live_manifest":  ("chroma-env/live-v22.2.1-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
+    # the live version (v22.3, published 10-10 19:52 UTC from release/v22.3 = 1f63d7e, artifact version 1791661954-7698)
+    "engine_live":    ("chroma-engine/v22-speedpass", "the live engine, v22.3's (engine.py 30cb1193ca05, release/v22.3); the v22.1 engine is engine_v22_1"),
+    "live_manifest":  ("chroma-env/live-v22.3-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),
     "library_live":   ("chroma-library", "the live Library: earth*.py, dreams.py and the .lib sources at its top level"),
     "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage"),
@@ -44,6 +44,7 @@ NAMES = {
     "release":        ("chroma-release", "release records and check scripts (v22_checks.py runs every owner's checks)"),
     "release_out":    ("chroma-release/out", "check outputs, one folder or file per run"),
     # earlier versions kept as records
+    "live_manifest_v22_2_1": ("chroma-env/live-v22.2.1-manifest.txt", "MD5 of the v22.2.1 files, the rollback; its game and engine are the live folders, so the files v22.3 changed show as changed (release/v22.2.1 holds them)"),
     "live_manifest_v22_2": ("chroma-env/live-v22.2-manifest.txt", "MD5 of the v22.2 files, the rollback; its game and engine are the live folders, so the six files v22.2.1 changed show as changed (release/v22.2 holds them)"),
     "game_v22_1":     ("chroma-game/prototype-v22.1", "the v22.1 game, the older rollback (index.html 48e756b328ff)"),
     "engine_v22_1":   ("_archive/2026-10-09/live-v22.1/chroma-engine/v22-speedpass", "the v22.1 engine (engine.py e89422bfc424), moved out when v22.2 went live"),
