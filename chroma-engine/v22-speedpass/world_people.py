@@ -415,6 +415,7 @@ class People:
         if wp_.get("sph_deep", False):   # phase 5, service as a chapter: comrades met in a unit fade at half speed
             self.comrade = np.zeros((N, K), bool)
             self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
+            self.care_buy = np.zeros(N, bool)    # a carer with money buys help (the engine sets it each month)
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -1536,6 +1537,8 @@ class People:
         hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
         if W.p.get("sph_deep", False):   # phase 5: the care load (who carries whom) adds care hours and costs work hours
             self.care_load = self._care_load(t)
+            if getattr(self, "care_buy", None) is not None:   # bought help: care hours x .7 (phase5c-answers.md)
+                self.care_load = self.care_load * np.where(self.care_buy, getattr(self, "care_buy_x", 0.7), 1.0)
             hrs[:, 4] += self.care_load; hrs[:, 0] = np.maximum(0.0, hrs[:, 0] - 0.1 * self.care_load)   # 1 work hour per 10
         if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
             hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
@@ -3429,7 +3432,8 @@ class People:
             out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),   # shadow around them, the comrades
                                    sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]],
                                    comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
-                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]))
+                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]),
+                                   care_buy=None if getattr(self, "care_buy", None) is None else bool(self.care_buy[n]))
         return out
 
     @classmethod
@@ -3499,5 +3503,7 @@ class People:
                     pp.comrade[n, s5_["comrade"]] = True
                 if s5_.get("roots") is not None and getattr(pp, "roots", None) is not None:
                     pp.roots[n] = bool(s5_["roots"])
+                if s5_.get("care_buy") is not None and getattr(pp, "care_buy", None) is not None:
+                    pp.care_buy[n] = bool(s5_["care_buy"])
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
