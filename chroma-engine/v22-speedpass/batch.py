@@ -32,6 +32,8 @@ KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
 PACKS = ["science", "politics", "stage"]   # the ONE GO-LIVE (Emren 10-06 01:32), engine three-pack fit
+if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
+    PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
 # the names a condition may use (one value per person, or a world scalar); see run() "batch conditions"
 COND_VOCAB = """age age_mod decade_edge round_birthday stage child juvenile young_adult adult mature elder
@@ -208,6 +210,14 @@ def _roles(cat, R, L, extra=None, extend=None):
     # item 15, the sphere titles (earth_rules.SPH_TITLE_ROLES): compiled beside the rules, read only with sph_titles on
     G["rule_sph"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                      for nm, r_ in getattr(R, "SPH_TITLE_ROLES", {}).items() if nm in ID}
+    # v22.4 (<world>_rules.ROLES_WHEN; switch green_jobs): rules for titles and roads a newer catalogue has, each compiled
+    # once every title it names is in the catalogue, in place of the title's rule (rule_when) or its sphere-title rule
+    sph_ = getattr(R, "SPH_TITLE_ROLES", {})
+    when_ = {nm: r_ for nm, (needs_, r_) in getattr(R, "ROLES_WHEN", {}).items() if nm in ID and all(x_ in ID for x_ in needs_)}
+    G["rule_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, extend)
+                      for nm, r_ in when_.items() if nm not in sph_}
+    G["rule_sph_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
+                          for nm, r_ in when_.items() if nm in sph_}
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)

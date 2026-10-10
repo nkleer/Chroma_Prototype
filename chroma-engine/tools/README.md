@@ -37,6 +37,7 @@ the Library and the output folder changed: they all `import _engine`.
 | child_deaths.py | C-X5 | a child's death and illness among parents |
 | world_check.py, people_check.py, world_starts.py, lives_in_worlds.py | C-E16 (check_world.py) | the outer world |
 | colour_count.py | DECISIONS.md CHECK | how many colours adults hold, by age |
+| fair_check.py | v22.4 G6 | S1 colour-even targets with fair_read on: `s1_parts`, `s1_counts`, `s1_fair` (or `all`); `--stats FILE` lets the three share one run |
 | eyes_check.py | v22.4 G7, G8 | S3/S4 colour-even targets with sph_eyes and sph_odd on: `s3_rep`, `s3_caught`, `s4_odd`, `s4_convert` (or `all`); `--stats FILE` lets the four share one run |
 | lead_check.py | v22.4 G11 (s7_falls, s7_post) | S7 ways to lead: falls per way per 10 post-years within 1.5x; mean years in post per lead colour within 1.2x (`--on` switches lead_ways on for a commit before the v22.4 refit) |
 | sacred_check.py | v22.4 G9 (s5_lines, s5_money) | S5 sacred lines' refit targets: lines per colour in proportion to its leading years; money lost per lead colour within 1.2x (`lines`, `money` or `all`; 4 x 300 lives x 80 years) |
