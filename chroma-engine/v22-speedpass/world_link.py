@@ -526,32 +526,41 @@ class WorldLink:
             return None
         return self.PP.sac_info(int(n), it_)
 
-    def sacred_tilt(self, s, pr):
+    def sacred_tilt(self, s, pr, mask=None):
         """S5: the character's own pick at an offer on a held line: the options that cross it (line: cross) share 1 - the
-        refusal odds, all others (holding, untagged, doing nothing) the rest, each group by the character's own odds;
-        at a tragic trade-off a, b and torn share sacred_par tragic_w. pr (N, K) is changed in place for those lives."""
+        refusal odds, all others (holding, untagged, doing nothing) the rest; at a tragic trade-off a, b and torn share
+        sacred_par tragic_w (untagged options keep their own odds). Within a group, by the character's own odds; a group
+        none of whose options they noticed (all at 0) still gets its share, evenly over its options the moment offers
+        (mask): saying no, or giving in, needs no noticing. pr (N, K) is changed in place for those lives."""
         PP = self.PP
         for n_, it_ in self.sac_pend.items():
             si = self.pending.get(n_, (0, 0, -1))[2]
             if si != int(s[n_]):
                 continue
-            p_ = pr[n_]
+            p_ = pr[n_]; mk_ = np.ones(len(p_), bool) if mask is None else np.asarray(mask[n_], bool)
+
+            def share(g_):   # the group's own odds, or evenly over its options when none was noticed
+                return p_ * g_ / p_[g_].sum() if p_[g_].sum() > 0 else g_ / g_.sum()
             if it_["kind"] == "sacred":
-                x_ = (self.sac_line[si] == 1) & (p_ > 0)
-                h_ = ~x_ & (p_ > 0)
+                x_ = (self.sac_line[si] == 1) & mk_
+                h_ = ~x_ & mk_
                 if x_.any() and h_.any():
                     q_ = PP.sac_odds(it_)
-                    pr[n_] = np.where(x_, (1 - q_) * p_ / p_[x_].sum(), np.where(h_, q_ * p_ / p_[h_].sum(), 0.0))
+                    pr[n_] = (1 - q_) * share(x_) + q_ * share(h_)
+                    PP._sac_count("tilted")
             elif it_["kind"] == "tragic":
                 tg_ = self.sac_trag[si]; tw_ = PP.sac_par["tragic_w"]
-                grp_ = [((tg_ == g_) & (p_ > 0), tw_[g_]) for g_ in range(3)]
-                tot_ = sum(w_ for m_, w_ in grp_ if m_.any()); ptag_ = p_[tg_ >= 0].sum()
-                if tot_ > 0 and ptag_ > 0:
-                    q_ = p_.copy()
+                grp_ = [((tg_ == g_) & mk_, tw_[g_]) for g_ in range(3)]
+                tot_ = sum(w_ for m_, w_ in grp_ if m_.any()); ptag_ = p_[(tg_ >= 0) & mk_].sum()
+                ut_ = (tg_ < 0) & mk_
+                ptag_ = ptag_ if ptag_ > 0 or ut_.any() and p_[ut_].sum() > 0 else 1.0
+                if tot_ > 0:
+                    q_ = np.where(ut_, p_, 0.0)
                     for m_, w_ in grp_:
                         if m_.any():
-                            q_[m_] = ptag_ * (w_ / tot_) * p_[m_] / p_[m_].sum()
-                    pr[n_] = q_
+                            q_ = q_ + ptag_ * (w_ / tot_) * share(m_)
+                    pr[n_] = q_ / q_.sum()
+                    PP._sac_count("tilted")
         return pr
 
     def sacred_act(self, live, ma, cost):

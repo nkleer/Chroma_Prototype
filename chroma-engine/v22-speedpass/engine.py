@@ -3104,7 +3104,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             pr = softmax(np.where(seen, (U + sU_) / tau[:, None], -np.inf))
             P["steer"] = None
         if SAC_ON_ and WL.sac_pend:   # S5: at an offer on a held line the character's own pick holds it at .9 (and more
-            pr = WL.sacred_tilt(s, pr.copy())   # for a bigger offer, .7 with a gesture); at a tragic one, a, b or torn
+            pr = WL.sacred_tilt(s, pr.copy(), mask)   # for a bigger offer, .7 with a gesture); at a tragic one, a, b or torn
         a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
         if SHON:   # U indecisive: while they weigh it, the chance passes (the act becomes doing nothing, where there is one)
             lap_ = (rng.random(N) < P["sh_lapse"] * shA[:, 1]) & ~do_nothing[ar, a] & do_nothing.any(1)

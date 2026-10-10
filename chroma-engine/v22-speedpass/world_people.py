@@ -254,7 +254,8 @@ SAC_DEFAULT = dict(
     cost_stress=0.3,   # the world closed, or of one that costs real money), counted from age 12
     age=16.0,          # lines form from this age (and offers reach them)
     lines=2,           # at most two lines a life
-    reach=0.1,         # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
+    reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
+                       # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
     c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
     refuse=0.9, gesture=0.7, doubling=0.05, cap=0.98,   # the character's own pick holds at .9 (.7 when the offer carries
                        # a symbolic gesture), + .05 per doubling of the offer's size, at most .98 (Ginges et al. 2007)
