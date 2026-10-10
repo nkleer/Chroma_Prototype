@@ -792,7 +792,7 @@ DEFAULT = dict(
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
     role_practice=False,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
-                         # choices must increase chances to become researcher"; tools/steer_check.py). On v22.2's rules white and
+                         # choices must increase chances to become researcher"; tools/choice_check.py). On v22.2's rules white and
                          # blue acts fail two to four times as often as the others (true odds .81 and .74 against .90 to .95):
                          # practice comes only from the week's one act, and the colors least acted stay least practised, so a
                          # life that keeps choosing white or blue barely becomes it and loses contentment (.60 to .45). On, each
@@ -803,15 +803,15 @@ DEFAULT = dict(
                          # to master) fills this share of what the person still misreads of its call and the world's push
                          # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
                          # white and blue, so lives that act in those ways run overconfident and each failure pushes them
-                         # away (steer_check, 10-10). 0: off, as before
+                         # away (choice_check, 10-10). 0: off, as before
     lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
                          # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
                          # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
-                         # lowest, so lives that keep choosing them are held back (steer_check, 10-10). 0: off, as before
+                         # lowest, so lives that keep choosing them are held back (choice_check, 10-10). 0: off, as before
     app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
                          # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
                          # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
-                         # 1.4x and their gains at .6x and are taught out of their own colours (steer_check 10-10: net identity
+                         # 1.4x and their gains at .6x and are taught out of their own colours (choice_check 10-10: net identity
                          # move per act in the steered colour -.012 white, -.007 blue, +.010 red at equal win rates). Feelings
                          # (fdelta: mood, stress, wounds) keep the tilt. False: as before
     near_gate=True,     # the world's gates (time of year, holy days, place features, settings, technology) also on the

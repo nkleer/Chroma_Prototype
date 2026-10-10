@@ -1,8 +1,8 @@
 """Steered lives (Emren 10-10: "choices must impact achieving perks: blue-dominated choices must increase chances to
 become researcher, red-dominated ones to become artist"): what a life that keeps choosing one color reaches, and what it
 costs, against unsteered lives of the same world.
-    python3 -B chroma-engine/tools/steer_check.py run <lives per worker> <push> <out.npz> [groups]   one run, 4 workers
-    python3 -B chroma-engine/tools/steer_check.py sum <npz> [npz...]                                  the tables
+    python3 -B chroma-engine/tools/choice_check.py run <lives per worker> <push> <out.npz> [groups]   one run, 4 workers
+    python3 -B chroma-engine/tools/choice_check.py sum <npz> [npz...]                                  the tables
 groups: comma-separated, "-" unsteered, else a color letter; default "-,W,U,B,R,G". Person n is in group n % len(groups).
 push: added each week to a steered person's want (y, log-ratio) for the group's color, as a player who keeps choosing
 it; .01 brings that want to about .45 to .6 by forty. Packs: PACKS, default science,politics,stage (the catalogue's).
