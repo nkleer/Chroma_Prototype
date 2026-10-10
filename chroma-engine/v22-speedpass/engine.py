@@ -742,6 +742,7 @@ DEFAULT = dict(
     sph_joins=False,     # phase 3, N6: an event's shift spills to joined spheres (world switch)
     sph_pairs=False,     # phase 3: the ten pair faces per town sphere, taught through the spheres' rows (world switch)
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
+    c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
@@ -917,7 +918,7 @@ UPD_OFF = dict(dis_match=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c4_nature=False)
+               c3_inst=False, c4_nature=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
