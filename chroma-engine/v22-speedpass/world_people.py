@@ -412,6 +412,9 @@ class People:
             self._sph_init()
         # phase 4: the levers on places and town spheres, and felt fairness per sphere (each off: nothing of it exists)
         self.sph_lv = bool(wp_.get("sph_levers", False)); self.sph_fr = bool(wp_.get("sph_fair", False))
+        if wp_.get("sph_deep", False):   # phase 5, service as a chapter: comrades met in a unit fade at half speed
+            self.comrade = np.zeros((N, K), bool)
+            self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -626,6 +629,8 @@ class People:
         c0 = _uclip(sl(c0), 0, 1); self.c[n, slot] = c0; self.cmax[n, slot] = c0
         self.trust[n, slot] = sl(trust0); self.last[n, slot] = t
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
+        if getattr(self, "comrade", None) is not None:
+            self.comrade[n, slot] = False
         self.brk[n, slot] = NEVER; self.mood[n, slot] = 0.6; self.want[n, slot] = -1; self.wripe[n, slot] = 0
         self.wstate[n, slot] = 0; self.wknown[n, slot] = False; self.wdue[n, slot] = NEVER; self.inci[n, slot] = False
         self.inst[n, slot] = sl(F.get("inst", -1))
@@ -1703,6 +1708,10 @@ class People:
         if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):
             self._sph_year4(t)
         B = self._bits()
+        if getattr(self, "comrade", None) is not None:   # phase 5: whoever shares a unit with them is a comrade from now on
+            un_ = (self.skind == G["unit"])
+            if un_.any():
+                self.comrade |= (B * un_[:, None, :]).any(2)
         if self._last_set is None or t - self._last_set >= 8:   # the settings' slow drift: every second month
             self._settings_month(t, S, B, 1.0 if self._last_set is None else (t - self._last_set) / 4.0)
             self._last_set = t
@@ -1775,6 +1784,8 @@ class People:
         r_up, r_dk, r_dn = self._r_w if dt_w == 1 else [np.float32(1 - np.exp(-dt_w / 52.0 / P[k_]))
                                                          for k_ in ("tau_up", "tau_dn_kin", "tau_dn")]
         rdn = self._crdn if dt_w == 1 else np.where(self._ckin, r_dk, r_dn)
+        if dt_w != 1 and getattr(self, "comrade", None) is not None:
+            rdn = np.where(self._ccom, rdn * np.float32(0.5), rdn)
         rr = np.where(e > c, r_up, rdn)
         c2 = np.where(ok, c + (e - c) * rr, c).astype(np.float32)
         np.put(self.c, fi, c2)
@@ -1922,6 +1933,9 @@ class People:
         self._crm = tk(self.rmask)
         self._ckin = (self._crm & KINMASK) != 0
         self._crdn = np.where(self._ckin, self._r_w[1], self._r_w[2])   # the weekly fading rate (kin fade slower)
+        if getattr(self, "comrade", None) is not None:   # phase 5: comrades from a unit fade at half speed
+            self._ccom = tk(self.comrade)
+            self._crdn = np.where(self._ccom, self._crdn * np.float32(0.5), self._crdn)
         self._cuid = tk(self.uid)
         self._cpie = np.take(self.pie.reshape(-1, C), fi, axis=0).astype(np.float64)   # float64: exact weekly sums
         self._cpage = (self.t - tk(self.born)) / 52.0
@@ -2994,7 +3008,17 @@ class People:
         un = float(self._unemp("unemp"))
         ul = np.asarray(self._unemp("unemp_loc", np.full(self.n_loc, un)), float)[self.loc]
         r = r * (1 + 1.5 * pc) * _uclip(1 + 3 * (ul - un), 0.7, 1.5)
-        return np.full(self.N, r / 52.0) if np.ndim(r) == 0 else r / 52.0
+        r = np.full(self.N, r / 52.0) if np.ndim(r) == 0 else r / 52.0
+        if getattr(self, "roots", None) is not None:   # phase 5: roots, the move wish x .5 while a holding is held
+            r = r * np.where(self.roots, 0.5, 1.0)
+        return r
+
+    def kin_let_down(self, n, by, t):
+        """Phase 5, a kin debt broken: trust falls by `by` with the closest living parent or sibling, who remembers."""
+        u = self.used[n] & self.lv[n] & ((self.rmask[n] & (BIT["parent"] | BIT["sibling"])) != 0)
+        if u.any():
+            k = int(np.argmax(np.where(u, self.c[n], -1)))
+            self.trust[n, k] = max(0.0, float(self.trust[n, k]) - by)
 
     def move(self, n, loc=None, why=None, t=None, local=None):
         """The household moves: to loc (another locality), or within the locality (a new neighbourhood). Distant
@@ -3400,9 +3424,12 @@ class People:
             out["spheres4"] = dict(fair=[float(x_) for x_ in self.fair[n]], p4_yr=int(self._p4_yr),
                                    fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
         ca_, sa_ = getattr(self, "care_load", None), getattr(self, "sh_around", None)
-        if ca_ is not None or sa_ is not None:   # phase 5 (only once on): this month's care load and shadow around them
-            out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),
-                                   sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]])
+        cm_ = getattr(self, "comrade", None)
+        if ca_ is not None or sa_ is not None or cm_ is not None:   # phase 5 (only once on): this month's care load and
+            out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),   # shadow around them, the comrades
+                                   sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]],
+                                   comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
+                                   roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]))
         return out
 
     @classmethod
@@ -3468,5 +3495,9 @@ class People:
                     if getattr(pp, "sh_around", None) is None:
                         pp.sh_around = np.zeros((pp.N, C))
                     pp.sh_around[n] = s5_["sh_around"]
+                if s5_.get("comrade") is not None and getattr(pp, "comrade", None) is not None:
+                    pp.comrade[n, s5_["comrade"]] = True
+                if s5_.get("roots") is not None and getattr(pp, "roots", None) is not None:
+                    pp.roots[n] = bool(s5_["roots"])
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
