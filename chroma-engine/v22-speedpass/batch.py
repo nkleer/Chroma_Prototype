@@ -31,7 +31,7 @@ MISSED_TITLE = -3   # {missed}: the title of the person's last failed long shot 
 KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
-PACKS = ["science", "politics", "stage"]   # the ONE GO-LIVE (Emren 10-06 01:32), engine three-pack fit
+PACKS = ["science", "politics", "stage", "art"]   # the ONE GO-LIVE (Emren 10-06 01:32); art joins at v22.4 (Packs #154)
 if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
     PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
@@ -716,9 +716,9 @@ def _world_fields(L):
 
 
 FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
-EYES_MOMENTS = False    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
-SACRED_MOMENTS = False  # v22.4, S5: moments with cast_want: sacred, tragic or amends
-LEAD_MOMENTS = False    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+EYES_MOMENTS = True    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
+SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or amends
+LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
