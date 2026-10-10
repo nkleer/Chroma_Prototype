@@ -601,7 +601,7 @@ lead_way: custom
 earth: you lead at a place you go: the place has grown fast, and the newcomers want to drop the custom you have always kept
 times: A leader who stands for the group's old ways is followed readily, but loses ground when the group's make-up changes quickly (Haslam, Reicher and Platow 2011)
 gap: 3-8
-scene: {place} has doubled in a few years, and the newcomers bring their own habits. This season {rival} proposes dropping one of the oldest customs of the place, the one {N} has kept since taking charge, as a waste of everyone's time. The older members are hurt, and the newer ones are nodding. Everyone waits to see whether {N} can still lead the place it has become.
+scene: In a few years {place} has doubled, and the newcomers bring their own habits. This season {rival} proposes dropping one of the oldest customs of the place, the one {N} has kept since taking charge, as a waste of everyone's time. The older members are hurt, and the newer ones are nodding. Everyone waits to see whether {N} can still lead the place it has become.
 scene W: A custom binds people who agreed to it; {N} asks whether the newcomers ever did, and what would be fair to them.
 scene U: {rival} is right that the custom costs time; {N} wonders whether it also does something nobody has ever measured.
 scene B: {rival} is building a following, and {N} can see where that ends: with {rival} in charge.

@@ -14681,7 +14681,7 @@ SITUATIONS = [
                      "group's make-up changes quickly (Haslam, Reicher and Platow 2011)",
             'gap_years': (3.0, 8.0)},
  'scenes': {'earth': [('',
-                       '{place} has doubled in a few years, and the newcomers bring their own habits. This season '
+                       'In a few years {place} has doubled, and the newcomers bring their own habits. This season '
                        '{rival} proposes dropping one of the oldest customs of the place, the one {N} has kept since '
                        "taking charge, as a waste of everyone's time. The older members are hurt, and the newer ones "
                        'are nodding. Everyone waits to see whether {N} can still lead the place it has become.'),
