@@ -260,7 +260,13 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("WL2, the small effects of the world (wl2)", dict(wl2=True), {}, 24),
        ("the sphere events (sph_events, every event at a test base of .01 a quarter)",
         dict(sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True),
-        dict(sph_haunts=True, sph_hours=True, cur_on=True), 8)]
+        dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
+       ("the year's rhythm and the joins (sph_seasons, sph_joins; the events at the test base)",
+        dict(sph_seasons=True, sph_joins=True, sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, sph_ev_base=0.01, sph_haunts=True, sph_hours=True, cur_on=True), 8),
+       ("the pair faces (sph_pairs)", dict(sph_pairs=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
+       ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
