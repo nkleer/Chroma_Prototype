@@ -3365,16 +3365,18 @@ class People:
             return True
         return False
 
-    def _lead_new(self, n, kind, j, slot, place, t):
-        """A post begins: the character picks the way of its lead colour (a lead_take moment can change it)."""
+    def _lead_new(self, n, kind, j, slot, place, t, gslot=-1):
+        """A post begins: the character picks the way of its lead colour (a lead_take moment can change it). gslot: the
+        setting a leading title leads (-1 none)."""
         pk = self._lead_kind(n, kind, slot, place)
         if pk is None or self._lead_cell(pk) is None:   # no such post in this epoch
             return None
         c = int(self.perm[int(np.argmax(self.w[n]))])
-        p = dict(id=self._lw_next, n=int(n), kind=kind, pk=pk, terms=0, sphere=int(j), slot=int(slot), place=int(place), loc=int(self.loc[n]),
-                 t0=int(t), term_t0=int(t), way=c, col=c, way_t=int(t), succ_t=int(t), fade_t=int(t), fades=0, dent=0.0,
-                 legit=0.0, join=int(self.sjoin[n, slot]) if kind != "office" else -1, fair_lo=False, money_yr=-1,
-                 falls=[], end_t=None, why=None)
+        p = dict(id=self._lw_next, n=int(n), kind=kind, pk=pk, terms=0, sphere=int(j), slot=int(slot), place=int(place),
+                 loc=int(self.loc[n]), t0=int(t), term_t0=int(t), way=c, col=c, way_t=int(t), succ_t=int(t), fade_t=int(t),
+                 fades=0, dent=0.0, legit=0.0, join=int(self.sjoin[n, slot]) if kind != "office" else -1, fair_lo=False,
+                 money_yr=-1, falls=[], end_t=None, why=None, gslot=int(gslot),
+                 gjoin=int(self.sjoin[n, gslot]) if gslot >= 0 else -1)
         self._lw_next += 1
         self._lead_legit(p)
         self.lw_posts.append(p)
@@ -3572,10 +3574,7 @@ class People:
                     gs_ = int(gs_[0]); j_ = int(self.set_sphere[n, gs_])
                     if getattr(self, "shnt", None) is not None and getattr(W, "hp_s", None) is not None:
                         pl_ = int(self.shnt[n, gs_])
-                p = self._lead_new(int(n), "office", j_, int(i_), pl_, t)
-                if p is not None:
-                    p["gslot"] = gs_ if gk_ and isinstance(gs_, int) else -1
-                    p["gjoin"] = int(self.sjoin[n, p["gslot"]]) if p["gslot"] >= 0 else -1
+                self._lead_new(int(n), "office", j_, int(i_), pl_, t, gslot=gs_ if isinstance(gs_, int) else -1)
         # 6. the leaders' mix of each town sphere (the lead lever's size x (.5 + legitimacy)), and the shadow target
         pl = np.zeros((self.n_loc, 9, C + 1))
         self.lead_sh = np.zeros((self.N, C))
