@@ -478,6 +478,9 @@ class WorldLink:
         if getattr(PP, "eyes_on", False):   # S3, S4: a caught-between (a go-between of either place first in who:) or an
             for n_, cid_, key_ in PP.eyes_due(PP.t):   # odd-one-out moment (no holder) waiting, as a want's moment comes
                 ss_ = self.want_s.get(key_)
+                if ss_ and key_ == "odd":   # S4: a moment of the odd place's sphere (its sphere: line), else a place-neutral one
+                    sp_ = PP.eyes_sphere(n_)
+                    ss_ = [s_ for s_ in ss_ if sp_ >= 0 and self.msph[s_] == sp_] or [s_ for s_ in ss_ if self.msph[s_] < 0]
                 if ss_ and n_ not in self.pending:
                     si_ = ss_[int(PP._eyes_rng.integers(len(ss_)))]
                     self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True

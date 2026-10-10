@@ -14,9 +14,9 @@ TARGET is one of the four, or "all". SEEDS is a comma list; their counts are poo
 switches over the run's own, which are engine DEFAULT with world, sph_haunts, sph_hours, sph_events, cur_on, sph_eyes
 and sph_odd on (as t_steps' row). --stats FILE keeps the run's counts: a FILE holding a run of the same engine, lives,
 years, seeds and switches is read instead of running again, so the four rows can share one run. The caught-between and
-odd-one-out moments join the batch as at v22.4's refit (batch.EYES_MOMENTS set True when the engine has it); with none
-in the Library, s3_caught has nothing to count and says so. Exit code 0 when every printed target is ok. CHROMA_ENGINE
-names the engine (tools/_engine.py); LIB a Library folder."""
+odd-one-out moments join the batch as at v22.4's refit (batch.EYES_MOMENTS and SPH_MOMENTS set True when the engine has
+them: most odd-one-out moments are a sphere's); with none in the Library, s3_caught has nothing to count and says so.
+Exit code 0 when every printed target is ok. CHROMA_ENGINE names the engine (tools/_engine.py); LIB a Library folder."""
 import sys, os, json, hashlib, argparse
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
@@ -33,8 +33,9 @@ def one(argv):
     N, Y, seed, Pjson = argv
     import engine as E, batch, world_people as PM
     batch.LIB_DIR = os.environ.get("LIB") or batch.LIB_DIR
-    if hasattr(batch, "EYES_MOMENTS"):
-        batch.EYES_MOMENTS = True
+    for f_ in ("EYES_MOMENTS", "SPH_MOMENTS"):
+        if hasattr(batch, f_):
+            setattr(batch, f_, True)
     seen = []
     init = PM.People._eyes_init
 

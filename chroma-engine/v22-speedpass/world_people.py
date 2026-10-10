@@ -3138,6 +3138,15 @@ class People:
             out.append((int(n), cid, it["key"]))
         return out
 
+    def eyes_sphere(self, n):
+        """S4: the sphere (index into SPHERES) of the place of life n's odd-one-out moment offered this week: a haunt's
+        kind's, a setting's (set_sphere: a congregation faith, a unit prot, work its employer's sector; a setting held at a
+        haunt is the haunt's); -1 none."""
+        it = self.eyes_off.get(n)
+        if it is None or it["key"] != "odd":
+            return -1
+        return int(self._eyes_sp[n, it["slots"][0]])
+
     def eyes_bridge_ok(self, n):
         """S3: the waiting caught-between moment's bridge is open: the life's rung is known or higher in both places'
         spheres (sph_hours' rungs; without them never)."""
