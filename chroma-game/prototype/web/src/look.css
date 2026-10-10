@@ -238,6 +238,12 @@
   @keyframes lkfadeout { to { opacity: 0; } }
   @media (max-width: 640px) { .lk-pl { padding: 18px 16px 16px; } .lk-pl h3 { font-size: 21px; } .lk-pl .rn { font-size: 26px; } .lk-pc.plate { width: 66px; } }
 
+  /* the start spread: when the name would sit below the fold, the reading docks at the foot of the window (look.js) */
+  .spread #reading.lk-dock { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30;
+    width: min(980px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto; margin: 0; box-shadow: 0 0 0 1px #6b5226, 0 0 0 3px rgb(216 180 105 / 0.3), 0 24px 60px -10px #000; }
+  html[data-motion="full"] .spread #reading.lk-dock.lk-dockin { animation: lkdock 0.28s ease-out; }
+  @keyframes lkdock { from { transform: translate(-50%, 24px); opacity: 0; } }
+
   /* Motion off: nothing moves, as with the system's reduced-motion setting (head.html) */
   html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; }
   html[data-motion="off"] .lk-lights { opacity: 1; }

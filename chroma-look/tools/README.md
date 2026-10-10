@@ -28,6 +28,10 @@ changes no lives. Its code is in the game's page sources; this folder holds the 
 6. The life river as it was, lit like the fog (Emren 10-10 09:01 UTC): its glow breathes, a slow nebula of light drifts
    along the lived years, a gleam runs from birth to now, and when the life moves on the old colors fade into the new.
 
+The start spread (Emren 10-10 09:54 UTC): the cards run I The Cradle to VI with 0 The Crossroads last; a click picks a
+card and puts the cursor in the name without moving the page (the reading docks at the foot of a short window), a double
+click no longer begins, and Enter or Begin starts the life.
+
 Helpers for choosing: odds tint each card's gem (high, middle, low), a hatched storm corner marks a card that goes
 against the grain, and a small lean wheel on the picture (and on the wide-screen reading card) points where the
 hovered card would pull the colors (solid for what it is for, dashed for how it is done).

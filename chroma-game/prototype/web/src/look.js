@@ -490,6 +490,43 @@ renderReview = function (h) {
   });
 };
 
+/* ---------------- the start spread (Emren 10-10 09:54 UTC: "The Cradle should be first, left-most option. The crossroads
+   must be right-most option. We need to click the option without jumping the game. Click the life starter, and write the
+   name, and game starts.") ----------------
+   The cards run I to VI with the Crossroads (0, Build your own) last. A click picks the card and puts the cursor in the
+   name: nothing scrolls, a double click no longer begins, and once a card is clicked the mouse passing over the others no
+   longer changes the reading. If the name would sit below the fold, the reading docks at the foot of the window instead
+   of the page moving. Enter or Begin starts the life, as before. Every look and motion setting. */
+let spreadPicked = false;
+const _renderScreen = renderScreen;
+renderScreen = function (h) {
+  _renderScreen(h);
+  safe(() => {
+    if (!h || h.mode !== "menu") { spreadPicked = spreadDocked = false; screenEl.style.paddingBottom = ""; return; }
+    const row = screenEl.querySelector(".tarots"), rd = $("reading"); if (!row || !rd) return;
+    const isZero = (b) => b.classList.contains("zero");
+    [...row.querySelectorAll(".tarot")].sort((a, b) => isZero(a) - isZero(b) || +a.dataset.k - +b.dataset.k)
+      .forEach((b, i) => { b.style.setProperty("--n", i); row.appendChild(b); });
+    rd.scrollIntoView = () => {};                       // app.js scrolls the reading into view on a click: the page stays put
+    row.addEventListener("dblclick", (e) => { if (e.target.closest(".tarot")) e.stopPropagation(); }, true);
+    row.addEventListener("pointerenter", (e) => { if (spreadPicked && e.target.classList && e.target.classList.contains("tarot")) e.stopPropagation(); }, true);
+    row.addEventListener("click", (e) => { if (e.target.closest(".tarot")) { spreadPicked = true; requestAnimationFrame(() => safe(dockReading)); } }, true);
+    if (spreadPicked) dockReading();
+  });
+};
+let spreadDocked = false;
+function dockReading() {
+  const rd = $("reading"), go = $("go"); if (!rd || !go) return;
+  if (!rd.classList.contains("lk-dock")) {
+    const s = screenEl.getBoundingClientRect(), g = go.getBoundingClientRect();
+    if (!spreadDocked && g.bottom <= s.bottom - 6 && g.top >= s.top) return;
+    rd.classList.add("lk-dock"); if (!spreadDocked) rd.classList.add("lk-dockin");
+    spreadDocked = true;
+  }
+  screenEl.style.paddingBottom = rd.getBoundingClientRect().height + 24 + "px";   // the cards and the foot can still scroll clear of it
+  if (!touchUI && $("txt")) $("txt").focus({ preventScroll: true });
+}
+
 /* ---------------- the two settings, in the Table menu after Interlude ---------------- */
 const _renderTools = renderTools;
 renderTools = function (h) { _renderTools(h); safe(addRows); };
