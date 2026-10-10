@@ -35,6 +35,22 @@ WORLD_MOMENTS = [
     ("economy", "recession declared", "severe", "a crash takes the savings", 0.3),
     ("abroad", "war comes home", None, "war comes", 0.7),
     ("abroad", "war begins", None, "the call to serve", 0.15),
+    # the C hooks (stage3-rules.md section 5; Library earth-world-seasons.lib and earth-world-institutions.lib): a sixth
+    # field names who can meet it, "place" for the people living in the event's place (value["loc"]), "staff" for those
+    # who work at its institution (value["inst"]); without one, everyone the gates admit
+    ("institution", "sold", None, "new owners take over the firm", 0.6, "staff"),
+    ("institution", "merged", None, "folded into a bigger firm", 0.7, "staff"),
+    ("institution", "nationalised", None, "the state takes over the failing firm", 0.7, "staff"),
+    ("institution", "leak", None, "the private files get out", 0.5, "staff"),
+    ("institution", "cover-up", None, "the thing the bosses are hiding", 0.3, "staff"),
+    ("nature", "bad air", None, "a season of bad air", 0.3, "place"),
+    ("nature", "bad water", None, "the river runs foul", 0.4, "place"),
+    ("nature", "poisoned river", None, "the river runs foul", 0.4, "place"),
+    ("nature", "drought", None, "a dry year on the land", 0.5, "place"),
+    ("nature", "glorious spring", None, "a glorious spring", 0.15, "place"),
+    ("nature", "recovery", None, "the town builds itself back", 0.4, "place"),
+    ("belief", "new movement", None, "a new faith comes to town", 0.3, "place"),
+    ("belief", "faith tension", None, "the hall on the corner is shut", 0.4, "place"),
 ]
 CRIME_W = re.compile(r"\b(robbed|burgl|mugg|attacked|break-in|broken into|stolen|pickpocket)", re.I)
 DISASTER_W = re.compile(r"\b(flood|fire|storm|earthquake|quake|drought|heatwave|hurricane|landslide)\b", re.I)
@@ -56,7 +72,9 @@ NORM_MARK = {"came out": "coming out", "named their gender": "transition"}   # t
 # else the commitment the option or moment is about
 PUSH_COMMIT = {"career": ("institution", "employer"), "community": ("group", None), "faith": ("belief", None),
                "partner": ("close", "partner"), "children": ("close", "child")}
-LOCAL_SEEN = ("disaster", "crime wave", "local election")   # local public events a person living there lives through
+LOCAL_SEEN = ("disaster", "crime wave", "local election",   # local public events a person living there lives through
+              "bad air", "bad water", "poisoned river", "drought", "glorious spring", "recovery",   # (C4's with its hook on)
+              "new movement", "faith tension")                                                       # (C5's)
 # the typical world after the 80-year burn-in (seeds 1-6 or 1-8, modern Earth): every channel below is neutral there
 CLIM_REF = 0.51     # acceptance of coming out (.70) x the sexuality right (.73)
 U_REF = 6.5         # local unemployment, percent
@@ -134,6 +152,7 @@ class WorldLink:
             ws = P.get("world_seed")
             s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
             s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
+            s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = WM.World(int(seed if ws is None else ws), cfg=cfg)
@@ -186,7 +205,8 @@ class WorldLink:
         self.adm_o = np.isin(AT_, edu_t) if AT_.shape == (S, K) and edu_t else np.zeros((S, K), bool)
         self.ill_s = rk == RK.index("illness")
         idx = {nm: i for i, nm in enumerate(names)}
-        self.wm = [(d, k, key, idx[m], sh) for d, k, key, m, sh in WORLD_MOMENTS if m in idx]
+        self.wm = [(x_[0], x_[1], x_[2], idx[x_[3]], x_[4], x_[5] if len(x_) > 5 else "all") for x_ in WORLD_MOMENTS
+                   if x_[3] in idx]
         self.wm_s = np.array(sorted({x[3] for x in self.wm}), int)
         self.toy = np.asarray(L.get("W_TOY", np.zeros((S, 4)))); self.toy_set = np.asarray(L.get("W_TOY_SET", np.zeros(S, bool)))
         self.toy_on = self.toy.sum(1) > 0
@@ -352,10 +372,17 @@ class WorldLink:
         # moments the world's events bring this week
         self.fire_now[:] = False; self.fire_why = {}
         for e in new:
-            for d, k, key, si, sh in self.wm:
+            for d, k, key, si, sh, sel in self.wm:
                 if e.get("domain") == d and e.get("kind") == k and (key is None or e.get("value") == key or e.get("key") == key):
-                    self.fire_now[:, si] |= PP.rng.random(self.N) < sh
+                    hit_ = PP.rng.random(self.N) < sh
+                    if sel == "place":                     # only the people living in the event's place
+                        hit_ &= PP.loc == int((e.get("value") or {}).get("loc", -1))
+                    elif sel == "staff":                   # only the people who work there
+                        hit_ &= self._staff(int((e.get("value") or {}).get("inst", -1)))
+                    self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
+        if W.p.get("c3_inst"):
+            self._c3_merged(new)
         # wants ripe this week: the moment that answers it, with the cast member in its first who: slot
         self.pending = {}
         for n_, cid_, key_ in PP.want_due(PP.t):
@@ -364,6 +391,31 @@ class WorldLink:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
         return self.week_events
+
+    def _staff(self, i):
+        """The lives whose own work setting is institution i (N,)."""
+        PP = self.PP
+        return ((PP.skind == PM.G["work"]) & (PP.sref == i)).any(1)
+
+    def _c3_merged(self, new):
+        """C3 merged: the folded firm's staff, lives and cast alike, now work at the bigger one (its slot became a new
+        firm), and a quarter of the lives among them face the job-loss rate x3 for a quarter."""
+        PP, W = self.PP, self.W
+        for e in new:
+            if e.get("domain") != "institution" or e.get("kind") != "merged":
+                continue
+            v = e.get("value") or {}; a, b = int(v.get("inst", -1)), int(v.get("into", -1))
+            if a < 0 or b < 0:
+                continue
+            moved = self._staff(a)
+            wk = (PP.skind == PM.G["work"]) & (PP.sref == a)
+            PP.sref[wk] = b
+            PP.inst[PP.inst == a] = b
+            if moved.any():
+                if getattr(PP, "c3_jl", None) is None:     # made on the first merger (a world with C3 off saves none)
+                    PP.c3_jl = np.zeros(self.N, np.int64)
+                hit = moved & (PP.rng.random(self.N) < W._c_par("merge_share"))
+                PP.c3_jl = np.where(hit, int(W.t) + 13, PP.c3_jl)
 
     def drain(self):
         """The cast events since the last call (n, kind, ...), each handed over once: the birth's before the first week,
@@ -458,7 +510,7 @@ class WorldLink:
         return float(W.era_i), np.asarray(W.era_p, float), int(W.era_k)
 
     # ---- monthly: per person and moment, how the world tilts or gates the moment
-    def moment_factor(self, age):
+    def moment_factor(self, age, sit_last=None):
         W, PP, N, S = self.W, self.PP, self.N, self.S
         f = np.ones((N, S))
         if self.toy_on.any():   # time of year: a set season holds the moment to it (x4 there, 0 elsewhere); an inferred
@@ -488,13 +540,16 @@ class WorldLink:
                 P_ = W.hp_s.shape[2]; hk_ = np.where(hn_ >= 0, (hn_ // P_) % len(WK.HAUNT_KINDS), -1)   # N x 3
                 ok_ = (hk_[:, :, None] == self.haunt[hs_][None, None, :]).any(1) | (self.haunt[hs_] == self.H_GREAT)[None, :]
                 f[:, hs_] *= ok_
-        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year
-            se_ = np.nonzero(self.sphev >= 0)[0]
+        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year, and
+            se_ = np.nonzero(self.sphev >= 0)[0]                  # once for each time it fired (not met since it fired)
             last_ = getattr(W, "sph_ev_last", None)
             if not W.p.get("sph_events") or last_ is None:
                 f[:, se_] = 0.0
             else:
-                f[:, se_] *= (int(W.t) - last_[np.asarray(PP.loc)][:, self.sphev[se_]]) <= 52
+                lf_ = last_[np.asarray(PP.loc)][:, self.sphev[se_]]
+                f[:, se_] *= (int(W.t) - lf_) <= 52
+                if sit_last is not None:
+                    f[:, se_] *= sit_last[:, se_] < lf_
         if (self.ladder >= 0).any():   # a rung in the moment's sphere (no sphere: any) at least the one it names
             rg_ = getattr(PP, "rung", None)
             ls_ = np.nonzero(self.ladder >= 0)[0]
@@ -527,7 +582,12 @@ class WorldLink:
             elif nm_ == "jobloss":
                 v_ = np.asarray(v_, float)[_uclip(held_title_sector, 0, len(v_) - 1)][:, None]
                 v_ = np.where((held_title_sector >= 0)[:, None], v_, float(np.mean(W.rate_mult("jobloss"))))
+                if getattr(PP, "c3_jl", None) is not None:   # C3: a merger's quarter of risk
+                    v_ = v_ * np.where(PP.c3_jl > W.t, W._c_par("merge_jl"), 1.0)[:, None]
             r[:, m_] *= v_
+        ci_ = W.c4_illness() if W.p.get("c4_nature") else None   # C4: bad air or water in the person's place
+        if ci_ is not None and self.ill_s.any():
+            r[:, self.ill_s] *= ci_[PP.loc][:, None]
         r[:, self.wm_s] = 0.0          # these come on the world's events instead
         return r
 

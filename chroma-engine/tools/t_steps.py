@@ -14,7 +14,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   8. the spheres' phase 2 switches (haunts, hours and rungs, the mark of the work), switched on with the world: run_steps()
      still lives the lives of run(), and the lives move.
   9. WL2's small effects (wl2: prices for workers, a recession's hours, a disaster's cost, a pandemic year), likewise,
-     over lives long enough to hold a job; and the sphere events (sph_events, at a test base chance), over phase 2.
+     over lives long enough to hold a job; the sphere events (sph_events, at a test base chance), over phase 2; and the C
+     hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -269,7 +270,10 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the pair faces (sph_pairs)", dict(sph_pairs=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
-       ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24)]
+       ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
+       ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
+       ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
+       ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
