@@ -1,0 +1,524 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, title moments of the spheres' first jobs. Library thread,
+# 2026-10-09, "v22" update stage 4, item 15 (chroma-ideas/spheres-implementation.md section 4 "Library", "First jobs").
+# An everyday pair per new career title of first_jobs_titles.py that only its holder meets (holds:), in the style of
+# earth-titles-careers.lib: the first moment grows from the title's turning point, the second is a later stretch of
+# the same job. The three first jobs that an existing title already is (bar hand, orderly, apprentice) get no moments
+# here: their titles are tagged instead (TAG_EXISTING).
+# Syntax: header of build.py. Rules: SPEC.md. Every moment carries sphere: <sphere>, every option the face it acts in
+# (a cross option X>Y the means colour's face). ladder: is the rung the job sits on in that face's ladder
+# (character.jobs, read rung by rung); haunt: where the job is done at a haunt among its regulars.
+# Evenness: every one-colour option has chance 75 and every cross option 65, so each colour's mean is the same.
+# Pairs (complementary calls, cross cycles s1 to s4 three times each):
+#   court clerk     WB (s1) / URG (s2)      session player  UR (s3) / WBG (s4)     alms visitor  WG (s1) / UBR (s2)
+#   private tutor   BR (s3) / WUG (s4)      market porter   WB (s1) / URG (s2)     door staff    BR (s3) / WUG (s4)
+# holds: names the new titles, which are not yet in earth_perks_titles.py (they wait for FIRST_JOBS to be merged).
+
+# ================================================================ court clerk (rule.W)
+
+# ---------------------------------------------------------------- everyday, calls WB (cycle s1); partner: the same name on the list again
+
+== the missing page on list day
+tier: everyday
+sphere: rule
+ladder: known
+at: court
+rate: 0.5
+share: .005
+stages: young_adult adult mature elder
+age: 18-70
+calls: WB
+holds: court clerk
+tone: trouble
+life: work
+horizon: moment
+roles: colleague, boss
+earth: on a busy list day a claim from a man with no lawyer is missing a page, and you know where the page went
+times: Most court clerks, about once a year; misfiled papers are a routine trouble of a busy court list, and court staff are about 1 worker in 400 (estimate)
+gap: 0.8-1
+scene: It is list day, and a claim from a man with no lawyer is missing its second page. The bench will strike it out at eleven. {N} saw that page clipped to the wrong file yesterday.
+scene W: {N} took the post to see every claim filed right, whoever brings it. A man without a lawyer has no one else to notice.
+scene U: {N} works it back: the page went into the next file in the tray, and that file went up to the judge's room at nine.
+scene B: The clerk who misfiled it is {colleague}, who sits on the panel that picks next year's senior clerk.
+scene R: Through the glass {N} can see the man on the bench outside, turning his cap in his hands. Eleven is twenty minutes away.
+scene G: The old clerks always said the court belongs to the town, not to the lawyers. {N} has seen this man's family in the waiting room before.
+- W | ask the bench to stand the claim down until the page is found | v: universalism, conformity | lever: voice | sphere: rule.W | chance: 75
+- U | trace the page through the morning's file trays before eleven | v: achievement | sphere: rule.U | chance: 75
+- B | fetch the page from upstairs quietly, and say nothing of who lost it | v: security, power | sphere: rule.B | chance: 75
+- R | go out to the waiting bench and tell the man straight what has happened | v: benevolence, self-direction | sphere: rule.R | chance: 75
+- G | find the man's cousin in the waiting room and have the family bring a copy | v: tradition, benevolence | sphere: rule.G | chance: 75
+- W>U | check every claim on today's list for missing pages before the bench sits | v: conformity, achievement | sphere: rule.W | chance: 65
+- U>B | write down where the page turned up, so no one can pin the loss on you | act: write down where the page turned up, so no one can pin the loss on them | v: security | sphere: rule.U | chance: 65
+- B>R | keep your head down, let the claim fall, and get the list done by lunch | act: keep their head down, let the claim fall, and get the list done by lunch | v: hedonism, security | closed: approval: letting a claim fail that a clerk could save; backfire: the man appeals and the file shows the page | mark: refused someone in need | sphere: rule.B | chance: 65
+- R>G | run upstairs for the page and hand it to the man in front of his family | v: benevolence, stimulation | sphere: rule.R | chance: 65
+- G>W | follow the old clerks' custom: a written note to the bench vouching for the claim | v: tradition, universalism | sphere: rule.G | chance: 65
+works: The page is back in the file by ten to eleven, and the claim is heard that morning.
+works: The bench thanks {N} from the chair, and the man nods at {N} on his way out.
+fails: The claim is struck out before the page turns up, and the man has to start again.
+fails: {colleague} hears who raised it, and the office is cold to {N} for a month.
+
+# ---------------------------------------------------------------- everyday, calls URG (cycle s2); partner: the missing page on list day
+
+== the same name on the list again
+tier: everyday
+sphere: rule
+ladder: known
+at: court
+rate: 0.5
+share: .004
+stages: young_adult adult mature elder
+age: 18-70
+calls: URG
+holds: court clerk
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, boss, neighbour
+earth: a young person from your own street is on the court list for the third time this year, again with no lawyer
+times: Most court clerks in a town court, once or twice in their years there; the same young people come back on small charges, and clerks often know the families (estimate)
+gap: 1-3
+scene: For the third time this year {N} types the same name onto the list: a nineteen-year-old from {Ns} own street, on a small charge, again with no lawyer.
+scene W: The clerk's rule is to treat every name on the list the same, and to help none of them more than the others.
+scene U: Three small charges in a year, all on a Friday night, all near the same bar. {N} wonders what keeps bringing them back.
+scene B: If anyone in the office learns that {N} knows the family, {N} may be moved off the court, or worse.
+scene R: {N} remembers this kid kicking a ball against the garages. It makes {N} angry to see them walk in alone again.
+scene G: Their grandmother still sits on the bench outside the corner shop. Everyone on the street will hear how it goes.
+- W | treat them exactly as every other name on the list, no more and no less | v: conformity, universalism | sphere: rule.W | chance: 75
+- U | look back through the files to see what keeps bringing them here | v: universalism | sphere: rule.U | chance: 75
+- B | ask to be moved off that court for the day, to keep your name clear | act: ask to be moved off that court for the day, to keep their name clear | v: security | lever: exit | sphere: rule.B | chance: 75
+- R | catch them in the corridor and tell them to get a lawyer this time | v: benevolence, self-direction | sphere: rule.R | chance: 75
+- G | tell their grandmother on the street that the free advice desk opens at nine | v: benevolence, tradition | sphere: rule.G | chance: 75
+- W>B | ask the court manager, by the book, whether you should declare that you know them | act: ask the court manager, by the book, whether they should declare that they know the family | v: conformity, security | sphere: rule.W | chance: 65
+- U>R | point them to the duty lawyer's leaflet, the one most people never read | v: universalism, self-direction | sphere: rule.U | chance: 65
+- B>G | have a word about them with a friend in the probation office | v: benevolence, power | sphere: rule.B | chance: 65
+- R>W | speak up at the staff meeting about how many young people come back alone | v: universalism | lever: voice | sphere: rule.R | chance: 65
+- G>U | ask the older clerks which local schemes kept young people out of court before | v: tradition, universalism | sphere: rule.G | chance: 65
+works: The case is heard fairly, and the nineteen-year-old leaves with a lawyer's card and a second chance.
+works: Months later {N} notices the name has not come back on the list, and says nothing to anyone.
+fails: The name is back on the list in the spring, and this time the charge is not small.
+fails: {boss} hears that {N} knows the family, and {N} spends a week explaining it in the office.
+
+# ================================================================ session player (arts.U)
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s3); partner: the paid session on the night of the show
+
+== a better line on the second take
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: regular
+at: employer
+rate: 0.5
+share: .003
+stages: juvenile young_adult adult mature elder
+age: 16-80
+calls: UR
+holds: session player
+tone: mixed
+life: work, play
+horizon: moment
+roles: boss, colleague, mentor
+earth: you are the hired player on someone else's record, the producer wants the part exactly as written, and you hear a better one
+times: Most session players, a few times a year; how much of a written part a hired player may change is the commonest question of studio work (estimate)
+gap: 0-0.5
+scene: Three hours are booked, and {N} is the hired player on someone else's record. The producer wants the part exactly as written. On the second take {N} hears a better line in it.
+scene W: The band hired {N} to serve the song, not to show off. The sheet is on the stand.
+scene U: The written part sits a fraction behind the beat. {N} can hear exactly where it fights the singer's voice.
+scene B: A producer who likes {N} today rings again next month. A producer who is crossed rings someone else.
+scene R: The band are flat and tired, and the line in {Ns} head would wake the whole room up.
+scene G: {mentor} played sessions for thirty years and always said the song comes first, and the old records know what a song needs.
+- W | play the part exactly as written, take after take, until the producer is happy | v: conformity, achievement | sphere: arts.W | chance: 75
+- U | ask for one take your way, then let the playback decide | act: ask for one take their way, then let the playback decide | v: achievement, self-direction | sphere: arts.U | chance: 75
+- B | play it as asked, and leave your number with the singer on the way out | act: play it as asked, and leave their number with the singer on the way out | v: achievement, power | sphere: arts.B | chance: 75
+- R | play the new line on the next take without asking | v: self-direction, stimulation | sphere: arts.R | chance: 75
+- G | play it the way the old records played songs like this one | v: tradition | sphere: arts.G | chance: 75
+- W>R | keep to the written part, but give it everything on the last take | v: stimulation, conformity | sphere: arts.W | chance: 65
+- U>G | learn the singer's phrasing first, and build the part around their breath | v: benevolence, achievement | sphere: arts.U | chance: 65
+- B>W | agree the fee for an extra hour before offering any new ideas | v: security, power | sphere: arts.B | chance: 65
+- R>U | play the line ten ways at the break until you find the one that fits | act: play the line ten ways at the break until they find the one that fits | v: stimulation, achievement | sphere: arts.R | chance: 65
+- G>B | mention who taught you, and let the old name open the door | act: mention who taught them, and let the old name open the door | v: tradition, power | sphere: arts.G | chance: 65
+works: The take is the one they keep, and the producer writes {Ns} name on the studio's short list.
+works: The singer hears the playback, grins, and asks {N} back for the next record.
+fails: The producer stops the take halfway and asks, coldly, for the part as written.
+fails: The session runs over, the band blame the hired player, and the phone stays quiet for a month.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s4); partner: a better line on the second take
+
+== the paid session on the night of the show
+tier: everyday
+sphere: arts
+haunt: arts.song
+ladder: regular
+at: employer
+rate: 0.5
+share: .002
+stages: juvenile young_adult adult mature elder
+age: 16-80
+calls: WBG
+holds: session player
+tone: trouble
+life: work, friends
+horizon: week
+roles: friend, boss
+earth: two nights of paid studio work land on the same night your old band plays its first real show
+times: Most session players, once or twice early on; paid work and one's own band pull on the same nights (estimate)
+gap: 1-3
+scene: A studio rings with two nights of paid work, starting Friday. Friday is also the first real show for the band {N} started at school with {friend}.
+scene W: {N} promised {friend} months ago, and the posters with {Ns} name on them are already up.
+scene U: {N} counts it out: the session pays more than the band has earned in a year, and the studio's players are the best in town.
+scene B: Session work goes to whoever says yes first. Say no once, and the phone may not ring again.
+scene R: The show is what {N} has dreamed of since fourteen. The session is just a job.
+scene G: The band are {Ns} oldest friends, and their families will all be in the crowd.
+- W | keep your promise and play the show | act: keep their promise and play the show | v: benevolence, conformity | mark: kept your word | sphere: arts.W | chance: 75
+- U | ask the studio whether the session could start on Saturday instead | v: achievement | sphere: arts.U | chance: 75
+- B | take the session and find the band a stand-in player | v: achievement, security | mark: broke your word | sphere: arts.B | chance: 75
+- R | play both: the show at nine, then the night session straight after | v: stimulation, hedonism | sphere: arts.R | chance: 75
+- G | ask the band what they want you to do, and do that | act: ask the band what they want them to do, and do that | v: benevolence, tradition | sphere: arts.G | chance: 75
+- W>G | play the show, and bring the band to meet the studio players another night | v: benevolence | sphere: arts.W | chance: 65
+- U>W | offer the studio a fellow player you trust, so no one is let down | act: offer the studio a fellow player they trust, so no one is let down | v: benevolence, universalism | sphere: arts.U | chance: 65
+- B>U | take the session, and learn everything the best players in town do | v: achievement | mark: learned a skill | sphere: arts.B | chance: 65
+- R>B | tell the studio the show matters, and ask double for a Saturday start | v: power, stimulation | sphere: arts.R | chance: 65
+- G>R | turn down the money and play with your oldest friends as if for the last time | act: turn down the money and play with their oldest friends as if for the last time | v: tradition, hedonism | sphere: arts.G | chance: 65
+works: The night works out both ways, and the studio rings again the week after.
+works: The band play the best show of their lives, and {friend} hugs {N} on the pavement after.
+fails: The studio finds another player and does not ring again that year.
+fails: {friend} hears how close {N} came to not turning up, and the band is never quite the same.
+
+# ================================================================ alms visitor (faith.W)
+
+# ---------------------------------------------------------------- everyday, calls WG (cycle s1); partner: the family outside the congregation
+
+== the door that stays shut on the visiting list
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+ladder: newcomer
+at: faith body
+rate: 0.5
+share: .003
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: WG
+holds: alms visitor
+tone: trouble
+life: work, faith, community
+horizon: week
+roles: elder, neighbour
+earth: an old man on your visiting list has stopped opening his door, and the alms fund drops anyone not seen this month
+times: Most alms visitors, once or twice a year; on any visiting list someone withdraws for a while (estimate)
+gap: 0.8-1
+scene: The old man at number twelve has not opened his door for three weeks. The alms fund pays only for those seen this month, and the form is due on Friday.
+scene W: The fund's rule is fair because it is the same for all. It is also about to leave a man without his shopping.
+scene U: The curtains move when {N} knocks, and the milk is gone from the step each morning. Something has changed, and {N} wants to know what.
+scene B: The committee chooses a paid coordinator next month, and they notice whose forms come in clean.
+scene R: {N} wants to bang on the door until he answers.
+scene G: He sat two rows ahead of {Ns} grandparents in the hall for forty years. Someone on the street will know him.
+- W | write on the form exactly what you saw, and ask the committee for a month's grace | act: write on the form exactly what they saw, and ask the committee for a month's grace | v: conformity, benevolence | lever: voice | sphere: faith.W | chance: 75
+- U | ask the neighbours when they last saw him, and piece together what changed | v: universalism, benevolence | sphere: faith.U | chance: 75
+- B | sign the form as seen, and sort out the truth next month | v: security | closed: approval: signing for a visit that did not happen; backfire: the committee checks the list | mark: hid a wrong | sphere: faith.B | chance: 75
+- R | push a note under the door and wait on the step until he answers | v: benevolence, self-direction | sphere: faith.R | chance: 75
+- G | ask the oldest members at the hall whom he still talks to | v: tradition, benevolence | sphere: faith.G | chance: 75
+- W>U | ring the council's welfare line and ask for a proper check on him | v: universalism, security | sphere: faith.W | chance: 65
+- U>B | look up what other help he is owed, so the fund's rule matters less | v: security, universalism | sphere: faith.U | chance: 65
+- B>R | leave the bag on the step and get through the rest of the list early | v: hedonism, security | sphere: faith.B | chance: 65
+- R>G | knock every evening this week with a hot meal from home | v: benevolence | sphere: faith.R | chance: 65
+- G>W | bring his old friend from the hall along on the next visit | v: tradition, benevolence | sphere: faith.G | chance: 65
+works: On the fourth day the door opens a crack, and the old man asks {N} in for tea.
+works: The committee grants the month's grace, and the shopping keeps coming while he finds his feet.
+fails: The fund drops him from the list, and {N} carries his shopping out of {Ns} own wage for a month.
+fails: The door stays shut, and {N} learns from a neighbour that his son has taken him away to another town.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s2); partner: the door that stays shut on the visiting list
+
+== the family outside the congregation
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+ladder: newcomer
+at: faith body
+rate: 0.5
+share: .003
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: UBR
+holds: alms visitor
+tone: mixed
+life: work, faith, community
+horizon: week
+roles: elder, neighbour
+earth: a family outside the congregation asks you for help, and the alms fund's rules put members first
+times: Most alms visitors, once or twice a year; a fund kept for members meets need on the street outside it (estimate)
+gap: 0.8-1
+scene: A young mother from the flats stops {N} on the stairs. She does not belong to the congregation, her children need shoes, and the fund's rules say members come first.
+scene W: The rule was written so the fund would last. {N} also remembers the old saying that the alms door shuts on no one.
+scene U: {N} knows the fund had money left over last winter. Nobody has asked whether the rule still fits the street.
+scene B: Bending the rule once makes {N} the visitor everyone in the flats asks next.
+scene R: The children stand behind her in their socks on the cold stairs. {N} does not want to quote a rule at them.
+scene G: Her grandmother came to the hall when {N} was small. The family drifted away, but the street remembers them.
+- W | explain the rule kindly, and put her name first on the list for spring | v: conformity, benevolence | sphere: faith.W | chance: 75
+- U | take her case to the committee with last winter's figures in hand | v: universalism, achievement | lever: voice | sphere: faith.U | chance: 75
+- B | give her the address of the council's help desk, and keep the fund's rule | v: security, conformity | sphere: faith.B | chance: 75
+- R | buy the shoes out of your own wage that afternoon | act: buy the shoes out of their own wage that afternoon | v: benevolence | mark: helped someone in need | sphere: faith.R | chance: 75
+- G | ask the hall's old members to pass round a hat for the family | v: tradition, benevolence | lever: fund | sphere: faith.G | chance: 75
+- W>B | sign her up as a member's guest, which the rules allow, and note it properly | v: conformity, benevolence | sphere: faith.W | chance: 65
+- U>R | find a children's shoe fund online and fill in the form with her | v: universalism, self-direction | tech: internet | sphere: faith.U | chance: 65
+- B>G | call in a favour from the shoe shop owner, who owes the hall a kindness | v: power, benevolence | sphere: faith.B | chance: 65
+- R>W | stand up at the next meeting and ask for the members-first rule to go | v: universalism | lever: voice | sphere: faith.R | chance: 65
+- G>U | ask her grandmother's old friends what the family needs most, and plan with them | v: tradition, universalism | sphere: faith.G | chance: 65
+works: The children have shoes by the weekend, and their mother comes to the hall's supper the next month.
+works: The committee changes the rule at its next meeting, and {Ns} name is in the minutes.
+fails: The committee says no, and the mother stops {N} on the stairs no more.
+fails: Word gets round the flats, and by Friday {N} has a list of twenty families and nothing to give them.
+
+# ================================================================ private tutor (learn.B)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s3); partner: the pupil who cannot pay any more
+
+== a parent asks you to write the coursework
+tier: everyday
+sphere: learn
+ladder: newcomer
+rate: 0.5
+share: .03
+stages: juvenile young_adult adult mature elder
+age: 16-80
+calls: BR
+holds: private tutor
+tone: trouble
+life: work, money
+horizon: week
+roles: mentor, a parent of a pupil
+earth: a parent paying double asks you to write the coursework their child is meant to write, and your rent is due
+times: About half of private tutors, once in their years of tutoring; paid help that slides into doing the work is a known trouble of private tuition (estimate)
+gap: 1-3
+scene: At the door, the mother of {Ns} best-paying pupil asks whether {N} could just write the coursework this once. She will pay double, and {Ns} rent is due on Friday.
+scene W: The coursework is meant to show what the pupil can do. Every other pupil in the class writes their own.
+scene U: {N} knows the pupil could do it in three good sessions, if someone broke the task into pieces.
+scene B: Double the fee covers the rent, and a happy parent sends their friends' children.
+scene R: {N} has had enough of evenings spent on a teenager who will not look up from the phone.
+scene G: {mentor} once tutored {N} for nothing, and would never have taken money to do a child's work.
+- W | say no, and offer the pupil an extra session at the usual fee | v: conformity, benevolence | sphere: learn.W | chance: 75
+- U | split the task into steps, and set the pupil one step a night | v: achievement | sphere: learn.U | chance: 75
+- B | take the double fee and write it | v: achievement, power | closed: approval: writing a pupil's coursework for pay; backfire: the school spots it | mark: hid a wrong | sphere: learn.B | chance: 75
+- R | tell the mother straight that you are a tutor, not a ghost writer | act: tell the mother straight that they are a tutor, not a ghost writer | v: self-direction | sphere: learn.R | chance: 75
+- G | ring your old tutor and ask how they handled parents like this | act: ring their old tutor and ask how they handled parents like this | v: tradition | sphere: learn.G | chance: 75
+- W>R | say no, drop the family, and take your Thursday evenings back | act: say no, drop the family, and take their Thursday evenings back | v: self-direction, conformity | sphere: learn.W | chance: 65
+- U>G | show the pupil how their own family's story could be the coursework | v: tradition, achievement | sphere: learn.U | chance: 65
+- B>W | write a model answer on another topic, which the rules allow, and charge for it | v: achievement, conformity | sphere: learn.B | chance: 65
+- R>U | make the coursework a race: who writes the best opening line by nine | v: stimulation, achievement | sphere: learn.R | chance: 65
+- G>B | hand the family to a friend who tutors, who will owe you one | act: hand the family to a friend who tutors, who will owe them one | v: power, benevolence | sphere: learn.G | chance: 65
+works: The pupil hands in work of their own, and it is the best mark they have had all year.
+works: The mother takes the answer well, and a fortnight later two of her friends ring for lessons.
+fails: The family find another tutor by the weekend, and the rent is short that month.
+fails: The pupil's teacher asks questions about the work, and {Ns} name comes up.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s4); partner: a parent asks you to write the coursework
+
+== the pupil who cannot pay any more
+tier: everyday
+sphere: learn
+ladder: newcomer
+rate: 0.5
+share: .03
+stages: juvenile young_adult adult mature elder
+age: 16-80
+calls: WUG
+holds: private tutor
+tone: mixed
+life: work, money
+horizon: months
+roles: a pupil, a parent of a pupil
+earth: weeks before the exams, a pupil you have taught all year says the family can no longer pay
+times: About half of private tutors, once or twice; families stop paying when money runs short, often just before exams (estimate)
+gap: 1-3
+scene: Six weeks before the exams, {Ns} quietest pupil says the family cannot pay for lessons any more. The pupil has gone from failing to nearly passing since autumn.
+scene W: Every pupil deserves a fair run at the exam, not only the ones whose parents can pay.
+scene U: {N} has the pupil's progress in a notebook, week by week. Six more sessions would almost surely do it.
+scene B: A free slot is a slot {N} cannot sell, and three families are waiting for one.
+scene R: {N} wants to see this one pass more than any pupil this year.
+scene G: The pupil's family run the corner shop where {Ns} family have bought bread for years.
+- W | teach the six weeks for free, and tell no one | v: benevolence, universalism | sphere: learn.W | chance: 75
+- U | write the pupil a six-week plan they can follow alone | v: achievement, benevolence | sphere: learn.U | chance: 75
+- B | give the slot to a paying family, and wish the pupil luck | v: achievement, security | sphere: learn.B | chance: 75
+- R | turn the last weeks into fast, noisy revision in the park | v: stimulation, benevolence | sphere: learn.R | chance: 75
+- G | take payment in bread and the odd favour from the shop | v: tradition, benevolence | sphere: learn.G | chance: 75
+- W>G | ask the school to put the pupil in its free revision club, and walk them there | v: benevolence, conformity | sphere: learn.W | chance: 65
+- U>W | find the free exam help at the library, and set it up for the pupil | v: universalism | sphere: learn.U | chance: 65
+- B>U | keep teaching for free, and use the pupil's result to win new clients | v: achievement, power | sphere: learn.B | chance: 65
+- R>B | offer a cheap group class for the pupil and four friends | v: achievement, stimulation | sphere: learn.R | chance: 65
+- G>R | bring the pupil to your family's kitchen-table revision nights, with music and food | act: bring the pupil to their family's kitchen-table revision nights, with music and food | v: tradition, hedonism | sphere: learn.G | chance: 65
+works: The pupil passes in the summer, and the family send {N} a loaf and a card.
+works: The weeks turn out to matter to {N} too, and {N} starts keeping one free place every year.
+fails: The pupil misses the pass by two marks, and {N} wonders what one more session would have done.
+fails: The free weeks cost {N} a paying family, and the autumn starts thin.
+
+# ================================================================ market porter (comm.W)
+
+# ---------------------------------------------------------------- everyday, calls WB (cycle s1); partner: the old stallholder's pitch
+
+== the scale set light at five in the morning
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: newcomer
+at: employer
+rate: 0.5
+share: .008
+stages: juvenile young_adult adult mature
+age: 16-65
+calls: WB
+holds: market porter
+tone: trouble
+life: work, money
+horizon: moment
+roles: boss, colleague, parent
+earth: wheeling a crate to a stall, you see the trader's scale has been set light, and both trader and buyer tip you every week
+times: Most market porters, once or twice in their years on the barrows; short weight is the oldest trouble of a market (estimate)
+gap: 1-3
+scene: At five in the morning {N} wheels a crate to a stall and sees that the trader's scale has been set light. The trader tips {N} every Friday. So does the café owner buying the crate.
+scene W: Every porter knows the market warden's rule: a false weight is everyone's business.
+scene U: {N} saw the trader's thumb on the dial screw yesterday too. It is no mistake.
+scene B: The tips are half of {Ns} wage. Whoever {N} crosses this morning stops paying them.
+scene R: {N} wants to tip the crate back onto the trader's own boots.
+scene G: The café owner has bought here since {Ns} parent pushed a barrow on this same row.
+- W | tell the market warden, and let the warden check the scale | v: conformity, universalism | lever: voice | sphere: comm.W | chance: 75
+- U | weigh the crate again on the public scale before handing it over | v: universalism, security | sphere: comm.U | chance: 75
+- B | say nothing, and keep both tips coming | v: security, achievement | mark: hid a wrong | sphere: comm.B | chance: 75
+- R | set the scale right in front of the trader and the buyer | v: self-direction, stimulation | sphere: comm.R | chance: 75
+- G | have a quiet word with the café owner, as a friend of the family | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>U | note the weights all week, and bring the warden the figures | v: universalism, achievement | sphere: comm.W | chance: 65
+- U>B | let the trader know what you saw, and that your silence has a price | act: let the trader know what they saw, and that their silence has a price | v: power | closed: approval: selling silence about a false weight; backfire: the warden hears of it | sphere: comm.U | chance: 65
+- B>R | ask to be moved to the far end of the market, well out of it | v: hedonism, security | lever: exit | sphere: comm.B | chance: 65
+- R>G | call out the true weight down the row, so every buyer hears it | v: stimulation, universalism | sphere: comm.R | chance: 65
+- G>W | gather the old porters and bring it to the warden together | v: tradition, universalism | lever: voice | sphere: comm.G | chance: 65
+works: The warden checks the scale before six, and the trader pays a fine and fixes the dial.
+works: The café owner hears what {N} did, and the Friday tip doubles from then on.
+fails: The trader's tips stop, and the other traders on the row go quiet when {N} comes by.
+fails: The warden finds the scale right by the time anyone looks, and {N} is the one who looks foolish.
+
+# ---------------------------------------------------------------- everyday, calls URG (cycle s2); partner: the scale set light at five in the morning
+
+== the old stallholder's pitch
+tier: everyday
+sphere: comm
+haunt: comm.market
+ladder: newcomer
+at: employer
+rate: 0.5
+share: .004
+stages: juvenile young_adult adult mature
+age: 16-65
+calls: URG
+holds: market porter
+tone: mixed
+life: work, money
+horizon: months
+roles: elder, colleague, cousin
+earth: an old stallholder who is retiring offers you the pitch, the barrow and the regulars, on a handshake
+times: About 1 market porter in 3, once; pitches pass from old hands to young ones on the market itself (estimate)
+gap: 1-5
+scene: The old stallholder at the fruit pitch is retiring. Over tea at the end of the morning she offers {N} the pitch, the barrow and her regulars for a small sum paid over a year, on a handshake.
+scene W: A handshake is still a deal. {N} would want it written down and fair to both.
+scene U: {N} does the sums on a paper bag: the rent, the stock, the slow winter months.
+scene B: A pitch of one's own means no more carrying for others at four in the morning.
+scene R: {N} has wanted to shout the prices from behind a stall since the first week on the barrows.
+scene G: Her regulars have bought fruit from that pitch for thirty years. Taking it on means keeping them.
+- W | ask to write the terms down, with the market warden as witness | v: conformity, security | sphere: comm.W | chance: 75
+- U | ask to see her takings book for a full year before saying yes | v: achievement, security | sphere: comm.U | chance: 75
+- B | haggle the price down, since no one else has asked for the pitch | v: power, achievement | sphere: comm.B | chance: 75
+- R | shake on it there and then | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 75
+- G | say yes, and ask her to stand at the stall beside you for the first month | act: say yes, and ask her to stand at the stall beside them for the first month | v: tradition, benevolence | sphere: comm.G | chance: 75
+- W>B | take it on, and keep portering mornings until the stall pays its way | v: security, achievement | sphere: comm.W | chance: 65
+- U>R | plan a first week of new lines nobody else in the market sells | v: stimulation, achievement | sphere: comm.U | chance: 65
+- B>G | bring in a cousin as partner, and keep the risk inside the family | v: security, tradition | sphere: comm.B | chance: 65
+- R>W | tell her the porter with three children needs the pitch more than you | act: tell her the porter with three children needs the pitch more than they do | v: benevolence, universalism | sphere: comm.R | chance: 65
+- G>U | ask her regulars what they would want from the stall, and plan around them | v: tradition, universalism | sphere: comm.G | chance: 65
+works: By spring the stall pays its way, and the old regulars still come on Saturdays.
+works: The handshake holds, and the old stallholder drops by every week to see how her pitch is kept.
+fails: The first winter is slow, and {N} is back on the barrows by the morning shift to cover the rent.
+fails: Her son turns up in the summer, says the pitch was never hers to give, and wants it back.
+
+# ================================================================ door staff (prot.B)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s3); partner: the group the manager wants turned away
+
+== too drunk to stand at closing time
+tier: everyday
+sphere: prot
+haunt: gather.night
+ladder: newcomer
+at: employer
+rate: 0.5
+share: .012
+stages: young_adult adult mature
+age: 18-60
+calls: BR
+holds: door staff
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague, neighbour
+earth: near closing a young customer is too drunk to stand, their friends have gone, and the rule is to put them outside
+times: Most door staff, many times a year; a customer left alone and too drunk to get home is the commonest worry of the night's last hour (estimate)
+gap: 0-0.5
+scene: Near closing, a young customer is too drunk to stand, and the friends who came with them have gone. The night manager's rule is simple: anyone that drunk goes outside the door.
+scene W: The rule keeps the room safe for everyone. It was never meant to leave someone alone on a cold pavement.
+scene U: {N} has seen nights like this go wrong after the door, not before it. The taxi rank is empty at this hour.
+scene B: {N} is paid to keep the door, not to mind the customers. The manager watches who keeps to the rule.
+scene R: {N} wants to get this one home, rule or no rule.
+scene G: {N} grew up four streets away, and this could be a neighbour's child.
+- W | sit them by the cloakroom with water until someone sober can take them | v: benevolence, security | sphere: prot.W | chance: 75
+- U | ask which way they live, and work out the safest way to get them there | v: benevolence | sphere: prot.U | chance: 75
+- B | put them outside as the rule says, and get back to the door | v: conformity, security | sphere: prot.B | chance: 75
+- R | walk them to the taxi rank yourself, and wait until a car comes | act: walk them to the taxi rank and wait until a car comes | v: benevolence, stimulation | sphere: prot.R | chance: 75
+- G | ring round the regulars until someone knows the family | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>R | log it by the book, then go off shift and walk them home | v: benevolence, conformity | sphere: prot.W | chance: 65
+- U>G | work out from their talk which friends they came with, and find them nearby | v: benevolence | sphere: prot.U | chance: 65
+- B>W | tell the manager the licence is at risk if they are left outside | v: power, security | lever: voice | sphere: prot.B | chance: 65
+- R>U | stay out on the pavement with them and keep them talking until help comes | v: benevolence | sphere: prot.R | chance: 65
+- G>B | call your cousin who drives a taxi, and settle the fare between you | act: call their cousin who drives a taxi, and settle the fare between them | v: tradition, benevolence | sphere: prot.G | chance: 65
+works: The customer gets home safe, and a week later comes back sober to thank the door staff.
+works: The manager sees how it was handled and gives {N} the Saturday shifts.
+fails: The manager is furious about the time it took, and {N} loses a shift that week.
+fails: The friends turn up at last, angry and blaming the door, and the night ends in shouting.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s4); partner: too drunk to stand at closing time
+
+== the group the manager wants turned away
+tier: everyday
+sphere: prot
+haunt: gather.night
+ladder: newcomer
+at: employer
+rate: 0.5
+share: .01
+stages: young_adult adult mature
+age: 18-60
+calls: WUG
+holds: door staff
+tone: trouble
+life: work, friends
+horizon: moment
+roles: boss, friend
+earth: the night manager tells you to turn away a group from the estate for how they dress, though they have done nothing
+times: Most door staff, a few times in their years on the door; being told to refuse people for their looks is a common complaint about door work (estimate)
+gap: 0.5-2
+scene: The night manager leans out and tells {N} to turn away the group at the front of the queue. They have done nothing; it is how they dress and the estate they come from. {friend}, from {Ns} old school, is one of them.
+scene W: The door is meant to keep out trouble, not people. {N} holds the same rule for every face in the queue.
+scene U: {N} has worked this door for months and knows exactly who causes trouble here. It is never this group.
+scene B: The manager hands out the Saturday shifts, and the Saturday shifts pay the rent.
+scene R: {N} feels the heat rise. This is the kind of door {N} swore never to stand on.
+scene G: The estate is where {N} grew up. Half the queue knows {Ns} family.
+- W | let them in like anyone else, and tell the manager the rule is one for all | v: universalism | lever: voice | sphere: prot.W | chance: 75
+- U | show the manager the incident log, where this group has never once appeared | v: universalism, achievement | sphere: prot.U | chance: 75
+- B | turn them away as told, and keep the Saturday shifts | v: security, conformity | mark: gave in to pressure | sphere: prot.B | chance: 75
+- R | refuse to the manager's face, whatever it costs | v: self-direction | mark: defied an authority | sphere: prot.R | chance: 75
+- G | have a quiet word with your old schoolmate, and send the group to a better bar | act: have a quiet word with their old schoolmate, and send the group to a better bar | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>G | let them in on the usual checks, and ask your schoolmate to keep the group together | act: let them in on the usual checks, and ask their schoolmate to keep the group together | v: universalism, benevolence | sphere: prot.W | chance: 65
+- U>W | write down the manager's order word for word, and send it to the licensing office | v: universalism | lever: voice | sphere: prot.U | chance: 65
+- B>U | turn them away tonight, and quietly start asking other venues for work | v: security, achievement | lever: exit | sphere: prot.B | chance: 65
+- R>B | tell the manager you will walk out mid-shift unless the group gets in | act: tell the manager they will walk out mid-shift unless the group gets in | v: power, self-direction | sphere: prot.R | chance: 65
+- G>R | end the shift early and spend the night out with the old crowd from the estate | v: hedonism, tradition | lever: exit | sphere: prot.G | chance: 65
+works: The group come in, spend the night dancing and leave at closing without a word of trouble.
+works: The manager backs down in front of the queue, and the door is run more fairly after that.
+fails: The manager takes {N} off the Saturday rota, and the rent is short that month.
+fails: {friend} sees what happened at the door and does not speak to {N} for weeks.

@@ -1,0 +1,613 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, gathering specials. Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 2 and 3 specials (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5): the
+# year's great gathering, missed at the table, rites as shared scenes, who taught them, the hiring door, and the haunt
+# choice at each new life stage. Every moment carries sphere:, every option the face it acts in (sphere: gather.R; a
+# cross option X>Y the means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# Evenness: inside each moment every one-colour option has one chance, every cross option one chance, every pair option
+# one chance, so each colour's mean is the same in every stage.
+# Everyday pairs (one calls two colours, its partner the other three, same stages and ages): the great gathering RG (s1)
+# with the funeral nobody is coming to WUB (s3); the regular who stops coming WG (s2) with being missed UBR (s4);
+# teaching a younger learner WU (s3) with a young relative's coming of age BRG (s2).
+# Life events and their pair sets: the naming D1a, the new teacher D2b, the gate at dawn D3a, the job centre at
+# fifty-five D4b, the wedding D5a.
+# Inner: the haunt choice, one per new life stage (15, 20, 30, 65), five one-colour options, each a kind of haunt.
+
+# ================================================================ the year's great gathering (gather.great)
+
+# ---------------------------------------------------------------- everyday, calls RG (cycle s1); partner: the funeral nobody is coming to
+
+== the year's great gathering
+tier: everyday
+sphere: gather
+haunt: gather.great
+time_of_year: summer
+stages: juvenile+
+age: 14-100
+calls: RG
+rate: 1
+share: .3
+tone: mixed
+life: community, friends, love
+horizon: week
+roles: friend, rival, prospect, neighbour, keeper, regular
+who: friend, rival, prospect
+earth: once a year the whole town turns out on the common: long tables, a band, the games, and everyone you know
+times: The yearly fair, feast or games where the whole town meets is near-universal where a town keeps one; the afternoon that matters in a life (a match made, a friendship begun, a feud stirred) comes to about 3 in 10 lives, a few times each, years apart (estimate; gap 20-30 keeps it near one a life overall; Dietler and Hayden 2001 on feasts that make and break ties). With the world on, a great_feast or the_games year (gather events) makes the day bigger, but this moment is the ordinary yearly one
+likelier: a small or settled town, a family with deep roots there, a good summer, a person with a rival or a sweetheart in town
+rarer: a big city of strangers, a newcomer in the first year, a year of mourning or illness, a town where the gathering has lapsed
+gap: 20-30
+scene: Once a year {place} closes the high street and fills the common: long tables, a band on a lorry, the tug of war and the races. Everyone is there, {rival} included, and {friend} nudges {N}: {prospect} keeps looking over from the next table.
+scene W: The stewards are short of hands for the gate and the tables, and someone has to make sure the old folk from the care home get seats in the shade.
+scene U: {N} watches who sits with whom. In one afternoon on the common the whole town can be read: who has made up, who has fallen out, who is new.
+scene B: Every family that matters in {place} is out on the common, and the councillors are working the tables. A good afternoon here is worth a year of knocking on doors.
+scene R: The band is loud, the races start at four, and {N} has already been dared to pull in the tug of war against {Ns} rival's side.
+scene G: The same families sit at the same tables as every year, the same dish goes down the line, and there is one more chair this year for the newest baby.
+- W | volunteer as a steward, and see that everyone who comes finds a seat | v: benevolence, conformity | lever: loyalty | pushes: group neighbours | sphere: gather.W | chance: 80
+- U | spend the afternoon at the edges, listening to what the town is talking about | v: universalism, self-direction | sphere: gather.U | chance: 80
+- B | work the tables, and leave with three people who owe you a favour | act: work the tables, and leave with three people who owe them a favour | v: power, achievement | sphere: gather.B | chance: 80
+- R | pull in the tug of war against your rival's side until your hands burn | act: pull in the tug of war against their rival's side until their hands burn | v: stimulation, achievement | sphere: gather.R | chance: 80
+- G | sit at the family's table all afternoon, and let the town come to you | act: sit at the family's table all afternoon, and let the town come to them | v: tradition, security | sphere: gather.G | chance: 80
+- W>U | keep the committee's book of who came, who gave and what was raised | v: conformity, achievement | sphere: gather.W | chance: 70
+- U>B | work out who will matter in town next year, and sit at their table | v: power | sphere: gather.U | chance: 70
+- B>R | slip the band something to keep playing for another hour | v: hedonism | lever: fund | sphere: gather.B | chance: 70
+- R>G | drag the grandparents up to dance the old dance, loudly and badly | v: tradition, hedonism | mark: made a friend | sphere: gather.R | chance: 70
+- G>W | bring the dish your family always brings, and share it at the newcomers' table | act: bring the dish their family always brings, and share it at the newcomers' table | v: benevolence, tradition | mark: made a friend | sphere: gather.G | chance: 70
+works: By evening {N} has a new friend, an old quarrel cooled, and a story the town will tell for a year.
+works: Something starts at the long tables that lasts: a friendship, a match, a seat on next year's committee.
+fails: An old feud flares by the beer tent, and {N} is caught standing on the wrong side of it.
+fails: The rain comes at four, the tables empty, and the afternoon {N} hoped for never comes.
+
+# ================================================================ rites as shared scenes (faith)
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s3); partner: the year's great gathering
+
+== a funeral nobody is coming to
+tier: everyday
+sphere: faith
+haunt: gather.house
+holy: mourning
+stages: juvenile+
+age: 15-100
+calls: WUB
+rate: .5
+share: .2
+tone: mixed
+life: death, community, neighbours
+horizon: week
+roles: keeper, regular, friend, neighbour
+who: keeper
+earth: an old regular at the café has died with no family, the funeral is on Thursday, and so far nobody has said they will come
+times: Lonely deaths with few or no mourners are a known cost of isolation (Klinenberg 2002; rites as shared scenes, Van Gennep 1909); a regular of a person's haunt dying with no kin to bury them comes to about 1 in 5 lives, once or twice (estimate)
+likelier: a regular at a café, bar or club for years, a town with many old people living alone, a person known for turning up
+rarer: a newcomer with no haunt yet, a town where families still bury their own, a person who keeps to themselves
+gap: 5-20
+scene: The old man who sat by the café window every morning for twenty years has died, and the keeper says there is no family. The funeral is on Thursday at the cemetery chapel, and so far nobody has said they will come.
+scene W: Nobody should go into the ground alone. {N} thinks of the empty rows and feels the old duty: someone has to stand there for him.
+scene U: {N} realises that nobody at the café even knows his full name, where he came from, or what he did before the window seat.
+scene B: The keeper looks worn out. Someone will have to organise this, and whoever does will be thanked by the whole street.
+scene R: It makes {N} angry: twenty years in the same seat, and the town cannot spare one morning for him.
+scene G: The old ones in {place} always said a person is buried by their street. {N} wonders whether that is still true.
+- W | go round the regulars one by one, and ask each to come on Thursday | v: benevolence, conformity | lever: loyalty | pushes: group neighbours | sphere: faith.W | chance: 70
+- U | find out who he was, and write a few true lines to read at the service | v: universalism, benevolence | sphere: faith.U | chance: 70
+- B | take charge of the arrangements, and put the notice up in your own name | act: take charge of the arrangements, and put the notice up in their own name | v: achievement, power | sphere: faith.B | chance: 70
+- R | go on Thursday whoever else does, and speak up for him at the graveside | v: benevolence, stimulation | sphere: faith.R | chance: 70
+- G | bring flowers from the café's window box, and sit in his seat the morning after | v: tradition, benevolence | sphere: faith.G | chance: 70
+- W>R | ask the whole street to stand at their doors as the hearse goes past | v: benevolence, tradition | pushes: group neighbours | sphere: faith.W | chance: 60
+- U>G | search the old records for any kin he had, and write to them | v: universalism, tradition | sphere: faith.U | chance: 60
+- B>W | talk the funeral home down to a fair price, and get the regulars to share it | v: benevolence, power | lever: fund | sphere: faith.B | chance: 60
+- R>U | go to his old workplace that afternoon, and ask who remembers him | v: self-direction, universalism | sphere: faith.R | chance: 60
+- G>B | ask the keeper, by custom, for his chair by the window, and make it yours | act: ask the keeper, by custom, for his chair by the window, and make it theirs | v: tradition, power | sphere: faith.G | chance: 60
+works: Thursday comes, and the chapel holds more people than anyone expected; the keeper cries at the door.
+works: The street learns a little of who he was, and his seat stays empty for a week, by agreement.
+fails: Four people come, and the service is over in twenty minutes in the rain.
+fails: The arrangements turn into a quarrel over money, and {N} is left out of pocket and out of sorts.
+
+# ---------------------------------------------------------------- life event: a naming in the family (pairs D1a)
+
+== asked to stand for a child at the naming
+tier: life event
+sphere: faith
+stages: young_adult adult mature
+age: 20-60
+per_year: 0 0 .01 .012 .004 0
+drivers: family+.3 ties+.3 community+.2
+times: Most births are marked with a naming, a blessing or a welcome (Van Gennep 1909); being asked to stand for a child at the rite comes to an adult once or twice where kin and friends keep the custom (estimate), set at 1 in 100 a year in the twenties, a little more in the thirties and early forties (about 3 in 10 lives)
+likelier: a large family, a circle of friends having children, a family that keeps a faith, a person known as steady
+rarer: a scattered family, no friends with young children, a town where few keep rites
+gap: 3-15
+tone: joy
+life: family, faith, friends
+horizon: years
+roles: sibling, parent, grandparent, friend
+who: sibling
+earth: your brother or sister asks you to stand for their baby at the naming, and the family is already quarrelling over the day
+scene: {sibling} has a new baby, and the naming is in three weeks. {sibling} asks {N} to stand for the child at the rite and look out for her all her life. Then comes the trouble: who will lead it, and whether {parent} will come if it is not done the old way.
+scene W: To stand for a child is a promise for life. {N} takes promises seriously, and wants this one made properly, in front of everyone.
+scene U: {N} wants to know what the words of the rite actually mean before saying them over a baby.
+scene B: {N} sees that the one who stands for the child gets a say in the family for twenty years, and the grandparents know it too.
+scene R: {N} has already said yes, hugged everyone and cried. The details can come later.
+scene G: {grandparent} still has the shawl every child in the family has been named in. It lies folded on the dresser, waiting.
+- W | say yes, and learn every word of the rite by heart for the day | v: tradition, conformity | sphere: faith.W | chance: 65
+- U | ask whoever leads the rite to explain each part before you agree | act: ask whoever leads the rite to explain each part before they agree | v: self-direction, universalism | sphere: faith.U | chance: 65
+- B | agree, on condition that you get a real say in the child's schooling | act: agree, on condition that they get a real say in the child's schooling | v: power | sphere: faith.B | chance: 65
+- R | say yes on the spot, and swear to be the most fun person in her life | v: stimulation, benevolence | sphere: faith.R | chance: 65
+- G | ask for the old family shawl, and hold the baby in it at the rite | v: tradition | sphere: faith.G | chance: 65
+- WU | draw up a fair order for the rite, with a part for each side | v: universalism, conformity | sphere: faith.WU | chance: 55
+- WR | ring the parent who is staying away, and tell them plainly they are needed | v: benevolence, tradition | lever: voice | pushes: close parent | sphere: faith.RW | chance: 55
+- UG | ask the oldest relatives how namings were done in their day, and keep some of it | v: tradition, universalism | sphere: faith.GU | chance: 55
+- BR | throw the naming party yourself, so big and loud that nobody wants to miss it | act: throw the naming party themselves, so big and loud that nobody wants to miss it | v: hedonism, power | lever: fund | sphere: faith.BR | chance: 55
+- BG | let the grandparents lead the rite, and quietly win their help for the young parents | v: tradition, security | sphere: faith.BG | chance: 55
+works: On the day everyone comes, even {parent}, and the child's name is said in a full room.
+works: The promise sticks: years later the child still runs to {N} at every family meal.
+fails: {parent} stays away, and the empty chair is all the family talks about afterwards.
+fails: The rite turns into a quarrel over whose way it should be, and the baby cries through all of it.
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s2); partner: a young learner at the kitchen table
+
+== a young relative's coming of age
+tier: everyday
+sphere: faith
+haunt: faith.congregation
+stages: adult mature elder
+age: 30-90
+calls: BRG
+rate: .5
+share: .2
+tone: mixed
+life: family, faith
+horizon: months
+roles: sibling, parent, grandparent, elder
+who: sibling
+earth: a young relative comes of age at the rite this spring, and you are asked to say the elder's words over them
+times: Coming-of-age rites mark the passage to adulthood in most societies (Van Gennep 1909); being asked to say the words or stand beside a young relative at one comes to about 1 in 5 adults where a family keeps such a rite, once or twice in a life (estimate)
+likelier: a family that keeps a faith, many nieces, nephews or young cousins, a person the young ones look up to
+rarer: a family that keeps no rites, few young relatives, a person estranged from their kin
+gap: 4-15
+scene: {sibling}'s eldest is fifteen, and the coming-of-age rite is set for the spring. {sibling} wants {N} to say the elder's words over the youngster; the other side of the family says that place is theirs; and the youngster says they may not go through with it at all.
+scene W: The rite should be done properly, by whoever the custom names, and {N} wants to know who that is.
+scene U: {N} remembers their own rite: words learned by heart and never once explained.
+scene B: Saying the elder's words would make {N} the one this young person turns to for years. {N} would like to be that.
+scene R: The youngster's doubts sound exactly like {N} at fifteen, and {N} is on their side already.
+scene G: The family has kept this rite for longer than anyone can count. The youngster is the next link, and {N} feels the weight of it.
+- W | find out whose place it is by custom, and abide by it | v: tradition, conformity | sphere: faith.W | chance: 70
+- U | sit down with the youngster, and talk through what the rite really means | v: universalism, self-direction | sphere: faith.U | chance: 70
+- B | agree to say the words, and settle the other side with a smaller part | v: power, achievement | sphere: faith.B | chance: 70
+- R | tell the youngster they need not do it to please anyone | v: self-direction | lever: voice | sphere: faith.R | chance: 70
+- G | say the old words as your grandparents said them, and change nothing | act: say the old words as their grandparents said them, and change nothing | v: tradition | sphere: faith.G | chance: 70
+- W>B | draw up the order of the day, and give yourself the closing words | act: draw up the order of the day, and give themselves the closing words | v: power, conformity | sphere: faith.W | chance: 62
+- U>R | help the youngster write words of their own to say at the rite | v: self-direction, stimulation | sphere: faith.U | chance: 62
+- B>G | pay for the meal afterwards, so both sides of the family sit at one table | v: benevolence, tradition | lever: fund | sphere: faith.B | chance: 62
+- R>W | tell both sides at the family meal to stop squabbling, for the child's sake | v: benevolence | lever: voice | pushes: close sibling | sphere: faith.R | chance: 62
+- G>U | take the youngster to the oldest relative to hear where the rite came from | v: tradition, universalism | sphere: faith.G | chance: 62
+works: On the day the youngster stands up straight, says the words, and looks for {N} in the crowd afterwards.
+works: Both sides of the family come, and the meal after the rite is the first in years with no one leaving early.
+fails: One side of the family stays away, and their empty bench is all anyone remembers of the day.
+fails: The youngster pulls out the week before, and half the family blames {N} for it.
+
+# ---------------------------------------------------------------- life event: a wedding across two families' ways (pairs D5a)
+
+== who comes to the wedding
+tier: life event
+sphere: faith
+stages: young_adult adult mature
+age: 18-60
+per_year: 0 0 .012 .012 .004 0
+drivers: family+.3 ties+.2 community+.1
+times: A brother's or sister's wedding where the two families' rites differ, and someone threatens to stay away, comes to about 1 in 4 lives (estimate; marriages across faiths and customs are common in mixed towns), set at a little over 1 in 100 a year from 18 to 44
+likelier: brothers and sisters of marrying age, a mixed town, a family with firm ways, a parent who holds a grudge
+rarer: an only child, a family with no strong ways of its own, a town where everyone keeps the same rites
+gap: 4-15
+tone: mixed
+life: family, faith, love
+horizon: months
+roles: sibling, parent, grandparent
+who: sibling, parent
+earth: your brother or sister is marrying into a family with other ways, and both sides say they will not come unless the rite is theirs
+scene: {sibling} is getting married in the summer, into a family with ways of its own, and has asked {N} to stand beside them at the rite. Then {parent} says they will not come unless it is done in the family's old way, and the other family says the same of theirs.
+scene W: A wedding is a promise made before everyone. {N} wants it done in a way both families can stand behind.
+scene U: {N} wants to know what each family's rite actually asks, line by line. The gap may be smaller than the shouting.
+scene B: Somebody is going to broker this wedding, and whoever does will have both families' ear for years.
+scene R: {N} is furious on {Ns} sibling's behalf. It is their day, and they should marry however they like.
+scene G: {grandparent} married in the old way, and so did everyone before. {N} feels the pull of it, and the hurt in {Ns} parent's refusal.
+- W | stand beside your brother or sister whatever happens, as you promised | act: stand beside their brother or sister whatever happens, as they promised | v: benevolence, conformity | mark: kept your word | sphere: faith.W | chance: 60
+- U | meet both families, and find what each rite truly cannot do without | v: universalism | sphere: faith.U | chance: 60
+- B | broker a deal: the old way at the rite, the new way at the party | v: power, achievement | sphere: faith.B | chance: 60
+- R | tell your parent that if they stay away, they will regret it all their life | act: tell their parent that if they stay away, they will regret it all their life | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.R | chance: 60
+- G | ask the eldest of both families to lead the rite together | v: tradition | sphere: faith.G | chance: 60
+- BG | host the wedding meal at your own home, so both families come to your table | act: host the wedding meal at their own home, so both families come to their table | v: tradition, power | lever: fund | sphere: faith.BG | chance: 52
+- UB | find a hall and a leader for the rite that neither family can object to | v: security, achievement | sphere: faith.UB | chance: 52
+- UR | help the couple write a rite of their own, with something from each side | v: self-direction, universalism | sphere: faith.UR | chance: 52
+- WG | sit with your parent every evening that week until they agree to come | act: sit with their parent every evening that week until they agree to come | v: benevolence, tradition | sphere: faith.GW | chance: 52
+- WR | stand up at the family meal, and say the wedding goes ahead with or without them | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.RW | chance: 52
+works: On the day both families come, and by the dancing nobody remembers whose rite it was.
+works: {parent} arrives late and stands at the back, and at the end comes forward to embrace the couple.
+fails: {parent} stays away, and the empty chair at the front is in every photograph.
+fails: The day goes ahead, but the two families sit on opposite sides of the hall and leave without mixing.
+
+# ================================================================ missed at the table (gather)
+
+# ---------------------------------------------------------------- everyday, calls WG (cycle s2); partner: missed at the table
+
+== the stool at the end of the bar stays empty
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult+
+age: 20-100
+calls: WG
+rate: .5
+share: .25
+tone: mixed
+life: friends, community, health
+horizon: week
+roles: regular, keeper, friend, neighbour
+who: regular
+earth: a regular who has sat at your haunt for years has not been in for three weeks, and nobody has asked why
+times: A haunt's regulars notice an absence before anyone else does, and the knock on the door catches illness, grief or debt early (Klinenberg 2002, on isolation and who checks on whom); noticing a regular gone missing and choosing whether to act comes to about 1 in 4 lives, a few times each (estimate)
+likelier: years as a regular at a café, bar or club, a town with many people living alone, an older crowd
+rarer: no regular haunt, a big anonymous place, a person who goes out rarely
+gap: 3-10
+scene: For three weeks the stool at the end of the bar has been empty. The woman who does the crossword there every evening has not been in, and nobody has asked why.
+scene W: {N} has a rule: when a regular stops coming, somebody goes to the door. It looks as though the somebody is {N}.
+scene U: {N} thinks back: the last time, she paid with coins from a jar and left half her drink. Something was wrong already.
+scene B: {N} hardly knows her. Going round would be a kindness, and it would also be a lot of trouble.
+scene R: {N} cannot sit still with it. What if she is lying on her kitchen floor right now?
+scene G: In {place} people used to know when a neighbour's curtains stayed shut. {N} wonders who still keeps that watch.
+- W | ask the keeper for her address, and knock on her door tomorrow | v: benevolence | mark: helped someone in need | lever: loyalty | sphere: gather.W | chance: 75
+- U | ask round the regulars quietly until someone knows what has happened | v: benevolence, universalism | sphere: gather.U | chance: 75
+- B | leave it to the people who know her better | v: security | sphere: gather.B | chance: 75
+- R | go round tonight with a bag of shopping, and knock until she answers | v: benevolence, stimulation | mark: helped someone in need | sphere: gather.R | chance: 75
+- G | keep her stool free and her crossword folded on it, so she knows she is expected | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>B | set up a rota of calls on the regulars who live alone, and run it | v: benevolence, power | lever: found | pushes: group neighbours | sphere: gather.W | chance: 65
+- U>R | find her online, and send her something that will make her laugh | v: benevolence, stimulation | tech: internet | sphere: gather.U | chance: 65
+- B>G | quietly settle her tab, so she can come back without shame | v: benevolence | lever: fund | sphere: gather.B | chance: 65
+- R>W | stand up at the bar, and shame the room into a whip-round for her | v: benevolence, stimulation | lever: voice | sphere: gather.R | chance: 65
+- G>U | ask the old neighbours on her street what they have noticed | v: universalism, tradition | sphere: gather.G | chance: 65
+works: {N} finds out in time: she had been ill and too proud to say, and a doctor sees her that week.
+works: By the spring she is back on her stool, and the regulars have started keeping an eye on one another.
+fails: Nobody answers the door, and a week later the keeper hears she has moved away without a word.
+fails: She is mortified to have been found out, and stops coming for good.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: the stool at the end of the bar stays empty
+
+== missed at the table
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult+
+age: 20-100
+calls: UBR
+rate: .5
+share: .2
+tone: mixed
+life: friends, health, money, grief
+horizon: months
+roles: keeper, regular, friend
+who: keeper
+earth: you have stopped going to your old haunt since the trouble began, and one evening the keeper knocks on your door
+times: People pull back from their haunts in illness, grief and debt, and the haunt's keeper or regulars are often the first to notice (Klinenberg 2002); being the one missed, and found, comes to about 1 in 5 lives, once or twice (estimate)
+likelier: years as a regular somewhere, a recent loss, a diagnosis or a debt, living alone, a keeper who knows everyone
+rarer: no regular haunt, a full house at home, a person who tells people at once when things go wrong
+gap: 5-20
+scene: {N} has not been to the café in a month: not since the bad news, or the bills, or the cough that will not shift. Tonight there is a knock, and it is the keeper, holding a covered plate.
+scene W: {N} is ashamed to have dropped out without a word. There were duties too: the float on club night, the chairs.
+scene U: {N} has been telling everyone, {N} included, that it is only a busy patch. The keeper's face says nobody believes it.
+scene B: {N} hates being seen like this. Owing pity feels worse than owing money.
+scene R: {Ns} first wish is to slam the door; the second is to cry on the keeper's shoulder.
+scene G: The keeper has known {N} for fifteen years, and the plate holds the dish the café sends to every house in trouble.
+- W | thank the keeper properly, and promise to be back on club night | act: thank the keeper properly, and promise to be back on club night | v: conformity, benevolence | sphere: gather.W | chance: 70
+- U | tell the keeper plainly what has gone wrong, and ask what they would do | v: self-direction, security | sphere: gather.U | chance: 70
+- B | say all is well, take the plate, and close the door gently | v: self-direction | sphere: gather.B | chance: 70
+- R | let it all pour out on the doorstep, and take the hug | v: none clear | sphere: gather.R | chance: 70
+- G | ask the keeper in, and sit at the kitchen table until the plate is empty | v: tradition, benevolence | sphere: gather.G | chance: 70
+- W>G | go back the next evening, because the regulars count on you | act: go back the next evening, because the regulars count on them | v: conformity, tradition | lever: loyalty | sphere: gather.W | chance: 60
+- U>W | list what is wrong, and ask the keeper who among the regulars can help with each | v: security, self-direction | sphere: gather.U | chance: 60
+- B>U | offer to do the café's books in return for advice on your own | act: offer to do the café's books in return for advice on their own | v: security, achievement | sphere: gather.B | chance: 60
+- R>B | go back that night and laugh it all off before anyone can pity you | act: go back that night and laugh it all off before anyone can pity them | v: power, self-direction | sphere: gather.R | chance: 60
+- G>R | let the keeper walk you back to the café that evening, just as you are | act: let the keeper walk them back to the café that evening, just as they are | v: hedonism, tradition | sphere: gather.G | chance: 60
+works: Caught early, the trouble shrinks: one regular knows a good doctor, another knows how to face the lenders, and {N} is not alone with it.
+works: Within a month {N} is back at the corner table, and the plate goes back to the keeper washed.
+fails: {N} keeps the door shut, and the trouble grows in the quiet for another season.
+fails: Word gets round the café faster than {N} would like, and the old seat feels watched.
+
+# ================================================================ who taught them (learn)
+
+# ---------------------------------------------------------------- life event: a new teacher with a way of their own (pairs D2b)
+
+== a new teacher with a way of their own
+tier: life event
+sphere: learn
+who: teacher
+stages: child juvenile
+age: 7-15
+per_year: .04 .03 0 0 0 0
+drivers: community+.2 money+.2 era+.1
+times: Teachers differ widely in what they add to a pupil's later life (Chetty, Friedman and Rockoff 2014); a teacher whose way of teaching marks a child for years comes once or twice in a schooling, set at 4 in 100 a year from 7 to 11 and 3 in 100 from 12 to 15 (about 3 in 10 lives, estimate)
+likelier: a school with room to try things, a small class, a child who is curious or restless, a teacher new to the town
+rarer: a crowded school with a high turnover of staff, a child often absent, a school that teaches to the test alone
+gap: 2-6
+tone: joy
+life: school, learning
+horizon: years
+roles: mentor, parent, friend, grandparent
+earth: a new teacher arrives with a way of teaching all their own, and your whole year turns on it
+scene: The new teacher, {mentor}, has been at the school a fortnight, and the class already tells stories: the lessons outside, the questions with no answer in the book, every name learned on the first day. This week {mentor} has started calling on {N}.
+scene W: {mentor} has one rule for everyone and keeps it, and {N} likes knowing exactly where they stand.
+scene U: {mentor} answers a question with another question, and {N} goes home still turning it over.
+scene B: {mentor} pins up a chart of the top marks every Friday. {N} wants their name at the top of it.
+scene R: {mentor} takes the class outside when the sun shines, and {N} learns more in one afternoon at the pond than in a month at a desk.
+scene G: {mentor} grew up in {place} and teaches the old names of the hills and the river. {N} hears {grandparent}'s words in the lesson.
+- W | keep every rule of the class, and help the slow ones keep up | v: conformity, benevolence | sphere: learn.W | chance: 70
+- U | stay behind with the question that bothers you until you have an answer | act: stay behind with the question that bothers them until they have an answer | v: self-direction | mark: learned a skill | sphere: learn.U | chance: 70
+- B | aim for the top of the chart, and ask exactly how to get there | v: achievement | sphere: learn.B | chance: 70
+- R | volunteer for every experiment and every outing, first in line | v: stimulation | sphere: learn.R | chance: 70
+- G | ask the teacher to teach you the old names of the places around you | act: ask the teacher to teach them the old names of the places around them | v: tradition | sphere: learn.G | chance: 70
+- RG | dig the class garden with the teacher, and keep it growing all summer | v: stimulation, tradition | sphere: learn.RG | chance: 60
+- UB | find out what the teacher thinks the best pupils do, and do just that | v: achievement | sphere: learn.UB | chance: 60
+- UG | write down the old stories the teacher tells, in a book of your own | act: write down the old stories the teacher tells, in a book of their own | v: tradition, universalism | sphere: learn.GU | chance: 60
+- WB | ask to be the class monitor, and keep the register yourself | act: ask to be the class monitor, and keep the register themselves | v: power, conformity | sphere: learn.WB | chance: 60
+- WR | speak up for the classmate the others laugh at, in front of the teacher | v: benevolence, universalism | mark: helped someone in need | lever: voice | sphere: learn.RW | chance: 60
+works: {N} ends the year with more than marks: a way of working that {mentor} taught them, and that lasts for years.
+works: Long afterwards {N} can still hear {mentor}'s voice whenever a problem gets hard.
+fails: {mentor} leaves at the end of the first term, and the next teacher undoes it all.
+fails: {N} tries too hard to please, and is crushed when {mentor} picks someone else for the prize.
+
+# ---------------------------------------------------------------- everyday, calls WU (cycle s3); partner: a young relative's coming of age
+
+== a young learner at the kitchen table
+tier: everyday
+sphere: learn
+stages: adult mature elder
+age: 30-90
+calls: WU
+rate: .5
+share: .25
+tone: joy
+life: neighbours, learning, community
+horizon: months
+roles: neighbour, parent, friend
+who: neighbour
+earth: the neighbours' teenager is struggling with the one thing you know well, and their parents ask you to teach them an evening a week
+times: Informal teaching of a younger person (a neighbour's child, a young relative, a newcomer) by an adult who knows a skill comes to about 1 in 4 adults at some time, often more than once (estimate; who taught them, spheres section 2)
+likelier: a skill or trade known well, a street with young families, retirement or free evenings, a person known for patience
+rarer: long working hours, no children nearby, a person who keeps to themselves
+gap: 4-15
+scene: The neighbours' teenager is failing at the one thing {N} is good at: sums, an engine, a language, a song. The parents ask, a little shyly, whether {N} could spare an evening a week at the kitchen table.
+scene W: {N} remembers the teacher who once made time for them. It feels like a debt finally coming due.
+scene U: {N} has never had to explain what they know. Doing it properly will mean understanding it all over again.
+scene B: {N} is busy, and evenings are worth something. Then again, a good word from these neighbours goes a long way.
+scene R: {N} pictures the first time the youngster gets it right on their own, and is already halfway to saying yes.
+scene G: {N} learned it at a grandparent's side, slowly, by watching. Perhaps that is still the way.
+- W | set a fixed evening and a plan for each week, and keep to it | v: conformity, benevolence | sphere: learn.W | chance: 75
+- U | work out exactly where they get stuck before teaching a single thing | v: universalism, achievement | sphere: learn.U | chance: 75
+- B | agree, for a fair fee their parents can afford | v: achievement, power | sphere: learn.B | chance: 75
+- R | push the textbook aside and learn it with them by doing it, mess and all | v: stimulation, self-direction | sphere: learn.R | chance: 75
+- G | let them sit beside you while you work, and pick it up by watching | act: let them sit beside them while they work, and pick it up by watching | v: tradition, benevolence | sphere: learn.G | chance: 75
+- W>R | set a small test each week, with a trip somewhere fun as the prize | v: achievement, stimulation | sphere: learn.W | chance: 65
+- U>G | write everything you know about it in a notebook the youngster can keep | act: write everything they know about it in a notebook the youngster can keep | v: tradition, universalism | sphere: learn.U | chance: 65
+- B>W | find them a proper course, and pull strings to get them a place | v: benevolence, power | sphere: learn.B | chance: 65
+- R>U | take them to see the work done for real, and let them ask everything | v: self-direction, universalism | sphere: learn.R | chance: 65
+- G>B | teach them slowly and well, and tell them it will one day earn them a living | v: achievement, tradition | sphere: learn.G | chance: 65
+works: By the end of term the youngster passes, and comes round to tell {N} first.
+works: The evenings become a habit, and years later the youngster still rings {N} for advice.
+fails: The youngster stops coming after three weeks, and {N} is left wondering what went wrong.
+fails: {N} explains it badly, the youngster grows more confused, and the parents go quiet.
+
+# ================================================================ the hiring door (comm and prod)
+
+# ---------------------------------------------------------------- life event: the young one at the gate (pairs D3a)
+
+== picked at the gate at dawn
+tier: life event
+sphere: comm
+stages: juvenile young_adult
+age: 16-25
+per_year: 0 .03 .025 0 0 0
+drivers: prosper-.4 money-.3 unrest+.2
+times: Young people out of school and out of work are among the most often unemployed (youth jobless rates run at two to three times the adult rate in most countries); standing in a hiring line, at a yard gate, an agency or the job centre, with no work promised, comes to about 1 in 4 lives in the late teens and early twenties (estimate)
+likelier: hard times, a town with day work on building sites, farms or docks, no qualifications, a family short of money
+rarer: boom years, a place at college or an apprenticeship, a family firm to go into, a family who can carry them
+gap: 1-5
+tone: trouble
+life: work, money
+horizon: months
+roles: rival, friend, parent, boss
+who: boss, rival
+earth: out of school and out of work, you stand with the others at the yard gate at dawn, hoping the foreman points at you
+scene: Six in the morning at the builders' yard gate: twenty people in work boots, breath steaming, and one foreman with a clipboard who needs four hands today. {N} is the youngest there, and {rival} from school is two places ahead.
+scene W: {N} came at the time on the sign and stood where the line begins. Surely the fair thing is first come, first picked.
+scene U: {N} has watched the foreman for three mornings now: who he picks, what they carry, where they stand.
+scene B: {N} needs the day's pay, and means to be picked whatever it takes.
+scene R: {N} has been up since four and is buzzing with it. Any work, anywhere, today.
+scene G: {Ns} uncle worked this yard for twenty years. Somebody here must remember the family name.
+- W | wait your turn in the line, and trust the foreman to pick fairly | act: wait their turn in the line, and trust the foreman to pick fairly | v: conformity, security | sphere: comm.W | chance: 55
+- U | show the foreman the safety card you earned at the job centre last week | act: show the foreman the safety card they earned at the job centre last week | v: achievement, security | sphere: comm.U | chance: 55
+- B | step forward and name a day rate lower than anyone else's | v: power, achievement | sphere: comm.B | chance: 55
+- R | push to the front and say you will take any job going, starting now | act: push to the front and say they will take any job going, starting now | v: stimulation, self-direction | sphere: comm.R | chance: 55
+- G | tell the foreman which family you come from, and let your uncle's name speak | act: tell the foreman which family they come from, and let their uncle's name speak | v: tradition, security | sphere: comm.G | chance: 55
+- WU | sign on at the job centre, and apply by the book for every post listed | v: conformity, security | sphere: comm.WU | chance: 50
+- WR | get the line to demand that the foreman picks in turn, and say it out loud | v: universalism, benevolence | lever: voice | pushes: economy | sphere: comm.RW | chance: 50
+- UB | learn which jobs the agencies cannot fill, and train for one of those | v: achievement, self-direction | mark: learned a skill | sphere: comm.UB | chance: 50
+- RG | walk to the next town's yard with a friend from the line, together | v: stimulation, benevolence | mark: made a friend | sphere: comm.RG | chance: 50
+- BG | ask the shopkeeper who has known your family for years to take you on | act: ask the shopkeeper who has known their family for years to take them on | v: security, tradition | sphere: comm.BG | chance: 50
+works: The foreman's pen stops at {N}, and by evening {N} has a day's pay and a name the yard will remember.
+works: Within a month {N} has steady work, and stops coming to the gate.
+fails: The foreman picks four and walks off, and {N} goes home with nothing but cold feet.
+fails: {rival} gets the place {N} was half promised, and {N} is back at the gate the next morning, and the next.
+
+# ---------------------------------------------------------------- life event: the older hand at the job centre (pairs D4b)
+
+== back at the job centre after thirty years
+tier: life event
+sphere: prod
+stages: mature elder
+age: 48-70
+per_year: 0 0 0 0 .012 .004
+drivers: prosper-.4 money-.2 unrest+.2
+times: Workers laid off after fifty take longer to find work again and more often take a lower wage or leave work for good (displaced-worker surveys in many countries, estimate); looking for work again late in a working life comes to about 1 in 5 lives (estimate), set at a little over 1 in 100 a year from 48 to 64 and fewer after
+likelier: a works or a trade in decline, hard times, a long career at one employer, a town with few other employers
+rarer: boom years, a public post or a profession in demand, a business of one's own, savings enough to retire early
+gap: 5-20
+tone: trouble
+life: work, money
+horizon: months
+roles: partner, colleague, friend, boss
+who: colleague
+earth: after thirty years at one works you are looking for work again, among applicants half your age
+scene: Thirty years at the same works, and then the works closed. Now {N} sits in the job centre with a folder of certificates nobody asks to see, among applicants half {Ns} age, waiting for an adviser younger than {Ns} children to call {Ns} name.
+scene W: {N} has never been late, never missed a shift, never cheated an hour. Surely that still counts for something.
+scene U: {N} knows the old machines inside out, and has started to wonder which of that knowledge any new employer can use.
+scene B: {N} is not finished. {N} means to be hired on {Ns} own terms, or to hire themselves.
+scene R: {N} hated the last ten years at that works anyway. Part of {N} feels free for the first time since school.
+scene G: {N} thinks of the young ones {N} trained on the line, and of what becomes of everything {N} knows if nobody needs it.
+- W | sign on, keep every appointment, and apply for every post the adviser lists | v: conformity, security | sphere: prod.W | chance: 50
+- U | take a short course on the new machines, and add it to the folder | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 50
+- B | set up on your own account with the payout and the old customers | act: set up on their own account with the payout and the old customers | v: self-direction, power | lever: found | pushes: economy | sphere: prod.B | chance: 50
+- R | take the first thing going, anything outdoors, and see where it leads | v: stimulation | sphere: prod.R | chance: 50
+- G | ask the old hands from the works who is taking people on | v: tradition, security | sphere: prod.G | chance: 50
+- BR | sell your skills by the day to whoever pays most, and keep your own hours | act: sell their skills by the day to whoever pays most, and keep their own hours | v: self-direction, achievement | sphere: prod.BR | chance: 45
+- UB | find the firm that took over the old works' orders, and show them what you know | act: find the firm that took over the old works' orders, and show them what they know | v: achievement, power | sphere: prod.UB | chance: 45
+- UG | offer to train a new firm's young hands in the old trade | v: tradition, benevolence | sphere: prod.GU | chance: 45
+- WG | join the other laid-off hands to start a small workshop as a co-op | v: benevolence, security | lever: found | pushes: economy | sphere: prod.GW | chance: 45
+- WR | stand up at the jobs fair, and say plainly that older hands are being passed over | v: universalism | lever: voice | pushes: economy | sphere: prod.RW | chance: 45
+works: Within months {N} is working again, and the years at the works turn out to count after all.
+works: The new work pays less, but {N} likes the people, and goes home tired in the right way.
+fails: A year of letters goes unanswered, and {N} starts telling people they have retired early.
+fails: The job {N} lands lasts six weeks, and {N} is back at the job centre, older and quieter.
+
+# ================================================================ the haunt choice (N1): where the free hours go, at each new life stage
+
+# haunt choice: W gather.games, U gather.circle, B arts.song, R gather.night, G arts.song
+== where the evenings go at fifteen
+tier: inner
+sphere: gather
+stages: juvenile
+age: 15-16
+once: yes
+tone: joy
+life: friends, leisure, community
+horizon: years
+roles: friend, grandparent, keeper, regular
+earth: you are fifteen, the evenings are your own at last, and you choose where to spend them
+requires: a new life stage begins (15, 20, 30, 65): this one at 15, once, with 4 or more free hours a week
+likelier: free hours above 4 a week; a town with clubs and places for the young; friends who already go somewhere
+rarer: long hours of work or care at home; a remote place with nowhere to go; a strict household that keeps evenings at home
+times: Once at 15, the first of the four haunt choices (spheres N1: the player picks the haunt at each life stage, the engine yearly by fit); a near-universal step, so every life with free hours meets it (estimate)
+gap: 5-50
+scene: {N} is fifteen, and the evenings are suddenly their own. There is the football club, the debating club, a garage band in need of a singer, the Friday dances, and the folk group {grandparent} once played in, and only so many evenings in a week.
+scene W: {N} likes a place with rules that everyone keeps, where nobody is left on the bench.
+scene U: {N} wants somewhere to think out loud, among people who argue back.
+scene B: {N} wants a place to be seen, and maybe to make a name.
+scene R: {N} wants loud music, friends and the feeling that anything could happen tonight.
+scene G: {N} wants to be among people who know their family, doing what their family has always done.
+- W | join the youth football club where everyone gets a game | v: conformity, benevolence | sphere: gather.W | chance: 90
+- U | join the debating club that argues one question every week | v: self-direction, universalism | sphere: gather.U | chance: 90
+- B | join the garage band that means to play real gigs by the summer | v: achievement | sphere: arts.B | chance: 90
+- R | go to the Friday dances at the youth club, and stay to the last song | v: hedonism, stimulation | sphere: gather.R | chance: 90
+- G | learn the old tunes with the folk group your grandparent once played in | act: learn the old tunes with the folk group their grandparent once played in | v: tradition | sphere: arts.G | chance: 90
+works: Within a term {N} is known there by name, and the week has a shape.
+works: {N} makes a friend there who stays for years.
+fails: {N} goes twice, feels like a stranger both times, and drifts home to the sofa.
+fails: The place is not what {N} hoped, and the evenings slip away to nothing much.
+
+# haunt choice: W faith.congregation, U arts.song, B gather.hall, R gather.night, G gather.house
+== where the evenings go at twenty
+tier: inner
+sphere: gather
+stages: young_adult
+age: 20-21
+once: yes
+tone: joy
+life: friends, leisure, community
+horizon: years
+roles: friend, parent, keeper, regular
+earth: you are twenty, and you choose where your free evenings go now that nobody else decides
+requires: a new life stage begins (15, 20, 30, 65): this one at 20, once, with 4 or more free hours a week
+likelier: free hours above 4 a week; a move to a new town or back home; a circle of friends that is changing
+rarer: long shifts or night work; a young child at home; a remote place with nowhere to go
+times: Once at 20, the second of the four haunt choices (spheres N1); a near-universal step, so every life with free hours meets it (estimate)
+gap: 5-50
+scene: {N} is twenty, and the evenings no longer belong to school or home. There is the food bank in the faith's hall, the community orchestra, the young members' club, the club in town, and the old local where {Ns} family has always drunk.
+scene W: {N} wants the evenings to be of use to someone, with a rota and a place on it.
+scene U: {N} wants something to master, slowly and properly, among people who care how it is done.
+scene B: {N} wants to meet the people who will matter, at the tables where the good jobs get filled.
+scene R: {N} wants the weekend to start on Friday and end on Monday morning.
+scene G: {N} wants a seat where the same faces have sat for years, and where {Ns} name is already known.
+- W | help at the food bank in the faith's hall two evenings a week | v: benevolence, conformity | sphere: faith.W | chance: 90
+- U | join the community orchestra, and rehearse each passage until it is true | v: achievement, self-direction | mark: learned a skill | sphere: arts.U | chance: 90
+- B | get yourself put up for the young members' club where the good jobs get filled | act: get themselves put up for the young members' club where the good jobs get filled | v: power, achievement | sphere: gather.B | chance: 90
+- R | go dancing at the club in town every weekend until dawn | v: hedonism, stimulation | sphere: gather.R | chance: 90
+- G | take the family's old seat at the regulars' table in the local | v: tradition, security | sphere: gather.G | chance: 90
+works: Within a season {N} is a regular there, and the place starts to shape the weeks.
+works: {N} meets someone there who becomes one of the people of {Ns} life.
+fails: {N} goes for a while, then work and tiredness win, and the evenings go back to the phone.
+fails: The crowd there is colder than {N} thought, and {N} stops going after a month.
+
+# haunt choice: W gather.hall, U gather.circle, B faith.congregation, R arts.song, G faith.congregation
+== where the evenings go at thirty
+tier: inner
+sphere: gather
+stages: adult
+age: 30-31
+once: yes
+tone: joy
+life: friends, leisure, community
+horizon: years
+roles: friend, partner, keeper, regular
+earth: you are thirty, the free evenings are fewer, and you choose where the ones you have will go
+requires: a new life stage begins (15, 20, 30, 65): this one at 30, once, with 4 or more free hours a week
+likelier: free hours above 4 a week; a settled job and home; friends drifting off to new lives
+rarer: a newborn or young children at home; long hours or shift work; heavy care for a parent
+times: Once at 30, the third of the four haunt choices (spheres N1); a near-universal step, so every life with free hours meets it (estimate)
+gap: 5-50
+scene: {N} is thirty, and the free evenings are fewer and dearer. There is the lodge that looks after its own, a book group, the congregation {N} has been drawn to, the pub band that needs a drummer, and the house of worship where {Ns} family has always gone.
+scene W: {N} wants to belong to something that keeps its promises: to visit its sick and stand by its members.
+scene U: {N} misses a good argument, the kind that lasts an evening and changes a mind.
+scene B: {N} wants a community chosen for themselves, not one they were born into, and a voice in it.
+scene R: {N} wants one night a week that is loud, sweaty and nothing like work.
+scene G: {N} wants to keep the family's place among the family's people, and the days the family has always kept.
+- W | join the lodge that visits its sick and keeps a fund for its widows | v: benevolence, conformity | sphere: gather.W | chance: 90
+- U | join a book group that takes one book a month apart, line by line | v: universalism, self-direction | sphere: gather.U | chance: 90
+- B | join the congregation you chose for yourself, and work to be heard there | act: join the congregation they chose for themselves, and work to be heard there | v: self-direction, achievement | sphere: faith.B | chance: 90
+- R | drum in the pub band that tears the roof off on a Saturday | v: stimulation, hedonism | sphere: arts.R | chance: 90
+- G | keep the family's bench at the house of worship, and every holy day at home | v: tradition | sphere: faith.G | chance: 90
+works: The place becomes part of the week, and the people there part of {Ns} life.
+works: Years later {N} is one of the faces newcomers learn first.
+fails: Life crowds it out: {N} misses three weeks, then three months, and never quite goes back.
+fails: {N} finds the place run by a clique, and keeps to the edge of it.
+
+# haunt choice: W arts.song, U faith.seeking, B gather.circle, R gather.night, G arts.craft
+== where the days go at sixty-five
+tier: inner
+sphere: gather
+stages: elder
+age: 65-66
+once: yes
+tone: joy
+life: friends, leisure, community, health
+horizon: years
+roles: friend, partner, grandparent, keeper, regular
+earth: you are sixty-five, the days are your own again, and you choose where to spend them
+requires: a new life stage begins (15, 20, 30, 65): this one at 65, once, with 4 or more free hours a week
+likelier: retirement within the year; good enough health to get out; a partner gone or busy; a town with clubs for older people
+rarer: poor health or mobility; heavy care for a partner or grandchildren; a remote place with no transport
+times: Once at 65, the last of the four haunt choices (spheres N1); a near-universal step, so every life with free hours meets it (estimate; regular haunts in old age guard against isolation, Klinenberg 2002)
+gap: 5-50
+scene: {N} is sixty-five, and the days are long and their own. There is the community choir, the quiet sitting group at the retreat house, a monthly dinner that wants a host, the tea dances at the town hall, and the room where local hands still carve and quilt.
+scene W: {N} wants to give something back, in company, where everyone is welcome.
+scene U: {N} has questions that went unasked for forty years, and the time at last to sit with them.
+scene B: {N} has spent a lifetime meeting people. Now {N} would like to be the one who brings them together.
+scene R: {N} wants to dance again, and to stop being careful.
+scene G: {N} wants to keep the old crafts in living hands, and to pass on what {N} knows.
+- W | sing in the community choir that gives free concerts for anyone who comes | v: benevolence, universalism | sphere: arts.W | chance: 90
+- U | join the quiet sitting group at the retreat house, and keep at it daily | v: self-direction, universalism | sphere: faith.U | chance: 90
+- B | become the host of a monthly dinner where the right people meet | v: power, achievement | sphere: gather.B | chance: 90
+- R | go to the tea dances at the town hall, and dance every single one | v: hedonism, stimulation | sphere: gather.R | chance: 90
+- G | join the room where local hands keep the old patterns of quilt and carving | v: tradition | mark: learned a skill | sphere: arts.G | chance: 90
+works: Within a season {N} has a place to be on certain days, and people who notice when {N} is not there.
+works: {N} makes new friends at an age when most people only lose them.
+fails: {N} goes a few times, feels too old or too new, and the days drift back to the armchair.
+fails: Health or the bus timetable gets in the way, and the place slips out of {Ns} week.

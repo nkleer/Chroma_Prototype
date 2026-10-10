@@ -1,0 +1,365 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, gathering life moments. Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; the list is
+# character.moments in spheres-data/gather.json). Every moment carries sphere: gather, every option the face it acts in
+# (a cross option X>Y the means colour's face; a pair option the wheel-order pair face, WR as .RW, WG as .GW, UG as .GU).
+# Syntax: header of build.py. Rules: SPEC.md. Words for faces and places: earth_spheres.py (no face named by colour).
+# Evenness: in every life event each one-colour option has chance 60 and each pair option 50; in every everyday moment
+# each one-colour option 75 and each cross option 65; so each colour's mean is the same in every stage.
+# Everyday pairs (one calls two colours, its partner the other three, same stages and ages): the keeper knows your name
+# BG (s1) with heard first at the corner table WUR (s2); a seat kept for the neighbour who lives alone WUB (s3) with the
+# song the room calls for RG (s4).
+# Life events and their pair sets: the first night out at eighteen D3a, turned away at the door D4a, the toast at the
+# wedding D6a, the old bar is sold D2a.
+# Doors (gather.json character.doors) used as works: lines: a friend who becomes a partner (first night out), a tab
+# from the host and a job heard of at the table (keeper knows your name, corner table), a movement's first meeting
+# (corner table), a seat on the festival committee (seat kept), a stage on an open night (the song), taking on the old
+# place (the old bar is sold).
+# Skipped as already written: the year's great feast or fair ('the year's great gathering', ready/gathering); a fight
+# to step into or away from ('a pub argument turns into a fight', earth.py); meeting someone across a crowded room
+# ('falling in love' and 'someone asks you home after the party', earth.py); a wake for a regular ('the wake in the old
+# bar', ready/ev-gather).
+
+# ================================================================ the first night out (gather.night)
+
+# ---------------------------------------------------------------- life event: the first night out at eighteen (pairs D3a)
+
+== the first night out at eighteen
+tier: life event
+sphere: gather
+haunt: gather.night
+ladder: newcomer
+once: yes
+stages: young_adult
+age: 18-20
+per_year: 0 0 .1 0 0 0
+drivers: ties+.3 community+.2 money+.1
+times: Most young people in towns with bars and clubs go out with friends once they reach the legal age; the first night out that stays in a life, remembered for who was there and how it went, comes to about 1 in 4 lives, once (estimate), set at 1 in 10 a year from 18 to 20
+likelier: a town with a busy high street, a close group of school friends, a birthday on a weekend
+rarer: a remote village, a family or faith that keeps from drink, no money to spare, a job on nights
+gap: 10-30
+tone: mixed
+life: friends, play, love
+horizon: moment
+roles: friend, prospect
+who: friend
+earth: you are eighteen, and your friends take you out on the town for the first time: the queue, the door, the bar and the dance floor
+scene: {N} has turned eighteen, and {friend} has planned the whole night: the corner bar first, then the club on the high street. There is a queue down the pavement, music through the wall, and the door staff are checking ages.
+scene W: {N} has promised a text home at midnight, and promised {friend} that nobody gets left behind. Both promises feel bigger once the door opens.
+scene U: {N} wants to see what the town is like after dark: who goes where, who knows whom, and how the night is run.
+scene B: Half of {Ns} year from school will be inside. Tonight sets who {N} is to them for the next few years.
+scene R: {N} has waited years for this. The music is loud, the night is long, and {N} means to be the last one off the floor.
+scene G: {Ns} older cousins all had their first night out at the same bar on the corner, and the barman still asks after them.
+- W | keep the group together all night, and see everyone home safe | v: benevolence, security | sphere: gather.W | chance: 60
+- U | stay near the edge for the first hour, and watch how the place works | v: self-direction, universalism | sphere: gather.U | chance: 60
+- B | make sure you are seen with the right crowd, and leave with their numbers | act: make sure they are seen with the right crowd, and leave with their numbers | v: power, achievement | sphere: gather.B | chance: 60
+- R | dance from the first song until the lights come on | v: hedonism, stimulation | sphere: gather.R | chance: 60
+- G | start at the corner bar where your cousins started, and toast them there | act: start at the corner bar where their cousins started, and toast them there | v: tradition | sphere: gather.G | chance: 60
+- WU | agree the plan with everyone first: one meeting place, one taxi, one time home | v: security, conformity | sphere: gather.WU | chance: 50
+- WR | talk the door staff round when they stop the youngest of your group | act: talk the door staff round when they stop the youngest of their group | v: benevolence, stimulation | lever: voice | sphere: gather.RW | chance: 50
+- UB | find out where the good crowd goes on which night, and follow it there | v: achievement, self-direction | sphere: gather.UB | chance: 50
+- RG | leave the club at three with everyone, and watch the sun come up from the hill | v: hedonism, stimulation | sphere: gather.RG | chance: 50
+- BG | make one drink last all night, and get to know the barman instead | v: security, tradition | sphere: gather.BG | chance: 50
+works: The night becomes the story the group tells for years, and by the end of it the barman knows {Ns} face.
+works: {prospect}, met by the bar at midnight, asks for {Ns} number at the end of the night and calls the next day.
+fails: {friend} is turned away at the door, the group splits up, and {N} spends the night looking for everyone.
+fails: The drinks cost twice what {N} expected, and the night ends early, broke, in a cold taxi queue.
+
+# ---------------------------------------------------------------- life event: turned away at the door (pairs D4a)
+
+== turned away at the door
+tier: life event
+sphere: gather
+haunt: gather.night
+ladder: newcomer
+stages: young_adult adult
+age: 18-35
+per_year: 0 0 .015 .006 0 0
+drivers: harsh+.3 community-.2 ties+.1
+times: Door staff at clubs and members' rooms turn people away for dress, age, the list or how they look; being turned away in front of friends, in a way that stings, comes to about 1 in 5 lives (estimate), set at 1.5 in 100 a year in the twenties and less after
+likelier: a city with strict doors, a person who looks unlike the usual crowd, one friend in a group who does not fit the door, a smart venue
+rarer: a small town with one bar where everyone knows the door, a person who rarely goes out
+gap: 3-10
+tone: trouble
+life: friends, identity, play
+horizon: moment
+roles: friend, rival
+who: friend
+earth: the club door waves your friends in, then stops you: not tonight, not dressed like that, not on the list
+scene: The queue moves, the door staff wave {friend} and the others through, and then a hand comes up in front of {N}. Not tonight. No reason is given, and the friends are already inside.
+scene W: {N} has read the rules posted by the door and broken none of them. Being refused for nothing feels like being refused for who {N} is.
+scene U: {N} looks at who was let in and who was not, and starts to see the pattern.
+scene B: {rival} is just inside the door, watching. Whatever {N} does next will be talked about on Monday.
+scene R: {Ns} face is hot. Every part of {N} wants to tell the doorman exactly what {N} thinks of him.
+scene G: {N} thinks of the old bar on the corner where nobody has ever been turned away, and of the people there who would never do this.
+- W | ask the doorman calmly which rule you broke, and wait for an answer | act: ask the doorman calmly which rule they broke, and wait for an answer | v: conformity, self-direction | lever: voice | sphere: gather.W | chance: 60
+- U | watch the door for ten minutes, and work out whom it lets in and why | v: universalism, self-direction | sphere: gather.U | chance: 60
+- B | ring the friend of a friend who knows the manager, and get put on the list | v: power, achievement | sphere: gather.B | chance: 60
+- R | tell the doorman what you think of him, loudly, and walk off down the street | act: tell the doorman what they think of him, loudly, and walk off down the street | v: self-direction, stimulation | lever: exit | sphere: gather.R | chance: 60
+- G | text the others to meet at the old corner bar, where everyone gets in | v: tradition, benevolence | lever: exit | sphere: gather.G | chance: 60
+- WU | write a plain, fair account of the door, and ask who else it has happened to | v: universalism, conformity | lever: voice | sphere: gather.WU | chance: 50
+- WB | come back next week in the right clothes, learn the doorman's name, and be let in | v: conformity, achievement | sphere: gather.WB | chance: 50
+- UR | start an open night of your own in a cellar, with no list and no door | act: start an open night of their own in a cellar, with no list and no door | v: self-direction, stimulation | lever: found | sphere: gather.UR | chance: 50
+- RG | take the group to the park with music on a phone, and dance under the trees | v: hedonism, stimulation | tech: phone | sphere: gather.RG | chance: 50
+- BG | shrug it off, and make a night of it at the late café by the market | v: security, hedonism | sphere: gather.BG | chance: 50
+works: The others come out to join {N}, and the night that follows is better than the club would ever have been.
+works: Word gets round, and the club changes its door within the month; {N} is let in, and finds it no longer matters much.
+fails: The friends stay inside, and {N} goes home alone on the night bus, feeling small.
+fails: The doorman remembers {Ns} face, and the door stays shut every time after.
+
+# ================================================================ the haunt (gather.house)
+
+# ---------------------------------------------------------------- everyday, calls BG (cycle s1); partner: heard first at the corner table
+
+== the keeper knows your name
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: newcomer
+stages: juvenile+
+age: 16-100
+calls: BG
+rate: .5
+share: .3
+tone: joy
+life: friends, community
+horizon: months
+roles: keeper, regular, friend
+who: keeper
+earth: after a few months of coming in, the café's keeper calls you by name and starts making your usual before you ask
+times: Being known by name at a café, bar or club is the step from stranger to regular (Oldenburg 1989 on third places); most people who keep a haunt make it, and the moment it is felt and chosen comes to about 3 in 10 lives, once or twice (estimate). Earth's 'a seat at the regulars' table' is the later step, at sixty, into the regulars' own table
+likelier: a small town, a person who goes to the same place at the same time, a keeper who has run the place for years
+rarer: a big city of chain shops, a person who moves often, shift work
+gap: 5-15
+scene: For three months {N} has come in most mornings. Today the keeper looks up, says "{N}, the usual?" and starts making it before {N} reaches the counter. Two regulars at the window table nod.
+scene W: Being known means being counted on. {N} notices that the jar by the till is for the keeper's daughter's school trip.
+scene U: {N} has been listening for weeks, and knows now who the regulars are and what they argue about.
+scene B: The regulars at the window table run half the businesses on the street. A nod from them is worth having.
+scene R: {N} grins. It feels like being let in on a secret.
+scene G: The keeper's mother ran the café before her, and {Ns} grandparents drank coffee here. It feels like coming home.
+- W | put something in the jar, and offer to help when the keeper is short-handed | v: benevolence, conformity | lever: loyalty | sphere: gather.W | chance: 75
+- U | join the window table's argument about the news, and hold your own | act: join the window table's argument about the news, and hold their own | v: self-direction, universalism | sphere: gather.U | chance: 75
+- B | introduce yourself to each regular in turn, and remember what each one does | act: introduce themselves to each regular in turn, and remember what each one does | v: achievement, power | sphere: gather.B | chance: 75
+- R | answer the keeper with a joke, and have the whole café laughing by nine | v: hedonism, stimulation | sphere: gather.R | chance: 75
+- G | come in at the same hour every day, and keep to the same seat | v: tradition, security | sphere: gather.G | chance: 75
+- W>U | keep track of the regulars' troubles, and ask after each one the next morning | v: benevolence | sphere: gather.W | chance: 65
+- U>B | listen at the window table until you know who on the street needs what | act: listen at the window table until they know who on the street needs what | v: power, universalism | sphere: gather.U | chance: 65
+- B>R | buy the window table coffee on your birthday, and make a morning of it | act: buy the window table coffee on their birthday, and make a morning of it | v: hedonism, power | lever: fund | sphere: gather.B | chance: 65
+- R>G | bring a cake on the café's anniversary, and get the whole room singing | v: tradition, stimulation | sphere: gather.R | chance: 65
+- G>W | bring the keeper soup from home the week she is ill, as your family always did | act: bring the keeper soup from home the week she is ill, as their family always did | v: benevolence, tradition | sphere: gather.G | chance: 65
+works: The café becomes {Ns} second home, and in a month when money is short the keeper quietly opens a tab.
+works: A regular at the window table hears what {N} does, and mentions a job going two streets away.
+fails: {N} says the wrong thing at the window table, and the nods turn into polite silence for a while.
+fails: Being known cuts both ways: by the end of the week the whole street knows {Ns} business.
+
+# ---------------------------------------------------------------- everyday, calls WUR (cycle s2); partner: the keeper knows your name
+
+== heard first at the corner table
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: juvenile+
+age: 16-100
+calls: WUR
+rate: .5
+share: .25
+tone: mixed
+life: community, work, friends
+horizon: week
+roles: regular, keeper, friend, grandparent
+who: regular
+earth: at the café's corner table a regular says the plant will close in the spring, days before it is in the news
+times: News travels through haunts before it reaches print, and the regulars' table is often where a town hears first (Oldenburg 1989; the gather events news_sheet and rumour_runs are the world's versions); hearing big local news first at one's own haunt, and choosing what to do with it, comes to about 1 in 4 lives, a few times (estimate)
+likelier: a regular at a busy café or bar, a small town with one big employer, a regular who works at the town hall or the plant
+rarer: no regular haunt, a big city, a person who keeps to the phone
+gap: 4-12
+scene: At the corner table a regular who works in the plant's office lowers her voice: the plant will close in the spring, and four hundred jobs go with it. The papers have nothing yet, and half the table has family working there.
+scene W: Some of the people at the table should hear this properly, from someone who cares, before they read it anywhere else.
+scene U: {N} wants to know whether it is true. A whisper at a table has been wrong before.
+scene B: News like this, a few days early, is worth something: a house to sell before prices fall, a job to look for first.
+scene R: {N} is angry already. Four hundred families, and the people at the top kept it quiet.
+scene G: {grandparent} worked at the plant, and so did half the street. {N} thinks of the families it has fed for three generations.
+- W | tell the friends with family at the plant, quietly, before the papers do | v: benevolence | sphere: gather.W | chance: 75
+- U | ask who else has heard, and check it before passing on a word | v: universalism, security | sphere: gather.U | chance: 75
+- B | keep it to yourself, and quietly start looking for work elsewhere | act: keep it to themselves, and quietly start looking for work elsewhere | v: security, achievement | sphere: gather.B | chance: 75
+- R | ring the paper that afternoon, and let the whole town know | v: stimulation, universalism | lever: voice | sphere: gather.R | chance: 75
+- G | go round to your grandparent's old workmates, and sit with them over it | act: go round to their grandparent's old workmates, and sit with them over it | v: tradition, benevolence | sphere: gather.G | chance: 75
+- W>B | ask the keeper for the back room, and call a meeting with the union there | v: conformity, power | lever: voice | sphere: gather.W | chance: 65
+- U>R | find the plant's accounts online, and post what they really say | v: universalism, stimulation | tech: internet | sphere: gather.U | chance: 65
+- B>G | tell the regulars who is hiring, so the street's own are first in line | v: benevolence, security | sphere: gather.B | chance: 65
+- R>W | turn the table's anger into a march to the gates by Friday | v: stimulation, universalism | lever: voice | sphere: gather.R | chance: 65
+- G>U | ask the oldest regulars what the town did the last time a works shut | v: tradition, universalism | sphere: gather.G | chance: 65
+works: The table moves before anyone else in town, and the first meeting in the café's back room is where the campaign starts.
+works: A regular hears of a job going in the next town, and {N} passes it to a friend in time.
+fails: The whisper is wrong in half its details, and {N} is blamed for frightening the whole street.
+fails: By the time {N} acts, the news is everywhere, and the chance to do anything first has gone.
+
+# ---------------------------------------------------------------- life event: the old bar is sold (pairs D2a)
+
+== the old bar is sold
+tier: life event
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult adult mature elder
+age: 20-90
+per_year: 0 0 .004 .004 .004 .004
+drivers: prosper-.3 community-.2
+times: Bars, cafés and clubs close often (a sale, the rent, the keeper retiring, a slow trade); having one's own regular haunt close comes to about 1 in 4 lives, once or twice (estimate), set at 4 in 1000 a year from 20
+likelier: years as a regular at one place, a high street with rising rents, a keeper near retirement, hard times
+rarer: no regular haunt, a busy place in a good year, a person who moves often and keeps no haunt
+gap: 8-25
+tone: trouble
+life: friends, community, home
+horizon: months
+roles: keeper, regular, friend
+who: keeper
+earth: the bar you have gone to for years is sold to be turned into flats, and the last night is on Saturday
+scene: The notice is taped to the bar's door: the building is sold, and the last night is Saturday. The keeper is pouring as usual, but nobody at the long table knows where they will go on Monday.
+scene W: Thirty people sit at this table each week, and some of them have nowhere else. {N} thinks of them first.
+scene U: {N} wants to know who bought it, for how much, and whether anything can still be done.
+scene B: The keeper is retiring, not ruined. With the right backers, someone could take on the licence somewhere new.
+scene R: {N} is not ready to let it go quietly. If it must end, it should end with the best night it has ever had.
+scene G: {Ns} name is cut into the long table, beside names from fifty years ago. The table, at least, should not go in a skip.
+- W | make a list of every regular, and find each one a table somewhere new | v: benevolence | sphere: gather.W | chance: 60
+- U | look up the sale at the council, and find out whether it can be stopped | v: universalism, self-direction | lever: voice | sphere: gather.U | chance: 60
+- B | ask the keeper about taking on the licence, and find two backers by Saturday | v: achievement, power | lever: lead | sphere: gather.B | chance: 60
+- R | plan the loudest last night the street has heard, with a band and a midnight toast | v: hedonism, stimulation | sphere: gather.R | chance: 60
+- G | ask the buyers for the long table, and carry it home with the regulars | v: tradition | sphere: gather.G | chance: 60
+- WU | call a meeting of the regulars, and put to a vote where the group goes next | v: conformity, universalism | lever: voice | sphere: gather.WU | chance: 50
+- WG | move the Thursday table, rota and all, to the café across the road | v: tradition, benevolence | lever: loyalty | sphere: gather.GW | chance: 50
+- UR | put on a night of stories about the old place, and record every one | v: universalism, stimulation | sphere: gather.UR | chance: 50
+- BR | buy the old sign, and hang it over a back room you rent yourself | act: buy the old sign, and hang it over a back room they rent themselves | v: self-direction, power | lever: found | sphere: gather.BR | chance: 50
+- BG | let it go, and become a regular at the next nearest bar within the month | v: security | lever: exit | sphere: gather.BG | chance: 50
+works: Most of the regulars follow {N} to the new place, and within a season the long table is full again.
+works: {N} ends up behind a bar of {Ns} own, with the old sign over the door and the old keeper as the first customer.
+fails: The last night ends, the group scatters, and some of the regulars are not seen out again.
+fails: The new place never feels the same, and {N} stops going out on Thursdays at all.
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s3); partner: the song the room calls for
+
+== a seat kept for the neighbour who lives alone
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult+
+age: 18-100
+calls: WUB
+rate: .5
+share: .2
+tone: mixed
+life: neighbours, community, friends
+horizon: months
+roles: neighbour, keeper, regular, grandparent
+who: neighbour
+earth: the widower next door has not been out since the funeral, and you could bring him to your table at the café on Thursdays
+times: Loneliness after a loss or in old age is common, and an invitation from a neighbour to a regular table is one known way back (Holt-Lunstad 2010 on social ties; Klinenberg 2002); keeping a seat for a lonely neighbour at one's haunt comes to about 1 in 5 lives, once or twice (estimate)
+likelier: a street with many old people, a regular haunt of one's own, a neighbour lately widowed or retired
+rarer: no regular haunt, a street of short lets, a person who does not know the neighbours
+gap: 5-15
+scene: Since the funeral in the spring, the widower next door has hardly left the house. On Thursday nights {N} goes to the café's long table, and there is always a spare chair.
+scene W: Nobody on the street should sit alone every evening while there is a chair free. {N} feels it as plain duty.
+scene U: {N} wonders what he would actually like. Not everyone wants a crowd after a loss.
+scene B: Bringing him means minding him all evening, and the regulars may not take to him. It is a cost, and {N} knows it.
+scene R: {N} would rather knock and drag him out tonight than think about it any longer.
+scene G: In {Ns} grandparents' day, the street fed its widowers on a rota. {N} misses that.
+- W | knock on his door, and ask him to the Thursday table | v: benevolence | sphere: gather.W | chance: 75
+- U | ask him what he used to enjoy, and find the place that fits it | v: benevolence, universalism | sphere: gather.U | chance: 75
+- B | mention him to the keeper, and let the café do the inviting | v: security | sphere: gather.B | chance: 75
+- R | turn up at his door at seven with his coat, and refuse to go without him | v: stimulation, benevolence | sphere: gather.R | chance: 75
+- G | keep a chair at the table with his name on it, every Thursday, until he comes | v: tradition, benevolence | lever: loyalty | sphere: gather.G | chance: 75
+- W>R | get the whole table to sign a card asking him to the next birthday night | v: benevolence, stimulation | sphere: gather.W | chance: 65
+- U>G | find out which dish his late wife made, and ask the keeper to cook it | v: tradition, benevolence | sphere: gather.U | chance: 65
+- B>W | ask him to keep the tally at quiz night, so he has a job there | v: benevolence, power | sphere: gather.B | chance: 65
+- R>U | take him to the quiz, and put him on your team for the history round | act: take him to the quiz, and put him on their team for the history round | v: stimulation, universalism | sphere: gather.R | chance: 65
+- G>B | introduce him to the old regulars from his own trade, who could use his help | v: tradition, achievement | sphere: gather.G | chance: 65
+works: By the autumn he is at the table before {N} is, and he is the one keeping a seat for the next newcomer.
+works: The table takes him in, and the next year he sits on the committee of the street's summer festival.
+fails: He comes once, sits in silence, and does not answer the door the next Thursday.
+fails: One regular makes it plain he is not welcome, and {N} has to choose between them.
+
+# ---------------------------------------------------------------- everyday, calls RG (cycle s4); partner: a seat kept for the neighbour who lives alone
+
+== the song the room calls for
+tier: everyday
+sphere: gather
+haunt: gather.house
+ladder: regular
+stages: young_adult+
+age: 18-100
+calls: RG
+rate: .5
+share: .2
+tone: joy
+life: friends, play, community
+horizon: months
+roles: regular, keeper, friend, grandparent
+who: regular
+earth: one night at the bar you sing an old song for a dare, and now the regulars call for it every time you walk in
+times: Regulars at bars and clubs often have a song, a party piece or a nickname the room gives them (Oldenburg 1989; Finnegan 1989 on the town's hidden music-makers); a song that becomes one's own at a haunt comes to about 1 in 5 lives (estimate)
+likelier: a bar with music nights, a person who sings or plays, a close crowd of regulars
+rarer: no regular haunt, a quiet café crowd, a person who never sings in public
+gap: 5-20
+scene: One night at the bar {N} sang an old song for a dare, badly and with feeling, and the whole room joined the chorus. Now whenever {N} walks in, someone at the back starts the first line.
+scene W: The song has become part of the evening, and the regulars count on it. {N} feels bound to give it its due.
+scene U: {N} has started looking up where the song came from, and what the verses nobody sings are about.
+scene B: The keeper says a song night with {N} at the front would fill the room on Tuesdays. There might be something in it.
+scene R: {N} loves it: the shout from the back, the whole room on the chorus, the roar at the end.
+scene G: It was {Ns} grandparent's song first. Every time the room sings it, a little of the old house comes back.
+- W | sing it once a night when asked, no more and no less, as the room expects | v: conformity, tradition | sphere: gather.W | chance: 75
+- U | learn the lost verses, and sing them the next time the room calls | v: universalism, self-direction | sphere: gather.U | chance: 75
+- B | agree to the keeper's song night, for a share of the takings | v: achievement, power | sphere: gather.B | chance: 75
+- R | stand on a chair and sing it with everything you have | act: stand on a chair and sing it with everything they have | v: hedonism, stimulation | sphere: gather.R | chance: 75
+- G | tell the room it was your grandparent's song, and sing it in their memory | act: tell the room it was their grandparent's song, and sing it in that memory | v: tradition | sphere: gather.G | chance: 75
+- W>G | teach the chorus to the newest regulars, so the song stays with the room | v: tradition, benevolence | sphere: gather.W | chance: 65
+- U>W | write the words out and pin them by the bar, so anyone can join in | v: universalism, benevolence | sphere: gather.U | chance: 65
+- B>U | record the room singing it, and send it to the regulars who moved away | v: achievement, benevolence | tech: phone | sphere: gather.B | chance: 65
+- R>B | take the song to the open night across town, and win that room too | v: achievement, stimulation | sphere: gather.R | chance: 65
+- G>R | bring your grandparent's old fiddle, and play the tune for the room | act: bring their grandparent's old fiddle, and play the tune for the room | v: tradition, hedonism | sphere: gather.G | chance: 65
+works: The song becomes {Ns} for good, and years later strangers ask the keeper which of the regulars is the one who sings it.
+works: The keeper gives {N} the stage on the open night, and the room is full by eight.
+fails: The joke wears thin, and some nights {N} would rather sit in peace than be called up again.
+fails: One night {N} forgets the words in front of a full room, and a laugh from the back carries.
+
+# ================================================================ the toast (a wedding)
+
+# ---------------------------------------------------------------- life event: the toast at the wedding (pairs D6a)
+
+== the toast at the wedding
+tier: life event
+sphere: gather
+stages: young_adult adult mature
+age: 22-64
+per_year: 0 0 .006 .008 .004 0
+drivers: ties+.3 family+.2 community+.1
+times: Most weddings have a toast or a speech by a friend or relative of the couple; being asked to give one comes to about 1 in 4 lives, once or twice (estimate), set at under 1 in 100 a year from the twenties to the forties. Earth's 'a friend's wedding' and 'dancing at a wedding' are the guest's moments; this is the one asked to speak
+likelier: a close friend or sibling marrying, a person known to be good with words, a large circle of friends
+rarer: few friends marrying, a family without the custom of toasts, a person known to be shy
+gap: 4-15
+tone: mixed
+life: friends, love, family
+horizon: week
+roles: friend
+who: friend
+earth: your oldest friend is getting married, and has asked you to give the toast in front of two hundred guests
+scene: {friend} is getting married on Saturday and has asked {N} to give the toast. There will be two hundred guests and a microphone, and {N} has a folder of old stories, some of which should never be told in front of a grandmother.
+scene W: A toast is a promise said aloud for the couple. {N} wants every word to honour them and leave nobody out.
+scene U: {N} has drafted it four times, looking for the one true thing about {friend} that everyone in the room will recognise.
+scene B: Half the guests are people {N} would like to know better. A good toast could open doors for years.
+scene R: {N} cannot plan it. It will come out on the night, from the heart, or not at all.
+scene G: {N} has known {friend} since they were small. The toast should be about the street they grew up on and the families in the room.
+- W | name everyone who helped the couple, and leave nobody out | v: benevolence, conformity | sphere: gather.W | chance: 60
+- U | write it out, try it on three friends, and cut every line that rings false | v: achievement, universalism | sphere: gather.U | chance: 60
+- B | keep it short, polished and funny, and work the right tables afterwards | v: achievement, power | sphere: gather.B | chance: 60
+- R | throw away the notes, and say what you feel about your friend | act: throw away the notes, and say what they feel about their friend | v: self-direction, stimulation | sphere: gather.R | chance: 60
+- G | tell the story of the two families, and raise a glass to the grandparents | v: tradition | sphere: gather.G | chance: 60
+- BG | tell the one embarrassing story everyone knows anyway, and let the room laugh along | v: hedonism, benevolence | sphere: gather.BG | chance: 50
+- UG | ask the couple's grandparents how they met, and build the toast round it | v: tradition, universalism | sphere: gather.GU | chance: 50
+- UR | write a short funny poem about the couple, and lead the room in its last line | v: stimulation, self-direction | sphere: gather.UR | chance: 50
+- WB | toast the couple, thank the hosts and the cooks, and pass the hat for the honeymoon | v: benevolence, power | lever: fund | sphere: gather.WB | chance: 50
+- WR | call the couple's oldest friends to their feet to raise their glasses together | v: benevolence, stimulation | sphere: gather.RW | chance: 50
+works: The hall laughs in the right places and goes quiet in the right one, and {friend} holds {N} hard at the end.
+works: For years afterwards {N} is asked to say a few words at every wedding, and strangers remember {N} as the one who gave that toast.
+fails: The microphone squeals, a joke falls flat, and {N} sits down to polite clapping and a hot face.
+fails: One story goes too far, a grandmother stops smiling, and {friend} is cool with {N} for a month.

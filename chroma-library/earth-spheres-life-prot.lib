@@ -1,0 +1,651 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, Protection life moments. Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5): the moments
+# named in spheres-data/prot.json character.moments, as ordinary moments with their own rates. Every moment carries
+# sphere: prot, every option the face it acts in (prot.R; a cross option X>Y the means colour's face; a pair option the
+# wheel-order pair face, WR as .RW, WG as .GW, UG as .GU). Syntax: header of build.py. Rules: SPEC.md.
+#
+# Skipped as already written: 'the call-up letter, or the horn' is 'the call to serve' (earth-world-civic.lib); 'the
+# day the war ends' is 'the ceasefire holds' (ready/earth-spheres-ev-prot.lib) and 'long tables in the street when the
+# war ends' (ready/earth-spheres-ev-gather.lib); the 'first time they are arrested' half of its moment is 'the police at
+# the door' and 'the first night in a cell', so only the first arrest one makes is written here.
+#
+# Everyday pairs (one calls two colours, its partner the other three, same stages and ages): the stranger on the dark
+# road BRG (s1) with the young one who learns to stand their ground WU (s3); the first night on watch WRG (s2) with the
+# envelope at the car window UB (s4), both at the watch.
+# Life events and their pair sets: the first day in uniform D1a, visiting a brother or sister inside D1b, the memorial
+# D2a, the neighbour's door D2b, the first arrest D3a, the break-in D3b, the comrade lost D4a, the crash on the road
+# D4b, the farewell at the gate D5a, coming home changed D6a, the first fire call D6b.
+# Evenness: in every moment each one-colour option has one chance, each cross option one chance, each pair option one
+# chance (everyday 75 and 65, life events 65 and 55), so each colour's mean is the same in every stage. No flags.
+# Safety: violence stays off-page; no option uses force on anyone beyond a lawful arrest told plainly; no child is
+# harmed; nobody under 18 serves in a watch, a crew or the forces (those moments open at 18 or later); nothing sexual.
+
+# ================================================================ the dark road and the young one (all adults)
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s1); partner: a young one learns to stand their ground
+
+== a stranger waving a torch on the dark road
+tier: everyday
+sphere: prot
+stages: young_adult+
+age: 18-95
+calls: BRG
+rate: .5
+share: .25
+tone: mixed
+life: safety, strangers
+horizon: moment
+roles: friend
+earth: driving home late on the empty road, you see a stranger by a broken-down car, waving a torch at you
+times: Coming on a stranger in need on a lonely road at night, and choosing whether to stop, comes to about 1 in 4 lives, once or a few times (estimate)
+likelier: country roads, night driving for work, a remote home, a long commute
+rarer: city life without a car, no travel at night
+gap: 3-15
+scene: Late at night on the empty road out of {place}, {Ns} headlights find a car on the verge with its bonnet up. A stranger in a thin coat steps out, waving a torch. The nearest house is miles back.
+scene W: Anyone stuck out here deserves help, and the road has its rules for this too: hazard lights, a safe distance, a call to the right people.
+scene U: {N} slows and looks hard: one person or more, a real breakdown or not, and where the next lit place is.
+scene B: {N} has heard the stories about stops like this one. {Ns} own safety comes first, and then everyone else's.
+scene R: Whoever it is, they are cold and alone out here. {Ns} foot is already on the brake.
+scene G: Out here people stop for each other; it is how it has always been. But {N} has never seen this face before.
+- W | stop at a safe distance with hazards on, and call the breakdown line for them | v: benevolence, conformity | mark: helped someone in need | sphere: prot.W | chance: 75
+- U | pull up ahead with the engine running, and talk through the window first | v: security, self-direction | sphere: prot.U | chance: 75
+- B | drive on, and ring the police from the next lit petrol station | v: security | sphere: prot.B | chance: 75
+- R | pull over, jump out, and help with the car in the dark | v: benevolence, stimulation | mark: helped someone in need | sphere: prot.R | chance: 75
+- G | ask who their people are in the valley, then drive them to the village | v: benevolence, tradition | mark: helped someone in need | sphere: prot.G | chance: 75
+- W>U | stop, take the car's details, and send them to the roadside service in a message | v: conformity, security | tech: phone | sphere: prot.W | chance: 65
+- U>B | ring a friend with the stranger's number plate before you unlock a door | act: ring a friend with the stranger's number plate before they unlock a door | v: security | sphere: prot.U | chance: 65
+- B>R | offer a lift to town for the price of the petrol, and enjoy the company | v: hedonism, achievement | sphere: prot.B | chance: 65
+- R>G | flag down the next car too, so the two drivers can tow them home | v: benevolence, stimulation | sphere: prot.R | chance: 65
+- G>W | wait with them in your warm car until the recovery truck comes | act: wait with them in their warm car until the recovery truck comes | v: benevolence | sphere: prot.G | chance: 65
+works: The stranger turns out to be a nurse coming off a late shift, and the night ends with a hot drink and thanks.
+works: Help comes, the car starts, and {N} drives home feeling the night has been put right.
+fails: {N} spends an hour in the cold for nothing: the stranger gets a lift with someone else and does not even wave.
+fails: {N} drives home uneasy, and all week cannot decide whether they chose well.
+
+# ---------------------------------------------------------------- everyday, calls WU (cycle s3); partner: a stranger waving a torch on the dark road
+
+== a young one learns to stand their ground
+tier: everyday
+sphere: prot
+stages: young_adult+
+age: 18-95
+calls: WU
+rate: .5
+share: .25
+tone: mixed
+life: family, school
+horizon: months
+roles: sibling, parent
+who: sibling
+earth: your brother's or sister's youngest is being picked on at school, and asks you how to make it stop
+times: Bullying touches a large minority of schoolchildren at some point (school surveys vary widely); being the older relative a young one turns to about it comes to about 1 in 4 lives, once or twice (estimate)
+likelier: brothers and sisters with young children, a large family nearby, a person the young ones look up to
+rarer: no young relatives, a family scattered far apart
+gap: 3-12
+scene: {sibling}'s youngest, ten years old, has gone quiet. At last it comes out: two older children take his lunch and call him names at the school gate, and he asks {N}, of all people, how to make it stop.
+scene W: Schools have rules for this, and grown-ups whose job it is to keep them. {N} wants him to know he has every right to be safe.
+scene U: {N} wants to know exactly what happens, where and when, before giving a word of advice.
+scene B: {N} remembers being ten: the ones who were left alone were the ones who seemed not to care.
+scene R: It makes {N} furious. {N} would march down to that gate tomorrow if he let them.
+scene G: In this family nobody stands alone. He should know that his cousins, aunts and uncles are behind him.
+- W | help him tell his teacher, and go with him to say it | v: security, conformity | sphere: prot.W | chance: 75
+- U | ask him for every detail, and work out with him when it happens | v: self-direction, security | sphere: prot.U | chance: 75
+- B | teach him to shrug, look bored, and never let them see it lands | v: self-direction, power | sphere: prot.B | chance: 75
+- R | practise it with him, loud and clear: look them in the eye and say no | v: stimulation, self-direction | sphere: prot.R | chance: 75
+- G | ask his cousins at the same school to walk with him at break | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>R | stand at the gate with him the first morning, in plain sight, saying nothing | v: benevolence, security | sphere: prot.W | chance: 65
+- U>G | find out which friends he has, and help him spend break with them | v: benevolence, universalism | sphere: prot.U | chance: 65
+- B>W | write the head a cool, firm letter with every date, and expect a reply | v: power, security | sphere: prot.B | chance: 65
+- R>U | take him to the judo club on Saturdays, for the balance and the nerve | v: stimulation, achievement | sphere: prot.R | chance: 65
+- G>B | have a word with the school caretaker, an old family friend, to keep an eye out | v: tradition, security | sphere: prot.G | chance: 65
+works: Within a term the name-calling stops, and he walks to school with his head up.
+works: He comes to {N} once more, months later, only to say that it worked.
+fails: It gets worse before it gets better, and his parents wish {N} had stayed out of it.
+fails: He shrugs and stops talking about it, and {N} cannot tell whether it has stopped or only gone quiet.
+
+# ================================================================ the watch (prot.watch)
+
+# ---------------------------------------------------------------- everyday, calls WRG (cycle s2); partner: an envelope held out at the car window
+
+== the first night on watch
+tier: everyday
+sphere: prot
+haunt: prot.watch
+ladder: newcomer
+stages: young_adult+
+age: 18-80
+calls: WRG
+rate: 2
+share: .9
+once: yes
+tone: mixed
+life: work, safety
+horizon: moment
+roles: mentor
+who: mentor
+earth: your first night shift on watch: the town asleep, an older hand beside you, and a radio that might go at any minute
+times: Among newcomers to the watch (haunt prot.watch: the police, a guard post or the street's own rota), the first night on watch comes within weeks and to nearly all of them, once (estimate); outside the watch it never comes
+likelier: a new recruit, a volunteer on a neighbours' rota, a night guard's first week
+rarer: day work only, a desk post from the start
+gap: 1-2
+scene: {N}'s first night on watch. {mentor} has walked these streets for twenty years and says little; the town is asleep, the radio crackles now and then, and at two in the morning they find a shop door on the parade standing open.
+scene W: {N} has learned the rules by heart: what to write, whom to call, how far to go and no further. Tonight they find out what the rules feel like in the dark.
+scene U: {N} notices everything: which windows are lit, which cars are new on the street, the times on the shop clocks.
+scene B: The night shift is where names are made. {N} wants {mentor} to tell the others the new one is good.
+scene R: {Ns} heart has been going since the briefing. Half of {N} hopes the radio stays quiet; the other half hopes it does not.
+scene G: These are the streets {N} grew up on. Behind every door is someone {N} might know by name.
+- W | check the open door by the book, and log every step of it | v: conformity, security | sphere: prot.W | chance: 75
+- U | stop and look before going in: the lock, the glass, the floor | v: self-direction, security | sphere: prot.U | chance: 75
+- B | let the old hand go first, and watch how it is done | v: security, achievement | sphere: prot.B | chance: 75
+- R | go in first with the torch, before the old hand can stop you | act: go in first with the torch, before the old hand can stop them | v: stimulation | mark: took a wild risk | sphere: prot.R | chance: 75
+- G | ring the shopkeeper, whose number you know, before anything else | act: ring the shopkeeper, whose number they know, before anything else | v: benevolence, tradition | sphere: prot.G | chance: 75
+- W>B | write the night up so well the sergeant reads it out at shift change | v: achievement, conformity | sphere: prot.W | chance: 65
+- U>R | follow the fresh footprints down the alley at a run | v: stimulation, self-direction | sphere: prot.U | chance: 65
+- B>G | buy the old hand a tea at the all-night stall, and ask about the beat | v: tradition, achievement | mark: made a friend | sphere: prot.B | chance: 65
+- R>W | move on the group shouting by the cash machine, then log it properly | v: security, stimulation | sphere: prot.R | chance: 65
+- G>U | ask the night baker which cars do not belong on the street | v: tradition, universalism | sphere: prot.G | chance: 65
+works: The open door turns out to be a forgotten lock, and {mentor} says {N} handled it as well as anyone could.
+works: By dawn {N} knows the beat by night, and the shift becomes a story told well at breakfast.
+fails: {N} misses something {mentor} sees at once, and hears about it at shift change.
+fails: The night is long and cold, and {N} goes home wondering whether this work is for them.
+
+# ---------------------------------------------------------------- everyday, calls UB (cycle s4); partner: the first night on watch
+
+== an envelope held out at the car window
+tier: everyday
+sphere: prot
+haunt: prot.watch
+ladder: regular
+stages: young_adult+
+age: 18-80
+calls: UB
+rate: .5
+share: .3
+tone: trouble
+life: work, honesty
+horizon: week
+roles: colleague, boss
+who: colleague
+earth: on a late stop, the driver holds out folded notes, and your partner on the shift says he is a friend of the inspector's
+times: Among regulars of the watch (police, guards, inspectors at a gate), being offered a bribe or asked by a colleague to leave something out of a report comes to about 3 in 10 over a working life, once or a few times (estimate; surveys of police corruption vary widely by place)
+likelier: a place where small bribes are usual, low pay, a senior who looks away, night work, a busy road or port
+rarer: a force with strict oversight, good pay, a quiet village beat
+gap: 3-10
+scene: Past midnight {N} stops a van with no lights. The driver, a known local businessman, holds out folded notes and says nobody needs to write anything down. {colleague} murmurs that he is a friend of the inspector's, and to let it go.
+scene W: The law says what happens at a stop, and it says the same for the inspector's friends as for anyone. {N} knows it.
+scene U: {N} wonders what is in the back of the van that is worth this much to keep out of a report.
+scene B: The notes come to more than a week's pay. And the inspector's friends have long memories, either way.
+scene R: The man's easy smile makes {N} angry. He thinks everyone has a price.
+scene G: {N} has to work beside {colleague} every night for years. What they do here, they do as a pair.
+- W | hand back the notes, and write the stop up exactly as it happened | v: conformity, universalism | sphere: prot.W | chance: 75
+- U | ask to see in the back of the van before you decide anything | act: ask to see in the back of the van before they decide anything | v: self-direction | sphere: prot.U | chance: 75
+- B | take the notes, let him go, and keep the inspector's friend sweet | v: power, security | mark: hid a wrong | lever: subvert | sphere: prot.B | chance: 75
+- R | tell him to put his money away before you add a charge for it | act: tell him to put his money away before they add a charge for it | v: stimulation, universalism | sphere: prot.R | chance: 75
+- G | wave him on without the money, and stand by your partner on the shift | act: wave him on without the money, and stand by their partner on the shift | v: tradition, security | lever: neglect | sphere: prot.G | chance: 75
+- W>G | refuse the notes, and talk your partner round to writing it up with you | act: refuse the notes, and talk their partner round to writing it up with them | v: conformity, benevolence | sphere: prot.W | chance: 65
+- U>W | note the plate and the time, and take it to the complaints office | v: universalism, security | lever: voice | pushes: institution police | sphere: prot.U | chance: 65
+- B>U | let him go, and keep the favour he owes you on file | act: let him go, and keep the favour he owes them on file | v: power | lever: subvert | sphere: prot.B | chance: 65
+- R>B | let him think you will take it, then charge him with the offer too | act: let him think they will take it, then charge him with the offer too | v: stimulation, power | sphere: prot.R | chance: 65
+- G>R | tell your partner straight, out by the car, that you two do not do this | act: tell their partner straight, out by the car, that the two of them do not do this | v: tradition, benevolence | lever: voice | pushes: close colleague | sphere: prot.G | chance: 65
+works: The stop is written up as it happened, and months later {N} is glad of every line of it.
+works: {N} comes through it with a clear name, and {colleague} with a little more respect than before.
+fails: The inspector hears of the night, and {N} finds the next rota full of the worst shifts.
+fails: Whatever {N} chose follows them for a long time: a look in the canteen, a word behind their back.
+
+# ---------------------------------------------------------------- life event: the first arrest one makes (pairs D3a)
+
+== the first arrest you make
+tier: life event
+sphere: prot
+haunt: prot.watch
+ladder: newcomer
+stages: young_adult adult mature
+age: 18-65
+per_year: 0 0 .4 .3 .2 0
+drivers: trouble+.3 unrest+.2
+once: yes
+times: Among newcomers to the watch (haunt prot.watch), the first arrest comes within a year or two to most police recruits and more rarely to guards and rota volunteers, once (estimate); outside the watch it never comes
+likelier: a busy town beat, night shifts, a recruit on the streets rather than at a desk
+rarer: a quiet village beat, a guard post with no power of arrest, a desk post
+gap: 1-3
+tone: mixed
+life: work, justice
+horizon: months
+roles: mentor
+who: mentor
+earth: your first arrest: a man at the back of the builders' yard with a bag of copper pipe, as frightened as you are
+scene: Past midnight {N} finds a man in his forties at the back of the builders' yard with a bag of copper pipe. He does not run. He says he has three children and no work, and {mentor} is still a street away.
+scene W: The law does not change for a sad story, and it does not let {N} be rough with him either. Both halves matter tonight.
+scene U: Copper pipe goes somewhere. {N} wonders who buys it, and how many yards have been stripped this month.
+scene B: A clean first arrest gets noticed at the station. {N} knows the sergeant reads every one.
+scene R: {Ns} pulse is racing. He is bigger than {N}, and the gate is behind him.
+scene G: {N} thinks the face is familiar: one of the families from the estate by the canal, perhaps.
+- W | caution him, arrest him by the book, and treat him with courtesy | v: conformity, universalism | sphere: prot.W | chance: 65
+- U | ask him where the rest of the pipe has gone, and who buys it | v: self-direction | sphere: prot.U | chance: 65
+- B | arrest him, and make sure the station knows it was your catch | act: arrest him, and make sure the station knows it was their catch | v: achievement, power | sphere: prot.B | chance: 65
+- R | stand between him and the gate, and talk him down until help comes | v: stimulation, benevolence | sphere: prot.R | chance: 65
+- G | ask his name and his street, and work out whose family he is | v: benevolence, tradition | sphere: prot.G | chance: 65
+- BG | take him in, and tell the custody desk about the children | v: benevolence, security | sphere: prot.BG | chance: 55
+- RG | walk him to the van yourself, talking all the way, so he stays calm | act: walk him to the van themselves, talking all the way, so he stays calm | v: benevolence | sphere: prot.RG | chance: 55
+- UB | offer to put in a good word if he names the buyer | v: power, security | sphere: prot.UB | chance: 55
+- WR | radio it in at once, and keep him safe and still until the van comes | v: security, conformity | sphere: prot.RW | chance: 55
+- WU | write every word he says in the notebook before anything else | v: conformity, achievement | sphere: prot.WU | chance: 55
+works: The arrest stands up in court, and {mentor} says {N} did it as well as anyone could have.
+works: Months later the man passes {N} on the street with a job and a nod.
+fails: The paperwork is wrong in one place, and the case goes nowhere.
+fails: {N} goes home and cannot stop thinking about the three children.
+
+# ================================================================ the host (prot.host) and the families at home
+
+# ---------------------------------------------------------------- life event: the first day in uniform (pairs D1a)
+
+== the first day in uniform
+tier: life event
+sphere: prot
+stages: young_adult adult
+age: 18-45
+per_year: 0 0 .006 .002 0 0
+drivers: unrest+.5 harsh+.2 prosper-.2
+once: yes
+times: Joining the police, the fire service, the forces, the prison service or a guard firm with an oath or a passing-out comes to about 1 in 10 lives (estimate; far more where service is compulsory, which 'the call to serve' covers), set at 6 in 1,000 a year in the twenties and fewer after
+likelier: a family in uniform, a town with a barracks or a big station, few other jobs, unrest
+rarer: a family that distrusts the force, good work elsewhere, poor health
+gap: 1-2
+tone: joy
+life: work, duty, family
+horizon: years
+roles: parent, mentor
+who: parent
+earth: the passing-out parade: the oath said aloud, the new uniform, and your family in the stands
+scene: Twelve weeks of training end on the parade ground. {N} stands in the new uniform with the rest of the intake and says the oath aloud; {parent} is in the stands, and tomorrow is the first real shift.
+scene W: The oath is the same words for every one of them, rich or poor, and binds them to keep the peace the same for everyone. {N} means every word.
+scene U: {N} looks along the line and wonders which of them will still be here in ten years, and what will decide it.
+scene B: The postings list goes up tonight. The right first posting can set a whole career going.
+scene R: {Ns} chest is tight with pride. The band strikes up, and {N} could march for miles.
+scene G: {Ns} grandparent wore this uniform once. {parent} has the old photograph in a pocket, and keeps touching it.
+- W | say every word of the oath as if it binds you for life | act: say every word of the oath as if it binds them for life | v: conformity, tradition | lever: loyalty | sphere: prot.W | chance: 65
+- U | ask the instructors which postings teach most, and put in for one | v: self-direction, achievement | sphere: prot.U | chance: 65
+- B | ask for the posting with the most overtime and the quickest promotion | v: achievement, power | sphere: prot.B | chance: 65
+- R | ask for the busiest station in the city, starting tomorrow | v: stimulation | sphere: prot.R | chance: 65
+- G | ask to be posted back home, to the streets you grew up on | act: ask to be posted back home, to the streets they grew up on | v: tradition, security | mark: came home | sphere: prot.G | chance: 65
+- WU | keep your training notes, and go over the rules again each night | act: keep their training notes, and go over the rules again each night | v: conformity, achievement | sphere: prot.WU | chance: 55
+- WR | volunteer for the night response team from the first week | v: stimulation, benevolence | sphere: prot.RW | chance: 55
+- UG | ask an old officer from home what the job was like in their day | v: tradition, universalism | sphere: prot.GU | chance: 55
+- BR | take the whole intake out to celebrate, and pick up the bill | v: hedonism, power | mark: made a friend | sphere: prot.BR | chance: 55
+- BG | ask the veteran instructor for the plain truth about the work | v: security, tradition | sphere: prot.BG | chance: 55
+works: The first months go well, and {N} finds the work fits better than they had hoped.
+works: {parent} keeps the parade photograph on the dresser, and {N} catches them showing it to the neighbours.
+fails: The first posting is nothing like the training, and {N} spends a hard year finding their feet.
+fails: A bad first week with a hard sergeant sours the start, and {N} wonders whether to stay.
+
+# ---------------------------------------------------------------- life event: the farewell at the gate (pairs D5a)
+
+== the farewell at the barracks fence
+tier: life event
+sphere: prot
+stages: juvenile+
+age: 14-90
+per_year: 0 .004 .005 .004 .003 .001
+drivers: unrest+1 harsh+.2
+times: Seeing a brother or sister off on a long posting with the forces comes to about 1 in 5 lives (estimate; many more in wartime or where service is compulsory), set at 4 to 5 in 1,000 a year
+likelier: a brother or sister in the forces, a family in uniform, a war or a threat at the border
+rarer: an only child, peace and a small professional army, a family that keeps out of the forces
+gap: 2-10
+tone: mixed
+life: family, worry
+horizon: months
+roles: sibling, parent
+who: sibling
+earth: your brother or sister leaves from the barracks gate for a long posting, and the family stands at the fence
+scene: {sibling} leaves for a nine-month posting far away. The family stands at the barracks fence at dawn as the buses fill; {parent} has not slept, and {sibling} keeps making jokes that nobody laughs at.
+scene W: The families stand in a line along the fence, and there is a way to do this: no tears in front of them, a wave, and back to work.
+scene U: {N} has read about where the posting is, and knows more than {parent} does. {N} decides how much of it to say.
+scene B: {N} knows what helps out there: money, a phone that works, and nobody at home falling apart.
+scene R: {N} wants to climb the fence, grab {sibling}, and make them laugh one more time before the bus.
+scene G: {sibling} has never been further than the coast. The whole street has come out, and so have the cousins.
+- W | stand straight and wave until the bus is gone, as the families do | v: tradition, conformity | sphere: prot.W | chance: 65
+- U | ask how and when you can reach them out there, and write it all down | act: ask how and when they can reach them out there, and write it all down | v: security, self-direction | sphere: prot.U | chance: 65
+- B | slip them some money for the posting, and say only what helps | v: benevolence, security | sphere: prot.B | chance: 65
+- R | push through to the front, and hug them one last time | v: benevolence, stimulation | sphere: prot.R | chance: 65
+- G | give them the family's old keepsake to carry, and ask for it back | v: tradition | sphere: prot.G | chance: 65
+- BG | tell them plainly to keep their head down and just come home | v: security, benevolence | sphere: prot.BG | chance: 55
+- UB | set up one family chat, so news from the posting reaches everyone at once | v: security | tech: phone | sphere: prot.UB | chance: 55
+- UR | record a message from everyone at home, for them to play on the first bad night | v: benevolence, self-direction | sphere: prot.UR | chance: 55
+- WG | promise to look after the family at home until they are back | v: benevolence, tradition | lever: loyalty | sphere: prot.GW | chance: 55
+- WR | make them promise to write every week, and promise the same | v: benevolence, conformity | sphere: prot.RW | chance: 55
+works: The posting passes, {sibling} comes home safe in the spring, and the family meets the bus at the same fence.
+works: The letters and calls keep the family close through the months apart.
+fails: The goodbye goes wrong: a sharp word at the fence that {N} replays for months.
+fails: The months drag, the news is thin, and the worry settles into the house like damp.
+
+# ---------------------------------------------------------------- life event: a comrade lost (pairs D4a)
+
+== a comrade lost on the mountain road
+tier: life event
+sphere: prot
+haunt: prot.host
+ladder: regular
+stages: young_adult adult mature
+age: 19-60
+per_year: 0 0 .02 .015 .01 0
+drivers: unrest+1.5 harsh+.3
+times: Among those serving in the forces (haunt prot.host), losing someone from one's own unit comes to about 1 in 6 over a career in peacetime, mostly through accidents and illness (estimate), and far more in war, which the drivers raise
+likelier: a war, hard postings, long road moves, a big unit
+rarer: peace, a desk posting, a short term of service
+gap: 3-10
+tone: trouble
+life: grief, work, friends
+horizon: years
+roles: colleague
+who: colleague
+earth: a soldier from your section dies when a truck goes off a mountain road at night, and the unit gathers to say goodbye
+scene: Word comes at breakfast: {colleague}, who shared {Ns} room for two years, died when a truck went off the mountain road in the night. The unit is stood down for the day, and nobody knows what to do with their hands.
+scene W: There is a way the unit honours its own, and {N} holds on to it: the parade, the folded flag, the names.
+scene U: {N} keeps asking the same question: the road, the hour, the driver's shift. Why that truck, and why that night?
+scene B: The posting still has months to run. {N} knows the only way through is to keep their head and their routine.
+scene R: {N} wants to shout at someone, anyone. {colleague} was the loudest laugh in the section.
+scene G: {colleague}'s family live three hours away, in a village {N} has heard about every night for two years.
+- W | carry the coffin with the section at the funeral, in full dress | v: tradition, conformity | lever: loyalty | sphere: prot.W | chance: 65
+- U | read the report on the crash, and ask what would have stopped it | v: universalism, security | lever: voice | sphere: prot.U | chance: 65
+- B | keep your head down, and get through the posting in one piece | act: keep their head down, and get through the posting in one piece | v: security | sphere: prot.B | chance: 65
+- R | gather the section that night, and tell the stories out loud | v: benevolence, stimulation | sphere: prot.R | chance: 65
+- G | write to the family, and visit them on your next leave | act: write to the family, and visit them on their next leave | v: benevolence, tradition | sphere: prot.G | chance: 65
+- BG | take the grief quietly, and keep the youngest in the section steady | v: security, benevolence | sphere: prot.BG | chance: 55
+- RG | drive with the whole section to the funeral in the home village | v: tradition, benevolence | sphere: prot.RG | chance: 55
+- UR | push for a new rule on night driving, and test it on the next move | v: universalism, stimulation | lever: voice | sphere: prot.UR | chance: 55
+- WB | collect from the unit for the family, and see the pension comes through | v: benevolence, security | lever: fund | sphere: prot.WB | chance: 55
+- WU | ask for a full inquiry, and give your evidence plainly | act: ask for a full inquiry, and give their evidence plainly | v: universalism, conformity | lever: voice | pushes: institution army | sphere: prot.WU | chance: 55
+works: The section holds together through the months after, and the family writes to thank them.
+works: In time {N} finds a way to carry it: a photograph in the locker, a name said every year.
+fails: {N} carries it alone, and it comes out sideways for a long time: in temper, in sleep, in drink.
+fails: The inquiry finds nothing anyone wants to hear, and {N} loses faith in the forces for a while.
+
+# ---------------------------------------------------------------- life event: coming home changed (pairs D6a)
+
+== home from the posting, and not the same
+tier: life event
+sphere: prot
+haunt: prot.host
+ladder: known
+stages: young_adult adult mature
+age: 20-60
+per_year: 0 0 .03 .03 .02 0
+drivers: unrest+1 harsh+.3
+times: Among those serving (haunt prot.host, a seasoned hand), coming back from a long, hard posting changed in ways the family notices comes to about 1 in 4 over a career (estimate; studies of returning service members find lasting strain in a sizeable minority)
+likelier: a war or a hard posting, a comrade lost, long months away, little support at home
+rarer: peace, home postings, a short term of service
+gap: 3-10
+tone: mixed
+life: home, health, love
+horizon: years
+roles: partner
+who: partner
+earth: home from a long posting, you find the house the same and yourself not: a jump at every slammed door, short sleep, and a family that tiptoes
+scene: {N} is home after nine months away. {partner} has kept everything as it was, but {N} jumps at a slammed door, sleeps four hours a night, and finds the small talk at dinner hard to bear.
+scene W: Out there every hour had its order. At home nobody keeps to anything, and {N} feels lost in it.
+scene U: {N} notices the changes in themselves as if watching someone else, and wants to understand them.
+scene B: {N} does not want pity, or a file at the clinic that follows them into every promotion board.
+scene R: {N} feels everything too much or not at all, and wants something, anything, that makes life loud again.
+scene G: The old pub, the old friends, the same dog on the same rug: {N} wants to belong to it all again, and does not yet.
+- W | keep a strict routine at home, the way the posting ran | v: security, conformity | sphere: prot.W | chance: 65
+- U | read up on what coming back does to people, and name what is happening | v: self-direction, universalism | sphere: prot.U | chance: 65
+- B | say you are fine, and keep it to yourself | act: say they are fine, and keep it to themselves | v: self-direction | sphere: prot.B | chance: 65
+- R | take the family to the coast for a week, and try to feel it all again | v: hedonism, stimulation | sphere: prot.R | chance: 65
+- G | go back to the old haunts and the old faces, slowly, one by one | v: tradition, security | sphere: prot.G | chance: 65
+- BG | meet up with the old hands from the unit, who need nothing explained | v: security, tradition | sphere: prot.BG | chance: 55
+- UG | walk the hills every morning, alone, until the noise inside goes quiet | v: self-direction, security | sphere: prot.GU | chance: 55
+- UR | book yourself in at the clinic for returning soldiers, and go | act: book themselves in at the clinic for returning soldiers, and go | v: self-direction, security | sphere: prot.UR | chance: 55
+- WB | put in for a home posting, and plan the next five years | v: security, achievement | sphere: prot.WB | chance: 55
+- WR | tell your partner the whole truth one night, however hard it is to say | act: tell their partner the whole truth one night, however hard it is to say | v: benevolence, self-direction | sphere: prot.RW | chance: 55
+works: By the spring {N} sleeps through the night again, and the dinners have their old noise back.
+works: The family finds a new shape around {N}, and it holds.
+fails: The distance at home grows, and {partner} says they hardly know {N} any more.
+fails: The months pass and the jumpiness stays; {N} learns to live around it.
+
+# ---------------------------------------------------------------- life event: the memorial, years later (pairs D2a)
+
+== the names read at the stone
+tier: life event
+sphere: prot
+haunt: prot.host
+ladder: known
+stages: adult mature elder
+age: 28-95
+per_year: 0 0 0 .05 .04 .03
+drivers: unrest+.3 community+.2
+times: Among those in or long tied to the forces (haunt prot.host, a seasoned hand or more), being asked to read the names or speak at the yearly memorial comes to about 1 in 3 over the years, once or twice (estimate)
+likelier: a long career, an old unit that still meets, a comrade among the names, a small town with its own stone
+rarer: a short term of service, a unit long scattered, a person who keeps away from the old crowd
+gap: 5-15
+tone: mixed
+life: grief, duty, community
+horizon: week
+roles: colleague, friend
+who: colleague
+earth: every year the old unit meets at the stone to read the names of those who did not come home, and this year you are asked to read them
+scene: Every year on the same morning the old unit meets at the stone in {place} to read the names of those who did not come home. This year {colleague}, who organises it, asks {N} to read them.
+scene W: The names deserve to be read properly, in order, every one. {N} feels the weight of being trusted with it.
+scene U: {N} realises they know almost nothing about half the names: who they were, where they fell, who they left.
+scene B: The councillors come every year for the photograph and do nothing for the veterans' home. {N} has a captive audience at last.
+scene R: Every year the speeches say glory. {N} remembers the faces, and none of them looked glorious.
+scene G: The families still come: the same mothers, older each year, and now grandchildren holding their hands.
+- W | read every name slowly and clearly, exactly as it is cut in the stone | v: tradition, conformity | lever: loyalty | sphere: prot.W | chance: 65
+- U | find out something true about each name, and say a line for each | v: universalism, benevolence | sphere: prot.U | chance: 65
+- B | read them, then press the councillors on the veterans' home before the cameras | v: power, benevolence | lever: voice | pushes: place | sphere: prot.B | chance: 65
+- R | say what nobody says out loud: what it cost, and who sent them | v: self-direction | lever: voice | sphere: prot.R | chance: 65
+- G | bring the families of the names to stand at the front | v: tradition, benevolence | sphere: prot.G | chance: 65
+- BG | read the names, then take the youngest soldiers for a quiet drink after | v: tradition, security | sphere: prot.BG | chance: 55
+- BR | turn the evening after into a loud night for the old unit, on you | act: turn the evening after into a loud night for the old unit, on them | v: hedonism | lever: fund | sphere: prot.BR | chance: 55
+- UR | record the old hands' stories after the service, before they are lost | v: universalism, stimulation | sphere: prot.UR | chance: 55
+- WG | ask one relative from each family to lay a flower beside you | act: ask one relative from each family to lay a flower beside them | v: tradition, benevolence | sphere: prot.GW | chance: 55
+- WU | get the stone corrected where one name has been spelled wrong for years | v: conformity, universalism | sphere: prot.WU | chance: 55
+works: The names are read well, and afterwards a mother {N} has never met holds {Ns} hands and thanks them.
+works: The morning leaves {N} lighter, as if something owed has been paid at last.
+fails: {Ns} voice breaks on the third name, and {N} has to stop and start again.
+fails: The words cause a row with the organisers that sours the morning for everyone.
+
+# ---------------------------------------------------------------- life event: visiting someone inside (pairs D1b)
+
+== the first visit to a brother or sister inside
+tier: life event
+sphere: prot
+stages: young_adult+
+age: 18-95
+per_year: 0 0 .003 .003 .002 .001
+drivers: trouble+.5 harsh+.3
+times: Having a close relative in prison touches a sizeable minority of families, far more in some neighbourhoods (estimate); a first visit to a brother or sister inside comes to about 1 in 8 lives (estimate), set at 3 in 1,000 a year in young and middle adulthood
+likelier: a brother or sister in trouble with the law, a harsh sentencing regime, a poor neighbourhood
+rarer: an only child, a family that cuts off whoever goes inside
+gap: 5-20
+tone: mixed
+life: family, justice
+horizon: months
+roles: sibling, parent
+who: sibling
+earth: your brother or sister is serving a sentence, and you go for the first visit
+scene: {sibling} has been inside for a month. {N} goes for the first visit: the queue, the search, the locker for the phone, and then a table in a loud room, with {sibling} in a bib, trying to smile.
+scene W: There are rules for everything here, and {N} keeps to every one. A broken rule could end the visits.
+scene U: {N} looks around the room: the guards, the other families, the children at the next table. It is a whole world {N} knew nothing about.
+scene B: What matters now is the appeal, the lawyer, and getting {sibling} out sooner. {N} has a list of questions.
+scene R: {N} wants to shout at the walls. Instead {N} grins, and asks what the food is like.
+scene G: {parent} could not face coming. {N} has brought every bit of news from home, down to the neighbour's new dog.
+- W | keep to every rule of the visit, so nothing stops the next one | v: conformity, security | sphere: prot.W | chance: 65
+- U | ask what the days are like inside, and what would help them most | v: universalism, benevolence | sphere: prot.U | chance: 65
+- B | talk through the appeal and the lawyer, and what it will cost | v: achievement, security | sphere: prot.B | chance: 65
+- R | make them laugh about the old days for the whole hour | v: hedonism, benevolence | sphere: prot.R | chance: 65
+- G | bring news of every cousin and aunt, so they know home is waiting | v: tradition, benevolence | sphere: prot.G | chance: 65
+- RG | promise to come every week, whatever the bus fare and the queue | v: benevolence, tradition | lever: loyalty | sphere: prot.RG | chance: 55
+- UB | find out about the college course inside, and how to get them a place | v: achievement, self-direction | sphere: prot.UB | chance: 55
+- UR | write them a long letter that night, saying all the room would not let you | act: write them a long letter that night, saying all the room would not let them | v: benevolence, self-direction | sphere: prot.UR | chance: 55
+- WB | put money on their account each month, and keep a careful record | v: security, benevolence | lever: fund | sphere: prot.WB | chance: 55
+- WG | make their room ready at home, for whenever they come out | v: benevolence, tradition | sphere: prot.GW | chance: 55
+works: The visits become a habit, and when {sibling} comes out, {N} is waiting at the gate.
+works: {sibling} starts a course inside, and the letters home grow longer and lighter.
+fails: The visit goes badly: an old quarrel, raised voices, and a guard ending it early.
+fails: The journey and the queue wear {N} down, and the visits thin out to nothing.
+
+# ================================================================ danger on the doorstep and the road
+
+# ---------------------------------------------------------------- life event: a break-in at home (pairs D3b)
+
+== the back door forced
+tier: life event
+sphere: prot
+stages: young_adult+
+age: 18-100
+per_year: 0 0 .005 .005 .004 .003
+drivers: trouble+.3 unrest+.3 prosper-.1
+times: Household burglary has fallen in many places but is still common (crime surveys find about 1 to 3 in 100 households a year); a break-in at one's own home comes to about 1 in 4 lives (estimate), set at 5 in 1,000 a year in young and middle adulthood and less later
+likelier: a city, a street with many empty homes by day, hard times, a ground-floor flat
+rarer: a village where everyone is home, a block with a porter, a dog
+gap: 5-20
+tone: trouble
+life: home, safety, money
+horizon: months
+roles: grandparent, neighbour
+who: neighbour
+earth: you come home to a back door forced open and the drawers turned out
+scene: {N} comes home to find the back door forced and the drawers turned out. The laptop is gone, and so is the box of {grandparent}'s rings. Nobody was hurt; the house just feels different now.
+scene W: Somebody broke the law in {Ns} own home. {N} wants it reported, recorded and dealt with properly.
+scene U: {N} stands in the doorway and reads the room: what was taken, what was left, how long they must have had.
+scene B: {N} is already adding it up: the door, the laptop, the insurance, and what it will take to make sure this never happens again.
+scene R: {N} is shaking with anger. Someone walked through these rooms and touched everything.
+scene G: The rings were the last thing of {grandparent}'s that {N} had. The street, too, feels less like theirs tonight.
+- W | report it at once, and give the police a full and honest list | v: conformity, security | sphere: prot.W | chance: 65
+- U | walk the house slowly, and work out how they got in and when | v: self-direction, security | sphere: prot.U | chance: 65
+- B | fit the best locks and an alarm that week, whatever it costs | v: security | sphere: prot.B | chance: 65
+- R | knock on every door in the street tonight, asking who saw what | v: stimulation | sphere: prot.R | chance: 65
+- G | go next door, and stay with the neighbours until the house feels safe | v: security, tradition | sphere: prot.G | chance: 65
+- BR | post the doorbell camera clips online, and offer a reward for the rings | v: power, stimulation | tech: internet | sphere: prot.BR | chance: 55
+- UG | ask the old neighbours what has changed on the street lately | v: universalism, tradition | sphere: prot.GU | chance: 55
+- UR | rig up lights and a homemade alarm that very night, and test them | v: self-direction, stimulation | sphere: prot.UR | chance: 55
+- WB | chase the insurer and the police every week until the claim is settled | v: security, power | sphere: prot.WB | chance: 55
+- WG | start a phone tree with the neighbours, so the street watches each other's doors | v: benevolence, security | lever: found | pushes: group neighbours | sphere: prot.GW | chance: 55
+works: The rings turn up at a pawn shop, and {N} has them back by the end of the month.
+works: The house feels like home again within a season, and the street is closer for it.
+fails: Nothing comes back, and for months {N} lies awake at every noise.
+fails: The insurer quibbles over every line, and {N} pays for half of it twice.
+
+# ---------------------------------------------------------------- life event: running toward danger, or away (pairs D4b)
+
+== the car in the ditch ahead
+tier: life event
+sphere: prot
+stages: young_adult+
+age: 18-95
+per_year: 0 0 .005 .004 .004 .002
+drivers: harsh+.2 prosper-.1
+times: Being among the first at a serious road crash, and choosing whether to go toward it, comes to about 1 in 4 lives (estimate)
+likelier: long drives, country roads, night and winter driving, a first-aid course
+rarer: city life without a car, little travel
+gap: 5-20
+tone: mixed
+life: strangers, courage
+horizon: moment
+roles: friend
+earth: a car slides off the wet road ahead of you and rolls into the ditch, and you are the first to stop
+scene: Just ahead of {N}, a car slides off the wet road and rolls into the ditch. Its lights are still on, steam rises from the bonnet, and someone inside is calling out. Nobody else has stopped yet.
+scene W: There is an order to this: call, warn the traffic, then help. {N} tries to remember it.
+scene U: {N} takes in the scene in one long second: the smell of fuel or not, the slope, the cars coming fast behind.
+scene B: {N} has no training and a family at home. Someone better at this will be along in a minute.
+scene R: {N} is out of the car before thinking about it.
+scene G: Whoever is in that car is somebody's child, somebody's parent. {N} cannot leave them alone in the dark.
+- W | ring the emergency line, and set warning lights behind the crash | v: security, conformity | sphere: prot.W | chance: 65
+- U | check for fuel and smoke before you go near, and send others back | act: check for fuel and smoke before they go near, and send others back | v: security, self-direction | sphere: prot.U | chance: 65
+- B | drive on slowly: others are stopping, and you would only be in the way | act: drive on slowly, since others are stopping and they would only be in the way | v: security | sphere: prot.B | chance: 65
+- R | run straight down into the ditch to the car | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.R | chance: 65
+- G | climb down, hold the driver's hand through the window, and keep them talking | v: benevolence | mark: helped someone in need | sphere: prot.G | chance: 65
+- BR | take charge of the scene, and tell the next drivers where to stand | v: power, stimulation | sphere: prot.BR | chance: 55
+- UB | film the scene from a safe distance, for the police and the insurers | v: security | tech: phone | sphere: prot.UB | chance: 55
+- UG | flag down the farmer from the next field, who knows how this ditch floods | v: tradition, security | sphere: prot.GU | chance: 55
+- WG | get the stopped drivers working together: blankets, torches, the traffic | v: benevolence, conformity | sphere: prot.GW | chance: 55
+- WR | go down with the first-aid kit, doing what the course taught you | act: go down with the first-aid kit, doing what the course taught them | v: benevolence, stimulation | sphere: prot.RW | chance: 55
+works: The driver is out of the car and wrapped in a coat when the ambulance comes, and later sends a card.
+works: {N} drives home shaking, but sure they did what they could.
+fails: {N} freezes for a long minute, and the memory of it stings for years.
+fails: The crew arrive and send {N} back up the bank, and it is weeks before {N} learns how the driver is.
+
+# ---------------------------------------------------------------- life event: a neighbour's door knocked on first (pairs D2b)
+
+== the old woman across the landing
+tier: life event
+sphere: prot
+stages: young_adult+
+age: 18-100
+per_year: 0 0 .004 .004 .004 .003
+drivers: harsh+.3 community+.2
+times: A night alarm in one's own building or street (a fire, a gas leak, a flood warning) comes to about 1 in 5 lives (estimate), set at about 4 in 1,000 a year
+likelier: a flat in an old block, a neighbour who lives alone, a town by a river
+rarer: a detached house, a new building with good alarms
+gap: 5-20
+tone: mixed
+life: neighbours, safety, courage
+horizon: moment
+roles: neighbour
+who: neighbour
+earth: the fire alarm shrieks through the block at night, the stairwell smells of smoke, and the old woman across your landing lives alone
+scene: At three in the morning the alarm shrieks through the block and the stairwell smells of smoke. {N} is half dressed at the door. Across the landing the old woman lives alone, and she is hard of hearing.
+scene W: The notice by the lift says what to do: close the door, use the stairs, report who is missing. {N} read it once.
+scene U: {N} sniffs the air: which way is the smoke coming from, up the stairs or down?
+scene B: {Ns} own things, {Ns} own way out. Every second counts, and the crew will be here soon.
+scene R: {N} does not wait to think. Her door is six steps away.
+scene G: She gave {N} a spare key years ago, for emergencies, and it hangs on the hook by the door.
+- W | follow the drill: close the door, take the stairs, report who is missing | v: conformity, security | sphere: prot.W | chance: 65
+- U | check which floor the smoke is coming from before you choose a stair | act: check which floor the smoke is coming from before they choose a stair | v: security, self-direction | sphere: prot.U | chance: 65
+- B | get yourself out fast, and tell the crew at the door about her | act: get themselves out fast, and tell the crew at the door about her | v: security | sphere: prot.B | chance: 65
+- R | hammer on her door until she opens, and take her down with you | act: hammer on her door until she opens, and take her down with them | v: benevolence, stimulation | mark: helped someone in need | sphere: prot.R | chance: 65
+- G | take the spare key off the hook, and let yourself in to fetch her | act: take the spare key off the hook, and let themselves in to fetch her | v: benevolence, tradition | mark: helped someone in need | sphere: prot.G | chance: 65
+- RG | run the landing banging on every door, hers first | v: benevolence, stimulation | sphere: prot.RG | chance: 55
+- UB | ring her phone from the stairs while getting yourself clear | act: ring her phone from the stairs while getting themselves clear | v: security | tech: phone | sphere: prot.UB | chance: 55
+- UG | tell the crew who lives alone on each floor, from memory | v: benevolence, universalism | sphere: prot.GU | chance: 55
+- WB | take charge at the meeting point, and count the residents off the list | v: conformity, power | sphere: prot.WB | chance: 55
+- WR | get her out, then go back up for the family on the floor below | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.RW | chance: 55
+works: Everyone is out on the pavement by the time the engines arrive, and the old woman holds {Ns} arm the whole time.
+works: The fire is small and soon out, and from that week the landing keeps an eye on one another.
+fails: In the confusion she is missed, and it is a firefighter who brings her out; {N} cannot forgive themselves for weeks.
+fails: The smoke turns out to be a burnt pan two floors down, and {N} has woken half the building for nothing.
+
+# ================================================================ fire and rescue (prot.rescue)
+
+# ---------------------------------------------------------------- life event: the night the bell rang (pairs D6b)
+
+== the pager goes at two in the morning
+tier: life event
+sphere: prot
+haunt: prot.rescue
+ladder: newcomer
+stages: young_adult+
+age: 18-70
+per_year: 0 0 .5 .5 .4 .2
+drivers: harsh+.2
+once: yes
+times: Among newcomers to a fire or rescue crew, paid or volunteer (haunt prot.rescue), the first real call-out comes within months to nearly all, once (estimate); outside the crew it never comes
+likelier: a busy station, a winter of storms, a crew short of hands
+rarer: a quiet country station, a training-only first year
+gap: 1-2
+tone: mixed
+life: courage, work, neighbours
+horizon: moment
+roles: mentor
+who: mentor
+earth: your pager goes at two in the morning: a house fire two streets away, and you are on the crew now
+scene: At two in the morning {Ns} pager goes: a house fire two streets away. {N} is at the station in four minutes, kitted up beside {mentor}, and the engine pulls out with its bell going. From the corner they can see the glow over the roofs.
+scene W: The drill runs through {Ns} head: roles, signals, who goes where. The crew is only as good as its weakest link tonight.
+scene U: {N} tries to picture the house before they reach it: the doors, the stairs, where people would be sleeping.
+scene B: Everyone remembers how a new one does on the first real call. {N} means to come out of it well.
+scene R: {N} has been waiting months for this. The bell, the engine, the open road at night: it is everything.
+scene G: Two streets away. {N} might know the family. {N} might have walked past that door this morning.
+- W | do exactly what the crew leader tells you, and nothing more | act: do exactly what the crew leader tells them, and nothing more | v: conformity, security | lever: loyalty | sphere: prot.W | chance: 65
+- U | read the house as you pull up: the doors, the windows, where people sleep | act: read the house as they pull up: the doors, the windows, where people sleep | v: self-direction, security | sphere: prot.U | chance: 65
+- B | stay with the pump and the hoses, the job you know best | act: stay with the pump and the hoses, the job they know best | v: security, achievement | sphere: prot.B | chance: 65
+- R | ask to go in with the breathing team, first night or not | v: stimulation, benevolence | mark: took a wild risk | sphere: prot.R | chance: 65
+- G | look after the family on the pavement, with blankets and names, while the crew works | v: benevolence | sphere: prot.G | chance: 65
+- BR | take the hose at the front, and show the old hands what you can do | act: take the hose at the front, and show the old hands what they can do | v: achievement, stimulation | sphere: prot.BR | chance: 55
+- RG | run to wake the houses either side before the smoke reaches them | v: benevolence, stimulation | sphere: prot.RG | chance: 55
+- UB | keep the radio log and the timings, and learn from every minute | v: achievement, self-direction | sphere: prot.UB | chance: 55
+- WG | knock on the neighbours' doors in turn, and count everyone out | v: benevolence, conformity | sphere: prot.GW | chance: 55
+- WU | check the gear and the air twice, as the drill says, before moving | v: conformity, security | sphere: prot.WU | chance: 55
+works: Everyone is out of the house by the time the roof goes, and {mentor} claps {N} on the back on the drive home.
+works: Back at the station at dawn, drinking tea in wet kit, {N} feels part of the crew for the first time.
+fails: {N} fumbles the gear at the worst moment, and the crew leader's look says enough.
+fails: The house is lost, and for days {N} cannot get the smell of smoke out of their hair.

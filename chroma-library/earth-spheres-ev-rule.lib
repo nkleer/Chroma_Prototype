@@ -1,0 +1,664 @@
+# Chroma library, modern Earth: the rule sphere's events as they reach one life (Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3: "a moment for each event that touches the character"). Design:
+# chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data chroma-ideas/spheres-data/rule.json (events
+# with epochs including modern and an on_character line; each scene follows the event's wording.modern). Fields: build.py
+# (sphere:, sphere_event:, the outer world's lever: and pushes:).
+#
+# Rule is the say, the law book, rights, the purse, councils and courts. No real country, party or person: politics is
+# told through one town's life (a council, a court, a bus route, a water bill, a playground).
+#
+# Every moment here is an event moment: tier life event, sphere: rule, sphere_event: <key>, per_year all 0 (they exist
+# only with the world on and its sph_events switch), no drivers. The Engine fires each on its sphere event for the people
+# its selector names. The '# world:' line above each names the event key, the selector and the share of selected people
+# who get the moment (estimate). Tone follows the event's tone (good = joy, bad = trouble, mixed = mixed).
+#
+# Layout: five one-colour options (W U B R G once each, sphere: rule.X) and one pair set, each pair option on its pair
+# face in wheel order (WG takes rule.GW, WR rule.RW, UG rule.GU):
+#   feud_settled D1a, favour_exposed D1b, petition_granted D2a, restoration D2b, unjust_verdict D3a, amnesty D3b,
+#   new_levy D4a, rights_narrowed D4b, charter_won D5a, deadlock D5b, false_accusation D6a, the_count D6b,
+#   conquest D4a, strangers_expelled D5a, patron_delivers D1b
+#
+# Evenness: in every moment the five one-colour options share one chance and the five pair options share another, so
+# each colour has the same mean chance in every moment and so in every stage. No flags.
+#
+# Left out, because the world already fires the same event and earth.py has a moment for it (section 5, "Sphere events
+# onto the world's events"): rising (era revolution breakthrough: 'the old order falls'); power_seized (state regime
+# changes: 'the old order falls'); reform_wave (era reform breakthrough and the election that brings it: 'a landslide
+# on election night'); new_leader (state election, change: 'a landslide on election night' and 'election day');
+# say_widened (state right gained: 'a new law opens a door', which answers a right granted); landmark_ruling (the same
+# door opened by a court: 'a new law opens a door'). law_written and bonds_broken have no modern epoch.
+#
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
+
+# ---------------------------------------------------------------- feud_settled (pairs D1a)
+
+# world: sphere event feud_settled, selector members, share .6
+== the long quarrel next door ends
+tier: life event
+sphere: rule
+sphere_event: feud_settled
+share: 0.31
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: feud_settled (sphere rule). Selector members: the households of the two families in the quarrel, of whom about 6 in 10 take the settling as a moment of their own (share .6, estimate). It needs a long quarrel first and a go-between both sides trust, so few lives meet it, perhaps 1 in 20 at most once (estimate)
+likelier: a long quarrel between two families or neighbours, a mediator both sides trust, both sides tired of it, a wedding or a shared trouble that draws them together
+rarer: a family with no quarrel, a newcomer to the street, a quarrel kept hot by a lawsuit
+tone: joy
+life: home, community
+horizon: months
+roles: parent, grandparent, sibling, neighbours
+earth: after years of a quarrel between your family and the one next door, a mediator gets both to the same table
+scene: For eleven years the two families on the corner have not spoken: a fence, a hedge, an old insult nobody can quite repeat. Now a mediator has both at one table, and {Ns} family is one side of it.
+scene W: The mediator lets each side speak to the end, with no interrupting. {N} has never heard the other family's version told in full.
+scene U: {N} has the old letters, the surveyor's map and the dates. Half of what each family believes about the fence is simply wrong.
+scene B: Whoever gives way first will look weak on the street for years. {N} wants the peace, and wants it on good terms.
+scene R: {N} is tired of crossing the road, tired of the stares at the bins, tired of a fight {N} never started.
+scene G: {grandparent} remembers when the two families shared a table every summer, before any of this began.
+- W | hear the other side through to the end, then give your own as plainly | act: hear the other side through to the end, then give their own as plainly | v: universalism, conformity | lever: voice | pushes: group neighbours | sphere: rule.W | chance: 75
+- U | bring the old map and the letters, and settle the facts before anyone apologises | v: self-direction, universalism | sphere: rule.U | chance: 75
+- B | agree to the peace, but only once they pay for the new fence | v: power, security | sphere: rule.B | chance: 75
+- R | knock on their door the night before and simply say it is over | v: stimulation, benevolence | mark: made a friend | sphere: rule.R | chance: 75
+- G | bring both grandmothers to the table, and let the old ties do the mending | v: tradition, benevolence | sphere: rule.G | chance: 75
+- BG | settle it with a deal over the hedge, and keep good terms for favours ahead | v: security, power | sphere: rule.BG | chance: 60
+- BR | refuse to sit down until they admit before the whole street that they lied | v: power, self-direction | mark: made an enemy | sphere: rule.BR | chance: 60
+- UG | write down what both sides agree, simply, so the children never start it again | v: universalism, tradition | sphere: rule.GU | chance: 60
+- WR | speak up at the table for the neighbour your own family wronged first | act: speak up at the table for the neighbour their own family wronged first | v: universalism, benevolence | mark: owned up | lever: voice | pushes: group neighbours | sphere: rule.RW | chance: 60
+- WU | sign a written agreement, every line read aloud and a copy kept by each house | v: conformity, security | mark: kept your word | sphere: rule.WU | chance: 60
+works: The two families nod to each other at the bins now, and by spring the children play in both gardens.
+works: A year on, the peace still holds, and {N} is glad to have helped make it.
+fails: The truce lasts one summer, and then the fence moves again.
+fails: {Ns} own family calls the peace a surrender, and the quarrel moves indoors.
+
+# ---------------------------------------------------------------- favour_exposed (pairs D1b)
+
+# world: sphere event favour_exposed, selector place, share .3
+== the permits followed the donations
+tier: life event
+sphere: rule
+sphere_event: favour_exposed
+share: 0.15
+once: yes
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+gap: 8-20
+times: World event: favour_exposed (sphere rule; the world's institution scandal at a council or a court, section 5). Selector place: about 3 in 10 residents know someone named or were touched by the favour themselves (share .3, estimate); where favour runs high a town sees such a leak every decade or two (estimate)
+likelier: a town where favour runs high and scrutiny is weak, a free press or a rival faction, a person who works near the council or applied for a permit
+rarer: a small open council with strong auditors, a person far from the town's affairs
+tone: mixed
+life: public life, community, conscience
+horizon: months
+roles: friend, colleague, parent, neighbours
+earth: a leak shows the town's building permits followed the donations, and someone you know is named in it
+scene: The leak is on every phone by breakfast: the building permits went to the firms that gave money to a councillor. Among the names is {friend}, who got a council post nobody else was interviewed for.
+scene W: Rules were bent and decent people lost out. {N} wants it heard properly, and every name that matters answered for.
+scene U: {N} sets the dates of the donations beside the dates of the permits. The pattern is too neat to be chance.
+scene B: Everyone did favours; only some got caught. {N} wonders who leaked it, and what they want next.
+scene R: {N} waited two years for a simple permit and was refused. Now {N} knows why, and is furious.
+scene G: {friend} has been at every family wedding and every funeral. Whatever {friend} did, the town is turning on them fast.
+- W | ask at the council's open meeting for a proper inquiry, with every name heard | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.W | chance: 70
+- U | read every leaked file before believing a word anyone says about it | v: self-direction | sphere: rule.U | chance: 70
+- B | stand by the named friend in public, because friends owe each other that | v: benevolence, security | lever: loyalty | sphere: rule.B | chance: 70
+- R | tell everyone about the permit you were refused, and name the councillor out loud | act: tell everyone about the permit they were refused, and name the councillor out loud | v: self-direction, stimulation | mark: made an enemy | lever: voice | pushes: institution council | sphere: rule.R | chance: 70
+- G | keep out of the quarrel, and keep a place at the table for the named family | v: tradition, benevolence | sphere: rule.G | chance: 70
+- RG | get the neighbours to object to the next permit together, as one street | v: universalism, benevolence | lever: voice | pushes: place | sphere: rule.RG | chance: 55
+- UB | quietly pass the reporter the one paper the leak missed, for a favour later | v: power | lever: subvert | pushes: institution council | sphere: rule.UB | chance: 55
+- UR | start a public list of every permit and donation, open for anyone to check | v: universalism, self-direction | lever: found | pushes: institution council | sphere: rule.UR | chance: 55
+- WB | offer to help the council clean house, and take a seat on its new panel | v: power, conformity | lever: loyalty | pushes: institution council | sphere: rule.WB | chance: 55
+- WG | visit the named family, and urge them gently to answer for it honestly | v: benevolence, conformity | sphere: rule.GW | chance: 55
+works: The councillor resigns, the rules on permits are tightened, and the town feels a little cleaner to {N}.
+works: When the noise dies down, {N} still has the friends who matter, and a clearer view of how the town is run.
+fails: The permits stand, the councillor is back within a year, and nothing seems to have changed.
+fails: {N} is caught between the angry street and an old friend, and loses something with both.
+
+# ---------------------------------------------------------------- petition_granted (pairs D2a)
+
+# world: sphere event petition_granted, selector place, share .2
+== the petition saves the bus route
+tier: life event
+sphere: rule
+sphere_event: petition_granted
+share: 0.1
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 5-15
+times: World event: petition_granted (sphere rule). Selector place: about 1 resident in 4 signs a petition in a year (European Social Survey, estimate), and of those in the town where one is granted about 1 in 5 take the win as a moment of their own (share .2, estimate). This is the ordinary signer's moment; the campaigner's own win is 'a cause you fought for wins'
+likelier: an open council that must hear enough names, a cause that touches daily life (a bus, a clinic, a school), a person who signed or carried it
+rarer: a closed or deaf council, a person who never signs anything, a remote place
+tone: joy
+life: public life, community
+horizon: months
+roles: grandparent, friend, neighbours
+earth: the petition you signed passes the number that forces a debate, and the bus route to the hospital is saved
+scene: {N} signed it at the bus stop in the rain, one name among thousands. This morning the council said the route to the hospital stays, and the driver has taped the news to the windscreen.
+scene W: The rules said enough names would force a hearing, and the rules held. {N} feels the quiet pride of a system that worked.
+scene U: {N} looks up the record of the debate: which figures moved the councillors, and which speeches changed nothing.
+scene B: The woman who started the petition is suddenly the best-known name in town. {N} notices who wants to stand beside her now.
+scene R: One name, scrawled in the rain, and it actually worked. {N} wants to do it again, louder.
+scene G: {grandparent} rides that bus every Tuesday to the clinic, and was sure it would go like everything else.
+- W | write to thank the councillors who listened, and say you will see it kept | act: write to thank the councillors who listened, and say they will see it kept | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 80
+- U | read the record of the debate to learn which arguments truly moved the vote | v: self-direction | mark: learned a skill | sphere: rule.U | chance: 80
+- B | offer to help the woman who started it, and get to know who she knows | v: achievement, power | sphere: rule.B | chance: 80
+- R | start a second petition the same week, for the broken streetlights on the hill | v: stimulation, self-direction | lever: voice | pushes: institution council | sphere: rule.R | chance: 80
+- G | ride the saved bus with the old neighbours on the first Tuesday, and share a flask | v: benevolence, tradition | mark: made a friend | sphere: rule.G | chance: 80
+- BG | join the residents' committee, where the same few families pick the next fight | v: security, tradition | lever: loyalty | pushes: group neighbours | sphere: rule.BG | chance: 60
+- BR | put your name forward for the council seat that falls open next spring | act: put their name forward for the council seat that falls open next spring | v: achievement, power | lever: voice | pushes: institution council | sphere: rule.BR | chance: 60
+- UR | design a simpler way for anyone to start a petition, and send it to the council | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.UR | chance: 60
+- WG | help set up a group that keeps watch on the route and meets each month | v: benevolence, conformity | lever: found | pushes: group neighbours | sphere: rule.GW | chance: 60
+- WU | pin the council's full decision in the shelter, so nobody can deny the promise | v: universalism, conformity | sphere: rule.WU | chance: 60
+works: The bus keeps running, and {N} knows for once that a single voice added up to something.
+works: The win brings new faces to the next meeting, and {N} is one of them.
+fails: The route is saved, but within the year the timetable is cut to two buses a day.
+fails: {N} throws a lot into the next fight, and this time the council does not budge.
+
+# ---------------------------------------------------------------- restoration (pairs D2b)
+
+# world: sphere event restoration, selector place, share .3
+== the old laws come back
+tier: life event
+sphere: rule
+sphere_event: restoration
+share: 0.15
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: restoration (sphere rule; the world's restoration breakthrough, section 5, which no earlier moment answers). Selector place: a swing back after fast change comes perhaps once or twice in a long life (estimate), and about 3 residents in 10 feel a repeal in their own week (share .3, estimate)
+likelier: fast change that left older, poorer or outlying people behind, a family split between the old ways and the new, a freedom used every week
+rarer: slow and settled times, a person the repealed laws never touched
+tone: mixed
+life: public life, home, community
+horizon: months
+roles: parent, grandparent, friend, neighbours
+earth: the vote swings back and the last government's laws are repealed: a freedom you used narrows, or an old way returns
+scene: The new government's first act repeals half of what the last one did. The late licence at the corner bar is gone, the shops close on Sundays again, and on {Ns} street some are relieved and some are grieving.
+scene W: The vote was fair and the repeal is lawful. {N} believes a law should be kept, even one {N} would never have chosen.
+scene U: {N} wants to know which repeals were promised, which were not, and who will measure what they cost.
+scene B: The people who lost out last time are back in favour. {N} can see the doors that open for them now, and the ones that close.
+scene R: Something {N} used every week is simply gone, by a vote of strangers. {N} wants to shout about it.
+scene G: {parent} mourned the old ways for years. Tonight {parent} is almost cheerful, and {N} cannot quite share it.
+- W | keep the new rules to the letter, whichever way you voted | act: keep the new rules to the letter, whichever way they voted | v: conformity | lever: loyalty | pushes: state | sphere: rule.W | chance: 75
+- U | gather the figures on what the repeal changes, and share them plainly | v: universalism, self-direction | lever: voice | pushes: state | sphere: rule.U | chance: 75
+- B | get on good terms with the people newly in favour at the town hall | v: power, security | lever: loyalty | pushes: institution council | sphere: rule.B | chance: 75
+- R | join the crowd outside the town hall on the night the repeal passes | v: stimulation, self-direction | lever: voice | pushes: state | sphere: rule.R | chance: 75
+- G | sit with the old people of the street, and let them enjoy what came back | v: tradition, benevolence | sphere: rule.G | chance: 75
+- RG | throw a farewell night for the late licence with everyone who used it | v: hedonism, benevolence | mark: made a friend | sphere: rule.RG | chance: 60
+- UB | find the gap the repeal left open, and quietly make use of it | v: power, self-direction | lever: subvert | pushes: state | sphere: rule.UB | chance: 60
+- UG | ask the older neighbours what life under the old law was like, before deciding | v: tradition, universalism | sphere: rule.GU | chance: 60
+- WB | stand for the residents' board to argue for a softer version of the rules | v: power, conformity | lever: voice | pushes: institution council | sphere: rule.WB | chance: 60
+- WR | stand up at the open meeting for the people the repeal hits hardest | v: universalism, benevolence | lever: voice | pushes: institution council | sphere: rule.RW | chance: 60
+works: Within a year the town has made its peace with the change, and {N} has found a way to live well in it.
+works: Some of what came back turns out to be good, and {N} is surprised to say so.
+fails: The quarrel over the repeal splits the family table for a long season.
+fails: The freedom {N} relied on is gone, and losing it costs more than anyone said.
+
+# ---------------------------------------------------------------- unjust_verdict (pairs D3a)
+
+# world: sphere event unjust_verdict, selector place, share .2
+== the court clears the builder
+tier: life event
+sphere: rule
+sphere_event: unjust_verdict
+share: 0.1
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: unjust_verdict (sphere rule). Selector place: a verdict the town sees as plainly wrong comes perhaps once a decade where hearings are weak or a powerful party is in the case (estimate), and about 2 residents in 10 know the people who lost (share .2, estimate)
+likelier: low fair hearing or high favour, a powerful party in the case, a person who knows the injured or works in the trade
+rarer: a trusted, independent court, a person far from the case
+tone: trouble
+life: public life, work, community
+horizon: months
+roles: colleague, friend, sibling, neighbours
+earth: the court clears the builder who ignored the safety rules, and the injured workers' families leave the hearing in silence
+scene: The scaffolding came down because the builder skipped the checks; everyone on the site knew it. Today the court cleared him on a missing form, and {colleague}, still on crutches, walked out without a word.
+scene W: A court is meant to weigh the truth, not the paperwork. {N} believes in the law, and today the law has failed.
+scene U: {N} wants to read the judgment itself. A ruling that turns on one form can often be turned on another.
+scene B: The builder has friends at the town hall, and everyone knows it. {N} wonders who could match them.
+scene R: {N} saw that scaffold sway every morning. The verdict makes {Ns} hands shake.
+scene G: The families of the injured have known each other for years. {N} thinks first of who will cook for them this week.
+- W | help the families file the appeal, with every step done properly | v: universalism, conformity | lever: voice | pushes: institution court | sphere: rule.W | chance: 65
+- U | read the whole judgment, and find where its reasoning breaks | v: self-direction, universalism | mark: learned a skill | sphere: rule.U | chance: 65
+- B | find someone with weight at the town hall to take the families' side | v: power, security | sphere: rule.B | chance: 65
+- R | stand outside the court with a sign on the day the builder comes out | v: self-direction, stimulation | lever: voice | pushes: institution court | sphere: rule.R | chance: 65
+- G | take food round to the injured families, and sit with them a while | v: benevolence | mark: helped someone in need | sphere: rule.G | chance: 65
+- BG | turn every family you know away from hiring that builder again | act: turn every family they know away from hiring that builder again | v: power, benevolence | lever: subvert | pushes: place | sphere: rule.BG | chance: 50
+- RG | gather the whole street on the council steps for the families | v: benevolence, stimulation | lever: voice | pushes: institution council | sphere: rule.RG | chance: 50
+- UB | dig out the old ruling the defence hoped nobody would remember | v: achievement, power | sphere: rule.UB | chance: 50
+- WR | speak as a witness at the appeal, though the builder's people are watching | v: universalism, benevolence | mark: made an enemy | lever: voice | pushes: institution court | sphere: rule.RW | chance: 50
+- WU | start a fund so the families can afford a proper lawyer | v: universalism, benevolence | lever: fund | pushes: institution court | sphere: rule.WU | chance: 50
+works: The appeal is heard, and this time the court weighs what really happened.
+works: The families are not left alone with it, and {N} is one of the reasons why.
+fails: The appeal fails as the first case did, and the builder is working again by summer.
+fails: {N} spends months on the fight, and the builder's friends make {Ns} working life harder.
+
+# ---------------------------------------------------------------- amnesty (pairs D3b)
+
+# world: sphere event amnesty, selector place, share .2
+== the amnesty list
+tier: life event
+sphere: rule
+sphere_event: amnesty
+share: 0.1
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 15-40
+times: World event: amnesty (sphere rule). Selector place: an amnesty comes with a new government, a peace or a bargain to end unrest, perhaps once in a long life (estimate); about 2 residents in 10 have someone close on the list, or someone who wronged them (share .2, estimate)
+likelier: a new government after unrest, a family member held for protest, crowded prisons, a town that took sides
+rarer: settled times with few held for protest, a family far from it all
+tone: joy
+life: home, public life, family
+horizon: months
+roles: sibling, parent, friend, neighbours
+earth: an amnesty clears last year's protesters: a brother or sister comes home, and so does the man who once hurt you
+scene: An amnesty for last year's protesters: records wiped, sentences ended. {sibling} is home by Friday, thinner and quieter. On the same list is the man whose shove in the crowd broke {Ns} wrist, and he is home too.
+scene W: An amnesty is the law too. {N} knows it means letting go of what the man did, and is not sure it can be done.
+scene U: {N} reads who qualified and who did not. The lines the government drew make no obvious sense.
+scene B: {sibling} has a clean record now, and a story people want to hear. {N} sees how that could open doors, or close them.
+scene R: {sibling} is home. {N} wants to fill the house with music and every friend they have.
+scene G: {parent} has set the old place at the table for {sibling}, and has not stopped cooking since dawn.
+- W | accept the amnesty as law, and greet the man civilly if you meet | act: accept the amnesty as law, and greet the man civilly if they meet | v: conformity, universalism | lever: loyalty | pushes: state | sphere: rule.W | chance: 75
+- U | help the one who came home sort out the cleared record, line by line | v: benevolence, security | sphere: rule.U | chance: 75
+- B | call in every favour owed to find work for the one who came home | v: benevolence, power | sphere: rule.B | chance: 75
+- R | throw a homecoming party the whole street will hear | v: hedonism, benevolence | sphere: rule.R | chance: 75
+- G | let the family gather slowly, and leave the old wrongs for another day | v: tradition, security | sphere: rule.G | chance: 75
+- BR | find the man who hurt you, and tell him to keep off your street | act: find the man who hurt them, and tell him to keep off their street | v: power, self-direction | mark: made an enemy | sphere: rule.BR | chance: 60
+- UG | ask a mediator what could be done between the two families | v: benevolence, universalism | sphere: rule.GU | chance: 60
+- UR | speak at the hearing on the next round, for those still left out | v: universalism, self-direction | lever: voice | pushes: state | sphere: rule.UR | chance: 60
+- WB | claim for the family the compensation the amnesty allows | v: security, achievement | sphere: rule.WB | chance: 60
+- WG | go to the man's door and offer peace, for both families' sake | v: benevolence, tradition | mark: made a friend | sphere: rule.GW | chance: 60
+works: {sibling} settles back in, and the house is fuller and gentler than it has been in a year.
+works: {N} finds a way to pass the man in the street without the old anger rising.
+fails: {sibling} comes home changed, and the family struggles to reach them.
+fails: The man's return stirs up the old quarrel, and the street takes sides again.
+
+# ---------------------------------------------------------------- new_levy (pairs D4a)
+
+# world: sphere event new_levy, selector place, share .4
+== a new charge on the water bill
+tier: life event
+sphere: rule
+sphere_event: new_levy
+share: 0.2
+once: yes
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 5-15
+times: World event: new_levy (sphere rule). Selector place: a new local charge or tax that every household pays comes every several years when the treasury is short (estimate); about 4 householders in 10 feel it enough to make it a moment (share .4, estimate). The cost itself is the world's to charge; this is the household's answer
+likelier: an empty treasury or old debts, a household on a tight budget, a council that let some firms off
+rarer: a rich household, a fair charge that falls on the able, a person who pays no household bills
+tone: trouble
+life: money, home, public life
+horizon: months
+roles: partner, parent, friend, neighbours
+earth: a new charge lands on every household's water bill, and the town meeting is fuller than it has been in years
+scene: The letter says it plainly: a new charge on every household's water bill, from next month. Tonight people are standing in the aisles at the town meeting, and {N} has the bill folded in a pocket.
+scene W: If the town needs the money, everyone should pay a fair share. {N} wants to know whether this is fair.
+scene U: {N} has worked out what the charge costs each street. The big houses on the hill pay the same as the flats.
+scene B: Some firms have already been let off, and everyone knows who they gave money to. {N} would like a share of that kind of luck.
+scene R: Another bill, another letter, another month of going without. {N} is ready to stand up and say so.
+scene G: {parent} paid every bill on time for forty years, and does not know how to pay this one.
+- W | pay the charge on time, and ask the meeting that everyone pays alike | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 70
+- U | lay out what each street pays, and show the meeting where it falls hardest | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.U | chance: 70
+- B | find the exemption a neighbour got, and apply for it under the same rule | v: security, achievement | sphere: rule.B | chance: 70
+- R | stand up in the packed hall and say plainly that you will not pay | act: stand up in the packed hall and say plainly that they will not pay | v: self-direction, stimulation | mark: defied an authority | lever: voice | pushes: institution council | sphere: rule.R | chance: 70
+- G | cut back at home and pay it quietly, as the family always has | v: security, tradition | sphere: rule.G | chance: 70
+- BG | share one meter with the family next door to halve the charge, and tell nobody | v: security, power | mark: hid a wrong | lever: subvert | pushes: institution council | sphere: rule.BG | chance: 55
+- RG | join the neighbours who hold back the charge together until the council talks | v: benevolence, self-direction | mark: defied an authority | lever: subvert | pushes: institution council | sphere: rule.RG | chance: 55
+- UR | draft a fairer charge by size of house, and put it to the meeting | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.UR | chance: 55
+- WB | volunteer for the council panel that decides who gets let off | v: power, conformity | lever: loyalty | pushes: institution council | sphere: rule.WB | chance: 55
+- WU | help the old neighbours fill in the hardship forms, so nobody pays by mistake | v: benevolence, universalism | mark: helped someone in need | sphere: rule.WU | chance: 55
+works: The charge is cut for the smallest homes, and {N} can manage what is left.
+works: The fight brings the street closer, and the bill is easier to bear shared.
+fails: The charge stays, and the household goes without something it needed.
+fails: A warning letter arrives with {Ns} name on it, and the fine is worse than the charge.
+
+# ---------------------------------------------------------------- rights_narrowed (pairs D4b)
+
+# world: sphere event rights_narrowed, selector place, share .3
+== new powers after the attack
+tier: life event
+sphere: rule
+sphere_event: rights_narrowed
+share: 0.15
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 10-25
+times: World event: rights_narrowed (sphere rule; the world's state 'right lost', section 5, which no earlier moment answers). Selector place: a frightened rule narrows rights after unrest, an attack or a crime wave perhaps once or twice in a life (estimate); about 3 residents in 10 feel it in their own week: a haunt shut early, a friend questioned (share .3, estimate)
+likelier: fear after an attack or unrest, low trust, a young person with friends who protest or talk freely online
+rarer: a calm and trusting time, a person who never protests or posts
+tone: trouble
+life: public life, friends, community
+horizon: months
+roles: friend, parent, partner, neighbours
+earth: after an attack, new powers come in: protests need permits, messages can be read without a warrant, and a friend is questioned
+scene: Since the attack in the city, the new powers have come in one by one. The cafe where {Ns} friends meet must shut at ten, protests need a permit, and yesterday {friend} was questioned for two hours over a message.
+scene W: People are frightened, and the state must keep them safe. {N} wants the new powers to have limits written down, and a judge to watch them.
+scene U: {N} reads the new law clause by clause. The powers are wide, and nothing says when they end.
+scene B: The new powers are a tool, and someone will learn to use them. {N} would rather be on the side holding it.
+scene R: {friend} did nothing but write a message. {N} is not going to start whispering in {Ns} own town.
+scene G: {parent} has lived through hard times before, and says to stay quiet and keep close until it passes.
+- W | keep the new rules, and write to your representative asking for a time limit | act: keep the new rules, and write to their representative asking for a time limit | v: conformity, security | lever: voice | pushes: state | sphere: rule.W | chance: 65
+- U | learn exactly what the new powers allow, and teach your friends their rights | act: learn exactly what the new powers allow, and teach their friends their rights | v: universalism, self-direction | mark: learned a skill | sphere: rule.U | chance: 65
+- B | keep on good terms with the officers who now decide who gets questioned | v: security, power | lever: loyalty | pushes: state | sphere: rule.B | chance: 65
+- R | go to the march without a permit, with everyone who refuses to ask for one | v: self-direction, stimulation | mark: defied an authority | closed: approval: marching without a permit; backfire: stopped, named and fined at the first corner | lever: voice | pushes: state | sphere: rule.R | chance: 65
+- G | move the evenings home, and keep the old friends close and quiet | v: security, tradition | lever: neglect | pushes: state | sphere: rule.G | chance: 65
+- BR | start a private group online where the talk goes on, out of sight | v: self-direction, power | lever: subvert | pushes: state | sphere: rule.BR | chance: 50
+- UB | find a lawyer who knows the new law, and get the questioning of your friend stopped | act: find a lawyer who knows the new law, and get the questioning of their friend stopped | v: benevolence, power | lever: voice | pushes: institution court | sphere: rule.UB | chance: 50
+- UG | keep a record of everyone questioned on the street, to hand over when it is safe | v: universalism, tradition | sphere: rule.GU | chance: 50
+- WG | ask the residents' meeting to stand together for anyone who is questioned | v: benevolence, universalism | lever: voice | pushes: group neighbours | sphere: rule.GW | chance: 50
+- WR | go with the friend to the next questioning, and refuse to leave the room | v: benevolence, self-direction | mark: helped someone in need | lever: voice | pushes: state | sphere: rule.RW | chance: 50
+works: The worst of the powers are struck down within a year, and {N} kept faith with the people who mattered.
+works: {friend} is left alone after that, and the friends find new ways to meet.
+fails: {Ns} own name turns up on a list, and every message after that feels watched.
+fails: The cafe closes for good, and the circle of friends never quite gathers again.
+
+# ---------------------------------------------------------------- charter_won (pairs D5a)
+
+# world: sphere event charter_won, selector place, share .3
+== the district gets its own council
+tier: life event
+sphere: rule
+sphere_event: charter_won
+share: 0.15
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 20-50
+times: World event: charter_won (sphere rule). Selector place: a district or town winning its own council is rare, perhaps once in a long life in a growing place (estimate); about 3 residents in 10 follow it closely enough to make it a moment (share .3, estimate)
+likelier: a growing, organised district, a long campaign, neighbours who took part, a person who wants a say
+rarer: a small settled village, a person who has just moved in, a closed rule that grants nothing
+tone: joy
+life: public life, community
+horizon: months
+roles: elder, friend, parent, neighbours
+earth: after a ten-year campaign your district wins its own council, and its first meeting runs four hours over
+scene: Ten years of campaigning, and the district has its own council at last. The first meeting in the school hall runs four hours over, everyone wants to speak, and there are seven seats to fill by spring.
+scene W: For the first time the district's quarrels will be heard here, by people who live here. {N} wants it done properly from the first night.
+scene U: {N} has the new council's rules in hand, and sees three ways they could be made clearer before the first vote.
+scene B: Seven seats, and a hundred people who want one. {N} can already count who has a following.
+scene R: {N} cheered until hoarse when the result was read out, and has been grinning ever since.
+scene G: {elder} started the campaign at a kitchen table before most of the room was born, and sits at the front, very quiet.
+- W | volunteer to take the minutes at every meeting of the first year | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 75
+- U | rewrite the new council's standing rules in plain words for everyone | v: universalism, self-direction | sphere: rule.U | chance: 75
+- B | build a following among the shopkeepers, and stand for one of the seven seats | v: power, achievement | lever: voice | pushes: institution council | sphere: rule.B | chance: 75
+- R | bring the complaint the old council never heard on the very first night | v: self-direction, stimulation | lever: voice | pushes: institution council | sphere: rule.R | chance: 75
+- G | ask the founders to choose the first candidates together, as the campaign always did | v: tradition, conformity | sphere: rule.G | chance: 75
+- BG | back the old families' candidate, and keep a word in hand for later | v: security, power | lever: fund | pushes: institution council | sphere: rule.BG | chance: 60
+- UB | read the whole new budget first, and ask the one awkward question | v: power, self-direction | sphere: rule.UB | chance: 60
+- UR | propose that any resident may put a question on the agenda | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.UR | chance: 60
+- WG | set up a circle to settle neighbours' quarrels before they reach the council | v: benevolence, universalism | lever: found | pushes: group neighbours | sphere: rule.GW | chance: 60
+- WR | stand as an independent for the seat on your own street | act: stand as an independent for the seat on their own street | v: self-direction, universalism | lever: voice | pushes: institution council | sphere: rule.RW | chance: 60
+works: The new council fixes the first thing the old one ignored for years, and {N} was in the room when it happened.
+works: The district starts to feel like a place that governs itself, and {N} feels part of it.
+fails: The new council falls into the old quarrels by its third meeting.
+fails: {N} gives a year to the new council and is left out of every decision that matters.
+
+# ---------------------------------------------------------------- deadlock (pairs D5b)
+
+# world: sphere event deadlock, selector place, share .3
+== the budget fails again
+tier: life event
+sphere: rule
+sphere_event: deadlock
+share: 0.15
+once: yes
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 5-15
+times: World event: deadlock (sphere rule). Selector place: a council or government split so evenly that the budget fails comes every decade or so where factions run hot (estimate); about 3 residents in 10 are waiting on something it holds up: a permit, a grant, a wage (share .3, estimate)
+likelier: evenly split and bitter factions, a person waiting on a permit, a grant or a public wage, a group that lives on council money
+rarer: a council with a clear majority, a person who needs nothing from the town hall
+tone: trouble
+life: public life, money, work
+horizon: months
+roles: colleague, partner, friend, neighbours
+earth: the budget fails for the third time, offices close at noon, and the permit or grant you were waiting for does not come
+scene: The council's budget has failed for the third time. Offices close at noon, the permit {N} applied for in spring sits unsigned, and the grant the community kitchen counts on has not been paid.
+scene W: Both sides are in the wrong, and neither will give. {N} wants someone to stand up and keep the town running.
+scene U: {N} works out what each month of deadlock costs the town. The figure is worse than either side admits.
+scene B: In a deadlock, the one with a friend in the right office still gets served. {N} wonders who that friend could be.
+scene R: {N} has waited six months for one signature. Enough.
+scene G: The neighbours have always helped each other through bad stretches. {N} looks at who needs help first.
+- W | keep the paperwork in order and wait your turn, as the rules say | act: keep the paperwork in order and wait their turn, as the rules say | v: conformity, security | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 65
+- U | send both leaders the cost of the deadlock, worked out street by street | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.U | chance: 65
+- B | find a friend in the planning office who can push one form through | v: power, security | lever: subvert | pushes: institution council | sphere: rule.B | chance: 65
+- R | go to the council chamber with everyone still waiting, and refuse to leave | v: self-direction, stimulation | lever: voice | pushes: institution council | sphere: rule.R | chance: 65
+- G | help keep the community kitchen open on donations until the money comes | v: benevolence, tradition | mark: helped someone in need | sphere: rule.G | chance: 65
+- BR | stand at the next election against both sides, on a promise to end the deadlock | v: achievement, self-direction | lever: voice | pushes: institution council | sphere: rule.BR | chance: 50
+- RG | get the street to mend the broken things itself, permit or no permit | v: benevolence, self-direction | mark: defied an authority | sphere: rule.RG | chance: 50
+- UG | ask the oldest councillors how the town got through the last deadlock | v: tradition, universalism | sphere: rule.GU | chance: 50
+- WB | throw in with the side most likely to win, and help it carry the vote | v: power, conformity | lever: loyalty | pushes: institution council | sphere: rule.WB | chance: 50
+- WU | draft a fair compromise both sides could sign, and send it to both | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.WU | chance: 50
+works: A budget passes at last, and the permit comes through with the next post.
+works: {N} finds a way round the stalled town hall, and the neighbours remember who helped.
+fails: The deadlock drags into a second season, and the thing {N} waited for never comes.
+fails: {N} spends months on the fight, and the town hall seems to notice none of it.
+
+# ---------------------------------------------------------------- false_accusation (pairs D6a)
+
+# world: sphere event false_accusation, selector place, share .2
+== the paramedic is named online
+tier: life event
+sphere: rule
+sphere_event: false_accusation
+share: 0.1
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: false_accusation (sphere rule). Selector place: in hard, frightened times a town turns on someone to blame perhaps once a decade (estimate); about 2 residents in 10 know the accused, or were once helped by them (share .2, estimate)
+likelier: hard times and low trust, weak hearings, a town where news spreads fast online, a person the accused once helped
+rarer: a trusting town with fair inquiries, a person who never knew the accused
+tone: trouble
+life: community, conscience, public life
+horizon: months
+roles: grandparent, friend, colleague, neighbours
+earth: after a death on an emergency call, the paramedic who once helped your family is named online before any inquiry meets
+scene: A man died after an emergency call on the estate, and by evening a name is everywhere online: the paramedic who went in first. {N} knows her. She sat with {grandparent} through a bad night two winters ago.
+scene W: Nobody has heard the evidence yet. {N} believes there should be a hearing before there is a verdict.
+scene U: {N} looks for what is actually known: the time of the call, the time she arrived, the hospital's own statement.
+scene B: The crowd wants someone to blame, and anyone who defends her becomes the next target. {N} weighs the cost.
+scene R: {N} reads the comments, and the anger in them is spreading faster than any fact.
+scene G: She is one of the neighbourhood's own. {N} thinks of her children, and of the night she spent with {grandparent}.
+- W | say publicly that she deserves a fair hearing before anyone is blamed | v: universalism, conformity | lever: voice | pushes: place | sphere: rule.W | chance: 65
+- U | gather the known facts in one place, and post them without comment | v: universalism, self-direction | lever: voice | pushes: culture | sphere: rule.U | chance: 65
+- B | keep quiet until the inquiry reports, and keep your own name out of it | act: keep quiet until the inquiry reports, and keep their own name out of it | v: security | lever: neglect | sphere: rule.B | chance: 65
+- R | answer the angriest posts one by one, all through the night | v: stimulation, benevolence | lever: voice | pushes: culture | sphere: rule.R | chance: 65
+- G | take a meal round to her family, and let the street see it done | v: benevolence, tradition | mark: helped someone in need | sphere: rule.G | chance: 65
+- BG | quietly let the people who matter on the estate know whose side you are on | act: quietly let the people who matter on the estate know whose side they are on | v: power, benevolence | sphere: rule.BG | chance: 50
+- UG | hear her side in her own kitchen, and write it down faithfully | v: benevolence, universalism | sphere: rule.GU | chance: 50
+- UR | start a campaign for the inquiry's findings to be published in full | v: universalism, self-direction | lever: voice | pushes: institution hospital | sphere: rule.UR | chance: 50
+- WB | testify at the inquiry about the night she helped your family | act: testify at the inquiry about the night she helped their family | v: benevolence, conformity | lever: voice | pushes: institution hospital | sphere: rule.WB | chance: 50
+- WR | stand beside her at the gate when the crowd comes to her house | v: benevolence, universalism | mark: made an enemy | lever: voice | pushes: place | sphere: rule.RW | chance: 50
+works: The inquiry clears her, and people remember who stood by her when it counted.
+works: The anger burns out, and {N} can look her family in the eye.
+fails: {N} is dragged into the storm, and some neighbours still will not speak to {N}.
+fails: She leaves the job and the estate, and the street is poorer for it.
+
+# ---------------------------------------------------------------- the_count (pairs D6b)
+
+# world: sphere event the_count, selector place, share .5
+== the counter at the door
+tier: life event
+sphere: rule
+sphere_event: the_count
+share: 0.25
+once: yes
+stages: young_adult adult mature elder
+age: 18-100
+per_year: 0 0 0 0 0 0
+gap: 9-11
+times: World event: the_count (sphere rule). Selector place: a full count of people comes about every ten years in most modern states (estimate from census practice); about half of householders meet it as more than a form, with a counter at the door or a choice about who to list (share .5, estimate)
+likelier: a household with a lodger, a relative staying or someone not on the papers, a street that rarely answers the door, a place whose funding hangs on the total
+rarer: a household with nothing to weigh, a person who fills in the form the day it comes
+tone: mixed
+life: home, public life
+horizon: week
+roles: partner, parent, sibling, neighbours
+earth: the census form arrives, a counter knocks on the doors that did not answer, and the street's funding for years hangs on the total
+scene: The census form has sat on the hall table for a month. Now a counter is at the door with a clipboard, and the street's funding for ten years hangs on how many people say they live here.
+scene W: Every person counted once, honestly: that is how the money gets shared fairly. {N} wants to get it right.
+scene U: {N} reads every question, and wonders what each one is for and who sees the answers.
+scene B: The lodger in the back room is not on the lease. A true count could cause trouble, and a full count brings the street money.
+scene R: Another form, another stranger at the door asking who sleeps where. {N} would rather shut the door on it.
+scene G: The neighbours who never answer the door are the ones the count most needs. {N} knows each of them by name.
+- W | answer every question truly, the lodger included | v: conformity, universalism | lever: loyalty | pushes: state | sphere: rule.W | chance: 80
+- U | find out what the answers are used for before filling in a single box | v: self-direction, security | sphere: rule.U | chance: 80
+- B | leave the lodger off the form, and keep the household's business its own | v: security, power | mark: hid a wrong | closed: approval: leaving a lodger off the count; backfire: a letter from the census office, and a fine | lever: subvert | pushes: state | sphere: rule.B | chance: 80
+- R | tell the counter through the door that it is nobody's business | v: self-direction | lever: neglect | pushes: state | sphere: rule.R | chance: 80
+- G | walk the counter round to the neighbours who never open their doors | v: benevolence, tradition | sphere: rule.G | chance: 80
+- BR | sign up as a counter for the fee, and see who really lives where | v: achievement, stimulation | sphere: rule.BR | chance: 60
+- RG | knock on every door on the street, so nobody on it is missed | v: benevolence, stimulation | sphere: rule.RG | chance: 60
+- UB | work out what the street gains from every extra name counted | v: achievement, power | sphere: rule.UB | chance: 60
+- WG | help the old couple next door fill in their form at their own kitchen table | v: benevolence, conformity | mark: helped someone in need | sphere: rule.GW | chance: 60
+- WU | ask how the answers are kept, and write to the council if the reply is vague | v: universalism, security | lever: voice | pushes: institution council | sphere: rule.WU | chance: 60
+works: The street is counted in full, and the money that follows pays for the new crossing by the school.
+works: {N} does the count the way {N} thinks right, and nothing comes back to trouble the house.
+fails: The street comes up short in the count, and the clinic on the corner loses its funding.
+fails: A follow-up letter arrives, asking awkward questions about who really lives in the house.
+
+# ---------------------------------------------------------------- conquest (pairs D4a)
+
+# world: sphere event conquest, selector place, share .7
+== ruled from the other capital
+tier: life event
+sphere: rule
+sphere_event: conquest
+share: 0.36
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 30-60
+times: World event: conquest (sphere rule). Selector place: a region falling under a stronger neighbour's rule after a lost war is very rare in a stable modern state and comes at most once in a life where wars are near (estimate); most residents feel it in their week (share .7, estimate)
+likelier: a lost war against a stronger neighbour, a border region, a divided rule, a family that keeps the old language
+rarer: a stable state at peace, a region far from any border
+tone: trouble
+life: public life, home, community
+horizon: years
+roles: parent, grandparent, friend, neighbours
+earth: after the ceasefire your region is ruled from the other side's capital: new flags, new forms, and a new language at the school gate
+scene: Since the ceasefire the region has been ruled from the other capital. New flags hang on the town hall, the forms come in a language {N} barely reads, and on Monday the notices at the school gate changed too.
+scene W: There must be some order, whoever runs it. {N} wonders what it would mean to serve honestly under the new rule.
+scene U: {N} sets to learning the new language word by word, to know what the forms really say.
+scene B: The new officials need local people who know the town. {N} can see what that could be worth, and what it would cost.
+scene R: Every new flag on the town hall makes {N} burn with anger.
+scene G: {grandparent} speaks the old language at the table every evening now, louder than before.
+- W | keep working at the town hall under the new rule, honestly and by the book | v: conformity, security | lever: loyalty | pushes: state | sphere: rule.W | chance: 60
+- U | learn the new language properly, so no form can be used to cheat the family | v: self-direction, security | mark: learned a skill | sphere: rule.U | chance: 60
+- B | take the post the new officials offer to locals who know the town | v: power, achievement | closed: approval: working for the new rulers; backfire: old friends cross the street rather than greet {N} | lever: loyalty | pushes: state | sphere: rule.B | chance: 60
+- R | join the young people who meet at night to plan the boycotts and the strikes | v: self-direction, stimulation | mark: defied an authority | lever: subvert | pushes: state | sphere: rule.R | chance: 60
+- G | teach the old language at home every evening to the youngest of the family | v: tradition, benevolence | sphere: rule.G | chance: 60
+- BG | keep your head down, trade with whoever rules, and hold on to the family's land | act: keep their head down, trade with whoever rules, and hold on to the family's land | v: security, tradition | lever: neglect | pushes: state | sphere: rule.BG | chance: 45
+- RG | help run the old festival in the square, though the new rulers have banned it | v: tradition, stimulation | mark: defied an authority | lever: subvert | pushes: state | sphere: rule.RG | chance: 45
+- UR | write down what happens to the town, and get it out to the wider world | v: universalism, self-direction | lever: voice | pushes: abroad | sphere: rule.UR | chance: 45
+- WB | stand for the council the new rulers allow, to keep some say local | v: power, security | lever: voice | pushes: institution council | sphere: rule.WB | chance: 45
+- WU | hide the old town records safely in the attic, for when this ends | v: tradition, security | sphere: rule.WU | chance: 45
+works: The hardest years pass, and the town keeps its own ways under the new flags.
+works: {N} finds a way to live under the new rule without losing who {N} is.
+fails: The new officials take note of {Ns} family, and the forms start coming back refused.
+fails: Friends and neighbours split over how to live with it, and some never speak again.
+
+# ---------------------------------------------------------------- strangers_expelled (pairs D5a)
+
+# world: sphere event strangers_expelled, selector place, share .4
+== a month to leave
+tier: life event
+sphere: rule
+sphere_event: strangers_expelled
+share: 0.2
+once: yes
+stages: juvenile+
+age: 14-100
+per_year: 0 0 0 0 0 0
+gap: 30-60
+times: World event: strangers_expelled (sphere rule). Selector place: a law that strips residence from a whole community is rare in a stable modern state and comes at most once in a life in frightened times (estimate); about 4 residents in 10 have a neighbour, a colleague or a friend on the list (share .4, estimate)
+likelier: a plague, a dearth or a lost war, low trust, a faction hunting someone to blame, a mixed street
+rarer: a trusting, open time, a street with no newcomers
+tone: trouble
+life: community, conscience, home
+horizon: months
+roles: friend, parent, partner, neighbours
+earth: a new law strips residence from a whole community, and the family next door has a month to leave
+scene: The new law strips residence from a whole community, and the family next door is part of it. They have a month to leave. On Saturday their furniture is out on the pavement with prices taped to it.
+scene W: The law is the law, but this one was made without a hearing for the people it hits. {N} wants to know whether it can stand.
+scene U: {N} reads the new law and the appeal rules. There are exceptions, if someone can find and file them in time.
+scene B: The house next door will sell for almost nothing. {N} is ashamed of how fast that thought came.
+scene R: {N} has eaten at their table many times. {N} cannot stand by while they go.
+scene G: The two families have shared a wall and every small favour for twelve years. {N} cannot picture the street without them.
+- W | speak at the hearing for the family, as a neighbour who knows them | v: universalism, benevolence | lever: voice | pushes: state | sphere: rule.W | chance: 60
+- U | find the exception in the law that fits their case, and file it in time | v: universalism, self-direction | lever: voice | pushes: institution court | sphere: rule.U | chance: 60
+- B | buy the house next door cheaply, before someone else does | v: power, achievement | requires: savings | without: means | closed: approval: buying a driven-out neighbour's home cheaply; backfire: the street never forgives {N} | sphere: rule.B | chance: 60
+- R | take the family into your back rooms when the month runs out | act: take the family into their back rooms when the month runs out | v: benevolence, self-direction | mark: defied an authority | closed: approval: sheltering people the law has driven out; backfire: officers at the door, and a fine that takes the savings | lever: subvert | pushes: state | sphere: rule.R | chance: 60
+- G | keep their keys and their things, and promise to keep them till they return | v: benevolence, tradition | mark: kept your word | sphere: rule.G | chance: 60
+- BG | keep away from it all, and keep your own family's papers in order | act: keep away from it all, and keep their own family's papers in order | v: security | lever: neglect | pushes: state | sphere: rule.BG | chance: 45
+- UB | get a lawyer who owes you a favour to take their appeal | act: get a lawyer who owes them a favour to take the family's appeal | v: benevolence, power | lever: voice | pushes: institution court | sphere: rule.UB | chance: 45
+- UR | gather the stories of every family on the list, and publish them | v: universalism, self-direction | lever: voice | pushes: culture | sphere: rule.UR | chance: 45
+- WG | get the whole street to sign for the family's right to stay | v: benevolence, universalism | lever: voice | pushes: state | sphere: rule.GW | chance: 45
+- WR | stand on their doorstep with the neighbours on the morning the officers come | v: benevolence, universalism | mark: defied an authority | lever: voice | pushes: state | sphere: rule.RW | chance: 45
+works: The family wins a reprieve on appeal, and the street knows who helped.
+works: The family goes, but their things are kept safe and they leave a friend who will not forget them.
+fails: The family is gone within the month, and {N} cannot stop thinking about the empty house.
+fails: {N} is questioned over the part {N} played, and the fine takes months to pay.
+
+# ---------------------------------------------------------------- patron_delivers (pairs D1b)
+
+# world: sphere event patron_delivers, selector place, share .3
+== the councillor wins the playground
+tier: life event
+sphere: rule
+sphere_event: patron_delivers
+share: 0.15
+once: yes
+stages: juvenile+
+age: 16-100
+per_year: 0 0 0 0 0 0
+gap: 8-20
+times: World event: patron_delivers (sphere rule). Selector place: where power is shared among rivals who must bargain, a ward gets something it waited years for through one patron perhaps once a decade (estimate); about 3 residents in 10 of that ward take it as a moment (share .3, estimate)
+likelier: a council of rivals who bargain, a ward that waited years, a patron who grew up there, a family that votes as a bloc
+rarer: a council that shares out by rule, a rich ward that never had to ask
+tone: mixed
+life: public life, community
+horizon: months
+roles: parent, sibling, friend, neighbours
+earth: the councillor fights the budget all night and wins your estate its playground; her rivals call it buying votes
+scene: After twelve years of asking, the estate gets its playground. The councillor fought the budget all night to win it, and her rivals call it buying votes. The families on {Ns} stairwell call it theirs.
+scene W: The playground was promised to every estate, not won for one by a favourite. {N} is glad, and uneasy.
+scene U: {N} looks at the budget line. The money came from the library's repairs across town.
+scene B: She delivered. {N} knows what loyalty to a councillor like that can be worth, in the next ask and the one after.
+scene R: Children on swings where there was only broken glass. {N} wants to throw the opening party.
+scene G: The councillor grew up on this estate, and her mother still lives three doors down. That is how things get done here.
+- W | thank her in writing, and ask that every estate get the same | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.W | chance: 75
+- U | ask at the council where the money came from, line by line | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.U | chance: 75
+- B | promise her your vote and your family's, and ask what she needs | act: promise her their vote and their family's, and ask what she needs | v: power, security | lever: loyalty | pushes: institution council | sphere: rule.B | chance: 75
+- R | say aloud at the opening what the bargain cost the library across town | v: self-direction, universalism | mark: made an enemy | lever: voice | pushes: institution council | sphere: rule.R | chance: 75
+- G | help the families plant and paint it, so it belongs to the estate | v: benevolence, tradition | mark: made a friend | sphere: rule.G | chance: 75
+- RG | throw the opening party with every family on the estate | v: hedonism, benevolence | sphere: rule.RG | chance: 60
+- UB | work out what the estate's next ask should be, and bring it to her quietly | v: achievement, power | sphere: rule.UB | chance: 60
+- UR | propose that the estates set the playground budget themselves, in the open | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.UR | chance: 60
+- WB | volunteer for her campaign at the next election | v: achievement, conformity | lever: loyalty | pushes: institution party | sphere: rule.WB | chance: 60
+- WG | start a residents' group to look after it and share it with the next estate | v: benevolence, universalism | lever: found | pushes: group neighbours | sphere: rule.GW | chance: 60
+works: The playground fills every afternoon, and {N} is glad of the part {N} played.
+works: The estate learns it can ask and be heard, and {N} keeps asking.
+fails: The library across town shuts its upper floor, and the quarrel over the money follows {N} home.
+fails: When the councillor loses her seat, the playground's repairs stop, and nobody else will take them on.

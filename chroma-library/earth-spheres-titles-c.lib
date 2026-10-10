@@ -1,0 +1,610 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, title moments of sphere titles set c. Library thread,
+# 2026-10-09, "v22" update stage 4, item 15 (chroma-packs/spheres/title-gaps.md, "The 28 new titles").
+# An everyday pair per new title of titles.py that only its holder meets (holds:), in the style of
+# earth-titles-careers.lib: the first or second moment grows from the title's turning point, the other is a later
+# stretch of the same post.
+# Syntax: header of build.py. Rules: SPEC.md. Every moment carries sphere: <sphere>, every option the face it acts in
+# (a cross option X>Y the means colour's face). ladder: is the rung the title sits on in that face's ladder
+# (character.jobs, read rung by rung); haunt: where the work is done at a haunt among its regulars.
+# Evenness: every one-colour option has chance 75 and every cross option 65, so each colour's mean is the same.
+# Pairs (complementary calls; cross cycles s1 and s2 four times each, s3 and s4 three times each):
+#   physiotherapist     BR (s1) / WUG (s2)    hospice volunteer   RG (s3) / WUB (s4)
+#   teaching assistant  WU (s1) / BRG (s2)    consultant          UB (s3) / WRG (s4)
+#   mechanic            UR (s1) / WBG (s2)    language teacher    GU (s3) / WBR (s4)
+#   outdoor instructor  WG (s1) / UBR (s2)
+# Children: in the teaching assistant's and the outdoor instructor's moments every option keeps the children safe;
+# none takes a child into danger.
+# holds: names the new titles, which are not yet in earth_perks_titles.py (they wait for NEW_TITLES to be merged).
+
+# ================================================================ physiotherapist (care.B)
+
+# ---------------------------------------------------------------- everyday, calls BR (cycle s1); partner: six sessions to climb the stairs
+
+== signed fit for the cup final
+tier: everyday
+sphere: care
+ladder: known
+at: employer
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 22-70
+calls: BR
+holds: physiotherapist
+tone: trouble
+life: work
+horizon: week
+roles: boss, a patient
+earth: a semi-professional player asks you to sign him fit for the cup final, and his knee is two weeks from ready
+times: Most physiotherapists who treat sport, a few times in their working years; players and clubs pressing for a return before the body is healed is a common strain of sports physiotherapy (estimate)
+gap: 1-3
+scene: A semi-professional player from the town club wants {N} to sign him fit for Saturday's cup final. His knee is two weeks from ready, and the club pays {Ns} invoices.
+scene W: The form asks for an honest word on whether the knee will hold. It is the same form for a cup final as for a Tuesday.
+scene U: {N} has the measurements: the knee bends ten degrees short, and the hop test is weak on that side.
+scene B: The club's manager sends {N} half of the practice's patients. A club that hears no once may find another physiotherapist.
+scene R: The player is twenty-four and has waited all his life for a final. {N} can feel how badly he wants it.
+scene G: The body mends at its own pace, and a knee pushed now may not be the same at forty.
+- W | write exactly what the tests show on the club's form | v: conformity, universalism | sphere: care.W | chance: 75
+- U | run the tests again in front of him, and let the numbers speak | v: achievement, universalism | sphere: care.U | chance: 75
+- B | sign him fit with a strapping, and keep the club's custom | v: security, power | closed: approval: signing a patient fit who is not; backfire: the knee goes in the final | sphere: care.B | chance: 75
+- R | tell him straight he could lose the knee for good, and see what he says | v: self-direction, benevolence | sphere: care.R | chance: 75
+- G | tell him to let the knee heal in its own time and come back next season | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>U | go by the published return-to-play steps, one test at a time | v: conformity, achievement | sphere: care.W | chance: 65
+- U>B | show the manager the injury figures, and sell the club a proper recovery plan | v: achievement, power | sphere: care.U | chance: 65
+- B>R | agree to twenty minutes off the bench, on your own terms and in writing | act: agree to twenty minutes off the bench, on their own terms and in writing | v: power, stimulation | sphere: care.B | chance: 65
+- R>G | sit through the final on the bench beside him, with ice and a cool head | v: benevolence | sphere: care.R | chance: 65
+- G>W | ask the club's old captain to tell the team why he must sit this one out | v: tradition, conformity | sphere: care.G | chance: 65
+works: The player sits out the final, cheers from the bench, and plays the whole of the next season.
+works: The manager grumbles for a week, then sends {N} the rest of the squad.
+fails: The club finds a physiotherapist who will sign the form, and the invoices stop.
+fails: The knee holds for an hour of the final, then gives way, and the town talks of little else.
+
+# ---------------------------------------------------------------- everyday, calls WUG (cycle s2); partner: signed fit for the cup final
+
+== six sessions to climb the stairs
+tier: everyday
+sphere: care
+haunt: care.houses
+ladder: known
+at: hospital
+rate: 0.5
+share: .0015
+stages: young_adult adult mature elder
+age: 22-70
+calls: WUG
+holds: physiotherapist
+tone: mixed
+life: work
+horizon: week
+roles: boss, colleague
+earth: the ward allows six sessions after a mended hip, and an old woman needs more than six to manage the stairs at home
+times: Most hospital physiotherapists, several times a year; a set number of sessions that some older patients outrun is a routine strain of ward work (estimate)
+gap: 0.5-1
+scene: An old woman of eighty-one has had her hip mended and wants to go home to her narrow house with its steep stairs. The ward allows six sessions with {N}. On the sixth she still cannot manage the stairs alone.
+scene W: Six sessions is the rule for every hip on the ward, so the waiting list moves for everyone.
+scene U: {N} has charted each session: two more steps each day. At that rate she needs four more.
+scene B: {boss} judges the team by how fast the beds clear. A patient kept on costs the ward a bed.
+scene R: She grips the rail and swears at the stairs, laughing. {N} likes her enormously.
+scene G: Her son lives two streets away, and the neighbours already take turns with her shopping.
+- W | discharge her on the sixth session, as the rule says, with an exercise sheet | v: conformity, security | sphere: care.W | chance: 75
+- U | write up her chart and ask for four more sessions on the evidence | v: achievement, universalism | lever: voice | sphere: care.U | chance: 75
+- B | offer her private evenings at your own clinic, at a fee her son can pay | act: offer her private evenings at their own clinic, at a fee her son can pay | v: achievement, power | sphere: care.B | chance: 75
+- R | squeeze her in at lunch every day this week, off the books | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | teach her son and a neighbour to walk her up the stairs each evening | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>B | apply by the book for a stair rail at home, so she pays nothing | v: security, conformity | sphere: care.W | chance: 65
+- U>R | work out a stair drill for her own back step, and free her from the ward | v: self-direction, achievement | sphere: care.U | chance: 65
+- B>G | call in a favour with the community team to visit her at home | v: power, benevolence | sphere: care.B | chance: 65
+- R>W | stand up at the team meeting and say six sessions fail the oldest patients | v: universalism | lever: voice | sphere: care.R | chance: 65
+- G>U | ask her family to measure every step at home, and practise on those | v: benevolence, achievement | sphere: care.G | chance: 65
+works: She goes home a week later and climbs her own stairs to bed that night.
+works: {boss} reads {Ns} chart and adds two sessions for every patient over eighty.
+fails: She goes home on time, and her bed ends up in the front room downstairs.
+fails: {boss} notes the extra hours, and {N} is moved to the outpatient list.
+
+# ================================================================ hospice volunteer (care.G)
+
+# ---------------------------------------------------------------- everyday, calls RG (cycle s3); partner: a letter to a daughter twenty years gone
+
+== the old dog at the hospice window
+tier: everyday
+sphere: care
+haunt: care.houses
+ladder: regular
+at: charity
+rate: 0.5
+share: .008
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: RG
+holds: hospice volunteer
+tone: mixed
+life: community
+horizon: week
+roles: colleague, neighbour
+earth: a dying woman asks you to bring her old dog to see her, and dogs are not allowed on the ward
+times: Many hospice volunteers, once in their years on the rota; a last visit from a pet is a familiar wish in hospice care (estimate)
+gap: 1-3
+scene: On {Ns} Thursday shift at the hospice, an old woman in the end room asks for one thing: to see her dog. He is staying with a neighbour across town, and dogs are not allowed on the ward.
+scene W: The rule keeps the ward clean for every patient. It was not written with one last visit in mind.
+scene U: {N} has read that some hospices let animals in on a careful plan: one room, one hour, the nurse told first.
+scene B: The volunteer coordinator decides who gets the good shifts, and does not like surprises.
+scene R: She has days, maybe less. {N} wants that dog on her bed by tonight.
+scene G: She talks about him the way people talk about family. He has slept at the foot of her bed for twelve years.
+- W | ask the nurse in charge, properly, whether an exception can be made | v: conformity, benevolence | sphere: care.W | chance: 75
+- U | find a hospice that allows pet visits, and bring the nurse in charge its rules | v: universalism, benevolence | lever: voice | sphere: care.U | chance: 75
+- B | tell her family how to ask for the visit, and keep your name out of it | act: tell her family how to ask for the visit, and keep their name out of it | v: security | sphere: care.B | chance: 75
+- R | fetch the dog in your own car and walk him in by the side door | act: fetch the dog in their own car and walk him in by the side door | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | wheel her bed to the garden window, and have the dog brought to the lawn | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>R | get the visit signed off by the nurse, then give her the whole afternoon with him | v: benevolence, hedonism | sphere: care.W | chance: 65
+- U>G | find the room that opens straight onto the garden, and plan the visit there | v: benevolence | sphere: care.U | chance: 65
+- B>W | offer to cover the coordinator's weekend if the ward writes a rule for pet visits | v: power, universalism | sphere: care.B | chance: 65
+- R>U | ring round the vets in town until one explains how to make the visit safe | v: stimulation, universalism | sphere: care.R | chance: 65
+- G>B | ask her family whether she would rather go home for a day to see him | v: self-direction, tradition | sphere: care.G | chance: 65
+works: The dog climbs onto the bed and goes to sleep against her, and the whole ward hears her laugh.
+works: The hospice writes a rule for pet visits that spring, and the other volunteers thank {N} for it.
+fails: The coordinator says no, and the woman dies before the neighbour can bring the dog to the window.
+fails: The visit happens, and {N} is taken off the Thursday rota for a month.
+
+# ---------------------------------------------------------------- everyday, calls WUB (cycle s4); partner: the old dog at the hospice window
+
+== a letter to a daughter twenty years gone
+tier: everyday
+sphere: care
+haunt: care.houses
+ladder: regular
+at: charity
+rate: 0.5
+share: .006
+stages: juvenile young_adult adult mature elder
+age: 16-90
+calls: WUB
+holds: hospice volunteer
+tone: mixed
+life: community, family
+horizon: week
+roles: colleague
+earth: a dying man asks you to write a letter to the daughter he has not spoken to in twenty years, and volunteers are told to keep out of family matters
+times: Many hospice volunteers, once or twice in their years on the rota; the dying often want to reach a child they lost touch with (estimate)
+gap: 1-3
+scene: A man in the end bed asks {N} to write a letter for him, since his hands shake too much. It is to his daughter, whom he has not spoken to in twenty years. Volunteers are told to keep out of family matters.
+scene W: The training was clear: volunteers listen, and leave family matters to the social worker.
+scene U: {N} wonders what happened twenty years ago, and whether the daughter even knows he is ill.
+scene B: Writing it makes {N} part of a family quarrel. Saying no keeps {Ns} place on the rota safe.
+scene R: He has a few weeks at most. If he wants it written, it should be written tonight.
+scene G: {N} thinks of the families who sit together here through the night, and of the empty chair by his bed.
+- W | ask the social worker to help him write it, as the rules say | v: conformity, benevolence | sphere: care.W | chance: 75
+- U | listen to his whole story first, then help him find the words | v: benevolence, universalism | sphere: care.U | chance: 75
+- B | write it word for word as he says it, and leave the posting to him | v: security, benevolence | sphere: care.B | chance: 75
+- R | write it with him tonight and post it on your way home | act: write it with him tonight and post it on their way home | v: benevolence, stimulation | sphere: care.R | chance: 75
+- G | ask whether there is anyone else in the family he would want told | v: tradition, benevolence | sphere: care.G | chance: 75
+- W>G | tell the nurse in charge, and ask whether the hospice can reach his family | v: conformity, benevolence | sphere: care.W | chance: 65
+- U>W | help him write only what is true, and leave the blame out of it | v: universalism | sphere: care.U | chance: 65
+- B>U | write it on the hospice's paper, signed by him, so no one can say you meddled | act: write it on the hospice's paper, signed by him, so no one can say they meddled | v: security | sphere: care.B | chance: 65
+- R>B | find the daughter online that evening and send the letter on yourself | act: find the daughter online that evening and send the letter on themselves | v: stimulation, self-direction | tech: internet | sphere: care.R | chance: 65
+- G>R | read him back his own words slowly, and let him weep if he needs to | v: benevolence | sphere: care.G | chance: 65
+works: A fortnight later a woman of forty sits in the chair by his bed, holding his hand.
+works: The letter is posted, and he sleeps better than he has all month.
+fails: No answer comes, and {N} sits with him through his last week, wondering if it ever reached her.
+fails: The daughter rings the hospice, angry that a stranger wrote to her, and {N} is asked to explain.
+
+# ================================================================ teaching assistant (learn.W)
+
+# ---------------------------------------------------------------- everyday, calls WU (cycle s1); partner: a helper's pay for a teacher's week
+
+== the quiet copier in the reading group
+tier: everyday
+sphere: learn
+ladder: newcomer
+at: school
+rate: 0.5
+share: .02
+stages: juvenile young_adult adult mature elder
+age: 17-70
+calls: WU
+holds: teaching assistant
+tone: mixed
+life: work
+horizon: week
+roles: colleague, boss
+earth: a quiet girl in your reading group copies every word from her neighbour's book, and you begin to think she cannot see the board
+times: Most teaching assistants, a few times in their years in class; poor sight in young children often goes unnoticed until an adult at school spots it (estimate)
+gap: 0.5-2
+scene: In {Ns} reading group, a quiet girl of seven copies every word from her neighbour's book and screws up her eyes at the board. She never asks for help. {N} begins to wonder whether she can see it at all.
+scene W: Every child in the room should be able to see the lesson. Noticing the ones who cannot is {Ns} job.
+scene U: {N} tries it quietly: the girl reads the big words on the wall, but not the small ones on the board.
+scene B: The class teacher is busy and does not like being told things by the helper. A wrong guess would look bad.
+scene R: {N} wants to sit her in the front row today and see what happens.
+scene G: Her grandmother collects her at the gate every afternoon. She would want to know.
+- W | tell the class teacher what you have seen, and ask for an eye check | act: tell the class teacher what they have seen, and ask for an eye check | v: benevolence, conformity | lever: voice | sphere: learn.W | chance: 75
+- U | test it gently with big letters and small, front row and back | v: achievement, benevolence | sphere: learn.U | chance: 75
+- B | mention it to the head in passing, so it is on record who spotted it | v: achievement, power | sphere: learn.B | chance: 75
+- R | move her to the front row this morning, without waiting to ask | v: benevolence, self-direction | sphere: learn.R | chance: 75
+- G | have a quiet word with her grandmother at the gate | v: benevolence, tradition | sphere: learn.G | chance: 75
+- W>U | fill in the school's form for the visiting nurse to check her eyes | v: conformity, benevolence | sphere: learn.W | chance: 65
+- U>B | keep a week of notes on what she misses, so your word carries | act: keep a week of notes on what she misses, so their word carries | v: achievement, security | sphere: learn.U | chance: 65
+- B>R | make her the board monitor, so she stands up close without anyone noticing | v: benevolence, achievement | sphere: learn.B | chance: 65
+- R>G | read the board aloud for the whole group, so no one stands out | v: benevolence, universalism | sphere: learn.R | chance: 65
+- G>W | ask the older staff how the school used to check every child's eyes | v: tradition, universalism | sphere: learn.G | chance: 65
+works: Two weeks later she comes in wearing new glasses and reads the board aloud before anyone else.
+works: The class teacher thanks {N} at the staff room door, and asks for the helper's eye on the whole class.
+fails: The class teacher says the girl is just slow, and nothing is done until the spring.
+fails: Her grandmother takes offence at the gate, and for a week the girl will not sit near {N}.
+
+# ---------------------------------------------------------------- everyday, calls BRG (cycle s2); partner: the quiet copier in the reading group
+
+== a helper's pay for a teacher's week
+tier: everyday
+sphere: learn
+ladder: newcomer
+at: school
+rate: 0.5
+share: .02
+stages: juvenile young_adult adult mature elder
+age: 17-70
+calls: BRG
+holds: teaching assistant
+tone: trouble
+life: work, money
+horizon: week
+roles: boss, colleague
+earth: the class teacher is off sick, there is no money for cover, and you are asked to teach the whole class all week on a helper's pay
+times: Many teaching assistants, a few times a year in short-staffed schools; assistants covering whole classes is a common complaint where cover budgets are tight (estimate)
+gap: 0.5-2
+scene: The class teacher is off sick for a week, and the school has no money for cover. {boss} asks {N} to take the whole class, lessons and all, on a helper's pay.
+scene W: Thirty children deserve a proper teacher, and {N} is not one. Yet someone must stand at the front.
+scene U: {N} has watched this class all year and knows which lessons work. A week could be done well.
+scene B: A week in charge would look good on a training application. It also saves the school a teacher's wage.
+scene R: Thirty eight-year-olds and no plans left by the teacher: {N} is half terrified and half thrilled.
+scene G: The class trusts {N} already. A stranger at the front would unsettle them more.
+- W | agree, but ask for the cover arrangement in writing | v: conformity, security | sphere: learn.W | chance: 75
+- U | say yes, and plan the week around what the class already knows | v: achievement | sphere: learn.U | chance: 75
+- B | say yes for a teacher's daily rate, or not at all | v: power, achievement | sphere: learn.B | chance: 75
+- R | take the class and swap the set lessons for a week of projects | v: stimulation, self-direction | sphere: learn.R | chance: 75
+- G | keep the class's days exactly as their own teacher runs them | v: tradition, security | sphere: learn.G | chance: 75
+- W>B | agree, and ask that the week count towards your teacher training | act: agree, and ask that the week count towards their teacher training | v: achievement, conformity | sphere: learn.W | chance: 65
+- U>R | plan the week so tightly that Friday afternoon is free for the class to choose | v: achievement, stimulation | sphere: learn.U | chance: 65
+- B>G | say yes in return for a lasting post, so the class keeps a familiar face | v: security, tradition | sphere: learn.B | chance: 65
+- R>W | refuse outright, and tell the head the children are owed a real teacher | v: universalism, self-direction | lever: voice | sphere: learn.R | chance: 65
+- G>U | ring the retired teacher who taught this year group for decades, and ask her advice | v: tradition, achievement | sphere: learn.G | chance: 65
+works: The week goes well, and on Friday the class gives {N} a card signed by all thirty.
+works: {boss} finds money for cover after all, and the helpers are not asked again that year.
+fails: The week is chaos by Wednesday, and {N} goes home each night too tired to eat.
+fails: {boss} calls the helper difficult, and {Ns} hours are cut the next term.
+
+# ================================================================ consultant (learn.B)
+
+# ---------------------------------------------------------------- everyday, calls UB (cycle s3); partner: extra days on the charity's invoice
+
+== the report the client has already written
+tier: everyday
+sphere: learn
+ladder: known
+at: employer
+rate: 0.5
+share: .006
+stages: young_adult adult mature elder
+age: 23-75
+calls: UB
+holds: consultant
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague
+earth: a client pays for a review of its offices, has already decided to close half of them, and wants your report to say so
+times: Many consultants, once or twice in their working years; a client wanting advice that backs a decision already taken is a well-known strain of advisory work (estimate)
+gap: 1-3
+scene: A firm has paid for {N} to review its twelve offices. On the second day its director makes clear that six will close whatever the review finds, and the report should say so.
+scene W: A report with {Ns} name on it should say what the figures show, not what was ordered.
+scene U: The figures say something else: four offices lose money, and two of the six make the most.
+scene B: The director's firm is {Ns} biggest client this year, and it hires again only those who please.
+scene R: {N} wants to tell the director, there in the meeting, that the fee could have been saved.
+scene G: Two of the six offices are in small towns where the firm is the biggest employer for miles.
+- W | write the report the figures support, and sign only that | v: universalism, conformity | sphere: learn.W | chance: 75
+- U | lay the figures for all twelve offices side by side, and let them argue | v: achievement, universalism | sphere: learn.U | chance: 75
+- B | give the director the report that was wanted, and send the invoice on time | v: achievement, security | closed: approval: advice bent to fit what a client wants; backfire: the closures go badly and the report is quoted | sphere: learn.B | chance: 75
+- R | tell the director to their face that the review is a sham | v: self-direction | mark: made an enemy | sphere: learn.R | chance: 75
+- G | visit the two small-town offices before writing a word | v: tradition, benevolence | sphere: learn.G | chance: 75
+- W>R | write the honest report, and give up the account if it is refused | v: universalism, self-direction | lever: exit | mark: turned down a chance | sphere: learn.W | chance: 65
+- U>G | work out what closing the two small-town offices would cost those towns | v: universalism, benevolence | sphere: learn.U | chance: 65
+- B>W | agree to six closures, but trade the two best offices for the four that lose money | v: power, universalism | sphere: learn.B | chance: 65
+- R>U | spend a night running every figure again until you are sure who is right | act: spend a night running every figure again until they are sure who is right | v: achievement, stimulation | sphere: learn.R | chance: 65
+- G>B | ask your old mentor in the trade how to keep both the client and your name | act: ask their old mentor in the trade how to keep both the client and their name | v: tradition, security | sphere: learn.G | chance: 65
+works: The director reads the figures, swears, and closes four offices instead of six.
+works: The report is honest, and other firms start asking for {N} by name.
+fails: The client takes the work to a firm that writes what it is told, and the year's income halves.
+fails: The six offices close anyway, and {Ns} name is on the report the papers quote.
+
+# ---------------------------------------------------------------- everyday, calls WRG (cycle s4); partner: the report the client has already written
+
+== extra days on the charity's invoice
+tier: everyday
+sphere: learn
+ladder: known
+at: employer
+rate: 0.5
+share: .004
+stages: young_adult adult mature elder
+age: 23-75
+calls: WRG
+holds: consultant
+tone: trouble
+life: work, money
+horizon: week
+roles: boss, colleague
+earth: your senior partner adds days nobody worked to the bill of a small charity client that never checks its bills
+times: Some consultants, once in their working years; padded bills are a known trouble of firms that charge by the day (estimate)
+gap: 1-5
+scene: Checking the month's bills, {N} finds that {boss} has added four days nobody worked to the invoice of a small charity that helps old people stay in their homes. The charity never queries a bill.
+scene W: A bill is a promise of work done. This one is a lie, whoever the client is.
+scene U: {N} checks the diary twice: on those days {N} was at another client's office.
+scene B: {boss} decides who becomes a partner next year, and {Ns} name is on the list.
+scene R: {N} feels sick at the thought of the charity's tiny office paying for days of nothing.
+scene G: The charity's director once helped {Ns} own grandmother keep her house.
+- W | correct the invoice before it goes, and tell the senior partner why | v: conformity, universalism | lever: voice | sphere: learn.W | chance: 75
+- U | pull the time sheets and ask, plainly, where the four days came from | v: universalism | sphere: learn.U | chance: 75
+- B | send it as it is, and keep the partners' list in mind | v: security, achievement | mark: hid a wrong | sphere: learn.B | chance: 75
+- R | ring the charity and tell them straight that the bill is wrong | v: universalism, self-direction | sphere: learn.R | chance: 75
+- G | do four days of real work for the charity for free, so the bill comes true | v: benevolence, tradition | sphere: learn.G | chance: 75
+- W>G | take it to the firm's other partners, as the rules say, and shield the charity | v: conformity, benevolence | lever: voice | sphere: learn.W | chance: 65
+- U>W | check every charity bill of the past year before saying anything | v: universalism, achievement | sphere: learn.U | chance: 65
+- B>U | send it, but keep a copy of the time sheets somewhere safe | v: security | sphere: learn.B | chance: 65
+- R>B | tell the senior partner you will report it unless the days come off tonight | act: tell the senior partner they will report it unless the days come off tonight | v: power, self-direction | sphere: learn.R | chance: 65
+- G>R | leave the firm and take the charity's work with you, at cost | act: leave the firm and take the charity's work with them, at cost | v: benevolence, self-direction | lever: exit | sphere: learn.G | chance: 65
+works: The invoice goes out right, and {boss} never pads a bill on {Ns} desk again.
+works: The charity hears what happened and asks for {N} for every piece of work after.
+fails: {boss} calls it a typing slip, and {Ns} name drops off the partners' list.
+fails: The other partners close ranks, and {N} is moved to a smaller account.
+
+# ================================================================ mechanic (learn.R)
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the brakes she cannot pay for
+
+== the car no one makes parts for
+tier: everyday
+sphere: learn
+haunt: prod.craft
+ladder: known
+at: employer
+rate: 0.5
+share: .005
+stages: juvenile young_adult adult mature elder
+age: 16-75
+calls: UR
+holds: mechanic
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague
+earth: a widow wants her late husband's old car kept running, and the part it needs has not been made for years
+times: Many mechanics, once or twice in their years at a small garage; old cars outliving their parts are a familiar job there (estimate)
+gap: 1-5
+scene: A widow brings in the car her husband kept for forty years. It needs a fuel pump that has not been made for decades, and {boss} says to tell her the car is finished.
+scene W: She deserves a straight price and an honest answer, the same as any customer.
+scene U: {N} has the old pump on the bench in pieces. Only one small part has worn through.
+scene B: A job like this takes days and pays for hours. The other jobs on the board pay better.
+scene R: {N} wants to make the part from scratch on the lathe, just to see if it can be done.
+scene G: The car is older than {N}. Half the street remembers him polishing it on Sundays.
+- W | give her an honest quote for the hours it would take, and let her choose | v: universalism, conformity | sphere: learn.W | chance: 75
+- U | strip the pump and work out exactly what a new part must do | v: achievement | mark: learned a skill | sphere: learn.U | chance: 75
+- B | tell her the car is finished, and offer a good price for it as scrap | v: achievement, power | sphere: learn.B | chance: 75
+- R | make the part yourself after hours, by trial and error | act: make the part themselves after hours, by trial and error | v: stimulation, self-direction | sphere: learn.R | chance: 75
+- G | ask the old mechanics in town who still keeps such a pump in a shed | v: tradition | sphere: learn.G | chance: 75
+- W>U | follow the old workshop manual line by line, and rebuild the pump to the book | v: conformity, achievement | sphere: learn.W | chance: 65
+- U>B | find the part listed online at a collector's price, and add your fee | act: find the part listed online at a collector's price, and add their fee | v: achievement, power | tech: internet | sphere: learn.U | chance: 65
+- B>R | buy the car from her cheaply and restore it in your own time | act: buy the car from her cheaply and restore it in their own time | v: power, stimulation | sphere: learn.B | chance: 65
+- R>G | rebuild it with the apprentice, so someone else learns these old cars | v: benevolence, stimulation | sphere: learn.R | chance: 65
+- G>W | ask the old car club for help, and fix it at cost with what turns up | v: tradition, benevolence | sphere: learn.G | chance: 65
+works: The car starts on the first turn of the key, and the widow cries in the yard.
+works: Word gets round, and owners of old cars start driving in from three towns away.
+fails: The new part cracks on the first test drive, and the car goes back up on the ramp.
+fails: {boss} docks the hours from {Ns} pay, and the job board is behind for a week.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: the car no one makes parts for
+
+== the brakes she cannot pay for
+tier: everyday
+sphere: learn
+haunt: prod.craft
+ladder: known
+at: employer
+rate: 0.5
+share: .006
+stages: juvenile young_adult adult mature elder
+age: 16-75
+calls: WBG
+holds: mechanic
+tone: trouble
+life: work, money
+horizon: week
+roles: boss, colleague
+earth: an old customer's car fails on its brakes, she cannot pay for the work this month, and she asks you to pass it anyway
+times: Most mechanics who test cars, a few times a year; customers who cannot afford a needed repair are common at a small garage (estimate)
+gap: 0.5-2
+scene: An old customer's car fails its yearly test on the brakes. She cannot pay for the work until next month, she needs the car to visit her husband in the care home, and she asks {N} to pass it anyway.
+scene W: The test exists so that every car on the road can stop. It is the same test for her as for anyone.
+scene U: {N} measures the pads: thin, but weeks from dangerous, not days.
+scene B: She has brought every car to this garage for thirty years. A favour now keeps that.
+scene R: {N} wants to just do the job tonight and worry about the money later.
+scene G: Her husband taught {N} to change a tyre on this street, years ago.
+- W | fail the car as the test says, and explain gently why | v: conformity, universalism | sphere: learn.W | chance: 75
+- U | show her the worn pads and new ones side by side on the counter | v: universalism | sphere: learn.U | chance: 75
+- B | do the work now and let her pay over three months | v: security, achievement | sphere: learn.B | chance: 75
+- R | fit the pads tonight at cost, and say nothing at the counter | v: benevolence, stimulation | sphere: learn.R | chance: 75
+- G | ask her neighbours to drive her to the care home until the car is mended | v: benevolence, tradition | mark: helped someone in need | sphere: learn.G | chance: 75
+- W>B | fail the car, and book her the first cheap slot next month | v: conformity, security | sphere: learn.W | chance: 65
+- U>R | track down a cheaper second-hand set that still passes, and fit it this week | v: achievement, self-direction | sphere: learn.U | chance: 65
+- B>G | ask the owner to put the work on the garage's account, for an old customer | v: power, benevolence | sphere: learn.B | chance: 65
+- R>W | drive her to the care home yourself, and keep the car until it is safe | act: drive her to the care home, and keep the car until it is safe | v: benevolence | sphere: learn.R | chance: 65
+- G>U | use sound parts from the old cars in the yard, as the old hands did | v: tradition, achievement | sphere: learn.G | chance: 65
+works: The brakes are done by Friday, and she pays in full a month later, with a cake.
+works: She gets to the care home every Sunday, and the garage keeps her custom for life.
+fails: The money does not come next month, and {N} is left short for the parts.
+fails: {boss} finds out about the free hours and docks them from {Ns} pay.
+
+# ================================================================ community language teacher (learn.G)
+
+# ---------------------------------------------------------------- everyday, calls GU (cycle s3); partner: told two tongues will confuse him
+
+== the grandmother's word for bread
+tier: everyday
+sphere: learn
+haunt: gather.hall
+ladder: known
+rate: 0.5
+share: .003
+stages: juvenile young_adult adult mature elder
+age: 15-90
+calls: GU
+holds: community language teacher
+tone: mixed
+life: community
+horizon: moment
+roles: elder
+earth: in front of your class of children, a grandmother says the textbook's word for bread is wrong, because in her village it was another
+times: Most teachers of a home tongue, a few times a year; the old village speech and the written standard often disagree (estimate)
+gap: 0.3-1
+scene: {N} is teaching twelve children the home tongue in a borrowed hall on a rest day. A grandmother waiting at the back calls out that the textbook's word for bread is wrong. In her village it was another word.
+scene W: One day the children will sit an exam in the written tongue. One word for all keeps the lesson fair.
+scene U: {N} has heard both words, and wonders which is older and why the book chose this one.
+scene B: The parents pay a little each month, and the grandmothers decide which class the families choose.
+scene R: The children have turned round to stare. The lesson has just become much more interesting.
+scene G: Her village is where most of these families came from. Her word is the one their grandparents spoke.
+- W | thank her, and explain that the class teaches the written word | v: conformity, universalism | sphere: learn.W | chance: 75
+- U | write both words on the board, and ask the class which one is older | v: universalism, achievement | sphere: learn.U | chance: 75
+- B | agree with her in front of the families, and fix the book later | v: security, power | sphere: learn.B | chance: 75
+- R | hand her the chalk and let her teach the next ten minutes | v: stimulation, self-direction | sphere: learn.R | chance: 75
+- G | ask her to tell the children how bread was baked in her village | v: tradition | sphere: learn.G | chance: 75
+- W>R | keep to the lesson plan, then give her stories the last ten minutes | v: conformity, stimulation | sphere: learn.W | chance: 65
+- U>G | start a notebook of village words, and ask every family to add to it | v: tradition, universalism | sphere: learn.U | chance: 65
+- B>W | invite her onto the parents' committee, so her words become the class's rule | v: power, conformity | sphere: learn.B | chance: 65
+- R>U | make it a game: each child brings one old word from a grandparent next week | v: stimulation, achievement | sphere: learn.R | chance: 65
+- G>B | bake her village's bread with the class, and sell the loaves to pay for the hall | v: tradition, achievement | lever: fund | sphere: learn.G | chance: 65
+works: Next week three grandmothers come, and the children go home with words their parents had forgotten.
+works: The lesson ends with both words on the board and the whole hall arguing happily.
+fails: The grandmother takes her grandchildren to another class across town.
+fails: The children mix up the two words in their exam, and a parent complains.
+
+# ---------------------------------------------------------------- everyday, calls WBR (cycle s4); partner: the grandmother's word for bread
+
+== told two tongues will confuse him
+tier: everyday
+sphere: learn
+haunt: gather.hall
+ladder: known
+rate: 0.5
+share: .002
+stages: juvenile young_adult adult mature elder
+age: 15-90
+calls: WBR
+holds: community language teacher
+tone: trouble
+life: community
+horizon: week
+roles: elder
+earth: a mother takes her son out of your class, because his school says two languages will confuse him
+times: Many teachers of a home tongue, once or twice; parents are still told to drop the home tongue, against what studies of children who grow up with two languages find (estimate)
+gap: 1-3
+scene: After class a mother tells {N} that her son is leaving. His teacher at the main school says two languages will confuse him, and that he should speak only the local one at home.
+scene W: Every child who wants to learn deserves a place in the class, and her son loves it.
+scene U: {N} has read the studies: children who grow up with two tongues do no worse at school, and often better.
+scene B: Two other families are listening closely. If one leaves, the class may not pay for the hall.
+scene R: {N} wants to march into that school and argue with the teacher.
+scene G: Without the class the boy will lose the tongue his grandmother speaks, and half his family's stories with it.
+- W | tell her the class will always keep a place for him, whatever she decides | v: benevolence, universalism | sphere: learn.W | chance: 75
+- U | give her a short, plain page on what the studies find | v: universalism | sphere: learn.U | chance: 75
+- B | offer her a lower fee if he stays until the end of the year | v: security, achievement | sphere: learn.B | chance: 75
+- R | invite the school's teacher to come and watch the next class | v: self-direction, stimulation | lever: voice | sphere: learn.R | chance: 75
+- G | ask his grandmother to talk with her about what the family would lose | v: tradition, benevolence | sphere: learn.G | chance: 75
+- W>G | invite the whole family to the class's spring show before she decides | v: benevolence, tradition | sphere: learn.W | chance: 65
+- U>W | write to the school, politely, with the research, on behalf of every family | v: universalism | lever: voice | sphere: learn.U | chance: 65
+- B>U | ask the parent who works as a speech therapist to have a word with her | v: power, universalism | sphere: learn.B | chance: 65
+- R>B | tell her straight that she is making a mistake, and let her be angry | v: self-direction | sphere: learn.R | chance: 65
+- G>R | give him a songbook in the home tongue to keep, class or no class | v: tradition, benevolence | sphere: learn.G | chance: 65
+works: The boy stays, and by summer he is the one who reads the old poems aloud.
+works: The school's teacher comes to watch a class, and leaves with a different view.
+fails: The boy leaves, and the class shrinks to nine by the end of term.
+fails: The mother tells the other parents that {N} was rude, and two more families go.
+
+# ================================================================ outdoor instructor (learn.G)
+
+# ---------------------------------------------------------------- everyday, calls WG (cycle s1); partner: the manager who mocks the team on the ropes
+
+== the river rising on canoe day
+tier: everyday
+sphere: learn
+ladder: pillar
+at: employer
+rate: 0.5
+share: .0015
+stages: young_adult adult mature
+age: 18-65
+calls: WG
+holds: outdoor instructor
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague
+earth: the river is rising on the morning a school group comes for its canoe day, and their teacher says the coach is booked and the children have waited all term
+times: Most outdoor instructors, several times a season; weather that turns on a booked day is the daily judgement of outdoor work (estimate)
+gap: 0.2-1
+scene: The river is up and rising on the morning a school group arrives for its canoe day. Their teacher says the coach is paid for and the children have waited all term. The call is {Ns}.
+scene W: The centre's rules set a river level above which no group goes on. Today it is past the mark.
+scene U: {N} reads the gauge, the sky and the forecast: higher by noon, and the far bend will be fast.
+scene B: The centre lives on school bookings, and an unhappy teacher does not book again.
+scene R: Thirty children in buoyancy jackets are already jumping up and down in the yard.
+scene G: {N} grew up on this river and knows what it does after a night of rain in the hills.
+- W | call off the river by the centre's rule, and tell the teacher so plainly | v: conformity, security | sphere: learn.W | chance: 75
+- U | move the canoe day to the sheltered lake, and teach the strokes there | v: security, achievement | sphere: learn.U | chance: 75
+- B | offer the school a free rebooking next term, and a land day today | v: security, achievement | sphere: learn.B | chance: 75
+- R | turn the day into a raft-building race on the bank | v: stimulation | sphere: learn.R | chance: 75
+- G | walk the children along the bank and show them what a river does after rain | v: tradition, universalism | sphere: learn.G | chance: 75
+- W>U | take the teacher to the gauge and explain the rule, mark by mark | v: conformity, universalism | sphere: learn.W | chance: 65
+- U>B | plan a map and compass day so good that the school books two more | v: achievement | sphere: learn.U | chance: 65
+- B>R | ring the climbing wall in town and move the day there at the centre's cost | v: stimulation, security | sphere: learn.B | chance: 65
+- R>G | lead the whole group up the hill path to watch the flood from the top | v: stimulation, benevolence | sphere: learn.R | chance: 65
+- G>W | ask the old boatman next door to tell the class about the great flood | v: tradition | sphere: learn.G | chance: 65
+works: The children go home muddy and loud, and the teacher books again for the summer.
+works: By noon the river is over the bank, and the teacher shakes {Ns} hand at the coach.
+fails: The teacher complains to the centre's manager, and the school books somewhere else next year.
+fails: The children sulk all day, and {N} goes home feeling like the one who spoiled it.
+
+# ---------------------------------------------------------------- everyday, calls UBR (cycle s2); partner: the river rising on canoe day
+
+== the manager who mocks the team on the ropes
+tier: everyday
+sphere: learn
+ladder: pillar
+at: employer
+rate: 0.5
+share: .0015
+stages: young_adult adult mature
+age: 18-65
+calls: UBR
+holds: outdoor instructor
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague
+earth: on a firm's team day at the high ropes, a manager mocks a frightened young clerk halfway across, and the firm is paying
+times: Many outdoor instructors, a few times a season; firms' team days bring the office's quarrels to the course (estimate)
+gap: 0.5-2
+scene: On a firm's team day at the high ropes, a nervous young clerk freezes halfway across. Below, her manager laughs and calls her useless, loud enough for all to hear. The firm pays for three days a year.
+scene W: On {Ns} course every climber is treated the same, and no one is shamed for being afraid.
+scene U: {N} knows fear on the ropes: talk slowly, give one step at a time, and it passes.
+scene B: The firm's booking keeps the centre open through the winter, and the manager signs the cheque.
+scene R: {N} feels the heat rise, and wants to clip the manager onto the ropes next.
+scene G: {N} has seen a hundred frightened climbers get across with the right word from below.
+- W | stop the session and tell the manager the course rules forbid mocking | v: universalism, conformity | lever: voice | sphere: learn.W | chance: 75
+- U | talk her across one step at a time, and ignore the manager completely | v: benevolence, achievement | sphere: learn.U | chance: 75
+- B | lower her down quietly and keep the day running for the paying client | v: security | sphere: learn.B | chance: 75
+- R | invite the manager up next, in front of the whole team | v: stimulation, self-direction | sphere: learn.R | chance: 75
+- G | get the rest of the team calling encouragement until she moves | v: benevolence, tradition | sphere: learn.G | chance: 75
+- W>B | note the manager's words in the day's report to the firm | v: conformity, power | sphere: learn.W | chance: 65
+- U>R | change the next task so the manager must rely on the clerk to get through | v: achievement, stimulation | sphere: learn.U | chance: 65
+- B>G | ring the firm's head of staff that evening, and keep the booking | v: power, security | sphere: learn.B | chance: 65
+- R>W | tell the manager, in front of everyone, that fear is not a failing | v: universalism, self-direction | lever: voice | sphere: learn.R | chance: 65
+- G>U | once she is down, ask each of the team to say what they found hard | v: benevolence, tradition | sphere: learn.G | chance: 65
+works: The clerk makes it across, and the team cheer her the whole way down.
+works: The manager goes quiet for the rest of the day, and the team thank {N} at the minibus.
+fails: The manager complains to the centre's owner, and the firm cancels its winter days.
+fails: The clerk will not climb again, and leaves early with her coat over her arm.

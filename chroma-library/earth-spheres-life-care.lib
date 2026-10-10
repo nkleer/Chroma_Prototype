@@ -1,0 +1,264 @@
+# Chroma library, modern Earth: THE SPHERES OF SOCIETY, care's life moments. Library thread, 2026-10-09, "v22" update
+# stage 4, item 15 phase 3 (chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/care.json, character.moments). Every moment carries sphere: care, every option the face it
+# acts in (sphere: care.R; a cross option X>Y the means colour's face; a pair option the wheel-order pair face, WR as
+# .RW, WG as .GW, UG as .GU). Syntax: header of build.py. Rules: SPEC.md. Faces and places: earth_spheres.py.
+#
+# Written (care.json moment: moment here):
+#   a birth in the family, and the hours of waiting: the hours of waiting on the maternity ward (life event, D6a)
+#   sitting by a bed through the night: a night in the chair by the hospital bed (everyday, calls WBG, s2)
+#   being the one who knows what to do when someone falls: a stranger goes down in the queue (everyday, calls UR, s4)
+#   the bill, or the waiting list: fourteen months on the list for a new hip (life event, D5b)
+#   asked to choose for someone who cannot choose: deciding for a parent who cannot speak (life event, D2a)
+#   a parent who needs them every day: the carer's afternoon off (life event among carers for a parent, D4a)
+# Left out, because a moment already is the same thing: their own first serious illness ('a serious accident or
+# illness'); a diagnosis that changes the plan of a life ('a frightening diagnosis', 'living with a chronic illness');
+# a good death, or a hard one ('facing the end', 'a parent dies', and the good_death event's 'the hospice nurse comes
+# every morning'); a cure that arrives in time, or too late ('a cure is found at last'); the plague year ('a pandemic
+# and a lockdown'); their own body slows, and they accept help ('help you have not asked for').
+#
+# Everyday pair: the night in the chair (WBG, s2) with the stranger in the queue (UR, s4), same stages and ages.
+# Evenness: in every moment each one-colour option has one chance, each cross option one chance, each pair option one
+# chance, so each colour's mean is the same in every stage. No flags.
+# Illness and dying are told gently and never graphically; no harm to a child (the birth ends with mother and baby well).
+
+# ---------------------------------------------------------------- life event: the hours of waiting (pairs D6a)
+
+== the hours of waiting on the maternity ward
+tier: life event
+sphere: care
+at: hospital
+stages: juvenile young_adult adult mature
+age: 14-60
+per_year: 0 .004 .008 .006 .002 0
+drivers: family+.3 ties+.2
+times: Most people wait out a birth in the family at least once, but a long night at the maternity unit beside a brother's or sister's first baby, the family gathered and the door shut, comes to about 1 in 4 lives (estimate), set at under 1 in 100 a year from the late teens to the forties
+likelier: brothers and sisters starting families, a close family who all come, a first baby, a family living near one another
+rarer: an only child, a family scattered far apart, brothers and sisters who have no children, an estranged family
+gap: 3-15
+tone: joy
+life: family, health
+horizon: week
+roles: sibling, parent
+who: sibling
+earth: your brother's or sister's first baby is coming early, and the family waits all night outside the maternity ward
+scene: {sibling}'s first baby is coming three weeks early, and the family gathers at the maternity unit. Hour after hour the door stays shut; {parent} paces, the machine in the corridor eats the coins, and the midwife only says it will be a while yet.
+scene W: Six anxious relatives, four chairs and one phone line to the rest of the family. Somebody has to keep this waiting room in order.
+scene U: {N} has no idea what is happening behind the door, and the not knowing is worse than anything the midwife could say.
+scene B: The ward is full and noisy, and {N} thinks the new family deserves better than a curtain and a shared bathroom.
+scene R: Everyone in the corridor is grey with worry, and {N} cannot bear another hour of this silence.
+scene G: {parent} sits very still, the way the old ones of the family always waited for babies. {N} sits down too.
+- W | keep the waiting room in order: a rota for the chairs, the calls and the coffee | v: benevolence, conformity | sphere: care.W | chance: 70
+- U | ask the midwife plainly what each stage means, and explain it to the others | v: universalism, security | sphere: care.U | chance: 70
+- B | arrange a private room for the new family, and pay for it yourself | act: arrange a private room for the new family, and pay for it themselves | v: power, benevolence | lever: fund | sphere: care.B | chance: 70
+- R | get the whole corridor laughing until the door finally opens | v: stimulation, benevolence | sphere: care.R | chance: 70
+- G | sit beside the anxious grandparent-to-be, and let the hours pass together | v: tradition, benevolence | pushes: close parent | sphere: care.G | chance: 70
+- BG | go home before dawn, and fill the new family's freezer for a month | v: benevolence, security | sphere: care.BG | chance: 60
+- UG | ring the oldest aunt to hear how every baby in the family arrived | v: tradition, universalism | sphere: care.GU | chance: 60
+- UR | talk the night nurse into explaining every beep and number on the screens | v: self-direction, stimulation | sphere: care.UR | chance: 60
+- WB | plan the family's visits for the first week, and put yourself first on the list | act: plan the family's visits for the first week, and put themselves first on the list | v: power, conformity | sphere: care.WB | chance: 60
+- WR | drive across town at midnight for the bag the parents forgot | v: benevolence, stimulation | mark: helped someone in need | sphere: care.RW | chance: 60
+works: Just before dawn the door opens, and the midwife waves the family in: mother and baby are both well.
+works: The long night binds the family, and for years they tell the story of the waiting room.
+fails: The family bickers in the corridor all night, and the first photographs are all strained smiles.
+fails: {N} is sent home at midnight to sleep, and misses the moment everyone else will remember.
+
+# ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: a stranger goes down in the queue
+
+== a night in the chair by the hospital bed
+tier: everyday
+sphere: care
+at: hospital
+stages: young_adult+
+age: 18-95
+calls: WBG
+rate: .5
+share: .3
+tone: mixed
+life: family, health
+horizon: week
+roles: elder, sibling
+who: elder
+earth: an old relative is in hospital, the family has agreed nobody leaves them alone at night, and tonight it is your turn
+times: Families often keep watch by a relative's hospital bed, taking the nights in turn; sitting through a night in the chair comes to about 3 in 10 adults, once or a few times (estimate)
+likelier: a large or close family, old parents or grandparents, a hospital near home, a family that takes turns
+rarer: a family far away, no old relatives left, long night shifts at work, a hospital that sends visitors home
+gap: 25-40
+scene: {elder} is in hospital after a fall, and the family has agreed that nobody should be alone at night. Tonight it is {Ns} turn: a hard chair, the hum of the machines, and a nurse who looks in every two hours.
+scene W: The family rota is pinned to the fridge at home, and {sibling} has already swapped two nights. {N} wants it kept fair.
+scene B: {elder} is on a crowded ward, and {N} has seen how little time the doctors have for each bed.
+scene G: This is what the family has always done: one of their own beside the bed, every night, until the danger passes.
+- W | keep to the family rota, and write down each night what the nurse said | v: conformity, benevolence | lever: loyalty | sphere: care.W | chance: 75
+- U | ask the night nurse to show you the chart, and learn what each number means | act: ask the night nurse to show them the chart, and learn what each number means | v: self-direction, security | sphere: care.U | chance: 75
+- B | press the ward for a side room and the senior doctor at the morning round | v: power, security | lever: voice | sphere: care.B | chance: 75
+- R | bring in their favourite music and a proper pudding, and get them laughing at midnight | v: hedonism, benevolence | sphere: care.R | chance: 75
+- G | hold their hand, say little, and stay until the morning light | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>B | take charge of the family rota, and keep the nights that count for yourself | act: take charge of the family rota, and keep the nights that count for themselves | v: power, conformity | sphere: care.W | chance: 65
+- U>R | learn from the nurse how to settle them, then do it yourself all night | act: learn from the nurse how to settle them, then do it themselves all night | v: benevolence, achievement | mark: learned a skill | sphere: care.U | chance: 65
+- B>G | pay a cousin's fare, so the far-off side of the family can take a night | v: benevolence, tradition | lever: fund | sphere: care.B | chance: 65
+- R>W | fetch the nurse at once when their breathing changes, whatever the hour | v: benevolence, security | sphere: care.R | chance: 65
+- G>U | tell the night doctor what only family knows: how they eat, sleep and hide pain | v: benevolence, universalism | sphere: care.G | chance: 65
+works: By morning {elder} has slept, and the doctor on the round says the worst is past.
+works: The nights by the bed become the family's way, and nobody of theirs is left alone in a hospital again.
+fails: {N} dozes off in the chair and wakes to an empty space where the bed was, and nobody to ask.
+fails: The rota breaks down by the third night, and old grudges come out in the corridor.
+
+# ---------------------------------------------------------------- everyday, calls UR (cycle s4); partner: a night in the chair by the hospital bed
+
+== a stranger goes down in the queue
+tier: everyday
+sphere: care
+stages: young_adult+
+age: 18-95
+calls: UR
+rate: .5
+share: .2
+tone: mixed
+life: health, community
+horizon: moment
+roles: friend, neighbour
+earth: in the queue at the post office the man in front of you sways and goes down, and everyone steps back
+times: Most sudden collapses in public happen in front of strangers, and a bystander who acts in the first minutes makes a real difference (first-aid and ambulance services in many countries); being the one nearest when a stranger collapses comes to about 1 in 5 adults, once or twice (estimate)
+likelier: a first-aid course, a crowded town centre, a job serving the public, an older neighbourhood
+rarer: a quiet remote place, a life spent mostly indoors, a person who hangs back in a crowd
+gap: 5-20
+scene: In the queue at the post office the old man in front of {N} sways, grips the counter and goes down. People step back. Somebody says that someone should ring for help, and nobody moves.
+scene U: {N} did a first-aid course once, years ago. The steps are somewhere in {Ns} head, if only they would come in order.
+scene R: Before anyone else has moved, {N} is already on one knee beside him.
+- W | name one person to ring for help and another to fetch the defibrillator | v: security, conformity | sphere: care.W | chance: 75
+- U | check his breathing calmly, the way the first-aid course taught | v: security, achievement | sphere: care.U | chance: 75
+- B | ask loudly whether there is a doctor or a nurse, and step aside for them | v: security, self-direction | sphere: care.B | chance: 75
+- R | kneel beside him at once, talk to him, and keep him with you | act: kneel beside him at once, talk to him, and keep him with them | v: benevolence, stimulation | mark: helped someone in need | sphere: care.R | chance: 75
+- G | put your rolled coat under his head, hold his hand, and stay with him | act: put a rolled coat under his head, hold his hand, and stay with him | v: benevolence, tradition | sphere: care.G | chance: 75
+- W>G | move the crowd back so he has air, and keep his frightened wife beside him | v: benevolence, security | sphere: care.W | chance: 65
+- U>W | time each minute on your watch, and tell the crew exactly what happened | act: time each minute on a watch, and tell the crew exactly what happened | v: security, universalism | sphere: care.U | chance: 65
+- B>U | find the card in his wallet with his doctor's name, and ring that surgery | v: security, achievement | sphere: care.B | chance: 65
+- R>B | sprint to the clinic across the road, and bring their doctor back at a run | v: stimulation, achievement | sphere: care.R | chance: 65
+- G>R | talk to him softly about anything at all, so he is not afraid | v: benevolence | sphere: care.G | chance: 65
+works: The crew arrives to find him breathing and talking, and the paramedic says the first minutes counted.
+works: Weeks later a card comes to the post office, addressed to the one who stayed with him.
+fails: In the crush {N} freezes, and goes over those minutes again and again for weeks.
+fails: The crew takes him away without a word, and {N} never learns whether he came through.
+
+# ---------------------------------------------------------------- life event: the bill, or the waiting list (pairs D5b)
+
+== fourteen months on the list for a new hip
+tier: life event
+sphere: care
+at: hospital
+stages: adult mature elder
+age: 35-95
+per_year: 0 0 0 .003 .006 .006
+drivers: prosper-.3 money-.2
+times: Waits of a year or more for planned operations such as a hip or knee are common where public care is stretched; being told of a long wait while in pain, with a paid way round it on offer, comes to about 1 in 4 lives, most after 50 (estimate)
+likelier: a public health service under strain, worn joints or a hard-working body, a town with a private clinic, hard times
+rarer: good insurance or plenty of money, a well-funded hospital nearby, good health into old age
+gap: 5-20
+tone: trouble
+life: health, money, work
+horizon: months
+roles: colleague, partner, friend
+who: colleague
+earth: your hip needs replacing, the letter says the wait is fourteen months, and a private clinic could do it next month for a price
+scene: The hip has been bad for two years, and now the letter comes: fourteen months on the list for the operation. {N} struggles with the stairs and sleeps badly, and {colleague} mentions a private clinic that would do it next month, for a price.
+scene W: Everyone on that list is in pain. {N} does not see why their own pain should jump the queue.
+scene U: The letter gives a number and nothing else. {N} wants to know how the list is run, and whether there is a better one.
+scene B: It is {Ns} body and {Ns} money. Fourteen months of bad nights is a price too, and {N} can count.
+scene R: Fourteen months. {N} reads the letter twice, then picks up the phone to the hospital.
+scene G: {N} thinks of the old folk who managed with a stick and a warm bath. Bodies have waited before.
+- W | wait your turn on the list like everyone else, and keep every appointment | v: conformity, universalism | lever: loyalty | sphere: care.W | chance: 70
+- U | compare every hospital's waiting figures, and move to the shortest list in reach | v: self-direction, security | lever: exit | sphere: care.U | chance: 70
+- B | pay the private clinic, and have the operation next month | v: self-direction, security | lever: exit | sphere: care.B | chance: 70
+- R | ring the hospital every week until they offer a cancelled slot | v: stimulation, self-direction | lever: voice | sphere: care.R | chance: 70
+- G | manage with a stick, warm baths and the neighbours' help until the day comes | v: tradition, security | sphere: care.G | chance: 70
+- BR | book the operation abroad, and make a holiday of the recovery | v: hedonism, self-direction | lever: exit | pushes: abroad | sphere: care.BR | chance: 60
+- RG | keep walking every day through the stiffness, as far as the body allows | v: stimulation, tradition | sphere: care.RG | chance: 60
+- UG | do the physio's exercises every morning, to go into the operation strong | v: security, self-direction | mark: learned a skill | sphere: care.GU | chance: 60
+- WB | give to the hospital's friends' fund for the extra surgeon it is raising for | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 60
+- WU | join the patients' panel that checks how the list is run | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 60
+works: The operation goes well, and by spring {N} takes the stairs without holding the rail.
+works: {N} goes in strong, and the surgeon says the waiting months were not wasted.
+fails: The months drag on, the pain spreads, and {N} slowly stops going out.
+fails: The date comes at last, and is cancelled the night before for an emergency.
+
+# ---------------------------------------------------------------- life event: asked to choose for someone who cannot choose (pairs D2a)
+
+== deciding for a parent who cannot speak
+tier: life event
+sphere: care
+at: hospital
+stages: adult mature elder
+age: 30-90
+per_year: 0 0 0 .002 .006 .005
+drivers: family+.2
+times: Families are often asked to make care decisions for a relative who can no longer speak for themselves, most often after a stroke or late in a long illness; being the one the doctors turn to comes to about 1 in 5 lives, most in midlife (estimate)
+likelier: old parents, being the eldest or the one who lives nearest, a parent who never wrote down their wishes
+rarer: parents who left clear written wishes, a large family where others take the lead, being estranged from a parent
+gap: 5-20
+tone: mixed
+life: family, health, grief
+horizon: months
+roles: parent, sibling
+who: parent
+earth: after a stroke your mother or father cannot speak, and the doctors ask the family to choose between an operation and keeping them comfortable
+scene: After the stroke {parent} cannot speak or follow what is said. The doctor sits down with the family: an operation might help, with real risks, or the ward can keep {parent} comfortable and wait. {parent} never wrote down what they would want, and everyone looks at {N}.
+scene W: {sibling} wants one thing and the cousins another. {N} wants a choice the whole family can stand behind.
+scene U: {N} has heard the doctor's words, but not the numbers. A choice like this needs the plain odds.
+scene B: {N} does not trust a tired ward doctor to set the course of {Ns} parent's last years.
+scene R: Every hour of talking is an hour lost. {N} feels the choice should have been made already.
+scene G: {parent} always said that bodies know their own time. {N} keeps hearing those words in the quiet room.
+- W | ask for a family meeting with the doctors, and choose together what is fairest to them | v: universalism, benevolence | sphere: care.W | chance: 70
+- U | ask for the plain odds of each path, and take one night to weigh them | v: self-direction, security | sphere: care.U | chance: 70
+- B | get a second opinion from the best specialist, and then decide alone | v: power, self-direction | lever: exit | sphere: care.B | chance: 70
+- R | choose the operation now, while it can still make a difference | v: stimulation, benevolence | sphere: care.R | chance: 70
+- G | let the body set the pace: keep them comfortable, and wait beside them | v: tradition, benevolence | sphere: care.G | chance: 70
+- BG | ask the palliative nurse for the plain truth, and choose comfort if that is it | v: security, benevolence | sphere: care.BG | chance: 60
+- BR | remind the doctors what the parent once said over dinner, and hold them to it | v: self-direction, benevolence | lever: voice | sphere: care.BR | chance: 60
+- UR | ask whether a trial of some new treatment could take them, and push for it | v: stimulation, self-direction | sphere: care.UR | chance: 60
+- WG | gather the whole family at the bedside, and decide in a circle | v: tradition, benevolence | pushes: close sibling | sphere: care.GW | chance: 60
+- WU | ask the hospital's ethics panel to set out each path and the rules for it | v: conformity, security | pushes: institution hospital | sphere: care.WU | chance: 60
+works: The family decides together, and whatever comes, nobody blames anyone for it.
+works: {parent} rallies a little, and one afternoon presses {Ns} hand as if to say the choice was right.
+fails: The choice splits the family, and the quarrel outlasts the illness.
+fails: {N} chooses, and for years afterwards wonders whether it was the right thing.
+
+# ---------------------------------------------------------------- life event: a parent who needs them every day (pairs D4a), among carers
+
+== the carer's afternoon off
+tier: life event
+sphere: care
+holds: carer for a parent
+stages: young_adult adult mature elder
+age: 20-85
+per_year: 0 0 .12 .12 .12 .1
+drivers: money-.2
+times: Among those who hold [carer for a parent] (rate per year among holders, estimate): long years of daily care wear carers down, and the offer of a day centre or a respite week, and the question of who else should help, comes to most long-term carers within the first few years (estimate; carers' surveys in many countries)
+likelier: years of care with little help, a parent who needs lifting or night care, a brother or sister who stays away, a carers' service in town
+rarer: a large family sharing the care, a parent in good health for their age, a carer who already has paid help
+gap: 2-5
+tone: mixed
+life: family, health, work
+horizon: months
+roles: parent, sibling
+who: parent, sibling
+earth: three years of caring for your parent every day, and now the doctor offers a day centre and a respite week
+scene: Three years of caring for {parent}: the pills at eight, the lifting, the nights broken twice. {sibling} visits twice a year and has opinions. Now the doctor has found a day centre and a respite week, and {N} is so tired that saying yes feels like failing.
+scene W: {sibling} has done three weekends in three years. {N} has done the rest, and it has never been talked about.
+scene U: {N} suspects there is help that carers are owed and never hear about, if anyone ever wrote it down.
+scene B: {N} cannot remember the last day that was entirely {Ns} own.
+scene R: {N} has kept going on nerve and jokes for three years, and is not ready to admit it is too much.
+scene G: In the old street the neighbours took turns with the old and the sick. {N} wonders where those neighbours went.
+- W | ask your brother or sister for a fair share of the weeks, written down and kept | act: ask their brother or sister for a fair share of the weeks, written down and kept | v: universalism, security | lever: voice | pushes: close sibling | sphere: care.W | chance: 70
+- U | find out every kind of help the council and the clinic offer carers, and claim it | v: security, self-direction | sphere: care.U | chance: 70
+- B | take the respite week, and spend it somewhere just for yourself | act: take the respite week, and spend it somewhere just for themselves | v: hedonism, self-direction | sphere: care.B | chance: 70
+- R | turn the day centre down, and carry on with nerve and good humour | v: benevolence, stimulation | lever: loyalty | sphere: care.R | chance: 70
+- G | ask the neighbours to sit with them one afternoon a week, as streets once did | v: tradition, benevolence | pushes: group neighbours | sphere: care.G | chance: 70
+- BG | tell the absent relatives plainly what the care costs, and what they owe | v: power, security | lever: voice | sphere: care.BG | chance: 60
+- RG | take them out to the park and the café on every good day, whatever the effort | v: benevolence, hedonism | sphere: care.RG | chance: 60
+- UR | try every new aid, the hoist, the alarm, the bed sensor, to win back nights | v: self-direction, security | sphere: care.UR | chance: 60
+- WB | pay a care worker for two mornings a week, and keep your own job going | act: pay a care worker for two mornings a week, and keep their own job going | v: security, achievement | lever: fund | sphere: care.WB | chance: 60
+- WU | write up the whole care plan, so anyone could step in tomorrow | v: security, benevolence | sphere: care.WU | chance: 60
+works: After a week away {N} comes home lighter, and {parent} is glad to see a rested face.
+works: The help holds: one afternoon a week becomes {Ns} own, and the years ahead start to look possible.
+fails: {N} turns every offer down, and by spring the smallest thing brings tears.
+fails: {sibling} takes offence at being asked, and the family stops speaking for a season.

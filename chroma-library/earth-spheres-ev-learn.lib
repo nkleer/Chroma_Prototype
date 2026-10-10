@@ -1,0 +1,712 @@
+# Chroma library, modern Earth: the learning sphere's events as they touch a life (Library thread, 2026-10-09, "v22"
+# update stage 4, item 15 phase 3). Design: chroma-ideas/spheres-implementation.md sections 2, 4 "Library" and 5; data:
+# chroma-ideas/spheres-data/learn.json (events with on_character and the modern epoch; each scene is built on the
+# event's wording.modern and on_character). Face words: chroma-library/earth_spheres.py. Fields: build.py (the spheres'
+# fields of world-fields.md, 2026-10-09).
+#
+# Every moment here is an event moment: a life event the Engine fires on its sphere event (sphere_event: <key>) for the
+# people its selector names (place, members or all); per_year is all 0 and there are no drivers. The '# world:' line
+# above each moment gives the event key, the selector and the share of selected people who meet the moment (estimate).
+# Sixteen moments, one per learn event of the modern epoch that has on_character. Tone follows the event's tone (good =
+# joy, bad = trouble, mixed = mixed): 6 joy, 6 trouble, 4 mixed.
+#
+# Near neighbours in earth.py, kept apart on purpose: the_exam is the ranking number and what to do with it (earth.py
+# has the revision, the last exam and the pass); newcomer_taught is the neighbours' side, the family in the flat below
+# ('a new kid joins your class' and 'learning the local language' hold the pupil's and the newcomer's sides);
+# learned_leave is the graduating class leaving together ('work and a room abroad' is one cousin's offer);
+# teachers_walk_out is the parents' six weeks ('a strike vote at work' holds a worker's own vote).
+#
+# Children and schools: pupils from 12 appear in the school moments (two more years, the number, books pulled, the
+# library, the weekend school, the closed schools, the flat below). Every option a pupil can pick is safe: no truancy,
+# no danger, no harm to any child, and the war stays off-page (the fighting is never shown).
+#
+# Options: sphere: on each is the face the act is in (one-colour X: learn.X; a pair: its pair face in wheel order, so
+# WR is learn.RW, WG learn.GW, UG learn.GU). Levers (lever:) where the act plainly is one, from character.levers.
+#
+# Layout: each a life event with the five one-colour options and one pair set. The 16 use all twelve halves of D1 to D6,
+# four of them twice (D1a, D3a, D5b, D6b), each chosen to hold the event's own pair faces where it has them.
+# Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
+# colour has the same mean chance in each moment and in every stage. No flags.
+#
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
+
+# ---------------------------------------------------------------- knowledge_lost (pairs D1a)
+
+# world: sphere event knowledge_lost, selector place, share .3
+== nobody can find the drawings for the pumps
+tier: life event
+sphere: learn
+sphere_event: knowledge_lost
+share: 0.15
+once: yes
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: knowledge_lost (sphere learn). Selector place: a skill held by one or two people goes when its keeper retires or dies, and then something fails that only they understood; about 3 in 10 of the people living there are touched by the failure enough to act on it (share .3, estimate), once or twice in a life (estimate)
+likelier: an old town with old works, a skill never written down, a family that worked on it
+rarer: a new town, a person who never deals with the works or the council
+tone: trouble
+life: community, work, home
+horizon: months
+roles: elder, grandparent, colleague
+earth: the engineer who understood the town's old water system has retired, and when it fails nobody can find the drawings
+scene: The engineer who understood the town's old water system has retired to the coast. This week the pumps failed, half of {place} has no water, and nobody at the council can find the drawings.
+scene W: The council says it is working on it. {N} thinks of the old neighbours carrying water up the stairs, and of how this was allowed to happen.
+scene U: Somewhere there must be a record of how the pipes run. {N} wants to find it, or else work it out.
+scene B: Whoever understands the old system now can name their price. {N} sees that plainly.
+scene R: {N} has never been inside the pumping station, and would very much like to get a look at those pumps.
+scene G: {grandparent} helped lay those pipes as a young man, and used to talk about where they ran.
+- W | press the council to have the whole system written down, with copies kept for all | v: universalism, security | lever: voice | pushes: institution council | sphere: learn.W | chance: 68
+- U | ring the retired engineer and ask him to talk you through the system | act: ring the retired engineer and ask him to talk them through the system | v: self-direction | sphere: learn.U | chance: 61
+- B | learn the old system first, and offer the council your help at a price | act: learn the old system first, and offer the council their help at a price | v: achievement, power | sphere: learn.B | chance: 68
+- R | go down with the repair crew and learn the pumps by trying them | v: stimulation | mark: learned a skill | sphere: learn.R | chance: 74
+- G | walk the route of the pipes with the old men who laid them | v: tradition | sphere: learn.G | chance: 58
+- BG | study each burst pipe as it is dug up, and write down what it teaches | v: security, universalism | sphere: learn.BG | chance: 62
+- BR | teach yourself the pumps from manuals at night, and mend one on your own | act: teach themselves the pumps from manuals at night, and mend one on their own | v: self-direction, stimulation | sphere: learn.BR | chance: 44
+- UG | record what the old pipe-layers remember before it is lost as well | v: tradition, universalism | sphere: learn.GU | chance: 64
+- WR | start a class for the young plumbers, so no skill rests with one person again | v: universalism, benevolence | lever: found | pushes: place | sphere: learn.RW | chance: 50
+- WU | draw up a plain manual of the whole system for whoever comes next | v: universalism, security | sphere: learn.WU | chance: 56
+works: The drawings turn up in a box at the old works, and {N} helps put the water back on.
+works: This time the system is written down, and {Ns} name is in the notes.
+fails: The water comes back after three weeks, and still nobody knows how the system works.
+fails: The repair holds for a year, then the pumps fail again, and the town is back where it started.
+
+# ---------------------------------------------------------------- first_school (pairs D4b)
+
+# world: sphere event first_school, selector place, share .3
+== a new school across the river
+tier: life event
+sphere: learn
+sphere_event: first_school
+share: 0.15
+once: yes
+who: teacher
+stages: young_adult adult mature
+age: 24-55
+per_year: 0 0 0 0 0 0
+gap: 10-30
+times: World event: first_school (sphere learn). Selector place: a school opens where the children had to travel out; about 3 in 10 of the people living there have a child of school age who could go and face the choice (share .3, estimate), once in a life for most who meet it (estimate)
+likelier: a growing quarter or a far bank with no school, a young family, a long bus ride to the old school
+rarer: no children of school age, a town with schools in every quarter
+tone: joy
+life: family, children, community
+horizon: years
+roles: child, parent, mentor, teacher
+earth: a new school opens across the river, and your child no longer takes the early bus out of town
+scene: A new school has opened across the river, so {child} no longer has to take the early bus out of town. The new head stands at the gate every morning, and the old school in town has places to spare.
+scene W: The head says every child on the far bank will have a place. {N} would like to see that it is true.
+scene U: {N} wants to sit in on a lesson and meet the teachers before deciding anything.
+scene B: A new school is still deciding who sits on its board and how it is run. {N} sees a chance to have a say.
+scene R: Ten minutes' walk instead of an hour on the bus. {N} pictures {child} with the whole morning back.
+scene G: {child}'s cousins all go to the old school in town, and the family has gone there for three generations.
+- W | go door to door on the far bank, so every family knows a place is theirs | v: universalism, benevolence | sphere: learn.W | chance: 79
+- U | sit in on a lesson, and ask the new teacher how they teach reading | v: self-direction | sphere: learn.U | chance: 72
+- B | stand for the new school's board in its first year | v: power, achievement | lever: lead | pushes: institution school | sphere: learn.B | chance: 62
+- R | move your child to the new school in the first week, and see how it goes | act: move their child to the new school in the first week, and see how it goes | v: self-direction, stimulation | lever: exit | pushes: institution school | sphere: learn.R | chance: 72
+- G | keep your child at the old school in town, with the cousins | act: keep their child at the old school in town, with the cousins | v: tradition, security | lever: loyalty | pushes: institution school | sphere: learn.G | chance: 74
+- BR | spend the free morning hour reading together, whatever book the child picks | v: hedonism, benevolence | sphere: learn.BR | chance: 80
+- UB | read the new school's reports and the teachers' records before you choose | act: read the new school's reports and the teachers' records before they choose | v: achievement, security | sphere: learn.UB | chance: 70
+- UG | help the class start a garden by the river and record what grows | v: universalism, tradition | sphere: learn.GU | chance: 60
+- WG | join the parents' committee that helps build and keep the new school | v: benevolence, conformity | sphere: learn.GW | chance: 66
+- WR | speak up at the meeting for the far bank's children to get the first places | v: universalism, benevolence | lever: voice | pushes: institution school | sphere: learn.RW | chance: 50
+works: {child} settles in by the first winter, and the new teacher becomes a name at the dinner table.
+works: The school becomes the heart of the far bank, and {N} knows half the parents by name.
+fails: The new school is short of teachers in its second year, and the classes double in size.
+fails: {child} misses the old friends from the bus, and the first term is a hard one.
+
+# ---------------------------------------------------------------- academy_founded (pairs D2b)
+
+# world: sphere event academy_founded, selector place, share .5
+== a university on the old army base
+tier: life event
+sphere: learn
+sphere_event: academy_founded
+share: 0.25
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: academy_founded (sphere learn). Selector place: a university or college opens in a town that had none; about half of the people living there feel it in their own life, a course, a job, a rent or a changed street (share .5, estimate), once in a life for most who meet it at all (estimate)
+likelier: a mid-sized town with land to spare, a young person who wanted to study, a home near the new campus
+rarer: a remote village, a person settled in work far from the campus
+tone: joy
+life: community, school, work
+horizon: years
+roles: friend, grandparent, child
+earth: a university campus opens on the old army base: rents rise, cafes open, and the town fills with the young
+scene: A university campus has opened on the old army base. Rents are rising, cafes have opened on every corner, and {place} is suddenly full of the young. There is a notice by the gate for evening courses.
+scene W: The university has promised to take a share of its students from {place}. {N} wants to see the town's own young get in.
+scene U: Lectures, a library, people who argue for a living. {N} has wanted something like this for years.
+scene B: The university is the biggest employer in town now, and every job there comes with a free course. {N} has noticed.
+scene R: The town has woken up. {N} wants to be at every open lecture and every late debate in the new cafes.
+scene G: {Ns} family has lived in {place} for generations, and the old neighbours are being priced out of the street.
+- W | help the town school's leavers fill in their university applications | v: benevolence, universalism | sphere: learn.W | chance: 85
+- U | sign up for the evening course you have always meant to take | act: sign up for the evening course they have always meant to take | v: self-direction | mark: learned a skill | sphere: learn.U | chance: 67
+- B | take a job in the university office, for the free course that comes with it | v: achievement | sphere: learn.B | chance: 74
+- R | talk your way into the labs' open day and try every machine they let you touch | act: talk their way into the labs' open day and try every machine they are let touch | v: stimulation | sphere: learn.R | chance: 80
+- G | lead the new students on a walk of the town's old streets and stories | v: tradition, benevolence | sphere: learn.G | chance: 65
+- RG | coach the students' new walking club in the hills you know by heart | act: coach the students' new walking club in the hills they know by heart | v: stimulation, benevolence | sphere: learn.RG | chance: 66
+- UB | find out which departments will hire locals, before the posts are advertised | v: achievement, power | sphere: learn.UB | chance: 62
+- UG | help the university count and map the wildlife living on the old base | v: universalism | sphere: learn.GU | chance: 70
+- WB | start a small scholarship for one local child each year, in the family's name | v: benevolence, power | lever: fund | pushes: institution university | sphere: learn.WB | chance: 56
+- WR | campaign for free places for the town's poorer children, and fill the hall to do it | v: universalism | lever: voice | pushes: institution university | sphere: learn.RW | chance: 40
+works: Within a year {N} has a foot in the new world up on the hill, and new friends from it.
+works: The town changes, and {N} changes with it, mostly for the better.
+fails: The rents keep climbing, and the old neighbours leave the street one by one.
+fails: The campus stays a world apart behind its fence, and {N} never quite finds a way in.
+
+# ---------------------------------------------------------------- schools_for_all (pairs D3a)
+
+# world: sphere event schools_for_all, selector all, share .8
+== two more years at school
+tier: life event
+sphere: learn
+sphere_event: schools_for_all
+share: 0.41
+once: yes
+stages: juvenile
+age: 14-17
+per_year: 0 0 0 0 0 0
+gap: 1-3
+times: World event: schools_for_all (sphere learn). Selector all: the leaving age rises by two years; about 8 in 10 of the pupils who were about to leave feel it as a turn in their own plans (share .8, estimate), once in a life, and only for those of that age when it passes (estimate)
+likelier: a pupil who meant to leave for work, a family business, a trade school nearby
+rarer: a pupil who meant to stay on anyway
+tone: mixed
+life: school, family, work
+horizon: years
+roles: parent, friend, mentor
+earth: the leaving age rises by two years, and you stay at school instead of starting work this summer
+scene: The leaving age has gone up by two years, so {N} will not leave school this summer after all. The older pupils grumble in the corridors, the trade school's lists are full, and {parent} had been counting on help in the family shop.
+scene W: A rule for everyone is fair, {N} supposes. Two more years is two more years to learn.
+scene U: Two more years means subjects {N} never had time for. Some of them might turn out to be interesting.
+scene B: Now everyone stays to eighteen, so a certificate alone will not stand out. {N} wants the one that does.
+scene R: {N} was ready to start at the garage this summer. Now it is two more years at a desk.
+scene G: {parent} needs the help in the shop now, not in two years, and {N} knows it.
+- W | stay on and keep up every subject, the way the new rule intends | v: conformity | sphere: learn.W | chance: 70
+- U | pick the hardest subject on offer, just to see what it is like | v: self-direction, stimulation | sphere: learn.U | chance: 62
+- B | choose the subjects that lead to the best-paid courses, and work for top marks | v: achievement | sphere: learn.B | chance: 65
+- R | spend two afternoons a week in the trade school's workshop, tools in hand | v: stimulation, self-direction | mark: learned a skill | sphere: learn.R | chance: 74
+- G | help in the family shop after school and on Saturdays | v: tradition, benevolence | sphere: learn.G | chance: 68
+- BG | ask last year's leavers what they wish they had done, and do that | v: security | sphere: learn.BG | chance: 66
+- RG | join the school's outdoor club, and learn the hills and the river by feel | v: stimulation | sphere: learn.RG | chance: 64
+- UB | read the new rules closely, and find the course that counts toward a trade licence | v: achievement, security | sphere: learn.UB | chance: 70
+- WR | speak up at the school council for trade classes for everyone who wants them | v: universalism | lever: voice | pushes: institution school | sphere: learn.RW | chance: 54
+- WU | ask the teachers to set out what the two years must cover, and keep to it | v: security, conformity | sphere: learn.WU | chance: 72
+works: The two extra years open a door {N} did not know was there.
+works: {N} leaves at eighteen with a certificate and a plan, and {parent} is proud.
+fails: {N} counts the days for two years and leaves with little to show for them.
+fails: The family shop struggles without the extra hands, and {N} feels the weight of it.
+
+# ---------------------------------------------------------------- the_exam (pairs D5b)
+
+# world: sphere event the_exam, selector members, share .8
+== four points short on the results letter
+tier: life event
+sphere: learn
+sphere_event: the_exam
+share: 0.41
+once: yes
+stages: juvenile young_adult
+age: 16-25
+per_year: 0 0 0 0 0 0
+gap: 1-5
+times: World event: the_exam (sphere learn). Selector members: the year's candidates for an entrance exam that ranks them by one number; about 8 in 10 of those who sit it get a number that leaves a real choice to make (share .8, estimate), once or twice in a life (estimate)
+likelier: places that go by one ranked exam, a first choice with few places, a family that paid for tutors
+rarer: a road into work that needs no exam
+tone: mixed
+life: school, family
+horizon: years
+roles: parent, grandparent, mentor, friend
+earth: after a week of entrance exams and a summer of waiting, a number decides which doors are open, and yours is a few points short
+scene: After a week of entrance exams and a summer of waiting, the letter has come with one number on it. It is four points short of the course {N} wanted, and just enough for the second choice.
+scene W: The test was the same for everyone. {N} sat it, and the number is the number.
+scene U: {N} is sure that two answers were marked wrong, and wants to see the paper.
+scene B: Four points. {N} knows people who got in with less, by other doors.
+scene R: A whole summer waiting on one number. {N} would rather go and do something than sit another year of tests.
+scene G: The college near home is a short bus ride away, and {grandparent} would like {N} close.
+- W | accept the second choice, and give it your best from the first day | act: accept the second choice, and give it their best from the first day | v: conformity, achievement | sphere: learn.W | chance: 71
+- U | ask to see the marked paper, and learn exactly where the four points went | v: self-direction, universalism | sphere: learn.U | chance: 65
+- B | take the second choice, and start planning a transfer in the first week | v: achievement, power | sphere: learn.B | chance: 64
+- R | turn the place down, and work with your hands for a year before deciding | act: turn the place down, and work with their hands for a year before deciding | v: stimulation, self-direction | mark: turned down a chance | lever: exit | sphere: learn.R | chance: 56
+- G | take the place at the college near home, close to the family | v: tradition, security | mark: stayed home | sphere: learn.G | chance: 60
+- BR | teach yourself the first year's course over the summer, your own way | act: teach themselves the first year's course over the summer, their own way | v: self-direction | sphere: learn.BR | chance: 64
+- RG | spend the summer working at the outdoor centre, and decide in the autumn | v: stimulation, hedonism | sphere: learn.RG | chance: 60
+- UG | ask the old teacher who knows you best which road truly suits you | act: ask the old teacher who knows them best which road truly suits them | v: self-direction, tradition | sphere: learn.GU | chance: 56
+- WB | apply for the scholarship place that asks two years of service in return | v: achievement, security | sphere: learn.WB | chance: 44
+- WU | sit the exam again next year, with a plan for every paper | v: achievement, conformity | sphere: learn.WU | chance: 50
+works: {N} ends up somewhere that suits {N} better than the first choice would have.
+works: A year on, the number no longer matters much, and {N} knows it.
+fails: The second choice never feels like {Ns} own, and {N} drifts through it.
+fails: The second try or the transfer goes nowhere, and {N} loses a year.
+
+# ---------------------------------------------------------------- discovery (pairs D4a)
+
+# world: sphere event discovery, selector place, share .3
+== the works is hiring two hundred
+tier: life event
+sphere: learn
+sphere_event: discovery
+share: 0.15
+once: yes
+stages: young_adult adult mature
+age: 18-64
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: discovery (sphere learn). Selector place: a finding at a nearby university or lab is made into work in the town; about 3 in 10 of the working-age people living there feel it in their own work or plans (share .3, estimate), once or twice in a life (estimate)
+likelier: a town near a university, an old works standing empty, a person looking for work or a new trade
+rarer: a person settled in a job they love, a remote village
+tone: joy
+life: work, community
+horizon: years
+roles: friend, colleague, parent
+earth: a lab at the regional university finds a cheaper way to store power, and the local works hires two hundred people
+scene: A lab at the regional university has found a cheaper way to store power, and the old works on the edge of {place} is hiring two hundred people to build it. The notice asks for anyone willing to learn.
+scene W: The works says it will train anyone from the town. {N} wants to make sure that means the ones nobody usually hires.
+scene U: {N} has read about the finding twice and still wants to know exactly how it works.
+scene B: Two hundred jobs, and the first in will be the foremen in five years. {N} means to be among the first.
+scene R: New machines, a new trade, and nobody an expert yet. {N} wants to get both hands on it.
+scene G: {Ns} family worked at the old works for three generations before it closed. Now it opens again.
+- W | help run the free training evenings, so anyone in town can apply | v: benevolence, universalism | sphere: learn.W | chance: 72
+- U | go to the lab's public talk and ask how the finding really works | v: self-direction | sphere: learn.U | chance: 80
+- B | apply on the first morning, and ask what it takes to run a line | v: achievement | sphere: learn.B | chance: 70
+- R | sign up for the works' training, and learn the new machines by building them | v: stimulation | mark: learned a skill | sphere: learn.R | chance: 74
+- G | take the job the family would have taken, and bring a cousin along | v: tradition, benevolence | sphere: learn.G | chance: 67
+- BG | join the team that studies every early fault on the new line | v: security | sphere: learn.BG | chance: 62
+- RG | teach the new hands on the floor the way you learned, beside them | act: teach the new hands on the floor the way they learned, beside them | v: benevolence | sphere: learn.RG | chance: 70
+- UR | build a small test model at home from the published plans, and show it off | v: stimulation, self-direction | sphere: learn.UR | chance: 48
+- WB | give to the works' training fund, so the town's young get places first | v: benevolence, power | lever: fund | pushes: place | sphere: learn.WB | chance: 64
+- WU | help the college write a fair entry test for the training places | v: universalism | sphere: learn.WU | chance: 58
+works: {N} has a place at the works by spring, and a trade that will last.
+works: The town has work again, and {N} is part of the reason.
+fails: Most of the two hundred jobs go to people from outside, and {N} is not among them.
+fails: The new line is slow to start, and the first year is short shifts and worry.
+
+# ---------------------------------------------------------------- censors_close (pairs D6b)
+
+# world: sphere event censors_close, selector place, share .3
+== books pulled from the school library
+tier: life event
+sphere: learn
+sphere_event: censors_close
+share: 0.15
+once: yes
+who: teacher
+stages: juvenile young_adult adult mature elder
+age: 13-85
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: censors_close (sphere learn). Selector place: after complaints, books are pulled and topics forbidden in the town's schools; about 3 in 10 of the people living there, pupils, parents and readers, meet it as a choice of their own (share .3, estimate), once or twice in a life (estimate)
+likelier: a fearful season after unrest, a zealous council, a pupil or parent who reads
+rarer: calm years with free speech, a person with no tie to the schools
+tone: trouble
+life: school, community, law
+horizon: months
+roles: mentor, parent, friend, teacher
+earth: after complaints the council pulls a dozen books from the school library, and the teachers are told which topics to avoid
+scene: After complaints, the council has pulled a dozen books from the school library, and the teachers have been given a list of topics to avoid. One of the books is one {N} loved, and {mentor} has gone very quiet.
+scene W: The school must follow the council, {N} supposes. But someone should ask who decides what every child may read.
+scene U: {N} wants to read the complaints, and the list, and the books themselves.
+scene B: Copies of every pulled book are still in the archive room, they say, and the archivist lends them to those she trusts.
+scene R: Nothing makes {N} want to read a book more than being told not to.
+scene G: The family has always read together at home, and the council does not decide what is read at the kitchen table.
+- W | hand in the copy as the notice asks, and write to the council asking why | v: conformity | lever: voice | pushes: institution council | sphere: learn.W | chance: 80
+- U | read the complaints and every pulled book, and judge them for yourself | act: read the complaints and every pulled book, and judge them for themselves | v: self-direction, universalism | sphere: learn.U | chance: 77
+- B | keep your head down this year, and keep your marks up | act: keep their head down this year, and keep their marks up | v: security, achievement | lever: neglect | sphere: learn.B | chance: 69
+- R | read the pulled book aloud on the school steps at lunchtime | v: stimulation, self-direction | mark: defied an authority | lever: voice | pushes: institution school | sphere: learn.R | chance: 59
+- G | keep the family's copies at home, and read them together as before | v: tradition | sphere: learn.G | chance: 63
+- BR | start a reading circle in a café for the books nobody may read at school | v: self-direction, stimulation | lever: found | sphere: learn.BR | chance: 58
+- RG | learn the old songs the list leaves out from the people who still sing them | v: tradition, stimulation | sphere: learn.RG | chance: 76
+- UB | borrow the pulled books from the archivist, and lend them only to those you trust | act: borrow the pulled books from the archivist, and lend them only to those they trust | v: self-direction, security | lever: subvert | sphere: learn.UB | chance: 56
+- WG | ask the parents' committee to meet the council about the list, all together | v: benevolence, conformity | lever: voice | pushes: institution council | sphere: learn.GW | chance: 50
+- WU | ask the school board to set out a fair, open rule for how books are judged | v: universalism | lever: voice | pushes: institution school | sphere: learn.WU | chance: 42
+works: Within a year the books are back on the shelf, and {mentor} teaches as before.
+works: {N} reads what {N} wanted to read, and learns who can be trusted with it.
+fails: {mentor} is let go at the end of term, and the school is never quite the same.
+fails: The list grows longer each term, and {Ns} name is noted for asking too many questions.
+
+# ---------------------------------------------------------------- learned_leave (pairs D1b)
+
+# world: sphere event learned_leave, selector members, share .6
+== half the class takes jobs abroad
+tier: life event
+sphere: learn
+sphere_event: learned_leave
+share: 0.31
+once: yes
+stages: young_adult
+age: 20-30
+per_year: 0 0 0 0 0 0
+gap: 3-10
+times: World event: learned_leave (sphere learn). Selector members: a graduating class in a town with closed posts or low pay, where half take jobs abroad; about 6 in 10 of the class either weigh an offer of their own or lose a close friend to it (share .6, estimate), once in a life for most who meet it (estimate)
+likelier: low pay or few posts at home, a degree that sells abroad, friends already gone
+rarer: good posts at home, a family business waiting, a partner settled in town
+tone: trouble
+life: friends, work, family
+horizon: years
+roles: friend, parent, sibling
+earth: half your graduating class takes jobs abroad, and their parents follow their lives on video calls
+scene: Half of {Ns} graduating class has taken jobs abroad, {friend} among them, and the farewell parties run all summer. {N} has an offer too, and {parent} has already learned to make video calls, just in case.
+scene W: Someone has to stay and teach, nurse and build here. {N} has always thought so.
+scene U: The labs abroad have the equipment {N} trained for. Here there is one machine, and it is broken.
+scene B: The pay abroad is three times what {N} would earn at home. The road out looks like the only road up.
+scene R: A new city, a new language, a new life. {N} is half packed already.
+scene G: {N} grew up on this street, and {parent} is getting older.
+- W | stay, and take the teaching post at the old school | v: benevolence, conformity | mark: stayed home | lever: loyalty | pushes: place | sphere: learn.W | chance: 75
+- U | take the job abroad for two years, to learn what the labs there can teach | v: self-direction, achievement | mark: moved away | lever: exit | sphere: learn.U | chance: 76
+- B | take the best-paid offer abroad, and do not look back | v: achievement, power | mark: moved away | lever: exit | sphere: learn.B | chance: 71
+- R | go abroad with no plan past the first month, and learn the place by living it | v: stimulation | mark: took a wild risk | lever: exit | sphere: learn.R | chance: 79
+- G | stay near the family, and use what you learned in the family firm | act: stay near the family, and use what they learned in the family firm | v: tradition, security | mark: stayed home | lever: loyalty | sphere: learn.G | chance: 68
+- RG | go for one summer's work abroad, and come back with what your hands learned | act: go for one summer's work abroad, and come back with what their hands learned | v: stimulation | sphere: learn.RG | chance: 64
+- UB | take the job abroad, and keep every contact at home for the day you return | act: take the job abroad, and keep every contact at home for the day they return | v: achievement, security | mark: moved away | sphere: learn.UB | chance: 70
+- UR | set up a small lab at home with the friends who stay, and show its work | v: self-direction, stimulation | lever: found | pushes: place | sphere: learn.UR | chance: 40
+- WB | take the scholarship abroad that pays you to come home and teach after | act: take the scholarship abroad that pays them to come home and teach after | v: achievement, benevolence | mark: moved away | sphere: learn.WB | chance: 50
+- WG | stay and help run the night school, so others learn what you learned | act: stay and help run the night school, so others learn what they learned | v: benevolence | mark: stayed home | sphere: learn.GW | chance: 62
+works: Whether {N} goes or stays, the choice turns out to fit.
+works: The friends abroad stay close through the screen, and some of them come back.
+fails: {friend} stops calling after the first year, and the old crowd scatters for good.
+fails: {N} spends years wondering about the road not taken.
+
+# ---------------------------------------------------------------- learned_arrive (pairs D2a)
+
+# world: sphere event learned_arrive, selector place, share .2
+== new teachers at the college from far away
+tier: life event
+sphere: learn
+sphere_event: learned_arrive
+share: 0.1
+once: yes
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: learned_arrive (sphere learn). Selector place: skilled people who fled a war or a purge abroad settle, retrain and teach; about 2 in 10 of the people living there meet one as a teacher, a neighbour or a rival for a post (share .2, estimate), once or twice in a life (estimate)
+likelier: a college town, a war or purge abroad, a person who takes evening courses or works in a skilled trade
+rarer: a closed town that lets few settle, a remote village
+tone: joy
+life: community, work, school
+horizon: years
+roles: colleague, friend, rival
+earth: doctors and engineers who fled a war abroad retrain and teach at the college, and its labs double in a decade
+scene: Doctors and engineers who fled a war abroad have retrained and now teach at the college in {place}. Its labs are full, the evening courses have doubled, and one of the newcomers has asked {N} for help with the language.
+scene W: The newcomers had to sit every exam again from the start. {N} admires anyone who begins again that fairly.
+scene U: The engineer who teaches on Tuesdays knows things {N} has never found in any book.
+scene B: The new surgeon is better than anyone at the hospital, and {colleague} is worried about the next promotion. {N} sees what it means.
+scene R: The newcomers' welding course has a waiting list. {N} wants a place on it.
+scene G: The family next door cooks food {N} has never tasted, and asks nothing but to be good neighbours.
+- W | help the newcomers with the language twice a week at the college | v: benevolence, universalism | mark: helped someone in need | sphere: learn.W | chance: 72
+- U | take the newcomer engineer's evening course, and ask every question you have | act: take the newcomer engineer's evening course, and ask every question they have | v: self-direction | mark: learned a skill | sphere: learn.U | chance: 75
+- B | ask the best of the newcomers to teach you, and trade what you know in return | act: ask the best of the newcomers to teach them, and trade what they know in return | v: achievement, power | mark: made a friend | sphere: learn.B | chance: 70
+- R | get a place on the welding course, and learn it at the bench | v: stimulation | mark: learned a skill | sphere: learn.R | chance: 72
+- G | invite the family next door to dinner, and learn each other's dishes | v: benevolence, tradition | mark: made a friend | sphere: learn.G | chance: 69
+- BG | ask the newcomer surgeon which of her mistakes taught her the most | v: security, universalism | sphere: learn.BG | chance: 60
+- BR | pick up the newcomers' language in the café, your own way, word by word | act: pick up the newcomers' language in the café, their own way, word by word | v: self-direction, stimulation | sphere: learn.BR | chance: 60
+- UR | join the newcomers' lab project, and help build the first test model | v: stimulation, achievement | sphere: learn.UR | chance: 56
+- WG | help the newcomers' children settle in at the local school | v: benevolence | sphere: learn.GW | chance: 62
+- WU | help the college set a fair test so the newcomers' old training counts | v: universalism | lever: voice | pushes: institution university | sphere: learn.WU | chance: 54
+works: {N} learns something from the newcomers that no one in {place} could have taught.
+works: A few years on, the college is busier, and {N} has friends in it from far away.
+fails: Some at work resent the newcomers, and {N} is caught in the middle.
+fails: The newcomer {N} learned most from moves on to a bigger city.
+
+# ---------------------------------------------------------------- free_library (pairs D3b)
+
+# world: sphere event free_library, selector place, share .3
+== the library reopens after the refit
+tier: life event
+sphere: learn
+sphere_event: free_library
+share: 0.15
+once: yes
+haunt: learn.keeping
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: free_library (sphere learn). Selector place: a library opens or reopens with free rooms and classes; about 3 in 10 of the people living there take it up as a place of their own (share .3, estimate), once or twice in a life (estimate)
+likelier: a reader, a student with no quiet room at home, a person out of work, a home near the library
+rarer: a person who never reads, a long drive from town
+tone: joy
+life: community, school, interests
+horizon: years
+roles: grandparent, friend, sibling
+earth: the library reopens after the refit, with study rooms, a makers' workshop and free classes in the evenings
+scene: The library has reopened after the refit, with study rooms, a makers' workshop and free classes every evening. On the first night the queue goes round the corner, and {N} is in it.
+scene W: Free classes, open to anyone with a card. {N} thinks of the people who never had a card.
+scene U: A whole wall of new books, and a quiet room to read them in. {N} could live here.
+scene B: The study rooms are free and can be booked a week ahead. {N} means to book the best one before the rush.
+scene R: The makers' workshop has a cutter, a soldering bench and a sewing machine, and nobody is stopping {N} from trying all three.
+scene G: {grandparent} took {N} to the old library years ago. The children's corner is still in the same place.
+- W | help run the free reading class for grown-ups on Thursday evenings | v: benevolence | sphere: learn.W | chance: 72
+- U | read your way along one shelf, a book a week, all winter | act: read their way along one shelf, a book a week, all winter | v: self-direction | sphere: learn.U | chance: 78
+- B | book the best study room for every evening of the exam season | v: achievement | sphere: learn.B | chance: 78
+- R | try every machine in the makers' workshop in the first month | v: stimulation | mark: learned a skill | sphere: learn.R | chance: 84
+- G | take the family's youngest to the children's corner every Saturday | v: tradition, benevolence | sphere: learn.G | chance: 74
+- BR | teach yourself a whole new subject from the shelves, with no course and no exam | act: teach themselves a whole new subject from the shelves, with no course and no exam | v: self-direction, hedonism | sphere: learn.BR | chance: 60
+- UG | join the history group that records the old people's memories of the town | v: tradition, universalism | sphere: learn.GU | chance: 72
+- UR | build something in the workshop, and show it at the library's open evening | v: achievement, stimulation | sphere: learn.UR | chance: 64
+- WB | pay for a shelf of new books, with the family's name on a small plate | v: benevolence, power | lever: fund | pushes: place | sphere: learn.WB | chance: 76
+- WG | take a turn on the volunteers' rota that keeps the reading room open late | v: benevolence | lever: loyalty | pushes: place | sphere: learn.GW | chance: 72
+works: The library becomes {Ns} place, and the people in it a circle of {Ns} own.
+works: {N} learns more there in one winter than in years before.
+fails: The evening classes are cut in the second year, when the money runs short.
+fails: {N} means to go often, and goes twice.
+
+# ---------------------------------------------------------------- teachers_walk_out (pairs D5a)
+
+# world: sphere event teachers_walk_out, selector place, share .4
+== six weeks with the schools on strike
+tier: life event
+sphere: learn
+sphere_event: teachers_walk_out
+share: 0.2
+once: yes
+who: teacher
+stages: young_adult adult mature
+age: 24-60
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: teachers_walk_out (sphere learn). Selector place: the teachers strike for weeks over pay and class sizes; about 4 in 10 of the people living there are parents of a pupil and have the children at home (share .4, estimate), once or twice while their children are at school (estimate)
+likelier: a child at school, two parents in work, a street of young families
+rarer: no children of school age, a private school
+tone: mixed
+life: children, family, community
+horizon: months
+roles: child, friend, mentor, teacher
+earth: the teachers strike for six weeks over pay and class sizes, and parents swap days off to mind each other's children
+scene: The teachers have walked out over pay and class sizes, and the strike is in its third week. {child} is at home, and the parents on the street swap days off to mind each other's children.
+scene W: The strike is fair, {N} thinks, but someone must see that the children keep learning.
+scene U: {N} has read both sides' figures. The classes really are too big.
+scene B: The families who can pay a tutor are doing fine. {N} wonders how long the others can wait.
+scene R: {N} never liked school much either. Six weeks off could be an adventure, for {child} too.
+scene G: {Ns} own mother used to say every grown-up on a street is a teacher. Now the street gets to prove it.
+- W | set a daily timetable of reading and sums at the kitchen table | v: conformity, benevolence | sphere: learn.W | chance: 78
+- U | read both sides' figures, and explain the strike honestly to the children | v: universalism | sphere: learn.U | chance: 79
+- B | pay a tutor for the weeks of the strike, and keep your child ahead | act: pay a tutor for the weeks of the strike, and keep their child ahead | v: achievement, security | sphere: learn.B | chance: 78
+- R | take the children to the museum and the woods, and call it school | v: stimulation, hedonism | sphere: learn.R | chance: 78
+- G | take your turn minding the street's children, and teach them what you know | act: take their turn minding the street's children, and teach them what they know | v: benevolence, tradition | sphere: learn.G | chance: 67
+- BG | keep a note of what the children forget, and plan to catch it up later | v: security | sphere: learn.BG | chance: 72
+- UB | find out what deal is on the table before the council announces it | v: power | sphere: learn.UB | chance: 48
+- UR | set the street's children a building project in the garage, and test it together | v: stimulation, benevolence | sphere: learn.UR | chance: 70
+- WG | organise the street's rota of parents, so every child is minded | v: benevolence | sphere: learn.GW | chance: 70
+- WR | bring the parents to stand with the teachers at the school gate | v: universalism, benevolence | lever: voice | pushes: institution school | sphere: learn.RW | chance: 50
+works: The strike ends with smaller classes, and {child} goes back glad to see the teacher.
+works: The street comes out of the six weeks closer, with a rota it keeps.
+fails: The six weeks cost {N} a week's wages, and the deal changes little.
+fails: {child} falls behind in reading, and it takes the rest of the year to catch up.
+
+# ---------------------------------------------------------------- war_empties_schools (pairs D6a)
+
+# world: sphere event war_empties_schools, selector place, share .8
+== a year with the schools shut
+tier: life event
+sphere: learn
+sphere_event: war_empties_schools
+share: 0.41
+once: yes
+stages: juvenile young_adult
+age: 12-22
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: war_empties_schools (sphere learn). Selector place: fighting nearby closes the schools and colleges for a year or more; about 8 in 10 of the pupils and students living there lose the year as their own (share .8, estimate), once in a life where it happens at all (estimate)
+likelier: a war near home, a town in the path of the fighting, a pupil in the last years of school
+rarer: a place far from the fighting, a family that has already left
+tone: trouble
+life: school, family, home
+horizon: years
+roles: grandparent, mentor, parent
+earth: the fighting closes the schools for a year, and the lessons come over the phone when the power is on
+scene: The fighting has closed the schools for a year. {Ns} old classroom is a store for the field hospital now, and the lessons come over the phone when the power is on, which is not often.
+scene W: The school's timetable is taped to the wall at home. {N} means to keep to it whenever the power allows.
+scene U: The textbooks are still on the shelf at home. {N} has a whole year to read them.
+scene B: The lost year will cost the whole class their places. Whoever keeps up will come out ahead.
+scene R: No school, no bus, no bell. {N} wants to learn something real, with {Ns} own hands.
+scene G: {grandparent} is a carpenter, and has time now to teach.
+- W | do every lesson that comes through, at the hour it is set | v: conformity, achievement | sphere: learn.W | chance: 65
+- U | work through the old textbooks at home, a chapter a day | v: self-direction | sphere: learn.U | chance: 68
+- B | find an older student online who will tutor you ahead of the class | act: find an older student online who will tutor them ahead of the class | v: achievement | tech: internet | sphere: learn.B | chance: 69
+- R | learn to mend the radio and the lamps with the neighbour, and keep them working | v: stimulation, security | mark: learned a skill | sphere: learn.R | chance: 64
+- G | learn carpentry at your grandparent's side while the schools are shut | act: learn carpentry at their grandparent's side while the schools are shut | v: tradition | mark: learned a skill | sphere: learn.G | chance: 65
+- BG | keep a list of what the year has cost, and plan how to catch it up | v: security, achievement | sphere: learn.BG | chance: 60
+- UG | keep a diary of the year in the town, for the archive to keep | v: universalism, tradition | sphere: learn.GU | chance: 60
+- UR | build a phone charger from old parts with the science teacher | v: stimulation, self-direction | sphere: learn.UR | chance: 54
+- WB | ask the aid charity for a laptop and a place in its classes | v: security, achievement | sphere: learn.WB | chance: 52
+- WR | teach the little ones on the street their letters at the kitchen table | v: benevolence | sphere: learn.RW | chance: 68
+works: The schools reopen, and {N} has kept more than most.
+works: {N} comes out of the year with a skill and a habit of learning alone.
+fails: The lost year shows in {Ns} marks for a long time.
+fails: The schools stay shut longer than anyone said, and the class never quite comes back together.
+
+# ---------------------------------------------------------------- glut_of_learned (pairs D6b)
+
+# world: sphere event glut_of_learned, selector members, share .5
+== a degree and a job at the till
+tier: life event
+sphere: learn
+sphere_event: glut_of_learned
+share: 0.25
+once: yes
+stages: young_adult adult
+age: 21-35
+per_year: 0 0 0 0 0 0
+gap: 5-15
+times: World event: glut_of_learned (sphere learn). Selector members: graduates in a slow economy where half the year's degrees buy jobs that need none; about half of them feel it as their own (share .5, estimate), once in a life, for some years (estimate)
+likelier: a slow economy, a degree in a crowded field, no family contacts in work
+rarer: a degree in short supply, a family firm, a boom
+tone: trouble
+life: work, school, family
+horizon: years
+roles: parent, friend, boss
+earth: half the year's graduates work jobs that need no degree, you among them, and a movement of the young starts in the university towns
+scene: {N} has a degree and works at the till in the big shop, like half of the year's graduates. {parent} still tells the neighbours about the degree. In the university town, a movement of the young meets every Thursday.
+scene W: {N} did everything asked: the exams, the loans, the long nights. The promise was a fair one, and it has not been kept.
+scene U: {N} still reads in the field every evening. Nobody pays for it, but the questions have not gone away.
+scene B: The good posts go to those with an uncle in the firm. {N} has no uncle, and needs a way in.
+scene R: {N} is bored and angry, and the Thursday meetings are the only place that feels alive.
+scene G: The family bakery could use someone to keep its accounts. {N} had wanted to get away from it.
+- W | keep applying for posts in the field, one careful letter at a time | v: conformity, achievement | sphere: learn.W | chance: 65
+- U | keep reading in the field in the evenings, and write about it online | v: self-direction | tech: internet | sphere: learn.U | chance: 64
+- B | work every contact you have for a post, and call in favours | act: work every contact they have for a post, and call in favours | v: power, achievement | sphere: learn.B | chance: 60
+- R | go to the Thursday meetings of the young, and speak at one | v: stimulation, self-direction | lever: voice | pushes: state | sphere: learn.R | chance: 63
+- G | go home to the family bakery, and bring your learning to its books | act: go home to the family bakery, and bring their learning to its books | v: tradition, security | mark: came home | lever: loyalty | sphere: learn.G | chance: 60
+- BR | teach what you know online, your own way, to whoever will pay | act: teach what they know online, their own way, to whoever will pay | v: self-direction | sphere: learn.BR | chance: 56
+- RG | retrain in a trade, and start again at the bench | v: stimulation, security | mark: learned a skill | sphere: learn.RG | chance: 58
+- UB | study the hiring lists, and find the field with more posts than graduates | v: achievement, security | sphere: learn.UB | chance: 64
+- WG | tutor the street's children for free on Saturdays while you look | act: tutor the street's children for free on Saturdays while they look | v: benevolence | sphere: learn.GW | chance: 62
+- WU | press the university to publish how many of its graduates find work | v: universalism | lever: voice | pushes: institution university | sphere: learn.WU | chance: 48
+works: Within two years {N} finds work that uses the degree, or a road that was worth more.
+works: {N} stops waiting for the promise and builds something of {Ns} own.
+fails: The years at the till stretch on, and the degree feels like a debt.
+fails: {N} grows bitter, and the Thursday meetings grow angrier.
+
+# ---------------------------------------------------------------- old_ways_taught (pairs D1a)
+
+# world: sphere event old_ways_taught, selector place, share .2
+== a weekend school for the old language
+tier: life event
+sphere: learn
+sphere_event: old_ways_taught
+share: 0.1
+once: yes
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+gap: 10-40
+times: World event: old_ways_taught (sphere learn). Selector place: a near-lost home language is taught again at a weekend school; about 2 in 10 of the people living there come from families who spoke it and meet it as their own (share .2, estimate), once in a life (estimate)
+likelier: a family whose elders spoke the old language, a revival of pride after a loss, a close quarter
+rarer: a family with no tie to the language, a person far from the quarter
+tone: joy
+life: family, community, school
+horizon: years
+roles: elder, parent, child
+earth: a weekend school teaches the grandparents' language, and children who used to be ashamed of it now correct their parents
+scene: A weekend school in the community hall teaches the grandparents' language. Children who used to be ashamed of it now correct their parents at the dinner table, and {elder} has started to tell the old stories again.
+scene W: The school is open to any family who wants it, and {N} would like to see every family come.
+scene U: {N} wants to know where the old words came from, and why the language was let go.
+scene B: The weekend school needs teachers who speak it well, and pays a little. {N} speaks it better than most.
+scene R: The words come back faster in song than in books. {N} wants to learn the way the old ones did, out loud.
+scene G: These are the words {N} heard as a child in {elder}'s kitchen. {N} had almost forgotten them.
+- W | go every Saturday, and bring the whole family along | v: conformity, tradition | sphere: learn.W | chance: 78
+- U | read up on the language's history, and ask the oldest speakers what the words mean | v: self-direction, universalism | sphere: learn.U | chance: 70
+- B | offer to teach a class at the weekend school, for the small wage | v: achievement | sphere: learn.B | chance: 68
+- R | learn the old songs by ear at the hall's singing night | v: stimulation, hedonism | mark: learned a skill | sphere: learn.R | chance: 76
+- G | sit with the oldest speaker on the street, and learn the words at their side | v: tradition | mark: learned a skill | sphere: learn.G | chance: 68
+- BG | laugh at your own mistakes in class, and learn from each one | act: laugh at their own mistakes in class, and learn from each one | v: self-direction, hedonism | sphere: learn.BG | chance: 62
+- BR | mix the old words into your own songs and posts, your own way | act: mix the old words into their own songs and posts, their own way | v: self-direction, stimulation | sphere: learn.BR | chance: 62
+- UG | record the oldest speakers telling their stories, for the school to keep | v: tradition, universalism | sphere: learn.GU | chance: 62
+- WR | speak up for the old language at the town school, so every child can take it | v: universalism | lever: voice | pushes: institution school | sphere: learn.RW | chance: 46
+- WU | help write a simple course book, so every class learns the same words | v: universalism, conformity | sphere: learn.WU | chance: 58
+works: {N} speaks the old words at the next family feast, and {elder} has to look away for a moment.
+works: The language comes back into the street, a little at a time.
+fails: The school loses its hall after a year, and the classes stop.
+fails: The purists at the school frown at the way {N} speaks it, and {N} stops going.
+
+# ---------------------------------------------------------------- store_lost (pairs D3a)
+
+# world: sphere event store_lost, selector place, share .2
+== the archive floods overnight
+tier: life event
+sphere: learn
+sphere_event: store_lost
+share: 0.1
+once: yes
+haunt: learn.keeping
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 0 0 0 0
+gap: 20-60
+times: World event: store_lost (sphere learn). Selector place: fire, flood or war takes a store of records with few copies kept elsewhere; about 2 in 10 of the people living there lose a record they needed or a book they loved, or help carry the rest out (share .2, estimate), once in a life where it happens at all (estimate)
+likelier: an old archive in a basement or a flood plain, a family with old claims or old papers, a reader
+rarer: records copied in many places, a person with no tie to the town's past
+tone: trouble
+life: community, family, home
+horizon: months
+roles: grandparent, friend, elder
+earth: a flood fills the archive's basement overnight, and the town's oldest registers are lost
+scene: A flood has filled the archive's basement overnight. Volunteers are freezing the soaked boxes to save them, but the town's oldest registers are lost, and with them the only record of {Ns} great-grandparents.
+scene W: The volunteers need hands, and the archive belongs to everyone. {N} rolls up {Ns} sleeves.
+scene U: There may be copies somewhere: at the council, in a scholar's notes, in another town. {N} wants to find them.
+scene B: The registers held the deeds to half the old quarter. {N} knows some will now try to claim what is not theirs.
+scene R: The water is still in the basement, and {N} wants to be down there carrying boxes out.
+scene G: {grandparent} remembers what the registers said. Memory may be all that is left.
+- W | join the volunteers freezing the soaked boxes, shift after shift | v: benevolence, conformity | mark: helped someone in need | sphere: learn.W | chance: 73
+- U | write to every archive and scholar who might hold copies of the old registers | v: universalism, self-direction | sphere: learn.U | chance: 75
+- B | have the family's claim written down and witnessed before the arguments start | v: security, power | sphere: learn.B | chance: 71
+- R | carry boxes out of the basement with the crew until the water is gone | v: stimulation, benevolence | sphere: learn.R | chance: 68
+- G | sit with the oldest in the family, and write down all they remember | v: tradition | sphere: learn.G | chance: 72
+- BG | study what went wrong in the basement, and show how to keep the next store safe | v: security | sphere: learn.BG | chance: 60
+- RG | dry the old photographs by hand, one by one, on the kitchen table | v: tradition, benevolence | sphere: learn.RG | chance: 62
+- UB | help the archivist sort out which papers can still prove a claim | v: power, security | sphere: learn.UB | chance: 64
+- WR | rally the neighbours with buckets and boxes before the water rises again | v: benevolence, universalism | sphere: learn.RW | chance: 68
+- WU | press for a rule that every record is copied and kept in two places | v: security, universalism | lever: voice | pushes: institution council | sphere: learn.WU | chance: 52
+works: Copies turn up in a scholar's notes in another town, and the gap in the record is smaller than feared.
+works: {N} helps save boxes that would have been lost, and is thanked by name.
+fails: The record {N} needed is gone for good, and an old claim is argued all over again.
+fails: The archive stays shut for years, and the town's past has a hole in it.
+
+# ---------------------------------------------------------------- newcomer_taught (pairs D5b)
+
+# world: sphere event newcomer_taught, selector place, share .2
+== the family in the flat below
+tier: life event
+sphere: learn
+sphere_event: newcomer_taught
+share: 0.1
+once: yes
+who: neighbour
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+gap: 5-20
+times: World event: newcomer_taught (sphere learn). Selector place: a family from abroad settles in a building or a street; about 2 in 10 of the people living there are close enough neighbours to teach, befriend or keep them at arm's length (share .2, estimate), a few times in a life (estimate)
+likelier: a flat in a mixed quarter, a town that takes newcomers in, children of the same age
+rarer: a detached house far from neighbours, a town few newcomers reach
+tone: mixed
+life: home, community, friends
+horizon: years
+roles: friend, child, neighbour
+earth: a family from abroad moves into the flat below: the children top their class within a year, and the parents still struggle with the forms
+scene: A family from abroad has moved into the flat below. Within a year the children top their class, while the parents still struggle with the forms, the letters from the council and the doctor's phone line.
+scene W: The children ask for help with their homework on the stairs. {N} remembers what it was like to be stuck on a sum.
+scene U: {N} is curious about where they came from, and what they did there before.
+scene B: The father was an accountant at home, the neighbours say. {N} knows a firm that needs one.
+scene R: The children play loud yard games {N} has never seen, and {N} wants to learn them.
+scene G: The grandmother cooks every evening, and the smell comes up the stairs. Some of the neighbours mutter about it.
+- W | help the children with their homework when the parents cannot | v: benevolence | mark: helped someone in need | sphere: learn.W | chance: 72
+- U | ask them about the place they came from, and listen | v: universalism, self-direction | mark: made a friend | sphere: learn.U | chance: 77
+- B | put the father in touch with the firm that needs an accountant | v: achievement, benevolence | sphere: learn.B | chance: 73
+- R | learn the children's yard games, and teach them the games you grew up with | act: learn the children's yard games, and teach them the games they grew up with | v: stimulation, hedonism | mark: made a friend | sphere: learn.R | chance: 75
+- G | keep a polite distance, and greet them on the stairs | v: security, tradition | sphere: learn.G | chance: 72
+- BR | pick up a little of their language, word by word, just for the fun of it | v: hedonism, self-direction | sphere: learn.BR | chance: 64
+- RG | teach the family's youngest to ride a bike in the yard | v: benevolence, stimulation | sphere: learn.RG | chance: 76
+- UG | swap recipes with the grandmother, and write them down for both families | v: tradition, universalism | sphere: learn.GU | chance: 70
+- WB | pay for the children's school trip, so they are not left out | v: benevolence | lever: fund | sphere: learn.WB | chance: 80
+- WU | show the parents how the forms work, step by step, until they can do them alone | v: universalism, benevolence | sphere: learn.WU | chance: 66
+works: The two families become friends, and the children grow up in and out of each other's flats.
+works: {N} learns as much from the newcomers as they learn from {N}.
+fails: A misunderstanding on the stairs sours things, and the two families stop speaking.
+fails: The newcomers move on after two years, and {N} wishes {N} had done more.
