@@ -3132,6 +3132,31 @@ let hudFrames = [], hudLast = null;
 const seasonWords = (x) => `${x.kind === "stage" ? "Crossing into " + x.into : "Becoming " + x.into} · ${x.step_word}`;
 const SEASON_DEF = "A season of change: the crossing, the in-between, then settling in. One moment in it can transform who they become.";
 function seasonTip(x) { return tipBox(`${ic("gate")} ${esc(seasonWords(x))}`, SEASON_DEF, [["Step", `${x.step} of 3`], ["Weeks in", String(x.weeks_in)], ["Weeks left", String(x.weeks_left)]], ""); }
+// item 15 "your places": the haunts they go to, their standing in each sphere, and their town's spheres (game.places_view)
+const SPH_ICON = { rule: "sign", gather: "people", arts: "feather", faith: "candle", care: "heart", learn: "book", prod: "case", comm: "coin", prot: "shield" };
+const FACE_ORDER = ["W", "U", "B", "R", "G"];
+function placesHTML(L) {
+  const P = L.places; if (!P) return "";
+  const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}</span>`).join("");
+  const up = (P.rungs || []).filter((r) => r.rung > 0);
+  const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
+  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}</span>`).join("");
+  if (!hs && !rs && !tw) return "";
+  return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+}
+function bindPlaces(L) {
+  const P = L.places; if (!P) return;
+  const faces = (fs) => FACE_ORDER.map((c, i) => [c, fs[i]]).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, v]) => `${pip(c)} ${pct(v)}`).join(" ");
+  hudEl.querySelectorAll("[data-pl]").forEach((el) => { const h = P.haunts[+el.dataset.pl]; setTip(el, () => tipBox(`${ic(SPH_ICON[h.sphere] || "home")} ${esc(cap(h.name))}`, esc(h.lead_line),
+    [["A place of", esc(cap(h.kind))], ["Sphere", esc(h.sphere_name)], ["Its way", `${pip(h.lead)} ${esc(h.lead_name)}`], ["Who sets the tone", faces(h.faces)]].concat(h.keeper ? [["Kept by", esc(h.keeper)]] : []),
+    h.setting ? "One of their own circles meets here." : "A place they go to; the regulars there know their face.")); });
+  hudEl.querySelectorAll("[data-plr]").forEach((el) => { const r = P.rungs.find((x) => x.sphere === el.dataset.plr); setTip(el, () => tipBox(`${ic(SPH_ICON[r.sphere] || "home")} ${esc(r.sphere_name)}`, esc(r.question),
+    [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]], "Standing rises with years of showing up and with what they do there.")); });
+  hudEl.querySelectorAll("[data-plt]").forEach((el) => { const t = P.town.find((x) => x.sphere === el.dataset.plt); setTip(el, () => tipBox(`${ic(SPH_ICON[t.sphere] || "home")} ${esc(t.sphere_name)}`, "",
+    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]], "How their town spends its days, and the way each part of life is done there.")); });
+}
+
 function renderHud(L) {
   if (!L || !L.w) { hudEl.innerHTML = ""; return; }
   const lc = labelColors(L.label);
@@ -3178,6 +3203,7 @@ function renderHud(L) {
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
+    ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
     ${L.temper ? `<div class="hsec"><h4>Temperament</h4><div class="tmpr">${TEMPER.map(([k, lb, icn, top]) => `<div class="tm" data-tm="${k}">${ic(icn)}<div><div class="bar"><b style="width:${(clamp(L.temper[k] / top) * 100).toFixed(1)}%"></b></div>${lb}</div></div>`).join("")}</div></div>` : ""}
@@ -3215,6 +3241,7 @@ function renderHud(L) {
       : tipBox(`${ic(KIND_ICON[k])} ${cap(k)}`, "Not held yet", [], ""));
   });
   hudEl.querySelectorAll("[data-pid]").forEach((el) => setTip(el, () => personTip(+el.dataset.pid)));
+  bindPlaces(L);
   hudEl.querySelectorAll("[data-cid]").forEach((el) => setTip(el, () => circleTip((L.circle || []).find((p) => p.id === +el.dataset.cid))));
   hudEl.querySelectorAll("[data-reach]").forEach((el) => { const r = (L.reach || []).find((x) => x.ring === el.dataset.reach); if (r) setTip(el, () => tipBox(`${ic(r.icon)} Reach: ${esc(r.word)}`, "",
     [["Standing", esc(r.level_word)], ["They feel", `${fpct(r.felt)} able to change it`], ["Reality, roughly", esc(r.hint || "unclear")]],
