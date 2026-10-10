@@ -2015,7 +2015,7 @@ class World:
             if not hasattr(self, "sph_wq") or self.sph_wq is None:
                 self.sph_wq = []
             self.sph_wq.append([domain, kind, None if key is None else str(key), int(v_.get("loc", -1)), int(v_.get("inst", -1)),
-                                None if v_.get("state") is None else str(v_["state"])])
+                                None if v_.get("state") is None else str(v_["state"]), bool(big)])
         self.log.append(e)
         if public:
             self.record.append(e)
@@ -2767,7 +2767,7 @@ class World:
         if self.p.get("sph_events", False):
             if not hasattr(self, "sph_wq") or self.sph_wq is None:
                 self.sph_wq = []
-            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None])
+            self.sph_wq.append(["sphere", str(key).split(".")[-1], None, int(loc), -1, None, True])
 
     def _sph_wf_key(self, domain, kind, key, value):
         """The sphere event a world event fires (dynamics.json events_run world_fired; one key, one event), or None."""
@@ -2846,7 +2846,7 @@ class World:
             fire[1:, E["big"]] = False                                                       # a big event fires once
             for l, i in zip(*np.nonzero(fire)):
                 self._sph_fire(int(l), int(i), q, E)
-        for dom, kind, k_, lc_, in_, st_ in (getattr(self, "sph_wq", None) or []):         # the world-fired events
+        for dom, kind, k_, lc_, in_, st_, *bg_ in (getattr(self, "sph_wq", None) or []):   # the world-fired events
             ek = kind if dom == "sphere" else self._sph_wf_key(dom, kind, k_, dict(inst=in_, loc=lc_, state=st_) if in_ >= 0 else dict(loc=lc_, state=st_))
             if isinstance(ek, tuple):                                    # a house closes, trust broken: the sphere's own
                 cand = E["fam"].get((ek[0], ek[1]), [])                  # event of that family with the highest hazard
@@ -2856,7 +2856,9 @@ class World:
             if ek is None or ek not in E["key"]:
                 continue
             i = E["key"][ek]; l = int(lc_) if 0 <= lc_ < nl else int(np.argmax(self._cache_evh[:, i]))
-            self._sph_fire(l, i, q, E, here=0 <= lc_ < nl)
+            here_ = 0 <= lc_ < nl
+            self._sph_fire(l, i, q, E, here=here_, local=here_ and not (bg_[0] if bg_ else True))   # a town's own news
+
         self.sph_wq = []
         self.sph_st += sr["relax"] * (sr["start"] - self.sph_st); self.sph_st_soc += sr["relax"] * (sr["start"] - self.sph_st_soc)
         # the fading shifts of every row still acting
@@ -2905,13 +2907,16 @@ class World:
         adj = town[0] - np.einsum("njp,pc->njc", ph, T["pairA"])
         return np.einsum("njf,jfc->njc", adj, teach) + 2 * np.einsum("njp,pc->njc", ph, T["pairT"])
 
-    def _sph_fire(self, l, i, q, E, here=False):
+    def _sph_fire(self, l, i, q, E, here=False, local=False):
         """Event i fires in town l (a big event: for the whole society): its rows start acting and step the sphere's own
         states (a big row on the society's, in every town; a local row on the town's: town l, or for an event with a big
         row the top third of towns by its hazard, at least one), its chains open their windows, the log and the
-        last-fired table take it. here: a world-fired event with a town of its own (its local rows act there)."""
+        last-fired table take it. here: a world-fired event with a town of its own (its local rows act there); local: the
+        world's event was not big (every row acts in that town only, and only that town's moments open)."""
         nl = self.n_loc; sr = E["sr"]
-        if E["big"][i]:
+        if local:                 # a world event that stays in its town (a local body's closure or scandal, a town's
+            loc_t = every = np.array([l])                     # crime wave): every row acts there, as a local row
+        elif E["big"][i]:
             k_ = max(1, int(np.ceil(nl / 3)))
             loc_t = np.array([l]) if here else np.argsort(-self._cache_evh[:, i], kind="stable")[:k_]
             every = np.arange(nl)
@@ -2921,6 +2926,7 @@ class World:
         for (ei, j, f, bg, tau, st) in E["rows"]:
             if ei != i:
                 continue
+            bg = bg and not local
             towns = every if bg else loc_t
             if f.any():
                 add += [np.concatenate([[t_, j, q, tau], (E["sig"][1] if bg else E["sig"][0]) * f]) for t_ in towns]
@@ -2935,7 +2941,7 @@ class World:
             if a == i:
                 self.sph_ev_win[every, b, 0] = q + lo; self.sph_ev_win[every, b, 1] = q + hi
         self.sph_ev_last[every, i] = int(self.t)
-        self.sph_ev_log = np.vstack([self.sph_ev_log, [[int(self.t), i, -1 if E["big"][i] else l]]])
+        self.sph_ev_log = np.vstack([self.sph_ev_log, [[int(self.t), i, -1 if E["big"][i] and not local else l]]])
 
     def place_info(self, p):
         """A named place (flat index town x kind x N_PLACES, as People.hnt holds it): its town, kind, sphere, name number,
