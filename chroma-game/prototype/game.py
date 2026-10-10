@@ -29,6 +29,10 @@ try:
 except ImportError:
     ES = None
 try:
+    import earth_spheres as ESP # item 15: the Library's sphere words for "your places" (haunt names, rungs, faces)
+except ImportError:
+    ESP = None
+try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
 except ImportError:
     RT = None
@@ -2514,6 +2518,9 @@ class Game:
                       zip(self.history["w"], self.history["content"], self.history["peace"], self.history["label"])]
         d["guilds"] = dict({k: v for k, v in IDENT_NAME.items() if k}, **{l_: ident_name(l_) for _, l_ in self.history["label"] if l_})
         d["goals"] = self.goals()
+        pv = self.places_view()
+        if pv:
+            d["places"] = pv
         wd = self.world_data()
         if wd:                                          # the outer world: the named cast by layer, and reach by standing
             d["circle"] = self.wv.circle(wd[2], self.t, self.cast_names(wd[2])); d["reach"] = self.wv.reach(wd[3])
@@ -2728,6 +2735,42 @@ class Game:
         except Exception:
             pass
         return d
+
+    def places_view(self):
+        """Item 15's player view, "your places": the haunts they go to (the Library's name for the place, its kind, the face
+        that leads it, whether a setting of theirs meets there), their standing in each sphere they have climbed in, and the
+        town's spheres by their share of the hours. Display only; empty while the engine's sphere switches are off."""
+        WL = self.loc.get("WL") if isinstance(self.loc, dict) else None
+        if WL is None or ESP is None:
+            return None
+        try:
+            hi = WL.PP.haunts_info(0)
+        except Exception:
+            return None
+        if not hi["haunts"] and not hi["rungs"]:
+            return None
+        nm = lambda d, k: (d.get(k) or {}).get("name", k)
+        haunts = []
+        for h in hi["haunts"]:
+            H = ESP.HAUNT.get(h["kind"], {}); ns = H.get("names") or [nm(ESP.PLACE, h["kind"])]
+            haunts.append(dict(name=ns[h["name"] % len(ns)], kind=nm(ESP.PLACE, h["kind"]), sphere=h["sphere"],
+                               sphere_name=nm(ESP.SPHERE, h["sphere"]), lead=h["leads"][-1], lead_name=nm(ESP.FACE, h["leads"]),
+                               lead_line=(ESP.FACE.get(h["leads"]) or {}).get("line", ""), faces=h["faces"],
+                               keeper=H.get("keeper", ""), setting=h["setting"]))
+        LADDER = ["newcomer", "regular", "known", "pillar", "leader"]       # world_keys.LADDER, the engine's order
+        rungs = [dict(sphere=s_, sphere_name=nm(ESP.SPHERE, s_), rung=LADDER.index(r_), word=ESP.RUNG[s_][LADDER.index(r_)],
+                      question=(ESP.SPHERE.get(s_) or {}).get("question", ""))
+                 for s_, r_ in hi["rungs"].items() if r_ in LADDER and s_ in ESP.RUNG]
+        rungs.sort(key=lambda r: -r["rung"])
+        town = []
+        try:
+            l = int(WL.PP.loc[0]); sp = WL.W._sph_portrait() if getattr(WL.W, "sph_s", None) is not None else []
+            sp = next((x["spheres"] for x in sp if x["town"] == l), {})
+            town = sorted((dict(sphere=s_, sphere_name=nm(ESP.SPHERE, s_), hours=v["hours"], lead=v["leads"][-1],
+                                lead_name=nm(ESP.FACE, v["leads"])) for s_, v in sp.items()), key=lambda x: -x["hours"])
+        except Exception:
+            town = []
+        return dict(haunts=haunts, rungs=rungs, town=town)
 
     def world_data(self):
         """What the outer world shows now (world-hooks-for-engine.md), or None while the engine has no world."""
