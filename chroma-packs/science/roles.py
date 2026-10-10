@@ -243,3 +243,11 @@ TARGET_SCIENCE = {
     # with research scientists at their career multiple and about half of them holding one, as real postdocs do)
     "doctoral graduate": 4,
 }
+
+
+# Item 16, the floors' own rule changes (Emren 10-09, "yes for all implementation"; from Emren's session, branch claude/keen-meitner-19mgsn): applied over the rules only with batch.FLOORS on, so v22 lives stay as they are. Each loosens a rule that held a rare title or perk under its floor at any rate (1,200 lives, seeds 51 to 54).
+ROLES_SCIENCE_FLOORS = {
+    'field permit': {'req': "has('fieldwork')", 'lose': "yrs_has('field permit') >= 1"},
+    'participatory research coordinator': {'req': "has('community listening') | was('volunteer research organiser') | has('community partners') | was('community observer')"},
+    'instrument time': {'req': "has('lab work') & (has('institutional affiliation') | has('a research project under way'))"},
+}

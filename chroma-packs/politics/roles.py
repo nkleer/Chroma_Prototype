@@ -329,3 +329,16 @@ TARGET_POLITICS = {
 # this table to TARGET_POLITICS only while its floors are on (batch.FLOORS, off until the v22.3 refit); with them off,
 # the two ride on their written step rates as in round 4 and lives are as before.
 TARGET_POLITICS_FLOORS = {"party leader": "summit", "head of government": "summit"}
+
+
+# Item 16, the floors' own rule changes (Emren 10-09, "yes for all implementation"; from Emren's session, branch claude/keen-meitner-19mgsn): applied over the rules only with batch.FLOORS on, so v22 lives stay as they are. Each loosens a rule that held a rare title or perk under its floor at any rate (1,200 lives, seeds 51 to 54).
+ROLES_POLITICS_FLOORS = {
+    'member of parliament': {'lose': [["(yrs_has('member of parliament') >= 1) & chance(.25)", 'lost the seat at an election'], ["(age >= 60) & (yrs_has('member of parliament') >= 10)", 'stood down']]},
+    'minister': {'rate': 0.08},
+    'party leader': {'req': "has('member of parliament') & (yrs_has('member of parliament') >= 2) & (was('minister') | has('a following in the party') | has('known across the country'))", 'rate': 0.12, 'lrate': 0.08},
+    'head of government': {'req': "has('party leader')", 'rate': 0.3, 'rungs': []},
+    'a safe seat': {'req': "has('member of parliament') & (yrs_has('member of parliament') >= 3)"},
+    'a reform with your name on it': {'req': "has('minister') | (has('member of parliament') & (yrs_has('member of parliament') >= 5)) | (has('mayor') & (yrs_has('mayor') >= 2)) | (has('local councillor') & (yrs_has('local councillor') >= 3))", 'rate': 0.02},
+    'knowing the rules of the house': {'rate': 0.01},
+    'parliamentary nomination': {'rate': 0.001},
+}

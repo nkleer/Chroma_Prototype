@@ -1504,7 +1504,12 @@ BUDGET = dict(career=1 / 3, summit=1 / 20, community=10.0, summit_floor=0.001,  
 # 100 (1.5%), and every other title of one's own doing and every perk in 1 life in 100 or more. Statuses keep their real
 # shares: what befalls a life (refugee, widowed) is not a prize to make reachable. Off until the v22.3 refit: they apply
 # when batch.FLOORS is True, over BUDGET (tools/tier_fit.py: FLOORS=1).
-BUDGET_FLOORS = dict(summit=0.15, summit_floor=0.01, career_floor=0.015, title_floor=0.01, perk_floor=0.01)
+BUDGET_FLOORS = dict(summit=0.15, summit_floor=0.01, career_floor=0.015, title_floor=0.01, perk_floor=0.01,
+                     perk_floor_rel=0.5,     # a perk that needs a title: at most 1 in 2 of what its titles allow (10-09)
+                     summit_per_pack=0.05,   # each pack's summits share 1 in 20 lives of their own, so one cannot starve
+                                             # another (10-09); the fit's whole summit budget is their sum
+                     rung_cap=2.0, act_cap=1.2)   # 10-09: at e^1 and e^.7 the summit lift reached the fit's ceiling with
+                                             # summits under budget; a rung's rate at most about 7x, an act's odds 3x
 # The fitted logit lift per tier, on the odds of the acts that give a pack career or summit and on their background rates,
 # per set of packs on (",".join(sorted(packs))); "split": the extra lift per summit that brings each to its share of the
 # summit budget (the square root of its real share). calib_v8/tier_fit.py writes it.
@@ -2992,3 +2997,16 @@ for nm_, yrs_, span_, extra_ in ((INSIGHT[0], 4, 4, ""), (INSIGHT[1], 8, 10, "")
 # A16: the end of a national service term (earth-title-stages-own.lib): a soldier for a year or more, called up
 INNER["the last parade of national service"] = dict(req="(yrs_has('soldier') >= 1) & had(['the call to serve'], 3)",
                                                     more=[], less=[])
+
+
+# Item 16, the floors' own rule changes (Emren 10-09, "yes for all implementation"; from Emren's session, branch claude/keen-meitner-19mgsn): applied over the rules only with batch.FLOORS on, so v22 lives stay as they are. Each loosens a rule that held a rare title or perk under its floor at any rate (1,200 lives, seeds 51 to 54).
+ROLES_FLOORS = {
+    'professional registration': {'rate': 0.07, 'weight': 'practice'},
+    'professional beekeeper': {'rate': 0.015, 'after': []},
+    'funeral director': {'req': "(age >= 20) & (has('family business') | (mkn('helped someone in need') >= 2) | was('care worker'))"},
+    'search-and-rescue volunteer': {'req': "(age >= 18) & (age <= 60) & (has('first-aid certificate') | has('keeping fit')) & (health > .6)", 'rate': 0.01},
+    'disability-rights organiser': {'rate': 0.01},
+    'commercial pilot': {'req': "(age >= 19) & (age <= 45) & ~has('someone with a record') & (health > .6) & (has('savings') | has('graduate') | was('soldier'))"},
+    "studio of one's own": {'req': "(age >= 18) & (money > .2) & (has('tattoo artist') | has('sound engineer') | ((has('drawing and painting') | has('musical instrument')) & chance(.3)))"},
+    'paramedic': {'req': "(has('professional registration') | (has('first-aid certificate') & (age >= 20))) & has('driving licence') & (health > .5)"},
+}

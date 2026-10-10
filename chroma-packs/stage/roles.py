@@ -277,3 +277,10 @@ TARGET_STAGE = {
     "acting": 4, "improvisation": 4, "learning lines": 5, "telling a story aloud": 3, "child performance licence": 3,
     "a lead role to remember": 4, "a company that feels like family": 4,
 }
+
+
+# Item 16, the floors' own rule changes (Emren 10-09, "yes for all implementation"; from Emren's session, branch claude/keen-meitner-19mgsn): applied over the rules only with batch.FLOORS on, so v22 lives stay as they are. Each loosens a rule that held a rare title or perk under its floor at any rate (1,200 lives, seeds 51 to 54).
+ROLES_STAGE_FLOORS = {
+    'casting director': {'req': "(has('a casting eye') & (was('professional actor') | was('talent agent') | was('stage manager') | was('producer') | was('director'))) | (was('drama teacher') & (yrs_career >= 5))"},
+    'understudy': {'req': "(has('professional actor') | has('drama school student')) & ~has('lead actor or actress')", 'rate': 0.08},
+}

@@ -122,7 +122,7 @@ def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend):
             more_.append((_code(x_["req"]), float(x_["rate"])))
         else:
             r["req"] = f"({r['req']}) | ({x_})" if r.get("req") else None   # a rule with no condition already lets anyone in
-    return dict(req=_code(r.get("req")), rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
+    return dict(req=_code(r.get("req")), req_text=r.get("req") or "", rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
                 lose=_lose(r), lrate=r.get("lrate", 0.0), lend=r.get("lend", "left"),
                 starts=bool(r.get("starts")), entry=r.get("entry", not r.get("after")), weight=r.get("weight"),
                 has_req=bool(r.get("req")),
@@ -139,6 +139,9 @@ def _roles(cat, R, L, extra=None, extend=None):
     items = TT + PP; NT, NP = len(TT), len(PP); NI = NT + NP
     names = [x["name"] for x in items]; ID = {nm: i for i, nm in enumerate(names)}
     rules = {**getattr(R, "ROLES", {}), **(extra or {})}; norm = getattr(R, "ROLE_NORM", {})
+    if FLOORS:   # item 16: the floors' own rule changes (earth_rules.ROLES_FLOORS), over the rules as written
+        for nm_, ov_ in getattr(R, "ROLES_FLOORS", {}).items():
+            rules[nm_] = {**rules.get(nm_, {}), **ov_}
     # a route that overfills a title (Library next3 §3: job moves bunched on office clerk, first jobs fell back on cleaner and
     # factory worker): the share of picks by that route that give the title (fitted below 1 by calib_v7/roles_check.py)
     acc_mv = getattr(R, "ROLE_ACC_MOVE", {}); acc_fs = getattr(R, "ROLE_ACC_FIRST", {})
@@ -339,7 +342,7 @@ def _packs(world, packs, pack_moments, R):
     a path in pack_moments for a test) and the engine's own conditions for its echoes, inner and read moments
     (<world>_rules.PACK_RULES[<pack>])."""
     out = dict(sits=[], reads=[], titles=[], perks=[], rules={}, helps={}, windows={}, lift={}, extend={}, target={},
-               cond=dict(INNER={}, ECHO={}, LIFE={}, READ={}), names=list(packs))
+               cond=dict(INNER={}, ECHO={}, LIFE={}, READ={}), names=list(packs), summit_pack={})
     if not packs:
         return out
     core_ = os.path.join(PACK_DIR, "core")   # shared by every pack: reach.py first, then any other core/*.py (longshot.py)
@@ -359,6 +362,11 @@ def _packs(world, packs, pack_moments, R):
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
         if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
             out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
+            for nm_, ov_ in getattr(rl, f"ROLES_{up_}_FLOORS", {}).items():   # and the floors' own rule changes
+                out["rules"][nm_] = {**out["rules"].get(nm_, {}), **ov_}
+        out["summit_pack"].update({nm_: pk for nm_, m_ in {**getattr(rl, f"TARGET_{up_}", {}),
+                                                           **(getattr(rl, f"TARGET_{up_}_FLOORS", {}) if FLOORS else {})}.items()
+                                   if m_ == "summit"})
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
             out["extend"].setdefault(nm_, []).append(x_)
         if os.path.exists(os.path.join(d_, "helps.py")):
@@ -726,7 +734,14 @@ def _targets(L, PK, R=None):
         mc = max(1.0, bud["career"] / max(1 - np.prod(1 - sh[car]), 1e-12))
         G["TARGET"][car] = np.maximum(sh[car], np.minimum(mc * sh[car], TARGET_CAP))
     sm = np.nonzero(G["TIER"] == 2)[0]
-    if len(sm):
+    if len(sm) and bud.get("summit_per_pack"):        # item 16 (10-09): each pack its own summit budget, so one pack's
+        groups = {}                                   # summits cannot starve another's; the fit's whole budget is their sum
+        for i_ in sm:
+            groups.setdefault(PK.get("summit_pack", {}).get(G["names"][i_], ""), []).append(i_)
+        bud["summit"] = float(bud["summit_per_pack"]) * len(groups)
+        for ix_ in groups.values():
+            _summit_split(G, np.array(ix_), sh, float(bud["summit_per_pack"]), float(bud.get("summit_floor", 0.0)))
+    elif len(sm):
         tot = max(bud["summit"], 1 - np.prod(1 - sh[sm]))
         ts_ = tot * np.sqrt(sh[sm]) / np.sqrt(sh[sm]).sum()
         fl_ = min(float(bud.get("summit_floor", 0.0)), tot / len(sm))   # every summit seen at least this often
@@ -749,6 +764,14 @@ def _targets(L, PK, R=None):
         else:
             continue
         G["TARGET"][i_] = max(G["TARGET"][i_], fl_)
+    rel_ = float(bud.get("perk_floor_rel", 0.0))      # item 16 (10-09): a perk that needs a title aims at its floor, or at
+    if rel_ > 0:                                      # perk_floor_rel of what its titles allow, whichever is lower
+        for i_ in range(G["NT"], G["NI"]):
+            par_ = [G["ID"][x_] for x_ in re.findall(r"(?:has|was)\('([^']+)'\)", G["rule"][i_]["req_text"])
+                    if x_ in G["ID"] and G["ID"][x_] < G["NT"]]
+            if par_ and G["TARGET"][i_] > G["share"][i_]:
+                cap_ = rel_ * min(1.0, float(sum(G["TARGET"][j_] for j_ in set(par_))))
+                G["TARGET"][i_] = max(float(G["share"][i_]), min(G["TARGET"][i_], cap_))
     tl_ = tier_lift(R, PK.get("names", [])) if (len(car) or len(sm)) and R is not None else {}
     G["TIER_LIFT"] = tl_
     for i_ in np.concatenate([car, sm]).astype(int):   # who enters or moves into it (entry weights) by the whole lift; a
@@ -760,6 +783,20 @@ def _targets(L, PK, R=None):
         tg_ = [j for op, j, _ in fx["ok"] if op in ("title", "grants") and j >= 0 and G["TIER"][j] in (1, 2)]
         if tg_:
             G["A_TIER"][si, ki] = tg_[0]
+
+
+def _summit_split(G, ix, sh, tot, floor):
+    """One summit budget split by the square root of each summit's real share, at least floor each, never below the
+    share (batch._targets; per pack with item 16's floors)."""
+    tot = max(tot, 1 - np.prod(1 - sh[ix]))
+    ts_ = tot * np.sqrt(sh[ix]) / np.sqrt(sh[ix]).sum()
+    fl_ = min(floor, tot / len(ix))
+    for _ in range(len(ix)):
+        lo_ = ts_ < fl_ - 1e-12
+        if not lo_.any():
+            break
+        ts_[lo_] = fl_; ts_[~lo_] *= (tot - lo_.sum() * fl_) / ts_[~lo_].sum()
+    G["TARGET"][ix] = np.maximum(sh[ix], np.minimum(ts_, TARGET_CAP))
 
 
 def tier_z(G, i):
