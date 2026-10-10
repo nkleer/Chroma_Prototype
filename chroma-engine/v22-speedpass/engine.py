@@ -791,6 +791,29 @@ DEFAULT = dict(
     birth_age=True,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
+    role_practice=False,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
+                         # choices must increase chances to become researcher"; tools/choice_check.py). On v22.2's rules white and
+                         # blue acts fail two to four times as often as the others (true odds .81 and .74 against .90 to .95):
+                         # practice comes only from the week's one act, and the colors least acted stay least practised, so a
+                         # life that keeps choosing white or blue barely becomes it and loses contentment (.60 to .45). On, each
+                         # week the commitments held (profiles weighted by investment, at most one act's worth in all) count as
+                         # role_skill of an act's practice in their ways, and draw the niche toward them at role_niche of its pace
+    role_skill=0.5, role_niche=0.5,   # role_practice: a held role's weekly practice and its pull on the people around
+    read_skill=0.0,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
+                         # to master) fills this share of what the person still misreads of its call and the world's push
+                         # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
+                         # white and blue, so lives that act in those ways run overconfident and each failure pushes them
+                         # away (choice_check, 10-10). 0: off, as before
+    lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
+                         # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
+                         # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
+                         # lowest, so lives that keep choosing them are held back (choice_check, 10-10). 0: off, as before
+    app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
+                         # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
+                         # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
+                         # 1.4x and their gains at .6x and are taught out of their own colours (choice_check 10-10: net identity
+                         # move per act in the steered colour -.012 white, -.007 blue, +.010 red at equal win rates). Feelings
+                         # (fdelta: mood, stress, wounds) keep the tilt. False: as before
     near_gate=True,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -990,6 +1013,8 @@ UPD_OFF = dict(dis_match=False,
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
+               # what one holds is practice too
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
@@ -2428,6 +2453,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         WK_RIGHTS_W = WMOD_.RIGHTS.index("women")
     DB_ON = SV_ON
     BA_ON = bool(P.get("birth_age")) and BAT   # late births: own births by real fertility for age and sex
+    RP_ON = bool(P.get("role_practice"))        # what one holds is practice too
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -3039,6 +3065,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         # how the world around them pushes, so felt odds spread like the true ones (the rest stays a misread)
         read_ = P["read_moment"][0] + P["read_moment"][1] * M / (M + P["M0"])
         mom_ = np.einsum("nkc,nc->nk", m, f_tot) + P["fit"] * np.einsum("nkc,nc->nk", m, alpha - alpha.mean(1, keepdims=True))
+        readk_ = read_[:, None]   # per option; read_skill: expertise reads the moment, skill in its ways fills part of the rest
+        if P["read_skill"]:
+            readk_ = readk_ + P["read_skill"] * _uclip(np.einsum("nkc,nc->nk", m, sig - 0.3) / 0.7, 0, 1) * (1 - readk_)
         # v10 interpretation: threat focus follows where the deep core sits on security vs freedom, hard times and reactivity
         thr += (1 / (1 + np.exp(-(P["thr0"] + P["thr_axis"] * 5 * (softmax(k) @ AXSEC) + P["thr_hist"] * (wound + 0.5 * trouble)
                                   + P["thr_react"] * (react - 1)))) - thr) / (52 * P["thr_lag"])
@@ -3049,7 +3078,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mis_ = mis_ / (1 + P["mis_expert"] * np.minimum(np.einsum("nkc,nc->nk", m, xp_), 3))
         else:
             mis_ = 0.0
-        p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + read_[:, None] * mom_ - diff)
+        p_hat = 1 / (1 + np.exp(-earned(P["gain"] * (np.einsum("nkc,nc->nk", m, sig + fb) + readk_ * mom_ - diff)
                                         + TON * P["o_bias"] * (outlook - P["o_ref"])[:, None] + pbump + mis_, earn)))   # outlook: optimism or pessimism
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
@@ -3182,7 +3211,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             delta = yield Pause("learn", t, locals(), delta)
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
-        ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
+        if P["app_vigil"] and P["app_k"]:   # app_vigil: threat focus learns more from gains and losses alike (vigilance), so
+            ldelta = delta * (1 + P["app_learn"] * (appf_ - 1))   # the colours that bring it (W U, AXSEC) do not teach a life out of themselves
+        else:
+            ldelta = delta + P["app_learn"] * (fdelta - delta) if P["app_learn"] else delta   # as learned (which ways to keep)
         act_ = (~idle)[:, None]
         fb += 0.05 * ((succ.astype(float) - ph)[:, None] * ma) * act_
         sig += P["skill_gain"] * ma * (1 - sig) * act_            # skill grows with practice in a color's ways
@@ -3192,6 +3224,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                                        1 - P["cu_keep"], 1.0)
         else:
             sig -= P["skill_fade"] * (sig - 0.3) * (1 - ma)           # and fades back toward a beginner's level without it
+        if RP_ON:   # role_practice: the ways of what one holds, at most one act's worth a week
+            rw_ = np.einsum("nk,nkc->nc", held * I, prof); rs_ = rw_.sum(1, keepdims=True)
+            rw_ = rw_ / np.maximum(rs_, 1.0) * ~dead[:, None]
+            sig += P["role_skill"] * P["skill_gain"] * rw_ * (1 - sig)
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -3430,7 +3466,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         # ---- 4. learning channels
         pos = delta > 0
-        kap = ma * w ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
+        lens_ = w if not P["lens_want"] else (1 - P["lens_want"]) * w + P["lens_want"] * softmax(y)   # lens_want: and who one is becoming
+        kap = ma * lens_ ** P["rho"]; kap /= kap.sum(1, keepdims=True) + 1e-12
         defend = P["defend_k"] * (ma * w).sum(1) / w.max(1) * (M / (M + P["M0"]))   # experienced people discount failures in what they hold
         # v6 (Library notes A5): a failure sends the person toward what the situation called for, the colors whose
         # argument it proved right, not evenly toward everything else they hold
@@ -4484,6 +4521,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         stress = _uclip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -fdelta), 0, 3)
         B *= decay_B; TWo *= decay_B
         nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * (P["world_profile"] - nic) + P["era_niche"] * e_i * (e_p - nic)
+        if RP_ON and P["role_niche"]:   # role_practice: the people of one's commitments, in their ways
+            rsum_ = rw_.sum(1, keepdims=True)
+            nic += P["role_niche"] * P["nu_niche"] * rsum_ * (rw_ / np.maximum(rsum_, 1e-9) - nic)
         if P["turnover"]:   # v6: the people around you change: new colleagues, friends, neighbours bring their own ways
             new_ = rng.random(N) < 1 / (52 * P["turn_years"])
             moved = new_.astype(float)
@@ -4680,7 +4720,7 @@ STATE = (
     # this week's moment: situation, options, what pulls, the choice, the odds, the outcome, what it teaches
     "s", "s_ev", "rk", "recon", "m", "e", "e0", "diff", "mask", "closed_s", "stakes", "alpha", "do_nothing", "lack",
     "lackf", "earn", "pbump", "serves", "relief", "rel", "wR", "gU_R", "gU_I", "w_hat", "a_hat", "V", "VA", "H", "hzU",
-    "step", "tryf", "U_R", "U_I", "U", "read_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
+    "step", "tryf", "U_R", "U_I", "U", "read_", "readk_", "open_r", "open_", "seen", "pr", "p_hat", "a", "ma", "ea", "ph", "idle",
     "p_true", "succ", "delta", "span", "stepF", "role",
     # the player's steer (P["steer"]): the pick's odds without it, and how much it moved the drawn option's odds
     "pr0", "steer_moved",
