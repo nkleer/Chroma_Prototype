@@ -3981,7 +3981,7 @@ class World:
     @classmethod
     def load(cls, d):
         params = dict(d["params"])
-        for k in S3_RULES + SPH_RULES:                     # saved before stage 3 or the spheres: their rules stay off
+        for k in S3_RULES + SPH_RULES + V224_RULES:        # saved before stage 3, the spheres or v22.4: their rules stay off
             params.setdefault(k, False)
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)
