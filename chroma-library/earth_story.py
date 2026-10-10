@@ -735,6 +735,51 @@ RECALL_IN = {
 # game keeps today's line
 TEMPER_CAUSE = ["Since {event}, {N} has become {m}.", "People who know {N} say {event} made them {m}.",
                 "After {event}, {N} slowly became {m}."]
+# light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md section 6), the Game's outcome naming and chapter
+# line. Keys are the engine's five shadow states. Shown only with the engine's shadows switch on.
+# SHADOW_FAIL[state]: when an act fails because of the shadow, the game prints "<State word>: <clause>." on its own line
+# under the outcome. Lower case, no end stop. Fills {N} only
+SHADOW_FAIL = {
+    "rigid": ["the rule held, and the person it was for did not",
+              "{N} kept to the letter of it, and lost the point of it",
+              "there was no give in it, and something gave way instead"],
+    "indecisive": ["{N} weighed it one more time, and the chance went by",
+                   "every side was seen, and none was chosen in time",
+                   "the answer came, but the moment had already passed"],
+    "ruthless": ["{N} took what was there, and the people went with it",
+                 "the deal was won, and the trust behind it was lost",
+                 "it worked on paper, and cost them someone who mattered"],
+    "reckless": ["{N} went all in, and this time the bill came at once",
+                 "the cost was plain to see, and {N} paid it in full",
+                 "it went one step too far, and something broke that will not mend quickly"],
+    "stuck in their ways": ["{N} did it the old way, and the old way no longer fit",
+                            "what always worked did not work this time",
+                            "the change came anyway, and {N} was not ready for it"],
+}
+# SHADOW_YEAR[state][grow|fade]: the yearly chapter's one line when the state comes on (grow) or goes off (fade). Whole
+# sentences. Fills {N} only
+SHADOW_YEAR = {
+    "rigid": dict(grow=["This was the year the rules became a wall.",
+                        "{N} held everything tighter this year, and the people near them felt it."],
+                  fade=["This was the year {N} let a rule bend, and nothing fell.",
+                        "Something loosened in {N} this year; a small mistake was allowed to stay small."]),
+    "indecisive": dict(grow=["This was the year {N} kept waiting for one more answer.",
+                             "Doubt took up more room this year, and choices waited until they made themselves."],
+                       fade=["This was the year {N} chose before they were sure, and it was all right.",
+                             "{N} stopped asking for one more night this year, and decided."]),
+    "ruthless": dict(grow=["This was the year people became tools to {N}.",
+                           "{N} won more this year, and kept fewer friends."],
+                     fade=["This was the year {N} gave something back without asking what it bought.",
+                           "{N} let someone else win this year, and found they could bear it."]),
+    "reckless": dict(grow=["This was the year {N} stopped counting the cost.",
+                           "Every risk looked like a door this year, and {N} went through most of them."],
+                     fade=["This was the year {N} stopped to count the cost first.",
+                           "{N} walked away from a risk this year, and did not feel smaller for it."]),
+    "stuck in their ways": dict(grow=["This was the year {N} stopped letting anything change.",
+                                      "The old ways closed around {N} this year like a coat buttoned to the neck."],
+                                fade=["This was the year {N} tried something new, and kept it.",
+                                      "{N} let one old habit go this year, and the house did not fall."]),
+}
 # YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}
 YEAR_WHAT = {
     "recession": {"job loss risk": dict(up="the downturn put jobs at risk", down="the downturn eased")},

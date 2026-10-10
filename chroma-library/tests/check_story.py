@@ -55,7 +55,7 @@ MARKS = ["hid a wrong", "owned up", "kept your word", "broke your word", "learne
 BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
 NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
               "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ",
-              "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE")
+              "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE", "SHADOW_FAIL", "SHADOW_YEAR")
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
          "hospital places", "university places", "pandemic"]   # pandemic: WL2 (Engine #62), on the ties channel
@@ -184,6 +184,10 @@ def rule(path):
         return (("N", "when", "what"), ("N", "when", "what"), "clause", "narration", 25)
     if top == "TEMPER_CAUSE":   # item 6: temperament with its event
         return (("N", "m", "event"), ("N", "m", "event"), "sentence", "narration", 20)
+    if top == "SHADOW_FAIL":    # item 2: the outcome naming the shadow, after "<State word>: "
+        return (("N",), (), "clause", "narration", 16)
+    if top == "SHADOW_YEAR":    # item 2: the chapter line when a shadow comes on or goes off
+        return (("N",), (), "sentence", "narration", 20)
     if top in ("YEAR_WHAT", "YEAR_WHAT_CHANNEL"):
         ch = path[2] if top == "YEAR_WHAT" else path[1]
         return (("who",), ("who",) if ch == "close person" else (), "clause", "narration", 12)
@@ -448,6 +452,16 @@ for k_, v_ in M.RECALL_IN.items():
         fail("1 coverage", f"RECALL_IN.{k_}: wanted a list of 2 lines or more")
 if not (isinstance(M.TEMPER_CAUSE, list) and len(M.TEMPER_CAUSE) >= 2):
     fail("1 coverage", "TEMPER_CAUSE: wanted a list of 2 lines or more")
+SH_STATES = ["rigid", "indecisive", "ruthless", "reckless", "stuck in their ways"]
+need_keys("SHADOW_FAIL", M.SHADOW_FAIL, SH_STATES)
+need_keys("SHADOW_YEAR", M.SHADOW_YEAR, SH_STATES)
+for k_ in SH_STATES:
+    if not (isinstance(M.SHADOW_FAIL.get(k_), list) and len(M.SHADOW_FAIL[k_]) >= 2):
+        fail("1 coverage", f"SHADOW_FAIL.{k_}: wanted a list of 2 lines or more")
+    need_keys(f"SHADOW_YEAR.{k_}", M.SHADOW_YEAR.get(k_, {}), ["grow", "fade"])
+    for d_ in ("grow", "fade"):
+        if not (isinstance(M.SHADOW_YEAR.get(k_, {}).get(d_), list) and len(M.SHADOW_YEAR[k_][d_]) >= 2):
+            fail("1 coverage", f"SHADOW_YEAR.{k_}.{d_}: wanted a list of 2 lines or more")
 need_keys("OPTION_CAUSE", OC, ["law", "norm", "technology", "odds"])
 for k in OC:
     need_keys(f"OPTION_CAUSE.{k}", OC[k], ["closed", "harder", "easier"])
