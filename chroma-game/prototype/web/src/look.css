@@ -10,7 +10,7 @@
   .lk-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 
   /* ---------- 1 one ink language: paper with grain and a plate mark, engraved rules ---------- */
-  :where(html[data-look="ink"]) .stage.paper, :where(html[data-look="ink"]) .hud.paper {
+  :where(html[data-look="ink"]) .stage.paper {
     background: var(--lk-grain), radial-gradient(120% 80% at 0% 0%, rgb(255 252 240 / 0.7), transparent 60%),
       radial-gradient(90% 70% at 100% 100%, rgb(196 160 96 / 0.18), transparent 70%), linear-gradient(180deg, var(--paper), var(--paper2));
     outline: 1px solid var(--lk-rule); outline-offset: -6px; }
@@ -47,28 +47,6 @@
   .ogrid .opt.lk-against::before { width: 62px; height: 42px;
     background: repeating-linear-gradient(-50deg, rgb(178 61 29 / 0.42) 0 1.1px, transparent 1.1px 3px), repeating-linear-gradient(40deg, rgb(178 61 29 / 0.2) 0 0.8px, transparent 0.8px 4px); }
 
-  /* the status panel: the wheel crosshatched, meters as engraved rules filled with hatching, means as vials, states as stamps */
-  :where(html[data-look="ink"]) .wheel .ring { stroke: rgb(36 28 19 / 0.26); stroke-width: 0.8; }
-  :where(html[data-look="ink"]) .wheel .ax { stroke: rgb(36 28 19 / 0.2); stroke-width: 0.7; }
-  :where(html[data-look="ink"]) .wheel .fan { opacity: 0.5; }
-  :where(html[data-look="ink"]) .wheel .lk-xh { fill: url(#lk-xh2); stroke: none; pointer-events: none; }
-  :where(html[data-look="ink"]) .paper .wheel .pos { stroke: var(--lk-ink); stroke-width: 1.5; }
-  :where(html[data-look="ink"]) .paper .wheel .orb circle { stroke: var(--lk-ink); stroke-width: 1.1; }
-  :where(html[data-look="ink"]) .mtr .mbar { height: 8px; border-radius: 0; box-sizing: border-box; background: transparent;
-    border-top: 1px solid rgb(36 28 19 / 0.42); border-bottom: 1px solid rgb(36 28 19 / 0.42); }
-  :where(html[data-look="ink"]) .mtr .mbar i { top: 1px; bottom: 1px; border-radius: 0; border-right: 1.5px solid var(--mc);
-    background: repeating-linear-gradient(118deg, var(--mc) 0 1.5px, transparent 1.5px 3px), color-mix(in srgb, var(--mc) 18%, transparent); transition: width 1s var(--ease); }
-  :where(html[data-look="ink"]) .mtr .mbar b { top: -4px; width: 1px; height: 14px; border-radius: 0; background: var(--lk-ink); opacity: 0.85; }
-  :where(html[data-look="ink"]) .mtr .mbar b::after { content: ""; position: absolute; top: -3px; left: -2px; width: 5px; height: 5px; background: var(--lk-ink); rotate: 45deg; }
-  :where(html[data-look="ink"]) .mtr .ml { font-family: var(--serif); font-variant: small-caps; letter-spacing: 0.06em; font-weight: 600; }
-  :where(html[data-look="ink"]) .mean .col { width: 11px; border-radius: 6px 6px 3px 3px; background: rgb(255 250 238 / 0.8); box-shadow: inset 0 0 0 1px rgb(36 28 19 / 0.5); }
-  :where(html[data-look="ink"]) .mean .col i { border-radius: 0; border-top: 1.5px solid var(--mc);
-    background: repeating-linear-gradient(0deg, var(--mc) 0 1.3px, transparent 1.3px 3px), color-mix(in srgb, var(--mc) 16%, transparent); transition: height 1s var(--ease); }
-  :where(html[data-look="ink"]) .st { border-radius: 2px; background: transparent; font-family: var(--serif); font-variant: small-caps; letter-spacing: 0.05em; }
-  :where(html[data-look="ink"]) .st.g1 { box-shadow: inset 0 0 0 1.5px rgb(34 112 59 / 0.6); }
-  :where(html[data-look="ink"]) .st.g-1 { box-shadow: inset 0 0 0 1.5px rgb(169 56 28 / 0.6); }
-  :where(html[data-look="ink"]) .hud .states .st:nth-child(3n + 1) { rotate: -1.2deg; } :where(html[data-look="ink"]) .hud .states .st:nth-child(3n) { rotate: 1deg; }
-
   /* the outcome: the seal as an ink stamp, the turned card on pressed paper */
   :where(html[data-look="ink"]) .evart .seal2 { rotate: -8deg; background: radial-gradient(circle at 38% 32%, #fff6dc, #e6d2a0 72%);
     box-shadow: 0 0 0 2px currentColor, 0 0 0 4px #f6eedb, 0 0 0 5px currentColor, 0 6px 16px -4px rgb(0 0 0 / 0.6); }
@@ -82,10 +60,20 @@
   :where(html[data-motion="full"]) .flyer.flip .back::before { animation: lkbloom 0.9s 0.3s var(--ease) both; }
   @keyframes lkbloom { from { opacity: 0; transform: scale(0.4); } 50% { opacity: 1; } to { opacity: 0.8; transform: scale(1.15); } }
 
-  /* ---------- 6 the engraved life line: hatched bands, a cut edge, less glow ---------- */
-  :where(html[data-look="ink"]) .river .glowl { opacity: 0.28; }
-  :where(html[data-look="ink"]) .river .lays { stroke: rgb(8 6 20 / 0.55); stroke-width: 0.6; }
-  :where(html[data-look="ink"]) .river .sheen { stroke: #f4e7c4; stroke-opacity: 0.5; }
+  /* ---------- 6 the life river as it was, lit like the fog (look.js riverLight; Emren 10-10 09:01) ---------- */
+  .river .lk-river, .river .lk-rvl { pointer-events: none; }
+  .line svg.lk-rvghost { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0; }
+  .line svg.lk-rvghost.go { animation: lkghost 1.2s ease forwards; }
+  .river .lk-rvl { mix-blend-mode: screen; }
+  :where(html[data-look="ink"][data-motion="full"]) .river .glowl { animation: lkbreath 6s ease-in-out var(--lk-c6, 0s) infinite alternate; }
+  @keyframes lkbreath { from { opacity: 0.42; } to { opacity: 0.78; } }
+  .river .lk-neb { animation: lkneb 42s ease-in-out infinite alternate; }
+  .river .lk-neb.w { animation-duration: 61s; }
+  @keyframes lkneb { to { transform: translateX(var(--d)); } }
+  .river .lk-shim { opacity: 0; animation: lkshim 22s infinite; }
+  @keyframes lkshim { 0% { transform: translateX(0); opacity: 0; animation-timing-function: cubic-bezier(.45, 0, .55, 1); } 6% { opacity: 1; }
+    48% { transform: translateX(var(--d)); opacity: 1; } 54%, 100% { transform: translateX(var(--d)); opacity: 0; } }
+  @keyframes lkghost { from { opacity: 1; } to { opacity: 0; } }
 
   /* ---------- 2 living engravings ---------- */
   @property --lk-hw { syntax: "<length>"; inherits: false; initial-value: 4.4px; }

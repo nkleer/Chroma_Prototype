@@ -6,14 +6,16 @@
    unchanged. Every part sits behind two settings in the Table menu: Look (ink or classic, the v22 look) and Motion (full,
    calm or off; the system's reduced-motion setting counts as off). A fault in this layer never stops the game: each part
    runs inside safe().
-   1 one ink language: look.css (paper grain, engraved rules, hatched meters, wax-seal odds, ink roundels)
+   1 one ink language: look.css (paper grain, engraved rules, ink roundels, stamped seals) on the story and the cards; the
+     status panel keeps v22's minimal drawing, symbols in front and words on hover (Emren 10-10 09:01 UTC)
    2 living engravings: each picture prints in like a plate pulled from the press, its own lamps, windows and candles glow
      and flicker (light positions recorded from the kit's scene code, chroma-art/game/lights.json), and it drifts slowly
    3 colour you can see move: at an outcome the card turns, ink drops run from it into the colour wheel, the wheel moves when
      they land, and the meters and means count to their new values with the change floating beside them
    4 their own tarot card: a portrait card in the crest, on the character sheet and at the end, by lead colour and age
    5 chapter plates: a page turns for the big turns (taking over, a new identity, a long shot made, a title, the end)
-   6 the engraved life line: the colours of the life line drawn in hatching
+   6 the life river as it was, lit like the fog: its glow breathes, light drifts and gleams along it, and its colors
+     flow into their new place when the life moves on (Emren 10-10 09:01 UTC)
    and for play: odds read by colour at a glance, a storm corner on cards they would rather not do, and a small lean wheel
    on the moment's picture that shows which way the card under the mouse would pull them. */
 (() => {
@@ -38,29 +40,66 @@ const now = () => performance.now();
 // ink on paper, one colour per letter (the paper palette): anything drawn over parchment or flying over the page
 const INK = { W: "#8f7116", U: "#1c5ca2", B: "#4e3966", R: "#b03c1d", G: "#22733e" };
 
-/* ---------------- shared drawing: hatch patterns for the wheel and the life line ---------------- */
-const defs = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+/* ---------------- shared drawing: the hatch the lean wheel is filled with ---------------- */
+const SVGNS = "http://www.w3.org/2000/svg";
+const defs = document.createElementNS(SVGNS, "svg");
 defs.setAttribute("class", "lk-defs"); defs.setAttribute("aria-hidden", "true"); defs.setAttribute("focusable", "false");
 defs.innerHTML = `<defs>
-  <pattern id="lk-xh" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(32)"><path d="M0 0V3.4" style="stroke:#2a2116;stroke-opacity:.42;stroke-width:.9"/></pattern>
   <pattern id="lk-xh2" width="3.4" height="3.4" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><path d="M0 0V3.4" style="stroke:#2a2116;stroke-opacity:.5;stroke-width:.8"/><path d="M0 1.7H3.4" style="stroke:#2a2116;stroke-opacity:.22;stroke-width:.6"/></pattern>
-  ${COLORS.map((c) => `<pattern id="lk-h${c}" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(-36)"><rect width="3" height="3" style="fill:var(--c${c})"/><path d="M0 0V3" style="stroke:#0b0918;stroke-opacity:.42;stroke-width:1"/></pattern>`).join("")}
 </defs>`;
 document.body.appendChild(defs);
 
-/* ---------------- 1 and 6: the wheel and the life line in ink ---------------- */
-// the shape of who they are, crosshatched under its outline (the hud, the interlude, the sheet)
-const _spiderSVG = spiderSVG;
-spiderSVG = function (o) {
-  const s = _spiderSVG(o);
-  if (!ink() || !o || !o.w) return s;
-  return s.replace('<polygon class="pos"', `<polygon class="lk-xh" points="${spPts(o.w)}"/><polygon class="pos"`);
-};
+/* ---------------- 6: the life river as it was, lit like the fog, its colors flowing into place ---------------- */
+// Emren 10-10 09:01 UTC (thread "Visuals for the game"): the HUD stays minimal (symbols in front, words on hover) and the
+// life river stays as before, "with color and color transition update, with similar lighting of the fog, as majestic but
+// not crowded as possible". So the river keeps v22's bands, glow and sheen; over it (ink look) only light moves: the glow
+// breathes like the fog's edge, a slow nebula of light drifts along the lived years and a gleam runs from birth to now.
+// When the life moves on, the old bands fade into the new ones.
+// Each redraw keeps the loops in step with one clock, so the frequent redraws while weeks run never restart them.
+let rvKey = "", rvGhost = null, rvGhostAt = 0;
+const rvClock = (sec) => `${(-((performance.now() / 1000) % sec)).toFixed(2)}s`;
 const _drawLine = drawLine;
 drawLine = function () {
+  const was = riverEl.querySelector("#lnLays"), oldLays = was ? was.innerHTML : "", oldW = lineGeo ? lineGeo.W : 0;
   _drawLine();
-  safe(() => { if (ink()) riverEl.querySelectorAll("#lnLays .lay").forEach((p, k) => { if (COLORS[k]) p.setAttribute("fill", `url(#lk-h${COLORS[k]})`); }); });
+  safe(() => riverLight(oldLays, oldW));
 };
+function ghostRiver(oldLays) {
+  if (!rvGhost || !rvGhost.isConnected) {
+    rvGhost = document.createElementNS(SVGNS, "svg"); rvGhost.setAttribute("class", "lk-rvghost"); rvGhost.setAttribute("aria-hidden", "true");
+    riverEl.after(rvGhost);
+  }
+  rvGhost.setAttribute("viewBox", riverEl.getAttribute("viewBox"));
+  rvGhost.innerHTML = `<g>${oldLays.replace(/class="lay"/g, 'class="lk-gl"')}</g>`;
+  rvGhost.classList.remove("go"); void rvGhost.getBoundingClientRect(); rvGhost.classList.add("go");
+  rvGhostAt = performance.now();
+}
+function riverLight(oldLays, oldW) {
+  if (rvGhost && (!ink() || !moving())) rvGhost.classList.remove("go");
+  const G = lineGeo, sheen = riverEl.querySelector(".sheen"), lays = [...riverEl.querySelectorAll("#lnLays .lay")];
+  if (!ink() || !G || !sheen || !lays.length) return;
+  const vb = riverEl.viewBox.baseVal, H = vb.height, x0 = G.X(0), nx = G.X(G.now), span = Math.max(1, nx - x0);
+  const key = G.R.length + ":" + (+G.now).toFixed(2);
+  const grew = key !== rvKey && rvKey !== "" && oldLays && oldW === G.W;
+  rvKey = key;
+  let m = `<defs><clipPath id="lkRvClip">${lays.map((p) => `<path d="${p.getAttribute("d")}"/>`).join("")}</clipPath>` +
+    `<linearGradient id="lkShimG"><stop offset="0" stop-color="#fff6dc" stop-opacity="0"/><stop offset="0.5" stop-color="#fff6dc" stop-opacity="0.42"/><stop offset="1" stop-color="#fff6dc" stop-opacity="0"/></linearGradient>` +
+    `<radialGradient id="lkNebG"><stop offset="0" stop-color="#ece6ff" stop-opacity="0.34"/><stop offset="0.55" stop-color="#cbb8ff" stop-opacity="0.12"/><stop offset="1" stop-color="#cbb8ff" stop-opacity="0"/></radialGradient>` +
+    `<radialGradient id="lkNebW"><stop offset="0" stop-color="#f4dfa6" stop-opacity="0.26"/><stop offset="1" stop-color="#f4dfa6" stop-opacity="0"/></radialGradient></defs>`;
+  if (lively() && span > 24) {
+    const sw = clamp(span * 0.16, 26, 140), nw = clamp(span * 0.3, 60, 260), mid = vb.height / 2;
+    m += `<g class="lk-rvl" clip-path="url(#lkRvClip)" aria-hidden="true">` +
+      `<ellipse class="lk-neb" cx="${(x0 + nw * 0.3).toFixed(1)}" cy="${mid.toFixed(1)}" rx="${(nw / 2).toFixed(1)}" ry="${(H * 0.55).toFixed(1)}" fill="url(#lkNebG)" style="--d:${(span - nw * 0.6).toFixed(1)}px;animation-delay:${rvClock(84)}"/>` +
+      `<ellipse class="lk-neb w" cx="${(nx - nw * 0.3).toFixed(1)}" cy="${mid.toFixed(1)}" rx="${(nw * 0.4).toFixed(1)}" ry="${(H * 0.45).toFixed(1)}" fill="url(#lkNebW)" style="--d:${(-(span - nw * 0.6)).toFixed(1)}px;animation-delay:${rvClock(122)}"/>` +
+      `<rect class="lk-shim" x="${(x0 - sw).toFixed(1)}" y="0" width="${sw.toFixed(1)}" height="${H.toFixed(1)}" fill="url(#lkShimG)" style="--d:${(span + sw).toFixed(1)}px;animation-delay:${rvClock(22)}"/></g>`;
+  }
+  const g = document.createElementNS(SVGNS, "g"); g.setAttribute("class", "lk-river"); g.innerHTML = m;
+  sheen.after(g);
+  // the colors flowing into place: the bands as they were, on a sheet of their own over the river (the river redraws every
+  // few weeks while time runs), fade into the new ones; a run of redraws keeps one fade going, then starts the next
+  if (grew && moving() && !(hud && hud.replay) && performance.now() - rvGhostAt > 700) ghostRiver(oldLays);
+  riverEl.style.setProperty("--lk-c6", rvClock(12));
+}
 
 /* ---------------- 2: living engravings ---------------- */
 // LK_LIGHTS: picture -> "x,y,d,kind,strength,colour|..." (x, y, d in thousandths of the picture; kind g glow, w window or
