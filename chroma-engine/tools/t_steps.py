@@ -13,6 +13,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      run with them off, and the world carries their state.
   8. the spheres' phase 2 switches (haunts, hours and rungs, the mark of the work), switched on with the world: run_steps()
      still lives the lives of run(), and the lives move.
+  9. WL2's small effects (wl2: prices for workers, a recession's hours, a disaster's cost, a pandemic year), likewise,
+     over lives long enough to hold a job.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -251,16 +253,17 @@ for label, sw, ok in RO_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
-# 8. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work; world on only): switched on,
+# 8 and 9. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work) and WL2 (world on only): switched on,
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
-        dict(sph_haunts=True, sph_hours=True, sph_marks=True, cur_on=True), dict(cur_on=True))]
-for label, sw, base in P2_:
+        dict(sph_haunts=True, sph_hours=True, sph_marks=True, cur_on=True), dict(cur_on=True), 8),
+       ("WL2, the small effects of the world (wl2)", dict(wl2=True), {}, 24)]
+for label, sw, base, yrs in P2_:
     if not set(sw) <= set(E.DEFAULT):
         continue
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
-    kw = dict(N=2, years=8, seed=4, lib=EARTH, P=Pd)
+    kw = dict(N=2, years=yrs, seed=4, lib=EARTH, P=Pd)
     o1 = E.run(**kw); g = E.run_steps(**kw); msg = next(g)
     while True:
         try:
