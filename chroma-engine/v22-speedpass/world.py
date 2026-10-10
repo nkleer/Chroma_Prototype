@@ -453,6 +453,21 @@ W_DEFAULT = dict(
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
     fair_read=False,   # S1, fairness read five ways: each life reads its spheres' fairness through its colours' parts, and
                        # a tagged sphere event moves it (chroma-ideas/social-mechanics.md S1); with sph_fair
+    sph_eyes=False,    # S3 "Their places' eyes" (chroma-ideas/social-mechanics.md): each place a life belongs to reads its
+                       # acts by its faces (sphere_data.PLACE_READ); a name per place moves rungs and doors, talk travels
+                       # through go-betweens, places that read an act apart catch the life between them; with sph_haunts
+    sph_odd=False,     # S4 "The odd one out": a life whose lead colour is rare at a place (under .15 of its faces) is seen
+                       # more, pressed to blend in, and can move the place by holding on; with sph_eyes
+    eyes_par=None,     # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
+    lead_ways=False,   # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a modelled post per leading role (start,
+                       # way, legitimacy, end) in place of phase 4's fixed leader's tenure; with sph_levers (and sph_eyes)
+    lead_par=None,     # lead_ways tuning: {name: value} over world_people.LEAD_DEFAULT (None: the start values)
+    sacred=False,      # S5, sacred lines (chroma-ideas/social-mechanics.md): a life grows up to two lines it will not sell;
+                       # sphere and C3 events offer a price for them (sphere_data.OFFER); with sph_events (and c3_inst)
+    sacred_par=None,   # sacred tuning: {name: value} over world_people.SAC_DEFAULT (None: the start values)
+    seen_done=False,   # S6 "Seen it done" (chroma-ideas/social-mechanics.md): the paths and colour ways each life has
+                       # seen close people, regulars and public figures walk bend its felt odds and its dreams
+    seen_par=None,     # seen_done tuning: {name: value} over world_people.SEEN_DEFAULT (None: the start values)
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -471,7 +486,15 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
-             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read",
+             "sph_eyes", "sph_odd", "eyes_par", "lead_ways", "lead_par",
+             "sacred", "sacred_par", "seen_done", "seen_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+# v22.4's world switches (S3 their places' eyes, S4 the odd one out, S5 sacred lines, S6 seen it done, S7 ways to lead):
+# saved only when on, so a save with them off, spheres on, is v22.3's
+V224_RULES = ("sph_eyes", "sph_odd", "eyes_par")
+V224_RULES += ("sacred", "sacred_par")   # S5 sacred lines
+V224_RULES += ("seen_done", "seen_par")   # S6 seen it done
+V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
@@ -3138,11 +3161,12 @@ class World:
         self.hp_off[l, h, i] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
         self.hp_s[l, h, i] = new
 
-    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget"):
+    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None):
         """Phase 4 (sph_levers): a life's lever lands on its place (a flat place id, World.place_info) or, with place -1,
         on its town's sphere j (the caller passes the smaller size there). ma: the act's colours in this world's frame;
-        size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. Returns what moved (a
-        word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
+        size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. span: a fund act's
+        quarters when the caller knows them (lead_ways: what is left of a leader's post), else FUND_SPAN by rung. Returns
+        what moved (a word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
         if size <= 0 or getattr(self, "sph_s", None) is None:
             return "none"
         loc = int(loc); j = int(j); q = int(self.t // 13); ma = np.asarray(ma, float)
@@ -3199,7 +3223,7 @@ class World:
                 self._sph_place_set(loc, h2, i2, new)
             self.sph_s[loc, j] = self._sph_nudge(town, new, 1.0 / (nP + 1))
         elif lever == "fund":
-            span = FUND_SPAN[min(int(rung), 4)]
+            span = FUND_SPAN[min(int(rung), 4)] if span is None else int(span)
             if span <= 0:
                 return "none"
             if not hasattr(self, "sph_fund") or self.sph_fund is None:
@@ -3955,6 +3979,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in SPH_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in V224_RULES):     # v22.4's switches off: saved as v22.3 saved it
+            par = {k: v for k, v in par.items() if k not in V224_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
             par = {k: v for k, v in par.items() if k not in C_RULES}
             if "params" in cfg:
@@ -3973,7 +4003,7 @@ class World:
     @classmethod
     def load(cls, d):
         params = dict(d["params"])
-        for k in S3_RULES + SPH_RULES:                     # saved before stage 3 or the spheres: their rules stay off
+        for k in S3_RULES + SPH_RULES + V224_RULES:        # saved before stage 3, the spheres or v22.4: their rules stay off
             params.setdefault(k, False)
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)
