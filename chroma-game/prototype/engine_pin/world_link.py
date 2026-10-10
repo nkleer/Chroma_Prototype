@@ -199,7 +199,9 @@ class WorldLink:
         self.msph = np.asarray(L.get("W_SPHERE", np.full(S, -1))); self.hpick = np.asarray(L.get("W_HPICK", np.zeros(S, bool)))
         self.osph = np.asarray(L.get("W_OSPH", np.full((S, K), -1))); self.ocol = np.asarray(L.get("W_OCOL", np.full((S, K), -1)))
         self.H_GREAT = WK.HAUNT_KINDS.index("gather.great")
-        self.sphev = np.asarray(L.get("W_SPHEV", np.zeros(S, bool)))   # sphere events' moments (phase 3)
+        self.sphev = np.asarray(L.get("W_SPHEV", np.full(S, -1)))   # sphere events' moments (phase 3): the event's index
+        if self.sphev.dtype == bool:                                  # (a batch read before phase 3: held back)
+            self.sphev = np.where(self.sphev, 0, -1)
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
         self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
@@ -485,8 +487,13 @@ class WorldLink:
                 P_ = W.hp_s.shape[2]; hk_ = np.where(hn_ >= 0, (hn_ // P_) % len(WK.HAUNT_KINDS), -1)   # N x 3
                 ok_ = (hk_[:, :, None] == self.haunt[hs_][None, None, :]).any(1) | (self.haunt[hs_] == self.H_GREAT)[None, :]
                 f[:, hs_] *= ok_
-        if self.sphev.any() and not W.p.get("sph_events"):   # a sphere event's moment waits for the events (phase 3)
-            f[:, self.sphev] = 0.0
+        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year
+            se_ = np.nonzero(self.sphev >= 0)[0]
+            last_ = getattr(W, "sph_ev_last", None)
+            if not W.p.get("sph_events") or last_ is None:
+                f[:, se_] = 0.0
+            else:
+                f[:, se_] *= (int(W.t) - last_[np.asarray(PP.loc)][:, self.sphev[se_]]) <= 52
         if (self.ladder >= 0).any():   # a rung in the moment's sphere (no sphere: any) at least the one it names
             rg_ = getattr(PP, "rung", None)
             ls_ = np.nonzero(self.ladder >= 0)[0]

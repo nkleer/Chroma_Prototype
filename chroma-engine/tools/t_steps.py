@@ -268,7 +268,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
        ("the pair faces (sph_pairs)", dict(sph_pairs=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_haunts=True, sph_hours=True, cur_on=True), 8),
-       ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24)]
+       ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
+       ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
