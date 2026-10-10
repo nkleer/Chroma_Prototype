@@ -749,6 +749,9 @@ DEFAULT = dict(
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
     sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
+                         # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
+    far_par=None,
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map): the Engine's defaults where the answers leave a number open.
@@ -935,7 +938,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False,
+               sph_shadow=False, sph_deep=False, far_ties=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -1484,6 +1487,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     GAP_ = np.array([_gap((s_.get("gap") or (s_.get("timing") or {}).get("gap_years")) if s_.get("tier") == "life event" or s_.get("per_year") else None)
                      for s_ in L.get("src", [{}] * L["S"])], float).reshape(-1, 2)   # build.py keeps it as timing gap_years
     GAPM_ = ~np.isnan(GAP_[:, 0]); GAPON_ = bool(P["ev_gap"] and GAPM_.any())
+    # far_ties (item 18): a far moment (cast_want: far_*) comes only with a tie's call, never by the everyday draw
+    FARS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        import world_keys as WK_
+        FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
+    FARS_ON_ = bool(FARS_.any())
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2624,6 +2633,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             frc_[n, si_] = True; fdd_[n, si_] = True
                         dfr_.append((int(n), r_, si_))
                 frc_ &= avail; fdd_ &= avail
+            if FARS_ON_:
+                ev_p[:, FARS_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -4340,6 +4351,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
+                    fi_ = WL.far_info(i, int(s[i]))
+                    if fi_:
+                        more_["far"] = fi_
                 if WON:   # the world on the options (hooks §2.6, §2.8): each option's lever and where it lands; a move names towns
                     lv_ = WL.option_levers(int(s[i]))
                     if lv_:

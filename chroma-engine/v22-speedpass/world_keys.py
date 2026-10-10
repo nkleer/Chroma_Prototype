@@ -9,6 +9,8 @@ WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "me
              "prospect", "child", "dead", "teacher", "neighbour"]
 WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
+CAST_WANTS += ["far_hard", "far_good", "far_mixed"]   # far_ties (item 18): a tie in another town touched by an event there
+TOUCHES = ["work", "money", "home", "health", "safety", "standing"]   # far_ties: what a far event touched (touch:)
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
 FEATURES = ["city", "town", "village", "remote", "capital", "suburb", "university", "port", "coast", "industry", "mining",
