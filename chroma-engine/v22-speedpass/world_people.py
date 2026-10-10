@@ -307,16 +307,20 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # renewal, consecutive terms, yearly end chance, age out, by post kind and epoch) and the fast-change line are the Outer
 # world's (dynamics.json lead_posts, sphere_data.LEAD_POSTS). take: a quarter's chance that a pillar (rank .85 or more) of
 # a setting with a leader takes the lead; take_age: from this age; rival: a quarter's chance that the setting's most
-# standing member challenges (a rival of higher rung takes over); fall: legitimacy under this is a fall; rules .. favours,
-# inspiring: the falls in numbers (the spec's; custom's is lead_posts.fast_change.loss_q); fair_line: the led's felt
+# standing member challenges (a rival of higher rung takes over); fall: legitimacy under this is a fall; step: the size of
+# every fall's step in legitimacy, one for all five ways (v22.4 fix round: with the spec's .3, .3, .4, .05 and custom's
+# .05, posts by rules, knowing and favours fell at their first step and inspiring and custom ones never fell, so time in
+# post leaned on the way; .15: from the typical legitimacy, about .43, a second failure is the fall); crisis: the chance
+# that a crisis (a sphere event in the sphere led) breaks a way: a rules leader rule-bound, a knowing one shown wrong, an
+# inspiring one not carrying it (the spec's roads gave rules and knowing almost no falls, and inspiring almost no
+# success; fitted at the even base, about four steps in ten years in post for each way); fair_line: the led's felt
 # fairness under this is a fairness scandal; frail: health under this ends a post; sh, sh_years: the shadow target one
 # way held sh_years adds to its colour (item 2, with shadows); fight: a fall fought and won leaves legitimacy here; again:
 # weeks after standing down before the take chance doubles there; wait: weeks a post's moment waits to come; routine:
 # yearly fades in a row after which the inspiring leader's turn to routine is offered in place of the crisis; ruler_end:
 # the yearly end chance of a national office where there are no elections (held at the ruler's pleasure)
-LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, rules=0.3, knowing=0.3, favours=0.4, inspiring=0.05,
-                    fair_line=0.35, frail=0.35, sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1,
-                    crisis=0.25, step=None)
+LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4603,7 +4607,7 @@ class People:
         self._lw_kinds = LP["kinds"]
         self._lw_hk = {h_: k_ for k_, v_ in LP["kinds"].items() for h_ in v_["haunts"]}   # a place's post kind by haunt kind
         self._lw_gk = {g_: k_ for k_, v_ in LP["kinds"].items() for g_ in v_["groups"]}   # a setting's by group kind
-        self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES]); self._lw_floss = float(LP["fast_loss"])
+        self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES])
         self._lw_hist = []        # the town spheres' face mixes the last five quarters (custom's fast change: 4 quarters)
         self._lw_need = float(SD.DEEP["money"]["need_line"])   # favours: money under the need line
         self._lw_ev_i = len(getattr(self.W, "sph_ev_log", ()))   # the crises: the sphere events read so far
@@ -4752,7 +4756,7 @@ class People:
                 self.lw_lost.append([int(n), int(p["slot"]), why])
             if why != "died":   # favours owed: the office that paid them has ended
                 for q_ in [q_ for q_ in self.lw_posts if q_["n"] == n and q_["way"] == 2]:
-                    self._lead_step(q_, t, "favours", self.lw_par["favours"], why="the office ended")
+                    self._lead_step(q_, t, "favours", why="the office ended")
         self._lead_ev(p, t, "ended", why=why, years=round((t - p["t0"]) / 52.0, 2))
 
     def _lead_crises(self):
@@ -4768,13 +4772,12 @@ class People:
             out[k_] = out.get(k_, 0) + 1
         return out
 
-    def _lead_step(self, p, t, key, size, why=None):
-        """A fall's step in legitimacy (the falls in numbers); the crisis of the way waits to come (lead_crisis), or the
-        turn to routine for a fading inspiring leader; under the fall line, the fall."""
+    def _lead_step(self, p, t, key, why=None):
+        """A fall's step in legitimacy (lead_par step, the same for every way); the crisis of the way waits to come
+        (lead_crisis), or the turn to routine for a fading inspiring leader; under the fall line, the fall."""
         if p not in self.lw_posts:
             return
-        if self.lw_par.get("step") is not None:
-            size = self.lw_par["step"]
+        size = self.lw_par["step"]
         p["dent"] -= size; p["falls"].append([int(t), int(p["way"]), key])
         self._lead_legit(p)
         self._lead_ev(p, t, "step", key=key, why=why, size=size)
@@ -4801,9 +4804,9 @@ class People:
         if q >= 0.5:
             p["succ_t"] = int(t); p["fades"] = 0
         if p["way"] == 1 and q < 0.5:
-            self._lead_step(p, t, "knowing", self.lw_par["knowing"], why="a failed lead act")
+            self._lead_step(p, t, "knowing", why="a failed lead act")
         elif p["way"] == 0 and lv == "subvert":
-            self._lead_step(p, t, "rules", self.lw_par["rules"], why="a favour")
+            self._lead_step(p, t, "rules", why="a favour")
 
     def _lead_vacant(self, n, j, k, t):
         """A setting's leader left or died (the members' most standing one, k, would follow): with lead_ways the
@@ -4824,8 +4827,8 @@ class People:
 
     def _lead_q(self, t):
         """Each quarter: posts end (death, the office or setting gone, a move, frailty, the age out, the yearly end
-        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest and the falls of each way,
-        new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
+        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest, the quarter's crises
+        (_lead_crises) and the falls of each way, new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
         post x (.5 + legitimacy)) and the shadow target."""
         if self._lw_q == t:
             return
@@ -4876,39 +4879,37 @@ class People:
                 continue
             n = p["n"]; l_, j_ = p["loc"], p["sphere"]
             self._lead_legit(p)
-            # the quarter's crises: each sphere event in the sphere led (the town's own, or the whole society's) tests the
+            # the quarter's crises: each sphere event in the sphere led (the town's own, or the whole society's) tests a
             # way at one even chance, crisis: a rules leader fails it rule-bound, a knowing leader is shown wrong, an
-            # inspiring leader carries it otherwise (a new success); a favour called in cannot be paid with money under need
+            # inspiring leader carries it otherwise (a new success); favours and custom fall by their own roads below
             for _ in range(cr_.get((l_, j_), 0) + cr_.get((-1, j_), 0)):
                 w_ = p["way"]
                 if p not in self.lw_posts:
                     break
                 if w_ in (0, 1) and self._lw_rng.random() < par["crisis"]:
-                    self._lead_step(p, t, LEAD_WAYS[w_], par[LEAD_WAYS[w_]],
+                    self._lead_step(p, t, LEAD_WAYS[w_],
                                     why="rule-bound in a crisis" if w_ == 0 else "shown wrong in a crisis")
                 elif w_ == 3 and self._lw_rng.random() >= par["crisis"]:
                     p["succ_t"] = int(t); p["fades"] = 0
-                elif w_ == 2 and self._lw_rng.random() < par["crisis"] and float(self.res[n, MON]) < self._lw_need:
-                    self._lead_step(p, t, "favours", par["favours"], why="a favour called in, money under need")
             if p not in self.lw_posts:
                 continue
             if p["way"] == 0:   # rules: a fairness scandal among the led (their felt fairness falls under the line)
                 lo_ = bool(fair_[l_, j_] < par["fair_line"])
                 if lo_ and not p["fair_lo"]:
-                    self._lead_step(p, t, "rules", par["rules"], why="a fairness scandal")
+                    self._lead_step(p, t, "rules", why="a fairness scandal")
                 p["fair_lo"] = lo_
             elif p["way"] == 2:   # favours: once a year, money under the need line
                 if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
                     if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
-                        self._lead_step(p, t, "favours", par["favours"], why="money under need")
+                        self._lead_step(p, t, "favours", why="money under need")
             elif p["way"] == 3:   # inspiring: a year without a new success fades the spark
                 if t - p["succ_t"] >= 52 and t - p["fade_t"] >= 52:
                     p["fade_t"] = int(t); p["fades"] += 1
-                    self._lead_step(p, t, "inspiring", par["inspiring"], why="no new success")
+                    self._lead_step(p, t, "inspiring", why="no new success")
             elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
                 if tv_[l_, j_] > self._lw_fast[j_]:
-                    self._lead_step(p, t, "custom", self._lw_floss, why="fast change")
+                    self._lead_step(p, t, "custom", why="fast change")
         # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
         for p in list(self.lw_posts):
             c_ = self._lead_cell(p["pk"]) or {}
