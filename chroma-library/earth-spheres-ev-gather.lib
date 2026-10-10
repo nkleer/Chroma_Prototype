@@ -20,6 +20,9 @@
 # five of them twice (D1b, D2b, D3a, D5b, D6a), each chosen to hold the event's own pair faces where it has them.
 # Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
 # colour has the same mean chance in each moment and in every stage. No flags.
+#
+# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
+# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
 
 # ---------------------------------------------------------------- meeting_place_opens (pairs D2a)
 
@@ -28,6 +31,7 @@
 tier: life event
 sphere: gather
 sphere_event: meeting_place_opens
+share: .3
 haunt: gather.house
 stages: juvenile young_adult adult mature elder
 age: 15-90
@@ -69,6 +73,7 @@ fails: {N} drifts between the two and ends the year a regular at neither.
 tier: life event
 sphere: gather
 sphere_event: keeper_dies
+share: .6
 haunt: gather.house
 ladder: regular
 who: keeper
@@ -112,6 +117,7 @@ fails: The wake is the last night the regulars spend together, and after it they
 tier: life event
 sphere: gather
 sphere_event: brawl
+share: .1
 haunt: gather.night
 stages: young_adult adult
 age: 18-50
@@ -153,6 +159,7 @@ fails: {friend} heals slowly, and blames {N} a little for what was or was not do
 tier: life event
 sphere: gather
 sphere_event: curfew
+share: .5
 stages: juvenile young_adult adult mature
 age: 15-70
 per_year: 0 0 0 0 0 0
@@ -193,6 +200,7 @@ fails: The bar {N} loved does not reopen, and the old crowd never gathers in one
 tier: life event
 sphere: gather
 sphere_event: drink_banned
+share: .4
 stages: young_adult adult mature elder
 age: 18-90
 per_year: 0 0 0 0 0 0
@@ -233,6 +241,7 @@ fails: The dry years scatter the old crowd, and {N} spends many evenings alone.
 tier: life event
 sphere: gather
 sphere_event: hall_lost
+share: .6
 haunt: gather.hall
 stages: juvenile young_adult adult mature elder
 age: 12-95
@@ -274,6 +283,7 @@ fails: Two of the groups never meet again, and {N} misses them more than expecte
 tier: life event
 sphere: gather
 sphere_event: peace_feast
+share: .6
 stages: juvenile young_adult adult mature elder
 age: 14-95
 per_year: 0 0 0 0 0 0
@@ -314,6 +324,7 @@ fails: Too much drink and too many feelings, and {N} says something to {sibling}
 tier: life event
 sphere: gather
 sphere_event: slump_shifts
+share: .4
 stages: young_adult adult mature elder
 age: 18-90
 per_year: 0 0 0 0 0 0
@@ -354,6 +365,7 @@ fails: The corner bar shuts too in the second winter, and {N} spends the evening
 tier: life event
 sphere: gather
 sphere_event: great_fair
+share: .2
 haunt: gather.great
 stages: juvenile young_adult adult mature elder
 age: 14-90
@@ -395,6 +407,7 @@ fails: The old friends do not all come this year, and the café table feels thin
 tier: life event
 sphere: gather
 sphere_event: doors_close
+share: .4
 haunt: gather.hall
 ladder: known
 stages: young_adult adult mature elder
@@ -437,6 +450,7 @@ fails: The club splits in two, and both halves blame {N} a little.
 tier: life event
 sphere: gather
 sphere_event: informer
+share: .3
 haunt: gather.house
 stages: young_adult adult mature elder
 age: 18-90
@@ -478,6 +492,7 @@ fails: Someone at the table starts to wonder aloud whether the informer is {N}.
 tier: life event
 sphere: gather
 sphere_event: evenings_home
+share: .5
 haunt: gather.games
 stages: juvenile young_adult adult mature
 age: 14-75
@@ -519,6 +534,7 @@ fails: {N} drifts into evenings in front of the screen and sees the old players 
 tier: life event
 sphere: gather
 sphere_event: society_wave
+share: .3
 stages: juvenile young_adult adult mature elder
 age: 14-90
 per_year: 0 0 0 0 0 0
@@ -559,6 +575,7 @@ fails: {N} says yes to too much, and the evenings turn into chores.
 tier: life event
 sphere: gather
 sphere_event: the_games
+share: .6
 stages: juvenile young_adult adult mature elder
 age: 13-95
 per_year: 0 0 0 0 0 0
@@ -599,6 +616,7 @@ fails: The celebrations get out of hand, and {N} ends the night with a sore head
 tier: life event
 sphere: gather
 sphere_event: rumour_runs
+share: .7
 stages: juvenile young_adult adult mature elder
 age: 13-95
 per_year: 0 0 0 0 0 0
@@ -639,6 +657,7 @@ fails: {N} is caught up in the panic, and says things that are hard to take back
 tier: life event
 sphere: gather
 sphere_event: news_sheet
+share: .5
 stages: juvenile young_adult adult mature elder
 age: 13-95
 per_year: 0 0 0 0 0 0
@@ -679,6 +698,7 @@ fails: The quarrel with {rival} grows bigger in the feed than it ever was at the
 tier: life event
 sphere: gather
 sphere_event: common_ground
+share: .5
 haunt: gather.great
 stages: juvenile young_adult adult mature elder
 age: 12-95

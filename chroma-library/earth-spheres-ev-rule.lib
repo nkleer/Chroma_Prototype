@@ -27,6 +27,9 @@
 # on election night'); new_leader (state election, change: 'a landslide on election night' and 'election day');
 # say_widened (state right gained: 'a new law opens a door', which answers a right granted); landmark_ruling (the same
 # door opened by a court: 'a new law opens a door'). law_written and bonds_broken have no modern epoch.
+#
+# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
+# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
 
 # ---------------------------------------------------------------- feud_settled (pairs D1a)
 
@@ -35,6 +38,7 @@
 tier: life event
 sphere: rule
 sphere_event: feud_settled
+share: .6
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -75,6 +79,7 @@ fails: {Ns} own family calls the peace a surrender, and the quarrel moves indoor
 tier: life event
 sphere: rule
 sphere_event: favour_exposed
+share: .3
 stages: juvenile+
 age: 16-100
 per_year: 0 0 0 0 0 0
@@ -115,6 +120,7 @@ fails: {N} is caught between the angry street and an old friend, and loses somet
 tier: life event
 sphere: rule
 sphere_event: petition_granted
+share: .2
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -155,6 +161,7 @@ fails: {N} throws a lot into the next fight, and this time the council does not 
 tier: life event
 sphere: rule
 sphere_event: restoration
+share: .3
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -195,6 +202,7 @@ fails: The freedom {N} relied on is gone, and losing it costs more than anyone s
 tier: life event
 sphere: rule
 sphere_event: unjust_verdict
+share: .2
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -235,6 +243,7 @@ fails: {N} spends months on the fight, and the builder's friends make {Ns} worki
 tier: life event
 sphere: rule
 sphere_event: amnesty
+share: .2
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -275,6 +284,7 @@ fails: The man's return stirs up the old quarrel, and the street takes sides aga
 tier: life event
 sphere: rule
 sphere_event: new_levy
+share: .4
 stages: young_adult adult mature elder
 age: 18-100
 per_year: 0 0 0 0 0 0
@@ -315,6 +325,7 @@ fails: A warning letter arrives with {Ns} name on it, and the fine is worse than
 tier: life event
 sphere: rule
 sphere_event: rights_narrowed
+share: .3
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -355,6 +366,7 @@ fails: The cafe closes for good, and the circle of friends never quite gathers a
 tier: life event
 sphere: rule
 sphere_event: charter_won
+share: .3
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -395,6 +407,7 @@ fails: {N} gives a year to the new council and is left out of every decision tha
 tier: life event
 sphere: rule
 sphere_event: deadlock
+share: .3
 stages: young_adult adult mature elder
 age: 18-100
 per_year: 0 0 0 0 0 0
@@ -435,6 +448,7 @@ fails: {N} spends months on the fight, and the town hall seems to notice none of
 tier: life event
 sphere: rule
 sphere_event: false_accusation
+share: .2
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -475,6 +489,7 @@ fails: She leaves the job and the estate, and the street is poorer for it.
 tier: life event
 sphere: rule
 sphere_event: the_count
+share: .5
 stages: young_adult adult mature elder
 age: 18-100
 per_year: 0 0 0 0 0 0
@@ -515,6 +530,7 @@ fails: A follow-up letter arrives, asking awkward questions about who really liv
 tier: life event
 sphere: rule
 sphere_event: conquest
+share: .7
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -555,6 +571,7 @@ fails: Friends and neighbours split over how to live with it, and some never spe
 tier: life event
 sphere: rule
 sphere_event: strangers_expelled
+share: .4
 stages: juvenile+
 age: 14-100
 per_year: 0 0 0 0 0 0
@@ -595,6 +612,7 @@ fails: {N} is questioned over the part {N} played, and the fine takes months to 
 tier: life event
 sphere: rule
 sphere_event: patron_delivers
+share: .3
 stages: juvenile+
 age: 16-100
 per_year: 0 0 0 0 0 0

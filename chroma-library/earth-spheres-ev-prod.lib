@@ -23,6 +23,9 @@
 # accident RW, land and coop GW, closed_season GW and GU, scarce_hands RG, name_won WU and RG, rush and venture BR).
 # Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
 # colour has the same mean chance in each moment and in every stage. No flags.
+#
+# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
+# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
 
 # ---------------------------------------------------------------- rush (pairs D5b)
 
@@ -31,6 +34,7 @@
 tier: life event
 sphere: prod
 sphere_event: rush
+share: .4
 stages: young_adult adult mature elder
 age: 18-85
 per_year: 0 0 0 0 0 0
@@ -71,6 +75,7 @@ fails: {sibling} comes home from the mine with a bad back and less money than th
 tier: life event
 sphere: prod
 sphere_event: works_close
+share: .6
 stages: young_adult adult mature elder
 age: 18-85
 per_year: 0 0 0 0 0 0
@@ -111,6 +116,7 @@ fails: {parent} never finds work again, and the family's evenings grow quiet and
 tier: life event
 sphere: prod
 sphere_event: walkout
+share: .7
 at: union
 stages: young_adult adult mature
 age: 18-67
@@ -152,6 +158,7 @@ fails: The weeks without pay eat the savings, and the family feels it for a year
 tier: life event
 sphere: prod
 sphere_event: accident
+share: .5
 stages: young_adult adult mature
 age: 18-67
 per_year: 0 0 0 0 0 0
@@ -192,6 +199,7 @@ fails: {N} cannot climb a ladder without shaking for the rest of the year.
 tier: life event
 sphere: prod
 sphere_event: land_taken
+share: .3
 haunt: prod.land
 stages: young_adult adult mature elder
 age: 18-90
@@ -233,6 +241,7 @@ fails: The family splits over the offer, and {grandparent} stops speaking to {N}
 tier: life event
 sphere: prod
 sphere_event: land_shared
+share: .4
 haunt: prod.land
 stages: juvenile young_adult adult mature elder
 age: 14-95
@@ -274,6 +283,7 @@ fails: The old estate's lawyers drag the titles through the courts for years.
 tier: life event
 sphere: prod
 sphere_event: stock_fails
+share: .6
 haunt: prod.wild
 stages: juvenile young_adult adult mature elder
 age: 15-90
@@ -315,6 +325,7 @@ fails: Crews fish the closed waters at night, and the town turns on itself over 
 tier: life event
 sphere: prod
 sphere_event: closed_season
+share: .5
 haunt: prod.wild
 ladder: known
 stages: young_adult adult mature elder
@@ -357,6 +368,7 @@ fails: {rival} learns who spoke against them, and the harbour is a cold place fo
 tier: life event
 sphere: prod
 sphere_event: scarce_hands
+share: .4
 stages: juvenile young_adult adult mature
 age: 16-70
 per_year: 0 0 0 0 0 0
@@ -397,6 +409,7 @@ fails: {N} moves from job to job chasing pay, and ends the year tired and no bet
 tier: life event
 sphere: prod
 sphere_event: coop
+share: .4
 haunt: prod.land
 stages: young_adult adult mature elder
 age: 18-90
@@ -438,6 +451,7 @@ fails: The meetings grow bitter over the price, and {N} stops going.
 tier: life event
 sphere: prod
 sphere_event: war_works
+share: .6
 stages: young_adult adult mature
 age: 18-67
 per_year: 0 0 0 0 0 0
@@ -478,6 +492,7 @@ fails: The war ends, the orders stop overnight, and the plant lays off the newes
 tier: life event
 sphere: prod
 sphere_event: name_won
+share: .4
 haunt: prod.land
 stages: juvenile young_adult adult mature elder
 age: 14-95
@@ -519,6 +534,7 @@ fails: Land prices climb until the young of the valley cannot afford a grove of 
 tier: life event
 sphere: prod
 sphere_event: drift_to_town
+share: .5
 stages: juvenile young_adult adult
 age: 15-40
 per_year: 0 0 0 0 0 0
@@ -559,6 +575,7 @@ fails: {N} ends up between the two places, at home in neither.
 tier: life event
 sphere: prod
 sphere_event: venture_founded
+share: .2
 haunt: prod.craft
 stages: young_adult adult mature
 age: 20-65

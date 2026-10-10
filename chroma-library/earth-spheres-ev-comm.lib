@@ -28,6 +28,9 @@
 # where it has them (the pawn lender BG, the family banker WB, the boycott leader RW).
 # Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
 # colour has the same mean chance in each moment and in every stage. No flags.
+#
+# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
+# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
 
 # ---------------------------------------------------------------- lender_fails (pairs D6a)
 
@@ -36,6 +39,7 @@
 tier: life event
 sphere: comm
 sphere_event: lender_fails
+share: .25
 haunt: comm.credit
 stages: young_adult adult mature elder
 age: 20-85
@@ -77,6 +81,7 @@ fails: {N} gets through the deadline, but the hours never come back, and the deb
 tier: life event
 sphere: comm
 sphere_event: new_route
+share: .3
 stages: juvenile young_adult adult mature
 age: 16-70
 per_year: 0 0 0 0 0 0
@@ -117,6 +122,7 @@ fails: {N} backs the old road or the new one, and the bet does not pay.
 tier: life event
 sphere: comm
 sphere_event: market_granted
+share: .3
 haunt: comm.market
 stages: juvenile young_adult adult mature elder
 age: 13-90
@@ -158,6 +164,7 @@ fails: {N} spends more than planned and earns less, and the Saturdays lose their
 tier: life event
 sphere: comm
 sphere_event: dearth
+share: .5
 haunt: comm.shop
 stages: young_adult adult mature elder
 age: 18-95
@@ -199,6 +206,7 @@ fails: {N} keeps the cupboards full, but something sold that winter can never be
 tier: life event
 sphere: comm
 sphere_event: crowd_price
+share: .4
 haunt: comm.shop
 stages: juvenile young_adult adult mature elder
 age: 14-90
@@ -240,6 +248,7 @@ fails: The picket turns sour, a window is broken in the night, and {N} is caught
 tier: life event
 sphere: comm
 sphere_event: debts_forgiven
+share: .15
 haunt: comm.credit
 stages: young_adult adult mature elder
 age: 18-95
@@ -281,6 +290,7 @@ fails: The relief comes too late for {sibling}, and the family's joy is uneven.
 tier: life event
 sphere: comm
 sphere_event: licences_few
+share: .7
 haunt: comm.market
 ladder: known
 stages: young_adult adult mature elder
@@ -323,6 +333,7 @@ fails: The inspectors take the cart, stock and all, and getting it back costs a 
 tier: life event
 sphere: comm
 sphere_event: goods_underground
+share: .4
 haunt: comm.market
 stages: young_adult adult mature elder
 age: 18-90
@@ -364,6 +375,7 @@ fails: {N} keeps clear of the van, and half the street calls them a prig for it.
 tier: life event
 sphere: comm
 sphere_event: swindle
+share: .8
 who: friend
 stages: young_adult adult mature elder
 age: 20-90
@@ -405,6 +417,7 @@ fails: {friend} does not forgive {N} for bringing them in, and the friendship en
 tier: life event
 sphere: comm
 sphere_event: mania
+share: .3
 stages: young_adult adult mature
 age: 20-70
 per_year: 0 0 0 0 0 0
@@ -445,6 +458,7 @@ fails: {N} stays out, prices rise for five more years, and the chance of a home 
 tier: life event
 sphere: comm
 sphere_event: coin_debased
+share: .5
 who: grandparent
 stages: young_adult adult mature elder
 age: 18-95
@@ -486,6 +500,7 @@ fails: The wage never catches up, and {N} works more hours for less.
 tier: life event
 sphere: comm
 sphere_event: savings_circle
+share: .8
 haunt: comm.market
 who: friend
 stages: young_adult adult mature elder
@@ -528,6 +543,7 @@ fails: The pot is spent before it earns its keep, and {N} still has a share to p
 tier: life event
 sphere: comm
 sphere_event: bank_opens
+share: .3
 haunt: comm.credit
 stages: juvenile young_adult adult mature elder
 age: 16-90
@@ -569,6 +585,7 @@ fails: The repayments come due in a bad season, and the loan becomes a weight.
 tier: life event
 sphere: comm
 sphere_event: big_store
+share: .4
 haunt: comm.shop
 stages: juvenile young_adult adult mature elder
 age: 15-90
@@ -610,6 +627,7 @@ fails: {N} works the tills for years and never gets past them.
 tier: life event
 sphere: comm
 sphere_event: cargo_lost
+share: .3
 stages: young_adult adult mature elder
 age: 18-90
 per_year: 0 0 0 0 0 0
@@ -650,6 +668,7 @@ fails: The fix {N} paid for fails within a month, and the wait starts again.
 tier: life event
 sphere: comm
 sphere_event: great_giving
+share: .7
 stages: young_adult adult mature elder
 age: 18-95
 per_year: 0 0 0 0 0 0
@@ -690,6 +709,7 @@ fails: {N} gives beyond their means, and spends three months paying for one even
 tier: life event
 sphere: comm
 sphere_event: newcomers_trade
+share: .4
 haunt: comm.shop
 stages: juvenile young_adult adult mature elder
 age: 14-90
@@ -731,6 +751,7 @@ fails: The new shop {N} backed fails in its first winter, and the window is empt
 tier: life event
 sphere: comm
 sphere_event: new_money
+share: .4
 haunt: comm.market
 who: grandparent
 stages: juvenile young_adult adult mature elder
@@ -773,6 +794,7 @@ fails: {N} moves with the change and leaves someone behind, and feels it.
 tier: life event
 sphere: comm
 sphere_event: rents_jump
+share: .3
 stages: young_adult adult mature elder
 age: 18-90
 per_year: 0 0 0 0 0 0
@@ -813,6 +835,7 @@ fails: The rent is paid, but the savings drain away a little more each month.
 tier: life event
 sphere: comm
 sphere_event: hiring_fair
+share: .25
 stages: juvenile young_adult adult mature
 age: 16-65
 per_year: 0 0 0 0 0 0
