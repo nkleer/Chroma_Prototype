@@ -432,6 +432,53 @@ VOICE = {
     "book": dict(steered="{N}: {start}, steered toward {lean}; became {end}.",
                  free="{N}: {start}, left to choose; became {end}."),
     "lean": dict(W="duty", U="thought", B="ambition", R="feeling", G="patience"),
+
+    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC "v22.3"): the Voice row's
+    # hover, for each way the voice pushes toward, by how far it has become theirs (ix): "asked" under .25 (only because
+    # asked), "ought" from .25 (out of ought and guilt), "sees" from .5 (they see its value), "theirs" from .8 (part of
+    # who they are). Said in the pushed way's own terms (right, sense, worth, feel, who we are). Two lines: the first
+    # while their trust in the voice for that way is 0 or more, the second while it is below 0. Fills {N} {Ns} {voice}.
+    "own": dict(
+        W=dict(asked=["{N} keeps to it because the {voice} asks, trusting it is meant well.",
+                      "{N} keeps to it only because the {voice} asks, and would drop it tomorrow."],
+               ought=["{N} feels it is owed, and would feel bad letting it slip.",
+                      "{N} keeps to it out of duty and a nagging guilt, not belief."],
+               sees=["{N} has come to see that it is the right thing to do.",
+                     "{N} sees now that it is right, whoever first asked."],
+               theirs=["It is simply right to {N} now, and no one needs to ask.",
+                       "It is right to {N} now, the {voice}'s asking long forgotten."]),
+        U=dict(asked=["{N} goes along with it because the {voice} asks, waiting to see if it makes sense.",
+                      "{N} does it only because the {voice} asks, and has not seen the sense of it."],
+               ought=["{N} feels a sensible person should, and is a little ashamed not to.",
+                      "{N} does it because it seems expected of a thinking person, not from understanding."],
+               sees=["{N} has worked it through, and it makes sense now.",
+                     "{N} has found the sense in it alone, whatever the {voice} said."],
+               theirs=["It makes so much sense to {N} that it no longer needs thinking about.",
+                       "{N} would argue for it now, as if the idea had been theirs all along."]),
+        B=dict(asked=["{N} does it because the {voice} asks, hoping it pays off.",
+                      "{N} does it only because the {voice} asks, and sees nothing in it for them."],
+               ought=["{N} feels they ought to if they want to get on, and resents the push a little.",
+                      "{N} does it because getting on seems to demand it, not because they want to."],
+               sees=["{N} sees what it is worth to them now.",
+                     "{N} has worked out what it is worth to them, never mind the {voice}."],
+               theirs=["It is worth it to {N}, plain and simple, and part of how they get on.",
+                       "{N} would not give it up now: it is theirs, and it pays."]),
+        R=dict(asked=["{N} goes along with it because the {voice} asks, though it does not feel like them yet.",
+                      "{N} does it only because the {voice} asks, and it feels like wearing someone else's coat."],
+               ought=["{N} feels they should want it, and is cross with themselves when they do not.",
+                      "{N} forces it out of a guilty sense that they ought to, and it chafes."],
+               sees=["{N} has started to feel why it matters, in the moment.",
+                     "{N} feels the point of it now, on their own terms."],
+               theirs=["It feels like {N} now, as natural as breathing.",
+                       "{N} would swear it was always them, whatever the {voice} once pushed."]),
+        G=dict(asked=["{N} keeps to it because the {voice} asks, as one takes advice from an elder.",
+                      "{N} keeps to it only because the {voice} asks, and it is not how their people do things."],
+               ought=["{N} feels it is expected of them, and would be ashamed to let it go.",
+                      "{N} keeps to it from a sense of what is expected, more habit than heart."],
+               sees=["{N} sees how it fits the people and the place they come from.",
+                     "{N} has found where it fits in their own roots, without the {voice}."],
+               theirs=["It is part of who {N} and their people are now.",
+                       "It is woven into {Ns} life now, like something handed down."])),
 }
 
 # ============================================================================================ the thread (F5, item 4)

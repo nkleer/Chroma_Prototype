@@ -1514,6 +1514,69 @@ TIER_LIFT = {
 ROLES.update(ROLES_ACTS_ONLY)
 ROLES_OPTIONAL = set(ROLES_V2) | set(ROLES_P2) | set(ROLES_ACTS_ONLY)   # chroma-packs/core/longshot.py: only with packs on
 ROLES = {k_: v_ for k_, v_ in ROLES.items() if v_ is not None and k_ == k_.strip()}
+# Item 15, the sphere titles (sph_titles; chroma-packs/spheres/title-rules.py, the packs thread 10-09, copied as written):
+# the rules for the 28 face titles of the Library's catalogue (title-gaps.md). With sph_titles off the engine reads
+# none of them and lives are as before; on, each title is gained only as its rule says. Careers' rates come from the
+# refit's ROLE_NORM; community and faith rates are the packs' unfitted 400-life estimates.
+SPH_TITLE_ROLES = {
+    # rule
+    "lay judge": dict(req="(age >= 25) & (age <= 70) & ~has('someone with a record') & "
+                          "(was('court clerk') | was('community-mediation volunteer') | has('good name in town'))",
+                      rate=0.004, starts=True, weight="colors"),
+    "paralegal": dict(req="has('school-leaving certificate') & (age >= 18)"),
+    "lawyer": dict(after=["paralegal"], req="has('graduate') & has('professional registration') & (age >= 23)",
+                   entry=True),
+    "mediator": dict(req="(age >= 25) & (has('mediation accreditation') | (yrs_has('community-mediation volunteer') >= 3))"),
+    # gather
+    "community centre manager": dict(req="(age >= 21) & ((yrs_has('community-kitchen volunteer') >= 2) | "
+                                         "(yrs_has('neighbourhood volunteer') >= 3) | was('club treasurer'))"),
+    "events promoter": dict(after=["waiter or bartender"], req="(age >= 18) & (was('club treasurer') | "
+                            "was('festival organiser') | has('waiter or bartender') | has('organising people'))", entry=True),
+    "DJ": dict(after=["waiter or bartender"], req="(age >= 16) & (has('musical instrument') | has('sound mixing') | "
+               "was('amateur band member'))", entry=True),
+    "café or bar owner": dict(after=["waiter or bartender", "cook", "head chef"],
+                              req="(age >= 21) & (has('savings') | has('family business'))", entry=True),
+    # arts
+    "music teacher": dict(after=["session player"], req="(age >= 18) & has('musical instrument')", entry=True),
+    "touring musician": dict(after=["session player"], req="(age >= 17) & has('musical instrument') & "
+                             "(was('amateur band member') | was('session player'))", entry=True),
+    "folk musician": dict(req="(age >= 12) & (has('musical instrument') | has('singing'))", rate=0.0015, starts=True,
+                          weight="colors"),
+    "craft maker": dict(after=["apprentice", "carpenter"], req="(age >= 18) & (has('workshop') | (mkn('learned a skill') >= 2))",
+                        entry=True),
+    # faith
+    "independent preacher": dict(after=["regular worshipper", "convert", "street preacher"],
+                                 req="(yrs_faith >= 3) & (age >= 21) & (has('public speaking') | has('scripture'))",
+                                 rate=0.0004, weight="colors"),
+    # care
+    "complementary therapist": dict(req="age >= 18"),
+    "physiotherapist": dict(req="has('graduate') & has('professional registration') & (age >= 22)"),
+    "hospice volunteer": dict(req="(age >= 16) & ((mkn('helped someone in need') >= 1) | was('carer for a parent') | "
+                                  "had(['your partner dies', 'a parent dies'], 10))", rate=0.0003, starts=True, weight="colors"),
+    # learn
+    "teaching assistant": dict(req="(age >= 17) & ~has('someone with a record')"),
+    "consultant": dict(after=["accountant", "data analyst", "teacher", "private tutor"], req="has('graduate') & (age >= 23)",
+                       entry=True),
+    "mechanic": dict(after=["apprentice"], req="(age >= 16) & (has('car mechanics') | was('apprentice') | "
+                     "was('repair-cafe volunteer'))", entry=True),
+    "community language teacher": dict(req="(age >= 15) & has('second language')", rate=0.0006, starts=True, weight="colors"),
+    "outdoor instructor": dict(req="(age >= 18) & (age <= 60) & (health > .6) & (was('scout or guide') | was('youth coach') | "
+                               "was('search-and-rescue volunteer') | has('knowing the woods'))"),
+    # prod
+    "quality inspector": dict(after=["factory worker"], req="(age >= 17) & (has('school-leaving certificate') | "
+                              "(yrs_career >= 2))", entry=True),
+    # comm
+    "standards inspector": dict(after=["market porter", "office clerk", "shop assistant"],
+                                req="(age >= 21) & ~has('someone with a record') & has('school-leaving certificate')", entry=True),
+    "market trader": dict(after=["shop assistant", "salesperson", "market porter"], req="age >= 16", entry=True),
+    "savings-circle member": dict(req="(age >= 16) & (money < .6)", rate=0.0008, starts=True, weight="colors"),
+    # prot
+    "detective": dict(after=["police officer"], req="(yrs_career >= 3) & (age >= 23) & ~has('someone with a record')"),
+    "private investigator": dict(after=["police officer", "security guard", "door staff", "journalist"],
+                                 req="(age >= 21) & ~has('someone with a record')", entry=True),
+    "park ranger": dict(after=["forester"], req="(age >= 20) & (age <= 60) & (health > .5) & (was('scout or guide') | "
+                        "was('search-and-rescue volunteer') | has('knowing the woods') | was('forester'))", entry=True),
+}
 # measured multipliers so each item's lifetime share matches the catalogue (calib_v7/roles_check.py; pack fit science,politics,stage, 10-07 06:21, after the tier lift);
 # entry titles are weights among a commitment's first titles
 ROLE_NORM = {

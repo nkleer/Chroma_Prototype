@@ -749,6 +749,8 @@ DEFAULT = dict(
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
     sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    sph_titles=False,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
+                         # the engine reads none of those rules
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
@@ -961,7 +963,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -1518,6 +1520,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_keys as WK_
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
+    REG_ = REG_ & ~FARS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -1615,6 +1618,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
+        if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
+            GR = dict(GR, rule=[GR["rule_sph"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
         r_has = np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
         r_since = np.full((N, NI_), NEVER); r_end = np.full((N, NI_), NEVER)
         p_acc = np.zeros((N, NP_), bool); p_lev = np.zeros((N, NP_)); p_sus = np.full((N, NP_), NEVER)   # access, skill, suspended until
@@ -2636,6 +2641,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
             mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
+        if FARS_ON_:   # far_ties: a far moment comes only with a tie's call (forced), never by the everyday draw
+            aff[:, FARS_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
