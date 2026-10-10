@@ -283,11 +283,15 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the shadow side, the care load, service, debts and holdings (sph_shadow, sph_deep; with the events and the shadows)",
         dict(sph_shadow=True, sph_deep=True, shadows=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(shadows=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("far-off events through ties (far_ties; with the events)",
+        dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
        ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
-       ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24)]
+       ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
+       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue

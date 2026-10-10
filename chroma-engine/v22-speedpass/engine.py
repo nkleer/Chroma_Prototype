@@ -749,21 +749,33 @@ DEFAULT = dict(
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
     sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
+                         # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
+    far_par=None,
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
-    # phase 5, debts and holdings (deep_state.money_map): the Engine's defaults where the answers leave a number open.
-    # bank_line: a bank lends where comm.credit + bank_cls x (class - 1) is this or more; max_share: no new loan past this
-    # share of income in payments; sale: a hard-year sale fetches this part of the value; estate: the chance a family
-    # leaves a home (and one more holding) is a + b x its class; lender: the threat's stress, a + b x (1 - prot.order);
-    # kin_wait, tab_wait: years before kin lend again or the tab reopens after a broken debt; ill_line: health under it is
-    # an illness (a hard year)
-    deep_par=dict(bank_line=0.4, bank_cls=0.15, max_share=0.6, sale=0.5, estate_home=(0.3, 0.25),
-                  estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35),
+    # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
+    # chroma-world/spheres/phase5c-answers.md). bank_line: a bank lends where comm.credit + bank_cls x (class - 1) is this
+    # or more; max_share: no new loan past this share of income in payments; sale: a hard-year sale fetches this part of
+    # the value; estate: the chance a family leaves a home (and one more holding) is a + b x its class; lender: the
+    # threat's stress, a + b x (1 - prot.order); kin_wait, tab_wait: years before kin lend again or the tab reopens after
+    # a broken debt; ill_line: health under it is an illness (a hard year); kin_forgive: a partner or parent forgives a
+    # kin debt that ends unpaid; buy: (mt at least, level at least x mt, chance a year) with a bank, for a home and for
+    # land, a shop or a firm; buy_nb: (level, mt, chance a year) from savings before banks; land_taken: a land taking
+    # takes held land; care_buy: (level, hours x) a carer buying help; found_lv: the level a found act needs to found a
+    # workshop or shop
+    deep_par=dict(bank_line=0.4, bank_cls=0.15, max_share=0.4, sale=0.7, estate_home=(0.3, 0.25),
+                  estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35,
+                  kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
+                  buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
+    birth_age=False,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
+                         # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
+    birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
     near_gate=False,     # the world's gates (time of year, holy days, place features, settings, technology) also on the
                          # neighbouring stages' everyday moments (everyday_min); the spheres' gates always are
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -921,6 +933,20 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
                scar_pull=0.0)
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
+# births by the parent's age (birth_age): births a year per 1,000 women and per 1,000 men at each age (US NCHS natality,
+# mothers 2019 and fathers' age-specific rates), read as a share of the peak; own births only
+FERT_F = ((15, 0.0), (17, 17), (22, 66), (27, 93), (32, 98), (37, 52), (42, 12), (47, 1), (51, 0.0))
+FERT_M = ((15, 0.0), (17, 8), (22, 60), (27, 95), (32, 100), (37, 60), (42, 25), (47, 9), (52, 3), (57, 1), (62, 0.0))
+BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the moments of a life's own births
+BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
+
+
+def fert(age, table):
+    """A year's chance of a birth at this age as a share of the peak age's (FERT_F, FERT_M)."""
+    xs, ys = zip(*table)
+    return np.interp(age, xs, ys) / max(ys)
+
+
 UPD_OFF = dict(dis_match=False,
                # stage 2 (who they become): enemy pairs, shadows, threat axis and aging pull, life areas, a curious life,
                # each person's need table and events by need and state
@@ -935,9 +961,11 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False,
+               sph_shadow=False, sph_deep=False, far_ties=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
+               # late births: a life's own births by real fertility for its age and sex
+               birth_age=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1484,6 +1512,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     GAP_ = np.array([_gap((s_.get("gap") or (s_.get("timing") or {}).get("gap_years")) if s_.get("tier") == "life event" or s_.get("per_year") else None)
                      for s_ in L.get("src", [{}] * L["S"])], float).reshape(-1, 2)   # build.py keeps it as timing gap_years
     GAPM_ = ~np.isnan(GAP_[:, 0]); GAPON_ = bool(P["ev_gap"] and GAPM_.any())
+    # far_ties (item 18): a far moment (cast_want: far_*) comes only with a tie's call, never by the everyday draw
+    FARS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        import world_keys as WK_
+        FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
+    FARS_ON_ = bool(FARS_.any())
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2155,6 +2189,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         D_RATE = np.array([float(DBT_[k_]["rate"]) for k_ in D_KIND[:5]] + [0.04])
         D_SIZE = np.array([float(DBT_[k_]["size_months"]) for k_ in D_KIND[:5]] + [0.0])
         D_TERM = np.array([float(MM_["term_months"][k_]) for k_ in D_KIND])
+        LSF_TERM = float(MM_["term_months"].get("land_shop_firm_loan", 120.0))   # land, a shop or a firm on a bank loan
+        LT_I = next((i_ for i_, e_ in enumerate(SD_.EV) if e_["key"] == "land_taken"), -1)   # prod.land_taken
+        WL.PP.care_buy_x = float(DP_["care_buy"][1])
         ep_ = getattr(WL.W, "sph_epoch", "modern")
         EPI_ = SD_.EPOCHS.index("sail" if ep_ == "magic" else ep_)   # magic: as sail, its base
         D_FROM = np.array([SD_.EPOCHS.index(DBT_[k_]["from"]) for k_ in D_KIND[:5]] + [SD_.EPOCHS.index("sail")])
@@ -2167,6 +2204,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         DL_ = int(SD_.DEEP["debts"]["ledger"])
         dk = np.full((N, DL_), -1); dsz = np.zeros((N, DL_)); dbal = np.zeros((N, DL_)); dpaid = np.zeros((N, DL_), int)
         dterm = np.ones((N, DL_)); drate = np.zeros((N, DL_)); dhold = np.full((N, DL_), -1)   # the holding a loan bought
+        dstr = np.zeros((N, DL_), bool)                      # a kin debt stretched once by another term
+        ev_seen = [0]                                        # the sphere events read so far (a land taking)
         hk = np.full((N, int(SD_.DEEP["holdings"]["max"])), -1)
         tab_shut = np.full(N, NEVER); kin_shut = np.full(N, NEVER); circ_out = np.zeros(N, bool); brec = np.full(N, NEVER)
         d_inc = np.full(N, float(P["money_base"]))           # a year's income, mt before holdings and payments
@@ -2181,6 +2220,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         def db_clear(n, i):
             dk[n, i] = -1; dsz[n, i] = dbal[n, i] = 0.0; dpaid[n, i] = 0; dterm[n, i] = 1.0; drate[n, i] = 0.0; dhold[n, i] = -1
+            dstr[n, i] = False
 
         def db_add(n, kind, size, term, rate, hold=-1):
             i = int(np.argmax(dk[n] < 0))
@@ -2244,10 +2284,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             act_ = (dk >= 0) & ~dead[:, None]
             dpaid[act_] += 1; dbal[act_] = np.maximum(0.0, dbal[act_] - (dsz / dterm)[act_])
             for n, i_ in zip(*np.nonzero(act_ & (dpaid >= dterm))):
-                if res[n, MON] < 0.1:
-                    db_break(n, i_)
-                else:
+                if res[n, MON] >= 0.1:
                     db_clear(n, i_)
+                elif dk[n, i_] == 1 and not dstr[n, i_]:   # kin: a partner or parent forgives it, else it is stretched once
+                    al_ = WL.PP.alive[n]
+                    if (al_[0] > 0 or al_[4] > 0) and db_rng.random() < DP_["kin_forgive"]:
+                        db_log(n, kind="debt forgiven", holder="kin"); db_clear(n, i_)
+                    else:
+                        dstr[n, i_] = True; dpaid[n, i_] = 0; dsz[n, i_] = dbal[n, i_] = 0.5 * dsz[n, i_]
+                        db_log(n, kind="debt stretched", holder="kin")
+                else:
+                    db_break(n, i_)
             for n in np.nonzero(~dead & d_arm & (res[:, MON] < NL_) & (dk < 0).any(1))[0]:   # borrowing, in the lending order
                 gap_ = (NL_ - res[n, MON]) / m1_[n]
                 run_ = set(int(x_) for x_ in dk[n] if x_ >= 0)
@@ -2266,32 +2313,47 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     continue
                 db_add(n, k_, D_SIZE[k_], D_TERM[k_], D_RATE[k_]); d_arm[n] = False
                 res[n, MON] = min(1.0, res[n, MON] + D_SIZE[k_] * m1_[n])
-            if t % YR_ == 0 and 25 <= age <= 65 and H_OK[0]:   # buying: a home first, then land, a shop or a firm
-                for n in np.nonzero(~dead & (db_rng.random(N) < 0.1) & (hk < 0).any(1))[0]:
-                    j_ = int(np.argmax(hk[n] < 0)); free_ = (dk[n] < 0).any()
-                    if not (hk[n] == 0).any():
-                        if res[n, MON] >= 0.5 and free_ and bank_ok(n):
-                            loan_ = max(0.0, H_VAL[0] * 12 - 0.1 / m1_[n])
-                            if db_share(n) + loan_ / D_TERM[5] + D_RATE[5] * loan_ / 12 > DP_["max_share"]:
-                                continue
-                            res[n, MON] -= 0.1; hk[n, j_] = 0; db_add(n, 5, loan_, D_TERM[5], D_RATE[5], hold=j_)
-                        elif res[n, MON] >= 0.7:
-                            res[n, MON] = max(0.1, res[n, MON] - 12 * m1_[n]); hk[n, j_] = 0
-                        else:
+            if t % YR_ == 0 and 25 <= age <= 65 and H_OK[0]:   # buying, a home first, then land, a shop or a firm, by the
+                # lines on the life's own income (phase5c-answers.md): with a bank from sail on, from savings before
+                u_ = db_rng.random(N)
+                for n in np.nonzero(~dead & (hk < 0).any(1))[0]:
+                    j_ = int(np.argmax(hk[n] < 0)); free_ = (dk[n] < 0).any(); mt_ = float(d_inc[n]); lv_ = float(res[n, MON])
+                    home_ = not (hk[n] == 0).any()
+                    if D_LEND[3]:   # banks lend in this epoch
+                        a_, b_, p_ = DP_["buy_home"] if home_ else DP_["buy_more"]
+                        if not (u_[n] < p_ and mt_ >= a_ and lv_ >= b_ * mt_ and free_ and bank_ok(n)):
                             continue
-                        db_log(n, kind="holding gained", holding="home", why="bought")
-                    elif res[n, MON] >= 0.7:
-                        ks_ = [k_ for k_ in (1, 2, 3) if H_OK[k_]]
+                        if home_:
+                            k_ = 0; loan_ = max(0.0, H_VAL[0] * 12 - 0.1 / m1_[n]); term_, rate_, kd_ = D_TERM[5], D_RATE[5], 5
+                        else:
+                            ks_ = [x_ for x_ in (1, 2, 3) if H_OK[x_]]
+                            k_ = ks_[int(db_rng.integers(len(ks_)))]
+                            loan_ = (H_VAL[k_] - 1) * 12; term_, rate_, kd_ = LSF_TERM, D_RATE[3], 3   # above one year
+                        if db_share(n) + loan_ / term_ + rate_ * loan_ / 12 > DP_["max_share"]:
+                            continue
+                        res[n, MON] = max(0.1, lv_ - (0.1 if home_ else 12 * m1_[n]))   # the deposit, or one year's income
+                        hk[n, j_] = k_; db_add(n, kd_, loan_, term_, rate_, hold=j_)
+                    else:           # before banks: from savings
+                        a_, b_, p_ = DP_["buy_nb_home"] if home_ else DP_["buy_nb_more"]
+                        if not (u_[n] < p_ and lv_ >= a_ and mt_ >= b_):
+                            continue
+                        ks_ = [0] if home_ else [x_ for x_ in (1, 2, 3) if H_OK[x_]]
                         k_ = ks_[int(db_rng.integers(len(ks_)))]
-                        loan_ = (H_VAL[k_] - 1) * 12   # a bank covers the part above one year of income
-                        if bank_ok(n) and free_:
-                            if db_share(n) + loan_ / D_TERM[5] + D_RATE[3] * loan_ / 12 > DP_["max_share"]:
-                                continue
-                            db_add(n, 3, loan_, D_TERM[5], D_RATE[3], hold=j_)
-                        elif loan_ > 0:
-                            continue           # no bank: savings alone do not reach it
-                        res[n, MON] = max(0.1, res[n, MON] - 12 * m1_[n]); hk[n, j_] = k_
-                        db_log(n, kind="holding gained", holding=H_KIND[k_], why="bought")
+                        res[n, MON] = max(0.1, lv_ - 12 * m1_[n]); hk[n, j_] = k_
+                    db_log(n, kind="holding gained", holding=H_KIND[k_], why="bought")
+            # a land taking in the life's town (prod.land_taken) takes held land
+            lg_ = getattr(WL.W, "sph_ev_log", None)
+            if lg_ is not None and len(lg_) > ev_seen[0]:
+                new_ = lg_[ev_seen[0]:]; ev_seen[0] = len(lg_)
+                for _, e_, l_ in new_[new_[:, 1] == LT_I] if LT_I >= 0 else ():
+                    for n in np.nonzero(~dead & (hk == 1).any(1) & ((WL.PP.loc == l_) | (l_ < 0)))[0]:
+                        if db_rng.random() < DP_["land_taken"]:
+                            j_ = int(np.argmax(hk[n] == 1)); hk[n, j_] = -1
+                            for i_ in np.nonzero(dhold[n] == j_)[0]:
+                                db_clear(n, i_)
+                            db_log(n, kind="holding lost", holding=H_KIND[1], why="taken")
+            if getattr(WL.PP, "care_buy", None) is not None:   # a carer with money buys help: care hours x .7
+                WL.PP.care_buy[:] = res[:, MON] >= DP_["care_buy"][0]
             WL.PP.roots[:] = (hk >= 0).any(1)                # roots: the move wish x .5 while one is held
 
         def db_inherit(n):
@@ -2324,6 +2386,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world as WMOD_
         WK_RIGHTS_W = WMOD_.RIGHTS.index("women")
     DB_ON = SV_ON
+    BA_ON = bool(P.get("birth_age")) and BAT   # late births: own births by real fertility for age and sex
+    if BA_ON:
+        BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
+        # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
+        ag_w = [np.arange(int(L["AGE"][s_, 0]), int(L["AGE"][s_, 1]) + 1) for s_ in np.nonzero(BIRTH_S)[0]]
+        BA_NF = np.array([max(fert(a_, FERT_F).mean(), 1e-6) for a_ in ag_w])
+        BA_NM = np.array([max(fert(a_, FERT_M).mean(), 1e-6) for a_ in ag_w])
+        # a choice that starts a child of one's own (not adopting, fostering or taking a child in)
+        BIRTH_O = np.zeros(L["COMMIT"].shape, bool)
+        for s_ in range(L["S"]):
+            if L["TIER"][s_] != 1:
+                for a_ in range(len(L["labels"][s_])):
+                    BIRTH_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
+        ba_rng = np.random.default_rng([int(seed), 83])
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
@@ -2593,6 +2669,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
             if BAT:
                 ev_p = ev_p * cond_fac             # the engine's likelier / rarer reading of a life event (1 when it has none)
+            if BA_ON:   # late births: a life's own births by its age and sex
+                ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
+                                                            fert(age, FERT_M) / BA_NM[None])
             if BAT:   # deaths come at the rate of the age of those still alive (engine-owned; the Library's window still gates)
                 qd_ = np.repeat(np.minimum(1, P["mort"][0] * np.exp(P["mort"][1] * (age + KILL_OFF[KILLS[KL_]])))[None], N, 0)
                 if KCH_.any():   # R15: the children's own ages (the first child's years, less a little for the younger ones)
@@ -2616,6 +2695,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p = ev_p * rf_w * mf_ * WL.channel_rates()   # and contagion, move wish
                 ev_p[:, KL_ & ~KCHILD_] = 0.0
                 frc_ = WL.fire_now.copy(); fdd_ = np.zeros_like(frc_); dfr_ = []
+                if BA_ON and frc_[:, BIRTH_S].any():   # a birth the world brings comes by the same age and sex
+                    frc_[:, BIRTH_S] &= (ba_rng.random(N) < np.where(female, fert(age, FERT_F), fert(age, FERT_M)))[:, None]
                 for r_ in range(5):
                     for n in np.nonzero(dth_[:, r_])[0]:
                         ks_ = np.nonzero((KILLS == r_) & avail[n])[0]
@@ -2624,6 +2705,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             frc_[n, si_] = True; fdd_[n, si_] = True
                         dfr_.append((int(n), r_, si_))
                 frc_ &= avail; fdd_ &= avail
+            if FARS_ON_:
+                ev_p[:, FARS_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3076,6 +3159,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         res += act_ * (L["PAY"][s, a] + np.where(succ[:, None], L["WIN"][s, a], L["LOSE"][s, a]))
         ck = L["COMMIT"][s, a]
         cp_ = CP[np.maximum(ck, 0)]
+        if BA_ON:   # late births: a choice to have a child of one's own starts one as fertility at that age allows
+            cp_ = np.where(BIRTH_O[s, a], cp_ * np.where(female, fert(age, FERT_F), fert(age, FERT_M)), cp_)
         if BAT:   # a batch life event that starts a commitment is the match itself (falling in love, a child is born)
             cp_ = np.where((L["TIER"][s] == 1) & ((ck == CAR) | (ck == PAR) | (ck == KID) | (ck == COM)), 1.0, cp_)
         fi = np.nonzero((ck >= 0) & succ & ~idle & ~recon & (rng.random(N) < cp_))[0]
@@ -3172,8 +3257,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if DB_ON:   # phase 5: holdings yield, a home saves the rent, debts' payments take their share of income
             d_inc[:] = np.maximum(mt, 0.02)
             hm_ = (hk == 0).any(1)
-            # a home of their own: no world rent term (the world charges it to lives without their own household) and .05
-            rent_ = -0.05 * float(_uclip(WL.W.housing, -1, 1)) * ~np.asarray(WL.PP.own_home, bool)
+            # a home of their own: .05, plus the rent a renter of that household would pay (world_link's "housing" read as
+            # if own_home were false; for a life the world already charges, that charge ends), less the loan's payment
+            rent_ = -0.05 * float(_uclip(WL.W.housing, -1, 1))
             mt = mt - rent_ * hm_ + 0.05 * hm_ + np.where(hk >= 0, H_YV[np.maximum(hk, 0)], 0.0).sum(1) * d_inc
             ds_ = np.where(dk >= 0, dsz / dterm + drate * dbal / 12, 0.0).sum(1)
             mt = mt * (1 - np.minimum(ds_, 0.9))
@@ -3540,6 +3626,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 for r_ in WL.on_act(~idle & live_ & ~dead, s, a, ma, succ, L, closed_s[ar, a] >= 0 if closed_s is not None else np.zeros(N, bool)):
                     if isinstance(r_, dict) and r_.get("n") in events:
                         events[r_["n"]].append(dict(sphere_lever=r_) if r_.get("kind") == "sphere lever" else dict(world_push=r_))
+                    if (DB_ON and isinstance(r_, dict) and r_.get("kind") == "sphere lever" and r_.get("lever") == "found"
+                            and r_.get("sphere") in ("prod", "comm") and float(r_.get("went", 0)) >= 0.5):
+                        n_ = int(r_["n"])   # a found act that went well founds a workshop or shop, worth a year's income
+                        if res[n_, MON] >= DP_["found_lv"] and (hk[n_] < 0).any() and not (hk[n_] == 2).any():
+                            hk[n_, int(np.argmax(hk[n_] < 0))] = 2
+                            db_log(n_, kind="holding gained", holding=H_KIND[2], why="founded")
                 for n in list(WL.pending):
                     ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
                     if ev_ is not None and n in events:
@@ -4340,6 +4432,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
+                    fi_ = WL.far_info(i, int(s[i]))
+                    if fi_:
+                        more_["far"] = fi_
                 if WON:   # the world on the options (hooks §2.6, §2.8): each option's lever and where it lands; a move names towns
                     lv_ = WL.option_levers(int(s[i]))
                     if lv_:

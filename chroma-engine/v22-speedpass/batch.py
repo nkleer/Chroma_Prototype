@@ -398,6 +398,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
+    if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
+        sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -542,6 +544,7 @@ def _world_fields(L):
         return out
     toy = np.zeros((S, 4)); toy_set = np.zeros(S, bool); holy = np.full(S, -1); want = np.full(S, -1); grp = np.full(S, -1)
     at = np.full(S, -1); where = np.zeros((S, len(WK.FEATURES)), bool); who = [[] for _ in range(S)]
+    touch = np.full(S, -1)   # far_ties (item 18): what the far event touched (work, money, home, health, safety, standing)
     for si, src in enumerate(L["src"][:S]):
         nm = f"moment {src.get('name', si)!r}"
         if src.get("time_of_year"):
@@ -556,6 +559,8 @@ def _world_fields(L):
             want[si] = one(src["cast_want"], WK.CAST_WANTS, nm)[0]
         elif (L.get("CAST_WANT") or {}).get(src.get("variant_of") or src.get("name")):   # earth_rules.CAST_WANT, by name
             want[si] = one(L["CAST_WANT"][src.get("variant_of") or src.get("name")], WK.CAST_WANTS, nm)[0]
+        if src.get("touch"):
+            touch[si] = one(src["touch"], WK.TOUCHES, nm)[0]
         if src.get("group"):
             grp[si] = one(src["group"], WK.GROUP_KINDS, nm)[0]
         if src.get("at"):
@@ -640,10 +645,11 @@ def _world_fields(L):
             if L["names"][si] == nm_ or L["src"][si].get("variant_of") == nm_:
                 prem[si] = WK.TECH_KEYS.index(k_)
     L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
-    L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
+    L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
+FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
 SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
