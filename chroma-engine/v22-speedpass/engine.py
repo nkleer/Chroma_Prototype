@@ -737,6 +737,7 @@ DEFAULT = dict(
     sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
     sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
     sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
@@ -909,7 +910,7 @@ UPD_OFF = dict(dis_match=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c4_nature=False)
+               c3_inst=False, c4_nature=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)

@@ -35,8 +35,14 @@ WORLD_MOMENTS = [
     ("economy", "recession declared", "severe", "a crash takes the savings", 0.3),
     ("abroad", "war comes home", None, "war comes", 0.7),
     ("abroad", "war begins", None, "the call to serve", 0.15),
-    # the C hooks (stage3-rules.md section 5; Library earth-world-seasons.lib): a sixth field names who can meet it,
-    # "place" for the people living in the event's place (value["loc"]); without one, everyone the gates admit
+    # the C hooks (stage3-rules.md section 5; Library earth-world-seasons.lib and earth-world-institutions.lib): a sixth
+    # field names who can meet it, "place" for the people living in the event's place (value["loc"]), "staff" for those
+    # who work at its institution (value["inst"]); without one, everyone the gates admit
+    ("institution", "sold", None, "new owners take over the firm", 0.6, "staff"),
+    ("institution", "merged", None, "folded into a bigger firm", 0.7, "staff"),
+    ("institution", "nationalised", None, "the state takes over the failing firm", 0.7, "staff"),
+    ("institution", "leak", None, "the private files get out", 0.5, "staff"),
+    ("institution", "cover-up", None, "the thing the bosses are hiding", 0.3, "staff"),
     ("nature", "bad air", None, "a season of bad air", 0.3, "place"),
     ("nature", "bad water", None, "the river runs foul", 0.4, "place"),
     ("nature", "poisoned river", None, "the river runs foul", 0.4, "place"),
@@ -365,8 +371,12 @@ class WorldLink:
                     hit_ = PP.rng.random(self.N) < sh
                     if sel == "place":                     # only the people living in the event's place
                         hit_ &= PP.loc == int((e.get("value") or {}).get("loc", -1))
+                    elif sel == "staff":                   # only the people who work there
+                        hit_ &= self._staff(int((e.get("value") or {}).get("inst", -1)))
                     self.fire_now[:, si] |= hit_
                     self.fire_why[si] = e
+        if W.p.get("c3_inst"):
+            self._c3_merged(new)
         # wants ripe this week: the moment that answers it, with the cast member in its first who: slot
         self.pending = {}
         for n_, cid_, key_ in PP.want_due(PP.t):
@@ -375,6 +385,31 @@ class WorldLink:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
         return self.week_events
+
+    def _staff(self, i):
+        """The lives whose own work setting is institution i (N,)."""
+        PP = self.PP
+        return ((PP.skind == PM.G["work"]) & (PP.sref == i)).any(1)
+
+    def _c3_merged(self, new):
+        """C3 merged: the folded firm's staff, lives and cast alike, now work at the bigger one (its slot became a new
+        firm), and a quarter of the lives among them face the job-loss rate x3 for a quarter."""
+        PP, W = self.PP, self.W
+        for e in new:
+            if e.get("domain") != "institution" or e.get("kind") != "merged":
+                continue
+            v = e.get("value") or {}; a, b = int(v.get("inst", -1)), int(v.get("into", -1))
+            if a < 0 or b < 0:
+                continue
+            moved = self._staff(a)
+            wk = (PP.skind == PM.G["work"]) & (PP.sref == a)
+            PP.sref[wk] = b
+            PP.inst[PP.inst == a] = b
+            if moved.any():
+                if getattr(PP, "c3_jl", None) is None:     # made on the first merger (a world with C3 off saves none)
+                    PP.c3_jl = np.zeros(self.N, np.int64)
+                hit = moved & (PP.rng.random(self.N) < W._c_par("merge_share"))
+                PP.c3_jl = np.where(hit, int(W.t) + 13, PP.c3_jl)
 
     def drain(self):
         """The cast events since the last call (n, kind, ...), each handed over once: the birth's before the first week,
@@ -533,6 +568,8 @@ class WorldLink:
             elif nm_ == "jobloss":
                 v_ = np.asarray(v_, float)[_uclip(held_title_sector, 0, len(v_) - 1)][:, None]
                 v_ = np.where((held_title_sector >= 0)[:, None], v_, float(np.mean(W.rate_mult("jobloss"))))
+                if getattr(PP, "c3_jl", None) is not None:   # C3: a merger's quarter of risk
+                    v_ = v_ * np.where(PP.c3_jl > W.t, W._c_par("merge_jl"), 1.0)[:, None]
             r[:, m_] *= v_
         ci_ = W.c4_illness() if W.p.get("c4_nature") else None   # C4: bad air or water in the person's place
         if ci_ is not None and self.ill_s.any():

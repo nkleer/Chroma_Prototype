@@ -429,6 +429,7 @@ W_DEFAULT = dict(
     sph_marks=False,   # phase 2: the mark of the work (reserved: waits for the Outer world's table of trades)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
     # them is drawn, computed or saved and the world runs as before
+    c3_inst=False,     # C3: institution events (sold, merged, nationalised, a leak, a cover-up)
     c4_nature=False,   # C4: nature's own year (bad air, bad water, a poisoned river, drought, a glorious spring, recovery)
     c_par=None,        # {name: value} over C_DEFAULT (tuning; None: the start values)
 )
@@ -436,9 +437,18 @@ W_DEFAULT = dict(
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
             "hist_party_gov", "hist_pressure", "hist_grievance", "hist_chance_only")
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
-C_RULES = ("c4_nature", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+C_RULES = ("c3_inst", "c4_nature", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # the C hooks' start values (stage3-rules.md section 5; estimates, refit at the stage's end). Yearly rates per place
 C_DEFAULT = dict(
+    sold=0.02, sold_poor=2.0, sold_pull=0.3,   # C3 sold: private firms and banks, twice as often with finances under .3;
+                                     # the profile moves this far toward the sector's biggest firm
+    merged=0.01, merge_jl=3.0, merge_share=0.25,   # C3 merged: a firm with a rival of its sector in its place; a quarter
+                                     # of the moved staff face three times the job-loss rate for a quarter
+    nat_share=0.5, nat_cap=0.5,      # C3 nationalised: half of big firms' and banks' closures in a deep recession, where
+                                     # the state's capacity is .5 or more
+    leak=0.02, leak_legit=0.05, leak_trust=0.001,   # C3 a leak: times (.5 + internet adoption) x (1.5 - capacity)
+    cover=0.005, cover_c=0.03, cover_y0=1.0, cover_y1=5.0, cover_sc=3.0,   # C3 a cover-up: .5% + 3% x corruption, hidden
+                                     # 1 to 5 years, the scandal rate x3 meanwhile; an insider's voice breaks it
     air=0.30, air_heat=0.5,          # C4 bad air: cities and industrial places; heat extremes against the birth's raise it
     water=0.02, river=0.005,         # C4 bad water and a poisoned river: industrial and mining places
     drought=0.08,                    # C4 drought: farming and hotter places, times drought extremes against the birth's
@@ -1205,6 +1215,92 @@ class World:
             self._event("nature", "recovery", None, dict(loc=int(l)), big=False)
         self.c4_dis = hit
 
+    def _c3_state(self):
+        """C3's own state, made the first quarter the hook runs (a world with it off saves none of it)."""
+        if getattr(self, "c3_cover", None) is None:
+            self.c3_cover = np.zeros(self.n_inst, np.int64)   # the week a hidden cover-up would surface by itself
+            self.c3_break = np.zeros(self.n_inst, bool)       # an insider spoke up this quarter
+
+    def _c3_nationalise(self, close):
+        """C3 nationalised: a big firm or bank about to close in a deep recession becomes a public body (half of them,
+        where the state's capacity is .5 or more); it then drifts toward the government as public bodies do."""
+        self._c3_state()
+        c = self._c_par
+        deep = self.phase == 1 and self.severity >= 1 and self.capacity >= c("nat_cap")
+        if not deep:
+            return close
+        x = self._c_rng(30).random(self.n_inst)
+        nat = close & self.inst_firm & (self.inst_level == 2) & (x < c("nat_share"))
+        K_ = {k_: INST_KINDS.index(k_) for k_ in ("employer", "bank")}
+        for i in np.nonzero(nat)[0]:
+            self.inst_public[i] = True; self.inst_firm[i] = False
+            self.inst_pubemp[i] = self.inst_kind[i] == K_["employer"]
+            self.inst_finances[i] = 0.5
+            self._inst_event(i, "nationalised", big=True)
+        return close & ~nat
+
+    def _c3_inst_q(self, close):
+        """C3, institution events (stage3-rules.md section 5): sold, merged, a leak and a cover-up, each quarter at a
+        quarter of the yearly start rates. Each is recorded with _inst_event; scandals and closures stay as built, and
+        the spheres read them as their own events (spheres-phase3-answers.md, world-fired)."""
+        self._c3_state()
+        n, t, c = self.n_inst, int(self.t), self._c_par
+        r = self._c_rng(3); x = r.random((n, 6)); nz = r.normal(size=(n, C))
+        k = self.inst_kind; K_ = {k_: INST_KINDS.index(k_) for k_ in INST_KINDS}
+        free = ~close
+        ls_ = self.p["lead_spread_s3"] if self._s3("hist_chance_only") else 0.3
+        size = self.inst_level * 2.0 + self.inst_capacity                 # who is the bigger of two firms
+        # sold: a private firm or bank changes hands; new owners bring their own leader and the sector's big ways
+        sold = free & self.inst_firm & (x[:, 0] < c("sold") / 4 * np.where(self.inst_finances < 0.3, c("sold_poor"), 1.0))
+        for i in np.nonzero(sold)[0]:
+            peers = np.nonzero(self.inst_firm & (self.inst_sector == self.inst_sector[i]) & (np.arange(n) != i))[0]
+            if len(peers):
+                j = peers[int(np.argmax(size[peers]))]
+                self.inst_profile[i] = _norm(self.inst_profile[i] + c("sold_pull") * (self.inst_profile[j] - self.inst_profile[i]))
+            if self.inst_leader_fig[i] < 0:
+                self.inst_leader_q[i] = 0; self.inst_leader_pie[i] = _norm(self.V * np.exp(ls_ * nz[i]))
+            self._inst_event(i, "sold", big=bool(self.inst_level[i] == 2))
+        # merged: the smaller of two firms of one sector in one place is folded into the bigger; its slot is a new firm
+        emp = free & ~sold & self.inst_firm & (k == K_["employer"])
+        done = np.zeros(n, bool)
+        for i in np.nonzero(emp & (x[:, 1] < c("merged") / 4))[0]:
+            if done[i]:
+                continue
+            rivals = np.nonzero(emp & ~done & (self.inst_sector == self.inst_sector[i]) & (self.inst_loc == self.inst_loc[i])
+                                & (np.arange(n) != i))[0]
+            if not len(rivals):
+                continue
+            j = rivals[int(np.argmax(size[rivals]))]
+            small, big = (i, j) if size[i] <= size[j] else (j, i)
+            done[[small, big]] = True
+            self._event("institution", "merged", INST_KINDS[k[small]], dict(inst=int(small), into=int(big),
+                        loc=int(self.inst_loc[small]), gen=int(self.inst_gen[small])), big=False)
+            sec = int(self.inst_sector[small]) if self.inst_sector[small] >= 0 else 2
+            g = SECTOR_GUILDS[sec][int(x[small, 5] * len(SECTOR_GUILDS[sec]))]
+            self.inst_native[small] = self._profile_src(g); self.inst_profile[small] = self.inst_native[small].copy()
+            self.inst_finances[small], self.inst_age[small], self.inst_gen[small] = 0.5, 0.0, self.inst_gen[small] + 1
+            self.inst_corruption[small], self.inst_legitimacy[small], self.inst_leader_q[small] = 0.1, self.inst_legit0[small], 0
+            self.inst_leader_pie[small] = _norm(self.V * np.exp(ls_ * nz[small]))
+            self._inst_event(small, "new firm", big=False)
+        # a leak: private files get out, more where nearly everyone is online and the body is weak
+        net = float(self.tech_adopt("internet")) if "internet" in self.tech_keys else 0.0
+        lk_k = np.isin(k, [K_[k_] for k_ in ("hospital", "council", "ministry")]) | self.inst_firm
+        leak = free & lk_k & (x[:, 2] < c("leak") / 4 * (0.5 + net) * np.maximum(1.5 - self.inst_capacity, 0))
+        for i in np.nonzero(leak)[0]:
+            self.inst_legitimacy[i] = max(self.inst_legitimacy[i] - c("leak_legit"), 0.02)
+            self.trust = max(self.trust - c("leak_trust"), 0.02)
+            self._inst_event(i, "leak", big=bool(self.inst_level[i] == 2))
+        # a cover-up: money, safety checks, records or negligence (never harm to children or sexual violence); hidden,
+        # it is not on the record; its staff know
+        cv_k = np.isin(k, [K_[k_] for k_ in ("hospital", "bank", "council", "police", "faith body")])
+        cov = free & cv_k & (self.c3_cover <= t) & (x[:, 3] < (c("cover") + c("cover_c") * self.inst_corruption) / 4)
+        for i in np.nonzero(cov)[0]:
+            yrs = c("cover_y0") + (c("cover_y1") - c("cover_y0")) * x[i, 4]
+            self.c3_cover[i] = t + int(52 * yrs)
+            subj = ("money", "safety checks", "records", "negligence")[int(x[i, 5] * 4) % 4]
+            self._event("institution", "cover-up", INST_KINDS[k[i]], dict(inst=int(i), loc=int(self.inst_loc[i]),
+                        gen=int(self.inst_gen[i]), subject=subj), big=False, public=False)
+
     def c4_illness(self):
         """C4: each place's multiplier on illness (bad air, bad water, a poisoned river), or None with the hook off."""
         if getattr(self, "c4_ill", None) is None:
@@ -1571,7 +1667,14 @@ class World:
         close = (firm | pube) & (x[:, 1] < ex)
         # events: scandal, new leader, strike, budget cut, ruling, reform, closure (spec 4 §4)
         media_cap = self.inst_capacity[k == INST_KINDS.index("media")].mean()
-        sc = (x[:, 2] < p["scandal0"] + p["scandal_c"] * self.inst_corruption * media_cap * (0.5 + self.watch)) & ~party
+        sc_ = p["scandal0"] + p["scandal_c"] * self.inst_corruption * media_cap * (0.5 + self.watch)
+        if p.get("c3_inst") and getattr(self, "c3_cover", None) is not None:   # C3: a cover-up hides it, so it breaks
+            hid_ = self.c3_cover > self.t                                      # three times as often, and at once
+            sc_ = np.where(hid_, sc_ * self._c_par("cover_sc"), sc_)           # when an insider speaks up
+            sc = ((x[:, 2] < sc_) | (hid_ & self.c3_break)) & ~party
+            self.c3_cover = np.where(sc, 0, self.c3_cover); self.c3_break[:] = False
+        else:
+            sc = (x[:, 2] < sc_) & ~party
         for i in np.nonzero(sc)[0]:
             self.inst_legitimacy[i] -= 0.12; self.trust -= 0.002
             big = self.inst_level[i] == 2
@@ -1598,6 +1701,8 @@ class World:
             if _sig(self.norm_x[j]) > 0.55 and self.laws[j] > 0:
                 self.law_push[j] += 0.6
             self._inst_event(i, "ruling", big=self.inst_level[i] == 2)
+        if p.get("c3_inst"):                               # C3: some big closures in a deep recession are nationalised
+            close = self._c3_nationalise(close)
         for i in np.nonzero(close)[0]:
             self._inst_event(i, "closure", big=self.inst_level[i] == 2)
             sec = int(self.inst_sector[i]) if self.inst_sector[i] >= 0 else 2
@@ -1608,6 +1713,8 @@ class World:
             self.inst_leader_pie[i] = _norm(self.V * np.exp(ls_ * nz[i]))
             self._inst_event(i, "new firm", big=False)
         self.n_closures = getattr(self, "n_closures", 0) + int(close.sum())
+        if p.get("c3_inst"):
+            self._c3_inst_q(close)
 
     def _inst_event(self, i, kind, big=False):
         self._event("institution", kind, INST_KINDS[self.inst_kind[i]], dict(inst=int(i), loc=int(self.inst_loc[i]),
@@ -2440,6 +2547,8 @@ class World:
                 elif dom == "institution" and key in ("legitimacy", "corruption", "capacity"):
                     arr = getattr(self, "inst_" + key); i = int(idx)
                     arr[i] = _uclip(arr[i] + 0.03 * a, 0.01, 0.99); done = 0.03 * a
+                    if a < 0 and getattr(self, "c3_cover", None) is not None and self.c3_cover[i] > self.t:
+                        self.c3_break[i] = True                    # C3: an insider speaks up; the scandal breaks
                 elif dom == "institution" and key == "reform" and a > 0:
                     i = int(idx)
                     if a >= 1.5: self._reform_inst(i, self.inst_native[i], step=0.2 * a)
