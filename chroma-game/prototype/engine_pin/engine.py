@@ -734,6 +734,10 @@ DEFAULT = dict(
     cult_schools=False, cult_scenes=False, cult_adults=False, cult_anchor=False, cult_pushback=False, cult_shake=False,
     cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False, hist_chance_only=False,
     sph_town=False,      # the spheres of society (item 15, v22.3 stage 2), phase 1c: each town's spheres (world.py; read only)
+    sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
+    sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
+    sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -900,7 +904,9 @@ UPD_OFF = dict(dis_match=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
                hist_chance_only=False,
                # stage 2 of v22.3, the spheres of society (item 15)
-               sph_town=False)
+               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False,
+               # item 11, the world in their life: WL2's small effects
+               wl2=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1800,7 +1806,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                   regret=regret, horizon=fhz, discipline=dsc, self_control=ctrl,     # v7: what was let go, time felt short, learned control
                   harsh=drv_h, unrest=drv_u, prosper=drv_p, era=era_i[t],
                   founding=NO_FOUND,   # C5: a movement founding in the person's place, with a free slot (not built yet)
-                  haunts=NO_FOUND)     # spheres phase 2: haunts built (the haunt choices); not yet
+                  haunts=np.full(N, bool(P.get("sph_haunts")) and WON))   # spheres phase 2: haunts built (the haunt choices)
         ns.update({nm_: stage == i_ for i_, nm_ in enumerate(STAGE_NAMES)})
         ns.update({nm_: need[:, i_] for i_, nm_ in enumerate(NEEDS)}); ns.update({nm_: res[:, i_] for i_, nm_ in enumerate(RESOURCES)})
         for i_, c_ in enumerate(COLORS):
@@ -2049,6 +2055,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sea_log.append((int(n_), t, int(k_)))
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
+    MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
+    WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
     if WON:
@@ -2891,6 +2899,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + 0.3 * pension - 0.12 * kids
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
         ht = _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1)
+        if MK_ON:   # spheres phase 2, the mark of the work: hard work ages the body (years beyond its own)
+            ht = _uclip(ht - 0.012 * np.asarray(WL.PP.mark_wear, float), 0.2, 1)
         ft = FREE_STAGE[stage] - 0.1 * kids - 0.05 * held[:, PAR]
         if RON:   # a title's own resources: a nurse's pay, the freedom a record takes
             tr_ = (r_has[:, :NT_] * np.where(TK_ < NK, 0.4 + 0.6 * I[:, np.minimum(TK_, NK - 1)], 1.0)) @ GR["meets_res"]
@@ -2901,6 +2911,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 rp_ = WL.resources_parts(held[:, CAR])
                 wfx_track("money", {k_: rp_[k_] for k_ in ("housing", "prices", "welfare")}, age, dead)
                 wfx_track("freedom", {"rights": rp_["rights"]}, age, dead)
+            if WL2_ON:   # WL2: the small effects, each charged once (spheres-implementation.md "One cost, one place")
+                w2_ = WL.wl2_parts(held[:, CAR])
+                mt = mt + w2_["prices_work"] + w2_["recession"] + w2_["disaster"]
+                ft = ft + w2_["rec_hours"] + w2_["disaster_time"]; tt = tt + w2_["pandemic"]
+                if WFX_ON:
+                    wfx_track("money", {k_: w2_[k_] for k_ in ("prices_work", "recession", "disaster")}, age, dead)
+                    wfx_track("freedom", {k_: w2_[k_] for k_ in ("rec_hours", "disaster_time")}, age, dead)
+                    wfx_track("ties", {"pandemic": w2_["pandemic"]}, age, dead)
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
@@ -3585,6 +3603,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 wfx_track("safety", WL.safety_parts(), age, dead)
         need[:, :3] += P["res_need"] * (supply - 0.5)
         need += P["commit_need"] * ((held * I) @ KPAY) * ((1 - need) if P["satiate"] else 1)
+        if MK_ON:   # the mark of the work: a trade with say and skill meets autonomy and competence more (Jahoda 1982)
+            mz_ = np.asarray(WL.PP.mark_z, float) * (held[:, CAR] * I[:, CAR])[:, None]
+            need[:, NIDX["autonomy"]] += 0.1 * P["commit_need"] * mz_[:, 0]; need[:, NIDX["competence"]] += 0.1 * P["commit_need"] * mz_[:, 1]
         if RON:   # a title's own needs on top of its kind's, scaled the same way (statuses at full strength)
             tn_ = (r_has[:, :NT_] * np.where(TK_ < NK, I[:, np.minimum(TK_, NK - 1)], 1.0)) @ GR["meets_need"]
             need += P["commit_need"] * P["title_need"] * tn_ * np.where(tn_ > 0, (1 - need) if P["satiate"] else 1, 1)
@@ -3998,6 +4019,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             b0_, pk_, at_, wd_ = P["cur_age"]
             cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
+        if MK_ON and t % 4 == 0:   # spheres phase 2: the mark of the work, a year's step once it is drawn (booked with the current)
+            mdw_ = WL.PP.mark_dw
+            if mdw_.any():
+                mdz_ = centre(5 * mdw_); WL.PP.mark_dw = np.zeros_like(mdw_)
+                dz_ = dz_ + mdz_; chan[:, 8] += mdz_
+            hu_ = WL.PP.mark_hurt & ~dead
+            if hu_.any():   # a serious injury at work
+                res[hu_, HEA] -= 0.15; WL.PP.mark_hurt = np.zeros(N, bool)
+            for n_ in np.nonzero(WL.PP.mark_die & ~dead)[0] if P["self_death"] else ():   # (deaths only where lives can die)
+                die(int(n_), "an accident at work")
+            WL.PP.mark_die = np.zeros(N, bool)
         z_new = centre(z + dz_ + drift)
         v = 0.7 * v + 0.3 * (z_new - z)
         if P["tw_pen"]:    # a big life event reaches the deep core directly, in proportion to how hard it hit

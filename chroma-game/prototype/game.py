@@ -123,12 +123,13 @@ GAME = dict(
     # option's chance (a little more for their own lead); held, the strain and pent-up wanting are let go
     turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
+    fig_own=True,        # K12 (v22.3): no public figure shares the character's first name
 )
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -442,7 +443,7 @@ class Game:
         self.name = name
         self.setting = setting if setting in SETTINGS else "earth"
         self.story = Story(name, seed, place, self.setting)   # the built-in narration (story.py)
-        self.wv = WorldView(int(seed), self.setting, name)     # the outer world's panel, circle, reach and story lines
+        self.wv = WorldView(int(seed), self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
         self.story.seen_as = lambda: self.gender_view()["seen_word"][2:] if self.loc is not None else "child"   # {seen_as} (N1d §3)
         self._epithet = ""
         self.ledger = False             # also show the numbers under the story (key l)
