@@ -749,6 +749,8 @@ DEFAULT = dict(
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
     sph_deep=False,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
+    sph_titles=False,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
+                         # the engine reads none of those rules
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
@@ -961,7 +963,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -1615,6 +1617,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
+        if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
+            GR = dict(GR, rule=[GR["rule_sph"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
         r_has = np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
         r_since = np.full((N, NI_), NEVER); r_end = np.full((N, NI_), NEVER)
         p_acc = np.zeros((N, NP_), bool); p_lev = np.zeros((N, NP_)); p_sus = np.full((N, NP_), NEVER)   # access, skill, suspended until

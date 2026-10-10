@@ -107,6 +107,30 @@ def _lose(r):
     return [(_code(c_), str(w_)) for c_, w_ in pairs]
 
 
+def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend):
+    """One title's or perk's rule, compiled (_roles)."""
+    bad = [x for x in r.get("after", []) if x not in ID]
+    if bad:
+        raise ValueError(f"{nm}: 'after' names unknown titles {bad}")
+    bad = [x for x in r.get("rungs", []) if x not in ID]
+    if bad:
+        raise ValueError(f"{nm}: 'rungs' names unknown titles or perks {bad}")
+    # a pack's EXTEND: a condition or-ed into the rule (at the rule's own rate), or dict(req, rate): a way in of its own
+    more_ = []
+    for x_ in (extend or {}).get(nm, []):
+        if isinstance(x_, dict):
+            more_.append((_code(x_["req"]), float(x_["rate"])))
+        else:
+            r["req"] = f"({r['req']}) | ({x_})" if r.get("req") else None   # a rule with no condition already lets anyone in
+    return dict(req=_code(r.get("req")), rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
+                lose=_lose(r), lrate=r.get("lrate", 0.0), lend=r.get("lend", "left"),
+                starts=bool(r.get("starts")), entry=r.get("entry", not r.get("after")), weight=r.get("weight"),
+                has_req=bool(r.get("req")),
+                rungs=[ID[x] for x in r.get("rungs", [])],   # lower rungs kept on the step (a degree; packs
+                # 11:29): counted as steps by the fit report, never dropped or gated like after=
+                norm=float(norm.get(nm, 1.0)), acc_move=float(acc_mv.get(nm, 1.0)), acc_first=float(acc_fs.get(nm, 1.0)), grants=[ID[x] for x in r.get("grants", []) if x in ID or x not in opt])
+
+
 def _roles(cat, R, L, extra=None, extend=None):
     """Titles and perks (chroma-engine/perks-titles-format.md): the world's catalogue, the engine's reading of how each is
     gained and lost (<world>_rules.ROLES), and the act fields on options (title, drops, grants, takes, suspends, requires,
@@ -180,27 +204,10 @@ def _roles(cat, R, L, extra=None, extend=None):
     G["without_default"] = np.array([WITHOUT_DEFAULT["title"]] * NT + [WITHOUT_DEFAULT[x["kind"]] for x in PP])
     G["rule"] = []
     for i, nm in enumerate(names):
-        r = dict(rules.get(nm, {}))
-        bad = [x for x in r.get("after", []) if x not in ID]
-        if bad:
-            raise ValueError(f"{nm}: 'after' names unknown titles {bad}")
-        bad = [x for x in r.get("rungs", []) if x not in ID]
-        if bad:
-            raise ValueError(f"{nm}: 'rungs' names unknown titles or perks {bad}")
-        # a pack's EXTEND: a condition or-ed into the rule (at the rule's own rate), or dict(req, rate): a way in of its own
-        more_ = []
-        for x_ in (extend or {}).get(nm, []):
-            if isinstance(x_, dict):
-                more_.append((_code(x_["req"]), float(x_["rate"])))
-            else:
-                r["req"] = f"({r['req']}) | ({x_})" if r.get("req") else None   # a rule with no condition already lets anyone in
-        G["rule"].append(dict(req=_code(r.get("req")), rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
-                              lose=_lose(r), lrate=r.get("lrate", 0.0), lend=r.get("lend", "left"),
-                              starts=bool(r.get("starts")), entry=r.get("entry", not r.get("after")), weight=r.get("weight"),
-                              has_req=bool(r.get("req")),
-                              rungs=[ID[x] for x in r.get("rungs", [])],   # lower rungs kept on the step (a degree; packs
-                              # 11:29): counted as steps by the fit report, never dropped or gated like after=
-                              norm=float(norm.get(nm, 1.0)), acc_move=float(acc_mv.get(nm, 1.0)), acc_first=float(acc_fs.get(nm, 1.0)), grants=[ID[x] for x in r.get("grants", []) if x in ID or x not in opt]))
+        G["rule"].append(_rule1(nm, dict(rules.get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend))
+    # item 15, the sphere titles (earth_rules.SPH_TITLE_ROLES): compiled beside the rules, read only with sph_titles on
+    G["rule_sph"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
+                     for nm, r_ in getattr(R, "SPH_TITLE_ROLES", {}).items() if nm in ID}
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)
