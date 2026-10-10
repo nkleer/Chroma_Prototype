@@ -1529,9 +1529,15 @@ class People:
         rr_ = np.floor(self.rung[:, S_("rule")])
         hrs[:, 6] = T["civic"][g] * np.where(rr_ >= 4, 6.0, np.where(rr_ >= 3, 3.0, 1.0)); mix[:, 6] = tm[:, S_("rule")]; rs[:, 6] = S_("rule")
         hrs[:, 7] = T["market"][g]; mix[:, 7] = tm[:, S_("comm")]; rs[:, 7] = S_("comm")
+        if W.p.get("sph_deep", False):   # phase 5: the care load (who carries whom) adds care hours and costs work hours
+            self.care_load = self._care_load(t)
+            hrs[:, 4] += self.care_load; hrs[:, 0] = np.maximum(0.0, hrs[:, 0] - 0.1 * self.care_load)   # 1 work hour per 10
         if W.p.get("sph_seasons", False):                                         # N7: the year's rhythm in each row's sphere
             hrs = hrs * W._sph_tables()["seas_h"][rs, W.season]
         self.hrs = hrs
+        if W.p.get("sph_shadow", False):   # N5: the shadow around them, the hours-weighted shadow share of their rows' spheres
+            rsh = np.take_along_axis(W._sph_sh()[self.loc], rs[:, :, None], 1)  # N x 8 x 5
+            self.sh_around = (hrs[..., None] * rsh).sum(1) / np.maximum(hrs.sum(1), 1e-9)[:, None]
         wt = hrs * self._depth[None] * (1 + 0.25 * np.floor(np.take_along_axis(self.rung, rs, 1)))
         tot = wt.sum(1)
         self.places_mix = np.where(tot[:, None] > 1e-9, (wt[..., None] * mix).sum(1) / np.maximum(tot, 1e-9)[:, None], self.w)
@@ -1556,6 +1562,43 @@ class People:
                 ii_ = np.nonzero(ok_)[0]
                 tg[ii_, sj[ii_]] = np.maximum(tg[ii_, sj[ii_]], np.where(self.slead[ii_, j_] == -2, 4, np.where(self.srank[ii_, j_] >= 0.85, 3, 0)))
             self.rung = np.where(tg >= self.rung, np.minimum(tg, self.rung + 1), np.maximum(tg, self.rung - 1))
+
+    def _care_load(self, t):
+        """Phase 5 (sph_deep), "who carries whom": hours a week of care each life gives (N; deep_state.care_load). A close
+        partner, parent, parent-in-law or grandparent (closeness layer 2 or nearer) in poor health (under .35) or 82 or
+        older needs care: partner 20, parent 12, parent-in-law 8, grandparent 4 hours, x 1.5 under health .2. A partner's
+        lands on the life; a parent's or grandparent's is shared with the close siblings still living, and a
+        parent-in-law's with the partner, each weighted 1 + .5 x the world's role strictness (1 - acceptance of role
+        crossing) toward the expected carer (a daughter; a daughter-in-law); x (1 - .5 x the town's care.reach). At
+        most 60. Not yet: money buying hours."""
+        import sphere_data as SD
+        D = SD.DEEP; H = D["care_hours"]
+        L2 = self.P["layer_c"][1]; rm = self.rmask
+        live = self.used & self.lv & (self.c >= L2)
+        has = lambda r_: (rm & BIT[r_]) != 0
+        age = (t - self.born) / 52.0; mine = (t - self.t0) / 52.0
+        need = live & ((self.health < 0.35) | (age >= 82))
+        fx = np.where(self.health < D["care_frail"], D["care_frail_x"], 1.0)
+        rs = 1.0 - float(self.W.norm("role crossing"))
+        wt = lambda fem_: 1.0 + D["care_role"] * rs * fem_                      # toward the expected carer
+        own = wt(self.female.astype(float))
+        sib = (live & has("sibling")) * wt(self.fem.astype(float))
+        share = own / (own + sib.sum(1))                                         # of a parent's or grandparent's care
+        pil = need & has("inlaw") & (age >= mine + 15)                          # the partner's parents
+        ps_ = (self.used & self.lv & has("partner"))
+        p_fem = (ps_ & self.fem).any(1).astype(float)
+        share_il = np.where(ps_.any(1), own / (own + wt(p_fem)), 1.0)
+        h = ((need & has("partner")) * H["partner"] * fx).sum(1) \
+            + ((need & has("parent")) * H["parent"] * fx).sum(1) * share \
+            + ((need & has("grandparent")) * H["grandparent"] * fx).sum(1) * share \
+            + (pil * H["parent_in_law"] * fx).sum(1) * share_il
+        W = self.W; E = W._sph_ev_tables()
+        st = getattr(W, "sph_st", None)
+        if st is not None and "care.reach" in E["own"]:
+            k_ = E["own"].index("care.reach"); rch = np.clip(st[:, k_] + W.sph_st_soc[k_] - 0.5, 0, 1)[self.loc]
+        else:
+            rch = np.full(self.N, 0.5)
+        return np.where(self.dead, 0.0, np.minimum(60.0, h * (1 - D["care_public"] * rch)))
 
     def haunts_info(self, n):
         """Life n's haunts (N1), best first, as World.place_info gives them, each with whether a setting of theirs meets
@@ -3356,6 +3399,10 @@ class People:
         if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):   # phase 4 (only when on)
             out["spheres4"] = dict(fair=[float(x_) for x_ in self.fair[n]], p4_yr=int(self._p4_yr),
                                    fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
+        ca_, sa_ = getattr(self, "care_load", None), getattr(self, "sh_around", None)
+        if ca_ is not None or sa_ is not None:   # phase 5 (only once on): this month's care load and shadow around them
+            out["spheres5"] = dict(care_load=None if ca_ is None else float(ca_[n]),
+                                   sh_around=None if sa_ is None else [float(x_) for x_ in sa_[n]])
         return out
 
     @classmethod
@@ -3410,5 +3457,16 @@ class People:
                 if s4_:
                     pp.fair[n] = s4_["fair"]; pp._p4_yr = int(s4_["p4_yr"])
                     pp.fair_log += [[t_, n, j_, v_] for t_, j_, v_ in s4_["fair_log"]]
+        if any(d.get("spheres5") for d in saved):
+            for n, d in enumerate(saved):
+                s5_ = d.get("spheres5") or {}
+                if s5_.get("care_load") is not None:
+                    if getattr(pp, "care_load", None) is None:
+                        pp.care_load = np.zeros(pp.N)
+                    pp.care_load[n] = s5_["care_load"]
+                if s5_.get("sh_around") is not None:
+                    if getattr(pp, "sh_around", None) is None:
+                        pp.sh_around = np.zeros((pp.N, C))
+                    pp.sh_around[n] = s5_["sh_around"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
