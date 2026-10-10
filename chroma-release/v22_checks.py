@@ -102,13 +102,14 @@ CHECKS = [
      "cp earth.py {W}/earth.py.live && python3 -B build.py earth | tail -3 && cmp earth.py {W}/earth.py.live && echo REBUILT-SAME",
      "re:^REBUILT-SAME", (), "earth.py rebuilds byte for byte from its .lib sources"),
     ("build_packs", "C-L1", "Library", "quick", 1, "chroma-library",
-     "for p in science politics stage; do rm -rf {W}/b_$p; mkdir -p {W}/b_$p; cp ../chroma-packs/$p/$p-*.lib build.py earth_voice.py {W}/b_$p/; "
+     "for p in science politics stage art; do if [ ! -d ../chroma-packs/$p ]; then echo \"$p: not in this commit\"; continue; fi; rm -rf {W}/b_$p; mkdir -p {W}/b_$p; cp ../chroma-packs/$p/$p-*.lib build.py earth_voice.py {W}/b_$p/; "
      "(cd {W}/b_$p && python3 -B build.py $p | tail -2) && cmp {W}/b_$p/$p.py earth_$p.py && echo \"$p REBUILT-SAME\" || exit 1; done",
      "re:stage REBUILT-SAME", (), "each pack's compiled earth_<pack>.py rebuilds byte for byte from chroma-packs/<pack>/*.lib"),
     ("balance", "C-L1", "Library", "quick", 1, "chroma-library", "python3 -B check.py earth.py && cat checks_earth.md", "same", (),
      "balance per stage, drivers and echoes, chance per color, Schwartz agreement"),
     ("setting", "C-L2", "Library", "quick", 1, "chroma-library",
-     "python3 -B drafts/check_setting.py && python3 -B drafts/check_setting.py ../chroma-packs/science ../chroma-packs/politics ../chroma-packs/stage",
+     "python3 -B drafts/check_setting.py && python3 -B drafts/check_setting.py ../chroma-packs/science ../chroma-packs/politics ../chroma-packs/stage"
+     " $(ls -d ../chroma-packs/art 2>/dev/null)",
      "re:^setting: no year", (), "timeless modern setting in every player string (Library parts, dreams, voice, catalogue, packs)"),
     ("voice", "C-L3", "Library", "quick", 1, "chroma-library", "python3 -B drafts/check_voice.py earth_voice.py", "rc", (),
      "the inner voice and lessons"),
@@ -124,13 +125,13 @@ CHECKS = [
      "same", (), "reach and repeats against each moment's gap, 400 lives"),
     # ---- Packs
     ("pack_check", "C-P1", "Packs", "quick", 1, "chroma-packs/tools",
-     "for p in science politics stage; do python3 -B check_pack.py $p || exit 1; done", "rc", (),
+     "for p in science politics stage art; do if [ ! -d ../$p ]; then echo \"$p: not in this commit\"; continue; fi; python3 -B check_pack.py $p || exit 1; done", "rc", (),
      "catalogue fields, color balance, references, names"),
     ("pack_stats", "C-P2", "Packs", "quick", 1, "chroma-packs",
-     "for p in science politics stage; do echo \"== $p\"; python3 -B tools/lib_stats.py $p/*.lib || exit 1; done", "same", (),
+     "for p in science politics stage art; do if [ ! -d $p ]; then echo \"$p: not in this commit\"; continue; fi; echo \"== $p\"; python3 -B tools/lib_stats.py $p/*.lib || exit 1; done", "same", (),
      "chance per means color per stage; tags"),
     ("pack_balance", "C-P4", "Packs", "quick", 1, "chroma-library",
-     "for p in science politics stage; do python3 -B check.py earth_$p.py && cat checks_earth_$p.md || exit 1; done", "same", (),
+     "for p in science politics stage art; do if [ ! -f earth_$p.py ]; then echo \"$p: not in this commit\"; continue; fi; python3 -B check.py earth_$p.py && cat checks_earth_$p.md || exit 1; done", "same", (),
      "the Library's balance check on each compiled pack"),
     # ---- Engine (the C-X2 share of the v22 record, calib_v10/cx2/jobs.txt, plus the rows that ran elsewhere)
     ("score21", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS=" + PACKS3 + " python3 -B calib_v8/score_packs.py '{{}}' 600 21",
@@ -262,9 +263,9 @@ TSTEPS = "chroma-engine/tools/t_steps.py"
 # Files a check reads through a shell tool (cp, cmp, cat), which the proof recorder cannot see (paths in the work tree)
 EXTRA = {
     "build_earth": ["chroma-library/earth.py"],
-    "build_packs": ["chroma-packs/science/*.lib", "chroma-packs/politics/*.lib", "chroma-packs/stage/*.lib", "chroma-library/build.py",
-                    "chroma-library/earth_voice.py", "chroma-library/earth_science.py", "chroma-library/earth_politics.py",
-                    "chroma-library/earth_stage.py"],
+    "build_packs": ["chroma-packs/science/*.lib", "chroma-packs/politics/*.lib", "chroma-packs/stage/*.lib", "chroma-packs/art/*.lib",
+                    "chroma-library/build.py", "chroma-library/earth_voice.py", "chroma-library/earth_science.py",
+                    "chroma-library/earth_politics.py", "chroma-library/earth_stage.py", "chroma-library/earth_art.py"],
     "rarity": [NAMES["rarity_live"][0]],
     "rarity1000": [NAMES["rarity_live"][0]],
 }
@@ -413,8 +414,10 @@ def build_tree():
             shutil.copytree(sd, os.path.join(L, "sources"), ignore=SKIPF); break
     K = os.path.join(T, "chroma-packs")
     cp_files(src["packs"], K)
-    for d in ("core", "politics", "science", "stage", "tools"):                # tools/ (the Packs' checks) from the shared folder if the
-        sd = os.path.join(src["packs"], d)                                     # candidate lacks it
+    for d in ("core", "politics", "science", "stage", "art", "tools"):         # tools/ (the Packs' checks) from the shared folder if the
+        sd = os.path.join(src["packs"], d)                                     # candidate lacks it; art only where the candidate has it
+        if d == "art" and not os.path.isdir(sd):
+            continue
         shutil.copytree(sd if os.path.isdir(sd) else os.path.join(REAL, LIVE["packs"], d), os.path.join(K, d), ignore=SKIPF)
     shutil.copytree(src["game"], os.path.join(T, "chroma-game", "prototype"), ignore=SKIPF)
     v21 = os.path.join(REAL, GAME_V21, "engine_pin")                          # check_identity's go-live rules
