@@ -2339,7 +2339,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if BAT:
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
-            mf_ = WL.moment_factor(age); aff = aff * mf_
+            mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
