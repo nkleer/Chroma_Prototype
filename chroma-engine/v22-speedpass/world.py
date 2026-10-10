@@ -2012,6 +2012,9 @@ class World:
         e = self._entry(domain, kind, key, value, big)
         if self.p.get("sph_events", False):   # spheres phase 3: the world-fired sphere events, fired at the next quarter
             v_ = value if isinstance(value, dict) else {}
+            if domain == "state" and kind == "regime changes":   # which way, against the regime the last quarter saw
+                was_ = getattr(self, "sph_reg_seen", None)
+                v_ = dict(v_, state=None if was_ is None or float(self.regime) == was_ else ("up" if float(self.regime) > was_ else "down"))
             if not hasattr(self, "sph_wq") or self.sph_wq is None:
                 self.sph_wq = []
             self.sph_wq.append([domain, kind, None if key is None else str(key), int(v_.get("loc", -1)), int(v_.get("inst", -1)),
@@ -2800,6 +2803,15 @@ class World:
             return "plague_wave" if key == "rising" else None
         if domain == "nature" and kind == "price shock":
             return "dearth" if key == "food" else None
+        # the say and its rights (events_run world_fired, Outer world 10-10): speech or women's rights gained, or the
+        # regime moving up, widen the say; a right lost in speech, faith, sexuality or women's rights, or the regime moving
+        # down, narrows it, and only the fall seizes power (a lockdown's lost movement is neither)
+        if domain == "state" and kind == "right gained":
+            return "say_widened" if key in ("speech", "women") else None
+        if domain == "state" and kind == "right lost":
+            return "rights_narrowed" if key in ("speech", "faith", "sexuality", "women") else None
+        if domain == "state" and kind == "regime changes":
+            return {"up": "say_widened", "down": ["power_seized", "rights_narrowed"]}.get(v.get("state"))
         if domain == "nature" and kind == "drought":        # C4 (c4_nature)
             return "lean_year"
         if domain == "nature" and kind == "glorious spring":   # C4: in farming places
@@ -2810,8 +2822,7 @@ class World:
             return "star_falls" if key in ("star", "athlete") else None
         return {("belief", "revival"): "faith_revival", ("place", "crime wave"): "crime_wave",
                 ("nature", "disaster"): "disaster_strikes", ("abroad", "war begins"): "call_up",
-                ("abroad", "war ends"): "peace_made", ("state", "right gained"): "say_widened",
-                ("state", "right lost"): "rights_narrowed", ("state", "regime changes"): "power_seized",
+                ("abroad", "war ends"): "peace_made",
                 ("institution", "budget cut"): "hands_short"}.get((domain, kind))
 
     def _sph_events_q(self, e_need):
@@ -2853,13 +2864,14 @@ class World:
                 l_ = ek[2] if 0 <= ek[2] < nl else None
                 h_ = self._cache_evh[l_ if l_ is not None else slice(None)]
                 ek = E["names"][cand[int(np.argmax(np.atleast_2d(h_)[:, cand].mean(0)))]] if cand else None
-            if ek is None or ek not in E["key"]:
-                continue
-            i = E["key"][ek]; l = int(lc_) if 0 <= lc_ < nl else int(np.argmax(self._cache_evh[:, i]))
-            here_ = 0 <= lc_ < nl
-            self._sph_fire(l, i, q, E, here=here_, local=here_ and not (bg_[0] if bg_ else True))   # a town's own news
+            for ek in (ek if isinstance(ek, list) else [ek]):
+                if ek is None or ek not in E["key"]:
+                    continue
+                i = E["key"][ek]; l = int(lc_) if 0 <= lc_ < nl else int(np.argmax(self._cache_evh[:, i]))
+                here_ = 0 <= lc_ < nl
+                self._sph_fire(l, i, q, E, here=here_, local=here_ and not (bg_[0] if bg_ else True))   # a town's own news
 
-        self.sph_wq = []
+        self.sph_wq = []; self.sph_reg_seen = float(self.regime)
         self.sph_st += sr["relax"] * (sr["start"] - self.sph_st); self.sph_st_soc += sr["relax"] * (sr["start"] - self.sph_st_soc)
         # the fading shifts of every row still acting
         R_ = self.sph_ev_rows; X = np.zeros((nl, 9, C))
