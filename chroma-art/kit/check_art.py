@@ -5,12 +5,14 @@
 
 It checks the tree it sits in (a checkout, or the shared folder), or the tree CHROMA_ROOT names.
 
-Fast: every picture pictures.json names exists, has its size (880x500 events, 700x1000 tarot) and weight (120 KB or less);
+Fast: every picture pictures.json names exists, has its size (880x500 events, 700x1000 tarot, 420x600 portrait cards of
+the ink look, one per lead colour and age) and weight (120 KB or less);
 every life event the game runs (engine_pin: Earth and the three packs) has its own picture; every icon id in
 ink-icons.json is a symbol in ink-icons.svg; every moment the game runs has one icon per option and, for each icon, the
 text it was drawn for. Notes, not failures: option texts that differ from the game's batch (the game keeps an icon for
 words reworded in place, its web/src/live_icons.py, check C-G2), and a game copy of ink-option-texts.json that differs
-from this one (the Game copies this one over, then reruns live_icons.py).
+from this one (the Game copies this one over, then reruns live_icons.py), and pictures without an entry in lights.json
+or entries for pictures that are gone (rerun chroma-look/tools/extract_lights.js after adding or redrawing pictures).
 Full: also rebuilds ink-icons.svg and ink-icons.json from kit/glyph in a temporary folder and compares them with game/
 (the JSON byte for byte, the sprite symbol by symbol and mask by mask). In the shared folder, between a merge and the
 next publish, the kit may be ahead of the live game/: additions only are a note. A pass ends with "art check: pass".
@@ -49,9 +51,26 @@ for grp, wh in want.items():
 for key, rel in pics.get('texture', {}).items():
     f = os.path.join(GAME, rel); named.add(os.path.normpath(f))
     if not os.path.exists(f): fail(f'pictures.json texture "{key}": {rel} is missing')
+port = pics.get('portrait')   # the ink look's portrait cards: lead colour x age
+if port is not None:
+    for c in 'WUBRG':
+        for a in ('child', 'youth', 'adult', 'elder'):
+            rel = (port.get(c) or {}).get(a)
+            if not rel: fail(f'pictures.json portrait {c} {a} is not named'); continue
+            f = os.path.join(GAME, rel); named.add(os.path.normpath(f))
+            if not os.path.exists(f): fail(f'pictures.json portrait {c} {a}: {rel} is missing'); continue
+            if webp_size(f) != (420, 600): fail(f'pictures.json portrait {c} {a}: {rel} is {webp_size(f)}, not (420, 600)')
+            if os.path.getsize(f) > 120 * 1024: fail(f'{rel} weighs {os.path.getsize(f)} bytes, over 120 KB')
 if any(pics.get('missing', {}).values()): fail(f'pictures.json lists missing keys: {pics["missing"]}')
 unnamed = [os.path.basename(f) for f in glob.glob(os.path.join(GAME, 'pics', '*')) if os.path.normpath(f) not in named]
 if unnamed: notes.append(f'{len(unnamed)} files in game/pics are not named in pictures.json: {", ".join(sorted(unnamed)[:5])}')
+# the ink look's lights (lights.json, made from the kit's scenes by chroma-look/tools/extract_lights.js)
+if os.path.exists(os.path.join(GAME, 'lights.json')):
+    lights = json.load(open(os.path.join(GAME, 'lights.json'), encoding='utf-8'))
+    shown = {os.path.basename(f)[:-5] for f in named if f.endswith('.webp')} - {'unwritten-fabric'}
+    nolight, gone = sorted(shown - set(lights)), sorted(set(lights) - shown)
+    if nolight: notes.append(f'{len(nolight)} pictures have no entry in lights.json (rerun extract_lights.js): {", ".join(nolight[:5])}')
+    if gone: notes.append(f'lights.json has {len(gone)} entries for pictures pictures.json does not name: {", ".join(gone[:5])}')
 
 # the game's batch (its pinned Library copy): Earth and the three packs, situations and echoes
 def load(p, n):
@@ -114,7 +133,7 @@ if '--full' in sys.argv:
                     fail('the icons rebuilt from kit/glyph differ from game/ink-icons.json and ink-icons.svg, not only by additions')
 
 print(f'pictures: {len(pics["situation"])} situations, {len(pics["domain"])} domains, {len(pics["tier"])} tiers, '
-      f'{len(pics["tarot"])} tarot cards; {len(events)} life events in the game, {len(nopic)} without a picture')
+      f'{len(pics["tarot"])} tarot cards' + (f', {sum(len(v) for v in port.values())} portrait cards' if port else '') + f'; {len(events)} life events in the game, {len(nopic)} without a picture')
 print(f'icons: {len(symbols)} glyphs; {len(moments)} moments, {sum(len(s["options"]) for s in moments)} options in the game; '
       f'{len(opt)} moments mapped' + ('; rebuilt from the kit' if '--full' in sys.argv else ''))
 for n in notes: print('note:', n)

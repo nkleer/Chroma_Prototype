@@ -26,3 +26,21 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   it gave and what it cost, by the character's trust in the player per color, and whether they were glad of it. It has no
   place of its own on the page yet, so it is the song's last stanza and also `review["last_talk"]`. earth_story.py and
   earth_play.py are pinned in engine_pin/ and listed in the worker's sources; earth_play.py is only pinned, never loaded.
+- 10-10 (thread "Visual improvement", Emren 10-10 07:30 UTC "Implement all six"): the ink look, a layer that changes no
+  lives. `look.css` and `look.js` come after app.js in the built page (build.py); look.js wraps drawLine, renderScreen,
+  animSpider, renderHud, renderTable, renderResolution, addFeed, renderReview, renderTools and openSheet, runs each
+  original first and its own part inside `safe()`. The story and the cards are drawn in the pictures' engraving style
+  (paper grain, double-ruled cards with ink roundels, stamped seals); the status panel keeps its minimal drawing and the
+  life river its v22 bands, now lit like the fog (a breathing glow, a drifting nebula, a gleam from birth to now) with the
+  old colors fading into the new when the life moves on (Emren 10-10 09:01 UTC); pictures print in and
+  their lights flicker (chroma-art/game/lights.json); an outcome turns over and its ink flies into the wheel, which then
+  counts to its new values with the change beside each color and meter; the character has a tarot portrait by lead color
+  and age (pictures.json `portrait`, 20 new pictures) in the crest, the sheet, the plates and the end; chapter plates
+  mark the start, a first identity, a long shot made, a title and the end. For choosing: the gem shows the odds (high,
+  middle, low), a storm corner marks a card against the grain, and a lean wheel shows where the hovered card would pull
+  the colors. Table menu: Look (ink, classic) and Motion (full, calm, off). Tools in chroma-look/tools.
+- 10-10 (thread "Visual improvement", Emren 10-10 09:54 UTC): the start spread runs I The Cradle to VI The Spires with 0
+  The Crossroads (Build your own) last. A click picks a card and puts the cursor in the name; nothing scrolls, a double
+  click no longer begins, and once a card is clicked the mouse crossing the others no longer changes the reading. When
+  the name would sit below the fold (a short window, a phone), the reading docks at the foot of the window. Enter or
+  Begin starts the life. In look.js (wraps renderScreen) and look.css; app.js unchanged.
