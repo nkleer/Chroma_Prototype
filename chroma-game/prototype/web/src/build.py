@@ -22,7 +22,9 @@ def pack(ls):
     c3 = lambda c: "".join(c[i] for i in (1, 3, 5)) if isinstance(c, str) and len(c) == 7 else ""
     return "|".join(f"{round(x * 1000)},{round(y * 1000)},{round(d * 1000)},{k},{round(a * 100)},{c3(c)}" for x, y, d, k, a, c in ls)
 lp = os.path.join(art, "lights.json")
-lights = {k: pack(v) for k, v in json.loads(part("lights.json", art)).items() if v} if os.path.exists(lp) else {}
+# only the pictures this build has (a release branch can carry fewer pictures than lights.json knows)
+lights = {k: pack(v) for k, v in json.loads(part("lights.json", art)).items()
+          if v and os.path.exists(os.path.join(art, "pics", k + ".webp"))} if os.path.exists(lp) else {}
 look = part("look.js").replace("__LIGHTS__", json.dumps(lights, separators=(",", ":")))
 out = part("head.html") + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look
 open(os.path.join(here, "..", "index.html"), "w", encoding="utf-8").write(out)
