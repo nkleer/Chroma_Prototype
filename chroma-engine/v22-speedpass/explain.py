@@ -334,7 +334,8 @@ def before(S, n, voice=None, rng=None):
             hc = helps @ m[k]
             o["helped_by"] = [GR["names"][NT + j] for j in np.argsort(-hc)[:2] if hc[j] > 0.05]
         if not idle[k]:
-            unread = 1.0 - float(np.asarray(S["read_"])[n]) if "read_" in S else 1.0   # what the character does not sense
+            unread = 1.0 - (float(np.asarray(S["readk_"])[n, k]) if "readk_" in S else   # what the character does not sense
+                            float(np.asarray(S["read_"])[n]) if "read_" in S else 0.0)     # (readk_: per option, read_skill)
             causes = dict(outlook=o_term, belief=gain * float((m[k] * fb).sum()), world=-gain * unread * float((m[k] * f_tot).sum()),
                           fit=-gain * unread * float(fit_k[k]))
             gap = float(S["p_hat"][n, k] - p_true[k])
