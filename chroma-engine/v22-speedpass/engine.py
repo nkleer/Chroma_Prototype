@@ -715,6 +715,10 @@ DEFAULT = dict(
     try_lift=0.3, try_max=2,   # commitment (Emren 09:18: big titles take steps, commitment and tries): each earlier failed try
                          # at the same title or perk adds try_lift to the earned odds of the next, for at most try_max tries
     rung_years=5.0,      # a title among an act's HELPS counts by years held, min(years / rung_years, 1) (0: held or not)
+    suit_on=True,        # Emren 10-09 ("chance to get perk higher if character has a suitable life"): a title or perk with no
+                         # weight of its own is likelier the better the person's colors and practice fit its ways
+    suit_goal=2.0,       # and a dream or passion of its kind (or, for a perk, whose colors fit it) makes it this much likelier,
+    suit_plan=3.0,       # a plan aimed at it this much
     rung_min=1.0,        # a title that grows from another (after=) comes only after this many years on that one (Emren 09:18:
                          # no big title in a short time, in one step)
     long_shot=0.1,       # packs 08:02 (Emren 06:06, the anti-story): a failed act for a title, or one whose failure grants [a long
@@ -1553,14 +1557,32 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             wk_ = "practice"
         ind_ = GR["ind"][i_]
         if wk_ == "practice" and ind_.sum() > 0:
-            return np.exp(_uclip(1.5 * (5 * (hist_m @ ind_) / ind_.sum() - 1), -2, 2))
+            return np.exp(_uclip(1.5 * (5 * (hist_m @ ind_) / ind_.sum() - 1), -2, 2)) * r_goal(i_)
         if wk_ == "colors" and WAYS_[i_].sum() > 0:
-            return np.exp(_uclip(1.5 * (5 * fit_best(w, i_) - 1), -2, 2))
+            return np.exp(_uclip(1.5 * (5 * fit_best(w, i_) - 1), -2, 2)) * r_goal(i_)
         if wk_ == "money":
-            return np.exp(3 * (res[:, MON] - 0.5))
+            return np.exp(3 * (res[:, MON] - 0.5)) * r_goal(i_)
         if wk_ == "ties":
-            return np.exp(3 * (res[:, TIE] - 0.5))
-        return 1.0
+            return np.exp(3 * (res[:, TIE] - 0.5)) * r_goal(i_)
+        if wk_ is None and P["suit_on"] and WAYS_[i_].sum() > 0:   # 10-09: no weight of its own: colors and practice both
+            pr_ = (hist_m @ ind_) / ind_.sum() if ind_.sum() > 0 else fit_best(w, i_)
+            return np.exp(_uclip(1.5 * (5 * (0.5 * fit_best(w, i_) + 0.5 * pr_) - 1), -2, 2)) * r_goal(i_)
+        return r_goal(i_)
+    def r_goal(i_):
+        """A dream or passion of the item's kind (a perk: whose colors fit its ways), or a plan aimed at it (10-09)."""
+        if not (P["suit_on"] and GON):
+            return 1.0
+        f_ = np.ones(N)
+        aim_ = (gtt == i_) & (gk >= 0)
+        f_ = np.where(aim_.any(1), P["suit_plan"], f_)
+        dp_ = (gk >= 0) & (gk <= 1)                            # dreams and passions
+        if i_ < NT_ and TK_[i_] < NK:
+            near_ = dp_ & (gd == TK_[i_])
+        elif WAYS_[i_].sum() > 0:
+            near_ = dp_ & (np.einsum("njc,c->nj", gm, WAYS_[i_] / WAYS_[i_].sum()) >= 0.3)
+        else:
+            return f_
+        return np.where(~aim_.any(1) & near_.any(1), P["suit_goal"], f_)
     def r_act(n, op, j, yrs, how, mix=None):
         if op in ("title", "grants"):
             r_gain(n, j, how, mix)

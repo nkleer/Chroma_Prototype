@@ -21,6 +21,7 @@ CAT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(batch.LIB_DIR, "earth_p
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x]
 PMOM_ = json.loads(os.environ.get("PACK_MOMENTS", "{}")) or None
 KEY = ",".join(sorted(PACKS_))
+SEEDS = tuple(int(x) for x in os.environ.get("SEEDS", "11,12,13,14").split(","))   # 10-09: other lives per session
 LIFT_MAX = float(os.environ.get("LIFT_MAX", 6.0))     # the highest tier lift the fit may try (8 with the 10-09 caps)
 SPLIT_CAP = float(os.environ.get("SPLIT_CAP", 3.0))   # how far one title's split may sit from its tier's lift (4.5 for
                                                       # the 1-in-100 summit floor, Emren 10-09)
@@ -65,7 +66,7 @@ def main():
     for rd in range(rounds + 1):
         t0 = time.time()
         with Pool(4) as pool:
-            out = pool.map(one, [(s, n, lift) for s in (11, 12, 13, 14)])
+            out = pool.map(one, [(s, n, lift) for s in SEEDS])
         tot = sum(o["n"] for o in out); ever = sum(o["ever"] for o in out)
         a_c = sum(o["any_c"] for o in out) / tot; a_s = sum(o["any_s"] for o in out) / tot
         print(f"round {rd}: {tot} lives, {time.time() - t0:.0f}s; lift career {lift['career']:+.3f}, summit {lift['summit']:+.3f}; "
