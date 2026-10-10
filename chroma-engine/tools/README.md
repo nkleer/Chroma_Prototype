@@ -37,6 +37,7 @@ the Library and the output folder changed: they all `import _engine`.
 | child_deaths.py | C-X5 | a child's death and illness among parents |
 | world_check.py, people_check.py, world_starts.py, lives_in_worlds.py | C-E16 (check_world.py) | the outer world |
 | colour_count.py | DECISIONS.md CHECK | how many colours adults hold, by age |
+| eyes_check.py | v22.4 G7, G8 | S3/S4 colour-even targets with sph_eyes and sph_odd on: `s3_rep`, `s3_caught`, `s4_odd`, `s4_convert` (or `all`); `--stats FILE` lets the four share one run |
 
 The calibration folders these scripts came from (their outputs and the one-off fitting scripts) are kept unchanged in
 the shared folder: in `chroma-engine/prototype/` until Release's checks run from here, then under
