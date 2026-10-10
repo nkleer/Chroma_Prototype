@@ -225,6 +225,12 @@ if RD or TK:
             ALL.append((f"TALK.{k}.{i}", t, "line", 20))
             if set(re.findall(r"{(\w+)}", t)) != {"go", "place", "read"}:
                 fail("1 coverage", f"TALK.{k}.{i}: needs {{go}}, {{place}} and {{read}} and no other slot: {t}")
+PN = getattr(M, "PLACE_NAME", [])   # S3: the word for their name at a place
+if PN:
+    mins_ = [m_ for m_, _ in PN]
+    if mins_ != sorted(mins_, reverse=True) or len(set(mins_)) != len(mins_) or mins_[-1] != -1 or mins_[0] > 1:
+        fail("1 coverage", f"PLACE_NAME: rep_min must fall strictly from at most 1 down to -1, got {mins_}")
+    ALL += [(f"PLACE_NAME.{i}", w_, "clause", 4) for i, (_, w_) in enumerate(PN)]
 SN = getattr(M, "SEEN", {})   # S6 seen it done (social-mechanics.md S6)
 if SN:
     if sorted(SN) != ["dream", "far", "none", "seen", "wrong"] or any(len(v) < 2 for v in SN.values()):
