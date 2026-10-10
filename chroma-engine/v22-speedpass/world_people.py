@@ -1326,6 +1326,7 @@ class People:
         self.hrs = np.zeros((N, len(TIME_ROWS)))     # hours a week by row (TIME_ROWS), this month
         self.hpick = -1                              # the year of age of the last yearly pick
         self.places_mix = None                       # the places part of item 12's current (sph_hours)
+        self.places_ref = None                       # and the town's average for the same hours (cur_rel)
         self._hrng = np.random.default_rng([self.seed, 47, self.run_seed])   # haunt picks draw only here
         T = np.asarray(SD.TEACH, float)              # sphere x face x colour (W U B R G), into this world's frame
         self._teach = T[:, pm][:, :, pm]
@@ -1573,6 +1574,9 @@ class People:
         wt = hrs * self._depth[None] * (1 + 0.25 * np.floor(np.take_along_axis(self.rung, rs, 1)))
         tot = wt.sum(1)
         self.places_mix = np.where(tot[:, None] > 1e-9, (wt[..., None] * mix).sum(1) / np.maximum(tot, 1e-9)[:, None], self.w)
+        # the same hours in the town's own place of each row's sphere: what the current's places part is read against (cur_rel)
+        rm_ = np.take_along_axis(tm, rs[:, :, None], 1)
+        self.places_ref = np.where(tot[:, None] > 1e-9, (wt[..., None] * rm_).sum(1) / np.maximum(tot, 1e-9)[:, None], 0.2)
         yr = int(a)
         if yr != getattr(self, "_rung_yr", -1):   # the rungs, once a year
             self._rung_yr = yr
