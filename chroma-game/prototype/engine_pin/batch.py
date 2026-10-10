@@ -660,12 +660,12 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
-FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
+FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
 EYES_MOMENTS = False    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
 SACRED_MOMENTS = False  # v22.4, S5: moments with cast_want: sacred, tragic or amends
 LEAD_MOMENTS = False    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
-SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
-FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
+SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 
