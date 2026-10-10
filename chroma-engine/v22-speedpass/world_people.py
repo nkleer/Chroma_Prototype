@@ -572,7 +572,7 @@ class People:
         self.fr_read = bool(wp_.get("fair_read", False)) and self.sph_fr
         if self.fr_read:   # S1: fairness read five ways (the town events already fired are not read)
             self._fr_i = len(getattr(W, "sph_ev_log", ()))
-            self._fr_n = np.zeros(5)    # the recent moves of each part of fairness (habituation; FR_HABIT)
+            self._fr_n = np.zeros(5)    # how often each part of fairness was heard of lately (habituation; FR_HABIT)
             self.fr_cnt = np.zeros(5)   # every move applied, by part (read only: tools/fair_check.py s1_counts)
 
     # ------------------------------------------------------------------ the world, read through world-build.md's names
@@ -4468,10 +4468,11 @@ class People:
     def _fair_week(self, t):
         """S1 (fair_read): each tagged sphere event fired since last week (World.fair_tags) moves felt fairness in the
         sphere it touches, for the lives of its town (the whole society's: everyone), by .05 x the weight of its parts
-        (their mean), up on its fair side and down on its unfair one. A part heard of more often than the parts' mean in
+        (their mean), up on its fair side and down on its unfair one. A part heard of more often than the others in
         recent years is heeded less (habituation; Helson 1964, Frederick and Loewenstein 1999): each of an event's
-        parts moves with chance min(1, mean / its own recent count), the counts fading with a half-life of FR_HABIT
-        years, so no part of fairness, and no colour's eye, is stirred far more often than the others."""
+        parts moves with chance (rarest part's recent count + 1) / (its own + 1), the counts (every tagged part an event
+        carries, heeded or not) fading with a half-life of FR_HABIT years, so each part of fairness, and so each
+        colour's eye, is stirred about as often as the others."""
         log = getattr(self.W, "sph_ev_log", None)
         if self._fr_n.any():
             self._fr_n *= 0.5 ** (1.0 / (52.0 * FR_HABIT))
@@ -4489,12 +4490,12 @@ class People:
             if wn is None:
                 wn = self._fair_w()
             for j, ps, sd in mv:
-                m_ = self._fr_n.mean()
-                ix = [k_ for k_ in dict.fromkeys("WUBRG".index(p_) for p_ in ps)
-                      if self._fr_n[k_] <= m_ or self.rng.random() < m_ / self._fr_n[k_]]
+                ps_ = list(dict.fromkeys("WUBRG".index(p_) for p_ in ps))
+                self._fr_n[ps_] += 1.0; m_ = self._fr_n.min() + 1.0
+                ix = [k_ for k_ in ps_ if self.rng.random() < m_ / (self._fr_n[k_] + 1.0)]
                 if not ix:
                     continue
-                self._fr_n[ix] += 1.0; self.fr_cnt[ix] += 1.0
+                self.fr_cnt[ix] += 1.0
                 self.fair[nn, j] = _uclip(self.fair[nn, j] + 0.05 * sd * wn[nn][:, ix].mean(1), 0, 1)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
