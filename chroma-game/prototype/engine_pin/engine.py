@@ -745,6 +745,8 @@ DEFAULT = dict(
     sph_memory=False,    # phase 3: the four memories that make history (credit, plague, land, command; world switch)
     pair_calm=False,     # phase 3: held pair faces calm their quarrels, broken ones flare; with sph_pairs (world switch)
     sph_cascades=False,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
+    sph_levers=False,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
+    sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
@@ -920,7 +922,7 @@ UPD_OFF = dict(dis_match=False,
                # stage 2 of v22.3, the spheres of society (item 15)
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
-               sph_memory=False, pair_calm=False, sph_cascades=False,
+               sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -2741,6 +2743,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             U_I[ri, 2] += -xc
         if WON:   # the world: felt reach makes voice and organising at institutions and the state feel worth it (spec 7 §6)
             rU_ = WL.reach_pull(s); U_R = U_R + rU_; U_I = U_I + rU_
+            if P.get("sph_fair"):   # spheres phase 4: felt fairness tilts exit, neglect and subvert against voice and loyalty
+                fU_ = WL.fair_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # log odds x the choice's tau
+                U_R = U_R + fU_; U_I = U_I + fU_
         if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
             shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
@@ -3295,7 +3300,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 # a want the moment answered is met or refused; what happened in each logged life's world goes in its events
                 for r_ in WL.on_act(~idle & live_ & ~dead, s, a, ma, succ, L, closed_s[ar, a] >= 0 if closed_s is not None else np.zeros(N, bool)):
                     if isinstance(r_, dict) and r_.get("n") in events:
-                        events[r_["n"]].append(dict(world_push=r_))
+                        events[r_["n"]].append(dict(sphere_lever=r_) if r_.get("kind") == "sphere lever" else dict(world_push=r_))
                 for n in list(WL.pending):
                     ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
                     if ev_ is not None and n in events:
