@@ -18,6 +18,7 @@ git -C $REPO fetch -q origin '+refs/heads/*:refs/remotes/origin/*' || exit 2   #
 git -C $REPO cat-file -e $SHA^{commit} || { echo "STOP: $SHA is not in the repository"; exit 2; }
 BASE_SHA=$(git -C $REPO rev-parse origin/$BASE) || exit 2
 export CHROMA_COMMIT=$SHA PW=${PW:-/opt/node22/lib/node_modules/playwright}
+O=${CHROMA_ROOT:-$(dirname $R)}/chroma-release/out; mkdir -p $O   # where results.py and the reports live
 CHK="python3 -B $R/v22_checks.py --repo $REPO"
 add() { python3 -B $R/results.py add "$@"; }                  # id, PASS or FAIL, report, note (with CHROMA_COMMIT)
 build() { rm -rf $2; $CHK --commit $1 --only build --no-reuse --keep --work $2 > $2.log 2>&1   # a reused build leaves no folder
@@ -33,7 +34,7 @@ case "$1" in
      git -C $REPO archive $SHA chroma-look/tools | tar -x -C $X/look
      mkdir -p $X/look/chroma-game/prototype; ln -sfn $T $X/look/chroma-game/prototype/test   # tour.js finds the game's start.js
      U=http://127.0.0.1:8151/page.html; UB=http://127.0.0.1:8152/page.html; STAMP=$(date -u +%Y%m%d-%H%M%S)
-     probe() { local id=$1 js=$2 url=$3 w=$4 h=$5 out=$R/out/${1}_$STAMP.txt
+     probe() { local id=$1 js=$2 url=$3 w=$4 h=$5 out=$O/${1}_$STAMP.txt
        (cd $T && timeout 3600 node $js $url $X/shots/$id 60 $w $h) > $out 2>&1; echo "exit $? " >> $out; echo $out; }
      for spec in "fit_1280 probe_fit_cx3.js 1280 800" "fit_1024 probe_fit_cx3.js 1024 700" "fit_geo probe_fit_geo.js 1280 800"; do
        set -- $spec; mkdir -p $X/shots/$1; o=$(probe $1 $2 $U $3 $4)
@@ -47,11 +48,11 @@ case "$1" in
      echo "phone 390x844: candidate covered $c blocked $b; release/v22.2 covered $cb blocked $bb (report $ob): $r" >> $o
      add fit_phone $r $o "390x844: covered $c, blocked $b; v22.2 build $cb, $bb"
      for spec in "tour_desktop 1280 860" "tour_phone 390 844"; do
-       set -- $spec; mkdir -p $X/shots/$1; o=$R/out/${1}_$STAMP.txt
+       set -- $spec; mkdir -p $X/shots/$1; o=$O/${1}_$STAMP.txt
        (cd $L && timeout 1800 node tour.js $U $X/shots/$1 $2 $3) > $o 2>&1; e=$?; echo "exit $e" >> $o
        if [ $e = 0 ] && grep -q "^no page errors" $o; then add $1 PASS $o "tour.js at $2x$3"; else add $1 FAIL $o "tour.js at $2x$3"; fi
      done
-     pkill -f "serve.py 815[12]"; grep -h "" $R/out/*_$STAMP.txt | grep -E "^N7|^phone|^no page errors|pageerror|^exit" ;;
+     pkill -f "serve.py 815[12]"; grep -h "" $O/*_$STAMP.txt | grep -E "^N7|^phone|^no page errors|pageerror|^exit" ;;
   b7AB|b7CD) build $SHA $X; g=${1#b7}; bash $R/short-v22.1/b7.sh ${g:0:1},${g:1:1} 2 $X/w/build ;;
   *) sed -n 2,13p "$0"; exit 2 ;;
 esac

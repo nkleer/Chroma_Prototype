@@ -1,12 +1,13 @@
 """v22.2.1 row V1 (records/v22.2.1/scope.md): a page-only update leaves lives as they were.
 
 Against a base commit (release/v22.2), the candidate commit changes no file outside the page, the art and the look tools,
-and its build's worker.js and every py/ file equal the base build's byte for byte (the game runs those in the page's
-Python, so the same files play the same lives). Builds both with the one build command (v22_checks.py --only build).
+leaves app.js alone (it holds the save format, so old saves load as before), and its build's worker.js and every py/ file
+equal the base build's byte for byte (the game runs those in the page's Python, so the same files play the same lives).
+Builds both with the one build command (v22_checks.py --only build).
 
     python3 -B chroma-release/check_pageonly.py --repo DIR --base SHA --commit SHA --work DIR
 
-Exit code 0 when both hold. Writes chroma-release/out/pageonly_<UTC>.txt and its result line (id pageonly)."""
+Exit code 0 when all three hold. Writes chroma-release/out/pageonly_<UTC>.txt and its result line (id pageonly)."""
 import argparse, os, subprocess, sys, time, filecmp
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -14,8 +15,9 @@ os.environ.setdefault("CHROMA_ROOT", os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "chroma-env"))
 from paths import path   # noqa: E402
 
-ALLOWED = ("chroma-game/prototype/web/src/", "chroma-game/tools/webdir.py", "chroma-art/game/", "chroma-art/kit/",
-           "chroma-look/")
+ALLOWED = ("chroma-game/prototype/web/src/", "chroma-game/prototype/web/index.html", "chroma-game/tools/webdir.py",
+           "chroma-art/game/", "chroma-art/kit/", "chroma-look/")
+KEPT = ("chroma-game/prototype/web/src/app.js",)   # the save format; the old-saves ruling holds while it does not change
 ap = argparse.ArgumentParser()
 ap.add_argument("--repo", required=True); ap.add_argument("--base", required=True); ap.add_argument("--commit", required=True)
 ap.add_argument("--work", required=True)
@@ -30,6 +32,9 @@ outside = [f for f in changed if not f.startswith(ALLOWED)]
 lines.append(f"{'ok  ' if not outside else 'MISS'} {len(changed)} files changed, {len(outside)} outside the page, the art and the look tools"
              + (": " + ", ".join(outside[:20]) if outside else ""))
 ok &= not outside
+kept = [f for f in changed if f in KEPT]
+lines.append(f"{'ok  ' if not kept else 'MISS'} app.js {'changed' if kept else 'unchanged'} (the save format)")
+ok &= not kept
 builds = {}
 for tag, sha in (("base", base), ("candidate", cand)):
     w = os.path.join(a.work, tag)
