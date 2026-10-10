@@ -382,7 +382,7 @@ function tagOptions() {
     if (!o.own && o.accept === "against it") b.classList.add("lk-against");
     if (o.heart_pick) b.classList.add("lk-heart");
     if (o.head_pick) b.classList.add("lk-head");
-    const show = (on) => leanShow(on ? o : null);
+    const show = (on) => { leanShow(on ? o : null); safe(() => hudPreview(on ? o : null)); };
     b.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") show(true); });
     b.addEventListener("pointerleave", () => show(false));
     b.addEventListener("focus", () => show(true)); b.addEventListener("blur", () => show(false));
@@ -440,6 +440,7 @@ const _renderResolution = renderResolution;
 renderResolution = function (h, reveal) {
   const fr = reveal && flyer ? flyer.getBoundingClientRect() : null, key = h && h.res ? "res|" + h.res.age + "|" + h.res.title : "";
   _renderResolution(h, reveal);
+  safe(() => hudPreview(null));
   safe(() => {
     if (!h || !h.res || tableEl._lkRes === key) return;
     tableEl._lkRes = key;
@@ -610,6 +611,7 @@ function panelKey(L) {
     [`<b class="lk-sw glow"></b>`, "A danger zone: satisfaction or peace under 20%, strain over 80%, a mean under 15%. Gold on wanting: close to breaking through."],
     [`<i class="spk k-mem"></i>`, "On the wheel: their colors a year ago, so you can see which way they moved."]];
   rows.push([`<span class="lk-sw down">${ic(NEED_ICON.safety || "shield")}</span>`, "A need under 30% pulses."]);
+  rows.push([`<b class="lk-pvb spend lk-key-pv">−</b><b class="lk-pvb win lk-key-pv">+</b>`, "While a card is under the mouse: what it would spend (−), win (+) or put at risk if it fails (−?) among the means, and the needs it meets (+)."]);
   return tipBox(`${ic("ci-crystal-ball")} Reading this panel`, "", rows, "Hover any meter, mean or need for its numbers and a line of its last years.");
 }
 // the hover of a meter, mean or need: its last years as a line, and where it stood a year ago
@@ -638,6 +640,28 @@ showTip = function (el) {
   });
 };
 // the wheel's memory: the outline of a year ago, under where they are now
+// a card under the mouse marks on the panel what it would spend, win or risk (its means) and the needs it meets
+const NEED_OF = (w) => { w = String(w || "").toLowerCase(); return Object.keys(NEED_SHORT).find((k) => k === w || NEED_SHORT[k].toLowerCase() === w || (NEED_LONG[k] || "") === w) || ""; };
+function hudPreview(o) {
+  hudEl.querySelectorAll(".lk-pvb").forEach((x) => x.remove());
+  hudEl.querySelectorAll(".lk-pv").forEach((x) => x.classList.remove("lk-pv"));
+  if (!o) return;
+  const f = o.follows || {}, by = {};
+  const put = (k, s) => { (by[k] = by[k] || new Set()).add(s); };
+  for (const x of f.cost || []) put(x.slice(1), "spend");
+  for (const x of f.win || []) put(x.slice(1), x[0] === "+" ? "win" : "spend");
+  for (const x of f.lose || []) put(x.slice(1), "risk");
+  for (const [k, s] of Object.entries(by)) {
+    const el = hudEl.querySelector(`.mean[data-r="${k}"]`); if (!el) continue;
+    const word = s.has("spend") ? "−" : s.has("win") && s.has("risk") ? "±" : s.has("win") ? "+" : "−?";
+    const cls = s.has("spend") ? "spend" : s.has("win") ? "win" : "risk";
+    el.classList.add("lk-pv"); el.insertAdjacentHTML("beforeend", `<b class="lk-pvb ${cls}">${word}</b>`);
+  }
+  for (const w of f.needs || []) {
+    const k = NEED_OF(w), el = k && hudEl.querySelector(`.nd[data-nd="${k}"]`); if (!el) continue;
+    el.classList.add("lk-pv"); el.insertAdjacentHTML("beforeend", `<b class="lk-pvb win">+</b>`);
+  }
+}
 const _spiderSVG = spiderSVG;
 spiderSVG = function (o) {
   const s = _spiderSVG(o);
