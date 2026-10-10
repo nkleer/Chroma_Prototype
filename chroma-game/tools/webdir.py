@@ -42,6 +42,10 @@ def _urls(x):
     if isinstance(x, list): return [u for v in x for u in _urls(v)]
     return [x] if isinstance(x, str) and x.endswith(".webp") else []
 pj = json.load(open(os.path.join(ART, "pictures.json"), encoding="utf-8"))
+lo = G + "web/src/pics-left-out.json"   # moment pictures the page leaves out (web/src/build.py)
+if os.path.exists(lo):
+    out_sits = set(json.load(open(lo, encoding="utf-8"))["situation"])
+    pj["situation"] = {k: v for k, v in pj["situation"].items() if k not in out_sits}
 got = 0
 for u in sorted(set(_urls({k: pj.get(k) for k in ("situation", "domain", "tier", "tarot", "texture", "portrait")}))):
     src_, dst_ = os.path.join(ART, u), W + u
