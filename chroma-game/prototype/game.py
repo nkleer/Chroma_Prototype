@@ -29,6 +29,10 @@ try:
 except ImportError:
     ES = None
 try:
+    import earth_spheres as ESP # item 15: the Library's sphere words for "your places" (haunt names, rungs, faces)
+except ImportError:
+    ESP = None
+try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
 except ImportError:
     RT = None
@@ -82,6 +86,12 @@ GAME = dict(
     trust_loss=0.2,      # trust lost by a resented push at full reluctance (toward -1)
     trust_cut=0.5,       # at full trust in the act's colors, this share of a push's resentment (stress, wanting) is spared
     distrust_add=0.5,    # at full distrust, this much more resentment
+    # clarity item 7, "trust that moves" (chroma-hud/gameplay-check/findings.md §1; chroma-ideas/voice-mechanics.md §2;
+    # Emren 10-10 10:25 UTC "apply all of them"; v22.4, off until its refit): every push is judged by its outcome, not only
+    # the reluctant ones. A push that hindsight leaves unjudged still moves trust along the act's colors: + (judge_a +
+    # judge_b x reluctance) x (1 - trust) when it worked, - the same x (1 + trust) when it failed (voice-mechanics.md's
+    # .02 + .08 x reluctance, doubled for trust's -1 to 1 scale). Accepted and resented pushes keep their own steps.
+    trust_judge=False, judge_a=0.04, judge_b=0.16,
     # item 4, pivotal picks (implementation list; chroma-ideas/gameplay-feel.md §5; Emren 2026-10-08 22:58, 23:18): every
     # moment put to the player is a turning point. Its pick teaches more the further it is from who they are; a success
     # teaches toward the picked ways and they lead the character's own acts for a season (F2); a failure can backfire
@@ -124,15 +134,34 @@ GAME = dict(
     turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
     fig_own=True,        # K12 (v22.3): no public figure shares the character's first name
+    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC; v22.4 by the "Split" card 09:55, off until its refit): per color, how far a way
+    # the voice pushes toward has become theirs (ix, 0 to 1; steps at .25 "ought to", .5 sees the point, .8 theirs). Each
+    # push toward a color adds own_k x push x A x T x S x H: A the steer (light own_light, strong own_strong), T .5 + their
+    # trust in that color, S .5 + own_sup x that color's share around them (their haunts' faces and close people, the
+    # engine's "around"; an even surround without it), H own_acc when they accepted it, own_res (a step back at half size)
+    # when they resented it. A way led by fewer than own_use acts in a year fades by up to own_fade; reluctance in a way is
+    # x (1 - own_rel x ix); the peace reading counts a push as their own by its way's ix; at own_theirs the season lean
+    # toward it no longer ends. A strong push at reluctance over own_react_rel while ix is under .25 bounces back with
+    # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does
+    own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
+    own_use=4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
 )
+OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
+# checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
+# shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
+# (upper-case keys set the pinned batch.py's flags instead, before the Earth library loads: {"FAR_MOMENTS": true})
+ENGINE_SET = {}
+if os.environ.get("CHROMA_ENGINE"):
+    import json as _json
+    ENGINE_SET = _json.loads(os.environ["CHROMA_ENGINE"])
 
 # Life events (bereavement, disaster, meeting someone...) come at the engine's own yearly rates since v6: a personal
 # rate between half and twice the typical one, moved week by week by the context around the person (family, ties,
@@ -168,6 +197,9 @@ def library_for(setting):
             import batch                            # pinned engine_pin/batch.py; earth.py is pinned next to it
             batch.LIB_DIR = PIN
             batch.PACK_DIR = os.path.join(PIN, "packs")   # pinned copies of chroma-packs/core and chroma-packs/<pack>
+            for k_, v_ in ENGINE_SET.items():       # checks only (CHROMA_ENGINE): the batch's own flags
+                if k_.isupper():
+                    setattr(batch, k_, v_)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:
             _LIBS[key] = (with_dreams(E.compile_library(), key), None)
@@ -237,7 +269,19 @@ ADJ_LOOK = {"happy": ("ci-sun", 1), "unhappy": ("ci-raincloud", -1), "calm": ("c
             "unfulfilled": ("ci-moon", -1), "lonely": ("ci-person", -1), "adrift": ("ci-compass", -1), "insecure": ("ci-shield", -1),
             "wealthy": ("ci-domain-money", 1), "poor": ("ci-wallet", -1), "stretched": ("ci-clock", -1), "hemmed in": ("ci-padlock", -1),
             "well connected": ("ci-handshake", 1), "disciplined": ("ci-anchor", 1), "impulsive": ("ci-dice", -1),
-            "searching": ("ci-signpost", 0), "settled": ("ci-roots", 1)}
+            "searching": ("ci-signpost", 0), "settled": ("ci-roots", 1),
+            # light and shadow (item 2): the five shadow states, with the visuals thread's glyphs (ink-icons.json "shadow")
+            "rigid": ("ci-shadow-rigid", -1), "indecisive": ("ci-shadow-indecisive", -1), "ruthless": ("ci-shadow-ruthless", -1),
+            "reckless": ("ci-shadow-reckless", -1), "stuck in their ways": ("ci-shadow-stuck", -1)}
+# Light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md §6), the game's words for it. Only shown while the
+# engine's shadows switch is on (loc["SHON"]); nothing here is read back by the engine. The engine's four sources, in its
+# order (sh_src[..., 0..3]): holding on, ruling, no counterweight, strain. Holding on is told in the colour's own words
+SH_HOLD = dict(W="holding on to the old rules", U="holding on to the old answers", B="holding on to the old ambitions",
+               R="holding on to the old thrills", G="holding on to the old ways")
+SH_FRAC = ((0.15, "a little"), (0.29, "a quarter"), (0.42, "a third"), (0.58, "half"), (0.71, "two thirds"),
+           (0.87, "three quarters"), (9, "nearly all"))   # how much of a colour is in shadow, in words
+SH_SHOW = 0.05                    # a shadow part under this is not drawn or told
+SH_SRC_SHOW = 0.3                 # a source under this (0 to 1) is not named
 ADJ_READS = dict(content="satisfaction", peace="peace", stress="strain", mood="recent ups and downs", wound="grief and harm",
                  unmet_hope="hopes not met", belonging="belonging", meaning="a sense of meaning", safety="feeling safe",
                  money="money", time="time to spare", freedom="freedom", ties="people to lean on", discipline="self-control",
@@ -495,8 +539,9 @@ class Game:
                     P["world_cfg"]["legacy"] = earlier_data["people"]
             elif earlier:
                 raise ValueError("the earlier world this life begins in is not in this browser")
+        P.update({k_: v_ for k_, v_ in ENGINE_SET.items() if not k_.isupper()})   # checks only (CHROMA_ENGINE); empty in played lives
         self.sex = P["sex"] if P["sex"] != "intersex" else None
-        self._named_seen = False                         # 'named their gender' already offered a new name
+        self._named_seen = False                        # 'named their gender' already offered a new name
         self._death_on = False
         self.P = P
         self.setup = dict(setting=setting, world=world, society=society, wealth=wealth, faith=faith, upbringing=upbringing, start_age=start_age)
@@ -546,6 +591,7 @@ class Game:
         self._named = set()             # identities whose meaning has been told once
         self._last_recon = {}           # commitment -> week it was last reconsidered at a checkpoint
         self._temper_told = None        # temperament when the log last mentioned it
+        self._sh_told = {}              # item 2: each shadow state as the yearly chapter last told it (on or off)
         self.pending = None             # a checkpoint waiting for the player
         self._force = None              # this week's forced pick: dict(rel, closed, idx)
         self._cp_week = None            # the checkpoint being resolved this week, for its outcome line
@@ -568,6 +614,13 @@ class Game:
         self._pick_mix = np.zeros(C); self._pick_wt = 0.0; self._pick_t = 0
         self._prng = np.random.default_rng(int(seed) + 5151)
         self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
+        # S2 (GAME own_...): how far each way the voice pushes toward has become theirs, the acts of this year by the color
+        # leading their ways (for the fade), the season leans that no longer end (color -> (target, strength)), a random
+        # stream of its own (reactance), and each step crossed (age, color, step) and bounce back (age, color, "back")
+        self.ix = np.zeros(C); self._ix_use = np.zeros(C); self._own_leans = {}
+        self._ixrng = np.random.default_rng(int(seed) + 6262)
+        if GAME["own_ix"]:
+            self.history["own_ix"] = []; self.history["rel_way"] = []
         self.history["voice"] = voice_empty()   # item 3: the voice in their head (chroma-ideas/voice-mechanics.md)
         self._voice_said = {}           # item 3: how often each kind of voice line was told (the second variant after the first)
         self._trust_side = np.zeros(C, int)     # trust per color past .5 (1) or -.5 (-1), for the turn lines
@@ -608,7 +661,17 @@ class Game:
                     f = 1 - (t - t0) / GAME["lean_weeks"]
                     if f > 0:
                         y[0] += GAME["lean"] * st * f * E.centre(5 * (T - yw))
+                    elif GAME["own_ix"] and st > 0 and getattr(self, "ix", None) is not None and self.ix[int(np.argmax(T))] >= GAME["own_theirs"]:
+                        self._own_leans[int(np.argmax(T))] = (T, st)       # S2: the way is theirs, so its lean stays
                 self._leans = [x for x in self._leans if t - x[2] < GAME["lean_weeks"]]
+            if getattr(self, "_own_leans", None):
+                yw = E.softmax(y[0])
+                for c in list(self._own_leans):
+                    if self.ix[c] < GAME["own_theirs"]:
+                        del self._own_leans[c]
+                    else:
+                        T, st = self._own_leans[c]
+                        y[0] += GAME["lean"] * st * E.centre(5 * (T - yw))
         y[0] -= y[0].mean()
 
     # ------------------------------------------------------------------ main loop
@@ -725,6 +788,8 @@ class Game:
             a = a.copy(); a[0] = pick
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(rel)
+            if GAME["own_ix"]:
+                self.history["rel_way"].append([round(float(x), 3) for x in self._ways(self.loc, pick)] if self.loc is not None else None)
         self.history["picks"] += 1
         if choice != own or lt:                         # P3: the World panel's timeline shows each steer against the era
             o_ = cp["by_idx"].get(choice, {})
@@ -892,7 +957,7 @@ class Game:
                 lack = [RNAMES[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
                 why = "lacks " + ", ".join(lack) if (lack and not open_r[k]) else "not on offer around them"
             clash = [] if dn[k] else clash_with(self._colors(loc, k), self._prev_label)
-            rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash))
+            rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash)) * self._own_k(loc, k)
             pt = self._true_odds(loc, k); pt0 = pt
             if k != own:
                 lg = np.log(pt / (1 - pt)) - GAME["effort"] * rel - (GAME["out_of_reach"] if status == "out of reach" else 0)
@@ -924,6 +989,7 @@ class Game:
                           f"wants {letters(E.softmax(loc['y'][0]))}]")
         # the scene, and what the character thinks about the act they lean toward
         m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s))
+        self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
         lean = next((o for o in opts if o["idx"] == own), None)
         thought = ""
         if lean is not None and lean["colors"] != "-":
@@ -974,6 +1040,9 @@ class Game:
             acc = e.get("accept")
             if acc and o["idx"] != cp["own"]:          # the engine's word and the cost of forcing it
                 o["acc"] = ACC_FROM_ENGINE.get(acc["level"], acc["level"]); o["rel"] = float(acc["reluctance"])
+                kx = self._own_k(loc, o["idx"])
+                if kx < 1.0:                            # S2: a way that has become theirs costs less to be pushed into
+                    o["rel"] *= kx; o["acc"] = accept_word(o["rel"])
                 o["acc_clash"] = float(acc["clash"])
                 if o["acc"] not in ("reluctant", "against it"):
                     o["clash"] = []
@@ -1112,6 +1181,10 @@ class Game:
             self.trust -= GAME["trust_loss"] * rel * prof * (1 + self.trust)
             self.history["resented"] += 1
             out.update(kind="resented", share=round(rel, 3))
+        if out["kind"] == "none" and GAME["trust_judge"]:   # item 7: an unjudged push still moves trust by how it went
+            st = (GAME["judge_a"] + GAME["judge_b"] * rel) * prof
+            self.trust += st * (1 - self.trust) if worked else -st * (1 + self.trust)
+            out["judged"] = "worked" if worked else "failed"
         self.trust = np.clip(self.trust, -1.0, 1.0)
         out["trust_after"] = round(self._trust_on(loc, cpw["choice"]), 3)
         out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
@@ -1363,7 +1436,161 @@ class Game:
         if isinstance(p, dict):
             p["times"] = [x for x in self.history.get("times", []) if x.get("told", True)][-60:]
             p["steers"] = self.history.get("steers", [])[-200:] if GAME["world_steers"] else []
+            if self.history.get("levers"):              # spheres phase 4: their lever acts on the town's spheres
+                p["levers"] = self.history["levers"][-200:]
         return p
+
+    # ------------------------------------------------------------------ spheres phase 4 and far ties: told, display only
+    # (PRs #84 and #95, world-fields.md). They read the engine's events and the world as it stands; they draw no dice and
+    # write nothing the engine reads. With sph_levers and far_ties off the engine logs none of these events.
+    def _lever_where(self, loc, r):
+        """Where a lever landed: their place in that sphere, by the Library's name for it as "their places" shows it (else
+        the engine's place name in the world's epoch), or else the town's sphere."""
+        WL = loc.get("WL")
+        if int(r.get("place", -1)) >= 0 and WL is not None:
+            try:
+                h = WL.W.place_info(int(r["place"]))
+                ns = ((ESP.HAUNT.get(h["kind"]) or {}).get("names") or []) if ESP is not None else []
+                if ns:
+                    return ns[h["name"] % len(ns)]
+                import sphere_data as SD
+                nm = (SD.PLACE_BY_EPOCH.get(h["kind"]) or {}).get(WL.W.sph_epoch)
+                if nm:
+                    return nm
+            except Exception:
+                pass
+        return SPH_LEVER["sphere"].get(r.get("sphere"), "the town")
+
+    def _lever_told(self, t, loc, r):
+        """Spheres phase 4 (sph_levers): their lever act on their town's sphere (the engine's sphere_lever record) told as
+        theirs: what they pushed, where it landed and whether it moved, backfired or set off an event. Nothing at all is
+        quiet (the detailed story); the same lever on the same sphere within LEVER_AGAIN too. Kept for the World panel."""
+        lv, sp, moved = r.get("lever", ""), r.get("sphere", ""), str(r.get("moved") or "none")
+        act = SPH_LEVER["act"].get(lv)
+        if not act:
+            return
+        head, _, rest = moved.partition(" ")
+        went = ("fired" if head == "fired" else "state") if rest else moved if moved in ("moved", "backfired") else "none"
+        what = SPH_LEVER["what"].get(rest, rest.replace("_", " ").replace(".", " "))
+        where = self._lever_where(loc, r)
+        tail = SPH_LEVER["moved"].get(lv, SPH_LEVER["moved"]["voice"]) if went == "moved" else SPH_LEVER[went].replace("{what}", what)
+        text = self.story.fill(act.replace("{where}", where) + tail)
+        came, rung = SPH_LEVER["came"][went], str(r.get("rung") or "")
+        if ESP is not None:                             # the Library's words: the event set off, their rung in that sphere
+            ev_ = (ESP.EVENT.get(f"{sp}.{rest}") or {}).get("name") if went == "fired" else None
+            came = f"{came}: {ev_.lower()}" if ev_ else came
+            LADDER = ["newcomer", "regular", "known", "pillar", "leader"]       # world_keys.LADDER, the engine's order
+            rung = ESP.RUNG[sp][LADDER.index(rung)] if sp in ESP.RUNG and rung in LADDER else rung
+        told = self.__dict__.setdefault("_lever_t", {})
+        lvl = 0 if went in ("fired", "state") else 2 if went == "none" else 1
+        if lvl == 1 and t - told.get((lv, sp), -10 ** 6) < LEVER_AGAIN:
+            lvl = 2
+        if lvl <= 1:
+            told[(lv, sp)] = t
+        self._say(mk("L", f"{lv}|{where}|{came}|{rung}", text), lvl + int(self.burn_in), "lever", lever=lv, sphere=sp, went=went)
+        if went != "none" or float(r.get("size") or 0) > 0:     # an act with no reach at all (a child's) stays off the panel
+            self.history.setdefault("levers", []).append(dict(age=round(t / 52, 1), lever=lv, sphere=sp, where=where, went=went,
+                                                              came=came, rung=rung, text=plain(text)))
+
+    def _far_town(self, loc, l_):
+        """A town of their society by its name (as the World panel and the story name places)."""
+        from worldview import place_name, loc_key
+        WL = loc.get("WL")
+        return place_name(self.wv.seed, loc_key(EngineWorld.soc(WL) if WL is not None else 0, int(l_)), self.setting)
+
+    def _cast_who(self, cid):
+        """A cast member as a world line names them ("their sister Mira"), and their name alone; None without a world."""
+        wd = self.world_data()
+        if not wd:
+            return None
+        from worldview import person_name
+        p = next((c_ for c_ in wd[2] if c_.get("id") == cid), {})
+        nm = self.cast_names(wd[2]).get(cid) or person_name(self.wv.seed, cid, False, self.setting)
+        return who_word(p, nm), nm
+
+    def _far_told(self, t, loc, c):
+        """far_ties (PR #95): a close tie's news from the town they live in (cast event "far"), a tie taken into the
+        household and how their stay ends ("taken in"); a want's cause (F5) is kept for the circle's hover."""
+        kind, cid = c.get("kind"), int(c.get("cid", -1))
+        if kind == "want":                                   # every want event passes here; only one with a cause is kept
+            if c.get("cause"):
+                self.__dict__.setdefault("_want_why", {})[cid] = (c.get("key"), c["cause"])
+                self.__dict__.setdefault("_far_seen", {})[cid] = c["cause"]
+            elif c.get("state") == "begins" and self.__dict__.get("_want_why"):
+                self._want_why.pop(cid, None)
+            return
+        seen = self.__dict__.setdefault("_far_seen", {})     # cid -> the last far cause told or wanted (where they came from)
+        who = self._cast_who(cid)
+        if who is None:
+            return
+        w_, nm = who
+        if kind == "far":
+            cs = c.get("cause") or {}
+            seen[cid] = cs
+            sign = cs.get("sign") if cs.get("sign") in ("good", "hard", "mixed") else "mixed"
+            text = (FAR_SAY["here" if c.get("here") else "away"][sign].replace("{town}", self._far_town(loc, cs.get("town", 0)))
+                    .replace("{event}", cs.get("far_event") or "something happened"))
+            lines = "; ".join(str(x_) for x_ in cs.get("line") or ())
+            told = self.__dict__.setdefault("_far_t", {})
+            lvl = 2 if c.get("here") or t - told.get(cid, -10 ** 6) < FAR_AGAIN else 1
+            if lvl <= 1:
+                told[cid] = t
+            self._say(mk("F", f"{sign}|{nm}|{lines}", self._far_fill(text, w_)), lvl + int(self.burn_in), "far", kind="far",
+                      sign=sign, here=bool(c.get("here")))
+        elif kind == "taken in":
+            st = c.get("state")
+            if st is None:
+                text = FAR_SAY["took"]
+            elif st == "went back":
+                l_ = (seen.get(cid) or {}).get("town")
+                text = FAR_SAY["back"].replace("{town}", f" to {self._far_town(loc, l_)}" if l_ is not None else "")
+            else:
+                text = FAR_SAY["stayed"]
+            self._say(self._far_fill(text, w_), (0 if st is None else 1) + int(self.burn_in), "far", kind="taken in", state=st or "")
+
+    def _far_fill(self, text, who):
+        """A far line with the tie named: their name at the start of a sentence capitalised, no comma before a stop."""
+        return re.sub(r",([.:])", r"\1", cap_first(self.story.fill(text.replace("{who}", who))))
+
+    def _far_moment(self, m, loc, s, ev=None):
+        """A far moment (the Library's earth-far-ties.lib: cast_want far_hard, far_good or far_mixed) names the tie who
+        calls in its first who: slot, {their_town} and {far_event}, from the engine's word on the call: the logged event's
+        who and far, or, at a checkpoint, the call waiting on this moment (world_link pending, far_info; read only)."""
+        if m is None or not self.batch or "far_event" in m["ctx"]:
+            return
+        if not str(self.L["src"][s].get("cast_want") or "").startswith("far_"):
+            return
+        WL = loc.get("WL")
+        fi, slot, cid = None, None, None
+        if ev is not None:
+            fi = ev.get("far")
+            slot, cid = next(iter((ev.get("who") or {}).items()), (None, None))
+        elif WL is not None:
+            fi = WL.far_info(0, s)
+            pv = WL.pending.get(0)
+            cid = int(pv[0]) if pv is not None and pv[2] == s else None
+            slot = next(iter((self.L.get("W_WHO") or {s: ()})[s] or ()), None)
+        if not fi:
+            return
+        m["ctx"]["their_town"] = self._far_town(loc, (fi.get("their_town") or {}).get("loc", fi.get("town", 0)))
+        m["ctx"]["far_event"] = fi.get("far_event") or "something happened there"
+        who = self._cast_who(int(cid)) if slot and cid is not None else None
+        if who is not None and "_p_" + slot not in m["ctx"]:
+            m["ctx"][slot] = who[1]
+
+    def _want_why_rows(self, circle):
+        """F5 on the circle's hover: a want that came of a far event carries its cause; a far want gets its own words."""
+        why = self.__dict__.get("_want_why")
+        if not why:
+            return
+        for p_ in circle:
+            k_, cs = why.get(p_["id"], (None, None))
+            if not cs or not p_.get("want") or p_["want"] != str(k_).replace("_", " "):
+                continue
+            p_["want"] = FAR_SAY["want"].get(k_, p_["want"])
+            town = self._far_town(self.loc, cs.get("town", 0)) if isinstance(self.loc, dict) else "their town"
+            p_["want_why"] = cap_first(f"{cs.get('far_event', 'something happened')} in {town}"
+                                       + (": " + "; ".join(cs["line"]) if cs.get("line") else ""))
 
     # ------------------------------------------------------------------ item 3: the voice in their head
     def _vsay(self, kind, xs):
@@ -1396,18 +1623,26 @@ class Game:
         tr = float(np.mean(self.trust[cols])) if cols else 0.0
         return V["name"][side]["doubted" if tr < 0 else "trusted"].replace("{voice}", noun)
 
+    def _voice_trust(self, d):
+        """The character's trust in the voice as one number: over the colors it pushed toward, an even mean; with item 7 on
+        (GAME trust_judge), weighted by how much it pushed toward each, so the colors it pushed most decide the word."""
+        pushed = d > 0
+        if GAME["trust_judge"]:
+            return float(d[pushed] @ self.trust[pushed] / d[pushed].sum())
+        return float(np.mean(self.trust[pushed]))
+
     def voice_view(self, loc=None):
         """The panel row "The voice in their head": its name, the character's trust in words, and on hover what the voice
         moved in this life against what life itself moved, per color, in points."""
         v = self.history["voice"]; loc = self.loc if loc is None else loc
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        tr = self._voice_trust(d) if pushed and v["steer"] else 0.0
         word = "" if not v["steer"] else "they trust it" if tr >= 0.25 else "they doubt it" if tr <= -0.25 else "they are unsure of it"
         total = (E.softmax(loc["z"][0]) - np.asarray(self._w_start, float)) if loc is not None and self._w_start is not None else np.zeros(C)
         vdw = self._vdw()
         return dict(name=self.voice_name(), trust=word, steer=v["steer"], n=v["n"], share=round(voice_share(vdw, total), 3),
                     voice=[round(float(x) * 100, 1) for x in vdw], life=[round(float(x) * 100, 1) for x in total - vdw],
-                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)])
+                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)], **({"own": self.own_view()} if GAME["own_ix"] else {}))
 
     def _voice_pick(self, loc, cpw, worked, pushed, rel, moved, rs):
         """Item 3 at each decided moment: the record (the steer: the picked act's colors minus what they would have done),
@@ -1488,7 +1723,7 @@ class Game:
             return                                       # told when the voice did most of it, once in five years at most
         v["became_t"] = int(self.t)
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed else 0.0
+        tr = self._voice_trust(d) if pushed else 0.0
         key = "trusted" if tr >= 0.25 else "doubted" if tr <= -0.25 else "unsure"
         self._vline(self._vfill(ES.VOICE["became"][key], ident=art(ident_name(lbl))), became=lbl, share=round(share, 2))
 
@@ -1522,7 +1757,7 @@ class Game:
         V = ES.VOICE; vw = self.voice_view()
         share = vw["share"]; sw = next((w_ for b_, w_ in V["share"] if share < b_), V["share"][-1][1])
         d = np.asarray(v["d"], float); pushed = [c for c in range(C) if d[c] > 0]
-        tr = float(np.mean(self.trust[pushed])) if pushed and v["steer"] else 0.0
+        tr = self._voice_trust(d) if pushed and v["steer"] else 0.0
         key = "quiet" if v["steer"] < VOICE_MIN else "trusted" if tr > 0.2 else "doubted" if tr < -0.2 else "mixed"
         lead = COLORS[int(np.argmax(np.asarray(h["w"][-1][1], float)))] if h["w"] else "W"
         end = self._vfill(V["end"][key], adj=ADJ[lead], share=sw)
@@ -1664,6 +1899,81 @@ class Game:
                             lift="a big lift" if lv < 0.3 else "a lift"))
         return out[:2]
 
+    @staticmethod
+    def _ways(loc, k):
+        """An act's ways as shares of one (even when it has none)."""
+        m = np.maximum(np.asarray(loc["m"][0, k], float), 0)
+        return m / m.sum() if m.sum() > 0 else np.full(C, 1 / C)
+
+    # ------------------------------------------------------------------ S2: making it their own (GAME own_...)
+    def _own_k(self, loc, k):
+        """S2: what is left of a push's reluctance in act k's ways, 1 - own_rel x how far they have become theirs."""
+        if not GAME["own_ix"] or not self.ix.any() or np.maximum(np.asarray(loc["m"][0, k], float), 0).sum() <= 0:
+            return 1.0
+        return 1.0 - GAME["own_rel"] * float(self._ways(loc, k) @ self.ix)
+
+    @staticmethod
+    def _around(loc):
+        """S2: the colors around them as shares of one (the engine's "around": their haunts' faces and close people);
+        even without it."""
+        a = loc.get("around") if loc is not None else None
+        a = np.maximum(np.asarray(a, float).reshape(-1)[:C], 0) if a is not None else np.zeros(C)
+        return a / a.sum() if a.sum() > 0 else np.full(C, 1 / C)
+
+    def _own_step(self, x):
+        return next(k for lo, k in OWN_STEPS if x >= lo)
+
+    def _own_push(self, loc, cpw, hind):
+        """S2: a push toward ways the character would not have taken moves how far each has become theirs:
+        own_k x push x A x T x S x H per color (GAME own_...). A hard push at high reluctance into a way not yet
+        "ought to" can bounce back instead. Returns what moved, for the resolution, or None."""
+        k, own = int(cpw["choice"]), int(cpw["own"])
+        push = np.maximum(self._ways(loc, k) - self._ways(loc, own), 0)
+        if push.sum() <= 0:
+            return None
+        f = self._force or {}
+        before = self.ix.copy(); age = round(self.t / 52, 1)
+        way = float(push @ before) / float(push.sum())
+        if not f.get("light") and f.get("rel", 0.0) > GAME["own_react_rel"] and way < 0.25 and self._ixrng.random() < GAME["own_react"]:
+            self.ix = np.clip(self.ix - GAME["own_react_back"] * push / push.max(), 0.0, 1.0)     # reactance: it bounces back
+            loc["Q"][0] += GAME["backlash"] * float(f.get("resent", f.get("rel", 0.0)))
+            for c in np.nonzero(self.ix < before)[0]:
+                self.history["own_ix"].append((age, COLORS[c], "back"))
+            return dict(kind="back", ix=[round(float(x), 3) for x in self.ix])
+        A = GAME["own_light"] if f.get("light") else GAME["own_strong"]
+        T = np.maximum(0.0, 0.5 + self.trust)
+        S = 0.5 + GAME["own_sup"] * self._around(loc)
+        judged = (hind or {}).get("kind")
+        H = GAME["own_acc"] if judged == "accepted" else GAME["own_res"] if judged == "resented" else 1.0
+        self.ix = np.clip(self.ix + GAME["own_k"] * push * A * T * S * H, 0.0, 1.0)
+        for c in range(C):
+            s0, s1 = self._own_step(before[c]), self._own_step(self.ix[c])
+            if s0 != s1:
+                self.history["own_ix"].append((age, COLORS[c], s1))
+        return dict(kind="step", ix=[round(float(x), 3) for x in self.ix])
+
+    def _own_year(self):
+        """S2, once a year: a way led by fewer than own_use of the year's acts fades by up to own_fade."""
+        self.ix = np.maximum(0.0, self.ix - GAME["own_fade"] * np.clip(1 - self._ix_use / GAME["own_use"], 0.0, 1.0))
+        self._ix_use[:] = 0
+
+    def own_view(self):
+        """S2, the Voice row's hover: each way the voice pushed toward (or that has a step), how far it has become theirs,
+        in the Library's words for that way (VOICE["own"]: trusted or doubted by their trust in that color)."""
+        if not GAME["own_ix"]:
+            return []
+        d = np.asarray(self.history["voice"]["d"], float)
+        V = (ES.VOICE.get("own") if ES is not None else None) or {}
+        out = []
+        for i, c in enumerate(COLORS):
+            if d[i] <= 0 and self.ix[i] <= 0.005:
+                continue
+            step = self._own_step(float(self.ix[i]))
+            lines = (V.get(c) or {}).get(step) or []
+            line = self._vfill(lines[0 if self.trust[i] >= 0 else 1]) if lines else ""
+            out.append(dict(color=c, ix=round(float(self.ix[i]), 3), step=step, line=line))
+        return out
+
     def _profile(self, loc, k):
         """An act's colors for trust: its ways and its ends, half and half, as shares of one."""
         p = 0.5 * np.maximum(loc["m"][0, k], 0) + 0.5 * np.maximum(loc["e0"][0, k] if "e0" in loc else loc["e"][0, k], 0)
@@ -1759,6 +2069,52 @@ class Game:
             return {}
         return {c: float(X[0, i]) for i, c in enumerate(E.CTX)}
 
+    def shadow_view(self, loc=None):
+        """Light and shadow (stage 2, item 2) as the page shows it: per colour its shadow part (the share of the colour in
+        shadow, 0 to 1), its force, whether the state shows (the engine's adjective, on above .5 and off below .35), whether
+        the person has seen it, the line ("Red 40%, a quarter of it in shadow: reckless at times") and the sources in
+        words. None while the engine's shadows switch is off. Reads only; nothing is drawn at random or written back."""
+        loc = self.loc if loc is None else loc
+        if loc is None or not loc.get("SHON") or "shS" not in loc:
+            return None
+        w = E.softmax(loc["z"][0]); s = np.asarray(loc["shS"][0]); e = np.asarray(loc["shA"][0])
+        src = np.asarray(loc["sh_src"][0]); seen = np.asarray(loc["sh_seen"][0]); sk = np.asarray(loc["P"]["sh_src"], float)
+        adj = np.asarray(loc["adj"][0]) if "adj" in loc else None
+        cols = []
+        for i, c in enumerate(COLORS):
+            st = E.SH_STATES[i]; ai = E.ADJ_ID.get(st, -1)
+            on = bool(adj is not None and 0 <= ai < len(adj) and adj[ai])
+            frac = next(wd for top, wd in SH_FRAC if s[i] < top)
+            how = st if on else f"{st} at times" if e[i] >= 0.2 else "hardly felt"
+            en = [COLORS[j] for j in np.nonzero(E.ENEMY[i])[0]]
+            words = (SH_HOLD[c], f"their {NOUN[c]} rules the rest", f"no {' or '.join(CNAME[x] for x in en)} to argue with",
+                     "strain pressing on it")
+            order = sorted((j for j in range(4) if src[i, j] >= SH_SRC_SHOW), key=lambda j: -sk[j] * src[i, j])
+            cols.append(dict(c=c, state=st, part=round(float(s[i]), 3), force=round(float(e[i]), 3), on=on, seen=bool(seen[i]),
+                             show=bool(s[i] >= SH_SHOW),
+                             line=f"{CNAME[c]} {round(float(w[i]) * 100)}%, {frac} of it in shadow: {how}" if s[i] >= SH_SHOW else "",
+                             src=[words[j] for j in order], src_v=[round(float(x), 3) for x in src[i]]))
+        return dict(cols=cols, on=float(E.ADJ_ALL[E.ADJ_ID[E.SH_STATES[0]]][4]), off=float(E.ADJ_ALL[E.ADJ_ID[E.SH_STATES[0]]][5]))
+
+    def shadow_pull(self, loc, k):
+        """Item 2, the option card's mark: the colour whose shadow drives the heart's pick k, once the person has seen that
+        shadow (seen[c]), else None. The shadow drives it when, without the shadow's overuse bonus (P sh_over x the option's
+        colours x the force, the engine's own term on U_I), the heart would pick another option."""
+        if k is None or k < 0 or not loc.get("SHON") or "shA" not in loc or "U_I" not in loc:
+            return None
+        e = np.asarray(loc["shA"][0]); m = np.asarray(loc["m"][0])
+        ok = np.asarray(loc["seen"][0]) & ~np.asarray(loc["do_nothing"][0])
+        if not ok[k]:
+            return None
+        shU = float(loc["P"]["sh_over"]) * (m @ e)
+        alt = int(np.argmax(np.where(ok, np.asarray(loc["U_I"][0]) - shU, -np.inf)))
+        if alt == k or shU[k] <= shU[alt]:
+            return None
+        c = int(np.argmax(m[k] * e))
+        if m[k, c] * e[c] <= 0 or not bool(loc["sh_seen"][0][c]):
+            return None
+        return dict(c=COLORS[c], state=E.SH_STATES[c], icon=ADJ_LOOK.get(E.SH_STATES[c], ("dot", 0))[0])
+
     def states(self, loc=None):
         """The character's states now: the engine's adjectives (engine.ADJECTIVES, point 3), else the game's own reading."""
         loc = self.loc if loc is None else loc
@@ -1766,17 +2122,25 @@ class Game:
             return []
         if "adj" in loc:
             t = float(loc.get("t", self.t))
-            out = []
+            out, sh = [], []
             av = loc.get("adj_v")
+            ADJ_T = getattr(E, "ADJ_ALL", E.ADJECTIVES)     # the 21 states, then the shadow states (held only with shadows on)
+            SV = self.shadow_view(loc) or {}
             for i in np.nonzero(np.asarray(loc["adj"][0]))[0]:
                 nm = E.ADJ_NAMES[i]; icon, good = ADJ_LOOK.get(nm, ("dot", 0))
-                _, _, var, side, on, off, from_age, _, share = E.ADJECTIVES[i]
-                out.append(dict(word=E.ADJ_SAY[i], name=nm, icon=icon, good=good, var=var, reads=ADJ_READS.get(var, var),
-                                years=round(max(0.0, t - float(loc["adj_since"][0, i])) / 52, 1),
-                                side=int(side), on=float(on), off=float(off), from_age=float(from_age), share=float(share),
-                                scale=ADJ_SCALE.get(var, "pts"),
-                                value=round(float(av[0, i]) * side, 4) if av is not None else None))
-            return sorted(out, key=lambda d: -d["good"])[:6]
+                _, _, var, side, on, off, from_age, _, share = ADJ_T[i]
+                d = dict(word=E.ADJ_SAY[i], name=nm, icon=icon, good=good, var=var, reads=ADJ_READS.get(var, var),
+                         years=round(max(0.0, t - float(loc["adj_since"][0, i])) / 52, 1),
+                         side=int(side), on=float(on), off=float(off), from_age=float(from_age), share=float(share),
+                         scale=ADJ_SCALE.get(var, "pts"),
+                         value=round(float(av[0, i]) * side, 4) if av is not None else None)
+                if i >= len(E.ADJECTIVES):                  # a shadow state: its colour's line and sources for the hover
+                    c_ = var[-1]; d.update(reads=f"the pull of the shadow on {CNAME.get(c_, c_)}", scale="of100",
+                                           shadow=next((x for x in SV.get("cols", ()) if x["c"] == c_), None))
+                    sh.append(d)
+                else:
+                    out.append(d)
+            return sorted(out, key=lambda d: -d["good"])[:6] + sh    # a shadow state always shows, beside the others
         thr = float(loc["q_thr"][0]) if "q_thr" in loc else float(loc["P"]["q_theta"])
         X = self.conditions(loc)
         v = dict(content=float(loc["content"][0]), peace=float(loc["peace"][0]), stress=float(loc["stress"][0]),
@@ -1954,6 +2318,10 @@ class Game:
             wd = float(loc["wound"][0])
             if wd > self._yr["wound"]:
                 self._yr.update(wound=wd, support=float(loc["support"][0]))
+        if GAME["own_ix"] and not self.burn_in and "a" in loc:   # S2: the color leading this week's act, for the yearly fade
+            m_ = np.maximum(np.asarray(loc["m"][0, int(loc["a"][0])], float), 0)
+            if m_.sum() > 0:
+                self._ix_use[int(np.argmax(m_))] += 1
         evs = loc["events"][0]
         new = evs[self._ev_i:]; self._ev_i = len(evs)
         w_now = E.softmax(loc["z"][0]); res_now = loc["res"][0].copy()
@@ -1977,6 +2345,8 @@ class Game:
         if sev or cpw is not None:
             kind = KNAMES[int(loc["rk"][0])] if bool(loc["recon"][0]) else None
             m = cpw["cp"]["moment"] if cpw is not None else self.story.moment(t, sit, stage, age, kind, kills)
+            if cpw is None and sev:
+                self._far_moment(m, loc, s, sev[0])     # far_ties: the far moment's tie, town and event (Library slots)
         GR = L.get("ROLES") if loc.get("RON") else None
         fold, folded = {}, set()      # a title that came with a commitment started this week is told in the commitment's line
         gained_now = set()            # titles gained this week: a facet that came with one (newlywed) shows on the HUD only
@@ -2008,6 +2378,10 @@ class Game:
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
                         line += "\n" + self.story.rebound(bool(ev["success"]), float(loc["span"][0])); rb = bool(ev["success"])
+                    if not ev["success"] and loc.get("SHON"):      # item 2: an act their shadow made fail is named
+                        sl = self._shadow_fail(new, t)
+                        if sl:
+                            line += "\n" + sl
                     self.resolution = self._resolution(loc, cpw, ev, line, o, pushed, f.get("rel", 0.0) if pushed else 0.0, moved)
                     self.history["acts"].append((round(age, 1), o["colors"], bool(ev["success"]), bool(pushed)))   # the song's deeds
                     rs = self.resolution
@@ -2017,6 +2391,8 @@ class Game:
                         self._voice_trust_turn()
                     rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
                     vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
+                    if pushed and GAME["own_ix"]:       # S2: how far the pushed ways have become theirs
+                        rs["own"] = self._own_push(loc, cpw, rs.get("hindsight"))
                     if vo:                              # item 3: their answer to the voice, and whether it was right
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
@@ -2165,6 +2541,10 @@ class Game:
                         r = self._disaster_read(r)      # WL6: the disaster that happened, not always a flood
                         self._say(self.story.read(r, stage), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
                                   impact=round(float(r.get("impact", 0.0)), 2))
+                elif "sphere_lever" in ev:              # spheres phase 4 (sph_levers): their act on the town's sphere
+                    self._lever_told(t, loc, ev["sphere_lever"])
+                elif "cast" in ev and ev["cast"].get("kind") in ("far", "taken in", "want"):
+                    self._far_told(t, loc, ev["cast"])  # far_ties: a close tie's news, a tie taken in, a want's cause
                 if line:
                     self._say(line, 0, tag, **meta)
                     if self.ledger:
@@ -2248,7 +2628,36 @@ class Game:
                     f"{letters(b['want'])}.")
         return None
 
+    def _shadow_fail(self, new, t):
+        """Item 2: "<State>: <clause>." for an act that failed because of the shadow (the engine's "shadow" event this week),
+        in the Library's words (earth_story.SHADOW_FAIL); "" without them."""
+        sh = next((e["shadow"] for e in new if "shadow" in e), None)
+        W = getattr(ES, "SHADOW_FAIL", None) if ES is not None else None
+        if sh is None or not W or not W.get(sh["state"]):
+            return ""
+        pool = W[sh["state"]]
+        return self.story.fill(f"{sh['state'][:1].upper()}{sh['state'][1:]}: {pool[int(t) % len(pool)]}.")
+
+    def _shadow_year(self, t, loc):
+        """Item 2: the yearly chapter's line when a shadow state comes on (grow) or goes off (fade), in the Library's words
+        (earth_story.SHADOW_YEAR). Only with the engine's shadows switch on; the first year sets what is known."""
+        W = getattr(ES, "SHADOW_YEAR", None) if ES is not None else None
+        if not loc.get("SHON") or "adj" not in loc or not W:
+            return
+        adj = np.asarray(loc["adj"][0])
+        for st in E.SH_STATES:
+            i = E.ADJ_ID.get(st, -1)
+            on = bool(0 <= i < len(adj) and adj[i])
+            was = self._sh_told.get(st)
+            self._sh_told[st] = on
+            if was is None or was == on or self.burn_in or not W.get(st):
+                continue
+            pool = W[st]["grow" if on else "fade"]
+            self._say(self.story.fill(pool[(int(t) // 52) % len(pool)]), 1, "shadow", state=st, on=on)
+
     def _yearly(self, t, loc):
+        if GAME["own_ix"] and not self.burn_in:
+            self._own_year()
         w = E.softmax(loc["z"][0]); M = float(loc["M"][0])
         lbl = E.identity(w, M, self._prev_label); self._prev_label = lbl
         self.seen_labels.add(lbl)
@@ -2257,6 +2666,7 @@ class Game:
         self.history["w"].append((t / 52, [round(float(x), 3) for x in w]))
         # the story's voice: present identity blended with a fading memory of past ones (story.py)
         self.story.update_voice(w)
+        self._shadow_year(t, loc)
         vl = self._core_label                       # 5.5: the chapter names who they have settled into, and who they are becoming
         self._becoming_year()
         if vl != self._voice_label:                 # a new identity in the telling: a short phrase for it
@@ -2475,6 +2885,9 @@ class Game:
                  around={CTX_WORDS[k]: round(float(v), 2) for k, v in self.conditions(loc).items() if abs(v) >= 0.05},
                  around_words={CTX_WORDS[k]: around_word(CTX_WORDS[k], float(v)) for k, v in self.conditions(loc).items() if abs(v) >= 0.05},
                  states=self.states(loc))
+        shv = self.shadow_view(loc)
+        if shv is not None:                          # item 2: light and shadow, only with the engine's shadows switch on
+            d["shadow"] = shv
         if dyn is not None:
             d["dyn"] = dict(openness=dyn["openness"], window=bool(dyn["window"]), near=dyn["near"], bands=dyn["bands"],
                             parts={k: r(v) for k, v in dyn["inertia_parts"].items()}, readiness=dyn["readiness"])
@@ -2514,9 +2927,13 @@ class Game:
                       zip(self.history["w"], self.history["content"], self.history["peace"], self.history["label"])]
         d["guilds"] = dict({k: v for k, v in IDENT_NAME.items() if k}, **{l_: ident_name(l_) for _, l_ in self.history["label"] if l_})
         d["goals"] = self.goals()
+        pv = self.places_view()
+        if pv:
+            d["places"] = pv
         wd = self.world_data()
         if wd:                                          # the outer world: the named cast by layer, and reach by standing
             d["circle"] = self.wv.circle(wd[2], self.t, self.cast_names(wd[2])); d["reach"] = self.wv.reach(wd[3])
+            self._want_why_rows(d["circle"])
             era = (wd[0] or {}).get("era")
             if era:
                 from worldview import letters_of, era_name
@@ -2729,6 +3146,42 @@ class Game:
             pass
         return d
 
+    def places_view(self):
+        """Item 15's player view, "your places": the haunts they go to (the Library's name for the place, its kind, the face
+        that leads it, whether a setting of theirs meets there), their standing in each sphere they have climbed in, and the
+        town's spheres by their share of the hours. Display only; empty while the engine's sphere switches are off."""
+        WL = self.loc.get("WL") if isinstance(self.loc, dict) else None
+        if WL is None or ESP is None:
+            return None
+        try:
+            hi = WL.PP.haunts_info(0)
+        except Exception:
+            return None
+        if not hi["haunts"] and not hi["rungs"]:
+            return None
+        nm = lambda d, k: (d.get(k) or {}).get("name", k)
+        haunts = []
+        for h in hi["haunts"]:
+            H = ESP.HAUNT.get(h["kind"], {}); ns = H.get("names") or [nm(ESP.PLACE, h["kind"])]
+            haunts.append(dict(name=ns[h["name"] % len(ns)], kind=nm(ESP.PLACE, h["kind"]), sphere=h["sphere"],
+                               sphere_name=nm(ESP.SPHERE, h["sphere"]), lead=h["leads"][-1], lead_name=nm(ESP.FACE, h["leads"]),
+                               lead_line=(ESP.FACE.get(h["leads"]) or {}).get("line", ""), faces=h["faces"],
+                               keeper=H.get("keeper", ""), setting=h["setting"]))
+        LADDER = ["newcomer", "regular", "known", "pillar", "leader"]       # world_keys.LADDER, the engine's order
+        rungs = [dict(sphere=s_, sphere_name=nm(ESP.SPHERE, s_), rung=LADDER.index(r_), word=ESP.RUNG[s_][LADDER.index(r_)],
+                      question=(ESP.SPHERE.get(s_) or {}).get("question", ""))
+                 for s_, r_ in hi["rungs"].items() if r_ in LADDER and s_ in ESP.RUNG]
+        rungs.sort(key=lambda r: -r["rung"])
+        town = []
+        try:
+            l = int(WL.PP.loc[0]); sp = WL.W._sph_portrait() if getattr(WL.W, "sph_s", None) is not None else []
+            sp = next((x["spheres"] for x in sp if x["town"] == l), {})
+            town = sorted((dict(sphere=s_, sphere_name=nm(ESP.SPHERE, s_), hours=v["hours"], lead=v["leads"][-1],
+                                lead_name=nm(ESP.FACE, v["leads"])) for s_, v in sp.items()), key=lambda x: -x["hours"])
+        except Exception:
+            town = []
+        return dict(haunts=haunts, rungs=rungs, town=town)
+
     def world_data(self):
         """What the outer world shows now (world-hooks-for-engine.md), or None while the engine has no world."""
         if self.world_source is None:
@@ -2819,6 +3272,11 @@ class Game:
                              base=round(o["base"], 2) if o.get("base") is not None else None,
                              tag=tags[o["idx"]] if o["idx"] < len(tags) else "",
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
+        sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
+        if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
+            for o in opts:
+                if o["heart_pick"]:
+                    o["shadow"] = sp
         # a perk that helps most of this moment's options says little on each row: the row names one that helps only a few
         cnt = {}
         for o in opts:
@@ -3030,6 +3488,9 @@ class Game:
         ful = float(np.mean(adult)) if adult else 0.0
         ser = float(np.mean(adultp)) if adultp else 0.0
         integ = 1 - float(np.sum(h["rel"])) / max(h["picks"], 1) if h["picks"] else 1.0
+        if GAME["own_ix"] and h["picks"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
+            integ = 1 - sum(r * (1 - (float(np.asarray(wy) @ self.ix) if wy is not None else 0.0))   # counts as their own by it
+                            for r, wy in zip(h["rel"], h["rel_way"])) / h["picks"]
         o = self.result
         w = o["w"][0] if o is not None else E.softmax(self.loc["z"][0])
         labels = [l for _, l in h["label"]]
@@ -3173,6 +3634,54 @@ WFX_KIND = dict(prices="rising prices", housing="the housing market", welfare="t
                 prices_work="prices eating into wages", rec_hours="the recession's shorter hours",
                 disaster_time="the disaster in their town")
 WFX_AGAIN = 52
+
+# spheres phase 4 (PR #84, sph_levers): a lever act on their town's sphere, told as theirs. The Library has no words for
+# levers yet (earth_story.py, earth_spheres.py), so these are the game's: the act by lever, {where} it landed (their
+# place in that sphere, by the Library's haunt names as "their places" shows them, else the town's sphere), and what came
+# of it by the engine's word (moved, backfired, fired <event>, moved <state>, none); came: the panel's short words, with
+# the Library's name for an event set off; their standing there is the Library's rung word (earth_spheres.RUNG)
+SPH_LEVER = dict(
+    act=dict(exit="{N} turns their back on {where}", voice="{N} speaks up for change in {where}", loyalty="{N} stands by {where}",
+             neglect="{N} lets {where} go untended", subvert="{N} works the system in {where}",
+             found="{N} sets up something new in {where}", fund="{N} puts money into {where}", lead="{N} takes the lead in {where}",
+             office="{N} uses their office on {where}"),
+    sphere=dict(rule="the town's rule and law", gather="the town's gatherings", arts="the town's arts", faith="the town's faith",
+                care="the town's care for the sick", learn="the town's learning", prod="the town's work", comm="the town's trade",
+                prot="the town's safety"),
+    moved=dict(voice=", and it shifts a little their way.", subvert=", and it bends a little their way.",
+               exit=", and it drifts further from their ways without them.", neglect=", and it drifts along with the rest of the town.",
+               loyalty=", and it holds to its ways a while longer.", found=", and a place in town takes on their ways.",
+               fund=", and their money pulls it their way for years.", lead=", and it shifts a little their way."),
+    backfired=", but it backfires and turns against their ways.", none=", and nothing comes of it.",
+    fired=", and it brings {what} to town.", state=", and it makes for {what}.",
+    # the office's events and states (sphere_data.LEVER_OFFICE), as what the act brings
+    what=dict(rights_narrowed="narrower rights", charter_won="a charter of its own", the_count="a count of people and land",
+              curfew="a curfew", meeting_place_opens="a new meeting place", common_ground="a square open to everyone",
+              work_banned="a ban on a work of art", school_of_arts="a school of the arts", faith_outlawed="a ban on a faith",
+              tolerance="peace between the faiths", temple_raised="a new house of worship", house_of_care_opens="a new house of care",
+              care_for_all="care for all", censors_close="the censors", first_school="a first school", schools_for_all="free schooling for all",
+              venture_founded="a new venture", usury_banned="a ban on usury", market_granted="a market", bank_opens="a bank",
+              crackdown="a crackdown", watch_founded="a new watch", **{"arts.licence": "licences for the arts", "care.reach": "less care within reach",
+              "prod.room": "less room for new work", "prod.skill": "more skill in the trades", "prot.hired_share": "more guards for hire"}),
+    came=dict(moved="it moved", backfired="it backfired", fired="it set something off", state="it changed the rules", none="nothing came of it"),
+)
+LEVER_AGAIN = 52         # weeks before the same lever on the same sphere is told again at the normal level
+
+# far-off events through ties (PR #95, far_ties): a close tie's news from the town they live in (the engine's far_event
+# and line are Outer world's words, sphere_data.FAR), a tie taken into the household and their leaving, and the words for
+# a far want on the circle. The far moments themselves are the Library's (earth-far-ties.lib, PR #90), with their slots
+# {their_town} and {far_event} filled from the engine's word on the call
+FAR_SAY = dict(
+    away=dict(good="Good news from {town}, where {who} lives: {event}.", hard="Hard news from {town}, where {who} lives: {event}.",
+              mixed="Mixed news from {town}, where {who} lives: {event}."),
+    here=dict(good="In town, {event}, and it goes well for {who}.", hard="In town, {event}, and it hits {who} hard.",
+              mixed="In town, {event}, and for {who} it cuts both ways."),
+    took="{who} comes to live with {N} for a while.", back="{who} goes back home{town} after their time in {Ns} home.",
+    stayed="After their time in {Ns} home, {who} finds a place of their own in town.",
+    want=dict(far_hard="help after hard news in their town", far_good="to share good news from their town",
+              far_mixed="to talk over news from their town, good and hard"),
+)
+FAR_AGAIN = 26           # weeks before the same tie's far news is told again at the normal level
 
 
 def cap_first(s):

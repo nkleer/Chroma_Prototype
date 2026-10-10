@@ -160,6 +160,9 @@ function actTip(pl, it, el0text) {
   if (it && it.delta != null && Math.abs(it.delta) >= 0.15) rows.push(["Surprise", `<span class="${it.delta > 0 ? "up" : "down"}">${Math.abs(it.delta) >= 0.4 ? "much " : ""}${it.delta > 0 ? "better" : "worse"} than they expected</span>`]);
   return tipBox(`${ic("sign")} ${esc(cap(String(el0text || "The act")))}`, "", rows, "");
 }
+// spheres phase 4 and far ties: a lever act's icon, and a tie's news by its side
+const LEVER_ICON = { exit: "ci-door-open", voice: "voice", loyalty: "anchor", neglect: "ci-door-shut", subvert: "mask", found: "sprout", fund: "coin", lead: "flag", office: "ci-gavel" };
+const FAR_ICON = { good: "sun", hard: "rain", mixed: "ci-letter" };
 function mkTip(el) {
   const k = el.dataset.mk, pl = (el.dataset.pl || "").split("|");
   const host = el.closest("[data-i]"), it = host ? ITEMS[+host.dataset.i] : null;
@@ -198,6 +201,10 @@ function mkTip(el) {
     case "T": return tipBox(`${pip(pl[0])} A turning point`, pl[1] === "reinvention" ? "They took the way the voice pushed for, for good." : pl[1] === "snap back" ? "They went back to their own way, for good." : "They took a new way.",
       [["It held", pl[2] === "1" ? "yes" : "no: the old pull came back"]], "The price of being pushed against their own pull built up until it came to a head.");   // 5.6
     case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
+    case "L": return tipBox(`${ic(LEVER_ICON[pl[0]] || "push")} Their act in town`, "", [["Where", esc(pl[1])], ["What came of it", esc(pl[2])]].concat(pl[3] ? [["Their standing there", esc(pl[3])]] : []),
+      "What they do moves the places and the town around them a little, more as their standing there grows. The World panel (key g) keeps each act.");   // spheres phase 4
+    case "F": return tipBox(`${ic(FAR_ICON[pl[0]] || "ci-letter")} News through a tie`, "", pl[2] ? [[`For ${esc(pl[1])}`, esc(pl[2])]] : [],
+      "Something happened in the town where someone close to them lives, and it reached them.");   // far ties
     case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]], "");
     case "c": {
       const kind = pl[0], ex = lettersOf(pl[1] || ""), t = L && (L.titles || []).find((x) => x.kind === kind);
@@ -286,8 +293,12 @@ function voiceRowTip(L) {
   const you = say(V.voice), life = say(V.life);
   const line = !V.steer ? "You have let them choose: the voice has not pushed yet." :
     (you ? `You moved their ${you} in this life.` : "Your pushes have not moved their colors much yet.") + (life ? ` Life itself moved ${life}.` : "");
-  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []),
-    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where.");
+  // S2: each way the voice pushed toward, how far it has become theirs, in the character's words (Library VOICE.own)
+  const OWN_STEP = { asked: "only because the voice asks", ought: "they feel they ought to", sees: "they see why it matters", theirs: "it is theirs now" };
+  const own = (V.own || []).map((o) => [`${pip(o.color)} ${CNAME[o.color]}`, esc(o.line || OWN_STEP[o.step] || "")]);
+  return tipBox(`${ic("voice")} ${esc(cap(V.name))}`, esc(line), [["Pushed", `${V.steer} of ${V.n} moments`]].concat(V.steer ? [["The voice's part", `${pct(V.share)} of how their colors changed`]] : []).concat(own),
+    "In points of 100, since you became the voice. Its name comes from what it pushes for most; the arrows on the wheel show where." +
+    (own.length ? " The ways it pushes become theirs with light steers, their trust in you and people around them who live that way." : ""));
 }
 function needTip(k, L) {
   const v = (L.needs || {})[k] ?? 0;
@@ -424,12 +435,14 @@ let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
   outside: "globe", move: "route", era: "hourglass", read: "scroll", clash: "bolt", rite: "gate", turn: "compass", breakthrough: "burst",
-  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass", ...GI.tag };
+  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass",
+  lever: "push", far: "ci-letter", ...GI.tag };   // spheres phase 4: an act on the town; far ties: news through a tie
 const KIND_ICON = { career: "case", partner: "heart", children: "child", community: "people", faith: "shrine", ...GI.kind };
 const TAG_WORD = { choice: "Your moment", loss: "Loss", death: "Death", crisis: "Crisis", move: "A move", era: "The times", read: "Public life",
   clash: "Clash", rite: "A new stage", turn: "Turning point", breakthrough: "Breakthrough", healed: "Carried through", hardened: "Hardened",
   trouble: "Hard streak", fortune: "Lucky streak", temper: "Temperament", outside: "The world", commitment: "A title", moment: "A moment",
-  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks" };
+  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks",
+  lever: "In town", far: "News through a tie" };
 const MINOR = new Set(["ordinary", "note", "outside", "read", "era", "temper"]);
 const isMinor = (it) => MINOR.has(it.tag) || (it.tag === "role" && !it.title);      // a perk's line is a small one; a title's is not
 const MARK_PRI = { death: 9, loss: 9, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
@@ -912,6 +925,21 @@ function spiderSVG(o) {
   let fan = "";
   COLORS.forEach((_, i) => { const a = P[i], b = P[(i + 1) % 5]; fan += `<path d="M${SPX} ${SPY}L${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}Z" fill="url(#${id}g${i})"/>`; });
   s += `<g class="fan">${fan}</g>`;
+  if (o.shadow) {   // item 2, light and shadow: the end of a colour's point, as far in as its shadow part, cut off and inked
+    let sh = "";    // with the visuals thread's hatch mask (ci-hatch; crosshatch while the state shows). The cap is the
+    o.shadow.forEach((x, i) => {   // polygon's tip cut square to the axis at (1 - s) of the point's length: a quarter in
+      if (!x || x[0] < 0.05) return;   // shadow inks the outer quarter of the point (by length, so a small one still reads)
+      const r1 = spRad(w[i]), r0 = r1 * (1 - x[0]);
+      if (r1 - r0 < 0.6) return;
+      const ux = Math.cos(SPA[i]), uy = Math.sin(SPA[i]), cut = (j) => {   // where the edge toward neighbour j crosses r0
+        const b = P[j], pb = (b[0] - SPX) * ux + (b[1] - SPY) * uy, f = clamp((r1 - r0) / Math.max(r1 - pb, 1e-6));
+        return [P[i][0] + (b[0] - P[i][0]) * f, P[i][1] + (b[1] - P[i][1]) * f];
+      };
+      const pts = `${f1(cut((i + 4) % 5))} ${f1(P[i])} ${f1(cut((i + 1) % 5))}`;
+      sh += `<polygon class="shcap" points="${pts}"/><polygon class="shink" points="${pts}" mask="url(#${x[1] ? "ci-crosshatch" : "ci-hatch"})"/>`;
+    });
+    if (sh) s += `<g class="shd">${sh}</g>`;
+  }
   if (o.window) s += `<circle class="win" cx="${SPX}" cy="${SPY}" r="${(SPR + 2).toFixed(1)}"/>`;
   if (o.hold) s += `<polygon class="hold" points="${spPts(o.hold)}"/>`;
   if (o.want) s += `<polygon class="want" points="${spPts(o.want)}"/>`;
@@ -944,7 +972,8 @@ function spiderSVG(o) {
   return s;
 }
 const spOf = (L, extra) => ({ w: L.w, want: L.w.map((v, i) => Math.max(0.01, v + L.demand[i])), hold: L.inertia.map((v) => v + 0.2), acc: L.acc,
-  rule: (hud && hud.life && hud.life.ident_rule) || [0.22, 0.18], label: L.label, bands: L.dyn ? L.dyn.bands : null, window: !!(L.dyn && L.dyn.window), ...(extra || {}) });
+  rule: (hud && hud.life && hud.life.ident_rule) || [0.22, 0.18], label: L.label, bands: L.dyn ? L.dyn.bands : null, window: !!(L.dyn && L.dyn.window),
+  shadow: L.shadow ? L.shadow.cols.map((x) => x.show ? [x.part, x.on] : null) : null, ...(extra || {}) });
 // the key under the graph; each word's hover is its exact definition
 const SP_KEY = [["pos", "Now", "Their five colors now, as shares of 100."],
   ["want", "Wants", "Where their wanting points: the colors they would move to if nothing held them back."],
@@ -1020,6 +1049,26 @@ function stateTip(x) {
   if (D.from_age) rows.push(["From age", String(Math.round(D.from_age))]);
   return tipBox(`${ic(x.icon)} ${esc(cap(x.word || D.say))}`, esc(stateDef(x)), rows, "");
 }
+// item 2, light and shadow (only with the engine's shadows switch on, hud.life.shadow): a colour's line ("Red 40%, a
+// quarter of it in shadow: reckless at times"), where the shadow comes from, and whether they have seen it in themselves
+function shadowRows(L, i) {
+  const x = L.shadow && L.shadow.cols[i];
+  if (!x || !x.show) return [];
+  return [[`${ic(GI.shadow && GI.shadow[SH_GI[x.state]] || "dot")} Shadow`, `<b>${esc(x.line)}</b>`]].concat(x.src.length ? [["From", esc(x.src.join("; "))]] : [],
+    x.seen ? [["Seen", "they have seen it in themselves"]] : []);
+}
+const SH_GI = { rigid: "rigid", indecisive: "indecisive", ruthless: "ruthless", reckless: "reckless", "stuck in their ways": "stuck" };   // ink-icons.json "shadow"
+function shadowTip(x) {      // a shadow state's hover: its colour's line, its sources, and when it shows and goes
+  const S = x.shadow || {}, on = (hud && hud.life && hud.life.shadow) || { on: 0.5, off: 0.35 };
+  const rows = [];
+  if (x.value != null) rows.push(["Pull now", `${Math.round(x.value * 100)} of 100`]);
+  if (S.src && S.src.length) rows.push(["From", esc(S.src.join("; "))]);
+  if (x.years != null) rows.push(["For", yrsWord(x.years)]);
+  rows.push(["Seen", S.seen ? "they have seen it in themselves" : "not yet: they do not see it in themselves"]);
+  return tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, S.line ? esc(S.line) : "", rows,
+    `A color that rules a life casts a shadow. This shows when the shadow's pull passes ${Math.round(on.on * 100)} of 100 over the last three months, and goes below ${Math.round(on.off * 100)}.`);
+}
+const stTip = (x) => x.shadow !== undefined ? shadowTip(x) : stateTip(x);
 const BAND_WORD = { in: "part of who they are", fading: "fading: at or under 22%, held by the edge", rising: "rising: above 18%, not yet part of them", out: "not part of who they are" };
 function tipColor(L, i) {
   const c = COLORS[i], w = L.w[i], inId = lettersOf(L.label).includes(c), [enter, leave] = L.ident_rule || [0.22, 0.18];
@@ -1031,7 +1080,7 @@ function tipColor(L, i) {
     ["Skill in its ways", pct(L.skill[i])],
     ["Belief they can act so", pct(L.belief[i])],
     ["Notices first", pct(L.lens[i])],
-    ["The story's voice", pct(L.voice[i])]].concat(L.dyn ? [["Place", BAND_WORD[L.dyn.bands[i]] || ""]] : []),
+    ["The story's voice", pct(L.voice[i])]].concat(L.dyn ? [["Place", BAND_WORD[L.dyn.bands[i]] || ""]] : [], shadowRows(L, i)),
     L.label ? (inId ? `${CNAME[c]} is part of who they are; it leaves below ${Math.round(leave * 100)}%.` : `${CNAME[c]} is not part of who they are; it joins above ${Math.round(enter * 100)}%.`) : "");
 }
 const RINGS = [
@@ -1147,6 +1196,31 @@ let hudFrames = [], hudLast = null;
 const seasonWords = (x) => `${x.kind === "stage" ? "Crossing into " + x.into : "Becoming " + x.into} · ${x.step_word}`;
 const SEASON_DEF = "A season of change: the crossing, the in-between, then settling in. One moment in it can transform who they become.";
 function seasonTip(x) { return tipBox(`${ic("gate")} ${esc(seasonWords(x))}`, SEASON_DEF, [["Step", `${x.step} of 3`], ["Weeks in", String(x.weeks_in)], ["Weeks left", String(x.weeks_left)]], ""); }
+// item 15 "your places": the haunts they go to, their standing in each sphere, and their town's spheres (game.places_view)
+const SPH_ICON = { rule: "sign", gather: "people", arts: "feather", faith: "candle", care: "heart", learn: "book", prod: "case", comm: "coin", prot: "shield" };
+const FACE_ORDER = ["W", "U", "B", "R", "G"];
+function placesHTML(L) {
+  const P = L.places; if (!P) return "";
+  const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}</span>`).join("");
+  const up = (P.rungs || []).filter((r) => r.rung > 0);
+  const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
+  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}</span>`).join("");
+  if (!hs && !rs && !tw) return "";
+  return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+}
+function bindPlaces(L) {
+  const P = L.places; if (!P) return;
+  const faces = (fs) => FACE_ORDER.map((c, i) => [c, fs[i]]).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, v]) => `${pip(c)} ${pct(v)}`).join(" ");
+  hudEl.querySelectorAll("[data-pl]").forEach((el) => { const h = P.haunts[+el.dataset.pl]; setTip(el, () => tipBox(`${ic(SPH_ICON[h.sphere] || "home")} ${esc(cap(h.name))}`, esc(h.lead_line),
+    [["A place of", esc(cap(h.kind))], ["Sphere", esc(h.sphere_name)], ["Its way", `${pip(h.lead)} ${esc(h.lead_name)}`], ["Who sets the tone", faces(h.faces)]].concat(h.keeper ? [["Kept by", esc(h.keeper)]] : []),
+    h.setting ? "One of their own circles meets here." : "A place they go to; the regulars there know their face.")); });
+  hudEl.querySelectorAll("[data-plr]").forEach((el) => { const r = P.rungs.find((x) => x.sphere === el.dataset.plr); setTip(el, () => tipBox(`${ic(SPH_ICON[r.sphere] || "home")} ${esc(r.sphere_name)}`, esc(r.question),
+    [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]], "Standing rises with years of showing up and with what they do there.")); });
+  hudEl.querySelectorAll("[data-plt]").forEach((el) => { const t = P.town.find((x) => x.sphere === el.dataset.plt); setTip(el, () => tipBox(`${ic(SPH_ICON[t.sphere] || "home")} ${esc(t.sphere_name)}`, "",
+    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]], "How their town spends its days, and the way each part of life is done there.")); });
+}
+
 function renderHud(L) {
   if (!L || !L.w) { hudEl.innerHTML = ""; return; }
   const lc = labelColors(L.label);
@@ -1168,7 +1242,7 @@ function renderHud(L) {
   const reach = L.reach ? L.reach.map((r) => `<div class="mt" data-reach="${r.ring}"><span class="ml">${ic(r.icon)} ${esc(r.word)}</span><i><b style="width:${(clamp(r.felt) * 100).toFixed(0)}%;background:var(--arcane)"></b></i><span class="mv">${esc(r.level_word)}</span></div>`).join("") : "";
   const AW = L.around_words || {};
   const around = Object.entries(L.around || {}).map(([k, v]) => { const g = good(k, v); return `<span class="chip ${g > 0 ? "up" : g < 0 ? "down" : ""}" data-a="${esc(k)}">${ic(g > 0 ? "sun" : g < 0 ? "rain" : "compass")}${esc(cap(k))}: <span class="w">${esc(AW[k] || (v > 0 ? "up" : "down"))}</span> <span class="pc">(${aroundPct(v)})</span></span>`; }).join("");
-  const states = (L.states || []).map((x, i) => `<span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
+  const states = (L.states || []).map((x, i) => `<span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
   const statuses = (L.statuses || []).map((d, i) => `<span class="perk stat" data-rs="${i}">${ic(roleIconOf(d))}${esc(cap(shortSay(d.say)))}</span>`).join("");
   const pk = L.perks || [], cut = !perksOpen && pk.length > PERK_SHOW + 2 ? PERK_SHOW : pk.length;
   const perks = pk.slice(0, cut).map((d, i) => `<span class="perk${d.state && d.state !== "held" ? " " + d.state : ""}" data-perk="${i}" style="--pc:${d.ways ? `var(--c${d.ways[0]})` : "var(--gold)"}">${ic(roleIconOf(d))}${esc(cap(d.name))}</span>`).join("")
@@ -1193,6 +1267,7 @@ function renderHud(L) {
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
+    ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
     ${L.temper ? `<div class="hsec"><h4>Temperament</h4><div class="tmpr">${TEMPER.map(([k, lb, icn, top]) => `<div class="tm" data-tm="${k}">${ic(icn)}<div><div class="bar"><b style="width:${(clamp(L.temper[k] / top) * 100).toFixed(1)}%"></b></div>${lb}</div></div>`).join("")}</div></div>` : ""}
@@ -1230,13 +1305,14 @@ function renderHud(L) {
       : tipBox(`${ic(KIND_ICON[k])} ${cap(k)}`, "Not held yet", [], ""));
   });
   hudEl.querySelectorAll("[data-pid]").forEach((el) => setTip(el, () => personTip(+el.dataset.pid)));
+  bindPlaces(L);
   hudEl.querySelectorAll("[data-cid]").forEach((el) => setTip(el, () => circleTip((L.circle || []).find((p) => p.id === +el.dataset.cid))));
   hudEl.querySelectorAll("[data-reach]").forEach((el) => { const r = (L.reach || []).find((x) => x.ring === el.dataset.reach); if (r) setTip(el, () => tipBox(`${ic(r.icon)} Reach: ${esc(r.word)}`, "",
     [["Standing", esc(r.level_word)], ["They feel", `${fpct(r.felt)} able to change it`], ["Reality, roughly", esc(r.hint || "unclear")]],
     "How far their acts can move it: the close circle always answers; the town a little; institutions and the state only through office, fame, wealth or invention.")); });
   hudEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
-  hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stateTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
+  hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });
@@ -1415,6 +1491,7 @@ function optRow(o, i, num) {
   if (o.own) marks.push(`<span class="mk2 own">${ic("crown")}their own pick</span>`);
   if (o.heart_pick) marks.push(`<span class="mk2 heart">${ic("heart")}heart</span>`);
   if (o.head_pick) marks.push(`<span class="mk2 head">${ic("head")}head</span>`);
+  if (o.shadow) marks.push(`<span class="mk2 shd" data-shd="${esc(o.shadow.state)}" data-shi="${esc(o.shadow.icon)}">${ic(o.shadow.icon)}their shadow pulls here</span>`);   // item 2, once seen
   if (!o.own && (acc === "reluctant" || acc === "against it")) marks.push(`<span class="mk2 rel">${acc === "against it" ? "against it" : "would rather not"}</span>`);
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
@@ -1578,6 +1655,8 @@ function renderTable(h) {
   if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  tableEl.querySelectorAll("[data-shd]").forEach((el) => setTip(el, () => tipBox(`${ic(el.dataset.shi)} Their shadow pulls here`, "",
+    [], `The heart picks this partly from the pull of the ${esc(el.dataset.shd)} side in ${esc(L.name)}: without that pull, the heart would pick another. ${esc(L.name)} has seen this in themselves before.`)));   // item 2
   tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3
   // P3: a light steer tilts their own pick toward a color; it costs only what it changed, less with the times
   tableEl.querySelectorAll("[data-lc]").forEach((b) => {
@@ -1999,8 +2078,8 @@ function openSheet() {
   const temperWords = L.temper ? TEMPER.map(([k, , , top, def]) => shTrait(TEMPER_NAME[k], L.temper[k] / top, temperWord(k, L.temper[k]), "var(--arcane)", def)).join("") : "";
   const temperNums = L.temper ? TEMPER.map(([k, , , top, def]) => meterRow(TEMPER_NAME[k], L.temper[k] / top, pct(L.temper[k] / top), "var(--gold)", `${def} Now ${temperWord(k, L.temper[k])}: ${L.temper[k].toFixed(2)} on a scale of 0 to ${top}.`)).join("") : "";
   const needWords = Object.entries(N).map(([k, v]) => shTrait(cap(k), v, shNeedWord(v), "var(--peace)", SH_NEED_DEF[k] || "")).join("");
-  const states = (L.states || []).map((x, i) => `<div class="sdef"><span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span><span>${esc(stateDef(x))}${x.value != null ? ` Now ${esc(stateScale(x.var, x.scale, x.value))}.` : ""}</span></div>`).join("") || `<span class="empty">No marked state now</span>`;
-  const stateChips = (L.states || []).map((x, i) => `<span class="st g${x.good}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
+  const states = (L.states || []).map((x, i) => `<div class="sdef"><span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span><span>${esc(stateDef(x))}${x.value != null ? ` Now ${esc(stateScale(x.var, x.scale, x.value))}.` : ""}</span></div>`).join("") || `<span class="empty">No marked state now</span>`;
+  const stateChips = (L.states || []).map((x, i) => `<span class="st g${x.good}${x.shadow !== undefined ? " shd" : ""}" data-st="${i}">${ic(x.icon)}${esc(cap(x.word))}</span>`).join("");
   const around = Object.entries(L.around || {}).map(([k, v]) => `<div class="sdef"><span class="chip" data-a="${esc(k)}">${esc(cap(k))}: <span class="w">${esc((L.around_words || {})[k] || "")} (${aroundPct(v)})</span></span><span>${esc(AROUND_DEF[k] || "")}</span></div>`).join("");
   const aroundShort = SH_AROUND_SHORT.filter(([k]) => (L.around || {})[k] != null).map(([k, w]) => `<div class="r" data-a="${esc(k)}"><span>${w}</span><b>${esc((L.around_words || {})[k] || "")}</b></div>`).join("");
   const titles = (L.titles || []).map((t) => `<div class="sdef"><span class="chip">${ic(KIND_ICON[t.kind])}${esc(cap(t.kind))}</span><span>${(t.named || []).map((x) => esc(cap(shortSay(x.say))) + (x.facets || []).map((f) => ", " + esc(shortSay(f.say))).join("")).join("; ") || ""} · ${yrsWord(t.years)} · invested ${investWord(t.invested)} · expects ${pips(lettersOf(t.expects))}${t.clash ? ` · ${ic("bolt")} in a clash` : ""}</span></div>`).join("") || `<span class="empty">No titles yet</span>`;
@@ -2045,7 +2124,7 @@ function openSheet() {
   sheetEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox((el.querySelector("th, .ml") || el).textContent, "", [], esc(el.dataset.def))); });
   sheetEl.querySelectorAll(".drm[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   sheetEl.querySelectorAll("[data-ci]").forEach((el) => setTip(el, () => tipColor(L, +el.dataset.ci)));
-  sheetEl.querySelectorAll("[data-st]").forEach((el) => { const x = (L.states || [])[+el.dataset.st]; if (x && x.reads) setTip(el, () => stateTip(x)); });
+  sheetEl.querySelectorAll("[data-st]").forEach((el) => { const x = (L.states || [])[+el.dataset.st]; if (x && x.reads) setTip(el, () => stTip(x)); });
   sheetEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   sheetEl.querySelectorAll("[data-pid]").forEach((el) => setTip(el, () => personTip(+el.dataset.pid)));
   sheetEl.querySelectorAll("[data-rs]").forEach((el) => { const d = (L.statuses || [])[+el.dataset.rs]; if (d) setTip(el, () => roleTip(d)); });
@@ -2521,6 +2600,7 @@ function circleTip(p) {
   const rows = [["Who", esc(p.roles.join(", ") || "someone they know") + (p.age != null ? `, ${p.age}` : "")], ["Close", esc(p.close)], ["Trust", esc(p.trust)]];
   if (p.read) rows.push(["As they read them", pips(lettersOf(p.read)) + " " + lettersOf(p.read).map((c) => CNAME[c]).join(" and ")]);
   if (p.want) rows.push(["Wants from them", esc(p.want)]);
+  if (p.want && p.want_why) rows.push(["Why", esc(p.want_why)]);   // far ties (F5): what happened in their town
   return tipBox(`${ic(p.alive ? "people" : "candle")} ${esc(p.name)}`, "", rows, "Their colors as the character reads them, which can be wrong; it sharpens with time together.");
 }
 const worldEl = document.createElement("div"); worldEl.className = "help sheetwrap"; worldEl.hidden = true; document.body.appendChild(worldEl);
@@ -2543,6 +2623,8 @@ function worldLine(W) {
   (W.history || []).filter((h) => h.big).forEach((h, i) => { g += `<circle class="wev" data-h="${(W.history || []).indexOf(h)}" cx="${X(h.age).toFixed(1)}" cy="51" r="4.5"/>`; });
   // P3: each push or lean on the life's line, with the era's pull (light) or against it (dark)
   (W.steers || []).forEach((x, i) => { g += `<rect class="wst2 ${x.era >= 0.3 ? "with" : x.era <= -0.3 ? "against" : "even"}${x.kind === "lean" ? " lean" : ""}" data-st="${i}" x="${(X(x.age) - 1.5).toFixed(1)}" y="56" width="3" height="${x.kind === "lean" ? 4 : 7}" rx="1"/>`; });
+  // spheres phase 4: each lever act of theirs on the town's spheres, by what came of it
+  (W.levers || []).forEach((x, i) => { g += `<circle class="wlv ${x.went}" data-lv="${i}" cx="${X(x.age).toFixed(1)}" cy="58" r="2.6"/>`; });
   for (let a = Math.ceil(lo / 10) * 10; a <= hi; a += 10) g += `<text class="wax" x="${X(a).toFixed(1)}" y="70" text-anchor="middle">${a === 0 ? "born" : a < 0 ? a : a}</text>`;
   return `<svg class="wline" viewBox="0 0 1000 76" role="img" aria-label="The world's history beside the life, by age">${g}</svg>`;
 }
@@ -2564,6 +2646,7 @@ function openWorld() {
   const figs = (W.figures || []).map((f) => `<div class="wfig${f.alive ? "" : " gone"}">${pips(lettersOf(f.letters))}<span><b>${esc(f.name)}</b> <span class="muted">${esc(f.role)}${f.alive ? "" : ", gone"}</span></span></div>`).join("");
   // WL5: the character's own record of what the world changed of theirs, by age
   const times = (W.times || []).slice().reverse().slice(0, 40).map((x) => `<div class="whist${x.big ? " big" : ""}" data-tm="${esc(x.cause || "")}"><span class="wa">${wAge(x.age, nm)}</span>${ic("globe")}<span>${esc(x.text)}</span></div>`).join("");
+  const levers = (W.levers || []).map((x, i) => [x, i]).reverse().slice(0, 40).map(([x, i]) => `<div class="whist${x.went === "fired" || x.went === "state" ? " big" : ""}" data-lv="${i}"><span class="wa">${wAge(x.age, nm)}</span>${ic(LEVER_ICON[x.lever] || "push")}<span>${esc(x.text)}</span></div>`).join("");
   const hist = (W.history || []).slice(0, 60).map((x, i) => `<div class="whist${x.big ? " big" : ""}"><span class="wa">${wAge(x.age, nm)}</span>${ic(x.icon)}<span>${esc(x.text)}</span></div>`).join("");
   worldEl.hidden = false;
   worldEl.innerHTML = `<div class="box paper sheet world" role="dialog" aria-label="The world">
@@ -2574,12 +2657,15 @@ function openWorld() {
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
       ${times ? `<section class="wide"><h4>What the times did to ${esc(nm)}</h4><div class="whists">${times}</div></section>` : ""}
+      ${levers ? `<section class="wide"><h4>What ${esc(nm)} did in town</h4><div class="whists">${levers}</div></section>` : ""}
       <section class="wide"><h4>History</h4><div class="whists">${hist || `<span class="empty">Nothing yet</span>`}</div></section>
     </div></div>`;
   $("wClose").addEventListener("click", closeWorld);
   worldEl.querySelectorAll(".wer").forEach((el) => { const e = W.eras[+el.dataset.era]; setTip(el, () => tipBox(`${pips(lettersOf(e.letters))} ${esc(cap(e.name))}`, "", [["From", wAge(e.from, nm)], ["To", e.to == null ? "now" : wAge(e.to, nm)]], "An era is a stretch of years in which society rewards one way of living.")); });
   worldEl.querySelectorAll(".wev").forEach((el) => { const h = W.history[+el.dataset.h]; setTip(el, () => tipBox(`${ic(h.icon)} ${esc(h.text)}`, "", [["When", wAge(h.age, nm)]], "")); });
   worldEl.querySelectorAll("[data-tm]").forEach((el) => { if (el.dataset.tm) setTip(el, () => tipBox(`${ic("globe")} Why`, esc(cap(el.dataset.tm)), [], "")); });
+  worldEl.querySelectorAll("[data-lv]").forEach((el) => { const x = W.levers[+el.dataset.lv]; setTip(el, () => tipBox(`${ic(LEVER_ICON[x.lever] || "push")} ${esc(cap(x.lever))} in ${esc(x.where)}`, "",
+    [["When", wAge(x.age, nm)], ["What came of it", esc(x.came)]].concat(x.rung ? [["Their standing there", esc(x.rung)]] : []), "")); });
   worldEl.querySelectorAll(".wst2").forEach((el) => { const x = W.steers[+el.dataset.st]; setTip(el, () => tipBox(`${x.kind === "lean" ? pip(x.lean) + " A lean" : ic("push") + " A push"} ${x.colors && x.colors !== "-" ? "toward " + pips(lettersOf(x.colors)) : ""}`, "",
     [["When", wAge(x.age, nm)], ["The times", x.era >= 0.3 ? "with their pull: it cost less" : x.era <= -0.3 ? "against their pull: it cost more" : "neither with nor against"]], "")); });
 }

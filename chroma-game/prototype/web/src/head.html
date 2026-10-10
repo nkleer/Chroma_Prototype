@@ -799,6 +799,7 @@
   .wheel .want { stroke-width: 1.3; }
   .wheel .pull line { stroke: currentColor; stroke-linecap: round; opacity: 0.9; }
   /* item 3: the voice row on the panel, and its thin arrows on the wheel while hovered */
+  .wheel .shd .shcap { fill: rgb(0 0 0 / 0.34); } .wheel .shd .shink { fill: var(--pInk); opacity: 0.9; }   /* item 2: a colour's shadow, its point's end */
   .wheel .vpull line { stroke: currentColor; stroke-width: 1.2; stroke-dasharray: 3 2; stroke-linecap: round; }
   .wheel .vpull polygon { fill: currentColor; }
   /* P3: the light steer (lean toward a color) beside "Let them choose"; the era's pull on an option */
@@ -909,6 +910,9 @@
   .wline .wun { fill: none; stroke: var(--ink2); stroke-width: 1.2; opacity: 0.7; pointer-events: none; }
   .wline .wlife { fill: var(--gold); opacity: 0.75; }
   .wline .wev { fill: var(--paper, #f4ead6); stroke: var(--ink2); stroke-width: 1.3; cursor: help; }
+  /* spheres phase 4: their lever acts on the town, by what came of them */
+  .wline .wlv { fill: var(--ink2); cursor: help; } .wline .wlv.moved { fill: var(--peace); } .wline .wlv.backfired { fill: var(--stress); }
+  .wline .wlv.fired, .wline .wlv.state { fill: var(--gold); stroke: var(--ink2); stroke-width: 0.8; } .wline .wlv.none { fill: none; stroke: var(--ink2); stroke-width: 0.8; }
   .wline .wax { font: 500 10px var(--ui); fill: var(--muted); }
   .wera { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: var(--fs-1); color: var(--ink2); margin-bottom: 6px; }
   .wera b { font: 600 var(--fs-2) var(--serif); color: var(--ink); }
@@ -1083,6 +1087,8 @@
   .mk2.law { color: var(--bad); background: rgb(169 56 28 / 0.08); }
   .mk2.lever { color: var(--arcane); background: rgb(86 65 176 / 0.08); }
   .mk2.rb.up { color: var(--ok); background: rgb(34 112 59 / 0.08); } .mk2.rb.down { color: var(--bad); }
+  /* item 2, light and shadow: the shadow's mark on the heart's pick it drives, and the shadow states, hatched in ink */
+  .mk2.shd, .st.shd { color: var(--ink); cursor: help; background: repeating-linear-gradient(45deg, rgb(var(--hl) / 0.16) 0 1.4px, transparent 1.4px 4px); box-shadow: inset 0 0 0 1px rgb(var(--hl) / 0.3); }
   .ogrid .opt .odds, .optlook .odds { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; }
   .gem { display: inline-flex; align-items: center; gap: 4px; }
   .gem svg { width: 17px; height: 17px; display: block; }

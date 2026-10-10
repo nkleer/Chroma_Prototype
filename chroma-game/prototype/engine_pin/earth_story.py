@@ -409,6 +409,10 @@ VOICE = {
     "became": dict(trusted="{N} became {ident}, and knows it was not all their own doing.",
                    unsure="{N} became {ident}, half by choice and half at the voice's insistence.",
                    doubted="{N} became {ident}, pushed there more than walked."),
+    # item 6 "every line has a cause" (v22.4, the Game's switch lines_tied): the same, as a short phrase after the new
+    # name on the year header. Lower case, no end stop
+    "became_head": dict(trusted="not all their own doing", unsure="half by choice, half at the voice's insistence",
+                        doubted="pushed there more than walked"),
 
     # the yearly chapter, at most one voice line a year. Fills {name} (the voice's name in this life)
     "chapter": dict(
@@ -432,6 +436,53 @@ VOICE = {
     "book": dict(steered="{N}: {start}, steered toward {lean}; became {end}.",
                  free="{N}: {start}, left to choose; became {end}."),
     "lean": dict(W="duty", U="thought", B="ambition", R="feeling", G="patience"),
+
+    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC "v22.3"): the Voice row's
+    # hover, for each way the voice pushes toward, by how far it has become theirs (ix): "asked" under .25 (only because
+    # asked), "ought" from .25 (out of ought and guilt), "sees" from .5 (they see its value), "theirs" from .8 (part of
+    # who they are). Said in the pushed way's own terms (right, sense, worth, feel, who we are). Two lines: the first
+    # while their trust in the voice for that way is 0 or more, the second while it is below 0. Fills {N} {Ns} {voice}.
+    "own": dict(
+        W=dict(asked=["{N} keeps to it because the {voice} asks, trusting it is meant well.",
+                      "{N} keeps to it only because the {voice} asks, and would drop it tomorrow."],
+               ought=["{N} feels it is owed, and would feel bad letting it slip.",
+                      "{N} keeps to it out of duty and a nagging guilt, not belief."],
+               sees=["{N} has come to see that it is the right thing to do.",
+                     "{N} sees now that it is right, whoever first asked."],
+               theirs=["It is simply right to {N} now, and no one needs to ask.",
+                       "It is right to {N} now, the {voice}'s asking long forgotten."]),
+        U=dict(asked=["{N} goes along with it because the {voice} asks, waiting to see if it makes sense.",
+                      "{N} does it only because the {voice} asks, and has not seen the sense of it."],
+               ought=["{N} feels a sensible person should, and is a little ashamed not to.",
+                      "{N} does it because it seems expected of a thinking person, not from understanding."],
+               sees=["{N} has worked it through, and it makes sense now.",
+                     "{N} has found the sense in it alone, whatever the {voice} said."],
+               theirs=["It makes so much sense to {N} that it no longer needs thinking about.",
+                       "{N} would argue for it now, as if the idea had been theirs all along."]),
+        B=dict(asked=["{N} does it because the {voice} asks, hoping it pays off.",
+                      "{N} does it only because the {voice} asks, and sees nothing in it for them."],
+               ought=["{N} feels they ought to if they want to get on, and resents the push a little.",
+                      "{N} does it because getting on seems to demand it, not because they want to."],
+               sees=["{N} sees what it is worth to them now.",
+                     "{N} has worked out what it is worth to them, never mind the {voice}."],
+               theirs=["It is worth it to {N}, plain and simple, and part of how they get on.",
+                       "{N} would not give it up now: it is theirs, and it pays."]),
+        R=dict(asked=["{N} goes along with it because the {voice} asks, though it does not feel like them yet.",
+                      "{N} does it only because the {voice} asks, and it feels like wearing someone else's coat."],
+               ought=["{N} feels they should want it, and is cross with themselves when they do not.",
+                      "{N} forces it out of a guilty sense that they ought to, and it chafes."],
+               sees=["{N} has started to feel why it matters, in the moment.",
+                     "{N} feels the point of it now, on their own terms."],
+               theirs=["It feels like {N} now, as natural as breathing.",
+                       "{N} would swear it was always them, whatever the {voice} once pushed."]),
+        G=dict(asked=["{N} keeps to it because the {voice} asks, as one takes advice from an elder.",
+                      "{N} keeps to it only because the {voice} asks, and it is not how their people do things."],
+               ought=["{N} feels it is expected of them, and would be ashamed to let it go.",
+                      "{N} keeps to it from a sense of what is expected, more habit than heart."],
+               sees=["{N} sees how it fits the people and the place they come from.",
+                     "{N} has found where it fits in their own roots, without the {voice}."],
+               theirs=["It is part of who {N} and their people are now.",
+                       "It is woven into {Ns} life now, like something handed down."])),
 }
 
 # ============================================================================================ the thread (F5, item 4)
@@ -652,6 +703,82 @@ YEAR = {
     "narrower": "A narrower year for {N}: {what}.",
     "close": "The times came close to {N} this year: {what}.",
     "mixed": "The times gave and took from {N} this year: {what}.",
+}
+# item 6 "every line has a cause" (v22.4, the Game's switch lines_tied): the times as one clause in the year's lead, by
+# the same tones as YEAR. The game adds the semicolon before and the full stop after. Fills {what} (as YEAR)
+YEAR_LEAD = {
+    "lean": "lean times: {what}",
+    "easier": "easier times: {what}",
+    "uneasy": "uneasy times: {what}",
+    "calmer": "calmer times: {what}",
+    "freer": "freer times: {what}",
+    "narrower": "narrower times: {what}",
+    "close": "the times came close: {what}",
+    "mixed": "the times gave and took: {what}",
+}
+# item 6: a memory told inside the moment that brought it back (the game's RECALL_LINES stay as the fallback). scar: it
+# went badly and left a wound; good: it worked; bad: it did not. Clauses, no end stop. Fills {when} ("as a child", "at
+# 17"), {what} (a bare verb phrase after "chose to") and {N}
+RECALL_IN = {
+    "scar": ["it opens an old wound: {when}, {N} chose to {what}, and it went badly",
+             "{N} has been here before: {when}, they chose to {what}, and it still stings",
+             "it comes too close to an old hurt: {when}, {N} chose to {what}, and it went wrong"],
+    "good": ["it brings back a good memory: {when}, {N} chose to {what}, and it worked",
+             "{N} has done this before: {when}, they chose to {what}, and it went well",
+             "it feels familiar: {when}, {N} chose to {what}, and it paid off"],
+    "bad": ["{N} remembers: {when}, they chose to {what}, and it did not work",
+            "it has been tried before: {when}, {N} chose to {what}, and it went wrong",
+            "an old attempt comes to mind: {when}, {N} chose to {what}, and it came to nothing"],
+}
+# item 6: the temperament line names the event that moved it most. Fills {N}, {m} (what they have become, as today's
+# line) and {event} (a lower-case noun phrase with its article: "the divorce", "losing their mother"). With no event the
+# game keeps today's line
+TEMPER_CAUSE = ["Since {event}, {N} has become {m}.", "People who know {N} say {event} made them {m}.",
+                "After {event}, {N} slowly became {m}."]
+# light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md section 6), the Game's outcome naming and chapter
+# line. Keys are the engine's five shadow states. Shown only with the engine's shadows switch on.
+# SHADOW_FAIL[state]: when an act fails because of the shadow, the game prints "<State word>: <clause>." on its own line
+# under the outcome. Lower case, no end stop. Fills {N} only
+SHADOW_FAIL = {
+    "rigid": ["the rule held, and the person it was for did not",
+              "{N} kept to the letter of it, and lost the point of it",
+              "there was no give in it, and something gave way instead"],
+    "indecisive": ["{N} weighed it one more time, and the chance went by",
+                   "every side was seen, and none was chosen in time",
+                   "the answer came, but the moment had already passed"],
+    "ruthless": ["{N} took what was there, and the people went with it",
+                 "the deal was won, and the trust behind it was lost",
+                 "it worked on paper, and cost them someone who mattered"],
+    "reckless": ["{N} went all in, and this time the bill came at once",
+                 "the cost was plain to see, and {N} paid it in full",
+                 "it went one step too far, and something broke that will not mend quickly"],
+    "stuck in their ways": ["{N} did it the old way, and the old way no longer fit",
+                            "what always worked did not work this time",
+                            "the change came anyway, and {N} was not ready for it"],
+}
+# SHADOW_YEAR[state][grow|fade]: the yearly chapter's one line when the state comes on (grow) or goes off (fade). Whole
+# sentences. Fills {N} only
+SHADOW_YEAR = {
+    "rigid": dict(grow=["This was the year the rules became a wall.",
+                        "{N} held everything tighter this year, and the people near them felt it."],
+                  fade=["This was the year {N} let a rule bend, and nothing fell.",
+                        "Something loosened in {N} this year; a small mistake was allowed to stay small."]),
+    "indecisive": dict(grow=["This was the year {N} kept waiting for one more answer.",
+                             "Doubt took up more room this year, and choices waited until they made themselves."],
+                       fade=["This was the year {N} chose before they were sure, and it was all right.",
+                             "{N} stopped asking for one more night this year, and decided."]),
+    "ruthless": dict(grow=["This was the year people became tools to {N}.",
+                           "{N} won more this year, and kept fewer friends."],
+                     fade=["This was the year {N} gave something back without asking what it bought.",
+                           "{N} let someone else win this year, and found they could bear it."]),
+    "reckless": dict(grow=["This was the year {N} stopped counting the cost.",
+                           "Every risk looked like a door this year, and {N} went through most of them."],
+                     fade=["This was the year {N} stopped to count the cost first.",
+                           "{N} walked away from a risk this year, and did not feel smaller for it."]),
+    "stuck in their ways": dict(grow=["This was the year {N} stopped letting anything change.",
+                                      "The old ways closed around {N} this year like a coat buttoned to the neck."],
+                                fade=["This was the year {N} tried something new, and kept it.",
+                                      "{N} let one old habit go this year, and the house did not fall."]),
 }
 # YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}
 YEAR_WHAT = {

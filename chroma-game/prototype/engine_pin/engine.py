@@ -754,6 +754,8 @@ DEFAULT = dict(
     far_ties=False,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
+    fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
+                         # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -771,6 +773,8 @@ DEFAULT = dict(
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
+    c2_groups=False,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
+    c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
@@ -963,13 +967,13 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c3_inst=False, c4_nature=False, c5_faith=False)
+               c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -1520,6 +1524,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_keys as WK_
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
+    REG_ = REG_ & ~FARS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2640,6 +2645,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
             mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
+        if FARS_ON_:   # far_ties: a far moment comes only with a tie's call (forced), never by the everyday draw
+            aff[:, FARS_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
@@ -4374,6 +4381,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             hl_ = np.array([held[:, CAR] | (stage <= 2), np.ones(N, bool), np.ones(N, bool), held[:, FAI]]).T   # school is work
             Dz *= (1 - np.log(2) / (52 * np.where(hl_, P["dom_half"], P["dom_end_half"])))[:, :, None]
             Dz = np.clip(Dz - Dz.mean(2, keepdims=True), -P["dom_cap"], P["dom_cap"])
+        if WON and t % 4 == 0:   # S2 (read only, for the game): the colour shares of what surrounds them, once a month
+            around = WL.PP.around()
         if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
             if WON:
                 cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
