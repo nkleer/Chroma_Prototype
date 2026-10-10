@@ -35,7 +35,8 @@ const dir = process.argv[6]; const preset = process.argv[7] || '3';
   }
   // push them to an option they are okay with (or any not their own)
   const pick = await page.evaluate(() => { const b = [...document.querySelectorAll('.opt')]; const ok = b.find(x => /Okay/.test(x.textContent)) || b.find(x => /Would go/.test(x.textContent)) || b.find(x => !x.classList.contains('own')); return ok ? +ok.dataset.i : -1; });
-  if (pick >= 0) { const b = (await page.$$('.opt'))[pick]; await b.click(); if (phone) { await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p) { await page.screenshot({ path: `${dir}/${tag}-2detail.png` }); await p.click(); } } await idle(); }
+  // a card is found by its own number: the cards on the page are grouped (and some folded), so their order is not data-i's
+  if (pick >= 0) { const b = await page.$(`.opt[data-i="${pick}"]`); await b.click(); if (phone) { await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p) { await page.screenshot({ path: `${dir}/${tag}-2detail.png` }); await p.click(); } } await idle(); }
   await page.waitForTimeout(900);
   await page.screenshot({ path: `${dir}/${tag}-4resolution.png` });
   console.log('res:', (await page.evaluate(() => (document.querySelector('.ev') || {}).innerText || '')).slice(0, 400).replace(/\n/g, ' | '));
