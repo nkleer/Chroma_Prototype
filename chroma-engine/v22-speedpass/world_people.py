@@ -2686,7 +2686,7 @@ class People:
         self._far_i = len(getattr(self.W, "sph_ev_log", ()))   # the world's town events already read
         self.far_n = {}                                   # counts for the checks (not saved)
         ek = {f"{e['sphere']}.{e['key']}": i for i, e in enumerate(SD.EV)}
-        self._far_sides = []; self._far_tab = {}
+        self._far_sides = []; self._far_tab = {}; self._far_mix = set()   # events whose own tone is mixed
         for k, v in SD.FAR.items():
             if k not in ek:
                 continue
@@ -2698,6 +2698,8 @@ class People:
                 ids.append(len(self._far_sides))
                 self._far_sides.append(dict(x, event=k, far_event=v["far_event"]))
             self._far_tab[ek[k]] = ids
+            if v["sign"] == "mixed":
+                self._far_mix.add(ek[k])
 
     def _far_count(self, key, m=1):
         self.far_n[key] = self.far_n.get(key, 0) + int(np.sum(m))
@@ -2798,7 +2800,7 @@ class People:
             self.far_ev[n2, k2] = i_; self.far_t[n2, k2] = t
             self.far_sg[n2, k2] = h2[:, 0] + 2 * h2[:, 1]; self.far_sd[n2, k2] = s2
             away = self.mloc[n2, k2] != self.loc[n2]
-            mixed = h2.all(1)
+            mixed = h2.all(1) | (int(i_) in self._far_mix)   # both sides, or one side of a mixed event (its tone)
             key = np.where(mixed, WI["far_mixed"], np.where(h2[:, 1], WI["far_hard"], WI["far_good"]))
             pc = np.where(mixed, fp["call_mixed"], np.where(h2[:, 1], fp["call_hard"], fp["call_good"]))
             call = (away & (self.c[n2, k2] >= L2) & (self.want[n2, k2] < 0) & (ag2 >= 16) & (rng.random(len(n2)) < pc)
@@ -2822,7 +2824,7 @@ class People:
         sg = int(self.far_sg[n, k]); sides = [self._far_sides[j] for j in self.far_sd[n, k] if j >= 0]
         return dict(cause=dict(event=sides[0]["event"], far_event=sides[0]["far_event"], town=int(self.mloc[n, k])
                                if self.far_in[n, k] == FAR_OFF else int(self.far_from[n, k]),
-                               sign="mixed" if sg == 3 else "good" if sg == 1 else "hard", week=int(self.far_t[n, k]),
+                               sign="mixed" if sg == 3 or int(self.far_ev[n, k]) in self._far_mix else "good" if sg == 1 else "hard", week=int(self.far_t[n, k]),
                                touch=[x["touch"] for x in sides], line=[x["line"] for x in sides]))
 
     def far_info(self, n, cid, t=None):

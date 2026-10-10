@@ -1530,6 +1530,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if "W_WANT" in L:
         LEADS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("lead_")])
     LEADS_ON_ = bool(LEADS_.any())
+    REG_ = REG_ & ~FARS_ & ~LEADS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2660,6 +2661,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff = aff * cond_fac
         if WON:   # the world: time of year, holy days, the place's features, the settings one is in, the technology there is
             mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
+        if FARS_ON_:   # far_ties: a far moment comes only with a tie's call (forced), never by the everyday draw
+            aff[:, FARS_] = 0.0
+        if LEADS_ON_:   # lead_ways (S7): a post's moment comes only with the post (forced), never by the everyday draw
+            aff[:, LEADS_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
