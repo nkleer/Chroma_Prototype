@@ -1,8 +1,8 @@
 # Pack: Art and Writing: Visual Art, Craft and Writing (modern Earth, with the tribal and magic worlds)
 
-Status: built for v22.4 on 2026-10-10, held in a PR until v22.3 is live (coordinator relay 17:10 UTC: "Go with your
-recommendation for v22.4... build the three green entry jobs and the Art and Writing slice now as PRs, held. Nothing
-merges until I say v22.3 is live, then one at a time."). Not in batch.PACKS: merging this folder changes no life until
+Status: built for v22.4 on 2026-10-10 and held in a PR until v22.3 was live (coordinator relay 17:10 UTC: "Nothing
+merges until I say v22.3 is live, then one at a time."); merged on 10-10 after v22.3 went live, with the novelist
+multiple at 60 (coordinator relay 20:11 UTC). Not in batch.PACKS: merging this folder changes no life until
 the Engine adds `art` at the v22.4 refit. Engine name: `art`. The plan: chroma-packs/notes/v22.4-lanes-sizing.md,
 finding 2 (Emren 10-10: red-led choices lead to artist; each life sees richer lanes at different depths). The full pack
 idea: chroma-pack-ideas/next-packs.md, "Art and Writing"; this is its visual-art, craft and writing slice. Music stays
@@ -49,9 +49,10 @@ with a later "Music, Dance and Comedy" pack.
 1. **Library:** build `chroma-library/earth_art.py` from art-*.lib (build.py reads the parts), and run check.py.
 2. **Engine:** paste engine-conditions.py into earth_rules.PACK_RULES["art"] (calib_v7/paste_pack_rules.py); add `art`
    to batch.PACKS; fit TIER_LIFT for "art,politics,science,stage" (tier_fit with the floors), then roles_check.
-3. **Engine, a decision:** TARGET_ART gives the base [novelist] a multiple of 20 (about 1 life in 100), so the writing
-   summit has novelists to sit on (they are .0005 of lives today). A tier word instead put novelist under the pack
-   careers' lift on its broad base rule: 57 lives in 100 in a scratch run. The Engine may change the multiple.
+3. **Engine, decided 10-10:** TARGET_ART gives the base [novelist] a multiple of 60 (about 3 lives in 100; it was 20
+   in the first draft), so about a third of novelists can reach the writing summit's floor of 1 in 100, close to the
+   other packs' ratio (novelists are .0005 of lives today). A tier word instead put novelist under the pack careers'
+   lift on its broad base rule: 57 lives in 100 in a scratch run.
 4. **Proof:** packs are always on, so this changes lives: the full proof with the v22.4 refit (tier_fit, roles_check,
    1,600 pooled lives, the steered rows, choice_check on the candidate). The pie gap against the run without the pack
    stays at .01 or less (the pack rule).

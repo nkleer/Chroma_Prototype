@@ -132,9 +132,9 @@ TARGET_ART = {
     "art teacher": "career", "gallery owner": "career", "master craftsperson": "career",
     # The writing road's career rung is the base [novelist] (real share .0005), and [celebrated author] can only sit on
     # it. A tier word here would put [novelist] under the pack careers' lift on its broad base rule: a scratch run on
-    # 10-10 (300 lives) gave it to 57 lives in 100. A multiple keeps it under ROLE_NORM at 20 times its share (about 1
-    # life in 100), so the writing summit has novelists to sit on; the Engine may change the multiple at the refit.
-    "novelist": 20,
+    # 10-10 (300 lives) gave it to 57 lives in 100. A multiple keeps it under ROLE_NORM at 60 times its share (about 3
+    # lives in 100, the Engine's choice of 10-10), so about a third of novelists can reach the summit floor of 1 in 100.
+    "novelist": 60,
     # summits
     "renowned artist": "summit", "celebrated author": "summit",
     # community and status
