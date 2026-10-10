@@ -763,6 +763,11 @@ DEFAULT = dict(
     far_par=None,
     fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
                          # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
+    sph_eyes=False,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
+                         # talk through go-betweens, caught between two places (world switch; needs sph_haunts)
+    sph_odd=False,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
+                         # needs sph_eyes)
+    eyes_par=None,       # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -975,6 +980,7 @@ UPD_OFF = dict(dis_match=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
                sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False,
+               sph_eyes=False, sph_odd=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -1499,7 +1505,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 left_given[n] = why == "left" and faith_given[n]; faith_drifted[n] = bool(drift_now[n])   # how the last one ended
                 faith_given[n] = False                          # a faith taken up again is one's own
             commit_log.append((int(n), t, int(kk), why, prof[n, kk].round(2).tolist(), round(float(I[n, kk]), 2)))
-            if n in events:
+            if EYES_ON_ and WL is not None and kk in (CAR, PAR, FAI) and why in ("left", "broke up"):   # S3: their places
+                WL.PP.eyes_see([n], prof[n, kk][None], [0.5], {CAR: "left job", PAR: "left partner", FAI: "left faith"}[kk])   # read
+            if n in events:                                                  # the leaving by what was walked away from
                 events[n].append(dict(commitment=dict(age=round(t / 52, 2), kind=KNAMES[kk], what=why,
                                                       profile=prof[n, kk].round(2).tolist(), strength=round(float(I[n, kk]), 2))))
                 if kk == FAI and why == "left" and drift_now[n]:
@@ -1534,6 +1542,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
     REG_ = REG_ & ~FARS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # S3, S4 (sph_eyes, sph_odd): a caught-between or odd-one-out moment (cast_want: caught, odd) comes only when the place
+    # reading brings it, never by the everyday draw
+    EYEW_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        EYEW_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in ("caught", "odd")])
+    EYEW_ON_ = bool(EYEW_.any())
+    if EYEW_ON_:
+        REG_ = REG_ & ~EYEW_   # (nor by the stages' fill or the routine's, as far moments)
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -1705,10 +1721,16 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if n in events:
             events[n].append(dict(role=dict(age=round(t / 52, 2), name=GR["names"][i], kind=GR["kindname"][i], what=what, how=how)))
     WL = None                                             # the outer world's link (set below when the world is on)
+    EYES_LOSE_SKIP = {"replaced", "time passed", "outgrew it", "retired", "slipped away", "found work", "it ended",
+                      "gave it up"}   # S3:
+    # titles that end as the time or a commitment's end runs, or given up (the leaving itself is read, by end())
     def r_lose(n, i, why, succ=-1):
         if not r_has[n, i] and not (i >= NT_ and p_acc[n, i - NT_]):
             return
         r_has[n, i] = False; r_end[n, i] = t
+        if (EYES_ON_ and WL is not None and i < NT_ and why not in EYES_LOSE_SKIP and not why.startswith("the ")
+                and not why.startswith("became ") and why not in WHY):   # S3: a title lost in its own way (taken away, given
+            WL.PP.eyes_see([n], PW_[i, r_prof[n, i]][None], [0.5], "title lost")   # up, its rule): read as walked away from
         if i < NT_:   # its facets go with it (no longer a newlywed once no longer married), unless they sit on another title
             for f_ in np.nonzero(REFM_[:, i] & r_has[n])[0]:   # held, or on the one that follows it (living together, married)
                 if not (REFM_[f_] & r_has[n, :NT_]).any() and not (succ >= 0 and REFM_[f_, succ]):
@@ -1763,6 +1785,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r_note(n, i, "gained", how)
         if WL is not None:   # the world: a migrant's, refugee's or citizen's title moves the life between societies
             WL.on_title(int(n), GR["names"][i])
+            if EYES_ON_ and (i < NT_ or GR["names"][i] == "someone with a record") and how != "arrested":
+                # S3: their places see a title won (its profile's colours, else the act's), or a record (a crime found out:
+                # the act's colours where an act gave it, else their own; a killing found out is read where it is caught)
+                rec_ = GR["names"][i] == "someone with a record"
+                src_ = mix if mix is not None else (PW_[i, r_prof[n, i]] if i < NT_ and not rec_ else w[n])
+                src_ = src_ if np.sum(src_) > 0 else w[n]
+                WL.PP.eyes_see([n], np.asarray(src_, float)[None], [0.0 if rec_ else 1.0], "crime" if rec_ else "title")
         if i < NT_ and f_pend:                               # facets an act gave while waiting for this title come with it
             for e_ in [e_ for e_ in f_pend if e_[0] == n and REFM_[e_[1], i]]:
                 f_pend.remove(e_); r_gain(n, e_[1], e_[2], e_[3])
@@ -2154,6 +2183,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
     MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
+    EYES_ON_ = bool(P.get("sph_eyes")) and WON         # S3: their places read their acts (world on only)
+    ODD_ON_ = EYES_ON_ and bool(P.get("sph_odd"))      # S4: the odd one out at a place
     SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
     DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
@@ -2666,6 +2697,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             mf_ = WL.moment_factor(age, sit_last); aff = aff * mf_
         if FARS_ON_:   # far_ties: a far moment comes only with a tie's call (forced), never by the everyday draw
             aff[:, FARS_] = 0.0
+        if EYEW_ON_:   # S3, S4: a caught-between or odd-one-out moment comes only by the place reading
+            aff[:, EYEW_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
@@ -2737,6 +2770,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 frc_ &= avail; fdd_ &= avail
             if FARS_ON_:
                 ev_p[:, FARS_] = 0.0
+            if EYEW_ON_:
+                ev_p[:, EYEW_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3086,6 +3121,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if P.get("sph_fair"):   # spheres phase 4: felt fairness tilts exit, neglect and subvert against voice and loyalty
                 fU_ = WL.fair_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # log odds x the choice's tau
                 U_R = U_R + fU_; U_I = U_I + fU_
+            if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
+                oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + oU_; U_I = U_I + oU_
         if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
             shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
@@ -3560,6 +3598,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         caught_ = bool(rid.random() < P["kill_caught"])
                         if "has taken a life" in GR["ID"]:
                             r_gain(n, GR["ID"]["has taken a life"], "took a life")
+                        if caught_ and EYES_ON_:   # S3: a crime found out, read by their places in the act's colours
+                            WL.PP.eyes_see([n], ma[n][None], [0.0], "crime")
                         if caught_:
                             if "someone with a record" in GR["ID"]:
                                 r_gain(n, GR["ID"]["someone with a record"], "arrested")
@@ -4430,6 +4470,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             b0_, pk_, at_, wd_ = P["cur_age"]
             cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
+        if ODD_ON_ and t % 4 == 0:   # S4: blending in at a place steps the colours toward it (booked with the current)
+            edw_ = WL.PP.eyes_dw
+            if edw_.any():
+                edz_ = centre(5 * edw_); WL.PP.eyes_dw = np.zeros_like(edw_)
+                dz_ = dz_ + edz_; chan[:, 8] += edz_
         if MK_ON and t % 4 == 0:   # spheres phase 2: the mark of the work, a year's step once it is drawn (booked with the current)
             mdw_ = WL.PP.mark_dw
             if mdw_.any():
@@ -4478,6 +4523,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                if WON and EYES_ON_ and EYEW_[s[i]]:   # S3, S4: the places of a caught-between or odd-one-out moment
+                    ei_ = WL.eyes_info(i, int(s[i]))
+                    if ei_:
+                        more_["eyes"] = ei_
                 if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:

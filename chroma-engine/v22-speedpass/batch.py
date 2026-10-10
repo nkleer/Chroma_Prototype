@@ -537,7 +537,8 @@ TOY_INFER = {"health": "winter", "loss": "winter", "love": "summer", "travel": "
 
 def _world_fields(L):
     """The outer world's Library fields (chroma-engine/world-fields.md): moment fields time_of_year, holy, who,
-    cast_want, group, where, at; option fields law, norm, tech, lever, pushes. Parsed into arrays the engine reads when
+    cast_want, group, where, at; option fields law, norm, tech, lever, pushes (and S3's caught:, S4's odd:, into W_CAUGHT
+    and W_ODD, index into world_keys.CAUGHT_TAGS and ODD_TAGS, -1 none). Parsed into arrays the engine reads when
     the world is on; with none of them written, every array is empty and nothing changes. A value outside its list
     stops the load, naming the moment, the option and the value (these fields are new, so the check is strict)."""
     import world_keys as WK
@@ -588,6 +589,7 @@ def _world_fields(L):
     law = np.full((S, K), -1); norm = np.full((S, K), -1); tech = np.full((S, K), -1); lever = np.full((S, K), -1)
     law_neg = np.zeros((S, K), bool); norm_neg = np.zeros((S, K), bool)   # a leading minus: the other way round
     push = np.full((S, K), -1); push_sub = {}; role = np.full((S, K), -1)
+    caught = np.full((S, K), -1); odd = np.full((S, K), -1)   # S3, S4: an option's caught: and odd: (world_keys' tags)
     for si in range(S):
         for ki, nt in enumerate(L["notes"][si]):
             if not nt:
@@ -607,6 +609,10 @@ def _world_fields(L):
                     raise ValueError(f"{nm}: role: and norm: role crossing together (approval would close it twice; keep role:)")
             if nt.get("lever"):
                 lever[si, ki] = one(nt["lever"], WK.LEVERS, nm)[0]
+            if nt.get("caught") and ki < K:   # S3: side_a, side_b, bridge, apart or back (chroma-ideas/social-mechanics.md)
+                caught[si, ki] = one(nt["caught"], WK.CAUGHT_TAGS, nm)[0]
+            if nt.get("odd") and ki < K:      # S4: blend, hold or leave
+                odd[si, ki] = one(nt["odd"], WK.ODD_TAGS, nm)[0]
             if nt.get("pushes"):
                 d_, *sub = str(nt["pushes"]).split(None, 1)
                 push[si, ki] = one(d_, WK.DOMAINS, nm)[0]
@@ -657,7 +663,8 @@ def _world_fields(L):
                 prem[si] = WK.TECH_KEYS.index(k_)
     L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
-             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
+             W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
+             W_CAUGHT=caught, W_ODD=odd)
 
 
 FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit

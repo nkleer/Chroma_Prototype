@@ -10,6 +10,11 @@ WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "me
 WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
 CAST_WANTS += ["far_hard", "far_good", "far_mixed"]   # far_ties (item 18): a tie in another town touched by an event there
+CAST_WANTS += ["caught", "odd"]   # S3, S4 (chroma-ideas/social-mechanics.md): caught between two of their places; the odd one
+                                  # out at a place. Fired by the place reading (sph_eyes, sph_odd), never a cast member's wish
+CAUGHT_TAGS = ["side_a", "side_b", "bridge", "apart", "back"]   # S3: an option's caught: (side with place_a or place_b, bridge
+                                                                # them, keep them apart, step back)
+ODD_TAGS = ["blend", "hold", "leave"]                           # S4: an option's odd: (blend in, hold on, leave)
 TOUCHES = ["work", "money", "home", "health", "safety", "standing"]   # far_ties: what a far event touched (touch:)
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]

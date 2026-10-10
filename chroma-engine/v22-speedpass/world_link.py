@@ -273,6 +273,10 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             for ki, nt in enumerate(L["notes"][si][:K]):
                 self.took[si, ki] = str((nt or {}).get("mark") or "").strip() == "took them in"
+        # S3, S4 (sph_eyes, sph_odd): what their places see, the life-event moments' picks (stand-in for the pivotal picks)
+        # and any act with a lever; an option's caught: and odd: tags (world_keys.CAUGHT_TAGS, ODD_TAGS)
+        self.eyes_life = np.array([str(L["src"][si].get("tier", "")) == "life event" for si in range(S)], bool)
+        self.caught = np.asarray(L.get("W_CAUGHT", np.full((S, K), -1))); self.odd = np.asarray(L.get("W_ODD", np.full((S, K), -1)))
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -471,6 +475,15 @@ class WorldLink:
             if ss_ and n_ not in self.pending:
                 si_ = ss_[int(PP.rng.integers(len(ss_)))]
                 self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
+        if getattr(PP, "eyes_on", False):   # S3, S4: a caught-between (a go-between of either place first in who:) or an
+            for n_, cid_, key_ in PP.eyes_due(PP.t):   # odd-one-out moment (no holder) waiting, as a want's moment comes
+                ss_ = self.want_s.get(key_)
+                if ss_ and key_ == "odd":   # S4: a moment of the odd place's sphere (its sphere: line), else a place-neutral one
+                    sp_ = PP.eyes_sphere(n_)
+                    ss_ = [s_ for s_ in ss_ if sp_ >= 0 and self.msph[s_] == sp_] or [s_ for s_ in ss_ if self.msph[s_] < 0]
+                if ss_ and n_ not in self.pending:
+                    si_ = ss_[int(PP._eyes_rng.integers(len(ss_)))]
+                    self.pending[n_] = (cid_, key_, si_); self.fire_now[n_, si_] = True
         return self.week_events
 
     def _members(self, si, ref=None):
@@ -619,6 +632,9 @@ class WorldLink:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
+        if pv_[1] in ("caught", "odd"):   # S3, S4: the option's tag decides (none, or doing nothing: kept apart, held on)
+            tg_ = (self.caught if pv_[1] == "caught" else self.odd)[s_n, a_n] if a_n < self.caught.shape[1] else -1
+            return self.PP.eyes_resolve(int(n), pv_[1], int(tg_), succ=bool(succ_n), idle=bool(idle_n))
         ev_ = self.PP.resolve_want(int(n), pv_[0], pv_[1], bool(self.meets[s_n, a_n]) and not idle_n, succ=bool(succ_n))
         if pv_[1].startswith("far_") and self.took[s_n, a_n] and not idle_n and succ_n:   # F4: the tie comes to stay
             self.PP.take_in(int(n), pv_[0])
@@ -646,6 +662,28 @@ class WorldLink:
         if pv_ is None or pv_[2] != int(si) or not pv_[1].startswith("far_"):
             return None
         return self.PP.far_info(int(n), pv_[0])
+
+    def eyes_info(self, n, si):
+        """S3, S4: for a caught-between or odd-one-out moment offered this week, its slots ({place_a}, {place_b} and the
+        opposed pair; or {place}) as People.eyes_moment gives them; None otherwise."""
+        pv_ = self.pending.get(int(n))
+        if pv_ is None or pv_[2] != int(si) or pv_[1] not in ("caught", "odd"):
+            return None
+        return self.PP.eyes_moment(int(n))
+
+    def eyes_pull(self, s):
+        """(N, K) log odds (S4, sph_odd): on an odd-one-out moment an unplayed life holds on more, and blends in less, the
+        stronger its own lead colour and the higher its rung at the place (People.odd_hold_x). 0 elsewhere."""
+        PP = self.PP
+        od = self.odd[s]
+        if not getattr(PP, "odd_on", False) or not (od >= 0).any():
+            return 0.0
+        u = np.zeros(od.shape)
+        for n_, pv_ in self.pending.items():
+            if pv_[1] == "odd" and pv_[2] == s[n_]:
+                x_ = PP.odd_hold_x(n_)
+                u[n_] = np.where(od[n_] == WK.ODD_TAGS.index("hold"), x_, np.where(od[n_] == WK.ODD_TAGS.index("blend"), -x_, 0.0))
+        return u
 
     def era(self):
         W = self.W
@@ -768,6 +806,10 @@ class WorldLink:
                 else:
                     ad_ = np.array([W.tech_adopt(key, cls=int(c_)) for c_ in range(3)])[_uclip(PP.cls, 0, 2)]
                     u_mea = np.maximum(u_mea, np.where(te == k_, 1 - ad_[:, None], 0.0))
+        if getattr(PP, "eyes_on", False) and (self.caught[s] == WK.CAUGHT_TAGS.index("bridge")).any():
+            for n_, pv_ in self.pending.items():   # S3: a bridge is offered only to one known or more in both places' spheres
+                if pv_[1] == "caught" and pv_[2] == s[n_] and not PP.eyes_bridge_ok(n_):
+                    gone[n_] |= self.caught[s[n_]] == WK.CAUGHT_TAGS.index("bridge")
         return u_law, law_open, u_app, u_mea, gone
 
     def _c2_accept(self, s, acc_):
@@ -875,6 +917,12 @@ class WorldLink:
             if self.ill_s[s].any():
                 f_ = local("hospital", cap) / CAP_REF
                 out["hospital places"] = self.ill_s[s][:, None] * _uclip(-0.5 * np.log(np.maximum(f_, 0.1)) / 3.0, -0.1, 0.2)[:, None]
+        if jo.any() and getattr(PP, "eyes_on", False):   # S3: a name opens or closes doors through a place's go-betweens:
+            # finding work is easier by door x the mean name at their places with a go-between (or where they are one)
+            gb_ = (PP._eyes_gobs(np.arange(N)) >= 0) | PP.eyes_gob
+            hv_ = gb_ & (PP.eyes_key >= 0)
+            dr_ = (PP.eyes_rep * hv_).sum(1) / np.maximum(hv_.sum(1), 1)
+            out["go-betweens"] = jo * (-PP.eyes_par["door"] * dr_)[:, None]
         return out
 
     # ---- other societies (spec 5 §5; Emren 10:30 "Yes, fully")
@@ -1026,6 +1074,10 @@ class WorldLink:
                              target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
                              sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])
         res = out.get("results", []) if isinstance(out, dict) else []
+        if getattr(self.PP, "eyes_on", False):   # S3: their places read the life-event moments' picks and the lever acts
+            se_ = self.eyes_life[si_] | (self.lev_i[si_, ai_] >= 0)
+            if se_.any():
+                self.PP.eyes_see(idx[se_], ma[idx[se_]], succ[idx[se_]].astype(float), "act")
         hp_ = self.hpick[si_] & (succ[idx] > 0) & (self.osph[si_, ai_] >= 0) & (self.ocol[si_, ai_] >= 0)
         if hp_.any() and getattr(self.PP, "sph_h", False):   # the haunt choice (N1): the option's face picks the place
             for n_, s2_, a2_ in zip(idx[hp_], si_[hp_], ai_[hp_]):
@@ -1058,7 +1110,7 @@ class WorldLink:
         if not sl_:
             return None
         pv_ = self.pending.get(int(n))
-        first_ = pv_[0] if pv_ is not None and pv_[2] == si else None
+        first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own: none)
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}
