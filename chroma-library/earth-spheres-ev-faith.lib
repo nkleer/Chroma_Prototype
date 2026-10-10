@@ -24,8 +24,10 @@
 # banned neighbour's books, a quarrel over a wedding). The scandal is about money. Claims of wonders are told as what
 # people say.
 #
-# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
-# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
 
 # ---------------------------------------------------------------- coming_of_age (pairs D3a)
 
@@ -34,7 +36,8 @@
 tier: life event
 sphere: faith
 sphere_event: coming_of_age
-share: .5
+share: 0.25
+once: yes
 at: faith body
 stages: adult mature
 age: 35-65
@@ -76,7 +79,8 @@ fails: The rite passes in a blur of costs and nerves, and nobody quite enjoys it
 tier: life event
 sphere: faith
 sphere_event: pilgrimage
-share: .15
+share: 0.08
+once: yes
 haunt: faith.shrines
 holy: pilgrimage
 at: faith body
@@ -120,7 +124,8 @@ fails: The road is so crowded that {N} finds no quiet on it at all.
 tier: life event
 sphere: faith
 sphere_event: scandal
-share: .6
+share: 0.31
+once: yes
 haunt: faith.congregation
 at: faith body
 stages: juvenile+
@@ -163,7 +168,8 @@ fails: Nothing changes but the faces at the front, and {N} stops believing it ev
 tier: life event
 sphere: faith
 sphere_event: faith_outlawed
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: young_adult adult mature elder
 age: 18-100
@@ -205,7 +211,8 @@ fails: The family leaves town in the night, and {N} never learns where they went
 tier: life event
 sphere: faith
 sphere_event: tolerance
-share: .4
+share: 0.2
+once: yes
 at: faith body
 stages: juvenile+
 age: 14-100
@@ -247,7 +254,8 @@ fails: The others welcome {N}, but at home {N} is scolded for it.
 tier: life event
 sphere: faith
 sphere_event: sign
-share: .4
+share: 0.2
+once: yes
 at: faith body
 stages: juvenile+
 age: 14-100
@@ -289,7 +297,8 @@ fails: The story falls apart in the papers, and those who believed feel foolish.
 tier: life event
 sphere: faith
 sphere_event: rites_cut
-share: .3
+share: 0.15
+once: yes
 holy: mourning
 at: faith body
 stages: juvenile+
@@ -332,7 +341,8 @@ fails: The quarrel over the ten places outlasts the mourning.
 tier: life event
 sphere: faith
 sphere_event: temple_raised
-share: .6
+share: 0.31
+once: yes
 haunt: faith.congregation
 at: faith body
 stages: juvenile+
@@ -375,7 +385,8 @@ fails: The new hall feels too grand, and the old warmth is slow to follow.
 tier: life event
 sphere: faith
 sphere_event: young_drift
-share: .4
+share: 0.2
+once: yes
 at: faith body
 stages: young_adult adult
 age: 18-40
@@ -417,7 +428,8 @@ fails: {N} drifts from the faith and the old friends alike, and nothing fills th
 tier: life event
 sphere: faith
 sphere_event: holy_days
-share: .5
+share: 0.25
+once: yes
 holy: feast
 at: faith body
 stages: juvenile+
@@ -460,7 +472,8 @@ fails: The empty chair is too much this year, and the feast ends early and quiet
 tier: life event
 sphere: faith
 sphere_event: calling
-share: .1
+share: 0.05
+once: yes
 ladder: regular
 at: faith body
 stages: young_adult adult mature
@@ -503,7 +516,8 @@ fails: The call fades in the second year, and {N} is left unsure what it was.
 tier: life event
 sphere: faith
 sphere_event: grove_felled
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: juvenile+
 age: 14-100
@@ -545,7 +559,8 @@ fails: A quarrel at the gate turns old neighbours against {N}.
 tier: life event
 sphere: faith
 sphere_event: temple_feeds
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: juvenile+
 age: 14-100
@@ -587,7 +602,8 @@ fails: Pride and quarrels sour the work, and {N} drifts away from it.
 tier: life event
 sphere: faith
 sphere_event: holy_war
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: young_adult adult mature elder
 age: 18-100
@@ -629,7 +645,8 @@ fails: Some on the street tell {N} they chose the wrong side, and do not forget 
 tier: life event
 sphere: faith
 sphere_event: succession
-share: .5
+share: 0.25
+once: yes
 haunt: faith.congregation
 at: faith body
 stages: juvenile+
@@ -672,7 +689,8 @@ fails: The search drags on for two years, and the seats empty while it does.
 tier: life event
 sphere: faith
 sphere_event: temple_lands_taken
-share: .2
+share: 0.1
+once: yes
 at: faith body
 stages: young_adult adult mature elder
 age: 18-100
@@ -714,7 +732,8 @@ fails: The old residents are scattered to strangers' care, and {Ns} aunt does no
 tier: life event
 sphere: faith
 sphere_event: marriage_across
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: juvenile+
 age: 16-100
@@ -756,7 +775,8 @@ fails: The day goes well, but the quarrel over the household's faith comes later
 tier: life event
 sphere: faith
 sphere_event: endowment
-share: .3
+share: 0.15
+once: yes
 at: faith body
 stages: young_adult adult mature elder
 age: 18-100
@@ -798,7 +818,8 @@ fails: The fortune is spent too fast, and in five years little is left of it.
 tier: life event
 sphere: faith
 sphere_event: funeral
-share: .5
+share: 0.25
+once: yes
 holy: mourning
 at: faith body
 stages: young_adult adult mature elder

@@ -26,8 +26,10 @@
 # Safety: war, crime and disaster are told indirectly and never graphically; no option kills or uses a weapon on anyone;
 # no child is harmed (the moments open at 14); nothing sexual. No real place, war, force, brand or year.
 #
-# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
-# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
 
 # ---------------------------------------------------------------- raid_foiled (pairs D1b)
 
@@ -38,7 +40,8 @@ stages: juvenile+
 age: 14-90
 sphere: prot
 sphere_event: raid_foiled
-share: .05
+share: 0.03
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: raid_foiled (sphere prot). The lookouts see them coming: a planned theft or robbery in the place is noticed and reported in time; about 1 in 20 people there are the ones who notice or pass on the warning (share .05, estimate); most people meet it once in a life or never (estimate)
 likelier: a street where people know each other's cars, a shop or depot that handles cash, a watch or a guard that answers calls
@@ -79,7 +82,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: siege
-share: .8
+share: 0.41
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: siege (sphere prot). A town cut off by a hostile force for weeks or months comes only with a war and is very rare in a stable state; inside it almost everyone lives through it as a moment of their own (share .8, estimate); far fewer than 1 in 100 lives in modern Earth meet one (estimate)
 likelier: a war on the border, a town with walls of river or hills that can be closed, thin stores
@@ -120,7 +124,8 @@ stages: juvenile+
 age: 14-100
 sphere: prot
 sphere_event: peace_made
-share: .3
+share: 0.15
+once: yes
 who: sibling
 per_year: 0 0 0 0 0 0
 times: World event: peace_made (sphere prot), with the world's 'war ends'. It comes only after a war; in a country that was at war nearly everyone feels the peace, and about 3 in 10 meet it as a moment of their own: someone close home, the border open, prices easing (share .3, estimate)
@@ -162,7 +167,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: veterans_home
-share: .15
+share: 0.08
+once: yes
 who: friend
 per_year: 0 0 0 0 0 0
 times: World event: veterans_home (sphere prot). When a war ends after many served, the fighters come home; about 15 in 100 people in the place have a friend or a sibling among them and meet it as a moment (share .15, estimate); a person meets it once in a life or never (estimate)
@@ -204,7 +210,8 @@ stages: juvenile+
 age: 16-90
 sphere: prot
 sphere_event: safe_passage
-share: .2
+share: 0.1
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: safe_passage (sphere prot). The road is made safe: the traders of a street or a quarter pay together for a guard; about 1 in 5 people in the place work or live on the guarded street and meet it as a moment (share .2, estimate)
 likelier: a winter of break-ins, a high street of small shops, traders who already meet
@@ -245,7 +252,8 @@ stages: young_adult adult mature
 age: 18-67
 sphere: prot
 sphere_event: new_arms
-share: .5
+share: 0.25
+once: yes
 at: police
 per_year: 0 0 0 0 0 0
 times: World event: new_arms (sphere prot). New kit and new drill reach the watch and the volunteer crews; about half of the staff of a police station or a rescue crew meet the change as a moment of their own (share .5, estimate); a long career sees two or three such changes (estimate)
@@ -287,7 +295,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: watch_founded
-share: .3
+share: 0.15
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: watch_founded (sphere prot). A watch is raised: the council pays for local officers on foot; about 3 in 10 people on the estates they walk meet them as a moment of their own (share .3, estimate)
 likelier: an estate with thefts and fights, a council with money, trust in the rule
@@ -328,7 +337,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: crime_wave
-share: .4
+share: 0.2
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: crime_wave (sphere prot), with the world's place event 'crime wave'. Break-ins and thefts jump in part of a town; about 4 in 10 people living there meet it as a moment (share .4, estimate); one's own robbery is 'robbed or attacked in the street', not this
 likelier: scarce work, a widening gap between rich and poor, neighbours who no longer know each other, a thin watch
@@ -369,7 +379,8 @@ stages: juvenile+
 age: 16-90
 sphere: prot
 sphere_event: racket
-share: .1
+share: 0.05
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: racket (sphere prot). A racket takes the street: a crew demands a weekly sum from the late-night shops; about 1 in 10 people in the place run, work in or live above such a shop and meet it as a moment (share .1, estimate)
 likelier: a thin or distrusted watch, a trade without a licence, a street of small late shops
@@ -410,7 +421,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: heavy_hand
-share: .2
+share: 0.1
+once: yes
 who: friend
 per_year: 0 0 0 0 0 0
 times: World event: heavy_hand (sphere prot). The guard turns on the crowd: police clear a protest by force; about 2 in 10 people in the place know someone who was there, or were there, and meet it as a moment (share .2, estimate)
@@ -452,7 +464,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: crackdown
-share: .3
+share: 0.15
+once: yes
 who: sibling
 per_year: 0 0 0 0 0 0
 times: World event: crackdown (sphere prot). After a crime wave or a frightening case the rule wants to be seen acting: fixed sentences, more patrols, more stops; about 3 in 10 people in the place feel it as a moment of their own (share .3, estimate)
@@ -494,7 +507,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: neighbours_watch
-share: .3
+share: 0.15
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: neighbours_watch (sphere prot). Neighbours keep their own watch: a street starts a rota and a phone tree; about 3 in 10 people on such streets take a part in it or are asked to (share .3, estimate)
 likelier: rising fear where neighbours still know each other, a slow or thin public watch
@@ -535,7 +549,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: walls_and_lamps
-share: .3
+share: 0.15
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: walls_and_lamps (sphere prot). Walls and lamps: the council puts up lights, locks or cameras across a quarter; about 3 in 10 people living there meet it as a moment of their own (share .3, estimate)
 likelier: high crime or fear, a council with money for works
@@ -576,7 +591,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: prison_reform
-share: .05
+share: 0.03
+once: yes
 who: sibling
 per_year: 0 0 0 0 0 0
 times: World event: prison_reform (sphere prot). A new way to punish: the prison opens a college and a workshop; about 1 in 20 people in the place have someone close inside and meet it as a moment (share .05, estimate)
@@ -618,7 +634,8 @@ stages: young_adult+
 age: 18-95
 sphere: prot
 sphere_event: civil_war
-share: .6
+share: 0.31
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: civil_war (sphere prot). The realm splits in arms: armed factions take ground and the guard divides; very rare in a stable state, and when it comes about 6 in 10 people meet it as a moment of their own (share .6, estimate); far fewer than 1 in 100 lives in modern Earth (estimate)
 likelier: a deadlock or a failed rising, armed factions, a divided army, civil command already slipping
@@ -659,7 +676,8 @@ stages: juvenile+
 age: 16-95
 sphere: prot
 sphere_event: files_opened
-share: .2
+share: 0.1
+once: yes
 who: friend
 per_year: 0 0 0 0 0 0
 times: World event: files_opened (sphere prot). The watchers' files are opened by a leak or a new law; about 2 in 10 people find themselves or someone close in them and meet it as a moment (share .2, estimate)
@@ -701,7 +719,8 @@ stages: juvenile+
 age: 14-90
 sphere: prot
 sphere_event: feud
-share: .1
+share: 0.05
+once: yes
 who: sibling
 per_year: 0 0 0 0 0 0
 times: World event: feud (sphere prot). A feud flares between two crews or two families sharing the same ground; about 1 in 10 people in the place have kin on one side and meet it as a moment (share .1, estimate)
@@ -743,7 +762,8 @@ stages: juvenile+
 age: 14-90
 sphere: prot
 sphere_event: brave_stand
-share: .03
+share: 0.02
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: brave_stand (sphere prot). Someone stands their ground when a sudden danger comes; about 3 in 100 people in the place are close by when it happens and meet it as a moment (share .03, estimate); most people meet such a moment once in a life or never (estimate)
 likelier: late travel in a city, a job on the buses, the doors or the night shift
@@ -784,7 +804,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: disaster_strikes
-share: .6
+share: 0.31
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: disaster_strikes (sphere prot), with the world's nature event 'disaster' (its hazard reads disaster_now). A quake, fire, flood or storm strikes the town; about 6 in 10 people there meet it as a moment of their own (share .6, estimate); a person in a risky place meets one or two in a life (estimate); a town nearby is the read event 'a disaster in the next town', and the rebuilding is 'the town builds itself back'
 likelier: low, crowded or old ground, a quake or storm country, old buildings
@@ -825,7 +846,8 @@ stages: juvenile+
 age: 14-95
 sphere: prot
 sphere_event: barrier_fails
-share: .5
+share: 0.25
+once: yes
 per_year: 0 0 0 0 0 0
 times: World event: barrier_fails (sphere prot). A storm or flood meets old works and thin upkeep, and a flood wall or dyke fails; about half the people of the place meet it as a moment of their own (share .5, estimate); a person on low ground by a river or the sea meets it once in a life or never (estimate)
 likelier: low ground by a river or the coast, old works, thin upkeep, a long storm

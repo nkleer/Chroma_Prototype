@@ -21,8 +21,10 @@
 # them. Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so
 # every colour has the same mean chance in each moment and in every stage. No flags.
 #
-# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
-# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
 
 # ---------------------------------------------------------------- new_sound (pairs D3b)
 
@@ -31,7 +33,8 @@
 tier: life event
 sphere: arts
 sphere_event: new_sound
-share: .3
+share: 0.15
+once: yes
 haunt: arts.song
 stages: young_adult adult mature elder
 age: 18-85
@@ -73,7 +76,8 @@ fails: {N} is out every night for a year, and the work and the sleep pay for it.
 tier: life event
 sphere: arts
 sphere_event: scene_sells
-share: .5
+share: 0.25
+once: yes
 haunt: arts.song
 ladder: regular
 stages: young_adult adult mature elder
@@ -116,7 +120,8 @@ fails: {N} hears the sound of {Ns} youth selling soap, and cannot hear it any ot
 tier: life event
 sphere: arts
 sphere_event: work_banned
-share: .4
+share: 0.2
+once: yes
 haunt: arts.screen
 stages: juvenile young_adult adult mature elder
 age: 14-95
@@ -158,7 +163,8 @@ fails: The arguments over the film split {Ns} family, and nobody mentions it at 
 tier: life event
 sphere: arts
 sphere_event: last_teller
-share: .5
+share: 0.25
+once: yes
 haunt: arts.tale
 who: elder
 stages: juvenile young_adult adult mature elder
@@ -201,7 +207,8 @@ fails: The family argues over what she really sang, and the quarrel outlives the
 tier: life event
 sphere: arts
 sphere_event: old_songs_return
-share: .3
+share: 0.15
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 12-95
 per_year: 0 0 0 0 0 0
@@ -242,7 +249,8 @@ fails: The old players quarrel about who sings it right, and the young ones drif
 tier: life event
 sphere: arts
 sphere_event: work_of_the_day
-share: .4
+share: 0.2
+once: yes
 haunt: arts.screen
 stages: juvenile young_adult adult mature elder
 age: 13-95
@@ -284,7 +292,8 @@ fails: {N} digs in, and an old view hardens into something harder to shift.
 tier: life event
 sphere: arts
 sphere_event: patron_builds
-share: .25
+share: 0.13
+once: yes
 haunt: arts.stage
 who: patron
 stages: juvenile young_adult adult mature elder
@@ -327,7 +336,8 @@ fails: {N} is turned down, and watches the opening night from the cheap seats wi
 tier: life event
 sphere: arts
 sphere_event: stages_go_dark
-share: .5
+share: 0.25
+once: yes
 haunt: arts.song
 stages: young_adult adult mature
 age: 18-75
@@ -369,7 +379,8 @@ fails: {N} sells the gear one piece at a time, and the music goes quiet.
 tier: life event
 sphere: arts
 sphere_event: new_medium
-share: .3
+share: 0.15
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 13-90
 per_year: 0 0 0 0 0 0
@@ -410,7 +421,8 @@ fails: {N} listens to everything and plays nothing, and the old instrument gathe
 tier: life event
 sphere: arts
 sphere_event: songs_of_war
-share: .5
+share: 0.25
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 12-95
 per_year: 0 0 0 0 0 0
@@ -451,7 +463,8 @@ fails: {N} cannot hear the empty-chair song without breaking down, and it is eve
 tier: life event
 sphere: arts
 sphere_event: mocking_song
-share: .4
+share: 0.2
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 14-95
 per_year: 0 0 0 0 0 0
@@ -492,7 +505,8 @@ fails: Next week a sketch mocks {Ns} own town, and it is not so funny from the i
 tier: life event
 sphere: arts
 sphere_event: local_fame
-share: .5
+share: 0.25
+once: yes
 stages: juvenile young_adult adult
 age: 14-45
 per_year: 0 0 0 0 0 0
@@ -533,7 +547,8 @@ fails: The classmate never answers, and {N} feels a fool for asking.
 tier: life event
 sphere: arts
 sphere_event: star_falls
-share: .3
+share: 0.15
+once: yes
 haunt: arts.screen
 stages: juvenile young_adult adult mature elder
 age: 14-95
@@ -575,7 +590,8 @@ fails: {N} cannot watch any film now without wondering what went on behind it.
 tier: life event
 sphere: arts
 sphere_event: house_closes
-share: .6
+share: 0.31
+once: yes
 haunt: arts.stage
 ladder: regular
 stages: juvenile young_adult adult mature elder
@@ -618,7 +634,8 @@ fails: The fight to save it splits the regulars, and the last night is spoiled b
 tier: life event
 sphere: arts
 sphere_event: far_market
-share: .5
+share: 0.25
+once: yes
 haunt: arts.craft
 stages: juvenile young_adult adult mature elder
 age: 14-90
@@ -660,7 +677,8 @@ fails: The old patterns fade under the new design, and the elders say the craft 
 tier: life event
 sphere: arts
 sphere_event: school_of_arts
-share: .2
+share: 0.1
+once: yes
 haunt: arts.song
 stages: juvenile young_adult adult mature elder
 age: 12-85
@@ -702,7 +720,8 @@ fails: The funding ends after two years, and the school closes before {N} has re
 tier: life event
 sphere: arts
 sphere_event: images_condemned
-share: .4
+share: 0.2
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 13-95
 per_year: 0 0 0 0 0 0
@@ -743,7 +762,8 @@ fails: The phone is taken, and the copy with it, and the songs are gone from the
 tier: life event
 sphere: arts
 sphere_event: home_tongue_written
-share: .3
+share: 0.15
+once: yes
 haunt: arts.page
 stages: juvenile young_adult adult mature elder
 age: 12-95
@@ -785,7 +805,8 @@ fails: A teacher marks {Ns} work down for using the home tongue, and {N} learns 
 tier: life event
 sphere: arts
 sphere_event: benefit_night
-share: .4
+share: 0.2
+once: yes
 haunt: arts.song
 stages: juvenile young_adult adult mature elder
 age: 12-95

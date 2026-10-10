@@ -25,8 +25,10 @@
 # Illness is told plainly and kindly; nothing graphic; no harm to a child (a hard birth ends with mother and baby safe).
 # Syntax: header of build.py.
 #
-# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
-# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
 
 # ---------------------------------------------------------------- neighbours_rush (good; pairs D1a)
 
@@ -47,7 +49,8 @@ roles: elder, friend, neighbours
 who: neighbour
 sphere: care
 sphere_event: neighbours_rush
-share: .4
+share: 0.2
+once: yes
 earth: the storm cuts the power, and the street checks on the old, shares a generator and drives the sick to the clinic
 scene: The storm takes the power out across {place} at dusk, and the phones go soon after. {elder}, two doors down, lives alone with a breathing machine that needs to be plugged in. Up and down the street, torches are coming on.
 scene W: Someone has to know who on the street is old, alone or ill, and make sure no door is missed. {N} reaches for a pen.
@@ -89,7 +92,8 @@ roles: parent, sibling
 who: parent
 sphere: care
 sphere_event: cure_fails
-share: .05
+share: 0.03
+once: yes
 earth: a new pill a parent of yours has taken for a year is linked to heart attacks and withdrawn
 scene: The news says the new pill for sore joints, approved in a hurry, is being withdrawn: it has been linked to heart attacks. {parent} has taken one every morning for a year, and rings {N} that evening, frightened.
 scene W: Someone signed that pill off without enough checks. {N} wants to know who, and wants it set down properly.
@@ -131,7 +135,8 @@ roles: sibling, parent
 who: sibling
 sphere: care
 sphere_event: remedy_feared
-share: .3
+share: 0.15
+once: yes
 earth: a rumour about the new vaccine spreads faster than the virus, and a family dinner ends in silence
 scene: The new vaccine is offered to everyone, and a rumour about it is spreading faster than the illness. At Sunday dinner {sibling} says nobody in the family should touch it, and the table goes silent.
 scene W: The health board has asked everyone to take it, so that the old and the sick are kept safe. {N} thinks that is what a neighbour does.
@@ -174,7 +179,8 @@ who: sibling
 at: hospital
 sphere: care
 sphere_event: birth_safer
-share: .1
+share: 0.05
+once: yes
 earth: the new maternity unit opens with a midwife-led birth centre beside it, just as your brother's or sister's baby is due
 scene: The new maternity unit has opened in {place}, with a birth centre run by midwives beside it. {sibling} and their partner are expecting their first baby next month, and the whole family has an opinion on where it should be born.
 scene W: There are leaflets for both, with checklists and visiting hours. {N} wants {sibling} to have the safest care going, and every box ticked.
@@ -217,7 +223,8 @@ who: partner
 at: hospital
 sphere: care
 sphere_event: hard_birth
-share: .5
+share: 0.25
+once: yes
 earth: your partner's labour stalls in the night, the midwife calls the surgical team, and within the hour mother and baby are safe
 scene: Eighteen hours in, {partner}'s labour has stalled. The midwife presses the call button, the room fills with calm people in scrubs, and there will be an operation within the hour. {N} is handed a gown and told to wait.
 scene W: The team has a procedure for this, and they follow it step by step. {N} holds on to that.
@@ -259,7 +266,8 @@ roles: parent, sibling, partner
 who: parent
 sphere: care
 sphere_event: good_death
-share: .05
+share: 0.03
+once: yes
 earth: the hospice nurse comes every day, and your parent dies at home, in their own bed, without pain
 scene: The treatments have stopped, and the hospice nurse comes to {parent}'s house every morning now. There is no pain, the bed is by the window, and the days that are left are quiet ones.
 scene W: The nurse has drawn up a rota for the family, and {N} means to keep to it, so {parent} is never left alone.
@@ -301,7 +309,8 @@ roles: parent, friend
 at: hospital
 sphere: care
 sphere_event: house_of_care_opens
-share: .4
+share: 0.2
+once: yes
 earth: a clinic opens in your neighbourhood: a doctor, two nurses, and evening hours that fit working people
 scene: A clinic has opened on the corner where the old bank used to be: a doctor, two nurses and evening hours that fit working people. There is a notice in the window asking for volunteers and a part-time receptionist.
 scene W: At last, care that anyone on the street can walk into, waiting their turn like everyone else.
@@ -343,7 +352,8 @@ roles: parent, friend, neighbours
 at: council
 sphere: care
 sphere_event: water_clean
-share: .5
+share: 0.25
+once: yes
 earth: the water plant is rebuilt after the scandal, and for the first time in years people drink from the tap
 scene: The new water plant is open, the boil-water notices are coming down, and the council says the tap is safe. In {Ns} kitchen there are still three crates of bottled water by the door.
 scene W: The council did it properly in the end: tested, signed off, published. {N} trusts a job done by the rules.
@@ -385,7 +395,8 @@ roles: grandparent, parent
 who: grandparent
 sphere: care
 sphere_event: old_ways_fade
-share: .1
+share: 0.05
+once: yes
 earth: a grandparent's cough remedy works better than anything from the pharmacy, and no one else remembers how to make it
 scene: {grandparent} makes a tea for coughs out of honey, thyme and something from the garden, and it works better than anything from the pharmacy. Nobody else in the family knows what goes in it, and {grandparent} is getting frail.
 scene W: Something that works should be written down properly, so the whole family can use it.
@@ -427,7 +438,8 @@ roles: friend, elder
 group: neighbours
 sphere: care
 sphere_event: sick_club
-share: .2
+share: 0.1
+once: yes
 earth: neighbours start a mutual aid group: a shared fund, a list of who can drive, and meals for whoever is ill
 scene: {friend} has called a meeting in the community hall: a mutual aid group for the street, with a shared fund, a list of who can drive people to the hospital, and meals for whoever is ill. There is a sign-up sheet by the door.
 scene W: Everyone pays in the same small sum, and everyone is covered the same. {N} likes the fairness of it.
@@ -469,7 +481,8 @@ roles: parent, sibling, child
 who: parent
 sphere: care
 sphere_event: old_age_kept
-share: .15
+share: 0.08
+once: yes
 earth: your parent's pension and a visiting carer let them stay in their own flat, near the grandchildren, with their own key
 scene: The council has approved a carer for {parent}: an hour every morning and half an hour each evening. With the pension, it means {parent} can stay in their own flat near the grandchildren, with their own key, and {N} gets {Ns} evenings back.
 scene W: The care plan is written and signed, with the hours and the tasks set out. {N} wants it kept exactly.
@@ -511,7 +524,8 @@ roles: parent, sibling
 who: parent
 sphere: care
 sphere_event: care_for_all
-share: .3
+share: 0.15
+once: yes
 earth: care becomes free at the point of need: your parent gets an operation the family could never have paid for, and your own wait grows longer
 scene: Care is now free at the point of need. {parent} has the hip operation the family could never have paid for, and nobody gets a bill. {Ns} own appointment for a bad knee has slipped from six weeks to five months.
 scene W: Everyone is treated the same, by need and not by money. {N} thinks the long queue is a fair price for that.
@@ -553,7 +567,8 @@ roles: partner, friend, parent
 who: partner
 sphere: care
 sphere_event: fees_rise
-share: .1
+share: 0.05
+once: yes
 earth: the insurance will not cover the treatment, and the family starts a fundraiser and talks of selling the car
 scene: The letter is two lines long: the insurance will not cover {partner}'s treatment, and the bill would take a year of both their wages. At the kitchen table {friend} is already talking about a fundraiser, and someone has mentioned selling the car.
 scene W: There is a hardship fund at the hospital, with forms and rules. {N} means to find it and fill it in properly.
@@ -595,7 +610,8 @@ roles: parent, sibling, boss
 who: parent
 sphere: care
 sphere_event: hands_short
-share: .1
+share: 0.05
+once: yes
 earth: the staff at your parent's care home change every few months, and the agency nurses do not know the residents' names
 scene: At {parent}'s care home the staff change every few months now. Today's agency nurse does not know {parent}'s name, or that the tea must be cool, or that the radio should be on. The manager says they are short again, and asks if family can help.
 scene W: The home has standards on paper, and they are not being met. {N} wants them met.
@@ -637,7 +653,8 @@ roles: sibling, friend, parent
 who: sibling
 sphere: care
 sphere_event: war_wounded
-share: .05
+share: 0.03
+once: yes
 earth: your brother or sister comes home from the war with injuries the eye cannot see, and the clinic opens a team just for veterans
 scene: {sibling} has come home from the war with no wound anyone can see. But {sibling} sleeps in the day, starts at loud noises and has stopped seeing old friends. The clinic has opened a team just for veterans, and a letter has come.
 scene W: There is a team for this now, with a referral and a plan. {N} wants {sibling} on it.
@@ -679,7 +696,8 @@ roles: parent, sibling
 who: parent
 sphere: care
 sphere_event: healer_famed
-share: .05
+share: 0.03
+once: yes
 earth: a surgeon on the evening news pioneers a new operation for an illness your parent has, and the waiting list runs two years
 scene: A surgeon on the evening news has pioneered an operation for the very illness {parent} has lived with for ten years. The hospital is three hundred miles away, the fee is high, and the waiting list runs two years.
 scene W: There will be a list and a fair order, and {parent} should be on it like anyone else.
@@ -721,7 +739,8 @@ roles: parent, sibling
 who: parent
 sphere: care
 sphere_event: neglect_scandal
-share: .05
+share: 0.03
+once: yes
 earth: hidden camera footage from your parent's care home is on every screen; the owners resign, and the inspectors return
 scene: The care home where {parent} lives is on the evening news: hidden camera footage of call bells left ringing, meals left out of reach, and records filled in for checks never made. The owners have resigned, and the inspectors are back.
 scene W: There are laws for homes like this, and inspectors who were meant to enforce them. {N} wants every broken rule named.

@@ -28,8 +28,10 @@
 # Evenness: in every moment each colour's one-colour chance plus half its two pairs' chances is the same sum, so every
 # colour has the same mean chance in each moment and in every stage. No flags.
 #
-# share: on every moment (2026-10-10, Engine phase 3a) is its '# world:' share: the engine draws at birth who can
-# ever meet it, so when the event comes to town only that share of the people there are open to the moment.
+# share: and once: on every moment (2026-10-10, Engine phase 3c): the engine draws at birth who can ever meet the
+# moment (share:), and they meet it at most once (once: yes). Shares are the '# world:' share times .5, so the 157
+# moments together come to about 13 a life at the fitted event rates (Engine table chroma-engine/notes/sphev-per-moment.tsv:
+# 92 a life before). The '# world:' line keeps the share of the people an event reaches, as written.
 
 # ---------------------------------------------------------------- knowledge_lost (pairs D1a)
 
@@ -38,7 +40,8 @@
 tier: life event
 sphere: learn
 sphere_event: knowledge_lost
-share: .3
+share: 0.15
+once: yes
 stages: young_adult adult mature elder
 age: 18-90
 per_year: 0 0 0 0 0 0
@@ -79,7 +82,8 @@ fails: The repair holds for a year, then the pumps fail again, and the town is b
 tier: life event
 sphere: learn
 sphere_event: first_school
-share: .3
+share: 0.15
+once: yes
 who: teacher
 stages: young_adult adult mature
 age: 24-55
@@ -121,7 +125,8 @@ fails: {child} misses the old friends from the bus, and the first term is a hard
 tier: life event
 sphere: learn
 sphere_event: academy_founded
-share: .5
+share: 0.25
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 16-90
 per_year: 0 0 0 0 0 0
@@ -162,7 +167,8 @@ fails: The campus stays a world apart behind its fence, and {N} never quite find
 tier: life event
 sphere: learn
 sphere_event: schools_for_all
-share: .8
+share: 0.41
+once: yes
 stages: juvenile
 age: 14-17
 per_year: 0 0 0 0 0 0
@@ -203,7 +209,8 @@ fails: The family shop struggles without the extra hands, and {N} feels the weig
 tier: life event
 sphere: learn
 sphere_event: the_exam
-share: .8
+share: 0.41
+once: yes
 stages: juvenile young_adult
 age: 16-25
 per_year: 0 0 0 0 0 0
@@ -244,7 +251,8 @@ fails: The second try or the transfer goes nowhere, and {N} loses a year.
 tier: life event
 sphere: learn
 sphere_event: discovery
-share: .3
+share: 0.15
+once: yes
 stages: young_adult adult mature
 age: 18-64
 per_year: 0 0 0 0 0 0
@@ -285,7 +293,8 @@ fails: The new line is slow to start, and the first year is short shifts and wor
 tier: life event
 sphere: learn
 sphere_event: censors_close
-share: .3
+share: 0.15
+once: yes
 who: teacher
 stages: juvenile young_adult adult mature elder
 age: 13-85
@@ -327,7 +336,8 @@ fails: The list grows longer each term, and {Ns} name is noted for asking too ma
 tier: life event
 sphere: learn
 sphere_event: learned_leave
-share: .6
+share: 0.31
+once: yes
 stages: young_adult
 age: 20-30
 per_year: 0 0 0 0 0 0
@@ -368,7 +378,8 @@ fails: {N} spends years wondering about the road not taken.
 tier: life event
 sphere: learn
 sphere_event: learned_arrive
-share: .2
+share: 0.1
+once: yes
 stages: young_adult adult mature elder
 age: 18-80
 per_year: 0 0 0 0 0 0
@@ -409,7 +420,8 @@ fails: The newcomer {N} learned most from moves on to a bigger city.
 tier: life event
 sphere: learn
 sphere_event: free_library
-share: .3
+share: 0.15
+once: yes
 haunt: learn.keeping
 stages: juvenile young_adult adult mature elder
 age: 12-95
@@ -451,7 +463,8 @@ fails: {N} means to go often, and goes twice.
 tier: life event
 sphere: learn
 sphere_event: teachers_walk_out
-share: .4
+share: 0.2
+once: yes
 who: teacher
 stages: young_adult adult mature
 age: 24-60
@@ -493,7 +506,8 @@ fails: {child} falls behind in reading, and it takes the rest of the year to cat
 tier: life event
 sphere: learn
 sphere_event: war_empties_schools
-share: .8
+share: 0.41
+once: yes
 stages: juvenile young_adult
 age: 12-22
 per_year: 0 0 0 0 0 0
@@ -534,7 +548,8 @@ fails: The schools stay shut longer than anyone said, and the class never quite 
 tier: life event
 sphere: learn
 sphere_event: glut_of_learned
-share: .5
+share: 0.25
+once: yes
 stages: young_adult adult
 age: 21-35
 per_year: 0 0 0 0 0 0
@@ -575,7 +590,8 @@ fails: {N} grows bitter, and the Thursday meetings grow angrier.
 tier: life event
 sphere: learn
 sphere_event: old_ways_taught
-share: .2
+share: 0.1
+once: yes
 stages: juvenile young_adult adult mature elder
 age: 12-90
 per_year: 0 0 0 0 0 0
@@ -616,7 +632,8 @@ fails: The purists at the school frown at the way {N} speaks it, and {N} stops g
 tier: life event
 sphere: learn
 sphere_event: store_lost
-share: .2
+share: 0.1
+once: yes
 haunt: learn.keeping
 stages: young_adult adult mature elder
 age: 18-95
@@ -658,7 +675,8 @@ fails: The archive stays shut for years, and the town's past has a hole in it.
 tier: life event
 sphere: learn
 sphere_event: newcomer_taught
-share: .2
+share: 0.1
+once: yes
 who: neighbour
 stages: juvenile young_adult adult mature elder
 age: 12-90
