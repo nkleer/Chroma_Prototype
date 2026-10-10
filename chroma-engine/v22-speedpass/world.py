@@ -461,6 +461,10 @@ W_DEFAULT = dict(
     c4_nature=False,   # C4: nature's own year (bad air, bad water, a poisoned river, drought, a glorious spring, recovery)
     c5_faith=False,    # C5: three new faith movement slots on the faith axis (founding, growth, fading, claims, tension)
     c_par=None,        # {name: value} over C_DEFAULT (tuning; None: the start values)
+    c2_groups=False,   # C2 rest (Engine): a group moment's options judged half by society's norm, half by the group's;
+                       # the strike vote on the world's strike, the congregation's split on a revival, a new movement or
+                       # a drift from its faith body (world_link.C2_MOMENTS); c2_par: its tuning (world_link.C2_DEFAULT)
+    c2_par=None,
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
@@ -468,7 +472,7 @@ S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_p
 SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph_events", "sph_ev_base", "sph_seasons",
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
              "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
-C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
 # social-mechanics.md S1) until the Outer world's tags (sphere_data.FAIR["parts"]) take their place

@@ -773,6 +773,8 @@ DEFAULT = dict(
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
+    c2_groups=False,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
+    c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     c5_faith=False,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
@@ -971,7 +973,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
-               c3_inst=False, c4_nature=False, c5_faith=False)
+               c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
