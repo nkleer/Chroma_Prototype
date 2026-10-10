@@ -747,6 +747,10 @@ DEFAULT = dict(
     sph_cascades=False,  # phase 3: the 14 cascades, each step raising the next while it runs (world switch)
     sph_levers=False,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=False,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
+    sph_shadow=False,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
+    sph_deep=False,      # phase 5: the deep state of a life, the care load first (world switch; with sph_hours)
+    sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
+    care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     inst_even=False,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c3_inst=False,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
     c4_nature=False,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
@@ -923,6 +927,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
+               sph_shadow=False, sph_deep=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -2079,6 +2084,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
     MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
+    SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
+    DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
@@ -2965,6 +2972,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sh_src[:, :, 3] = _uclip(stress / 1.5 + Q / 4, 0, 1)[:, None] * w / w.max(1, keepdims=True)   # strain
             sk_ = np.asarray(P["sh_src"], float)
             tgt_ = 1 - np.prod(1 - sk_[None, None] * sh_src, 2)
+            if SHAR_ON and getattr(WL.PP, "sh_around", None) is not None:   # phase 5: the shadow around them (N5)
+                sa_ = _uclip((np.asarray(WL.PP.sh_around, float)[:, np.argsort(WL.W.perm)] - 0.1) / 0.4, 0, 1)
+                tgt_ = 1 - (1 - tgt_) * (1 - P["sh_around"] * sa_)
             sup_ = np.clip(0.5 * (need[:, NIDX["belonging"]] + res[:, TIE]), 0, 1)
             integ_ = np.where(ENEMY_B[None], J, 0.0).max(2)                    # an enemy pair held well
             tgt_ = tgt_ * (1 - P["sh_care"] * sup_)[:, None] * (1 - P["sh_integ"] * integ_) * (age >= P["sh_age"])
@@ -3642,6 +3652,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             tn_ = (r_has[:, :NT_] * np.where(TK_ < NK, I[:, np.minimum(TK_, NK - 1)], 1.0)) @ GR["meets_need"]
             need += P["commit_need"] * P["title_need"] * tn_ * np.where(tn_ > 0, (1 - need) if P["satiate"] else 1, 1)
         stress += 0.01 * np.maximum(0, 0.5 - res[:, HEA])
+        if DEEP_ON and getattr(WL.PP, "care_load", None) is not None:   # phase 5: the care load wears on the carer
+            stress += P["care_stress"] / 4.33 * np.asarray(WL.PP.care_load, float) / 10
         # a family looks after its children: safety and belonging are mostly provided before adolescence
         care = P["family_care"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))
         need[:, :2] += care[:, None] * (0.85 - need[:, :2])
