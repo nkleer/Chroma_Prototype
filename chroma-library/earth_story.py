@@ -780,7 +780,8 @@ SHADOW_YEAR = {
                                 fade=["This was the year {N} tried something new, and kept it.",
                                       "{N} let one old habit go this year, and the house did not fall."]),
 }
-# YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}
+# YEAR_WHAT[kind][channel][dir], falling back to YEAR_WHAT_CHANNEL[channel][dir]. Clauses, past tense. Fills {who}.
+# One kind's channels can come in the same year, joined by "and", so they never repeat the kind's noun
 YEAR_WHAT = {
     "recession": {"job loss risk": dict(up="the downturn put jobs at risk", down="the downturn eased")},
     "unemployment": {"job loss risk": dict(up="work grew scarce", down="work was easier to find")},
@@ -790,14 +791,14 @@ YEAR_WHAT = {
                               down="the support for those out of work was cut")},
     "rights": {"freedom": dict(up="new rights came in", down="rights were taken back")},
     "crime wave": {"crime risk": dict(up="crime rose nearby", down="the streets grew quieter"),
-                   "safety": dict(down="crime nearby left them on edge", up="the streets felt safe again")},
+                   "safety": dict(down="the streets left them on edge", up="the streets felt safe again")},
     "disaster": {"disaster risk": dict(up="disasters came more often", down="disasters grew rarer"),
-                 "safety": dict(down="a disaster shook them", up="the town mended after the disaster"),
+                 "safety": dict(down="the town was shaken", up="the town mended"),
                  "close person": dict(down="a disaster hit {who}")},
     "war": {"safety": dict(down="the war came closer", up="the war wound down"),
-            "close person": dict(down="the war reached {who}")},
+            "close person": dict(down="the fighting reached {who}")},
     "law": {"option": dict(down="a new law closed a door", up="a new law opened a door"),
-            "freedom": dict(up="a new law gave them more room", down="a new law hemmed them in")},
+            "freedom": dict(up="the rules gave them more room", down="the rules hemmed them in")},
     "hospital places": {"option": dict(down="care was harder to get", up="care was easier to get")},
     "university places": {"option": dict(down="places to study grew scarce", up="places to study opened up")},
     "pandemic": {"ties": dict(down="the sickness kept them from their friends", up="friends met again after the sickness")},
