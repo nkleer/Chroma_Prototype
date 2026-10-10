@@ -130,11 +130,11 @@ TARGET_ART = {
     # careers
     "street artist": "career", "illustrator for hire": "career", "painter or sculptor": "career",
     "art teacher": "career", "gallery owner": "career", "master craftsperson": "career",
-    # The writing road's career rung is the base [novelist] (real share .0005). [celebrated author] can only sit on it,
-    # so with the floors the summit's 1 in 100 needs novelists at 1 in 100 or more. For the Engine to decide at the
-    # refit: [novelist] in the career tier here (it then takes the pack careers' lift and leaves ROLE_NORM), or a
-    # multiple in place of the tier word.
-    "novelist": "career",
+    # The writing road's career rung is the base [novelist] (real share .0005), and [celebrated author] can only sit on
+    # it. A tier word here would put [novelist] under the pack careers' lift on its broad base rule: a scratch run on
+    # 10-10 (300 lives) gave it to 57 lives in 100. A multiple keeps it under ROLE_NORM at 20 times its share (about 1
+    # life in 100), so the writing summit has novelists to sit on; the Engine may change the multiple at the refit.
+    "novelist": 20,
     # summits
     "renowned artist": "summit", "celebrated author": "summit",
     # community and status

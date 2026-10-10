@@ -49,9 +49,9 @@ with a later "Music, Dance and Comedy" pack.
 1. **Library:** build `chroma-library/earth_art.py` from art-*.lib (build.py reads the parts), and run check.py.
 2. **Engine:** paste engine-conditions.py into earth_rules.PACK_RULES["art"] (calib_v7/paste_pack_rules.py); add `art`
    to batch.PACKS; fit TIER_LIFT for "art,politics,science,stage" (tier_fit with the floors), then roles_check.
-3. **Engine, a decision:** TARGET_ART puts the base [novelist] in the career tier, so the writing summit can reach the
-   floors' 1 in 100 (novelists are .0005 of lives today). If a base title in a pack tier is unwanted, a multiple in its
-   place works too.
+3. **Engine, a decision:** TARGET_ART gives the base [novelist] a multiple of 20 (about 1 life in 100), so the writing
+   summit has novelists to sit on (they are .0005 of lives today). A tier word instead put novelist under the pack
+   careers' lift on its broad base rule: 57 lives in 100 in a scratch run. The Engine may change the multiple.
 4. **Proof:** packs are always on, so this changes lives: the full proof with the v22.4 refit (tier_fit, roles_check,
    1,600 pooled lives, the steered rows, choice_check on the candidate). The pie gap against the run without the pack
    stays at .01 or less (the pack rule).
