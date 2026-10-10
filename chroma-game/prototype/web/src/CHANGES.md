@@ -51,3 +51,24 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   their colors a year ago on the wheel (from the river; "A year ago" in the wheel's key); a line of the last years and
   the value a year ago in the hover of every meter, mean and need; a "?" on the crest with the key to these marks.
   look.js keeps a monthly history per life from the panel's own numbers; it wraps showTip and spiderSVG. app.js unchanged.
+- 10-10 (thread "HUD and story flow check", Emren 10-10 10:25 UTC "apply all of them"): the clarity layer, in both looks,
+  after look.js (`clarity.css`, `clarity.js`; app.js unchanged, no life changes). Why each part, measured over 17 played
+  lives: chroma-hud/gameplay-check/findings.md in the shared folder.
+  1. Quiet story: the voice's yearly line, the year's "times" line (it repeats a line already told), a memory whose moment
+     is not told and an era they barely noticed leave the story. The interlude between moments ("These weeks") tells what
+     happened in those weeks (moments, events, titles, eras) instead of routine lines. A told moment that moved a color by
+     a point or more shows which, with arrows; the numbers are on hover.
+  2. Voice crest: the voice row is one line: the voice icon (tinted by trust), the two colors the pushes moved most with
+     their points, and a ring for the voice's share of how the colors changed. Its name, the trust and its latest line
+     are on hover.
+  3. One-line inner voice: the moment keeps its quote and "Left alone, they would"; heart and head are icons on their
+     cards and in the reading; the tug's numbers are on hover; the outcome and the story drop the heart, head, third-way
+     and regret tags, which change nothing in the life.
+  4. The times where they count: no "with the times" badge; the reading of a push that costs something says what the
+     times do to its cost (the only thing they change).
+  5. Honest hovers: memories and moves no longer read as a public event; the sheet's Self-control is called Discipline.
+  8. Fewer cards at once: at most five considered cards and Do nothing (their own pick, heart, head and marked cards
+     first); the other considered ways and the ways they haven't thought of fold into a row each. Number keys still push
+     folded cards; the open or shut state is remembered in this browser.
+  9. Needs, + and −: a need's hover lists what lifts it and what pulls it down for this character now (means, titles,
+     statuses, family care, acts, the weekly fade).

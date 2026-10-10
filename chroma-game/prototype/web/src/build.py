@@ -1,7 +1,8 @@
 """Builds web/index.html (the published page) from head.html, sprite.svg, the visuals thread's icon set and picture map
 (chroma-art/game/ink-icons.svg, ink-icons.json and pictures.json, read only; Chroma's own icons since 2026-10-05, Emren
 chose "All ours"), body.html and app.js, then the ink look over it: look.css and look.js, with the pictures' lights
-(chroma-art/game/lights.json, read only, made by chroma-look/tools/extract_lights.js) packed into look.js.
+(chroma-art/game/lights.json, read only, made by chroma-look/tools/extract_lights.js) packed into look.js, and last the
+clarity layer in both looks: clarity.css and clarity.js (thread "HUD and story flow check", Emren 10-10 "apply all of them").
 While web/src/option-icons-live.json exists (made by live_icons.py), it stands in for the icon set's per-option map, which
 follows the Library's audited batch; delete it once that batch is live.
 The pictures themselves (chroma-art/game/pics/*.webp) are published next to the page as pics/...; without them the page
@@ -26,6 +27,6 @@ lp = os.path.join(art, "lights.json")
 lights = {k: pack(v) for k, v in json.loads(part("lights.json", art)).items()
           if v and os.path.exists(os.path.join(art, "pics", k + ".webp"))} if os.path.exists(lp) else {}
 look = part("look.js").replace("__LIGHTS__", json.dumps(lights, separators=(",", ":")))
-out = part("head.html") + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look
+out = part("head.html") + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look + "\n" + part("clarity.css") + "\n" + part("clarity.js")
 open(os.path.join(here, "..", "index.html"), "w", encoding="utf-8").write(out)
 print("built web/index.html", len(out))
