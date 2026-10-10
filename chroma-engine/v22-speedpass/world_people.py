@@ -3069,9 +3069,7 @@ class People:
         self._sac_count("healed")
         ev = dict(n=int(n), t=int(t), kind="sacred", what="healed", how=how, line=SACRED_KINDS[int(self.sac_line[n, j])],
                   colour=COLORS[int(self.sac_col[int(self.sac_line[n, j])])], heal=float(self.sac_par["heal"]))
-        if self.watch[n]:
-            self.events.append(ev)
-        return ev
+        return ev   # (the engine reports it: engine.py sac_fx)
 
     def sac_due(self, t=None):
         """[(n, item)]: the first offer or amends of each life waiting for its moment and due by now."""
@@ -3162,9 +3160,7 @@ class People:
             self._sac_count("crossed")
         ev["what"] = "tragic" if item["kind"] == "tragic" else "crossed" if cross else "held"
         ev["round"] = OFFER_ROUNDS[int(item.get("round", 0))]
-        if self.watch[n]:
-            self.events.append(dict(ev))
-        return ev
+        return ev   # (the engine applies and reports it: engine.py sac_fx)
 
     def _sac_tragic_order(self, n, item):
         """A tragic moment's a and b: the slots of its sacred: kinds in the moment's order (set by WorldLink)."""
