@@ -164,6 +164,7 @@ if os.environ.get("CHROMA_GAME"):                   # checks and calibration onl
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
+# (upper-case keys set the pinned batch.py's flags instead, before the Earth library loads: {"FAR_MOMENTS": true})
 ENGINE_SET = {}
 if os.environ.get("CHROMA_ENGINE"):
     import json as _json
@@ -203,6 +204,9 @@ def library_for(setting):
             import batch                            # pinned engine_pin/batch.py; earth.py is pinned next to it
             batch.LIB_DIR = PIN
             batch.PACK_DIR = os.path.join(PIN, "packs")   # pinned copies of chroma-packs/core and chroma-packs/<pack>
+            for k_, v_ in ENGINE_SET.items():       # checks only (CHROMA_ENGINE): the batch's own flags
+                if k_.isupper():
+                    setattr(batch, k_, v_)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:
             _LIBS[key] = (with_dreams(E.compile_library(), key), None)
@@ -542,7 +546,7 @@ class Game:
                     P["world_cfg"]["legacy"] = earlier_data["people"]
             elif earlier:
                 raise ValueError("the earlier world this life begins in is not in this browser")
-        P.update(ENGINE_SET)                             # checks only (CHROMA_ENGINE); empty in every played life
+        P.update({k_: v_ for k_, v_ in ENGINE_SET.items() if not k_.isupper()})   # checks only (CHROMA_ENGINE); empty in played lives
         self.sex = P["sex"] if P["sex"] != "intersex" else None
         self._named_seen = False                        # 'named their gender' already offered a new name
         self._death_on = False
@@ -594,6 +598,7 @@ class Game:
         self._named = set()             # identities whose meaning has been told once
         self._last_recon = {}           # commitment -> week it was last reconsidered at a checkpoint
         self._temper_told = None        # temperament when the log last mentioned it
+        self._sh_told = {}              # item 2: each shadow state as the yearly chapter last told it (on or off)
         self.pending = None             # a checkpoint waiting for the player
         self._force = None              # this week's forced pick: dict(rel, closed, idx)
         self._cp_week = None            # the checkpoint being resolved this week, for its outcome line
@@ -996,6 +1001,7 @@ class Game:
                           f"wants {letters(E.softmax(loc['y'][0]))}]")
         # the scene, and what the character thinks about the act they lean toward
         m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s))
+        self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
         lean = next((o for o in opts if o["idx"] == own), None)
         thought = ""
         if lean is not None and lean["colors"] != "-":
@@ -1458,7 +1464,161 @@ class Game:
         if isinstance(p, dict):
             p["times"] = [x for x in self.history.get("times", []) if x.get("told", True)][-60:]
             p["steers"] = self.history.get("steers", [])[-200:] if GAME["world_steers"] else []
+            if self.history.get("levers"):              # spheres phase 4: their lever acts on the town's spheres
+                p["levers"] = self.history["levers"][-200:]
         return p
+
+    # ------------------------------------------------------------------ spheres phase 4 and far ties: told, display only
+    # (PRs #84 and #95, world-fields.md). They read the engine's events and the world as it stands; they draw no dice and
+    # write nothing the engine reads. With sph_levers and far_ties off the engine logs none of these events.
+    def _lever_where(self, loc, r):
+        """Where a lever landed: their place in that sphere, by the Library's name for it as "their places" shows it (else
+        the engine's place name in the world's epoch), or else the town's sphere."""
+        WL = loc.get("WL")
+        if int(r.get("place", -1)) >= 0 and WL is not None:
+            try:
+                h = WL.W.place_info(int(r["place"]))
+                ns = ((ESP.HAUNT.get(h["kind"]) or {}).get("names") or []) if ESP is not None else []
+                if ns:
+                    return ns[h["name"] % len(ns)]
+                import sphere_data as SD
+                nm = (SD.PLACE_BY_EPOCH.get(h["kind"]) or {}).get(WL.W.sph_epoch)
+                if nm:
+                    return nm
+            except Exception:
+                pass
+        return SPH_LEVER["sphere"].get(r.get("sphere"), "the town")
+
+    def _lever_told(self, t, loc, r):
+        """Spheres phase 4 (sph_levers): their lever act on their town's sphere (the engine's sphere_lever record) told as
+        theirs: what they pushed, where it landed and whether it moved, backfired or set off an event. Nothing at all is
+        quiet (the detailed story); the same lever on the same sphere within LEVER_AGAIN too. Kept for the World panel."""
+        lv, sp, moved = r.get("lever", ""), r.get("sphere", ""), str(r.get("moved") or "none")
+        act = SPH_LEVER["act"].get(lv)
+        if not act:
+            return
+        head, _, rest = moved.partition(" ")
+        went = ("fired" if head == "fired" else "state") if rest else moved if moved in ("moved", "backfired") else "none"
+        what = SPH_LEVER["what"].get(rest, rest.replace("_", " ").replace(".", " "))
+        where = self._lever_where(loc, r)
+        tail = SPH_LEVER["moved"].get(lv, SPH_LEVER["moved"]["voice"]) if went == "moved" else SPH_LEVER[went].replace("{what}", what)
+        text = self.story.fill(act.replace("{where}", where) + tail)
+        came, rung = SPH_LEVER["came"][went], str(r.get("rung") or "")
+        if ESP is not None:                             # the Library's words: the event set off, their rung in that sphere
+            ev_ = (ESP.EVENT.get(f"{sp}.{rest}") or {}).get("name") if went == "fired" else None
+            came = f"{came}: {ev_.lower()}" if ev_ else came
+            LADDER = ["newcomer", "regular", "known", "pillar", "leader"]       # world_keys.LADDER, the engine's order
+            rung = ESP.RUNG[sp][LADDER.index(rung)] if sp in ESP.RUNG and rung in LADDER else rung
+        told = self.__dict__.setdefault("_lever_t", {})
+        lvl = 0 if went in ("fired", "state") else 2 if went == "none" else 1
+        if lvl == 1 and t - told.get((lv, sp), -10 ** 6) < LEVER_AGAIN:
+            lvl = 2
+        if lvl <= 1:
+            told[(lv, sp)] = t
+        self._say(mk("L", f"{lv}|{where}|{came}|{rung}", text), lvl + int(self.burn_in), "lever", lever=lv, sphere=sp, went=went)
+        if went != "none" or float(r.get("size") or 0) > 0:     # an act with no reach at all (a child's) stays off the panel
+            self.history.setdefault("levers", []).append(dict(age=round(t / 52, 1), lever=lv, sphere=sp, where=where, went=went,
+                                                              came=came, rung=rung, text=plain(text)))
+
+    def _far_town(self, loc, l_):
+        """A town of their society by its name (as the World panel and the story name places)."""
+        from worldview import place_name, loc_key
+        WL = loc.get("WL")
+        return place_name(self.wv.seed, loc_key(EngineWorld.soc(WL) if WL is not None else 0, int(l_)), self.setting)
+
+    def _cast_who(self, cid):
+        """A cast member as a world line names them ("their sister Mira"), and their name alone; None without a world."""
+        wd = self.world_data()
+        if not wd:
+            return None
+        from worldview import person_name
+        p = next((c_ for c_ in wd[2] if c_.get("id") == cid), {})
+        nm = self.cast_names(wd[2]).get(cid) or person_name(self.wv.seed, cid, False, self.setting)
+        return who_word(p, nm), nm
+
+    def _far_told(self, t, loc, c):
+        """far_ties (PR #95): a close tie's news from the town they live in (cast event "far"), a tie taken into the
+        household and how their stay ends ("taken in"); a want's cause (F5) is kept for the circle's hover."""
+        kind, cid = c.get("kind"), int(c.get("cid", -1))
+        if kind == "want":                                   # every want event passes here; only one with a cause is kept
+            if c.get("cause"):
+                self.__dict__.setdefault("_want_why", {})[cid] = (c.get("key"), c["cause"])
+                self.__dict__.setdefault("_far_seen", {})[cid] = c["cause"]
+            elif c.get("state") == "begins" and self.__dict__.get("_want_why"):
+                self._want_why.pop(cid, None)
+            return
+        seen = self.__dict__.setdefault("_far_seen", {})     # cid -> the last far cause told or wanted (where they came from)
+        who = self._cast_who(cid)
+        if who is None:
+            return
+        w_, nm = who
+        if kind == "far":
+            cs = c.get("cause") or {}
+            seen[cid] = cs
+            sign = cs.get("sign") if cs.get("sign") in ("good", "hard", "mixed") else "mixed"
+            text = (FAR_SAY["here" if c.get("here") else "away"][sign].replace("{town}", self._far_town(loc, cs.get("town", 0)))
+                    .replace("{event}", cs.get("far_event") or "something happened"))
+            lines = "; ".join(str(x_) for x_ in cs.get("line") or ())
+            told = self.__dict__.setdefault("_far_t", {})
+            lvl = 2 if c.get("here") or t - told.get(cid, -10 ** 6) < FAR_AGAIN else 1
+            if lvl <= 1:
+                told[cid] = t
+            self._say(mk("F", f"{sign}|{nm}|{lines}", self._far_fill(text, w_)), lvl + int(self.burn_in), "far", kind="far",
+                      sign=sign, here=bool(c.get("here")))
+        elif kind == "taken in":
+            st = c.get("state")
+            if st is None:
+                text = FAR_SAY["took"]
+            elif st == "went back":
+                l_ = (seen.get(cid) or {}).get("town")
+                text = FAR_SAY["back"].replace("{town}", f" to {self._far_town(loc, l_)}" if l_ is not None else "")
+            else:
+                text = FAR_SAY["stayed"]
+            self._say(self._far_fill(text, w_), (0 if st is None else 1) + int(self.burn_in), "far", kind="taken in", state=st or "")
+
+    def _far_fill(self, text, who):
+        """A far line with the tie named: their name at the start of a sentence capitalised, no comma before a stop."""
+        return re.sub(r",([.:])", r"\1", cap_first(self.story.fill(text.replace("{who}", who))))
+
+    def _far_moment(self, m, loc, s, ev=None):
+        """A far moment (the Library's earth-far-ties.lib: cast_want far_hard, far_good or far_mixed) names the tie who
+        calls in its first who: slot, {their_town} and {far_event}, from the engine's word on the call: the logged event's
+        who and far, or, at a checkpoint, the call waiting on this moment (world_link pending, far_info; read only)."""
+        if m is None or not self.batch or "far_event" in m["ctx"]:
+            return
+        if not str(self.L["src"][s].get("cast_want") or "").startswith("far_"):
+            return
+        WL = loc.get("WL")
+        fi, slot, cid = None, None, None
+        if ev is not None:
+            fi = ev.get("far")
+            slot, cid = next(iter((ev.get("who") or {}).items()), (None, None))
+        elif WL is not None:
+            fi = WL.far_info(0, s)
+            pv = WL.pending.get(0)
+            cid = int(pv[0]) if pv is not None and pv[2] == s else None
+            slot = next(iter((self.L.get("W_WHO") or {s: ()})[s] or ()), None)
+        if not fi:
+            return
+        m["ctx"]["their_town"] = self._far_town(loc, (fi.get("their_town") or {}).get("loc", fi.get("town", 0)))
+        m["ctx"]["far_event"] = fi.get("far_event") or "something happened there"
+        who = self._cast_who(int(cid)) if slot and cid is not None else None
+        if who is not None and "_p_" + slot not in m["ctx"]:
+            m["ctx"][slot] = who[1]
+
+    def _want_why_rows(self, circle):
+        """F5 on the circle's hover: a want that came of a far event carries its cause; a far want gets its own words."""
+        why = self.__dict__.get("_want_why")
+        if not why:
+            return
+        for p_ in circle:
+            k_, cs = why.get(p_["id"], (None, None))
+            if not cs or not p_.get("want") or p_["want"] != str(k_).replace("_", " "):
+                continue
+            p_["want"] = FAR_SAY["want"].get(k_, p_["want"])
+            town = self._far_town(self.loc, cs.get("town", 0)) if isinstance(self.loc, dict) else "their town"
+            p_["want_why"] = cap_first(f"{cs.get('far_event', 'something happened')} in {town}"
+                                       + (": " + "; ".join(cs["line"]) if cs.get("line") else ""))
 
     # ------------------------------------------------------------------ item 3: the voice in their head
     def _vsay(self, kind, xs):
@@ -2262,6 +2422,8 @@ class Game:
         if sev or cpw is not None:
             kind = KNAMES[int(loc["rk"][0])] if bool(loc["recon"][0]) else None
             m = cpw["cp"]["moment"] if cpw is not None else self.story.moment(t, sit, stage, age, kind, kills)
+            if cpw is None and sev:
+                self._far_moment(m, loc, s, sev[0])     # far_ties: the far moment's tie, town and event (Library slots)
         GR = L.get("ROLES") if loc.get("RON") else None
         fold, folded = {}, set()      # a title that came with a commitment started this week is told in the commitment's line
         gained_now = set()            # titles gained this week: a facet that came with one (newlywed) shows on the HUD only
@@ -2295,6 +2457,10 @@ class Game:
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
                         line += "\n" + self.story.rebound(bool(ev["success"]), float(loc["span"][0])); rb = bool(ev["success"])
+                    if not ev["success"] and loc.get("SHON"):      # item 2: an act their shadow made fail is named
+                        sl = self._shadow_fail(new, t)
+                        if sl:
+                            line += "\n" + sl
                     self.resolution = self._resolution(loc, cpw, ev, line, o, pushed, f.get("rel", 0.0) if pushed else 0.0, moved)
                     self.history["acts"].append((round(age, 1), o["colors"], bool(ev["success"]), bool(pushed)))   # the song's deeds
                     rs = self.resolution
@@ -2455,6 +2621,10 @@ class Game:
                         r = self._disaster_read(r)      # WL6: the disaster that happened, not always a flood
                         self._say(self.story.read(r, stage, c_), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
                                   impact=round(float(r.get("impact", 0.0)), 2), **({"color": c_} if c_ else {}))
+                elif "sphere_lever" in ev:              # spheres phase 4 (sph_levers): their act on the town's sphere
+                    self._lever_told(t, loc, ev["sphere_lever"])
+                elif "cast" in ev and ev["cast"].get("kind") in ("far", "taken in", "want"):
+                    self._far_told(t, loc, ev["cast"])  # far_ties: a close tie's news, a tie taken in, a want's cause
                 if line:
                     self._say(line, 0, tag, **meta)
                     if GAME["lines_tied"] and tag in ("death", "commitment"):
@@ -2542,6 +2712,33 @@ class Game:
                     f"{letters(b['want'])}.")
         return None
 
+    def _shadow_fail(self, new, t):
+        """Item 2: "<State>: <clause>." for an act that failed because of the shadow (the engine's "shadow" event this week),
+        in the Library's words (earth_story.SHADOW_FAIL); "" without them."""
+        sh = next((e["shadow"] for e in new if "shadow" in e), None)
+        W = getattr(ES, "SHADOW_FAIL", None) if ES is not None else None
+        if sh is None or not W or not W.get(sh["state"]):
+            return ""
+        pool = W[sh["state"]]
+        return self.story.fill(f"{sh['state'][:1].upper()}{sh['state'][1:]}: {pool[int(t) % len(pool)]}.")
+
+    def _shadow_year(self, t, loc):
+        """Item 2: the yearly chapter's line when a shadow state comes on (grow) or goes off (fade), in the Library's words
+        (earth_story.SHADOW_YEAR). Only with the engine's shadows switch on; the first year sets what is known."""
+        W = getattr(ES, "SHADOW_YEAR", None) if ES is not None else None
+        if not loc.get("SHON") or "adj" not in loc or not W:
+            return
+        adj = np.asarray(loc["adj"][0])
+        for st in E.SH_STATES:
+            i = E.ADJ_ID.get(st, -1)
+            on = bool(0 <= i < len(adj) and adj[i])
+            was = self._sh_told.get(st)
+            self._sh_told[st] = on
+            if was is None or was == on or self.burn_in or not W.get(st):
+                continue
+            pool = W[st]["grow" if on else "fade"]
+            self._say(self.story.fill(pool[(int(t) // 52) % len(pool)]), 1, "shadow", state=st, on=on)
+
     def _yearly(self, t, loc):
         if GAME["own_ix"] and not self.burn_in:
             self._own_year()
@@ -2553,6 +2750,7 @@ class Game:
         self.history["w"].append((t / 52, [round(float(x), 3) for x in w]))
         # the story's voice: present identity blended with a fading memory of past ones (story.py)
         self.story.update_voice(w)
+        self._shadow_year(t, loc)
         vl = self._core_label                       # 5.5: the chapter names who they have settled into, and who they are becoming
         self._becoming_year()
         if vl != self._voice_label:                 # a new identity in the telling: a short phrase for it
@@ -2842,6 +3040,7 @@ class Game:
         wd = self.world_data()
         if wd:                                          # the outer world: the named cast by layer, and reach by standing
             d["circle"] = self.wv.circle(wd[2], self.t, self.cast_names(wd[2])); d["reach"] = self.wv.reach(wd[3])
+            self._want_why_rows(d["circle"])
             era = (wd[0] or {}).get("era")
             if era:
                 from worldview import letters_of, era_name
@@ -3551,6 +3750,54 @@ WFX_KIND = dict(prices="rising prices", housing="the housing market", welfare="t
                 prices_work="prices eating into wages", rec_hours="the recession's shorter hours",
                 disaster_time="the disaster in their town")
 WFX_AGAIN = 52
+
+# spheres phase 4 (PR #84, sph_levers): a lever act on their town's sphere, told as theirs. The Library has no words for
+# levers yet (earth_story.py, earth_spheres.py), so these are the game's: the act by lever, {where} it landed (their
+# place in that sphere, by the Library's haunt names as "their places" shows them, else the town's sphere), and what came
+# of it by the engine's word (moved, backfired, fired <event>, moved <state>, none); came: the panel's short words, with
+# the Library's name for an event set off; their standing there is the Library's rung word (earth_spheres.RUNG)
+SPH_LEVER = dict(
+    act=dict(exit="{N} turns their back on {where}", voice="{N} speaks up for change in {where}", loyalty="{N} stands by {where}",
+             neglect="{N} lets {where} go untended", subvert="{N} works the system in {where}",
+             found="{N} sets up something new in {where}", fund="{N} puts money into {where}", lead="{N} takes the lead in {where}",
+             office="{N} uses their office on {where}"),
+    sphere=dict(rule="the town's rule and law", gather="the town's gatherings", arts="the town's arts", faith="the town's faith",
+                care="the town's care for the sick", learn="the town's learning", prod="the town's work", comm="the town's trade",
+                prot="the town's safety"),
+    moved=dict(voice=", and it shifts a little their way.", subvert=", and it bends a little their way.",
+               exit=", and it drifts further from their ways without them.", neglect=", and it drifts along with the rest of the town.",
+               loyalty=", and it holds to its ways a while longer.", found=", and a place in town takes on their ways.",
+               fund=", and their money pulls it their way for years.", lead=", and it shifts a little their way."),
+    backfired=", but it backfires and turns against their ways.", none=", and nothing comes of it.",
+    fired=", and it brings {what} to town.", state=", and it makes for {what}.",
+    # the office's events and states (sphere_data.LEVER_OFFICE), as what the act brings
+    what=dict(rights_narrowed="narrower rights", charter_won="a charter of its own", the_count="a count of people and land",
+              curfew="a curfew", meeting_place_opens="a new meeting place", common_ground="a square open to everyone",
+              work_banned="a ban on a work of art", school_of_arts="a school of the arts", faith_outlawed="a ban on a faith",
+              tolerance="peace between the faiths", temple_raised="a new house of worship", house_of_care_opens="a new house of care",
+              care_for_all="care for all", censors_close="the censors", first_school="a first school", schools_for_all="free schooling for all",
+              venture_founded="a new venture", usury_banned="a ban on usury", market_granted="a market", bank_opens="a bank",
+              crackdown="a crackdown", watch_founded="a new watch", **{"arts.licence": "licences for the arts", "care.reach": "less care within reach",
+              "prod.room": "less room for new work", "prod.skill": "more skill in the trades", "prot.hired_share": "more guards for hire"}),
+    came=dict(moved="it moved", backfired="it backfired", fired="it set something off", state="it changed the rules", none="nothing came of it"),
+)
+LEVER_AGAIN = 52         # weeks before the same lever on the same sphere is told again at the normal level
+
+# far-off events through ties (PR #95, far_ties): a close tie's news from the town they live in (the engine's far_event
+# and line are Outer world's words, sphere_data.FAR), a tie taken into the household and their leaving, and the words for
+# a far want on the circle. The far moments themselves are the Library's (earth-far-ties.lib, PR #90), with their slots
+# {their_town} and {far_event} filled from the engine's word on the call
+FAR_SAY = dict(
+    away=dict(good="Good news from {town}, where {who} lives: {event}.", hard="Hard news from {town}, where {who} lives: {event}.",
+              mixed="Mixed news from {town}, where {who} lives: {event}."),
+    here=dict(good="In town, {event}, and it goes well for {who}.", hard="In town, {event}, and it hits {who} hard.",
+              mixed="In town, {event}, and for {who} it cuts both ways."),
+    took="{who} comes to live with {N} for a while.", back="{who} goes back home{town} after their time in {Ns} home.",
+    stayed="After their time in {Ns} home, {who} finds a place of their own in town.",
+    want=dict(far_hard="help after hard news in their town", far_good="to share good news from their town",
+              far_mixed="to talk over news from their town, good and hard"),
+)
+FAR_AGAIN = 26           # weeks before the same tie's far news is told again at the normal level
 
 
 def cap_first(s):

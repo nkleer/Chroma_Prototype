@@ -250,7 +250,7 @@
   .mk-m, .mk-d, .mk-s, .mk-k, .mk-f, .mk-x, .mk-e, .mk-r, .mk-c, .mk-b, .mk-h, .mk-q, .mk-T, .mk-R, .mk-B, .mk-C {
     color: var(--arcane); text-decoration: underline dotted rgb(179 162 247 / 0.45); text-underline-offset: 4px; }
   .mk-m { color: #d8cdf7; }
-  .mk.chip > .pip { font-size: 0.8em; margin-right: 0.3em; vertical-align: 0.05em; }   /* item 6: the color a reading or news pulled */
+  .mk.mkc > .pip { font-size: 0.8em; margin-right: 0.3em; vertical-align: 0.05em; }   /* item 6: the color a reading or news pulled */
   .yh .gd .vh { display: inline-flex; align-items: center; gap: 3px; } .yh .gd .vh .i { width: 0.95em; height: 0.95em; flex: none; }
   .lead .mk-m { color: inherit; }
   .mk .mk-p { text-decoration: none; }
@@ -912,6 +912,9 @@
   .wline .wun { fill: none; stroke: var(--ink2); stroke-width: 1.2; opacity: 0.7; pointer-events: none; }
   .wline .wlife { fill: var(--gold); opacity: 0.75; }
   .wline .wev { fill: var(--paper, #f4ead6); stroke: var(--ink2); stroke-width: 1.3; cursor: help; }
+  /* spheres phase 4: their lever acts on the town, by what came of them */
+  .wline .wlv { fill: var(--ink2); cursor: help; } .wline .wlv.moved { fill: var(--peace); } .wline .wlv.backfired { fill: var(--stress); }
+  .wline .wlv.fired, .wline .wlv.state { fill: var(--gold); stroke: var(--ink2); stroke-width: 0.8; } .wline .wlv.none { fill: none; stroke: var(--ink2); stroke-width: 0.8; }
   .wline .wax { font: 500 10px var(--ui); fill: var(--muted); }
   .wera { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: var(--fs-1); color: var(--ink2); margin-bottom: 6px; }
   .wera b { font: 600 var(--fs-2) var(--serif); color: var(--ink); }

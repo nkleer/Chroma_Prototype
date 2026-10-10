@@ -60,7 +60,7 @@ function rich(s) {
     else if (k === "v") c = pl; else if (k === "t") c = pl.split("|")[0]; else if (k === "o") c = (pl.split("|")[2] || "")[0] || "";
     // item 6 (the game's lines_tied): a reading, and news that carried a message, show the color they pulled as a chip
     const chip = (k === "r" && COLORS.includes(pl.split("|")[2])) ? pl.split("|")[2] : (k === "x" && pl.split("|")[2] === "1" && COLORS.includes(pl.split("|")[1])) ? pl.split("|")[1] : "";
-    out += `<span class="mk mk-${esc(k)}${c && COLORS.includes(c) ? " c-" + c : ""}${chip ? " chip" : ""}" data-mk="${esc(k)}" data-pl="${esc(pl)}">${chip ? pip(chip) : ""}`; depth++;
+    out += `<span class="mk mk-${esc(k)}${c && COLORS.includes(c) ? " c-" + c : ""}${chip ? " mkc" : ""}" data-mk="${esc(k)}" data-pl="${esc(pl)}">${chip ? pip(chip) : ""}`; depth++;
   }
   out += esc(s.slice(last));
   while (depth-- > 0) out += "</span>";
@@ -162,6 +162,9 @@ function actTip(pl, it, el0text) {
   if (it && it.delta != null && Math.abs(it.delta) >= 0.15) rows.push(["Surprise", `<span class="${it.delta > 0 ? "up" : "down"}">${Math.abs(it.delta) >= 0.4 ? "much " : ""}${it.delta > 0 ? "better" : "worse"} than they expected</span>`]);
   return tipBox(`${ic("sign")} ${esc(cap(String(el0text || "The act")))}`, "", rows, "");
 }
+// spheres phase 4 and far ties: a lever act's icon, and a tie's news by its side
+const LEVER_ICON = { exit: "ci-door-open", voice: "voice", loyalty: "anchor", neglect: "ci-door-shut", subvert: "mask", found: "sprout", fund: "coin", lead: "flag", office: "ci-gavel" };
+const FAR_ICON = { good: "sun", hard: "rain", mixed: "ci-letter" };
 function mkTip(el) {
   const k = el.dataset.mk, pl = (el.dataset.pl || "").split("|");
   const host = el.closest("[data-i]"), it = host ? ITEMS[+host.dataset.i] : null;
@@ -195,13 +198,15 @@ function mkTip(el) {
         `<p>${era ? "An era rewards some ways of living for years. Taking to it pulls their wanting toward its colors; resisting it pushes away." : `The event carried a message${COLORS.includes(pl[1]) ? ` (${CNAME[pl[1]]})` : ""}. Taking it in pulls their wanting that way; pushing back moves them away from it.`}</p>`);
     }
     case "e": return tipBox(`${ic("hourglass")} An era of ${esc(pl[0])}`, it && it.idea ? esc(it.idea) : "", [], "");
-    case "O": if (pl[0] === "memory" && pl[2] === "0") return tipBox(`${ic(pl[1] || "ci-diary")} A memory`, "", [],   // item 6: inside its moment
-        "This moment brought an old one back: the same kind of moment again, or an act that leans the same way. Each old moment comes back in the story once.");
-      return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
+    case "O": return tipBox(`${ic(pl[1] || "ci-newspaper")} The world outside`, pl[2] === "1" ? "A big public event: everyone lives through it." : "It reaches their life, or their people.",
       [], hud && hud.world ? "The World panel (key g) has the public record and the history." : "");
     case "T": return tipBox(`${pip(pl[0])} A turning point`, pl[1] === "reinvention" ? "They took the way the voice pushed for, for good." : pl[1] === "snap back" ? "They went back to their own way, for good." : "They took a new way.",
       [["It held", pl[2] === "1" ? "yes" : "no: the old pull came back"]], "The price of being pushed against their own pull built up until it came to a head.");   // 5.6
     case "X": return tipBox(`${ic("globe")} What the times did`, esc(cap(pl[4] || "")), [], "Told only when the world really changed something of theirs.");   // WL1
+    case "L": return tipBox(`${ic(LEVER_ICON[pl[0]] || "push")} Their act in town`, "", [["Where", esc(pl[1])], ["What came of it", esc(pl[2])]].concat(pl[3] ? [["Their standing there", esc(pl[3])]] : []),
+      "What they do moves the places and the town around them a little, more as their standing there grows. The World panel (key g) keeps each act.");   // spheres phase 4
+    case "F": return tipBox(`${ic(FAR_ICON[pl[0]] || "ci-letter")} News through a tie`, "", pl[2] ? [[`For ${esc(pl[1])}`, esc(pl[2])]] : [],
+      "Something happened in the town where someone close to them lives, and it reached them.");   // far ties
     case "r": return tipBox(`${ic("scroll")} Read through their colors`, `“${esc(pl[0])}”`, [["How hard it hits", hitWord(+pl[1])]].concat(
       COLORS.includes(pl[2]) ? [["Pulls them toward", `${pip(pl[2])} ${CNAME[pl[2]]}`]] : []), COLORS.includes(pl[2]) ? "How they read it pulls their wanting toward its color." : "");
     case "c": {
@@ -433,12 +438,14 @@ let ITEMS = [], MARKS = [];
 const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
   outside: "globe", move: "route", era: "hourglass", read: "scroll", clash: "bolt", rite: "gate", turn: "compass", breakthrough: "burst",
-  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass", ...GI.tag };
+  healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass",
+  lever: "push", far: "ci-letter", ...GI.tag };   // spheres phase 4: an act on the town; far ties: news through a tie
 const KIND_ICON = { career: "case", partner: "heart", children: "child", community: "people", faith: "shrine", ...GI.kind };
 const TAG_WORD = { choice: "Your moment", loss: "Loss", death: "Death", crisis: "Crisis", move: "A move", era: "The times", read: "Public life",
   clash: "Clash", rite: "A new stage", turn: "Turning point", breakthrough: "Breakthrough", healed: "Carried through", hardened: "Hardened",
   trouble: "Hard streak", fortune: "Lucky streak", temper: "Temperament", outside: "The world", commitment: "A title", moment: "A moment",
-  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks" };
+  ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks",
+  lever: "In town", far: "News through a tie" };
 const MINOR = new Set(["ordinary", "note", "outside", "read", "era", "temper"]);
 const isMinor = (it) => MINOR.has(it.tag) || (it.tag === "role" && !it.title);      // a perk's line is a small one; a title's is not
 const MARK_PRI = { death: 9, loss: 9, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
@@ -2599,6 +2606,7 @@ function circleTip(p) {
   const rows = [["Who", esc(p.roles.join(", ") || "someone they know") + (p.age != null ? `, ${p.age}` : "")], ["Close", esc(p.close)], ["Trust", esc(p.trust)]];
   if (p.read) rows.push(["As they read them", pips(lettersOf(p.read)) + " " + lettersOf(p.read).map((c) => CNAME[c]).join(" and ")]);
   if (p.want) rows.push(["Wants from them", esc(p.want)]);
+  if (p.want && p.want_why) rows.push(["Why", esc(p.want_why)]);   // far ties (F5): what happened in their town
   return tipBox(`${ic(p.alive ? "people" : "candle")} ${esc(p.name)}`, "", rows, "Their colors as the character reads them, which can be wrong; it sharpens with time together.");
 }
 const worldEl = document.createElement("div"); worldEl.className = "help sheetwrap"; worldEl.hidden = true; document.body.appendChild(worldEl);
@@ -2621,6 +2629,8 @@ function worldLine(W) {
   (W.history || []).filter((h) => h.big).forEach((h, i) => { g += `<circle class="wev" data-h="${(W.history || []).indexOf(h)}" cx="${X(h.age).toFixed(1)}" cy="51" r="4.5"/>`; });
   // P3: each push or lean on the life's line, with the era's pull (light) or against it (dark)
   (W.steers || []).forEach((x, i) => { g += `<rect class="wst2 ${x.era >= 0.3 ? "with" : x.era <= -0.3 ? "against" : "even"}${x.kind === "lean" ? " lean" : ""}" data-st="${i}" x="${(X(x.age) - 1.5).toFixed(1)}" y="56" width="3" height="${x.kind === "lean" ? 4 : 7}" rx="1"/>`; });
+  // spheres phase 4: each lever act of theirs on the town's spheres, by what came of it
+  (W.levers || []).forEach((x, i) => { g += `<circle class="wlv ${x.went}" data-lv="${i}" cx="${X(x.age).toFixed(1)}" cy="58" r="2.6"/>`; });
   for (let a = Math.ceil(lo / 10) * 10; a <= hi; a += 10) g += `<text class="wax" x="${X(a).toFixed(1)}" y="70" text-anchor="middle">${a === 0 ? "born" : a < 0 ? a : a}</text>`;
   return `<svg class="wline" viewBox="0 0 1000 76" role="img" aria-label="The world's history beside the life, by age">${g}</svg>`;
 }
@@ -2642,6 +2652,7 @@ function openWorld() {
   const figs = (W.figures || []).map((f) => `<div class="wfig${f.alive ? "" : " gone"}">${pips(lettersOf(f.letters))}<span><b>${esc(f.name)}</b> <span class="muted">${esc(f.role)}${f.alive ? "" : ", gone"}</span></span></div>`).join("");
   // WL5: the character's own record of what the world changed of theirs, by age
   const times = (W.times || []).slice().reverse().slice(0, 40).map((x) => `<div class="whist${x.big ? " big" : ""}" data-tm="${esc(x.cause || "")}"><span class="wa">${wAge(x.age, nm)}</span>${ic("globe")}<span>${esc(x.text)}</span></div>`).join("");
+  const levers = (W.levers || []).map((x, i) => [x, i]).reverse().slice(0, 40).map(([x, i]) => `<div class="whist${x.went === "fired" || x.went === "state" ? " big" : ""}" data-lv="${i}"><span class="wa">${wAge(x.age, nm)}</span>${ic(LEVER_ICON[x.lever] || "push")}<span>${esc(x.text)}</span></div>`).join("");
   const hist = (W.history || []).slice(0, 60).map((x, i) => `<div class="whist${x.big ? " big" : ""}"><span class="wa">${wAge(x.age, nm)}</span>${ic(x.icon)}<span>${esc(x.text)}</span></div>`).join("");
   worldEl.hidden = false;
   worldEl.innerHTML = `<div class="box paper sheet world" role="dialog" aria-label="The world">
@@ -2652,12 +2663,15 @@ function openWorld() {
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
       ${times ? `<section class="wide"><h4>What the times did to ${esc(nm)}</h4><div class="whists">${times}</div></section>` : ""}
+      ${levers ? `<section class="wide"><h4>What ${esc(nm)} did in town</h4><div class="whists">${levers}</div></section>` : ""}
       <section class="wide"><h4>History</h4><div class="whists">${hist || `<span class="empty">Nothing yet</span>`}</div></section>
     </div></div>`;
   $("wClose").addEventListener("click", closeWorld);
   worldEl.querySelectorAll(".wer").forEach((el) => { const e = W.eras[+el.dataset.era]; setTip(el, () => tipBox(`${pips(lettersOf(e.letters))} ${esc(cap(e.name))}`, "", [["From", wAge(e.from, nm)], ["To", e.to == null ? "now" : wAge(e.to, nm)]], "An era is a stretch of years in which society rewards one way of living.")); });
   worldEl.querySelectorAll(".wev").forEach((el) => { const h = W.history[+el.dataset.h]; setTip(el, () => tipBox(`${ic(h.icon)} ${esc(h.text)}`, "", [["When", wAge(h.age, nm)]], "")); });
   worldEl.querySelectorAll("[data-tm]").forEach((el) => { if (el.dataset.tm) setTip(el, () => tipBox(`${ic("globe")} Why`, esc(cap(el.dataset.tm)), [], "")); });
+  worldEl.querySelectorAll("[data-lv]").forEach((el) => { const x = W.levers[+el.dataset.lv]; setTip(el, () => tipBox(`${ic(LEVER_ICON[x.lever] || "push")} ${esc(cap(x.lever))} in ${esc(x.where)}`, "",
+    [["When", wAge(x.age, nm)], ["What came of it", esc(x.came)]].concat(x.rung ? [["Their standing there", esc(x.rung)]] : []), "")); });
   worldEl.querySelectorAll(".wst2").forEach((el) => { const x = W.steers[+el.dataset.st]; setTip(el, () => tipBox(`${x.kind === "lean" ? pip(x.lean) + " A lean" : ic("push") + " A push"} ${x.colors && x.colors !== "-" ? "toward " + pips(lettersOf(x.colors)) : ""}`, "",
     [["When", wAge(x.age, nm)], ["The times", x.era >= 0.3 ? "with their pull: it cost less" : x.era <= -0.3 ? "against their pull: it cost more" : "neither with nor against"]], "")); });
 }
