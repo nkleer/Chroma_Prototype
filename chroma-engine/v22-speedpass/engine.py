@@ -770,6 +770,10 @@ DEFAULT = dict(
     sph_odd=False,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
                          # needs sph_eyes)
     eyes_par=None,       # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
+    lead_ways=False,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
+                         # legitimacy and end, in place of phase 4's fixed leader's tenure; with sph_levers (world switch;
+                         # lead_par: its tuning, world_people.LEAD_DEFAULT; None: start values)
+    lead_par=None,
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -990,7 +994,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False,
                sph_eyes=False, sph_odd=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
@@ -1554,7 +1558,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_keys as WK_
         FARS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("far_")])
     FARS_ON_ = bool(FARS_.any())
-    REG_ = REG_ & ~FARS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # lead_ways (S7): a post's moment (cast_want: lead_*) comes only with the post (taking it, a crisis, its fall, the
+    # turn to routine, handing it on), never by the everyday draw of life events
+    LEADS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        LEADS_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_.startswith("lead_")])
+    LEADS_ON_ = bool(LEADS_.any())
+    REG_ = REG_ & ~FARS_ & ~LEADS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
     # S3, S4 (sph_eyes, sph_odd): a caught-between or odd-one-out moment (cast_want: caught, odd) comes only when the place
     # reading brings it, never by the everyday draw
     EYEW_ = np.zeros(L["S"], bool)
@@ -2203,9 +2213,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
+    LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
+        LW_ON = bool(getattr(WL, "lw", False)) and RON
+        if LW_ON:
+            LW_T_ = WL.lw_tid
         nic = np.array(WL.PP.niche, float); circle = nic.copy()
         if getattr(WL.PP, "family_mix", None) is not None:
             fam = np.array(WL.PP.family_mix, float)
@@ -2574,7 +2588,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
                             domain_standing=dst_w if RON and len(W_SDI_) else None,
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
-                            head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None))
+                            head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,
+                            lead_has=(np.where(LW_T_ >= 0, r_has[:, np.maximum(LW_T_, 0)], False) if LW_ON else None)))
+            if LW_ON and WL.PP.lw_lost:   # S7: an office the post's end took (a fall, a term, a hand-over, a move)
+                for n_, i_, why_ in WL.PP.lw_lost:
+                    if LW_T_[i_] >= 0:
+                        r_lose(n_, int(LW_T_[i_]), "the post " + why_)
+                WL.PP.lw_lost = []
             for n_ in np.nonzero(WL.office_lost)[0]:   # W40: the government fell, and their office with it
                 for i_ in W_GOV_:
                     r_lose(n_, i_, "the government fell")
@@ -2712,6 +2732,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff[:, FARS_] = 0.0
         if EYEW_ON_:   # S3, S4: a caught-between or odd-one-out moment comes only by the place reading
             aff[:, EYEW_] = 0.0
+        if LEADS_ON_:   # lead_ways (S7): a post's moment comes only with the post (forced), never by the everyday draw
+            aff[:, LEADS_] = 0.0
         aff_open = aff                                 # the moments open to the person, before their pause
         if GAPXON_:   # gap: on an everyday or inner moment
             gapw_ = np.ones(sit_last.shape)   # speed pass: the ramp on the gapped moments' columns only (1 elsewhere, as before)
@@ -2785,6 +2807,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, FARS_] = 0.0
             if EYEW_ON_:
                 ev_p[:, EYEW_] = 0.0
+            if LEADS_ON_:
+                ev_p[:, LEADS_] = 0.0
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3376,6 +3400,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if SHAR_ON and getattr(WL.PP, "sh_around", None) is not None:   # phase 5: the shadow around them (N5)
                 sa_ = _uclip((np.asarray(WL.PP.sh_around, float)[:, np.argsort(WL.W.perm)] - 0.1) / 0.4, 0, 1)
                 tgt_ = 1 - (1 - tgt_) * (1 - P["sh_around"] * sa_)
+            if LW_ON:   # S7: years leading one way add to that colour's shadow part (People.lead_sh, 0 .. lead_par sh)
+                tgt_ = 1 - (1 - tgt_) * (1 - np.asarray(WL.PP.lead_sh, float)[:, np.argsort(WL.W.perm)])
             sup_ = np.clip(0.5 * (need[:, NIDX["belonging"]] + res[:, TIE]), 0, 1)
             integ_ = np.where(ENEMY_B[None], J, 0.0).max(2)                    # an enemy pair held well
             tgt_ = tgt_ * (1 - P["sh_care"] * sup_)[:, None] * (1 - P["sh_integ"] * integ_) * (age >= P["sh_age"])
@@ -4551,6 +4577,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     ei_ = WL.eyes_info(i, int(s[i]))
                     if ei_:
                         more_["eyes"] = ei_
+                if WON and LEADS_ON_ and LEADS_[s[i]] and getattr(WL, "lw", False):   # S7: the post the moment is about
+                    li_ = WL.lead_info(i, int(s[i]))                                     # (its {place}, way, legitimacy)
+                    if li_:
+                        more_["lead"] = li_
                 if WON and FARS_ON_ and FARS_[s[i]]:   # far_ties: the tie's town and what happened there
                     fi_ = WL.far_info(i, int(s[i]))
                     if fi_:
