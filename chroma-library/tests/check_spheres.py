@@ -244,6 +244,35 @@ if SN:
             if t.startswith("{who}"):
                 fail("5 style", f"SEEN.{k}.{i}: opens with {{who}}, which starts lower case: {t}")
 
+LW_ = getattr(M, "LEAD_WAY", {})   # S7 ways to lead
+if LW_:
+    if sorted(LW_) != sorted(["rules", "knowing", "favours", "inspiring", "custom"]):
+        fail("1 coverage", f"LEAD_WAY: wanted rules, knowing, favours, inspiring and custom, got {sorted(LW_)}")
+    ALL += [(f"LEAD_WAY.{k}", v, "clause", 8) for k, v in LW_.items()]
+    LL_ = getattr(M, "LEAD_LEGIT", [])
+    mins_ = [m_ for m_, _ in LL_]
+    if not LL_ or mins_ != sorted(mins_, reverse=True) or len(set(mins_)) != len(mins_) or mins_[-1] != 0 or mins_[0] > 1:
+        fail("1 coverage", f"LEAD_LEGIT: legit_min must fall strictly from at most 1 down to 0, got {mins_}")
+    ALL += [(f"LEAD_LEGIT.{i}", w_, "clause", 4) for i, (_, w_) in enumerate(LL_)]
+    want_ = {"head of government", "minister", "party leader", "member of parliament", "mayor", "local councillor",
+             "lay judge", "research group leader", "community centre manager", "artistic director", "shift manager",
+             "head chef", "founder of a firm", "union rep", "shop owner", "café or bar owner", "community theatre director",
+             "deacon or elder", "team captain", "community-garden coordinator", "parent-association organiser",
+             "book-club organiser", "board-game club organiser", "neighbourhood-watch coordinator", "festival organiser",
+             "volunteer research organiser", "disability-rights organiser", "campaign organiser", "founder of a movement"}
+    for nm_, d_, w2_ in (("LEAD_PLACE", getattr(M, "LEAD_PLACE", {}), want_),
+                         ("SETTING_PLACE", getattr(M, "SETTING_PLACE", {}),
+                          {"household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang",
+                           "unit", "ward", "movement"}),
+                         ("SPHERE_PLACE", getattr(M, "SPHERE_PLACE", {}),
+                          {"rule", "gather", "arts", "faith", "care", "learn", "prod", "comm", "prot"})):
+        if set(d_) != w2_:
+            fail("1 coverage", f"{nm_}: missing {sorted(w2_ - set(d_))}, extra {sorted(set(d_) - w2_)}")
+        for k, v in d_.items():
+            if not (isinstance(v, str) and v.startswith("the ")):
+                fail("5 style", f"{nm_}.{k}: a place name starts with 'the': {v}")
+            ALL.append((f"{nm_}.{k}", v, "name", 6))
+
 seen = {}
 for at, text, kind, limit in ALL:
     if not isinstance(text, str) or not text.strip():
