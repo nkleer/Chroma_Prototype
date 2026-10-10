@@ -145,17 +145,18 @@ function living(img) {
   if (img._lk || !ink()) return;
   img._lk = 1;
   const host = img.parentElement; if (!host) return;
-  const il = host.classList.contains("ilpic");
-  if (moving() && !il && !(host.classList.contains("evart") && hud && hud.res && !hud.cp)) {
+  const il = host.classList.contains("ilpic"), card = host.classList.contains("lk-pc");
+  if (moving() && !il && !card && !(host.classList.contains("evart") && hud && hud.res && !hud.cp)) {
     img.classList.add("lk-print");
     img.addEventListener("animationend", (e) => { if (e.animationName === "lkprint") img.classList.remove("lk-print"); });
   }
   const list = lightsOf(img.getAttribute("src"));
   if (!list || !list.length) return;
   const box = document.createElement("span"); box.className = "lk-lights"; box.setAttribute("aria-hidden", "true");
-  box._img = img; box._ls = list; box._ar = host.closest(".tarot") ? 0.7 : 1.76;
+  box._img = img; box._ls = list; box._ar = host.closest(".tarot") || card ? 0.7 : 1.76;
   box.innerHTML = lightsHTML(list);
-  img.after(box); img._lights = box;
+  if (card) host.appendChild(box); else img.after(box);
+  img._lights = box;
   fitLights(box); if (ro) ro.observe(box);
   if (!img.complete) img.addEventListener("load", () => fitLights(box), { once: true });
   img.addEventListener("error", () => box.remove(), { once: true });
@@ -186,6 +187,7 @@ function portraitOf(L) {
   return src ? { src, lead, second, age, key: lead + age } : null;
 }
 const portraitHTML = (p, cls) => `<span class="lk-pc ${cls}" style="--k1:${INK[p.lead]};--k2:${INK[p.second]}"><img src="${esc(p.src)}" alt="" onerror="this.parentNode.remove()"><span class="lk-wash"></span></span>`;
+const lightPortraits = (root) => root && root.querySelectorAll(".lk-pc:not(.crest) img").forEach(living);
 const portraitTip = (p, L) => tipBox(`${pip(p.lead)} Their own card`, `${esc(L.name)} ${AGE_WORD[p.age]}, ${CNAME[p.lead]} leading, ${CNAME[p.second]} after it.`, [],
   "The card follows them: its place is their strongest color, its wash their two strongest, and the figure ages with them.");
 let crestKey = "";
@@ -206,6 +208,7 @@ openSheet = function () {
     const L = hud && hud.life, sec = sheetEl.querySelector("#shPanel-portrait .sa-b"); if (!ink() || !sec || !L) return;
     const p = portraitOf(L); if (!p) return;
     sec.insertAdjacentHTML("afterbegin", `<figure class="lk-shp">${portraitHTML(p, "sheet")}<figcaption>${pip(p.lead)} ${CNAME[p.lead]} leads · ${AGE_WORD[p.age]}</figcaption></figure>`);
+    lightPortraits(sec);
   });
 };
 
@@ -235,6 +238,7 @@ function nextPlate() {
     ${por ? portraitHTML(por, "plate") : ""}
     ${p.kick ? `<div class="kick">${esc(p.kick)}</div>` : ""}<h3>${p.pips && p.pips.length ? pips(p.pips) + " " : ""}${esc(p.title)}</h3>
     ${p.sub ? `<p>${esc(p.sub)}</p>` : ""}${ORN}</div>`;
+  safe(() => lightPortraits(plateEl));
   plateEl.classList.toggle("calm", motion !== "full");
   plateEl.classList.remove("out"); plateEl.hidden = false; void plateEl.offsetWidth; plateEl.classList.add("in");
   clearTimeout(plateT); plateT = setTimeout(endPlate, p.hold || 3000);
@@ -480,6 +484,7 @@ renderReview = function (h) {
     const L = h.life, r = h.review || {};
     const p = ink() && L ? portraitOf(L) : null, head = reviewEl.querySelector(".mh");
     if (p && head) head.insertAdjacentHTML("afterend", `<div class="lk-final">${portraitHTML(p, "final")}<div class="lk-yrs">${esc(L.name)} · ${r.died ? Math.floor(r.died.age) : Math.floor(L.age)} years</div></div>`);
+    lightPortraits(reviewEl);
     if (moving()) { reviewEl.classList.add("lk-rv"); [...reviewEl.children].forEach((c, k) => c.style.setProperty("--lk-d", 900 + Math.min(k, 12) * 150 + "ms")); }
     if (L && !hud.replay) plate({ key: "end|" + lifeKey(L), kind: "end", numeral: "Finis", kick: "The end of a life", title: L.name, sub: r.final ? `Ended as ${r.final}.` : "", colors: lettersOf(L.label), hold: 2600, wait: 150 });
   });

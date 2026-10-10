@@ -29,8 +29,10 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
 - 10-10 (thread "Visual improvement", Emren 10-10 07:30 UTC "Implement all six"): the ink look, a layer that changes no
   lives. `look.css` and `look.js` come after app.js in the built page (build.py); look.js wraps spiderSVG, drawLine,
   animSpider, renderHud, renderTable, renderResolution, addFeed, renderReview, renderTools and openSheet, runs each
-  original first and its own part inside `safe()`. The frame is drawn in the pictures' engraving style (paper grain,
-  double-ruled cards with ink roundels, hatched meters, wheel and river ribbons, stamped labels); pictures print in and
+  original first and its own part inside `safe()`. The story and the cards are drawn in the pictures' engraving style
+  (paper grain, double-ruled cards with ink roundels, stamped seals); the status panel keeps its minimal drawing and the
+  life river its v22 bands, now lit like the fog (a breathing glow, a drifting nebula, a gleam from birth to now) with the
+  old colors fading into the new when the life moves on (Emren 10-10 09:01 UTC); pictures print in and
   their lights flicker (chroma-art/game/lights.json); an outcome turns over and its ink flies into the wheel, which then
   counts to its new values with the change beside each color and meter; the character has a tarot portrait by lead color
   and age (pictures.json `portrait`, 20 new pictures) in the crest, the sheet, the plates and the end; chapter plates

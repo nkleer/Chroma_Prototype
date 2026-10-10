@@ -3,7 +3,7 @@
 //   <kit dir>       chroma-art/kit (engrave.js, scenes_*.js, deliver_pics.js; subfolders are searched too)
 //   <pictures dir>  the game's pics/ folder (<slug>.webp)
 //   <out json>      { "<slug>": [[x, y, size, kind, strength, colour], ...] }
-// x, y: fractions of the picture (tarot: of the card window x 293..587, y 40..460 of the 880x500 stage);
+// x, y: fractions of the picture (tarot and portrait cards: of the card window x 293..587, y 40..460 of the 880x500 stage);
 // size: fraction of the picture's width (glow: 2r; lit shape: max(w,h)*1.8+14; beam: max(w,h));
 // kind: g = P.light glow, w = lit shape of 120 px^2 or more (window, screen, door), f = smaller lit shape (candle, bulb, flame),
 // b = P.beam; strength 0..1 (glow and beam: their s; lit: .6, or .6 + .4 * min(1, wash opacity / .8) with a colour); colour the light's wash colour as #rrggbb, or "" when none.
@@ -57,7 +57,7 @@ for (const name of pics) {
   const sceneSlug = TAROT[name] || name;
   const sc = INDEX[sceneSlug];
   if (!sc) { missing.push(name); continue; }
-  jobs.push({ name, card: !!TAROT[name], sc, rec: [] });
+  jobs.push({ name, card: !!TAROT[name] || name.startsWith('portrait-'), sc, rec: [] });
 }
 const hex = (c) => {
   if (typeof c !== 'string') return '';
