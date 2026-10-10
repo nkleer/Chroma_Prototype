@@ -825,7 +825,7 @@ fails: The Friday handovers are cold and tense, and {N} dreads every one.
 tier: life event
 stages: child juvenile
 age: 12-17
-per_year: .03 .03 0 0 0 0
+per_year: .02 .02 0 0 0 0
 drivers: prosper+.3 community-.3 ties-.2 era+.2
 gap: 2-4
 times: about 10 in 100 children and 7 in 100 teenagers a year move home with their family, and about four in ten of those moves go to another town (D37, data and estimate); US moves are at a record low, about half the rate of the 1960s
@@ -865,7 +865,7 @@ variant_of: the family moves to a new town
 tier: life event
 stages: child, juvenile
 age: 3-12
-per_year: .04 .03 0 0 0 0
+per_year: .025 .02 0 0 0 0
 drivers: prosper+.3 community-.3 ties-.2 era+.2
 gap: 2-4
 times: about 10 in 100 children and 7 in 100 teenagers a year move home with their family, and about four in ten of those moves go to another town (D37, data and estimate); US moves are at a record low, about half the rate of the 1960s
