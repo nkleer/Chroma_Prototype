@@ -291,7 +291,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("ways to lead and the leader's time in post (lead_ways; with the levers and the events)",
         dict(lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
-        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40, 10),
+       # (10 lives: with v22.3's DEFAULT the row's two lives hold no post in 80 years, so lead_ways had nothing to move)
        ("sacred lines (sacred; with the events and C3; lines quick to form, offers to all they fit, decided off-screen)",
         dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
              sph_haunts=True, sph_hours=True, cur_on=True),
@@ -315,13 +316,15 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("what one holds is practice too (role_practice)", dict(role_practice=True), {}, 30),
        ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
        ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
-       ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30)]
-for label, sw, base, yrs in P2_:
+       ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30),
+       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
+for row_ in P2_:
+    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
-    kw = dict(N=2, years=yrs, seed=4, lib=EARTH, P=Pd)
+    kw = dict(N=n_, years=yrs, seed=4, lib=EARTH, P=Pd)
     o1 = E.run(**kw); g = E.run_steps(**kw); msg = next(g)
     while True:
         try:

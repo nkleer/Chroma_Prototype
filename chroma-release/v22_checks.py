@@ -61,7 +61,8 @@ import results
 LIVE = dict(engine=NAMES["engine_live"][0], game=NAMES["game_live"][0], lib=NAMES["library_live"][0], packs=NAMES["packs_live"][0])
 MANIFEST = NAMES.get("live_manifest", ("chroma-env/live-v22-manifest.txt",))[0]
 GAME_V21 = NAMES["game_v21"][0]
-PACKS3 = "science,politics,stage"
+PACKS3 = "science,politics,stage"   # the engine's three-pack fit; the rows that name packs take the checked engine's own
+                                    # batch.PACKS as {PACKS} (v22.4's refit adds art), this when it cannot be read
 
 # (id, row, owner, level, cores, cwd in the tree, command, rule, after, what)
 # {T} is the work tree; the commands run under bash with PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1.
@@ -116,11 +117,11 @@ CHECKS = [
     ("perks", "C-L3", "Library", "quick", 1, "chroma-library", "python3 -B drafts/check_perks_titles.py", "same", (),
      "the titles and perks catalogue: format, color balance, realism"),
     ("titles", "C-L4", "Library", "full", 4, "chroma-library",
-     "PACK_DIR={T}/chroma-packs python3 -B tests/titles_by_source.py {T}/chroma-library {W}/titles.json {T}/" + EP + " " + PACKS3
+     "PACK_DIR={T}/chroma-packs python3 -B tests/titles_by_source.py {T}/chroma-library {W}/titles.json {T}/" + EP + " {PACKS}"
      + " && python3 -c \"import json; d=json.load(open('{W}/titles.json')); print(json.dumps(d, sort_keys=True)[:200000])\"",
      "same", (), "lifetime title and perk shares against the catalogue, 400 lives, packs on"),
     ("reach", "C-L6", "Library", "full", 4, "chroma-library",
-     "PACK_DIR={T}/chroma-packs python3 -B tests/reach.py {T}/chroma-library {W}/reach.json {T}/" + EP + " " + PACKS3
+     "PACK_DIR={T}/chroma-packs python3 -B tests/reach.py {T}/chroma-library {W}/reach.json {T}/" + EP + " {PACKS}"
      + " && python3 -c \"import json; d=json.load(open('{W}/reach.json')); print(json.dumps(d, sort_keys=True)[:200000])\"",
      "same", (), "reach and repeats against each moment's gap, 400 lives"),
     # ---- Packs
@@ -134,11 +135,11 @@ CHECKS = [
      "for p in science politics stage art; do if [ ! -f earth_$p.py ]; then echo \"$p: not in this commit\"; continue; fi; python3 -B check.py earth_$p.py && cat checks_earth_$p.md || exit 1; done", "same", (),
      "the Library's balance check on each compiled pack"),
     # ---- Engine (the C-X2 share of the v22 record, calib_v10/cx2/jobs.txt, plus the rows that ran elsewhere)
-    ("score21", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS=" + PACKS3 + " python3 -B calib_v8/score_packs.py '{{}}' 600 21",
+    ("score21", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS={PACKS} python3 -B calib_v8/score_packs.py '{{}}' 600 21",
      "same", (), "the survey scorecard, seed 21 (v22: 8 of 11, accepted)"),
-    ("score23", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS=" + PACKS3 + " python3 -B calib_v8/score_packs.py '{{}}' 600 23",
+    ("score23", "C-E1", "Engine", "full", 1, EP, "LIB={T}/chroma-library PACKS={PACKS} python3 -B calib_v8/score_packs.py '{{}}' 600 23",
      "same", (), "the survey scorecard, seed 23"),
-    ("tier", "C-E3", "Engine", "full", 4, EP, "FIT_OUT={W}/tier.json PACKS=" + PACKS3 + " python3 -B calib_v8/tier_fit.py 500 0 "
+    ("tier", "C-E3", "Engine", "full", 4, EP, "FIT_OUT={W}/tier.json PACKS={PACKS} python3 -B calib_v8/tier_fit.py 500 0 "
      "{T}/chroma-library/earth_perks_titles.py",
      "same", (), "pack careers about 1 in 3, summits about 1 in 20 (2,000 lives, seeds 11 to 14)"),
     ("roles", "C-E4", "Engine", "full", 4, EP, "FIT_OUT={W}/role_norm.json python3 -B calib_v7/roles_check.py 150 0 {T}/chroma-library/earth_perks_titles.py",
@@ -172,9 +173,9 @@ CHECKS = [
     ("pie_packs", "C-E6", "Engine", "full", 1, EP, CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "the pie, packs on, 200 lives"),
     ("pie_nopacks", "C-E6", "Engine", "full", 1, EP, "NOPACKS=1 " + CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "no packs"),
     ("pie_won", "C-E6", "Engine", "full", 1, EP, "PX='{{\"world\": true}}' " + CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "world on"),
-    ("season", "C-E7", "Engine", "full", 1, EP, CX2 + " calib_v8/season_check.py {T}/chroma-library 150 5 " + PACKS3, "same", (), "seasons open; steps"),
+    ("season", "C-E7", "Engine", "full", 1, EP, CX2 + " calib_v8/season_check.py {T}/chroma-library 150 5 {PACKS}", "same", (), "seasons open; steps"),
     ("repeat", "C-E7", "Engine", "full", 1, EP, CX2 + " calib_v8/repeat_check.py '{{}}' 300 11", "same", (), "births, childless"),
-    ("chance", "C-E8", "Engine", "full", 1, EP, "PACKS=" + PACKS3 + " python3 -B calib_v7/chance_check.py check 100 {T}/chroma-library "
+    ("chance", "C-E8", "Engine", "full", 1, EP, "PACKS={PACKS} python3 -B calib_v7/chance_check.py check 100 {T}/chroma-library "
      "{T}/chroma-library/earth_perks_titles.py", "same", (), "written chance against true odds"),
     ("exits", "C-E9", "Engine", "full", 1, EP, CX2 + " calib_v7/exits_check.py '{{}}' 300 11", "same", (), "at work by age, retiring"),
     ("exits_won", "C-E9", "Engine", "full", 1, EP, "PX='{{\"world\": true}}' " + CX2 + " calib_v7/exits_check.py '{{}}' 300 11", "same", (), "world on"),
@@ -246,6 +247,44 @@ STEER = "test/steer_check.py"
 for sid, target, what in STEERED:
     CHECKS.append((sid, "steered", "Game", "full", 4, "chroma-game/prototype", f"STEER_CACHE={{W}}/steer_cache python3 -B {STEER} {target}",
                    f"re:^STEER {target}: PASS", (), what))
+
+# v22.4's refit targets (records/v22.4/scope.md rows G6 to G11, G12's own_even and G19), each the owner's own tool judging
+# its own target on the commit (the tool switches its mechanic on where DEFAULT has it off). --only @v22.4 runs them all.
+# A row that reads another's stats file waits on it. On a commit without the tool the row fails: they are v22.4's rows.
+FAIR = "python3 -B chroma-engine/tools/fair_check.py {} 300 7 --years 80 --stats {{W}}/fair_300_7.json"
+EYES = "python3 -B chroma-engine/tools/eyes_check.py {} 300 7 --stats {{W}}/eyes_300_7.json"
+V224 = [
+    ("s1_parts", "G6", 1, FAIR.format("all") + "; " + FAIR.format("s1_parts"), "re:^PASS s1_parts", (),
+     "S1: every sphere carries all five parts (300 lives x 80 years, seed 7, world and fair_read on; its first run makes "
+     "the stats the other two read)"),
+    ("s1_counts", "G6", 1, FAIR.format("s1_counts"), "re:^PASS s1_counts", ("s1_parts",), "S1: the five parts' event counts within 1.5x"),
+    ("s1_fair", "G6", 1, FAIR.format("s1_fair"), "re:^PASS s1_fair", ("s1_parts",), "S1: mean fair per lead colour within .03"),
+    ("s3_rep", "G7", 1, EYES.format("s3_rep"), "re:^PASS s3_rep", (),
+     "S3: mean rep change per lead colour within .03 (300 lives, seed 7; makes the stats the S3 and S4 rows read)"),
+    ("s3_caught", "G7", 1, EYES.format("s3_caught"), "re:^PASS s3_caught", ("s3_rep",), "S3: caught-between moments per enemy pair within 1.5x"),
+    ("s4_odd", "G8", 1, EYES.format("s4_odd"), "re:^PASS s4_odd", ("s3_rep",), "S4: odd-one-out life-years per lead colour within 1.2x"),
+    ("s4_convert", "G8", 1, EYES.format("s4_convert"), "re:^PASS s4_convert", ("s3_rep",), "S4: conversions per lead colour within 1.5x"),
+    ("s5_lines", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py lines", "re:^s5_lines: ok", (),
+     "S5: sacred lines per colour against its share of lead years within 1.5x (seeds 31 to 34 x 300 x 80 years)"),
+    ("s5_money", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py money", "re:^s5_money: ok", (),
+     "S5: money lost per lead colour within 1.2x"),
+    ("s6_felt", "G10", 1, "python3 -B chroma-engine/tools/seen_check.py 60 7 80", "re:^S6_FELT OK", (),
+     "S6: mean felt-odds lift per colour way within .01 (60 lives x 80 years, seed 7)"),
+    ("s7_lead", "G11", 1, "python3 -B chroma-engine/tools/lead_check.py --lives 300 --years 80 --seeds 41,42", "re:^ALL PASS", (),
+     "S7: falls per way per 10 post-years within 1.5x (20 falls a way at least); years in post per lead colour within 1.2x"),
+    ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 120 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz",
+     "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
+     "below unsteered; perks at 50 (90th percentile) <= 27 (480 lives, 80 a group; about 90 minutes on 4 cores)"),
+]
+for cid, row, cores, cmd, rule, after, what in V224:
+    CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))
+CHECKS.append(("own_even", "G12", "Game", "full", 4, "chroma-game/prototype",
+               "STEER_CACHE={W}/steer_cache CHROMA_GAME='{{\"own_ix\": true}}' python3 -B " + STEER + " own_even",
+               "re:^STEER own_even: PASS", (), "S2: years until a way becomes theirs in light-steered lives (12 seeds, to 40) "
+               "within 1.2x across colours (the Game's #142; its switch own_ix on)"))
+V224_IDS = [c[0] for c in V224] + ["own_even"]
 
 # Backend plan item 3: each owner's fast check, about 2 minutes on 4 cores, run after every edit (--level fast). These are
 # the release thread's proposals from the quick level's times (out/v22checks_20261008-122526); each owner confirms or
@@ -646,7 +685,9 @@ def main():
     def ids(spec):   # check ids, or @owner for every check of that owner (@engine, @library, @packs, @game, @release)
         out = set()
         for x in (y.strip() for y in spec.split(",")):
-            if x.startswith("@"):
+            if x == "@v22.4":
+                out |= set(V224_IDS)
+            elif x.startswith("@"):
                 out |= {c[0] for c in CHECKS if c[2].lower() == x[1:].lower() or c[1] == x[1:].lower()
                         or (a.level == "fast" and FAST_OWNER.get(c[0], "").lower() == x[1:].lower())}
             elif x:
@@ -699,11 +740,17 @@ def main():
     open(os.path.join(WORK, "rec", "sitecustomize.py"), "w").write(SITE)
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", OMP_NUM_THREADS="1", MPLBACKEND="Agg")
     for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT", "CHROMA_ENGINE",
-              "OUT_DIR"):
+              "OUT_DIR", "CHROMA_PACKS"):
         env.pop(k, None)
+    try:                                     # the packs the checked engine plays (batch.PACKS; CHROMA_PACKS is not read)
+        m = re.search(r"^PACKS = (\[[^\]]*\])", open(os.path.join(T, LIVE["engine"], "batch.py"), encoding="utf-8").read(), re.M)
+        packs = ",".join(ast.literal_eval(m.group(1)))
+    except (OSError, AttributeError, ValueError, SyntaxError):
+        packs = PACKS3
+    log(f"  packs the engine plays: {packs}")
     fmt = lambda c: engine_row(c)[1].format(T=T, W=W, ENGINE=src["engine"], LIVEENGINE=os.path.join(REAL, LIVE["engine"]),
                                             GAME=src["game"], LIVEGAME=os.path.join(REAL, LIVE["game"]),
-                                            RARITY=os.path.join(T, NAMES["rarity_live"][0]))
+                                            RARITY=os.path.join(T, NAMES["rarity_live"][0]), PACKS=packs)
     # a proof's command names the folder it runs in when that is not the check's own (an Engine row run from tools/), so a
     # proof taken in one layout is never reused for the other
     pkey = lambda c: fmt(c) if engine_row(c)[0] == c[5] else "cd " + engine_row(c)[0] + " && " + fmt(c)
