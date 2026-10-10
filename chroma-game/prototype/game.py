@@ -124,7 +124,7 @@ GAME = dict(
     turn_line=2.0, turn_half=52, turn_gap=260, turn_max=0, turn_piv=3.0,   # turn_max 0: off in v22.2 (moves to v22.3, 10-09); 2 when on
     world_steers=False,  # the World panel's marks for each push or lean against the era: off in v22.2 (v22.3)
     fig_own=True,        # K12 (v22.3): no public figure shares the character's first name
-    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC "v22.3"): per color, how far a way
+    # S2 "Making it their own" (chroma-ideas/social-mechanics.md S2; Emren 10-10 09:04 UTC; v22.4 by the "Split" card 09:55, off until its refit): per color, how far a way
     # the voice pushes toward has become theirs (ix, 0 to 1; steps at .25 "ought to", .5 sees the point, .8 theirs). Each
     # push toward a color adds own_k x push x A x T x S x H: A the steer (light own_light, strong own_strong), T .5 + their
     # trust in that color, S .5 + own_sup x that color's share around them (their haunts' faces and close people, the
@@ -133,7 +133,7 @@ GAME = dict(
     # x (1 - own_rel x ix); the peace reading counts a push as their own by its way's ix; at own_theirs the season lean
     # toward it no longer ends. A strong push at reluctance over own_react_rel while ix is under .25 bounces back with
     # chance own_react: ix falls own_react_back and the pent-up wanting grows as a push's does
-    own_ix=True, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
+    own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
     own_use=4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
@@ -585,7 +585,8 @@ class Game:
         # stream of its own (reactance), and each step crossed (age, color, step) and bounce back (age, color, "back")
         self.ix = np.zeros(C); self._ix_use = np.zeros(C); self._own_leans = {}
         self._ixrng = np.random.default_rng(int(seed) + 6262)
-        self.history["own_ix"] = []; self.history["rel_way"] = []
+        if GAME["own_ix"]:
+            self.history["own_ix"] = []; self.history["rel_way"] = []
         self.history["voice"] = voice_empty()   # item 3: the voice in their head (chroma-ideas/voice-mechanics.md)
         self._voice_said = {}           # item 3: how often each kind of voice line was told (the second variant after the first)
         self._trust_side = np.zeros(C, int)     # trust per color past .5 (1) or -.5 (-1), for the turn lines
@@ -753,7 +754,8 @@ class Game:
             a = a.copy(); a[0] = pick
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(rel)
-            self.history["rel_way"].append([round(float(x), 3) for x in self._ways(self.loc, pick)] if self.loc is not None else None)
+            if GAME["own_ix"]:
+                self.history["rel_way"].append([round(float(x), 3) for x in self._ways(self.loc, pick)] if self.loc is not None else None)
         self.history["picks"] += 1
         if choice != own or lt:                         # P3: the World panel's timeline shows each steer against the era
             o_ = cp["by_idx"].get(choice, {})
@@ -1439,7 +1441,7 @@ class Game:
         vdw = self._vdw()
         return dict(name=self.voice_name(), trust=word, steer=v["steer"], n=v["n"], share=round(voice_share(vdw, total), 3),
                     voice=[round(float(x) * 100, 1) for x in vdw], life=[round(float(x) * 100, 1) for x in total - vdw],
-                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)], own=self.own_view())
+                    toward=[round(float(x), 3) for x in d / max(v["steer"], 1)], **({"own": self.own_view()} if GAME["own_ix"] else {}))
 
     def _voice_pick(self, loc, cpw, worked, pushed, rel, moved, rs):
         """Item 3 at each decided moment: the record (the steer: the picked act's colors minus what they would have done),
