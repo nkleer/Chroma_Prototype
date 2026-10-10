@@ -510,7 +510,7 @@ class WorldLink:
         return float(W.era_i), np.asarray(W.era_p, float), int(W.era_k)
 
     # ---- monthly: per person and moment, how the world tilts or gates the moment
-    def moment_factor(self, age):
+    def moment_factor(self, age, sit_last=None):
         W, PP, N, S = self.W, self.PP, self.N, self.S
         f = np.ones((N, S))
         if self.toy_on.any():   # time of year: a set season holds the moment to it (x4 there, 0 elsewhere); an inferred
@@ -540,13 +540,16 @@ class WorldLink:
                 P_ = W.hp_s.shape[2]; hk_ = np.where(hn_ >= 0, (hn_ // P_) % len(WK.HAUNT_KINDS), -1)   # N x 3
                 ok_ = (hk_[:, :, None] == self.haunt[hs_][None, None, :]).any(1) | (self.haunt[hs_] == self.H_GREAT)[None, :]
                 f[:, hs_] *= ok_
-        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year
-            se_ = np.nonzero(self.sphev >= 0)[0]
+        if (self.sphev >= 0).any():   # a sphere event's moment: only in a town that had that event in the last year, and
+            se_ = np.nonzero(self.sphev >= 0)[0]                  # once for each time it fired (not met since it fired)
             last_ = getattr(W, "sph_ev_last", None)
             if not W.p.get("sph_events") or last_ is None:
                 f[:, se_] = 0.0
             else:
-                f[:, se_] *= (int(W.t) - last_[np.asarray(PP.loc)][:, self.sphev[se_]]) <= 52
+                lf_ = last_[np.asarray(PP.loc)][:, self.sphev[se_]]
+                f[:, se_] *= (int(W.t) - lf_) <= 52
+                if sit_last is not None:
+                    f[:, se_] *= sit_last[:, se_] < lf_
         if (self.ladder >= 0).any():   # a rung in the moment's sphere (no sphere: any) at least the one it names
             rg_ = getattr(PP, "rung", None)
             ls_ = np.nonzero(self.ladder >= 0)[0]
