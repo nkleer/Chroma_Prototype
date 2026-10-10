@@ -4311,7 +4311,7 @@ class People:
 
     # ------------------------------------------------------------------ acts, levers and pushes (spec 2 §3, spec 7 §3)
     def on_act(self, idx, ma, succ, visibility=None, lever=None, pushes=None, base=None, target=None, norm=None,
-               var=None, t=None, sphere=None, office=None):
+               var=None, t=None, sphere=None, office=None, msphere=None):
         """The character's act this week (vectorised over idx): the close circle judges it (overlap of the act's mix
         with their pies), rank in groups moves, and acts with a lever push (size = base x reach x how well it went;
         a failed push can backfire). Returns dict(approval=(n,), results=[push results])."""
@@ -4373,6 +4373,15 @@ class People:
                 r_ = self._sph_lever(int(idx[e_]), int(js[e_]), int(lev[e_]), ma[e_], float(q[e_]), int(ok_[e_]), int(dom[e_]), t)
                 if r_ is not None:
                     res.append(r_)
+        # 5. S7: every act a leader makes in a moment of the sphere they lead counts for the way, as a lever act there
+        # does (_sph_lever): msphere, the moment's sphere (-1 none)
+        if getattr(self, "lw", False) and msphere is not None and self.lw_posts:
+            ms_ = np.broadcast_to(np.asarray(msphere, np.int64), (E,))
+            ls_ = np.broadcast_to(np.asarray(-1 if sphere is None else sphere, np.int64), (E,))
+            for e_ in np.nonzero((ms_ >= 0) & ~((lev >= 0) & (ls_ == ms_)) & ~self.dead[idx])[0]:
+                p_ = self._lead_post(int(idx[e_]), int(ms_[e_]))
+                if p_ is not None:
+                    self._lead_act(p_, None, float(q[e_]), t)
         return dict(approval=appr, results=res)
 
     def _sph_lever(self, n, j, lev, ma, q, office, dom, t):

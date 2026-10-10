@@ -1288,7 +1288,8 @@ class WorldLink:
         si_, ai_ = s[idx], a[idx]
         out = self.PP.on_act(idx, ma[idx], succ[idx].astype(float), lever=self.lev_i[si_, ai_], pushes=self.dom_i[si_, ai_],
                              target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
-                             sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])
+                             sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_],
+                             msphere=self.msph[si_] if getattr(self.PP, "lw", False) else None)
         res = out.get("results", []) if isinstance(out, dict) else []
         if getattr(self.PP, "eyes_on", False):   # S3: their places read the life-event moments' picks and the lever acts
             se_ = self.eyes_life[si_] | (self.lev_i[si_, ai_] >= 0)
