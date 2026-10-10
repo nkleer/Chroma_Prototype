@@ -181,6 +181,19 @@ for s, rs in RU.items():
     ALL += [(f"RUNG.{s}.{i}", t, "name", 7) for i, t in enumerate(rs)]
 for (k, e), t in PS.items():
     ALL.append((f"PLACE_SHORT.{k}.{e}", t, "name", 5))
+FP, FR = getattr(M, "FAIR_PART", {}), getattr(M, "FAIR", {})   # S1 fairness read five ways (social-mechanics.md S1)
+PARTS = ["rules", "reasons", "due", "respect", "goodwill"]
+if FP or FR:
+    if sorted(FP) != sorted(PARTS):
+        fail("1 coverage", f"FAIR_PART: parts {sorted(FP)}, wanted {PARTS}")
+    want_ = {f"{s_}.{p_}" for s_ in SPHERES for p_ in PARTS}
+    if set(FR) != want_:
+        fail("1 coverage", f"FAIR: missing {sorted(want_ - set(FR))}, extra {sorted(set(FR) - want_)}")
+    for k, d in FP.items():
+        ALL.append((f"FAIR_PART.{k}.name", d.get("name", ""), "name", 6))
+    for nm_, tab_ in (("FAIR_PART", FP), ("FAIR", FR)):
+        for k, d in tab_.items():
+            ALL += [(f"{nm_}.{k}.{f}", d.get(f, ""), "clause", 16) for f in ("unfair", "fair")]
 
 seen = {}
 for at, text, kind, limit in ALL:
@@ -254,7 +267,7 @@ if n_opt and max(face_w.values()) - min(face_w.values()) > .01 * n_opt / 5:
     fail("8 faces", f"faces uneven by colour over {n_opt} options: {face_w}")
 NAMES = ["1 coverage", "2 length", "3 duplicates", "4 color words", "5 style", "6 safety", "7 setting", "8 faces"]
 print(f"# check_spheres: {os.path.basename(PATH)}\n")
-print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders; data {data_note}\n")
+print(f"{len(ALL)} lines: {len(SP)} spheres, {len(FA)} faces, {len(PA)} pairs, {len(EV)} events, {len(CC)} cascades, {len(HA)} haunts, {len(PL)} places, {len(RU)} ladders, {len(FR)} fairness; data {data_note}\n")
 for nm in NAMES:
     ps = problems.get(nm, [])
     extra_ = f", {setting_note}" if nm == "7 setting" else (f", {n_opt} options: " + " ".join(f"{c} {v:.0f}" for c, v in face_w.items()) if nm == "8 faces" else "")
