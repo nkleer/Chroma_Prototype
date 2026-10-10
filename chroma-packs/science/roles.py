@@ -89,7 +89,8 @@ ROLES_SCIENCE = {
     # coordinator came to some 25 times its target in the smoke runs; the yearly lift cannot take that back (it moves a
     # rung's rate by e^.5 to e^1 only). A research assistant or scientist who organised volunteers, or who learned
     # [community listening], steps up; rate .03 -> .02
-    "participatory research coordinator": dict(req="has('community listening') | was('volunteer research organiser')",
+    "participatory research coordinator": dict(req="has('community listening') | was('volunteer research organiser') | "
+                                                   "has('community partners') | was('community observer')",   # 10-09 floors (Emren: rare titles reachable): two more roads
                                                after=["research assistant", "research scientist"],
                                                rungs=["volunteer research organiser"], rate=0.02, weight="colors"),
     # community
@@ -157,8 +158,8 @@ ROLES_SCIENCE = {
                                       lose="~held_career", lrate=1.0, lwhy="the post ended"),
     "ethics approval": dict(req="has('institutional affiliation') & has('a research project under way')", rate=0.5,
                             lose="~has('a research project under way')", lrate=1.0, lwhy="the study over"),
-    "field permit": dict(req="has('a research project under way') & has('fieldwork')", rate=0.5,
-                         lose="~has('a research project under way')", lrate=1.0, lwhy="the season over"),
+    "field permit": dict(req="has('fieldwork')", rate=0.5,   # 10-09 floors (Emren: rare titles reachable): fieldwork alone, no project asked
+                         lose="yrs_has('field permit') >= 1", lrate=1.0, lwhy="the season over"),
     "instrument time": dict(req="has('institutional affiliation') & has('a research project under way') & has('lab work')",
                             rate=0.4, lose="yrs_has('instrument time') >= 1", lrate=0.8, lwhy="the booking over"),
     "a research project under way": dict(req="has('research grant') | has('research project lead') | "

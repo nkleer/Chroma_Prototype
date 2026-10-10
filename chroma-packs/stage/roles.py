@@ -87,8 +87,9 @@ ROLES_STAGE = {
                           rate=0.0005, entry=True, weight="colors"),
     # round 5: rate .01 to .0025, all its first gains came "in time" (P5, 4.0x); weight "colors" (was "ties"): its
     # single-color profile is White, the road it leads (P12)
-    "casting director": dict(req="has('a casting eye') & (was('professional actor') | was('talent agent') | "
-                                 "was('stage manager') | was('producer') | was('director'))",
+    "casting director": dict(req="(has('a casting eye') & (was('professional actor') | was('talent agent') | "
+                                 "was('stage manager') | was('producer') | was('director'))) | "
+                                 "(was('drama teacher') & (yrs_career >= 5))",   # 10-09 floors (Emren: rare titles reachable): a drama teacher's road
                              rungs=["professional actor", "talent agent", "stage manager", "producer", "director",
                                     "voice actor"],
                              rate=0.0025, entry=True, weight="colors"),

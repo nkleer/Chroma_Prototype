@@ -199,7 +199,7 @@ ROLES_POLITICS = {
                             weight="practice"),
     "knowing the rules of the house": dict(req="(has('member of parliament') & (yrs_has('member of parliament') >= 1)) | "
                                                "(has('local councillor') & (yrs_has('local councillor') >= 2)) | "
-                                               "(has('political adviser') & (yrs_career >= 2))", rate=0.0005,
+                                               "(has('political adviser') & (yrs_career >= 2))", rate=0.01,   # 10-09 floors (Emren: rare titles reachable): .0005 to .01
                                            weight="practice"),
     "counting the votes": dict(req="(has('member of parliament') & has('allies in the party')) | has('party official') | "
                                    "has('local party officer')", rate=0.001, weight="colors"),
@@ -217,7 +217,7 @@ ROLES_POLITICS = {
     "parliamentary nomination": dict(req="(has('party member') | has('local party officer')) & (has('local councillor') | "
                                          "has('political adviser') | has('party official') | has('mayor') | "
                                          "has('campaign organiser') | has('union rep') | has('known across the country'))",
-                                     rate=0.0002, weight="ties",   # round 4: lapses at 2.5 years, as the candidacy
+                                     rate=0.001, weight="ties",   # 10-09: .0002 to .001; round 4: lapses at 2.5 years, as the candidacy
                                      lose="~has('parliamentary candidate') & ~has('member of parliament') & "
                                           "(yrs_has('parliamentary nomination') >= 2.5)", lrate=1.0,
                                      lwhy="the election over"),
@@ -238,12 +238,12 @@ ROLES_POLITICS = {
     # standing
     "a following in the party": dict(req="(has('local party officer') | has('member of parliament') | "
                                          "has('rousing a crowd')) & (yrs_faith >= 3)", rate=0.007, weight="colors"),
-    "a safe seat": dict(req="has('member of parliament') & (yrs_has('member of parliament') >= 5)", rate=0.05,
+    "a safe seat": dict(req="has('member of parliament') & (yrs_has('member of parliament') >= 3)", rate=0.05,   # 10-09 floors (Emren: rare titles reachable): 5 to 3 years
                         lose="~has('member of parliament')", lrate=1.0, lwhy="out of parliament"),
     "a reform with your name on it": dict(req="has('minister') | (has('member of parliament') & "
                                               "(yrs_has('member of parliament') >= 5)) | (has('mayor') & "
                                               "(yrs_has('mayor') >= 2)) | (has('local councillor') & "
-                                              "(yrs_has('local councillor') >= 6))", rate=0.002),
+                                              "(yrs_has('local councillor') >= 3))", rate=0.02),   # 10-09 floors (Emren: rare titles reachable): councillor 6 to 3 years, .002 to .02
     "a name for straight talk": dict(req="(has('member of parliament') | has('local councillor') | has('mayor') | "
                                          "has('political adviser')) & (mkn('kept your word') >= 3) & "
                                          "~mk('hid a wrong', 5)", rate=0.005,

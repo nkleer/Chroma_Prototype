@@ -804,7 +804,8 @@ ROLES = {
     "driving licence": dict(req="(age >= 17) & ((age < 30) | chance(.15))", rate=0.1),   # most learn young (2026-10-05)
     "first-aid certificate": dict(rate=0.01), "passport": dict(rate=0.06),
     "school-leaving certificate": dict(req="(age >= 16) & (age <= 20)", rate=0.6, weight="practice"),
-    "professional registration": dict(req="has('graduate') & (age <= 40)", rate=0.05),
+    "professional registration": dict(req="has('graduate') & (age <= 40)", rate=0.07, weight="practice"),   # 10-09 floors (Emren: rare titles reachable): about 3 graduates in 10
+    # within 5 years, likelier for those who practise its ways (the road to physician, veterinarian, pharmacist)
     "lorry or bus licence": dict(req="has('driving licence') & held_career", rate=0.002),
     "trade ticket": dict(req="(has('apprentice') & (yrs_career >= 2)) | (has('building trade') & (age >= 20))", rate=0.15),
     "hunting licence": dict(req="has('hunting and fishing') & ~has('someone with a record')", rate=0.15),
@@ -914,17 +915,19 @@ ROLES_V2 = {
     "postal worker": dict(req="age >= 17"),
     "train driver": dict(req="(age >= 20) & (age <= 50) & ~has('someone with a record') & (health > .6)",
                          lose="(health < .45) | has('someone with a record')", lrate=0.5),
-    "commercial pilot": dict(req="(age >= 19) & (age <= 40) & ~has('someone with a record') & (health > .6) & "
+    "commercial pilot": dict(req="(age >= 19) & (age <= 45) & ~has('someone with a record') & (health > .6) & "   # 10-09 floors (Emren: rare titles reachable): to 45
                                  "(has('savings') | has('graduate') | was('soldier'))",
                              after=["soldier"], rate=0.003, entry=True, lose="health < .5", lrate=0.5),
     # sea, land and living things
     "merchant seafarer": dict(req="(age >= 16) & (age <= 45) & (health > .6)"),
     "commercial fisher": dict(req="(age >= 16) & (health > .5) & (has('family business') | (age <= 35))"),
     "forester": dict(req="has('graduate') | was('apprentice')"),
-    "professional beekeeper": dict(req="(age >= 20) & (mkn('learned a skill') >= 3)", after=["farmer"], rate=0.003,
+    "professional beekeeper": dict(req="(age >= 20) & ((mkn('learned a skill') >= 2) | has('beekeeping'))", after=["farmer"],
+                                   rate=0.015,   # 10-09 floors (Emren: rare titles reachable): 2 skills or beekeeping, .003 to .015
                                    entry=True),
     # ceremonies, craft and performance
-    "funeral director": dict(req="(age >= 20) & (has('family business') | (mkn('helped someone in need') >= 2))"),
+    "funeral director": dict(req="(age >= 20) & (has('family business') | (mkn('helped someone in need') >= 2) | "
+                                 "was('care worker'))"),   # 10-09 floors (Emren: rare titles reachable): a care worker's road
     "civil celebrant": dict(req="(age >= 25) & has('public speaking')"),
     "tattoo artist": dict(req="(age >= 18) & has('drawing and painting')"),
     "sound engineer": dict(req="has('musical instrument') | (mkn('learned a skill') >= 2)"),
@@ -987,8 +990,9 @@ ROLES_V2 = {
                                       starts=True, weight="colors"),
     "community-mediation volunteer": dict(req="(age >= 21) & has('calming people down')", rate=0.002, starts=True,
                                           weight="colors"),
-    "search-and-rescue volunteer": dict(req="(age >= 18) & (age <= 60) & has('first-aid certificate') & (health > .6)",
-                                        rate=0.002, starts=True, lose="health < .4", lrate=0.5),
+    "search-and-rescue volunteer": dict(req="(age >= 18) & (age <= 60) & (has('first-aid certificate') | has('keeping fit')) & "
+                                            "(health > .6)", rate=0.01,   # 10-09 floors (Emren: rare titles reachable): or keeping fit, .002 to .01
+                                        starts=True, lose="health < .4", lrate=0.5),
     "lifeboat volunteer": dict(req="(age >= 17) & (age <= 55) & has('swimming') & (health > .6)", rate=0.0002,
                                starts=True, lose="health < .4", lrate=0.5),
     "school-governance board member": dict(req="(age >= 21) & (kids_home | has('good name in town'))", rate=0.002,
@@ -1031,7 +1035,7 @@ ROLES_V2 = {
     "disability-rights organiser": dict(req="(age >= 16) & (had(['living with a chronic illness', "
                                             "'a serious accident or illness', 'a sense of injustice'], 3) | "
                                             "has('parent coordinating complex support needs') | has('carer for a parent'))",
-                                        rate=0.002, starts=True, weight="colors"),
+                                        rate=0.01, starts=True, weight="colors"),   # 10-09 floors (Emren: rare titles reachable): .002 to .01
     "civil-liberties campaigner": dict(req="(age >= 16) & had(['a sense of injustice', 'a protest in your city', "
                                            "'a bitter election'], 2)", rate=0.003, starts=True, weight="colors"),
     "restorative-justice advocate": dict(req="(age >= 18) & (had(['a sense of injustice', "
@@ -1202,7 +1206,7 @@ ROLES_P2 = {
                                     lose=[("had(['financial ruin'], 1)", "sold to pay debts"),
                                           ("~has('commercial fisher')", "sold on leaving the sea")]),
     "studio of one's own": dict(req="(age >= 18) & (money > .2) & (has('tattoo artist') | has('sound engineer') | "
-                                    "((has('drawing and painting') | has('musical instrument')) & chance(.1)))",
+                                    "((has('drawing and painting') | has('musical instrument')) & chance(.3)))",   # 10-09 floors (Emren: rare titles reachable): .1 to .3
                                 rate=0.033, weight="money"),
     "premises of one's own": dict(req="has('shop owner') | ((has('founder of a firm') | has('baker') | "
                                       "has('funeral director') | has('pharmacist') | has('veterinarian') | "
