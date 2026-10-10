@@ -1,0 +1,41 @@
+<style>
+  /* ================= clarity (clarity.js; thread "HUD and story flow check", Emren 10-10 10:25 UTC "apply all of them").
+     In both looks. It hides what clarity.js turns into an icon or a hover, and styles the few parts clarity.js adds. ========= */
+  /* 1: a told moment's color moves, in the story and between moments */
+  .cl-dw { display: inline-flex; align-items: center; gap: 7px; margin-left: 8px; vertical-align: -0.12em; cursor: help; white-space: nowrap; }
+  .illines p .cl-dw { margin-left: 10px; vertical-align: -0.1em; }
+  .cl-c { display: inline-flex; align-items: center; gap: 2px; font: 600 var(--fs-1)/1 var(--ui); font-variant-numeric: tabular-nums; }
+  .cl-c .pip { width: 1.1em; height: 1.1em; }
+  .cl-c i { font-style: normal; font-size: 9px; letter-spacing: -1px; }
+  .cl-c.up i, .cl-c.up b { color: var(--ok); } .cl-c.down i, .cl-c.down b { color: var(--bad); }
+
+  /* 2: the voice crest, one line of symbols; the words are on hover */
+  .voicerow.cl-crest { flex-wrap: nowrap; align-items: center; gap: 9px; white-space: nowrap; }
+  .voicerow.cl-crest > svg.i { font-size: 15px; color: var(--ink2); }
+  .voicerow.cl-crest.t-up > svg.i { color: var(--ok); } .voicerow.cl-crest.t-down > svg.i { color: var(--bad); }
+  .cl-vm { display: inline-flex; align-items: center; gap: 9px; }
+  .cl-none { color: var(--muted); }
+  .cl-share { display: inline-flex; align-items: center; gap: 4px; font: 600 var(--fs-1)/1 var(--ui); color: var(--ink2); font-variant-numeric: tabular-nums;
+    padding-left: 9px; border-left: 1px solid rgb(var(--hl) / 0.16); }
+  .cl-share svg { width: 15px; height: 15px; transform: rotate(-90deg); }
+  .cl-share .r0 { fill: none; stroke: rgb(var(--hl) / 0.16); stroke-width: 3; }
+  .cl-share .r1 { fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; }
+  .voicerow.cl-crest:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+  /* 3: one-line inner voice: the quote and "Left alone, they would" stay; heart and head are icons on their cards; the tug's
+     numbers are on its hover; the heart, head and regret tags leave the story */
+  .voicebox .vline.h, .voicebox .vline.d, .voicebox .vline.hd { display: none; }
+  .opt .mk2.heart, .opt .mk2.head { font-size: 0; gap: 0; padding: 2px 4px; }
+  .opt .mk2.heart svg.i, .opt .mk2.head svg.i { width: 13px; height: 13px; }
+  #tug { gap: 4px; }
+  .rchips .tag.heart, .rchips .tag.head, .rchips .tag.regret { display: none; }
+  .verdict.cl-empty { display: none; }
+
+  /* 4: no "with the times" badge on the cards; the push reading says what the times cost */
+  .opt .mk2.era { display: none; }
+
+  /* 8: the folded cards */
+  .ev .ask.oorfold.cl-fold { margin-top: 6px; }
+  .ogrid.cl-more:empty { display: none; }
+  .ogrid.cl-more { margin-top: 2px; }
+</style>

@@ -4,7 +4,7 @@
 # byte for byte: 1,600 lives over four seeds (41 to 44, 400 lives x 100 years; world off, on and the seed library) and four
 # setup sweeps of 100 lives. Four parts, one per machine, side by side (about 50 minutes each).
 #
-#   NEW=<engine dir> [BASE=<engine dir>] [LIB=<library dir>] [PACKS=<packs dir>] [COMMIT=<sha>] \
+#   NEW=<engine dir> [BASE=<engine dir>] [LIB=<library dir>] [PACKS=<packs dir>] [COMMIT=<sha>] [PNEW=<json>] \
 #       bash chroma-release/same-lives.sh <part 1 to 4>
 #
 # BASE: default the live engine (paths.py "engine_live" in the shared folder); it runs on the shared folder's live
@@ -14,7 +14,9 @@
 # change by design); check_speedpass.py --game does that when they must not. Reports:
 # chroma-release/out/speedpass_<UTC>_<tag>.txt; each run adds a line to out/results.jsonl under the id speedpass_<tag>
 # (speedpass_s41, speedpass_sweepA, ...), the ids a release record's bar names. Exit code 0 when every run of the part is
-# identical. LIVES and YEARS shrink the seed runs for a trial.
+# identical. LIVES and YEARS shrink the seed runs for a trial. PNEW: switch overrides for NEW only, as JSON (check_speedpass
+# --Pnew), for example a candidate's new switches set off so it must equal the live engine (v22.4 G4); each sweep's
+# setup is laid over it.
 [ -n "$NEW" ] && [ -f "$NEW/engine.py" ] || { echo "NEW=<engine dir holding engine.py> is needed"; exit 2; }
 NEW=$(cd "$NEW" && pwd)
 cd "${CHROMA_PROJECT:-/mnt/project-files}" || exit 2
@@ -24,9 +26,11 @@ SP=(python3 -B chroma-release/check_speedpass.py --new "$NEW" --games "" --timin
 for v in LIB PACKS; do [ -n "${!v}" ] && { [ -d "${!v}" ] || { echo "$v=${!v} is not a folder"; exit 2; }; }; done
 [ -n "$LIB" ] && SP+=(--new-lib "$(cd "$LIB" && pwd)")
 [ -n "$PACKS" ] && SP+=(--new-packs "$(cd "$PACKS" && pwd)")
+PN=${PNEW:-"{}"}; python3 -c 'import json,sys; assert isinstance(json.loads(sys.argv[1]), dict)' "$PN" || { echo "PNEW=$PN is not a JSON object"; exit 2; }
+pnew() { python3 -c 'import json,sys; p=json.loads(sys.argv[1]); p.update(json.loads(sys.argv[2])); print(json.dumps(p))' "$PN" "$1"; }
 N=${LIVES:-400}; Y=${YEARS:-100}; rc=0
-seed() { "${SP[@]}" --seeds "$1" --lives "$N" --years "$Y" --worlds off,on,seed --tag "s$1" --scratch "/tmp/sl$1" || rc=1; }
-sweep() { "${SP[@]}" --seeds 7 --lives "${LIVES:-100}" --years "$Y" --worlds "$2" --tag "sweep$1" --scratch "/tmp/sl$1" --Pnew "$3" --Pbase "$3" || rc=1; }
+seed() { "${SP[@]}" --seeds "$1" --lives "$N" --years "$Y" --worlds off,on,seed --tag "s$1" --scratch "/tmp/sl$1" --Pnew "$PN" || rc=1; }
+sweep() { "${SP[@]}" --seeds 7 --lives "${LIVES:-100}" --years "$Y" --worlds "$2" --tag "sweep$1" --scratch "/tmp/sl$1" --Pnew "$(pnew "$3")" --Pbase "$3" || rc=1; }
 case "$1" in
   1) seed 41
      sweep A on '{"world_cfg": {"setting": "earth", "pace": 2.0, "tech_level": "behind", "climate": "high"}}'

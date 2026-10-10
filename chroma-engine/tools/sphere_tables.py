@@ -149,6 +149,40 @@ def build(src):
                    sides=[dict(touch=x["touch"], sign=x["sign"], who=list(x["who"]), share=float(x["share"]), line=x["line"])
                           for x in v["sides"]])
            for k, v in rd("far_sides.json")["events"].items()}
+    # S3 "Their places' eyes" and S4 "The odd one out" (chroma-ideas/social-mechanics.md; dynamics.json place_reading): how a
+    # place reads an act by its faces (place face x act colour, W U B R G), the outcome's step, the name's range and
+    # half-life, the rung speed a good or bad name gives, the go-betweens' talk weight and the caught-between gap
+    pr_ = dyn["place_reading"]
+    PLACE_READ = dict(table=[[float(pr_["table"][f][c]) for c in COLS] for f in COLS],
+                      success=float(pr_["outcome"]["success"]), failure=float(pr_["outcome"]["failure"]),
+                      rep_range=[float(x) for x in pr_["rep"]["range"]], half_life=float(pr_["rep"]["half_life_years"]),
+                      rung_good=float(pr_["rung_speed"]["good"]), rung_bad=float(pr_["rung_speed"]["bad"]),
+                      talk=float(pr_["talk"]["go_between_weight"]), caught_gap=float(pr_["caught_gap"]))
+    # S3's and S7's reading (dynamics.json place_reading): a place reads an act's colours with its faces, per (face, act
+    # colour) own +1, ally +.4, enemy -.4 (lead_ways reads a leader's way with it: legitimacy)
+    pr_ = dyn["place_reading"]
+    PLACE_READING = {f: {c: float(pr_["table"][f][c]) for c in COLS} for f in COLS}
+    # S7's time in post (dynamics.json lead_posts, Outer world 10-10): per post kind (places by haunt kind, settings by
+    # group kind, offices) and epoch, the form, term, renewal, consecutive terms, yearly end chance and age out (None: no
+    # such post then); the fast-change line per sphere for the custom way, and its loss a quarter; implied mean years
+    lp_ = dyn["lead_posts"]
+    cell_ = lambda c: None if c is None else {k: c[k] for k in ("form", "term_q", "renew", "max_terms", "end_y", "age_out")}
+    LEAD_POSTS = dict(kinds={k: dict(haunts=list(v.get("haunts", [])), groups=list(v.get("groups", [])),
+                                     by={e: cell_(v["by"].get(e)) for e in EPOCHS},
+                                     implied_mean_years=dict(v.get("implied_mean_years") or {}))
+                             for k, v in lp_["kinds"].items()},
+                      fast_line={sp: float(lp_["fast_change"]["line"][sp]) for sp in SPHERES},
+                      fast_loss=float(lp_["fast_change"]["loss_q"]))
+    # sacred lines (S5, chroma-ideas/social-mechanics.md): the offers a sphere event or a C3 institution event makes to
+    # the people of its town (dynamics.json offers): what is offered, the line kinds it touches (one or two), whether it
+    # carries a symbolic gesture, whom in town it is made to (far_sides.json's who words), and its kind (money, a post or a
+    # favour: the moment's offer: field matches it). Keys are "sphere.key", or
+    # "institution.<kind>" for C3's world events (sold, merged, leak, cover-up)
+    of_ = dyn["offers"]
+    OFFER = dict(kinds={k: v["colour"] for k, v in of_["line_kinds"].items()},
+                 events={k: dict(offer=v["offer"], lines=list(v["lines"]), gesture=bool(v["gesture"]), who=v["who"],
+                                 kind=v.get("kind", "money"))
+                         for k, v in of_["events"].items()})
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -156,7 +190,8 @@ def build(src):
                 SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
-                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR)
+                CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
+                PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER)
 
 
 def audit(T):
@@ -228,6 +263,25 @@ def audit(T):
         or not 0 < x["share"] <= 1 for x in v["sides"])]
     if fk_:
         bad.append(f"far sides: unknown events or malformed sides {fk_[:5]}")
+    rt_ = np.asarray(T["PLACE_READ"]["table"])   # the place reading: each face reads its own colour 1, two allies and
+    rs_ = np.sort(rt_, 1)                         # two enemies the same (so every colour is read alike)
+    if not (np.allclose(np.diag(rt_), 1) and np.allclose(rs_, rs_[0]) and np.allclose(rt_, rt_.T)):
+        bad.append("place reading: the table is not colour-even")
+    rt_ = np.array([[T["PLACE_READING"][f][c] for c in COLS] for f in COLS])
+    if (np.abs(rt_ - rt_.T).max() > 0 or np.abs(np.diag(rt_) - 1).max() > 0
+            or any(sorted(np.round(r_, 3).tolist()) != [-0.4, -0.4, 0.4, 0.4, 1.0] for r_ in rt_)):
+        bad.append("place reading: not symmetric, or a colour without own 1, two allies .4 and two enemies -.4")
+    lk_ = T["LEAD_POSTS"]["kinds"]
+    hk_ = [h for v in lk_.values() for h in v["haunts"]]
+    if (len(hk_) != 31 or len(set(hk_)) != 31 or set(T["LEAD_POSTS"]["fast_line"]) != set(SPHERES)
+            or any(set(v["by"]) != set(EPOCHS) for v in lk_.values())
+            or any(c is not None and (c["end_y"] is None or not 0 <= c["end_y"] <= 1) for v in lk_.values() for c in v["by"].values())):
+        bad.append("lead posts: haunt kinds not each mapped once, an epoch or a sphere's line missing, or an end chance malformed")
+    ok_ = T["OFFER"]["kinds"]
+    ob2_ = [k for k, v in T["OFFER"]["events"].items() if (k not in evk_ and not k.startswith("institution."))
+            or not 1 <= len(v["lines"]) <= 2 or not set(v["lines"]) <= set(ok_) or v["kind"] not in ("money", "post", "favour")]
+    if ob2_ or sorted(ok_.values()) != sorted(COLS):
+        bad.append(f"offers: unknown events or line kinds {ob2_[:5]}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")

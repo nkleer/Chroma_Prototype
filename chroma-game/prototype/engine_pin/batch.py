@@ -407,6 +407,10 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
+    for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
+                     (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+        if not on_:
+            sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -656,9 +660,12 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role)
 
 
-FAR_MOMENTS = False   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
-SPH_MOMENTS = False   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
-FLOORS = False      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
+FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
+EYES_MOMENTS = False    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
+SACRED_MOMENTS = False  # v22.4, S5: moments with cast_want: sacred, tragic or amends
+LEAD_MOMENTS = False    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 
