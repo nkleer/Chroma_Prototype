@@ -4888,7 +4888,7 @@ class People:
                                     why="rule-bound in a crisis" if w_ == 0 else "shown wrong in a crisis")
                 elif w_ == 3 and self._lw_rng.random() >= par["crisis"]:
                     p["succ_t"] = int(t); p["fades"] = 0
-                elif w_ == 2 and float(self.res[n, MON]) < self._lw_need:
+                elif w_ == 2 and self._lw_rng.random() < par["crisis"] and float(self.res[n, MON]) < self._lw_need:
                     self._lead_step(p, t, "favours", par["favours"], why="a favour called in, money under need")
             if p not in self.lw_posts:
                 continue
