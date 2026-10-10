@@ -1296,6 +1296,8 @@ class People:
         self.mark_dw = np.zeros((N, C))              # this year's step of it, for the engine to apply (then cleared)
         self._mark_yr = -1
         self._mark_tau = float(SD.MARK_TAU)
+        hs_ = np.array([SD.HAUNT_SHARES[k_] for k_ in HAUNT_KINDS])   # how common each haunt kind is (modern shares)
+        self._hprior = np.log(hs_ / hs_.mean())
         self._mark_pull = {k_: np.asarray(v_["pull"], float)[pm] for k_, v_ in SD.MARKS.items()}
         mz_ = {d_: (np.mean([v_[d_] for v_ in SD.MARKS.values()]), np.std([v_[d_] for v_ in SD.MARKS.values()]))
                for d_ in ("say", "skill")}
@@ -1346,14 +1348,15 @@ class People:
         return h, n
 
     def _haunt_util(self, ns, a, kinds=None):
-        """Utility of each place in each life's town (len(ns) x 31 kinds x N_PLACES): fit of the place's ways with the
+        """Utility of each place in each life's town (len(ns) x 31 kinds x N_PLACES): how common the kind is (the log of
+        its share, HAUNT_SHARES), fit of the place's ways with the
         life's (a child's: the family's), money against what the kind costs, the age a kind asks, and a faith's places
         for those who keep one; plus a Gumbel draw from the haunt stream (who goes where is partly chance)."""
         W = self.W; hp = W.hp_s[self.loc[ns]]                                     # n x 31 x P x 5
         who = self.w[ns] if a >= 10 else self.family_mix[ns]
         fit_ = likeness(hp, who[:, None, None, :])
         mon = self.res[ns, MON] if self.res.shape[1] > MON else np.full(len(ns), 0.5)
-        u = 12.0 * fit_ - 1.5 * HAUNT_COST[None, :, None] * (1 - mon)[:, None, None]
+        u = 12.0 * fit_ - 1.5 * HAUNT_COST[None, :, None] * (1 - mon)[:, None, None] + self._hprior[None, :, None]
         ok = (HAUNT_AGE <= a)[None, :]
         fk = np.array([k_.startswith("faith.") and k_ != "faith.seeking" for k_ in HAUNT_KINDS])
         ok = ok & ~(fk[None, :] & (self.pfaith[ns] < 0)[:, None])

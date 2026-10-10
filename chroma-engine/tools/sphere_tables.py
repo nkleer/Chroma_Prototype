@@ -5,7 +5,7 @@ compares an existing copy with the files (and recomputes the colour-even rows of
 that the copy carries).
     python3 -B chroma-engine/tools/sphere_tables.py SPHERES_DATA_DIR [--check]
 SPHERES_DATA_DIR is the master copy chroma-world/spheres/data (the nine sphere files, plan.json, epochs.json, dynamics.json,
-marks.json).
+marks.json; dynamics.json also gives haunt_shares).
 Writes (or checks) sphere_data.py beside engine.py in the tree this script sits in."""
 import sys, os, json, pprint
 import numpy as np
@@ -57,10 +57,13 @@ def build(src):
                                                      **{d: float(r[d]) for d in ("say", "routine", "danger", "wear", "skill")})
              for r in mk["rows"]}
     MARK_TAU = float(mk["size"]["tau_years"]); MARK_READING = str(mk["colour_reading"]["chosen"])
+    # how common each haunt kind is (dynamics.json haunt_shares): the modern share of adults for whom it is a regular
+    # place, read as a prior on the haunt picks (relative weights times fit)
+    HAUNT_SHARES = {k: float(v) for k, v in dyn["haunt_shares"]["shares"].items()}
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
-                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING)
+                MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES)
 
 
 def audit(T):
@@ -84,6 +87,9 @@ def audit(T):
     pl = np.array([v["pull"] for v in T["MARKS"].values()])
     if len(T["MARKS"]) != 60 or np.abs(pl.mean(0)).max() > 0.0005:
         bad.append(f"marks: {len(T['MARKS'])} subsectors, mean pull {pl.mean(0).round(4).tolist()}")
+    hs = T["HAUNT_SHARES"]
+    if len(hs) != 31 or min(hs.values()) <= 0 or max(hs.values()) > 1:
+        bad.append(f"haunt shares: {len(hs)} kinds, {min(hs.values())} to {max(hs.values())}")
     keys = [k for k, *_ in T["EVENTS"]]
     if len(set(keys)) != len(keys):
         bad.append("event keys repeat")
