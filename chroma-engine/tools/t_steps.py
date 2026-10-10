@@ -301,7 +301,9 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(c2_groups=True, c3_inst=True, c5_faith=True), dict(c3_inst=True, c5_faith=True), 40),
        ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
        ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
-       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30)]
+       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30),
+       ("the K2 and K6 rule fixes, moves near and far and season steps at their shares (move_near, season_excl)",
+        dict(move_near=True, season_excl=True), {}, 30)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
