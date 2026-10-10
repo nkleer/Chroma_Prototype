@@ -162,6 +162,12 @@ CHECKS = [
      "g = abs(a - b).max(); print('C-E6', 'PASS' if g <= .015 else 'CHECK', 'largest gap %.3f (v22 .006)' % g)\"",
      "re:^C-E6 PASS", ("lean41", "lean42", "lean43", "lean44", "nopack41", "nopack42", "nopack43", "nopack44"),
      "packs against no packs within .015, 1,600 paired lives"),
+    ("pie41", "C-E6", "Engine", "full", 1, EP, "python3 -B -c \"import numpy as np; W='{W}'\n"
+     "a = np.load(W + '/lean_41.npz')['pie']; b = np.load(W + '/nopack_41.npz')['pie']\n"
+     "[print(age, 'packs', a[k].round(3), 'none', b[k].round(3), 'largest gap %.3f' % abs(a[k] - b[k]).max()) for k, age in enumerate((20, 40, 70))]\n"
+     "g = abs(a - b).max(); print('C-E6', 'PASS' if g <= .03 else 'CHECK', 'largest gap %.3f, 400 paired lives (seed 41)' % g)\"",
+     "re:^C-E6 PASS", ("lean41", "nopack41"),
+     "packs against no packs within .03, 400 paired lives (seed 41; v22.3's quick proof, Engine 10-10)"),
     ("pie_packs", "C-E6", "Engine", "full", 1, EP, CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "the pie, packs on, 200 lives"),
     ("pie_nopacks", "C-E6", "Engine", "full", 1, EP, "NOPACKS=1 " + CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "no packs"),
     ("pie_won", "C-E6", "Engine", "full", 1, EP, "PX='{{\"world\": true}}' " + CX2 + " calib_v8/pie_check.py {T}/chroma-library 200 11", "same", (), "world on"),
@@ -184,6 +190,8 @@ CHECKS = [
      "same", (), "world on"),
     ("rarity", "C-E13", "Engine", "full", 4, EP, "OUT={W}/rarity.json python3 -B calib_v8/rarity_build.py && cmp {W}/rarity.json {RARITY} "
      "&& echo RARITY-SAME", "re:^RARITY-SAME", (), "the Book's rarity table rebuilds byte for byte (1,200 lives)"),
+    ("rarity1000", "C-E13", "Engine", "full", 4, EP, "OUT={W}/rarity.json python3 -B calib_v8/rarity_build.py 1000 && cmp {W}/rarity.json {RARITY} "
+     "&& echo RARITY-SAME", "re:^RARITY-SAME", (), "the same at 1,000 lives a seed (4,000 lives; v22.3's wider table, coordinator 10-10)"),
     ("speed", "C-E15", "Engine", "full", 1, EP, "python3 -B speed_check.py 1 80 5 off,on", "rc", (),
      "time per life, world off and on (the go-live v9 run is left out: it cannot read today's Library; C-E14 compares with it)"),
     ("child_deaths", "C-X5", "Engine", "full", 1, EP, "python3 -B calib_v10/child_deaths.py 400 90 5 {T}/chroma-library "
@@ -258,6 +266,7 @@ EXTRA = {
                     "chroma-library/earth_voice.py", "chroma-library/earth_science.py", "chroma-library/earth_politics.py",
                     "chroma-library/earth_stage.py"],
     "rarity": [NAMES["rarity_live"][0]],
+    "rarity1000": [NAMES["rarity_live"][0]],
 }
 # A steered row whose lives are already in the run's cache reads only the driver and the cache, so its proof names the
 # game and its pinned engine too: a later run reuses its pass only when they are unchanged.
@@ -292,6 +301,12 @@ if a.list:
     sys.exit(0)
 
 stamp = time.strftime("%Y%m%d-%H%M%S", time.gmtime())
+if not a.rejudge:                # claim the run folder now: runs started in the same second (jobs side by side) get -2, -3, ...
+    for n in range(2, 100):
+        try:
+            os.makedirs(os.path.join(REAL, "chroma-release", "out", "v22checks_" + stamp)); break
+        except FileExistsError:
+            stamp = stamp[:15] + f"-{n}"
 COMMIT = None                    # the repository commit checked (repo workflow step 6: a release is checked from a commit of main)
 CAND = None                      # its files' root: its own chroma-release/ scripts are the ones that run
 if a.repo or a.commit:
@@ -319,8 +334,7 @@ if a.rejudge:                    # judge a finished run again (its references ma
                  for ln in open(f, errors="replace").read().splitlines()[:3] if ln.startswith("# cwd ") and "/tree" in ln), "/nonexistent")
     T = os.path.join(WORK, "tree"); W = os.path.join(WORK, "w")
 else:
-    RUN = os.path.join(REAL, "chroma-release", "out", "v22checks_" + stamp)
-    os.makedirs(RUN)
+    RUN = os.path.join(REAL, "chroma-release", "out", "v22checks_" + stamp)   # made above
     WORK = os.path.abspath(a.work or os.path.join("/tmp", "v22checks_" + stamp))
     T = os.path.join(WORK, "tree"); W = os.path.join(WORK, "w")
     shutil.rmtree(WORK, ignore_errors=True); os.makedirs(T); os.makedirs(W)
