@@ -1006,6 +1006,9 @@ class Game:
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
+        for o in opts:                                  # the Library's role slots in an option ({friend}, {boss}): the scene's people
+            if "{" in o["label"]:
+                o["label"] = self.story.fill_label(o["label"], m)
         if not recon and t / 52 >= self.start_age:      # F5: a moment that follows from a pick of theirs says so
             _, cause = self._thread_of(loc, s)
             if cause is not None:
