@@ -13,11 +13,11 @@ Information lines follow (not judged): posts and falls counted per way and colou
 reasons.
 
     OMP_NUM_THREADS=1 python3 -B chroma-engine/tools/lead_check.py [--lives 300] [--years 80] [--seeds 41]
-        [--on] [--P JSON] [--json FILE]
+        [--on] [--P JSON] [--jobs 1] [--json FILE]
 
 The engine runs with its own DEFAULT (the commit's switches) and world on. --on also switches lead_ways on with what it
 needs (sph_levers) and the t_steps row's company (sph_fair, sph_events, sph_haunts, sph_hours, cur_on), for a commit
-from before the v22.4 refit; --P adds overrides as JSON. CHROMA_ENGINE picks the engine (tools/_engine.py). --json writes
+from before the v22.4 refit; --P adds overrides as JSON; --jobs runs seeds side by side (about 9 min a seed at 300 x 80). CHROMA_ENGINE picks the engine (tools/_engine.py). --json writes
 the numbers to FILE (under OUT_DIR when relative; never into the repository). Exit code 0 when both targets pass.
 """
 import sys, os, json, time, argparse, collections
@@ -59,7 +59,14 @@ def posts_of(N, Y, seed, L, P):
     PP = _PP[-1]
     if not getattr(PP, "lw", False):
         raise SystemExit("lead_ways is off on this commit (or sph_levers is): pass --on to switch it on")
-    return PP, list(PP.lw_ended) + list(PP.lw_posts), int(PP.t)
+    return [dict(p_) for p_ in list(PP.lw_ended) + list(PP.lw_posts)], int(PP.t)
+
+
+_RUN = {}   # the batch and settings, set before the workers fork (the batch does not pickle)
+
+
+def _job(seed):   # one seed (in a worker process with --jobs)
+    return posts_of(_RUN["N"], _RUN["Y"], seed, _RUN["L"], _RUN["P"])
 
 
 def main():
@@ -70,6 +77,7 @@ def main():
     ap.add_argument("--on", action="store_true")
     ap.add_argument("--P", default="{}")
     ap.add_argument("--min-falls", type=int, default=20)
+    ap.add_argument("--jobs", type=int, default=1)
     ap.add_argument("--json", default=None)
     a = ap.parse_args()
     P = dict(E.DEFAULT); P.update(ON if a.on else {}); P.update(json.loads(a.P)); P["world"] = True
@@ -81,8 +89,14 @@ def main():
     falls = np.zeros(5); expo = np.zeros(5); tip = [[] for _ in range(5)]
     fell = np.zeros(5); why = collections.Counter(); posts_w = np.zeros(5, int); held = 0
     t0_ = time.time()
-    for s in seeds:
-        PP, posts, T = posts_of(a.lives, a.years, s, L, P)
+    _RUN.update(N=a.lives, Y=a.years, L=L, P=P)
+    if a.jobs > 1 and len(seeds) > 1:
+        import multiprocessing as mp
+        with mp.get_context("fork").Pool(min(a.jobs, len(seeds))) as pool:
+            res = pool.map(_job, seeds)
+    else:
+        res = map(_job, seeds)
+    for s, (posts, T) in zip(seeds, res):
         for p in posts:
             end = p["end_t"] if p.get("end_t") is not None else T
             held += p.get("end_t") is None
