@@ -2672,17 +2672,16 @@ class Game:
 
     def _temper_cause(self, moved, keys, sg):
         """Item 6: the temperament line naming the told event of the stretch whose week moved it most the way it went
-        (Library TEMPER_CAUSE), or None (today's line) when no told event moved it that way."""
+        (Library TEMPER_CAUSE), or None (today's line) when no told event moved it that way. An event it named is not named
+        again within TEMPER_AGAIN weeks (a moment that comes back would otherwise be the cause year after year)."""
         evs, self._temper_evs = self._temper_evs, []
         T = getattr(ES, "TEMPER_CAUSE", None)
-        if not T or not evs:
+        named = self.__dict__.setdefault("_temper_named", {})
+        sc = [(float(d @ sg), n) for d, n in evs if self.t - named.get(n, -10 ** 6) >= TEMPER_AGAIN]
+        if not T or not sc or max(sc)[0] <= 0:
             return None
-        sc = [float(d @ sg) for d, _ in evs]
-        j = int(np.argmax(sc))
-        if sc[j] <= 0:
-            return None
-        return self.story.fill(self.story.pick(T).replace("{event}", evs[j][1]),
-                               ctx=dict(m=mk("T", ",".join(keys), ", and ".join(moved))))
+        ev = max(sc)[1]; named[ev] = int(self.t)
+        return self.story.fill(self.story.pick(T).replace("{event}", ev), ctx=dict(m=mk("T", ",".join(keys), ", and ".join(moved))))
 
     # ------------------------------------------------------------------ status
     def status(self):
@@ -3448,6 +3447,7 @@ RECALL_LINES = dict(
          "{{N}} has been here before: {when}, they chose to {what}, and it went wrong."])
 RECALL_GAP = 3           # years between two told memories (scars apart); the engine recalls about 2.7 a year
 RECALL_MIN = 0.9         # how strong a memory must come back to be told (the engine's floor is epi_recall .7)
+TEMPER_AGAIN = 5 * 52    # item 6: weeks before the temperament line names the same event again
 # item 6: a commitment's change as the event the temperament line names (TEMPER_CAUSE {event}), by what and kind, else by
 # what alone ({kind} filled); "inherited" names nothing
 TIED_COMMIT = dict(start=dict(partner="settling down with someone", career="starting out in their work",
