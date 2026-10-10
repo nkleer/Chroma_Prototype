@@ -719,6 +719,8 @@ DEFAULT = dict(
                          # weight of its own is likelier the better the person's colors and practice fit its ways
     suit_goal=2.0,       # and a dream or passion of its kind (or, for a perk, whose colors fit it) makes it this much likelier,
     suit_plan=3.0,       # a plan aimed at it this much
+    suit_k=1.0,          # how sharply the fit sorts who gets it: e^(suit_k x the person's fit in standard deviations above
+                         # everyone's), within e^-2..e^2; weights average 1, so the item's overall rate is kept
     rung_min=1.0,        # a title that grows from another (after=) comes only after this many years on that one (Emren 09:18:
                          # no big title in a short time, in one step)
     long_shot=0.1,       # packs 08:02 (Emren 06:06, the anti-story): a failed act for a title, or one whose failure grants [a long
@@ -1564,9 +1566,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return np.exp(3 * (res[:, MON] - 0.5)) * r_goal(i_)
         if wk_ == "ties":
             return np.exp(3 * (res[:, TIE] - 0.5)) * r_goal(i_)
-        if wk_ is None and P["suit_on"] and WAYS_[i_].sum() > 0:   # 10-09: no weight of its own: colors and practice both
-            pr_ = (hist_m @ ind_) / ind_.sum() if ind_.sum() > 0 else fit_best(w, i_)
-            return np.exp(_uclip(1.5 * (5 * (0.5 * fit_best(w, i_) + 0.5 * pr_) - 1), -2, 2)) * r_goal(i_)
+        if wk_ is None and P["suit_on"] and WAYS_[i_].sum() > 0:   # 10-09: no weight of its own: colors and practice both,
+            pr_ = (hist_m @ ind_) / ind_.sum() if ind_.sum() > 0 else fit_best(w, i_)   # against how everyone else fits it
+            f_ = 0.5 * fit_best(w, i_) + 0.5 * pr_
+            wt_ = np.exp(_uclip(P["suit_k"] * (f_ - f_.mean()) / (f_.std() + 1e-6), -2, 2))
+            return wt_ / wt_.mean() * r_goal(i_)         # the item's overall rate stays; who gets it follows the fit
         return r_goal(i_)
     def r_goal(i_):
         """A dream or passion of the item's kind (a perk: whose colors fit its ways), or a plan aimed at it (10-09)."""
@@ -1582,7 +1586,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             near_ = dp_ & (np.einsum("njc,c->nj", gm, WAYS_[i_] / WAYS_[i_].sum()) >= 0.3)
         else:
             return f_
-        return np.where(~aim_.any(1) & near_.any(1), P["suit_goal"], f_)
+        f_ = np.where(~aim_.any(1) & near_.any(1), P["suit_goal"], f_)
+        return f_ / f_.mean()                            # who gets it follows the goals; the item's overall rate stays
     def r_act(n, op, j, yrs, how, mix=None):
         if op in ("title", "grants"):
             r_gain(n, j, how, mix)
