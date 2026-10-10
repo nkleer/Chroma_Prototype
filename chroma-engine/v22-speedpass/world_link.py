@@ -65,6 +65,11 @@ INFL_REF, WELF_REF, RIGHTS_REF = 3.0, 0.63, 0.82
 REACH_K = 0.5       # utility of voice and subvert at the outer rings per unit of felt reach (0 to 1)
 CRIME_REF = 0.17    # local crime
 BELONG_REF = 0.85   # belonging met by settings and close people (People.belong): the mean week from age 20 (seed 3, 40 lives)
+# WL2's sizes (values for the v22.3 refit): workers feel this share of the price squeeze the jobless feel (real wages
+# lag prices); a recession takes about 3% of a wage's money (hours and raises; Great Recession hours -3%, BLS) and gives
+# a little time back; a disaster in town costs money and time while its damage lasts; a lockdown at its peak (.35)
+# takes about .1 off the ties a life drifts to
+WL2_PAR = dict(price_work=0.5, rec_money=0.02, rec_free=0.01, dis_money=0.05, dis_free=0.03, pand_tie=0.3)
 DIS_NEAR = 0.35     # share of disasters in a close person's town that become the life's own outside event
 # the world's own record entries behind each kind of effect on a life (domain, kind), for its cause on hover (stage 1, WL1)
 CAUSE_REC = {"housing": (("economy", "recession declared"), ("economy", "recession over")),
@@ -79,6 +84,9 @@ CAUSE_REC = {"housing": (("economy", "recession declared"), ("economy", "recessi
                               ("tech", "arrives", "new kind of job")),
              "university places": (("institution", "budget cut"),), "hospital places": (("institution", "budget cut"),),
              "technology": (("tech", "arrives"), ("tech", "spreads")), "norm": (("era", "era begins"),)}   # (domain, kind[, key's start])
+CAUSE_REC.update(prices_work=CAUSE_REC["prices"], disaster_time=CAUSE_REC["disaster"],   # WL2's effects
+                 recession=(("economy", "recession declared"), ("abroad", "world recession")))
+CAUSE_REC["rec_hours"] = CAUSE_REC["recession"]
 # a disaster's outside events by the world's hazard (world.HAZARDS), for P["dis_match"] (WL6): words in the event's name
 HAZ_EVR = {"flood": r"\bflood", "fire": r"\b(wild)?fire", "quake": r"\b(earth)?quake", "storm": r"\b(storm|hurricane)",
            "heat": r"\b(heat|drought)"}
@@ -733,6 +741,23 @@ class WorldLink:
         floor = 0.15 * (float(W.welfare) - WELF_REF) * ~np.asarray(employed, bool)
         free = np.full(self.N, 0.2 * (float(np.mean(W.rights)) - RIGHTS_REF))
         return {"housing": rent, "prices": price, "welfare": floor, "rights": free}
+
+    def wl2_parts(self, employed):
+        """WL2 (world-in-life.md), the small effects the world was missing, added to the targets the resources drift to,
+        each (N,) and 0 in a calm world: money from "prices_work" (prices eat a wage too, as wages lag), "recession"
+        (fewer hours and no raise for those who keep their job, twice in a severe one) and "disaster" (a disaster in
+        their own town costs money); freedom from "rec_hours" (the hours cut give a little time back) and
+        "disaster_time" (time spent clearing up); ties from "pandemic" (a lockdown cuts time with people)."""
+        W, PP, k = self.W, self.PP, WL2_PAR
+        emp = np.asarray(employed, bool)
+        inf_ = self._pub.get("inflation"); inf_ = INFL_REF if inf_ is None else float(inf_)
+        rec = float(getattr(W, "phase", 0) == 1) * (2.0 if getattr(W, "severity", 0) == 2 else 1.0)
+        ds = np.minimum(np.asarray(W.loc_disaster, float)[PP.loc], 1)
+        lock = float(getattr(W, "lockdown", 0.0))
+        return {"prices_work": -k["price_work"] * 0.004 * _uclip(inf_ - INFL_REF, -5, 15) * emp,
+                "recession": -k["rec_money"] * rec * emp, "rec_hours": k["rec_free"] * rec * emp,
+                "disaster": -k["dis_money"] * ds, "disaster_time": -k["dis_free"] * ds,
+                "pandemic": -k["pand_tie"] * lock + np.zeros(self.N)}
 
     def cause(self, kind, years=5, key=None):
         """The world behind an effect of `kind` (CAUSE_REC), for the game's hover: the latest public record entry of

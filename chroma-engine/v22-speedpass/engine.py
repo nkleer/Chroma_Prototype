@@ -737,6 +737,7 @@ DEFAULT = dict(
     sph_haunts=False,    # phase 2, N1: named places and each life's haunts (world switches, passed to the world as sph_town is)
     sph_hours=False,     # phase 2: hours in nine spheres and the rungs (N2), the places part of item 12's current
     sph_marks=False,     # phase 2: the mark of the work (marks.json), drawn in yearly with the world on
+    wl2=False,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
     world_pos_k=0.3,     # with the world on: how strongly what its order rewards (W.Pos) tilts the forces (f_world)
     kid_mort=5e-4,       # R15: a child's yearly chance of dying at least this (the Gompertz curve misses the young), and in
     infant_mort=0.005,   # the first year after a birth this more (about 4% of parents lose a child by 60, 9% by 75)
@@ -903,7 +904,9 @@ UPD_OFF = dict(dis_match=False,
                cult_shake=False, cult_no_dice=False, hist_party_gov=False, hist_pressure=False, hist_grievance=False,
                hist_chance_only=False,
                # stage 2 of v22.3, the spheres of society (item 15)
-               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False)
+               sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False,
+               # item 11, the world in their life: WL2's small effects
+               wl2=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
@@ -2053,6 +2056,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
     MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
+    WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
     if WON:
@@ -2907,6 +2911,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 rp_ = WL.resources_parts(held[:, CAR])
                 wfx_track("money", {k_: rp_[k_] for k_ in ("housing", "prices", "welfare")}, age, dead)
                 wfx_track("freedom", {"rights": rp_["rights"]}, age, dead)
+            if WL2_ON:   # WL2: the small effects, each charged once (spheres-implementation.md "One cost, one place")
+                w2_ = WL.wl2_parts(held[:, CAR])
+                mt = mt + w2_["prices_work"] + w2_["recession"] + w2_["disaster"]
+                ft = ft + w2_["rec_hours"] + w2_["disaster_time"]; tt = tt + w2_["pandemic"]
+                if WFX_ON:
+                    wfx_track("money", {k_: w2_[k_] for k_ in ("prices_work", "recession", "disaster")}, age, dead)
+                    wfx_track("freedom", {k_: w2_[k_] for k_ in ("rec_hours", "disaster_time")}, age, dead)
+                    wfx_track("ties", {"pandemic": w2_["pandemic"]}, age, dead)
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
