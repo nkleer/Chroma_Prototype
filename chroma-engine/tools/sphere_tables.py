@@ -73,11 +73,25 @@ def build(src):
     sz = dyn["seasons"]; SEASONS = dict(order=list(sz["order"]), hours={s: [float(x) for x in sz["hours"][s]] for s in SPHERES},
                                          hazards={s: [float(x) for x in sz["hazards"][s]] for s in SPHERES})
     SEPARATION = {x["key"]: float(x["separation"]) for x in ep["ladder"]}
+    # phase 3 rates (dynamics.json events_run, Outer world's answers in chroma-engine/notes/spheres-phase3-answers.md):
+    # each event's target count a decade in a calm modern town (local rows only) or society (any big row), by family or
+    # its override; the world-fired events (the world's own event fires them; no draw of their own); the 74 sphere
+    # states, the 16 of them that are world.py variables, and the states' rule (0..1, start .5, .05 a unit, relax .02 a
+    # quarter, memory .01 a quarter)
+    er = dyn["events_run"]; ft = er["rates"]["family_targets"]; ov = er["rates"]["overrides"]
+    wf = er["rates"]["world_fired"]["keys"]
+    for e in EV:
+        k_ = f"{e['sphere']}.{e['key']}"
+        e["target"] = float(ov.get(k_, ft[e["family"]])); e["fired"] = wf.get(k_)
+    STATES = sorted({f"{r['target']}.{k}" for e in EV for r in e["rows"] if r["target"] in SPHERES for k in r["state"]})
+    STATE_WORLD = sorted(er["states"]["world_vars"])
+    STATE_RULE = dict(start=0.5, step=0.05, relax=0.02, mem=0.01)
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
                 MARKS=MARKS, MARK_TAU=MARK_TAU, MARK_READING=MARK_READING, HAUNT_SHARES=HAUNT_SHARES, EV=EV,
-                SEASONS=SEASONS, SEPARATION=SEPARATION)
+                SEASONS=SEASONS, SEPARATION=SEPARATION, STATES=STATES, STATE_WORLD=STATE_WORLD, STATE_RULE=STATE_RULE,
+                HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"])
 
 
 def audit(T):
@@ -110,6 +124,10 @@ def audit(T):
             bad.append(f"seasons {kind}: a sphere's year averages {m.mean(1).round(3).tolist()}")
     if set(T["SEPARATION"]) != set(EPOCHS):
         bad.append(f"separation: epochs {sorted(T['SEPARATION'])}")
+    if len(T["STATES"]) != 74 or not set(T["STATE_WORLD"]) <= set(T["STATES"]):
+        bad.append(f"states: {len(T['STATES'])}, world ones outside {sorted(set(T['STATE_WORLD']) - set(T['STATES']))}")
+    if sum(e["fired"] is not None for e in T["EV"]) != 27 or min(e["target"] for e in T["EV"]) <= 0:
+        bad.append("rates: world-fired events or targets")
     ek = {e["key"] for e in T["EV"]}
     miss = sorted({c[0] for e in T["EV"] for c in e["chains"]} - ek)
     if miss:
