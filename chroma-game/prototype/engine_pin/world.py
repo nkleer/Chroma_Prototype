@@ -4007,10 +4007,6 @@ class World:
             params.setdefault(k, False)
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)
-        for k in V224_RULES:                               # saved before v22.4 (or with its switches off): they stay off
-            params.setdefault(k, None if k.endswith("_par") else False)
-        for k in V224_RULES:                               # saved before v22.4 (or with its switches off): they stay off
-            params.setdefault(k, False)
         W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))
         for k, v in d["state"].items():
             if isinstance(v, dict) and "__nd__" in v:

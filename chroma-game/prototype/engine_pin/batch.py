@@ -32,6 +32,8 @@ KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
 PACKS = ["science", "politics", "stage"]   # the ONE GO-LIVE (Emren 10-06 01:32), engine three-pack fit
+if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
+    PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
 # the names a condition may use (one value per person, or a world scalar); see run() "batch conditions"
 COND_VOCAB = """age age_mod decade_edge round_birthday stage child juvenile young_adult adult mature elder
@@ -95,6 +97,25 @@ def _ways(s):
 
 def _names(s):
     return [x.strip() for x in str(s or "").split(";") if x.strip()]
+
+
+def _when_only(R):
+    """v22.4 (GREEN_JOBS): the titles that only R.ROLES_WHEN rules (no ROLES or SPH_TITLE_ROLES rule)."""
+    other_ = set(getattr(R, "ROLES", {})) | set(getattr(R, "ROLES_OPTIONAL", ())) | set(getattr(R, "SPH_TITLE_ROLES", {}))
+    return {nm for nm in getattr(R, "ROLES_WHEN", {}) if nm not in other_}
+
+
+def _names_any(s, names):
+    """v22.4 (GREEN_JOBS): whether moment s names any of names in holds:, requires: or an option's act field."""
+    def hit(v):
+        return any(x_ in names for x_ in _names(str(v or "").replace("|", ";")))
+    if hit(s.get("holds")) or hit(s.get("requires")):
+        return True
+    for o_ in s.get("options", []):
+        nt = o_[5] if len(o_) > 5 and isinstance(o_[5], dict) else {}
+        if any(hit(nt.get(k_)) for op in ACT_OPS for k_ in (op, op + "_if_fails")) or hit(nt.get("requires")):
+            return True
+    return False
 
 
 def _lose(r):
@@ -208,6 +229,14 @@ def _roles(cat, R, L, extra=None, extend=None):
     # item 15, the sphere titles (earth_rules.SPH_TITLE_ROLES): compiled beside the rules, read only with sph_titles on
     G["rule_sph"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                      for nm, r_ in getattr(R, "SPH_TITLE_ROLES", {}).items() if nm in ID}
+    # v22.4 (<world>_rules.ROLES_WHEN; switch green_jobs): rules for titles and roads a newer catalogue has, each compiled
+    # once every title it names is in the catalogue, in place of the title's rule (rule_when) or its sphere-title rule
+    sph_ = getattr(R, "SPH_TITLE_ROLES", {})
+    when_ = {nm: r_ for nm, (needs_, r_) in getattr(R, "ROLES_WHEN", {}).items() if nm in ID and all(x_ in ID for x_ in needs_)}
+    G["rule_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, extend)
+                      for nm, r_ in when_.items() if nm not in sph_}
+    G["rule_sph_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
+                          for nm, r_ in when_.items() if nm in sph_}
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)
@@ -411,6 +440,9 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                      (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
         if not on_:
             sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
+    gj_ = set() if GREEN_JOBS else _when_only(R)
+    if gj_:   # v22.4: the green entry jobs' moments wait with their titles (GREEN_JOBS)
+        sits = [x for x in sits if not _names_any(x, gj_)]
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -508,6 +540,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     if roles is not False and os.path.exists(path):
         spec = importlib.util.spec_from_file_location(f"{world}_perks_titles", path)
         cat = importlib.util.module_from_spec(spec); spec.loader.exec_module(cat)
+        if gj_:   # v22.4: the titles only ROLES_WHEN rules wait for GREEN_JOBS (the catalogue then reads as before them)
+            cat = type("Catalogue", (), dict(TITLES=[x for x in cat.TITLES if x["name"] not in gj_], PERKS=list(cat.PERKS)))
         if PK["names"]:   # a pack's titles and perks join the base catalogue, its rules the engine's
             have = {x["name"] for x in list(cat.TITLES) + list(cat.PERKS)}
             dup = [x["name"] for x in PK["titles"] + PK["perks"] if x["name"] in have]
@@ -709,6 +743,8 @@ FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or fa
 EYES_MOMENTS = False    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
 SACRED_MOMENTS = False  # v22.4, S5: moments with cast_want: sacred, tragic or amends
 LEAD_MOMENTS = False    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+GREEN_JOBS = False      # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
+                        # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
