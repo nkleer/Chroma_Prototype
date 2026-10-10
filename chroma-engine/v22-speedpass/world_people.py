@@ -4605,6 +4605,7 @@ class People:
         self._lw_fast = np.array([LP["fast_line"][sp_] for sp_ in SPHERES]); self._lw_floss = float(LP["fast_loss"])
         self._lw_hist = []        # the town spheres' face mixes the last five quarters (custom's fast change: 4 quarters)
         self._lw_need = float(SD.DEEP["money"]["need_line"])   # favours: money under the need line
+        self._lw_ev_i = len(getattr(self.W, "sph_ev_log", ()))   # rules: the sphere events read so far (World.sph_ev_log)
         self.lw_posts = []        # the posts held now: dicts (see _lead_new)
         self.lw_ended = []        # the posts that ended, oldest first
         self.lw_due = []          # [life, moment key, post id, week queued]: a post's moment waiting to come
@@ -4753,6 +4754,19 @@ class People:
                     self._lead_step(q_, t, "favours", self.lw_par["favours"], why="the office ended")
         self._lead_ev(p, t, "ended", why=why, years=round((t - p["t0"]) / 52.0, 2))
 
+    def _lead_unfair(self):
+        """The sphere events fired since the last quarter that the led read as unfair (an unfair side of S1's tags,
+        World.fair_tags), counted once an event per (town, sphere); town -1: an event of the whole society."""
+        log = getattr(self.W, "sph_ev_log", None); out = {}
+        if log is None or len(log) <= self._lw_ev_i:
+            return out
+        rows = np.asarray(log[self._lw_ev_i:]).tolist(); self._lw_ev_i = len(log)
+        tags = self.W.fair_tags()["events"]
+        for _, i_, l_ in rows:
+            for j_ in {int(j_) for j_, _, sd_ in tags.get(int(i_)) or () if sd_ < 0}:
+                out[(int(l_), j_)] = out.get((int(l_), j_), 0) + 1
+        return out
+
     def _lead_step(self, p, t, key, size, why=None):
         """A fall's step in legitimacy (the falls in numbers); the crisis of the way waits to come (lead_crisis), or the
         turn to routine for a fading inspiring leader; under the fall line, the fall."""
@@ -4853,16 +4867,20 @@ class People:
         # 3. legitimacy and the falls of each way
         fair_ = W.sph_fair_target() if self.lw_posts else None
         tv_ = (0.5 * np.abs(self._lw_hist[-1] - self._lw_hist[0]).sum(-1)) if len(self._lw_hist) == 5 else None
+        unf_ = self._lead_unfair()
         for p in list(self.lw_posts):
             if p not in self.lw_posts:
                 continue
             n = p["n"]; l_, j_ = p["loc"], p["sphere"]
             self._lead_legit(p)
-            if p["way"] == 0:   # rules: a fairness scandal among the led (their felt fairness falls under the line)
+            if p["way"] == 0:   # rules: a fairness scandal among the led: an event in the sphere led that they read as
+                # unfair (S1's tags; the town's own or the society's), or their felt fairness falling under the line
                 lo_ = bool(fair_[l_, j_] < par["fair_line"])
                 if lo_ and not p["fair_lo"]:
                     self._lead_step(p, t, "rules", par["rules"], why="a fairness scandal")
                 p["fair_lo"] = lo_
+                for _ in range(unf_.get((l_, j_), 0) + unf_.get((-1, j_), 0)):
+                    self._lead_step(p, t, "rules", par["rules"], why="an unfair event")
             elif p["way"] == 2:   # favours: once a year, money under the need line
                 if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
@@ -4908,7 +4926,10 @@ class People:
                     if not others.any():
                         self.rmask[n, k] &= ~LEAD_BIT[int(self.skind[n, j_])]
                 self.slead[n, j_] = -2
-        for n, i_ in zip(*np.nonzero(self.lw_has & ~self.dead[:, None])):
+        gone_ = {(int(n_), int(i_)) for n_, i_, _ in self.lw_lost}   # titles a post's end took (the engine drops them
+        for n, i_ in zip(*np.nonzero(self.lw_has & ~self.dead[:, None])):   # after this week): no new post for them
+            if (int(n), int(i_)) in gone_:
+                continue
             if (int(n), True, int(i_)) not in {(p["n"], p["kind"] == "office", p["slot"]) for p in self.lw_posts}:
                 pk_, sp_, gk_ = LEAD_TITLES[self.lw_tnames[i_]]
                 gs_ = np.nonzero(self.skind[n] == G[gk_])[0] if gk_ else []   # the setting it leads, when the life is in one
@@ -5548,7 +5569,7 @@ class People:
         if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
             out["lead"] = dict(posts=[dict(p_) for p_ in self.lw_posts if p_["n"] == n],   # (plain numbers already)
                                ended=[dict(p_) for p_ in self.lw_ended if p_["n"] == n],
-                               due=[list(d_) for d_ in self.lw_due if d_[0] == n], q=int(self._lw_q),
+                               due=[list(d_) for d_ in self.lw_due if d_[0] == n], q=int(self._lw_q), ev_i=int(self._lw_ev_i),
                                back=[[int(k_[1]), int(v_)] for k_, v_ in self._lw_back.items() if k_[0] == n],
                                has=[bool(x_) for x_ in self.lw_has[n]],
                                rng=self._lw_rng.bit_generator.state if self.N == 1 else None)
@@ -5684,7 +5705,7 @@ class People:
                         p_ = dict(p_, n=n, id=pp._lw_next); pp._lw_next += 1
                         (pp.lw_posts if p_.get("end_t") is None else pp.lw_ended).append(p_)
                     pp.lw_due += [[n, d_[1], ids_.get(d_[2], -1), d_[3]] for d_ in l_["due"]]
-                    pp._lw_q = int(l_["q"]); pp.lw_has[n] = l_["has"]
+                    pp._lw_q = int(l_["q"]); pp.lw_has[n] = l_["has"]; pp._lw_ev_i = int(l_.get("ev_i", pp._lw_ev_i))
                     pp._lw_back.update({(n, int(k_)): int(v_) for k_, v_ in l_["back"]})
                     if l_.get("rng") is not None and pp.N == 1:
                         pp._lw_rng.bit_generator.state = l_["rng"]
