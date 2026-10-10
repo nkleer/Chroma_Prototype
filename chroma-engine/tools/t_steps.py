@@ -290,7 +290,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
        ("C3, institution events (c3_inst)", dict(c3_inst=True), {}, 24),
-       ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24)]
+       ("C5, new faith movements (c5_faith)", dict(c5_faith=True), {}, 24),
+       ("late births by age and sex (birth_age)", dict(birth_age=True), {}, 30)]
 for label, sw, base, yrs in P2_:
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         continue
