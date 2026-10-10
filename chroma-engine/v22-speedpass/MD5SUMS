@@ -1,7 +1,7 @@
 11acc8c8b3be91d560edd7070dfb9560  batch.py
 757721ec4414965232f272d129713c58  combos.py
 0b37cd9417226c56501533649b411d2b  earth_rules.py
-ce4a7cb09245bd17e65c5d202b404b46  engine.py
+211c79e9251195b46aec014a424c1acb  engine.py
 49969b48747af07c480eff5054c22063  explain.py
 bff61663a683c064a68f1903543ec8dd  foresee.py
 57df38d107a1c657403bb3ff83775629  library.py
@@ -9,8 +9,8 @@ e943e67e779f03070a7ba8f522cf95d6  life.py
 801e939710d07b4eea766207566171af  rarity.json
 c562a0142558b5c29386a5991c7ef8f8  schwartz.py
 b1ba6014353f4e49e7468882e2d7c64f  sphere_data.py
-8cfcf2e1450fb364822c96c3d1514c5a  world.py
+ff252fcae54a0267f13c04ff0e1c497e  world.py
 ca4f7ac1cb22099bd42d4e0123dd563b  world_keys.py
-35637cc52b8c70c1c455fe0300836636  world_link.py
-50d12a3500ed1fba1f125e77987f5601  world_people.py
+1633bed4a88f147b99c1cde91fb1bedb  world_link.py
+aac9b0adae54ad00ea90feba334c3fe0  world_people.py
 1f5fd6b3e78a19633af121f8d26e637e  sphere_ev_base.py
