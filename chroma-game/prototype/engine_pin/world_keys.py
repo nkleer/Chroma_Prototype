@@ -10,7 +10,29 @@ WHO_SLOTS = ["parent", "grandparent", "elder", "sibling", "friend", "rival", "me
 WHO_SLOTS += ["keeper", "regular", "patron", "go-between"]   # spheres (item 15): a haunt's people (phase 2 fills them)
 CAST_WANTS = ["money", "care", "successor", "grandchild", "love", "rival", "forgiveness", "home", "stop", "secret"]
 CAST_WANTS += ["far_hard", "far_good", "far_mixed"]   # far_ties (item 18): a tie in another town touched by an event there
+CAST_WANTS += ["caught", "odd"]   # S3, S4 (chroma-ideas/social-mechanics.md): caught between two of their places; the odd one
+                                  # out at a place. Fired by the place reading (sph_eyes, sph_odd), never a cast member's wish
+CAUGHT_TAGS = ["side_a", "side_b", "bridge", "apart", "back"]   # S3: an option's caught: (side with place_a or place_b, bridge
+                                                                # them, keep them apart, step back)
+ODD_TAGS = ["blend", "hold", "leave"]                           # S4: an option's odd: (blend in, hold on, leave)
+CAST_WANTS += ["lead_take", "lead_crisis", "lead_fall", "lead_routine", "lead_hand"]   # lead_ways (S7): a post's moments,
+#   fired with no holder (cid -1): taking the post, a crisis of its way, its fall, the turn to routine, handing it on
+# sacred lines (S5, chroma-ideas/social-mechanics.md): moments the life's own state brings, with no cast member holding
+# the want (cid -1): an offer on a held line, a tragic trade-off between two held lines, amends after crossing one. They
+# go last: the cast's wants are the ones before them (world_people.NW)
+CAST_WANTS += ["sacred", "tragic", "amends"]
+OWN_WANTS = ["sacred", "tragic", "amends"]
+SACRED_KINDS = ["promise", "truth", "own_say", "loved", "home"]   # a line's kind (sacred:), W U B R G in the Canon's order
+OFFER_KINDS = ["money", "post", "favour"]                          # what an offer gives (offer:; dynamics.json offers kind)
+OFFER_ROUNDS = ["first", "raised"]                                 # the first offer, or the raised one after a refusal (round:)
+LINE_TAGS = ["hold", "cross"]          # an offer moment's option (line:): holds the line or crosses it
+TRAGIC_TAGS = ["a", "b", "torn"]       # a tragic moment's option (tragic:): holds the first line and crosses the second (a),
+                                       # the reverse (b), or gives a little of both (torn)
+HEAL_TAGS = ["amends", "reflect", "not_yet"]   # an amends moment's option (heal:): amends and reflect heal the wound
 TOUCHES = ["work", "money", "home", "health", "safety", "standing"]   # far_ties: what a far event touched (touch:)
+LEAD_WAYS = ["rules", "knowing", "favours", "inspiring", "custom"]   # lead_ways (S7): the five ways, W U B R G (lead_way:, lead:)
+FALL_KEYS = ["go", "fight", "again"]     # lead_ways: a fall moment's options (fall:): the post ends, kept at a cost, stand again later
+HAND_KEYS = ["chosen", "open", "stay"]   # lead_ways: a hand-over moment's options (hand:): a chosen successor, an open contest, stay on
 GROUP_KINDS = ["household", "class", "work", "congregation", "club", "scene", "online", "neighbours", "gang", "unit", "ward",
                "movement"]
 FEATURES = ["city", "town", "village", "remote", "capital", "suburb", "university", "port", "coast", "industry", "mining",
