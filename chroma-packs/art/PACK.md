@@ -72,6 +72,11 @@ with a later "Music, Dance and Comedy" pack.
 - The engine loads it: `load_batch("earth", packs=["science", "politics", "stage", "art"], pack_moments={"art": <the
   compiled art.py>})` with engine-conditions.py in PACK_RULES["art"]: 285 titles, 272 perks, 1,346 moments (the four
   world-only moments stay out of an Earth life).
+- A short scratch run (150 lives on each of seeds 11 and 12, with and without the pack; the three live packs' TIER_LIFT,
+  no refit): the pie gap is .005 at most at 40 and at 70 (W U B R G at 40 .244 .153 .151 .230 .223 without, .248 .153
+  .154 .225 .220 with). Ever held: street artist .023, illustrator for hire .030, painter or sculptor .013, art teacher
+  .040, gallery owner .003, master craftsperson .003, open-mic poet .037, life-drawing regular .027, art school student
+  .033, novelist .017; the two summits 0 in 300 lives, before the refit's tier fit with the floors.
 - Merging this folder changes no life: nothing reads chroma-packs/art/ until `art` is in batch.PACKS.
 
 Changes the writers made to the brief, kept: per_year is 0 for young_adult on moments whose stages begin at adult
