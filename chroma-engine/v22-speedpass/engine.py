@@ -820,6 +820,11 @@ DEFAULT = dict(
                          # week the commitments held (profiles weighted by investment, at most one act's worth in all) count as
                          # role_skill of an act's practice in their ways, and draw the niche toward them at role_niche of its pace
     role_skill=0.5, role_niche=0.5,   # role_practice: a held role's weekly practice and its pull on the people around
+    black_edge=0.25,     # role_practice: Black's edge (Emren 10-10 22:37 on item 26: "accept it but give black a slight advantage
+                         # boost, compared to others"). Ambition turns what one holds into gain faster: a held role's weekly
+                         # practice, and the years on a rung toward the title it leads to (rung_years), count 1 + black_edge x
+                         # how Black-led the person is ((Black share - .2) / .3, from none at an even share to all at .5).
+                         # Only with role_practice on
     read_skill=0.0,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
                          # to master) fills this share of what the person still misreads of its call and the world's push
                          # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
@@ -1920,6 +1925,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if len(ii_) > 1:
             ii_ = sorted(ii_, key=lambda i_: (GR["refines"][i_] >= 0, r_since[n, i_]))
         return int(ii_[0]) if len(ii_) else -1
+    def black_k():
+        """black_edge: 1 + black_edge x how Black-led each person is now (Black share .2 -> 0, .5 or more -> 1)."""
+        return 1.0 + P["black_edge"] * _uclip((w[:, 2] - 0.2) / 0.3, 0.0, 1.0)
     def r_weight(i_):
         """Who is likelier to gain it: practice in its ways (skills), colors that fit its ways, money, or ties."""
         wk_ = GR["rule"][i_]["weight"]
@@ -3087,7 +3095,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 rw_ = np.nonzero((at_ >= 0).any(1))[0]; ai_ = np.maximum(at_[rw_], 0)
                 hw_ = r_has[rw_].astype(np.float32)
                 if P["rung_years"] > 0:   # a rung counts by the years on it (Emren 09:18; packs 09:21)
-                    hw_[:, :NT_] *= np.minimum(np.maximum(t - r_since[rw_, :NT_], 0) / (52.0 * P["rung_years"]), 1.0)
+                    yk_ = black_k()[rw_, None] if RP_ON and P["black_edge"] else 1.0   # black_edge: Black climbs faster
+                    hw_[:, :NT_] *= np.minimum(np.maximum(t - r_since[rw_, :NT_], 0) * yk_ / (52.0 * P["rung_years"]), 1.0)
                 prep_ = (np.einsum("ni,nki->nk", hw_, GR["HELP"][ai_])
                          + np.einsum("nm,nkm->nk", (mark_n[rw_] > 0).astype(np.float32), GR["HELP_MK"][ai_][:, :, :NM])) \
                     / np.maximum(GR["HELP_N"][ai_], 1)
@@ -3360,7 +3369,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if RP_ON:   # role_practice: the ways of what one holds, at most one act's worth a week
             rw_ = np.einsum("nk,nkc->nc", held * I, prof); rs_ = rw_.sum(1, keepdims=True)
             rw_ = rw_ / np.maximum(rs_, 1.0) * ~dead[:, None]
-            sig += P["role_skill"] * P["skill_gain"] * rw_ * (1 - sig)
+            sig += P["role_skill"] * P["skill_gain"] * rw_ * (1 - sig) * (black_k()[:, None] if P["black_edge"] else 1.0)
         SE += 0.05 * ma * (succ[:, None] - SE) * act_
         habit = 0.99 * habit + 0.01 * ma * act_
         # v10 memory: how acts in each color's ways went, weighted by stakes; bad memories fade faster than good ones
@@ -3919,6 +3928,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     ds_ += 0.3 * (b2_ & (ck2_ == 0)) + 0.15 * bk2_ * (b2_ & (ck2_ == 1)) + 0.15 * (b2_ & (ck2_ == 2))
                 cost_ = (dm_ <= -sp_["cost_money"]) | (dt_ <= -sp_["cost_ties"]) | (ds_ >= sp_["cost_stress"])
                 lv2_ = ~idle & live_ & ~dead
+                if sp_["cost_closed"] and closed_s is not None:   # any closed option's backfire counts (sacred_par)
+                    cost_ = cost_ | b2_
+                    WL.PP._sac_count("cost closed", b2_ & lv2_)
                 for nm_, m_ in (("money", dm_ <= -sp_["cost_money"]), ("ties", dt_ <= -sp_["cost_ties"]),
                                 ("stress", ds_ >= sp_["cost_stress"])):
                     WL.PP._sac_count(f"cost {nm_}", m_ & lv2_)   # (for the checks)

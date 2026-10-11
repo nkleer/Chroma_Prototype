@@ -244,6 +244,7 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None),
                caught=((0.0, 0.0), (0.0, 0.0), None, None), odd=((0.0, 0.0), (0.0, 0.0), None, None))
 FAIR_PART_NAMES = ["rules", "reasons", "due", "respect", "goodwill"]   # S1: the parts of fairness, W U B R G (Library)
+FR_HABIT = 3.0   # S1: the half-life, in years, of how often each part of fairness was heard of lately (habituation)
 FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
 # far_ties (item 18, chroma-ideas/far-off-events.md): start values, estimates refit in v22.3's one refit. hard, good: the
 # sides' shares x these; call_*: the chance a touched tie among the ~15 closest, living in another town, calls; take:
@@ -259,10 +260,17 @@ SAC_DEFAULT = dict(
     cost_money=0.1,    # below -.1, a tenth of the money scale (an option's own price, the means backfire); ties at or below
     cost_ties=0.1,     # -.1 (the law backfire); stress of .3 or more (the law backfire): the price of an act the law or
     cost_stress=0.3,   # the world closed, or of one that costs real money), counted from age 12
+    cost_closed=True,  # ... and any closed option that failed, whatever closed it (law, approval or means): its backfire is
+                       # a real cost even where it stays under those thresholds (a frowned-on act's: ties -.08, stress .15),
+                       # so each colour's ways count as costly as the world closes them (v22.4 fix: White's costs are
+                       # mostly frowned-on acts, and without it White formed lines at .37 of its share of lead years)
     age=16.0,          # lines form from this age (and offers reach them)
     lines=2,           # at most two lines a life
     reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
                        # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
+    known=2,           # a line held this many times (an offer and its raised round) is known around them: no more offers
+                       # come for it (v22.4 fix: offers follow the town's events, the who: they fit and how long the line
+                       # lasts, so without it Black and Green lines met up to twice the offers of White and Blue ones)
     c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
     refuse=0.9, gesture=0.7, doubling=0.05, cap=0.98,   # the character's own pick holds at .9 (.7 when the offer carries
                        # a symbolic gesture), + .05 per doubling of the offer's size, at most .98 (Ginges et al. 2007)
@@ -270,8 +278,10 @@ SAC_DEFAULT = dict(
     raised=(4, 12),    # weeks after a first refusal before the raised offer comes
     lapse=8,           # weeks an offer or amends waits for its moment
     quiet=True,        # an offer with no moment for it (or whose moment never came) is decided off-screen by the same odds
-    hold=dict(money=(0.05, 0.0), post=(0.03, 0.03), favour=(0.0, 0.05)),   # holding: the money and ties not had, by the
-                       # offer's kind (a post: its pay and standing), x its size
+    hold=dict(money=(0.05, 0.0), post=(0.05, 0.03), favour=(0.05, 0.05)),   # holding: the money and ties not had, by the
+                       # offer's kind, x its size: every offer's price is money not had (a post its pay, a favour what
+                       # it was worth), a post and a favour also cost ties (v22.4 fix: a favour cost no money, and White's
+                       # promise lines meet mostly favours)
     wound=0.5,         # crossing: stress, a moral injury (Litz et al. 2009), as a widowing's
     seed=0.15,         # ... a seed in the line colour's shadow part (with shadows; a reflection moment takes off as much)
     piv=0.15, piv_far=1.0, piv_core=0.3,   # ... and a turning point's lesson (the game's item 4, its full "toward" kind)
@@ -576,6 +586,8 @@ class People:
         self.fr_read = bool(wp_.get("fair_read", False)) and self.sph_fr
         if self.fr_read:   # S1: fairness read five ways (the town events already fired are not read)
             self._fr_i = len(getattr(W, "sph_ev_log", ()))
+            self._fr_n = np.zeros(5)    # how often each part of fairness was heard of lately (habituation; FR_HABIT)
+            self.fr_cnt = np.zeros(5)   # every move applied, by part (read only: tools/fair_check.py s1_counts)
 
     # ------------------------------------------------------------------ the world, read through world-build.md's names
     def _world_static(self):
@@ -3097,6 +3109,7 @@ class People:
             return
         ns = ns[self._sac_fit(ns, o["who"], t)]
         tch = (self.sac_line[ns][:, :, None] == np.asarray(kinds)[None, None, :]).any(2)   # n x 2: the line is touched
+        tch &= self.sac_held[ns] < sp["known"]   # (a line known not to be for sale is not offered for)
         ns, tch = ns[tch.any(1)], tch[tch.any(1)]
         r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
         for n_, tc_ in zip(ns[r_], tch[r_]):
@@ -4470,8 +4483,14 @@ class People:
     def _fair_week(self, t):
         """S1 (fair_read): each tagged sphere event fired since last week (World.fair_tags) moves felt fairness in the
         sphere it touches, for the lives of its town (the whole society's: everyone), by .05 x the weight of its parts
-        (their mean), up on its fair side and down on its unfair one."""
+        (their mean), up on its fair side and down on its unfair one. A part heard of more often than the others in
+        recent years is heeded less (habituation; Helson 1964, Frederick and Loewenstein 1999): each of an event's
+        parts moves with chance (rarest part's recent count + 1) / (its own + 1), the counts (every tagged part an event
+        carries, heeded or not) fading with a half-life of FR_HABIT years, so each part of fairness, and so each
+        colour's eye, is stirred about as often as the others."""
         log = getattr(self.W, "sph_ev_log", None)
+        if self._fr_n.any():
+            self._fr_n *= 0.5 ** (1.0 / (52.0 * FR_HABIT))
         if log is None or len(log) <= self._fr_i:
             return
         rows = np.asarray(log[self._fr_i:]).tolist(); self._fr_i = len(log)
@@ -4486,7 +4505,12 @@ class People:
             if wn is None:
                 wn = self._fair_w()
             for j, ps, sd in mv:
-                ix = ["WUBRG".index(p_) for p_ in ps]
+                ps_ = list(dict.fromkeys("WUBRG".index(p_) for p_ in ps))
+                self._fr_n[ps_] += 1.0; m_ = self._fr_n.min() + 1.0
+                ix = [k_ for k_ in ps_ if self.rng.random() < m_ / (self._fr_n[k_] + 1.0)]
+                if not ix:
+                    continue
+                self.fr_cnt[ix] += 1.0
                 self.fair[nn, j] = _uclip(self.fair[nn, j] + 0.05 * sd * wn[nn][:, ix].mean(1), 0, 1)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
@@ -5557,6 +5581,7 @@ class People:
                                    fair_log=[[int(r_[0]), int(r_[2]), int(r_[3])] for r_ in self.fair_log if r_[1] == n])
             if getattr(self, "fr_read", False):   # S1 (only when on): the town events read
                 out["spheres4"]["fr_i"] = int(self._fr_i)
+                out["spheres4"]["fr_n"] = [float(x_) for x_ in self._fr_n]
         ca_, sa_ = getattr(self, "care_load", None), getattr(self, "sh_around", None)
         cm_ = getattr(self, "comrade", None)
         if ca_ is not None or sa_ is not None or cm_ is not None:   # phase 5 (only once on): this month's care load and
@@ -5670,6 +5695,8 @@ class People:
                     pp.fair_log += [[t_, n, j_, v_] for t_, j_, v_ in s4_["fair_log"]]
                     if getattr(pp, "fr_read", False) and "fr_i" in s4_:
                         pp._fr_i = int(s4_["fr_i"])
+                        if "fr_n" in s4_:
+                            pp._fr_n = np.asarray(s4_["fr_n"], float)
         if any(d.get("spheres5") for d in saved):
             for n, d in enumerate(saved):
                 s5_ = d.get("spheres5") or {}

@@ -153,7 +153,7 @@ function living(img) {
     img.classList.add("lk-print");
     img.addEventListener("animationend", (e) => { if (e.animationName === "lkprint") img.classList.remove("lk-print"); });
   }
-  const list = lightsOf(img.getAttribute("src"));
+  const list = lightsOf(img.dataset.pic || img.getAttribute("src"));
   if (!list || !list.length) return;
   const box = document.createElement("span"); box.className = "lk-lights"; box.setAttribute("aria-hidden", "true");
   box._img = img; box._ls = list; box._ar = host.closest(".tarot") || card ? 0.7 : 1.76;
