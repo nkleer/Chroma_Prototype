@@ -420,7 +420,12 @@ DEFAULT = dict(
     ev_eta=0.15,        # how far an accepted message moves the want (per unit strength and exposure)
     ev_z=0.05,          # how far it moves motives directly (felt experience), scaled by plasticity
     acc0=0.15, acc_fit=0.45, acc_disc=1.5, acc_open=0.5, acc_conf=1.0, acc_hold=0.5,
-    cur_will=0.0,        # the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
+    gap_move=0.3,        # (.3 from the v22.4 refit) a gap one is acting to close weighs less in satisfaction: the distance to the person one wants to be
+                         # (sat_gap) counts up to this share less as the ten-year acted ways (hist_m) run toward what is wanted
+                         # beyond what is held (full at .5 of the acts there, none at an even .2). Progress toward a goal, not
+                         # only its distance, sets how it feels (Carver and Scheier 1990). G19w, 10-11: in world-on lives that
+                         # keep choosing Green the want-identity gap is the whole of the contentment drop. 0: as before
+    cur_will=1.0,        # (1.0 from the v22.4 refit) the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
                          # above), the current pulls it down up to this share less (a tailwind stays). The times, the people and the places around a
                          # life do not follow its choices; with the world on they run toward White and Red, so lives that keep
                          # choosing Green or Blue were pulled out of them (G19w, 10-11: the current, own colour, ages 15-40,
@@ -476,9 +481,9 @@ DEFAULT = dict(
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
     sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
-    green_jobs=False,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
+    green_jobs=True,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
                          # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
-    acc_redraw=False,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
+    acc_redraw=True,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
                          # route refuses (acc_first, acc_move) re-draws among the other titles whose rules hold, by the same
                          # weights, so the life goes to its next-best fit, not to no title (off: the career starts untitled)
     occ_keep=0.6, occ_back=3.0,   # a new job after one ended within occ_back years returns to the last line of work with this
@@ -569,7 +574,7 @@ DEFAULT = dict(
     sh_strain=0.004,           # W rigid: weekly strain of duty held too hard (stress)
     sh_form="own",   # how the pull works: "own" (the shadowed color gives way) or "balance" (back toward what is lacking)
     sh_pull=0.05,   # an active shadow pulls its own color back (log-ratio share a week at full strength)
-    sh_will=0.0,    # the pull gives way to the will (G19, 10-11): on a colour the person wants beyond what they hold (want
+    sh_will=0.5,    # the pull gives way to the will (G19, 10-11; .5 from the v22.4 refit): on a colour the person wants beyond what they hold (want
                     # above identity, full at .2 above), the shadow pulls back up to this share less. A shadow pulls back
                     # what one holds beyond what one wants (its own "holding on" source); a way one keeps choosing grows,
                     # and its other costs (sh_fail, sh_tie, sh_strain, sh_lapse, sh_door) stay. 0: as before
@@ -777,21 +782,21 @@ DEFAULT = dict(
     far_ties=True,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
-    fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
+    fair_read=True,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
                          # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
-    sph_eyes=False,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
+    sph_eyes=True,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
                          # talk through go-betweens, caught between two places (world switch; needs sph_haunts)
-    sph_odd=False,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
+    sph_odd=True,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
                          # needs sph_eyes)
     eyes_par=None,       # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
-    lead_ways=False,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
+    lead_ways=True,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
                          # legitimacy and end, in place of phase 4's fixed leader's tenure; with sph_levers (world switch;
                          # lead_par: its tuning, world_people.LEAD_DEFAULT; None: start values)
     lead_par=None,
-    sacred=False,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
+    sacred=True,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
                          # spheres' and C3's offers on them bring a moment the character refuses at .9 (world switch; with
     sacred_par=None,     # sph_events); sacred_par: its tuning (world_people.SAC_DEFAULT; None: start values)
-    seen_done=False,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
+    seen_done=True,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
@@ -821,7 +826,7 @@ DEFAULT = dict(
     birth_age=True,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
-    role_practice=False,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
+    role_practice=True,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
                          # choices must increase chances to become researcher"; tools/choice_check.py). On v22.2's rules white and
                          # blue acts fail two to four times as often as the others (true odds .81 and .74 against .90 to .95):
                          # practice comes only from the week's one act, and the colors least acted stay least practised, so a
@@ -834,16 +839,16 @@ DEFAULT = dict(
                          # practice, and the years on a rung toward the title it leads to (rung_years), count 1 + black_edge x
                          # how Black-led the person is ((Black share - .2) / .3, from none at an even share to all at .5).
                          # Only with role_practice on
-    read_skill=0.0,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
+    read_skill=0.5,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
                          # to master) fills this share of what the person still misreads of its call and the world's push
                          # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
                          # white and blue, so lives that act in those ways run overconfident and each failure pushes them
                          # away (choice_check, 10-10). 0: off, as before
-    lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
+    lens_want=0.5,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
                          # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
                          # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
                          # lowest, so lives that keep choosing them are held back (choice_check, 10-10). 0: off, as before
-    app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
+    app_vigil=True,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
                          # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
                          # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
                          # 1.4x and their gains at .6x and are taught out of their own colours (choice_check 10-10: net identity
@@ -1050,7 +1055,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0,
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0, gap_move=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
                acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -2306,7 +2311,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
     WON = bool(P["world"]) and BAT                     # the outer world (world-build.md, "How the engine reads the world")
     MK_ON = bool(P.get("sph_marks")) and WON           # spheres phase 2: the mark of the work (world on only)
-    EYES_ON_ = bool(P.get("sph_eyes")) and WON         # S3: their places read their acts (world on only)
+    EYES_ON_ = bool(P.get("sph_eyes")) and bool(P.get("sph_haunts")) and WON   # S3: their places read their acts (world on, with the haunts)
     ODD_ON_ = EYES_ON_ and bool(P.get("sph_odd"))      # S4: the odd one out at a place
     SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
     DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
@@ -4329,8 +4334,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         hope -= P["hope_let"] / 52 * hzf * np.maximum(0, hope - lvl)
         unmet = np.maximum(-1.0, (hope - lvl) / P["hope_young"])      # share of a young person's extra hope still unmet;
                                                                         # below 0, life gives more than is now hoped for
+        gap_c = gap
+        if P["gap_move"]:   # gap_move: a gap one is acting to close weighs less (progress toward a goal, not only its distance)
+            dir_ = np.maximum(a_ - w, 0); ds_ = dir_.sum(1)
+            al_ = np.where(ds_ > 1e-9, (hist_m * dir_).sum(1) / np.maximum(ds_, 1e-9), 0.2)   # recent acts toward the want
+            gap_c = gap * (1 - P["gap_move"] * _uclip((al_ - 0.2) / 0.3, 0, 1))
         c_now = 1 / (1 + np.exp(-(P["sat_need"] * (f_need - smid) + P["sat_adapt"] * (f_need - lvl)
-                                  + P["sat_mood"] * mood - P["sat_gap"] * (gap - P["sat_gap_ref"])
+                                  + P["sat_mood"] * mood - P["sat_gap"] * (gap_c - P["sat_gap_ref"])
                                   + TON * P["sat_base"] * (base_mood - P["base_ref"])      # a person's own usual mood
                                   - P["regret_k"] * regret                                  # v7: lost dreams that still fit
                                   - (P["sat_hope"] * hzf * unmet if P["sat_hope"] else 0.0))))

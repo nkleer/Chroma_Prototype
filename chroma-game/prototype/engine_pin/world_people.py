@@ -573,7 +573,7 @@ class People:
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
         # S3 and S4 (chroma-ideas/social-mechanics.md): off, nothing of them exists (S5 asks getattr(PP, "eyes_on", False))
-        self.eyes_on = bool(wp_.get("sph_eyes", False))
+        self.eyes_on = bool(wp_.get("sph_eyes", False)) and self.sph_h   # with the haunts (their places and life stages)
         self.odd_on = self.eyes_on and bool(wp_.get("sph_odd", False))
         if self.eyes_on:
             self._eyes_init(wp_)
