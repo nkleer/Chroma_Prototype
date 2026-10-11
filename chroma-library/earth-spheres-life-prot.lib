@@ -57,9 +57,9 @@ scene G: Out here people stop for each other; it is how it has always been. But 
 - B>R | offer a lift to town for the price of the petrol, and enjoy the company | v: hedonism, achievement | sphere: prot.B | chance: 65
 - R>G | flag down the next car too, so the two drivers can tow them home | v: benevolence, stimulation | sphere: prot.R | chance: 65
 - G>W | wait with them in your warm car until the recovery truck comes | act: wait with them in their warm car until the recovery truck comes | v: benevolence | sphere: prot.G | chance: 65
-works: The stranger turns out to be a nurse coming off a late shift, and the night ends with a hot drink and thanks.
+works not B: The stranger turns out to be a nurse coming off a late shift, and the night ends with a hot drink and thanks.
 works: Help comes, the car starts, and {N} drives home feeling the night has been put right.
-fails: {N} spends an hour in the cold for nothing: the stranger gets a lift with someone else and does not even wave.
+fails not B: {N} spends an hour in the cold for nothing: the stranger gets a lift with someone else and does not even wave.
 fails: {N} drives home uneasy, and all week cannot decide whether they chose well.
 
 # ---------------------------------------------------------------- everyday, calls WU (cycle s3); partner: a stranger waving a torch on the dark road
@@ -187,7 +187,7 @@ scene G: {N} has to work beside {colleague} every night for years. What they do 
 - B>U | let him go, and keep the favour he owes you on file | act: let him go, and keep the favour he owes them on file | v: power | lever: subvert | sphere: prot.B | chance: 65
 - R>B | let him think you will take it, then charge him with the offer too | act: let him think they will take it, then charge him with the offer too | v: stimulation, power | sphere: prot.R | chance: 65
 - G>R | tell your partner straight, out by the car, that you two do not do this | act: tell their partner straight, out by the car, that the two of them do not do this | v: tradition, benevolence | lever: voice | pushes: close colleague | sphere: prot.G | chance: 65
-works: The stop is written up as it happened, and months later {N} is glad of every line of it.
+works not B G B>U: The stop is written up as it happened, and months later {N} is glad of every line of it.
 works: {N} comes through it with a clear name, and {colleague} with a little more respect than before.
 fails: The inspector hears of the night, and {N} finds the next rota full of the worst shifts.
 fails: Whatever {N} chose follows them for a long time: a look in the canteen, a word behind their back.
@@ -560,10 +560,10 @@ scene G: Whoever is in that car is somebody's child, somebody's parent. {N} cann
 - UG | flag down the farmer from the next field, who knows how this ditch floods | v: tradition, security | sphere: prot.GU | chance: 55
 - WG | get the stopped drivers working together: blankets, torches, the traffic | v: benevolence, conformity | sphere: prot.GW | chance: 55
 - WR | go down with the first-aid kit, doing what the course taught you | act: go down with the first-aid kit, doing what the course taught them | v: benevolence, stimulation | sphere: prot.RW | chance: 55
-works: The driver is out of the car and wrapped in a coat when the ambulance comes, and later sends a card.
+works not B: The driver is out of the car and wrapped in a coat when the ambulance comes, and later sends a card.
 works: {N} drives home shaking, but sure they did what they could.
 fails: {N} freezes for a long minute, and the memory of it stings for years.
-fails: The crew arrive and send {N} back up the bank, and it is weeks before {N} learns how the driver is.
+fails not B: The crew arrive and send {N} back up the bank, and it is weeks before {N} learns how the driver is.
 
 # ---------------------------------------------------------------- life event: a neighbour's door knocked on first (pairs D2b)
 

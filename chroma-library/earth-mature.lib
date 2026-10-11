@@ -67,9 +67,9 @@ scene G: {Ns} father had the same numbers at the same age. Some part of {N} has 
 - R>U | try a new diet every week until you find the one that works | v: stimulation, self-direction | chance: 54
 - G>B | work it off on long, hard walks in the hills, and let nobody see you weaken | v: power (face), security | body: heavy | chance: 58
 works: Six months on, the numbers are back where the doctor wants them.
-works: {N} climbs the stairs at work without stopping, and notices.
+works not B: {N} climbs the stairs at work without stopping, and notices.
 fails: The next test is worse than the first.
-fails: {N} keeps it up for three weeks, and then the old habits creep back.
+fails not G B: {N} keeps it up for three weeks, and then the old habits creep back.
 
 # ---------------------------------------------------------------- pair 2: calls UB (cycle s2) / calls WRG (cycle s4)
 
@@ -103,10 +103,10 @@ scene G: Every workplace has its seasons. The old trees come down so the young o
 - B>G | bargain for a part-time role that leaves you more time at home | v: security, benevolence | chance: 68
 - R>W | stand up at the team meeting and name what is happening to everyone over fifty | v: universalism (justice) | chance: 49
 - G>U | ask the old hands who survived the last shake-up how they did it | v: tradition, self-direction | chance: 55
-works: The chart is redrawn, and {Ns} name is back in a box with lines running to it.
+works not G W>B U>R: The chart is redrawn, and {Ns} name is back in a box with lines running to it.
 works: {N} leaves on {Ns} own terms, with more than {N} expected.
 fails: {N} is called into a small room with a box of tissues on the table.
-fails: {N} keeps the job, but loses all the work that mattered.
+fails not G W>B U>R: {N} keeps the job, but loses all the work that mattered.
 
 == a party for twenty-five years in the job
 tier: everyday
@@ -176,9 +176,9 @@ scene G: {N} rode one just like it at nineteen. It feels less like buying someth
 - B>W | haggle hard for the safest, most sensible car on the lot instead | v: security | tech: car | chance: 78
 - R>U | buy an old wreck of one on impulse, and teach yourself to restore it | v: self-direction | chance: 48
 - G>B | wait for the end of the season, when the dealers are desperate, and pounce | v: achievement, power (resources) | chance: 75
-works: {N} has it at last, and it is everything {N} hoped.
+works not G: {N} has it at last, and it is everything {N} hoped.
 works: A year later, {N} does not regret a penny of it.
-fails: The thing sits in the garage, hardly used, while the payments go on.
+fails not G: The thing sits in the garage, hardly used, while the payments go on.
 fails: The receipt turns up at home, and the row lasts a week.
 
 == a long-planned trip
@@ -280,9 +280,9 @@ scene G: {Ns} parents retired on very little and lived well enough, with a garde
 - B>G | buy a cheap, run-down cottage near family to retire into | binds | v: security, benevolence | tags: pay:money-.1 | chance: 65
 - R>W | rage at the letter, then set yourself a strict budget and keep to it | v: security, conformity | self_control: + | chance: 65
 - G>U | ask the family's old folk how they managed on so little, and write it down | v: tradition, self-direction | chance: 72
-works: The new plan adds up, and {N} sleeps better for it.
+works not R: The new plan adds up, and {N} sleeps better for it.
 works: By the next statement, the line at the bottom has moved the right way.
-fails: The fund {N} chose falls by a fifth in one bad month.
+fails not R G G>U B>G: The fund {N} chose falls by a fifth in one bad month.
 fails: {N} means to sort it out, and the letter sits in a drawer for another year.
 
 # ---------------------------------------------------------------- pair 5: calls WG (cycle s1) / calls UBR (cycle s3)
@@ -356,8 +356,8 @@ scene G: Some people come back into a life for a reason. {N} has always believed
 - R>U | go alone to the town where you met, to see how it feels now | v: self-direction, stimulation | chance: 90
 - G>B | decide it was meant to be, and start seeing them in secret | v: hedonism, self-direction | mark: hid a wrong | closed: approval: deceiving a partner; backfire: found out, and a marriage in crisis | chance: 65
 works: Whatever it becomes, an old wound closes, and {N} feels lighter for it.
-works: {N} and {prospect} find they still have plenty to say after thirty years.
-fails: The meeting is awkward, and both of them wish they had left the past alone.
+works not G U>G: {N} and {prospect} find they still have plenty to say after thirty years.
+fails not G U>G R>U: The meeting is awkward, and both of them wish they had left the past alone.
 fails: Someone sees them together, and the talk starts.
 
 # ---------------------------------------------------------------- pair 6: calls WB (cycle s2) / calls URG (cycle s4)
@@ -603,10 +603,10 @@ scene G: {friend} was there every day for a month when {Ns} father died. Some de
 - B>R | quietly pay back the missing money yourself, so it all goes away | v: benevolence | tags: pay:money-.1 | chance: 80
 - R>G | call the committee hypocrites, and walk out with your friend | v: benevolence | closed: approval: insulting the committee; backfire: barred from the club | chance: 35
 - G>W | gather the old members who know your friend's character to vouch for them | v: benevolence, tradition | chance: 62
-works: {friend} is cleared, and does not forget who stood beside them.
+works not B: {friend} is cleared, and does not forget who stood beside them.
 works: The truth comes out at the hearing, and it is less bad than anyone feared.
 fails: {friend} turns out to have taken the money after all, and {N} looks a fool.
-fails: {N} says the wrong thing at the hearing, and the friendship cools.
+fails not B: {N} says the wrong thing at the hearing, and the friendship cools.
 
 == an afternoon in the garden
 tier: everyday
@@ -639,7 +639,7 @@ scene G: {N} kneels in the soil and feels the warm earth. {Ns} grandmother's ros
 works: By evening the beds are clean, and {N} is pleasantly, deeply tired.
 works: The tomatoes that summer are the best {N} has ever grown.
 fails: {N} puts a back out lifting a pot, and spends the evening on the floor.
-fails: A storm in the night flattens the work of the whole afternoon.
+fails not R: A storm in the night flattens the work of the whole afternoon.
 
 # ---------------------------------------------------------------- pair 10: calls UG (cycle s2) / calls WBR (cycle s4)
 
@@ -711,7 +711,7 @@ scene G: {N} looks at the photograph on the desk and counts the evenings at home
 - G>R | take the long leave you are owed instead, and walk the coast path | v: stimulation, self-direction | body: heavy | chance: 85
 works: {N} makes the choice cleanly, and the first year goes better than anyone expected.
 works: Whatever {N} chooses, {N} sleeps well afterwards.
-fails: The first crisis lands on the desk in week two, and it is a bad one.
+fails not G G>R: The first crisis lands on the desk in week two, and it is a bad one.
 fails: {rival} never forgives the outcome, and makes sure everyone knows it.
 
 # ---------------------------------------------------------------- life event: the children leave home (pairs D5a)
@@ -950,5 +950,5 @@ scene G: Halfway up the hill of a life, {N} stops to look back down the path, an
 - UBRG | sell up, cut every tie, and sail a small boat around the world | v: self-direction, stimulation | mark: left home | chance: 50
 works: Two years on, {N} is sure it was the right choice.
 works: The path {N} chose turns out harder than expected, and better.
-fails: The money runs out before {Ns} plans find their feet.
+fails not W: The money runs out before {Ns} plans find their feet.
 fails: {N} spends the next year looking back at the other road.

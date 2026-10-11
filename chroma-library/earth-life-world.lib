@@ -38,7 +38,7 @@ scene G: It came the way good things grow, slowly and then all at once, like a s
 - RG | drop everything else and follow it wherever your gut leads | door | v: self-direction, stimulation | chance: 64
 - BG | say nothing, and let it grow quietly until you are far ahead of the rest | v: power, achievement | chance: 55
 works: What {N} found turns out to be real, and other people start to use it.
-works: {N} is asked to show how it works, and the room goes quiet to listen.
+works not BG: {N} is asked to show how it works, and the room goes quiet to listen.
 fails: A week later it stops working, and {N} cannot make it happen again.
 fails: Someone else gets there first, and the credit goes elsewhere.
 
@@ -159,7 +159,7 @@ scene G: {grandparent} never had the chance to sit for anything like this. {N} t
 - R>B | ride the high, and apply that same week for the next rung up | v: achievement, stimulation | chance: 55
 - G>R | spend the whole summer outdoors before deciding anything at all | door | v: self-direction, hedonism | chance: 72
 works: The paper opens a door that was shut before.
-works: {N} hangs it on the wall, and for years catches sight of it with a quiet glow.
+works not G: {N} hangs it on the wall, and for years catches sight of it with a quiet glow.
 fails: Everyone else seems to have the same paper, and it counts for less than {N} hoped.
 fails: The day itself goes sour, and {N} wonders what all the work was for.
 
@@ -198,7 +198,7 @@ scene G: {grandparent} holds the certificate up to the light and says nobody in 
 - B>U | talk the grown-ups into lessons with the best teacher around | door | v: achievement, power | chance: 58
 - R>B | show it off to the ones who laughed at you, and gloat | v: power | mark: made an enemy | act: show it off to the ones who laughed at them, and gloat | chance: 42
 - G>R | spend the rest of the summer outdoors, with no lessons at all | door | v: self-direction, hedonism | chance: 65
-works: The certificate goes up on the fridge, and {N} stops to look at it every morning.
+works not G: The certificate goes up on the fridge, and {N} stops to look at it every morning.
 works: {N} moves up to the next class with the older ones, a little taller than before.
 fails: Half the class got the same badge, and nobody seems very impressed.
 fails: The day goes sour when {sibling} sulks about it, and {N} wonders what all the practice was for.
@@ -354,7 +354,7 @@ scene G: {elder} began this fight long before {N} joined it. Now {elder} sits in
 - WBRG | strike again while the other side is reeling, and go straight after the next fight | v: power, achievement | tags: commit:faith | chance: 45
 - UBRG | follow the energy into whatever cause catches fire next, and see where it goes | v: stimulation, self-direction | tags: commit:faith | chance: 50
 works: A year later the change is real, and people who never heard of the campaign live by it.
-works: The win draws new people in, and {N} finds a crowd of friends where there were strangers.
+works not G: The win draws new people in, and {N} finds a crowd of friends where there were strangers.
 fails: Within months the decision is quietly watered down, and the fight starts again.
 fails: The group splits over who did the most, and never meets again.
 
@@ -430,7 +430,7 @@ scene G: The worn step, the tree at the window, the pencil marks on the door fra
 - WURG | join the neighbours facing the same, and form a tenants' union together | v: universalism, benevolence | mark: made a friend | chance: 60
 - WBRG | fight the landlord in court and on the doorstep until they back down | v: power (resources) | mark: made an enemy | chance: 40
 - UBRG | sell almost everything, live out of a van, and see where the road goes | door | v: self-direction, stimulation | mark: left home | tech: car | chance: 68
-works: {N} finds a new place before the month is out, smaller and somehow lighter.
+works not R WBRG: {N} finds a new place before the month is out, smaller and somehow lighter.
 works: The neighbours rally round, and {N} learns who will turn up with a van at seven in the morning.
 fails: {N} spends months on friends' sofas, moving every few weeks.
 fails: The eviction follows {N} onto every rental application for years.
@@ -588,10 +588,10 @@ scene G: Bodies change, the way trees lean with the wind. This is part of {Ns} b
 - B>U | push the doctors hard until they put you on the newest treatment there is | v: power, achievement | act: push the doctors hard until they put them on the newest treatment there is | tech: modern medicine | chance: 75
 - R>B | refuse to be slowed down, and train harder than anyone around you | body: heavy | v: achievement, power | act: refuse to be slowed down, and train harder than anyone around them | chance: 66
 - G>R | go back to the outdoors, walk every day, and let the body find its own strength | habit | v: universalism (nature), hedonism | chance: 66
-works: Within a year the routine is second nature, and most days {N} hardly thinks about it.
+works not R: Within a year the routine is second nature, and most days {N} hardly thinks about it.
 works: {N} learns the illness well enough to bend life around it, rather than the other way round.
 fails: A bad spell lands {N} in hospital, and the illness takes a step forward.
-fails: {N} grows tired of the pills and the rules, and the numbers slide.
+fails not R: {N} grows tired of the pills and the rules, and the numbers slide.
 
 # ---------------------------------------------------------------- life event: growing up with an illness (child version of "living with a chronic illness"; cycle s4, same codes in the same order)
 
@@ -628,7 +628,7 @@ scene G: {grandparent} has had the same thing for forty years, and shows {N} the
 - B>U | pester the grown-ups and the doctor until you get the newest gadget for it | v: power, hedonism | tech: modern medicine | chance: 68
 - R>B | refuse to sit out, and race to beat everyone at sports day anyway | body: heavy | v: achievement, power | chance: 68
 - G>R | play outdoors every spare hour, and let the body grow strong in its own way | habit | v: universalism (nature), hedonism | chance: 62
-works: Within a few months the routine is just part of the day, and {N} hardly mentions it.
+works not R: Within a few months the routine is just part of the day, and {N} hardly mentions it.
 works: {N} knows the illness so well by now that {N} explains it to a new teacher without being asked.
 fails: A bad spell means a night in hospital, and {N} misses the school trip everyone was talking about.
 fails: {N} gets tired of the medicine and the rules, and every evening turns into a battle over them.
@@ -744,7 +744,7 @@ scene G: It runs in the family: {parent} had the same hunger, and {N} always swo
 - B>W | strike a bargain with yourself: strict limits, and weekends only | v: security, hedonism | chance: 38
 - R>U | quit overnight, tell everyone, and find out what you are made of | v: self-direction, stimulation | mark: owned up | self_control: + | chance: 42
 - G>B | close ranks with the family, and shut out anyone who asks questions | v: security | mark: hid a wrong | closed: approval: hiding it from those who could help; backfire: it grows in the dark, and help comes late | chance: 15
-works: With help, {N} gets free of it, one day and then another.
+works not U B R: With help, {N} gets free of it, one day and then another.
 works: {N} stops, slips, and stops again, and this time it holds.
 fails: The habit tightens its grip, and {N} starts to lose the things that mattered.
 fails: {N} stops for a month, then starts again, and stops telling anyone.

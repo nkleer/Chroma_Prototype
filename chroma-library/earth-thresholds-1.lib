@@ -119,10 +119,10 @@ scene G: {N} catches a reflection in the bus window: taller, the face changing. 
 - B>W | make friends with the teachers' pet, and become one of the trusted ones | v: power, conformity | chance: 70
 - R>U | throw yourself into the one subject that lights you up, and be known for it | v: achievement, self-direction | grants: teachers' favourite | act: throw themselves into the one subject that lights them up, and be known for it | self_control: + | chance: 75
 - G>B | lean on your older cousins' name, so nobody at the new school dares touch you | v: power, security | act: lean on their older cousins' name, so nobody at the new school dares touch them | chance: 55
-works: By half term the new {N} feels less like a costume and more like a fit.
+works not G: By half term the new {N} feels less like a costume and more like a fit.
 works: The others take {N} the way {N} chooses to be seen, and something in {N} settles.
 fails: Someone from the old school turns up in the same class, and the old story arrives with them.
-fails: The new self is hard to keep up, and by the end of term {N} is worn out by it.
+fails not G: The new self is hard to keep up, and by the end of term {N} is worn out by it.
 
 # ---------------------------------------------------------------- step 2, transform, calls RG (cycle s4)
 
@@ -538,8 +538,8 @@ scene G: {parent} worked for the same firm for thirty-one years and got a clock 
 - R>W | sign on the spot with a whoop, in front of the whole office | v: achievement, conformity | chance: 90
 - G>U | ask the oldest hand in the office what the job is really like after ten years | v: tradition, self-direction | chance: 80
 works: The decision is made, and it feels like {Ns} own.
-works: The new footing is solid, and {N} finds the steadiness more freeing than feared.
-fails: The terms turn out worse than they looked, and {N} learns it only after signing.
+works not R: The new footing is solid, and {N} finds the steadiness more freeing than feared.
+fails not R: The terms turn out worse than they looked, and {N} learns it only after signing.
 fails: The offer is withdrawn before Friday, and {N} is back where {N} started.
 
 # ---------------------------------------------------------------- step 2, transform, calls UR (cycle s3)
@@ -575,9 +575,9 @@ scene G: Some part of {N} has always known this was the work {N} was meant for. 
 - B>W | get your employer to fund the training, in return for staying three more years | binds | v: security, achievement | grants: professional registration | chance: 60
 - R>U | sell the car to pay for an electrician's course in another city | v: self-direction, achievement | mark: moved away | title: electrician | self_control: + | chance: 35
 - G>B | train under a retiring baker, and buy the shop when they go | binds | v: tradition, achievement | title: shop owner | requires: savings | without: means | lacking: .4 | chance: 20
-works: The new road opens and holds, and two years on {N} cannot imagine the old one.
+works not G: The new road opens and holds, and two years on {N} cannot imagine the old one.
 works: {N} turns out to be good at the new thing, and the people there can tell.
-fails: The new start costs more than {N} had, and the old work is gone.
+fails not G: The new start costs more than {N} had, and the old work is gone.
 fails: Halfway through, {N} has to admit the new field is not what it looked like from outside.
 
 # ---------------------------------------------------------------- step 2, transform, calls WG (cycle s4)
@@ -615,10 +615,10 @@ scene G: {Ns} grandparents' rings are in the same drawer, worn thin by sixty yea
 - B>U | wait for the promotion, the savings and the right flat, and decide then | v: security, achievement | chance: 88
 - R>B | admit at last that you do not want this life, and leave | identity | v: self-direction | drops: girlfriend or boyfriend; living together | chance: 65
 - G>R | take your partner back to where you first met, and let the place ask for you | v: benevolence, hedonism | title: engaged | act: take their partner back to where they first met, and let the place ask for them | chance: 60
-works: The question gets its answer, and {N} and {partner} wake the next morning on new ground.
+works not G R>B: The question gets its answer, and {N} and {partner} wake the next morning on new ground.
 works: Something held in suspense for months is settled, and both of them breathe more easily.
 fails: The moment goes wrong, and the question hangs between them heavier than before.
-fails: {partner} needs time, and the weeks of waiting are hard on both of them.
+fails not G R>B: {partner} needs time, and the weeks of waiting are hard on both of them.
 
 # ---------------------------------------------------------------- step 3, calls UG (cycle s1)
 

@@ -83,7 +83,7 @@ scene G: It was {Ns} grandmother's before {elder}. Now the family looks round th
 - B>G | put the savings into a house the whole family can keep for generations | v: tradition, security | chance: 62
 - R>W | spend it at once on whoever is struggling most this month | v: benevolence | chance: 62
 - G>U | keep the old ways of the fund, and teach the young ones how it works | v: tradition | chance: 62
-works: The family settles around {N}, and the calls for help start coming to {Ns} door.
+works not R G: The family settles around {N}, and the calls for help start coming to {Ns} door.
 works: A year on, nobody is in debt, and everyone knows whose door to knock on.
 fails: Old grudges about who got what come up again, and some of them land on {N}.
 fails: {N} makes a promise to one cousin that another takes as a slight.
@@ -234,7 +234,7 @@ scene G: People lived side by side in this building long before the arguments st
 works: The rules pass with a show of hands, and the notes on the doors stop.
 works: It takes three meetings, but by the end people are nodding instead of shouting.
 fails: The loudest neighbour tears the plan apart, and the meeting ends worse than before.
-fails: Half the block ignores whatever is agreed, and {N} is blamed for trying.
+fails not G G>R: Half the block ignores whatever is agreed, and {N} is blamed for trying.
 
 # ---------------------------------------------------------------- U and B (ally): knowledge kept close
 
@@ -269,7 +269,7 @@ scene G: Change is coming to the firm like weather. {N} can feel which way the w
 - R>B | march in to {boss} tomorrow and ask for a place on that team | v: achievement | chance: 62
 - G>R | say nothing, let it fall where it falls, and trust your feet to land | v: self-direction | chance: 62
 works: When the news finally comes, {N} is ready for it, and others are not.
-works: {N} understands the firm better than ever, and keeps it quietly to themselves.
+works not W B R W>G U>W R>B: {N} understands the firm better than ever, and keeps it quietly to themselves.
 fails: {N} read it wrong, and the change never comes the way the figures said.
 fails: Somebody notices that {N} knew early, and the trust in the office cools.
 
@@ -307,8 +307,8 @@ scene G: {N} thinks of the people who have stood by them for years, and how rare
 - G>W | cook a long meal at home, and invite the neighbours too | v: tradition, benevolence | chance: 62
 works: People talk about the night for years, and {N} remembers every minute of it.
 works: For one evening {N} is at the centre of everything, and it feels exactly right.
-fails: The bill is far bigger than the bonus, and the morning after is grim.
-fails: Half the guests never come, and the hall feels empty and expensive.
+fails not B: The bill is far bigger than the bonus, and the morning after is grim.
+fails not G: Half the guests never come, and the hall feels empty and expensive.
 
 # ---------------------------------------------------------------- R and G (ally): primal freedom
 
@@ -342,9 +342,9 @@ scene G: Something in {N} has been restless in the town for years. The hills sou
 - B>U | go, and learn the trade well enough to run your own crew one day | v: achievement, self-direction | chance: 62
 - R>B | go, outwork everyone, and come back with the most money | v: achievement, power | chance: 62
 - G>R | go: sleep under the sky, live by the weather and your own strength | identity | v: stimulation, self-direction | mark: left home | chance: 50
-works: {N} comes back sunburnt, strong and quiet, with the hills still in them.
+works not W: {N} comes back sunburnt, strong and quiet, with the hills still in them.
 works: The work is hard and the nights are cold, and {N} has rarely been so happy.
-fails: Things fall apart at home while {N} is away, and it takes months to put them right.
+fails not W: Things fall apart at home while {N} is away, and it takes months to put them right.
 fails: The weather turns, the work dries up, and the summer ends early and sour.
 
 # ---------------------------------------------------------------- G and W (ally): harmony, growing together

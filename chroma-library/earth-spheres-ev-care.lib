@@ -112,8 +112,8 @@ scene G: {N} thinks there must be gentler ways to live with sore joints, and tha
 - WB | press the health board to pay for heart checks for everyone who took it | v: universalism, power | lever: voice | pushes: institution hospital | sphere: care.WB | chance: 58
 - WG | start a support group for the families of people who took the pill | v: benevolence, universalism | lever: found | sphere: care.GW | chance: 62
 works: {parent}'s heart check comes back clear, and the worry in the house finally lifts.
-works: The maker settles, the rules for new medicines tighten, and {N} had a small hand in it.
-fails: The complaint goes into a long queue and comes back months later with a form letter.
+works not U G RG UB: The maker settles, the rules for new medicines tighten, and {N} had a small hand in it.
+fails not U G RG UB WG: The complaint goes into a long queue and comes back months later with a form letter.
 fails: {parent} stops trusting any doctor at all, and the next real illness is left too long.
 
 # ---------------------------------------------------------------- remedy_feared (mixed; pairs D2a)
@@ -415,7 +415,7 @@ scene G: The recipe came from {grandparent}'s own mother, and hers before that. 
 - WG | gather the cousins for a Sunday when your grandparent teaches all of you | v: tradition, benevolence | sphere: care.GW | chance: 70
 - WR | make a big pot when colds go round, and carry cups door to door | v: benevolence | sphere: care.RW | chance: 80
 works: The recipe outlives {grandparent}, and every winter someone in the family makes it the old way.
-works: {N} has a notebook in {grandparent}'s own words, and it means more than the tea.
+works not BG: {N} has a notebook in {grandparent}'s own words, and it means more than the tea.
 fails: {N} keeps meaning to ask, and then it is too late, and nobody can quite get the taste right.
 fails: The recipe is written down, but without {grandparent}'s hands it never tastes the same.
 
@@ -544,8 +544,8 @@ scene G: For the first time in three generations, nobody in the family has had t
 - WG | help at the hospital's friends' group, so the queue moves for others | v: benevolence, universalism | sphere: care.GW | chance: 74
 - WU | write to the health board with the figures on the waits, and ask for more staff | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 56
 works: {parent} walks without pain by the summer, and {Ns} own turn comes sooner than feared.
-works: The family's savings stay where they are, and {N} sees what that means for years to come.
-fails: {Ns} wait stretches past a year, and the knee gets worse in the meantime.
+works not B: The family's savings stay where they are, and {N} sees what that means for years to come.
+fails not B: {Ns} wait stretches past a year, and the knee gets worse in the meantime.
 fails: The waits grow every year, and the pride in the new system turns to grumbling in the queue.
 
 # ---------------------------------------------------------------- fees_rise (bad; pairs D1a)
@@ -586,10 +586,10 @@ scene G: The family has always looked after its own. {N} thinks of the cousins, 
 - UG | find the doctor in town who treats people for nothing on Thursdays | v: security, benevolence | sphere: care.GU | chance: 48
 - WR | start a fundraiser and tell your partner's story to everyone you know | v: benevolence, achievement | tech: internet | sphere: care.RW | chance: 64
 - WU | join the patients' campaign pressing for the treatment to be covered | v: universalism, conformity | lever: voice | pushes: state | sphere: care.WU | chance: 46
-works: The appeal comes back in their favour, and {partner} starts the treatment next month.
+works not B G BG BR UG WR: The appeal comes back in their favour, and {partner} starts the treatment next month.
 works: Between the family and the fundraiser the bill is paid, and nobody had to sell the house.
 fails: The car goes, then the savings, and the bill is still not paid by spring.
-fails: The appeal is refused, and the treatment waits while the forms go back and forth.
+fails not B G BG BR UG WR: The appeal is refused, and the treatment waits while the forms go back and forth.
 
 # ---------------------------------------------------------------- hands_short (bad; pairs D1b)
 
@@ -630,7 +630,7 @@ scene G: In the end it falls to family, as it always has. {N} wonders how many h
 - WB | join the home's board of friends, and raise money to pay the carers better | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 58
 - WG | set up a rota with your siblings, so that one of you visits every day | v: benevolence | lever: loyalty | sphere: care.GW | chance: 82
 works: Within a few weeks the new faces know {parent}'s name, and the tea arrives cool.
-works: The home gets its staff back, and {N} can visit as family again, not as a spare carer.
+works not G: The home gets its staff back, and {N} can visit as family again, not as a spare carer.
 fails: The rota keeps changing, and {N} ends up doing half a carer's job on top of {Ns} own.
 fails: {boss} grows short-tempered about the hours, and {N} has to choose between them and {parent}.
 

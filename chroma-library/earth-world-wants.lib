@@ -50,8 +50,8 @@ scene G: {grandparent} taught {N} to plant beans and read the weather. The old a
 - R>W | take three months off work from Monday, and care for them yourself | v: benevolence | mark: helped someone in need | tags: pay:money-.05 | act: take three months off work from Monday, and care for them in person | chance: 55
 - G>U | go through the old photograph albums with them every evening, and keep the memories alive | v: benevolence, tradition | chance: 60
 works: {grandparent} settles into the new routine, and the frightening nights stop.
-works: The months are hard, but {grandparent} has good days again, and {N} is there for most of them.
-fails: Within weeks the arrangement is fraying, and {N} is running on four hours' sleep.
+works not R: The months are hard, but {grandparent} has good days again, and {N} is there for most of them.
+fails not R: Within weeks the arrangement is fraying, and {N} is running on four hours' sleep.
 fails: {grandparent} goes missing again one afternoon, and the whole question opens from the start.
 
 # meets: W, U>W, B>U, R>B, G>R (the friend dropped, or kept only on the parent's terms); not: U, G, W>G (a middle way of
@@ -129,9 +129,9 @@ scene G: {Ns} grandparents went through something like this, and {Ns} grandmothe
 - B>R | keep your evenings out with friends, and let the nurses do the caring | v: hedonism, self-direction | mark: refused someone in need | chance: 65
 - R>G | drop everything and drive them to every appointment, whatever work says | v: benevolence | chance: 55
 - G>W | ask their brothers and sisters to share the care, as families used to | v: tradition | chance: 60
-works: The treatment ends, and {partner} rings the bell on the ward with {N} beside them.
+works not R B>R: The treatment ends, and {partner} rings the bell on the ward with {N} beside them.
 works: The months are long, but the care holds, and the two of them come out of it closer.
-fails: Halfway through, {N} is worn so thin that the smallest thing starts a row.
+fails not R B>R: Halfway through, {N} is worn so thin that the smallest thing starts a row.
 fails: The arrangement breaks down in the second month, and {partner} feels like a burden.
 
 # meets: W, G, W>R, U>G (the dangerous work given up, now or by a date); not: U, B, B>W, G>B (a middle way that keeps
@@ -298,7 +298,7 @@ scene G: {grandparent} was married in the old building, and so was {parent}. The
 works: A year on, {N} has a place where {N} belongs, and the worst of the bitterness has passed.
 works: Some of the families find their way back to each other, and {N} helped make it happen.
 fails: Old friends cross the road rather than speak, and {N} is caught in the middle of it.
-fails: The half {N} chose falls apart within two years, and the hall stands empty.
+fails not UG: The half {N} chose falls apart within two years, and the hall stands empty.
 
 # ---------------------------------------------------------------- life event: the gang's test (pairs D1b)
 

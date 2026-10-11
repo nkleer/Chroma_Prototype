@@ -35,9 +35,9 @@ scene G: After two years at this bench {N} knows how a healthy culture smells, t
 - R>G | stay on and split the healthy flasks off by hand, to save what is still alive | v: security | chance: 65
 - G>W | set the flask aside with a note for the morning, as the old hands do | v: tradition, conformity | chance: 65
 works: The bad flask is caught in time, and the next day's run goes ahead clean.
-works: {boss} looks at the plate in the morning, nods, and thanks {N} for the catch.
+works not B>R: {boss} looks at the plate in the morning, nods, and thanks {N} for the catch.
 fails: The run fails at noon the next day, and a week's work goes into the autoclave.
-fails: The culture turns out to be fine, and {N} has held up the whole lab for nothing.
+fails not B>R: The culture turns out to be fine, and {N} has held up the whole lab for nothing.
 
 == the same two hundred samples a day
 tier: everyday
@@ -107,9 +107,9 @@ scene G: The author writes the way people talk where they grew up, with the knot
 - B>W | smooth it and every line like it, and hand the author a tidier book | v: power, conformity | closed: approval: changing an author's words without asking; backfire: the author finds out at proof stage | chance: 75
 - R>U | stay up with the manuscript until you can hear what the sentence should be | v: achievement | self_control: + | chance: 70
 - G>B | take the author to lunch and let them come round to cutting it themselves | v: power | chance: 58
-works: The author reads the note, laughs, and sends back a sentence only they could have written.
+works not G: The author reads the note, laughs, and sends back a sentence only they could have written.
 works: The paragraph sounds like a person again, and the edit goes back a day early.
-fails: The author takes the note badly, and the next email is short and cold.
+fails not G: The author takes the note badly, and the next email is short and cold.
 fails: The sentence stays as it was, and a reviewer quotes it as the book's one false note.
 
 == three books due in the same fortnight
@@ -183,7 +183,7 @@ scene G: Two people awake in a sleeping building, each doing the night's work. {
 - G>R | hum along to the radio on the empty floor, as if the building were your own | v: hedonism | chance: 95
 works: The worker looks up, and for a few minutes the fourth floor feels less empty for both of them.
 works: The floor is done by ten, and on the way out the worker asks {Ns} name for the first time.
-fails: The worker snaps that they are busy, and {N} pushes the trolley on with a hot face.
+fails not G: The worker snaps that they are busy, and {N} pushes the trolley on with a hot face.
 fails: A manager comes up in the lift and asks why the fourth floor is not finished.
 
 == a client asks to cut out the agency
@@ -219,7 +219,7 @@ scene G: The family has had {N} in the house for three years, and the children l
 - G>U | ask an older cleaner who went independent how it really went | v: self-direction | door | chance: 80
 works: By spring the work is on a footing {N} chose, and the money stretches further than before.
 works: The family is pleased, the arrangement holds, and Tuesdays go on as they always have.
-fails: A letter from the agency arrives, quoting clause eleven of the contract.
+fails not W G: A letter from the agency arrives, quoting clause eleven of the contract.
 fails: Two clients drop away, and the month's money comes up short.
 
 # ---------------------------------------------------------------- postal worker (T2-029): calls UG (cycle s3) / calls WBR (cycle s4)
@@ -258,7 +258,7 @@ scene G: Six years of the same face at the same gate, as regular as the seasons 
 works: They are found in time after a fall in the kitchen, and by spring they are back at the gate.
 works: {N} learns they are only away at a daughter's, and the post is held at the depot that afternoon.
 fails: Nobody answers, nobody knows, and the post goes on piling up behind the door.
-fails: {N} falls behind on the round, and {boss} wants an explanation that a feeling does not satisfy.
+fails not B G>B: {N} falls behind on the round, and {boss} wants an explanation that a feeling does not satisfy.
 
 == the round is redrawn
 tier: everyday
@@ -291,9 +291,9 @@ scene G: {N} has walked the old streets for nine years and knows where every dog
 - B>U | buy the depot manager a pint and find out what the next shake-up holds | v: power | chance: 75
 - R>B | attack the new round flat out, and claim every minute of overtime it takes | v: achievement, power | chance: 68
 - G>R | take the new hill as a gift: the best view on the round, every morning | v: stimulation, hedonism | chance: 88
-works: Within a month the new round has a rhythm, and {N} is home by two most days.
+works not B: Within a month the new round has a rhythm, and {N} is home by two most days.
 works: The depot gives way on part of it, and the worst of the hill goes to a van round.
-fails: The new round runs late every day, and the handheld marks {N} as the slowest on the shift.
+fails not B: The new round runs late every day, and the handheld marks {N} as the slowest on the shift.
 fails: A letter about performance turns up in {Ns} pigeonhole, and {colleague} gets the same one.
 
 # ---------------------------------------------------------------- merchant seafarer (T2-032): calls WR (cycle s1) / calls UBG (cycle s2)
@@ -367,7 +367,7 @@ scene G: {partner} has planted a garden that {N} has seen in only two of the las
 - G>U | wait one more voyage, and see how it feels to come home this time | v: self-direction | chance: 85
 works: The choice settles, and {N} sleeps well the first night after making it.
 works: {partner} hears the news and laughs out loud down the phone.
-fails: The decision is made, and for months {N} keeps glancing towards the water.
+fails not R W>B R>W: The decision is made, and for months {N} keeps glancing towards the water.
 fails: The company takes the offer back while {N} is still making up {Ns} mind.
 
 # ---------------------------------------------------------------- professional beekeeper (T2-035): calls BG (cycle s3) / calls WUR (cycle s4)
@@ -511,7 +511,7 @@ scene G: {partner} turns over in the dark and says nothing. Death keeps its own 
 - R>W | ring the backup colleague now, and offer to go out to the family together | v: benevolence, conformity | chance: 80
 - G>U | sit longer with the family than the job needs, and learn from their grief | v: benevolence | door | mark: helped someone in need | chance: 75
 works: The night passes, and by the weekend the rota has room in it again.
-works: {N} comes home at dawn, sleeps until noon, and wakes up steady.
+works not B>G: {N} comes home at dawn, sleeps until noon, and wakes up steady.
 fails: The tiredness shows: a name spelt wrong on an order of service, and a family that notices.
 fails: {partner} says, quietly, that {N} is never really home any more.
 
@@ -548,7 +548,7 @@ scene G: Shaky lines from a hand that is gone now. {N} thinks some marks should 
 - R>U | stay after closing and draw twenty versions until one is right | v: achievement | habit | self_control: + | chance: 78
 - G>B | do it with care, then ask if you can share it, with the story, online | v: achievement | tech: internet | chance: 72
 works: The client looks in the mirror for a long time, then hugs {N} without a word.
-works: The piece heals clean, and every wobble that mattered is still there.
+works not B B>W: The piece heals clean, and every wobble that mattered is still there.
 fails: The client says it is lovely, in the voice people use when it is not.
 fails: The lines spread a little in healing, and {N} sees every fault each time the client waves.
 
@@ -620,9 +620,9 @@ scene G: The book grew its ending the way a tree grows its shape. {N} is not sur
 - R>G | take the manuscript back to the town it is set in, and read the ending there | v: self-direction, tradition | chance: 80
 - G>W | let your writing group read both versions, and go with what they agree | v: conformity | chance: 65
 works: The book goes to press with an ending {N} can read aloud without flinching.
-works: The editor reads the new pages and writes back one line: this is it.
+works not R: The editor reads the new pages and writes back one line: this is it.
 fails: The publisher withdraws the offer, politely, by email on a Friday afternoon.
-fails: The book comes out with the new ending, and {N} cannot bear to read the last chapter at events.
+fails not R: The book comes out with the new ending, and {N} cannot bear to read the last chapter at events.
 
 == a royalty statement smaller than the rent
 tier: everyday
@@ -657,7 +657,7 @@ scene G: {parent} keeps saying there is always a room at home. The book is half 
 works: The money holds for another year, and the book gets its ending.
 works: The bills are paid by the first of the month, and the pages keep coming.
 fails: By spring the account is empty, and the book is still half written.
-fails: The new arrangement eats the writing hours, and the manuscript gathers dust.
+fails not R: The new arrangement eats the writing hours, and the manuscript gathers dust.
 
 # ---------------------------------------------------------------- court interpreter (T2-044): calls WU (cycle s3) / calls BRG (cycle s4)
 
@@ -729,8 +729,8 @@ scene G: The people in the dock still need someone who speaks their language, wh
 - R>B | leave the courts for conference work, and charge what you are worth | v: achievement, self-direction | drops: court interpreter | chance: 50
 - G>R | spend the empty days with your family, and let the anger go | v: benevolence, hedonism | chance: 75
 works: The bookings settle into something {N} can live on, and the work stays good.
-works: Within the year the courts fix the worst of the rates, and {N} is still in the courtroom.
-fails: The agency sends {N} two hours away to a hearing that is cancelled on arrival, unpaid.
+works not R R>B: Within the year the courts fix the worst of the rates, and {N} is still in the courtroom.
+fails not R R>B: The agency sends {N} two hours away to a hearing that is cancelled on arrival, unpaid.
 fails: The month's income comes in at half the old rate, and the bills do not wait.
 
 # ---------------------------------------------------------------- professional conservator (T2-045): calls RG (cycle s1) / calls WUB (cycle s2)

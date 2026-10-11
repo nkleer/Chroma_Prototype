@@ -89,9 +89,9 @@ scene G: Kin have always taken each other in when times turn. A shared roof is h
 - B>G | put in a word with your own boss, and get them taken on | v: benevolence, achievement | act: put in a word with their own boss, and get the sibling taken on | chance: 66
 - R>W | march them to the job centre today, before they lose heart | v: benevolence, conformity | chance: 50
 - G>U | ask the old neighbours and relatives here who might need a hand | v: tradition, benevolence | chance: 80
-works: Within a few months {sibling} has work in {Ns} town, and Sunday dinners have one more chair.
+works not G: Within a few months {sibling} has work in {Ns} town, and Sunday dinners have one more chair.
 works: {sibling} gets back on their feet, and never forgets who opened the door.
-fails: The weeks stretch into months, and the small things about sharing a home start to grate.
+fails not B G: The weeks stretch into months, and the small things about sharing a home start to grate.
 fails: Nothing comes up, and {sibling} goes back to {their_town} with the same one bag.
 
 # ---------------------------------------------------------------- pair 2: work, good, friend
@@ -317,10 +317,10 @@ scene G: Money moving between kin is as old as families. Sometimes it flows one 
 - B>W | accept, through a proper lawyer, so nobody can quarrel later | v: security, conformity | chance: 80
 - R>U | say yes tonight, then stay up planning every penny of it | v: stimulation, self-direction | chance: 56
 - G>B | buy into a small house or a piece of land with them, as partners | binds | v: tradition, achievement | chance: 62
-works: The money changes something real for {N}, and {sibling} is proud to have done it.
+works not R: The money changes something real for {N}, and {sibling} is proud to have done it.
 works: Whatever {N} answers, {sibling} takes it in good part, and the evening ends warm.
 fails: The loan, or the refusal, leaves a small stiffness between them that lasts for months.
-fails: Repayments slip, and money becomes the one thing the two of them avoid.
+fails not R: Repayments slip, and money becomes the one thing the two of them avoid.
 
 # ---------------------------------------------------------------- pair 5: home, hard, parent; 5a calls WG (cycle s1) / 5b calls UBR (cycle s2)
 
@@ -926,7 +926,7 @@ scene G: Some things stay inside the family. A stranger with a notebook does not
 - R>W | speak warmly, and make sure the teachers and neighbours who helped get credit | v: universalism, benevolence | chance: 52
 - G>U | answer with the old family sayings, and let the reporter work out the rest | v: tradition, self-direction | chance: 62
 works: The piece comes out warm and true, and {child} sends {N} a framed copy.
-works: {child} calls after reading it, and says it sounded exactly like home.
+works not G: {child} calls after reading it, and says it sounded exactly like home.
 fails: The paper prints one line out of its place, and {child} winces at it for weeks.
 fails: {child} feels exposed by what {N} said, or did not say, and is cool for a while.
 
@@ -964,7 +964,7 @@ scene G: {N} thinks of the old tools in the shed at home, and the hands that tau
 - B>U | ask a contact in that line how the new trade really runs, and pass it on | v: achievement, self-direction | chance: 85
 - R>B | tell them to quit tonight and come work beside you, where you need the hands | act: tell them to quit tonight and come work alongside, where hands are needed | v: self-direction, achievement | chance: 55
 - G>R | spend a day with them at the old workshop, remembering why they loved it | v: tradition, stimulation | chance: 76
-works: {sibling} finds a rhythm in the new work, and the calls get lighter.
+works not R>B: {sibling} finds a rhythm in the new work, and the calls get lighter.
 works: The new wage stretches further than feared, and {sibling} begins to talk about next year.
 fails: The nights wear {sibling} down, and the calls come less often and shorter.
 fails: {sibling} quits the new work in a temper, and the old trade does not come back.
@@ -1002,8 +1002,8 @@ scene G: In a town that size, everyone will remember who was on the list. Famili
 - R>U | drive over that night and sit up with them until it makes sense | v: benevolence, stimulation | chance: 56
 - G>B | remind them that family comes first: take the pay and keep their own house safe | v: security, tradition | chance: 68
 works: {sibling} gets through the Monday, and most of the crew still says hello in the street.
-works: The new post settles, and {sibling} finds a way to be a fair boss in an unfair year.
-fails: Some old friends stop speaking to {sibling}, and the new pay feels thin against it.
+works not R: The new post settles, and {sibling} finds a way to be a fair boss in an unfair year.
+fails not R: Some old friends stop speaking to {sibling}, and the new pay feels thin against it.
 fails: {sibling} takes it out on {N}, and the next calls are short and stiff.
 
 # ---------------------------------------------------------------- pair 14: home, mixed, parent; calls UG (s2) / WBR (s1)
@@ -1117,8 +1117,8 @@ scene G: Three generations behind one counter. {N} knows some things, once sold,
 - R>G | go there for the last day of trading and throw a party for the whole street | v: benevolence, stimulation | chance: 60
 - G>W | tell them to gather the family and decide it together, as the old ones would | v: tradition, conformity | chance: 80
 works: {friend} makes the choice with clear eyes, and sounds lighter on every call after.
-works: The deal goes through on fair terms, and the old customers send {friend} off with a fine farewell.
-fails: {friend} signs in a rush and spends the first months mourning the shop more than enjoying the money.
+works not G: The deal goes through on fair terms, and the old customers send {friend} off with a fine farewell.
+fails not G: {friend} signs in a rush and spends the first months mourning the shop more than enjoying the money.
 fails: The buyer walks away while {friend} hesitates, and the old debts are still there.
 
 == a friend whose side trade took off as the hours were cut
@@ -1305,7 +1305,7 @@ scene G: A street is made by the people who live on it. {N} thinks the neighbour
 - B>R | pay for a weekend away somewhere they can stroll at night without a care | v: hedonism, benevolence | tags: pay:money-.02 | chance: 84
 - R>G | ring their old friends that night and ask them to walk {parent} home each week | act: ring the old friends that night and ask them to walk {parent} home each week | v: benevolence, tradition | chance: 60
 - G>W | tell them to join the street's own watch, so neighbours keep the street | v: tradition, conformity | chance: 68
-works: Someone in charge apologises, and {parent} walks the street with the old confidence.
+works not G: Someone in charge apologises, and {parent} walks the street with the old confidence.
 works: The patrols learn the faces on the street, and {parent} starts to nod to them.
 fails: {parent} stops visiting the neighbours after dark, safe and a little smaller.
 fails: The stop is never explained, and it sours every call about the town.

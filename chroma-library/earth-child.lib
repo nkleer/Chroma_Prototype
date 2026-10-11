@@ -34,9 +34,9 @@ scene G: {parent} sat the same test in the same school at the same age. The old 
 - B>R | pretend to be sick so you can stay home tomorrow | v: hedonism | mark: hid a wrong | closed: approval: lying; backfire: found out, and the test the day after anyway | chance: 65
 - R>G | cry that you cannot do it, and let mum or dad hold you | v: security, benevolence | act: cry that they cannot do it, and let mum or dad hold them | chance: 75
 - G>W | revise at the kitchen table while the family keeps you company | habit | v: conformity, tradition | chance: 78
-works: The questions are the very ones {N} prepared for.
+works not B>R: The questions are the very ones {N} prepared for.
 works: The test comes back with a smile drawn at the top.
-fails: Half the page stays blank.
+fails not B>R: Half the page stays blank.
 fails: The mark comes home, and so does a note.
 
 == a stray dog follows you home
@@ -249,8 +249,8 @@ scene G: {grandparent} is out in the garden pulling weeds, the same Saturday job
 - G>W | clean out the rabbit first, because animals cannot wait for anyone | v: benevolence, universalism (nature) | chance: 85
 works: By lunchtime the jobs are done, and the whole afternoon is free.
 works: {parent} checks the room, nods, and hands over the pocket money.
-fails: The jobs drag on all day, and the sun goes down on them.
-fails: {parent} opens the wardrobe door, and everything falls out.
+fails not R: The jobs drag on all day, and the sun goes down on them.
+fails not W U G W>U G>W: {parent} opens the wardrobe door, and everything falls out.
 
 # ---------------------------------------------------------------- pair 4: calls RG (cycle s4) / calls WUB (cycle s2)
 
@@ -422,8 +422,8 @@ scene G: {grandparent} hands over an old tin money box, the same one that sat on
 - R>W | empty your pockets into the charity tin on the spot, because they need it more | v: benevolence | mark: helped someone in need | chance: 95
 - G>U | ask your grandparent how they saved at your age, and copy them | door | v: tradition, self-direction | mark: learned a skill | chance: 75
 works: The jar fills slowly, and {N} feels very grown up.
-works: {N} buys something with money that was truly {Ns} own, and it feels wonderful.
-fails: The money is gone by Monday, and there is nothing to show for it.
+works not G R>W: {N} buys something with money that was truly {Ns} own, and it feels wonderful.
+fails not G U>R: The money is gone by Monday, and there is nothing to show for it.
 fails: The coins go missing, and there is a row about who took them.
 
 == a thunderstorm at night
@@ -596,9 +596,9 @@ scene G: The new kid is not from round here, and does everything differently. {N
 - B>G | use your standing with the others to make sure the new kid gets let in | v: benevolence, power | chance: 73
 - R>W | shout at the kids who mock the new kid's accent | identity | v: universalism (fairness), benevolence | mark: made an enemy | chance: 55
 - G>U | wait and watch for a week, to see what the new kid is really like | v: self-direction, security | chance: 60
-works: By Friday the new kid is laughing in the playground, and {N} has a new friend.
+works not G W>B: By Friday the new kid is laughing in the playground, and {N} has a new friend.
 works: The new kid's family asks {N} round for dinner, and the food is like nothing {N} has ever tasted.
-fails: The new kid stays quiet and alone, and {N} cannot get through.
+fails not G W>B: The new kid stays quiet and alone, and {N} cannot get through.
 fails: The class takes sides over the new kid, and {N} ends up on the losing one.
 
 # ---------------------------------------------------------------- pair 9: calls WR (cycle s1) / calls UBG (cycle s3)
@@ -703,9 +703,9 @@ scene G: Every spring the frogs come back to the same pond to lay their eggs, an
 - B>G | trade your comics for an old fish tank, so the tadpoles have a proper home | v: universalism (nature) | chance: 75
 - R>W | rush at the big boys throwing stones at the frogspawn and make them stop | body: light | v: universalism (nature), benevolence | chance: 35
 - G>U | sit by the pond for hours to see where the grown frogs go | habit | door | v: universalism (nature), self-direction | mark: learned a skill | chance: 55
-works: One morning there are tiny frogs climbing the side of the jar, and {N} cannot stop grinning.
+works not G: One morning there are tiny frogs climbing the side of the jar, and {N} cannot stop grinning.
 works: {N} carries the froglets back to the pond and watches them hop into the reeds.
-fails: The water turns cloudy, and one by one the tadpoles stop moving.
+fails not G: The water turns cloudy, and one by one the tadpoles stop moving.
 fails: The jar tips over in the hall, and there are tadpoles all over the carpet.
 
 == sports day
@@ -775,10 +775,10 @@ scene G: That evening {grandparent} rings. Some things change, {grandparent} say
 - UR | choose which parent to live with, and argue your case to both | identity | v: self-direction | chance: 70
 - WB | get both parents to agree one set of rules, and hold them to it | v: security, power | chance: 45
 - WG | keep the peace at both houses, and keep how you feel to yourself | v: benevolence, conformity | chance: 45
-works: Slowly the two houses become two homes, and {N} has a toothbrush in each.
+works not G: Slowly the two houses become two homes, and {N} has a toothbrush in each.
 works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
 fails: {N} goes quiet at school, and the teacher calls home.
-fails: The Friday handovers are cold and tense, and {N} dreads every one.
+fails not G: The Friday handovers are cold and tense, and {N} dreads every one.
 
 # a child version of the same event (variant_of): the options above are worded for twelve to eighteen
 
@@ -814,10 +814,10 @@ scene G: {N} looks at the family photo on the fridge. Some things change, {grand
 - UR | hatch a plan to get your parents back together, and put it into action | identity | v: benevolence, stimulation | chance: 20
 - WB | make both parents agree the same rules for you, and hold them to it | v: security, power | act: make both parents agree the same rules for them, and hold them to it | chance: 50
 - WG | try to be extra good at both houses, so nobody else gets upset | v: benevolence, conformity | chance: 45
-works: Slowly the two houses become two homes, and {N} has a toothbrush in each.
+works not G: Slowly the two houses become two homes, and {N} has a toothbrush in each.
 works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
 fails: {N} goes quiet at school, and the teacher calls home.
-fails: The Friday handovers are cold and tense, and {N} dreads every one.
+fails not G: The Friday handovers are cold and tense, and {N} dreads every one.
 
 # ---------------------------------------------------------------- life event: the family moves to a new town (triads from D2a)
 

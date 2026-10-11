@@ -56,9 +56,9 @@ scene G: {N} has worked there for years, through three bosses and two moves. On 
 - UG | line up another post quietly, and stay until the new plan is clear | v: security, self-direction | chance: 60
 - BR | ask for a rise as the price of staying, and mean it | v: power, achievement | lever: voice | pushes: institution employer | chance: 40
 - BG | take the payout offered to anyone who leaves, and put it by | v: security | lever: exit | pushes: institution employer | chance: 76
-works: The new owners keep most of what worked, and {N} finds solid ground under the new name.
+works not R BG: The new owners keep most of what worked, and {N} finds solid ground under the new name.
 works: A year on, {N} is glad of the choice made in that first uneasy month.
-fails: The new owners bring in their own people, and {N} is left on the edge of everything.
+fails not R BG: The new owners bring in their own people, and {N} is left on the edge of everything.
 fails: The promises of the first meeting do not last the year, and {N} pays for having believed them.
 
 # ---------------------------------------------------------------- C3 merged (pairs D2b)
@@ -95,9 +95,9 @@ scene G: The old team has eaten lunch together every day for years. {N} wonders 
 - UG | retrain for the work the bigger firm is short of | v: security, achievement | mark: learned a skill | chance: 56
 - WB | ask the union what the law owes the staff, and hold the firm to it | v: security, universalism | lever: voice | pushes: institution employer | chance: 60
 - WR | stand up for the colleague whose post is first on the list | v: benevolence, universalism | mark: helped someone in need | lever: voice | pushes: institution employer | chance: 46
-works: {N} comes through the merger with a job and the trust of the people who stayed.
+works not R: {N} comes through the merger with a job and the trust of the people who stayed.
 works: The new firm turns out larger, slower and safer, and {N} makes a place in it.
-fails: {Ns} name is on the second list, and the notice comes with a month's pay.
+fails not R: {Ns} name is on the second list, and the notice comes with a month's pay.
 fails: The old team breaks up within the year, and the new place never feels like {Ns} own.
 
 # ---------------------------------------------------------------- C3 nationalised (pairs D3a)
@@ -134,10 +134,10 @@ scene G: The jobs are safe. {N} goes home and tells {partner}, and the two of th
 - UB | find out which old contracts the new body will honour, and be the one who knows | v: power, achievement | chance: 60
 - WR | speak up at the handover meeting for the service the town depends on | v: universalism | lever: voice | pushes: institution employer | chance: 50
 - WU | help write the new body's working rules so they are clear and fair | v: universalism, conformity | lever: voice | pushes: institution employer | chance: 56
-works: The firm settles into its new life, slower and steadier, and {N} with it.
+works not R: The firm settles into its new life, slower and steadier, and {N} with it.
 works: A year on, the jobs are still there and {N} has learned how the new place works.
 fails: The new rules pile up faster than the work, and {N} spends the year on forms.
-fails: The rescue saves the firm but not every post, and the cuts reach {Ns} floor after all.
+fails not R: The rescue saves the firm but not every post, and the cuts reach {Ns} floor after all.
 
 # ---------------------------------------------------------------- C3 leak (pairs D4a)
 
@@ -214,7 +214,7 @@ scene G: {N} has a family, a mortgage and friends on every floor. Speaking up co
 - WR | raise it out loud at the next staff meeting, in front of everyone | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 40
 works: The matter is settled one way or another, and {N} can live with the part {N} played.
 works: Months later {N} still has a livelihood, and the choice made in that sleepless week holds.
-fails: The bosses find out who knew, and {Ns} days there turn hard.
+fails not G: The bosses find out who knew, and {Ns} days there turn hard.
 fails: The wrong goes on, and {N} carries the weight of it for years.
 
 # ---------------------------------------------------------------- C5 a new movement comes (pairs D5b)

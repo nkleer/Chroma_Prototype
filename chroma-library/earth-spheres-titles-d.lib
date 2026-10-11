@@ -224,7 +224,7 @@ scene G: Most of the people in the aisle have bought from {N} for ten years and 
 - R>G | throw a Saturday street party at the stall, with music, samples and the regulars' children | v: hedonism, benevolence | sphere: comm.R | chance: 65
 - G>W | get the old stallholders to agree fair prices for the whole row together | v: tradition, universalism | sphere: comm.G | chance: 65
 works: By the end of the month the new trader is gone, and the regulars are back in front of {Ns} stall.
-works: The new trader shakes on a fair split, and both stalls have a good summer.
+works not W U B R G W>U U>B R>G: The new trader shakes on a fair split, and both stalls have a good summer.
 fails: The takings halve for a month, and the payment on the van's stock is late.
 fails: The regulars drift across the aisle one by one, and only the oldest stay.
 
@@ -266,7 +266,7 @@ scene G: The regulars come every Thursday, and {partner} would be left alone wit
 - G>U | ask the oldest traders on the row what the circuit did to them | v: tradition, achievement | sphere: comm.G | chance: 65
 works: The summer ends with the van paid off and the weekly pitch still {Ns}.
 works: {partner} says it was the right choice, and the regulars bring the stall a cake in the autumn.
-fails: The fairs are wet all summer, and the takings barely pay for the fuel.
+fails not G: The fairs are wet all summer, and the takings barely pay for the fuel.
 fails: The warden gives the empty pitch away, and {N} is back on the waiting list.
 
 # ================================================================ savings-circle member (comm.G)
@@ -517,7 +517,7 @@ scene G: The house is two streets from where {N} grew up, and anyone on that str
 - R>B | tell the insurer you will only go on at double the rate | act: tell the insurer they will only go on at double the rate | v: power, stimulation | sphere: prot.R | chance: 65
 - G>R | take the old street's word on him over the film, and write it up that way | v: tradition, self-direction | sphere: prot.G | chance: 65
 works: The insurer settles the claim fairly, and the man is back at work by the summer.
-works: The report holds up in front of the claims panel, and the insurer sends {N} its next three cases.
+works not R: The report holds up in front of the claims panel, and the insurer sends {N} its next three cases.
 fails: The insurer drops {N} for being soft, and the office is quiet for a month.
 fails: The man's lawyer gets hold of the film, and {Ns} name is read out at the hearing.
 

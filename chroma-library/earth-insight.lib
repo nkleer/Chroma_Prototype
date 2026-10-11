@@ -143,7 +143,7 @@ scene G: Twenty years of patience, and the shore has shown {N} one more of its s
 - B>U | trade years of notes for a place on a proper survey team | v: achievement, self-direction | mark: learned a skill | chance: 60
 - R>B | ring the local paper today, and tell the story in your own words | v: self-direction, achievement | chance: 60
 - G>R | take {friend} down to the pool at dawn, and share the wonder of it quietly | v: hedonism, benevolence | chance: 60
-works: The museum writes back with real excitement, and the find is recorded with {Ns} name beside it.
+works not U G G>R: The museum writes back with real excitement, and the find is recorded with {Ns} name beside it.
 works: {N} goes back to the shore every week after that, and sees it with new eyes.
 fails: It turns out to be known after all, from far away, and only new to this shore.
 fails: The next storm reworks the pools, and {N} never finds another.
