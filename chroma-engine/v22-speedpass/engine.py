@@ -420,7 +420,7 @@ DEFAULT = dict(
     ev_eta=0.15,        # how far an accepted message moves the want (per unit strength and exposure)
     ev_z=0.05,          # how far it moves motives directly (felt experience), scaled by plasticity
     acc0=0.15, acc_fit=0.45, acc_disc=1.5, acc_open=0.5, acc_conf=1.0, acc_hold=0.5,
-    gap_move=0.0,        # a gap one is acting to close weighs less in satisfaction: the distance to the person one wants to be
+    gap_move=0.3,        # (.3 from the v22.4 refit) a gap one is acting to close weighs less in satisfaction: the distance to the person one wants to be
                          # (sat_gap) counts up to this share less as the ten-year acted ways (hist_m) run toward what is wanted
                          # beyond what is held (full at .5 of the acts there, none at an even .2). Progress toward a goal, not
                          # only its distance, sets how it feels (Carver and Scheier 1990). G19w, 10-11: in world-on lives that
