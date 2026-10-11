@@ -456,8 +456,8 @@ W_DEFAULT = dict(
     sph_eyes=False,    # S3 "Their places' eyes" (chroma-ideas/social-mechanics.md): each place a life belongs to reads its
                        # acts by its faces (sphere_data.PLACE_READ); a name per place moves rungs and doors, talk travels
                        # through go-betweens, places that read an act apart catch the life between them; with sph_haunts
-    sph_odd=False,     # S4 "The odd one out": a life whose lead colour is rare at a place (under .15 of its faces) is seen
-                       # more, pressed to blend in, and can move the place by holding on; with sph_eyes
+    sph_odd=False,     # S4 "The odd one out": a life whose lead colour is rare at a place (well under its share at their
+                       # other places) is seen more, pressed to blend in, and can move the place by holding on; with sph_eyes
     eyes_par=None,     # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
     lead_ways=False,   # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a modelled post per leading role (start,
                        # way, legitimacy, end) in place of phase 4's fixed leader's tenure; with sph_levers (and sph_eyes)
