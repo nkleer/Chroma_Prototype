@@ -686,6 +686,8 @@ NEW_KIN = dict(friend=("friend", "their closest friend {n}"), sibling=("sibling"
                parent=("mother", "their mother {n}"), child=("child", "their child {n}"))
 LEFT_BEHIND = ("friend", "rival", "teacher", "neighbour", "old neighbour", "colleague", "boss")   # who stays when the family moves
 
+ROLL_KIN = ("mother", "father", "grandparent", "sibling", "partner", "child")   # F7: the people the engine keeps the roll of
+TAKEN_IN = re.compile(r"adopt|foster|take (?:them |a child |the child )?in\b", re.I)   # F7: a child taken in, not born
 KILLS = {"parent": ("mother", "father"), "grandparent": ("grandparent",), "sibling": ("sibling",), "friend": ("friend",),
          "partner": ("partner",), "child": ("child",), "mentor": ("mentor",)}   # library kills: role -> cast roles
 BIG_WIN = [("", "It is better than {N} had dared to hope."), ("W", "It is more than {N} deserved, they think."),
@@ -1218,6 +1220,11 @@ class Story:
         self.age = 0.0                      # set by the game every week (when people are first met)
         self.last_tag = ""                  # color tag of the variant pick() drew last
         self.last_weeks = [0.0] * 5         # where the ordinary weeks of the last chapter's year went
+        # v22.5 F7, one roll of the living (the engine's one_roll; the game sets it every week): the people the world has
+        # lost and the story has not yet told, (engine role, person), told first by the next death of that role
+        self.one_roll = False
+        self.due = []
+        self.kids_n = 0                     # F7: the engine's living children (the game sets it every week with one_roll)
         # the family the character is born into
         self.new("mother", "their mother {n}")
         self.new("father", "their father {n}")
@@ -1288,6 +1295,9 @@ class Story:
         elif slot == "grandparent":
             ps = self.alive("grandparent")
             p = ps[0] if ps else None
+            if p is None and self.one_roll:             # F7: the eldest of the living takes the grandparents' seat
+                ps = self.alive("mother") + self.alive("father") or self.alive("aunt") or self.alive("mentor")
+                p = ps[0] if ps else self.get("old neighbour", "their old neighbour {n}")
             if p is None:
                 ctx[slot] = "their late grandparents"
                 return ctx[slot]
@@ -1315,6 +1325,15 @@ class Story:
             p = self.get("boss", self.W["boss"])
         elif slot == "colleague":
             p = self.get("colleague", self.W["colleague"])
+        elif slot == "child" and self.one_roll:        # F7: a birth names the newborn; otherwise the youngest at home
+            ks = sorted(self.alive("child"), key=lambda q: q.get("made", 0))
+            if ctx.get("_birth"):
+                p = ks[-1] if ks and not ks[-1].get("born") and self.age - ks[-1].get("made", -99) < 0.1 else \
+                    self.new("child", "their newborn {n}")
+            elif ks or self.kids_n > 0:
+                p = ks[-1] if ks else self.new("child", "their child {n}")
+            else:                                       # no child of their own: the young one is family's, not theirs
+                p = self.get("cousin", "their young cousin {n}")
         elif slot == "child":
             p = self.get("child", "their child {n}")
         elif slot == "prospect":
@@ -1350,14 +1369,31 @@ class Story:
         ctx[slot] = self.say(p)
         return ctx[slot]
 
+    def due_pop(self, kills=None):
+        """F7: the first person the world has lost whom the story has not yet told, of the engine role kills (any, for a
+        death that names none); None when there is none."""
+        self.due = [(r, p) for r, p in self.due if p["alive"]]
+        for i, (r, p) in enumerate(self.due):
+            if kills in (None, "anyone") or r == kills:
+                return self.due.pop(i)[1]
+        return None
+
     def dies(self, p):
         if p is not None and p["alive"]:
             p["alive"] = False
             self._dead.append(p)
+            if self.one_roll:
+                p["gone"] = self.age                # F7: when, for the world's record of the same death
 
     def _who_dies(self, age, kills="anyone"):
         """Someone close dies. A library event can name the role (kills: parent, sibling, ...); otherwise
         grandparents first, then parents, later friends and siblings."""
+        if self.one_roll:                           # F7: the one the world lost, when it has said who
+            p = self.due_pop(kills)
+            if p is not None:
+                return p
+            if kills == "partner" and not self.alive("partner") and self.alive("ex"):
+                return self.alive("ex")[-1]             # a partner the story knew, though they had parted
         roles = KILLS.get(kills, ())
         named = [p for r in roles for p in self.alive(r)]
         if named:
@@ -1366,7 +1402,7 @@ class Story:
             return self.new(*NEW_KIN[kills])
         cands = []
         for p in self.people:
-            if not p["alive"]:
+            if not p["alive"] or (self.one_roll and p["role"] in ROLL_KIN):   # F7: the engine's kin die only by its roll
                 continue
             w = {"grandparent": 1.0 + age / 30, "mother": max(0.0, (age - 18) / 25), "father": max(0.0, (age - 18) / 25),
                  "sibling": max(0.0, (age - 45) / 60), "friend": max(0.0, (age - 40) / 80), "mentor": max(0.0, (age - 25) / 60),
@@ -1500,6 +1536,8 @@ class Story:
             return m
         ph = phase(age)
         ctx = dict(_age=age)
+        if self.one_roll and sit == "a child is born":   # F7: the scene's child is the newborn
+            ctx["_birth"] = True
         if kills or sit == "bereavement":
             ctx["_dying"] = kills or "anyone"
             if kills:
@@ -1692,17 +1730,23 @@ class Story:
             return self.fill("{N} has a new baby " + w_ + ": " + self.nm(out[0]) + ".")
         return self.fill("New babies in the family: " + " and ".join(self.nm(p) for p in out) + ".")
 
-    def later_child(self):
-        """One more child (R15: a later child born or taken in while there are children already): a line."""
+    def later_child(self, taken=False):
+        """One more child (R15: a later child born or taken in while there are children already): a line. taken (F7): the
+        week's moment took a child in, so the line says so instead of a birth."""
         ch = self.new("child", "a child, {n}"); ch["born"] = True
-        line = self.fill("Another child is born to {N}: " + self.nm(ch) + ".")
+        line = self.fill(("{N} takes in another child, " + self.nm(ch) + ", who needs a home.") if taken else
+                         ("Another child is born to {N}: " + self.nm(ch) + "."))
         ch["ref"] = "their child " + ch["name"]
         return line
 
     def quiet_deaths(self, role, left, age):
         """Grandparents of grown-up grandchildren die outside the Library's moments: say so briefly."""
         out = []
-        for p in self.alive(role)[left:] if left < len(self.alive(role)) else []:
+        gone = self.alive(role)[left:] if left < len(self.alive(role)) else []
+        if self.one_roll and gone:                  # F7: those the world lost, before anyone the story picks
+            due = [p for r, p in self.due if p["alive"] and p["role"] == role]
+            gone = (due + [p for p in self.alive(role) if p not in due])[:len(gone)]
+        for p in gone:
             self.dies(p)
             out.append(self.fill(self.pick(DEATH_FAR), phase(age), dict(_p_dead=p, _age=age)))
         return " ".join(out) or None
@@ -1914,6 +1958,10 @@ class Story:
                 if title["name"] == "adoptive parent":
                     return self.fill("{N} adopts " + self.nm(ch) + ": " + self.role_mark(title) + " now.")
                 return self.fill("{N} takes in " + self.nm(ch) + ", a child who needs a home: " + self.role_mark(title) + " now.")
+            if kind == "children" and self.one_roll and TAKEN_IN.search(through or ""):   # F7: an act that takes a
+                ch = self.new("child", "a child, {n}"); ch["born"] = True              # child in is not a birth
+                ch["ref"] = "their child " + ch["name"]
+                return self.fill("{N} takes in " + self.nm(ch) + ", a child who needs a home.")
             if kind == "children":
                 first = not self.alive("child")
                 fresh = [q for q in self.alive("child") if not q.get("born") and getattr(self, "age", 0) - q.get("made", -99) < 0.1]

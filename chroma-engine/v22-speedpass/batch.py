@@ -41,7 +41,7 @@ safety belonging autonomy competence meaning  money time health ties freedom
 stress mood satisfaction peace react steady base_mood outlook support wound trouble fortune cload
 W U B R G  hW hU hB hR hG (acted ways, ten-year share)  eW eU eB eR eG (ends served, ten-year share)
 held_X yrs_X ago_end_X for X in career partner children community faith; yrs_any kids_home retired widowed betrayed
-alive_parent alive_sibling alive_friend alive_grandparent alive_child
+alive_parent alive_sibling alive_friend alive_grandparent alive_child kid_young (years since the youngest child came; 99 = none)
 ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big ago_breakup ago_retire ago_child ago_job
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)

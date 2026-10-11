@@ -325,7 +325,12 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sh_will=0.5, sh_world=True), dict(sh_world=True), 30),
        ("the will tempers the current (cur_will; with the current, cur_on)", dict(cur_will=1.0, cur_on=True), dict(cur_on=True), 30),
        ("a gap one acts to close weighs less (gap_move)", dict(gap_move=0.5), {}, 30),
-       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
+       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40),
+       ("v22.5 F3, the household's money and ties from the people around them (hh_money, ties_people)",
+        dict(hh_money=True, ties_people=True), {}, 30),
+       ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
+       ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
+       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
