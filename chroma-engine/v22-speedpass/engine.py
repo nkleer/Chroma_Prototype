@@ -3919,6 +3919,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     ds_ += 0.3 * (b2_ & (ck2_ == 0)) + 0.15 * bk2_ * (b2_ & (ck2_ == 1)) + 0.15 * (b2_ & (ck2_ == 2))
                 cost_ = (dm_ <= -sp_["cost_money"]) | (dt_ <= -sp_["cost_ties"]) | (ds_ >= sp_["cost_stress"])
                 lv2_ = ~idle & live_ & ~dead
+                if sp_["cost_closed"] and closed_s is not None:   # any closed option's backfire counts (sacred_par)
+                    cost_ = cost_ | b2_
+                    WL.PP._sac_count("cost closed", b2_ & lv2_)
                 for nm_, m_ in (("money", dm_ <= -sp_["cost_money"]), ("ties", dt_ <= -sp_["cost_ties"]),
                                 ("stress", ds_ >= sp_["cost_stress"])):
                     WL.PP._sac_count(f"cost {nm_}", m_ & lv2_)   # (for the checks)

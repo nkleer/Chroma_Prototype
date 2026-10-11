@@ -260,10 +260,17 @@ SAC_DEFAULT = dict(
     cost_money=0.1,    # below -.1, a tenth of the money scale (an option's own price, the means backfire); ties at or below
     cost_ties=0.1,     # -.1 (the law backfire); stress of .3 or more (the law backfire): the price of an act the law or
     cost_stress=0.3,   # the world closed, or of one that costs real money), counted from age 12
+    cost_closed=True,  # ... and any closed option that failed, whatever closed it (law, approval or means): its backfire is
+                       # a real cost even where it stays under those thresholds (a frowned-on act's: ties -.08, stress .15),
+                       # so each colour's ways count as costly as the world closes them (v22.4 fix: White's costs are
+                       # mostly frowned-on acts, and without it White formed lines at .37 of its share of lead years)
     age=16.0,          # lines form from this age (and offers reach them)
     lines=2,           # at most two lines a life
     reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
                        # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
+    known=2,           # a line held this many times (an offer and its raised round) is known around them: no more offers
+                       # come for it (v22.4 fix: offers follow the town's events, the who: they fit and how long the line
+                       # lasts, so without it Black and Green lines met up to twice the offers of White and Blue ones)
     c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
     refuse=0.9, gesture=0.7, doubling=0.05, cap=0.98,   # the character's own pick holds at .9 (.7 when the offer carries
                        # a symbolic gesture), + .05 per doubling of the offer's size, at most .98 (Ginges et al. 2007)
@@ -271,8 +278,10 @@ SAC_DEFAULT = dict(
     raised=(4, 12),    # weeks after a first refusal before the raised offer comes
     lapse=8,           # weeks an offer or amends waits for its moment
     quiet=True,        # an offer with no moment for it (or whose moment never came) is decided off-screen by the same odds
-    hold=dict(money=(0.05, 0.0), post=(0.03, 0.03), favour=(0.0, 0.05)),   # holding: the money and ties not had, by the
-                       # offer's kind (a post: its pay and standing), x its size
+    hold=dict(money=(0.05, 0.0), post=(0.05, 0.03), favour=(0.05, 0.05)),   # holding: the money and ties not had, by the
+                       # offer's kind, x its size: every offer's price is money not had (a post its pay, a favour what
+                       # it was worth), a post and a favour also cost ties (v22.4 fix: a favour cost no money, and White's
+                       # promise lines meet mostly favours)
     wound=0.5,         # crossing: stress, a moral injury (Litz et al. 2009), as a widowing's
     seed=0.15,         # ... a seed in the line colour's shadow part (with shadows; a reflection moment takes off as much)
     piv=0.15, piv_far=1.0, piv_core=0.3,   # ... and a turning point's lesson (the game's item 4, its full "toward" kind)
@@ -3095,6 +3104,7 @@ class People:
             return
         ns = ns[self._sac_fit(ns, o["who"], t)]
         tch = (self.sac_line[ns][:, :, None] == np.asarray(kinds)[None, None, :]).any(2)   # n x 2: the line is touched
+        tch &= self.sac_held[ns] < sp["known"]   # (a line known not to be for sale is not offered for)
         ns, tch = ns[tch.any(1)], tch[tch.any(1)]
         r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
         for n_, tc_ in zip(ns[r_], tch[r_]):
