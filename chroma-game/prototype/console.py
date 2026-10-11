@@ -142,6 +142,16 @@ def letters_to_spec(txt):
 SAVE_VERSION = 6
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
+def pushes_said(r):
+    """F13: how the player's pushes went: the ones they judged, and the ones that passed without a judgment, by how the
+    act went (the hindsight in game.py judges only a push they minded)."""
+    ok, bad = (list(r.get("passed") or []) + [0, 0])[:2]
+    S = [f"{r.get('accepted', 0)} they came to accept", f"{r.get('resented', 0)} they resented"]
+    if ok + bad:
+        S.append(f"{ok + bad} passed without a judgment: {ok} went well, {bad} did not")
+    return ", ".join(S)
+
+
 class Console:
     def __init__(self):
         self.g = None
@@ -761,7 +771,7 @@ class Console:
              f"Serenity (peace through adulthood):         {r['serenity']:.2f}",
              f"Integrity (lived by their own wants):       {r['integrity']:.2f}",
              f"Checkpoints: {r['own']} left to them, {r['forced']} pushed by you"
-             + (f" ({r.get('accepted', 0)} they came to accept, {r.get('resented', 0)} they resented)" if r["forced"] else ""),
+             + (f" ({pushes_said(r)})" if r["forced"] else ""),
              f"Ended as: {r['final']}",
              f"Identities lived ({r['paths']}): " + " > ".join(r["path"]),
              "", "Press Enter for a new life."]
