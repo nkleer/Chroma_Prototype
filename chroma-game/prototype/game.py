@@ -1218,6 +1218,8 @@ class Game:
             st = (GAME["judge_a"] + GAME["judge_b"] * rel) * prof
             self.trust += st * (1 - self.trust) if worked else -st * (1 + self.trust)
             out["judged"] = "worked" if worked else "failed"
+        if out["kind"] == "none":                           # F13: the review counts the pushes that passed unjudged
+            self.history.setdefault("passed", [0, 0])[0 if worked else 1] += 1
         self.trust = np.clip(self.trust, -1.0, 1.0)
         out["trust_after"] = round(self._trust_on(loc, cpw["choice"]), 3)
         out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
@@ -2626,10 +2628,23 @@ class Game:
             self._recalled_ = set()
         return self._recalled_
 
+    @property
+    def _told(self):
+        """F11a (v22.4.1): the acts the story told, by moment, act and age (the engine's own keys for an episode)."""
+        if "_told_" not in self.__dict__:
+            self._told_ = set()
+        return self._told_
+
+    def _told_act(self, ev, lvl):
+        """F11a: keep the act of a moment told at this level of detail, so a memory of it can come back."""
+        if lvl <= self.detail:
+            self._told.add((ev.get("situation"), ev.get("choice"), ev.get("age")))
+
     def _recall(self, t, sev):
         """Engine v10's memory (E1, interpretation-memory.md): an act that hit hard can come back when the same moment
         returns or an act leans the same way, about 2.7 times a year. The story tells one now and then: no two within
-        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong.
+        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong, and
+        only a choice the story told (F11a), so the memory's age, act and outcome are the ones the reader saw.
         With item 6 on (GAME lines_tied) it waits for this week's moment and is told inside its line (_recall_in)."""
         self._recall_now = None
         if t - self._recall_t < 52 * RECALL_GAP:
@@ -2640,6 +2655,8 @@ class Game:
             if not rc:
                 continue
             key = (rc.get("age"), rc.get("choice"))
+            if (rc.get("situation"), rc.get("choice"), rc.get("age")) not in self._told:   # F11a: only a choice the story told
+                continue
             if key in self._recalled or (not rc.get("scar") and float(rc.get("strength", 0)) < RECALL_MIN):
                 continue
             a = int(rc.get("age", 0)); what = act(str(rc.get("choice", "")))
@@ -2775,6 +2792,7 @@ class Game:
                     line = self.story.outcome(m, ev, L["labels"][s][cpw["choice"]], pushed, f.get("rel", 0.0) if pushed else 0.0,
                                               bool(f.get("closed")) if pushed else False, o["colors"])
                     line = self._recall_in(t, line, 0)              # item 6: the memory it brought back, inside it
+                    self._told_act(ev, 0)
                     self._tied_ev("“" + cpw["cp"]["title"] + "”", 0)
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
@@ -2809,23 +2827,23 @@ class Game:
                     if self.ledger:
                         self._say(self._outcome_line(ev, cpw, loc), 0, "ledger")
                 elif s == self.ORD:
-                    line = self._recall_in(t, self.story.ordinary(ev, L["labels"][s].index(ev["choice"])), 2)
+                    line = self._recall_in(t, self.story.ordinary(ev, L["labels"][s].index(ev["choice"])), 2); self._told_act(ev, 2)
                     self._say(line, 2, "ordinary", colors=self._colors(loc, int(loc["a"][0])))
                 elif sit in ("bereavement", "crisis or disaster") or kills:
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 0)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 0); self._told_act(ev, 0)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 0), 0, "loss" if (kills or sit == "bereavement") else "crisis",
                               sit=sit, ok=bool(ev["success"]), colors=col, delta=round(float(ev.get("delta", 0.0)), 2),
                               gate=ev.get("gate", ""), **moved)
                     if self.ledger:
                         self._say(self._choice_line(ev), 0, "ledger")
                 elif self.detail >= 2:
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 2)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 2); self._told_act(ev, 2)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 2), 2, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                 elif (float(loc["L"]["STAKES"][s]) >= 1.0 and t - self._last_line.get(s, -10 ** 6) >= TOLD_GAP.get(sit, 104)
                       and not self.burn_in):
                     self._last_line[s] = t
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 1)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 1); self._told_act(ev, 1)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 1), 1, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                     if self.ledger:
@@ -3337,7 +3355,7 @@ class Game:
         d["needs"] = {n: round(float(v), 3) for n, v in zip(E.NEEDS, loc["need"][0])} if "need" in loc else {}
         d["need_thin"] = GAME["need_thin"]
         d["trust"] = self.trust_view(); d["pushes"] = dict(forced=self.history["forced"], accepted=self.history["accepted"],
-                                                           resented=self.history["resented"])
+                                                           resented=self.history["resented"], passed=list(self.history.get("passed", [0, 0])))
         d["inner"] = {k: round(float(np.ravel(loc[v])[0]), 3) for k, v in (("self_control", "dsc"), ("mood", "mood"), ("wound", "wound"),
                                                                           ("gap", "gap_r"), ("horizon", "hzf"), ("formed", "M"))
                       if v in loc}
@@ -3937,13 +3955,18 @@ class Game:
         adult = [c for a, c in h["content"] if a >= 18]; adultp = [p for a, p in h["peace"] if a >= 18]
         ful = float(np.mean(adult)) if adult else 0.0
         ser = float(np.mean(adultp)) if adultp else 0.0
-        integ = 1 - float(np.sum(h["rel"])) / max(h["picks"], 1) if h["picks"] else 1.0
-        if GAME["own_ix"] and h["picks"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
+        # F13 (v22.4.1): read over the pushes, not over every pick of the life (hundreds, which hid even pushes "against
+        # everything in them"); at least INTEG_PUSHES in the divisor, so one or two pushes cannot sink a life of its own
+        n_rel = max(len(h["rel"]), INTEG_PUSHES)
+        integ = 1 - float(np.sum(h["rel"])) / n_rel if h["rel"] else 1.0
+        if GAME["own_ix"] and h["rel"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
             integ = 1 - sum(r * (1 - (float(np.asarray(wy) @ self.ix) if wy is not None else 0.0))   # counts as their own by it
-                            for r, wy in zip(h["rel"], h["rel_way"])) / h["picks"]
+                            for r, wy in zip(h["rel"], h["rel_way"])) / n_rel
         o = self.result
         w = o["w"][0] if o is not None else E.softmax(self.loc["z"][0])
-        labels = [l for _, l in h["label"]]
+        # F13: one list of who they were, the chapter headings' names (history "name", _yearly), for the headings, the
+        # review and the song alike; the year-by-year reading (history "label") swings too often to be a life's path
+        labels = life_names(h)
         path = []
         for l in labels:
             if not path or path[-1] != l:
@@ -3951,8 +3974,9 @@ class Game:
         gifts = float(np.mean(h["gift"])) if h["gift"] else None
         self.review = dict(epitaph=self.story.epitaph(w), fulfilment=ful, serenity=ser, integrity=integ, gifts=gifts,
                            final=label_name(labels[-1] if labels else ""), final_label=labels[-1] if labels else "",
-                           path=[ident_name(l) for l in path if l], path_labels=[l for l in path if l], paths=len({l for l in labels if l}),
+                           path=[ident_name(l) for l in path], path_labels=list(path), paths=len(path),
                            forced=h["forced"], own=h["own"], accepted=h["accepted"], resented=h["resented"], trust=self.trust_view(),
+                           passed=list(h.get("passed", [0, 0])),
                            age=round(self.age(), 1), died=getattr(self, "died", None),
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
@@ -4193,6 +4217,7 @@ PEACE_WORDS = {
     ("low", "mid"): "A hard road, only partly their own.",
     ("low", "low"): "Restless to the end, and seldom their own.",
 }
+INTEG_PUSHES = 10        # F13: integrity is read over the pushes, with at least this many in the divisor
 PEACE_BANDS = dict(well=(0.65, 0.55), own=(0.9, 0.8))       # high from, mid from; test/peace_bands.py on the final pin
 # (2026-10-06, 36 lives: well .49-.77, a third high and a sixth low; own .94-.99 when the player never pushes, .88-.94 at
 # 30% pushed, .76-.88 at 70%)
@@ -4287,6 +4312,14 @@ def _ident_a(lbl):
     nm = ident_name(lbl)
     nm = nm[4:] if nm.startswith("The ") else nm
     return f"one of the {nm}" if nm.endswith("ed") or nm in ("Enduring", "Whole") else an(nm)
+
+
+def life_names(h):
+    """F13: who they were, year by year, as the chapter headings named them (the settled identity, _yearly's history
+    "name"); a life from before it was kept reads the yearly identity instead."""
+    if h.get("name"):
+        return [l for _, l, *_ in h["name"] if l]
+    return [l for _, l in h.get("label", []) if l]
 
 
 def _episodes(label):
@@ -4630,7 +4663,8 @@ def _deeds(acts, lead_w, review, W):
         pt = COLORS[int(np.argmax(pv))] if pv.sum() else None
         integ = review.get("integrity", 1.0)
         if pt:
-            S.append((W["deeds_once"] if len(pushed) == 1 else W["deeds_pushed"]).format(n=_num(len(pushed), W), hand=W["hand"], noun=NOUN[pt])
+            n_ = max(int(review.get("forced") or 0), 1)     # F13: the review's count of pushes, not only those that came to an act
+            S.append((W["deeds_once"] if n_ == 1 else W["deeds_pushed"]).format(n=_num(n_, W), hand=W["hand"], noun=NOUN[pt])
                      + W["deeds_pushed_end"]["willing" if integ >= 0.9 else "bore" if integ >= 0.75 else "against"])
     else:
         S.append(W["deeds_free"])
@@ -4674,7 +4708,7 @@ def life_paragraph(name, h, review, setting):
     ws = h.get("w", [])
     died = review.get("died")
     age = int((died or {}).get("age") or review.get("age") or 0)
-    eps = _episodes(h["label"])
+    eps = _episodes([(a, l) for a, l, *_ in h["name"]] if h.get("name") else h["label"])   # F13: the headings' names
     n_shapes = len({l for e in eps for l in e[1]})
     if len(eps) > EPIC_TOLD:                          # a long song tires: the first, the last, and the longest between
         keep = sorted(range(1, len(eps) - 1), key=lambda i: eps[i][2] - eps[i][3])[:EPIC_TOLD - 2]
