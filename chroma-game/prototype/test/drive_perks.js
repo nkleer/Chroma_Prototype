@@ -10,8 +10,14 @@ const [url, dir, until, width] = [process.argv[2], process.argv[3], parseFloat(p
   await startLife(p, '3', 'Lale');
   await p.waitForSelector('#tMain, .opt, #goOn', { timeout: 60000 });
   const idle = async () => { await p.waitForTimeout(120); await p.waitForFunction(() => !document.getElementById('tPause') && !busy && !choosing && !document.getElementById('evwrap').classList.contains('leaving'), null, { timeout: 300000 }).catch(() => {}); await p.waitForTimeout(120); };
+  let lives = 1;
   for (let i = 0; i < 400; i++) {
-    const s = await p.evaluate(() => ({ cp: !!document.querySelector('.opt'), res: !!document.querySelector('#goOn') }));
+    const s = await p.evaluate(() => ({ cp: !!document.querySelector('.opt'), res: !!document.querySelector('#goOn'), over: document.getElementById('app').dataset.mode === 'over' }));
+    if (s.over) {   // the life ended before the age: start another (v22.3 record, perks_p)
+      if (lives >= 4) break;
+      await p.waitForSelector('#again', { timeout: 60000 }); await p.click('#again');
+      await startLife(p, '3', 'Lale'); lives++; await idle(); continue;
+    }
     if (s.res) await p.click('#goOn'); else if (s.cp) await p.click('#evLet'); else await p.click('#tMain');
     await idle();
     const age = await p.evaluate(() => parseFloat((document.querySelector('.who .age b') || {}).textContent || '0'));
@@ -22,6 +28,7 @@ const [url, dir, until, width] = [process.argv[2], process.argv[3], parseFloat(p
   if (s2) { await p.click('#evPeek').catch(() => {}); await p.waitForTimeout(300); }
   if (phone) { const t = await p.$('#tHud'); if (t) { await t.click(); await p.waitForTimeout(400); } }
   const pm = await p.$('#perkMore');
+  console.log('lives', lives);
   console.log('before', await p.evaluate(() => [document.querySelectorAll('.perk[data-perk]').length, (document.getElementById('perkMore') || {}).textContent, document.querySelector('.who .age b').textContent]));
   if (pm) { await pm.scrollIntoViewIfNeeded(); await p.screenshot({ path: `${dir}/perks-folded${phone ? '-phone' : ''}.png` }); await pm.click(); await p.waitForTimeout(300);
     const pm2 = await p.$('#perkMore'); if (pm2) await pm2.scrollIntoViewIfNeeded(); await p.screenshot({ path: `${dir}/perks-open${phone ? '-phone' : ''}.png` }); }
