@@ -7,6 +7,7 @@ groups: comma-separated, "-" unsteered, else a color letter; default "-,W,U,B,R,
 push: added each week to a steered person's want (y, log-ratio) for the group's color, as a player who keeps choosing
 it; .01 brings that want to about .45 to .6 by forty. Packs: PACKS, default science,politics,stage (the catalogue's).
 PX='{json}': switches and values laid over E.DEFAULT for the run (as cx2run.py), e.g. PX='{"role_practice": true}'.
+SEEDS=31,32,33,34: another set of lives (default 21,22,23,24), to tell a real difference from the draw.
 The 10-10 run (480 lives per worker, push .01, 320 lives a group) found black, red and green identity following the
 push (.34 to .36 at forty) and white and blue barely (.20, .21), with contentment falling from .60 to .45 and .46."""
 import os, sys, re, json
@@ -18,7 +19,7 @@ import engine as E
 from batch import load_batch
 CAT = os.path.join(_engine.LIBRARY, "earth_perks_titles.py")
 PACKS = [x for x in os.environ.get("PACKS", "science,politics,stage").split(",") if x]
-SEEDS = (21, 22, 23, 24)
+SEEDS = tuple(int(x) for x in os.environ.get("SEEDS", "21,22,23,24").split(","))   # one worker per seed (4 cores)
 CN = dict(zip("WUBRG", ["white", "blue", "black", "red", "green"]))
 
 
