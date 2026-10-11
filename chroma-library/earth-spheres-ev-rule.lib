@@ -325,7 +325,7 @@ scene G: {parent} paid every bill on time for forty years, and does not know how
 works: The charge is cut for the smallest homes, and {N} can manage what is left.
 works: The fight brings the street closer, and the bill is easier to bear shared.
 fails: The charge stays, and the household goes without something it needed.
-fails: A warning letter arrives with {Ns} name on it, and the fine is worse than the charge.
+fails not W G: A warning letter arrives with {Ns} name on it, and the fine is worse than the charge.
 
 # ---------------------------------------------------------------- rights_narrowed (pairs D4b)
 
@@ -451,7 +451,7 @@ scene G: The neighbours have always helped each other through bad stretches. {N}
 works: A budget passes at last, and the permit comes through with the next post.
 works: {N} finds a way round the stalled town hall, and the neighbours remember who helped.
 fails: The deadlock drags into a second season, and the thing {N} waited for never comes.
-fails: {N} spends months on the fight, and the town hall seems to notice none of it.
+fails not W: {N} spends months on the fight, and the town hall seems to notice none of it.
 
 # ---------------------------------------------------------------- false_accusation (pairs D6a)
 
@@ -532,7 +532,7 @@ scene G: The neighbours who never answer the door are the ones the count most ne
 - UB | work out what the street gains from every extra name counted | v: achievement, power | sphere: rule.UB | chance: 60
 - WG | help the old couple next door fill in their form at their own kitchen table | v: benevolence, conformity | mark: helped someone in need | sphere: rule.GW | chance: 60
 - WU | ask how the answers are kept, and write to the council if the reply is vague | v: universalism, security | lever: voice | pushes: institution council | sphere: rule.WU | chance: 60
-works: The street is counted in full, and the money that follows pays for the new crossing by the school.
+works not R B: The street is counted in full, and the money that follows pays for the new crossing by the school.
 works: {N} does the count the way {N} thinks right, and nothing comes back to trouble the house.
 fails: The street comes up short in the count, and the clinic on the corner loses its funding.
 fails: A follow-up letter arrives, asking awkward questions about who really lives in the house.
@@ -617,9 +617,9 @@ scene G: The two families have shared a wall and every small favour for twelve y
 - WG | get the whole street to sign for the family's right to stay | v: benevolence, universalism | lever: voice | pushes: state | sphere: rule.GW | chance: 45
 - WR | stand on their doorstep with the neighbours on the morning the officers come | v: benevolence, universalism | mark: defied an authority | lever: voice | pushes: state | sphere: rule.RW | chance: 45
 works: The family wins a reprieve on appeal, and the street knows who helped.
-works: The family goes, but their things are kept safe and they leave a friend who will not forget them.
+works not BG: The family goes, but their things are kept safe and they leave a friend who will not forget them.
 fails: The family is gone within the month, and {N} cannot stop thinking about the empty house.
-fails: {N} is questioned over the part {N} played, and the fine takes months to pay.
+fails not BG: {N} is questioned over the part {N} played, and the fine takes months to pay.
 
 # ---------------------------------------------------------------- patron_delivers (pairs D1b)
 

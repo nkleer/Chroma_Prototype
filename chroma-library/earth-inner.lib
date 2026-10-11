@@ -104,9 +104,9 @@ scene G: The wrong has put down roots. {N} feels it under everything, the way da
 - R>U | cry it out fully, then sit down and work out what the lesson is | v: self-direction | chance: 75
 - G>B | keep away from the one you hurt, and let time bury it | v: security | chance: 48
 works: The weight lifts, a little at first, then for good.
-works: {N} faces it, and the person {N} wronged is gentler than {N} feared.
+works not G>B U>G: {N} faces it, and the person {N} wronged is gentler than {N} feared.
 fails: The guilt stays, and leaks into everything {N} does.
-fails: Trying to set it right opens the wound again, for both of them.
+fails not G>B: Trying to set it right opens the wound again, for both of them.
 
 == shame after a public failure
 tier: inner
@@ -210,7 +210,7 @@ scene G: {N} feels like a field farmed too many seasons without rest. Nothing mo
 - G>U | spend a week in a cabin with no screens, and let your mind clear | door | v: self-direction | chance: 72
 works: {N} rests, and one morning the tiredness is simply gone.
 works: Something gives at work, and the weeks get lighter.
-fails: {N} keeps going until the body decides instead, and {N} falls ill.
+fails not R G G>U: {N} keeps going until the body decides instead, and {N} falls ill.
 fails: The change costs more than it saves, and the tiredness comes back with interest.
 
 == the anniversary of a death
@@ -243,7 +243,7 @@ scene G: The same blossom is out that was out the week {dead} died. {N} stands u
 - B>W | chip in for a bench with their name on it, where everyone will see | identity | v: tradition, benevolence | tags: pay:money-.05 | chance: 78
 - R>U | go on impulse to the place they died, to make sense of it at last | v: self-direction | chance: 68
 - G>B | let the day pass unmarked this year, and keep your strength for the living | v: security | chance: 60
-works: The day is hard, and then it is over, and {N} feels lighter for having marked it.
+works not G>B: The day is hard, and then it is over, and {N} feels lighter for having marked it.
 works: Remembering {dead} out loud, {N} laughs for the first time in a long while.
 fails: The grief comes back as fresh as the first week, and stays for days.
 fails: {N} spends the day alone and wrong-footed, and nobody else seems to remember.
@@ -313,9 +313,9 @@ scene G: {N} feels like a plant moved to a new pot, roots all bunched up, not ye
 - B>R | talk your way into a cheap lift home with someone driving that way | v: hedonism | chance: 78
 - R>G | share the food and music from home with the whole corridor, tonight | v: tradition, benevolence | chance: 90
 - G>W | find the people here from where you come from, and keep the old holidays together | habit | v: tradition, conformity | mark: made a friend | chance: 78
-works: One evening {N} realises the pang did not come, and the new place has started to feel like a place.
+works not G: One evening {N} realises the pang did not come, and the new place has started to feel like a place.
 works: {N} finds a corner of home in the new town, and the rest becomes bearable.
-fails: The pang gets worse each week, and {N} can think of little else.
+fails not G: The pang gets worse each week, and {N} can think of little else.
 fails: {N} leaves too early and regrets it, or stays too long and is miserable.
 
 == anger that keeps building
@@ -491,7 +491,7 @@ scene G: {N} feels like an old tree at the edge of the field. Everyone walks pas
 works: Someone turns, at last, and asks {N} what {N} thinks, and waits for the answer.
 works: {N} finds a place where {Ns} voice carries.
 fails: The silence round {N} grows, and {N} stops speaking at all.
-fails: The attempt to be seen goes badly, and now {N} is noticed for the wrong thing.
+fails not G G>U: The attempt to be seen goes badly, and now {N} is noticed for the wrong thing.
 
 == a sense of injustice
 tier: inner
@@ -526,7 +526,7 @@ scene G: When one tree takes all the light, the ones beneath it wither. {N} has 
 works: The unfairness is put right, or at least named out loud, and {N} can sleep again.
 works: Others turn out to feel the same, and {N} is no longer alone with it.
 fails: Nothing changes, and the powerful carry on as before.
-fails: {N} pays for speaking up, and the people responsible do not.
+fails not G B>W G>B: {N} pays for speaking up, and the people responsible do not.
 
 == feeling old
 tier: inner

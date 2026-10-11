@@ -132,8 +132,8 @@ scene G: {grandparent} left school at fourteen to work, and so did {parent}. In 
 - WR | tell your parent straight out that you mean to finish school, and why | act: tell their parent straight out that they mean to finish school, and why | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: learn.RW | chance: 55
 works: The plan holds: the family gets through the hard year, and {N} keeps a door to learning open for later.
 works: Years afterwards {N} can say that the choice at sixteen was {Ns} own, and stand by it.
-fails: The job ends after six months, and the school will not take {N} back in time for the exams.
-fails: {N} stays at school, the money runs out anyway, and {parent} takes a second job and says nothing about it.
+fails not UG UR WB WR: The job ends after six months, and the school will not take {N} back in time for the exams.
+fails not W U B R BG: {N} stays at school, the money runs out anyway, and {parent} takes a second job and says nothing about it.
 
 # ---------------------------------------------------------------- life event: an apprenticeship's hard first year (pairs D1b)
 

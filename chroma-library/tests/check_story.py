@@ -55,10 +55,13 @@ MARKS = ["hid a wrong", "owned up", "kept your word", "broke your word", "learne
 BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
 NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
               "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ",
-              "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE", "SHADOW_FAIL", "SHADOW_YEAR")
+              "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE", "SHADOW_FAIL", "SHADOW_YEAR",
+              "WORLD_HOME", "WORLD_HOME_CHANNEL", "YEAR_WHAT_HOME", "YEAR_WHAT_HOME_CHANNEL")
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
          "hospital places", "university places", "pandemic"]   # pandemic: WL2 (Engine #62), on the ties channel
+HOME_KINDS = ["recession", "unemployment", "prices", "housing", "welfare"]   # v22.4.1 F5: told through the home while young
+HOME_CHANNELS = ["money", "job loss risk"]
 CHANNELS = ["money", "freedom", "safety", "job loss risk", "disaster risk", "crime risk", "option", "close person", "ties"]
 HAZARDS = ["flood", "fire", "quake", "storm", "heat"]
 SIDES = ["people", "themselves", "safety", "freedom", "head", "heart", "make", "already", "will", "meant"]
@@ -173,6 +176,10 @@ def rule(path):
         return (("N", "Ns", "age", "did", "title", "who", "plan", "dream", "road"), req, "sentence", "narration", 25)
     if top == "THREAD_DID":
         return ((), (), "phrase", "narration", 25)
+    if top in ("WORLD_HOME", "WORLD_HOME_CHANNEL"):   # v22.4.1 F5: as WORLD, through the home
+        return (("N", "Ns"), (), "sentence", "narration", 25)
+    if top in ("YEAR_WHAT_HOME", "YEAR_WHAT_HOME_CHANNEL"):
+        return ((), (), "clause", "narration", 12)
     if top in ("WORLD", "WORLD_CHANNEL"):
         ch = path[2] if top == "WORLD" else path[1]
         return (("N", "Ns", "who"), ("who",) if ch == "close person" else (), "sentence", "narration", 25)
@@ -437,6 +444,30 @@ for k, d in YW.items():
         for dr in dd:
             if not (k in WO and ch in WO[k] and dr in WO[k][ch]):
                 fail("1 coverage", f"YEAR_WHAT.{k}.{ch}.{dr}: WORLD has no line for it")
+# v22.4.1 F5: the home tables cover every money kind's line in WORLD, and nothing else
+WH, WH_C, YWH, YWH_C = M.WORLD_HOME, M.WORLD_HOME_CHANNEL, M.YEAR_WHAT_HOME, M.YEAR_WHAT_HOME_CHANNEL
+for k in HOME_KINDS:
+    for ch in WO.get(k, {}):
+        for dr in WO[k][ch]:
+            need_keys(f"WORLD_HOME.{k}.{ch}.{dr}", WH.get(k, {}).get(ch, {}).get(dr, {}), ["small", "big"])
+            if not isinstance(YWH.get(k, {}).get(ch, {}).get(dr), str):
+                fail("1 coverage", f"YEAR_WHAT_HOME.{k}.{ch}.{dr}: missing")
+for top_, d_ in (("WORLD_HOME", WH), ("YEAR_WHAT_HOME", YWH)):
+    for k, dd in d_.items():
+        if k not in HOME_KINDS:
+            fail("1 coverage", f"{top_}.{k}: not a money kind")
+        for ch, ddd in dd.items():
+            if ch not in WO.get(k, {}):
+                fail("1 coverage", f"{top_}.{k}.{ch}: WORLD has no line for it")
+            for dr in ddd:
+                if dr not in WO.get(k, {}).get(ch, {}):
+                    fail("1 coverage", f"{top_}.{k}.{ch}.{dr}: WORLD has no line for it")
+need_keys("WORLD_HOME_CHANNEL", WH_C, HOME_CHANNELS)
+need_keys("YEAR_WHAT_HOME_CHANNEL", YWH_C, HOME_CHANNELS)
+for ch in HOME_CHANNELS:
+    need_keys(f"YEAR_WHAT_HOME_CHANNEL.{ch}", YWH_C.get(ch, {}), ["up", "down"])
+    for dr in ("up", "down"):
+        need_keys(f"WORLD_HOME_CHANNEL.{ch}.{dr}", WH_C.get(ch, {}).get(dr, {}), ["small", "big"])
 need_keys("WORLD_CHANNEL", WO_C, CHANNELS)
 need_keys("YEAR_WHAT_CHANNEL", YW_C, CHANNELS)
 for ch in CHANNELS:
@@ -539,7 +570,7 @@ for path, text in ALL:
         for m in re.finditer(r"(?:^|[.?!]”? )\{([^{}]*)\}", text):
             if m.group(1) not in UPPER_FILLS:
                 fail("2 fills", f"{{{m.group(1)}}} starts a sentence but its value is lower case: {at}")
-    if path[0] in ("DISASTER_READ", "WORLD", "WORLD_CHANNEL") and kind == "sentence" and not ({"N", "Ns"} & set(fills)):
+    if path[0] in ("DISASTER_READ", "WORLD", "WORLD_CHANNEL", "WORLD_HOME", "WORLD_HOME_CHANNEL") and kind == "sentence" and not ({"N", "Ns"} & set(fills)):
         fail("2 fills", f"the line does not name the character ({{N}} or {{Ns}}): {at}")
     sample = {**SAMPLE, **SAMPLE_AT.get(path[0], {})}
     filled = FILL.sub(lambda m: sample.get(m.group(1), "{" + m.group(1) + "}"), text)
