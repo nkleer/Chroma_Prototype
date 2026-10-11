@@ -68,10 +68,10 @@ scene G: The same faces have sat in that corner for twenty years. Some of them k
 - B>R | start a card night at your own kitchen table, with a little in the pot | act: start a card night at their own kitchen table, with a little in the pot | v: hedonism, power | lever: found | sphere: gather.B | chance: 65
 - R>G | throw one last loud card night for the old keeper before the rules begin | v: stimulation, tradition | lever: voice | sphere: gather.R | chance: 65
 - G>W | come in less, and when you do, sit quietly among the diners | act: come in less, and when they do, sit quietly among the diners | v: security, conformity | lever: neglect | sphere: gather.G | chance: 65
-works: The keeper gives the regulars Thursday evenings in the corner, and the cards come back out.
+works not R: The keeper gives the regulars Thursday evenings in the corner, and the cards come back out.
 works: The old crowd finds a new home for its nights, and it holds together.
 fails: The corner fills with diners, and one by one the old regulars stop coming in.
-fails: Words are said at the bar that cannot be taken back, and {N} is not welcome there any more.
+fails not G G>W: Words are said at the bar that cannot be taken back, and {N} is not welcome there any more.
 
 # ---------------------------------------------------------------- everyday, calls WUB (cycle s2); partner: the new keeper's rules
 
@@ -111,7 +111,7 @@ scene G: Some of these singers have stood in the same row for thirty years. The 
 - B>G | audition, then ask the director to keep the old altos on as a favour to you | act: audition, then ask the director to keep the old altos on as a favour to them | v: power, tradition | lever: subvert | sphere: arts.B | chance: 65
 - R>W | tell the director to her face that a choir is for everyone, and see who claps | v: universalism, stimulation | lever: voice | sphere: arts.R | chance: 65
 - G>U | keep coming on Tuesdays, but skip the extra rehearsals and the competition | v: tradition, security | lever: neglect | sphere: arts.G | chance: 65
-works: The director keeps an open choir beside the competition group, and the old altos stay.
+works not B: The director keeps an open choir beside the competition group, and the old altos stay.
 works: {N} finds a place to sing that fits, and the singing is better than it has been in years.
 fails: The choir splits down the middle, and the Tuesday nights are never the same again.
 fails: {N} loses the place in the row, and with it half the friends of a decade.
@@ -155,10 +155,10 @@ scene G: The old songs were sung at {Ns} grandparents' funerals. To drop them fe
 - B>W | quietly offer the elder who chose the songs your help, for one old song | act: quietly offer the elder who chose the songs their help, for one old song | v: power, conformity | lever: subvert | sphere: faith.B | chance: 65
 - R>U | ask the young ones what they make of the new service, and tell the elders straight | v: self-direction, benevolence | lever: voice | sphere: faith.R | chance: 65
 - G>B | give your tithe to the old house in your family's village instead | act: give their tithe to the old house in their family's village instead | v: tradition, security | lever: exit | sphere: faith.G | chance: 65
-works: The elders agree to one old song every week, and the half-empty bench fills again.
+works not B: The elders agree to one old song every week, and the half-empty bench fills again.
 works: {N} finds a way to keep the old songs alive that the whole family can share.
 fails: The congregation splits into those who stay and those who go, and {Ns} family is on both sides.
-fails: Nothing changes, and {N} sits through the new service every week feeling like a guest.
+fails not B G: Nothing changes, and {N} sits through the new service every week feeling like a guest.
 
 # ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: the elders' new order of service
 
@@ -244,9 +244,9 @@ scene G: The old regulars say their grandparents learned to read in this room.
 - R>G | knock on doors along your street, and ask who learned to read in that room | act: knock on doors along their street, and ask who learned to read in that room | v: stimulation, tradition | lever: voice | sphere: learn.R | chance: 65
 - G>W | start a reading circle in your front room for the old regulars, should the branch go | act: start a reading circle in their front room for the old regulars, should the branch go | v: tradition, benevolence | lever: found | sphere: learn.G | chance: 65
 works: Enough volunteers come forward, and the branch stays open on four days a week.
-works: {N} finds friends among the regulars, and a place in the town that did not exist a season ago.
+works not B: {N} finds friends among the regulars, and a place in the town that did not exist a season ago.
 fails: The branch closes in the spring, and the building is boarded up by the summer.
-fails: The volunteers quarrel over who runs what, and {N}, the newest of them, takes the blame.
+fails not B G: The volunteers quarrel over who runs what, and {N}, the newest of them, takes the blame.
 
 # ---------------------------------------------------------------- everyday, calls WBR (cycle s2); partner: the notice on the library desk
 
@@ -289,7 +289,7 @@ scene G: The regulars have bought their bread from that corner since {N} was a c
 - G>U | leave the stall to a cousin on market days, and look for steadier work | v: security | lever: neglect | sphere: comm.G | chance: 65
 works: The regulars follow the stall to its new place, and the takings hold.
 works: The next draw counts years at the market, and the family gets its corner back.
-fails: The windy end is half the trade, and by winter the family is talking about giving the stall up.
+fails not R: The windy end is half the trade, and by winter the family is talking about giving the stall up.
 fails: The quarrel with the warden goes on for a year, and {N} is on the wrong end of every ruling.
 
 # ---------------------------------------------------------------- everyday, calls UR (cycle s3); partner: the on-call crew is two short
@@ -331,9 +331,9 @@ scene G: {Ns} father fished on the share, and his father before him. It is how t
 - B>W | land a box of fish on the side each trip, to make up the share | v: power, security | mark: broke the law | lever: subvert | sphere: prod.B | chance: 65
 - R>U | argue it out with the owner on the deck, figures in hand, until he gives ground | v: self-direction, achievement | lever: voice | pushes: institution employer | sphere: prod.R | chance: 65
 - G>B | put your savings behind the old skipper's family to buy back a share in the boat | act: put their savings behind the old skipper's family to buy back a share in the boat | v: tradition, security | lever: fund | sphere: prod.G | chance: 65
-works: The owner keeps a share for the good seasons on top of the wage, and the crew stays.
+works not R: The owner keeps a share for the good seasons on top of the wage, and the crew stays.
 works: {N} comes out of it with a fairer deal, on this boat or another.
-fails: The good season comes, the wage stays the same, and {N} watches the owner take the difference.
+fails not R: The good season comes, the wage stays the same, and {N} watches the owner take the difference.
 fails: The crew scatters along the harbour, and {N} is left without a berth for the spring.
 
 # ---------------------------------------------------------------- everyday, calls WBG (cycle s4); partner: the new owner ends the share
@@ -378,7 +378,7 @@ scene G: Everyone on the crew is someone's cousin. They have never let the villa
 works: Two new names go on the rota by spring, and the engine stays in the village.
 works: The village learns what its crew does, and nobody takes the pager for granted again.
 fails: The rota stays short, and the engine goes to the town in the summer.
-fails: {N} carries the extra nights alone until something at home or at work gives way.
+fails not B: {N} carries the extra nights alone until something at home or at work gives way.
 
 # ---------------------------------------------------------------- everyday, calls UR (cycle s1); partner: the council meets in the morning now
 
@@ -420,9 +420,9 @@ scene G: {N} remembers this hall full for these meetings when {Ns} parents came.
 - R>G | tell the councillor the forum is a waste of everyone's evening, and walk out | v: self-direction | lever: exit | sphere: rule.R | chance: 65
 - G>W | go to every forum from now on, even with six chairs, because someone should | v: tradition, conformity | lever: loyalty | sphere: rule.G | chance: 65
 works: The next forum has thirty people in it, and the councillor brings written answers.
-works: {N} is heard, and the bus times are on the council's list by the spring.
+works not G: {N} is heard, and the bus times are on the council's list by the spring.
 fails: The forum is stopped in the new year, and the ward's questions go nowhere.
-fails: {N} speaks into the silence, and the councillor thanks {N} and moves on to the date of the next meeting.
+fails not G: {N} speaks into the silence, and the councillor thanks {N} and moves on to the date of the next meeting.
 
 # ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: six chairs at the ward forum
 
@@ -464,9 +464,9 @@ scene G: The council always met in the evening, after the shops shut. That was t
 - R>W | stand for the council yourself next May, on one promise: evening meetings | act: stand for the council themselves next May, on one promise: evening meetings | v: self-direction, universalism | lever: office | sphere: rule.R | chance: 65
 - G>U | stop following the council, and leave the gallery to the retired | v: security | lever: neglect | sphere: rule.G | chance: 65
 works: The council agrees to hold its big votes in the evening, and the gallery is full for the leisure centre.
-works: {N} becomes the person the town asks about the council, and the meetings are watched again.
+works not G>U: {N} becomes the person the town asks about the council, and the meetings are watched again.
 fails: The mornings stay, the leisure centre vote goes through unseen, and the town hears about it afterwards.
-fails: {N} is called a troublemaker in the chamber, and the members close ranks.
+fails not G>U: {N} is called a troublemaker in the chamber, and the members close ranks.
 
 # ---------------------------------------------------------------- everyday, calls WR (cycle s3); partner: the desk officer who will not take the report
 
@@ -507,10 +507,10 @@ scene G: {N} sat with {Ns} grandmother through every night of her last illness. 
 - B>W | ask the consultant to name you as carer, so the rule bends for you too | act: ask the consultant to name them as carer, so the rule bends for them too | v: power, benevolence | lever: subvert | sphere: care.B | chance: 65
 - R>U | tell the sister to her face that she plays favourites, in front of the whole bay | v: self-direction, stimulation | mark: made an enemy | lever: voice | sphere: care.R | chance: 65
 - G>B | ask for your parent to be moved to the small hospital nearer home | act: ask for their parent to be moved to the small hospital nearer home | v: security, tradition | lever: exit | sphere: care.G | chance: 65
-works: The sister explains: the family in the next bay is saying goodbye. After that she lets {N} stay too, on the bad nights.
-works: The ward's rule is written up and kept the same for every family, and {N} is the one who asked for it.
+works not G>B: The sister explains: the family in the next bay is saying goodbye. After that she lets {N} stay too, on the bad nights.
+works not G: The ward's rule is written up and kept the same for every family, and {N} is the one who asked for it.
 fails: {N} is marked down as difficult, and every visit after that is watched.
-fails: {N} goes home at eight every night, and learns not to expect fairness on that ward.
+fails not G>B: {N} goes home at eight every night, and learns not to expect fairness on that ward.
 
 # ---------------------------------------------------------------- everyday, calls UBG (cycle s4); partner: the ward sister sends you home at eight
 
@@ -551,10 +551,10 @@ scene G: The old beat officer knew every family and would have come round himsel
 - B>U | pay a private firm to fit a camera to the van, and forget the watch | v: security, achievement | lever: exit | sphere: prot.B | chance: 65
 - R>B | tell the officer you know someone at the paper who would like this story | act: tell the officer they know someone at the paper who would like this story | v: power, stimulation | lever: voice | sphere: prot.R | chance: 65
 - G>R | never call the watch again, and tell the young ones at home why | v: tradition, self-direction | lever: neglect | sphere: prot.G | chance: 65
-works: A sergeant comes out, takes the report properly and apologises; the tools turn up in a raid a month later.
+works not G B>U G>R: A sergeant comes out, takes the report properly and apologises; the tools turn up in a raid a month later.
 works: The street starts reporting together, and an officer begins walking the road again.
 fails: The report is taken and nothing ever comes of it, and {N} stops expecting anything from the watch.
-fails: {N} is warned for causing a scene, and leaves with neither a report nor any respect for the station.
+fails not G B>U G>R: {N} is warned for causing a scene, and leaves with neither a report nor any respect for the station.
 
 # ================================================================ life events
 
@@ -639,9 +639,9 @@ scene G: The member for the old ward expected it to be his turn. His family has 
 - UR | open the meetings to the public on evenings, with three minutes for anyone who asks | v: universalism, self-direction | lever: office | pushes: institution council | sphere: rule.UR | chance: 50
 - WB | take the chair, and strike a budget deal with the other side in the first week | v: power, conformity | lever: lead | sphere: rule.WB | chance: 50
 - WG | start a free legal advice fund at the town hall, in the old chair's name | v: benevolence, tradition | lever: fund | sphere: rule.GW | chance: 50
-works: The members choose {N}, and the first budget passes with votes from both sides.
+works not R RG G UB: The members choose {N}, and the first budget passes with votes from both sides.
 works: Whatever {N} chooses, the chamber works better for it, and the town notices.
-fails: The chair turns into a war of attrition, and {N} spends two years refereeing a feud.
+fails not R RG G UB: The chair turns into a war of attrition, and {N} spends two years refereeing a feud.
 fails: The vote goes the other way after a deal in the corridor, and {N} is left on the back bench.
 
 # ---------------------------------------------------------------- life event: the society splits (pairs D2a)
@@ -684,7 +684,7 @@ scene G: The old members' grandparents built this society. Their names are on th
 works: The society holds together with two kinds of night, and the roof is mended by the first frost.
 works: The hall fills again, and {N} hands on a living society instead of a dying one.
 fails: Half the members walk out, and the society that is left cannot pay for the roof.
-fails: The annual meeting turns bitter, and {N} loses the chair to the side {N} did not choose.
+fails not UR: The annual meeting turns bitter, and {N} loses the chair to the side {N} did not choose.
 
 # ---------------------------------------------------------------- life event: the players' grant is cut (pairs D2b)
 
@@ -724,10 +724,10 @@ scene G: The players were founded by the old families of the square, and their c
 - UB | start a theatre school in the old hall, and let its fees pay for the stage | v: achievement, self-direction | lever: found | sphere: arts.UB | chance: 50
 - UG | pay for one young player's place each year, in the founders' name | v: tradition, benevolence | lever: fund | sphere: arts.GU | chance: 50
 - RG | make the young ones the company's board, and stage whatever they choose | v: self-direction, tradition | lever: lead | sphere: arts.RG | chance: 50
-works: The spring season goes ahead, and the town turns out for it as it never did when it was paid for.
+works not B: The spring season goes ahead, and the town turns out for it as it never did when it was paid for.
 works: The players find a way to stand on their own, and {Ns} name is on the new posters.
 fails: The theatre goes dark for the spring, and some of the players never come back.
-fails: {N} fights the council for a year, and wins back half a grant and a lasting enemy in the chamber.
+fails not B: {N} fights the council for a year, and wins back half a grant and a lasting enemy in the chamber.
 
 # ---------------------------------------------------------------- life event: the free kitchen is running out (pairs D3a)
 
@@ -813,7 +813,7 @@ scene G: Half the patients are the parents of people {N} went to school with. Th
 works: The board gives the ward another three years, and the families' fund pays for its new beds.
 works: The ward closes, but what it did goes on in the town, and {N} is the one people send for.
 fails: The ward closes in the spring, and the first winter after it the hospital's corridors fill with trolleys.
-fails: {N} is warned for speaking to the press, and the fight costs {N} the post {N} wanted.
+fails not UR: {N} is warned for speaking to the press, and the fight costs {N} the post {N} wanted.
 
 # ---------------------------------------------------------------- life event: the evening classes end (pairs D4a)
 
@@ -853,10 +853,10 @@ scene G: {N} learned at an evening class too, from an old teacher who taught it 
 - UR | leave the college for the adult school in the city that still teaches at night | v: self-direction, achievement | mark: moved away | lever: exit | sphere: learn.UR | chance: 50
 - RG | get the old students to teach the new ones, one evening a week, unpaid | v: benevolence, tradition | lever: lead | sphere: learn.RG | chance: 50
 - BG | ask the college's richest old pupil to pay for the classes for three years | v: power, tradition | lever: fund | sphere: learn.BG | chance: 50
-works: The evening classes go on, in the college or out of it, and the twelve come back in the autumn.
+works not G: The evening classes go on, in the college or out of it, and the twelve come back in the autumn.
 works: One of {Ns} old students takes over the class, and teaches it the way {N} did.
 fails: The classes end in June, and most of the students do not find their way to another.
-fails: {N} fights the closure and loses, and the college remembers who fought.
+fails not G UR: {N} fights the closure and loses, and the college remembers who fought.
 
 # ---------------------------------------------------------------- life event: the warden of the makers' association retires (pairs D4b)
 
@@ -895,9 +895,9 @@ scene G: The old warden taught {N}, and his teacher taught him. The standard is 
 - UB | open a workshop of your own that trains apprentices outside the association | act: open a workshop of their own that trains apprentices outside the association | v: self-direction, achievement | lever: found | sphere: prod.UB | chance: 50
 - UG | stand for the town's trade board, and win the association's test a place in its rules | v: tradition, universalism | lever: office | pushes: institution council | sphere: prod.GU | chance: 50
 - BR | take the post, and let the masters know their nephews pass if they back you | act: take the post, and let the masters know their nephews pass if they back them | v: power | mark: hid a wrong | lever: subvert | sphere: prod.BR | chance: 50
-works: The association's test means something again, and the first apprentice {N} passes is one nobody else would have.
+works not R B UB: The association's test means something again, and the first apprentice {N} passes is one nobody else would have.
 works: The standard is kept, and the young makers of the town know where they stand.
-fails: The masters close ranks, and {N} spends years judging pieces under a cloud of quarrels.
+fails not R B UB: The masters close ranks, and {N} spends years judging pieces under a cloud of quarrels.
 fails: The test is scrapped by a vote, and the association becomes a dinner club.
 
 # ---------------------------------------------------------------- life event: the credit union's bad year (pairs D5a)
@@ -938,10 +938,10 @@ scene G: The credit union was started by the street's grandparents, a few coins 
 - UB | get the council to stand behind the savings, through your seat on its finance committee | act: get the council to stand behind the savings, through their seat on its finance committee | v: power, security | lever: office | pushes: institution council | sphere: comm.UB | chance: 50
 - UR | close the credit union in good order, and pay every member what is left | v: universalism, self-direction | lever: exit | sphere: comm.UR | chance: 50
 - BG | ask the town's biggest trader to lend the credit union the money at a fair rate | v: power, tradition | lever: fund | sphere: comm.BG | chance: 50
-works: The queue thins by the afternoon, and a year later the credit union is lending again.
-works: The members keep their savings, and the street remembers who stood in front of the queue.
+works not UR: The queue thins by the afternoon, and a year later the credit union is lending again.
+works not B: The members keep their savings, and the street remembers who stood in front of the queue.
 fails: The run does not stop, and the credit union closes owing its members a third of their savings.
-fails: {N} keeps it open, and spends years being blamed for the loan {N} voted against.
+fails not B UR: {N} keeps it open, and spends years being blamed for the loan {N} voted against.
 
 # ---------------------------------------------------------------- life event: the night desk closes (pairs D5b)
 
@@ -1025,9 +1025,9 @@ scene G: The estate has always had one of its own on the council. The man nobody
 - UG | ask the old families on the estate who they would trust, and stand behind that person | v: tradition, universalism | lever: loyalty | sphere: rule.GU | chance: 50
 - BG | sign the stranger's form in return for his promise on the estate's repairs | v: power, security | lever: subvert | sphere: rule.BG | chance: 50
 works: The estate turns out as it has not for years, and its candidate takes the seat.
-works: Whoever wins, the estate has a voice in the chamber now, and {N} is part of it.
+works not G: Whoever wins, the estate has a voice in the chamber now, and {N} is part of it.
 fails: The stranger wins on a low turnout, and the estate's repairs slide down the list again.
-fails: {N} stands and loses badly, and the campaign leaves {N} tired and out of pocket.
+fails not G U WB WR UG BG: {N} stands and loses badly, and the campaign leaves {N} tired and out of pocket.
 
 # ---------------------------------------------------------------- life event: lost fairly at the small claims hearing (pairs D6b)
 
@@ -1065,9 +1065,9 @@ scene G: {Ns} parent always said courts were for people with money. Today that w
 - UB | ask the clerk how an appeal works, and file the form on the last day allowed | v: achievement, self-direction | lever: voice | sphere: rule.UB | chance: 50
 - BR | hold back the last payment you still owe the builder, ruling or no ruling | act: hold back the last payment they still owe the builder, ruling or no ruling | v: power, self-direction | mark: broke the law | lever: subvert | sphere: rule.BR | chance: 50
 - RG | leave the costs letter unopened on the side for a month, and hope it goes away | v: hedonism, security | lever: neglect | sphere: rule.RG | chance: 50
-works: {N} pays, reads every contract twice from then on, and finds the court a place {N} would trust again.
+works not G RG BR: {N} pays, reads every contract twice from then on, and finds the court a place {N} would trust again.
 works: The builder, shamed by the hearing more than the ruling, comes back and finishes the kitchen.
-fails: {N} fights on, loses again, and the costs double.
+fails not W U WG RG: {N} fights on, loses again, and the costs double.
 fails: The loss sours {N} on the law for years, fair hearing or not.
 
 # ---------------------------------------------------------------- life event: the foreman's inquiry (pairs D3a)
@@ -1106,7 +1106,7 @@ scene G: {Ns} father worked that floor for thirty years and never had a mark aga
 - UB | ask the union rep to get the warning cut to a year, on your clean record | act: ask the union rep to get the warning cut to a year, on their clean record | v: achievement, security | lever: voice | pushes: institution union | sphere: prod.UB | chance: 50
 - RG | go through the motions from now on, and do only what the foreman sees | v: security, hedonism | lever: neglect | sphere: prod.RG | chance: 50
 - BG | offer to train the new starters in the checks, if the warning comes off sooner | v: achievement, tradition | lever: voice | sphere: prod.BG | chance: 50
-works: {N} takes the warning, keeps the check, and in three years is the one the new starters ask.
+works not R: {N} takes the warning, keeps the check, and in three years is the one the new starters ask.
 works: The inquiry's fairness sticks: the whole floor does the checks now, and nobody else is hurt.
 fails: The warning follows {N} for years, and the post {N} wanted goes to someone else.
-fails: The floor takes sides over the report, and {N} works the next year among people who will not speak.
+fails not R: The floor takes sides over the report, and {N} works the next year among people who will not speak.

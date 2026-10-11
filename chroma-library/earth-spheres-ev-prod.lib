@@ -109,7 +109,7 @@ scene G: Three generations of the family have clocked in at those gates. {N} can
 - WB | put your payout into a small firm that hires the old crew | v: benevolence, achievement | lever: fund | pushes: place | sphere: prod.WB | chance: 42
 - WR | join the hands blocking the gates on the day the lorries come for the line | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 30
 works: A small firm grows in the empty units, and {N} has work again, or a friend does, within a year.
-works: The town is poorer, but {N} finds a way to make a living and stay among people {N} knows.
+works not R: The town is poorer, but {N} finds a way to make a living and stay among people {N} knows.
 fails: The gates are chained by autumn, and the high street empties shop by shop.
 fails: {parent} never finds work again, and the family's evenings grow quiet and hard.
 
@@ -151,7 +151,7 @@ scene G: {Ns} {parent} stood at the same gate in another strike, years ago. {N} 
 - UB | find out quietly how long the firm can run on the skeleton shift | v: power, achievement | sphere: prod.UB | chance: 58
 - WR | stand in the road in front of the bus that brings the skeleton shift in | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 40
 - WU | join the union team that checks the firm's books and drafts a fair counter-offer | v: universalism, achievement | lever: voice | pushes: institution employer | sphere: prod.WU | chance: 52
-works: The firm gives way, the strike ends with a raise that beats prices, and {N} walks back in with the crew.
+works not B: The firm gives way, the strike ends with a raise that beats prices, and {N} walks back in with the crew.
 works: Whatever was done, {N} comes out of the strike with a friend made at the gate for life.
 fails: The strike ends with little won, and some at the gate never speak to {N} again.
 fails: The weeks without pay eat the savings, and the family feels it for a year.
@@ -236,9 +236,9 @@ scene G: {grandparent} planted the orchard behind the house. {N} cannot imagine 
 - UR | turn the farm into something the firm cannot copy, a cider press or a farm shop | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 44
 - WB | buy the neighbour's last field before the firm can, and hire their hands | v: power, benevolence | sphere: prod.WB | chance: 36
 - WG | get the last farmers to pool their land and farm it together | v: universalism, tradition | lever: found | pushes: place | sphere: prod.GW | chance: 38
-works: The farm stays in the family another generation, smaller in what it earns and larger in what it means.
-works: {N} sells well, and makes a new start without bitterness.
-fails: The firm's fences go up round the farm, the water rights go first, and the offer is lower next year.
+works not B UB: The farm stays in the family another generation, smaller in what it earns and larger in what it means.
+works not G R RG UR WB WG: {N} sells well, and makes a new start without bitterness.
+fails not B UB: The firm's fences go up round the farm, the water rights go first, and the offer is lower next year.
 fails: The family splits over the offer, and {grandparent} stops speaking to {N}.
 
 # ---------------------------------------------------------------- land_shared (pairs D5a)
@@ -322,9 +322,9 @@ scene G: Four generations of the family fished from this harbour. {N} wonders wh
 - UR | refit your boat to take visitors out to see the seals | v: stimulation, self-direction | lever: found | sphere: prod.UR | chance: 56
 - WB | lend the crews out of work enough to see them through the first winter | v: benevolence, power | lever: fund | sphere: prod.WB | chance: 60
 - WR | lead the crews to the harbour office to demand help for the families | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | chance: 46
-works: {N} finds a living by the sea that does not need the fish, and stays.
+works not R: {N} finds a living by the sea that does not need the fish, and stays.
 works: Ten years on the counts are rising, and {N} is on the quay when the first boat goes out again.
-fails: The harbour empties of young people, and {N} spends the winters watching the boats rot.
+fails not R: The harbour empties of young people, and {N} spends the winters watching the boats rot.
 fails: Crews fish the closed waters at night, and the town turns on itself over who is cheating.
 
 # ---------------------------------------------------------------- closed_season (pairs D4b)
@@ -369,7 +369,7 @@ scene G: {N} learned the old grounds from {parent}. For the first time in years,
 works: The count rises again the next year, and {N} is proud of a rule the towns made themselves.
 works: The cheating is put right without a feud, and the boats go out on fair terms.
 fails: The meeting splits over the cheating, and two towns walk out of the agreement.
-fails: {rival} learns who spoke against them, and the harbour is a cold place for a while.
+fails not UB B R G BR UG WG: {rival} learns who spoke against them, and the harbour is a cold place for a while.
 
 # ---------------------------------------------------------------- scarce_hands (pairs D6b)
 
@@ -409,7 +409,7 @@ scene G: The farm had the same pickers for years, and half of them did not come 
 - WG | bring in friends and neighbours to share the harvest work for fair pay | v: benevolence, universalism | sphere: prod.GW | chance: 64
 - WU | help draw up a fair pay scale for the trade in town, posted for all | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.WU | chance: 44
 works: {N} comes out of the hard year with better pay, more say and a trade worth keeping.
-works: The farm and the kitchens find their hands again, and {N} helped them do it fairly.
+works not R: The farm and the kitchens find their hands again, and {N} helped them do it fairly.
 fails: The machine takes the picking work, and the raise lasts one season.
 fails: {N} moves from job to job chasing pay, and ends the year tired and no better off.
 
@@ -494,8 +494,8 @@ scene G: {sibling} is serving abroad. {N} thinks of every family waiting for new
 - WG | set up a rota so the weekend shifts are shared fairly across the floor | v: universalism, benevolence | sphere: prod.GW | chance: 68
 - WU | check every new part against the standard, however fast the orders come | v: conformity, security | sphere: prod.WU | chance: 72
 works: The orders keep the town in work, and {N} comes through the war with money saved and no shame in how it was earned.
-works: {sibling} comes home, and the overtime money pays for the welcome.
-fails: The hours grind {N} down, and the money goes as fast as it comes.
+works not R: {sibling} comes home, and the overtime money pays for the welcome.
+fails not R: The hours grind {N} down, and the money goes as fast as it comes.
 fails: The war ends, the orders stop overnight, and the plant lays off the newest hands first.
 
 # ---------------------------------------------------------------- name_won (pairs D4a)
@@ -579,7 +579,7 @@ scene G: The farm has been in the family for generations, and {parent} is gettin
 - WG | help the families who stayed share the work of the farms that lost their young | v: benevolence, universalism | sphere: prod.GW | chance: 70
 - WR | campaign to keep the valley school open, though the bus is half empty | v: universalism, tradition | lever: voice | pushes: place | sphere: prod.RW | chance: 40
 works: {N} chooses, and keeps a good bond with the ones on the other side of the choice.
-works: The valley keeps enough of its young, and {N} is one of the reasons why.
+works not B R: The valley keeps enough of its young, and {N} is one of the reasons why.
 fails: {sibling} calls home less and less, and then hardly at all.
 fails: {N} ends up between the two places, at home in neither.
 

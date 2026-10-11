@@ -38,7 +38,7 @@ scene G: {N} thinks of the bed at home and the shape of the curtains there, and 
 - B>R | turn it into a contest: who can stay awake longest with a torch | v: stimulation, achievement | chance: 72
 - R>G | creep to the window and look at the moon, the same one as over home | v: universalism (nature) | chance: 80
 - G>W | say the bedtime words from home, the same as every night | habit | v: tradition | chance: 69
-works: Morning comes, and with it pancakes. {N} made it through the night and feels a little taller.
+works not B R U>B: Morning comes, and with it pancakes. {N} made it through the night and feels a little taller.
 works: By breakfast the strange house has turned friendly, and {N} asks to come again.
 fails: {N} is picked up at midnight in pyjamas, too tired to care who saw.
 fails: The night drags on and on, and {N} is grey and grumpy all the next day.
@@ -108,7 +108,7 @@ scene G: There is a corner of the field with a hedge and some beetles. {N} goes 
 - B>W | offer to keep the score for the big game, a job nobody else wants | door | v: power, conformity | chance: 78
 - R>U | invent a wild new game on the spot, and shout the rules to anyone passing | door | v: stimulation, self-direction | chance: 72
 - G>B | wait by the game until they are one player short, then step in | v: achievement | chance: 65
-works: Somebody says yes. By the end of break {N} has a place in a game, and maybe a friend.
+works not U: Somebody says yes. By the end of break {N} has a place in a game, and maybe a friend.
 works: Break goes by quicker than feared, and tomorrow there is a plan.
 fails: The bell goes at last, and {N} has spent the whole break alone by the wall.
 fails: It goes wrong in front of everyone, and break feels even longer the next day.
@@ -146,7 +146,7 @@ scene G: {N} tries to remember that {sibling} had to wait for things once too. I
 works: Somebody notices at last, and things are evened out, or nearly.
 works: The bad feeling passes, and {N} and {sibling} are friends again by teatime.
 fails: Nobody listens, and it seems even more unfair than before.
-fails: It ends in a row, and {N} is the one who gets told off.
+fails not G G>R: It ends in a row, and {N} is the one who gets told off.
 
 == the same bad dream again
 tier: inner
@@ -217,7 +217,7 @@ scene G: {N} looks at the little garden at number nine, with its gnome and its b
 - G>U | offer to fill the old man's bird table every week instead | door | binds | v: benevolence, self-direction | mark: made a friend | chance: 72
 works: Nobody gets in trouble, and the big kids look at {N} a bit differently afterwards.
 works: {N} gets home with a story to tell and nothing to hide.
-fails: The door opens too soon. There is a stern face, and a long walk home.
+fails not W G U R>W G>U: The door opens too soon. There is a stern face, and a long walk home.
 fails: The big kids laugh anyway, and {N} feels small all the way home.
 
 == in a hurry to be grown up
@@ -320,9 +320,9 @@ scene G: {N} thinks of {grandparent}, who has played every evening for sixty yea
 - B>R | keep at it, to be the one showing off at the end-of-term concert | v: achievement, power | self_control: + | chance: 78
 - R>G | play only the fun bits by ear, and forget the scales for good | v: hedonism | self_control: - | chance: 75
 - G>W | keep going, because the whole family has made room for it | binds | v: tradition, benevolence | mark: kept your word | self_control: + | chance: 62
-works: One day the hard part just comes, and {N} plays it through without stopping.
+works not B G W>U: One day the hard part just comes, and {N} plays it through without stopping.
 works: {N} settles it one way or the other, and feels lighter for having chosen.
-fails: Nothing gets easier, and every lesson is a fight.
+fails not B G W>U: Nothing gets easier, and every lesson is a fight.
 fails: A month later {N} regrets the choice, and does not know how to say so.
 
 == a best friend finds a new best friend
@@ -390,7 +390,7 @@ scene G: {N} thinks of the old bike in the shed that {grandparent} might mend, a
 - B>W | spend the bike money on the toy everyone at school has | v: power (face), conformity | self_control: - | chance: 63
 - R>U | swear to have the bike by summer, and pour every spare coin in | binds | v: achievement, stimulation | self_control: + | chance: 72
 - G>B | wait patiently, and trust the jar to fill in its own time | v: security, achievement | self_control: + | chance: 65
-works: The day comes when the jar is full, and {N} walks into the shop with it held in both arms.
+works not R G B>W: The day comes when the jar is full, and {N} walks into the shop with it held in both arms.
 works: {N} makes a choice about the money and does not regret it.
 fails: The jar empties faster than it fills, and the bike stays in the catalogue.
 fails: The treat is gone in a day, and the wanting stays.
@@ -462,9 +462,9 @@ scene G: The hero came from a little town just like this one. {N} keeps thinking
 - B>R | tell the whole class: one day that will be me | identity | v: achievement, power | chance: 63
 - R>G | dress up as the hero for fancy-dress day, and stay in character all day | v: stimulation | chance: 90
 - G>W | ask a grandparent who the heroes were in the old days, and keep their picture too | v: tradition | chance: 75
-works: {N} gets a little closer to the hero, and somebody says "just like the real thing".
+works not G: {N} gets a little closer to the hero, and somebody says "just like the real thing".
 works: The poster stays on the wall for years, and so does the feeling.
-fails: Someone laughs at the poster, and {N} takes it down for a while.
+fails not G: Someone laughs at the poster, and {N} takes it down for a while.
 fails: The hero does something disappointing on the news, and {N} does not know what to think.
 
 == a den of your own
@@ -533,7 +533,7 @@ scene G: The rabbit knows {N} now, and comes to the wire to be stroked. {N} like
 - R>U | race there on the bike first thing, then on to the party with time to spare | body: light | v: stimulation, benevolence | self_control: + | chance: 85
 - G>B | leave two days of food, and trust the rabbit to manage | v: hedonism | mark: broke your word | closed: approval: leaving an animal alone; backfire: an empty water bottle and a sad grandparent | self_control: - | chance: 55
 works: {grandparent} comes home to a fat and happy rabbit, and tells {N} nobody could have done it better.
-works: {N} gets through the week, and finds that a promise kept feels better than any party.
+works not R W>R B>W G>B: {N} gets through the week, and finds that a promise kept feels better than any party.
 fails: Something goes wrong in the week, and {N} has to own up to {grandparent}.
 fails: The week drags, and {N} is glad, too glad, when it is over.
 
@@ -567,7 +567,7 @@ scene G: The woman at the shop has known {N} since {N} was a baby, and smiles to
 - B>U | ask to be paid for it, and offer to do the same for the neighbours | binds | v: achievement, power | chance: 68
 - R>B | grab the first things that look right, and dash back with the list half read | v: stimulation | chance: 42
 - G>R | take the long way through the park, and feed the ducks some of the bread | v: universalism (nature), stimulation | closed: approval: feeding the family's bread to the ducks; backfire: half a loaf short, and a cross parent | chance: 58
-works: Everything is right, down to the last penny, and {parent} says {N} can go again next week.
+works not B: Everything is right, down to the last penny, and {parent} says {N} can go again next week.
 works: {N} comes home with the bag and a new feeling: someone who can be trusted.
 fails: Something is forgotten or the change is wrong, and {N} has to go back.
 fails: It takes far too long, and {parent} is at the door, worried, when {N} gets back.

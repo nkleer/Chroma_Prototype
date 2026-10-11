@@ -307,9 +307,9 @@ scene G: The shop has stood on this corner since before {N} was born, and the ol
 - B>U | ask the area manager to put you on the stock course, for the extra grade | door | v: achievement | act: ask the area manager for a place on the stock course, for the extra grade | mark: learned a skill | chance: 75
 - R>B | take the keys, and ask for the supervisor's job while they still need you | v: power, achievement | act: take the keys, and ask for the supervisor's job while the shop still needs them | title: shift manager | chance: 55
 - G>R | say yes, and make the slow Sunday mornings your own, radio on | v: hedonism | chance: 75
-works: The first month of Sundays goes without a hitch, and the manager starts leaving {N} the notes for the week.
+works not R: The first month of Sundays goes without a hitch, and the manager starts leaving {N} the notes for the week.
 works: {N} turns the key at six, the alarm goes quiet, and for an hour the shop feels like {Ns} own.
-fails: The alarm goes off on the first Sunday, the code will not stop it, and the police arrive before the manager does.
+fails not R: The alarm goes off on the first Sunday, the code will not stop it, and the police arrive before the manager does.
 fails: Two months in, the float is short one Sunday, and it is {Ns} name on the form.
 
 # ---------------------------------------------------------------- shop assistant, senior (tenure 8-60): calls WB (cycle s1)
@@ -345,9 +345,9 @@ scene G: The old lady at number nine comes in for her bread at eight every morni
 - B>R | take the last months' pay, and spend it on the trip you always talked about | v: hedonism, stimulation | drops: shop assistant | mark: turned down a chance | chance: 85
 - R>G | throw the owner a farewell party in the street, and let the town say goodbye | v: benevolence, tradition | mark: made a friend | chance: 85
 - G>W | ask the owner to stay on two mornings a week while you learn the rest | v: tradition, security | grants: mentor | chance: 65
-works: By the spring the shop has a future, and the regulars know whom to thank for it.
+works not G B>R: By the spring the shop has a future, and the regulars know whom to thank for it.
 works: {N} makes the choice with open eyes, and sleeps well for the first time in weeks.
-fails: The numbers do not add up, the bank says no, and the shutters come down in April.
+fails not G B>R: The numbers do not add up, the bank says no, and the shutters come down in April.
 fails: {N} rushes it, and the first winter after is the hardest of {Ns} working life.
 
 # ---------------------------------------------------------------- waiter or bartender, new (tenure 0-1): calls BR (cycle s2)
@@ -423,9 +423,9 @@ scene G: {N} has served the same regulars on the floor for three years: their ta
 - B>W | ask for the shift manager's job instead, with the bar under it | v: power, achievement | title: shift manager | chance: 55
 - R>U | take a season at a beach bar abroad, to learn the trade somewhere else | door | v: stimulation, self-direction | mark: moved away | chance: 70
 - G>B | move into the kitchen, where the old cook keeps offering to teach you | binds | v: achievement, tradition | act: move into the kitchen, where the old cook keeps offering to teach them | title: cook | chance: 60
-works: Within a month {N} runs the new post as if it had always been {Ns}, and the regulars follow.
+works not G: Within a month {N} runs the new post as if it had always been {Ns}, and the regulars follow.
 works: {boss} sees the takings and the reviews, and starts asking {N} first.
-fails: The first busy Saturday in the new post is chaos, and {boss} has to step in at midnight.
+fails not G: The first busy Saturday in the new post is chaos, and {boss} has to step in at midnight.
 fails: The change goes badly, and {N} loses the regulars and the tips with it.
 
 # ---------------------------------------------------------------- waiter or bartender, senior (tenure 8-60): calls BG (cycle s4)
@@ -540,9 +540,9 @@ scene G: {N} likes the job as it is: the same desk, the same lunch, home by half
 - B>G | get the firm to pay for a course you will really use in the family business | v: benevolence (family) | chance: 70
 - R>W | say yes when the union asks for an office rep, and speak up at once | v: universalism | title: union rep | chance: 75
 - G>U | ask the longest-serving clerk which course ever made a difference here | v: tradition, self-direction | chance: 75
-works: The course starts in September, and by midwinter {N} is using it at the desk every day.
+works not G: The course starts in September, and by midwinter {N} is using it at the desk every day.
 works: {boss} notices the change, and the next review is the best {N} has had.
-fails: The evenings are too much after a working day, and {N} has dropped out by November.
+fails not G: The evenings are too much after a working day, and {N} has dropped out by November.
 fails: {N} finishes the course and nothing changes: the same desk, the same work, the same pay.
 
 # ---------------------------------------------------------------- office clerk, senior (tenure 8-60): calls UG (cycle s3)
@@ -580,8 +580,8 @@ scene G: Every office changes its skin every few years. {N} has seen three syste
 - R>U | stay late with the consultant and argue every field until it is right | v: achievement | chance: 65
 - G>B | let the change roll on, and job-hunt from the desk in the quiet months | v: security, achievement | closed: approval: job-hunting on the firm's time; backfire: the manager sees the screen | chance: 55
 works: The move goes through in the summer with nothing lost, and the consultant thanks {N} by name in the final meeting.
-works: {N} comes out of the change with a new place in the office, and a new respect from upstairs.
-fails: Half the old records come over scrambled, and it is {N} the directors look at.
+works not W>R: {N} comes out of the change with a new place in the office, and a new respect from upstairs.
+fails not W>R: Half the old records come over scrambled, and it is {N} the directors look at.
 fails: The change goes on without {N}, and the old knowledge turns out to be worth less than {N} thought.
 
 # ---------------------------------------------------------------- care worker, new (tenure 0-1): calls UG (cycle s4)
@@ -657,9 +657,9 @@ scene G: The retired teacher on the hill, the man with the parrot, the twins' gr
 - B>G | bargain for a round close to home, to be there for your own family | v: benevolence (family), security | chance: 70
 - R>W | stand up at the union meeting about the unpaid travel time | v: universalism | chance: 60
 - G>U | ask the oldest carer at the agency what she would choose, in your place | v: tradition, self-direction | act: ask the oldest carer at the agency what she would choose in their place | chance: 75
-works: {N} chooses, and the first months on the new path feel like a door opening.
+works not G R: {N} chooses, and the first months on the new path feel like a door opening.
 works: {boss} shakes {Ns} hand on it, and the clients have heard the news before the week is out.
-fails: The new path costs more than {N} reckoned, in hours, money and sleep.
+fails not G R: The new path costs more than {N} reckoned, in hours, money and sleep.
 fails: Nothing comes of it: the post goes to someone else, and the round goes on as before.
 
 # ---------------------------------------------------------------- care worker, senior (tenure 8-60): calls RG (cycle s1)
@@ -735,9 +735,9 @@ scene G: Six weeks ago they were twelve strangers; now they eat, sleep, run and 
 - B>W | make yourself the corporal's favourite with every extra duty going | v: power, achievement | chance: 75
 - R>U | volunteer for the hardest test on the course, to find out what you are made of | body: heavy | v: stimulation, achievement | chance: 60
 - G>B | go home: sign the discharge papers while you still can | v: security | drops: soldier | mark: came home | self_control: - | chance: 85
-works: At the passing-out parade {N} marches in step, and somewhere in the crowd {parent} is crying.
+works not G>B: At the passing-out parade {N} marches in step, and somewhere in the crowd {parent} is crying.
 works: {N} comes through week six fitter and steadier than ever, and the corporal, once, nods.
-fails: A shin injury puts {N} back three weeks, to start again with a new section.
+fails not G>B: A shin injury puts {N} back three weeks, to start again with a new section.
 fails: The section is punished for {Ns} mistake, and the barrack room goes cold for days.
 
 # ---------------------------------------------------------------- soldier, settled (tenure 2-7): calls UB (cycle s4)
@@ -933,7 +933,7 @@ scene G: {Ns} first class is now in its final year. {N} would like to see them t
 - G>B | wait your turn, as the old staff did, and let the years carry you up | v: tradition, achievement | act: wait their turn, as the old staff did, and let the years carry them up | chance: 55
 works: The choice turns out well, and by the summer {N} cannot imagine having chosen otherwise.
 works: The head stops {N} in the corridor in June to say how much difference it has made.
-fails: The interview goes badly, and {N} goes back to the classroom on Monday with bruised pride.
+fails not U B G U>G R>U G>B W>R: The interview goes badly, and {N} goes back to the classroom on Monday with bruised pride.
 fails: The extra load comes on top of the marking, and by March {N} is exhausted.
 
 # ---------------------------------------------------------------- teacher, senior (tenure 8-60): calls WG (cycle s1)

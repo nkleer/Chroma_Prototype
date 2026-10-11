@@ -88,7 +88,7 @@ scene G: The herons have gone from the bend below the bridge. {N} wonders how ma
 - BR | sign up to the group claim against the firm and push hard for a payout | v: power, achievement | lever: voice | pushes: institution employer | chance: 60
 - BG | sell your plot by the river quietly, before the prices fall | v: security, power | lever: exit | pushes: place | chance: 55
 works: The firm pays for the clean-up, and by the next summer children are swimming at the bend again.
-works: The fight over the blame ends in new rules at the works, and {N} had a hand in them.
+works not G BG: The fight over the blame ends in new rules at the works, and {N} had a hand in them.
 fails: The firm blames a contractor, the contractor blames the rain, and nobody pays.
 fails: The quarrel splits the street between those who work at the plant and those who do not.
 

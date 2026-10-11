@@ -64,10 +64,10 @@ scene G: The old bar has {Ns} name on a mug behind the counter. A new place is a
 - UR | take the old quiz team to the new place, and win on the first night | v: achievement, stimulation | sphere: gather.UR | chance: 50
 - WG | ask the new owner to welcome the old regulars with a shared supper | v: benevolence, universalism | sphere: gather.GW | chance: 50
 - WU | help run the Tuesday talks, so that anyone who comes may speak | v: universalism, benevolence | sphere: gather.WU | chance: 70
-works: The new place and the old both find their crowd, and {N} has a seat in each.
+works not G: The new place and the old both find their crowd, and {N} has a seat in each.
 works: A year on, the café on the corner feels as if it was always there, and {N} is part of why.
 fails: The new place is the fashion for one summer, then half empty, and the old one has closed meanwhile.
-fails: {N} drifts between the two and ends the year a regular at neither.
+fails not G: {N} drifts between the two and ends the year a regular at neither.
 
 # ---------------------------------------------------------------- keeper_dies (pairs D6a)
 
@@ -152,7 +152,7 @@ scene G: {Ns} friend's mother has been at the hospital all night. {N} thinks fir
 - UR | write the whole night down while you are still angry, then decide what to do | v: self-direction | sphere: gather.UR | chance: 80
 - WB | pay for a lawyer for your friend, and ask the regulars to chip in | v: benevolence, security | sphere: gather.WB | chance: 50
 - WG | ask the elders of both families to sit down before it turns into a feud | v: security, tradition | sphere: gather.GW | chance: 34
-works: The footage backs up what {N} says, and {friend} is home within the week.
+works not B: The footage backs up what {N} says, and {friend} is home within the week.
 works: It does not grow into a feud, and by summer the two crowds can share a street again.
 fails: The stories harden into sides, and {N} cannot walk past that club again without a look over the shoulder.
 fails: {friend} heals slowly, and blames {N} a little for what was or was not done.
@@ -365,7 +365,7 @@ scene G: The family has cut the Sunday dinner to three dishes. {N} worries that 
 - WU | help keep the job board, so every new post is seen by everyone | v: universalism, benevolence | sphere: gather.WU | chance: 74
 works: The hard years pass, and {N} is still among friends at the end of them.
 works: The soup night and the swap night become something the town keeps even when the work comes back.
-fails: {friend} leaves for work and does not come back.
+fails not BR: {friend} leaves for work and does not come back.
 fails: The corner bar shuts too in the second winter, and {N} spends the evenings alone.
 
 # ---------------------------------------------------------------- great_fair (pairs D2b)
@@ -450,7 +450,7 @@ scene G: The club has been the same families for three generations. {N} feels th
 - UR | help the new families start their own club, with talks and a band | v: self-direction, stimulation | lever: found | sphere: gather.UR | chance: 58
 - WG | offer to run a free open night each month for anyone in town | v: universalism, benevolence | sphere: gather.GW | chance: 74
 - WR | rally the younger members to vote the waiting list down | v: universalism, stimulation | lever: voice | pushes: group club | sphere: gather.RW | chance: 40
-works: The vote goes the way {N} hoped, and {friend} walks in through the front door.
+works not G: The vote goes the way {N} hoped, and {friend} walks in through the front door.
 works: {N} comes out of it knowing exactly what kind of member {N} means to be.
 fails: The vote goes the other way, and {friend} stops answering {Ns} calls.
 fails: The club splits in two, and both halves blame {N} a little.
@@ -536,7 +536,7 @@ scene G: Evenings at home with {partner} and the screen are nice, if {N} is hone
 - UR | set up a group chat and a shorter match that fits a working week | v: self-direction, stimulation | tech: phone | sphere: gather.UR | chance: 70
 - WB | pay the league fees yourself this season, to keep the team alive | v: benevolence, tradition | lever: fund | pushes: group club | sphere: gather.WB | chance: 66
 - WU | call a meeting where every player gets a say on what happens next | v: universalism | lever: voice | pushes: group club | sphere: gather.WU | chance: 70
-works: The team plays on another season, and the Sunday mornings keep their shape.
+works not G BG: The team plays on another season, and the Sunday mornings keep their shape.
 works: Whatever happens to the team, {N} keeps the friendships it made.
 fails: The team folds by spring, and the shirts go into a box in the loft.
 fails: {N} drifts into evenings in front of the screen and sees the old players only by chance in the street.
@@ -705,7 +705,7 @@ scene G: {parent} has read the item out at dinner twice. {N} would rather the fa
 - WB | offer the feed a weekly piece on the town's clubs, each one in its turn | v: benevolence, achievement | sphere: gather.WB | chance: 50
 - WG | ask the feed to carry the births and the weddings, not the quarrels | v: benevolence, tradition | lever: voice | pushes: place | sphere: gather.GW | chance: 38
 works: The fuss blows over in a week, and {N} comes out of it better known and no worse liked.
-works: {N} learns how the town's new talk works, and how to use it.
+works not G RG: {N} learns how the town's new talk works, and how to use it.
 fails: The item follows {N} for months, and strangers bring it up at the bus stop.
 fails: The quarrel with {rival} grows bigger in the feed than it ever was at the market.
 

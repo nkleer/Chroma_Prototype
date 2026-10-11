@@ -281,7 +281,7 @@ scene G: The old hands knew every alley and every family. {N} wonders whether a 
 - UR | build a faster call-out plan with the new kit, and try it on the night shift | v: stimulation, achievement | sphere: prot.UR | chance: 60
 - WG | pair each new recruit with an old hand who knows the streets | v: tradition, benevolence | lever: lead | sphere: prot.GW | chance: 70
 - WR | take the first night out with the new kit, and show the doubters it works | v: stimulation, conformity | sphere: prot.RW | chance: 64
-works: Within a season {N} is the one the others ask about the new kit.
+works not R: Within a season {N} is the one the others ask about the new kit.
 works: The new kit and the old knowledge turn out to need each other, and {N} has both.
 fails: The new system drops out on the busiest night of the year, and {N} takes the blame.
 fails: {N} falls behind the younger ones on the screens, and is quietly moved to a desk.
@@ -365,7 +365,7 @@ scene G: Half the street has decided it is the new family at the end. {N} is not
 - UR | put up a camera of your own, and send the clips straight to the police | v: security, stimulation | tech: phone | sphere: prot.UR | chance: 62
 - WB | press the council in writing for street lights and a patrol | v: security, conformity | lever: voice | pushes: place | sphere: prot.WB | chance: 62
 - WG | speak up for the new family when the street's chat blames them | v: universalism, benevolence | lever: voice | sphere: prot.GW | chance: 62
-works: The pattern {N} helped to spot leads to an arrest, and the street sleeps again.
+works not B G RG UB WB WG: The pattern {N} helped to spot leads to an arrest, and the street sleeps again.
 works: The break-ins stop by spring, and the street knows itself better than before.
 fails: {Ns} own back door is forced one afternoon, and the house never quite feels the same.
 fails: The fear outlasts the break-ins, and the street stays locked and wary for a year.
@@ -407,7 +407,7 @@ scene G: {boss} has kept this shop for twenty years and fed half the street on c
 - UR | film them on your phone next time, and send it to the local paper | v: stimulation, universalism | mark: took a wild risk | tech: phone | lever: voice | sphere: prot.UR | chance: 60
 - WB | get the shops to hire one licensed guard together, on the books | v: security, conformity | sphere: prot.WB | chance: 58
 - WR | walk with all the shopkeepers to the station together, and report it as one | v: universalism, benevolence | lever: voice | pushes: institution police | sphere: prot.RW | chance: 64
-works: With every shop refusing together, the crew moves on, and the parade stays open late.
+works not B: With every shop refusing together, the crew moves on, and the parade stays open late.
 works: The police take it seriously this time, and by summer the visits have stopped.
 fails: The visits go on, and the street learns to pay and look down.
 fails: The shop's window goes in one night, and {boss} pays from then on.
@@ -450,9 +450,9 @@ scene G: {friend} has been arrested. {N} cares about only one thing now: getting
 - UB | quietly pass the videos to a journalist who knows what to do with them | v: universalism, power | lever: subvert | pushes: institution police | sphere: prot.UB | chance: 60
 - WR | stand at the front of the crowd outside the station and demand the arrests be explained | v: universalism, self-direction | lever: voice | pushes: institution police | sphere: prot.RW | chance: 54
 - WU | lodge a formal complaint with the board that oversees the police | v: universalism, conformity | lever: voice | pushes: institution police | sphere: prot.WU | chance: 62
-works: {friend} is released by evening, and the complaint {N} backed leads to a hearing.
+works not B BG: {friend} is released by evening, and the complaint {N} backed leads to a hearing.
 works: The town turns against the way the camp was cleared, and the next protest goes ahead in peace.
-fails: {friend} is charged, and {N} spends months of evenings on the case.
+fails not B: {friend} is charged, and {N} spends months of evenings on the case.
 fails: The videos fade from the news within a week, and nothing changes.
 
 # ---------------------------------------------------------------- crackdown (pairs D2a)
@@ -706,7 +706,7 @@ scene G: {friend} has been at every birthday for fifteen years. {N} wants to hea
 - WR | stand up at the public hearing and read out what the file said | v: universalism, self-direction | lever: voice | pushes: state | sphere: prot.RW | chance: 56
 - WU | help the group going through the files to warn everyone named in them | v: universalism, benevolence | sphere: prot.WU | chance: 66
 works: {friend} tells the whole story, and the friendship comes through the hard talk, changed but alive.
-works: The leak brings in a new law on what the city may watch, and {N} played a small part in it.
+works not BG UB: The leak brings in a new law on what the city may watch, and {N} played a small part in it.
 fails: The friendship ends that night, and neither of them ever quite explains.
 fails: {N} stops trusting the phone, the street and most people for a long time.
 

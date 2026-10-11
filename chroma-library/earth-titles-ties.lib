@@ -68,10 +68,10 @@ scene G: {partner} is settled in the old routines. {N} wonders whether a week ap
 - B>G | rent a cottage by the sea for both of you, with a hired carer | v: benevolence, hedonism | tags: pay:money-.08 | chance: 45
 - R>W | insist, loudly, that the whole family take turns from now on | v: universalism | chance: 45
 - G>U | go to a carers' group at the library, and hear how others manage | door | v: self-direction, benevolence | chance: 80
-works: {N} comes home after the week rested, and {partner} is glad of it.
+works not W G: {N} comes home after the week rested, and {partner} is glad of it.
 works: The week goes smoothly, and the care at home feels lighter for a month after.
-fails: {sibling} rings on the second day in a panic, and the week ends early.
-fails: {N} spends the whole week worrying, and comes back more tired than before.
+fails not W: {sibling} rings on the second day in a panic, and the week ends early.
+fails not G: {N} spends the whole week worrying, and comes back more tired than before.
 
 # ---------------------------------------------------------------- nonromantic life partner (T2-048): calls WB (cycle s3) / calls URG (cycle s4)
 
@@ -214,7 +214,7 @@ scene G: {Ns} own parents helped with the first home, long ago. It is how it is 
 - R>W | call a family meeting and say, plainly, how the money should be shared | v: universalism | chance: 40
 - G>U | tell them how you saved for your first home, and let them think | v: tradition, self-direction | act: tell their grown child how the first family home was saved for, and let them think | chance: 55
 works: It is settled without a row, and the family is easy about it when the holidays come.
-works: {child} gets the keys in the spring, and the money never sours a thing between them.
+works not B: {child} gets the keys in the spring, and the money never sours a thing between them.
 fails: The money sits between {N} and {child} like a stone for months.
 fails: One of the other children hears about it and is hurt, and the holidays are tense.
 
@@ -286,9 +286,9 @@ scene G: Children belong with their parents when they can, and {child} is still 
 - B>U | agree, on condition they keep seeing their counsellor first | v: power, security | chance: 42
 - R>B | tell them, hotly, that they will have to earn it this time | v: power, security | mark: made an enemy | chance: 35
 - G>R | take everyone to the park together, and let it be easy for one afternoon | v: benevolence, hedonism | chance: 90
-works: The grandchild comes home chattering, and {child} rings again the next week, still steady.
+works not B: The grandchild comes home chattering, and {child} rings again the next week, still steady.
 works: Whatever is decided, it is decided calmly, and the family starts, slowly, to feel like one again.
-fails: {child} does not turn up, and {N} has to find the words for the grandchild.
+fails not B: {child} does not turn up, and {N} has to find the words for the grandchild.
 fails: There is a row on the phone, and the arrangement grows stiffer for months.
 
 # ---------------------------------------------------------------- choir member (T2-059): calls WG (cycle s1) / calls UBR (cycle s2)
@@ -358,9 +358,9 @@ scene G: {N} has sung in the back row for years, happily part of the whole. Stan
 - B>G | use the spotlight to recruit new singers for the choir | v: achievement, benevolence | chance: 35
 - R>W | tell the director straight that the singer who wanted it deserves it more | v: universalism | chance: 70
 - G>U | ask the oldest member how they used to calm their nerves | v: tradition, self-direction | chance: 72
-works: On the night the high note lands, the hall goes very still, and then very loud.
+works not G R>W: On the night the high note lands, the hall goes very still, and then very loud.
 works: The concert goes beautifully, and three people stop {N} afterwards to say so.
-fails: {Ns} voice cracks in bar eleven, and the rest of the concert passes in a blur.
+fails not G R>W: {Ns} voice cracks in bar eleven, and the rest of the concert passes in a blur.
 fails: Rehearsals turn tense, and {rival} stops sitting in the same row.
 
 # ---------------------------------------------------------------- historical reenactment member (T2-063): calls WU (cycle s3) / calls BRG (cycle s4)
@@ -396,7 +396,7 @@ scene G: The craft has been handed down in the group for thirty years, stitch by
 - R>U | go home and sew a new, truer costume, stitch by stitch, all winter | v: self-direction, stimulation | self_control: + | grants: sewing and mending | chance: 78
 - G>B | tell them the group's way is the group's business, and close the tent flap | identity | v: tradition, power | mark: made an enemy | closed: approval: turning visitors away at a public show; backfire: a complaint to the council that hosts the fair | chance: 40
 works: The crowd stays twenty minutes, and the second visitor leaves with the group's email address.
-works: The questions turn into the best conversation of the weekend.
+works not G>B: The questions turn into the best conversation of the weekend.
 fails: The man with the guidebook walks off muttering, and the young woman does not wait for an answer.
 fails: The question follows the group to its next meeting and starts an argument that lasts all winter.
 
@@ -431,8 +431,8 @@ scene G: The old camps lived with weather like this for months on end. {N} feels
 - R>B | take charge of the camp in a booming voice while the leader dithers | v: power | mark: defied an authority | chance: 35
 - G>R | pull off your boots and walk barefoot in the mud, as they did | body: light | v: stimulation | chance: 95
 works: By Sunday the sun is out, the crowd is back, and the tired camp gets a cheer.
-works: {N} drives home soaked and happy, with stories to last a year.
-fails: {N} comes home with a streaming cold and a ruined wool coat.
+works not B: {N} drives home soaked and happy, with stories to last a year.
+fails not B: {N} comes home with a streaming cold and a ruined wool coat.
 fails: The show is called off at noon on Sunday, and the group argues all the way to the car park.
 
 # ---------------------------------------------------------------- community-radio presenter (T2-064): calls WR (cycle s1) / calls UBG (cycle s2)
@@ -650,7 +650,7 @@ scene G: Families are meant to reach each other, walls or no walls. {N} feels th
 - R>B | tell him bluntly never to put you in that position again | v: security, power | act: tell him bluntly never to ask that of them again | chance: 70
 - G>R | sit with him in the hurt for the last five minutes, and promise to come back | v: benevolence | mark: kept your word | chance: 72
 works: He takes the answer well, and next month he says his brother has written.
-works: The line holds, the visits go on, and the trust between them grows.
+works not R: The line holds, the visits go on, and the trust between them grows.
 fails: He goes cold for the rest of the hour, and the next visit is stiff and short.
 fails: The coordinator calls {N} in for a talk, and the next visit is put off a month.
 

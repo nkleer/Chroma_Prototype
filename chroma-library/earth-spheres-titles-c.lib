@@ -266,9 +266,9 @@ scene G: The class trusts {N} already. A stranger at the front would unsettle th
 - B>G | say yes in return for a lasting post, so the class keeps a familiar face | v: security, tradition | sphere: learn.B | chance: 65
 - R>W | refuse outright, and tell the head the children are owed a real teacher | v: universalism, self-direction | lever: voice | sphere: learn.R | chance: 65
 - G>U | ring the retired teacher who taught this year group for decades, and ask her advice | v: tradition, achievement | sphere: learn.G | chance: 65
-works: The week goes well, and on Friday the class gives {N} a card signed by all thirty.
+works not R>W: The week goes well, and on Friday the class gives {N} a card signed by all thirty.
 works: {boss} finds money for cover after all, and the helpers are not asked again that year.
-fails: The week is chaos by Wednesday, and {N} goes home each night too tired to eat.
+fails not R>W: The week is chaos by Wednesday, and {N} goes home each night too tired to eat.
 fails: {boss} calls the helper difficult, and {Ns} hours are cut the next term.
 
 # ================================================================ consultant (learn.B)
@@ -350,10 +350,10 @@ scene G: The charity's director once helped {Ns} own grandmother keep her house.
 - B>U | send it, but keep a copy of the time sheets somewhere safe | v: security | sphere: learn.B | chance: 65
 - R>B | tell the senior partner you will report it unless the days come off tonight | act: tell the senior partner they will report it unless the days come off tonight | v: power, self-direction | sphere: learn.R | chance: 65
 - G>R | leave the firm and take the charity's work with you, at cost | act: leave the firm and take the charity's work with them, at cost | v: benevolence, self-direction | lever: exit | sphere: learn.G | chance: 65
-works: The invoice goes out right, and {boss} never pads a bill on {Ns} desk again.
+works not G>R: The invoice goes out right, and {boss} never pads a bill on {Ns} desk again.
 works: The charity hears what happened and asks for {N} for every piece of work after.
 fails: {boss} calls it a typing slip, and {Ns} name drops off the partners' list.
-fails: The other partners close ranks, and {N} is moved to a smaller account.
+fails not G>R: The other partners close ranks, and {N} is moved to a smaller account.
 
 # ================================================================ mechanic (learn.R)
 
@@ -604,7 +604,7 @@ scene G: {N} has seen a hundred frightened climbers get across with the right wo
 - B>G | ring the firm's head of staff that evening, and keep the booking | v: power, security | sphere: learn.B | chance: 65
 - R>W | tell the manager, in front of everyone, that fear is not a failing | v: universalism, self-direction | lever: voice | sphere: learn.R | chance: 65
 - G>U | once she is down, ask each of the team to say what they found hard | v: benevolence, tradition | sphere: learn.G | chance: 65
-works: The clerk makes it across, and the team cheer her the whole way down.
+works not B: The clerk makes it across, and the team cheer her the whole way down.
 works: The manager goes quiet for the rest of the day, and the team thank {N} at the minibus.
 fails: The manager complains to the centre's owner, and the firm cancels its winter days.
 fails: The clerk will not climb again, and leaves early with her coat over her arm.

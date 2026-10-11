@@ -48,9 +48,9 @@ scene G: {N} learned these ways from people at home who did this work for years.
 - R>G | stand up at the next meeting and say, warmly, where your ways come from | odd: hold | v: tradition, stimulation | act: stand up at the next meeting and say, warmly, where their ways come from | chance: 70
 - G>W | go back to serve on the crew in your home town, where people need you | odd: leave | v: tradition, benevolence | act: go back to serve on the crew in their home town, where people need them | chance: 85
 works: The choice sits right with {N}, and within a season the people around {N} greet {N} as one of their own.
-works: One of the regulars, who never quite fit in either, confides something to {N} that the rest of the crew has never heard.
+works not B U>B G>W: One of the regulars, who never quite fit in either, confides something to {N} that the rest of the crew has never heard.
 fails: At the next drill {N} fumbles in front of everyone, and the story goes round {place} for weeks.
-fails: The jokes stop, but so do the invitations, and {N} is left out of the crew's evenings.
+fails not B U>B G>W: The jokes stop, but so do the invitations, and {N} is left out of the crew's evenings.
 
 == a newcomer's slip at the big practice
 tier: everyday
@@ -84,10 +84,10 @@ scene G: {N} was taught this by people at home who never slipped. The shame sits
 - B>G | find the one regular who backs your way, and build a small circle around it | odd: hold | v: power, benevolence | act: find the one regular who backs their way, and build a small circle around it | chance: 60
 - R>W | walk out that night, saying a crew that mocks its own is not fit to serve | odd: leave | v: universalism, stimulation | mark: made an enemy | chance: 75
 - G>U | learn their way patiently, as an apprentice would, to understand why it works here | odd: blend | v: tradition, self-direction | chance: 68
-works: Months later the cartoon is gone from the board, and a regular asks {N} to show the new ones how it is done.
+works not U G W>B R>W: Months later the cartoon is gone from the board, and a regular asks {N} to show the new ones how it is done.
 works: Someone from {place} admits to {N}, in private, that they made the very same slip once and never told a soul.
 fails: The slip becomes a story told at every gathering at {place}, and {N} hears it again and again.
-fails: A second small mistake follows the first, and the keeper stops giving {N} the jobs that matter.
+fails not U G W>B R>W: A second small mistake follows the first, and the keeper stops giving {N} the jobs that matter.
 
 # ---------------------------------------------------------------- pair 2: production, newcomer
 
@@ -124,9 +124,9 @@ scene G: {N} learned this work from family, the way it was always done there, an
 - R>U | throw yourself into the house way for a month, to learn it from the inside | odd: blend | v: stimulation, self-direction | act: throw themselves into the house way for a month, to learn it from the inside | chance: 60
 - G>B | keep quietly to your way, and wait for the season it proves its worth | odd: hold | v: tradition, achievement | act: keep quietly to their own way, and wait for the season it proves its worth | chance: 68
 works: One day a regular tries {Ns} way on a rush job, and by the next season half of {place} works like that.
-works: The joke wears out, and a quiet old hand tells {N} something about {place} that the newer ones never hear.
+works not W R B>W: The joke wears out, and a quiet old hand tells {N} something about {place} that the newer ones never hear.
 fails: The joke hardens into a nickname, and {N} is the last one picked for the good jobs at {place}.
-fails: A rushed job goes wrong at {Ns} bench in front of everyone, and nobody lets {N} forget it.
+fails not W R B>W: A rushed job goes wrong at {Ns} bench in front of everyone, and nobody lets {N} forget it.
 
 == an old hand's quiet word to fit in
 tier: everyday
@@ -161,9 +161,9 @@ scene G: The old hand is right that every place has its ways. {N} has ways too, 
 - R>B | keep your way with flair, and make it the thing people come to you for | odd: hold | v: stimulation, achievement | act: keep their own way with flair, and make it the thing people come to them for | chance: 70
 - G>R | go back to work beside your own people, where your hands feel free again | odd: leave | v: tradition, hedonism | act: go back to work beside their own people, where their hands feel free again | chance: 82
 works: The old hand becomes {Ns} quiet ally at {place}, and the grumbling stops.
-works: A year on, the boss asks {N} to show the others the very trick everyone had laughed at.
+works not B U>W G>R: A year on, the boss asks {N} to show the others the very trick everyone had laughed at.
 fails: Word gets round that {N} was spoken to, and the regulars at {place} grow cooler for it.
-fails: {N} tries to split the difference and pleases nobody, and the old hand stops offering advice.
+fails not B U>W G>R: {N} tries to split the difference and pleases nobody, and the old hand stops offering advice.
 
 # Chroma library, modern Earth: THE ODD ONE OUT (S4, chroma-ideas/social-mechanics.md, v22.3, cast_want: odd, DRAFT).
 # The character has been a year or more at a place where their own ways are rare (under about one in seven) and is the
@@ -210,7 +210,7 @@ scene G: {N} misses the place of worship back home, where every gesture was simp
 - G>W | take it patiently, follow the customs, and grow into one of the regulars | odd: blend | v: conformity, tradition | mark: made a friend | chance: 68
 works: The regular who spoke up becomes a friend, and one evening confides a doubt she has told no one else at {place}.
 works: Long after, a few people at {place} are seen doing things {Ns} way, quietly at first.
-fails: Someone mimics {Ns} habit at the next gathering, and the laughter carries across the hall.
+fails not U G W>U R>G: Someone mimics {Ns} habit at the next gathering, and the laughter carries across the hall.
 fails: The invitations to the meals after the service stop coming, and nobody at {place} says why.
 
 == a newcomer's slip on the big day of the year
@@ -245,10 +245,10 @@ scene G: Every house of worship keeps its own old ways, and {N} feels the pull o
 - B>G | use the contacts made here to find a congregation of people like you | odd: leave | v: security, tradition | act: use the contacts made here to find a congregation of people like them | chance: 82
 - R>W | go straight to the ones who laughed, laugh with them, and join in their way | odd: blend | v: benevolence, conformity | mark: made a friend | chance: 60
 - G>U | keep the custom of your own people, and in time tell them where it comes from | odd: hold | v: tradition, universalism | act: keep the custom of their own people, and in time tell the others where it comes from | chance: 65
-works: {elder} takes {N} under a wing, and one evening tells {N} something about {place} that few people know.
+works not W R B>G: {elder} takes {N} under a wing, and one evening tells {N} something about {place} that few people know.
 works: By the next big day, people at {place} ask how it is done where {N} comes from, and some try it.
 fails: The laugh in the hall becomes the story people at {place} tell about {N} for years.
-fails: A cold politeness settles in, and {N} is never quite asked to help again.
+fails not W R B>G: A cold politeness settles in, and {N} is never quite asked to help again.
 
 # ---------------------------------------------------------------- pair 4: learn, newcomer
 
@@ -284,9 +284,9 @@ scene G: {N} learned this way from the people at home, and it never seemed stran
 - B>W | take up the class's way, and become the one who runs its study group | odd: blend | v: achievement, benevolence | chance: 66
 - R>U | answer back on the spot, and show the room why the method works | odd: hold | v: self-direction, stimulation | chance: 78
 - G>B | ask the family to help find a better course, and leave for it | odd: leave | v: achievement, tradition | chance: 76
-works: Before the year is out, two of the others ask {N} to show them how {N} goes about it.
+works not B U>G G>B: Before the year is out, two of the others ask {N} to show them how {N} goes about it.
 works: The one who leaned over at the break becomes a friend, and later admits to feeling out of place at {place} too.
-fails: The joke sticks, and for weeks the room laughs whenever {N} raises a hand.
+fails not B U>G G>B: The joke sticks, and for weeks the room laughs whenever {N} raises a hand.
 fails: {Ns} next piece of work goes badly in front of everyone, and nobody at {place} forgets it.
 
 == the study group wants it done their way
@@ -321,9 +321,9 @@ scene G: {N} misses learning among people who already knew {N}, where none of th
 - B>U | strike a deal: do your part your own way, and let the result decide | odd: hold | v: self-direction, achievement | act: strike a deal: do their part their own way, and let the result decide | chance: 64
 - R>B | walk out of the group and the course, and put the time into your own plans | odd: leave | v: self-direction, achievement | act: walk out of the group and the course, and put the time into their own plans | chance: 80
 - G>R | let the group's way be, and simply enjoy learning in company | odd: blend | v: hedonism, benevolence | mark: made a friend | chance: 62
-works: The teacher singles out the part done {Ns} way, and the next term others at {place} try it.
+works not U G R>B: The teacher singles out the part done {Ns} way, and the next term others at {place} try it.
 works: One of the group stays behind to tell {N} that she has never felt she fits at {place} either.
-fails: The group's mark is poor, and everyone at {place} knows whose way they blame.
+fails not U G R>B B G>R U>W: The group's mark is poor, and everyone at {place} knows whose way they blame.
 fails: The others start meeting without {N}, and {N} finds out only by chance.
 
 # Chroma library, modern Earth: THE ODD ONE OUT, part 3 (S4 The odd one out, v22.3, DRAFT names until the Engine's PR).
@@ -371,7 +371,7 @@ scene G: This place has its own long ways, and {N} knows what it is to belong; b
 works: A year on, half the room at {place} does things the way {N} did, and nobody quite remembers where it came from.
 works: The old hand who spoke up that night comes to {N} later with something they have told no one else at {place}.
 fails: Word goes round {place} that {N} thinks they are better than the rest, and the old crowd stays cool for months.
-fails: It gets talked about behind {Ns} back, and the warm nights at {place} are never quite as warm again.
+fails not W R B>R: It gets talked about behind {Ns} back, and the warm nights at {place} are never quite as warm again.
 
 == the old joke about your ways, told to the new ones
 tier: everyday
@@ -405,9 +405,9 @@ scene G: Every place has its stories, and {N} is in this one for good now. {N} i
 - B>G | give up the odd habit in return for a proper seat among the regulars | odd: blend | v: security, conformity | chance: 64
 - R>W | stand up there and then and say the joke is unfair to anyone different | odd: hold | v: universalism, self-direction | chance: 74
 - G>U | go back to your own people, and take time to understand why {place} never fit | odd: leave | v: tradition, self-direction | act: go back to their own people, and take time to understand why {place} never fit | chance: 82
-works: The newcomers end up asking {N} about the habit, and within a year a few of them do it too.
+works not B U>R G>U: The newcomers end up asking {N} about the habit, and within a year a few of them do it too.
 works: The regular who laughed loudest that night comes to {N} later with a worry they could not share with anyone else at {place}.
-fails: The joke outlives the evening and becomes how every new face at {place} sees {N}.
+fails not B U>R G>U: The joke outlives the evening and becomes how every new face at {place} sees {N}.
 fails: Something {N} says that night lands badly, and the room goes quiet in a way nobody forgets.
 
 # ---------------------------------------------------------------- pair 6: comm, known
@@ -446,7 +446,7 @@ scene G: The old ways of the place have kept it going a long time. {N} has old w
 - G>B | settle in with the old traders, and let their long standing carry your trade too | odd: blend | v: security, power | act: settle in with the old traders, and let their long standing carry their trade too | chance: 66
 works: A year on, two other traders at {place} are quietly doing business the way {N} does.
 works: The oldest trader comes to {N} privately with a trouble the others must not hear about, as if {N} were the safe one to tell.
-fails: Customers drift, the takings drop, and everyone at {place} can see it.
+fails not U G W>R R>U: Customers drift, the takings drop, and everyone at {place} can see it.
 fails: The other traders close ranks, and for a season {N} is left out of everything that gets passed around at {place}.
 
 == a fellow trader confides they envy your ways
@@ -483,7 +483,7 @@ scene G: {N} was raised to keep faith with those who keep faith in return. The q
 - G>R | keep the ways you brought from home, and tell your friend to follow their heart | odd: hold | v: tradition, self-direction | act: keep the ways they brought from home, and tell their friend to follow their heart | chance: 58
 works: Before long the trader who confided is doing business {Ns} way too, and others at {place} begin to follow.
 works: Whatever comes of it, the trader who confided becomes a true friend, and keeps every confidence {N} gives back.
-fails: The old guard make an example of {N}, and the whole place watches {Ns} customers being steered away.
+fails not W R B>U: The old guard make an example of {N}, and the whole place watches {Ns} customers being steered away.
 fails: The confidence gets out, the trader denies everything, and {N} is the one left looking foolish.
 
 # Chroma library, modern Earth: THE ODD ONE OUT (S4, v22.3, DRAFT names until the Engine's PR), part 4 of the batch.
@@ -531,7 +531,7 @@ scene G: {N} learned it this way from {Ns} own people. Dropping it now would fee
 works: Months on, {place} has quietly taken up something of {Ns} way, and the regulars say the work is better for it.
 works: Over tea one evening {friend} admits to having done it differently once too, and tells {N} why they stopped.
 fails: The joke sticks, and for weeks every small slip of {Ns} gets a knowing look across the room.
-fails: At the next showing {N} comes in wrong in front of everyone, and the silence afterwards is worse than the laugh.
+fails not B U>B G>W: At the next showing {N} comes in wrong in front of everyone, and the silence afterwards is worse than the laugh.
 
 == asked to do it the house way for the big night
 tier: everyday
@@ -564,9 +564,9 @@ scene G: {N} thinks of the people {N} first learned from, who would never have c
 - B>G | keep your own way, and win the regulars round one at a time | odd: hold | v: power, benevolence | act: keep their own way, and win the regulars round one at a time | chance: 68
 - R>W | walk out of {place} on the spot, and say a rule like that is not fair | odd: leave | v: universalism, stimulation | mark: made an enemy | chance: 82
 - G>U | go along with the house way patiently, and learn what the old hands know | odd: blend | v: tradition, self-direction | chance: 66
-works: After the big night the one who runs {place} admits the house way was only ever habit, and asks {N} what else could change.
+works not U G R>W: After the big night the one who runs {place} admits the house way was only ever habit, and asks {N} what else could change.
 works: {friend} tells {N} quietly that they have always felt the odd one out at {place} too, and never said so.
-fails: On the night {N} is the one who stands out, and not in the good way: the laughter from the back row carries.
+fails not U G R>W: On the night {N} is the one who stands out, and not in the good way: the laughter from the back row carries.
 fails: The regulars close ranks, and for a while {N} is left out of the plans and the evenings after.
 
 # ---------------------------------------------------------------- pair 8: care, no ladder
@@ -602,9 +602,9 @@ scene G: {N} was raised to look after people a certain way, the way {Ns} own fam
 - B>W | take a post at a better-run place, and tell the manager exactly why | odd: leave | v: achievement, universalism | chance: 74
 - R>U | throw yourself into learning their way, shift after shift, to find what it knows | odd: blend | v: stimulation, self-direction | act: throw themselves into learning the team's way, shift after shift, to find what it knows | chance: 60
 - G>B | keep your way patiently, until you have standing nobody can question | odd: hold | v: tradition, achievement | act: keep their way patiently, until they have standing nobody can question | chance: 70
-works: The people in {Ns} care start asking for {N} by name, and before long others at {place} are doing it {Ns} way.
+works not W R B>W: The people in {Ns} care start asking for {N} by name, and before long others at {place} are doing it {Ns} way.
 works: Late one night {colleague} confides that they have never liked the house routine either, and asks {N} how to do it differently.
-fails: A small slip of {Ns} gets passed round at the next handover, and by the end of the week everyone at {place} has heard it.
+fails not W R B>W: A small slip of {Ns} gets passed round at the next handover, and by the end of the week everyone at {place} has heard it.
 fails: The team goes quiet when {N} comes in, and the good shifts start going to someone else.
 
 == a quiet word in the corridor
@@ -638,10 +638,10 @@ scene G: {N} thinks of the old hand who first taught {N}, who never once did it 
 - B>U | go along with it, and get {place} to pay for the training that comes with it | odd: blend | v: achievement, self-direction | chance: 62
 - R>B | tell the boss straight that you do it your way or not at all | odd: hold | v: self-direction, power | act: tell the boss straight that they do it their way or not at all | mark: made an enemy | chance: 72
 - G>R | leave {place} and go back to looking after your own people, the way that feels right | odd: leave | v: tradition, benevolence | act: leave {place} and go back to looking after their own people, the way that feels right | chance: 80
-works: A few months on, {boss} asks {N} to show the newer ones how {N} does it.
+works not B U>W G>R: A few months on, {boss} asks {N} to show the newer ones how {N} does it.
 works: One of the families at {place} tells {N}, quietly, that {Ns} way is the reason their mother has settled there.
 fails: Word of the quiet word gets round, and for a while {N} is the one people talk about in the break room.
-fails: {N} misses a step in the routine in front of the whole shift, and it is the only thing anyone remembers that week.
+fails not B U>W G>R: {N} misses a step in the routine in front of the whole shift, and it is the only thing anyone remembers that week.
 
 # ---------------------------------------------------------------- pair 9: any place, newcomer (place-neutral)
 # For a place whose sphere has no pair above (rule) and for settings with no sphere of their own (a crew of friends,
@@ -679,10 +679,10 @@ scene G: {Ns} ways came from home and from the people who raised {N}. They are n
 - B>R | keep your way, and let the jokes bounce off you | odd: hold | v: power, stimulation | act: keep their way, and let the jokes bounce off them | chance: 65
 - R>G | leave {place} for somewhere with people of your own kind | odd: leave | v: tradition, stimulation | act: leave {place} for somewhere with people of their own kind | chance: 85
 - G>W | take it slowly, and grow into the ways here one season at a time | odd: blend | v: conformity, tradition | mark: made a friend | chance: 68
-works: Before long the jokes turn fond, and the regulars at {place} start saving {N} a seat.
+works not G U>B R>G: Before long the jokes turn fond, and the regulars at {place} start saving {N} a seat.
 works: Someone else at {place} who never quite fit in either seeks {N} out, and a friendship begins.
 fails: The jokes stop, but so do the invitations, and {N} drifts to the edge of {place}.
-fails: {N} tries too hard, gets it wrong in front of everyone, and the story goes round {place} for weeks.
+fails not G U>B R>G: {N} tries too hard, gets it wrong in front of everyone, and the story goes round {place} for weeks.
 
 == asked to do it the way it is done here
 tier: everyday
@@ -715,7 +715,7 @@ scene G: {N} thinks of the people back home who did it this way for years, and w
 - B>W | take the job nobody else at {place} wants, until your way is part of it | odd: hold | v: power, benevolence | act: take the job nobody else at {place} wants, until their way is part of it | chance: 68
 - R>U | walk away and try somewhere new, to see where you fit | odd: leave | v: stimulation, self-direction | act: walk away and try somewhere new, to see where they fit | chance: 90
 - G>B | go back to your own people, and take what you learned here with you | odd: leave | v: tradition, security | act: go back to their own people, and take what they learned here with them | chance: 75
-works: Months later, the regular who spoke up asks {N} to show a newcomer how {N} does it.
+works not W>R R>U G>B: Months later, the regular who spoke up asks {N} to show a newcomer how {N} does it.
 works: A few people at {place} start doing things {Ns} way, quietly at first.
 fails: Word of the talk gets round, and for a while {N} is the one everyone at {place} discusses.
-fails: The next time {N} does it differently, nobody says a word, and nobody needs to.
+fails not W>R R>U G>B: The next time {N} does it differently, nobody says a word, and nobody needs to.

@@ -53,9 +53,9 @@ scene G: {N} thinks of {grandparent}, saying the same evening prayer at the same
 - R>G | go to your grandparent tomorrow and ask straight out if they ever doubted | act: go to their grandparent the next day and ask straight out if they ever doubted | v: tradition, stimulation | sphere: faith.R | chance: 65
 - G>W | keep the rites through the season, and let the doubt sit beside them | v: tradition, conformity | lever: loyalty | sphere: faith.G | chance: 65
 works: By morning the question has not gone, but {N} finds it can be lived with, and what faith remains feels more {Ns} own.
-works: {N} talks it through with {elder}, who smiles and says the night of doubt is the oldest rite of all.
+works not U>B: {N} talks it through with {elder}, who smiles and says the night of doubt is the oldest rite of all.
 fails: The doubt hardens into a quiet distance, and {N} sits through the next gatherings feeling like a guest.
-fails: {N} says too much too soon, and the family hears it as an attack.
+fails not U>B: {N} says too much too soon, and the family hears it as an attack.
 
 # ---------------------------------------------------------------- everyday, calls WRG (cycle s2); partner: the doubt that comes at three in the morning
 
@@ -136,7 +136,7 @@ scene G: The two families have sat side by side at every feast for thirty years.
 - B>W | help your friend explain it to their parents, and keep both sides talking | v: benevolence, security | sphere: faith.B | chance: 65
 - R>U | argue it out with your friend all night, the way you argued at school | act: argue it out with their friend all night, the way they argued at school | v: stimulation, self-direction | sphere: faith.R | chance: 65
 - G>B | keep the friendship's old customs, the walk on the feast day, whatever they now believe | v: tradition, security | sphere: faith.G | chance: 65
-works: {N} sits through the rite, and afterwards {friend} holds on tight: the friendship has come through.
+works not B: {N} sits through the rite, and afterwards {friend} holds on tight: the friendship has come through.
 works: The two of them find they can talk about faith now in a way they never could before.
 fails: Something has shifted, and the calls between them thin out over the year.
 fails: {Ns} family takes it badly, and {N} is caught between them and {friend}.
@@ -301,9 +301,9 @@ scene G: {grandparent} married under the old rite, and so did every couple in th
 - UR | make up a ceremony of your own on a hilltop, in words you both wrote | v: self-direction, stimulation | sphere: faith.UR | chance: 50
 - WB | strike a deal with your parents: the town hall now, the rite at the first child | act: strike a deal with their parents: the town hall now, the rite at the first child | v: security, conformity | sphere: faith.WB | chance: 50
 - WG | visit your parents every week until the wedding, and listen more than you talk | act: visit their parents every week until the wedding, and listen more than they talk | v: benevolence, tradition | sphere: faith.GW | chance: 50
-works: On the day {parent} comes after all, and cries at the town hall like everyone else.
+works not R: On the day {parent} comes after all, and cries at the town hall like everyone else.
 works: The wedding is small and true, and within a year the family has stopped talking about the rite.
-fails: {parent} stays away, and the family's side of the room is half empty through every toast.
+fails not R: {parent} stays away, and the family's side of the room is half empty through every toast.
 fails: The quarrel follows the couple into their first years, and surfaces at every family meal.
 
 # ================================================================ telling the family they have left (pairs D4a)
