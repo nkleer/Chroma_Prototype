@@ -156,13 +156,18 @@ GAME = dict(
     # moves own_lived x a light push of the act's share in it (without it a way they already live by stalls short of theirs)
     own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
     own_use=0.4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1, own_lived=0.5,
+    # v22.5, rare moments are asked (push_rare, 10-11: on the same 60 lives, pushed lives met 545 distinct rare moments
+    # against 475 left alone, but the game put only 75 and 73 of them to the player): a moment under RARE_SHARE of lives
+    # (the Book's rare), met for the first time, comes up at a life event's pace (half the gap) and weighs rare_imp more
+    # when the game picks the moments to put to the player. Off until its proof
+    rare_ask=False, rare_imp=0.5,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False, rare_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -905,7 +910,9 @@ class Game:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
             life = "had_ev" in loc and bool(loc["had_ev"][0]) and int(loc["s_ev"][0]) == s
-            if t - self._last_cp < (gap_weeks // 2 if life else gap_weeks):
+            sh = self._sit_share.get(self.L["names"][s])
+            rare = GAME["rare_ask"] and s not in self._cp_n and sh is not None and sh < RARE_SHARE
+            if t - self._last_cp < (gap_weeks // 2 if life or rare else gap_weeks):
                 return None
             wait = (again // 2) * self._cp_n.get(s, 0) if life else again * (1 + self._cp_n.get(s, 0))
             if t - self._last_seen.get(s, -10 ** 6) < wait:
@@ -915,7 +922,7 @@ class Game:
                     and (self._sit_share.get(self.L["names"][s]) or 0.0) >= GAME["told_share"]):
                 return None                     # 5.6: an everyday moment with no tie to this life is told, not asked
             if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
-                    + GAME["tie_pick"] * (cause is not None) < thr):
+                    + GAME["tie_pick"] * (cause is not None) + GAME["rare_imp"] * rare < thr):
                 return None
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
