@@ -16,7 +16,7 @@
 #   m5   the game's browser drivers, groups C and D (G15); then the game's own full checks (G13), the steered and Voice
 #        rows and S2's own_even (G12)
 #   m6   item 26's colour-choice run, judged by check_c26.py (G19; 960 lives, about 75 minutes), and the same with the
-#        world on as information (c26_world, about 80 minutes); then S5's two targets (G9)
+#        world on, judged the same way (c26_world, G19w; about 80 minutes); then S5's two targets (G9)
 # On the final commit (the refit, its rarity table, the Game's re-pin):
 #   final       every v22_checks row again (unchanged files are reused in seconds); the rarity row from m1's rebuild when
 #               the refit and the final commit differ only in the rarity files, else rebuilt; the old saves (G14); the
@@ -86,7 +86,7 @@ PY
   [ $? = 0 ] || echo "not all carried: run \`run.sh page\` or \`run.sh g4\` on a free machine for those"; }
 lives() { $CHK --only $LIVES --keep --work $K/lives || $CHK --only $LIVES --no-reuse --keep --work $K/lives; }   # pie reads the npz here
 mech() { $CHK --only $MECH --keep --work $K/mech; }            # S1, S3 and S4 rows read their run's stats here
-c26() { $CHK --only c26_choice,c26_world --keep --work $K/c26; }   # c26_world: information (G19 with the world on)
+c26() { $CHK --only c26_choice,c26_world --keep --work $K/c26; }   # c26_world: G19 with the world on (G19w)
 b7() { rm -rf $X/b7; mkdir -p $X; $CHK --only build --no-reuse --keep --work $X/b7 > $X/b7.log 2>&1   # a reused build leaves no folder
   [ -f $X/b7/w/build/BUILD.md ] || { echo "STOP: no build in $X/b7/w/build (see $X/b7.log)"; return 1; }
   bash $R/short-v22.1/b7.sh $1 2 $X/b7/w/build; }
