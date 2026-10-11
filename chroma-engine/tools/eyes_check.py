@@ -13,7 +13,10 @@ A year at a place is a life-year holding at least one place for a year or more (
 the spheres, not from S4 (White-led lives hold none in about 28% of their life-years, mostly childhood, Blue-led in 10%).
 The per-life-year readings are printed as information, and so is each S4 row's reading with colour shuffled across
 lives (colour playing no part; scope.md "Small counts"): a 90th percentile over the target means the run has too few
-lives to judge it (one seed of 300 lives x 80 years: s4_odd's sits near 1.22x; four seeds, 1.12x).
+lives to judge it (300 lives x 80 years: s4_odd's sits near 1.2x at one seed, 1.1x at four; s4_convert's near 1.75x
+and 1.3x). Conversions per year at a place they could move (held a year and odd_hold more as a regular or more: a
+newcomer's holding out moves nothing) are printed as information too, since how long each colour stays at a place
+comes from the spheres.
 
     python3 -B chroma-engine/tools/eyes_check.py TARGET [N=300] [SEEDS=7] [--years 80] [--P JSON] [--stats FILE]
 
@@ -32,7 +35,7 @@ import numpy as np
 COLORS = "WUBRG"
 ENEMY = ("WB", "WR", "UR", "UG", "BG")   # the Canon's enemy pairs, in the order People names them (place a's lead first)
 TARGETS = ("s3_rep", "s3_caught", "s4_odd", "s4_convert")
-LIFE = ("life_place", "life_odd", "life_held")   # S4's counts per life x lead colour: joined across seeds, not summed
+LIFE = ("life_place", "life_odd", "life_held", "life_movable")   # S4's counts per life x lead colour: joined across seeds, not summed
 RUN_P = dict(world=True, sph_haunts=True, sph_hours=True, sph_events=True, cur_on=True, sph_eyes=True, sph_odd=True)
 
 
@@ -100,7 +103,7 @@ def shuffle_line(name, num, den, r, target):
     s_ = shuffle(num, den)
     p90, med = (float(np.quantile(s_, q_, method="higher")) for q_ in (0.9, 0.5))   # (no interpolation: a ratio can be inf)
     return (f"  info: {name} with colour shuffled across lives ({len(s_)} shuffles): median {med:.2f}x, 90th"
-            f" percentile {p90:.2f}x; the run's {r:.2f}x sits at the {100 * float((s_ < r).mean()):.0f}th percentile"
+            f" percentile {p90:.2f}x; the run's {r:.2f}x sits at percentile {100 * float((s_ < r).mean()):.0f}"
             + (f" (90th percentile over {target}x: too few lives to judge {target}x; scope.md, Small counts)" if p90 > target
                else ""))
 
@@ -192,6 +195,12 @@ def main():
         print(f"  info: per life-year (not judged): odd {per(oy_ / np.maximum(life_y, 1))} {rt(ratio(oy_ / np.maximum(life_y, 1)))};"
               f" conversions {per(hd_ / np.maximum(life_y, 1), 4)} {rt(ratio(hd_ / np.maximum(life_y, 1)))}; years at a place per"
               f" life-year {per(place_y / np.maximum(life_y, 1))}", flush=True)
+    if "movable_years" in st and "s4_convert" in want:
+        mv_ = np.asarray(st["movable_years"], float); cm_ = np.asarray(st["held"], float) / np.maximum(mv_, 1)
+        print(f"  info: conversions per year at a place they could move (held a year and odd_hold more, a regular or more;"
+              f" not judged): {per(cm_, 4)} {rt(ratio(cm_))}; such years per year at a place {per(mv_ / np.maximum(den, 1))}",
+              flush=True)
+        print(shuffle_line("conversions per movable year", st["life_held"], st["life_movable"], ratio(cm_), 1.5), flush=True)
     met = np.asarray(st["blend"], float) + np.asarray(st["hold"], float) + np.asarray(st["leave"], float)
     print(f"  info: life-years {per(life_y, 0)}" + (f", years at a place {per(place_y, 0)}" if place_y is not None else "") + f"; odd-one-out moments offered {per(st['odd_fired'], 0)}; blend {per(st['blend'], 0)},"
           f" hold {per(st['hold'], 0)}, leave {per(st['leave'], 0)}; blends per odd moment met {per(np.asarray(st['blend']) / np.maximum(met, 1), 2)}",

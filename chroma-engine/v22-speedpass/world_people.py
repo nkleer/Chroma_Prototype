@@ -303,14 +303,14 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # place's go-betweens (DIFF units, x the mean name); cool, weeks between two caught-between moments; wait, weeks a
 # moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
 # buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
-# odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1.15;
+# odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
 # what they are used to: each colour's mean share at their places a year or more theirs, and its spread among them, a
 # running mean with odd_mem of each year's places, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
-                    buf_haunt=0.2, buf_half=26.0, odd_z=1.15, odd_mem=0.25, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
+                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
                     odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
@@ -3739,7 +3739,8 @@ class People:
                                life_years=z(), place_years=z(), odd_years=z(), odd_fired=z(), blend=z(), hold=z(), leave=z(),
                                held=z(), gaps=np.zeros(16, np.int64))   # gaps: the widest between two places' readings of an act, by .1
         if self.odd_on:   # S4's years at a place, odd-one-out years and conversions per life (x lead colour), for the check's
-            self.eyes_stats.update(life_place=np.zeros((N, C)), life_odd=np.zeros((N, C)), life_held=np.zeros((N, C)))   # shuffle reading
+            self.eyes_stats.update(life_place=np.zeros((N, C)), life_odd=np.zeros((N, C)), life_held=np.zeros((N, C)),   # shuffle reading
+                                   life_movable=np.zeros((N, C)), movable_years=np.zeros(C))
         if self.odd_on:
             self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
             self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
@@ -4199,6 +4200,9 @@ class People:
         pl, oo = el.any(1), live & odd.any(1)
         np.add.at(st["life_years"], lc[live], 1); np.add.at(st["place_years"], lc[pl], 1); np.add.at(st["odd_years"], lc[oo], 1)
         st["life_place"][ar[pl], lc[pl]] += 1; st["life_odd"][ar[oo], lc[oo]] += 1
+        rg = self._eyes_rungs()   # years at a place they could move: held odd_hold years past the first, a regular or more
+        mv = (el & ((t - self.eyes_t0) >= 52 * (1 + P_["odd_hold"])) & (np.asarray(P_["odd_lean"])[rg] > 0)).any(1)
+        np.add.at(st["movable_years"], lc[mv], 1); st["life_movable"][ar[mv], lc[mv]] += 1
         sg = self._eyes_stages.index(self._tstage(self._age(t))) if self._tstage(self._age(t)) in self._eyes_stages else -2
         cand = odd & ~self.odd_blend & (self.odd_stage != sg)
         for n in np.nonzero(cand.any(1))[0]:
@@ -4211,7 +4215,6 @@ class People:
         self.odd_held = held
         if not held.any():
             return
-        rg = self._eyes_rungs()
         for n, q_ in zip(*np.nonzero(held)):
             k_ = float(P_["odd_lean"][rg[n, q_]]); e_ = np.eye(C)[lead[n]]
             if k_ > 0:   # a conversion is a place that moves: a newcomer (odd_lean 0) holding out moves nothing
