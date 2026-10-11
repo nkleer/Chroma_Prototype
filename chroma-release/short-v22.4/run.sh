@@ -191,5 +191,15 @@ case "${1:-}" in
   g4) g4 ;;
   b7AB) b7 A,B ;;
   b7CD) b7 C,D ;;
+  b7A|b7B|b7C|b7D) b7 ${1#b7} ;;                 # the wide split (Emren 10-11 21:36, "use more threads"): one group a machine
+  gameA) $CHK --only $GAME ;;
+  gameB) $CHK --only @steered ;;
+  gameC) $CHK --only own_even ;;
+  qslow1) $CHK --only timeless ;;
+  qslow2) $CHK --only life_ends,identity_g ;;
+  qslow3) $CHK --only fuzz,markers ;;
+  qsteps) $CHK --only t_steps ;;
+  quickrest) $CHK --only $(echo $QUICK | tr , '\n' | grep -vxE 'timeless|life_ends|identity_g|fuzz|markers|t_steps' | paste -sd,),saves_note ;;
+  mechrest) $CHK --only ${MECH%,s7_lead} --keep --work $K/mech ;;   # s7_lead stands from ef7f273 (ruling "S7's time in post reported")
   *) sed -n 2,43p "$0"; exit 2 ;;
 esac
