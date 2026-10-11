@@ -278,10 +278,17 @@ V224 = [
      "Small counts)"),
     ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
-     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz",
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz --steer want",
      "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
      "below unsteered (Black's reported, not judged); perks at 50 (90th percentile) <= 27; Black's edge on (#176) "
      "(960 lives, 160 a group: each drop's standard error about .013; scope.md, G19's run size; about 75 minutes on 4 cores)"),
+    ("c26_world", "G19w", 4, "STEER=pick PX='{{\"world\": true, \"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26w.npz \"-,W,U,B,R,G\" && "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26w.npz && python3 -B chroma-release/check_c26.py {W}/c26w.npz --steer pick",
+     "re:^C26 PASS", (), "item 26 with the outer world on, as presets 1 to 4 play it (the S parts act only there; the "
+     "shadows and sh_will do not): c26_choice's targets on the same 960 lives, judged since Emren's card choice \"Fix in "
+     "v22.4\" (10-11 08:24 UTC; scope.md, G19 with the world on), steered lives picking as a player does (STEER=pick, "
+     "Engine #191; scope.md, G19w's stand-in; about 80 minutes on 4 cores)"),
 ]
 for cid, row, cores, cmd, rule, after, what in V224:
     CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))

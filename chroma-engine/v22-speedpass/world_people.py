@@ -268,7 +268,7 @@ SAC_DEFAULT = dict(
     lines=2,           # at most two lines a life
     reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
                        # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
-    known=2,           # a line held this many times (an offer and its raised round) is known around them: no more offers
+    known=2,           # a line answered this many times (held or crossed) is known around them: no more offers
                        # come for it (v22.4 fix: offers follow the town's events, the who: they fit and how long the line
                        # lasts, so without it Black and Green lines met up to twice the offers of White and Blue ones)
     c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
@@ -304,8 +304,9 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
 # buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
 # odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
-# what they are used to: each colour's mean share at their places a year or more theirs, and its spread among them, a
-# running mean with odd_mem of each year's places, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# what they are used to: each colour's mean log share at their places a year or more theirs, and its spread among them, a
+# running mean with odd_mem of each year's places, .25; in proportion, so half the share is as odd for a rare colour as a
+# common one), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on
@@ -3115,7 +3116,9 @@ class People:
             return
         ns = ns[self._sac_fit(ns, o["who"], t)]
         tch = (self.sac_line[ns][:, :, None] == np.asarray(kinds)[None, None, :]).any(2)   # n x 2: the line is touched
-        tch &= self.sac_held[ns] < sp["known"]   # (a line known not to be for sale is not offered for)
+        tch &= (self.sac_held[ns] + self.sac_crossed[ns]) < sp["known"]   # (a line answered known times, held or
+        # crossed, is settled around them: no more offers come for it; v22.4 fix round: counting only holds kept offers
+        # coming to lines that were crossed, so lives that cross more (Black- and Red-led) held more offers and paid more)
         ns, tch = ns[tch.any(1)], tch[tch.any(1)]
         r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
         for n_, tc_ in zip(ns[r_], tch[r_]):
@@ -3752,7 +3755,7 @@ class People:
             self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
             self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
             self.odd_held = np.zeros((N, Q), bool)
-            self.odd_mu = np.zeros((N, C)); self.odd_var = np.zeros((N, C))   # what they are used to (this frame's colours)
+            self.odd_mu = np.zeros((N, C)); self.odd_var = np.zeros((N, C))   # what they are used to (log shares, this frame's colours)
             self.odd_n = np.zeros(N, np.int64)   # years of their own places in it
             self.eyes_dw = np.zeros((N, C))  # blending in: the colours' step for the engine to apply (pie units, then cleared)
 
@@ -4183,20 +4186,23 @@ class People:
         of it). Not under a fixed share of every place's faces: the places share their town's lean (most lean Green, work
         places and congregations are near-even mixes leaning White and Green), so a fixed share made Red-led lives the odd
         one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
-        a batch as alone in the game. Its moment waits once a life stage per place (never after blending in there). Held
+        a batch as alone in the game. Shares are read in proportion (log share): a colour common at their places spreads
+        wider below its mean than a rare one, which cannot fall far, so read in plain shares Green-led lives were odd most
+        and Red-led least (s4_odd 1.20x on the v22.4 refit). Its moment waits once a life stage per place (never after blending in there). Held
         odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
         (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
         odd_regular a year toward theirs."""
         P_ = self.eyes_par; W = self.W; live = ~self.dead; N = self.N
         lead = np.argmax(self.w, 1)
-        share = np.take_along_axis(self._eyes_fc, lead[:, None, None], 2)[..., 0]
+        lf = np.log(np.maximum(self._eyes_fc, 1e-6))   # the faces' shares in proportion (log share)
+        share = np.take_along_axis(lf, lead[:, None, None], 2)[..., 0]
         el = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52)   # their places, a year or more theirs
         ne = el.sum(1); ar = np.arange(N)
         used = self.odd_mu[ar, lead] - P_["odd_z"] * np.sqrt(self.odd_var[ar, lead])
         odd = el & ((ne >= 2) & (self.odd_n > 0))[:, None] & (share < used[:, None])
-        fc_ = np.where(el[..., None], self._eyes_fc, 0.0)
+        fc_ = np.where(el[..., None], lf, 0.0)
         mu = fc_.sum(1) / np.maximum(ne, 1)[:, None]
-        var = (np.where(el[..., None], self._eyes_fc - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
+        var = (np.where(el[..., None], lf - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
         hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
         self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
         self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
@@ -4898,10 +4904,11 @@ class People:
         return True
 
     def _lead_q(self, t):
-        """Each quarter: posts end (death, the office or setting gone, a move, frailty, the age out, the yearly end
-        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest, the quarter's crises
-        (_lead_crises) and the falls of each way, new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
-        post x (.5 + legitimacy)) and the shadow target."""
+        """Each quarter: posts end (death, the office or setting gone, a move (a title over a workplace goes with the
+        job), frailty, the age out, the yearly end chance, a rival of higher rung, the term's end unrenewed), the
+        legitimacy of the rest, the quarter's crises (_lead_crises) and the falls of each way, new posts (a pillar takes
+        the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each post x (.5 +
+        legitimacy)) and the shadow target."""
         if self._lw_q == t:
             return
         self._lw_q = t; W = self.W; par = self.lw_par; a = self._age(t)
@@ -4910,6 +4917,8 @@ class People:
         # 1. ends
         for p in list(self.lw_posts):
             n = p["n"]; why = None; c_ = self._lead_cell(p["pk"])
+            if p["kind"] == "office" and LEAD_TITLES[self.lw_tnames[p["slot"]]][2] == "work":   # a title over a workplace
+                p["loc"] = int(self.loc[n])   # goes with the job through a move, as the engine keeps both (v22.4 fix round)
             if self.dead[n]:
                 why = "died"
             elif p["kind"] == "office" and not self.lw_has[n, p["slot"]]:
@@ -5657,7 +5666,7 @@ class People:
                 ev_.update(odd_now=[bool(x_) for x_ in self.odd_now[n]], odd_y=[int(x_) for x_ in self.odd_y[n]],
                            odd_stage=[int(x_) for x_ in self.odd_stage[n]], odd_blend=[bool(x_) for x_ in self.odd_blend[n]],
                            odd_held=[bool(x_) for x_ in self.odd_held[n]], dw=[float(x_) for x_ in self.eyes_dw[n]],
-                           odd_mu=[float(x_) for x_ in self.odd_mu[n]], odd_var=[float(x_) for x_ in self.odd_var[n]],
+                           odd_lmu=[float(x_) for x_ in self.odd_mu[n]], odd_lvar=[float(x_) for x_ in self.odd_var[n]],
                            odd_n=int(self.odd_n[n]))
             out["eyes"] = ev_
         if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
@@ -5791,8 +5800,8 @@ class People:
                 if pp.odd_on and "odd_now" in e_:
                     pp.odd_now[n] = e_["odd_now"]; pp.odd_y[n] = e_["odd_y"]; pp.odd_stage[n] = e_["odd_stage"]
                     pp.odd_blend[n] = e_["odd_blend"]; pp.odd_held[n] = e_["odd_held"]; pp.eyes_dw[n] = e_["dw"]
-                    if "odd_mu" in e_:   # what they are used to (older saves: read afresh from their next year at places)
-                        pp.odd_mu[n] = e_["odd_mu"]; pp.odd_var[n] = e_["odd_var"]; pp.odd_n[n] = int(e_["odd_n"])
+                    if "odd_lmu" in e_:   # what they are used to, in log shares (older saves: read afresh from their next year at places)
+                        pp.odd_mu[n] = e_["odd_lmu"]; pp.odd_var[n] = e_["odd_lvar"]; pp.odd_n[n] = int(e_["odd_n"])
         if getattr(pp, "lw", False):
             for n, d in enumerate(saved):
                 l_ = d.get("lead")
