@@ -17637,6 +17637,102 @@
    "set up a small yearly prize for the town's young artists, in your name",
    "paint the long shot itself, the day and the nerves, until it is right",
    "give the work from that day to the town hall, to hang where people pass"
+  ],
+  "the old oak by the playing field": [
+   "put the risk in writing, and leave the decision to the head",
+   "walk the head round the tree, and show which wood is dead and which is sound",
+   "agree to the felling, and ask to keep the timber to sell",
+   "tell the head straight that felling it would be a shame they will all regret",
+   "prune it carefully yourself over the weekend, the way the old gardeners did",
+   "fence off the tree today, and push hard for a second opinion before Friday",
+   "get a tree surgeon to check it, and plant a young oak beside it anyway",
+   "let the felling go ahead, and make sure the paperwork says it was not your call",
+   "take off every dead limb yourself before Friday, safely roped in",
+   "ask the parents who sat under it as children to speak to the head"
+  ],
+  "the parks contract goes to a cheaper firm": [
+   "stay on and keep the parks up to standard, whatever the new firm pays",
+   "write the new manager a plan showing hand weeding costs less over a year",
+   "stay on, but only as head of the crew, with a raise to match",
+   "turn the job down on the spot, and look for work somewhere that cares",
+   "stay on with the old crew, and keep weeding by hand where you can",
+   "stay on, and ask the council to keep the old beds off the spray list",
+   "take the facts about the spray to the council's next open meeting",
+   "take the job, learn the new firm's books, and bid for the contract yourself next time",
+   "tell the new manager you will stay only if the spraying stops, and mean it",
+   "leave with the old crew and start a garden firm of your own together"
+  ],
+  "a storm coming and the hay still down": [
+   "keep to the day's orders, and keep trying the farmer's phone",
+   "bale the driest rows first, and cover the rest with sheets from the barn",
+   "ring the farm next door, and offer them a share of the hay for a hand",
+   "get on the tractor and bring in as much as you can before the rain",
+   "pile it into haycocks on the high ground, the way the old hands did",
+   "finish the day's list, then send the farmer a clear plan to say yes to",
+   "save what you can, and make sure the farmer knows exactly what it was worth",
+   "leave the hay: it is not your farm, and you are not paid for storms",
+   "wake the whole family at the farm and get everyone out to the field",
+   "gather the neighbours, as farms round here always have, and bring it in together"
+  ],
+  "asked to stay on for the winter": [
+   "stay the winter, as you would want someone to do for you",
+   "stay, and use the dark evenings to study for a farming certificate",
+   "stay on, if the farmer puts in writing a share of the spring lambs",
+   "take the steadier work in town, and come back for the harvest if you miss it",
+   "stay without a second thought: the stock need feeding, and you belong here",
+   "stay the winter, and ask fairly for a proper wage from spring",
+   "stay, and talk the farmer into trying a new crop on the bottom field",
+   "stay, and quietly save every coin toward a few acres of your own",
+   "go to town for the winter, but promise to be back for lambing, and keep it",
+   "stay, and ask the farmer to teach you everything about the land"
+  ],
+  "a frightened dog at closing time": [
+   "explain the rule kindly, and give her the number of the shelter in the next town",
+   "check the dog over, then find the one kennel that can be shared tonight",
+   "take the dog in, and log it as arriving tomorrow morning",
+   "take the dog home with you tonight, whatever anyone says",
+   "take it in, as the old hands always did, and face the manager tomorrow",
+   "ring the manager at home now, and ask plainly for one exception",
+   "ask the woman to foster the dog overnight, and show her how to settle it",
+   "turn her away by the rules, and make sure the log says you did",
+   "take the dog in tonight, then spend tomorrow finding it a home",
+   "call round the old volunteers until one of them takes the dog for the night"
+  ],
+  "the vet asks you to come and assist": [
+   "take the post, but stay on at the shelter one weekend a month",
+   "take the post for the training, and plan to qualify further",
+   "use the offer to ask the shelter for a raise, and see who pays more",
+   "say no: the shelter is where your heart is",
+   "stay at the shelter, with the people and the animals you know",
+   "stay at the shelter, and ask the vet to train the volunteers instead",
+   "take the post, and write the shelter a handbook before you go",
+   "take the post, and learn enough to run a practice of your own one day",
+   "take the post today, and tell the shelter's manager it was long overdue",
+   "stay, and talk the vet into a free clinic at the shelter on Saturdays"
+  ],
+  "the place's ways, and yours": [
+   "learn how things are done here, and do them that way, properly",
+   "keep your own way, and explain it plainly to anyone who asks",
+   "fit in for now, and save your own way for when it counts",
+   "laugh along at yourself, then carry on exactly as you were",
+   "go back to the people you came from, where your ways are ordinary",
+   "ask openly why things are done this way, and offer your way fairly beside it",
+   "find out where your way would be valued, and take it there",
+   "keep your way, and let the jokes bounce off you",
+   "leave {place} for somewhere with people of your own kind",
+   "take it slowly, and grow into the ways here one season at a time"
+  ],
+  "asked to do it the way it is done here": [
+   "keep to the way you were taught, and say plainly why it matters to you",
+   "watch the regulars for a month, then take on the parts that make sense",
+   "do it their way where it is seen, and your way where it is not",
+   "tell her, cheerfully, that this is just how you are",
+   "stay, and let time make you one of them",
+   "give fair notice, and go where your way is welcome",
+   "keep your way, and quietly show what it is good for",
+   "take the job nobody else at {place} wants, until your way is part of it",
+   "walk away and try somewhere new, to see where you fit",
+   "go back to your own people, and take what you learned here with you"
   ]
  }
 }
