@@ -107,10 +107,10 @@ scene G: The fib sits inside {N} like a stone in a shoe. Every step, there it is
 - B>W | save up your pocket money and buy a new one, without a word | v: benevolence, conformity | self_control: + | chance: 69
 - R>U | cry it all out into your teddy, then work out what to do | v: self-direction | chance: 78
 - G>B | keep out of the way of whoever got the blame, until it blows over | v: security | mark: hid a wrong | self_control: - | chance: 30
-works: The truth comes out, and the grown-ups are kinder about it than {N} feared.
+works not B G U>G B>W G>B: The truth comes out, and the grown-ups are kinder about it than {N} feared.
 works: The stone in {Ns} tummy goes, and {N} sleeps properly again.
 fails: The fib needs a second fib to keep it company.
-fails: {N} owns up, and the punishment is worse than the guilt was.
+fails not B G U>G B>W G>B: {N} owns up, and the punishment is worse than the guilt was.
 
 == everyone laughed when you got it wrong
 tier: inner
@@ -179,9 +179,9 @@ scene G: The same blossom is out in the garden as last year. {N} sits under it a
 - R>G | run up the hill they loved and shout their name into the wind | body: light | v: tradition, stimulation | chance: 78
 - G>W | light a candle for them at dinner, the way the family always does | habit | v: tradition | chance: 92
 works: The day is sad, and then it is over, and {N} feels a little lighter.
-works: Remembering {dead} out loud, the whole family laughs for the first time in ages.
+works not B: Remembering {dead} out loud, the whole family laughs for the first time in ages.
 fails: The sadness comes back as big as the first time, and stays for days.
-fails: Nobody else seems to remember, and {N} spends the day alone with it.
+fails not B: Nobody else seems to remember, and {N} spends the day alone with it.
 
 == a temper that keeps boiling over
 tier: inner
@@ -323,7 +323,7 @@ scene G: The bright flowers get the bees. {N} wonders, for the first time, how t
 works: Someone looks, and claps, and {N} carries the moment around all week.
 works: {N} finds a way to be seen that feels just right.
 fails: Nobody looks, or they look and then look away again.
-fails: The bid for attention goes wrong, and {N} is noticed for the wrong thing.
+fails not G R>G: The bid for attention goes wrong, and {N} is noticed for the wrong thing.
 
 == standing up for someone smaller
 tier: inner
@@ -396,7 +396,7 @@ scene G: {N} feels warm all the way through, like a cat lying in a patch of sun.
 - G>B | keep the star hidden in your treasure box, all your own | v: power (resources), security | chance: 82
 works: The glow carries {N} through the next hard thing too.
 works: The grown-ups remember it, and {N} is given something harder to try.
-fails: {N} shows off so much that the other children start to groan.
+fails not G G>B: {N} shows off so much that the other children start to groan.
 fails: The next try goes wrong, and the glow turns into worry.
 
 == a question that will not go to bed

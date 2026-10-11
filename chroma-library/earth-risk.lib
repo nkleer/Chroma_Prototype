@@ -42,7 +42,7 @@ scene G: {grandparent} smoked all their life and coughed every morning {N} can r
 works: The bell goes, and {N} walks back in still part of the group, and still themselves.
 works: Nobody makes a thing of it, and by the end of the week {N} knows where they stand.
 fails: A teacher turns the corner, and every name in the circle goes in the book.
-fails: {N} coughs until their eyes stream, and the whole group laughs.
+fails not G W>U R>G G>W: {N} coughs until their eyes stream, and the whole group laughs.
 
 # ---------------------------------------------------------------- everyday: a drinking game (calls WU, cycle s4)
 
@@ -115,7 +115,7 @@ scene G: Out of the window the garden is dark and still. The party feels like we
 works: The night burns bright and then burns out, and {N} gets home as the birds start.
 works: Nothing goes wrong, and by Monday the party is just a story.
 fails: Someone collapses by the back door, and the party ends with an ambulance and a lot of parents.
-fails: {N} spends the small hours sick and frightened in the bathroom, with {friend} knocking on the door.
+fails not U G>R: {N} spends the small hours sick and frightened in the bathroom, with {friend} knocking on the door.
 
 # ---------------------------------------------------------------- everyday: a dare on the factory roof (calls BR, cycle s3)
 
@@ -187,7 +187,7 @@ scene G: Nobody is in a hurry. The talk drifts, the smoke drifts out of the wind
 - G>U | go out into the garden alone and think about what you actually want | v: self-direction | chance: 80
 works: The evening ends easy, and {N} cycles home with the night air on their face.
 works: Nothing bad comes of it, and {N} knows a little more about the people in that room.
-fails: {friend}'s mother opens the door, and the smell tells her everything.
+fails not B>G: {friend}'s mother opens the door, and the smell tells her everything.
 fails: {N} goes quiet and strange inside, and the walk home is a long one.
 
 # ---------------------------------------------------------------- everyday: cocaine at the office party (calls WB, cycle s3)
@@ -264,9 +264,9 @@ scene G: The tide is on the turn; {N} can feel it in the way the waves have chan
 - R>U | swim to the first buoy and back against the clock, to see how fast you are | habit | v: achievement, stimulation | body: light | self_control: + | chance: 80
 - G>B | wait for the tide to turn, then win the race with it at your back | v: achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.003 | closed: approval: swimming outside the flags; backfire: the lifeguard's whistle, and a dressing-down | chance: 62
 works: Everyone is back on the sand by teatime, salty, sunburnt and laughing.
-works: {N} comes out of the sea tingling all over, and the evening tastes better for it.
+works not B: {N} comes out of the sea tingling all over, and the evening tastes better for it.
 fails: The current takes someone out past the rocks, and the lifeguard's boat goes roaring after them.
-fails: {N} swallows half the bay, and staggers out coughing and frightened.
+fails not B: {N} swallows half the bay, and staggers out coughing and frightened.
 
 # ---------------------------------------------------------------- everyday: a pill at a festival (calls UG, cycle s2)
 
@@ -340,7 +340,7 @@ scene G: The mountain is closing in around them, grey and patient. It has been h
 - R>B | race your friend down the scree to settle who is faster | v: power, stimulation | body: heavy | chance: 80
 - G>R | drop off the ridge to the tarn below, and swim in it before the rain | v: hedonism, universalism (nature) | body: light | chance: 80
 works: Everyone is off the mountain by dusk, soaked, laughing and starving.
-works: The cloud lifts for a minute at the top, and {N} sees half the country spread out below.
+works not U W>G R>B G>R: The cloud lifts for a minute at the top, and {N} sees half the country spread out below.
 fails: Someone slips on the wet rock, and the day ends with a helicopter and a stretcher.
 fails: The cloud comes down thick, and they spend a long cold night lost on the hill.
 
@@ -378,7 +378,7 @@ scene G: {friend} is slurring a little and wants a lift. Outside, the lane is bl
 - G>W | ring home for a lift, however late, the way the family always said to | v: security, tradition | chance: 78
 works: {N} wakes up at home the next morning, and the night ends there.
 works: Everyone gets home safe, and by lunchtime the car is back where it belongs.
-fails: A police car pulls out behind {N} on the long straight by the reservoir, lights flashing.
+fails not W R G R>G G>W: A police car pulls out behind {N} on the long straight by the reservoir, lights flashing.
 fails: No lift comes, the night turns cold, and it is nearly dawn before {N} gets home.
 
 # ---------------------------------------------------------------- life event: a friend who will not wake (pairs D2a)
@@ -415,7 +415,7 @@ scene G: {N} kneels by {friend} and holds a cold hand. They have known each othe
 - BR | run, before anyone can say you were there | v: security, self-direction | mark: refused someone in need | closed: approval: leaving a friend in danger; backfire: someone saw, and everyone knows | chance: 76
 - BG | ring your friend's family, and keep the doctors and the police out of it | v: security, tradition | mark: hid a wrong | closed: approval: keeping a friend in danger from the doctors; backfire: help comes late | chance: 60
 works: {friend} comes round in the end, grey and shaking, and alive.
-works: By the next afternoon {friend} is sitting up in a hospital bed, asking for toast.
+works not G BG: By the next afternoon {friend} is sitting up in a hospital bed, asking for toast.
 fails: {friend} spends three days in intensive care, and {N} spends them in the corridor.
 fails: The police come with the ambulance, and the questions go on until dawn.
 
@@ -536,7 +536,7 @@ scene G: The light goes earlier every autumn, and lately {Ns} eyes seem to go wi
 - UBG | map who in the street drives where, and trade favours for lifts | binds | v: security, benevolence | mark: made a friend | chance: 65
 works: The fright passes, and {N} finds a way of getting about that frightens nobody.
 works: Within a month {N} has settled into a new routine, and sleeps better for it.
-fails: A month later {N} clips a parked van in the rain, and the questions start.
+fails not WRG WBR: A month later {N} clips a parked van in the rain, and the questions start.
 fails: {N} sits in the kitchen turning the car keys over, and the house feels very small.
 
 # ---------------------------------------------------------------- life event: up the ladder (cross cycle s2)
@@ -575,7 +575,7 @@ scene G: Every autumn of {Ns} life the leaves have come down and someone has gon
 - G>U | watch where the water runs in the next storm, and learn what the house needs | v: self-direction | mark: learned a skill | chance: 70
 works: The gutters run clear by lunchtime, and the dripping stops.
 works: The job gets done, and {N} sits down with a cup of tea feeling about forty.
-fails: The ladder shifts on the wet path, and {N} ends up on the grass with a wrist that will not bend.
+fails not W B W>B U>R B>G R>W G>U: The ladder shifts on the wet path, and {N} ends up on the grass with a wrist that will not bend.
 fails: Weeks go by, the leaves stay put, and damp spreads across the front bedroom wall.
 
 # ---------------------------------------------------------------- echo: waking up in hospital (cycle s1)

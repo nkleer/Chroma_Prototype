@@ -96,9 +96,9 @@ scene G: {N} learned the old way from {mentor}, and wonders what is lost if the 
 - B>U | ask for a bonus or a raise in return for the method, in writing | v: power, achievement | sphere: prod.B | chance: 70
 - R>B | quit the workshop and sell the method to its rival down the road | v: self-direction, power | lever: exit | mark: took a wild risk | sphere: prod.R | chance: 70
 - G>R | blend the new way with the old, keeping what feels right in each | v: tradition, stimulation | sphere: prod.G | chance: 70
-works: The new way spreads through the workshop, and the crew starts calling the jig by {Ns} name.
+works not B R>B: The new way spreads through the workshop, and the crew starts calling the jig by {Ns} name.
 works: {N} comes out of it with more time, more say and a reputation as the one who finds better ways.
-fails: The target goes up for everyone, and some of the crew blame {N} for it.
+fails not B R>B: The target goes up for everyone, and some of the crew blame {N} for it.
 fails: {boss} takes the method to the owners as his own idea, and {N} gets nothing for it.
 
 # ================================================================ life events
@@ -222,7 +222,7 @@ scene G: {N} thinks of {partner} and the household that runs on {Ns} wage, and o
 - UB | read the rules on claims, and claim every week of pay you are owed | act: read the rules on claims, and claim every week of pay they are owed | v: security, power | sphere: prod.UB | chance: 50
 - WR | ring the crew and get the machine stopped until the guard is fixed for everyone | v: benevolence, universalism | lever: voice | pushes: institution | sphere: prod.RW | chance: 50
 - WU | ask for the inspector, and have every machine on the floor checked | v: conformity, security | lever: voice | pushes: institution | sphere: prod.WU | chance: 50
-works: The hand heals, the guard is fixed, and {N} goes back to a floor that is a little safer for the next person.
+works not BG: The hand heals, the guard is fixed, and {N} goes back to a floor that is a little safer for the next person.
 works: The weeks off are hard, but the pay comes, and {N} returns with the respect of the whole crew.
 fails: The hand never quite heals, and {N} has to find lighter work, on less pay.
 fails: {boss} does not forget how {N} handled it, and the good shifts start going to other people.
@@ -306,10 +306,10 @@ scene G: {N} cannot bear to think of the place going quiet, kin or no kin.
 - UR | turn the old barn into something new, a school for the trade or a maker space | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 50
 - WG | offer the whole place to the hands and the neighbours as a cooperative | v: benevolence, universalism | lever: found | pushes: economy | sphere: prod.GW | chance: 50
 - WR | turn down the buyer who would close it, though they offer most, and say why | act: turn down the buyer who would close it, though they offer most, and say why | v: universalism, benevolence | mark: turned down a chance | sphere: prod.RW | chance: 50
-works: The place goes on, in new hands, and {N} still drops by most mornings to see how the work is going.
+works not R: The place goes on, in new hands, and {N} still drops by most mornings to see how the work is going.
 works: {N} lets go, gladly, and the years after the work turn out better than {N} feared.
 fails: The sale drags on for years, and the place runs down while {N} waits for the right answer.
-fails: The new owners change everything within a season, and {N} cannot bring themselves to drive past.
+fails not R: The new owners change everything within a season, and {N} cannot bring themselves to drive past.
 
 # ---------------------------------------------------------------- life event: the first thing one made that sold (pairs D6b)
 
@@ -390,7 +390,7 @@ scene G: {N} thinks of {Ns} family, of the name over the door, and of whether th
 - UR | spend her money on the new machine you have dreamed of building | act: spend her money on the new machine they have dreamed of building | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.UR | chance: 50
 - WB | take the money, build the bigger workshop, and hire from the town | v: achievement, benevolence | lever: lead | pushes: economy | sphere: prod.WB | chance: 50
 - WG | ask the hands and the regulars to buy in instead, a small share each | v: benevolence, universalism | lever: found | sphere: prod.GW | chance: 50
-works: The workshop grows without losing what made it good, and {N} hires three people from the street where it began.
+works not R RG: The workshop grows without losing what made it good, and {N} hires three people from the street where it began.
 works: {N} finds a way forward on {Ns} own terms, and the workshop is still {Ns} own ten years later.
-fails: The backer's say grows into the last word, and within two years {N} is working for her in {Ns} own workshop.
-fails: {N} turns the offer down, and watches a rival take the same money and the customers with it.
+fails not R RG G WG: The backer's say grows into the last word, and within two years {N} is working for her in {Ns} own workshop.
+fails not W B UB UR WB: {N} turns the offer down, and watches a rival take the same money and the customers with it.

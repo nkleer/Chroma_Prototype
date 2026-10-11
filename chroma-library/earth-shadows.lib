@@ -245,7 +245,7 @@ scene U: It is nearly ready. There is one more thing to check, one more number t
 - R>B | give up the evening job and put every free hour into it, for yourself at last | v: stimulation, self-direction | chance: 62
 - G>R | start with the part you enjoy most, outdoors, with your own hands | v: hedonism, tradition | chance: 62
 works: The first piece is built by the summer, rougher than planned and better for it.
-works: Letting it go brings a lightness {N} had not expected.
+works not U W B R W>G B>U R>B G>R: Letting it go brings a lightness {N} had not expected.
 fails: Another winter goes by, and the plan goes back in the drawer with new figures.
 fails: The start is rushed, the first try fails, and the plan seems further away than ever.
 
@@ -277,8 +277,8 @@ scene U: There are seven options, each with its own drawbacks, and the costs kee
 - B>R | sell the house and spend the difference on living well | v: hedonism, power | chance: 58
 - R>G | move in with the friend down the road, and argue happily about the garden | v: stimulation, benevolence | chance: 62
 - G>W | move to where your oldest friends already live, and take your place among them | v: tradition, benevolence | mark: moved away | chance: 62
-works: The move is made by spring, and {N} wonders why it took three winters.
-works: The house is changed around {N}, and the stairs stop ruling the day.
+works not G: The move is made by spring, and {N} wonders why it took three winters.
+works not B R B>R R>G G>W: The house is changed around {N}, and the stairs stop ruling the day.
 fails: A fall on the stairs makes the decision for {N}, in a hospital corridor.
 fails: Another winter passes with the folder on the table, and the choice gets harder.
 
@@ -346,8 +346,8 @@ scene B: Sentiment does not pay the mortgage. {N} has carried more of the weight
 - B>U | sign, and spend your share on the training you always wanted | v: achievement, self-direction | chance: 52
 - R>B | tell {colleague} straight out that you want to sell, and fight it out between you | v: self-direction, power | chance: 58
 - G>R | sell, and take {colleague} on the long trip you always talked about | v: benevolence, hedonism | chance: 62
-works: The deal closes, and {colleague} still rings {N} on birthdays.
-works: The firm stays in their hands, smaller and theirs.
+works not R G: The deal closes, and {colleague} still rings {N} on birthdays.
+works not B B>U G>R: The firm stays in their hands, smaller and theirs.
 fails: {colleague} hears it from the buyer, and the two of them speak only through lawyers.
 fails: The deal falls through, and the trust does not come back with it.
 
@@ -448,9 +448,9 @@ scene R: Life is short, and nights like this do not come back. {N} can sleep whe
 - B>U | turn the parties into a side business, and learn to run them with a clear head | v: achievement, power | self_control: + | mark: learned a skill | chance: 58
 - R>B | quit the early shift tonight, by text, and find a job that starts at noon | v: self-direction, stimulation | mark: took a wild risk | chance: 52
 - G>R | go swimming at dawn with whoever is still standing, then go to bed | v: hedonism, stimulation | chance: 58
-works: {N} makes the shift, just, and decides that some nights are worth more than others.
+works not R>B: {N} makes the shift, just, and decides that some nights are worth more than others.
 works: The nights get fewer and better, and the mornings come back.
-fails: {N} oversleeps, and {boss} gives the shifts to someone else.
+fails not R>B: {N} oversleeps, and {boss} gives the shifts to someone else.
 fails: By the end of the month {N} is ill, broke and short of friends.
 
 == the row that could end the job
@@ -482,7 +482,7 @@ scene R: {N} has swallowed it for two years. Today {N} could say all of it, out 
 - B>R | negotiate your way out with a good reference, and go and do what you love | v: power, self-direction | chance: 58
 - R>G | stand up for {colleague}, who got it worse, and walk out together | v: benevolence, stimulation | chance: 52
 - G>W | wait for the right moment, and say your piece once, quietly, where it counts | v: security, universalism | chance: 58
-works: The air clears, and {boss} is careful with {N} from then on.
+works not R>G B>R: The air clears, and {boss} is careful with {N} from then on.
 works: {N} leaves on {Ns} own terms, with a reference and no regrets.
 fails: {N} is out of a job by Friday, and the story follows {N} to the next interview.
 fails: Nothing changes, except that {N} is now the one who made a scene.
@@ -515,7 +515,7 @@ scene R: Slowing down feels like a little death. {N} has always run hot, and run
 - B>G | sell your share of the work, and buy a quieter life near family | v: security, tradition | chance: 58
 - R>W | throw all that fire into getting well, for the people who count on it | v: benevolence, stimulation | self_control: + | chance: 52
 - G>U | take up something slow, a garden or a craft, and see what it teaches you | v: self-direction, tradition | self_control: + | chance: 58
-works: The tests come back clear, and the slower year turns out to be a good one.
+works not R: The tests come back clear, and the slower year turns out to be a good one.
 works: {N} comes back changed, still burning, but on a lower flame.
 fails: The pains come back worse, and a hospital bed makes the decision for {N}.
 fails: {N} pushes through, and pays for it with a winter too tired to do anything at all.
@@ -548,9 +548,9 @@ scene R: {N} has never once looked back at a burned bridge. But the hand that ho
 - B>W | offer to settle the old money matter that started it, fairly this time | v: power, universalism | chance: 58
 - R>U | ring at once, and argue it out honestly until each of you understands the other | v: stimulation, self-direction | chance: 52
 - G>B | invite {sibling} for the holidays, and keep the past out of it, on your own terms | v: tradition, security | chance: 58
-works: The first meeting is stiff, the second is easy, and {N} has a sibling again.
+works not R: The first meeting is stiff, the second is easy, and {N} has a sibling again.
 works: Old words are said again, differently, and this time they heal.
-fails: The meeting turns into the old fight, word for word.
+fails not R: The meeting turns into the old fight, word for word.
 fails: The letter waits too long for an answer, and the next news is of a funeral.
 
 # ---------------------------------------------------------------- stuck in their ways (Green)

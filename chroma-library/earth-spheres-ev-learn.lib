@@ -113,10 +113,10 @@ scene G: {child}'s cousins all go to the old school in town, and the family has 
 - UG | help the class start a garden by the river and record what grows | v: universalism, tradition | sphere: learn.GU | chance: 60
 - WG | join the parents' committee that helps build and keep the new school | v: benevolence, conformity | sphere: learn.GW | chance: 66
 - WR | speak up at the meeting for the far bank's children to get the first places | v: universalism, benevolence | lever: voice | pushes: institution school | sphere: learn.RW | chance: 50
-works: {child} settles in by the first winter, and the new teacher becomes a name at the dinner table.
+works not G: {child} settles in by the first winter, and the new teacher becomes a name at the dinner table.
 works: The school becomes the heart of the far bank, and {N} knows half the parents by name.
 fails: The new school is short of teachers in its second year, and the classes double in size.
-fails: {child} misses the old friends from the bus, and the first term is a hard one.
+fails not G: {child} misses the old friends from the bus, and the first term is a hard one.
 
 # ---------------------------------------------------------------- academy_founded (pairs D2b)
 
@@ -241,7 +241,7 @@ scene G: The college near home is a short bus ride away, and {grandparent} would
 - WU | sit the exam again next year, with a plan for every paper | v: achievement, conformity | sphere: learn.WU | chance: 50
 works: {N} ends up somewhere that suits {N} better than the first choice would have.
 works: A year on, the number no longer matters much, and {N} knows it.
-fails: The second choice never feels like {Ns} own, and {N} drifts through it.
+fails not R WU: The second choice never feels like {Ns} own, and {N} drifts through it.
 fails: The second try or the transfer goes nowhere, and {N} loses a year.
 
 # ---------------------------------------------------------------- discovery (pairs D4a)
@@ -327,7 +327,7 @@ scene G: The family has always read together at home, and the council does not d
 works: Within a year the books are back on the shelf, and {mentor} teaches as before.
 works: {N} reads what {N} wanted to read, and learns who can be trusted with it.
 fails: {mentor} is let go at the end of term, and the school is never quite the same.
-fails: The list grows longer each term, and {Ns} name is noted for asking too many questions.
+fails not B: The list grows longer each term, and {Ns} name is noted for asking too many questions.
 
 # ---------------------------------------------------------------- learned_leave (pairs D1b)
 
@@ -706,7 +706,7 @@ scene G: The grandmother cooks every evening, and the smell comes up the stairs.
 - UG | swap recipes with the grandmother, and write them down for both families | v: tradition, universalism | sphere: learn.GU | chance: 70
 - WB | pay for the children's school trip, so they are not left out | v: benevolence | lever: fund | sphere: learn.WB | chance: 80
 - WU | show the parents how the forms work, step by step, until they can do them alone | v: universalism, benevolence | sphere: learn.WU | chance: 66
-works: The two families become friends, and the children grow up in and out of each other's flats.
+works not G: The two families become friends, and the children grow up in and out of each other's flats.
 works: {N} learns as much from the newcomers as they learn from {N}.
 fails: A misunderstanding on the stairs sours things, and the two families stop speaking.
 fails: The newcomers move on after two years, and {N} wishes {N} had done more.

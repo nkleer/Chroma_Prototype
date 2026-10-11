@@ -44,7 +44,7 @@ scene G: There is something easy between {N} and {prospect}, as if they have kno
 - G>U | go back with them and talk till dawn, to see who they are by daylight | v: self-direction, benevolence | mark: made a friend | chance: 85
 works: {N} wakes up happy, with a new number in the phone and nothing to regret.
 works: The night ends the way {N} hoped, and the walk home at dawn feels like flying.
-fails: The morning after is awkward, and the bus home takes forever.
+fails not W W>B: The morning after is awkward, and the bus home takes forever.
 fails: {N} never hears from {prospect} again, and the friends from the party have plenty to say.
 
 # ---------------------------------------------------------------- without a partner: calls UR (cycle s1)
@@ -119,8 +119,8 @@ scene G: Some things come round again like the seasons. The old jumper is still 
 - R>U | spend one more night together, to find out whether anything is still there | v: stimulation, self-direction | chance: 65
 - G>B | take them back for the comfort, and keep an eye out for someone better | v: security, power | mark: hid a wrong | chance: 70
 works: {N} and {prospect} talk until the old hurt loses its sharp edge, and whatever they decide feels right.
-works: The second try starts slowly and honestly, and {N} likes who they both are now.
-fails: Within a month the old fights are back, word for word.
+works not W: The second try starts slowly and honestly, and {N} likes who they both are now.
+fails not W: Within a month the old fights are back, word for word.
 fails: {N} ends up hurt again, and {Ns} friends try hard not to say they saw it coming.
 
 # ---------------------------------------------------------------- without a partner: calls WU (cycle s4)
@@ -430,9 +430,9 @@ scene G: There is so much warmth in the room, between the three of them, and {N}
 - UG | say not tonight, and let it grow slowly, if it is going to | v: self-direction, security | chance: 70
 - WR | say yes, with one rule agreed at the table: anyone can stop at any time | v: hedonism, benevolence | chance: 80
 - WU | thank them warmly, say no, and talk it through so the friendship holds | v: benevolence, conformity | mark: turned down a chance | chance: 80
-works: The night is warm and kind, and the three of them laugh about it over breakfast.
+works not W U UG WU: The night is warm and kind, and the three of them laugh about it over breakfast.
 works: Whatever {N} answers, the friendship with {friend} and {prospect} is still easy a month later.
-fails: The morning after is awkward, and the couple stop calling.
+fails not W U UG WU: The morning after is awkward, and the couple stop calling.
 fails: Something said that night starts a row between the two of them, and {N} is caught in the middle.
 
 # ---------------------------------------------------------------- life event: a holiday romance (pairs D1b)
@@ -471,6 +471,6 @@ scene G: {N} has fallen into the rhythm of the place: long lunches, a swim at du
 - WB | invite them to visit your home town, and pay for the ticket and the visa | v: benevolence, security | closed: law: a visa that may be refused; backfire: turned back at the border, and the money gone | chance: 50
 - WG | introduce them to your family on a video call on the last night | v: tradition, benevolence | tech: video calls | chance: 65
 works: The week is golden from end to end, and {N} goes home brown and happy, with a story for life.
-works: {N} and {prospect} keep writing long after the holiday, and the summer lives on.
+works not B: {N} and {prospect} keep writing long after the holiday, and the summer lives on.
 fails: On the last night {prospect} mentions someone waiting at home, and the week turns sour.
 fails: The goodbye is harder than {N} expected, and home looks grey for weeks.
