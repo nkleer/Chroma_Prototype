@@ -107,11 +107,11 @@ e9b56ab576077afe534ebdbd7895629e       1391  chroma-game/prototype/test/season_a
 31fe744faa217c1ad4fb59a301319ede       1318  chroma-game/prototype/test/wasm_check.js
 fac6fc18c351ef1cd4c06cc81f801688       2167  chroma-game/prototype/test/wasm_check.py
 da9b27b056d3a1dcd05252509d902df3       7969  chroma-game/prototype/test/world_pics.js
-b9ed2ce4920d2e4532e7ea70270fdf22    1277442  chroma-game/prototype/web/index.html
+bf4b9206b0e3140e7f1b0e03aa512766    1277347  chroma-game/prototype/web/index.html
 f734050ab53c1efcf32d76659fd664db     590754  chroma-game/prototype/web/page.html
-ef68cdf1e9fbf5d295d3a0092ac9b1de       6177  chroma-game/prototype/web/worker.js
+d5f541225a0c93e9ebce3f06eb281fef       6246  chroma-game/prototype/web/worker.js
 8ab8d811bd4706df4d538edb7434c0ad       4592  chroma-game/prototype/web/src/CHANGES.md
-f1c525efd4fced9e6369407d52954b46     272428  chroma-game/prototype/web/src/app.js
+07db135662a6570388104feccbeff81f     272333  chroma-game/prototype/web/src/app.js
 0f071278d6d048ba6cd1dd7cb20fc53d       3087  chroma-game/prototype/web/src/body.html
 52665e376e440acf36446616311d7da1       3522  chroma-game/prototype/web/src/build.py
 81d4b0ef954d9a19c422a83e9999384f       2819  chroma-game/prototype/web/src/clarity.css
