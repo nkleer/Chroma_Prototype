@@ -1,3 +1,4 @@
+v22.4 fix re-pin S4 #190, 2026-10-11 (branch game/repin-v22.4-s4b): world_people.py dc8080858d82 (main 519b72e: Engine #190, save keys odd_lmu/odd_lvar); engine.py 3078fe892acb, world.py 185edf126692 as before; SAVE_VERSION 5; every other file as before.
 v22.4 fix re-pin S7 #189, 2026-10-11 (branch game/repin-v22.4-s7c): engine.py 3078fe892acb, world_people.py 497ada6bee35 (main 9cfb367: Engine #189, inside lead_ways, off); world.py 185edf126692 as before; every other file as before.
 v22.4 fix re-pin S3/S4, 2026-10-11 (branch game/repin-v22.4-s34): world.py 185edf126692, world_people.py 6e772df8344d (main c6b718d: Engine #181 S3/S4); engine.py 3458ae797945 as before; SAVE_VERSION 4 (the S4 rule changes lives when on); every other file as before.
 v22.4 fix re-pin S7 follow-up, 2026-10-11 (branch game/repin-v22.4-s7b): world_people.py 03d866444f2e (main 54a12c4: Engine #182); every other file as before.
