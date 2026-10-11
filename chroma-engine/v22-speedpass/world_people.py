@@ -304,8 +304,9 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
 # buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
 # odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
-# what they are used to: each colour's mean share at their places a year or more theirs, and its spread among them, a
-# running mean with odd_mem of each year's places, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# what they are used to: each colour's mean log share at their places a year or more theirs, and its spread among them, a
+# running mean with odd_mem of each year's places, .25; in proportion, so half the share is as odd for a rare colour as a
+# common one), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on
@@ -3752,7 +3753,7 @@ class People:
             self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
             self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
             self.odd_held = np.zeros((N, Q), bool)
-            self.odd_mu = np.zeros((N, C)); self.odd_var = np.zeros((N, C))   # what they are used to (this frame's colours)
+            self.odd_mu = np.zeros((N, C)); self.odd_var = np.zeros((N, C))   # what they are used to (log shares, this frame's colours)
             self.odd_n = np.zeros(N, np.int64)   # years of their own places in it
             self.eyes_dw = np.zeros((N, C))  # blending in: the colours' step for the engine to apply (pie units, then cleared)
 
@@ -4183,20 +4184,23 @@ class People:
         of it). Not under a fixed share of every place's faces: the places share their town's lean (most lean Green, work
         places and congregations are near-even mixes leaning White and Green), so a fixed share made Red-led lives the odd
         one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
-        a batch as alone in the game. Its moment waits once a life stage per place (never after blending in there). Held
+        a batch as alone in the game. Shares are read in proportion (log share): a colour common at their places spreads
+        wider below its mean than a rare one, which cannot fall far, so read in plain shares Green-led lives were odd most
+        and Red-led least (s4_odd 1.20x on the v22.4 refit). Its moment waits once a life stage per place (never after blending in there). Held
         odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
         (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
         odd_regular a year toward theirs."""
         P_ = self.eyes_par; W = self.W; live = ~self.dead; N = self.N
         lead = np.argmax(self.w, 1)
-        share = np.take_along_axis(self._eyes_fc, lead[:, None, None], 2)[..., 0]
+        lf = np.log(np.maximum(self._eyes_fc, 1e-6))   # the faces' shares in proportion (log share)
+        share = np.take_along_axis(lf, lead[:, None, None], 2)[..., 0]
         el = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52)   # their places, a year or more theirs
         ne = el.sum(1); ar = np.arange(N)
         used = self.odd_mu[ar, lead] - P_["odd_z"] * np.sqrt(self.odd_var[ar, lead])
         odd = el & ((ne >= 2) & (self.odd_n > 0))[:, None] & (share < used[:, None])
-        fc_ = np.where(el[..., None], self._eyes_fc, 0.0)
+        fc_ = np.where(el[..., None], lf, 0.0)
         mu = fc_.sum(1) / np.maximum(ne, 1)[:, None]
-        var = (np.where(el[..., None], self._eyes_fc - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
+        var = (np.where(el[..., None], lf - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
         hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
         self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
         self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
@@ -5657,7 +5661,7 @@ class People:
                 ev_.update(odd_now=[bool(x_) for x_ in self.odd_now[n]], odd_y=[int(x_) for x_ in self.odd_y[n]],
                            odd_stage=[int(x_) for x_ in self.odd_stage[n]], odd_blend=[bool(x_) for x_ in self.odd_blend[n]],
                            odd_held=[bool(x_) for x_ in self.odd_held[n]], dw=[float(x_) for x_ in self.eyes_dw[n]],
-                           odd_mu=[float(x_) for x_ in self.odd_mu[n]], odd_var=[float(x_) for x_ in self.odd_var[n]],
+                           odd_lmu=[float(x_) for x_ in self.odd_mu[n]], odd_lvar=[float(x_) for x_ in self.odd_var[n]],
                            odd_n=int(self.odd_n[n]))
             out["eyes"] = ev_
         if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
@@ -5791,8 +5795,8 @@ class People:
                 if pp.odd_on and "odd_now" in e_:
                     pp.odd_now[n] = e_["odd_now"]; pp.odd_y[n] = e_["odd_y"]; pp.odd_stage[n] = e_["odd_stage"]
                     pp.odd_blend[n] = e_["odd_blend"]; pp.odd_held[n] = e_["odd_held"]; pp.eyes_dw[n] = e_["dw"]
-                    if "odd_mu" in e_:   # what they are used to (older saves: read afresh from their next year at places)
-                        pp.odd_mu[n] = e_["odd_mu"]; pp.odd_var[n] = e_["odd_var"]; pp.odd_n[n] = int(e_["odd_n"])
+                    if "odd_lmu" in e_:   # what they are used to, in log shares (older saves: read afresh from their next year at places)
+                        pp.odd_mu[n] = e_["odd_lmu"]; pp.odd_var[n] = e_["odd_lvar"]; pp.odd_n[n] = int(e_["odd_n"])
         if getattr(pp, "lw", False):
             for n, d in enumerate(saved):
                 l_ = d.get("lead")
