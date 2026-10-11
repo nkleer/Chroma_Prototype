@@ -335,11 +335,11 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # moments, and fights won again and again kept White's posts longest); again: weeks after standing down before the
 # take chance doubles there; wait: weeks a post's moment waits to come; routine: yearly fades in a row after which the
 # inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
-# office where there are no elections (held at the ruler's pleasure); watch (v22.4.1): a way's standing road judges only
-# the leader's own time in post, as inspiring's year without a success always did: favours' money from the post's first
-# anniversary (then yearly), custom's fast change over the quarters since the take (up to four); 0: as v22.4
+# office where there are no elections (held at the ruler's pleasure); wear (v22.4.1): legitimacy a leader loses each year
+# in post, the same in every way (the led come to want a change: "the cost of ruling", Paldam 1986, Nannestad and Paldam
+# 2002); under the fall line, worn or stepped, the fall comes; 0: as v22.4
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
-                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, watch=0)
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, wear=0.0)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4770,7 +4770,8 @@ class People:
         return (r + 0.4) / 1.4
 
     def _lead_legit(self, p):
-        p["legit"] = float(min(max(self._lead_fit(p) + p["dent"], 0.0), 1.0))
+        w_ = self.lw_par["wear"] * max(self.t - p["t0"], 0) / 52.0 if self.lw_par["wear"] else 0.0   # wear: years in post
+        p["legit"] = float(min(max(self._lead_fit(p) + p["dent"] - w_, 0.0), 1.0))
         return p["legit"]
 
     def _lead_post(self, n, j):
@@ -4962,6 +4963,10 @@ class People:
                 continue
             n = p["n"]; l_, j_ = p["loc"], p["sphere"]
             self._lead_legit(p)
+            if par["wear"] and p["legit"] < par["fall"]:   # worn under the fall line (no new step): the fall comes
+                self._lead_fall(p, t)
+                if p not in self.lw_posts:
+                    continue
             # the quarter's crises: each sphere event in the sphere led (the town's own, or the whole society's) tests a
             # way at one even chance, crisis: a rules leader fails it rule-bound, a knowing leader is shown wrong, an
             # inspiring leader carries it otherwise (a new success); favours and custom fall by their own roads below
@@ -4982,13 +4987,7 @@ class People:
                     self._lead_step(p, t, "rules", why="a fairness scandal")
                 p["fair_lo"] = lo_
             elif p["way"] == 2:   # favours: once a year, money under the need line
-                if par["watch"]:   # on the leader's watch: yearly from the post's first anniversary
-                    k_ = (int(t) - p["t0"]) // 52
-                    if k_ >= 1 and k_ != p["money_yr"]:
-                        p["money_yr"] = int(k_)
-                        if float(self.res[n, MON]) < self._lw_need:
-                            self._lead_step(p, t, "favours", why="money under need")
-                elif int(a) != p["money_yr"]:
+                if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
                     if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
                         self._lead_step(p, t, "favours", why="money under need")
@@ -4997,11 +4996,7 @@ class People:
                     p["fade_t"] = int(t); p["fades"] += 1
                     self._lead_step(p, t, "inspiring", why="no new success")
             elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
-                tv_p = tv_[l_, j_]
-                if par["watch"]:   # on the leader's watch: the change since the take (the last k quarters, k up to four)
-                    k_ = min(4, (int(t) - p["t0"]) // 13)
-                    tv_p = 0.5 * np.abs(self._lw_hist[-1][l_, j_] - self._lw_hist[-1 - k_][l_, j_]).sum() if k_ > 0 else 0.0
-                if tv_p > self._lw_fast[j_]:
+                if tv_[l_, j_] > self._lw_fast[j_]:
                     self._lead_step(p, t, "custom", why="fast change")
         # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
         for p in list(self.lw_posts):
@@ -5113,7 +5108,10 @@ class People:
                 set_way(0)
         elif key == "lead_fall":
             if fall == 1 and succ:
-                ans = "fought"; p["fought"] = 1; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
+                ans = "fought"; p["fought"] = 1
+                p["dent"] = (self.lw_par["fight"] - self._lead_fit(p)
+                             + self.lw_par["wear"] * max(t - p["t0"], 0) / 52.0)   # back to lead_par fight, wear and all
+                self._lead_legit(p)
             elif fall == 2:
                 ans = "stood down"; self._lw_back[(int(n), int(p["slot"]))] = int(t) + int(self.lw_par["again"])
                 self._lead_end(p, t, "stood down")
