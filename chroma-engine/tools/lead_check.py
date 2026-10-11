@@ -9,11 +9,15 @@ the end and ended), then prints each target's value, its target and ok or MISS:
             way twice puts the middle way's years in the first). Fewer than --min-falls falls in a way is a MISS.
   s7_post   mean time in post per lead colour (the lead colour on taking the post): years from the start to its end, or
             to the run's end for a post still held; the highest over the lowest, 1.2 or less.
+A shuffle line follows s7_post (information, not judged; Release, scope.md "Small counts"): the lead colours shuffled
+across the lives that held a post (--shuffles times, fixed dice; each life takes its first post's colour for all its
+posts), with the median and 90th percentile of the shuffled max/min against the observed one. When the 90th percentile is
+above 1.2x, the run is too small for the 1.2x line to tell colour apart from chance; add seeds.
 Information lines follow (not judged): posts and falls counted per way and colour, posts that ended by a fall, the end
 reasons.
 
     OMP_NUM_THREADS=1 python3 -B chroma-engine/tools/lead_check.py [--lives 300] [--years 80] [--seeds 41]
-        [--on] [--P JSON] [--jobs 1] [--json FILE]
+        [--on] [--P JSON] [--jobs 1] [--shuffles 200] [--json FILE]
 
 The engine runs with its own DEFAULT (the commit's switches) and world on. --on also switches lead_ways on with what it
 needs (sph_levers) and the t_steps row's company (sph_fair, sph_events, sph_haunts, sph_hours, cur_on), for a commit
@@ -78,6 +82,7 @@ def main():
     ap.add_argument("--P", default="{}")
     ap.add_argument("--min-falls", type=int, default=20)
     ap.add_argument("--jobs", type=int, default=1)
+    ap.add_argument("--shuffles", type=int, default=200)
     ap.add_argument("--json", default=None)
     a = ap.parse_args()
     P = dict(E.DEFAULT); P.update(ON if a.on else {}); P.update(json.loads(a.P)); P["world"] = True
@@ -88,6 +93,7 @@ def main():
           f"{', P ' + a.P if a.P != '{}' else ''}", flush=True)
     falls = np.zeros(5); expo = np.zeros(5); tip = [[] for _ in range(5)]
     fell = np.zeros(5); why = collections.Counter(); posts_w = np.zeros(5, int); held = 0
+    life_ = []; col_ = []; yrs_ = []; t0_l = []   # each post's life (seed, life), lead colour, years and start (shuffle)
     t0_ = time.time()
     _RUN.update(N=a.lives, Y=a.years, L=L, P=P)
     if a.jobs > 1 and len(seeds) > 1:
@@ -106,6 +112,7 @@ def main():
             for f_ in p.get("falls") or []:
                 falls[int(f_[1])] += 1
             tip[c0].append((end - p["t0"]) / 52.0)
+            life_.append((s, int(p["n"]))); col_.append(c0); yrs_.append((end - p["t0"]) / 52.0); t0_l.append(int(p["t0"]))
             posts_w[c1] += 1
             if p.get("why") == "fell":
                 fell[c1] += 1
@@ -125,6 +132,21 @@ def main():
     row("s7_post", f"{r_p:.2f}x" if np.isfinite(r_p) else "n/a", "max/min mean years in post <= 1.2x", r_p <= 1.2 and not emp,
         f"no posts led by {', '.join(emp)}" if emp else "")
     print("             mean years: " + " ".join(f"{COLS[i]} {mp[i]:.2f}" for i in range(5)))
+    shuf = None
+    if a.shuffles > 0 and yrs_:
+        y_ = np.array(yrs_); _, own_ = np.unique(np.array(life_), axis=0, return_inverse=True); own_ = own_.ravel()
+        o_ = np.lexsort((np.array(t0_l), own_)); fi_ = o_[np.r_[True, own_[o_][1:] != own_[o_][:-1]]]
+        first_ = np.array(col_)[fi_]   # each life's first post's colour (lives in order)
+        rs_ = np.random.default_rng(0); R_ = []
+        for _ in range(a.shuffles):
+            cc_ = rs_.permutation(first_)[own_]; k_ = np.bincount(cc_, minlength=5)
+            m_ = np.bincount(cc_, weights=y_, minlength=5) / np.maximum(k_, 1)
+            R_.append(m_.max() / m_.min() if (k_ > 0).all() else np.inf)
+        R_ = np.array(R_); shuf = dict(n=a.shuffles, lives=int(len(first_)), median=float(np.median(R_)),
+                                       p90=float(np.percentile(R_, 90)), above=float(np.mean(R_ < r_p)))
+        print(f"             shuffle (information): lead colours shuffled across {shuf['lives']} lives x {a.shuffles}:"
+              f" median {shuf['median']:.2f}x, p90 {shuf['p90']:.2f}x; the observed {r_p:.2f}x is above"
+              f" {100 * shuf['above']:.0f}% of them{'' if shuf['p90'] <= 1.2 else '; p90 over 1.2x: too few posts to tell (add seeds)'}")
     print()
     print("  information (not judged):")
     print("    posts by lead colour:   " + " ".join(f"{COLS[i]} {len(tip[i])}" for i in range(5)) + f"; held at the end {held}")
@@ -140,7 +162,8 @@ def main():
         with open(fn, "w") as f:
             json.dump(dict(rows=ROWS, lives=a.lives, years=a.years, seeds=seeds, on=a.on, P=json.loads(a.P),
                            falls=falls.tolist(), post_years=expo.tolist(), falls_rate=rate.tolist(),
-                           mean_years=mp.tolist(), posts=[len(x) for x in tip], fell=fell.tolist(), why=dict(why)), f,
+                           mean_years=mp.tolist(), posts=[len(x) for x in tip], fell=fell.tolist(), why=dict(why),
+                           shuffle=shuf), f,
                       indent=1)
     return 0 if ok else 1
 
