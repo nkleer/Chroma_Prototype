@@ -325,10 +325,12 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # inspiring one not carrying it (the spec's roads gave rules and knowing almost no falls, and inspiring almost no
 # success; fitted at the even base, about four steps in ten years in post for each way); fair_line: the led's felt
 # fairness under this is a fairness scandal; frail: health under this ends a post; sh, sh_years: the shadow target one
-# way held sh_years adds to its colour (item 2, with shadows); fight: a fall fought and won leaves legitimacy here; again:
-# weeks after standing down before the take chance doubles there; wait: weeks a post's moment waits to come; routine:
-# yearly fades in a row after which the inspiring leader's turn to routine is offered in place of the crisis; ruler_end:
-# the yearly end chance of a national office where there are no elections (held at the ruler's pleasure)
+# way held sh_years adds to its colour (item 2, with shadows); fight: a fall fought and won leaves legitimacy here, once
+# a post (its next fall ends it; v22.4 fix round: fighting is a rules and an inspiring leader's own answer in the fall
+# moments, and fights won again and again kept White's posts longest); again: weeks after standing down before the
+# take chance doubles there; wait: weeks a post's moment waits to come; routine: yearly fades in a row after which the
+# inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
+# office where there are no elections (held at the ruler's pleasure)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
                     sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
@@ -4748,7 +4750,7 @@ class People:
         p = dict(id=self._lw_next, n=int(n), kind=kind, pk=pk, terms=0, sphere=int(j), slot=int(slot), place=int(place),
                  loc=int(self.loc[n]), t0=int(t), term_t0=int(t), way=c, col=c, way_t=int(t), succ_t=int(t), fade_t=int(t),
                  fades=0, dent=0.0, legit=0.0, join=int(self.sjoin[n, slot]) if kind != "office" else -1, fair_lo=False,
-                 money_yr=-1, falls=[], end_t=None, why=None, gslot=int(gslot),
+                 money_yr=-1, falls=[], fought=0, end_t=None, why=None, gslot=int(gslot),
                  gjoin=int(self.sjoin[n, gslot]) if gslot >= 0 else -1)
         self._lw_next += 1
         self._lead_legit(p)
@@ -4813,12 +4815,13 @@ class People:
             self._lead_queue(p, "lead_crisis", t)
 
     def _lead_fall(self, p, t):
-        """Legitimacy under the fall line: the fall moment (go, fight, again), else the post ends."""
+        """Legitimacy under the fall line: the fall moment (go, fight, again), else the post ends; a post that has
+        fought off a fall gets no second fight: its next fall ends it."""
         if any(d_[2] == p["id"] and d_[1] == "lead_fall" for d_ in self.lw_due):
             return
         self.lw_due = [d_ for d_ in self.lw_due if d_[2] != p["id"]]   # the fall comes before any crisis
         self._lead_ev(p, t, "falling")
-        if not self._lead_queue(p, "lead_fall", t):
+        if p.get("fought") or not self._lead_queue(p, "lead_fall", t):
             self._lead_end(p, t, "fell")
 
     def _lead_act(self, p, lv, q, t):
@@ -5019,9 +5022,9 @@ class People:
         """The post's moment came and the character acted: way (an option's lead:, -1 none), fall (go 0, fight 1,
         again 2), hand (chosen 0, open 1, stay 2). take: the post takes the option's way; crisis: an option of the post's
         way holds it, another way shifts the post to it; routine: a rules option moves the inspiring post to rules;
-        fall: go ends it, fight keeps it when the act works (legitimacy back to .3) and ends it when not, again stands
-        down (the take chance there doubles after a year); hand: chosen or open hands it on, stay leaves it to the
-        term's renewal (lead_posts: renew x (.5 + legitimacy), max_terms).
+        fall: go ends it, fight keeps it when the act works (legitimacy back to .3; once a post) and ends it when not,
+        again stands down (the take chance there doubles after a year); hand: chosen or open hands it on, stay leaves it
+        to the term's renewal (lead_posts: renew x (.5 + legitimacy), max_terms).
         Returns the event."""
         t = self.t if t is None else t
         p = next((p_ for p_ in self.lw_posts if p_["id"] == int(pid)), None)
@@ -5044,7 +5047,7 @@ class People:
                 set_way(0)
         elif key == "lead_fall":
             if fall == 1 and succ:
-                ans = "fought"; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
+                ans = "fought"; p["fought"] = 1; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
             elif fall == 2:
                 ans = "stood down"; self._lw_back[(int(n), int(p["slot"]))] = int(t) + int(self.lw_par["again"])
                 self._lead_end(p, t, "stood down")
