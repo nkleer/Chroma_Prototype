@@ -11,7 +11,9 @@ switched on; each target is printed with its value per lead colour (or enemy pai
 A year at a place is a life-year holding at least one place for a year or more (G8's denominator, scope.md, Release
 02:52): no one is the odd one out at a place they do not hold, and how many years each colour holds a place comes from
 the spheres, not from S4 (White-led lives hold none in about 28% of their life-years, mostly childhood, Blue-led in 10%).
-The per-life-year readings are printed as information.
+The per-life-year readings are printed as information, and so is each S4 row's reading with colour shuffled across
+lives (colour playing no part; scope.md "Small counts"): a 90th percentile over the target means the run has too few
+lives to judge it (one seed of 300 lives x 80 years: s4_odd's sits near 1.22x; four seeds, 1.12x).
 
     python3 -B chroma-engine/tools/eyes_check.py TARGET [N=300] [SEEDS=7] [--years 80] [--P JSON] [--stats FILE]
 
@@ -30,6 +32,7 @@ import numpy as np
 COLORS = "WUBRG"
 ENEMY = ("WB", "WR", "UR", "UG", "BG")   # the Canon's enemy pairs, in the order People names them (place a's lead first)
 TARGETS = ("s3_rep", "s3_caught", "s4_odd", "s4_convert")
+LIFE = ("life_place", "life_odd", "life_held")   # S4's counts per life x lead colour: joined across seeds, not summed
 RUN_P = dict(world=True, sph_haunts=True, sph_hours=True, sph_events=True, cur_on=True, sph_eyes=True, sph_odd=True)
 
 
@@ -61,7 +64,9 @@ def pooled(runs):
     out = {}
     for st in runs:
         for k, v in st.items():
-            if isinstance(v, dict):
+            if k in LIFE:
+                out[k] = out.get(k, []) + list(v)
+            elif isinstance(v, dict):
                 d = out.setdefault(k, {})
                 for k2, v2 in v.items():
                     d[k2] = d.get(k2, 0) + v2
@@ -75,6 +80,29 @@ def pooled(runs):
 def ratio(v):
     v = np.asarray(v, float)
     return float(v.max() / v.min()) if v.min() > 0 else float("inf")
+
+
+def shuffle(num, den, n=200):
+    """Colour playing no part (scope.md, "Small counts"): each life's counts relabelled across the five colours at random,
+    n times; the max/min ratios, to read the run's own against."""
+    rng = np.random.default_rng(0)
+    a_, b_ = np.asarray(num, float), np.asarray(den, float)
+    out = []
+    for _ in range(n):
+        pi = np.argsort(rng.random(a_.shape), 1)
+        x, y = np.zeros(len(COLORS)), np.zeros(len(COLORS))
+        np.add.at(x, pi, a_); np.add.at(y, pi, b_)
+        out.append(ratio(x / np.maximum(y, 1)))
+    return np.asarray(out)
+
+
+def shuffle_line(name, num, den, r, target):
+    s_ = shuffle(num, den)
+    p90, med = (float(np.quantile(s_, q_, method="higher")) for q_ in (0.9, 0.5))   # (no interpolation: a ratio can be inf)
+    return (f"  info: {name} with colour shuffled across lives ({len(s_)} shuffles): median {med:.2f}x, 90th"
+            f" percentile {p90:.2f}x; the run's {r:.2f}x sits at the {100 * float((s_ < r).mean()):.0f}th percentile"
+            + (f" (90th percentile over {target}x: too few lives to judge {target}x; scope.md, Small counts)" if p90 > target
+               else ""))
 
 
 def rt(r):
@@ -149,11 +177,15 @@ def main():
         sh = np.asarray(st["odd_years"], float) / np.maximum(den, 1)
         r = ratio(sh)
         row("s4_odd", per(sh), rt(r), "target <= 1.2x", r <= 1.2, f"  (per {den_w})")
+        if "life_place" in st:
+            print(shuffle_line("s4_odd", st["life_odd"], st["life_place"], r, 1.2), flush=True)
     if "s4_convert" in want:
         cv = np.asarray(st["held"], float) / np.maximum(den, 1)
         r = ratio(cv)
         row("s4_convert", per(cv, 4), rt(r), "target <= 1.5x", r <= 1.5,
             f"  (per {den_w}; {int(sum(st['held']))} place-years moved)")
+        if "life_place" in st:
+            print(shuffle_line("s4_convert", st["life_held"], st["life_place"], r, 1.5), flush=True)
     # for reading, not judged
     if place_y is not None and ("s4_odd" in want or "s4_convert" in want):
         oy_, hd_ = np.asarray(st["odd_years"], float), np.asarray(st["held"], float)

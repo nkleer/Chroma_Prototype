@@ -3738,6 +3738,8 @@ class People:
         self.eyes_stats = dict(drep=z(), nrep=z(), acts={}, talk=0, caught={}, caught_why={}, caught_tag={},
                                life_years=z(), place_years=z(), odd_years=z(), odd_fired=z(), blend=z(), hold=z(), leave=z(),
                                held=z(), gaps=np.zeros(16, np.int64))   # gaps: the widest between two places' readings of an act, by .1
+        if self.odd_on:   # S4's years at a place, odd-one-out years and conversions per life (x lead colour), for the check's
+            self.eyes_stats.update(life_place=np.zeros((N, C)), life_odd=np.zeros((N, C)), life_held=np.zeros((N, C)))   # shuffle reading
         if self.odd_on:
             self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
             self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
@@ -4194,8 +4196,9 @@ class People:
         self.odd_now = odd
         self.odd_y = np.where(odd & ~self.odd_blend, self.odd_y + 1, 0)
         st = self.eyes_stats; lc = self.perm[lead]
-        np.add.at(st["life_years"], lc[live], 1); np.add.at(st["place_years"], lc[el.any(1)], 1)
-        np.add.at(st["odd_years"], lc[live & odd.any(1)], 1)
+        pl, oo = el.any(1), live & odd.any(1)
+        np.add.at(st["life_years"], lc[live], 1); np.add.at(st["place_years"], lc[pl], 1); np.add.at(st["odd_years"], lc[oo], 1)
+        st["life_place"][ar[pl], lc[pl]] += 1; st["life_odd"][ar[oo], lc[oo]] += 1
         sg = self._eyes_stages.index(self._tstage(self._age(t))) if self._tstage(self._age(t)) in self._eyes_stages else -2
         cand = odd & ~self.odd_blend & (self.odd_stage != sg)
         for n in np.nonzero(cand.any(1))[0]:
@@ -4212,7 +4215,7 @@ class People:
         for n, q_ in zip(*np.nonzero(held)):
             k_ = float(P_["odd_lean"][rg[n, q_]]); e_ = np.eye(C)[lead[n]]
             if k_ > 0:   # a conversion is a place that moves: a newcomer (odd_lean 0) holding out moves nothing
-                st["held"][lc[n]] += 1
+                st["held"][lc[n]] += 1; st["life_held"][n, lc[n]] += 1
             if q_ < 3:
                 p_ = int(self.eyes_key[n, q_])
                 if k_ > 0 and getattr(W, "hp_s", None) is not None:
