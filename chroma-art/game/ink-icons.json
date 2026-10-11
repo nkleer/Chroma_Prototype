@@ -17903,6 +17903,102 @@
     "ci-trophy",
     "ci-paintbrush",
     "ci-town-hall"
+   ],
+   "the old oak by the playing field": [
+    "ci-pen",
+    "ci-magnifier",
+    "ci-price-tag",
+    "ci-shout",
+    "ci-scissors",
+    "ci-fence",
+    "ci-sapling",
+    "ci-rubber-stamp",
+    "ci-rope",
+    "ci-crowd"
+   ],
+   "the parks contract goes to a cheaper firm": [
+    "ci-watering-can",
+    "ci-chart",
+    "ci-weights",
+    "ci-door-slam",
+    "ci-daisy",
+    "ci-town-hall",
+    "ci-megaphone",
+    "ci-calculator",
+    "ci-fist",
+    "ci-handshake"
+   ],
+   "a storm coming and the hay still down": [
+    "ci-phone",
+    "ci-umbrella",
+    "ci-handshake",
+    "ci-wagon",
+    "ci-roots",
+    "ci-checklist",
+    "ci-scales",
+    "ci-shrug",
+    "ci-bell",
+    "ci-domain-community"
+   ],
+   "asked to stay on for the winter": [
+    "ci-hand-on-heart",
+    "ci-diploma",
+    "ci-sealed-scroll",
+    "ci-bus",
+    "ci-barn",
+    "ci-wallet",
+    "ci-sapling",
+    "ci-piggy-bank",
+    "ci-signpost",
+    "ci-teacher"
+   ],
+   "a frightened dog at closing time": [
+    "ci-leaflet",
+    "ci-first-aid",
+    "ci-diary",
+    "ci-dog",
+    "ci-pet-bowl",
+    "ci-phone",
+    "ci-hug",
+    "ci-rulebook",
+    "ci-cottage",
+    "ci-domain-community"
+   ],
+   "the vet asks you to come and assist": [
+    "ci-calendar",
+    "ci-mortarboard",
+    "ci-scales",
+    "ci-hand-on-heart",
+    "ci-domain-friends",
+    "ci-teacher",
+    "ci-manuscript",
+    "ci-shop-front",
+    "ci-door-open",
+    "ci-stethoscope"
+   ],
+   "the place's ways, and yours": [
+    "ci-rulebook",
+    "ci-talk",
+    "ci-domino-mask",
+    "ci-laughing-face",
+    "ci-u-turn",
+    "ci-question",
+    "ci-map",
+    "ci-shield",
+    "ci-suitcase",
+    "ci-tortoise"
+   ],
+   "asked to do it the way it is done here": [
+    "ci-staff",
+    "ci-binoculars",
+    "ci-masks",
+    "ci-shrug",
+    "ci-roots",
+    "ci-door-open",
+    "ci-lightbulb",
+    "ci-broom",
+    "ci-footsteps",
+    "ci-holding-hands"
    ]
   }
  },
