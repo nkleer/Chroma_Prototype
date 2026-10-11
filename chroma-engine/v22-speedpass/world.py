@@ -3332,7 +3332,8 @@ class World:
         B their due, R respect and a say, G people who mean well by us) reads each town's sphere (n_loc x 9 x 5), as a
         step from .5. A state's term is split evenly among its parts (fair_parts); a part with states reads them at
         the number of parts present, and a part with none reads the sphere's whole step, so that the parts at .2 each
-        (an even person) give exactly sph_fair_target's step."""
+        (an even person) give exactly sph_fair_target's step. Each part is then centred on the parts' common mean over
+        the towns and spheres (an even person's read stays the same)."""
         tags = fair_tags()
         out = np.zeros((self.n_loc, len(SPHERES), 5))
         for j, sp in enumerate(SPHERES):
@@ -3343,7 +3344,12 @@ class World:
                     e[:, "WUBRG".index(p)] += c / len(ps) * (v - 0.5); has["WUBRG".index(p)] = True
             D = e.sum(1)
             out[:, j] = np.where(has[None], has.sum() * e, D[:, None])
-        return out
+        # Each part reads the society at the same level overall: the parts differ in where they find a body fair or
+        # unfair, not in how fair the whole society looks to them (centred over the towns and spheres, keeping the
+        # parts' mean, so an even person's read is unchanged); without it the parts whose states run high (the same
+        # rules for all) made one colour's lives feel the whole society fairer (v22.4 refit: .054 apart by lead colour)
+        m_ = out.mean((0, 1))
+        return out - (m_ - m_.mean())[None, None]
 
     def _sph_fund_q(self, place):
         """The patrons' pulls this quarter (kPat .005 x size toward their colours), on places or on town spheres; a pull

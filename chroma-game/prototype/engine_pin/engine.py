@@ -471,6 +471,11 @@ DEFAULT = dict(
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
     sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
+    green_jobs=False,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
+                         # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
+    acc_redraw=False,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
+                         # route refuses (acc_first, acc_move) re-draws among the other titles whose rules hold, by the same
+                         # weights, so the life goes to its next-best fit, not to no title (off: the career starts untitled)
     occ_keep=0.6, occ_back=3.0,   # a new job after one ended within occ_back years returns to the last line of work with this
                          # chance (the packs, 01:40: a scientist who changed jobs stopped being a scientist). Job changes
                          # are about twice as common as changes of occupation (Kambourov & Manovskii 2008)
@@ -1032,6 +1037,8 @@ UPD_OFF = dict(dis_match=False,
                birth_age=False,
                # what one holds is practice too
                role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False,
+               # v22.4: a refused first job or job move re-draws to the next-best fit
+               acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
@@ -1728,8 +1735,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
+        if P.get("green_jobs") and GR.get("rule_when"):   # v22.4: the green entry jobs' rules and roads (ROLES_WHEN)
+            GR = dict(GR, rule=[GR["rule_when"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
-            GR = dict(GR, rule=[GR["rule_sph"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
+            sr_ = {**GR["rule_sph"], **(GR.get("rule_sph_when") or {})} if P.get("green_jobs") else GR["rule_sph"]
+            GR = dict(GR, rule=[sr_.get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
         r_has = np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
         r_since = np.full((N, NI_), NEVER); r_end = np.full((N, NI_), NEVER)
         p_acc = np.zeros((N, NP_), bool); p_lev = np.zeros((N, NP_)); p_sus = np.full((N, NP_), NEVER)   # access, skill, suspended until
@@ -1972,9 +1982,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     return
                 w2_ = wt_[rest_]
                 pick_ = ok_[rest_[int(rng.choice(len(rest_), p=w2_ / w2_.sum()))]]
-        ac_ = GR["rule"][pick_].get("acc_move" if move else "acc_first", 1.0)   # a route that overfills a title (Library next3
-        if ac_ < 1 and ent_rng.random() >= ac_:                                # §3): the job comes without that title
-            return
+        else:
+            f_ = None
+        acc_k_ = "acc_move" if move else "acc_first"
+        ac_ = GR["rule"][pick_].get(acc_k_, 1.0)   # a route that overfills a title (Library next3
+        if ac_ < 1 and ent_rng.random() >= ac_:    # §3): the job comes without that title
+            if not P["acc_redraw"]:
+                return
+            out_ = {pick_}   # acc_redraw (v22.4): the next-best fit among the rest, each with its own acceptance
+            while True:
+                rest_ = [j_ for j_, i_ in enumerate(ok_) if i_ not in out_ and (f_ is None or f_[j_] >= 1.0)]
+                if not rest_:
+                    return
+                w2_ = wt_[rest_]
+                pick_ = ok_[rest_[int(ent_rng.choice(len(rest_), p=w2_ / w2_.sum()))]]
+                ac_ = GR["rule"][pick_].get(acc_k_, 1.0)
+                if not (ac_ < 1 and ent_rng.random() >= ac_):
+                    break
+                out_.add(pick_)
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
     HAD_IDX = {}
@@ -3894,6 +3919,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     ds_ += 0.3 * (b2_ & (ck2_ == 0)) + 0.15 * bk2_ * (b2_ & (ck2_ == 1)) + 0.15 * (b2_ & (ck2_ == 2))
                 cost_ = (dm_ <= -sp_["cost_money"]) | (dt_ <= -sp_["cost_ties"]) | (ds_ >= sp_["cost_stress"])
                 lv2_ = ~idle & live_ & ~dead
+                if sp_["cost_closed"] and closed_s is not None:   # any closed option's backfire counts (sacred_par)
+                    cost_ = cost_ | b2_
+                    WL.PP._sac_count("cost closed", b2_ & lv2_)
                 for nm_, m_ in (("money", dm_ <= -sp_["cost_money"]), ("ties", dt_ <= -sp_["cost_ties"]),
                                 ("stress", ds_ >= sp_["cost_stress"])):
                     WL.PP._sac_count(f"cost {nm_}", m_ & lv2_)   # (for the checks)

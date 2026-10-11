@@ -58,6 +58,7 @@ const dir = process.argv[6]; const toEnd = process.argv[7] === 'end';
     await page.screenshot({ path: `${dir}/${tag}-6line.png` });
     const g = await page.$('.river .gl[data-age]'); if (g) { await g.hover(); await page.waitForTimeout(250); await page.screenshot({ path: `${dir}/${tag}-7glyph.png` }); await g.click(); await page.waitForTimeout(600); }
   } else {
+    await settle(); await page.click('#evPeek', { timeout: 2000 }).catch(() => {});   // an open moment covers #tHud on the phone (v22.3 record)
     await page.click('#tHud'); await page.waitForTimeout(400); await page.screenshot({ path: `${dir}/${tag}-6hud.png` }); await page.click('#hudClose'); await page.waitForTimeout(400); await page.screenshot({ path: `${dir}/${tag}-6hudclosed.png` });
   }
   if (toEnd) {
