@@ -4,11 +4,22 @@ switched on; each target is printed with its value per lead colour (or enemy pai
 
   s3_rep      mean `rep` change per place reading, by the reader's lead colour: largest minus smallest <= .03
   s3_caught   caught-between moments met per enemy pair (WB WR UR UG BG): largest / smallest <= 1.5
-  s4_odd      share of life-years spent the odd one out at a place, by lead colour: largest / smallest <= 1.2
+  s4_odd      share of years at a place spent the odd one out there, by lead colour: largest / smallest <= 1.2
   s4_convert  conversions (Moscovici: a year in which a held-out minority moves its place, three years held) per
-              life-year of each lead colour: largest / smallest <= 1.5
+              year at a place they could move, by lead colour: largest / smallest <= 1.5
 
-    python3 -B chroma-engine/tools/eyes_check.py TARGET [N=300] [SEEDS=7] [--years 80] [--P JSON] [--stats FILE]
+A year at a place is a life-year holding at least one place for a year or more (G8's denominator, scope.md, Release
+02:52): no one is the odd one out at a place they do not hold, and how many years each colour holds a place comes from
+the spheres, not from S4 (White-led lives hold none in about 28% of their life-years, mostly childhood, Blue-led in 10%).
+A year at a place they could move is one holding a place a year and odd_hold more, as a regular or more (s4_convert's
+denominator, scope.md, Release 10-11): a newcomer's holding out moves nothing, and how long each colour stays at a place
+and climbs its rungs comes from the spheres (Red- and Black-led lives stay about 3.5 years, White and Blue about 5.5).
+The per-life-year and per-year-at-a-place readings are printed as information, and so is each S4 row's reading with
+colour shuffled across lives (colour playing no part; scope.md "Small counts"), and s3_caught's with its moments falling
+at random across the five pairs: a 90th percentile over the target means the run has too few lives to judge it (300
+lives x 80 years at four seeds: about 1.1x for s4_odd, 1.3x for s4_convert).
+
+    python3 -B chroma-engine/tools/eyes_check.py TARGET [N=300] [SEEDS=7,8,9,10] [--years 80] [--P JSON] [--stats FILE]
 
 TARGET is one of the four, or "all". SEEDS is a comma list; their counts are pooled (one process per seed). --P lays
 switches over the run's own, which are engine DEFAULT with world, sph_haunts, sph_hours, sph_events, cur_on, sph_eyes
@@ -25,6 +36,7 @@ import numpy as np
 COLORS = "WUBRG"
 ENEMY = ("WB", "WR", "UR", "UG", "BG")   # the Canon's enemy pairs, in the order People names them (place a's lead first)
 TARGETS = ("s3_rep", "s3_caught", "s4_odd", "s4_convert")
+LIFE = ("life_place", "life_odd", "life_held", "life_movable")   # S4's counts per life x lead colour: joined across seeds, not summed
 RUN_P = dict(world=True, sph_haunts=True, sph_hours=True, sph_events=True, cur_on=True, sph_eyes=True, sph_odd=True)
 
 
@@ -56,7 +68,9 @@ def pooled(runs):
     out = {}
     for st in runs:
         for k, v in st.items():
-            if isinstance(v, dict):
+            if k in LIFE:
+                out[k] = out.get(k, []) + list(v)
+            elif isinstance(v, dict):
                 d = out.setdefault(k, {})
                 for k2, v2 in v.items():
                     d[k2] = d.get(k2, 0) + v2
@@ -72,6 +86,29 @@ def ratio(v):
     return float(v.max() / v.min()) if v.min() > 0 else float("inf")
 
 
+def shuffle(num, den, n=200):
+    """Colour playing no part (scope.md, "Small counts"): each life's counts relabelled across the five colours at random,
+    n times; the max/min ratios, to read the run's own against."""
+    rng = np.random.default_rng(0)
+    a_, b_ = np.asarray(num, float), np.asarray(den, float)
+    out = []
+    for _ in range(n):
+        pi = np.argsort(rng.random(a_.shape), 1)
+        x, y = np.zeros(len(COLORS)), np.zeros(len(COLORS))
+        np.add.at(x, pi, a_); np.add.at(y, pi, b_)
+        out.append(ratio(x / np.maximum(y, 1)))
+    return np.asarray(out)
+
+
+def shuffle_line(name, num, den, r, target):
+    s_ = shuffle(num, den)
+    p90, med = (float(np.quantile(s_, q_, method="higher")) for q_ in (0.9, 0.5))   # (no interpolation: a ratio can be inf)
+    return (f"  info: {name} with colour shuffled across lives ({len(s_)} shuffles): median {med:.2f}x, 90th"
+            f" percentile {p90:.2f}x; the run's {r:.2f}x sits at percentile {100 * float((s_ < r).mean()):.0f}"
+            + (f" (90th percentile over {target}x: too few lives to judge {target}x; scope.md, Small counts)" if p90 > target
+               else ""))
+
+
 def rt(r):
     return f"ratio {r:.2f}x" if np.isfinite(r) else "ratio inf (a 0)"
 
@@ -84,7 +121,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("target", choices=TARGETS + ("all",))
     ap.add_argument("N", nargs="?", type=int, default=300)
-    ap.add_argument("seeds", nargs="?", default="7")
+    ap.add_argument("seeds", nargs="?", default="7,8,9,10")
     ap.add_argument("--years", type=int, default=80)
     ap.add_argument("--P", default="{}")
     ap.add_argument("--stats", default=None)
@@ -124,6 +161,8 @@ def main():
 
     want = TARGETS if a.target == "all" else (a.target,)
     life_y = np.asarray(st["life_years"], float)
+    place_y = np.asarray(st["place_years"], float) if "place_years" in st else None   # (an engine before the fix round: none)
+    den, den_w = (place_y, "year at a place") if place_y is not None else (life_y, "life-year (this engine counts no years at a place)")
     if "s3_rep" in want:
         nr = np.asarray(st["nrep"], float)
         m = np.asarray(st["drep"], float) / np.maximum(nr, 1)
@@ -138,18 +177,40 @@ def main():
         row("s3_caught", " ".join(f"{p} {n}" for p, n in zip(ENEMY, v)), rt(r), "target <= 1.5x",
             sum(v) > 0 and r <= 1.5, ("  (no caught-between moment met: none in the batch?)" if sum(v) == 0 else "")
             + (f"  other pairs {other}" if other else ""))
+        if sum(v) > 0:   # the run's moments falling at random across the five pairs (Release 10-11)
+            ev_ = np.asarray([ratio(x_) for x_ in np.random.default_rng(0).multinomial(int(sum(v)), [0.2] * 5, 200)])
+            p90 = float(np.quantile(ev_, 0.9, method="higher"))
+            print(f"  info: s3_caught with its {int(sum(v))} moments falling at random across the five pairs (200 draws): median"
+                  f" {float(np.quantile(ev_, 0.5, method='higher')):.2f}x, 90th percentile {p90:.2f}x"
+                  + (" (over 1.5x: too few moments to judge 1.5x; scope.md, Small counts)" if p90 > 1.5 else ""), flush=True)
     if "s4_odd" in want:
-        sh = np.asarray(st["odd_years"], float) / np.maximum(life_y, 1)
+        sh = np.asarray(st["odd_years"], float) / np.maximum(den, 1)
         r = ratio(sh)
-        row("s4_odd", per(sh), rt(r), "target <= 1.2x", r <= 1.2)
+        row("s4_odd", per(sh), rt(r), "target <= 1.2x", r <= 1.2, f"  (per {den_w})")
+        if "life_place" in st:
+            print(shuffle_line("s4_odd", st["life_odd"], st["life_place"], r, 1.2), flush=True)
     if "s4_convert" in want:
-        cv = np.asarray(st["held"], float) / np.maximum(life_y, 1)
+        mv_ = np.asarray(st["movable_years"], float) if "movable_years" in st else None
+        cden, cden_w, cl_ = ((mv_, "year at a place they could move", "life_movable") if mv_ is not None else
+                             (den, den_w + " (this engine counts no years at a place they could move)", "life_place"))
+        cv = np.asarray(st["held"], float) / np.maximum(cden, 1)
         r = ratio(cv)
         row("s4_convert", per(cv, 4), rt(r), "target <= 1.5x", r <= 1.5,
-            f"  ({int(sum(st['held']))} place-years moved)")
+            f"  (per {cden_w}; {int(sum(st['held']))} place-years moved)")
+        if cl_ in st:
+            print(shuffle_line("s4_convert", st["life_held"], st[cl_], r, 1.5), flush=True)
+        if mv_ is not None:
+            cp_ = np.asarray(st["held"], float) / np.maximum(den, 1)
+            print(f"  info: conversions per {den_w} (not judged): {per(cp_, 4)} {rt(ratio(cp_))}; years they could move a"
+                  f" place per {den_w} {per(mv_ / np.maximum(den, 1))}", flush=True)
     # for reading, not judged
+    if place_y is not None and ("s4_odd" in want or "s4_convert" in want):
+        oy_, hd_ = np.asarray(st["odd_years"], float), np.asarray(st["held"], float)
+        print(f"  info: per life-year (not judged): odd {per(oy_ / np.maximum(life_y, 1))} {rt(ratio(oy_ / np.maximum(life_y, 1)))};"
+              f" conversions {per(hd_ / np.maximum(life_y, 1), 4)} {rt(ratio(hd_ / np.maximum(life_y, 1)))}; years at a place per"
+              f" life-year {per(place_y / np.maximum(life_y, 1))}", flush=True)
     met = np.asarray(st["blend"], float) + np.asarray(st["hold"], float) + np.asarray(st["leave"], float)
-    print(f"  info: life-years {per(life_y, 0)}; odd-one-out moments offered {per(st['odd_fired'], 0)}; blend {per(st['blend'], 0)},"
+    print(f"  info: life-years {per(life_y, 0)}" + (f", years at a place {per(place_y, 0)}" if place_y is not None else "") + f"; odd-one-out moments offered {per(st['odd_fired'], 0)}; blend {per(st['blend'], 0)},"
           f" hold {per(st['hold'], 0)}, leave {per(st['leave'], 0)}; blends per odd moment met {per(np.asarray(st['blend']) / np.maximum(met, 1), 2)}",
           flush=True)
     print(f"  info: caught {st.get('caught_why', {})}, picks {st.get('caught_tag', {})}; talk {st.get('talk', 0)}; acts read"

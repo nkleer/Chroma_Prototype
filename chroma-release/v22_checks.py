@@ -252,18 +252,19 @@ for sid, target, what in STEERED:
 # its own target on the commit (the tool switches its mechanic on where DEFAULT has it off). --only @v22.4 runs them all.
 # A row that reads another's stats file waits on it. On a commit without the tool the row fails: they are v22.4's rows.
 FAIR = "python3 -B chroma-engine/tools/fair_check.py {} 300 7 --years 80 --stats {{W}}/fair_300_7.json"
-EYES = "python3 -B chroma-engine/tools/eyes_check.py {} 300 7 --stats {{W}}/eyes_300_7.json"
+EYES = "python3 -B chroma-engine/tools/eyes_check.py {} 300 7,8,9,10 --stats {{W}}/eyes_300_7-10.json"
 V224 = [
     ("s1_parts", "G6", 1, FAIR.format("all") + "; " + FAIR.format("s1_parts"), "re:^PASS s1_parts", (),
      "S1: every sphere carries all five parts (300 lives x 80 years, seed 7, world and fair_read on; its first run makes "
      "the stats the other two read)"),
     ("s1_counts", "G6", 1, FAIR.format("s1_counts"), "re:^PASS s1_counts", ("s1_parts",), "S1: the five parts' event counts within 1.5x"),
     ("s1_fair", "G6", 1, FAIR.format("s1_fair"), "re:^PASS s1_fair", ("s1_parts",), "S1: mean fair per lead colour within .03"),
-    ("s3_rep", "G7", 1, EYES.format("s3_rep"), "re:^PASS s3_rep", (),
-     "S3: mean rep change per lead colour within .03 (300 lives, seed 7; makes the stats the S3 and S4 rows read)"),
+    ("s3_rep", "G7", 4, EYES.format("s3_rep"), "re:^PASS s3_rep", (),
+     "S3: mean rep change per lead colour within .03 (300 lives x 80 years on each of seeds 7 to 10, one worker a seed; "
+     "makes the stats the S3 and S4 rows read; scope.md, G7 and G8's run size)"),
     ("s3_caught", "G7", 1, EYES.format("s3_caught"), "re:^PASS s3_caught", ("s3_rep",), "S3: caught-between moments per enemy pair within 1.5x"),
-    ("s4_odd", "G8", 1, EYES.format("s4_odd"), "re:^PASS s4_odd", ("s3_rep",), "S4: odd-one-out life-years per lead colour within 1.2x"),
-    ("s4_convert", "G8", 1, EYES.format("s4_convert"), "re:^PASS s4_convert", ("s3_rep",), "S4: conversions per lead colour within 1.5x"),
+    ("s4_odd", "G8", 1, EYES.format("s4_odd"), "re:^PASS s4_odd", ("s3_rep",), "S4: odd-one-out years per lead colour within 1.2x, per year at a place"),
+    ("s4_convert", "G8", 1, EYES.format("s4_convert"), "re:^PASS s4_convert", ("s3_rep",), "S4: conversions per lead colour within 1.5x, per year a life could move a place (scope.md, S4's conversions)"),
     ("s5_lines", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py lines", "re:^s5_lines: ok", (),
      "S5: sacred lines per colour against its share of lead years within 1.5x (seeds 31 to 34 x 300 x 80 years)"),
     ("s5_money", "G9", 4, "python3 -B chroma-engine/tools/sacred_check.py money", "re:^s5_money: ok", (),
