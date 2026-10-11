@@ -282,6 +282,13 @@ V224 = [
      "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
      "below unsteered (Black's reported, not judged); perks at 50 (90th percentile) <= 27; Black's edge on (#176) "
      "(960 lives, 160 a group: each drop's standard error about .013; scope.md, G19's run size; about 75 minutes on 4 cores)"),
+    ("c26_world", "G19", 4, "PX='{{\"world\": true, \"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26w.npz \"-,W,U,B,R,G\" && "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26w.npz && "
+     "(python3 -B chroma-release/check_c26.py {W}/c26w.npz; echo 'c26_world: information, not judged')",
+     "same", (), "item 26 with the outer world on, as presets 1 to 4 play it (the S parts act only there; the shadows and "
+     "sh_will do not): c26_choice's run and check_c26's lines, printed for the record, not judged (scope.md, G19 with the "
+     "world on; 960 lives, about 80 minutes on 4 cores)"),
 ]
 for cid, row, cores, cmd, rule, after, what in V224:
     CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))
