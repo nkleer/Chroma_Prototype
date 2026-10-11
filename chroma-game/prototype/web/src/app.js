@@ -2407,7 +2407,6 @@ function beginLife(k, name) {
   const r = $("readGo"); if (r) r.innerHTML = `<span class="spin"></span><span>Setting out…</span>`;
   send(k);
 }
-let bootMenu = null; try { bootMenu = JSON.parse(localStorage.getItem("chroma.menu") || "null"); } catch (_) {}
 function renderScreen(h) {
   if (h.mode === "menu") {
     const booting = !!h.booting, sv = booting ? null : savedLife(), sel = h.menu.find((p) => p.k === tarotSel) || null;
@@ -2758,9 +2757,9 @@ function fatal(msg) {
   screenEl.innerHTML = `<div class="boot"><div class="hero"><h1>CHROMA</h1></div><p>Could not start: ${esc(msg)}</p><p>This page runs the real engine (Python and numpy) inside your browser with WebAssembly. If the browser or this viewer blocks that, the same game runs in a terminal: python3 play.py in the project's chroma-game/prototype folder (needs Python 3 and numpy).</p></div>`;
 }
 stageEl.classList.remove("paper");
-// v22 next look: a returning player sees the spread at once (the menu is kept from the last visit) while Python loads
-if (bootMenu && bootMenu.length) renderScreen({ mode: "menu", menu: bootMenu, booting: true });
-else screenEl.innerHTML = `<div class="boot"><div class="hero"><h1>CHROMA</h1><div class="pips">${COLORS.map((c) => pip(c)).join("")}</div><p>One life. Five colors. You are the voice in their head.</p></div><span class="spin"></span><span id="bootMsg">Loading Python and numpy in your browser (about 16 MB the first time)…</span><span class="bootbar"><i></i></span></div>`;
+// the life choice screen waits for the engine: until Python, numpy and the game's files have loaded (about 16 MB the
+// first time), only the loading screen shows (Emren 2026-10-11: "Do not load life choice screen before loading" them)
+screenEl.innerHTML = `<div class="boot"><div class="hero"><h1>CHROMA</h1><div class="pips">${COLORS.map((c) => pip(c)).join("")}</div><p>One life. Five colors. You are the voice in their head.</p></div><span class="spin"></span><span id="bootMsg">Loading Python and numpy in your browser (about 16 MB the first time)…</span><span class="bootbar"><i></i></span></div>`;
 drawLine();
 const watchdog = setTimeout(() => { if (!ready) fatal("the Python runtime did not start within 90 seconds."); }, 90000);
 try {
