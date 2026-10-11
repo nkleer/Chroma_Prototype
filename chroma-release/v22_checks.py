@@ -85,9 +85,10 @@ CHECKS = [
      "load into the build with the game's old-save note (console.OLD_SAVE) and play on without error (Emren's card \"Replay with a "
      "note\", 10-09 19:40 UTC; with --game only)"),
     ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
+     "--seeds 5 --packs " + PACKS3, "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, "
+     "seed 5, on the go-live packs (art joins at v22.4 and names titles the v21 batch lacks)"),
     ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5,21", "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
+     "--seeds 5,21 --packs " + PACKS3, "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
     ("identity_full", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21, "re:^C-E14: PASS", (),
      "the same at the v22 record's size: 40 lives x 70 years, seeds 5, 21, 57"),
     ("content", "C-L5, C-L7 to C-L10", "Release", "quick", 1, ".", "python3 -B chroma-release/check_content.py", "rc", (),
