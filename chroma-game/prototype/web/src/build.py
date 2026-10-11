@@ -21,7 +21,26 @@ lo = os.path.join(here, "pics-left-out.json")
 out_sits = set(json.loads(part("pics-left-out.json"))["situation"]) if os.path.exists(lo) else set()
 gone = {pics["situation"][k].split("/")[-1][:-5] for k in out_sits if k in pics["situation"]}
 pics["situation"] = {k: v for k, v in pics["situation"].items() if k not in out_sits}
+# picture packs: the rarer moments' pictures travel together in pics/pack-<n>.json ({path: base64}, PACK_SIZE to a pack;
+# tools/webdir.py writes them) instead of one file each, so one published version stays under the 511 files. The
+# OWN_PICS most-seen pictures (by the game's rarity.json; every domain, tier, tarot, texture and portrait picture first)
+# stay files of their own. pic-packs.json records which pictures go in which pack, for webdir.py and for reading.
+OWN_PICS, PACK_SIZE = 440, 25
+fixed = {u for k in ("domain", "tier", "tarot", "texture") for u in pics.get(k, {}).values()} | \
+        {u for d in pics.get("portrait", {}).values() for u in d.values()}
+share = json.loads(part("rarity.json", os.path.join(here, "..", "..")))["sit"]
+by_url = {}
+for k, u in pics["situation"].items():
+    by_url[u] = max(by_url.get(u, 0), share.get(k, 0))
+ranked = sorted((u for u in by_url if u not in fixed), key=lambda u: (-by_url[u], u))
+packed = sorted(ranked[max(0, OWN_PICS - len(fixed)):])
+packs = [packed[i:i + PACK_SIZE] for i in range(0, len(packed), PACK_SIZE)]
+pic_packs = {u: n for n, pk in enumerate(packs, 1) for u in pk}
+open(os.path.join(here, "pic-packs.json"), "w", encoding="utf-8").write(json.dumps(dict(
+    about="Moment pictures published in packs (pics/pack-<n>.json, path -> base64), made by web/src/build.py: the "
+          "rarer ones by rarity.json; the page loads a pack when one of its moments shows", packs=packs), indent=1) + "\n")
 app = part("app.js").replace("__GI_DATA__", json.dumps(dict(map=gi["map"], credit=gi["credit"]), separators=(",", ":")))
+app = app.replace("__PIC_PACKS__", json.dumps(pic_packs, separators=(",", ":")))
 app = app.replace("__PICS__", json.dumps({k: pics[k] for k in ("situation", "domain", "tier", "tarot", "texture", "portrait") if k in pics}, separators=(",", ":")))
 # lights.json: picture -> [[x, y, size, kind, strength, colour], ...] (fractions of the picture, colour "#rrggbb" or "");
 # packed as "x,y,d,kind,strength,rgb|..." in thousandths and hundredths, the colour in three hex digits
