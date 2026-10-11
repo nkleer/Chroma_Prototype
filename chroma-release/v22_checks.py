@@ -276,10 +276,11 @@ V224 = [
      "(12 seeds x 300 lives, where colour-blind lives pass 1.2x 9 times in 10: shuffle 90th percentile 1.16; scope.md, "
      "Small counts)"),
     ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
-     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 120 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz",
      "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
-     "below unsteered; perks at 50 (90th percentile) <= 27 (480 lives, 80 a group; about 90 minutes on 4 cores)"),
+     "below unsteered (Black's reported, not judged); perks at 50 (90th percentile) <= 27; Black's edge on (#176) "
+     "(960 lives, 160 a group: each drop's standard error about .013; scope.md, G19's run size; about 75 minutes on 4 cores)"),
 ]
 for cid, row, cores, cmd, rule, after, what in V224:
     CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))

@@ -19,6 +19,10 @@ importScripts("pyodide/pyodide.js");
 
 const here = (p) => new URL(p, self.location.href).href;
 const SOURCES = ["engine_pin/engine.py", "engine_pin/library.py", "engine_pin/combos.py", "engine_pin/batch.py", "engine_pin/earth_rules.py", "engine_pin/earth.py", "engine_pin/earth_perks_titles.py", "engine_pin/earth_science.py", "engine_pin/earth_politics.py", "engine_pin/earth_stage.py", "engine_pin/dreams.py", "engine_pin/earth_story.py", "engine_pin/earth_play.py", "engine_pin/packs/core/reach.py", "engine_pin/packs/core/longshot.py", "engine_pin/packs/science/catalogue.py", "engine_pin/packs/science/roles.py", "engine_pin/packs/science/helps.py", "engine_pin/packs/politics/catalogue.py", "engine_pin/packs/politics/roles.py", "engine_pin/packs/politics/helps.py", "engine_pin/packs/stage/catalogue.py", "engine_pin/packs/stage/roles.py", "engine_pin/packs/stage/helps.py", "engine_pin/world_keys.py", "engine_pin/world.py", "engine_pin/world_link.py", "engine_pin/world_people.py", "engine_pin/sphere_data.py", "engine_pin/sphere_ev_base.py", "engine_pin/earth_spheres.py", "engine_pin/foresee.py", "engine_pin/explain.py", "link.py", "story.py", "worldview.py", "routine.py", "rarity.py", "game.py", "console.py"];
+// CODE_PARTS: the web folder's build (tools/webdir.py) packs SOURCES into this many py/code-<n>.json files ({path: text}),
+// so one published version needs a few entries for the code, not one per file (the artifact holds at most 511 files).
+// 0 (this folder as committed) reads each file from py/ as before.
+const CODE_PARTS = 0;
 const BRIDGE = `
 import sys, os, json
 import numpy as _np
@@ -105,12 +109,22 @@ function load(text) {
     py = await loadPyodide({ indexURL: here("pyodide/") });
     await py.loadPackage(here("pyodide/numpy-2.0.2-cp312-cp312-pyodide_2024_0_wasm32.whl"));
     py.FS.mkdirTree("/home/pyodide/chroma/engine_pin");
+    const code = {};
+    for (let n = 1; n <= CODE_PARTS; n++) {
+      const r = await fetch(here("py/code-" + n + ".json"));
+      if (!r.ok) throw new Error("could not load code part " + n + " (" + r.status + ")");
+      Object.assign(code, await r.json());
+    }
     for (const f of SOURCES) {
-      const r = await fetch(here("py/" + f));
-      if (!r.ok) throw new Error("could not load " + f + " (" + r.status + ")");
+      let text = code[f];
+      if (text === undefined) {
+        const r = await fetch(here("py/" + f));
+        if (!r.ok) throw new Error("could not load " + f + " (" + r.status + ")");
+        text = await r.text();
+      }
       const d = ("/home/pyodide/chroma/" + f).replace(/\/[^/]*$/, "");
       py.FS.mkdirTree(d);                                   // engine_pin/packs/<pack>/ for the content packs
-      py.FS.writeFile("/home/pyodide/chroma/" + f, await r.text());
+      py.FS.writeFile("/home/pyodide/chroma/" + f, text);
     }
     sys("Loading the engine…");
     py.runPython(BRIDGE);
