@@ -55,6 +55,39 @@ SETTINGS = {
     "tribal": dict(code="T", title="Tribal", blurb="clans, hunts, elders and the turning seasons, before cities"),
     "magic": dict(code="M", title="A world of magic", blurb="towers, guilds and old powers; a gift may awaken"),
 }
+# v22.5, F12 (the game's world_hold): lines of the shared pools that are modern Earth's (money, prices, profits, sirens,
+# votes, books), left out in the clan (T) and the towers (M) while the switch is on
+WORLD_LEAKS = {
+    "T": {
+        "Some paths lead to money and standing, others don't. {N} has noticed which is which.",
+        'Something in the {place} is broken and nobody is fixing it. Someone could ask a price for the fix.',
+        'There is a gap in what the {place} provides, and gaps can be filled, for a price.',
+        '{N} notices a need nobody is meeting, and a profit nobody is taking.',
+        '{disaster}: smoke, sirens, and people running. {Ns} heart pounds.',
+        'The group must decide what to do, and {friend} is quietly lining up votes.',
+        'The {place} is going to ruin, and somebody is profiting from it. {N} wonders who.',
+        'A profitable year, by {Ns} own reckoning.',
+        '{mentor} sees something in {N}, and starts lending them books and hard questions.',
+    },
+    "M": {
+        "Some paths lead to money and standing, others don't. {N} has noticed which is which.",
+        'A relative needs money, and {N} has a little put aside.',
+        '{disaster}: smoke, sirens, and people running. {Ns} heart pounds.',
+        'Money goes missing that {N} had counted on, and they take it personally.',
+        'Good times: money moves, and {N} watches where it goes.',
+    },
+}
+
+
+def _worlds():
+    """v22.5, F12: the Library's words of the tribal and magic worlds (worlds.py, pinned next to the engine), or None."""
+    try:
+        import worlds
+        return worlds
+    except ImportError:
+        return None
+
+
 WORLD = {
     "earth": dict(places=PLACES, disasters=DISASTERS, brushes=BRUSHES,
                   classmate="their classmate {n}", teacher="their teacher {n}", elder_mentor="an older hand called {n}",
@@ -1077,8 +1110,12 @@ def load_library_story(situations, read_events=()):
     return len(LIB_SCENES)
 
 
+ACT_WORLD = {}   # v22.5, F12 (the game's world_hold): the seed labels as the clan or the towers say them (worlds.py LABELS)
+
+
 def act(label):
     """An option label as something the character does: 'put your own needs first' -> 'put their own needs first'."""
+    label = ACT_WORLD.get(label, label)
     if label in LIB_ACTS:                       # the Library already wrote it in the third person
         return LIB_ACTS[label]
     s = ACT_FIX.get(label, label)
@@ -1194,6 +1231,7 @@ class Story:
         self.setting = setting if setting in WORLD else "earth"
         self.W = WORLD[self.setting]
         self.wcode = SETTINGS[self.setting]["code"]
+        self.hold = False                   # v22.5, F12: the game's world_hold (the world's own words)
         self.mem = np.full(5, 0.2)          # memory of past identities
         self.voice = np.full(5, 0.2)        # the narrator's emphasis: present identity blended with the memory
         self._voice_top = None
@@ -1392,6 +1430,8 @@ class Story:
                 st = [c for c in e[2] if c.islower()]; wl = [c for c in e[2] if c.isupper()]
                 if wl and self.wcode not in wl:
                     continue
+            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
+                continue
                 if st and stage is not None and not any(stage in STAGESETS[c] for c in st):
                     continue
             tag = e[0]
@@ -1620,8 +1660,13 @@ class Story:
         if pushed and rel >= 0.3:
             L.append(self.fill("It costs {N}: strain, and a wanting they swallow for now."))
         if pushed and closed and not ev["success"]:
-            L.append("Forcing what was out of reach backfires: more stress, and money lost.")
+            L.append(self.world_word("backfire", "Forcing what was out of reach backfires: more stress, and money lost."))
         return "\n".join(L)
+
+    def world_word(self, key, default=None):
+        """v22.5, F12 (world_hold): the Library's word for key in this world (worlds.py WORDS), else default."""
+        wd_ = _worlds() if self.hold else None
+        return getattr(wd_, "WORDS", {}).get(self.setting, {}).get(key, default) if wd_ is not None else default
 
     def set_family(self, siblings, grandparents):
         """Match the family to the engine's (the Earth batch draws siblings and grandparents per person)."""
@@ -1962,7 +2007,8 @@ class Story:
             bs = self.alive("boss")
             for b in bs:
                 b["role"] = "former boss"
-            return self.fill("{N} loses their " + mk("c", "career||lost job", self.W["job"]) + "." + (f" {self.nm(bs[0])} does not meet their eye." if bs else ""))
+            job_ = self.world_word("job", self.W["job"])   # F12 (world_hold): a place in the work in the clan
+            return self.fill("{N} loses their " + mk("c", "career||lost job", job_) + "." + (f" {self.nm(bs[0])} does not meet their eye." if bs else ""))
         if what == "retired":
             return self.fill(self.pick([("", "{N} retires."), ("G", "{N} retires, and the days grow slower and wider."),
                                         ("B", "{N} retires, reluctantly, still counting what they are owed.")]))
