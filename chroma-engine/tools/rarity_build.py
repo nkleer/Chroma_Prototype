@@ -4,7 +4,7 @@ least once, on the live batch with batch.PACKS on and the outer world on, as the
 Build your own set P["world"]; the world's own moments, traders, two places, a name on the list, only come with it). The
 same keys as the game's stopgap rarity.py (lives, sit, read, mark, role), so the game reads it in its place. Seeds 101,
 102, ..., each drawing its own world; the table is the same however the seeds are split over machines.
-    python3 chroma-engine/tools/rarity_build.py [lives per seed, 500] [seeds, 8]     (env LIB, PACKS, PACK_DIR,
+    python3 chroma-engine/tools/rarity_build.py [lives per seed, 200] [seeds, 20]     (env LIB, PACKS, PACK_DIR,
         PACK_MOMENTS for a test; OUT)
     ... [lives] [seeds] --only 105,106,107,108 --parts DIR   run some seeds, each written to DIR/part_<seed>.json
     ... [lives] [seeds] --merge DIR                          the table from DIR's parts (every seed's must be there)"""
@@ -48,8 +48,8 @@ def table(parts, lives):
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("lives", nargs="?", type=int, default=500)
-    ap.add_argument("seeds", nargs="?", type=int, default=8)
+    ap.add_argument("lives", nargs="?", type=int, default=200)
+    ap.add_argument("seeds", nargs="?", type=int, default=20)
     ap.add_argument("--only", default=None)
     ap.add_argument("--parts", default=None)
     ap.add_argument("--merge", default=None)
