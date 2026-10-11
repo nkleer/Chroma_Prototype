@@ -96,6 +96,38 @@ for i in ids:
 sys.exit(bad)
 PY
   [ $? = 0 ] || echo "not all carried: run \`run.sh page\` or \`run.sh g4\` on a free machine for those"; }
+RARITY_READS="chroma-engine chroma-library chroma-packs"   # what the rarity rebuild and same-lives.sh read
+carryp() { local paths=$1; shift   # a hand row's newest PASS on any commit, written again for $SHA when nothing it reads
+  python3 -B - "$R" "$REPO" "$SHA" "$paths" "$@" <<'PY'   # (paths; empty: the whole tree) changed but the rarity files
+import sys, subprocess
+R, repo, sha, paths, ids = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4].split(), sys.argv[5:]
+sys.path.insert(0, R)
+import results
+last, here = {}, set()
+for r in results.read():
+    c = (r.get("candidate") or {}).get("commit") or ""
+    if r["check"] in ids and c == sha:
+        here.add(r["check"])
+    elif r["check"] in ids and r["result"] == "PASS" and len(c) == 40:
+        last[r["check"]] = r
+bad = 0
+for i in ids:
+    r = last.get(i)
+    if i in here:
+        print("already on", sha[:12], i); continue
+    if not r:
+        print("NOT CARRIED", i, "(no PASS on any commit)"); bad = 1; continue
+    frm = r["candidate"]["commit"]
+    d = subprocess.run(["git", "-C", repo, "diff", "--name-only", frm, sha, "--"] + paths, capture_output=True, text=True)
+    moved = [f for f in d.stdout.split() if not f.endswith(("/rarity.json", "/rarity.py"))]
+    if d.returncode or moved:
+        print("NOT CARRIED", i, f"(changed since {frm[:12]}: {', '.join(moved[:4]) or d.stderr.strip()})"); bad = 1; continue
+    results.add(i, "PASS", r.get("report", ""), f"carried from {frm[:12]} (nothing it reads changed since but the rarity "
+                f"files): " + r.get("note", ""), candidate={"commit": sha})
+    print("carried", i, "from", frm[:12])
+sys.exit(bad)
+PY
+  [ $? = 0 ] || echo "not all carried: run their jobs (page, b7AB, b7CD, g4) on free machines"; }
 lives() { $CHK --only $LIVES --keep --work $K/lives || $CHK --only $LIVES --no-reuse --keep --work $K/lives; }   # pie reads the npz here
 mech() { $CHK --only $MECH --keep --work $K/mech; }            # S1, S3 and S4 rows read their run's stats here
 c26() { $CHK --only c26_choice,c26_world --keep --work $K/c26; }   # c26_world: G19 with the world on (G19w)
@@ -142,17 +174,18 @@ case "${1:-}" in
   m4) b7 A,B; g4 ;;
   m5) b7 C,D; $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   m6) c26; $CHK --only s5_lines,s5_money ;;
-  final) $CHK --only $QUICK,$ENGA,s5_lines,s5_money,saves_note; mech; c26; lives
-     o=$(ls -t $O/rarity_rebuild_*.json | head -1); read REFIT ID < $o.from
-     moved=$(git -C $REPO diff --name-only $REFIT $SHA | grep -v -e '/rarity\.json$' -e '/rarity\.py$')
+  final) $CHK --only $QUICK,$ENGA,s5_lines,s5_money,saves_note; mech; c26; lives   # reused where nothing they read changed
      rel=$(cd $F/chroma-env && python3 -B -c "from paths import NAMES; print(NAMES['rarity_live'][0])")
+     o=$(ls -t $O/rarity_rebuild_*.json 2>/dev/null | head -1); REFIT=; ID=$RID; [ -n "$o" ] && read REFIT ID < $o.from
+     moved=x; [ -n "$REFIT" ] && moved=$(git -C $REPO diff --name-only $REFIT $SHA -- $RARITY_READS | grep -v -e '/rarity\.json$' -e '/rarity\.py$')
      rep=$O/${ID}_$(date -u +%Y%m%d-%H%M%S).txt
      if [ -z "$moved" ] && git -C $REPO show $SHA:$rel | cmp -s - $o; then
-       { echo "$ID on ${SHA:0:12}: the table rebuilt on the refit ${REFIT:0:12} ($o) equals the commit's $rel byte for byte,"
-         echo "and the two commits differ only in the rarity files:"; git -C $REPO diff --name-only $REFIT $SHA; echo "RARITY-SAME"; } > $rep
-       python3 -B $R/results.py add $ID PASS $rep "rebuilt on the refit ${REFIT:0:12}; nothing it reads changed since"
-     else echo "the refit and the final commit differ beyond the rarity files, or the table differs: rebuilding"; $CHK --only $ID; fi
-     if [ -z "$moved" ]; then carry $REFIT $HAND; else echo "page layer and g4: run \`run.sh page\` and \`run.sh g4\` on free machines"; fi ;;
+       { echo "$ID on ${SHA:0:12}: the table rebuilt on ${REFIT:0:12} ($o) equals the commit's $rel byte for byte, and"
+         echo "nothing the rebuild reads ($RARITY_READS) changed between them but the rarity files"; echo "RARITY-SAME"; } > $rep
+       python3 -B $R/results.py add $ID PASS $rep "rebuilt on ${REFIT:0:12}; nothing it reads changed since"
+     else $CHK --only $ID; fi    # reused when the commit carried the table where rar read RARITY-SAME, else rebuilt
+     carryp "$RARITY_READS" speedpass_s41 speedpass_sweepA speedpass_sweepB
+     carryp "" look_same fit_1280 fit_1024 fit_geo fit_phone tour_desktop tour_phone b7_AB b7_CD ;;
   final_game) $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   page) look ;;
   g4) g4 ;;
