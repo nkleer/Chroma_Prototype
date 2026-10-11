@@ -135,9 +135,9 @@ def letters_to_spec(txt):
     return " ".join(f"{c}1" for c in dict.fromkeys(cols))
 
 
-# saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3.
+# saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3; version 4 from v22.4 (S1-S7).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 3
+SAVE_VERSION = 4
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 class Console:

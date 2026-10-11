@@ -303,14 +303,18 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # place's go-betweens (DIFF units, x the mean name); cool, weeks between two caught-between moments; wait, weeks a
 # moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
 # buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
-# odd_*: S4's share (.15), visibility x1.5, pressure x1.3, contrast .05 x the rung factor, blend step .02, years held (3),
-# the place's lean by rung a year (regular .005, known .02, leader .04; pillar between), the regulars' .002 a year,
-# hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to holding on
+# odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
+# what they are used to: each colour's mean share at their places a year or more theirs, and its spread among them, a
+# running mean with odd_mem of each year's places, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
+# the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
+# holding on
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
-                    buf_haunt=0.2, buf_half=26.0, odd_share=0.15, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
+                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
                     odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
+EYES_ENEMY = ((0, 2), (0, 3), (1, 3), (1, 4), (2, 4))   # S3: the Canon's enemy pairs WB WR UR UG BG, as W U B R G indices
 EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts read as walking away from their colours
 # lead_ways (S7 "Ways to lead", chroma-ideas/social-mechanics.md, with "The leader's time in post" and "The falls in
 # numbers"): start values for v22.3's one refit, estimates where the spec gives none. The time in post itself (term,
@@ -3714,6 +3718,7 @@ class People:
         self.eyes_par = {**EYES_DEFAULT, **dict(wp_.get("eyes_par") or {})}
         self._eyes_R = R
         self._eyes_tab = np.asarray(R["table"], float)[self.perm][:, self.perm]   # place face x act colour, this frame
+        self._eyes_inv = np.argsort(self.perm)   # W U B R G -> this frame's index (faces in colour order: fc[..., _eyes_inv])
         self.eyes_key = np.full((N, Q), -1, np.int64)
         self.eyes_rep = np.zeros((N, Q)); self.eyes_t0 = np.zeros((N, Q), np.int64); self.eyes_gob = np.zeros((N, Q), bool)
         self.eyes_lr = np.zeros((N, Q)); self.eyes_la = np.full((N, Q), -1, np.int64)   # the last reading there, its act's lead
@@ -3738,12 +3743,17 @@ class People:
         self._eyes_stages = list(SD.TIME_AGES)
         z = lambda: np.zeros(C)              # the checks' counts by lead colour (W U B R G), not saved
         self.eyes_stats = dict(drep=z(), nrep=z(), acts={}, talk=0, caught={}, caught_why={}, caught_tag={},
-                               life_years=z(), odd_years=z(), odd_fired=z(), blend=z(), hold=z(), leave=z(), held=z(),
-                               gaps=np.zeros(16, np.int64))   # the widest gap between two places' readings of an act, by .1
+                               life_years=z(), place_years=z(), odd_years=z(), odd_fired=z(), blend=z(), hold=z(), leave=z(),
+                               held=z(), gaps=np.zeros(16, np.int64))   # gaps: the widest between two places' readings of an act, by .1
+        if self.odd_on:   # S4's years at a place, odd-one-out years and conversions per life (x lead colour), for the check's
+            self.eyes_stats.update(life_place=np.zeros((N, C)), life_odd=np.zeros((N, C)), life_held=np.zeros((N, C)),   # shuffle reading
+                                   life_movable=np.zeros((N, C)), movable_years=np.zeros(C))
         if self.odd_on:
             self.odd_now = np.zeros((N, Q), bool); self.odd_y = np.zeros((N, Q), np.int64)
             self.odd_stage = np.full((N, Q), -1, np.int64); self.odd_blend = np.zeros((N, Q), bool)
             self.odd_held = np.zeros((N, Q), bool)
+            self.odd_mu = np.zeros((N, C)); self.odd_var = np.zeros((N, C))   # what they are used to (this frame's colours)
+            self.odd_n = np.zeros(N, np.int64)   # years of their own places in it
             self.eyes_dw = np.zeros((N, C))  # blending in: the colours' step for the engine to apply (pie units, then cleared)
 
     def _eyes_places(self):
@@ -3902,12 +3912,25 @@ class People:
                 self._eyes_queue_caught(int(idx[e_]), hi_, lo_, "act", t)
         return gaps
 
+    def _eyes_pair(self, n, qa, qb):
+        """S3: the enemy pair life n's places qa and qb split on, as indices of W U B R G (qa's colour first): of the five
+        enemy pairs, the one whose two colours the places hold most oppositely, each colour's gap read in its own scale
+        (the faces' difference over the root of their mean share, as a chi-square reads two mixes). Two places read an act
+        apart through their enemy colours (the reading's -.4; allies read alike), so that pair is what the life is caught
+        between. Not each place's leading face: the places share their town's lean (about half of them lead Green), so two
+        leading faces named that lean, not the pull (v22.4 fix round: the pairs with Green came three times as often as WB)."""
+        fa, fb = self._eyes_fc[n, qa][self._eyes_inv], self._eyes_fc[n, qb][self._eyes_inv]
+        d_ = (fa - fb) / np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9))
+        i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
+        return (i_, j_) if d_[i_] >= d_[j_] else (j_, i_)
+
     def _eyes_queue_caught(self, n, qa, qb, why, t):
-        """S3: a caught-between moment waits for life n (one at a time, cool weeks after the last met): place a is the one
-        led by the first colour of the pair in W U B R G order (WB, WR, UR, UG, BG for the enemy pairs)."""
+        """S3: a caught-between moment waits for life n (one at a time, cool weeks after the last met): its pair is the enemy
+        pair the two places split on (_eyes_pair); place a is the one holding more of the pair's first colour in W U B R G
+        order (WB, WR, UR, UG, BG)."""
         if n in self.eyes_q or t - self.eyes_last[n] < self.eyes_par["cool"] or qa == qb:
             return
-        la, lb = self._eyes_lead(n, qa), self._eyes_lead(n, qb)
+        la, lb = self._eyes_pair(n, qa, qb)
         if lb < la:
             qa, qb, la, lb = qb, qa, lb, la
         self.eyes_q[n] = dict(key="caught", slots=[int(qa), int(qb)], keys=[int(self.eyes_key[n, qa]), int(self.eyes_key[n, qb])],
@@ -4154,18 +4177,39 @@ class People:
                     break
 
     def _odd_year(self, t):
-        """Yearly (S4, sph_odd): the odd one out at a place, a year or more there with their lead colour under odd_share of
-        its faces; its moment waits once a life stage per place (never after blending in there). Held odd_hold years in a
-        row (odd, not blended), the place leans toward their colour by their rung there a year (odd_lean: a haunt's faces,
-        through World's place setter; a setting's ways), and its regulars' colours odd_regular a year toward theirs."""
+        """Yearly (S4, sph_odd): the odd one out at a place, a year or more there, with two or more such places: their lead
+        colour's share of its faces sits more than odd_z spreads under what they are used to (each colour's mean share at
+        their places, and its spread among them, a running mean over their years, odd_mem a year; first read after a year
+        of it). Not under a fixed share of every place's faces: the places share their town's lean (most lean Green, work
+        places and congregations are near-even mixes leaning White and Green), so a fixed share made Red-led lives the odd
+        one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
+        a batch as alone in the game. Its moment waits once a life stage per place (never after blending in there). Held
+        odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
+        (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
+        odd_regular a year toward theirs."""
         P_ = self.eyes_par; W = self.W; live = ~self.dead; N = self.N
         lead = np.argmax(self.w, 1)
         share = np.take_along_axis(self._eyes_fc, lead[:, None, None], 2)[..., 0]
-        odd = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52) & (share < P_["odd_share"])
+        el = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52)   # their places, a year or more theirs
+        ne = el.sum(1); ar = np.arange(N)
+        used = self.odd_mu[ar, lead] - P_["odd_z"] * np.sqrt(self.odd_var[ar, lead])
+        odd = el & ((ne >= 2) & (self.odd_n > 0))[:, None] & (share < used[:, None])
+        fc_ = np.where(el[..., None], self._eyes_fc, 0.0)
+        mu = fc_.sum(1) / np.maximum(ne, 1)[:, None]
+        var = (np.where(el[..., None], self._eyes_fc - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
+        hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
+        self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
+        self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
+        self.odd_n += ne > 0
         self.odd_now = odd
         self.odd_y = np.where(odd & ~self.odd_blend, self.odd_y + 1, 0)
         st = self.eyes_stats; lc = self.perm[lead]
-        np.add.at(st["life_years"], lc[live], 1); np.add.at(st["odd_years"], lc[live & odd.any(1)], 1)
+        pl, oo = el.any(1), live & odd.any(1)
+        np.add.at(st["life_years"], lc[live], 1); np.add.at(st["place_years"], lc[pl], 1); np.add.at(st["odd_years"], lc[oo], 1)
+        st["life_place"][ar[pl], lc[pl]] += 1; st["life_odd"][ar[oo], lc[oo]] += 1
+        rg = self._eyes_rungs()   # years at a place they could move: held odd_hold years past the first, a regular or more
+        mv = (el & ((t - self.eyes_t0) >= 52 * (1 + P_["odd_hold"])) & (np.asarray(P_["odd_lean"])[rg] > 0)).any(1)
+        np.add.at(st["movable_years"], lc[mv], 1); st["life_movable"][ar[mv], lc[mv]] += 1
         sg = self._eyes_stages.index(self._tstage(self._age(t))) if self._tstage(self._age(t)) in self._eyes_stages else -2
         cand = odd & ~self.odd_blend & (self.odd_stage != sg)
         for n in np.nonzero(cand.any(1))[0]:
@@ -4178,9 +4222,10 @@ class People:
         self.odd_held = held
         if not held.any():
             return
-        rg = self._eyes_rungs()
         for n, q_ in zip(*np.nonzero(held)):
-            k_ = float(P_["odd_lean"][rg[n, q_]]); e_ = np.eye(C)[lead[n]]; st["held"][lc[n]] += 1
+            k_ = float(P_["odd_lean"][rg[n, q_]]); e_ = np.eye(C)[lead[n]]
+            if k_ > 0:   # a conversion is a place that moves: a newcomer (odd_lean 0) holding out moves nothing
+                st["held"][lc[n]] += 1; st["life_held"][n, lc[n]] += 1
             if q_ < 3:
                 p_ = int(self.eyes_key[n, q_])
                 if k_ > 0 and getattr(W, "hp_s", None) is not None:
@@ -5611,7 +5656,9 @@ class People:
             if self.odd_on:
                 ev_.update(odd_now=[bool(x_) for x_ in self.odd_now[n]], odd_y=[int(x_) for x_ in self.odd_y[n]],
                            odd_stage=[int(x_) for x_ in self.odd_stage[n]], odd_blend=[bool(x_) for x_ in self.odd_blend[n]],
-                           odd_held=[bool(x_) for x_ in self.odd_held[n]], dw=[float(x_) for x_ in self.eyes_dw[n]])
+                           odd_held=[bool(x_) for x_ in self.odd_held[n]], dw=[float(x_) for x_ in self.eyes_dw[n]],
+                           odd_mu=[float(x_) for x_ in self.odd_mu[n]], odd_var=[float(x_) for x_ in self.odd_var[n]],
+                           odd_n=int(self.odd_n[n]))
             out["eyes"] = ev_
         if getattr(self, "lw", False):   # S7 lead_ways (only when on): the life's posts, held and ended, and their moments
             out["lead"] = dict(posts=[dict(p_) for p_ in self.lw_posts if p_["n"] == n],   # (plain numbers already)
@@ -5744,6 +5791,8 @@ class People:
                 if pp.odd_on and "odd_now" in e_:
                     pp.odd_now[n] = e_["odd_now"]; pp.odd_y[n] = e_["odd_y"]; pp.odd_stage[n] = e_["odd_stage"]
                     pp.odd_blend[n] = e_["odd_blend"]; pp.odd_held[n] = e_["odd_held"]; pp.eyes_dw[n] = e_["dw"]
+                    if "odd_mu" in e_:   # what they are used to (older saves: read afresh from their next year at places)
+                        pp.odd_mu[n] = e_["odd_mu"]; pp.odd_var[n] = e_["odd_var"]; pp.odd_n[n] = int(e_["odd_n"])
         if getattr(pp, "lw", False):
             for n, d in enumerate(saved):
                 l_ = d.get("lead")
