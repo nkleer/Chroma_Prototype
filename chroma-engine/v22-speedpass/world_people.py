@@ -337,7 +337,8 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
 # office where there are no elections (held at the ruler's pleasure)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
-                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, reprieve=52)
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, reprieve=52,
+                    honeymoon=52)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4853,6 +4854,8 @@ class People:
         """A fall's step in legitimacy (lead_par step, the same for every way); the crisis of the way waits to come
         (lead_crisis), or the turn to routine for a fading inspiring leader; under the fall line, the fall."""
         if p not in self.lw_posts:
+            return
+        if t - p["t0"] < self.lw_par["honeymoon"]:   # a new leader's first year: the led give them time (no step)
             return
         size = self.lw_par["step"]
         p["dent"] -= size; p["falls"].append([int(t), int(p["way"]), key])
