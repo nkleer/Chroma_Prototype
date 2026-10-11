@@ -37,6 +37,10 @@ try:
 except ImportError:
     RT = None
 try:
+    import worlds as WDS        # v22.5, F12: the Library's words and own ways of the tribal and magic worlds (chroma-library)
+except ImportError:
+    WDS = None
+try:
     import earth_story as ES    # the Library's words for the end of a life: the song, the marks, the last conversation
 except Exception:
     ES = None
@@ -187,6 +191,13 @@ GAME = dict(
     # time won or lost) weighs fork_k more for the player; with fork_told an everyday moment whose options all end alike is
     # told, not asked. rung_ask: a moment that offers a pack career's rung or a summit is always put to the player
     fork_k=0.0, fork_told=False, rung_ask=False,
+    # v22.5, F12 "The world and the start hold" (chroma-ideas/realism/v22.5-realism-list.md; off until v22.5's refit, with
+    # the engine's own_open and start_hold): the tribal and magic worlds speak their own words (the Library's worlds.py:
+    # option labels, moment titles, the means, a lost place in the work, a backfire; no money, sirens, profits or votes
+    # in the story's own lines there); an option closed by a means it is short of says so, never "not on offer"; the
+    # story's place follows the world's (a village start in a village, a move to a city a city); each start draws its own
+    # world and story names (with the same seed, the four modern starts are four lives, not one in four coats)
+    world_hold=False,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
@@ -194,7 +205,8 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
-                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False)
+                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
+                world_hold=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -224,6 +236,41 @@ _LIBS = {}
 # content packs on top of the Earth batch (Emren's point 8): None loads the engine's approved list (batch.PACKS); a pack's
 # moments are earth_<pack>.py next to earth.py, its catalogue, rules and helps in engine_pin/packs/<pack>/
 PACKS = None
+
+
+def start_offset(setting, place, society, wealth, faith, upbringing):
+    """v22.5, F12 (world_hold): a start's own offset to the seed, the same for the same start (its settings, not its title)."""
+    import zlib
+    return 1 + zlib.crc32(f"{setting}|{place}|{society}|{float(wealth):.3f}|{faith}|{upbringing}".encode()) % 999983
+
+
+def place_word(kind):
+    """v22.5, F12 (world_hold): the story's word for a world locality's kind (its {place}: the village, the city, the
+    town, the countryside)."""
+    k = str(kind)
+    for w_, keys in (("village", ("village", "hamlet")), ("city", ("city", "capital")), ("countryside", ("remote",))):
+        if any(x in k for x in keys):
+            return w_
+    return "town"
+
+
+def world_says(setting, part, key, default=None):
+    """v22.5, F12 (GAME world_hold): the Library's word for key in a tribal or magic world (worlds.py WORDS, TITLES or
+    LABELS: part), else default (Earth, an unlisted key, or the switch off)."""
+    if not GAME["world_hold"] or WDS is None:
+        return default
+    return getattr(WDS, part, {}).get(setting, {}).get(key, default)
+
+
+def world_table(setting, part):
+    """v22.5, F12 (GAME world_hold): a whole table of the Library's worlds.py for this world ({} for Earth or off)."""
+    return dict(getattr(WDS, part, {}).get(setting, {})) if GAME["world_hold"] and WDS is not None else {}
+
+
+def res_names(setting):
+    """The five means as this world names them (money: goods in the clan, coin in the towers, with world_hold)."""
+    r = world_says(setting, "WORDS", "res")
+    return [r.get(x, x) for x in RNAMES] if r else RNAMES
 
 
 def batch_mod():
@@ -259,6 +306,11 @@ def with_dreams(L, setting):
     if setting in D_.DREAM_TRIGGERS:
         L["DREAM_TRIGGERS"] = list(D_.DREAM_TRIGGERS[setting])
         L["DREAMS"] = [d_ for d_ in D_.DREAMS if setting in d_["worlds"].split()]
+    import batch                                    # v22.5 (F6, F12): what the engine's dream_grow and own_open read, attached
+    if hasattr(batch, "dream_grow_data") and setting in D_.DREAM_TRIGGERS:   # as the Earth batch attaches it; read only
+        batch.dream_grow_data(L, D_, setting)                               # with those switches on
+    if hasattr(batch, "own_ways") and WDS is not None and setting in getattr(WDS, "OWN", {}):
+        batch.own_ways(L, WDS.OWN[setting])
     return L
 CTX_WORDS = dict(family="own household", ties="ties", money="money", health="health", era="era", harsh="harsh world",
                  unrest="unrest", prosper="prosperity", community="community", stress="stress",
@@ -529,8 +581,13 @@ class Game:
                  pace=1.0, tech="modern", climate="middle", earlier=None, earlier_data=None, **_):
         self.name = name
         self.setting = setting if setting in SETTINGS else "earth"
-        self.story = Story(name, seed, place, self.setting)   # the built-in narration (story.py)
-        self.wv = WorldView(int(seed), self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
+        # v22.5, F12 (world_hold): each start draws its own world and story names (the same seed, another start: another life)
+        self._start_off = start_offset(self.setting, place, society, wealth, faith, upbringing) if GAME["world_hold"] else 0
+        self.story = Story(name, int(seed) + self._start_off, place, self.setting)   # the built-in narration (story.py)
+        self.story.hold = GAME["world_hold"]
+        import story as ST_                             # F12: every told act of the clan or the towers in its own words
+        ST_.ACT_WORLD.clear(); ST_.ACT_WORLD.update(world_table(self.setting, "LABELS"))
+        self.wv = WorldView(int(seed) + self._start_off, self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
         self.story.seen_as = lambda: self.gender_view()["seen_word"][2:] if self.loc is not None else "child"   # {seen_as} (N1d §3)
         self._epithet = ""
         self.ledger = False             # also show the numbers under the story (key l)
@@ -576,6 +633,13 @@ class Game:
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
                                   tech_level=tech if tech in ("behind", "modern", "ahead") else "modern",
                                   climate=climate if climate in ("low", "middle", "high") else "middle")
+            if self._start_off:
+                P["world_seed"] = int(seed) + self._start_off
+            import world_link as WLM_
+            if hasattr(WLM_, "start_fits"):             # v22.5, F12: what the start promises, read by the engine's start_hold
+                P["world_cfg"]["start"] = dict(place=place, wealth=float(wealth), hard=place == "neighbourhood",
+                                               faith="none" if faith == "none" else ("held" if faith else None),
+                                               society=mix(society).tolist() if society else None)
             if earlier and earlier_data and earlier_data.get("key") == earlier.get("key"):
                 import world as WM
                 P["world_obj"] = WM.World.load(earlier_data["world"])
@@ -1036,9 +1100,12 @@ class Game:
                 status = "out of reach"
             why = ""
             if status == "out of reach":
-                req = L["REQ"][s, k]; res = loc["res"][0]
-                lack = [RNAMES[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
+                req = L["REQ"][s, k]; res = loc["res"][0]; rn_ = res_names(self.setting)
+                lack = [rn_[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
                 why = "lacks " + ", ".join(lack) if (lack and not open_r[k]) else "not on offer around them"
+                if GAME["world_hold"] and not open_r[k] and not lack:   # F12: the means gate closed it, with each need met
+                    j_ = min((j for j in range(len(req)) if req[j] > 0), key=lambda j: res[j] - req[j], default=None)
+                    why = f"stretched for {rn_[j_]}" if j_ is not None else why
             clash = [] if dn[k] else clash_with(self._colors(loc, k), self._prev_label)
             rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash)) * self._own_k(loc, k)
             pt = self._true_odds(loc, k); pt0 = pt
@@ -1046,7 +1113,8 @@ class Game:
                 lg = np.log(pt / (1 - pt)) - GAME["effort"] * rel - (GAME["out_of_reach"] if status == "out of reach" else 0)
                 pt = float(1 / (1 + np.exp(-lg)))
             ph = float(p_hat[k])
-            label = labels[k].replace("{title}", getattr(self.story, "title_now", None) or "their role")
+            label = world_says(self.setting, "LABELS", labels[k], labels[k])   # F12: in the clan's or the towers' words
+            label = label.replace("{title}", getattr(self.story, "title_now", None) or "their role")
             if recon:
                 kk = int(loc["rk"][0]); label = re.sub(r"\bit\b", f"the {KNAMES[kk]}", label, count=1)
             commit = int(L["COMMIT"][s, k])
@@ -1057,7 +1125,9 @@ class Game:
                              acc="their own pick" if k == own else accept_word(rel), trust=self._trust_on(loc, k),
                              commit=KNAMES[commit] if commit >= 0 and not loc["held"][0, commit] else None,
                              follows=self._follows(loc, s, k, ph, commit, recon)))
-        title = L["names"][s]
+            if opts[-1]["commit"] == "career" and world_says(self.setting, "WORDS", "career"):   # F12: a life's work, a post
+                opts[-1]["commit_say"] = world_says(self.setting, "WORDS", "career")
+        title = world_says(self.setting, "TITLES", L["names"][s], L["names"][s])   # F12: the moment as that world calls it
         extra = ""
         kind = None
         if recon:
@@ -3135,7 +3205,8 @@ class Game:
             elif acc == "okay with it":
                 line += " It wasn't their choice, but they were okay with it."
             if self._force["closed"] and not ev["success"]:
-                line += " Forcing what was out of reach backfired: more stress, some money lost."
+                line += " " + world_says(self.setting, "WORDS", "backfire",
+                                         "Forcing what was out of reach backfired: more stress, some money lost.")
         return line
 
     def _event_line(self, ev):
@@ -3670,6 +3741,8 @@ class Game:
         name = place_name(self.wv.seed, l, self.setting)
         kind = str(pv.get("kind", "")).replace("_", " ")
         a_kind = an(kind) if kind else ""
+        if GAME["world_hold"] and kind:                 # v22.5, F12: the story's place is where the world has them
+            self.story.place = place_word(kind)
         if birth:
             self._wloc = l
             self.story.birth_place = mk("O", "place|ci-cottage|1", name + (f", {a_kind}" if a_kind else ""))
@@ -3863,6 +3936,8 @@ class Game:
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
             if o.get("seen"):                           # S6, only while seen_done is on
                 opts[-1]["seen"] = o["seen"]
+            if o.get("commit_say"):                     # v22.5, F12 (world_hold): the world's word for a career
+                opts[-1]["commit_say"] = o["commit_say"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
