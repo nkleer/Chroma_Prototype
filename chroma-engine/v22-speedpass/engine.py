@@ -1006,7 +1006,64 @@ DEFAULT = dict(
     # complications), the cause is what they had, and a death that is not sudden comes after a last decline the story
     # can tell (events: decline). Off: the life table x health, as before
     death_life=False, death_par=None,   # death_par: values laid over DEATH_PAR
+    # v22.5, the many-lives fixes (chroma-ideas/realism/many-lives.md F14 to F19, Emren's cards 10-11 17:31 to 17:42 UTC), each
+    # off here and in UPD_OFF until the v22.5 refit. Emren's rule (17:35 UTC): colour effects are mid-tendencies, never solid
+    # limits; diverse pathways stay possible as rare options. The values beside each are the guesses the refit starts from
+    # F14 colours settle with age: plasticity (and the want's pace) x a factor read off these (age, factor) points; real
+    # personality changes most in youth and early adulthood and little from about 50 (rank-order stability plateaus in
+    # midlife: Roberts & DelVecchio 2000). The factor also slows the outside world's steps (the current, blending in, the
+    # mark of the work) and the deep core's slow walk. On: ((30, 1.0), (50, 0.3), (70, 0.1)), so the pie moves half as much
+    # in a decade by 50 as at 30 and about a third after 70 (Emren's card: a quarter; breakthroughs and conversions carry
+    # the rest, as a life's own turning points). None: as before
+    set_age=None,
+    set_big=1.0,         # a big event (a death, a conversion, prison, a breakdown, a rite) lifts openness (B, crisis units)
+                         # above the person's usual; that lift lifts the factor back toward 1 by lift / set_big, so a big
+                         # event can still turn a life at any age while the everyday ups and downs do not
+    set_usual=5.0,       # years the person's usual openness averages over
+    # F15 the start leaves a lean: the start's colours (up_mix, the game's upbringing) leave a lean of up_l0 of the way
+    # from even toward them, full to up_from, then fading by half every up_half years (half by 35). What they want and who
+    # they are are pulled toward the start only while their own lean is below that, by the shortfall, so a life can go
+    # past it or overcome it (a lean, not a lock); and what those pulls added fades at the same pace from up_from, while
+    # what the life made of it on its own stays. Children of a family keep a lasting lean toward its values that weakens
+    # in adulthood (Bengtson 2013; Min, Silverstein & Lendon 2012)
+    up_mix=None,         # the start's colours (a 5-vector); None: no start, no lean
+    up_l0=0.3,           # the lean at its fullest: this share of the way from even (0.2 each) to the start's colours
+    up_lean=0.0,         # weekly pull on the want at a full shortfall, as the game's own upbringing until 15 (.006); with it
+                         # on, the game's stands down
+    up_self=0.0,         # weekly pull on who they are at a full shortfall, x plasticity (on: .05, about the current's push)
+    up_from=15.0, up_half=20.0,
+    up_ease=0.0,         # the setup's own society (world_profile, f_world: the clan's, the towers') pulls at 1 - up_ease of
+                         # its strength (on: .8), so the start's world is a lean too and other colours can lead some lives
+                         # (the clan's White and Green come mostly from its seed library's options, which this leaves)
+    # F16 colours shape the life course: each life's own lean toward partnering, children and a faith (drawn once, its own
+    # random stream) and its colours tilt the life events, acts and titles that would start one (falling in love, a baby
+    # on the way, a faith joined); a rate x exp(course_mu + own lean + tilt . (5 w - 1)), never 0, so no path closes. A
+    # faith a family raises a child in is the start's (faith_inherit), not leaned
+    course=False,
+    course_mu=(-1.2, -0.3, -3.5),   # partner, children, faith: log of the middle life's rate. Real rates: 85 to 90% ever
+                         # partnered, 80 to 85% parents; faith by world and start. Measured (72 Earth lives, world off and
+                         # on, faith_inherit .6, mu children -0.6): partnered 88%, parents 71 to 73%, a faith 77 to 79%
+    course_sd=1.5,       # spread of each life's own lean (log units)
+    course_tilt=((0.15, -0.15, -0.1, 0.05, 0.15),   # partner: W U B R G, log rate per unit of a colour's lead (5 w - 1)
+                 (0.15, -0.2, -0.15, 0.0, 0.2),     # children
+                 (0.3, -0.25, -0.25, 0.0, 0.2)),    # faith
+    # F17 deeds by canon: an option that leaves a deed (a mark) leans by the colours canon gives it (log odds per unit
+    # of a colour's lead, DEED_CANON); off-canon leans (White breaking the law, Blue the most drugs, Green refusing people
+    # in need) become soft tendencies the other way. 0: as before; on: 1.0
+    deed_canon=0.0,
+    deed_rare=0.0,       # rare deeds (DEED_RARE: an enemy, a hidden wrong, defying an authority) leave their mark on this
+                         # share x stakes of the acts (on: .15), so a life holds a few, not fifty: most such acts pass
+    # F19 a mind that matches life: children carry less stress than adults (the week's additions x the factor read off
+    # these (age, factor) points; on: ((10, 0.5), (18, 1.0))), and contentment dips in midlife and rises after 60 (logit
+    # points on satisfaction; on: ((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6)); Blanchflower 2021). None: as before
+    mind_kid=None,
+    mind_u=None,
 )
+# F17: the canon lean of each deed (W U B R G, log odds per unit of a colour's lead); deeds not named keep the Library's
+DEED_CANON = {"broke the law": (-0.6, 0.0, 0.4, 0.4, -0.2), "used drugs": (-0.4, -0.4, 0.3, 0.5, 0.0),
+              "refused someone in need": (-0.4, 0.0, 0.6, 0.0, -0.6), "broke your word": (-0.6, 0.0, 0.4, 0.3, -0.3),
+              "took a wild risk": (-0.3, -0.2, 0.0, 0.6, -0.2)}
+DEED_RARE = ("made an enemy", "hid a wrong", "defied an authority")
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
 EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an illness", "an unexpected windfall or loss of money",
@@ -1185,6 +1242,9 @@ UPD_OFF = dict(dis_match=False,
                move_near=False, season_excl=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
+               # v22.5, the many-lives fixes (F14 to F17, F19)
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, deed_canon=0.0, deed_rare=0.0,
+               mind_kid=None, mind_u=None,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1981,6 +2041,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return
         if P["title_ages"] and not (GR["ages"][i, 0] <= t / 52 <= GR["ages"][i, 1]):   # never outside the catalogue's ages
             return                                           # (C-X4: Emren's sanity check; the act still works)
+        if CRS_ON and i < NT_ and TK_[i] < NK and CRS_J[TK_[i]] >= 0 and not held[n, TK_[i]]:
+            j_ = CRS_J[TK_[i]]                               # F16: a title that would start a partnership, children or a faith
+            if crs_rng.random() >= np.exp(CRS_MU[j_] + crs_own[n, j_] + (5 * w[n] - 1) @ CRS_T[j_]):   # leans as the acts do
+                return
         if i < NT_ and REF_[i] >= 0 and not (REFM_[i] & r_has[n, :NT_]).any():
             f_pend.append((n, i, how, mix, t))               # a facet only on top of the title it refines: it waits a little
             return
@@ -2971,6 +3035,50 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if n_ in events:
                 events[n_].append(dict(decline=dict(age=round(t / 52, 2), cause=why_, weeks=int(dl_at[n_] - t))))
 
+    # v22.5, the many-lives fixes (each off unless its switch is set; none draws from the run's own random stream)
+    SET_ON = P["set_age"] is not None                     # F14: colours settle with age
+    settle_f = np.ones(N)                                 # this week's factor on plasticity (the game's V2 can read it)
+    if SET_ON:
+        SET_A, SET_F = np.asarray(P["set_age"], float).T
+        set_bu = np.zeros(N)                              # the person's usual openness
+    UPM_ = None if P["up_mix"] is None else np.asarray(P["up_mix"], float) / np.sum(P["up_mix"])   # F15: the start's lean
+    UPL_ON = UPM_ is not None and bool(P["up_lean"] or P["up_self"] or P["up_ease"])
+    if UPL_ON:
+        UPD_ = UPM_ - 0.2; UPN_ = max(float(UPD_ @ UPD_), 1e-9)
+        up_oy = np.zeros((N, C)); up_oz = np.zeros((N, C))   # what the start's pulls have added to the want and to who they are
+        UP_DEC = 1 - 0.5 ** (1 / (52 * P["up_half"]))         # which fades by half every up_half years from up_from
+        def up_short(v):
+            """F15: how far a pie (N x C) falls short of the lean the start still leaves, 0 to 1 of the full lean."""
+            return _uclip((P["up_l0"] * upf_ - (v - 0.2) @ UPD_ / UPN_) / P["up_l0"], 0, 1)
+    CRS_ON = bool(P["course"])                            # F16: the life course leans
+    if CRS_ON:
+        CRS_KS = np.array([PAR, KID, FAI]); CRS_MU = np.asarray(P["course_mu"], float)
+        CRS_T = np.asarray(P["course_tilt"], float)
+        crs_rng = np.random.default_rng([int(seed), 1605])
+        crs_own = crs_rng.normal(0.0, P["course_sd"], (N, 3))   # each life's own lean
+        # the life events that start one (falling in love, a baby on the way): most of their options start that kind
+        sh_ = np.stack([((L["COMMIT"] == k_) & L["MASK"]).sum(1) for k_ in CRS_KS], 1) / np.maximum(L["MASK"].sum(1), 1)[:, None]
+        ev_ok_ = (L["PERY"].sum(1) > 0)[:, None] & (sh_ >= 0.4)
+        CRS_EV = np.where(ev_ok_.any(1), ev_ok_.argmax(1), -1)   # which of the three each situation starts (-1: none)
+        CRS_J = np.full(NK, -1); CRS_J[CRS_KS] = np.arange(3)
+        def course_q():
+            """F16: each life's rate multiplier for starting a partnership, a child, a faith (N x 3)."""
+            return np.exp(CRS_MU[None] + crs_own + (5 * w - 1) @ CRS_T.T)
+    DC_ON = bool(P["deed_canon"])                         # F17: deeds by canon
+    if DC_ON:
+        DC_M = np.zeros((len(L["MARKS"]), C))
+        for nm_, v_ in DEED_CANON.items():
+            if nm_ in L["MARKS"]:
+                DC_M[L["MARKS"].index(nm_)] = v_
+        DC_L = np.where((L["MARK"] >= 0)[..., None], DC_M[np.maximum(L["MARK"], 0)], 0.0)   # S x K x C: each option's lean
+    DR_ON = bool(P["deed_rare"])
+    if DR_ON:
+        DR_M = np.isin(np.arange(len(L["MARKS"])), [L["MARKS"].index(m_) for m_ in DEED_RARE if m_ in L["MARKS"]])
+        dr_rng = np.random.default_rng([int(seed), 1705])
+    if P["mind_kid"] is not None:                         # F19
+        MK_A, MK_F = np.asarray(P["mind_kid"], float).T
+    if P["mind_u"] is not None:
+        MU_A, MU_F = np.asarray(P["mind_u"], float).T
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
@@ -3128,12 +3236,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             V_hist["n_perks"].append(r_has[:, NT_:].sum(1) if RON else np.zeros(N, int))
         if intervention is not None:
             y0_ = y.copy(); intervention(t, P, nic, y); asrc[:, 6] += y - y0_
+        if UPL_ON:   # F15: the start's lean, full to up_from, then fading by half every up_half years
+            upf_ = 1.0 if age < P["up_from"] else 0.5 ** ((age - P["up_from"]) / P["up_half"])
+            upe_ = 1 - P["up_ease"]                       # how much of the setup's own society pulls
+            if P["up_lean"]:
+                a_ = softmax(y)
+                dy_ = (P["up_lean"] * up_short(a_))[:, None] * centre(5 * (UPM_[None] - a_))
+                if age >= P["up_from"]:
+                    dy_ = dy_ - UP_DEC * up_oy
+                up_oy += dy_
+                y = y + dy_; asrc[:, 1] += dy_
         if pausing:
             _ = yield Pause("week", t, locals(), None)
             if WFX_ON:
                 wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]
         f_w = P["world_pos_k"] * (np.asarray(WL.W.Pos, float) - 0.2) if WON else P["f_world"]   # what the order rewards
+        if UPL_ON and P["up_ease"]:   # F15: the setup's society is a lean too (world_profile toward even)
+            WP_ = 0.2 + upe_ * (np.asarray(P["world_profile"], float) - 0.2)
+            if not WON:
+                f_w = upe_ * np.asarray(f_w, float)
         f_tot = f_w[None, :] + P["lam_local"] * (nic - 0.2) * (np.asarray(WL.PP.msg_w, float)[:, None] if WON else 1.0) \
             + P["era_world"] * e_i * (e_p - 0.2)   # msg_w: how strongly one's groups and people pull (1 typical, spec 3 §1.4)
         if age < 3:
@@ -3258,6 +3380,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
             if BAT:
                 ev_p = ev_p * cond_fac             # the engine's likelier / rarer reading of a life event (1 when it has none)
+            if CRS_ON:   # F16: the life events that start a partnership, a child, a faith come at each life's own lean
+                crq_ = course_q(); cev_ = CRS_EV >= 0                # (a child's at it whether or not they hold one)
+                cm_ = crq_[:, np.maximum(CRS_EV[cev_], 0)]
+                cm_ = np.where(held[:, CRS_KS[np.maximum(CRS_EV[cev_], 0)]] & (CRS_EV[cev_] != 1)[None], 1.0, cm_)
+                ev_p[:, cev_] *= cm_
             if BA_ON:   # late births: a life's own births by its age and sex
                 ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
                                                             fert(age, FERT_M) / BA_NM[None])
@@ -3294,6 +3421,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             frc_[n, si_] = True; fdd_[n, si_] = True
                         dfr_.append((int(n), r_, si_))
                 frc_ &= avail; fdd_ &= avail
+                if CRS_ON and frc_[:, cev_].any():   # F16: a match or a birth the world brings, at the same lean (as a chance)
+                    frc_[:, cev_] &= crs_rng.random(frc_[:, cev_].shape) < cm_
             if FARS_ON_:
                 ev_p[:, FARS_] = 0.0
             if EYEW_ON_:
@@ -3671,6 +3800,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
                           * _uclip(1 + P["peace_ctrl"] * (peace - 0.55), 0.5, 1.3))     # a calm mind steers better
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
+        if DC_ON:   # F17: an option that leaves a deed leans by that deed's canon colours (log odds x the choice's tau)
+            U = U + P["deed_canon"] * np.einsum("nkc,nc->nk", DC_L[s], 5 * w - 1) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = pr0 = softmax(np.where(seen, U / tau[:, None], -np.inf))
@@ -3787,6 +3918,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             cp_ = np.where(BIRTH_O[s, a], cp_ * np.where(female, fert(age, FERT_F), fert(age, FERT_M)), cp_)
         if BAT:   # a batch life event that starts a commitment is the match itself (falling in love, a child is born)
             cp_ = np.where((L["TIER"][s] == 1) & ((ck == CAR) | (ck == PAR) | (ck == KID) | (ck == COM)), 1.0, cp_)
+        if CRS_ON:   # F16: any other act that would start one (a faith joined, a partner met in an everyday week) leans too
+            cj_ = np.select([ck == PAR, ck == KID, ck == FAI], [0, 1, 2], -1)
+            gate_ = (cj_ >= 0) & (CRS_EV[s] < 0)
+            if gate_.any():
+                cp_ = np.where(gate_, cp_ * np.minimum(1.0, course_q()[ar, np.maximum(cj_, 0)]), cp_)
         fi = np.nonzero((ck >= 0) & succ & ~idle & ~recon & (rng.random(N) < cp_))[0]
         fk = ck[fi]; new = ~held[fi, fk]
         if BAT:   # R15: a later child born (or taken in) while there are children already is one more living child
@@ -4219,6 +4355,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 end([n], [kk], "widowed" if KILLS[s[n]] == ROLES.index("partner") else "lost job" if kk == CAR else "broke up", t)
             # marks: what the act leaves in the person's history (echoes read them years later)
             mk_ = L["MARK"][s, a]; hm_ = np.nonzero((mk_ >= 0) & ~idle & live_)[0]
+            if DR_ON and len(hm_):   # F17: most acts of a rare deed pass; a share by their stakes leaves the mark
+                rr_ = DR_M[mk_[hm_]]
+                if rr_.any():
+                    kp_ = dr_rng.random(len(hm_)) < np.minimum(1.0, P["deed_rare"] * stakes[hm_])
+                    hm_ = hm_[~rr_ | kp_]
             if len(hm_):
                 jj_ = mk_[hm_]; first_ = mark_n[hm_, jj_] == 0
                 mark_first[hm_[first_], jj_[first_]] = t
@@ -4731,7 +4872,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                   + P["sat_mood"] * mood - P["sat_gap"] * (gap_c - P["sat_gap_ref"])
                                   + TON * P["sat_base"] * (base_mood - P["base_ref"])      # a person's own usual mood
                                   - P["regret_k"] * regret                                  # v7: lost dreams that still fit
-                                  - (P["sat_hope"] * hzf * unmet if P["sat_hope"] else 0.0))))
+                                  - (P["sat_hope"] * hzf * unmet if P["sat_hope"] else 0.0)
+                                  + (float(np.interp(age, MU_A, MU_F)) if P["mind_u"] is not None else 0.0))))   # F19: the midlife dip, the later rise
         content += (c_now - content) / P["meta_weeks"]            # felt over the last months, not this week
         lvl += (f_need - lvl) / P["adapt_weeks"]                  # hedonic adaptation, incomplete by design
         # pent-up demand (discontent): wanting that is blocked (closed, unnoticed, out-pulled) or fails, while the
@@ -5033,6 +5175,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         settle = np.log1p(M / P["M0"]) if P["settle_log"] else M / P["M0"]   # experience settles a person, with diminishing effect
         s_eff = P["steady_cap"] * np.tanh(steady / P["steady_cap"])          # steadiness slows change, up to a ceiling
         plast = base / (1 + settle) * (1 + B) / (1 + TON * P["steady_k"] * s_eff)   # a steady person changes more slowly
+        if SET_ON:   # F14: colours settle with age; a big event (openness) still lets them move as a younger person's
+            sf_ = float(np.interp(age, SET_A, SET_F))
+            settle_f = sf_ + (1 - sf_) * _uclip((B - set_bu) / P["set_big"], 0, 1)
+            set_bu += (B - set_bu) / (52 * P["set_usual"])
+            plast = plast * settle_f
         F = np.stack([centre(dI), centre(dV), centre(dS), centre(dC), centre(dU)], 1)
         noise = centre(rng.normal(0, P["noise"], (N, C)))
         if P["drift_k"] != 1.0:   # played lives: the game weighs the random drift
@@ -5056,6 +5203,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             stepF = stepF * np.where(sea_tr, P["season_amp"], 1.0)[:, None, None]
         chan[:, :5] += stepF; chan[:, 6] += drift
         dz_ = stepF.sum(1)
+        if UPL_ON and P["up_self"]:   # F15: the start's lean on who they are (booked as social)
+            udz_ = (P["up_self"] * up_short(w) * plast)[:, None] * centre(5 * (UPM_[None] - w))
+            if age >= P["up_from"]:
+                udz_ = udz_ - UP_DEC * up_oz
+            up_oz += udz_
+            dz_ = dz_ + udz_; chan[:, 2] += udz_
         if DOM_ON:   # a share of what a moment in an area teaches stays in that area; offsets fade back toward the core
             srf_ = P["dom_share"] * dz_ * (inA_ & ~idle)[:, None]
             Dz[ar, np.maximum(area_, 0)] += srf_; dz_ = dz_ - srf_
@@ -5069,7 +5222,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
             else:   # no outer world: the niche stands for people and places (the circle's turnover is random)
                 cl_, st_ = nic, nic
-                wp_ = np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
+                wp_ = WP_ if UPL_ON and P["up_ease"] else np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
                 tm_ = np.broadcast_to(tm_ / tm_.sum(), (N, C))
             cm_ = P["cur_mix"]
             cur_ = (cm_[0] * cl_ + cm_[1] * st_ + cm_[2] * tm_) / sum(cm_)
@@ -5093,6 +5246,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             edw_ = WL.PP.eyes_dw
             if edw_.any():
                 edz_ = centre(5 * edw_); WL.PP.eyes_dw = np.zeros_like(edw_)
+                if SET_ON: edz_ = settle_f[:, None] * edz_   # F14
                 dz_ = dz_ + edz_; chan[:, 8] += edz_
         if MK_ON and t % 4 == 0:   # spheres phase 2: the mark of the work, a year's step once it is drawn (booked with the current)
             mdw_ = WL.PP.mark_dw
@@ -5100,6 +5254,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mdz_ = centre(5 * mdw_); WL.PP.mark_dw = np.zeros_like(mdw_)
                 if P["era_push_k"] != 1.0:   # played lives: weighed as the other outside pushes
                     mdz_ = P["era_push_k"] * mdz_
+                if SET_ON: mdz_ = settle_f[:, None] * mdz_   # F14
                 dz_ = dz_ + mdz_; chan[:, 8] += mdz_
             hu_ = WL.PP.mark_hurt & ~dead
             if hu_.any():   # a serious injury at work
@@ -5117,15 +5272,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if SEA_ON and sea_tr.any():   # and what the person became in it settles into the deep core
             k = k + (P["season_imprint"] * sea_tr)[:, None] * (z - k)
         if P["core_walk"]:   # v6: the deep core itself drifts a little, unnoticed, so people grow apart over decades (12-year
-            k += P["drift_k"] * P["core_walk"] * centre(rng.normal(0, 1, (N, C))) * (stage >= 2)[:, None]   # value stability ~.5: Leijen 2022)
+            cw_ = ((stage >= 2) * settle_f)[:, None] if SET_ON else (stage >= 2)[:, None]   # (F14: settling with age)
+            k += P["drift_k"] * P["core_walk"] * centre(rng.normal(0, 1, (N, C))) * cw_   # value stability ~.5: Leijen 2022)
         ystep = P["asp_rate"] * (SP_[stage] * (1 + B) / (1 + TON * P["steady_want"] * P["steady_k"] * s_eff))[:, None, None]
+        if SET_ON:   # F14: what they want settles with age as who they are does
+            ystep = ystep * settle_f[:, None, None]
         asrc[:, AS_WEEKLY] += ystep * (dAs - dAs.mean(-1, keepdims=True))
         y = centre(y + ystep[:, 0] * centre(dA))
         M += 0.1 * np.abs(delta) * stakes
         re_ = react_eff * (1 - P["hz_calm"] * np.minimum(fhz, 1)) if P["hz_calm"] else react_eff   # v7: calmer as time feels short
+        if P["mind_kid"] is not None:   # F19: a child carries less of what adds stress in a week than an adult
+            re_ = re_ * float(np.interp(age, MK_A, MK_F))
         stress = _uclip((stress0 + re_ * (stress - stress0)) * 0.93 + re_ * 0.08 * np.maximum(0, -fdelta), 0, 3)
         B *= decay_B; TWo *= decay_B
-        nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * (P["world_profile"] - nic) + P["era_niche"] * e_i * (e_p - nic)
+        nic += P["nu_niche"] * (np.where(idle[:, None], nic, ma) - nic) + 0.002 * ((WP_ if UPL_ON and P["up_ease"] else P["world_profile"]) - nic) + P["era_niche"] * e_i * (e_p - nic)
         if RP_ON and P["role_niche"]:   # role_practice: the people of one's commitments, in their ways
             rsum_ = rw_.sum(1, keepdims=True)
             nic += P["role_niche"] * P["nu_niche"] * rsum_ * (rw_ / np.maximum(rsum_, 1e-9) - nic)
@@ -5362,6 +5522,9 @@ STATE = (
     # anxiety, numbing; NEVER or past: none), a last decline's end and start weeks (NEVER: none) and cause, the long-term
     # conditions (weight, COND_KINDS index, -1 none) and a serious illness now (SER_KINDS index, -1 none), and the switches
     "body_v", "mind_v", "md_end", "dl_at", "dl_t0", "dl_cause", "bd_cw", "bd_ck", "bd_sk", "HM_ON", "DTH_ON",
+    # colours settle with age (v22.5, F14): this week's factor on plasticity, 1 with set_age off (the game's lean_self can
+    # follow it, so steering an older life is harder too)
+    "settle_f",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option

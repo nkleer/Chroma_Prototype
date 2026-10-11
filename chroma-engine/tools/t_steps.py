@@ -328,7 +328,15 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40),
        ("a body and a mind (body, mind)", dict(body=True, mind=True), {}, 30),
        ("death from the life (death_life; with the body, the mind and the character's own death)",
-        dict(death_life=True, body=True, mind=True, self_death=True), dict(body=True, mind=True, self_death=True), 70, 6)]
+        dict(death_life=True, body=True, mind=True, self_death=True), dict(body=True, mind=True, self_death=True), 70, 6),
+       # v22.5, the many-lives fixes (F14 to F17, F19), each at the value the refit starts from
+       ("colours settle with age (set_age, F14)", dict(set_age=((30, 1.0), (50, 0.3), (70, 0.1))), {}, 40),
+       ("the start leaves a lean (up_lean, up_self, up_ease, F15; a start of W.6 G.4)",
+        dict(up_mix=(0.6, 0.0, 0.0, 0.0, 0.4), up_lean=0.006, up_self=0.05, up_ease=0.8), {}, 30),
+       ("colours shape the life course (course, F16)", dict(course=True), {}, 40),
+       ("deeds by canon (deed_canon, deed_rare, F17)", dict(deed_canon=1.0, deed_rare=0.15), {}, 30),
+       ("a mind that matches life (mind_kid, mind_u, F19)",
+        dict(mind_kid=((10, 0.5), (18, 1.0)), mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6))), {}, 30)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):

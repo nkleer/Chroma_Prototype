@@ -549,6 +549,8 @@ class Game:
             P["f_world"] = 0.25 * (mix(society) - 0.2) * 5 / 4      # the society rewards these ways of acting
             P["world_profile"] = 0.6 * np.full(C, 0.2) + 0.4 * mix(society)
         r0 = list(E.DEFAULT["res0"]); r0[0] = float(wealth); P["res0"] = tuple(r0)
+        if self.up_mix is not None:
+            P["up_mix"] = self.up_mix                   # v22.5 F15: the engine's start lean reads it (up_lean, off until the refit)
         if faith == "none":
             P["faith_inherit"] = 0.0
         elif faith:
@@ -703,7 +705,7 @@ class Game:
         age = t / 52
         if t == 0 and self.up_mix is not None:
             nic[0] = 0.5 * nic[0] + 0.5 * self.up_mix                   # the family's surroundings
-        if self.up_mix is not None and age < 15:
+        if self.up_mix is not None and age < 15 and not P.get("up_lean"):   # (F15 on: the engine's start lean does it)
             y[0] += GAME["upbringing"] * E.centre(5 * (self.up_mix - E.softmax(y[0])))
         if age >= self.start_age:       # item 4: the player is here. The weeks without them weigh less; a pick week is whole
             P["own_k"] = P["drift_k"] = P["ev_push_k"] = GAME["quiet_k"]       # (decide sets them back to 1 for its week)
@@ -2522,12 +2524,13 @@ class Game:
             self._yearly(t, loc)
         if GAME["lean_self"] and self._leans and "z" in loc:   # v22.5 proposal: the way lived becomes who they are
             w_ = E.softmax(loc["z"][0])
+            ls_ = GAME["lean_self"] * (float(loc["settle_f"][0]) if "settle_f" in loc else 1.0)   # F14: less with age
             for T, st, t0 in self._leans:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
                 if f > 0:
-                    loc["z"][0] += GAME["lean_self"] * st * f * E.centre(5 * (T - w_))
+                    loc["z"][0] += ls_ * st * f * E.centre(5 * (T - w_))
             for T, st in (getattr(self, "_own_leans", None) or {}).values():   # S2: a way that is theirs keeps leaning both
-                loc["z"][0] += GAME["lean_self"] * st * E.centre(5 * (T - w_))
+                loc["z"][0] += ls_ * st * E.centre(5 * (T - w_))
         if self._seasons and "need" in loc:              # v22.5 proposal: an owned pick's season holds, fading
             for e_, st_, t0 in self._seasons:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
