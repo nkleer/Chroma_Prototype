@@ -40,7 +40,7 @@ def owner(rel):
         return path("packs_live", rel[len("packs/"):])
     if f == "earth_perks_titles.py":
         return os.path.join(CAT, f)
-    if f in ("dreams.py", "earth_voice.py"):
+    if f in ("dreams.py", "earth_voice.py", "worlds.py"):   # worlds.py: the clan's and the towers' words (v22.5, F12)
         return os.path.join(LB, f)
     if f.startswith("earth") and f != "earth_rules.py":   # the Library's batches and story files (earth.py, the packs'
         return os.path.join(ST, f)                          # earth_<pack>.py, earth_story.py, earth_play.py); earth_rules is the engine's
