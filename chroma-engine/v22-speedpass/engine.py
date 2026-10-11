@@ -420,7 +420,7 @@ DEFAULT = dict(
     ev_eta=0.15,        # how far an accepted message moves the want (per unit strength and exposure)
     ev_z=0.05,          # how far it moves motives directly (felt experience), scaled by plasticity
     acc0=0.15, acc_fit=0.45, acc_disc=1.5, acc_open=0.5, acc_conf=1.0, acc_hold=0.5,
-    cur_will=0.0,        # the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
+    cur_will=1.0,        # (1.0 from the v22.4 refit) the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
                          # above), the current pulls it down up to this share less (a tailwind stays). The times, the people and the places around a
                          # life do not follow its choices; with the world on they run toward White and Red, so lives that keep
                          # choosing Green or Blue were pulled out of them (G19w, 10-11: the current, own colour, ages 15-40,
