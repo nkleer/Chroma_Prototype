@@ -268,7 +268,7 @@ SAC_DEFAULT = dict(
     lines=2,           # at most two lines a life
     reach=0.25,        # the share of those in the event's town an offer fits (who:) and touches a line of that it reaches
                        # (an offer event comes about 1.7 times a town-year, so a line meets one every 10 to 20 years)
-    known=2,           # a line held this many times (an offer and its raised round) is known around them: no more offers
+    known=2,           # a line answered this many times (held or crossed) is known around them: no more offers
                        # come for it (v22.4 fix: offers follow the town's events, the who: they fit and how long the line
                        # lasts, so without it Black and Green lines met up to twice the offers of White and Blue ones)
     c3_reach=0.5,      # C3's institution events: the share of its staff it reaches (as the C hooks' moments, .3 to .7)
@@ -3116,7 +3116,9 @@ class People:
             return
         ns = ns[self._sac_fit(ns, o["who"], t)]
         tch = (self.sac_line[ns][:, :, None] == np.asarray(kinds)[None, None, :]).any(2)   # n x 2: the line is touched
-        tch &= self.sac_held[ns] < sp["known"]   # (a line known not to be for sale is not offered for)
+        tch &= (self.sac_held[ns] + self.sac_crossed[ns]) < sp["known"]   # (a line answered known times, held or
+        # crossed, is settled around them: no more offers come for it; v22.4 fix round: counting only holds kept offers
+        # coming to lines that were crossed, so lives that cross more (Black- and Red-led) held more offers and paid more)
         ns, tch = ns[tch.any(1)], tch[tch.any(1)]
         r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
         for n_, tc_ in zip(ns[r_], tch[r_]):
