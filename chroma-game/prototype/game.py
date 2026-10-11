@@ -2522,12 +2522,13 @@ class Game:
             self._yearly(t, loc)
         if GAME["lean_self"] and self._leans and "z" in loc:   # v22.5 proposal: the way lived becomes who they are
             w_ = E.softmax(loc["z"][0])
+            ls_ = GAME["lean_self"] * (float(loc["settle_f"][0]) if "settle_f" in loc else 1.0)   # F14: less with age
             for T, st, t0 in self._leans:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
                 if f > 0:
-                    loc["z"][0] += GAME["lean_self"] * st * f * E.centre(5 * (T - w_))
+                    loc["z"][0] += ls_ * st * f * E.centre(5 * (T - w_))
             for T, st in (getattr(self, "_own_leans", None) or {}).values():   # S2: a way that is theirs keeps leaning both
-                loc["z"][0] += GAME["lean_self"] * st * E.centre(5 * (T - w_))
+                loc["z"][0] += ls_ * st * E.centre(5 * (T - w_))
         if self._seasons and "need" in loc:              # v22.5 proposal: an owned pick's season holds, fading
             for e_, st_, t0 in self._seasons:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
