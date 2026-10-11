@@ -357,6 +357,10 @@
   #tip .lk-tiprar { margin-top: 6px; color: var(--gold, #d8b469); }
   #tip .lk-tiprar svg.i { width: 11px; height: 11px; vertical-align: -1px; }
 
+  /* a sacred line's story entry is tagged "line" (S5): keep the life river's .line strip style off it */
+  #feed .en.line { height: auto; margin-block: 0; border-radius: 0; overflow: visible; background: none; }
+  #feed .en.line::after { content: none; }
+
   /* Motion off: nothing moves, as with the system's reduced-motion setting (head.html) */
   html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; }
   html[data-motion="off"] .lk-lights { opacity: 1; }
