@@ -136,9 +136,10 @@ def letters_to_spec(txt):
 
 
 # saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3; version 4 from v22.4 (S1-S7);
-# version 5 from the v22.4 S4 fix (odd_lmu/odd_lvar save keys).
+# version 5 from the v22.4 S4 fix (odd_lmu/odd_lvar save keys); version 6 from the v22.4 refit (S1-S7, green jobs and the
+# art pack on, gap_move .3).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 5
+SAVE_VERSION = 6
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 class Console:
