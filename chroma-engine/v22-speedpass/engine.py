@@ -420,6 +420,11 @@ DEFAULT = dict(
     ev_eta=0.15,        # how far an accepted message moves the want (per unit strength and exposure)
     ev_z=0.05,          # how far it moves motives directly (felt experience), scaled by plasticity
     acc0=0.15, acc_fit=0.45, acc_disc=1.5, acc_open=0.5, acc_conf=1.0, acc_hold=0.5,
+    gap_move=0.0,        # a gap one is acting to close weighs less in satisfaction: the distance to the person one wants to be
+                         # (sat_gap) counts up to this share less as the ten-year acted ways (hist_m) run toward what is wanted
+                         # beyond what is held (full at .5 of the acts there, none at an even .2). Progress toward a goal, not
+                         # only its distance, sets how it feels (Carver and Scheier 1990). G19w, 10-11: in world-on lives that
+                         # keep choosing Green the want-identity gap is the whole of the contentment drop. 0: as before
     cur_will=0.0,        # the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
                          # above), the current pulls it down up to this share less (a tailwind stays). The times, the people and the places around a
                          # life do not follow its choices; with the world on they run toward White and Red, so lives that keep
@@ -1050,7 +1055,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0,
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0, gap_move=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
                acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -4329,8 +4334,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         hope -= P["hope_let"] / 52 * hzf * np.maximum(0, hope - lvl)
         unmet = np.maximum(-1.0, (hope - lvl) / P["hope_young"])      # share of a young person's extra hope still unmet;
                                                                         # below 0, life gives more than is now hoped for
+        gap_c = gap
+        if P["gap_move"]:   # gap_move: a gap one is acting to close weighs less (progress toward a goal, not only its distance)
+            dir_ = np.maximum(a_ - w, 0); ds_ = dir_.sum(1)
+            al_ = np.where(ds_ > 1e-9, (hist_m * dir_).sum(1) / np.maximum(ds_, 1e-9), 0.2)   # recent acts toward the want
+            gap_c = gap * (1 - P["gap_move"] * _uclip((al_ - 0.2) / 0.3, 0, 1))
         c_now = 1 / (1 + np.exp(-(P["sat_need"] * (f_need - smid) + P["sat_adapt"] * (f_need - lvl)
-                                  + P["sat_mood"] * mood - P["sat_gap"] * (gap - P["sat_gap_ref"])
+                                  + P["sat_mood"] * mood - P["sat_gap"] * (gap_c - P["sat_gap_ref"])
                                   + TON * P["sat_base"] * (base_mood - P["base_ref"])      # a person's own usual mood
                                   - P["regret_k"] * regret                                  # v7: lost dreams that still fit
                                   - (P["sat_hope"] * hzf * unmet if P["sat_hope"] else 0.0))))

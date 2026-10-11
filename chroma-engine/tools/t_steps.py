@@ -320,6 +320,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("the shadow's pull gives way to the will (sh_will; with the shadows on in the world, sh_world)",
         dict(sh_will=0.5, sh_world=True), dict(sh_world=True), 30),
        ("the will tempers the current (cur_will; with the current, cur_on)", dict(cur_will=1.0, cur_on=True), dict(cur_on=True), 30),
+       ("a gap one acts to close weighs less (gap_move)", dict(gap_move=0.5), {}, 30),
        ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
