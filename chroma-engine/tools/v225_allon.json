@@ -1,0 +1,6 @@
+{"body": true, "mind": true, "death_life": true,
+ "hh_money": true, "ties_people": true, "one_roll": true, "retire_ends": true, "world_only": true,
+ "dream_grow": true, "own_open": true, "start_hold": true,
+ "set_age": [[30, 1.0], [50, 0.3], [70, 0.1]], "up_lean": 0.006, "up_self": 0.05, "up_ease": 0.8,
+ "course": true, "deed_canon": 1.0, "deed_rare": 0.15,
+ "mind_kid": [[10, 0.5], [18, 1.0]], "mind_u": [[45, 0.0], [50, -0.15], [58, 0.0], [68, 0.45], [80, 0.6]]}
