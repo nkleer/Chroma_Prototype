@@ -421,7 +421,7 @@ DEFAULT = dict(
     ev_z=0.05,          # how far it moves motives directly (felt experience), scaled by plasticity
     acc0=0.15, acc_fit=0.45, acc_disc=1.5, acc_open=0.5, acc_conf=1.0, acc_hold=0.5,
     cur_will=0.0,        # the will tempers the current (item 12): on a colour the person wants beyond what they hold (full at .2
-                         # above), the current's pull is up to this share less. The times, the people and the places around a
+                         # above), the current pulls it down up to this share less (a tailwind stays). The times, the people and the places around a
                          # life do not follow its choices; with the world on they run toward White and Red, so lives that keep
                          # choosing Green or Blue were pulled out of them (G19w, 10-11: the current, own colour, ages 15-40,
                          # W +1.59 U -.38 B +.06 R +.63 G -2.12). 0: as before
@@ -4686,8 +4686,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 cdz_ = (P["cur_k"] * (1.0 if WON else P["cur_off"]) * (b0_ + pk_ * np.exp(-((age - at_) / wd_) ** 2)) * plast)[:, None] * centre(5 * (cur_ - w))
             if P["era_push_k"] != 1.0:   # played lives: the game weighs the times' push as it weighs an era's
                 cdz_ = P["era_push_k"] * cdz_
-            if P["cur_will"]:   # cur_will: on a colour wanted beyond what is held, the current pulls up to this share less
-                cdz_ = centre(cdz_ * (1 - P["cur_will"] * _uclip(5 * (softmax(y) - w), 0, 1)))
+            if P["cur_will"]:   # cur_will: on a colour wanted beyond what is held, the current pulls it down up to this share less
+                cdz_ = centre(np.where(cdz_ < 0, cdz_ * (1 - P["cur_will"] * _uclip(5 * (softmax(y) - w), 0, 1)), cdz_))
             dz_ = dz_ + cdz_; chan[:, 8] += cdz_; cur_sum += np.abs(cdz_).sum(1)
         if ODD_ON_ and t % 4 == 0:   # S4: blending in at a place steps the colours toward it (booked with the current)
             edw_ = WL.PP.eyes_dw
