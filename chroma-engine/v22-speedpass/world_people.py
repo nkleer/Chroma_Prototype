@@ -304,8 +304,8 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # moment waits to be met; ev_opp, how opposed two sphere events' asks must read (place reading of one by the other);
 # buf_haunt, the exit cost of a haunt (a club's); buf_half, the half-life in weeks of the belonging a leaving costs;
 # odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
-# what they are used to: each colour's mean share at their places a year or more theirs, and its spread among them, a
-# running mean with odd_mem of each year's places, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# a share read against the usual mix of the place's kind in their town; what they are used to: each colour's mean
+# reading at their places a year or more theirs, and its spread among them, a running mean with odd_mem a year, .25), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on
@@ -4174,27 +4174,58 @@ class People:
                 if done:
                     break
 
+    def _odd_norm(self):
+        """S4: (N, 3 + M, C) the usual mix of each place slot's kind in the life's town, in this frame: a haunt's, the mean
+        of its town's haunts; a work place's, congregation's or unit's, the mix a new one starts with there (as People
+        sets a new setting's ways: .6 its kind's anchor, here the mean of the world's employers, its faiths by their
+        share or its army units, + .4 the town's mix); else the town's mix. World state only, so the game reads it too."""
+        W = self.W; N, Q = self.N, 3 + self.M
+        lm = _norm(np.asarray(W.loc_mix, float))[self.loc]
+        out = np.repeat(lm[:, None, :], Q, 1)
+        hp = getattr(W, "hp_s", None)
+        if hp is not None:
+            hm = hp.reshape(hp.shape[0], -1, C).mean(1)   # each town's haunts
+            k_ = self.eyes_key[:, :3]
+            out[:, :3] = np.where((k_ >= 0)[..., None], hm[np.maximum(k_, 0) // (hp.shape[1] * hp.shape[2])], out[:, :3])
+        prof, ik = _norm(np.asarray(W.inst_profile, float)), np.asarray(W.inst_kind)
+        anc = {}
+        for g_, k_ in ((G["work"], "employer"), (G["unit"], "army")):
+            m_ = ik == INST_KINDS.index(k_)
+            if m_.any():
+                anc[g_] = prof[m_].mean(0)
+        if self.n_faith:
+            fp = _norm(np.asarray(W.faith_profile, float)); fs = np.asarray(W.faith_share, float)[:len(fp)]
+            if fs.sum() > 0:
+                anc[G["congregation"]] = (fs[:, None] * fp[:len(fs)]).sum(0) / fs.sum()
+        sk, st_ = self.skind.astype(np.int64), out[:, 3:]
+        for g_, a_ in anc.items():
+            m_ = sk == g_
+            st_[m_] = 0.6 * a_ + 0.4 * np.broadcast_to(lm[:, None, :], st_.shape)[m_]
+        return out
+
     def _odd_year(self, t):
         """Yearly (S4, sph_odd): the odd one out at a place, a year or more there, with two or more such places: their lead
-        colour's share of its faces sits more than odd_z spreads under what they are used to (each colour's mean share at
-        their places, and its spread among them, a running mean over their years, odd_mem a year; first read after a year
-        of it). Not under a fixed share of every place's faces: the places share their town's lean (most lean Green, work
-        places and congregations are near-even mixes leaning White and Green), so a fixed share made Red-led lives the odd
-        one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
-        a batch as alone in the game. Its moment waits once a life stage per place (never after blending in there). Held
+        colour's share of its faces, read against the usual mix of a place of its kind in their town (_odd_norm), sits
+        more than odd_z spreads under what they are used to (each colour's mean reading at their places, and its spread
+        among them, a running mean over their years, odd_mem a year; first read after a year of it). Not under a fixed
+        share of every place's faces: the places share their town's lean (most lean Green), so a fixed share made Red-led
+        lives the odd one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own
+        places, the same in a batch as alone in the game. Against its kind's usual mix: congregations lean White more
+        than work places do, so read raw, White-led lives were the odd one out at work for being at work. Its moment waits once a life stage per place (never after blending in there). Held
         odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
         (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
         odd_regular a year toward theirs."""
         P_ = self.eyes_par; W = self.W; live = ~self.dead; N = self.N
         lead = np.argmax(self.w, 1)
-        share = np.take_along_axis(self._eyes_fc, lead[:, None, None], 2)[..., 0]
+        X = self._eyes_fc - self._odd_norm()   # each place's faces against the usual mix of its kind in their town
+        share = np.take_along_axis(X, lead[:, None, None], 2)[..., 0]
         el = (self.eyes_key >= 0) & live[:, None] & ((t - self.eyes_t0) >= 52)   # their places, a year or more theirs
         ne = el.sum(1); ar = np.arange(N)
         used = self.odd_mu[ar, lead] - P_["odd_z"] * np.sqrt(self.odd_var[ar, lead])
         odd = el & ((ne >= 2) & (self.odd_n > 0))[:, None] & (share < used[:, None])
-        fc_ = np.where(el[..., None], self._eyes_fc, 0.0)
+        fc_ = np.where(el[..., None], X, 0.0)
         mu = fc_.sum(1) / np.maximum(ne, 1)[:, None]
-        var = (np.where(el[..., None], self._eyes_fc - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
+        var = (np.where(el[..., None], X - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
         hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
         self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
         self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
