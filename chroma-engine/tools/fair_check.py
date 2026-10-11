@@ -5,8 +5,8 @@ with its values, its spread and ok or MISS:
   s1_parts    every sphere carries all five parts of fairness (W the same rules for all, U the truth and the reasons, B
               their due, R respect and a say, G people who mean well by us), each read from a state of its own or, with
               none, by the sphere's mean step (World.sph_fair_parts); finite in every town
-  s1_counts   tagged sphere events (World.fair_tags) that moved felt fairness, counted once per part they carry:
-              largest / smallest <= 1.5
+  s1_counts   tagged sphere events (World.fair_tags) that moved felt fairness, counted once per part they moved
+              (People.fr_cnt: a part habituation passed by does not count): largest / smallest <= 1.5
   s1_fair     mean felt fairness (over the nine spheres and the adult years, 18 on) by the life's lead colour: largest
               minus smallest <= .03
 
@@ -62,6 +62,9 @@ def one(argv):
         for _j, ps, _sd in mv:
             for p_ in set(ps):
                 cnt[COLORS.index(p_)] += 1
+    fired = cnt.tolist()
+    if getattr(pp, "fr_cnt", None) is not None:   # the moves applied (habituation may pass a part by), by part
+        cnt = np.asarray(pp.fr_cnt, float)
     R = np.asarray(W.sph_fair_parts(), float)   # n_loc x 9 x 5
     import sphere_data as SD
     direct = []
@@ -69,13 +72,13 @@ def one(argv):
         d = SD.FAIR["states"].get(sp, {})
         ks = list(d.get("fair", [])) + list(d.get("against") or []) or ["rule.favour"]
         direct.append("".join(sorted({p_ for k_ in ks for p_ in (tags["parts"].get(k_) or COLORS)}, key=COLORS.index)))
-    return dict(cnt=cnt.tolist(), events=n_ev, fair=acc["fair"].tolist(), years=acc["years"].tolist(),
+    return dict(cnt=cnt.tolist(), fired=fired, events=n_ev, fair=acc["fair"].tolist(), years=acc["years"].tolist(),
                 finite=bool(np.isfinite(R).all()), direct=direct, spheres=list(WM.SPHERES))
 
 
 def pooled(runs):
     out = dict(runs[0])
-    for k in ("cnt", "fair", "years"):
+    for k in ("cnt", "fired", "fair", "years"):
         out[k] = np.sum([r[k] for r in runs], 0).tolist()
     out["events"] = sum(r["events"] for r in runs); out["finite"] = all(r["finite"] for r in runs)
     return out
@@ -142,7 +145,8 @@ def main():
     if "s1_counts" in want:
         r = ratio(st["cnt"])
         row("s1_counts", per(st["cnt"], 0), f"ratio {r:.2f}x" if np.isfinite(r) else "ratio inf (a 0)",
-            "target <= 1.5x", st["events"] > 0 and r <= 1.5, f"  ({st['events']} tagged events)")
+            "target <= 1.5x", st["events"] > 0 and r <= 1.5,
+            f"  ({st['events']} tagged events; moves by part as fired, before habituation: {per(st.get('fired', st['cnt']), 0)})")
     if "s1_fair" in want:
         y = np.asarray(st["years"], float); m = np.asarray(st["fair"], float) / np.maximum(y, 1)
         sp = float(m.max() - m.min()) if (y > 0).all() else float("inf")
