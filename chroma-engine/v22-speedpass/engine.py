@@ -471,9 +471,9 @@ DEFAULT = dict(
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
     sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
-    green_jobs=False,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
+    green_jobs=True,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
                          # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
-    acc_redraw=False,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
+    acc_redraw=True,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
                          # route refuses (acc_first, acc_move) re-draws among the other titles whose rules hold, by the same
                          # weights, so the life goes to its next-best fit, not to no title (off: the career starts untitled)
     occ_keep=0.6, occ_back=3.0,   # a new job after one ended within occ_back years returns to the last line of work with this
@@ -768,21 +768,21 @@ DEFAULT = dict(
     far_ties=True,      # item 18: a town's events touch the people living there; a close tie elsewhere calls (world switch;
                          # chroma-ideas/far-off-events.md); far_par: its tuning (world_people.FAR_DEFAULT; None: start values)
     far_par=None,
-    fair_read=False,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
+    fair_read=True,     # S1: each life reads its spheres' fairness through its colours' parts, and tagged sphere events
                          # move it (chroma-ideas/social-mechanics.md S1; world switch, with sph_fair)
-    sph_eyes=False,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
+    sph_eyes=True,      # S3 (chroma-ideas/social-mechanics.md): their places read their acts by their faces; a name per place,
                          # talk through go-betweens, caught between two places (world switch; needs sph_haunts)
-    sph_odd=False,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
+    sph_odd=True,       # S4: the odd one out at a place: seen more, pressed to blend in, can move the place (world switch;
                          # needs sph_eyes)
     eyes_par=None,       # sph_eyes, sph_odd tuning: {name: value} over world_people.EYES_DEFAULT (None: the start values)
-    lead_ways=False,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
+    lead_ways=True,     # S7 "Ways to lead" (chroma-ideas/social-mechanics.md): a post per leading role with its way,
                          # legitimacy and end, in place of phase 4's fixed leader's tenure; with sph_levers (world switch;
                          # lead_par: its tuning, world_people.LEAD_DEFAULT; None: start values)
     lead_par=None,
-    sacred=False,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
+    sacred=True,        # S5, sacred lines (chroma-ideas/social-mechanics.md): up to two lines a life will not sell; the
                          # spheres' and C3's offers on them bring a moment the character refuses at .9 (world switch; with
     sacred_par=None,     # sph_events); sacred_par: its tuning (world_people.SAC_DEFAULT; None: start values)
-    seen_done=False,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
+    seen_done=True,     # S6 "Seen it done": paths and colour ways seen walked lift felt odds (never the real odds) and
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
@@ -812,7 +812,7 @@ DEFAULT = dict(
     birth_age=True,     # v22.3: a life's own births taper by real fertility for its age and sex (Emren 10-10 06:04,
                          # "Engine limit"): a woman's end near 45; adoption and taking a child in stay open at any age
     birth_k=2.5,         # birth_age: the own-birth moments' rate x this, so a life has about as many children as before (2.2)
-    role_practice=False,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
+    role_practice=True,  # what one holds is practice too (Emren 10-10: "choices must impact achieving perks: blue-dominated
                          # choices must increase chances to become researcher"; tools/choice_check.py). On v22.2's rules white and
                          # blue acts fail two to four times as often as the others (true odds .81 and .74 against .90 to .95):
                          # practice comes only from the week's one act, and the colors least acted stay least practised, so a
@@ -825,16 +825,16 @@ DEFAULT = dict(
                          # practice, and the years on a rung toward the title it leads to (rung_years), count 1 + black_edge x
                          # how Black-led the person is ((Black share - .2) / .3, from none at an even share to all at .5).
                          # Only with role_practice on
-    read_skill=0.0,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
+    read_skill=0.5,      # expertise reads the moment too: skill in an option's ways (sig above a beginner's .3, out of the .7
                          # to master) fills this share of what the person still misreads of its call and the world's push
                          # (read_moment). Felt odds leave out fit and f_tot in the share unread, and those are lowest for
                          # white and blue, so lives that act in those ways run overconfident and each failure pushes them
                          # away (choice_check, 10-10). 0: off, as before
-    lens_want=0.0,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
+    lens_want=0.5,       # the confirmation lens (rho) looks through who one is trying to become as well as who one is: a success
                          # confirms the acted ways in proportion to ((1 - lens_want) w + lens_want a) ** rho, a the want. With w
                          # alone a colour held weakly stays weak however often its acts succeed, and white and blue start
                          # lowest, so lives that keep choosing them are held back (choice_check, 10-10). 0: off, as before
-    app_vigil=False,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
+    app_vigil=True,     # appraisal in learning (app_learn) as vigilance: threat focus weighs what an act teaches by appf_ for a gain
                          # as for a loss, instead of a loss up to (1 + app_k) and a gain (1 - app_k). Threat focus follows the
                          # security side of the deep core (W U), so with the tilt white and blue lives learn their losses at up to
                          # 1.4x and their gains at .6x and are taught out of their own colours (choice_check 10-10: net identity
