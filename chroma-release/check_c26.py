@@ -15,6 +15,9 @@ size of the noise at G19's run, so the record reports it (scope.md, G19).
 
     python3 -B chroma-release/check_c26.py <run.npz>
 
+The same targets judge c26_choice (world off, G19) and c26_world (world on, G19w; Emren's card choice "Fix in v22.4",
+10-11 08:24 UTC). The first line says which world the run had.
+
 The npz is choice_check.py's (fields grp, groups, W, content, nperks, res, px). The engine is the tree's (or
 CHROMA_ENGINE), read through chroma-engine/tools/_engine.py. Exit code 0 and a last line "C26 PASS" when every judged
 target holds; else "C26 MISS". Read only."""
@@ -27,6 +30,8 @@ ID_LIFT, CONTENT_DROP, PERKS_P90 = .15, .12, 27
 NOT_JUDGED = {"B"}   # drop reported only (Emren 10-11 01:37)
 BOOT = 400
 d = np.load(sys.argv[1])
+px = json.loads(str(d["px"])) if "px" in d.files else {}
+print(f"run: {sys.argv[1]}, world {'on' if px.get('world') else 'off'}, PX {json.dumps(px, sort_keys=True)}")
 gl = [str(c) for c in d["groups"]]
 if "-" not in gl:
     print("C26 MISS: the run has no unsteered group (\"-\")")
@@ -69,7 +74,6 @@ print(f"targets: lift >= {ID_LIFT}, drop <= {CONTENT_DROP} (Black's reported, no
       f"perks at 50 (90th percentile) <= {PERKS_P90}; se: the drop's standard error over lives (information)")
 
 # Black's edge: the switch is judged; what it does is reported
-px = json.loads(str(d["px"])) if "px" in d.files else {}
 try:
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "chroma-engine", "tools"))
     import _engine  # noqa: E402,F401
