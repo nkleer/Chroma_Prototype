@@ -693,6 +693,25 @@ DEFAULT = dict(
     d_read=0.6,          # how much a person reads what they admire through their own colors
     d_half=(1.5, 3.0, 2.0, 0.6, 0.6, 0.6),   # years for an unfed dream to fade by half, by stage
     d_dom=(0.45, 0.06, 0.06, 0.05, 0.04, 0.34),   # what dreams are about: career, partner, children, community, faith, a pursuit
+    dream_grow=False,    # v22.5, F6 (dreams that grow up; chroma-ideas/realism/v22.5-realism-list.md): a dream is named only
+                         # among dreams of its age (the Library's dreams.py DREAM_KIND and KIND_FROM: roles a child can see
+                         # and play at from 4, standing and money from 9, a calling of one's own from 14), and the Library's
+                         # DREAMS_MORE join; a spark keeps its subject (TRIGGER_DREAMS: a firefighter's visit sparks a
+                         # firefighter, or no dream when they are too young for any it shows) and comes only at the ages its
+                         # telling fits (TRIGGER_AGES); a play dream started before PLAY_UNTIL is short-lived. Off: as before
+    dream_play_half=0.5,   # dream_grow: years for an unfed play dream of a young child to fade by half (children of 4 to 8
+                           # change them often; Ginzberg's fantasy period)
+    dream_subj=0.5,      # dream_grow: share of a dream's ways taken from the subject its spark showed (the rest: how the
+                         # person read it)
+    own_open=False,      # v22.5, F12 (the world and the start hold): a culture's own acts (the library's L["OWN"], from the
+                         # Library's worlds.py OWN: the clan's rites, sharing and crafts, the towers' study and guild ways)
+                         # are always on offer around the person; lacking the means still closes them. Off: as before
+    start_hold=False,    # v22.5, F12: with the world on, a start keeps its promise (world_cfg["start"]: place, wealth,
+                         # faith, hard streets, society): the birth is drawn again until the place kind, class and family
+                         # faith fit; a child is raised in the family's own faith (none when the family holds none); the
+                         # start's society stays in the circle around them (start_soc). Off: as before
+    start_soc=0.3,       # start_hold: share of the start's society in the niche and in what the order rewards
+    faith_fam_p=0.9,     # start_hold: chance a child of a family in a faith is raised in it, when the start leaves it open
     max_dreams=3, max_passions=2, max_plans=3,
     g_dream=0.3, g_pass=0.5, g_plan=0.8,   # pull of a goal on what the person decides to do
     g_pass_auto=0.3, g_plan_auto=0.2,      # pull felt without deciding: a loved activity (more if obsessive), a when-then plan
@@ -754,7 +773,7 @@ DEFAULT = dict(
     rejob=0.6,           # yearly chance of finding work again after losing or leaving a job (batch only)
     mort=(5e-5, 0.09),   # yearly chance of dying at age x: a * exp(b x) (Gompertz; about 0.4% at 50, 6% at 80, 16% at 90)
     world=False,         # the outer world (world.py, world_people.py through world_link.py): a living society around the lives
-    world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy; burn_years), world_seed (else the run's)
+    world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy, start; burn_years), world_seed (else the run's)
     world_seed=None, world_obj=None, people_obj=None,   # a World or People already made (the game's saved world), else new
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
@@ -1245,6 +1264,9 @@ UPD_OFF = dict(dis_match=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
+               # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
+               # the start hold
+               dream_grow=False, own_open=False, start_hold=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1591,18 +1613,34 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     TRIG_W = np.array([tr[2] for tr in DTR_], float)                   # triggers x stages
     TRIG_TILT = np.array([parse(tr[3]) if tr[3] else np.zeros(C) for tr in DTR_])
     DRM_ = L.get("DREAMS") or []
+    DG_ON = bool(P.get("dream_grow")) and bool(DRM_)   # v22.5, F6: dreams that grow up
+    if DG_ON:   # the Library's added dreams join, so every age has dreams of every colour (dreams.py DREAMS_MORE)
+        DRM_ = list(DRM_) + list(L.get("DREAMS_MORE") or [])
     if DRM_:
-        DRM_M = np.array([parse(d_["means"]) for d_ in DRM_]); DRM_M = DRM_M / DRM_M.sum(1, keepdims=True) - 1 / C
+        DRM_X = np.array([parse(d_["means"]) for d_ in DRM_]); DRM_X = DRM_X / DRM_X.sum(1, keepdims=True)   # its ways, as shares
+        DRM_M = DRM_X - 1 / C
         DRM_M = DRM_M / np.linalg.norm(DRM_M, axis=1, keepdims=True)    # each dream's lean among the colors
         DRM_D = np.array([KIDX.get(d_["domain"], -1) for d_ in DRM_])
         DRM_S = np.array([[nm_ in d_["stages"].split() for nm_ in STAGE_NAMES] for d_ in DRM_])
+    if DG_ON:   # F6: the youngest age each dream can start at (by its kind), the play dreams, each spark's subjects and ages
+        DK_ = L.get("DREAM_KIND") or {}; KF_ = L.get("KIND_FROM") or {}
+        DRM_FROM = np.array([float(KF_.get(DK_.get(d_["name"], ""), 0.0)) for d_ in DRM_])
+        DRM_PLAY = np.array([DK_.get(d_["name"]) == "play" for d_ in DRM_])
+        PLAY_UNTIL_ = float(L.get("PLAY_UNTIL") or 0.0)
+        ix_ = {d_["name"]: i_ for i_, d_ in enumerate(DRM_)}; TD_ = L.get("TRIGGER_DREAMS") or {}
+        TRIG_SUBJ = [[ix_[x_] for x_ in TD_.get(tr_[0], ()) if x_ in ix_] for tr_ in DTR_]
+        TRIG_AGE = np.array([(L.get("TRIGGER_AGES") or {}).get(tr_[0], (0.0, 1e9)) for tr_ in DTR_], float)
     gname = np.full((N, NGS), -1)
+    gplay = np.zeros((N, NGS), bool)   # F6: a play dream started before PLAY_UNTIL (short-lived)
     def dream_name(mix, dom, st):
         """The nearest concrete dream: of this setting, able to start at this stage, of this domain; nearest in colors, by
-        the way it leans (a dream's mix is broad, so plain distance would favour the broadest dreams)."""
+        the way it leans (a dream's mix is broad, so plain distance would favour the broadest dreams). F6 (dream_grow):
+        and of a kind they are old enough for."""
         if not DRM_:
             return -1
         ok_ = (DRM_D == dom) & DRM_S[:, st]
+        if DG_ON:
+            ok_ = ok_ & (DRM_FROM <= age)
         if not ok_.any():
             return -1
         return int(np.argmax(np.where(ok_, DRM_M @ (mix / mix.sum() - 1 / C), -np.inf)))
@@ -1669,6 +1707,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         gk[n, j] = kind; gm[n, j] = mix / mix.sum(); gd[n, j] = dom; gs[n, j] = s0; gpk[n, j] = s0
         gsrc[n, j] = src; gtrig[n, j] = trig; gpar[n, j] = par; gby[n, j] = by; gb[n, j] = t; glast[n, j] = t
         gname[n, j] = name if name >= 0 else gname[n, par] if par >= 0 else dream_name(mix, dom, stage[n]) if kind == 0 else -1
+        gplay[n, j] = DG_ON and kind == 0 and gname[n, j] >= 0 and DRM_PLAY[gname[n, j]] and age < PLAY_UNTIL_
         gp[n, j] = 0.0; gi[n, j] = 0.0; gx[n, j] = 0
         gv[n, j] = gv[n, inherit] if inherit >= 0 else 0.0; ga[n, j] = ga[n, inherit] if inherit >= 0 else 0.5
         gid[n, j] = gid_next[0]; gid_next[0] += 1
@@ -2507,6 +2546,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
     LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
     SEEN_ON = False
+    OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
+    STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
@@ -2514,6 +2555,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if LW_ON:
             LW_T_ = WL.lw_tid
         nic = np.array(WL.PP.niche, float); circle = nic.copy()
+        STH_ON = bool(P.get("start_hold"))
+        if STH_ON and (getattr(WL, "start", None) or {}).get("society") is not None:   # the start's society around them
+            STH_SOC = np.asarray(WL.start["society"], float); STH_SOC = STH_SOC / STH_SOC.sum()
+            STH_FW = np.asarray(P["f_world"], float)
+            nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC; circle = nic.copy()
         SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
         if SEEN_ON:
             SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
@@ -3256,6 +3302,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             WP_ = 0.2 + upe_ * (np.asarray(P["world_profile"], float) - 0.2)
             if not WON:
                 f_w = upe_ * np.asarray(f_w, float)
+        if STH_SOC is not None:   # v22.5, F12: and what the start's society rewards
+            f_w = (1 - P["start_soc"]) * f_w + P["start_soc"] * STH_FW
         f_tot = f_w[None, :] + P["lam_local"] * (nic - 0.2) * (np.asarray(WL.PP.msg_w, float)[:, None] if WON else 1.0) \
             + P["era_world"] * e_i * (e_p - 0.2)   # msg_w: how strongly one's groups and people pull (1 typical, spec 3 §1.4)
         if age < 3:
@@ -3687,9 +3735,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             diff = diff + P["closed_diff"] * (closed_s >= 0)
 
         if t == 6 * 52:                                      # raised in a faith: the family's, not a choice
-            inh = rng.random(N) < P["faith_inherit"]
+            shu_ = rng.random(N); inh = shu_ < P["faith_inherit"]
+            if STH_ON:   # v22.5, F12: raised in the family's own faith (the world's), in none when the family holds none;
+                # a start that promises a faith or none keeps it (faith_inherit 1 or 0; the birth was drawn to fit)
+                shfi_ = P["faith_inherit"]; shpf_ = np.asarray(WL.PP.pfaith, np.int64)
+                inh = np.full(N, shfi_ >= 1) if (shfi_ <= 0 or shfi_ >= 1) else (shpf_ >= 0) & (shu_ < P["faith_fam_p"])
             held[inh, FAI] = True; I[inh, FAI] = 0.3; since[inh, FAI] = t; sat[inh, FAI] = 0.7; faith_given[inh] = True
             prof[inh, FAI] = rng.dirichlet(np.full(C, P["faith_conc"]), inh.sum())     # families hold many kinds of faith
+            if STH_ON and inh.any():   # the family's faith's own ways
+                shfp_ = np.asarray(WL.W.faith_profile, float); shfp_ = shfp_ / shfp_.sum(1, keepdims=True)
+                shk_ = inh & (shpf_ >= 0)
+                prof[shk_, FAI] = shfp_[np.minimum(shpf_[shk_], len(shfp_) - 1)]
             for n in np.nonzero(inh)[0]:
                 commit_log.append((int(n), t, FAI, "inherited", prof[n, FAI].round(2).tolist(), 0.3))
                 if n in events:
@@ -3756,6 +3812,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             acc = acc * P["closed_acc"] ** clu_
         elif BAT:
             acc = np.where(closed_s >= 0, acc * P["closed_acc"], acc)
+        if OWN_ON:   # v22.5, F12: the culture's own acts are always around them (the means gate below still holds)
+            acc = np.where(L["OWN"][s], 1.0, acc)
         req = L["REQ"][s]                                    # what each option needs: money, time, health, ties, freedom
         rg = np.where(req > 0, 1 / (1 + np.exp(-P["req_g"] * (res[:, None, :] - req))), 1.0).prod(-1)
         open_n = rng.random(mask.shape) < acc; open_r = rng.random(mask.shape) < rg
@@ -4937,6 +4995,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ex_src = np.array([0.5 + res[n, TIE], 0.5 + 0.5 * turn_pm[n], 0.3 + 0.5 * res[n, MON] + 0.5 * res[n, FRE],
                                    0.5 + 0.5 * held[n, COM] + e_i, 0.5 + 0.5 * turn_pm[n]])
                 wt = TRIG_W[:, st] * ex_src[TRIG_SRC]
+                if DG_ON:   # F6: a spark comes only at the ages its telling fits (a school visit, the elders' teaching)
+                    wt = wt * ((TRIG_AGE[:, 0] <= age) & (age <= TRIG_AGE[:, 1]))
                 if wt.sum() <= 0:
                     continue
                 tr = int(rng.choice(len(wt), p=wt / wt.sum())); sc = TRIG_SRC[tr]
@@ -4960,14 +5020,30 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     continue
                 g_ = np.maximum(msg * (1 + P["d_read"] * (5 * lens - 1)), 0)      # read through their own colors
                 g_ = 0.8 * g_ / max(g_.sum(), 1e-9) + 0.2 * lens
+                subj_ = -1
+                if DG_ON and TRIG_SUBJ[tr]:   # F6: the spark keeps its subject: of the dreams it shows, the one nearest their
+                    dgc_ = [i_ for i_ in TRIG_SUBJ[tr] if DRM_FROM[i_] <= age and DRM_S[i_, st]   # colours that they are old
+                           and not (st >= 2 and DRM_D[i_] >= 0 and held[n, DRM_D[i_]])]           # enough for and do not hold
+                    if not dgc_:
+                        continue                                                 # too young for any of them: no dream yet
+                    subj_ = dgc_[int(np.argmax(DRM_M[dgc_] @ (g_ - 1 / C)))]
+                    g_ = (1 - P["dream_subj"]) * g_ + P["dream_subj"] * DRM_X[subj_]   # its ways, partly the subject's
                 dw = np.asarray(P["d_dom"], float).copy()
                 fitd = KPAY @ (NMAP @ g_); dw[:NK] *= fitd / fitd.mean()        # what the dream is about follows what its ways serve
                 if st >= 2:
                     dw[:NK] *= ~held[n]
                 if SEEN_ON and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: from 8 to 20 a dream is about a path they have seen
                     dw[:NK] *= 1 + SD_DREAM_ * WL.PP.seen_dom(n)    # more often (the sparks' rate as it was)
-                dom = int(rng.choice(NK + 1, p=dw / dw.sum())); dom = dom if dom < NK else -1
-                new_goal(n, 0, g_, dom, sc, trig=tr, s0=0.2 + 0.4 * adm)
+                if DG_ON and subj_ < 0:   # F6: only what a dream of their age can be about
+                    dgf_ = (DRM_FROM <= age) & DRM_S[:, st]
+                    dgh_ = np.array([(dgf_ & (DRM_D == d_)).any() for d_ in range(NK)] + [(dgf_ & (DRM_D < 0)).any()])
+                    if (dw * dgh_).sum() > 0:
+                        dw = dw * dgh_
+                if subj_ >= 0:
+                    dom = int(DRM_D[subj_])
+                else:
+                    dom = int(rng.choice(NK + 1, p=dw / dw.sum())); dom = dom if dom < NK else -1
+                new_goal(n, 0, g_, dom, sc, trig=tr, s0=0.2 + 0.4 * adm, name=subj_)
                 if SEEN_ON and n in events and SD_AGES_[0] <= age <= SD_AGES_[1]:   # S6: a dream seeded from a seen path
                     sd_ = WL.PP.seen_dream(n, dom)                                    # and its model (the Library's "dream")
                     if sd_:
@@ -4975,6 +5051,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             # fading: an unfed dream fades (fast in childhood); a passion only when unpractised for a year; a plan that
             # does not fit who one is loses its pull (self-concordance: Sheldon & Elliot 1999)
             fd_ = np.exp(-np.log(2) / (52 * np.asarray(P["d_half"], float)[stage]))[:, None]
+            if DG_ON:   # F6: a young child's play dream is short-lived (children of 4 to 8 change them often)
+                fd_ = np.where(gplay, np.exp(-np.log(2) / (52 * P["dream_play_half"])), fd_)
             gs = np.where(gk == 0, gs * fd_, gs); gv = np.where(gk == 0, gv * fd_, gv)
             gs = np.where((gk == 1) & (t - glast > 52), gs * np.exp(-np.log(2) / (52 * P["pass_half"])), gs)
             conc_g = _uclip(2 * np.einsum("ngc,nc->ng", gm, own_g) / own_g.max(1)[:, None] - 1, -0.5, 1)
@@ -5297,6 +5375,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             nic += P["turnover"] * turn_pm[:, None] * np.asarray(P["turn_stage"])[stage][:, None] / 52 * (circle - nic)
         if WON:   # the world: the niche is what the settings and the close circle bring, with the times through them
             nic = np.array(WL.PP.niche, float)
+            if STH_SOC is not None:   # v22.5, F12: and the start's society
+                nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC
 
         for i in log_lives:
             if not idle[i]:
@@ -5500,7 +5580,7 @@ STATE = (
     "faith_given", "faith_drifted", "clash0", "act_cw", "rfit_avg", "adj", "adj_since", "adj_v", "mark_n", "had_ev",
     "missed_t", "events", "tries", "wins", "blocked", "sit_n", "sea_k", "sea_t0", "sea_done",
     # dreams, passions and plans (goal slots) and the helpers that change them
-    "gk", "gm", "gd", "gs", "gp", "gh", "ghz", "gsrc", "gby", "gid", "gname", "gfelt", "gfelt0",
+    "gk", "gm", "gd", "gs", "gp", "gh", "ghz", "gsrc", "gby", "gid", "gname", "gfelt", "gfelt0", "gplay",
     "new_goal", "end_goal", "quit_", "plan_odds", "dream_phrase",
     # this week's moment: situation, options, what pulls, the choice, the odds, the outcome, what it teaches
     "s", "s_ev", "rk", "recon", "m", "e", "e0", "diff", "mask", "closed_s", "stakes", "alpha", "do_nothing", "lack",

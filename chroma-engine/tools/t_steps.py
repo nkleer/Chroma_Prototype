@@ -16,6 +16,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   9. WL2's small effects (wl2: prices for workers, a recession's hours, a disaster's cost, a pandemic year), likewise,
      over lives long enough to hold a job; the sphere events (sph_events, at a test base chance), over phase 2; and the C
      hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
+ 10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
@@ -336,7 +337,13 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("colours shape the life course (course, F16)", dict(course=True), {}, 40),
        ("deeds by canon (deed_canon, deed_rare, F17)", dict(deed_canon=1.0, deed_rare=0.15), {}, 30),
        ("a mind that matches life (mind_kid, mind_u, F19)",
-        dict(mind_kid=((10, 0.5), (18, 1.0)), mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6))), {}, 30)]
+        dict(mind_kid=((10, 0.5), (18, 1.0)), mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6))), {}, 30),
+       # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md)
+       ("F6, dreams that grow up (dream_grow)", dict(dream_grow=True), {}, 20),
+       ("F12, a start that holds (start_hold; the devout village start, one life as the game plays it)",
+        dict(start_hold=True, faith_inherit=1.0, world_cfg=dict(setting="earth", start=dict(
+            place="village", wealth=0.2, faith="held", hard=False, society=[0.6, 0, 0, 0, 0.4]))),
+        dict(faith_inherit=1.0), 10, 1)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
@@ -362,6 +369,30 @@ for row_ in P2_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 10. v22.5, F12: a culture's own acts always on offer (own_open) in the clan, on the seed library with the Library's
+# worlds.py OWN (as the game attaches them): run_steps lives as run(), and the lives move
+_wpy = os.path.join(_engine.LIBRARY, "worlds.py")
+if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wpy):
+    import importlib.util as _iu
+    _sp = _iu.spec_from_file_location("chroma_worlds", _wpy); _wd = _iu.module_from_spec(_sp); _sp.loader.exec_module(_wd)
+    t0 = time.process_time(); fails = []
+    kw = dict(N=40, years=30, seed=4, lib=batch.own_ways(E.compile_library(), _wd.OWN["tribal"]))
+    o1 = E.run(**kw, P=dict(E.DEFAULT, own_open=True)); g = E.run_steps(**kw, P=dict(E.DEFAULT, own_open=True)); msg = next(g)
+    while True:
+        try:
+            msg = g.send(msg[3])
+        except StopIteration as done:
+            o2 = done.value
+            break
+    d1, d2 = digest(o1), digest(o2)
+    if [x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x)]:
+        fails.append("run_steps differs")
+    d0 = digest(E.run(**kw, P=dict(E.DEFAULT, own_open=False)))
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x)]:
+        fails.append("switched on, the lives are those with it off")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
+          f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)
