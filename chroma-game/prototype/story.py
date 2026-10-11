@@ -1466,10 +1466,10 @@ class Story:
                 st = [c for c in e[2] if c.islower()]; wl = [c for c in e[2] if c.isupper()]
                 if wl and self.wcode not in wl:
                     continue
-            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
-                continue
                 if st and stage is not None and not any(stage in STAGESETS[c] for c in st):
                     continue
+            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
+                continue
             tag = e[0]
             w = float(np.mean([v[CI[c]] for c in tag])) if tag else 0.12
             cands.append((max(w, 1e-3) ** SHARP, e[1], tag))
