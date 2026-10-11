@@ -820,7 +820,7 @@ DEFAULT = dict(
                          # week the commitments held (profiles weighted by investment, at most one act's worth in all) count as
                          # role_skill of an act's practice in their ways, and draw the niche toward them at role_niche of its pace
     role_skill=0.5, role_niche=0.5,   # role_practice: a held role's weekly practice and its pull on the people around
-    black_edge=0.1,      # role_practice: Black's edge (Emren 10-10 22:37 on item 26: "accept it but give black a slight advantage
+    black_edge=0.25,     # role_practice: Black's edge (Emren 10-10 22:37 on item 26: "accept it but give black a slight advantage
                          # boost, compared to others"). Ambition turns what one holds into gain faster: a held role's weekly
                          # practice, and the years on a rung toward the title it leads to (rung_years), count 1 + black_edge x
                          # how Black-led the person is ((Black share - .2) / .3, from none at an even share to all at .5).
