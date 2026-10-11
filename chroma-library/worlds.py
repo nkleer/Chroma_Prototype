@@ -103,6 +103,8 @@ LABELS = {
     "perfect yourself and the system you control": "perfect yourself and the ways you keep",
     "strike fast and hard with your crew": "strike fast and hard with your band",
     "recommit and invest more": "recommit and give it more of yourself",
+    "invest in home and kin": "put your strength into home and kin",
+    "use it to gain status": "use it to gain standing",
   },
   "magic": {
     "tell the teacher": "tell the tutor",
