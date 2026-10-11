@@ -7,6 +7,10 @@ groups: comma-separated, "-" unsteered, else a color letter; default "-,W,U,B,R,
 push: added each week to a steered person's want (y, log-ratio) for the group's color, as a player who keeps choosing
 it; .01 brings that want to about .45 to .6 by forty. Packs: PACKS, default science,politics,stage (the catalogue's).
 PX='{json}': switches and values laid over E.DEFAULT for the run (as cx2run.py), e.g. PX='{"role_practice": true}'.
+STEER=pick: a steered life also takes, at each choice, among the options the game would show it (open and seen;
+in a reconsideration the first four), the one its colour leads most, when that colour leads one above an even
+share; else its own pick (run_steps, several times slower). The npz keeps steer and each life's pick_share (its
+choices whose act its colour leads). Default want: the weekly push on the want alone (G19 world off).
 SEEDS=31,32,33,34: another set of lives (default 21,22,23,24), to tell a real difference from the draw.
 The 10-10 run (480 lives per worker, push .01, 320 lives a group) found black, red and green identity following the
 push (.34 to .36 at forty) and white and blue barely (.20, .21), with contentment falling from .60 to .45 and .46."""
@@ -20,6 +24,7 @@ from batch import load_batch
 CAT = os.path.join(_engine.LIBRARY, "earth_perks_titles.py")
 PACKS = [x for x in os.environ.get("PACKS", "science,politics,stage").split(",") if x]
 SEEDS = tuple(int(x) for x in os.environ.get("SEEDS", "21,22,23,24").split(","))   # one worker per seed (4 cores)
+STEER = os.environ.get("STEER", "want")   # want: the weekly push on the want alone; pick: also each choice, as a player
 CN = dict(zip("WUBRG", ["white", "blue", "black", "red", "green"]))
 
 
@@ -35,16 +40,42 @@ def one(args):
         for g, c in enumerate(groups):
             if c != "-":
                 y[grp == g, "WUBRG".index(c)] += push
-    o = E.run(N=n, years=80, seed=seed, lib=L, intervention=steer, P=json.loads(os.environ.get("PX") or "{}"))
+    P_ = json.loads(os.environ.get("PX") or "{}")
+    picks = np.zeros((n, 2))   # STEER=pick: choices made, and those whose act its own colour leads
+    if STEER == "pick":   # as a player picks: among the options the game would show (open and seen; in a reconsideration
+        # the first four), the one its colour leads most, if that colour leads any above its even share; else their own
+        g_ = E.run_steps(N=n, years=80, seed=seed, lib=L, intervention=steer, P=P_); p_ = g_.send(None)
+        st_k = np.array([-1 if c == "-" else "WUBRG".index(c) for c in groups])[grp]; ar_ = np.arange(n)
+        try:
+            while True:
+                v_ = p_.value
+                if p_.kind == "choose":
+                    S_ = p_.state; m_ = np.asarray(S_["m"], float)
+                    act_ = ~np.asarray(S_.get("idle", np.zeros(n, bool)), bool) & ~np.asarray(S_.get("dead", np.zeros(n, bool)), bool)
+                    shown_ = np.asarray(S_["mask"], bool) & np.asarray(S_["seen"], bool)
+                    shown_[np.asarray(S_.get("recon", np.zeros(n, bool)), bool), 4:] = False
+                    sc_ = np.where(shown_, m_[ar_, :, np.maximum(st_k, 0)], -1.0)   # the steered colour's share
+                    best_ = sc_.argmax(1)
+                    take_ = (st_k >= 0) & act_ & (sc_[ar_, best_] > 0.2)
+                    v_ = np.where(take_, best_, v_)
+                    st_ = (st_k >= 0) & act_
+                    picks[st_, 0] += 1
+                    picks[st_, 1] += m_[ar_, v_].argmax(1)[st_] == st_k[st_]
+                p_ = g_.send(v_)
+        except StopIteration as e_:
+            o = e_.value
+    else:
+        o = E.run(N=n, years=80, seed=seed, lib=L, intervention=steer, P=P_)
     return dict(ever=o["roles"]["ever"], grp=grp, W=o["W_hist"].transpose(1, 0, 2), A=o["A_hist"].transpose(1, 0, 2),
-                nperks=o["V_hist"]["n_perks"].T, res=o["R_hist"].transpose(1, 0, 2), content=o["V_hist"]["content"].T)
+                nperks=o["V_hist"]["n_perks"].T, res=o["R_hist"].transpose(1, 0, 2), content=o["V_hist"]["content"].T,
+                pick_share=np.where(picks[:, 0] > 0, picks[:, 1] / np.maximum(picks[:, 0], 1), np.nan))
 
 
 def run(n, push, out, groups):
     with Pool(4) as p:
         rs = p.map(one, [(s, n, push, groups) for s in SEEDS])
     np.savez_compressed(out, **{k: np.concatenate([r[k] for r in rs]) for k in rs[0]}, groups=np.array(groups),
-                        px=np.array(os.environ.get("PX") or "{}"))
+                        px=np.array(os.environ.get("PX") or "{}"), steer=np.array(STEER))
     print("saved", out)
 
 
@@ -61,15 +92,19 @@ def summary(files):
         lab_ = {c: (f"unsteered{k + 1}" if c == "-" else CN[c] + sfx) for c in gl}
         for g, c in enumerate(gl):
             m = d["grp"] == g
-            groups[lab_[c]] = {x: d[x][m] for x in ("ever", "W", "A", "nperks", "res", "content")}
+            groups[lab_[c]] = {x: d[x][m] for x in ("ever", "W", "A", "nperks", "res", "content", "pick_share") if x in d}
         runs.append(lab_)
     GN = list(groups)
     def row(lab, vals, fmt="{:9.3f}"):
         print(f"{lab:34s} " + " ".join(fmt.format(v) for v in vals))
     print(f"{'':34s} " + " ".join(f"{g:>9s}" for g in GN))
     for k, f in enumerate(files):
-        print(f"  run {k + 1}: {f}, PX {np.load(f)['px'] if 'px' in np.load(f) else '{}'}")
+        d_ = np.load(f)
+        print(f"  run {k + 1}: {f}, PX {d_['px'] if 'px' in d_ else '{}'}, steer {d_['steer'] if 'steer' in d_ else 'want'}")
     row("lives", [len(groups[g]["ever"]) for g in GN], "{:9d}")
+    if all("pick_share" in groups[g] for g in GN) and any(np.isfinite(groups[g]["pick_share"]).any() for g in GN):   # STEER=pick: the share of choices whose act the steered colour leads
+        row("choices led by its colour (pick)", [np.nanmean(groups[g]["pick_share"]) if np.isfinite(groups[g]["pick_share"]).any()
+                                                 else np.nan for g in GN])
     for lab, key in (("identity colors at 40", "W"), ("wants at 40", "A")):
         print("\n" + lab)
         for c in range(5):
