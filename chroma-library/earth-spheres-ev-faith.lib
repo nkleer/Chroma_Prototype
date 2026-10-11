@@ -506,7 +506,7 @@ scene G: {Ns} family has always had someone in the faith's service. Perhaps this
 - WG | turn the training down for now, and serve the grieving in your own street | v: benevolence, tradition | mark: turned down a chance | sphere: faith.GW | chance: 45
 works: The work is hard and right, and {N} becomes someone others lean on.
 works: Whatever {N} decides, they decide it with open eyes, and the family stays close.
-fails: The training costs more than {N} guessed, in money and in time at home.
+fails not WG: The training costs more than {N} guessed, in money and in time at home.
 fails: The call fades in the second year, and {N} is left unsure what it was.
 
 # ---------------------------------------------------------------- grove_felled (pairs D4b)
@@ -634,7 +634,7 @@ scene G: {N} has bought bread from that shop every morning for years. That count
 - WR | speak at the council meeting against the hatred on the street | v: universalism, benevolence | lever: voice | pushes: institution council | sphere: faith.RW | chance: 50
 - WU | help the owner fit shutters and a camera before the next night | v: security, benevolence | sphere: faith.WU | chance: 50
 works: The street closes ranks around the shop, and the worst of it passes.
-works: The owner and {N} become friends of a kind neither of them expected.
+works not B: The owner and {N} become friends of a kind neither of them expected.
 fails: More windows go before the war ends, and the street goes quiet with fear.
 fails: Some on the street tell {N} they chose the wrong side, and do not forget it.
 

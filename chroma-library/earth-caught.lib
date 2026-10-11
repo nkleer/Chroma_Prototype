@@ -47,7 +47,7 @@ scene G: Both places are part of who {N} is. Neither tie should be cut over one 
 - R>G | go to {place_a} tonight, admit the coolness hurt, and ask to be let back in | caught: side_a | v: benevolence, tradition | chance: 60
 - G>W | stand by {place_b}, who backed the step, as loyal people do | caught: side_b | v: benevolence, conformity | chance: 55
 works: The talk settles, and one of the two places greets {N} more warmly than before.
-works: By the end of the season both places have heard {Ns} side, and the step is old news at each.
+works not R G B>R: By the end of the season both places have heard {Ns} side, and the step is old news at each.
 fails: One of the places cools for good, and {N} feels it every time the door opens there.
 fails: Both places go a little cool, and the story comes back to {N} told wrong.
 
@@ -120,7 +120,7 @@ scene G: {N} has known people in both places for years. One season's quarrel sho
 - B>W | stand with {place_b}, and get its promise to help the cause another way | caught: side_b | v: power, universalism | chance: 58
 - R>U | take a friend from each place out tonight, and argue it through till they understand | caught: bridge | v: stimulation, universalism | chance: 52
 - G>B | keep the two in separate corners of life, as always, and lose neither | caught: apart | v: security, tradition | chance: 78
-works: The season turns, and one place remembers warmly where {N} stood when it counted.
+works not B W>R: The season turns, and one place remembers warmly where {N} stood when it counted.
 works: A few people from both places end up talking for the first time, and {N} is the one they thank.
 fails: One place takes it badly, and {N} is left off the next round of invitations there.
 fails: Both places sense {N} held back, and each trusts {N} a little less.
@@ -156,10 +156,10 @@ scene G: The people at {place_a} have been {Ns} people for a long time. That cou
 - B>U | broker a deal: {place_b} lends hands to {place_a}, and each learns how the other works | caught: bridge | v: power, universalism | chance: 58
 - R>B | say yes to both on the spot, and let each think it comes first | caught: apart | v: stimulation, achievement | chance: 80
 - G>R | let the season pass at home with family, free of both | caught: back | v: tradition, self-direction | chance: 90
-works: One place gets the best of {N} this season, and says so warmly at the end of it.
+works not U G>R: One place gets the best of {N} this season, and says so warmly at the end of it.
 works: The two places find they can share {N} after all, and {N} becomes the one who links them.
 fails: The place that lost out says nothing, but the welcome there is cooler for a long while.
-fails: Stretched between the two, {N} lets both down a little, and both notice.
+fails not U G>R: Stretched between the two, {N} lets both down a little, and both notice.
 
 # Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES, part 2 of the S3 set "Their places' eyes" (v22.3, DRAFT).
 # Enemy pair WR: {place_a} is the duty-and-order place (a congregation, the council's volunteers, a disciplined sports
@@ -238,7 +238,7 @@ scene G: {place_a} has stood by {N} for years, and the new warmth there feels li
 - B>G | stop going to both for a season, and put the hours into home and kin | caught: back | v: security, tradition | chance: 85
 - R>W | stand with {place_a} at once, and tell {place_b} to its face the choice was right | caught: side_a | v: conformity, stimulation | chance: 55
 - G>U | stay loyal to the friends at {place_b}, and ask them what they saw | caught: side_b | v: benevolence, self-direction | chance: 62
-works: Each place hears {N} out, and in time both accept the choice was made in good faith.
+works not R G B>G: Each place hears {N} out, and in time both accept the choice was made in good faith.
 works: One place warms to {N} more than ever, and the other quietly lets the matter drop.
 fails: {place_b} cools: the calls stop, and {N} hears about the good nights only afterwards.
 fails: Both places feel {N} chose the other, and the welcome in each turns merely polite.
@@ -276,7 +276,7 @@ scene G: {place_a} has kept the peace here for generations. That still counts fo
 - B>W | stand with {place_a}, and take a visible role keeping order on the night | caught: side_a | v: power, conformity | chance: 58
 - R>U | throw in with {place_b}, and stay up nights getting the facts straight for them | caught: side_b | v: stimulation, self-direction | chance: 60
 - G>B | bring the elders of both places to one table, and come away the one they trust | caught: bridge | v: tradition, power | chance: 60
-works: The night passes without trouble, and one place thanks {N} openly for the part they played.
+works not R U>G: The night passes without trouble, and one place thanks {N} openly for the part they played.
 works: The two places find a little common ground, and both mention {N} when they tell the story.
 fails: The place {N} did not stand with takes it hard, and the welcome there cools for a long while.
 fails: Neither place is satisfied, and both quietly stop asking {N} for anything.
@@ -312,7 +312,7 @@ scene G: {place_a} has asked the same of every member for as long as anyone reme
 - B>U | stand with {place_b}, and get backstage to learn how such nights are run | caught: side_b | v: achievement, self-direction | chance: 55
 - R>B | throw one big night for both crowds on the spot, and be the toast of it | caught: bridge | v: stimulation, power | chance: 60
 - G>R | keep the old habits at {place_a} and the free nights at {place_b} in separate weeks | caught: apart | v: tradition, hedonism | chance: 72
-works: Both places get enough of {N} to be content, and someone at each says they could not have managed without them.
+works not B W>G: Both places get enough of {N} to be content, and someone at each says they could not have managed without them.
 works: One place warms to {N} for the season, and the other lets it go without a grudge.
 fails: The place that went short remembers, and asks less of {N} the next time round.
 fails: Both places feel shortchanged, and {N} ends the season tired and a little alone.
@@ -434,7 +434,7 @@ scene G: Seasons like this come and go; what lasts is the people {N} goes home t
 - B>W | plead a full diary to both for a month, and spare everyone the quarrel | caught: back | v: security, conformity | chance: 88
 - R>U | throw everything into the push at {place_a} this season, heart and soul | caught: side_a | v: achievement, stimulation | chance: 68
 - G>B | stand by {place_b} out of loyalty, and become a face it cannot do without | caught: side_b | v: tradition, achievement | chance: 54
-works: One place gets the season it hoped for from {N}, and the other, a little to its own surprise, understands.
+works not G B>W: One place gets the season it hoped for from {N}, and the other, a little to its own surprise, understands.
 works: By the season's end both places count on {N}, and nobody remembers which evenings went where.
 fails: {place_b} stops saving {N} a place, and the big nights go on without them.
 fails: Both places feel short-changed, and {N} ends the season tired and only half welcome in each.
@@ -470,7 +470,7 @@ scene G: Quarrels like this blow through every few years, and the places people 
 - B>U | side with {place_a}, and use its standing to get the matter properly looked into | caught: side_a | v: power, universalism | chance: 60
 - R>B | stand with {place_b} out front, where everyone can see {N} took a stand | caught: side_b | v: self-direction, stimulation | chance: 60
 - G>R | gather both places around one long table, so the anger can be spoken face to face | caught: bridge | v: tradition, benevolence | mark: made a friend | chance: 55
-works: The season's anger cools, and the place {N} stood by remembers it, warmly, for a long time.
+works not R U>W: The season's anger cools, and the place {N} stood by remembers it, warmly, for a long time.
 works: A bridge holds: the two places end the season on speaking terms, and {N} is trusted in both.
 fails: The place {N} did not stand with cools for good, and the old greetings there turn polite and short.
 fails: Both places read {N} as half-hearted, and neither saves a seat for them in the weeks that follow.
@@ -553,9 +553,9 @@ scene G: Home is the place that knew {N} first. That has to mean something when 
 - B>G | call in favours on both sides to set up one shared evening that suits everyone | caught: bridge | v: power, benevolence | chance: 50
 - R>W | tell each place warmly what it needs to hear, so no one there gets hurt | caught: apart | v: benevolence | chance: 75
 - G>U | go back to the family for a while, and let time show what the step meant | caught: back | v: tradition, self-direction | chance: 90
-works: The answer lands well, and the place that asked for it draws {N} closer than before.
+works not G>U: The answer lands well, and the place that asked for it draws {N} closer than before.
 works: The two places find, through {N}, that they were less far apart than the talk made out, and {N} is trusted in both.
-fails: The other place takes the answer as a slight, and {N} is quietly left off its lists for the season.
+fails not G>U: The other place takes the answer as a slight, and {N} is quietly left off its lists for the season.
 fails: Neither place is satisfied, and both start to speak of {N} as someone who cannot be pinned down.
 
 # ---------------------------------------------------------------- pair 2: two places ask opposite things in one season
@@ -591,7 +591,7 @@ scene G: The old families have kept this place what it is. Change will come, but
 - B>W | back the plan quietly and keep the peace loudly: each place hears only its part | caught: apart | v: security, conformity | chance: 80
 - R>U | drop both for a few weeks on a whim, and go see how others did it | caught: back | v: stimulation, self-direction | chance: 90
 - G>B | stand with {place_a}, and use every old family tie to win the vote | caught: side_a | v: tradition, power | mark: made an enemy | chance: 65
-works: The meeting goes {Ns} way, and the place {N} stood with treats {N} as one of its own.
+works not W R>U: The meeting goes {Ns} way, and the place {N} stood with treats {N} as one of its own.
 works: The plan is changed enough that both places can live with it, and people on both sides credit {N} for it.
 fails: The place {N} did not stand with closes ranks, and greetings there turn short and formal.
 fails: The meeting turns bitter, and both places blame {N} for not doing more to stop it.
@@ -627,10 +627,10 @@ scene G: {place_b} has always counted on its own. Loyalty that only shows up whe
 - B>U | drop both this season, and spend the evenings on a course that pays | caught: back | v: achievement, self-direction | mark: turned down a chance | chance: 85
 - R>B | throw every evening into the project at {place_a}, and make a name with it | caught: side_a | v: stimulation, achievement | chance: 70
 - G>R | give the season to {place_b}, for the joy of the long tables and the old songs | caught: side_b | v: tradition, hedonism | chance: 60
-works: The season ends well where {N} gave the time, and the people there say they could not have done it without {N}.
+works not G B>U: The season ends well where {N} gave the time, and the people there say they could not have done it without {N}.
 works: Both places come through the season, and the old hands at {place_b} even drop by to see what {place_a} has built.
 fails: The place that went without {N} manages, but someone there says {N} has changed, and it gets around.
-fails: Stretched between the two, {N} lets both down in small ways, and by the end neither place quite counts on {N}.
+fails not G B>U: Stretched between the two, {N} lets both down in small ways, and by the end neither place quite counts on {N}.
 
 # Chroma library, modern Earth: CAUGHT BETWEEN TWO PLACES (S3 Their places' eyes, v22.3; agent 5, enemy pair BG).
 # Two of the character's places pull opposite ways. The Engine fills {place_a} with the B-led place (ambition and
@@ -784,7 +784,7 @@ scene G: {place_b} has carried {N} through hard seasons before. Now it is the on
 - B>U | split the evenings shrewdly, learn what each can teach, and keep the two diaries apart | caught: apart | v: achievement, self-direction | chance: 80
 - R>B | drop both on a whim for a few weeks, and take the evenings for yourself | caught: back | v: hedonism, self-direction | act: drop both on a whim for a few weeks, and take the evenings for themself | chance: 90
 - G>R | stand with {place_a} this season, giving it the steady loyalty that makes the push a joy | caught: side_a | v: benevolence, stimulation | chance: 70
-works: The season ends well, and the place that got {Ns} evenings says it will not forget it.
+works not W R>B: The season ends well, and the place that got {Ns} evenings says it will not forget it.
 works: Both places come through the stretch, and each is glad, in the end, of what {N} could give.
 fails: The place that was left short cools on {N}, and says so to anyone who asks.
-fails: Spread thin, {N} disappoints both, and is asked to less at each.
+fails not W R>B: Spread thin, {N} disappoints both, and is asked to less at each.

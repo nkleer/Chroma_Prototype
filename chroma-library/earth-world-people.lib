@@ -121,7 +121,7 @@ scene G: This is the turn every family comes to. {Ns} grandparents spent their l
 - G>B | ask the relatives who live nearest to take them in, and keep your own life | v: self-direction, security | chance: 52
 works: {parent} settles into the new arrangement, and the frightened weeks are over.
 works: The care holds, and {parent} has good days again, more of them than anyone expected.
-fails: Within months the arrangement is cracking, and {N} is running on four hours' sleep.
+fails not R G>B: Within months the arrangement is cracking, and {N} is running on four hours' sleep.
 fails: {parent} has another fall, and the whole question opens again from the start.
 
 == a parent asks you to move back home
@@ -195,9 +195,9 @@ scene G: The two of them grew up in the same small bedroom. Whatever else happen
 - B>R | pay the worst debt straight to the collectors, and keep the rest of your money | v: benevolence, security | chance: 76
 - R>G | phone your parents there and then, and ask the whole family to chip in | v: benevolence, tradition | chance: 55
 - G>W | ask the eldest of the family what is fair, and abide by it | binds | v: tradition, conformity | chance: 62
-works: {sibling} gets back on their feet, and the money, or the help, is never forgotten.
+works not G: {sibling} gets back on their feet, and the money, or the help, is never forgotten.
 works: The collectors stop calling, and the two of them find they can still talk about anything.
-fails: The money vanishes into the debt, and within months {sibling} is asking again.
+fails not G: The money vanishes into the debt, and within months {sibling} is asking again.
 fails: The question sits between them at every family meal, unspoken and heavy.
 
 == a colleague after your job
@@ -233,9 +233,9 @@ scene G: Every workplace has its young ones pushing at the old ones. {N} pushed 
 - B>G | offer to split the team with them, if the lunches stop | v: security, power | chance: 60
 - R>W | stand up at the team meeting and say openly what is going on | v: universalism, self-direction | chance: 50
 - G>U | take them under your wing again, and help them aim higher than your post | v: benevolence, achievement | mark: made a friend | chance: 50
-works: The boss settles it, and {N} keeps the role with more standing than before.
+works not U>R: The boss settles it, and {N} keeps the role with more standing than before.
 works: Whatever {N} does clears the air, and the office stops whispering.
-fails: {colleague} gets the role, and {N} is moved sideways to a desk by the window.
+fails not U>R: {colleague} gets the role, and {N} is moved sideways to a desk by the window.
 fails: The fight drags on for months and sours the whole team.
 
 # ---------------------------------------------------------------- pair A4: love, calls UR (cycle s3) / forgiveness, calls WBG (cycle s4)
@@ -273,8 +273,8 @@ scene G: Some friendships deepen like a river cutting its bed, so slowly that no
 - R>U | tell them every feeling you have about it, the yes and the fear, right there | v: benevolence, self-direction | chance: 64
 - G>B | go, because your instinct says this will do your life good | v: hedonism, self-direction | chance: 66
 works: The weekend, or the answer, leaves the two of them closer than before.
-works: Something new begins between them, unhurried and sure of itself.
-fails: The weekend goes wrong, and both of them come home quiet and sore.
+works not W: Something new begins between them, unhurried and sure of itself.
+fails not W: The weekend goes wrong, and both of them come home quiet and sore.
 fails: {friend} takes the answer hard and stops calling for a long while.
 
 == a letter from the friend you cut off
@@ -310,8 +310,8 @@ scene G: Six years is a long winter. Something in {N} has been waiting for this 
 - R>B | call them that night and tell them exactly what it cost | v: power, self-direction | mark: made an enemy | chance: 60
 - G>R | walk with them by the river, and let the old friendship decide for itself | v: benevolence | chance: 58
 works: The old knot loosens, and {N} sleeps better than in years.
-works: An answer goes back, and whatever comes of it, the matter is settled.
-fails: The meeting reopens the old wound, and it stays raw for weeks.
+works not R G: An answer goes back, and whatever comes of it, the matter is settled.
+fails not R G: The meeting reopens the old wound, and it stays raw for weeks.
 fails: {friend} reads the answer as a door slammed, and tells the old crowd their side of it.
 
 # ---------------------------------------------------------------- pair A5: stop, calls WG (cycle s1) / secret, calls UBR (cycle s2)
@@ -348,7 +348,7 @@ scene G: {sibling} has their grandmother's eyes, and the same worried crease bet
 - B>R | offer a deal: weekends only, if they stop checking up | v: hedonism, self-direction | chance: 55
 - R>G | dare your sibling to give up their own vice at the same time | v: benevolence, stimulation | self_control: + | chance: 46
 - G>W | move in with your sibling for a while, so the family can keep watch | v: security, tradition | self_control: + | chance: 66
-works: The habit loosens its grip, month by month, with the family close.
+works not B: The habit loosens its grip, month by month, with the family close.
 works: Something in the talk gets through, and {N} wakes the next morning clearer than in months.
 fails: Within weeks the old pattern is back, and the next talk is harder.
 fails: {N} leaves the table furious, and {sibling} and {N} do not speak for a season.
@@ -461,7 +461,7 @@ scene G: The local language is in the market, in the songs at the bus stop and i
 - R>B | skip the class, and pick up only the words you need to get by | v: self-direction | self_control: - | chance: 80
 - G>R | fall in with local friends, and learn it laughing in their kitchens | v: stimulation, benevolence | grants: second language | mark: made a friend | chance: 58
 works: One morning {N} realises a whole conversation has gone by without translating a word in {Ns} head.
-works: The exam is passed, and the next phone call with the landlord goes {Ns} way.
+works not G R>B: The exam is passed, and the next phone call with the landlord goes {Ns} way.
 fails: The words will not stick, and {N} goes back to pointing and smiling.
 fails: A misunderstanding at work costs {N} a shift, and the shame of it lasts longer than the lost pay.
 
@@ -536,7 +536,7 @@ scene G: Some trees take years to root in new ground. {N} feels it in the soles 
 - B>G | become a citizen, so your family back home can follow | binds | v: benevolence, security | grants: citizenship | title: naturalised citizen | chance: 62
 - R>W | put your name on the voting register at the town hall that same afternoon | v: universalism, conformity | grants: citizenship | title: naturalised citizen | chance: 82
 - G>U | wait a few more years, until the new country truly feels like home | v: self-direction, tradition | chance: 76
-works: {N} walks out of the town hall a citizen, with a certificate and a small flag, and the street feels different underfoot.
+works not R G>U: {N} walks out of the town hall a citizen, with a certificate and a small flag, and the street feels different underfoot.
 works: The decision is made and it holds, and {N} sleeps that night without a single form on the table.
-fails: A missed form puts the ceremony off by a year, and the letter about it is curt.
+fails not R: A missed form puts the ceremony off by a year, and the letter about it is curt.
 fails: The day comes and goes, and {N} feels less changed by it than expected, and more alone.

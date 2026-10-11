@@ -626,7 +626,7 @@ scene G: After the robbery {N} walks home the long way, through the lit streets,
 - B>R | find them later, with friends, and pay them back in kind | body: heavy | v: power | mark: made an enemy | closed: law: assault; backfire: arrested, and they come back with more friends | chance: 15
 - R>G | take up boxing, and get strong enough that nobody tries it again | habit | body: heavy | v: security, achievement | chance: 68
 - G>W | let the family deal with them in their own way, and keep the police out | v: tradition, security | mark: defied an authority | closed: law: taking justice into the family's hands; backfire: a feud, and arrests on both sides | chance: 30
-works: The police find the phone, and one of the two is caught within the month.
+works not G>W: The police find the phone, and one of the two is caught within the month.
 works: The fear fades slowly, and by spring {N} walks home the old way without thinking about it.
 fails: Nobody is ever caught, and {N} flinches at footsteps for a long time.
 fails: {N} stops going out after dark, and the evenings shrink.

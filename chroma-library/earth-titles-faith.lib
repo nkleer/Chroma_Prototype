@@ -68,7 +68,7 @@ scene G: The guesthouse has taken in travellers since before the railway came, a
 - B>G | sell the old annexe to a developer, so the main house stays the community's | v: security, tradition | mark: made an enemy | closed: approval: selling part of what the founders left; backfire: the older members never forgive it | chance: 45
 - R>W | throw yourself in, and paint every guest room before the first visitors of the year | body: light | v: benevolence | chance: 78
 - G>U | spend a season watching who comes and why, before changing anything | v: self-direction | chance: 65
-works: By summer the rooms are full on weekdays, and the boiler is paid for.
+works not R G: By summer the rooms are full on weekdays, and the boiler is paid for.
 works: The community accepts {Ns} answer, and the matter is settled without a quarrel.
 fails: The guesthouse loses more money than ever, and the community's meetings grow tense.
 fails: {Ns} answer leaves the head of the house disappointed, and the silence at meals feels heavier.
@@ -143,9 +143,9 @@ scene G: Every musician here was once the newcomer, {N} remembers, and every one
 - R>B | play the hardest piece you know next week, so nobody forgets who the musician is | identity | v: power, achievement | chance: 65
 - G>R | stop fretting, and enjoy hearing someone else play from the pews for once | v: hedonism | chance: 90
 works: By spring the music is fuller than it has been in years, and nobody is counting who plays when.
-works: {N} plays at the next feast, and the room sways the way it did for {rival}.
+works not G G>R: {N} plays at the next feast, and the room sways the way it did for {rival}.
 fails: The congregation splits into those who want {N} and those who want {rival}.
-fails: {rival} stops coming altogether, and people blame {N}.
+fails not G: {rival} stops coming altogether, and people blame {N}.
 
 # ---------------------------------------------------------------- civil-liberties campaigner (T2-086): calls WR (cycle s1) / calls UBG (cycle s2)
 
@@ -179,9 +179,9 @@ scene G: The market square has heard preachers, hawkers and drunks for six hundr
 - B>R | take the case only if you never have to share a platform with him | v: self-direction | chance: 75
 - R>G | go to the square and talk with him face to face, one person to another | door | v: benevolence, universalism | chance: 55
 - G>W | propose the town's old answer: a set corner and a set hour for street speakers | v: tradition, security | chance: 20
-works: The bylaw is suspended, and nobody mistakes {Ns} defence of the right for agreement with the man.
+works not R G: The bylaw is suspended, and nobody mistakes {Ns} defence of the right for agreement with the man.
 works: {N} comes out of the week able to look everyone in the eye, and the campaign holds together.
-fails: A photo of {N} beside the preacher goes round the town, and old friends stop calling.
+fails not R G B>R: A photo of {N} beside the preacher goes round the town, and old friends stop calling.
 fails: The hearing upholds the ban, and the campaign argues about the case for months.
 
 == a seat on the council's camera panel
@@ -325,7 +325,7 @@ scene G: {friend} has sung alto here for twenty years, and pats the empty chair 
 - B>R | book private singing lessons instead, and sing what you like | v: self-direction, hedonism | chance: 92
 - R>G | talk a neighbour into coming along next week, and decide together then | v: benevolence, hedonism | chance: 55
 - G>W | join, because your family has sung in the town choir for three generations | binds | v: tradition | title: choir member | requires: singing | without: approval | lacking: .8 | chance: 80
-works: By the spring concert {N} knows every note of {Ns} part and every face in the room.
+works not R U>B B>R: By the spring concert {N} knows every note of {Ns} part and every face in the room.
 works: {N} walks home humming, sure of the choice.
 fails: {N} spends the evening a beat behind everyone else, and leaves feeling foolish.
 fails: The choir's hall is closed for repairs the next month, and the plan comes to nothing.
@@ -359,9 +359,9 @@ scene G: {Ns} old drum kit is still under a sheet in the loft at {parent}'s hous
 - B>G | sell the old kit, and put the money toward a family holiday | v: security, benevolence | chance: 95
 - R>W | join, and swear to the others you will never miss a Thursday | binds | v: benevolence, conformity | title: amateur band member | requires: musical instrument | without: approval | lacking: .4 | chance: 75
 - G>U | hear them at the pub first, and see if they are your sort of people | v: self-direction | chance: 85
-works: By the third Thursday the songs lock together, and the singer turns round grinning.
+works not W B G B>G: By the third Thursday the songs lock together, and the singer turns round grinning.
 works: {N} goes home with sore wrists and a clear head about what comes next.
-fails: The first rehearsal falls apart at the second song, and nobody rings back.
+fails not G B>G: The first rehearsal falls apart at the second song, and nobody rings back.
 fails: The band splits a month later over who gets to choose the songs.
 
 # ---------------------------------------------------------------- repair-cafe volunteer (T2-061) / community-kitchen volunteer (T2-075): calls UR (cycle s3) / calls WBG (cycle s4)
@@ -429,7 +429,7 @@ scene G: The soup comes from the same stock pot it has for eleven years, and {el
 - B>U | trade a month of shifts for the cook's recipes and know-how, then move on | v: achievement, self-direction | mark: learned a skill | chance: 90
 - R>B | start a Friday evening meal of your own in the kitchen, cooked by whoever comes | v: achievement, stimulation | title: community-kitchen volunteer | requires: food hygiene certificate | without: approval | lacking: .5 | chance: 45
 - G>R | stay for lunch as a guest, eat with the regulars, and enjoy it | v: hedonism, benevolence | mark: made a friend | chance: 90
-works: By the end of the month {N} knows the regulars by name, and the lunches go out on time.
+works not R U>W: By the end of the month {N} knows the regulars by name, and the lunches go out on time.
 works: The kitchen gets what it needed from {N}, and {N} walks home tired and glad.
 fails: The kitchen descends into a row about the rota, and {N} is caught in the middle.
 fails: Lunch is forty minutes late, the soup burns, and the regulars let everyone know.
@@ -466,9 +466,9 @@ scene G: {N} has walked these hills since childhood and knows every sheep track.
 - B>R | turn down the pager, but enter the team's winter fell race | v: stimulation | mark: turned down a chance | chance: 85
 - R>G | say it is not your calling, and take the family up the hills on Sunday | v: benevolence, hedonism | mark: turned down a chance | chance: 95
 - G>W | offer the team your barn or garage to store its kit, instead of joining | v: benevolence | chance: 92
-works: By spring {N} is out on a training night with the team, rain running off the hood.
+works not G U>B B>R R>G G>W: By spring {N} is out on a training night with the team, rain running off the hood.
 works: {N} goes home with a clear answer, and no regrets about it.
-fails: Selection weeds out half the recruits, and {N} is among them.
+fails not G U>B B>R R>G G>W: Selection weeds out half the recruits, and {N} is among them.
 fails: The first winter of call-outs strains things at home more than {N} expected.
 
 == the lifeboat station calls for crew
@@ -500,9 +500,9 @@ scene G: The names of drowned fishermen are carved on the stone by the harbour, 
 - B>G | join the crew, and talk your employer into releasing you for call-outs | binds | v: benevolence, achievement | title: lifeboat volunteer | requires: swimming | without: approval | lacking: .4 | chance: 65
 - R>W | help haul the boat back up the slipway after the launch, there and then | body: heavy | v: benevolence | chance: 90
 - G>U | ask the old fishermen in the harbour bar what this sea is really like | door | v: tradition, self-direction | chance: 75
-works: Six months later {N} is in a helmet on the slipway at dawn, soaked and grinning.
+works not W U>R: Six months later {N} is in a helmet on the slipway at dawn, soaked and grinning.
 works: {N} settles the question for good, and the harbour feels like home either way.
-fails: {N} misses the fitness standard by a few seconds, and the coxswain says to try again next year.
+fails not W U>R: {N} misses the fitness standard by a few seconds, and the coxswain says to try again next year.
 fails: A call-out on the night of a family wedding starts a row that lasts for weeks.
 
 # ---------------------------------------------------------------- school-governance board member (T2-068) / parent-association organiser (T2-069): calls BG (cycle s3) / calls WUR (cycle s4)
@@ -650,9 +650,9 @@ scene G: {N} has lived on this street for twenty years and never once been insid
 - B>G | offer to host the circle at your own congregation, so your people lead it | v: power, tradition | chance: 55
 - R>W | speak up at your own congregation for joining the town's interfaith walk | v: universalism | chance: 45
 - G>U | sit at the back for a few months, and only listen | v: universalism | chance: 70
-works: By the third meeting {N} is laughing with people {N} had never spoken to, over food from four kitchens.
+works not U W>B: By the third meeting {N} is laughing with people {N} had never spoken to, over food from four kitchens.
 works: {N} answers {friend} kindly and clearly, and the friendship is warmer for it.
-fails: The second meeting turns into an argument about the news, and two members walk out.
+fails not U W>B: The second meeting turns into an argument about the news, and two members walk out.
 fails: {Ns} own congregation hears of it and asks pointed questions.
 
 # ================================================================ SEEKER TO CONVERT (release check L2, 2026-10-07): an act source of [convert] in every color
@@ -692,7 +692,7 @@ scene G: Their seasons, their meals, their prayers for the dead: {N} has been li
 - B>R | turn the teacher down, and keep the freedom to believe whatever you like | v: self-direction | mark: turned down a chance | chance: 95
 - R>G | bring the person closest to you to the next gathering, and decide together | act: bring the person closest to them to the next gathering, and decide together | v: benevolence | chance: 80
 - G>W | stay a friend of the faith, at its feasts and its funerals, without joining | v: tradition, benevolence | chance: 90
-works: {N} is received one evening, in front of people who have become friends, and is given the words to say.
+works not B>R G>W: {N} is received one evening, in front of people who have become friends, and is given the words to say.
 works: The search does not end, but it has a home now, a calendar, and people who notice when {N} is missing.
 fails: At the last step {N} hesitates, and the teacher says gently that the door will stay open.
 fails: The community is warm, but one of its rules sticks in {Ns} throat, and {N} steps back for now.
@@ -729,6 +729,6 @@ scene G: The circle lives together on an old farm and grows its own food. It loo
 - R>W | stand up at the next talk and ask what nobody in the circle dares to ask | v: self-direction, universalism | mark: defied an authority | chance: 60
 - G>U | ask the teacher's oldest followers, quietly, what the first years were like | v: tradition, security | chance: 80
 works: {N} comes away with something real: a practice, a friend or two, and a clearer sense of what {N} is looking for.
-works: The teacher turns out to be what they seemed, and the circle makes room for {N} without asking for too much.
-fails: The fees, the rules and the teacher's moods add up, and {N} leaves with less money and fewer illusions.
+works not G: The teacher turns out to be what they seemed, and the circle makes room for {N} without asking for too much.
+fails not G: The fees, the rules and the teacher's moods add up, and {N} leaves with less money and fewer illusions.
 fails: The circle closes ranks against {Ns} questions, and the friend who brought {N} stops calling.

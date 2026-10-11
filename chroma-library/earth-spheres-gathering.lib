@@ -265,9 +265,9 @@ scene G: In {place} people used to know when a neighbour's curtains stayed shut.
 - B>G | quietly settle her tab, so she can come back without shame | v: benevolence | lever: fund | sphere: gather.B | chance: 65
 - R>W | stand up at the bar, and shame the room into a whip-round for her | v: benevolence, stimulation | lever: voice | sphere: gather.R | chance: 65
 - G>U | ask the old neighbours on her street what they have noticed | v: universalism, tradition | sphere: gather.G | chance: 65
-works: {N} finds out in time: she had been ill and too proud to say, and a doctor sees her that week.
+works not B G B>G: {N} finds out in time: she had been ill and too proud to say, and a doctor sees her that week.
 works: By the spring she is back on her stool, and the regulars have started keeping an eye on one another.
-fails: Nobody answers the door, and a week later the keeper hears she has moved away without a word.
+fails not B G B>G U>R: Nobody answers the door, and a week later the keeper hears she has moved away without a word.
 fails: She is mortified to have been found out, and stops coming for good.
 
 # ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: the stool at the end of the bar stays empty
@@ -308,9 +308,9 @@ scene G: The keeper has known {N} for fifteen years, and the plate holds the dis
 - B>U | offer to do the café's books in return for advice on your own | act: offer to do the café's books in return for advice on their own | v: security, achievement | sphere: gather.B | chance: 60
 - R>B | go back that night and laugh it all off before anyone can pity you | act: go back that night and laugh it all off before anyone can pity them | v: power, self-direction | sphere: gather.R | chance: 60
 - G>R | let the keeper walk you back to the café that evening, just as you are | act: let the keeper walk them back to the café that evening, just as they are | v: hedonism, tradition | sphere: gather.G | chance: 60
-works: Caught early, the trouble shrinks: one regular knows a good doctor, another knows how to face the lenders, and {N} is not alone with it.
+works not B: Caught early, the trouble shrinks: one regular knows a good doctor, another knows how to face the lenders, and {N} is not alone with it.
 works: Within a month {N} is back at the corner table, and the plate goes back to the keeper washed.
-fails: {N} keeps the door shut, and the trouble grows in the quiet for another season.
+fails not W U R G W>G U>W B>U R>B G>R: {N} keeps the door shut, and the trouble grows in the quiet for another season.
 fails: Word gets round the café faster than {N} would like, and the old seat feels watched.
 
 # ================================================================ who taught them (learn)
@@ -433,9 +433,9 @@ scene G: {Ns} uncle worked this yard for twenty years. Somebody here must rememb
 - UB | learn which jobs the agencies cannot fill, and train for one of those | v: achievement, self-direction | mark: learned a skill | sphere: comm.UB | chance: 50
 - RG | walk to the next town's yard with a friend from the line, together | v: stimulation, benevolence | mark: made a friend | sphere: comm.RG | chance: 50
 - BG | ask the shopkeeper who has known your family for years to take you on | act: ask the shopkeeper who has known their family for years to take them on | v: security, tradition | sphere: comm.BG | chance: 50
-works: The foreman's pen stops at {N}, and by evening {N} has a day's pay and a name the yard will remember.
+works not WU UB RG BG: The foreman's pen stops at {N}, and by evening {N} has a day's pay and a name the yard will remember.
 works: Within a month {N} has steady work, and stops coming to the gate.
-fails: The foreman picks four and walks off, and {N} goes home with nothing but cold feet.
+fails not WU UB RG BG: The foreman picks four and walks off, and {N} goes home with nothing but cold feet.
 fails: {rival} gets the place {N} was half promised, and {N} is back at the gate the next morning, and the next.
 
 # ---------------------------------------------------------------- life event: the older hand at the job centre (pairs D4b)
@@ -475,7 +475,7 @@ scene G: {N} thinks of the young ones {N} trained on the line, and of what becom
 - WR | stand up at the jobs fair, and say plainly that older hands are being passed over | v: universalism | lever: voice | pushes: economy | sphere: prod.RW | chance: 45
 works: Within months {N} is working again, and the years at the works turn out to count after all.
 works: The new work pays less, but {N} likes the people, and goes home tired in the right way.
-fails: A year of letters goes unanswered, and {N} starts telling people they have retired early.
+fails not B BR WG: A year of letters goes unanswered, and {N} starts telling people they have retired early.
 fails: The job {N} lands lasts six weeks, and {N} is back at the job centre, older and quieter.
 
 # ================================================================ the haunt choice (N1): where the free hours go, at each new life stage

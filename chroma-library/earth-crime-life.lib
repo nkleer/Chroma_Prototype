@@ -43,7 +43,7 @@ scene G: {N} thinks of {parent}, who stayed for thirty years, and of the house w
 - UG | slip out to the refuge whose number you saved months ago | v: security, benevolence | mark: left home | chance: 60
 - WR | stand in front of them and say, out loud, that it ends tonight | identity | v: self-direction, security | death_if_fails: .01 | chance: 50
 - WU | photograph everything tonight, and take it all to a lawyer in the morning | v: security, conformity | chance: 70
-works: By morning {N} is somewhere safe, and the house behind is quiet.
+works not G: By morning {N} is somewhere safe, and the house behind is quiet.
 works: The night ends, and with it something that had to end.
 fails: The night goes worse than {N} feared, and the morning brings police, doctors and questions.
 fails: Nothing is settled. {N} wakes in the same house, with the same fear and less strength than before.

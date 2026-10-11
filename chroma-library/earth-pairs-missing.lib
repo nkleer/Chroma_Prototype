@@ -84,7 +84,7 @@ scene G: {N} thinks of how the family has always managed these things, and of wh
 - R>U | ring round everyone tonight, loudly, until there is a plan | v: achievement | chance: 62
 - G>B | go, and trust the family to cope as it always has | v: self-direction, tradition | chance: 62
 works: The fortnight is covered, and {N} comes out of it neither bitter nor ashamed.
-works: {sibling} thanks {N} in a way {N} has not heard before.
+works not B G>B: {sibling} thanks {N} in a way {N} has not heard before.
 fails: Whatever {N} chose, {N} spends the fortnight wishing it had been the other.
 fails: An old quarrel in the family opens up again over who did what.
 

@@ -45,7 +45,7 @@ scene G: Some rules hold a place together the way roots hold a bank. Some days a
 - G>B | stay out of it, and say you never saw when they left | v: security | mark: hid a wrong | chance: 64
 works: The hour is settled in a way {N} can live with, and {friend} knows who stood by them.
 works: {N} finds that the rule and the friendship both survive the week.
-fails: The manager finds the sheet does not match the door log, and {N} has some explaining to do.
+fails not W G U>G: The manager finds the sheet does not match the door log, and {N} has some explaining to do.
 fails: {friend} hears only the part {N} did not do, and the friendship cools.
 
 == double pay to break the team's line
@@ -79,9 +79,9 @@ scene G: The team has always stood together, like trees that keep each other up 
 - R>U | ask the boss straight out why the offer is a secret, and listen closely | v: self-direction | chance: 64
 - G>B | say nothing either way, and let the offer go by on its own | v: security | chance: 64
 works: The team holds, or bends in the open, and {N} comes out of it trusted on both sides.
-works: The new hire comes in the end, and {N} has a fair share of the credit.
+works not B G G>B: The new hire comes in the end, and {N} has a fair share of the credit.
 fails: The secret gets out, and the team looks at {N} differently for months.
-fails: {boss} takes the refusal personally, and the good shifts start going elsewhere.
+fails not B B>W: {boss} takes the refusal personally, and the good shifts start going elsewhere.
 
 == a spare seat leaving in the morning
 tier: inner
@@ -114,9 +114,9 @@ scene G: The week ahead was laid out like a path through a garden. Now a gate ha
 - R>W | say yes, then stay up half the night covering every job you leave behind | v: benevolence, conformity | chance: 64
 - G>U | sleep on it, and see at five which choice still feels true | v: self-direction | chance: 64
 works: The week turns out well either way, and {N} knows why they chose as they did.
-works: {N} comes home with a story to tell and nothing left undone.
+works not G: {N} comes home with a story to tell and nothing left undone.
 fails: The choice is made in a rush, and {N} spends the week wishing for the other one.
-fails: Something left behind goes wrong while {N} is away, and someone is cross about it.
+fails not G: Something left behind goes wrong while {N} is away, and someone is cross about it.
 
 == the club's old paper booking book
 tier: inner
@@ -150,7 +150,7 @@ scene R: {N} has lost a booking to that book twice this month and wants to bin i
 - G>B | wait until the book falls apart, then offer your system when they need it | v: power, security | chance: 64
 works: The bookings stop going missing, and the old members still get their say.
 works: {N} finds a way that the club can live with, and is thanked for it at the bar.
-fails: The change splits the club, and {elder} stops coming on Tuesdays.
+fails not G: The change splits the club, and {elder} stops coming on Tuesdays.
 fails: Nothing changes, and the next missing page costs {N} a booking.
 
 == the captaincy a season early
@@ -185,8 +185,8 @@ scene R: {N} wants it, plainly and hotly, and cannot stand pretending otherwise.
 - R>U | ask the captain after practice what the role is really like | v: self-direction | chance: 64
 works: The role goes where it should, and {N} keeps the respect of the whole team.
 works: {N} comes out of the season stronger and better placed, whoever wears the armband.
-fails: The others hear of {Ns} move before it is made, and the changing room goes quiet around {N}.
-fails: {N} holds back, and the role goes to a newcomer the coach likes better.
+fails not G U: The others hear of {Ns} move before it is made, and the changing room goes quiet around {N}.
+fails not B R B>W: {N} holds back, and the role goes to a newcomer the coach likes better.
 
 # ---------------------------------------------------------------- ally pairs
 
@@ -255,9 +255,9 @@ scene G: {N} wonders which kind of knowing really belongs to them: the kind that
 - U>W | study the certificate properly, so you can teach it to others afterwards | v: universalism, achievement | chance: 64
 - R>B | throw yourself at the certificate and pass it in half the term | v: achievement, stimulation | chance: 64
 - G>R | sit in on one night of each, and follow whichever pull feels truest | v: self-direction | chance: 64
-works: The term goes well, and {N} finds the class worth every tired evening.
+works not G W>G: The term goes well, and {N} finds the class worth every tired evening.
 works: {N} learns something that stays, and it turns out to matter in more ways than one.
-fails: The class is not what {N} hoped, and the evenings drag.
+fails not G W>G: The class is not what {N} hoped, and the evenings drag.
 fails: {N} spends the term wondering about the other class, and gets less from either.
 
 == money that arrives all at once
@@ -327,8 +327,8 @@ scene B: {N} wants this summer for {Ns} own ends. The group will take it persona
 - G>W | go with the group, and take on looking after the camp for everyone | v: benevolence, tradition | chance: 64
 works: {N} has the summer they needed, and the group is still there when they come back.
 works: The friendships come out of it looser in a good way, with room for everyone.
-fails: The group goes on without {N}, and the jokes from the lake are ones {N} was not there for.
-fails: {N} goes along and spends the week wishing they were somewhere else.
+fails not W G R>G G>W: The group goes on without {N}, and the jokes from the lake are ones {N} was not there for.
+fails not R B U>B B>R: {N} goes along and spends the week wishing they were somewhere else.
 
 == a front garden left to grow
 tier: inner

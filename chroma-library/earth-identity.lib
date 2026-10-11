@@ -150,7 +150,7 @@ scene G: The family has gathered round this table for every holiday {N} can reme
 - R>W | call out the uncle who makes a snide remark, right there at the table | v: universalism | chance: 70
 - G>U | take the partner round the garden after lunch, and get to know them | door | v: benevolence | mark: made a friend | chance: 88
 works: By the pudding the talk is easy, and the partner is laughing at the old family jokes.
-works: {sibling} catches {Ns} eye across the table and mouths a silent thanks.
+works not W>B: {sibling} catches {Ns} eye across the table and mouths a silent thanks.
 fails: The meal limps to an early end, and {sibling} and the partner leave before the coffee.
 fails: Something said at the table is not forgotten, and the next holiday is thinner.
 
@@ -224,9 +224,9 @@ scene G: {N} has known {friend} since they were both small. If anyone in the wor
 - B>R | wait for a night when your friend owes you one, then pour it all out | v: self-direction | mark: came out | act: wait for a night when the friend owes them one, then pour it all out | chance: 78
 - R>G | blurt it out in tears, and let your friend hold you | v: benevolence, security | mark: came out | grants: friend for life | act: blurt it out in tears, and let the friend hold them | chance: 85
 - G>W | decide not to tell anyone yet, and keep the peace a while longer | v: security, conformity | mark: kept it hidden | chance: 82
-works: {friend} listens to the end, and then says the one thing {N} needed to hear.
+works not G>W: {friend} listens to the end, and then says the one thing {N} needed to hear.
 works: The night goes on and the world has not ended; if anything it is bigger.
-fails: {friend} goes stiff and changes the subject, and the walk home is very quiet.
+fails not G>W: {friend} goes stiff and changes the subject, and the walk home is very quiet.
 fails: Within a week someone else knows, and {N} did not tell them.
 
 # gate: attr >= 2 & age >= 15
@@ -299,8 +299,8 @@ scene G: {N} wants the family to know the whole of {N}, the way they have always
 - WB | keep it from them for good, and keep the family as it is | v: security, conformity | mark: kept it hidden | chance: 75
 - WU | write them a long, careful letter, and give them a week to take it in | v: benevolence, self-direction | mark: came out | chance: 65
 works: {parent} is quiet for a long moment, then reaches across the table and takes {Ns} hand.
-works: It is not easy, and the questions go on for months, but the family holds, and {N} is part of it as {N} really is.
-fails: {parent} leaves the room without a word, and the door stays closed for a long time.
+works not WB: It is not easy, and the questions go on for months, but the family holds, and {N} is part of it as {N} really is.
+fails not WB: {parent} leaves the room without a word, and the door stays closed for a long time.
 fails: There are shouts and tears, and {N} leaves that night not knowing when the way back will open.
 
 # ---------------------------------------------------------------- everyday pair 3 (juvenile to mature): calls WUG (cycle s4, attr >= 2) / calls BR (cycle s1, unease)
@@ -442,7 +442,7 @@ scene G: The march is full of families, pushchairs and grandparents with flags. 
 - B>W | sell cold drinks along the route, and give a cut to the organisers | v: achievement, benevolence | chance: 65
 - R>U | go and argue with the counter-protesters, to hear their reasons | door | v: self-direction, universalism | closed: approval: a shouting match in the street; backfire: the police step in | chance: 65
 - G>B | turn your back on the march with the old families on the corner | identity | v: tradition, power | chance: 70
-works: It turns into one of those days the town talks about for years, and {N} was there.
+works not B: It turns into one of those days the town talks about for years, and {N} was there.
 works: {N} goes home sunburnt and hoarse, with plenty to think about.
 fails: A scuffle on the corner sours the afternoon, and {N} goes home early.
 fails: Someone {N} knows saw {N} there, and has something to say about it on Monday.
@@ -481,7 +481,7 @@ scene G: {N} feels like a tree that has grown round a wire for decades. The wire
 - B>U | go to a support group in another town, under a different name | door | v: self-direction | chance: 80
 - R>B | leave the marriage and start again on your own terms, at once | v: self-direction, hedonism | mark: left home | chance: 85
 - G>R | go away alone to the sea for a week, without saying why | v: self-direction, hedonism | closed: approval: leaving home for a week with no reason given; backfire: the family fears the worst, and the trust frays | chance: 85
-works: {N} finds words for it at last, and the ground holds.
+works not W B: {N} finds words for it at last, and the ground holds.
 works: Whatever comes next, {N} has stopped lying, at least inwardly.
 fails: The truth comes out sideways and at the worst moment, and the house goes cold.
 fails: {N} folds it away again, and the old weight settles back on {Ns} chest.

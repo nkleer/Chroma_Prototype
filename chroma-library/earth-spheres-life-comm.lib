@@ -110,8 +110,8 @@ scene G: {Ns} family has bought from this dealer for years, and the old man stil
 - R>G | turn the haggle into a show for the crowd, and buy the dealer a tea after | v: hedonism, benevolence | sphere: comm.R | chance: 65
 - G>W | offer to help him pack the stall at closing in return for a lower price | v: benevolence, conformity | sphere: comm.G | chance: 65
 works: The dealer laughs, spits on his palm and shakes, and the chair goes home for less than {N} dared hope.
-works: {N} pays a little more than planned, but the dealer throws in the lamp and calls {N} by name the next Sunday.
-fails: {N} walks away to wait for the call back, and turns round to see the chair sold to someone else.
+works not B: {N} pays a little more than planned, but the dealer throws in the lamp and calls {N} by name the next Sunday.
+fails not W G G>W R>G: {N} walks away to wait for the call back, and turns round to see the chair sold to someone else.
 fails: At home the chair turns out to be worth half what {N} paid: the dealer was the better hand.
 
 # ================================================================ the shop (comm.shop)
@@ -325,9 +325,9 @@ scene G: {parent} never bought anything that could not be paid for at once, and 
 - UB | find the offer with no interest if paid inside a year, and plan to beat it | v: achievement, power | sphere: comm.UB | chance: 50
 - UR | walk out, buy it all second hand online that evening, and owe nothing | v: self-direction, stimulation | tech: internet | lever: exit | sphere: comm.UR | chance: 50
 - RG | sign for the sofa, and throw a housewarming for everyone who helped with the move | v: hedonism, benevolence | sphere: comm.RG | chance: 50
-works: The payments go out on time each month, and two years later {N} owns every stick, with a good credit record to show for it.
+works not UR: The payments go out on time each month, and two years later {N} owns every stick, with a good credit record to show for it.
 works: {partner} sits on the new sofa the first night and says it feels like home at last.
-fails: A month of short hours makes one payment late, and the fees pile on faster than {N} can follow.
+fails not UR: A month of short hours makes one payment late, and the fees pile on faster than {N} can follow.
 fails: By the end the sofa has cost almost twice its tag, and it is already sagging.
 
 # ---------------------------------------------------------------- life event: the lender's yes or no (pairs D2a)
@@ -366,10 +366,10 @@ scene G: Three neighbours have promised to buy from the van. {N} wishes the lend
 - UR | walk out, and pay for the first van with orders taken in advance from the regulars | v: self-direction, stimulation | lever: exit | sphere: comm.UR | chance: 50
 - BR | offer the lender a share of the takings instead of a fixed rate | v: power, stimulation | sphere: comm.BR | chance: 50
 - BG | put up the family's savings as surety, and borrow half as much | v: security, tradition | sphere: comm.BG | chance: 50
-works: The lender closes the folder and says yes, and the van is parked outside {Ns} door by the end of the month.
+works not UR: The lender closes the folder and says yes, and the van is parked outside {Ns} door by the end of the month.
 works: The answer is no, but the lender names what would make it yes, and {N} comes back a year later and gets it.
 fails: The answer is no, with no reason given, and on the way out {N} passes a borrower with half the plan, walking out smiling.
-fails: The loan comes through at a rate that will eat the first two years of the van's profit.
+fails not UR: The loan comes through at a rate that will eat the first two years of the van's profit.
 
 # ================================================================ trade at large
 
@@ -411,9 +411,9 @@ scene G: {colleague} at the next stall has been there forty years, and is alread
 - UG | share one pitch with the old neighbour, splitting the fee and the days | v: benevolence, security | sphere: comm.GU | chance: 50
 - BR | sell off the stock at one great last market, and start again elsewhere | v: stimulation, achievement | lever: exit | sphere: comm.BR | chance: 50
 works: The stallholders hold together, and the council caps the fee for three years.
-works: {N} finds a better pitch in a market two towns away, and the takings there are higher within a season.
+works not G UG: {N} finds a better pitch in a market two towns away, and the takings there are higher within a season.
 fails: Half the market is empty by the spring, and with the crowds gone {Ns} stall fades with it.
-fails: {N} hangs on for a year at the new fee, then gives up the pitch with nothing saved.
+fails not R BR: {N} hangs on for a year at the new fee, then gives up the pitch with nothing saved.
 
 # ---------------------------------------------------------------- life event: the order that makes the business (pairs D4a)
 

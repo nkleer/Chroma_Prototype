@@ -104,9 +104,9 @@ scene G: Two people with the same gifts in the same small team, {N} thinks; one 
 - B>R | line up a better offer elsewhere and leave with a flourish | v: self-direction, stimulation | door | chance: 68
 - R>G | challenge your rival to a game of squash and let it settle there | v: stimulation, benevolence | body: light | chance: 68
 - G>W | keep doing your share without complaint, so the team holds together | v: benevolence, conformity | chance: 55
-works: By spring {N} is the one people come to, and {rival} knows it.
+works not B>R: By spring {N} is the one people come to, and {rival} knows it.
 works: The tension eases, and the work starts going to whoever does it best.
-fails: {rival} gets the promotion, and the corridor feels longer every morning.
+fails not B>R: {rival} gets the promotion, and the corridor feels longer every morning.
 fails: Word gets around, and {N} is the one who looks petty.
 
 == a child's birthday party in the family
@@ -451,7 +451,7 @@ scene G: {N} has seen this before: the old tools put away, the old hands let go,
 - B>G | make a deal that protects your own team's jobs, whatever it costs the others | v: security, benevolence | mark: made an enemy | chance: 58
 - R>W | rally your colleagues to demand a fair deal for everyone it replaces | v: universalism | identity | chance: 62
 - G>U | trust your feel for the work, and notice every place the machine gets it wrong | v: self-direction, achievement | chance: 60
-works: Within a few months {N} is the one others ask about the new system.
+works not R: Within a few months {N} is the one others ask about the new system.
 works: The change settles, and the work turns out to have room for {N} after all.
 fails: {Ns} role shrinks to checking the machine's output.
 fails: The rollout goes badly, and {N} gets a share of the blame.
@@ -522,10 +522,10 @@ scene G: {friend} and {N} grew up on the same street, where people always helped
 - B>W | tell your friend you will only drive if they put you on the books | v: conformity, security | act: tell their friend they will only drive if the friend puts them on the books | chance: 65
 - R>U | do it a few times for the thrill, and learn how the business really runs | v: stimulation, self-direction | closed: law: undeclared income; backfire: caught, and fined | chance: 85
 - G>B | bring your cousins in on it and keep the cash in the family | v: power (resources), benevolence | binds | closed: law: undeclared income; backfire: the whole family in trouble | chance: 48
-works: The extra money comes in, and nothing comes back to bite.
+works not W: The extra money comes in, and nothing comes back to bite.
 works: {N} decides with a clear head, and the decision holds.
 fails: {friend} takes offence, and the friendship cools.
-fails: A letter from the tax office arrives with {Ns} name on it.
+fails not W: A letter from the tax office arrives with {Ns} name on it.
 
 == a friend wants to start a project with you
 tier: everyday
@@ -591,7 +591,7 @@ scene G: For a second the young woman's eyes find {Ns}, the way a cornered anima
 - R>B | square up to him and humiliate him in front of everyone | v: power | body: heavy | mark: made an enemy | closed: law: a fight on a bus; backfire: arrested, or hurt | role: men | chance: 48
 - G>R | move to stand beside her, silent and steady, so she can reach the doors | v: benevolence | body: light | mark: helped someone in need | chance: 72
 works: The man gets off at the next stop, muttering, and the young woman breathes out.
-works: Someone thanks {N} quietly on the way out, and the bus moves on.
+works not B: Someone thanks {N} quietly on the way out, and the bus moves on.
 fails: The man turns his anger on {N}, and the night ends badly.
 fails: Nothing anyone does seems to help, and {N} gets home shaking.
 
@@ -815,7 +815,7 @@ scene G: Even a field must lie fallow, {grandparent} used to say. {Ns} body seem
 - UBG | quietly pass your workload to others, and rest while they carry it | v: hedonism, security | closed: approval: colleagues left to carry it; backfire: found out, and resented | chance: 70
 works: Slowly {N} sleeps again, and work takes up less room in the head.
 works: Months later {N} looks back on it as the moment life was rearranged.
-fails: {N} goes back too soon, and the second crash is worse than the first.
+fails not B R UBR: {N} goes back too soon, and the second crash is worse than the first.
 fails: The exhaustion lingers for a year, and something in {N} stays dimmer.
 
 # ---------------------------------------------------------------- life event: a serious accident or illness (triads from D5b)

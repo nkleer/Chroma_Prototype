@@ -47,10 +47,10 @@ scene G: {N} has loved this since being tiny, the way some children love water o
 - B>R | trade a cousin your old things for the toy you really wanted | role: cross | v: hedonism | chance: 80
 - R>G | laugh off the teasing with the others, and let the whole thing drop | role: keep | v: security (belonging) | chance: 72
 - G>W | choose what the others expect this time, and keep the wish for later | role: keep | v: conformity | mark: gave in to pressure | chance: 72
-works: {N} goes along to the club, and by the third week nobody remembers there was ever a fuss.
+works not G R>G G>W: {N} goes along to the club, and by the third week nobody remembers there was ever a fuss.
 works: Whatever {N} chose, it was {Ns} own choice, and the week ends in a good mood.
 fails: The teasing follows {N} round the playground for days.
-fails: {N} lets the thing go quietly, and misses it all term.
+fails not W B U>B: {N} lets the thing go quietly, and misses it all term.
 
 == girls' jobs and boys' jobs at home
 tier: everyday
@@ -117,8 +117,8 @@ scene G: {N} has always been like this, the way a river runs where the land lets
 - G>B | keep your head down and act the part until you can leave home | role: keep | v: security | mark: gave in to pressure | chance: 64
 works: The words lose their sting, and {N} finds a way of being that fits.
 works: {parent} thinks it over and, a few days later, says something gentler.
-fails: The row rumbles on all week, and the house is cold with it.
-fails: {N} tries to be what was asked, and spends weeks squeezed into a shape that does not fit.
+fails not W G B G>B: The row rumbles on all week, and the house is cold with it.
+fails not R R>U: {N} tries to be what was asked, and spends weeks squeezed into a shape that does not fit.
 
 == the uniform rule for girls and boys
 tier: everyday
@@ -153,7 +153,7 @@ scene G: {N} feels easy in it, the way an old coat feels easy. Being sent to cha
 works: By the end of term the rule has bent, or {N} has found a way round it that nobody minds.
 works: {N} gets through the term without much fuss, and with a little more say over the next one.
 fails: A letter goes home, and there is a meeting with the head.
-fails: {N} spends the term in and out of detention, and the rule stays exactly as it was.
+fails not B G: {N} spends the term in and out of detention, and the rule stays exactly as it was.
 
 # ---------------------------------------------------------------- inner: the only one of your kind at work (cycle s2)
 
@@ -392,9 +392,9 @@ scene G: {N} grew up in a big, untidy family, with cousins taken in and grandpar
 - UB | save hard for two years first, so whichever route you choose is paid for | self_control: + | v: security, achievement | habit | chance: 75
 - WG | give your time to the family's children instead, and be the one they run to | v: benevolence, tradition | chance: 80
 - WU | join a group of couples who have done it, and learn each route from them | door | v: self-direction, security | chance: 85
-works: The long road ends at last, and there is a small coat on the hook by the door.
+works not BR RG WG: The long road ends at last, and there is a small coat on the hook by the door.
 works: Whatever the two of them chose, they chose it together, and it holds.
-fails: The months of checks, tests and forms come to nothing this time, and the spare room stays empty.
+fails not BR RG WG: The months of checks, tests and forms come to nothing this time, and the spare room stays empty.
 fails: The cost and the waiting wear on them both, and for a while the subject is too sore to raise.
 
 # ---------------------------------------------------------------- inner: growing old without hiding again (cycle s1)
@@ -431,6 +431,6 @@ scene G: {N} has seen the seasons turn many times, and knows this one: the leave
 - R>G | invite your old friends round loudly and often, so the whole home knows them | habit | v: benevolence, hedonism | chance: 76
 - G>W | keep to yourself for a season, and wait to see who is kind | self_control: + | v: security | chance: 82
 works: The fear passes, and {N} finds that the people now around {N} can be trusted with the whole of {Ns} life.
-works: {N} settles in as {N} is, photographs and all, and the place slowly becomes home.
+works not B: {N} settles in as {N} is, photographs and all, and the place slowly becomes home.
 fails: A carer's remark cuts deep, and {N} spends weeks guarding every word.
 fails: {N} slips back into hiding, and the rooms feel smaller for it.
