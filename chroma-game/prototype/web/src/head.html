@@ -1211,6 +1211,9 @@
   .mean { display: grid; justify-items: center; gap: 3px; cursor: help; color: var(--ink2); min-width: 0; }
   .mean .col { position: relative; width: 9px; height: 30px; border-radius: 5px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
   .mean .col i { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 5px; background: var(--mc); transition: height var(--t-3) var(--ease); }
+  .mean .col.two { width: 13px; }
+  .mean .col.two i { right: calc(50% + 0.5px); border-radius: 5px 1px 1px 5px; }
+  .mean .col.two i.mind { left: calc(50% + 0.5px); right: 0; border-radius: 1px 5px 5px 1px; opacity: 0.7; }
   .mean > svg.i { color: var(--mc); font-size: 14px; }
   .mean small { font-size: var(--fs-1); color: var(--muted); line-height: 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .nowgoal { display: grid; grid-template-columns: 16px auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; cursor: help;

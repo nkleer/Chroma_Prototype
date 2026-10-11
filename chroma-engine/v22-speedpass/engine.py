@@ -992,6 +992,20 @@ DEFAULT = dict(
     cur_bal=0.5,         # its pull toward balance (log shares), so identities at 40 stay as with the current off
     cur_era=0.5,         # how much of the era the times' part carries (Emren 10-10 15:07 UTC, "Era at half"); the era
                          # also moves lives through era_push_k and the niche, and the culture through each generation's people
+    # v22.5 F1, a body and a mind (Emren 10-11 11:25 UTC; chroma-ideas/realism/v22.5-realism-list.md), off until the v22.5
+    # refit. body: health's body half from a constitution, the age, long-term conditions, short illnesses and injuries that
+    # heal in weeks, serious illnesses, pregnancy, and habits by colour, strain, loneliness, money and care as tendencies
+    # (BODY_PAR, H1 to H17). mind: a level built over months from strain, losses, wounds, loneliness, meaning and rest, with
+    # low seasons, anxiety and numbing as threats and steadier picks and resilience as rewards (MIND_PAR). Each wears the
+    # other; health, the one number every reader uses (needs, doors, retiring, the felt horizon, the bar), is their mean.
+    # The Library's body and mind moments happen to them (BODY_MOMENTS, MIND_MOMENTS). Off: health as before
+    body=False, body_par=None,   # body_par: values laid over BODY_PAR
+    mind=False, mind_par=None,   # mind_par: values laid over MIND_PAR
+    # v22.5 F2, death from the life, off until the v22.5 refit: with self_death on, the risk reads the body (an accident by
+    # age and Red's risks, the body's own failing against the level for the age, a serious illness's course, a condition's
+    # complications), the cause is what they had, and a death that is not sudden comes after a last decline the story
+    # can tell (events: decline). Off: the life table x health, as before
+    death_life=False, death_par=None,   # death_par: values laid over DEATH_PAR
 )
 
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
@@ -1028,10 +1042,117 @@ BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the mom
 BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
 
 
+def toward(lv, m):
+    """v22.5 F1: a level lv (0 to 1) moved by m: one for one going down (to .01), with diminishing returns going up, so a
+    strong body or a steady mind nears 1 without passing it."""
+    return np.where(m < 0, np.maximum(lv + m, 0.01), lv + (1 - lv) * (1 - np.exp(-np.maximum(m, 0) / (1 - lv))))
+
+
 def fert(age, table):
     """A year's chance of a birth at this age as a share of the peak age's (FERT_F, FERT_M)."""
     xs, ys = zip(*table)
     return np.interp(age, xs, ys) / max(ys)
+
+
+# v22.5 F1, a body and a mind (chroma-ideas/realism/v22.5-realism-list.md; Emren 10-11 11:25 UTC; the modifiers are
+# chroma-ideas/means/modifiers.md H1 to H17). Rates are a year, sizes in health units (0 to 1). Every colour lean is a
+# tendency, never a limit (Emren 10-11 17:35 UTC): a colour's share above or below the even .2, per .2, times its lean,
+# so a life far into one colour moves a few points, and no colour closes or guarantees anything. The values are
+# estimates for the one v22.5 refit (no part is tuned on its own before it). W U B R G in every 5-tuple.
+BODY_PAR = dict(
+    con_sd=0.035, con_frail=(0.04, 0.08),   # H1 constitution, lifelong: robust around 0 (sd); a few frail (share, extra loss)
+    age=((0, 0.90), (25, 0.95), (35, 0.95), (60, 0.86), (70, 0.78), (80, 0.66), (90, 0.50), (100, 0.30)),   # H2 the body's
+                             # level by age, alone (conditions, illness and injury come off it)
+    base_half=1.0,           # R2 two speeds: years for the body's slow level to move halfway to where the life puts it
+    ill_rate=((3, 2.0), (10, 1.5), (16, 1.0), (60, 0.8), (80, 1.2), (100, 1.5)),   # H4 short illnesses a year (flu, a bug)
+    ill_size=(0.08, 0.22), ill_half=1.5,    # H4 a dip (drawn between) and the weeks it takes to halve
+    inj_rate=((3, 0.10), (15, 0.12), (25, 0.08), (65, 0.06), (80, 0.15), (100, 0.25)),   # H5 injuries a year (falls late)
+    inj_size=(0.12, 0.35), inj_half=5.0,    # H5 a dip and the weeks it takes to halve
+    inj_keep=(0.1, 0.03),    # H5 the share of injuries that leave a lasting mark on the body, and its size
+    cond_young=0.06,         # H3 a long-term condition from birth or early childhood (with the moments, about 1 in 8 by 16)
+    cond_size=(0.03, 0.12),  # H3 a condition's weight on the body (drawn between; a second one adds)
+    cond_max=0.25,           # the most the conditions together take
+    cond_ease=0.03,          # H3 a young person's condition eases (asthma often does): a yearly chance, to 18
+    cond_rate=((12, 0.004), (30, 0.008), (50, 0.02), (70, 0.035), (100, 0.04)),   # H3 without the Library's moments
+    ser_size=(0.25, 0.45),   # H6 a serious illness: the dip while it lasts
+    ser_months=(3, 24),      # H6 how long it lasts (treatment, recovery)
+    ser_keep=(0.02, 0.08),   # H6 what it takes from the body for good, if they come through
+    ser_rate=((35, 0.0), (45, 0.003), (60, 0.008), (75, 0.015), (100, 0.02)),   # H6 without the Library's moments
+    preg=0.10, preg_half=8.0,   # H7 pregnancy and a birth: a dip, and the weeks it takes to halve
+    # H8 to H10 habits by colour: rest and sleep (Blue's late nights, Red burning the candle; Green and White rest), moving
+    # the body (Red and Green move, Blue sits, Black trains), moderation (White moderate, Red and Black indulge)
+    rest=(0.02, -0.03, 0.0, -0.02, 0.02), move=(0.0, -0.02, 0.01, 0.03, 0.02), moderate=(0.02, 0.0, -0.01, -0.03, 0.0),
+    disc=0.02,               # learned self-control holds the habits up: x (discipline - 1)
+    care=(0.25, 0.25, 0.0, -0.1, -0.15),   # H11 early care (W keeps appointments, U reads the signs, G trusts the body too long):
+                             # this share shorter dips and lighter serious illness
+    heal=(0.0, 0.0, 0.0, 0.1, 0.25),       # how much faster dips heal: Green heals well, Red bounces back
+    risk=(-0.1, 0.0, 0.1, 0.5, 0.15),      # H5 injury risk (log units): Red's risks and sport, Green outdoors
+    strain=0.08, strain_from=0.4, strain_years=3.0,   # H12 years of strain (stress above this, a slow average) wear the body
+    lonely=0.06, lonely_line=0.7,   # H13 few people: the level falls by up to this (belonging under the line)
+    money=0.05, money_years=3.0,    # H14 money and class: +- this from the poorest to the best off (slow average; a child's
+                                    # family's class with the world on); poorer lives also heal slower
+    care_load=0.03,          # H16 years of caring for someone (world on): up to this at 20 hours a week
+    mind_wear=0.12,          # each wears the other: a low mind (under .6) pulls the body's level down by up to this
+    ill_mind=0.5,            # and a low season or anxiety makes short illnesses this much likelier
+    moments=True,            # the Library's own body moments happen to the body: a diagnosis is a serious illness, "living
+                             # with a chronic illness" a condition, a serious accident an injury or an illness
+    risk_k=2.0,              # the body's risks on those moments: x exp(risk_k x (the level for the age - the body)), at most x2
+)
+# what each of the Library's body and mind moments is (moments=True); the engine's own rates stand in where a Library has none
+BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with an illness": "condition",
+                "the body remembers the wild years": "condition", "a frightening diagnosis": "serious",
+                "a serious accident or illness": "accident or illness", "a fall at home": "injury",
+                "burnout": "burnout"}
+MIND_MOMENTS = {"a long dark season": "low", "a sadness that will not lift": "low", "burnout": "low",
+                "an addiction takes hold": "numb"}
+COND_KINDS = ("asthma", "diabetes", "arthritis", "chronic pain", "heart condition", "epilepsy")
+COND_P = ((0.45, 0.15, 0.0, 0.05, 0.05, 0.3), (0.1, 0.3, 0.3, 0.15, 0.15, 0.0))   # which, as a child and as an adult
+COND_LETHAL = (0.3, 1.0, 0.0, 0.0, 1.5, 0.3)   # how far each condition's complications can end a life (F2; arthritis and pain do
+                                               # not, they wear the body)
+COND_DEATH = ("of a severe asthma attack", "of complications of their diabetes", "", "", "of heart failure", "of a seizure")
+SER_KINDS = ("cancer", "heart disease", "a stroke", "lung disease")
+MIND_PAR = dict(
+    start=0.82,              # a young child's mind (the family holds it up)
+    level=0.78,              # where the mind settles with nothing pulling it
+    half=13.0,               # weeks for the mind to move halfway: it is built over months
+    mood=0.4, content=0.2,   # a person's usual mood and how content life is, above or below their references, lift it
+    mood_ref=0.7, content_ref=0.7,
+    strain=0.2, strain_from=0.4,   # months of strain: stress above this (a three-month average)
+    loss=0.07,               # losses and hard blows (the wound, to 1.5)
+    scar=0.02,               # hurts built up over the years (the scars, to 3)
+    lonely=0.12, lonely_line=0.7,  # few people: belonging under the line
+    meaning=0.3,             # the meaning need above or below .9
+    rest=0.04,               # rest: time left over under .15 drains the mind
+    body=0.2,                # each wears the other: a body under .7 pulls the mind down by this x the gap
+    low_dip=0.20, low_months=(2, 9),     # a low season: its weight on the mind and how long it lasts
+    anx_dip=0.12, anx_months=(1, 6),     # anxiety
+    numb_dip=0.08, numb_months=(3, 18),  # numbing (drink, pills, a screen all night): relief now, cost later
+    low_rate=0.012, numb_rate=0.006,     # a year at an even mind, where a Library has no such moment
+    anx_rate=0.02,           # a year at an even mind (no Library moment tells it)
+    risk_k=3.0,              # each threat is likelier as the mind falls: x exp(risk_k x (.75 - mind)), at most x3, on the
+                             # moments too
+    steady=0.004,            # steadier picks: an act that works and fits who they are lifts the mind this much
+    resil=0.1, resil_max=0.5,   # resilience: coming through a threat with people around adds this (to the max); it wards off
+                             # the threats and shortens them
+    moments=True,            # the Library's own mind moments start a threat: a long dark season, a sadness that will not
+                             # lift, burnout, an addiction
+    mind_w=0.5,              # health, the one number everything reads: (1 - mind_w) x body + mind_w x mind
+)
+# v22.5 F2, death from the life: the character's death risk reads the body, and the cause is what they had
+DEATH_PAR = dict(
+    acc=((0, 2e-4), (15, 2.5e-4), (20, 5e-4), (30, 3e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3)),   # accidents a year
+    acc_red=0.3,             # Red's risks: x exp(acc_red x (Red - .2) / .2)
+    frail=(1.7e-5, 0.09),    # the body's own failing, a e^(b age) a year at the level for the age (Gompertz)
+    frail_k=2.5,             # x exp(frail_k x (the level for the age - the body)): a weaker body fails sooner
+    sudden=0.5,              # before old age, this share of a failing body goes at once (a heart attack, a stroke); the
+                             # rest fail over weeks, of their heaviest condition or else of heart failure
+    old_age=80.0,            # from this age a failing body with nothing named is old age
+    ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
+                             # illness's course ends in death this often (at 60, with the body at its age's level)
+    ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
+    cond_k=0.005,            # a condition's complications: its weight x this x e^(.06 (age - 50)) a year
+    decline=dict(old=(12, 52), serious=(4, 20), condition=(8, 30)),   # weeks of the last decline, by what ends the life
+)
 
 
 UPD_OFF = dict(dis_match=False,
@@ -1062,6 +1183,8 @@ UPD_OFF = dict(dis_match=False,
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
                move_near=False, season_excl=False,
+               # v22.5 F1 a body and a mind, F2 death from the life
+               body=False, mind=False, death_life=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -2597,6 +2720,257 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 for a_ in range(len(L["labels"][s_])):
                     BIRTH_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
         ba_rng = np.random.default_rng([int(seed), 83])
+    # ---- v22.5 F1 and F2: the body, the mind and death from the life, each behind its switch. Off, nothing here draws
+    # or changes anything and health runs as before. The weekly steps are body_week() (in 3b, where health drifted) and
+    # death_week() (in 4e, where the life table was read)
+    BODY_ON = bool(P["body"]); MIND_ON = bool(P["mind"]); DTH_ON = bool(P["death_life"]); HM_ON = BODY_ON or MIND_ON
+    BP_ = {**BODY_PAR, **(P["body_par"] or {})}; MP_ = {**MIND_PAR, **(P["mind_par"] or {})}
+    DP2_ = {**DEATH_PAR, **(P["death_par"] or {})}
+    BAGE_X, BAGE_Y = (np.asarray(x_, float) for x_ in zip(*BP_["age"]))   # the body's level by age, alone
+    body_v = res[:, HEA].copy(); mind_v = np.full(N, float(MP_["start"]))  # the two halves of health
+    hea_w = res[:, HEA].copy()                               # health as body_week last wrote it (what changed it since is a shock)
+    bd_base = body_v.copy()                                  # the body's slow level, moving over years
+    bd_ill = np.zeros(N); bd_inj = np.zeros(N); bd_preg = np.zeros(N)   # dips that heal in weeks: illness, injury, a birth
+    bd_cw = np.zeros((N, 3)); bd_ck = np.full((N, 3), -1); bd_ca = np.zeros((N, 3))   # up to three long-term conditions:
+                                                             # weight, kind (COND_KINDS), age at onset
+    bd_ser = np.zeros(N); bd_sk = np.full(N, -1); bd_s0 = np.full(N, NEVER); bd_s1 = np.full(N, NEVER)   # a serious illness:
+                                                             # its dip, kind (SER_KINDS), first and last week
+    bd_keep = np.zeros(N)                                    # what illness and injury took from the body for good
+    bd_con = np.zeros(N); bd_strain = np.zeros(N); bd_money = res[:, MON].copy(); bd_carel = np.zeros(N)
+    md_str = np.zeros(N); md_res = np.zeros(N)               # the mind: months of strain; resilience
+    md_end = np.full((N, 3), NEVER)                          # the week each threat ends: a low season, anxiety, numbing
+    dl_at = np.full(N, NEVER); dl_t0 = np.full(N, NEVER); dl_cause = [""] * N   # a last decline: its end and start, of what
+    SER_CF = np.array([DP2_["ser_fatal"][k_] for k_ in SER_KINDS])   # each serious illness's share of courses that end in death
+    CLETH_ = np.asarray(COND_LETHAL, float)
+    HAB_ = np.add(np.add(BP_["rest"], BP_["move"]), BP_["moderate"]); BCARE_ = np.asarray(BP_["care"], float)
+    BHEAL_ = np.asarray(BP_["heal"], float); BRISK_ = np.asarray(BP_["risk"], float)
+    LK_B = ("condition", "serious", "accident or illness", "injury", "burnout"); LK_M = ("low", "anx", "numb")
+    BL_K = np.array([LK_B.index(BODY_MOMENTS[L["names"][r_]]) if L["names"][r_] in BODY_MOMENTS else -1 for r_ in ROOT])
+    ML_K = np.array([LK_M.index(MIND_MOMENTS[L["names"][r_]]) if L["names"][r_] in MIND_MOMENTS else -1 for r_ in ROOT])
+    BL_ON = BODY_ON and bool(BP_["moments"]) and bool((BL_K >= 0).any())   # the Library's own body moments happen to the body
+    ML_ON = MIND_ON and bool(MP_["moments"]) and bool((ML_K >= 0).any())
+    BL_COND = BL_ON and bool((BL_K == 0).any()); BL_SER = BL_ON and bool(np.isin(BL_K, (1, 2)).any())   # else the engine's rates
+    ML_HAS = [ML_ON and bool((ML_K == k_).any()) for k_ in range(3)]
+    BL_S = np.nonzero(BL_K >= 0)[0]; ML_S = np.nonzero(ML_K >= 0)[0]
+    if HM_ON:   # the outputs carry the two halves (V_hist body and mind) only with a switch on
+        V_hist["body"] = []; V_hist["mind"] = []
+    PREG_O = np.zeros(L["COMMIT"].shape, bool)               # a choice that begins a child of one's own (H7)
+    for s_ in np.nonzero([nm_ in BIRTH_OWN for nm_ in L["names"]])[0] if BODY_ON else ():
+        for a_ in range(len(L["labels"][s_])):
+            PREG_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
+    PG_ON = bool(PREG_O.any())
+    if BODY_ON:   # H1 and an early condition: drawn from their own stream, so no other draw moves
+        crng_ = np.random.default_rng([int(seed), 5101])
+        bd_con = crng_.normal(0, BP_["con_sd"], N) - (crng_.random(N) < BP_["con_frail"][0]) * BP_["con_frail"][1]
+        cy_ = crng_.random(N) < BP_["cond_young"]; cs_ = crng_.uniform(*BP_["cond_size"], N); ck_ = crng_.choice(len(COND_KINDS), N, p=COND_P[0])
+        bd_cw[cy_, 0] = cs_[cy_]; bd_ck[cy_, 0] = ck_[cy_]; bd_ca[cy_, 0] = crng_.uniform(0, 6, N)[cy_]
+
+    def body_log(n_, **rec):   # a logged life's body and mind record (the game tells what it wants of it)
+        if n_ in events:
+            events[n_].append(dict(body=dict(age=round(t / 52, 2), **rec)))
+
+    def bd_condition(n_, kind=None):   # a long-term condition begins (H3), at most three
+        j_ = int(np.argmin(bd_cw[n_]))
+        if bd_cw[n_, j_] > 0:
+            return
+        k_ = kind if kind is not None else int(rng.choice(len(COND_KINDS), p=COND_P[0 if age < 16 else 1]))
+        bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        bd_ck[n_, j_] = k_; bd_ca[n_, j_] = age
+        body_log(n_, kind="condition", name=COND_KINDS[k_], what="begins")
+
+    def bd_serious(n_, kind):   # a serious illness begins (H6): a dip for months; early care finds it sooner
+        if bd_sk[n_] >= 0 or dead[n_]:
+            return
+        bd_sk[n_] = kind; bd_s0[n_] = t
+        bd_s1[n_] = t + int(4.33 * rng.uniform(*BP_["ser_months"]))
+        bd_ser[n_] = rng.uniform(*BP_["ser_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        body_log(n_, kind="serious", name=SER_KINDS[kind], what="begins")
+
+    def bd_injury(n_, lo, hi, told=True):   # an injury: a dip that heals in weeks, now and then with a lasting mark (H5);
+        bd_inj[n_] += rng.uniform(lo, hi)        # told=False when a Library moment already tells it
+        if rng.random() < BP_["inj_keep"][0]:
+            bd_keep[n_] += BP_["inj_keep"][1]
+        if told:
+            body_log(n_, kind="injury", what="hurt")
+
+    def md_threat(n_, k_, told=True):   # a low season, anxiety or numbing begins (or goes on), shorter with resilience
+        mo_ = MP_[("low_months", "anx_months", "numb_months")[k_]]
+        end_ = t + int(4.33 * rng.uniform(*mo_) * (1 - 0.5 * md_res[n_]))
+        if end_ > md_end[n_, k_]:
+            if md_end[n_, k_] <= t and told:
+                body_log(n_, kind=("low season", "anxiety", "numbing")[k_], what="begins")
+            md_end[n_, k_] = end_
+
+    lean_c = np.zeros(N)   # this week's early-care lean (H11), read by the helpers above
+
+    def body_week(ht, ht0):
+        """F1 in 3b, once a week from age 3: what changed health since last week reaches the body as a shock (a fall is an
+        injury-like dip, a lift heals dips first), the body's and the mind's own events, each half moves, and health is
+        written as their mean. ht is the old rule's level for the age with its work and title parts, ht0 its age part."""
+        nonlocal lean_c
+        al_ = ~dead; ext_ = res[:, HEA] - hea_w
+        dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0)   # F2: the decline
+        lean_ = (w - 0.2) / 0.2                                  # each colour's share above or below even, per .2
+        lean_c = lean_ @ BCARE_
+        tab_ = np.interp(age, BAGE_X, BAGE_Y)
+        low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
+        if BODY_ON:
+            neg_ = np.maximum(-ext_, 0); pos_ = np.maximum(ext_, 0)
+            bd_inj[:] += neg_
+            h_ = np.minimum(pos_, bd_inj); bd_inj[:] -= h_; pos_ = pos_ - h_
+            h_ = np.minimum(pos_, bd_ill); bd_ill[:] -= h_; bd_base[:] += pos_ - h_
+            # the slow level: age, constitution, habits, strain, people, money, care, the mind, the work and titles (ht)
+            bd_strain[:] += (stress - bd_strain) / (52 * BP_["strain_years"])
+            bd_money[:] += (res[:, MON] - bd_money) / (52 * BP_["money_years"])
+            mm_ = bd_money
+            if WON:   # a child's money is the family's: its class
+                mm_ = np.where(stage <= 1, np.array([0.08, 0.25, 0.5])[np.clip(np.asarray(WL.PP.cls), 0, 2)], bd_money)
+            mods_ = (bd_con + lean_ @ HAB_ + BP_["disc"] * (dsc - 1) - 0.03 * numb_ - bd_keep + (ht - ht0)
+                     - BP_["strain"] * _uclip((bd_strain - BP_["strain_from"]) / 1.0, 0, 1)
+                     - BP_["lonely"] * _uclip((BP_["lonely_line"] - need[:, NIDX["belonging"]]) / 0.4, 0, 1)
+                     + BP_["money"] * _uclip((mm_ - 0.2) / 0.2, -1, 1))
+            if WON and getattr(WL.PP, "care_load", None) is not None:   # H16
+                bd_carel[:] += (np.asarray(WL.PP.care_load, float) - bd_carel) / 104
+                mods_ = mods_ - BP_["care_load"] * _uclip(bd_carel / 20, 0, 1)
+            if MIND_ON:
+                mods_ = mods_ - BP_["mind_wear"] * _uclip((0.6 - mind_v) / 0.4, 0, 1)
+            tgt_ = toward(tab_, mods_)                            # around the age's level, never past 1
+            bd_base[:] += (tgt_ - bd_base) * (1 - 0.5 ** (1 / (52 * BP_["base_half"])))
+            # the dips heal: faster with early care and Green's and Red's ways, slower when poor or old
+            slow_ = (1 + 0.3 * _uclip((0.15 - mm_) / 0.15, 0, 1)) * (1 + max(0.0, age - 60) / 40) \
+                * (1 - 0.3 * _uclip(lean_c, -1, 1)) * (1 - 0.3 * _uclip(lean_ @ BHEAL_, -1, 1))
+            bd_ill[:] *= 0.5 ** (1 / (BP_["ill_half"] * slow_)); bd_inj[:] *= 0.5 ** (1 / (BP_["inj_half"] * slow_))
+            bd_preg[:] *= 0.5 ** (1 / BP_["preg_half"])
+            # the body's own events this week: a short illness, an injury; a condition or a serious illness where the
+            # Library has no moment for them; a young condition that eases; a serious illness that ends
+            u_ = rng.random((N, 6))
+            pi_ = np.interp(age, *zip(*BP_["ill_rate"])) * (1 + BP_["ill_mind"] * (low_ | anx_)) / 52
+            ii_ = np.nonzero(al_ & (u_[:, 0] < pi_))[0]
+            bd_ill[ii_] += BP_["ill_size"][0] + (BP_["ill_size"][1] - BP_["ill_size"][0]) * u_[ii_, 5]
+            pj_ = np.interp(age, *zip(*BP_["inj_rate"])) * np.exp(lean_ @ BRISK_) / 52
+            for n_ in np.nonzero(al_ & (u_[:, 1] < pj_))[0]:
+                bd_injury(n_, *BP_["inj_size"])
+            rk_ = np.minimum(np.exp(BP_["risk_k"] * (tab_ - body_v)), 2.0)
+            if not BL_COND:
+                for n_ in np.nonzero(al_ & (u_[:, 2] < np.interp(age, *zip(*BP_["cond_rate"])) * rk_ / 52))[0]:
+                    bd_condition(n_)
+            if not BL_SER:
+                for n_ in np.nonzero(al_ & (u_[:, 3] < np.interp(age, *zip(*BP_["ser_rate"])) * rk_ / 52))[0]:
+                    bd_serious(n_, int(rng.choice(len(SER_KINDS), p=(0.45, 0.3, 0.15, 0.1))))
+            if age < 18:   # H3: a young person's condition may ease
+                for n_ in np.nonzero(al_ & (u_[:, 4] < BP_["cond_ease"] / 52) & (bd_cw[:, 0] > 0) & (bd_ca[:, 0] < 16))[0]:
+                    body_log(n_, kind="condition", name=COND_KINDS[bd_ck[n_, 0]], what="eases")
+                    bd_cw[n_, 0] = 0.0; bd_ck[n_, 0] = -1
+            for n_ in np.nonzero((bd_sk >= 0) & (t >= bd_s1) & al_ & (dl_at <= NEVER // 2))[0]:   # through it: some stays
+                bd_keep[n_] += rng.uniform(*BP_["ser_keep"]); body_log(n_, kind="serious", name=SER_KINDS[bd_sk[n_]], what="through it")
+                bd_sk[n_] = -1; bd_ser[n_] = 0.0; bd_s0[n_] = bd_s1[n_] = NEVER
+            if BL_ON or PG_ON:   # the Library's own body moments this week, and a birth of their own (H7)
+                lk_ = np.where(~recon & al_, BL_K[s], -1)
+                for n_ in np.nonzero(lk_ >= 0)[0]:
+                    k_ = int(lk_[n_]); nm_ = L["names"][ROOT[s[n_]]]
+                    if k_ == 0:
+                        bd_condition(n_, COND_KINDS.index("arthritis") if "wild years" in nm_ else None)
+                    elif k_ == 1:   # a diagnosis: most often cancer, else the heart or the lungs
+                        bd_serious(n_, int(rng.choice(len(SER_KINDS), p=(0.6, 0.25, 0.0, 0.15))))
+                    elif k_ == 2 and rng.random() < np.clip((age - 30) / 50, 0.05, 0.5):   # an illness more often with age
+                        bd_serious(n_, 1 if rng.random() < 0.6 else 2)
+                    elif k_ == 2:
+                        bd_injury(n_, 0.3, 0.45, False)
+                    elif k_ == 3:
+                        bd_injury(n_, 0.12, 0.3, False)
+                    else:   # burnout: the body runs down for weeks
+                        bd_ill[n_] += 0.1
+                pg_ = PREG_O[s, a] & succ & ~idle & female & ~recon & al_
+                bd_preg[pg_] += BP_["preg"]
+            body_v[:] = _uclip(bd_base - np.minimum(bd_cw.sum(1), BP_["cond_max"]) - bd_ser - bd_ill - bd_inj - bd_preg, 0.01, 0.99) \
+                * (1 - 0.85 * dec_)
+        else:   # health as before, as the body half
+            body_v[:] = _uclip(body_v + ext_, 0, 1); body_v[:] += 0.01 * (ht - body_v)
+        if MIND_ON:
+            md_str[:] += (stress - md_str) / 13                    # the last three months' strain
+            bel_ = need[:, NIDX["belonging"]]
+            mods_ = (MP_["mood"] * (base_mood - MP_["mood_ref"]) + MP_["content"] * (content - MP_["content_ref"])
+                     + np.where(stage == 0, 0.06, np.where(stage == 1, 0.03, 0.0))   # the family holds a child's mind up
+                     - MP_["strain"] * _uclip(md_str - MP_["strain_from"], 0, 1) - MP_["loss"] * np.minimum(wound, 1.5)
+                     - MP_["scar"] * np.minimum(scar.sum(1), 3.0) - MP_["lonely"] * _uclip((MP_["lonely_line"] - bel_) / 0.4, 0, 1)
+                     + _uclip(MP_["meaning"] * (need[:, NIDX["meaning"]] - 0.9), -0.06, 0.06)
+                     - MP_["rest"] * _uclip((0.15 - res[:, TIM]) / 0.1, 0, 1) - MP_["body"] * np.maximum(0.7 - body_v, 0)
+                     - MP_["low_dip"] * low_ - MP_["anx_dip"] * anx_ - MP_["numb_dip"] * numb_ - 0.3 * dec_)
+            tgt_ = toward(np.full(N, float(MP_["level"])), mods_)
+            mind_v[:] += (tgt_ - mind_v) * (1 - 0.5 ** (1 / MP_["half"]))
+            own_ = (5 * (ma * hold).sum(1) - 1 > 0) & succ & ~idle & ~recon   # steadier picks: an act that works and fits them
+            mind_v[:] = _uclip(mind_v + MP_["steady"] * own_, 0.01, 0.99)
+            # the threats: the Library's moments start a low season or numbing; anxiety (and the others, where a Library
+            # has no moment for them) by the engine's rate, likelier as the mind falls, less likely with resilience
+            if ML_ON:
+                lk_ = np.where(~recon & al_, ML_K[s], -1)
+                for n_ in np.nonzero(lk_ >= 0)[0]:
+                    md_threat(n_, int(lk_[n_]), False)
+            rk_ = np.minimum(np.exp(MP_["risk_k"] * (0.75 - mind_v)), 3.0) * (1 - md_res) * (age >= 8)
+            u_ = rng.random((N, 3))
+            for k_, rt_ in enumerate((MP_["low_rate"], MP_["anx_rate"], MP_["numb_rate"] * (age >= 14))):
+                if not ML_HAS[k_]:
+                    for n_ in np.nonzero(al_ & (u_[:, k_] < rt_ * rk_ / 52))[0]:
+                        md_threat(n_, k_)
+            # what a threat does while it lasts: a low season lowers the mood, anxiety strains, numbing eases the strain a
+            # little now and wears self-control
+            mood[low_] -= 0.01; stress[anx_] += 0.02; stress[numb_] = np.maximum(stress[numb_] - 0.01, 0); dsc[numb_] *= 0.998
+            ov_ = (md_end > NEVER // 2) & (md_end <= t) & al_[:, None]   # a threat over: with people around, resilience grows
+            for n_, k_ in zip(*np.nonzero(ov_)):
+                if bel_[n_] >= 0.6:
+                    md_res[n_] = min(MP_["resil_max"], md_res[n_] + MP_["resil"])
+                body_log(n_, kind=("low season", "anxiety", "numbing")[k_], what="lifts")
+                md_end[n_, k_] = NEVER
+            hea_ = (1 - MP_["mind_w"]) * body_v + MP_["mind_w"] * mind_v
+        else:
+            hea_ = body_v
+        res[:, HEA] = hea_; hea_w[:] = hea_
+
+    def death_week():
+        """F2 in 4e, once a week while self_death is on: a decline that has run its course ends the life; otherwise each
+        cause's risk this week from the body and what they have, and a death drawn is sudden (an accident, a heart attack
+        or a stroke) or comes after a last decline the story can tell."""
+        for n_ in np.nonzero((dl_at > NEVER // 2) & (t >= dl_at) & ~dead)[0]:
+            die(n_, dl_cause[n_])
+        al_ = ~dead & (dl_at <= NEVER // 2)
+        if BODY_ON:   # the body without a serious illness's own dip (its course has its own risk) or a birth's
+            bod_ = _uclip(bd_base - np.minimum(bd_cw.sum(1), BP_["cond_max"]) - bd_ill - bd_inj, 0.01, 0.99)
+        else:
+            bod_ = body_v if HM_ON else res[:, HEA]
+        gap_ = np.interp(age, BAGE_X, BAGE_Y) - bod_
+        qa_ = np.interp(age, *zip(*DP2_["acc"])) * np.exp(DP2_["acc_red"] * (w[:, 3] - 0.2) / 0.2)
+        qf_ = DP2_["frail"][0] * np.exp(DP2_["frail"][1] * age) * np.exp(DP2_["frail_k"] * gap_)
+        cl_ = bd_cw * np.where(bd_ck >= 0, CLETH_[np.maximum(bd_ck, 0)], 0.0)   # each condition's complications
+        qc_ = DP2_["cond_k"] * cl_.sum(1) * np.exp(0.06 * (age - 50))
+        cf_ = np.minimum(SER_CF[np.maximum(bd_sk, 0)] * float(np.clip(1 + DP2_["ser_age"] * (age - 60), *DP2_["ser_age_lim"]))
+                         * np.exp(DP2_["frail_k"] * gap_ / 2), 0.95)
+        wk_ = np.maximum(bd_s1 - bd_s0, 1)
+        qs_ = np.where(bd_sk >= 0, 1 - (1 - cf_) ** (1 / wk_), 0.0)   # spread over the illness's weeks
+        q_ = np.stack([qa_ / 52, qf_ / 52, qc_ / 52, qs_], 1)
+        tot_ = 1 - np.prod(1 - np.minimum(q_, 1), 1)
+        u_ = rng.random((N, 3))
+        for n_ in np.nonzero(al_ & (u_[:, 0] < tot_))[0]:
+            c_ = int(np.searchsorted(np.cumsum(q_[n_]) / q_[n_].sum(), u_[n_, 1]))
+            if c_ == 0:
+                die(n_, "in an accident"); continue
+            if c_ == 1 and age < DP2_["old_age"] and u_[n_, 2] < DP2_["sudden"]:   # a failing body, at once
+                die(n_, "of a sudden heart attack" if u_[n_, 2] < 0.7 * DP2_["sudden"] else "of a stroke"); continue
+            if c_ == 3:
+                why_, kd_ = {0: "of cancer", 1: "of heart disease", 2: "after a stroke", 3: "of lung disease"}[int(bd_sk[n_])], "serious"
+            elif c_ == 1 and age >= DP2_["old_age"]:
+                why_, kd_ = "old age", "old"
+            elif c_ == 1 and not (cl_[n_] > 0).any():   # a failing body with nothing named: the heart, over weeks
+                why_, kd_ = "of heart failure", "condition"
+            else:   # a condition's complications (the one that weighs most): an asthma attack or a seizure is sudden
+                k_ = int(bd_ck[n_, int(np.argmax(cl_[n_]))])
+                if COND_KINDS[k_] in ("asthma", "epilepsy"):
+                    die(n_, COND_DEATH[k_]); continue
+                why_, kd_ = COND_DEATH[k_], "condition"
+            dl_t0[n_] = t; dl_at[n_] = t + int(rng.uniform(*DP2_["decline"][kd_])); dl_cause[n_] = why_
+            hz_mem[n_] += P["hz_remind"]
+            if n_ in events:
+                events[n_].append(dict(decline=dict(age=round(t / 52, 2), cause=why_, weeks=int(dl_at[n_] - t))))
+
     # the world's effects on each life, for the game's story (stage 1: WL1, WL3, WL5): only in a game run (pausing) with
     # the world on, and read only, so every life is the same with them or without
     WFX_ON = bool(pausing and WON)
@@ -2744,6 +3118,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             ("wound", wound), ("support", support), ("trouble", trouble), ("fortune", fortune), ("horizon", fhz), ("discipline", dsc), ("lvl", lvl), ("q_rel", q_rel), ("unmet", unmet), ("hope_w", hzf * unmet), ("threat", thr), ("scar", scar.sum(1))):
                 V_hist[nm_].append(np.broadcast_to(v_, (N,)).copy())
             V_hist["doors"].append(doors(nic, res)); A_src.append(asrc.astype(np.float32)); V_hist["chan"].append(chan.astype(np.float32))
+            if HM_ON:   # v22.5 F1: the two halves of health
+                V_hist["body"].append(body_v.copy()); V_hist["mind"].append(mind_v.copy())
             for kk_, nm_ in enumerate(("n_dream", "n_passion", "n_plan")):
                 V_hist[nm_].append((gk == kk_).sum(1))
             V_hist["harmonious"].append(np.where((gk == 1).any(1), (ga * gs * (gk == 1)).sum(1) / np.maximum((gs * (gk == 1)).sum(1), 1e-9), np.nan))
@@ -2855,6 +3231,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if SHON:   # G stuck in their ways: moments that could start something new come less often
             sdr_ = 1 - P["sh_door"] * shA[:, 4][:, None] * SH_NEW[None]
             aff = aff * sdr_
+        if DTH_ON and (dl_at > NEVER // 2).any():   # v22.5 F2: in a last decline nothing new begins
+            aff = aff * np.where((dl_at > NEVER // 2)[:, None], 1 - 0.95 * SH_NEW[None], 1.0)
         seekE = 1.0 if not SHON else sdr_
         if GON:   # v7: plans (and a little, passions) make people seek chances for them; a domain plan seeks its life events
             aff = aff * (1 + P["g_seek"] * np.einsum("ng,ngs->ns", gs * np.where(gk == 2, 1.0, np.where(gk == 1, 0.5, 0.0)), gsr))
@@ -2924,6 +3302,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, LEADS_] = 0.0
             if SACS_ON_:
                 ev_p[:, SACS_] = 0.0
+            if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
+                ev_p[:, BL_S] *= np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)[:, None]
+            if ML_ON:   # and the mind's, less with resilience
+                ev_p[:, ML_S] *= (np.minimum(np.exp(MP_["risk_k"] * (0.75 - mind_v)), 3.0) * (1 - md_res))[:, None]
+            if DTH_ON and (dl_at > NEVER // 2).any():   # F2: in a last decline nothing new begins
+                ev_p = ev_p * np.where((dl_at > NEVER // 2)[:, None], 1 - SH_NEW[None], 1.0)
             fire = rng.random(ev_p.shape) < ev_p
             if WON:
                 fire |= frc_
@@ -3510,7 +3894,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
-        res[:, HEA] += 0.01 * (ht - res[:, HEA]); res[:, FRE] += 0.02 * (ft - res[:, FRE])
+        if HM_ON:   # v22.5 F1: the body and the mind make health (ht's age part is the body's own curve there)
+            body_week(ht, _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1))
+        else:
+            res[:, HEA] += 0.01 * (ht - res[:, HEA])
+        res[:, FRE] += 0.02 * (ft - res[:, FRE])
         res[:, HEA] -= 0.08 * ((stakes >= 1.3) & ~succ & ~idle)       # disasters that go wrong hurt the body
         if SHON:   # shadows: rigid and ruthless lose people, reckless burns bridges and the body pays, rigid strains on duty
             res[:, TIE] -= 0.01 * P["sh_tie"] * (shA[:, 0] + shA[:, 2] + 0.5 * shA[:, 3])
@@ -4618,7 +5006,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             hid_ = ((attr >= 2) | unease) & ~came_ & ~dead
             if hid_.any():
                 stress += P["hide_stress"] * hid_ * (1 + P["climate"] + (clim_w if WON else 0.5 * faith_given * I[:, FAI]))
-        if P["self_death"]:   # the life table, likelier in poor health
+        if P["self_death"] and DTH_ON:   # v22.5 F2: death from the life
+            death_week()
+        elif P["self_death"]:   # the life table, likelier in poor health
             sm_ = P["self_mort"]
             q_ = np.minimum(1, (sm_[0] + sm_[1] * np.exp(sm_[2] * age)) * np.exp(P["self_health"] * (0.6 - res[:, HEA])))
             for n in np.nonzero(~dead & (rid.random(N) < q_ / 52))[0]:
@@ -4919,6 +5309,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
                 **(dict(current=cur_sum) if CUR_ON else {}),
+                **(dict(body=dict(body=body_v, mind=mind_v, conditions=dict(weight=bd_cw, kind=bd_ck, age=bd_ca, kinds=COND_KINDS),
+                                  serious=dict(kind=bd_sk, since=bd_s0, until=bd_s1, kinds=SER_KINDS), kept=bd_keep,
+                                  constitution=bd_con, resilience=md_res, threats=md_end, decline=dict(at=dl_at, since=dl_t0, cause=list(dl_cause))))
+                   if HM_ON or DTH_ON else {}),
                 **(dict(need_map=dict(person=NMP, shared=NMAP, needs=list(NEEDS))) if NM_ON else {}),
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
@@ -4964,6 +5358,10 @@ STATE = (
     "NMP", "NM_ON",
     # the times as a steady current (item 12): how much it has moved each life's colours so far
     "cur_sum", "cur_m", "CUR_ON",
+    # v22.5 F1 and F2: the body and the mind (health's two halves, 0 to 1), the end week of each threat (a low season,
+    # anxiety, numbing; NEVER or past: none), a last decline's end and start weeks (NEVER: none) and cause, the long-term
+    # conditions (weight, COND_KINDS index, -1 none) and a serious illness now (SER_KINDS index, -1 none), and the switches
+    "body_v", "mind_v", "md_end", "dl_at", "dl_t0", "dl_cause", "bd_cw", "bd_ck", "bd_sk", "HM_ON", "DTH_ON",
     # the times: this week's era strength and its colour mix (the era's pull, e_i * (e_p - 0.2) in the world's rewards)
     "e_i", "e_p",
     # the world in their life: this week's effects on each life (lists of dicts) and the causes behind each option

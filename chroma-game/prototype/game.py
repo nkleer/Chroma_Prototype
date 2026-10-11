@@ -583,6 +583,8 @@ class Game:
             elif earlier:
                 raise ValueError("the earlier world this life begins in is not in this browser")
         P.update({k_: v_ for k_, v_ in ENGINE_SET.items() if not k_.isupper()})   # checks only (CHROMA_ENGINE); empty in played lives
+        if P.get("death_life", E.DEFAULT.get("death_life")):   # v22.5 F2: death comes from the life, past 80 to about 100
+            years = max(years, DEATH_LIFE_YEARS)
         self.sex = P["sex"] if P["sex"] != "intersex" else None
         self._named_seen = False                        # 'named their gender' already offered a new name
         self._death_on = False
@@ -3078,6 +3080,8 @@ class Game:
                                   impact=round(float(r.get("impact", 0.0)), 2), **({"color": c_} if c_ else {}))
                 elif "sphere_lever" in ev:              # spheres phase 4 (sph_levers): their act on the town's sphere
                     self._lever_told(t, loc, ev["sphere_lever"])
+                elif "body" in ev or "decline" in ev:   # v22.5 F1 and F2: the body's and the mind's turns, a last decline
+                    self._body_told(ev)
                 elif "cast" in ev and ev["cast"].get("kind") in ("far", "taken in", "want"):
                     self._far_told(t, loc, ev["cast"])  # far_ties: a close tie's news, a tie taken in, a want's cause
                 elif "cast" in ev and ev["cast"].get("kind") == "talk":
@@ -3456,6 +3460,9 @@ class Game:
         shv = self.shadow_view(loc)
         if shv is not None:                          # item 2: light and shadow, only with the engine's shadows switch on
             d["shadow"] = shv
+        hv = self.health_view(loc)
+        if hv is not None:                           # v22.5 F1: health's two halves, only with the engine's body or mind on
+            d["health"] = hv
         if dyn is not None:
             d["dyn"] = dict(openness=dyn["openness"], window=bool(dyn["window"]), near=dyn["near"], bands=dyn["bands"],
                             parts={k: r(v) for k, v in dyn["inertia_parts"].items()}, readiness=dyn["readiness"])
@@ -4000,6 +4007,41 @@ class Game:
         """The title that brings them to this moment, for the Library's {title} slot (engine next hand-off)."""
         self.story.title_now = X.title_held(loc, 0) if hasattr(X, "title_held") and "s" in loc else None
 
+    def _body_told(self, ev):
+        """v22.5 F1 and F2: a line for the body's or the mind's own turn (a condition, a serious illness, an injury, a low
+        season, anxiety, numbing) or a last decline, in BODY_SAY's and DECLINE_SAY's words. The Library's own moments tell
+        theirs (the engine does not log those twice)."""
+        if "decline" in ev:
+            c = ev["decline"]["cause"]
+            kd = "old" if c == "old age" else "serious" if c in ("of cancer", "of heart disease", "after a stroke", "of lung disease") else "condition"
+            self._say(DECLINE_SAY[kd].format(name=self.name), 0, "decline", cause=c, weeks=int(ev["decline"].get("weeks", 0)))
+            return
+        b = ev["body"]; nm = b.get("name", ""); what = b["what"]
+        if b["kind"] == "condition" and what == "begins" and b["age"] < 16:
+            what = "begins young"
+        elif b["kind"] == "serious" and what == "begins" and nm == "a stroke":
+            what = "begins stroke"
+        lv, say = BODY_SAY.get((b["kind"], what), (None, ""))
+        if lv is None or self.burn_in and lv > 0:
+            return
+        self._say(say.format(name=self.name, what=BODY_WHAT.get(nm, nm), the=BODY_THE.get(nm, "it")), lv, "body",
+                  kind=b["kind"], what=b["what"], **({"name": nm} if nm else {}))
+
+    def health_view(self, loc):
+        """v22.5 F1: health's two halves for the HUD (body and mind, 0 to 1), what weighs on them now (long-term
+        conditions, a serious illness, a low season, anxiety, numbing) and whether a last decline has begun. None while the
+        engine's body and mind switches are off (or the pin has neither)."""
+        if loc is None or not loc.get("HM_ON") or "body_v" not in loc:
+            return None
+        t = self.t
+        cond = [E.COND_KINDS[int(k)] for w_, k in zip(loc["bd_cw"][0], loc["bd_ck"][0]) if w_ > 0 and k >= 0] if "bd_cw" in loc else []
+        sk = int(loc["bd_sk"][0]) if "bd_sk" in loc else -1
+        me = loc["md_end"][0]
+        return dict(body=round(float(loc["body_v"][0]), 3), mind=round(float(loc["mind_v"][0]), 3), conditions=cond,
+                    serious=E.SER_KINDS[sk] if sk >= 0 else "",
+                    threats=[k for k, e_ in zip(("low season", "anxiety", "numbing"), me) if e_ > t],
+                    decline=bool(loc["dl_at"][0] > -10 ** 6))
+
     def _on_death(self, t, loc):
         """The character's own death (engine P["self_death"]): the story tells it and the life ends here."""
         died = loc.get("died") or []
@@ -4166,6 +4208,27 @@ def age_word(g, age):
     return {"f": "a woman", "m": "a man"}.get(g, "a person")
 LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only titles one strives for; a pack's marked long shot, any
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
+DEATH_LIFE_YEARS = 112   # v22.5 F2: with the engine's death_life on, death comes from the life, so a life may run on to about 100
+# v22.5 F1 and F2: the body's and the mind's own turns and a last decline (engine body, mind and death_life switches; nothing
+# shows with them off), the game's words until the Library has its own. Level 0 is always told, 1 at normal detail, 2 every week
+BODY_SAY = {("condition", "begins"): (0, "{name} learns they will live with {what}."),
+            ("condition", "begins young"): (0, "{name} is found to have {what}."),
+            ("condition", "eases"): (1, "{name}'s {what} eases as they grow."),
+            ("serious", "begins"): (0, "{name} is diagnosed with {what}."),
+            ("serious", "begins stroke"): (0, "{name} has a stroke."),
+            ("serious", "through it"): (0, "{name} comes through {the}, though it has taken something from them."),
+            ("injury", "hurt"): (2, "{name} is hurt and takes weeks to mend."),
+            ("low season", "begins"): (1, "A low season settles over {name}."),
+            ("low season", "lifts"): (1, "The low season lifts from {name}."),
+            ("anxiety", "begins"): (1, "Worry starts to follow {name} through the days."),
+            ("anxiety", "lifts"): (1, "{name}'s worry eases."),
+            ("numbing", "begins"): (1, "{name} starts numbing the evenings: a drink, a screen, anything not to feel it."),
+            ("numbing", "lifts"): (1, "{name} stops reaching for the numbing.")}
+BODY_WHAT = {"heart condition": "a heart condition", "heart disease": "heart disease"}
+BODY_THE = {"cancer": "the cancer", "heart disease": "the heart trouble", "a stroke": "the stroke", "lung disease": "the lung disease"}
+DECLINE_SAY = dict(old="{name} grows frail; the last season of their life has begun.",
+                   serious="{name}'s illness turns; now it is months, not years.",
+                   condition="{name}'s body begins to fail them, and this time it does not recover.")
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
 # item 3, the voice in their head (chroma-ideas/voice-mechanics.md): its record per life (n moments decided, steer the
