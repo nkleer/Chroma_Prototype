@@ -13,13 +13,15 @@ seed), and what the edge does: the Black group's money at 60 and perks held at 5
 groups', with the difference's standard error. The edge is slight by Emren's word and its effect on these is about the
 size of the noise at G19's run, so the record reports it (scope.md, G19).
 
-    python3 -B chroma-release/check_c26.py <run.npz> [--steer want|pick]
+    python3 -B chroma-release/check_c26.py <run.npz> [--steer want|pick] [--lift-info]
 
 The same targets judge c26_choice (world off, want mode, G19) and c26_world (world on, G19w; Emren's card choice "Fix
 in v22.4", 10-11 08:24 UTC), whose steered lives pick as a player does (choice_check STEER=pick, Engine PR #191;
 scope.md, G19w's stand-in). The first line says the run's world, steer mode and PX. --steer: the mode the row needs;
 a run in another mode misses (an npz without `steer` is want mode, the tool's only mode before #191). In pick mode each
-steered group's share of choices its colour led prints as information.
+steered group's share of choices its colour led prints as information. --lift-info: the lift prints but is not judged
+(G19w since Emren's card choice "Ship it", 10-11 17:14 UTC: with the world on the drops, perks and edge are judged and
+the lift goes to v22.5).
 
 The npz is choice_check.py's (fields grp, groups, W, content, nperks, res, px; steer and pick_share since #191). The engine is the tree's (or
 CHROMA_ENGINE), read through chroma-engine/tools/_engine.py. Exit code 0 and a last line "C26 PASS" when every judged
@@ -34,6 +36,7 @@ NOT_JUDGED = {"B"}   # drop reported only (Emren 10-11 01:37)
 BOOT = 400
 d = np.load(sys.argv[1])
 need = sys.argv[sys.argv.index("--steer") + 1] if "--steer" in sys.argv else None
+LIFT_INFO = "--lift-info" in sys.argv   # G19w: the lift reported, not judged (Emren 10-11 17:14 UTC)
 px = json.loads(str(d["px"])) if "px" in d.files else {}
 steer = str(d["steer"]) if "steer" in d.files else "want"
 print(f"run: {sys.argv[1]}, world {'on' if px.get('world') else 'off'}, steer {steer}, PX {json.dumps(px, sort_keys=True)}")
@@ -73,12 +76,14 @@ for c in gl:
         k = "WUBRG".index(c)
         own, base = float(d["W"][m][:, 40, k].mean()), float(d["W"][u][:, 40, k].mean())
         se = (boot(d["content"][m], cmean) ** 2 + se_u ** 2) ** .5
-        line_ok &= own - base >= ID_LIFT and (c in NOT_JUDGED or c_u - cont <= CONTENT_DROP)
+        line_ok &= (LIFT_INFO or own - base >= ID_LIFT) and (c in NOT_JUDGED or c_u - cont <= CONTENT_DROP)
         print(f"{c:10s} {int(m.sum()):6d} {own:17.3f} {base:10.3f} {own - base:6.3f} {cont:14.3f} {c_u - cont:6.3f} "
               f"{se:5.3f} {p90:13.0f}  " + ("ok" if line_ok else "MISS")
-              + ("  (drop reported, not judged)" if c in NOT_JUDGED else ""))
+              + ("  (drop reported, not judged)" if c in NOT_JUDGED else "")
+              + ("  (lift reported, not judged)" if LIFT_INFO and own - base < ID_LIFT else ""))
     ok &= line_ok
-print(f"targets: lift >= {ID_LIFT}, drop <= {CONTENT_DROP} (Black's reported, not judged), "
+print(f"targets: lift >= {ID_LIFT}" + (" (reported, not judged)" if LIFT_INFO else "")
+      + f", drop <= {CONTENT_DROP} (Black's reported, not judged), "
       f"perks at 50 (90th percentile) <= {PERKS_P90}; se: the drop's standard error over lives (information)")
 
 if "pick_share" in d.files and np.isfinite(d["pick_share"]).any():   # pick mode: how literally each group picked its colour
