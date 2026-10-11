@@ -29,6 +29,18 @@
 #               the live v22.3 engine. NEW runs with every v22.4 switch at its UPD_OFF value (read from the commit's
 #               engine) and CHROMA_PACKS=science,politics,stage, which keeps the art pack out (the Engine's override; the
 #               live engine does not read it)
+# Split across helper machines (Emren 10-11 18:22 UTC: more threads to bring v22.4 sooner), one job a machine of about 4
+# cores, in any order, on the same SHA; together they are m1 to m6 (with saves_note), so each row runs once:
+#   rar     the rarity row alone (G16): RARITY-SAME when the commit carries the rebuilt table; else it rebuilds the table as
+#           m1 does, for the Engine's rarity.json and the Game's re-pin (about 70 minutes)
+#   quick   m1's integrity rows and the old saves (G1, G2, G3, G13, G14)
+#   enga    m3's Engine rows and S5's two targets (G5, G9)
+#   mech    S1, S3, S4, S6 and S7 (G6, G7, G8, G10, G11)
+#   c26a    item 26's colour-choice run (G19, about 75 minutes)
+#   c26b    the same with the world on (G19w, about 80 minutes)
+#   lives   the colour pie with and without packs (G5)
+#   game    the game's own checks, the steered and Voice rows and S2's own_even (G12, G13), as final_game
+#   page, b7AB, b7CD, g4 as above
 set -u
 F=/mnt/project-files; R=${R:-$F/chroma-release}; REPO=${REPO:-/tmp/v224_repo}; X=/tmp/v224_${1:-}
 K=/tmp/v224_keep   # work folders whose path is part of a row's proof (rows that write npz or stats there): the same on
@@ -114,6 +126,17 @@ case "${1:-}" in
      o=$O/rarity_rebuild_$(date -u +%Y%m%d-%H%M).json; cp $t $o; echo "$SHA $RID" > $o.from
      echo "REBUILT on ${SHA:0:12} ($RID): $o (md5 $(md5sum < $o | cut -c1-12)); the Engine commits it as its rarity.json, the Game re-pins"
      $CHK --only $QUICK ;;
+  rar) rm -rf $X; $CHK --only $RID --keep --work $X/rarity && { echo "RARITY-SAME on ${SHA:0:12}: nothing to re-pin"; exit 0; }
+     t=$X/rarity/w/rarity.json; [ -s $t ] || { echo "STOP: no rebuilt table in $X/rarity/w"; exit 1; }
+     o=$O/rarity_rebuild_$(date -u +%Y%m%d-%H%M).json; cp $t $o; echo "$SHA $RID" > $o.from
+     echo "REBUILT on ${SHA:0:12} ($RID): $o (md5 $(md5sum < $o | cut -c1-12)); the Engine commits it as its rarity.json, the Game re-pins" ;;
+  quick) $CHK --only $QUICK,saves_note ;;
+  enga) $CHK --only $ENGA,s5_lines,s5_money ;;
+  mech) mech ;;
+  c26a) $CHK --only c26_choice --keep --work $K/c26 ;;
+  c26b) $CHK --only c26_world --keep --work $K/c26 ;;
+  lives) lives ;;
+  game) $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   m2) lives; look ;;
   m3) $CHK --only $ENGA; mech ;;
   m4) b7 A,B; g4 ;;
@@ -135,5 +158,5 @@ case "${1:-}" in
   g4) g4 ;;
   b7AB) b7 A,B ;;
   b7CD) b7 C,D ;;
-  *) sed -n 2,33p "$0"; exit 2 ;;
+  *) sed -n 2,43p "$0"; exit 2 ;;
 esac
