@@ -4,9 +4,14 @@ switched on; each target is printed with its value per lead colour (or enemy pai
 
   s3_rep      mean `rep` change per place reading, by the reader's lead colour: largest minus smallest <= .03
   s3_caught   caught-between moments met per enemy pair (WB WR UR UG BG): largest / smallest <= 1.5
-  s4_odd      share of life-years spent the odd one out at a place, by lead colour: largest / smallest <= 1.2
+  s4_odd      share of years at a place spent the odd one out there, by lead colour: largest / smallest <= 1.2
   s4_convert  conversions (Moscovici: a year in which a held-out minority moves its place, three years held) per
-              life-year of each lead colour: largest / smallest <= 1.5
+              year at a place of each lead colour: largest / smallest <= 1.5
+
+A year at a place is a life-year holding at least one place for a year or more (G8's denominator, scope.md, Release
+02:52): no one is the odd one out at a place they do not hold, and how many years each colour holds a place comes from
+the spheres, not from S4 (White-led lives hold none in about 28% of their life-years, mostly childhood, Blue-led in 10%).
+The per-life-year readings are printed as information.
 
     python3 -B chroma-engine/tools/eyes_check.py TARGET [N=300] [SEEDS=7] [--years 80] [--P JSON] [--stats FILE]
 
@@ -124,6 +129,8 @@ def main():
 
     want = TARGETS if a.target == "all" else (a.target,)
     life_y = np.asarray(st["life_years"], float)
+    place_y = np.asarray(st["place_years"], float) if "place_years" in st else None   # (an engine before the fix round: none)
+    den, den_w = (place_y, "year at a place") if place_y is not None else (life_y, "life-year (this engine counts no years at a place)")
     if "s3_rep" in want:
         nr = np.asarray(st["nrep"], float)
         m = np.asarray(st["drep"], float) / np.maximum(nr, 1)
@@ -139,17 +146,22 @@ def main():
             sum(v) > 0 and r <= 1.5, ("  (no caught-between moment met: none in the batch?)" if sum(v) == 0 else "")
             + (f"  other pairs {other}" if other else ""))
     if "s4_odd" in want:
-        sh = np.asarray(st["odd_years"], float) / np.maximum(life_y, 1)
+        sh = np.asarray(st["odd_years"], float) / np.maximum(den, 1)
         r = ratio(sh)
-        row("s4_odd", per(sh), rt(r), "target <= 1.2x", r <= 1.2)
+        row("s4_odd", per(sh), rt(r), "target <= 1.2x", r <= 1.2, f"  (per {den_w})")
     if "s4_convert" in want:
-        cv = np.asarray(st["held"], float) / np.maximum(life_y, 1)
+        cv = np.asarray(st["held"], float) / np.maximum(den, 1)
         r = ratio(cv)
         row("s4_convert", per(cv, 4), rt(r), "target <= 1.5x", r <= 1.5,
-            f"  ({int(sum(st['held']))} place-years moved)")
+            f"  (per {den_w}; {int(sum(st['held']))} place-years moved)")
     # for reading, not judged
+    if place_y is not None and ("s4_odd" in want or "s4_convert" in want):
+        oy_, hd_ = np.asarray(st["odd_years"], float), np.asarray(st["held"], float)
+        print(f"  info: per life-year (not judged): odd {per(oy_ / np.maximum(life_y, 1))} {rt(ratio(oy_ / np.maximum(life_y, 1)))};"
+              f" conversions {per(hd_ / np.maximum(life_y, 1), 4)} {rt(ratio(hd_ / np.maximum(life_y, 1)))}; years at a place per"
+              f" life-year {per(place_y / np.maximum(life_y, 1))}", flush=True)
     met = np.asarray(st["blend"], float) + np.asarray(st["hold"], float) + np.asarray(st["leave"], float)
-    print(f"  info: life-years {per(life_y, 0)}; odd-one-out moments offered {per(st['odd_fired'], 0)}; blend {per(st['blend'], 0)},"
+    print(f"  info: life-years {per(life_y, 0)}" + (f", years at a place {per(place_y, 0)}" if place_y is not None else "") + f"; odd-one-out moments offered {per(st['odd_fired'], 0)}; blend {per(st['blend'], 0)},"
           f" hold {per(st['hold'], 0)}, leave {per(st['leave'], 0)}; blends per odd moment met {per(np.asarray(st['blend']) / np.maximum(met, 1), 2)}",
           flush=True)
     print(f"  info: caught {st.get('caught_why', {})}, picks {st.get('caught_tag', {})}; talk {st.get('talk', 0)}; acts read"
