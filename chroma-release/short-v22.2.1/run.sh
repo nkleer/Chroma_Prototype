@@ -32,7 +32,8 @@ serve() { local b=$1/w/build s=$1/serve; rm -rf $s; cp -r $b/web $s; [ -d $s/pyo
 case "$1" in
   rows) $CHK --commit $SHA --only pin,build,art,icons,saveload,end_at_choice,saveload_world ;;
   pageonly) python3 -B $R/check_pageonly.py --repo $REPO --base $BASE_SHA --commit $SHA --work $X ;;
-  page) mkdir -p $X; build $SHA $X/cand; build $BASE_SHA $X/base; serve $X/cand 8151; serve $X/base 8152
+  page) want() { [ -z "$PAGE_ONLY" ] || [[ " $PAGE_ONLY " == *" $1 "* ]]; }   # PAGE_ONLY="fit_1024 ...": only these
+     mkdir -p $X; build $SHA $X/cand; serve $X/cand 8151; want fit_phone && { build $BASE_SHA $X/base; serve $X/base 8152; }
      T=$X/cand/w/build/chroma-game/prototype/test; L=$X/look/chroma-look/tools; mkdir -p $X/look $X/shots
      git -C $REPO archive $SHA chroma-look/tools | tar -x -C $X/look
      mkdir -p $X/look/chroma-game/prototype; ln -sfn $T $X/look/chroma-game/prototype/test   # tour.js finds the game's start.js
@@ -40,16 +41,18 @@ case "$1" in
      probe() { local id=$1 js=$2 url=$3 w=$4 h=$5 out=$O/${1}_$STAMP.txt
        (cd $T && timeout 3600 node $js $url $X/shots/$id 60 $w $h) > $out 2>&1; echo "exit $? " >> $out; echo $out; }
      for spec in "fit_1280 probe_fit_cx3.js 1280 800" "fit_1024 probe_fit_cx3.js 1024 700" "fit_geo probe_fit_geo.js 1280 800"; do
-       set -- $spec; mkdir -p $X/shots/$1; o=$(probe $1 $2 $U $3 $4)
+       set -- $spec; want $1 || continue; mkdir -p $X/shots/$1; o=$(probe $1 $2 $U $3 $4)
        if grep -q "^N7 .*: PASS" $o && ! grep -q pageerror $o; then add $1 PASS $o "$2 at $3x$4"; else add $1 FAIL $o "$2 at $3x$4"; fi
      done
-     mkdir -p $X/shots/fit_phone $X/shots/fit_phone_base
-     o=$(probe fit_phone probe_fit_cx3.js $U 390 844); ob=$(probe fit_phone_base probe_fit_cx3.js $UB 390 844)
-     v=$(python3 -B $R/check_phonefit.py $o $ob) && r=PASS || r=FAIL   # options per moment: the two lives differ in length
-     echo "$v (base report $ob)" >> $o
-     add fit_phone $r $o "${v#phone 390x844 by options: }"
+     if want fit_phone; then
+       mkdir -p $X/shots/fit_phone $X/shots/fit_phone_base
+       o=$(probe fit_phone probe_fit_cx3.js $U 390 844); ob=$(probe fit_phone_base probe_fit_cx3.js $UB 390 844)
+       v=$(python3 -B $R/check_phonefit.py $o $ob) && r=PASS || r=FAIL   # options per moment: the two lives differ in length
+       echo "$v (base report $ob)" >> $o
+       add fit_phone $r $o "${v#phone 390x844 by options: }"
+     fi
      for spec in "tour_desktop 1280 860" "tour_phone 390 844"; do
-       set -- $spec; mkdir -p $X/shots/$1; o=$O/${1}_$STAMP.txt
+       set -- $spec; want $1 || continue; mkdir -p $X/shots/$1; o=$O/${1}_$STAMP.txt
        (cd $L && timeout 1800 node tour.js $U $X/shots/$1 $2 $3) > $o 2>&1; e=$?; echo "exit $e" >> $o
        if [ $e = 0 ] && grep -q "^no page errors" $o; then add $1 PASS $o "tour.js at $2x$3"; else add $1 FAIL $o "tour.js at $2x$3"; fi
      done
