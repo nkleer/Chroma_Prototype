@@ -167,11 +167,15 @@ if "own_k" in E.DEFAULT:
 # the reports fill and have their keys, the option causes come per option, the disaster story names its hazard, and the
 # run still lives exactly the lives of run() (which keeps no reports)
 if "wfx_step" in E.DEFAULT:
-    # seed 3: since the Library's sphere moments (PR #49), seed 2's life meets no disaster in its 30 years
-    t0 = time.process_time(); fails = []; N, Y, seed = 1, 30, 3
+    # the first seed from 3 whose life meets a disaster in its 30 years (a fixed seed lost its disaster whenever the lives
+    # changed: seed 2 at the Library's sphere moments, PR #49, seed 3 at the v22.4 refit)
+    t0 = time.process_time(); fails = []; N, Y = 1, 30
     Pd = dict(E.DEFAULT); Pd["world"] = True
-    kw = dict(N=N, years=Y, seed=seed, lib=EARTH, P=Pd, log_lives=(0,))
-    o1 = E.run(**kw)
+    for seed in range(3, 13):
+        kw = dict(N=N, years=Y, seed=seed, lib=EARTH, P=Pd, log_lives=(0,))
+        o1 = E.run(**kw)
+        if any("read" in e and "hazard" in e["read"] for e in o1["events"][0]):
+            break
     g = E.run_steps(**kw); msg = next(g); fx, oc, kinds = 0, 0, set()
     KEYS = {"kind", "channel", "size", "dir", "cause", "age"}
     while True:
@@ -317,6 +321,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("expertise reads the moment (read_skill)", dict(read_skill=0.5), {}, 30),
        ("the lens looks through who one is becoming (lens_want)", dict(lens_want=0.5), {}, 30),
        ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30),
+       ("the shadow's pull gives way to the will (sh_will)", dict(sh_will=0.5), {}, 30),
        ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
