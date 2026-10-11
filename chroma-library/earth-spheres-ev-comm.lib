@@ -72,7 +72,7 @@ scene G: {Ns} family lent half the street money in the hard years. {N} knows who
 - UR | start a small trade from the spare room, planned to cover the payments | v: self-direction, achievement | lever: found | sphere: comm.UR | chance: 44
 - WB | lend a neighbour the money to keep their shop open, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 50
 - WR | march with the other borrowers to the council to demand time to pay | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | chance: 38
-works: The new owners accept a plan, and the loan is paid off two years later than it should have been, but paid.
+works not B R: The new owners accept a plan, and the loan is paid off two years later than it should have been, but paid.
 works: {N} comes through the winter with less, and with a clear idea of who stood by them.
 fails: The ninety days run out, and the next letter is from the bailiffs.
 fails: {N} gets through the deadline, but the hours never come back, and the debt follows them for years.
@@ -375,8 +375,8 @@ scene G: {parent} has smoked the same cigarettes for forty years and cannot affo
 - WG | ask the street to buy from the corner shop, whose owner pays the tax | v: tradition, conformity | lever: loyalty | pushes: place | sphere: comm.GW | chance: 52
 works: {N} stays on the side of the line they chose, and the season passes without trouble.
 works: The van moves on by spring, and the corner shop is still there.
-fails: The van is raided, and names come out, {Ns} among them.
-fails: {N} keeps clear of the van, and half the street calls them a prig for it.
+fails not W U UG WG UR WB: The van is raided, and names come out, {Ns} among them.
+fails not B R BR G: {N} keeps clear of the van, and half the street calls them a prig for it.
 
 # ---------------------------------------------------------------- swindle (pairs D4a)
 
@@ -460,8 +460,8 @@ scene G: {parent} still lives in the house they bought thirty years ago, and say
 - WR | join the campaign for homes a person on one wage can afford | v: universalism | lever: voice | pushes: state | sphere: comm.RW | chance: 36
 works: Prices level off rather than fall, and the choice {N} made looks wise in hindsight.
 works: When the market turns, {N} is on solid ground, and can help the friends who are not.
-fails: Prices fall by a quarter in a year, and {N} owes more than the flat is worth.
-fails: {N} stays out, prices rise for five more years, and the chance of a home in town slips away.
+fails not U G UB: Prices fall by a quarter in a year, and {N} owes more than the flat is worth.
+fails not W B R RG: {N} stays out, prices rise for five more years, and the chance of a home in town slips away.
 
 # ---------------------------------------------------------------- coin_debased (pairs D5a)
 
@@ -588,10 +588,10 @@ scene G: {grandparent} has never trusted a bank and has lent to neighbours all t
 - UR | borrow a little to try a new crop, planned to be paid off in two seasons | v: self-direction, achievement | sphere: comm.UR | chance: 66
 - WB | stand guarantor for a neighbour the bank would not lend to alone | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 52
 - WG | help your grandparent open a first account, and show them how it works | v: benevolence | sphere: comm.GW | chance: 70
-works: The loan is repaid in two seasons, and the bank knows {Ns} name for the next one.
+works not W G WG UB: The loan is repaid in two seasons, and the bank knows {Ns} name for the next one.
 works: {N} has money kept safe and a way to make it grow, the first in the family to have both.
 fails: The bank says no, and {N} remembers the clerk's face for years.
-fails: The repayments come due in a bad season, and the loan becomes a weight.
+fails not W G WG UB: The repayments come due in a bad season, and the loan becomes a weight.
 
 # ---------------------------------------------------------------- big_store (pairs D2a)
 
@@ -634,7 +634,7 @@ scene G: The grocer knew {Ns} grandmother's order by heart. Nobody at the supers
 works: The town finds a balance: the superstore for the weekly shop, the old street for everything else.
 works: {N} comes out of the change with a steady wage or a loyal trade, and no regrets.
 fails: The grocer closes within three years, and the high street goes quiet.
-fails: {N} works the tills for years and never gets past them.
+fails not U R G BR UR WG WU: {N} works the tills for years and never gets past them.
 
 # ---------------------------------------------------------------- cargo_lost (pairs D3a)
 
@@ -758,10 +758,10 @@ scene G: The old butcher closed last year, and his daughter moved away. {N} miss
 - UG | learn a few words of the newcomers' language from their children | v: universalism, tradition | mark: learned a skill | sphere: comm.GU | chance: 66
 - WB | lend a new family the money for their shop fittings, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 54
 - WU | help the new shopkeepers through the council's licence forms | v: benevolence, universalism | mark: helped someone in need | sphere: comm.WU | chance: 72
-works: The high street is busy again, and {N} is a regular at a shop that did not exist two years ago.
+works not G: The high street is busy again, and {N} is a regular at a shop that did not exist two years ago.
 works: The newcomers and the old families find their way to trust, and {N} helped.
 fails: The quarrels on the street sharpen, and {N} is caught between old neighbours and new.
-fails: The new shop {N} backed fails in its first winter, and the window is empty again.
+fails not G: The new shop {N} backed fails in its first winter, and the window is empty again.
 
 # ---------------------------------------------------------------- new_money (pairs D6a)
 
@@ -844,10 +844,10 @@ scene G: {Ns} parents live two streets away, and all of {child}'s friends are on
 - UR | rent a cheaper flat far out and work from home three days a week | v: self-direction | tech: remote work | sphere: comm.UR | chance: 56
 - WB | lead the street's tenants in bargaining with the landlord together | v: power, universalism | lever: lead | pushes: place | sphere: comm.WB | chance: 44
 - WG | join the tenants who refuse the rise, and stand with the neighbours | v: benevolence, universalism | lever: voice | pushes: place | sphere: comm.GW | chance: 40
-works: The tenants hold together, and the rise is halved.
+works not B R G UR: The tenants hold together, and the rise is halved.
 works: {N} finds a home the household can afford, and the move is easier than feared.
 fails: The family moves an hour out, and {child} misses the old friends for a long time.
-fails: The rent is paid, but the savings drain away a little more each month.
+fails not R G: The rent is paid, but the savings drain away a little more each month.
 
 # ---------------------------------------------------------------- hiring_fair (pairs D6b)
 
@@ -889,4 +889,4 @@ scene G: Work found through family has always lasted in {Ns} family. The cousin 
 works: {N} leaves with two interviews and a place on a course, and the first job comes within the month.
 works: The post {N} chose turns out to suit them, and lasts longer than anyone expected.
 fails: The queue is long, the posts are few, and {N} goes home with nothing three weeks running.
-fails: The job {N} took in a hurry pays less than promised, and lasts one season.
+fails not B U: The job {N} took in a hurry pays less than promised, and lasts one season.

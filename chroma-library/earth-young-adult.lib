@@ -282,7 +282,7 @@ scene G: {parent} always kept the family's papers in a shoebox under the bed and
 - R>B | ring the energy company, and charm your way to a better deal | v: power | chance: 55
 - G>R | decide it will all work out somehow, and book a weekend away | v: hedonism | chance: 12
 works: The forms go in, the bills are paid, and there is even a small refund.
-works: {N} sits back from the kitchen table with every paper sorted, feeling like a grown-up.
+works not G>R: {N} sits back from the kitchen table with every paper sorted, feeling like a grown-up.
 fails: A final demand arrives, with a late fee attached.
 fails: The tax office writes back: there is a mistake, and it is {Ns}.
 
@@ -316,10 +316,10 @@ scene G: The house will smell of the same spices it always does, and {grandparen
 - B>W | skip the trip, but send gifts expensive enough that nobody can complain | v: conformity, power (face) | chance: 45
 - R>U | ask at the dinner table the family questions nobody dares to ask | v: self-direction | chance: 45
 - G>B | stay a month instead of a week, living off the family again | v: security, hedonism | chance: 50
-works: The holiday is warm and loud, and {N} leaves with a bag full of leftovers.
+works not R B>W: The holiday is warm and loud, and {N} leaves with a bag full of leftovers.
 works: For once there is no argument at the table, and {grandparent} laughs all evening.
 fails: The old argument with {parent} flares on the first night and never quite dies down.
-fails: {N} spends the week feeling like a sulking teenager again.
+fails not R B>W: {N} spends the week feeling like a sulking teenager again.
 
 == an idea for a side business
 tier: everyday
@@ -385,7 +385,7 @@ scene G: {N} is not sure this place is right, and keeps noticing how tired the p
 - B>U | flatter the interviewer into talking, and learn what they really want | v: power | chance: 65
 - R>B | name your salary straight out, and do not blink | v: power, achievement | chance: 55
 - G>R | decide halfway through that this is not your life, and walk out | identity | v: self-direction | mark: turned down a chance | chance: 75
-works: The phone rings the next afternoon: the job is {Ns} if {N} wants it.
+works not G>R: The phone rings the next afternoon: the job is {Ns} if {N} wants it.
 works: The interview turns into a long, easy conversation, and {N} walks out already knowing.
 fails: The letter says, politely, that they have chosen someone else.
 fails: {N} freezes on the second question and never quite recovers.
@@ -457,7 +457,7 @@ scene G: {N} reads the thread and feels tired. Out in the street, the neighbours
 - R>G | ring the relative who votes the other way and have it out, voice to voice | v: benevolence, tradition | chance: 60
 - G>W | delete the post to keep the peace in the family chat | v: conformity, tradition | chance: 77
 works: The thread cools down, and one stranger even writes to {N} with thanks.
-works: {N} logs off at midnight with the last word and a clear head.
+works not G G>W: {N} logs off at midnight with the last word and a clear head.
 fails: By morning the argument has spread to {Ns} family group chat.
 fails: {N} loses a friend over it, and an evening, and a night's sleep.
 
@@ -489,10 +489,10 @@ scene G: {friend} has stood by {N} since they were ten years old. That is the ki
 - B>W | say you are broke, but quietly pay their landlord directly | v: benevolence, security | chance: 90
 - R>U | tell them straight they are being foolish, and make them talk it through | v: benevolence, self-direction | chance: 65
 - G>B | let them work it off helping your family with whatever needs doing | binds | v: power (resources), tradition | chance: 65
-works: The money comes back on payday, with a bottle of wine as thanks.
+works not G: The money comes back on payday, with a bottle of wine as thanks.
 works: {friend} gets back on their feet, and never forgets who helped.
 fails: Payday comes and goes, and {friend} stops answering.
-fails: The loan becomes the thing neither of them can mention.
+fails not G: The loan becomes the thing neither of them can mention.
 
 # ---------------------------------------------------------------- pair 8: calls BG (cycle s2) / calls WUR (cycle s4)
 
@@ -594,9 +594,9 @@ scene G: The march is for the old park, the one {N} played in as a child, where 
 - B>W | use a contact at the council to get the organisers a meeting with the mayor | v: universalism, power | chance: 30
 - R>U | argue on the street with a counter-protester for hours | door | v: self-direction, universalism (tolerance) | chance: 65
 - G>B | stay home; people from your family keep their heads down | v: security, tradition | chance: 75
-works: The march passes off peacefully, and that night the news shows a sea of faces, {Ns} among them.
+works not G G>B: The march passes off peacefully, and that night the news shows a sea of faces, {Ns} among them.
 works: Weeks later the council changes its mind, and {N} feels part of the reason.
-fails: The march turns ugly at the square, and {N} goes home shaken.
+fails not G G>B: The march turns ugly at the square, and {N} goes home shaken.
 fails: {Ns} face is in a newspaper photo, and {boss} has seen it.
 
 == flu, alone in a rented room
@@ -973,6 +973,6 @@ scene G: {N} has been growing toward this for years without quite knowing it, li
 - WBRG | take it and fight to the top of the field before the chance can close | v: achievement, power | tags: commit:career | chance: 65
 - UBRG | take it, break every rule of the field, and make it your own | identity | v: self-direction, stimulation | tags: commit:career | chance: 45
 works: The year that follows is the best of {Ns} life so far.
-works: {N} makes the most of it, and people in the field start to know the name.
-fails: The chance turns out to be smaller than it looked, and much harder.
+works not G: {N} makes the most of it, and people in the field start to know the name.
+fails not G: The chance turns out to be smaller than it looked, and much harder.
 fails: {N} freezes under the weight of it, and the moment slips away.

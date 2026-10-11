@@ -131,7 +131,7 @@ scene G: {N} has watched the old hands on this farm read the sky for years. They
 - B>R | leave the hay: it is not your farm, and you are not paid for storms | act: leave the hay: it is not their farm, and they are not paid for storms | v: hedonism, self-direction | sphere: prod.B | chance: 65
 - R>G | wake the whole family at the farm and get everyone out to the field | v: stimulation, benevolence | sphere: prod.R | chance: 65
 - G>W | gather the neighbours, as farms round here always have, and bring it in together | v: tradition, benevolence | sphere: prod.G | chance: 65
-works: {boss} hears how {N} handled the storm and says little, but the next week's pay is more than it should be.
+works not B>R: {boss} hears how {N} handled the storm and says little, but the next week's pay is more than it should be.
 works: By morning the storm has passed, and {boss} and {N} walk the wet field together.
 fails: The storm comes early, and most of the hay is lost in the field.
 fails: {boss} is angry about how {N} handled it, whatever was saved.
@@ -175,7 +175,7 @@ scene G: The stock know {N} now. The fields feel more like home than anywhere el
 works: The choice sits well with {N}, and {boss} shakes {Ns} hand on it.
 works: Whatever the winter brings, {N} comes out of it surer of what {N} wants.
 fails: The winter is long and lonely, and {N} spends much of it wishing for the other road.
-fails: {boss} runs short of money in the new year, and what was promised comes late.
+fails not R R>W: {boss} runs short of money in the new year, and what was promised comes late.
 
 # ================================================================ animal care worker (care.G)
 
@@ -217,7 +217,7 @@ scene G: The old hands at the shelter used to say no animal is turned away at ni
 - G>B | call round the old volunteers until one of them takes the dog for the night | v: tradition, benevolence | sphere: care.G | chance: 65
 works: Within a fortnight the dog has a home, and the woman writes to thank the shelter.
 works: The woman comes back a week later with a donation and a friend who wants to volunteer.
-fails: {boss} hears about it and gives {N} a formal warning.
+fails not W B>W: {boss} hears about it and gives {N} a formal warning.
 fails: The night goes badly, and {N} goes home certain they got it wrong.
 
 # ---------------------------------------------------------------- everyday, calls UBR (cycle s4); partner: a frightened dog at closing time

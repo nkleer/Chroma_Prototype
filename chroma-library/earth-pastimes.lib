@@ -758,7 +758,7 @@ scene G: Gulls on the posts, a heron in the shallows, the light changing slowly 
 - B>U | buy a widow's expensive lens second-hand, at half what it is worth | v: achievement, power | chance: 74
 - R>B | enter the boldest picture you have, the one nobody else would dare | v: achievement, stimulation | chance: 60
 - G>R | put the camera away and paddle along the shore with the gulls | v: hedonism | chance: 75
-works: The print wins the month, and the judge holds it up and says it is the first picture of the evening that breathes.
+works not G>R: The print wins the month, and the judge holds it up and says it is the first picture of the evening that breathes.
 works: {N} comes home with four hundred pictures and one, just one, that is exactly what they saw.
 fails: Every shot of the morning is blurred, and the deadline comes and goes.
 fails: The camera takes a wave full in the lens, and the screen goes dark for good.

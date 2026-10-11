@@ -53,7 +53,7 @@ scene G: Everyone on the street has parked there since the old shop closed. Nobo
 - R>G | knock on every door in the street, and get everyone fined to appeal together | v: universalism, benevolence | lever: voice | pushes: group neighbours | sphere: rule.R | chance: 65
 - G>W | cut the hedge back yourself on Sunday, so nobody else gets caught | act: cut the hedge back themselves on Sunday, so nobody else gets caught | v: benevolence, tradition | sphere: rule.G | chance: 65
 works: The fine is cancelled, the sign is moved into the open, and the street stops paying for a hedge.
-works: {N} pays, but by the spring the bay is marked properly and nobody else is caught.
+works not R: {N} pays, but by the spring the bay is marked properly and nobody else is caught.
 fails: The appeal is turned down on a missed date, and the fine has doubled.
 fails: {N} loses a morning at the hearing, and the fine stands, with costs.
 
@@ -141,7 +141,7 @@ scene G: This is how {Ns} parent got the flat in the first place, thirty years a
 works: The damp is fixed within the month, and nobody ever asks how {N} voted.
 works: The whole stairwell gets its repairs, and the landlord learns that the estate has friends.
 fails: Nothing is fixed, and in May a leaflet comes through the door with {Ns} name on the list of supporters.
-fails: {N} turns the deal down, and the repair waits another winter.
+fails not B G B>W: {N} turns the deal down, and the repair waits another winter.
 
 # ---------------------------------------------------------------- everyday, calls WUR (cycle s4); partner: the organiser's offer at the surgery
 
@@ -225,7 +225,7 @@ scene G: In {place} people do not stand up in court against their own. The stree
 - UR | say in court what you saw, and that the yard's careless rules made it easy | act: say in court what they saw, and that the yard's careless rules made it easy | v: universalism, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
 - WB | ask the yard's manager to stand by you, so your job is safe after the trial | act: ask the yard's manager to stand by them, so their job is safe after the trial | v: security, conformity | sphere: rule.WB | chance: 50
 - WG | give your evidence plainly, then call on the family the next day as before | act: give their evidence plainly, then call on the family the next day as before | v: benevolence, conformity | sphere: rule.GW | chance: 50
-works: {N} tells it straight, the court weighs it, and in time the street respects it.
+works not B: {N} tells it straight, the court weighs it, and in time the street respects it.
 works: {Ns} colleague owns up before the trial, and {N} never has to stand in the witness box.
 fails: The defence lawyer picks {Ns} memory apart, and {N} leaves the box feeling like the one on trial.
 fails: The verdict goes one way and the street the other, and for a year the shop goes quiet when {N} walks in.
@@ -269,7 +269,7 @@ scene G: The old shopkeepers on the street would know how this is done here. The
 works: The licence comes through on time, and {N} pays nothing beyond the fee.
 works: The clerk is moved off the counter, and the next shopkeeper in the queue is not asked.
 fails: The file stays lost for a year, and the rent on the empty shop eats the savings.
-fails: Word gets round that {N} paid, and the next season the clerk asks for more.
+fails not W R U BR UR WG WU: Word gets round that {N} paid, and the next season the clerk asks for more.
 
 # ---------------------------------------------------------------- life event: the trial of a friend (pairs D3b)
 
@@ -307,7 +307,7 @@ scene G: {Ns} friend's mother sits in the gallery too, every day, in the same se
 - UR | write to the judge about who your friend was before, and what went wrong | act: write to the judge about who their friend was before, and what went wrong | v: benevolence, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
 - WB | find your friend a sharper lawyer through someone you know, and pay the first fee | act: find their friend a sharper lawyer through someone they know, and pay the first fee | v: benevolence, power | lever: fund | sphere: rule.WB | chance: 50
 - WG | promise the mother you will visit, whatever the sentence | act: promise the mother they will visit, whatever the sentence | v: benevolence, tradition | sphere: rule.GW | chance: 50
-works: Whatever the verdict, {friend} knows who stayed, and the friendship comes through it changed but whole.
+works not B: Whatever the verdict, {friend} knows who stayed, and the friendship comes through it changed but whole.
 works: {friend} owns up, pleads to a lesser charge, and starts to pay the money back.
 fails: The verdict is guilty, and {friend} will not see {N} at the visiting hour.
 fails: {N} is named in the local paper as a friend of the accused, and some at work keep their distance.
@@ -350,5 +350,5 @@ scene G: These are {Ns} neighbours, the families from the street that is closing
 - WU | tell the stewards who threw the bottle, and which way they went | v: security, conformity | sphere: rule.WU | chance: 50
 works: The square calms, the doors open, and three of the crowd go in to speak; the closures are put off for a month.
 works: {N} gets home with everyone {N} came with, and the night is remembered for the singing, not the bottle.
-fails: The police clear the square, and {N} spends half the night at the station giving a statement.
+fails not U: The police clear the square, and {N} spends half the night at the station giving a statement.
 fails: The night is on every screen as a riot, and the closures go ahead with the town split over it.

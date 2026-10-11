@@ -82,7 +82,7 @@ scene G: {parent} lived through the last time things fell apart, and is filling 
 - UR | slip across the border with one bag before the roads close | v: self-direction, security | mark: left home | moves: yes | lever: exit | pushes: abroad | chance: 55
 - UG | take the family out to the relatives in the countryside until the city settles | v: security, tradition | lever: exit | pushes: place | chance: 65
 - BG | buy the houses the fleeing officials sell off, for almost nothing | v: power, achievement | requires: savings | without: means | chance: 65
-works: Within a year the new order has a shape, and {N} has a place in it, smaller or larger than before.
+works not UR: Within a year the new order has a shape, and {N} has a place in it, smaller or larger than before.
 works: The worst never reaches {Ns} street, and the people {N} loves come through it together.
 fails: In the chaos {N} loses work, savings and sleep, and the months that follow are lean ones.
 fails: The new rulers keep lists too, and {Ns} name ends up on one of them.
@@ -123,7 +123,7 @@ scene G: {grandparent} remembers the last time the town caught fire like this, h
 - UR | stand up at a meeting and argue the preacher down in front of everyone | identity | v: self-direction, universalism | mark: made an enemy | closed: approval: heckling at the movement's own meeting; backfire: thrown out, and cold-shouldered in the street for months | lever: voice | pushes: belief | chance: 40
 - BG | buy the empty shops around the square while the crowds keep coming | v: power, achievement | requires: savings | without: means | chance: 60
 works: Something in the town shifts and stays shifted: the bars are quieter, the meetings fuller, and {N} has a new place in it all.
-works: Months later the crowds have thinned, but what {N} took from those nights is still there.
+works not G: Months later the crowds have thinned, but what {N} took from those nights is still there.
 fails: The wave breaks as fast as it rose, and {N} is left with the quarrels it started.
 fails: A scandal hits the movement's leaders, and everyone who stood near them is tarred with it.
 
@@ -201,7 +201,7 @@ scene G: The bench outside the shop is empty in the evenings now, where the old 
 - WU | speak up at the school meeting for sensible rules on it for children | v: universalism, security | lever: voice | pushes: institution school | chance: 50
 works: {N} finds a way of living with the new thing that fits, and it brings someone new into {Ns} life.
 works: A year on, the new medium is part of the furniture, and {N} has come out of the change ahead.
-fails: Something {N} posted travels much further than meant, and the wrong people see it.
+fails not G: Something {N} posted travels much further than meant, and the wrong people see it.
 fails: Months go by in the glow of the screen, and old friendships quietly thin out.
 
 # ---------------------------------------------------------------- life event: the machines come for the work (pairs D3b)
@@ -243,7 +243,7 @@ scene G: {mentor} saw the last change like this, and says a trade is like a rive
 works: {N} comes through the change with work that still needs a person, and a skill the machines made worth more.
 works: The wave passes over, and {N} is still standing, in the trade or out of it, on firmer ground.
 fails: Within the year {Ns} post is gone, and most of the posts like it with it.
-fails: {N} keeps the job, but the work shrinks to watching the machine, at lower pay.
+fails not B G: {N} keeps the job, but the work shrinks to watching the machine, at lower pay.
 
 # ---------------------------------------------------------------- life event: the power and the networks go down (pairs D5b)
 
@@ -278,7 +278,7 @@ scene G: The fridge is silent, the night is very quiet, and for the first time i
 - UG | rig the car battery to keep a sick neighbour's medicine cold | v: benevolence, self-direction | tech: car | mark: helped someone in need | chance: 55
 - WB | take charge of the street's water and food, and decide who gets what | v: power, security | mark: made an enemy | chance: 65
 - WU | volunteer at the hospital to keep the generators and the records going | v: benevolence, universalism | lever: loyalty | pushes: institution hospital | chance: 65
-works: On the fourth day the lights come back on, and the street that came through it together keeps waving across the road.
+works not RG: On the fourth day the lights come back on, and the street that came through it together keeps waving across the road.
 works: {N} comes out of the dark week with a new respect for how much {N} can manage without.
 fails: The outage drags into a second week, and the cold, the dark and the empty shelves wear everyone down.
 fails: The dark days cost more than anyone expected: spoiled food, lost wages, and an old neighbour taken to hospital.

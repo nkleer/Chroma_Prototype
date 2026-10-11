@@ -651,7 +651,7 @@ scene G: {N} senses that what is offered twice is wanted badly, and sits with th
 - R>B | seize it on the spot as the fresh start that sets you free | line: cross | v: stimulation, power | act: seize it on the spot as the fresh start that sets them free | chance: 80
 - G>R | trust your gut, let the offer go, and keep the life that feels like yours | line: hold | v: self-direction, tradition | act: trust their gut, let the offer go, and keep the life that feels like theirs | chance: 60
 works: The choice holds up as the years pass, and people who watched it come to say {N} knew what {N} was about.
-works: {N} finds that saying it out loud, twice, made it easier to live with, and {N} sleeps well on it.
+works not W G U>W B>U R>B: {N} finds that saying it out loud, twice, made it easier to live with, and {N} sleeps well on it.
 fails: The second answer costs more than the first, and the cost keeps arriving in small ways for a long time.
 fails: {N} keeps replaying the moment the thanks were offered, and is not sure the answer was the right one.
 
@@ -1451,7 +1451,7 @@ scene G: Some things come round again in their own time. {N} feels the old road 
 - R>G | tell {friend} the whole story one long evening, and let it be heard | heal: reflect | v: benevolence, tradition | chance: 70
 - G>W | be patient: wait for the season when making it right will hold | heal: not_yet | v: tradition, security | chance: 75
 works: The choice sits right with {N}, and an old weight feels a little lighter than it did.
-works: Someone at {place} who knows the story nods to {N} in a new way, and some trust comes back.
+works not B U>B G>W: Someone at {place} who knows the story nods to {N} in a new way, and some trust comes back.
 fails: It costs more than {N} expected, and the old hurt opens up again for a while.
 fails: A door {N} hoped to open stays shut, and there are a few sleepless nights.
 
@@ -1562,7 +1562,7 @@ scene G: The years have moved on, and so have the people. {N} wonders whether so
 - G>R | let it lie: the people it touched have found their peace; leave it be | heal: not_yet | v: benevolence, tradition | act: let it lie, since the people it touched have found their peace | chance: 75
 works: The quiet hour ends with something settled, and {N} can live with it.
 works: Months later {N} catches {Ns} own face in the mirror and finds it easier to meet.
-fails: The letter stays on the table for days, and the old silence gets heavier, not lighter.
+fails not B: The letter stays on the table for days, and the old silence gets heavier, not lighter.
 fails: It costs more than {N} expected, and a few nights go by without much sleep.
 
 # ---------------------------------------------------------------- pair 3: own say
@@ -1783,6 +1783,6 @@ scene G: Home does not leave a person just because the person leaves it. {N} fee
 - R>W | call {sibling} and talk long about home, and what you both owe it | heal: reflect | v: benevolence | act: call {sibling} and talk long about home, and what they both owe it | chance: 70
 - G>U | wait and watch: in time you will see clearly whether going back is right | heal: not_yet | v: tradition, self-direction | act: wait and watch, trusting that in time they will see whether going back is right | chance: 75
 works: The rain stops, and {N} finds the morning has left something settled behind it.
-works: Word gets back home of what {N} did, and an old cousin sends a warm line.
+works not B U>R G>U: Word gets back home of what {N} did, and an old cousin sends a warm line.
 fails: The morning stirs up more than {N} bargained for, and the longing stays for weeks.
 fails: It costs more than {N} expected, and a few nights go by without much sleep.

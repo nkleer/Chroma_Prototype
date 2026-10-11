@@ -193,9 +193,9 @@ scene G: These keys once hung in {Ns} grandmother's hall, and then in {Ns} paren
 - B>R | charge the cousins for the lifts and errands, and spend it on weekends away | v: hedonism | chance: 75
 - R>G | turn up at every crisis at once, with food, a toolbox and a hug | v: benevolence | body: light | chance: 80
 - G>W | gather everyone round the kitchen table and share out the care fairly | v: benevolence, universalism | chance: 55
-works: The family settles into its new shape with {N} at the middle of it, and the shape holds.
+works not R: The family settles into its new shape with {N} at the middle of it, and the shape holds.
 works: The calls keep coming, but {N} finds a way to carry them that leaves room for a life.
-fails: Within the year {N} is worn thin, and snaps at the person who least deserves it.
+fails not R: Within the year {N} is worn thin, and snaps at the person who least deserves it.
 fails: A family row breaks out over who does what, and {Ns} name is at the centre of it.
 
 # ---------------------------------------------------------------- step 3, settling in: calls WR (cycle s2)
@@ -231,7 +231,7 @@ scene G: Frost on the grass, ducks on the lake, the same old oak at the turn. {N
 - R>W | stand up at the briefing and ask everyone to sponsor a runner who fell ill | v: benevolence | chance: 70
 - G>U | ask the oldest runner, eighty and still going, how she does it, and listen | door | v: tradition, self-direction | chance: 80
 works: The Saturdays become one of the good fixed things in {Ns} life, and the coffee afterwards lasts longer every month.
-works: By the end of the year {N} has a handful of new friends and a body that feels younger than it did at forty.
+works not W: By the end of the year {N} has a handful of new friends and a body that feels younger than it did at forty.
 fails: A knee gives out in the autumn, and {N} watches from the café window for months.
 fails: The new friendships stay at nods and coffee, and {N} drifts away from the Saturdays.
 
@@ -311,9 +311,9 @@ scene G: The card says what the knees have been saying for a while. A page has t
 - R>B | ring the bank, the energy firm and the insurer, and demand every pensioner's discount | v: power, security | chance: 60
 - G>R | take the first bus to the sea on a fine morning, and swim | v: hedonism, universalism (nature) | body: light | chance: 85
 works: The card goes into {Ns} wallet, and the new years begin with a laugh rather than a sigh.
-works: The pass carries {N} to places and people {N} would never have reached otherwise.
+works not G: The pass carries {N} to places and people {N} would never have reached otherwise.
 fails: The pass stays in a drawer, and the photograph on it stays in {Ns} head for weeks.
-fails: The first outing goes wrong: a missed connection, a long cold wait, and {N} feels every year printed on the card.
+fails not G: The first outing goes wrong: a missed connection, a long cold wait, and {N} feels every year printed on the card.
 
 # ---------------------------------------------------------------- step 2, the transforming chance: calls BR (cycle s1)
 
@@ -351,7 +351,7 @@ scene G: {N} stands in the garden that took thirty years to grow, holding the ph
 - G>W | ask the family and oldest friends round, and decide it together at the table | v: benevolence, tradition | chance: 65
 works: A year on, {N} knows the choice was the right one, wherever {N} ended up.
 works: The decision brings a lightness {N} had forgotten, and {Ns} letters to old friends are full of it.
-fails: Within the year the plan sours, with money, health or homesickness, and {N} is caught between two places.
+fails not W: Within the year the plan sours, with money, health or homesickness, and {N} is caught between two places.
 fails: {N} decides, then undecides, and the chance goes by while {N} is still making lists.
 
 # ---------------------------------------------------------------- step 2, the transforming chance: calls WU (cycle s2)
@@ -388,9 +388,9 @@ scene G: {N} was an apprentice once, at a bench beside an old hand who never exp
 - B>G | keep an eye out for the one student good enough to carry it on | v: tradition, achievement | chance: 70
 - R>W | fight for the students the college wants to turn away | v: universalism, benevolence | chance: 55
 - G>U | teach it the way you were taught: by showing, slowly, and letting them watch | v: tradition | chance: 75
-works: By the end of the first term the room is full, and two of the students are better than {N} hoped.
+works not G: By the end of the first term the room is full, and two of the students are better than {N} hoped.
 works: Teaching it shows {N} things about the work that forty years of doing it never did.
-fails: The first evenings go badly, the numbers fall, and the college quietly cancels the class.
+fails not G: The first evenings go badly, the numbers fall, and the college quietly cancels the class.
 fails: The knowledge will not come out in words, and the students drift away one by one.
 
 # ---------------------------------------------------------------- step 3, settling in: calls WU (cycle s3)

@@ -180,7 +180,7 @@ scene G: He reminds {N} of {grandparent}, who also kept every letter in a box an
 works: In the box is the letter that explains everything, and his pension is put right by the spring.
 works: The old man brings {N} a cake to the next advice evening, and the whole queue claps.
 fails: The box goes back and forth for months, and nothing in it is ever settled.
-fails: {boss} sees the hours on the sheet and tells {N} the advice evening is not a charity.
+fails not B: {boss} sees the hours on the sheet and tells {N} the advice evening is not a charity.
 
 # ================================================================ lawyer (rule.U)
 
@@ -224,7 +224,7 @@ scene G: {mentor}, who trained {N}, used to say that a lawyer has only one thing
 works: The client agrees to settle, grumbling, and the firm's name stays clean.
 works: The judge never learns how close it came, and {mentor} sends {N} a short note: well done.
 fails: The client moves all their work to another firm, and {boss} asks {N} to explain why.
-fails: The copy turns up at the hearing anyway, and the judge's questions land on {N}.
+fails not R>G: The copy turns up at the hearing anyway, and the judge's questions land on {N}.
 
 # ---------------------------------------------------------------- everyday, calls WBG (cycle s2); partner: the copy in the client's own file
 
@@ -263,9 +263,9 @@ scene G: Half the town's families have come through {Ns} door on legal aid day, 
 - B>G | take the share, and quietly keep a few old families on as private favours | v: power, benevolence | sphere: rule.B | chance: 65
 - R>W | raise the condition at the partners' meeting in front of everyone | v: universalism | lever: voice | sphere: rule.R | chance: 65
 - G>U | ask the retired founder of the firm what the legal aid day was for | v: tradition | sphere: rule.G | chance: 65
-works: The partners give way, and {Ns} name goes on the door with the legal aid day still in the diary.
+works not R: The partners give way, and {Ns} name goes on the door with the legal aid day still in the diary.
 works: Years later, a family {N} helped on legal aid sends their eldest to {N} to train.
-fails: The partnership goes to {colleague}, and {N} stays where {N} was for another five years.
+fails not R: The partnership goes to {colleague}, and {N} stays where {N} was for another five years.
 fails: The legal aid list goes to a junior who cannot keep up, and the families stop coming.
 
 # ================================================================ mediator (rule.G)
@@ -349,7 +349,7 @@ scene G: Most of the warehouse live on the same estate, and whatever happens in 
 works: The worker gets an apology and a move off the manager's shift, and neither side is bound to silence.
 works: The firm grumbles, then books {N} for its next dispute on {Ns} own terms.
 fails: The firm finds another mediator who will use its draft, and the worker signs.
-fails: The worker sees {N} arrive with the firm's papers and refuses to say a word.
+fails not R: The worker sees {N} arrive with the firm's papers and refuses to say a word.
 
 # ================================================================ community centre manager (gather.W)
 
@@ -390,7 +390,7 @@ scene G: The pensioners' tea has met every Tuesday since the hall was built, and
 - B>R | sign, then quietly book the free groups as the centre's own events | v: power, self-direction | lever: subvert | sphere: gather.B | chance: 65
 - R>G | bring the pensioners and the youth night together to the council meeting | v: stimulation, benevolence | lever: voice | sphere: gather.R | chance: 65
 - G>W | call a meeting of everyone who uses the hall, and let the hall decide | v: tradition, universalism | sphere: gather.G | chance: 65
-works: The grant comes through with the free groups written in, and the new boiler goes in before winter.
+works not R: The grant comes through with the free groups written in, and the new boiler goes in before winter.
 works: On Friday the youth night is fuller than ever, and the pensioners send over a tray of cakes.
 fails: The council keeps its condition, and the youth night moves to the bus shelter.
 fails: The fundraiser makes half of what was needed, and {N} works the winter on three days' pay.
@@ -601,7 +601,7 @@ scene G: Every family has its wedding song, and {N} knows what it means when the
 - B>G | play it, then hand your card to every aunt who dances | act: play it, then hand their card to every aunt who dances | v: power, tradition | sphere: gather.B | chance: 65
 - R>W | take the microphone and ask the whole room whether they want the old dance | v: universalism, stimulation | sphere: gather.R | chance: 65
 - G>U | ask the grandmother which version the family dances to, and find that one | v: tradition | sphere: gather.G | chance: 65
-works: Three generations fill the floor, and the bride cries and hugs her grandmother.
+works not W: Three generations fill the floor, and the bride cries and hugs her grandmother.
 works: Two guests book {N} for their own weddings before the night is out.
-fails: The groom marches over to the decks and asks who said the list could be changed.
+fails not W: The groom marches over to the decks and asks who said the list could be changed.
 fails: The old dance empties the floor of the young ones, and the night never quite comes back.

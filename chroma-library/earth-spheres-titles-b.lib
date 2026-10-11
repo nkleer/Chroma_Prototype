@@ -344,8 +344,8 @@ scene G: The tune was played at {grandparent}'s funeral and at every family wedd
 - B>U | offer him a better deal: a new tune written for the advert, and owned by you | act: offer him a better deal: a new tune written for the advert, and owned by them | v: achievement, power | sphere: arts.B | chance: 65
 - R>B | agree on one condition: the session records it live, loud and its own way | v: self-direction, achievement | sphere: arts.R | chance: 65
 - G>R | play the tune for the man at the next session, and let the room decide | v: tradition, stimulation | sphere: arts.G | chance: 65
-works: The session agrees in the end, and the old tune is heard in kitchens all over the country.
-works: The session keeps the tune its own, and plays it louder than ever that winter.
+works not R: The session agrees in the end, and the old tune is heard in kitchens all over the country.
+works not U B W>G R>B: The session keeps the tune its own, and plays it louder than ever that winter.
 fails: The session splits over the money, and two players stop coming.
 fails: The firm uses the tune anyway, played by strangers, and the session gets nothing.
 
@@ -387,9 +387,9 @@ scene G: {mentor} taught {N} on the old wheel in the back room. Every bowl carri
 - B>R | take the order and spend the money on a month off to make wild pieces | v: hedonism, self-direction | sphere: arts.B | chance: 65
 - R>G | make all sixty by hand in one mad season, with friends round the wheel | v: stimulation, benevolence | sphere: arts.R | chance: 65
 - G>W | find two young makers in town to share the order, and teach them as you go | act: find two young makers in town to share the order, and teach them along the way | v: tradition, benevolence | sphere: arts.G | chance: 65
-works: The bowls sell out in the city by the spring, and the shop asks for more.
+works not R: The bowls sell out in the city by the spring, and the shop asks for more.
 works: {N} finds a way of working that keeps the craft and pays the rent, and sleeps better for it.
-fails: The order falls through halfway, and {N} is left with a shelf of bowls nobody wants.
+fails not R: The order falls through halfway, and {N} is left with a shelf of bowls nobody wants.
 fails: The season wears {N} out, and {partner} says the workshop has eaten every evening.
 
 # ---------------------------------------------------------------- everyday, calls WBR (cycle s2); partner: the city shop that wants it quicker
