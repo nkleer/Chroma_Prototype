@@ -343,7 +343,12 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("F12, a start that holds (start_hold; the devout village start, one life as the game plays it)",
         dict(start_hold=True, faith_inherit=1.0, world_cfg=dict(setting="earth", start=dict(
             place="village", wealth=0.2, faith="held", hard=False, society=[0.6, 0, 0, 0, 0.4]))),
-        dict(faith_inherit=1.0), 10, 1)]
+        dict(faith_inherit=1.0), 10, 1),
+       ("v22.5 F3, the household's money and ties from the people around them (hh_money, ties_people)",
+        dict(hh_money=True, ties_people=True), {}, 30),
+       ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
+       ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
+       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
