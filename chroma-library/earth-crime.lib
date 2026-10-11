@@ -43,7 +43,7 @@ scene G: These are the friends {N} grew up with, the same three streets and the 
 - G>B | let the others take the risk, and share in what they bring out | v: power (resources), benevolence | closed: law: handling stolen goods; backfire: the whole group banned from the shop, and parents called | mark: gave in to pressure | chance: 50
 works: {N} walks out into the afternoon with the others, and nothing comes after.
 works: By the bus stop the dare has turned into a joke, and {N} is still one of the group.
-fails: A hand lands on a shoulder at the door, and the manager rings home.
+fails not W U G W>R U>G: A hand lands on a shoulder at the door, and the manager rings home.
 fails: The others go cold on {N}, and the story goes round the whole year.
 
 # ---------------------------------------------------------------- juvenile: a friend's bag (calls UG, cycle s1)
@@ -161,7 +161,7 @@ scene G: It is only a plant, {N} thinks, and half the street grows something on 
 works: The rent gets paid one way or another, and nobody comes knocking.
 works: By autumn it is all behind {N}, and {friend} is still a friend.
 fails: A police car pulls up outside the flat one evening.
-fails: Word gets round, and {N} is suddenly the one other people's parents warn them about.
+fails not W U B W>B R>W G>U: Word gets round, and {N} is suddenly the one other people's parents warn them about.
 
 # ---------------------------------------------------------------- young adult and adult: a scam that pays (calls UR, cycle s4)
 
@@ -199,7 +199,7 @@ scene G: {N} and {friend} go back to primary school. {N} does not want the money
 - G>R | let it be: your friend lives how they like, and so do you | v: self-direction | chance: 60
 works: Whatever {N} chose, nothing comes back to {N}, and the summer goes on.
 works: By the end of the summer the listings are gone, and {friend} is looking for real work.
-fails: A letter from the bank says {Ns} account is frozen while the police make enquiries.
+fails not W B R W>G U>W G>R: A letter from the bank says {Ns} account is frozen while the police make enquiries.
 fails: {friend} hears what {N} did, and a friendship of twenty years ends in one phone call.
 
 # ---------------------------------------------------------------- adult: a pub argument that turns (calls RG, cycle s1)
@@ -467,7 +467,7 @@ scene G: The whole house is awake behind {N}, watching from the stairs. Whatever
 - B>W | offer to name everyone else involved, in return for a lighter charge | v: power, security | closed: approval: informing on others; backfire: word gets round, and old friends turn away | mark: made an enemy | title_if_fails: someone with a record | chance: 45
 - R>U | tell them straight what you did, and ask what happens now | v: self-direction | mark: owned up | title_if_fails: someone with a record | chance: 60
 - G>B | let the family's old friend, a solicitor, do all the talking | v: security, tradition | title_if_fails: someone with a record | chance: 50
-works: It ends with a warning and a signature, and the officers leave before the kettle boils.
+works not R: It ends with a warning and a signature, and the officers leave before the kettle boils.
 works: The case is dropped a month later for lack of evidence.
 fails: {N} is charged, and a court date arrives in the post.
 fails: {N} spends the afternoon in an interview room and the evening with a solicitor.

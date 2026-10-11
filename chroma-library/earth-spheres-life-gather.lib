@@ -232,7 +232,7 @@ scene G: {Ns} name is cut into the long table, beside names from fifty years ago
 - BR | buy the old sign, and hang it over a back room you rent yourself | act: buy the old sign, and hang it over a back room they rent themselves | v: self-direction, power | lever: found | sphere: gather.BR | chance: 50
 - BG | let it go, and become a regular at the next nearest bar within the month | v: security | lever: exit | sphere: gather.BG | chance: 50
 works: Most of the regulars follow {N} to the new place, and within a season the long table is full again.
-works: {N} ends up behind a bar of {Ns} own, with the old sign over the door and the old keeper as the first customer.
+works not W U R G WU WG UR BG: {N} ends up behind a bar of {Ns} own, with the old sign over the door and the old keeper as the first customer.
 fails: The last night ends, the group scatters, and some of the regulars are not seen out again.
 fails: The new place never feels the same, and {N} stops going out on Thursdays at all.
 

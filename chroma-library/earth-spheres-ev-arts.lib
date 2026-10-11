@@ -195,7 +195,7 @@ scene G: Those songs came down through ten generations, and they stopped with he
 - UG | write down every line anyone remembers, with the tunes, for the children | v: tradition, universalism | sphere: arts.GU | chance: 60
 - WR | start a yearly night in her name where anyone may sing what they remember | v: tradition, benevolence | lever: found | sphere: arts.RW | chance: 54
 - WU | take up the old tongue properly, with lessons, so the songs can be sung again | v: tradition, self-direction | mark: learned a skill | sphere: arts.WU | chance: 52
-works: Enough of the songs come back, pieced together, that the children learn three of them by heart.
+works not BG: Enough of the songs come back, pieced together, that the children learn three of them by heart.
 works: {N} grieves her properly, and carries one song of hers for the rest of {Ns} life.
 fails: Nothing more is found, and the songs are gone beyond recall.
 fails: The family argues over what she really sang, and the quarrel outlives the grief.
@@ -280,7 +280,7 @@ scene G: {parent} says it was rubbish and the old shows were better. {N} is not 
 - UR | make a short video of your own ending, and see who shares it | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 50
 - WB | get a speaker to the community centre to talk about the question it asks | v: universalism, achievement | sphere: arts.WB | chance: 48
 - WU | start a reading group on the book the series came from | v: universalism, self-direction | lever: found | sphere: arts.WU | chance: 66
-works: The argument changes {Ns} mind about something, and {N} is glad it did.
+works not G: The argument changes {Ns} mind about something, and {N} is glad it did.
 works: {N} and {friend} end up laughing about it, and watch the next series together.
 fails: A joke about the ending goes down badly, and it is a chilly month at home.
 fails: {N} digs in, and an old view hardens into something harder to shift.
@@ -495,7 +495,7 @@ scene G: {N} grew up in the minister's home town. The sketch mocks the voice of 
 - WU | write to the paper asking for an inquiry into what the minister did | v: universalism | lever: voice | pushes: state | sphere: arts.WU | chance: 46
 works: The laughter does its work, and something at the top changes for the better.
 works: {N} enjoys the joke, keeps the friends, and is not caught up in what follows.
-fails: A line {N} shared is quoted back at {N} by someone who did not find it funny.
+fails not B WG: A line {N} shared is quoted back at {N} by someone who did not find it funny.
 fails: Next week a sketch mocks {Ns} own town, and it is not so funny from the inside.
 
 # ---------------------------------------------------------------- local_fame (pairs D1b)
@@ -578,7 +578,7 @@ scene G: {N} watched the films with the family every winter, and they are part o
 - UR | make a short film of your own about a set where nobody shouts | v: self-direction, stimulation | sphere: arts.UR | chance: 44
 - WB | give to the fund the actors have set up for others in the same trade | v: benevolence | lever: fund | sphere: arts.WB | chance: 78
 - WG | talk it through with your friend, and agree to differ without falling out | v: benevolence | sphere: arts.GW | chance: 58
-works: {N} finds a way to keep what was good in the films without excusing the man.
+works not R: {N} finds a way to keep what was good in the films without excusing the man.
 works: The actors who spoke up are heard, and {N} is glad to have stood where {N} stood.
 fails: The quarrel over the director spills into {Ns} friendships, and one does not survive it.
 fails: {N} cannot watch any film now without wondering what went on behind it.
