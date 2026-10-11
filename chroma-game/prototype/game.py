@@ -167,6 +167,10 @@ GAME = dict(
     # they want (lean), so a season of a new way does not leave them wanting to be someone they are not (self-perception;
     # today only the want moves, and the want-self gap it opens is what the engine's frustration and content read)
     lean_self=0.0,
+    # A voice that teaches: an owned push toward the head's pick that works builds their discipline own_teach of the way to
+    # its bound (the engine's disc_range), so in the weeks without the player they act on their own judgement more often
+    # (self-control is learned; a hard thing done on purpose builds it, engine disc_win and disc_tag)
+    own_teach=0.0,
     # Readable stakes: a need under hind_thin counts as one they lack, for the option row's "lift" and for hindsight (need_thin
     # .5 today: adult needs sit at .6 to .9, so the lift showed on few rows and hindsight seldom accepted a push)
     hind_thin=0.5,
@@ -185,7 +189,7 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
-                own_mark="", lean_self=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False)
+                own_mark="", lean_self=0.0, own_teach=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -2426,6 +2430,10 @@ class Game:
             loc["stress"][0] += GAME["own_stress"] * GAME["stress"] * rs
             if loc["succ"][0]:
                 loc["Q"][0] *= 1 - GAME["own_free"]
+                cpw = self._cp_week; v_ = cpw["cp"].get("view") or {}
+                if GAME["own_teach"] and "dsc" in loc and int(v_.get("head", -1)) == int(cpw["choice"]):
+                    hi_ = float(loc["P"]["disc_range"][1]) if "P" in loc else 1.4
+                    loc["dsc"][0] += GAME["own_teach"] * (hi_ - float(loc["dsc"][0]))
         else:
             loc["stress"][0] += GAME["stress"] * rs
             loc["Q"][0] += GAME["backlash"] * rs                          # wanting what they were denied builds up
@@ -2478,6 +2486,8 @@ class Game:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
                 if f > 0:
                     loc["z"][0] += GAME["lean_self"] * st * f * E.centre(5 * (T - w_))
+            for T, st in (getattr(self, "_own_leans", None) or {}).values():   # S2: a way that is theirs keeps leaning both
+                loc["z"][0] += GAME["lean_self"] * st * E.centre(5 * (T - w_))
         if self._seasons and "need" in loc:              # v22.5 proposal: an owned pick's season holds, fading
             for e_, st_, t0 in self._seasons:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
