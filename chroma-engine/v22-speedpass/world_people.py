@@ -4902,10 +4902,11 @@ class People:
         return True
 
     def _lead_q(self, t):
-        """Each quarter: posts end (death, the office or setting gone, a move, frailty, the age out, the yearly end
-        chance, a rival of higher rung, the term's end unrenewed), the legitimacy of the rest, the quarter's crises
-        (_lead_crises) and the falls of each way, new posts (a pillar takes the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each
-        post x (.5 + legitimacy)) and the shadow target."""
+        """Each quarter: posts end (death, the office or setting gone, a move (a title over a workplace goes with the
+        job), frailty, the age out, the yearly end chance, a rival of higher rung, the term's end unrenewed), the
+        legitimacy of the rest, the quarter's crises (_lead_crises) and the falls of each way, new posts (a pillar takes
+        the lead; an office title), the leaders' mix of each town sphere (World.sph_plead, each post x (.5 +
+        legitimacy)) and the shadow target."""
         if self._lw_q == t:
             return
         self._lw_q = t; W = self.W; par = self.lw_par; a = self._age(t)
@@ -4914,6 +4915,8 @@ class People:
         # 1. ends
         for p in list(self.lw_posts):
             n = p["n"]; why = None; c_ = self._lead_cell(p["pk"])
+            if p["kind"] == "office" and LEAD_TITLES[self.lw_tnames[p["slot"]]][2] == "work":   # a title over a workplace
+                p["loc"] = int(self.loc[n])   # goes with the job through a move, as the engine keeps both (v22.4 fix round)
             if self.dead[n]:
                 why = "died"
             elif p["kind"] == "office" and not self.lw_has[n, p["slot"]]:
