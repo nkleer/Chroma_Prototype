@@ -16,7 +16,7 @@
 #   m5   the game's browser drivers, groups C and D (G15); then the game's own full checks (G13), the steered and Voice
 #        rows and S2's own_even (G12)
 #   m6   item 26's colour-choice run, judged by check_c26.py (G19; 960 lives, about 75 minutes), and the same with the
-#        world on, judged the same way (c26_world, G19w; about 80 minutes); then S5's two targets (G9)
+#        world on, steered lives picking as a player does (c26_world, G19w; about 80 minutes); then S5's two targets (G9)
 # On the final commit (the refit, its rarity table, the Game's re-pin):
 #   final       every v22_checks row again (unchanged files are reused in seconds); the rarity row from m1's rebuild when
 #               the refit and the final commit differ only in the rarity files, else rebuilt; the old saves (G14); the
