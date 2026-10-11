@@ -109,6 +109,13 @@ def main():
         ok = bool(np.isfinite(spread) and spread <= 1.2 and not np.isnan(per).any())
         bad += not ok
         zero = [COLORS[c] for c in range(len(COLORS)) if not per[c] > 0]
+        rng_ = np.random.default_rng(0); sh_ = []   # the draw's own spread: lead colours shuffled across the lives (information)
+        for _ in range(200):
+            ld_ = rng_.permutation(lead)
+            pc_ = np.array([lost[ld_ == c].mean() for c in range(len(COLORS)) if (ld_ == c).any()])
+            sh_.append(pc_.max() / pc_.min() if pc_.min() > 0 else np.inf)
+        print(f"  info: s5_money with lead colours shuffled across the {len(lead)} lives (200 shuffles): median "
+              f"{np.median(sh_):.2f}x, 90th percentile {np.percentile(sh_, 90):.2f}x")
         print(f"s5_money: {'ok' if ok else 'FAIL'} money lost per lead colour "
               f"{f'{spread:.2f}x apart' if not zero else 'none lost by ' + ' '.join(zero)} (target within 1.2x)")
     return 1 if bad else 0
