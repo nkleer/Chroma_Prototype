@@ -5193,6 +5193,9 @@ try {
   html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; }
   html[data-motion="off"] .lk-lights { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .lk-lights { opacity: 1; } }
+  /* a story entry tagged "line" (S5's sacred line, game.py) is text, not the life-line river box head.html's .line draws */
+  #feed .en.line { height: auto; margin-block: 0; border-radius: 0; overflow: visible; background: none; }
+  #feed .en.line::after { content: none; }
 </style>
 
 <script>
