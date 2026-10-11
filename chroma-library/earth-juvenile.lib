@@ -324,9 +324,9 @@ scene G: {grandparent} went through the same ceremony, in the same building, at 
 - B>G | strike a deal: you will do it for a trip to where your grandparents grew up | binds | v: tradition, power | tags: commit:faith | chance: 64
 - R>W | stand up and speak the vow with your whole heart, voice shaking | binds | v: tradition | tags: commit:faith | chance: 85
 - G>U | ask your grandparents what the old words meant to them, and write it all down | v: tradition, self-direction | chance: 92
-works: The day goes beautifully, and {parent} cries in the front row.
+works not R: The day goes beautifully, and {parent} cries in the front row.
 works: {N} walks out of the ceremony feeling taller, and older.
-fails: {N} stumbles over the words in front of everyone.
+fails not R: {N} stumbles over the words in front of everyone.
 fails: The day turns into a family row, and nobody remembers the ceremony.
 
 == someone starts mocking you online
@@ -398,10 +398,10 @@ scene G: {N} has always been the one the younger ones come to with their trouble
 - B>W | keep a list of who breaks the rules, and use it to keep them in line | v: power, conformity | chance: 38
 - R>U | say yes on the spot, and learn how the school really works from inside | door | v: stimulation, self-direction | chance: 85
 - G>B | stay as you are, and let people come to you; influence will follow | v: power | act: stay as they are, and let people come to them; influence will follow | chance: 55
-works: The badge suits {N}, and the younger ones start bringing their problems to them.
+works not R: The badge suits {N}, and the younger ones start bringing their problems to them.
 works: At parents' evening {mentor} tells {parent} that {N} has grown into the role.
 fails: {N} is caught between the teachers and their own friends, and pleases neither.
-fails: Within a month the role is a chore, and {rival} makes sure everyone knows it.
+fails not R: Within a month the role is a chore, and {rival} makes sure everyone knows it.
 
 == a sleepless night wondering who you are
 tier: everyday
@@ -502,7 +502,7 @@ scene G: Whatever {sibling} has done, they share a room, a surname and a whole c
 - B>G | warn the older kids you'll go to the police unless they back off | v: security | mark: made an enemy | chance: 60
 - R>W | say you took the money yourself, so the row stops tonight | v: benevolence, security | mark: hid a wrong | chance: 80
 - G>U | take your sibling on a long walk until the whole story comes out | v: benevolence | chance: 75
-works: The truth comes out, the debt is paid, and the house goes quiet again.
+works not B: The truth comes out, the debt is paid, and the house goes quiet again.
 works: {sibling} catches {Ns} eye across the table, and something passes between them that will last.
 fails: {parent} hears the rest of the story from someone else, and both of them are in trouble.
 fails: {sibling} will not speak to {N} for weeks.
@@ -616,7 +616,7 @@ scene G: {N} and {friend} have been friends since they were small. Packs always 
 works: The picking stops, and {friend} starts laughing again at lunch.
 works: The ringleader backs off, and the corridor goes quiet.
 fails: It gets worse, and now {N} is a target too.
-fails: {friend} asks {N} to stop helping, and goes quiet.
+fails not B: {friend} asks {N} to stop helping, and goes quiet.
 
 == you are grounded for a week
 tier: everyday
@@ -764,7 +764,7 @@ scene G: {parent} started work at the same age, in the same kind of place. Some 
 - WG | hand most of your first pay to your family, as is expected | identity | v: tradition, benevolence | chance: 94
 - WU | learn your rights at work and make sure every payslip is right | v: security, universalism (justice) | chance: 92
 works: Within a month {boss} is asking for {N} by name on the busy shifts.
-works: {N} opens a bank account and watches it slowly grow.
+works not BR: {N} opens a bank account and watches it slowly grow.
 fails: {N} is let go after a few weeks, with no reason given.
 fails: The shifts eat into everything else, and school starts to slip.
 
@@ -874,8 +874,8 @@ scene G: {N} thinks of the friends from the street, the walk to the old school, 
 - URG | take it, and learn to fend for yourself on the long journey each day | door | v: self-direction | chance: 82
 - UBR | bluff that you have another offer, and hold out for a better one | v: power, achievement | mark: took a wild risk | chance: 25
 works: The first term goes better than {N} dared to hope.
-works: {N} finds people at the new place who think the way they do.
-fails: {N} feels out of place among richer, sharper kids, and dreads every morning bus.
+works not G: {N} finds people at the new place who think the way they do.
+fails not G: {N} feels out of place among richer, sharper kids, and dreads every morning bus.
 fails: The old friends drift away, and the new ones have not arrived yet.
 
 == a trip far from home

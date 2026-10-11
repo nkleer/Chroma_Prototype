@@ -34,10 +34,10 @@ scene G: Some things do not stay buried. {friend} has carried that broken promis
 - B>R | treat them to something fun, and laugh the whole thing off | v: hedonism | chance: 80
 - R>G | turn up at their door with your sleeves rolled up, the way old friends do | v: benevolence, tradition | chance: 85
 - G>W | ask an elder you both trust to help settle it between you | v: tradition, conformity | chance: 78
-works: {friend} hears it out, and the old promise stops standing between them.
+works not G: {friend} hears it out, and the old promise stops standing between them.
 works: The matter is settled, and {friend} says yes to what {N} needs.
 fails: {friend} says no, and tells the old story to anyone who will listen.
-fails: The talk goes badly, and an old hurt becomes a fresh one.
+fails not G: The talk goes badly, and an old hurt becomes a fresh one.
 
 == a promise kept for years pays off
 tier: echo
@@ -140,9 +140,9 @@ scene G: The wheel has turned. This time {N} is the one at the door.
 - B>U | pay for a course and learn to do it without anyone's help | v: self-direction, achievement | mark: learned a skill | chance: 71
 - R>B | go anyway, and charm them until they cannot say no | v: power | chance: 70
 - G>R | trust your gut about the right moment, then ask straight out | v: self-direction | chance: 72
-works: The door opens, and the help comes without a word about the past.
+works not W U B>U: The door opens, and the help comes without a word about the past.
 works: {N} gets what is needed, and the old refusal is finally talked through.
-fails: The answer is a flat no, and the whole street hears why.
+fails not W U B>U: The answer is a flat no, and the whole street hears why.
 fails: Help comes, grudgingly, with the old story attached.
 
 # ---------------------------------------------------------------- marks: enemies, friends, defiance
@@ -248,7 +248,7 @@ scene G: Old grudges in old institutions run deep, like roots under a road.
 - B>W | offer to sit on their committee, and fix it from the inside | v: power, conformity | chance: 58
 - R>U | take the whole story to the local paper and see what comes out | v: self-direction, stimulation | closed: approval: going public against an office; backfire: the story turns against the teller | chance: 62
 - G>B | outlast them: wait until the old guard retires, then apply again | v: achievement, security | chance: 78
-works: The request goes through, and nobody mentions the old business.
+works not G: The request goes through, and nobody mentions the old business.
 works: A new face behind the desk waves {N} through.
 fails: The file goes to the bottom of the pile, and stays there.
 fails: The answer is no, and it is plain why.
@@ -283,7 +283,7 @@ scene G: People shelter by the tree that stood through the last storm. {N} has b
 - B>U | use your new standing to get the papers they have been hiding | v: power, self-direction | chance: 48
 - R>B | take the lead, and let everyone know whose fight this is now | v: power, achievement | chance: 78
 - G>R | trust your instinct that it is someone else's turn, and enjoy the summer | v: hedonism, self-direction | mark: turned down a chance | chance: 58
-works: People rally behind {N}, and the first meeting is packed.
+works not G>R: People rally behind {N}, and the first meeting is packed.
 works: The cause wins a small victory, and {Ns} name is said with respect.
 fails: The meeting splits into arguments before anything is decided.
 fails: The fight drags on, and {N} becomes its target.
@@ -425,9 +425,9 @@ scene G: The river carried {N} safely once. Rivers do not always behave the same
 - B>U | pay for the best expert advice, and only then sign | v: security, self-direction | chance: 82
 - R>B | go in hard, and claim the biggest share for daring first | v: power, stimulation | chance: 38
 - G>R | follow your gut wherever it leads, and enjoy the ride | v: stimulation, hedonism | chance: 45
-works: The new venture lands as well as the first, or better.
+works not W: The new venture lands as well as the first, or better.
 works: {N} weighs it well, and the choice holds up for years.
-fails: This time the luck runs the other way, and the losses are real.
+fails not W: This time the luck runs the other way, and the losses are real.
 fails: The chance slips by while {N} hesitates, and someone else takes it.
 
 # ---------------------------------------------------------------- marks: the wild years, leaving, staying, moving away
@@ -607,7 +607,7 @@ scene G: Some things wait for their season. {N} was not ready then. Perhaps the 
 - R>G | take it, and bring the whole family along for the adventure | v: benevolence, stimulation | mark: moved away | chance: 75
 - G>W | wait for the right season: go once your duties here are fairly handed on | v: benevolence, tradition | chance: 45
 works: {N} walks through the door at last, and it fits.
-works: The second offer is better than the first, and {N} takes it with open eyes.
+works not G: The second offer is better than the first, and {N} takes it with open eyes.
 fails: The place has changed, and the dream was better kept as a dream.
 fails: By the time {N} decides, the offer has quietly gone to someone else.
 
@@ -641,9 +641,9 @@ scene G: {N} grew up far from any sea, among people who never swam. The water st
 - B>G | strike a deal with the children: lessons from them, paid in ice creams | v: benevolence, hedonism | mark: learned a skill | chance: 80
 - R>W | climb down the ladder in front of everyone, to show the children fear can be faced | v: benevolence | body: light | chance: 82
 - G>U | ask an old friend who grew up by the sea to show the old way | door | v: tradition, self-direction | chance: 75
-works: By the end of the summer {N} swims, slowly but surely, across the bay.
+works not G: By the end of the summer {N} swims, slowly but surely, across the bay.
 works: {N} finds an easy peace with it, and the day at the lake is a happy one.
-fails: The first lesson ends with a mouthful of water and a bruised pride.
+fails not G: The first lesson ends with a mouthful of water and a bruised pride.
 fails: {N} stays on the edge again, and the old shame stings a little more.
 
 == the apology that was never made
@@ -677,9 +677,9 @@ scene G: Rifts in a family are like cracks in a wall: they do not mend by being 
 - B>W | apologise in front of the whole family, where it will count | identity | v: power, conformity | mark: owned up | chance: 73
 - R>U | call them, blurt it all out, and ask what it was like for them | v: benevolence, self-direction | mark: owned up | chance: 82
 - G>B | wait for them to come round; whoever speaks first loses face | v: power, tradition | chance: 20
-works: The words are finally said, and {sibling} takes {Ns} hand.
+works not G G>B: The words are finally said, and {sibling} takes {Ns} hand.
 works: Something old and hard between them begins, at last, to soften.
-fails: {sibling} listens, nods, and says it is too late.
+fails not G G>B: {sibling} listens, nods, and says it is too late.
 fails: The chance passes, and the apology stays unsaid.
 
 == words that were never said
@@ -713,9 +713,9 @@ scene G: Some things grow between people without words, like moss on a stone. So
 - B>U | press the doctors hard for the truth, whatever they would rather say | v: security, self-direction | chance: 60
 - R>B | argue loudly with the staff until they get a better room | v: power, benevolence | closed: approval: making a scene on the ward; backfire: asked to leave | chance: 35
 - G>R | bring in the old photos and songs, and make the room feel like home | v: hedonism, benevolence | chance: 88
-works: The words are said, and {parent} squeezes {Ns} hand and says them back.
+works not W G: The words are said, and {parent} squeezes {Ns} hand and says them back.
 works: {N} and {parent} have the best talk of their lives in that small room.
-fails: {parent} is too tired to hear, and {N} will never know if it reached them.
+fails not W G: {parent} is too tired to hear, and {N} will never know if it reached them.
 fails: The moment comes and goes, and the words stay where they always were.
 
 == a late chance to see the world
@@ -749,8 +749,8 @@ scene G: {N} has lived a whole life in one valley. Leaving it, even for a fortni
 - R>G | go and find the place your family came from, generations back | door | v: tradition, stimulation | chance: 82
 - G>W | go only with the old friends from the club, so home comes along | v: security, tradition | chance: 79
 works: {N} comes back with a suitcase of stories and a new look in the eye.
-works: The trip goes beautifully, and the next one is planned before the bags are unpacked.
-fails: The journey is exhausting, and {N} spends most of it longing for home.
+works not G: The trip goes beautifully, and the next one is planned before the bags are unpacked.
+fails not G: The journey is exhausting, and {N} spends most of it longing for home.
 fails: Something always comes up, and the tickets stay in the drawer.
 
 == someone younger does what you always planned
@@ -783,10 +783,10 @@ scene G: Every seed has its season. {N} kept this one in a drawer so long that i
 - B>G | sell them your plans, and put the money toward the family | v: benevolence (family), power | chance: 58
 - R>W | turn up on opening day and work the counter for nothing, to see it thrive | v: benevolence | mark: made a friend | chance: 88
 - G>U | work a season in their shop, and learn what the planning never taught | door | v: self-direction, tradition | mark: learned a skill | chance: 67
-works: {N} finds a way to make the old dream {Ns} own after all.
+works not G: {N} finds a way to make the old dream {Ns} own after all.
 works: The sting fades, and {N} makes peace with the life that was chosen.
 fails: Envy settles in, and {N} cannot walk down that street any more.
-fails: {N} rushes in late, and the half-made plan costs dearly.
+fails not W G: {N} rushes in late, and the half-made plan costs dearly.
 
 # ---------------------------------------------------------------- commitments held or ended, and events lived through
 
@@ -895,8 +895,8 @@ scene G: The apple has not fallen far. {N} watches {child} sow beans in the same
 - R>G | jump in the car and turn up for Sunday dinner with all the grandchildren | v: benevolence, tradition | tech: car | chance: 90
 - G>W | start a new family custom around the day, to mark it every year | v: tradition, conformity | chance: 72
 works: The moment is small, and {N} keeps it for years.
-works: {child} hears the pride in {Ns} voice, and something between them grows stronger.
-fails: {N} says too much, and {child} goes quiet on the other end of the line.
+works not G: {child} hears the pride in {Ns} voice, and something between them grows stronger.
+fails not G: {N} says too much, and {child} goes quiet on the other end of the line.
 fails: {N} realises that {child} has picked up the bad habits too.
 
 == someone faces what you came through
@@ -931,7 +931,7 @@ scene G: Every winter is followed by a spring. {N} has seen it, and can tell {fr
 - G>U | pass on the slow lessons it taught, one at a time | v: benevolence, self-direction | chance: 88
 works: {friend} says later that {N} was the one who made it bearable.
 works: Helping {friend} heals something in {N} that was still sore.
-fails: {N} says too much too soon, and {friend} pulls away.
+fails not G: {N} says too much too soon, and {friend} pulls away.
 fails: Old fears come back with the memories, and {N} has to step back.
 
 == lean times, again
@@ -1001,9 +1001,9 @@ scene G: {N} has become a trellis for everyone else's vines. A trellis does not 
 - B>U | trade one duty for the weekly class you always wanted | v: self-direction | mark: learned a skill | chance: 90
 - R>B | say yes, on the spot, to the one thing you have wanted for years | v: self-direction, hedonism | chance: 80
 - G>R | take every Saturday back for the hills, and guard it like a hedge | habit | v: hedonism, self-direction | chance: 85
-works: {N} finds a little room of {Ns} own, and the world does not end.
+works not W: {N} finds a little room of {Ns} own, and the world does not end.
 works: Others step up, and {N} discovers the duties were never {Ns} alone.
-fails: {N} drops a duty, and it lands on someone who cannot carry it.
+fails not W: {N} drops a duty, and it lands on someone who cannot carry it.
 fails: The calendar fills up again within a month, as if by itself.
 
 == the notebooks come together

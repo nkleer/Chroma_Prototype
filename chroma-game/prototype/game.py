@@ -156,10 +156,42 @@ GAME = dict(
     # moves own_lived x a light push of the act's share in it (without it a way they already live by stalls short of theirs)
     own_ix=False, own_k=0.15, own_light=1.5, own_strong=0.6, own_sup=2.5, own_acc=1.5, own_res=-0.5, own_fade=0.02,
     own_use=0.4, own_rel=0.8, own_theirs=0.8, own_react=0.15, own_react_rel=0.7, own_react_back=0.1, own_lived=0.5,
+    # v22.5 proposal, "a voice that reads well" (chroma-ideas/player-impact/findings.md; Emren 10-11 11:45 UTC): a well-read
+    # pick should leave the life better, not only cost less. Played lives only; every part off by default (lives as today).
+    # Owned picks: a push toward the moment's head mark (what they judge best on reflection, explain.before), its heart
+    # mark (what they wanted and did not dare) or either ("both") is theirs, not the voice's: it builds no pent-up wanting
+    # and only own_stress of a push's strain, and when it works it lets go of own_free of the wanting already built
+    # (self-determination: acting on one's own judgement is endorsement, whoever suggested it). "" is off
+    own_mark="", own_stress=0.5, own_free=0.3,
+    # A way lived becomes who they are: the season's lean (F2) moves who they are (z) by lean_self a week as it moves what
+    # they want (lean), so a season of a new way does not leave them wanting to be someone they are not (self-perception;
+    # today only the want moves, and the want-self gap it opens is what the engine's frustration and content read)
+    lean_self=0.0,
+    # A voice that teaches: an owned push toward the head's pick that works builds their discipline own_teach of the way to
+    # its bound (the engine's disc_range), so in the weeks without the player they act on their own judgement more often
+    # (self-control is learned; a hard thing done on purpose builds it, engine disc_win and disc_tag)
+    own_teach=0.0,
+    # A dream within reach: a push toward an option that serves a dream, passion or plan they hold (the engine's goal fit
+    # rel of at least dream_fit) is theirs too (dream_own: it counts as owned, as own_mark's picks do), and when it works
+    # the voice's backing firms the goal up dream_firm of the way to full strength, so they take more of its steps on their
+    # own, and adds dream_help of the engine's own step to a plan's progress (support for goal pursuit)
+    dream_own=False, dream_fit=0.5, dream_firm=0.0, dream_help=0.0,
+    # Readable stakes: a need under hind_thin counts as one they lack, for the option row's "lift" and for hindsight (need_thin
+    # .5 today: adult needs sit at .6 to .9, so the lift showed on few rows and hindsight seldom accepted a push)
+    hind_thin=0.5,
+    # A season that holds: an owned pick that worked (toward their heart, or accepted in hindsight) keeps its routine for
+    # the season (lean_weeks, fading): its ends keep feeding the needs they meet at season_need of the engine's own weekly
+    # refill, and strain eases by season_calm a week (a sense of control; the hook for v22.5 F1's Mind, "steadier picks")
+    season_need=0.0, season_calm=0.0,
+    # Forks, not weather: a moment whose options lead to different lasting places (a title or perk, a commitment, money or
+    # time won or lost) weighs fork_k more for the player; with fork_told an everyday moment whose options all end alike is
+    # told, not asked. rung_ask: a moment that offers a pack career's rung or a summit is always put to the player
+    fork_k=0.0, fork_told=False, rung_ask=False,
     # v22.5, rare moments are asked (push_rare, 10-11: on the same 60 lives, pushed lives met 545 distinct rare moments
     # against 475 left alone, but the game put only 75 and 73 of them to the player): a moment under RARE_SHARE of lives
     # (the Book's rare), met for the first time, comes up at a life event's pace (half the gap) and weighs rare_imp more
-    # when the game picks the moments to put to the player. Off until its proof
+    # when the game picks the moments to put to the player (a moment rung_ask already puts to them is not weighed again).
+    # Off until its proof
     rare_ask=False, rare_imp=0.5,
 )
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
@@ -167,7 +199,8 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
-                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False, rare_ask=False)
+                era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
+                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False, rare_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -627,6 +660,7 @@ class Game:
         # item 4: pivotal picks (GAME piv...): the season leans running (target shares, strength, start week), the picks'
         # recent ways for the plans they take up (5.4), and a random stream of the game's own (backfires)
         self._leans = []
+        self._seasons = []                  # v22.5 proposal: owned picks' seasons (ends, strength, week)
         self._pick_mix = np.zeros(C); self._pick_wt = 0.0; self._pick_t = 0
         self._prng = np.random.default_rng(int(seed) + 5151)
         self.history["pivots"] = []     # (age, kind, colors before, target, size): kind own, toward, half or backfire
@@ -906,6 +940,8 @@ class Game:
             if loc["clash0"][0, kk] < 0 and t - self._last_cp < gap_weeks:
                 return None
             self._last_recon[kk] = t
+        elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
+            pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
         else:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
@@ -921,12 +957,37 @@ class Game:
             if (not tied and not life and thr > 0
                     and (self._sit_share.get(self.L["names"][s]) or 0.0) >= GAME["told_share"]):
                 return None                     # 5.6: an everyday moment with no tie to this life is told, not asked
+            fork = self._fork(loc, s) if (GAME["fork_k"] or GAME["fork_told"]) else 0.0
+            if GAME["fork_told"] and fork == 0 and not life and not rare and not tied and thr > 0:
+                return None                     # v22.5 proposal: every option ends alike: told, not asked
             if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
-                    + GAME["tie_pick"] * (cause is not None) + GAME["rare_imp"] * rare < thr):
+                    + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork + GAME["rare_imp"] * rare < thr):
                 return None
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
         return self._build_checkpoint(t, loc, a)
+
+    def _fork(self, loc, s):
+        """v22.5 proposal: the share (0 to 1) of a moment's open options that lead somewhere lasting: a title or perk
+        given or taken (the Library's act fields), a commitment started, or money, time, health, ties or freedom won,
+        lost or paid. 0 when every option ends alike."""
+        L = loc["L"]; mask = np.asarray(loc["mask"][0], bool) & ~np.asarray(loc["do_nothing"][0], bool)
+        ks = np.nonzero(mask)[0]
+        if not len(ks):
+            return 0.0
+        GR = L.get("ROLES") if loc.get("RON") else None
+        hasfx = GR["A_HASFX"][s] if GR is not None and "A_HASFX" in GR else np.zeros(len(mask), bool)
+        lasting = [bool(hasfx[k]) or int(L["COMMIT"][s, k]) >= 0 or bool(np.abs(L["WIN"][s, k]).sum() + np.abs(L["LOSE"][s, k]).sum()
+                   + np.abs(L["PAY"][s, k]).sum() >= 0.02) for k in ks]
+        return float(np.mean(lasting))
+
+    def _rung_here(self, loc, s):
+        """v22.5 proposal: an open option of this moment gives a pack career's rung or a summit (batch A_TIER)."""
+        GR = loc["L"].get("ROLES") if loc.get("RON") else None
+        if GR is None or "A_TIER" not in GR:
+            return False
+        o_ = np.asarray(loc["open_"][0], bool) & np.asarray(loc["mask"][0], bool)
+        return bool((np.asarray(GR["A_TIER"][s])[o_] >= 0).any())
 
     @staticmethod
     def _colors(loc, k):
@@ -1225,6 +1286,8 @@ class Game:
             st = (GAME["judge_a"] + GAME["judge_b"] * rel) * prof
             self.trust += st * (1 - self.trust) if worked else -st * (1 + self.trust)
             out["judged"] = "worked" if worked else "failed"
+        if out["kind"] == "none":                           # F13: the review counts the pushes that passed unjudged
+            self.history.setdefault("passed", [0, 0])[0 if worked else 1] += 1
         self.trust = np.clip(self.trust, -1.0, 1.0)
         out["trust_after"] = round(self._trust_on(loc, cpw["choice"]), 3)
         out["line"] = self.story.hindsight(out["kind"], NEED_WORD.get(out["need"], out["need"] or ""), worked)
@@ -1249,6 +1312,9 @@ class Game:
                 if m[own].sum() > 0:                         # it backfires: they learn toward what they wanted instead
                     kind, share, lean, T = "backfire", 1.0, 0.0, m[own] / m[own].sum()
         size = share * (1 + GAME["piv_far"] * dist)
+        if (GAME["season_need"] or GAME["season_calm"]) and kind == "toward" and (self._owned_pick(cpw, loc) or judged == "accepted"):
+            e_ = np.maximum(np.asarray(loc["e0"][0, k] if "e0" in loc else loc["e"][0, k], float), 0)
+            self._seasons.append((e_ / e_.sum() if e_.sum() > 0 else T, max(stakes, 0.9), int(self.t)))   # the new routine
         plast = float(loc["plast"][0]) if "plast" in loc else 0.2
         dz = GAME["piv"] * plast * size * E.centre(5 * (T - w))
         loc["z"][0] += dz
@@ -1391,13 +1457,18 @@ class Game:
             return
         W = loc["wfx"]
         xs = W[0] if len(W) and isinstance(W[0], (list, tuple)) else W
+        home = self._young_home(loc)
         for e in xs or []:
             ch, kind, d = e.get("channel", ""), e.get("kind", ""), e.get("dir", "up")
             band = self._wband(ch, e.get("size", 0))
             if band is None or ch == "moment":
                 continue
             k = WFX_KIND_LIB.get(kind, kind)
-            line = ((ES.WORLD.get(k) or {}).get(ch) or {}).get(d, {}).get(band) or (ES.WORLD_CHANNEL.get(ch) or {}).get(d, {}).get(band)
+            if home and ch in ES.WORLD_HOME_CHANNEL:      # F5: a child hears the money times through the home
+                line = (((ES.WORLD_HOME.get(k) or {}).get(ch) or {}).get(d, {}).get(band)
+                        or (ES.WORLD_HOME_CHANNEL.get(ch) or {}).get(d, {}).get(band))
+            else:
+                line = ((ES.WORLD.get(k) or {}).get(ch) or {}).get(d, {}).get(band) or (ES.WORLD_CHANNEL.get(ch) or {}).get(d, {}).get(band)
             if not line:
                 continue
             key = (kind, ch, d)
@@ -1412,6 +1483,14 @@ class Game:
             self._say(mk("X", f"{k}|{ch}|{d}|{band}|{cause.replace('|', '/')}", text), 0 if band == "big" else 1, "world_fx",
                       kind=k, channel=ch, dir=d, band=band, cause=cause)
             self.history["times"].append(dict(age=round(t / 52, 1), text=plain(text), kind=k, channel=ch, dir=d, cause=cause, big=band == "big"))
+
+    def _young_home(self, loc):
+        """F5 (v22.4.1): a child or juvenile (stage below young adult, as states() reads it) under HOME_UNTIL hears the
+        money times and the grown-ups' work worries through the home, in the Library's WORLD_HOME and YEAR_WHAT_HOME words
+        (pins without them: as before). The engine's juvenile stage runs to the mid-twenties, past the age most have
+        their own pay and rent, so the age bounds it too."""
+        return (loc is not None and "stage" in loc and int(loc["stage"][0]) < 2 and self.t / 52 < HOME_UNTIL
+                and getattr(ES, "WORLD_HOME", None) is not None and getattr(ES, "YEAR_WHAT_HOME", None) is not None)
 
     def _times_year(self):
         """WL4: the year's one line on how the times touched them: close (a disaster, war, their town or a close person),
@@ -1432,8 +1511,13 @@ class Game:
                     ("freer" if d == "up" else "narrower") if ch in ("freedom", "option") else
                     ("calmer" if d == "up" else "uneasy") if ch == "safety" else ("uneasy" if d == "up" else "calmer"))
         whats = []
+        home = self._young_home(self.loc)
         for (k, ch, d), _ in items:
-            w_ = ((ES.YEAR_WHAT.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
+            if home and ch in ES.YEAR_WHAT_HOME_CHANNEL:    # F5: the year's clause through the home, while young
+                w_ = (((ES.YEAR_WHAT_HOME.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d)
+                      or (ES.YEAR_WHAT_HOME_CHANNEL.get(ch) or {}).get(d))
+            else:
+                w_ = ((ES.YEAR_WHAT.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
             if w_ and w_ not in whats:
                 whats.append(w_.replace("{who}", "someone close to them"))
         last = getattr(self, "_wyear_said", (None, -99))
@@ -2230,7 +2314,7 @@ class Game:
         out = []
         for j in np.argsort(-nv):
             lv = float(need[j])
-            if nv[j] <= 0.05 or lv >= GAME["need_thin"]:
+            if nv[j] <= 0.05 or lv >= GAME["hind_thin"]:
                 continue
             gain = 0.12 * st * float(nv[j]) * (1 - lv)
             out.append(dict(need=E.NEEDS[j], level=round(lv, 3), gain=round(gain, 3), word=need_level_word(lv),
@@ -2353,6 +2437,47 @@ class Game:
         p = p_true.copy(); p[0] = 1 / (1 + np.exp(-lg))
         return p
 
+    def _owned_pick(self, cpw=None, loc=None):
+        """v22.5 proposal (GAME own_mark, dream_own): this week's push is the moment's head or heart pick (explain.before's
+        marks), or a step toward a dream, passion or plan they hold."""
+        cpw = self._cp_week if cpw is None else cpw
+        m = GAME["own_mark"]
+        if (not m and not GAME["dream_own"]) or cpw is None or cpw["choice"] == cpw["own"]:
+            return False
+        v = cpw["cp"].get("view") or {}
+        marks = ("head", "heart") if m == "both" else (m,) if m else ()
+        if any(int(v.get(k, -1)) == int(cpw["choice"]) for k in marks):
+            return True
+        return bool(GAME["dream_own"]) and self._goal_served(self.loc if loc is None else loc, int(cpw["choice"]))[0] >= 0
+
+    def _goal_served(self, loc, k):
+        """v22.5 proposal: the goal slot option k serves most (the engine's goal fit rel, weighed by the goal's strength)
+        and that fit, or (-1, 0) when it serves none by at least dream_fit."""
+        if loc is None or "rel" not in loc or "gk" not in loc or np.ndim(loc["rel"]) != 3:
+            return -1, 0.0
+        r_ = np.asarray(loc["rel"][0][:, k], float) * (np.asarray(loc["gk"][0]) >= 0)
+        sc = r_ * np.asarray(loc["gs"][0], float)
+        if not len(sc):
+            return -1, 0.0
+        j = int(np.argmax(sc))
+        return (j, float(r_[j])) if r_[j] >= GAME["dream_fit"] and sc[j] > 0 else (-1, 0.0)
+
+    def _dream_step(self, loc, k):
+        """v22.5 proposal: a push that served a goal worked: the voice's backing firms the goal up (dream_firm) and a plan
+        gets dream_help of the engine's own step (fit x stakes x self-control x free time / the plan's size)."""
+        j, ra = self._goal_served(loc, k)
+        if j < 0:
+            return
+        P = loc["P"]
+        loc["gs"][0, j] += GAME["dream_firm"] * (1 - float(loc["gs"][0, j]))
+        if int(loc["gk"][0, j]) == 2 and GAME["dream_help"]:
+            st = min(float(np.asarray(loc["stakes"]).ravel()[0]), 1.2)
+            if int(loc["gd"][0, j]) < 0:
+                step = ra * st * float(loc["ctrl"][0]) * (0.3 + 0.7 * float(loc["res"][0, 1])) / float(P["g_size"][int(loc["ghz"][0, j])])
+                loc["gp"][0, j] += GAME["dream_help"] * step
+            else:
+                loc["gp"][0, j] = min(0.95, float(loc["gp"][0, j]) + 0.1 * ra * GAME["dream_help"])
+
     def _on_learn(self, loc, delta):
         f = self._force
         if f is None:
@@ -2365,8 +2490,19 @@ class Game:
         d = delta
         if not GAME["learn_full"]:                       # off (GAME_OFF): v22.1's cut, trust letting more of it in
             d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel * (1 - max(tr, 0.0))
-        loc["stress"][0] += GAME["stress"] * rs
-        loc["Q"][0] += GAME["backlash"] * rs                              # wanting what they were denied builds up
+        if self._owned_pick(loc=loc):                    # v22.5 proposal: what they judged best or wanted, and they did it
+            loc["stress"][0] += GAME["own_stress"] * GAME["stress"] * rs
+            if loc["succ"][0]:
+                loc["Q"][0] *= 1 - GAME["own_free"]
+                cpw = self._cp_week; v_ = cpw["cp"].get("view") or {}
+                if GAME["own_teach"] and "dsc" in loc and int(v_.get("head", -1)) == int(cpw["choice"]):
+                    hi_ = float(loc["P"]["disc_range"][1]) if "P" in loc else 1.4
+                    loc["dsc"][0] += GAME["own_teach"] * (hi_ - float(loc["dsc"][0]))
+                if GAME["dream_firm"] or GAME["dream_help"]:
+                    self._dream_step(loc, int(cpw["choice"]))
+        else:
+            loc["stress"][0] += GAME["stress"] * rs
+            loc["Q"][0] += GAME["backlash"] * rs                          # wanting what they were denied builds up
         if f["closed"] and not loc["succ"][0]:
             loc["stress"][0] += GAME["backfire_stress"]
             loc["res"][0, 0] = max(0.0, loc["res"][0, 0] - GAME["backfire_money"])
@@ -2410,6 +2546,22 @@ class Game:
     def _on_week(self, t, loc):
         if t % 52 == 0 and t >= 3 * 52:
             self._yearly(t, loc)
+        if GAME["lean_self"] and self._leans and "z" in loc:   # v22.5 proposal: the way lived becomes who they are
+            w_ = E.softmax(loc["z"][0])
+            for T, st, t0 in self._leans:
+                f = 1 - (t - t0) / GAME["lean_weeks"]
+                if f > 0:
+                    loc["z"][0] += GAME["lean_self"] * st * f * E.centre(5 * (T - w_))
+            for T, st in (getattr(self, "_own_leans", None) or {}).values():   # S2: a way that is theirs keeps leaning both
+                loc["z"][0] += GAME["lean_self"] * st * E.centre(5 * (T - w_))
+        if self._seasons and "need" in loc:              # v22.5 proposal: an owned pick's season holds, fading
+            for e_, st_, t0 in self._seasons:
+                f = 1 - (t - t0) / GAME["lean_weeks"]
+                if f > 0:
+                    nd = loc["need"][0]
+                    nd += GAME["season_need"] * 0.12 * st_ * f * (E.NMAP @ e_) * (1 - nd)
+                    loc["stress"][0] = max(0.0, float(loc["stress"][0]) - GAME["season_calm"] * f)
+            self._seasons = [x for x in self._seasons if t - x[2] < GAME["lean_weeks"]]
         if not self._need_hint and not self.burn_in and "need" in loc and t / 52 >= max(self.start_age, 6):
             j = int(np.argmin(loc["need"][0]))
             if float(loc["need"][0, j]) < GAME["need_thin"]:   # IDEAS.md, "Make needs visible", fix 5: the rule, once
@@ -2633,10 +2785,23 @@ class Game:
             self._recalled_ = set()
         return self._recalled_
 
+    @property
+    def _told(self):
+        """F11a (v22.4.1): the acts the story told, by moment, act and age (the engine's own keys for an episode)."""
+        if "_told_" not in self.__dict__:
+            self._told_ = set()
+        return self._told_
+
+    def _told_act(self, ev, lvl):
+        """F11a: keep the act of a moment told at this level of detail, so a memory of it can come back."""
+        if lvl <= self.detail:
+            self._told.add((ev.get("situation"), ev.get("choice"), ev.get("age")))
+
     def _recall(self, t, sev):
         """Engine v10's memory (E1, interpretation-memory.md): an act that hit hard can come back when the same moment
         returns or an act leans the same way, about 2.7 times a year. The story tells one now and then: no two within
-        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong.
+        RECALL_GAP years, each old moment once, a scar whatever its strength, any other only when it comes back strong, and
+        only a choice the story told (F11a), so the memory's age, act and outcome are the ones the reader saw.
         With item 6 on (GAME lines_tied) it waits for this week's moment and is told inside its line (_recall_in)."""
         self._recall_now = None
         if t - self._recall_t < 52 * RECALL_GAP:
@@ -2647,6 +2812,8 @@ class Game:
             if not rc:
                 continue
             key = (rc.get("age"), rc.get("choice"))
+            if (rc.get("situation"), rc.get("choice"), rc.get("age")) not in self._told:   # F11a: only a choice the story told
+                continue
             if key in self._recalled or (not rc.get("scar") and float(rc.get("strength", 0)) < RECALL_MIN):
                 continue
             a = int(rc.get("age", 0)); what = act(str(rc.get("choice", "")))
@@ -2782,6 +2949,7 @@ class Game:
                     line = self.story.outcome(m, ev, L["labels"][s][cpw["choice"]], pushed, f.get("rel", 0.0) if pushed else 0.0,
                                               bool(f.get("closed")) if pushed else False, o["colors"])
                     line = self._recall_in(t, line, 0)              # item 6: the memory it brought back, inside it
+                    self._told_act(ev, 0)
                     self._tied_ev("“" + cpw["cp"]["title"] + "”", 0)
                     rb = None
                     if "span" in loc and float(loc["span"][0]) > SPAN_TOLD:     # v6: joining opposed ways fits or tears
@@ -2816,23 +2984,23 @@ class Game:
                     if self.ledger:
                         self._say(self._outcome_line(ev, cpw, loc), 0, "ledger")
                 elif s == self.ORD:
-                    line = self._recall_in(t, self.story.ordinary(ev, L["labels"][s].index(ev["choice"])), 2)
+                    line = self._recall_in(t, self.story.ordinary(ev, L["labels"][s].index(ev["choice"])), 2); self._told_act(ev, 2)
                     self._say(line, 2, "ordinary", colors=self._colors(loc, int(loc["a"][0])))
                 elif sit in ("bereavement", "crisis or disaster") or kills:
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 0)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 0); self._told_act(ev, 0)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 0), 0, "loss" if (kills or sit == "bereavement") else "crisis",
                               sit=sit, ok=bool(ev["success"]), colors=col, delta=round(float(ev.get("delta", 0.0)), 2),
                               gate=ev.get("gate", ""), **moved)
                     if self.ledger:
                         self._say(self._choice_line(ev), 0, "ledger")
                 elif self.detail >= 2:
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 2)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 2); self._told_act(ev, 2)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 2), 2, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                 elif (float(loc["L"]["STAKES"][s]) >= 1.0 and t - self._last_line.get(s, -10 ** 6) >= TOLD_GAP.get(sit, 104)
                       and not self.burn_in):
                     self._last_line[s] = t
-                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 1)
+                    col = self._colors(loc, int(loc["a"][0])); self._tied_ev("“" + sit + "”", 1); self._told_act(ev, 1)
                     self._say(self._recall_in(t, self.story.told_moment(m, ev, col), 1), 1, "moment", sit=sit, ok=bool(ev["success"]),
                               colors=col, delta=round(float(ev.get("delta", 0.0)), 2), gate=ev.get("gate", ""), **moved)
                     if self.ledger:
@@ -3344,7 +3512,7 @@ class Game:
         d["needs"] = {n: round(float(v), 3) for n, v in zip(E.NEEDS, loc["need"][0])} if "need" in loc else {}
         d["need_thin"] = GAME["need_thin"]
         d["trust"] = self.trust_view(); d["pushes"] = dict(forced=self.history["forced"], accepted=self.history["accepted"],
-                                                           resented=self.history["resented"])
+                                                           resented=self.history["resented"], passed=list(self.history.get("passed", [0, 0])))
         d["inner"] = {k: round(float(np.ravel(loc[v])[0]), 3) for k, v in (("self_control", "dsc"), ("mood", "mood"), ("wound", "wound"),
                                                                           ("gap", "gap_r"), ("horizon", "hzf"), ("formed", "M"))
                       if v in loc}
@@ -3944,13 +4112,18 @@ class Game:
         adult = [c for a, c in h["content"] if a >= 18]; adultp = [p for a, p in h["peace"] if a >= 18]
         ful = float(np.mean(adult)) if adult else 0.0
         ser = float(np.mean(adultp)) if adultp else 0.0
-        integ = 1 - float(np.sum(h["rel"])) / max(h["picks"], 1) if h["picks"] else 1.0
-        if GAME["own_ix"] and h["picks"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
+        # F13 (v22.4.1): read over the pushes, not over every pick of the life (hundreds, which hid even pushes "against
+        # everything in them"); at least INTEG_PUSHES in the divisor, so one or two pushes cannot sink a life of its own
+        n_rel = max(len(h["rel"]), INTEG_PUSHES)
+        integ = 1 - float(np.sum(h["rel"])) / n_rel if h["rel"] else 1.0
+        if GAME["own_ix"] and h["rel"] and len(h["rel_way"]) == len(h["rel"]):   # S2: a push in a way that became theirs
             integ = 1 - sum(r * (1 - (float(np.asarray(wy) @ self.ix) if wy is not None else 0.0))   # counts as their own by it
-                            for r, wy in zip(h["rel"], h["rel_way"])) / h["picks"]
+                            for r, wy in zip(h["rel"], h["rel_way"])) / n_rel
         o = self.result
         w = o["w"][0] if o is not None else E.softmax(self.loc["z"][0])
-        labels = [l for _, l in h["label"]]
+        # F13: one list of who they were, the chapter headings' names (history "name", _yearly), for the headings, the
+        # review and the song alike; the year-by-year reading (history "label") swings too often to be a life's path
+        labels = life_names(h)
         path = []
         for l in labels:
             if not path or path[-1] != l:
@@ -3958,8 +4131,9 @@ class Game:
         gifts = float(np.mean(h["gift"])) if h["gift"] else None
         self.review = dict(epitaph=self.story.epitaph(w), fulfilment=ful, serenity=ser, integrity=integ, gifts=gifts,
                            final=label_name(labels[-1] if labels else ""), final_label=labels[-1] if labels else "",
-                           path=[ident_name(l) for l in path if l], path_labels=[l for l in path if l], paths=len({l for l in labels if l}),
+                           path=[ident_name(l) for l in path], path_labels=list(path), paths=len(path),
                            forced=h["forced"], own=h["own"], accepted=h["accepted"], resented=h["resented"], trust=self.trust_view(),
+                           passed=list(h.get("passed", [0, 0])),
                            age=round(self.age(), 1), died=getattr(self, "died", None),
                            long_shots=[dict(say=x["say"], made=x["made"], age=x["age"], odds=x["odds"], words=x["words"]) for x in h["long"]])
         self.review["reading"] = peace_reading(ful, ser, integ, gifts)
@@ -4200,6 +4374,8 @@ PEACE_WORDS = {
     ("low", "mid"): "A hard road, only partly their own.",
     ("low", "low"): "Restless to the end, and seldom their own.",
 }
+HOME_UNTIL = 18           # F5: the times are told through the home while young and under this age
+INTEG_PUSHES = 10        # F13: integrity is read over the pushes, with at least this many in the divisor
 PEACE_BANDS = dict(well=(0.65, 0.55), own=(0.9, 0.8))       # high from, mid from; test/peace_bands.py on the final pin
 # (2026-10-06, 36 lives: well .49-.77, a third high and a sixth low; own .94-.99 when the player never pushes, .88-.94 at
 # 30% pushed, .76-.88 at 70%)
@@ -4294,6 +4470,14 @@ def _ident_a(lbl):
     nm = ident_name(lbl)
     nm = nm[4:] if nm.startswith("The ") else nm
     return f"one of the {nm}" if nm.endswith("ed") or nm in ("Enduring", "Whole") else an(nm)
+
+
+def life_names(h):
+    """F13: who they were, year by year, as the chapter headings named them (the settled identity, _yearly's history
+    "name"); a life from before it was kept reads the yearly identity instead."""
+    if h.get("name"):
+        return [l for _, l, *_ in h["name"] if l]
+    return [l for _, l in h.get("label", []) if l]
 
 
 def _episodes(label):
@@ -4637,7 +4821,8 @@ def _deeds(acts, lead_w, review, W):
         pt = COLORS[int(np.argmax(pv))] if pv.sum() else None
         integ = review.get("integrity", 1.0)
         if pt:
-            S.append((W["deeds_once"] if len(pushed) == 1 else W["deeds_pushed"]).format(n=_num(len(pushed), W), hand=W["hand"], noun=NOUN[pt])
+            n_ = max(int(review.get("forced") or 0), 1)     # F13: the review's count of pushes, not only those that came to an act
+            S.append((W["deeds_once"] if n_ == 1 else W["deeds_pushed"]).format(n=_num(n_, W), hand=W["hand"], noun=NOUN[pt])
                      + W["deeds_pushed_end"]["willing" if integ >= 0.9 else "bore" if integ >= 0.75 else "against"])
     else:
         S.append(W["deeds_free"])
@@ -4681,7 +4866,7 @@ def life_paragraph(name, h, review, setting):
     ws = h.get("w", [])
     died = review.get("died")
     age = int((died or {}).get("age") or review.get("age") or 0)
-    eps = _episodes(h["label"])
+    eps = _episodes([(a, l) for a, l, *_ in h["name"]] if h.get("name") else h["label"])   # F13: the headings' names
     n_shapes = len({l for e in eps for l in e[1]})
     if len(eps) > EPIC_TOLD:                          # a long song tires: the first, the last, and the longest between
         keep = sorted(range(1, len(eps) - 1), key=lambda i: eps[i][2] - eps[i][3])[:EPIC_TOLD - 2]

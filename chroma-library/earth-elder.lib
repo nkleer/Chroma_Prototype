@@ -31,9 +31,9 @@ scene G: {N} turns the phone over in hands that learned on a dial telephone, and
 - B>G | pretend you cannot learn it, so the children keep coming round to help | habit | v: security, benevolence | chance: 75
 - R>W | join the street's group chat the very first evening, and greet everyone | v: benevolence, universalism | chance: 75
 - G>U | learn it slowly, one thing a week, the way you once learned to knit | v: self-direction | chance: 80
-works: By the end of the week {N} sends a photograph to {child} without any help.
-works: The first video call works, and a small face fills the screen.
-fails: The phone locks itself after three wrong codes and stays locked.
+works not B>G: By the end of the week {N} sends a photograph to {child} without any help.
+works not G: The first video call works, and a small face fills the screen.
+fails not G: The phone locks itself after three wrong codes and stays locked.
 fails: {N} deletes all the contacts by accident and has to ask for help again.
 
 == a fall at home
@@ -206,9 +206,9 @@ scene G: {N} has driven the lanes around {place} for fifty years and knows every
 - B>G | trade your car to the neighbour's son in return for weekly lifts | binds | v: security, tradition | chance: 70
 - R>W | rage about it, then throw yourself into the campaign for better buses | v: universalism, benevolence | tags: commit:community | chance: 65
 - G>U | accept it, and use the slower days for the books you never had time for | door | v: self-direction | chance: 78
-works: Within a month {N} knows the bus drivers by name.
+works not B U: Within a month {N} knows the bus drivers by name.
 works: {N} finds that life still reaches as far as it needs to.
-fails: The house feels smaller every week without the car.
+fails not B: The house feels smaller every week without the car.
 fails: {N} misses {friend}'s birthday for want of a lift, and broods for days.
 
 # ---------------------------------------------------------------- pair 4: calls RG (cycle s1) / calls WUB (cycle s3)
@@ -386,9 +386,9 @@ scene G: {N} has lived in the block longer than anyone and remembers when it was
 - R>U | demand, loudly, to see every invoice the committee has paid | v: universalism (fairness) | chance: 63
 - G>B | rally the long-time residents to keep the newcomers off the committee | identity | v: power, tradition | closed: approval: shutting newcomers out breaks the association's rules; backfire: a formal complaint and a divided block | chance: 45
 works: By spring the lifts work and the meeting room is full.
-works: {N} is voted in on a show of hands and a round of applause.
+works not G: {N} is voted in on a show of hands and a round of applause.
 fails: The meetings turn into shouting matches, and nothing changes.
-fails: {N} loses the vote by two, and {rival} smiles all the way to the lift.
+fails not G: {N} loses the vote by two, and {rival} smiles all the way to the lift.
 
 == you cannot remember a word
 tier: everyday
@@ -603,7 +603,7 @@ scene G: That hospital has stood on the hill for a hundred years. The town grew 
 - R>W | chain yourself to the hospital railings with the other pensioners | body: heavy | v: universalism | mark: defied an authority | closed: law: obstruction; backfire: arrested | chance: 70
 - G>U | gather the old people's stories of the hospital and get them printed | v: tradition, universalism | chance: 70
 works: The ward stays open, for now, and the town throws a party in the square.
-works: {Ns} face is on the front of the local paper, mid-chant.
+works not G B: {Ns} face is on the front of the local paper, mid-chant.
 fails: The ward closes anyway in the spring.
 fails: The march is small and wet, and the council does not even reply.
 
@@ -827,9 +827,9 @@ scene G: This house is where {N} raised a family. Now it will raise someone else
 - UBG | rent the house out, live on the income, and keep it in the family | binds | v: security, tradition | chance: 65
 - BRG | sell up and go back to the village you were born in, whatever anyone says | identity | v: self-direction, tradition | mark: moved away | chance: 65
 works: The new place is light and warm, and {N} is surprised to love it.
-works: The move goes smoothly, and the neighbours are friendly from the first day.
+works not R: The move goes smoothly, and the neighbours are friendly from the first day.
 fails: {N} cannot settle, and lies awake missing the old creaking stairs.
-fails: The move goes badly: boxes go missing, a treasured cabinet breaks, and tempers fray.
+fails not R: The move goes badly: boxes go missing, a treasured cabinet breaks, and tempers fray.
 
 == a late love
 tier: life event
@@ -865,7 +865,7 @@ scene G: {N} thought that part of life had closed, like a season. But here is sp
 - URG | set off together on a long trip to places neither of you has seen | door | v: stimulation, self-direction | tags: commit:partner | chance: 70
 - UBR | carry on in secret, so the family never gets a say in it | v: self-direction, hedonism | mark: hid a wrong | closed: approval: the family; backfire: found out, and a family row | tags: commit:partner | chance: 72
 works: {N} is happier than in years, and does not hide it.
-works: {child} meets {prospect}, and after an awkward first hour, likes them.
+works not UBR: {child} meets {prospect}, and after an awkward first hour, likes them.
 fails: {child} is horrified, and the row lasts all summer.
 fails: It fizzles out after a few weeks, gently, and {N} is left a little lonelier.
 

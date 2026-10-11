@@ -124,8 +124,8 @@ scene G: {mentor} once said a trade is like a tree: it grows taller or it grows 
 - R>U | throw yourself at the hardest problem nobody else will touch | v: stimulation, achievement | self_control: + | chance: 70
 - G>B | let the people you have looked after for years spread your name | v: power, benevolence | chance: 45
 works: The new direction takes, and within a year the work has a shape that is plainly {Ns} own.
-works: {boss} agrees, and puts it in writing before anyone can change their mind.
-fails: The door {N} chose stays shut this round, and someone else walks through it.
+works not B R G: {boss} agrees, and puts it in writing before anyone can change their mind.
+fails not G: The door {N} chose stays shut this round, and someone else walks through it.
 fails: {N} takes on more than the week can hold, and something important slips.
 
 # ---------------------------------------------------------------- settled: a plateau and a rival (calls UR, s4)
@@ -245,7 +245,7 @@ scene G: {N} has trained half the people who could do it. Perhaps it is their tu
 works: The choice sits well, and a year on {N} can say why it was the right one.
 works: The work, or the handing over, goes better than {N} feared, and people say so.
 fails: {N} chooses, and spends months wondering about the other road.
-fails: The pace is too much, and by winter {Ns} body is keeping the score.
+fails not G R>W: The pace is too much, and by winter {Ns} body is keeping the score.
 
 # ================================================================ COMMUNITY (holds: kind:community; from 12, for teenagers and adults)
 # ---------------------------------------------------------------- new: finding who to trust (calls WB, s3)
@@ -321,7 +321,7 @@ scene G: The group has always found someone when it needed one, the way a flock 
 - G>R | trust your gut over the plan when the moment comes | v: self-direction, stimulation | chance: 55
 works: It goes well, better than well, and for the first time {N} walks home feeling the group is {Ns} own.
 works: Someone who has been {title} for years claps {N} on the shoulder and says nothing, which says everything.
-fails: It goes wrong in front of everyone, and {N} goes home wishing the floor had opened.
+fails not G B>U: It goes wrong in front of everyone, and {N} goes home wishing the floor had opened.
 fails: Someone else saves the day in the end, and {N} is left standing to one side.
 
 # ---------------------------------------------------------------- settled: taking on more (calls WU, s1)
@@ -358,8 +358,8 @@ scene G: {elder} kept this group alive for twenty years and is tired now. Somebo
 - R>G | throw a party to bring back the members who drifted away | v: benevolence, hedonism | chance: 72
 - G>W | ask the oldest member to stay on as an adviser while you learn | v: tradition, security | grants: mentor | chance: 80
 works: The group comes through the change, and by the end of the year {N} is the one people message with questions.
-works: The work turns out to suit {N}, and the group is in better shape than it has been for years.
-fails: The work piles up faster than {N} can clear it, and a few members drift away.
+works not R: The work turns out to suit {N}, and the group is in better shape than it has been for years.
+fails not R: The work piles up faster than {N} can clear it, and a few members drift away.
 fails: An argument over who should have done it splits the group for a season.
 
 # ---------------------------------------------------------------- settled: a rival (calls BR, s2)
@@ -396,9 +396,9 @@ scene G: Seasons turn in every group, {grandparent} used to say: some years it i
 - R>W | stand up at the next meeting and say plainly that it was unfair | v: universalism | mark: defied an authority | chance: 55
 - G>U | ask the oldest member whether this has happened before, and how it ended | v: tradition | chance: 85
 works: By the next season the bitterness has gone, and {N} has a place that fits.
-works: The leaders think again, and {N} gets a turn after all.
+works not R: The leaders think again, and {N} gets a turn after all.
 fails: The rift with {rival} hardens, and the group starts to feel like two camps.
-fails: Nothing changes, and {N} spends the season on the edge of things.
+fails not R: Nothing changes, and {N} spends the season on the edge of things.
 
 # ---------------------------------------------------------------- senior: the old guard against new ways (calls UG, s3)
 
@@ -587,9 +587,9 @@ scene G: {elder} took the keys from someone older, who took them from someone ol
 - B>W | take on the accounts and keep them spotless, so nobody can question a penny | v: security, power | grants: bookkeeping | self_control: + | chance: 85
 - R>U | say yes, and try a new idea at every gathering to see what works | v: stimulation, self-direction | chance: 65
 - G>B | let your circle of friends draw new people in, and grow the group | v: power, benevolence | grants: good name in town | chance: 60
-works: {N} takes up the work, and within a year it is hard to picture the place without {N} in it.
+works not R: {N} takes up the work, and within a year it is hard to picture the place without {N} in it.
 works: The trust turns out to be deserved, and {elder} says so in front of everyone.
-fails: The extra work eats into everything else, and the belief itself starts to feel like a chore.
+fails not R: The extra work eats into everything else, and the belief itself starts to feel like a chore.
 fails: A quarrel over how {N} does things splits the committee, and it lands on {N}.
 
 # ---------------------------------------------------------------- settled: a plateau, the dry season (calls UR, s4)
@@ -628,7 +628,7 @@ scene G: Even a deep well has a low season, {grandparent} used to say, and the b
 works: Something stirs again, quieter than before and harder to shake.
 works: {N} comes through the dry season knowing more surely why {N} is still there.
 fails: The quiet hardens into distance, and {N} goes to fewer and fewer gatherings.
-fails: Doubts said aloud cost {N} a friend or two among the others.
+fails not W G: Doubts said aloud cost {N} a friend or two among the others.
 
 # ---------------------------------------------------------------- senior: the old guard against new ways (calls WG, s1)
 
@@ -666,7 +666,7 @@ scene G: Belief that never changes dies, and belief that changes too fast forget
 works: The gatherings change, and the old heart of them is still beating inside the new.
 works: The newer members start coming to {N} first, to ask what something used to mean.
 fails: The quarrel turns bitter, and some of the oldest faces stop coming.
-fails: {N} picks a side, and the other side does not forget it.
+fails not G>W: {N} picks a side, and the other side does not forget it.
 
 # ---------------------------------------------------------------- senior: being the one people ask, or stepping down (calls RG, s2)
 
@@ -702,9 +702,9 @@ scene G: An old tree gives shade whether it means to or not. {N} has grown into 
 - B>G | call in the favours you are owed to get the group a home of its own | v: power, tradition | chance: 60
 - R>W | tell the leaders to their faces that the ones who need help are being failed | v: universalism, benevolence | mark: defied an authority | chance: 55
 - G>U | sit alone with the one question you never answered, however long it takes | v: self-direction | chance: 70
-works: {N} finds a way to carry it that does not empty {N} out, and the calls keep coming.
+works not G: {N} finds a way to carry it that does not empty {N} out, and the calls keep coming.
 works: Someone {N} sat up with years ago comes back to say what it meant.
-fails: {N} gives too much for too long, and ends the year worn out and short-tempered.
+fails not G: {N} gives too much for too long, and ends the year worn out and short-tempered.
 fails: Someone {N} could not reach in time drifts away from the group, and {N} carries it.
 
 # ================================================================ PARTNER (holds: kind:partner; adults; fits a sweetheart, a spouse and a nonromantic life partner)
@@ -895,7 +895,7 @@ scene G: The years have shaped them both the way weather shapes stone. Perhaps i
 - B>W | sell the family home and buy something smaller, with money to spare | v: security | grants: savings | chance: 75
 - R>U | sign up together for a course in something neither of you knows | v: stimulation, self-direction | chance: 85
 - G>B | let them go off alone on the adventure, and enjoy the house to yourself | v: hedonism, self-direction | act: let them go off alone on the adventure, and enjoy the house alone | chance: 70
-works: The new chapter begins, and the two of them are more interesting to each other than they have been in years.
+works not G: The new chapter begins, and the two of them are more interesting to each other than they have been in years.
 works: Whatever they choose, they choose it together, and it feels like a second beginning.
 fails: The plan stalls in arguments about money and who gives up what.
 fails: One of them goes along with it, and the resentment arrives a year later.

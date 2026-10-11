@@ -2102,11 +2102,16 @@ function shSelect(key, focus) {
     else if (t.offsetLeft + t.offsetWidth > bar.scrollLeft + bar.clientWidth - 8) bar.scrollLeft = t.offsetLeft + t.offsetWidth - bar.clientWidth + 16;
   }
 }
+function pushesSaid(P) {               // F13: the judged pushes, and those that passed without a judgment by how they went
+  const [ok, bad] = P.passed || [0, 0], S = [`${P.accepted || 0} they came to accept`, `${P.resented || 0} they resented`];
+  if (ok + bad) S.push(`${ok + bad} passed without a judgment: ${ok} went well, ${bad} did not`);
+  return S.join(", ");
+}
 function trustHTML(L) {                 // IDEAS.md, "Player intervention that helps": trust in the player, per color
   const T = L.trust || {}, P = L.pushes || {};
   if (!P.forced) return "";
   return `<h4>Trust in you</h4><div class="mts">${COLORS.map((c) => meterRow(`${pip(c)} ${CNAME[c]}`, (1 + (T[c] || 0)) / 2, sgn((T[c] || 0) * 100), `var(--c${c})`, "Built by your pushes in this color that they came to accept, lost by the ones they resented. Trust spares some of a push's resentment; distrust adds to it.")).join("")}</div>
-    <p class="shnote">You pushed ${P.forced} time${P.forced === 1 ? "" : "s"}: ${P.accepted || 0} they came to accept, ${P.resented || 0} they resented.</p>`;
+    <p class="shnote">You pushed ${P.forced} time${P.forced === 1 ? "" : "s"}: ${pushesSaid(P)}.</p>`;
 }
 function openSheet() {
   const L = hud && hud.life; if (!L || !L.w) return;
@@ -2584,11 +2589,11 @@ function renderReview(h) {
     <p class="epi" data-i="review">${rich(r.epitaph)}</p>
     ${r.story ? `<p class="lifep">${esc(r.story)}</p>` : ""}
     <div class="peace"><div class="kick">${ic("ci-scales")} The peace reading</div><p class="pw">${esc((r.reading || {}).words || "")}</p>${(r.long_shots || []).slice(0, 3).map((x) => `<p class="pls${x.made ? " made" : ""}">${ic("star")} ${esc(x.words)}</p>`).join("")}${(r.long_shots || []).length > 3 ? `<p class="pls muted">and ${r.long_shots.length - 3} more long shots</p>` : ""}</div>
-    <div class="gauges">${gauge(r.fulfilment, "Satisfaction", "var(--sat)", "Their satisfaction, averaged over every week from 18 on.")}${gauge(r.serenity, "Peace", "var(--peace)", "Their peace, averaged over every week from 18 on.")}${gauge(r.integrity, "True to self", "var(--gold)", "1 minus the average reluctance of the choices you pushed on them. Choices left to them count as fully their own.")}${r.gifts != null ? gauge(r.gifts, "Their gifts", "var(--want)", "At each moment, their skill in the ways the chosen act used, against their best skill; averaged over every choice.") : ""}</div>
+    <div class="gauges">${gauge(r.fulfilment, "Satisfaction", "var(--sat)", "Their satisfaction, averaged over every week from 18 on.")}${gauge(r.serenity, "Peace", "var(--peace)", "Their peace, averaged over every week from 18 on.")}${gauge(r.integrity, "True to self", "var(--gold)", "1 minus the average reluctance of the choices you pushed on them (over at least ten pushes, so one or two cannot sink a life). A life you never pushed reads 1.")}${r.gifts != null ? gauge(r.gifts, "Their gifts", "var(--want)", "At each moment, their skill in the ways the chosen act used, against their best skill; averaged over every choice.") : ""}</div>
     <div class="muted center pnote">How well they lived is satisfaction and peace. How much the life was their own is being true to themselves and using their gifts. It is a reading, not a score.</div>
     <div class="center"><div class="muted" style="margin-bottom:6px">Identities lived · ${r.paths}</div><div class="path">${pathHTML(r.path, r.path_labels)}</div></div>
     ${r.died ? `<div class="center died">${ic("candle")} ${esc(L_name(h))} died at ${Math.floor(r.died.age)}, ${esc(r.died.how)}.</div>` : ""}
-    <div class="muted center">${r.own} moments left to them · ${r.forced} pushed by you · ended as ${esc(r.final)}</div>
+    <div class="muted center">${r.own} moments left to them · ${r.forced} pushed by you${r.forced ? ` (${esc(pushesSaid(r))})` : ""} · ended as ${esc(r.final)}</div>
     ${bookNews(h.book)}
     <div class="center rvb"><button class="ghost" id="rvBook">${ic("ci-bookshelf")} Open the Book</button><button class="primary" id="again">${ic("new")} A new life</button></div>`;
   $("rvBook").addEventListener("click", openBook);

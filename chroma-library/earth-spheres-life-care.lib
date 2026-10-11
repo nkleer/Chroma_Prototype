@@ -177,8 +177,8 @@ scene G: {N} thinks of the old folk who managed with a stick and a warm bath. Bo
 - WB | give to the hospital's friends' fund for the extra surgeon it is raising for | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 60
 - WU | join the patients' panel that checks how the list is run | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 60
 works: The operation goes well, and by spring {N} takes the stairs without holding the rail.
-works: {N} goes in strong, and the surgeon says the waiting months were not wasted.
-fails: The months drag on, the pain spreads, and {N} slowly stops going out.
+works not B BR: {N} goes in strong, and the surgeon says the waiting months were not wasted.
+fails not B BR: The months drag on, the pain spreads, and {N} slowly stops going out.
 fails: The date comes at last, and is cancelled the night before for an emergency.
 
 # ---------------------------------------------------------------- life event: asked to choose for someone who cannot choose (pairs D2a)
@@ -258,7 +258,7 @@ scene G: In the old street the neighbours took turns with the old and the sick. 
 - UR | try every new aid, the hoist, the alarm, the bed sensor, to win back nights | v: self-direction, security | sphere: care.UR | chance: 60
 - WB | pay a care worker for two mornings a week, and keep your own job going | act: pay a care worker for two mornings a week, and keep their own job going | v: security, achievement | lever: fund | sphere: care.WB | chance: 60
 - WU | write up the whole care plan, so anyone could step in tomorrow | v: security, benevolence | sphere: care.WU | chance: 60
-works: After a week away {N} comes home lighter, and {parent} is glad to see a rested face.
+works not R G RG UR WB WU BG: After a week away {N} comes home lighter, and {parent} is glad to see a rested face.
 works: The help holds: one afternoon a week becomes {Ns} own, and the years ahead start to look possible.
-fails: {N} turns every offer down, and by spring the smallest thing brings tears.
+fails not U B WB: {N} turns every offer down, and by spring the smallest thing brings tears.
 fails: {sibling} takes offence at being asked, and the family stops speaking for a season.

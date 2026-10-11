@@ -274,7 +274,7 @@ scene G: An old folk song, they say. {N} thinks of how every old song began with
 - BR | film the strangers singing it, and post it with the true story | v: achievement, stimulation | tech: phone | sphere: arts.BR | chance: 50
 works: Word gets back home, and the local holds a night in {Ns} honour; the song is sung louder than ever.
 works: A producer hears the story, and writes to ask whether {N} has any more songs like it.
-fails: Nobody at the table believes {N}, and a laugh follows {N} back to the bar.
+fails not W G: Nobody at the table believes {N}, and a laugh follows {N} back to the bar.
 fails: Someone else has already put their name on the song, and proving otherwise would take years.
 
 # ================================================================ rites and passing on

@@ -51,10 +51,10 @@ scene G: The old clerks always said the court belongs to the town, not to the la
 - B>R | keep your head down, let the claim fall, and get the list done by lunch | act: keep their head down, let the claim fall, and get the list done by lunch | v: hedonism, security | closed: approval: letting a claim fail that a clerk could save; backfire: the man appeals and the file shows the page | mark: refused someone in need | sphere: rule.B | chance: 65
 - R>G | run upstairs for the page and hand it to the man in front of his family | v: benevolence, stimulation | sphere: rule.R | chance: 65
 - G>W | follow the old clerks' custom: a written note to the bench vouching for the claim | v: tradition, universalism | sphere: rule.G | chance: 65
-works: The page is back in the file by ten to eleven, and the claim is heard that morning.
+works not B>R: The page is back in the file by ten to eleven, and the claim is heard that morning.
 works: The bench thanks {N} from the chair, and the man nods at {N} on his way out.
 fails: The claim is struck out before the page turns up, and the man has to start again.
-fails: {colleague} hears who raised it, and the office is cold to {N} for a month.
+fails not B>R: {colleague} hears who raised it, and the office is cold to {N} for a month.
 
 # ---------------------------------------------------------------- everyday, calls URG (cycle s2); partner: the missing page on list day
 
@@ -347,9 +347,9 @@ scene G: The pupil's family run the corner shop where {Ns} family have bought br
 - R>B | offer a cheap group class for the pupil and four friends | v: achievement, stimulation | sphere: learn.R | chance: 65
 - G>R | bring the pupil to your family's kitchen-table revision nights, with music and food | act: bring the pupil to their family's kitchen-table revision nights, with music and food | v: tradition, hedonism | sphere: learn.G | chance: 65
 works: The pupil passes in the summer, and the family send {N} a loaf and a card.
-works: The weeks turn out to matter to {N} too, and {N} starts keeping one free place every year.
+works not B: The weeks turn out to matter to {N} too, and {N} starts keeping one free place every year.
 fails: The pupil misses the pass by two marks, and {N} wonders what one more session would have done.
-fails: The free weeks cost {N} a paying family, and the autumn starts thin.
+fails not B: The free weeks cost {N} a paying family, and the autumn starts thin.
 
 # ================================================================ market porter (comm.W)
 
@@ -391,9 +391,9 @@ scene G: The café owner has bought here since {Ns} parent pushed a barrow on th
 - R>G | call out the true weight down the row, so every buyer hears it | v: stimulation, universalism | sphere: comm.R | chance: 65
 - G>W | gather the old porters and bring it to the warden together | v: tradition, universalism | lever: voice | sphere: comm.G | chance: 65
 works: The warden checks the scale before six, and the trader pays a fine and fixes the dial.
-works: The café owner hears what {N} did, and the Friday tip doubles from then on.
+works not B B>R: The café owner hears what {N} did, and the Friday tip doubles from then on.
 fails: The trader's tips stop, and the other traders on the row go quiet when {N} comes by.
-fails: The warden finds the scale right by the time anyone looks, and {N} is the one who looks foolish.
+fails not B B>R: The warden finds the scale right by the time anyone looks, and {N} is the one who looks foolish.
 
 # ---------------------------------------------------------------- everyday, calls URG (cycle s2); partner: the scale set light at five in the morning
 
@@ -434,7 +434,7 @@ scene G: Her regulars have bought fruit from that pitch for thirty years. Taking
 - G>U | ask her regulars what they would want from the stall, and plan around them | v: tradition, universalism | sphere: comm.G | chance: 65
 works: By spring the stall pays its way, and the old regulars still come on Saturdays.
 works: The handshake holds, and the old stallholder drops by every week to see how her pitch is kept.
-fails: The first winter is slow, and {N} is back on the barrows by the morning shift to cover the rent.
+fails not R>W: The first winter is slow, and {N} is back on the barrows by the morning shift to cover the rent.
 fails: Her son turns up in the summer, says the pitch was never hers to give, and wants it back.
 
 # ================================================================ door staff (prot.B)
@@ -518,7 +518,7 @@ scene G: The estate is where {N} grew up. Half the queue knows {Ns} family.
 - B>U | turn them away tonight, and quietly start asking other venues for work | v: security, achievement | lever: exit | sphere: prot.B | chance: 65
 - R>B | tell the manager you will walk out mid-shift unless the group gets in | act: tell the manager they will walk out mid-shift unless the group gets in | v: power, self-direction | sphere: prot.R | chance: 65
 - G>R | end the shift early and spend the night out with the old crowd from the estate | v: hedonism, tradition | lever: exit | sphere: prot.G | chance: 65
-works: The group come in, spend the night dancing and leave at closing without a word of trouble.
+works not B G B>U: The group come in, spend the night dancing and leave at closing without a word of trouble.
 works: The manager backs down in front of the queue, and the door is run more fairly after that.
 fails: The manager takes {N} off the Saturday rota, and the rent is short that month.
 fails: {friend} sees what happened at the door and does not speak to {N} for weeks.
