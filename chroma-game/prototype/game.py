@@ -1449,13 +1449,18 @@ class Game:
             return
         W = loc["wfx"]
         xs = W[0] if len(W) and isinstance(W[0], (list, tuple)) else W
+        home = self._young_home(loc)
         for e in xs or []:
             ch, kind, d = e.get("channel", ""), e.get("kind", ""), e.get("dir", "up")
             band = self._wband(ch, e.get("size", 0))
             if band is None or ch == "moment":
                 continue
             k = WFX_KIND_LIB.get(kind, kind)
-            line = ((ES.WORLD.get(k) or {}).get(ch) or {}).get(d, {}).get(band) or (ES.WORLD_CHANNEL.get(ch) or {}).get(d, {}).get(band)
+            if home and ch in ES.WORLD_HOME_CHANNEL:      # F5: a child hears the money times through the home
+                line = (((ES.WORLD_HOME.get(k) or {}).get(ch) or {}).get(d, {}).get(band)
+                        or (ES.WORLD_HOME_CHANNEL.get(ch) or {}).get(d, {}).get(band))
+            else:
+                line = ((ES.WORLD.get(k) or {}).get(ch) or {}).get(d, {}).get(band) or (ES.WORLD_CHANNEL.get(ch) or {}).get(d, {}).get(band)
             if not line:
                 continue
             key = (kind, ch, d)
@@ -1470,6 +1475,14 @@ class Game:
             self._say(mk("X", f"{k}|{ch}|{d}|{band}|{cause.replace('|', '/')}", text), 0 if band == "big" else 1, "world_fx",
                       kind=k, channel=ch, dir=d, band=band, cause=cause)
             self.history["times"].append(dict(age=round(t / 52, 1), text=plain(text), kind=k, channel=ch, dir=d, cause=cause, big=band == "big"))
+
+    def _young_home(self, loc):
+        """F5 (v22.4.1): a child or juvenile (stage below young adult, as states() reads it) under HOME_UNTIL hears the
+        money times and the grown-ups' work worries through the home, in the Library's WORLD_HOME and YEAR_WHAT_HOME words
+        (pins without them: as before). The engine's juvenile stage runs to the mid-twenties, past the age most have
+        their own pay and rent, so the age bounds it too."""
+        return (loc is not None and "stage" in loc and int(loc["stage"][0]) < 2 and self.t / 52 < HOME_UNTIL
+                and getattr(ES, "WORLD_HOME", None) is not None and getattr(ES, "YEAR_WHAT_HOME", None) is not None)
 
     def _times_year(self):
         """WL4: the year's one line on how the times touched them: close (a disaster, war, their town or a close person),
@@ -1490,8 +1503,13 @@ class Game:
                     ("freer" if d == "up" else "narrower") if ch in ("freedom", "option") else
                     ("calmer" if d == "up" else "uneasy") if ch == "safety" else ("uneasy" if d == "up" else "calmer"))
         whats = []
+        home = self._young_home(self.loc)
         for (k, ch, d), _ in items:
-            w_ = ((ES.YEAR_WHAT.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
+            if home and ch in ES.YEAR_WHAT_HOME_CHANNEL:    # F5: the year's clause through the home, while young
+                w_ = (((ES.YEAR_WHAT_HOME.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d)
+                      or (ES.YEAR_WHAT_HOME_CHANNEL.get(ch) or {}).get(d))
+            else:
+                w_ = ((ES.YEAR_WHAT.get(WFX_KIND_LIB.get(k, k)) or {}).get(ch) or {}).get(d) or (ES.YEAR_WHAT_CHANNEL.get(ch) or {}).get(d)
             if w_ and w_ not in whats:
                 whats.append(w_.replace("{who}", "someone close to them"))
         last = getattr(self, "_wyear_said", (None, -99))
@@ -4348,6 +4366,7 @@ PEACE_WORDS = {
     ("low", "mid"): "A hard road, only partly their own.",
     ("low", "low"): "Restless to the end, and seldom their own.",
 }
+HOME_UNTIL = 18           # F5: the times are told through the home while young and under this age
 INTEG_PUSHES = 10        # F13: integrity is read over the pushes, with at least this many in the divisor
 PEACE_BANDS = dict(well=(0.65, 0.55), own=(0.9, 0.8))       # high from, mid from; test/peace_bands.py on the final pin
 # (2026-10-06, 36 lives: well .49-.77, a third high and a sixth low; own .94-.99 when the player never pushes, .88-.94 at

@@ -690,6 +690,53 @@ WORLD_CHANNEL = {
                          big="The times bring {N} back among friends.")),
 }
 
+# v22.4.1 F5 (chroma-ideas/realism/v22.4.1-text-fixes.md): a child or juvenile hears the money times through the home.
+# While young the game tells the money kinds and channels from these tables in place of WORLD and WORLD_CHANNEL, keyed
+# the same way: WORLD_HOME[kind][channel][dir][band], falling back to WORLD_HOME_CHANNEL[channel][dir][band]. The
+# job-loss lines here are about the grown-ups at home, never the child's own work. Fills {N} {Ns}.
+WORLD_HOME = {
+    "recession": {
+        "job loss risk": dict(
+            up=dict(small="Since the downturn, {N} hears the grown-ups at home talk about cuts at work.",
+                    big="Jobs are going all around, and {N} can tell the grown-ups at home are frightened for theirs."),
+            down=dict(small="The downturn is easing, and the worried talk in {Ns} home dies down.",
+                      big="The crisis is over, and {Ns} home is calmer than it has been in a long while."))},
+    "unemployment": {
+        "job loss risk": dict(
+            up=dict(small="Work is getting harder to find, and {N} hears the grown-ups at home worry about it.",
+                    big="So many neighbours are out of work that even {N} can feel the worry at home."),
+            down=dict(small="There is more work about, and the grown-ups in {Ns} home worry less.",
+                      big="Work is easy to find again, and the worry lifts from {Ns} home."))},
+    "prices": {
+        "money": dict(
+            down=dict(small="Prices keep going up, and money is a little tighter in {Ns} home.",
+                      big="Prices are climbing fast, and in {Ns} home every coin is counted now."),
+            up=dict(small="Prices settle, and things are a little easier in {Ns} home.",
+                    big="Prices have steadied at last, and nobody in {Ns} home has to count every coin."))},
+    "housing": {
+        "money": dict(
+            down=dict(small="Rents go up, and the grown-ups in {Ns} home worry over the bills.",
+                      big="Rents have shot up, and keeping a roof over {Ns} head takes much of what the home has."),
+            up=dict(small="Rents ease a little, and things are a little easier in {Ns} home.",
+                    big="Rents have come down, and {Ns} home has room to breathe each month."))},
+    "welfare": {
+        "money": dict(
+            up=dict(small="The help for families in need goes up a little, and {Ns} home has a little more to get by on.",
+                    big="The help for families in need is raised, and {Ns} home can cover the basics again."),
+            down=dict(small="The help for families in need is trimmed, and {Ns} home has a little less to get by on.",
+                      big="The help for families in need is cut hard, and {N} hears the grown-ups choose which bills to pay."))},
+}
+WORLD_HOME_CHANNEL = {
+    "money": dict(down=dict(small="Money is a little tighter in {Ns} home.",
+                            big="Money is tight in {Ns} home, and {N} learns not to ask for things."),
+                  up=dict(small="Things are a little easier in {Ns} home.",
+                          big="Things are easier in {Ns} home this year, and {N} can feel it.")),
+    "job loss risk": dict(up=dict(small="Work feels less certain for the grown-ups in {Ns} home.",
+                                  big="The grown-ups in {Ns} home worry about keeping their work."),
+                          down=dict(small="Work feels steadier for the grown-ups in {Ns} home.",
+                                    big="The grown-ups in {Ns} home stop worrying about their work.")),
+}
+
 # WL4: the year's chapter, one line on how the times touched them that year (not the headlines), from that year's
 # reports. The tone: "close" when a disaster, a war or a close person's report is among them; else "mixed" when the two
 # largest point opposite ways; else by the largest: money (lean or easier), freedom or an option (narrower or freer),
@@ -813,6 +860,21 @@ YEAR_WHAT_CHANNEL = {
     "option": dict(down="a door closed", up="a door opened"),
     "close person": dict(down="the times were hard on {who}", up="the times were kind to {who}"),
     "ties": dict(down="they saw less of the people they know", up="they saw more of the people they know"),
+}
+
+# v22.4.1 F5: the year's clauses for a child or juvenile, as YEAR_WHAT and YEAR_WHAT_CHANNEL (same keys as WORLD_HOME)
+YEAR_WHAT_HOME = {
+    "recession": {"job loss risk": dict(up="the grown-ups at home worried about the downturn",
+                                        down="the worry at home eased with the downturn")},
+    "unemployment": {"job loss risk": dict(up="the grown-ups at home worried about work",
+                                           down="work was easier for the grown-ups at home to find")},
+    "prices": {"money": dict(down="prices went up and money was tight at home", up="prices settled and home felt easier")},
+    "housing": {"money": dict(down="rents went up and home felt the pinch", up="rents came down and home breathed easier")},
+    "welfare": {"money": dict(up="the help for families in need went up", down="the help for families in need was cut")},
+}
+YEAR_WHAT_HOME_CHANNEL = {
+    "money": dict(down="money was tight at home", up="things were easier at home"),
+    "job loss risk": dict(up="work felt less certain at home", down="work felt more certain at home"),
 }
 
 # WL3: the note on an option the world makes closed, harder or easier, from option_causes(n) (kind: law, norm,
