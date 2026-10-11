@@ -564,6 +564,10 @@ DEFAULT = dict(
     sh_strain=0.004,           # W rigid: weekly strain of duty held too hard (stress)
     sh_form="own",   # how the pull works: "own" (the shadowed color gives way) or "balance" (back toward what is lacking)
     sh_pull=0.05,   # an active shadow pulls its own color back (log-ratio share a week at full strength)
+    sh_will=0.0,    # the pull gives way to the will (G19, 10-11): on a colour the person wants beyond what they hold (want
+                    # above identity, full at .2 above), the shadow pulls back up to this share less. A shadow pulls back
+                    # what one holds beyond what one wants (its own "holding on" source); a way one keeps choosing grows,
+                    # and its other costs (sh_fail, sh_tie, sh_strain, sh_lapse, sh_door) stay. 0: as before
     sh_lapse=0.15,             # U indecisive: share of chosen acts lost while weighing them, at a full shadow (the chance passed)
     sh_body=0.10, sh_burn=0.5,  # R reckless: health falls by this much at a full shadow; discipline wears (yearly share)
     sh_door=0.5,               # G stuck in their ways: moments that could start something new come this much less often
@@ -1041,7 +1045,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False,
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
                acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -4556,6 +4560,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             dU = -P["sh_pull"] * shA.max(1)[:, None] * z
         else:                             # "own": the shadowed color itself gives way
             dU = -P["sh_pull"] * shA * np.maximum(z, 0)
+            if P["sh_will"]:   # sh_will: less on a colour wanted beyond what is held
+                dU = dU * (1 - P["sh_will"] * _uclip(5 * (softmax(y) - w), 0, 1))
 
         # ---- 4e. identity and the character's own death (point 11)
         if t % 52 == 0 and age >= 25 and P["attr_drift"]:   # a woman's attraction can shift a step in adult life
