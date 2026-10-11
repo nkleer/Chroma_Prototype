@@ -171,6 +171,11 @@ GAME = dict(
     # its bound (the engine's disc_range), so in the weeks without the player they act on their own judgement more often
     # (self-control is learned; a hard thing done on purpose builds it, engine disc_win and disc_tag)
     own_teach=0.0,
+    # A dream within reach: a push toward an option that serves a dream, passion or plan they hold (the engine's goal fit
+    # rel of at least dream_fit) is theirs too (dream_own: it counts as owned, as own_mark's picks do), and when it works
+    # the voice's backing firms the goal up dream_firm of the way to full strength, so they take more of its steps on their
+    # own, and adds dream_help of the engine's own step to a plan's progress (support for goal pursuit)
+    dream_own=False, dream_fit=0.5, dream_firm=0.0, dream_help=0.0,
     # Readable stakes: a need under hind_thin counts as one they lack, for the option row's "lift" and for hindsight (need_thin
     # .5 today: adult needs sit at .6 to .9, so the lift showed on few rows and hindsight seldom accepted a push)
     hind_thin=0.5,
@@ -189,7 +194,7 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
-                own_mark="", lean_self=0.0, own_teach=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False)
+                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -1297,7 +1302,7 @@ class Game:
                 if m[own].sum() > 0:                         # it backfires: they learn toward what they wanted instead
                     kind, share, lean, T = "backfire", 1.0, 0.0, m[own] / m[own].sum()
         size = share * (1 + GAME["piv_far"] * dist)
-        if (GAME["season_need"] or GAME["season_calm"]) and kind == "toward" and (self._owned_pick(cpw) or judged == "accepted"):
+        if (GAME["season_need"] or GAME["season_calm"]) and kind == "toward" and (self._owned_pick(cpw, loc) or judged == "accepted"):
             e_ = np.maximum(np.asarray(loc["e0"][0, k] if "e0" in loc else loc["e"][0, k], float), 0)
             self._seasons.append((e_ / e_.sum() if e_.sum() > 0 else T, max(stakes, 0.9), int(self.t)))   # the new routine
         plast = float(loc["plast"][0]) if "plast" in loc else 0.2
@@ -2404,15 +2409,46 @@ class Game:
         p = p_true.copy(); p[0] = 1 / (1 + np.exp(-lg))
         return p
 
-    def _owned_pick(self, cpw=None):
-        """v22.5 proposal (GAME own_mark): this week's push is the moment's head or heart pick (explain.before's marks)."""
+    def _owned_pick(self, cpw=None, loc=None):
+        """v22.5 proposal (GAME own_mark, dream_own): this week's push is the moment's head or heart pick (explain.before's
+        marks), or a step toward a dream, passion or plan they hold."""
         cpw = self._cp_week if cpw is None else cpw
         m = GAME["own_mark"]
-        if not m or cpw is None or cpw["choice"] == cpw["own"]:
+        if (not m and not GAME["dream_own"]) or cpw is None or cpw["choice"] == cpw["own"]:
             return False
         v = cpw["cp"].get("view") or {}
-        marks = ("head", "heart") if m == "both" else (m,)
-        return any(int(v.get(k, -1)) == int(cpw["choice"]) for k in marks)
+        marks = ("head", "heart") if m == "both" else (m,) if m else ()
+        if any(int(v.get(k, -1)) == int(cpw["choice"]) for k in marks):
+            return True
+        return bool(GAME["dream_own"]) and self._goal_served(self.loc if loc is None else loc, int(cpw["choice"]))[0] >= 0
+
+    def _goal_served(self, loc, k):
+        """v22.5 proposal: the goal slot option k serves most (the engine's goal fit rel, weighed by the goal's strength)
+        and that fit, or (-1, 0) when it serves none by at least dream_fit."""
+        if loc is None or "rel" not in loc or "gk" not in loc or np.ndim(loc["rel"]) != 3:
+            return -1, 0.0
+        r_ = np.asarray(loc["rel"][0][:, k], float) * (np.asarray(loc["gk"][0]) >= 0)
+        sc = r_ * np.asarray(loc["gs"][0], float)
+        if not len(sc):
+            return -1, 0.0
+        j = int(np.argmax(sc))
+        return (j, float(r_[j])) if r_[j] >= GAME["dream_fit"] and sc[j] > 0 else (-1, 0.0)
+
+    def _dream_step(self, loc, k):
+        """v22.5 proposal: a push that served a goal worked: the voice's backing firms the goal up (dream_firm) and a plan
+        gets dream_help of the engine's own step (fit x stakes x self-control x free time / the plan's size)."""
+        j, ra = self._goal_served(loc, k)
+        if j < 0:
+            return
+        P = loc["P"]
+        loc["gs"][0, j] += GAME["dream_firm"] * (1 - float(loc["gs"][0, j]))
+        if int(loc["gk"][0, j]) == 2 and GAME["dream_help"]:
+            st = min(float(np.asarray(loc["stakes"]).ravel()[0]), 1.2)
+            if int(loc["gd"][0, j]) < 0:
+                step = ra * st * float(loc["ctrl"][0]) * (0.3 + 0.7 * float(loc["res"][0, 1])) / float(P["g_size"][int(loc["ghz"][0, j])])
+                loc["gp"][0, j] += GAME["dream_help"] * step
+            else:
+                loc["gp"][0, j] = min(0.95, float(loc["gp"][0, j]) + 0.1 * ra * GAME["dream_help"])
 
     def _on_learn(self, loc, delta):
         f = self._force
@@ -2426,7 +2462,7 @@ class Game:
         d = delta
         if not GAME["learn_full"]:                       # off (GAME_OFF): v22.1's cut, trust letting more of it in
             d = delta.copy(); d[0] *= 1 - (1 - GAME["learn_keep"]) * rel * (1 - max(tr, 0.0))
-        if self._owned_pick():                           # v22.5 proposal: what they judged best or wanted, and they did it
+        if self._owned_pick(loc=loc):                    # v22.5 proposal: what they judged best or wanted, and they did it
             loc["stress"][0] += GAME["own_stress"] * GAME["stress"] * rs
             if loc["succ"][0]:
                 loc["Q"][0] *= 1 - GAME["own_free"]
@@ -2434,6 +2470,8 @@ class Game:
                 if GAME["own_teach"] and "dsc" in loc and int(v_.get("head", -1)) == int(cpw["choice"]):
                     hi_ = float(loc["P"]["disc_range"][1]) if "P" in loc else 1.4
                     loc["dsc"][0] += GAME["own_teach"] * (hi_ - float(loc["dsc"][0]))
+                if GAME["dream_firm"] or GAME["dream_help"]:
+                    self._dream_step(loc, int(cpw["choice"]))
         else:
             loc["stress"][0] += GAME["stress"] * rs
             loc["Q"][0] += GAME["backlash"] * rs                          # wanting what they were denied builds up
