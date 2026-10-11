@@ -51,6 +51,8 @@ def parse_scope(text):
             sections[cur].append(ln)
     bar = []
     for ln in sections.get("bar", []):
+        if not ln.lstrip().startswith("|"):   # only table lines are rows; prose with a "|" in it (a<b|c>) is not
+            continue
         cells = [c.strip() for c in ln.strip().strip("|").split("|")]
         if len(cells) < 3 or cells[0].lower() == "row" or set(cells[0]) <= set("-: "):
             continue

@@ -26,7 +26,8 @@ ROOT = os.environ.get("CHROMA_ROOT") or os.path.dirname(os.path.dirname(os.path.
 
 # name: (path under ROOT, what it is)
 NAMES = {
-    # the live version (v22.3, published 10-10 19:52 UTC from release/v22.3 = 1f63d7e, artifact version 1791661954-7698)
+    # the live version (v22.3, published 10-10 19:52 UTC from release/v22.3 = 1f63d7e, artifact version 1791661954-7698;
+    # loading hotfix 10-11 17:58 UTC from release/v22.3 = ba7b28a, artifact version 1791741331-89db)
     "engine_live":    ("chroma-engine/v22-speedpass", "the live engine, v22.3's (engine.py 30cb1193ca05, release/v22.3); the v22.1 engine is engine_v22_1"),
     "live_manifest":  ("chroma-env/live-v22.3-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),

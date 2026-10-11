@@ -85,9 +85,10 @@ CHECKS = [
      "load into the build with the game's old-save note (console.OLD_SAVE) and play on without error (Emren's card \"Replay with a "
      "note\", 10-09 19:40 UTC; with --game only)"),
     ("identity1", "C-E14", "Release", "quick", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5", "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, seed 5"),
+     "--seeds 5 --packs " + PACKS3, "re:^C-E14: PASS", (), "engine.GOLIVE lives the go-live engine's lives (engine_v9_golive.py), 10 lives, "
+     "seed 5, on the go-live packs (art joins at v22.4 and names titles the v21 batch lacks)"),
     ("identity", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21 + " --lives 10 --years 60 "
-     "--seeds 5,21", "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
+     "--seeds 5,21 --packs " + PACKS3, "re:^C-E14: PASS", (), "the same, seeds 5 and 21"),
     ("identity_full", "C-E14", "Release", "full", 1, ".", "python3 -B chroma-release/check_identity.py --lib " + V21, "re:^C-E14: PASS", (),
      "the same at the v22 record's size: 40 lives x 70 years, seeds 5, 21, 57"),
     ("content", "C-L5, C-L7 to C-L10", "Release", "quick", 1, ".", "python3 -B chroma-release/check_content.py", "rc", (),
@@ -284,11 +285,11 @@ V224 = [
      "(960 lives, 160 a group: each drop's standard error about .013; scope.md, G19's run size; about 75 minutes on 4 cores)"),
     ("c26_world", "G19w", 4, "STEER=pick PX='{{\"world\": true, \"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26w.npz \"-,W,U,B,R,G\" && "
-     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26w.npz && python3 -B chroma-release/check_c26.py {W}/c26w.npz --steer pick",
+     "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26w.npz && python3 -B chroma-release/check_c26.py {W}/c26w.npz --steer pick --lift-info",
      "re:^C26 PASS", (), "item 26 with the outer world on, as presets 1 to 4 play it (the S parts act only there; the "
-     "shadows and sh_will do not): c26_choice's targets on the same 960 lives, judged since Emren's card choice \"Fix in "
-     "v22.4\" (10-11 08:24 UTC; scope.md, G19 with the world on), steered lives picking as a player does (STEER=pick, "
-     "Engine #191; scope.md, G19w's stand-in; about 80 minutes on 4 cores)"),
+     "shadows and sh_will do not): c26_choice's targets on the same 960 lives, steered lives picking as a player does "
+     "(STEER=pick, Engine #191); drops, perks and Black's edge judged, the lift reported (Emren's card choices \"Fix in "
+     "v22.4\" 10-11 08:24 UTC and \"Ship it\" 17:14 UTC; scope.md, G19w; about 80 minutes on 4 cores)"),
 ]
 for cid, row, cores, cmd, rule, after, what in V224:
     CHECKS.append((cid, row, "Engine", "full", cores, ".", cmd, rule, after, what))

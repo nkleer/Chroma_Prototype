@@ -29,6 +29,18 @@
 #               the live v22.3 engine. NEW runs with every v22.4 switch at its UPD_OFF value (read from the commit's
 #               engine) and CHROMA_PACKS=science,politics,stage, which keeps the art pack out (the Engine's override; the
 #               live engine does not read it)
+# Split across helper machines (Emren 10-11 18:22 UTC: more threads to bring v22.4 sooner), one job a machine of about 4
+# cores, in any order, on the same SHA; together they are m1 to m6 (with saves_note), so each row runs once:
+#   rar     the rarity row alone (G16): RARITY-SAME when the commit carries the rebuilt table; else it rebuilds the table as
+#           m1 does, for the Engine's rarity.json and the Game's re-pin (about 70 minutes)
+#   quick   m1's integrity rows and the old saves (G1, G2, G3, G13, G14)
+#   enga    m3's Engine rows and S5's two targets (G5, G9)
+#   mech    S1, S3, S4, S6 and S7 (G6, G7, G8, G10, G11)
+#   c26a    item 26's colour-choice run (G19, about 75 minutes)
+#   c26b    the same with the world on (G19w, about 80 minutes)
+#   lives   the colour pie with and without packs (G5)
+#   game    the game's own checks, the steered and Voice rows and S2's own_even (G12, G13), as final_game
+#   page, b7AB, b7CD, g4 as above
 set -u
 F=/mnt/project-files; R=${R:-$F/chroma-release}; REPO=${REPO:-/tmp/v224_repo}; X=/tmp/v224_${1:-}
 K=/tmp/v224_keep   # work folders whose path is part of a row's proof (rows that write npz or stats there): the same on
@@ -84,6 +96,38 @@ for i in ids:
 sys.exit(bad)
 PY
   [ $? = 0 ] || echo "not all carried: run \`run.sh page\` or \`run.sh g4\` on a free machine for those"; }
+RARITY_READS="chroma-engine chroma-library chroma-packs"   # what the rarity rebuild and same-lives.sh read
+carryp() { local paths=$1; shift   # a hand row's newest PASS on any commit, written again for $SHA when nothing it reads
+  python3 -B - "$R" "$REPO" "$SHA" "$paths" "$@" <<'PY'   # (paths; empty: the whole tree) changed but the rarity files
+import sys, subprocess
+R, repo, sha, paths, ids = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4].split(), sys.argv[5:]
+sys.path.insert(0, R)
+import results
+last, here = {}, set()
+for r in results.read():
+    c = (r.get("candidate") or {}).get("commit") or ""
+    if r["check"] in ids and c == sha:
+        here.add(r["check"])
+    elif r["check"] in ids and r["result"] == "PASS" and len(c) == 40:
+        last[r["check"]] = r
+bad = 0
+for i in ids:
+    r = last.get(i)
+    if i in here:
+        print("already on", sha[:12], i); continue
+    if not r:
+        print("NOT CARRIED", i, "(no PASS on any commit)"); bad = 1; continue
+    frm = r["candidate"]["commit"]
+    d = subprocess.run(["git", "-C", repo, "diff", "--name-only", frm, sha, "--"] + paths, capture_output=True, text=True)
+    moved = [f for f in d.stdout.split() if not f.endswith(("/rarity.json", "/rarity.py"))]
+    if d.returncode or moved:
+        print("NOT CARRIED", i, f"(changed since {frm[:12]}: {', '.join(moved[:4]) or d.stderr.strip()})"); bad = 1; continue
+    results.add(i, "PASS", r.get("report", ""), f"carried from {frm[:12]} (nothing it reads changed since but the rarity "
+                f"files): " + r.get("note", ""), candidate={"commit": sha})
+    print("carried", i, "from", frm[:12])
+sys.exit(bad)
+PY
+  [ $? = 0 ] || echo "not all carried: run their jobs (page, b7AB, b7CD, g4) on free machines"; }
 lives() { $CHK --only $LIVES --keep --work $K/lives || $CHK --only $LIVES --no-reuse --keep --work $K/lives; }   # pie reads the npz here
 mech() { $CHK --only $MECH --keep --work $K/mech; }            # S1, S3 and S4 rows read their run's stats here
 c26() { $CHK --only c26_choice,c26_world --keep --work $K/c26; }   # c26_world: G19 with the world on (G19w)
@@ -114,26 +158,48 @@ case "${1:-}" in
      o=$O/rarity_rebuild_$(date -u +%Y%m%d-%H%M).json; cp $t $o; echo "$SHA $RID" > $o.from
      echo "REBUILT on ${SHA:0:12} ($RID): $o (md5 $(md5sum < $o | cut -c1-12)); the Engine commits it as its rarity.json, the Game re-pins"
      $CHK --only $QUICK ;;
+  rar) rm -rf $X; $CHK --only $RID --keep --work $X/rarity && { echo "RARITY-SAME on ${SHA:0:12}: nothing to re-pin"; exit 0; }
+     t=$X/rarity/w/rarity.json; [ -s $t ] || { echo "STOP: no rebuilt table in $X/rarity/w"; exit 1; }
+     o=$O/rarity_rebuild_$(date -u +%Y%m%d-%H%M).json; cp $t $o; echo "$SHA $RID" > $o.from
+     echo "REBUILT on ${SHA:0:12} ($RID): $o (md5 $(md5sum < $o | cut -c1-12)); the Engine commits it as its rarity.json, the Game re-pins" ;;
+  quick) $CHK --only $QUICK,saves_note ;;
+  enga) $CHK --only $ENGA,s5_lines,s5_money ;;
+  mech) mech ;;
+  c26a) $CHK --only c26_choice --keep --work $K/c26 ;;
+  c26b) $CHK --only c26_world --keep --work $K/c26 ;;
+  lives) lives ;;
+  game) $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   m2) lives; look ;;
   m3) $CHK --only $ENGA; mech ;;
   m4) b7 A,B; g4 ;;
   m5) b7 C,D; $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   m6) c26; $CHK --only s5_lines,s5_money ;;
-  final) $CHK --only $QUICK,$ENGA,s5_lines,s5_money,saves_note; mech; c26; lives
-     o=$(ls -t $O/rarity_rebuild_*.json | head -1); read REFIT ID < $o.from
-     moved=$(git -C $REPO diff --name-only $REFIT $SHA | grep -v -e '/rarity\.json$' -e '/rarity\.py$')
+  final) $CHK --only $QUICK,$ENGA,s5_lines,s5_money,saves_note; mech; c26; lives   # reused where nothing they read changed
      rel=$(cd $F/chroma-env && python3 -B -c "from paths import NAMES; print(NAMES['rarity_live'][0])")
+     o=$(ls -t $O/rarity_rebuild_*.json 2>/dev/null | head -1); REFIT=; ID=$RID; [ -n "$o" ] && read REFIT ID < $o.from
+     moved=x; [ -n "$REFIT" ] && moved=$(git -C $REPO diff --name-only $REFIT $SHA -- $RARITY_READS | grep -v -e '/rarity\.json$' -e '/rarity\.py$')
      rep=$O/${ID}_$(date -u +%Y%m%d-%H%M%S).txt
      if [ -z "$moved" ] && git -C $REPO show $SHA:$rel | cmp -s - $o; then
-       { echo "$ID on ${SHA:0:12}: the table rebuilt on the refit ${REFIT:0:12} ($o) equals the commit's $rel byte for byte,"
-         echo "and the two commits differ only in the rarity files:"; git -C $REPO diff --name-only $REFIT $SHA; echo "RARITY-SAME"; } > $rep
-       python3 -B $R/results.py add $ID PASS $rep "rebuilt on the refit ${REFIT:0:12}; nothing it reads changed since"
-     else echo "the refit and the final commit differ beyond the rarity files, or the table differs: rebuilding"; $CHK --only $ID; fi
-     if [ -z "$moved" ]; then carry $REFIT $HAND; else echo "page layer and g4: run \`run.sh page\` and \`run.sh g4\` on free machines"; fi ;;
+       { echo "$ID on ${SHA:0:12}: the table rebuilt on ${REFIT:0:12} ($o) equals the commit's $rel byte for byte, and"
+         echo "nothing the rebuild reads ($RARITY_READS) changed between them but the rarity files"; echo "RARITY-SAME"; } > $rep
+       python3 -B $R/results.py add $ID PASS $rep "rebuilt on ${REFIT:0:12}; nothing it reads changed since"
+     else $CHK --only $ID; fi    # reused when the commit carried the table where rar read RARITY-SAME, else rebuilt
+     carryp "$RARITY_READS" speedpass_s41 speedpass_sweepA speedpass_sweepB
+     carryp "" look_same fit_1280 fit_1024 fit_geo fit_phone tour_desktop tour_phone b7_AB b7_CD ;;
   final_game) $CHK --only $GAME; $CHK --only @steered; $CHK --only own_even ;;
   page) look ;;
   g4) g4 ;;
   b7AB) b7 A,B ;;
   b7CD) b7 C,D ;;
-  *) sed -n 2,33p "$0"; exit 2 ;;
+  b7A|b7B|b7C|b7D) b7 ${1#b7} ;;                 # the wide split (Emren 10-11 21:36, "use more threads"): one group a machine
+  gameA) $CHK --only $GAME ;;
+  gameB) $CHK --only @steered ;;
+  gameC) $CHK --only own_even ;;
+  qslow1) $CHK --only timeless ;;
+  qslow2) $CHK --only life_ends,identity_g ;;
+  qslow3) $CHK --only fuzz,markers ;;
+  qsteps) $CHK --only t_steps ;;
+  quickrest) $CHK --only $(echo $QUICK | tr , '\n' | grep -vxE 'timeless|life_ends|identity_g|fuzz|markers|t_steps' | paste -sd,),saves_note ;;
+  mechrest) $CHK --only ${MECH%,s7_lead} --keep --work $K/mech ;;   # s7_lead stands from ef7f273 (ruling "S7's time in post reported")
+  *) sed -n 2,43p "$0"; exit 2 ;;
 esac
