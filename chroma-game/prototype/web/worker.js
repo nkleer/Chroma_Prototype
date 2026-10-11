@@ -107,8 +107,10 @@ function load(text) {
   try {
     const t0 = performance.now();
     py = await loadPyodide({ indexURL: here("pyodide/") });
+    sys("Loading numpy…");
     await py.loadPackage(here("pyodide/numpy-2.0.2-cp312-cp312-pyodide_2024_0_wasm32.whl"));
     py.FS.mkdirTree("/home/pyodide/chroma/engine_pin");
+    sys("Loading the game's files…");
     const code = {};
     for (let n = 1; n <= CODE_PARTS; n++) {
       const r = await fetch(here("py/code-" + n + ".json"));
