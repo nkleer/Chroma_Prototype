@@ -319,6 +319,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("appraisal in learning as vigilance (app_vigil)", dict(app_vigil=True), {}, 30),
        ("the shadow's pull gives way to the will (sh_will; with the shadows on in the world, sh_world)",
         dict(sh_will=0.5, sh_world=True), dict(sh_world=True), 30),
+       ("with the world on, part of the niche is the circle one chose (own_circle)", dict(own_circle=0.4), {}, 30),
        ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)

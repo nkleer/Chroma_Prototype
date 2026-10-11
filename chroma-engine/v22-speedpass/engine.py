@@ -564,6 +564,11 @@ DEFAULT = dict(
     sh_strain=0.004,           # W rigid: weekly strain of duty held too hard (stress)
     sh_form="own",   # how the pull works: "own" (the shadowed color gives way) or "balance" (back toward what is lacking)
     sh_pull=0.05,   # an active shadow pulls its own color back (log-ratio share a week at full strength)
+    own_circle=0.0,   # with the world on, this share of the niche is the circle one chose: it follows one's acts and roles, as
+                      # the whole niche does with the world off; the rest is what the world's settings and people bring
+                      # (Emren 10-11 08:24, "Fix in v22.4": colour choices must lead somewhere in world-on lives too; with
+                      # the niche the world's alone, the social channel pulls a steered life back, choice_check world on:
+                      # lift .04 to .07). 0: as before
     sh_will=0.0,    # the pull gives way to the will (G19, 10-11): on a colour the person wants beyond what they hold (want
                     # above identity, full at .2 above), the shadow pulls back up to this share less. A shadow pulls back
                     # what one holds beyond what one wants (its own "holding on" source); a way one keeps choosing grows,
@@ -1045,7 +1050,7 @@ UPD_OFF = dict(dis_match=False,
                # late births: a life's own births by real fertility for its age and sex
                birth_age=False,
                # what one holds is practice too
-               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0,
+               role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, own_circle=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
                acc_redraw=False, green_jobs=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
@@ -4729,7 +4734,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 circle[new_] = random_messages(rng, int(new_.sum()))
             nic += P["turnover"] * turn_pm[:, None] * np.asarray(P["turn_stage"])[stage][:, None] / 52 * (circle - nic)
         if WON:   # the world: the niche is what the settings and the close circle bring, with the times through them
-            nic = np.array(WL.PP.niche, float)
+            nic = np.array(WL.PP.niche, float) if not P["own_circle"] else \
+                (1 - P["own_circle"]) * np.array(WL.PP.niche, float) + P["own_circle"] * nic   # own_circle: and whom one chose
 
         for i in log_lives:
             if not idle[i]:
