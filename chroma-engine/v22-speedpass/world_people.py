@@ -337,7 +337,7 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
 # office where there are no elections (held at the ruler's pleasure)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
-                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, reprieve=52)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4935,6 +4935,8 @@ class People:
                 why = "retired"
             elif c_.get("end_y") and self._lw_rng.random() < 1 - (1 - c_["end_y"]) ** 0.25:
                 why = "stepped down"
+            elif p.get("fought") and t - p.get("fought_t", t) >= par["reprieve"]:   # a won fight is a reprieve, not a new
+                why = "stepped down"   # start: the leader goes within lead_par reprieve weeks (a year) of it
             if why:
                 self._lead_end(p, t, why)
         # 2. a rival of higher rung: the setting's most standing member (rung 1 + standing) above 4 x legitimacy
@@ -5076,7 +5078,8 @@ class People:
         """The post's moment came and the character acted: way (an option's lead:, -1 none), fall (go 0, fight 1,
         again 2), hand (chosen 0, open 1, stay 2). take: the post takes the option's way; crisis: an option of the post's
         way holds it, another way shifts the post to it; routine: a rules option moves the inspiring post to rules;
-        fall: go ends it, fight keeps it when the act works (legitimacy back to .3; once a post) and ends it when not,
+        fall: go ends it, fight keeps it when the act works (legitimacy back to .3; once a post; a reprieve: the leader steps
+        down within lead_par reprieve weeks, a year, unless the post ends sooner) and ends it when not,
         again stands down (the take chance there doubles after a year); hand: chosen or open hands it on, stay leaves it
         to the term's renewal (lead_posts: renew x (.5 + legitimacy), max_terms).
         Returns the event."""
@@ -5101,7 +5104,8 @@ class People:
                 set_way(0)
         elif key == "lead_fall":
             if fall == 1 and succ:
-                ans = "fought"; p["fought"] = 1; p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
+                ans = "fought"; p["fought"] = 1; p["fought_t"] = int(t)
+                p["dent"] = self.lw_par["fight"] - self._lead_fit(p); self._lead_legit(p)
             elif fall == 2:
                 ans = "stood down"; self._lw_back[(int(n), int(p["slot"]))] = int(t) + int(self.lw_par["again"])
                 self._lead_end(p, t, "stood down")
