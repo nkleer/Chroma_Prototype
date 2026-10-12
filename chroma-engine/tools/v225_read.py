@@ -113,6 +113,16 @@ for n_, evs in o["events"].items():
         ds_ = e_.get("deep_state") or {}
         if ds_.get("holding") == "home" and "lost" in str(ds_.get("kind", "")) or ds_.get("kind") in ("evicted", "repossessed"):   # a sale only comes in a hard year: forced
             lost.add(n_)
+own_t = 0   # F9.16: a logged life whose home holding ends with no sale, loss or move logged (the deep state logs each)
+for n_, evs in o["events"].items():
+    h_ = 0
+    for e_ in evs:
+        ds_ = e_.get("deep_state") or {}
+        if ds_.get("holding") == "home":
+            h_ += 1 if ds_.get("kind") in ("holding gained", "inheritance") else -1 if "lost" in str(ds_.get("kind", "")) else 0
+        if h_ < 0:
+            own_t += 1; break
+f9["F9.16 owner to tenant without a sale"] = own_t
 f9["F9.15 lost a home (logged lives)"] = round(len(lost) / max(LOG, 1), 3)
 # work
 car = {n_: sorted(cm.get((n_, CAR_), [])) for n_ in range(N)}
@@ -148,6 +158,15 @@ f9["F9.21 out of work at 20-64 (not retired), share of years"] = round(oy / max(
 f9["F9.21b out of work after the first job, to 64 (not retired)"] = round(oy2 / max(wy2, 1e-9), 3)
 f9["F9.21c never a job by 64 (lived to 64)"] = round(sum(1 for n_, v in car.items() if dage[n_] > 64 and not any(
     h == "start" and a <= 64 for a, h in v)) / max(int((dage > 64).sum()), 1), 3)
+def _held_at(v, a0):   # a career held at this age, from the commitment record
+    on_ = False
+    for a, h in v:
+        if a > a0:
+            break
+        on_ = (h == "start") or (on_ and h not in ("lost job", "left", "retired"))
+    return on_
+l72 = [n_ for n_ in range(N) if dage[n_] > 72] if Y > 72 else []
+f9["F9.22 working at 72, share of the living"] = round(sum(_held_at(car[n_], 72.0) for n_ in l72) / max(len(l72), 1), 3) if l72 else None
 ra = [a for v in car.values() for a, h in v if h == "retired"]
 f9["F9.22 retirement age, median"] = med(ra)
 # illness
@@ -156,6 +175,8 @@ if bd:
     ca = np.asarray(bd["conditions"]["age"]); cw = np.asarray(bd["conditions"]["weight"])
     first_c = np.where((cw > 0).any(1), np.where(cw > 0, ca, np.inf).min(1), np.inf)
     f9["F9.23 a lasting condition by 40/65/80 (living)"] = [round(float((first_c[alive_at(a)] <= a).mean()), 3) for a in (40, 65, 80)]
+    ck_ = np.asarray(bd["conditions"]["kind"])
+    f9["F9.27 a condition diagnosed twice, lives"] = int(sum(1 for r_ in ck_ if len([k for k in r_ if k >= 0]) != len(set(k for k in r_ if k >= 0))))
 sev = ev_ages({"a frightening diagnosis", "a serious accident or illness"})
 f9["F9.24 serious (moments) before 50 / by 80"] = [round(sum(1 for v in sev.values() if min(v) < 50) / N, 3),
                                                    round(sum(1 for v in sev.values() if min(v) <= 80) / max(int(alive_at(80).sum()), 1), 3)]

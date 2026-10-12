@@ -396,6 +396,7 @@ DEFAULT = dict(
     retire_means=0.8,    # money relative to the median, to this power before pension age (a third of it after)
     retire_misfit=1.5,   # work that no longer fits: x (1 + 1.5 misfit)
     pension_cut=0.06,    # a pension taken early is smaller: 6% for each year before pension age (at least half)
+    kid_cost=0.12,       # what each child at home takes off the money level
     pension_k=0.3,       # v22.5 F9 (modifiers.md M15): a career's pension in the money a life drifts to (work pays .45)
     pension_base=0.0,    # v22.5 F9: a state pension from pension age for everyone, career or not (0: none, as before)
     faith_inherit=0.6,   # chance a child is raised inside a faith (each family's faith has its own color profile)
@@ -1535,8 +1536,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if P["ev_fit"] or P["ill_real"]:   # F9: life events fitted to Release's rows; the body's and mind's at their real rates
         rn_ = np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]
         PERY = PERY.copy()
-        for nm_, f_ in (P["ev_fit"] or {}).items():
-            PERY[rn_ == nm_] *= f_
+        for nm_, f_ in (P["ev_fit"] or {}).items():   # a factor, or one per stage
+            PERY[rn_ == nm_] *= np.asarray(f_, float)
         if P["ill_real"]:   # Emren's event_scale makes big life events a little more often; illness keeps its real rate
             PERY[np.isin(rn_, list(BODY_MOMENTS) + list(MIND_MOMENTS))] /= P["event_scale"]
     REG_ = (EVERYDAY & (L["RATE"] >= 1) & ~np.asarray(L.get("INNER", np.zeros(L["S"], bool)), bool)
@@ -4228,7 +4229,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         need[wid, NIDX["belonging"]] -= 0.4; stress[wid] += 0.5
         end(np.nonzero(wid)[0], [PAR] * int(wid.sum()), "widowed", t)
         # resources drift toward what a life's commitments and age provide
-        mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + P["pension_k"] * pension - 0.12 * kids
+        mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + P["pension_k"] * pension - P["kid_cost"] * kids
         if P["pension_base"] and age >= P["retire_age"]:   # F9: the state pension
             mt = mt + P["pension_base"]
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
