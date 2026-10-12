@@ -28,14 +28,14 @@
 #   b7A b7B b7C b7D | b7AB b7CD   the browser drivers (K24; one per machine: they serve on port 8140)
 #   roll           K9's f8_after judged once from the f8a-c folders (carried), then f10_once (its engine lives from
 #                  f8a's folder) and f7_roll (K18), every one --as-is
-#   fit            check_fit all (K17), then check_f15 (K14)
+#   fit | fitk f15 check_fit all (K17), then check_f15 (K14); or each on its own machine
 #   page           the page layer against release/v22.4.1, the fit probes and the tours (K26)
 #   final          the refit's rows on the final commit: v22_checks rows again (reused in seconds where nothing they
 #                  read changed), the hand rows carried (g4's speedpass rows, check_f9's ten tables, rarity_w) with the
 #                  evidence in out/carry_<final7>.txt, each carried line's note saying so
 set -u
 JOBS=" rar1 rar2 rar3 rar4 rar5 rarm f9a f9b f8a f8b f8c engA engB mech s7 c26a c26b lives g4 quick game pr30 pr30a pr30b pr30m
- b7A b7B b7C b7D b7AB b7CD roll fit page final "
+ b7A b7B b7C b7D b7AB b7CD roll fit fitk f15 page final "
 [[ "$JOBS" == *" ${1:-none} "* ]] || { sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2; }
 F=/mnt/project-files; R=$F/chroma-release; REPO=${REPO:-/tmp/v225_repo}; X=/tmp/v225_${1:-}
 K=/tmp/v225_keep   # --keep --work folders: the same path on every machine, so `final` reuses the refit's proofs
@@ -174,6 +174,8 @@ case "${1:-}" in
      done
      python3 -B $R/check_roll.py f7_roll --repo $X/tree --commit $SHA --as-is --jobs 4 --out $o/f7_roll ;;
   fit) tree; python3 -B $R/check_fit.py all --repo $X/tree --commit $SHA; python3 -B $R/check_f15.py run --repo $X/tree --commit $SHA ;;
+  fitk) tree; python3 -B $R/check_fit.py all --repo $X/tree --commit $SHA ;;
+  f15) tree; python3 -B $R/check_f15.py run --repo $X/tree --commit $SHA ;;
   page) look ;;
   final) $CHK --only $ENGA,$ENGB; $CHK --only $MECH --keep --work $K/mech; $CHK --only s7_lead
      $CHK --only c26_choice,c26_world --keep --work $K/c26; $CHK --only $LIVES --keep --work $K/lives; carry_final ;;
