@@ -208,6 +208,9 @@ GAME = dict(
     # colour-even seed moments (worlds.py SEED, one option per colour) instead of the engine's own seed library, whose
     # options lean White (False: the engine's)
     world_seed=False,
+    # v22.5 F15 (Engine, clan and towers): the faith a life inherits leans faith_home of the way from the world's faith mix
+    # toward the family's own colours (engine fam) (0: the world's mix, as before)
+    faith_home=0.0,
     # v22.5 realism F10, once means once, the story's side (no life changes): line_wait, the years before the same line of
     # an outside reading, the world, an ordinary week or a year's chapter is told again word for word (0: as before);
     # news_touch, national news only when it touches them: from news_age (their own place's, a war, a pandemic and a
@@ -227,7 +230,7 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
-                world_hold=False, world_seed=False,
+                world_hold=False, world_seed=False, faith_home=0.0,
                 line_wait=0.0, news_touch=False, rare_ask=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
@@ -2995,10 +2998,11 @@ class Game:
         F = E.KIDX["faith"]
         if self.faith_mix is None or not loc["held"][0, F]:
             return
-        loc["prof"][0, F] = self.faith_mix
+        fm_ = (1 - GAME["faith_home"]) * self.faith_mix + GAME["faith_home"] * np.asarray(loc["fam"][0], float)
+        loc["prof"][0, F] = fm_
         for ev in loc["events"][0][::-1]:
             if "commitment" in ev and ev["commitment"].get("what") == "inherited":
-                ev["commitment"]["profile"] = self.faith_mix.round(2).tolist()
+                ev["commitment"]["profile"] = fm_.round(2).tolist()
                 break
 
     def _on_end(self, t, loc):
