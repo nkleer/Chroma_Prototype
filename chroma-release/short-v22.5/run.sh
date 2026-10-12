@@ -71,7 +71,8 @@ LOOKBASE=${LOOKBASE:-release/v22.4.1}   # the published page
 LOOK="chroma-game/prototype/web/src/look.css chroma-game/prototype/web/src/look.js chroma-game/prototype/web/src/clarity.css
  chroma-game/prototype/web/src/clarity.js chroma-game/prototype/web/src/build.py
  chroma-game/tools/webdir.py chroma-art/game/lights.json chroma-art/game/pics/portrait-* chroma-look/tools"
-tree() { [ -d $X/tree ] && return 0; mkdir -p $X/tree && git -C $REPO archive $SHA | tar -x -C $X/tree; }   # the commit's files
+tree() { [ -d $X/tree ] && [ "$(cat $X/tree.sha 2>/dev/null)" = "$SHA" ] && return 0   # the commit's files, stamped with it
+  rm -rf $X/tree $X/tree.sha; mkdir -p $X/tree && git -C $REPO archive $SHA | tar -x -C $X/tree && echo $SHA > $X/tree.sha; }
 moved() { git -C $REPO diff --name-only $1 $2 -- $CARRY_READS | grep -v -e '/rarity\.json$' -e '/rarity\.py$'; }
 need_refit() { [ -n "$REFIT" ] || { echo "REFIT=<the refit commit> is needed for $1"; exit 2; }
   local m; m=$(moved $REFIT $SHA)
