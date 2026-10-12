@@ -310,11 +310,12 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # places do not put the lower one exactly one spread under; None: odd_mem), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
-# holding on
+# holding on; pair_k, the power of the two places' mean share that scales each colour's gap when the caught-between pair
+# is read (.5: the root, as a chi-square reads two mixes; higher reads a rarer colour's gap larger)
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
                     buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vmem=None, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
-                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
+                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5, pair_k=0.5)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
 EYES_ENEMY = ((0, 2), (0, 3), (1, 3), (1, 4), (2, 4))   # S3: the Canon's enemy pairs WB WR UR UG BG, as W U B R G indices
 EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts read as walking away from their colours
@@ -3944,7 +3945,8 @@ class People:
         between. Not each place's leading face: the places share their town's lean (about half of them lead Green), so two
         leading faces named that lean, not the pull (v22.4 fix round: the pairs with Green came three times as often as WB)."""
         fa, fb = self._eyes_fc[n, qa][self._eyes_inv], self._eyes_fc[n, qb][self._eyes_inv]
-        d_ = (fa - fb) / np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9))
+        pk_ = self.eyes_par["pair_k"]
+        d_ = (fa - fb) / (np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9)) if pk_ == 0.5 else np.maximum(0.5 * (fa + fb), 1e-9) ** pk_)
         i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
         return (i_, j_) if d_[i_] >= d_[j_] else (j_, i_)
 
