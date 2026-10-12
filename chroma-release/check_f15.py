@@ -1,16 +1,18 @@
 """v22.5 row K14 (records/v22.5/scope.md): F15, the start leaves a lean, judged on played lives.
 
-    python3 -B chroma-release/check_f15.py run --repo DIR [--commit SHA] [--seeds 1-8] [--far 1-60] [--px JSON]
-                                               [--gx JSON] [--jobs N] [--out DIR] [--no-record]
+    python3 -B chroma-release/check_f15.py run --repo DIR [--commit SHA] [--seeds 1-40] [--far 1-60] [--plain 1-8]
+                                               [--px JSON] [--gx JSON] [--jobs N] [--out DIR] [--no-record]
     python3 -B chroma-release/check_f15.py judge DIR [--commit SHA] [--no-record]     # judge a finished run again
 
 `run` plays natural lives (the character always chooses, as the Player impact reads do) of the checkout's game,
 chroma-game/prototype with its pinned engine, so at the game's own settings and the pin's DEFAULT: the refit's settings
 once they are in. --px lays engine settings over each life's P (the game's CHROMA_ENGINE, JSON) and --gx the game's own
-(CHROMA_GAME, JSON), for trying values before they are in; without them neither is set. Every start of PRESETS
-(1 to 6) gets --seeds (default 1 to 8); the clan and the towers (the starts whose setting is not earth) get --far
-(default 1 to 60). Each life, in its own process, plays to 40 and keeps its pie (softmax of z) at 10, 15, 20, 25,
-30, 35 and 40: life_p<preset>_s<seed>.json in --out (default out/f15_<time>/).
+(CHROMA_GAME, JSON), for trying values before they are in; without them neither is set. The modern starts with an
+upbringing (2, 3, 4) get --seeds (default 1 to 40: the bar's 8 a start is a small count for a ratio of means, so the
+row runs more lives, the SMALL COUNTS ruling), the clan and the towers (the starts whose setting is not earth) --far
+(default 1 to 60), and start 1 (no upbringing, reported only) --plain (default 1 to 8). Each life, in its own process,
+plays to 40 and keeps its pie (softmax of z) at 10, 15, 20, 25, 30, 35 and 40: life_p<preset>_s<seed>.json in --out
+(default out/f15_<time>/). About 50 minutes on 4 cores at the defaults.
 
 The start's lean at an age is the share of the way the pie has gone from even (.2 each) toward the start's upbringing
 mix: ((w - .2) . u) / (u . u), u = mix - .2; 0 at even, 1 at the start's own colours.
@@ -191,8 +193,9 @@ def main():
     presets = {}
     exec(compile(src[src.index("PRESETS = {"):src.index("\n}\n", src.index("PRESETS = {")) + 3], "PRESETS", "exec"), {}, presets)
     presets = presets["PRESETS"]
-    near, far = span(arg("--seeds", "1-8")), span(arg("--far", "1-60"))
-    todo = [(p, s) for p in presets for s in (far if presets[p].get("setting", "earth") != "earth" else near)]
+    near, far, plain = span(arg("--seeds", "1-40")), span(arg("--far", "1-60")), span(arg("--plain", "1-8"))
+    todo = [(p, s) for p in presets for s in (far if presets[p].get("setting", "earth") != "earth" else
+                                               near if presets[p].get("upbringing") else plain)]
     env = dict(os.environ)
     for v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
         env.setdefault(v, "1")   # one thread a life: the lives run side by side

@@ -219,8 +219,8 @@ def unit_f12_own(repo, world, seed, lives):
 
 
 def game_env(repo):
-    """The game of the checkout, with world_hold on and the engine's own_open and start_hold (checks only: CHROMA_GAME
-    and CHROMA_ENGINE as the game reads them)."""
+    """The game of the checkout, with the settings the unit's CHROMA_GAME and CHROMA_ENGINE give it (checks only, as
+    the game reads them: world_hold on, and the engine's own_open and start_hold; none for f12defaults)."""
     G = os.path.join(repo, "chroma-game", "prototype")
     sys.path.insert(0, G)
     sys.dont_write_bytecode = True
@@ -228,14 +228,13 @@ def game_env(repo):
     return GM
 
 
-def forced_on(GM):
-    """Which of F12's switches the checkout has off by default (switched on here): the game's world_hold (read from
-    game.py's GAME, since CHROMA_GAME has set it in this process) and the engine's own_open and start_hold."""
-    src = open(GM.__file__, encoding="utf-8").read()
-    m = re.search(r"^GAME = dict\((.*?)^\)", src, re.M | re.S)
-    wh = re.search(r"\bworld_hold=(True|False)", m.group(1)) if m else None
-    out = [] if wh and wh.group(1) == "True" else ["GAME world_hold"]
-    return out + [k for k in ("own_open", "start_hold") if not GM.E.DEFAULT.get(k)]
+def unit_f12_defaults(repo):
+    """Which of F12's switches the checkout's game plays with off (so the other units switch them on): the game as
+    loaded with neither CHROMA_GAME nor CHROMA_ENGINE set (run_units leaves both out here), its GAME["world_hold"]
+    after everything game.py does at import (a GAME.update at a re-pin too), and its pinned engine's DEFAULT."""
+    GM = game_env(repo)
+    out = [] if GM.GAME.get("world_hold") else ["GAME world_hold"]
+    return dict(forced=out + [k for k in ("own_open", "start_hold") if not GM.E.DEFAULT.get(k)])
 
 
 def unit_f12_words(repo, preset, seed):
@@ -287,7 +286,6 @@ def unit_f12_words(repo, preset, seed):
     r["leaks"] = sorted({t_ for t_ in picked if t_ in leaks})
     r["earth_words"] = sorted({w for w in EARTH_WORDS for l_ in said if w in l_})
     r["money_mentions"] = sum(len(re.findall(r"\bmoney\b", l_, re.I)) for l_ in said)
-    r["forced"] = forced_on(GM)
     return r
 
 
@@ -296,7 +294,7 @@ def unit_f12_start(repo, seed):
     import world_link as WLM
     E = GM.E
     FAI = [c[0] for c in E.COMMITMENTS].index("faith")
-    out = dict(seed=seed, starts={}, forced=forced_on(GM))
+    out = dict(seed=seed, starts={})
     for preset in ("1", "2", "3", "4"):
         p = GM.PRESETS[preset]
         g = GM.Game(name="Ari", seed=seed, **p)
@@ -323,7 +321,8 @@ def unit_f12_start(repo, seed):
     return out
 
 
-UNITS = dict(f4=unit_f4, f6=unit_f6, f12own=unit_f12_own, f12words=unit_f12_words, f12start=unit_f12_start)
+UNITS = dict(f4=unit_f4, f6=unit_f6, f12own=unit_f12_own, f12words=unit_f12_words, f12start=unit_f12_start,
+             f12defaults=unit_f12_defaults)
 
 
 # ---------------------------------------------------------------------------------------------------- running
@@ -439,8 +438,8 @@ def judge_f6(rs):
 
 def judge_f12(rs):
     R = Rows("f12_start"); rs = errors(rs, R)
-    fo = sorted({x for r in rs if r["_unit"][0] in ("f12words", "f12start") for x in r.get("forced", [])})
-    R.note(f"played lives switched on here: {', '.join(fo) or 'none'}")
+    fo = [x for r in rs if r["_unit"][0] == "f12defaults" for x in r["forced"]]
+    R.note(f"played lives switched on here: {', '.join(fo) or 'none'} (the game as it loads)")
     words = [r for r in rs if r["_unit"][0] == "f12words"]
     own = [r for r in rs if r["_unit"][0] == "f12own"]
     st = [r for r in rs if r["_unit"][0] == "f12start"]
@@ -514,7 +513,8 @@ def plan(check, seeds, lives):
                 + [("f6", (w, s, lives), {}) for w in ("tribal", "magic") for s in seeds[:2]])
     if check == "f12_start":
         env = dict(CHROMA_GAME=json.dumps(dict(world_hold=True)), CHROMA_ENGINE=json.dumps(dict(own_open=True, start_hold=True)))
-        return ([("f12words", (p, s), env) for p in ("5", "6") for s in F12_WORD_SEEDS]
+        return ([("f12defaults", (), {})]
+                + [("f12words", (p, s), env) for p in ("5", "6") for s in F12_WORD_SEEDS]
                 + [("f12start", (s,), env) for s in F12_START_SEEDS]
                 + [("f12own", (w, s, min(lives, 200)), {}) for w in ("tribal", "magic") for s in seeds[:2]])
     raise ValueError(check)
