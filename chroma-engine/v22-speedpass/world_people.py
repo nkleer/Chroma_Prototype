@@ -358,7 +358,7 @@ LEAD_TITLES = {"head of government": ("national", "rule", None), "minister": ("n
                "lay judge": ("office_judge", "rule", None), "research group leader": ("office_head", "learn", None),
                "community centre manager": ("office_head", "gather", None), "artistic director": ("office_head", "arts", None),
                "shift manager": ("setting_work", "comm", "work"), "head chef": ("setting_work", "comm", "work"),
-               "founder of a firm": ("setting_work", "prod", "work"), "union rep": ("setting_member_led", "prod", "work"),
+               "founder of a firm": ("place_owned", "prod", "work"), "union rep": ("setting_member_led", "prod", "work"),
                "shop owner": ("place_owned", "comm", None), "café or bar owner": ("place_owned", "gather", None),
                "community theatre director": ("place_chosen", "arts", None),
                "deacon or elder": ("setting_congregation", "faith", "congregation"),
