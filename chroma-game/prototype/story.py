@@ -1292,7 +1292,7 @@ class Story:
             sex = ("f" if FEM_REF.search(r_) else "m" if MAS_REF.search(r_) else
                    (self.partner_sex or "x") if role in ("partner", "prospect", "companion", "former partner") else None)
         n = self._name(sex)
-        p = dict(id=len(self.people), name=n, role=role, ref=ref.format(n=n), alive=True, introduced=False, met=None, seen=0,
+        p = dict(id=1 + max((q["id"] for q in self.people), default=-1), name=n, role=role, ref=ref.format(n=n), alive=True, introduced=False, met=None, seen=0,
                  made=getattr(self, "age", 0))
         self.people.append(p)
         return p
