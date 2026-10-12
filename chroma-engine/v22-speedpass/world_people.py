@@ -339,7 +339,12 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # yearly check, the leader's money is under this share of its best since they began leading by favours (a patron with
 # less to give than the clients came for; Scott 1972), read against the life's own money so it holds whatever money
 # the society runs at (v22.5: with real money few leaders sit under the need line, and favours fell .7 a ten post-years
-# against 3.4 to 3.7 for the other ways); 0: the need line alone, as before
+# against 3.4 to 3.7 for the other ways); 0: the need line alone, as before; fast_gap: weeks after a custom step before
+# fast change can step the post again (custom reads the town's change over four quarters, so one stretch of change stayed
+# in the window and stepped the post in back-to-back quarters: 96% of a custom post's later steps came the next quarter,
+# against none to a third for the other ways, and its second step was the fall; 52: once a year, as favours and
+# inspiring are read), fast_k: the fast line x this (with fast_gap, the line that keeps custom's falls with the other
+# ways'); 0 and 1: every quarter, at the Outer world's line, as before (the v22.5 refit's values: engine.V225 lead_par)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
                     sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, fav_drop=0.0,
                     fast_gap=0, fast_k=1.0)

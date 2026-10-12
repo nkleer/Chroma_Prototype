@@ -1156,6 +1156,9 @@ V225 = dict(
     one_roll=True,
     retire_ends=True,
     world_only=True,
+    # S7 (lead_ways) with v22.5's money and the yearly custom read (world_people.LEAD_DEFAULT): seeds 41-52, 300 x 80,
+    # falls per way and time in post per lead colour back within 1.5x and 1.2x
+    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.9),
     dream_grow=True,
     own_open=True,
     start_hold=True,
@@ -1372,7 +1375,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
