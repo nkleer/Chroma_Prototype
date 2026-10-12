@@ -1128,6 +1128,8 @@ DEFAULT = dict(
                          # DRV_NORM was measured on calm lives with the world off
     risk_norm=False,     # F9: the body's and mind's risks on the Library's moments choose who, not how many (on: True)
     ev_fit=None,         # F9: {life event: factor} on its per_year, fitted to Release's rows (records/v22.5/scope.md)
+    ev_gapfit=None,      # F9.13: {life event: (lo, hi) years}, the gap before it comes again where the Library gives none (as
+                         # ev_gap: none before lo years, fully likely by hi); a home is bought, then moved up or down years later
     cond_once=False,     # F9.27: a condition they already have is not diagnosed a second time (on: True)
     ill_real=False,      # F9: the Library's body and mind moments come at their own rates, without event_scale (on: True)
     par_split=None,      # F9: the share of a breakup moment (SPLIT_SOFT, from 16) that ends a home together; the rest are
@@ -1487,7 +1489,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, up_conc=0.3, up_half=20.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, loan_end=False,
                retire_hz=((50, 0.0), (54, 0.0), (56, 0.045), (58, 0.05), (60, 0.035), (61.9, 0.035), (62, 0.11), (65, 0.12), (67, 0.12), (70, 0.14), (80, 0.2)),
-               ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -2092,6 +2094,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         return (float(g_[0]), float(g_[-1]))
     GAP_ = np.array([_gap((s_.get("gap") or (s_.get("timing") or {}).get("gap_years")) if s_.get("tier") == "life event" or s_.get("per_year") else None)
                      for s_ in L.get("src", [{}] * L["S"])], float).reshape(-1, 2)   # build.py keeps it as timing gap_years
+    if P["ev_gapfit"]:   # F9.13: a gap the Library's entry leaves out, fitted to Release's rows (a child version counts as one)
+        rnm_ = np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]
+        for nm_, g_ in P["ev_gapfit"].items():
+            GAP_[rnm_ == nm_] = (float(g_[0]), float(g_[-1]))
     GAPM_ = ~np.isnan(GAP_[:, 0]); GAPON_ = bool(P["ev_gap"] and GAPM_.any())
     # far_ties (item 18): a far moment (cast_want: far_*) comes only with a tie's call, never by the everyday draw
     FARS_ = np.zeros(L["S"], bool)
