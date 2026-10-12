@@ -1121,11 +1121,10 @@ DEFAULT = dict(
     mon_drift=0.01,      # F9.38: the share of the gap to the money a life's situation brings that closes each week (.01: about
                          # two years to most of the way; faster, a hard spell is felt sooner and passes sooner)
     lone=None,           # F9.39 loneliness: a spell of withdrawal from the first age point (about 1 adult in 20 is often
-                         # lonely, more when single, out of work, low or ill; ONS 2018, Holt-Lunstad 2015). It starts by the yearly rate read off age's
-                         # (age, rate) points x exp of single, work, low, ill (each 0 or 1 x its weight) and ends at out a year
-                         # x exp(-.5 x the same); while it lasts the ties a life drifts to are keep x the people's and close
-                         # rate of the gap a week (not .01). Own random stream. dict(age, single, work, low, ill, out, keep,
-                         # rate); None: as before
+                         # lonely, more when single, out of work, low or ill; ONS 2018, Holt-Lunstad 2015). It starts by the yearly rate
+                         # read off age's (age, rate) points x exp of single, work, low, ill (each 0 or 1 x its weight) and ends at out a
+                         # year x exp(-.5 x the same); while it lasts the ties a life drifts to are keep x the people's and close rate of
+                         # the gap a week (not .01). Own random stream. dict(age, single, work, low, ill, out, keep, rate); None: as before
     job_gap=None,        # F9.38: out of work after a job (working age, not retired) the pay stops at once: (cut, fall, years):
                          # for that many years after the job ends the money they drift to is cut lower (benefits replace
                          # little) and it falls at fall a week (savings run down in months), not mon_drift; None: as before
@@ -1221,8 +1220,8 @@ V225 = dict(
     birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
     age_free=('your first full-time job',),
     mon_drift=0.015,
-    lone=dict(age=((13.5, 0.02), (16, 0.012), (18, 0.004), (25, 0.006), (35, 0.012), (50, 0.014), (60, 0.014), (70, 0.008),
-                   (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
+    lone=dict(age=((13, 0.02), (16, 0.01), (18, 0.003), (25, 0.007), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
+                   (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
     low_pay=(0.7, 0.3, 3.0),
     pay_col=((0.0, 0.08, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),
     tie_col=(0.3, 0.0, 0.0, 0.0, 0.05),
@@ -4468,7 +4467,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             tt = np.where(lone, LO_["keep"] * tt, tt); tie_r = np.where(lone, LO_["rate"], 0.01)
         mon_r = P["mon_drift"]
         if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:   # F9.38: a lost wage stops at once
-            gp_ = (~held[:, CAR] & ~retired & (ago["job"] != NEVER) & (end_t[:, CAR] < NEVER // 2)
+            gp_ = (~held[:, CAR] & ~retired & (ago["job"] != NEVER) & (end_t[:, CAR] > NEVER // 2)
                    & (t - end_t[:, CAR] < 52 * P["job_gap"][2]))
             mt = mt - P["job_gap"][0] * gp_
             mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])

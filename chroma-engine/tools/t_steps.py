@@ -353,11 +353,16 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(hh_money=True, ties_people=True), {}, 30),
        ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
        ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
-       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
+       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30),
+       # v22.5 refit round 2 (F9.20, F9.38 to F9.40), at the refit's values (V225)
+       ("v22.5 round 2, loneliness, low pay, a job gap, a couple's pay, colour-leaned pay and ties, a child's ties, firm crises "
+        "(lone, low_pay, pay_col, job_gap, pair_pay, mon_drift, tie_col, kid_tie, c_par)",
+        {k_: E.V225[k_] for k_ in ("lone", "low_pay", "pay_col", "job_gap", "pair_pay", "mon_drift", "tie_col", "kid_tie", "c_par")
+         if k_ in getattr(E, "V225", {})}, {}, 40, 6)]
 def p2_row(row_):
     """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
-    if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
+    if not sw or not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         return None
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
