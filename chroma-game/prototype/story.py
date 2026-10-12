@@ -55,6 +55,39 @@ SETTINGS = {
     "tribal": dict(code="T", title="Tribal", blurb="clans, hunts, elders and the turning seasons, before cities"),
     "magic": dict(code="M", title="A world of magic", blurb="towers, guilds and old powers; a gift may awaken"),
 }
+# v22.5, F12 (the game's world_hold): lines of the shared pools that are modern Earth's (money, prices, profits, sirens,
+# votes, books), left out in the clan (T) and the towers (M) while the switch is on
+WORLD_LEAKS = {
+    "T": {
+        "Some paths lead to money and standing, others don't. {N} has noticed which is which.",
+        'Something in the {place} is broken and nobody is fixing it. Someone could ask a price for the fix.',
+        'There is a gap in what the {place} provides, and gaps can be filled, for a price.',
+        '{N} notices a need nobody is meeting, and a profit nobody is taking.',
+        '{disaster}: smoke, sirens, and people running. {Ns} heart pounds.',
+        'The group must decide what to do, and {friend} is quietly lining up votes.',
+        'The {place} is going to ruin, and somebody is profiting from it. {N} wonders who.',
+        'A profitable year, by {Ns} own reckoning.',
+        '{mentor} sees something in {N}, and starts lending them books and hard questions.',
+    },
+    "M": {
+        "Some paths lead to money and standing, others don't. {N} has noticed which is which.",
+        'A relative needs money, and {N} has a little put aside.',
+        '{disaster}: smoke, sirens, and people running. {Ns} heart pounds.',
+        'Money goes missing that {N} had counted on, and they take it personally.',
+        'Good times: money moves, and {N} watches where it goes.',
+    },
+}
+
+
+def _worlds():
+    """v22.5, F12: the Library's words of the tribal and magic worlds (worlds.py, pinned next to the engine), or None."""
+    try:
+        import worlds
+        return worlds
+    except ImportError:
+        return None
+
+
 WORLD = {
     "earth": dict(places=PLACES, disasters=DISASTERS, brushes=BRUSHES,
                   classmate="their classmate {n}", teacher="their teacher {n}", elder_mentor="an older hand called {n}",
@@ -686,6 +719,8 @@ NEW_KIN = dict(friend=("friend", "their closest friend {n}"), sibling=("sibling"
                parent=("mother", "their mother {n}"), child=("child", "their child {n}"))
 LEFT_BEHIND = ("friend", "rival", "teacher", "neighbour", "old neighbour", "colleague", "boss")   # who stays when the family moves
 
+ROLL_KIN = ("mother", "father", "grandparent", "sibling", "partner", "child")   # F7: the people the engine keeps the roll of
+TAKEN_IN = re.compile(r"adopt|foster|take (?:them |a child |the child )?in\b", re.I)   # F7: a child taken in, not born
 KILLS = {"parent": ("mother", "father"), "grandparent": ("grandparent",), "sibling": ("sibling",), "friend": ("friend",),
          "partner": ("partner",), "child": ("child",), "mentor": ("mentor",)}   # library kills: role -> cast roles
 BIG_WIN = [("", "It is better than {N} had dared to hope."), ("W", "It is more than {N} deserved, they think."),
@@ -1080,8 +1115,12 @@ def load_library_story(situations, read_events=()):
     return len(LIB_SCENES)
 
 
+ACT_WORLD = {}   # v22.5, F12 (the game's world_hold): the seed labels as the clan or the towers say them (worlds.py LABELS)
+
+
 def act(label):
     """An option label as something the character does: 'put your own needs first' -> 'put their own needs first'."""
+    label = ACT_WORLD.get(label, label)
     if label in LIB_ACTS:                       # the Library already wrote it in the third person
         return LIB_ACTS[label]
     s = ACT_FIX.get(label, label)
@@ -1197,6 +1236,7 @@ class Story:
         self.setting = setting if setting in WORLD else "earth"
         self.W = WORLD[self.setting]
         self.wcode = SETTINGS[self.setting]["code"]
+        self.hold = False                   # v22.5, F12: the game's world_hold (the world's own words)
         self.mem = np.full(5, 0.2)          # memory of past identities
         self.voice = np.full(5, 0.2)        # the narrator's emphasis: present identity blended with the memory
         self._voice_top = None
@@ -1221,6 +1261,11 @@ class Story:
         self.age = 0.0                      # set by the game every week (when people are first met)
         self.last_tag = ""                  # color tag of the variant pick() drew last
         self.last_weeks = [0.0] * 5         # where the ordinary weeks of the last chapter's year went
+        # v22.5 F7, one roll of the living (the engine's one_roll; the game sets it every week): the people the world has
+        # lost and the story has not yet told, (engine role, person), told first by the next death of that role
+        self.one_roll = False
+        self.due = []
+        self.kids_n = 0                     # F7: the engine's living children (the game sets it every week with one_roll)
         # the family the character is born into
         self.new("mother", "their mother {n}")
         self.new("father", "their father {n}")
@@ -1291,6 +1336,9 @@ class Story:
         elif slot == "grandparent":
             ps = self.alive("grandparent")
             p = ps[0] if ps else None
+            if p is None and self.one_roll:             # F7: the eldest of the living takes the grandparents' seat
+                ps = self.alive("mother") + self.alive("father") or self.alive("aunt") or self.alive("mentor")
+                p = ps[0] if ps else self.get("old neighbour", "their old neighbour {n}")
             if p is None:
                 ctx[slot] = "their late grandparents"
                 return ctx[slot]
@@ -1318,6 +1366,15 @@ class Story:
             p = self.get("boss", self.W["boss"])
         elif slot == "colleague":
             p = self.get("colleague", self.W["colleague"])
+        elif slot == "child" and self.one_roll:        # F7: a birth names the newborn; otherwise the youngest at home
+            ks = sorted(self.alive("child"), key=lambda q: q.get("made", 0))
+            if ctx.get("_birth"):
+                p = ks[-1] if ks and not ks[-1].get("born") and self.age - ks[-1].get("made", -99) < 0.1 else \
+                    self.new("child", "their newborn {n}")
+            elif ks or self.kids_n > 0:
+                p = ks[-1] if ks else self.new("child", "their child {n}")
+            else:                                       # no child of their own: the young one is family's, not theirs
+                p = self.get("cousin", "their young cousin {n}")
         elif slot == "child":
             p = self.get("child", "their child {n}")
         elif slot == "prospect":
@@ -1353,14 +1410,31 @@ class Story:
         ctx[slot] = self.say(p)
         return ctx[slot]
 
+    def due_pop(self, kills=None):
+        """F7: the first person the world has lost whom the story has not yet told, of the engine role kills (any, for a
+        death that names none); None when there is none."""
+        self.due = [(r, p) for r, p in self.due if p["alive"]]
+        for i, (r, p) in enumerate(self.due):
+            if kills in (None, "anyone") or r == kills:
+                return self.due.pop(i)[1]
+        return None
+
     def dies(self, p):
         if p is not None and p["alive"]:
             p["alive"] = False
             self._dead.append(p)
+            if self.one_roll:
+                p["gone"] = self.age                # F7: when, for the world's record of the same death
 
     def _who_dies(self, age, kills="anyone"):
         """Someone close dies. A library event can name the role (kills: parent, sibling, ...); otherwise
         grandparents first, then parents, later friends and siblings."""
+        if self.one_roll:                           # F7: the one the world lost, when it has said who
+            p = self.due_pop(kills)
+            if p is not None:
+                return p
+            if kills == "partner" and not self.alive("partner") and self.alive("ex"):
+                return self.alive("ex")[-1]             # a partner the story knew, though they had parted
         roles = KILLS.get(kills, ())
         named = [p for r in roles for p in self.alive(r)]
         if named:
@@ -1369,7 +1443,7 @@ class Story:
             return self.new(*NEW_KIN[kills])
         cands = []
         for p in self.people:
-            if not p["alive"]:
+            if not p["alive"] or (self.one_roll and p["role"] in ROLL_KIN):   # F7: the engine's kin die only by its roll
                 continue
             w = {"grandparent": 1.0 + age / 30, "mother": max(0.0, (age - 18) / 25), "father": max(0.0, (age - 18) / 25),
                  "sibling": max(0.0, (age - 45) / 60), "friend": max(0.0, (age - 40) / 80), "mentor": max(0.0, (age - 25) / 60),
@@ -1397,6 +1471,8 @@ class Story:
                     continue
                 if st and stage is not None and not any(stage in STAGESETS[c] for c in st):
                     continue
+            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
+                continue
             tag = e[0]
             w = float(np.mean([v[CI[c]] for c in tag])) if tag else 0.12
             cands.append((max(w, 1e-3) ** SHARP, e[1], tag))
@@ -1503,6 +1579,8 @@ class Story:
             return m
         ph = phase(age)
         ctx = dict(_age=age)
+        if self.one_roll and sit == "a child is born":   # F7: the scene's child is the newborn
+            ctx["_birth"] = True
         if kills or sit == "bereavement":
             ctx["_dying"] = kills or "anyone"
             if kills:
@@ -1632,8 +1710,13 @@ class Story:
         if pushed and rel >= 0.3:
             L.append(self.fill("It costs {N}: strain, and a wanting they swallow for now."))
         if pushed and closed and not ev["success"]:
-            L.append("Forcing what was out of reach backfires: more stress, and money lost.")
+            L.append(self.world_word("backfire", "Forcing what was out of reach backfires: more stress, and money lost."))
         return "\n".join(L)
+
+    def world_word(self, key, default=None):
+        """v22.5, F12 (world_hold): the Library's word for key in this world (worlds.py WORDS), else default."""
+        wd_ = _worlds() if self.hold else None
+        return getattr(wd_, "WORDS", {}).get(self.setting, {}).get(key, default) if wd_ is not None else default
 
     def set_family(self, siblings, grandparents):
         """Match the family to the engine's (the Earth batch draws siblings and grandparents per person)."""
@@ -1704,17 +1787,23 @@ class Story:
             return self.fill("{N} has a new baby " + w_ + ": " + self.nm(out[0]) + ".")
         return self.fill("New babies in the family: " + " and ".join(self.nm(p) for p in out) + ".")
 
-    def later_child(self):
-        """One more child (R15: a later child born or taken in while there are children already): a line."""
+    def later_child(self, taken=False):
+        """One more child (R15: a later child born or taken in while there are children already): a line. taken (F7): the
+        week's moment took a child in, so the line says so instead of a birth."""
         ch = self.new("child", "a child, {n}"); ch["born"] = True
-        line = self.fill("Another child is born to {N}: " + self.nm(ch) + ".")
+        line = self.fill(("{N} takes in another child, " + self.nm(ch) + ", who needs a home.") if taken else
+                         ("Another child is born to {N}: " + self.nm(ch) + "."))
         ch["ref"] = "their child " + ch["name"]
         return line
 
     def quiet_deaths(self, role, left, age):
         """Grandparents of grown-up grandchildren die outside the Library's moments: say so briefly."""
         out = []
-        for p in self.alive(role)[left:] if left < len(self.alive(role)) else []:
+        gone = self.alive(role)[left:] if left < len(self.alive(role)) else []
+        if self.one_roll and gone:                  # F7: those the world lost, before anyone the story picks
+            due = [p for r, p in self.due if p["alive"] and p["role"] == role]
+            gone = (due + [p for p in self.alive(role) if p not in due])[:len(gone)]
+        for p in gone:
             self.dies(p)
             out.append(self.fill(self.pick(DEATH_FAR), phase(age), dict(_p_dead=p, _age=age)))
         return " ".join(out) or None
@@ -1926,6 +2015,10 @@ class Story:
                 if title["name"] == "adoptive parent":
                     return self.fill("{N} adopts " + self.nm(ch) + ": " + self.role_mark(title) + " now.")
                 return self.fill("{N} takes in " + self.nm(ch) + ", a child who needs a home: " + self.role_mark(title) + " now.")
+            if kind == "children" and self.one_roll and TAKEN_IN.search(through or ""):   # F7: an act that takes a
+                ch = self.new("child", "a child, {n}"); ch["born"] = True              # child in is not a birth
+                ch["ref"] = "their child " + ch["name"]
+                return self.fill("{N} takes in " + self.nm(ch) + ", a child who needs a home.")
             if kind == "children":
                 first = not self.alive("child")
                 fresh = [q for q in self.alive("child") if not q.get("born") and getattr(self, "age", 0) - q.get("made", -99) < 0.1]
@@ -1974,7 +2067,8 @@ class Story:
             bs = self.alive("boss")
             for b in bs:
                 b["role"] = "former boss"
-            return self.fill("{N} loses their " + mk("c", "career||lost job", self.W["job"]) + "." + (f" {self.nm(bs[0])} does not meet their eye." if bs else ""))
+            job_ = self.world_word("job", self.W["job"])   # F12 (world_hold): a place in the work in the clan
+            return self.fill("{N} loses their " + mk("c", "career||lost job", job_) + "." + (f" {self.nm(bs[0])} does not meet their eye." if bs else ""))
         if what == "retired":
             return self.fill(self.pick([("", "{N} retires."), ("G", "{N} retires, and the days grow slower and wider."),
                                         ("B", "{N} retires, reluctantly, still counting what they are owed.")]))

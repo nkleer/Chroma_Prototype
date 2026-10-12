@@ -3552,7 +3552,7 @@ function optRow(o, i, num) {
   const bits = [];                                      // the small print, shown on the phone and in the strip
   if (f.needs && f.needs.length) bits.push(`<span>meets ${esc(f.needs.join(" and "))}</span>`);
   for (const x of (f.lift || [])) bits.push(`<span class="up">${ic(NEED_ICON[x.need] || "dot")} ${esc(NEED_LONG[x.need] || x.need)} is ${esc(x.word)}: ${esc(x.lift)}</span>`);
-  if (o.commit) bits.push(`<span>${ic(KIND_ICON[o.commit] || "anchor")} could start a ${esc(o.commit)}</span>`);
+  if (o.commit) bits.push(`<span>${ic(KIND_ICON[o.commit] || "anchor")} could start ${o.commit_say ? esc(o.commit_say) : "a " + esc(o.commit)}</span>`);
   if (o.needs) bits.push(`<span class="why">${ic("lock")} ${esc(o.needs.line)}</span>`);
   if (!pass) bits.push(fxHTML(f));
   if (pass) return `<button class="opt pass onone" data-i="${i}" data-num="${n}" style="--n:${i}" aria-label="${esc(n + ": " + cap(o.label) + ". " + ACC_WORD[acc])}">
