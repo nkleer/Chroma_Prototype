@@ -396,6 +396,8 @@ DEFAULT = dict(
     retire_means=0.8,    # money relative to the median, to this power before pension age (a third of it after)
     retire_misfit=1.5,   # work that no longer fits: x (1 + 1.5 misfit)
     pension_cut=0.06,    # a pension taken early is smaller: 6% for each year before pension age (at least half)
+    pension_k=0.3,       # v22.5 F9 (modifiers.md M15): a career's pension in the money a life drifts to (work pays .45)
+    pension_base=0.0,    # v22.5 F9: a state pension from pension age for everyone, career or not (0: none, as before)
     faith_inherit=0.6,   # chance a child is raised inside a faith (each family's faith has its own color profile)
     faith_own_age=16.0,  # a faith one was raised in is the family's until then: it builds no strength of one's own before
                          # this age, so leaving it as a young adult costs little (0: as before)
@@ -4188,7 +4190,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         need[wid, NIDX["belonging"]] -= 0.4; stress[wid] += 0.5
         end(np.nonzero(wid)[0], [PAR] * int(wid.sum()), "widowed", t)
         # resources drift toward what a life's commitments and age provide
-        mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + 0.3 * pension - 0.12 * kids
+        mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + P["pension_k"] * pension - 0.12 * kids
+        if P["pension_base"] and age >= P["retire_age"]:   # F9: the state pension
+            mt = mt + P["pension_base"]
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
         if HH_ON or TP_ON:   # F3: the household's money until they live on their own; ties are the people around them
             own_, away_ = home_share(age)
