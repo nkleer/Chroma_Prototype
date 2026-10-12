@@ -306,12 +306,13 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
 # what they are used to: each colour's mean log share at their places a year or more theirs, and its spread among them, a
 # running mean with odd_mem of each year's places, .25; in proportion, so half the share is as odd for a rare colour as a
-# common one), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# common one; the spread with odd_vmem when set, v22.5 .05: how far apart their places sit is learnt over a life, so two
+# places do not put the lower one exactly one spread under; None: odd_mem), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
-                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
+                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vmem=None, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
                     odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
@@ -4194,7 +4195,10 @@ class People:
         one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
         a batch as alone in the game. Shares are read in proportion (log share): a colour common at their places spreads
         wider below its mean than a rare one, which cannot fall far, so read in plain shares Green-led lives were odd most
-        and Red-led least (s4_odd 1.20x on the v22.4 refit). Its moment waits once a life stage per place (never after blending in there). Held
+        and Red-led least (s4_odd 1.20x on the v22.4 refit). With odd_vmem (v22.5) the spread is learnt over a life: with
+        two places and the spread of these two alone, the lower sits exactly one spread under the mean, so "odd" turned on
+        whether that place had drifted down lately (a newcomer's workplace for White- and Green-led lives, whose faiths lean
+        their way; a steady congregation for Blue- and Black-led ones). Its moment waits once a life stage per place (never after blending in there). Held
         odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
         (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
         odd_regular a year toward theirs."""
@@ -4211,7 +4215,8 @@ class People:
         var = (np.where(el[..., None], lf - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
         hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
         self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
-        self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
+        kv_ = k_ if P_["odd_vmem"] is None else np.where(self.odd_n > 0, P_["odd_vmem"], 1.0)[:, None]   # the spread (v22.5)
+        self.odd_var = np.where(hv, self.odd_var + kv_ * (var - self.odd_var), self.odd_var)
         self.odd_n += ne > 0
         self.odd_now = odd
         self.odd_y = np.where(odd & ~self.odd_blend, self.odd_y + 1, 0)

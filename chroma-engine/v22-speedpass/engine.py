@@ -1230,6 +1230,7 @@ V225 = dict(
     job_gap=(0.15, 0.05, 2.0),
     pair_pay=0.12,
     c_par=dict(sold=0.03, merged=0.015),
+    eyes_par=dict(odd_vmem=0.05),   # S4: the spread of their places' shares learnt over about twenty years (world_people)
 )
 DEFAULT.update(V225)
 # F17: the canon lean of each deed (W U B R G, log odds per unit of a colour's lead); deeds not named keep the Library's
@@ -1422,7 +1423,7 @@ UPD_OFF = dict(dis_match=False,
                body=False, mind=False, death_life=False,
                # values the v22.5 refit changed (V225)
                death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
-               kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0,
+               kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
