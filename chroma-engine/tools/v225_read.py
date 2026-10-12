@@ -107,6 +107,7 @@ if RL:
     for n_, t_, i_, w_, h_ in RL["log"]:
         if i_ in CO_ and w_ == "gained":
             co1.setdefault(n_, t_ / 52)
+    first["home"] = np.array([co1.get(n_, np.inf) for n_ in range(N)])   # for Release's part50 read the scope's way
     f9["F9.6c a home together by 50 / ever"] = [round(sum(1 for a in co1.values() if a <= 50) / N, 3), round(len(co1) / N, 3)]
     f9["F9.7c first home together, median age"] = med(list(co1.values()))
     f9["F9.8c first home together ends in a split"] = round(sum(1 for n_, a0 in co1.items() if next(
@@ -120,6 +121,19 @@ par50 = [n_ for n_ in range(N) if any(h == "start" and a <= 50 for a, h in cm.ge
 f9["F9.3 'a child is born' per parent by 50, mean"] = round(float(np.mean([sum(1 for a in born.get(n_, []) if a <= 50) for n_ in par50])), 2) if par50 else None
 ab = [a for v in born.values() for a in v]
 f9["F9.4 births after 50, share"] = round(float(np.mean(np.array(ab) > 50)), 3) if ab else None
+# the engine's own births (o["births"]: each child gained once, by the moment and option that brought it; own births
+# are BIRTH_OWN's moments, not adopting, fostering or taking a child in)
+bo_ = {}
+for n_, t_, nm_, lb_ in o.get("births", []):
+    if nm_ in E.BIRTH_OWN and not E.BIRTH_NOT.search(str(lb_)):
+        bo_.setdefault(n_, []).append(t_ / 52)
+ab2 = [a for v in bo_.values() for a in v]
+f9["F9.4b own births after 50, share (each birth once)"] = round(float(np.mean(np.array(ab2) > 50)), 3) if ab2 else None
+f9["F9.2c first own birth, median"] = med([min(v) for v in bo_.values()])
+pb50 = [n_ for n_, v in bo_.items() if min(v) <= 50]
+f9["F9.3b own births per parent by 50, mean (each birth once)"] = round(float(np.mean(
+    [sum(1 for a in bo_[n_] if a <= 50) for n_ in pb50])), 2) if pb50 else None
+f9["F9.1b own birth by 50 (of all lives)"] = round(len(pb50) / N, 3)
 # homes
 buy = ev_ages({"buying a home"})
 f9["F9.11 bought a home by 50"] = round(sum(1 for v in buy.values() if min(v) <= 50) / N, 3)
@@ -127,12 +141,12 @@ f9["F9.12 first purchase age, median"] = med([min(v) for v in buy.values()])
 f9["F9.13 purchases per owner"] = round(float(np.mean([len(v) for v in buy.values()])), 2) if buy else None
 ba = [a for v in buy.values() for a in v]
 f9["F9.14 purchases at 75+, share"] = round(float(np.mean(np.array(ba) >= 75)), 3) if ba else None
-lost = set()
+lost = set(); lwhy_ = {}
 for n_, evs in o["events"].items():
     for e_ in evs:
         ds_ = e_.get("deep_state") or {}
         if ds_.get("holding") == "home" and "lost" in str(ds_.get("kind", "")) or ds_.get("kind") in ("evicted", "repossessed"):   # a sale only comes in a hard year: forced
-            lost.add(n_)
+            lost.add(n_); lwhy_[str(ds_.get("why", ds_.get("kind")))] = lwhy_.get(str(ds_.get("why", ds_.get("kind"))), 0) + 1
 own_t = 0   # F9.16: a logged life whose home holding ends with no sale, loss or move logged (the deep state logs each)
 for n_, evs in o["events"].items():
     h_ = 0
@@ -144,12 +158,15 @@ for n_, evs in o["events"].items():
             own_t += 1; break
 f9["F9.16 owner to tenant without a sale"] = own_t
 f9["F9.15 lost a home (logged lives)"] = round(len(lost) / max(LOG, 1), 3)
+f9["F9.15b home losses by why (logged lives)"] = lwhy_
 # work
 car = {n_: sorted(cm.get((n_, CAR_), [])) for n_ in range(N)}
 lj = [sum(1 for _, h in v if h == "lost job") for v in car.values()]
 f9["F9.17 job losses per life, mean"] = round(float(np.mean(lj)), 2)
 f9["F9.18 at least one / four or more"] = [round(float(np.mean(np.array(lj) >= 1)), 3), round(float(np.mean(np.array(lj) >= 4)), 3)]
 f9["F9.19 employers (career starts), mean"] = round(float(np.mean([sum(1 for _, h in v if h == "start") for v in car.values()])), 2)
+f9["F9.19b employers (career starts and changes of employer), working lives, mean"] = round(float(np.mean(
+    [sum(1 for _, h in v if h in ("start", "moved")) for v in car.values() if any(h == "start" for _, h in v)])), 2)
 firm = ev_ages({"new owners take over the firm", "folded into a bigger firm", "the state takes over the failing firm",
                 "the loan the new owners call in"})
 f9["F9.20 firm crises per life, mean"] = round(sum(len(v) for v in firm.values()) / N, 2)

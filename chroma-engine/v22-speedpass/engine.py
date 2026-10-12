@@ -1117,6 +1117,19 @@ DEFAULT = dict(
                          # a rough patch the couple weathers. None: every one ends it
     par_age=None,        # F9: a partnership (living together) starts as this share of the time by age, read off these
                          # (age, share) points; a younger love is a romance, not a home together. None: at any age
+    age_free=None,       # F9: [life event, ...] that come by their age window at their highest stage rate, not by the life stage
+                         # reached (a stage can begin years after its window opens); "your first full-time job" for F9.38
+    birth_par=None,      # F9.3 (with birth_age): a life's own births x this factor by the children it has living (0, 1, 2, ...;
+                         # the last for more): fewer go on to a third or fourth child. None: as before
+    ti_fit=None,         # F9: {title: factor} on its yearly rate (the Library's or the packs' rule), fitted to Release's rows
+                         # (records/v22.5/scope.md); "living together" for F9.6. None: as written
+    home_sale=1.0,       # F9.15: in a hard year under the need line, the home itself is sold in this share of cases (other
+                         # holdings still go first); otherwise the household gets by, cutting back and borrowing. 1.0: always
+    birth_free=False,    # F9.2 to F9.4 (with birth_age): a life's own births come by its age (the moment's age window, at
+                         # its highest per_year), not by the life stage it has reached; birth_age's taper then shapes them
+    job_move=None,       # F9.19: a working life changes employer at this yearly chance by age, read off these (age, chance)
+                         # points (after a year in work, before retiring): the career goes on, the workplace and its
+                         # people change (with the world on, the work setting is left and a new one joined). None: never
     # F17 deeds by canon: an option that leaves a deed (a mark) leans by the colours canon gives it (log odds per unit
     # of a colour's lead, DEED_CANON); off-canon leans (White breaking the law, Blue the most drugs, Green refusing people
     # in need) become soft tendencies the other way. 0: as before; on: 1.0
@@ -1275,6 +1288,8 @@ DEATH_PAR = dict(
     sudden=0.5,              # before old age, this share of a failing body goes at once (a heart attack, a stroke); the
                              # rest fail over weeks, of their heaviest condition or else of heart failure
     old_age=85.0,            # from this age a failing body with nothing named is old age
+    frail_c=0.0,             # v22.5 F9.35: from 15, a failing body's background a year beside the Gompertz term (Makeham):
+                             # the young who die of an illness, not only of an accident
     ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
                              # illness's course ends in death this often (at 60, with the body at its age's level)
     ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
@@ -1314,7 +1329,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -1547,6 +1562,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     clash0 = np.full((N, NK), -1); clashI = np.zeros((N, NK)); clash_by = np.full((N, NK), -1); clash_log = []
     MON, TIM, HEA, TIE, FRE = (RIDX[r] for r in ("money", "time", "health", "ties", "freedom"))
     commit_log = []; R_hist = []; K_hist = []
+    birth_log = []   # each child a life gains (n, week, moment, option): the first, or one more while there are children
     plast = np.zeros(N); ctrl = np.zeros(N)
     fhz = np.zeros(N); hz_mem = np.zeros(N); hea_last = np.full(N, -1.0)   # v7 felt horizon: limited time felt, reminders
     dsc = np.ones(N)                                     # v7 discipline: self-control learned from plans kept and broken
@@ -2108,12 +2124,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         AGES_T = [tuple(r_) for r_ in GR["ages"]]   # speed pass: each title's ages unpacked once (the same numbers)
         BG = [i_ for i_ in range(NI_) if GR["names"][i_] not in ENGINE_GRANTED and
               not (i_ < NT_ and TK_[i_] < NK and GR["rule"][i_]["rate"] is None)]      # items with a background rule
+        TI_F = {list(GR["names"]).index(k_): float(f_) for k_, f_ in (P["ti_fit"] or {}).items() if k_ in list(GR["names"])}
         def r_rate(i_):
             r_ = GR["rule"][i_]
             if r_["rate"] is not None:
-                return r_["rate"]
+                return r_["rate"] * TI_F[i_] if i_ in TI_F else r_["rate"]   # F9: ti_fit
             lo_, hi_ = GR["ages"][i_]; span_ = max(1.0, min(hi_, lo_ + 40) - lo_)
-            return -np.log(1 - min(GR["share"][i_], 0.95)) / span_
+            rt_ = -np.log(1 - min(GR["share"][i_], 0.95)) / span_
+            return rt_ * TI_F[i_] if i_ in TI_F else rt_
     def r_note(n, i, what, how):
         role_log.append((int(n), t, int(i), what, how))
         if n in events:
@@ -2708,6 +2726,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         tab_shut = np.full(N, NEVER); kin_shut = np.full(N, NEVER); circ_out = np.zeros(N, bool); brec = np.full(N, NEVER)
         d_inc = np.full(N, float(P["money_base"]))           # a year's income, mt before holdings and payments
         car_prev = np.zeros(N, bool); hea_prev = np.ones(N); rec_prev = [False]
+        hs_rng = np.random.default_rng([int(seed), 1719])   # F9.15 home_sale, on its own stream
         d_arm = np.ones(N, bool)   # a fall under the need line borrows once; again after climbing back or a new blow
         db_rng = np.random.default_rng([int(seed), 82])     # the debts' and holdings' draws, on their own stream
         DB_D = -np.log(1 - 0.05) / 3                         # a bank's record: hiring odds x .95 for 7 years
@@ -2767,6 +2786,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             for n in np.nonzero(hard_)[0]:
                 if res[n, MON] < NL_ and (hk[n] >= 0).any():   # a sale in a hard year: a holding other than the home first
                     j_ = int(np.argmax(np.where(hk[n] >= 0, np.where(hk[n] == 0, 1, 2), 0)))
+                    if hk[n, j_] == 0 and P["home_sale"] < 1.0 and hs_rng.random() >= P["home_sale"]:
+                        j_ = -1                                 # F9.15: they get by without selling the home
+                if res[n, MON] < NL_ and (hk[n] >= 0).any() and j_ >= 0:
                     res[n, MON] = min(1.0, res[n, MON] + DP_["sale"] * H_VAL[hk[n, j_]] * 12 * m1_[n])
                     for i_ in np.nonzero(dhold[n] == j_)[0]:
                         res[n, MON] = max(0.0, res[n, MON] - dbal[n, i_] * m1_[n]); db_clear(n, i_)
@@ -2954,12 +2976,18 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         WG_ = (PERY.sum(1) == 0) & tl_ & GAPM_ & ~WMZ_          # waits for the world, with a gap: (the T4 seasons)
         WG_I = np.nonzero(WG_)[0]; WGLO_ = np.nan_to_num(GAP_[WG_I, 0])[None]
         WGW_ = np.maximum(np.nan_to_num(GAP_[WG_I, 1] - GAP_[WG_I, 0]), 1 / 52)[None]
+    AF_ON = bool(P["age_free"]) and BAT                   # F9: life events by age, not by the life stage reached
+    if AF_ON:
+        AF_S = np.array([nm_ in set(P["age_free"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
+        AF_P = PERY[AF_S].max(1)[None]
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
         ag_w = [np.arange(int(L["AGE"][s_, 0]), int(L["AGE"][s_, 1]) + 1) for s_ in np.nonzero(BIRTH_S)[0]]
         BA_NF = np.array([max(fert(a_, FERT_F).mean(), 1e-6) for a_ in ag_w])
         BA_NM = np.array([max(fert(a_, FERT_M).mean(), 1e-6) for a_ in ag_w])
+        BF_ON = bool(P["birth_free"])
+        BF_P = PERY[BIRTH_S].max(1)[None]   # birth_free: each own-birth moment at its highest stage rate
         # a choice that starts a child of one's own (not adopting, fostering or taking a child in)
         BIRTH_O = np.zeros(L["COMMIT"].shape, bool)
         for s_ in range(L["S"]):
@@ -3188,7 +3216,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             bod_ = body_v if HM_ON else res[:, HEA]
         gap_ = np.interp(age, BAGE_X, BAGE_Y) - bod_
         qa_ = np.interp(age, *zip(*DP2_["acc"])) * np.exp(DP2_["acc_red"] * (w[:, 3] - 0.2) / 0.2)
-        qf_ = DP2_["frail"][0] * np.exp(DP2_["frail"][1] * age) * np.exp(DP2_["frail_k"] * gap_)
+        qf_ = (DP2_["frail"][0] * np.exp(DP2_["frail"][1] * age) + (DP2_["frail_c"] if age >= 15 else 0.0)) * np.exp(DP2_["frail_k"] * gap_)
         cl_ = bd_cw * np.where(bd_ck >= 0, CLETH_[np.maximum(bd_ck, 0)], 0.0)   # each condition's complications
         qc_ = DP2_["cond_k"] * cl_.sum(1) * np.exp(0.06 * (age - 50))
         cf_ = np.minimum(SER_CF[np.maximum(bd_sk, 0)] * float(np.clip(1 + DP2_["ser_age"] * (age - 60), *DP2_["ser_age_lim"]))
@@ -3244,6 +3272,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     PA_ON = P["par_age"] is not None                      # F9: partnerships by age
     if PA_ON:
         PA_A, PA_F = np.asarray(P["par_age"], float).T
+    JM_ON = P["job_move"] is not None                     # F9.19: changing employer
+    if JM_ON:
+        JM_A, JM_F = np.asarray(P["job_move"], float).T
+        jm_rng = np.random.default_rng([int(seed), 1713])
     CRS_ON = bool(P["course"])                            # F16: the life course leans
     if CRS_ON:
         CRS_KS = np.array([PAR, KID, FAI]); CRS_MU = np.asarray(P["course_mu"], float)
@@ -3529,6 +3561,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     gate[:, KL_] &= (alive[:, KILLS[KL_]] > 0) | np.concatenate([dth_, np.zeros((N, 1), bool)], 1)[:, KILLS[KL_]]
             else:
                 gate[:, KL_] &= alive[:, KILLS[KL_]] > 0
+            if BA_ON and BF_ON:   # birth_free: each own-birth moment at least a year after the last child
+                gate[:, BIRTH_S] &= ((t - kid_last) >= 52)[:, None]
             if BORN_S_ >= 0:   # F7: the moment a child is born is a birth, at least a year after the last one
                 gate[:, BORN_S_] &= (t - kid_last) >= 52
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
@@ -3583,6 +3617,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 refr = 1 - np.exp(-(t - ev_last) / (52 * P["ev_refr"]))
             xd_ = np.exp(X @ DRV.T)   # speed pass: computed once, used twice (the same numbers)
             ev_p = PERY[:, stage].T * avail * P["event_scale"] / 52 * ev_pm * xd_ * refr * seekE   # N,S
+            if BA_ON and BF_ON:   # F9: a life's own births by its age, not its stage (the age window is in the gate)
+                ev_p[:, BIRTH_S] = (BF_P * np.broadcast_to(gate, ev_p.shape)[:, BIRTH_S] * P["event_scale"] / 52
+                                    * np.broadcast_to(ev_pm, ev_p.shape)[:, BIRTH_S] * xd_[:, BIRTH_S] * refr[:, BIRTH_S]
+                                    * np.broadcast_to(seekE, ev_p.shape)[:, BIRTH_S])
+            if AF_ON:   # F9: these life events by age, not the life stage reached (the age window is in the gate)
+                ev_p[:, AF_S] = (AF_P * np.broadcast_to(gate, ev_p.shape)[:, AF_S] * P["event_scale"] / 52
+                                 * np.broadcast_to(ev_pm, ev_p.shape)[:, AF_S] * xd_[:, AF_S] * refr[:, AF_S]
+                                 * np.broadcast_to(seekE, ev_p.shape)[:, AF_S])
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
@@ -3596,6 +3638,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 cm_ = crq_[:, np.maximum(CRS_EV[cev_], 0)]
                 cm_ = np.where(held[:, CRS_KS[np.maximum(CRS_EV[cev_], 0)]] & (CRS_EV[cev_] != 1)[None], 1.0, cm_)
                 ev_p[:, cev_] *= cm_
+            if BA_ON and P["birth_par"] is not None:   # F9.3: by the children already living
+                bp_ = np.asarray(P["birth_par"], float)
+                ev_p[:, BIRTH_S] *= bp_[np.minimum(alive[:, 5].astype(int), len(bp_) - 1)][:, None]
             if BA_ON:   # late births: a life's own births by its age and sex
                 ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
                                                             fert(age, FERT_M) / BA_NM[None])
@@ -4165,7 +4210,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if BAT:   # R15: a later child born (or taken in) while there are children already is one more living child
             kb_ = (ck == KID) & ok_ & ~recon & (L["TIER"][s] == 1) & kid_on
             alive[kb_, 5] += 1; kid_last[kb_] = t
+            birth_log.extend((int(n), t, L["names"][s[n]], L["labels"][s[n]][a[n]]) for n in np.nonzero(kb_)[0])
         fi, fk = fi[new], fk[new]
+        birth_log.extend((int(n), t, L["names"][s[n]], L["labels"][s[n]][a[n]]) for n in fi[fk == KID])
         held[fi, fk] = True; I[fi, fk] = 0.2; sat[fi, fk] = 0.6; since[fi, fk] = t
         if RE_ON:   # F8: going back to work, by their own pick, ends the retirement (one work status)
             retired[fi[fk == CAR]] = False
@@ -4749,6 +4796,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     events[n].append(dict(commitment=dict(age=round(age, 2), kind="career", what="start", through="found new work",
                                                           profile=prof[n, CAR].round(2).tolist())))
             newk_[rj_, CAR] = True
+            if JM_ON:   # F9.19: a change of employer; the career and its strength go on, the workplace is new
+                jm_ = np.nonzero(held[:, CAR] & ~retired & ~dead & (t - since[:, CAR] >= 52) & (t - ago["job"] >= 52) & (age < P["retire_age"])
+                                 & (jm_rng.random(N) < float(np.interp(age, JM_A, JM_F)) / 52))[0]
+                for n in jm_:
+                    commit_log.append((int(n), t, CAR, "moved", prof[n, CAR].round(2).tolist(), round(float(I[n, CAR]), 2)))
+                    if n in events:
+                        events[n].append(dict(commitment=dict(age=round(age, 2), kind="career", what="moved",
+                                                              through="changed employer")))
+                    if WON:
+                        WL.PP.leave(int(n), "work", t, "changed employer")   # a new work setting is joined next
+                ago["job"][jm_] = t
             # what happened lately, and how long things have been as they are
             if P["base_rates"]:
                 ago["le"][had_ev] = t
@@ -5723,7 +5781,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
-                R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log,
+                R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log, births=birth_log,
                 V_hist={k_: np.array(v_) for k_, v_ in V_hist.items()}, A_src=np.array(A_src), breaks=brk_log, Q=Q, history=hist, outside=ev_log,
                 clashes=clash_log + [(int(n), int(kk), int(clash0[n, kk]), T, "still living with it", round(float(clashI[n, kk]), 2), int(np.argmax(softmax(z[n]))))
                                      for n, kk in zip(*np.nonzero(clash0 >= 0))], held=held, I=I, prof=prof, res=res, tries=tries, wins=wins, blocked=blocked,
