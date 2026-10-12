@@ -1117,6 +1117,8 @@ DEFAULT = dict(
                          # a rough patch the couple weathers. None: every one ends it
     par_age=None,        # F9: a partnership (living together) starts as this share of the time by age, read off these
                          # (age, share) points; a younger love is a romance, not a home together. None: at any age
+    mon_drift=0.01,      # F9.38: the share of the gap to the money a life's situation brings that closes each week (.01: about
+                         # two years to most of the way; faster, a hard spell is felt sooner and passes sooner)
     age_free=None,       # F9: [life event, ...] that come by their age window at their highest stage rate, not by the life stage
                          # reached (a stage can begin years after its window opens); "your first full-time job" for F9.38
     birth_par=None,      # F9.3 (with birth_age): a life's own births x this factor by the children it has living (0, 1, 2, ...;
@@ -1142,6 +1144,64 @@ DEFAULT = dict(
     mind_kid=None,
     mind_u=None,
 )
+# the v22.5 joint refit (notes/v22.5-refit-plan.md §5; 800 lives x 100 years, world on, seeds 41, 42, 45, 46, read by
+# tools/v225_read.py against Release's F9 rows, records/v22.5/scope.md): every v22.5 switch on and its values fitted.
+# UPD_OFF holds what each was before (with it, the lives are v22.4.1's)
+V225 = dict(
+    body=True,
+    mind=True,
+    death_life=True,
+    hh_money=True,
+    ties_people=True,
+    one_roll=True,
+    retire_ends=True,
+    world_only=True,
+    dream_grow=True,
+    own_open=True,
+    start_hold=True,
+    set_age=((30, 1.0), (50, 0.12), (70, 0.02)),
+    up_lean=0.006,
+    up_self=0.05,
+    up_ease=0.8,
+    course=True,
+    deed_canon=2.0,
+    deed_rare=0.15,
+    mind_kid=((10, 0.5), (18, 1.0)),
+    mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6)),
+    death_par=dict(frail=(1.4e-06, 0.125), frail_k=1.5, ser_age=0.012, frail_c=0.0002),
+    course_mu=(-0.55, -0.2, -3.5),
+    pension_k=0.45,
+    pension_base=0.15,
+    drv_self=True,
+    risk_norm=True,
+    par_age=((16, 0.0), (19, 0.35), (24, 1.0)),
+    tie_k=1.75,
+    par_split=0.06,
+    ill_real=True,
+    kid_cost=0.07,
+    hh_cls=(0.12, 0.3, 0.55),
+    ev_fit={'losing your job': 0.45,
+            'a serious accident or illness': 0.6,
+            'a long dark season': 0.65,
+            'an addiction takes hold': 0.63,
+            'living with a chronic illness': 0.75,
+            'your first full-time job': 1.5,
+            'a new job at last': 0.35,
+            'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.12),
+            'divorce after twenty years': 0.5,
+            'a child is born': 0.25,
+            'a baby on the way, planned or not': 0.35},
+    set_big=6.0,
+    cond_once=True,
+    job_move=((18, 0.22), (25, 0.14), (35, 0.08), (45, 0.05), (55, 0.03), (64, 0)),
+    birth_free=True,
+    home_sale=0.08,
+    ti_fit={'living together': 4.5},
+    birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
+    age_free=('your first full-time job',),
+    mon_drift=0.015,
+)
+DEFAULT.update(V225)
 # F17: the canon lean of each deed (W U B R G, log odds per unit of a colour's lead); deeds not named keep the Library's
 DEED_CANON = {"broke the law": (-0.6, 0.0, 0.4, 0.4, -0.2), "used drugs": (-0.4, -0.4, 0.3, 0.5, 0.0),
               "refused someone in need": (-0.4, 0.0, 0.6, 0.0, -0.6), "broke your word": (-0.6, 0.0, 0.4, 0.3, -0.3),
@@ -1328,8 +1388,11 @@ UPD_OFF = dict(dis_match=False,
                move_near=False, season_excl=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
+               # values the v22.5 refit changed (V225)
+               death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
+               kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -4328,7 +4391,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     db_inherit(n)
         if HH_ON:   # F3 D2: the family is a floor in hard times, by its class and how close a living parent is
             mt = np.maximum(mt, P["hh_floor"] * hh_fl_)
-        res[:, MON] += 0.01 * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
+        res[:, MON] += P["mon_drift"] * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
         if HM_ON:   # v22.5 F1: the body and the mind make health (ht's age part is the body's own curve there)
@@ -5781,7 +5844,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
-                R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log, births=birth_log,
+                R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log, **({"births": birth_log} if (P["birth_free"] or P["birth_par"] is not None) else {}),
                 V_hist={k_: np.array(v_) for k_, v_ in V_hist.items()}, A_src=np.array(A_src), breaks=brk_log, Q=Q, history=hist, outside=ev_log,
                 clashes=clash_log + [(int(n), int(kk), int(clash0[n, kk]), T, "still living with it", round(float(clashI[n, kk]), 2), int(np.argmax(softmax(z[n]))))
                                      for n, kk in zip(*np.nonzero(clash0 >= 0))], held=held, I=I, prof=prof, res=res, tries=tries, wins=wins, blocked=blocked,

@@ -827,7 +827,7 @@ SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or am
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
-AGE_FIT = False         # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
+AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
