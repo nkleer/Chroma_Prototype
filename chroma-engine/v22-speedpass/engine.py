@@ -1249,7 +1249,7 @@ V225 = dict(
             'your first full-time job': 1.5,
             'a new job at last': 0.35,
             'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
-            'divorce after twenty years': 0.5,
+            'divorce after twenty years': 0.3,
             'a child is born': 0.4,
             'a baby on the way, planned or not': 0.1},
     set_big=6.0,
