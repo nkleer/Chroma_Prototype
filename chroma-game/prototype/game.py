@@ -239,7 +239,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
 # proto_v8.env), rare_ask, and clarity items 6 and 7, lines_tied and trust_judge (every line has a cause; every push judged
 # by how it went: planned for v22.4's refit, needed now the v22.5 rules leave few pushes reluctant). V225_OFF keeps
 # the values before (v22.4's played lives, with the engine's UPD_OFF)
-V225 = dict(world_hold=True, world_seed=True, line_wait=5.0, news_touch=True, trust_judge=True, lines_tied=True,
+V225 = dict(world_hold=True, world_seed=True, faith_home=1.0, line_wait=5.0, news_touch=True, trust_judge=True, lines_tied=True,
             own_mark="both", own_stress=0.3, own_free=0.5, lean_self=0.012, hind_thin=0.7, season_need=1.0, season_calm=0.012,
             fork_k=0.3, fork_told=True, rung_ask=True, own_teach=0.05, dream_own=True, dream_fit=0.5, dream_firm=0.15,
             dream_help=1.0, rare_ask=True, rare_imp=0.5)
