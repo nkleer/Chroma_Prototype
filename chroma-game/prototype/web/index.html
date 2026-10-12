@@ -1211,6 +1211,9 @@
   .mean { display: grid; justify-items: center; gap: 3px; cursor: help; color: var(--ink2); min-width: 0; }
   .mean .col { position: relative; width: 9px; height: 30px; border-radius: 5px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
   .mean .col i { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 5px; background: var(--mc); transition: height var(--t-3) var(--ease); }
+  .mean .col.two { width: 13px; }
+  .mean .col.two i { right: calc(50% + 0.5px); border-radius: 5px 1px 1px 5px; }
+  .mean .col.two i.mind { left: calc(50% + 0.5px); right: 0; border-radius: 1px 5px 5px 1px; opacity: 0.7; }
   .mean > svg.i { color: var(--mc); font-size: 14px; }
   .mean small { font-size: var(--fs-1); color: var(--muted); line-height: 1; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .nowgoal { display: grid; grid-template-columns: 16px auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; cursor: help;
@@ -2432,16 +2435,17 @@ const yearEls = new Map(), WORLD_SEEN = new Map();
 const TAG_ICON = { birth: "sprout", start: "voice", choice: "sign", moment: "dot", ordinary: "dot", loss: "candle", death: "candle", crisis: "storm",
   outside: "globe", move: "route", era: "hourglass", read: "scroll", clash: "bolt", rite: "gate", turn: "compass", breakthrough: "burst",
   healed: "sprout", hardened: "shield", trouble: "rain", fortune: "sun", temper: "mask", ledger: "book", note: "dot", goal: "moon", memory: "ci-diary", kin: "ci-birth", hint: "compass",
-  lever: "push", far: "ci-letter", ...GI.tag };   // spheres phase 4: an act on the town; far ties: news through a tie
+  lever: "push", far: "ci-letter", body: "pulse", decline: "hourglass", ...GI.tag };   // spheres phase 4: an act on the town; far
+                                                  // ties: news through a tie; v22.5: the body's and the mind's turns, a last decline
 const KIND_ICON = { career: "case", partner: "heart", children: "child", community: "people", faith: "shrine", ...GI.kind };
 const TAG_WORD = { choice: "Your moment", loss: "Loss", death: "Death", crisis: "Crisis", move: "A move", era: "The times", read: "Public life",
   clash: "Clash", rite: "A new stage", turn: "Turning point", breakthrough: "Breakthrough", healed: "Carried through", hardened: "Hardened",
   trouble: "Hard streak", fortune: "Lucky streak", temper: "Temperament", outside: "The world", commitment: "A title", moment: "A moment",
   ordinary: "Everyday", birth: "Birth", kin: "Family", start: "Your voice", note: "Note", hint: "How needs work", goal: "Dreams and plans", role: "Titles and perks",
-  lever: "In town", far: "News through a tie" };
+  lever: "In town", far: "News through a tie", body: "Body and mind", decline: "The last season" };
 const MINOR = new Set(["ordinary", "note", "outside", "read", "era", "temper"]);
 const isMinor = (it) => MINOR.has(it.tag) || (it.tag === "role" && !it.title);      // a perk's line is a small one; a title's is not
-const MARK_PRI = { death: 9, loss: 9, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
+const MARK_PRI = { death: 9, loss: 9, decline: 8, commitment: 8, clash: 7, turn: 7, breakthrough: 7, choice: 6, crisis: 6, move: 5, rite: 5, healed: 4, hardened: 4, goal: 3, trouble: 3, fortune: 3, role: 3, era: 2 };
 // titles and perks (Emren 12:05): icons by perk kind and by status; a title of a life domain takes the domain's icon
 const PERK_ICON = { skill: "ci-anvil", credential: "ci-diploma", standing: "ci-medal", bond: "ci-handshake", asset: "ci-open-chest" };
 const PERK_KIND_WORD = { skill: "A skill", credential: "A credential", standing: "Standing", bond: "A bond", asset: "Something of their own" };
@@ -3126,6 +3130,17 @@ const baseRole = (r) => String(r || "").replace(/^old /, "");
 const roleIcon = (r) => baseRole(r) === "child" ? (GI.role.child || "child") : ROLE_ICON[ROLE_GROUP[baseRole(r)] || "other"];
 const BAD_UP = new Set(["harsh world", "unrest", "stress", "recent trouble"]), NEUTRAL = new Set(["own household", "era"]);
 const good = (k, v) => NEUTRAL.has(k) ? 0 : (BAD_UP.has(k) ? -1 : 1) * Math.sign(v);
+// v22.5 F1: one health bar with both halves, the body on the left and the mind on the right (only with the engine's body or
+// mind switch on); its hover names what weighs on each now
+const healthCol = (h) => `<span class="col two"><i style="height:${(clamp(h.body) * 100).toFixed(0)}%"></i><i class="mind" style="height:${(clamp(h.mind) * 100).toFixed(0)}%"></i></span>`;
+function healthTip(L, r) {
+  const h = L.health, rows = [["Now", pct(L.res.health)], ["Body", pct(h.body)], ["Mind", pct(h.mind)]];
+  if (h.conditions.length) rows.push(["Living with", esc(h.conditions.join(", "))]);
+  if (h.serious) rows.push(["Ill with", esc(h.serious)]);
+  if (h.threats.length) rows.push(["Going through", esc(h.threats.join(", "))]);
+  if (h.decline) rows.push(["Their last season", "the body is failing"]);
+  return tipBox(`${ic(r[1])} Health`, "", rows, "Body and mind, half each. The body: constitution, age, habits, illness and injury. The mind: built over months from strain, losses, loneliness, meaning and rest. Each wears the other.");
+}
 function stateValue(x) { return x.var === "want" ? pct(x.value) + " of the way to breaking through" : x.var === "stress" ? pct(x.value / 1.5) + " of the most they can bear" : x.var === "mood" ? (x.value > 0 ? "lifted" : "lowered") + ` by recent weeks (${x.value > 0 ? "+" : "−"}${Math.round(Math.abs(x.value) * 100)}%)` : ["fortune", "trouble"].includes(x.var) ? (x.value >= 1.8 ? "one thing after another" : "some") : pct(x.value); }
 function investWord(v) { return v >= 2 ? "a great deal" : v >= 1 ? "a lot" : v >= 0.35 ? "some" : "a little"; }
 function temperWord(k, v) {
@@ -3278,7 +3293,7 @@ function renderHud(L) {
     ${states ? `<div class="states">${states}</div>` : ""}
     <div class="wheelw"><svg class="wheel" id="hudWheel" viewBox="-6 -2 212 206" role="img" aria-label="Spider graph of the five colors: where they are, where they want to be, what holds them">${spiderSVG(spOf(L, { id: "hw", hits: true }))}</svg><span class="wkey" id="wKey" tabindex="0" aria-label="How to read the wheel">?</span></div>
     <div class="meters">${RINGS.filter((r) => r[0] !== "want" || !L.young).map((r) => meterHTML(r, L)).join("")}</div>
-    <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}"><span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
+    <div class="means5">${MEANS.map(([k, icn, , col]) => { const v = clamp(L.res[k]); return `<div class="mean" data-r="${k}" style="--mc:${col}">${k === "health" && L.health ? healthCol(L.health) : `<span class="col"><i style="height:${(v * 100).toFixed(0)}%"></i></span>`}${ic(icn)}<small>${esc(cap(k))}</small></div>`; }).join("")}</div>
     ${needsRowHTML(L)}
     ${voiceRowHTML(L)}
     ${g0 ? `<div class="nowgoal" data-gj="${g0.j}">${ic(GOAL_ICON[g0.kind] || "moon")}<span class="k">${esc(cap(g0.kind))}</span><span class="nm">${esc(g0.name)}</span></div>` : ""}
@@ -3315,7 +3330,7 @@ function renderHud(L) {
     animSpider($("hudWheel"), frames, clamp(frames.length * 45, 900, 2600), spOf(L, { id: "hw", hits: true }), bindHits);
   }
   hudEl.querySelectorAll("[data-ring]").forEach((el) => { const m = RINGS.find((x) => x[0] === el.dataset.ring); setTip(el, () => tipBox(`<span style="color:${m[3]}">${ic(m[2])}</span> ${m[1]}`, "", [["Now", m[0] === "want" ? `${ringPct("want", L)} of the way to breaking through` : m[0] === "stress" ? `${ringPct("stress", L)} of the most they can bear` : ringPct(m[0], L)]], m[4] + (m[0] === "want" && L.young ? " Only from young adulthood." : ""))); });
-  hudEl.querySelectorAll("[data-r]").forEach((el) => { const r = MEANS.find((x) => x[0] === el.dataset.r); setTip(el, () => tipBox(`${ic(r[1])} ${cap(r[0])}`, "", [["Now", pct(L.res[r[0]])]], r[2])); });
+  hudEl.querySelectorAll("[data-r]").forEach((el) => { const r = MEANS.find((x) => x[0] === el.dataset.r); setTip(el, () => r[0] === "health" && L.health ? healthTip(L, r) : tipBox(`${ic(r[1])} ${cap(r[0])}`, "", [["Now", pct(L.res[r[0]])]], r[2])); });
   hudEl.querySelectorAll("[data-sock]").forEach((el) => {
     const k = el.dataset.sock, t = (L.titles || []).find((x) => x.kind === k);
     const nm = (t && t.named) || [];
