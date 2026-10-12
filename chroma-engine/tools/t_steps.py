@@ -348,7 +348,9 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(hh_money=True, ties_people=True), {}, 30),
        ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
        ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
-       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
+       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30),
+       ("v22.5 G19w, the company a life picks (soc_own)", dict(soc_own=0.2), {}, 30),
+       ("v22.5 G19w, practice is shared among the skills in the same ways (skill_room)", dict(skill_room=1.0), {}, 40, 8)]
 for row_ in P2_:
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):

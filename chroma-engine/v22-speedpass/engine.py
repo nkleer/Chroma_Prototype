@@ -464,6 +464,11 @@ DEFAULT = dict(
     aut_self=True, aut_act=0.08,   # v6: autonomy met by acting in one's strongest colors (held or wanted)
     family_conc=1.0,     # v6: how alike families are (Dirichlet concentration per color; 0 = every family like the world)
     social_child=0.5,    # v6: how strongly children take on their family's ways (stage child 1x, juvenile 0.5x)
+    soc_own=0.0,         # G19w (v22.5): with the world on, the share of the people who shape them (the social pull and the
+                         # current's close people) that is the company they pick by what they do, following their acts as the
+                         # niche does with the world off; the world's settings and circle are the rest (people pick friends
+                         # like themselves and become more alike: Kandel 1978; McPherson, Smith-Lovin and Cook 2001). 0: the
+                         # world's alone, so a life's choices never reached the people around it
     turn_spread=(0.33, 3.0),   # v6: each life's own pace of new people: from a third to three times the typical turnover
     turn_stage=(0.2, 0.6, 1.0, 1.0, 1.0, 0.8),   # v6: children live mostly among family; circles change most in adult life
     turnover=0.3, turn_years=3.0,   # v6: share of one's surroundings renewed per year by new people, and how often the mix changes
@@ -963,6 +968,10 @@ DEFAULT = dict(
     perk_breadth=0.2,    # how much perks beyond the best one in a color add
     title_need=2.0,      # what a title's meets add to its commitment kind's own needs (x commit_need x strength)
     perk_loss=(0.03, 0.02, 0.02, 0.02),   # yearly chance of losing an unused skill, standing, a bond, an asset (more when poor or alone)
+    skill_room=None,     # G19w (v22.5): practice is shared: the acts in a skill's ways keep up this much of the skills held in
+                         # those ways (each held skill counts by the share of its ways it shares: two skills in the same two
+                         # ways count 1), and a skill among more is used as much less, so it can slip away (skills fade
+                         # without practice: Arthur, Bennett, Stanush and McNelly 1998). None: each skill kept up alone
     profile_margin=0.05, # a title's other profile must fit the person's colors this much better (for about a year) to be taken
     # v10 interpretation and memory (Emren 2026-10-04 21:39, roadmap 3: "type and frequency of misjudgment depend on history,
     # color position, perks, titles, mindset"; order of 10-06 10:50 and 21:55: after the go-live, before the outer world).
@@ -1200,6 +1209,8 @@ V225 = dict(
     birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
     age_free=('your first full-time job',),
     mon_drift=0.015,
+    soc_own=0.2,
+    skill_room=1.0,
 )
 DEFAULT.update(V225)
 # F17: the canon lean of each deed (W U B R G, log odds per unit of a colour's lead); deeds not named keep the Library's
@@ -1397,6 +1408,8 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
                dream_grow=False, own_open=False, start_hold=False,
+               # v22.5 G19w: the company a life picks (world on)
+               soc_own=0.0, skill_room=None,
                # v22.5 realism F3: a household and real people
                hh_money=False, ties_people=False,
                # v22.5 realism F8 and F10: retirement ends work; a world moment only on the world's event
@@ -2698,6 +2711,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     SEEN_ON = False
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
+    SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
@@ -2710,6 +2724,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             STH_SOC = np.asarray(WL.start["society"], float); STH_SOC = STH_SOC / STH_SOC.sum()
             STH_FW = np.asarray(P["f_world"], float)
             nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC; circle = nic.copy()
+        SOC_OWN = float(P["soc_own"] or 0.0); onic = nic.copy() if SOC_OWN else None
         SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
         if SEEN_ON:
             SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
@@ -4961,6 +4976,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 # what a rule says how it is lost (good credit, a car, a dog) goes only that way
                 pk_ = GR["pkind"]
                 use_ = 5 * (hist_m @ INDP.T) / np.maximum(INDP.sum(1), 1)[None]
+                if P["skill_room"]:   # skill_room: the skills held in the same ways share the acts that keep them up
+                    ip_ = INDP / np.maximum(INDP.sum(1, keepdims=True), 1)
+                    crowd_ = ((r_has[:, NT_:] & (pk_ == 0)[None]).astype(float) @ ip_) @ ip_.T   # held skills in each one's ways
+                    use_ = use_ * np.minimum(1.0, P["skill_room"] / np.maximum(crowd_, 1e-9))
                 mult_ = np.where(pk_[None] == 0, 2 * _uclip(1.5 - use_, 0, 1.5), 1.0)
                 mult_ = np.where(pk_[None] == 3, 1 + 2 * (res[:, TIE] < 0.3)[:, None], mult_)
                 mult_ = np.where(pk_[None] == 4, 1 + 4 * (res[:, MON] < 0.15)[:, None], mult_)
@@ -5190,14 +5209,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         conf = P["chi"] * (w[:, 0] + w[:, 4] - w[:, 3] - w[:, 2])
         obs = softmax(3 * f_tot)
-        dS = conf[:, None] * (nic - w) + P["xi"] * (obs - w)
+        soc_ = nic if not SOC_OWN else (1 - SOC_OWN) * nic + SOC_OWN * onic   # soc_own: and the company they pick
+        dS = conf[:, None] * (soc_ - w) + P["xi"] * (obs - w)
         if P["social_child"]:   # v6: children take on the ways of the family around them, whatever their own lean
-            dS += P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))[:, None] * (nic - w)
+            dS += P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))[:, None] * (soc_ - w)
         if P["react_k"]:   # v6 (Library notes A6; Brehm): strong pressure on a steady person pushes them the other way
             s_n = np.tanh(steady / P["steady_cap"])
-            press = 0.5 * np.abs(nic - w).sum(1)
+            press = 0.5 * np.abs(soc_ - w).sum(1)
             rs = _uclip((s_n - 0.5) / 0.5, 0, 1) * _uclip((press - P["react_press"]) / P["react_press"], 0, 1)
-            dS -= P["react_k"] * P["chi"] * rs[:, None] * (nic - w)
+            dS -= P["react_k"] * P["chi"] * rs[:, None] * (soc_ - w)
 
         # aspiration: what the person wants to be. Needs, norms and role models act here
         a_ = softmax(y)
@@ -5619,6 +5639,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
             if WON:
                 cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
+                if SOC_OWN:   # soc_own: the close people are partly the company they pick
+                    cl_ = (1 - SOC_OWN) * cl_ + SOC_OWN * onic
             else:   # no outer world: the niche stands for people and places (the circle's turnover is random)
                 cl_, st_ = nic, nic
                 wp_ = WP_ if UPL_ON and P["up_ease"] else np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
@@ -5695,6 +5717,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 circle[new_] = random_messages(rng, int(new_.sum()))
             nic += P["turnover"] * turn_pm[:, None] * np.asarray(P["turn_stage"])[stage][:, None] / 52 * (circle - nic)
         if WON:   # the world: the niche is what the settings and the close circle bring, with the times through them
+            if SOC_OWN:   # soc_own: the company they pick follows what they do, as the niche does with the world off
+                onic += P["nu_niche"] * (np.where(idle[:, None], onic, ma) - onic)
             nic = np.array(WL.PP.niche, float)
             if STH_SOC is not None:   # v22.5, F12: and the start's society
                 nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC
