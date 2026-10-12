@@ -191,6 +191,12 @@ GAME = dict(
     # time won or lost) weighs fork_k more for the player; with fork_told an everyday moment whose options all end alike is
     # told, not asked. rung_ask: a moment that offers a pack career's rung or a summit is always put to the player
     fork_k=0.0, fork_told=False, rung_ask=False,
+    # v22.5, rare moments are asked (push_rare, 10-11: on the same 60 lives, pushed lives met 545 distinct rare moments
+    # against 475 left alone, but the game put only 75 and 73 of them to the player): a moment under RARE_SHARE of lives
+    # (the Book's rare), met for the first time, comes up at a life event's pace (half the gap) and weighs rare_imp more
+    # when the game picks the moments to put to the player (a moment rung_ask already puts to them is not weighed again).
+    # Off until its proof
+    rare_ask=False, rare_imp=0.5,
     # v22.5, F12 "The world and the start hold" (chroma-ideas/realism/v22.5-realism-list.md; off until v22.5's refit, with
     # the engine's own_open and start_hold): the tribal and magic worlds speak their own words (the Library's worlds.py:
     # option labels, moment titles, the means, a lost place in the work, a backfire; no money, sirens, profits or votes
@@ -218,7 +224,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False,
-                line_wait=0.0, news_touch=False)
+                line_wait=0.0, news_touch=False, rare_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -1024,7 +1030,9 @@ class Game:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
             life = "had_ev" in loc and bool(loc["had_ev"][0]) and int(loc["s_ev"][0]) == s
-            if t - self._last_cp < (gap_weeks // 2 if life else gap_weeks):
+            sh = self._sit_share.get(self.L["names"][s])
+            rare = GAME["rare_ask"] and s not in self._cp_n and sh is not None and sh < RARE_SHARE
+            if t - self._last_cp < (gap_weeks // 2 if life or rare else gap_weeks):
                 return None
             wait = (again // 2) * self._cp_n.get(s, 0) if life else again * (1 + self._cp_n.get(s, 0))
             if t - self._last_seen.get(s, -10 ** 6) < wait:
@@ -1034,10 +1042,10 @@ class Game:
                     and (self._sit_share.get(self.L["names"][s]) or 0.0) >= GAME["told_share"]):
                 return None                     # 5.6: an everyday moment with no tie to this life is told, not asked
             fork = self._fork(loc, s) if (GAME["fork_k"] or GAME["fork_told"]) else 0.0
-            if GAME["fork_told"] and fork == 0 and not life and not tied and thr > 0:
+            if GAME["fork_told"] and fork == 0 and not life and not rare and not tied and thr > 0:
                 return None                     # v22.5 proposal: every option ends alike: told, not asked
             if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
-                    + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork < thr):
+                    + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork + GAME["rare_imp"] * rare < thr):
                 return None
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
