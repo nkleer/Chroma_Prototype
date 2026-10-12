@@ -1577,10 +1577,16 @@ class Game:
             key = (kind, ch, d)
             yk = abs(float(e.get("size", 0))) / (WFX_BAND.get(ch, WFX_BAND["risk"])[1] if ch != "option" else 1.0)
             self._wyear[key] = self._wyear.get(key, 0.0) + min(yk, 2.0)
-            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN:     # counted for the year's line, not told again
+            lc_ = self.__dict__.setdefault("_wfx_ch", {}).get(ch) if GAME["line_wait"] else None
+            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN or \
+                    (lc_ is not None and lc_[1] != d and t - lc_[0] < WFX_AGAIN and band != "big"):
+                # counted for the year's line, not told again; F10 (line_wait on): nor a small turn the other way in a
+                # channel told within the year (the times took from their pocket, then put a little back)
                 self.history["times"].append(dict(age=round(t / 52, 1), kind=k, channel=ch, dir=d, told=False))
                 continue
             self._wfx_t[key] = t
+            if GAME["line_wait"]:
+                self._wfx_ch[ch] = (t, d)
             cause = self._wcause_text(e.get("cause"), kind)
             text = self.story.fill(line.replace("{who}", "someone close to them"))
             self._say(mk("X", f"{k}|{ch}|{d}|{band}|{cause.replace('|', '/')}", text), 0 if band == "big" else 1, "world_fx",
