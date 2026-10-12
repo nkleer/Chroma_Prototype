@@ -2270,7 +2270,13 @@ class People:
         hasliving = has.copy(); hasliving[has] = self.lv[np.nonzero(has)[0], ps[has]]
         if held.shape[1] <= PAR:
             return
-        for n_ in np.nonzero(held[:, PAR] & ~hasliving & ~self.dead)[0]:
+        refill_ = held[:, PAR] & ~hasliving & ~self.dead
+        if getattr(self, "or_on", False):   # F7 (one_roll): a partner the world took is not replaced while the engine still
+            # holds the partnership (its widowhood ends it within weeks); only a new partner commitment brings someone
+            wid_ = getattr(self, "p_wid", None)
+            self.p_wid = ((np.zeros(len(held), bool) if wid_ is None else wid_) | (has & ~hasliving)) & held[:, PAR]
+            refill_ &= ~self.p_wid
+        for n_ in np.nonzero(refill_)[0]:
             self._new_partner(int(n_), t)
         for n_ in np.nonzero(~held[:, PAR] & hasliving)[0]:
             k_ = int(ps[n_])
@@ -5654,6 +5660,8 @@ class People:
                               sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
                               inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
                               rng=self._far_rng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "p_wid", None) is not None:   # F7 one_roll (only once set): a partner the world took, not yet ended
+            out["p_wid"] = bool(self.p_wid[n])
         if getattr(self, "eyes_on", False):   # S3, S4 (only when on): the places, the names there, the moments waiting, kept-apart pairs
             ev_ = dict(key=[int(x_) for x_ in self.eyes_key[n]], rep=[float(x_) for x_ in self.eyes_rep[n]],
                        t0=[int(x_) for x_ in self.eyes_t0[n]], gob=[bool(x_) for x_ in self.eyes_gob[n]],
@@ -5731,6 +5739,8 @@ class People:
                 for f_ in cls._SET_F:
                     getattr(pp, f_)[n, j] = s_[f_]
                 pp.snorm[n, j] = s_["snorm"]; pp.sanch[n, j] = s_["sanch"]
+        if any("p_wid" in d_ for d_ in saved):   # F7 one_roll: a partner the world took, not yet ended (_sync)
+            pp.p_wid = np.array([bool(d_.get("p_wid", False)) for d_ in saved])
         pp.nh = [np.asarray(v_, float) for v_ in d0.get("nh", [])]
         pp._psq = _csum(pp.pie * pp.pie).astype(np.float32)
         pp._xsoc = bool((pp.soc != pp.soc_home).any() or ((pp.msoc != pp.soc[:, None]) & pp.used).any())
