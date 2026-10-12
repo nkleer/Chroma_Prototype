@@ -12,8 +12,8 @@ Versions, with their folders named in paths.py:
           (py/code-1..3.json) and packed pictures of the new publish map
    v22.3  the rollback, in the same folders, live 2026-10-10 19:52 UTC to 2026-10-11 22:58 UTC (release/v22.3 =
           1f63d7e, artifact version 1791661954-7698): game_live, engine_live, game_tools; live-v22.3-manifest.txt.
-          Stage 2 (spheres, the refit), the Library's new moments and earth_spheres.py, the engine's sphere_data.py and sphere_ev_base.py, and 273 new pictures. Loading
-          hotfix 2026-10-11 17:58 UTC (release/v22.3 = ba7b28a, artifact version 1791741331-89db): the life choice
+          Stage 2 (spheres, the refit), the Library's new moments and earth_spheres.py, the engine's sphere_data.py
+          and sphere_ev_base.py, and 273 new pictures. Loading hotfix 2026-10-11 17:58 UTC (release/v22.3 = ba7b28a, artifact version 1791741331-89db): the life choice
           screen waits for the engine; web/index.html, web/src/app.js and web/worker.js changed, nothing else. v22.4
           changed most of its game, engine and Library files, so its check shows them as changed; live-v22.3-manifest.txt
           (release/v22.3 holds them)
