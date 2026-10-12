@@ -311,11 +311,13 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
 # holding on; pair_k, the power of the two places' mean share that scales each colour's gap when the caught-between pair
-# is read (.5: the root, as a chi-square reads two mixes; higher reads a rarer colour's gap larger)
+# is read (.5: the root, as a chi-square reads two mixes; higher reads a rarer colour's gap larger); pair_norm, when above 0,
+# reads each pair's gap against how far apart that pair's colours usually sit in the reads so far (a running mean, this
+# much of each read), so the pair named is the split that stands out, not the one that is wide everywhere (0: as before)
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
                     buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vmem=None, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
-                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5, pair_k=0.5)
+                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5, pair_k=0.5, pair_norm=0.0)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
 EYES_ENEMY = ((0, 2), (0, 3), (1, 3), (1, 4), (2, 4))   # S3: the Canon's enemy pairs WB WR UR UG BG, as W U B R G indices
 EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts read as walking away from their colours
@@ -3947,7 +3949,14 @@ class People:
         fa, fb = self._eyes_fc[n, qa][self._eyes_inv], self._eyes_fc[n, qb][self._eyes_inv]
         pk_ = self.eyes_par["pair_k"]
         d_ = (fa - fb) / (np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9)) if pk_ == 0.5 else np.maximum(0.5 * (fa + fb), 1e-9) ** pk_)
-        i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
+        if self.eyes_par["pair_norm"] > 0:   # each pair's gap against its usual gap (S3: a pair wide everywhere is no split)
+            g_ = np.array([abs(d_[p_[0]] - d_[p_[1]]) for p_ in EYES_ENEMY])
+            pg_ = getattr(self, "_eyes_pg", None)
+            pg_ = g_.copy() if pg_ is None else pg_
+            i_, j_ = EYES_ENEMY[int(np.argmax(g_ / np.maximum(pg_, 1e-9)))]
+            self._eyes_pg = (1 - self.eyes_par["pair_norm"]) * pg_ + self.eyes_par["pair_norm"] * g_
+        else:
+            i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
         return (i_, j_) if d_[i_] >= d_[j_] else (j_, i_)
 
     def _eyes_queue_caught(self, n, qa, qb, why, t):
