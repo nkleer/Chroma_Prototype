@@ -44,7 +44,7 @@ set -u
 JOBS=" rar1 rar2 rar3 rar4 rar5 rarm f9a f9b f9c f9d f9e f9f f8a f8b f8c engA engB engB1 engB2 engB3 mech s7 c26a c26b
  lives g4 g4s g4a g4b fit4 fit6 quick q1 q2 q3 q4 q5 game gameA gameB gameC pr30 pr30a pr30b pr30c pr30m b7A b7B b7C b7D
  b7AB b7CD roll rollA rollB rollC fit fitk fit12 f15 f15a f15b f15c f15d f15m page final "
-[[ "$JOBS" == *" ${1:-none} "* ]] || { sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2; }
+[[ "${JOBS//$'\n'/ }" == *" ${1:-none} "* ]] || { sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2; }
 F=/mnt/project-files; R=$F/chroma-release; REPO=${REPO:-/tmp/v225_repo}; X=/tmp/v225_${1:-}
 K=/tmp/v225_keep   # --keep --work folders: the same path on every machine, so `final` reuses the refit's proofs
 [ -n "${SHA:-}" ] || { echo "SHA=<commit> is needed"; exit 2; }
