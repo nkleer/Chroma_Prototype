@@ -1169,6 +1169,8 @@ DEFAULT = dict(
     age_rate=None,       # F9.24: [life event, ...] whose rate rises with age, read between the stages' per_year, each at the
                          # end of its window (where lives begin that stage), not stepping up only when the next stage begins
                          # (stages mostly begin at their window's end, elder at 80: a 70-year-old fell ill at the midlife rate)
+    age_pts=None,        # F9.23 (with age_rate): {life event: ((age, per_year), ...)}, its own rate points by age in place of the
+                         # stages' per_year and ev_fit (a child version counts as one); flat beyond the last point. None: as before
     birth_par=None,      # F9.3 (with birth_age): a life's own births x this factor by the children it has living (0, 1, 2, ...;
                          # the last for more): fewer go on to a third or fourth child. None: as before
     ti_fit=None,         # F9: {title: factor} on its yearly rate (the Library's or the packs' rule), fitted to Release's rows
@@ -1248,7 +1250,7 @@ V225 = dict(
             'a serious accident or illness': (1, 1, 0.25, 0.25, 1.6, 4.5),
             'a long dark season': 0.65,
             'an addiction takes hold': 0.63,
-            'living with a chronic illness': (0.75, 0.75, 0.75, 0.75, 0.75, 1.5),
+            'living with a chronic illness': 0.75,   # its rate by age is age_pts below
             'your first full-time job': 1.5,
             'a new job at last': 0.35,
             'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
@@ -1269,6 +1271,10 @@ V225 = dict(
     age_free=('your first full-time job',),
     age_rate=('a frightening diagnosis', 'a serious accident or illness', 'buying a home', 'living with a chronic illness'),
     # F9.14, F9.23 (round 3c): a home and a lasting illness by age between the stages' rates (most 60-79s are still 'mature')
+    # F9.23 (round 3d): a lasting illness by its own points: lower to 40, rising through 60-77, back to the old elder rate after 80
+    # (past 80 new ones only widened the old-age health spread, F9.37); a year's rate before the drivers
+    age_pts={'living with a chronic illness': ((0, 0.0045), (12, 0.003), (25, 0.004), (36, 0.0052), (45, 0.0125), (60, 0.021),
+                                               (70, 0.046), (77, 0.06), (82, 0.03))},
     mon_drift=0.015,
     lone=dict(age=((13, 0.03), (16, 0.014), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
                    (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
@@ -1491,7 +1497,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, up_conc=0.3, up_half=20.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, loan_end=False,
                retire_hz=((50, 0.0), (54, 0.0), (56, 0.045), (58, 0.05), (60, 0.035), (61.9, 0.035), (62, 0.11), (65, 0.12), (67, 0.12), (70, 0.14), (80, 0.2)),
-               ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               ti_fit=None, birth_par=None, age_free=None, age_rate=None, age_pts=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3166,6 +3172,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if AR_ON:
         AR_S = np.array([nm_ in set(P["age_rate"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
         AR_X = STAGE_HI.copy(); AR_R = PERY[AR_S]
+        AR_P = [(AR_X, r_) for r_ in AR_R]
+        if P["age_pts"]:   # F9.23: an event's own rate points by age (a child version counts as one)
+            AR_NM = np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))][AR_S]
+            AR_P = [tuple(np.asarray(P["age_pts"][nm_], float).T) if nm_ in P["age_pts"] else p_ for nm_, p_ in zip(AR_NM, AR_P)]
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -3844,7 +3854,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                  * np.broadcast_to(ev_pm, ev_p.shape)[:, NE_S] * xd_[:, NE_S] * refr[:, NE_S]
                                  * np.broadcast_to(seekE, ev_p.shape)[:, NE_S])
             if AR_ON:   # F9.24: these by age, between the stages' rates (the age window is in the gate)
-                ev_p[:, AR_S] = (np.array([np.interp(age, AR_X, r_) for r_ in AR_R])[None] * np.broadcast_to(gate, ev_p.shape)[:, AR_S]
+                ev_p[:, AR_S] = (np.array([np.interp(age, x_, r_) for x_, r_ in AR_P])[None] * np.broadcast_to(gate, ev_p.shape)[:, AR_S]
                                  * P["event_scale"] / 52 * np.broadcast_to(ev_pm, ev_p.shape)[:, AR_S] * xd_[:, AR_S] * refr[:, AR_S]
                                  * np.broadcast_to(seekE, ev_p.shape)[:, AR_S])
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
