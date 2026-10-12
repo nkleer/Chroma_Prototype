@@ -6,10 +6,15 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.4.1 live since 2026-10-12 01:00 UTC (release/v22.4.1 = 4b1e4eb, artifact version 1791766814-8652): game_live,
-          engine_live, game_tools; live-v22.4.1-manifest.txt. Text only (chroma-release/records/v22.4.1): 69 Library
+   v22.5  live since 2026-10-12 21:58 UTC (release/v22.5 = 802258f, artifact version 1791842297-d1de): game_live,
+          engine_live, game_tools; live-v22.5-manifest.txt. The v22.5 realism round (chroma-release/records/v22.5): the
+          engine, its re-pin and the rarity table, the Library's dreams.py and new earth_age_fit.py and worlds.py, the
+          game's code and page, and 10 pictures moved into the picture packs (30 files changed or new); the packs are v22.4's
+   v22.4.1 the rollback, in the same folders, live 2026-10-12 01:00 UTC to 21:58 UTC (release/v22.4.1 = 4b1e4eb, artifact
+          version 1791766814-8652): live-v22.4.1-manifest.txt. Text only (chroma-release/records/v22.4.1): 69 Library
           files and 8 game files changed (the review and memory lines, home lines, outcome tags); the engine, packs,
-          pictures and rarity table are v22.4's
+          pictures and rarity table are v22.4's. v22.5 changed 25 of its files, so its check shows them as changed
+          (release/v22.4.1 holds them)
    v22.4  the rollback, in the same folders, live 2026-10-11 22:58 UTC to 2026-10-12 01:00 UTC (release/v22.4 =
           c0505b6, artifact version 1791759232-89f2): game_live, engine_live, game_tools; live-v22.4-manifest.txt.
           The v22.4 items (chroma-release/records/v22.4), the Library's earth_art.py and the art pack (packs_live/art),
@@ -48,14 +53,17 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v22.4.1"
+LIVE = "v22.5"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
 LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
 LIB_V22_4 = LIB_V22_3 + ["earth_art.py"]
+LIB_V22_5 = LIB_V22_4 + ["earth_age_fit.py", "worlds.py"]
 VERSIONS = {
-    "v22.4.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v22.5": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                  files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
+    "v22.4.1": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_4_1", trees=["game_tools"],
                     files=[], lib=LIB_V22_4, packs=["core", "politics", "science", "stage", "art"]),
     "v22.4": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_4", trees=["game_tools"],
                   files=[], lib=LIB_V22_4, packs=["core", "politics", "science", "stage", "art"]),
