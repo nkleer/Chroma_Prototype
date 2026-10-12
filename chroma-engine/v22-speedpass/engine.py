@@ -1216,7 +1216,8 @@ V225 = dict(
     # S7 (lead_ways) with v22.5's money, the yearly custom read and a founder leading as an owner
     # (world_people.LEAD_DEFAULT): seeds 41-52, 300 x 80, falls per way and time in post per lead colour back within
     # 1.5x and 1.2x
-    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.86, owner_kind=True),
+    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.86, owner_kind=True, crisis=0.30),   # crisis (round 3e, S7): a crisis breaks
+                         # a rules, knowing or inspiring leader's way a little more often (.25: White's work posts led longest)
     dream_grow=True,
     own_open=True,
     start_hold=True,
@@ -1232,8 +1233,9 @@ V225 = dict(
     deed_rare=0.15,
     mind_kid=((10, 0.5), (18, 1.0)),
     mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6)),
-    death_par=dict(frail=(1.25e-07, 0.15), frail_k=1.5, ser_age=0.016, frail_c=0.00025, frail_late=(92, 0.25), decline_k=2.0,
-                   acc=((0, 5e-5), (15, 1.5e-4), (20, 2.5e-4), (30, 2.5e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3))),
+    death_par=dict(frail=(1.25e-07, 0.15), frail_k=1.5, ser_age=0.016, frail_c=0.00015, frail_late=(92, 0.25), decline_k=2.0,
+                   acc=((0, 5e-5), (15, 2e-4), (20, 3.5e-4), (30, 2.8e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3))),
+    # round 3e (F9.35, F9.28): fewer young deaths of a failing heart (frail_c .00025), a few more young accidents
     body_par=dict(dip_level=True),
     course_mu=(-0.55, -0.2, -3.5),
     pension_k=0.55,
@@ -1290,7 +1292,9 @@ V225 = dict(
     retire_hz=((50, 0.0), (54, 0.0), (56, 0.045), (58, 0.05), (60, 0.035), (61.9, 0.035), (62, 0.11), (65, 0.12), (67, 0.15),
                (70, 0.18), (80, 0.24)),   # F9.22: poorer old age kept more at work past 70
     c_par=dict(sold=0.03, merged=0.015),
-    eyes_par=dict(odd_vmem=0.05),   # S4: the spread of their places' shares learnt over about twenty years (world_people)
+    eyes_par=dict(odd_vmem=0.05, pair_norm=0.01),   # S4: the spread of their places' shares learnt over about twenty years
+                         # (world_people); pair_norm (round 3e, S3): the caught-between pair is the split that stands out against
+                         # each pair's usual gap (UR was met least, 1.55x)
     soc_own=0.2,
     skill_room=1.0,
 )
