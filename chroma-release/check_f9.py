@@ -166,6 +166,14 @@ def wmean(runs, key):
     return sum(v * n for v, n in vals) / sum(n for _, n in vals)
 
 
+def newest(runs, prefix, old):
+    """The reader's newer count of a row (key starting with prefix, as "F9.19b") when it has one, else the old key."""
+    for k in runs[0]["out"]["f9"]:
+        if k.startswith(prefix + " "):
+            return k, f" (reader's {prefix})"
+    return old, f" (reader's {old.split(' ')[0]}; no {prefix} in this run)"
+
+
 def medians(runs, key):
     v = [r["out"]["f9"].get(key) for r in runs]
     v = [x if not isinstance(x, list) else x[0] for x in v if x is not None]
@@ -219,11 +227,18 @@ def judge(d, commit=None, record=True):
     p50 = frac(runs, "par50")
     t.judge("F9.1 ever a parent by 50 (alive at 50)", p50, .78, .87)
     lean_rows(t, "F9.1 by colour", runs, "par50_by", p50, .60)
-    m, lo_, hi_ = medians(runs, "F9.2b first 'a child is born' age, median")
-    t.judge("F9.2 age at the first child ('a child is born'), median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_})")
+    k, how = newest(runs, "F9.2c", "F9.2b first 'a child is born' age, median")   # 2c: the first own birth (birth log)
+    m, lo_, hi_ = medians(runs, k)
+    t.judge("F9.2 age at the first own child, median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_}){how}")
+    k1 = newest(runs, "F9.1b", "")[0]
+    if k1:
+        t.info(f"own birth by 50, of all lives (reader's F9.1b; F9.1 counts any child, adopted ones too): {wmean(runs, k1):.3f}")
     t.info(f"the children commitment's first start, median of the seeds: {medians(runs, 'F9.2 first child (children commitment) age, median')[0]}")
-    t.judge("F9.3 children per parent by 50, mean", wmean(runs, "F9.3 'a child is born' per parent by 50, mean"), 1.8, 2.5, "{:.2f}")
-    t.judge("F9.4 births after 50, share of their births", wmean(runs, "F9.4 births after 50, share"), None, .03)
+    # the b keys count a life's own births from both moments, each birth once (birth_free; Release 10-12 03:4x UTC)
+    k, how = newest(runs, "F9.3b", "F9.3 'a child is born' per parent by 50, mean")
+    t.judge("F9.3 children per parent by 50, mean", wmean(runs, k), 1.8, 2.5, "{:.2f}", how)
+    k, how = newest(runs, "F9.4b", "F9.4 births after 50, share")
+    t.judge("F9.4 births after 50, share of their births", wmean(runs, k), None, .03, note=how)
     lf = [a for r in runs for a in r["x"]["leave_first"]]
     t.judge("F9.5 the children leave home, parent's age, median", float(np.median(lf)) if lf else None, 48, 60, "{:.1f}")
     # partners
@@ -251,9 +266,17 @@ def judge(d, commit=None, record=True):
     v = wmean(runs, "F9.18 at least one / four or more")
     t.judge("F9.18 at least one job loss", v[0] if v else None, .45, .75)
     t.judge("F9.18 four or more", v[1] if v else None, None, .10)
-    t.judge("F9.19 employers per working life, mean", wmean(runs, "F9.19 employers (career starts), mean"), 4, 12, "{:.2f}")
+    # 19b: career starts and changes of employer, working lives (the row's meaning; Release 10-12 03:4x UTC)
+    k, how = newest(runs, "F9.19b", "F9.19 employers (career starts), mean")
+    t.judge("F9.19 employers per working life, mean", wmean(runs, k), 4, 12, "{:.2f}", how)
     t.judge("F9.20 firm crises felt per life, mean", wmean(runs, "F9.20 firm crises per life, mean"), .5, 3, "{:.2f}")
-    t.judge("F9.21 out of work at 20 to 64, share of years", wmean(runs, "F9.21 out of work at 20-64 (not retired), share of years"), .04, .10)
+    # F9.21 on the reader's 21b: years out of work after the first job, to 64, not retired (students and those not yet
+    # working are not "wanting work"; Engine 10-12 01:26 UTC); every year without a job is printed beside it
+    t.judge("F9.21 out of work after the first job, 20 to 64, share of years",
+            wmean(runs, "F9.21b out of work after the first job, to 64 (not retired)"), .04, .10)
+    v = wmean(runs, "F9.21 out of work at 20-64 (not retired), share of years")
+    if v is not None:
+        t.info(f"every year 20 to 64 without a job, students and the not yet working included: {v:.3f}")
     m, lo_, hi_ = medians(runs, "F9.22 retirement age, median")
     t.judge("F9.22 retirement age, median", m, 60, 67, "{:.1f}", f" (seeds {lo_} to {hi_})")
     t.judge("F9.22 still working at 72, share of the living", wmean(runs, "F9.22 working at 72, share of the living"), None, .15)
