@@ -1126,6 +1126,11 @@ DEFAULT = dict(
                          # x exp(-.5 x the same); while it lasts the ties a life drifts to are keep x the people's and close
                          # rate of the gap a week (not .01). Own random stream. dict(age, single, work, low, ill, out, keep,
                          # rate); None: as before
+    job_gap=None,        # F9.38: out of work after a job (working age, not retired) the pay stops at once: (cut, fall, years):
+                         # for that many years after the job ends the money they drift to is cut lower (benefits replace
+                         # little) and it falls at fall a week (savings run down in months), not mon_drift; None: as before
+    pair_pay=None,       # F9.38: a couple living together shares its money: a partner at work adds this to the money the life
+                         # drifts to (from 18); None: as before (each life's own pay only)
     pay_col=None,        # F9.40 (with low_pay): the colours lean a job's pay, at its draw: (mu, sd), each five weights on
                          # (5 w - 1): pay x exp(mu . (5 w - 1)), its spread x exp(sd . (5 w - 1)). None: even
     kid_tie=None,        # F9.39 (ties_people, world on): under 15 a child's ties are first its family's: at least this (the
@@ -1203,7 +1208,7 @@ V225 = dict(
             'living with a chronic illness': 0.75,
             'your first full-time job': 1.5,
             'a new job at last': 0.35,
-            'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.09),
+            'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
             'divorce after twenty years': 0.5,
             'a child is born': 0.25,
             'a baby on the way, planned or not': 0.35},
@@ -1216,12 +1221,14 @@ V225 = dict(
     birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
     age_free=('your first full-time job',),
     mon_drift=0.015,
-    lone=dict(age=((14, 0.04), (18, 0.016), (25, 0.012), (45, 0.01), (65, 0.008), (80, 0.004), (95, 0.003)), single=0.7,
-              work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
+    lone=dict(age=((13.5, 0.02), (16, 0.012), (18, 0.004), (25, 0.006), (35, 0.012), (50, 0.014), (60, 0.014), (70, 0.008),
+                   (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
     low_pay=(0.7, 0.3, 3.0),
-    pay_col=((0.0, 0.08, 0.04, 0.0, 0.0), (0.0, 0.2, 0.1, 0.0, 0.0)),
-    tie_col=(0.15, 0.0, 0.0, 0.0, 0.05),
-    kid_tie=0.55,
+    pay_col=((0.0, 0.08, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),
+    tie_col=(0.3, 0.0, 0.0, 0.0, 0.05),
+    kid_tie=0.6,
+    job_gap=(0.15, 0.05, 2.0),
+    pair_pay=0.12,
     c_par=dict(sold=0.03, merged=0.015),
 )
 DEFAULT.update(V225)
@@ -1328,6 +1335,8 @@ BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with a
                 "burnout": "burnout"}
 MIND_MOMENTS = {"a long dark season": "low", "a sadness that will not lift": "low", "burnout": "low",
                 "an addiction takes hold": "numb"}
+CO_TITLES = ("living together", "wife or husband", "married again", "partner of many years",
+             "spouse in a family-arranged marriage")   # a home together (F9.6; pair_pay)
 SPLIT_SOFT = ("a breakup",)   # F9 par_split: the young couple's moments that may end a home together or pass
 COND_KINDS = ("asthma", "diabetes", "arthritis", "chronic pain", "heart condition", "epilepsy")
 COND_P = ((0.45, 0.15, 0.0, 0.05, 0.05, 0.3), (0.1, 0.3, 0.3, 0.15, 0.15, 0.0))   # which, as a child and as an adult
@@ -1415,7 +1424,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3374,6 +3383,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         lp_mu = np.zeros(N); lp_sc = np.ones(N)
         PC_ = None if P["pay_col"] is None else np.asarray(P["pay_col"], float)
     TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
+    PRP_ON = P["pair_pay"] is not None                    # F9.38: a couple living together shares its money
+    if PRP_ON:
+        CO_T_ = np.array([i_ for i_, x_ in enumerate(GR["names"]) if x_ in CO_TITLES], int) if RON else np.zeros(0, int)
     CRS_ON = bool(P["course"])                            # F16: the life course leans
     if CRS_ON:
         CRS_KS = np.array([PAR, KID, FAI]); CRS_MU = np.asarray(P["course_mu"], float)
@@ -4392,6 +4404,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             sd_ = lp_sd * lp_sc * lp_d
             mt = mt + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) * (np.exp(lp_mu + sd_ * lp_z - sd_ ** 2 / 2) - 1)
             lp_d *= 0.5 ** (1 / (52 * lp_half))
+        if PRP_ON and age >= 18:   # F9.38: a couple that lives together shares its money: a working partner's pay
+            tog_ = r_has[:, CO_T_].any(1) if len(CO_T_) else held[:, PAR]
+            if WON:   # the partner in the cast, at work
+                ps_ = np.asarray(WL.PP.pslot); tog_ = tog_ & (ps_ >= 0) & np.asarray(WL.PP.emp)[np.arange(N), np.maximum(ps_, 0)]
+            mt = mt + P["pair_pay"] * (tog_ & held[:, PAR])
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
         if HH_ON or TP_ON:   # F3: the household's money until they live on their own; ties are the people around them
             own_, away_ = home_share(age)
@@ -4442,13 +4459,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             mt = np.maximum(mt, P["hh_floor"] * hh_fl_)
         tie_r = 0.01
         if LON_ON and age >= LA_[0]:   # F9.39: a spell of loneliness starts or ends; while it lasts the ties fall away
-            rk_ = (LO_["single"] * ~held[:, PAR] + LO_["work"] * (~held[:, CAR] & ~retired) * (age < P["retire_age"])
+            rk_ = (LO_["single"] * ~held[:, PAR] + LO_["work"] * (~held[:, CAR] & ~retired & (ago["job"] != NEVER)) * (age < P["retire_age"])
                    + LO_["low"] * (md_end[:, 0] > t) + LO_["ill"] * (bd_cw.sum(1) > 0))
             u_ = lon_rng.random(N)
             on_ = ~lone & ~dead & (u_ < float(np.interp(age, LA_, LF_)) * np.exp(rk_) / 52)
             lone = (lone | on_) & ~(lone & (u_ < LO_["out"] * np.exp(-0.5 * rk_) / 52))
             tt = np.where(lone, LO_["keep"] * tt, tt); tie_r = np.where(lone, LO_["rate"], 0.01)
-        res[:, MON] += P["mon_drift"] * (mt - res[:, MON]); res[:, TIE] += tie_r * (tt - res[:, TIE])
+        mon_r = P["mon_drift"]
+        if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:   # F9.38: a lost wage stops at once
+            gp_ = (~held[:, CAR] & ~retired & (ago["job"] != NEVER) & (end_t[:, CAR] < NEVER // 2)
+                   & (t - end_t[:, CAR] < 52 * P["job_gap"][2]))
+            mt = mt - P["job_gap"][0] * gp_
+            mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])
+        res[:, MON] += mon_r * (mt - res[:, MON]); res[:, TIE] += tie_r * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
         if HM_ON:   # v22.5 F1: the body and the mind make health (ht's age part is the body's own curve there)

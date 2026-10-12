@@ -19,6 +19,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
+T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
 tree's Library and packs: run from a checkout of the repository it checks the checkout, from the shared folder the live
 engine. Exit code 0 when every check passes."""
@@ -349,10 +350,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
        ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
        ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
-for row_ in P2_:
+def p2_row(row_):
+    """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
     if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
-        continue
+        return None
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
     kw = dict(N=n_, years=yrs, seed=4, lib=EARTH, P=Pd)
@@ -371,9 +373,22 @@ for row_ in P2_:
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
     if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
         fails.append("switched on, the lives are those with it off")
-    bad += bool(fails)
-    print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
-          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+    return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
+                         f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+
+
+# the rows are independent: T_JOBS processes (default up to 4, the cores there are) run them, printed in their order
+_jobs = int(os.environ.get("T_JOBS") or min(4, os.cpu_count() or 1))
+if _jobs > 1:
+    import multiprocessing as _mp
+    with _mp.get_context("fork").Pool(_jobs) as _pool:
+        _res = _pool.map(p2_row, P2_, chunksize=1)
+else:
+    _res = map(p2_row, P2_)
+for r_ in _res:
+    if r_ is not None:
+        bad += r_[0]
+        print(r_[1], flush=True)
 # 10. v22.5, F12: a culture's own acts always on offer (own_open) in the clan, on the seed library with the Library's
 # worlds.py OWN (as the game attaches them): run_steps lives as run(), and the lives move
 _wpy = os.path.join(_engine.LIBRARY, "worlds.py")
