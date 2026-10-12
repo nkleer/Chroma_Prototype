@@ -18,7 +18,7 @@ refit's settings on the record's commit):
                      word inside line_wait years (5 when the game has none)                               0 lines
                F10.4 played lives: national news (not their own place's, a war, a pandemic or a recession) is not
                      told before news_age, the same kind (a government's fall with its election) not twice inside
-                     news_gap years, a law not twice for the same state                                   0 lines
+                     news_gap years, a law not told again while it stands as last told                    0 lines
   f7_roll    (F7, one_roll) played lives, presets 1 to 6, to the end of each life:
                F7.1  no line names a person after the week of their death, except where the story tells of the dead
                      (the death itself, the dead slot of grief and memory, the quiet deaths)              0 lines
@@ -34,7 +34,8 @@ Each judged row passes or not; a check is PASS when all its rows pass, else FAIL
            [--seeds 41-44] [--lives 300] [--years 100] [--played 1-6x1-4] [--jobs 4] [--as-is] [--out DIR] [--no-record]
 
 --repo: the checkout to check (default the tree this script sits in): its chroma-engine/v22-speedpass with its
-chroma-library and chroma-packs (engine lives) and its chroma-game/prototype with the pin (played lives). A row's
+chroma-library and chroma-packs (engine lives) and its chroma-game/prototype with the pin (played lives: they run the
+game's engine_pin, so an engine branch's played lives read its engine only once the Game has re-pinned it). A row's
 switches that DEFAULT (or the game's GAME) still has off are switched on and named in the report; --as-is judges the
 checkout exactly as it is, so today's main (every v22.5 switch off) reads what the old rules do. f8_after and f10_once
 share their engine lives (with `all`, or f10_once given --engine-from the f8_after run's folder). The bar's K9 reads
@@ -188,7 +189,8 @@ def unit_play(repo, preset, seed, what):
             legit = birth = False
             for f in frames():
                 co = f.f_code.co_name
-                if co in ("death", "quiet_deaths", "_who_dies", "dies") or (co == "role" and f.f_locals.get("slot") == "dead"):
+                if co in ("death", "quiet_deaths", "_who_dies", "dies") or (co == "role" and f.f_locals.get("slot") == "dead") \
+                        or (co == "_one" and f.f_locals.get("k") == "dead"):   # the dead slot again (an outcome's {dead})
                     legit = True
                 if co == "role" and f.f_locals.get("slot") == "child" and (f.f_locals.get("ctx") or {}).get("_birth"):
                     birth = True
@@ -320,10 +322,10 @@ def unit_play(repo, preset, seed, what):
             if t / 52 < age0:
                 bad["F10.4"].append(f"{t / 52:.1f}: {k_} told before {age0:g}")
             if k_ == "law":
-                key = (x.get("law"), x.get("state"))
-                if key in laws:
-                    bad["F10.4"].append(f"{t / 52:.1f}: the law {x.get('law')} told again for the same state (first {laws[key] / 52:.1f})")
-                laws[key] = t
+                lw_ = laws.get(x.get("law"))           # a law is news when it changes: not again in the state last told
+                if lw_ is not None and lw_[0] == x.get("state"):
+                    bad["F10.4"].append(f"{t / 52:.1f}: the law {x.get('law')} told again, still {x.get('state')} (told {lw_[1] / 52:.1f})")
+                laws[x.get("law")] = (x.get("state"), t)
                 continue
             g_ = "government" if k_ in ("gov_falls", "election") else k_
             if g_ in last and t - last[g_] < gap:
