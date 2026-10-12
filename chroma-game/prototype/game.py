@@ -204,6 +204,13 @@ GAME = dict(
     # story's place follows the world's (a village start in a village, a move to a city a city); each start draws its own
     # world and story names (with the same seed, the four modern starts are four lives, not one in four coats)
     world_hold=False,
+    # v22.5 realism F15 (the clan and the towers settle as their own colours): tribal and magic lives play on the Library's
+    # colour-even seed moments (worlds.py SEED, one option per colour) instead of the engine's own seed library, whose
+    # options lean White (False: the engine's)
+    world_seed=False,
+    # v22.5 F15 (Engine, clan and towers): the faith a life inherits leans faith_home of the way from the world's faith mix
+    # toward the family's own colours (engine fam) (0: the world's mix, as before)
+    faith_home=0.0,
     # v22.5 realism F10, once means once, the story's side (no life changes): line_wait, the years before the same line of
     # an outside reading, the world, an ordinary week or a year's chapter is told again word for word (0: as before);
     # news_touch, national news only when it touches them: from news_age (their own place's, a war, a pandemic and a
@@ -223,11 +230,24 @@ OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
-                world_hold=False,
-                line_wait=0.0, news_touch=False, rare_ask=False)
-if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
+                world_hold=False, world_seed=False, faith_home=0.0,
+                line_wait=0.0, news_touch=False, rare_ask=False,
+                own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
+# v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
+# with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
+# values chroma-release/check_roll.py proves), the player-impact rules V1-V8 (chroma-ideas/player-impact/scripts/
+# proto_v8.env), rare_ask, and clarity items 6 and 7, lines_tied and trust_judge (every line has a cause; every push judged
+# by how it went: planned for v22.4's refit, needed now the v22.5 rules leave few pushes reluctant). V225_OFF keeps
+# the values before (v22.4's played lives, with the engine's UPD_OFF)
+V225 = dict(world_hold=True, world_seed=True, faith_home=1.0, line_wait=5.0, news_touch=True, trust_judge=True, lines_tied=True,
+            own_mark="both", own_stress=0.3, own_free=0.5, lean_self=0.012, hind_thin=0.7, season_need=1.0, season_calm=0.012,
+            fork_k=0.3, fork_told=True, rung_ask=True, own_teach=0.05, dream_own=True, dream_fit=0.5, dream_firm=0.15,
+            dream_help=1.0, rare_ask=True, rare_imp=0.5)
+V225_OFF = {k: GAME[k] for k in V225}
+GAME.update(V225)
+if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224" or settings as JSON
     import json as _json
-    GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
+    GAME.update({"off": GAME_OFF, "v224": V225_OFF}.get(os.environ["CHROMA_GAME"]) or _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
 # (upper-case keys set the pinned batch.py's flags instead, before the Earth library loads: {"FAR_MOMENTS": true})
@@ -309,8 +329,9 @@ def library_for(setting):
                 if k_.isupper():
                     setattr(batch, k_, v_)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
-        else:
-            _LIBS[key] = (with_dreams(E.compile_library(), key), None)
+        else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
+            seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None
+            _LIBS[key] = (with_dreams(E.compile_library(situations=seed_), key), None)
     return _LIBS[key]
 
 
@@ -1566,10 +1587,16 @@ class Game:
             key = (kind, ch, d)
             yk = abs(float(e.get("size", 0))) / (WFX_BAND.get(ch, WFX_BAND["risk"])[1] if ch != "option" else 1.0)
             self._wyear[key] = self._wyear.get(key, 0.0) + min(yk, 2.0)
-            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN:     # counted for the year's line, not told again
+            lc_ = self.__dict__.setdefault("_wfx_ch", {}).get(ch) if GAME["line_wait"] else None
+            if t - self._wfx_t.get(key, -10 ** 6) < WFX_AGAIN or \
+                    (lc_ is not None and lc_[1] != d and t - lc_[0] < WFX_AGAIN and band != "big"):
+                # counted for the year's line, not told again; F10 (line_wait on): nor a small turn the other way in a
+                # channel told within the year (the times took from their pocket, then put a little back)
                 self.history["times"].append(dict(age=round(t / 52, 1), kind=k, channel=ch, dir=d, told=False))
                 continue
             self._wfx_t[key] = t
+            if GAME["line_wait"]:
+                self._wfx_ch[ch] = (t, d)
             cause = self._wcause_text(e.get("cause"), kind)
             text = self.story.fill(line.replace("{who}", "someone close to them"))
             self._say(mk("X", f"{k}|{ch}|{d}|{band}|{cause.replace('|', '/')}", text), 0 if band == "big" else 1, "world_fx",
@@ -2971,10 +2998,11 @@ class Game:
         F = E.KIDX["faith"]
         if self.faith_mix is None or not loc["held"][0, F]:
             return
-        loc["prof"][0, F] = self.faith_mix
+        fm_ = (1 - GAME["faith_home"]) * self.faith_mix + GAME["faith_home"] * np.asarray(loc["fam"][0], float)
+        loc["prof"][0, F] = fm_
         for ev in loc["events"][0][::-1]:
             if "commitment" in ev and ev["commitment"].get("what") == "inherited":
-                ev["commitment"]["profile"] = self.faith_mix.round(2).tolist()
+                ev["commitment"]["profile"] = fm_.round(2).tolist()
                 break
 
     def _on_end(self, t, loc):

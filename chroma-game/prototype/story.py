@@ -1073,6 +1073,11 @@ ACT_FIX = {"refuse, it breaks the rules": "refuse, because it breaks the rules",
 # Filled by load_library_story() from whatever library the pinned engine compiles; the game's own lines above stay as
 # the fallback for situations, worlds or stages the Library has not written yet.
 LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ = {}, {}, {}, {}
+# F7 (one_roll): the moments that tell a funeral or what it leaves, so their {dead} died within DEAD_LATELY years (a
+# friend's, a friend); with none lately gone, someone new has just died. Other moments of the dead remember the latest
+DEAD_FRESH = {"a memorial service for a friend", "an old friend's funeral", "the funeral bill", "the funeral where everyone sings",
+              "ten people at the graveside", "a dispute over an inheritance"}
+DEAD_LATELY = 1.0
 LIB_OUT_NOT = {}   # F11b (v22.4.1): per moment, (option labels, per works line and per fails line the options it does not fit)
 LIB_GRIEF = set()          # moments in which someone dies (kills:)
 LIB_ECHO = {}              # echo -> the mark it answers ("a promise you broke comes back" -> "broke your word")
@@ -1388,6 +1393,14 @@ class Story:
         elif slot == "dead":
             if ctx.get("_dying"):                       # a death scene: someone alive is about to die
                 p = self._who_dies(ctx.get("_age", 30), ctx["_dying"])
+            elif self.one_roll and ctx.get("_sit") in DEAD_FRESH:   # F7: a funeral's dead died lately (a friend's, a friend)
+                fr_ = "friend" in ctx["_sit"]
+                ps = [q for q in self._dead if ctx.get("_age", self.age) - q.get("gone", -99.0) <= DEAD_LATELY
+                      and (not fr_ or q["role"] == "friend")]
+                p = ps[-1] if ps else self.new("friend", "their friend {n}") if fr_ else \
+                    self.new("late relative", "their late " + ("aunt" if self.rng.random() < 0.5 else "uncle") + " {n}")
+                if not ps:
+                    self.dies(p)
             elif self._dead:                            # otherwise the dead are those already gone
                 p = self._dead[-1]
             else:
@@ -1579,6 +1592,8 @@ class Story:
             return m
         ph = phase(age)
         ctx = dict(_age=age)
+        if self.one_roll:                               # F7: the scene's dead fit it (DEAD_FRESH)
+            ctx["_sit"] = sit
         if self.one_roll and sit == "a child is born":   # F7: the scene's child is the newborn
             ctx["_birth"] = True
         if kills or sit == "bereavement":

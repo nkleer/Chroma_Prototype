@@ -530,13 +530,16 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         mn_ = getattr(R, "INNER_MIN_AGE", 0)   # the Library's child versions (window ending by then) keep their own
         if s.get("tier") == "inner" and s["age"][1] > mn_:
             s["age"] = (max(s["age"][0], mn_), s["age"][1])
+    drvn_ = {}   # the norm each life event's per_year was divided by (the engine's drv_self reads it)
     for s in sits:   # drivers decide who, not how many (earth_rules.DRV_NORM; a child version's own, else its original's)
         dn_ = getattr(R, "DRV_NORM", {}); dk_ = s["name"] if dn_.get(s["name"], 0) > 0 else key(s)
         if s.get("per_year") and dn_.get(dk_, 0) > 0:
             s["per_year"] = tuple(x / dn_[dk_] for x in s["per_year"])
+            drvn_[s["name"]] = dn_[dk_]
     recon = [s for s in E.SITUATIONS if s["name"] == "reconsidering a commitment"]
     L = E.compile_library(symmetric, sits + recon)
     names = L["names"]
+    L["DRVN"] = np.array([drvn_.get(nm_, 1.0) for nm_ in names])
     # conditions per situation: kind 1 inner, 2 echo, 3 life-event gate
     cond = []
     # variant_of: a child version of an event is the same event for once, kills, gates and names (only its window and
@@ -824,7 +827,7 @@ SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or am
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
-AGE_FIT = False         # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
+AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built

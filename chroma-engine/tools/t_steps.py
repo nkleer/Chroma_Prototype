@@ -19,6 +19,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
+T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
 ENGINE_DIR defaults to CHROMA_ENGINE, else the engine of the tree this script sits in (tools/_engine.py), with that
 tree's Library and packs: run from a checkout of the repository it checks the checkout, from the shared folder the live
 engine. Exit code 0 when every check passes."""
@@ -294,6 +295,10 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
         dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("v22.5 S4, the spread of their places learnt over a life (eyes_par odd_vmem; with the eyes and the odd one out)",
+        dict(eyes_par=dict(odd_vmem=0.05), sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True,
+             cur_on=True),
+        dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40, 10),
        ("ways to lead and the leader's time in post (lead_ways; with the levers and the events)",
         dict(lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 40, 10),
@@ -348,11 +353,24 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(hh_money=True, ties_people=True), {}, 30),
        ("v22.5 F7, one roll of the living (one_roll)", dict(one_roll=True), {}, 40),
        ("v22.5 F8, retirement ends work (retire_ends)", dict(retire_ends=True), {}, 80, 6),
-       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30)]
-for row_ in P2_:
+       ("v22.5 F10, a world moment only on the world's event (world_only)", dict(world_only=True), {}, 30),
+       # v22.5 refit round 2 (F9.20, F9.38 to F9.40), at the refit's values (V225)
+       ("v22.5 round 2, loneliness, low pay, a job gap, a couple's pay, colour-leaned pay and ties, a child's ties, firm crises "
+        "(lone, low_pay, pay_col, job_gap, pair_pay, mon_drift, tie_col, kid_tie, c_par)",
+        {k_: E.V225[k_] for k_ in ("lone", "low_pay", "pay_col", "job_gap", "pair_pay", "mon_drift", "tie_col", "kid_tie", "c_par")
+         if k_ in getattr(E, "V225", {})}, {}, 40, 6),
+       ("v22.5 G19w, the company a life picks (soc_own)", dict(soc_own=0.2), {}, 30),
+       ("v22.5 G19w, practice is shared among the skills in the same ways (skill_room)", dict(skill_room=1.0), {}, 40, 8),
+       ("v22.5 round 2, a pension's spread, the help after a long hard spell, deaths at work (pen_pay, low_net, work_die)",
+        dict(pen_pay=0.5, low_net=(3.0, 0.1, 1.0), work_die=0.00007), {}, 70, 6),
+       ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 6),
+       ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
+        dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
+def p2_row(row_):
+    """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
-    if not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
-        continue
+    if not sw or not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
+        return None
     t0 = time.process_time(); fails = []
     Pd = dict(E.DEFAULT); Pd["world"] = True; Pd.update(sw)
     kw = dict(N=n_, years=yrs, seed=4, lib=EARTH, P=Pd)
@@ -371,9 +389,22 @@ for row_ in P2_:
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
     if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
         fails.append("switched on, the lives are those with it off")
-    bad += bool(fails)
-    print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
-          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+    return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
+                         f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+
+
+# the rows are independent: T_JOBS processes (default up to 4, the cores there are) run them, printed in their order
+_jobs = int(os.environ.get("T_JOBS") or min(4, os.cpu_count() or 1))
+if _jobs > 1:
+    import multiprocessing as _mp
+    with _mp.get_context("fork").Pool(_jobs) as _pool:
+        _res = _pool.map(p2_row, P2_, chunksize=1)
+else:
+    _res = map(p2_row, P2_)
+for r_ in _res:
+    if r_ is not None:
+        bad += r_[0]
+        print(r_[1], flush=True)
 # 10. v22.5, F12: a culture's own acts always on offer (own_open) in the clan, on the seed library with the Library's
 # worlds.py OWN (as the game attaches them): run_steps lives as run(), and the lives move
 _wpy = os.path.join(_engine.LIBRARY, "worlds.py")

@@ -306,14 +306,18 @@ FAR_OFF = 10 ** 9   # far_in: not taken in
 # odd_*: S4's odd_z, how far under what they are used to their lead colour's share at a place must sit, in spreads (1;
 # what they are used to: each colour's mean log share at their places a year or more theirs, and its spread among them, a
 # running mean with odd_mem of each year's places, .25; in proportion, so half the share is as odd for a rare colour as a
-# common one), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
+# common one; the spread with odd_vmem when set, v22.5 .05: how far apart their places sit is learnt over a life, so two
+# places do not put the lower one exactly one spread under; None: odd_mem), visibility x1.5, pressure x1.3, contrast .05 x the rung factor,
 # blend step .02, years held (3), the place's lean by rung a year (regular .005, known .02, leader .04; pillar between),
 # the regulars' .002 a year, hardening .01; hold_k, the log-odds an unplayed life's own colour strength and rung add to
-# holding on
+# holding on; pair_k, the power of the two places' mean share that scales each colour's gap when the caught-between pair
+# is read (.5: the root, as a chi-square reads two mixes; higher reads a rarer colour's gap larger); pair_norm, when above 0,
+# reads each pair's gap against how far apart that pair's colours usually sit in the reads so far (a running mean, this
+# much of each read), so the pair named is the split that stands out, not the one that is wide everywhere (0: as before)
 EYES_DEFAULT = dict(act_w=0.1, step=0.3, fair=0.1, back=0.1, strain=0.02, door=0.1, cool=52, wait=13, ev_opp=-0.2,
-                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
+                    buf_haunt=0.2, buf_half=26.0, odd_z=1.0, odd_mem=0.25, odd_vmem=None, odd_vis=1.5, odd_press=1.3, odd_contrast=0.05,
                     odd_rung=(1.0, 0.75, 0.5, 0.25, 0.0), odd_blend=0.02, odd_hold=3,
-                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5)
+                    odd_lean=(0.0, 0.005, 0.02, 0.03, 0.04), odd_regular=0.002, odd_harden=0.01, hold_k=0.5, pair_k=0.5, pair_norm=0.0)
 EYES_G = [G[k_] for k_ in ("work", "congregation", "unit")]   # S3: the settings that are places of their own
 EYES_ENEMY = ((0, 2), (0, 3), (1, 3), (1, 4), (2, 4))   # S3: the Canon's enemy pairs WB WR UR UG BG, as W U B R G indices
 EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts read as walking away from their colours
@@ -335,9 +339,22 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # moments, and fights won again and again kept White's posts longest); again: weeks after standing down before the
 # take chance doubles there; wait: weeks a post's moment waits to come; routine: yearly fades in a row after which the
 # inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
-# office where there are no elections (held at the ruler's pleasure)
+# office where there are no elections (held at the ruler's pleasure); fav_drop: favours owed also run out when, at the
+# yearly check, the leader's money is under this share of its best since they began leading by favours (a patron with
+# less to give than the clients came for; Scott 1972), read against the life's own money so it holds whatever money
+# the society runs at (v22.5: with real money few leaders sit under the need line, and favours fell .7 a ten post-years
+# against 3.4 to 3.7 for the other ways); 0: the need line alone, as before; fast_gap: weeks after a custom step before
+# fast change can step the post again (custom reads the town's change over four quarters, so one stretch of change stayed
+# in the window and stepped the post in back-to-back quarters: 96% of a custom post's later steps came the next quarter,
+# against none to a third for the other ways, and its second step was the fall; 52: once a year, as favours and
+# inspiring are read), fast_k: the fast line x this (with fast_gap, the line that keeps custom's falls with the other
+# ways'); 0 and 1: every quarter, at the Outer world's line, as before; owner_kind: a title that owns what it leads
+# (LEAD_OWNED: a founder of a firm) holds it as an owner does (place_owned, as a shop or café owner: about .07 a year to
+# step down and an age out at 70), not as an appointed manager (setting_work: .15 and 67); False: as before (the v22.5
+# refit's values: engine.V225 lead_par)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
-                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, fav_drop=0.0,
+                    fast_gap=0, fast_k=1.0, owner_kind=False)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -363,6 +380,7 @@ LEAD_TITLES = {"head of government": ("national", "rule", None), "minister": ("n
                "disability-rights organiser": ("setting_member_led", "rule", "movement"),
                "campaign organiser": ("setting_member_led", "rule", "movement"),
                "founder of a movement": ("setting_member_led", "rule", "movement")}
+LEAD_OWNED = {"founder of a firm": "place_owned"}   # titles that own what they lead: their post kind with owner_kind
 LEAD_KINDS = ("work", "congregation", "club", "gang", "unit", "movement")   # settings a life can come to lead
 # seen_done (S6, chroma-ideas/social-mechanics.md "Seen it done"): start values, estimates refit in v22.3's joint refit
 # (the Outer world files none in dynamics.json). close, regular, figure: an exposure's weight by who walked the path
@@ -1527,7 +1545,7 @@ class People:
         # body ages .15 x wear years a year worked (the haunt stream draws, so every other stream draws as before)
         u_ = self._hrng.random((self.N, 2))
         self.mark_hurt |= has & (u_[:, 0] < 0.03 * dw_[:, 0])
-        self.mark_die |= has & (u_[:, 1] < 0.0005 * dw_[:, 0])
+        self.mark_die |= has & (u_[:, 1] < getattr(self, "mk_die", 0.0005) * dw_[:, 0])   # (engine work_die)
         self.mark_wear += 0.15 * dw_[:, 1] * has
 
     def _tstage(self, a):
@@ -2270,7 +2288,13 @@ class People:
         hasliving = has.copy(); hasliving[has] = self.lv[np.nonzero(has)[0], ps[has]]
         if held.shape[1] <= PAR:
             return
-        for n_ in np.nonzero(held[:, PAR] & ~hasliving & ~self.dead)[0]:
+        refill_ = held[:, PAR] & ~hasliving & ~self.dead
+        if getattr(self, "or_on", False):   # F7 (one_roll): a partner the world took is not replaced while the engine still
+            # holds the partnership (its widowhood ends it within weeks); only a new partner commitment brings someone
+            wid_ = getattr(self, "p_wid", None)
+            self.p_wid = ((np.zeros(len(held), bool) if wid_ is None else wid_) | (has & ~hasliving)) & held[:, PAR]
+            refill_ &= ~self.p_wid
+        for n_ in np.nonzero(refill_)[0]:
             self._new_partner(int(n_), t)
         for n_ in np.nonzero(~held[:, PAR] & hasliving)[0]:
             k_ = int(ps[n_])
@@ -3923,8 +3947,16 @@ class People:
         between. Not each place's leading face: the places share their town's lean (about half of them lead Green), so two
         leading faces named that lean, not the pull (v22.4 fix round: the pairs with Green came three times as often as WB)."""
         fa, fb = self._eyes_fc[n, qa][self._eyes_inv], self._eyes_fc[n, qb][self._eyes_inv]
-        d_ = (fa - fb) / np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9))
-        i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
+        pk_ = self.eyes_par["pair_k"]
+        d_ = (fa - fb) / (np.sqrt(np.maximum(0.5 * (fa + fb), 1e-9)) if pk_ == 0.5 else np.maximum(0.5 * (fa + fb), 1e-9) ** pk_)
+        if self.eyes_par["pair_norm"] > 0:   # each pair's gap against its usual gap (S3: a pair wide everywhere is no split)
+            g_ = np.array([abs(d_[p_[0]] - d_[p_[1]]) for p_ in EYES_ENEMY])
+            pg_ = getattr(self, "_eyes_pg", None)
+            pg_ = g_.copy() if pg_ is None else pg_
+            i_, j_ = EYES_ENEMY[int(np.argmax(g_ / np.maximum(pg_, 1e-9)))]
+            self._eyes_pg = (1 - self.eyes_par["pair_norm"]) * pg_ + self.eyes_par["pair_norm"] * g_
+        else:
+            i_, j_ = max(EYES_ENEMY, key=lambda p_: abs(d_[p_[0]] - d_[p_[1]]))
         return (i_, j_) if d_[i_] >= d_[j_] else (j_, i_)
 
     def _eyes_queue_caught(self, n, qa, qb, why, t):
@@ -4188,7 +4220,10 @@ class People:
         one out 25 times as often as Green-led ones (v22.4 fix round); a life is read against its own places, the same in
         a batch as alone in the game. Shares are read in proportion (log share): a colour common at their places spreads
         wider below its mean than a rare one, which cannot fall far, so read in plain shares Green-led lives were odd most
-        and Red-led least (s4_odd 1.20x on the v22.4 refit). Its moment waits once a life stage per place (never after blending in there). Held
+        and Red-led least (s4_odd 1.20x on the v22.4 refit). With odd_vmem (v22.5) the spread is learnt over a life: with
+        two places and the spread of these two alone, the lower sits exactly one spread under the mean, so "odd" turned on
+        whether that place had drifted down lately (a newcomer's workplace for White- and Green-led lives, whose faiths lean
+        their way; a steady congregation for Blue- and Black-led ones). Its moment waits once a life stage per place (never after blending in there). Held
         odd_hold years in a row (odd, not blended), the place leans toward their colour by their rung there a year
         (odd_lean: a haunt's faces, through World's place setter; a setting's ways), and its regulars' colours
         odd_regular a year toward theirs."""
@@ -4205,7 +4240,8 @@ class People:
         var = (np.where(el[..., None], lf - mu[:, None, :], 0.0) ** 2).sum(1) / np.maximum(ne, 1)[:, None]
         hv = (ne > 0)[:, None]; k_ = np.where(self.odd_n > 0, P_["odd_mem"], 1.0)[:, None]
         self.odd_mu = np.where(hv, self.odd_mu + k_ * (mu - self.odd_mu), self.odd_mu)
-        self.odd_var = np.where(hv, self.odd_var + k_ * (var - self.odd_var), self.odd_var)
+        kv_ = k_ if P_["odd_vmem"] is None else np.where(self.odd_n > 0, P_["odd_vmem"], 1.0)[:, None]   # the spread (v22.5)
+        self.odd_var = np.where(hv, self.odd_var + kv_ * (var - self.odd_var), self.odd_var)
         self.odd_n += ne > 0
         self.odd_now = odd
         self.odd_y = np.where(odd & ~self.odd_blend, self.odd_y + 1, 0)
@@ -4712,7 +4748,8 @@ class People:
     def _lead_kind(self, n, kind, slot, place):
         """The post kind (lead_posts) of a setting led (by the haunt kind of its place, else its group kind) or an office."""
         if kind == "office":
-            return LEAD_TITLES[self.lw_tnames[slot]][0]
+            tn_ = self.lw_tnames[slot]
+            return LEAD_OWNED[tn_] if self.lw_par["owner_kind"] and tn_ in LEAD_OWNED else LEAD_TITLES[tn_][0]
         if kind == "place":
             return self._lw_hk.get(HAUNT_KINDS[(int(place) // self.W.hp_s.shape[2]) % len(HAUNT_KINDS)])
         return self._lw_gk.get(GROUP_KINDS[int(self.skind[n, slot])])
@@ -4979,17 +5016,27 @@ class People:
                 if lo_ and not p["fair_lo"]:
                     self._lead_step(p, t, "rules", why="a fairness scandal")
                 p["fair_lo"] = lo_
-            elif p["way"] == 2:   # favours: once a year, money under the need line
+            elif p["way"] == 2:   # favours: once a year, money under the need line, or (fav_drop) under that share of
+                m_ = float(self.res[n, MON])   # its best since leading by favours: less to give than the clients came for
+                if par["fav_drop"]:
+                    hi_ = p.get("money_hi")
+                    p["money_hi"] = [p["way_t"], m_] if hi_ is None or hi_[0] != p["way_t"] else [hi_[0], max(hi_[1], m_)]
                 if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
-                    if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
+                    if m_ < self._lw_need and t > p["t0"]:
                         self._lead_step(p, t, "favours", why="money under need")
+                    elif par["fav_drop"] and t > p["t0"] and m_ < par["fav_drop"] * p["money_hi"][1]:
+                        self._lead_step(p, t, "favours", why="less to give")
             elif p["way"] == 3:   # inspiring: a year without a new success fades the spark
                 if t - p["succ_t"] >= 52 and t - p["fade_t"] >= 52:
                     p["fade_t"] = int(t); p["fades"] += 1
                     self._lead_step(p, t, "inspiring", why="no new success")
             elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
-                if tv_[l_, j_] > self._lw_fast[j_]:
+                # (fast_gap: no new custom step within that many weeks of the last, so one stretch of change, read
+                # over four quarters, is not counted again each quarter it stays in the window)
+                if (tv_[l_, j_] > par["fast_k"] * self._lw_fast[j_]
+                        and t - p.get("fast_t", NEVER) >= par["fast_gap"]):
+                    p["fast_t"] = int(t)
                     self._lead_step(p, t, "custom", why="fast change")
         # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
         for p in list(self.lw_posts):
@@ -5654,6 +5701,8 @@ class People:
                               sd=[[int(y_) for y_ in x_] for x_ in self.far_sd[n, ks_]],
                               inn=[int(x_) for x_ in self.far_in[n, ks_]], frm=[int(x_) for x_ in self.far_from[n, ks_]],
                               rng=self._far_rng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "p_wid", None) is not None:   # F7 one_roll (only once set): a partner the world took, not yet ended
+            out["p_wid"] = bool(self.p_wid[n])
         if getattr(self, "eyes_on", False):   # S3, S4 (only when on): the places, the names there, the moments waiting, kept-apart pairs
             ev_ = dict(key=[int(x_) for x_ in self.eyes_key[n]], rep=[float(x_) for x_ in self.eyes_rep[n]],
                        t0=[int(x_) for x_ in self.eyes_t0[n]], gob=[bool(x_) for x_ in self.eyes_gob[n]],
@@ -5731,6 +5780,8 @@ class People:
                 for f_ in cls._SET_F:
                     getattr(pp, f_)[n, j] = s_[f_]
                 pp.snorm[n, j] = s_["snorm"]; pp.sanch[n, j] = s_["sanch"]
+        if any("p_wid" in d_ for d_ in saved):   # F7 one_roll: a partner the world took, not yet ended (_sync)
+            pp.p_wid = np.array([bool(d_.get("p_wid", False)) for d_ in saved])
         pp.nh = [np.asarray(v_, float) for v_ in d0.get("nh", [])]
         pp._psq = _csum(pp.pie * pp.pie).astype(np.float32)
         pp._xsoc = bool((pp.soc != pp.soc_home).any() or ((pp.msoc != pp.soc[:, None]) & pp.used).any())
