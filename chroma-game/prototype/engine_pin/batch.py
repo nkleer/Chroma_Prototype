@@ -41,7 +41,7 @@ safety belonging autonomy competence meaning  money time health ties freedom
 stress mood satisfaction peace react steady base_mood outlook support wound trouble fortune cload
 W U B R G  hW hU hB hR hG (acted ways, ten-year share)  eW eU eB eR eG (ends served, ten-year share)
 held_X yrs_X ago_end_X for X in career partner children community faith; yrs_any kids_home retired widowed betrayed
-alive_parent alive_sibling alive_friend alive_grandparent alive_child
+alive_parent alive_sibling alive_friend alive_grandparent alive_child kid_young (years since the youngest child came; 99 = none)
 ago_le ago_commit ago_move ago_death ago_loss ago_win ago_hard_win ago_fail_big ago_breakup ago_retire ago_child ago_job
 ago_goal_end ago_hard (years since; 99 = never)
 quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_needs ok_body easing flat_comp (weeks in a row)
@@ -116,6 +116,81 @@ def _names_any(s, names):
         if any(hit(nt.get(k_)) for op in ACT_OPS for k_ in (op, op + "_if_fails")) or hit(nt.get("requires")):
             return True
     return False
+
+
+def dream_grow_data(L, D_, setting):
+    """v22.5, F6: what the engine switch dream_grow reads from the Library's dreams (chroma-library/dreams.py): each
+    dream's kind (play, status, own) and the youngest age of each kind, the dreams that join with it on, the dreams each
+    spark shows and the ages a spark's telling fits. Read by nothing with dream_grow off. The game's tribal and magic
+    lives (seed library) attach the same through this function."""
+    L["DREAMS_MORE"] = [d_ for d_ in getattr(D_, "DREAMS_MORE", []) if setting in d_["worlds"].split()]
+    L["DREAM_KIND"] = dict(getattr(D_, "DREAM_KIND", {})); L["KIND_FROM"] = dict(getattr(D_, "KIND_FROM", {}))
+    L["PLAY_UNTIL"] = float(getattr(D_, "PLAY_UNTIL", 0.0))
+    L["TRIGGER_DREAMS"] = dict(getattr(D_, "TRIGGER_DREAMS", {}).get(setting, {}))
+    L["TRIGGER_AGES"] = dict(getattr(D_, "TRIGGER_AGES", {}).get(setting, {}))
+    return L
+
+
+def own_ways(L, own):
+    """v22.5, F12: what the engine switch own_open reads (L["OWN"], situations x options): the options that are a
+    culture's own acts, by the labels the library writes them with (the Library's worlds.py OWN[world], for the worlds
+    that play on the seed library). Returns L."""
+    own = set(own); S, K = L["S"], L["K"]
+    L["OWN"] = np.array([[k < len(lb) and lb[k] in own for k in range(K)] for lb in L["labels"][:S]], bool).reshape(S, K)
+    return L
+
+
+AGE_FIT_KEYS = ("age", "stages", "options", "scenes", "outcomes", "setting", "variant_of", "why")
+
+
+def _age_fit(sits, fit, world):
+    """v22.5, F4 (AGE_FIT): lay the Library's age fit (chroma-library/<world>_age_fit.py, AGE_FIT) over the moments, by
+    name, before any rule reads them. Per moment, any of: age (a new window), stages, options ({number from 1: a new
+    label, or dict(label=..., act=...) when the narrator's act line changes too}), scenes ({scene key "" or a colour: new
+    text}, this world's), outcomes ((works, fails) lines), setting (this world's one-line premise), variant_of (a child
+    version joins its teen or adult twin as one event) and why (the note; read by no rule)."""
+    by_ = {s["name"]: s for s in sits}
+    for nm, f_ in fit.items():
+        if nm not in by_:   # a pack's moment with that pack not loaded, or a moment a gate holds back
+            continue
+        s = by_[nm]; where = f"AGE_FIT {nm!r}"
+        odd = sorted(set(f_) - set(AGE_FIT_KEYS))
+        if odd:
+            raise ValueError(f"{where}: unknown fields {odd}")
+        if "age" in f_:
+            lo_, hi_ = f_["age"]
+            if not 0 <= lo_ < hi_:
+                raise ValueError(f"{where}: age {f_['age']!r}")
+            s["age"] = (lo_, hi_)
+        if "stages" in f_:
+            s["stages"] = f_["stages"]
+        if f_.get("variant_of"):
+            if f_["variant_of"] not in by_:
+                raise ValueError(f"{where}: variant_of names an unknown moment {f_['variant_of']!r}")
+            s["variant_of"] = f_["variant_of"]
+        opts = list(s["options"])
+        for n_, o_ in (f_.get("options") or {}).items():
+            if not 1 <= n_ <= len(opts):
+                raise ValueError(f"{where}: no option {n_}")
+            o_ = o_ if isinstance(o_, dict) else dict(label=o_)
+            old = list(opts[n_ - 1]); old[0] = o_.get("label", old[0])
+            if "act" in o_:
+                nt = dict(old[5]) if len(old) > 5 and isinstance(old[5], dict) else {}
+                nt["act"] = o_["act"]
+                old = old + [nt] if len(old) <= 5 else old[:5] + [nt] + old[6:]
+            opts[n_ - 1] = tuple(old)
+        s["options"] = opts
+        if f_.get("scenes"):
+            sc_ = list((s.get("scenes") or {}).get(world) or [])
+            keys_ = [k_ for k_, _ in sc_]
+            miss = sorted(k_ for k_ in f_["scenes"] if k_ not in keys_)
+            if miss:
+                raise ValueError(f"{where}: no {world} scene {miss}")
+            s["scenes"] = {**s["scenes"], world: [(k_, f_["scenes"].get(k_, x_)) for k_, x_ in sc_]}
+        if f_.get("outcomes"):
+            s["outcomes"] = tuple(list(x_) for x_ in f_["outcomes"])
+        if f_.get("setting"):
+            s["worlds"] = {**(s.get("worlds") or {}), world: f_["setting"]}
 
 
 def _lose(r):
@@ -443,6 +518,9 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     gj_ = set() if GREEN_JOBS else _when_only(R)
     if gj_:   # v22.4: the green entry jobs' moments wait with their titles (GREEN_JOBS)
         sits = [x for x in sits if not _names_any(x, gj_)]
+    af_ = os.path.join(LIB_DIR, f"{world}_age_fit.py")
+    if AGE_FIT and os.path.exists(af_):   # v22.5, F4: the Library's age fit, laid over the moments by name
+        _age_fit(sits, _module(af_, f"chroma_{world}_age_fit").AGE_FIT, world)
     key = lambda s: s.get("variant_of") or s["name"]      # a child version is its original for every rule keyed by name
     for s in sits:
         s.update(R.FIXES.get(key(s), {}))
@@ -530,6 +608,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         if setting in D_.DREAM_TRIGGERS:
             L["DREAM_TRIGGERS"] = list(D_.DREAM_TRIGGERS[setting])
         L["DREAMS"] = [d_ for d_ in D_.DREAMS if setting in d_["worlds"].split()]
+        dream_grow_data(L, D_, setting)
     L["SETTING"] = setting
     L["VOICE"] = getattr(B, "VOICE", {})      # v7: the character's inner voice and the world's lessons (explain.py keys)
     L["LESSONS"] = getattr(B, "LESSONS", {})
@@ -745,6 +824,9 @@ SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or am
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
+AGE_FIT = False         # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
+                        # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
+                        # is laid over the moments at v22.5's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)

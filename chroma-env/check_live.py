@@ -6,11 +6,22 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.3  live since 2026-10-10 19:52 UTC (release/v22.3 = 1f63d7e, artifact version 1791661954-7698): game_live,
-          engine_live, game_tools; live-v22.3-manifest.txt. Stage 2 (spheres, the refit), the Library's new moments
-          and earth_spheres.py, the engine's sphere_data.py and sphere_ev_base.py, and 273 new pictures. Loading
-          hotfix 2026-10-11 17:58 UTC (release/v22.3 = ba7b28a, artifact version 1791741331-89db): the life choice
-          screen waits for the engine; web/index.html, web/src/app.js and web/worker.js changed, nothing else
+   v22.4.1 live since 2026-10-12 01:00 UTC (release/v22.4.1 = 4b1e4eb, artifact version 1791766814-8652): game_live,
+          engine_live, game_tools; live-v22.4.1-manifest.txt. Text only (chroma-release/records/v22.4.1): 69 Library
+          files and 8 game files changed (the review and memory lines, home lines, outcome tags); the engine, packs,
+          pictures and rarity table are v22.4's
+   v22.4  the rollback, in the same folders, live 2026-10-11 22:58 UTC to 2026-10-12 01:00 UTC (release/v22.4 =
+          c0505b6, artifact version 1791759232-89f2): game_live, engine_live, game_tools; live-v22.4-manifest.txt.
+          The v22.4 items (chroma-release/records/v22.4), the Library's earth_art.py and the art pack (packs_live/art),
+          the world-on rarity table, and the bundled worker sources (py/code-1..3.json) and packed pictures of the new
+          publish map. v22.4.1 changed 77 of its files, so its check shows them as changed (release/v22.4 holds them)
+   v22.3  the rollback, in the same folders, live 2026-10-10 19:52 UTC to 2026-10-11 22:58 UTC (release/v22.3 =
+          1f63d7e, artifact version 1791661954-7698): game_live, engine_live, game_tools; live-v22.3-manifest.txt.
+          Stage 2 (spheres, the refit), the Library's new moments and earth_spheres.py, the engine's sphere_data.py
+          and sphere_ev_base.py, and 273 new pictures. Loading hotfix 2026-10-11 17:58 UTC (release/v22.3 = ba7b28a,
+          artifact version 1791741331-89db): the life choice screen waits for the engine; web/index.html,
+          web/src/app.js and web/worker.js changed, nothing else. v22.4 changed most of its game, engine and Library
+          files, so its check shows them as changed; live-v22.3-manifest.txt (release/v22.3 holds them)
    v22.2.1 the rollback, in the same folders: v22.3 changed most of its game, engine and Library files, so its check
           shows them as changed; live-v22.2.1-manifest.txt (release/v22.2.1 holds them)
    v22.2  the rollback, in the same folders: v22.2.1 changed six of its files (web/index.html, web/src/build.py and
@@ -37,13 +48,18 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v22.3"
+LIVE = "v22.4.1"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
 LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
+LIB_V22_4 = LIB_V22_3 + ["earth_art.py"]
 VERSIONS = {
-    "v22.3": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v22.4.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                    files=[], lib=LIB_V22_4, packs=["core", "politics", "science", "stage", "art"]),
+    "v22.4": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_4", trees=["game_tools"],
+                  files=[], lib=LIB_V22_4, packs=["core", "politics", "science", "stage", "art"]),
+    "v22.3": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_3", trees=["game_tools"],
                   files=[], lib=LIB_V22_3),
     "v22.2.1": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_2_1", trees=["game_tools"],
                     files=[], lib=LIB_V22_2),
@@ -56,7 +72,7 @@ VERSIONS = {
                 files=["rarity_v22_1"] + OLD_HELPERS, lib=LIB_PY, moved={"chroma-game/prototype": "game_v22"}),
 }
 SHARED_TREES = ["art_game"]                                      # pictures.json, pics/, ink icons
-PACKS = ["core", "politics", "science", "stage"]                 # under packs_live
+PACKS = ["core", "politics", "science", "stage"]                 # under packs_live (a version's "packs" when it names them)
 
 
 def rel(name, *parts):
@@ -66,7 +82,7 @@ def rel(name, *parts):
 def listing(version):
     v = VERSIONS[version]
     trees = ([rel(v["game"]), rel(v["engine"])] + [rel(t) for t in SHARED_TREES + v["trees"]]
-             + [rel("packs_live", p) for p in PACKS])
+             + [rel("packs_live", p) for p in v.get("packs", PACKS)])
     out = []
     for t in trees:
         for dp, dn, fn in os.walk(os.path.join(ROOT, t)):
