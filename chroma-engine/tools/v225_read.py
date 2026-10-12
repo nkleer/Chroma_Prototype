@@ -216,7 +216,7 @@ if bd:
     f9["F9.27 a condition diagnosed twice, lives"] = int(sum(1 for r_ in ck_ if len([k for k in r_ if k >= 0]) != len(set(k for k in r_ if k >= 0))))
 sev = ev_ages({"a frightening diagnosis", "a serious accident or illness"})
 f9["F9.24 serious (moments) before 50 / by 80"] = [round(sum(1 for v in sev.values() if min(v) < 50) / N, 3),
-                                                   round(sum(1 for v in sev.values() if min(v) <= 80) / max(int(alive_at(80).sum()), 1), 3)]
+                                                   round(sum(1 for n_, v in sev.items() if min(v) <= 80 and dage[n_] > 80) / max(int(alive_at(80).sum()), 1), 3)]
 dep = ev_ages({"a sadness that will not lift", "a long dark season"})
 low = set(n_ for n_, evs in o["events"].items() for e_ in evs if (e_.get("body") or {}).get("kind") == "low season"
           and (e_.get("body") or {}).get("what") == "begins" and e_["body"]["age"] <= 65)
