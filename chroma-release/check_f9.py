@@ -227,8 +227,12 @@ def judge(d, commit=None, record=True):
     p50 = frac(runs, "par50")
     t.judge("F9.1 ever a parent by 50 (alive at 50)", p50, .78, .87)
     lean_rows(t, "F9.1 by colour", runs, "par50_by", p50, .60)
-    m, lo_, hi_ = medians(runs, "F9.2b first 'a child is born' age, median")
-    t.judge("F9.2 age at the first child ('a child is born'), median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_})")
+    k, how = newest(runs, "F9.2c", "F9.2b first 'a child is born' age, median")   # 2c: the first own birth (birth log)
+    m, lo_, hi_ = medians(runs, k)
+    t.judge("F9.2 age at the first own child, median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_}){how}")
+    k1 = newest(runs, "F9.1b", "")[0]
+    if k1:
+        t.info(f"own birth by 50, of all lives (reader's F9.1b; F9.1 counts any child, adopted ones too): {wmean(runs, k1):.3f}")
     t.info(f"the children commitment's first start, median of the seeds: {medians(runs, 'F9.2 first child (children commitment) age, median')[0]}")
     # the b keys count a life's own births from both moments, each birth once (birth_free; Release 10-12 03:4x UTC)
     k, how = newest(runs, "F9.3b", "F9.3 'a child is born' per parent by 50, mean")
