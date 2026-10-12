@@ -1152,6 +1152,11 @@ DEFAULT = dict(
                          # holdings still go first); otherwise the household gets by, cutting back and borrowing. 1.0: always
     birth_free=False,    # F9.2 to F9.4 (with birth_age): a life's own births come by its age (the moment's age window, at
                          # its highest per_year), not by the life stage it has reached; birth_age's taper then shapes them
+    birth_with=None,     # F9.2: a life's own births x these factors by its partnership: (no partner, a partner not living
+                         # together, a home together, the years a partnership, or a home together, takes to reach its full
+                         # rate, from 0), so most first births follow setting up home by a few years. None: as before
+    nest=None,           # F9.5: the children leave home when the youngest is grown: (the youngest's age in years, the yearly
+                         # rate from then, by age not the life stage). None: 16 years after the first child, at the stage's rate
     job_move=None,       # F9.19: a working life changes employer at this yearly chance by age, read off these (age, chance)
                          # points (after a year in work, before retiring): the career goes on, the workplace and its
                          # people change (with the world on, the work setting is left and a new one joined). None: never
@@ -1215,15 +1220,17 @@ V225 = dict(
             'a new job at last': 0.35,
             'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
             'divorce after twenty years': 0.5,
-            'a child is born': 0.25,
-            'a baby on the way, planned or not': 0.35},
+            'a child is born': 0.4,
+            'a baby on the way, planned or not': 0.1},
     set_big=6.0,
     cond_once=True,
     job_move=((18, 0.22), (25, 0.14), (35, 0.08), (45, 0.05), (55, 0.03), (64, 0)),
     birth_free=True,
     home_sale=0.08,
     ti_fit={'living together': 4.5},
-    birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
+    birth_par=(3.0, 0.3, 0.16, 0.1, 0.06, 0.03),
+    birth_with=(0.02, 0.8, 3.0, 5.0),
+    nest=(18, 0.3),
     age_free=('your first full-time job',),
     mon_drift=0.015,
     lone=dict(age=((13, 0.02), (16, 0.01), (18, 0.003), (25, 0.007), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
@@ -1276,6 +1283,8 @@ FERT_F = ((15, 0.0), (17, 17), (22, 66), (27, 93), (32, 98), (37, 52), (42, 12),
 FERT_M = ((15, 0.0), (17, 8), (22, 60), (27, 95), (32, 100), (37, 60), (42, 25), (47, 9), (52, 3), (57, 1), (62, 0.0))
 BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the moments of a life's own births
 BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
+HOME_TOGETHER = ("living together", "wife or husband", "married again", "partner of many years",
+                 "spouse in a family-arranged marriage")   # the titles of a home together (birth_with)
 
 
 def toward(lv, m):
@@ -1430,7 +1439,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3082,6 +3091,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if AF_ON:
         AF_S = np.array([nm_ in set(P["age_free"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
         AF_P = PERY[AF_S].max(1)[None]
+    BW_ON = P["birth_with"] is not None and BA_ON         # F9.2: own births by the partnership
+    if BW_ON:
+        BW_ = np.asarray(P["birth_with"], float)
+        BW_I = [i_ for i_, x_ in enumerate(GR["names"]) if x_ in HOME_TOGETHER] if RON else []
+        hm_t = np.full(N, 10 ** 9)                        # the week the present home together began
+    NE_ON = P["nest"] is not None and BAT                 # F9.5: the children leave home when the youngest is grown
+    if NE_ON:
+        NE_S = np.asarray(L["names"], dtype=object)[ROOT] == "the children leave home"
+        NE_A, NE_R = P["nest"]
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -3681,6 +3699,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 gate[:, KL_] &= alive[:, KILLS[KL_]] > 0
             if BA_ON and BF_ON:   # birth_free: each own-birth moment at least a year after the last child
                 gate[:, BIRTH_S] &= ((t - kid_last) >= 52)[:, None]
+            if NE_ON:   # F9.5: the children leave home once the youngest is grown
+                gate[:, NE_S] &= ((t - kid_last) >= NE_A * 52)[:, None]
             if BORN_S_ >= 0:   # F7: the moment a child is born is a birth, at least a year after the last one
                 gate[:, BORN_S_] &= (t - kid_last) >= 52
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
@@ -3743,6 +3763,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, AF_S] = (AF_P * np.broadcast_to(gate, ev_p.shape)[:, AF_S] * P["event_scale"] / 52
                                  * np.broadcast_to(ev_pm, ev_p.shape)[:, AF_S] * xd_[:, AF_S] * refr[:, AF_S]
                                  * np.broadcast_to(seekE, ev_p.shape)[:, AF_S])
+            if NE_ON:   # F9.5: by the youngest's age (in the gate), not the life stage reached
+                ev_p[:, NE_S] = (NE_R * np.broadcast_to(gate, ev_p.shape)[:, NE_S] * P["event_scale"] / 52
+                                 * np.broadcast_to(ev_pm, ev_p.shape)[:, NE_S] * xd_[:, NE_S] * refr[:, NE_S]
+                                 * np.broadcast_to(seekE, ev_p.shape)[:, NE_S])
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
@@ -3759,6 +3783,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if BA_ON and P["birth_par"] is not None:   # F9.3: by the children already living
                 bp_ = np.asarray(P["birth_par"], float)
                 ev_p[:, BIRTH_S] *= bp_[np.minimum(alive[:, 5].astype(int), len(bp_) - 1)][:, None]
+            if BW_ON:   # F9.2: by the partnership (none, a partner not living together, a home together)
+                hm_ = held[:, PAR] & (r_has[:, BW_I].any(1) if BW_I else True)
+                hm_t = np.where(hm_, np.minimum(hm_t, t), 10 ** 9)
+                bwr_ = _uclip((t - np.where(hm_, hm_t, since[:, PAR])) / (52 * BW_[3]), 0, 1) if BW_[3] > 0 else 1.0
+                ev_p[:, BIRTH_S] *= np.where(hm_, BW_[2] * bwr_, np.where(held[:, PAR], BW_[1] * bwr_, BW_[0]))[:, None]
             if BA_ON:   # late births: a life's own births by its age and sex
                 ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
                                                             fert(age, FERT_M) / BA_NM[None])
