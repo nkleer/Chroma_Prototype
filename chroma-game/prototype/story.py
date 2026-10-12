@@ -1292,9 +1292,7 @@ class Story:
             sex = ("f" if FEM_REF.search(r_) else "m" if MAS_REF.search(r_) else
                    (self.partner_sex or "x") if role in ("partner", "prospect", "companion", "former partner") else None)
         n = self._name(sex)
-        id_ = len(self.people) if not self.one_roll else 1 + max((q["id"] for q in self.people), default=-1)   # F7: an id of
-        # their own (the family match at the start removes people, and len() then gave a living sibling a dead one's id)
-        p = dict(id=id_, name=n, role=role, ref=ref.format(n=n), alive=True, introduced=False, met=None, seen=0,
+        p = dict(id=len(self.people), name=n, role=role, ref=ref.format(n=n), alive=True, introduced=False, met=None, seen=0,
                  made=getattr(self, "age", 0))
         self.people.append(p)
         return p
