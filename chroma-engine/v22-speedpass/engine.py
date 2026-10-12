@@ -1111,6 +1111,7 @@ DEFAULT = dict(
                          # DRV_NORM was measured on calm lives with the world off
     risk_norm=False,     # F9: the body's and mind's risks on the Library's moments choose who, not how many (on: True)
     ev_fit=None,         # F9: {life event: factor} on its per_year, fitted to Release's rows (records/v22.5/scope.md)
+    cond_once=False,     # F9.27: a condition they already have is not diagnosed a second time (on: True)
     ill_real=False,      # F9: the Library's body and mind moments come at their own rates, without event_scale (on: True)
     par_split=None,      # F9: the share of a breakup moment (SPLIT_SOFT, from 16) that ends a home together; the rest are
                          # a rough patch the couple weathers. None: every one ends it
@@ -1313,7 +1314,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, ev_fit=None, ill_real=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3020,6 +3021,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if bd_cw[n_, j_] > 0:
             return
         k_ = kind if kind is not None else int(rng.choice(len(COND_KINDS), p=COND_P[0 if age < 16 else 1]))
+        if P["cond_once"] and (bd_ck[n_] == k_).any():   # F9.27 (F10): one they have already is not diagnosed again
+            return
         bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
         bd_ck[n_, j_] = k_; bd_ca[n_, j_] = age
         body_log(n_, kind="condition", name=COND_KINDS[k_], what="begins")

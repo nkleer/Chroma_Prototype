@@ -89,10 +89,28 @@ f9["F9.7 first partner age, median"] = med(pst)
 partd = [n_ for n_ in range(N) if any(h == "start" for _, h in cm.get((n_, PAR_), []))]
 spl = [n_ for n_ in partd if any(h in ("broke up", "left") for _, h in cm.get((n_, PAR_), []))]
 f9["F9.8 partnered with a split"] = round(len(spl) / max(len(partd), 1), 3)
+def _first_end(v):   # how the first partnership ended (None: it lasted)
+    v = sorted(v); i0 = next(i for i, x in enumerate(v) if x[1] == "start")
+    return next((h for _, h in v[i0 + 1:] if h != "start"), None)
+f9["F9.8b first partnership ends in a split"] = round(sum(1 for n_ in partd if _first_end(cm[(n_, PAR_)]) in ("broke up", "left"))
+                                                      / max(len(partd), 1), 3)
 wid = [n_ for n_ in partd if any(h == "widowed" for _, h in cm.get((n_, PAR_), []))]
 p80 = [n_ for n_ in partd if dage[n_] > 80]
 f9["F9.9 widowed, partnered alive at 80"] = round(sum(1 for n_ in p80 if any(h == "widowed" and a < 80 for a, h in cm[(n_, PAR_)])) / max(len(p80), 1), 3)
 f9["F9.10 widowed before 50, of partnered"] = round(sum(1 for n_ in partd if any(h == "widowed" and a < 50 for a, h in cm[(n_, PAR_)])) / max(len(partd), 1), 3)
+# a home together (Release's F9.6-F9.8 words: living together or married), read off the partner titles
+RL = o.get("roles") or {}
+if RL:
+    CO_ = {i_ for i_, x_ in enumerate(RL["names"]) if x_ in ("living together", "wife or husband", "married again",
+                                                           "partner of many years", "spouse in a family-arranged marriage")}
+    co1 = {}
+    for n_, t_, i_, w_, h_ in RL["log"]:
+        if i_ in CO_ and w_ == "gained":
+            co1.setdefault(n_, t_ / 52)
+    f9["F9.6c a home together by 50 / ever"] = [round(sum(1 for a in co1.values() if a <= 50) / N, 3), round(len(co1) / N, 3)]
+    f9["F9.7c first home together, median age"] = med(list(co1.values()))
+    f9["F9.8c first home together ends in a split"] = round(sum(1 for n_, a0 in co1.items() if next(
+        (h for a, h in sorted(cm.get((n_, PAR_), [])) if a >= a0 and h != "start"), None) in ("broke up", "left")) / max(len(co1), 1), 3)
 # parents
 kst = [min(a for a, h in cm.get((n_, KID_), []) if h == "start") for n_ in range(N) if any(h == "start" for _, h in cm.get((n_, KID_), []))]
 f9["F9.2 first child (children commitment) age, median"] = med(kst)
