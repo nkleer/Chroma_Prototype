@@ -1171,6 +1171,8 @@ DEFAULT = dict(
                          # the last for more): fewer go on to a third or fourth child. None: as before
     ti_fit=None,         # F9: {title: factor} on its yearly rate (the Library's or the packs' rule), fitted to Release's rows
                          # (records/v22.5/scope.md); "living together" for F9.6. None: as written
+    loan_end=False,      # F9.15: a home loan whose term ends is paid off (its payments came out of the income all along); off:
+                         # it breaks, and the home goes with it, if the money is under .1 that month
     home_sale=1.0,       # F9.15: in a hard year under the need line, the home itself is sold in this share of cases (other
                          # holdings still go first); otherwise the household gets by, cutting back and borrowing. 1.0: always
     birth_free=False,    # F9.2 to F9.4 (with birth_age): a life's own births come by its age (the moment's age window, at
@@ -1255,6 +1257,7 @@ V225 = dict(
     job_move=((18, 0.22), (25, 0.14), (35, 0.08), (45, 0.05), (55, 0.03), (64, 0)),
     birth_free=True,
     home_sale=0.08,
+    loan_end=True,
     ti_fit={'living together': 4.5},
     birth_par=(3.0, 0.3, 0.16, 0.1, 0.06, 0.03),
     birth_with=(0.02, 0.8, 3.0, 5.0),
@@ -1478,7 +1481,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, body_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, loan_end=False, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -2960,7 +2963,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             act_ = (dk >= 0) & ~dead[:, None]
             dpaid[act_] += 1; dbal[act_] = np.maximum(0.0, dbal[act_] - (dsz / dterm)[act_])
             for n, i_ in zip(*np.nonzero(act_ & (dpaid >= dterm))):
-                if res[n, MON] >= 0.1:
+                if res[n, MON] >= 0.1 or (P["loan_end"] and dk[n, i_] == 5):   # F9.15: a home loan at its term is paid
                     db_clear(n, i_)
                 elif dk[n, i_] == 1 and not dstr[n, i_]:   # kin: a partner or parent forgives it, else it is stretched once
                     al_ = WL.PP.alive[n]
