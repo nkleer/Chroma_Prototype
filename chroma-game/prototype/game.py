@@ -3296,7 +3296,7 @@ class Game:
             if what == "inherited":
                 return f"  {c['age']:5.1f}  [title] {n} is raised inside the family faith, which expects {prof}."
             words = {"left": f"{n} walks away from their {kind}.", "lost job": f"{n} loses their job.",
-                     "retired": f"{n} retires.", "widowed": f"{n}'s partner dies."}
+                     "retired": f"{n} retires.", "widowed": f"{n}'s partner dies.", "moved": f"{n} changes employer."}
             return f"  {c['age']:5.1f}  [title] " + words.get(what, f"{kind}: {what}.")
         if "clash" in ev:
             c = ev["clash"]
@@ -4402,7 +4402,7 @@ TIED_COMMIT = dict(start=dict(partner="settling down with someone", career="star
                    left=dict(partner="the breakup", career="walking away from their work",
                              community="leaving their community", faith="leaving their faith"))
 TIED_COMMIT_ANY = {"left": "walking away from their {kind}", "lost job": "losing their job", "retired": "retiring",
-                   "widowed": "losing their partner"}
+                   "widowed": "losing their partner", "moved": "changing employer"}
 WORLD_ON = True          # the engine's outer world in Earth lives, where the pin has it (False: the world of v21)
 # the engine's own names for the identity values in the week's state, where they differ from for-the-engine.md §6:
 # key -> (local name, column or None)
