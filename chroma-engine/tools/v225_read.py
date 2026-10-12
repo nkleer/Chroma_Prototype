@@ -18,6 +18,9 @@ P = dict(E.DEFAULT); P.update(json.loads(os.environ.get("PX", "{}"))); P["world"
 t0 = time.time()
 LOG = min(N, int(os.environ.get("LOG", 40)))   # lives with a full event log (homes lost, body and mind threats)
 o = E.run(N=N, years=Y, seed=seed, lib=L, P=P, log_lives=list(range(LOG)))
+if os.environ.get("DUMP"):   # the whole run, for a closer look
+    import pickle
+    pickle.dump(dict(o=o, L_names=L["names"]), open(os.environ["DUMP"], "wb"))
 R = np.asarray(o["R_hist"]); W = np.asarray(o["W_hist"])   # years+1 x N x 5
 MON, HEA, TIE = 0, 2, 3
 dage = np.full(N, np.inf); cause = {}
@@ -108,7 +111,7 @@ lost = set()
 for n_, evs in o["events"].items():
     for e_ in evs:
         ds_ = e_.get("deep_state") or {}
-        if ds_.get("holding") == "home" and "lost" in str(ds_.get("kind", "")) or ds_.get("kind") in ("evicted", "repossessed"):
+        if ds_.get("holding") == "home" and "lost" in str(ds_.get("kind", "")) or ds_.get("kind") in ("evicted", "repossessed"):   # a sale only comes in a hard year: forced
             lost.add(n_)
 f9["F9.15 lost a home (logged lives)"] = round(len(lost) / max(LOG, 1), 3)
 # work
@@ -120,7 +123,7 @@ f9["F9.19 employers (career starts), mean"] = round(float(np.mean([sum(1 for _, 
 firm = ev_ages({"new owners take over the firm", "folded into a bigger firm", "the state takes over the failing firm",
                 "the loan the new owners call in"})
 f9["F9.20 firm crises per life, mean"] = round(sum(len(v) for v in firm.values()) / N, 2)
-wy = oy = 0.0
+wy = oy = 0.0; wy2 = oy2 = 0.0
 for n_, v in car.items():   # weeks out of work at 20-64, not retired (career intervals from the commitments)
     held_, t0_, ret_ = False, 0.0, None
     ivs = []
@@ -138,7 +141,13 @@ for n_, v in car.items():   # weeks out of work at 20-64, not retired (career in
         continue
     inw = sum(max(0.0, min(b, hi_) - max(a, 20.0)) for a, b in ivs)
     wy += hi_ - 20.0; oy += (hi_ - 20.0) - inw
+    if ivs and hi_ > max(20.0, ivs[0][0]):   # from the first job on: the unemployment-like share
+        lo_ = max(20.0, ivs[0][0]); inw2 = sum(max(0.0, min(b, hi_) - max(a, lo_)) for a, b in ivs)
+        wy2 += hi_ - lo_; oy2 += (hi_ - lo_) - inw2
 f9["F9.21 out of work at 20-64 (not retired), share of years"] = round(oy / max(wy, 1e-9), 3)
+f9["F9.21b out of work after the first job, to 64 (not retired)"] = round(oy2 / max(wy2, 1e-9), 3)
+f9["F9.21c never a job by 64 (lived to 64)"] = round(sum(1 for n_, v in car.items() if dage[n_] > 64 and not any(
+    h == "start" and a <= 64 for a, h in v)) / max(int((dage > 64).sum()), 1), 3)
 ra = [a for v in car.values() for a, h in v if h == "retired"]
 f9["F9.22 retirement age, median"] = med(ra)
 # illness

@@ -515,6 +515,7 @@ DEFAULT = dict(
                          # alive and held (tie_w). The odds of moments read the same number (one number)
     tie_w=(0.6, 0.3, 0.5, 0.15, 1.0, 0.4, 0.6, 0.25, 0.2),   # world off: a parent, a sibling, the closest friend, a
                          # grandparent, the partner, a child (each, up to three), the community, work and faith held
+    tie_k=1.0,           # world on: ties = 1 - (1 - People.ties) ^ tie_k, as if People's ties_T were 20 / tie_k (F9 fit)
     tie_away=0.5,        # world off: a parent's weight once they live on their own
     tie_T=3.0,           # world off: ties = 1 - exp(-(sum of weights) / tie_T): about .55 for a child, .75 at 40 with a family
     # v22.5 realism F8, retirement ends work, behind retire_ends=False: once retired and not working, the work moments
@@ -1105,6 +1106,15 @@ DEFAULT = dict(
     course_tilt=((0.15, -0.15, -0.1, 0.05, 0.15),   # partner: W U B R G, log rate per unit of a colour's lead (5 w - 1)
                  (0.15, -0.2, -0.15, 0.0, 0.2),     # children
                  (0.3, -0.25, -0.25, 0.0, 0.2)),    # faith
+    drv_self=False,      # F9: each life event's drivers average 1 over the run's own lives (on: True); the Library's
+                         # DRV_NORM was measured on calm lives with the world off
+    risk_norm=False,     # F9: the body's and mind's risks on the Library's moments choose who, not how many (on: True)
+    ev_fit=None,         # F9: {life event: factor} on its per_year, fitted to Release's rows (records/v22.5/scope.md)
+    ill_real=False,      # F9: the Library's body and mind moments come at their own rates, without event_scale (on: True)
+    par_split=None,      # F9: the share of a breakup moment (SPLIT_SOFT, from 16) that ends a home together; the rest are
+                         # a rough patch the couple weathers. None: every one ends it
+    par_age=None,        # F9: a partnership (living together) starts as this share of the time by age, read off these
+                         # (age, share) points; a younger love is a romance, not a home together. None: at any age
     # F17 deeds by canon: an option that leaves a deed (a mark) leans by the colours canon gives it (log odds per unit
     # of a colour's lead, DEED_CANON); off-canon leans (White breaking the law, Blue the most drugs, Green refusing people
     # in need) become soft tendencies the other way. 0: as before; on: 1.0
@@ -1220,6 +1230,7 @@ BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with a
                 "burnout": "burnout"}
 MIND_MOMENTS = {"a long dark season": "low", "a sadness that will not lift": "low", "burnout": "low",
                 "an addiction takes hold": "numb"}
+SPLIT_SOFT = ("a breakup",)   # F9 par_split: the young couple's moments that may end a home together or pass
 COND_KINDS = ("asthma", "diabetes", "arthritis", "chronic pain", "heart condition", "epilepsy")
 COND_P = ((0.45, 0.15, 0.0, 0.05, 0.05, 0.3), (0.1, 0.3, 0.3, 0.15, 0.15, 0.0))   # which, as a child and as an adult
 COND_LETHAL = (0.3, 1.0, 0.0, 0.0, 1.5, 0.3)   # how far each condition's complications can end a life (F2; arthritis and pain do
@@ -1261,7 +1272,7 @@ DEATH_PAR = dict(
     frail_k=2.5,             # x exp(frail_k x (the level for the age - the body)): a weaker body fails sooner
     sudden=0.5,              # before old age, this share of a failing body goes at once (a heart attack, a stroke); the
                              # rest fail over weeks, of their heaviest condition or else of heart failure
-    old_age=80.0,            # from this age a failing body with nothing named is old age
+    old_age=85.0,            # from this age a failing body with nothing named is old age
     ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
                              # illness's course ends in death this often (at 60, with the body at its age's level)
     ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
@@ -1301,7 +1312,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, ev_fit=None, ill_real=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -1521,6 +1532,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     ev_pm = np.exp(rng.uniform(np.log(P["ev_spread"][0]), np.log(P["ev_spread"][1]), (N, L["S"])))   # personal event rates
     ev_last = np.full((N, L["S"]), -10 ** 6); DRV = L["DRV"]
     PERY = L["PERY"]; EVERYDAY = (PERY.sum(1) == 0) & L["STG"].any(1)     # v6: life events vs everyday situations
+    if P["ev_fit"] or P["ill_real"]:   # F9: life events fitted to Release's rows; the body's and mind's at their real rates
+        rn_ = np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]
+        PERY = PERY.copy()
+        for nm_, f_ in (P["ev_fit"] or {}).items():
+            PERY[rn_ == nm_] *= f_
+        if P["ill_real"]:   # Emren's event_scale makes big life events a little more often; illness keeps its real rate
+            PERY[np.isin(rn_, list(BODY_MOMENTS) + list(MIND_MOMENTS))] /= P["event_scale"]
     REG_ = (EVERYDAY & (L["RATE"] >= 1) & ~np.asarray(L.get("INNER", np.zeros(L["S"], bool)), bool)
             & ~np.asarray(L.get("ECHO", np.zeros(L["S"], bool)), bool))       # ordinary everyday moments (not title or joining ones)
     CAR, PAR, KID, COM, FAI = KIDX["career"], KIDX["partner"], KIDX["children"], KIDX["community"], KIDX["faith"]
@@ -3213,6 +3231,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         def up_short(v):
             """F15: how far a pie (N x C) falls short of the lean the start still leaves, 0 to 1 of the full lean."""
             return _uclip((P["up_l0"] * upf_ - (v - 0.2) @ UPD_ / UPN_) / P["up_l0"], 0, 1)
+    DS_ON = bool(P["drv_self"]) and "DRVN" in L          # F9: the drivers' mean taken out in the run itself
+    DRVN_ = np.asarray(L["DRVN"], float) if DS_ON else None
+    PS_ON = P["par_split"] is not None                    # F9: a breakup and a home together
+    if PS_ON:
+        PS_SOFT = np.isin(np.asarray(ROOT), [i_ for i_, nm_ in enumerate(L["names"]) if nm_ in SPLIT_SOFT])
+        ps_rng = np.random.default_rng([int(seed), 1709])
+    PA_ON = P["par_age"] is not None                      # F9: partnerships by age
+    if PA_ON:
+        PA_A, PA_F = np.asarray(P["par_age"], float).T
     CRS_ON = bool(P["course"])                            # F16: the life course leans
     if CRS_ON:
         CRS_KS = np.array([PAR, KID, FAI]); CRS_MU = np.asarray(P["course_mu"], float)
@@ -3555,6 +3582,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
+                if DS_ON:   # F9: the drivers choose who, not how many, also with the world on and the v22.5 means: each
+                    # life event's rate over its drivers' mean so far in this run (the norm its per_year already took out)
+                    ev_p = ev_p * np.where(drv_cnt > 0, DRVN_ / np.maximum(drv_sum / np.maximum(drv_cnt, 1), 1e-9), 1.0)[None]
             if BAT:
                 ev_p = ev_p * cond_fac             # the engine's likelier / rarer reading of a life event (1 when it has none)
             if CRS_ON:   # F16: the life events that start a partnership, a child, a faith come at each life's own lean
@@ -3611,9 +3641,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if SACS_ON_:
                 ev_p[:, SACS_] = 0.0
             if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
-                ev_p[:, BL_S] *= np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)[:, None]
+                bk_ = np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)
+                if P["risk_norm"]:   # F9: the risks choose who, the Library's rates how many (the living's mean is 1)
+                    bk_ = bk_ / max(float(bk_[~dead].mean()) if (~dead).any() else 1.0, 1e-9)
+                ev_p[:, BL_S] *= bk_[:, None]
             if ML_ON:   # and the mind's, less with resilience
-                ev_p[:, ML_S] *= (np.minimum(np.exp(MP_["risk_k"] * (0.75 - mind_v)), 3.0) * (1 - md_res))[:, None]
+                mk_ = np.minimum(np.exp(MP_["risk_k"] * (0.75 - mind_v)), 3.0) * (1 - md_res)
+                if P["risk_norm"]:
+                    mk_ = mk_ / max(float(mk_[~dead].mean()) if (~dead).any() else 1.0, 1e-9)
+                ev_p[:, ML_S] *= mk_[:, None]
             if DTH_ON and (dl_at > NEVER // 2).any():   # F2: in a last decline nothing new begins
                 ev_p = ev_p * np.where((dl_at > NEVER // 2)[:, None], 1 - SH_NEW[None], 1.0)
             fire = rng.random(ev_p.shape) < ev_p
@@ -4115,6 +4151,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             gate_ = (cj_ >= 0) & (CRS_EV[s] < 0)
             if gate_.any():
                 cp_ = np.where(gate_, cp_ * np.minimum(1.0, course_q()[ar, np.maximum(cj_, 0)]), cp_)
+        if PA_ON:   # F9: a first home together comes with adulthood
+            cp_ = np.where(ck == PAR, cp_ * np.interp(age, PA_A, PA_F), cp_)
         ok_ = succ & ~idle
         if OR_ON and BORN_S_ >= 0:
             ok_ = ok_ | bn_
@@ -4201,6 +4239,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mt = (1 - own_) * hh_lv_ + own_ * mt
             if TP_ON:
                 tt = np.asarray(WL.PP.ties, float) if WON else ties_off(age, away_)
+                if WON and P["tie_k"] != 1.0:   # F9: the people's closeness as ties, read on a scale (k = 20 / the T used)
+                    tt = 1 - (1 - tt) ** P["tie_k"]
         ht = _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1)
         if MK_ON:   # spheres phase 2, the mark of the work: hard work ages the body (years beyond its own)
             ht = _uclip(ht - 0.012 * np.asarray(WL.PP.mark_wear, float), 0.2, 1)
@@ -4560,6 +4600,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         events[n].append(dict(death=dict(age=round(age, 2), role=ROLES[r_], left=int(alive[n, r_]))))
             # endings the event brings: a breakup, a divorce, a death, a lost job
             en_ = np.nonzero((ENDS[s] >= 0) & live_ & held[ar, np.maximum(ENDS[s], 0)])[0]
+            if PS_ON and len(en_):   # F9: a breakup moment ends a home together this share of the time (else a rough patch)
+                en_ = en_[~(PS_SOFT[s[en_]] & (ps_rng.random(len(en_)) >= P["par_split"]))]
             for n in en_:
                 kk = int(ENDS[s[n]])
                 end([n], [kk], "widowed" if KILLS[s[n]] == ROLES.index("partner") else "lost job" if kk == CAR else "broke up", t)
