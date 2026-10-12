@@ -229,8 +229,10 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F10 line_wait and news_touch (the
 # values chroma-release/check_roll.py proves), the player-impact rules V1-V8 (chroma-ideas/player-impact/scripts/
-# proto_v8.env) and rare_ask. V225_OFF keeps the values before (v22.4's played lives, with the engine's UPD_OFF)
-V225 = dict(world_hold=True, line_wait=5.0, news_touch=True,
+# proto_v8.env), rare_ask, and clarity items 6 and 7, lines_tied and trust_judge (every line has a cause; every push judged
+# by how it went: planned for v22.4's refit, needed now the v22.5 rules leave few pushes reluctant). V225_OFF keeps
+# the values before (v22.4's played lives, with the engine's UPD_OFF)
+V225 = dict(world_hold=True, line_wait=5.0, news_touch=True, trust_judge=True, lines_tied=True,
             own_mark="both", own_stress=0.3, own_free=0.5, lean_self=0.012, hind_thin=0.7, season_need=1.0, season_calm=0.012,
             fork_k=0.3, fork_told=True, rung_ask=True, own_teach=0.05, dream_own=True, dream_fit=0.5, dream_firm=0.15,
             dream_help=1.0, rare_ask=True, rare_imp=0.5)
