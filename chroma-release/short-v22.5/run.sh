@@ -73,7 +73,10 @@ LOOK="chroma-game/prototype/web/src/look.css chroma-game/prototype/web/src/look.
  chroma-game/tools/webdir.py chroma-art/game/lights.json chroma-art/game/pics/portrait-* chroma-look/tools"
 tree() { [ -d $X/tree ] && [ "$(cat $X/tree.sha 2>/dev/null)" = "$SHA" ] && return 0   # the commit's files, stamped with it
   rm -rf $X/tree $X/tree.sha; mkdir -p $X/tree && git -C $REPO archive $SHA | tar -x -C $X/tree && echo $SHA > $X/tree.sha; }
-moved() { git -C $REPO diff --name-only $1 $2 -- $CARRY_READS | grep -v -e '/rarity\.json$' -e '/rarity\.py$'; }
+moved() { local f; git -C $REPO diff --name-only $1 $2 -- $CARRY_READS | grep -v -e '/rarity\.json$' -e '/rarity\.py$' |
+  while read -r f; do   # an MD5SUMS whose only changed line is rarity.json's is a rarity file too
+    [[ $f == */MD5SUMS ]] && [ -z "$(git -C $REPO diff -U0 $1 $2 -- $f | grep '^[-+][^-+]' | grep -v ' rarity\.json$')" ] && continue
+    echo "$f"; done; }
 need_refit() { [ -n "$REFIT" ] || { echo "REFIT=<the refit commit> is needed for $1"; exit 2; }
   local m; m=$(moved $REFIT $SHA)
   [ -z "$m" ] || { echo "NOT CARRIED: the engine, Library or packs changed between ${REFIT:0:12} and ${SHA:0:12}:"; echo "$m" | head
