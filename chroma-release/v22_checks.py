@@ -205,6 +205,9 @@ CHECKS = [
     ("build", "item 5", "Game", "quick", 1, ".", "python3 -B chroma-game/tools/build.py {W}/build --same-as game_live && echo BUILD-SAME",
      "re:^BUILD-SAME", (), "the one build command makes the game from the engine, Library and packs, file for file as the "
      "candidate's game (Library rebuild, pin C-X1, load); when chroma-game/tools/build.py is there"),
+    ("lines_tied", "K28", "Game", "quick", 4, "chroma-game/prototype", "python3 -B test/lines_tied_check.py --jobs 4 --out {W}/lines_tied",
+     "re:^LINES_TIED: PASS", (), "clarity item 6 (v22.5): presets 1 to 6 with lines_tied on and off give the same HUD at every "
+     "step, no stand-alone memory or world_year line, every reading shows its colour; when test/lines_tied_check.py is there"),
     # ---- Engine's own fast check (backend plan item 2): the engine's pause points
     ("t_steps", "item 2", "Engine", "quick", 1, ".", "python3 -B chroma-engine/tools/t_steps.py", "re:^ALL PASS", (),
      "run_steps() lives run()'s lives bit for bit, pauses in PAUSES order, every STATE name at every pause (3 short runs); "
@@ -311,6 +314,9 @@ FAST = {
     "Visuals": ["art"],                                                                  # a few seconds (its own check_art.py)
 }
 FAST_OWNER = {cid: o for o, l in FAST.items() for cid in l}
+# quick rows allowed the full rows' 3 hours: t_steps grew with every switch it steps through (33 min on 10-10, 57 min on
+# 10-11, over the hour on the v22.5 refit 129cd0b, killed at 3,603 s)
+LONG_QUICK = {"t_steps"}
 TSTEPS = "chroma-engine/tools/t_steps.py"
 # Files a check reads through a shell tool (cp, cmp, cat), which the proof recorder cannot see (paths in the work tree)
 EXTRA = {
@@ -725,7 +731,9 @@ def main():
             continue
         if (cid == "speedpass" and a.engine is None and a.game is None) or (cid in ("saves", "saves_note") and a.game is None) \
                 or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))) \
-                or (cid == "t_steps" and not steps):
+                or (cid == "t_steps" and not steps) \
+                or (cid == "lines_tied" and not os.path.exists(os.path.join(fromcand("chroma-game/prototype/test/lines_tied_check.py"),
+                                                                            "chroma-game/prototype/test/lines_tied_check.py"))):
             continue
         if row == "steered" and not os.path.exists(os.path.join(src["game"], STEER)):
             waiting.append(cid); continue
@@ -811,7 +819,7 @@ def main():
         time.sleep(3)
         for r in list(running):
             p, c, ts, f, cores, cmd = r
-            limit = 3 * 3600 if c[3] == "full" else 3600
+            limit = 3 * 3600 if c[3] == "full" or c[0] in LONG_QUICK else 3600
             if p.poll() is None and time.time() - ts > limit:
                 os.killpg(p.pid, 9); p.wait()
             if p.poll() is not None:

@@ -9,9 +9,10 @@ settling with age, F17's deeds and F19's mind, judged from the Engine's reader c
 engine, Library and packs (CHROMA_ROOT and CHROMA_ENGINE set to the checkout), with every switch as DEFAULT plus --px
 (default {"self_death": true}, so deaths come from the life; F9's deaths need it). Its JSON line is kept, and this
 script adds what the rows need that the reader leaves out: F9.1 and F9.6 among the lives alive at 50 and by the colour
-leading at 40, F9.5, F9.24 and F9.33 on their own denominators, causes of death by age, F9.37 to F9.40 at every age
+leading at 40 (F9.6 to F9.8 count a home together, the reader's c rows, as the scope's "living together or married"), F9.5, F9.24 and F9.33 on their own denominators, causes of death by age, F9.37 to F9.40 at every age
 and by colour, F14's movement, F17's deeds by colour and F19's stress and contentment by age. One file a seed,
-seed<k>.json, in --out (default out/f9_<time>/). 106 years so that "living past 105" can be seen.
+seed<k>.json, in --out (default out/f9_<time>/). 106 years so that "living past 105" can be seen. A seed takes
+about 4.4 GB at its peak, so --jobs defaults to what the free memory holds (3 on a 14 GB machine) up to the cores.
 
 `judge` pools the seeds (shares and means weighted by each seed's lives; a median is the median of the seeds' medians,
 with their range printed) and judges every row against its target in records/v22.5/scope.md. One results line per
@@ -57,6 +58,11 @@ def extras(g, Y):
         hit = (first[k] <= 50) & a50
         x[nm] = [int(hit.sum()), int(a50.sum())]
         x[nm + "_by"] = {COLS[c]: [int((hit & (lead == c)).sum()), int((a50 & (lead == c)).sum())] for c in range(5)}
+    co1 = g.get("co1")   # the reader's first home together (living together or married) by life, as F9.6c counts it
+    if co1 is not None:
+        hit = np.array([co1.get(n_, np.inf) <= 50 for n_ in range(N)]) & a50
+        x["part50c"] = [int(hit.sum()), int(a50.sum())]
+        x["part50c_by"] = {COLS[c]: [int((hit & (lead == c)).sum()), int((a50 & (lead == c)).sum())] for c in range(5)}
     leave = ev_ages({"the children leave home"})
     x["leave_first"] = [min(v) for v in leave.values()]
     sev = ev_ages({"a frightening diagnosis", "a serious accident or illness"})
@@ -130,7 +136,7 @@ def extras(g, Y):
     for k in ("stress", "content"):
         if k in V:
             arr = np.asarray(V[k])
-            x[k] = {a: [float(arr[a, dage > a].sum()), int((dage > a).sum())] for a in (8, 40, 50, 60, 70) if a <= Y}
+            x[k] = {a: [float(arr[a, dage > a].sum()), int((dage > a).sum())] for a in (8, 40, 50, 60, 70) if a < len(arr)}
     return x
 
 
@@ -141,6 +147,20 @@ def load(d):
         if f.startswith("seed") and f.endswith(".json"):
             runs.append(json.loads(open(os.path.join(d, f)).read().strip().splitlines()[-1]))
     return runs
+
+
+SEED_GB = 4.6   # memory a 300-life, 106-year seed takes at its peak (4.4 GB on refit 129cd0b): --jobs 4 ran out on 14 GB
+
+
+def mem_gb():
+    """The memory free for the seeds now (MemAvailable), in GB."""
+    try:
+        for line in open("/proc/meminfo"):
+            if line.startswith("MemAvailable:"):
+                return int(line.split()[1]) / 1e6
+    except OSError:
+        pass
+    return 8.0
 
 
 def frac(runs, key, sub=None):
@@ -164,6 +184,14 @@ def wmean(runs, key):
         return [sum(v[i] * n for v, n in vals if v[i] is not None) / sum(n for v, n in vals if v[i] is not None)
                 for i in range(len(vals[0][0]))]
     return sum(v * n for v, n in vals) / sum(n for _, n in vals)
+
+
+def newest(runs, prefix, old):
+    """The reader's newer count of a row (key starting with prefix, as "F9.19b") when it has one, else the old key."""
+    for k in runs[0]["out"]["f9"]:
+        if k.startswith(prefix + " "):
+            return k, f" (reader's {prefix})"
+    return old, f" (reader's {old.split(' ')[0]}; no {prefix} in this run)"
 
 
 def medians(runs, key):
@@ -219,21 +247,39 @@ def judge(d, commit=None, record=True):
     p50 = frac(runs, "par50")
     t.judge("F9.1 ever a parent by 50 (alive at 50)", p50, .78, .87)
     lean_rows(t, "F9.1 by colour", runs, "par50_by", p50, .60)
-    m, lo_, hi_ = medians(runs, "F9.2b first 'a child is born' age, median")
-    t.judge("F9.2 age at the first child ('a child is born'), median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_})")
+    k, how = newest(runs, "F9.2c", "F9.2b first 'a child is born' age, median")   # 2c: the first own birth (birth log)
+    m, lo_, hi_ = medians(runs, k)
+    t.judge("F9.2 age at the first own child, median", m, 27, 33, "{:.1f}", f" (seeds {lo_} to {hi_}){how}")
+    k1 = newest(runs, "F9.1b", "")[0]
+    if k1:
+        t.info(f"own birth by 50, of all lives (reader's F9.1b; F9.1 counts any child, adopted ones too): {wmean(runs, k1):.3f}")
     t.info(f"the children commitment's first start, median of the seeds: {medians(runs, 'F9.2 first child (children commitment) age, median')[0]}")
-    t.judge("F9.3 children per parent by 50, mean", wmean(runs, "F9.3 'a child is born' per parent by 50, mean"), 1.8, 2.5, "{:.2f}")
-    t.judge("F9.4 births after 50, share of their births", wmean(runs, "F9.4 births after 50, share"), None, .03)
+    # the b keys count a life's own births from both moments, each birth once (birth_free; Release 10-12 03:4x UTC)
+    k, how = newest(runs, "F9.3b", "F9.3 'a child is born' per parent by 50, mean")
+    t.judge("F9.3 children per parent by 50, mean", wmean(runs, k), 1.8, 2.5, "{:.2f}", how)
+    k, how = newest(runs, "F9.4b", "F9.4 births after 50, share")
+    t.judge("F9.4 births after 50, share of their births", wmean(runs, k), None, .03, note=how)
     lf = [a for r in runs for a in r["x"]["leave_first"]]
     t.judge("F9.5 the children leave home, parent's age, median", float(np.median(lf)) if lf else None, 48, 60, "{:.1f}")
     # partners
     t = T["f9_partners"]
-    q50 = frac(runs, "part50")
-    t.judge("F9.6 ever partnered by 50 (alive at 50)", q50, .83, .92)
-    lean_rows(t, "F9.6 by colour", runs, "part50_by", q50, .70)
-    m, lo_, hi_ = medians(runs, "F9.7 first partner age, median")
-    t.judge("F9.7 age at the first partnership, median", m, 23, 30, "{:.1f}", f" (seeds {lo_} to {hi_})")
-    t.judge("F9.8 first partnerships ending in a split, share of the partnered", wmean(runs, "F9.8 partnered with a split"), .30, .50)
+    # a partnership is a home together (the scope's "living together or married"): the reader's c counts, read off the
+    # shared-home titles; its partner commitment starts at dating, so it prints beside them for information
+    pc = "part50c" if all("part50c" in r["x"] for r in runs) else "part50"
+    q50 = frac(runs, pc)
+    t.judge("F9.6 ever partnered by 50 (alive at 50)", q50, .83, .92,
+            note=" (a home together, the reader's co1)" if pc == "part50c" else " (partner commitment; no home-together count in this run)")
+    lean_rows(t, "F9.6 by colour", runs, pc + "_by", q50, .70)
+    k, how = newest(runs, "F9.7c", "F9.7 first partner age, median")
+    m, lo_, hi_ = medians(runs, k)
+    t.judge("F9.7 age at the first partnership, median", m, 23, 30, "{:.1f}", f" (seeds {lo_} to {hi_}){how}")
+    k, how = newest(runs, "F9.8c", "F9.8 partnered with a split")
+    t.judge("F9.8 first partnerships ending in a split, share of the partnered", wmean(runs, k), .30, .50, note=how)
+    if pc == "part50c":
+        f_ = lambda v, fmt: "n/a" if v is None else fmt.format(v)
+        t.info(f"partner commitment (dating counts): by 50, alive at 50 {f_(frac(runs, 'part50'), '{:.3f}')}; first, "
+               f"median age {f_(medians(runs, 'F9.7 first partner age, median')[0], '{:.1f}')}; ever split "
+               f"{f_(wmean(runs, 'F9.8 partnered with a split'), '{:.3f}')}")
     t.judge("F9.9 partner died first, partnered alive at 80", wmean(runs, "F9.9 widowed, partnered alive at 80"), .25, .45)
     t.judge("F9.10 partner died before 50, share of the partnered", wmean(runs, "F9.10 widowed before 50, of partnered"), .01, .05)
     # homes
@@ -251,7 +297,9 @@ def judge(d, commit=None, record=True):
     v = wmean(runs, "F9.18 at least one / four or more")
     t.judge("F9.18 at least one job loss", v[0] if v else None, .45, .75)
     t.judge("F9.18 four or more", v[1] if v else None, None, .10)
-    t.judge("F9.19 employers per working life, mean", wmean(runs, "F9.19 employers (career starts), mean"), 4, 12, "{:.2f}")
+    # 19b: career starts and changes of employer, working lives (the row's meaning; Release 10-12 03:4x UTC)
+    k, how = newest(runs, "F9.19b", "F9.19 employers (career starts), mean")
+    t.judge("F9.19 employers per working life, mean", wmean(runs, k), 4, 12, "{:.2f}", how)
     t.judge("F9.20 firm crises felt per life, mean", wmean(runs, "F9.20 firm crises per life, mean"), .5, 3, "{:.2f}")
     # F9.21 on the reader's 21b: years out of work after the first job, to 64, not retired (students and those not yet
     # working are not "wanting work"; Engine 10-12 01:26 UTC); every year without a job is printed beside it
@@ -339,16 +387,19 @@ def judge(d, commit=None, record=True):
             out[c] = sum(v * n for v, n in vals) / sum(n for _, n in vals) if vals else None
         return out
     hw_c, tl_c, mm_c, mw_c = cmean("c_health_w80"), cmean("c_ties_late"), cmean("c_money_mean"), cmean("c_money_w80")
-    oth = lambda d_, cs: np.mean([d_[c] for c in COLS if c not in cs and d_[c] is not None])
-    t.judge_bool("F9.40 Red's health spread wider than the others' mean", hw_c["R"] is not None and hw_c["R"] > oth(hw_c, "R"),
-                 f"R {hw_c['R']:.3f} against {oth(hw_c, 'R'):.3f} (lean {hw_c['R'] - oth(hw_c, 'R'):+.3f})")
+    def lean(d_, c):   # (the colour's value, the others' mean), or None when the run has no count for them
+        o_ = [d_[k] for k in COLS if k != c and d_[k] is not None]
+        return (d_[c], float(np.mean(o_))) if d_[c] is not None and o_ else None
+    txt = lambda L: f"{L[0]:.3f} against {L[1]:.3f} ({L[0] - L[1]:+.3f})" if L else "not counted in this run"
+    L = lean(hw_c, "R")
+    t.judge_bool("F9.40 Red's health spread wider than the others' mean", L and L[0] > L[1], f"R {txt(L)}")
     for c in "WG":
-        t.judge_bool(f"F9.40 {c}'s ties at 60 to 85 above the others' mean", tl_c[c] is not None and tl_c[c] > oth(tl_c, c),
-                     f"{c} {tl_c[c]:.3f} against {oth(tl_c, c):.3f} (lean {tl_c[c] - oth(tl_c, c):+.3f})")
+        L = lean(tl_c, c)
+        t.judge_bool(f"F9.40 {c}'s ties at 60 to 85 above the others' mean", L and L[0] > L[1], f"{c} {txt(L)}")
     for c in "BU":
-        t.judge_bool(f"F9.40 {c}'s money at 30 to 70 higher and more spread", mm_c[c] > oth(mm_c, c) and mw_c[c] > oth(mw_c, c),
-                     f"{c} mean {mm_c[c]:.3f} against {oth(mm_c, c):.3f} ({mm_c[c] - oth(mm_c, c):+.3f}), "
-                     f"spread {mw_c[c]:.3f} against {oth(mw_c, c):.3f} ({mw_c[c] - oth(mw_c, c):+.3f})")
+        L, L2 = lean(mm_c, c), lean(mw_c, c)
+        t.judge_bool(f"F9.40 {c}'s money at 30 to 70 higher and more spread", L and L2 and L[0] > L[1] and L2[0] > L2[1],
+                     f"{c} mean {txt(L)}, spread {txt(L2)}")
     # F14
     t = T["f14_settle"]
     mv = {a: frac(runs, f"move_{a}") for a in (25, 45, 65)}
@@ -437,7 +488,7 @@ def main():
     out = os.path.abspath(arg("--out", os.path.join(os.path.dirname(HERE), "chroma-release", "out",
                                                    "f9_" + time.strftime("%Y%m%d-%H%M%S", time.gmtime()))))
     os.makedirs(out, exist_ok=True)
-    jobs = int(arg("--jobs", os.cpu_count() or 2))
+    jobs = int(arg("--jobs", 0)) or max(1, min(os.cpu_count() or 2, int(mem_gb() // SEED_GB)))   # default: what fits
     passed = [a for name in ("--lives", "--years", "--world", "--px", "--log") if name in sys.argv for a in (name, arg(name, ""))]
     todo, live = list(range(s0, s1 + 1)), []
     env = dict(os.environ)
