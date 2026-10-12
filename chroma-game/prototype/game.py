@@ -18,7 +18,7 @@ import sys
 from link import E, PIN
 import explain as X             # engine v7: the character's view before a choice, what came of it after
 import foresee as F             # engine v7: the foreseen outcome of a plan
-from story import Story, LIB_READ, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
+from story import Story, TAKEN_IN, LIB_READ, act, chooses, plain, ADJ, NOUN, EPITHETS, SETTINGS, load_library_story, DRIVER_WORD, neg_of, STATUS_WORD, mk, NAME_POOL, an
 from worldview import WorldView, EngineWorld, from_engine, who_word, lever_info, push_words   # the outer world as the player sees it (chroma-world/)
 try:
     import earth_play as EP     # 5.6: the turning point, put to the player by the game alone (never loaded into a life)
@@ -36,6 +36,10 @@ try:
     import routine as RT        # point 1 (Emren 20:39): everyday routine lines for the interlude between moments
 except ImportError:
     RT = None
+try:
+    import worlds as WDS        # v22.5, F12: the Library's words and own ways of the tribal and magic worlds (chroma-library)
+except ImportError:
+    WDS = None
 try:
     import earth_story as ES    # the Library's words for the end of a life: the song, the marks, the last conversation
 except Exception:
@@ -193,14 +197,34 @@ GAME = dict(
     # when the game picks the moments to put to the player (a moment rung_ask already puts to them is not weighed again).
     # Off until its proof
     rare_ask=False, rare_imp=0.5,
+    # v22.5, F12 "The world and the start hold" (chroma-ideas/realism/v22.5-realism-list.md; off until v22.5's refit, with
+    # the engine's own_open and start_hold): the tribal and magic worlds speak their own words (the Library's worlds.py:
+    # option labels, moment titles, the means, a lost place in the work, a backfire; no money, sirens, profits or votes
+    # in the story's own lines there); an option closed by a means it is short of says so, never "not on offer"; the
+    # story's place follows the world's (a village start in a village, a move to a city a city); each start draws its own
+    # world and story names (with the same seed, the four modern starts are four lives, not one in four coats)
+    world_hold=False,
+    # v22.5 realism F10, once means once, the story's side (no life changes): line_wait, the years before the same line of
+    # an outside reading, the world, an ordinary week or a year's chapter is told again word for word (0: as before);
+    # news_touch, national news only when it touches them: from news_age (their own place's, a war, a pandemic and a
+    # recession at any age), a law told once for each state it reaches, the government's fall told once with its
+    # election, and the same kind of national news at most once in news_gap years (False: as before)
+    line_wait=0.0, news_touch=False, news_age=10.0, news_gap=4.0,
 )
+LINE_WAIT_TAGS = {"read", "world", "world_year", "world_fx", "ordinary", "year", "fortune", "trouble", "memory", "seen", "talk",
+                  "temper", "healed", "hardened", "voice"}   # F10: the lines line_wait holds back (scenes, choices, deaths
+# and commitments are told whenever they happen)
+NEWS_ALL = {"war", "war_end", "pandemic", "recession", "world_recession", "revolution", "regime"}   # F10: news that touches
+# everyone, at any age (the rest of the national news from news_age)
 OWN_STEPS = ((0.8, "theirs"), (0.5, "sees"), (0.25, "ought"), (0.0, "asked"))   # S2: ix -> the Library's step key
 
 # stage 1's played-life rules at their off values (the update's UPD_OFF rule: every new mechanic can be switched off):
 # with these a played life is the one v22.1 plays, step for step (test/same_engine.py with CHROMA_GAME=off)
 GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0, quiet_k=1.0, plan_lean=0.0, tie_imp=0.0, tie_pick=0.0, told_share=2.0,
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
-                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False, rare_ask=False)
+                own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
+                world_hold=False,
+                line_wait=0.0, news_touch=False, rare_ask=False)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", or settings as JSON
     import json as _json
     GAME.update(GAME_OFF if os.environ["CHROMA_GAME"] == "off" else _json.loads(os.environ["CHROMA_GAME"]))
@@ -230,6 +254,41 @@ _LIBS = {}
 # content packs on top of the Earth batch (Emren's point 8): None loads the engine's approved list (batch.PACKS); a pack's
 # moments are earth_<pack>.py next to earth.py, its catalogue, rules and helps in engine_pin/packs/<pack>/
 PACKS = None
+
+
+def start_offset(setting, place, society, wealth, faith, upbringing):
+    """v22.5, F12 (world_hold): a start's own offset to the seed, the same for the same start (its settings, not its title)."""
+    import zlib
+    return 1 + zlib.crc32(f"{setting}|{place}|{society}|{float(wealth):.3f}|{faith}|{upbringing}".encode()) % 999983
+
+
+def place_word(kind):
+    """v22.5, F12 (world_hold): the story's word for a world locality's kind (its {place}: the village, the city, the
+    town, the countryside)."""
+    k = str(kind)
+    for w_, keys in (("village", ("village", "hamlet")), ("city", ("city", "capital")), ("countryside", ("remote",))):
+        if any(x in k for x in keys):
+            return w_
+    return "town"
+
+
+def world_says(setting, part, key, default=None):
+    """v22.5, F12 (GAME world_hold): the Library's word for key in a tribal or magic world (worlds.py WORDS, TITLES or
+    LABELS: part), else default (Earth, an unlisted key, or the switch off)."""
+    if not GAME["world_hold"] or WDS is None:
+        return default
+    return getattr(WDS, part, {}).get(setting, {}).get(key, default)
+
+
+def world_table(setting, part):
+    """v22.5, F12 (GAME world_hold): a whole table of the Library's worlds.py for this world ({} for Earth or off)."""
+    return dict(getattr(WDS, part, {}).get(setting, {})) if GAME["world_hold"] and WDS is not None else {}
+
+
+def res_names(setting):
+    """The five means as this world names them (money: goods in the clan, coin in the towers, with world_hold)."""
+    r = world_says(setting, "WORDS", "res")
+    return [r.get(x, x) for x in RNAMES] if r else RNAMES
 
 
 def batch_mod():
@@ -265,6 +324,11 @@ def with_dreams(L, setting):
     if setting in D_.DREAM_TRIGGERS:
         L["DREAM_TRIGGERS"] = list(D_.DREAM_TRIGGERS[setting])
         L["DREAMS"] = [d_ for d_ in D_.DREAMS if setting in d_["worlds"].split()]
+    import batch                                    # v22.5 (F6, F12): what the engine's dream_grow and own_open read, attached
+    if hasattr(batch, "dream_grow_data") and setting in D_.DREAM_TRIGGERS:   # as the Earth batch attaches it; read only
+        batch.dream_grow_data(L, D_, setting)                               # with those switches on
+    if hasattr(batch, "own_ways") and WDS is not None and setting in getattr(WDS, "OWN", {}):
+        batch.own_ways(L, WDS.OWN[setting])
     return L
 CTX_WORDS = dict(family="own household", ties="ties", money="money", health="health", era="era", harsh="harsh world",
                  unrest="unrest", prosper="prosperity", community="community", stress="stress",
@@ -535,8 +599,13 @@ class Game:
                  pace=1.0, tech="modern", climate="middle", earlier=None, earlier_data=None, **_):
         self.name = name
         self.setting = setting if setting in SETTINGS else "earth"
-        self.story = Story(name, seed, place, self.setting)   # the built-in narration (story.py)
-        self.wv = WorldView(int(seed), self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
+        # v22.5, F12 (world_hold): each start draws its own world and story names (the same seed, another start: another life)
+        self._start_off = start_offset(self.setting, place, society, wealth, faith, upbringing) if GAME["world_hold"] else 0
+        self.story = Story(name, int(seed) + self._start_off, place, self.setting)   # the built-in narration (story.py)
+        self.story.hold = GAME["world_hold"]
+        import story as ST_                             # F12: every told act of the clan or the towers in its own words
+        ST_.ACT_WORLD.clear(); ST_.ACT_WORLD.update(world_table(self.setting, "LABELS"))
+        self.wv = WorldView(int(seed) + self._start_off, self.setting, name, fig_own=GAME["fig_own"])     # the outer world's panel, circle, reach and story lines
         self.story.seen_as = lambda: self.gender_view()["seen_word"][2:] if self.loc is not None else "child"   # {seen_as} (N1d §3)
         self._epithet = ""
         self.ledger = False             # also show the numbers under the story (key l)
@@ -555,6 +624,8 @@ class Game:
             P["f_world"] = 0.25 * (mix(society) - 0.2) * 5 / 4      # the society rewards these ways of acting
             P["world_profile"] = 0.6 * np.full(C, 0.2) + 0.4 * mix(society)
         r0 = list(E.DEFAULT["res0"]); r0[0] = float(wealth); P["res0"] = tuple(r0)
+        if self.up_mix is not None:
+            P["up_mix"] = self.up_mix                   # v22.5 F15: the engine's start lean reads it (up_lean, off until the refit)
         if faith == "none":
             P["faith_inherit"] = 0.0
         elif faith:
@@ -580,6 +651,13 @@ class Game:
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
                                   tech_level=tech if tech in ("behind", "modern", "ahead") else "modern",
                                   climate=climate if climate in ("low", "middle", "high") else "middle")
+            if self._start_off:
+                P["world_seed"] = int(seed) + self._start_off
+            import world_link as WLM_
+            if hasattr(WLM_, "start_fits"):             # v22.5, F12: what the start promises, read by the engine's start_hold
+                P["world_cfg"]["start"] = dict(place=place, wealth=float(wealth), hard=place == "neighbourhood",
+                                               faith="none" if faith == "none" else ("held" if faith else None),
+                                               society=mix(society).tolist() if society else None)
             if earlier and earlier_data and earlier_data.get("key") == earlier.get("key"):
                 import world as WM
                 P["world_obj"] = WM.World.load(earlier_data["world"])
@@ -589,6 +667,8 @@ class Game:
             elif earlier:
                 raise ValueError("the earlier world this life begins in is not in this browser")
         P.update({k_: v_ for k_, v_ in ENGINE_SET.items() if not k_.isupper()})   # checks only (CHROMA_ENGINE); empty in played lives
+        if P.get("death_life", E.DEFAULT.get("death_life")):   # v22.5 F2: death comes from the life, past 80 to about 100
+            years = max(years, DEATH_LIFE_YEARS)
         self.sex = P["sex"] if P["sex"] != "intersex" else None
         self._named_seen = False                        # 'named their gender' already offered a new name
         self._death_on = False
@@ -707,7 +787,7 @@ class Game:
         age = t / 52
         if t == 0 and self.up_mix is not None:
             nic[0] = 0.5 * nic[0] + 0.5 * self.up_mix                   # the family's surroundings
-        if self.up_mix is not None and age < 15:
+        if self.up_mix is not None and age < 15 and not P.get("up_lean"):   # (F15 on: the engine's start lean does it)
             y[0] += GAME["upbringing"] * E.centre(5 * (self.up_mix - E.softmax(y[0])))
         if age >= self.start_age:       # item 4: the player is here. The weeks without them weigh less; a pick week is whole
             P["own_k"] = P["drift_k"] = P["ev_push_k"] = GAME["quiet_k"]       # (decide sets them back to 1 for its week)
@@ -747,6 +827,10 @@ class Game:
             self.t = t; self.loc = loc; self.story.age = t / 52
             reply = None
             if kind == "week":
+                if "P" in loc:
+                    self.story.one_roll = bool(loc["P"].get("one_roll"))   # F7: the story reads the engine's one roll
+                    if self.story.one_roll and "alive" in loc and loc["alive"].shape[1] > 5:
+                        self.story.kids_n = int(loc["alive"][0, 5])
                 if loc.get("WL") is not None:            # the engine's outer world (P["world"] on): the panel reads it, big news is told
                     if not isinstance(self.world_source, EngineWorld):
                         self.world_source = EngineWorld(self)
@@ -1040,9 +1124,12 @@ class Game:
                 status = "out of reach"
             why = ""
             if status == "out of reach":
-                req = L["REQ"][s, k]; res = loc["res"][0]
-                lack = [RNAMES[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
+                req = L["REQ"][s, k]; res = loc["res"][0]; rn_ = res_names(self.setting)
+                lack = [rn_[j] for j in range(len(req)) if req[j] > 0 and res[j] < req[j]]
                 why = "lacks " + ", ".join(lack) if (lack and not open_r[k]) else "not on offer around them"
+                if GAME["world_hold"] and not open_r[k] and not lack:   # F12: the means gate closed it, with each need met
+                    j_ = min((j for j in range(len(req)) if req[j] > 0), key=lambda j: res[j] - req[j], default=None)
+                    why = f"stretched for {rn_[j_]}" if j_ is not None else why
             clash = [] if dn[k] else clash_with(self._colors(loc, k), self._prev_label)
             rel = 0.0 if k == own else reluctance(Ubest - float(U[k]), ref, u_dn - float(U[k]), bool(clash)) * self._own_k(loc, k)
             pt = self._true_odds(loc, k); pt0 = pt
@@ -1050,7 +1137,8 @@ class Game:
                 lg = np.log(pt / (1 - pt)) - GAME["effort"] * rel - (GAME["out_of_reach"] if status == "out of reach" else 0)
                 pt = float(1 / (1 + np.exp(-lg)))
             ph = float(p_hat[k])
-            label = labels[k].replace("{title}", getattr(self.story, "title_now", None) or "their role")
+            label = world_says(self.setting, "LABELS", labels[k], labels[k])   # F12: in the clan's or the towers' words
+            label = label.replace("{title}", getattr(self.story, "title_now", None) or "their role")
             if recon:
                 kk = int(loc["rk"][0]); label = re.sub(r"\bit\b", f"the {KNAMES[kk]}", label, count=1)
             commit = int(L["COMMIT"][s, k])
@@ -1061,7 +1149,9 @@ class Game:
                              acc="their own pick" if k == own else accept_word(rel), trust=self._trust_on(loc, k),
                              commit=KNAMES[commit] if commit >= 0 and not loc["held"][0, commit] else None,
                              follows=self._follows(loc, s, k, ph, commit, recon)))
-        title = L["names"][s]
+            if opts[-1]["commit"] == "career" and world_says(self.setting, "WORDS", "career"):   # F12: a life's work, a post
+                opts[-1]["commit_say"] = world_says(self.setting, "WORDS", "career")
+        title = world_says(self.setting, "TITLES", L["names"][s], L["names"][s])   # F12: the moment as that world calls it
         extra = ""
         kind = None
         if recon:
@@ -1075,6 +1165,8 @@ class Game:
                 extra += (f" [invested {loc['I'][0, kk]:.2f}; expects {letters(loc['prof'][0, kk])}, "
                           f"wants {letters(E.softmax(loc['y'][0]))}]")
         # the scene, and what the character thinks about the act they lean toward
+        if self.story.one_roll and loc.get("WL") is not None:
+            self._one_roll(loc)                         # F7: the world's dead, before the scene names anyone
         m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s))
         self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
         self._social_slots(m, loc, s)                   # v22.4: the places, post or price the moment is about
@@ -2539,6 +2631,11 @@ class Game:
         if " or " in line and self.loc is not None:     # two-word titles in their own words (N1d §3)
             line = self.gword(line)
         if level <= self.detail:
+            if GAME["line_wait"] and line and tag in LINE_WAIT_TAGS:   # F10: a line said word for word waits its years
+                said_ = self.__dict__.setdefault("_said_t", {}); k_ = plain(line)
+                if self.t - said_.get(k_, -10 ** 9) < GAME["line_wait"] * 52:
+                    return
+                said_[k_] = self.t
             self.log.append(plain(line))
             if line:
                 self.feed.append(dict(tag=tag, text=line, age=round(self.t / 52, 1), **meta))
@@ -2548,12 +2645,13 @@ class Game:
             self._yearly(t, loc)
         if GAME["lean_self"] and self._leans and "z" in loc:   # v22.5 proposal: the way lived becomes who they are
             w_ = E.softmax(loc["z"][0])
+            ls_ = GAME["lean_self"] * (float(loc["settle_f"][0]) if "settle_f" in loc else 1.0)   # F14: less with age
             for T, st, t0 in self._leans:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
                 if f > 0:
-                    loc["z"][0] += GAME["lean_self"] * st * f * E.centre(5 * (T - w_))
+                    loc["z"][0] += ls_ * st * f * E.centre(5 * (T - w_))
             for T, st in (getattr(self, "_own_leans", None) or {}).values():   # S2: a way that is theirs keeps leaning both
-                loc["z"][0] += GAME["lean_self"] * st * E.centre(5 * (T - w_))
+                loc["z"][0] += ls_ * st * E.centre(5 * (T - w_))
         if self._seasons and "need" in loc:              # v22.5 proposal: an owned pick's season holds, fading
             for e_, st_, t0 in self._seasons:
                 f = 1 - (t - t0) / GAME["lean_weeks"]
@@ -2913,6 +3011,8 @@ class Game:
         sev = [ev for ev in new if "situation" in ev]
         self._recall(t, sev)
         kills = self._kills(L, s)
+        if self.story.one_roll and loc.get("WL") is not None:
+            self._one_roll(loc)                         # F7: the world's dead, before the week's scene and deaths are told
         m = None
         if sev or cpw is not None:
             kind = KNAMES[int(loc["rk"][0])] if bool(loc["recon"][0]) else None
@@ -3069,7 +3169,8 @@ class Game:
                         wd = self.world_data()
                         byid = {c_["id"]: c_ for c_ in wd[2]} if wd else {}
                         names = {p_["id"]: who_word(byid.get(p_["id"], p_), p_["name"])
-                                 for p_ in self.wv.circle(wd[2], names=self.cast_names(wd[2])) if p_["layer"] <= 3} if wd else {}
+                                 for p_ in self.wv.circle(wd[2], names=self.cast_names(wd[2]))
+                                 if p_["layer"] <= 3 and (p_["alive"] or not self.story.one_roll)} if wd else {}
                         wl = self.wv.line(w_, names)
                         if wl:                          # G2 (B package): the same world line is not told again within WORLD_AGAIN weeks
                             told = self.__dict__.setdefault("_wline_t", {})
@@ -3122,6 +3223,8 @@ class Game:
                                   impact=round(float(r.get("impact", 0.0)), 2), **({"color": c_} if c_ else {}))
                 elif "sphere_lever" in ev:              # spheres phase 4 (sph_levers): their act on the town's sphere
                     self._lever_told(t, loc, ev["sphere_lever"])
+                elif "body" in ev or "decline" in ev:   # v22.5 F1 and F2: the body's and the mind's turns, a last decline
+                    self._body_told(ev)
                 elif "cast" in ev and ev["cast"].get("kind") in ("far", "taken in", "want"):
                     self._far_told(t, loc, ev["cast"])  # far_ties: a close tie's news, a tie taken in, a want's cause
                 elif "cast" in ev and ev["cast"].get("kind") == "talk":
@@ -3138,12 +3241,15 @@ class Game:
                         old = self._event_line(ev)
                         if old:
                             self._say(old, 0, "ledger")
+        if self.story.one_roll and loc.get("WL") is not None:
+            self._one_roll(loc, kids=True)              # F7: a child the world lost after the engine's moment
         if self.batch and "alive" in loc and loc.get("WL") is not None and (self._kin_t is None or t - self._kin_t >= 4
                                                                      or int(loc["alive"][0, 1]) > len(self.story.alive("sibling"))):
             self._kin_sync(t, loc)          # the family the world was born into, a new sibling the week it comes, else monthly
         if self.batch and "alive" in loc and loc["alive"].shape[1] > 5 and self.story.alive("child"):   # R15: a later child is one more in the family
+            taken = self.story.one_roll and bool(TAKEN_IN.search(sit))   # F7: a child taken in is not a birth
             for _ in range(int(loc["alive"][0, 5]) - len(self.story.alive("child"))):
-                self._say(self.story.later_child(), 0 if not self.burn_in else 1, "kin")
+                self._say(self.story.later_child(taken) if taken else self.story.later_child(), 0 if not self.burn_in else 1, "kin")
         if GAME["lines_tied"]:
             self._temper_week(loc)
         self._force = None
@@ -3172,7 +3278,8 @@ class Game:
             elif acc == "okay with it":
                 line += " It wasn't their choice, but they were okay with it."
             if self._force["closed"] and not ev["success"]:
-                line += " Forcing what was out of reach backfired: more stress, some money lost."
+                line += " " + world_says(self.setting, "WORDS", "backfire",
+                                         "Forcing what was out of reach backfired: more stress, some money lost.")
         return line
 
     def _event_line(self, ev):
@@ -3197,7 +3304,7 @@ class Game:
             if what == "inherited":
                 return f"  {c['age']:5.1f}  [title] {n} is raised inside the family faith, which expects {prof}."
             words = {"left": f"{n} walks away from their {kind}.", "lost job": f"{n} loses their job.",
-                     "retired": f"{n} retires.", "widowed": f"{n}'s partner dies."}
+                     "retired": f"{n} retires.", "widowed": f"{n}'s partner dies.", "moved": f"{n} changes employer."}
             return f"  {c['age']:5.1f}  [title] " + words.get(what, f"{kind}: {what}.")
         if "clash" in ev:
             c = ev["clash"]
@@ -3500,6 +3607,9 @@ class Game:
         shv = self.shadow_view(loc)
         if shv is not None:                          # item 2: light and shadow, only with the engine's shadows switch on
             d["shadow"] = shv
+        hv = self.health_view(loc)
+        if hv is not None:                           # v22.5 F1: health's two halves, only with the engine's body or mind on
+            d["health"] = hv
         if dyn is not None:
             d["dyn"] = dict(openness=dyn["openness"], window=bool(dyn["window"]), near=dyn["near"], bands=dyn["bands"],
                             parts={k: r(v) for k, v in dyn["inertia_parts"].items()}, readiness=dyn["readiness"])
@@ -3677,6 +3787,8 @@ class Game:
     def _world_news(self, r):
         """A big public event of the engine's world, told in the story (spec 1 §8: big public events always). The timeline
         keeps every one; the story does not repeat the same figure's news within NEWS_GAP weeks, nor the same line within two years."""
+        if GAME["news_touch"] and not self._news_touches(r):
+            return
         wl = self.wv.line(r, {})
         told = self.__dict__.setdefault("_news_t", {})
         key = (r["kind"], r["figure"]) if r.get("figure") is not None else wl[1] if wl else None
@@ -3686,6 +3798,29 @@ class Game:
             told[key] = self.t
         if wl:
             self._say(mk("O", f"{r['kind']}|{wl[0]}|1", self.story.fill(wl[1])), 0 if not self.burn_in else 1, "world", kind=r["kind"], icon=wl[0])
+
+    def _news_touches(self, r):
+        """F10 (news_touch): whether a big public event touches them enough to be told. Their own place's news, a war, a
+        pandemic and a recession always; the rest of the national news from news_age, a law only when it reaches a state
+        not told before, a fallen government not again with the election that follows, and one kind at most once in
+        news_gap years."""
+        k_ = r["kind"]
+        if r.get("locality") is not None or k_ in NEWS_ALL:
+            return True
+        if self.t / 52 < GAME["news_age"]:
+            return False
+        last = self.__dict__.setdefault("_news_k", {})
+        if k_ == "law":
+            st_ = self.__dict__.setdefault("_law_told", {})
+            if st_.get(r.get("law")) == r.get("state"):
+                return False
+            st_[r.get("law")] = r.get("state")
+            return True
+        key_ = "government" if k_ in ("gov_falls", "election") else k_
+        if self.t - last.get(key_, -10 ** 9) < GAME["news_gap"] * 52:
+            return False
+        last[key_] = self.t
+        return True
 
     world_source = None     # the engine's outer world: a callable, hidden week -> (snapshot, record, cast, standing); None until it lands
     _wloc = None            # the locality they live in, as last told
@@ -3704,6 +3839,8 @@ class Game:
         name = place_name(self.wv.seed, l, self.setting)
         kind = str(pv.get("kind", "")).replace("_", " ")
         a_kind = an(kind) if kind else ""
+        if GAME["world_hold"] and kind:                 # v22.5, F12: the story's place is where the world has them
+            self.story.place = place_word(kind)
         if birth:
             self._wloc = l
             self.story.birth_place = mk("O", "place|ci-cottage|1", name + (f", {a_kind}" if a_kind else ""))
@@ -3743,11 +3880,66 @@ class Game:
             def q_sex(q):
                 return "f" if FEM_REF.search(q["ref"]) else "m" if MAS_REF.search(q["ref"]) else None
             cs = [q for q in self.story.people if q["role"] in roles and q["name"] not in used]
+            if self.story.one_roll:                     # F7: the living keep the living's names, the dead the dead's
+                cs = [q for q in cs if q["alive"] == bool(p.get("alive", True))]
             cs = [q for q in cs if q_sex(q) in (sx, None)] or cs
             cs.sort(key=lambda q: q["alive"] != bool(p.get("alive", True)))
             if cs:
                 m[p["id"]] = cs[0]["name"]; used.add(cs[0]["name"])
         return m
+
+    ROLL_ROLES = dict(parent=("mother", "father"), sibling=("sibling",), grandparent=("grandparent",), partner=("partner",),
+                      child=("child",))   # F7: the world's kin roles the story's deaths are matched by
+
+    def _one_roll(self, loc, kids=False):
+        """F7 (the engine's one_roll, outer world on): the kin the world has lost since the last call. Each waits in
+        story.due for the next death of its role, so the scene, the funeral and the name are the world's. A child dies
+        in the world only after the engine's moment, whose child the story has already named: kids=True, after the
+        week's lines, gives the world's child that name (and the living child's name to whoever the world had under it)."""
+        if not kids:
+            evs = loc["events"][0]; i_ = self.__dict__.get("_due_i", 0); self._due_i = len(evs)
+            dd = [ev["cast"] for ev in evs[i_:] if isinstance(ev.get("cast"), dict) and ev["cast"].get("kind") == "died"
+                  and ev["cast"].get("role") in self.ROLL_ROLES]
+            pend = self.__dict__.setdefault("_roll_kids", [])
+            pend.extend(d for d in dd if d["role"] == "child")
+            dd = [d for d in dd if d["role"] != "child"]
+        else:
+            dd, self._roll_kids = self.__dict__.get("_roll_kids", []), []
+        if not dd:
+            return
+        wd = self.world_data()
+        m = self.cast_names(wd[2]) if wd else self.__dict__.setdefault("_castname", {})
+        sx_ = {c_["id"]: ("f" if c_.get("sex") == "female" else "m") for c_ in (wd[2] if wd else [])}
+        claimed = self.__dict__.setdefault("_roll_dead", set())   # story people already matched to a world death
+        from story import FEM_REF, MAS_REF
+        for d in dd:
+            cid, r = d.get("cid"), d["role"]
+            roles = self.ROLL_ROLES[r]
+            if r == "parent" and cid in sx_:
+                roles = ("mother",) if sx_[cid] == "f" else ("father",)
+            p = next((q for q in self.story.people if q["name"] == m.get(cid) and q["role"] in roles), None)
+            if p is not None and not p["alive"]:
+                claimed.add(p["id"]); continue
+            gone = [q for q in self.story.people if q["role"] in roles and not q["alive"] and q["id"] not in claimed
+                    and self.story.age - q.get("gone", -99.0) < 0.25] if kids else []
+            if gone:                                    # the story told this death first: the world's person is that one
+                q = gone[-1]; claimed.add(q["id"])
+                if p is not None:                       # whoever the world had under that name takes the living one's
+                    for k_, v_ in list(m.items()):
+                        if v_ == q["name"] and k_ != cid:
+                            m[k_] = p["name"]
+                m[cid] = q["name"]
+                continue
+            if p is None:
+                used = set(m.values()); due_ = {q["id"] for _, q in self.story.due}
+                cs = [q for r_ in roles for q in self.story.alive(r_) if q["name"] not in used and q["id"] not in due_]
+                sx = sx_.get(cid)
+                cs = [q for q in cs if ("f" if FEM_REF.search(q["ref"]) else "m" if MAS_REF.search(q["ref"]) else sx) == sx] or cs
+                if not cs:
+                    continue
+                p = cs[0]; m[cid] = p["name"]
+            if all(q is not p for _, q in self.story.due):
+                self.story.due.append((r, p))
 
     def world_save(self):
         """The world this life leaves behind, for a later life to begin in (spec 1: legacy worlds): the world's whole
@@ -3897,6 +4089,8 @@ class Game:
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
             if o.get("seen"):                           # S6, only while seen_done is on
                 opts[-1]["seen"] = o["seen"]
+            if o.get("commit_say"):                     # v22.5, F12 (world_hold): the world's word for a career
+                opts[-1]["commit_say"] = o["commit_say"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
@@ -4044,6 +4238,41 @@ class Game:
         """The title that brings them to this moment, for the Library's {title} slot (engine next hand-off)."""
         self.story.title_now = X.title_held(loc, 0) if hasattr(X, "title_held") and "s" in loc else None
 
+    def _body_told(self, ev):
+        """v22.5 F1 and F2: a line for the body's or the mind's own turn (a condition, a serious illness, an injury, a low
+        season, anxiety, numbing) or a last decline, in BODY_SAY's and DECLINE_SAY's words. The Library's own moments tell
+        theirs (the engine does not log those twice)."""
+        if "decline" in ev:
+            c = ev["decline"]["cause"]
+            kd = "old" if c == "old age" else "serious" if c in ("of cancer", "of heart disease", "after a stroke", "of lung disease") else "condition"
+            self._say(DECLINE_SAY[kd].format(name=self.name), 0, "decline", cause=c, weeks=int(ev["decline"].get("weeks", 0)))
+            return
+        b = ev["body"]; nm = b.get("name", ""); what = b["what"]
+        if b["kind"] == "condition" and what == "begins" and b["age"] < 16:
+            what = "begins young"
+        elif b["kind"] == "serious" and what == "begins" and nm == "a stroke":
+            what = "begins stroke"
+        lv, say = BODY_SAY.get((b["kind"], what), (None, ""))
+        if lv is None or self.burn_in and lv > 0:
+            return
+        self._say(say.format(name=self.name, what=BODY_WHAT.get(nm, nm), the=BODY_THE.get(nm, "it")), lv, "body",
+                  kind=b["kind"], what=b["what"], **({"name": nm} if nm else {}))
+
+    def health_view(self, loc):
+        """v22.5 F1: health's two halves for the HUD (body and mind, 0 to 1), what weighs on them now (long-term
+        conditions, a serious illness, a low season, anxiety, numbing) and whether a last decline has begun. None while the
+        engine's body and mind switches are off (or the pin has neither)."""
+        if loc is None or not loc.get("HM_ON") or "body_v" not in loc:
+            return None
+        t = self.t
+        cond = [E.COND_KINDS[int(k)] for w_, k in zip(loc["bd_cw"][0], loc["bd_ck"][0]) if w_ > 0 and k >= 0] if "bd_cw" in loc else []
+        sk = int(loc["bd_sk"][0]) if "bd_sk" in loc else -1
+        me = loc["md_end"][0]
+        return dict(body=round(float(loc["body_v"][0]), 3), mind=round(float(loc["mind_v"][0]), 3), conditions=cond,
+                    serious=E.SER_KINDS[sk] if sk >= 0 else "",
+                    threats=[k for k, e_ in zip(("low season", "anxiety", "numbing"), me) if e_ > t],
+                    decline=bool(loc["dl_at"][0] > -10 ** 6))
+
     def _on_death(self, t, loc):
         """The character's own death (engine P["self_death"]): the story tells it and the life ends here."""
         died = loc.get("died") or []
@@ -4181,7 +4410,7 @@ TIED_COMMIT = dict(start=dict(partner="settling down with someone", career="star
                    left=dict(partner="the breakup", career="walking away from their work",
                              community="leaving their community", faith="leaving their faith"))
 TIED_COMMIT_ANY = {"left": "walking away from their {kind}", "lost job": "losing their job", "retired": "retiring",
-                   "widowed": "losing their partner"}
+                   "widowed": "losing their partner", "moved": "changing employer"}
 WORLD_ON = True          # the engine's outer world in Earth lives, where the pin has it (False: the world of v21)
 # the engine's own names for the identity values in the week's state, where they differ from for-the-engine.md §6:
 # key -> (local name, column or None)
@@ -4216,6 +4445,27 @@ def age_word(g, age):
     return {"f": "a woman", "m": "a man"}.get(g, "a person")
 LONG_SHOT_KINDS = ("career", "community", "faith")   # by odds alone, only titles one strives for; a pack's marked long shot, any
 DEATH_FROM = 16          # the character's own death is possible from this age (or the start age, if later); a game default
+DEATH_LIFE_YEARS = 112   # v22.5 F2: with the engine's death_life on, death comes from the life, so a life may run on to about 100
+# v22.5 F1 and F2: the body's and the mind's own turns and a last decline (engine body, mind and death_life switches; nothing
+# shows with them off), the game's words until the Library has its own. Level 0 is always told, 1 at normal detail, 2 every week
+BODY_SAY = {("condition", "begins"): (0, "{name} learns they will live with {what}."),
+            ("condition", "begins young"): (0, "{name} is found to have {what}."),
+            ("condition", "eases"): (1, "{name}'s {what} eases as they grow."),
+            ("serious", "begins"): (0, "{name} is diagnosed with {what}."),
+            ("serious", "begins stroke"): (0, "{name} has a stroke."),
+            ("serious", "through it"): (0, "{name} comes through {the}, though it has taken something from them."),
+            ("injury", "hurt"): (2, "{name} is hurt and takes weeks to mend."),
+            ("low season", "begins"): (1, "A low season settles over {name}."),
+            ("low season", "lifts"): (1, "The low season lifts from {name}."),
+            ("anxiety", "begins"): (1, "Worry starts to follow {name} through the days."),
+            ("anxiety", "lifts"): (1, "{name}'s worry eases."),
+            ("numbing", "begins"): (1, "{name} starts numbing the evenings: a drink, a screen, anything not to feel it."),
+            ("numbing", "lifts"): (1, "{name} stops reaching for the numbing.")}
+BODY_WHAT = {"heart condition": "a heart condition", "heart disease": "heart disease"}
+BODY_THE = {"cancer": "the cancer", "heart disease": "the heart trouble", "a stroke": "the stroke", "lung disease": "the lung disease"}
+DECLINE_SAY = dict(old="{name} grows frail; the last season of their life has begun.",
+                   serious="{name}'s illness turns; now it is months, not years.",
+                   condition="{name}'s body begins to fail them, and this time it does not recover.")
 STAGE_WORD = dict(child="childhood", juvenile="youth", young_adult="young adulthood", adult="adulthood", mature="maturity", elder="old age")
 SEASON_STEP = {1: "the crossing", 2: "the in-between", 3: "settling in"}
 # item 3, the voice in their head (chroma-ideas/voice-mechanics.md): its record per life (n moments decided, steer the

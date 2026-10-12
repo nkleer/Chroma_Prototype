@@ -40,3 +40,9 @@ The overhaul's own list is chroma-hud/impl/CHANGES.md. These came after it, in t
   their stay ends; a want that came of such news shows why on the circle's hover (`want_why`). The acts and the news are
   game.py's words (`SPH_LEVER`, `FAR_SAY`) until the Library has its own; places, rungs and the events an office sets off
   are the Library's (earth_spheres.py). Nothing shows with the switches off.
+- 10-11 (v22.5 F1 and F2, the engine's body, mind and death_life switches, all off, so nothing changes on the page now):
+  the HUD's health column splits in two, the body on the left and the mind on the right (`health_view` in game.py), and
+  its hover names the conditions they live with, a serious illness, a low season, anxiety or numbing, and a last decline.
+  The body's and the mind's own turns are story lines (tag `body`) and a last decline is one (tag `decline`), in game.py's
+  words (`BODY_SAY`, `DECLINE_SAY`) until the Library has its own. With death_life on a life runs to `DEATH_LIFE_YEARS`
+  (112), so death comes from the life rather than the years running out.

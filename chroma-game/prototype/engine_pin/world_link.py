@@ -154,11 +154,51 @@ def _isin_small(a, vals):
     return r
 
 
+# v22.5, F12 (the world and the start hold; chroma-ideas/realism/v22.5-realism-list.md): the localities a start's place
+# word promises (the game's presets: "town", "a traditional village", "a city of learning", "hard streets"), by kind
+START_PLACES = {
+    "town": ("market town", "industrial town", "declining industrial town", "commuter suburb", "coastal resort",
+             "tech boom town", "energy boom town"),
+    "village": ("farming village", "fishing village", "mountain village", "river village"),
+    "city": ("capital", "second city", "university city"),
+    "neighbourhood": ("capital", "second city", "port city"),
+}
+START_TRIES = 400        # births drawn again at most (the last is kept when none fits)
+START_HARD_CRIME = 0.2   # hard streets: a lower-class neighbourhood in a place with at least this much crime (cities, mill towns)
+
+
+def start_classes(wealth):
+    """The classes (0 lower, 1 middle, 2 upper) a start's wealth (the game's res0 money) stands for."""
+    if wealth is None:
+        return (0, 1, 2)
+    return (0,) if wealth <= 0.1 else ((0, 1) if wealth < 0.4 else (1, 2))
+
+
+def start_fits(PP, W, start):
+    """v22.5, F12: whether each life's birth keeps the start's promise (world_cfg["start"]): the place kind its word
+    names (START_PLACES; another word: any), the class its wealth stands for, the family's faith ("none": a family
+    without one, "held": a family in one) and, for hard streets, a lower-class neighbourhood in a place with crime."""
+    kinds = START_PLACES.get(str(start.get("place", "")))
+    lk = np.asarray([W.loc_kind_key[l_] for l_ in PP.loc]) if kinds else None
+    ok = np.ones(PP.N, bool) if kinds is None else np.isin(lk, kinds)
+    ok &= np.isin(PP.cls, start_classes(start.get("wealth")))
+    fa = start.get("faith")
+    if fa == "none":
+        ok &= np.asarray(PP.pfaith) < 0
+    elif fa == "held":
+        ok &= np.asarray(PP.pfaith) >= 0
+    if start.get("hard"):
+        nb_ = np.asarray(PP.nb); nbc = np.asarray(W.nb_class)
+        ok &= (PP.cls == 0) & (nb_ >= 0) & (nbc[np.maximum(nb_, 0)] == 0) & (np.asarray(W.loc_crime)[PP.loc] >= START_HARD_CRIME)
+    return ok
+
+
 class WorldLink:
     def __init__(self, E, P, L, N, seed, female, attr, KILLS, ENDS, CAR):
         cfg = dict(P.get("world_cfg") or {})
         burn = cfg.pop("burn_years", 80)
         legacy = cfg.pop("legacy", None)   # People.save() of an earlier life: this one is born into that family line
+        self.start = cfg.pop("start", None)   # v22.5, F12: what the start promises (read with start_hold on)
         W = P.get("world_obj")
         if W is None:
             ws = P.get("world_seed")
@@ -174,6 +214,13 @@ class WorldLink:
         if PP is None:
             PP = PM.People(W, N, run_seed=int(seed), female=np.asarray(female, bool))
             PP.birth(self.t0, legacy=legacy)
+            if P.get("start_hold") and self.start and legacy is None and N == 1:   # v22.5, F12: the game's one life is
+                # drawn again until its birth keeps the start's promise (a run of many lives keeps its draw)
+                for k_ in range(1, START_TRIES + 1):
+                    if start_fits(PP, W, self.start).all():
+                        break
+                    PP = PM.People(W, N, run_seed=int(seed) + 7919 * k_, female=np.asarray(female, bool))
+                    PP.birth(self.t0)
         self.PP = PP
         S, K = L["S"], L["K"]; self.S = S
         names = L["names"]; src = L["src"]

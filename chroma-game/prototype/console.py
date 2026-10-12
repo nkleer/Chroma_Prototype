@@ -712,7 +712,7 @@ class Console:
             else:
                 bits.append(f"out of reach ({o['why']}): can be forced, at higher risk")
             if o["commit"]:
-                bits.append(f"could start a {o['commit']}")
+                bits.append(f"could start {o['commit_say']}" if o.get("commit_say") else f"could start a {o['commit']}")
             if o.get("needs"):                  # titles and perks: what it needs, what helps, what it gives or takes
                 bits.append(o["needs"]["line"])
             for x in o["follows"].get("lift", []):   # a lacking need it would feed if it works
