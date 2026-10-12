@@ -311,6 +311,9 @@ FAST = {
     "Visuals": ["art"],                                                                  # a few seconds (its own check_art.py)
 }
 FAST_OWNER = {cid: o for o, l in FAST.items() for cid in l}
+# quick rows allowed the full rows' 3 hours: t_steps grew with every switch it steps through (33 min on 10-10, 57 min on
+# 10-11, over the hour on the v22.5 refit 129cd0b, killed at 3,603 s)
+LONG_QUICK = {"t_steps"}
 TSTEPS = "chroma-engine/tools/t_steps.py"
 # Files a check reads through a shell tool (cp, cmp, cat), which the proof recorder cannot see (paths in the work tree)
 EXTRA = {
@@ -811,7 +814,7 @@ def main():
         time.sleep(3)
         for r in list(running):
             p, c, ts, f, cores, cmd = r
-            limit = 3 * 3600 if c[3] == "full" else 3600
+            limit = 3 * 3600 if c[3] == "full" or c[0] in LONG_QUICK else 3600
             if p.poll() is None and time.time() - ts > limit:
                 os.killpg(p.pid, 9); p.wait()
             if p.poll() is not None:
