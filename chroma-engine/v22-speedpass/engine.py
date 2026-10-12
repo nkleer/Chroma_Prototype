@@ -1250,7 +1250,7 @@ V225 = dict(
             'a serious accident or illness': (1, 1, 0.25, 0.25, 1.6, 4.5),
             'a long dark season': 0.65,
             'an addiction takes hold': 0.63,
-            'living with a chronic illness': (0.75, 0.75, 0.75, 0.75, 0.75, 1.5),
+            'living with a chronic illness': 0.75,   # its rate by age is age_pts below
             'your first full-time job': 1.5,
             'a new job at last': 0.35,
             'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
@@ -1271,6 +1271,10 @@ V225 = dict(
     age_free=('your first full-time job',),
     age_rate=('a frightening diagnosis', 'a serious accident or illness', 'buying a home', 'living with a chronic illness'),
     # F9.14, F9.23 (round 3c): a home and a lasting illness by age between the stages' rates (most 60-79s are still 'mature')
+    # F9.23 (round 3d): a lasting illness by its own points: lower to 40, rising through 60-77, back to the old elder rate after 80
+    # (past 80 new ones only widened the old-age health spread, F9.37); a year's rate before the drivers
+    age_pts={'living with a chronic illness': ((0, 0.0045), (12, 0.003), (25, 0.004), (36, 0.0052), (45, 0.0125), (60, 0.021),
+                                               (70, 0.046), (77, 0.06), (82, 0.03))},
     mon_drift=0.015,
     lone=dict(age=((13, 0.03), (16, 0.014), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
                    (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
