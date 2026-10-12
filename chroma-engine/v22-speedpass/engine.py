@@ -2921,7 +2921,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         WAT_ = np.asarray(L.get("W_AT", np.full(L["S"], -1)))
         lf1_ = np.array([(s_.get("life") or "").split(",")[0].strip() == "work" for s_ in L.get("src", [{}] * L["S"])])
         door_ = (L["COMMIT"] == CAR).any(1)                   # a door back: an option that starts a career
-        WORK_S = ((lf1_ | (WAT_ == WKR_.INST_KINDS.index("employer"))) & ~door_ & ~FARS_ & ~LEADS_ & ~SACS_ & ~EYEW_)
+        WORK_S = (lf1_ | (WAT_ == WKR_.INST_KINDS.index("employer"))) & ~door_   # (the forced ones too: a post's, the eyes')
     WO_ON = bool(P.get("world_only")) and BAT   # F10: a world moment only on the world's event
     if WO_ON:
         WMZ_ = np.zeros(L["S"], bool)
