@@ -1154,8 +1154,9 @@ DEFAULT = dict(
     tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
     work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
                          # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
-    low_net=None,        # F9.38: (years, level): after that many years running at 5% or less, help comes (benefits, family,
-                         # a way out found): the money drifts to at least level while the life's own would be less; None: as before
+    low_net=None,        # F9.38: (years, level, help): after that many years with the money (over about a season) at 5% or less,
+                         # help comes (benefits, family, a way out found) for help years: the money is at least level while it
+                         # lasts, then the life's own means take over again; None: as before
     pen_pay=None,        # F9.38 (with low_pay): a career's pension x exp(lp_mu + s z - s^2 / 2), s = pen_pay x the job's pay
                          # spread, z the last job's pay draw (its rank, not faded with the years in it); None: as before
     low_pay=None,        # F9.38 low pay: (sd, rho, half): each job's pay x exp(sd z d - (sd d)^2 / 2), mean 1, z drawn at each
@@ -3465,7 +3466,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
     NET_ON = P["low_net"] is not None
     if NET_ON:
-        net_y, net_lv = (float(x_) for x_ in P["low_net"]); lo_w = np.zeros(N); net_ = np.zeros(N, bool)
+        net_y, net_lv, net_d = (tuple(float(x_) for x_ in P["low_net"]) + (1.0,))[:3]
+        lo_w = np.zeros(N); net_ = np.zeros(N, bool); net_m = np.zeros(N); net_t = np.full(N, NEVER)
     PRP_ON = P["pair_pay"] is not None                    # F9.38: a couple living together shares its money
     if PRP_ON:
         CO_T_ = np.array([i_ for i_, x_ in enumerate(GR["names"]) if x_ in CO_TITLES], int) if RON else np.zeros(0, int)
@@ -4572,16 +4574,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                    & (t - end_t[:, CAR] < 52 * P["job_gap"][2]))
             mt = mt - P["job_gap"][0] * gp_
             mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])
-        if NET_ON:   # F9.38: a long hard spell meets help (benefits, family, a way out): after net_y years at 5% or less,
-            lo_w = np.where((res[:, MON] <= 0.05) | (mt < net_lv), lo_w + 1, 0)   # (a loan's brief lift does not end the
-                                                  # spell); the money then drifts to net_lv while its own would be less
-            net_ = (net_ | (lo_w >= 52 * net_y)) & (mt < net_lv)   # (it lasts while the life's own means stay under it)
-            mt = np.where(net_, net_lv, mt)
+        if NET_ON:   # F9.38: a long hard spell meets help (benefits, family, a way out): after net_y years with the money
+            net_m += (res[:, MON] - net_m) / 13          # over a season at 5% or less (a loan's or a good week's brief lift
+            lo_w = np.where(net_m <= 0.05, lo_w + 1, 0)  # does not end the spell), net_d years of at least net_lv
+            st_ = (lo_w >= 52 * net_y) & (age >= 18)   # (an adult's: a child's money is the household's)
+            net_t = np.where(st_, t + int(52 * net_d), net_t); lo_w[st_] = 0
+            net_ = net_t > t
+            mt = np.where(net_, np.maximum(mt, net_lv), mt)
             if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:
                 mon_r = np.where(net_, P["mon_drift"], mon_r)
         res[:, MON] += mon_r * (mt - res[:, MON]); res[:, TIE] += tie_r * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
+        if NET_ON:
+            res[:, MON] = np.where(net_, np.maximum(res[:, MON], net_lv), res[:, MON])
         if HM_ON:   # v22.5 F1: the body and the mind make health (ht's age part is the body's own curve there)
             body_week(ht, _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1))
         else:
