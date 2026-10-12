@@ -13,6 +13,8 @@ sys.dont_write_bytecode = True
 import _engine   # the engine to check: CHROMA_ENGINE, default the tree's live engine (tools/_engine.py)
 import engine as E, batch
 N, Y, seed = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]); world = sys.argv[4] == "on"
+if os.environ.get("AGE_FIT"):   # F4: the Library's age fit (a batch constant, not a P key)
+    batch.AGE_FIT = os.environ["AGE_FIT"] == "1"
 L = batch.load_batch("earth", packs=list(batch.PACKS))
 P = dict(E.DEFAULT); P.update(json.loads(os.environ.get("PX", "{}"))); P["world"] = world
 t0 = time.time()
