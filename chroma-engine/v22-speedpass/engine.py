@@ -4565,7 +4565,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             mt = mt - P["job_gap"][0] * gp_
             mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])
         if NET_ON:   # F9.38: a long hard spell meets help (benefits, family, a way out): after net_y years at 5% or less,
-            lo_w = np.where(res[:, MON] <= 0.05, lo_w + 1, 0)   # the money drifts to net_lv while its own would be less
+            lo_w = np.where((res[:, MON] <= 0.05) | (mt < net_lv), lo_w + 1, 0)   # (a loan's brief lift does not end the
+                                                  # spell); the money then drifts to net_lv while its own would be less
             net_ = (net_ | (lo_w >= 52 * net_y)) & (mt < net_lv)   # (it lasts while the life's own means stay under it)
             mt = np.where(net_, net_lv, mt)
             if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:
