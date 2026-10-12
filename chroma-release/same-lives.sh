@@ -5,7 +5,7 @@
 # setup sweeps of 100 lives. Four parts, one per machine, side by side (about 50 minutes each).
 #
 #   NEW=<engine dir> [BASE=<engine dir>] [LIB=<library dir>] [PACKS=<packs dir>] [COMMIT=<sha>] [PNEW=<json>] \
-#       bash chroma-release/same-lives.sh <part 1 to 4>
+#       bash chroma-release/same-lives.sh <part 1 to 4, or 1s 1A 1B: part 1's seed 41, sweep A, sweep B>
 #
 # BASE: default the live engine (paths.py "engine_live" in the shared folder); it runs on the shared folder's live
 # Library and packs. LIB and PACKS: the Library and packs NEW runs on (default the live ones too); give a candidate
@@ -32,15 +32,15 @@ N=${LIVES:-400}; Y=${YEARS:-100}; rc=0
 seed() { "${SP[@]}" --seeds "$1" --lives "$N" --years "$Y" --worlds off,on,seed --tag "s$1" --scratch "/tmp/sl$1" --Pnew "$PN" || rc=1; }
 sweep() { "${SP[@]}" --seeds 7 --lives "${LIVES:-100}" --years "$Y" --worlds "$2" --tag "sweep$1" --scratch "/tmp/sl$1" --Pnew "$(pnew "$3")" --Pbase "$3" || rc=1; }
 case "$1" in
-  1) seed 41
-     sweep A on '{"world_cfg": {"setting": "earth", "pace": 2.0, "tech_level": "behind", "climate": "high"}}'
-     sweep B on '{"world_cfg": {"setting": "earth", "pace": 0.5, "tech_level": "ahead", "climate": "low"}}' ;;
+  1|1s|1A|1B) [[ $1 == 1 || $1 == 1s ]] && seed 41   # 1s, 1A, 1B: part 1's three runs each on its own machine
+     [[ $1 == 1 || $1 == 1A ]] && sweep A on '{"world_cfg": {"setting": "earth", "pace": 2.0, "tech_level": "behind", "climate": "high"}}'
+     [[ $1 == 1 || $1 == 1B ]] && sweep B on '{"world_cfg": {"setting": "earth", "pace": 0.5, "tech_level": "ahead", "climate": "low"}}' ;;
   2) seed 42
      sweep C on '{"self_death": true, "framing": "pie", "faith_inherit": 1.0, "res0": [0.9, 1.0, 0.95, 0.4, 0.2], "sex": "female"}'
      sweep D off,seed '{"self_death": true, "framing": "neutral", "faith_inherit": 0.0, "res0": [0.05, 1.0, 0.95, 0.4, 0.2], "sex": "male"}' ;;
   3) seed 43 ;;
   4) seed 44 ;;
-  *) echo "part 1, 2, 3 or 4"; exit 2 ;;
+  *) echo "part 1 (or 1s, 1A, 1B), 2, 3 or 4"; exit 2 ;;
 esac
 echo "SAME-LIVES PART $1 $([ $rc = 0 ] && echo PASS || echo FAIL) $(date -u +%H:%M:%S) UTC; new $NEW"
 exit $rc
