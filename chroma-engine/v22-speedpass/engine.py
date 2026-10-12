@@ -1095,9 +1095,12 @@ DEFAULT = dict(
     up_ease=0.0,         # the setup's own society (world_profile, f_world: the clan's, the towers') pulls at 1 - up_ease of
                          # its strength (on: .8), so the start's world is a lean too and other colours can lead some lives
                          # (the clan's White and Green come mostly from its seed library's options, which this leaves)
-    up_fam=0.0,          # the start's lean comes through the family: each life leans toward this share of its own family's
-                         # ways (fam, drawn around the society) and the rest of the start's colours, so households of one start
-                         # differ as values differ more within a culture than between cultures (Fischer & Schwartz 2011)
+    up_fam=0.0,          # where the start is a culture (world off: the clan, the towers) its lean comes through the family: each
+                         # household's own ways are drawn around the society (Dirichlet, concentration up_conc a colour, its own
+                         # random stream) and are the family a child first admires (fam); the life leans toward this share of
+                         # them and the rest of the start's colours, so households differ as values differ more within a
+                         # culture than between cultures (Fischer & Schwartz 2011). With the world on the upbringing is the family's
+    up_conc=0.3,
     # F16 colours shape the life course: each life's own lean toward partnering, children and a faith (drawn once, its own
     # random stream) and its colours tilt the life events, acts and titles that would start one (falling in love, a baby
     # on the way, a faith joined); a rate x exp(course_mu + own lean + tilt . (5 w - 1)), never 0, so no path closes. A
@@ -3323,8 +3326,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     UPM_ = None if P["up_mix"] is None else np.asarray(P["up_mix"], float) / np.sum(P["up_mix"])   # F15: the start's lean
     UPL_ON = UPM_ is not None and bool(P["up_lean"] or P["up_self"] or P["up_ease"])
     if UPL_ON:
-        if P["up_fam"]:   # each family's own ways (N x C)
-            UPM_ = (1 - P["up_fam"]) * UPM_ + P["up_fam"] * fam / fam.sum(1, keepdims=True)
+        if P["up_fam"] and not WON:   # each household's own ways (N x C)
+            wp_ = np.asarray(P["world_profile"], float)
+            fam = np.random.default_rng([int(seed), 1515]).dirichlet(P["up_conc"] * C * wp_ / wp_.sum(), N)
+            UPM_ = (1 - P["up_fam"]) * UPM_ + P["up_fam"] * fam
         UPD_ = UPM_ - 0.2; UPN_ = np.maximum((UPD_ * UPD_).sum(-1), 1e-9) if UPM_.ndim > 1 else max(float(UPD_ @ UPD_), 1e-9)
         up_oy = np.zeros((N, C)); up_oz = np.zeros((N, C))   # what the start's pulls have added to the want and to who they are
         UP_DEC = 1 - 0.5 ** (1 / (52 * P["up_half"]))         # which fades by half every up_half years from up_from
