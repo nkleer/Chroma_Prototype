@@ -11,7 +11,8 @@ engine, Library and packs (CHROMA_ROOT and CHROMA_ENGINE set to the checkout), w
 script adds what the rows need that the reader leaves out: F9.1 and F9.6 among the lives alive at 50 and by the colour
 leading at 40 (F9.6 to F9.8 count a home together, the reader's c rows, as the scope's "living together or married"), F9.5, F9.24 and F9.33 on their own denominators, causes of death by age, F9.37 to F9.40 at every age
 and by colour, F14's movement, F17's deeds by colour and F19's stress and contentment by age. One file a seed,
-seed<k>.json, in --out (default out/f9_<time>/). 106 years so that "living past 105" can be seen.
+seed<k>.json, in --out (default out/f9_<time>/). 106 years so that "living past 105" can be seen. A seed takes
+about 4.4 GB at its peak, so --jobs defaults to what the free memory holds (3 on a 14 GB machine) up to the cores.
 
 `judge` pools the seeds (shares and means weighted by each seed's lives; a median is the median of the seeds' medians,
 with their range printed) and judges every row against its target in records/v22.5/scope.md. One results line per
@@ -146,6 +147,20 @@ def load(d):
         if f.startswith("seed") and f.endswith(".json"):
             runs.append(json.loads(open(os.path.join(d, f)).read().strip().splitlines()[-1]))
     return runs
+
+
+SEED_GB = 4.6   # memory a 300-life, 106-year seed takes at its peak (4.4 GB on refit 129cd0b): --jobs 4 ran out on 14 GB
+
+
+def mem_gb():
+    """The memory free for the seeds now (MemAvailable), in GB."""
+    try:
+        for line in open("/proc/meminfo"):
+            if line.startswith("MemAvailable:"):
+                return int(line.split()[1]) / 1e6
+    except OSError:
+        pass
+    return 8.0
 
 
 def frac(runs, key, sub=None):
@@ -473,7 +488,7 @@ def main():
     out = os.path.abspath(arg("--out", os.path.join(os.path.dirname(HERE), "chroma-release", "out",
                                                    "f9_" + time.strftime("%Y%m%d-%H%M%S", time.gmtime()))))
     os.makedirs(out, exist_ok=True)
-    jobs = int(arg("--jobs", os.cpu_count() or 2))
+    jobs = int(arg("--jobs", 0)) or max(1, min(os.cpu_count() or 2, int(mem_gb() // SEED_GB)))   # default: what fits
     passed = [a for name in ("--lives", "--years", "--world", "--px", "--log") if name in sys.argv for a in (name, arg(name, ""))]
     todo, live = list(range(s0, s1 + 1)), []
     env = dict(os.environ)
