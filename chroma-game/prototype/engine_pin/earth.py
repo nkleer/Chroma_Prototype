@@ -139,6 +139,7 @@ SITUATIONS = [
                'The tension eases, and the work starts going to whoever does it best.'],
               ['{rival} gets the promotion, and the corridor feels longer every morning.',
                'Word gets around, and {N} is the one who looks petty.']),
+ 'outcomes_not': ([[7], []], [[7], []]),
  'options': [
     ('report your rival anonymously for every rule they bend', 'W1', None, 0.45, '', {'v': 'conformity', 'closed': 'approval: an anonymous report; backfire: traced back to you, and trust lost', 'chance': 0.35}),
     ('study what your rival does well, and learn to do it better', 'U1', None, 0.45, '', {'v': 'achievement', 'mark': 'learned a skill', 'chance': 0.75}),
@@ -605,6 +606,7 @@ SITUATIONS = [
                'The change settles, and the work turns out to have room for {N} after all.'],
               ["{Ns} role shrinks to checking the machine's output.",
                'The rollout goes badly, and {N} gets a share of the blame.']),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('do the official training and follow the new procedures exactly', 'W1', None, 0.45, '', {'v': 'conformity', 'chance': 0.72}),
     ('master the new system before anyone else does', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.75}),
@@ -702,6 +704,7 @@ SITUATIONS = [
                '{N} decides with a clear head, and the decision holds.'],
               ['{friend} takes offence, and the friendship cools.',
                'A letter from the tax office arrives with {Ns} name on it.']),
+ 'outcomes_not': ([[0], []], [[], [0]]),
  'options': [
     ('turn it down; you pay your taxes like everyone else', 'W1', None, 0.45, '', {'v': 'conformity', 'identity': True, 'mark': 'turned down a chance', 'act': 'turn it down, since they pay their taxes like everyone else', 'chance': 0.95}),
     ('check exactly what the law allows, and take only that part of the work', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.78}),
@@ -795,6 +798,7 @@ SITUATIONS = [
                'Someone thanks {N} quietly on the way out, and the bus moves on.'],
               ['The man turns his anger on {N}, and the night ends badly.',
                'Nothing anyone does seems to help, and {N} gets home shaking.']),
+ 'outcomes_not': ([[], [2]], [[], []]),
  'options': [
     ('press the alarm and get the driver to call the police', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.68}),
     ('film it quietly, so there is proof of what happened', 'U1', None, 0.45, '', {'v': 'security, universalism', 'tech': 'phone', 'chance': 0.4}),
@@ -1094,6 +1098,7 @@ SITUATIONS = [
                'Months later {N} looks back on it as the moment life was rearranged.'],
               ['{N} goes back too soon, and the second crash is worse than the first.',
                'The exhaustion lingers for a year, and something in {N} stays dimmer.']),
+ 'outcomes_not': ([[], []], [[2, 3, 8], []]),
  'options': [
     ('see the doctor, take the sick leave, and follow the plan to the letter', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.68}),
     ('work out what is draining your strength, and redesign your days around it', 'U1', None, 0.45, '', {'v': 'self-direction', 'habit': True, 'chance': 0.65}),
@@ -1311,6 +1316,7 @@ SITUATIONS = [
                'By the end of the season both places have heard {Ns} side, and the step is old news at each.'],
               ['One of the places cools for good, and {N} feels it every time the door opens there.',
                'Both places go a little cool, and the story comes back to {N} told wrong.']),
+ 'outcomes_not': ([[], [3, 4, 7]], [[], []]),
  'options': [
     ('stand with {place_a}: give a full, honest account there, and make amends', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, benevolence', 'mark': 'owned up', 'chance': 0.8}),
     ('stand with {place_b}, and set out plainly why the step made sense', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, achievement', 'chance': 0.6}),
@@ -1416,6 +1422,7 @@ SITUATIONS = [
                'A few people from both places end up talking for the first time, and {N} is the one they thank.'],
               ['One place takes it badly, and {N} is left off the next round of invitations there.',
                'Both places sense {N} held back, and each trusts {N} a little less.']),
+ 'outcomes_not': ([[2, 5], []], [[], []]),
  'options': [
     ('call a fair meeting where both places put their case, and chair it', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, conformity', 'chance': 0.55}),
     ('back the cause quietly in writing at {place_a}, and say nothing at {place_b}', 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, security', 'chance': 0.8}),
@@ -1470,6 +1477,7 @@ SITUATIONS = [
                'The two places find they can share {N} after all, and {N} becomes the one who links them.'],
               ['The place that lost out says nothing, but the welcome there is cooler for a long while.',
                'Stretched between the two, {N} lets both down a little, and both notice.']),
+ 'outcomes_not': ([[1, 9], []], [[], [1, 9]]),
  'options': [
     ('keep strict hours: fixed nights for each place, and no talk of one at the other', 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'chance': 0.76}),
     ('say no to both this season; spread this thin, nothing would be done well', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction, security', 'chance': 0.8}),
@@ -1576,6 +1584,7 @@ SITUATIONS = [
                'One place warms to {N} more than ever, and the other quietly lets the matter drop.'],
               ['{place_b} cools: the calls stop, and {N} hears about the good nights only afterwards.',
                'Both places feel {N} chose the other, and the welcome in each turns merely polite.']),
+ 'outcomes_not': ([[3, 4, 7], []], [[], []]),
  'options': [
     ('stand with {place_a}, which judged the choice by the rule, and say so plainly', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, security', 'chance': 0.8}),
     ('stand with {place_b}: grant the point they make, and change course where they are right', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, universalism', 'chance': 0.65}),
@@ -1624,6 +1633,7 @@ SITUATIONS = [
                'The two places find a little common ground, and both mention {N} when they tell the story.'],
               ['The place {N} did not stand with takes it hard, and the welcome there cools for a long while.',
                'Neither place is satisfied, and both quietly stop asking {N} for anything.']),
+ 'outcomes_not': ([[3, 6], []], [[], []]),
  'options': [
     ('stand with {place_b}, because a wrong left unanswered is still a wrong', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'universalism, benevolence', 'chance': 0.65}),
     ('draft a joint statement both places could sign, and carry it between them', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.55}),
@@ -1677,6 +1687,7 @@ SITUATIONS = [
                'One place warms to {N} for the season, and the other lets it go without a grudge.'],
               ['The place that went short remembers, and asks less of {N} the next time round.',
                'Both places feel shortchanged, and {N} ends the season tired and a little alone.']),
+ 'outcomes_not': ([[2, 5], []], [[], []]),
  'options': [
     ('sit both sides down, agree a fair split of the evenings, and keep to it', 'W1', None, 0.45, '', {'caught': 'bridge', 'v': 'conformity, benevolence', 'chance': 0.5}),
     ("plan the weeks to the hour, and keep each place's calendar out of the other's sight", 'U1', None, 0.45, '', {'caught': 'apart', 'v': 'self-direction, achievement', 'chance': 0.78}),
@@ -1842,6 +1853,7 @@ SITUATIONS = [
                "By the season's end both places count on {N}, and nobody remembers which evenings went where."],
               ['{place_b} stops saving {N} a place, and the big nights go on without them.',
                'Both places feel short-changed, and {N} ends the season tired and only half welcome in each.']),
+ 'outcomes_not': ([[4, 7], []], [[], []]),
  'options': [
     ('keep the promise made to {place_a}, and give it every evening this season', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, achievement', 'mark': 'kept your word', 'chance': 0.85}),
     ('side with {place_b}, having reckoned that the work can wait and these nights cannot', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, stimulation', 'chance': 0.6}),
@@ -1897,6 +1909,7 @@ SITUATIONS = [
                'A bridge holds: the two places end the season on speaking terms, and {N} is trusted in both.'],
               ['The place {N} did not stand with cools for good, and the old greetings there turn polite and short.',
                'Both places read {N} as half-hearted, and neither saves a seat for them in the weeks that follow.']),
+ 'outcomes_not': ([[3, 6], []], [[], []]),
  'options': [
     ('stand up with {place_b} in public, because the wrong done to them is a real wrong', 'W1', None, 0.45, '', {'caught': 'side_b', 'v': 'universalism, benevolence', 'mark': 'made an enemy', 'chance': 0.58}),
     ('bring the facts to both places, and arrange a meeting where each hears the other', 'U1', None, 0.45, '', {'caught': 'bridge', 'v': 'universalism, self-direction', 'chance': 0.55}),
@@ -2006,6 +2019,7 @@ SITUATIONS = [
                'trusted in both.'],
               ['The other place takes the answer as a slight, and {N} is quietly left off its lists for the season.',
                'Neither place is satisfied, and both start to speak of {N} as someone who cannot be pinned down.']),
+ 'outcomes_not': ([[9], []], [[9], []]),
  'options': [
     ('give each place an honest answer to its own question, and carry nothing between them', 'W1', None, 0.45, '', {'caught': 'apart', 'v': 'conformity, security', 'mark': 'kept your word', 'chance': 0.8}),
     ('step back from both for a season, and think the step through before answering anyone', 'U1', None, 0.45, '', {'caught': 'back', 'v': 'self-direction', 'chance': 0.85}),
@@ -2061,6 +2075,7 @@ SITUATIONS = [
                'for it.'],
               ['The place {N} did not stand with closes ranks, and greetings there turn short and formal.',
                'The meeting turns bitter, and both places blame {N} for not doing more to stop it.']),
+ 'outcomes_not': ([[0, 8], []], [[], []]),
  'options': [
     ('step back from both until the meeting is done, as fairness to each side requires', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, universalism', 'chance': 0.8}),
     ('stand with {place_a} and be counted, with the figures to show why', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'self-direction, universalism', 'chance': 0.85}),
@@ -2117,6 +2132,7 @@ SITUATIONS = [
               ['The place that went without {N} manages, but someone there says {N} has changed, and it gets around.',
                'Stretched between the two, {N} lets both down in small ways, and by the end neither place quite '
                'counts on {N}.']),
+ 'outcomes_not': ([[4, 7], []], [[], [4, 7]]),
  'options': [
     ('keep the commitment made to {place_a} first, and tell {place_b} plainly and in person', 'W1', None, 0.45, '', {'caught': 'side_a', 'v': 'conformity, achievement', 'mark': 'kept your word', 'chance': 0.85}),
     ('weigh it up and give the season to {place_b}: the project can wait, the season cannot', 'U1', None, 0.45, '', {'caught': 'side_b', 'v': 'self-direction, tradition', 'chance': 0.65}),
@@ -2318,6 +2334,7 @@ SITUATIONS = [
                'Both places come through the stretch, and each is glad, in the end, of what {N} could give.'],
               ['The place that was left short cools on {N}, and says so to anyone who asks.',
                'Spread thin, {N} disappoints both, and is asked to less at each.']),
+ 'outcomes_not': ([[0, 8], []], [[], [0, 8]]),
  'options': [
     ('tell both places honestly you cannot do either justice this season, and step back', 'W1', None, 0.45, '', {'caught': 'back', 'v': 'conformity, universalism', 'act': 'tell both places honestly they cannot do either justice this season, and step back', 'chance': 0.85}),
     ('stand with {place_a} this season, after weighing what each evening there would build', 'U1', None, 0.45, '', {'caught': 'side_a', 'v': 'achievement, self-direction', 'chance': 0.8}),
@@ -2517,6 +2534,7 @@ SITUATIONS = [
                'By breakfast the strange house has turned friendly, and {N} asks to come again.'],
               ['{N} is picked up at midnight in pyjamas, too tired to care who saw.',
                'The night drags on and on, and {N} is grey and grumpy all the next day.']),
+ 'outcomes_not': ([[2, 3, 6], []], [[], []]),
  'options': [
     ('stay the whole night, because a promise to be brave is a promise', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'kept your word', 'chance': 0.72}),
     ('lie still and work out what each strange noise is, one by one', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.75}),
@@ -2614,6 +2632,7 @@ SITUATIONS = [
                'Break goes by quicker than feared, and tomorrow there is a plan.'],
               ['The bell goes at last, and {N} has spent the whole break alone by the wall.',
                'It goes wrong in front of everyone, and break feels even longer the next day.']),
+ 'outcomes_not': ([[1], []], [[], []]),
  'options': [
     ('tell the playground helper that the others will not let anyone join', 'W1', None, 0.45, '', {'v': 'conformity', 'closed': 'approval: telling tales; backfire: called a telltale, and left out all the more', 'chance': 0.65}),
     ('take a book out at break, and read on the bench', 'U1', None, 0.45, '', {'habit': True, 'v': 'self-direction', 'chance': 0.8}),
@@ -2658,6 +2677,7 @@ SITUATIONS = [
                'The bad feeling passes, and {N} and {sibling} are friends again by teatime.'],
               ['Nobody listens, and it seems even more unfair than before.',
                'It ends in a row, and {N} is the one who gets told off.']),
+ 'outcomes_not': ([[], []], [[], [4, 9]]),
  'options': [
     ('go to the parents and ask, calmly, for one fair rule for both', 'W1', None, 0.45, '', {'v': 'universalism (fairness)', 'chance': 0.69}),
     ('keep a list of every unfair thing, with dates, to show as proof', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.52}),
@@ -2752,6 +2772,7 @@ SITUATIONS = [
                '{N} gets home with a story to tell and nothing to hide.'],
               ['The door opens too soon. There is a stern face, and a long walk home.',
                'The big kids laugh anyway, and {N} feels small all the way home.']),
+ 'outcomes_not': ([[], []], [[0, 1, 4, 8, 9], []]),
  'options': [
     ('say no: it is mean to the old man, and that is that', 'W1', None, 0.45, '', {'identity': True, 'v': 'benevolence, conformity', 'chance': 0.57}),
     ('ask what the point of it is, again and again, until the big kids get bored', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction', 'chance': 0.45}),
@@ -2897,6 +2918,7 @@ SITUATIONS = [
                '{N} settles it one way or the other, and feels lighter for having chosen.'],
               ['Nothing gets easier, and every lesson is a fight.',
                'A month later {N} regrets the choice, and does not know how to say so.']),
+ 'outcomes_not': ([[2, 4, 5], []], [[2, 4, 5], []]),
  'options': [
     ('stick with it: ten minutes of practice every day, at the same time', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity, achievement', 'mark': 'kept your word', 'self_control': '+', 'chance': 0.72}),
     ('slow the hard part right down, and practise just that bit until it comes', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'self_control': '+', 'chance': 0.8}),
@@ -2992,6 +3014,7 @@ SITUATIONS = [
                '{N} makes a choice about the money and does not regret it.'],
               ['The jar empties faster than it fills, and the bike stays in the catalogue.',
                'The treat is gone in a day, and the wanting stays.']),
+ 'outcomes_not': ([[3, 4, 7], []], [[], []]),
  'options': [
     ('put the same coins in the jar every week, without fail', 'W1', None, 0.45, '', {'habit': True, 'v': 'security, conformity', 'self_control': '+', 'chance': 0.72}),
     ('work out that a cheaper bike now beats a better one next year', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.78}),
@@ -3082,6 +3105,7 @@ SITUATIONS = [
                'The poster stays on the wall for years, and so does the feeling.'],
               ['Someone laughs at the poster, and {N} takes it down for a while.',
                'The hero does something disappointing on the news, and {N} does not know what to think.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('try to be as fair and kind as the hero, every day', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.62}),
     ('read every book about the hero, and do a school project on them', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.85}),
@@ -3181,6 +3205,7 @@ SITUATIONS = [
                '{N} gets through the week, and finds that a promise kept feels better than any party.'],
               ['Something goes wrong in the week, and {N} has to own up to {grandparent}.',
                'The week drags, and {N} is glad, too glad, when it is over.']),
+ 'outcomes_not': ([[], [3, 5, 7, 9]], [[], []]),
  'options': [
     ('go every morning before school, rain or shine, as promised', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'mark': 'kept your word', 'self_control': '+', 'chance': 0.82}),
     ("tick today's jobs on the chart, and do the cleaning tomorrow instead", 'U1', None, 0.45, '', {'v': 'hedonism', 'mark': 'hid a wrong', 'closed': 'approval: ticking a job not done; backfire: found out when the hutch is checked', 'self_control': '-', 'chance': 0.7}),
@@ -3233,6 +3258,7 @@ SITUATIONS = [
                '{N} comes home with the bag and a new feeling: someone who can be trusted.'],
               ['Something is forgotten or the change is wrong, and {N} has to go back.',
                'It takes far too long, and {parent} is at the door, worried, when {N} gets back.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('buy exactly what is on the list, and bring back every penny', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.8}),
     ('work out the change in advance, and check it at the till', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.9}),
@@ -3389,6 +3415,7 @@ SITUATIONS = [
                'The stone in {Ns} tummy goes, and {N} sleeps properly again.'],
               ['The fib needs a second fib to keep it company.',
                '{N} owns up, and the punishment is worse than the guilt was.']),
+ 'outcomes_not': ([[2, 4, 6, 7, 9], []], [[], [2, 4, 6, 7, 9]]),
  'options': [
     ('go to your parents, tell the whole truth, and take the punishment', 'W1', None, 0.45, '', {'identity': True, 'v': 'conformity, benevolence', 'mark': 'owned up', 'self_control': '+', 'chance': 0.88}),
     ('write a sorry note and leave it on the kitchen table', 'U1', None, 0.45, '', {'v': 'benevolence', 'mark': 'owned up', 'chance': 0.85}),
@@ -3493,6 +3520,7 @@ SITUATIONS = [
                'Remembering {dead} out loud, the whole family laughs for the first time in ages.'],
               ['The sadness comes back as big as the first time, and stays for days.',
                'Nobody else seems to remember, and {N} spends the day alone with it.']),
+ 'outcomes_not': ([[], [2]], [[], [2]]),
  'options': [
     ('put on your best clothes and help lay flowers on the grave', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.8}),
     ('make a book of everything you remember about them, with drawings', 'U1', None, 0.45, '', {'v': 'tradition, self-direction', 'chance': 0.85}),
@@ -3701,6 +3729,7 @@ SITUATIONS = [
                '{N} finds a way to be seen that feels just right.'],
               ['Nobody looks, or they look and then look away again.',
                'The bid for attention goes wrong, and {N} is noticed for the wrong thing.']),
+ 'outcomes_not': ([[], []], [[], [4, 8]]),
  'options': [
     ('put your best drawing on the fridge, neatly, where everyone will see it', 'W1', None, 0.45, '', {'v': 'achievement, conformity', 'chance': 0.77}),
     ('practise the cartwheel a hundred times until it is perfect', 'U1', None, 0.45, '', {'body': 'light', 'v': 'achievement', 'mark': 'learned a skill', 'chance': 0.72}),
@@ -3797,6 +3826,7 @@ SITUATIONS = [
                'The grown-ups remember it, and {N} is given something harder to try.'],
               ['{N} shows off so much that the other children start to groan.',
                'The next try goes wrong, and the glow turns into worry.']),
+ 'outcomes_not': ([[], []], [[4, 9], []]),
  'options': [
     ('remind the ones who got it wrong that they should have tried harder', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'closed': 'approval: lording it over the others; backfire: told off, and the star taken down', 'chance': 0.25}),
     ('ask for a harder one straight away, while you are good at it', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.75}),
@@ -4091,6 +4121,7 @@ SITUATIONS = [
  'outcomes': (['The questions are the very ones {N} prepared for.',
                'The test comes back with a smile drawn at the top.'],
               ['Half the page stays blank.', 'The mark comes home, and so does a note.']),
+ 'outcomes_not': ([[7], []], [[7], []]),
  'options': [
     ('revise the way the teacher showed you, then go to bed on time', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity', 'chance': 0.75}),
     ('make flashcards and test yourself until you get every one', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.82}),
@@ -4365,6 +4396,7 @@ SITUATIONS = [
                '{parent} checks the room, nods, and hands over the pocket money.'],
               ['The jobs drag on all day, and the sun goes down on them.',
                '{parent} opens the wardrobe door, and everything falls out.']),
+ 'outcomes_not': ([[], []], [[3], [0, 1, 4, 5, 9]]),
  'options': [
     ('do every job on the list, properly, before anything else', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity', 'chance': 0.75}),
     ('work out the quickest order for the jobs, and time yourself doing them', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.82}),
@@ -4591,6 +4623,7 @@ SITUATIONS = [
                '{N} buys something with money that was truly {Ns} own, and it feels wonderful.'],
               ['The money is gone by Monday, and there is nothing to show for it.',
                'The coins go missing, and there is a row about who took them.']),
+ 'outcomes_not': ([[], [4, 8]], [[4, 6], []]),
  'options': [
     ('promise to save half of it every week, and keep to it', 'W1', None, 0.45, '', {'binds': True, 'v': 'security, conformity', 'mark': 'kept your word', 'chance': 0.55}),
     ('compare the prices at three shops before buying anything', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement, security', 'chance': 0.88}),
@@ -4823,6 +4856,7 @@ SITUATIONS = [
                "The new kid's family asks {N} round for dinner, and the food is like nothing {N} has ever tasted."],
               ['The new kid stays quiet and alone, and {N} cannot get through.',
                'The class takes sides over the new kid, and {N} ends up on the losing one.']),
+ 'outcomes_not': ([[4, 5], []], [[4, 5], []]),
  'options': [
     ("offer to be the new kid's buddy and show them where everything is", 'W1', None, 0.45, 'win:ties+.05', {'door': True, 'v': 'benevolence, conformity', 'mark': 'made a friend', 'chance': 0.78}),
     ("correct the new kid's grammar in front of the whole class", 'U1', None, 0.45, '', {'v': 'achievement', 'closed': 'approval: showing someone up; backfire: the class laughs at the know-all, and the new kid will not speak to them', 'chance': 0.35}),
@@ -4961,6 +4995,7 @@ SITUATIONS = [
                '{N} carries the froglets back to the pond and watches them hop into the reeds.'],
               ['The water turns cloudy, and one by one the tadpoles stop moving.',
                'The jar tips over in the hall, and there are tadpoles all over the carpet.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('ask the park keeper whether you may take them, and put them back if not', 'W1', None, 0.45, '', {'v': 'conformity', 'chance': 0.75}),
     ('keep a tadpole diary every day, for the science fair you signed up for', 'U1', None, 0.45, '', {'habit': True, 'binds': True, 'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.55}),
@@ -5068,6 +5103,7 @@ SITUATIONS = [
                'difference.'],
               ['{N} goes quiet at school, and the teacher calls home.',
                'The Friday handovers are cold and tense, and {N} dreads every one.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('keep to the agreed week between the two homes, and keep up at school', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.78}),
     ('ask each parent, on their own, for the real reasons, and compare the answers', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.5}),
@@ -5126,6 +5162,7 @@ SITUATIONS = [
                'difference.'],
               ['{N} goes quiet at school, and the teacher calls home.',
                'The Friday handovers are cold and tense, and {N} dreads every one.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('learn the new week by heart, which nights where, and keep to it', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.78}),
     ('ask both parents, one at a time, to explain exactly why', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.6}),
@@ -5447,6 +5484,7 @@ SITUATIONS = [
                'The night ends, and with it something that had to end.'],
               ['The night goes worse than {N} feared, and the morning brings police, doctors and questions.',
                'Nothing is settled. {N} wakes in the same house, with the same fear and less strength than before.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('call the police from the bathroom, and press charges this time', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.6}),
     ('keep calm, talk them down, and plan the way out for the morning', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.5}),
@@ -5703,6 +5741,7 @@ SITUATIONS = [
                'By the bus stop the dare has turned into a joke, and {N} is still one of the group.'],
               ['A hand lands on a shoulder at the door, and the manager rings home.',
                'The others go cold on {N}, and the story goes round the whole year.']),
+ 'outcomes_not': ([[], []], [[0, 1, 4, 5, 6], []]),
  'options': [
     ('tell the woman at the till what your friends are planning', 'W1', None, 0.45, '', {'v': 'conformity, security', 'closed': 'approval: telling on friends; backfire: frozen out by the whole group for months', 'mark': 'made an enemy', 'chance': 0.7}),
     ('say no, and point out the camera above the door to the others', 'U1', None, 0.45, '', {'v': 'security', 'self_control': '+', 'chance': 0.7}),
@@ -5859,6 +5898,7 @@ SITUATIONS = [
                'By autumn it is all behind {N}, and {friend} is still a friend.'],
               ['A police car pulls up outside the flat one evening.',
                "Word gets round, and {N} is suddenly the one other people's parents warn them about."]),
+ 'outcomes_not': ([[], []], [[], [0, 1, 2, 5, 8, 9]]),
  'options': [
     ('warn your friend you will report them if they ask anyone else', 'W1', None, 0.45, '', {'v': 'conformity, security', 'closed': 'approval: threatening a friend; backfire: the friend tells everyone who would grass on them', 'mark': 'made an enemy', 'chance': 0.8}),
     ('work out what a conviction would cost you, and turn it down', 'U1', None, 0.45, '', {'v': 'security', 'mark': 'turned down a chance', 'act': 'work out what a conviction would cost them, and turn it down', 'chance': 0.85}),
@@ -5910,6 +5950,7 @@ SITUATIONS = [
                'By the end of the summer the listings are gone, and {friend} is looking for real work.'],
               ['A letter from the bank says {Ns} account is frozen while the police make enquiries.',
                '{friend} hears what {N} did, and a friendship of twenty years ends in one phone call.']),
+ 'outcomes_not': ([[], []], [[0, 2, 3, 5, 6, 9], []]),
  'options': [
     ("post a warning about the fake listings, with your friend's name on it", 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism, conformity', 'closed': "approval: shaming a friend in public; backfire: the post spreads, and the friend's family turns on the poster", 'mark': 'made an enemy', 'tech': 'internet', 'chance': 0.75}),
     ('run the listings for a month, then get out before it unravels', 'U1', None, 0.45, '', {'v': 'achievement, power', 'closed': 'law: fraud; backfire: the bank freezes the account and passes the name to the police', 'mark': 'broke the law', 'title_if_fails': 'someone with a record', 'tech': 'internet', 'chance': 0.7}),
@@ -6265,6 +6306,7 @@ SITUATIONS = [
                'The first video call works, and a small face fills the screen.'],
               ['The phone locks itself after three wrong codes and stays locked.',
                '{N} deletes all the contacts by accident and has to ask for help again.']),
+ 'outcomes_not': ([[7], [4]], [[4], []]),
  'options': [
     ("go to the library's free class for older learners and do the homework", 'W1', None, 0.45, '', {'door': True, 'v': 'conformity, self-direction', 'chance': 0.85}),
     ('work through every setting yourself, and quietly turn off anything that reports on you', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'mark': 'hid a wrong', 'closed': "approval: the family's peace of mind; backfire: found out, and a row", 'act': 'work through every setting themselves, and quietly turn off anything that reports on them', 'chance': 0.65}),
@@ -6502,6 +6544,7 @@ SITUATIONS = [
                '{N} finds that life still reaches as far as it needs to.'],
               ['The house feels smaller every week without the car.',
                "{N} misses {friend}'s birthday for want of a lift, and broods for days."]),
+ 'outcomes_not': ([[1, 2], []], [[2], []]),
  'options': [
     ('hand in the licence the same week, as the rules require', 'W1', None, 0.45, '', {'v': 'conformity', 'chance': 0.7}),
     ('learn the eye chart by heart before the retest', 'U1', None, 0.45, '', {'v': 'self-direction', 'closed': 'law: cheating a medical test; backfire: caught, and the licence gone for good', 'chance': 0.4}),
@@ -6742,6 +6785,7 @@ SITUATIONS = [
                '{N} is voted in on a show of hands and a round of applause.'],
               ['The meetings turn into shouting matches, and nothing changes.',
                '{N} loses the vote by two, and {rival} smiles all the way to the lift.']),
+ 'outcomes_not': ([[], [4]], [[], [4]]),
  'options': [
     ('stand for the seat and promise open meetings every month', 'W1', None, 0.45, 'commit:community', {'binds': True, 'v': 'conformity, benevolence', 'chance': 0.75}),
     ('dig into the accounts and present what you find at the meeting', 'U1', None, 0.45, '', {'identity': True, 'v': 'universalism (fairness), self-direction', 'chance': 0.6}),
@@ -7035,6 +7079,7 @@ SITUATIONS = [
                '{Ns} face is on the front of the local paper, mid-chant.'],
               ['The ward closes anyway in the spring.',
                'The march is small and wet, and the council does not even reply.']),
+ 'outcomes_not': ([[], [2, 4]], [[], []]),
  'options': [
     ('sign the petition and write a formal letter to your representative', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'chance': 0.2}),
     ("pick the report's numbers apart at the public meeting", 'U1', None, 0.45, '', {'identity': True, 'v': 'universalism, self-direction', 'chance': 0.3}),
@@ -7354,6 +7399,7 @@ SITUATIONS = [
                'The move goes smoothly, and the neighbours are friendly from the first day.'],
               ['{N} cannot settle, and lies awake missing the old creaking stairs.',
                'The move goes badly: boxes go missing, a treasured cabinet breaks, and tempers fray.']),
+ 'outcomes_not': ([[], [3]], [[], [3]]),
  'options': [
     ('move on the date the family agreed, with every box labelled', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.7}),
     ('visit every place on the list and choose by the inspection reports', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.7}),
@@ -7411,6 +7457,7 @@ SITUATIONS = [
                '{child} meets {prospect}, and after an awkward first hour, likes them.'],
               ['{child} is horrified, and the row lasts all summer.',
                'It fizzles out after a few weeks, gently, and {N} is left a little lonelier.']),
+ 'outcomes_not': ([[], [9]], [[], []]),
  'options': [
     ('invite them to Sunday lunch with the family, and court them properly', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.65}),
     ('take it slowly, and get to know them over many long conversations', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.68}),
@@ -7619,6 +7666,7 @@ SITUATIONS = [
                '{sibling} gets back on their feet, and never forgets who opened the door.'],
               ['The weeks stretch into months, and the small things about sharing a home start to grate.',
                'Nothing comes up, and {sibling} goes back to {their_town} with the same one bag.']),
+ 'outcomes_not': ([[4], []], [[2, 4], []]),
  'options': [
     ('take them in for as long as it takes, on fair house rules', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'took them in', 'chance': 0.7}),
     ('let them stay a fortnight while the two of you draw up a job plan', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.78}),
@@ -7936,6 +7984,7 @@ SITUATIONS = [
                'Whatever {N} answers, {sibling} takes it in good part, and the evening ends warm.'],
               ['The loan, or the refusal, leaves a small stiffness between them that lasts for months.',
                'Repayments slip, and money becomes the one thing the two of them avoid.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('accept, with a written schedule to pay it back every month', 'W1', None, 0.45, '', {'v': 'security, conformity', 'mark': 'kept your word', 'chance': 0.74}),
     ('take a week to work out whether you truly need it', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'act': 'take a week to work out whether the money is truly needed', 'chance': 0.86}),
@@ -8814,6 +8863,7 @@ SITUATIONS = [
                '{child} calls after reading it, and says it sounded exactly like home.'],
               ['The paper prints one line out of its place, and {child} winces at it for weeks.',
                '{child} feels exposed by what {N} said, or did not say, and is cool for a while.']),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('ask them first what they want said, and keep to it', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'mark': 'kept your word', 'chance': 0.8}),
     ('ask the reporter to send the questions in writing first', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.75}),
@@ -8866,6 +8916,7 @@ SITUATIONS = [
                'The new wage stretches further than feared, and {sibling} begins to talk about next year.'],
               ['The nights wear {sibling} down, and the calls come less often and shorter.',
                '{sibling} quits the new work in a temper, and the old trade does not come back.']),
+ 'outcomes_not': ([[8], []], [[], []]),
  'options': [
     ('promise to call every week until the new work settles', 'W1', None, 0.45, '', {'habit': True, 'v': 'benevolence, conformity', 'chance': 0.7}),
     ('ask for the figures, and work out together whether the new wage covers the month', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.82}),
@@ -8920,6 +8971,7 @@ SITUATIONS = [
                'The new post settles, and {sibling} finds a way to be a fair boss in an unfair year.'],
               ['Some old friends stop speaking to {sibling}, and the new pay feels thin against it.',
                '{sibling} takes it out on {N}, and the next calls are short and stiff.']),
+ 'outcomes_not': ([[], [3]], [[3], []]),
  'options': [
     ('tell them to choose by one fair rule for everyone, and say it openly', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'chance': 0.66}),
     ('help them set the choice out on paper: skills, years, who has a family to keep', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.78}),
@@ -9080,6 +9132,7 @@ SITUATIONS = [
                'The deal goes through on fair terms, and the old customers send {friend} off with a fine farewell.'],
               ['{friend} signs in a rush and spends the first months mourning the shop more than enjoying the money.',
                'The buyer walks away while {friend} hesitates, and the old debts are still there.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('tell them to ask that the staff are kept on, as part of any deal', 'W1', None, 0.45, '', {'v': 'benevolence, universalism', 'chance': 0.64}),
     ('ask for the offer in writing, and go through every line with them', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.84}),
@@ -9354,6 +9407,7 @@ SITUATIONS = [
                'The patrols learn the faces on the street, and {parent} starts to nod to them.'],
               ['{parent} stops visiting the neighbours after dark, safe and a little smaller.',
                'The stop is never explained, and it sours every call about the town.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('help them write calmly and fairly to the town office about what happened', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'chance': 0.7}),
     ('ask exactly what happened, and look up what the patrols may and may not ask', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.84}),
@@ -9608,6 +9662,7 @@ SITUATIONS = [
                'By morning the storm has passed, and {boss} and {N} walk the wet field together.'],
               ['The storm comes early, and most of the hay is lost in the field.',
                '{boss} is angry about how {N} handled it, whatever was saved.']),
+ 'outcomes_not': ([[7], []], [[], []]),
  'options': [
     ("keep to the day's orders, and keep trying the farmer's phone", 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'prod.W', 'chance': 0.75}),
     ('bale the driest rows first, and cover the rest with sheets from the barn', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'prod.U', 'chance': 0.75}),
@@ -9655,6 +9710,7 @@ SITUATIONS = [
                'Whatever the winter brings, {N} comes out of it surer of what {N} wants.'],
               ['The winter is long and lonely, and {N} spends much of it wishing for the other road.',
                '{boss} runs short of money in the new year, and what was promised comes late.']),
+ 'outcomes_not': ([[], []], [[], [3, 8]]),
  'options': [
     ('stay the winter, as you would want someone to do for you', 'W1', None, 0.45, '', {'act': 'stay the winter, as they would want someone to do for them', 'v': 'benevolence, conformity', 'sphere': 'prod.W', 'chance': 0.75}),
     ('stay, and use the dark evenings to study for a farming certificate', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'sphere': 'prod.U', 'chance': 0.75}),
@@ -9701,6 +9757,7 @@ SITUATIONS = [
                'The woman comes back a week later with a donation and a friend who wants to volunteer.'],
               ['{boss} hears about it and gives {N} a formal warning.',
                'The night goes badly, and {N} goes home certain they got it wrong.']),
+ 'outcomes_not': ([[], []], [[0, 7], []]),
  'options': [
     ('explain the rule kindly, and give her the number of the shelter in the next town', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'sphere': 'care.W', 'chance': 0.75}),
     ('check the dog over, then find the one kennel that can be shared tonight', 'U1', None, 0.45, '', {'v': 'achievement, benevolence', 'sphere': 'care.U', 'chance': 0.75}),
@@ -9800,6 +9857,7 @@ SITUATIONS = [
                'Whatever {N} chose, it was {Ns} own choice, and the week ends in a good mood.'],
               ['The teasing follows {N} round the playground for days.',
                '{N} lets the thing go quietly, and misses it all term.']),
+ 'outcomes_not': ([[4, 8, 9], []], [[], [0, 2, 6]]),
  'options': [
     ('sign up properly, since the sheet says anyone may join', 'W1', None, 0.45, '', {'role': 'cross', 'v': 'universalism (fairness)', 'chance': 0.78}),
     ('try it once, to see for yourself what it is really like', 'U1', None, 0.45, '', {'role': 'cross', 'identity': True, 'v': 'self-direction, stimulation', 'chance': 0.85}),
@@ -9903,6 +9961,7 @@ SITUATIONS = [
                '{parent} thinks it over and, a few days later, says something gentler.'],
               ['The row rumbles on all week, and the house is cold with it.',
                '{N} tries to be what was asked, and spends weeks squeezed into a shape that does not fit.']),
+ 'outcomes_not': ([[], []], [[0, 2, 4, 9], [3, 8]]),
  'options': [
     ('thank them, and try to behave the way they ask for a while', 'W1', None, 0.45, '', {'role': 'keep', 'v': 'conformity', 'chance': 0.85}),
     ('ask them where the rule comes from, and whether it held for them', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.62}),
@@ -9957,6 +10016,7 @@ SITUATIONS = [
                '{N} gets through the term without much fuss, and with a little more say over the next one.'],
               ['A letter goes home, and there is a meeting with the head.',
                '{N} spends the term in and out of detention, and the rule stays exactly as it was.']),
+ 'outcomes_not': ([[], []], [[], [2, 4]]),
  'options': [
     ('ask the office, properly, for written permission to wear the other version', 'W1', None, 0.45, '', {'role': 'cross', 'v': 'conformity, self-direction', 'chance': 0.6}),
     ("find the gap in the rule book's wording, and wear what you want within it", 'U1', None, 0.45, '', {'role': 'cross', 'v': 'self-direction', 'chance': 0.65}),
@@ -10327,6 +10387,7 @@ SITUATIONS = [
                'Whatever the two of them chose, they chose it together, and it holds.'],
               ['The months of checks, tests and forms come to nothing this time, and the spare room stays empty.',
                'The cost and the waiting wear on them both, and for a while the subject is too sore to raise.']),
+ 'outcomes_not': ([[5, 6, 8], []], [[5, 6, 8], []]),
  'options': [
     ('apply to adopt, and go through every check and class the agency asks', 'W1', None, 0.45, 'commit:children', {'law': 'adoption', 'title': 'adoptive parent', 'binds': True, 'identity': True, 'v': 'benevolence, conformity', 'chance': 0.5}),
     ('find the clinic with the best results, and follow its plan to the letter', 'U1', None, 0.45, 'commit:children', {'tech': 'modern medicine', 'v': 'achievement, security', 'chance': 0.5}),
@@ -10388,6 +10449,7 @@ SITUATIONS = [
                '{N} settles in as {N} is, photographs and all, and the place slowly becomes home.'],
               ["A carer's remark cuts deep, and {N} spends weeks guarding every word.",
                '{N} slips back into hiding, and the rooms feel smaller for it.']),
+ 'outcomes_not': ([[], [2]], [[], []]),
  'options': [
     ("ask for a named carer and the home's promise of respect, in writing", 'W1', None, 0.45, '', {'v': 'security, universalism', 'chance': 0.75}),
     ("read the home's policies, and ask how its staff are trained, before signing anything", 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.72}),
@@ -10610,6 +10672,7 @@ SITUATIONS = [
                '{sibling} catches {Ns} eye across the table and mouths a silent thanks.'],
               ['The meal limps to an early end, and {sibling} and the partner leave before the coffee.',
                'Something said at the table is not forgotten, and the next holiday is thinner.']),
+ 'outcomes_not': ([[], [5]], [[], []]),
  'options': [
     ('lay a place for the partner, and treat them as any other guest', 'W1', None, 0.45, '', {'v': 'benevolence, tradition', 'chance': 0.9}),
     ('ask the partner about their work and their life, and really listen', 'U1', None, 0.45, '', {'v': 'universalism', 'mark': 'made a friend', 'chance': 0.75}),
@@ -10720,6 +10783,7 @@ SITUATIONS = [
                'The night goes on and the world has not ended; if anything it is bigger.'],
               ['{friend} goes stiff and changes the subject, and the walk home is very quiet.',
                'Within a week someone else knows, and {N} did not tell them.']),
+ 'outcomes_not': ([[9], []], [[9], []]),
  'options': [
     ('ask your friend to promise to keep it secret, then tell them', 'W1', None, 0.45, '', {'v': 'security', 'mark': 'came out', 'chance': 0.8}),
     ('test the water first with a question about someone famous who came out', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.82}),
@@ -10833,6 +10897,7 @@ SITUATIONS = [
                '{N} really is.'],
               ['{parent} leaves the room without a word, and the door stays closed for a long time.',
                'There are shouts and tears, and {N} leaves that night not knowing when the way back will open.']),
+ 'outcomes_not': ([[], [8]], [[8], []]),
  'options': [
     ('tell them all together at the family table, calmly and with respect', 'W1', None, 0.45, '', {'identity': True, 'v': 'tradition, benevolence', 'mark': 'came out', 'chance': 0.6}),
     ('tell them with answers ready, and meet every question with patience', 'U1', None, 0.45, '', {'identity': True, 'v': 'universalism', 'mark': 'came out', 'chance': 0.64}),
@@ -11037,6 +11102,7 @@ SITUATIONS = [
                '{N} goes home sunburnt and hoarse, with plenty to think about.'],
               ['A scuffle on the corner sours the afternoon, and {N} goes home early.',
                'Someone {N} knows saw {N} there, and has something to say about it on Monday.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('stand on the pavement with the neighbours and clap the marchers past', 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism, conformity', 'chance': 0.9}),
     ('ask a marcher what the march is for, and listen to the whole answer', 'U1', None, 0.45, '', {'door': True, 'v': 'universalism', 'chance': 0.85}),
@@ -11098,6 +11164,7 @@ SITUATIONS = [
                'Whatever comes next, {N} has stopped lying, at least inwardly.'],
               ['The truth comes out sideways and at the worst moment, and the house goes cold.',
                '{N} folds it away again, and the old weight settles back on {Ns} chest.']),
+ 'outcomes_not': ([[0, 2], []], [[], []]),
  'options': [
     ('keep faith with the marriage, and carry the truth quietly', 'W1', None, 0.45, '', {'v': 'tradition, benevolence', 'mark': 'kept it hidden', 'chance': 0.85}),
     ('see a counsellor alone, and work out what is true before saying anything', 'U1', None, 0.45, '', {'self_control': '+', 'v': 'self-direction', 'chance': 0.8}),
@@ -11322,6 +11389,7 @@ SITUATIONS = [
                '{N} faces it, and the person {N} wronged is gentler than {N} feared.'],
               ['The guilt stays, and leaks into everything {N} does.',
                'Trying to set it right opens the wound again, for both of them.']),
+ 'outcomes_not': ([[], [6, 9]], [[], [9]]),
  'options': [
     ('confess it to a parent, an elder or a priest, and make the amends they ask', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.82}),
     ('write it all down, honestly, until you understand why you did it', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.8}),
@@ -11490,6 +11558,7 @@ SITUATIONS = [
                'Something gives at work, and the weeks get lighter.'],
               ['{N} keeps going until the body decides instead, and {N} falls ill.',
                'The change costs more than it saves, and the tiredness comes back with interest.']),
+ 'outcomes_not': ([[], []], [[3, 4, 9], []]),
  'options': [
     ('ask formally for lighter duties, and hold the line once it is agreed', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.68}),
     ('log every hour for a week, then cut whatever does not truly need doing', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.7}),
@@ -11547,6 +11616,7 @@ SITUATIONS = [
                'Remembering {dead} out loud, {N} laughs for the first time in a long while.'],
               ['The grief comes back as fresh as the first week, and stays for days.',
                '{N} spends the day alone and wrong-footed, and nobody else seems to remember.']),
+ 'outcomes_not': ([[9], []], [[], []]),
  'options': [
     ('go to the grave with the family, and keep the day as it should be kept', 'W1', None, 0.45, '', {'habit': True, 'v': 'tradition, conformity', 'chance': 0.9}),
     ('write down every memory of them you still have, before it fades', 'U1', None, 0.45, '', {'v': 'tradition, self-direction', 'chance': 0.9}),
@@ -11658,6 +11728,7 @@ SITUATIONS = [
                '{N} finds a corner of home in the new town, and the rest becomes bearable.'],
               ['The pang gets worse each week, and {N} can think of little else.',
                '{N} leaves too early and regrets it, or stays too long and is miserable.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('tell the warden or the tutor you are struggling, and take the help on offer', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.77}),
     ('learn the new place properly: map it, read about it, find what works', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction, security', 'chance': 0.85}),
@@ -11931,6 +12002,7 @@ SITUATIONS = [
                '{N} finds a place where {Ns} voice carries.'],
               ['The silence round {N} grows, and {N} stops speaking at all.',
                'The attempt to be seen goes badly, and now {N} is noticed for the wrong thing.']),
+ 'outcomes_not': ([[], []], [[], [4, 9]]),
  'options': [
     ('make yourself useful to everyone, and trust that it will be noticed in time', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.65}),
     ('write what you think every week, in a letter to the paper or online', 'U1', None, 0.45, '', {'habit': True, 'identity': True, 'v': 'self-direction', 'chance': 0.68}),
@@ -11989,6 +12061,7 @@ SITUATIONS = [
                'Others turn out to feel the same, and {N} is no longer alone with it.'],
               ['Nothing changes, and the powerful carry on as before.',
                '{N} pays for speaking up, and the people responsible do not.']),
+ 'outcomes_not': ([[], []], [[], [4, 7, 9]]),
  'options': [
     ('expose the one responsible in public, and keep at it until they lose their post', 'W1', None, 0.45, '', {'v': 'universalism (fairness), power', 'mark': 'made an enemy', 'closed': 'approval: a shaming campaign; backfire: the crowd turns, or a suit for libel', 'chance': 0.45}),
     ('document everything, and take it through every proper channel, step by step', 'U1', None, 0.45, '', {'identity': True, 'v': 'universalism (fairness), conformity', 'chance': 0.65}),
@@ -13106,6 +13179,7 @@ SITUATIONS = [
                '{N} goes back to the shore every week after that, and sees it with new eyes.'],
               ['It turns out to be known after all, from far away, and only new to this shore.',
                'The next storm reworks the pools, and {N} never finds another.']),
+ 'outcomes_not': ([[1, 4, 9], []], [[], []]),
  'options': [
     ('report it to the museum properly, with notes, a photo and the exact place', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'chance': 0.65}),
     ('sit by the pool for hours, watching it, and keep the find to yourself for now', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'chance': 0.65}),
@@ -13211,6 +13285,7 @@ SITUATIONS = [
                'The night ends the way {N} hoped, and the walk home at dawn feels like flying.'],
               ['The morning after is awkward, and the bus home takes forever.',
                '{N} never hears from {prospect} again, and the friends from the party have plenty to say.']),
+ 'outcomes_not': ([[], []], [[0, 5], []]),
  'options': [
     ('say goodnight at the door, swap numbers, and ask them to dinner next week', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.85}),
     ('sit on the stairs asking them questions till three, and decide nothing tonight', 'U1', None, 0.45, '', {'v': 'self-direction', 'self_control': '+', 'chance': 0.9}),
@@ -13314,6 +13389,7 @@ SITUATIONS = [
                'The second try starts slowly and honestly, and {N} likes who they both are now.'],
               ['Within a month the old fights are back, word for word.',
                '{N} ends up hurt again, and {Ns} friends try hard not to say they saw it coming.']),
+ 'outcomes_not': ([[], [0]], [[0], []]),
  'options': [
     ('say no, kindly and firmly, as you said at the end', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'kept your word', 'chance': 0.8}),
     ('meet for coffee and go through, honestly, what broke last time', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.7}),
@@ -13736,6 +13812,7 @@ SITUATIONS = [
                'Whatever {N} answers, the friendship with {friend} and {prospect} is still easy a month later.'],
               ['The morning after is awkward, and the couple stop calling.',
                'Something said that night starts a row between the two of them, and {N} is caught in the middle.']),
+ 'outcomes_not': ([[0, 1, 7, 9], []], [[0, 1, 7, 9], []]),
  'options': [
     ('say no, and warn the friends you share what the two of them are like', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'made an enemy', 'closed': 'approval: spreading their private life; backfire: the friends side with the couple, and the gossip turns round', 'chance': 0.6}),
     ('ask for a week to think, and talk it over with them both first', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.65}),
@@ -13795,6 +13872,7 @@ SITUATIONS = [
                '{N} and {prospect} keep writing long after the holiday, and the summer lives on.'],
               ['On the last night {prospect} mentions someone waiting at home, and the week turns sour.',
                'The goodbye is harder than {N} expected, and home looks grey for weeks.']),
+ 'outcomes_not': ([[], [2]], [[], []]),
  'options': [
     ('enjoy every day of it, and say a proper goodbye at the bus on Saturday', 'W1', None, 0.45, '', {'v': 'hedonism, conformity', 'chance': 0.85}),
     ('learn their language and their town, and keep writing once you are home', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction', 'mark': 'learned a skill', 'chance': 0.65}),
@@ -14236,6 +14314,7 @@ SITUATIONS = [
                '{N} walks out of the ceremony feeling taller, and older.'],
               ['{N} stumbles over the words in front of everyone.',
                'The day turns into a family row, and nobody remembers the ceremony.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('go to every class, learn every word, and do it properly', 'W1', None, 0.45, 'commit:faith', {'v': 'tradition, conformity', 'chance': 0.88}),
     ('ask the hard questions, and go through with it only if the answers hold', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.55}),
@@ -14334,6 +14413,7 @@ SITUATIONS = [
                "At parents' evening {mentor} tells {parent} that {N} has grown into the role."],
               ['{N} is caught between the teachers and their own friends, and pleases neither.',
                'Within a month the role is a chore, and {rival} makes sure everyone knows it.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('accept, and do every duty properly, even the dull ones', 'W1', None, 0.45, '', {'binds': True, 'identity': True, 'v': 'conformity, benevolence (dependability)', 'chance': 0.78}),
     ('ask exactly what the role involves before you say yes', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'act': 'ask exactly what the role involves before they say yes', 'chance': 0.9}),
@@ -14481,6 +14561,7 @@ SITUATIONS = [
                '{sibling} catches {Ns} eye across the table, and something passes between them that will last.'],
               ['{parent} hears the rest of the story from someone else, and both of them are in trouble.',
                '{sibling} will not speak to {N} for weeks.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('tell your parents the whole truth so it can be put right properly', 'W1', None, 0.45, '', {'v': 'conformity, security', 'closed': 'approval: telling on a sibling; backfire: a sibling who does not forgive it', 'chance': 0.68}),
     ('find out exactly how much is owed, and to whom, before saying anything', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.68}),
@@ -14624,6 +14705,7 @@ SITUATIONS = [
  'outcomes': (['The picking stops, and {friend} starts laughing again at lunch.',
                'The ringleader backs off, and the corridor goes quiet.'],
               ['It gets worse, and now {N} is a target too.', '{friend} asks {N} to stop helping, and goes quiet.']),
+ 'outcomes_not': ([[], []], [[], [2]]),
  'options': [
     ('report it to the head of year, with names, dates and places', 'W1', None, 0.45, '', {'v': 'universalism (justice), conformity', 'mark': 'helped someone in need', 'chance': 0.5}),
     ('change routes and times so they never catch your friend alone', 'U1', None, 0.45, '', {'v': 'security, benevolence', 'chance': 0.58}),
@@ -14827,6 +14909,7 @@ SITUATIONS = [
                '{N} opens a bank account and watches it slowly grow.'],
               ['{N} is let go after a few weeks, with no reason given.',
                'The shifts eat into everything else, and school starts to slip.']),
+ 'outcomes_not': ([[], [6]], [[], []]),
  'options': [
     ('be on time for every shift, and do every task by the book', 'W1', None, 0.45, 'commit:career', {'v': 'conformity', 'chance': 0.85}),
     ('learn how the whole business works, from the stockroom to the accounts', 'U1', None, 0.45, 'commit:career', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.68}),
@@ -14994,6 +15077,7 @@ SITUATIONS = [
                '{N} finds people at the new place who think the way they do.'],
               ['{N} feels out of place among richer, sharper kids, and dreads every morning bus.',
                'The old friends drift away, and the new ones have not arrived yet.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('accept, and write proper thank-you letters to everyone who helped', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.72}),
     ('read everything about the new school and arrive already ahead', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.72}),
@@ -17471,6 +17555,7 @@ SITUATIONS = [
                'The fear fades slowly, and by spring {N} walks home the old way without thinking about it.'],
               ['Nobody is ever caught, and {N} flinches at footsteps for a long time.',
                '{N} stops going out after dark, and the evenings shrink.']),
+ 'outcomes_not': ([[9], []], [[], []]),
  'options': [
     ('report it at once, give a full statement, and see it through to court', 'W1', None, 0.45, '', {'identity': True, 'v': 'security, conformity', 'chance': 0.45}),
     ('study the streets and change your routes, so it cannot happen again', 'U1', None, 0.45, '', {'habit': True, 'v': 'security', 'chance': 0.68}),
@@ -17701,6 +17786,7 @@ SITUATIONS = [
                '{N} is asked to show how it works, and the room goes quiet to listen.'],
               ['A week later it stops working, and {N} cannot make it happen again.',
                'Someone else gets there first, and the credit goes elsewhere.']),
+ 'outcomes_not': ([[], [9]], [[], []]),
  'options': [
     ('take it to your mentor first, and let them judge it before anyone else hears', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.6}),
     ('quietly leave out the one result that does not fit, so the find looks clean', 'U1', None, 0.45, '', {'v': 'achievement', 'mark': 'hid a wrong', 'closed': 'approval: doctored results; backfire: someone repeats the work, and the whole find falls apart', 'chance': 0.45}),
@@ -17876,6 +17962,7 @@ SITUATIONS = [
                '{N} hangs it on the wall, and for years catches sight of it with a quiet glow.'],
               ['Everyone else seems to have the same paper, and it counts for less than {N} hoped.',
                'The day itself goes sour, and {N} wonders what all the work was for.']),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('report the others you saw cheating, now that your own result is safe', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'made an enemy', 'closed': 'approval: informing on classmates; backfire: the whole year shuts them out', 'chance': 0.38}),
     ('go straight on to the next level of study, years more of it', 'U1', None, 0.45, '', {'binds': True, 'v': 'achievement, self-direction', 'chance': 0.72}),
@@ -17929,6 +18016,7 @@ SITUATIONS = [
                '{N} moves up to the next class with the older ones, a little taller than before.'],
               ['Half the class got the same badge, and nobody seems very impressed.',
                'The day goes sour when {sibling} sulks about it, and {N} wonders what all the practice was for.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('tell the teacher who skipped the hard parts and still passed', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'made an enemy', 'closed': 'approval: telling tales on classmates; backfire: the class freezes the tell-tale out', 'chance': 0.35}),
     ('start on the next grade straight away, and the one after that', 'U1', None, 0.45, '', {'binds': True, 'v': 'achievement, self-direction', 'chance': 0.65}),
@@ -18150,6 +18238,7 @@ SITUATIONS = [
                'The win draws new people in, and {N} finds a crowd of friends where there were strangers.'],
               ['Within months the decision is quietly watered down, and the fight starts again.',
                'The group splits over who did the most, and never meets again.']),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('see that the new rule is enforced to the letter on those who fought it', 'W1', None, 0.45, '', {'v': 'conformity, power', 'mark': 'made an enemy', 'closed': 'approval: using the win to punish neighbours; backfire: the neighbours never forgive it, and fight the next one harder', 'chance': 0.5}),
     ('study why it worked, and write it down for the next people who need to know', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'mark': 'learned a skill', 'chance': 0.68}),
@@ -18266,6 +18355,7 @@ SITUATIONS = [
                'The neighbours rally round, and {N} learns who will turn up with a van at seven in the morning.'],
               ["{N} spends months on friends' sofas, moving every few weeks.",
                'The eviction follows {N} onto every rental application for years.']),
+ 'outcomes_not': ([[3, 8], []], [[], []]),
  'options': [
     ('go to legal aid, pay what you can, and keep every letter in order', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.58}),
     ('dig through the tenancy law until you find the clause that buys more time', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'mark': 'learned a skill', 'chance': 0.45}),
@@ -18502,6 +18592,7 @@ SITUATIONS = [
                '{N} learns the illness well enough to bend life around it, rather than the other way round.'],
               ['A bad spell lands {N} in hospital, and the illness takes a step forward.',
                '{N} grows tired of the pills and the rules, and the numbers slide.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('learn the routine, and keep it every single day without fail', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.6}),
     ('read every study, and test on yourself what helps and what does not', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.57}),
@@ -18561,6 +18652,7 @@ SITUATIONS = [
                '{N} knows the illness so well by now that {N} explains it to a new teacher without being asked.'],
               ['A bad spell means a night in hospital, and {N} misses the school trip everyone was talking about.',
                '{N} gets tired of the medicine and the rules, and every evening turns into a battle over them.']),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('take the medicine at the right times every day, without being reminded', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.55}),
     ('ask the nurse how it all works, and learn to check it yourself', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.64}),
@@ -18740,6 +18832,7 @@ SITUATIONS = [
                '{N} stops, slips, and stops again, and this time it holds.'],
               ['The habit tightens its grip, and {N} starts to lose the things that mattered.',
                '{N} stops for a month, then starts again, and stops telling anyone.']),
+ 'outcomes_not': ([[1, 2, 3], []], [[], []]),
  'options': [
     ('promise someone you trust that you will stop, and check in every week', 'W1', None, 0.45, '', {'binds': True, 'v': 'conformity, security', 'chance': 0.36}),
     ('invent a cover story for every missing hour and every missing coin', 'U1', None, 0.45, '', {'v': 'hedonism, security', 'mark': 'hid a wrong', 'closed': 'approval: lying to the people closest; backfire: the stories unravel all at once', 'self_control': '-', 'chance': 0.12}),
@@ -18895,6 +18988,7 @@ SITUATIONS = [
                '{N} climbs the stairs at work without stopping, and notices.'],
               ['The next test is worse than the first.',
                '{N} keeps it up for three weeks, and then the old habits creep back.']),
+ 'outcomes_not': ([[], [2]], [[], [2, 4]]),
  'options': [
     ('take the pills every morning and keep every appointment', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity, security', 'chance': 0.72}),
     ('buy a blood pressure cuff and log the numbers twice a day', 'U1', None, 0.45, '', {'habit': True, 'v': 'security, self-direction', 'chance': 0.62}),
@@ -18943,6 +19037,7 @@ SITUATIONS = [
                '{N} leaves on {Ns} own terms, with more than {N} expected.'],
               ['{N} is called into a small room with a box of tissues on the table.',
                '{N} keeps the job, but loses all the work that mattered.']),
+ 'outcomes_not': ([[4, 5, 6], []], [[], [4, 5, 6]]),
  'options': [
     ('ask the personnel office for the rules on restructuring, in writing', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.58}),
     ("get into the manager's emails to find out who drew the chart, and why", 'U1', None, 0.45, '', {'v': 'security, power', 'closed': 'law: unauthorised access; backfire: caught, and dismissed on the spot', 'tech': 'computer', 'chance': 0.45}),
@@ -19043,6 +19138,7 @@ SITUATIONS = [
                'A year later, {N} does not regret a penny of it.'],
               ['The thing sits in the garage, hardly used, while the payments go on.',
                'The receipt turns up at home, and the row lasts a week.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('talk it over with the family first, and abide by what you agree', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.68}),
     ('hire one for a month first, to see whether you really want it', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.82}),
@@ -19181,6 +19277,7 @@ SITUATIONS = [
                'By the next statement, the line at the bottom has moved the right way.'],
               ['The fund {N} chose falls by a fifth in one bad month.',
                '{N} means to sort it out, and the letter sits in a drawer for another year.']),
+ 'outcomes_not': ([[3], []], [[3, 4, 7, 9], []]),
  'options': [
     ('raise your payments to the level the adviser recommends, and leave it alone', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.78}),
     ('build a spreadsheet of every year from now to ninety', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'tech': 'computer', 'chance': 0.75}),
@@ -19277,6 +19374,7 @@ SITUATIONS = [
                '{N} and {prospect} find they still have plenty to say after thirty years.'],
               ['The meeting is awkward, and both of them wish they had left the past alone.',
                'Someone sees them together, and the talk starts.']),
+ 'outcomes_not': ([[], [4, 6]], [[4, 6, 8], []]),
  'options': [
     ('reply politely, and keep it to one coffee in a public place', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.69}),
     ('look up everything about their life online, and only then answer', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'tech': 'internet', 'chance': 0.72}),
@@ -19602,6 +19700,7 @@ SITUATIONS = [
                'The truth comes out at the hearing, and it is less bad than anyone feared.'],
               ['{friend} turns out to have taken the money after all, and {N} looks a fool.',
                '{N} says the wrong thing at the hearing, and the friendship cools.']),
+ 'outcomes_not': ([[2], []], [[], [2]]),
  'options': [
     ("tell the committee honestly about your friend's gambling debts", 'W1', None, 0.45, '', {'v': 'conformity, universalism (justice)', 'mark': 'made an enemy', 'closed': 'approval: turning on a friend; backfire: the old circle closes ranks against the informer', 'chance': 0.45}),
     ("ask to see the club's accounts first, and agree to nothing until then", 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.72}),
@@ -19649,6 +19748,7 @@ SITUATIONS = [
                'The tomatoes that summer are the best {N} has ever grown.'],
               ['{N} puts a back out lifting a pot, and spends the evening on the floor.',
                'A storm in the night flattens the work of the whole afternoon.']),
+ 'outcomes_not': ([[], []], [[], [3]]),
  'options': [
     ('work through the jobs on the garden calendar, one by one', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.9}),
     ('test the soil on both sides, and keep notes on what grows where', 'U1', None, 0.45, '', {'v': 'self-direction', 'mark': 'learned a skill', 'chance': 0.93}),
@@ -19743,6 +19843,7 @@ SITUATIONS = [
                'Whatever {N} chooses, {N} sleeps well afterwards.'],
               ['The first crisis lands on the desk in week two, and it is a bad one.',
                '{rival} never forgives the outcome, and makes sure everyone knows it.']),
+ 'outcomes_not': ([[], []], [[4, 9], []]),
  'options': [
     ('accept, and promise the board to see the firm through the next five years', 'W1', None, 0.45, '', {'binds': True, 'v': 'security, benevolence', 'chance': 0.65}),
     ('ask for a month to study the accounts, then give an answer', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.75}),
@@ -20084,6 +20185,7 @@ SITUATIONS = [
                'The path {N} chose turns out harder than expected, and better.'],
               ['The money runs out before {Ns} plans find their feet.',
                '{N} spends the next year looking back at the other road.']),
+ 'outcomes_not': ([[], []], [[0], []]),
  'options': [
     ('turn it down, and keep faith with the people who depend on you', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'turned down a chance', 'act': 'turn it down, and keep faith with the people who depend on them', 'chance': 0.65}),
     ('take a year to research and test three possible new lives before choosing', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction', 'chance': 0.72}),
@@ -20142,6 +20244,7 @@ SITUATIONS = [
                'crew has never heard.'],
               ['At the next drill {N} fumbles in front of everyone, and the story goes round {place} for weeks.',
                "The jokes stop, but so do the invitations, and {N} is left out of the crew's evenings."]),
+ 'outcomes_not': ([[], [2, 6, 9]], [[], [2, 6, 9]]),
  'options': [
     ("learn the crew's drill to the letter: a team that saves lives moves as one", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, security', 'chance': 0.8}),
     ('keep your own method, and write down why it is quicker, for anyone who asks', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, achievement', 'act': 'keep their own method, and write down why it is quicker, for anyone who asks', 'chance': 0.6}),
@@ -20199,6 +20302,7 @@ SITUATIONS = [
                'told a soul.'],
               ['The slip becomes a story told at every gathering at {place}, and {N} hears it again and again.',
                'A second small mistake follows the first, and the keeper stops giving {N} the jobs that matter.']),
+ 'outcomes_not': ([[1, 4, 5, 8], []], [[], [1, 4, 5, 8]]),
  'options': [
     ('own up to the slip, then show the crew your method done right, step by step', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'conformity, self-direction', 'mark': 'owned up', 'act': 'own up to the slip, then show the crew their method done right, step by step', 'chance': 0.6}),
     ('judge the fit wrong, and join a crew that trains the way you do', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, security', 'act': 'judge the fit wrong, and join a crew that trains the way they do', 'chance': 0.78}),
@@ -20256,6 +20360,7 @@ SITUATIONS = [
                'hear.'],
               ['The joke hardens into a nickname, and {N} is the last one picked for the good jobs at {place}.',
                'A rushed job goes wrong at {Ns} bench in front of everyone, and nobody lets {N} forget it.']),
+ 'outcomes_not': ([[], [0, 3, 7]], [[], [0, 3, 7]]),
  'options': [
     ('leave with a fair handover, rather than split the team over how the work is done', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'chance': 0.74}),
     ('learn their way properly, since it may teach something your own way lacks', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, achievement', 'act': "learn the place's way properly, since it may teach something their own way lacks", 'chance': 0.82}),
@@ -20311,6 +20416,7 @@ SITUATIONS = [
                'A year on, the boss asks {N} to show the others the very trick everyone had laughed at.'],
               ['Word gets round that {N} was spoken to, and the regulars at {place} grow cooler for it.',
                '{N} tries to split the difference and pleases nobody, and the old hand stops offering advice.']),
+ 'outcomes_not': ([[], [2, 6, 9]], [[], [2, 6, 9]]),
  'options': [
     ('thank the old hand, and do it the house way, as you would ask of anyone', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'act': 'thank the old hand, and do it the house way, as they would ask of anyone', 'chance': 0.78}),
     ('keep your own way, and ask the old hand what exactly rubs, and why', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their own way, and ask the old hand what exactly rubs, and why', 'chance': 0.64}),
@@ -20366,6 +20472,7 @@ SITUATIONS = [
                'Long after, a few people at {place} are seen doing things {Ns} way, quietly at first.'],
               ['Someone mimics {Ns} habit at the next gathering, and the laughter carries across the hall.',
                'The invitations to the meals after the service stop coming, and nobody at {place} says why.']),
+ 'outcomes_not': ([[], []], [[1, 4, 5, 8], []]),
  'options': [
     ('keep to the practice you once promised to keep, and tell her why', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition, conformity', 'mark': 'kept your word', 'act': 'keep to the practice they once promised to keep, and tell her why', 'chance': 0.6}),
     ('think it over for a month, then move to a congregation nearer your own understanding', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction', 'act': 'think it over for a month, then move to a congregation nearer their own understanding', 'chance': 0.75}),
@@ -20419,6 +20526,7 @@ SITUATIONS = [
                'By the next big day, people at {place} ask how it is done where {N} comes from, and some try it.'],
               ['The laugh in the hall becomes the story people at {place} tell about {N} for years.',
                'A cold politeness settles in, and {N} is never quite asked to help again.']),
+ 'outcomes_not': ([[0, 3, 7], []], [[], [0, 3, 7]]),
  'options': [
     ('tell {elder} honestly these ways are not yours, and step away on good terms', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, universalism', 'act': 'tell {elder} honestly these ways are not theirs, and step away on good terms', 'chance': 0.78}),
     ('ask {elder} to teach you the custom and its reasons, then do it their way', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'act': 'ask {elder} to teach them the custom and its reasons, then do it that way', 'chance': 0.7}),
@@ -20471,6 +20579,7 @@ SITUATIONS = [
                '{place} too.'],
               ['The joke sticks, and for weeks the room laughs whenever {N} raises a hand.',
                '{Ns} next piece of work goes badly in front of everyone, and nobody at {place} forgets it.']),
+ 'outcomes_not': ([[2, 6, 9], []], [[2, 6, 9], []]),
  'options': [
     ('do the work the way the class is taught, as the course asks', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, security', 'chance': 0.82}),
     ('keep your own method, and let the results speak for it', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction, achievement', 'act': 'keep their own method, and let the results speak for it', 'chance': 0.68}),
@@ -20522,6 +20631,7 @@ SITUATIONS = [
                'One of the group stays behind to tell {N} that she has never felt she fits at {place} either.'],
               ["The group's mark is poor, and everyone at {place} knows whose way they blame.",
                'The others start meeting without {N}, and {N} finds out only by chance.']),
+ 'outcomes_not': ([[1, 4, 8], []], [[1, 2, 4, 6, 8, 9], []]),
  'options': [
     ('do your share to the standard you believe is right, and tell the group plainly', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'universalism, achievement', 'act': 'do their share to the standard they believe is right, and tell the group plainly', 'chance': 0.66}),
     ('weigh the course honestly, and leave it for one taught the way you learn', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction', 'act': 'weigh the course honestly, and leave it for one taught the way they learn', 'chance': 0.7}),
@@ -20580,6 +20690,7 @@ SITUATIONS = [
                'for months.',
                'It gets talked about behind {Ns} back, and the warm nights at {place} are never quite as warm '
                'again.']),
+ 'outcomes_not': ([[], []], [[], [0, 3, 7]]),
  'options': [
     ('leave {place} with thanks, so your ways stop dividing the old crowd from the new', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'leave {place} with thanks, so their ways stop dividing the old crowd from the new', 'chance': 0.75}),
     ('learn why they do things as they do, and take up what holds up', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'chance': 0.8}),
@@ -20638,6 +20749,7 @@ SITUATIONS = [
                'anyone else at {place}.'],
               ['The joke outlives the evening and becomes how every new face at {place} sees {N}.',
                'Something {N} says that night lands badly, and the room goes quiet in a way nobody forgets.']),
+ 'outcomes_not': ([[2, 6, 9], []], [[2, 6, 9], []]),
  'options': [
     ('drop the habit the joke is about, for the sake of peace at {place}', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.7}),
     ('keep your ways, and explain to the newcomers why you do it like that', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their ways, and explain to the newcomers why they do it like that', 'chance': 0.62}),
@@ -20695,6 +20807,7 @@ SITUATIONS = [
               ['Customers drift, the takings drop, and everyone at {place} can see it.',
                'The other traders close ranks, and for a season {N} is left out of everything that gets passed '
                'around at {place}.']),
+ 'outcomes_not': ([[], []], [[1, 4, 5, 8], []]),
  'options': [
     ('keep your ways, since you gave your customers your word on them', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'benevolence', 'mark': 'kept your word', 'act': 'keep their ways, since they gave their customers their word on them', 'chance': 0.64}),
     ('weigh the figures, then move your trade to somewhere it suits better', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'achievement, self-direction', 'act': 'weigh the figures, then move their trade to somewhere it suits better', 'chance': 0.8}),
@@ -20751,6 +20864,7 @@ SITUATIONS = [
                'gives back.'],
               ['The old guard make an example of {N}, and the whole place watches {Ns} customers being steered away.',
                'The confidence gets out, the trader denies everything, and {N} is the one left looking foolish.']),
+ 'outcomes_not': ([[], []], [[0, 3, 7], []]),
  'options': [
     ('leave {place} quietly, so your friend is not blamed for siding with you', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'leave {place} quietly, so their friend is not blamed for siding with them', 'chance': 0.78}),
     ('take up the common way for now, and work to change it from the inside', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, self-direction', 'chance': 0.72}),
@@ -20808,6 +20922,7 @@ SITUATIONS = [
               ['The joke sticks, and for weeks every small slip of {Ns} gets a knowing look across the room.',
                'At the next showing {N} comes in wrong in front of everyone, and the silence afterwards is worse '
                'than the laugh.']),
+ 'outcomes_not': ([[], []], [[], [2, 6, 9]]),
  'options': [
     ("take on the group's way of doing it, because the group comes first", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.8}),
     ('keep your own way, and explain at the next session why it works', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their own way, and explain at the next session why it works', 'chance': 0.6}),
@@ -20864,6 +20979,7 @@ SITUATIONS = [
               ['On the night {N} is the one who stands out, and not in the good way: the laughter from the back row '
                'carries.',
                'The regulars close ranks, and for a while {N} is left out of the plans and the evenings after.']),
+ 'outcomes_not': ([[1, 4, 8], []], [[1, 4, 8], []]),
  'options': [
     ('keep your own way, and ask openly that the rule be put to the whole group', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'universalism, self-direction', 'act': 'keep their own way, and ask openly that the rule be put to the whole group', 'chance': 0.65}),
     ('decide {place} will never try anything new, and find a group that does', 'U1', None, 0.45, '', {'odd': 'leave', 'v': 'self-direction, stimulation', 'chance': 0.8}),
@@ -20920,6 +21036,7 @@ SITUATIONS = [
               ['A small slip of {Ns} gets passed round at the next handover, and by the end of the week everyone at '
                '{place} has heard it.',
                'The team goes quiet when {N} comes in, and the good shifts start going to someone else.']),
+ 'outcomes_not': ([[0, 3, 7], []], [[0, 3, 7], []]),
  'options': [
     ('hand over properly, then leave {place} for a team whose care you can stand behind', 'W1', None, 0.45, '', {'odd': 'leave', 'v': 'benevolence, conformity', 'act': 'hand over properly, then leave {place} for a team whose care they can stand behind', 'chance': 0.76}),
     ('study how {place} does things, and take on whatever has good reasons behind it', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'chance': 0.78}),
@@ -20973,6 +21090,7 @@ SITUATIONS = [
                'room.',
                '{N} misses a step in the routine in front of the whole shift, and it is the only thing anyone '
                'remembers that week.']),
+ 'outcomes_not': ([[2, 6, 9], []], [[], [2, 6, 9]]),
  'options': [
     ("agree to the team's standard, for the sake of the people in its care", 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, benevolence', 'chance': 0.75}),
     ('ask for the reasons in writing, and keep your way until you get them', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'ask for the reasons in writing, and keep their way until they get them', 'chance': 0.64}),
@@ -21025,6 +21143,7 @@ SITUATIONS = [
               ['The jokes stop, but so do the invitations, and {N} drifts to the edge of {place}.',
                '{N} tries too hard, gets it wrong in front of everyone, and the story goes round {place} for '
                'weeks.']),
+ 'outcomes_not': ([[4, 6, 8], []], [[], [4, 6, 8]]),
  'options': [
     ('learn how things are done here, and do them that way, properly', 'W1', None, 0.45, '', {'odd': 'blend', 'v': 'conformity, security', 'chance': 0.8}),
     ('keep your own way, and explain it plainly to anyone who asks', 'U1', None, 0.45, '', {'odd': 'hold', 'v': 'self-direction', 'act': 'keep their own way, and explain it plainly to anyone who asks', 'chance': 0.6}),
@@ -21074,6 +21193,7 @@ SITUATIONS = [
                'A few people at {place} start doing things {Ns} way, quietly at first.'],
               ['Word of the talk gets round, and for a while {N} is the one everyone at {place} discusses.',
                'The next time {N} does it differently, nobody says a word, and nobody needs to.']),
+ 'outcomes_not': ([[5, 8, 9], []], [[], [5, 8, 9]]),
  'options': [
     ('keep to the way you were taught, and say plainly why it matters to you', 'W1', None, 0.45, '', {'odd': 'hold', 'v': 'tradition, conformity', 'act': 'keep to the way they were taught, and say plainly why it matters to them', 'chance': 0.62}),
     ('watch the regulars for a month, then take on the parts that make sense', 'U1', None, 0.45, '', {'odd': 'blend', 'v': 'self-direction, conformity', 'chance': 0.7}),
@@ -21180,6 +21300,7 @@ SITUATIONS = [
                'A year on, nobody is in debt, and everyone knows whose door to knock on.'],
               ['Old grudges about who got what come up again, and some of them land on {N}.',
                '{N} makes a promise to one cousin that another takes as a slight.']),
+ 'outcomes_not': ([[3, 4], []], [[], []]),
  'options': [
     ('accept, and keep the books open for any of the family to read', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.65}),
     ('study the accounts and draw up a plan, then decide', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.65}),
@@ -21389,6 +21510,7 @@ SITUATIONS = [
                'It takes three meetings, but by the end people are nodding instead of shouting.'],
               ['The loudest neighbour tears the plan apart, and the meeting ends worse than before.',
                'Half the block ignores whatever is agreed, and {N} is blamed for trying.']),
+ 'outcomes_not': ([[], []], [[], [4, 9]]),
  'options': [
     ('offer to chair the next meeting, and keep order in it', 'W1', None, 0.45, '', {'v': 'conformity', 'chance': 0.65}),
     ('draw a plan of the car park and count the spaces properly', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.65}),
@@ -21439,6 +21561,7 @@ SITUATIONS = [
                '{N} understands the firm better than ever, and keeps it quietly to themselves.'],
               ['{N} read it wrong, and the change never comes the way the figures said.',
                'Somebody notices that {N} knew early, and the trust in the office cools.']),
+ 'outcomes_not': ([[], [0, 2, 3, 5, 6, 8]], [[], []]),
  'options': [
     ("ask {boss} plainly whether it is true, for everyone's sake", 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.65}),
     ('build a full model of the figures, just to know if you are right', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.65}),
@@ -21488,6 +21611,7 @@ SITUATIONS = [
                'For one evening {N} is at the centre of everything, and it feels exactly right.'],
               ['The bill is far bigger than the bonus, and the morning after is grim.',
                'Half the guests never come, and the hall feels empty and expensive.']),
+ 'outcomes_not': ([[], []], [[2], [4]]),
  'options': [
     ('put most of it aside for the bills, and keep the party small', 'W1', None, 0.45, '', {'v': 'security', 'chance': 0.65}),
     ('price every option first, then decide what to do with it', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.65}),
@@ -21541,6 +21665,7 @@ SITUATIONS = [
                'The work is hard and the nights are cold, and {N} has rarely been so happy.'],
               ['Things fall apart at home while {N} is away, and it takes months to put them right.',
                'The weather turns, the work dries up, and the summer ends early and sour.']),
+ 'outcomes_not': ([[0], []], [[0], []]),
  'options': [
     ('stay, and keep the promises you have already made here', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.65}),
     ('ask {friend} for every detail of the work first, then decide', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.65}),
@@ -21707,6 +21832,7 @@ SITUATIONS = [
                '{sibling} thanks {N} in a way {N} has not heard before.'],
               ['Whatever {N} chose, {N} spends the fortnight wishing it had been the other.',
                'An old quarrel in the family opens up again over who did what.']),
+ 'outcomes_not': ([[], [2, 9]], [[], []]),
  'options': [
     ('cancel the trip and take the fortnight of care without complaint', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.58}),
     ('draw up a rota so the fortnight is split between everyone who can help', 'U1', None, 0.45, '', {'v': 'universalism', 'chance': 0.68}),
@@ -22165,6 +22291,7 @@ SITUATIONS = [
                '{N} finds that the rule and the friendship both survive the week.'],
               ['The manager finds the sheet does not match the door log, and {N} has some explaining to do.',
                '{friend} hears only the part {N} did not do, and the friendship cools.']),
+ 'outcomes_not': ([[], []], [[0, 4, 6], []]),
  'options': [
     ('sign the true time, and help them ask the manager for the hour back', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.6}),
     ('look up the leave policy and find the line that already covers a sick child', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.7}),
@@ -22220,6 +22347,7 @@ SITUATIONS = [
                'The new hire comes in the end, and {N} has a fair share of the credit.'],
               ['The secret gets out, and the team looks at {N} differently for months.',
                '{boss} takes the refusal personally, and the good shifts start going elsewhere.']),
+ 'outcomes_not': ([[], [2, 4, 9]], [[], [2, 5]]),
  'options': [
     ('turn the boss down, and tell the team about the offer as well', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'turned down a chance', 'chance': 0.6}),
     ("weigh what the extra money buys against what the team's plan could win", 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.7}),
@@ -22275,6 +22403,7 @@ SITUATIONS = [
                '{N} comes home with a story to tell and nothing left undone.'],
               ['The choice is made in a rush, and {N} spends the week wishing for the other one.',
                'Something left behind goes wrong while {N} is away, and someone is cross about it.']),
+ 'outcomes_not': ([[], [4]], [[], [4]]),
  'options': [
     ('get the plan, the costs and the return day, then decide if it adds up', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.6}),
     ('say yes before the call ends, and pack tonight', 'R1', None, 0.45, '', {'v': 'stimulation', 'mark': 'took a wild risk', 'chance': 0.6}),
@@ -22329,6 +22458,7 @@ SITUATIONS = [
                '{N} finds a way that the club can live with, and is thanked for it at the bar.'],
               ['The change splits the club, and {elder} stops coming on Tuesdays.',
                'Nothing changes, and the next missing page costs {N} a booking.']),
+ 'outcomes_not': ([[], []], [[1], []]),
  'options': [
     ('build the new booking system over a weekend and show it at the next meeting', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.6}),
     ('leave the book alone, because it works well enough and the members love it', 'G1', None, 0.45, '', {'v': 'tradition', 'chance': 0.6}),
@@ -22385,6 +22515,7 @@ SITUATIONS = [
                '{N} comes out of the season stronger and better placed, whoever wears the armband.'],
               ['The others hear of {Ns} move before it is made, and the changing room goes quiet around {N}.',
                '{N} holds back, and the role goes to a newcomer the coach likes better.']),
+ 'outcomes_not': ([[], []], [[1, 3], [0, 4, 8]]),
  'options': [
     ('go to the coach this week and make the case that you should have it now', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.6}),
     ('wait your turn, because your season will come the way theirs did', 'G1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.6}),
@@ -22495,6 +22626,7 @@ SITUATIONS = [
                '{N} learns something that stays, and it turns out to matter in more ways than one.'],
               ['The class is not what {N} hoped, and the evenings drag.',
                '{N} spends the term wondering about the other class, and gets less from either.']),
+ 'outcomes_not': ([[4, 6], []], [[4, 6], []]),
  'options': [
     ('take the class you love, purely to know more', 'U1', None, 0.45, '', {'v': 'self-direction', 'mark': 'learned a skill', 'chance': 0.6}),
     ('take the certificate, because knowledge that pays is knowledge that counts', 'B1', None, 0.45, '', {'v': 'achievement, power', 'chance': 0.6}),
@@ -22604,6 +22736,7 @@ SITUATIONS = [
                'The friendships come out of it looser in a good way, with room for everyone.'],
               ['The group goes on without {N}, and the jokes from the lake are ones {N} was not there for.',
                '{N} goes along and spends the week wishing they were somewhere else.']),
+ 'outcomes_not': ([[], []], [[1, 2, 5, 9], [0, 4, 7, 8]]),
  'options': [
     ('tell the group you are going your own way this year, and go', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'chance': 0.6}),
     ('go with the group to the lake, as you always do', 'G1', None, 0.45, '', {'v': 'tradition, conformity', 'chance': 0.6}),
@@ -23682,6 +23815,7 @@ SITUATIONS = [
                '{N} comes home with four hundred pictures and one, just one, that is exactly what they saw.'],
               ['Every shot of the morning is blurred, and the deadline comes and goes.',
                'The camera takes a wave full in the lens, and the screen goes dark for good.']),
+ 'outcomes_not': ([[9], []], [[], []]),
  'options': [
     ("complain to the committee that the rival's winning print was edited", 'W1', None, 0.45, '', {'v': 'conformity', 'mark': 'made an enemy', 'closed': 'approval: accusing a fellow member; backfire: the complaint fails, and the club takes sides', 'chance': 0.5}),
     ('learn the manual settings one by one, until the camera stops guessing', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'self_control': '+', 'chance': 0.7}),
@@ -23733,6 +23867,7 @@ SITUATIONS = [
                'Nobody makes a thing of it, and by the end of the week {N} knows where they stand.'],
               ['A teacher turns the corner, and every name in the circle goes in the book.',
                '{N} coughs until their eyes stream, and the whole group laughs.']),
+ 'outcomes_not': ([[], []], [[], [4, 5, 8, 9]]),
  'options': [
     ('take one pull, the way everyone in the circle has, and pass it on', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity', 'self_control': '-', 'closed': 'approval: vaping at school; backfire: caught, and a letter home', 'norm': 'tobacco', 'chance': 0.9}),
     ('try the one with something stronger in it, just to see what it does', 'U1', None, 0.45, '', {'v': 'self-direction, stimulation', 'mark': 'used drugs', 'body': 'light', 'closed': 'law: an illegal drug; backfire: sick and shaking in the toilets, and the school rings home', 'law': 'drugs', 'chance': 0.74}),
@@ -23831,6 +23966,7 @@ SITUATIONS = [
               ['Someone collapses by the back door, and the party ends with an ambulance and a lot of parents.',
                '{N} spends the small hours sick and frightened in the bathroom, with {friend} knocking on the '
                'door.']),
+ 'outcomes_not': ([[], []], [[], [1, 9]]),
  'options': [
     ('take one alongside your friend, so they are not in it alone', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'used drugs', 'body': 'heavy', 'death_if_fails': 0.003, 'closed': 'law: illegal drugs; backfire: a bad night in hospital, or the police', 'self_control': '-', 'law': 'drugs', 'chance': 0.74}),
     ('refuse anything nobody can say what is in', 'U1', None, 0.45, '', {'identity': True, 'v': 'security, self-direction', 'self_control': '+', 'chance': 0.92}),
@@ -23930,6 +24066,7 @@ SITUATIONS = [
                'Nothing bad comes of it, and {N} knows a little more about the people in that room.'],
               ["{friend}'s mother opens the door, and the smell tells her everything.",
                '{N} goes quiet and strange inside, and the walk home is a long one.']),
+ 'outcomes_not': ([[], []], [[7], []]),
  'options': [
     ('pass it on untouched, and say plainly that you would rather not', 'W1', None, 0.45, '', {'identity': True, 'v': 'conformity, security', 'self_control': '+', 'chance': 0.82}),
     ('take one small pull, and pay close attention to what it does', 'U1', None, 0.45, '', {'v': 'self-direction, stimulation', 'mark': 'used drugs', 'body': 'light', 'closed': 'law: cannabis is illegal here; backfire: hours of racing thoughts, or caught', 'law': 'drugs', 'chance': 0.76}),
@@ -24030,6 +24167,7 @@ SITUATIONS = [
                '{N} comes out of the sea tingling all over, and the evening tastes better for it.'],
               ["The current takes someone out past the rocks, and the lifeguard's boat goes roaring after them.",
                '{N} swallows half the bay, and staggers out coughing and frightened.']),
+ 'outcomes_not': ([[], [2]], [[], [2]]),
  'options': [
     ('stay between the flags, and swim there while the others go', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.82}),
     ('swim well clear of the dark lane, and turn back at the first buoy', 'U1', None, 0.45, '', {'v': 'security, achievement', 'body': 'light', 'chance': 0.88}),
@@ -24129,6 +24267,7 @@ SITUATIONS = [
                'The cloud lifts for a minute at the top, and {N} sees half the country spread out below.'],
               ['Someone slips on the wet rock, and the day ends with a helicopter and a stretcher.',
                'The cloud comes down thick, and they spend a long cold night lost on the hill.']),
+ 'outcomes_not': ([[], [1, 5, 8, 9]], [[], []]),
  'options': [
     ('keep to the plan the whole party agreed at breakfast: the summit, then down', 'W1', None, 0.45, '', {'v': 'conformity', 'mark': 'took a wild risk', 'body': 'heavy', 'death_if_fails': 0.01, 'chance': 0.7}),
     ('check the map and the forecast again, and pick the safer gully down', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.76}),
@@ -24181,6 +24320,7 @@ SITUATIONS = [
                'Everyone gets home safe, and by lunchtime the car is back where it belongs.'],
               ['A police car pulls out behind {N} on the long straight by the reservoir, lights flashing.',
                'No lift comes, the night turns cold, and it is nearly dawn before {N} gets home.']),
+ 'outcomes_not': ([[], []], [[0, 3, 4, 8, 9], []]),
  'options': [
     ('leave the car, phone for a taxi, and wait however long it takes', 'W1', None, 0.45, '', {'v': 'conformity, security', 'self_control': '+', 'chance': 0.82}),
     ("blow into the pub's breathalyser machine, and drive if it says yes", 'U1', None, 0.45, '', {'habit': True, 'v': 'security', 'self_control': '-', 'mark': 'took a wild risk', 'body': 'heavy', 'death_if_fails': 0.002, 'suspends_if_fails': 'driving licence', 'for_years': 1.0, 'closed': 'law: driving over the limit; backfire: the machine was wrong, and the police are not', 'law': 'drink-driving', 'chance': 0.76}),
@@ -24236,6 +24376,7 @@ SITUATIONS = [
                'By the next afternoon {friend} is sitting up in a hospital bed, asking for toast.'],
               ['{friend} spends three days in intensive care, and {N} spends them in the corridor.',
                'The police come with the ambulance, and the questions go on until dawn.']),
+ 'outcomes_not': ([[], [4, 9]], [[], []]),
  'options': [
     ('ring the emergency number at once, and do exactly what the operator says', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'chance': 0.62}),
     ('turn your friend on their side, watch the breathing, and call only if it worsens', 'U1', None, 0.45, '', {'v': 'security, benevolence', 'chance': 0.62}),
@@ -24408,6 +24549,7 @@ SITUATIONS = [
                'Within a month {N} has settled into a new routine, and sleeps better for it.'],
               ['A month later {N} clips a parked van in the rain, and the questions start.',
                '{N} sits in the kitchen turning the car keys over, and the house feels very small.']),
+ 'outcomes_not': ([[], []], [[6, 7], []]),
  'options': [
     ('report the near miss and your eyesight to the licensing office yourself', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'owned up', 'takes': 'driving licence', 'chance': 0.7}),
     ('book an eye test for the next morning, and find out exactly what is wrong', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.82}),
@@ -24463,6 +24605,7 @@ SITUATIONS = [
                'The job gets done, and {N} sits down with a cup of tea feeling about forty.'],
               ['The ladder shifts on the wet path, and {N} ends up on the grass with a wrist that will not bend.',
                'Weeks go by, the leaves stay put, and damp spreads across the front bedroom wall.']),
+ 'outcomes_not': ([[], []], [[0, 2, 5, 6, 7, 8, 9], []]),
  'options': [
     ('keep your promise, and ring a firm to do it properly', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'kept your word', 'chance': 0.88}),
     ('set the ladder at the right angle, tie it off, and go up slowly', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'took a wild risk', 'body': 'heavy', 'death_if_fails': 0.005, 'chance': 0.82}),
@@ -25337,6 +25480,7 @@ SITUATIONS = [
                'time.',
                '{N} keeps replaying the moment the thanks were offered, and is not sure the answer was the right '
                'one.']),
+ 'outcomes_not': ([[], [0, 4, 6, 7, 8]], [[], []]),
  'options': [
     ('accept, since refusing twice would let down the people who depend on you', 'W1', None, 0.45, '', {'line': 'cross', 'v': 'benevolence, conformity', 'act': 'accept, since refusing twice would let down the people who depend on them', 'chance': 0.8}),
     ('set out in writing what the strings would cost, and decline again', 'U1', None, 0.45, '', {'line': 'hold', 'v': 'self-direction, security', 'chance': 0.6}),
@@ -26442,6 +26586,7 @@ SITUATIONS = [
                'Someone at {place} who knows the story nods to {N} in a new way, and some trust comes back.'],
               ['It costs more than {N} expected, and the old hurt opens up again for a while.',
                'A door {N} hoped to open stays shut, and there are a few sleepless nights.']),
+ 'outcomes_not': ([[], [2, 6, 9]], [[], []]),
  'options': [
     ('go to them, own what you did, and keep the promise now in full', 'W1', None, 0.45, '', {'heal': 'amends', 'v': 'benevolence, conformity', 'mark': 'owned up', 'act': 'go to them, own what they did, and keep the promise now in full', 'chance': 0.65}),
     ('write out exactly how the promise broke, so you understand it at last', 'U1', None, 0.45, '', {'heal': 'reflect', 'v': 'self-direction', 'act': 'write out exactly how the promise broke, so they understand it at last', 'chance': 0.65}),
@@ -26592,6 +26737,7 @@ SITUATIONS = [
                'Months later {N} catches {Ns} own face in the mirror and finds it easier to meet.'],
               ['The letter stays on the table for days, and the old silence gets heavier, not lighter.',
                'It costs more than {N} expected, and a few nights go by without much sleep.']),
+ 'outcomes_not': ([[], []], [[2], []]),
  'options': [
     ('write to the one it touched and set the record straight, as you should have', 'W1', None, 0.45, '', {'heal': 'amends', 'v': 'conformity, benevolence', 'mark': 'owned up', 'act': 'write to the one it touched and set the record straight, as they should have', 'chance': 0.7}),
     ('read it through again and work out honestly what you knew, and when', 'U1', None, 0.45, '', {'heal': 'reflect', 'v': 'self-direction', 'act': 'read it through again and work out honestly what they knew, and when', 'chance': 0.65}),
@@ -26889,6 +27035,7 @@ SITUATIONS = [
                'Word gets back home of what {N} did, and an old cousin sends a warm line.'],
               ['The morning stirs up more than {N} bargained for, and the longing stays for weeks.',
                'It costs more than {N} expected, and a few nights go by without much sleep.']),
+ 'outcomes_not': ([[], [2, 6, 9]], [[], []]),
  'options': [
     ('send what you owe home each month, to the kin who stayed and kept it', 'W1', None, 0.45, '', {'heal': 'amends', 'v': 'benevolence, conformity', 'act': 'send what they owe home each month, to the kin who stayed and kept it', 'chance': 0.7}),
     ('write down the old place as it was, every field and lane, until you understand it', 'U1', None, 0.45, '', {'heal': 'reflect', 'v': 'self-direction, tradition', 'act': 'write down the old place as it was, every field and lane, until they understand it', 'chance': 0.65}),
@@ -27731,6 +27878,7 @@ SITUATIONS = [
                'Letting it go brings a lightness {N} had not expected.'],
               ['Another winter goes by, and the plan goes back in the drawer with new figures.',
                'The start is rushed, the first try fails, and the plan seems further away than ever.']),
+ 'outcomes_not': ([[], [0, 1, 2, 3, 5, 7, 8, 9]], [[], []]),
  'options': [
     ("revise the plan once more, properly this time, with this year's figures", 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.4}),
     ('set a date, tell everyone, and hold yourself to it', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'self_control': '+', 'chance': 0.62}),
@@ -27775,6 +27923,7 @@ SITUATIONS = [
                'The house is changed around {N}, and the stairs stop ruling the day.'],
               ['A fall on the stairs makes the decision for {N}, in a hospital corridor.',
                'Another winter passes with the folder on the table, and the choice gets harder.']),
+ 'outcomes_not': ([[4], [2, 3, 7, 8, 9]], [[], []]),
  'options': [
     ('compare the options once more, with the latest prices', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.4}),
     ('ask the family what would be best for everyone, and go along with it', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.62}),
@@ -27862,6 +28011,7 @@ SITUATIONS = [
                'The firm stays in their hands, smaller and theirs.'],
               ['{colleague} hears it from the buyer, and the two of them speak only through lawyers.',
                'The deal falls through, and the trust does not come back with it.']),
+ 'outcomes_not': ([[3, 4], [0, 7, 9]], [[], []]),
  'options': [
     ('sign, and let the lawyers tell {colleague}', 'B1', None, 0.45, '', {'v': 'power, achievement', 'mark': 'broke your word', 'chance': 0.4}),
     ('tell {colleague} everything tonight, and decide together', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'mark': 'kept your word', 'chance': 0.66}),
@@ -27988,6 +28138,7 @@ SITUATIONS = [
                'The nights get fewer and better, and the mornings come back.'],
               ['{N} oversleeps, and {boss} gives the shifts to someone else.',
                'By the end of the month {N} is ill, broke and short of friends.']),
+ 'outcomes_not': ([[8], []], [[8], []]),
  'options': [
     ('stay till dawn and go straight to work', 'R1', None, 0.45, '', {'v': 'hedonism, stimulation', 'self_control': '-', 'chance': 0.4}),
     ('go home now, as you promised yourself you would', 'W1', None, 0.45, '', {'v': 'conformity, security', 'self_control': '+', 'chance': 0.66}),
@@ -28031,6 +28182,7 @@ SITUATIONS = [
                '{N} leaves on {Ns} own terms, with a reference and no regrets.'],
               ['{N} is out of a job by Friday, and the story follows {N} to the next interview.',
                'Nothing changes, except that {N} is now the one who made a scene.']),
+ 'outcomes_not': ([[7, 8], []], [[], []]),
  'options': [
     ('say all of it, in front of everyone, and slam the door', 'R1', None, 0.45, '', {'v': 'self-direction, stimulation', 'mark': 'defied an authority', 'chance': 0.4}),
     ('sit down, and raise it through the proper complaint in the morning', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.66}),
@@ -28074,6 +28226,7 @@ SITUATIONS = [
                '{N} comes back changed, still burning, but on a lower flame.'],
               ['The pains come back worse, and a hospital bed makes the decision for {N}.',
                '{N} pushes through, and pays for it with a winter too tired to do anything at all.']),
+ 'outcomes_not': ([[0], []], [[], []]),
  'options': [
     ('skip the tests, push through the month, and rest when the work is done', 'R1', None, 0.45, '', {'v': 'stimulation, achievement', 'self_control': '-', 'chance': 0.4}),
     ('take the month off as the doctor says, and hand the work over properly', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.66}),
@@ -28119,6 +28272,7 @@ SITUATIONS = [
                'Old words are said again, differently, and this time they heal.'],
               ['The meeting turns into the old fight, word for word.',
                'The letter waits too long for an answer, and the next news is of a funeral.']),
+ 'outcomes_not': ([[0], []], [[0], []]),
  'options': [
     ('tear it up: what was said was meant, and it still stands', 'R1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.4}),
     ('write back at once, and say you were wrong, for your part', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'owned up', 'chance': 0.66}),
@@ -28541,6 +28695,7 @@ SITUATIONS = [
                '{N} grieves her properly, and carries one song of hers for the rest of {Ns} life.'],
               ['Nothing more is found, and the songs are gone beyond recall.',
                'The family argues over what she really sang, and the quarrel outlives the grief.']),
+ 'outcomes_not': ([[5], []], [[], []]),
  'options': [
     ('gather the family to sing together at the funeral, whatever anyone remembers', 'W1', None, 0.45, '', {'v': 'tradition, benevolence', 'sphere': 'arts.W', 'chance': 0.65}),
     ('piece the songs together from fragments, old letters and notebooks', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'arts.U', 'chance': 0.62}),
@@ -28657,6 +28812,7 @@ SITUATIONS = [
                '{N} and {friend} end up laughing about it, and watch the next series together.'],
               ['A joke about the ending goes down badly, and it is a chilly month at home.',
                '{N} digs in, and an old view hardens into something harder to shift.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('say what you think at dinner, and listen to every side of the table', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'sphere': 'arts.W', 'chance': 0.75}),
     ('write a long post showing how the clues pointed to the ending all along', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'tech': 'internet', 'sphere': 'arts.U', 'chance': 0.74}),
@@ -28961,6 +29117,7 @@ SITUATIONS = [
                '{N} enjoys the joke, keeps the friends, and is not caught up in what follows.'],
               ['A line {N} shared is quoted back at {N} by someone who did not find it funny.',
                'Next week a sketch mocks {Ns} own town, and it is not so funny from the inside.']),
+ 'outcomes_not': ([[], []], [[2, 8], []]),
  'options': [
     ('say at the table that the sketch should mock what he did, not how he talks', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'sphere': 'arts.W', 'chance': 0.73}),
     ("look up the minister's real words, and share them beside the sketch", 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'tech': 'internet', 'sphere': 'arts.U', 'chance': 0.73}),
@@ -29077,6 +29234,7 @@ SITUATIONS = [
                'The actors who spoke up are heard, and {N} is glad to have stood where {N} stood.'],
               ['The quarrel over the director spills into {Ns} friendships, and one does not survive it.',
                '{N} cannot watch any film now without wondering what went on behind it.']),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('stand with the actors who spoke, and say so where people can hear', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'sphere': 'arts.W', 'chance': 0.64}),
     ('read every account in full before judging', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'sphere': 'arts.U', 'chance': 0.78}),
@@ -29564,6 +29722,7 @@ SITUATIONS = [
                'The maker settles, the rules for new medicines tighten, and {N} had a small hand in it.'],
               ['The complaint goes into a long queue and comes back months later with a form letter.',
                '{parent} stops trusting any doctor at all, and the next real illness is left too long.']),
+ 'outcomes_not': ([[], [1, 4, 5, 6]], [[1, 4, 5, 6, 9], []]),
  'options': [
     ('write a formal complaint to the health board, with the dates and the prescription', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution hospital', 'sphere': 'care.W', 'chance': 0.73}),
     ('book your parent a heart check, and go through the study with the doctor', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'care.U', 'chance': 0.71}),
@@ -29980,6 +30139,7 @@ SITUATIONS = [
                "{N} has a notebook in {grandparent}'s own words, and it means more than the tea."],
               ['{N} keeps meaning to ask, and then it is too late, and nobody can quite get the taste right.',
                "The recipe is written down, but without {grandparent}'s hands it never tastes the same."]),
+ 'outcomes_not': ([[], [5]], [[], []]),
  'options': [
     ('write the recipe down exactly, with every amount, and share it with the family', 'W1', None, 0.45, '', {'v': 'tradition, benevolence', 'sphere': 'care.W', 'chance': 0.77}),
     ('ask the pharmacist what in the tea might really work, and why', 'U1', None, 0.45, '', {'v': 'self-direction', 'sphere': 'care.U', 'chance': 0.78}),
@@ -30154,6 +30314,7 @@ SITUATIONS = [
                "The family's savings stay where they are, and {N} sees what that means for years to come."],
               ['{Ns} wait stretches past a year, and the knee gets worse in the meantime.',
                'The waits grow every year, and the pride in the new system turns to grumbling in the queue.']),
+ 'outcomes_not': ([[], [2]], [[2], []]),
  'options': [
     ('take your place in the queue for the knee, as everyone must', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'loyalty', 'pushes': 'state', 'sphere': 'care.W', 'chance': 0.79}),
     ('ask the doctor how your case is scored, and what would move it up the list', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'lever': 'voice', 'sphere': 'care.U', 'chance': 0.75}),
@@ -30212,6 +30373,7 @@ SITUATIONS = [
                'Between the family and the fundraiser the bill is paid, and nobody had to sell the house.'],
               ['The car goes, then the savings, and the bill is still not paid by spring.',
                'The appeal is refused, and the treatment waits while the forms go back and forth.']),
+ 'outcomes_not': ([[2, 4, 5, 6, 7, 8], []], [[], [2, 4, 5, 6, 7, 8]]),
  'options': [
     ("apply to the hospital's hardship fund, with every form filled in properly", 'W1', None, 0.45, '', {'v': 'security, conformity', 'sphere': 'care.W', 'chance': 0.55}),
     ('read the policy clause by clause, and appeal on the line they missed', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'lever': 'voice', 'pushes': 'economy', 'sphere': 'care.U', 'chance': 0.63}),
@@ -30266,6 +30428,7 @@ SITUATIONS = [
                'The home gets its staff back, and {N} can visit as family again, not as a spare carer.'],
               ["The rota keeps changing, and {N} ends up doing half a carer's job on top of {Ns} own.",
                '{boss} grows short-tempered about the hours, and {N} has to choose between them and {parent}.']),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('put it in writing to the manager and the inspectors that the standards are not met', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'voice', 'pushes': 'institution hospital', 'sphere': 'care.W', 'chance': 0.65}),
     ("pin a page on your parent's needs by the bed, for every new face", 'U1', None, 0.45, '', {'v': 'benevolence, achievement', 'sphere': 'care.U', 'chance': 0.77}),
@@ -30500,6 +30663,7 @@ SITUATIONS = [
                '{N} comes through the winter with less, and with a clear idea of who stood by them.'],
               ['The ninety days run out, and the next letter is from the bailiffs.',
                '{N} gets through the deadline, but the hours never come back, and the debt follows them for years.']),
+ 'outcomes_not': ([[2, 3], []], [[], []]),
  'options': [
     ('write to everyone you owe and set out an honest plan to pay each in turn', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.77}),
     ('read the loan papers clause by clause, and find what the new owners can really demand', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'sphere': 'comm.U', 'chance': 0.66}),
@@ -30923,6 +31087,7 @@ SITUATIONS = [
                'The van moves on by spring, and the corner shop is still there.'],
               ['The van is raided, and names come out, {Ns} among them.',
                '{N} keeps clear of the van, and half the street calls them a prig for it.']),
+ 'outcomes_not': ([[], []], [[0, 1, 6, 7, 8, 9], [2, 3, 4, 5]]),
  'options': [
     ('report the van to the inspectors, with the days and times it parks', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'sphere': 'comm.W', 'chance': 0.71}),
     ('turn the driving down, since the sums show far more risk than pay', 'U1', None, 0.45, '', {'v': 'security', 'mark': 'turned down a chance', 'sphere': 'comm.U', 'chance': 0.7}),
@@ -31040,6 +31205,7 @@ SITUATIONS = [
                'When the market turns, {N} is on solid ground, and can help the friends who are not.'],
               ['Prices fall by a quarter in a year, and {N} owes more than the flat is worth.',
                '{N} stays out, prices rise for five more years, and the chance of a home in town slips away.']),
+ 'outcomes_not': ([[], []], [[1, 4, 6], [0, 2, 3, 5]]),
  'options': [
     ('borrow only what one wage can repay, whatever the lender offers', 'W1', None, 0.45, '', {'v': 'security, conformity', 'sphere': 'comm.W', 'chance': 0.72}),
     ('stay out, since the rents no longer cover the prices, and say so', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'mark': 'turned down a chance', 'sphere': 'comm.U', 'chance': 0.55}),
@@ -31217,6 +31383,7 @@ SITUATIONS = [
                '{N} has money kept safe and a way to make it grow, the first in the family to have both.'],
               ["The bank says no, and {N} remembers the clerk's face for years.",
                'The repayments come due in a bad season, and the loan becomes a weight.']),
+ 'outcomes_not': ([[0, 4, 6, 9], []], [[], [0, 4, 6, 9]]),
  'options': [
     ('open a savings account and pay in the same sum every week', 'W1', None, 0.45, '', {'v': 'security, conformity', 'sphere': 'comm.W', 'chance': 0.71}),
     ("compare the three lenders' terms line by line before signing anything", 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'comm.U', 'chance': 0.73}),
@@ -31277,6 +31444,7 @@ SITUATIONS = [
                '{N} comes out of the change with a steady wage or a loyal trade, and no regrets.'],
               ['The grocer closes within three years, and the high street goes quiet.',
                '{N} works the tills for years and never gets past them.']),
+ 'outcomes_not': ([[], []], [[], [1, 3, 4, 6, 7, 8, 9]]),
  'options': [
     ('take a job on the tills, with its written wage and fixed hours', 'W1', None, 0.45, '', {'v': 'security, conformity', 'sphere': 'comm.W', 'chance': 0.76}),
     ('shop at both, buying each thing where it is cheaper', 'U1', None, 0.45, '', {'v': 'security', 'sphere': 'comm.U', 'chance': 0.81}),
@@ -31459,6 +31627,7 @@ SITUATIONS = [
                'The newcomers and the old families find their way to trust, and {N} helped.'],
               ['The quarrels on the street sharpen, and {N} is caught between old neighbours and new.',
                'The new shop {N} backed fails in its first winter, and the window is empty again.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ("speak up for the new shops at the residents' meeting when others complain", 'W1', None, 0.45, '', {'v': 'universalism', 'lever': 'voice', 'pushes': 'place', 'sphere': 'comm.W', 'chance': 0.77}),
     ('ask the grocer where his stock comes from, and how the trade works', 'U1', None, 0.45, '', {'v': 'self-direction', 'mark': 'made a friend', 'sphere': 'comm.U', 'chance': 0.71}),
@@ -31570,6 +31739,7 @@ SITUATIONS = [
                '{N} finds a home the household can afford, and the move is easier than feared.'],
               ['The family moves an hour out, and {child} misses the old friends for a long time.',
                'The rent is paid, but the savings drain away a little more each month.']),
+ 'outcomes_not': ([[2, 3, 4, 7], []], [[], [3, 4]]),
  'options': [
     ('pay the new rent, and cut the household budget to match it', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.81}),
     ('show the landlord what similar flats rent for, and offer a smaller rise', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'comm.U', 'chance': 0.65}),
@@ -31628,6 +31798,7 @@ SITUATIONS = [
                'The post {N} chose turns out to suit them, and lasts longer than anyone expected.'],
               ['The queue is long, the posts are few, and {N} goes home with nothing three weeks running.',
                'The job {N} took in a hurry pays less than promised, and lasts one season.']),
+ 'outcomes_not': ([[], []], [[], [1, 2]]),
  'options': [
     ('take a numbered place in the queue and apply for the posts in order', 'W1', None, 0.45, '', {'v': 'conformity', 'sphere': 'comm.W', 'chance': 0.67}),
     ('sign up for the forklift course before taking any post', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'sphere': 'comm.U', 'chance': 0.69}),
@@ -32276,6 +32447,7 @@ SITUATIONS = [
                'Whatever {N} decides, they decide it with open eyes, and the family stays close.'],
               ['The training costs more than {N} guessed, in money and in time at home.',
                'The call fades in the second year, and {N} is left unsure what it was.']),
+ 'outcomes_not': ([[], []], [[9], []]),
  'options': [
     ('start the training, and give the next years to those who grieve', 'W1', None, 0.45, '', {'v': 'benevolence, tradition', 'lever': 'loyalty', 'pushes': 'belief', 'sphere': 'faith.W', 'chance': 0.55}),
     ('take one evening course first, to test whether the call holds', 'U1', None, 0.45, '', {'v': 'self-direction', 'mark': 'learned a skill', 'sphere': 'faith.U', 'chance': 0.55}),
@@ -32441,6 +32613,7 @@ SITUATIONS = [
                'The owner and {N} become friends of a kind neither of them expected.'],
               ['More windows go before the war ends, and the street goes quiet with fear.',
                'Some on the street tell {N} they chose the wrong side, and do not forget it.']),
+ 'outcomes_not': ([[], [2]], [[], []]),
  'options': [
     ('go to the police with the owner, and give your account of the night', 'W1', None, 0.45, '', {'v': 'security, universalism', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'faith.W', 'chance': 0.6}),
     ('ask the owner round for coffee and hear what the last weeks have been like', 'U1', None, 0.45, '', {'v': 'universalism, benevolence', 'mark': 'made a friend', 'sphere': 'faith.U', 'chance': 0.6}),
@@ -32788,6 +32961,7 @@ SITUATIONS = [
                'A year on, the café on the corner feels as if it was always there, and {N} is part of why.'],
               ['The new place is the fashion for one summer, then half empty, and the old one has closed meanwhile.',
                '{N} drifts between the two and ends the year a regular at neither.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ("offer to set out the long tables on the new place's open community night", 'W1', None, 0.45, '', {'v': 'benevolence, universalism', 'sphere': 'gather.W', 'chance': 0.72}),
     ('go to the Tuesday talk and argue the question with strangers', 'U1', None, 0.45, '', {'v': 'self-direction, stimulation', 'mark': 'made a friend', 'sphere': 'gather.U', 'chance': 0.72}),
@@ -32912,6 +33086,7 @@ SITUATIONS = [
               ['The stories harden into sides, and {N} cannot walk past that club again without a look over the '
                'shoulder.',
                '{friend} heals slowly, and blames {N} a little for what was or was not done.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('give the police a statement of exactly what you saw', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'sphere': 'gather.W', 'chance': 0.81}),
     ('ask the club for the camera footage before anyone tells their story', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'gather.U', 'chance': 0.57}),
@@ -33202,6 +33377,7 @@ SITUATIONS = [
                'The soup night and the swap night become something the town keeps even when the work comes back.'],
               ['{friend} leaves for work and does not come back.',
                'The corner bar shuts too in the second winter, and {N} spends the evenings alone.']),
+ 'outcomes_not': ([[], []], [[6], []]),
  'options': [
     ('help serve at the soup night twice a week', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'sphere': 'gather.W', 'chance': 0.7}),
     ('spend the evenings in the reading room learning a trade that is still hiring', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'sphere': 'gather.U', 'chance': 0.7}),
@@ -33315,6 +33491,7 @@ SITUATIONS = [
                '{N} comes out of it knowing exactly what kind of member {N} means to be.'],
               ['The vote goes the other way, and {friend} stops answering {Ns} calls.',
                'The club splits in two, and both halves blame {N} a little.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('vote to let in everyone on the list, in the order they applied', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'group club', 'sphere': 'gather.W', 'chance': 0.63}),
     ('show the meeting what the minutes say about who waits and who does not', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'group club', 'sphere': 'gather.U', 'chance': 0.64}),
@@ -33431,6 +33608,7 @@ SITUATIONS = [
               ['The team folds by spring, and the shirts go into a box in the loft.',
                '{N} drifts into evenings in front of the screen and sees the old players only by chance in the '
                'street.']),
+ 'outcomes_not': ([[4, 5], []], [[], []]),
  'options': [
     ("take on the secretary's job, so someone holds the team together", 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'lever': 'loyalty', 'pushes': 'group club', 'sphere': 'gather.W', 'chance': 0.63}),
     ('work out a plan to merge with the club in the next town', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'sphere': 'gather.U', 'chance': 0.61}),
@@ -33660,6 +33838,7 @@ SITUATIONS = [
                "{N} learns how the town's new talk works, and how to use it."],
               ['The item follows {N} for months, and strangers bring it up at the bus stop.',
                'The quarrel with {rival} grows bigger in the feed than it ever was at the market.']),
+ 'outcomes_not': ([[], [4, 5]], [[], []]),
  'options': [
     ('write in politely to ask that the item be put right', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'voice', 'pushes': 'place', 'sphere': 'gather.W', 'chance': 0.58}),
     ('check every claim in the item, and post the true story under it', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'sphere': 'gather.U', 'chance': 0.56}),
@@ -33836,6 +34015,7 @@ SITUATIONS = [
                'The school becomes the heart of the far bank, and {N} knows half the parents by name.'],
               ['The new school is short of teachers in its second year, and the classes double in size.',
                '{child} misses the old friends from the bus, and the first term is a hard one.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('go door to door on the far bank, so every family knows a place is theirs', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'sphere': 'learn.W', 'chance': 0.79}),
     ('sit in on a lesson, and ask the new teacher how they teach reading', 'U1', None, 0.45, '', {'v': 'self-direction', 'sphere': 'learn.U', 'chance': 0.72}),
@@ -34006,6 +34186,7 @@ SITUATIONS = [
                'A year on, the number no longer matters much, and {N} knows it.'],
               ['The second choice never feels like {Ns} own, and {N} drifts through it.',
                'The second try or the transfer goes nowhere, and {N} loses a year.']),
+ 'outcomes_not': ([[], []], [[3, 9], []]),
  'options': [
     ('accept the second choice, and give it your best from the first day', 'W1', None, 0.45, '', {'act': 'accept the second choice, and give it their best from the first day', 'v': 'conformity, achievement', 'sphere': 'learn.W', 'chance': 0.71}),
     ('ask to see the marked paper, and learn exactly where the four points went', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'learn.U', 'chance': 0.65}),
@@ -34122,6 +34303,7 @@ SITUATIONS = [
                '{N} reads what {N} wanted to read, and learns who can be trusted with it.'],
               ['{mentor} is let go at the end of term, and the school is never quite the same.',
                'The list grows longer each term, and {Ns} name is noted for asking too many questions.']),
+ 'outcomes_not': ([[], []], [[], [2]]),
  'options': [
     ('hand in the copy as the notice asks, and write to the council asking why', 'W1', None, 0.45, '', {'v': 'conformity', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'learn.W', 'chance': 0.8}),
     ('read the complaints and every pulled book, and judge them for yourself', 'U1', None, 0.45, '', {'act': 'read the complaints and every pulled book, and judge them for themselves', 'v': 'self-direction, universalism', 'sphere': 'learn.U', 'chance': 0.77}),
@@ -34633,6 +34815,7 @@ SITUATIONS = [
                '{N} learns as much from the newcomers as they learn from {N}.'],
               ['A misunderstanding on the stairs sours things, and the two families stop speaking.',
                'The newcomers move on after two years, and {N} wishes {N} had done more.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('help the children with their homework when the parents cannot', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'sphere': 'learn.W', 'chance': 0.72}),
     ('ask them about the place they came from, and listen', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'mark': 'made a friend', 'sphere': 'learn.U', 'chance': 0.77}),
@@ -34753,6 +34936,7 @@ SITUATIONS = [
                'The town is poorer, but {N} finds a way to make a living and stay among people {N} knows.'],
               ['The gates are chained by autumn, and the high street empties shop by shop.',
                "{parent} never finds work again, and the family's evenings grow quiet and hard."]),
+ 'outcomes_not': ([[], [3]], [[], []]),
  'options': [
     ('help the older hands claim every payment and pension they are owed', 'W1', None, 0.45, '', {'v': 'benevolence, universalism', 'mark': 'helped someone in need', 'sphere': 'prod.W', 'chance': 0.75}),
     ('train for a trade that is hiring, at the college in the next town', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'sphere': 'prod.U', 'chance': 0.55}),
@@ -34818,6 +35002,7 @@ SITUATIONS = [
                'Whatever was done, {N} comes out of the strike with a friend made at the gate for life.'],
               ['The strike ends with little won, and some at the gate never speak to {N} again.',
                'The weeks without pay eat the savings, and the family feels it for a year.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('keep your word to the crew, and stand your shifts at the gate', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'mark': 'kept your word', 'lever': 'voice', 'pushes': 'institution employer', 'sphere': 'prod.W', 'chance': 0.89}),
     ('show the crew what the offer is worth against prices, month by month', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'sphere': 'prod.U', 'chance': 0.8}),
@@ -34940,6 +35125,7 @@ SITUATIONS = [
                '{N} sells well, and makes a new start without bitterness.'],
               ["The firm's fences go up round the farm, the water rights go first, and the offer is lower next year.",
                'The family splits over the offer, and {grandparent} stops speaking to {N}.']),
+ 'outcomes_not': ([[2, 6], [3, 4, 5, 7, 8, 9]], [[2, 6], []]),
  'options': [
     ('take the offer only if the firm keeps on every hand who works the farm', 'W1', None, 0.45, '', {'v': 'benevolence, universalism', 'sphere': 'prod.W', 'chance': 0.73}),
     ('work out what the farm could earn with new crops, then answer', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'sphere': 'prod.U', 'chance': 0.64}),
@@ -35063,6 +35249,7 @@ SITUATIONS = [
                'Ten years on the counts are rising, and {N} is on the quay when the first boat goes out again.'],
               ['The harbour empties of young people, and {N} spends the winters watching the boats rot.',
                'Crews fish the closed waters at night, and the town turns on itself over who is cheating.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('keep the closure, and report the boats that slip out at night', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'sphere': 'prod.W', 'chance': 0.76}),
     ('sign on with the scientists to count the fish through the closed years', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'sphere': 'prod.U', 'chance': 0.74}),
@@ -35126,6 +35313,7 @@ SITUATIONS = [
                'The cheating is put right without a feud, and the boats go out on fair terms.'],
               ['The meeting splits over the cheating, and two towns walk out of the agreement.',
                '{rival} learns who spoke against them, and the harbour is a cold place for a while.']),
+ 'outcomes_not': ([[], []], [[], [2, 3, 4, 5, 6, 7, 8]]),
  'options': [
     ("ask the meeting to check every boat's landings the same way, your own first", 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'place', 'sphere': 'prod.W', 'chance': 0.84}),
     ('bring your four years of catch logs to the next count', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'sphere': 'prod.U', 'chance': 0.68}),
@@ -35182,6 +35370,7 @@ SITUATIONS = [
                'The farm and the kitchens find their hands again, and {N} helped them do it fairly.'],
               ['The machine takes the picking work, and the raise lasts one season.',
                '{N} moves from job to job chasing pay, and ends the year tired and no better off.']),
+ 'outcomes_not': ([[], [3]], [[], []]),
  'options': [
     ('ask for the same raise for every hand on the team, not only yourself', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'institution employer', 'sphere': 'prod.W', 'chance': 0.85}),
     ('learn to run and mend the picking machine', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'sphere': 'prod.U', 'chance': 0.79}),
@@ -35300,6 +35489,7 @@ SITUATIONS = [
                '{sibling} comes home, and the overtime money pays for the welcome.'],
               ['The hours grind {N} down, and the money goes as fast as it comes.',
                'The war ends, the orders stop overnight, and the plant lays off the newest hands first.']),
+ 'outcomes_not': ([[], [3]], [[3], []]),
  'options': [
     ('ask the union to set a limit on the weekend hours for everyone', 'W1', None, 0.45, '', {'v': 'benevolence, security', 'lever': 'voice', 'pushes': 'institution employer', 'sphere': 'prod.W', 'chance': 0.63}),
     ('ask the engineers exactly what the new parts are for', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'prod.U', 'chance': 0.68}),
@@ -35420,6 +35610,7 @@ SITUATIONS = [
                'The valley keeps enough of its young, and {N} is one of the reasons why.'],
               ['{sibling} calls home less and less, and then hardly at all.',
                '{N} ends up between the two places, at home in neither.']),
+ 'outcomes_not': ([[], [2, 3]], [[], []]),
  'options': [
     ('stay, and take on the shared harvest work the young have left behind', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'stayed home', 'sphere': 'prod.W', 'chance': 0.75}),
     ('weigh the city wages against the city rents, and only then decide', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'prod.U', 'chance': 0.75}),
@@ -35835,6 +36026,7 @@ SITUATIONS = [
                'The new kit and the old knowledge turn out to need each other, and {N} has both.'],
               ['The new system drops out on the busiest night of the year, and {N} takes the blame.',
                '{N} falls behind the younger ones on the screens, and is quietly moved to a desk.']),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('do the training course properly and pass the new drill first time', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'mark': 'learned a skill', 'lever': 'loyalty', 'pushes': 'institution police', 'sphere': 'prot.W', 'chance': 0.59}),
     ('test the maps on your own beat and write up where they go wrong', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'prot.U', 'chance': 0.66}),
@@ -35945,6 +36137,7 @@ SITUATIONS = [
                'The break-ins stop by spring, and the street knows itself better than before.'],
               ['{Ns} own back door is forced one afternoon, and the house never quite feels the same.',
                'The fear outlasts the break-ins, and the street stays locked and wary for a year.']),
+ 'outcomes_not': ([[2, 4, 5, 6, 8, 9], []], [[], []]),
  'options': [
     ('report everything to the police, and press them to send a patrol', 'W1', None, 0.45, '', {'v': 'security, conformity', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'prot.W', 'chance': 0.72}),
     ('work out the pattern in the break-ins and post it for the street', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'sphere': 'prot.U', 'chance': 0.7}),
@@ -36003,6 +36196,7 @@ SITUATIONS = [
                'The police take it seriously this time, and by summer the visits have stopped.'],
               ['The visits go on, and the street learns to pay and look down.',
                "The shop's window goes in one night, and {boss} pays from then on."]),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('go to the police with what you saw, and give a statement', 'W1', None, 0.45, '', {'v': 'security, conformity', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'prot.W', 'chance': 0.63}),
     ('write down their car, their times and their faces, and keep it somewhere safe', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'prot.U', 'chance': 0.65}),
@@ -36059,6 +36253,7 @@ SITUATIONS = [
                'The town turns against the way the camp was cleared, and the next protest goes ahead in peace.'],
               ['{friend} is charged, and {N} spends months of evenings on the case.',
                'The videos fade from the news within a week, and nothing changes.']),
+ 'outcomes_not': ([[2, 5], []], [[2], []]),
  'options': [
     ('go to the station and ask, properly, what your friend is charged with', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'pushes': 'institution police', 'sphere': 'prot.W', 'chance': 0.76}),
     ('gather the videos and the witnesses, and set out what happened in order', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'sphere': 'prot.U', 'chance': 0.73}),
@@ -36395,6 +36590,7 @@ SITUATIONS = [
                'The leak brings in a new law on what the city may watch, and {N} played a small part in it.'],
               ['The friendship ends that night, and neither of them ever quite explains.',
                '{N} stops trusting the phone, the street and most people for a long time.']),
+ 'outcomes_not': ([[], [5, 7]], [[], []]),
  'options': [
     ('join the legal claim against the city for the tracking', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'prot.W', 'chance': 0.73}),
     ('ask for your full file, and read every page of it', 'U1', None, 0.45, '', {'v': 'self-direction', 'sphere': 'prot.U', 'chance': 0.72}),
@@ -37055,6 +37251,7 @@ SITUATIONS = [
                'The fight brings the street closer, and the bill is easier to bear shared.'],
               ['The charge stays, and the household goes without something it needed.',
                'A warning letter arrives with {Ns} name on it, and the fine is worse than the charge.']),
+ 'outcomes_not': ([[], []], [[], [0, 4]]),
  'options': [
     ('pay the charge on time, and ask the meeting that everyone pays alike', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.7}),
     ('lay out what each street pays, and show the meeting where it falls hardest', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.7}),
@@ -37238,6 +37435,7 @@ SITUATIONS = [
                '{N} finds a way round the stalled town hall, and the neighbours remember who helped.'],
               ['The deadlock drags into a second season, and the thing {N} waited for never comes.',
                '{N} spends months on the fight, and the town hall seems to notice none of it.']),
+ 'outcomes_not': ([[], []], [[], [0]]),
  'options': [
     ('keep the paperwork in order and wait your turn, as the rules say', 'W1', None, 0.45, '', {'act': 'keep the paperwork in order and wait their turn, as the rules say', 'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.65}),
     ('send both leaders the cost of the deadlock, worked out street by street', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.65}),
@@ -37357,6 +37555,7 @@ SITUATIONS = [
                '{N} does the count the way {N} thinks right, and nothing comes back to trouble the house.'],
               ['The street comes up short in the count, and the clinic on the corner loses its funding.',
                'A follow-up letter arrives, asking awkward questions about who really lives in the house.']),
+ 'outcomes_not': ([[2, 3], []], [[], []]),
  'options': [
     ('answer every question truly, the lodger included', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'state', 'sphere': 'rule.W', 'chance': 0.8}),
     ('find out what the answers are used for before filling in a single box', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'sphere': 'rule.U', 'chance': 0.8}),
@@ -37474,6 +37673,7 @@ SITUATIONS = [
                'The family goes, but their things are kept safe and they leave a friend who will not forget them.'],
               ['The family is gone within the month, and {N} cannot stop thinking about the empty house.',
                '{N} is questioned over the part {N} played, and the fine takes months to pay.']),
+ 'outcomes_not': ([[], [5]], [[], [5]]),
  'options': [
     ('speak at the hearing for the family, as a neighbour who knows them', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'state', 'sphere': 'rule.W', 'chance': 0.6}),
     ('find the exception in the law that fits their case, and file it in time', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'institution court', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -37589,6 +37789,7 @@ SITUATIONS = [
                'The bench thanks {N} from the chair, and the man nods at {N} on his way out.'],
               ['The claim is struck out before the page turns up, and the man has to start again.',
                '{colleague} hears who raised it, and the office is cold to {N} for a month.']),
+ 'outcomes_not': ([[7], []], [[], [7]]),
  'options': [
     ('ask the bench to stand the claim down until the page is found', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'sphere': 'rule.W', 'chance': 0.75}),
     ("trace the page through the morning's file trays before eleven", 'U1', None, 0.45, '', {'v': 'achievement', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -37952,6 +38153,7 @@ SITUATIONS = [
                'The weeks turn out to matter to {N} too, and {N} starts keeping one free place every year.'],
               ['The pupil misses the pass by two marks, and {N} wonders what one more session would have done.',
                'The free weeks cost {N} a paying family, and the autumn starts thin.']),
+ 'outcomes_not': ([[], [2]], [[], [2]]),
  'options': [
     ('teach the six weeks for free, and tell no one', 'W1', None, 0.45, '', {'v': 'benevolence, universalism', 'sphere': 'learn.W', 'chance': 0.75}),
     ('write the pupil a six-week plan they can follow alone', 'U1', None, 0.45, '', {'v': 'achievement, benevolence', 'sphere': 'learn.U', 'chance': 0.75}),
@@ -37998,6 +38200,7 @@ SITUATIONS = [
                'The café owner hears what {N} did, and the Friday tip doubles from then on.'],
               ["The trader's tips stop, and the other traders on the row go quiet when {N} comes by.",
                'The warden finds the scale right by the time anyone looks, and {N} is the one who looks foolish.']),
+ 'outcomes_not': ([[], [2, 7]], [[], [2, 7]]),
  'options': [
     ('tell the market warden, and let the warden check the scale', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'sphere': 'comm.W', 'chance': 0.75}),
     ('weigh the crate again on the public scale before handing it over', 'U1', None, 0.45, '', {'v': 'universalism, security', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -38048,6 +38251,7 @@ SITUATIONS = [
                'The handshake holds, and the old stallholder drops by every week to see how her pitch is kept.'],
               ['The first winter is slow, and {N} is back on the barrows by the morning shift to cover the rent.',
                'Her son turns up in the summer, says the pitch was never hers to give, and wants it back.']),
+ 'outcomes_not': ([[], []], [[8], []]),
  'options': [
     ('ask to write the terms down, with the market warden as witness', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.75}),
     ('ask to see her takings book for a full year before saying yes', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -38151,6 +38355,7 @@ SITUATIONS = [
                'The manager backs down in front of the queue, and the door is run more fairly after that.'],
               ['The manager takes {N} off the Saturday rota, and the rent is short that month.',
                '{friend} sees what happened at the door and does not speak to {N} for weeks.']),
+ 'outcomes_not': ([[2, 4, 7], []], [[], []]),
  'options': [
     ('let them in like anyone else, and tell the manager the rule is one for all', 'W1', None, 0.45, '', {'v': 'universalism', 'lever': 'voice', 'sphere': 'prot.W', 'chance': 0.75}),
     ('show the manager the incident log, where this group has never once appeared', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -38498,6 +38703,7 @@ SITUATIONS = [
                'another.'],
               ['Nobody answers the door, and a week later the keeper hears she has moved away without a word.',
                'She is mortified to have been found out, and stops coming for good.']),
+ 'outcomes_not': ([[2, 4, 7], []], [[2, 4, 6, 7], []]),
  'options': [
     ('ask the keeper for her address, and knock on her door tomorrow', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'lever': 'loyalty', 'sphere': 'gather.W', 'chance': 0.75}),
     ('ask round the regulars quietly until someone knows what has happened', 'U1', None, 0.45, '', {'v': 'benevolence, universalism', 'sphere': 'gather.U', 'chance': 0.75}),
@@ -38552,6 +38758,7 @@ SITUATIONS = [
                'Within a month {N} is back at the corner table, and the plate goes back to the keeper washed.'],
               ['{N} keeps the door shut, and the trouble grows in the quiet for another season.',
                'Word gets round the café faster than {N} would like, and the old seat feels watched.']),
+ 'outcomes_not': ([[2], []], [[0, 1, 3, 4, 5, 6, 7, 8, 9], []]),
  'options': [
     ('thank the keeper properly, and promise to be back on club night', 'W1', None, 0.45, '', {'act': 'thank the keeper properly, and promise to be back on club night', 'v': 'conformity, benevolence', 'sphere': 'gather.W', 'chance': 0.7}),
     ('tell the keeper plainly what has gone wrong, and ask what they would do', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'sphere': 'gather.U', 'chance': 0.7}),
@@ -38726,6 +38933,7 @@ SITUATIONS = [
               ['The foreman picks four and walks off, and {N} goes home with nothing but cold feet.',
                '{rival} gets the place {N} was half promised, and {N} is back at the gate the next morning, and the '
                'next.']),
+ 'outcomes_not': ([[5, 7, 8, 9], []], [[5, 7, 8, 9], []]),
  'options': [
     ('wait your turn in the line, and trust the foreman to pick fairly', 'W1', None, 0.45, '', {'act': 'wait their turn in the line, and trust the foreman to pick fairly', 'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.55}),
     ('show the foreman the safety card you earned at the job centre last week', 'U1', None, 0.45, '', {'act': 'show the foreman the safety card they earned at the job centre last week', 'v': 'achievement, security', 'sphere': 'comm.U', 'chance': 0.55}),
@@ -38785,6 +38993,7 @@ SITUATIONS = [
                'The new work pays less, but {N} likes the people, and goes home tired in the right way.'],
               ['A year of letters goes unanswered, and {N} starts telling people they have retired early.',
                'The job {N} lands lasts six weeks, and {N} is back at the job centre, older and quieter.']),
+ 'outcomes_not': ([[], []], [[2, 5, 8], []]),
  'options': [
     ('sign on, keep every appointment, and apply for every post the adviser lists', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'prod.W', 'chance': 0.5}),
     ('take a short course on the new machines, and add it to the folder', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'sphere': 'prod.U', 'chance': 0.5}),
@@ -39027,6 +39236,7 @@ SITUATIONS = [
                'The old crowd finds a new home for its nights, and it holds together.'],
               ['The corner fills with diners, and one by one the old regulars stop coming in.',
                'Words are said at the bar that cannot be taken back, and {N} is not welcome there any more.']),
+ 'outcomes_not': ([[3], []], [[], [4, 9]]),
  'options': [
     ('ask the new keeper to hear the regulars out on one quiet evening', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'lever': 'voice', 'sphere': 'gather.W', 'chance': 0.75}),
     ('work out what the keeper takes each night, and offer a plan that keeps the cards', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'lever': 'voice', 'sphere': 'gather.U', 'chance': 0.75}),
@@ -39083,6 +39293,7 @@ SITUATIONS = [
                '{N} finds a place to sing that fits, and the singing is better than it has been in years.'],
               ['The choir splits down the middle, and the Tuesday nights are never the same again.',
                '{N} loses the place in the row, and with it half the friends of a decade.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('speak at the choir meeting for a place for anyone who turns up', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'sphere': 'arts.W', 'chance': 0.75}),
     ('audition, and spend the summer learning your part properly', 'U1', None, 0.45, '', {'act': 'audition, and spend the summer learning their part properly', 'v': 'achievement, self-direction', 'mark': 'learned a skill', 'lever': 'loyalty', 'sphere': 'arts.U', 'chance': 0.75}),
@@ -39142,6 +39353,7 @@ SITUATIONS = [
                '{N} finds a way to keep the old songs alive that the whole family can share.'],
               ['The congregation splits into those who stay and those who go, and {Ns} family is on both sides.',
                'Nothing changes, and {N} sits through the new service every week feeling like a guest.']),
+ 'outcomes_not': ([[2], []], [[], [2, 4]]),
  'options': [
     ('write to the elders, and ask that the change be put to the whole congregation', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'group congregation', 'sphere': 'faith.W', 'chance': 0.75}),
     ('sit with the new words for a whole season before you judge them', 'U1', None, 0.45, '', {'act': 'sit with the new words for a whole season before they judge them', 'v': 'self-direction, universalism', 'lever': 'loyalty', 'sphere': 'faith.U', 'chance': 0.75}),
@@ -39253,6 +39465,7 @@ SITUATIONS = [
                '{N} finds friends among the regulars, and a place in the town that did not exist a season ago.'],
               ['The branch closes in the spring, and the building is boarded up by the summer.',
                'The volunteers quarrel over who runs what, and {N}, the newest of them, takes the blame.']),
+ 'outcomes_not': ([[], [2]], [[], [2, 4]]),
  'options': [
     ("put your name down for a Saturday on the volunteers' desk", 'W1', None, 0.45, '', {'act': "put their name down for a Saturday on the volunteers' desk", 'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'lever': 'loyalty', 'pushes': 'institution council', 'sphere': 'learn.W', 'chance': 0.75}),
     ("read the council's figures, and show the meeting what the branch really costs", 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'learn.U', 'chance': 0.75}),
@@ -39308,6 +39521,7 @@ SITUATIONS = [
                'The next draw counts years at the market, and the family gets its corner back.'],
               ['The windy end is half the trade, and by winter the family is talking about giving the stall up.',
                'The quarrel with the warden goes on for a year, and {N} is on the wrong end of every ruling.']),
+ 'outcomes_not': ([[], []], [[3], []]),
  'options': [
     ('accept the draw, and wish the newcomer well on the corner', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'sphere': 'comm.W', 'chance': 0.75}),
     ('write to the council with the takings, and ask for the draw to be done again', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -39366,6 +39580,7 @@ SITUATIONS = [
                '{N} comes out of it with a fairer deal, on this boat or another.'],
               ['The good season comes, the wage stays the same, and {N} watches the owner take the difference.',
                'The crew scatters along the harbour, and {N} is left without a berth for the spring.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('ask the owner to set the wage beside the share in front of the crew', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'sphere': 'prod.W', 'chance': 0.75}),
     ('take the wage for one season, and note what the share would have paid', 'U1', None, 0.45, '', {'v': 'security, achievement', 'lever': 'loyalty', 'sphere': 'prod.U', 'chance': 0.75}),
@@ -39422,6 +39637,7 @@ SITUATIONS = [
                'The village learns what its crew does, and nobody takes the pager for granted again.'],
               ['The rota stays short, and the engine goes to the town in the summer.',
                '{N} carries the extra nights alone until something at home or at work gives way.']),
+ 'outcomes_not': ([[], []], [[], [2]]),
  'options': [
     ('take two extra nights on the rota until the spring', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'lever': 'loyalty', 'sphere': 'prot.W', 'chance': 0.75}),
     ('write to the service with the call times, and what twenty minutes would mean', 'U1', None, 0.45, '', {'v': 'universalism, security', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -39479,6 +39695,7 @@ SITUATIONS = [
               ["The forum is stopped in the new year, and the ward's questions go nowhere.",
                '{N} speaks into the silence, and the councillor thanks {N} and moves on to the date of the next '
                'meeting.']),
+ 'outcomes_not': ([[], [4]], [[], [4]]),
  'options': [
     ('ask the councillor to hold the next forum on a Saturday, so working people can come', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.75}),
     ('put your three questions, and ask for written answers by the next forum', 'U1', None, 0.45, '', {'act': 'put their three questions, and ask for written answers by the next forum', 'v': 'universalism, achievement', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -39537,6 +39754,7 @@ SITUATIONS = [
               ['The mornings stay, the leisure centre vote goes through unseen, and the town hears about it '
                'afterwards.',
                '{N} is called a troublemaker in the chamber, and the members close ranks.']),
+ 'outcomes_not': ([[], [9]], [[], [9]]),
  'options': [
     ('petition the council, by its own standing orders, to go back to evening meetings', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.75}),
     ('count every decision since the change and who saw it, and publish the list', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -39596,6 +39814,7 @@ SITUATIONS = [
                'it.'],
               ['{N} is marked down as difficult, and every visit after that is watched.',
                '{N} goes home at eight every night, and learns not to expect fairness on that ward.']),
+ 'outcomes_not': ([[9], [4]], [[], [9]]),
  'options': [
     ('ask the sister, calmly, why the rule holds for you and not the next bay', 'W1', None, 0.45, '', {'act': 'ask the sister, calmly, why the rule holds for them and not the next bay', 'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution hospital', 'sphere': 'care.W', 'chance': 0.75}),
     ("ask to see the ward's visiting rules in writing, and what counts as an exception", 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'sphere': 'care.U', 'chance': 0.75}),
@@ -39652,6 +39871,7 @@ SITUATIONS = [
               ['The report is taken and nothing ever comes of it, and {N} stops expecting anything from the watch.',
                '{N} is warned for causing a scene, and leaves with neither a report nor any respect for the '
                'station.']),
+ 'outcomes_not': ([[4, 7, 9], []], [[], [4, 7, 9]]),
  'options': [
     ('ask, politely and firmly, for the report to be taken and a crime number given', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'prot.W', 'chance': 0.75}),
     ("write down the time, the officer's number and what was said, and ask for the policy", 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'pushes': 'institution police', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -39772,6 +39992,7 @@ SITUATIONS = [
                'Whatever {N} chooses, the chamber works better for it, and the town notices.'],
               ['The chair turns into a war of attrition, and {N} spends two years refereeing a feud.',
                'The vote goes the other way after a deal in the corridor, and {N} is left on the back bench.']),
+ 'outcomes_not': ([[3, 4, 5, 6], []], [[3, 4, 5, 6], []]),
  'options': [
     ('take the chair, and run every meeting by the standing orders, your own side included', 'W1', None, 0.45, '', {'act': 'take the chair, and run every meeting by the standing orders, their own side included', 'v': 'conformity, universalism', 'lever': 'lead', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.6}),
     ('take the chair on one condition: every report and vote open for anyone to read', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'office', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -39834,6 +40055,7 @@ SITUATIONS = [
                'The hall fills again, and {N} hands on a living society instead of a dying one.'],
               ['Half the members walk out, and the society that is left cannot pay for the roof.',
                'The annual meeting turns bitter, and {N} loses the chair to the side {N} did not choose.']),
+ 'outcomes_not': ([[], []], [[], [7]]),
  'options': [
     ("put both plans to the annual meeting, and abide by the members' vote", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'lead', 'pushes': 'group club', 'sphere': 'gather.W', 'chance': 0.6}),
     ('run the open nights for one season as a trial, and show the meeting the figures', 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'lever': 'lead', 'sphere': 'gather.U', 'chance': 0.6}),
@@ -39896,6 +40118,7 @@ SITUATIONS = [
                'The players find a way to stand on their own, and {Ns} name is on the new posters.'],
               ['The theatre goes dark for the spring, and some of the players never come back.',
                '{N} fights the council for a year, and wins back half a grant and a lasting enemy in the chamber.']),
+ 'outcomes_not': ([[2], []], [[], [2]]),
  'options': [
     ('hold the company together, unpaid, and stage the spring season in the school hall', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'kept your word', 'lever': 'loyalty', 'sphere': 'arts.W', 'chance': 0.6}),
     ('rebuild the season around the plays that sell, and show the council the takings', 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'lever': 'lead', 'sphere': 'arts.U', 'chance': 0.6}),
@@ -40020,6 +40243,7 @@ SITUATIONS = [
               ["The ward closes in the spring, and the first winter after it the hospital's corridors fill with "
                'trolleys.',
                '{N} is warned for speaking to the press, and the fight costs {N} the post {N} wanted.']),
+ 'outcomes_not': ([[], []], [[], [7]]),
  'options': [
     ("stand up at the board's hearing, and tell what the ward does for every patient", 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'institution hospital', 'sphere': 'care.W', 'chance': 0.6}),
     ("take the ward sister's post when she retires, and run the ward by the figures", 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'lever': 'lead', 'sphere': 'care.U', 'chance': 0.6}),
@@ -40079,6 +40303,7 @@ SITUATIONS = [
                'One of {Ns} old students takes over the class, and teaches it the way {N} did.'],
               ['The classes end in June, and most of the students do not find their way to another.',
                '{N} fights the closure and loses, and the college remembers who fought.']),
+ 'outcomes_not': ([[4], []], [[], [4, 7]]),
  'options': [
     ('speak for the evening classes at the college council, and ask for one more year', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'lever': 'voice', 'pushes': 'institution university', 'sphere': 'learn.W', 'chance': 0.6}),
     ('start an evening school of your own in the library, run on small fees', 'U1', None, 0.45, '', {'act': 'start an evening school of their own in the library, run on small fees', 'v': 'self-direction, universalism', 'mark': 'took a wild risk', 'lever': 'found', 'sphere': 'learn.U', 'chance': 0.6}),
@@ -40140,6 +40365,7 @@ SITUATIONS = [
                'The standard is kept, and the young makers of the town know where they stand.'],
               ['The masters close ranks, and {N} spends years judging pieces under a cloud of quarrels.',
                'The test is scrapped by a vote, and the association becomes a dinner club.']),
+ 'outcomes_not': ([[2, 3, 7], []], [[2, 3, 7], []]),
  'options': [
     ('take the post, and judge every piece by the same rule, nephews included', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'made an enemy', 'lever': 'lead', 'pushes': 'group work', 'sphere': 'prod.W', 'chance': 0.6}),
     ('take the post, and write the standard down so anyone can see what passes', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'lever': 'office', 'sphere': 'prod.U', 'chance': 0.6}),
@@ -40196,6 +40422,7 @@ SITUATIONS = [
                'The members keep their savings, and the street remembers who stood in front of the queue.'],
               ['The run does not stop, and the credit union closes owing its members a third of their savings.',
                '{N} keeps it open, and spends years being blamed for the loan {N} voted against.']),
+ 'outcomes_not': ([[8], [2]], [[], [2, 8]]),
  'options': [
     ('take the chair, and tell the queue the plain truth about the loss', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'lead', 'pushes': 'institution bank', 'sphere': 'comm.W', 'chance': 0.6}),
     ('open the books to every member, line by line, at a meeting tomorrow night', 'U1', None, 0.45, '', {'v': 'universalism, security', 'mark': 'owned up', 'lever': 'lead', 'sphere': 'comm.U', 'chance': 0.6}),
@@ -40314,6 +40541,7 @@ SITUATIONS = [
                'Whoever wins, the estate has a voice in the chamber now, and {N} is part of it.'],
               ["The stranger wins on a low turnout, and the estate's repairs slide down the list again.",
                '{N} stands and loses badly, and the campaign leaves {N} tired and out of pocket.']),
+ 'outcomes_not': ([[], [4]], [[], [1, 4, 5, 6, 8, 9]]),
  'options': [
     ('stand for the seat, and promise a weekly surgery in the ward for anyone', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'lever': 'office', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.6}),
     ('ask both candidates to a meeting on the estate, and question them in public', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -40375,6 +40603,7 @@ SITUATIONS = [
                'The builder, shamed by the hearing more than the ruling, comes back and finishes the kitchen.'],
               ['{N} fights on, loses again, and the costs double.',
                'The loss sours {N} on the law for years, fair hearing or not.']),
+ 'outcomes_not': ([[4, 8, 9], []], [[0, 1, 6, 9], []]),
  'options': [
     ('accept the ruling, pay the costs, and thank the clerk on the way out', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'institution court', 'sphere': 'rule.W', 'chance': 0.6}),
     ('read the judgment through at home, and accept it once you see the reasons', 'U1', None, 0.45, '', {'act': 'read the judgment through at home, and accept it once they see the reasons', 'v': 'universalism, self-direction', 'mark': 'learned a skill', 'lever': 'loyalty', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -40433,6 +40662,7 @@ SITUATIONS = [
               ['The warning follows {N} for years, and the post {N} wanted goes to someone else.',
                'The floor takes sides over the report, and {N} works the next year among people who will not '
                'speak.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('sign the warning, and do the guard check every morning from now on', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'sphere': 'prod.W', 'chance': 0.6}),
     ('accept the finding, and ask that the loose guard go in the report as well', 'U1', None, 0.45, '', {'v': 'universalism, security', 'lever': 'voice', 'pushes': 'institution employer', 'sphere': 'prod.U', 'chance': 0.6}),
@@ -40795,6 +41025,7 @@ SITUATIONS = [
                'A producer hears the story, and writes to ask whether {N} has any more songs like it.'],
               ['Nobody at the table believes {N}, and a laugh follows {N} back to the bar.',
                'Someone else has already put their name on the song, and proving otherwise would take years.']),
+ 'outcomes_not': ([[], []], [[0, 4], []]),
  'options': [
     ("join in quietly, and let it go on being everyone's song", 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'sphere': 'arts.W', 'chance': 0.6}),
     ('ask them where they learned it, and trace how it travelled', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'arts.U', 'chance': 0.6}),
@@ -41195,6 +41426,7 @@ SITUATIONS = [
                '{N} goes in strong, and the surgeon says the waiting months were not wasted.'],
               ['The months drag on, the pain spreads, and {N} slowly stops going out.',
                'The date comes at last, and is cancelled the night before for an emergency.']),
+ 'outcomes_not': ([[], [2, 5]], [[2, 5], []]),
  'options': [
     ('wait your turn on the list like everyone else, and keep every appointment', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'sphere': 'care.W', 'chance': 0.7}),
     ("compare every hospital's waiting figures, and move to the shortest list in reach", 'U1', None, 0.45, '', {'v': 'self-direction, security', 'lever': 'exit', 'sphere': 'care.U', 'chance': 0.7}),
@@ -41313,6 +41545,7 @@ SITUATIONS = [
                'The help holds: one afternoon a week becomes {Ns} own, and the years ahead start to look possible.'],
               ['{N} turns every offer down, and by spring the smallest thing brings tears.',
                '{sibling} takes offence at being asked, and the family stops speaking for a season.']),
+ 'outcomes_not': ([[3, 4, 5, 6, 7, 8, 9], []], [[1, 2, 8], []]),
  'options': [
     ('ask your brother or sister for a fair share of the weeks, written down and kept', 'W1', None, 0.45, '', {'act': 'ask their brother or sister for a fair share of the weeks, written down and kept', 'v': 'universalism, security', 'lever': 'voice', 'pushes': 'close sibling', 'sphere': 'care.W', 'chance': 0.7}),
     ('find out every kind of help the council and the clinic offer carers, and claim it', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'care.U', 'chance': 0.7}),
@@ -41426,6 +41659,7 @@ SITUATIONS = [
                'next Sunday.'],
               ['{N} walks away to wait for the call back, and turns round to see the chair sold to someone else.',
                'At home the chair turns out to be worth half what {N} paid: the dealer was the better hand.']),
+ 'outcomes_not': ([[], [2]], [[0, 4, 8, 9], []]),
  'options': [
     ('ask the dealer what a fair price is, and pay it without a fight', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'sphere': 'comm.W', 'chance': 0.75}),
     ('point out the wobble in one leg, and the cheaper chair two rows down', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -41714,6 +41948,7 @@ SITUATIONS = [
                '{partner} sits on the new sofa the first night and says it feels like home at last.'],
               ['A month of short hours makes one payment late, and the fees pile on faster than {N} can follow.',
                'By the end the sofa has cost almost twice its tag, and it is already sagging.']),
+ 'outcomes_not': ([[8], []], [[8], []]),
  'options': [
     ('read the agreement through with the clerk, line by line, before you sign', 'W1', None, 0.45, '', {'act': 'read the agreement through with the clerk, line by line, before signing', 'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.6}),
     ('take the papers home, compare the total with two other shops, and come back', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'comm.U', 'chance': 0.6}),
@@ -41776,6 +42011,7 @@ SITUATIONS = [
               ['The answer is no, with no reason given, and on the way out {N} passes a borrower with half the plan, '
                'walking out smiling.',
                "The loan comes through at a rate that will eat the first two years of the van's profit."]),
+ 'outcomes_not': ([[7], []], [[], [7]]),
  'options': [
     ('walk the lender through the honest figures, the bad months first', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.6}),
     ('show how the risk is spread across three markets and two seasons', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'comm.U', 'chance': 0.6}),
@@ -41831,6 +42067,7 @@ SITUATIONS = [
                'season.'],
               ['Half the market is empty by the spring, and with the crowds gone {Ns} stall fades with it.',
                '{N} hangs on for a year at the new fee, then gives up the pitch with nothing saved.']),
+ 'outcomes_not': ([[], [4, 8]], [[], [3, 9]]),
  'options': [
     ('call a meeting of every stallholder, and ask the council to review the fee', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'sphere': 'comm.W', 'chance': 0.6}),
     ('find out who bought the market, and what they mean to build on it', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'comm.U', 'chance': 0.6}),
@@ -42054,6 +42291,7 @@ SITUATIONS = [
               ['The doubt hardens into a quiet distance, and {N} sits through the next gatherings feeling like a '
                'guest.',
                '{N} says too much too soon, and the family hears it as an attack.']),
+ 'outcomes_not': ([[], [6]], [[], [6]]),
  'options': [
     ('get up and say the night prayer anyway, word for word', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'loyalty', 'sphere': 'faith.W', 'chance': 0.75}),
     ('write the question down, and resolve to read both sides of it', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'sphere': 'faith.U', 'chance': 0.75}),
@@ -42156,6 +42394,7 @@ SITUATIONS = [
                'The two of them find they can talk about faith now in a way they never could before.'],
               ['Something has shifted, and the calls between them thin out over the year.',
                '{Ns} family takes it badly, and {N} is caught between them and {friend}.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('go to the rite, sit in the front row, and stand when they stand', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'sphere': 'faith.W', 'chance': 0.75}),
     ('ask to go to one of their gatherings first, to see it for yourself', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'sphere': 'faith.U', 'chance': 0.75}),
@@ -42388,6 +42627,7 @@ SITUATIONS = [
                'The wedding is small and true, and within a year the family has stopped talking about the rite.'],
               ["{parent} stays away, and the family's side of the room is half empty through every toast.",
                'The quarrel follows the couple into their first years, and surfaces at every family meal.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('marry at the town hall, then ask the elders for a blessing afterwards', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'sphere': 'faith.W', 'chance': 0.6}),
     ('write down why the rite would be a lie, and give it to your parents', 'U1', None, 0.45, '', {'act': 'write down why the rite would be a lie, and give it to their parents', 'v': 'self-direction, universalism', 'lever': 'voice', 'sphere': 'faith.U', 'chance': 0.6}),
@@ -42862,6 +43102,7 @@ SITUATIONS = [
                'first customer.'],
               ['The last night ends, the group scatters, and some of the regulars are not seen out again.',
                'The new place never feels the same, and {N} stops going out on Thursdays at all.']),
+ 'outcomes_not': ([[], [0, 1, 3, 4, 5, 6, 7, 9]], [[], []]),
  'options': [
     ('make a list of every regular, and find each one a table somewhere new', 'W1', None, 0.45, '', {'v': 'benevolence', 'sphere': 'gather.W', 'chance': 0.6}),
     ('look up the sale at the council, and find out whether it can be stopped', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'lever': 'voice', 'sphere': 'gather.U', 'chance': 0.6}),
@@ -43206,6 +43447,7 @@ SITUATIONS = [
               ['The job ends after six months, and the school will not take {N} back in time for the exams.',
                '{N} stays at school, the money runs out anyway, and {parent} takes a second job and says nothing '
                'about it.']),
+ 'outcomes_not': ([[], []], [[6, 7, 8, 9], [0, 1, 2, 3, 5]]),
  'options': [
     ('take the job, and hand the wage to the family every Friday', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'sphere': 'learn.W', 'chance': 0.65}),
     ('ask the school about night classes, so you can sit the exams while working', 'U1', None, 0.45, '', {'act': 'ask the school about night classes, so they can sit the exams while working', 'v': 'self-direction, achievement', 'sphere': 'learn.U', 'chance': 0.65}),
@@ -43555,6 +43797,7 @@ SITUATIONS = [
                '{N} comes out of it with more time, more say and a reputation as the one who finds better ways.'],
               ['The target goes up for everyone, and some of the crew blame {N} for it.',
                '{boss} takes the method to the owners as his own idea, and {N} gets nothing for it.']),
+ 'outcomes_not': ([[2, 8], []], [[2, 8], []]),
  'options': [
     ('take it to the foreman, and ask that the target stay where it is', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'lever': 'voice', 'sphere': 'prod.W', 'chance': 0.8}),
     ('test it for a month and write down every result before you show anyone', 'U1', None, 0.45, '', {'act': 'test it for a month and write down every result before they show anyone', 'v': 'self-direction, achievement', 'sphere': 'prod.U', 'chance': 0.8}),
@@ -43731,6 +43974,7 @@ SITUATIONS = [
                'The weeks off are hard, but the pay comes, and {N} returns with the respect of the whole crew.'],
               ['The hand never quite heals, and {N} has to find lighter work, on less pay.',
                '{boss} does not forget how {N} handled it, and the good shifts start going to other people.']),
+ 'outcomes_not': ([[5], []], [[], []]),
  'options': [
     ('put the accident in the book, exactly as it happened', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution', 'mark': 'defied an authority', 'sphere': 'prod.W', 'chance': 0.55}),
     ('work out why the guard failed, and write down how to stop it next time', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'sphere': 'prod.U', 'chance': 0.55}),
@@ -43841,6 +44085,7 @@ SITUATIONS = [
                '{N} lets go, gladly, and the years after the work turn out better than {N} feared.'],
               ['The sale drags on for years, and the place runs down while {N} waits for the right answer.',
                'The new owners change everything within a season, and {N} cannot bring themselves to drive past.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('draw up a fair sale, and see that the hands keep their jobs', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'sphere': 'prod.W', 'chance': 0.55}),
     ('write down everything you know about the work, for whoever comes next', 'U1', None, 0.45, '', {'act': 'write down everything they know about the work, for whoever comes next', 'v': 'universalism, self-direction', 'sphere': 'prod.U', 'chance': 0.55}),
@@ -43952,6 +44197,7 @@ SITUATIONS = [
               ["The backer's say grows into the last word, and within two years {N} is working for her in {Ns} own "
                'workshop.',
                '{N} turns the offer down, and watches a rival take the same money and the customers with it.']),
+ 'outcomes_not': ([[3, 5], []], [[3, 4, 5, 9], [0, 2, 6, 7, 8]]),
  'options': [
     ('have a lawyer write down every share and every duty before you sign', 'W1', None, 0.45, '', {'act': 'have a lawyer write down every share and every duty before they sign', 'v': 'security, conformity', 'sphere': 'prod.W', 'chance': 0.55}),
     ('look into every venture she has backed before you answer', 'U1', None, 0.45, '', {'act': 'look into every venture she has backed before they answer', 'v': 'self-direction, security', 'sphere': 'prod.U', 'chance': 0.55}),
@@ -44005,6 +44251,7 @@ SITUATIONS = [
               ['{N} spends an hour in the cold for nothing: the stranger gets a lift with someone else and does not '
                'even wave.',
                '{N} drives home uneasy, and all week cannot decide whether they chose well.']),
+ 'outcomes_not': ([[2], []], [[2], []]),
  'options': [
     ('stop at a safe distance with hazards on, and call the breakdown line for them', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'sphere': 'prot.W', 'chance': 0.75}),
     ('pull up ahead with the engine running, and talk through the window first', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -44170,6 +44417,7 @@ SITUATIONS = [
                '{N} comes through it with a clear name, and {colleague} with a little more respect than before.'],
               ['The inspector hears of the night, and {N} finds the next rota full of the worst shifts.',
                'Whatever {N} chose follows them for a long time: a look in the canteen, a word behind their back.']),
+ 'outcomes_not': ([[2, 4, 7], []], [[], []]),
  'options': [
     ('hand back the notes, and write the stop up exactly as it happened', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'sphere': 'prot.W', 'chance': 0.75}),
     ('ask to see in the back of the van before you decide anything', 'U1', None, 0.45, '', {'act': 'ask to see in the back of the van before they decide anything', 'v': 'self-direction', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -44687,6 +44935,7 @@ SITUATIONS = [
               ['{N} freezes for a long minute, and the memory of it stings for years.',
                'The crew arrive and send {N} back up the bank, and it is weeks before {N} learns how the driver '
                'is.']),
+ 'outcomes_not': ([[2], []], [[], [2]]),
  'options': [
     ('ring the emergency line, and set warning lights behind the crash', 'W1', None, 0.45, '', {'v': 'security, conformity', 'sphere': 'prot.W', 'chance': 0.65}),
     ('check for fuel and smoke before you go near, and send others back', 'U1', None, 0.45, '', {'act': 'check for fuel and smoke before they go near, and send others back', 'v': 'security, self-direction', 'sphere': 'prot.U', 'chance': 0.65}),
@@ -44855,6 +45104,7 @@ SITUATIONS = [
                '{N} pays, but by the spring the bay is marked properly and nobody else is caught.'],
               ['The appeal is turned down on a missed date, and the fine has doubled.',
                '{N} loses a morning at the hearing, and the fine stands, with costs.']),
+ 'outcomes_not': ([[], [3]], [[], []]),
  'options': [
     ('pay the fine on time, and write to ask that the sign be moved', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.75}),
     ('photograph the hedge and the sign, and lodge a careful appeal', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -44967,6 +45217,7 @@ SITUATIONS = [
               ['Nothing is fixed, and in May a leaflet comes through the door with {Ns} name on the list of '
                'supporters.',
                '{N} turns the deal down, and the repair waits another winter.']),
+ 'outcomes_not': ([[], []], [[], [2, 4, 7]]),
  'options': [
     ('say you will vote as you see fit, and ask for help by the rules', 'W1', None, 0.45, '', {'act': 'say they will vote as they see fit, and ask for help by the rules', 'v': 'universalism, conformity', 'lever': 'voice', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.75}),
     ('ask the organiser exactly what she will do, and write it all down', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -45076,6 +45327,7 @@ SITUATIONS = [
               ['The defence lawyer picks {Ns} memory apart, and {N} leaves the box feeling like the one on trial.',
                'The verdict goes one way and the street the other, and for a year the shop goes quiet when {N} walks '
                'in.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('swear the oath, and tell the court exactly what you saw', 'W1', None, 0.45, '', {'act': 'swear the oath, and tell the court exactly what they saw', 'v': 'conformity, universalism', 'mark': 'kept your word', 'lever': 'loyalty', 'pushes': 'institution court', 'sphere': 'rule.W', 'chance': 0.6}),
     ('write down tonight what you saw, before anyone else can tell you', 'U1', None, 0.45, '', {'act': 'write down tonight what they saw, before anyone else can tell them', 'v': 'self-direction, universalism', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -45133,6 +45385,7 @@ SITUATIONS = [
                'The clerk is moved off the counter, and the next shopkeeper in the queue is not asked.'],
               ['The file stays lost for a year, and the rent on the empty shop eats the savings.',
                'Word gets round that {N} paid, and the next season the clerk asks for more.']),
+ 'outcomes_not': ([[], []], [[], [0, 1, 3, 6, 7, 8, 9]]),
  'options': [
     ('tell the clerk you will wait your turn, and ask for a written date', 'W1', None, 0.45, '', {'act': 'tell the clerk they will wait their turn, and ask for a written date', 'v': 'conformity, universalism', 'lever': 'loyalty', 'pushes': 'institution council', 'sphere': 'rule.W', 'chance': 0.6}),
     ("note the clerk's words and the time, and ask round who else was asked", 'U1', None, 0.45, '', {'v': 'universalism, security', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -45195,6 +45448,7 @@ SITUATIONS = [
                '{friend} owns up, pleads to a lesser charge, and starts to pay the money back.'],
               ['The verdict is guilty, and {friend} will not see {N} at the visiting hour.',
                '{N} is named in the local paper as a friend of the accused, and some at work keep their distance.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('keep your seat in the gallery every day until the verdict, whatever it is', 'W1', None, 0.45, '', {'act': 'keep their seat in the gallery every day until the verdict, whatever it is', 'v': 'benevolence, conformity', 'lever': 'loyalty', 'sphere': 'rule.W', 'chance': 0.6}),
     ('ask your friend for the whole truth, and decide after hearing it', 'U1', None, 0.45, '', {'act': 'ask their friend for the whole truth, and decide after hearing it', 'v': 'self-direction, universalism', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -45255,6 +45509,7 @@ SITUATIONS = [
                'bottle.'],
               ['The police clear the square, and {N} spends half the night at the station giving a statement.',
                'The night is on every screen as a riot, and the closures go ahead with the town split over it.']),
+ 'outcomes_not': ([[], []], [[1], []]),
  'options': [
     ('link arms with the stewards, and hold the front still and quiet', 'W1', None, 0.45, '', {'v': 'security, conformity', 'lever': 'loyalty', 'sphere': 'rule.W', 'chance': 0.6}),
     ('lead your friend down the side street before the square closes', 'U1', None, 0.45, '', {'act': 'lead their friend down the side street before the square closes', 'v': 'security, self-direction', 'lever': 'exit', 'sphere': 'rule.U', 'chance': 0.6}),
@@ -45474,6 +45729,7 @@ SITUATIONS = [
                'The old man brings {N} a cake to the next advice evening, and the whole queue claps.'],
               ['The box goes back and forth for months, and nothing in it is ever settled.',
                '{boss} sees the hours on the sheet and tells {N} the advice evening is not a charity.']),
+ 'outcomes_not': ([[], []], [[], [2]]),
  'options': [
     ('keep to his twenty minutes, and book him in again for next week', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'sphere': 'rule.W', 'chance': 0.75}),
     ('take the box home for a night and sort the letters by date', 'U1', None, 0.45, '', {'v': 'achievement, benevolence', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -45529,6 +45785,7 @@ SITUATIONS = [
                'The judge never learns how close it came, and {mentor} sends {N} a short note: well done.'],
               ['The client moves all their work to another firm, and {boss} asks {N} to explain why.',
                "The copy turns up at the hearing anyway, and the judge's questions land on {N}."]),
+ 'outcomes_not': ([[], []], [[], [8]]),
  'options': [
     ('tell the client the copy must go to the other side before Monday', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'sphere': 'rule.W', 'chance': 0.75}),
     ('read the clause closely and build the best honest case that survives it', 'U1', None, 0.45, '', {'v': 'achievement', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -45584,6 +45841,7 @@ SITUATIONS = [
                'Years later, a family {N} helped on legal aid sends their eldest to {N} to train.'],
               ['The partnership goes to {colleague}, and {N} stays where {N} was for another five years.',
                'The legal aid list goes to a junior who cannot keep up, and the families stop coming.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('keep the legal aid day, and turn the partnership down', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'mark': 'turned down a chance', 'sphere': 'rule.W', 'chance': 0.75}),
     ('show the partners how many paying clients the legal aid day brings in', 'U1', None, 0.45, '', {'v': 'achievement', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -45689,6 +45947,7 @@ SITUATIONS = [
                'The firm grumbles, then books {N} for its next dispute on {Ns} own terms.'],
               ['The firm finds another mediator who will use its draft, and the worker signs.',
                "The worker sees {N} arrive with the firm's papers and refuses to say a word."]),
+ 'outcomes_not': ([[], []], [[], [3]]),
  'options': [
     ("tell the firm the draft is set aside, and start from both sides' own words", 'W1', None, 0.45, '', {'v': 'universalism', 'sphere': 'rule.W', 'chance': 0.75}),
     ('ask both sides in writing what an agreement would have to fix', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'sphere': 'rule.U', 'chance': 0.75}),
@@ -45743,6 +46002,7 @@ SITUATIONS = [
                'On Friday the youth night is fuller than ever, and the pensioners send over a tray of cakes.'],
               ['The council keeps its condition, and the youth night moves to the bus shelter.',
                "The fundraiser makes half of what was needed, and {N} works the winter on three days' pay."]),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('take the grant and keep one free room for anyone who cannot pay', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'sphere': 'gather.W', 'chance': 0.75}),
     ('show the council the bookings and ask for a lower, fairer charge', 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'sphere': 'gather.U', 'chance': 0.75}),
@@ -46010,6 +46270,7 @@ SITUATIONS = [
                'Two guests book {N} for their own weddings before the night is out.'],
               ['The groom marches over to the decks and asks who said the list could be changed.',
                'The old dance empties the floor of the young ones, and the night never quite comes back.']),
+ 'outcomes_not': ([[0], []], [[0], []]),
  'options': [
     ("keep to the couple's list, and tell her kindly that it is their night", 'W1', None, 0.45, '', {'v': 'conformity', 'sphere': 'gather.W', 'chance': 0.75}),
     ('slot the old dance into the slow patch where it fits the list', 'U1', None, 0.45, '', {'v': 'achievement', 'sphere': 'gather.U', 'chance': 0.75}),
@@ -46438,6 +46699,7 @@ SITUATIONS = [
                'The session keeps the tune its own, and plays it louder than ever that winter.'],
               ['The session splits over the money, and two players stop coming.',
                'The firm uses the tune anyway, played by strangers, and the session gets nothing.']),
+ 'outcomes_not': ([[3], [1, 2, 5, 8]], [[], []]),
  'options': [
     ('tell the man the tune belongs to everyone, and he may use it for nothing', 'W1', None, 0.45, '', {'v': 'universalism', 'sphere': 'arts.W', 'chance': 0.75}),
     ('look up the rules and offer a recording of the session at a fair fee', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'arts.U', 'chance': 0.75}),
@@ -46493,6 +46755,7 @@ SITUATIONS = [
                '{N} finds a way of working that keeps the craft and pays the rent, and sleeps better for it.'],
               ['The order falls through halfway, and {N} is left with a shelf of bowls nobody wants.',
                'The season wears {N} out, and {partner} says the workshop has eaten every evening.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('tell the shop the truth: made by hand from start to finish, or not at all', 'W1', None, 0.45, '', {'v': 'conformity, self-direction', 'sphere': 'arts.W', 'chance': 0.75}),
     ('try the machine for a month and compare the bowls side by side', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'sphere': 'arts.U', 'chance': 0.75}),
@@ -47076,6 +47339,7 @@ SITUATIONS = [
                '{boss} finds money for cover after all, and the helpers are not asked again that year.'],
               ['The week is chaos by Wednesday, and {N} goes home each night too tired to eat.',
                '{boss} calls the helper difficult, and {Ns} hours are cut the next term.']),
+ 'outcomes_not': ([[8], []], [[8], []]),
  'options': [
     ('agree, but ask for the cover arrangement in writing', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'learn.W', 'chance': 0.75}),
     ('say yes, and plan the week around what the class already knows', 'U1', None, 0.45, '', {'v': 'achievement', 'sphere': 'learn.U', 'chance': 0.75}),
@@ -47173,6 +47437,7 @@ SITUATIONS = [
                'The charity hears what happened and asks for {N} for every piece of work after.'],
               ["{boss} calls it a typing slip, and {Ns} name drops off the partners' list.",
                'The other partners close ranks, and {N} is moved to a smaller account.']),
+ 'outcomes_not': ([[9], []], [[], [9]]),
  'options': [
     ('correct the invoice before it goes, and tell the senior partner why', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'sphere': 'learn.W', 'chance': 0.75}),
     ('pull the time sheets and ask, plainly, where the four days came from', 'U1', None, 0.45, '', {'v': 'universalism', 'sphere': 'learn.U', 'chance': 0.75}),
@@ -47471,6 +47736,7 @@ SITUATIONS = [
                'The manager goes quiet for the rest of the day, and the team thank {N} at the minibus.'],
               ["The manager complains to the centre's owner, and the firm cancels its winter days.",
                'The clerk will not climb again, and leaves early with her coat over her arm.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('stop the session and tell the manager the course rules forbid mocking', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'lever': 'voice', 'sphere': 'learn.W', 'chance': 0.75}),
     ('talk her across one step at a time, and ignore the manager completely', 'U1', None, 0.45, '', {'v': 'benevolence, achievement', 'sphere': 'learn.U', 'chance': 0.75}),
@@ -47727,6 +47993,7 @@ SITUATIONS = [
                'The new trader shakes on a fair split, and both stalls have a good summer.'],
               ["The takings halve for a month, and the payment on the van's stock is late.",
                'The regulars drift across the aisle one by one, and only the oldest stay.']),
+ 'outcomes_not': ([[], [0, 1, 2, 3, 4, 5, 6, 8]], [[], []]),
  'options': [
     ('ask the market warden whether selling below cost breaks the pitch rules', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'voice', 'sphere': 'comm.W', 'chance': 0.75}),
     ('work out his costs, and wait for him to run out of money', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -47779,6 +48046,7 @@ SITUATIONS = [
                '{partner} says it was the right choice, and the regulars bring the stall a cake in the autumn.'],
               ['The fairs are wet all summer, and the takings barely pay for the fuel.',
                'The warden gives the empty pitch away, and {N} is back on the waiting list.']),
+ 'outcomes_not': ([[], []], [[4], []]),
  'options': [
     ('ask the warden properly for leave from the pitch for the summer', 'W1', None, 0.45, '', {'v': 'conformity, security', 'sphere': 'comm.W', 'chance': 0.75}),
     ('do the full sums for the circuit before saying yes or no', 'U1', None, 0.45, '', {'v': 'achievement, security', 'sphere': 'comm.U', 'chance': 0.75}),
@@ -48076,6 +48344,7 @@ SITUATIONS = [
                'The report holds up in front of the claims panel, and the insurer sends {N} its next three cases.'],
               ['The insurer drops {N} for being soft, and the office is quiet for a month.',
                "The man's lawyer gets hold of the film, and {Ns} name is read out at the hearing."]),
+ 'outcomes_not': ([[], [3]], [[], []]),
  'options': [
     ("send the whole morning's film, the climb and the pain together", 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'sphere': 'prot.W', 'chance': 0.75}),
     ('keep watching all week before reporting anything', 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'sphere': 'prot.U', 'chance': 0.75}),
@@ -48340,6 +48609,7 @@ SITUATIONS = [
                'The others take {N} the way {N} chooses to be seen, and something in {N} settles.'],
               ['Someone from the old school turns up in the same class, and the old story arrives with them.',
                'The new self is hard to keep up, and by the end of term {N} is worn out by it.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('join the scouts or guides and make the promise, uniform and all', 'W1', None, 0.45, '', {'identity': True, 'binds': True, 'v': 'conformity, tradition', 'title': 'scout or guide', 'chance': 0.85}),
     ('choose the person you mean to become, and practise being them every day', 'U1', None, 0.45, '', {'identity': True, 'habit': True, 'v': 'self-direction', 'self_control': '+', 'act': 'choose the person they mean to become, and practise being that person every day', 'chance': 0.55}),
@@ -48921,6 +49191,7 @@ SITUATIONS = [
                'The new footing is solid, and {N} finds the steadiness more freeing than feared.'],
               ['The terms turn out worse than they looked, and {N} learns it only after signing.',
                'The offer is withdrawn before Friday, and {N} is back where {N} started.']),
+ 'outcomes_not': ([[], [3]], [[3], []]),
  'options': [
     ('sign it, shake hands, and resolve to be someone they can rely on', 'W1', None, 0.45, '', {'identity': True, 'v': 'conformity, security', 'grants': 'workplace pension', 'chance': 0.92}),
     ('take it home, question every clause, and only then sign', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'grants': 'workplace pension', 'chance': 0.9}),
@@ -48974,6 +49245,7 @@ SITUATIONS = [
                '{N} turns out to be good at the new thing, and the people there can tell.'],
               ['The new start costs more than {N} had, and the old work is gone.',
                'Halfway through, {N} has to admit the new field is not what it looked like from outside.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('take the place, train as a teacher, and give the next ten years to it', 'W1', None, 0.45, '', {'v': 'benevolence, achievement', 'title': 'teacher', 'requires': 'graduate', 'without': 'means', 'lacking': 0.3, 'chance': 0.55}),
     ('sign up for a three-year computing degree on a loan, and see it through', 'U1', None, 0.45, '', {'binds': True, 'identity': True, 'v': 'achievement, self-direction', 'title': 'software developer', 'self_control': '+', 'chance': 0.55}),
@@ -49028,6 +49300,7 @@ SITUATIONS = [
                'Something held in suspense for months is settled, and both of them breathe more easily.'],
               ['The moment goes wrong, and the question hangs between them heavier than before.',
                '{partner} needs time, and the weeks of waiting are hard on both of them.']),
+ 'outcomes_not': ([[4, 8], []], [[], [4, 8]]),
  'options': [
     ('ask properly, on one knee, and tell both families the same day', 'W1', None, 0.45, '', {'binds': True, 'identity': True, 'v': 'tradition, conformity', 'title': 'engaged', 'chance': 0.7}),
     ('sit down with your partner and talk it all through, every hope and every doubt', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.8}),
@@ -49399,6 +49672,7 @@ SITUATIONS = [
                'The calls keep coming, but {N} finds a way to carry them that leaves room for a life.'],
               ['Within the year {N} is worn thin, and snaps at the person who least deserves it.',
                'A family row breaks out over who does what, and {Ns} name is at the centre of it.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('answer every call, day or night, and never let the family see you tired', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'chance': 0.7}),
     ('put every family paper, password and spare key in one labelled box', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.9}),
@@ -49453,6 +49727,7 @@ SITUATIONS = [
                'forty.'],
               ['A knee gives out in the autumn, and {N} watches from the café window for months.',
                'The new friendships stay at nods and coffee, and {N} drifts away from the Saturdays.']),
+ 'outcomes_not': ([[], [0]], [[], []]),
  'options': [
     ("give up the running, and take a marshal's jacket instead", 'W1', None, 0.45, '', {'v': 'benevolence', 'self_control': '-', 'chance': 0.88}),
     ('follow a twelve-week plan to get under twenty-five minutes', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement', 'self_control': '+', 'chance': 0.55}),
@@ -49562,6 +49837,7 @@ SITUATIONS = [
               ['The pass stays in a drawer, and the photograph on it stays in {Ns} head for weeks.',
                'The first outing goes wrong: a missed connection, a long cold wait, and {N} feels every year printed '
                'on the card.']),
+ 'outcomes_not': ([[], [4]], [[], [4]]),
  'options': [
     ('write to the council about the bus that no longer runs to the hospital', 'W1', None, 0.45, '', {'v': 'universalism, security', 'chance': 0.45}),
     ('plan a journey from one end of the country to the other on local buses', 'U1', None, 0.45, '', {'v': 'self-direction, stimulation', 'chance': 0.8}),
@@ -49616,6 +49892,7 @@ SITUATIONS = [
               ['Within the year the plan sours, with money, health or homesickness, and {N} is caught between two '
                'places.',
                '{N} decides, then undecides, and the chance goes by while {N} is still making lists.']),
+ 'outcomes_not': ([[], []], [[0], []]),
  'options': [
     ('stay, and keep your place in the town that has known you for forty years', 'W1', None, 0.45, '', {'v': 'tradition, security', 'mark': 'turned down a chance', 'chance': 0.88}),
     ('rent the flat for one winter first, and decide in the spring', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction, security', 'chance': 0.85}),
@@ -49671,6 +49948,7 @@ SITUATIONS = [
                'Teaching it shows {N} things about the work that forty years of doing it never did.'],
               ['The first evenings go badly, the numbers fall, and the college quietly cancels the class.',
                'The knowledge will not come out in words, and the students drift away one by one.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('take the class, and keep it going every term for as long as they ask', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'mark': 'kept your word', 'grants': 'teaching', 'chance': 0.8}),
     ('write the course from scratch, and turn the notes into a book', 'U1', None, 0.45, '', {'identity': True, 'v': 'achievement, self-direction', 'grants': 'book in print', 'chance': 0.35}),
@@ -50204,6 +50482,7 @@ SITUATIONS = [
               ['The alarm goes off on the first Sunday, the code will not stop it, and the police arrive before the '
                'manager does.',
                'Two months in, the float is short one Sunday, and it is {Ns} name on the form.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('take the keys, learn the alarm and the safe, and never be late', 'W1', None, 0.45, '', {'v': 'conformity, security', 'grants': 'trusted with the keys', 'chance': 0.8}),
     ('use the back-office login to read what everyone else is paid', 'U1', None, 0.45, '', {'v': 'self-direction (curiosity), power', 'mark': 'hid a wrong', 'closed': 'approval: snooping in staff records; backfire: the system logs who looked, and the keys go back', 'tech': 'computer', 'chance': 0.75}),
@@ -50258,6 +50537,7 @@ SITUATIONS = [
                '{N} makes the choice with open eyes, and sleeps well for the first time in weeks.'],
               ['The numbers do not add up, the bank says no, and the shutters come down in April.',
                '{N} rushes it, and the first winter after is the hardest of {Ns} working life.']),
+ 'outcomes_not': ([[4, 7], []], [[4, 7], []]),
  'options': [
     ('agree to run it for the owner, as manager, until a buyer is found', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.75}),
     ("ask for a full year's figures and a month to think before answering", 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.9}),
@@ -50368,6 +50648,7 @@ SITUATIONS = [
                '{boss} sees the takings and the reviews, and starts asking {N} first.'],
               ['The first busy Saturday in the new post is chaos, and {boss} has to step in at midnight.',
                'The change goes badly, and {N} loses the regulars and the tips with it.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('do the licence course, and refuse anyone who has had too much, regular or not', 'W1', None, 0.45, '', {'v': 'conformity, security', 'grants': 'drinks licence', 'chance': 0.75}),
     ('learn the cellar and the cocktails from the book, one drink a night', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement, self-direction', 'chance': 0.8}),
@@ -50532,6 +50813,7 @@ SITUATIONS = [
                '{boss} notices the change, and the next review is the best {N} has had.'],
               ['The evenings are too much after a working day, and {N} has dropped out by November.',
                '{N} finishes the course and nothing changes: the same desk, the same work, the same pay.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('take the management certificate, and apply for team leader when it ends', 'W1', None, 0.45, '', {'v': 'achievement, conformity', 'title': 'shift manager', 'chance': 0.5}),
     ('take the data course, and teach yourself the rest at home', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'grants': 'working with data', 'chance': 0.75}),
@@ -50586,6 +50868,7 @@ SITUATIONS = [
                '{N} comes out of the change with a new place in the office, and a new respect from upstairs.'],
               ['Half the old records come over scrambled, and it is {N} the directors look at.',
                'The change goes on without {N}, and the old knowledge turns out to be worth less than {N} thought.']),
+ 'outcomes_not': ([[], [5]], [[5], []]),
  'options': [
     ('write a full handover manual for the new system, every quirk included', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'self_control': '+', 'chance': 0.8}),
     ('learn the new system before anyone else, and become its expert too', 'U1', None, 0.45, '', {'identity': True, 'v': 'achievement, self-direction', 'grants': 'the one everyone asks', 'chance': 0.7}),
@@ -50695,6 +50978,7 @@ SITUATIONS = [
                '{boss} shakes {Ns} hand on it, and the clients have heard the news before the week is out.'],
               ['The new path costs more than {N} reckoned, in hours, money and sleep.',
                'Nothing comes of it: the post goes to someone else, and the round goes on as before.']),
+ 'outcomes_not': ([[3, 4], []], [[3, 4], []]),
  'options': [
     ("take the senior carer's post, and the night phone with it", 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'title': 'shift manager', 'chance': 0.7}),
     ('start the nursing degree part time: four years of evenings and placements', 'U1', None, 0.45, '', {'binds': True, 'door': True, 'identity': True, 'v': 'achievement, self-direction', 'grants': 'professional registration', 'chance': 0.45}),
@@ -50804,6 +51088,7 @@ SITUATIONS = [
                '{N} comes through week six fitter and steadier than ever, and the corporal, once, nods.'],
               ['A shin injury puts {N} back three weeks, to start again with a new section.',
                'The section is punished for {Ns} mistake, and the barrack room goes cold for days.']),
+ 'outcomes_not': ([[9], []], [[9], []]),
  'options': [
     ('report every slip the struggling recruit makes, so the section stops paying', 'W1', None, 0.45, '', {'v': 'conformity', 'mark': 'made an enemy', 'closed': 'approval: informing on a comrade; backfire: the section freezes them out', 'chance': 0.75}),
     ('learn the drill and the kit list cold, until you can do them in the dark', 'U1', None, 0.45, '', {'v': 'achievement', 'mark': 'learned a skill', 'chance': 0.8}),
@@ -51080,6 +51365,7 @@ SITUATIONS = [
                'The head stops {N} in the corridor in June to say how much difference it has made.'],
               ['The interview goes badly, and {N} goes back to the classroom on Monday with bruised pride.',
                'The extra load comes on top of the marking, and by March {N} is exhausted.']),
+ 'outcomes_not': ([[], []], [[1, 2, 4, 5, 6, 8, 9], []]),
  'options': [
     ('apply for head of year, and take on the two hundred', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'grants': 'organising people', 'chance': 0.5}),
     ("start the master's on Tuesday evenings, and study how pupils learn", 'U1', None, 0.45, '', {'habit': True, 'binds': True, 'v': 'self-direction, achievement', 'chance': 0.65}),
@@ -51289,6 +51575,7 @@ SITUATIONS = [
                '{boss} agrees, and puts it in writing before anyone can change their mind.'],
               ['The door {N} chose stays shut this round, and someone else walks through it.',
                '{N} takes on more than the week can hold, and something important slips.']),
+ 'outcomes_not': ([[], [2, 3, 4]], [[4], []]),
  'options': [
     ("apply for the supervisor's post and do the training it asks for", 'W1', None, 0.45, '', {'identity': True, 'v': 'achievement, conformity', 'title': 'shift manager', 'requires': 'trusted with the keys', 'without': 'approval', 'lacking': 0.5, 'chance': 0.3}),
     ('study for the specialist qualification at night, for as long as it takes', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement, self-direction', 'mark': 'learned a skill', 'self_control': '+', 'chance': 0.55}),
@@ -51451,6 +51738,7 @@ SITUATIONS = [
                'The work, or the handing over, goes better than {N} feared, and people say so.'],
               ['{N} chooses, and spends months wondering about the other road.',
                'The pace is too much, and by winter {Ns} body is keeping the score.']),
+ 'outcomes_not': ([[], []], [[], [4, 8]]),
  'options': [
     ('take it on, with a named successor working alongside from the first day', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.7}),
     ('take it, and write the method down as you go so it outlives you', 'U1', None, 0.45, '', {'v': 'achievement, universalism', 'act': 'take it, and write the method down along the way so it outlives them', 'chance': 0.75}),
@@ -51554,6 +51842,7 @@ SITUATIONS = [
                'everything.'],
               ['It goes wrong in front of everyone, and {N} goes home wishing the floor had opened.',
                'Someone else saves the day in the end, and {N} is left standing to one side.']),
+ 'outcomes_not': ([[], []], [[4, 7], []]),
  'options': [
     ('step in and do it exactly the way it has been practised', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.75}),
     ('take two minutes to check the plan with the person who usually does it', 'U1', None, 0.45, '', {'v': 'achievement, security', 'chance': 0.8}),
@@ -51606,6 +51895,7 @@ SITUATIONS = [
                'The work turns out to suit {N}, and the group is in better shape than it has been for years.'],
               ['The work piles up faster than {N} can clear it, and a few members drift away.',
                'An argument over who should have done it splits the group for a season.']),
+ 'outcomes_not': ([[], [3]], [[3], []]),
  'options': [
     ('say yes, and take on the organising from next week', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'grants': 'organising people', 'chance': 0.26}),
     ('offer to sort out the records and the money, and nothing else', 'U1', None, 0.45, '', {'v': 'achievement, security', 'grants': 'bookkeeping', 'chance': 0.8}),
@@ -51654,6 +51944,7 @@ SITUATIONS = [
                'The leaders think again, and {N} gets a turn after all.'],
               ['The rift with {rival} hardens, and the group starts to feel like two camps.',
                'Nothing changes, and {N} spends the season on the edge of things.']),
+ 'outcomes_not': ([[], [3]], [[], [3]]),
  'options': [
     ('ask the leaders, privately and politely, how the choice was made', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.8}),
     ('watch the newcomer closely for a month and work out what they do better', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.75}),
@@ -51906,6 +52197,7 @@ SITUATIONS = [
                'The trust turns out to be deserved, and {elder} says so in front of everyone.'],
               ['The extra work eats into everything else, and the belief itself starts to feel like a chore.',
                'A quarrel over how {N} does things splits the committee, and it lands on {N}.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('accept the keys and every duty that comes with them', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'grants': 'trusted with the keys', 'chance': 0.8}),
     ('offer to teach the newcomers, and prepare every session properly', 'U1', None, 0.45, '', {'v': 'benevolence, achievement', 'chance': 0.8}),
@@ -51958,6 +52250,7 @@ SITUATIONS = [
                '{N} comes through the dry season knowing more surely why {N} is still there.'],
               ['The quiet hardens into distance, and {N} goes to fewer and fewer gatherings.',
                'Doubts said aloud cost {N} a friend or two among the others.']),
+ 'outcomes_not': ([[], []], [[], [0, 4]]),
  'options': [
     ('keep every commitment through the dry season, without complaint', 'W1', None, 0.45, '', {'habit': True, 'v': 'tradition, conformity', 'self_control': '+', 'mark': 'kept your word', 'chance': 0.7}),
     ('write down every doubt, and follow the questions wherever they lead', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, universalism', 'title': 'seeker', 'chance': 0.65}),
@@ -52010,6 +52303,7 @@ SITUATIONS = [
                'The newer members start coming to {N} first, to ask what something used to mean.'],
               ['The quarrel turns bitter, and some of the oldest faces stop coming.',
                '{N} picks a side, and the other side does not forget it.']),
+ 'outcomes_not': ([[], []], [[], [9]]),
  'options': [
     ('have the new music ruled out of order under the old rules', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'closed': 'approval: using the rules to shut people out; backfire: the newer members leave and take the young with them', 'chance': 0.6}),
     ('sit down with the newcomers and ask what each change is meant to do', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'chance': 0.82}),
@@ -52063,6 +52357,7 @@ SITUATIONS = [
                'Someone {N} sat up with years ago comes back to say what it meant.'],
               ['{N} gives too much for too long, and ends the year worn out and short-tempered.',
                'Someone {N} could not reach in time drifts away from the group, and {N} carries it.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('drive out through the storm to the one who rang in tears', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'body': 'light', 'death_if_fails': 0.002, 'tech': 'car', 'chance': 0.75}),
     ('start a proper group for the people with doubts, with a time and a plan', 'U1', None, 0.45, '', {'v': 'benevolence, universalism', 'grants': 'counselling', 'chance': 0.75}),
@@ -52321,6 +52616,7 @@ SITUATIONS = [
                'Whatever they choose, they choose it together, and it feels like a second beginning.'],
               ['The plan stalls in arguments about money and who gives up what.',
                'One of them goes along with it, and the resentment arrives a year later.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('agree to one big change, carefully planned, and keep the rest as it is', 'W1', None, 0.45, '', {'v': 'security, tradition', 'chance': 0.75}),
     ('learn to sail together, and plan a long voyage down to the last tide', 'U1', None, 0.45, '', {'v': 'stimulation, achievement', 'grants': 'boat handling', 'body': 'light', 'death_if_fails': 0.002, 'chance': 0.55}),
@@ -52720,6 +53016,7 @@ SITUATIONS = [
                '{boss} looks at the plate in the morning, nods, and thanks {N} for the catch.'],
               ["The run fails at noon the next day, and a week's work goes into the autoclave.",
                'The culture turns out to be fine, and {N} has held up the whole lab for nothing.']),
+ 'outcomes_not': ([[], [7]], [[], [7]]),
  'options': [
     ('log the suspect flask and report it to the supervisor on the way out', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.88}),
     ('stay late, plate a sample and look at it under the microscope', 'U1', None, 0.45, '', {'v': 'achievement', 'self_control': '+', 'chance': 0.6}),
@@ -52822,6 +53119,7 @@ SITUATIONS = [
                'The paragraph sounds like a person again, and the edit goes back a day early.'],
               ['The author takes the note badly, and the next email is short and cold.',
                "The sentence stays as it was, and a reviewer quotes it as the book's one false note."]),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('flag it with a gentle margin note, and leave the choice to the author', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.75}),
     ("rewrite it three ways, each closer to the author's voice, and send them all", 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.75}),
@@ -52923,6 +53221,7 @@ SITUATIONS = [
                'The floor is done by ten, and on the way out the worker asks {Ns} name for the first time.'],
               ['The worker snaps that they are busy, and {N} pushes the trolley on with a hot face.',
                'A manager comes up in the lift and asks why the fourth floor is not finished.']),
+ 'outcomes_not': ([[], []], [[4], []]),
  'options': [
     ('clean around the desk quietly and leave that bin for last', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.9}),
     ('ask what keeps them at the desk so late every night this month', 'U1', None, 0.45, '', {'v': 'benevolence', 'chance': 0.72}),
@@ -52975,6 +53274,7 @@ SITUATIONS = [
                'The family is pleased, the arrangement holds, and Tuesdays go on as they always have.'],
               ['A letter from the agency arrives, quoting clause eleven of the contract.',
                "Two clients drop away, and the month's money comes up short."]),
+ 'outcomes_not': ([[], []], [[0, 4], []]),
  'options': [
     ("explain to the family that the agency's contract rules it out for a year", 'W1', None, 0.45, '', {'v': 'conformity', 'mark': 'kept your word', 'chance': 0.75}),
     ('read the small print and find out exactly what the contract allows', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.95}),
@@ -53026,6 +53326,7 @@ SITUATIONS = [
                "{N} learns they are only away at a daughter's, and the post is held at the depot that afternoon."],
               ['Nobody answers, nobody knows, and the post goes on piling up behind the door.',
                '{N} falls behind on the round, and {boss} wants an explanation that a feeling does not satisfy.']),
+ 'outcomes_not': ([[], []], [[], [2, 9]]),
  'options': [
     ('report a welfare concern at the depot, as the guidance says', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.65}),
     ('ask the neighbours when anyone last saw them come or go', 'U1', None, 0.45, '', {'v': 'benevolence', 'chance': 0.72}),
@@ -53078,6 +53379,7 @@ SITUATIONS = [
                'The depot gives way on part of it, and the worst of the hill goes to a van round.'],
               ['The new round runs late every day, and the handheld marks {N} as the slowest on the shift.',
                'A letter about performance turns up in {Ns} pigeonhole, and {colleague} gets the same one.']),
+ 'outcomes_not': ([[2], []], [[2], []]),
  'options': [
     ('log the extra hours every day and take the figures to the union rep', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.4}),
     ('redraw the walk order yourself until the round fits the shift', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'chance': 0.8}),
@@ -53180,6 +53482,7 @@ SITUATIONS = [
                '{partner} hears the news and laughs out loud down the phone.'],
               ['The decision is made, and for months {N} keeps glancing towards the water.',
                'The company takes the offer back while {N} is still making up {Ns} mind.']),
+ 'outcomes_not': ([[], []], [[3, 5, 8], []]),
  'options': [
     ('ask the crew and the family what they need, and go with the greater need', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.6}),
     ('ask for six months ashore on trial before giving up the sea for good', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'door': True, 'chance': 0.35}),
@@ -53381,6 +53684,7 @@ SITUATIONS = [
                '{N} comes home at dawn, sleeps until noon, and wakes up steady.'],
               ['The tiredness shows: a name spelt wrong on an order of service, and a family that notices.',
                '{partner} says, quietly, that {N} is never really home any more.']),
+ 'outcomes_not': ([[], [7]], [[], []]),
  'options': [
     ('get dressed, go, and do it as carefully as the very first time', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'identity': True, 'chance': 0.92}),
     ('log every call-out for a month and show the manager what the hours cost', 'U1', None, 0.45, '', {'v': 'security', 'habit': True, 'chance': 0.55}),
@@ -53432,6 +53736,7 @@ SITUATIONS = [
                'The piece heals clean, and every wobble that mattered is still there.'],
               ['The client says it is lovely, in the voice people use when it is not.',
                'The lines spread a little in healing, and {N} sees every fault each time the client waves.']),
+ 'outcomes_not': ([[], [2, 7]], [[], []]),
  'options': [
     ('explain honestly which lines will blur, and agree each change before inking', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.8}),
     ('trace it, keep every quirk, and redraw only what the needle cannot hold', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.78}),
@@ -53533,6 +53838,7 @@ SITUATIONS = [
                'The editor reads the new pages and writes back one line: this is it.'],
               ['The publisher withdraws the offer, politely, by email on a Friday afternoon.',
                'The book comes out with the new ending, and {N} cannot bear to read the last chapter at events.']),
+ 'outcomes_not': ([[], [3]], [[], [3]]),
  'options': [
     ('write the ending the publisher asks for, as well as you honestly can', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'mark': 'gave in to pressure', 'self_control': '-', 'chance': 0.75}),
     ('write both endings, and send the better one with your reasons', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'self_control': '+', 'chance': 0.65}),
@@ -53583,6 +53889,7 @@ SITUATIONS = [
                'The bills are paid by the first of the month, and the pages keep coming.'],
               ['By spring the account is empty, and the book is still half written.',
                'The new arrangement eats the writing hours, and the manuscript gathers dust.']),
+ 'outcomes_not': ([[], []], [[], [3]]),
  'options': [
     ('take a steady part-time job and write in the early mornings', 'W1', None, 0.45, '', {'v': 'security, conformity', 'habit': True, 'chance': 0.7}),
     ('rework the budget to the last coin, and buy a year of writing time', 'U1', None, 0.45, '', {'v': 'self-direction', 'self_control': '+', 'chance': 0.5}),
@@ -53686,6 +53993,7 @@ SITUATIONS = [
                'Within the year the courts fix the worst of the rates, and {N} is still in the courtroom.'],
               ['The agency sends {N} two hours away to a hearing that is cancelled on arrival, unpaid.',
                "The month's income comes in at half the old rate, and the bills do not wait."]),
+ 'outcomes_not': ([[], [3, 8]], [[3, 8], []]),
  'options': [
     ('keep serving the courts through the agency, as your oath asks', 'W1', None, 0.45, '', {'v': 'conformity', 'identity': True, 'chance': 0.78}),
     ("sign the agency's contract only once the worst clauses are bargained out", 'U1', None, 0.45, '', {'v': 'achievement, security', 'binds': True, 'chance': 0.45}),
@@ -53888,6 +54196,7 @@ SITUATIONS = [
                'The community accepts {Ns} answer, and the matter is settled without a quarrel.'],
               ["The guesthouse loses more money than ever, and the community's meetings grow tense.",
                '{Ns} answer leaves the head of the house disappointed, and the silence at meals feels heavier.']),
+ 'outcomes_not': ([[3, 4], []], [[], []]),
  'options': [
     ('say yes, as your promise of obedience asks, and start in the spring', 'W1', None, 0.45, '', {'binds': True, 'v': 'conformity, tradition', 'mark': 'kept your word', 'chance': 0.85}),
     ('go through the accounts line by line, and bring a plan to the next meeting', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.8}),
@@ -53992,6 +54301,7 @@ SITUATIONS = [
                '{N} plays at the next feast, and the room sways the way it did for {rival}.'],
               ['The congregation splits into those who want {N} and those who want {rival}.',
                '{rival} stops coming altogether, and people blame {N}.']),
+ 'outcomes_not': ([[], [4, 9]], [[], [4]]),
  'options': [
     ('offer the newcomer two services a month, and draw up a fair rota', 'W1', None, 0.45, '', {'v': 'universalism, benevolence', 'chance': 0.75}),
     ('ask the newcomer to teach those chords, and practise them every evening', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement', 'mark': 'learned a skill', 'self_control': '+', 'chance': 0.9}),
@@ -54044,6 +54354,7 @@ SITUATIONS = [
                '{N} comes out of the week able to look everyone in the eye, and the campaign holds together.'],
               ['A photo of {N} beside the preacher goes round the town, and old friends stop calling.',
                'The hearing upholds the ban, and the campaign argues about the case for months.']),
+ 'outcomes_not': ([[3, 4], []], [[3, 4, 7], []]),
  'options': [
     ('speak for his right at the hearing, and say plainly that you reject his views', 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism', 'chance': 0.7}),
     ('write a careful brief on why the bylaw is too vague to stand', 'U1', None, 0.45, '', {'v': 'universalism, achievement', 'chance': 0.7}),
@@ -54246,6 +54557,7 @@ SITUATIONS = [
                '{N} walks home humming, sure of the choice.'],
               ['{N} spends the evening a beat behind everyone else, and leaves feeling foolish.',
                "The choir's hall is closed for repairs the next month, and the plan comes to nothing."]),
+ 'outcomes_not': ([[3, 6, 7], []], [[], []]),
  'options': [
     ('sign up for the term, and come to every rehearsal', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity, benevolence', 'title': 'choir member', 'requires': 'singing', 'without': 'approval', 'lacking': 0.8, 'chance': 0.92}),
     ('sit in the back row and listen, to work out how the parts fit', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.95}),
@@ -54293,6 +54605,7 @@ SITUATIONS = [
                '{N} goes home with sore wrists and a clear head about what comes next.'],
               ['The first rehearsal falls apart at the second song, and nobody rings back.',
                'The band splits a month later over who gets to choose the songs.']),
+ 'outcomes_not': ([[0, 2, 4, 7], []], [[4, 7], []]),
  'options': [
     ('tell them honestly that every Thursday is too much, and offer to stand in', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.7}),
     ('learn their whole set note for note before ringing the number', 'U1', None, 0.45, '', {'v': 'achievement', 'title': 'amateur band member', 'self_control': '+', 'requires': 'musical instrument', 'without': 'approval', 'lacking': 0.6, 'chance': 0.85}),
@@ -54393,6 +54706,7 @@ SITUATIONS = [
                'The kitchen gets what it needed from {N}, and {N} walks home tired and glad.'],
               ['The kitchen descends into a row about the rota, and {N} is caught in the middle.',
                'Lunch is forty minutes late, the soup burns, and the regulars let everyone know.']),
+ 'outcomes_not': ([[3, 6], []], [[], []]),
  'options': [
     ('do the hygiene course, and take a weekly shift on the rota', 'W1', None, 0.45, '', {'habit': True, 'v': 'benevolence, conformity', 'title': 'community-kitchen volunteer', 'grants': 'food hygiene certificate', 'chance': 0.75}),
     ('work out why the lunch queue is so slow, and draw up a better system', 'U1', None, 0.45, '', {'v': 'achievement, benevolence', 'chance': 0.55}),
@@ -54445,6 +54759,7 @@ SITUATIONS = [
                '{N} goes home with a clear answer, and no regrets about it.'],
               ['Selection weeds out half the recruits, and {N} is among them.',
                'The first winter of call-outs strains things at home more than {N} expected.']),
+ 'outcomes_not': ([[4, 6, 7, 8, 9], []], [[4, 6, 7, 8, 9], []]),
  'options': [
     ('sign up, and commit to answering the pager at any hour of the night', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, security', 'title': 'search-and-rescue volunteer', 'grants': 'first-aid certificate', 'requires': 'navigation', 'without': 'approval', 'lacking': 0.6, 'chance': 0.55}),
     ('apply for the training, and study every module before it begins', 'U1', None, 0.45, '', {'binds': True, 'v': 'achievement', 'mark': 'learned a skill', 'title': 'search-and-rescue volunteer', 'requires': 'navigation', 'without': 'approval', 'lacking': 0.8, 'chance': 0.55}),
@@ -54495,6 +54810,7 @@ SITUATIONS = [
                '{N} settles the question for good, and the harbour feels like home either way.'],
               ['{N} misses the fitness standard by a few seconds, and the coxswain says to try again next year.',
                'A call-out on the night of a family wedding starts a row that lasts for weeks.']),
+ 'outcomes_not': ([[0, 6], []], [[0, 6], []]),
  'options': [
     ("help on the station's open days, and leave the pager to others", 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.95}),
     ('watch a training night first, and read up on sea survival', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.95}),
@@ -54705,6 +55021,7 @@ SITUATIONS = [
                '{N} answers {friend} kindly and clearly, and the friendship is warmer for it.'],
               ['The second meeting turns into an argument about the news, and two members walk out.',
                '{Ns} own congregation hears of it and asks pointed questions.']),
+ 'outcomes_not': ([[1, 5], []], [[1, 5], []]),
  'options': [
     ("go, keep to the circle's rules, and come back every month", 'W1', None, 0.45, '', {'door': True, 'v': 'universalism, conformity', 'title': 'interfaith-dialogue participant', 'chance': 0.82}),
     ('read up on the other traditions, and keep putting off an answer', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'self_control': '-', 'chance': 0.4}),
@@ -54761,6 +55078,7 @@ SITUATIONS = [
                'missing.'],
               ['At the last step {N} hesitates, and the teacher says gently that the door will stay open.',
                'The community is warm, but one of its rules sticks in {Ns} throat, and {N} steps back for now.']),
+ 'outcomes_not': ([[7, 9], []], [[], []]),
  'options': [
     ('ask for a year of instruction, and be received properly in front of the whole community', 'W1', None, 0.45, '', {'binds': True, 'v': 'tradition, conformity', 'title': 'convert', 'chance': 0.8}),
     ('read the last of its texts, then ask to be received on your own terms', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, universalism', 'title': 'convert', 'chance': 0.75}),
@@ -54815,6 +55133,7 @@ SITUATIONS = [
               ["The fees, the rules and the teacher's moods add up, and {N} leaves with less money and fewer "
                'illusions.',
                'The circle closes ranks against {Ns} questions, and the friend who brought {N} stops calling.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('join the circle, keep its rules, and give the teacher a year', 'W1', None, 0.45, '', {'binds': True, 'v': 'conformity, tradition', 'chance': 0.8}),
     ('ask to see the accounts and the teachings in writing before giving anything', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.7}),
@@ -54917,6 +55236,7 @@ SITUATIONS = [
                'The week goes smoothly, and the care at home feels lighter for a month after.'],
               ['{sibling} rings on the second day in a panic, and the week ends early.',
                '{N} spends the whole week worrying, and comes back more tired than before.']),
+ 'outcomes_not': ([[0, 4], []], [[0], [4]]),
  'options': [
     ('thank them, and say your place is at home', 'W1', None, 0.45, '', {'identity': True, 'v': 'tradition, conformity', 'chance': 0.9}),
     ('write out the care hour by hour for them, then go', 'U1', None, 0.45, '', {'v': 'security, benevolence', 'chance': 0.65}),
@@ -55120,6 +55440,7 @@ SITUATIONS = [
                '{child} gets the keys in the spring, and the money never sours a thing between them.'],
               ['The money sits between {N} and {child} like a stone for months.',
                'One of the other children hears about it and is hurt, and the holidays are tense.']),
+ 'outcomes_not': ([[], [2]], [[], []]),
  'options': [
     ('lend it only if the other children can have the same', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'closed': 'means: the savings will not stretch to all of them; backfire: the pension pot runs low', 'chance': 0.45}),
     ('go through their budget with them before deciding anything', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.75}),
@@ -55225,6 +55546,7 @@ SITUATIONS = [
                'Whatever is decided, it is decided calmly, and the family starts, slowly, to feel like one again.'],
               ['{child} does not turn up, and {N} has to find the words for the grandchild.',
                'There is a row on the phone, and the arrangement grows stiffer for months.']),
+ 'outcomes_not': ([[2], []], [[2], []]),
  'options': [
     ('say yes only if the social worker agrees, as the arrangement says', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.75}),
     ('suggest an afternoon first, and see how it goes', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.7}),
@@ -55325,6 +55647,7 @@ SITUATIONS = [
                'The concert goes beautifully, and three people stop {N} afterwards to say so.'],
               ['{Ns} voice cracks in bar eleven, and the rest of the concert passes in a blur.',
                'Rehearsals turn tense, and {rival} stops sitting in the same row.']),
+ 'outcomes_not': ([[4, 8], []], [[4, 8], []]),
  'options': [
     ('say yes, and promise the choir not to let them down', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'chance': 0.72}),
     ('practise the sixteen bars every evening until they are perfect', 'U1', None, 0.45, '', {'habit': True, 'v': 'achievement', 'self_control': '+', 'chance': 0.8}),
@@ -55377,6 +55700,7 @@ SITUATIONS = [
                'The questions turn into the best conversation of the weekend.'],
               ['The man with the guidebook walks off muttering, and the young woman does not wait for an answer.',
                'The question follows the group to its next meeting and starts an argument that lasts all winter.']),
+ 'outcomes_not': ([[], [9]], [[], []]),
  'options': [
     ('answer both honestly, and admit what the group gets wrong', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'mark': 'owned up', 'chance': 0.82}),
     ('show them the stitching and explain where the evidence comes from', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, achievement', 'chance': 0.78}),
@@ -55425,6 +55749,7 @@ SITUATIONS = [
                '{N} drives home soaked and happy, with stories to last a year.'],
               ['{N} comes home with a streaming cold and a ruined wool coat.',
                'The show is called off at noon on Sunday, and the group argues all the way to the car park.']),
+ 'outcomes_not': ([[], [2]], [[2], []]),
  'options': [
     ('keep your shift at the gate whatever the weather, as promised', 'W1', None, 0.45, '', {'v': 'conformity', 'mark': 'kept your word', 'self_control': '+', 'chance': 0.95}),
     ('dig drainage trenches round the tents the way the old manuals show', 'U1', None, 0.45, '', {'body': 'light', 'v': 'self-direction, security', 'mark': 'learned a skill', 'chance': 0.7}),
@@ -55731,6 +56056,7 @@ SITUATIONS = [
                'The line holds, the visits go on, and the trust between them grows.'],
               ['He goes cold for the rest of the hour, and the next visit is stiff and short.',
                'The coordinator calls {N} in for a talk, and the next visit is put off a month.']),
+ 'outcomes_not': ([[], [3]], [[], []]),
  'options': [
     ("say no kindly, and tell the scheme's coordinator he asked", 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'refused someone in need', 'chance': 0.85}),
     ('help him put it in a letter, through the proper post', 'U1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'chance': 0.75}),
@@ -56016,6 +56342,7 @@ SITUATIONS = [
               ['Rain, a long queue and a polling card left at home turn the day into a muddle, and {N} gets home '
                'cross.',
                'By morning half the street is furious, and {N} has fallen out with {sibling} over it.']),
+ 'outcomes_not': ([[7], []], [[7], []]),
  'options': [
     ('vote first thing in the morning, as you always do, and tell nobody how', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'state', 'chance': 0.95}),
     ("read every manifesto against each party's record, then vote on the evidence", 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'self_control': '+', 'lever': 'voice', 'pushes': 'state', 'chance': 0.88}),
@@ -56127,6 +56454,7 @@ SITUATIONS = [
                '{N} comes out of the dispute with the respect of the people {N} works beside.'],
               ['Three weeks without pay, and the deal at the end is barely better than the one turned down.',
                'The vote splits the floor, and some colleagues stop speaking to each other for good.']),
+ 'outcomes_not': ([[], [2, 9]], [[2, 9], []]),
  'options': [
     ('vote yes, and keep a list of everyone who works through the strike', 'W1', None, 0.45, '', {'v': 'conformity, power', 'mark': 'made an enemy', 'closed': 'approval: keeping a list of workmates who break a strike; backfire: a formal complaint, and the list leaks to the whole floor', 'lever': 'loyalty', 'chance': 0.7}),
     ('set the offer against prices and rent, and vote on what the figures show', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.9}),
@@ -56185,6 +56513,7 @@ SITUATIONS = [
                'else.'],
               ['The march is small and wet, and the law goes through on Friday morning anyway.',
                '{boss} calls {N} in on Monday to ask, very coolly, where {N} was on Thursday.']),
+ 'outcomes_not': ([[], []], [[], [1, 4, 7]]),
  'options': [
     ('book the day off properly, and march with the team on the agreed route', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'state', 'chance': 0.75}),
     ('stay at your desk, and write a careful letter to your representative instead', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'lever': 'voice', 'pushes': 'state', 'chance': 0.92}),
@@ -56244,6 +56573,7 @@ SITUATIONS = [
                '{N} comes out of it with a few friends for life, made in the hardest months.'],
               ['The year goes badly from the first week, and {N} cannot wait for it to end.',
                'The choice follows {N} for years: on forms, in interviews, in the way some people look at {N}.']),
+ 'outcomes_not': ([[], []], [[1, 3, 5, 6, 7], []]),
  'options': [
     ('report on the day the letter names, and serve your full term', 'W1', None, 0.45, '', {'binds': True, 'v': 'conformity, security', 'title': 'soldier', 'self_control': '+', 'lever': 'loyalty', 'chance': 0.62}),
     ('apply for a deferment to finish your studies, with every paper in order', 'U1', None, 0.45, '', {'binds': True, 'v': 'self-direction, achievement', 'chance': 0.62}),
@@ -56371,6 +56701,7 @@ SITUATIONS = [
                'The worst never reaches {Ns} street, and the people {N} loves come through it together.'],
               ['In the chaos {N} loses work, savings and sleep, and the months that follow are lean ones.',
                'The new rulers keep lists too, and {Ns} name ends up on one of them.']),
+ 'outcomes_not': ([[7], []], [[], []]),
  'options': [
     ('give the new council the names of the neighbours who served the old rulers', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'mark': 'made an enemy', 'closed': 'approval: informing on neighbours; backfire: the lists grow longer than anyone meant, and the street stops trusting', 'lever': 'loyalty', 'pushes': 'state', 'chance': 0.62}),
     ('quietly wipe the files that tie your name to the old rulers', 'U1', None, 0.45, '', {'v': 'security', 'mark': 'hid a wrong', 'closed': 'law: destroying public records; backfire: the copies turn up, and the wiping looks worse than the files', 'lever': 'subvert', 'pushes': 'institution', 'chance': 0.5}),
@@ -56437,6 +56768,7 @@ SITUATIONS = [
                'Months later the crowds have thinned, but what {N} took from those nights is still there.'],
               ['The wave breaks as fast as it rose, and {N} is left with the quarrels it started.',
                "A scandal hits the movement's leaders, and everyone who stood near them is tarred with it."]),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('go forward at the meeting and make a public vow to live by the faith', 'W1', None, 0.45, 'commit:faith', {'binds': True, 'v': 'tradition, conformity', 'chance': 0.7}),
     ('go to three meetings with a notebook, to understand what draws people in', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction, universalism', 'chance': 0.8}),
@@ -56562,6 +56894,7 @@ SITUATIONS = [
                'A year on, the new medium is part of the furniture, and {N} has come out of the change ahead.'],
               ['Something {N} posted travels much further than meant, and the wrong people see it.',
                'Months go by in the glow of the screen, and old friendships quietly thin out.']),
+ 'outcomes_not': ([[], []], [[4], []]),
  'options': [
     ('wait until there are proper rules for it, then join and use it with care', 'W1', None, 0.45, '', {'v': 'security, conformity', 'tech': 'internet', 'chance': 0.75}),
     ('learn every setting before anyone else, and become the one who explains it', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'mark': 'learned a skill', 'tech': 'internet', 'chance': 0.72}),
@@ -56628,6 +56961,7 @@ SITUATIONS = [
                'The wave passes over, and {N} is still standing, in the trade or out of it, on firmer ground.'],
               ['Within the year {Ns} post is gone, and most of the posts like it with it.',
                '{N} keeps the job, but the work shrinks to watching the machine, at lower pay.']),
+ 'outcomes_not': ([[], []], [[], [2, 4]]),
  'options': [
     ('sign up for the retraining scheme the firm and the union agreed', 'W1', None, 0.45, '', {'door': True, 'v': 'security, conformity', 'mark': 'learned a skill', 'self_control': '+', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.65}),
     ('work out which parts of the job no machine can do, and claim them', 'U1', None, 0.45, '', {'v': 'achievement, self-direction', 'chance': 0.6}),
@@ -56692,6 +57026,7 @@ SITUATIONS = [
                'down.',
                'The dark days cost more than anyone expected: spoiled food, lost wages, and an old neighbour taken '
                'to hospital.']),
+ 'outcomes_not': ([[6], []], [[], []]),
  'options': [
     ('check on the old neighbours door by door, with a torch and a list', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'chance': 0.8}),
     ('dig out the battery radio and piece together what is really going on', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.7}),
@@ -56813,6 +57148,7 @@ SITUATIONS = [
                'A year on, {N} is glad of the choice made in that first uneasy month.'],
               ['The new owners bring in their own people, and {N} is left on the edge of everything.',
                'The promises of the first meeting do not last the year, and {N} pays for having believed them.']),
+ 'outcomes_not': ([[3, 9], []], [[3, 9], []]),
  'options': [
     ("stay on, learn the new owners' rules, and do the job as well as ever", 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.67}),
     ("read up on the new owners' past deals before deciding anything", 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.65}),
@@ -56869,6 +57205,7 @@ SITUATIONS = [
                'The new firm turns out larger, slower and safer, and {N} makes a place in it.'],
               ["{Ns} name is on the second list, and the notice comes with a month's pay.",
                'The old team breaks up within the year, and the new place never feels like {Ns} own.']),
+ 'outcomes_not': ([[3], []], [[3], []]),
  'options': [
     ('apply for your post in the new structure, properly and on time', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.72}),
     ('work out where your role stands on the new chart before anyone says', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.67}),
@@ -56923,6 +57260,7 @@ SITUATIONS = [
                'A year on, the jobs are still there and {N} has learned how the new place works.'],
               ['The new rules pile up faster than the work, and {N} spends the year on forms.',
                'The rescue saves the firm but not every post, and the cuts reach {Ns} floor after all.']),
+ 'outcomes_not': ([[3], []], [[], [3]]),
  'options': [
     ('sign the new public contract and keep to its rules from the first day', 'W1', None, 0.45, '', {'v': 'conformity, security', 'lever': 'loyalty', 'pushes': 'institution employer', 'chance': 0.77}),
     ('learn how the public body works: its board, its budget, its rules', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'mark': 'learned a skill', 'chance': 0.72}),
@@ -57037,6 +57375,7 @@ SITUATIONS = [
                'Months later {N} still has a livelihood, and the choice made in that sleepless week holds.'],
               ['The bosses find out who knew, and {Ns} days there turn hard.',
                'The wrong goes on, and {N} carries the weight of it for years.']),
+ 'outcomes_not': ([[], []], [[4], []]),
  'options': [
     ('report it in writing to the board, and sign it with your own name', 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism, conformity', 'mark': 'defied an authority', 'lever': 'voice', 'pushes': 'institution employer', 'chance': 0.57}),
     ('copy every document quietly and keep it safe before deciding anything', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.52}),
@@ -57378,6 +57717,7 @@ SITUATIONS = [
                'The care holds, and {parent} has good days again, more of them than anyone expected.'],
               ["Within months the arrangement is cracking, and {N} is running on four hours' sleep.",
                '{parent} has another fall, and the whole question opens again from the start.']),
+ 'outcomes_not': ([[], []], [[3, 9], []]),
  'options': [
     ('take them into your home, and arrange your life round their care', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'title': 'carer for a parent', 'mark': 'helped someone in need', 'chance': 0.65}),
     ('draw up a care plan with the doctor, and share every task in the family', 'U1', None, 0.45, '', {'v': 'security', 'chance': 0.74}),
@@ -57485,6 +57825,7 @@ SITUATIONS = [
                'The collectors stop calling, and the two of them find they can still talk about anything.'],
               ['The money vanishes into the debt, and within months {sibling} is asking again.',
                'The question sits between them at every family meal, unspoken and heavy.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('lend the full sum, with the terms written down and signed by both', 'W1', None, 0.45, '', {'v': 'security, benevolence', 'mark': 'helped someone in need', 'chance': 0.6}),
     ('go through every bill with them before deciding on a penny', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'chance': 0.8}),
@@ -57540,6 +57881,7 @@ SITUATIONS = [
                'Whatever {N} does clears the air, and the office stops whispering.'],
               ['{colleague} gets the role, and {N} is moved sideways to a desk by the window.',
                'The fight drags on for months and sours the whole team.']),
+ 'outcomes_not': ([[6], []], [[6], []]),
  'options': [
     ('ask the boss for a straight review of your work, and let it decide', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.6}),
     ('gather every result of the last two years into one quiet file for the boss', 'U1', None, 0.45, '', {'v': 'achievement, security', 'chance': 0.7}),
@@ -57594,6 +57936,7 @@ SITUATIONS = [
                'Something new begins between them, unhurried and sure of itself.'],
               ['The weekend goes wrong, and both of them come home quiet and sore.',
                '{friend} takes the answer hard and stops calling for a long while.']),
+ 'outcomes_not': ([[], [0]], [[0], []]),
  'options': [
     ('thank them, and tell them kindly you cannot be what they hope for', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.65}),
     ('ask them what they hope for, exactly, before answering', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.76}),
@@ -57648,6 +57991,7 @@ SITUATIONS = [
                'An answer goes back, and whatever comes of it, the matter is settled.'],
               ['The meeting reopens the old wound, and it stays raw for weeks.',
                '{friend} reads the answer as a door slammed, and tells the old crowd their side of it.']),
+ 'outcomes_not': ([[], [3, 4]], [[3, 4], []]),
  'options': [
     ('tell them forgiveness starts with owning up to the others they lied to', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'chance': 0.55}),
     ('write back asking exactly what they are sorry for, and read the answer slowly', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.62}),
@@ -57701,6 +58045,7 @@ SITUATIONS = [
                'Something in the talk gets through, and {N} wakes the next morning clearer than in months.'],
               ['Within weeks the old pattern is back, and the next talk is harder.',
                '{N} leaves the table furious, and {sibling} and {N} do not speak for a season.']),
+ 'outcomes_not': ([[2], []], [[], []]),
  'options': [
     ('promise to stop completely, and give them the right to check on you', 'W1', None, 0.45, '', {'v': 'conformity, security', 'self_control': '+', 'act': 'promise to stop completely, and give them the right to check', 'chance': 0.45}),
     ('keep a diary of every day for a month, then read it back honestly', 'U1', None, 0.45, '', {'habit': True, 'v': 'self-direction', 'self_control': '+', 'chance': 0.62}),
@@ -57865,6 +58210,7 @@ SITUATIONS = [
                'The exam is passed, and the next phone call with the landlord goes {Ns} way.'],
               ['The words will not stick, and {N} goes back to pointing and smiling.',
                'A misunderstanding at work costs {N} a shift, and the shame of it lasts longer than the lost pay.']),
+ 'outcomes_not': ([[], [4, 8]], [[], []]),
  'options': [
     ('go to every class, do all the homework, and sit the exam', 'W1', None, 0.45, '', {'habit': True, 'v': 'achievement, conformity', 'grants': 'second language', 'self_control': '+', 'chance': 0.7}),
     ('study the grammar at night, a chapter at a time, until it clicks', 'U1', None, 0.45, '', {'habit': True, 'v': 'self-direction, achievement', 'grants': 'second language', 'mark': 'learned a skill', 'chance': 0.66}),
@@ -57977,6 +58323,7 @@ SITUATIONS = [
                'The decision is made and it holds, and {N} sleeps that night without a single form on the table.'],
               ['A missed form puts the ceremony off by a year, and the letter about it is curt.',
                'The day comes and goes, and {N} feels less changed by it than expected, and more alone.']),
+ 'outcomes_not': ([[3, 9], []], [[3], []]),
  'options': [
     ('say the oath word for word, and mean every line of it', 'W1', None, 0.45, '', {'identity': True, 'binds': True, 'v': 'conformity, tradition', 'grants': 'citizenship', 'title': 'naturalised citizen', 'chance': 0.78}),
     ('read the law first: what you gain, what you lose, and the old passport', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.86}),
@@ -58094,6 +58441,7 @@ SITUATIONS = [
                'The fight over the blame ends in new rules at the works, and {N} had a hand in them.'],
               ['The firm blames a contractor, the contractor blames the rain, and nobody pays.',
                'The quarrel splits the street between those who work at the plant and those who do not.']),
+ 'outcomes_not': ([[], [4, 9]], [[], []]),
  'options': [
     ("file a formal complaint and ask the council to enforce the works' permit", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'lever': 'voice', 'pushes': 'institution council', 'chance': 0.7}),
     ('take water samples at the outfall and send them away for testing', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'mark': 'learned a skill', 'chance': 0.75}),
@@ -58596,6 +58944,7 @@ SITUATIONS = [
                'The months are hard, but {grandparent} has good days again, and {N} is there for most of them.'],
               ["Within weeks the arrangement is fraying, and {N} is running on four hours' sleep.",
                '{grandparent} goes missing again one afternoon, and the whole question opens from the start.']),
+ 'outcomes_not': ([[], [3]], [[3], []]),
  'options': [
     ('move in with them for the months it takes, and keep their days in order', 'W1', None, 0.45, 'pay:money-.03', {'v': 'benevolence, tradition', 'mark': 'helped someone in need', 'chance': 0.6}),
     ('read up on the illness, and take them to the memory clinic yourself', 'U1', None, 0.45, '', {'v': 'benevolence, self-direction', 'chance': 0.75}),
@@ -58706,6 +59055,7 @@ SITUATIONS = [
                'The months are long, but the care holds, and the two of them come out of it closer.'],
               ['Halfway through, {N} is worn so thin that the smallest thing starts a row.',
                'The arrangement breaks down in the second month, and {partner} feels like a burden.']),
+ 'outcomes_not': ([[3, 7], []], [[3, 7], []]),
  'options': [
     ('take leave from work, and be at their side for every treatment', 'W1', None, 0.45, 'pay:money-.05', {'v': 'benevolence, conformity', 'mark': 'helped someone in need', 'chance': 0.6}),
     ('learn the treatment plan inside out, and run the medicines and the diary', 'U1', None, 0.45, '', {'binds': True, 'v': 'benevolence, achievement', 'chance': 0.7}),
@@ -58936,6 +59286,7 @@ SITUATIONS = [
                'Some of the families find their way back to each other, and {N} helped make it happen.'],
               ['Old friends cross the road rather than speak, and {N} is caught in the middle of it.',
                'The half {N} chose falls apart within two years, and the hall stands empty.']),
+ 'outcomes_not': ([[], []], [[], [7]]),
  'options': [
     ('stay in the old building with the elders, and keep the old order', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'lever': 'loyalty', 'pushes': 'group congregation', 'chance': 0.8}),
     ('go to both for a month, and see which keeps faith with its own teaching', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'chance': 0.7}),
@@ -59416,6 +59767,7 @@ SITUATIONS = [
                '{N} sits back from the kitchen table with every paper sorted, feeling like a grown-up.'],
               ['A final demand arrives, with a late fee attached.',
                'The tax office writes back: there is a mistake, and it is {Ns}.']),
+ 'outcomes_not': ([[], [9]], [[], []]),
  'options': [
     ('fill in every form honestly and pay each bill the day it arrives', 'W1', None, 0.45, '', {'habit': True, 'v': 'conformity, security', 'chance': 0.9}),
     ('learn how the system works and build a budget that tracks everything', 'U1', None, 0.45, '', {'v': 'security, self-direction', 'mark': 'learned a skill', 'chance': 0.82}),
@@ -59462,6 +59814,7 @@ SITUATIONS = [
                'For once there is no argument at the table, and {grandparent} laughs all evening.'],
               ['The old argument with {parent} flares on the first night and never quite dies down.',
                '{N} spends the week feeling like a sulking teenager again.']),
+ 'outcomes_not': ([[3, 7], []], [[], [3, 7]]),
  'options': [
     ('go home as always, and play your part in every ritual', 'W1', None, 0.45, '', {'habit': True, 'v': 'tradition, conformity', 'chance': 0.8}),
     ('go for exactly three days, planned so nobody can argue', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.75}),
@@ -59552,6 +59905,7 @@ SITUATIONS = [
                'The interview turns into a long, easy conversation, and {N} walks out already knowing.'],
               ['The letter says, politely, that they have chosen someone else.',
                '{N} freezes on the second question and never quite recovers.']),
+ 'outcomes_not': ([[9], []], [[], []]),
  'options': [
     ('answer every question honestly, even the ones that show your weak spots', 'W1', None, 0.45, '', {'identity': True, 'v': 'benevolence (honesty), conformity', 'mark': 'owned up', 'chance': 0.48}),
     ('rehearse answers to every likely question until they are flawless', 'U1', None, 0.45, '', {'v': 'achievement', 'chance': 0.6}),
@@ -59645,6 +59999,7 @@ SITUATIONS = [
                '{N} logs off at midnight with the last word and a clear head.'],
               ['By morning the argument has spread to {Ns} family group chat.',
                "{N} loses a friend over it, and an evening, and a night's sleep."]),
+ 'outcomes_not': ([[], [4, 9]], [[], []]),
  'options': [
     ('find out where the worst troll works, and report them to their boss', 'W1', None, 0.45, '', {'v': 'conformity, power', 'mark': 'made an enemy', 'closed': "approval: exposing a stranger's identity; backfire: the wrong person named, and threats in return", 'chance': 0.2}),
     ('write a careful reply with sources, and ignore the insults', 'U1', None, 0.45, '', {'v': 'universalism, self-direction', 'chance': 0.55}),
@@ -59692,6 +60047,7 @@ SITUATIONS = [
                '{friend} gets back on their feet, and never forgets who helped.'],
               ['Payday comes and goes, and {friend} stops answering.',
                'The loan becomes the thing neither of them can mention.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('lend it, write down the terms, and both sign', 'W1', None, 0.45, '', {'binds': True, 'v': 'security, conformity', 'chance': 0.72}),
     ('ask what happened, and lend only once the story makes sense', 'U1', None, 0.45, '', {'binds': True, 'v': 'security, self-direction', 'mark': 'helped someone in need', 'chance': 0.75}),
@@ -59833,6 +60189,7 @@ SITUATIONS = [
                'Weeks later the council changes its mind, and {N} feels part of the reason.'],
               ['The march turns ugly at the square, and {N} goes home shaken.',
                '{Ns} face is in a newspaper photo, and {boss} has seen it.']),
+ 'outcomes_not': ([[4, 9], []], [[4, 9], []]),
  'options': [
     ('march with a sign, keep to the route and follow the stewards', 'W1', None, 0.45, '', {'identity': True, 'v': 'universalism, conformity', 'chance': 0.9}),
     ('go to listen, and talk to the counter-protesters too', 'U1', None, 0.45, '', {'door': True, 'v': 'universalism (tolerance), self-direction', 'mark': 'made a friend', 'chance': 0.72}),
@@ -60310,6 +60667,7 @@ SITUATIONS = [
                '{N} makes the most of it, and people in the field start to know the name.'],
               ['The chance turns out to be smaller than it looked, and much harder.',
                '{N} freezes under the weight of it, and the moment slips away.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('accept, and work every day to deserve the honour', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'chance': 0.76}),
     ('accept, and spend the first month studying everything the role demands', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.78}),
@@ -60366,6 +60724,7 @@ ECHOES = [
                'The case is dropped a month later for lack of evidence.'],
               ['{N} is charged, and a court date arrives in the post.',
                '{N} spends the afternoon in an interview room and the evening with a solicitor.']),
+ 'outcomes_not': ([[3], []], [[], []]),
  'options': [
     ('let them in, and tell them the truth from the start', 'W1', None, 0.45, '', {'v': 'conformity, security', 'mark': 'owned up', 'self_control': '+', 'title_if_fails': 'someone with a record', 'chance': 0.5}),
     ('say politely that you will answer everything with a solicitor present', 'U1', None, 0.45, '', {'v': 'security', 'title_if_fails': 'someone with a record', 'chance': 0.6}),
@@ -60418,6 +60777,7 @@ ECHOES = [
                'The matter is settled, and {friend} says yes to what {N} needs.'],
               ['{friend} says no, and tells the old story to anyone who will listen.',
                'The talk goes badly, and an old hurt becomes a fresh one.']),
+ 'outcomes_not': ([[4], []], [[], [4]]),
  'options': [
     ('keep the old promise now, late as it is, whatever it costs', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, conformity', 'mark': 'kept your word', 'chance': 0.85}),
     ('explain what changed back then, and ask what would set it right', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.69}),
@@ -60565,6 +60925,7 @@ ECHOES = [
                '{N} gets what is needed, and the old refusal is finally talked through.'],
               ['The answer is a flat no, and the whole street hears why.',
                'Help comes, grudgingly, with the old story attached.']),
+ 'outcomes_not': ([[0, 1, 7], []], [[0, 1, 7], []]),
  'options': [
     ('do without; having refused them, you have no right to ask', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'chance': 0.4}),
     ('find some other way, however long it takes, rather than ask', 'U1', None, 0.45, '', {'identity': True, 'v': 'self-direction, security', 'chance': 0.62}),
@@ -60716,6 +61077,7 @@ ECHOES = [
                'A new face behind the desk waves {N} through.'],
               ['The file goes to the bottom of the pile, and stays there.',
                'The answer is no, and it is plain why.']),
+ 'outcomes_not': ([[4], []], [[], []]),
  'options': [
     ('apply again by the letter, and appeal through every proper step', 'W1', None, 0.45, '', {'v': 'conformity, security', 'chance': 0.69}),
     ('find the rule they are bending, and quote it back to them', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'mark': 'defied an authority', 'chance': 0.62}),
@@ -60766,6 +61128,7 @@ ECHOES = [
                'The cause wins a small victory, and {Ns} name is said with respect.'],
               ['The meeting splits into arguments before anything is decided.',
                'The fight drags on, and {N} becomes its target.']),
+ 'outcomes_not': ([[9], []], [[], []]),
  'options': [
     ('accept, and set up a proper committee with minutes and votes', 'W1', None, 0.45, '', {'identity': True, 'v': 'conformity, benevolence', 'chance': 0.72}),
     ('gather the facts first, and only then decide whether to lead', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.67}),
@@ -60963,6 +61326,7 @@ ECHOES = [
                '{N} weighs it well, and the choice holds up for years.'],
               ['This time the luck runs the other way, and the losses are real.',
                'The chance slips by while {N} hesitates, and someone else takes it.']),
+ 'outcomes_not': ([[0], []], [[0], []]),
  'options': [
     ('turn it down; luck once is not a plan, and steadiness matters more', 'W1', None, 0.45, '', {'v': 'security, conformity', 'mark': 'turned down a chance', 'chance': 0.75}),
     ('study why the last one worked before deciding anything', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.78}),
@@ -61219,6 +61583,7 @@ ECHOES = [
                'The second offer is better than the first, and {N} takes it with open eyes.'],
               ['The place has changed, and the dream was better kept as a dream.',
                'By the time {N} decides, the offer has quietly gone to someone else.']),
+ 'outcomes_not': ([[], [4]], [[], []]),
  'options': [
     ('say yes, and give notice properly where you are now', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'chance': 0.82}),
     ('ask what has changed there, and exactly what they would expect', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'chance': 0.75}),
@@ -61273,6 +61638,7 @@ ECHOES = [
                '{N} finds an easy peace with it, and the day at the lake is a happy one.'],
               ['The first lesson ends with a mouthful of water and a bruised pride.',
                '{N} stays on the edge again, and the old shame stings a little more.']),
+ 'outcomes_not': ([[4], []], [[4], []]),
  'options': [
     ('book a course of adult lessons and go every week until it is done', 'W1', None, 0.45, '', {'v': 'achievement, conformity', 'mark': 'learned a skill', 'body': 'light', 'chance': 0.85}),
     ('watch how it is done, then practise in the shallow end at dawn, alone', 'U1', None, 0.45, '', {'habit': True, 'v': 'self-direction, achievement', 'mark': 'learned a skill', 'body': 'light', 'chance': 0.45}),
@@ -61324,6 +61690,7 @@ ECHOES = [
                'Something old and hard between them begins, at last, to soften.'],
               ['{sibling} listens, nods, and says it is too late.',
                'The chance passes, and the apology stays unsaid.']),
+ 'outcomes_not': ([[4, 9], []], [[4, 9], []]),
  'options': [
     ('go to them, say plainly what you did, and ask forgiveness', 'W1', None, 0.45, '', {'identity': True, 'v': 'benevolence, conformity', 'mark': 'owned up', 'chance': 0.82}),
     ('write a long letter, redrafting it until every word is right', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'mark': 'owned up', 'chance': 0.69}),
@@ -61375,6 +61742,7 @@ ECHOES = [
                '{N} and {parent} have the best talk of their lives in that small room.'],
               ['{parent} is too tired to hear, and {N} will never know if it reached them.',
                'The moment comes and goes, and the words stay where they always were.']),
+ 'outcomes_not': ([[0, 4], []], [[0, 4], []]),
  'options': [
     ('visit every day without fail, and let the duty say what words cannot', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.65}),
     ('ask the questions you never asked, and listen to every answer', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.8}),
@@ -61429,6 +61797,7 @@ ECHOES = [
                'The trip goes beautifully, and the next one is planned before the bags are unpacked.'],
               ['The journey is exhausting, and {N} spends most of it longing for home.',
                'Something always comes up, and the tickets stay in the drawer.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('go, with every day planned and the house left in order', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.85}),
     ('read everything about the place first, and keep a journal every day there', 'U1', None, 0.45, '', {'door': True, 'v': 'self-direction', 'chance': 0.82}),
@@ -61480,6 +61849,7 @@ ECHOES = [
                'The sting fades, and {N} makes peace with the life that was chosen.'],
               ['Envy settles in, and {N} cannot walk down that street any more.',
                '{N} rushes in late, and the half-made plan costs dearly.']),
+ 'outcomes_not': ([[4], []], [[], [0, 4]]),
  'options': [
     ('send them a card wishing them well, and mean it', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.88}),
     ('go to their opening and study what they got right and wrong', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'chance': 0.62}),
@@ -61641,6 +62011,7 @@ ECHOES = [
                '{child} hears the pride in {Ns} voice, and something between them grows stronger.'],
               ['{N} says too much, and {child} goes quiet on the other end of the line.',
                '{N} realises that {child} has picked up the bad habits too.']),
+ 'outcomes_not': ([[], [4]], [[4], []]),
  'options': [
     ('tell them plainly that you are proud, and leave it at that', 'W1', None, 0.45, '', {'v': 'benevolence', 'chance': 0.95}),
     ('ask how they got there, and learn how they see it now', 'U1', None, 0.45, '', {'v': 'self-direction', 'chance': 0.88}),
@@ -61693,6 +62064,7 @@ ECHOES = [
                'Helping {friend} heals something in {N} that was still sore.'],
               ['{N} says too much too soon, and {friend} pulls away.',
                'Old fears come back with the memories, and {N} has to step back.']),
+ 'outcomes_not': ([[], []], [[4], []]),
  'options': [
     ('promise to go with them to every appointment, and keep that promise', 'W1', None, 0.45, '', {'v': 'benevolence', 'mark': 'kept your word', 'chance': 0.82}),
     ('write them the list of questions nobody thought to ask back then', 'U1', None, 0.45, '', {'v': 'benevolence', 'mark': 'helped someone in need', 'chance': 0.9}),
@@ -61794,6 +62166,7 @@ ECHOES = [
                'Others step up, and {N} discovers the duties were never {Ns} alone.'],
               ['{N} drops a duty, and it lands on someone who cannot carry it.',
                'The calendar fills up again within a month, as if by itself.']),
+ 'outcomes_not': ([[0], []], [[0], []]),
  'options': [
     ('keep every commitment; being relied on is its own reward', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'chance': 0.15}),
     ('review every duty, and drop the ones nobody would truly miss', 'U1', None, 0.45, '', {'v': 'self-direction', 'mark': 'broke your word', 'self_control': '-', 'chance': 0.82}),

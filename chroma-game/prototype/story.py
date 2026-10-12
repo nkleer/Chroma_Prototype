@@ -1073,6 +1073,7 @@ ACT_FIX = {"refuse, it breaks the rules": "refuse, because it breaks the rules",
 # Filled by load_library_story() from whatever library the pinned engine compiles; the game's own lines above stay as
 # the fallback for situations, worlds or stages the Library has not written yet.
 LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ = {}, {}, {}, {}
+LIB_OUT_NOT = {}   # F11b (v22.4.1): per moment, (option labels, per works line and per fails line the options it does not fit)
 LIB_GRIEF = set()          # moments in which someone dies (kills:)
 LIB_ECHO = {}              # echo -> the mark it answers ("a promise you broke comes back" -> "broke your word")
 WCODE = dict(earth="E", tribal="T", magic="M")
@@ -1083,7 +1084,7 @@ PERSON_SLOTS = ("friend", "rival", "partner", "prospect", "sibling", "colleague"
 def load_library_story(situations, read_events=()):
     """Take the Library's story fields from its situation dicts (and its read outside events, when given).
     Called once per life: an empty call clears them (settings the Library has not written use the game's own lines)."""
-    for d in (LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ, LIB_ECHO):
+    for d in (LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ, LIB_ECHO, LIB_OUT_NOT):
         d.clear()
     LIB_GRIEF.clear()
 
@@ -1099,6 +1100,8 @@ def load_library_story(situations, read_events=()):
             LIB_SCENES[x["name"]] = pool(x["scenes"])
         if x.get("outcomes"):
             LIB_OUTCOMES[x["name"]] = (list(x["outcomes"][0]), list(x["outcomes"][1]))
+            if x.get("outcomes_not") and any(any(n) for n in x["outcomes_not"]):
+                LIB_OUT_NOT[x["name"]] = ({o[0]: i for i, o in reversed(list(enumerate(x.get("options", ()))))}, x["outcomes_not"])
         if x.get("kills"):
             LIB_GRIEF.add(x["name"])
         mk = re.search(r"mark '([^']+)'", str(x.get("after", ""))) if x.get("tier") == "echo" else None
@@ -1466,10 +1469,10 @@ class Story:
                 st = [c for c in e[2] if c.islower()]; wl = [c for c in e[2] if c.isupper()]
                 if wl and self.wcode not in wl:
                     continue
-            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
-                continue
                 if st and stage is not None and not any(stage in STAGESETS[c] for c in st):
                     continue
+            if self.hold and e[1] in WORLD_LEAKS.get(self.wcode, ()):   # F12: no money or sirens in the clan
+                continue
             tag = e[0]
             w = float(np.mean([v[CI[c]] for c in tag])) if tag else 0.12
             cands.append((max(w, 1e-3) ** SHARP, e[1], tag))
@@ -1666,7 +1669,16 @@ class Story:
     def _result(self, m, ev):
         sit = m["sit"]; succ = bool(ev["success"]); d = float(ev.get("delta", 0.0))
         lines = (LIB_OUTCOMES.get(sit) or OUTCOMES.get(sit) or (["It works."], ["It goes badly."]))[0 if succ else 1]
-        out = self.fill(lines[int(self.rng.integers(len(lines)))], m["stage"], m["ctx"])
+        k = int(self.rng.integers(len(lines)))
+        if sit in LIB_OUT_NOT and sit in LIB_OUTCOMES:   # F11b: a line that fits the act they took (the same draw from the stream)
+            ix, nots = LIB_OUT_NOT[sit]
+            j = ix.get(ev.get("choice"))
+            no = nots[0 if succ else 1]
+            if j is not None and len(no) == len(lines) and j in no[k]:
+                fit = [i for i in range(len(lines)) if j not in no[i]]
+                if fit:
+                    k = fit[k % len(fit)]
+        out = self.fill(lines[k], m["stage"], m["ctx"])
         if succ and d > 0.6:
             out += " " + self.fill(self.pick(BIG_WIN_SOFT if sit in SOMBER or sit in LIB_GRIEF else BIG_WIN))
         elif not succ and d < -1.0:
