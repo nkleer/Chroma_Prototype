@@ -335,9 +335,14 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # moments, and fights won again and again kept White's posts longest); again: weeks after standing down before the
 # take chance doubles there; wait: weeks a post's moment waits to come; routine: yearly fades in a row after which the
 # inspiring leader's turn to routine is offered in place of the crisis; ruler_end: the yearly end chance of a national
-# office where there are no elections (held at the ruler's pleasure)
+# office where there are no elections (held at the ruler's pleasure); fav_drop: favours owed also run out when, at the
+# yearly check, the leader's money is under this share of its best since they began leading by favours (a patron with
+# less to give than the clients came for; Scott 1972), read against the life's own money so it holds whatever money
+# the society runs at (v22.5: with real money few leaders sit under the need line, and favours fell .7 a ten post-years
+# against 3.4 to 3.7 for the other ways); 0: the need line alone, as before
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
-                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1)
+                    sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, fav_drop=0.0,
+                    fast_gap=0, fast_k=1.0)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -4979,17 +4984,27 @@ class People:
                 if lo_ and not p["fair_lo"]:
                     self._lead_step(p, t, "rules", why="a fairness scandal")
                 p["fair_lo"] = lo_
-            elif p["way"] == 2:   # favours: once a year, money under the need line
+            elif p["way"] == 2:   # favours: once a year, money under the need line, or (fav_drop) under that share of
+                m_ = float(self.res[n, MON])   # its best since leading by favours: less to give than the clients came for
+                if par["fav_drop"]:
+                    hi_ = p.get("money_hi")
+                    p["money_hi"] = [p["way_t"], m_] if hi_ is None or hi_[0] != p["way_t"] else [hi_[0], max(hi_[1], m_)]
                 if int(a) != p["money_yr"]:
                     p["money_yr"] = int(a)
-                    if float(self.res[n, MON]) < self._lw_need and t > p["t0"]:
+                    if m_ < self._lw_need and t > p["t0"]:
                         self._lead_step(p, t, "favours", why="money under need")
+                    elif par["fav_drop"] and t > p["t0"] and m_ < par["fav_drop"] * p["money_hi"][1]:
+                        self._lead_step(p, t, "favours", why="less to give")
             elif p["way"] == 3:   # inspiring: a year without a new success fades the spark
                 if t - p["succ_t"] >= 52 and t - p["fade_t"] >= 52:
                     p["fade_t"] = int(t); p["fades"] += 1
                     self._lead_step(p, t, "inspiring", why="no new success")
             elif p["way"] == 4 and tv_ is not None:   # custom: the town sphere changed fast over the last four quarters
-                if tv_[l_, j_] > self._lw_fast[j_]:
+                # (fast_gap: no new custom step within that many weeks of the last, so one stretch of change, read
+                # over four quarters, is not counted again each quarter it stays in the window)
+                if (tv_[l_, j_] > par["fast_k"] * self._lw_fast[j_]
+                        and t - p.get("fast_t", NEVER) >= par["fast_gap"]):
+                    p["fast_t"] = int(t)
                     self._lead_step(p, t, "custom", why="fast change")
         # 4. a term's end: handing the post on (lead_hand: chosen, open or stay), else renewed or not
         for p in list(self.lw_posts):
