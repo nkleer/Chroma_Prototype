@@ -1110,7 +1110,8 @@ DEFAULT = dict(
                          # random stream) and are the family a child first admires (fam); the life leans toward this share of
                          # them and the rest of the start's colours, so households differ as values differ more within a
                          # culture than between cultures (Fischer & Schwartz 2011). With the world on the upbringing is the family's
-    up_conc=0.3,
+                         # own already (its world people), so Earth lives are untouched
+    up_conc=0.3,         # up_fam: how alike the households of one culture are (lower = households differ more)
     # F16 colours shape the life course: each life's own lean toward partnering, children and a faith (drawn once, its own
     # random stream) and its colours tilt the life events, acts and titles that would start one (falling in love, a baby
     # on the way, a faith joined); a rate x exp(course_mu + own lean + tilt . (5 w - 1)), never 0, so no path closes. A
