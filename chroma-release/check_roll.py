@@ -38,7 +38,7 @@ chroma-library and chroma-packs (engine lives) and its chroma-game/prototype wit
 game's engine_pin, so an engine branch's played lives read its engine only once the Game has re-pinned it). A row's
 switches that DEFAULT (or the game's GAME) still has off are switched on and named in the report; --as-is judges the
 checkout exactly as it is, so today's main (every v22.5 switch off) reads what the old rules do. f8_after and f10_once
-share their engine lives (with `all`, or f10_once given --engine-from the f8_after run's folder). The bar's K9 reads
+share their engine lives (with `all`, or given --engine-from earlier runs' folders, pooled seed by seed). The bar's K9 reads
 3,600 lives: --seeds 41-52. Each unit of work runs in its own process (--jobs at a time). Report: <out>/roll_<check>.txt
 (default out/roll_<UTC time>/); one results line per check (results.py) unless --no-record. Exit code 0 when every
 check run passes. About an hour on 4 cores for the engine lives at the defaults (1,200 lives), and 15 minutes for the
@@ -367,13 +367,29 @@ def run_units(repo, jobs, todo, out, log):
 
 
 def engine_lives(a, repo, out, log):
-    src = a.engine_from
-    if src and os.path.exists(os.path.join(src, "engine_lives.json")):
-        prev = json.load(open(os.path.join(src, "engine_lives.json")))
-        if prev.get("key") == [a.seeds, a.lives, a.years, a.as_is]:
-            log(f"  engine lives from {src}")
-            return prev["res"]
-    res = run_units(repo, a.jobs, [("eng", (sd, a.lives, a.years, int(a.as_is)), {}) for sd in span(a.seeds)], out, log)
+    """The engine lives of --seeds. --engine-from: one or more earlier runs' folders (comma-separated), pooled seed by
+    seed where they ran the same lives, years and --as-is; seeds none of them holds are run here. So K9's 3,600 lives
+    can run as three machines' --seeds 41-44, 45-48 and 49-52 (--no-record) and be judged once from their folders."""
+    want, got = span(a.seeds), {}
+    for src in (a.engine_from or "").split(","):
+        f_ = os.path.join(src, "engine_lives.json")
+        if not src or not os.path.exists(f_):
+            continue
+        prev = json.load(open(f_))
+        if (prev.get("key") or [None])[1:] != [a.lives, a.years, a.as_is]:
+            log(f"  --engine-from {src}: other lives, years or --as-is ({prev.get('key')}); not used")
+            continue
+        for r in prev["res"]:
+            u = r.get("_unit") or []
+            if len(u) > 1 and not r.get("error"):
+                got.setdefault(int(u[1]), r)
+    have = [sd for sd in want if sd in got]
+    if have:
+        log(f"  engine lives from {a.engine_from}: seeds {','.join(map(str, have))}")
+    todo = [sd for sd in want if sd not in got]
+    res = run_units(repo, a.jobs, [("eng", (sd, a.lives, a.years, int(a.as_is)), {}) for sd in todo], out, log) if todo else []
+    new = {int(r["_unit"][1]): r for r in res}
+    res = [got.get(sd) or new[sd] for sd in want]
     json.dump(dict(key=[a.seeds, a.lives, a.years, a.as_is], res=res), open(os.path.join(out, "engine_lives.json"), "w"))
     return res
 
