@@ -253,7 +253,13 @@ def judge(d, commit=None, record=True):
     t.judge("F9.18 four or more", v[1] if v else None, None, .10)
     t.judge("F9.19 employers per working life, mean", wmean(runs, "F9.19 employers (career starts), mean"), 4, 12, "{:.2f}")
     t.judge("F9.20 firm crises felt per life, mean", wmean(runs, "F9.20 firm crises per life, mean"), .5, 3, "{:.2f}")
-    t.judge("F9.21 out of work at 20 to 64, share of years", wmean(runs, "F9.21 out of work at 20-64 (not retired), share of years"), .04, .10)
+    # F9.21 on the reader's 21b: years out of work after the first job, to 64, not retired (students and those not yet
+    # working are not "wanting work"; Engine 10-12 01:26 UTC); every year without a job is printed beside it
+    t.judge("F9.21 out of work after the first job, 20 to 64, share of years",
+            wmean(runs, "F9.21b out of work after the first job, to 64 (not retired)"), .04, .10)
+    v = wmean(runs, "F9.21 out of work at 20-64 (not retired), share of years")
+    if v is not None:
+        t.info(f"every year 20 to 64 without a job, students and the not yet working included: {v:.3f}")
     m, lo_, hi_ = medians(runs, "F9.22 retirement age, median")
     t.judge("F9.22 retirement age, median", m, 60, 67, "{:.1f}", f" (seeds {lo_} to {hi_})")
     t.judge("F9.22 still working at 72, share of the living", wmean(runs, "F9.22 working at 72, share of the living"), None, .15)
