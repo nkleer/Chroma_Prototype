@@ -1150,6 +1150,8 @@ DEFAULT = dict(
     tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
     work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
                          # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
+    low_net=None,        # F9.38: (years, level): after that many years running at 5% or less, help comes (benefits, family,
+                         # a way out found): the money drifts to at least level while the life's own would be less; None: as before
     pen_pay=None,        # F9.38 (with low_pay): a career's pension x exp(lp_mu + s z - s^2 / 2), s = pen_pay x the job's pay
                          # spread, z the last job's pay draw (its rank, not faded with the years in it); None: as before
     low_pay=None,        # F9.38 low pay: (sd, rho, half): each job's pay x exp(sd z d - (sd d)^2 / 2), mean 1, z drawn at each
@@ -1469,7 +1471,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, body_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3453,6 +3455,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         lp_mu = np.zeros(N); lp_sc = np.ones(N)
         PC_ = None if P["pay_col"] is None else np.asarray(P["pay_col"], float)
     TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
+    NET_ON = P["low_net"] is not None
+    if NET_ON:
+        net_y, net_lv = (float(x_) for x_ in P["low_net"]); lo_w = np.zeros(N); net_ = np.zeros(N, bool)
     PRP_ON = P["pair_pay"] is not None                    # F9.38: a couple living together shares its money
     if PRP_ON:
         CO_T_ = np.array([i_ for i_, x_ in enumerate(GR["names"]) if x_ in CO_TITLES], int) if RON else np.zeros(0, int)
@@ -4559,6 +4564,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                    & (t - end_t[:, CAR] < 52 * P["job_gap"][2]))
             mt = mt - P["job_gap"][0] * gp_
             mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])
+        if NET_ON:   # F9.38: a long hard spell meets help (benefits, family, a way out): after net_y years at 5% or less,
+            lo_w = np.where(res[:, MON] <= 0.05, lo_w + 1, 0)   # the money drifts to net_lv while its own would be less
+            net_ = (net_ | (lo_w >= 52 * net_y)) & (mt < net_lv)   # (it lasts while the life's own means stay under it)
+            mt = np.where(net_, net_lv, mt)
+            if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:
+                mon_r = np.where(net_, P["mon_drift"], mon_r)
         res[:, MON] += mon_r * (mt - res[:, MON]); res[:, TIE] += tie_r * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
