@@ -1096,6 +1096,9 @@ DEFAULT = dict(
     up_ease=0.0,         # the setup's own society (world_profile, f_world: the clan's, the towers') pulls at 1 - up_ease of
                          # its strength (on: .8), so the start's world is a lean too and other colours can lead some lives
                          # (the clan's White and Green come mostly from its seed library's options, which this leaves)
+    up_fam=0.0,          # the start's lean comes through the family: each life leans toward this share of its own family's
+                         # ways (fam, drawn around the society) and the rest of the start's colours, so households of one start
+                         # differ as values differ more within a culture than between cultures (Fischer & Schwartz 2011)
     # F16 colours shape the life course: each life's own lean toward partnering, children and a faith (drawn once, its own
     # random stream) and its colours tilt the life events, acts and titles that would start one (falling in love, a baby
     # on the way, a faith joined); a rate x exp(course_mu + own lean + tilt . (5 w - 1)), never 0, so no path closes. A
@@ -1427,7 +1430,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3356,12 +3359,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     UPM_ = None if P["up_mix"] is None else np.asarray(P["up_mix"], float) / np.sum(P["up_mix"])   # F15: the start's lean
     UPL_ON = UPM_ is not None and bool(P["up_lean"] or P["up_self"] or P["up_ease"])
     if UPL_ON:
-        UPD_ = UPM_ - 0.2; UPN_ = max(float(UPD_ @ UPD_), 1e-9)
+        if P["up_fam"]:   # each family's own ways (N x C)
+            UPM_ = (1 - P["up_fam"]) * UPM_ + P["up_fam"] * fam / fam.sum(1, keepdims=True)
+        UPD_ = UPM_ - 0.2; UPN_ = np.maximum((UPD_ * UPD_).sum(-1), 1e-9) if UPM_.ndim > 1 else max(float(UPD_ @ UPD_), 1e-9)
         up_oy = np.zeros((N, C)); up_oz = np.zeros((N, C))   # what the start's pulls have added to the want and to who they are
         UP_DEC = 1 - 0.5 ** (1 / (52 * P["up_half"]))         # which fades by half every up_half years from up_from
         def up_short(v):
             """F15: how far a pie (N x C) falls short of the lean the start still leaves, 0 to 1 of the full lean."""
-            return _uclip((P["up_l0"] * upf_ - (v - 0.2) @ UPD_ / UPN_) / P["up_l0"], 0, 1)
+            return _uclip((P["up_l0"] * upf_ - (((v - 0.2) * UPD_).sum(-1) if UPM_.ndim > 1 else (v - 0.2) @ UPD_) / UPN_) / P["up_l0"], 0, 1)
     DS_ON = bool(P["drv_self"]) and "DRVN" in L          # F9: the drivers' mean taken out in the run itself
     DRVN_ = np.asarray(L["DRVN"], float) if DS_ON else None
     PS_ON = P["par_split"] is not None                    # F9: a breakup and a home together
@@ -3581,7 +3586,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             upe_ = 1 - P["up_ease"]                       # how much of the setup's own society pulls
             if P["up_lean"]:
                 a_ = softmax(y)
-                dy_ = (P["up_lean"] * up_short(a_))[:, None] * centre(5 * (UPM_[None] - a_))
+                dy_ = (P["up_lean"] * up_short(a_))[:, None] * centre(5 * (UPM_ - a_))
                 if age >= P["up_from"]:
                     dy_ = dy_ - UP_DEC * up_oy
                 up_oy += dy_
@@ -5686,7 +5691,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         chan[:, :5] += stepF; chan[:, 6] += drift
         dz_ = stepF.sum(1)
         if UPL_ON and P["up_self"]:   # F15: the start's lean on who they are (booked as social)
-            udz_ = (P["up_self"] * up_short(w) * plast)[:, None] * centre(5 * (UPM_[None] - w))
+            udz_ = (P["up_self"] * up_short(w) * plast)[:, None] * centre(5 * (UPM_ - w))
             if age >= P["up_from"]:
                 udz_ = udz_ - UP_DEC * up_oz
             up_oz += udz_
