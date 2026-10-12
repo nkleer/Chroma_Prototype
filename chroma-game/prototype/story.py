@@ -2069,6 +2069,12 @@ class Story:
                 b["role"] = "former boss"
             job_ = self.world_word("job", self.W["job"])   # F12 (world_hold): a place in the work in the clan
             return self.fill("{N} loses their " + mk("c", "career||lost job", job_) + "." + (f" {self.nm(bs[0])} does not meet their eye." if bs else ""))
+        if what == "moved" and kind == "career":        # v22.5 job_move: the same work, another employer (S7: titles go along)
+            job_ = mk("c", f"career|{top}|changed employer", self.world_word("job", self.W["job"]))
+            return self.fill(self.pick([("", "{N} changes employer, and takes their " + job_ + " with them."),
+                                        ("B", "{N} moves to an employer who pays better for the same " + job_ + "."),
+                                        ("R", "{N} has had enough of the place, and takes their " + job_ + " somewhere new."),
+                                        ("W", "{N} goes to work for another employer, doing the same " + job_ + " as before.")]))
         if what == "retired":
             return self.fill(self.pick([("", "{N} retires."), ("G", "{N} retires, and the days grow slower and wider."),
                                         ("B", "{N} retires, reluctantly, still counting what they are owed.")]))
