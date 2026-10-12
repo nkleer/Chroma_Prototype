@@ -1542,7 +1542,7 @@ class People:
         # body ages .15 x wear years a year worked (the haunt stream draws, so every other stream draws as before)
         u_ = self._hrng.random((self.N, 2))
         self.mark_hurt |= has & (u_[:, 0] < 0.03 * dw_[:, 0])
-        self.mark_die |= has & (u_[:, 1] < 0.0005 * dw_[:, 0])
+        self.mark_die |= has & (u_[:, 1] < getattr(self, "mk_die", 0.0005) * dw_[:, 0])   # (engine work_die)
         self.mark_wear += 0.15 * dw_[:, 1] * has
 
     def _tstage(self, a):

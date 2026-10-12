@@ -1148,6 +1148,8 @@ DEFAULT = dict(
                          # people model's own closeness builds over the first years, so on its own a child of 4 to 6 sits
                          # near nothing); None: as before
     tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
+    work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
+                         # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
     pen_pay=None,        # F9.38 (with low_pay): a career's pension x exp(lp_mu + s z - s^2 / 2), s = pen_pay x the job's pay
                          # spread, z the last job's pay draw (its rank, not faded with the years in it); None: as before
     low_pay=None,        # F9.38 low pay: (sd, rho, half): each job's pay x exp(sd z d - (sd d)^2 / 2), mean 1, z drawn at each
@@ -1224,7 +1226,7 @@ V225 = dict(
     risk_norm=True,
     par_age=((16, 0.0), (19, 0.35), (24, 1.0)),
     tie_k=1.75,
-    par_split=0.06,
+    par_split=0.05,
     ill_real=True,
     kid_cost=0.07,
     hh_cls=(0.12, 0.3, 0.55),
@@ -1253,12 +1255,14 @@ V225 = dict(
     mon_drift=0.015,
     lone=dict(age=((13, 0.02), (16, 0.01), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
                    (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
-    low_pay=(0.7, 0.3, 3.0),
+    low_pay=(0.85, 0.3, 3.0),
+    pen_pay=1.0,
     pay_col=((0.0, 0.08, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),
     tie_col=(0.3, 0.0, 0.0, 0.0, 0.05),
     kid_tie=0.6,
     job_gap=(0.35, 0.1, 1.0),
     pair_pay=0.12,
+    work_die=0.00007,
     c_par=dict(sold=0.03, merged=0.015),
     eyes_par=dict(odd_vmem=0.05),   # S4: the spread of their places' shares learnt over about twenty years (world_people)
     soc_own=0.2,
@@ -1465,7 +1469,7 @@ UPD_OFF = dict(dis_match=False,
                death_par=None, body_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -2778,6 +2782,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
         WL.PP.or_on = bool(P.get("one_roll"))   # F7: a partner the world takes is not replaced (world_people._sync)
+        if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
+            WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
         if LW_ON:
             LW_T_ = WL.lw_tid
