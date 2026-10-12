@@ -205,6 +205,9 @@ CHECKS = [
     ("build", "item 5", "Game", "quick", 1, ".", "python3 -B chroma-game/tools/build.py {W}/build --same-as game_live && echo BUILD-SAME",
      "re:^BUILD-SAME", (), "the one build command makes the game from the engine, Library and packs, file for file as the "
      "candidate's game (Library rebuild, pin C-X1, load); when chroma-game/tools/build.py is there"),
+    ("lines_tied", "K28", "Game", "quick", 4, "chroma-game/prototype", "python3 -B test/lines_tied_check.py --jobs 4 --out {W}/lines_tied",
+     "re:^LINES_TIED: PASS", (), "clarity item 6 (v22.5): presets 1 to 6 with lines_tied on and off give the same HUD at every "
+     "step, no stand-alone memory or world_year line, every reading shows its colour; when test/lines_tied_check.py is there"),
     # ---- Engine's own fast check (backend plan item 2): the engine's pause points
     ("t_steps", "item 2", "Engine", "quick", 1, ".", "python3 -B chroma-engine/tools/t_steps.py", "re:^ALL PASS", (),
      "run_steps() lives run()'s lives bit for bit, pauses in PAUSES order, every STATE name at every pause (3 short runs); "
@@ -728,7 +731,9 @@ def main():
             continue
         if (cid == "speedpass" and a.engine is None and a.game is None) or (cid in ("saves", "saves_note") and a.game is None) \
                 or (cid == "build" and not os.path.exists(os.path.join(fromcand("chroma-game/tools/build.py"), "chroma-game/tools/build.py"))) \
-                or (cid == "t_steps" and not steps):
+                or (cid == "t_steps" and not steps) \
+                or (cid == "lines_tied" and not os.path.exists(os.path.join(fromcand("chroma-game/prototype/test/lines_tied_check.py"),
+                                                                            "chroma-game/prototype/test/lines_tied_check.py"))):
             continue
         if row == "steered" and not os.path.exists(os.path.join(src["game"], STEER)):
             waiting.append(cid); continue
