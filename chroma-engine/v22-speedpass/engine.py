@@ -1121,6 +1121,9 @@ DEFAULT = dict(
                          # two years to most of the way; faster, a hard spell is felt sooner and passes sooner)
     age_free=None,       # F9: [life event, ...] that come by their age window at their highest stage rate, not by the life stage
                          # reached (a stage can begin years after its window opens); "your first full-time job" for F9.38
+    age_rate=None,       # F9.24: [life event, ...] whose rate rises with age, read between the stages' per_year, each at the
+                         # end of its window (where lives begin that stage), not stepping up only when the next stage begins
+                         # (stages mostly begin at their window's end, elder at 80: a 70-year-old fell ill at the midlife rate)
     birth_par=None,      # F9.3 (with birth_age): a life's own births x this factor by the children it has living (0, 1, 2, ...;
                          # the last for more): fewer go on to a third or fourth child. None: as before
     ti_fit=None,         # F9: {title: factor} on its yearly rate (the Library's or the packs' rule), fitted to Release's rows
@@ -1168,7 +1171,9 @@ V225 = dict(
     deed_rare=0.15,
     mind_kid=((10, 0.5), (18, 1.0)),
     mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6)),
-    death_par=dict(frail=(1.4e-06, 0.125), frail_k=1.5, ser_age=0.012, frail_c=0.0002),
+    death_par=dict(frail=(1.25e-07, 0.15), frail_k=1.5, ser_age=0.016, frail_c=0.00025, frail_late=(92, 0.25), decline_k=2.0,
+                   acc=((0, 5e-5), (15, 1.5e-4), (20, 2.5e-4), (30, 2.5e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3))),
+    body_par=dict(dip_level=True),
     course_mu=(-0.55, -0.2, -3.5),
     pension_k=0.45,
     pension_base=0.15,
@@ -1181,7 +1186,7 @@ V225 = dict(
     kid_cost=0.07,
     hh_cls=(0.12, 0.3, 0.55),
     ev_fit={'losing your job': 0.45,
-            'a serious accident or illness': 0.6,
+            'a serious accident or illness': (1, 1, 0.25, 0.25, 1.6, 4.5),
             'a long dark season': 0.65,
             'an addiction takes hold': 0.63,
             'living with a chronic illness': 0.75,
@@ -1199,6 +1204,7 @@ V225 = dict(
     ti_fit={'living together': 4.5},
     birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
     age_free=('your first full-time job',),
+    age_rate=('a frightening diagnosis', 'a serious accident or illness'),
     mon_drift=0.015,
 )
 DEFAULT.update(V225)
@@ -1297,6 +1303,8 @@ BODY_PAR = dict(
     moments=True,            # the Library's own body moments happen to the body: a diagnosis is a serious illness, "living
                              # with a chronic illness" a condition, a serious accident an injury or an illness
     risk_k=2.0,              # the body's risks on those moments: x exp(risk_k x (the level for the age - the body)), at most x2
+    dip_level=False,         # v22.5 F9.37: what an illness or injury takes (its dip, a condition's weight, the mark it leaves) is a
+                             # share of what the body has at its age (x its level for the age over its best), less at 90 than at 30
 )
 # what each of the Library's body and mind moments is (moments=True); the engine's own rates stand in where a Library has none
 BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with an illness": "condition",
@@ -1350,11 +1358,15 @@ DEATH_PAR = dict(
     old_age=85.0,            # from this age a failing body with nothing named is old age
     frail_c=0.0,             # v22.5 F9.35: from 15, a failing body's background a year beside the Gompertz term (Makeham):
                              # the young who die of an illness, not only of an accident
+    frail_late=None,         # v22.5 F9.33: (age, slope): from this age the body's own failing rises at this slope instead (its
+                             # last reserves go), so almost no one lives past 105. None: one slope
     ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
                              # illness's course ends in death this often (at 60, with the body at its age's level)
     ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
     cond_k=0.005,            # a condition's complications: its weight x this x e^(.06 (age - 50)) a year
     decline=dict(old=(12, 52), serious=(4, 20), condition=(8, 30)),   # weeks of the last decline, by what ends the life
+    decline_k=1.0,           # v22.5 F9.37: the decline deepens as (the share of its weeks gone) ** this; 2: slowly at first and
+                             # steeply at the end, as a last decline does (most of its weeks are not yet the lowest)
 )
 
 
@@ -1389,10 +1401,10 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
                # values the v22.5 refit changed (V225)
-               death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
+               death_par=None, body_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
                kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3043,6 +3055,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if AF_ON:
         AF_S = np.array([nm_ in set(P["age_free"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
         AF_P = PERY[AF_S].max(1)[None]
+    AR_ON = bool(P["age_rate"]) and BAT                   # F9.24: life events at a rate by age, not stepping with the stage
+    if AR_ON:
+        AR_S = np.array([nm_ in set(P["age_rate"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
+        AR_X = STAGE_HI.copy(); AR_R = PERY[AR_S]
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -3114,7 +3130,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         k_ = kind if kind is not None else int(rng.choice(len(COND_KINDS), p=COND_P[0 if age < 16 else 1]))
         if P["cond_once"] and (bd_ck[n_] == k_).any():   # F9.27 (F10): one they have already is not diagnosed again
             return
-        bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1))) * dip_f
         bd_ck[n_, j_] = k_; bd_ca[n_, j_] = age
         body_log(n_, kind="condition", name=COND_KINDS[k_], what="begins")
 
@@ -3123,13 +3139,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return
         bd_sk[n_] = kind; bd_s0[n_] = t
         bd_s1[n_] = t + int(4.33 * rng.uniform(*BP_["ser_months"]))
-        bd_ser[n_] = rng.uniform(*BP_["ser_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        bd_ser[n_] = rng.uniform(*BP_["ser_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1))) * dip_f
         body_log(n_, kind="serious", name=SER_KINDS[kind], what="begins")
 
     def bd_injury(n_, lo, hi, told=True):   # an injury: a dip that heals in weeks, now and then with a lasting mark (H5);
-        bd_inj[n_] += rng.uniform(lo, hi)        # told=False when a Library moment already tells it
+        bd_inj[n_] += rng.uniform(lo, hi) * dip_f   # told=False when a Library moment already tells it
         if rng.random() < BP_["inj_keep"][0]:
-            bd_keep[n_] += BP_["inj_keep"][1]
+            bd_keep[n_] += BP_["inj_keep"][1] * dip_f
         if told:
             body_log(n_, kind="injury", what="hurt")
 
@@ -3142,17 +3158,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             md_end[n_, k_] = end_
 
     lean_c = np.zeros(N)   # this week's early-care lean (H11), read by the helpers above
+    dip_f = 1.0            # this week's share an illness or injury takes (BODY_PAR dip_level), read by the helpers above
 
     def body_week(ht, ht0):
         """F1 in 3b, once a week from age 3: what changed health since last week reaches the body as a shock (a fall is an
         injury-like dip, a lift heals dips first), the body's and the mind's own events, each half moves, and health is
         written as their mean. ht is the old rule's level for the age with its work and title parts, ht0 its age part."""
-        nonlocal lean_c
+        nonlocal lean_c, dip_f
         al_ = ~dead; ext_ = res[:, HEA] - hea_w
-        dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0)   # F2: the decline
+        dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0) ** DP2_["decline_k"]   # F2: the decline
         lean_ = (w - 0.2) / 0.2                                  # each colour's share above or below even, per .2
         lean_c = lean_ @ BCARE_
         tab_ = np.interp(age, BAGE_X, BAGE_Y)
+        dip_f = float(tab_ / BAGE_Y.max()) if BP_["dip_level"] else 1.0
         low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
         if BODY_ON:
             neg_ = np.maximum(-ext_, 0); pos_ = np.maximum(ext_, 0)
@@ -3186,7 +3204,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             u_ = rng.random((N, 6))
             pi_ = np.interp(age, *zip(*BP_["ill_rate"])) * (1 + BP_["ill_mind"] * (low_ | anx_)) / 52
             ii_ = np.nonzero(al_ & (u_[:, 0] < pi_))[0]
-            bd_ill[ii_] += BP_["ill_size"][0] + (BP_["ill_size"][1] - BP_["ill_size"][0]) * u_[ii_, 5]
+            bd_ill[ii_] += (BP_["ill_size"][0] + (BP_["ill_size"][1] - BP_["ill_size"][0]) * u_[ii_, 5]) * dip_f
             pj_ = np.interp(age, *zip(*BP_["inj_rate"])) * np.exp(lean_ @ BRISK_) / 52
             for n_ in np.nonzero(al_ & (u_[:, 1] < pj_))[0]:
                 bd_injury(n_, *BP_["inj_size"])
@@ -3202,7 +3220,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     body_log(n_, kind="condition", name=COND_KINDS[bd_ck[n_, 0]], what="eases")
                     bd_cw[n_, 0] = 0.0; bd_ck[n_, 0] = -1
             for n_ in np.nonzero((bd_sk >= 0) & (t >= bd_s1) & al_ & (dl_at <= NEVER // 2))[0]:   # through it: some stays
-                bd_keep[n_] += rng.uniform(*BP_["ser_keep"]); body_log(n_, kind="serious", name=SER_KINDS[bd_sk[n_]], what="through it")
+                bd_keep[n_] += rng.uniform(*BP_["ser_keep"]) * dip_f; body_log(n_, kind="serious", name=SER_KINDS[bd_sk[n_]], what="through it")
                 bd_sk[n_] = -1; bd_ser[n_] = 0.0; bd_s0[n_] = bd_s1[n_] = NEVER
             if BL_ON or PG_ON:   # the Library's own body moments this week, and a birth of their own (H7)
                 lk_ = np.where(~recon & al_, BL_K[s], -1)
@@ -3279,7 +3297,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             bod_ = body_v if HM_ON else res[:, HEA]
         gap_ = np.interp(age, BAGE_X, BAGE_Y) - bod_
         qa_ = np.interp(age, *zip(*DP2_["acc"])) * np.exp(DP2_["acc_red"] * (w[:, 3] - 0.2) / 0.2)
-        qf_ = (DP2_["frail"][0] * np.exp(DP2_["frail"][1] * age) + (DP2_["frail_c"] if age >= 15 else 0.0)) * np.exp(DP2_["frail_k"] * gap_)
+        fl_ = DP2_["frail_late"]
+        gom_ = DP2_["frail"][1] * age + ((fl_[1] - DP2_["frail"][1]) * max(age - fl_[0], 0.0) if fl_ else 0.0)
+        qf_ = (DP2_["frail"][0] * np.exp(gom_) + (DP2_["frail_c"] if age >= 15 else 0.0)) * np.exp(DP2_["frail_k"] * gap_)
         cl_ = bd_cw * np.where(bd_ck >= 0, CLETH_[np.maximum(bd_ck, 0)], 0.0)   # each condition's complications
         qc_ = DP2_["cond_k"] * cl_.sum(1) * np.exp(0.06 * (age - 50))
         cf_ = np.minimum(SER_CF[np.maximum(bd_sk, 0)] * float(np.clip(1 + DP2_["ser_age"] * (age - 60), *DP2_["ser_age_lim"]))
@@ -3688,6 +3708,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, AF_S] = (AF_P * np.broadcast_to(gate, ev_p.shape)[:, AF_S] * P["event_scale"] / 52
                                  * np.broadcast_to(ev_pm, ev_p.shape)[:, AF_S] * xd_[:, AF_S] * refr[:, AF_S]
                                  * np.broadcast_to(seekE, ev_p.shape)[:, AF_S])
+            if AR_ON:   # F9.24: these by age, between the stages' rates (the age window is in the gate)
+                ev_p[:, AR_S] = (np.array([np.interp(age, AR_X, r_) for r_ in AR_R])[None] * np.broadcast_to(gate, ev_p.shape)[:, AR_S]
+                                 * P["event_scale"] / 52 * np.broadcast_to(ev_pm, ev_p.shape)[:, AR_S] * xd_[:, AR_S] * refr[:, AR_S]
+                                 * np.broadcast_to(seekE, ev_p.shape)[:, AR_S])
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
