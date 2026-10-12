@@ -215,7 +215,7 @@ def unit_f12_own(repo, world, seed, lives):
         c["own_means"] += int((own & ~opr).sum()); c["closed"] += int((own & opr & ~op).sum())
         c["other_offered"] += int(oth.sum()); c["other_open"] += int((oth & op).sum())
     steps(E, lives, F12_OWN_YEARS, seed, P, L, "choose", look)
-    return dict(world=world, seed=seed, lives=lives, years=F12_OWN_YEARS, forced=forced, own_acts=int(OWN.any(0).sum()), **c)
+    return dict(world=world, seed=seed, lives=lives, years=F12_OWN_YEARS, forced=forced, own_acts=int(OWN.sum()), **c)
 
 
 def game_env(repo):
@@ -439,6 +439,8 @@ def judge_f6(rs):
 
 def judge_f12(rs):
     R = Rows("f12_start"); rs = errors(rs, R)
+    fo = sorted({x for r in rs if r["_unit"][0] in ("f12words", "f12start") for x in r.get("forced", [])})
+    R.note(f"played lives switched on here: {', '.join(fo) or 'none'}")
     words = [r for r in rs if r["_unit"][0] == "f12words"]
     own = [r for r in rs if r["_unit"][0] == "f12own"]
     st = [r for r in rs if r["_unit"][0] == "f12start"]
@@ -469,7 +471,7 @@ def judge_f12(rs):
               f"{c['closed']} of {c['own_offered']} own acts offered over {sum(r['lives'] for r in w)} lives x {w[0]['years']} "
               f"years (on offer {c['own_open'] / max(c['own_offered'], 1):.2f}, closed by the means "
               f"{c['own_means'] / max(c['own_offered'], 1):.2f}; other acts on offer {c['other_open'] / max(c['other_offered'], 1):.2f}); "
-              f"{w[0]['own_acts']} own acts; switched on here: {', '.join(w[0]['forced']) or 'none'}")
+              f"{w[0]['own_acts']} own options in the library; switched on here: {', '.join(w[0]['forced']) or 'none'}")
     if st:
         lives = [(r["seed"], p, v) for r in st for p, v in r["starts"].items()]
         bad = [(s_, p) for s_, p, v in lives if "error" in v]
