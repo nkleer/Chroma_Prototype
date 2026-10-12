@@ -464,6 +464,11 @@ DEFAULT = dict(
     aut_self=True, aut_act=0.08,   # v6: autonomy met by acting in one's strongest colors (held or wanted)
     family_conc=1.0,     # v6: how alike families are (Dirichlet concentration per color; 0 = every family like the world)
     social_child=0.5,    # v6: how strongly children take on their family's ways (stage child 1x, juvenile 0.5x)
+    soc_own=0.0,         # G19w (v22.5): with the world on, the share of the people who shape them (the social pull and the
+                         # current's close people) that is the company they pick by what they do, following their acts as the
+                         # niche does with the world off; the world's settings and circle are the rest (people pick friends
+                         # like themselves and become more alike: Kandel 1978; McPherson, Smith-Lovin and Cook 2001). 0: the
+                         # world's alone, so a life's choices never reached the people around it
     turn_spread=(0.33, 3.0),   # v6: each life's own pace of new people: from a third to three times the typical turnover
     turn_stage=(0.2, 0.6, 1.0, 1.0, 1.0, 0.8),   # v6: children live mostly among family; circles change most in adult life
     turnover=0.3, turn_years=3.0,   # v6: share of one's surroundings renewed per year by new people, and how often the mix changes
@@ -880,6 +885,7 @@ DEFAULT = dict(
     c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
     c3_inst=True,       # item 10, C3: institution events (sold, merged, nationalised, a leak, a cover-up; world.py)
+    c_par=None,          # the C hooks' tuning, {name: value} over world.C_DEFAULT (None: the start values)
     c4_nature=True,     # item 10, C4: nature's own year in each town (world.py, built by the Outer world; passed as sph_town is)
     c5_faith=True,      # item 10, C5: three faith movement slots, founding and tension (world.py); opens the founding gate
     wl2=True,           # item 11, WL2: the small effects the world was missing (world_link.WL2_PAR; values for the refit)
@@ -963,6 +969,10 @@ DEFAULT = dict(
     perk_breadth=0.2,    # how much perks beyond the best one in a color add
     title_need=2.0,      # what a title's meets add to its commitment kind's own needs (x commit_need x strength)
     perk_loss=(0.03, 0.02, 0.02, 0.02),   # yearly chance of losing an unused skill, standing, a bond, an asset (more when poor or alone)
+    skill_room=None,     # G19w (v22.5): practice is shared: the acts in a skill's ways keep up this much of the skills held in
+                         # those ways (each held skill counts by the share of its ways it shares: two skills in the same two
+                         # ways count 1), and a skill among more is used as much less, so it can slip away (skills fade
+                         # without practice: Arthur, Bennett, Stanush and McNelly 1998). None: each skill kept up alone
     profile_margin=0.05, # a title's other profile must fit the person's colors this much better (for about a year) to be taken
     # v10 interpretation and memory (Emren 2026-10-04 21:39, roadmap 3: "type and frequency of misjudgment depend on history,
     # color position, perks, titles, mindset"; order of 10-06 10:50 and 21:55: after the go-live, before the outer world).
@@ -1125,8 +1135,34 @@ DEFAULT = dict(
                          # (age, share) points; a younger love is a romance, not a home together. None: at any age
     mon_drift=0.01,      # F9.38: the share of the gap to the money a life's situation brings that closes each week (.01: about
                          # two years to most of the way; faster, a hard spell is felt sooner and passes sooner)
+    lone=None,           # F9.39 loneliness: a spell of withdrawal from the first age point (about 1 adult in 20 is often
+                         # lonely, more when single, out of work, low or ill; ONS 2018, Holt-Lunstad 2015). It starts by the yearly rate
+                         # read off age's (age, rate) points x exp of single, work, low, ill (each 0 or 1 x its weight) and ends at out a
+                         # year x exp(-.5 x the same); while it lasts the ties a life drifts to are keep x the people's and close rate of
+                         # the gap a week (not .01). Own random stream. dict(age, single, work, low, ill, out, keep, rate); None: as before
+    job_gap=None,        # F9.38: out of work after a job (working age, not retired) the pay stops at once: (cut, fall, years):
+                         # for that many years after the job ends the money they drift to is cut lower (benefits replace
+                         # little) and it falls at fall a week (savings run down in months), not mon_drift; None: as before
+    pair_pay=None,       # F9.38: a couple living together shares its money: a partner at work adds this to the money the life
+                         # drifts to (from 18); None: as before (each life's own pay only)
+    pay_col=None,        # F9.40 (with low_pay): the colours lean a job's pay, at its draw: (mu, sd), each five weights on
+                         # (5 w - 1): pay x exp(mu . (5 w - 1)), its spread x exp(sd . (5 w - 1)). None: even
+    kid_tie=None,        # F9.39 (ties_people, world on): under 15 a child's ties are first its family's: at least this (the
+                         # people model's own closeness builds over the first years, so on its own a child of 4 to 6 sits
+                         # near nothing); None: as before
+    tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
+    work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
+                         # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
+    pen_pay=None,        # F9.38 (with low_pay): a career's pension x exp(lp_mu + s z - s^2 / 2), s = pen_pay x the job's pay
+                         # spread, z the last job's pay draw (its rank, not faded with the years in it); None: as before
+    low_pay=None,        # F9.38 low pay: (sd, rho, half): each job's pay x exp(sd z d - (sd d)^2 / 2), mean 1, z drawn at each
+                         # job start or change of employer (rho of it the last job's: pay follows a life), d halving every half
+                         # years in the job (low pay is mostly a first step: pay rises with experience); own stream. None: as before
     age_free=None,       # F9: [life event, ...] that come by their age window at their highest stage rate, not by the life stage
                          # reached (a stage can begin years after its window opens); "your first full-time job" for F9.38
+    age_rate=None,       # F9.24: [life event, ...] whose rate rises with age, read between the stages' per_year, each at the
+                         # end of its window (where lives begin that stage), not stepping up only when the next stage begins
+                         # (stages mostly begin at their window's end, elder at 80: a 70-year-old fell ill at the midlife rate)
     birth_par=None,      # F9.3 (with birth_age): a life's own births x this factor by the children it has living (0, 1, 2, ...;
                          # the last for more): fewer go on to a third or fourth child. None: as before
     ti_fit=None,         # F9: {title: factor} on its yearly rate (the Library's or the packs' rule), fitted to Release's rows
@@ -1135,6 +1171,11 @@ DEFAULT = dict(
                          # holdings still go first); otherwise the household gets by, cutting back and borrowing. 1.0: always
     birth_free=False,    # F9.2 to F9.4 (with birth_age): a life's own births come by its age (the moment's age window, at
                          # its highest per_year), not by the life stage it has reached; birth_age's taper then shapes them
+    birth_with=None,     # F9.2: a life's own births x these factors by its partnership: (no partner, a partner not living
+                         # together, a home together, the years a partnership, or a home together, takes to reach its full
+                         # rate, from 0), so most first births follow setting up home by a few years. None: as before
+    nest=None,           # F9.5: the children leave home when the youngest is grown: (the youngest's age in years, the yearly
+                         # rate from then, by age not the life stage). None: 16 years after the first child, at the stage's rate
     job_move=None,       # F9.19: a working life changes employer at this yearly chance by age, read off these (age, chance)
                          # points (after a year in work, before retiring): the career goes on, the workplace and its
                          # people change (with the world on, the work setting is left and a new one joined). None: never
@@ -1162,6 +1203,10 @@ V225 = dict(
     one_roll=True,
     retire_ends=True,
     world_only=True,
+    # S7 (lead_ways) with v22.5's money, the yearly custom read and a founder leading as an owner
+    # (world_people.LEAD_DEFAULT): seeds 41-52, 300 x 80, falls per way and time in post per lead colour back within
+    # 1.5x and 1.2x
+    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.86, owner_kind=True),
     dream_grow=True,
     own_open=True,
     start_hold=True,
@@ -1174,7 +1219,9 @@ V225 = dict(
     deed_rare=0.15,
     mind_kid=((10, 0.5), (18, 1.0)),
     mind_u=((45, 0.0), (50, -0.15), (58, 0.0), (68, 0.45), (80, 0.6)),
-    death_par=dict(frail=(1.4e-06, 0.125), frail_k=1.5, ser_age=0.012, frail_c=0.0002),
+    death_par=dict(frail=(1.25e-07, 0.15), frail_k=1.5, ser_age=0.016, frail_c=0.00025, frail_late=(92, 0.25), decline_k=2.0,
+                   acc=((0, 5e-5), (15, 1.5e-4), (20, 2.5e-4), (30, 2.5e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3))),
+    body_par=dict(dip_level=True),
     course_mu=(-0.55, -0.2, -3.5),
     pension_k=0.45,
     pension_base=0.15,
@@ -1182,30 +1229,47 @@ V225 = dict(
     risk_norm=True,
     par_age=((16, 0.0), (19, 0.35), (24, 1.0)),
     tie_k=1.75,
-    par_split=0.06,
+    par_split=0.05,
     ill_real=True,
     kid_cost=0.07,
     hh_cls=(0.12, 0.3, 0.55),
     ev_fit={'losing your job': 0.45,
-            'a serious accident or illness': 0.6,
+            'a serious accident or illness': (1, 1, 0.25, 0.25, 1.6, 4.5),
             'a long dark season': 0.65,
             'an addiction takes hold': 0.63,
             'living with a chronic illness': 0.75,
             'your first full-time job': 1.5,
             'a new job at last': 0.35,
-            'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.12),
+            'buying a home': (1, 1, 1.8, 1.0, 0.7, 0.07),
             'divorce after twenty years': 0.5,
-            'a child is born': 0.25,
-            'a baby on the way, planned or not': 0.35},
+            'a child is born': 0.4,
+            'a baby on the way, planned or not': 0.1},
     set_big=6.0,
     cond_once=True,
     job_move=((18, 0.22), (25, 0.14), (35, 0.08), (45, 0.05), (55, 0.03), (64, 0)),
     birth_free=True,
     home_sale=0.08,
     ti_fit={'living together': 4.5},
-    birth_par=(1, 1, 0.4, 0.22, 0.1, 0.05),
+    birth_par=(3.0, 0.3, 0.16, 0.1, 0.06, 0.03),
+    birth_with=(0.02, 0.8, 3.0, 5.0),
+    nest=(18, 0.3),
     age_free=('your first full-time job',),
+    age_rate=('a frightening diagnosis', 'a serious accident or illness'),
     mon_drift=0.015,
+    lone=dict(age=((13, 0.02), (16, 0.01), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
+                   (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
+    low_pay=(0.85, 0.3, 3.0),
+    pen_pay=1.0,
+    pay_col=((0.0, 0.08, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),
+    tie_col=(0.3, 0.0, 0.0, 0.0, 0.05),
+    kid_tie=0.6,
+    job_gap=(0.35, 0.1, 1.0),
+    pair_pay=0.12,
+    work_die=0.00007,
+    c_par=dict(sold=0.03, merged=0.015),
+    eyes_par=dict(odd_vmem=0.05),   # S4: the spread of their places' shares learnt over about twenty years (world_people)
+    soc_own=0.2,
+    skill_room=1.0,
 )
 DEFAULT.update(V225)
 # F17: the canon lean of each deed (W U B R G, log odds per unit of a colour's lead); deeds not named keep the Library's
@@ -1246,6 +1310,8 @@ FERT_F = ((15, 0.0), (17, 17), (22, 66), (27, 93), (32, 98), (37, 52), (42, 12),
 FERT_M = ((15, 0.0), (17, 8), (22, 60), (27, 95), (32, 100), (37, 60), (42, 25), (47, 9), (52, 3), (57, 1), (62, 0.0))
 BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the moments of a life's own births
 BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
+HOME_TOGETHER = ("living together", "wife or husband", "married again", "partner of many years",
+                 "spouse in a family-arranged marriage")   # the titles of a home together (birth_with)
 
 
 def toward(lv, m):
@@ -1303,6 +1369,8 @@ BODY_PAR = dict(
     moments=True,            # the Library's own body moments happen to the body: a diagnosis is a serious illness, "living
                              # with a chronic illness" a condition, a serious accident an injury or an illness
     risk_k=2.0,              # the body's risks on those moments: x exp(risk_k x (the level for the age - the body)), at most x2
+    dip_level=False,         # v22.5 F9.37: what an illness or injury takes (its dip, a condition's weight, the mark it leaves) is a
+                             # share of what the body has at its age (x its level for the age over its best), less at 90 than at 30
 )
 # what each of the Library's body and mind moments is (moments=True); the engine's own rates stand in where a Library has none
 BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with an illness": "condition",
@@ -1311,6 +1379,8 @@ BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with a
                 "burnout": "burnout"}
 MIND_MOMENTS = {"a long dark season": "low", "a sadness that will not lift": "low", "burnout": "low",
                 "an addiction takes hold": "numb"}
+CO_TITLES = ("living together", "wife or husband", "married again", "partner of many years",
+             "spouse in a family-arranged marriage")   # a home together (F9.6; pair_pay)
 SPLIT_SOFT = ("a breakup",)   # F9 par_split: the young couple's moments that may end a home together or pass
 COND_KINDS = ("asthma", "diabetes", "arthritis", "chronic pain", "heart condition", "epilepsy")
 COND_P = ((0.45, 0.15, 0.0, 0.05, 0.05, 0.3), (0.1, 0.3, 0.3, 0.15, 0.15, 0.0))   # which, as a child and as an adult
@@ -1356,11 +1426,15 @@ DEATH_PAR = dict(
     old_age=85.0,            # from this age a failing body with nothing named is old age
     frail_c=0.0,             # v22.5 F9.35: from 15, a failing body's background a year beside the Gompertz term (Makeham):
                              # the young who die of an illness, not only of an accident
+    frail_late=None,         # v22.5 F9.33: (age, slope): from this age the body's own failing rises at this slope instead (its
+                             # last reserves go), so almost no one lives past 105. None: one slope
     ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
                              # illness's course ends in death this often (at 60, with the body at its age's level)
     ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
     cond_k=0.005,            # a condition's complications: its weight x this x e^(.06 (age - 50)) a year
     decline=dict(old=(12, 52), serious=(4, 20), condition=(8, 30)),   # weeks of the last decline, by what ends the life
+    decline_k=1.0,           # v22.5 F9.37: the decline deepens as (the share of its weeks gone) ** this; 2: slowly at first and
+                             # steeply at the end, as a last decline does (most of its weeks are not yet the lowest)
 )
 
 
@@ -1378,7 +1452,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False,
+               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
@@ -1395,14 +1469,16 @@ UPD_OFF = dict(dis_match=False,
                # v22.5 F1 a body and a mind, F2 death from the life
                body=False, mind=False, death_life=False,
                # values the v22.5 refit changed (V225)
-               death_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
-               kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0,
+               death_par=None, body_par=None, course_mu=(-1.2, -0.3, -3.5), pension_k=0.3, pension_base=0.0, tie_k=1.0,
+               kid_cost=0.12, hh_cls=(0.12, 0.30, 0.55), set_big=1.0, eyes_par=None,
                # v22.5, the many-lives fixes (F14 to F17, F19)
-               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, mon_drift=0.01, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, ti_fit=None, birth_par=None, age_free=None, age_rate=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
                dream_grow=False, own_open=False, start_hold=False,
+               # v22.5 G19w: the company a life picks (world on)
+               soc_own=0.0, skill_room=None,
                # v22.5 realism F3: a household and real people
                hh_money=False, ties_people=False,
                # v22.5 realism F8 and F10: retirement ends work; a world moment only on the world's event
@@ -2704,9 +2780,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     SEEN_ON = False
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
+    SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
     if WON:
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
+        WL.PP.or_on = bool(P.get("one_roll"))   # F7: a partner the world takes is not replaced (world_people._sync)
+        if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
+            WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
         if LW_ON:
             LW_T_ = WL.lw_tid
@@ -2716,6 +2796,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             STH_SOC = np.asarray(WL.start["society"], float); STH_SOC = STH_SOC / STH_SOC.sum()
             STH_FW = np.asarray(P["f_world"], float)
             nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC; circle = nic.copy()
+        SOC_OWN = float(P["soc_own"] or 0.0); onic = nic.copy() if SOC_OWN else None
         SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
         if SEEN_ON:
             SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
@@ -3049,6 +3130,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if AF_ON:
         AF_S = np.array([nm_ in set(P["age_free"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
         AF_P = PERY[AF_S].max(1)[None]
+    BW_ON = P["birth_with"] is not None and BA_ON         # F9.2: own births by the partnership
+    if BW_ON:
+        BW_ = np.asarray(P["birth_with"], float)
+        BW_I = [i_ for i_, x_ in enumerate(GR["names"]) if x_ in HOME_TOGETHER] if RON else []
+        hm_t = np.full(N, 10 ** 9)                        # the week the present home together began
+    NE_ON = P["nest"] is not None and BAT                 # F9.5: the children leave home when the youngest is grown
+    if NE_ON:
+        NE_S = np.asarray(L["names"], dtype=object)[ROOT] == "the children leave home"
+        NE_A, NE_R = P["nest"]
+    AR_ON = bool(P["age_rate"]) and BAT                   # F9.24: life events at a rate by age, not stepping with the stage
+    if AR_ON:
+        AR_S = np.array([nm_ in set(P["age_rate"]) for nm_ in np.asarray(L["names"], dtype=object)[np.asarray(L.get("ROOT", np.arange(L["S"])))]])
+        AR_X = STAGE_HI.copy(); AR_R = PERY[AR_S]
     if BA_ON:
         BIRTH_S = np.array([nm_ in BIRTH_OWN for nm_ in L["names"]])
         # the rate keeps its mean over the moment's own age window, so the births come when they do in real life
@@ -3120,7 +3214,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         k_ = kind if kind is not None else int(rng.choice(len(COND_KINDS), p=COND_P[0 if age < 16 else 1]))
         if P["cond_once"] and (bd_ck[n_] == k_).any():   # F9.27 (F10): one they have already is not diagnosed again
             return
-        bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        bd_cw[n_, j_] = rng.uniform(*BP_["cond_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1))) * dip_f
         bd_ck[n_, j_] = k_; bd_ca[n_, j_] = age
         body_log(n_, kind="condition", name=COND_KINDS[k_], what="begins")
 
@@ -3129,13 +3223,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return
         bd_sk[n_] = kind; bd_s0[n_] = t
         bd_s1[n_] = t + int(4.33 * rng.uniform(*BP_["ser_months"]))
-        bd_ser[n_] = rng.uniform(*BP_["ser_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1)))
+        bd_ser[n_] = rng.uniform(*BP_["ser_size"]) * (1 - 0.3 * float(np.clip(lean_c[n_], -1, 1))) * dip_f
         body_log(n_, kind="serious", name=SER_KINDS[kind], what="begins")
 
     def bd_injury(n_, lo, hi, told=True):   # an injury: a dip that heals in weeks, now and then with a lasting mark (H5);
-        bd_inj[n_] += rng.uniform(lo, hi)        # told=False when a Library moment already tells it
+        bd_inj[n_] += rng.uniform(lo, hi) * dip_f   # told=False when a Library moment already tells it
         if rng.random() < BP_["inj_keep"][0]:
-            bd_keep[n_] += BP_["inj_keep"][1]
+            bd_keep[n_] += BP_["inj_keep"][1] * dip_f
         if told:
             body_log(n_, kind="injury", what="hurt")
 
@@ -3148,17 +3242,19 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             md_end[n_, k_] = end_
 
     lean_c = np.zeros(N)   # this week's early-care lean (H11), read by the helpers above
+    dip_f = 1.0            # this week's share an illness or injury takes (BODY_PAR dip_level), read by the helpers above
 
     def body_week(ht, ht0):
         """F1 in 3b, once a week from age 3: what changed health since last week reaches the body as a shock (a fall is an
         injury-like dip, a lift heals dips first), the body's and the mind's own events, each half moves, and health is
         written as their mean. ht is the old rule's level for the age with its work and title parts, ht0 its age part."""
-        nonlocal lean_c
+        nonlocal lean_c, dip_f
         al_ = ~dead; ext_ = res[:, HEA] - hea_w
-        dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0)   # F2: the decline
+        dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0) ** DP2_["decline_k"]   # F2: the decline
         lean_ = (w - 0.2) / 0.2                                  # each colour's share above or below even, per .2
         lean_c = lean_ @ BCARE_
         tab_ = np.interp(age, BAGE_X, BAGE_Y)
+        dip_f = float(tab_ / BAGE_Y.max()) if BP_["dip_level"] else 1.0
         low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
         if BODY_ON:
             neg_ = np.maximum(-ext_, 0); pos_ = np.maximum(ext_, 0)
@@ -3192,7 +3288,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             u_ = rng.random((N, 6))
             pi_ = np.interp(age, *zip(*BP_["ill_rate"])) * (1 + BP_["ill_mind"] * (low_ | anx_)) / 52
             ii_ = np.nonzero(al_ & (u_[:, 0] < pi_))[0]
-            bd_ill[ii_] += BP_["ill_size"][0] + (BP_["ill_size"][1] - BP_["ill_size"][0]) * u_[ii_, 5]
+            bd_ill[ii_] += (BP_["ill_size"][0] + (BP_["ill_size"][1] - BP_["ill_size"][0]) * u_[ii_, 5]) * dip_f
             pj_ = np.interp(age, *zip(*BP_["inj_rate"])) * np.exp(lean_ @ BRISK_) / 52
             for n_ in np.nonzero(al_ & (u_[:, 1] < pj_))[0]:
                 bd_injury(n_, *BP_["inj_size"])
@@ -3208,7 +3304,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     body_log(n_, kind="condition", name=COND_KINDS[bd_ck[n_, 0]], what="eases")
                     bd_cw[n_, 0] = 0.0; bd_ck[n_, 0] = -1
             for n_ in np.nonzero((bd_sk >= 0) & (t >= bd_s1) & al_ & (dl_at <= NEVER // 2))[0]:   # through it: some stays
-                bd_keep[n_] += rng.uniform(*BP_["ser_keep"]); body_log(n_, kind="serious", name=SER_KINDS[bd_sk[n_]], what="through it")
+                bd_keep[n_] += rng.uniform(*BP_["ser_keep"]) * dip_f; body_log(n_, kind="serious", name=SER_KINDS[bd_sk[n_]], what="through it")
                 bd_sk[n_] = -1; bd_ser[n_] = 0.0; bd_s0[n_] = bd_s1[n_] = NEVER
             if BL_ON or PG_ON:   # the Library's own body moments this week, and a birth of their own (H7)
                 lk_ = np.where(~recon & al_, BL_K[s], -1)
@@ -3285,7 +3381,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             bod_ = body_v if HM_ON else res[:, HEA]
         gap_ = np.interp(age, BAGE_X, BAGE_Y) - bod_
         qa_ = np.interp(age, *zip(*DP2_["acc"])) * np.exp(DP2_["acc_red"] * (w[:, 3] - 0.2) / 0.2)
-        qf_ = (DP2_["frail"][0] * np.exp(DP2_["frail"][1] * age) + (DP2_["frail_c"] if age >= 15 else 0.0)) * np.exp(DP2_["frail_k"] * gap_)
+        fl_ = DP2_["frail_late"]
+        gom_ = DP2_["frail"][1] * age + ((fl_[1] - DP2_["frail"][1]) * max(age - fl_[0], 0.0) if fl_ else 0.0)
+        qf_ = (DP2_["frail"][0] * np.exp(gom_) + (DP2_["frail_c"] if age >= 15 else 0.0)) * np.exp(DP2_["frail_k"] * gap_)
         cl_ = bd_cw * np.where(bd_ck >= 0, CLETH_[np.maximum(bd_ck, 0)], 0.0)   # each condition's complications
         qc_ = DP2_["cond_k"] * cl_.sum(1) * np.exp(0.06 * (age - 50))
         cf_ = np.minimum(SER_CF[np.maximum(bd_sk, 0)] * float(np.clip(1 + DP2_["ser_age"] * (age - 60), *DP2_["ser_age_lim"]))
@@ -3349,6 +3447,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if JM_ON:
         JM_A, JM_F = np.asarray(P["job_move"], float).T
         jm_rng = np.random.default_rng([int(seed), 1713])
+    LON_ON = P["lone"] is not None                        # F9.39: a spell of loneliness
+    if LON_ON:
+        LO_ = dict(P["lone"]); LA_, LF_ = np.asarray(LO_["age"], float).T
+        lon_rng = np.random.default_rng([int(seed), 1721]); lone = np.zeros(N, bool)
+    LP_ON = P["low_pay"] is not None                      # F9.38: each job's pay
+    if LP_ON:
+        lp_sd, lp_rho, lp_half = (float(x_) for x_ in P["low_pay"])
+        lp_rng = np.random.default_rng([int(seed), 1723]); lp_z = np.zeros(N); lp_d = np.ones(N); lp_at = np.full(N, NEVER)
+        lp_mu = np.zeros(N); lp_sc = np.ones(N)
+        PC_ = None if P["pay_col"] is None else np.asarray(P["pay_col"], float)
+    TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
+    PRP_ON = P["pair_pay"] is not None                    # F9.38: a couple living together shares its money
+    if PRP_ON:
+        CO_T_ = np.array([i_ for i_, x_ in enumerate(GR["names"]) if x_ in CO_TITLES], int) if RON else np.zeros(0, int)
     CRS_ON = bool(P["course"])                            # F16: the life course leans
     if CRS_ON:
         CRS_KS = np.array([PAR, KID, FAI]); CRS_MU = np.asarray(P["course_mu"], float)
@@ -3636,6 +3748,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 gate[:, KL_] &= alive[:, KILLS[KL_]] > 0
             if BA_ON and BF_ON:   # birth_free: each own-birth moment at least a year after the last child
                 gate[:, BIRTH_S] &= ((t - kid_last) >= 52)[:, None]
+            if NE_ON:   # F9.5: the children leave home once the youngest is grown
+                gate[:, NE_S] &= ((t - kid_last) >= NE_A * 52)[:, None]
             if BORN_S_ >= 0:   # F7: the moment a child is born is a birth, at least a year after the last one
                 gate[:, BORN_S_] &= (t - kid_last) >= 52
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
@@ -3698,6 +3812,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, AF_S] = (AF_P * np.broadcast_to(gate, ev_p.shape)[:, AF_S] * P["event_scale"] / 52
                                  * np.broadcast_to(ev_pm, ev_p.shape)[:, AF_S] * xd_[:, AF_S] * refr[:, AF_S]
                                  * np.broadcast_to(seekE, ev_p.shape)[:, AF_S])
+            if NE_ON:   # F9.5: by the youngest's age (in the gate), not the life stage reached
+                ev_p[:, NE_S] = (NE_R * np.broadcast_to(gate, ev_p.shape)[:, NE_S] * P["event_scale"] / 52
+                                 * np.broadcast_to(ev_pm, ev_p.shape)[:, NE_S] * xd_[:, NE_S] * refr[:, NE_S]
+                                 * np.broadcast_to(seekE, ev_p.shape)[:, NE_S])
+            if AR_ON:   # F9.24: these by age, between the stages' rates (the age window is in the gate)
+                ev_p[:, AR_S] = (np.array([np.interp(age, AR_X, r_) for r_ in AR_R])[None] * np.broadcast_to(gate, ev_p.shape)[:, AR_S]
+                                 * P["event_scale"] / 52 * np.broadcast_to(ev_pm, ev_p.shape)[:, AR_S] * xd_[:, AR_S] * refr[:, AR_S]
+                                 * np.broadcast_to(seekE, ev_p.shape)[:, AR_S])
             if BAT:   # how much the drivers raise each event's rate on average among those it can happen to (for DRV_NORM)
                 el_ = avail & (PERY[:, stage].T > 0)
                 drv_sum += (xd_ * el_).sum(0); drv_cnt += el_.sum(0)
@@ -3714,6 +3836,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if BA_ON and P["birth_par"] is not None:   # F9.3: by the children already living
                 bp_ = np.asarray(P["birth_par"], float)
                 ev_p[:, BIRTH_S] *= bp_[np.minimum(alive[:, 5].astype(int), len(bp_) - 1)][:, None]
+            if BW_ON:   # F9.2: by the partnership (none, a partner not living together, a home together)
+                hm_ = held[:, PAR] & (r_has[:, BW_I].any(1) if BW_I else True)
+                hm_t = np.where(hm_, np.minimum(hm_t, t), 10 ** 9)
+                bwr_ = _uclip((t - np.where(hm_, hm_t, since[:, PAR])) / (52 * BW_[3]), 0, 1) if BW_[3] > 0 else 1.0
+                ev_p[:, BIRTH_S] *= np.where(hm_, BW_[2] * bwr_, np.where(held[:, PAR], BW_[1] * bwr_, BW_[0]))[:, None]
             if BA_ON:   # late births: a life's own births by its age and sex
                 ev_p[:, BIRTH_S] *= P["birth_k"] * np.where(female[:, None], fert(age, FERT_F) / BA_NF[None],
                                                             fert(age, FERT_M) / BA_NM[None])
@@ -4355,6 +4482,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + P["pension_k"] * pension - P["kid_cost"] * kids
         if P["pension_base"] and age >= P["retire_age"]:   # F9: the state pension
             mt = mt + P["pension_base"]
+        if LP_ON:   # F9.38: a new job's pay, drawn once (a change of employer draws again, rho of it the last job's)
+            nj_ = np.nonzero(held[:, CAR] & (ago["job"] != lp_at))[0]
+            if len(nj_):
+                r_ = np.where(lp_at[nj_] == NEVER, 0.0, lp_rho)
+                lp_z[nj_] = r_ * lp_z[nj_] * lp_d[nj_] + np.sqrt(1 - r_ ** 2) * lp_rng.standard_normal(len(nj_))
+                lp_d[nj_] = 1.0; lp_at[nj_] = ago["job"][nj_]
+                if PC_ is not None:   # F9.40: the colours lean the new job's pay and its spread
+                    lc_ = 5 * w[nj_] - 1
+                    lp_mu[nj_] = lc_ @ PC_[0]; lp_sc[nj_] = np.exp(lc_ @ PC_[1])
+            sd_ = lp_sd * lp_sc * lp_d
+            mt = mt + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) * (np.exp(lp_mu + sd_ * lp_z - sd_ ** 2 / 2) - 1)
+            if P["pen_pay"] is not None and age >= 50:   # F9.38: a career's pension follows the pay of the last job
+                ps_ = P["pen_pay"] * lp_sd * lp_sc
+                mt = mt + P["pension_k"] * pension * (np.exp(lp_mu + ps_ * lp_z - ps_ ** 2 / 2) - 1)
+            lp_d *= 0.5 ** (1 / (52 * lp_half))
+        if PRP_ON and age >= 18:   # F9.38: a couple that lives together shares its money: a working partner's pay
+            tog_ = r_has[:, CO_T_].any(1) if len(CO_T_) else held[:, PAR]
+            if WON:   # the partner in the cast, at work
+                ps_ = np.asarray(WL.PP.pslot); tog_ = tog_ & (ps_ >= 0) & np.asarray(WL.PP.emp)[np.arange(N), np.maximum(ps_, 0)]
+            mt = mt + P["pair_pay"] * (tog_ & held[:, PAR])
         tt = 0.15 + 0.3 * held[:, PAR] + 0.15 * held[:, KID] + 0.25 * held[:, COM] + 0.1 * held[:, CAR]
         if HH_ON or TP_ON:   # F3: the household's money until they live on their own; ties are the people around them
             own_, away_ = home_share(age)
@@ -4364,7 +4511,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if TP_ON:
                 tt = np.asarray(WL.PP.ties, float) if WON else ties_off(age, away_)
                 if WON and P["tie_k"] != 1.0:   # F9: the people's closeness as ties, read on a scale (k = 20 / the T used)
-                    tt = 1 - (1 - tt) ** P["tie_k"]
+                    tt = 1 - (1 - tt) ** (P["tie_k"] * (np.exp((5 * w - 1) @ TC_) if TC_ is not None else 1.0))
+                if WON and P["kid_tie"] is not None and age < 15:   # F9.39: a child's ties are first its family's
+                    tt = np.maximum(tt, P["kid_tie"])
         ht = _uclip(1 - 0.012 * max(0.0, age - 35), 0.2, 1)
         if MK_ON:   # spheres phase 2, the mark of the work: hard work ages the body (years beyond its own)
             ht = _uclip(ht - 0.012 * np.asarray(WL.PP.mark_wear, float), 0.2, 1)
@@ -4401,7 +4550,21 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     db_inherit(n)
         if HH_ON:   # F3 D2: the family is a floor in hard times, by its class and how close a living parent is
             mt = np.maximum(mt, P["hh_floor"] * hh_fl_)
-        res[:, MON] += P["mon_drift"] * (mt - res[:, MON]); res[:, TIE] += 0.01 * (tt - res[:, TIE])
+        tie_r = 0.01
+        if LON_ON and age >= LA_[0]:   # F9.39: a spell of loneliness starts or ends; while it lasts the ties fall away
+            rk_ = (LO_["single"] * ~held[:, PAR] + LO_["work"] * (~held[:, CAR] & ~retired & (ago["job"] != NEVER)) * (age < P["retire_age"])
+                   + LO_["low"] * (md_end[:, 0] > t) + LO_["ill"] * (bd_cw.sum(1) > 0))
+            u_ = lon_rng.random(N)
+            on_ = ~lone & ~dead & (u_ < float(np.interp(age, LA_, LF_)) * np.exp(rk_) / 52)
+            lone = (lone | on_) & ~(lone & (u_ < LO_["out"] * np.exp(-0.5 * rk_) / 52))
+            tt = np.where(lone, LO_["keep"] * tt, tt); tie_r = np.where(lone, LO_["rate"], 0.01)
+        mon_r = P["mon_drift"]
+        if P["job_gap"] is not None and age >= 18 and age < P["retire_age"]:   # F9.38: a lost wage stops at once
+            gp_ = (~held[:, CAR] & ~retired & (ago["job"] != NEVER) & (end_t[:, CAR] > NEVER // 2)
+                   & (t - end_t[:, CAR] < 52 * P["job_gap"][2]))
+            mt = mt - P["job_gap"][0] * gp_
+            mon_r = np.where(gp_ & (mt < res[:, MON]), P["job_gap"][1], P["mon_drift"])
+        res[:, MON] += mon_r * (mt - res[:, MON]); res[:, TIE] += tie_r * (tt - res[:, TIE])
         if DB_ON and t % 4 == 0 and age >= 18:
             db_month()
         if HM_ON:   # v22.5 F1: the body and the mind make health (ht's age part is the body's own curve there)
@@ -4971,6 +5134,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 # what a rule says how it is lost (good credit, a car, a dog) goes only that way
                 pk_ = GR["pkind"]
                 use_ = 5 * (hist_m @ INDP.T) / np.maximum(INDP.sum(1), 1)[None]
+                if P["skill_room"]:   # skill_room: the skills held in the same ways share the acts that keep them up
+                    ip_ = INDP / np.maximum(INDP.sum(1, keepdims=True), 1)
+                    crowd_ = ((r_has[:, NT_:] & (pk_ == 0)[None]).astype(float) @ ip_) @ ip_.T   # held skills in each one's ways
+                    use_ = use_ * np.minimum(1.0, P["skill_room"] / np.maximum(crowd_, 1e-9))
                 mult_ = np.where(pk_[None] == 0, 2 * _uclip(1.5 - use_, 0, 1.5), 1.0)
                 mult_ = np.where(pk_[None] == 3, 1 + 2 * (res[:, TIE] < 0.3)[:, None], mult_)
                 mult_ = np.where(pk_[None] == 4, 1 + 4 * (res[:, MON] < 0.15)[:, None], mult_)
@@ -5200,14 +5367,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
 
         conf = P["chi"] * (w[:, 0] + w[:, 4] - w[:, 3] - w[:, 2])
         obs = softmax(3 * f_tot)
-        dS = conf[:, None] * (nic - w) + P["xi"] * (obs - w)
+        soc_ = nic if not SOC_OWN else (1 - SOC_OWN) * nic + SOC_OWN * onic   # soc_own: and the company they pick
+        dS = conf[:, None] * (soc_ - w) + P["xi"] * (obs - w)
         if P["social_child"]:   # v6: children take on the ways of the family around them, whatever their own lean
-            dS += P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))[:, None] * (nic - w)
+            dS += P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))[:, None] * (soc_ - w)
         if P["react_k"]:   # v6 (Library notes A6; Brehm): strong pressure on a steady person pushes them the other way
             s_n = np.tanh(steady / P["steady_cap"])
-            press = 0.5 * np.abs(nic - w).sum(1)
+            press = 0.5 * np.abs(soc_ - w).sum(1)
             rs = _uclip((s_n - 0.5) / 0.5, 0, 1) * _uclip((press - P["react_press"]) / P["react_press"], 0, 1)
-            dS -= P["react_k"] * P["chi"] * rs[:, None] * (nic - w)
+            dS -= P["react_k"] * P["chi"] * rs[:, None] * (soc_ - w)
 
         # aspiration: what the person wants to be. Needs, norms and role models act here
         a_ = softmax(y)
@@ -5629,6 +5797,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if CUR_ON and t % 4 == 0 and age >= 3:   # item 12: the times as a steady current, once a month
             if WON:
                 cl_, st_, tm_ = (np.asarray(x_, float) for x_ in WL.PP.cur_parts)
+                if SOC_OWN:   # soc_own: the close people are partly the company they pick
+                    cl_ = (1 - SOC_OWN) * cl_ + SOC_OWN * onic
             else:   # no outer world: the niche stands for people and places (the circle's turnover is random)
                 cl_, st_ = nic, nic
                 wp_ = WP_ if UPL_ON and P["up_ease"] else np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
@@ -5705,6 +5875,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 circle[new_] = random_messages(rng, int(new_.sum()))
             nic += P["turnover"] * turn_pm[:, None] * np.asarray(P["turn_stage"])[stage][:, None] / 52 * (circle - nic)
         if WON:   # the world: the niche is what the settings and the close circle bring, with the times through them
+            if SOC_OWN:   # soc_own: the company they pick follows what they do, as the niche does with the world off
+                onic += P["nu_niche"] * (np.where(idle[:, None], onic, ma) - onic)
             nic = np.array(WL.PP.niche, float)
             if STH_SOC is not None:   # v22.5, F12: and the start's society
                 nic = (1 - P["start_soc"]) * nic + P["start_soc"] * STH_SOC
