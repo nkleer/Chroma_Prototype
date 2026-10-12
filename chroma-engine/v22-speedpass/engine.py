@@ -1156,9 +1156,10 @@ V225 = dict(
     one_roll=True,
     retire_ends=True,
     world_only=True,
-    # S7 (lead_ways) with v22.5's money and the yearly custom read (world_people.LEAD_DEFAULT): seeds 41-52, 300 x 80,
-    # falls per way and time in post per lead colour back within 1.5x and 1.2x
-    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.9),
+    # S7 (lead_ways) with v22.5's money, the yearly custom read and a founder leading as an owner
+    # (world_people.LEAD_DEFAULT): seeds 41-52, 300 x 80, falls per way and time in post per lead colour back within
+    # 1.5x and 1.2x
+    lead_par=dict(fav_drop=0.88, fast_gap=52, fast_k=0.86, owner_kind=True),
     dream_grow=True,
     own_open=True,
     start_hold=True,

@@ -344,10 +344,13 @@ EYES_LEAVE = ("left job", "left partner", "left faith", "title lost")   # acts r
 # in the window and stepped the post in back-to-back quarters: 96% of a custom post's later steps came the next quarter,
 # against none to a third for the other ways, and its second step was the fall; 52: once a year, as favours and
 # inspiring are read), fast_k: the fast line x this (with fast_gap, the line that keeps custom's falls with the other
-# ways'); 0 and 1: every quarter, at the Outer world's line, as before (the v22.5 refit's values: engine.V225 lead_par)
+# ways'); 0 and 1: every quarter, at the Outer world's line, as before; owner_kind: a title that owns what it leads
+# (LEAD_OWNED: a founder of a firm) holds it as an owner does (place_owned, as a shop or café owner: about .07 a year to
+# step down and an age out at 70), not as an appointed manager (setting_work: .15 and 67); False: as before (the v22.5
+# refit's values: engine.V225 lead_par)
 LEAD_DEFAULT = dict(take=0.05, take_age=18, rival=0.02, fall=0.2, step=0.15, crisis=0.25, fair_line=0.35, frail=0.35,
                     sh=0.2, sh_years=10.0, fight=0.3, again=52, wait=8, routine=2, ruler_end=0.1, fav_drop=0.0,
-                    fast_gap=0, fast_k=1.0)
+                    fast_gap=0, fast_k=1.0, owner_kind=False)
 # the engine's titles that lead (each held title is a post; the catalogue's own leaders, since a setting's rank seldom
 # reaches a pillar's .85): its post kind in lead_posts (national: the world's own government term and elections), its
 # sphere, and the group kind of the setting it leads (the led place is that setting's ways, or its named place, when the
@@ -373,6 +376,7 @@ LEAD_TITLES = {"head of government": ("national", "rule", None), "minister": ("n
                "disability-rights organiser": ("setting_member_led", "rule", "movement"),
                "campaign organiser": ("setting_member_led", "rule", "movement"),
                "founder of a movement": ("setting_member_led", "rule", "movement")}
+LEAD_OWNED = {"founder of a firm": "place_owned"}   # titles that own what they lead: their post kind with owner_kind
 LEAD_KINDS = ("work", "congregation", "club", "gang", "unit", "movement")   # settings a life can come to lead
 # seen_done (S6, chroma-ideas/social-mechanics.md "Seen it done"): start values, estimates refit in v22.3's joint refit
 # (the Outer world files none in dynamics.json). close, regular, figure: an exposure's weight by who walked the path
@@ -4722,7 +4726,8 @@ class People:
     def _lead_kind(self, n, kind, slot, place):
         """The post kind (lead_posts) of a setting led (by the haunt kind of its place, else its group kind) or an office."""
         if kind == "office":
-            return LEAD_TITLES[self.lw_tnames[slot]][0]
+            tn_ = self.lw_tnames[slot]
+            return LEAD_OWNED[tn_] if self.lw_par["owner_kind"] and tn_ in LEAD_OWNED else LEAD_TITLES[tn_][0]
         if kind == "place":
             return self._lw_hk.get(HAUNT_KINDS[(int(place) // self.W.hp_s.shape[2]) % len(HAUNT_KINDS)])
         return self._lw_gk.get(GROUP_KINDS[int(self.skind[n, slot])])
