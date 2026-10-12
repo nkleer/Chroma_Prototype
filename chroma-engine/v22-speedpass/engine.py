@@ -1255,6 +1255,7 @@ V225 = dict(
             'divorce after twenty years': 0.2,
             'a child is born': 0.4,
             'a baby on the way, planned or not': 0.1},
+    ev_gapfit={'buying a home': (3, 8)},   # F9.13 (round 3): a home is bought again only 3 to 8 years on, not a year later
     set_big=6.0,
     cond_once=True,
     job_move=((18, 0.22), (25, 0.14), (35, 0.08), (45, 0.05), (55, 0.03), (64, 0)),
@@ -1268,7 +1269,7 @@ V225 = dict(
     age_free=('your first full-time job',),
     age_rate=('a frightening diagnosis', 'a serious accident or illness'),
     mon_drift=0.015,
-    lone=dict(age=((13, 0.02), (16, 0.01), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
+    lone=dict(age=((13, 0.03), (16, 0.014), (18, 0.003), (25, 0.009), (30, 0.012), (35, 0.014), (50, 0.014), (60, 0.012),
                    (70, 0.008), (80, 0.004), (95, 0.003)), single=0.7, work=0.5, low=1.0, ill=0.4, out=0.35, keep=0.05, rate=0.05),
     low_pay=(1.6, 0.3, 3.0),
     pen_pay=0.9,
