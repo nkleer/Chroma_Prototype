@@ -55,7 +55,14 @@ def one(args):
                 hows=hows)
 
 
-def measure(n, norm, seeds=(11, 12, 13, 14), accs=({}, {})):
+B_.FLOORS = os.environ.get("FLOORS") == "1"   # item 16's floors (off until the v22.3 refit)
+E.DEFAULT["suit_on"] = os.environ.get("SUIT") == "1" or E.DEFAULT.get("suit_on", False)   # item 16's suitability
+SEEDS = tuple(int(x) for x in os.environ.get("SEEDS", "11,12,13,14").split(","))   # other lives per session (fit_average.py)
+NORM_MAX = float(os.environ.get("NORM_MAX", 60))   # the highest ROLE_NORM the fit may set (300 for item 16's floors)
+
+
+def measure(n, norm, seeds=None, accs=({}, {})):
+    seeds = seeds or SEEDS
     with Pool(4) as pool:
         out = pool.map(one, [(s, n, norm, accs) for s in seeds])
     tot = sum(o["n"] for o in out)
@@ -129,14 +136,14 @@ def main():
         for i, nm in enumerate(names):
             if kind[i] == "hazard":
                 h_t = -np.log(1 - np.clip(share[i], 0.003, 0.97)); h_m = -np.log(1 - np.clip(ever[i], 0.5 / tot, 0.97))
-                norm[nm] = float(np.clip(norm[nm] * np.clip(h_t / h_m, 0.1, 10) ** 0.85, 0.005, 60))
+                norm[nm] = float(np.clip(norm[nm] * np.clip(h_t / h_m, 0.1, 10) ** 0.85, 0.005, NORM_MAX))
         # entry titles compete within their commitment kind: only their weights relative to each other matter
         for kk in set(G["tkind"][i] for i in range(NT) if kind[i] == "entry"):
             grp = [i for i in range(NT) if kind[i] == "entry" and G["tkind"][i] == kk]
             rat = {i: np.clip(share[i] / max(ever[i], 0.5 / tot), 0.1, 10) ** 0.7 for i in grp}
             gm = 1.0 if base_ else np.exp(np.mean(np.log(list(rat.values()))))   # a pack's entries: their weight against the base's
             for i in grp:
-                norm[names[i]] = float(np.clip(norm[names[i]] * rat[i] / gm, 0.01, 60))
+                norm[names[i]] = float(np.clip(norm[names[i]] * rat[i] / gm, 0.01, NORM_MAX))
         # a title a route overfills even so (only candidate for many, or the fallback first job): that route gives it less
         # often (acc_move, acc_first; Library next3 §3)
         if os.environ.get("FIT_ACC", "1") == "1":

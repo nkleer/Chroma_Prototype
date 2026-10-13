@@ -19,6 +19,7 @@ the Library and the output folder changed: they all `import _engine`.
 | score_packs.py | C-E1 | the survey scorecard |
 | tier_fit.py | C-E3 | pack careers about 1 in 3, summits about 1 in 20; needs `PACKS=science,politics,stage` (without it, it stops: no pack careers); a fourth argument 1 writes earth_rules.TIER_LIFT, a rate change |
 | roles_check.py | C-E4 | titles and perks a life against the catalogue |
+| fit_average.py | — | averages ROLE_NORM or TIER_LIFT fits made on other lives (`SEEDS=` in roles_check.py and tier_fit.py; `NORM_MAX`, `LIFT_MAX`, `SPLIT_CAP` widen their ranges; `FLOORS=1` and `SUIT=1` fit with item 16's floors and suitability on) |
 | death_check.py | C-E5 | dead by 30, 50, 65, 80 |
 | lean_check.py | C-E6, P12 | pack roads' holders lean to their lead colour |
 | pie_check.py | C-E6 | the colour pie |
