@@ -1,0 +1,16 @@
+# ripgrep's ignore file: keeps generated files and exact copies out of searches (rg and Claude Code's Grep tool honour
+# it; git does not). The files stay in the repository. CLAUDE.md lists what makes each one.
+chroma-game/prototype/engine_pin/
+chroma-game/prototype/web/index.html
+chroma-game/prototype/web/page.html
+chroma-game/prototype/web/src/ink-option-texts.json
+chroma-game/prototype/rarity.py
+chroma-library/earth.py
+chroma-library/earth_art.py
+chroma-library/earth_play.py
+chroma-library/earth_politics.py
+chroma-library/earth_science.py
+chroma-library/earth_stage.py
+chroma-art/game/lights.json
+chroma-art/game/pics/
+*.webp
