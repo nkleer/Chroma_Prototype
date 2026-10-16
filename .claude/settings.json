@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(/chroma-game/prototype/engine_pin/**)",
+      "Read(/chroma-game/prototype/web/index.html)",
+      "Read(/chroma-game/prototype/web/page.html)",
+      "Read(/chroma-game/prototype/web/src/ink-option-texts.json)",
+      "Read(/chroma-game/prototype/rarity.py)",
+      "Read(/chroma-art/game/pics/**)"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+# The engine: notes for Claude sessions
+
+Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
+
+- `v22-speedpass/` is the live engine (the folder name is historical; `chroma-env/paths.py` calls it `engine_live`).
+  `MD5SUMS` lists its files. `SPEEDPASS.md` explains the speed pass that kept every life identical.
+- `engine.py` (6,298 lines) is vectorised over N lives, one tick a week. Its module docstring is from v2 and out of
+  date; go by the code. Find the entry points with `rg -n '^def _run|^def run|^PAUSES|^STATE' engine.py`:
+  - `_run(...)` is one 4,440-line function holding the whole weekly loop.
+  - `run()` runs it to the end; `run_steps()` runs it as a generator that pauses at `PAUSES`
+    (`week`, `situation`, `choose`, `odds`, `learn`, `end`). The game drives `run_steps()` (`chroma-game/prototype/link.py`).
+  - `STATE` names the local variables of `_run` that the game, `explain.py` and `foresee.py` may read at a pause.
+    Renaming one, or changing its value at a pause, breaks the game.
+- `sphere_data.py` holds the nine spheres (`SPHERES`); `world.py`, `world_people.py`, `world_link.py` and
+  `world_keys.py` are the outer world; `earth_rules.py` the Earth rules; `rarity.json` the rarity table the game builds
+  `rarity.py` from.
+- `tools/` holds the checks Release runs (`tools/README.md`). The quick one: `python3 -B chroma-engine/tools/t_steps.py`
+  (about 20 s: `run_steps()` gives `run()`'s lives, the pause order, every `STATE` name).
+- `prototype/calib_v8/rarity.json` is the rarity table of v22 and v22.1. The paused v23 engine lives in the shared
+  folder's `chroma-engine/prototype/`, not here.
+
+Any change here reaches the game only through a re-pin (`chroma-game/tools/build.py`). A change meant to keep lives
+identical needs Release's same-lives proof (`chroma-release/same-lives.sh`, four parts of about 50 minutes); a rate
+change needs the full proof. Don't split `_run` or move code out of it without the Engine thread and that proof.
