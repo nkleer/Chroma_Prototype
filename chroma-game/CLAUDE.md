@@ -6,13 +6,26 @@ refuses its files. This file sits one level above it so the build never copies i
 
 ## Where things are (`prototype/`)
 
+Each Game mixin module imports the module names its methods read (from `game_base` and `game_words`), so a method
+moves between files without changing what it does. A new game-side file must also go in `web/worker.js` `SOURCES`;
+`test/smoke.py` fails when one is missing.
+
 | File | Lines | What |
 |---|---|---|
 | `play.py` | 30 | terminal loop around `console.Console`; waits on `input()`, so never run it from a session |
 | `console.py` | 783 | the text controller for the terminal and the page: `Console.handle(line)` returns `(text, busy)`; every key (`HELP` lists them) and the setup steps (`CUSTOM_STEPS`, `STEP_FORM`) |
-| `game.py` | 5,366 | the game layer: `PRESETS` (six starts), class `Game` (3,796 lines: setup, checkpoints, pushed-choice costs, status, Book of Moments, review, HUD) |
-| `story.py` | 2,371 | the story layer: class `Story` and its text tables (`SCENES`, `OUTSIDE`, `OUTCOMES`, `MOOD`, ...) |
-| `routine.py` | 605 | everyday lines between moments (`ROUTINE`, 424 lines of text) and their `check()` |
+| `game.py` | 429 | `PRESETS` (the six starts; Release's `check_f15.py` reads them from this file's text) and class `Game`: its class attributes and its core, `__init__`, `_intervene`, `age`, `advance`, `decide`. Every name the game layer has is importable from `game` |
+| `game_base.py` | 578 | the game layer's settings (`GAME`, `V225`, the `CHROMA_GAME` and `CHROMA_ENGINE` switches), names, `library_for` and helpers: what `game.py` held before class `Game` |
+| `game_words.py` | 961 | words and closing texts: the peace reading, the song, `life_paragraph`, `last_talk`, `book_catalog`: what `game.py` held after class `Game` |
+| `game_checkpoints.py` | 579 | `CheckpointsMixin`: steers, checkpoints and their options, resolutions, hindsight, turning points |
+| `game_world.py` | 600 | `WorldMixin`: the outer world in the story: world effects, levers, far ties, places, posts, lines, talks |
+| `game_voice.py` | 630 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
+| `game_life.py` | 779 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
+| `game_views.py` | 883 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
+| `story.py` | 1,692 | the story layer: class `Story` and its code |
+| `story_text.py` | 711 | `story.py`'s text tables (`SCENES`, `OUTSIDE`, `OUTCOMES`, `MOOD`, ...), data only |
+| `routine.py` | 182 | the everyday lines' rules and their `check()` (`python3 -B routine.py`) |
+| `routine_text.py` | 427 | the everyday lines themselves (`ROUTINE`), data only |
 | `worldview.py` | 704 | the outer world as the player sees it |
 | `link.py` | 44 | loads `engine_pin/engine.py` as module `engine` and checks its pause points (`week`, `situation`, `choose`, `odds`, `learn`, `end`) |
 | `rarity.json` | | the rarity table; `rarity.py` is built from it |

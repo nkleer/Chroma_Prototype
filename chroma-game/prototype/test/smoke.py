@@ -5,7 +5,8 @@ plays, in well under a minute (a whole life takes about 2 minutes; test/same_lif
 Two starts, each with random.seed(7): preset 1 (a newborn on modern Earth) with the keys w, m, y, s, l, l, then lived on
 to age 5 with every checkpoint answered (Enter and 2 in turn, as same_life.py does), and a save that must load back
 exactly; preset 6 (the world of magic) with the key d, lived on to age 12. Every step's [line, text, busy, feed, hud] record is hashed, so
-two trees that play the same give the same md5 per start.
+two trees that play the same give the same md5 per start. It also checks that every game-side module the game imports is
+listed in web/worker.js SOURCES, so the page loads it too.
 
     python3 -B test/smoke.py                 run it; exit 0 when nothing broke
     python3 -B test/smoke.py --same          also compare the md5s with test/smoke.golden.json (made with the same
@@ -113,6 +114,25 @@ def play(game_dir):
     return res, errors
 
 
+def page_files(game_dir):
+    """Every game-side module the game's own files import must be in web/worker.js SOURCES, or the page lacks it (and a
+    module imported under try/except, such as routine, would vanish from the page without an error)."""
+    import ast
+    wjs = open(os.path.join(game_dir, "web", "worker.js"), encoding="utf-8").read()
+    srcs = set(json.loads(re.search(r"const SOURCES = (\[[^\]]*\]);", wjs).group(1)))
+    missing = []
+    for f in sorted(srcs):
+        if f.startswith("engine_pin/") or not f.endswith(".py"):
+            continue
+        for n in ast.walk(ast.parse(open(os.path.join(game_dir, f), encoding="utf-8").read())):
+            names = [a.name for a in n.names] if isinstance(n, ast.Import) else [n.module] if isinstance(n, ast.ImportFrom) and n.module else []
+            for m in names:
+                p = m.split(".")[0] + ".py"
+                if os.path.isfile(os.path.join(game_dir, p)) and p not in srcs:
+                    missing.append(f"{p} (imported by {f})")
+    return sorted(set(missing))
+
+
 def versions():
     import numpy as np
     return {"python": platform.python_version(), "numpy": np.__version__}
@@ -123,6 +143,7 @@ def main():
     game = opt["game"] or os.path.dirname(HERE)
     t0 = time.time()
     res, errors = play(game)
+    errors += [f"web/worker.js SOURCES lacks {m}" for m in page_files(game)]
     if opt["json"]:
         print(json.dumps({"res": res, "errors": errors}))
         return 0

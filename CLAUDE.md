@@ -46,9 +46,10 @@ The Library's other `.py` files (`earth_story.py`, `earth_spheres.py`, `earth_vo
 ## Reading
 
 - Never read a file over about 1,500 lines whole. Find the place with `rg -n`, then read a range.
-- Large files people do edit: `chroma-engine/v22-speedpass/engine.py` (6,298 lines), `chroma-game/prototype/game.py`
-  (5,366), `chroma-game/prototype/web/src/app.js` (2,859), `chroma-game/prototype/story.py` (2,371),
-  `chroma-game/prototype/web/src/head.html` (1,593, one `<style>` block), `chroma-engine/v22-speedpass/world.py`.
+- Large files people do edit: `chroma-engine/v22-speedpass/engine.py` (6,298 lines), `chroma-engine/v22-speedpass/world.py`,
+  `chroma-game/prototype/web/src/app.js` (2,859), `chroma-game/prototype/story.py` (1,692),
+  `chroma-game/prototype/web/src/head.html` (1,593, one `<style>` block). The game layer is split into files of 430 to
+  960 lines (`chroma-game/CLAUDE.md`).
 - `chroma-game/prototype/README.md` is 60 KB of history. Read the section you need (`rg -n '^#' README.md`), not all.
 - Notes, plans, specs and run outputs live in the shared folder (`/mnt/project-files`), not here. Start from
   `chroma-env/MAP.md` there.
