@@ -42,6 +42,7 @@ Run from `prototype/` with `python3 -B test/<name>`. A whole life takes about 2 
 
 | Test | Proves |
 |---|---|
+| `smoke.py [--same \| --base DIR \| --update]` | about 20 s: two short lives (presets 1 and 6) with keys, checkpoints and a save; fails on a crash or NaN; `--same` compares the play's md5s with `smoke.golden.json`, `--base` with another game folder |
 | `same_life.py <preset> <seed> <out>` | one played life, every step's text and HUD hashed; same md5 on two trees = same lives (use presets 1 to 6, seed 7) |
 | `same_engine.py` | the same, engine side only |
 | `saveload.py`, `saveload_world.py` | a saved life loads back exactly (without and with the outer world) |

@@ -72,8 +72,9 @@ Every life must stay the same unless Emren asked for a change in play. Pick the 
 | Change | Check | Time |
 |---|---|---|
 | docs, CLAUDE files, comments | none | 0 |
-| game code, no change in play meant | `python3 -B chroma-game/prototype/test/same_life.py <preset> 7 <out>` for presets 1 to 6, on the branch and on a worktree of `origin/main`; every md5 must match | about 2 min each, run side by side |
-| game content or behaviour | `test/timeless.py`, `test/saveload.py`, then Release's `python3 -B chroma-release/v22_checks.py --level fast --only @game --repo <checkout>` | a few minutes |
+| any game change, first | `python3 -B chroma-game/prototype/test/smoke.py`: a short life, no crash, no NaN; `--same` also checks it plays exactly as `test/smoke.golden.json` | about 20 s |
+| game code, no change in play meant | `smoke.py --same` (or `--base <origin/main's chroma-game/prototype>` on another Python or numpy), then `python3 -B chroma-game/prototype/test/same_life.py <preset> 7 <out>` for presets 1 to 6, on the branch and on a worktree of `origin/main`; every md5 must match | 20 s, then about 2 min each, run side by side |
+| game content or behaviour | `smoke.py --update` (the PR says why play changed), `test/timeless.py`, `test/saveload.py`, then Release's `python3 -B chroma-release/v22_checks.py --level fast --only @game --repo <checkout>` | a few minutes |
 | page source (`web/src/`) | rebuild `web/index.html`; with no change meant, its md5 must not move | under 1 s |
 | engine | Engine thread only: `chroma-engine/tools/t_steps.py` (about 20 s), then a Game re-pin with `chroma-game/tools/build.py` and Release's `chroma-release/same-lives.sh` (four parts, about 50 min each) | hours |
 | Library or packs | the owner's build and checks, then the Game re-pin | owner's job |
