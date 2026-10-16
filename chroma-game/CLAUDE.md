@@ -56,6 +56,8 @@ Run from `prototype/` with `python3 -B test/<name>`. A whole life takes about 2 
 | Test | Proves |
 |---|---|
 | `smoke.py [--same \| --base DIR \| --update]` | about 20 s: two short lives (presets 1 and 6) with keys, checkpoints and a save; fails on a crash or NaN; `--same` compares the play's md5s with `smoke.golden.json`, `--base` with another game folder |
+| `prove.py [--base REF] [--presets 1,3]` | the "no change in play" proof in one command: `smoke.py`, then presets 1 to 6 (seed 7, `same_life.py`'s record and md5) here and on `origin/main`, side by side, naming the first step that differs. Lives are cached by the game files they came from (in the shared folder's `.cache/same-lives`), so main's six are played once per state of main; under 30 s when the game files match or both sides are cached, about 4 minutes otherwise |
+| `text_check.py [--pin]` | about 1 s: every string literal in the game's own files, against `timeless.py`'s word list; reports only the real-world words a change adds against `origin/main` |
 | `same_life.py <preset> <seed> <out>` | one played life, every step's text and HUD hashed; same md5 on two trees = same lives (use presets 1 to 6, seed 7) |
 | `same_engine.py` | the same, engine side only |
 | `saveload.py`, `saveload_world.py` | a saved life loads back exactly (without and with the outer world) |
