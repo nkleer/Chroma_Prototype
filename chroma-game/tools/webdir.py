@@ -28,7 +28,8 @@ subprocess.run([sys.executable, "-B", G + "web/src/build.py"], check=True)
 s = open(G + "web/index.html", encoding="utf-8").read()
 open(W + "index.html", "w", encoding="utf-8").write(s)
 shutil.copy(G + "web/worker.js", W + "worker.js")
-for f in ["link.py", "story.py", "worldview.py", "game.py", "console.py", "routine.py", "rarity.py"]:
+game_srcs = json.loads(re.search(r"const SOURCES = (\[[^\]]*\]);", open(G + "web/worker.js", encoding="utf-8").read()).group(1))
+for f in [x for x in game_srcs if not x.startswith("engine_pin/")]:   # the game's own files, as the worker lists them
     if os.path.exists(G + f): shutil.copy(G + f, W + "py/" + f)
 for f in glob.glob(G + "engine_pin/**/*.py", recursive=True):   # engine_pin/*.py and engine_pin/packs/<pack>/*.py
     d = W + "py/engine_pin/" + os.path.relpath(f, G + "engine_pin")
