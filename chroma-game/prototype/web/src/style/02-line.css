@@ -1,0 +1,87 @@
+  /* ---------- part 1: the life line (parts/line.css: the zoomed line of the approved mockup, Emren 10-07) ----------
+     The lived years across ~74% of the strip, the years ahead folded into the starry fog. Rows from the top: the river,
+     the identity band, the event glyphs, the ages. 92 px on a desktop, 64 px on a phone (glyphs become dots there). */
+  .line { position: relative; margin-block: 2px 10px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(180deg, rgb(20 16 44 / 0.7), rgb(10 8 24 / 0.8)); }
+  .app .line { height: 92px; }      /* .app: wins over the older heights in the max-height/max-width blocks, wherever this block sits */
+  .line::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgb(216 180 105 / 0.16); }
+  .line svg.river { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .river .glowl { filter: blur(7px); opacity: 0.55; }
+  .river .sheen { fill: none; stroke: #fff; stroke-opacity: 0.22; stroke-width: 1; pointer-events: none; }
+  .line .tick { fill: var(--faint); font: 500 var(--fs-1) var(--ui); text-anchor: middle; }
+  .line .tick.known { fill: var(--muted); }
+  .line .tick.fut { fill: var(--muted); }
+  .river .grid { stroke: rgb(var(--hl) / 0.05); stroke-width: 1; }
+  .river .path { stroke: rgb(216 180 105 / 0.3); stroke-width: 1.2; stroke-dasharray: 2 5; fill: none; }
+  .line .nowl { stroke: var(--gold2); stroke-width: 1.3; opacity: 0.8; }
+  .line .nowg { stroke: var(--gold); stroke-width: 7; opacity: 0.18; filter: blur(3px); }
+  .line .nowdot { fill: var(--gold2); filter: drop-shadow(0 0 5px var(--gold)); }
+  .line .nowhalo { fill: var(--gold2); opacity: 0.45; filter: blur(3px); animation: bead 3.2s ease-in-out infinite alternate; }
+  @keyframes bead { from { opacity: 0.25; } to { opacity: 0.6; } }
+  .line .nowt { fill: var(--gold2); font: 600 var(--fs-1) var(--ui); text-anchor: middle; letter-spacing: 0.02em; }
+  .river .cross { stroke: rgb(var(--hl) / 0.5); stroke-width: 1; stroke-dasharray: 2 3; pointer-events: none; }
+  .river .band { filter: drop-shadow(0 0 2px rgb(0 0 0 / 0.4)); }
+  .river .bandglow { filter: blur(3px); opacity: 0.5; }
+  .river .gl { cursor: pointer; transform-box: fill-box; transform-origin: center; transition: transform 0.15s ease; }
+  .river .gl[data-age]:hover { transform: scale(1.18); }
+  .river .gl circle { fill: #1d1838; stroke: rgb(216 180 105 / 0.32); }
+  .river .gl use { stroke: var(--ink2); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .river .gl.big circle { stroke: var(--gold); }
+  .river .gl.dark use { stroke: #cdb8e8; }
+  .river .gl.bad circle { stroke: var(--bad); }
+  .river .gl:hover circle { fill: var(--night4); }
+  .river .gl.dot circle:not(.hit), .river .gl.dot:hover circle:not(.hit) { fill: var(--ink2); stroke: none; opacity: 0.75; }
+  .river .gl.dot.big circle:not(.hit) { fill: var(--gold); opacity: 1; }
+  .river .gl.dot.dark circle:not(.hit) { fill: #cdb8e8; }
+  .river .gl.dot.bad circle:not(.hit) { fill: var(--bad); opacity: 0.9; }
+  .river .gl.dot .hit, .river .gl.dot:hover .hit { fill: transparent; stroke: none; }
+  .river .gl.end { cursor: default; }
+  .river .end circle { fill: var(--night2); stroke: var(--gold); filter: drop-shadow(0 0 5px rgb(216 180 105 / 0.5)); }
+  .river .end use { stroke: var(--gold2); }
+  .river .hov { fill: transparent; cursor: crosshair; }
+  /* the unwritten years (Emren 10-07 01:57, N2a): a cosmic fabric of possibilities behind a fog that the life uncovers */
+  .fog { position: absolute; top: 0; bottom: 0; right: 0; overflow: hidden; pointer-events: none; transition: opacity 2.4s ease, left 0.5s ease;
+    background: radial-gradient(140% 120% at 100% 50%, rgb(26 18 52 / 0.85), rgb(14 10 30 / 0.55) 60%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 64px); mask-image: linear-gradient(90deg, transparent 0, #000 64px); }
+  .fog i { position: absolute; inset: -30% -10%; display: block; filter: blur(5px); animation: nebula 70s linear infinite;
+    background: radial-gradient(closest-side, rgb(130 185 242 / 0.17), transparent) 0 0 / 300px 140px,
+                radial-gradient(closest-side, rgb(187 160 208 / 0.22), transparent) 140px 50px / 360px 170px,
+                radial-gradient(closest-side, rgb(242 227 166 / 0.10), transparent) 60px 10px / 220px 120px,
+                radial-gradient(closest-side, rgb(127 211 148 / 0.09), transparent) 250px 70px / 260px 130px,
+                radial-gradient(closest-side, rgb(243 140 107 / 0.08), transparent) 200px 0 / 240px 110px; }
+  .fog i:nth-child(2) { transform: scaleY(-1); animation-duration: 110s; animation-direction: reverse; opacity: 0.75; }
+  @keyframes nebula { to { background-position: -300px 0, -220px 50px, -160px 10px, -10px 70px, -40px 0; } }
+  .fog i:nth-child(3) { inset: 0; filter: none; animation: veil 9s ease-in-out infinite alternate;
+    background: linear-gradient(90deg, rgb(214 205 245 / 0.10), rgb(20 16 40 / 0.0) 16%, rgb(20 16 40 / 0.32) 40%, rgb(12 9 26 / 0.55)); }
+  @keyframes veil { to { opacity: 0.7; } }
+  .fog::before { content: ""; position: absolute; left: 22px; top: -10%; bottom: -10%; width: 110px; z-index: 1;
+    background: radial-gradient(50% 45% at 0% 50%, rgb(244 223 166 / 0.16), transparent 75%); animation: breathe 6s ease-in-out infinite alternate; }
+  @keyframes breathe { from { opacity: 0.55; } to { opacity: 1; } }
+  /* the Visuals thread's star-weave (pics/unwritten-fabric.webp), anchored right so the fog uncovers the same sky */
+  .fog .fab { position: absolute; inset: 0; display: block; background: right center / auto 100% repeat-x; mix-blend-mode: screen; animation: fabric 11s ease-in-out infinite alternate; }
+  @keyframes fabric { from { opacity: 0.55; } to { opacity: 0.9; } }
+  .fog .cosmos { position: absolute; top: 0; right: 0; height: 100%; display: block; }
+  .cosmos circle.tw { animation: twinkle2 4s ease-in-out infinite alternate; }
+  @keyframes twinkle2 { from { opacity: 0.12; } to { opacity: 0.95; } }
+  .cosmos .con { opacity: 0; animation: conglow 16s ease-in-out infinite; }
+  .cosmos .con polyline { fill: none; stroke: var(--cc); stroke-width: 0.7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 3; }
+  .cosmos .con circle { fill: var(--cc); filter: drop-shadow(0 0 2px var(--cc)); }
+  @keyframes conglow { 0%, 100% { opacity: 0; } 35%, 65% { opacity: 0.5; } }
+  .cosmos .spark { fill: #fff6dc; filter: drop-shadow(0 0 3px #cbb8ff); transform-box: fill-box; transform-origin: center; animation: spark 8s ease-in-out infinite; }
+  @keyframes spark { 0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); } 50% { opacity: 0.95; transform: scale(1) rotate(45deg); } }
+  .fog b { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #e8e0ff; box-shadow: 0 0 6px #b7a8ff; animation: mote 6s ease-in-out infinite; }
+  @keyframes mote { 0%, 100% { opacity: 0; transform: translateY(4px); } 50% { opacity: 0.9; transform: translateY(-4px); } }
+  /* the word sits up with the river, clear of the identity thread and the decades below */
+  .fog .q { position: absolute; right: 20px; top: 10px; translate: none; z-index: 2; font: 500 var(--fs-1) var(--display); letter-spacing: 0.3em; color: rgb(214 205 245 / 0.5);
+    white-space: nowrap; text-shadow: 0 0 10px rgb(140 120 230 / 0.6); animation: breathe 7s ease-in-out infinite alternate; }
+  .line svg.ahead { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+  .ahead .thread { stroke-width: 1.4; stroke-linecap: round; }
+  .ahead .threadsh { stroke: #fff8e6; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1 41; opacity: 0.4; filter: drop-shadow(0 0 2px #cbb8ff); animation: flow 5s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -42; } }
+  .line.clear .fog { opacity: 0; }
+  .line.nofogword .fog .q { display: none; }
+  @media (max-width: 640px) {
+    .app .line { height: 64px; margin-bottom: 6px; }
+    .fog .q { top: 4px; right: 10px; letter-spacing: 0.18em; }
+  }
+

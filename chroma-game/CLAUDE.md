@@ -41,7 +41,7 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 
 ## The page (`prototype/web/`)
 
-- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, the app (`app/`, below),
+- Sources in `web/src/`: `head.html` (the title and fonts), the style (`style/`, below), `body.html`, the app (`app/`, below),
   `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`, `option-icons-live.json`,
   `pics-left-out.json`, `pic-packs.json`.
 - `web/src/build.py` joins them into `web/index.html` (0.07 s, byte for byte). Never edit or read `index.html` or
@@ -66,6 +66,23 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 | `11-start.js` | 172 | the life-choice (tarot) cards on the start screen; the end of a life |
 | `12-panels.js` | 148 | transport, help, the outer world panel, the keys the page answers itself |
 | `13-state.js` | 93 | applying the game's state, the keyboard, the worker's start-up |
+
+- The style is one `<style>` block in the page, kept as `web/src/style/NN-name.css` parts (all in `head.html` until
+  10-17); `build.py` joins them in name order after `head.html`, so later rules still win as before. Find a rule with
+  `rg -n '\.name' chroma-game/prototype/web/src/style/`. `look.css` and `clarity.css` come after all of it.
+
+| Part | Lines | What |
+|---|---|---|
+| `01-base.css` | 99 | the colours (`:root`), the night sky, the app frame |
+| `02-line.css` | 87 | the life line |
+| `03-table.css` | 95 | the main area, the table (a checkpoint), the option cards |
+| `04-hud.css` | 148 | the character HUD; the inner voice before a choice and after |
+| `05-menus.css` | 130 | transport; menu, setup, review, boot; narrower screens |
+| `06-parchment.css` | 231 | v3: dark ink on parchment; the event window |
+| `07-v21.css` | 230 | version 21: the spider graph, steers, titles, the interlude, the sheet, the World panel, tarot, the Book of Moments, seasons |
+| `08-v22-moment.css` | 201 | v22's look: the top bar, the moment window, the chosen card's motion, the outcome, the compact crest |
+| `09-v22-pages.css` | 111 | v22's story page, start, interlude and small panels; narrower screens and the phone |
+| `10-sheet.css` | 255 | the character sheet in tabs; the Book and World boxes; the reading beside a moment; short windows; the folded "Out of reach" row |
 - `web/worker.js` runs the Python in Pyodide. Its `SOURCES` list names every `.py` file the page loads:
   `tools/build.py` adds missing `engine_pin` files, but a new game-side file must be added by hand.
 - The published artifact holds at most 511 files; `tools/webdir.py` packs code and rarer pictures into a few files.
