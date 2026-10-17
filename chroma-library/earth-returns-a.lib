@@ -1,0 +1,392 @@
+# Chroma library, modern Earth: RETURNS, set a. These are the Picks come back returns (10-17): a pick that comes back years later with the same person.
+# They are played only with the engine's echo_play switch on. Kinds: helped or refused someone in need, made a friend, made an enemy, came home.
+
+# ---------------------------------------------------------------- helped someone in need
+
+== the one you helped asks you to say a few words
+tier: return
+of: helped someone in need
+side: well
+stages: young_adult+
+age: 20-110
+stakes: .6
+tone: joy
+life: friends, work, community
+horizon: week
+roles: friend
+earth: someone you helped through a hard time has made good, and wants you up front at the opening
+delay: 3-25
+likelier: the help was large and came at the worst time; a small town; the one helped kept in touch
+rarer: the help was small or anonymous; the one helped moved far away
+times: Perhaps 1 in 6 people who help someone through a crisis are later thanked by them in public (estimate)
+scene: {friend} is opening a small workshop of their own, and wants {N} to cut the ribbon. Without {N}, {friend} says, there would be no workshop at all.
+scene W: {N} only did what anyone decent would do for {friend}. Being thanked in front of a crowd for it feels like being paid for a duty.
+scene U: {N} looks round the workshop {friend} has built and tries to work out which part of that old help really made the difference.
+scene B: The whole street will hear {friend} say what {N} did. Goodwill like that is rare, and it is worth something.
+scene R: {friend} grabs {Ns} hands at the door, and {N} has to look away for a moment to keep from crying.
+scene G: {N} helped {friend} plant something small in a bad season. Now it has grown into a whole workshop, with roots of its own.
+scene gone: {friend} is not here to cut the ribbon. Yet the workshop opens anyway, run by people {friend} trained, and they ask {N} to say a few words.
+- W | give a proper speech, and thank everyone who helped them along the way | v: benevolence, conformity | chance: 83
+- U | ask them what really turned things round, so the next one gets better help | v: self-direction, benevolence | chance: 82
+- B | mention your own business in the speech, while the whole street is listening | v: power, achievement | chance: 77
+- R | skip the speech, hug them in front of everyone, and stay till the last glass | v: hedonism, benevolence | chance: 94
+- G | tell the crowd the credit is all theirs; you only held the ladder | identity | v: tradition (humility), benevolence | chance: 82
+- W>B | offer to sit on their board and keep the books straight | v: power, conformity | chance: 72
+- U>R | plan a wild trip together to celebrate, the one they always dreamed of | v: stimulation, hedonism | chance: 62
+- B>G | put some savings into the workshop, so it lasts and the family gains | v: security, benevolence | chance: 70
+- R>W | start a fund on the spot for the next person in trouble on the street | binds | v: benevolence, universalism | chance: 70
+- G>U | spend an afternoon there each week, learning the craft from them | habit | v: self-direction, tradition | mark: learned a skill | chance: 78
+works: The ribbon is cut, and the evening fills with old stories and new plans.
+works: {friend} and {N} are closer than ever, and the workshop thrives.
+fails: The opening is a muddle, and {N} leaves wondering whether the old help is now a debt between them.
+fails: {friend} is too busy with the crowd to talk, and the moment slips past.
+
+== the one you helped asks again
+tier: return
+of: helped someone in need
+side: badly
+stages: young_adult+
+age: 18-110
+stakes: .7
+tone: mixed
+life: family, money
+horizon: months
+roles: sibling
+earth: a sibling you once helped, when the help went sour, asks for the same help again
+delay: 2-15
+likelier: the first help was money or a roof; the need is real again; the family lives close by
+rarer: the old falling out was never mended; the sibling has done well since
+times: Common: perhaps 1 in 3 people whose help to a relative went wrong are asked again within ten years (estimate)
+scene: {sibling} sits at {Ns} kitchen table and asks for a loan, just as before. Last time the money vanished, and they did not speak for a year.
+scene W: {N} believes family should help family. {N} also remembers {sibling} promising to pay it back by spring, and the spring that never came.
+scene U: {N} goes back over what went wrong with {sibling} last time: too much, too fast, and no plan for how it would end.
+scene B: {sibling} still owes {N} from last time. Any new help would add to a debt nobody has ever named out loud.
+scene R: {N} sees the old shame in the face of {sibling}, and {Ns} chest goes tight with love and anger at once.
+scene G: Some things need more than one season to take. {sibling} has come back to the same patch of ground, hoping it grows this time.
+scene gone: {sibling} is not here to ask now. Still, {N} keeps the old loan papers in a drawer, and wonders what a second try with {sibling} would have looked like.
+- W | help again, but write the terms down and both sign them | v: security, conformity | chance: 78
+- U | work out together what went wrong before, then decide | v: self-direction, benevolence | chance: 75
+- B | lend it only against something they own | v: power, security | chance: 74
+- R | say yes at once, and let the heart overrule the head | v: benevolence | chance: 67
+- G | give a little less, and let them find the rest themselves | v: tradition, self-direction | chance: 74
+- W>R | make it a gift, not a loan, so no debt sits between the two | v: benevolence | chance: 72
+- U>G | help them find steady work instead of handing over money | v: security, benevolence | chance: 68
+- B>W | ask the whole family to share the cost, fair shares for all | v: universalism (fairness), conformity | chance: 70
+- R>U | tell them how much the last time hurt, then ask what is different now | v: self-direction, benevolence | chance: 70
+- G>B | say no this time, and keep your own house safe | v: security | mark: refused someone in need | chance: 75
+works not G>B: This time the help lands, and {sibling} is back on their feet within the year.
+works: The old debt is talked through at last, and the air between them clears.
+fails not G>B: The help goes the way of the last, and the silence returns.
+fails: {sibling} takes the answer badly, and the family starts taking sides.
+
+# ---------------------------------------------------------------- refused someone in need
+
+== the one you refused must say no too
+tier: return
+of: refused someone in need
+side: well
+stages: young_adult+
+age: 20-110
+stakes: .6
+tone: mixed
+life: friends, family, money
+horizon: week
+roles: friend
+earth: someone you once turned away, who did better for it, now faces the same ask and wants your advice
+delay: 3-20
+likelier: the refusal pushed the person to stand alone, and it worked; they kept in touch
+rarer: the refusal ended the friendship; the person had no way to manage alone
+times: Perhaps 1 in 8 people who said a firm no to a friend in trouble are later asked by that friend how to say no themselves (estimate)
+scene: {friend} calls late. A cousin wants money, and {friend} remembers how {N} said no years ago, and how it forced {friend} to stand alone. Should {friend} say no too?
+scene W: {N} said no to {friend} because it seemed right, not because it was easy. Now {friend} wants the rule behind it, and {N} is not sure there was one.
+scene U: {N} thinks it through with {friend}: why that no worked then, and whether this cousin is in the same kind of trouble at all.
+scene B: That old no turned out to be the best thing {N} ever gave {friend}. It cost nothing, and it paid.
+scene R: {N} still remembers {friend} crying on the step that night. Hearing it called a gift does not quite settle the stomach.
+scene G: Some young trees grow strong only once the stake is pulled away. {N} pulled it from {friend}, and {friend} grew.
+scene gone: {friend} is not here to ask. Yet when someone close comes to {N} for money, {N} thinks of {friend}, and how that old no turned out.
+- W | give them a firm rule: help with work, never with cash | v: conformity, security | chance: 73
+- U | ask questions until it is clear what the cousin really needs | v: self-direction, universalism | chance: 77
+- B | tell them to lend it, but with interest and a date | v: power, achievement | chance: 74
+- R | say what your gut says: this time, help | v: benevolence | chance: 77
+- G | tell them it is their call now; every case grows its own way | v: self-direction, tradition | chance: 76
+- W>G | suggest the whole family meet and decide it together | v: tradition, conformity | chance: 70
+- U>W | write down what that night taught, for both to keep | v: universalism, self-direction | chance: 75
+- B>U | offer to look over the cousin's accounts yourself | v: self-direction, power | chance: 72
+- R>B | ring the cousin yourself and tell them to sort it out | v: power | chance: 62
+- G>R | admit that night still weighs on the heart, and let the talk run long | v: benevolence | chance: 78
+works: {friend} finds the right answer, and thanks {N} twice over.
+works: The talk turns into the closest hour the two have had in years.
+fails: {friend} follows the advice, and this time it goes wrong.
+fails: The old night comes up, and it is not as settled as {N} thought.
+
+== news of the one you turned away
+tier: return
+of: refused someone in need
+side: badly
+stages: young_adult+
+age: 20-110
+stakes: .8
+tone: trouble
+life: friends, community
+horizon: months
+roles: friend
+earth: you hear that the person you once turned away has had hard years since, and is struggling again
+delay: 2-25
+likelier: a small town where news travels; the refusal hurt; the person is in real need again
+rarer: a big city; the person made good since; nobody connects the two
+times: Fairly common: perhaps 1 in 4 people who refused someone in real need later hear how hard it went for them (estimate)
+scene: At the market, an old neighbour mentions {friend} in passing: a hard few years, a small flat, money tight again. {N} remembers the night {friend} knocked.
+scene W: {N} said no to {friend} that night and called it fair. Fair or not, it was not enough, and {N} has known so ever since.
+scene U: {N} tries to piece together what happened to {friend} after that night, and how much of it the refusal set going.
+scene B: {N} has more to spare than then. Helping {friend} now would cost little, but it would mean admitting what that no cost.
+scene R: The guilt comes back hot and sudden, as if {friend} were still standing at the door.
+scene G: A seedling refused water grows crooked, if it grows at all. {N} wonders how {friend} has grown since.
+scene gone: {friend} is not here to help now. {N} carries the memory of that knock at the door, and looks for someone else in the same kind of trouble.
+- W | offer now the help that was owed back then | binds | v: benevolence, universalism | chance: 68
+- U | find out quietly what they need most before doing anything | v: self-direction, benevolence | chance: 75
+- B | send help through a friend, so your name stays out of it | v: security, benevolence | chance: 82
+- R | go round tonight and say sorry for that night | v: benevolence | mark: owned up | chance: 72
+- G | let it rest, and greet them warmly whenever paths cross | v: tradition, benevolence | chance: 76
+- W>U | volunteer where they found help, and learn what that winter was like | habit | v: universalism, benevolence | chance: 82
+- U>B | offer them work, on fair terms, that suits what they can do | v: achievement, benevolence | chance: 65
+- B>R | treat them to a long dinner and let the old night come out | v: hedonism, benevolence | chance: 72
+- R>G | turn up with tools and fix what needs fixing at their place | v: benevolence, tradition | chance: 72
+- G>W | ask a shared old friend to bring the two together | v: tradition, conformity | chance: 72
+works: {friend} takes the gesture well, and the two are easy with each other again.
+works not G: The old night is named between them, and something heals.
+fails: {friend} keeps a cool distance, and the old night stays where it was.
+fails not G: The help comes too late to change much, and both of them know it.
+
+# ---------------------------------------------------------------- made a friend
+
+== an old friend asks to go into business
+tier: return
+of: made a friend
+side: well
+stages: young_adult+
+age: 22-75
+stakes: .8
+tone: mixed
+life: friends, work, money
+horizon: years
+roles: friend
+earth: a close friend of many years wants the two of you to start something together
+delay: 3-20
+likelier: a long, close friendship; both restless at work; some savings
+rarer: heavy family duties; one of them deep in debt
+times: Perhaps 1 in 10 people with a close friend of ten years are asked to go into business or buy property with them (estimate)
+scene: {friend} spreads plans for a small bakery across {Ns} table. They have talked about it for years over coffee. Now {friend} has found the place.
+scene W: {N} and {friend} have never let each other down. A shared business would test that, with rules and money in the middle.
+scene U: {N} reads every line of the plans {friend} brought, and sees both the good idea and the three things that could sink it.
+scene B: Money ruins friendships, everyone says. Then again, {N} trusts {friend} more than any partner money could buy.
+scene R: {Ns} heart says yes before {friend} has even finished. This is the life they always talked about.
+scene G: A friendship that has grown for years is a kind of soil. {friend} wants to plant something in it.
+scene gone: {friend} is not here to share it. Yet {N} finds the old plans they drew up with {friend}, and wonders whether to build the bakery alone.
+- W | agree, with a written deal that protects the friendship first | v: security, conformity | chance: 76
+- U | test the plan with a market stall for one season before deciding | v: self-direction, security | chance: 79
+- B | insist on the bigger share, since most of the money comes from your savings | v: power, achievement | chance: 67
+- R | say yes and hand in your notice tomorrow | door | v: stimulation, self-direction | chance: 68
+- G | turn it down kindly; some things grow best left as they are | v: tradition, benevolence | mark: turned down a chance | chance: 80
+- W>B | take on the paperwork and the hard bargaining with the bank | v: achievement, power | chance: 72
+- U>R | plan it all carefully, then throw a launch party for the whole street | v: hedonism, stimulation | chance: 70
+- B>G | put your savings in, on condition the family can work there too | v: benevolence (family), security | chance: 70
+- R>W | shake on it like old friends, and swear never to fight over money | binds | v: benevolence, tradition | chance: 72
+- G>U | let it grow slowly: weekends first, learning the trade as it goes | v: self-direction, security | mark: learned a skill | chance: 76
+works not G: The bakery opens, and the friendship carries it through the first hard year.
+works: {N} and {friend} come out of it closer, whatever the shop becomes.
+fails not G: The money goes wrong, and the friendship takes the blow.
+fails: The old ease turns careful, and the coffee talks grow short.
+
+== an invitation from a friend gone quiet
+tier: return
+of: made a friend
+side: badly
+stages: young_adult+
+age: 20-110
+stakes: .6
+tone: mixed
+life: friends
+horizon: week
+roles: friend
+earth: a friend who drifted off or fell out with you sends a sudden invitation to a big party
+delay: 4-30
+likelier: a milestone birthday or a wedding; the falling out was small
+rarer: a bitter quarrel; the friend moved far away
+times: Common: perhaps 1 in 3 people get an invitation from a friend they had drifted from, for a wedding or a big birthday (estimate)
+scene: An envelope comes in a hand {N} knows at once. {friend} is throwing a big birthday party, and wants {N} there. The last time they spoke ended badly.
+scene W: {N} and {friend} once promised to be at each other's big days. Then came the quarrel, and the silence after. The card asks if that promise still holds.
+scene U: {N} reads the card from {friend} three times for clues. A plain invitation, an olive branch, or simply a long guest list?
+scene B: Half the old crowd will be at the party {friend} is throwing. Going costs an evening; staying away could cost the whole circle.
+scene R: Seeing the handwriting of {friend} makes {Ns} throat tighten. Fondness and old hurt arrive in the same envelope.
+scene G: Friendships go quiet like fields in winter. {friend} seems to be asking whether anything is still alive under the frost.
+scene gone: {friend} is not here to send a card. But an old photo of {N} and {friend} turns up in a drawer, and {N} wonders what one more party might mend.
+- W | reply properly and on time, and bring a thoughtful gift | v: conformity, benevolence | chance: 83
+- U | ring them first, and ask what the invitation really means | v: self-direction | chance: 72
+- B | go, mainly to see who else is there and what they do now | v: power, achievement | chance: 87
+- R | turn up early, hug them hard, and say the quarrel was stupid | v: benevolence, hedonism | mark: made a friend | chance: 76
+- G | send a warm card back, and let things come round in their own time | v: tradition, benevolence | chance: 72
+- W>R | go, and make the toast you once promised to make | v: benevolence, hedonism | mark: kept your word | chance: 65
+- U>G | dig out the old shared photos and bring them along as a gift | v: tradition, benevolence | chance: 78
+- B>W | offer to pay toward the party, so the old debt between the two is squared | v: universalism (fairness), power | chance: 70
+- R>U | write them the honest letter never sent, and post it today | v: self-direction, benevolence | chance: 72
+- G>B | stay home this time, and keep your own peace of mind | v: security | chance: 74
+works not G G>B: {N} goes, and by the end of the night the old ease is back.
+works: The first word in years leads to a second, and a third.
+fails not G G>B: The party is fine, but the two of them talk past each other.
+fails: The old quarrel turns out to be still there, under the polite words.
+
+# ---------------------------------------------------------------- made an enemy
+
+== an old enemy on the same side
+tier: return
+of: made an enemy
+side: well
+stages: young_adult+
+age: 20-110
+stakes: .7
+tone: mixed
+life: community, work
+horizon: months
+roles: rival
+earth: the rival you stood up to years ago turns out to be the only other one fighting the same fight
+delay: 3-25
+likelier: a small town or trade; the old feud was about principle, not spite
+rarer: the rival moved away; the feud turned personal and bitter
+times: Perhaps 1 in 10 people with a lasting rival later end up on the same side of a local fight (estimate)
+scene: The council meeting about closing the old library is almost over. Only two people stand up to object: {N}, and across the room, {rival}.
+scene W: {N} and {rival} fought over the rules for years, and {N} came off best. Now the same rules are being bent, and {rival} is objecting too.
+scene U: {N} watches {rival} speak and notices that the arguments are good ones. Maybe the old feud sharpened them both.
+scene B: {rival} has contacts and a loud voice. {N} could use both, if pride allows it.
+scene R: {N} cannot help a grin when {rival} catches {Ns} eye across the hall. Old fire, pointed the same way for once.
+scene G: Two old trees grew crooked to spite each other. Now the same storm is coming for both, and {rival} knows it too.
+scene gone: {rival} is not here to stand up beside {N}. In the quiet hall {N} remembers how {rival} would have argued, and says it for them both.
+- W | propose a joint letter, signed by both, through the proper channels | v: conformity, universalism | chance: 73
+- U | meet over coffee and split the arguments between the two | v: self-direction, achievement | chance: 77
+- B | let them do the loud work, and take the credit if it wins | v: power | chance: 70
+- R | cross the hall and shake their hand in front of everyone | v: benevolence, stimulation | mark: made a friend | chance: 80
+- G | fight it in your own way, alongside but apart, as always | v: self-direction, tradition | chance: 74
+- W>G | set up a friends of the library group, open to all, old feuds included | v: universalism, tradition | chance: 70
+- U>W | dig through the old council minutes together for the broken rule | v: universalism (fairness), self-direction | chance: 72
+- B>U | trade what each of you knows about the councillors | v: power, self-direction | chance: 72
+- R>B | team up and make it a loud fight the whole town will notice | v: power, stimulation | chance: 68
+- G>R | let the old grudge go over a long evening at the pub | v: hedonism, benevolence | chance: 74
+works: The library stays open, and the town talks about the unlikely pair.
+works: The two find that respect has grown where the feud once was.
+fails: The library closes anyway, and the old feud flares up in the blame.
+fails: Pride gets in the way, and the two end up fighting each other instead.
+
+== a letter from the old enemy
+tier: return
+of: made an enemy
+side: badly
+stages: young_adult+
+age: 22-110
+stakes: .7
+tone: mixed
+life: work, friends
+horizon: months
+roles: rival
+earth: the rival who got the better of you years ago writes, asking to meet and bury it
+delay: 5-30
+likelier: the rival has been ill, is ageing or has had a change of heart; a small field
+rarer: the rival is still riding high; the feud was public
+times: Perhaps 1 in 8 people with an old enemy later hear from them asking to make peace (estimate)
+scene: A letter from {rival} arrives after years of silence. It asks to meet, to put the old business behind them. That feud cost {N} a job and two friends.
+scene W: By any fair count, {rival} wronged {N} back then. Now {rival} wants peace, and {N} wonders whether peace without a reckoning is fair.
+scene U: {N} reads the letter from {rival} line by line, looking for what changed, and for what {rival} wants.
+scene B: {rival} came out on top last time. A letter like this means {rival} needs something, and for once {N} holds a card.
+scene R: The old anger flares the moment {N} sees the handwriting of {rival}. Then, oddly, comes a pang of something softer.
+scene G: Years have passed over the feud like seasons over a field. {rival} is asking whether anything else can grow there now.
+scene gone: {rival} is not here to meet. But a letter {rival} wrote long ago reaches {N} through a friend, saying sorry for it all.
+- W | agree to meet, on condition they own up to what happened | v: universalism (fairness), conformity | chance: 63
+- U | write back with questions, and meet only once the answers make sense | v: self-direction, security | chance: 72
+- B | meet, and find out what they want before giving anything | v: power, security | chance: 80
+- R | ring them at once and have it out, every word | v: self-direction | chance: 67
+- G | let bygones be bygones, and meet for a walk by the river | v: tradition, benevolence | chance: 77
+- W>U | bring a neutral friend along to keep the talk fair and clear | v: universalism, self-direction | chance: 75
+- U>B | ask for a written apology first, and keep it | v: power, security | chance: 55
+- B>R | meet at the best restaurant in town, and let them pay | v: hedonism, power | chance: 82
+- R>G | say yes before the old pride can stop it | v: benevolence, tradition | chance: 72
+- G>W | send word that the past is past, and ask nothing more | v: tradition, conformity | chance: 74
+works not G>W: The meeting is stiff, then honest, and {N} walks home lighter.
+works: {rival} says sorry plainly, and the old feud loses its grip.
+fails not G>W: The talk opens the old wound wider, and both leave angrier.
+fails: {rival} wanted something after all, and {N} feels used again.
+
+# ---------------------------------------------------------------- came home
+
+== the old house is offered
+tier: return
+of: came home
+side: well
+stages: young_adult+
+age: 25-110
+stakes: .8
+tone: mixed
+life: home, family, money
+horizon: years
+roles: parent, sibling
+earth: since you came home for good, your parent wants to hand you the family house
+delay: 3-20
+likelier: an ageing parent; the person came home and settled well; siblings far away
+rarer: siblings close by and in need; a rented home
+times: Perhaps 1 in 5 people who move back near an ageing parent are later offered the family home or its upkeep (estimate)
+scene: After Sunday lunch, {parent} puts the house keys on the table. {N} came home and stayed, {parent} says, so the house should go to {N}.
+scene W: {N} knows the old rule: the house is shared, all the children equal. {parent} is offering to break that rule out of gratitude.
+scene U: {N} thinks about what the house would mean: the roof, the bills, {parent} still in the back room, and how the others will hear it.
+scene B: The house is worth more than {N} could save in a lifetime. {parent} is offering it freely, and the family will notice.
+scene R: {N} sees {parent} trying hard not to cry, and the whole childhood of the house rushes back at once.
+scene G: {N} came home like a root returning to its own ground. Now {parent} wants to hand over the ground itself.
+scene gone: {parent} is not here to hand over the keys. The house stands quiet, the family asks {N} to decide, and {N} can almost hear {parent} in the kitchen.
+- W | share it equally among everyone, as it always should have been | v: universalism (fairness), tradition | chance: 78
+- U | sit down with everyone and work out a plan for the house | v: self-direction, security | chance: 69
+- B | accept, and have it put in writing before anyone objects | v: power, security | chance: 82
+- R | hug them and say yes, and worry about the rest later | v: benevolence, hedonism | chance: 80
+- G | ask them to keep it; a house belongs with whoever lives in it | v: tradition, security | chance: 78
+- W>B | take it, and promise the family a fair buyout over the years | binds | v: achievement, conformity | chance: 60
+- U>R | plan to turn the top floor into a place full of life again | v: stimulation, benevolence | chance: 72
+- B>G | rent the spare rooms to pay for the roof, so it stays in the family | v: security, tradition | chance: 74
+- R>W | ring every sibling tonight and promise they will always have a room | binds | v: benevolence, conformity | chance: 80
+- G>U | learn the house from them first: the boiler, the garden, the old stories | v: tradition, self-direction | mark: learned a skill | chance: 80
+works: The house is settled without a quarrel, and {parent} rests easy.
+works: The old rooms fill with life again.
+fails not W G: The siblings hear of it and feel passed over.
+fails: The talk stirs up old family worries, and the Sunday lunches go quiet for a while.
+
+== still a guest at home
+tier: return
+of: came home
+side: badly
+stages: young_adult+
+age: 25-110
+stakes: .7
+tone: trouble
+life: home, family
+horizon: months
+roles: sibling
+earth: years after you came home, the sibling who never left says you still act like a visitor
+delay: 2-15
+likelier: the sibling carried the family duties alone; old roles came back with the return
+rarer: the person came home to care for someone; the siblings were close
+times: Common: perhaps 1 in 3 people who move back home later have it out with a sibling who stayed (estimate)
+scene: At a birthday dinner, {sibling} finally says it: {N} came home years ago, but still turns up like a guest. {sibling} still does all the hard parts.
+scene W: {sibling} has kept the family running for years: the visits, the forms, the repairs. {N} came back and somehow never joined the rota.
+scene U: {N} tries to see the last few years as {sibling} has seen them, and finds the picture uncomfortably clear.
+scene B: {N} came home for good reasons of {Ns} own. {sibling} wants a price paid for it now.
+scene R: {sibling} says it in front of everyone, and {Ns} cheeks burn. The old fights come back as if they were children again.
+scene G: {N} came back, but never quite put down roots. {sibling} has watched it all, standing in the same soil as always.
+scene gone: {sibling} is not here to say it now. But the empty chair at the table says it anyway, and {N} wonders what {sibling} would ask.
+- W | take on a fixed share of the family duties, starting this week | habit | v: conformity, benevolence | chance: 80
+- U | sit down with them alone, and hear the whole list | v: self-direction, benevolence | chance: 77
+- B | point out all you gave up to come back | v: power, self-direction | chance: 62
+- R | snap back, then follow them into the kitchen to make up | v: benevolence | chance: 76
+- G | buy a place of your own nearby and put down real roots | door | v: security, tradition | chance: 67
+- W>R | host the next family dinner yourself, and make it a good one | v: benevolence, hedonism | chance: 78
+- U>G | plan a weekly day with your parents, so the load is shared | v: benevolence, tradition | chance: 78
+- B>W | offer to pay for the help the family needs, as your fair share | v: universalism (fairness), power | chance: 75
+- R>U | tell them, tears and all, why coming back was so hard | v: self-direction, benevolence | chance: 72
+- G>B | step back, and let them run things their way, as always | v: security, tradition | chance: 58
+works: {sibling} softens, and the two start sharing the load.
+works: The row clears the air, and home starts to feel like home.
+fails: The old roles win, and nothing much changes.
+fails: {sibling} hears it as an excuse, and the gap between them widens.
