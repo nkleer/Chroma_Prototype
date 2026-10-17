@@ -1,4 +1,5 @@
-"""Engine fast check for the pause points (backend plan item 2, 2026-10-08), under a minute on one core.
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 70 rows, about 65 min
+on 4 cores with T_JOBS default (Release on #288, 10-17), near 2 hours on one (inferred from the row times).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
   1. passing every value back unchanged, run_steps() returns exactly what run() returns (every output, bit for bit);
@@ -618,7 +619,7 @@ if "grey_gate" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  the town gone grey (grey_gate), switched on: with no shadow: moment the lives "
           f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off; at the median "
           f"town share {thr_:.3f}, {nm_!r} open {len(gw_['open'])} and shut {gw_['shut']} life-weeks, met {met3_} times, "
-          f"{gw_['met'] - gw_['wrong']} seen in open weeks"
+          f"{gw_['met']} of them seen by the probe (week by week), {gw_['wrong']} in a shut week"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 15. the finishing pack's behaviour (v22.6 bar W2 to W4), on one world-on run with the parts on, read where they act
 if "place_turnover" in E.DEFAULT and hasattr(E, "bt_care") and hasattr(E, "pt_pull_of"):
