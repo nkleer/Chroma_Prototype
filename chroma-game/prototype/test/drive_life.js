@@ -2,8 +2,8 @@ const { chromium } = require(process.env.PW || 'playwright');
 // Release row C-G5: one whole life in the browser, from the tarot spread to the review and the Book, as a player would
 // play it: about half the moments chosen by the player (a random option), the rest left to the character; every Go on
 // clicked. Checks on the way: no page error, no sideways scroll, the autosave slot filled, the event window never left
-// open after Go on, and (Build your own) the setup's step 2 with Intersex. Screenshots at the first moment, the first
-// outcome, age 30, the end and the Book.
+// open after Go on, (Build your own) the setup's step 2 with Intersex, and one reload at age 20 that must come back
+// through Continue at the same name and age. Screenshots at the first moment, the first outcome, age 30, the end and the Book.
 //   node test/drive_life.js <url> <shots dir> <tag> <preset 1-7, 7 = Build your own> <width> <height> [minutes]
 const [url, dir, tag, preset, W, H, mins] = process.argv.slice(2);
 const { idleOf } = require('./start.js');
@@ -11,7 +11,8 @@ const { idleOf } = require('./start.js');
   const phone = +W < 600, logs = [], notes = {};
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: +W, height: +H }, hasTouch: phone, isMobile: phone });
-  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.removeItem('chroma.autosave'); } catch (_) {} });
+  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off');   // the slot is emptied on the first load only, so the reload finds it
+    if (!sessionStorage.getItem('drive.started')) { sessionStorage.setItem('drive.started', '1'); localStorage.removeItem('chroma.autosave'); } } catch (_) {} });
   const page = await ctx.newPage();
   page.on('pageerror', (e) => logs.push('pageerror: ' + e.message));
   page.on('console', (m) => { if (m.type() === 'error' && !/CERT|net::/.test(m.text())) logs.push('console: ' + m.text()); });
@@ -43,7 +44,7 @@ const { idleOf } = require('./start.js');
   await page.waitForSelector('#tMain, .opt, #goOn', { timeout: 600000 });   // the years before the player, on a loaded machine
   await idle(); notes.setupWait = Math.round((Date.now() - tGo) / 1000) + ' s to the first idle state, from age ' + (await page.evaluate(() => hud.life && hud.life.age));
   notes.name = await page.evaluate(() => hud.life && hud.life.name);
-  let steps = 0, chosen = 0, left = 0, sideways = 0, openAfterGoOn = 0, firstCp = false, firstRes = false, at30 = false, renames = 0, autoSeen = null;
+  let steps = 0, chosen = 0, left = 0, sideways = 0, openAfterGoOn = 0, firstCp = false, firstRes = false, at30 = false, renames = 0, autoSeen = null, resume = null;
   const readAuto = () => page.evaluate(() => { try { const d = JSON.parse(localStorage.getItem('chroma.autosave') || 'null'); return d ? { name: d.name, age: d.age } : null; } catch (_) { return 'unreadable'; } });
   const t0 = Date.now(), limit = (+mins || 25) * 60000;
   while (Date.now() - t0 < limit) {
@@ -54,6 +55,17 @@ const { idleOf } = require('./start.js');
     if (s.mode === 'over') break;
     if (steps % 10 === 5) { const a_ = await readAuto(); if (a_) autoSeen = a_; }   // the slot fills during play
     if (s.sx) sideways++;
+    if (!resume && s.age >= 20) {                       // Release 10-17: reload mid-life; Continue must bring back the same life
+      const saved = await readAuto();
+      if (saved && saved !== 'unreadable') {
+        const tR = Date.now(); await page.reload();
+        await page.waitForSelector('#mContinue', { timeout: 120000 }); await page.click('#mContinue');
+        await page.waitForSelector('#tMain, .opt, #goOn', { timeout: 600000 }); await idle();
+        const back = await page.evaluate(() => ({ name: hud.life && hud.life.name, age: hud.life && hud.life.age }));
+        resume = { saved, back, seconds: Math.round((Date.now() - tR) / 1000), ok: back.name === saved.name && Math.abs(back.age - saved.age) < 0.01 };
+        await shot('resumed'); continue;
+      }
+    }
     if (!at30 && s.age >= 30) { at30 = true; await shot('age30'); }
     steps++;
     if (s.ev && s.rn) { renames++; await shot('rename'); await page.click(Math.random() < 0.5 ? '#rnTake' : '#rnKeep'); continue; }
@@ -76,8 +88,8 @@ const { idleOf } = require('./start.js');
   const atEnd = await readAuto();                       // a finished life leaves no Continue: the review clears the slot
   const auto = end.mode === 'over' ? (autoSeen && !atEnd ? autoSeen : null) : atEnd || autoSeen;
   const rb = await page.$('#rvBook'); if (rb) { await rb.click(); await page.waitForTimeout(700); await shot('book'); }
-  console.log(JSON.stringify({ tag, preset, width: +W, name: notes.name, step2: notes.step2, setupWait: notes.setupWait, waitLine: notes.waitLine, end, steps, chosen, left, renames, sideways, openAfterGoOn, autosave: auto, autosaveAtEnd: atEnd, minutes: ((Date.now() - t0) / 60000).toFixed(1) }));
+  console.log(JSON.stringify({ tag, preset, width: +W, name: notes.name, step2: notes.step2, setupWait: notes.setupWait, waitLine: notes.waitLine, end, steps, chosen, left, renames, sideways, openAfterGoOn, autosave: auto, autosaveAtEnd: atEnd, resume, minutes: ((Date.now() - t0) / 60000).toFixed(1) }));
   console.log('errors', JSON.stringify(logs.slice(0, 10)), logs.length);
   await browser.close();
-  process.exit(end.mode === 'over' && !logs.length && !sideways && !openAfterGoOn && auto ? 0 : 1);
+  process.exit(end.mode === 'over' && !logs.length && !sideways && !openAfterGoOn && auto && (!resume || resume.ok) ? 0 : 1);   // resume stays null only for a life over before 20
 })();
