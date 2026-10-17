@@ -41,11 +41,31 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 
 ## The page (`prototype/web/`)
 
-- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, `app.js` (2,859 lines; it holds
-  the save format), `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`,
-  `option-icons-live.json`, `pics-left-out.json`, `pic-packs.json`.
+- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, the app (`app/`, below),
+  `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`, `option-icons-live.json`,
+  `pics-left-out.json`, `pic-packs.json`.
 - `web/src/build.py` joins them into `web/index.html` (0.07 s, byte for byte). Never edit or read `index.html` or
-  `page.html`; change the sources and rebuild.
+  `page.html`; change the sources and rebuild. A change meant to leave the page as it was must leave `index.html`
+  unchanged (`git status`).
+- The app is one script in the page, kept as `web/src/app/NN-name.js` parts (`app.js` until 10-17); `build.py` joins
+  them in name order inside one `<script>`, so a part reads the others' names as before. Find a function with
+  `rg -n 'function name' chroma-game/prototype/web/src/app/`. `look.js` and `clarity.js` wrap some of its functions.
+
+| Part | Lines | What |
+|---|---|---|
+| `01-base.js` | 125 | constants, colours, icons and pips, helpers, the marked story text (`rich`), tooltips |
+| `02-words.js` | 243 | what the marked words mean; heart and head, what changed, dreams and plans |
+| `03-chronicle.js` | 202 | the worker link (`send`, inputs); the chronicle, the story's main text |
+| `04-line.js` | 346 | the whole life as a line (the fog ahead); the header and tools |
+| `05-hud.js` | 501 | the character HUD and spider graph; the exact definitions; making a plan (key p) |
+| `06-moment.js` | 439 | the moment and its cards; the event window |
+| `07-interlude.js` | 111 | the interlude between two moments |
+| `08-sheet.js` | 263 | the character sheet (key c) and its tabs |
+| `09-book.js` | 115 | the Book of Moments |
+| `10-save.js` | 99 | saving to a file, loading back, autosave: the save format. Release's `check_pageonly.py` holds a page-only release to it unchanged |
+| `11-start.js` | 172 | the life-choice (tarot) cards on the start screen; the end of a life |
+| `12-panels.js` | 148 | transport, help, the outer world panel, the keys the page answers itself |
+| `13-state.js` | 93 | applying the game's state, the keyboard, the worker's start-up |
 - `web/worker.js` runs the Python in Pyodide. Its `SOURCES` list names every `.py` file the page loads:
   `tools/build.py` adds missing `engine_pin` files, but a new game-side file must be added by hand.
 - The published artifact holds at most 511 files; `tools/webdir.py` packs code and rarer pictures into a few files.

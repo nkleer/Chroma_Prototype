@@ -229,7 +229,10 @@ def main():
     key = ["game.py", "game_base.py", "game_words.py", "game_checkpoints.py", "game_world.py", "game_voice.py", "game_life.py",
            "game_views.py", "console.py", "link.py", "story.py", "story_text.py", "story_base.py", "story_cast.py", "story_moments.py",
            "story_lines.py", "story_goals.py", "worldview.py", "routine.py", "routine_text.py", "rarity.py", "web/worker.js",
-           "web/src/app.js", "web/src/head.html", "web/src/body.html", "web/index.html"]
+           "web/src/head.html", "web/src/body.html", "web/index.html"]
+    app_dir = os.path.join(G, "web", "src", "app")      # the app's parts (one app.js in a game from before 10-17)
+    key[-3:-3] = (sorted("web/src/app/" + f for f in os.listdir(app_dir) if f.endswith(".js")) if os.path.isdir(app_dir)
+                  else ["web/src/app.js"])
     rows2 = "\n".join(f"| {f} | {md5(os.path.join(G, f))[:12]} |" for f in key if os.path.isfile(os.path.join(G, f)))
     open(os.path.join(OUT, "BUILD.md"), "w").write(
         f"# Game build, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC\n\n"
