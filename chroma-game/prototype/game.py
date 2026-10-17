@@ -117,6 +117,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
             sex = "female" if np.random.default_rng([int(seed), 91]).random() < 0.5 else "male"
         P["sex"] = sex if sex in ("female", "male", "intersex") else None
         P["self_death"] = False
+        if GAME["returns"]:
+            P["echo_play"] = True       # Picks come back: the Engine's hook, read once as the life starts, set only by the game
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
         # pinned engine has it, for Earth lives (presets 5 and 6 stay as they are, ruling R1); its seed is the life's
         # The setup's world inputs (release row W41; world-build.md): the history dial (pace 0.5 calm to 2 turbulent, only the
@@ -317,8 +319,6 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
                         self._world_news(r_)
                 if not self._death_on and t / 52 >= max(self.start_age, DEATH_FROM) and "P" in loc and "self_death" in loc["P"]:
                     loc["P"]["self_death"] = True; self._death_on = True      # the engine reads P live, week by week
-                if GAME["returns"] and "P" in loc and not loc["P"].get("echo_play"):
-                    loc["P"]["echo_play"] = True        # Picks come back: the Engine's hook, set only by the game
                 if self._death_on and "dead" in loc and bool(loc["dead"][0]):
                     return self._on_death(t, loc)
                 if self.burn_in and t / 52 >= self.start_age:

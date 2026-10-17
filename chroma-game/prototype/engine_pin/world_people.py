@@ -41,6 +41,7 @@ from world_keys import SPHERES, GROUP_SPHERE, SECTOR_SPHERE, HAUNT_KINDS, TIME_R
 from world_keys import CAUGHT_TAGS as WK_CAUGHT, ODD_TAGS as WK_ODD
 from world_keys import LEAD_WAYS
 from world_keys import OWN_WANTS, SACRED_KINDS, OFFER_KINDS, OFFER_ROUNDS, HEAL_TAGS
+from world_keys import INST_SPHERE
 
 C = len(COLORS)
 KN = [c_[0] for c_ in COMMITMENTS]
@@ -244,6 +245,22 @@ WANT_FX = dict(money=((0.05, 0.10), (-0.08, -0.10), "helped someone in need", "r
                far_mixed=((0.08, 0.08), (-0.08, -0.05), None, None),
                caught=((0.0, 0.0), (0.0, 0.0), None, None), odd=((0.0, 0.0), (0.0, 0.0), None, None))
 FAIR_PART_NAMES = ["rules", "reasons", "due", "respect", "goodwill"]   # S1: the parts of fairness, W U B R G (Library)
+# body_trust (the spheres' finishing pack, part 3; chroma-world/spheres/finish-pack-draft.md): the sphere of each body kind
+# (world_keys.INST_SPHERE; an employer has none, so a job at a firm is not work in a sphere's bodies), and the titles of the
+# force that serve in a body without naming one (the guard, the host)
+BT_INST_J = np.array([SPHERES.index(INST_SPHERE[k_]) if INST_SPHERE.get(k_) else -1 for k_ in INST_KINDS], np.int64)
+BT_FORCE = {"police officer": "police", "soldier": "army"}
+BT_FIRST = (0.5, 0.3)   # the start of a first life: .5 + .3 x (the town sphere's fairness - .5) (finish-pack-draft.md part 3)
+
+
+def bt_title_kind(name, inst):
+    """body_trust: the body kind (INST_KINDS index) a title is held at, where that body has a sphere: its institution's
+    (the catalogue's institution=), else the force's by name; -1 none."""
+    if inst is not None and int(inst) >= 0 and BT_INST_J[int(inst)] >= 0:
+        return int(inst)
+    return INST_KINDS.index(BT_FORCE[name]) if name in BT_FORCE else -1
+
+
 FR_HABIT = 3.0   # S1: the half-life, in years, of how often each part of fairness was heard of lately (habituation)
 FARW = np.array([w_.startswith("far_") for w_ in CAST_WANTS])
 # far_ties (item 18, chroma-ideas/far-off-events.md): start values, estimates refit in v22.3's one refit. hard, good: the
@@ -587,6 +604,9 @@ class People:
             self.comrade = np.zeros((N, K), bool)
             self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
             self.care_buy = np.zeros(N, bool)    # a carer with money buys help (the engine sets it each month)
+        if wp_.get("prison_ties", False):   # spheres finishing pack, part 4: fellow inmates (the engine makes them at a
+            self.inmate = np.zeros((N, K), bool)       # release) fade at half speed for 10 years from when they were made
+            self.inmate_t = np.full((N, K), NEVER, np.int64)
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
@@ -604,11 +624,17 @@ class People:
         self.seen_on = bool(wp_.get("seen_done", False))
         if self.seen_on:   # seen_done (S6): the paths and colour ways each life has seen walked; felt odds and dreams read it
             self._seen_init()
+        self.pt_on = bool(wp_.get("place_turnover", False)) and self.sph_h
+        if self.pt_on:     # finishing pack, part 2: their places close and new ones open (off: nothing of it exists)
+            self._pt_init(run_seed)
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
             self._p4_yr = -1
         self.fr_read = bool(wp_.get("fair_read", False)) and self.sph_fr
+        self.bt_on = bool(wp_.get("body_trust", False)) and self.sph_fr
+        if self.bt_on:   # body_trust (finishing pack part 3): trust in each sphere's bodies (off: nothing of it exists)
+            self._bt_init()
         if self.fr_read:   # S1: fairness read five ways (the town events already fired are not read)
             self._fr_i = len(getattr(W, "sph_ev_log", ()))
             self._fr_n = np.zeros(5)    # how often each part of fairness was heard of lately (habituation; FR_HABIT)
@@ -825,6 +851,8 @@ class People:
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
         if getattr(self, "comrade", None) is not None:
             self.comrade[n, slot] = False
+        if getattr(self, "inmate", None) is not None:
+            self.inmate[n, slot] = False; self.inmate_t[n, slot] = NEVER
         if self.far_on:
             self.far_ev[n, slot] = -1; self.far_t[n, slot] = NEVER; self.far_sg[n, slot] = 0; self.far_sd[n, slot] = -1
             self.far_in[n, slot] = FAR_OFF; self.far_from[n, slot] = -1
@@ -1083,6 +1111,12 @@ class People:
                     getattr(self, k_)[n, p_] = par[k_]
             self.pie[n, p_] = par["pie"]; self.mloc[n, p_] = self.loc[n]; self._psq[n, p_] = _csum(self.pie[n, p_] ** 2)
             self.family_mix[n] = _norm(self.pie[n, ps].mean(0)); self.pline[n] = int(par.get("line", 0))
+        if getattr(self, "bt_on", False) and (lg.get("btrust") or {}).get("v") is not None:
+            # body_trust: the inheriting parent grew up in the ancestor's home and took the ancestor's trust at 15, so the
+            # ancestor's trust (as saved) is the known parents' mean this child starts from at 15
+            v_ = np.array([np.nan if x_ is None else x_ for x_ in lg["btrust"]["v"]], float)
+            if not np.isnan(v_).any():
+                self.bt_par[n] = v_
         anc = lg.get("self", {})
         add = []
         if anc.get("alive", False) and anc.get("pie") is not None:
@@ -1576,6 +1610,8 @@ class People:
         if kinds is not None:
             ok = ok & np.isin(np.arange(len(HAUNT_KINDS)), kinds)[None, :]
         u = u + self._hrng.gumbel(0, 1, u.shape)
+        if getattr(self, "pt_on", False) and getattr(W, "pt_open", None) is not None:   # part 2: an empty slot is no place
+            u = np.where(W.pt_open[self.loc[ns]] >= 0, -np.inf, u)
         return np.where(ok[:, :, None], u, -np.inf)
 
     def _haunts_year(self, t, ns=None):
@@ -1653,7 +1689,12 @@ class People:
         if not ks:
             return -1
         hp = self.W.hp_s[self.loc[n]][ks]                                         # kinds x P x 5
-        k_, i_ = np.unravel_index(int(np.argmax(hp[..., c])), hp.shape[:2])
+        hc_ = hp[..., c]
+        if getattr(self, "pt_on", False) and getattr(self.W, "pt_open", None) is not None:   # part 2: not an empty slot
+            hc_ = np.where(self.W.pt_open[self.loc[n]][ks] >= 0, -np.inf, hc_)
+            if not np.isfinite(hc_).any():
+                return -1
+        k_, i_ = np.unravel_index(int(np.argmax(hc_)), hp.shape[:2])
         p_ = int(self.loc[n] * H * P_ + ks[k_] * P_ + i_)
         self._haunt_add(n, p_, first=True)
         if p_ not in self.shnt[n]:
@@ -1925,6 +1966,8 @@ class People:
             self._fair_week(t)
         if self.sac_on:
             self._sac_week(t)
+        if getattr(self, "bt_on", False):
+            self._bt_week(t)
         self._wants_week(t)
         self._outputs(t)
 
@@ -1960,6 +2003,8 @@ class People:
             self._marks_year(t)
         if getattr(self, "sph_lv", False) or getattr(self, "sph_fr", False):
             self._sph_year4(t)
+        if getattr(self, "bt_on", False):   # body_trust: after felt fairness's year
+            self._bt_year(t)
         B = self._bits()
         if getattr(self, "comrade", None) is not None:   # phase 5: whoever shares a unit with them is a comrade from now on
             un_ = (self.skind == G["unit"])
@@ -1993,6 +2038,8 @@ class People:
         self._cleanup(t)
         self._alive_counts(np.arange(self.N))
         self._approval(t)   # felt acceptance per norm key: once a quarter (views move slowly)
+        if getattr(self, "pt_on", False):   # part 2: the places that closed and opened this quarter (before the posts')
+            self._pt_q(t)
         if self.lw:          # S7: the posts' quarter (after the settings' leaders are replaced)
             self._lead_q(t)
         if self.seen_on:    # seen_done (S6): what the cast and the figures were seen to do this quarter
@@ -2043,6 +2090,8 @@ class People:
         rdn = self._crdn if dt_w == 1 else np.where(self._ckin, r_dk, r_dn)
         if dt_w != 1 and getattr(self, "comrade", None) is not None:
             rdn = np.where(self._ccom, rdn * np.float32(0.5), rdn)
+        if dt_w != 1 and getattr(self, "inmate", None) is not None:   # part 4: fellow inmates (once, with a comrade too)
+            rdn = np.where(self._cinm, rdn * np.float32(0.5), rdn)
         rr = np.where(e > c, r_up, rdn)
         c2 = np.where(ok, c + (e - c) * rr, c).astype(np.float32)
         np.put(self.c, fi, c2)
@@ -2069,6 +2118,8 @@ class People:
         c = self.c
         kin = (self.rmask & KINMASK) != 0
         r_up, r_dk, r_dn = (f32(1 - np.exp(-13 / 52.0 / P[k_])) for k_ in ("tau_up", "tau_dn_kin", "tau_dn"))
+        if getattr(self, "inmate", None) is not None:   # part 4: fellow inmates outside the close index, at half speed too
+            r_dn = np.where(self._inmate_on(), r_dn * f32(0.5), r_dn)
         c2 = np.where(out, c + (e - c) * np.where(e > c, r_up, np.where(kin, r_dk, r_dn)), c).astype(f32)
         self.c = c2; np.maximum(self.cmax, c2, out=self.cmax)
         U = self.rng.random((3,) + c.shape, dtype=f32)
@@ -2157,6 +2208,17 @@ class People:
             return m_
         return u & ((self.rmask[n] & BIT[role]) != 0)
 
+    def _inmate_on(self):
+        """Part 4 (prison_ties): the fellow inmates still within 10 years of when they were made (N, K)."""
+        return self.inmate & (self.t - self.inmate_t < 520)
+
+    def inmate_closest(self, n):
+        """Part 4: life n's closest living fellow inmate within the 10 years (a slot), -1 when none."""
+        if getattr(self, "inmate", None) is None:
+            return -1
+        m_ = self._inmate_on()[n] & self.used[n] & self.lv[n]
+        return int(np.argmax(np.where(m_, self.c[n], -1.0))) if m_.any() else -1
+
     def _close_index(self):
         """Monthly: the KC closest living people of each life (updated weekly), the denominator of deliberate
         contact, and the slow terms of their weekly update (contact from settings and kin, ceilings, death odds)."""
@@ -2193,6 +2255,11 @@ class People:
         if getattr(self, "comrade", None) is not None:   # phase 5: comrades from a unit fade at half speed
             self._ccom = tk(self.comrade)
             self._crdn = np.where(self._ccom, self._crdn * np.float32(0.5), self._crdn)
+        if getattr(self, "inmate", None) is not None:   # part 4: fellow inmates fade at half speed for 10 years
+            self._cinm = tk(self._inmate_on())
+            if getattr(self, "comrade", None) is not None:
+                self._cinm = self._cinm & ~self._ccom   # (half speed once, a comrade or not)
+            self._crdn = np.where(self._cinm, self._crdn * np.float32(0.5), self._crdn)
         self._cuid = tk(self.uid)
         self._cpie = np.take(self.pie.reshape(-1, C), fi, axis=0).astype(np.float64)   # float64: exact weekly sums
         self._cpage = (self.t - tk(self.born)) / 52.0
@@ -4517,7 +4584,7 @@ class People:
                     span = self._lead_left(p_, t)
                 self._lead_act(p_, lv, q, t)
         what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
-                           span=span)
+                           span=span, went=q)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
                     rung=LADDER[min(max(rg, 0), 4)], moved=what)
 
@@ -4601,6 +4668,116 @@ class People:
                     continue
                 self.fr_cnt[ix] += 1.0
                 self.fair[nn, j] = _uclip(self.fair[nn, j] + 0.05 * sd * wn[nn][:, ix].mean(1), 0, 1)
+
+    # ------------------------------------------------------------------ body_trust: trust in a sphere's bodies
+    def _bt_init(self):
+        """body_trust (the spheres' finishing pack, part 3; sphere_data.TRUST): each life's trust in each sphere's bodies
+        (btrust, N x 9 in SPHERES order, 0 to 1; NaN until it starts at 15), the known parents' mean a legacy child starts
+        from (bt_par), the body kind of a life's own body job (bt_kind, set by the engine from the titles held), what has
+        been read of the town events and the world's log, and its own random stream (the start's noise only), so no other
+        draw moves."""
+        import sphere_data as SD
+        N = self.N; W = self.W; self.bt = SD.TRUST
+        self.btrust = np.full((N, len(SPHERES)), np.nan); self.bt_par = np.full((N, len(SPHERES)), np.nan)
+        self.bt_kind = np.full(N, -1, np.int64)
+        self._bt_rng = np.random.default_rng([self.seed, 103, self.run_seed])
+        lg_ = getattr(W, "sph_ev_log", None)
+        self._bt_i = 0 if lg_ is None else len(lg_); self._bt_li = len(getattr(W, "log", ())); self._bt_yr = -1
+        self.bt_cnt = dict.fromkeys(("fair", "unfair", "scandal", "leak", "cover-up", "good", "bad", "work"), 0)   # read only
+
+    def bt_jump(self, n, j, d, why=None):
+        """body_trust: lives n (an index or an index array) jump by d in sphere j, within floor and ceiling (the table's
+        falls already weigh about 1.5 times its rises, Slovic 1993). A life whose trust has not started (under 15) or that has ended does not move."""
+        J = self.bt["jumps"]; n = np.atleast_1d(np.asarray(n, np.int64))
+        n = n[~np.isnan(self.btrust[n, j]) & ~self.dead[n]]
+        if not len(n):
+            return
+        self.btrust[n, j] = _uclip(self.btrust[n, j] + d, J["floor"], J["ceiling"])
+        if why is not None:
+            self.bt_cnt[why] += len(n)
+
+    def _bt_week(self, t):
+        """body_trust, each week: the start at 15 (a child of a legacy line from its known parents' mean +- noise, a first
+        life from .5 + .3 x (its town's sphere fairness - .5)); the tagged sphere events fired since last week in their
+        town (the whole society's: everyone), event_fair or event_unfair in each sphere a tag touches (felt_fairness.
+        five_parts.events), and a neglect scandal or a faith scandal its own jump in its sphere in place of its tags there;
+        C3's leak (its town, a national body's: everyone) and cover-up (hidden: only its staff know, those working there or
+        holding a body job of its kind in its town) in the body's sphere."""
+        import sphere_data as SD
+        J = self.bt["jumps"]; W = self.W; N = self.N
+        if self._age(t) >= 15:
+            new = np.nonzero(np.isnan(self.btrust[:, 0]) & ~self.dead)[0]
+            if len(new):
+                st = BT_FIRST[0] + BT_FIRST[1] * (np.asarray(W.sph_fair_target(), float)[self.loc[new]] - 0.5)
+                kp = ~np.isnan(self.bt_par[new, 0])
+                if kp.any():
+                    st[kp] = self.bt_par[new[kp]] + self._bt_rng.uniform(-self.bt["noise"], self.bt["noise"], (int(kp.sum()), st.shape[1]))
+                self.btrust[new] = _uclip(st, J["floor"], J["ceiling"])
+        lg_ = getattr(W, "sph_ev_log", None)
+        if lg_ is not None:
+            self._bt_i = min(self._bt_i, len(lg_))
+            if len(lg_) > self._bt_i:
+                rows = np.asarray(lg_[self._bt_i:]).tolist(); self._bt_i = len(lg_)
+                tags = W.fair_tags()["events"]
+                for _, i_, l_ in rows:
+                    ev_ = SD.EV[int(i_)]; sc_ = J.get(f"{ev_['sphere']}.{ev_['key']}")
+                    sds = {}
+                    for j_, _, sd_ in tags.get(int(i_), ()):
+                        sds.setdefault(int(j_), set()).add(int(sd_))
+                    if sc_ is None and not sds:
+                        continue
+                    nn = np.nonzero(self.loc == l_)[0] if l_ >= 0 else np.arange(N)
+                    if sc_ is not None:
+                        jsc_ = SPHERES.index(ev_["sphere"]); sds[jsc_] = ()
+                        self.bt_jump(nn, jsc_, sc_, "scandal")
+                    for j_, ss_ in sds.items():
+                        for sd_ in sorted(ss_):
+                            self.bt_jump(nn, j_, J["event_fair"] if sd_ > 0 else J["event_unfair"], "fair" if sd_ > 0 else "unfair")
+        log = getattr(W, "log", None)
+        if log is not None:
+            self._bt_li = min(self._bt_li, len(log))
+            for e in log[self._bt_li:]:
+                if e.get("domain") != "institution" or e.get("kind") not in ("leak", "cover-up") or e.get("key") not in INST_KINDS:
+                    continue
+                kd_ = INST_KINDS.index(e["key"]); j_ = int(BT_INST_J[kd_]); v_ = e.get("value") or {}
+                if j_ < 0:
+                    continue
+                l_ = int(v_.get("loc", -1))
+                if e["kind"] == "leak":
+                    nn = np.arange(N) if e.get("big") or l_ < 0 else np.nonzero(self.loc == l_)[0]
+                else:
+                    i_ = int(v_.get("inst", -1))
+                    st_ = ((self.skind == G["work"]) & (self.sref == i_)).any(1) | ((self.bt_kind == kd_) & (self.loc == l_))
+                    nn = np.nonzero(st_)[0]
+                self.bt_jump(nn, j_, J["institution." + e["kind"]], e["kind"])
+            self._bt_li = len(log)
+
+    def _bt_year(self, t):
+        """body_trust, yearly: each life's trust moves drift_y of the way toward .5 + drift_k x (fair - .5), fair its felt
+        fairness in that sphere (sph_fair; S1's read when fair_read is on); a year in a body job (bt_kind) or serving in
+        a unit (the host) adds work_or_serve_y in that body's sphere."""
+        a = int(self._age(t))
+        if a == self._bt_yr:
+            return
+        self._bt_yr = a; T_ = self.bt; J = T_["jumps"]
+        on = ~np.isnan(self.btrust[:, 0]) & ~self.dead
+        if not on.any():
+            return
+        tgt = 0.5 + T_["drift_k"] * (self.fair - 0.5)
+        self.btrust[on] = _uclip(self.btrust[on] + T_["drift_y"] * (tgt[on] - self.btrust[on]), J["floor"], J["ceiling"])
+        jb = np.where(self.bt_kind >= 0, BT_INST_J[np.maximum(self.bt_kind, 0)], -1)
+        for j_ in np.unique(jb[jb >= 0]).tolist():
+            self.bt_jump(np.nonzero(jb == j_)[0], j_, J["work_or_serve_y"], "work")
+        prot_ = SPHERES.index("prot")
+        un_ = np.nonzero((self.skind == G["unit"]).any(1) & (jb != prot_))[0]   # the host, without a force title counted
+        if len(un_):
+            self.bt_jump(un_, prot_, J["work_or_serve_y"], "work")
+
+    def bt_save(self, n):
+        """body_trust, for save(): life n's trust (None before it starts), the known parents' mean, and what was read."""
+        f_ = lambda v_: [None if np.isnan(x_) else float(x_) for x_ in v_]
+        return dict(v=f_(self.btrust[n]), par=f_(self.bt_par[n]), kind=int(self.bt_kind[n]), i=int(self._bt_i),
+                    li=int(self._bt_li), yr=int(self._bt_yr), rng=self._bt_rng.bit_generator.state if self.N == 1 else None)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
         P = self.P; rng = self.rng; W = self.W
@@ -4698,6 +4875,78 @@ class People:
         if d == "belief":
             return f"faith:{int(self.pfaith[n])}" if self.pfaith[n] >= 0 else "secular"
         return dict(economy="inequality", tech="invent", nature="warming", abroad="relation:0").get(d, d)
+
+    # ------------------------------------------------------------------ finishing pack, part 2 (place_turnover)
+    # chroma-world/spheres/finish-pack-draft.md "Places close and open" (World._pt_q closes and opens the places): a
+    # place's regulars lose that haunt (they pick another at the yearly pick, none while every place of the kind is shut),
+    # a setting held there is left, their rung in its sphere falls one step (TURNOVER rung_step), the ties made there
+    # (its members) are kept at half strength (tie_keep), and a post leading it ends (not a fall). Each is an event in the
+    # life's log (kind "place", state closed or opened) and, where the Library has them, a moment (cast_want
+    # place_closed, place_opened; fired with no holder, cid -1). The new place's moment comes to those who lost the old
+    # one and still live in its town.
+    def _pt_init(self, run_seed):
+        import sphere_data as SD
+        self._pt_par = SD.TURNOVER
+        self._pt_i = len(getattr(self.W, "pt_log", None) or [])   # the world's closings read so far
+        self.pt_hits = []    # [life, week]: a haunt of theirs closed (the run's pt_lives)
+        self.pt_lost = []    # [life, place]: waiting for the new place in that slot
+        self.pt_due = []     # [life, moment key, place, week queued]: a place moment waiting to come
+        self.pt_keys = set() # the place moment keys the batch has (WorldLink sets them); none: none is waited for
+        self._pt_rng = np.random.default_rng([self.seed, 113, self.run_seed])   # the moments' picks (only with moments)
+
+    def _pt_ev(self, n, t, state, e, p):
+        if self.watch[n]:
+            self.events.append(dict(n=int(n), t=int(t), kind="place", state=state, place=int(p), haunt=e["kind"],
+                                    sphere=e["kind"].split(".")[0], name=int(e["name"]), why=e["why"]))
+        key_ = "place_" + state
+        if key_ in self.pt_keys:
+            self.pt_due.append([int(n), key_, int(p), int(t)])
+
+    def _pt_q(self, t):
+        """The world's closings and openings since the last quarter, on the lives (see above)."""
+        log = getattr(self.W, "pt_log", None)
+        if not log or len(log) <= self._pt_i:
+            return
+        new = log[self._pt_i:]; self._pt_i = len(log)
+        TO = self._pt_par; B = None
+        for e in new:
+            p = int(e["place"]); j = SPHERES.index(e["kind"].split(".")[0])
+            if e["what"] == "opened":
+                for x_ in [x_ for x_ in self.pt_lost if x_[1] == p]:
+                    self.pt_lost.remove(x_)
+                    if not self.dead[x_[0]] and int(self.loc[x_[0]]) == int(e["town"]):
+                        self._pt_ev(x_[0], t, "opened", e, p)
+                continue
+            who = np.nonzero(~self.dead & ((self.hnt == p).any(1) | (self.shnt == p).any(1)))[0]
+            for n in who.tolist():
+                if self.lw:   # the keeper's post ends: a place led, or a leading title over a setting held there
+                    for po in [po for po in self.lw_posts if po["n"] == n and po["place"] == p]:
+                        self._lead_end(po, t, "place closed")
+                for j_ in np.nonzero(self.shnt[n] == p)[0].tolist():   # the setting held there: its ties kept at half,
+                    B = self._bits() if B is None else B                 # the keeper no longer one, then left
+                    mem = self.used[n] & (B[n, :, j_] > 0)
+                    self.c[n, mem] *= np.float32(TO["tie_keep"])
+                    k = int(self.slead[n, j_])
+                    if k >= 0 and not ((self.slead[n] == k) & (self.shnt[n] >= 0) & (self.shnt[n] != p)).any():
+                        self.rmask[n, k] &= ~BIT["keeper"]
+                    self._leave(n, j_, t, "place closed")
+                h_ = [x_ for x_ in self.hnt[n] if x_ >= 0 and x_ != p]   # the haunt is gone (best first, as before)
+                self.hnt[n] = (h_ + [-1, -1, -1])[:3]
+                self.rung[n, j] = max(0.0, self.rung[n, j] + TO["rung_step"])
+                self.pt_hits.append([n, int(t)]); self.pt_lost.append([n, p])
+                self._pt_ev(n, t, "closed", e, p)
+
+    def pt_take(self, t, busy):
+        """The place moments to bring this week [(life, key)] (busy: lives with a moment already brought); one waiting
+        more than 8 weeks lapses."""
+        out = []
+        for d_ in list(self.pt_due):
+            n, key, p, t0_ = d_
+            if t - t0_ > 8 or self.dead[n]:
+                self.pt_due.remove(d_)
+            elif n not in busy and n not in {o_[0] for o_ in out}:
+                self.pt_due.remove(d_); out.append((n, key))
+        return out
 
     # ------------------------------------------------------------------ S7, ways to lead (lead_ways)
     # chroma-ideas/social-mechanics.md S7, "The leader's time in post" first: a post per leading role a life holds (it
@@ -5477,6 +5726,8 @@ class People:
         """N == 1: the People now live in World W (its places, rates, institutions, generations)."""
         self.W = W; self._coh_tab = None
         self._world_static()
+        if getattr(self, "pt_on", False):   # part 2: that world's closings from now on
+            self._pt_i = len(getattr(W, "pt_log", None) or [])
 
     def _arrival_loc(self):
         """A migrant's first locality: population, cities and the capital (where migrants mostly settle), work."""
@@ -5694,6 +5945,10 @@ class People:
                                    comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
                                    roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]),
                                    care_buy=None if getattr(self, "care_buy", None) is None else bool(self.care_buy[n]))
+        im_ = getattr(self, "inmate", None)
+        if im_ is not None:   # part 4 (only when on): the fellow inmates' slots and when they were made
+            ks_ = np.nonzero(im_[n])[0]
+            out["inmate"] = dict(k=[int(k_) for k_ in ks_], t=[int(x_) for x_ in self.inmate_t[n, ks_]])
         if self.far_on:   # far_ties (only when on): the town events read, and each slot's last far event and stay
             ks_ = np.nonzero(self.far_t[n] != NEVER)[0]
             out["far"] = dict(i=int(self._far_i), k=[int(k_) for k_ in ks_], ev=[int(x_) for x_ in self.far_ev[n, ks_]],
@@ -5736,6 +5991,8 @@ class People:
                                  am=[[j_, v_] for (n_, j_), v_ in self.sac_am.items() if n_ == n],
                                  lines=[SACRED_KINDS[int(k_)] for k_ in self.sac_line[n] if k_ >= 0],   # (for the sheet)
                                  rng=self._sac_rng.bit_generator.state if self.N == 1 else None)
+        if getattr(self, "bt_on", False):   # body_trust (only when on)
+            out["btrust"] = self.bt_save(n)
         if self.seen_on:   # seen_done (only when on): the paths seen, by title name; the colour ways; what each slot was
             ti_ = np.nonzero((self.sd_e[n] != 0) | (self.sd_f[n] > 0) | (self.sd_top[n] != -1))[0]   # credited at
             ks_ = np.nonzero(self.used[n] & ((self._sd_w[n] > 0).any(1) | (self._sd_wc[n] > 0)))[0]
@@ -5824,6 +6081,11 @@ class People:
                     pp.roots[n] = bool(s5_["roots"])
                 if s5_.get("care_buy") is not None and getattr(pp, "care_buy", None) is not None:
                     pp.care_buy[n] = bool(s5_["care_buy"])
+        if getattr(pp, "inmate", None) is not None:   # part 4: the fellow inmates
+            for n, d in enumerate(saved):
+                im_ = d.get("inmate")
+                if im_:
+                    pp.inmate[n, im_["k"]] = True; pp.inmate_t[n, im_["k"]] = im_["t"]
         if pp.far_on:
             for n, d in enumerate(saved):
                 f_ = d.get("far")
@@ -5896,5 +6158,14 @@ class People:
                     ks_ = np.asarray(s_["k"], np.int64)
                     if len(ks_):
                         pp._sd_w[n, ks_] = s_["w"]; pp._sd_wc[n, ks_] = s_["wc"]
+        if getattr(pp, "bt_on", False):   # body_trust: the trust, the parents' mean, what was read
+            for n, d in enumerate(saved):
+                b_ = d.get("btrust")
+                if b_:
+                    pp.btrust[n] = [np.nan if x_ is None else x_ for x_ in b_["v"]]
+                    pp.bt_par[n] = [np.nan if x_ is None else x_ for x_ in b_["par"]]
+                    pp.bt_kind[n] = int(b_["kind"]); pp._bt_i = int(b_["i"]); pp._bt_li = int(b_["li"]); pp._bt_yr = int(b_["yr"])
+                    if b_.get("rng") is not None and pp.N == 1:
+                        pp._bt_rng.bit_generator.state = b_["rng"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()
         return pp
