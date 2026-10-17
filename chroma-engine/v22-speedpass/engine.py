@@ -888,6 +888,15 @@ DEFAULT = dict(
                   estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35,
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
+    # spheres finishing pack, part 4 (chroma-world/spheres/finish-pack-draft.md): former inmates as ties
+    # (sphere_data.DEEP service.after_prison.tie_values). Off by default; world on only (the ties are People's; world off
+    # the switch does nothing). prison_par: years_unknown, the years inside when [ex-prisoner] comes by its rule with no
+    # term known; cap, the most ties one release makes; active, the closeness at or above which a tie is still active
+    # (layer 4's line, .02: still among the 150 they know); pull, the re-offending pull (None: the data's 1.2); shadow,
+    # the lead colour's shadow part over which their way leans to its shadow side (the pull back's gate); test, (age,
+    # years): every life starts a term at that age (checks only; None: never)
+    prison_ties=False,
+    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
     inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
@@ -1490,6 +1499,8 @@ UPD_OFF = dict(dis_match=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
                sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
+               # spheres finishing pack, part 4: former inmates as ties
+               prison_ties=False, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
                # the spheres finishing pack (finish-pack-draft.md): part 2, places close and open
                place_turnover=False,
@@ -2161,6 +2172,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     EYEW_ON_ = bool(EYEW_.any())
     if EYEW_ON_:
         REG_ = REG_ & ~EYEW_   # (nor by the stages' fill or the routine's, as far moments)
+    # spheres finishing pack, part 4: a moment with a fellow inmate (cast_want: fellow_inmate) is open only while the life
+    # holds an active former-inmate tie (the closest takes its first who: slot; world_link.who)
+    INMS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L and "fellow_inmate" in WK_.CAST_WANTS:
+        INMS_ = np.asarray(L["W_WANT"]) == WK_.CAST_WANTS.index("fellow_inmate")
+    INMS_ON_ = bool(INMS_.any())
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2203,6 +2220,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         gender_self = unease.astype(int); intersex = np.zeros(N, bool); ace = np.zeros(N, bool)
     dead = np.zeros(N, bool); died = []                   # the character's own death (self_death)
     pris_out = np.full(N, NEVER)                           # when a prison term ends ([ex-prisoner])
+    pris_in = np.full(N, NEVER)                            # when it began (prison_ties: the years inside)
     if BAT:
         alive[:, 0] = 2; alive[:, 1] = rng.choice(4, N, p=[0.2, 0.4, 0.25, 0.15]); alive[:, 2] = 1; alive[:, 3] = rng.integers(2, 5, N)
     # birth order (checklist N4): which of the siblings are older; drawn from its own stream so no other draw moves
@@ -2579,6 +2597,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         for k_ in AGO:
             ns["ago_" + k_] = ys(ago[k_])
         ns.update(streak)
+        ns["inmate_tie"] = pt_act.copy(); ns["yrs_out"] = ys(pt_rel)   # part 4: an active former-inmate tie; years out
         ns["married"] = held[:, PAR] & (sit_last[:, SIDX["getting married"]] >= since[:, PAR]) if "getting married" in SIDX else np.zeros(N, bool)
         ns.update(female=female, male=~female, attr=attr, unease=unease)   # identity (point 11): sex, attraction 0-4, unease
         if ID2:   # N1b (chroma-identity/for-the-engine.md §2)
@@ -3573,6 +3592,82 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if DR_ON:
         DR_M = np.isin(np.arange(len(L["MARKS"])), [L["MARKS"].index(m_) for m_ in DEED_RARE if m_ in L["MARKS"]])
         dr_rng = np.random.default_rng([int(seed), 1705])
+    # spheres finishing pack, part 4: former inmates as ties (finish-pack-draft.md; sphere_data.DEEP service.after_prison.
+    # tie_values). A release is the week a known term ends (pris_out) or the week [ex-prisoner] comes by its rule with no
+    # term pending. Every release is kept (yrs_out; nothing is drawn); the ties come only with prison_ties and the world
+    # on (People holds them; never for a life under 18, and each fellow inmate is an adult). Its own draws: pt_rng
+    EXP_I = int(GR["ID"].get("ex-prisoner", -1)) if RON else -1
+    pt_rel = np.full(N, NEVER); pt_seen = np.full(N, NEVER)   # the last release; the [ex-prisoner] gain last read
+    pt_act = np.zeros(N, bool)                                # an active former-inmate tie (inmate_tie)
+    PT_ON = bool(P.get("prison_ties")) and WON and RON and getattr(WL.PP, "inmate", None) is not None
+    pt_log = []                                               # the readout: made and ended ties
+    PT_TEST = (P.get("prison_par") or {}).get("test")         # checks only: (age, years) every life serves a term
+    if PT_ON:
+        import sphere_data as SD_, world_keys as WK_, world_people as PM_
+        TV_ = SD_.DEEP["service"]["after_prison"]["tie_values"]; PTP_ = {**DEFAULT["prison_par"], **(P.get("prison_par") or {})}
+        PT_Y = tuple(float(x_) for x_ in TV_["made_y"]); PT_C0 = float(TV_["strength"]); PT_YRS = int(52 * TV_["years"])
+        PT_PULL = np.log(float(TV_["pull_back"]["reoffend"] if PTP_["pull"] is None else PTP_["pull"]))
+        PT_HELP = TV_["help"]; PT_STM = float(PT_HELP["stress_m"])
+        PT_D = -np.log(float(PT_HELP["hiring"])) / 3              # hiring odds x 1.1 as difficulty (odds x exp(-3 x d))
+        se_ = np.asarray(GR["sector"]) if "sector" in GR else np.full(NT_, -1)
+        PT_SEC = np.array([0 <= int(se_[i_]) < len(WK_.SECTORS) and WK_.SECTORS[int(se_[i_])] in PT_HELP["sectors"]
+                           for i_ in range(NT_)] + [False], bool)   # a title's work in farm or industry (-1: no title)
+        PT_JOB = np.nonzero(np.asarray(TK_[:NT_]) == CAR)[0]       # the job titles (steady work: one held a year or more)
+        PT_BL = (L["MARK"] == L["MARKS"].index("broke the law")) if "broke the law" in L["MARKS"] else np.zeros_like(L["MARK"], bool)
+        pt_n = np.zeros(0, np.int64); pt_k = np.zeros(0, np.int64); pt_u = np.zeros(0, np.int64); pt_t = np.zeros(0, np.int64)
+        pt_pull = np.zeros(N, bool)
+        pt_rng = np.random.default_rng([int(seed), 2404])
+
+        def pt_release(ns_, known_):
+            """Part 4: lives ns_ released this week make ties with fellow inmates: years inside (the term, else
+            years_unknown) x uniform(made_y) a year, rounded, at most cap; adults near their age, of their sex (prisons
+            hold men and women apart), at the data's strength, in their People as friends, marked inmate."""
+            nonlocal pt_n, pt_k, pt_u, pt_t
+            PP_ = WL.PP
+            if age < 18:   # never a child
+                return
+            yrs_ = np.where(known_ & (pris_in[ns_] > NEVER), (t - pris_in[ns_]) / 52.0, float(PTP_["years_unknown"]))
+            m_ = np.minimum(np.round(yrs_ * pt_rng.uniform(*PT_Y, len(ns_))).astype(np.int64), int(PTP_["cap"]))
+            nn_ = np.repeat(ns_, m_)
+            if not len(nn_):
+                return
+            ag_ = np.maximum(18.0, age + pt_rng.normal(0, 5, len(nn_)))
+            rng0_ = PP_.rng; PP_.rng = pt_rng   # People's own draws for these people come from the part's stream
+            try:
+                F_ = PP_._gen(nn_, PP_.t - (ag_ * 52).astype(np.int64), PP_.t)
+                F_["fem"] = female[nn_].copy()
+                sl_ = PP_._add(F_, PP_.t, PM_.R["friend"], c0=PT_C0, trust0=0.5, acc0=0.1, quiet=True)
+            finally:
+                PP_.rng = rng0_
+            ok_ = sl_ >= 0; nn_, sl_ = nn_[ok_], sl_[ok_]
+            PP_.inmate[nn_, sl_] = True; PP_.inmate_t[nn_, sl_] = PP_.t
+            uu_ = PP_.uid[nn_, sl_].astype(np.int64)
+            pt_n = np.concatenate([pt_n, nn_]); pt_k = np.concatenate([pt_k, sl_]); pt_u = np.concatenate([pt_u, uu_])
+            pt_t = np.concatenate([pt_t, np.full(len(nn_), t)])
+            pt_log.extend(dict(n=int(n_), t=int(t), other=int(u_), what="made", why="met inside")
+                          for n_, u_ in zip(nn_.tolist(), uu_.tolist()))
+
+        def pt_week():
+            """Part 4, each week: the ties still active (living, still in their People, closeness at or above active,
+            within the 10 years); the ended leave the readout and fade at the usual speed again."""
+            nonlocal pt_n, pt_k, pt_u, pt_t, pt_act
+            PP_ = WL.PP
+            if not len(pt_n):
+                pt_act = np.zeros(N, bool)
+                return
+            here_ = PP_.used[pt_n, pt_k] & (PP_.uid[pt_n, pt_k] == pt_u)
+            live_ = here_ & PP_.lv[pt_n, pt_k]
+            why_ = np.where(dead[pt_n], 4, np.where(~here_, 2, np.where(~live_, 1, np.where(t - pt_t >= PT_YRS, 3,
+                            np.where(PP_.c[pt_n, pt_k] < PTP_["active"], 0, -1)))))
+            end_ = why_ >= 0
+            if end_.any():
+                WHY_ = ("faded", "died", "gone", "ten years", "life ended")
+                pt_log.extend(dict(n=int(n_), t=int(t), other=int(u_), what="ended", why=WHY_[w_])
+                              for n_, u_, w_ in zip(pt_n[end_].tolist(), pt_u[end_].tolist(), why_[end_].tolist()))
+                hk_ = end_ & here_
+                PP_.inmate[pt_n[hk_], pt_k[hk_]] = False
+                keep_ = ~end_; pt_n, pt_k, pt_u, pt_t = pt_n[keep_], pt_k[keep_], pt_u[keep_], pt_t[keep_]
+            pt_act = np.zeros(N, bool); pt_act[pt_n] = True
     if P["mind_kid"] is not None:                         # F19
         MK_A, MK_F = np.asarray(P["mind_kid"], float).T
     if P["mind_u"] is not None:
@@ -3840,6 +3935,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             gate = gate & cond_ok & ~once_done[:, ROOT]
             if SH_ON:
                 gate[:, SH_I] &= SH_EL
+            if INMS_ON_:   # part 4: open only with an active former-inmate tie
+                gate[:, INMS_] &= pt_act[:, None]
             if RON:   # a moment only someone holding a title or perk meets (a nurse's night shift): any of its holds:, and
                 # with tenure: only while one of them has been held that many years (Emren's point 6: new, settled, senior)
                 if HOLDS_.size:
@@ -4269,6 +4366,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     diff = diff + jo_ * (vet_[:, None] * np.where(pr_, SV_D[0], SV_D[1]) + rec_[:, None] * SV_D[2])
                     br_ = (brec > NEVER) & (t - brec < 7 * YR_)   # a bank's record: hiring a little harder
                     diff = diff + jo_ * (br_[:, None] * DB_D)
+            if PT_ON and pt_act.any():   # part 4: a job lead through a former inmate: hiring x 1.1 in farm and industry work
+                diff = diff + (WL.job_o[s] & PT_SEC[np.where(GR["A_TITLE"][s] >= 0, GR["A_TITLE"][s], NT_)]) * (pt_act[:, None] * PT_D)
         if BAT and CLU_ON:
             diff = diff + P["closed_diff"] * clu_
         elif BAT:   # closed by law, approval or means: still pickable, but harder
@@ -4405,6 +4504,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
         if DC_ON:   # F17: an option that leaves a deed leans by that deed's canon colours (log odds x the choice's tau)
             U = U + P["deed_canon"] * np.einsum("nkc,nc->nk", DC_L[s], 5 * w - 1) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+        if PT_ON and pt_pull.any():   # part 4: the pull back: options that break the law x 1.2 (log odds x the choice's tau)
+            U = U + PT_PULL * (pt_pull[:, None] & PT_BL[s]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = pr0 = softmax(np.where(seen, U / tau[:, None], -np.inf))
@@ -4991,6 +5092,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             if held[n, CAR]:
                                 end([n], [CAR], "lost job", t)
                             pris_out[n] = t + int(52 * rid.uniform(*P["kill_prison"]))
+                            pris_in[n] = t
                         if n in events:
                             events[n].append(dict(killed=dict(age=round(age, 2), role=ROLES[r_] if r_ >= 0 else "someone",
                                                               through=L["labels"][s[n]][a[n]], caught=caught_)))
@@ -5890,6 +5992,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             for n in np.nonzero(pris_out == t)[0]:
                 if "ex-prisoner" in GR["ID"]:
                     r_gain(n, GR["ID"]["ex-prisoner"], "released")
+        if PT_TEST is not None and t == int(round(52 * PT_TEST[0])):   # part 4's checks: every living life starts a term
+            pris_in = np.where(dead, pris_in, t); pris_out = np.where(dead, pris_out, t + int(round(52 * PT_TEST[1])))
+        if EXP_I >= 0:   # part 4: this week's releases: a known term's end, or [ex-prisoner] by its rule with no term pending
+            rk_ = pris_out == t
+            rr_ = r_has[:, EXP_I] & (r_since[:, EXP_I] != pt_seen) & ~rk_ & ~(pris_out > t)
+            pt_seen = np.where(r_has[:, EXP_I], r_since[:, EXP_I], pt_seen)
+            rel_ = (rk_ | rr_) & ~dead
+            if rel_.any():
+                pt_rel = np.where(rel_, t, pt_rel)
+                if PT_ON:
+                    pt_release(np.nonzero(rel_)[0], rk_[rel_])
+        if PT_ON:   # the ties still active; the pull back while their lead colour's shadow part is over .5 (shadow) and they hold
+            pt_week()   # neither a partner nor steady work (a job a year or more: Sampson and Laub 1993)
+            sw_ = (r_has[:, PT_JOB] & (t - r_since[:, PT_JOB] >= 52)).any(1) if len(PT_JOB) else np.zeros(N, bool)
+            pt_pull = ((pt_act & (shS[ar, np.argmax(w, 1)] > PTP_["shadow"]) & ~held[:, PAR] & ~sw_) if SHON
+                       else np.zeros(N, bool))
+            if t % 4 == 0:   # shared understanding: stress -.01 a month in the first year out
+                stress += PT_STM * (pt_act & (t - pt_rel < 52) & (pt_rel > NEVER))
 
         # ---- 5. integrate. Plasticity belongs to the life stage
         if P["tw_trans"]:   # a turning point this week opens a window (see tw_trans)
@@ -6218,6 +6338,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
                 **(dict(btrust=btrust.copy(), btrust_y=bt_y) if BT_ON else {}),
+                **(dict(prison_ties=pt_log) if P.get("prison_ties") else {}),   # part 4: ties made and ended (switch on only)
                 **(dict(current=cur_sum) if CUR_ON else {}),
                 **(dict(body=dict(body=body_v, mind=mind_v, conditions=dict(weight=bd_cw, kind=bd_ck, age=bd_ca, kinds=COND_KINDS),
                                   serious=dict(kind=bd_sk, since=bd_s0, until=bd_s1, kinds=SER_KINDS), kept=bd_keep,

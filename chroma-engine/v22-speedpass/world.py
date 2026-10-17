@@ -448,6 +448,8 @@ W_DEFAULT = dict(
     sph_shadow=False,  # phase 5, N5: each face's shadow share per town and sphere (event rows' shadow turns, subvert,
                        # the fairness gap), the spheres' grey shares, and the shadow around a life (notes/spheres-phase5-asks.md)
     sph_deep=False,    # phase 5: the deep state of a life (the care load first; service, debts, holdings to come)
+    prison_ties=False,  # spheres finishing pack, part 4: former inmates as ties in a life's People (read by world_people
+                        # only: the world itself is the same with it on or off)
     far_ties=False,    # item 18: a town's events touch the named people living there; a close tie in another town calls
                        # (chroma-ideas/far-off-events.md; sides in sphere_data.FAR); with sph_events
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
@@ -504,6 +506,7 @@ V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
 # the spheres finishing pack's switches (finish-pack-draft.md): saved only when on, so a save with them off is v22.5's
 FIN_RULES = ("place_turnover",)   # part 2, places close and open
 FIN_RULES += ("body_trust",)   # part 3, trust in a sphere's bodies
+FIN_RULES += ("prison_ties",)   # part 4, former inmates as ties
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of

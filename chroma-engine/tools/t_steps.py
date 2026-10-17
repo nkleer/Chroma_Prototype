@@ -297,6 +297,11 @@ def _pt_closed(o):
     return any(e_["what"] == "closed" for e_ in o.get("place_turnover") or ())
 
 
+def _pt_made(o):
+    """prison_ties' own test: former inmates were made ties (a plain function: the rows go to the worker processes)."""
+    return any(e["what"] == "made" for e in o.get("prison_ties", ()))
+
+
 # 8 and 9. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work) and WL2 (world on only): switched on,
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
@@ -328,6 +333,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("the finishing pack's former inmates as ties (prison_ties; every life serves a 3-year term at 18, the shadows on in "
+        "the world)", dict(prison_ties=True, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)),
+                          sh_world=True),
+        dict(prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)), sh_world=True), 30, 4,
+        _pt_made),   # (ties made, and the lives move beyond the readout)
        ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
         dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
@@ -412,7 +422,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
 # a switch's own readouts, which are not the lives (the finishing pack's)
-OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y")
+OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y", "prison_ties")
 
 
 def p2_row(row_):

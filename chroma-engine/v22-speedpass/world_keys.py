@@ -27,6 +27,9 @@ OWN_WANTS = ["sacred", "tragic", "amends"]
 # wants, so every index before them stays (none is a cast member's wish)
 CAST_WANTS += ["place_closed", "place_opened"]
 PLACE_WANTS = ["place_closed", "place_opened"]
+# spheres finishing pack, part 4 (former inmates as ties, prison_ties): a moment with a fellow inmate, open only while the
+# life holds an active former-inmate tie, the closest of whom takes its first who: slot (never a cast member's wish)
+CAST_WANTS += ["fellow_inmate"]
 SACRED_KINDS = ["promise", "truth", "own_say", "loved", "home"]   # a line's kind (sacred:), W U B R G in the Canon's order
 OFFER_KINDS = ["money", "post", "favour"]                          # what an offer gives (offer:; dynamics.json offers kind)
 OFFER_ROUNDS = ["first", "raised"]                                 # the first offer, or the raised one after a refusal (round:)

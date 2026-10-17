@@ -604,6 +604,9 @@ class People:
             self.comrade = np.zeros((N, K), bool)
             self.roots = np.zeros(N, bool)       # debts and holdings: a life holding something moves half as readily
             self.care_buy = np.zeros(N, bool)    # a carer with money buys help (the engine sets it each month)
+        if wp_.get("prison_ties", False):   # spheres finishing pack, part 4: fellow inmates (the engine makes them at a
+            self.inmate = np.zeros((N, K), bool)       # release) fade at half speed for 10 years from when they were made
+            self.inmate_t = np.full((N, K), NEVER, np.int64)
         self.far_on = bool(wp_.get("far_ties", False))
         if self.far_on:   # far_ties (item 18): the towns' events touch the people living there; a far tie calls
             self._far_init(run_seed)
@@ -848,6 +851,8 @@ class People:
         self.debt[n, slot] = 0; self.mgood[n, slot] = 0; self.mbad[n, slot] = 0; self.secret[n, slot] = False
         if getattr(self, "comrade", None) is not None:
             self.comrade[n, slot] = False
+        if getattr(self, "inmate", None) is not None:
+            self.inmate[n, slot] = False; self.inmate_t[n, slot] = NEVER
         if self.far_on:
             self.far_ev[n, slot] = -1; self.far_t[n, slot] = NEVER; self.far_sg[n, slot] = 0; self.far_sd[n, slot] = -1
             self.far_in[n, slot] = FAR_OFF; self.far_from[n, slot] = -1
@@ -2085,6 +2090,8 @@ class People:
         rdn = self._crdn if dt_w == 1 else np.where(self._ckin, r_dk, r_dn)
         if dt_w != 1 and getattr(self, "comrade", None) is not None:
             rdn = np.where(self._ccom, rdn * np.float32(0.5), rdn)
+        if dt_w != 1 and getattr(self, "inmate", None) is not None:   # part 4: fellow inmates (once, with a comrade too)
+            rdn = np.where(self._cinm, rdn * np.float32(0.5), rdn)
         rr = np.where(e > c, r_up, rdn)
         c2 = np.where(ok, c + (e - c) * rr, c).astype(np.float32)
         np.put(self.c, fi, c2)
@@ -2111,6 +2118,8 @@ class People:
         c = self.c
         kin = (self.rmask & KINMASK) != 0
         r_up, r_dk, r_dn = (f32(1 - np.exp(-13 / 52.0 / P[k_])) for k_ in ("tau_up", "tau_dn_kin", "tau_dn"))
+        if getattr(self, "inmate", None) is not None:   # part 4: fellow inmates outside the close index, at half speed too
+            r_dn = np.where(self._inmate_on(), r_dn * f32(0.5), r_dn)
         c2 = np.where(out, c + (e - c) * np.where(e > c, r_up, np.where(kin, r_dk, r_dn)), c).astype(f32)
         self.c = c2; np.maximum(self.cmax, c2, out=self.cmax)
         U = self.rng.random((3,) + c.shape, dtype=f32)
@@ -2199,6 +2208,17 @@ class People:
             return m_
         return u & ((self.rmask[n] & BIT[role]) != 0)
 
+    def _inmate_on(self):
+        """Part 4 (prison_ties): the fellow inmates still within 10 years of when they were made (N, K)."""
+        return self.inmate & (self.t - self.inmate_t < 520)
+
+    def inmate_closest(self, n):
+        """Part 4: life n's closest living fellow inmate within the 10 years (a slot), -1 when none."""
+        if getattr(self, "inmate", None) is None:
+            return -1
+        m_ = self._inmate_on()[n] & self.used[n] & self.lv[n]
+        return int(np.argmax(np.where(m_, self.c[n], -1.0))) if m_.any() else -1
+
     def _close_index(self):
         """Monthly: the KC closest living people of each life (updated weekly), the denominator of deliberate
         contact, and the slow terms of their weekly update (contact from settings and kin, ceilings, death odds)."""
@@ -2235,6 +2255,11 @@ class People:
         if getattr(self, "comrade", None) is not None:   # phase 5: comrades from a unit fade at half speed
             self._ccom = tk(self.comrade)
             self._crdn = np.where(self._ccom, self._crdn * np.float32(0.5), self._crdn)
+        if getattr(self, "inmate", None) is not None:   # part 4: fellow inmates fade at half speed for 10 years
+            self._cinm = tk(self._inmate_on())
+            if getattr(self, "comrade", None) is not None:
+                self._cinm = self._cinm & ~self._ccom   # (half speed once, a comrade or not)
+            self._crdn = np.where(self._cinm, self._crdn * np.float32(0.5), self._crdn)
         self._cuid = tk(self.uid)
         self._cpie = np.take(self.pie.reshape(-1, C), fi, axis=0).astype(np.float64)   # float64: exact weekly sums
         self._cpage = (self.t - tk(self.born)) / 52.0
@@ -5920,6 +5945,10 @@ class People:
                                    comrade=None if cm_ is None else [int(k_) for k_ in np.nonzero(cm_[n])[0]],
                                    roots=None if getattr(self, "roots", None) is None else bool(self.roots[n]),
                                    care_buy=None if getattr(self, "care_buy", None) is None else bool(self.care_buy[n]))
+        im_ = getattr(self, "inmate", None)
+        if im_ is not None:   # part 4 (only when on): the fellow inmates' slots and when they were made
+            ks_ = np.nonzero(im_[n])[0]
+            out["inmate"] = dict(k=[int(k_) for k_ in ks_], t=[int(x_) for x_ in self.inmate_t[n, ks_]])
         if self.far_on:   # far_ties (only when on): the town events read, and each slot's last far event and stay
             ks_ = np.nonzero(self.far_t[n] != NEVER)[0]
             out["far"] = dict(i=int(self._far_i), k=[int(k_) for k_ in ks_], ev=[int(x_) for x_ in self.far_ev[n, ks_]],
@@ -6052,6 +6081,11 @@ class People:
                     pp.roots[n] = bool(s5_["roots"])
                 if s5_.get("care_buy") is not None and getattr(pp, "care_buy", None) is not None:
                     pp.care_buy[n] = bool(s5_["care_buy"])
+        if getattr(pp, "inmate", None) is not None:   # part 4: the fellow inmates
+            for n, d in enumerate(saved):
+                im_ = d.get("inmate")
+                if im_:
+                    pp.inmate[n, im_["k"]] = True; pp.inmate_t[n, im_["k"]] = im_["t"]
         if pp.far_on:
             for n, d in enumerate(saved):
                 f_ = d.get("far")
