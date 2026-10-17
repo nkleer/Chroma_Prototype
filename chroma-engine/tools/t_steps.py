@@ -27,7 +27,15 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      in the week the pauses say, and the return moment comes only as a return.
  14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
      Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
-     comes only while their town's share is at least the threshold (never with the switch off).
+     comes only while their town's share is at least the threshold (never with the switch off); with the threshold at
+     the run's median town share, an everyday moment given the gate opens and shuts by the week and is met only in weeks
+     it was open.
+ 15. the finishing pack's behaviour (v22.6 bar W2 to W4; world on): a place's closing frees its regulars (the haunt and
+     a setting held there gone), steps their rung in its sphere down one (not below 0) and ends any post leading it (the
+     check closes a led place now and then); care seeking follows trust in care's bodies (more trust, more care; none
+     before trust starts); a release makes 1 or 2 ties a year inside (cap 6) at strength .3, each ended within 10 years;
+     the pull back is on only with an active tie, the shadow part over its line and neither a partner nor steady work,
+     and moves only the options that break the law, at odds x the data's 1.2.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -570,10 +578,160 @@ if "grey_gate" in E.DEFAULT:
         met_[on_] = int(o2_["sit_n"][:, tg_].sum())
     if met_[False]:
         fails.append(f"the gated moment came {met_[False]} times with the switch off")
+    # the gate opening (v22.6 bar W5): the threshold at the run's median town share (its greyest sphere, yearly), an
+    # everyday moment given the gate; each week's open lives (moment_factor) and each meeting (sit_last) are read
+    import sphere_data as _sd, world_link as _wl
+    thr_ = float(np.median(np.asarray(o_["grey_y"]).max(2))); thr0_ = _sd.SHADOW.get("grey_gate")
+    nm_ = next((x for x in ("awake at night worrying about the future", "a deadline at college or work") if x in L_["names"]),
+               "tending an allotment")
+    tg_ = L_["names"].index(nm_); L_["W_SHADOW"] = np.full(L_["S"], -1); L_["W_SHADOW"][tg_] = 9
+    gw_ = dict(open=set(), shut=0, met=0, wrong=0, last=None)
+    mf0_ = _wl.WorldLink.moment_factor
+    def _mf(self, age, sit_last=None):
+        t_ = int(sys._getframe(1).f_locals["t"])
+        if sit_last is not None:
+            sl_ = np.asarray(sit_last)[:, tg_]
+            if gw_["last"] is not None:
+                for n_ in np.nonzero(sl_ != gw_["last"])[0].tolist():
+                    gw_["met"] += 1; gw_["wrong"] += (n_, int(sl_[n_])) not in gw_["open"]
+            gw_["last"] = sl_.copy()
+        f_ = mf0_(self, age, sit_last)
+        op_ = f_[:, tg_] > 0
+        gw_["open"].update((n_, t_) for n_ in np.nonzero(op_)[0].tolist()); gw_["shut"] += int((~op_).sum())
+        return f_
+    _sd.SHADOW["grey_gate"] = thr_; _wl.WorldLink.moment_factor = _mf
+    try:
+        o3_ = E.run(**dict(kw, lib=L_), P=dict(E.DEFAULT, world=True, grey_gate=True))
+    finally:
+        _wl.WorldLink.moment_factor = mf0_
+        if thr0_ is None:
+            _sd.SHADOW.pop("grey_gate", None)
+        else:
+            _sd.SHADOW["grey_gate"] = thr0_
+    met3_ = int(o3_["sit_n"][:, tg_].sum())
+    if not met3_ or not gw_["open"] or not gw_["shut"]:
+        fails.append(f"at threshold {thr_:.3f} the gate did not both open and shut and let the moment come "
+                     f"({len(gw_['open'])} open, {gw_['shut']} shut life-weeks, met {met3_})")
+    if gw_["wrong"]:
+        fails.append(f"met {gw_['wrong']} times in a week the gate was shut")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  the town gone grey (grey_gate), switched on: with no shadow: moment the lives "
-          f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off"
+          f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off; at the median "
+          f"town share {thr_:.3f}, {nm_!r} open {len(gw_['open'])} and shut {gw_['shut']} life-weeks, met {met3_} times, "
+          f"{gw_['met'] - gw_['wrong']} seen in open weeks"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 15. the finishing pack's behaviour (v22.6 bar W2 to W4), on one world-on run with the parts on, read where they act
+if "place_turnover" in E.DEFAULT and hasattr(E, "bt_care") and hasattr(E, "pt_pull_of"):
+    import world_people as _wp, sphere_data as _sd
+    t0 = time.process_time(); fails = []
+    # care seeking's direction, on its own: more trust in care's bodies, more care sought; .5 and no trust yet leave it
+    ln_ = np.repeat(np.linspace(-0.9, 0.9, 19), 5); bc_ = np.tile([0.0, 0.25, 0.5, 0.75, 1.0], 19)
+    cv_ = E.bt_care(ln_, bc_).reshape(19, 5)
+    if (np.diff(cv_, axis=1) < 0).any() or not (cv_[:, 4] > cv_[:, 0]).all():
+        fails.append("care seeking does not rise with trust")
+    if not np.allclose(cv_[:, 2], ln_.reshape(19, 5)[:, 2]) or not np.allclose(E.bt_care(ln_, np.full(len(ln_), np.nan)), ln_):
+        fails.append("trust .5 or not yet started moves care seeking")
+    b_ = np.array([False, True])
+    for a_, sh_, pa_, st_ in [(a_, sh_, pa_, st_) for a_ in b_ for sh_ in (0.1, 0.4) for pa_ in b_ for st_ in b_]:
+        if bool(E.pt_pull_of(np.array([a_]), np.array([sh_]), 0.3, np.array([pa_]), np.array([st_]))[0]) != \
+                bool(a_ and sh_ > 0.3 and not pa_ and not st_):
+            fails.append("the pull back's rule is not tie, shadow over the line, no partner, no steady work")
+            break
+    R_ = dict(hits=0, steps=0, posts=0, forced=0, care=0, pull=0, freed=0, pull_u=0, c=set(), why={})
+    TV_ = _sd.DEEP["service"]["after_prison"]["tie_values"]
+    q0_, b0_, p0_, u0_, a0_, e0_ = (_wp.People._pt_q, E.bt_care, E.pt_pull_of, E.pt_pull_u, _wp.People._add,
+                                     _wp.People._lead_end)
+    def _ptq(self, t):
+        if self.lw and R_["forced"] < 3:   # a post at a closing is rare: the check closes a led place now and then
+            W_ = self.W
+            for po_ in self.lw_posts:
+                if po_["kind"] == "place" and po_["place"] >= 0:
+                    l_, h_, i_ = (int(x_) for x_ in np.unravel_index(int(po_["place"]), W_.pt_open.shape))
+                    if W_.pt_open[l_, h_, i_] < 0:
+                        W_._pt_close(l_, h_, i_, int(W_.t // 13), "check"); R_["forced"] += 1
+                        break
+        new_ = [e_ for e_ in (getattr(self.W, "pt_log", None) or [])[self._pt_i:] if e_["what"] == "closed"]
+        if not new_:
+            return q0_(self, t)
+        r0_ = self.rung.copy(); h0_ = self.hnt.copy(); s0_ = self.shnt.copy()
+        ps0_ = [po_["place"] for po_ in self.lw_posts] if self.lw else []
+        ex_ = r0_.copy(); who_ = []
+        for e_ in new_:
+            p_ = int(e_["place"]); j_ = _wp.SPHERES.index(e_["kind"].split(".")[0])
+            w_ = np.nonzero(~self.dead & ((h0_ == p_).any(1) | (s0_ == p_).any(1)))[0]
+            who_.append((p_, j_, w_))
+            for n_ in w_.tolist():
+                ex_[n_, j_] = max(0.0, ex_[n_, j_] + self._pt_par["rung_step"])
+        q0_(self, t)
+        for p_, j_, w_ in who_:
+            for n_ in w_.tolist():
+                R_["hits"] += 1; R_["steps"] += bool(r0_[n_, j_] > 0)
+                if (self.hnt[n_] == p_).any() or (self.shnt[n_] == p_).any():
+                    fails.append(f"life {n_} keeps a place that closed")
+                if self.rung[n_, j_] != ex_[n_, j_]:
+                    fails.append(f"life {n_}'s rung went {r0_[n_, j_]:.2f} to {self.rung[n_, j_]:.2f}, not {ex_[n_, j_]:.2f}")
+            R_["posts"] += ps0_.count(p_)
+            if self.lw and any(po_["place"] == p_ for po_ in self.lw_posts):
+                fails.append("a post leading a place that closed goes on")
+    def _bc(lean_, bc_):
+        out_ = b0_(lean_, bc_); ok_ = np.isfinite(bc_); R_["care"] += int(ok_.sum())
+        if ((out_ - b0_(lean_, np.where(ok_, 0.5, np.nan))) * np.where(ok_, bc_ - 0.5, 0) < -1e-12).any():
+            fails.append("in the run, care seeking moved against trust")
+        return out_
+    def _po(act_, sh_, thr_, pa_, st_):
+        out_ = p0_(act_, sh_, thr_, pa_, st_)
+        R_["pull"] += int(out_.sum()); R_["freed"] += int((act_ & (sh_ > thr_) & (pa_ | st_)).sum())
+        return out_
+    def _pu(U_, pull_, bl_, tau_, f_):
+        out_ = u0_(U_, pull_, bl_, tau_, f_); m_ = pull_[:, None] & bl_; R_["pull_u"] += int(m_.sum())
+        if f_ != TV_["pull_back"]["reoffend"]:
+            fails.append(f"the pull back at odds x{f_}, not the data's {TV_['pull_back']['reoffend']}")
+        if (out_ != U_)[~m_].any() or (m_.any() and not np.allclose(np.exp((out_ - U_)[m_] / np.broadcast_to(
+                tau_[:, None], U_.shape)[m_]), f_)):
+            fails.append("the pull back moved other options, or not at its odds")
+        return out_
+    def _add(self, F, t, role, *a, **k):
+        sl_ = a0_(self, F, t, role, *a, **k)
+        fr_ = sys._getframe(1)
+        if fr_.f_code.co_name == "pt_release":
+            nn_ = fr_.f_locals["nn_"]; ok_ = sl_ >= 0
+            R_["c"].update(np.round(self.c[nn_[ok_], sl_[ok_]].astype(float), 6).tolist())
+        return sl_
+    def _le(self, p, t, why):
+        R_["why"][why] = R_["why"].get(why, 0) + 1
+        return e0_(self, p, t, why)
+    _wp.People._pt_q, E.bt_care, E.pt_pull_of, E.pt_pull_u, _wp.People._add, _wp.People._lead_end = _ptq, _bc, _po, _pu, _add, _le
+    try:   # (the pull back's shadow line at .2, so it is on for some weeks; every life serves 3 years from 18)
+        Y_ = 35
+        o_ = E.run(N=10, years=Y_, seed=4, lib=EARTH, P=dict(
+            E.DEFAULT, world=True, place_turnover=True, lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True,
+            sph_haunts=True, sph_hours=True, cur_on=True, body_trust=True, fair_read=True, c3_inst=True, prison_ties=True,
+            prison_par=dict(E.DEFAULT["prison_par"], shadow=0.2, test=(18, 3)), sh_world=True))
+    finally:
+        _wp.People._pt_q, E.bt_care, E.pt_pull_of, E.pt_pull_u, _wp.People._add, _wp.People._lead_end = q0_, b0_, p0_, u0_, a0_, e0_
+    made_, ended_, rel_ = {}, {}, {}
+    for e_ in o_.get("prison_ties", ()):
+        (made_ if e_["what"] == "made" else ended_).setdefault((e_["n"], e_["other"]), e_["t"])
+    for (n_, _), t_ in made_.items():
+        rel_[(n_, t_)] = rel_.get((n_, t_), 0) + 1
+    late_ = [k_ for k_, t_ in made_.items() if ended_.get(k_, Y_ * 52) - t_ > 520]
+    if R_["c"] != {round(float(np.float32(TV_["strength"])), 6)}:
+        fails.append(f"ties inside made at {sorted(R_['c'])}, not {TV_['strength']}")
+    if not rel_ or any(not 3 <= m_ <= 6 for m_ in rel_.values()):   # a 3-year term: 1 or 2 a year, at most cap 6
+        fails.append(f"ties a release {sorted(rel_.values())}, not 3 to 6 for a 3-year term")
+    if late_:
+        fails.append(f"{len(late_)} ties last past 10 years")
+    if not R_["hits"] or not R_["steps"] or not R_["posts"] or not R_["why"].get("place closed") or not R_["care"] \
+            or not R_["pull"] or not R_["freed"] or not R_["pull_u"]:
+        fails.append(f"something was never met: {dict((k_, v_) for k_, v_ in R_.items() if k_ != 'c')}")
+    fails = list(dict.fromkeys(fails))
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the finishing pack's behaviour (W2 to W4): {R_['hits']} regulars freed by a "
+          f"closing ({R_['steps']} rungs stepped down), {R_['why'].get('place closed', 0)} post ended with its place; care "
+          f"seeking rises with trust ({R_['care']} life-weeks read); {len(made_)} ties inside, {sorted(set(rel_.values()))} a "
+          f"release at strength {sorted(R_['c'])}, none past 10 years; the pull back on {R_['pull']} life-weeks, off for a "
+          f"partner or steady work {R_['freed']}, odds x{TV_['pull_back']['reoffend']} on {R_['pull_u']} options"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)
