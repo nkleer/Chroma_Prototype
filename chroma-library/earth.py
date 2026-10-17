@@ -62527,7 +62527,7 @@ ECHOES = [
  'life': 'public life, work, school',
  'horizon': 'months',
  'roles': 'an official, a teacher, boss, elder',
- 'who': 'teacher, boss, elder',
+ 'who': 'boss, elder',
  'worlds': {'earth': 'the office, school or council you once stood up to has your name on file, and now you need '
                      'something from it'},
  'timing': {'times': 'Uncommon: perhaps 1 in 8 people who openly defied a school, office or council later need it '
