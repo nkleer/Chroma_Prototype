@@ -343,6 +343,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("trust in a sphere's bodies (body_trust; with felt fairness, the levers, the events and C3)",
+        dict(body_trust=True, fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True,
+             sph_hours=True, cur_on=True),
+        dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True,
+             cur_on=True), 40, 6),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
@@ -417,7 +422,8 @@ def p2_row(row_):
         fails.append(f"run_steps differs in {diff[:4]}")
     off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
-    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x not in ("world", "btrust", "btrust_y")]:   # (a
+        # switch's own new outputs, body_trust's trust, do not count as the lives moving)
         fails.append("switched on, the lives are those with it off")
     return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
                          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")

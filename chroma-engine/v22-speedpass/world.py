@@ -480,6 +480,9 @@ W_DEFAULT = dict(
                        # the strike vote on the world's strike, the congregation's split on a revival, a new movement or
                        # a drift from its faith body (world_link.C2_MOMENTS); c2_par: its tuning (world_link.C2_DEFAULT)
     c2_par=None,
+    # ---- the spheres' finishing pack (chroma-world/spheres/finish-pack-draft.md). Off, nothing of it is computed or saved
+    body_trust=False,  # part 3, trust in a sphere's bodies: each life's btrust per sphere (sphere_data.TRUST; world_people);
+                       # with sph_fair
 )
 # the switches above (stage3-rules.md §8)
 S3_RULES = ("cult_schools", "cult_scenes", "cult_adults", "cult_anchor", "cult_pushback", "cult_shake", "cult_no_dice",
@@ -496,6 +499,7 @@ V224_RULES += ("sacred", "sacred_par")   # S5 sacred lines
 V224_RULES += ("seen_done", "seen_par")   # S6 seen it done
 V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
+FIN_RULES = ("body_trust",)   # the spheres' finishing pack's switches (part 3, trust in a sphere's bodies); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
 # social-mechanics.md S1) until the Outer world's tags (sphere_data.FAIR["parts"]) take their place
@@ -3991,6 +3995,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in FIN_RULES):      # the finishing pack's switches off: saved without them
+            par = {k: v for k, v in par.items() if k not in FIN_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in FIN_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
             par = {k: v for k, v in par.items() if k not in C_RULES}
             if "params" in cfg:
@@ -4010,6 +4020,8 @@ class World:
     def load(cls, d):
         params = dict(d["params"])
         for k in S3_RULES + SPH_RULES + V224_RULES:        # saved before stage 3, the spheres or v22.4: their rules stay off
+            params.setdefault(k, False)
+        for k in FIN_RULES:                                # saved before the finishing pack: its switches stay off
             params.setdefault(k, False)
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)

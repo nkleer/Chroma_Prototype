@@ -865,6 +865,9 @@ DEFAULT = dict(
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
+    body_trust=False,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
+                         # switch, with sph_fair; chroma-world/spheres/finish-pack-draft.md, sphere_data.TRUST): it tilts the
+                         # levers, care seeking and the felt odds of pursuits in those bodies, and gates trust: moments
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -1308,6 +1311,9 @@ DEED_RARE = ("made an enemy", "hid a wrong", "defied an authority")
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
 EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an illness", "an unexpected windfall or loss of money",
            "a natural disaster hits where you live", "a hard season of scarcity", "a season of plenty", "a brush with death"}
+# body_trust (finish-pack-draft.md part 3; dynamics.json body_trust effects, not among sphere_data.TRUST's numbers): care
+# seeking for an illness x (.7 + .6 x btrust[care])
+BT_CARE = (0.7, 0.6)
 # the channel a life event the world made likelier is reported in (wfx), by its kind (world_link.RK)
 WFX_OPT = (0.25, 0.02)   # option_causes names a closure from this many units (access x .6 per unit), odds from this added difficulty
 WFX_RISK = {"illness": "illness risk", "old_death": "death risk", "disaster": "disaster risk", "crime": "crime risk",
@@ -1481,6 +1487,8 @@ UPD_OFF = dict(dis_match=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
                sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
+               # the spheres' finishing pack: trust in a sphere's bodies (part 3)
+               body_trust=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -2811,6 +2819,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
     LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
     SEEN_ON = False
+    BT_ON = False; btrust = None   # body_trust (world on): trust in a sphere's bodies, the People's array
+    TRG_ = np.asarray(L.get("W_TRUST", np.full((L["S"], 2), -1))).reshape(-1, 2)[:L["S"]]   # body_trust's moment gate:
+    TRG_S_ = np.nonzero(TRG_[:, 0] >= 0)[0]                  # (sphere, 0 low / 1 high) per moment (batch.py; -1 none)
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
     SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
@@ -2833,6 +2844,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
         if SEEN_ON:
             SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
+        BT_ON = bool(P.get("body_trust")) and bool(getattr(WL.PP, "bt_on", False))   # finishing pack part 3 (world_people)
+        if BT_ON:
+            import sphere_data as SD_
+            btrust = WL.PP.btrust                          # the People's own array (N x 9, NaN before 15), updated in place
+            BTJ_ = SD_.TRUST["jumps"]; BT_G = SD_.TRUST["gate"]
+            BT_CARE_J = WLM.WK.SPHERES.index("care"); BT_PROT_J = WLM.WK.SPHERES.index("prot"); BT_RULE_J = WLM.WK.SPHERES.index("rule")
+            # an own run-in with a body (finish-pack-draft.md: an unjust verdict, a cure that failed, a heavy hand; a fair
+            # hearing, a cure, help from the watch): a moment set at a body (at:) in that body's sphere, else an illness's
+            # moment in care and a crime's in prot; its act working is the run-in going well, failing going against them
+            at_ = np.asarray(L.get("W_AT", np.full(L["S"], -1)))[:L["S"]]
+            BT_RUN = np.where(at_ >= 0, WLM.PM.BT_INST_J[np.maximum(at_, 0)], -1)
+            BT_RUN = np.where((BT_RUN < 0) & WL.ill_s, BT_CARE_J, BT_RUN)
+            BT_RUN = np.where((BT_RUN < 0) & (WL.rk == WLM.RK.index("crime")), BT_PROT_J, BT_RUN)
+            bt_y = np.full((N, years, len(WLM.WK.SPHERES)), np.nan)   # each life's trust at the end of each year of age
+            if RON:   # the body kind each title is held at (its institution's, or the force's by name; -1 none)
+                _bins = np.asarray(GR.get("institution", np.full(NT_, -1)))[:NT_]
+                BT_TK = np.array([WLM.PM.bt_title_kind(GR["names"][i_], _bins[i_]) for i_ in range(NT_)], np.int64)
+                BT_TI = np.nonzero(BT_TK >= 0)[0]
         if getattr(WL.PP, "family_mix", None) is not None:
             fam = np.array(WL.PP.family_mix, float)
         older_sib = np.asarray(WL.PP.older_sib, int).copy(); younger_sib = np.asarray(WL.PP.younger_sib, int).copy()
@@ -3290,6 +3319,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0) ** DP2_["decline_k"]   # F2: the decline
         lean_ = (w - 0.2) / 0.2                                  # each colour's share above or below even, per .2
         lean_c = lean_ @ BCARE_
+        if BT_ON:   # body_trust: care seeking (1 + the early-care lean) x (.7 + .6 x btrust[care]), read back as the lean
+            bc_ = btrust[:, BT_CARE_J]
+            lean_c = _uclip((1 + _uclip(lean_c, -1, 1)) * np.where(np.isnan(bc_), 1.0, BT_CARE[0] + BT_CARE[1] * bc_) - 1, -1, 1)
         tab_ = np.interp(age, BAGE_X, BAGE_Y)
         dip_f = float(tab_ / BAGE_Y.max()) if BP_["dip_level"] else 1.0
         low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
@@ -3615,7 +3647,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 dl_t0, dl_cause, bd_cw, bd_ck, bd_sk, HM_ON, DTH_ON, settle_f, e_i, e_p, wfx, option_causes,
                 ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
-                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise)
+                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()
@@ -3650,6 +3682,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if RON and len(W_SDI_):   # each domain's standing from the titles held (one level 0-3 per domain)
                 st_t_ = r_has[:, W_SDI_] * W_STD_[W_SDI_]
                 dst_w = np.stack([np.where(W_SDOM_ == d_, st_t_, 0).max(1) for d_ in range(len(WLM.WK.DOMAINS))], 1)
+            if BT_ON and RON and len(BT_TI):   # body_trust: the body each life holds a job at (a year there lifts its trust)
+                WL.PP.bt_kind[:] = np.where(r_has[:, BT_TI], BT_TK[BT_TI][None], -1).max(1)
             WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
                             partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
@@ -3817,6 +3851,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if BORN_S_ >= 0:   # F7: the moment a child is born is a birth, at least a year after the last one
                 gate[:, BORN_S_] &= (t - kid_last) >= 52
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
+            if len(TRG_S_):   # body_trust's gate (trust: <sphere> low|high): under the gate's low or over its high; never
+                if BT_ON:      # with body_trust off or the world off, or before the life's trust starts at 15
+                    f_ = btrust[:, TRG_[TRG_S_, 0]]
+                    gate[:, TRG_S_] &= np.where(TRG_[TRG_S_, 1] == 0, f_ < BT_G["low"], f_ > BT_G["high"])
+                else:
+                    gate[:, TRG_S_] = False
             if SEA_ON:
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
@@ -4283,6 +4323,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         if SEEN_ON:   # S6: a path or colour way seen walked feels more possible, one seen failing less (felt odds only)
             p_hat = WL.seen_felt(p_hat, s, m, ~do_nothing, mask)
+            if BT_ON:   # body_trust: a pursuit in a sphere's bodies feels likelier with trust in them (felt odds only)
+                p_hat = WL.trust_felt(p_hat, s, ~do_nothing)
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
         serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
@@ -4332,6 +4374,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if P.get("sph_fair"):   # spheres phase 4: felt fairness tilts exit, neglect and subvert against voice and loyalty
                 fU_ = WL.fair_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # log odds x the choice's tau
                 U_R = U_R + fU_; U_I = U_I + fU_
+            if BT_ON:   # body_trust: low trust in a sphere's bodies tilts exit and neglect (and subvert) against voice, high
+                bU_ = WL.trust_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # trust voice and loyalty (log odds x tau)
+                U_R = U_R + bU_; U_I = U_I + bU_
             if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
                 oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
                 U_R = U_R + oU_; U_I = U_I + oU_
@@ -4401,6 +4446,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             p_true = yield Pause("odds", t, pz_st, p_true)
             pz_st._fr = None
         succ = rng.random(N) < p_true
+        if BT_ON:   # body_trust: an own run-in with a body this week, gone well (good) or against them (bad)
+            ri_ = ~idle & ~recon & ~dead & (BT_RUN[s] >= 0)
+            for j_ in np.unique(BT_RUN[s][ri_]).tolist():
+                WL.PP.bt_jump(np.nonzero(ri_ & succ & (BT_RUN[s] == j_))[0], j_, BTJ_["own_run_in_good"], "good")
+                WL.PP.bt_jump(np.nonzero(ri_ & ~succ & (BT_RUN[s] == j_))[0], j_, BTJ_["own_run_in_bad"], "bad")
         if SHON:   # a shadow shows: an act in the ruling colour's own ways fails while its shadow is strong (check 5)
             shw_ = (ma * shA)
             for n in np.nonzero(~succ & ~idle & (shw_.max(1) > 0.3))[0]:
@@ -4914,6 +4964,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             r_gain(n, GR["ID"]["has taken a life"], "took a life")
                         if caught_ and EYES_ON_:   # S3: a crime found out, read by their places in the act's colours
                             WL.PP.eyes_see([n], ma[n][None], [0.0], "crime")
+                        if caught_ and BT_ON:   # body_trust: an arrest and a verdict, a run-in gone against them
+                            for j_ in (BT_PROT_J, BT_RULE_J):
+                                WL.PP.bt_jump(n, j_, BTJ_["own_run_in_bad"], "bad")
                         if caught_:
                             if "someone with a record" in GR["ID"]:
                                 r_gain(n, GR["ID"]["someone with a record"], "arrested")
@@ -6100,6 +6153,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             brk_log.append((int(n), t, rec))
             if n in events:
                 events[n].append(dict(breakthrough=rec))
+        if BT_ON and t % 52 == 51:   # body_trust: each life's trust at the end of the year of age (NaN before 15 and once ended)
+            bt_y[:, t // 52] = np.where(dead[:, None], np.nan, btrust)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             _ = yield Pause("end", t, pz_st, None)
@@ -6136,6 +6191,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
+                **(dict(btrust=btrust.copy(), btrust_y=bt_y) if BT_ON else {}),
                 **(dict(current=cur_sum) if CUR_ON else {}),
                 **(dict(body=dict(body=body_v, mind=mind_v, conditions=dict(weight=bd_cw, kind=bd_ck, age=bd_ca, kinds=COND_KINDS),
                                   serious=dict(kind=bd_sk, since=bd_s0, until=bd_s1, kinds=SER_KINDS), kept=bd_keep,
@@ -6207,7 +6263,8 @@ STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_le
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
 # and tools/t_steps.py's (this week's drift, at drift_k 0)
-STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise")
+STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise",
+              "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
 
