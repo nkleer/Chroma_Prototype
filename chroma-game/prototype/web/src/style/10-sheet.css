@@ -1,0 +1,255 @@
+  /* ---------- the character sheet in tabs (parts/sheet.css) ---------- */
+  /* ================= v22 next look: the character sheet in tabs (parts/sheet.css; appended after "point 13") =================
+     A night header like the event window's, parchment below; tabs Portrait, Colours, Inner life, Around them, Ledger.
+     The box keeps one height, so switching tabs does not make it jump; the panel area scrolls inside. */
+  .help .sheet.box { position: relative; width: min(1180px, 100%); max-width: none; height: min(760px, calc(100vh - 32px)); height: min(760px, calc(100dvh - 32px));
+    max-height: none; display: flex; flex-direction: column; overflow: hidden; padding: 0; border-radius: 8px; box-sizing: border-box; }
+  .sheet .shh { position: relative; flex: none; display: flex; align-items: center; gap: 8px 28px; flex-wrap: wrap; padding: 14px 64px 14px 24px; border-bottom: 1px solid #8a6a2c;
+    --ink: #f3e8cb; --ink2: #e2d6b6; --muted: #b9add0; --faint: #948bb3; --gold: #d8b469; --gold2: #f4dfa6; --hl: 255 255 255;
+    background: linear-gradient(180deg, #2b2242, #161128); color: var(--ink); box-shadow: inset 0 -3px 0 rgb(216 180 105 / 0.15); }
+  .sheet .shwho { min-width: 0; }
+  .sheet .shh .shn { font: 600 var(--fs-4)/1.2 var(--display); letter-spacing: 0.02em; color: #f6ebcf; }
+  .sheet .shh .muted { color: var(--muted); font-size: var(--fs-2); }
+  .sheet .shh .shid { flex: 1 1 280px; min-width: 0; display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+  .sheet .shh .shid > div { min-width: 0; max-width: 48ch; }
+  .sheet .shh .shid .pips { font-size: var(--fs-3); flex: none; }
+  .sheet .shh .shid b { font: 600 var(--fs-3) var(--display); color: var(--gold2); }
+  .sheet .shh .shid .muted { font-size: var(--fs-1); line-height: 1.35; }
+  .sheet .shh .shid .mg { font-size: var(--fs-1); color: var(--faint); }
+  .sheet #shClose { position: absolute; top: 12px; right: 12px; padding: 8px; border-radius: 8px; color: var(--ink2); background: rgb(255 255 255 / 0.06); font-size: var(--fs-3); }
+  .sheet #shClose:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
+
+  /* the tabs */
+  .sheet .shtabs { position: relative; flex: none; display: flex; align-items: stretch; gap: 2px; padding: 0 16px; min-width: 0; border-bottom: 1px solid var(--line);
+    overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; background: linear-gradient(180deg, rgb(255 252 240 / 0.55), rgb(255 252 240 / 0)); }
+  .sheet .shtabs::-webkit-scrollbar { display: none; }
+  .sheet .shtab { flex: none; display: inline-flex; align-items: center; gap: 7px; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; margin: 0; padding: 12px 14px 10px;
+    background: none; font: 500 var(--fs-2) var(--ui); color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .sheet .shtab svg { color: var(--faint); }
+  .sheet .shtab:hover { color: var(--ink); background: rgb(var(--hl) / 0.05); }
+  .sheet .shtab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+  .sheet .shtab[aria-selected="true"] svg { color: var(--gold); }
+  .sheet .shtab:focus-visible { outline: 2px solid rgb(140 105 25 / 0.5); outline-offset: -6px; border-radius: 8px; }
+  .sheet .shtabs.fr { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent); }
+  .sheet .shtabs.fl { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px); mask-image: linear-gradient(90deg, transparent, #000 40px); }
+  .sheet .shtabs.fl.fr { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
+  .sheet .shhint { margin-left: auto; align-self: center; padding-left: 16px; font-size: var(--fs-1); color: var(--faint); white-space: nowrap; }
+
+  /* the panels: grids of sections, the area under the tabs scrolls */
+  .sheet .shpanels { flex: 1 1 auto; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+  .sheet .shpanel { display: grid; gap: 4px 32px; align-items: start; padding: 18px 24px 26px; box-sizing: border-box; min-width: 0; }
+  .sheet .shpanel:focus { outline: none; }
+  .sheet .shpanel:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+  .sheet .shsec { min-width: 0; }
+  .sheet .shpanel h4 { margin: 16px 0 8px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  .sheet .shsec > h4:first-child { margin-top: 0; }
+  .sheet .p-portrait { grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(230px, 290px); grid-template-areas: "a b c"; }
+  .sheet .sa-a { grid-area: a; } .sheet .sa-b { grid-area: b; } .sheet .sa-c { grid-area: c; }
+  .sheet .p-colours { grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); }
+  .sheet .p-inner, .sheet .p-around { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sheet .p-ledger { grid-template-columns: minmax(0, 1.7fr) minmax(240px, 1fr); }
+
+  /* Portrait */
+  .sheet .shport { margin: 0; font: 400 var(--fs-3)/1.58 var(--serif); color: var(--ink); text-wrap: pretty; }
+  .sheet .shport em { color: var(--ink2); }
+  .sheet .shk { color: var(--k); font-weight: 500; text-decoration: underline dotted; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  .sheet .shtraits { display: grid; grid-template-columns: minmax(0, max-content) minmax(40px, 1fr) max-content; gap: 0 14px; }
+  .sheet .shtrait { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center; padding: 2px 0; cursor: help; }
+  @supports not (grid-template-columns: subgrid) { .sheet .shtrait { grid-template-columns: 112px minmax(40px, 1fr) 11em; gap: 14px; } }
+  .sheet .shtrait .ml { font: 500 var(--fs-2) var(--ui); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sheet .shtrait:hover .ml, .sheet .shtrait.on .ml { color: var(--ink); }
+  .sheet .shbar { position: relative; height: 6px; border-radius: 3px; background: rgb(var(--hl) / 0.12); overflow: hidden; }
+  .sheet .shbar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+  .sheet .shtrait b { font: 600 var(--fs-2)/1.25 var(--serif); color: var(--ink); text-align: right; }
+  .sheet .shcbars { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding: 2px 4px 0; }
+  .sheet .shcb { display: grid; justify-items: center; gap: 6px; cursor: help; padding: 4px 0; border-radius: 8px; }
+  .sheet .shcb:hover, .sheet .shcb.on { background: rgb(var(--hl) / 0.06); }
+  .sheet .shcb .t { position: relative; width: 16px; height: 84px; border-radius: 8px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
+  .sheet .shcb .t i { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 8px; opacity: 0.9; }
+  .sheet .shcb .t s { position: absolute; left: 0; right: 0; height: 2px; margin-bottom: -1px; background: var(--ink); opacity: 0.7; }
+  .sheet .shcb .t .edge { position: absolute; left: 0; right: 0; background: var(--gold); opacity: 0.28; }
+  .sheet .shcb .pip { font-size: var(--fs-2); }
+  .sheet .shcb small { font: 600 var(--fs-1) var(--ui); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .sheet .shcb small.on { color: var(--ink); }
+  .sheet .shlegend { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 12px; margin-top: 6px; font-size: var(--fs-1); color: var(--muted); }
+  .sheet .shlegend span { display: inline-flex; align-items: center; gap: 5px; }
+  .sheet .shlegend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+  .sheet .shlegend .lg-now { background: linear-gradient(90deg, var(--cU), var(--cR)); opacity: 0.9; }
+  .sheet .shlegend .lg-want { height: 2px; border-radius: 0; background: var(--ink); opacity: 0.7; }
+  .sheet .shlegend .lg-edge { background: var(--gold); opacity: 0.35; }
+  .sheet .shriverw { cursor: help; }
+  .sheet svg.shriver { display: block; width: 100%; height: 80px; overflow: visible; }
+  .sheet .shriver .bd path { fill-opacity: 0.86; stroke: var(--paper); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+  .sheet .shriver .gr line { stroke: rgb(var(--hl) / 0.2); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+  .sheet .shrax { position: relative; display: flex; justify-content: space-between; margin-top: 4px; font-size: var(--fs-1); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .sheet .shrax span[style] { position: absolute; top: 0; translate: -50% 0; color: var(--faint); }
+  .sheet .shstates { justify-content: flex-start; }
+  .sheet .sharound { display: grid; }
+  .sheet .sharound .r { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 6px 2px; border-bottom: 1px dashed var(--line); font-size: var(--fs-2); color: var(--muted); cursor: help; }
+  .sheet .sharound .r:hover, .sheet .sharound .r.on { color: var(--ink); }
+  .sheet .sharound .r b { font: 600 var(--fs-2) var(--serif); color: var(--ink); text-align: right; min-width: 0; }
+  .sheet .shppl { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sheet .shp { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 3px 10px 3px 3px; border: 0; border-radius: 999px; background: rgb(var(--hl) / 0.08);
+    font: 500 var(--fs-2) var(--ui); color: var(--ink); cursor: help; }
+  .sheet .shp.far { opacity: 0.7; }
+  .sheet .shp small { font-size: var(--fs-1); color: var(--muted); }
+  .sheet .shp .av { width: 22px; height: 22px; flex: none; font-size: var(--fs-1); color: #fffaf0; box-shadow: none; cursor: inherit;
+    background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--ac) 80%, #fff), color-mix(in srgb, var(--ac) 55%, #2a2116)); }
+  .sheet .shp.more { padding: 4px 12px; color: var(--muted); cursor: pointer; }
+  .sheet .shp.more:hover { color: var(--ink); background: rgb(var(--hl) / 0.14); }
+  .sheet .shpanel .chip { white-space: normal; max-width: 100%; box-sizing: border-box; }
+  .sheet .shtl { font-size: var(--fs-2); padding: 3px 10px 3px 8px; background: rgb(var(--hl) / 0.08); color: var(--ink); }
+  .sheet .shtl svg { color: var(--gold); }
+  .sheet .shtl.stat { font-weight: 600; }
+
+  /* tables keep the parchment ink and the type size even where the page runs in quirks mode (no doctype) */
+  .sheet .shpanel table { color: var(--ink); line-height: 1.45; font-style: normal; }
+  /* Colours */
+  .sheet .p-colours svg.wheel.big { max-width: 300px; margin: 0 auto; }
+  .sheet .shnow { width: 100%; border-collapse: collapse; font: 500 var(--fs-2) var(--ui); font-variant-numeric: tabular-nums; }
+  .sheet .shnow th, .sheet .shnow td { padding: 6px 8px; text-align: right; border-bottom: 1px dashed var(--line); }
+  .sheet .shnow thead th { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); cursor: help; }
+  .sheet .shnow tbody th { text-align: left; font-weight: 500; color: var(--ink); white-space: nowrap; }
+  .sheet .shnow tbody th .pip { margin-right: 7px; }
+  .sheet .shnow tbody tr { cursor: help; }
+  .sheet .shnow tbody tr:hover, .sheet .shnow tbody tr.on { background: rgb(var(--hl) / 0.06); }
+  .sheet .shnow td.on { font-weight: 700; color: var(--ink); }
+  .sheet .shnow .pl { text-align: left; padding-left: 22px; }
+  .sheet .shnow td:not(.pl), .sheet .shnow thead th:not(.pl):not(:first-child) { width: 76px; }
+  .sheet .shnow td.pl { color: var(--muted); }
+  .sheet .shnow .ar { display: inline-block; width: 1.4em; text-align: center; font-size: var(--fs-1); color: var(--faint); }
+  .sheet .shideas { display: grid; gap: 6px; }
+  .sheet .shideas > div { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; align-items: baseline; font: 400 var(--fs-2)/1.45 var(--serif); color: var(--ink2); }
+  .sheet .shideas b { font-weight: 600; color: var(--ink); margin-right: 4px; }
+  .sheet .shpanel .path { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 3px; }
+  .sheet .shpanel .path > .muted { display: none; }
+  .sheet .shpanel .path .chip { position: relative; justify-content: flex-start; padding: 2px 12px 2px 5px; font-size: var(--fs-2); line-height: 1.35; background: rgb(var(--hl) / 0.06); color: var(--ink); border-radius: 7px; cursor: default; }
+  .sheet .shpanel .path .chip:last-child { background: rgb(var(--hl) / 0.13); font-weight: 600; }
+  .sheet .shpanel .path .chip > .muted { margin-left: auto; padding-left: 10px; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* Inner life, Around them, Ledger: the old sheet's rows, a size up now that each has room */
+  .sheet .shpanel .mts { gap: 7px 10px; grid-template-columns: minmax(8.5em, max-content) minmax(48px, 1fr) minmax(3.4em, max-content); }
+  .sheet .shpanel .mts > * { grid-column: 1 / -1; }
+  .sheet .shpanel .mt { font-size: var(--fs-2); grid-template-columns: subgrid; }
+  @supports not (grid-template-columns: subgrid) { .sheet .shpanel .mt { grid-template-columns: minmax(0, 9.5em) minmax(48px, 1fr) minmax(3.4em, max-content); } }
+  .sheet .shpanel .sdef { font-size: var(--fs-2); line-height: 1.4; margin-bottom: 10px; gap: 4px; }
+  .sheet .shpanel .sdef .chip, .sheet .shpanel .sdef .st { font-size: var(--fs-1); }
+  .sheet .shpanel .drm .gn { font-size: var(--fs-2); white-space: normal; }
+  .sheet .shpanel .ptab { font: 400 var(--fs-2)/1.45 var(--ui); }
+  .sheet .shpanel .ptab tr { cursor: help; }
+  .sheet .shpanel .ptab td { padding: 3px 10px 3px 0; border-bottom: 1px dashed rgb(var(--hl) / 0.12); }
+  .sheet .shpanel .ptab .av { color: #fffaf0; box-shadow: none; background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--ac) 80%, #fff), color-mix(in srgb, var(--ac) 55%, #2a2116)); }
+  .sheet .shpanel .ptab .av.gone { background: #b7aa92; }
+  .sheet .shpanel .perks { gap: 5px; }
+  .sheet .shpanel .perk { font-size: var(--fs-1); background: rgb(var(--hl) / 0.07); }
+  .sheet .p-ledger .ctab { margin-top: 0; font-size: var(--fs-2); }
+  .sheet .p-ledger .ctab th, .sheet .p-ledger .ctab td { padding: 6px 10px; border-bottom: 1px dashed var(--line); }
+  .sheet .p-ledger .ctab thead th { border-bottom: 1px solid var(--line); vertical-align: bottom; }
+  .sheet .p-ledger .ctab td, .sheet .p-ledger .ctab thead th { text-align: center; }
+  .sheet .p-ledger .ctab tbody tr:nth-child(3) > *, .sheet .p-ledger .ctab tbody tr:nth-child(6) > *, .sheet .p-ledger .ctab tbody tr:nth-child(8) > * { border-bottom: 1px solid var(--line); }
+  .sheet .ctab .cn { display: block; margin-top: 3px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; color: var(--muted); }
+  .sheet .shnote { margin: 16px 0 0; font-size: var(--fs-1); color: var(--muted); }
+
+  /* narrower: the portrait's paragraph across the top, the three-column panels in two */
+  @media (max-width: 1000px) {
+    .sheet .p-portrait { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "b b" "a c"; }
+    .sheet .p-portrait .sa-b { margin-bottom: 10px; }
+    .sheet .p-inner, .sheet .p-around { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sheet .p-inner > .shsec:last-child, .sheet .p-around > .shsec:last-child { grid-column: 1 / -1; }
+    .sheet .shhint { display: none; }
+  }
+  @media (max-width: 780px) {
+    .sheet .p-colours, .sheet .p-ledger { grid-template-columns: minmax(0, 1fr); }
+  }
+  /* phone: one column, the tabs scroll sideways, nothing wider than the screen */
+  @media (max-width: 640px) {
+    .help .sheet.box { padding: 0; }
+    .sheet .shh { padding: 12px 54px 12px 14px; gap: 8px 14px; }
+    .sheet .shh .shid { flex-basis: 100%; justify-content: flex-start; align-items: flex-start; }
+    .sheet .shh .shid .pips { margin-top: 2px; }
+    .sheet .shh .muted { font-size: var(--fs-1); }
+    .sheet #shClose { top: 8px; right: 8px; }
+    .sheet .shtabs { padding: 0 6px; }
+    .sheet .shtab { padding: 11px 10px 9px; gap: 6px; }
+    .sheet .shpanel { padding: 14px; gap: 4px; }
+    .sheet .p-portrait, .sheet .p-colours, .sheet .p-inner, .sheet .p-around, .sheet .p-ledger { grid-template-columns: minmax(0, 1fr); grid-template-areas: none; }
+    .sheet .p-portrait .shsec { grid-area: auto; }
+    .sheet .p-portrait .sa-b { margin-bottom: 0; }
+    .sheet .shsec > h4:first-child { margin-top: 0; }
+    .sheet .shsec + .shsec > h4:first-child { margin-top: 18px; }
+    .sheet .p-inner > .shsec:last-child, .sheet .p-around > .shsec:last-child { grid-column: auto; }
+    .sheet .shport { font-size: var(--fs-3); line-height: 1.55; }
+    .sheet .shtraits { gap: 0 10px; grid-template-columns: minmax(0, max-content) minmax(32px, 1fr) max-content; }
+    .sheet .shnow th, .sheet .shnow td { padding: 6px 4px; }
+    .sheet .shnow .pl { padding-left: 8px; }
+    .sheet .shnow td:not(.pl), .sheet .shnow thead th:not(.pl):not(:first-child) { width: auto; }
+    .sheet .shnow td.pl { white-space: nowrap; font-size: var(--fs-1); }
+    .sheet .shnow .cn { display: none; }
+    .sheet .shnow tbody th .pip { margin-right: 0; }
+    .sheet .p-colours svg.wheel.big { max-width: 260px; }
+    .sheet .p-ledger .ctab th, .sheet .p-ledger .ctab td { padding: 5px 4px; }
+    .sheet .p-ledger .ctab { font-size: var(--fs-1); }
+    .sheet .ctab .cn { display: none; }
+    .sheet .shpanel .mts { grid-template-columns: minmax(7.5em, max-content) minmax(40px, 1fr) minmax(3.2em, max-content); column-gap: 8px; }
+    .sheet .shpanel .ptab td { padding-right: 6px; }
+  }
+
+  /* The Book and the World share the sheet's box and night header, but not its tabs: their body scrolls under a sticky header. */
+  .help .sheet.box.bookp, .help .sheet.box.world { height: auto; max-height: min(860px, calc(100vh - 32px)); max-height: min(860px, calc(100dvh - 32px)); overflow-y: auto; padding: 0 0 22px; }
+  .sheet.bookp > .shh, .sheet.world > .shh { position: sticky; top: 0; z-index: 2; padding-right: 16px; }
+  .sheet.bookp > :not(.shh), .sheet.world > :not(.shh) { flex: none; margin-left: 24px; margin-right: 24px; }
+  .sheet.bookp #bkClose, .sheet.world #wClose { padding: 8px; border-radius: 8px; color: var(--ink2); background: rgb(255 255 255 / 0.06); font-size: var(--fs-3); }
+  .sheet.bookp #bkClose:hover, .sheet.world #wClose:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
+  @media (max-width: 640px) { .sheet.bookp > :not(.shh), .sheet.world > :not(.shh) { margin-left: 14px; margin-right: 14px; } }
+  @media (max-width: 640px) { .app[data-mode="menu"] .brand, .app[data-mode="boot"] .brand, .app[data-mode="custom"] .brand, .app[data-mode="name"] .brand { display: flex; } }   /* the start screen's bar keeps the name of the game */
+  @media (max-width: 800px) { .app:not([data-mode="menu"]):not([data-mode="boot"]):not([data-mode="custom"]):not([data-mode="name"]) .brand { display: none; } }   /* in play the name and identity get the room */
+  /* C-X3 (release check, 10-07): the reading never covers or catches an option. On a wide screen it opens as a card over the picture
+     in the story column, only while an option is hovered or focused, so it takes no room from the cards and never moves them (a
+     strip that grew under the cards hid the low ones and, as the window re-centred, could flicker under a resting mouse). A window
+     under 880 px tall also tightens the moment's spacing, so a big moment (three groups and Do nothing) fits at 1280x800. */
+  @media (min-width: 901px) {
+    .dstrip { position: absolute; z-index: 3; top: 56px; bottom: auto; left: 12px; width: 376px; max-height: calc(100% - 128px); overflow: hidden;
+      margin: 0; padding: 10px 14px 11px; min-height: 0; pointer-events: none; border: 1px solid #b39555; border-radius: 8px;
+      background: linear-gradient(180deg, #fbf5e6, #efe3c7); box-shadow: 0 14px 30px -14px rgb(30 20 5 / 0.7); }
+    .dstrip.idle { display: none; }
+    .dstrip .facts > span { white-space: normal; }                 /* the card is narrower than the strip was: a long fact wraps */
+    .evr { scroll-padding-bottom: 8px; }
+  }
+  @media (min-width: 901px) and (max-height: 880px) {
+    .evwrap { padding-block: 8px; }
+    .ev .evh, .ev .evf { padding-block: 6px; }
+    .evr { padding-block: 8px; gap: 4px; }
+    .ev .ask { margin-top: 2px; }
+    .ev .ask.sub { margin-top: 4px; }
+    .ogrid { gap: 5px; }
+    .ogrid .opt { padding: 6px 10px 5px 9px; }
+    .ogrid .opt .ometa { min-height: 18px; }
+    .ogrid .opt .ometa:empty { display: none; }
+    .opt.onone { margin-top: 4px; padding-block: 5px; }
+    .opt.onone .obody { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+    .opt.onone .ot { flex: none; white-space: nowrap; }
+    .opt.onone .os { display: block; min-width: 0; margin-top: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  }
+  /* v22.1: windows 760 px tall or less (a 1280x720 screen) get tighter spacing still, so a moment of eleven options fits
+     without scrolling (v22 scrolled up to about 90 px there; 0 of 40 moments scroll with these) */
+  @media (min-width: 901px) and (max-height: 760px) {
+    .evwrap { padding-block: 4px; }
+    .ev .evh, .ev .evf { padding-block: 4px; }
+    .evr { padding-block: 5px; gap: 2px; }
+    .ev .ask { margin-top: 0; }
+    .ev .ask.sub { margin-top: 2px; }
+    .ogrid { gap: 3px; }
+    .ogrid .opt { padding: 3px 10px 2px 9px; }
+    .ogrid .opt .ometa { min-height: 16px; }
+    .opt.onone { margin-top: 2px; padding-block: 3px; }
+  }
+  /* G1 (B package): "Out of reach, but you could force it" folds into one row until opened; its cards are drawn only
+     when open. The row is a button (Enter or Space), with the count and the keys of the cards inside. */
+  .ev .ask.oorfold { width: 100%; border: 0; background: none; padding: 2px 0; cursor: pointer; text-align: left; color: var(--gold); }
+  .ev .ask.oorfold::after { order: 1; }
+  .ev .ask.oorfold .chev { order: 2; font-size: 11px; letter-spacing: 0; transition: transform 0.18s ease; }
+  .ev .ask.oorfold[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .ev .ask.oorfold:hover small, .ev .ask.oorfold:focus-visible small { color: var(--ink2); }
+  .ev .ask.oorfold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  .ogrid.oorg:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .ev .ask.oorfold .chev { transition: none; } }

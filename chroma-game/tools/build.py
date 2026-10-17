@@ -233,6 +233,10 @@ def main():
     app_dir = os.path.join(G, "web", "src", "app")      # the app's parts (one app.js in a game from before 10-17)
     key[-3:-3] = (sorted("web/src/app/" + f for f in os.listdir(app_dir) if f.endswith(".js")) if os.path.isdir(app_dir)
                   else ["web/src/app.js"])
+    style_dir = os.path.join(G, "web", "src", "style")  # the style's parts (all in head.html in a game from before 10-17)
+    if os.path.isdir(style_dir):
+        i = key.index("web/src/head.html") + 1
+        key[i:i] = sorted("web/src/style/" + f for f in os.listdir(style_dir) if f.endswith(".css"))
     rows2 = "\n".join(f"| {f} | {md5(os.path.join(G, f))[:12]} |" for f in key if os.path.isfile(os.path.join(G, f)))
     open(os.path.join(OUT, "BUILD.md"), "w").write(
         f"# Game build, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC\n\n"

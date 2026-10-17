@@ -1,0 +1,111 @@
+  /* ---------- the story page: prose with margin glyphs, the world folded into one line a year ---------- */
+  .en .gut.nod { visibility: hidden; }
+  .en.wline { font: 400 var(--fs-2)/1.55 var(--serif); color: var(--muted); }
+  .paper .en.wline { font-size: var(--fs-2); color: var(--muted); }
+  .en.wline .wk { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold3); margin-right: 8px; }
+  .en.wline .wp + .wp::before { content: "·"; margin: 0 8px; color: var(--faint); }
+  .en.wline .gut { top: 1px; }
+  .en.wline .mk { font-weight: inherit; text-decoration-color: rgb(var(--hl) / 0.3); }
+  .yh .ag { letter-spacing: 0.1em; }
+
+  /* ---------- the start: the spread on the night table, the life set up on the reading ---------- */
+  .app[data-mode="menu"] .screen, .app[data-mode="boot"] .screen { padding-top: 2px; }
+  .app[data-mode="menu"] .hero { padding: 4px 0 14px; }
+  .app[data-mode="menu"] .hero h1, .app[data-mode="menu"] .hero .pips { display: none; }   /* the brand is in the top bar */
+  .transport:empty { display: none; }
+  .app[data-mode="menu"] .hero p { margin-top: 4px; font-size: var(--fs-2); color: var(--muted); }
+  .app[data-mode="menu"] .hero .pips { margin-top: 6px; font-size: var(--fs-2); }
+  .tarots.picked .tarot:not(.sel) { filter: saturate(0.75) brightness(0.82); }
+  .tarots.picked .tarot:not(.sel):hover { filter: none; }
+  .tarot.sel { transform: translateY(-14px); }
+  .tarot.sel::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: -16px; height: 10px; border-radius: 50%; background: radial-gradient(closest-side, rgb(216 180 105 / 0.45), transparent); }
+  .reading { box-sizing: border-box; padding: 16px 20px; border-radius: 10px; grid-template-areas: none !important; box-shadow: 0 0 0 1px #6b5226, 0 0 0 3px rgb(216 180 105 / 0.22), 0 18px 40px -22px #000;
+    background: radial-gradient(120% 80% at 0% 0%, rgb(255 252 240 / 0.8), transparent 60%), linear-gradient(180deg, var(--paper), var(--paper2)); }
+  .reading .rk, .reading h2, .reading p, .reading dl, .reading .primary { grid-area: auto !important; }
+  .reading.empty { text-align: center; justify-items: center; }
+  .reading .rhint { font-style: italic; color: var(--muted); }
+  .reading .rtext { display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .reading .rgo { display: grid; gap: 10px; align-content: end; min-width: 0; }
+  .reading .rgo .primary { justify-self: stretch; justify-content: center; margin: 0; padding-block: 11px; }
+  .reading .rgo .spin { justify-self: center; }
+  .nmrow { display: grid; gap: 5px; }
+  .nmrow > span { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .reading .field { background: rgb(255 255 255 / 0.6); color: var(--ink); box-shadow: inset 0 0 0 1px var(--edge, #b39555); }
+  .reading .field { min-width: 0; width: 100%; box-sizing: border-box; font: 400 var(--fs-3) var(--serif); padding: 9px 12px; }
+  .reading .field::placeholder { color: var(--faint); font-style: italic; }
+  @media (min-width: 900px) {
+    .reading.has { grid-template-columns: minmax(0, 1.5fr) minmax(220px, 1fr); column-gap: 32px; }
+    .reading.has .rtext dl { margin-top: 2px; }
+  }
+  .bootline { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 14px; color: var(--muted); font-size: var(--fs-1); }
+  .boot .bootbar { position: relative; width: min(320px, 70vw); height: 2px; border-radius: 2px; overflow: hidden; background: rgb(var(--hl) / 0.1); }
+  .boot .bootbar i { position: absolute; top: 0; bottom: 0; left: -40%; width: 40%; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: sweep 1.4s ease-in-out infinite; }
+  .boot .hero p { margin-top: 6px; }
+
+  /* ---------- the interlude: one picture, lines that come and go, the year as a strip; the crest's wheel moves ---------- */
+  .ilcard { grid-template-columns: minmax(0, 1fr); }
+  .ilcard:has(.ilside) { grid-template-columns: minmax(0, 1fr) 190px; }
+  .ilkick .ilage { letter-spacing: 0.06em; text-transform: none; color: var(--muted); font-weight: 500; }
+  .illines p { animation: linein 1.2s var(--ease) both; }
+  .ilseason { position: relative; flex: 1; display: flex; height: 26px; border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 0 1px rgb(var(--hl) / 0.14); }
+  .ilseason .sb { display: flex; align-items: center; justify-content: center; gap: 5px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; color: var(--muted); min-width: 0; overflow: hidden; white-space: nowrap; }
+  .ilseason .sb em { font-style: normal; }
+  .ilseason .sb.winter { background: rgb(130 185 242 / 0.12); } .ilseason .sb.spring { background: rgb(127 211 148 / 0.13); }
+  .ilseason .sb.summer { background: rgb(232 187 85 / 0.16); } .ilseason .sb.autumn { background: rgb(243 140 107 / 0.13); }
+  .ilseason .ilmark { position: absolute; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; translate: -1px 0; background: var(--gold); box-shadow: 0 0 8px var(--gold); transition: left 0.12s linear; }
+  .ilseason .ilprog { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--gold3), var(--gold)); transition: width 0.2s linear; }
+  .hud.ilon #hudWheel { filter: drop-shadow(0 0 10px rgb(216 180 105 / 0.35)); }
+  .pace { display: inline-flex; gap: 2px; padding: 3px; border-radius: 10px; background: rgb(var(--hl) / 0.04); }
+  .pace button { display: inline-flex; align-items: center; gap: 4px; border: 0; background: transparent; border-radius: 7px; padding: 5px 9px; cursor: pointer; color: var(--ink2); font-size: var(--fs-1); text-transform: capitalize; }
+  .pace button:hover { background: rgb(var(--hl) / 0.07); }
+  .pace button[aria-pressed="true"] { background: rgb(216 180 105 / 0.14); color: var(--gold2); }
+
+  /* ---------- small panels in the same family: the end of a life, Keys, toasts ---------- */
+  .paper .review { border-radius: 10px; background: radial-gradient(120% 80% at 50% 0%, rgb(255 252 240 / 0.85), transparent 60%), linear-gradient(180deg, #fbf5e6, #efe3c7);
+    box-shadow: 0 0 0 1px #6b5226, 0 0 0 3px rgb(216 180 105 / 0.22), 0 18px 40px -22px #000; }
+  .help .box, .help .box.paper { border-radius: 10px; }
+  .toast { border-radius: 999px; padding: 8px 18px; font-size: var(--fs-2); background: var(--glass2); backdrop-filter: blur(10px); translate: -50% 6px;
+    transition: opacity var(--t-2) var(--ease), translate var(--t-2) var(--ease); }
+  .toast.on { translate: -50% 0; }
+
+  /* ---------- narrower screens and the phone ---------- */
+  @media (max-width: 1040px) {
+    .evwrap.overstage { inset: 0; }
+  }
+  @media (max-width: 900px) {
+    .ilcard:has(.ilside) { grid-template-columns: minmax(0, 1fr); }
+    .ev .evart { aspect-ratio: auto; height: 170px; }
+    .ogrid { gap: 8px; }
+    .dstrip { display: none; }
+  }
+  @media (max-width: 1180px) {
+    .savednote span { display: none; }
+  }
+  @media (max-width: 760px) {
+    .tbtn.door .t, .tbtn.door kbd { display: none; }
+  }
+  @media (max-width: 640px) {
+    .bar { margin-top: 6px; padding: 4px 4px 4px 12px; border-radius: 12px; min-height: 44px; }
+    .savednote { display: none; }
+    .tbtn.door { padding: 7px 8px; }
+    .tbtn.door > svg.i { font-size: 19px; }
+    .tpop { position: fixed; left: 10px; right: 10px; top: 58px; width: auto; }
+    .mrow2 { padding: 10px; }
+    .transport { margin-bottom: 6px; padding: 6px; border-radius: 12px; }
+    .ogrid { grid-template-columns: minmax(0, 1fr); }
+    .ev .evart { height: 150px; }
+    .ogrid .opt .ot, .optlook .ot { font-size: var(--fs-3); }
+    .opt.onone .keyn { display: none; }
+    .pace button { padding: 5px 6px; }
+    .reading { padding: 14px 14px; }
+    .tarot.sel { transform: translateY(-6px); }
+    .tarot.sel::after { display: none; }
+    .ilseason .sb em { display: none; }
+    .evback { left: 10px; right: 10px; translate: none; max-width: none; bottom: 70px; gap: 10px; }
+    .evback img, .evback .wg { width: 40px; height: 40px; }
+    .evback .wt { flex: 1; }
+    .evback .wgo { margin-left: 0; padding: 7px 10px; font-size: 0; gap: 0; }
+    .evback .wgo svg.i { font-size: 16px; }
+    .ev .evf { background: linear-gradient(180deg, #e6d7b4, #dcc9a0); box-shadow: 0 -8px 16px -10px rgb(60 40 10 / 0.5); }
+  }
+

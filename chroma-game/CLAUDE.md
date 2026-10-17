@@ -15,24 +15,24 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 |---|---|---|
 | `play.py` | 30 | terminal loop around `console.Console`; waits on `input()`, so never run it from a session |
 | `console.py` | 783 | the text controller for the terminal and the page: `Console.handle(line)` returns `(text, busy)`; every key (`HELP` lists them) and the setup steps (`CUSTOM_STEPS`, `STEP_FORM`) |
-| `game.py` | 429 | `PRESETS` (the six starts; Release's `check_f15.py` reads them from this file's text) and class `Game`: its class attributes and its core, `__init__`, `_intervene`, `age`, `advance`, `decide`. Every name the game layer has is importable from `game` |
-| `game_base.py` | 578 | the game layer's settings (`GAME`, `V225`, the `CHROMA_GAME` and `CHROMA_ENGINE` switches), names, `library_for` and helpers: what `game.py` held before class `Game` |
-| `game_words.py` | 961 | words and closing texts: the peace reading, the song, `life_paragraph`, `last_talk`, `book_catalog`: what `game.py` held after class `Game` |
-| `game_checkpoints.py` | 579 | `CheckpointsMixin`: steers, checkpoints and their options, resolutions, hindsight, turning points |
+| `game.py` | 435 | `PRESETS` (the six starts; Release's `check_f15.py` reads them from this file's text) and class `Game`: its class attributes and its core, `__init__`, `_intervene`, `age`, `advance`, `decide`. Every name the game layer has is importable from `game` |
+| `game_base.py` | 586 | the game layer's settings (`GAME`, `V225`, the `CHROMA_GAME` and `CHROMA_ENGINE` switches), names, `library_for` and helpers: what `game.py` held before class `Game` |
+| `game_words.py` | 965 | words and closing texts: the peace reading, the song, `life_paragraph`, `last_talk`, `book_catalog`: what `game.py` held after class `Game` |
+| `game_checkpoints.py` | 662 | `CheckpointsMixin`: steers, checkpoints and their options, resolutions, hindsight, turning points |
 | `game_world.py` | 600 | `WorldMixin`: the outer world in the story: world effects, levers, far ties, places, posts, lines, talks |
-| `game_voice.py` | 630 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
-| `game_life.py` | 779 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
-| `game_views.py` | 883 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
+| `game_voice.py` | 667 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
+| `game_life.py` | 785 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
+| `game_views.py` | 885 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
 | `story.py` | 126 | the story layer: class `Story`, its core (`__init__`, `new`, `alive`, `get`, `say`, `nm`). Every name the story layer has is importable from `story` |
-| `story_base.py` | 537 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
+| `story_base.py` | 540 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
 | `story_cast.py` | 233 | `CastMixin`: roles, who is due and who dies, picking people, filling a line's slots |
-| `story_moments.py` | 323 | `MomentsMixin`: thoughts, the voice, births, scenes, acts, outcomes, family, deaths and new kin, marks, streaks |
+| `story_moments.py` | 328 | `MomentsMixin`: thoughts, the voice, births, scenes, acts, outcomes, family, deaths and new kin, marks, streaks |
 | `story_lines.py` | 296 | `LinesMixin`: ordinary weeks, outside events, eras, titles, commitments, clashes, rites, conversions, breakthroughs |
 | `story_goals.py` | 232 | `GoalsMixin`: goals, dreams and plans, needs, hindsight, resolutions, the yearly chapter, the epitaph |
 | `story_text.py` | 711 | `story.py`'s text tables (`SCENES`, `OUTSIDE`, `OUTCOMES`, `MOOD`, ...), data only |
 | `routine.py` | 182 | the everyday lines' rules and their `check()` (`python3 -B routine.py`) |
 | `routine_text.py` | 427 | the everyday lines themselves (`ROUTINE`), data only |
-| `worldview.py` | 704 | the outer world as the player sees it |
+| `worldview.py` | 706 | the outer world as the player sees it |
 | `link.py` | 44 | loads `engine_pin/engine.py` as module `engine` and checks its pause points (`week`, `situation`, `choose`, `odds`, `learn`, `end`) |
 | `rarity.json` | | the rarity table; `rarity.py` is built from it |
 | `engine_pin/` | | generated: the engine, Library and packs pinned by `tools/build.py`. Never edit or read it; read `chroma-engine/v22-speedpass/`, `chroma-library/`, `chroma-packs/` |
@@ -41,7 +41,7 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 
 ## The page (`prototype/web/`)
 
-- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, the app (`app/`, below),
+- Sources in `web/src/`: `head.html` (the title and fonts), the style (`style/`, below), `body.html`, the app (`app/`, below),
   `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`, `option-icons-live.json`,
   `pics-left-out.json`, `pic-packs.json`.
 - `web/src/build.py` joins them into `web/index.html` (0.07 s, byte for byte). Never edit or read `index.html` or
@@ -58,14 +58,31 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 | `03-chronicle.js` | 202 | the worker link (`send`, inputs); the chronicle, the story's main text |
 | `04-line.js` | 346 | the whole life as a line (the fog ahead); the header and tools |
 | `05-hud.js` | 501 | the character HUD and spider graph; the exact definitions; making a plan (key p) |
-| `06-moment.js` | 439 | the moment and its cards; the event window |
+| `06-moment.js` | 441 | the moment and its cards; the event window |
 | `07-interlude.js` | 111 | the interlude between two moments |
 | `08-sheet.js` | 263 | the character sheet (key c) and its tabs |
-| `09-book.js` | 115 | the Book of Moments |
+| `09-book.js` | 118 | the Book of Moments |
 | `10-save.js` | 99 | saving to a file, loading back, autosave: the save format. Release's `check_pageonly.py` holds a page-only release to it unchanged |
 | `11-start.js` | 172 | the life-choice (tarot) cards on the start screen; the end of a life |
 | `12-panels.js` | 148 | transport, help, the outer world panel, the keys the page answers itself |
 | `13-state.js` | 93 | applying the game's state, the keyboard, the worker's start-up |
+
+- The style is one `<style>` block in the page, kept as `web/src/style/NN-name.css` parts (all in `head.html` until
+  10-17); `build.py` joins them in name order after `head.html`, so later rules still win as before. Find a rule with
+  `rg -n '\.name' chroma-game/prototype/web/src/style/`. `look.css` and `clarity.css` come after all of it.
+
+| Part | Lines | What |
+|---|---|---|
+| `01-base.css` | 99 | the colours (`:root`), the night sky, the app frame |
+| `02-line.css` | 87 | the life line |
+| `03-table.css` | 95 | the main area, the table (a checkpoint), the option cards |
+| `04-hud.css` | 148 | the character HUD; the inner voice before a choice and after |
+| `05-menus.css` | 130 | transport; menu, setup, review, boot; narrower screens |
+| `06-parchment.css` | 231 | v3: dark ink on parchment; the event window |
+| `07-v21.css` | 230 | version 21: the spider graph, steers, titles, the interlude, the sheet, the World panel, tarot, the Book of Moments, seasons |
+| `08-v22-moment.css` | 201 | v22's look: the top bar, the moment window, the chosen card's motion, the outcome, the compact crest |
+| `09-v22-pages.css` | 111 | v22's story page, start, interlude and small panels; narrower screens and the phone |
+| `10-sheet.css` | 255 | the character sheet in tabs; the Book and World boxes; the reading beside a moment; short windows; the folded "Out of reach" row |
 - `web/worker.js` runs the Python in Pyodide. Its `SOURCES` list names every `.py` file the page loads:
   `tools/build.py` adds missing `engine_pin` files, but a new game-side file must be added by hand.
 - The published artifact holds at most 511 files; `tools/webdir.py` packs code and rarer pictures into a few files.

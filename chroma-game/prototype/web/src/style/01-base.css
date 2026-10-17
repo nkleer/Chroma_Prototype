@@ -1,0 +1,99 @@
+  /* Arcane night: one dark look on purpose (Emren 2026-10-05 08:02: a card table with an arcane night effect). */
+  :root {
+    --night0: #07060d; --night1: #0c0a17; --night2: #13112a; --night3: #1c1838; --night4: #262046;
+    --ink: #ece4d2; --ink2: #cfc5ae; --muted: #958ca8; --faint: #5f5878; --line: #2a2448;
+    --gold: #d8b469; --gold2: #f4dfa6; --gold3: #8a6a2c;
+    --arcane: #b3a2f7; --arcane2: #7a68dc; --arcane3: #2b2160;
+    --ok: #79d29a; --bad: #f2856d;
+    --cW: #f2e3a6; --cU: #82b9f2; --cB: #bba0d0; --cR: #f38c6b; --cG: #7fd394;
+    --dW: #8d7a3b; --dU: #1f4f8a; --dB: #3a2d4b; --dR: #8c2f1f; --dG: #1f6136;
+    --pW: #f8f1d3; --pU: #abcff1; --pB: #c3b8bf; --pR: #f3ae90; --pG: #addaa1; --pInk: #1b1814;
+    --parch: #efe5cc; --parch2: #ddcca4; --parchInk: #2a2116; --parchMuted: #6d5c41;
+    --sat: #e8bb55; --peace: #5fcac3; --stress: #f2856d; --want: #b79cf3;
+    --heart: #f08aa4; --head: #a99cf6;
+    --t1: var(--arcane2); --t2: var(--arcane2);
+    --display: "Spectral", Georgia, "Times New Roman", serif;
+    --logo: "Cinzel", "Trajan Pro", Georgia, serif;
+    /* One type scale (Emren 20:39 point 5): five sizes, nothing below 12px. */
+    --fs-1: 12px; --fs-2: 14px; --fs-3: 17px; --fs-4: 22px; --fs-5: 34px;
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --ui: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+    --cw: 168px; --ch: 238px;
+    --hl: 255 255 255;
+    color-scheme: dark;
+  }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--night0); color: var(--ink); font-family: var(--ui); font-size: var(--fs-2); line-height: 1.45; overflow: hidden; }
+  button { font: inherit; color: inherit; }
+  svg.i { width: 1em; height: 1em; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.14em; }
+  .W { color: var(--cW); } .U { color: var(--cU); } .B { color: var(--cB); } .R { color: var(--cR); } .G { color: var(--cG); }
+  em { font-style: italic; }
+  ::selection { background: var(--arcane3); }
+  * { scrollbar-width: thin; scrollbar-color: var(--night4) transparent; }
+
+  /* ---------- the night sky ---------- */
+  .sky { position: fixed; inset: 0; pointer-events: none; overflow: hidden;
+    background:
+      radial-gradient(1200px 700px at 72% -10%, rgb(70 52 150 / 0.30), transparent 65%),
+      radial-gradient(900px 600px at 0% 105%, rgb(36 70 120 / 0.22), transparent 70%),
+      radial-gradient(700px 500px at 100% 100%, rgb(110 40 90 / 0.14), transparent 70%),
+      linear-gradient(180deg, #0b0918 0%, #07060d 70%); }
+  .sky::before, .sky::after { content: ""; position: absolute; inset: -50%; }
+  .sky::before { background-image:
+      radial-gradient(1px 1px at 20px 30px, rgb(var(--hl) / 0.7), transparent 2px),
+      radial-gradient(1px 1px at 140px 80px, rgb(255 240 210 / 0.55), transparent 2px),
+      radial-gradient(1.5px 1.5px at 260px 160px, rgb(200 210 255 / 0.6), transparent 2px),
+      radial-gradient(1px 1px at 60px 220px, rgb(var(--hl) / 0.45), transparent 2px),
+      radial-gradient(1px 1px at 330px 260px, rgb(var(--hl) / 0.5), transparent 2px);
+    background-size: 380px 300px; opacity: 0.55; }
+  .sky::after { background-image:
+      radial-gradient(1.5px 1.5px at 90px 50px, rgb(255 236 190 / 0.9), transparent 2px),
+      radial-gradient(1px 1px at 300px 190px, rgb(190 205 255 / 0.8), transparent 2px),
+      radial-gradient(2px 2px at 520px 120px, rgb(var(--hl) / 0.7), transparent 3px);
+    background-size: 640px 420px; animation: twinkle 7s ease-in-out infinite alternate; }
+  @keyframes twinkle { from { opacity: 0.25; } to { opacity: 0.85; } }
+  .glow { position: fixed; inset: 0; pointer-events: none; transition: background 1.4s;
+    background: radial-gradient(800px 380px at 30% 38%, color-mix(in srgb, var(--t1) 13%, transparent), transparent 70%),
+                radial-gradient(700px 360px at 62% 70%, color-mix(in srgb, var(--t2) 10%, transparent), transparent 70%); }
+  .sigil { position: fixed; width: min(78vh, 760px); aspect-ratio: 1; left: 38%; top: 58%; translate: -50% -50%; pointer-events: none;
+    opacity: 0.075; animation: turn 240s linear infinite; }
+  .sigil * { fill: none; stroke: var(--gold2); stroke-width: 0.6; }
+  .sigil use { fill: var(--gold2); stroke: none; }
+  @keyframes turn { to { rotate: 360deg; } }
+
+  /* ---------- the app frame ---------- */
+  .app { position: relative; height: 100%; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); max-width: 1500px; margin: 0 auto;
+    padding-inline: 16px; box-sizing: border-box; }
+  .bar { display: flex; align-items: center; gap: 14px; min-height: 48px; padding-block: 6px; min-width: 0; }
+  .brand { font-family: var(--logo); font-weight: 700; letter-spacing: 0.26em; font-size: var(--fs-2); color: var(--gold); display: flex; align-items: center; gap: 10px;
+    text-shadow: 0 0 18px rgb(216 180 105 / 0.35); }
+  .who { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+  .who .nm { font-family: var(--display); font-weight: 600; font-size: var(--fs-3); letter-spacing: 0.06em; white-space: nowrap; }
+  .who .age { display: flex; align-items: baseline; gap: 6px; color: var(--ink2); white-space: nowrap; }
+  .who .age b { font-family: var(--display); font-size: var(--fs-4); color: var(--gold2); font-weight: 600; }
+  .who .age small { color: var(--muted); font-size: var(--fs-1); text-transform: capitalize; }
+  .who .crest { display: inline-flex; align-items: center; gap: 7px; padding: 3px 11px 3px 6px; border-radius: 999px; background: rgb(var(--hl) / 0.04);
+    box-shadow: inset 0 0 0 1px rgb(216 180 105 / 0.22); cursor: help; min-width: 0; }
+  .who .crest .gn { font-family: var(--display); font-size: var(--fs-2); letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tools { display: flex; gap: 4px; align-items: center; }
+  .tbtn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 0; border-radius: 8px; padding: 6px 9px; cursor: pointer;
+    color: var(--ink2); font-size: var(--fs-1); }
+  .tbtn:hover { background: rgb(var(--hl) / 0.06); color: var(--ink); }
+  .tbtn .v { color: var(--gold); text-transform: capitalize; }
+  .tbtn.saved { color: var(--gold2); background: rgb(216 180 105 / 0.12); transition: background 0.3s; }
+  .tbtn[aria-pressed="true"] { color: var(--gold2); background: rgb(216 180 105 / 0.1); }
+  .tbtn:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .hud-toggle, .hud .hud-close { display: none; }
+  .hud-close { position: sticky; top: 0; align-self: flex-end; z-index: 3; margin-bottom: -40px; }
+
+  /* mana pips */
+  .pip { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; border-radius: 50%; color: var(--pInk);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.25), 0 0 0 1px rgb(0 0 0 / 0.35), 0 0 8px rgb(var(--hl) / 0.08); flex: none; vertical-align: -0.25em; }
+  .pip svg { width: 74%; height: 74%; fill: currentColor; }
+  .pip.pW { background: var(--pW); } .pip.pU { background: var(--pU); } .pip.pB { background: var(--pB); }
+  .pip.pR { background: var(--pR); } .pip.pG { background: var(--pG); }
+  .pip.dim { opacity: 0.25; }
+  .pips { display: inline-flex; gap: 2px; align-items: center; }
+  .pips .to { color: var(--faint); font-size: var(--fs-1); margin-inline: 1px; }
+

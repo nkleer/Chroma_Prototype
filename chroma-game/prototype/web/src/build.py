@@ -1,4 +1,5 @@
-"""Builds web/index.html (the published page) from head.html, sprite.svg, the visuals thread's icon set and picture map
+"""Builds web/index.html (the published page) from head.html and the style (style/*.css, joined in name order inside one
+<style>; all in head.html before 10-17), sprite.svg, the visuals thread's icon set and picture map
 (chroma-art/game/ink-icons.svg, ink-icons.json and pictures.json, read only; Chroma's own icons since 2026-10-05, Emren
 chose "All ours"), body.html and the app (app/*.js, joined in name order inside one <script>; app.js before 10-17), then
 the ink look over it: look.css and look.js, with the pictures' lights (chroma-art/game/lights.json, read only, made by
@@ -56,6 +57,9 @@ lp = os.path.join(art, "lights.json")
 lights = {k: pack(v) for k, v in json.loads(part("lights.json", art)).items()
           if v and k not in gone and os.path.exists(os.path.join(art, "pics", k + ".webp"))} if os.path.exists(lp) else {}
 look = part("look.js").replace("__LIGHTS__", json.dumps(lights, separators=(",", ":")))
-out = part("head.html") + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look + "\n" + part("clarity.css") + "\n" + part("clarity.js")
+# the style: web/src/style/NN-name.css, one part per group of sections, joined in name order
+STYLE = os.path.join(here, "style")
+head = part("head.html") + "<style>\n" + "".join(part(f, STYLE) for f in sorted(os.listdir(STYLE)) if f.endswith(".css")) + "</style>\n"
+out = head + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look + "\n" + part("clarity.css") + "\n" + part("clarity.js")
 open(os.path.join(here, "..", "index.html"), "w", encoding="utf-8").write(out)
 print("built web/index.html", len(out))

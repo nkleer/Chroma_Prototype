@@ -14,6 +14,12 @@ chroma-library/earth_stage.py
 chroma-art/game/lights.json
 chroma-art/game/pics/
 *.webp
+# generated files with one line of 100 to 250 KB, which a search prints whole: the per-option icon map (made by
+# web/src/live_icons.py) and the icon sprite (made by chroma-art/kit/glyph/build_icons.js), with their copies, and the
+# icon set before it
+option-icons-live.json
+ink-icons.svg
+chroma-art/old/
 # In the shared folder (/mnt/project-files, where tools/mirror.py copies this file): run outputs, archives, the old
 # game copies kept as rollbacks (each is also a release/ branch) and the game's staging copies (staging-next is the
 # paused v23 game). Search one by naming it: rg <pattern> <folder>.
@@ -24,3 +30,11 @@ chroma-game/prototype-v22/
 chroma-game/prototype-v22.1/
 chroma-game/staging-next/
 chroma-game/staging-v22p1/
+# and, also in the shared folder only: old built pages and samples with lines of up to 300 KB, the played lives that
+# runs keep under notes/, and the Library's dated archive (scripts read it by path)
+page.html
+chroma-hud/impl/samples/
+chroma-hud/impl/orig/
+chroma-hud/mockup/
+chroma-game/notes/**/lives/
+chroma-library/archive/
