@@ -1181,6 +1181,9 @@ DEFAULT = dict(
     kid_tie=None,        # F9.39 (ties_people, world on): under 15 a child's ties are first its family's: at least this (the
                          # people model's own closeness builds over the first years, so on its own a child of 4 to 6 sits
                          # near nothing); None: as before
+    pay_col2=((0.0, 0.18, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),   # v22.6 refit: pay_col in its place (Blue's
+                         # pay lean .08 to .18: with the spheres pack on, Blue's money at 30 to 70 fell under the others',
+                         # F9.40); None: pay_col as v22.5 set it
     tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
     work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
                          # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
@@ -1556,7 +1559,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, up_conc=0.3, up_half=20.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, loan_end=False,
                retire_hz=((50, 0.0), (54, 0.0), (56, 0.045), (58, 0.05), (60, 0.035), (61.9, 0.035), (62, 0.11), (65, 0.12), (67, 0.12), (70, 0.14), (80, 0.2)),
-               ti_fit=None, birth_par=None, age_free=None, age_rate=None, age_pts=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               ti_fit=None, birth_par=None, age_free=None, age_rate=None, age_pts=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, pay_col2=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3642,7 +3645,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         lp_sd, lp_rho, lp_half = (float(x_) for x_ in P["low_pay"])
         lp_rng = np.random.default_rng([int(seed), 1723]); lp_z = np.zeros(N); lp_d = np.ones(N); lp_at = np.full(N, NEVER)
         lp_mu = np.zeros(N); lp_sc = np.ones(N)
-        PC_ = None if P["pay_col"] is None else np.asarray(P["pay_col"], float)
+        PC_ = P["pay_col"] if P.get("pay_col2") is None else P["pay_col2"]
+        PC_ = None if PC_ is None else np.asarray(PC_, float)
     TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
     NET_ON = P["low_net"] is not None
     if NET_ON:
