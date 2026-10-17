@@ -8,6 +8,7 @@ from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, DRIVER_WORD, E, EP, FREQ
     act, chooses, ident_name, letters, lever_info, mk, need_level_word, push_words, res_names, role_info, world_says)
 from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with,
     clean, hint, long_shot_words, reluctance)
+from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
 
 
 class CheckpointsMixin:
@@ -71,6 +72,7 @@ class CheckpointsMixin:
         if not recon and self._turn_due(t):
             return self._build_turning(t, loc, a)
         sea = None if recon else self.season(loc)
+        self._ret_cand = ret = self._return_of(loc, s) if GAME["returns"] and not recon else None
         if sea and sea["this_week"]:
             # Emren's point 6: a crossing is never a quiet level-up, so each of its season's moments (the crossing, the
             # in-between, settling in, and above all the transforming chance) is put to the player, whatever the pacing
@@ -86,6 +88,8 @@ class CheckpointsMixin:
             self._last_recon[kk] = t
         elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
+        elif ret is not None:
+            pass                                        # Picks come back: a return is always put to the player
         else:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
@@ -97,6 +101,8 @@ class CheckpointsMixin:
             wait = (again // 2) * self._cp_n.get(s, 0) if life else again * (1 + self._cp_n.get(s, 0))
             if t - self._last_seen.get(s, -10 ** 6) < wait:
                 return None
+            if GAME["returns"] and s in self._cp_n and self._ret_due(loc):
+                return None                     # Picks come back: a moment met before waits while a return is due
             tied, cause = self._thread_of(loc, s) if t / 52 >= self.start_age else (True, None)
             if (not tied and not life and thr > 0
                     and (self._sit_share.get(self.L["names"][s]) or 0.0) >= GAME["told_share"]):
@@ -227,7 +233,9 @@ class CheckpointsMixin:
         # the scene, and what the character thinks about the act they lean toward
         if self.story.one_roll and loc.get("WL") is not None:
             self._one_roll(loc)                         # F7: the world's dead, before the scene names anyone
-        m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s))
+        ret = getattr(self, "_ret_cand", None) if GAME["returns"] else None
+        m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s),
+                              ret["who"] if ret else None)
         self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
         self._social_slots(m, loc, s)                   # v22.4: the places, post or price the moment is about
         if m["ctx"].get("_social"):                     # and its options' own slots, as its scene fills them
@@ -263,6 +271,8 @@ class CheckpointsMixin:
             _, cause = self._thread_of(loc, s)
             if cause is not None:
                 cp["thread"] = self._thread_line(cause, t / 52); cause["told"] = int(t)   # each thread told once in a while
+        if ret is not None:                             # Picks come back: the return opens on the pick it answers
+            cp["ret"] = ret; cp["thread"] = self._ret_line(ret, t / 52); cp["seed"] = self._seed_view(ret, m, opts)
         b = X.say(X.before(loc, 0, rng=self.vrng), self.name)
         cp["snap"] = X.snapshot(loc, 0, b)
         cp["view"] = self._view(loc, b, cp)
@@ -522,6 +532,75 @@ class CheckpointsMixin:
                 gid = int(g.get("id", -1))
                 nm = (self.story.dreams.get(gid) or {}).get("name", "") if g["kind"] != "plan" else ""
                 self._threads[("g", gid)] = dict(cause, key="plan" if g["kind"] == "plan" else "dream", goal=nm, what=THREAD_GOAL[g["kind"]])
+
+    # ------------------------------------------------------------------ Picks come back (GAME returns)
+    def _seed_pick(self, cpw, new, m, age):
+        """An asked pick is kept by its week (the moment, the way, how it went, the age, the person in its scene): the
+        Engine's seed list (ep_seeds) names a seed by that week."""
+        o = cpw["cp"]["by_idx"][cpw["choice"]]
+        ok = next((bool(ev["success"]) for ev in new if "situation" in ev), None)
+        who = next((m["ctx"]["_p_" + sl] for sl in PERSON_SLOTS if m is not None and m["ctx"].get("_p_" + sl) is not None), None)
+        self._picks[int(self.t)] = dict(t=int(self.t), age=round(age, 1), moment=cpw["cp"]["title"], act=o["label"], ok=ok,
+                                        who=who, pushed=cpw["choice"] != cpw["own"])
+
+    def _seed_mark(self, mark, m):
+        """This week's asked pick left a mark: the person in its scene (as the story's mark keeps them, after the outcome
+        is told) joins the pick, and the game's own seed is planted, for the echoes of that mark without the Engine's hook."""
+        pick = self._picks.get(int(self.t))
+        if pick is None:
+            return
+        if pick["who"] is None and m is not None:
+            pick["who"] = next((m["ctx"]["_p_" + sl] for sl in PERSON_SLOTS if m["ctx"].get("_p_" + sl) is not None), None)
+        self._seeds.append(dict(pick, kind=mark))
+
+    def _return_of(self, loc, s):
+        """The seed this week's moment answers, or None. The Engine's hook (echo_play) names it: ep_now, an index into
+        ep_seeds (dicts: t the pick's week, kind, src, ok, due, done, got). Without the hook, a moment that echoes a mark
+        (the Library's echo:) answers this life's oldest seed of that mark not yet come back, ret_gap weeks or more after
+        its pick."""
+        if "ep_now" in loc:
+            k = int(np.asarray(loc["ep_now"]).ravel()[0])
+            if k < 0 or k >= len(loc.get("ep_seeds") or ()):
+                return None
+            sd = loc["ep_seeds"][k]
+            pick = self._picks.get(int(sd["t"]))
+            if pick is None:                            # a pick the game did not keep: told as an ordinary moment
+                return None
+            return dict(pick, kind=sd["kind"], ok=bool(sd["ok"]), k=k)
+        mark = LIB_ECHO.get(self.L["names"][s])
+        if not mark:
+            return None
+        return next((x for x in self._seeds if x["kind"] == mark and "came" not in x and self.t - x["t"] >= GAME["ret_gap"]
+                     and (x["who"] is None or x["who"]["alive"] or self.L["names"][s] in LIB_GONE)), None)   # the dead: a memory
+
+    def _seed_view(self, ret, m, opts):
+        """Release's proof rows (chroma-release/check_picks.py): the seed a return answers, as its ask carries it. now:
+        who fills the return's person slot (a story id; memory:<id> and heard:<id> come with the Library's scenes); tilt:
+        the change to the return's odds, the mean over its ways."""
+        p = ret.get("who")
+        now = next((m["ctx"]["_p_" + sl]["id"] for sl in PERSON_SLOTS if m["ctx"].get("_p_" + sl) is not None), None)
+        if now is not None and m["ctx"].get("_gone"):
+            now = f"memory:{now}"                       # the seed's person remembered (the Library's scenes_gone)
+        tau = 0.0 if ret["ok"] is None else GAME["ret_tilt"] if ret["ok"] else -GAME["ret_tilt"]
+        pt = np.clip([o["true"] for o in opts if o["colors"] != "-"], 1e-6, 1 - 1e-6)
+        dp = 1 / (1 + np.exp(-(np.log(pt / (1 - pt)) + tau))) - pt
+        return dict(age=ret["age"], sit=ret["moment"], way=ret["act"], went=None if ret["ok"] is None else "well" if ret["ok"] else "badly",
+                    person=p["id"] if p else None, near=bool(p and p["alive"] and not p["role"].startswith("old ")),
+                    now=now, tilt=round(float(dp.mean()), 4) if len(dp) else 0.0)
+
+    def _ret_due(self, loc):
+        """Whether a seed is due and waiting (the Engine's ep_seeds); never without the hook."""
+        return any(x["done"] is None and x["due"] is not None and self.t >= x["due"] for x in loc.get("ep_seeds") or ())
+
+    def _ret_came(self, cpw, ev, age):
+        """A return was played: the seed has come back. Kept for the Book's pair and the song, and the outcome card's
+        line, its hover the first time."""
+        ret = cpw["cp"]["ret"]; o = cpw["cp"]["by_idx"][cpw["choice"]]
+        ret["came"] = int(self.t)
+        self.history.setdefault("returns", []).append(dict(age=round(age, 1), moment=cpw["cp"]["title"], act=o["label"],
+            ok=bool(ev["success"]), seed=dict(age=ret["age"], moment=ret["moment"], act=ret["act"], ok=ret["ok"]),
+            who=ret["who"]["name"] if ret.get("who") else None))
+        return dict(line=self.story.fill(f"This came from what {{N}} did at {int(ret['age'])}."), cause=cpw["cp"]["thread"]["cause"])
 
     # ------------------------------------------------------------------ 5.6: the price builds to a turning point
     def _price_now(self):

@@ -187,6 +187,12 @@ GAME = dict(
     # when the game picks the moments to put to the player (a moment rung_ask already puts to them is not weighed again).
     # Off until its proof
     rare_ask=False, rare_imp=0.5,
+    # Picks come back (chroma-ideas/gameplay-2026-10-17/picks-come-back.md, Emren 10-17): an asked pick that leaves a mark
+    # plants a seed (the moment, the way, the person in the scene, how it went, the age). A later moment that answers it
+    # (the Engine's echo_play hook; without it, an echo of the same mark ret_gap weeks or more after the pick) is always
+    # put to the player, opens on the earlier pick, brings back its person, and leans ret_tilt (logit) toward working if
+    # the first time went well, away if badly; a moment met before waits while a return is due. Off until the joint proof
+    returns=False, ret_tilt=0.15, ret_gap=52,
     # v22.5, F12 "The world and the start hold" (chroma-ideas/realism/v22.5-realism-list.md; off until v22.5's refit, with
     # the engine's own_open and start_hold): the tribal and magic worlds speak their own words (the Library's worlds.py:
     # option labels, moment titles, the means, a lost place in the work, a backfire; no money, sirens, profits or votes
@@ -221,7 +227,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
@@ -318,6 +324,8 @@ def library_for(setting):
             for k_, v_ in ENGINE_SET.items():       # checks only (CHROMA_ENGINE): the batch's own flags
                 if k_.isupper():
                     setattr(batch, k_, v_)
+            if GAME["returns"] and hasattr(batch, "RETURN_MOMENTS"):
+                batch.RETURN_MOMENTS = True             # Picks come back: the Library's return moments (earth.RETURNS)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
             seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None

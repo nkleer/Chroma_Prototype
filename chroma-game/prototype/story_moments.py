@@ -5,7 +5,7 @@ reads module names through the imports below, the same objects story.py has, and
 import numpy as np
 import re
 from story_base import (BIG_LOSS, BIG_WIN, BIG_WIN_SOFT, CI, COLORS, DEATH_CHILD, DEATH_FAR, DEATH_LINE, HARDENED,
-    HEALED, KINDREF, LEFT_BEHIND, LIB_ECHO, LIB_GRIEF, LIB_OUTCOMES, LIB_OUT_NOT, LIB_READ, LIB_SCENES, MEMORY_YEARS,
+    HEALED, KINDREF, LEFT_BEHIND, LIB_ECHO, LIB_GONE, LIB_GRIEF, LIB_OUTCOMES, LIB_OUT_NOT, LIB_READ, LIB_SCENES, MEMORY_YEARS,
     NOW_SHARE, OUTCOMES, OUT_OF_REACH, PERSON_SLOTS, REACT, REACT_GRIEF, REASON, REBOUND_FIT, REBOUND_SPLIT, RELUCT,
     RELUCT_LOW, SCENES, SOMBER, STREAK_BAD, STREAK_GOOD, VALUE, _worlds, act, cap, chooses_mk, mk, phase, plain,
     weights_of)
@@ -45,7 +45,7 @@ class MomentsMixin:
         return cap(" ".join(L))
 
     # ---------------------------------------------------------------- moments
-    def moment(self, t, sit, stage, age, kind=None, kills=None):
+    def moment(self, t, sit, stage, age, kind=None, kills=None, who=None):
         """The scene of this week's situation, built once (a checkpoint and its outcome share it).
         kills: the role who dies in it (the library's kills: field); a bereavement without one takes anyone close."""
         m = self._moment.get(t)
@@ -71,8 +71,13 @@ class MomentsMixin:
             tpl = self.pick(SCENES[sit], ph)
         if not tpl and sit in LIB_SCENES:           # a Library moment not yet written for this world
             tpl = cap(act(sit)) + "."
-        who = self.marks.get(LIB_ECHO.get(sit))
-        if who is not None and who["alive"]:        # an echo: the same person as in the act it answers
+        gone = who is not None and (not who["alive"] or who["role"].startswith("old ")) and sit in LIB_GONE
+        if gone:                                    # Picks come back: the seed's person died or moved far: the scene
+            tpl = self.pick(LIB_GONE[sit], ph) or tpl   # that remembers them (scenes_gone), their name in its slot
+            ctx["_gone"] = True
+        if who is None:                             # who: Picks come back's seed person (the game's returns), else
+            who = self.marks.get(LIB_ECHO.get(sit))     # the latest person of the mark the echo answers
+        if who is not None and (who["alive"] or gone):   # an echo: the same person as in the act it answers
             slot = next((x for x in re.findall(r"\{(\w+)\}", tpl) if x in PERSON_SLOTS), None)
             if slot:
                 ctx["_p_" + slot] = who

@@ -307,7 +307,7 @@ function renderTable(h) {
   $("evOpts").scrollTop = 0;
   if (cp.voice) setTip($("tug"), () => voiceTip([cp.voice.key, cp.voice.heart_driver, cp.voice.head_driver, cp.voice.self_control]));
   // F5 (item 4): a moment that follows from an earlier pick says so; the hover gives the cause plainly
-  if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} A thread of this life`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
+  if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} ${cp.thread.key === "seed" ? "A pick comes back" : "A thread of this life"}`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
   tableEl.querySelectorAll("[data-shd]").forEach((el) => setTip(el, () => tipBox(`${ic(el.dataset.shi)} Their shadow pulls here`, "",
@@ -404,6 +404,7 @@ function renderResolution(h, reveal) {
     <div class="evr"><div class="reso-r">
       <p class="scene" data-i="res">${rich(r.text)}</p>
       ${r.pressure ? `<p class="note pressure">${esc(r.pressure)}</p>` : ""}
+      ${r.back ? `<p class="note thread" id="rBack" tabindex="0">${ic("link")} ${rich(r.back.line)}</p>` : ""}
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
@@ -430,6 +431,7 @@ function renderResolution(h, reveal) {
   if ($("ndmove")) setTip($("ndmove"), () => tipBox(`${ic("compass")} Needs this week`, "", (r.needs || []).map((x) => [esc(cap(NEED_LONG[x.need] || x.need)), `${pct(x.before)} → ${pct(x.after)} (${sgn(x.delta * 100)} pts)`]), "An act that works feeds the needs its ends serve, and a lacking need lifts satisfaction most. Needs also fade a little every week."));
   if ($("hind")) setTip($("hind"), () => tipBox(`${ic("voice")} Looking back on your push`, "", [["Trust in you, these colors", `${sgn((r.hindsight.trust_before || 0) * 100)} → ${sgn((r.hindsight.trust_after || 0) * 100)}`]],
     r.hindsight.kind === "accepted" ? "It worked and gave them something they lacked, so part of the push's cost is undone: less strain and pent-up wanting, and it counts less against their own life." : "It failed, or gave them nothing they lacked. They hold it against you, and later pushes in these colors cost more."));
+  if ($("rBack")) setTip($("rBack"), () => tipBox(`${ic("link")} A pick came back`, esc(r.back.cause), [], "Only this life's own picks are used."));   // Picks come back
   tableEl.querySelectorAll("[data-pid]").forEach((x) => setTip(x, () => personTip(+x.dataset.pid)));
   tableEl.querySelectorAll("[data-rr]").forEach((x) => { const d = r.roles[+x.dataset.rr]; setTip(x, () => roleTip(d, findRole(d.name))); });
   setTip($("cmove"), () => tipBox(`${ic("wheel")} The colors this week`, "", [["Moved", colorMoves(r.dw)]], (r.push || []).map((p) => `${esc(cap(p.why))}: ${p.dir} ${pip(p.color)}`).join("<br>") || "Points are shares of 100."));
