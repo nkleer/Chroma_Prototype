@@ -865,6 +865,10 @@ DEFAULT = dict(
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
+    place_turnover=False,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
+                            # close (a hazard and three town events) and new ones open; their regulars lose the haunt, a
+                            # rung and half the ties made there, a keeper the post (world switch, with sph_haunts; the
+                            # moments cast_want place_closed, place_opened come only with it, batch.TURNOVER_MOMENTS)
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -1481,6 +1485,8 @@ UPD_OFF = dict(dis_match=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
                sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
+               # the spheres finishing pack (finish-pack-draft.md): part 2, places close and open
+               place_turnover=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -2131,6 +2137,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     SACS_ON_ = bool(SACS_.any())
     SAC_ON_ = False                                       # (set with the world: its People has the lines)
     REG_ = REG_ & ~FARS_ & ~LEADS_ & ~SACS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # place_turnover (finishing pack, part 2): "the place closed" and "the new place" (cast_want: place_closed,
+    # place_opened) come only with a closing or an opening of the life's place (WorldLink), never by a draw
+    PTW_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        PTW_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in getattr(WK_, "PLACE_WANTS", ())])
+    PTW_ON_ = bool(PTW_.any())
+    if PTW_ON_:
+        REG_ = REG_ & ~PTW_
     # S3, S4 (sph_eyes, sph_odd): a caught-between or odd-one-out moment (cast_want: caught, odd) comes only when the place
     # reading brings it, never by the everyday draw
     EYEW_ = np.zeros(L["S"], bool)
@@ -3834,6 +3848,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff[:, EYEW_] = 0.0
         if LEADS_ON_:   # lead_ways (S7): a post's moment comes only with the post (forced), never by the everyday draw
             aff[:, LEADS_] = 0.0
+        if PTW_ON_:   # place_turnover: a place moment comes only with its closing or opening (forced)
+            aff[:, PTW_] = 0.0
         if WO_ON:   # F10: a world moment only on the world's event; one waiting for the world keeps its gap:
             aff[:, WMZ_] = 0.0
             if len(WG_I):
@@ -3953,6 +3969,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, LEADS_] = 0.0
             if SACS_ON_:
                 ev_p[:, SACS_] = 0.0
+            if PTW_ON_:
+                ev_p[:, PTW_] = 0.0
             if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
                 bk_ = np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)
                 if P["risk_norm"]:   # F9: the risks choose who, the Library's rates how many (the living's mean is 1)
@@ -6108,6 +6126,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
     wout = WL.output(log_lives) if WON else None           # the outer world for the game (world-build.md, "Game data")
+    pt_out = {}
+    if WON and getattr(WL.PP, "pt_on", False):   # place_turnover (only when on): the world's closings and openings (pt_log,
+        ptl_ = np.zeros((N, int(years)), np.int64)   # burn-in included, q in the world's quarters) and how many of each
+        for n_, t_ in WL.PP.pt_hits:                 # life's haunts closed in each year of the run
+            y_ = (int(t_) - WL.t0) // 52
+            if 0 <= y_ < int(years):
+                ptl_[n_, y_] += 1
+        pt_out = dict(place_turnover=list(getattr(WL.W, "pt_log", None) or []), pt_lives=ptl_)
     return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
@@ -6145,7 +6171,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
                 **(dict(areas=dict(names=AREAS, offsets=Dz, hist=D_hist,   # each area's colors are softmax(core z + offset)
-                                   colors=softmax(z[:, None, :] + Dz, -1))) if DOM_ON else {}))
+                                   colors=softmax(z[:, None, :] + Dz, -1))) if DOM_ON else {}), **pt_out)
 
 
 # ---------- pause points (backend plan item 2, 2026-10-08): the game's own way into the weekly loop

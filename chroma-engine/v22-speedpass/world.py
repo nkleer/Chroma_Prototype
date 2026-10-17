@@ -468,6 +468,9 @@ W_DEFAULT = dict(
     seen_done=False,   # S6 "Seen it done" (chroma-ideas/social-mechanics.md): the paths and colour ways each life has
                        # seen close people, regulars and public figures walk bend its felt odds and its dreams
     seen_par=None,     # seen_done tuning: {name: value} over world_people.SEEN_DEFAULT (None: the start values)
+    place_turnover=False,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
+                            # close (a quarterly hazard, and three town events) and a new place opens in the empty slot 2 to
+                            # 6 quarters later (sphere_data.TURNOVER); with sph_haunts
     inst_even=False,   # phase 3: bodies drift toward their own past and their leaders' colours, not toward W with age
                        # or B with corruption (Emren's "Colour-even", spheres-implementation.md question 6)
     # ---- the C hooks of item 10 (chroma-world/model/stage3-rules.md section 5), built by the Outer world. Off, nothing of
@@ -488,13 +491,15 @@ SPH_RULES = ("sph_town", "sph_par", "sph_haunts", "sph_hours", "sph_marks", "sph
              "sph_joins", "sph_pairs", "inst_even", "sph_links", "sph_memory", "pair_calm", "sph_cascades",
              "sph_levers", "sph_fair", "sph_shadow", "sph_deep", "far_ties", "far_par", "fair_read",
              "sph_eyes", "sph_odd", "eyes_par", "lead_ways", "lead_par",
-             "sacred", "sacred_par", "seen_done", "seen_par")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
+             "sacred", "sacred_par", "seen_done", "seen_par", "place_turnover")   # the spheres' switches and tuning (item 15); off, saved without them, as v22.2 saved
 # v22.4's world switches (S3 their places' eyes, S4 the odd one out, S5 sacred lines, S6 seen it done, S7 ways to lead):
 # saved only when on, so a save with them off, spheres on, is v22.3's
 V224_RULES = ("sph_eyes", "sph_odd", "eyes_par")
 V224_RULES += ("sacred", "sacred_par")   # S5 sacred lines
 V224_RULES += ("seen_done", "seen_par")   # S6 seen it done
 V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
+# the spheres finishing pack's switches (finish-pack-draft.md): saved only when on, so a save with them off is v22.5's
+FIN_RULES = ("place_turnover",)   # part 2, places close and open
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
@@ -1184,6 +1189,8 @@ class World:
             self._sphere_q()   # (phase 2's haunts and hours read the town spheres, so either switch computes them)
             if self.p.get("sph_haunts", False):
                 self._sph_places_q()
+                if self.p.get("place_turnover", False):   # finishing pack, part 2: places close and open
+                    self._pt_q()
         self._figures_q()
         self._history_q()
         if self.trace is not None:
@@ -3149,6 +3156,133 @@ class World:
         if self.p.get("sph_levers", False) and getattr(self, "sph_fund", None):          # a patron's pull on a place
             self._sph_fund_q(place=True)
 
+    # ------------------------------------------------------------------ spheres finishing pack, part 2 (place_turnover)
+    # chroma-world/spheres/finish-pack-draft.md "Places close and open", values sphere_data.TURNOVER: each named place
+    # closes with a quarterly hazard base(kind) / 4 x misfit x loss x hold x epoch (x the slump and dearth cascades on
+    # owned trade while they run), and three town events close one place of their kind outright; the empty slot opens
+    # again 2 to 6 quarters later (uniform) as a new place with a new name: the town sphere's mix with a fresh lean (hp_off,
+    # drawn as the first places' were), or a founder's mix where a found act in that kind went well in the last 2 years.
+    # Its own dice stream (after the spheres'), so switching it on moves no other draw; off, nothing of it exists.
+    def _pt_rng(self):
+        """place_turnover's own dice stream, made after the spheres' stream the first time it draws."""
+        k = len(self._STREAMS) + 1
+        self._sph_rng()
+        if len(self.R) == k:
+            self.R.append(np.random.default_rng([self._seed + 130363, k] + ([self.society_id] if self.society_id else [])))
+        return self.R[k]
+
+    def _pt_init(self):
+        """The part's state, made the first time it is needed: pt_open (town x kind x slot) the quarter a closed slot
+        opens again (-1: open); pt_log, every closing and opening (dicts: q, town, kind, slot, what closed / opened, why
+        hazard / event:<key> / found / new, place, name); pt_exits [quarter, place] the known faces' exits (rung 2 or
+        more); pt_found [quarter, town, kind, mix] the found acts that went well; pt_ev_i the sphere events read so far."""
+        if getattr(self, "pt_open", None) is None:
+            self.pt_open = np.full((self.n_loc, len(HAUNT_KINDS), N_PLACES), -1, np.int64)
+            self.pt_log = []; self.pt_exits = []; self.pt_found = []
+            self.pt_ev_i = len(getattr(self, "sph_ev_log", ()))
+
+    def _pt_tables(self):
+        """TURNOVER as arrays (made once, not saved): base a quarter by haunt kind (x the epoch), the owned trade kinds,
+        the close events (event index: haunt kind index) and the cascades that raise owned trade (cascade id: x)."""
+        c_ = getattr(self, "_cache_pt", None)
+        if c_ is not None:
+            return c_
+        import sphere_data as SD
+        TO = SD.TURNOVER
+        ep = float(TO["epoch"].get(self.sph_epoch, 1.0))
+        base = np.array([TO["base_y"][k_] for k_ in HAUNT_KINDS]) / 4.0 * ep
+        trade = np.array([TO["group"][k_] == TO["cascade_group"] for k_ in HAUNT_KINDS])
+        sk = {f"{e_['sphere']}.{e_['key']}": i_ for i_, e_ in enumerate(SD.EV)}   # the data names an event sphere.key
+        close = {sk[k_]: (HAUNT_KINDS.index(h_), k_) for k_, h_ in TO["events_close"].items() if k_ in sk}
+        c_ = self._cache_pt = dict(base=base, trade=trade, close=close, cas=dict(TO["cascades"]), TO=TO,
+                                   vq=(int(TO["vacant_q"][0]), int(TO["vacant_q"][1])),
+                                   sd=float(self._sph_tables()["pr"].get("place_sd", 0.6)))
+        return c_
+
+    def _pt_hazard(self, q):
+        """This quarter's closing chance of every place (town x kind x slot): base / 4 x misfit x loss x hold x epoch x
+        the running cascades on owned trade. misfit = 1 + k x max(0, TV(place, town sphere) - free); loss = 1 + per x the
+        known faces who left the place by exit in the last 4 quarters, at most cap; hold = the loyalty lever's factor
+        (hp_hold) while it lasts."""
+        T = self._pt_tables(); TO = T["TO"]; nl = self.n_loc
+        town = self.sph_s[:, HAUNT_SPH][:, :, None, :]
+        tv = 0.5 * np.abs(self.hp_s - town).sum(-1)
+        mis = 1 + TO["misfit_k"] * np.maximum(0.0, tv - TO["misfit_free"])
+        ex = np.zeros(self.pt_open.size)
+        for qe_, p_ in self.pt_exits:
+            if q - qe_ < 4:
+                ex[int(p_)] += 1
+        loss = np.minimum(1 + TO["loss_per"] * ex.reshape(self.pt_open.shape), TO["loss_cap"])
+        hz = T["base"][None, :, None] * mis * loss
+        if self.p.get("sph_levers", False) and getattr(self, "hp_hold", None) is not None:
+            hz = hz * np.where(self.hp_hold[..., 0] >= q, self.hp_hold[..., 1], 1.0)
+        if self.p.get("sph_cascades", False) and getattr(self, "sph_cas", None):   # slump, dearth: x 1.5 on owned trade
+            ids = self._sph_p3_tables()["ids"]; cf = np.ones(nl)
+            for c_, lc_ in sorted({(ids[x[0]], int(x[1])) for x in self.sph_cas}):   # (each running cascade once)
+                if c_ in T["cas"]:
+                    if lc_ < 0:
+                        cf = cf * T["cas"][c_]
+                    else:
+                        cf[lc_] *= T["cas"][c_]
+            hz = hz * np.where(T["trade"][None, :, None], cf[:, None, None], 1.0)
+        return hz
+
+    def _pt_close(self, l, h, i, q, why):
+        lo_, hi_ = self._pt_tables()["vq"]
+        self.pt_open[l, h, i] = q + int(self._pt_rng().integers(lo_, hi_ + 1))   # empty 2 to 6 quarters (uniform)
+        p_ = int(np.ravel_multi_index((l, h, i), self.pt_open.shape))
+        if getattr(self, "hp_hold", None) is not None:
+            self.hp_hold[l, h, i] = [-1, 0.0]
+        if getattr(self, "sph_fund", None):   # a patron's pull on the place ends with it
+            self.sph_fund = [f_ for f_ in self.sph_fund if int(f_[2]) != p_]
+        self.pt_log.append(dict(q=int(q), town=int(l), kind=HAUNT_KINDS[h], slot=int(i), what="closed", why=why, place=p_,
+                                name=int(self.hp_nm[l, h, i])))
+
+    def _pt_q(self):
+        """Each quarter (place_turnover, after the places' mixes): the empty slots due open, the three events' closings
+        (a place of their kind in the town the event fired in; a society's event, in its town of highest hazard; the
+        place most at risk goes), then the hazard's."""
+        self._pt_init(); T = self._pt_tables(); q = int(self.t // 13); r = self._pt_rng(); nl = self.n_loc
+        self.pt_exits = [x for x in self.pt_exits if q - x[0] < 4]
+        self.pt_found = [x for x in self.pt_found if q - x[0] < 8]
+        # 1. the new places
+        for l, h, i in zip(*np.nonzero((self.pt_open >= 0) & (self.pt_open <= q))):
+            l, h, i = int(l), int(h), int(i)
+            off = r.normal(0, T["sd"], C)[self.perm]                     # drawn in W U B R G, as the first places' were
+            old = int(self.hp_nm[l, h, i]); nm = old
+            while nm == old:
+                nm = int(r.integers(0, 1000))
+            town = self.sph_s[l, HAUNT_SPH[h]]
+            fd = [x for x in self.pt_found if x[1] == l and x[2] == h]
+            if fd:   # the founder's mix (the latest found act that went well), held as its lasting lean
+                self.hp_off[l, h, i] = 0.0; self.hp_s[l, h, i] = town
+                self._sph_place_set(l, h, i, _norm(np.asarray(fd[-1][3], float)))
+                self.pt_found = [x for x in self.pt_found if x is not fd[-1]]
+            else:
+                self.hp_off[l, h, i] = off
+                m_ = town * np.exp(off); self.hp_s[l, h, i] = m_ / m_.sum()
+            self.hp_nm[l, h, i] = nm; self.pt_open[l, h, i] = -1
+            self.pt_log.append(dict(q=q, town=l, kind=HAUNT_KINDS[h], slot=i, what="opened", why="found" if fd else "new",
+                                    place=int(np.ravel_multi_index((l, h, i), self.pt_open.shape)), name=nm))
+        hz = self._pt_hazard(q)
+        # 2. the events that close a place of their kind outright
+        log = getattr(self, "sph_ev_log", None)
+        if log is not None and len(log) > self.pt_ev_i:
+            rows = np.asarray(log[self.pt_ev_i:]).tolist(); self.pt_ev_i = len(log)
+            for _, ei_, l_ in rows:
+                if int(ei_) not in T["close"]:
+                    continue
+                h, key_ = T["close"][int(ei_)]
+                l = int(l_) if l_ >= 0 else int(np.argmax(self._cache_evh[:, int(ei_)]))
+                op = np.nonzero(self.pt_open[l, h] < 0)[0]
+                if len(op):
+                    i = int(op[np.argmax(hz[l, h, op])])
+                    self._pt_close(l, h, i, q, "event:" + key_)
+        # 3. the hazard (one draw for every place, open or not, so the stream keeps its pace)
+        u = r.random(hz.shape)
+        for l, h, i in zip(*np.nonzero((u < hz) & (self.pt_open < 0))):
+            self._pt_close(int(l), int(h), int(i), q, "hazard")
+
     # ------------------------------------------------------------------ the spheres of society (item 15): phase 4
     def _sph_nudge(self, mix, toward, k):
         """A face mix moved k of the way toward toward (0..1 shares), kept over the floor and summing to 1."""
@@ -3161,12 +3295,13 @@ class World:
         self.hp_off[l, h, i] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
         self.hp_s[l, h, i] = new
 
-    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None):
+    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None, went=1.0):
         """Phase 4 (sph_levers): a life's lever lands on its place (a flat place id, World.place_info) or, with place -1,
         on its town's sphere j (the caller passes the smaller size there). ma: the act's colours in this world's frame;
         size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. span: a fund act's
         quarters when the caller knows them (lead_ways: what is left of a leader's post), else FUND_SPAN by rung. Returns
-        what moved (a word) for the record. dynamics.json levers' on_the_mix, as Outer world's answers read them."""
+        what moved (a word) for the record. went: how well the act went (place_turnover reads a found act that went well,
+        .5 or more). dynamics.json levers' on_the_mix, as Outer world's answers read them."""
         if size <= 0 or getattr(self, "sph_s", None) is None:
             return "none"
         loc = int(loc); j = int(j); q = int(self.t // 13); ma = np.asarray(ma, float)
@@ -3198,6 +3333,8 @@ class World:
         elif lever == "exit":
             on_place(0.01 * size, away)
             if rung >= 2 and hp_ok:                                               # a known face's leaving is felt
+                if self.p.get("place_turnover", False):                           # (and, part 2, raises its closing
+                    self._pt_init(); self.pt_exits.append([q, int(place)])        # hazard for 4 quarters)
                 lead_ = np.eye(C)[int(np.argmax(self.hp_s[l, h, i]))]
                 self._sph_place_set(l, h, i, self._sph_nudge(self.hp_s[l, h, i], self.hp_s[l, h, i] - 0.02 * lead_ + 0.02 * town, 1.0))
         elif lever == "loyalty":
@@ -3218,9 +3355,19 @@ class World:
                 if hp_ok and HAUNT_SPH[h] == j:
                     hs_ = np.array([h])
                 cand = self.hp_s[loc, hs_].reshape(-1, C)                         # the place furthest from the founder
-                k_ = int(np.argmax(np.abs(cand - new).sum(1)))
-                h2, i2 = int(hs_[k_ // N_PLACES]), k_ % N_PLACES
-                self._sph_place_set(loc, h2, i2, new)
+                dd_ = np.abs(cand - new).sum(1)
+                pt_ = self.p.get("place_turnover", False)
+                if pt_:   # part 2: a closed slot is not a place to found in; a found act that went well is kept 2 years
+                    self._pt_init()   # (the next place to open in that kind, in that town, is the founder's)
+                    dd_ = np.where(self.pt_open[loc, hs_].reshape(-1) >= 0, -np.inf, dd_)
+                if np.isfinite(dd_).any():
+                    k_ = int(np.argmax(dd_))
+                    h2, i2 = int(hs_[k_ // N_PLACES]), k_ % N_PLACES
+                    self._sph_place_set(loc, h2, i2, new)
+                    if pt_ and went >= 0.5:
+                        self.pt_found.append([q, int(loc), h2, [float(x) for x in new]])
+                elif pt_ and went >= 0.5:   # every place of the kind closed: the founder's opens the first empty slot
+                    self.pt_found += [[q, int(loc), int(h_), [float(x) for x in new]] for h_ in hs_]
             self.sph_s[loc, j] = self._sph_nudge(town, new, 1.0 / (nP + 1))
         elif lever == "fund":
             span = FUND_SPAN[min(int(rung), 4)] if span is None else int(span)
@@ -3696,14 +3843,14 @@ class World:
             for k in SD.PAIR_QUARRELS.get(pr_, []):
                 PQ[j, key[k]] = True
         runs = (E["base"] > 0) | E["fired"]
-        cas = []
+        cas = []; ids = []
         for c in SD.CASCADES:
             if ep not in c["epochs"]:
                 continue
             st = [(key[k] if k is not None and runs[key[k]] else -1, lag) for k, lag in c["steps"]]
             if st and st[0][0] >= 0:
-                cas.append(st)
-        c_ = self._cache_sphp3 = dict(MF=MF, MR=MR, fade=float(SD.MEM_FADE), PQ=PQ, cas=cas,
+                cas.append(st); ids.append(c["id"])
+        c_ = self._cache_sphp3 = dict(MF=MF, MR=MR, fade=float(SD.MEM_FADE), PQ=PQ, cas=cas, ids=ids,
                                       cas_first={st[0][0]: k for k, st in enumerate(cas)})
         return c_
 
@@ -3869,8 +4016,10 @@ class World:
         import sphere_data as SD
         l, h, i = np.unravel_index(int(p), (self.n_loc, len(HAUNT_KINDS), N_PLACES))
         f = self.hp_s[l, h, i][np.argsort(self.perm)]; c = int(np.argmax(f)); sp = SPHERES[HAUNT_SPH[h]]
+        sh_ = getattr(self, "pt_open", None) is not None and self.pt_open[l, h, i] >= 0   # place_turnover: an empty slot
         return dict(place=int(p), town=int(l), kind=HAUNT_KINDS[h], sphere=sp, name=int(self.hp_nm[l, h, i]),
-                    faces=[round(float(x), 3) for x in f], leads=f"{sp}.{COLORS[c]}", leads_name=SD.FACE_NAMES[f"{sp}.{COLORS[c]}"])
+                    faces=[round(float(x), 3) for x in f], leads=f"{sp}.{COLORS[c]}", leads_name=SD.FACE_NAMES[f"{sp}.{COLORS[c]}"],
+                    **({"closed": True} if sh_ else {}))
 
     # ------------------------------------------------------------------ the spheres of society (item 15): Replace
     @property
@@ -3991,6 +4140,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in FIN_RULES):      # the finishing pack's switches off: saved as before
+            par = {k: v for k, v in par.items() if k not in FIN_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in FIN_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
             par = {k: v for k, v in par.items() if k not in C_RULES}
             if "params" in cfg:
@@ -4026,6 +4181,8 @@ class World:
             setattr(W, k, v)
         if len(d["rng"]) > len(W.R):                       # the spheres' stream, once a sphere rule has drawn
             W._sph_rng()
+        if len(d["rng"]) > len(W.R):                       # place_turnover's own stream, once it has drawn
+            W._pt_rng()
         for g, s in zip(W.R, d["rng"]):
             g.bit_generator.state = dict(bit_generator=s["bit_generator"], state={a: int(b) for a, b in s["state"].items()},
                                          has_uint32=s["has_uint32"], uinteger=int(s["uinteger"]))

@@ -388,6 +388,11 @@ class WorldLink:
             rid_ = dict((L.get("ROLES") or {}).get("ID") or {})
             self.lw_tid = np.array([rid_.get(nm_, -1) for nm_ in PP.lw_tnames], np.int64)   # -1: not in the catalogue
             self.lw_fire = {}             # n -> the post whose moment was offered this week
+        # finishing pack, part 2 (place_turnover): "the place closed" and "the new place" (cast_want place_closed,
+        # place_opened; no holder) come only with a closing or an opening of the life's place, never by a draw
+        self.pt_m = np.isin(self.want, [WK.CAST_WANTS.index(w_) for w_ in WK.PLACE_WANTS])
+        if getattr(PP, "pt_on", False):
+            PP.pt_keys = {k_ for k_ in self.want_s if k_ in WK.PLACE_WANTS}
         # far_ties (item 18): a far moment's touch (touch:), and its options that take the tie in (mark: took them in)
         self.touch = np.asarray(L.get("W_TOUCH", np.full(S, -1)))
         self.took = np.zeros((S, K), bool)
@@ -641,6 +646,11 @@ class WorldLink:
                 if ss_:
                     si_ = ss_[int(PP._lw_rng.integers(len(ss_)))]
                     self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True; self.lw_fire[n_] = pid_
+        if getattr(PP, "pt_on", False) and PP.pt_keys:   # part 2: the place closed, the new place (no holder: cid -1)
+            for n_, key_ in PP.pt_take(PP.t, self.pending):
+                ss_ = self.want_s.get(key_) or []
+                si_ = ss_[int(PP._pt_rng.integers(len(ss_)))]
+                self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True
         if self.sac_on:   # S5: an offer on a held line, a tragic trade-off or amends brings its moment (no holder: cid -1)
             self.sac_pend = {}
             for n_, it_ in PP.sac_due(PP.t):
@@ -905,6 +915,8 @@ class WorldLink:
                 return None
             return self.PP.lead_resolve(int(n), pid_, pv_[1], self.olead[s_n, a_n], self.ofall[s_n, a_n], self.ohand[s_n, a_n],
                                         bool(succ_n), bool(idle_n))
+        if pv_[1] in WK.PLACE_WANTS:   # part 2: a place moment is the life's own (nothing to meet or refuse)
+            return None
         if pv_[1] in WK.OWN_WANTS:   # S5: an offer, a tragic trade-off or amends (no cast member holds it)
             it_ = self.sac_pend.get(int(n))
             if it_ is None:
@@ -1065,6 +1077,8 @@ class WorldLink:
             else:
                 rgm_ = np.where((self.msph[ls_] >= 0)[None, :], rg_[:, np.maximum(self.msph[ls_], 0)], rg_.max(1)[:, None])
                 f[:, ls_] *= np.floor(rgm_) >= self.ladder[ls_][None, :]
+        if self.pt_m.any():   # part 2: a place moment comes only with its closing or opening (brought, never drawn)
+            f[:, self.pt_m] = 0.0
         if (self.prem >= 0).any():   # a moment that needs a technology the world has not got
             th_ = {}   # speed pass: each technology asked once a week
             for si in np.nonzero(self.prem >= 0)[0]:

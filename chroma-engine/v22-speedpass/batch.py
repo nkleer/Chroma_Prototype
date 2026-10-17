@@ -512,7 +512,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
     for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
-                     (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+                     (LEAD_MOMENTS, ("lead_",)),   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+                     (TURNOVER_MOMENTS, ("place_closed", "place_opened"))):   # the finishing pack's, for the pack's refit
         if not on_:
             sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
     gj_ = set() if GREEN_JOBS else _when_only(R)
@@ -831,6 +832,9 @@ AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-l
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
+                           # batch at the pack's refit (until then the Library's new moments change no life); in the
+                           # batch, they come only with a closing or an opening of the life's place (place_turnover on)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 

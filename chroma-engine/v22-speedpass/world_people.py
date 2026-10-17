@@ -604,6 +604,9 @@ class People:
         self.seen_on = bool(wp_.get("seen_done", False))
         if self.seen_on:   # seen_done (S6): the paths and colour ways each life has seen walked; felt odds and dreams read it
             self._seen_init()
+        self.pt_on = bool(wp_.get("place_turnover", False)) and self.sph_h
+        if self.pt_on:     # finishing pack, part 2: their places close and new ones open (off: nothing of it exists)
+            self._pt_init(run_seed)
         if self.sph_lv or self.sph_fr:
             self.fair = np.full((N, 9), 0.5)    # felt fairness in each sphere, 0..1 (sph_fair)
             self.fair_log = []                  # [week, life, sphere, +1 went well / -1 badly]: voice and loyalty acts
@@ -1576,6 +1579,8 @@ class People:
         if kinds is not None:
             ok = ok & np.isin(np.arange(len(HAUNT_KINDS)), kinds)[None, :]
         u = u + self._hrng.gumbel(0, 1, u.shape)
+        if getattr(self, "pt_on", False) and getattr(W, "pt_open", None) is not None:   # part 2: an empty slot is no place
+            u = np.where(W.pt_open[self.loc[ns]] >= 0, -np.inf, u)
         return np.where(ok[:, :, None], u, -np.inf)
 
     def _haunts_year(self, t, ns=None):
@@ -1653,7 +1658,12 @@ class People:
         if not ks:
             return -1
         hp = self.W.hp_s[self.loc[n]][ks]                                         # kinds x P x 5
-        k_, i_ = np.unravel_index(int(np.argmax(hp[..., c])), hp.shape[:2])
+        hc_ = hp[..., c]
+        if getattr(self, "pt_on", False) and getattr(self.W, "pt_open", None) is not None:   # part 2: not an empty slot
+            hc_ = np.where(self.W.pt_open[self.loc[n]][ks] >= 0, -np.inf, hc_)
+            if not np.isfinite(hc_).any():
+                return -1
+        k_, i_ = np.unravel_index(int(np.argmax(hc_)), hp.shape[:2])
         p_ = int(self.loc[n] * H * P_ + ks[k_] * P_ + i_)
         self._haunt_add(n, p_, first=True)
         if p_ not in self.shnt[n]:
@@ -1993,6 +2003,8 @@ class People:
         self._cleanup(t)
         self._alive_counts(np.arange(self.N))
         self._approval(t)   # felt acceptance per norm key: once a quarter (views move slowly)
+        if getattr(self, "pt_on", False):   # part 2: the places that closed and opened this quarter (before the posts')
+            self._pt_q(t)
         if self.lw:          # S7: the posts' quarter (after the settings' leaders are replaced)
             self._lead_q(t)
         if self.seen_on:    # seen_done (S6): what the cast and the figures were seen to do this quarter
@@ -4517,7 +4529,7 @@ class People:
                     span = self._lead_left(p_, t)
                 self._lead_act(p_, lv, q, t)
         what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
-                           span=span)
+                           span=span, went=q)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
                     rung=LADDER[min(max(rg, 0), 4)], moved=what)
 
@@ -4698,6 +4710,78 @@ class People:
         if d == "belief":
             return f"faith:{int(self.pfaith[n])}" if self.pfaith[n] >= 0 else "secular"
         return dict(economy="inequality", tech="invent", nature="warming", abroad="relation:0").get(d, d)
+
+    # ------------------------------------------------------------------ finishing pack, part 2 (place_turnover)
+    # chroma-world/spheres/finish-pack-draft.md "Places close and open" (World._pt_q closes and opens the places): a
+    # place's regulars lose that haunt (they pick another at the yearly pick, none while every place of the kind is shut),
+    # a setting held there is left, their rung in its sphere falls one step (TURNOVER rung_step), the ties made there
+    # (its members) are kept at half strength (tie_keep), and a post leading it ends (not a fall). Each is an event in the
+    # life's log (kind "place", state closed or opened) and, where the Library has them, a moment (cast_want
+    # place_closed, place_opened; fired with no holder, cid -1). The new place's moment comes to those who lost the old
+    # one and still live in its town.
+    def _pt_init(self, run_seed):
+        import sphere_data as SD
+        self._pt_par = SD.TURNOVER
+        self._pt_i = len(getattr(self.W, "pt_log", None) or [])   # the world's closings read so far
+        self.pt_hits = []    # [life, week]: a haunt of theirs closed (the run's pt_lives)
+        self.pt_lost = []    # [life, place]: waiting for the new place in that slot
+        self.pt_due = []     # [life, moment key, place, week queued]: a place moment waiting to come
+        self.pt_keys = set() # the place moment keys the batch has (WorldLink sets them); none: none is waited for
+        self._pt_rng = np.random.default_rng([self.seed, 113, self.run_seed])   # the moments' picks (only with moments)
+
+    def _pt_ev(self, n, t, state, e, p):
+        if self.watch[n]:
+            self.events.append(dict(n=int(n), t=int(t), kind="place", state=state, place=int(p), haunt=e["kind"],
+                                    sphere=e["kind"].split(".")[0], name=int(e["name"]), why=e["why"]))
+        key_ = "place_" + state
+        if key_ in self.pt_keys:
+            self.pt_due.append([int(n), key_, int(p), int(t)])
+
+    def _pt_q(self, t):
+        """The world's closings and openings since the last quarter, on the lives (see above)."""
+        log = getattr(self.W, "pt_log", None)
+        if not log or len(log) <= self._pt_i:
+            return
+        new = log[self._pt_i:]; self._pt_i = len(log)
+        TO = self._pt_par; B = None
+        for e in new:
+            p = int(e["place"]); j = SPHERES.index(e["kind"].split(".")[0])
+            if e["what"] == "opened":
+                for x_ in [x_ for x_ in self.pt_lost if x_[1] == p]:
+                    self.pt_lost.remove(x_)
+                    if not self.dead[x_[0]] and int(self.loc[x_[0]]) == int(e["town"]):
+                        self._pt_ev(x_[0], t, "opened", e, p)
+                continue
+            who = np.nonzero(~self.dead & ((self.hnt == p).any(1) | (self.shnt == p).any(1)))[0]
+            for n in who.tolist():
+                if self.lw:   # the keeper's post ends: a place led, or a leading title over a setting held there
+                    for po in [po for po in self.lw_posts if po["n"] == n and po["place"] == p]:
+                        self._lead_end(po, t, "place closed")
+                for j_ in np.nonzero(self.shnt[n] == p)[0].tolist():   # the setting held there: its ties kept at half,
+                    B = self._bits() if B is None else B                 # the keeper no longer one, then left
+                    mem = self.used[n] & (B[n, :, j_] > 0)
+                    self.c[n, mem] *= np.float32(TO["tie_keep"])
+                    k = int(self.slead[n, j_])
+                    if k >= 0 and not ((self.slead[n] == k) & (self.shnt[n] >= 0) & (self.shnt[n] != p)).any():
+                        self.rmask[n, k] &= ~BIT["keeper"]
+                    self._leave(n, j_, t, "place closed")
+                h_ = [x_ for x_ in self.hnt[n] if x_ >= 0 and x_ != p]   # the haunt is gone (best first, as before)
+                self.hnt[n] = (h_ + [-1, -1, -1])[:3]
+                self.rung[n, j] = max(0.0, self.rung[n, j] + TO["rung_step"])
+                self.pt_hits.append([n, int(t)]); self.pt_lost.append([n, p])
+                self._pt_ev(n, t, "closed", e, p)
+
+    def pt_take(self, t, busy):
+        """The place moments to bring this week [(life, key)] (busy: lives with a moment already brought); one waiting
+        more than 8 weeks lapses."""
+        out = []
+        for d_ in list(self.pt_due):
+            n, key, p, t0_ = d_
+            if t - t0_ > 8 or self.dead[n]:
+                self.pt_due.remove(d_)
+            elif n not in busy and n not in {o_[0] for o_ in out}:
+                self.pt_due.remove(d_); out.append((n, key))
+        return out
 
     # ------------------------------------------------------------------ S7, ways to lead (lead_ways)
     # chroma-ideas/social-mechanics.md S7, "The leader's time in post" first: a post per leading role a life holds (it
@@ -5477,6 +5561,8 @@ class People:
         """N == 1: the People now live in World W (its places, rates, institutions, generations)."""
         self.W = W; self._coh_tab = None
         self._world_static()
+        if getattr(self, "pt_on", False):   # part 2: that world's closings from now on
+            self._pt_i = len(getattr(W, "pt_log", None) or [])
 
     def _arrival_loc(self):
         """A migrant's first locality: population, cities and the capital (where migrants mostly settle), work."""

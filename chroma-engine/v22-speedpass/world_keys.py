@@ -22,6 +22,11 @@ CAST_WANTS += ["lead_take", "lead_crisis", "lead_fall", "lead_routine", "lead_ha
 # go last: the cast's wants are the ones before them (world_people.NW)
 CAST_WANTS += ["sacred", "tragic", "amends"]
 OWN_WANTS = ["sacred", "tragic", "amends"]
+# the spheres finishing pack, part 2 (place_turnover, finish-pack-draft.md): "the place closed" and "the new place",
+# fired with no holder (cid -1) when a haunt of the life's closes, and when a new place opens in its slot. After the own
+# wants, so every index before them stays (none is a cast member's wish)
+CAST_WANTS += ["place_closed", "place_opened"]
+PLACE_WANTS = ["place_closed", "place_opened"]
 SACRED_KINDS = ["promise", "truth", "own_say", "loved", "home"]   # a line's kind (sacred:), W U B R G in the Canon's order
 OFFER_KINDS = ["money", "post", "favour"]                          # what an offer gives (offer:; dynamics.json offers kind)
 OFFER_ROUNDS = ["first", "raised"]                                 # the first offer, or the raised one after a refusal (round:)
