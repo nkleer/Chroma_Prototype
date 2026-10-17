@@ -6,6 +6,7 @@ The engine passes keys and numbers (chroma-game/world-hooks-for-engine.md); ever
 rule (Emren 10:42: no year, brand, real country, person or event on screen) and each world's flavour live in one place.
 Hidden quantities (pressure, hazards, the odds of what comes next) are never shown (Emren 10:09). Everything is a no-op
 until the engine's world lands: game.Game.world_source returns None and the panel, circle and reach stay hidden."""
+import functools
 import hashlib
 import re
 
@@ -66,8 +67,9 @@ def loc_key(soc, loc):
     return int(loc) + LOC_SOC * int(soc or 0)
 
 
+@functools.lru_cache(maxsize=None)   # one world's order, worked out once: the HUD names towns thousands of times a life
 def _order(seed, tag, n):
-    return sorted(range(n), key=lambda i: _h(seed, tag, i))
+    return tuple(sorted(range(n), key=lambda i: _h(seed, tag, i)))
 
 
 def place_name(seed, lid, setting="earth"):
