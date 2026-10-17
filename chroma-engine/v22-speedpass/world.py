@@ -448,6 +448,8 @@ W_DEFAULT = dict(
     sph_shadow=False,  # phase 5, N5: each face's shadow share per town and sphere (event rows' shadow turns, subvert,
                        # the fairness gap), the spheres' grey shares, and the shadow around a life (notes/spheres-phase5-asks.md)
     sph_deep=False,    # phase 5: the deep state of a life (the care load first; service, debts, holdings to come)
+    prison_ties=False,  # spheres finishing pack, part 4: former inmates as ties in a life's People (read by world_people
+                        # only: the world itself is the same with it on or off)
     far_ties=False,    # item 18: a town's events touch the named people living there; a close tie in another town calls
                        # (chroma-ideas/far-off-events.md; sides in sphere_data.FAR); with sph_events
     far_par=None,      # far_ties tuning: {name: value} over world_people.FAR_DEFAULT (None: the start values)
@@ -495,6 +497,9 @@ V224_RULES = ("sph_eyes", "sph_odd", "eyes_par")
 V224_RULES += ("sacred", "sacred_par")   # S5 sacred lines
 V224_RULES += ("seen_done", "seen_par")   # S6 seen it done
 V224_RULES += ("lead_ways", "lead_par")   # S7 ways to lead
+# the spheres finishing pack's switches (chroma-world/spheres/finish-pack-draft.md): saved only when on, so a save with
+# them off is as before
+FP_RULES = ("prison_ties",)
 C_RULES = ("c3_inst", "c4_nature", "c5_faith", "c_par", "c2_groups", "c2_par")   # the C hooks' switches and tuning (item 10); off, saved without them
 # S1 (fair_read): the part or parts of fairness each felt_fairness state reads (W the same rules for all, U the truth and
 # the reasons, B their due, R respect and a say, G people who mean well by us). Provisional (the Engine's reading of
@@ -3991,6 +3996,12 @@ class World:
                 cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in V224_RULES})
                 if not cfg["params"]:
                     cfg.pop("params")
+        if not any(self.p.get(k) for k in FP_RULES):       # the finishing pack's switches off: saved without them
+            par = {k: v for k, v in par.items() if k not in FP_RULES}
+            if "params" in cfg:
+                cfg = dict(cfg, params={k: v for k, v in cfg["params"].items() if k not in FP_RULES})
+                if not cfg["params"]:
+                    cfg.pop("params")
         if not any(self.p.get(k) for k in C_RULES):        # the C hooks off: saved without them
             par = {k: v for k, v in par.items() if k not in C_RULES}
             if "params" in cfg:
@@ -4009,8 +4020,8 @@ class World:
     @classmethod
     def load(cls, d):
         params = dict(d["params"])
-        for k in S3_RULES + SPH_RULES + V224_RULES:        # saved before stage 3, the spheres or v22.4: their rules stay off
-            params.setdefault(k, False)
+        for k in S3_RULES + SPH_RULES + V224_RULES + FP_RULES:   # saved before stage 3, the spheres, v22.4 or the
+            params.setdefault(k, False)                    # finishing pack: their rules stay off
         for k in C_RULES:                                  # saved before the C hooks: they stay off
             params.setdefault(k, None if k == "c_par" else False)
         W = cls(d["seed"], cfg=d["cfg"], color_perm=d["perm"], params=params, society=d.get("society", 0))

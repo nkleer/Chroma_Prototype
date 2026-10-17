@@ -48,6 +48,8 @@ quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_nee
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
 harsh unrest prosper era founding (C5: a movement founded in the person's town within the year; true only with c5_faith on)
 haunts (the spheres' haunts, phase 2: never true until they are built)
+inmate_tie yrs_out (spheres finishing pack, part 4: an active former-inmate tie, false unless prison_ties and the world
+are on; years since the last release, 99 = never)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -515,6 +517,12 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                      (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
         if not on_:
             sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
+    if not INMATE_MOMENTS:   # spheres finishing pack, part 4: the former-inmate moments (cast_want: fellow_inmate, or a
+        # condition naming inmate_tie or yrs_out, in the rules keyed by name or the moment's own requires:) wait for the refit
+        rx_ = re.compile(r"\b(inmate_tie|yrs_out)\b"); cwn_ = dict(getattr(R, "CAST_WANT", {}))
+        inm_ = {k_ for d_ in (INNER_, ECHO_, LIFE_, READ_, getattr(R, "FIXES", {})) for k_, v_ in d_.items() if rx_.search(repr(v_))}
+        sits = [x for x in sits if str(x.get("cast_want") or cwn_.get(x.get("variant_of") or x["name"]) or "").strip() != "fellow_inmate"
+                and x["name"] not in inm_ and x.get("variant_of") not in inm_ and not rx_.search(repr(x.get("requires") or ""))]
     gj_ = set() if GREEN_JOBS else _when_only(R)
     if gj_:   # v22.4: the green entry jobs' moments wait with their titles (GREEN_JOBS)
         sits = [x for x in sits if not _names_any(x, gj_)]
@@ -825,6 +833,8 @@ FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or fa
 EYES_MOMENTS = True    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
 SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or amends
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+INMATE_MOMENTS = False  # spheres finishing pack, part 4 (prison_ties): moments with cast_want: fellow_inmate, or whose
+                        # conditions read inmate_tie or yrs_out, join the batch at the pack's refit
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
 AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and

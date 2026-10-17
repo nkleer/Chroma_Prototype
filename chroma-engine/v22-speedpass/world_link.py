@@ -268,6 +268,7 @@ class WorldLink:
             s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
             s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
             s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
+            s3_.update({k: P[k] for k in getattr(WM, "FP_RULES", ()) if P.get(k)})    # the finishing pack's, when on
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = burned_world(int(seed if ws is None else ws), cfg, burn)
@@ -376,6 +377,8 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             self.want_s.setdefault(WK.CAST_WANTS[int(self.want[si])], []).append(int(si))
         self.pending = {}                 # n -> (cast id, want key, moment) offered this week
+        # spheres finishing pack, part 4: the moments with a fellow inmate (cast_want: fellow_inmate)
+        self.inm_s = (self.want == WK.CAST_WANTS.index("fellow_inmate")) if "fellow_inmate" in WK.CAST_WANTS else np.zeros(S, bool)
         # S7 lead_ways: a post's moments (cast_want lead_*), fired with no holder (cid -1): a crisis or fall moment's way
         # (lead_way:), each option's way, fall and hand answers (lead:, fall:, hand:), and the engine's office titles
         self.lw = bool(getattr(PP, "lw", False))
@@ -1436,6 +1439,9 @@ class WorldLink:
             return None
         pv_ = self.pending.get(int(n))
         first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own, or a post's moment with no holder, -1: none)
+        if first_ is None and self.inm_s[si]:   # part 4: the closest active former-inmate tie (the moment is open only with one)
+            k_ = self.PP.inmate_closest(int(n))
+            first_ = int(self.PP.uid[int(n), k_]) if k_ >= 0 else None
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}

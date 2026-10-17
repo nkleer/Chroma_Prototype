@@ -291,6 +291,11 @@ for label, sw, ok in RO_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+def _pt_made(o):
+    """prison_ties' own test: former inmates were made ties (a plain function: the rows go to the worker processes)."""
+    return any(e["what"] == "made" for e in o.get("prison_ties", ()))
+
+
 # 8 and 9. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work) and WL2 (world on only): switched on,
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
@@ -322,6 +327,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("the finishing pack's former inmates as ties (prison_ties; every life serves a 3-year term at 18, the shadows on in "
+        "the world)", dict(prison_ties=True, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)),
+                          sh_world=True),
+        dict(prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)), sh_world=True), 30, 4,
+        _pt_made),   # (ties made, and the lives move beyond the readout)
        ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
         dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
@@ -399,6 +409,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
 def p2_row(row_):
     """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
+    moved_ = row_[5] if len(row_) > 5 else None   # (and a test of its own that it did something: then the lives must move
+    # in outputs there with the switch off too, not only in its own readout)
     if not sw or not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         return None
     t0 = time.process_time(); fails = []
@@ -417,8 +429,11 @@ def p2_row(row_):
         fails.append(f"run_steps differs in {diff[:4]}")
     off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
-    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
+    own_ = set(d1) - set(d0) if moved_ else set()
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world" and x not in own_]:
         fails.append("switched on, the lives are those with it off")
+    if moved_ and not moved_(o1):
+        fails.append("switched on, it did nothing")
     return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
                          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 
