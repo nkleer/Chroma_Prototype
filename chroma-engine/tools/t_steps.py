@@ -353,6 +353,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("trust in a sphere's bodies (body_trust; with felt fairness, the levers, the events and C3)",
+        dict(body_trust=True, fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True,
+             sph_hours=True, cur_on=True),
+        dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True,
+             cur_on=True), 40, 6),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
@@ -406,6 +411,10 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 6),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
+# a switch's own readouts, which are not the lives (the finishing pack's)
+OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y")
+
+
 def p2_row(row_):
     """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
     label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives, and a test
@@ -428,7 +437,7 @@ def p2_row(row_):
         fails.append(f"run_steps differs in {diff[:4]}")
     off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
-    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x not in ("world", "place_turnover", "pt_lives")]:
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x not in OWN_KEYS_]:
         fails.append("switched on, the lives are those with it off")   # (a switch's own readouts are not the lives)
     if moved is not None and not moved(o1):
         fails.append("switched on, it moved nothing")

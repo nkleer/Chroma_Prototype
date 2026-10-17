@@ -509,6 +509,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
+    if not TRUST_MOMENTS:   # body_trust's gated moments (trust: <sphere> low|high) wait for the finishing pack's refit
+        sits = [x for x in sits if not x.get("trust")]
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
     for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
@@ -815,6 +817,18 @@ def _world_fields(L):
             if nt.get("heal"):
                 oheal[si, ki] = one(nt["heal"], WK.HEAL_TAGS, f"{nm}, option {ki + 1}")[0]
     L.update(W_SACRED=sac, W_OFFER=offer, W_ROUND=rnd, W_LINE=oline, W_TRAGIC=otrag, W_HEAL=oheal)
+    # body_trust (the spheres' finishing pack, part 3): a moment's gate on trust in a sphere's bodies, trust: <sphere>
+    # low|high (sphere_data.TRUST gate: under its low, over its high), as (sphere index, 0 low / 1 high); -1 none
+    trust = np.full((S, 2), -1)
+    tv_ = list(SD_.TRUST["gate"]["values"])
+    for si, src in enumerate(L["src"][:S]):
+        if src.get("trust"):
+            x_ = str(src["trust"]).split()
+            if len(x_) != 2 or x_[0] not in WK.SPHERES or x_[1] not in tv_:
+                raise ValueError(f"moment {src.get('name', si)!r}: trust: {src['trust']!r} (a sphere of {', '.join(WK.SPHERES)}, "
+                                 f"then {' or '.join(tv_)})")
+            trust[si] = (WK.SPHERES.index(x_[0]), tv_.index(x_[1]))
+    L.update(W_TRUST=trust)
     L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
@@ -831,6 +845,8 @@ GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLE
 AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
+TRUST_MOMENTS = False   # the spheres' finishing pack, part 3: moments gated on trust in a sphere's bodies (trust: <sphere>
+                        # low|high, body_trust) join the batch at the pack's refit
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
