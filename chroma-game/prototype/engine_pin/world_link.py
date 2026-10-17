@@ -7,7 +7,13 @@ rate multipliers per moment, gates on moments, closures on options, wants that b
 
 Rules kept: no color pair is special here (only the modules' overlap and distance); the world's history never depends
 on the lives except through pushes; keys only, the game writes the words."""
+import copy
+import hashlib
+import json
+import os
+import pickle
 import re
+import sys
 import numpy as np
 try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
     from numpy._core.umath import clip as _uclip
@@ -193,6 +199,63 @@ def start_fits(PP, W, start):
     return ok
 
 
+# The world's burn-in (its 80 years before the birth) is the same for the same seed, settings and code, so a run keeps the
+# burned-in World and each run of that world starts from a deep copy of it, which goes on exactly as a fresh one does.
+# BURN_KEEP worlds are kept in memory (a new life with the same seed and setup, a check that runs a life twice); with
+# CHROMA_WORLD_CACHE set to a folder they are also kept there as pickles (named by the seed, settings and the md5 of the
+# code that builds them), so every check run on that folder skips them. BURN_HITS counts the runs that used one.
+BURN_KEEP = 2
+BURN = {}
+BURN_HITS = [0]
+BURN_MODS = ("world", "world_keys", "library", "combos", "sphere_data", "sphere_ev_base")
+
+
+def _code_md5():
+    """The md5 of the code a burn-in runs (the files of BURN_MODS as loaded), with Python's and numpy's versions."""
+    h = hashlib.md5(("%d.%d %s" % (sys.version_info[0], sys.version_info[1], np.__version__)).encode())
+    for nm in BURN_MODS:
+        f = getattr(sys.modules.get(nm), "__file__", None)
+        h.update(nm.encode())
+        if f and os.path.isfile(f):
+            with open(f, "rb") as fh:
+                h.update(fh.read())
+    return h.hexdigest()
+
+
+def burned_world(seed, cfg, burn):
+    """World(seed, cfg) after burn_in(burn), from the cache when the same world was burned in before (a deep copy)."""
+    key = json.dumps([int(seed), cfg, float(burn)], sort_keys=True, default=repr)
+    W0 = BURN.get(key)
+    path = None
+    if W0 is None and os.environ.get("CHROMA_WORLD_CACHE"):
+        import world_keys, library, combos  # noqa: F401  (loaded already: the md5 reads their files)
+        d_ = os.environ["CHROMA_WORLD_CACHE"]
+        path = os.path.join(d_, "world_%s.pkl" % hashlib.md5((key + _code_md5()).encode()).hexdigest())
+        if os.path.isfile(path):
+            try:
+                with open(path, "rb") as fh:
+                    W0 = pickle.load(fh)
+                path = None
+            except Exception:   # a broken file: burn it again
+                W0 = None
+    if W0 is None:
+        W0 = WM.World(int(seed), cfg=copy.deepcopy(cfg))
+        W0.burn_in(burn)
+        if path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            tmp_ = "%s.%d.tmp" % (path, os.getpid())
+            with open(tmp_, "wb") as fh:
+                pickle.dump(W0, fh, protocol=pickle.HIGHEST_PROTOCOL)
+            os.replace(tmp_, path)
+    else:
+        BURN_HITS[0] += 1
+    BURN.pop(key, None)
+    BURN[key] = W0
+    while len(BURN) > BURN_KEEP:
+        BURN.pop(next(iter(BURN)))
+    return copy.deepcopy(W0)
+
+
 class WorldLink:
     def __init__(self, E, P, L, N, seed, female, attr, KILLS, ENDS, CAR):
         cfg = dict(P.get("world_cfg") or {})
@@ -207,8 +270,7 @@ class WorldLink:
             s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
-            W = WM.World(int(seed if ws is None else ws), cfg=cfg)
-            W.burn_in(burn)
+            W = burned_world(int(seed if ws is None else ws), cfg, burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
         PP = P.get("people_obj")
         if PP is None:
