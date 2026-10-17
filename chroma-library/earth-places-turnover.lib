@@ -1,0 +1,242 @@
+# Chroma library, modern Earth: PLACES CLOSE AND OPEN (spheres finish pack, part 2, dynamics.json place_turnover,
+# 10-17, DRAFT). Gate: cast_want: place_closed (one of the character's haunts closes) and cast_want: place_opened (a new
+# place opens in the empty slot). {place} is the place that closed, or the new one. Closures are ordinary: custom
+# drifting, a lease, an owner retiring, members moving on. The life loses that haunt, its rung there falls a step, ties
+# made there are kept at half strength, and a keeper's post ends without a fall (never written as a leader's fall).
+# 6 moments: closed 4 (an owned trade, a members' circle, a vowed house, a body's place), opened 2 (a new place after
+# the town's mix, a place founded by someone the character knows). Options carry lever: where one fits (found for
+# founding one's own). Per colour, its one-letter option plus its cross (first letter) = 140.
+#   owned trade     the corner cafe's last week            RG (s1)
+#   members         the circle winds itself up             WU (s2), group: club
+#   vowed           the congregation's house closes        WG (s3), group: congregation
+#   body's place    merged into a bigger site              UB (s4)
+#   opened, town    a new place in the empty slot          BR (s1)
+#   opened, founded a friend opens a place of that kind    URG (s2)
+
+# ---------------------------------------------------------------- closed: an owned trade
+
+== the last week of the corner cafe
+tier: everyday
+stages: juvenile+
+age: 15-90
+calls: RG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, keeper, friend
+haunt: gather.house
+cast_want: place_closed
+earth: a place you go is closing for good: the owner is retiring, the lease is up, and the last week has come
+times: Small owned trades close near 8 in 100 a year, most for ordinary reasons: custom drifting away, a lease, an owner retiring (business dynamics statistics)
+gap: 4-12
+scene: The note has been taped inside the window of {place} for a month. The owner is retiring, the lease runs out at the end of the week, and nobody wants to take it on. The regulars, {N} among them, keep coming in as if nothing will change. {friend}, whom {N} met at the corner table years ago, asks where they will all go now.
+scene W: The owner gave this street a warm room for years. The people who used it owe a proper send-off.
+scene U: Places like this close for plain reasons. {N} wants to know which, and whether anything could have saved it.
+scene B: The fittings, the custom, the good corner spot: someone will make something of all this, and it could be {N}.
+scene R: {N} did not expect it to hurt this much. It is only a room, and it is not only a room.
+scene G: Things that have run their course end. The street will change, and its people will find their way.
+- W | gather the regulars to thank the owner properly on the last night | v: benevolence, conformity | lever: loyalty | chance: 75
+- U | ask the owner plainly why it is closing, and what might have saved it | v: self-direction, universalism | chance: 70
+- B | ask about taking over the lease, and run the place on new terms | v: power, achievement | lever: found | chance: 60
+- R | stay to the very last cup, and let it hurt | v: benevolence, hedonism | chance: 85
+- G | let it go, and find a new corner somewhere on the way home | v: security | lever: exit | chance: 80
+- W>U | set a fixed weekly time for the regulars to meet somewhere else | binds | v: conformity, benevolence | lever: loyalty | chance: 65
+- U>B | work out what the street lacks now, and pitch it to whoever takes the lease | v: achievement, power | chance: 70
+- B>R | buy the old sign at the closing sale, and hang it at home | v: hedonism, power | chance: 80
+- R>G | throw a farewell night in the empty room, with the old songs | v: hedonism, tradition | mark: made a friend | chance: 55
+- G>W | help the owner pack up, and leave the room tidy for whoever comes next | v: benevolence, conformity | mark: helped someone in need | chance: 60
+works: {N} and {friend} still meet, less often than before, and the old corner table comes up every time.
+works: Life finds its new shape around the gap, and {N} carries the good of the old place into it.
+fails: The regulars scatter faster than anyone expected, and {N} loses touch with most of them.
+fails: The new tenant guts the room, and {N} cannot walk past the window without a small pang.
+
+# ---------------------------------------------------------------- closed: a members' circle
+
+== the circle votes to wind itself up
+tier: everyday
+stages: juvenile+
+age: 16-90
+calls: WU
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, keeper, friend
+haunt: gather.circle
+cast_want: place_closed
+group: club
+earth: a club you belong to is winding itself up: the members have moved on, and the subs no longer cover the room
+times: Voluntary associations dissolve a few in 100 a year, mostly as members move on and the group drifts from its surroundings (Hannan and Freeman 1989)
+gap: 4-12
+scene: For years the circle met at {place} every week. Now the members have moved on, a few to other towns, a few to other things, and the room costs more than the subs bring in. At the last meeting the committee proposes winding it up. Whoever held a post hands it back, with thanks and no blame. {N} looks round at the dozen faces left and knows it will be hard to keep them all.
+scene W: There is a proper way to close a club: the accounts settled, the cups returned, the last minutes read. {N} wants it done right.
+scene U: Clubs do not die of one thing. {N} wants to see what drained this one before deciding what can be saved.
+scene B: There is still money in the account and a name people know. Someone could make good use of both.
+scene R: Not seeing these people every week stings more than {N} would ever say aloud.
+scene G: Clubs rise and fold like seasons, and the friendships made in them do not fold with them.
+- W | call a proper vote, and close the books cleanly with every share returned | v: conformity, universalism | lever: voice | chance: 75
+- U | ask the last members what they still want, and draft a smaller club around it | v: self-direction, achievement | lever: voice | chance: 65
+- B | keep the club's name and contacts, and restart it under new rules | v: power, achievement | lever: found | chance: 60
+- R | stand up at the last meeting and plead with them not to give up | v: stimulation, benevolence | lever: voice | chance: 55
+- G | vote to wind it up, and keep the friends without the meetings | v: security, benevolence | lever: exit | chance: 85
+- W>B | settle the accounts fairly, and pass what is left to a group that will use it | v: universalism, achievement | chance: 65
+- U>R | plan one last outing that the members will talk about for years | v: stimulation, achievement | mark: made a friend | chance: 75
+- B>G | strike a deal with a bigger club to take in the members, history and all | v: security, tradition | lever: loyalty | chance: 80
+- R>W | rally the last members to share the costs and keep the weekly meeting going | binds | v: benevolence, conformity | lever: loyalty | chance: 85
+- G>U | gather the old photos and minutes, and write down the club's story | v: tradition, self-direction | chance: 55
+works: The circle ends without bitterness, and the friendships made there go on, quieter than before.
+works: Months later {N} still bumps into old members, and each time they stop and talk as if no time had passed.
+fails: The last meeting turns sour over money, and some of the old members stop speaking to each other.
+fails: Without the weekly meeting the friendships thin out, and {N} misses the circle more than expected.
+
+# ---------------------------------------------------------------- closed: a vowed house
+
+== the old house of worship closes its doors
+tier: everyday
+stages: juvenile+
+age: 15-90
+calls: WG
+rate: 1
+tone: mixed
+life: faith, community
+horizon: months
+roles: regular, keeper, elder
+haunt: faith.congregation
+cast_want: place_closed
+group: congregation
+earth: the congregation you belong to is closing its house: too few members are left, and the rest are asked to join a larger one
+times: Congregations close near 1 in 100 a year, most often as members age and move away and the rest merge elsewhere (Chaves 2004)
+gap: 6-20
+scene: The notice is read out after the service at {place}. Too few members are left to keep the building, and the house will close at the end of the season. Everyone is welcome at a larger congregation across town. Those who held posts, the readers and the wardens, will hand back their duties with thanks. Some of the older members weep quietly, and {elder} says only that the house was built by their grandparents' hands.
+scene W: There are duties to finish: the last rites in the old house, the records kept, the sick members visited. {N} feels bound to see them done.
+scene U: {N} wants to understand what the faith asks now, and whether it lives in the building or in the people.
+scene B: The building will be sold. What it fetches, and who decides where that goes, matters to everyone.
+scene R: The thought of the old house going dark is a grief {N} feels in the chest.
+scene G: The house held births, weddings and funerals for generations. Its people are its roots, and roots can be moved.
+- W | take on visiting the old members, so none are lost in the move | v: benevolence, conformity | mark: helped someone in need | chance: 75
+- U | read what the teaching says of a house closing, and talk it through with {elder} | v: universalism, self-direction | chance: 75
+- B | join the committee that decides what the sale of the building pays for | v: power, security | lever: voice | chance: 60
+- R | ask to speak at the last service, and say what the house meant | v: benevolence, stimulation | chance: 60
+- G | walk with the others to the new house across town, as one body | v: tradition, conformity | lever: loyalty | chance: 80
+- W>R | hold a last vigil in the old house, open to anyone who ever prayed there | v: tradition, benevolence | chance: 65
+- U>G | gather the records of every birth and wedding, and pass them to the new house | v: tradition, universalism | chance: 65
+- B>W | press for the sale money to go to the poorest members first | v: universalism, power | lever: voice | chance: 80
+- R>U | spend the season trying other houses, and see where the faith feels alive | v: self-direction, stimulation | lever: exit | chance: 80
+- G>B | use the old families' standing to win the old members a voice at the new house | v: tradition, power | chance: 60
+works: The old members find their seats at the new house, and before long {N} is greeted there by name.
+works: The house closes with dignity, and years later people still speak warmly of the last service.
+fails: Some of the oldest members never make the move, and {N} sees them less and less.
+fails: The change leaves {N} a stranger in a bigger room, and the faith feels further away for a while.
+
+# ---------------------------------------------------------------- closed: a body's place
+
+== the service moves to a bigger site across town
+tier: everyday
+stages: juvenile+
+age: 15-90
+calls: UB
+rate: 1
+tone: mixed
+life: community, home
+horizon: months
+roles: regular, keeper, elder
+haunt: learn.keeping
+cast_want: place_closed
+earth: a place you use, run by a public body, is closing: its service is being merged into a bigger site across town
+times: Places run for a body close rarely, near 1 in 100 a year, most often merged into a bigger site when budgets are redrawn (plain estimate, after the design's base rate)
+gap: 6-20
+scene: A letter goes round: the body that runs {place} will merge it into a bigger site across town at the end of the year. The staff will move with it, and those who held posts there will move or step down, with no one to blame. For the regulars, {N} among them, it means a bus ride instead of a walk, and losing a room where the same faces nodded every week.
+scene W: The place served everyone on this side of town, the old and the poor most of all. {N} thinks they are owed a say.
+scene U: {N} wants the real figures behind the decision, and to know whether the bigger site can truly do the same job.
+scene B: Closures like this can be bargained over: the hours, a smaller point kept open, a free bus. {N} sees room to deal.
+scene R: It feels like being told this side of town does not count, and {N} is angry about it.
+scene G: Services come and go with the times. The people who met there can still meet.
+- W | write to the body that runs it, asking a fair hearing for the neighbourhood | v: universalism, conformity | lever: voice | chance: 70
+- U | ask for the figures behind the decision, and check them carefully | v: self-direction, achievement | lever: voice | chance: 70
+- B | bargain for a smaller point to stay open a few days a week | v: power, security | lever: voice | chance: 55
+- R | stand up at the public meeting and say, loud and plain, what the closure takes | v: stimulation, universalism | lever: voice | chance: 60
+- G | accept it, and learn the bus route to the new site | v: security, conformity | lever: loyalty | chance: 85
+- W>G | set up a fair rota so the oldest regulars get a lift to the new site | v: benevolence, tradition | mark: helped someone in need | chance: 70
+- U>W | draw up a plan for a volunteer help point in the old building | v: universalism, achievement | lever: found | chance: 70
+- B>U | offer to help at the new site in return for a seat on its users' panel | v: power, self-direction | lever: voice | chance: 85
+- R>B | start a loud petition, and use it to win the neighbourhood something back | v: power, stimulation | lever: voice | chance: 80
+- G>R | ask the old regulars to meet each week at a nearby cafe instead | binds | v: tradition, hedonism | lever: loyalty | mark: made a friend | chance: 55
+works: The new arrangement settles in sooner than {N} feared, and the old regulars still find each other.
+works: {N} finds a new rhythm, and a few faces from the old place turn up in it.
+fails: The site closes on time, and the old regulars, the oldest most of all, are seldom seen again.
+fails: The bigger site is crowded and slow, and {N} feels the loss every time {N} needs it.
+
+# ---------------------------------------------------------------- opened: a new place in the empty slot
+
+== a brighter place where the old haunt stood
+tier: everyday
+stages: juvenile+
+age: 15-90
+calls: BR
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: regular, keeper, friend
+cast_want: place_opened
+earth: where your old haunt closed, a new place has opened, run in the town's usual way rather than the old one's
+times: A closed place's slot fills within 2 to 6 quarters, and the new place takes after its town more than after the place it replaces (the design's place turnover; Hannan and Freeman 1989)
+gap: 4-12
+scene: Where the old haunt stood empty, {place} has opened. It is brighter and busier than the old place, and run more the way the rest of town runs things. A few of the old regulars have tried it and come back with mixed reports. Others have found other haunts and will not go near it. {friend} wants {N} to come along on Friday and see.
+scene W: A new place deserves a fair chance, and the old regulars should not judge it before they have been.
+scene U: {N} is curious how the new owners read the town, and what they expect the old crowd to do.
+scene B: A new place needs regulars, and the first faces it counts on tend to do well there.
+scene R: Something new on the old corner, with new people and noise: {N} feels a small thrill, and a small betrayal.
+scene G: It is not the old place and never will be. The question is whether it can grow into something of its own.
+- W | go with {friend} on Friday, and give it a fair chance | v: universalism, benevolence | chance: 75
+- U | watch the new place for a few weeks before deciding whether to go | v: self-direction, security | chance: 75
+- B | make a point of meeting the new owner early, while it counts | v: power, achievement | mark: made a friend | chance: 65
+- R | walk in on the opening night, and stay until closing | v: stimulation, hedonism | chance: 70
+- G | stay with the haunt the old regulars moved to, and wish the new place well | v: tradition, security | lever: loyalty | chance: 80
+- W>U | ask the old regulars to try it together once, then decide as a group | v: conformity, universalism | chance: 65
+- U>B | work out which nights suit the old crowd, and suggest them to the owner | v: achievement, power | chance: 65
+- B>R | offer to run a night of the old kind there, and bring the crowd | v: power, stimulation | chance: 75
+- R>G | bring the old place's songs and stories in, and teach them to the new faces | v: tradition, stimulation | chance: 70
+- G>W | welcome the new regulars as the old ones once welcomed {N} | v: benevolence, tradition | mark: made a friend | chance: 60
+works: By the end of the season {N} knows where {Ns} evenings belong, and the new place has stopped feeling strange.
+works: The old regulars regroup in their own way, and {N} keeps a foot among them and a nod for the new place.
+fails: The new place never warms to the old crowd, and the last of them scatter for good.
+fails: {N} feels a stranger on the old corner, and {friend} finds a crowd there without {N}.
+
+# ---------------------------------------------------------------- opened: founded by someone the character knows
+
+== a friend opens a place of the old kind
+tier: everyday
+stages: young_adult+
+age: 18-90
+calls: URG
+rate: 1
+tone: mixed
+life: community, friends
+horizon: months
+roles: friend, regular, keeper
+cast_want: place_opened
+earth: someone you know has opened a new place of the kind that closed, and hopes the old regulars will come
+times: Where a founding goes well in a kind of place, the new place takes its founder's mix rather than the town's (the design's found lever); new places draw first on their founder's own ties (plain estimate)
+gap: 4-12
+scene: The old haunt has been gone a year when {friend} rents a room and opens {place}, a place of the same kind, run {friend}'s own way. The paint is barely dry. {friend} has a list of the old regulars and a hope that they will come. There is room for helpers, and maybe for someone to take a post. {friend} asks {N} first.
+scene W: {friend} has taken a risk for the old crowd. Standing by a friend who does that feels like a duty.
+scene U: {N} wants to see the plan: the rent, the hours, who {friend} expects to come and why.
+scene B: Being there from the first week means a say in how the place runs, and that is worth something.
+scene R: It is the old feeling back, the noise and the faces, and {N} wants to be part of it from the start.
+scene G: The old place had to end for this one to begin. Something new can grow from the same roots.
+- W | join as a member on the first day, and pay the full share | binds | v: conformity, benevolence | lever: loyalty | chance: 80
+- U | go over the plan and the figures with {friend}, line by line | v: achievement, self-direction | chance: 70
+- B | offer to help run it in return for a post on its board | v: power, achievement | lever: lead | chance: 60
+- R | throw the opening night with {friend}, and call every old face in person | v: stimulation, hedonism | mark: made a friend | chance: 70
+- G | wish {friend} well, and keep to the quieter life since the old place closed | v: security, tradition | chance: 85
+- W>B | draw up fair rules for the new place, so it can last and pay its way | v: security, achievement | chance: 60
+- U>R | plan a first season of nights to bring the old crowd back | v: stimulation, achievement | chance: 70
+- B>G | lend {friend} some savings, on easy terms, to get through the first year | v: benevolence, security | mark: helped someone in need | chance: 80
+- R>W | give it every free evening, and see that each newcomer gets a welcome | habit | v: benevolence, universalism | chance: 70
+- G>U | bring in the old place's customs, and tell the newcomers where they come from | v: tradition, universalism | chance: 55
+works: {place} finds its feet in its first year, and the old regulars start to call it home.
+works: {N} and {friend} grow closer over the new venture, whatever part {N} played in it.
+fails: The first year is lean, and {friend} wonders aloud whether opening it was a mistake.
+fails: The old crowd comes once out of loyalty and then drifts, and the place fills with strangers.

@@ -1,0 +1,121 @@
+# Chroma library, modern Earth: FORMER INMATES AS TIES (spheres finish pack part 4, data/dynamics.json
+# deep_state.service.after_prison.tie_values). Gates on every moment: holds: ex-prisoner and cast_want: fellow_inmate.
+# The fellow inmate is {friend}. 3 moments: the help (a job lead through the tie), the pull back (one more thing),
+# and new bonds meeting the old tie (Sampson and Laub 1993). Syntax: header of build.py.
+#   help        a job lead from a former cellmate       calls UG (s1)
+#   pull back   one more thing, an easy score           calls BR (s2)
+#   new bonds   the old tie at the new door             calls WG (s4)
+
+# ---------------------------------------------------------------- the help: a job lead
+
+== the cellmate who knows a foreman
+tier: everyday
+stages: young_adult adult mature
+age: 19-70
+calls: UG
+rate: 1
+tone: mixed
+life: work, friends
+horizon: months
+roles: friend, boss
+holds: ex-prisoner
+cast_want: fellow_inmate
+earth: someone you shared a cell with rings to say the yard where they work is taking people on, and they can put in a word
+times: People leaving prison often find their first job through someone they know, and a word from a former inmate helps most in farm and industry work (estimate)
+gap: 2-6
+scene: Six months out, {N} has filled in more forms than ever before and heard back from almost none. Then {friend}, who shared a cell with {N} for most of a year, rings without warning. The yard where {friend} works now is taking on hands for the season, and the foreman listens to {friend}. There would be no awkward questions about the gap in {Ns} history, or none that {friend} has not already answered. All {N} has to do is say yes and turn up at six on Monday.
+scene W: {N} meant to do this the proper way, on {Ns} own record. A job won through a word in the right ear feels like a shortcut, even an honest one.
+scene U: {N} wants to know what the work really is, what the foreman has been told, and what {friend} will expect back.
+scene B: A foot in the door is worth more than a hundred forms. The only question is what the favour will cost later.
+scene R: A voice from inside, glad and easy on the phone, catches {N} off guard. Nobody else talks to {N} like that any more.
+scene G: Inside, the two of them got each other through the long evenings. This is how people get back on their feet: one hand pulling the next.
+- W | take the job, and tell the foreman plainly about the record on day one | v: conformity, universalism | mark: owned up | chance: 65
+- U | ask {friend} exactly what the work is and what the foreman knows | v: self-direction, security | chance: 85
+- B | take the start, and make clear to {friend} that it leaves no debt | v: power, achievement | chance: 70
+- R | say yes on the spot, laughing, and fix a night for a drink | v: hedonism, benevolence | bond: friend +.1 | chance: 75
+- G | turn up at six on Monday, and learn the work the way {friend} does it | habit | v: tradition, conformity | chance: 75
+- W>U | thank {friend}, then apply through the yard's own office like anyone else | v: conformity, achievement | chance: 55
+- U>B | learn the trade fast at the yard, and use it to move on to better pay | v: achievement, power | chance: 60
+- B>R | ask {friend} to get the two of them on the same shift | v: hedonism, benevolence | chance: 70
+- R>G | go round to say thanks in person, and meet {friend}'s family | v: benevolence, tradition | mark: made a friend | chance: 80
+- G>W | say no for now, and keep to the slow road agreed with probation | v: security, conformity | self_control: + | chance: 75
+works not G>W: A month in, {N} has a payslip, a locker with {Ns} name on it, and a reason to be up at five.
+works: {friend} is glad of how it turns out, says so, and the two of them talk more often after.
+fails not G>W: The yard lets its newest hands go before the season ends, {N} among them.
+fails: Word gets round about where {N} and {friend} met, and some people look at {N} differently for it.
+
+# ---------------------------------------------------------------- the pull back: one more thing
+
+== one more thing from an old cellmate
+tier: everyday
+stages: young_adult adult mature
+age: 19-70
+calls: BR
+rate: 1
+tone: trouble
+life: friends, money
+horizon: moment
+roles: friend
+holds: ex-prisoner
+cast_want: fellow_inmate
+earth: someone you did time with rings about one more job: an easy score, an hour's work, an empty building at night
+times: While a tie from inside is still in the old life, going back is likelier; new bonds such as a partner or steady work end the pull (estimate; Sampson and Laub 1993)
+gap: 1-4
+scene: It is late when {friend} rings, sounding exactly as {friend} did inside: easy, sure, a little too cheerful. There is one more thing, {friend} says. A storage unit on the edge of town, a back door someone has left unlocked, a van, an hour's work. Nobody there at night, and a share that would clear what {N} owes twice over. {friend} needs one more pair of hands, and {friend} trusts {N}.
+scene W: {N} signed conditions on the way out, and meant them. A promise made at the gate is still a promise.
+scene U: {N} knows how easy jobs tend to go, and knows how long the next sentence would be. The sums are not hard.
+scene B: The money is real, and so are the debts. {N} weighs what one hour is worth against what the next years are worth.
+scene R: The old rush is there in {friend}'s voice, the night, the van, the two of them against everything. It has been a long, flat year.
+scene G: {friend} was there on the worst nights inside. Old loyalty does not switch off because the gates opened.
+- W | refuse plainly, and say the conditions of release come first | v: conformity, security | self_control: + | chance: 80
+- U | ask how {friend} is really doing for money, and what else could cover it | v: benevolence, universalism | chance: 60
+- B | go along for the one night, for the share, and never again | mark: broke the law | closed: law: theft from a storage unit; backfire: the police are waiting at the unit, and both are taken in | v: power, achievement | self_control: - | chance: 55
+- R | hang up mid-sentence, and block the number before the feeling passes | break: friend | v: self-direction, security | self_control: + | chance: 80
+- G | say no, but stay on the line and talk about the old days till late | bond: friend +.1 | v: benevolence, tradition | chance: 75
+- W>B | report the plan quietly to the police, and keep well clear of it | break: friend | v: security, conformity | chance: 60
+- U>R | talk {friend} through how it would go wrong, until {friend} laughs and drops it | v: benevolence, stimulation | chance: 50
+- B>G | stay out of the job, but let {friend} keep the goods in the garage | mark: broke the law | closed: law: storing stolen goods; backfire: the goods are traced to the garage | v: benevolence, power | chance: 55
+- R>W | go round tonight and offer {friend} the sofa and an honest start instead | v: benevolence, universalism | chance: 45
+- G>U | point {friend} to the advice centre that helped, and offer to walk there together | v: benevolence, tradition | chance: 55
+works: The night passes, and the week after it, and nothing comes back to {N}.
+works: {N} sleeps well that night for the first time in a while, sure of the choice made.
+fails: Word of the call gets round the old crowd, and {N} is talked about, by some as soft and by some as trouble.
+fails: The choice sits badly for weeks, and {N} keeps picking up the phone to ring {friend} and putting it down again.
+
+# ---------------------------------------------------------------- new bonds: the old tie meets the new life
+
+== the old cellmate at the new door
+tier: everyday
+stages: young_adult adult mature
+age: 20-70
+calls: WG
+rate: 1
+tone: mixed
+life: love, friends
+horizon: years
+roles: friend, partner, boss
+holds: ex-prisoner
+cast_want: fellow_inmate
+earth: a friend from your prison years turns up at the door, and your partner, who knows only part of that time, lets them in
+times: A partner and steady work draw a life away from old company, and the pull back weakens as those bonds hold (Sampson and Laub 1993)
+gap: 2-8
+scene: Two years out, {N} has a flat shared with {partner}, a job that starts at seven, and a Sunday routine. Then {friend} turns up at the door one evening, thinner, cheerful, with nowhere in particular to be. {partner} knows there was a prison sentence and little else. {friend} knows everything. Over tea the three of them talk about nothing, and {N} can feel {partner} watching, and {friend} hoping to be asked back.
+scene W: {N} owes {partner} honesty about who {friend} is. {N} owes {friend} something too, from the years nobody else saw.
+scene U: {N} wants to know what {friend} is doing now, really, before deciding where {friend} fits.
+scene B: The new life took a long time to build, and the job and the flat both rest on it. {N} weighs what an old tie could cost.
+scene R: Hearing {friend} laugh at the old jokes leaves {N} light-headed with something like homesickness, for a place nobody should miss.
+scene G: People are more than one season of their lives. {N} has been trying to let the two halves grow into one.
+- W | tell {partner} the whole story of those years tonight, {friend} included | v: conformity, benevolence | mark: owned up | chance: 65
+- U | ask {friend}, alone, what life looks like now before making any promise | v: self-direction, security | chance: 80
+- B | keep {friend} away from home and work, and meet now and then in town | v: security, power | chance: 75
+- R | ask {friend} to stay for supper, and let the evening run late | bond: friend +.1 | v: hedonism, benevolence | chance: 70
+- G | let {partner} and {friend} get to know each other slowly, in their own time | v: benevolence, tradition | chance: 60
+- W>G | give {friend} a standing place at Sunday lunch with {partner} | binds | v: benevolence, tradition | chance: 60
+- U>W | talk it through with {partner} first, and agree together on the ground rules | bond: partner +.1 | v: universalism, security | chance: 70
+- B>U | ask {friend} straight out what this visit is for, and what it would cost | v: security, self-direction | chance: 75
+- R>B | tell {friend} at once, kindly, that the new life has no room for the old one | break: friend | v: security, self-direction | self_control: + | chance: 75
+- G>R | walk {friend} to the bus, and say a warm goodbye both know is the last | v: benevolence, tradition | chance: 80
+works: By the end of the year {N} knows who belongs at the table, and {partner} knows why.
+works: {friend} takes the answer better than {N} feared, and leaves something warm behind.
+fails: {partner} goes quiet for days, sure that something is being kept back.
+fails: {friend} leaves stiffly, and {N} is left wondering whether that door has closed on the only one who knew.

@@ -1,0 +1,234 @@
+# Chroma library, modern Earth: A TOWN GONE GREY (spheres finish pack, part 5, A13). Gate: shadow: grey on every
+# moment (the town's shadow share at .25 or more on World.sph_grey(), as filed in shadow_state; under 1 life in 5 ever
+# sees it). The grey economy and its favours and fixers have become ordinary: the pressure, the convenience, the cost.
+# Six everyday moments. Options span going along, profiting, refusing, reporting, organising neighbours and leaving.
+# Plainly illegal acts carry closed: law: ...; mark: broke the law only on a real crime. Syntax: header of build.py.
+# Chances: per colour, its one-letter option plus its cross (first letter) = 140.
+#   the fixer and the permit     WB  (s1)
+#   the envelope at the shop     BG  (s2)
+#   work paid in cash            BR  (s3)
+#   goods off a lorry            UG  (s4)
+#   the honest baker             URG (s1)
+#   the meeting at the hall      WR  (s2)
+
+# ---------------------------------------------------------------- the fixer and the permit (calls WB, cycle s1)
+
+== the fixer who can hurry the permit
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: WB
+rate: 1
+tone: trouble
+life: money, home, community
+horizon: months
+roles: neighbour, a fixer, a council clerk
+shadow: grey
+earth: in a town gone grey, a fixer offers to get your stuck permit stamped by Friday, for a fee in an envelope
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); where favours run the offices, paying to hurry a permit becomes ordinary (Ledeneva 1998)
+gap: 3-8
+scene: {N} has waited four months for one stamp from the council to build onto the back of the house. At the café a man everyone calls the fixer sits down uninvited and says he can have it stamped by Friday. The fee goes in an envelope, and the clerk does the rest. Half the street has built that way this year. The queue, he says, is for people who do not know anyone.
+scene W: The queue is slow, but it is the same queue for everyone; paying past it means someone else waits longer.
+scene U: Stamps do not move this fast by luck. {N} wants to know who at the council is in on it, and how far it goes.
+scene B: Four months of waiting against one envelope: {N} can work out what the time is worth.
+scene R: The man's easy smile makes {Ns} jaw tighten. He talks as if {N} has already said yes.
+scene G: This is how things get done here now. The neighbours who paid are sleeping in their new rooms.
+- W | wait in the proper queue, and write to the council about the delay | v: conformity, universalism | self_control: + | chance: 70
+- U | find out how the fixer gets stamps so fast, and who is in on it | v: self-direction, security | chance: 70
+- B | pay the envelope and have the stamp by Friday | habit | v: power, security | closed: law: bribing an official; backfire: the clerk is caught, every permit he stamped is pulled, and a fine follows | mark: broke the law | chance: 85
+- R | tell the fixer, in front of the whole café, where to put his envelope | v: stimulation, self-direction | mark: made an enemy | chance: 70
+- G | pay what the neighbours pay, since that is how it goes here now | v: conformity, tradition | closed: law: bribing an official; backfire: the clerk is caught, and the permit is pulled | mark: gave in to pressure | chance: 80
+- W>U | list every delay and every fee the street has paid, and send it to the inspectors | v: universalism, conformity | mark: made an enemy | chance: 70
+- U>B | learn the council's own rules well enough to push the file through for free | v: achievement, self-direction | chance: 70
+- B>R | pay double to skip the queue and start building this weekend | v: hedonism, power | closed: law: bribing an official; backfire: the scheme is exposed, and the half-built room must come down | mark: broke the law | chance: 55
+- R>G | build it with the family over a long weekend, permit or no permit | v: tradition, stimulation | binds | closed: law: building without a permit; backfire: an order to take it down | chance: 70
+- G>W | ask the old councillor who knew the family to look at the file fairly | v: tradition, conformity | chance: 60
+works: The work on the house starts before the season turns, and the matter is settled.
+works: The fixer finds other customers, and after a while he stops nodding to {N} in the café.
+fails: The whole business drags on, costs more than {N} meant it to, and leaves a sour taste on the street.
+fails not W U R W>U U>B G>W: An inspector turns up one morning with a list of every permit the clerk stamped, and {Ns} address is on it.
+
+# ---------------------------------------------------------------- the envelope at the shop (calls BG, cycle s2)
+
+== the envelope under the till
+tier: everyday
+stages: young_adult adult mature
+age: 17-70
+calls: BG
+rate: 1
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague, a collector, shopkeepers
+shadow: grey
+earth: in a town gone grey, the shop you work in pays a polite man every month to stay safe, and this month you are the one handing it over
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); where protection is sold, most shops on a street pay it quietly (Gambetta 1993)
+gap: 3-8
+scene: {N} works behind the counter of a shop on the high street. On the first of every month a polite man in a good coat comes in, and {boss} hands him an envelope from under the till. Nobody ever calls it anything. The shops that stopped paying found their deliveries late and their customers gone. This month {boss} is away, and the envelope is waiting for {N}.
+scene W: Paying is wrong, and everyone paying is how it stays. But it is not {Ns} shop, and not {Ns} money.
+scene U: {N} wants to know what the money actually buys, and how many doors on the street the man walks through.
+scene B: The man is pleasant to people who are useful to him, and in this town a little usefulness goes a long way.
+scene R: {Ns} stomach turns at that patient smile, and {N} would love, just once, to see it slip.
+scene G: The street has paid for years, and the shops that pay are still open. {N} did not make this town.
+- W | keep the envelope in the drawer, and ring the boss to say why | v: conformity, universalism | mark: defied an authority | chance: 65
+- U | count the shops the man visits on his round, and write it all down | v: self-direction, security | chance: 80
+- B | hand it over with a smile, and ask what else his people can arrange | habit | v: power | chance: 75
+- R | tell the man the envelope is not ready this month, and watch his face | v: stimulation | mark: took a wild risk | chance: 70
+- G | hand it over the way the boss always does, and say nothing | v: conformity, tradition | mark: gave in to pressure | chance: 90
+- W>B | give the police the man's name, and ask them to keep the shop out of it | v: security, conformity | chance: 75
+- U>R | work out which shops would refuse together, and go and ask them one by one | v: self-direction, stimulation | chance: 60
+- B>G | take a few evenings of paid work from the man, and keep the family better fed | v: power, benevolence | closed: law: helping run a protection racket; backfire: the round is broken up, and every name on it is charged | mark: broke the law | chance: 65
+- R>W | stand in the doorway with the next shopkeeper, and say the street is done paying | v: universalism, stimulation | chance: 70
+- G>U | ask the oldest shopkeeper on the street how this began, and how it ever ended | v: tradition, self-direction | chance: 50
+works: The month passes quietly, and the shop stays open with its lights on.
+works: {boss} comes back, hears how {N} handled it, and looks at {N} a little differently afterwards.
+fails: Deliveries to the shop start arriving late, and nobody at the depot will say why.
+fails not G B: {boss} is furious that {N} made a choice that was not {Ns} to make.
+
+# ---------------------------------------------------------------- work paid in cash (calls BR, cycle s3)
+
+== a month of work with no names asked
+tier: everyday
+stages: juvenile young_adult adult
+age: 16-55
+calls: BR
+rate: 1
+tone: mixed
+life: work, money
+horizon: months
+roles: friend, uncle, a man at the builders' yard
+shadow: grey
+earth: in a town gone grey, a man offers you a month of good work, paid cash every Friday, no forms and no questions
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); where the shadow economy is large, cash work without papers is common among the young (Schneider and Enste 2000)
+gap: 2-6
+scene: A man at the builders' yard offers {N} a month of work on a site across town. The pay is good, cash in hand every Friday: no forms, no names, no questions. Half the young people in town work this way now, and the ones on proper payslips earn less. He wants an answer by tonight.
+scene W: Work with no papers means no cover if something goes wrong, and nothing paid in for anyone else.
+scene U: {N} wants to know whose site it is, why it pays so well, and what no questions is meant to cover.
+scene B: It pays better than anything else on offer, and none of it would go to the tax office.
+scene R: A month of hard work and a fat pocket every Friday. {N} can already feel the yes.
+scene G: {Ns} uncle worked this way all his life, and so did half the street. It kept food on their tables.
+- W | turn it down, and look for work with a proper contract | v: conformity, security | self_control: + | chance: 70
+- U | ask whose site it is and what the work really is, before agreeing to anything | v: self-direction, security | chance: 85
+- B | take the work and the Friday cash, and declare none of it | habit | v: power, achievement | closed: law: undeclared income; backfire: the site is raided, and a tax fine follows | mark: hid a wrong | chance: 85
+- R | say yes on the spot and turn up at dawn tomorrow | v: stimulation, hedonism | closed: law: undeclared income; backfire: caught in a site check, and fined | mark: took a wild risk | self_control: - | chance: 80
+- G | take it as the family always has, and keep it quiet | v: tradition, benevolence | closed: law: undeclared income; backfire: a fine, and the uncle dragged in | chance: 80
+- W>R | ring the labour inspectors tonight and tell them about the site | v: universalism, stimulation | mark: made an enemy | chance: 70
+- U>G | take the duller job in the next town, with a payslip and a future | v: security, tradition | chance: 55
+- B>W | take the work, and put the tax aside to declare at the end of the year | v: security, conformity | chance: 55
+- R>U | work one week to see how the trade really runs, then decide | v: stimulation, self-direction | closed: law: undeclared income; backfire: that one week is the week of the raid | chance: 60
+- G>B | bring a friend in too, and split the Fridays between the two of them | binds | v: benevolence, power | closed: law: undeclared income; backfire: both of them fined, and the friend blames {N} | chance: 60
+works: The month ends, the work is done, and {N} has more in hand than at the start of it.
+works: {N} learns a good deal about how the town really earns its living, and remembers it.
+fails not W U W>R U>G B>W: The site shuts without warning one Friday, and the last week's pay never comes.
+fails: Word goes round the yards about {N}, and the next offer is a long time coming.
+
+# ---------------------------------------------------------------- goods off a lorry (calls UG, cycle s4)
+
+== a box still in its plastic at the door
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-90
+calls: UG
+rate: 1
+tone: mixed
+life: home, money, community
+horizon: week
+roles: neighbour, the police
+shadow: grey
+earth: in a town gone grey, a neighbour knocks with new goods still in the plastic at a third of the price, and says they fell off a lorry
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); in such towns most households are offered goods of unclear origin, and many buy (estimate)
+gap: 2-6
+scene: A neighbour knocks with a box of new kitchen things still sealed in plastic, at a third of the shop price. Fell off a lorry, the neighbour says, and winks. Half the street has a kettle or a heater from the same lorry, and nobody asks any more where things come from. The neighbour waits on the step.
+scene W: Somebody paid for those goods once, or was meant to. Buying them makes {N} part of whatever happened to them.
+scene U: {N} would like to know which lorry, and why it keeps losing its load on this one street.
+scene B: A third of the price is a third of the price, and the old kettle gave up on Sunday.
+scene R: The neighbour's grin is catching, and the box is right there, gleaming.
+scene G: The neighbour helped carry {Ns} sofa in last spring. On this street, people look after each other.
+- W | say no, and tell the neighbour plainly why | v: conformity, universalism | chance: 75
+- U | ask lightly where the lorry comes from, and who drives it | v: self-direction | chance: 70
+- B | buy the lot at a third of the price, and ask what else is coming | habit | v: power | closed: law: handling stolen goods; backfire: the police call round, take the goods and bring a charge | mark: broke the law | chance: 85
+- R | laugh, take the box, and pay in coins from the kitchen jar | v: hedonism, stimulation | closed: law: handling stolen goods; backfire: the police call round, and the box goes with them | mark: broke the law | self_control: - | chance: 85
+- G | buy one, as the whole street has, so as not to stand apart | v: conformity, benevolence | closed: law: handling stolen goods; backfire: the police call round, and the neighbour is named | mark: gave in to pressure | chance: 80
+- W>G | say no kindly, and ask the neighbour in for a cup of tea instead | v: benevolence, conformity | chance: 65
+- U>W | note when the lorry comes and goes, and pass it all to the police | v: universalism, security | mark: made an enemy | chance: 70
+- B>U | buy a few boxes and sell them at the market for twice the price | v: power, achievement | closed: law: handling stolen goods; backfire: a stallholder talks, and the charge is for selling as well | mark: broke the law | chance: 55
+- R>B | haggle the neighbour down to almost nothing, just for the sport of it | v: stimulation, power | closed: law: handling stolen goods; backfire: the police call round, and the bargain costs a fine | mark: broke the law | chance: 55
+- G>R | ask the neighbour, as an old friend, to stop before the police come knocking | v: benevolence, tradition | chance: 60
+works: The neighbour goes off whistling, and the street stays as friendly as before.
+works: Nothing comes of it, and by the summer nobody remembers the box.
+fails: A police van stops on the street one morning, and doors are knocked one after another.
+fails not B R G B>U R>B: The neighbour goes cool on {N}, and the coolness spreads along the street.
+
+# ---------------------------------------------------------------- the honest baker (calls URG, cycle s1)
+
+== the baker who never paid anyone
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-90
+calls: URG
+rate: 1
+tone: trouble
+life: friends, community, money
+horizon: months
+roles: friend, a rival baker, inspectors, neighbours
+shadow: grey
+earth: in a town gone grey, an honest friend's shop is being squeezed out by inspections and a rival who knows the right people
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); where informal payments are the norm, firms that refuse them face more inspections (estimate)
+gap: 3-8
+scene: {friend} has baked bread on the corner for twenty years and has never paid a fixer or filled an envelope. Now inspectors come to {friend}'s ovens every month, while the new bakery across the road, whose owner knows everyone, has never had a single visit. Customers drift across the road, and {friend} says the shop will close by winter. Over the counter, {friend} asks {N} what to do.
+scene W: It is not fair, and {N} knows exactly who it is unfair to.
+scene U: Somebody is sending those inspectors. {N} wants to know who, and how it is done.
+scene B: The new bakery is where the corner is going, and the old one is a losing bet. {N} can see which way the money runs.
+scene R: Watching {friend} sweep an empty shop at closing time makes {N} want to shout at someone.
+scene G: The smell of that bread is part of the street. {N} grew up on it.
+- W | shop only at the old bakery, and ask the whole street to do the same | v: universalism, benevolence | chance: 70
+- U | find out who keeps sending the inspectors, and gather proof | v: self-direction, universalism | chance: 60
+- B | tell the old baker to pay what the new one pays, and stay open | v: power, security | chance: 70
+- R | stand outside the new bakery and tell every customer the story | v: stimulation, benevolence | mark: made an enemy | chance: 65
+- G | help the old baker close with dignity, and keep the recipes alive at home | v: tradition, benevolence | chance: 80
+- W>U | take the record of inspection visits to the council's complaints office | v: universalism, conformity | chance: 70
+- U>B | help the old baker plan a sale of the shop before it loses all its worth | v: achievement, security | chance: 80
+- B>R | buy into the old bakery cheap, and make it the bold new place in town | v: power, stimulation | chance: 70
+- R>G | throw a farewell night at the bakery for the whole street, with the last loaves | v: hedonism, tradition | chance: 75
+- G>W | gather the old families of the street to back the baker together at the council | v: tradition, universalism | mark: helped someone in need | chance: 60
+works: Some of the street comes back across the road, and {friend} is grateful to {N} for a long time.
+works: Whatever becomes of the corner, {friend} and {N} come out of the winter closer than before.
+fails: The bakery closes in the first frost, and the corner smells of nothing now.
+fails not B G U>B R>G: The new baker hears what {N} has been doing, and a few doors on the street go cold.
+
+# ---------------------------------------------------------------- the meeting at the hall (calls WR, cycle s2)
+
+== the hall full of neighbours on a weeknight
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-90
+calls: WR
+rate: 1
+tone: mixed
+life: community, home
+horizon: years
+roles: elder, neighbours, friend, a councillor
+shadow: grey
+earth: in a town gone grey, the neighbours call a meeting in the hall to take the streets back, and the fixers' people sit in the back row
+times: Rare: under 1 in 5 lives ever live in a town gone grey (finish pack, part 5); residents' groups against everyday corruption form most often after a visible loss, such as a well-loved shop closing (estimate)
+gap: 4-10
+scene: The community hall is fuller than anyone can remember. A shop has closed, another pays, and the permit office takes envelopes, so a few neighbours have finally called a meeting to take the streets back. The fixers' cousins sit in the back row, listening, and everyone knows it. {elder} asks if anyone else wants to speak, and the room goes quiet.
+scene W: Somebody has to say out loud what everyone knows, and a public meeting is the place for it.
+scene U: Anger will not last past Friday. What the room needs is a plan that someone can actually carry out.
+scene B: Half the people here have done well out of the way things are, and {N} is not sure {N} is not one of them.
+scene R: {Ns} heart is pounding. The words are right there, if {N} will just stand up.
+scene G: The town was a good place within living memory, and the old people in the front rows remember it.
+- W | stand and propose a residents' committee that reports every bribe it hears of | v: universalism, conformity | chance: 60
+- U | offer to map who pays whom, so the police finally have something solid | v: self-direction, universalism | chance: 70
+- B | keep quiet, since the fixers' favours have served the household well | v: security, power | chance: 90
+- R | stand up and tell the room, with feeling, what the town has become | v: stimulation, universalism | mark: made an enemy | chance: 75
+- G | say this is how the town is now, and everyone should mind their own | v: conformity, tradition | chance: 75
+- W>B | propose the honest shops band together and buy in bulk, cutting out the fixers | v: achievement, universalism | chance: 80
+- U>R | plan a march down the high street on market day | v: stimulation, universalism | chance: 70
+- B>G | quietly put the house up for sale, and take the family somewhere cleaner | v: security, benevolence | chance: 50
+- R>W | volunteer to chair the committee, here and now, in front of the back row | v: stimulation, conformity | chance: 65
+- G>U | ask the oldest people in the room how the town threw this off before | v: tradition, self-direction | chance: 65
+works: The meeting runs late, and for the first time in years people walk home talking to each other.
+works not B G B>G: Over the next months a queue at the council grows shorter, and one or two fixers find business harder.
+fails not B G: Names from the meeting travel back, and a few speakers find their deliveries late and their permits stuck.
+fails: The meeting ends in a quarrel over who said what, and nothing much comes of it.
