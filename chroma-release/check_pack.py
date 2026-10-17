@@ -18,13 +18,15 @@ judge pools the seeds and writes chroma-release/out/pack_<UTC>.txt and one resul
     sph_places   W2 a town loses .03 to .07 of its places a year (closings over the town's places, 31 haunt kinds x 3,
                  over the towns and years of the run), and no haunt kind is empty in a town for more than 6 quarters
     sph_trust    W3 mean btrust per lead colour (at 40) within 1.2x; the share of adults' btrust under .3, over lives,
-                 years and the nine spheres (a fifth to a third, as the surveys count one body at a time), .15 to .35
+                 years and the eight spheres with bodies (a fifth to a third, as the surveys count one body at a time),
+                 .15 to .35. Arts is left out: it names no body of its own (Outer world, 10-17 11:26 UTC)
     sph_inmates  W4 ties made 1 or 2 a year inside (made at release over the years of the term), never with a life
                  under 18, and every tie ended within 10 years
-    sph_grey     W5 the share of lives whose town passes the .25 gate (any sphere, any year they live) under .20
+    sph_grey     W5 the share of lives whose town passes the grey gate (any sphere, any year they live) under .20; the
+                 gate is the commit's own, sphere_data.SHADOW grey_gate (.25 as filed; the refit may move it)
 The rest of each row is behaviour the readouts do not show, and is read from the Engine's t_steps rows (K3) and the
 content checks (K1): a closing frees its regulars, steps their rung down one and ends the keeper's post (W2); care
-seeking and crime reporting follow btrust (W3); strength .3, the pull back x1.2 ending with a partner or steady work,
+seeking follows btrust (W3); strength .3, the pull back x1.2 ending with a partner or steady work,
 tie_values.safety (W4); the gate's moments show only past it (W5).
 Small counts: a row whose value sits inside its spread of its band's edge reads more seeds (the SMALL COUNTS ruling);
 its target stays.
@@ -36,7 +38,7 @@ COLS = "WUBRG"
 DIRS = ["chroma-engine/v22-speedpass", "chroma-engine/tools", "chroma-library", "chroma-packs", "chroma-env"]
 PRESETS = {1: "", 2: "W.6 G.4", 3: "U.7 R.3", 4: "B.6 R.4"}   # chroma-engine/tools/world_starts.py, the game's presets
 FLAGS = ["TURNOVER_MOMENTS", "TRUST_MOMENTS", "INMATE_MOMENTS", "SHADOW_MOMENTS"]
-GATE, LOW = 0.25, 0.3
+LOW = 0.3
 
 
 def span(s):
@@ -54,7 +56,7 @@ def one(a):
     os.environ.pop("CHROMA_ENGINE", None)
     sys.path.insert(0, os.path.join(a.tree, "chroma-engine", "tools"))
     import _engine  # noqa: F401  (the tree's engine first on sys.path)
-    import engine as E, batch, world as WM
+    import engine as E, batch, world as WM, sphere_data as SD, world_keys as WK
     if a.moments:
         for f in FLAGS:
             setattr(batch, f, True)
@@ -107,11 +109,12 @@ def one(a):
         W = np.asarray(o["W_hist"]); lead = np.argmax(W[min(40, Y)], 1)
         ages = np.arange(bt.shape[1])[None, :]
         adult = (ages >= 18) & (ages < dage[:, None])
-        x = np.where(adult[:, :, None], bt, np.nan)
+        bod = [j for j, s_ in enumerate(WK.SPHERES) if s_ != "arts"]   # the eight spheres with bodies of their own
+        x = np.where(adult[:, :, None], bt, np.nan)[:, :, bod]
         ok = ~np.isnan(x)
         per_life = np.nanmean(x.reshape(N, -1), 1) if ok.any() else np.full(N, np.nan)
         a40 = dage > 40
-        r["w3"] = dict(values=int(ok.sum()), low=int((x[ok] < LOW).sum()),
+        r["w3"] = dict(spheres=[WK.SPHERES[j] for j in bod], values=int(ok.sum()), low=int((x[ok] < LOW).sum()),
                        low_sph=[[int((x[:, :, j][ok[:, :, j]] < LOW).sum()), int(ok[:, :, j].sum())] for j in range(x.shape[2])],
                        lead={COLS[c]: [float(np.nansum(per_life[a40 & (lead == c)])), int((a40 & (lead == c) & ~np.isnan(per_life)).sum())]
                              for c in range(5)})
@@ -119,8 +122,9 @@ def one(a):
         g = np.asarray(o["grey_y"], float)   # N x records x 9, each life's own town
         rec = np.arange(g.shape[1])[None, :]
         alive = rec < dage[:, None]
+        gg = SD.SHADOW["grey_gate"]; gate = float(gg["threshold"] if isinstance(gg, dict) else gg)
         mx = np.where(alive, g.max(2), -1.0)
-        r["w5"] = dict(lives=N, past=int((mx >= GATE).any(1).sum()), town_max=[float(v) for v in np.sort(mx.max(1))])
+        r["w5"] = dict(lives=N, gate=gate, past=int((mx >= gate).any(1).sum()), town_max=[float(v) for v in np.sort(mx.max(1))])
     if "prison_ties" in o:   # W4
         made, end = {}, {}
         young = 0
@@ -214,6 +218,12 @@ def judge(a):
     # W3
     w3 = [s["w3"] for s in S if "w3" in s]
     if w3:
+        ALL9 = ['rule', 'gather', 'arts', 'faith', 'care', 'learn', 'prod', 'comm', 'prot']   # a seed file from before arts was left out
+        for x in w3:
+            if "spheres" not in x:
+                keep = [j for j, nm in enumerate(ALL9) if nm != "arts"]
+                x["low_sph"] = [x["low_sph"][j] for j in keep]; x["spheres"] = [ALL9[j] for j in keep]
+                x["low"] = sum(v[0] for v in x["low_sph"]); x["values"] = sum(v[1] for v in x["low_sph"])
         vals = sum(x["values"] for x in w3); low = sum(x["low"] for x in w3); share = low / max(1, vals)
         lead = {c: [sum(x["lead"][c][0] for x in w3), sum(x["lead"][c][1] for x in w3)] for c in COLS}
         means = {c: v[0] / v[1] for c, v in lead.items() if v[1]}
@@ -225,7 +235,8 @@ def judge(a):
         lines.append(f"{'ok  ' if ok else 'MISS'} W3 trust: mean btrust by the colour leading at 40 "
                      + ", ".join(f"{c} {means[c]:.3f} ({lead[c][1]})" for c in means)
                      + f"; highest over lowest {ratio:.4f} ({hi_c} over {lo_c}), target at most 1.2; adults' values under .3 "
-                     f"{share:.4f} ({low} of {vals}), target .15 to .35; by sphere " + " ".join(f"{v:.3f}" for v in per))
+                     f"{share:.4f} ({low} of {vals}), target .15 to .35; by sphere "
+                     + " ".join(f"{nm} {v:.3f}" for nm, v in zip(w3[0].get("spheres", range(len(per))), per)))
     else:
         res["sph_trust"] = (False, "no btrust_y readout (switch off?)"); lines.append("MISS W3: no btrust_y readout")
     # W4
@@ -253,17 +264,18 @@ def judge(a):
     # W5
     w5 = [s["w5"] for s in S if "w5" in s]
     if w5:
-        nl = sum(x["lives"] for x in w5); past = sum(x["past"] for x in w5); share = past / max(1, nl)
+        gate = w5[0].get("gate", 0.25)   # the commit's gate (a seed file from before it was read: the filed .25)
         mx = np.concatenate([x["town_max"] for x in w5])
+        nl = sum(x["lives"] for x in w5); past = int((mx >= gate).sum()); share = past / max(1, nl)
         se = (share * (1 - share) / max(1, nl)) ** 0.5
         ok = share < 0.20
-        res["sph_grey"] = (ok, f"{share:.3f} of lives see their town past .25 (under .20)")
-        lines.append(f"{'ok  ' if ok else 'MISS'} W5 grey: {past} of {nl} lives ({share:.4f} +-{se:.4f}) live in a town past .25 "
+        res["sph_grey"] = (ok, f"{share:.3f} of lives see their town past {gate:.2f} (under .20)")
+        lines.append(f"{'ok  ' if ok else 'MISS'} W5 grey: {past} of {nl} lives ({share:.4f} +-{se:.4f}) live in a town past the gate {gate:.2f} "
                      f"in some sphere, target under .20; the most grey a life's town got, median {np.median(mx):.3f}, 90% {np.percentile(mx, 90):.3f}")
     else:
         res["sph_grey"] = (False, "no grey_y readout (switch off?)"); lines.append("MISS W5: no grey_y readout")
     lines.append("  Behaviour each row also needs, read from t_steps (K3) and the content checks (K1): W2 regulars, rung and post; "
-                 "W3 care seeking and crime reporting; W4 strength .3, the pull back and its end, tie_values.safety; W5 the gate's moments.")
+                 "W3 care seeking; W4 strength .3, the pull back and its end, tie_values.safety; W5 the gate's moments.")
     allok = all(v[0] for v in res.values())
     lines.append(f"pack: {'PASS' if allok else 'FAIL'} ({sum(v[0] for v in res.values())} of {len(res)} rows)")
     sys.path.insert(0, os.path.join(os.path.dirname(HERE), "chroma-env"))
