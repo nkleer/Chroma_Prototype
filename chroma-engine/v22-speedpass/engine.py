@@ -810,9 +810,10 @@ DEFAULT = dict(
     # back: plants a seed: its kind, week, moment, way and whether it went well. A share p of seeds fall due after delay
     # years; a due seed comes back at w a week (weeks with no life event, at least gap years after the last return, until keep
     # years past due) as one moment of its kind and side never met (else not met for again years): a return moment (tier: return, of:, side:) or a mark echo
-    # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return
+    # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return.
+    # Tuned 10-17 with the Library's back: tags and RETURNS (#271): about 8 returns in a played life of about 85 asks
     echo_play=False, echo_asked=False,
-    echo_play_par=dict(p=0.35, w=0.15, delay=(1.0, 8.0), keep=6.0, gap=0.5, again=12.0),
+    echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     closed_acc=0.6, closed_diff=0.05,   # an option closed by law, approval or means is open less often, and harder
     tag_habit=0.02,      # an act flagged habit pulls a little harder toward its ways next time
     tag_door=0.03,       # an act flagged door that works moves the niche toward its ways (new options open)
