@@ -435,7 +435,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 G19w, practice is shared among the skills in the same ways (skill_room)", dict(skill_room=1.0), {}, 40, 8),
        ("v22.5 round 2, a pension's spread, the help after a long hard spell, deaths at work (pen_pay, low_net, work_die)",
         dict(pen_pay=0.5, low_net=(3.0, 0.1, 1.0), work_die=0.00007), {}, 70, 6),
-       ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 6),
+       ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 10),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
 # a switch's own readouts, which are not the lives (the finishing pack's)
@@ -708,8 +708,8 @@ if "place_turnover" in E.DEFAULT and hasattr(E, "bt_care") and hasattr(E, "pt_pu
         return e0_(self, p, t, why)
     _wp.People._pt_q, E.bt_care, E.pt_pull_of, E.pt_pull_u, _wp.People._add, _wp.People._lead_end = _ptq, _bc, _po, _pu, _add, _le
     try:   # (the pull back's shadow line at .2, so it is on for some weeks; every life serves 3 years from 18)
-        Y_ = 35
-        o_ = E.run(N=10, years=Y_, seed=4, lib=EARTH, P=dict(
+        Y_ = 40   # (30 lives over 40 years: with the pack on in DEFAULT, 10 over 35 held no led place to close)
+        o_ = E.run(N=30, years=Y_, seed=4, lib=EARTH, P=dict(
             E.DEFAULT, world=True, place_turnover=True, lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True,
             sph_haunts=True, sph_hours=True, cur_on=True, body_trust=True, fair_read=True, c3_inst=True, prison_ties=True,
             prison_par=dict(E.DEFAULT["prison_par"], shadow=0.2, test=(18, 3)), sh_world=True))
