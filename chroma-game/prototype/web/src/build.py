@@ -1,8 +1,9 @@
 """Builds web/index.html (the published page) from head.html, sprite.svg, the visuals thread's icon set and picture map
 (chroma-art/game/ink-icons.svg, ink-icons.json and pictures.json, read only; Chroma's own icons since 2026-10-05, Emren
-chose "All ours"), body.html and app.js, then the ink look over it: look.css and look.js, with the pictures' lights
-(chroma-art/game/lights.json, read only, made by chroma-look/tools/extract_lights.js) packed into look.js, and last the
-clarity layer in both looks: clarity.css and clarity.js (thread "HUD and story flow check", Emren 10-10 "apply all of them").
+chose "All ours"), body.html and the app (app/*.js, joined in name order inside one <script>; app.js before 10-17), then
+the ink look over it: look.css and look.js, with the pictures' lights (chroma-art/game/lights.json, read only, made by
+chroma-look/tools/extract_lights.js) packed into look.js, and last the clarity layer in both looks: clarity.css and
+clarity.js (thread "HUD and story flow check", Emren 10-10 "apply all of them").
 While web/src/option-icons-live.json exists (made by live_icons.py), it stands in for the icon set's per-option map, which
 follows the Library's audited batch; delete it once that batch is live.
 The pictures themselves (chroma-art/game/pics/*.webp) are published next to the page as pics/...; without them the page
@@ -39,7 +40,10 @@ pic_packs = {u: n for n, pk in enumerate(packs, 1) for u in pk}
 open(os.path.join(here, "pic-packs.json"), "w", encoding="utf-8").write(json.dumps(dict(
     about="Moment pictures published in packs (pics/pack-<n>.json, path -> base64), made by web/src/build.py: the "
           "rarer ones by rarity.json; the page loads a pack when one of its moments shows", packs=packs), indent=1) + "\n")
-app = part("app.js").replace("__GI_DATA__", json.dumps(dict(map=gi["map"], credit=gi["credit"]), separators=(",", ":")))
+# the app: web/src/app/NN-name.js, one part per group of sections, joined in name order
+APP = os.path.join(here, "app")
+app = "<script>\n" + "".join(part(f, APP) for f in sorted(os.listdir(APP)) if f.endswith(".js")) + "</script>\n"
+app = app.replace("__GI_DATA__", json.dumps(dict(map=gi["map"], credit=gi["credit"]), separators=(",", ":")))
 app = app.replace("__PIC_PACKS__", json.dumps(pic_packs, separators=(",", ":")))
 app = app.replace("__PICS__", json.dumps({k: pics[k] for k in ("situation", "domain", "tier", "tarot", "texture", "portrait") if k in pics}, separators=(",", ":")))
 # lights.json: picture -> [[x, y, size, kind, strength, colour], ...] (fractions of the picture, colour "#rrggbb" or "");

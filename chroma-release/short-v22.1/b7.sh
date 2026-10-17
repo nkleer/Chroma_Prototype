@@ -58,7 +58,7 @@ for i in $(seq 1 60); do curl -sf -o /dev/null $U && break; sleep 1; done
 REP=$R/out/b7_${TAG}_$(date -u +%Y%m%d-%H%M%S).txt
 md5() { md5sum < $1 | cut -c1-12; }
 { echo "v22.1 B7 drivers, groups $GROUPS_, $(date -u '+%Y-%m-%d %H:%M') UTC, $(hostname)"
-  echo "  build $P (index.html $(md5 $W/index.html), app.js $(md5 $P/web/src/app.js), engine_pin/engine.py $(md5 $P/engine_pin/engine.py)); $JOBS at a time"; } > $REP
+  echo "  build $P (index.html $(md5 $W/index.html), app $( [ -d $P/web/src/app ] && cat $P/web/src/app/*.js | md5sum | cut -c1-12 || md5 $P/web/src/app.js ) (its parts joined, or app.js before 10-17), engine_pin/engine.py $(md5 $P/engine_pin/engine.py)); $JOBS at a time"; } > $REP
 for n in $LIST; do
   while [ $(jobs -rp | wc -l) -ge $JOBS ]; do wait -n; done
   run $n &
