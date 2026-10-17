@@ -841,6 +841,9 @@ DEFAULT = dict(
     sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
+    grey_gate=False,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
+                        # comes only while that sphere's grey share in their town is at least .25 (sphere_data.SHADOW;
+                        # the Library's Crime pack moments join with batch.SHADOW_MOMENTS); grey_y reads the shares yearly
     sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
     sph_titles=True,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
                          # the engine reads none of those rules
@@ -1479,7 +1482,7 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
+               sph_shadow=False, grey_gate=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
@@ -2805,6 +2808,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     EYES_ON_ = bool(P.get("sph_eyes")) and bool(P.get("sph_haunts")) and WON   # S3: their places read their acts (world on, with the haunts)
     ODD_ON_ = EYES_ON_ and bool(P.get("sph_odd"))      # S4: the odd one out at a place
     SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
+    GG_ON = bool(P.get("grey_gate")) and WON           # finishing pack, part 5: the town gone grey (moments' shadow:)
+    grey_y = []                                        # its readout: each life's town's grey share per sphere, each year
     DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
@@ -3684,6 +3689,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             else:
                 WL.drain()
         if t % record_every == 0:
+            if GG_ON:
+                grey_y.append(WL.W.sph_grey()[np.asarray(WL.PP.loc)].astype(np.float32))
             W_hist.append(w.copy()); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
             R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
             if DOM_ON:
@@ -6108,7 +6115,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
     wout = WL.output(log_lives) if WON else None           # the outer world for the game (world-build.md, "Game data")
-    return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
+    return dict(world=wout, **(dict(grey_y=np.stack(grey_y, 1)) if GG_ON and grey_y else {}), w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
                 R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log, **({"births": birth_log} if (P["birth_free"] or P["birth_par"] is not None) else {}),

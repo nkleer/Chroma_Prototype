@@ -21,6 +21,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
  12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
      lives the same lives as the first, which burned it in.
+ 14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
+     Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
+     comes only while their town's share is at least the threshold (never with the switch off).
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -459,6 +462,29 @@ if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wp
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
           f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 14. the town gone grey (grey_gate)
+if "grey_gate" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    kw = dict(N=6, years=25, seed=9, lib=EARTH)
+    d0 = digest(E.run(**kw, P=dict(E.DEFAULT, world=True)))
+    o_ = E.run(**kw, P=dict(E.DEFAULT, world=True, grey_gate=True))
+    d1 = digest(o_)
+    if [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "grey_y"]:
+        fails.append("with no shadow: moment the lives move")
+    if np.shape(o_.get("grey_y")) != (6, 25, 9):
+        fails.append(f"grey_y is {np.shape(o_.get('grey_y'))}, not lives x years x 9")
+    L_ = dict(EARTH); tg_ = L_["names"].index("tending an allotment")
+    L_["W_SHADOW"] = np.full(L_["S"], -1); L_["W_SHADOW"][tg_] = 9          # gated on the town's greyest sphere
+    met_ = {}
+    for on_ in (False, True):
+        o2_ = E.run(**dict(kw, lib=L_), P=dict(E.DEFAULT, world=True, grey_gate=on_))
+        met_[on_] = int(o2_["sit_n"][:, tg_].sum())
+    if met_[False]:
+        fails.append(f"the gated moment came {met_[False]} times with the switch off")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the town gone grey (grey_gate), switched on: with no shadow: moment the lives "
+          f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)
