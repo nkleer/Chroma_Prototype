@@ -9,6 +9,14 @@ from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, E, ES, GAME, KNAMES, LIN
 from game_words import (LONG_SHOT, LONG_SHOT_KINDS, NEED_HINT, THREAD_AGAIN, THREAD_YEARS, TITLE_KINDS, VOICE_AX,
     VOICE_FADE, VOICE_MIN, VOICE_RECALL, VOICE_SIDES, art, voice_share)
 
+_NUMW = ("no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+         "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
+
+
+def _num_word(n):
+    """Picks come back's opener: years as a word up to twenty, digits after."""
+    return _NUMW[n] if 0 <= n < len(_NUMW) else str(n)
+
 
 class VoiceMixin:
     # ------------------------------------------------------------------ item 3: the voice in their head
@@ -217,6 +225,23 @@ class VoiceMixin:
         if not line:
             line = "This goes back to the day {N} chose " + did + "."
         return dict(line=self.story.fill(line), cause=(self.story.fill(hover) + " " if hover else "") + why, age=cause["age"])
+
+    def _ret_line(self, ret, age):
+        """Picks come back: the line a return opens on (the earlier pick and how long ago) and, for the hover, that
+        moment and how it went. The Library's opener for the mark and the side (RETURN_OPEN) when it has one, else
+        built-in words."""
+        yrs = int(age - ret["age"])
+        did = chooses(act(plain(ret["act"]))).rstrip(".")
+        when = "A year ago" if yrs < 2 else f"{_num_word(yrs).capitalize()} years ago"
+        side = "well" if ret["ok"] else "badly"
+        how = "you pushed it" if ret.get("pushed") else "they chose it themselves"
+        went = "" if ret["ok"] is None else ", and it worked" if ret["ok"] else ", and it went badly"
+        why = f"At {int(ret['age'])}, at “{ret['moment']}”, they chose {did} ({how}){went}. What happens now leans on how that went."
+        O = (getattr(ES, "RETURN_OPEN", None) or {}).get(ret.get("kind")) or {}
+        line = O.get(side) or f"{when}, at “{ret['moment']}”, {{N}} chose {did}."
+        who = self.story.say(ret["who"]) if ret.get("who") else "someone"
+        line = line.replace("{years}", _num_word(yrs)).replace("{who}", who).replace("{did}", did)
+        return dict(line=self.story.fill(line), cause=why, age=ret["age"], key="seed")
 
     def _thread_of(self, loc, s):
         """5.6 and F5: whether moment s follows from this life's own threads (it needs a title or perk they hold, an
@@ -431,10 +456,15 @@ class VoiceMixin:
 
     def _on_odds(self, loc, p_true):
         f = self._force
-        if f is None:
+        ret = (self._cp_week or {}).get("cp", {}).get("ret") if GAME["returns"] else None
+        if f is None and (ret is None or ret["ok"] is None):
             return p_true
         pt = float(np.clip(p_true[0], 1e-6, 1 - 1e-6))
-        lg = np.log(pt / (1 - pt)) - GAME["effort"] * f["rel"] - (GAME["out_of_reach"] if f["closed"] else 0.0)
+        lg = np.log(pt / (1 - pt))
+        if f is not None:
+            lg = lg - GAME["effort"] * f["rel"] - (GAME["out_of_reach"] if f["closed"] else 0.0)
+        if ret is not None and ret["ok"] is not None:   # Picks come back: the first time tilts this time, a few points
+            lg = lg + (GAME["ret_tilt"] if ret["ok"] else -GAME["ret_tilt"])
         p = p_true.copy(); p[0] = 1 / (1 + np.exp(-lg))
         return p
 

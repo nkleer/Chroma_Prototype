@@ -251,6 +251,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
         self.history["turns"] = []      # (age, color, kind, held)
         self._threads = {}              # F5: what a pick started (("r", title), ("c", commitment), ("g", goal id)) -> its cause
         self._last_pick = None
+        self._picks, self._seeds = {}, []   # Picks come back: each asked pick by its week; the seeds the marked ones planted
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
             from rarity import RARITY
             self._sit_share = (RARITY.get("sit") or {}) if self.setting == "earth" else {}
@@ -316,6 +317,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
                         self._world_news(r_)
                 if not self._death_on and t / 52 >= max(self.start_age, DEATH_FROM) and "P" in loc and "self_death" in loc["P"]:
                     loc["P"]["self_death"] = True; self._death_on = True      # the engine reads P live, week by week
+                if GAME["returns"] and "P" in loc and not loc["P"].get("echo_play"):
+                    loc["P"]["echo_play"] = True        # Picks come back: the Engine's hook, set only by the game
                 if self._death_on and "dead" in loc and bool(loc["dead"][0]):
                     return self._on_death(t, loc)
                 if self.burn_in and t / 52 >= self.start_age:

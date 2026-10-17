@@ -45,7 +45,7 @@ class MomentsMixin:
         return cap(" ".join(L))
 
     # ---------------------------------------------------------------- moments
-    def moment(self, t, sit, stage, age, kind=None, kills=None):
+    def moment(self, t, sit, stage, age, kind=None, kills=None, who=None):
         """The scene of this week's situation, built once (a checkpoint and its outcome share it).
         kills: the role who dies in it (the library's kills: field); a bereavement without one takes anyone close."""
         m = self._moment.get(t)
@@ -71,7 +71,8 @@ class MomentsMixin:
             tpl = self.pick(SCENES[sit], ph)
         if not tpl and sit in LIB_SCENES:           # a Library moment not yet written for this world
             tpl = cap(act(sit)) + "."
-        who = self.marks.get(LIB_ECHO.get(sit))
+        if who is None:                             # who: Picks come back's seed person (the game's returns), else
+            who = self.marks.get(LIB_ECHO.get(sit))     # the latest person of the mark the echo answers
         if who is not None and who["alive"]:        # an echo: the same person as in the act it answers
             slot = next((x for x in re.findall(r"\{(\w+)\}", tpl) if x in PERSON_SLOTS), None)
             if slot:

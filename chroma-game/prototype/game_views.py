@@ -835,6 +835,8 @@ class ViewsMixin:
         v = self.history["voice"]                    # item 3: the Book's Your Voice page adds the lives up
         d["voice"] = dict(n=v["n"], steer=v["steer"], ax=v["ax"], line=(getattr(self, "review", None) or {}).get("voice", {}).get("book", "")
                           if self.over else "")
+        if self.history.get("returns"):              # Picks come back: each pick that came back, with the pick it came from
+            d["returns"] = [dict(a=x["seed"]["age"], m=x["seed"]["moment"], b=x["age"], n=x["moment"]) for x in self.history["returns"]]
         return d
 
     def _life_review(self):
