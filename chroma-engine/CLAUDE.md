@@ -4,12 +4,14 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
 
 - `v22-speedpass/` is the live engine (the folder name is historical; `chroma-env/paths.py` calls it `engine_live`).
   `MD5SUMS` lists its files. `SPEEDPASS.md` explains the speed pass that kept every life identical.
-- `engine.py` (6,298 lines) is vectorised over N lives, one tick a week. Its module docstring is from v2 and out of
+- `engine.py` (about 6,400 lines) is vectorised over N lives, one tick a week. Its module docstring is from v2 and out of
   date; go by the code. Find the entry points with `rg -n '^def _run|^def run|^PAUSES|^STATE' engine.py`:
-  - `_run(...)` is one 4,440-line function holding the whole weekly loop.
+  - `_run(...)` is one function of about 4,500 lines holding the whole weekly loop.
   - `run()` runs it to the end; `run_steps()` runs it as a generator that pauses at `PAUSES`
     (`week`, `situation`, `choose`, `odds`, `learn`, `end`). The game drives `run_steps()` (`chroma-game/prototype/link.py`).
-  - `STATE` names the local variables of `_run` that the game, `explain.py` and `foresee.py` may read at a pause.
+  - `STATE` names the local variables of `_run` that the game, `explain.py` and `foresee.py` may read at a pause
+    (`STATE_IF` and `STATE_MORE` a few more). A pause hands over only these, read from cells (`_handed` in `_run`), in
+    one dict refreshed at each pause; a name read that is not there goes in `STATE_MORE` (t_steps lists it).
     Renaming one, or changing its value at a pause, breaks the game.
 - `sphere_data.py` holds the nine spheres (`SPHERES`); `world.py`, `world_people.py`, `world_link.py` and
   `world_keys.py` are the outer world; `earth_rules.py` the Earth rules; `rarity.json` the rarity table the game builds
