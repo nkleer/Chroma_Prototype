@@ -351,7 +351,13 @@ class WorldLink:
         self.sphev = np.asarray(L.get("W_SPHEV", np.full(S, -1)))   # sphere events' moments (phase 3): the event's index
         if self.sphev.dtype == bool:                                  # (a batch read before phase 3: held back)
             self.sphev = np.where(self.sphev, 0, -1)
-        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0)   # the spheres' gates (moment_factor)
+        # finishing pack, part 5 (grey_gate): a moment of a town gone grey, open while the sphere's grey share (World.sph_grey,
+        # town: its greyest sphere) is at least the Library's threshold (sphere_data.SHADOW grey_gate, .25)
+        self.shadow = np.asarray(L.get("W_SHADOW", np.full(S, -1)))
+        import sphere_data as SD_
+        self.grey_on = bool(P.get("grey_gate")); self.grey_thr = float(SD_.SHADOW.get("grey_gate", SD_.SHADOW["gate"]))
+        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0) | (self.shadow >= 0)   # the spheres'
+        # gates (moment_factor)
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
         self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
@@ -1129,6 +1135,14 @@ class WorldLink:
                 f[:, ls_] *= np.floor(rgm_) >= self.ladder[ls_][None, :]
         if self.pt_m.any():   # part 2: a place moment comes only with its closing or opening (brought, never drawn)
             f[:, self.pt_m] = 0.0
+        if (self.shadow >= 0).any():   # part 5: the town gone grey (grey_gate, with sph_shadow's shares; off, never)
+            sh_ = np.nonzero(self.shadow >= 0)[0]
+            if not (self.grey_on and W.p.get("sph_shadow")):
+                f[:, sh_] = 0.0
+            else:
+                g_ = W.sph_grey()[np.asarray(PP.loc)]                       # N x 9, each life's town
+                g_ = np.concatenate([g_, g_.max(1, keepdims=True)], 1)      # + town: the greyest sphere
+                f[:, sh_] *= g_[:, self.shadow[sh_]] >= self.grey_thr
         if (self.prem >= 0).any():   # a moment that needs a technology the world has not got
             th_ = {}   # speed pass: each technology asked once a week
             for si in np.nonzero(self.prem >= 0)[0]:

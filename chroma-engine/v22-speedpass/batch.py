@@ -509,6 +509,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
     sits += PK["sits"]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
+    if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
+        sits = [x for x in sits if not x.get("shadow")]
     if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
     if not TRUST_MOMENTS:   # body_trust's gated moments (trust: <sphere> low|high) wait for the finishing pack's refit
@@ -770,6 +772,7 @@ def _world_fields(L):
     msph = np.full(S, -1); haunt = np.full(S, -1); ladder = np.full(S, -1)
     osph = np.full((S, K), -1); ocol = np.full((S, K), -1); hpick = np.zeros(S, bool)
     sphev = np.full(S, -1)      # a moment a sphere event brings (phase 3): the event's index in sphere_data.EV
+    shadow = np.full(S, -1)     # finishing pack part 5: a moment of a town gone grey (shadow: grey, or one sphere)
     import sphere_data as SD_
     ev_key = {e_["key"]: i_ for i_, e_ in enumerate(SD_.EV)}
     for si, src in enumerate(L["src"][:S]):
@@ -785,6 +788,11 @@ def _world_fields(L):
             if k_ not in ev_key:
                 raise ValueError(f"{nm}: unknown sphere_event {k_!r} (an event key of the nine sphere files)")
             sphev[si] = ev_key[k_]
+        if src.get("shadow"):
+            k_ = str(src["shadow"]).strip()
+            if k_ not in ("grey", "town") and k_ not in WK.SPHERES:
+                raise ValueError(f"{nm}: shadow: grey (the town's greyest sphere) or a sphere of {', '.join(WK.SPHERES)} ({k_!r})")
+            shadow[si] = len(WK.SPHERES) if k_ in ("grey", "town") else WK.SPHERES.index(k_)
         for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
             if nt and nt.get("sphere") and ki < K:
                 osph[si, ki], ocol[si, ki], _ = sph_val(nt["sphere"], f"{nm}, option {ki + 1}")
@@ -837,7 +845,7 @@ def _world_fields(L):
                                  f"then {' or '.join(tv_)})")
             trust[si] = (WK.SPHERES.index(x_[0]), tv_.index(x_[1]))
     L.update(W_TRUST=trust)
-    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
+    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev, W_SHADOW=shadow)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
              W_CAUGHT=caught, W_ODD=odd)
@@ -857,6 +865,8 @@ AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-l
                         # is laid over the moments at v22.5's refit
 TRUST_MOMENTS = False   # the spheres' finishing pack, part 3: moments gated on trust in a sphere's bodies (trust: <sphere>
                         # low|high, body_trust) join the batch at the pack's refit
+SHADOW_MOMENTS = False  # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
+                        # batch at its refit; until then the batch is as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
