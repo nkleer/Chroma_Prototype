@@ -12,6 +12,7 @@ its pair. One JSON a life: impact.py's record plus
 `picks`, one row per ask (age, sit, repeat: the moment was asked before in this life and is not a return, thread: the F5
 line shows, seed). `seed` is what the game puts on a return's ask, cp["seed"]:
     age    the seed's age            sit   the seed's moment     way   the way picked then
+    t      the seed's week (P3 reads weeks when it is there, else the ages)
     went   "well" or "badly"         person  the seed's person (id), or None for a seed with nobody in it
     near   the seed's person is alive and near at the return
     now    who fills the return's person slot: the person's id, "memory:<id>" or "heard:<id>", or None
@@ -56,7 +57,7 @@ def life(a):
         cp = self.pending
         if cp is not None and not cp.get("turning"):
             sd = cp.get("seed")
-            rows.append(dict(age=round(float(cp["age"]), 2), sit=cp.get("sit"), title=cp.get("title"),
+            rows.append(dict(age=round(float(cp["age"]), 2), t=int(cp["t"]) if cp.get("t") is not None else None, sit=cp.get("sit"), title=cp.get("title"),
                              repeat=cp.get("sit") in seen and not sd, thread=bool(cp.get("thread")), seed=plain(sd) if sd else None))
             seen.add(cp.get("sit"))
         return orig(self, *x, **k)
@@ -163,12 +164,19 @@ def judge(a):
     lines.append(f"{'ok  ' if ok else 'MISS'} P2 the same person: {len(withp)} of {len(rets)} returns had a person; {len(same)} of {len(near)} "
                  f"alive and near came back with that person ({len(same) / max(1, len(near)):.3f}); {len(kept)} of {len(far)} gone or far came as a "
                  f"memory of them or someone who heard")
-    gaps = [p["age"] - float(p["seed"]["age"]) for k, p in rets if p["seed"].get("age") is not None]
+    # in weeks when the seed carries its week (cp["seed"]["t"]) and the ask its own (t); else in years from the ages,
+    # where the seed's age is rounded to .1 and a gap just under 1.0 may be a full year
+    wk = all(p.get("t") is not None and p["seed"].get("t") is not None for k, p in rets)
+    if wk:
+        gaps = [(p["t"] - int(p["seed"]["t"])) / 52 for k, p in rets]
+    else:
+        gaps = [p["age"] - float(p["seed"]["age"]) for k, p in rets if p["seed"].get("age") is not None]
     under = [g for g in gaps if g < 1.0]
     ok = bool(gaps) and not under and len(gaps) == len(rets)
-    res["picks_gap"] = (ok, f"{len(under)} of {len(gaps)} returns within a year of their seed")
+    res["picks_gap"] = (ok, f"{len(under)} of {len(gaps)} returns within a year of their seed ({'weeks' if wk else 'rounded ages'})")
     lines.append(f"{'ok  ' if ok else 'MISS'} P3 no return within a year of its seed: {len(under)} of {len(gaps)} under a year"
                  + (f" (shortest {min(gaps):.2f} years, median {sorted(gaps)[len(gaps) // 2]:.1f})" if gaps else "")
+                 + (", read in weeks" if wk else ", read from ages (the seed's rounded to .1: a gap of .95 to 1.0 may be a full year)")
                  + ("" if len(gaps) == len(rets) else f"; {len(rets) - len(gaps)} returns without a seed age"))
     rep_on = [sum(1 for p in on[k]["picks"] if p["repeat"]) for k in played]
     rep_off = [sum(1 for p in off[k]["picks"] if p["repeat"]) for k in played]
