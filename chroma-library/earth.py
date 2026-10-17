@@ -60694,6 +60694,7 @@ ECHOES = [
  'life': 'conflict, home',
  'horizon': 'months',
  'roles': 'parent, partner, friend, the police, a solicitor',
+ 'who': 'parent, partner, friend',
  'at': 'police',
  'worlds': {'earth': 'two police officers on your doorstep early one morning, asking for you by name'},
  'timing': {'times': 'Follows only some wrongs: most go unsolved, and well under 1 in 10 crimes recorded in England '
@@ -60807,6 +60808,7 @@ ECHOES = [
  'life': 'work, friends, community',
  'horizon': 'months',
  'roles': 'an old employer, friend, elder',
+ 'who': 'friend, elder',
  'worlds': {'earth': 'someone you never let down, years ago, now vouches for you or opens a door'},
  'timing': {'times': 'Perhaps 1 in 4 people who keep their word to one boss or group for years later get a door '
                      'opened by them; (estimate; Granovetter found over half of jobs came through contacts)'},
@@ -60860,6 +60862,7 @@ ECHOES = [
  'life': 'any',
  'horizon': 'week',
  'roles': 'the one once helped, neighbour',
+ 'who': 'neighbour',
  'worlds': {'earth': 'when you are in a fix, someone you once helped turns up and insists on helping'},
  'timing': {'times': 'Fairly common: perhaps 1 in 3 people who helped someone through a hard time are later helped '
                      'back by them (estimate)'},
@@ -60911,6 +60914,7 @@ ECHOES = [
  'life': 'any',
  'horizon': 'week',
  'roles': 'the one once refused, sibling',
+ 'who': 'sibling',
  'worlds': {'earth': 'you need help, and the one person who can give it is someone you once turned away'},
  'timing': {'times': 'Uncommon: perhaps 1 in 10 people who turned someone away later need that same person, mostly '
                      'in small towns (estimate)'},
@@ -61075,6 +61079,7 @@ ECHOES = [
  'life': 'public life, work, school',
  'horizon': 'months',
  'roles': 'an official, a teacher, boss, elder',
+ 'who': 'teacher, boss, elder',
  'worlds': {'earth': 'the office, school or council you once stood up to has your name on file, and now you need '
                      'something from it'},
  'timing': {'times': 'Uncommon: perhaps 1 in 8 people who openly defied a school, office or council later need it '
@@ -61243,6 +61248,7 @@ ECHOES = [
  'life': 'work, family',
  'horizon': 'moment',
  'roles': 'colleague, child, a young employee',
+ 'who': 'colleague, child',
  'worlds': {'earth': 'you catch a young colleague, or your own teenager, doing exactly what you once did and hid'},
  'timing': {'times': 'Fairly common: perhaps 1 in 4 people who hid a wrong when young later catch a teenager or '
                      'junior doing the same (estimate)'},
@@ -61408,6 +61414,7 @@ ECHOES = [
  'life': 'body',
  'horizon': 'years',
  'roles': 'a doctor, partner, friend',
+ 'who': 'partner, friend',
  'at': 'hospital',
  'worlds': {'earth': 'an old knee, back or shoulder from the wild years starts to give, and a doctor wants to talk '
                      'about it'},
@@ -61577,6 +61584,7 @@ ECHOES = [
  'life': 'family, home',
  'horizon': 'years',
  'roles': 'parent, sibling, grandparent',
+ 'who': 'sibling, parent, grandparent',
  'worlds': {'earth': 'news from the old town or the old country: your mother is getting frail, the family shop has '
                      'no one to run it, and part of you wants to go back'},
  'timing': {'times': 'Common: most people who moved far away get news of a parent ageing back home, and perhaps half '

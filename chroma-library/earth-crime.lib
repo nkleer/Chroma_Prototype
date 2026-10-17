@@ -438,6 +438,7 @@ fails: {friend} hangs up, and does not ring again for a long, long time.
 
 == the police at the door
 tier: echo
+who: parent, partner, friend
 at: police
 stages: juvenile+
 age: 13-90

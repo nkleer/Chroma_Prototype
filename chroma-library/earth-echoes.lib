@@ -42,6 +42,7 @@ fails not G: The talk goes badly, and an old hurt becomes a fresh one.
 
 == a promise kept for years pays off
 tier: echo
+who: friend, elder
 stages: young_adult+
 age: 18-110
 tone: joy
@@ -78,6 +79,7 @@ fails: Someone with louder friends gets it in the end.
 
 == someone you helped returns the favour
 tier: echo
+who: neighbour
 stages: juvenile+
 age: 18-110
 tone: joy
@@ -114,6 +116,7 @@ fails: They come once, and then life pulls them away again.
 
 == the one you turned away is the one who can help
 tier: echo
+who: sibling
 stages: juvenile+
 age: 18-110
 stakes: .8
@@ -226,6 +229,7 @@ fails: {friend} has troubles of their own, and the visit leaves them both tired.
 
 == the office you defied remembers
 tier: echo
+who: teacher, boss, elder
 stages: juvenile+
 age: 14-110
 tone: trouble
@@ -336,6 +340,7 @@ fails: The group cools toward {N}, and the invitations thin out.
 
 == you catch someone doing what you once did
 tier: echo
+who: colleague, child
 stages: young_adult+
 age: 20-110
 tone: mixed
@@ -446,6 +451,7 @@ fails: The chance slips by while {N} hesitates, and someone else takes it.
 
 == the body remembers the wild years
 tier: echo
+who: partner, friend
 at: hospital
 stages: adult+
 age: 30-110
@@ -555,6 +561,7 @@ fails: The town changes anyway, in ways {N} could not stop.
 
 == roots call the one who moved away
 tier: echo
+who: sibling, parent, grandparent
 stages: young_adult+
 age: 28-110
 stakes: .9
