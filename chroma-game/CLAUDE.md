@@ -15,10 +15,10 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 |---|---|---|
 | `play.py` | 30 | terminal loop around `console.Console`; waits on `input()`, so never run it from a session |
 | `console.py` | 783 | the text controller for the terminal and the page: `Console.handle(line)` returns `(text, busy)`; every key (`HELP` lists them) and the setup steps (`CUSTOM_STEPS`, `STEP_FORM`) |
-| `game.py` | 434 | `PRESETS` (the six starts; Release's `check_f15.py` reads them from this file's text) and class `Game`: its class attributes and its core, `__init__`, `_intervene`, `age`, `advance`, `decide`. Every name the game layer has is importable from `game` |
+| `game.py` | 435 | `PRESETS` (the six starts; Release's `check_f15.py` reads them from this file's text) and class `Game`: its class attributes and its core, `__init__`, `_intervene`, `age`, `advance`, `decide`. Every name the game layer has is importable from `game` |
 | `game_base.py` | 586 | the game layer's settings (`GAME`, `V225`, the `CHROMA_GAME` and `CHROMA_ENGINE` switches), names, `library_for` and helpers: what `game.py` held before class `Game` |
 | `game_words.py` | 965 | words and closing texts: the peace reading, the song, `life_paragraph`, `last_talk`, `book_catalog`: what `game.py` held after class `Game` |
-| `game_checkpoints.py` | 658 | `CheckpointsMixin`: steers, checkpoints and their options, resolutions, hindsight, turning points |
+| `game_checkpoints.py` | 662 | `CheckpointsMixin`: steers, checkpoints and their options, resolutions, hindsight, turning points |
 | `game_world.py` | 600 | `WorldMixin`: the outer world in the story: world effects, levers, far ties, places, posts, lines, talks |
 | `game_voice.py` | 667 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
 | `game_life.py` | 785 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
