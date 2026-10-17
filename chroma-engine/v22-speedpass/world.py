@@ -3216,7 +3216,7 @@ class World:
         hz = T["base"][None, :, None] * mis * loss
         if self.p.get("sph_levers", False) and getattr(self, "hp_hold", None) is not None:
             hz = hz * np.where(self.hp_hold[..., 0] >= q, self.hp_hold[..., 1], 1.0)
-        if self.p.get("sph_cascades", False) and getattr(self, "sph_cas", None):   # slump, dearth: x 1.5 on owned trade
+        if self.p.get("sph_cascades", False) and getattr(self, "sph_cas", None):   # slump, war, disaster: x 1.5 on owned trade
             ids = self._sph_p3_tables()["ids"]; cf = np.ones(nl)
             for c_, lc_ in sorted({(ids[x[0]], int(x[1])) for x in self.sph_cas}):   # (each running cascade once)
                 if c_ in T["cas"]:
