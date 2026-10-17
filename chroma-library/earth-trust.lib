@@ -1,0 +1,464 @@
+# Chroma library, modern Earth: SPHERES FINISH PACK, part 3, TRUST IN A SPHERE'S BODIES (dynamics.json body_trust,
+# 10-17). Gate: every moment carries trust: <sphere> low|high, the life's trust in that sphere's bodies (btrust), low
+# under .3 and high over .7. One low and one high moment per sphere: rule (courts, councils, ministries), prot (police),
+# care (hospitals), learn (schools, universities), faith (faith bodies), comm (banks). at: names the body.
+# Low trust shows as wariness, high trust as reliance; neither is shown as right. Every moment keeps open trusting,
+# checking, working around, organising for change and accepting. Faith bodies are generic (the congregation, the
+# faith's council). Spec chroma-world/spheres/finish-pack-draft.md part 3. Syntax: header of build.py.
+# Evenness: in every moment each colour's one-letter option plus its cross (first letter) = 140.
+#   rule low   the third letter from the council          UB  (s1)
+#   rule high  the empty seat on the council              WB  (s2)
+#   prot low   the shed broken into                       BR  (s3)
+#   prot high  the bag snatched at the stop               WU  (s4)
+#   care low   the pain put off                           RG  (s1)
+#   care high  the hospital asks for volunteers           WR  (s2)
+#   learn low  the school's report on the child           UR  (s3)
+#   learn high the adviser's safe course                  UG  (s4)
+#   faith low  the service at the congregation left       UBR (s1)
+#   faith high the elders asked to settle the house       WG  (s2)
+#   comm low   the savings in the envelope                BG  (s3)
+#   comm high  the loan bigger than asked for             WUG (s4)
+
+# ---------------------------------------------------------------- rule: courts, councils, ministries
+
+== the third refusal from the council
+tier: everyday
+stages: young_adult adult mature elder
+age: 22-85
+calls: UB
+rate: 1
+tone: trouble
+life: home, community
+horizon: months
+roles: elder, neighbour
+trust: rule low
+at: council
+earth: the council has turned down your small request for the third time, and you no longer believe anyone there reads the papers
+times: Trust in local bodies falls fastest after a run-in that feels unfair, and people who expect no fair hearing stop asking and work around them (Tyler 2006; Levi and Stoker 2000); about a fifth to a third of people hold low trust (estimate)
+gap: 3-8
+scene: The letter from the council comes on a grey morning, the third one. {N} asked for something small: a ramp by the front step for {elder}, who struggles with the stairs. Each time the answer is no, and each time for a reason never mentioned before. The neighbour two doors down got the same kind of letter last year and simply built a ramp anyway. {N} reads the letter twice and no longer believes anyone at the council read the request at all.
+scene W: A rule that changes every time it is asked about is not a rule. Still, there is a proper way to say so, and {N} knows it.
+scene U: Somewhere in the council's own papers is the rule they claim to follow. {N} wants to read it before anyone else does.
+scene B: The council answers to someone. {N} wants to know who, and what would make them care about one ramp.
+scene R: Three letters, three excuses, and {elder} on the step every morning. {N} is tired of being polite about it.
+scene G: The family managed that step for years before anyone thought of a ramp. Some fights are not worth the years.
+- W | appeal through the proper channel, and ask for the reasons in writing | v: conformity, universalism | chance: 60
+- U | read the council's own rules line by line, and find where the letter is wrong | v: self-direction, achievement | chance: 70
+- B | ask the neighbour how that ramp got built without them, and do the same | v: security, power | chance: 80
+- R | go to the open council meeting and say what this costs, to their faces | v: stimulation, benevolence | chance: 55
+- G | let it go, and help {elder} up the step each day as before | habit | v: tradition, benevolence | chance: 90
+- W>U | gather every refused request on the street, so the pattern is plain to see | v: universalism, self-direction | chance: 80
+- U>B | work out which councillor needs votes on this street, and write to that one | v: power, achievement | chance: 70
+- B>R | build the ramp anyway, and let the council come and complain | v: self-direction, stimulation | mark: defied an authority | chance: 60
+- R>G | bring the whole street to a kitchen meeting, and start a residents' group | v: benevolence, tradition | chance: 85
+- G>W | ask the oldest councillor, who knew the family, to look at it fairly | v: tradition, conformity | chance: 50
+works: By the end of the season the ramp is in, and {elder} goes out more often again.
+works: Whatever else happens, {N} now knows how the council really works, and which door in it opens.
+fails: The fourth letter reads like the third, and {N} stops opening them.
+fails: The months go by in forms and waiting, and {elder} still struggles on the step.
+
+== the empty seat on the council
+tier: everyday
+stages: young_adult adult mature elder
+age: 25-80
+calls: WB
+rate: 1
+tone: mixed
+life: community, publiclife
+horizon: years
+roles: friend, regular
+trust: rule high
+at: council
+earth: a seat on the town council falls empty, and people say you should stand, since you are one of the few who still believe it works
+times: People who trust a body speak up inside it rather than leave it, and trust lasts while the body is seen to be fair (Hirschman 1970; Tyler 2006); a few in a hundred ever stand for a local seat (estimate)
+gap: 5-15
+scene: A seat on the town council falls empty, and two neighbours say {N} should stand. {N} has always believed the council mostly works: slow, yes, but the rules get kept and a letter gets an answer. {friend} laughs at that. {friend} says the seats go to the same few families, and a newcomer gets the worst committee and no say at all. The papers must be in by the end of the month.
+scene W: Someone has to do the dull work of running a town, and {N} has always thought it should be people who believe in it.
+scene U: {N} has trusted the council from outside. From inside it may look different, and {N} would like to know how.
+scene B: A seat is a voice in where the money goes, and {N} can think of a few streets that have gone without for years.
+scene R: The thought of standing up in that chamber makes {Ns} heart beat faster, and not only from nerves.
+scene G: {N} grew up on these streets, and the council has always been part of how they were looked after.
+- W | put in the papers, and promise to answer every letter that comes | binds | v: conformity, benevolence | chance: 75
+- U | sit in on three meetings first, and learn how the votes are really made | v: self-direction, achievement | chance: 85
+- B | stand, and see who on the council could use one more vote | v: power, achievement | chance: 70
+- R | stand on the single cause that matters most, and campaign with heart | v: stimulation, universalism | chance: 60
+- G | decline, and keep helping the neighbourhood in the old, quiet ways | v: tradition, benevolence | chance: 90
+- W>B | stand, and use the rules on spending to win the forgotten streets their share | v: universalism, achievement | chance: 65
+- U>R | draw up a careful plan for the one change the street feels strongly about | v: self-direction, stimulation | chance: 55
+- B>G | stand with the backing of the old families, and keep their favour | v: power, tradition | chance: 70
+- R>W | ask {friend} to stand too, and fight together for an open council | v: universalism, stimulation | chance: 80
+- G>U | ask an old councillor what the seat really asks, before deciding | v: tradition, self-direction | chance: 50
+works: Within a year neighbours bring their troubles with the council to {N}, and some of them get solved.
+works: {friend} still teases {N} about the council, but comes to every open meeting now.
+fails: The chamber turns out slower and more closed than {N} believed, and the first year passes in one committee.
+fails: The seat goes to one of the old families after all, and {friend} is kind enough not to say anything.
+
+# ---------------------------------------------------------------- prot: the police
+
+== the shed broken into again
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: BR
+rate: 1
+tone: trouble
+life: home, work, safety
+horizon: week
+roles: neighbour
+trust: prot low
+at: police
+earth: someone has broken into your shed and taken your work tools, and after the last time you are not sure the police are worth the call
+times: Many thefts are never reported, most often because people think the police could or would do nothing; people who were let down before report less (crime victim surveys; Tyler 2006)
+gap: 3-10
+scene: Someone has broken into the shed behind {Ns} home and taken the tools {N} uses for work. Last time something went missing, the police took a number and never called back. The neighbour next door says a friend who reported a break-in ended up being questioned as if he had done it himself. The station is a short walk away. {N} stands in the doorway of the empty shed and does not reach for the phone.
+scene W: A theft unreported is a theft that never happened, as far as anyone counts. {N} knows that, even now.
+scene U: Tools like these do not vanish. They turn up somewhere, and {N} would like to know where before deciding anything.
+scene B: The tools are {Ns} living. Whatever gets them back, or gets new ones, is the thing worth doing.
+scene R: {N} is angry at whoever did it, and nearly as angry at the call that was never returned.
+scene G: Things go missing on this street now and then. People here have always looked out for each other instead.
+- W | report it anyway, and ask for the officer's name and a case number | v: conformity, security | chance: 55
+- U | check the second-hand stalls for the tools before deciding anything | v: self-direction, security | chance: 80
+- B | count the loss, and buy better tools and a stronger lock | v: power, security | chance: 85
+- R | go round the street asking until someone says who did it | v: stimulation, self-direction | chance: 65
+- G | let it go, fit a new lock, and share tools with the neighbours for now | v: tradition, benevolence | chance: 90
+- W>R | bring the whole street to the station together, so it cannot be brushed off | v: universalism, stimulation | chance: 85
+- U>G | set up a simple watch rota with the neighbours, and keep a log | v: security, tradition | chance: 60
+- B>W | offer a small reward on the street for the tools' return | v: power, benevolence | chance: 55
+- R>U | write to the station, angry and exact, about every call never returned | v: stimulation, universalism | chance: 75
+- G>B | ask the old hands on the street where stolen tools tend to turn up | v: tradition, security | chance: 50
+works: Within the month most of the tools are back on their hooks, and the shed has a lock nobody will pick.
+works: The street talks more after the break-in, and the neighbour next door starts calling round when a stranger lingers.
+fails: The tools are gone for good, and {N} spends weeks borrowing and making do.
+fails: Nothing comes of it either way, and {N} feels a little less safe each time the shed door creaks.
+
+== the bag snatched at the stop
+tier: everyday
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: WU
+rate: 1
+tone: trouble
+life: safety, community
+horizon: week
+roles: friend
+trust: prot high
+at: police
+earth: you see someone snatch an older woman's bag at the stop, and your first thought is the police, though your friend is less sure
+times: People who see the police as fair report crimes and come forward as witnesses far more often (Tyler 2006); trust in the police differs widely between neighbourhoods (estimate)
+gap: 3-10
+scene: Late one evening {N} sees a young man snatch a bag from an older woman at the stop and run. {Ns} first thought is the police: {N} has always found them fair, and the station is open all night. {friend}, beside {N}, is less sure. The last time someone from round here was described to the police, {friend} says, the wrong boy spent a night in a cell. The woman is sitting on the kerb, shaking.
+scene W: A woman has been robbed in the street. There is a proper thing to do about that, and {N} has never doubted what it is.
+scene U: {N} saw it for three seconds in bad light. What {N} actually saw, and what {N} only thinks, matters now.
+scene B: A statement means hours at the station and maybe a day in court. {N} weighs that against a bag.
+scene R: {Ns} heart is pounding, and the man is still in sight at the end of the road.
+scene G: The woman is somebody's mother, and right now she is alone on a kerb. That comes before everything else.
+- W | go straight to the station and give a full statement | v: conformity, security | chance: 80
+- U | write down exactly what was seen, while it is fresh, before anything else | v: self-direction, universalism | chance: 70
+- B | see the woman safely home, and stay out of the questioning | v: security, benevolence | chance: 85
+- R | run after him, shouting for someone to stop him | v: stimulation, benevolence | chance: 60
+- G | sit with the woman, and call her family before anyone else | v: benevolence, tradition | mark: helped someone in need | chance: 85
+- W>G | call the police, and ask the woman's neighbours to keep her company tonight | v: conformity, benevolence | chance: 60
+- U>W | describe only what was seen, and ask how they will check it is the right person | v: universalism, self-direction | chance: 70
+- B>U | ask the shopkeeper with the camera to keep the recording, as a favour | v: power, achievement | chance: 55
+- R>B | shout after him that the bag is not worth what it will cost him | v: stimulation, power | chance: 80
+- G>R | hold the woman's hand until she stops shaking, and only then decide | v: benevolence, tradition | chance: 55
+works: The bag comes back a week later, with nearly everything still in it, and the woman sends a card.
+works: Whatever the police make of it, the woman gets home safe, and {friend} says {N} did right by her.
+fails: The man is never found, and {N} spends a long evening at the station for nothing.
+fails: Weeks later {N} hears the wrong boy was stopped, and the memory of that night sits badly.
+
+# ---------------------------------------------------------------- care: hospitals
+
+== the pain put off for another month
+tier: everyday
+stages: young_adult adult mature elder
+age: 22-85
+calls: RG
+rate: 1
+tone: trouble
+life: health, body
+horizon: months
+roles: friend, grandparent, parent
+trust: care low
+at: hospital
+earth: a pain has come and gone for two months, and after the last time you are in no hurry to see a doctor
+times: People who distrust doctors put off care and come later in an illness; care seeking rises with trust in the hospital (finish pack: care seeking x .7 to 1.3; Slovic 1993, trust is lost faster than won)
+gap: 3-10
+scene: For two months {N} has had a pain under the ribs that comes and goes. The last time {N} went to the hospital, a doctor gave it five minutes, said it was nothing, and it turned out to be something after all. The waiting room is three hours on a good day. {friend} keeps saying {N} should go. {N} keeps saying next month.
+scene W: {N} knows what a sensible person does with a pain like this, and knows {N} is not quite doing it.
+scene U: Pains have causes. {N} would rather understand this one than hand it to a doctor who will not listen.
+scene B: Hours in a waiting room cost a day's work. {N} wants to know the visit will be worth it this time.
+scene R: The last time still makes {N} angry, and under the anger is the fear of what they might find.
+scene G: {grandparent} lived to a great age and saw a doctor twice. Some pains pass if they are left to.
+- W | book the appointment, and go with a written list of every symptom | v: conformity, security | chance: 70
+- U | read up on the pain, and keep a careful diary of when it comes | v: self-direction | chance: 65
+- B | pay for a private clinic, if the money stretches, and skip the queue | v: power, security | chance: 75
+- R | put it off and enjoy the summer, and go only if it gets worse | v: hedonism, stimulation | self_control: - | chance: 85
+- G | try the remedies {grandparent} swore by, and give it a season | v: tradition, security | chance: 80
+- W>U | ask for a second doctor, as is anyone's right, and have each test explained | v: universalism, self-direction | chance: 70
+- U>B | find out which clinic has the shortest wait and the best name, and go there | v: achievement, security | chance: 75
+- B>R | trade {friend} a favour for company at the appointment | v: power, hedonism | chance: 65
+- R>G | admit the fear to the family, and let them decide together | v: benevolence, tradition | chance: 55
+- G>W | go to the old family doctor who has always seen the family fairly | v: tradition, conformity | chance: 60
+works: The pain turns out to be something small, and knowing so is worth more than {N} expected.
+works: Whatever else, {N} comes out of it with a doctor who listens, or a way of living with the pain that works.
+fails: The pain lingers, and so does the worry, and neither gets a name.
+fails: {N} waits too long, and what could have been small takes a season to put right.
+
+== the hospital asks for volunteers
+tier: everyday
+stages: juvenile young_adult adult mature elder
+age: 16-85
+calls: WR
+rate: 1
+tone: mixed
+life: health, community
+horizon: years
+roles: parent, colleague
+trust: care high
+at: hospital
+earth: the hospital that pulled your family through a bad winter is asking for volunteers, and you have never doubted it, though a colleague has
+times: People who trust a body give it time and loyalty, and a run-in that goes well raises trust (Hirschman 1970; finish pack: +.08 for a run-in that went well, +.03 a year working in the body)
+gap: 5-15
+scene: The hospital that pulled {parent} through a bad winter is asking for volunteers: drivers, ward visitors, people to sit at the front desk. {N} has never doubted the place; the nurses there were the kindest people {N} ever met. {colleague}, whose sister works nights there, says it is different behind the doors: too few staff, and mistakes nobody writes down. The form asks for four hours a week.
+scene W: The hospital gave {Ns} family a winter back. Four hours a week seems a fair way to pay it forward.
+scene U: {N} has seen the hospital from a bedside chair. What {colleague} says makes {N} want to see it from the inside.
+scene B: A hospital volunteer meets everyone in town sooner or later, and a good name there opens doors.
+scene R: {N} still remembers the nurse who sat with {parent} at three in the morning. The feeling has never quite gone.
+scene G: Families like {Ns} have always given something to the hospital. It is part of what keeps the town going.
+- W | sign up for the four hours, and keep to them every week | habit | v: conformity, benevolence | mark: helped someone in need | chance: 75
+- U | spend a day shadowing the ward first, and see how it really runs | v: self-direction, universalism | chance: 70
+- B | sign up for the front desk, where the contacts and the reference are worth having | v: achievement, power | chance: 80
+- R | sign up for the children's ward, and bring in music and games | v: stimulation, benevolence | chance: 65
+- G | give to the hospital's fund instead, as the family always has | v: tradition, benevolence | chance: 85
+- W>B | join the visitors' board, which has a real say over the wards | v: power, conformity | chance: 65
+- U>R | find out where the staff are thinnest, and go where the need hurts most | v: universalism, benevolence | chance: 70
+- B>G | volunteer in {parent}'s name, so the family is known and welcome there | v: tradition, power | chance: 60
+- R>W | ask {colleague}'s sister what goes wrong, and speak up for the nurses | v: benevolence, universalism | chance: 75
+- G>U | ask the oldest volunteer what the place was like, and what has changed | v: tradition, self-direction | chance: 55
+works: A year on, the nurses on the ward know {N} by name and save the hardest visits for {N}.
+works: {N} sees both sides of the hospital now, the kindness and the strain, and is more use to it for knowing.
+fails: The hours are harder than the form made them sound, and {N} drifts away after a season.
+fails: {N} sees one of the mistakes {colleague} warned about, and the place is never quite the same again.
+
+# ---------------------------------------------------------------- learn: schools and universities
+
+== the school's report on the child
+tier: everyday
+stages: adult mature
+age: 25-60
+calls: UR
+rate: 1
+tone: trouble
+life: children, school
+horizon: months
+roles: child, friend
+trust: learn low
+at: school
+earth: the school says your child is behind and should drop a group, and you do not believe a word of it
+times: Parents who were let down by schools themselves trust them less and question their verdicts more; trust carries from parents to children (Levi and Stoker 2000; finish pack: a child starts from the parents' trust)
+gap: 3-8
+scene: The school says {child} is behind, and should move down a group next term. {N} does not believe it. {child} reads at the kitchen table every night, and the teacher who wrote the report has been there four months. {N} still remembers being written off at that age by a school that never looked twice. The meeting is on Thursday.
+scene W: If the school moves children by a rule, the rule should be the same for {child} as for everyone. {N} wants to see it.
+scene U: Reports are guesses with numbers on them. {N} wants the numbers, and the guesses behind them.
+scene B: {N} knows how schools work: the parents who push get heard. {N} intends to be heard.
+scene R: The report stings as if it were about {N}. Old anger rises, and with it the urge to fight.
+scene G: Children grow at their own pace. A group this term is not a life, and {child} has a home behind them.
+- W | go to the meeting, and ask what the school's rule for moving groups is | v: conformity, universalism | chance: 70
+- U | ask for the actual tests and marks, and go through them line by line | v: self-direction, achievement | chance: 80
+- B | get {friend}, who teaches, to have a quiet word with the head | v: power, security | chance: 65
+- R | tell the teacher, plainly and with feeling, that {child} is being misjudged | v: stimulation, benevolence | chance: 60
+- G | accept the new group, and keep reading with {child} in the evenings | v: tradition, benevolence | chance: 85
+- W>R | ask {child} first, then put {child}'s own wishes to the school fairly | v: universalism, self-direction | chance: 70
+- U>G | find a tutor among the family's own friends, and test it again in spring | v: achievement, tradition | chance: 60
+- B>W | bring in the other parents in the same position, and ask for one fair rule | v: power, universalism | chance: 75
+- R>U | let the anger cool, then ask the teacher what {child} finds hard | v: benevolence, self-direction | chance: 80
+- G>B | move {child} to the school across town, where the family always went | v: tradition, security | chance: 55
+works: By the spring {child} is where {N} believed {child} belonged, and the teacher says so.
+works: Whichever way the school decides, {child} knows {N} is behind them, and it shows in how {child} walks in.
+fails: The school stands by its report, and {N} is left wondering whether it was right after all.
+fails: The meeting goes badly, and for a while every note home from school reads like a judgement.
+
+== the adviser's safe course
+tier: everyday
+stages: juvenile young_adult
+age: 16-26
+calls: UG
+rate: 1
+tone: mixed
+life: school, learning, work
+horizon: years
+roles: friend, mentor
+trust: learn high
+at: university
+earth: the university's adviser says the safe course is the one with steady jobs, and you have always trusted its word
+times: Students who trust their school follow its advice on courses more often; trust is high where teachers were the first to take a student seriously (Tyler 2006; estimate)
+gap: 3-8
+scene: The university's adviser has looked at {Ns} marks and says the safe course is the one with steady jobs at the end. {N} trusts the place: its teachers were the first to take {N} seriously, and its word has opened every door so far. {friend} dropped out of the same course last year and says the adviser tells everyone the same thing, and that the steady jobs are fewer than the booklet says. {N} has to choose by the end of the week.
+scene W: The university has been right about {N} before. Taking its advice seems the sensible, proper thing.
+scene U: Advice is only as good as what it rests on. {N} would like to see what this advice rests on.
+scene B: A course is an investment of years. {N} wants to know what it pays at the end.
+scene R: There is another course that makes {N} lean forward in every lecture, and the adviser did not mention it.
+scene G: The family has hopes, quietly held. {N} knows them without anyone having to say a word.
+- W | take the adviser's course, and keep to the plan it sets out | v: conformity, security | chance: 80
+- U | find out where last year's graduates actually ended up before choosing | v: achievement, self-direction | chance: 75
+- B | pick whichever course the best-paid graduates took | v: achievement, power | chance: 75
+- R | take the course that makes every lecture fly by, whatever the advice | v: stimulation, self-direction | chance: 60
+- G | ask the family what they hoped for, and take the path closest to it | v: tradition, benevolence | chance: 85
+- W>G | take the adviser's course, and stay near home to do it | v: conformity, tradition | chance: 60
+- U>W | ask the adviser for the figures behind the advice, and check them fairly | v: universalism, self-direction | chance: 65
+- B>U | trade a favour with an older student for honest notes on both courses | v: power, achievement | chance: 65
+- R>B | take the loved course, and find a side job that pays from the first year | v: stimulation, achievement | chance: 80
+- G>R | ask {mentor}, who has known the family for years, which course would bring joy | v: tradition, hedonism | chance: 55
+works: Two years in, {N} is sure the choice was right, whoever was proved wrong.
+works: {friend} and {N} argue about it still, but {N} chose with open eyes, and that holds.
+fails: The course turns out narrower than promised, and {N} starts to wonder what the adviser really knew.
+fails: The first year is hard going, and {N} cannot tell whether it is the course or the doubt.
+
+# ---------------------------------------------------------------- faith: faith bodies
+
+== the service at the congregation left behind
+tier: everyday
+stages: young_adult adult mature elder
+age: 22-85
+calls: UBR
+rate: 1
+tone: trouble
+life: faith, family, loss
+horizon: week
+roles: elder, parent
+trust: faith low
+at: faith body
+earth: an elder of the family has died, and the family wants the service at the congregation you walked out of
+times: Trust in faith bodies falls sharply after a scandal or cover-up, and the bad is remembered longer than the good (Slovic 1993; finish pack: scandal -.1, cover-up -.12)
+gap: 5-20
+scene: {elder} has died, gently, after a long illness, and the family wants the service at the congregation where {elder} worshipped for sixty years. {N} stopped going after the faith's council hid how the building fund was spent and turned away the members who asked. Now the family looks to {N} to make the arrangements, and the only door to knock on is the one {N} walked out of.
+scene W: {elder} kept faith with that congregation all those years. Whatever its council did, {N} owes {elder} a proper farewell.
+scene U: Years have passed. {N} does not know what has changed at the congregation, and would like to before deciding.
+scene B: The congregation wants this service as much as the family does. That gives {N} some say in how it is done.
+scene R: Grief and old anger arrive together. {N} cannot think of that building without both.
+scene G: Some things are bigger than a quarrel. The family has buried its own there for longer than anyone remembers.
+- W | arrange the service there, for {elder}'s sake, and leave the old quarrel outside | v: conformity, benevolence | chance: 70
+- U | ask the faith's council plainly what has changed, before agreeing to anything | v: self-direction, universalism | chance: 75
+- B | agree, and set the terms: an open account of what the family pays | v: power, security | chance: 65
+- R | refuse, and hold a gathering at home, with the songs {elder} loved | v: self-direction, stimulation | mark: defied an authority | chance: 80
+- G | let the oldest in the family decide, and go along with it quietly | v: tradition, conformity | chance: 85
+- W>U | ask the members who were turned away how the family should handle it | v: universalism, benevolence | chance: 70
+- U>B | find the one minister who spoke up back then, and ask that one to lead it | v: achievement, power | chance: 65
+- B>R | pay for the hall next door, and let everyone grieve the way they wish | v: benevolence, self-direction | chance: 75
+- R>G | tell the family how much it still hurts, and let them carry it together | v: benevolence, tradition | chance: 60
+- G>W | hold the service there, and ask that {elder}'s name be read with the old members | v: tradition, conformity | chance: 55
+works: The farewell is what {elder} would have wanted, and the family talks about it for years.
+works: Whatever was decided, {N} and the family come out of the week closer, and the old wound hurts a little less.
+fails: The day is stiff and strained, and some of the family blame {N} for it.
+fails: Old faces at the congregation make it plain nothing has changed, and {N} leaves early.
+
+== the elders asked to settle the house
+tier: everyday
+stages: young_adult adult mature elder
+age: 22-85
+calls: WG
+rate: 1
+tone: mixed
+life: faith, family, money
+horizon: months
+roles: sibling, grandparent
+trust: faith high
+at: faith body
+earth: your family is quarrelling over a house, and you would trust the congregation's elders to settle it, though your brother or sister would not
+times: People who trust a faith body bring it their disputes and keep its rulings; a ruling seen as fair keeps that trust (Tyler 2006; Hirschman 1970)
+gap: 5-15
+scene: The family is quarrelling over the house {grandparent} left, and the quarrel is getting worse. {N} trusts the congregation: its elders have settled family rows for generations, and they married {Ns} parents. {sibling} wants a lawyer instead, and says the elders always lean toward whoever gives the congregation the most. The elders could meet the family on the next feast day.
+scene W: The elders have always been fair to the family. A ruling everyone agrees to keep is the cleanest way out.
+scene U: {N} trusts the elders, but {sibling} has asked a fair question. {N} would like a fair answer to it.
+scene B: The house is worth a great deal, and {N} wants the settlement to hold up whatever happens next.
+scene R: This is family. {N} hates the cold voices on the phone and wants everyone in one room again.
+scene G: {grandparent} built that house and prayed in that congregation. The two belong together in {Ns} mind.
+- W | bring the quarrel to the elders, and agree beforehand to keep their ruling | binds | v: conformity, tradition | chance: 80
+- U | ask the elders how they reach a ruling before anyone agrees to it | v: self-direction, universalism | chance: 70
+- B | go to the elders, but have a lawyer read the settlement before signing | v: security, power | chance: 75
+- R | sit everyone down at the old kitchen table and talk it out tonight | v: benevolence, stimulation | chance: 65
+- G | let the oldest elder, who knew {grandparent}, quietly decide it | v: tradition, conformity | chance: 85
+- W>B | ask the elders to rule, with every share written down plain for all | v: universalism, security | chance: 60
+- U>R | find out what each one really wants from the house, then go to the elders | v: benevolence, self-direction | chance: 70
+- B>G | let the elders rule, and offer {sibling} first choice of the old things | v: power, tradition | chance: 65
+- R>W | tell {sibling} the elders will be fair, and ask for trust just this once | v: benevolence, universalism | chance: 75
+- G>U | ask the congregation's oldest members how such houses were shared before | v: tradition, self-direction | chance: 55
+works: The house is settled by spring, and the family sits together again on the next feast day.
+works: However it was decided, {sibling} admits the settlement was fair, which is more than {N} hoped.
+fails: The ruling pleases nobody, and {sibling} calls a lawyer anyway.
+fails: {sibling} was right about one thing, and {N} sees it too late to undo.
+
+# ---------------------------------------------------------------- comm: banks
+
+== the savings in the envelope
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: BG
+rate: 1
+tone: mixed
+life: money, home
+horizon: months
+roles: parent, colleague, neighbour, elder
+trust: comm low
+at: bank
+earth: for the first time you have real savings, and you keep them at home, since you have never trusted the banks
+times: People who were let down by a bank, or whose family was, keep more money out of banks; a fifth to a third with low trust in banks is common in surveys (estimate; Levi and Stoker 2000)
+gap: 3-10
+scene: For the first time {N} has real savings, a year's careful money in an envelope in the drawer. {N} has kept money away from banks since the one in town froze {parent}'s account for a season and charged fees nobody ever explained. {colleague} says cash at home is a gift to any burglar and earns nothing, and that banks are safer now. {N} looks at the envelope and is not sure whom to believe.
+scene W: There is a proper, careful way to look after money. {N} is no longer sure the bank is it.
+scene U: Banks are not all the same, and neither are their terms. {N} could find out which is which.
+scene B: This money took a year. {N} wants it safe, and wants it working, and trusts nobody else to decide how.
+scene R: A year of saying no to things is in that envelope. Part of {N} wants to say yes to something for once.
+scene G: {Ns} family has always kept its money close, and none of them ever lost it all.
+- W | open a plain account, and read every line of the terms first | v: conformity, security | chance: 70
+- U | compare what each bank and savings club charges, and keep it all on paper | v: self-direction, security | chance: 75
+- B | buy something that holds its value, and keep it close | v: power, security | chance: 80
+- R | spend part of it on something joyful now, before anything can happen to it | v: hedonism, stimulation | chance: 65
+- G | keep it hidden at home, as the family always has | v: tradition, security | chance: 90
+- W>R | split it: a fair share in an account, the rest kept free to spend | v: security, hedonism | chance: 70
+- U>G | learn how the neighbours' savings club works, and join it | v: tradition, self-direction | chance: 65
+- B>W | lend some to the neighbour at a fair rate, written down for both | v: power, universalism | chance: 60
+- R>U | ask {colleague}, straight out, to show exactly why the banks are safer now | v: stimulation, self-direction | chance: 75
+- G>B | ask {elder}, who never trusted banks, where the old families keep their money | v: tradition, power | chance: 50
+works: A year later the money is still there and a little more besides, and {N} sleeps well.
+works: Whatever {N} chose, {N} chose it knowing the risks, and that is a comfort of its own.
+fails: Some of the money is gone by winter, and {N} cannot quite say where.
+fails: {N} spends the season worrying about the envelope, whichever drawer it is in.
+
+== the loan bigger than asked for
+tier: everyday
+stages: young_adult adult mature
+age: 22-65
+calls: WUG
+rate: 1
+tone: mixed
+life: money, work
+horizon: years
+roles: friend, grandparent
+trust: comm high
+at: bank
+earth: the bank that has always treated you well offers a loan larger than you asked for, and a friend who borrowed there is still paying
+times: People who trust their bank borrow more readily and check the terms less; trust that is not checked can be naive as well as justified (Levi and Stoker 2000; estimate)
+gap: 5-15
+scene: The bank has always treated {N} well: a fair loan for the first car, a patient word in a hard month. Now the manager offers more than {N} asked for, to start the small workshop {N} has long dreamed of, and says the figures look fine. {friend} took a loan from the same branch two years ago and is still paying for a shop that closed. {N} has the papers on the table and a pen in hand.
+scene W: The bank has kept its word to {N} every time. Keeping {Ns} own word to it seems simple enough.
+scene U: The manager says the figures look fine. {N} has not yet seen them look fine on paper with {Ns} own eyes.
+scene B: More money means a bigger start. It also means a bigger debt, and {N} wants the best terms going.
+scene R: The workshop has been a dream for years, and here is the pen. {N} can almost smell the sawdust.
+scene G: {grandparent} built a trade from one bench and no debt. There is something in that way of doing it.
+- W | sign, and keep to every payment as agreed | binds | v: conformity, security | chance: 75
+- U | take the papers home, and work out the worst year the workshop could have | v: achievement, self-direction | chance: 80
+- B | sign for the full sum, and push the manager for a lower rate | v: power, achievement | chance: 70
+- R | sign today, while the courage is there | v: stimulation, self-direction | chance: 65
+- G | borrow only half, and let the workshop grow slowly | v: security, tradition | chance: 85
+- W>G | sign, and set a fixed part of each month aside for the family first | v: conformity, security | chance: 65
+- U>W | ask the bank to set out every fee in writing, and check each one | v: universalism, security | chance: 60
+- B>U | ask {friend} what the bank never mentioned, before signing anything | v: achievement, self-direction | chance: 70
+- R>B | turn the dream into a sharp pitch, and get a second bank to bid | v: stimulation, power | chance: 75
+- G>R | start small at home, the way {grandparent} started, and enjoy every step | v: tradition, hedonism | chance: 55
+works: The workshop opens in the spring, and the payments come out each month without a pinch.
+works: Whatever size it started, the workshop is {Ns} own, and {friend} is the first customer.
+fails: The first year is lean, and the payments land on {N} like stones.
+fails: Something in the terms was not what {N} thought, and the bank is suddenly less patient than before.
