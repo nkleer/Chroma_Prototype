@@ -41,7 +41,7 @@ scene G: {grandparent} wheezes on the stairs, and {N} thinks of the hills outsid
 - U | check the readings each morning and plan every outing around the cleanest hours | habit | v: self-direction, security | chance: 85
 - B | buy a good air filter early, before the price climbs, and sell on the spare | v: achievement, power | chance: 85
 - R | go out anyway and run your usual route, haze or no haze | habit | body: light | v: stimulation, self-direction | chance: 70
-- G | take the family to the relatives in the hills until the haze lifts | v: security, benevolence | lever: exit | pushes: place | chance: 60
+- G | take the family to the relatives in the hills until the haze lifts | v: security, benevolence | lever: exit | pushes: place | chance: 60 | back: helped someone in need
 - WU | gather the street's readings and take them to the council meeting | v: universalism | lever: voice | pushes: institution council | chance: 55
 - WR | join the march to the plant gates demanding they cut the smoke | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 45
 - UG | plant a thick hedge by the road and fill the house with air-cleaning plants | v: universalism, security | chance: 65
@@ -118,9 +118,9 @@ scene R: {N} cannot stand another month of watching an empty sky, and the farm w
 scene G: {grandparent} remembers the last dry year, and says the land always comes back if it is left to rest.
 - W | keep to the water rota, and report the neighbour who fills a pool at night | v: conformity, security | mark: made an enemy | chance: 80
 - U | rig drip lines and mulch so the garden needs half the water | v: self-direction, achievement | mark: learned a skill | chance: 75
-- B | buy hay cheap from a farmer who has to sell, and sell it on in winter | v: power, achievement | requires: savings | without: means | chance: 75
+- B | buy hay cheap from a farmer who has to sell, and sell it on in winter | v: power, achievement | requires: savings | without: means | chance: 75 | back: made an enemy
 - R | pack a bag and go to the city for work until the rain comes back | v: self-direction, stimulation | mark: left home | lever: exit | pushes: place | chance: 65
-- G | help the family grow only what the dry land will carry this year | v: tradition, universalism | chance: 70
+- G | help the family grow only what the dry land will carry this year | v: tradition, universalism | chance: 70 | back: helped someone in need
 - WU | help the council share out the reservoir fairly between farms and homes | v: universalism, conformity | lever: voice | pushes: institution council | chance: 50
 - WR | take a night shift on the fire watch in the dry hills | body: light | v: benevolence, security | chance: 70
 - UB | work out which crops will still pay, and plant them before anyone else does | v: achievement | chance: 55
@@ -160,7 +160,7 @@ scene G: {N} wakes to birdsong and lets the morning come slowly, as the season s
 - B | set up a stall at the weekend market while people are in the mood to spend | habit | v: achievement, power | chance: 80
 - R | skip work on the first warm day and take everyone to the lake | v: hedonism, stimulation | chance: 85
 - G | dig and plant the garden, and spend the long evenings sitting in it | v: tradition, hedonism | chance: 80
-- RG | sleep out under the stars with friends on the warmest night | v: stimulation, hedonism | chance: 80
+- RG | sleep out under the stars with friends on the warmest night | v: stimulation, hedonism | chance: 80 | back: made a friend
 - UB | use the light evenings to finish the course you put off all winter | v: achievement, self-direction | chance: 65
 - UR | take the bike out alone and ride somewhere you have never been | v: stimulation, self-direction | chance: 80
 - WB | get the street to back a community garden, and offer to run it | v: power, benevolence | chance: 55
@@ -196,7 +196,7 @@ scene G: The trees that came down are sprouting from their stumps. {N} thinks th
 - W | sit on the residents' committee that checks the rebuilding against the plan | v: conformity, universalism | lever: voice | pushes: institution council | chance: 75
 - U | learn a building trade on the council's rebuilding course | v: achievement, self-direction | mark: learned a skill | chance: 70
 - B | bid for a small rebuilding contract while the money is flowing | v: power, achievement | chance: 70
-- R | round up friends and clear the playground rubble yourselves one weekend | body: heavy | v: benevolence, stimulation | chance: 75
+- R | round up friends and clear the playground rubble yourselves one weekend | body: heavy | v: benevolence, stimulation | chance: 75 | back: defied an authority
 - G | keep to your old shops and your old bench, so the town has its life back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | chance: 80
 - RG | throw a street party among the ruins to mark a year since the disaster | v: hedonism, benevolence | mark: made a friend | chance: 75
 - UB | find the gaps in the rebuilding grants and get your own repairs paid first | v: achievement, security | chance: 70
@@ -237,7 +237,7 @@ scene G: {N} has seen good years before, and the lean ones after them. {parent} 
 - R | take the job at the other end of the country and move within the month | v: stimulation, self-direction | mark: moved away | lever: exit | pushes: place | chance: 70
 - G | put the extra pay aside for the lean years that always follow | v: security, tradition | chance: 75
 - BR | quit and start your own firm while customers are easy to find | v: achievement, self-direction | mark: took a wild risk | chance: 55
-- UG | use the good year to retrain for work that will last when the boom ends | v: security, self-direction | chance: 60
+- UG | use the good year to retrain for work that will last when the boom ends | v: security, self-direction | chance: 60 | back: learned a skill
 - UR | spend the extra on the long trip you always put off | v: hedonism, stimulation | requires: savings | without: means | chance: 80
 - WB | push for promotion now, while the firm needs every good person | v: achievement, power | chance: 60
 - WG | help a friend out of work get taken on at your place | v: benevolence | mark: helped someone in need | chance: 65
@@ -273,7 +273,7 @@ scene G: The town is coming back to life the way a field comes back after a hard
 - U | train for the skilled work the new owners will need in two years | v: achievement, self-direction | mark: learned a skill | chance: 70
 - B | take on a cheap empty shop on the high street before the rents go up | v: power, achievement | mark: took a wild risk | requires: savings | without: means | chance: 75
 - R | open a pop-up bar in the old station and see if it takes off | v: stimulation, hedonism | chance: 65
-- G | ask the new owners to hire from the old families who stayed through the lean years | v: benevolence, tradition | lever: voice | pushes: institution employer | chance: 55
+- G | ask the new owners to hire from the old families who stayed through the lean years | v: benevolence, tradition | lever: voice | pushes: institution employer | chance: 55 | back: helped someone in need
 - BG | put in a word for your cousins, so the family gets the good shifts | v: power, benevolence | chance: 70
 - RG | call the ones who left and tell them to come home, there is work again | v: benevolence, stimulation | chance: 70
 - UR | pitch a new idea to the owners at their open day | v: self-direction, achievement | chance: 45

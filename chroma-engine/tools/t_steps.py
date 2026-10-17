@@ -4,7 +4,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   1. passing every value back unchanged, run_steps() returns exactly what run() returns (every output, bit for bit);
   2. the pauses come in engine.PAUSES order every week, each with its week number (before age 3 only "week");
   3. every name in engine.STATE is in the state at every pause once a whole week has passed at age 3 or more
-     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is);
+     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is); the state is one dict
+     for the run, and at each pause every name in it holds the run's own value (the frame's, the same object);
   4. the played-life settings (own_k, drift_k, ev_push_k, era_push_k, steer) do what they say, and at 1 nothing;
   5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives;
   6. the next update's switches that lives with no player keep off (E.UPD_OFF), switched on: run_steps() still lives
@@ -17,6 +18,16 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      over lives long enough to hold a job; the sphere events (sph_events, at a test base chance), over phase 2; and the C
      hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
+ 11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
+ 12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
+     lives the same lives as the first, which burned it in.
+ 13. picks come back (echo_play, the game's played-life hook): switched on and never asked, the lives of it off; a return
+     moment (tier: return) in the files changes nothing while batch.RETURN_MOMENTS is off; on and asked at every pick, the
+     asked picks' marks plant seeds, each comes back at most once, a year on or more, as a moment of its kind and side,
+     in the week the pauses say, and the return moment comes only as a return.
+ 14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
+     Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
+     comes only while their town's share is at least the threshold (never with the switch off).
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -83,9 +94,16 @@ for label, libk, world, N, Y, seed in RUNS:
     o1 = E.run(**kw)
     g = E.run_steps(**kw)
     order, missing, weeks, full, want, titles = [], {}, 0, 0, [], False
+    S0, other = None, []   # the state is one dict for the run, each name the frame's own value at the pause
     msg = next(g)
     while True:
         kind, t, S, val = msg
+        S0 = S if S0 is None else S0
+        if S is not S0 and len(other) < 3:
+            other.append(f"week {weeks} {kind}: a new state dict")
+        fl_ = g.gi_frame.f_locals
+        for nm in [nm for nm in S.keys() if nm in fl_ and dict.__getitem__(S, nm) is not fl_[nm]][:3 - len(other)]:
+            other.append(f"week {weeks} {kind}: {nm} is not the run's")
         if not want:                                   # a new week starts with its "week" pause
             want = list(E.PAUSES) if kind == "week" and S["age"] >= 3 else ["week"]
         exp = want.pop(0)
@@ -105,12 +123,12 @@ for label, libk, world, N, Y, seed in RUNS:
             break
     d1, d2 = digest(o1), digest(o2)
     diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
-    ok = not diff and not order and not missing and not want and weeks == 52 * Y and full > 0
+    ok = not diff and not order and not missing and not want and weeks == 52 * Y and full > 0 and not other
     bad += not ok
     print(f"{'PASS' if ok else 'FAIL'}  {label}: {N} lives x {Y} years, seed {seed}; {weeks} weeks, "
           f"{full} whole weeks; outputs {len(d1)} keys, {'all equal' if not diff else 'DIFFER: ' + ' '.join(diff)}; "
           f"{len(E.STATE)} STATE names{f' and {len(E.STATE_IF)} title names' if titles else ''} {'all there' if not missing else 'MISSING: ' + str({a: sorted(b) for a, b in missing.items()})}"
-          f"{'' if not order else '; ORDER: ' + order[0]} ({time.process_time() - t0:.0f} s)")
+          f"{'' if not order else '; ORDER: ' + order[0]}{'' if not other else '; STATE: ' + '; '.join(other)} ({time.process_time() - t0:.0f} s)")
 
 # 4. the played-life settings (implementation list stage 1), when the engine has them: each does what it says
 if "own_k" in E.DEFAULT:
@@ -241,6 +259,25 @@ for label, sw, moved in ON_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world off and on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 12. the world's burn-in kept (world_link.burned_world): a second run of the same world, seed and settings starts from
+# the World the first one burned in (a deep copy) and lives exactly its lives; checked from memory, with no folder
+import world_link as _wlk
+if hasattr(_wlk, "burned_world"):
+    t0 = time.process_time(); fails = []
+    cdir_ = os.environ.pop("CHROMA_WORLD_CACHE", None)
+    _wlk.BURN.clear(); h0_ = _wlk.BURN_HITS[0]
+    kw = dict(N=2, years=4, seed=17, lib=EARTH, P=dict(E.DEFAULT, world=True))
+    d1 = digest(E.run(**kw)); d2 = digest(E.run(**kw))
+    if cdir_ is not None:
+        os.environ["CHROMA_WORLD_CACHE"] = cdir_
+    if _wlk.BURN_HITS[0] != h0_ + 1:
+        fails.append(f"{_wlk.BURN_HITS[0] - h0_} runs from the kept world, not 1")
+    diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+    if diff:
+        fails.append(f"lives differ in {diff[:4]}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the world's burn-in kept: a second run of the same world lives the first's "
+          f"lives{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 7. read-only world switches of the next update (the spheres of society, item 15, phase 1c): with the world on, a run with
 # the switch on lives exactly the lives of a run with it off, and the world it ran in carries the new state
 RO_ = [("the spheres of society, the town (sph_town)", "sph_town",
@@ -261,6 +298,17 @@ for label, sw, ok in RO_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+def _pt_closed(o):
+    """place_turnover moved something: some place closed (the run's place_turnover log; a function, not a lambda, so a
+    row goes to the T_JOBS processes)."""
+    return any(e_["what"] == "closed" for e_ in o.get("place_turnover") or ())
+
+
+def _pt_made(o):
+    """prison_ties' own test: former inmates were made ties (a plain function: the rows go to the worker processes)."""
+    return any(e["what"] == "made" for e in o.get("prison_ties", ()))
+
+
 # 8 and 9. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work) and WL2 (world on only): switched on,
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
@@ -292,6 +340,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("the finishing pack's former inmates as ties (prison_ties; every life serves a 3-year term at 18, the shadows on in "
+        "the world)", dict(prison_ties=True, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)),
+                          sh_world=True),
+        dict(prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)), sh_world=True), 30, 4,
+        _pt_made),   # (ties made, and the lives move beyond the readout)
        ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
         dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
@@ -307,12 +360,21 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
              sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("places close and open (place_turnover; with the haunts, the levers and the events; some place closed)",
+        dict(place_turnover=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24, 2,
+        _pt_closed),
        ("seen it done (seen_done; with the haunts)",
         dict(seen_done=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("trust in a sphere's bodies (body_trust; with felt fairness, the levers, the events and C3)",
+        dict(body_trust=True, fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True,
+             sph_hours=True, cur_on=True),
+        dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True,
+             cur_on=True), 40, 6),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
@@ -366,9 +428,14 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 6),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
+# a switch's own readouts, which are not the lives (the finishing pack's)
+OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y", "prison_ties", "grey_y")
+
+
 def p2_row(row_):
     """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
-    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
+    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives, and a test
+    moved = row_[5] if len(row_) > 5 else None                                # that the switch moved what it moves)
     if not sw or not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         return None
     t0 = time.process_time(); fails = []
@@ -387,8 +454,10 @@ def p2_row(row_):
         fails.append(f"run_steps differs in {diff[:4]}")
     off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
-    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
-        fails.append("switched on, the lives are those with it off")
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x not in OWN_KEYS_]:
+        fails.append("switched on, the lives are those with it off")   # (a switch's own readouts are not the lives)
+    if moved is not None and not moved(o1):
+        fails.append("switched on, it moved nothing")
     return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
                          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 
@@ -429,6 +498,87 @@ if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wp
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
           f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 13. picks come back (echo_play)
+if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
+    import copy
+    t0 = time.process_time(); fails = []
+    kw = dict(N=2, years=20, seed=6)
+    d_off = digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT)))
+    d_on = digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT, echo_play=True)))
+    if [x for x in set(d_off) | set(d_on) if d_off.get(x) != d_on.get(x) and x != "returns"]:
+        fails.append("on and never asked, the lives move")
+    RET = dict(copy.deepcopy(next(x for x in EARTH["src"] if x["name"] == "the same chance comes round again")),
+               name="t_steps: the same chance, back", tier="return", of="turned down a chance")
+    RET.pop("variant_of", None)
+    L_ = batch.load_batch("earth", packs=list(batch.PACKS), more=[RET])
+    if L_["S"] != EARTH["S"] or digest(E.run(**kw, lib=L_, P=dict(E.DEFAULT))) != d_off:
+        fails.append("a return moment in the files moved the lives with RETURN_MOMENTS off")
+    batch.RETURN_MOMENTS = True
+    try:
+        L_ = batch.load_batch("earth", packs=list(batch.PACKS), more=[RET])
+    finally:
+        batch.RETURN_MOMENTS = False
+    R_ = L_["names"].index(RET["name"])
+    P_ = dict(E.DEFAULT, echo_play=True, echo_play_par=dict(E.DEFAULT["echo_play_par"], p=1.0, w=1.0, delay=(1.0, 1.2),
+                                                             gap=0.0, again=0.0))
+    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_); msg = next(g); told = []
+    while True:
+        kind, t, S, val = msg
+        if kind == "choose" and S["age"] >= 8:
+            S["P"]["echo_asked"] = True
+            if S["ep_now"][0] >= 0:
+                told.append((t, int(S["ep_now"][0]), int(S["s"][0])))
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o_ = done.value
+            break
+    sd_ = o_["returns"]; got_ = [x for x in sd_ if x["got"] is not None]
+    if len(sd_) < 3 or len(got_) < 2:
+        fails.append(f"{len(sd_)} seeds, {len(got_)} returns")
+    if sorted((x["done"], i_, x["got"]) for i_, x in enumerate(sd_) if x["got"] is not None) != sorted(told):
+        fails.append("the returns are not the weeks' moments")
+    if len({i_ for _, i_, _ in told}) != len(told):
+        fails.append("a seed came back twice")
+    if any(x["done"] - x["t"] < 52 for x in got_):
+        fails.append("a return within a year")
+    if any(L_["src"][x["got"]].get("tier") not in ("echo", "return") for x in got_):
+        fails.append("a return that is no echo or return moment")
+    if int(o_["sit_n"][0, R_]) != sum(x["got"] == R_ for x in got_):
+        fails.append("the return moment came other than as a return")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  picks come back (echo_play): on and never asked, the lives of it off; a return "
+          f"moment in the files changes nothing with it off; asked, {len(sd_)} seeds, {len(got_)} returns "
+          f"({sum(x['got'] == R_ for x in got_)} the return moment), each once and a year on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 14. the town gone grey (grey_gate)
+if "grey_gate" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    kw = dict(N=6, years=25, seed=9, lib=EARTH)
+    d0 = digest(E.run(**kw, P=dict(E.DEFAULT, world=True)))
+    o_ = E.run(**kw, P=dict(E.DEFAULT, world=True, grey_gate=True))
+    d1 = digest(o_)
+    if [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "grey_y"]:
+        fails.append("with no shadow: moment the lives move")
+    if np.shape(o_.get("grey_y")) != (6, 25, 9):
+        fails.append(f"grey_y is {np.shape(o_.get('grey_y'))}, not lives x years x 9")
+    L_ = dict(EARTH); tg_ = L_["names"].index("tending an allotment")
+    L_["W_SHADOW"] = np.full(L_["S"], -1); L_["W_SHADOW"][tg_] = 9          # gated on the town's greyest sphere
+    met_ = {}
+    for on_ in (False, True):
+        o2_ = E.run(**dict(kw, lib=L_), P=dict(E.DEFAULT, world=True, grey_gate=on_))
+        met_[on_] = int(o2_["sit_n"][:, tg_].sum())
+    if met_[False]:
+        fails.append(f"the gated moment came {met_[False]} times with the switch off")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the town gone grey (grey_gate), switched on: with no shadow: moment the lives "
+          f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
+if hasattr(E, "STATE_MISSED"):
+    bad += bool(E.STATE_MISSED)
+    print(f"{'PASS' if not E.STATE_MISSED else 'FAIL'}  the pause state: every name read at a pause is handed over (STATE, "
+          f"STATE_IF, STATE_MORE){'' if not E.STATE_MISSED else '; NOT: ' + ' '.join(sorted(E.STATE_MISSED))}")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)

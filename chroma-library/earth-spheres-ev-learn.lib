@@ -234,7 +234,7 @@ scene G: The college near home is a short bus ride away, and {grandparent} would
 - B | take the second choice, and start planning a transfer in the first week | v: achievement, power | sphere: learn.B | chance: 64
 - R | turn the place down, and work with your hands for a year before deciding | act: turn the place down, and work with their hands for a year before deciding | v: stimulation, self-direction | mark: turned down a chance | lever: exit | sphere: learn.R | chance: 56
 - G | take the place at the college near home, close to the family | v: tradition, security | mark: stayed home | sphere: learn.G | chance: 60
-- BR | teach yourself the first year's course over the summer, your own way | act: teach themselves the first year's course over the summer, their own way | v: self-direction | sphere: learn.BR | chance: 64
+- BR | teach yourself the first year's course over the summer, your own way | act: teach themselves the first year's course over the summer, their own way | v: self-direction | sphere: learn.BR | chance: 64 | back: learned a skill
 - RG | spend the summer working at the outdoor centre, and decide in the autumn | v: stimulation, hedonism | sphere: learn.RG | chance: 60
 - UG | ask the old teacher who knows you best which road truly suits you | act: ask the old teacher who knows them best which road truly suits them | v: self-direction, tradition | sphere: learn.GU | chance: 56
 - WB | apply for the scholarship place that asks two years of service in return | v: achievement, security | sphere: learn.WB | chance: 44
@@ -535,7 +535,7 @@ scene G: {grandparent} is a carpenter, and has time now to teach.
 - UG | keep a diary of the year in the town, for the archive to keep | v: universalism, tradition | sphere: learn.GU | chance: 60
 - UR | build a phone charger from old parts with the science teacher | v: stimulation, self-direction | sphere: learn.UR | chance: 54
 - WB | ask the aid charity for a laptop and a place in its classes | v: security, achievement | sphere: learn.WB | chance: 52
-- WR | teach the little ones on the street their letters at the kitchen table | v: benevolence | sphere: learn.RW | chance: 68
+- WR | teach the little ones on the street their letters at the kitchen table | v: benevolence | sphere: learn.RW | chance: 68 | back: helped someone in need
 works: The schools reopen, and {N} has kept more than most.
 works: {N} comes out of the year with a skill and a habit of learning alone.
 fails: The lost year shows in {Ns} marks for a long time.

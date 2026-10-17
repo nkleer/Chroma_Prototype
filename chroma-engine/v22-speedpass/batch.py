@@ -48,6 +48,8 @@ quiet lo_meaning vlo_meaning lo_belong lo_peace hi_stress lo_time lo_auto ok_nee
 fails13 hedon_n bodyhab_n n_moves heavy_risk bind_m n_dream n_passion n_plan regret horizon discipline self_control
 harsh unrest prosper era founding (C5: a movement founded in the person's town within the year; true only with c5_faith on)
 haunts (the spheres' haunts, phase 2: never true until they are built)
+inmate_tie yrs_out (spheres finishing pack, part 4: an active former-inmate tie, false unless prison_ties and the world
+are on; years since the last release, 99 = never)
 female male attr unease (point 11); trans nonbinary ace intersex partner_same named_gender cross_title role_fit
 role_strict accept_trans (N1b)
 mk(mark, years=None) mk_ok(mark, years=None) mkn(mark) mk_span(mark) had(situations, years) chance(p)  sa (echo: years since anchor)"""
@@ -486,10 +488,11 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
-def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth"):
+def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
-    life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out."""
+    life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
+    more: moments added after the packs' (tests: tools/t_steps.py's return moment)."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -500,21 +503,37 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     PK = _packs(world, list(PACKS if packs is None else packs), pack_moments, R)
     INNER_ = {**R.INNER, **PK["cond"]["INNER"]}; ECHO_ = {**R.ECHO, **PK["cond"]["ECHO"]}
     LIFE_ = {**R.LIFE, **PK["cond"]["LIFE"]}; READ_ = {**R.READ, **PK["cond"]["READ"]}
+    RETURN_ = getattr(R, "RETURN", {})
     sits = [copy.deepcopy(s) for s in list(B.SITUATIONS) + list(getattr(B, "ECHOES", []))]
+    if RETURN_MOMENTS:   # picks come back: the Library's return moments (<world>.RETURNS, each of: a kind, side: well or badly)
+        sits += [dict(copy.deepcopy(s), tier="return") for s in getattr(B, "RETURNS", [])]
     base_names = {s["name"] for s in sits}
     clash = [s["name"] for s in PK["sits"] if s["name"] in base_names]
     if clash:
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
-    sits += PK["sits"]
+    sits += PK["sits"] + [copy.deepcopy(x) for x in (more or [])]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
+    if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
+        sits = [x for x in sits if not x.get("shadow")]
     if not SPH_MOMENTS:   # the spheres' moments among a haunt's regulars (haunt:) or a rung's holders (ladder:) wait for
         sits = [x for x in sits if not x.get("haunt") and not x.get("ladder")]   # phases 2 and 4 (item 15)
+    if not TRUST_MOMENTS:   # body_trust's gated moments (trust: <sphere> low|high) wait for the finishing pack's refit
+        sits = [x for x in sits if not x.get("trust")]
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
+    if not RETURN_MOMENTS:   # picks come back (echo_play): the return moments load only for a played life with it on
+        sits = [x for x in sits if x.get("tier") != "return"]
     for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
-                     (LEAD_MOMENTS, ("lead_",))):   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+                     (LEAD_MOMENTS, ("lead_",)),   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
+                     (TURNOVER_MOMENTS, ("place_closed", "place_opened"))):   # the finishing pack's, for the pack's refit
         if not on_:
             sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith(cw_)]
+    if not INMATE_MOMENTS:   # spheres finishing pack, part 4: the former-inmate moments (cast_want: fellow_inmate, or a
+        # condition naming inmate_tie or yrs_out, in the rules keyed by name or the moment's own requires:) wait for the refit
+        rx_ = re.compile(r"\b(inmate_tie|yrs_out)\b"); cwn_ = dict(getattr(R, "CAST_WANT", {}))
+        inm_ = {k_ for d_ in (INNER_, ECHO_, LIFE_, READ_, getattr(R, "FIXES", {})) for k_, v_ in d_.items() if rx_.search(repr(v_))}
+        sits = [x for x in sits if str(x.get("cast_want") or cwn_.get(x.get("variant_of") or x["name"]) or "").strip() != "fellow_inmate"
+                and x["name"] not in inm_ and x.get("variant_of") not in inm_ and not rx_.search(repr(x.get("requires") or ""))]
     gj_ = set() if GREEN_JOBS else _when_only(R)
     if gj_:   # v22.4: the green entry jobs' moments wait with their titles (GREEN_JOBS)
         sits = [x for x in sits if not _names_any(x, gj_)]
@@ -561,12 +580,15 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             c = ECHO_[nm]; kind = 2
         elif nm in LIFE_:
             c = LIFE_[nm]; kind = 3
+        elif tier == "return":   # kind 4: a return moment comes only as a played pick's return (echo_play), its condition
+            c = RETURN_.get(nm, {}); kind = 4   # (<world>_rules.RETURN) optional
         else:
             continue
         dl = tuple(src.get("delay_years", (0, 0)))
         cond.append(dict(s=si, kind=kind, name=nm0, req=_code(c.get("req")), more=[_code(x) for x in c.get("more", [])],
                          less=[_code(x) for x in c.get("less", [])], anchor=_code(c["anchor"]) if "anchor" in c else None,
-                         delay=dl, rtxt=str(c.get("req") or "")))
+                         delay=dl, rtxt=str(c.get("req") or ""), atxt=str(c.get("anchor") or ""),
+                         of=str(src.get("of") or "").strip(), side=str(src.get("side") or "").strip()))
     missing = [s["name"] for s in sits if s.get("tier") in ("inner", "echo") and key(s) not in INNER_ and key(s) not in ECHO_
                and not s.get("threshold")]          # a season's moments come through their season, not a condition
     if missing:
@@ -579,7 +601,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     ip_ = os.path.join(LIB_DIR, f"{world}-intimacy.lib")
     inm_ = set(re.findall(r"^== (.+?)\s*$", open(ip_).read(), re.M)) if os.path.exists(ip_) else set()
     L["INTIM"] = np.array([si for si, nm_ in enumerate(names) if nm_ in inm_ or L["src"][si].get("variant_of") in inm_], int)
-    L["ECHO"] = np.array([s.get("tier") == "echo" for s in L["src"]])
+    L["ECHO"] = np.array([s.get("tier") in ("echo", "return") for s in L["src"]])
     L["INNER"] = np.array([s.get("tier") == "inner" for s in L["src"]])
     # outside events read through the person's colors
     evr = []
@@ -759,6 +781,7 @@ def _world_fields(L):
     msph = np.full(S, -1); haunt = np.full(S, -1); ladder = np.full(S, -1)
     osph = np.full((S, K), -1); ocol = np.full((S, K), -1); hpick = np.zeros(S, bool)
     sphev = np.full(S, -1)      # a moment a sphere event brings (phase 3): the event's index in sphere_data.EV
+    shadow = np.full(S, -1)     # finishing pack part 5: a moment of a town gone grey (shadow: grey, or one sphere)
     import sphere_data as SD_
     ev_key = {e_["key"]: i_ for i_, e_ in enumerate(SD_.EV)}
     for si, src in enumerate(L["src"][:S]):
@@ -774,6 +797,11 @@ def _world_fields(L):
             if k_ not in ev_key:
                 raise ValueError(f"{nm}: unknown sphere_event {k_!r} (an event key of the nine sphere files)")
             sphev[si] = ev_key[k_]
+        if src.get("shadow"):
+            k_ = str(src["shadow"]).strip()
+            if k_ not in ("grey", "town") and k_ not in WK.SPHERES:
+                raise ValueError(f"{nm}: shadow: grey (the town's greyest sphere) or a sphere of {', '.join(WK.SPHERES)} ({k_!r})")
+            shadow[si] = len(WK.SPHERES) if k_ in ("grey", "town") else WK.SPHERES.index(k_)
         for ki, nt in enumerate(L["notes"][si] if si < len(L["notes"]) else []):
             if nt and nt.get("sphere") and ki < K:
                 osph[si, ki], ocol[si, ki], _ = sph_val(nt["sphere"], f"{nm}, option {ki + 1}")
@@ -814,7 +842,19 @@ def _world_fields(L):
             if nt.get("heal"):
                 oheal[si, ki] = one(nt["heal"], WK.HEAL_TAGS, f"{nm}, option {ki + 1}")[0]
     L.update(W_SACRED=sac, W_OFFER=offer, W_ROUND=rnd, W_LINE=oline, W_TRAGIC=otrag, W_HEAL=oheal)
-    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev)
+    # body_trust (the spheres' finishing pack, part 3): a moment's gate on trust in a sphere's bodies, trust: <sphere>
+    # low|high (sphere_data.TRUST gate: under its low, over its high), as (sphere index, 0 low / 1 high); -1 none
+    trust = np.full((S, 2), -1)
+    tv_ = list(SD_.TRUST["gate"]["values"])
+    for si, src in enumerate(L["src"][:S]):
+        if src.get("trust"):
+            x_ = str(src["trust"]).split()
+            if len(x_) != 2 or x_[0] not in WK.SPHERES or x_[1] not in tv_:
+                raise ValueError(f"moment {src.get('name', si)!r}: trust: {src['trust']!r} (a sphere of {', '.join(WK.SPHERES)}, "
+                                 f"then {' or '.join(tv_)})")
+            trust[si] = (WK.SPHERES.index(x_[0]), tv_.index(x_[1]))
+    L.update(W_TRUST=trust)
+    L.update(W_SPHERE=msph, W_HAUNT=haunt, W_LADDER=ladder, W_OSPH=osph, W_OCOL=ocol, W_HPICK=hpick, W_SPHEV=sphev, W_SHADOW=shadow)
     L.update(W_PREMISE=prem, W_TOY=toy, W_TOY_SET=toy_set, W_HOLY=holy, W_WANT=want, W_TOUCH=touch, W_GROUP=grp, W_AT=at, W_WHERE=where, W_WHO=who,
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
              W_CAUGHT=caught, W_ODD=odd)
@@ -825,12 +865,23 @@ FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or fa
 EYES_MOMENTS = True    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
 SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or amends
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
+INMATE_MOMENTS = False  # spheres finishing pack, part 4 (prison_ties): moments with cast_want: fellow_inmate, or whose
+                        # conditions read inmate_tie or yrs_out, join the batch at the pack's refit
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
 AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
+TRUST_MOMENTS = False   # the spheres' finishing pack, part 3: moments gated on trust in a sphere's bodies (trust: <sphere>
+                        # low|high, body_trust) join the batch at the pack's refit
+SHADOW_MOMENTS = False  # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
+                        # batch at its refit; until then the batch is as before
+RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
+                        # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
+TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
+                           # batch at the pack's refit (until then the Library's new moments change no life); in the
+                           # batch, they come only with a closing or an opening of the life's place (place_turnover on)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 

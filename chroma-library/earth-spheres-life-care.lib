@@ -171,7 +171,7 @@ scene G: {N} thinks of the old folk who managed with a stick and a warm bath. Bo
 - B | pay the private clinic, and have the operation next month | v: self-direction, security | lever: exit | sphere: care.B | chance: 70
 - R | ring the hospital every week until they offer a cancelled slot | v: stimulation, self-direction | lever: voice | sphere: care.R | chance: 70
 - G | manage with a stick, warm baths and the neighbours' help until the day comes | v: tradition, security | sphere: care.G | chance: 70
-- BR | book the operation abroad, and make a holiday of the recovery | v: hedonism, self-direction | lever: exit | pushes: abroad | sphere: care.BR | chance: 60
+- BR | book the operation abroad, and make a holiday of the recovery | v: hedonism, self-direction | lever: exit | pushes: abroad | sphere: care.BR | chance: 60 | back: took a wild risk
 - RG | keep walking every day through the stiffness, as far as the body allows | v: stimulation, tradition | sphere: care.RG | chance: 60
 - UG | do the physio's exercises every morning, to go into the operation strong | v: security, self-direction | mark: learned a skill | sphere: care.GU | chance: 60
 - WB | give to the hospital's friends' fund for the extra surgeon it is raising for | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 60

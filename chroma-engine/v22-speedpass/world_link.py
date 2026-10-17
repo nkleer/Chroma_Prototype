@@ -7,7 +7,13 @@ rate multipliers per moment, gates on moments, closures on options, wants that b
 
 Rules kept: no color pair is special here (only the modules' overlap and distance); the world's history never depends
 on the lives except through pushes; keys only, the game writes the words."""
+import copy
+import hashlib
+import json
+import os
+import pickle
 import re
+import sys
 import numpy as np
 try:   # speed pass: np.clip's own ufunc, called without its Python wrapper (the same numbers)
     from numpy._core.umath import clip as _uclip
@@ -193,6 +199,63 @@ def start_fits(PP, W, start):
     return ok
 
 
+# The world's burn-in (its 80 years before the birth) is the same for the same seed, settings and code, so a run keeps the
+# burned-in World and each run of that world starts from a deep copy of it, which goes on exactly as a fresh one does.
+# BURN_KEEP worlds are kept in memory (a new life with the same seed and setup, a check that runs a life twice); with
+# CHROMA_WORLD_CACHE set to a folder they are also kept there as pickles (named by the seed, settings and the md5 of the
+# code that builds them), so every check run on that folder skips them. BURN_HITS counts the runs that used one.
+BURN_KEEP = 2
+BURN = {}
+BURN_HITS = [0]
+BURN_MODS = ("world", "world_keys", "library", "combos", "sphere_data", "sphere_ev_base")
+
+
+def _code_md5():
+    """The md5 of the code a burn-in runs (the files of BURN_MODS as loaded), with Python's and numpy's versions."""
+    h = hashlib.md5(("%d.%d %s" % (sys.version_info[0], sys.version_info[1], np.__version__)).encode())
+    for nm in BURN_MODS:
+        f = getattr(sys.modules.get(nm), "__file__", None)
+        h.update(nm.encode())
+        if f and os.path.isfile(f):
+            with open(f, "rb") as fh:
+                h.update(fh.read())
+    return h.hexdigest()
+
+
+def burned_world(seed, cfg, burn):
+    """World(seed, cfg) after burn_in(burn), from the cache when the same world was burned in before (a deep copy)."""
+    key = json.dumps([int(seed), cfg, float(burn)], sort_keys=True, default=repr)
+    W0 = BURN.get(key)
+    path = None
+    if W0 is None and os.environ.get("CHROMA_WORLD_CACHE"):
+        import world_keys, library, combos  # noqa: F401  (loaded already: the md5 reads their files)
+        d_ = os.environ["CHROMA_WORLD_CACHE"]
+        path = os.path.join(d_, "world_%s.pkl" % hashlib.md5((key + _code_md5()).encode()).hexdigest())
+        if os.path.isfile(path):
+            try:
+                with open(path, "rb") as fh:
+                    W0 = pickle.load(fh)
+                path = None
+            except Exception:   # a broken file: burn it again
+                W0 = None
+    if W0 is None:
+        W0 = WM.World(int(seed), cfg=copy.deepcopy(cfg))
+        W0.burn_in(burn)
+        if path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            tmp_ = "%s.%d.tmp" % (path, os.getpid())
+            with open(tmp_, "wb") as fh:
+                pickle.dump(W0, fh, protocol=pickle.HIGHEST_PROTOCOL)
+            os.replace(tmp_, path)
+    else:
+        BURN_HITS[0] += 1
+    BURN.pop(key, None)
+    BURN[key] = W0
+    while len(BURN) > BURN_KEEP:
+        BURN.pop(next(iter(BURN)))
+    return copy.deepcopy(W0)
+
+
 class WorldLink:
     def __init__(self, E, P, L, N, seed, female, attr, KILLS, ENDS, CAR):
         cfg = dict(P.get("world_cfg") or {})
@@ -205,10 +268,10 @@ class WorldLink:
             s3_ = {k: bool(P[k]) for k in getattr(WM, "S3_RULES", ()) if k in P}   # stage 3 switches (stage3-rules.md §8)
             s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
             s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
+            s3_.update({k: P[k] for k in getattr(WM, "FIN_RULES", ()) if P.get(k)})   # the finishing pack's, when on
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
-            W = WM.World(int(seed if ws is None else ws), cfg=cfg)
-            W.burn_in(burn)
+            W = burned_world(int(seed if ws is None else ws), cfg, burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
         PP = P.get("people_obj")
         if PP is None:
@@ -288,7 +351,13 @@ class WorldLink:
         self.sphev = np.asarray(L.get("W_SPHEV", np.full(S, -1)))   # sphere events' moments (phase 3): the event's index
         if self.sphev.dtype == bool:                                  # (a batch read before phase 3: held back)
             self.sphev = np.where(self.sphev, 0, -1)
-        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0)   # the spheres' gates (moment_factor)
+        # finishing pack, part 5 (grey_gate): a moment of a town gone grey, open while the sphere's grey share (World.sph_grey,
+        # town: its greyest sphere) is at least the Library's threshold (sphere_data.SHADOW grey_gate, .25)
+        self.shadow = np.asarray(L.get("W_SHADOW", np.full(S, -1)))
+        import sphere_data as SD_
+        self.grey_on = bool(P.get("grey_gate")); self.grey_thr = float(SD_.SHADOW.get("grey_gate", SD_.SHADOW["gate"]))
+        self.new_gates = (self.haunt >= 0) | (self.ladder >= 0) | (self.sphev >= 0) | (self.shadow >= 0)   # the spheres'
+        # gates (moment_factor)
         self.law = np.asarray(L.get("W_LAW", np.full((S, K), -1))); self.norm = np.asarray(L.get("W_NORM", np.full((S, K), -1)))
         self.tech = np.asarray(L.get("W_TECH", np.full((S, K), -1))); self.lever = np.asarray(L.get("W_LEVER", np.full((S, K), -1)))
         self.law_neg = np.asarray(L.get("W_LAW_NEG", np.zeros((S, K), bool)))     # a leading minus (v23 W38): the option
@@ -314,6 +383,8 @@ class WorldLink:
         for si in np.nonzero(self.want >= 0)[0]:
             self.want_s.setdefault(WK.CAST_WANTS[int(self.want[si])], []).append(int(si))
         self.pending = {}                 # n -> (cast id, want key, moment) offered this week
+        # spheres finishing pack, part 4: the moments with a fellow inmate (cast_want: fellow_inmate)
+        self.inm_s = (self.want == WK.CAST_WANTS.index("fellow_inmate")) if "fellow_inmate" in WK.CAST_WANTS else np.zeros(S, bool)
         # S7 lead_ways: a post's moments (cast_want lead_*), fired with no holder (cid -1): a crisis or fall moment's way
         # (lead_way:), each option's way, fall and hand answers (lead:, fall:, hand:), and the engine's office titles
         self.lw = bool(getattr(PP, "lw", False))
@@ -326,6 +397,11 @@ class WorldLink:
             rid_ = dict((L.get("ROLES") or {}).get("ID") or {})
             self.lw_tid = np.array([rid_.get(nm_, -1) for nm_ in PP.lw_tnames], np.int64)   # -1: not in the catalogue
             self.lw_fire = {}             # n -> the post whose moment was offered this week
+        # finishing pack, part 2 (place_turnover): "the place closed" and "the new place" (cast_want place_closed,
+        # place_opened; no holder) come only with a closing or an opening of the life's place, never by a draw
+        self.pt_m = np.isin(self.want, [WK.CAST_WANTS.index(w_) for w_ in WK.PLACE_WANTS])
+        if getattr(PP, "pt_on", False):
+            PP.pt_keys = {k_ for k_ in self.want_s if k_ in WK.PLACE_WANTS}
         # far_ties (item 18): a far moment's touch (touch:), and its options that take the tie in (mark: took them in)
         self.touch = np.asarray(L.get("W_TOUCH", np.full(S, -1)))
         self.took = np.zeros((S, K), bool)
@@ -355,6 +431,15 @@ class WorldLink:
             self.sd_tk = np.where(AT_ >= 0, AT_, np.where((aim_ >= 0) & (aim_ < NT_), aim_, -1)) if ok_ else np.full((S, K), -1)
             self.sd_stat = np.zeros((2, PM.C))   # the felt-odds lift on offered options by their colour way: sum, weight
             self.sd_n = np.zeros(4)              # offered options; those on a path; the path part's sum; the whole lift's
+        # body_trust (finishing pack part 3): the sphere of the body each option's path leads into (S6's paths: a title held
+        # at a body of that sphere; -1 none), for the felt odds trust bends
+        self.bt_on = bool(getattr(PP, "bt_on", False))
+        if self.bt_on and self.seen_on:
+            NT_ = int(GR_.get("NT", 0)) if GR_ else 0
+            ins_ = np.asarray(GR_.get("institution", np.full(NT_, -1)))[:NT_] if NT_ else np.zeros(0, int)
+            kd_ = np.array([PM.bt_title_kind(GR_["names"][i_], ins_[i_]) for i_ in range(NT_)] + [-1], np.int64)
+            tj_ = np.where(kd_ >= 0, PM.BT_INST_J[np.maximum(kd_, 0)], -1)
+            self.bt_tj = tj_[np.where((self.sd_tk >= 0) & (self.sd_tk < NT_), self.sd_tk, NT_)]
         # W40: a pack-made head of government leads the state (the first life to hold it, one state); a minister or head
         # of government can pass a law the norms already point to; a government that falls takes their office with it
         self.self_head = None; self.gov_office = np.zeros(N, bool); self.office_lost = np.zeros(N, bool)
@@ -479,6 +564,44 @@ class WorldLink:
         u = np.where(f < Fd["low"], lo_[lvi], np.where(f > Fd["high"], hi_[lvi], 0.0))
         return np.where(on, u, 0.0)
 
+    def trust_pull(self, s):
+        """(N, K) utility from trust in a sphere's bodies (body_trust; sphere_data.TRUST low and high): in a sphere whose
+        bodies a life trusts little (under low.under) exit and neglect x 1.3 and voice x .8 as odds, and subvert x 1.2 under
+        subvert_under; over high.over voice and loyalty x 1.2 (finish-pack-draft.md part 3; Hirschman 1970). A life whose
+        trust has not started (under 15) is not moved."""
+        bt = getattr(self.PP, "btrust", None)
+        js = self.lsph[s]; lv = self.lev_i[s]
+        if bt is None or not (js >= 0).any():
+            return 0.0
+        import sphere_data as SD_
+        T = SD_.TRUST; lo_, sv_, hi_ = np.zeros(len(WK.LEVERS)), np.zeros(len(WK.LEVERS)), np.zeros(len(WK.LEVERS))
+        for k_, v_ in T["low"].items():
+            if k_ in WK.LEVERS:
+                (sv_ if k_ == "subvert" else lo_)[WK.LEVERS.index(k_)] = np.log(v_)
+        for k_, v_ in T["high"].items():
+            if k_ in WK.LEVERS:
+                hi_[WK.LEVERS.index(k_)] = np.log(v_)
+        on = (js >= 0) & (lv >= 0)
+        f = np.take_along_axis(np.asarray(bt, float), np.maximum(js, 0).astype(np.intp), 1)
+        f = np.where(np.isnan(f), 0.5, f)
+        lvi = np.maximum(lv, 0)
+        u = (np.where(f < T["low"]["under"], lo_[lvi], 0.0) + np.where(f < T["low"]["subvert_under"], sv_[lvi], 0.0)
+             + np.where(f > T["high"]["over"], hi_[lvi], 0.0))
+        return np.where(on, u, 0.0)
+
+    def trust_felt(self, p_hat, s, opt):
+        """body_trust: the felt odds of a pursuit in a sphere's bodies (an option on S6's path into a title held at a body
+        of that sphere, bt_tj) move with the life's trust there, never the real odds (S6 stays felt): 2 x (btrust - .5) x
+        S6's own most a seen path lifts (lift x cap; full trust feels as sure as a path seen walked to the cap), kept within
+        .01 and .99 as seen_felt keeps them (odds already beyond them stay as they were). opt: every option but doing nothing."""
+        tj = self.bt_tj[s]
+        if not (tj >= 0).any():
+            return p_hat
+        PP = self.PP; sp_ = PP.sd_par
+        f = np.take_along_axis(np.asarray(PP.btrust, float), np.maximum(tj, 0).astype(np.intp), 1)
+        d = np.where((tj >= 0) & opt & ~np.isnan(f), 2.0 * (np.where(np.isnan(f), 0.5, f) - 0.5) * sp_["lift"] * sp_["cap"], 0.0)
+        return np.where(d != 0, _uclip(p_hat + d, np.minimum(p_hat, 0.01), np.maximum(p_hat, 0.99)), p_hat)
+
     def accept(self):
         """Acceptance per norm key where each person lives and among their own people (N, n_norm), 0 to 1."""
         nv = np.array([float(self.W.norm(k_)) for k_ in WK.NORM_KEYS_ALL])
@@ -579,6 +702,11 @@ class WorldLink:
                 if ss_:
                     si_ = ss_[int(PP._lw_rng.integers(len(ss_)))]
                     self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True; self.lw_fire[n_] = pid_
+        if getattr(PP, "pt_on", False) and PP.pt_keys:   # part 2: the place closed, the new place (no holder: cid -1)
+            for n_, key_ in PP.pt_take(PP.t, self.pending):
+                ss_ = self.want_s.get(key_) or []
+                si_ = ss_[int(PP._pt_rng.integers(len(ss_)))]
+                self.pending[n_] = (-1, key_, si_); self.fire_now[n_, si_] = True
         if self.sac_on:   # S5: an offer on a held line, a tragic trade-off or amends brings its moment (no holder: cid -1)
             self.sac_pend = {}
             for n_, it_ in PP.sac_due(PP.t):
@@ -843,6 +971,8 @@ class WorldLink:
                 return None
             return self.PP.lead_resolve(int(n), pid_, pv_[1], self.olead[s_n, a_n], self.ofall[s_n, a_n], self.ohand[s_n, a_n],
                                         bool(succ_n), bool(idle_n))
+        if pv_[1] in WK.PLACE_WANTS:   # part 2: a place moment is the life's own (nothing to meet or refuse)
+            return None
         if pv_[1] in WK.OWN_WANTS:   # S5: an offer, a tragic trade-off or amends (no cast member holds it)
             it_ = self.sac_pend.get(int(n))
             if it_ is None:
@@ -1003,6 +1133,16 @@ class WorldLink:
             else:
                 rgm_ = np.where((self.msph[ls_] >= 0)[None, :], rg_[:, np.maximum(self.msph[ls_], 0)], rg_.max(1)[:, None])
                 f[:, ls_] *= np.floor(rgm_) >= self.ladder[ls_][None, :]
+        if self.pt_m.any():   # part 2: a place moment comes only with its closing or opening (brought, never drawn)
+            f[:, self.pt_m] = 0.0
+        if (self.shadow >= 0).any():   # part 5: the town gone grey (grey_gate, with sph_shadow's shares; off, never)
+            sh_ = np.nonzero(self.shadow >= 0)[0]
+            if not (self.grey_on and W.p.get("sph_shadow")):
+                f[:, sh_] = 0.0
+            else:
+                g_ = W.sph_grey()[np.asarray(PP.loc)]                       # N x 9, each life's town
+                g_ = np.concatenate([g_, g_.max(1, keepdims=True)], 1)      # + town: the greyest sphere
+                f[:, sh_] *= g_[:, self.shadow[sh_]] >= self.grey_thr
         if (self.prem >= 0).any():   # a moment that needs a technology the world has not got
             th_ = {}   # speed pass: each technology asked once a week
             for si in np.nonzero(self.prem >= 0)[0]:
@@ -1374,6 +1514,9 @@ class WorldLink:
             return None
         pv_ = self.pending.get(int(n))
         first_ = pv_[0] if pv_ is not None and pv_[2] == si and pv_[0] >= 0 else None   # (a want of the life's own, or a post's moment with no holder, -1: none)
+        if first_ is None and self.inm_s[si]:   # part 4: the closest active former-inmate tie (the moment is open only with one)
+            k_ = self.PP.inmate_closest(int(n))
+            first_ = int(self.PP.uid[int(n), k_]) if k_ >= 0 else None
         out = self.PP.fill(int(n), sl_[1:] if first_ is not None else sl_)
         if first_ is not None:
             out = {sl_[0]: int(first_), **out}

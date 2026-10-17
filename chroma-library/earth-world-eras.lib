@@ -41,7 +41,7 @@ scene G: {grandparent} has seen governments come and go like the weather, and sa
 - WR | join the march against the new government the very next day | identity | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: state | chance: 52
 - UB | move your savings out of reach of the new taxes everyone expects | v: security, power | requires: savings | without: means | lever: exit | pushes: economy | chance: 80
 - RG | throw a street party with the neighbours, whoever they voted for | v: hedonism, benevolence | mark: made a friend | chance: 65
-- BG | keep your vote to yourself, and get close to whoever rises in town now | v: power, security | lever: subvert | pushes: place | chance: 70
+- BG | keep your vote to yourself, and get close to whoever rises in town now | v: power, security | lever: subvert | pushes: place | chance: 70 | back: made a friend
 works: In the weeks after, the town settles into the new order of things, and {N} finds a footing in it.
 works: The change turns out to be one {N} can live with, and some of it is better than {N} feared.
 fails: The argument over the result splits the family table, and it does not heal for a year.
@@ -277,7 +277,7 @@ scene G: The fridge is silent, the night is very quiet, and for the first time i
 - RG | pack the car and drive everyone out to family where the lights are on | v: security, benevolence | tech: car | lever: exit | pushes: place | chance: 65
 - UG | rig the car battery to keep a sick neighbour's medicine cold | v: benevolence, self-direction | tech: car | mark: helped someone in need | chance: 55
 - WB | take charge of the street's water and food, and decide who gets what | v: power, security | mark: made an enemy | chance: 65
-- WU | volunteer at the hospital to keep the generators and the records going | v: benevolence, universalism | lever: loyalty | pushes: institution hospital | chance: 65
+- WU | volunteer at the hospital to keep the generators and the records going | v: benevolence, universalism | lever: loyalty | pushes: institution hospital | chance: 65 | back: helped someone in need
 works not RG: On the fourth day the lights come back on, and the street that came through it together keeps waving across the road.
 works: {N} comes out of the dark week with a new respect for how much {N} can manage without.
 fails: The outage drags into a second week, and the cold, the dark and the empty shelves wear everyone down.

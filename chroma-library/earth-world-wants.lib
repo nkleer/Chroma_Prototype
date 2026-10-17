@@ -288,7 +288,7 @@ scene G: {grandparent} was married in the old building, and so was {parent}. The
 - W | stay in the old building with the elders, and keep the old order | v: tradition, conformity | lever: loyalty | pushes: group congregation | chance: 80
 - U | go to both for a month, and see which keeps faith with its own teaching | v: self-direction, universalism | chance: 70
 - B | side with whichever half keeps the building, the funds and the board | v: power, security | lever: loyalty | pushes: group congregation | chance: 75
-- R | follow the leader to the new hall, whatever the elders say | v: stimulation, self-direction | lever: exit | pushes: group congregation | chance: 70
+- R | follow the leader to the new hall, whatever the elders say | v: stimulation, self-direction | lever: exit | pushes: group congregation | chance: 70 | back: defied an authority
 - G | stay with the families you grew up beside, wherever they go | v: tradition, benevolence | lever: loyalty | pushes: group congregation | chance: 70
 - WU | call a meeting of both halves, and ask for a fair vote on the building | v: universalism, conformity | lever: voice | pushes: group congregation | chance: 45
 - WR | stand up at the last shared service and say the split shames them all | v: tradition, universalism | mark: made an enemy | lever: voice | pushes: group congregation | chance: 55
@@ -368,11 +368,11 @@ scene G: The old members still talk about the last final, twenty years ago, as i
 - U | study the other side's last five games, and share what you find with the coach | v: achievement, self-direction | chance: 70
 - B | make sure you are next to the chairman in the photograph with the cup | v: achievement, power | chance: 90
 - R | lead the singing from the first whistle to the last, louder than anyone | v: stimulation, hedonism | chance: 85
-- G | bring the oldest members along, and sit with the ones who built the club | v: tradition, benevolence | lever: loyalty | pushes: group club | chance: 75
+- G | bring the oldest members along, and sit with the ones who built the club | v: tradition, benevolence | lever: loyalty | pushes: group club | chance: 75 | back: made a friend
 - WU | help run the day: tickets, the minibus, the kit and the list of who is where | v: conformity, security | lever: loyalty | pushes: group club | chance: 80
 - WG | bake for the clubhouse tea after the match, win or lose | v: benevolence, tradition | lever: loyalty | pushes: group club | chance: 80
 - UR | film the whole day, and cut it into a film for the club's dinner | v: self-direction, stimulation | mark: learned a skill | chance: 70
-- BR | push to the front at the final whistle, and lift the cup first | v: achievement, stimulation | chance: 50
+- BR | push to the front at the final whistle, and lift the cup first | v: achievement, stimulation | chance: 50 | back: made an enemy
 - BG | find a sponsor for the new kit while the crowd is in a good mood | v: achievement, tradition | chance: 60
 works: The club wins, and the singing in the clubhouse goes on until they turn the lights off.
 works: Win or lose, it is the day everyone talks about for years, and {N} was part of it.

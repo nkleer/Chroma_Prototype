@@ -101,10 +101,10 @@ scene G: {sibling} went to this school, and {parent} before that. {N} walks in h
 - W | line up, listen, and learn the rules quickly | habit | v: conformity | chance: 85
 - U | ask the teacher a hundred questions on the first day | door | v: self-direction | chance: 80
 - B | make friends with the kid the others already listen to | v: power, security | mark: made a friend | tags: win:ties+.05 | chance: 75
-- R | run straight into the playground and join the first game you see | v: stimulation | tags: win:ties+.05 | chance: 90
+- R | run straight into the playground and join the first game you see | v: stimulation | tags: win:ties+.05 | chance: 90 | back: made a friend
 - G | stay close to your sibling and the kids from your street | v: security, tradition | chance: 75
 - WU | sit at the front and do exactly what is asked, and do it well | habit | v: achievement, conformity | chance: 82
-- BR | push to the front of every line and grab the best seat | v: power, hedonism | closed: approval: pushing; backfire: told off in front of everyone | chance: 75
+- BR | push to the front of every line and grab the best seat | v: power, hedonism | closed: approval: pushing; backfire: told off in front of everyone | chance: 75 | back: made an enemy
 - UG | spend every break watching the ants by the fence | v: universalism (nature), self-direction | chance: 60
 - WR | volunteer for every job, brave and eager to help | v: benevolence, stimulation | chance: 80
 - BG | keep to your own little gang and guard your corner of the yard | v: security, power | chance: 75
@@ -808,7 +808,7 @@ scene G: {N} looks at the family photo on the fridge. Some things change, {grand
 - U | ask both parents, one at a time, to explain exactly why | v: self-direction | chance: 60
 - B | pack your own bag for each house, so nothing you need is ever left behind | habit | v: self-direction, security | chance: 70
 - R | shout that you hate them both, and slam your door | v: none clear (hurt let out) | chance: 55
-- G | refuse to go to the other house, and stay at your grandparents' instead | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 60
+- G | refuse to go to the other house, and stay at your grandparents' instead | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 60 | back: defied an authority
 - RG | dig in your heels: you will not leave your school or your friends | identity | v: security, tradition | chance: 65
 - UB | listen at doors, to know what is coming before anyone tells you | habit | v: security | act: listen at doors, to know what is coming before anyone tells them | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | chance: 75
 - UR | hatch a plan to get your parents back together, and put it into action | identity | v: benevolence, stimulation | chance: 20
@@ -925,7 +925,7 @@ scene G: {grandparent} planted the roses by the gate the year {N} was born. They
 - U | ask every question you have about dying, until someone gives a real answer | v: self-direction | chance: 70
 - B | ask for your grandparent's watch, before anyone else thinks to | v: power | chance: 65
 - R | cry out loud at the funeral, and not care who hears | v: none clear (grief let out) | chance: 85
-- G | promise to look after the roses your grandparent planted, for as long as you live | binds | v: tradition | chance: 75
+- G | promise to look after the roses your grandparent planted, for as long as you live | binds | v: tradition | chance: 75 | back: kept your word
 - WUB | make a careful album of the old photos and letters, and keep it as your own | v: tradition, security | chance: 90
 - WRG | keep your grandparent's photo by your bed, and say goodnight to it every night | habit | v: tradition, benevolence | chance: 92
 - WBR | take over your grandparent's daily jobs, like walking the dog, and be proud of it | binds | v: benevolence, power | chance: 75
@@ -999,7 +999,7 @@ scene B: {rival} was not picked. {N} was. {N} enjoys that rather more than is po
 scene R: {N} hears the name and leaps up in the middle of assembly with a whoop.
 scene G: {grandparent} sang in this same choir, sixty years ago. It seems to run in the family.
 - W | turn up early to every practice, in a clean uniform | v: conformity, achievement | chance: 85
-- U | sign up for extra lessons with the choir master, every week of the year | binds | v: achievement | self_control: + | chance: 75
+- U | sign up for extra lessons with the choir master, every week of the year | binds | v: achievement | self_control: + | chance: 75 | back: learned a skill
 - B | practise every evening until yours is the best voice in the choir | habit | v: achievement | mark: learned a skill | act: practise every evening until theirs is the best voice in the choir | self_control: + | chance: 55
 - R | say yes on the spot to every concert, before anyone can talk you out of it | binds | door | v: stimulation | act: say yes on the spot to every concert, before anyone can talk them out of it | chance: 80
 - G | stay modest, do your part, and enjoy being one voice among many | v: tradition (humility), benevolence | tags: win:ties+.05 | chance: 78

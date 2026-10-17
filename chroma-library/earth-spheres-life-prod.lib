@@ -214,13 +214,13 @@ scene R: {N} hates being stuck at home already, and the hand hurts less than the
 scene G: {N} thinks of {partner} and the household that runs on {Ns} wage, and of the young hands on that same machine.
 - W | put the accident in the book, exactly as it happened | v: conformity, universalism | lever: voice | pushes: institution | mark: defied an authority | sphere: prod.W | chance: 55
 - U | work out why the guard failed, and write down how to stop it next time | v: universalism, self-direction | sphere: prod.U | chance: 55
-- B | agree to keep quiet in return for full pay until you are back | act: agree to keep quiet in return for full pay until they are back | v: power, security | sphere: prod.B | chance: 55
+- B | agree to keep quiet in return for full pay until you are back | act: agree to keep quiet in return for full pay until they are back | v: power, security | sphere: prod.B | chance: 55 | back: gave in to pressure
 - R | go back as soon as the stitches are out, and laugh about it in the canteen | v: stimulation | mark: took a wild risk | sphere: prod.R | chance: 55
 - G | let the family carry you through the weeks off, and heal properly | act: let the family carry them through the weeks off, and heal properly | v: security, tradition | sphere: prod.G | chance: 55
 - BG | take the payout, and look for work your hand can still do | act: take the payout, and look for work their hand can still do | v: security, achievement | sphere: prod.BG | chance: 50
 - RG | spend the weeks off working your hand back into shape at the old bench at home | act: spend the weeks off working their hand back into shape at the old bench at home | v: self-direction, tradition | sphere: prod.RG | chance: 50
 - UB | read the rules on claims, and claim every week of pay you are owed | act: read the rules on claims, and claim every week of pay they are owed | v: security, power | sphere: prod.UB | chance: 50
-- WR | ring the crew and get the machine stopped until the guard is fixed for everyone | v: benevolence, universalism | lever: voice | pushes: institution | sphere: prod.RW | chance: 50
+- WR | ring the crew and get the machine stopped until the guard is fixed for everyone | v: benevolence, universalism | lever: voice | pushes: institution | sphere: prod.RW | chance: 50 | back: defied an authority
 - WU | ask for the inspector, and have every machine on the floor checked | v: conformity, security | lever: voice | pushes: institution | sphere: prod.WU | chance: 50
 works not BG: The hand heals, the guard is fixed, and {N} goes back to a floor that is a little safer for the next person.
 works: The weeks off are hard, but the pay comes, and {N} returns with the respect of the whole crew.

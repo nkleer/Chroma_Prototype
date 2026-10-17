@@ -462,10 +462,10 @@ scene R: The sun, the salt, the late nights, and {prospect} laughing on the harb
 scene G: {N} has fallen into the rhythm of the place: long lunches, a swim at dusk, and {prospect} close by as if it had always been so.
 - W | enjoy every day of it, and say a proper goodbye at the bus on Saturday | v: hedonism, conformity | chance: 85
 - U | learn their language and their town, and keep writing once you are home | door | v: self-direction | mark: learned a skill | chance: 65
-- B | enjoy the week, and give them a false number on the last morning | v: hedonism, power | chance: 80
+- B | enjoy the week, and give them a false number on the last morning | v: hedonism, power | chance: 80 | back: broke your word
 - R | ride on the back of their scooter along the cliff road, no helmet | body: light | v: stimulation | mark: took a wild risk | closed: law: riding without a helmet; backfire: a fine, or a fall | death_if_fails: 0.002 | chance: 68
 - G | swim out with them to the rocks at night, the way the locals do | door | body: heavy | v: stimulation, universalism (nature) | mark: took a wild risk | closed: approval: night swimming where the signs forbid it; backfire: a rescue boat, and a fine | death_if_fails: 0.002 | chance: 75
-- RG | change your ticket, and stay on with them for another month | v: hedonism, self-direction | chance: 70
+- RG | change your ticket, and stay on with them for another month | v: hedonism, self-direction | chance: 70 | back: took a wild risk
 - UB | find out what their life at home is really like before going any deeper | v: security | chance: 75
 - UR | write them a long letter on the last night, saying everything | v: benevolence, stimulation | chance: 80
 - WB | invite them to visit your home town, and pay for the ticket and the visa | v: benevolence, security | closed: law: a visa that may be refused; backfire: turned back at the border, and the money gone | chance: 50

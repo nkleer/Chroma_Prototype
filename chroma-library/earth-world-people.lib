@@ -114,11 +114,11 @@ scene G: This is the turn every family comes to. {Ns} grandparents spent their l
 - B | move them into a good care home, paid for by selling their house | v: security | chance: 70
 - R | tell them honestly you cannot do it, and that you are sorry | v: self-direction | mark: refused someone in need | chance: 48
 - G | move back into the old house for a while, and look after them there | binds | v: tradition, benevolence | title: carer for a parent | mark: came home | chance: 70
-- W>R | agree a fair rota with the family, so nobody gives up a whole life | v: universalism, self-direction | chance: 55
-- U>G | fit rails, an alarm and a meal service, so they can stay at home | v: security, benevolence | chance: 72
+- W>R | agree a fair rota with the family, so nobody gives up a whole life | v: universalism, self-direction | chance: 55 | back: helped someone in need
+- U>G | fit rails, an alarm and a meal service, so they can stay at home | v: security, benevolence | chance: 72 | back: helped someone in need
 - B>W | hire a live-in carer and pay well, so the care is done properly | v: benevolence, security | tags: pay:money-.08 | chance: 70
 - R>U | take a month off work there and then, and learn their care by doing it | v: benevolence, achievement | grants: home nursing | mark: learned a skill | chance: 76
-- G>B | ask the relatives who live nearest to take them in, and keep your own life | v: self-direction, security | chance: 52
+- G>B | ask the relatives who live nearest to take them in, and keep your own life | v: self-direction, security | chance: 52 | back: refused someone in need
 works: {parent} settles into the new arrangement, and the frightened weeks are over.
 works: The care holds, and {parent} has good days again, more of them than anyone expected.
 fails not R G>B: Within months the arrangement is cracking, and {N} is running on four hours' sleep.
@@ -190,7 +190,7 @@ scene G: The two of them grew up in the same small bedroom. Whatever else happen
 - B | lend it against their car, and keep the papers until it is repaid | binds | v: power, security | chance: 58
 - R | transfer the money there and then, and tell them not to worry | v: benevolence | mark: helped someone in need | chance: 88
 - G | say no, because money always poisons things between kin | v: tradition, security | mark: refused someone in need | chance: 50
-- W>U | take them to the free debt advice service, and sit in on the first meeting | door | v: benevolence, security | chance: 70
+- W>U | take them to the free debt advice service, and sit in on the first meeting | door | v: benevolence, security | chance: 70 | back: helped someone in need
 - U>B | lend it, and quietly get first claim on their share of the family home | binds | v: power | mark: hid a wrong | closed: approval: a claim on the family home behind their back; backfire: the family finds out and takes sides | chance: 66
 - B>R | pay the worst debt straight to the collectors, and keep the rest of your money | v: benevolence, security | chance: 76
 - R>G | phone your parents there and then, and ask the whole family to chip in | v: benevolence, tradition | chance: 55
@@ -230,8 +230,8 @@ scene G: Every workplace has its young ones pushing at the old ones. {N} pushed 
 - G | let it run its course; if it is their time, it is their time | v: tradition | chance: 52
 - W>B | file a formal complaint, and make what they did sound worse than it was | v: power, conformity | mark: made an enemy | closed: approval: an exaggerated complaint; backfire: the inquiry finds the facts, and the complaint turns back on its maker | chance: 54
 - U>R | quietly line up a better job elsewhere, and leave them the headache | v: self-direction | chance: 48
-- B>G | offer to split the team with them, if the lunches stop | v: security, power | chance: 60
-- R>W | stand up at the team meeting and say openly what is going on | v: universalism, self-direction | chance: 50
+- B>G | offer to split the team with them, if the lunches stop | v: security, power | chance: 60 | back: gave in to pressure
+- R>W | stand up at the team meeting and say openly what is going on | v: universalism, self-direction | chance: 50 | back: made an enemy
 - G>U | take them under your wing again, and help them aim higher than your post | v: benevolence, achievement | mark: made a friend | chance: 50
 works not U>R: The boss settles it, and {N} keeps the role with more standing than before.
 works: Whatever {N} does clears the air, and the office stops whispering.
@@ -376,15 +376,15 @@ scene B: A secret like this shifts the balance of a family, and whoever holds it
 scene R: {N} cannot sit still. Somewhere out there is a sibling {N} never knew, and {N} wants to run out into the night and find them.
 scene G: Every family tree has a branch it does not speak of. {parent} has carried this one alone for longer than {N} has been alive.
 - W | promise to keep it, even from your own brothers and sisters, and keep it | binds | v: benevolence, conformity | mark: kept your word | chance: 76
-- U | help them search the adoption records, quietly, one step at a time | door | v: self-direction, benevolence | chance: 42
+- U | help them search the adoption records, quietly, one step at a time | door | v: self-direction, benevolence | chance: 42 | back: helped someone in need
 - B | keep it to yourself, and save it for when the will is fought over | v: power | chance: 80
-- R | tell them it is too big to hide, and that the family has to know | v: self-direction, universalism | chance: 50
+- R | tell them it is too big to hide, and that the family has to know | v: self-direction, universalism | chance: 50 | back: refused someone in need
 - G | sit with them, hold their hand, and ask nothing more tonight | v: benevolence | chance: 88
 - W>B | keep it only if they put it in writing with the lawyer | v: security, power | chance: 68
 - U>R | find the lost child online, and write to them without telling your parent | v: stimulation, self-direction | tech: internet | closed: approval: going behind a parent's back; backfire: the parent finds out first, from someone else | chance: 45
 - B>G | pay for a proper search agency, so the family can be made whole | v: benevolence, tradition | tags: pay:money-.03 | chance: 55
 - R>W | gather the family the next day and tell them, for honesty's sake | v: universalism, conformity | mark: broke your word | closed: approval: breaking a parent's confidence; backfire: the parent stops speaking to you | chance: 40
-- G>U | ask the old aunt who always changed the subject what she remembers | closed: approval: sharing a parent's confidence; backfire: the aunt tells the rest of the family | v: tradition, self-direction | chance: 56
+- G>U | ask the old aunt who always changed the subject what she remembers | closed: approval: sharing a parent's confidence; backfire: the aunt tells the rest of the family | v: tradition, self-direction | chance: 56 | back: broke your word
 works: The secret settles into the family's story, and {parent} looks lighter than in years.
 works: Something long buried comes into the open, gently, and the family holds.
 fails: The secret leaks, and the family splits into those who knew and those who did not.

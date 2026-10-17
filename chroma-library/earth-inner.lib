@@ -517,9 +517,9 @@ scene G: When one tree takes all the light, the ones beneath it wither. {N} has 
 - U | document everything, and take it through every proper channel, step by step | identity | v: universalism (fairness), conformity | chance: 65
 - B | get yourself a seat at the table where such rules are made | v: power | chance: 40
 - R | speak out at the next meeting and name names | identity | v: universalism (fairness), stimulation | mark: defied an authority | chance: 78
-- G | accept that the world has always worked this way, and tend your own corner | v: tradition (humility) | chance: 65
-- W>R | rally everyone who feels the same, and protest it together, loudly | v: universalism, stimulation | chance: 78
-- U>G | find the old law or charter that protects your people, and hold them to it | v: universalism, tradition | chance: 50
+- G | accept that the world has always worked this way, and tend your own corner | v: tradition (humility) | chance: 65 | back: gave in to pressure
+- W>R | rally everyone who feels the same, and protest it together, loudly | v: universalism, stimulation | chance: 78 | back: defied an authority
+- U>G | find the old law or charter that protects your people, and hold them to it | v: universalism, tradition | chance: 50 | back: defied an authority
 - B>W | quietly help yourself to what you are owed, and say nothing | v: power (resources), universalism (fairness) | mark: hid a wrong | closed: law: theft; backfire: caught, and the unfairness turned on the taker | chance: 78
 - R>U | keep asking the awkward question, loudly, until someone has to answer | v: self-direction, universalism | chance: 68
 - G>B | close ranks with your own kind, and stop trusting anyone outside | identity | v: security, tradition | chance: 75
@@ -693,7 +693,7 @@ scene B: Nobody touches what is {Ns}. {N} files away the face of the one who did
 scene R: The heat goes straight up {Ns} spine. {N} is moving before {N} has decided anything.
 scene G: {N} feels it the way an animal does, in the shoulders and the teeth: this one is mine, and I will stand over them.
 - W | report it to whoever is responsible, and see that the rules are enforced | v: security, conformity | chance: 70
-- U | work out where the danger comes from, and quietly put a safeguard in place | v: security | chance: 78
+- U | work out where the danger comes from, and quietly put a safeguard in place | v: security | chance: 78 | back: helped someone in need
 - B | find the leverage on the one responsible, and make them back off for good | v: power, security | mark: made an enemy | chance: 73
 - R | step straight in between them and the danger, there and then | body: light | v: benevolence | mark: helped someone in need | chance: 80
 - G | keep them close, and keep every stranger away from the door | v: security, benevolence | closed: approval: shutting people out; backfire: suspicion, and a lonely household | chance: 72
@@ -799,10 +799,10 @@ scene U: There is a gap, and {N} can almost see the shape of what fills it. Not 
 scene B: Whoever understands this first will have something nobody else has. {N} means to be that person.
 scene R: {N} cannot sit still with it. {N} wants to go and see, touch and try, right now, and find out by doing.
 scene G: {N} watches it the way one watches a bird: patiently, without grabbing, waiting for it to show what it is.
-- W | ask a teacher or an expert, and follow the proper course of study | door | v: conformity, self-direction | chance: 82
+- W | ask a teacher or an expert, and follow the proper course of study | door | v: conformity, self-direction | chance: 82 | back: learned a skill
 - U | take it apart, look everything up, and keep notes until you understand | habit | v: self-direction | mark: learned a skill | chance: 90
 - B | open the letter, drawer or file that was meant to stay shut | v: self-direction, power | mark: hid a wrong | closed: approval: snooping; backfire: caught, and trusted less | chance: 88
-- R | go and see it for yourself, today, whatever it takes to get there | door | v: stimulation, self-direction | chance: 78
+- R | go and see it for yourself, today, whatever it takes to get there | door | v: stimulation, self-direction | chance: 78 | back: took a wild risk
 - G | watch it patiently over many days, and let it show what it is | v: universalism (nature), self-direction | chance: 69
 - W>R | join the club or society for it, and go on every outing | v: stimulation, conformity | mark: made a friend | chance: 80
 - U>G | learn the name of every bird, stone, star or bone in it | v: universalism (nature), self-direction | chance: 78
@@ -876,8 +876,8 @@ scene G: {N} wants to make something with {Ns} own hands, from what grows and wh
 - G | knit, carve or sew something with your own hands for someone you love | v: benevolence, tradition | chance: 90
 - W>U | join a guild or workshop, and learn each technique by its rules | habit | v: conformity, self-direction | mark: learned a skill | chance: 82
 - U>B | design something nobody has made yet, and work out how to sell it | identity | v: achievement, power (resources) | tags: pay:money-.05 | chance: 55
-- B>R | blow your savings on the best tools and materials, and go wild with them | v: hedonism, stimulation | chance: 88
-- R>G | paint a huge mural of the river and its birds on the bridge, at night | v: self-direction, universalism (nature) | closed: law: painting public property; backfire: a fine, and the mural scrubbed off | chance: 70
+- B>R | blow your savings on the best tools and materials, and go wild with them | v: hedonism, stimulation | chance: 88 | back: took a wild risk
+- R>G | paint a huge mural of the river and its birds on the bridge, at night | v: self-direction, universalism (nature) | closed: law: painting public property; backfire: a fine, and the mural scrubbed off | chance: 70 | back: broke the law
 - G>W | make decorations for the local festival by hand, and do it every year | binds | v: tradition, benevolence | mark: kept your word | chance: 80
 works: The thing gets made, a little crooked perhaps, and {N} cannot stop looking at it.
 works: Someone sees what {N} made and asks how it was done.
@@ -944,10 +944,10 @@ scene G: {N} feels held, the way a field is held by its hedges. It is a quiet, s
 - B | quietly work out what they might want in return, and settle it fast | v: security, power | chance: 74
 - R | throw your arms round them, and swear you will repay it one day | binds | v: benevolence | mark: made a friend | chance: 90
 - G | pass the kindness on to the next stranger who needs it | v: universalism, benevolence | mark: helped someone in need | tags: win:ties+.05 | chance: 90
-- W>R | plan a thank-you surprise for them with the people they love | v: benevolence, hedonism | tags: pay:money-.05 | chance: 82
+- W>R | plan a thank-you surprise for them with the people they love | v: benevolence, hedonism | tags: pay:money-.05 | chance: 82 | back: made a friend
 - U>G | find out what they love, and grow or make them exactly that | v: benevolence | chance: 82
 - B>W | set aside a share of your money every month for a good cause | binds | v: universalism, benevolence | chance: 85
-- R>U | ask to work beside them for a day, to learn how they do what they do | door | v: self-direction, benevolence | chance: 75
+- R>U | ask to work beside them for a day, to learn how they do what they do | door | v: self-direction, benevolence | chance: 75 | back: learned a skill
 - G>B | keep the gift close and say little; thanks said too often becomes a debt | v: self-direction, security | chance: 55
 works: {N} finds the right way to answer the kindness, and the bond between them deepens.
 works: The warmth spreads: {N} passes it on, and someone else's day turns.
@@ -974,10 +974,10 @@ scene U: {N} notices, almost with surprise, that there is nothing to fix tonight
 scene B: {N} built this, piece by piece. Looking round at it, {N} feels the satisfaction of someone who got what they came for.
 scene R: {N} puts the music on low and dances a few steps round the kitchen, alone, for no reason at all.
 scene G: The light goes gold across the garden. {N} sits on the step and feels part of it, rooted and unhurried.
-- W | refuse every change at work or in the street, and complain about whoever pushes one | v: security, conformity | closed: approval: blocking every change; backfire: left behind, and resented for it | chance: 45
+- W | refuse every change at work or in the street, and complain about whoever pushes one | v: security, conformity | closed: approval: blocking every change; backfire: left behind, and resented for it | chance: 45 | back: made an enemy
 - U | write down what makes these days good, so it can be kept | v: security, self-direction | chance: 92
 - B | put money aside every month, so this life stays safe whatever comes | habit | v: security, power (resources) | chance: 90
-- R | throw the doors open and invite everyone round for a long, loud lunch | v: hedonism, benevolence | chance: 90
+- R | throw the doors open and invite everyone round for a long, loud lunch | v: hedonism, benevolence | chance: 90 | back: made a friend
 - G | turn down the move or the promotion, and stay where you are rooted | identity | v: security, tradition | mark: stayed home | chance: 90
 - W>G | join the parish or village council, to keep the place as it is | binds | v: tradition, security | tags: commit:community | chance: 78
 - U>W | draw up the household budget and the will, so everything stays in order | v: security, conformity | chance: 93
@@ -1079,7 +1079,7 @@ scene U: {N} tries to take it in and cannot. How far away is that light? How old
 scene B: Standing before it, {N} feels very small, and then, strangely, very hungry: to matter, to leave a mark this size.
 scene R: {Ns} skin prickles from head to foot. {N} wants to shout into it, or laugh, or cry, all at once.
 scene G: {N} feels like one leaf on a very old tree, and the feeling is not frightening at all. It is like coming home.
-- W | shush the loud ones nearby, so the moment is kept as it should be | v: tradition, conformity | closed: approval: telling strangers off; backfire: a row on the spot | chance: 56
+- W | shush the loud ones nearby, so the moment is kept as it should be | v: tradition, conformity | closed: approval: telling strangers off; backfire: a row on the spot | chance: 56 | back: made an enemy
 - U | sign up for a year's evening course in the stars, the rocks or the sea | binds | v: self-direction, universalism (nature) | mark: learned a skill | tags: pay:money-.05 | chance: 82
 - B | climb the highest peak within reach, so you stand above all of it | body: heavy | v: achievement, power | mark: took a wild risk | chance: 78
 - R | strip off and run into the sea, or shout from the summit | body: light | v: stimulation, hedonism | chance: 90

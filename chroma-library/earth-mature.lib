@@ -749,7 +749,7 @@ scene G: The nest is empty, as nests become. {N} remembers {Ns} own parents stan
 - UB | check where they are on the family phone plan every night | v: security, power | closed: approval: spying on a grown child; backfire: found out, and the sharing is switched off | tech: phone | chance: 50
 - UR | turn the garage into a workshop and start inventing again | v: self-direction, stimulation | chance: 72
 - WG | take in a foster child, now that there is room | binds | v: benevolence | mark: helped someone in need | chance: 50
-- WR | throw yourself into volunteering at the hospice, with all the energy you gave them | v: benevolence | chance: 80
+- WR | throw yourself into volunteering at the hospice, with all the energy you gave them | v: benevolence | chance: 80 | back: helped someone in need
 works: The house finds a new rhythm, and {N} likes it more than expected.
 works: {child} calls more often from far away than they ever talked at home.
 fails: {N} wanders from room to room for months, lost.
@@ -828,7 +828,7 @@ scene G: Another ring on the tree. Holding the baby, {N} feels {Ns} own parents 
 - G | plant a tree in the garden on the day the baby was born | v: tradition, universalism (nature) | chance: 93
 - WUR | organise the naming party, give the speech, and keep the whole room laughing | v: benevolence, hedonism | chance: 82
 - WBR | move in for the first month and run the new household like a sergeant | v: power, benevolence | closed: approval: overbearing; backfire: asked to leave early | chance: 62
-- WBG | sell up and move close to the new family, to help with money and time | v: benevolence, tradition | tags: req:money.4; pay:money-.2 | chance: 78
+- WBG | sell up and move close to the new family, to help with money and time | v: benevolence, tradition | tags: req:money.4; pay:money-.2 | chance: 78 | back: moved away
 - URG | build the baby a wooden cradle with your own hands, learning as you go | v: benevolence, self-direction | mark: learned a skill | chance: 75
 - UBG | quietly steer the new parents toward the name and the school you prefer | v: power, tradition | closed: approval: meddling; backfire: the new parents shut the door for a while | chance: 45
 works: The baby grows up knowing {Ns} lap as one of the safe places in the world.

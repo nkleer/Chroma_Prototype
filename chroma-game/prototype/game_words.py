@@ -799,6 +799,10 @@ def life_paragraph(name, h, review, setting):
     d_ = _deeds(h.get("acts", []), lead, review, W)
     if d_:
         V.append(d_)
+    if h.get("returns"):                              # Picks come back: the pick that came back after the longest years
+        x = max(h["returns"], key=lambda r_: r_["age"] - r_["seed"]["age"])
+        V.append(W.get("came_back", "And what they did at {a}, at “{m}”, came back to them at {b}, at “{n}”.").format(
+            a=int(x["seed"]["age"]), m=x["seed"]["moment"], b=int(x["age"]), n=x["moment"], N=name))
     # the ups and downs, losses and long shots, and the end
     T = []
     sh = _shape(h.get("content", []), W)

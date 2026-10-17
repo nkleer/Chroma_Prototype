@@ -865,7 +865,7 @@ scene R: {N} screams, jumps on the bed, and phones everyone they have ever met.
 scene G: {N} thinks of the friends from the street, the walk to the old school, the corner shop. Not all of it will come along.
 - W | accept, and write proper thank-you letters to everyone who helped | v: conformity, benevolence | chance: 72
 - U | read everything about the new school and arrive already ahead | v: achievement | chance: 72
-- B | take it, and drop the old friends who would hold you back | identity | v: achievement, power | act: take it, and drop the old friends who would hold them back | chance: 68
+- B | take it, and drop the old friends who would hold you back | identity | v: achievement, power | act: take it, and drop the old friends who would hold them back | chance: 68 | back: made an enemy
 - R | ring everyone you know, and celebrate as loudly as you can | v: hedonism | chance: 78
 - G | turn it down, and stay with your friends and family where you belong | identity | v: tradition, security | mark: turned down a chance | closed: approval: turning down the family's hopes; backfire: a long row at home | chance: 60
 - WUG | accept, and keep helping your old friends with their homework after school | v: benevolence | chance: 55
@@ -907,8 +907,8 @@ scene G: The air smells different, the trees are different, the light is differe
 - R | slip away from the group to explore the city on your own | door | v: stimulation | mark: took a wild risk | closed: approval: leaving the group; backfire: lost, and sent home early | chance: 80
 - G | spend your days with the host family's grandparents, learning how they live | door | v: tradition, universalism (tolerance) | mark: made a friend | chance: 72
 - W>B | report the friends who broke curfew, so the teachers pick you to lead next time | v: achievement, power | closed: approval: telling on friends; backfire: shunned for the rest of the trip | act: report the friends who broke curfew, so the teachers pick them to lead next time | chance: 30
-- U>R | research the city's hidden corners and lead your friends there after curfew | v: stimulation | closed: approval: out after curfew; backfire: the trip cut short | chance: 65
-- B>G | smuggle home a local food that customs forbid, as a present for your family | v: benevolence | closed: law: customs rules; backfire: confiscated at the airport, and a fine | chance: 75
+- U>R | research the city's hidden corners and lead your friends there after curfew | v: stimulation | closed: approval: out after curfew; backfire: the trip cut short | chance: 65 | back: defied an authority
+- B>G | smuggle home a local food that customs forbid, as a present for your family | v: benevolence | closed: law: customs rules; backfire: confiscated at the airport, and a fine | chance: 75 | back: broke the law
 - R>W | throw yourself into the host family's festival as if you were one of them | v: universalism (tolerance) | chance: 92
 - G>U | walk the countryside with your host and learn the name of everything in their language | door | v: self-direction | mark: learned a skill | chance: 75
 works: {N} comes home with a new language half in their head and a friend on the other side of the world.
@@ -944,7 +944,7 @@ scene G: {mentor} says {N} has a gift. {N} has always felt it, the way a plant k
 - R | throw yourself into it overnight, with everything you have got | v: stimulation, achievement | chance: 68
 - G | thank them, and keep growing at your own pace | v: self-direction | chance: 62
 - W>G | help them coach the younger kids on Saturday mornings | door | v: benevolence | chance: 88
-- U>W | ask to train under them for a year, and learn to teach as they do | binds | v: achievement, benevolence | chance: 75
+- U>W | ask to train under them for a year, and learn to teach as they do | binds | v: achievement, benevolence | chance: 75 | back: learned a skill
 - B>U | lean on their kindness for free extra lessons | v: achievement | chance: 73
 - R>B | go after the top prize in your year, fired up by what they said | v: achievement, stimulation | chance: 40
 - G>R | stop holding back the gift you were born with, and let it run | identity | v: self-direction, stimulation | chance: 65

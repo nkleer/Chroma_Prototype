@@ -405,7 +405,7 @@ scene G: {N} looks at {friend}, the same face as at ten and at fifteen, and some
 - W>G | promise to keep the secret and stand by them, whatever anyone says | binds | v: benevolence | mark: kept your word | chance: 80
 - U>W | find out where the nearest support group meets, and offer to go along the first time | v: benevolence | mark: helped someone in need | chance: 75
 - B>U | tell one mutual friend in confidence, to see what they make of it | v: self-direction (curiosity) | mark: hid a wrong | closed: approval: outing a friend; backfire: it spreads, and the friend learns who started it | self_control: - | chance: 72
-- R>B | say straight out that it makes you uncomfortable | v: security | act: say straight out that it makes them uncomfortable | chance: 80
+- R>B | say straight out that it makes you uncomfortable | v: security | act: say straight out that it makes them uncomfortable | chance: 80 | back: refused someone in need
 - G>R | take them for a long walk in the hills, and let them talk it all out | v: benevolence | mark: helped someone in need | chance: 78
 works: {friend} lets out a long breath, and the evening goes on, lighter than before.
 works: Something new and steady settles between {N} and {friend}.
