@@ -227,7 +227,8 @@ def main():
 
     rows = "\n".join(f"| engine_pin/{d} | {os.path.relpath(s_, root) if s_.startswith(root) else s_} | {md5(s_)[:12]} |" for s_, d in pins)
     key = ["game.py", "game_base.py", "game_words.py", "game_checkpoints.py", "game_world.py", "game_voice.py", "game_life.py",
-           "game_views.py", "console.py", "link.py", "story.py", "story_text.py", "worldview.py", "routine.py", "routine_text.py", "rarity.py", "web/worker.js",
+           "game_views.py", "console.py", "link.py", "story.py", "story_text.py", "story_base.py", "story_cast.py", "story_moments.py",
+           "story_lines.py", "story_goals.py", "worldview.py", "routine.py", "routine_text.py", "rarity.py", "web/worker.js",
            "web/src/app.js", "web/src/head.html", "web/src/body.html", "web/index.html"]
     rows2 = "\n".join(f"| {f} | {md5(os.path.join(G, f))[:12]} |" for f in key if os.path.isfile(os.path.join(G, f)))
     open(os.path.join(OUT, "BUILD.md"), "w").write(

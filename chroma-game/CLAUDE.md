@@ -7,8 +7,9 @@ refuses its files. This file sits one level above it so the build never copies i
 ## Where things are (`prototype/`)
 
 Each Game mixin module imports the module names its methods read (from `game_base` and `game_words`), so a method
-moves between files without changing what it does. A new game-side file must also go in `web/worker.js` `SOURCES`;
-`test/smoke.py` fails when one is missing.
+moves between files without changing what it does. `story.py` is split the same way (`story_base` and four Story
+mixins). To find a method: `rg -n 'def name' chroma-game/prototype/game*.py chroma-game/prototype/story*.py`. A new
+game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails when one is missing.
 
 | File | Lines | What |
 |---|---|---|
@@ -22,7 +23,12 @@ moves between files without changing what it does. A new game-side file must als
 | `game_voice.py` | 630 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
 | `game_life.py` | 779 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
 | `game_views.py` | 883 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
-| `story.py` | 1,692 | the story layer: class `Story` and its code |
+| `story.py` | 126 | the story layer: class `Story`, its core (`__init__`, `new`, `alive`, `get`, `say`, `nm`). Every name the story layer has is importable from `story` |
+| `story_base.py` | 537 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
+| `story_cast.py` | 233 | `CastMixin`: roles, who is due and who dies, picking people, filling a line's slots |
+| `story_moments.py` | 323 | `MomentsMixin`: thoughts, the voice, births, scenes, acts, outcomes, family, deaths and new kin, marks, streaks |
+| `story_lines.py` | 296 | `LinesMixin`: ordinary weeks, outside events, eras, titles, commitments, clashes, rites, conversions, breakthroughs |
+| `story_goals.py` | 232 | `GoalsMixin`: goals, dreams and plans, needs, hindsight, resolutions, the yearly chapter, the epitaph |
 | `story_text.py` | 711 | `story.py`'s text tables (`SCENES`, `OUTSIDE`, `OUTCOMES`, `MOOD`, ...), data only |
 | `routine.py` | 182 | the everyday lines' rules and their `check()` (`python3 -B routine.py`) |
 | `routine_text.py` | 427 | the everyday lines themselves (`ROUTINE`), data only |
