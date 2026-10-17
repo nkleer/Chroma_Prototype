@@ -1,0 +1,17 @@
+# Generated files and exact copies (CLAUDE.md, "Files you never open whole"). -diff makes git diff, git show and git log -p
+# print "Binary files differ" for them instead of their text (a rebuilt page alone is lines of up to 254 KB);
+# git diff --name-only and --stat still list them. linguist-generated folds them in a pull request's diff on GitHub.
+chroma-game/prototype/engine_pin/** -diff linguist-generated
+chroma-game/prototype/web/index.html -diff linguist-generated
+chroma-game/prototype/web/page.html -diff linguist-generated
+chroma-game/prototype/web/src/ink-option-texts.json -diff linguist-generated
+chroma-game/prototype/web/src/option-icons-live.json -diff linguist-generated
+chroma-game/prototype/web/src/pic-packs.json -diff linguist-generated
+chroma-game/prototype/rarity.py -diff linguist-generated
+chroma-library/earth.py -diff linguist-generated
+chroma-library/earth_art.py -diff linguist-generated
+chroma-library/earth_play.py -diff linguist-generated
+chroma-library/earth_politics.py -diff linguist-generated
+chroma-library/earth_science.py -diff linguist-generated
+chroma-library/earth_stage.py -diff linguist-generated
+chroma-art/game/lights.json -diff linguist-generated

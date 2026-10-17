@@ -30,7 +30,8 @@ moves between files without changing what it does. A new game-side file must als
 | `link.py` | 44 | loads `engine_pin/engine.py` as module `engine` and checks its pause points (`week`, `situation`, `choose`, `odds`, `learn`, `end`) |
 | `rarity.json` | | the rarity table; `rarity.py` is built from it |
 | `engine_pin/` | | generated: the engine, Library and packs pinned by `tools/build.py`. Never edit or read it; read `chroma-engine/v22-speedpass/`, `chroma-library/`, `chroma-packs/` |
-| `README.md` | 657 | history, version by version. Read one section (`rg -n '^#' README.md`), not all of it |
+| `README.md` | 25 | what the game is, how to play, where to read on |
+| `HISTORY.md` | 644 | history, version by version up to 2026-10-09 (moved from `README.md`). Read one section (`rg -n '^#' HISTORY.md`), not all of it |
 
 ## The page (`prototype/web/`)
 
