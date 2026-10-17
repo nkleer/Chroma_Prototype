@@ -6,8 +6,9 @@
 
 run plays whole lives on the Game object as the page plays them, with Release's copy of the player-impact harness
 (picks/impact.py: let, random, reader, none), on a git archive of the commit's chroma-game/prototype (the game with its
-engine_pin), CHROMA_GAME set to --game: the switch on for the "on" side, '{}' (the commit as it ships) for the "off" side,
-the same policies, presets and seeds on both, so every life has its pair. One JSON a life: impact.py's record plus
+engine_pin), CHROMA_GAME set to --game: '{"returns": true}' for the "on" side and '{"returns": false}' for the "off" side
+(the GAME switch `returns` sets the engine's echo_play), the same policies, presets and seeds on both, so every life has
+its pair. One JSON a life: impact.py's record plus
 `picks`, one row per ask (age, sit, repeat: the moment was asked before in this life and is not a return, thread: the F5
 line shows, seed). `seed` is what the game puts on a return's ask, cp["seed"]:
     age    the seed's age            sit   the seed's moment     way   the way picked then
