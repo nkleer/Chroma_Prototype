@@ -5252,6 +5252,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             came_o[n] = True
                 for n, j_ in zip(hm_, jj_):
                     mark_log.append((int(n), t, int(j_), bool(succ[n])))
+                    if n in events:
+                        events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
             if EP_ON and P["echo_asked"]:   # picks come back: an asked pick's mark (as left) and back: plant seeds
                 P["echo_asked"] = False
                 left_ = set(hm_.tolist())
@@ -5264,8 +5266,6 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         due_ = t + int(round(ep_rng.uniform(*EPP["delay"]) * 52)) if ep_rng.random() < EPP["p"] else None
                         ep_seeds.append(dict(n=int(n), t=t, kind=k_, src=src_, s=int(s[n]), a=int(a[n]), ok=bool(succ[n]),
                                              due=due_, done=None, got=None))
-                    if n in events:
-                        events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
             # moves: the family moves, or the person moves away or leaves home (and it works)
             mvk = (L["MOVES"][s] & live_) | (((mk_ == MIDX["moved away"]) | (mk_ == MIDX["left home"]) | (mk_ == MIDX.get("came home", -2))) & succ & ~idle & live_)
             mv_own_ = (((mk_ == MIDX["moved away"]) | A_MOVE[s, a]) & succ & ~idle & live_)   # their own move
