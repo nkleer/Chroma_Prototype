@@ -229,7 +229,7 @@ fails: {friend} has troubles of their own, and the visit leaves them both tired.
 
 == the office you defied remembers
 tier: echo
-who: teacher, boss, elder
+who: boss, elder
 stages: juvenile+
 age: 14-110
 tone: trouble

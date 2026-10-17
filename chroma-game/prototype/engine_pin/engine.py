@@ -171,7 +171,7 @@ MARK_BASE = ["hid a wrong", "owned up", "kept your word", "broke your word", "le
 ROLES = ["parent", "sibling", "friend", "grandparent", "partner", "child"]   # child: only ever by illness or accident (R15)
 CLOSED_KINDS = ["law", "approval", "means"]
 CLOSED_UNKNOWN = []   # closed: kinds the compile did not know (read as approval); CHROMA_STRICT=1 makes them an error
-TIERS = ["everyday", "life event", "inner", "echo", "engine"]
+TIERS = ["everyday", "life event", "inner", "echo", "engine", "return"]
 TAGS4 = ["habit", "door", "identity", "binds"]
 
 
@@ -805,6 +805,15 @@ DEFAULT = dict(
     inner_w=1.0,         # weight of an inner moment in the week's draw when its condition holds (Library rate x this)
     echo_p=0.4,          # share of anchors (a mark, a stretch of life) that ever come back as an echo
     echo_w=0.1,          # weekly chance a due echo comes, once its condition holds (x its likelier/rarer factor)
+    # picks come back (chroma-ideas/gameplay-2026-10-17/picks-come-back.md): set only by the game for a played life. A pick
+    # the player was asked (echo_asked, set by the game at its checkpoint and spent here) whose way leaves a mark: or names
+    # back: plants a seed: its kind, week, moment, way and whether it went well. A share p of seeds fall due after delay
+    # years; a due seed comes back at w a week (weeks with no life event, at least gap years after the last return, until keep
+    # years past due) as one moment of its kind and side never met (else not met for again years): a return moment (tier: return, of:, side:) or a mark echo
+    # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return.
+    # Tuned 10-17 with the Library's back: tags and RETURNS (#271): about 8 returns in a played life of about 85 asks
+    echo_play=False, echo_asked=False,
+    echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     closed_acc=0.6, closed_diff=0.05,   # an option closed by law, approval or means is open less often, and harder
     tag_habit=0.02,      # an act flagged habit pulls a little harder toward its ways next time
     tag_door=0.03,       # an act flagged door that works moves the niche toward its ways (new options open)
@@ -841,6 +850,9 @@ DEFAULT = dict(
     sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
+    grey_gate=False,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
+                        # comes only while that sphere's grey share in their town is at least .25 (sphere_data.SHADOW;
+                        # the Library's Crime pack moments join with batch.SHADOW_MOMENTS); grey_y reads the shares yearly
     sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
     sph_titles=True,    # item 15: the 28 face titles are gained only by their rules (earth_rules.SPH_TITLE_ROLES); off,
                          # the engine reads none of those rules
@@ -865,6 +877,13 @@ DEFAULT = dict(
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
+    place_turnover=False,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
+                            # close (a hazard and three town events) and new ones open; their regulars lose the haunt, a
+                            # rung and half the ties made there, a keeper the post (world switch, with sph_haunts; the
+                            # moments cast_want place_closed, place_opened come only with it, batch.TURNOVER_MOMENTS)
+    body_trust=False,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
+                         # switch, with sph_fair; chroma-world/spheres/finish-pack-draft.md, sphere_data.TRUST): it tilts the
+                         # levers, care seeking and the felt odds of pursuits in those bodies, and gates trust: moments
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
     care_stress=0.02,    # phase 5: stress a month for each 10 hours a week of care load
     # phase 5, debts and holdings (deep_state.money_map; the Engine's defaults confirmed or set by Outer world 10-10,
@@ -881,6 +900,15 @@ DEFAULT = dict(
                   estate_more=(0.1, 0.15), lender=(0.15, 0.3), kin_trust=0.2, kin_wait=2, tab_wait=2, ill_line=0.35,
                   kin_forgive=0.7, buy_home=(0.25, 0.8, 0.1), buy_more=(0.4, 0.9, 0.05), buy_nb_home=(0.45, 0.35, 0.05),
                   buy_nb_more=(0.45, 0.35, 0.03), land_taken=0.3, care_buy=(0.4, 0.7), found_lv=0.3),
+    # spheres finishing pack, part 4 (chroma-world/spheres/finish-pack-draft.md): former inmates as ties
+    # (sphere_data.DEEP service.after_prison.tie_values). Off by default; world on only (the ties are People's; world off
+    # the switch does nothing). prison_par: years_unknown, the years inside when [ex-prisoner] comes by its rule with no
+    # term known; cap, the most ties one release makes; active, the closeness at or above which a tie is still active
+    # (layer 4's line, .02: still among the 150 they know); pull, the re-offending pull (None: the data's 1.2); shadow,
+    # the lead colour's shadow part over which their way leans to its shadow side (the pull back's gate); test, (age,
+    # years): every life starts a term at that age (checks only; None: never)
+    prison_ties=False,
+    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
     inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
@@ -1308,6 +1336,9 @@ DEED_RARE = ("made an enemy", "hid a wrong", "defied an authority")
 # generic outside events the Library batch covers with its own life events (dropped when a batch is loaded)
 EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an illness", "an unexpected windfall or loss of money",
            "a natural disaster hits where you live", "a hard season of scarcity", "a season of plenty", "a brush with death"}
+# body_trust (finish-pack-draft.md part 3; dynamics.json body_trust effects, not among sphere_data.TRUST's numbers): care
+# seeking for an illness x (.7 + .6 x btrust[care])
+BT_CARE = (0.7, 0.6)
 # the channel a life event the world made likelier is reported in (wfx), by its kind (world_link.RK)
 WFX_OPT = (0.25, 0.02)   # option_causes names a closure from this many units (access x .6 per unit), odds from this added difficulty
 WFX_RISK = {"illness": "illness risk", "old_death": "death risk", "disaster": "disaster risk", "crime": "crime risk",
@@ -1479,8 +1510,14 @@ UPD_OFF = dict(dis_match=False,
                sph_town=False, sph_haunts=False, sph_hours=False, sph_marks=False, sph_events=False,
                sph_seasons=False, sph_joins=False, sph_pairs=False, inst_even=False, sph_links=False,
                sph_memory=False, pair_calm=False, sph_cascades=False, sph_levers=False, sph_fair=False,
-               sph_shadow=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
+               sph_shadow=False, grey_gate=False, sph_deep=False, far_ties=False, sph_titles=False, fair_read=False, lead_ways=False, lead_par=None,
+               # spheres finishing pack, part 4: former inmates as ties
+               prison_ties=False, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
                sph_eyes=False, sph_odd=False, sacred=False, seen_done=False,
+               # the spheres finishing pack (finish-pack-draft.md): part 2, places close and open
+               place_turnover=False,
+               # the spheres' finishing pack: trust in a sphere's bodies (part 3)
+               body_trust=False,
                # item 11, the world in their life: WL2's small effects
                wl2=False, near_gate=False,
                # late births: a life's own births by real fertility for its age and sex
@@ -1514,6 +1551,8 @@ UPD_OFF = dict(dis_match=False,
                retire_ends=False, world_only=False,
                # v22.5 realism F7: one roll of the living
                one_roll=False,
+               # picks come back: the game's played-life hook
+               echo_play=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -2131,6 +2170,14 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     SACS_ON_ = bool(SACS_.any())
     SAC_ON_ = False                                       # (set with the world: its People has the lines)
     REG_ = REG_ & ~FARS_ & ~LEADS_ & ~SACS_   # (nor by the neighbouring stages' fill or the routine's; the Library's find, 10-10)
+    # place_turnover (finishing pack, part 2): "the place closed" and "the new place" (cast_want: place_closed,
+    # place_opened) come only with a closing or an opening of the life's place (WorldLink), never by a draw
+    PTW_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L:
+        PTW_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in getattr(WK_, "PLACE_WANTS", ())])
+    PTW_ON_ = bool(PTW_.any())
+    if PTW_ON_:
+        REG_ = REG_ & ~PTW_
     # S3, S4 (sph_eyes, sph_odd): a caught-between or odd-one-out moment (cast_want: caught, odd) comes only when the place
     # reading brings it, never by the everyday draw
     EYEW_ = np.zeros(L["S"], bool)
@@ -2139,6 +2186,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     EYEW_ON_ = bool(EYEW_.any())
     if EYEW_ON_:
         REG_ = REG_ & ~EYEW_   # (nor by the stages' fill or the routine's, as far moments)
+    # spheres finishing pack, part 4: a moment with a fellow inmate (cast_want: fellow_inmate) is open only while the life
+    # holds an active former-inmate tie (the closest takes its first who: slot; world_link.who)
+    INMS_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L and "fellow_inmate" in WK_.CAST_WANTS:
+        INMS_ = np.asarray(L["W_WANT"]) == WK_.CAST_WANTS.index("fellow_inmate")
+    INMS_ON_ = bool(INMS_.any())
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)
@@ -2181,6 +2234,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         gender_self = unease.astype(int); intersex = np.zeros(N, bool); ace = np.zeros(N, bool)
     dead = np.zeros(N, bool); died = []                   # the character's own death (self_death)
     pris_out = np.full(N, NEVER)                           # when a prison term ends ([ex-prisoner])
+    pris_in = np.full(N, NEVER)                            # when it began (prison_ties: the years inside)
     if BAT:
         alive[:, 0] = 2; alive[:, 1] = rng.choice(4, N, p=[0.2, 0.4, 0.25, 0.15]); alive[:, 2] = 1; alive[:, 3] = rng.integers(2, 5, N)
     # birth order (checklist N4): which of the siblings are older; drawn from its own stream so no other draw moves
@@ -2220,6 +2274,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         REJOB_ON = L.get("REJOB", -1) < 0                         # and its "a new job at last" the quiet return to work
         EV_KEEP = np.array([nm_ not in EV_DROP for nm_ in EV["names"]], float)
         KL_ = KILLS >= 0; INNER_ = L["INNER"]; KCH_ = KILLS[KL_] == ROLES.index("child")
+    EP_ON = bool(P["echo_play"]) and BAT   # picks come back (see DEFAULT's echo_play)
+    ep_seeds = []; ep_now = np.full(N, -1); ech_now = np.full(N, -1)   # the seeds; the seed (index) whose return is this week's
+    if EP_ON:
+        EPP = P["echo_play_par"]; ep_rng = np.random.default_rng([int(seed), 2917]); ep_last = np.full(N, -10 ** 6)
+        EP_C = {}   # (kind, went well) -> [(moment, echo index or -1, its condition)]: the return moments by of: and side:,
+        for e_, c_ in enumerate(ECH):   # and the mark echoes by the kind their anchor names (mk_ok: only one that went well)
+            for ok_k in (True, False):
+                k_ = re.match(r"\s*mk(_ok)?\(\s*['\"]([^'\"]+)['\"]", c_.get("atxt", ""))
+                if k_ and (ok_k or not k_.group(1)):
+                    EP_C.setdefault((k_.group(2), ok_k), []).append((c_["s"], e_, c_))
+        for c_ in L["COND"]:
+            if c_["kind"] == 4 and c_.get("of"):
+                for ok_k in ((True,) if c_.get("side") == "well" else (False,) if c_.get("side") == "badly" else (True, False)):
+                    EP_C.setdefault((c_["of"], ok_k), []).append((c_["s"], -1, c_))
 
     # ---- titles and perks (after v7): roles others recognise, and what a person can do or has access to
     RON = BAT and bool(P["roles"]) and "ROLES" in L
@@ -2557,6 +2625,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         for k_ in AGO:
             ns["ago_" + k_] = ys(ago[k_])
         ns.update(streak)
+        ns["inmate_tie"] = pt_act.copy(); ns["yrs_out"] = ys(pt_rel)   # part 4: an active former-inmate tie; years out
         ns["married"] = held[:, PAR] & (sit_last[:, SIDX["getting married"]] >= since[:, PAR]) if "getting married" in SIDX else np.zeros(N, bool)
         ns.update(female=female, male=~female, attr=attr, unease=unease)   # identity (point 11): sex, attraction 0-4, unease
         if ID2:   # N1b (chroma-identity/for-the-engine.md §2)
@@ -2614,6 +2683,42 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if r_ is None:
             r_ = memo[code] = ev_cond(code, ns)
         return r_
+    def ep_return(s, s_ep):
+        """Picks come back (echo_play): this week's return for each life. An ordinary echo drawn this week (ech_now) of a
+        kind with a waiting seed a year old is the newest such seed's return; else the oldest due seed, at EPP w (no life
+        event, no season step, gap years after the last), takes the week with one moment of its kind and side open to them:
+        one never met first, else one not met for again years."""
+        for n in np.nonzero(ech_now >= 0)[0]:
+            if s[n] != s_ep[n]:
+                continue
+            for i_ in range(len(ep_seeds) - 1, -1, -1):
+                sd_ = ep_seeds[i_]
+                if sd_["n"] == n and sd_["done"] is None and t - sd_["t"] >= 52 \
+                        and any(e_ == ech_now[n] for _, e_, _ in EP_C.get((sd_["kind"], sd_["ok"]), ())):
+                    sd_["done"] = t; sd_["got"] = int(s[n]); ep_now[n] = i_; ep_last[n] = t
+                    break
+        for i_, sd_ in enumerate(ep_seeds):
+            n = sd_["n"]
+            if sd_["done"] is not None or sd_["due"] is None or t < sd_["due"] or ep_now[n] >= 0:
+                continue
+            if t > sd_["due"] + EPP["keep"] * 52:   # too long past: it stays a seed that never came back
+                sd_["done"] = -1
+                continue
+            if had_ev[n] or dead[n] or s[n] != s_ep[n] or t - ep_last[n] < EPP["gap"] * 52 or ep_rng.random() >= EPP["w"]:
+                continue
+            ys_ = (t - sd_["t"]) / 52; sa0_ = ns.get("sa"); ns["sa"] = np.full(N, ys_)
+            c_ = [(s_, e_) for s_, e_, cd_ in EP_C.get((sd_["kind"], sd_["ok"]), ())
+                  if avail0[n, s_] and not once_done[n, ROOT[s_]] and ys_ >= cd_["delay"][0] and ev_cond(cd_["req"], ns)[n]]
+            ns["sa"] = sa0_
+            if not c_:
+                continue
+            new_ = [x for x in c_ if sit_n[n, x[0]] == 0] or [x for x in c_ if t - sit_last[n, x[0]] >= EPP["again"] * 52]
+            if not new_:
+                continue
+            s_, e_ = new_[int(ep_rng.integers(len(new_)))]
+            s[n] = s_; sd_["done"] = t; sd_["got"] = int(s_); ep_now[n] = i_; ep_last[n] = t
+            if e_ >= 0:   # a mark echo: its own clock is spent
+                echo_anchor[n, e_] = NEVER; echo_ready[n, e_] = False
     def factor(c_, ns, memo=None):
         f_ = np.ones(N)
         if not c_["more"] and not c_["less"]:   # speed pass: nothing to read, so 1 (as clip of ones gave)
@@ -2805,12 +2910,17 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     EYES_ON_ = bool(P.get("sph_eyes")) and bool(P.get("sph_haunts")) and WON   # S3: their places read their acts (world on, with the haunts)
     ODD_ON_ = EYES_ON_ and bool(P.get("sph_odd"))      # S4: the odd one out at a place
     SHAR_ON = bool(P.get("sph_shadow")) and WON        # spheres phase 5: the shadow around a life (with shadows)
+    GG_ON = bool(P.get("grey_gate")) and WON           # finishing pack, part 5: the town gone grey (moments' shadow:)
+    grey_y = []                                        # its readout: each life's town's grey share per sphere, each year
     DEEP_ON = bool(P.get("sph_deep")) and WON          # spheres phase 5: the care load
     WL2_ON = bool(P.get("wl2")) and WON                # WL2: prices for workers too, a recession's hours, a disaster's cost, a pandemic year
     CLU_ON = BAT and (IDC_ON or WON)                   # closures counted in units (N1b roles, the world's laws and norms)
     WL = None; drv_h, drv_u, drv_p = P["world_harsh"], P["world_unrest"], P["world_prosper"]
     LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
     SEEN_ON = False
+    BT_ON = False; btrust = None   # body_trust (world on): trust in a sphere's bodies, the People's array
+    TRG_ = np.asarray(L.get("W_TRUST", np.full((L["S"], 2), -1))).reshape(-1, 2)[:L["S"]]   # body_trust's moment gate:
+    TRG_S_ = np.nonzero(TRG_[:, 0] >= 0)[0]                  # (sphere, 0 low / 1 high) per moment (batch.py; -1 none)
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
     SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
@@ -2833,6 +2943,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         SEEN_ON = bool(P.get("seen_done")) and WL.seen_on   # S6, seen it done: felt odds and young dreams (world_people)
         if SEEN_ON:
             SD_DREAM_ = float(WL.PP.sd_par["dream"]); SD_AGES_ = tuple(WL.PP.sd_par["dream_ages"])
+        BT_ON = bool(P.get("body_trust")) and bool(getattr(WL.PP, "bt_on", False))   # finishing pack part 3 (world_people)
+        if BT_ON:
+            import sphere_data as SD_
+            btrust = WL.PP.btrust                          # the People's own array (N x 9, NaN before 15), updated in place
+            BTJ_ = SD_.TRUST["jumps"]; BT_G = SD_.TRUST["gate"]
+            BT_CARE_J = WLM.WK.SPHERES.index("care"); BT_PROT_J = WLM.WK.SPHERES.index("prot"); BT_RULE_J = WLM.WK.SPHERES.index("rule")
+            # an own run-in with a body (finish-pack-draft.md: an unjust verdict, a cure that failed, a heavy hand; a fair
+            # hearing, a cure, help from the watch): a moment set at a body (at:) in that body's sphere, else an illness's
+            # moment in care and a crime's in prot; its act working is the run-in going well, failing going against them
+            at_ = np.asarray(L.get("W_AT", np.full(L["S"], -1)))[:L["S"]]
+            BT_RUN = np.where(at_ >= 0, WLM.PM.BT_INST_J[np.maximum(at_, 0)], -1)
+            BT_RUN = np.where((BT_RUN < 0) & WL.ill_s, BT_CARE_J, BT_RUN)
+            BT_RUN = np.where((BT_RUN < 0) & (WL.rk == WLM.RK.index("crime")), BT_PROT_J, BT_RUN)
+            bt_y = np.full((N, years, len(WLM.WK.SPHERES)), np.nan)   # each life's trust at the end of each year of age
+            if RON:   # the body kind each title is held at (its institution's, or the force's by name; -1 none)
+                _bins = np.asarray(GR.get("institution", np.full(NT_, -1)))[:NT_]
+                BT_TK = np.array([WLM.PM.bt_title_kind(GR["names"][i_], _bins[i_]) for i_ in range(NT_)], np.int64)
+                BT_TI = np.nonzero(BT_TK >= 0)[0]
         if getattr(WL.PP, "family_mix", None) is not None:
             fam = np.array(WL.PP.family_mix, float)
         older_sib = np.asarray(WL.PP.older_sib, int).copy(); younger_sib = np.asarray(WL.PP.younger_sib, int).copy()
@@ -3290,6 +3418,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         dec_ = np.where(dl_at > NEVER // 2, _uclip((t - dl_t0) / np.maximum(dl_at - dl_t0, 1), 0, 1), 0.0) ** DP2_["decline_k"]   # F2: the decline
         lean_ = (w - 0.2) / 0.2                                  # each colour's share above or below even, per .2
         lean_c = lean_ @ BCARE_
+        if BT_ON:   # body_trust: care seeking (1 + the early-care lean) x (.7 + .6 x btrust[care]), read back as the lean
+            bc_ = btrust[:, BT_CARE_J]
+            lean_c = _uclip((1 + _uclip(lean_c, -1, 1)) * np.where(np.isnan(bc_), 1.0, BT_CARE[0] + BT_CARE[1] * bc_) - 1, -1, 1)
         tab_ = np.interp(age, BAGE_X, BAGE_Y)
         dip_f = float(tab_ / BAGE_Y.max()) if BP_["dip_level"] else 1.0
         low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
@@ -3527,6 +3658,82 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     if DR_ON:
         DR_M = np.isin(np.arange(len(L["MARKS"])), [L["MARKS"].index(m_) for m_ in DEED_RARE if m_ in L["MARKS"]])
         dr_rng = np.random.default_rng([int(seed), 1705])
+    # spheres finishing pack, part 4: former inmates as ties (finish-pack-draft.md; sphere_data.DEEP service.after_prison.
+    # tie_values). A release is the week a known term ends (pris_out) or the week [ex-prisoner] comes by its rule with no
+    # term pending. Every release is kept (yrs_out; nothing is drawn); the ties come only with prison_ties and the world
+    # on (People holds them; never for a life under 18, and each fellow inmate is an adult). Its own draws: pt_rng
+    EXP_I = int(GR["ID"].get("ex-prisoner", -1)) if RON else -1
+    pt_rel = np.full(N, NEVER); pt_seen = np.full(N, NEVER)   # the last release; the [ex-prisoner] gain last read
+    pt_act = np.zeros(N, bool)                                # an active former-inmate tie (inmate_tie)
+    PT_ON = bool(P.get("prison_ties")) and WON and RON and getattr(WL.PP, "inmate", None) is not None
+    pt_log = []                                               # the readout: made and ended ties
+    PT_TEST = (P.get("prison_par") or {}).get("test")         # checks only: (age, years) every life serves a term
+    if PT_ON:
+        import sphere_data as SD_, world_keys as WK_, world_people as PM_
+        TV_ = SD_.DEEP["service"]["after_prison"]["tie_values"]; PTP_ = {**DEFAULT["prison_par"], **(P.get("prison_par") or {})}
+        PT_Y = tuple(float(x_) for x_ in TV_["made_y"]); PT_C0 = float(TV_["strength"]); PT_YRS = int(52 * TV_["years"])
+        PT_PULL = np.log(float(TV_["pull_back"]["reoffend"] if PTP_["pull"] is None else PTP_["pull"]))
+        PT_HELP = TV_["help"]; PT_STM = float(PT_HELP["stress_m"])
+        PT_D = -np.log(float(PT_HELP["hiring"])) / 3              # hiring odds x 1.1 as difficulty (odds x exp(-3 x d))
+        se_ = np.asarray(GR["sector"]) if "sector" in GR else np.full(NT_, -1)
+        PT_SEC = np.array([0 <= int(se_[i_]) < len(WK_.SECTORS) and WK_.SECTORS[int(se_[i_])] in PT_HELP["sectors"]
+                           for i_ in range(NT_)] + [False], bool)   # a title's work in farm or industry (-1: no title)
+        PT_JOB = np.nonzero(np.asarray(TK_[:NT_]) == CAR)[0]       # the job titles (steady work: one held a year or more)
+        PT_BL = (L["MARK"] == L["MARKS"].index("broke the law")) if "broke the law" in L["MARKS"] else np.zeros_like(L["MARK"], bool)
+        pt_n = np.zeros(0, np.int64); pt_k = np.zeros(0, np.int64); pt_u = np.zeros(0, np.int64); pt_t = np.zeros(0, np.int64)
+        pt_pull = np.zeros(N, bool)
+        pt_rng = np.random.default_rng([int(seed), 2404])
+
+        def pt_release(ns_, known_):
+            """Part 4: lives ns_ released this week make ties with fellow inmates: years inside (the term, else
+            years_unknown) x uniform(made_y) a year, rounded, at most cap; adults near their age, of their sex (prisons
+            hold men and women apart), at the data's strength, in their People as friends, marked inmate."""
+            nonlocal pt_n, pt_k, pt_u, pt_t
+            PP_ = WL.PP
+            if age < 18:   # never a child
+                return
+            yrs_ = np.where(known_ & (pris_in[ns_] > NEVER), (t - pris_in[ns_]) / 52.0, float(PTP_["years_unknown"]))
+            m_ = np.minimum(np.round(yrs_ * pt_rng.uniform(*PT_Y, len(ns_))).astype(np.int64), int(PTP_["cap"]))
+            nn_ = np.repeat(ns_, m_)
+            if not len(nn_):
+                return
+            ag_ = np.maximum(18.0, age + pt_rng.normal(0, 5, len(nn_)))
+            rng0_ = PP_.rng; PP_.rng = pt_rng   # People's own draws for these people come from the part's stream
+            try:
+                F_ = PP_._gen(nn_, PP_.t - (ag_ * 52).astype(np.int64), PP_.t)
+                F_["fem"] = female[nn_].copy()
+                sl_ = PP_._add(F_, PP_.t, PM_.R["friend"], c0=PT_C0, trust0=0.5, acc0=0.1, quiet=True)
+            finally:
+                PP_.rng = rng0_
+            ok_ = sl_ >= 0; nn_, sl_ = nn_[ok_], sl_[ok_]
+            PP_.inmate[nn_, sl_] = True; PP_.inmate_t[nn_, sl_] = PP_.t
+            uu_ = PP_.uid[nn_, sl_].astype(np.int64)
+            pt_n = np.concatenate([pt_n, nn_]); pt_k = np.concatenate([pt_k, sl_]); pt_u = np.concatenate([pt_u, uu_])
+            pt_t = np.concatenate([pt_t, np.full(len(nn_), t)])
+            pt_log.extend(dict(n=int(n_), t=int(t), other=int(u_), what="made", why="met inside")
+                          for n_, u_ in zip(nn_.tolist(), uu_.tolist()))
+
+        def pt_week():
+            """Part 4, each week: the ties still active (living, still in their People, closeness at or above active,
+            within the 10 years); the ended leave the readout and fade at the usual speed again."""
+            nonlocal pt_n, pt_k, pt_u, pt_t, pt_act
+            PP_ = WL.PP
+            if not len(pt_n):
+                pt_act = np.zeros(N, bool)
+                return
+            here_ = PP_.used[pt_n, pt_k] & (PP_.uid[pt_n, pt_k] == pt_u)
+            live_ = here_ & PP_.lv[pt_n, pt_k]
+            why_ = np.where(dead[pt_n], 4, np.where(~here_, 2, np.where(~live_, 1, np.where(t - pt_t >= PT_YRS, 3,
+                            np.where(PP_.c[pt_n, pt_k] < PTP_["active"], 0, -1)))))
+            end_ = why_ >= 0
+            if end_.any():
+                WHY_ = ("faded", "died", "gone", "ten years", "life ended")
+                pt_log.extend(dict(n=int(n_), t=int(t), other=int(u_), what="ended", why=WHY_[w_])
+                              for n_, u_, w_ in zip(pt_n[end_].tolist(), pt_u[end_].tolist(), why_[end_].tolist()))
+                hk_ = end_ & here_
+                PP_.inmate[pt_n[hk_], pt_k[hk_]] = False
+                keep_ = ~end_; pt_n, pt_k, pt_u, pt_t = pt_n[keep_], pt_k[keep_], pt_u[keep_], pt_t[keep_]
+            pt_act = np.zeros(N, bool); pt_act[pt_n] = True
     if P["mind_kid"] is not None:                         # F19
         MK_A, MK_F = np.asarray(P["mind_kid"], float).T
     if P["mind_u"] is not None:
@@ -3615,7 +3822,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 dl_t0, dl_cause, bd_cw, bd_ck, bd_sk, HM_ON, DTH_ON, settle_f, e_i, e_p, wfx, option_causes,
                 ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
-                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise)
+                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()
@@ -3650,6 +3857,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if RON and len(W_SDI_):   # each domain's standing from the titles held (one level 0-3 per domain)
                 st_t_ = r_has[:, W_SDI_] * W_STD_[W_SDI_]
                 dst_w = np.stack([np.where(W_SDOM_ == d_, st_t_, 0).max(1) for d_ in range(len(WLM.WK.DOMAINS))], 1)
+            if BT_ON and RON and len(BT_TI):   # body_trust: the body each life holds a job at (a year there lifts its trust)
+                WL.PP.bt_kind[:] = np.where(r_has[:, BT_TI], BT_TK[BT_TI][None], -1).max(1)
             WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
                             partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
@@ -3684,6 +3893,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             else:
                 WL.drain()
         if t % record_every == 0:
+            if GG_ON:
+                grey_y.append(WL.W.sph_grey()[np.asarray(WL.PP.loc)].astype(np.float32))
             W_hist.append(w.copy()); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
             R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
             if DOM_ON:
@@ -3720,6 +3931,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     dy_ = dy_ - UP_DEC * up_oy
                 up_oy += dy_
                 y = y + dy_; asrc[:, 1] += dy_
+        if EP_ON:
+            ep_now[:] = -1   # no return yet this week (set after the situation pause, read from the choose pause on)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             _ = yield Pause("week", t, pz_st, None)
@@ -3748,7 +3961,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             ns = cond_ns(t, age, w)
             memo_ = {}   # speed pass: within this month a condition's text gives the same answer (none draws chance here)
             for c_ in L["COND"]:
-                if c_["kind"] == 2:
+                if c_["kind"] in (2, 4):   # an echo comes through its anchor, a return moment only as a pick's return
                     continue
                 cond_ok[:, c_["s"]] = ev_memo(c_["req"], ns, memo_)
                 cond_fac[:, c_["s"]] = factor(c_, ns, memo_) * P["inner_w"] if c_["kind"] == 1 else factor(c_, ns, memo_)
@@ -3792,6 +4005,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             gate = gate & cond_ok & ~once_done[:, ROOT]
             if SH_ON:
                 gate[:, SH_I] &= SH_EL
+            if INMS_ON_:   # part 4: open only with an active former-inmate tie
+                gate[:, INMS_] &= pt_act[:, None]
             if RON:   # a moment only someone holding a title or perk meets (a nurse's night shift): any of its holds:, and
                 # with tenure: only while one of them has been held that many years (Emren's point 6: new, settled, senior)
                 if HOLDS_.size:
@@ -3817,6 +4032,12 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if BORN_S_ >= 0:   # F7: the moment a child is born is a birth, at least a year after the last one
                 gate[:, BORN_S_] &= (t - kid_last) >= 52
             gate[:, INNER_] &= (t - sit_last[:, INNER_]) >= P["inner_gap"]
+            if len(TRG_S_):   # body_trust's gate (trust: <sphere> low|high): under the gate's low or over its high; never
+                if BT_ON:      # with body_trust off or the world off, or before the life's trust starts at 15
+                    f_ = btrust[:, TRG_[TRG_S_, 0]]
+                    gate[:, TRG_S_] &= np.where(TRG_[TRG_S_, 1] == 0, f_ < BT_G["low"], f_ > BT_G["high"])
+                else:
+                    gate[:, TRG_S_] = False
             if SEA_ON:
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
@@ -3834,6 +4055,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             aff[:, EYEW_] = 0.0
         if LEADS_ON_:   # lead_ways (S7): a post's moment comes only with the post (forced), never by the everyday draw
             aff[:, LEADS_] = 0.0
+        if PTW_ON_:   # place_turnover: a place moment comes only with its closing or opening (forced)
+            aff[:, PTW_] = 0.0
         if WO_ON:   # F10: a world moment only on the world's event; one waiting for the world keeps its gap:
             aff[:, WMZ_] = 0.0
             if len(WG_I):
@@ -3953,6 +4176,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ev_p[:, LEADS_] = 0.0
             if SACS_ON_:
                 ev_p[:, SACS_] = 0.0
+            if PTW_ON_:
+                ev_p[:, PTW_] = 0.0
             if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
                 bk_ = np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)
                 if P["risk_norm"]:   # F9: the risks choose who, the Library's rates how many (the living's mean is 1)
@@ -4059,6 +4284,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ie_ = np.nonzero(has_e)[0]
                 s[ie_] = ECH_S[e_pick[ie_]]
                 echo_anchor[ie_, e_pick[ie_]] = NEVER; echo_ready[ie_, e_pick[ie_]] = False
+                if EP_ON:
+                    ech_now[ie_] = e_pick[ie_]
+        if EP_ON:
+            s_ep = s.copy()   # a threshold season's step this week keeps its week (no return over it)
         sea_tr = np.zeros(N, bool)
         if SEA_AGE_ON:   # a stage's season not yet opened by its rite comes at its age (waiting for a running season to end)
             for k_ in SEA_KS:
@@ -4107,6 +4336,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     sea_tr[n] = TH_TR[s[n]]
                 if sea_done[n].all():
                     sea_k[n] = -1
+        if EP_ON:   # picks come back: a due seed's return, or an ordinary echo of its kind told as its return
+            ep_return(s, s_ep)
+            ech_now[:] = -1
         # a commitment that no longer fits what the person wants, and keeps disappointing, comes up for reconsideration
         a_now = softmax(y)
         misfit = _uclip(1 - 5 * (prof * a_now[:, None, :]).sum(-1), 0, 1)   # wanting what it stands for less than an even share
@@ -4118,6 +4350,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         rk = np.where(hit.any(1), np.argmax(np.where(hit, p_re, -1.0), 1), -1)
         recon = rk >= 0
         s = np.where(recon, L["RECON"], s)
+        if EP_ON and (recon & (ep_now >= 0)).any():   # reconsidering takes the week: the seed waits for another
+            for n in np.nonzero(recon & (ep_now >= 0))[0]:
+                sd_ = ep_seeds[ep_now[n]]; sd_["done"] = sd_["got"] = None; ep_now[n] = -1
         sit_n[np.arange(N), s] += 1                              # how often each situation came up in each life
         m = L["M"][s]; e = Eeff[s]; e0 = L["E"][s]; diff = L["DIFF"][s]; mask = L["MASK"][s]
         stakes = L["STAKES"][s]; alpha = L["ALPHA"][s]; oid = L["OID"][s]
@@ -4211,6 +4446,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     diff = diff + jo_ * (vet_[:, None] * np.where(pr_, SV_D[0], SV_D[1]) + rec_[:, None] * SV_D[2])
                     br_ = (brec > NEVER) & (t - brec < 7 * YR_)   # a bank's record: hiring a little harder
                     diff = diff + jo_ * (br_[:, None] * DB_D)
+            if PT_ON and pt_act.any():   # part 4: a job lead through a former inmate: hiring x 1.1 in farm and industry work
+                diff = diff + (WL.job_o[s] & PT_SEC[np.where(GR["A_TITLE"][s] >= 0, GR["A_TITLE"][s], NT_)]) * (pt_act[:, None] * PT_D)
         if BAT and CLU_ON:
             diff = diff + P["closed_diff"] * clu_
         elif BAT:   # closed by law, approval or means: still pickable, but harder
@@ -4283,6 +4520,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         p_hat = np.where(do_nothing, 0.5, p_hat * lackf)   # lacking: the felt odds see it too
         if SEEN_ON:   # S6: a path or colour way seen walked feels more possible, one seen failing less (felt odds only)
             p_hat = WL.seen_felt(p_hat, s, m, ~do_nothing, mask)
+            if BT_ON:   # body_trust: a pursuit in a sphere's bodies feels likelier with trust in them (felt odds only)
+                p_hat = WL.trust_felt(p_hat, s, ~do_nothing)
         H = np.einsum("nkc,nc->nk", m, habit)             # habit is a pull toward familiar ways of acting
         lack = nimp * np.maximum(0, P["need_set"] - need) / P["need_set"] + P["duty_w"] * np.minimum(1, (held * I) @ DUTY)   # N,J
         serves = np.einsum("njc,nkc->nkj", NMP, np.maximum(e, 0)) if NM_ON else \
@@ -4332,6 +4571,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if P.get("sph_fair"):   # spheres phase 4: felt fairness tilts exit, neglect and subvert against voice and loyalty
                 fU_ = WL.fair_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # log odds x the choice's tau
                 U_R = U_R + fU_; U_I = U_I + fU_
+            if BT_ON:   # body_trust: low trust in a sphere's bodies tilts exit and neglect (and subvert) against voice, high
+                bU_ = WL.trust_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]   # trust voice and loyalty (log odds x tau)
+                U_R = U_R + bU_; U_I = U_I + bU_
             if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
                 oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
                 U_R = U_R + oU_; U_I = U_I + oU_
@@ -4342,6 +4584,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         U = ctrl[:, None] * U_R + (1 - ctrl[:, None]) * U_I
         if DC_ON:   # F17: an option that leaves a deed leans by that deed's canon colours (log odds x the choice's tau)
             U = U + P["deed_canon"] * np.einsum("nkc,nc->nk", DC_L[s], 5 * w - 1) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+        if PT_ON and pt_pull.any():   # part 4: the pull back: options that break the law x 1.2 (log odds x the choice's tau)
+            U = U + PT_PULL * (pt_pull[:, None] & PT_BL[s]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = pr0 = softmax(np.where(seen, U / tau[:, None], -np.inf))
@@ -4401,6 +4645,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             p_true = yield Pause("odds", t, pz_st, p_true)
             pz_st._fr = None
         succ = rng.random(N) < p_true
+        if BT_ON:   # body_trust: an own run-in with a body this week, gone well (good) or against them (bad)
+            ri_ = ~idle & ~recon & ~dead & (BT_RUN[s] >= 0)
+            for j_ in np.unique(BT_RUN[s][ri_]).tolist():
+                WL.PP.bt_jump(np.nonzero(ri_ & succ & (BT_RUN[s] == j_))[0], j_, BTJ_["own_run_in_good"], "good")
+                WL.PP.bt_jump(np.nonzero(ri_ & ~succ & (BT_RUN[s] == j_))[0], j_, BTJ_["own_run_in_bad"], "bad")
         if SHON:   # a shadow shows: an act in the ruling colour's own ways fails while its shadow is strong (check 5)
             shw_ = (ma * shA)
             for n in np.nonzero(~succ & ~idle & (shw_.max(1) > 0.3))[0]:
@@ -4914,12 +5163,16 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             r_gain(n, GR["ID"]["has taken a life"], "took a life")
                         if caught_ and EYES_ON_:   # S3: a crime found out, read by their places in the act's colours
                             WL.PP.eyes_see([n], ma[n][None], [0.0], "crime")
+                        if caught_ and BT_ON:   # body_trust: an arrest and a verdict, a run-in gone against them
+                            for j_ in (BT_PROT_J, BT_RULE_J):
+                                WL.PP.bt_jump(n, j_, BTJ_["own_run_in_bad"], "bad")
                         if caught_:
                             if "someone with a record" in GR["ID"]:
                                 r_gain(n, GR["ID"]["someone with a record"], "arrested")
                             if held[n, CAR]:
                                 end([n], [CAR], "lost job", t)
                             pris_out[n] = t + int(52 * rid.uniform(*P["kill_prison"]))
+                            pris_in[n] = t
                         if n in events:
                             events[n].append(dict(killed=dict(age=round(age, 2), role=ROLES[r_] if r_ >= 0 else "someone",
                                                               through=L["labels"][s[n]][a[n]], caught=caught_)))
@@ -4999,6 +5252,18 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             came_o[n] = True
                 for n, j_ in zip(hm_, jj_):
                     mark_log.append((int(n), t, int(j_), bool(succ[n])))
+            if EP_ON and P["echo_asked"]:   # picks come back: an asked pick's mark (as left) and back: plant seeds
+                P["echo_asked"] = False
+                left_ = set(hm_.tolist())
+                for n in np.nonzero(~idle & live_)[0]:
+                    nt_ = L["notes"][s[n]][a[n]] if a[n] < len(L["notes"][s[n]]) else {}
+                    ks_ = [(L["MARKS"][mk_[n]], "mark")] if n in left_ else []
+                    if str(nt_.get("back") or "").strip() and str(nt_["back"]).strip() not in [k_ for k_, _ in ks_]:
+                        ks_.append((str(nt_["back"]).strip(), "back"))
+                    for k_, src_ in ks_:
+                        due_ = t + int(round(ep_rng.uniform(*EPP["delay"]) * 52)) if ep_rng.random() < EPP["p"] else None
+                        ep_seeds.append(dict(n=int(n), t=t, kind=k_, src=src_, s=int(s[n]), a=int(a[n]), ok=bool(succ[n]),
+                                             due=due_, done=None, got=None))
                     if n in events:
                         events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
             # moves: the family moves, or the person moves away or leaves home (and it works)
@@ -5819,6 +6084,24 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             for n in np.nonzero(pris_out == t)[0]:
                 if "ex-prisoner" in GR["ID"]:
                     r_gain(n, GR["ID"]["ex-prisoner"], "released")
+        if PT_TEST is not None and t == int(round(52 * PT_TEST[0])):   # part 4's checks: every living life starts a term
+            pris_in = np.where(dead, pris_in, t); pris_out = np.where(dead, pris_out, t + int(round(52 * PT_TEST[1])))
+        if EXP_I >= 0:   # part 4: this week's releases: a known term's end, or [ex-prisoner] by its rule with no term pending
+            rk_ = pris_out == t
+            rr_ = r_has[:, EXP_I] & (r_since[:, EXP_I] != pt_seen) & ~rk_ & ~(pris_out > t)
+            pt_seen = np.where(r_has[:, EXP_I], r_since[:, EXP_I], pt_seen)
+            rel_ = (rk_ | rr_) & ~dead
+            if rel_.any():
+                pt_rel = np.where(rel_, t, pt_rel)
+                if PT_ON:
+                    pt_release(np.nonzero(rel_)[0], rk_[rel_])
+        if PT_ON:   # the ties still active; the pull back while their lead colour's shadow part is over .5 (shadow) and they hold
+            pt_week()   # neither a partner nor steady work (a job a year or more: Sampson and Laub 1993)
+            sw_ = (r_has[:, PT_JOB] & (t - r_since[:, PT_JOB] >= 52)).any(1) if len(PT_JOB) else np.zeros(N, bool)
+            pt_pull = ((pt_act & (shS[ar, np.argmax(w, 1)] > PTP_["shadow"]) & ~held[:, PAR] & ~sw_) if SHON
+                       else np.zeros(N, bool))
+            if t % 4 == 0:   # shared understanding: stress -.01 a month in the first year out
+                stress += PT_STM * (pt_act & (t - pt_rel < 52) & (pt_rel > NEVER))
 
         # ---- 5. integrate. Plasticity belongs to the life stage
         if P["tw_trans"]:   # a turning point this week opens a window (see tw_trans)
@@ -6100,6 +6383,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             brk_log.append((int(n), t, rec))
             if n in events:
                 events[n].append(dict(breakthrough=rec))
+        if BT_ON and t % 52 == 51:   # body_trust: each life's trust at the end of the year of age (NaN before 15 and once ended)
+            bt_y[:, t // 52] = np.where(dead[:, None], np.nan, btrust)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             _ = yield Pause("end", t, pz_st, None)
@@ -6108,7 +6393,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
     wout = WL.output(log_lives) if WON else None           # the outer world for the game (world-build.md, "Game data")
-    return dict(world=wout, w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
+    pt_out = {}
+    if WON and getattr(WL.PP, "pt_on", False):   # place_turnover (only when on): the world's closings and openings (pt_log,
+        ptl_ = np.zeros((N, int(years)), np.int64)   # burn-in included, q in the world's quarters) and how many of each
+        for n_, t_ in WL.PP.pt_hits:                 # life's haunts closed in each year of the run
+            y_ = (int(t_) - WL.t0) // 52
+            if 0 <= y_ < int(years):
+                ptl_[n_, y_] += 1
+        pt_out = dict(place_turnover=list(getattr(WL.W, "pt_log", None) or []), pt_lives=ptl_)
+    return dict(world=wout, **(dict(grey_y=np.stack(grey_y, 1)) if GG_ON and grey_y else {}), w=softmax(z), z=z, k=k, y=y, a=softmax(y), gates=gates, M=M, J=J, sig=sig, need=need, chan=chan, conv=conv_log,
                 rites=rite_log, W_hist=np.array(W_hist), M_hist=np.array(M_hist), S_hist=np.array(S_hist),
                 events=events, nic=nic, D=D, stage=stage, A_hist=np.array(A_hist),
                 R_hist=np.array(R_hist), K_hist=np.array(K_hist), commits=commit_log, **({"births": birth_log} if (P["birth_free"] or P["birth_par"] is not None) else {}),
@@ -6120,7 +6413,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                 invested=gi, born=gb, due=gh, horizon=ghz, source=gsrc, trigger=gtrig, felt=gfelt,
                                                 chance=gch, p_step=gph, by_player=gby, id=gid, aims=gtt,
                                                 lost=dict(mix=lost_m, domain=lost_d, strength=lost_s, age=lost_t, on=lost_on, id=lost_id)),
-                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive,
+                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive, **(dict(returns=ep_seeds) if EP_ON else {}),
                 read_log=read_log, read_names=[e_["name"] for e_ in EVR], widowed=widowed, seasons=sea_log,
                 identity=dict(female=female, attr=attr, unease=unease, gender_self=gender_self, intersex=intersex, ace=ace,
                               **(dict(named=named_g, came_out=came_o, partner_same=partner_same, role_fit=1 - rfit_avg,
@@ -6136,6 +6429,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 adjectives=dict(names=ADJ_NAMES[:NA_OUT], say=ADJ_SAY[:NA_OUT], has=adj[:, :NA_OUT], since=adj_since[:, :NA_OUT],
                                 log=adj_log),   # with shadows off, without the shadow states (never held then)
                 **(dict(asked=asked) if CU_ON else {}),
+                **(dict(btrust=btrust.copy(), btrust_y=bt_y) if BT_ON else {}),
+                **(dict(prison_ties=pt_log) if P.get("prison_ties") else {}),   # part 4: ties made and ended (switch on only)
                 **(dict(current=cur_sum) if CUR_ON else {}),
                 **(dict(body=dict(body=body_v, mind=mind_v, conditions=dict(weight=bd_cw, kind=bd_ck, age=bd_ca, kinds=COND_KINDS),
                                   serious=dict(kind=bd_sk, since=bd_s0, until=bd_s1, kinds=SER_KINDS), kept=bd_keep,
@@ -6145,7 +6440,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 **(dict(shadows=dict(states=SH_STATES, part=shS, force=shA, sources=sh_src, seen=sh_seen, last_seen=sh_rt,
                                      shown=sh_n, log=sh_log)) if SHON else {}),
                 **(dict(areas=dict(names=AREAS, offsets=Dz, hist=D_hist,   # each area's colors are softmax(core z + offset)
-                                   colors=softmax(z[:, None, :] + Dz, -1))) if DOM_ON else {}))
+                                   colors=softmax(z[:, None, :] + Dz, -1))) if DOM_ON else {}), **pt_out)
 
 
 # ---------- pause points (backend plan item 2, 2026-10-08): the game's own way into the weekly loop
@@ -6206,8 +6501,10 @@ STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_le
 # names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
-# and tools/t_steps.py's (this week's drift, at drift_k 0)
-STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise")
+# and tools/t_steps.py's (this week's drift, at drift_k 0) and the game's picks come back (echo_play: the seeds, and the
+# seed whose return is this week's moment, -1 for none)
+STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise", "ep_seeds", "ep_now",
+              "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
 
