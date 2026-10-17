@@ -228,20 +228,27 @@ class VoiceMixin:
 
     def _ret_line(self, ret, age):
         """Picks come back: the line a return opens on (the earlier pick and how long ago) and, for the hover, that
-        moment and how it went. The Library's opener for the mark and the side (RETURN_OPEN) when it has one, else
-        built-in words."""
+        moment and how it went. The Library's opener for the seed's kind and side (earth_story THREAD["seed"], or
+        THREAD["seed_alone"] for a seed with no person; hover THREAD_HOVER["seed"]) when it has one, else built-in words."""
         yrs = int(age - ret["age"])
         did = chooses(act(plain(ret["act"]))).rstrip(".")
-        when = "A year ago" if yrs < 2 else f"{_num_word(yrs).capitalize()} years ago"
+        years = "a year" if yrs < 2 else f"{_num_word(yrs)} years"
         side = "well" if ret["ok"] else "badly"
         how = "you pushed it" if ret.get("pushed") else "they chose it themselves"
         went = "" if ret["ok"] is None else ", and it worked" if ret["ok"] else ", and it went badly"
         why = f"At {int(ret['age'])}, at “{ret['moment']}”, they chose {did} ({how}){went}. What happens now leans on how that went."
-        O = (getattr(ES, "RETURN_OPEN", None) or {}).get(ret.get("kind")) or {}
-        line = O.get(side) or f"{when}, at “{ret['moment']}”, {{N}} chose {did}."
-        who = self.story.say(ret["who"]) if ret.get("who") else "someone"
-        line = line.replace("{years}", _num_word(yrs)).replace("{who}", who).replace("{did}", did)
-        return dict(line=self.story.fill(line), cause=why, age=ret["age"], key="seed")
+        T = getattr(ES, "THREAD", None) or {}; H = getattr(ES, "THREAD_HOVER", None) or {}
+        line = (T.get("seed") if ret.get("who") else T.get("seed_alone") or {}) or {}
+        line = line.get(ret.get("kind")) or ""
+        line = line.get(side, "") if isinstance(line, dict) else line
+        hover = H.get("seed") or ""
+        hover = hover.get(side, "") if isinstance(hover, dict) else hover
+        if not line:
+            line = f"{years[:1].upper() + years[1:]} ago, at “{ret['moment']}”, {{N}} chose {did}."
+        fills = dict(who=self.story.say(ret["who"]) if ret.get("who") else "someone", years=years, age=str(int(ret["age"])), act=did)
+        for f_, v_ in fills.items():
+            line, hover = line.replace("{" + f_ + "}", v_), hover.replace("{" + f_ + "}", v_)
+        return dict(line=self.story.fill(line), cause=(self.story.fill(hover) + " " if hover else "") + why, age=ret["age"], key="seed")
 
     def _thread_of(self, loc, s):
         """5.6 and F5: whether moment s follows from this life's own threads (it needs a title or perk they hold, an

@@ -8,7 +8,7 @@ from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, DRIVER_WORD, E, EP, FREQ
     act, chooses, ident_name, letters, lever_info, mk, need_level_word, push_words, res_names, role_info, world_says)
 from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with,
     clean, hint, long_shot_words, reluctance)
-from story_base import LIB_ECHO, PERSON_SLOTS
+from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
 
 
 class CheckpointsMixin:
@@ -534,13 +534,14 @@ class CheckpointsMixin:
                 self._threads[("g", gid)] = dict(cause, key="plan" if g["kind"] == "plan" else "dream", goal=nm, what=THREAD_GOAL[g["kind"]])
 
     # ------------------------------------------------------------------ Picks come back (GAME returns)
-    def _seed_pick(self, cpw, new, age):
-        """An asked pick is kept by its week (the moment, the way, how it went, the age; the person once its outcome is
-        told): the Engine's seed queue names a seed by that week."""
+    def _seed_pick(self, cpw, new, m, age):
+        """An asked pick is kept by its week (the moment, the way, how it went, the age, the person in its scene): the
+        Engine's seed list (ep_seeds) names a seed by that week."""
         o = cpw["cp"]["by_idx"][cpw["choice"]]
         ok = next((bool(ev["success"]) for ev in new if "situation" in ev), None)
+        who = next((m["ctx"]["_p_" + sl] for sl in PERSON_SLOTS if m is not None and m["ctx"].get("_p_" + sl) is not None), None)
         self._picks[int(self.t)] = dict(t=int(self.t), age=round(age, 1), moment=cpw["cp"]["title"], act=o["label"], ok=ok,
-                                        who=None, pushed=cpw["choice"] != cpw["own"])
+                                        who=who, pushed=cpw["choice"] != cpw["own"])
 
     def _seed_mark(self, mark, m):
         """This week's asked pick left a mark: the person in its scene (as the story's mark keeps them, after the outcome
@@ -553,23 +554,24 @@ class CheckpointsMixin:
         self._seeds.append(dict(pick, kind=mark))
 
     def _return_of(self, loc, s):
-        """The seed this week's moment answers, or None. The Engine's hook names it in its seed queue (ret_seed, seed_t,
-        seed_kind, seed_ok); without the hook, a moment that echoes a mark (the Library's echo:) answers this life's
-        oldest seed of that mark not yet come back, ret_gap weeks or more after its pick."""
-        if "ret_seed" in loc:
-            k = int(np.asarray(loc["ret_seed"]).ravel()[0])
-            if k < 0:
+        """The seed this week's moment answers, or None. The Engine's hook (echo_play) names it: ep_now, an index into
+        ep_seeds (dicts: t the pick's week, kind, src, ok, due, done, got). Without the hook, a moment that echoes a mark
+        (the Library's echo:) answers this life's oldest seed of that mark not yet come back, ret_gap weeks or more after
+        its pick."""
+        if "ep_now" in loc:
+            k = int(np.asarray(loc["ep_now"]).ravel()[0])
+            if k < 0 or k >= len(loc.get("ep_seeds") or ()):
                 return None
-            pick = self._picks.get(int(np.asarray(loc["seed_t"])[0, k]))
-            if pick is None:                            # a pick from before the player came in, or not the player's
+            sd = loc["ep_seeds"][k]
+            pick = self._picks.get(int(sd["t"]))
+            if pick is None:                            # a pick the game did not keep: told as an ordinary moment
                 return None
-            kd = loc["seed_kind"][0][k]
-            return dict(pick, kind=kd if isinstance(kd, str) else str(int(kd)), ok=bool(np.asarray(loc["seed_ok"])[0, k]), k=k)
+            return dict(pick, kind=sd["kind"], ok=bool(sd["ok"]), k=k)
         mark = LIB_ECHO.get(self.L["names"][s])
         if not mark:
             return None
         return next((x for x in self._seeds if x["kind"] == mark and "came" not in x and self.t - x["t"] >= GAME["ret_gap"]
-                     and (x["who"] is None or x["who"]["alive"])), None)   # the dead come back as a memory: the Library's scenes
+                     and (x["who"] is None or x["who"]["alive"] or self.L["names"][s] in LIB_GONE)), None)   # the dead: a memory
 
     def _seed_view(self, ret, m, opts):
         """Release's proof rows (chroma-release/check_picks.py): the seed a return answers, as its ask carries it. now:
@@ -577,6 +579,8 @@ class CheckpointsMixin:
         the change to the return's odds, the mean over its ways."""
         p = ret.get("who")
         now = next((m["ctx"]["_p_" + sl]["id"] for sl in PERSON_SLOTS if m["ctx"].get("_p_" + sl) is not None), None)
+        if now is not None and m["ctx"].get("_gone"):
+            now = f"memory:{now}"                       # the seed's person remembered (the Library's scenes_gone)
         tau = 0.0 if ret["ok"] is None else GAME["ret_tilt"] if ret["ok"] else -GAME["ret_tilt"]
         pt = np.clip([o["true"] for o in opts if o["colors"] != "-"], 1e-6, 1 - 1e-6)
         dp = 1 / (1 + np.exp(-(np.log(pt / (1 - pt)) + tau))) - pt
@@ -585,8 +589,8 @@ class CheckpointsMixin:
                     now=now, tilt=round(float(dp.mean()), 4) if len(dp) else 0.0)
 
     def _ret_due(self, loc):
-        """Whether a return is due this week (the Engine's seed queue: state 1); never without the hook."""
-        return "seed_state" in loc and bool((np.asarray(loc["seed_state"])[0] == 1).any())
+        """Whether a seed is due and waiting (the Engine's ep_seeds); never without the hook."""
+        return any(x["done"] is None and x["due"] is not None and self.t >= x["due"] for x in loc.get("ep_seeds") or ())
 
     def _ret_came(self, cpw, ev, age):
         """A return was played: the seed has come back. Kept for the Book's pair and the song, and the outcome card's

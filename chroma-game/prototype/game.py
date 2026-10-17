@@ -419,6 +419,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
         if g_ is not None:
             self.history["gift"].append(g_)
         self._cp_week = dict(cp=cp, choice=choice, own=own)
+        if GAME["returns"] and self.loc is not None and "P" in self.loc:
+            self.loc["P"]["echo_asked"] = True          # Picks come back: the engine plants this asked pick's seeds
         if GAME["own_ix"] and lt and choice == own:     # S2: the light steer kept their own pick
             self._cp_week["lean"] = lt["color"]
         if self.loc is not None and "P" in self.loc:   # item 4: the week of a pick counts whole (own lesson, drift, outside)

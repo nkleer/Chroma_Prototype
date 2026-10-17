@@ -326,7 +326,7 @@ class LifeMixin:
         if cpw is not None and age >= self.start_age:
             self._mark_threads(cpw, new, GR, age)
             if GAME["returns"]:
-                self._seed_pick(cpw, new, age)          # Picks come back: the pick, by its week
+                self._seed_pick(cpw, new, m, age)       # Picks come back: the pick, by its week
         if age >= self.start_age:
             self._world_effects(t, loc)               # WL1, WL5: what the world changed of theirs this week     # F5: what the pick started, for the moments that follow from it
         for ev in sev + [ev for ev in new if "situation" not in ev]:     # the moment first, then what followed from it
