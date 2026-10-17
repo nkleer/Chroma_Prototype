@@ -1,5 +1,5 @@
 # ripgrep's ignore file: keeps generated files and exact copies out of searches (rg and Claude Code's Grep tool honour
-# it; git does not). The files stay in the repository. CLAUDE.md lists what makes each one.
+# it; git does not). The files stay where they are. CLAUDE.md lists what makes each one.
 chroma-game/prototype/engine_pin/
 chroma-game/prototype/web/index.html
 chroma-game/prototype/web/page.html
@@ -14,3 +14,11 @@ chroma-library/earth_stage.py
 chroma-art/game/lights.json
 chroma-art/game/pics/
 *.webp
+# In the shared folder (/mnt/project-files, where tools/mirror.py copies this file): run outputs, archives and the old
+# game copies kept as rollbacks (each is also a release/ branch). Search them by naming the folder with
+# rg --no-ignore <folder>.
+chroma-release/out/
+chroma-engine/runs/
+_archive/
+chroma-game/prototype-v22/
+chroma-game/prototype-v22.1/

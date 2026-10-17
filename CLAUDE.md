@@ -27,7 +27,9 @@ Every folder is named once in `chroma-env/paths.py`; scripts import it rather th
 ## Files you never open whole
 
 Generated or copied, never edited by hand. `.claude/settings.json` blocks reading the first five and the pictures;
-`.ignore` keeps all of them out of searches (`rg` and the Grep tool honour it; `grep -r` does not, so use `rg`).
+`.ignore` keeps all of them out of searches (`rg` and the Grep tool honour it; `grep -r` does not, so use `rg`), and
+`.gitattributes` keeps their text out of `git diff`, `git show` and `git log -p`. In the shared folder, `.ignore` also
+hides the run outputs, `_archive/` and the old game copies; search one of those with `rg --no-ignore <folder>`.
 
 | File | Size | Made by |
 |---|---|---|
@@ -50,7 +52,7 @@ The Library's other `.py` files (`earth_story.py`, `earth_spheres.py`, `earth_vo
   `chroma-game/prototype/web/src/app.js` (2,859), `chroma-game/prototype/story.py` (1,692),
   `chroma-game/prototype/web/src/head.html` (1,593, one `<style>` block). The game layer is split into files of 430 to
   960 lines (`chroma-game/CLAUDE.md`).
-- `chroma-game/prototype/README.md` is 60 KB of history. Read the section you need (`rg -n '^#' README.md`), not all.
+- `chroma-game/prototype/HISTORY.md` is 60 KB of history. Read the section you need (`rg -n '^#' HISTORY.md`), not all.
 - Notes, plans, specs and run outputs live in the shared folder (`/mnt/project-files`), not here. Start from
   `chroma-env/MAP.md` there.
 
