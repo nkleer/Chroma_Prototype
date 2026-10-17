@@ -40,7 +40,7 @@ targets (all on preset 1, modern Earth; whole lives come from one shared set: le
                 read agreed 2026-10-09)
   voice_lines   every voice line (story lines, answers, outcomes) at most 25 words, with no color named
   voice_year    each year's chapter keeps at most one voice line
-  own_even      S2 (needs own_ix on, CHROMA_GAME='{"own_ix": true}' before the v22.4 refit): a light steer toward one color
+  own_even      S2 (needs own_ix on: CHROMA_GAME=pack, the spheres finishing pack's part 1): a light steer toward one color
                 at every moment (light:<C>, 12 seeds, to 41) makes that way "theirs" in about the same years for every
                 color: the mean age at the step (preset 1 starts at birth; a life that has not reached it by 40 counts 40),
                 highest color over lowest at most 1.2
@@ -286,7 +286,7 @@ def target(t, R):
         ok = worst <= 1
     elif t == "own_even":
         if not any(r["own_ix"] or any(r["ix"]) for r in rs):
-            say("no way moved toward theirs: own_ix is off (run with CHROMA_GAME='{\"own_ix\": true}')")
+            say("no way moved toward theirs: own_ix is off (run with CHROMA_GAME=pack)")
         else:
             yrs = {}
             for c in "WUBRG":

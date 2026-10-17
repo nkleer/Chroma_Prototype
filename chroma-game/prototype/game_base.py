@@ -241,9 +241,15 @@ V225 = dict(world_hold=True, world_seed=True, faith_home=1.0, line_wait=5.0, new
             dream_help=1.0, rare_ask=True, rare_imp=0.5)
 V225_OFF = {k: GAME[k] for k in V225}
 GAME.update(V225)
-if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224" or settings as JSON
+# The spheres finishing pack (chroma-world/spheres/finish-pack-draft.md; Emren chose "Parts 1 to 5" 10-17 02:03 UTC), the
+# game's part 1: S2, making it their own (own_ix), with the values above. Off, like the Engine's parts 2 to 5, until the
+# pack's joint refit tunes and switches them on together; CHROMA_GAME="pack" plays a life with it on (the steered row own_even)
+PACK = dict(own_ix=True)
+PACK_OFF = {k: GAME[k] for k in PACK}
+if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack" or settings as JSON
     import json as _json
-    GAME.update({"off": GAME_OFF, "v224": V225_OFF}.get(os.environ["CHROMA_GAME"]) or _json.loads(os.environ["CHROMA_GAME"]))
+    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
+                or _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
 # (upper-case keys set the pinned batch.py's flags instead, before the Earth library loads: {"FAR_MOMENTS": true})
