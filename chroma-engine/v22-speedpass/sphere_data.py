@@ -6368,8 +6368,12 @@ DEEP = {'care_hours': {'partner': 20.0, 'parent': 12.0, 'parent_in_law': 8.0, 'g
                                              'pull_back': {'reoffend': 1.2,
                                                            'while': 'the tie is active and their way leans to its '
                                                                     'shadow side',
-                                                           'ends': 'a partner or steady work (Sampson and Laub '
-                                                                   '1993)'},
+                                                           'ends': 'a partner or steady work (Sampson and Laub 1993)',
+                                                           'shadow_gate': 0.3,
+                                                           'gate_note': "v22.6 refit: their lead colour's shadow "
+                                                                        'part .3 or more (engine prison_par.shadow); '
+                                                                        'W4 1.49 ties a year inside, none past 10 '
+                                                                        'years'},
                                              'help': {'hiring': 1.1,
                                                       'sectors': ['farm', 'industry'],
                                                       'stress_m': -0.01,
