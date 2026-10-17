@@ -7,8 +7,9 @@ refuses its files. This file sits one level above it so the build never copies i
 ## Where things are (`prototype/`)
 
 Each Game mixin module imports the module names its methods read (from `game_base` and `game_words`), so a method
-moves between files without changing what it does. A new game-side file must also go in `web/worker.js` `SOURCES`;
-`test/smoke.py` fails when one is missing.
+moves between files without changing what it does. `story.py` is split the same way (`story_base` and four Story
+mixins). To find a method: `rg -n 'def name' chroma-game/prototype/game*.py chroma-game/prototype/story*.py`. A new
+game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails when one is missing.
 
 | File | Lines | What |
 |---|---|---|
@@ -22,7 +23,12 @@ moves between files without changing what it does. A new game-side file must als
 | `game_voice.py` | 630 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
 | `game_life.py` | 779 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
 | `game_views.py` | 883 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
-| `story.py` | 1,692 | the story layer: class `Story` and its code |
+| `story.py` | 126 | the story layer: class `Story`, its core (`__init__`, `new`, `alive`, `get`, `say`, `nm`). Every name the story layer has is importable from `story` |
+| `story_base.py` | 537 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
+| `story_cast.py` | 233 | `CastMixin`: roles, who is due and who dies, picking people, filling a line's slots |
+| `story_moments.py` | 323 | `MomentsMixin`: thoughts, the voice, births, scenes, acts, outcomes, family, deaths and new kin, marks, streaks |
+| `story_lines.py` | 296 | `LinesMixin`: ordinary weeks, outside events, eras, titles, commitments, clashes, rites, conversions, breakthroughs |
+| `story_goals.py` | 232 | `GoalsMixin`: goals, dreams and plans, needs, hindsight, resolutions, the yearly chapter, the epitaph |
 | `story_text.py` | 711 | `story.py`'s text tables (`SCENES`, `OUTSIDE`, `OUTCOMES`, `MOOD`, ...), data only |
 | `routine.py` | 182 | the everyday lines' rules and their `check()` (`python3 -B routine.py`) |
 | `routine_text.py` | 427 | the everyday lines themselves (`ROUTINE`), data only |
@@ -30,15 +36,36 @@ moves between files without changing what it does. A new game-side file must als
 | `link.py` | 44 | loads `engine_pin/engine.py` as module `engine` and checks its pause points (`week`, `situation`, `choose`, `odds`, `learn`, `end`) |
 | `rarity.json` | | the rarity table; `rarity.py` is built from it |
 | `engine_pin/` | | generated: the engine, Library and packs pinned by `tools/build.py`. Never edit or read it; read `chroma-engine/v22-speedpass/`, `chroma-library/`, `chroma-packs/` |
-| `README.md` | 657 | history, version by version. Read one section (`rg -n '^#' README.md`), not all of it |
+| `README.md` | 25 | what the game is, how to play, where to read on |
+| `HISTORY.md` | 644 | history, version by version up to 2026-10-09 (moved from `README.md`). Read one section (`rg -n '^#' HISTORY.md`), not all of it |
 
 ## The page (`prototype/web/`)
 
-- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, `app.js` (2,859 lines; it holds
-  the save format), `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`,
-  `option-icons-live.json`, `pics-left-out.json`, `pic-packs.json`.
+- Sources in `web/src/`: `head.html` (one `<style>` block, 1,593 lines), `body.html`, the app (`app/`, below),
+  `look.css` and `look.js` (the ink look), `clarity.css` and `clarity.js`, `sprite.svg`, `option-icons-live.json`,
+  `pics-left-out.json`, `pic-packs.json`.
 - `web/src/build.py` joins them into `web/index.html` (0.07 s, byte for byte). Never edit or read `index.html` or
-  `page.html`; change the sources and rebuild.
+  `page.html`; change the sources and rebuild. A change meant to leave the page as it was must leave `index.html`
+  unchanged (`git status`).
+- The app is one script in the page, kept as `web/src/app/NN-name.js` parts (`app.js` until 10-17); `build.py` joins
+  them in name order inside one `<script>`, so a part reads the others' names as before. Find a function with
+  `rg -n 'function name' chroma-game/prototype/web/src/app/`. `look.js` and `clarity.js` wrap some of its functions.
+
+| Part | Lines | What |
+|---|---|---|
+| `01-base.js` | 125 | constants, colours, icons and pips, helpers, the marked story text (`rich`), tooltips |
+| `02-words.js` | 243 | what the marked words mean; heart and head, what changed, dreams and plans |
+| `03-chronicle.js` | 202 | the worker link (`send`, inputs); the chronicle, the story's main text |
+| `04-line.js` | 346 | the whole life as a line (the fog ahead); the header and tools |
+| `05-hud.js` | 501 | the character HUD and spider graph; the exact definitions; making a plan (key p) |
+| `06-moment.js` | 439 | the moment and its cards; the event window |
+| `07-interlude.js` | 111 | the interlude between two moments |
+| `08-sheet.js` | 263 | the character sheet (key c) and its tabs |
+| `09-book.js` | 115 | the Book of Moments |
+| `10-save.js` | 99 | saving to a file, loading back, autosave: the save format. Release's `check_pageonly.py` holds a page-only release to it unchanged |
+| `11-start.js` | 172 | the life-choice (tarot) cards on the start screen; the end of a life |
+| `12-panels.js` | 148 | transport, help, the outer world panel, the keys the page answers itself |
+| `13-state.js` | 93 | applying the game's state, the keyboard, the worker's start-up |
 - `web/worker.js` runs the Python in Pyodide. Its `SOURCES` list names every `.py` file the page loads:
   `tools/build.py` adds missing `engine_pin` files, but a new game-side file must be added by hand.
 - The published artifact holds at most 511 files; `tools/webdir.py` packs code and rarer pictures into a few files.
@@ -56,6 +83,8 @@ Run from `prototype/` with `python3 -B test/<name>`. A whole life takes about 2 
 | Test | Proves |
 |---|---|
 | `smoke.py [--same \| --base DIR \| --update]` | about 20 s: two short lives (presets 1 and 6) with keys, checkpoints and a save; fails on a crash or NaN; `--same` compares the play's md5s with `smoke.golden.json`, `--base` with another game folder |
+| `prove.py [--base REF] [--presets 1,3]` | the "no change in play" proof in one command: `smoke.py`, then presets 1 to 6 (seed 7, `same_life.py`'s record and md5) here and on `origin/main`, side by side, naming the first step that differs. Lives are cached by the game files they came from (in the shared folder's `.cache/same-lives`), so main's six are played once per state of main; under 30 s when the game files match or both sides are cached, about 4 minutes otherwise |
+| `text_check.py [--pin]` | about 1 s: every string literal in the game's own files, against `timeless.py`'s word list; reports only the real-world words a change adds against `origin/main` |
 | `same_life.py <preset> <seed> <out>` | one played life, every step's text and HUD hashed; same md5 on two trees = same lives (use presets 1 to 6, seed 7) |
 | `same_engine.py` | the same, engine side only |
 | `saveload.py`, `saveload_world.py` | a saved life loads back exactly (without and with the outer world) |

@@ -19,7 +19,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
  11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
- 12. picks come back (echo_play, the game's played-life hook): switched on and never asked, the lives of it off; a return
+ 12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
+     lives the same lives as the first, which burned it in.
+ 13. picks come back (echo_play, the game's played-life hook): switched on and never asked, the lives of it off; a return
      moment (tier: return) in the files changes nothing while batch.RETURN_MOMENTS is off; on and asked at every pick, the
      asked picks' marks plant seeds, each comes back at most once, a year on or more, as a moment of its kind and side,
      in the week the pauses say, and the return moment comes only as a return.
@@ -254,6 +256,25 @@ for label, sw, moved in ON_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world off and on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 12. the world's burn-in kept (world_link.burned_world): a second run of the same world, seed and settings starts from
+# the World the first one burned in (a deep copy) and lives exactly its lives; checked from memory, with no folder
+import world_link as _wlk
+if hasattr(_wlk, "burned_world"):
+    t0 = time.process_time(); fails = []
+    cdir_ = os.environ.pop("CHROMA_WORLD_CACHE", None)
+    _wlk.BURN.clear(); h0_ = _wlk.BURN_HITS[0]
+    kw = dict(N=2, years=4, seed=17, lib=EARTH, P=dict(E.DEFAULT, world=True))
+    d1 = digest(E.run(**kw)); d2 = digest(E.run(**kw))
+    if cdir_ is not None:
+        os.environ["CHROMA_WORLD_CACHE"] = cdir_
+    if _wlk.BURN_HITS[0] != h0_ + 1:
+        fails.append(f"{_wlk.BURN_HITS[0] - h0_} runs from the kept world, not 1")
+    diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+    if diff:
+        fails.append(f"lives differ in {diff[:4]}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the world's burn-in kept: a second run of the same world lives the first's "
+          f"lives{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 7. read-only world switches of the next update (the spheres of society, item 15, phase 1c): with the world on, a run with
 # the switch on lives exactly the lives of a run with it off, and the world it ran in carries the new state
 RO_ = [("the spheres of society, the town (sph_town)", "sph_town",
@@ -442,7 +463,7 @@ if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wp
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
           f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
-# 12. picks come back (echo_play)
+# 13. picks come back (echo_play)
 if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
     import copy
     t0 = time.process_time(); fails = []
