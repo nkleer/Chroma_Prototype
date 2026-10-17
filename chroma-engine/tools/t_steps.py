@@ -25,6 +25,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      moment (tier: return) in the files changes nothing while batch.RETURN_MOMENTS is off; on and asked at every pick, the
      asked picks' marks plant seeds, each comes back at most once, a year on or more, as a moment of its kind and side,
      in the week the pauses say, and the return moment comes only as a return.
+ 14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
+     Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
+     comes only while their town's share is at least the threshold (never with the switch off).
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -295,6 +298,17 @@ for label, sw, ok in RO_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: lives as with it off, world on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+def _pt_closed(o):
+    """place_turnover moved something: some place closed (the run's place_turnover log; a function, not a lambda, so a
+    row goes to the T_JOBS processes)."""
+    return any(e_["what"] == "closed" for e_ in o.get("place_turnover") or ())
+
+
+def _pt_made(o):
+    """prison_ties' own test: former inmates were made ties (a plain function: the rows go to the worker processes)."""
+    return any(e["what"] == "made" for e in o.get("prison_ties", ()))
+
+
 # 8 and 9. switches of the spheres' phase 2 (item 15: haunts, hours and rungs, the mark of the work) and WL2 (world on only): switched on,
 # a game run (run_steps) lives exactly the lives of run(), and the lives differ from those with the switches off
 P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)",
@@ -326,6 +340,11 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("far-off events through ties (far_ties; with the events)",
         dict(far_ties=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("the finishing pack's former inmates as ties (prison_ties; every life serves a 3-year term at 18, the shadows on in "
+        "the world)", dict(prison_ties=True, prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)),
+                          sh_world=True),
+        dict(prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=(18, 3)), sh_world=True), 30, 4,
+        _pt_made),   # (ties made, and the lives move beyond the readout)
        ("their places' eyes and the odd one out (sph_eyes, sph_odd; with the haunts and the events)",
         dict(sph_eyes=True, sph_odd=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
@@ -341,12 +360,21 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sacred=True, sacred_par=dict(lead=1.0, paid=0, age=12.0, reach=1.0, c3_reach=1.0), sph_events=True, c3_inst=True,
              sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("places close and open (place_turnover; with the haunts, the levers and the events; some place closed)",
+        dict(place_turnover=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
+        dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24, 2,
+        _pt_closed),
        ("seen it done (seen_done; with the haunts)",
         dict(seen_done=True, sph_haunts=True, sph_hours=True, cur_on=True), dict(sph_haunts=True, sph_hours=True, cur_on=True), 24),
        ("the sphere titles by their own rules (sph_titles)", dict(sph_titles=True), {}, 40),
        ("fairness read five ways (fair_read; with felt fairness and the events)",
         dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True),
         dict(sph_levers=True, sph_fair=True, sph_events=True, sph_haunts=True, sph_hours=True, cur_on=True), 24),
+       ("trust in a sphere's bodies (body_trust; with felt fairness, the levers, the events and C3)",
+        dict(body_trust=True, fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True,
+             sph_hours=True, cur_on=True),
+        dict(fair_read=True, sph_levers=True, sph_fair=True, sph_events=True, c3_inst=True, sph_haunts=True, sph_hours=True,
+             cur_on=True), 40, 6),
        ("colour-even institutions (inst_even)", dict(inst_even=True), {}, 24),
        ("the world's gates on the neighbouring stages' everyday moments (near_gate)", dict(near_gate=True), {}, 24),
        ("C4, nature's own year (c4_nature)", dict(c4_nature=True), {}, 24),
@@ -400,9 +428,14 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 6),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
+# a switch's own readouts, which are not the lives (the finishing pack's)
+OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y", "prison_ties", "grey_y")
+
+
 def p2_row(row_):
     """One row of 8 and 9: (failed, its line), or None when the engine lacks its switches."""
-    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives)
+    label, sw, base, yrs = row_[:4]; n_ = row_[4] if len(row_) > 4 else 2   # (a row may name its lives, and a test
+    moved = row_[5] if len(row_) > 5 else None                                # that the switch moved what it moves)
     if not sw or not set(sw) - {"sph_ev_base"} <= set(E.DEFAULT):
         return None
     t0 = time.process_time(); fails = []
@@ -421,8 +454,10 @@ def p2_row(row_):
         fails.append(f"run_steps differs in {diff[:4]}")
     off_ = {k: E.UPD_OFF[k] for k in sw if k in E.UPD_OFF}   # off as the go-live has it (the v22.3 DEFAULT has them on)
     d0 = digest(E.run(**dict(kw, P=dict(E.DEFAULT, world=True, **dict(off_, **base)))))
-    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "world"]:
-        fails.append("switched on, the lives are those with it off")
+    if not [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x not in OWN_KEYS_]:
+        fails.append("switched on, the lives are those with it off")   # (a switch's own readouts are not the lives)
+    if moved is not None and not moved(o1):
+        fails.append("switched on, it moved nothing")
     return bool(fails), (f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world on; the lives move"
                          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 
@@ -515,6 +550,29 @@ if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
     print(f"{'PASS' if not fails else 'FAIL'}  picks come back (echo_play): on and never asked, the lives of it off; a return "
           f"moment in the files changes nothing with it off; asked, {len(sd_)} seeds, {len(got_)} returns "
           f"({sum(x['got'] == R_ for x in got_)} the return moment), each once and a year on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 14. the town gone grey (grey_gate)
+if "grey_gate" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    kw = dict(N=6, years=25, seed=9, lib=EARTH)
+    d0 = digest(E.run(**kw, P=dict(E.DEFAULT, world=True)))
+    o_ = E.run(**kw, P=dict(E.DEFAULT, world=True, grey_gate=True))
+    d1 = digest(o_)
+    if [x for x in set(d0) | set(d1) if d0.get(x) != d1.get(x) and x != "grey_y"]:
+        fails.append("with no shadow: moment the lives move")
+    if np.shape(o_.get("grey_y")) != (6, 25, 9):
+        fails.append(f"grey_y is {np.shape(o_.get('grey_y'))}, not lives x years x 9")
+    L_ = dict(EARTH); tg_ = L_["names"].index("tending an allotment")
+    L_["W_SHADOW"] = np.full(L_["S"], -1); L_["W_SHADOW"][tg_] = 9          # gated on the town's greyest sphere
+    met_ = {}
+    for on_ in (False, True):
+        o2_ = E.run(**dict(kw, lib=L_), P=dict(E.DEFAULT, world=True, grey_gate=on_))
+        met_[on_] = int(o2_["sit_n"][:, tg_].sum())
+    if met_[False]:
+        fails.append(f"the gated moment came {met_[False]} times with the switch off")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the town gone grey (grey_gate), switched on: with no shadow: moment the lives "
+          f"of it off, grey shares read yearly; a gated moment came {met_[True]} times on, {met_[False]} off"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

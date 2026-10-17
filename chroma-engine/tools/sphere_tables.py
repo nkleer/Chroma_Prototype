@@ -133,7 +133,8 @@ def build(src):
     # phase 5 (Outer world's answers, chroma-world/spheres/phase5-answers.md): N5's shadow shares and their effects
     # (shadow_state), and the deep state of a life (deep_state: the care load, service, debts, holdings)
     shs = dyn["shadow_state"]
-    SHADOW = dict(share={k: float(v) for k, v in shs["share"].items()}, gate=float(shs["library_gate"]["threshold"]))
+    SHADOW = dict(share={k: float(v) for k, v in shs["share"].items()}, gate=float(shs["library_gate"]["threshold"]),
+                  **({"grey_gate": float(shs["grey_gate"]["threshold"])} if "grey_gate" in shs else {}))
     ds = dyn["deep_state"]; cl = ds["care_load"]   # (the frail factor, role, public care, stress and work are in its prose)
     DEEP = dict(care_hours={k: float(v) for k, v in cl["hours_week"].items()}, care_frail=0.2, care_frail_x=1.5,
                 care_role=0.5, care_public=0.5, care_stress=0.02, care_work=0.1,
@@ -183,6 +184,24 @@ def build(src):
                  events={k: dict(offer=v["offer"], lines=list(v["lines"]), gesture=bool(v["gesture"]), who=v["who"],
                                  kind=v.get("kind", "money"))
                          for k, v in of_["events"].items()})
+    # the spheres' finishing pack (Emren's "Parts 1 to 5", 10-17 02:03 UTC; chroma-world/spheres/finish-pack-draft.md):
+    # part 2 places close and a new one opens in the slot (place_turnover), part 3 trust in a sphere's bodies per life
+    # (body_trust); part 4 rides in DEEP's service (after_prison's tie_values), part 5 in SHADOW (grey_gate)
+    pt_ = dyn["place_turnover"]; gr_ = pt_["base_y"]["groups"]
+    TURNOVER = dict(base_y={h: float(g["y"]) for g in gr_.values() for h in g["haunts"]},
+                    group={h: k for k, g in gr_.items() for h in g["haunts"]},
+                    misfit_k=float(pt_["misfit"]["k"]), misfit_free=float(pt_["misfit"]["free"]),
+                    loss_per=float(pt_["loss"]["per"]), loss_cap=float(pt_["loss"]["cap"]),
+                    epoch={e: float(pt_["epoch"][e]) for e in EPOCHS}, events_close=dict(pt_["events_close"]),
+                    cascades={k: float(v) for k, v in pt_["cascades"].items() if isinstance(v, (int, float))},
+                    cascade_group=pt_["cascades"]["applies_to"], vacant_q=[int(x) for x in pt_["reopen"]["vacant_q"]],
+                    rung_step=int(pt_["on_lives"]["rung_step"]), tie_keep=float(pt_["on_lives"]["tie_keep"]),
+                    cast_want=list(pt_["on_lives"]["cast_want"]), checks=dict(pt_["checks"]))
+    bt_ = dyn["body_trust"]
+    TRUST = dict(noise=float(bt_["start"]["noise"]), drift_y=float(bt_["drift"]["rate_y"]), drift_k=float(bt_["drift"]["k"]),
+                 jumps={k: float(v) for k, v in bt_["jumps"].items() if isinstance(v, (int, float))},
+                 low=dict(bt_["effects"]["low"]), high=dict(bt_["effects"]["high"]), gate=dict(bt_["library_gate"]),
+                 checks=dict(bt_["checks"]))
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -191,7 +210,8 @@ def build(src):
                 HAZARD_VARS=[v["key"] for v in dyn["drivers"]["vocabulary"] if v["kind"] == "hazard"],
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
                 CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
-                PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER)
+                PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER, TURNOVER=TURNOVER,
+                TRUST=TRUST)
 
 
 def audit(T):
