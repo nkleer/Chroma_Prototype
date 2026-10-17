@@ -29,7 +29,8 @@ Every folder is named once in `chroma-env/paths.py`; scripts import it rather th
 Generated or copied, never edited by hand. `.claude/settings.json` blocks reading the first five and the pictures;
 `.ignore` keeps all of them out of searches (`rg` and the Grep tool honour it; `grep -r` does not, so use `rg`), and
 `.gitattributes` keeps their text out of `git diff`, `git show` and `git log -p`. In the shared folder, `.ignore` also
-hides the run outputs, `_archive/` and the old game copies; search one of those with `rg --no-ignore <folder>`.
+hides the run outputs, `_archive/` and the old and staging game copies; search one of those by naming it
+(`rg <pattern> <folder>`).
 
 | File | Size | Made by |
 |---|---|---|
