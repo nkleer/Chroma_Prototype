@@ -451,12 +451,13 @@ horizon: months
 roles: parent, partner, friend, the police, a solicitor
 earth: two police officers on your doorstep early one morning, asking for you by name
 times: Follows only some wrongs: most go unsolved, and well under 1 in 10 crimes recorded in England and Wales end in a charge (Home Office); once a witness talks, a knock is likely
-scene: Early on a weekday morning there are two police officers on the doorstep, asking for {N} by name.
-scene W: {N} has known, somewhere, that this day might come. There is almost a relief in it: the thing is out, and now it can be answered.
-scene U: {N} counts quickly what they could know and what they cannot, and how much hangs on the next few sentences.
-scene B: {N} keeps a pleasant face at the door and thinks: what have they got, who gave it to them, and what is it worth to say nothing?
-scene R: {Ns} heart kicks against the ribs. For one wild second the back door, the garden fence and the open road all look like answers.
-scene G: The whole house is awake behind {N}, watching from the stairs. Whatever happens now happens to all of them.
+scene: Early on a weekday morning there are two police officers on the doorstep, asking for {N} by name. {N} wonders at once whether {friend} talked.
+scene W: {N} has known, somewhere, that this day might come. There is almost a relief in it: whatever {friend} said, the thing is out, and now it can be answered.
+scene U: {N} counts quickly what they could know and what they cannot, what {friend} saw, and how much hangs on the next few sentences.
+scene B: {N} keeps a pleasant face at the door and thinks: what have they got, did {friend} give it to them, and what is it worth to say nothing?
+scene R: {Ns} heart kicks against the ribs, and the first thought is of {friend}. For one wild second the back door and the open road both look like answers.
+scene G: The whole house is awake behind {N}, watching from the stairs. Whatever happens now happens to all of them, and to {friend} too.
+scene gone: {friend} is not here to answer for any of it. {N} stands at the door alone, remembering that night and wondering what {friend} might have said.
 - W | let them in, and tell them the truth from the start | v: conformity, security | mark: owned up | self_control: + | title_if_fails: someone with a record | chance: 50
 - U | say politely that you will answer everything with a solicitor present | v: security | title_if_fails: someone with a record | chance: 60
 - B | say nothing, admit nothing, and make them prove it | v: power, security | mark: hid a wrong | title_if_fails: someone with a record | chance: 55

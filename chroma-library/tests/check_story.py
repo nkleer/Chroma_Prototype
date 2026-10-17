@@ -73,7 +73,7 @@ MAGIC_WORDS = re.compile(r"\b(colou?rs?|mana|planeswalker\w*|azorius|dimir|rakdo
 SAFETY = re.compile(r"\b(rap(e|ed|es|ing|ist)|sexual\w*|sex|molest\w*|suicid\w*|kill (yourself|myself|themselves)|"
                     r"self-harm\w*|tortur\w*|gore|blood\w*|corpse\w*|mutilat\w*|abus\w*|naked|groom(ed|ing))\b", re.I)
 FILL = re.compile(r"\{([^{}]*)\}")
-UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast", "place"}       # fills whose values start with a capital letter
+UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast", "place", "act"}   # fills whose values start with a capital letter (act: a whole sentence)
 
 # kinds: "sentence" (one or more whole sentences), "clause" (the game joins it into a sentence: no end punctuation, may
 # start lower case), "phrase" (a few words used inside a line), "quote" (the character's words in curly quotes),
@@ -166,6 +166,10 @@ def rule(path):
                 "book": (("N", "start", "end", "lean"), ("N", "start", "end"), "sentence", "narration", 25),
                 "lean": ((), (), "phrase", "narration", 25),
                 "own": (("N", "Ns", "voice"), ("Ns",) if tuple(path[2:5]) == ("G", "theirs", 1) else ("N",), "sentence", "narration", 25)}[k]
+    if top == "THREAD" and k in ("seed", "seed_alone"):   # Picks come back (10-17): the opener of a moment a pick brought back
+        return (("N", "Ns", "who", "years"), ("N", "who", "years") if k == "seed" else ("N", "years"), "sentence", "narration", 25)
+    if top == "THREAD_HOVER" and k == "seed":
+        return (("Ns", "age", "act"), ("age", "act"), "sentence", "narration", 25)
     if top == "THREAD":
         req = {"mark": ("N",), "title": ("title",), "commitment": ("who",) if path[-1] == "partner" else (),
                "plan": ("N",), "dream": ("N",), "road": ("N", "age"), "person": ("who",)}[k]
@@ -227,7 +231,8 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
               decade="in their 60s", made="two", how="in a fall from a roof", hall="where the cups are filled",
               glad="who lived, and lost, and was glad", cheer="Raise the cup.", toast="To a heart that burned.",
               voice="voice", lost="“The band”", name="the careful voice", adj="passionate", share="a third",
-              start="a Free Spirit", end="an Explorer", lean="caution", who="her sister", did="left home",
+              start="a Free Spirit", end="an Explorer", lean="caution", who="her sister", did="left home", years="eight years",
+              act="Ari lends Cem the rent money and asks only for the story.",
               plan="a home of their own", dream="the dream of a working life", road="the trades", inst="the factory in Redmouth", place="Redmouth", movement="the Lantern Way",
               what="prices outran their money and the downturn put jobs at risk",
               when="at 17", event="the divorce", m="steadier")
@@ -416,11 +421,16 @@ need_keys("VOICE.book", V["book"], ["steered", "free"])
 need_keys("VOICE.lean", V["lean"], list(COLORS))
 per_color("VOICE.own", V["own"], ["asked", "ought", "sees", "theirs"], 2)   # S2: two lines, trusted and doubted
 
-need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person"])
+need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person", "seed", "seed_alone"])
+SEED_KINDS = [m for m in MARKS if m not in ("came out", "named their gender", "took a life", "hurt someone badly")] + ["took them in"]
+for k_ in ("seed", "seed_alone"):   # Picks come back (10-17): every seed kind, went well and went badly
+    need_keys(f"THREAD.{k_}", TH.get(k_, {}), SEED_KINDS)
+    for m_, v_ in TH.get(k_, {}).items():
+        need_keys(f"THREAD.{k_}.{m_}", v_, ["well", "badly"])
 need_keys("THREAD.mark", TH["mark"], MARKS)
 need_keys("THREAD.title", TH["title"], ["held", "lost"])
 need_keys("THREAD.commitment", TH["commitment"], ["career", "community", "faith", "partner", "children"])
-need_keys("THREAD_HOVER", TH_H, ["mark", "title", "commitment", "plan", "dream", "road", "person"])
+need_keys("THREAD_HOVER", TH_H, ["mark", "title", "commitment", "plan", "dream", "road", "person", "seed"])
 need_keys("THREAD_HOVER.title", TH_H["title"], ["held", "lost"])
 need_keys("THREAD_HOVER.commitment", TH_H["commitment"], ["career", "community", "faith", "partner", "children"])
 need_keys("THREAD_DID", TH_D, MARKS)

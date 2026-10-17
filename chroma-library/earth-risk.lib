@@ -595,12 +595,13 @@ horizon: week
 roles: friend, parent, partner, a nurse, a doctor, the police
 earth: you wake up in a hospital bed with a drip in your arm, and slowly the night comes back to you
 times: Follows some failed risks: perhaps 1 in 4 nights that go badly wrong (an overdose, a crash, a fall) end in a hospital bed (estimate)
-scene: {N} wakes under strip lights with a drip in one arm and a plastic band on the wrist. Slowly, in pieces, it comes back: what happened, and how it went wrong.
-scene W: A nurse is going through a form at the end of the bed, asking the questions in order. {N} knows there are rules for what happens next, and honest answers are part of them.
-scene U: {N} reads the chart clipped to the bed before anyone comes, trying to work out what happened and how bad it was.
-scene B: {N} is already working out the story: what to say, to whom, and what nobody needs to know.
-scene R: {Ns} whole body aches, and the first feeling, before fear or shame, is a fierce, odd gladness to be alive.
+scene: {N} wakes under strip lights with a drip in one arm and a band on the wrist. Slowly it comes back: {friend}, what happened, and how it went wrong.
+scene W: A nurse goes through a form at the end of the bed. {friend} brought {N} in. There are rules for what happens next, and honest answers are part of them.
+scene U: {N} reads the chart clipped to the bed before {friend} comes back, trying to work out what happened and how bad it was.
+scene B: {N} is already working out the story: what to say, to whom, and what nobody, not even {friend}, needs to know.
+scene R: {Ns} whole body aches, and the first feeling, before fear or shame, is a fierce, odd gladness to be alive. Then {N} asks for {friend}.
 scene G: {friend} is asleep in the chair beside the bed, still in a coat, and must have been there all night.
+scene gone: {friend} is not in the chair beside the bed. In the long quiet, {N} remembers {friend}'s laugh from before it all went wrong.
 - W | tell the whole truth to anyone who asks, other people's names included | v: conformity, universalism | mark: owned up | closed: approval: naming the others; backfire: frozen out by the people named | chance: 80
 - U | read your own notes on the desk while nobody is looking | v: self-direction | closed: approval: reading files not meant for patients; backfire: a nurse catches it, and the doctors turn guarded | chance: 78
 - B | get the story straight before anyone else talks, and tell it first | v: security, power | chance: 72

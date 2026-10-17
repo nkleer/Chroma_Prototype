@@ -60702,24 +60702,27 @@ ECHOES = [
  'delay_years': (0, 3),
  'likelier': 'a serious offence, a camera or a witness, a friend who was caught, a small town where people talk',
  'rarer': 'a small offence long ago, nobody hurt, a big city with stretched police, a wrong owned up and settled',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to answer for any of it. {N} stands at the door alone, remembering '
+                            'that night and wondering what {friend} might have said.')]},
  'scenes': {'earth': [('',
                        'Early on a weekday morning there are two police officers on the doorstep, asking for {N} by '
-                       'name.'),
+                       'name. {N} wonders at once whether {friend} talked.'),
                       ('W',
-                       '{N} has known, somewhere, that this day might come. There is almost a relief in it: the '
-                       'thing is out, and now it can be answered.'),
+                       '{N} has known, somewhere, that this day might come. There is almost a relief in it: whatever '
+                       '{friend} said, the thing is out, and now it can be answered.'),
                       ('U',
-                       '{N} counts quickly what they could know and what they cannot, and how much hangs on the next '
-                       'few sentences.'),
+                       '{N} counts quickly what they could know and what they cannot, what {friend} saw, and how '
+                       'much hangs on the next few sentences.'),
                       ('B',
-                       '{N} keeps a pleasant face at the door and thinks: what have they got, who gave it to them, '
-                       'and what is it worth to say nothing?'),
+                       '{N} keeps a pleasant face at the door and thinks: what have they got, did {friend} give it '
+                       'to them, and what is it worth to say nothing?'),
                       ('R',
-                       '{Ns} heart kicks against the ribs. For one wild second the back door, the garden fence and '
-                       'the open road all look like answers.'),
+                       '{Ns} heart kicks against the ribs, and the first thought is of {friend}. For one wild second '
+                       'the back door and the open road both look like answers.'),
                       ('G',
                        'The whole house is awake behind {N}, watching from the stairs. Whatever happens now happens '
-                       'to all of them.')]},
+                       'to all of them, and to {friend} too.')]},
  'outcomes': (['It ends with a warning and a signature, and the officers leave before the kettle boils.',
                'The case is dropped a month later for lack of evidence.'],
               ['{N} is charged, and a court date arrives in the post.',
@@ -60756,6 +60759,9 @@ ECHOES = [
  'delay_years': (1, 20),
  'likelier': 'a small circle where people talk; a big or public promise; the person let down is still close',
  'rarer': 'the person let down moved away or died; a small promise; the person owned up at the time',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to raise it now. Still, {N} remembers the summer {friend} waited, '
+                            'and the promise feels heavier for having no one to answer to.')]},
  'scenes': {'earth': [('',
                        'Over coffee, {friend} says it lightly: the last time {N} promised something, {friend} waited '
                        'a whole summer for nothing.'),
@@ -60809,22 +60815,25 @@ ECHOES = [
  'delay_years': (3, 25),
  'likelier': 'a small trade or town where reputations last; the same people over years',
  'rarer': 'frequent moves; the one who remembers has died or retired',
+ 'scenes_gone': {'earth': [('',
+                            '{boss} is not here to repay it. Yet someone who once worked beside {boss} remembers '
+                            'that {N} kept every promise, and has something to offer.')]},
  'scenes': {'earth': [('',
-                       'A letter comes from someone {N} worked for years ago. They remember that {N} kept every '
+                       'A letter comes from {boss}, who employed {N} years ago. They remember that {N} kept every '
                        'promise, and they have something to offer.'),
                       ('W',
-                       '{N} kept that promise when it would have been easy not to. Now someone remembers, and says '
-                       'so in front of everyone.'),
+                       '{N} kept that promise to {boss} when it would have been easy not to. Now {boss} remembers, '
+                       'and says so in front of everyone.'),
                       ('U',
-                       '{N} turns the offer over. Years of small kept promises, and here at last is what they add up '
-                       'to.'),
+                       "{N} turns {boss}'s offer over. Years of small kept promises, and here at last is what they "
+                       'add up to.'),
                       ('B',
-                       'Years of keeping {Ns} word have built something {N} never counted: credit. Now it can be '
-                       'spent.'),
-                      ('R', '{N} had almost forgotten. Now someone is shaking {Ns} hand and saying they never did.'),
+                       'Years of keeping {Ns} word to {boss} have built something {N} never counted: credit. Now it '
+                       'can be spent.'),
+                      ('R', '{N} had almost forgotten. Now {boss} is shaking {Ns} hand and saying they never did.'),
                       ('G',
-                       'Seeds planted long ago come up in their own time. A phone call brings {N} the harvest of a '
-                       'promise kept.')]},
+                       'Seeds planted long ago come up in their own time. A phone call from {boss} brings {N} the '
+                       'harvest of a promise kept.')]},
  'outcomes': (['The new door opens wide, and {N} walks through it.',
                'The trust holds, and the offer is every bit as good as it sounded.'],
               ['The offer turns out smaller than it sounded.', 'Someone with louder friends gets it in the end.']),
@@ -60858,20 +60867,23 @@ ECHOES = [
  'delay_years': (2, 30),
  'likelier': 'a small town or close trade; the help was big; the person is in real trouble now',
  'rarer': 'a big anonymous city; the help was small or given anonymously',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to see it, but the help {N} gave that winter comes back anyway. A '
+                            'neighbour arrives with boxes, saying {friend} often spoke of {N}.')]},
  'scenes': {'earth': [('',
-                       '{N} is moving house alone when a van pulls up. Out climbs someone {N} helped through a bad '
-                       'winter years ago, with two friends and a stack of boxes.'),
+                       '{N} is moving house alone when a van pulls up. Out climbs {friend}, whom {N} helped through '
+                       'a bad winter years ago, with two friends and a stack of boxes.'),
                       ('W',
-                       '{N} helped because it was right, and never thought anyone was keeping count. Yet here they '
-                       'are, sleeves rolled up.'),
+                       '{N} helped {friend} because it was right, and never thought anyone was keeping count. Yet '
+                       'here they are, sleeves rolled up.'),
                       ('U',
-                       '{N} watches them carry boxes and wonders how they even heard. Who told them {N} needed '
+                       '{N} watches them carry boxes and wonders how {friend} even heard. Who told them {N} needed '
                        'help?'),
-                      ('B', 'A favour {N} did years ago and half forgot is being repaid, with interest.'),
-                      ('R', '{N} recognises the face at the door and laughs out loud, then nearly cries.'),
+                      ('B', 'A favour {N} did {friend} years ago and half forgot is being repaid, with interest.'),
+                      ('R', "{N} recognises {friend}'s face at the door and laughs out loud, then nearly cries."),
                       ('G',
-                       'What goes around comes around. {N} gave when it was needed, and now it comes back, the way '
-                       'rain returns to the hills.')]},
+                       'What goes around comes around. {N} gave to {friend} when it was needed, and now it comes '
+                       'back, the way rain returns to the hills.')]},
  'outcomes': (['The help comes just in time, and the day ends in laughter.',
                'An old kindness turns into a new friendship.'],
               ['The help is kindly meant, but it tangles things more than it eases them.',
@@ -60907,20 +60919,24 @@ ECHOES = [
  'delay_years': (2, 30),
  'likelier': 'a small town; the one refused has done well since; real trouble now',
  'rarer': 'a big city with many other helpers; the refusal was small and long ago',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to ask now. {N} remembers the night {friend} knocked and {N} said '
+                            'no, and has to find help somewhere else, carrying that night along.')]},
  'scenes': {'earth': [('',
-                       'The only one in town with a truck, the know-how and a free weekend is the neighbour {N} once '
-                       'shut the door on.'),
+                       'The only one in town with a truck, the know-how and a free weekend is {friend}, the '
+                       'neighbour {N} once shut the door on.'),
                       ('W',
-                       '{N} remembers the night they knocked and {N} said no. Fair is fair, and {N} has no right to '
-                       'ask now.'),
+                       '{N} remembers the night {friend} knocked and {N} said no. Fair is fair, and {N} has no right '
+                       'to ask now.'),
                       ('U',
                        '{N} runs through the options again. There is only one person who can help, and {N} knows '
-                       'exactly why they might refuse.'),
-                      ('B', '{N} needs something from someone who owes {N} nothing, and who might enjoy saying no.'),
+                       'exactly why {friend} might refuse.'),
+                      ('B',
+                       '{N} needs something from {friend}, who owes {N} nothing, and who might enjoy saying no.'),
                       ('R',
-                       '{Ns} stomach turns at the thought of knocking on that door. Pride and need pull in opposite '
-                       'directions.'),
-                      ('G', 'The wheel has turned. This time {N} is the one at the door.')]},
+                       "{Ns} stomach turns at the thought of knocking on {friend}'s door. Pride and need pull in "
+                       'opposite directions.'),
+                      ('G', "The wheel has turned. This time {N} is the one at {friend}'s door.")]},
  'outcomes': (['The door opens, and the help comes without a word about the past.',
                '{N} gets what is needed, and the old refusal is finally talked through.'],
               ['The answer is a flat no, and the whole street hears why.',
@@ -60958,12 +60974,15 @@ ECHOES = [
  'delay_years': (3, 30),
  'likelier': 'a small trade or town; an ambitious enemy; the person stayed in the same field',
  'rarer': 'a big world; a small quarrel; the enemy moved on or mellowed',
+ 'scenes_gone': {'earth': [('',
+                            '{rival} is not here to settle the score. But the new head knows the old story about {N} '
+                            'and {rival}, and the grudge seems to sit at the table anyway.')]},
  'scenes': {'earth': [('',
                        'The new head of department walks in, and {N} knows the face at once: {rival}, from all those '
                        'years ago.'),
                       ('W',
-                       '{N} has always believed the rules protect everyone, even from old grudges. Now {N} will find '
-                       'out whether they do.'),
+                       '{N} has always believed the rules protect everyone, even from old grudges. Now, facing '
+                       '{rival}, {N} will find out whether they do.'),
                       ('U',
                        '{N} studies {rival} across the table: what they want, what they remember, how much they have '
                        'changed.'),
@@ -61009,6 +61028,9 @@ ECHOES = [
  'likelier': 'a hard stretch now; a reunion or a funeral that brings people together; easy contact by phone and '
              'internet',
  'rarer': 'the friend has died; the friendship ended in a quarrel',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to ring this time. But in a bad week {N} remembers the voice that '
+                            'always asked how things were, really, and answers it alone.')]},
  'scenes': {'earth': [('',
                        'The phone rings late in a bad week. It is {friend}, silent for years: "I just had a feeling. '
                        'How are things, really?"'),
@@ -61021,7 +61043,8 @@ ECHOES = [
                       ('B',
                        '{N} has spent years building a life that needs nobody. And yet here is {friend}, and {N} is '
                        'glad.'),
-                      ('R', '{Ns} heart leaps at the voice on the phone. All the years apart vanish in a second.'),
+                      ('R',
+                       "{Ns} heart leaps at {friend}'s voice on the phone. All the years apart vanish in a second."),
                       ('G',
                        'Some friendships are like old paths, overgrown but still there under the leaves. {friend} '
                        'has walked straight down one.')]},
@@ -61061,18 +61084,25 @@ ECHOES = [
  'delay_years': (2, 25),
  'likelier': 'a small town; a public act of defiance; the same people still in charge',
  'rarer': 'a big impersonal system; new people in charge; the person was proven right',
+ 'scenes_gone': {'earth': [('',
+                            '{boss} is not here any more, but the office still remembers. {Ns} name sits in an old '
+                            'file, and the clerk reads it twice before fetching a supervisor.')]},
  'scenes': {'earth': [('',
-                       'The clerk looks at the form, then at {N}, then goes to fetch a supervisor. {Ns} name is '
-                       'clearly known here.'),
+                       'The clerk looks at the form, then at {N}, then goes to fetch the supervisor, {boss}. {Ns} '
+                       'name is clearly known here.'),
                       ('W',
-                       '{N} broke their rules once, believing it was right. Now {N} needs those same rules applied '
-                       'fairly.'),
-                      ('U', '{N} reads the refusal letter twice. It does not say why, but {N} can work it out.'),
-                      ('B', '{N} crossed them once and won. They have been waiting to collect.'),
+                       "{N} broke {boss}'s rules once, believing it was right. Now {N} needs those same rules "
+                       'applied fairly.'),
+                      ('U',
+                       '{N} reads the refusal letter from {boss} twice. It does not say why, but {N} can work it '
+                       'out.'),
+                      ('B', '{N} crossed {boss} once and won. They have been waiting to collect.'),
                       ('R',
-                       'The same smug faces, the same office, the same tone. The old anger rises in {N} as if it '
-                       'were yesterday.'),
-                      ('G', 'Old grudges in old institutions run deep, like roots under a road.')]},
+                       'The same smug faces, the same office, the same tone from {boss}. The old anger rises in {N} '
+                       'as if it were yesterday.'),
+                      ('G',
+                       'Old grudges in old institutions run deep, like roots under a road. {boss} has not '
+                       'forgotten.')]},
  'outcomes': (['The request goes through, and nobody mentions the old business.',
                'A new face behind the desk waves {N} through.'],
               ['The file goes to the bottom of the pile, and stays there.',
@@ -61109,21 +61139,25 @@ ECHOES = [
  'delay_years': (2, 20),
  'likelier': 'the same workplace, school or street; the stand was public and it worked',
  'rarer': 'frequent moves; the stand failed badly',
+ 'scenes_gone': {'earth': [('',
+                            '{colleague} is not here to see it, but the others at the door still tell the story '
+                            '{colleague} used to tell: the day {N} stood up.')]},
  'scenes': {'earth': [('',
-                       'A small group is waiting at the door with a petition. They remember {N} standing up last '
-                       'time, and they want {N} to speak for them.'),
+                       'A small group is waiting at the door with a petition, {colleague} at the front. They '
+                       'remember {N} standing up last time, and they want {N} to speak for them.'),
                       ('W',
-                       '{N} once refused an order that was wrong, and others noticed. Now they ask {N} to carry the '
-                       'banner properly.'),
+                       '{N} once refused an order that was wrong, and {colleague} and others noticed. Now they ask '
+                       '{N} to carry the banner properly.'),
                       ('U',
-                       '{N} listens to the problem and is already laying out the case in {Ns} head, point by point.'),
+                       '{N} listens to {colleague} explain the problem and is already laying out the case in {Ns} '
+                       'head, point by point.'),
                       ('B',
-                       'Standing up once has made {N} someone people follow. That is a kind of power, and here it '
-                       'is, offered.'),
-                      ('R', 'They remember! {N} feels the old fire flare up, brighter than before.'),
+                       'Standing up once has made {N} someone people follow. That is a kind of power, and '
+                       '{colleague} is offering it.'),
+                      ('R', '{colleague} remembers! {N} feels the old fire flare up, brighter than before.'),
                       ('G',
                        'People shelter by the tree that stood through the last storm. {N} has become that tree '
-                       'without meaning to.')]},
+                       'without meaning to, and {colleague} is the first to come.')]},
  'outcomes': (['People rally behind {N}, and the first meeting is packed.',
                'The cause wins a small victory, and {Ns} name is said with respect.'],
               ['The meeting splits into arguments before anything is decided.',
@@ -61161,21 +61195,27 @@ ECHOES = [
  'delay_years': (1, 15),
  'likelier': 'the same circle; giving in was rewarded last time; autonomy low now',
  'rarer': 'a new circle; last time went badly and the person said so',
+ 'scenes_gone': {'earth': [('',
+                            "{friend} is not here to lean in this time. But the others ask in {friend}'s old way, "
+                            'and {N} remembers exactly how it felt to say yes.')]},
  'scenes': {'earth': [('',
-                       'The plan is the same as last time, and so is the pause before everyone at the table turns to '
-                       'look at {N}.'),
+                       'The plan is the same as last time, and so is the pause before {friend} and everyone at the '
+                       'table turn to look at {N}.'),
                       ('W',
-                       'Last time {N} went along because everyone else did. The rules have not changed, and neither '
-                       'has the knot in {Ns} stomach.'),
+                       'Last time {N} went along because {friend} and everyone else did. The rules have not changed, '
+                       'and neither has the knot in {Ns} stomach.'),
                       ('U',
-                       '{N} knows the pattern at once: the same people, the same pitch, the same silence before the '
-                       'question.'),
+                       '{N} knows the pattern at once: {friend} and the same people, the same pitch, the same '
+                       'silence before the question.'),
                       ('B',
-                       'They pushed {N} once and it worked. They take {N} for an easy yes, which is worth knowing, '
-                       'and worth using.'),
-                      ('R', '{N} feels the old squeeze in the chest: wanting to belong, and hating to be told.'),
+                       '{friend} and the others pushed {N} once and it worked. They take {N} for an easy yes, which '
+                       'is worth knowing, and worth using.'),
+                      ('R',
+                       '{N} feels the old squeeze in the chest as {friend} leans in: wanting to belong, and hating '
+                       'to be told.'),
                       ('G',
-                       'The current pulls the same way it pulled before. {N} can feel it tugging at {Ns} feet.')]},
+                       'The current pulls the same way it pulled before, and {friend} is in the middle of it. {N} '
+                       'can feel it tugging at {Ns} feet.')]},
  'outcomes': (['The moment passes, and {N} feels lighter for it.',
                '{N} comes out of it with friends intact and conscience clear.'],
               ['{N} ends up doing it again, and the old feeling comes back stronger.',
@@ -61211,20 +61251,27 @@ ECHOES = [
  'delay_years': (5, 30),
  'likelier': 'the person now has authority over others; a workplace, a classroom or a teenager at home',
  'rarer': 'no authority over anyone; the old wrong was rare and odd',
+ 'scenes_gone': {'earth': [('',
+                            '{boss} is not here to learn the truth now. {N} remembers the old office and the trust '
+                            '{boss} gave, and looks at the young face across the desk.')]},
  'scenes': {'earth': [('',
                        '{N} glances at the timesheet and sees it: the extra hours that were never worked. {N} did '
-                       'the very same thing at that age, and nobody ever knew.'),
+                       'the very same thing at that age, and {boss} never knew.'),
                       ('W',
                        'The rules are clear, and {N} is the one meant to uphold them. That {N} once broke the same '
-                       'rule makes it harder, not easier.'),
+                       "rule under {boss}'s nose makes it harder, not easier."),
                       ('U',
-                       '{N} studies the young face across the desk and wonders whether this is how {N} looked, all '
-                       'those years ago.'),
+                       '{N} studies the young face across the desk and wonders whether this is how {N} looked to '
+                       '{boss}, all those years ago.'),
                       ('B',
-                       '{N} knows exactly how this trick works, and exactly how much hold it gives whoever spots '
-                       'it.'),
-                      ('R', 'A hot flush of recognition, then of shame, then of something like tenderness.'),
-                      ('G', 'The same seed in a new field. {N} watches it sprout, and remembers.')]},
+                       '{N} knows exactly how this trick works, having fooled {boss} with it, and exactly how much '
+                       'hold it gives whoever spots it.'),
+                      ('R',
+                       "A hot flush of recognition, then of shame, remembering {boss}'s trust, then of something "
+                       'like tenderness.'),
+                      ('G',
+                       'The same seed in a new field. {N} watches it sprout, and remembers the season {boss} never '
+                       'noticed.')]},
  'outcomes': (['The wrong is put right, and {N} sleeps well that night.',
                'The young one looks at {N} differently afterwards, with something like trust.'],
               ['It all comes out anyway, and questions follow {N} home.',
@@ -61260,21 +61307,27 @@ ECHOES = [
  'delay_years': (5, 30),
  'likelier': "a craft or field with a community; work shown in public; a mentor's word",
  'rarer': 'work done alone in a back room; a field nobody watches',
+ 'scenes_gone': {'earth': [('',
+                            "{mentor} is not here to see it, but every line of the work still carries {mentor}'s "
+                            'hand. {N} thinks of those first lessons as the stranger looks on.')]},
  'scenes': {'earth': [('',
                        'A stranger stops at {Ns} stall at the market, turns the piece over in their hands for a long '
-                       'time, and asks who taught {N}.'),
+                       'time, and asks if {mentor} taught {N}.'),
                       ('W',
-                       '{N} put in the hours, the right way, year after year. Now the guild wants {N} to teach the '
-                       'next ones.'),
+                       '{N} put in the hours the way {mentor} taught, year after year. Now the guild wants {N} to '
+                       'teach the next ones.'),
                       ('U',
-                       '{N} still sees every flaw in the work. The stranger sees only that nobody else does it this '
-                       'well.'),
+                       '{N} still sees every flaw {mentor} would see in the work. The stranger sees only that nobody '
+                       'else does it this well.'),
                       ('B',
-                       'Ten years of practice, and at last someone with money and a name has noticed. {N} means to '
-                       'make the most of it.'),
+                       "Ten years of practice since {mentor}'s first lessons, and at last someone with money and a "
+                       'name has noticed. {N} means to make the most of it.'),
                       ('R',
-                       '{N} only ever did it for the joy of it. Being praised for it feels strange, and wonderful.'),
-                      ('G', 'The tree took years to fruit. {N} never hurried it, and now here is the harvest.')]},
+                       '{N} only ever did it for the joy {mentor} first showed {N}. Being praised for it feels '
+                       'strange, and wonderful.'),
+                      ('G',
+                       'The tree {mentor} planted took years to fruit. {N} never hurried it, and now here is the '
+                       'harvest.')]},
  'outcomes': (['The work finds the people who value it, and {Ns} name travels.',
                '{N} stands in front of a room of eager faces, and finds it easy.'],
               ['The attention fades as fast as it came.',
@@ -61310,18 +61363,23 @@ ECHOES = [
  'delay_years': (1, 15),
  'likelier': 'the win was public; friends who egg the person on; money or time to stake',
  'rarer': 'heavy duties now; the win was mostly luck and the person knows it',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to slide the plans across the table. Still, a bigger chance comes, '
+                            "and {N} remembers {friend}'s grin the last time they jumped together.")]},
  'scenes': {'earth': [('',
                        '{friend} slides the plans across the table. It worked last time, {friend} says, and this one '
                        'is twice the size.'),
                       ('W',
-                       'Last time {N} jumped, it worked out. {N} also knows that luck is no plan, and that others '
-                       'now depend on {N}.'),
+                       'Last time {N} jumped with {friend}, it worked out. {N} also knows that luck is no plan, and '
+                       'that others now depend on {N}.'),
                       ('U',
-                       '{N} goes over the numbers from last time: how much was skill, how much was luck, and which '
-                       'would carry this one.'),
-                      ('B', 'The last gamble paid handsomely. The next one could set {N} up for life.'),
-                      ('R', '{Ns} pulse is already up. Last time was the best year of {Ns} life.'),
-                      ('G', 'The river carried {N} safely once. Rivers do not always behave the same way twice.')]},
+                       '{N} goes over the numbers from last time with {friend}: how much was skill, how much was '
+                       'luck, and which would carry this one.'),
+                      ('B', 'The last gamble with {friend} paid handsomely. The next one could set {N} up for life.'),
+                      ('R', '{Ns} pulse is already up. Last time, with {friend}, was the best year of {Ns} life.'),
+                      ('G',
+                       'The river carried {N} and {friend} safely once. Rivers do not always behave the same way '
+                       'twice.')]},
  'outcomes': (['The new venture lands as well as the first, or better.',
                '{N} weighs it well, and the choice holds up for years.'],
               ['This time the luck runs the other way, and the losses are real.',
@@ -61360,24 +61418,27 @@ ECHOES = [
  'delay_years': (10, 40),
  'likelier': 'heavy physical risks when young; manual work; little rest since',
  'rarer': 'the wild risks were mostly not physical; good care at the time',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not here to laugh about that night on the mountain any more. But {Ns} knee '
+                            'remembers it, and so does {N}, every cold morning.')]},
  'scenes': {'earth': [('',
                        '{N} bends to pick up a box and the old knee locks, the one from that night on the mountain '
-                       'twenty years ago.'),
+                       'with {friend} twenty years ago.'),
                       ('W',
-                       'The doctor lays out the plan: exercises twice a day, for months. {N} knows how this goes, '
-                       'and knows it works if it is kept to.'),
+                       'The doctor lays out the plan: exercises twice a day, for months. {N} watched {friend} do the '
+                       'same after that night, and knows it works if kept to.'),
                       ('U',
-                       '{N} looks at the scan on the screen, the white line where the bone healed crooked, and wants '
-                       'to understand every part of it.'),
+                       '{N} looks at the scan, the pale line where the bone healed crooked after the fall with '
+                       '{friend}, and wants to understand every part of it.'),
                       ('B',
-                       '{N} spent that body freely when it was young. Now the bill has come, and {N} wants the best '
-                       'terms for paying it.'),
+                       '{N} spent that body freely when young, with {friend} egging {N} on. Now the bill has come, '
+                       'and {N} wants the best terms for paying it.'),
                       ('R',
-                       'The knee aches every morning, and every ache comes with a memory {N} would not trade for '
-                       'anything.'),
+                       'The knee aches every morning, and every ache comes with a memory of {friend} that {N} would '
+                       'not trade for anything.'),
                       ('G',
-                       'Bodies keep their own records. {Ns} knee remembers every leap, and now it asks to be '
-                       'listened to.')]},
+                       'Bodies keep their own records. {Ns} knee remembers every leap beside {friend}, and now it '
+                       'asks to be listened to.')]},
  'outcomes': (['The knee settles, and {N} learns to live well with it.',
                'Months of care pay off, and {N} is walking the hills again.'],
               ["The pain gets worse, and the doctor's face grows serious.",
@@ -61413,19 +61474,25 @@ ECHOES = [
  'delay_years': (10, 40),
  'likelier': 'a fast-changing town; parents moved or died; a long absence',
  'rarer': 'a slow village; frequent visits all along',
+ 'scenes_gone': {'earth': [('',
+                            '{parent} is not here to walk the old street with {N}. {N} stops at the gate of the old '
+                            'house anyway, and remembers {parent} waving from it.')]},
  'scenes': {'earth': [('',
                        'The corner shop is a phone shop now, and the field where {N} played is a car park. {N} '
-                       'stands on the old street, a stranger in it.'),
+                       "stands on {parent}'s old street, a stranger in it."),
                       ('W',
-                       'The war memorial has been moved and the chapel sold. {N} feels that something owed to the '
-                       'dead has gone unpaid.'),
+                       'The war memorial {parent} tended has been moved and the chapel sold. {N} feels that '
+                       'something owed to the dead has gone unpaid.'),
                       ('U',
-                       '{N} walks the street noting every change, trying to work out when it all happened, and why.'),
-                      ('B',
-                       'Prices have tripled. The house {Ns} family sold for a song would be worth a fortune now.'),
+                       '{N} walks the street noting every change, trying to work out when it all happened, and why '
+                       '{parent} never mentioned it.'),
+                      ('B', 'Prices have tripled. The house {parent} sold for a song would be worth a fortune now.'),
                       ('R',
-                       '{N} carried a picture of this place for twenty years, and it has just been torn in half.'),
-                      ('G', 'The oak by the school is gone. {N} touches the stump and feels the years.')]},
+                       '{N} carried a picture of this place for twenty years, {parent} at the gate, and it has just '
+                       'been torn in half.'),
+                      ('G',
+                       'The oak by the school is gone. {N} touches the stump of the tree {parent} used to sit under, '
+                       'and feels the years.')]},
  'outcomes': (['{N} leaves with something of the old place: a photograph, a promise, a stone from the wall.',
                'The visit stings, but {N} goes home lighter, at peace with the change.'],
               ['Nothing is where it was, and nobody remembers {Ns} family.',
@@ -61462,24 +61529,27 @@ ECHOES = [
  'delay_years': (10, 40),
  'likelier': "a small town; most of the person's generation left; a crisis or an anniversary",
  'rarer': 'a big city; the person kept to themselves',
+ 'scenes_gone': {'earth': [('',
+                            "{elder} is not here to see it, but {N} hears {elder}'s old words in the hall: someone "
+                            'has to stay. Tonight the town is glad someone did.')]},
  'scenes': {'earth': [('',
-                       'The council has called a meeting about the old mill, and every head turns when {N} walks in: '
-                       'the one who has been here all along.'),
+                       "The council has called a meeting about the old mill, and every head, {elder}'s first, turns "
+                       'when {N} walks in: the one who has been here all along.'),
                       ('W',
-                       '{N} stayed when others left, kept the club going, swept the hall. Now the town asks {N} to '
+                       '{N} stayed when others left, kept the club going, swept the hall. Now {elder} asks {N} to '
                        'lead, and it feels right.'),
                       ('U',
                        '{N} knows which families own which fields, which deeds are lost and where the old drains '
-                       'run. Suddenly that knowledge is gold.'),
+                       'run, as {elder} taught. Suddenly that knowledge is gold.'),
                       ('B',
-                       'Everyone who left now needs someone on the ground. {N} has the names, the keys and the '
+                       "Everyone who left now needs someone on the ground. {N} has the names, the keys and {elder}'s "
                        'trust, and they all know it.'),
                       ('R',
-                       'For years {N} wondered if staying was a mistake. Tonight, as the hall breaks into applause, '
-                       'it does not feel like one.'),
+                       'For years {N} wondered if staying was a mistake. Tonight, as {elder} starts the applause, it '
+                       'does not feel like one.'),
                       ('G',
-                       '{N} belongs to this place the way the river does. When the town is in trouble, it turns to '
-                       'its roots.')]},
+                       '{N} belongs to this place the way the river does, the way {elder} always has. When the town '
+                       'is in trouble, it turns to its roots.')]},
  'outcomes': (['The place pulls through, and {N} is part of why.',
                'People who left come back for the reopening, and they all look for {N}.'],
               ['The plan collapses, and {N} is blamed for knowing so much and doing so little.',
@@ -61516,20 +61586,23 @@ ECHOES = [
  'delay_years': (10, 40),
  'likelier': 'an only child; family property; children grown; homesickness',
  'rarer': 'no family left there; a partner and children rooted where the person is now',
+ 'scenes_gone': {'earth': [('',
+                            '{parent} is not there to keep the shop open any more. The old place calls anyway, and '
+                            "{N} hears {parent}'s voice in every letter from home.")]},
  'scenes': {'earth': [('',
-                       '{sibling} calls: {parent} has had a fall, the shop has been shut for a week, and nobody '
-                       'knows what happens now.'),
+                       'The call comes from home: {parent} has had a fall, the shop has been shut for a week, and '
+                       'nobody knows what happens now.'),
                       ('W', '{N} left to make a life, and made one. But a child has duties, and {parent} is alone.'),
                       ('U',
-                       '{N} lays it out on paper: flights, money, work, schools, the house, and the ache that fits '
-                       'in no column.'),
+                       "{N} lays it out on paper: flights, money, work, schools, {parent}'s house, and the ache that "
+                       'fits in no column.'),
                       ('B',
-                       'The family shop will go to whoever turns up first. {N} could go back and take it, or sell it '
+                       "{parent}'s shop will go to whoever turns up first. {N} could go back and take it, or sell it "
                        'from here.'),
                       ('R', "{N} hears {parent}'s voice crack on the phone and is already looking up flights."),
                       ('G',
-                       'The old place is in the blood. Every year away, the pull has grown a little stronger, like a '
-                       'root seeking water.')]},
+                       'The old place is in the blood, and so is {parent}. Every year away, the pull has grown a '
+                       'little stronger, like a root seeking water.')]},
  'outcomes': (['The family finds an arrangement that holds, and {parent} is cared for.',
                '{N} goes back, and the old streets feel like home again.'],
               ['Every choice leaves someone hurt, and the phone calls get shorter.',
@@ -61566,19 +61639,25 @@ ECHOES = [
  'delay_years': (3, 25),
  'likelier': 'the person was talented and is remembered; the one who offered is still there; duties have eased',
  'rarer': 'the field has moved on; the one who offered is gone',
+ 'scenes_gone': {'earth': [('',
+                            '{mentor} is not here to make the offer again. But the same kind of door opens, and {N} '
+                            'remembers {mentor} asking twelve years ago.')]},
  'scenes': {'earth': [('',
-                       'The email has the same name at the bottom as the one {N} said no to twelve years ago. The '
-                       'offer is open again, if {N} still wants it.'),
+                       'The email is from {mentor}, the same name {N} said no to twelve years ago. The offer is open '
+                       'again, if {N} still wants it.'),
                       ('W',
-                       'Back then {N} said no because others needed {N} at home. Those duties are lighter now, and '
-                       'the door is open again.'),
+                       'Back then {N} told {mentor} no because others needed {N} at home. Those duties are lighter '
+                       'now, and the door is open again.'),
                       ('U',
-                       '{N} reads the offer three times, comparing it line by line with the one turned down all '
-                       'those years ago.'),
-                      ('B', 'They came back. That means they need {N}, and that changes the terms.'),
-                      ('R', '{Ns} heart thumps. A second chance at the thing {N} has dreamed of for twelve years.'),
+                       "{N} reads {mentor}'s offer three times, comparing it line by line with the one turned down "
+                       'all those years ago.'),
+                      ('B', '{mentor} came back. That means {mentor} needs {N}, and that changes the terms.'),
+                      ('R',
+                       '{Ns} heart thumps. {mentor} is offering a second chance at the thing {N} has dreamed of for '
+                       'twelve years.'),
                       ('G',
-                       'Some things wait for their season. {N} was not ready then. Perhaps the season has come.')]},
+                       'Some things wait for their season. {N} was not ready when {mentor} first asked. Perhaps the '
+                       'season has come.')]},
  'outcomes': (['{N} walks through the door at last, and it fits.',
                'The second offer is better than the first, and {N} takes it with open eyes.'],
               ['The place has changed, and the dream was better kept as a dream.',
@@ -61618,22 +61697,26 @@ ECHOES = [
  'likelier': 'a childhood far from water or with no money for lessons; children or grandchildren who swim; a holiday '
              'by the sea',
  'rarer': 'a life that never goes near water; a body that cannot manage it',
+ 'scenes_gone': {'earth': [('',
+                            '{child} is not at the lake this year to shout for {N} to come in. {N} sits on the jetty '
+                            'anyway, remembering the splashing, and looks at the water.')]},
  'scenes': {'earth': [('',
                        'Everyone is in the lake except {N}, who sits on the jetty in a sun hat while {child} '
                        'splashes and shouts for {N} to come in.'),
                       ('W',
-                       '{N} always meant to learn. There were always lessons to drive others to, and never one for '
+                       '{N} always meant to learn. There were always lessons to drive {child} to, and never one for '
                        '{N}.'),
                       ('U',
-                       '{N} watches the swimmers, working out how the arms and the breath fit together, quietly sure '
-                       'it could be learned.'),
+                       '{N} watches {child} and the other swimmers, working out how the arms and the breath fit '
+                       'together, quietly sure it could be learned.'),
                       ('B',
-                       "{N} has always found a way around it: other people's boats, other people's cars. Today there "
-                       'is no way around it.'),
-                      ('R', 'The water looks wonderful, and {N} is sick of watching from the edge.'),
+                       "{N} has always found a way around it: other people's boats, other people's cars. Today, with "
+                       '{child} calling, there is no way around it.'),
+                      ('R',
+                       'The water looks wonderful, {child} is waving, and {N} is sick of watching from the edge.'),
                       ('G',
-                       '{N} grew up far from any sea, among people who never swam. The water still feels like '
-                       "someone else's country.")]},
+                       '{N} grew up far from any sea, among people who never swam. {child} took to it easily, but '
+                       "the water still feels like someone else's country.")]},
  'outcomes': (['By the end of the summer {N} swims, slowly but surely, across the bay.',
                '{N} finds an easy peace with it, and the day at the lake is a happy one.'],
               ['The first lesson ends with a mouthful of water and a bruised pride.',
@@ -61672,20 +61755,27 @@ ECHOES = [
  'delay_years': (5, 40),
  'likelier': 'a family that does not talk about things; pride; the wrong was real',
  'rarer': 'the one wronged has died; the rift was healed another way',
+ 'scenes_gone': {'earth': [('',
+                            '{sibling} is not here to hear it. {N} says the sorry anyway, quietly, to an empty '
+                            'kitchen, and wonders what {sibling} would have said back.')]},
  'scenes': {'earth': [('',
                        '{N} hears it from a cousin at a wedding: {sibling} is ill, and still never mentions {Ns} '
                        'name.'),
                       ('W',
-                       '{N} knows what was done, and knows an apology was owed. For twenty years {N} let it sit, '
-                       'unpaid.'),
+                       '{N} knows what was done to {sibling}, and knows an apology was owed. For twenty years {N} '
+                       'let it sit, unpaid.'),
                       ('U',
-                       '{N} has rehearsed the conversation a hundred times in the shower. It is always word-perfect, '
-                       'and never said.'),
+                       '{N} has rehearsed the conversation with {sibling} a hundred times in the shower. It is '
+                       'always word-perfect, and never said.'),
                       ('B',
                        'Saying sorry always felt like handing {sibling} the win. {N} is less sure now what the win '
                        'was for.'),
-                      ('R', 'The news hits {N} in the chest. All the old anger is gone, and only the sorry is left.'),
-                      ('G', 'Rifts in a family are like cracks in a wall: they do not mend by being left alone.')]},
+                      ('R',
+                       'The news about {sibling} hits {N} in the chest. All the old anger is gone, and only the '
+                       'sorry is left.'),
+                      ('G',
+                       'Rifts in a family are like cracks in a wall: they do not mend by being left alone. The crack '
+                       'between {N} and {sibling} has only grown.')]},
  'outcomes': (['The words are finally said, and {sibling} takes {Ns} hand.',
                'Something old and hard between them begins, at last, to soften.'],
               ['{sibling} listens, nods, and says it is too late.',
@@ -61775,24 +61865,27 @@ ECHOES = [
  'delay_years': (20, 60),
  'likelier': 'duties eased; a little money; a child or friend who travels',
  'rarer': 'poor health; no money; a partner who will not go',
+ 'scenes_gone': {'earth': [('',
+                            '{child} is not here to see {N} go. But {N} remembers {child} always saying it was time, '
+                            'and packs the bag anyway.')]},
  'scenes': {'earth': [('',
                        '{child} slides an envelope across the kitchen table: two tickets, a passport form, and a map '
                        'with a circle drawn on it.'),
                       ('W',
                        '{N} spent forty years keeping things running at home. There was always a reason to stay. Now '
-                       'the reasons have run out.'),
+                       '{child} says the reasons have run out.'),
                       ('U',
-                       '{N} has read about that city for decades, its streets and its history. Now the books could '
-                       'become a place.'),
+                       '{N} has read about that city for decades, its streets and its history. Thanks to {child}, '
+                       'the books could become a place.'),
                       ('B',
-                       '{N} never spent money on going places. Now there is money, and time, and nobody left to '
-                       'spend it on but {N}.'),
+                       '{N} never spent money on going places. Now there is money, and time, and {child} insists '
+                       'there is nobody left to spend it on but {N}.'),
                       ('R',
-                       "The ticket shakes in {Ns} hand. All those years of postcards from other people's lives, and "
-                       'now one of {Ns} own.'),
+                       'The ticket from {child} shakes in {Ns} hand. All those years of postcards from other '
+                       "people's lives, and now one of {Ns} own."),
                       ('G',
-                       '{N} has lived a whole life in one valley. Leaving it, even for a fortnight, feels as strange '
-                       'as flying.')]},
+                       '{N} has lived a whole life in one valley. Leaving it, even for a fortnight with {child}, '
+                       'feels as strange as flying.')]},
  'outcomes': (['{N} comes back with a suitcase of stories and a new look in the eye.',
                'The trip goes beautifully, and the next one is planned before the bags are unpacked.'],
               ['The journey is exhausting, and {N} spends most of it longing for home.',
@@ -61829,22 +61922,27 @@ ECHOES = [
  'delay_years': (10, 40),
  'likelier': 'a long-held plan; a cautious life; a small field where news travels',
  'rarer': 'the plan was dropped long ago; the person took other big chances',
+ 'scenes_gone': {'earth': [('',
+                            '{colleague} is not here to see it, but {N} reads about another young owner opening the '
+                            "very shop {N} planned, and thinks of {colleague}'s nerve.")]},
  'scenes': {'earth': [('',
                        'There it is in the local paper: {colleague}, twenty-six, opening the very shop {N} has '
                        'planned for fifteen years, on the very street.'),
                       ('W',
                        '{N} always said: when the children are grown, when the mortgage is paid, when it is the '
-                       'responsible time. That time never came.'),
+                       'responsible time. That time never came. {colleague} did not wait for it.'),
                       ('U',
                        '{N} has three notebooks of plans, costings and sketches. {colleague} had none of them, and '
                        'simply did it.'),
                       ('B',
-                       'Someone else has taken the idea and run with it. {N} sat on it too long, and now it belongs '
+                       '{colleague} has taken the idea and run with it. {N} sat on it too long, and now it belongs '
                        'to someone faster.'),
-                      ('R', '{N} reads the article twice and wants to scream. All that waiting, for nothing.'),
+                      ('R',
+                       '{N} reads the article about {colleague} twice and wants to scream. All that waiting, for '
+                       'nothing.'),
                       ('G',
-                       'Every seed has its season. {N} kept this one in a drawer so long that it sprouted in someone '
-                       "else's soil.")]},
+                       'Every seed has its season. {N} kept this one in a drawer so long that it sprouted in '
+                       "{colleague}'s soil.")]},
  'outcomes': (['{N} finds a way to make the old dream {Ns} own after all.',
                'The sting fades, and {N} makes peace with the life that was chosen.'],
               ['Envy settles in, and {N} cannot walk down that street any more.',
@@ -62407,20 +62505,24 @@ ECHOES = [
  'delay_years': (0, 1),
  'likelier': 'a heavy act (body: heavy) or one with death_if_fails; a failure far from help',
  'rarer': 'friends who stayed sober and called for help early; a light act',
+ 'scenes_gone': {'earth': [('',
+                            '{friend} is not in the chair beside the bed. In the long quiet, {N} remembers '
+                            "{friend}'s laugh from before it all went wrong.")]},
  'scenes': {'earth': [('',
-                       '{N} wakes under strip lights with a drip in one arm and a plastic band on the wrist. Slowly, '
-                       'in pieces, it comes back: what happened, and how it went wrong.'),
+                       '{N} wakes under strip lights with a drip in one arm and a band on the wrist. Slowly it comes '
+                       'back: {friend}, what happened, and how it went wrong.'),
                       ('W',
-                       'A nurse is going through a form at the end of the bed, asking the questions in order. {N} '
-                       'knows there are rules for what happens next, and honest answers are part of them.'),
+                       'A nurse goes through a form at the end of the bed. {friend} brought {N} in. There are rules '
+                       'for what happens next, and honest answers are part of them.'),
                       ('U',
-                       '{N} reads the chart clipped to the bed before anyone comes, trying to work out what happened '
-                       'and how bad it was.'),
+                       '{N} reads the chart clipped to the bed before {friend} comes back, trying to work out what '
+                       'happened and how bad it was.'),
                       ('B',
-                       '{N} is already working out the story: what to say, to whom, and what nobody needs to know.'),
+                       '{N} is already working out the story: what to say, to whom, and what nobody, not even '
+                       '{friend}, needs to know.'),
                       ('R',
                        '{Ns} whole body aches, and the first feeling, before fear or shame, is a fierce, odd '
-                       'gladness to be alive.'),
+                       'gladness to be alive. Then {N} asks for {friend}.'),
                       ('G',
                        '{friend} is asleep in the chair beside the bed, still in a coat, and must have been there '
                        'all night.')]},
