@@ -850,7 +850,7 @@ DEFAULT = dict(
     sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
-    grey_gate=False,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
+    grey_gate=True,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
                         # comes only while that sphere's grey share in their town is at least .25 (sphere_data.SHADOW;
                         # the Library's Crime pack moments join with batch.SHADOW_MOMENTS); grey_y reads the shares yearly
     sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
@@ -877,11 +877,11 @@ DEFAULT = dict(
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
-    place_turnover=False,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
+    place_turnover=True,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
                             # close (a hazard and three town events) and new ones open; their regulars lose the haunt, a
                             # rung and half the ties made there, a keeper the post (world switch, with sph_haunts; the
                             # moments cast_want place_closed, place_opened come only with it, batch.TURNOVER_MOMENTS)
-    body_trust=False,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
+    body_trust=True,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
                          # switch, with sph_fair; chroma-world/spheres/finish-pack-draft.md, sphere_data.TRUST): it tilts the
                          # levers, care seeking and the felt odds of pursuits in those bodies, and gates trust: moments
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
@@ -907,8 +907,8 @@ DEFAULT = dict(
     # (layer 4's line, .02: still among the 150 they know); pull, the re-offending pull (None: the data's 1.2); shadow,
     # the lead colour's shadow part over which their way leans to its shadow side (the pull back's gate); test, (age,
     # years): every life starts a term at that age (checks only; None: never)
-    prison_ties=False,
-    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
+    prison_ties=True,
+    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.3, test=None),   # shadow .3: v22.6 refit (.5 never fired)
     inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
